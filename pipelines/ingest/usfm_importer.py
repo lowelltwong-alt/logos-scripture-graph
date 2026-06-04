@@ -220,7 +220,7 @@ def write_yaml(path: Path, data: dict[str, Any]) -> None:
 
     for top_key, top_value in data.items():
         emit(top_key, top_value)
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
 def record_usfm_event(

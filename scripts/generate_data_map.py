@@ -256,10 +256,23 @@ def render() -> str:
     return "\n".join(lines) + "\n"
 
 
-def _strip_timestamp(text: str) -> str:
-    return "\n".join(
-        line for line in text.splitlines() if not line.startswith(GENERATED_LINE_PREFIX)
-    )
+def _canonical_for_check(text: str) -> str:
+    """Normalize for the staleness gate: ignore the timestamp and platform-dependent
+    byte sizes (line endings differ across OS). Compares structure + record counts —
+    the meaningful drift signal — not bytes."""
+    out: list[str] = []
+    for line in text.splitlines():
+        if line.startswith(GENERATED_LINE_PREFIX):
+            continue
+        if line.startswith("- Total data size:"):
+            continue
+        if line.startswith("| `data/"):
+            parts = line.split(" | ")
+            if len(parts) == 4:  # | `path` | zone | size | records |
+                parts[2] = "SIZE"
+                line = " | ".join(parts)
+        out.append(line)
+    return "\n".join(out)
 
 
 def main() -> int:
@@ -274,7 +287,7 @@ def main() -> int:
             print("DATA_MAP.md missing; run generate_data_map.py", file=sys.stderr)
             return 1
         existing = OUT.read_text(encoding="utf-8")
-        if _strip_timestamp(existing) != _strip_timestamp(content):
+        if _canonical_for_check(existing) != _canonical_for_check(content):
             print("DATA_MAP.md is STALE — run: python scripts/generate_data_map.py", file=sys.stderr)
             return 1
         print("DATA_MAP.md is current.")

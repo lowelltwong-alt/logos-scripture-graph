@@ -144,7 +144,7 @@ def main() -> int:
 
     records = join_passages_witnesses(Path(args.passages), Path(args.witnesses))
     count = 0
-    with out.open("w", encoding="utf-8") as handle:
+    with out.open("w", encoding="utf-8", newline="\n") as handle:
         for chunk in chunk_records(records, policy_version, args.target_tokens, args.soft_max_tokens):
             handle.write(json.dumps(chunk, ensure_ascii=False) + "\n")
             count += 1
