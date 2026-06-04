@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClassificationAssignment",
+  "description": "Assigns a taxonomy classification (from the governance repo's bible classification taxonomy) to a scripture object. Structurally enforces the asserted/inferred/tradition separation: any classification on an INTERPRETIVE axis must carry assertion_mode + provenance, and tradition_scope when tradition-dependent. Textual-form/structural axes may be asserted_textual. This prevents interpretation being stored as a bare node fact (taxonomy-scaffold v0.2 Patch 2).",
+  "type": "object",
+  "required": ["id", "type", "subject_id", "axis", "value", "assertion_mode", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "type": {"const": "ClassificationAssignment"},
+    "subject_id": {"type": "string", "description": "ScripturePassage/Pericope/etc. id being classified."},
+    "axis": {
+      "type": "string",
+      "description": "Taxonomy axis (see governance bible-classification-taxonomy).",
+      "enum": [
+        "textual_form", "speech_act", "redemptive_history_stage",
+        "theological_concept", "doctrine", "intertextual_relation",
+        "affective_tone", "liturgical_use", "ethical_domain", "moral_use",
+        "typology", "canon_status", "language_layer"
+      ]
+    },
+    "value": {"type": "string", "minLength": 1, "description": "Controlled value within the axis."},
+    "assertion_mode": {
+      "type": "string",
+      "enum": ["asserted_textual", "asserted_curated", "asserted_by_tradition", "inferred_rule", "inferred_ai_candidate"]
+    },
+    "tradition_scope": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Required when assertion_mode = asserted_by_tradition or the axis is tradition-dependent (doctrine, canon_status, typology, liturgical_use)."
+    },
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "ref"],
+        "properties": {
+          "kind": {"type": "string", "enum": ["scripture", "commentary", "confession", "scholarly_source", "curator_note", "lexical_source"]},
+          "ref": {"type": "string", "minLength": 1},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {
+        "created_by": {"type": "string"},
+        "created_at": {"type": "string"},
+        "basis": {"type": "string"}
+      }
+    },
+    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "inferred", "candidate", "derived"]},
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated", "rejected"]}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "axis": {"enum": ["theological_concept", "doctrine", "affective_tone", "moral_use", "typology", "liturgical_use", "ethical_domain", "intertextual_relation"]}
+        }
+      },
+      "then": {
+        "not": {"properties": {"assertion_mode": {"const": "asserted_textual"}}},
+        "required": ["evidence"]
+      }
+    },
+    {
+      "if": {"properties": {"assertion_mode": {"const": "asserted_by_tradition"}}},
+      "then": {"required": ["tradition_scope"]}
+    },
+    {
+      "if": {"properties": {"axis": {"enum": ["doctrine", "canon_status", "typology"]}}},
+      "then": {"required": ["tradition_scope"]}
+    }
+  ],
+  "additionalProperties": true
+}

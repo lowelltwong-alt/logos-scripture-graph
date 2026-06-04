@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SemanticDomain",
+  "description": "A semantic-domain node from a recognized scheme (Louw-Nida for Greek, SDBH for Hebrew). The actual mechanism behind 'semantic domains' — lets lexemes group by meaning-field rather than gloss, and supports lost-in-translation analysis (taxonomy-scaffold v0.2 Patch 5).",
+  "type": "object",
+  "required": ["id", "type", "scheme", "label", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "description": "e.g. domain:louw-nida:25 (Attitudes and Emotions)"},
+    "type": {"const": "SemanticDomain"},
+    "scheme": {"type": "string", "enum": ["louw_nida", "sdbh", "other"]},
+    "code": {"type": "string", "description": "Domain code within the scheme."},
+    "label": {"type": "string", "minLength": 1},
+    "parent_domain": {"type": "string", "description": "Parent SemanticDomain id (SKOS broader)."},
+    "scope_note": {"type": "string"},
+    "license": {"type": "string", "description": "Scheme license (Louw-Nida/SDBH terms must be recorded)."},
+    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "context"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}}
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}

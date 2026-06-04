@@ -1,0 +1,49 @@
+# Corrected exemplar (taxonomy-scaffold v0.2 Patch 9).
+# Shows the asserted / interpretive separation the scaffold's examples violated:
+# the passage node carries ONLY asserted-textual classification; everything
+# interpretive (themes, typology) is a ClassificationAssignment / RelationshipObject
+# with assertion_mode + evidence + tradition_scope.
+
+# 1. Passage node — asserted-textual ONLY (no themes/doctrine/affect as bare facts).
+- id: scripture:Exod.12
+  type: ScripturePassage
+  osis_ref: Exod.12
+  book: Exod
+  chapter: 12
+  testament: OT
+  canon_profiles: {protestant: included, roman_catholic: included, eastern_orthodox: included}
+  # textual-form is structural/asserted; interpretation lives elsewhere.
+  classifications_textual:
+    textual_form: [narrative, ritual_instruction]
+    speech_act: [command, promise, warning]
+    redemptive_history_stage: [exodus]
+  license: public-domain
+  status: active
+
+# 2. Interpretive classification — REQUIRES assertion_mode + provenance + evidence.
+- id: classification:Exod.12:theme:passover
+  type: ClassificationAssignment
+  subject_id: scripture:Exod.12
+  axis: theological_concept
+  value: passover
+  assertion_mode: asserted_curated
+  confidence: high
+  evidence:
+    - {kind: scripture, ref: Exod.12.11, note: "the text names it the LORD's Passover"}
+  provenance: {created_by: example, created_at: "2026-06-04", basis: v0.2 exemplar}
+  status: active
+
+# 3. Typology — tradition-scoped CLAIM, not a property of the passage.
+#    confidence describes ATTESTATION of the claim, not its truth.
+- id: rel:Exod.12-typifies-christ-passover
+  type: RelationshipObject
+  source: scripture:Exod.12
+  target: concept:ChristAsPassover
+  predicate: typifies
+  assertion_mode: asserted_by_tradition
+  tradition_scope: [ChristianCanonical]
+  confidence: high   # = well-attested in the NT/tradition, NOT "proven true"
+  evidence:
+    - {kind: scripture, ref: 1Cor.5.7, note: "Christ our Passover is sacrificed"}
+  provenance: {created_by: example, created_at: "2026-06-04", basis: v0.2 exemplar}
+  status: active

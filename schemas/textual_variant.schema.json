@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TextualVariant",
+  "description": "A variation unit in the text and the competing readings attested by witnesses — a critical-apparatus entry. Seeded today by WEB '\\fqa' alternate readings (519) + footnotes (1,855), and the growth path toward full DSS/LXX/papyri apparatus. Never asserts which reading is 'original' as bare fact; competing readings carry witness support + confidence (taxonomy-scaffold v0.2 Patch 4).",
+  "type": "object",
+  "required": ["id", "type", "osis_ref", "readings", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "description": "e.g. variant:John.7.53-8.11:0001"},
+    "type": {"const": "TextualVariant"},
+    "osis_ref": {"type": "string", "description": "The variation-unit location."},
+    "unit_description": {"type": "string", "description": "What varies (word, phrase, whole pericope)."},
+    "readings": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Competing readings. At least two (the variation itself).",
+      "items": {
+        "type": "object",
+        "required": ["reading_id", "text"],
+        "properties": {
+          "reading_id": {"type": "string"},
+          "text": {"type": "string", "description": "The reading (source-language or rendered)."},
+          "language": {"type": "string"},
+          "supported_by": {"type": "array", "items": {"type": "string"}, "description": "Witness ids attesting this reading."},
+          "editorial_status": {"type": "string", "enum": ["printed_text", "alternate", "majority", "minority", "conjecture", "omission", "addition"]},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "variant_kind": {"type": "string", "enum": ["omission", "addition", "substitution", "transposition", "spelling", "harmonization", "gloss", "order"]},
+    "significance": {"type": "string", "enum": ["translatable", "non_translatable", "meaning_affecting", "doctrinally_discussed", "negligible"], "description": "How much the variant matters for meaning/translation."},
+    "source_marker": {"type": "string", "description": "Origin in the source data, e.g. '\\fqa' alternate reading, footnote id."},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
+    "trust_zone": {"type": "string", "enum": ["asserted", "candidate", "context"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {
+        "created_by": {"type": "string"},
+        "created_at": {"type": "string"},
+        "basis": {"type": "string"}
+      }
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}

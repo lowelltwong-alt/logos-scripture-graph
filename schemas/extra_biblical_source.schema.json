@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExtraBiblicalSource",
+  "description": "A non-canonical source the project may later connect to passages: ANE text, Second Temple literature, Greco-Roman background, patristic source, historian, inscription, archaeological find, papyrus, or apologetic/scientific source. HARD FENCE: every record MUST declare layer=context and a non-canonical trust_zone. Links to scripture are ONLY via RelationshipObject (asserted/inferred + tradition_scope + evidence) — never as properties of a ScripturePassage. This is what keeps the canonical biblical layer uncontaminated (taxonomy-scaffold v0.2 Patch 6).",
+  "type": "object",
+  "required": ["id", "type", "label", "source_class", "layer", "trust_zone", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "description": "e.g. extra:ane:enuma-elish, extra:dss:1QS, extra:inscription:tel-dan-stele, extra:archaeology:lachish-letters"},
+    "type": {"const": "ExtraBiblicalSource"},
+    "label": {"type": "string", "minLength": 1},
+    "source_class": {
+      "type": "string",
+      "enum": [
+        "ane_text", "second_temple_jewish", "greco_roman", "patristic",
+        "rabbinic", "historian", "inscription", "archaeological_evidence",
+        "papyrus", "coin_numismatic", "apologetic_source", "scientific_source"
+      ]
+    },
+    "layer": {"const": "context", "description": "MUST be 'context' — never 'canonical'. Enforces the fence."},
+    "trust_zone": {
+      "type": "string",
+      "enum": ["context", "candidate", "inferred"],
+      "description": "Never 'canonical' or 'asserted-textual'. Extra-biblical material is background, not scripture."
+    },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "date_range": {"type": "object", "properties": {"earliest": {"type": "integer"}, "latest": {"type": "integer"}, "label": {"type": "string"}, "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]}}},
+        "provenance_location": {"type": "string"},
+        "language": {"type": "string"},
+        "repository": {"type": "string"}
+      }
+    },
+    "citation": {"type": "string", "description": "Standard scholarly citation / catalog id (e.g. COS, OGIS, Rahlfs, IAA)."},
+    "evidence_confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {
+        "created_by": {"type": "string"},
+        "created_at": {"type": "string"},
+        "basis": {"type": "string"},
+        "source_catalog": {"type": "string"}
+      }
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}
