@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RetrievalChunk",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "chunk_kind",
+    "source_text_id",
+    "osis_start",
+    "osis_end",
+    "text",
+    "boundary_basis",
+    "chunking_policy_version",
+    "license",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "RetrievalChunk"
+    },
+    "chunk_kind": {
+      "type": "string"
+    },
+    "source_text_id": {
+      "type": "string"
+    },
+    "source_artifact_id": {
+      "type": "string"
+    },
+    "osis_start": {
+      "type": "string"
+    },
+    "osis_end": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "included_text_span_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "boundary_basis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "context_packet_id": {
+      "type": "string"
+    },
+    "chunking_policy_version": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "validation": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "active",
+        "deprecated",
+        "failed_validation"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

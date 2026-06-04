@@ -1,0 +1,68 @@
+# Relationship predicate registry (PRED-GAP).
+#
+# RelationshipObject.predicate must be one of these registered predicates.
+# Adding a predicate requires a schema/registry change + review (AI_FRONT_DOOR
+# "forbidden shortcuts"). Editorial \x crossrefs stay editorial_cross_reference
+# and are NEVER auto-promoted to theological predicates (MASTER_CONTEXT §4/§6).
+version: 0.1.0
+
+# allowed assertion modes per predicate: asserted (human-reviewed),
+# inferred (rule/model-derived, rebuildable), candidate (proposal pending review)
+predicates:
+  editorial_cross_reference:
+    description: "Translator/edition cross-reference (\\x). Editorial, not theological."
+    default_assertion_mode: asserted
+    allowed_assertion_modes: [asserted]
+    trust_zone: canonical
+    requires_evidence: true
+    auto_promotable: false
+  quotesFrom:
+    description: "Direct quotation of another passage (e.g. NT quoting OT/LXX)."
+    allowed_assertion_modes: [asserted, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  alludesTo:
+    description: "Allusion without direct quotation."
+    allowed_assertion_modes: [asserted, inferred, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  echoes:
+    description: "Faint intertextual echo."
+    allowed_assertion_modes: [inferred, candidate]
+    trust_zone: inferred
+    requires_evidence: true
+  fulfills:
+    description: "Claimed fulfillment relationship (theological)."
+    allowed_assertion_modes: [asserted, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  typifies:
+    description: "Typological relationship."
+    allowed_assertion_modes: [asserted, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  parallelTo:
+    description: "Synoptic / structural parallel."
+    allowed_assertion_modes: [asserted, inferred, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  thematicallyRelatedTo:
+    description: "Shared theme/topic."
+    allowed_assertion_modes: [inferred, candidate]
+    trust_zone: inferred
+    requires_evidence: true
+  groundedIn:
+    description: "Argument grounded in a prior passage."
+    allowed_assertion_modes: [asserted, candidate]
+    trust_zone: asserted
+    requires_evidence: true
+  renders:
+    description: "Translation/version renders a source-language unit."
+    allowed_assertion_modes: [asserted]
+    trust_zone: canonical
+    requires_evidence: true
+  occursIn:
+    description: "Lexeme/token occurs in a passage."
+    allowed_assertion_modes: [asserted]
+    trust_zone: canonical
+    requires_evidence: true

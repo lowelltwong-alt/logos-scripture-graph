@@ -1,0 +1,181 @@
+You are working in the Logos Scripture Graph repo.
+
+Use HIGH effort.
+
+Task: implement Patch 2A — WEB Classic USFM embedded feature extraction, based on the actual uploaded archive inventory.
+
+Actual archive facts to respect:
+- Archive name: eng-web_usfm.zip
+- SHA256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+- USFM files: 83
+- Content book files excluding FRT/GLO: 81
+- Verse markers: 38,058
+- Word-level Strong-tagged tokens: 677,688 total
+  - \w direct tags: 639,570
+  - \+w nested tags: 38,118
+  - Hebrew Strong occurrences: 514,990
+  - Greek Strong occurrences: 162,698
+  - Attribute key observed on word tags: strong only
+- Footnotes: 1,855
+  - footnote submarkers include \fr, \ft, \fqa, \fq, \fl, \+wh, \+bk
+- Cross-reference spans: 363
+  - format: \x + \xo <origin> \xt <target-text> \x*
+- Poetry/structure markers include \p, \m, \mi, \pi1, \q1, \q2, \q3, \d, \qs, \b, \sp, \s1, \ms1, \ili, \li1.
+- There is a GLO glossary file with \ili list items and \k...\k* terms.
+- There is a FRT preface file and non-USFM support files: copr.htm, keys.asc, signature.txt.asc, gentiumplus.css.
+
+Primary goal:
+Do not let raw USFM markup leak into TranslationWitness.text or retrieval chunks. Extract embedded data into structured sidecar records while preserving clean Bible text.
+
+Hard boundaries:
+- Do not modify anything under data/raw/.
+- Do not unzip in place inside data/raw/.
+- Do not build embeddings or vector indexes.
+- Do not implement the final chunker yet.
+- Do not infer theological relationships from editorial markers.
+- Do not promote editorial crossrefs to quotesFrom/alludesTo/fulfills.
+- Do not drop unsupported markers silently.
+- Do not remove the raw marker string from sidecar/audit records.
+
+Files to read first:
+1. AI_FRONT_DOOR.md
+2. ROADMAP.md
+3. ROADMAP_STATE.yaml
+4. HANDOFF_PROTOCOL.md
+5. docs/architecture/ARCHITECTURE.md
+6. docs/chunking/CHUNKING_DESIGN.md
+7. docs/chunking/CHUNKING_RULES.md
+8. docs/chunking/LITERARY_POLICIES.md
+9. config/chunking/chunking_policy.yaml
+10. schemas/
+11. pipelines/ingest/usfm_importer.py
+12. tests/fixtures/usfm/JHN.usfm if present
+13. data/raw/bible/eng-web/source_manifest.yaml
+
+Implementation scope:
+Create or update:
+- pipelines/ingest/usfm_inline_parser.py
+- pipelines/ingest/usfm_importer.py
+- pipelines/util/usfm_to_osis.py if not already present
+- schemas/translation_witness.schema.json
+- schemas/word_token.schema.json
+- schemas/footnote.schema.json
+- schemas/editorial_cross_reference.schema.json
+- schemas/section_heading.schema.json
+- schemas/boundary_claim.schema.json
+- schemas/glossary_entry.schema.json
+- schemas/usfm_event.schema.json or unsupported_usfm_marker.schema.json
+- scripts/validate_jsonl.py if not already present
+- tests/test_usfm_inline_parser.py
+- tests/test_web_usfm_feature_extraction.py
+
+Required output model:
+1. Clean TranslationWitness records
+   - No raw USFM markers in text.
+   - No \w, \+w, \f, \x, \wj, \q, \p, \s, \d, \qs, \k markup in text.
+   - TranslationWitness.text is readable English.
+
+2. WordToken / LexemeAlignment records
+   - One record per \w or \+w token.
+   - Preserve surface_text.
+   - Preserve strong ID exactly, e.g. H8064 or G2532.
+   - Preserve nesting context if token was \+w inside \wj or \bk.
+   - Include passage_id / osis_ref, translation_id, word_index, source_marker, source_sha256, license.
+
+3. Footnote records
+   - One record per \f...\f* span.
+   - Preserve \fr reference, \ft text, alternate readings from \fqa/\fq, labels from \fl, Hebrew word spans from \+wh, nested book title spans from \+bk.
+   - Remove the footnote from clean verse text.
+
+4. EditorialCrossReference records
+   - One record per \x...\x* span.
+   - Preserve \xo origin and \xt target text.
+   - Try to parse target references into candidate OSIS refs only when unambiguous.
+   - Always keep raw target text.
+   - relation_type must be editorial_cross_reference, not quotesFrom/alludesTo/fulfills.
+
+5. BoundaryClaim / USFMEvent records
+   - Preserve structural markers: \p, \m, \mi, \pi1, \q1, \q2, \q3, \d, \qs, \b, \sp, \s1, \ms1, \li1, \ili, \nb, \pc, \cl, \cp.
+   - Use these as boundary evidence for future chunking.
+   - Do not treat them as canonical ancient boundaries.
+
+6. GlossaryEntry records
+   - Parse GLO file \ili entries with \k...\k* term markers.
+   - Preserve glossary term, definition text, source_id, source_sha256, license.
+
+7. Parser report
+   - Emit marker counts by marker type.
+   - Emit unsupported marker counts and samples.
+   - Emit counts for word tags, footnotes, crossrefs, headings, paragraph/poetry markers.
+   - Report whether any clean text still contains raw USFM markers.
+
+Required metadata on every generated sidecar record:
+- id
+- type
+- passage_id or osis_ref where applicable
+- translation_id: eng-web where applicable
+- source_id: eng-web
+- source_archive: data/raw/bible/eng-web/usfm/eng-web_usfm.zip
+- source_sha256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+- source_format: USFM
+- license: public-domain
+- status: imported
+- generated_by or generation_method
+
+Validation requirements:
+Fail if:
+1. TranslationWitness.text contains raw USFM markers.
+2. Any \w or \+w token is dropped without a WordToken/LexemeAlignment sidecar.
+3. Any \f...\f* span is dropped without a Footnote sidecar.
+4. Any \x...\x* span is dropped without an EditorialCrossReference sidecar.
+5. Any structural marker listed above is dropped without a USFMEvent/BoundaryClaim or parser_report entry.
+6. Any sidecar lacks source_sha256 or license.
+7. Any TranslationWitness points to a missing ScripturePassage.
+8. Any generated ID duplicates another generated ID.
+
+Tests to add:
+- Unit tests for parsing \w In|strong="H8064"\w* into clean text + token sidecar.
+- Unit tests for nested \wj with \+w tags.
+- Unit tests for footnotes containing \+wh Hebrew spans and \fqa alternate readings.
+- Unit tests for \x + \xo 1:23 \xt Isaiah 7:14\x*.
+- Unit tests for GLO glossary \ili \k term\k* definition.
+- End-to-end smoke test on a small fixture.
+- Optional corpus smoke test against the full WEB ZIP that confirms marker counts are within expected tolerances.
+
+Run before final report:
+python scripts/validate_repo.py
+python scripts/agent/validate_handoffs.py
+python pipelines/validate/validate_manifest.py data/raw/bible/eng-web/source_manifest.yaml
+python -m pytest -q
+
+Final report format:
+
+Confirmed:
+- Files changed
+- Commands run
+- Test results
+- Marker counts detected
+- Generated output paths
+- Sample clean TranslationWitness.text
+- Sample WordToken record
+- Sample Footnote record
+- Sample EditorialCrossReference record
+- Raw ZIP unchanged
+
+Inferred:
+- Which markers are useful for chunking
+- Which markers are useful for lexical/concordance graphing
+- Which markers are editorial-only
+
+Assumed:
+- OSIS mapping assumptions
+- How ambiguous cross-reference targets were handled
+- Whether Strong IDs are sufficient only as concordance aids, not scholarly morphology
+
+Unknown / Risks:
+- Any unsupported markers
+- Any ambiguous cross-reference parsing
+- Whether WEB Strong tagging perfectly aligns to future WLC/SBLGNT tokens
+- Chunking still not implemented
+
+Do not say done unless all required commands actually ran and passed.

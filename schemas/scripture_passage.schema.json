@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ScripturePassage",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "osis_ref",
+    "book",
+    "chapter",
+    "verse_start",
+    "verse_end",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "ScripturePassage"
+    },
+    "osis_ref": {
+      "type": "string"
+    },
+    "book": {
+      "type": "string"
+    },
+    "chapter": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "verse_start": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "verse_end": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "testament": {
+      "type": "string"
+    },
+    "canon_profiles": {
+      "type": "object"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "imported",
+        "proposed",
+        "active",
+        "deprecated",
+        "archived"
+      ]
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_archive": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    },
+    "source_format": {
+      "type": "string"
+    },
+    "license": {
+      "type": "string"
+    },
+    "generation_method": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

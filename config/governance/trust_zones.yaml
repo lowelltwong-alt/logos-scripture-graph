@@ -1,0 +1,25 @@
+version: 0.1.0
+trust_zones:
+  raw:
+    description: "Immutable source artifacts."
+    mutable: false
+  canonical:
+    description: "Validated source manifests, passage identities, and translation witnesses."
+    mutable: controlled
+    requires_review: true
+  asserted:
+    description: "Human-reviewed claims and edges."
+    mutable: controlled
+    requires_evidence: true
+  inferred:
+    description: "Rebuildable rule/model-derived outputs."
+    mutable: generated
+    must_not_be_canonical: true
+  candidate:
+    description: "AI/bulk import proposals pending review."
+    mutable: true
+    production_default: false
+  derived:
+    description: "Chunks, context packets, embeddings, search indexes."
+    mutable: generated
+    rebuildable: true

@@ -1,0 +1,27 @@
+# CODEOWNERS — human review gates (the REAL enforcement for CP-1 / ADR-0009).
+#
+# ACTION REQUIRED: replace @owner with the real human GitHub handle/team, then
+# enable branch protection on the default branch with "Require review from Code
+# Owners". A local script (approve_master_context.py) cannot gate the agent that
+# runs it; only forge-side required review can. See docs/architecture/ADR-0009.
+
+# --- Highest sensitivity: human-gated master context + its lock (CP-1) ---
+/.ai/control/MASTER_CONTEXT.md        @owner
+/.ai/control/MASTER_CONTEXT.lock.yaml @owner
+
+# --- Governance + control plane ---
+/.github/                @owner
+/AI_FRONT_DOOR.md         @owner
+/ROADMAP.md               @owner
+/ROADMAP_STATE.yaml       @owner
+/HANDOFF_PROTOCOL.md      @owner
+/LICENSE                  @owner
+/docs/architecture/       @owner
+/docs/chunking/           @owner
+/config/chunking/         @owner
+/config/canon/            @owner
+/config/governance/       @owner
+/schemas/                 @owner
+
+# --- Immutable raw sources ---
+/data/raw/                @owner

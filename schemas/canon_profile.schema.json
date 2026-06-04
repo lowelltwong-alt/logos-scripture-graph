@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CanonProfile",
+  "description": "Tradition-scoped canon membership for a book. Recording membership is not a global canonical assertion (MASTER_CONTEXT §7).",
+  "type": "object",
+  "required": ["protestant", "roman_catholic", "eastern_orthodox"],
+  "properties": {
+    "protestant": {"$ref": "#/$defs/status"},
+    "roman_catholic": {"$ref": "#/$defs/status"},
+    "eastern_orthodox": {"$ref": "#/$defs/status"}
+  },
+  "additionalProperties": {"$ref": "#/$defs/status"},
+  "$defs": {
+    "status": {
+      "type": "string",
+      "enum": ["included", "deuterocanonical", "appendix", "excluded"]
+    }
+  }
+}

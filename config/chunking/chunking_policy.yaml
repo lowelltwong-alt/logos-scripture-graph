@@ -1,0 +1,79 @@
+version: chunk-policy-v0.1.0
+principles:
+  source_text_is_immutable: true
+  chunks_are_derived: true
+  verse_boundary_is_weak_boundary: true
+  sentence_split_forbidden: true
+  preserve_usfm_structure: true
+  future_source_language_alignment: true
+budgets:
+  target_tokens: 700
+  soft_max_tokens: 1100
+  hard_max_tokens: 1600
+  emergency_split_allowed: true
+boundary_scores:
+  hard:
+    book_boundary: 1.00
+    source_text_boundary: 1.00
+    license_boundary: 1.00
+  strong:
+    usfm_major_section: 0.92
+    usfm_section_heading: 0.88
+    usfm_paragraph: 0.78
+    whole_psalm: 0.95
+    prophetic_oracle: 0.88
+    gospel_pericope: 0.86
+    epistle_argument_unit: 0.84
+  syntax_literary:
+    english_sentence: 0.86
+    direct_speech_end: 0.84
+    poetic_line: 0.88
+    poetic_stanza: 0.90
+    proverb_unit: 0.82
+    future_hebrew_clause: 0.80
+    future_greek_clause: 0.80
+  weak:
+    verse_boundary: 0.35
+    token_budget: 0.20
+forbidden_splits:
+  - english_sentence
+  - psalm_superscription
+  - poetic_colon
+  - direct_quotation
+  - raw_usfm_marker_sequence
+  - source_license_boundary
+genre_policies:
+  psalms:
+    preferred_unit: whole_psalm
+    allow_internal_split: true
+    split_basis: [stanza, acrostic_section, usfm_poetry_boundary]
+    keep_superscription_with_psalm: true
+  wisdom:
+    preferred_unit: saying_cluster
+    preserve_parallelism: true
+  narrative:
+    preferred_unit: scene
+    preserve_speaker_context: true
+  law:
+    preferred_unit: legal_unit
+  prophets:
+    preferred_unit: oracle_or_vision
+  gospels:
+    preferred_unit: pericope_or_discourse
+  epistles:
+    preferred_unit: argument_or_exhortation
+    context_if_starts_with:
+      - therefore
+      - for this reason
+      - so then
+  apocalypse:
+    preferred_unit: vision_cycle
+validation:
+  require_osis_span: true
+  require_source_manifest: true
+  require_boundary_basis: true
+  require_policy_version: true
+  require_license: true
+  fail_mid_sentence: true
+  fail_orphan_heading: true
+  fail_orphan_psalm_superscription: true

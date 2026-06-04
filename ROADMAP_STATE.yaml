@@ -1,0 +1,104 @@
+version: 0.1.0
+last_updated: "2026-06-03"
+current_phase: phase_3
+policy:
+  handoff_required: true
+  roadmap_event_log: .ai/control/roadmap_events.jsonl
+  raw_source_root: data/raw
+  no_raw_mutation: true
+phases:
+  phase_0:
+    title: Repository control plane
+    status: complete
+    tasks:
+      - id: T000
+        title: Establish AI front door and deterministic handoff protocol
+        status: complete
+        owner: human_or_agent
+        required_handoff: .ai/handoffs/T000/handoff.md
+      - id: T001
+        title: Define chunking policy and role model
+        status: complete
+        owner: chunking_architect
+        required_handoff: .ai/handoffs/T001/handoff.md
+      - id: T002
+        title: Validate source drop layout for WEB USFM
+        status: complete
+        owner: source_ingestor
+        required_handoff: .ai/handoffs/T002/handoff.md
+      - id: T300
+        title: Architecture and chunking review (extra-high effort)
+        status: complete
+        owner: claude
+        required_handoff: .ai/handoffs/T300/handoff.md
+  phase_1:
+    title: Raw source vault and manifests
+    status: complete
+    tasks:
+      - id: T100
+        title: Drop WEB Classic USFM archive and create source manifest
+        status: complete
+        owner: source_ingestor
+        required_handoff: .ai/handoffs/T100/handoff.md
+  phase_2:
+    title: USFM ingestion and passage registry
+    status: complete
+    tasks:
+      - id: T201
+        title: Implement Patch 2A WEB Classic USFM embedded feature extraction
+        status: complete
+        owner: source_ingestor
+        required_handoff: .ai/handoffs/T201/handoff.md
+  phase_3:
+    title: Chunking engine v0
+    status: in_progress
+    tasks:
+      - id: T302
+        title: Claude Opus architecture and chunking design review (post-ingest)
+        status: complete
+        owner: claude-opus
+        required_handoff: .ai/handoffs/T302/handoff.md
+      - id: T301
+        title: Post-ingest hardening and Phase 3 chunking kickoff
+        status: complete
+        owner: human_or_agent
+        required_handoff: .ai/handoffs/T301/handoff.md
+      - id: T303
+        title: Control plane enforcement and human-gated master context
+        status: complete
+        owner: claude
+        required_handoff: .ai/handoffs/T303/handoff.md
+      - id: T304
+        title: Claude 4.8 full review (architecture, SWE, control plane) + CI roadmap
+        status: complete
+        owner: claude-4.8
+        required_handoff: .ai/handoffs/T304/handoff.md
+      - id: T305
+        title: Remediate T304 findings (CHK-4, CANON-1, CP-1/CP-2, CI, GIT-1, schemas, docs)
+        status: complete
+        owner: claude-4.8-opus
+        required_handoff: .ai/handoffs/T305/handoff.md
+  phase_4:
+    title: Chunk evaluation and scholar review loop
+    status: planned
+    tasks: []
+  phase_5:
+    title: Hebrew/Greek source alignment
+    status: planned
+    tasks: []
+  phase_6:
+    title: Lexical and morphology layer
+    status: planned
+    tasks: []
+  phase_7:
+    title: Cross-reference and intertextual graph
+    status: planned
+    tasks: []
+  phase_8:
+    title: Retrieval, graph, and view contracts
+    status: planned
+    tasks: []
+  phase_9:
+    title: Runtime/orchestration integration
+    status: planned
+    tasks: []

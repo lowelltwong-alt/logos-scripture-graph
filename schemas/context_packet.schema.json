@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ContextPacket",
+  "description": "Required surrounding discourse context for a fragile RetrievalChunk (e.g. an epistolary 'therefore' unit needs prior argument). Derived and rebuildable.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "chunk_id",
+    "reason",
+    "license",
+    "generation_method",
+    "status"
+  ],
+  "properties": {
+    "id": {"type": "string", "description": "Stable id, e.g. context-packet:eng-web:Rom.8.1-Rom.8.4:0001"},
+    "type": {"const": "ContextPacket"},
+    "chunk_id": {"type": "string", "description": "RetrievalChunk this packet supports."},
+    "reason": {
+      "type": "string",
+      "description": "Why context is required.",
+      "enum": [
+        "depends_on_prior_argument",
+        "depends_on_following_argument",
+        "speaker_attribution",
+        "quotation_source",
+        "literary_structure",
+        "discourse_referent",
+        "other"
+      ]
+    },
+    "prior_context_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "OSIS refs or TextSpan ids providing preceding context."
+    },
+    "following_context_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "OSIS refs or TextSpan ids providing following context."
+    },
+    "prior_context_text": {"type": "string"},
+    "following_context_text": {"type": "string"},
+    "warning": {"type": "string", "description": "Human-facing note, e.g. 'do not retrieve as standalone prooftext'."},
+    "license": {"type": "string"},
+    "generation_method": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["candidate", "active", "deprecated", "failed_validation"]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TextSpan",
+  "description": "A source-aligned text unit (verse, sentence, paragraph, poetry line, heading, or clause). The linchpin between TranslationWitness and BoundaryClaim/RetrievalChunk in the identity chain (ARCHITECTURE.md). Derived and rebuildable.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "span_kind",
+    "translation_id",
+    "passage_refs",
+    "osis_start",
+    "osis_end",
+    "text",
+    "source_id",
+    "source_sha256",
+    "license",
+    "generation_method",
+    "status"
+  ],
+  "properties": {
+    "id": {"type": "string", "description": "Stable id, e.g. textspan:eng-web:Gen.1.1:sentence:0001"},
+    "type": {"const": "TextSpan"},
+    "span_kind": {
+      "type": "string",
+      "enum": ["verse", "sentence", "paragraph", "poetry_line", "poetry_stanza", "heading", "clause", "speech", "other"]
+    },
+    "translation_id": {"type": "string"},
+    "passage_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "description": "ScripturePassage ids this span draws from (a span may cross verse boundaries)."
+    },
+    "osis_start": {"type": "string"},
+    "osis_end": {"type": "string"},
+    "text": {"type": "string", "description": "Clean text; must not contain raw USFM markers."},
+    "char_start": {"type": "integer", "minimum": 0, "description": "Offset within the source witness text, when known."},
+    "char_end": {"type": "integer", "minimum": 0},
+    "boundary_basis": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Evidence types that justify this span's boundaries."
+    },
+    "source_language_aligned": {"type": "boolean", "default": false},
+    "source_id": {"type": "string"},
+    "source_archive": {"type": "string"},
+    "source_sha256": {"type": "string"},
+    "license": {"type": "string"},
+    "generation_method": {"type": "string"},
+    "status": {
+      "type": "string",
+      "enum": ["candidate", "active", "deprecated", "failed_validation"]
+    }
+  },
+  "additionalProperties": true
+}

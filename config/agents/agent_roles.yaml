@@ -1,0 +1,87 @@
+version: 0.1.0
+roles:
+  source_ingestor:
+    purpose: "Receive raw files, create manifests, verify checksums, run importers."
+    allowed_paths:
+      - data/raw/
+      - data/processed/
+      - pipelines/ingest/
+      - pipelines/validate/
+    forbidden_actions:
+      - "edit raw source content"
+      - "change chunking policy"
+    required_outputs:
+      - source_manifest
+      - validation_report
+      - handoff
+  chunking_architect:
+    purpose: "Design and maintain chunking rules, boundary scoring, and validation tests."
+    allowed_paths:
+      - docs/chunking/
+      - config/chunking/
+      - schemas/chunk.schema.json
+      - pipelines/chunking/
+      - tests/
+    required_outputs:
+      - chunking_policy_change_note
+      - tests_or_test_plan
+      - handoff
+  biblical_literature_reviewer:
+    purpose: "Review literary unit policies for Psalms, wisdom, prophecy, Gospels, epistles, and apocalyptic literature."
+    allowed_paths:
+      - docs/chunking/
+      - data/derived/review/
+      - .ai/handoffs/
+    required_outputs:
+      - review_notes
+      - boundary_disagreement_log
+  hebrew_reviewer:
+    purpose: "Review Hebrew Bible source-language boundary implications."
+    allowed_paths:
+      - docs/chunking/
+      - config/sources/
+      - data/raw/bible/hebrew-wlc/
+      - .ai/handoffs/
+    required_outputs:
+      - hebrew_boundary_notes
+  greek_reviewer:
+    purpose: "Review Greek NT/LXX boundary implications."
+    allowed_paths:
+      - docs/chunking/
+      - config/sources/
+      - data/raw/bible/greek-nt/
+      - data/raw/bible/lxx-swete/
+      - .ai/handoffs/
+    required_outputs:
+      - greek_boundary_notes
+  graph_modeler:
+    purpose: "Maintain relationship object schemas and graph contracts."
+    allowed_paths:
+      - schemas/
+      - docs/architecture/
+      - config/governance/
+      - data/canonical/
+    required_outputs:
+      - schema_change_note
+      - handoff
+  provenance_validator:
+    purpose: "Ensure all source, chunk, and relationship artifacts have provenance and license metadata."
+    allowed_paths:
+      - schemas/
+      - config/sources/
+      - data/canonical/
+      - data/derived/
+      - pipelines/validate/
+    required_outputs:
+      - validation_report
+      - handoff
+  roadmap_steward:
+    purpose: "Maintain roadmap, task state, event log, and handoff compliance."
+    allowed_paths:
+      - ROADMAP.md
+      - ROADMAP_STATE.yaml
+      - .ai/
+      - scripts/agent/
+    required_outputs:
+      - roadmap_event
+      - handoff_validation

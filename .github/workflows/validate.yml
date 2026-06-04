@@ -1,0 +1,56 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation + test deps
+        run: pip install -e ".[validate,test]"
+
+      - name: Source manifest checksum gate
+        run: python pipelines/validate/validate_manifest.py data/raw/bible/eng-web/source_manifest.yaml
+
+      - name: Regenerate canonical data from raw (deterministic ingest)
+        run: python pipelines/ingest/usfm_importer.py
+
+      - name: Raw-source immutability tripwire
+        run: |
+          git diff --quiet -- data/raw/ || (echo "ERROR: data/raw mutated by pipeline"; git --no-pager diff --stat -- data/raw/; exit 1)
+
+      - name: All validation gates (repo + control plane + handoffs + manifest + JSONL)
+        run: python scripts/validate_all.py
+
+      - name: JSON Schema validation (canonical small files + token sample)
+        run: |
+          python scripts/validate_schemas.py \
+            data/canonical/scripture/passages/passages.jsonl \
+            data/canonical/translations/eng-web/translation_witnesses.jsonl \
+            data/canonical/translations/eng-web/footnotes.jsonl \
+            data/canonical/translations/eng-web/section_headings.jsonl \
+            data/canonical/translations/eng-web/editorial_cross_references.jsonl \
+            data/canonical/translations/eng-web/glossary_entries.jsonl
+          python scripts/validate_schemas.py --limit 5000 \
+            data/canonical/translations/eng-web/word_tokens.jsonl
+
+      - name: Chunker produces output (CHK-4 regression)
+        run: |
+          python pipelines/chunking/chunker.py \
+            --passages data/canonical/scripture/passages/passages.jsonl \
+            --witnesses data/canonical/translations/eng-web/translation_witnesses.jsonl \
+            --out build/ci_chunks.jsonl
+
+      - name: DATA_MAP freshness (post-ingest)
+        run: python scripts/generate_data_map.py --check
+
+      - name: Tests
+        run: python -m pytest -q

@@ -1,0 +1,170 @@
+# Execution Roadmap
+
+This roadmap is the human-readable plan. Machine-readable state lives in `ROADMAP_STATE.yaml`. Roadmap changes must be logged to `.ai/control/roadmap_events.jsonl`.
+
+## Phase 0 — Repository control plane
+
+Goal: make the repo safe for many agents.
+
+Deliverables:
+
+- AI front door
+- deterministic handoff protocol
+- roadmap state file
+- schemas for handoff, roadmap, sources, chunks, and relationships
+- validation scripts
+- GitHub review/CI scaffolding
+
+Exit criteria:
+
+- every task has an owner, status, and handoff requirement
+- validation runs locally
+- CODEOWNERS and PR template exist
+
+## Phase 1 — Raw source vault and manifests
+
+Goal: make source drops clean, licensed, and reproducible.
+
+Deliverables:
+
+- `data/raw/bible/eng-web/usfm/eng-web_usfm.zip`
+- source manifest for WEB Classic
+- license metadata
+- checksum capture
+- immutable raw-file policy
+
+Exit criteria:
+
+- source manifests validate
+- no derived files are manually edited in raw source directories
+
+## Phase 2 — USFM ingestion and canonical passage registry
+
+Goal: parse WEB USFM into stable passage and witness records.
+
+Deliverables:
+
+- USFM importer
+- book/chapter/verse parser
+- OSIS reference normalization
+- passage registry
+- translation witness export
+
+Exit criteria:
+
+- every verse has an OSIS ref
+- source text remains traceable to raw file and line/span
+
+## Phase 3 — Chunking engine v0
+
+Goal: produce sentence-safe, literary-aware English chunks from WEB.
+
+Deliverables:
+
+- boundary candidate generator
+- boundary scorer
+- genre policies
+- context packet generator
+- chunk validation tests
+
+Exit criteria:
+
+- no chunk ends mid-sentence
+- no psalm superscription is separated from its psalm
+- poetry markers are preserved
+- every chunk has source span, boundary basis, and license metadata
+
+## Phase 4 — Chunk evaluation and scholar review loop
+
+Goal: prevent beautiful but bad chunking.
+
+Deliverables:
+
+- gold set of manually reviewed chunk boundaries
+- disagreement logs
+- chunk quality metrics
+- review-ready chunk diff reports
+
+Exit criteria:
+
+- known hard cases pass: Psalms, Proverbs, prophetic oracles, Gospel pericopes, Pauline arguments
+
+## Phase 5 — Hebrew/Greek source alignment
+
+Goal: align English chunks to source-language references before deep morphology.
+
+Deliverables:
+
+- WLC source manifest
+- Greek NT source manifest
+- LXX source manifest
+- passage-level source alignment
+- future morphology hooks
+
+Exit criteria:
+
+- each English chunk can point to Hebrew/Aramaic/Greek source span where available
+
+## Phase 6 — Lexical and morphology layer
+
+Goal: attach lexemes, morphology, syntax, and semantic domains.
+
+Deliverables:
+
+- Lexeme schema
+- WordToken schema
+- morphology importer
+- syntax/span alignment
+
+Exit criteria:
+
+- token-to-lexeme links validate
+- source attribution and licenses are explicit
+
+## Phase 7 — Cross-reference and intertextual graph
+
+Goal: import and classify cross-references.
+
+Deliverables:
+
+- cross-reference source manifests
+- relationship type registry
+- quotation/allusion/echo/typology/fulfillment edge types
+- confidence and provenance model
+
+Exit criteria:
+
+- asserted edges are separated from inferred edges
+- every relationship has evidence/provenance
+
+## Phase 8 — Retrieval, graph, and view contracts
+
+Goal: expose the same graph through multiple reliable routes.
+
+Deliverables:
+
+- graph neighborhood route
+- short synthesis route
+- evidence bundle route
+- profile comparison route
+- JSON sidecar route
+- review-ready diff route
+
+Exit criteria:
+
+- retrieval returns normalized object sets with evidence and scope
+
+## Phase 9 — Runtime/orchestration integration
+
+Goal: connect this semantic repo to a separate agent runtime.
+
+Deliverables:
+
+- release artifacts
+- API/export contracts
+- connector contract for runtime repo
+- permission/trust-zone mapping
+
+Exit criteria:
+
+- agent runtime can read published releases without mutating canonical source truth

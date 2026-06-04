@@ -1,0 +1,37 @@
+# Canon profiles — tradition-scoped book membership (ADR-0005 / CANON-1)
+#
+# AUTHORITATIVE SOURCE: pipelines/util/canon.py (Python, dependency-free).
+# This YAML is a human-readable mirror kept in sync with that module.
+#
+# Recording membership in a tradition's canon is NOT a global canonical
+# assertion (MASTER_CONTEXT §7). Each book records status PER tradition.
+#
+# Status values:
+#   included         protocanonical in that tradition
+#   deuterocanonical second-canon, accepted as scripture
+#   appendix         printed in an appendix, not counted canonical
+#   excluded         not part of that tradition's canon
+version: 0.1.0
+traditions:
+  - protestant
+  - roman_catholic
+  - eastern_orthodox
+
+# Protocanonical OT (39) + NT (27) are "included" in every tradition.
+# Only the deuterocanonical / additional books need explicit per-tradition status:
+deuterocanonical_status:
+  Tob:     {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  Jdt:     {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  AddEsth: {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  Wis:     {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  Sir:     {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  Bar:     {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  1Macc:   {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  2Macc:   {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  AddDan:  {protestant: excluded, roman_catholic: deuterocanonical, eastern_orthodox: deuterocanonical}
+  1Esd:    {protestant: excluded, roman_catholic: appendix, eastern_orthodox: deuterocanonical}
+  PrMan:   {protestant: excluded, roman_catholic: appendix, eastern_orthodox: deuterocanonical}
+  Ps151:   {protestant: excluded, roman_catholic: excluded, eastern_orthodox: deuterocanonical}
+  3Macc:   {protestant: excluded, roman_catholic: excluded, eastern_orthodox: deuterocanonical}
+  2Esd:    {protestant: excluded, roman_catholic: appendix, eastern_orthodox: appendix}
+  4Macc:   {protestant: excluded, roman_catholic: excluded, eastern_orthodox: appendix}
