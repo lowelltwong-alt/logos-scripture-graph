@@ -4,6 +4,13 @@ This repository is the governed semantic substrate for a Bible knowledge graph, 
 
 It is intentionally **not** the agent runtime. The future agent/orchestration harness should live in a separate runtime repo and call this repository through explicit contracts, generated artifacts, and validated releases.
 
+> **Project context:** this repo is the **data-plane substrate** of the
+> [logos-governance-architecture](https://github.com/lowelltwong-alt/logos-governance-architecture)
+> project — the deterministic, machine-readable implementation of its scripture /
+> translation / boundary-source / graph layers. See
+> [`.ai/control/PROJECT_CONTEXT.md`](.ai/control/PROJECT_CONTEXT.md). Coupling is by
+> contract (validated release artifacts), not submodule.
+
 ## Start here (table of contents)
 
 Every human or AI contributor must follow this read order:
