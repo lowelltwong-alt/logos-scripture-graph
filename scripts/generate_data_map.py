@@ -287,8 +287,17 @@ def main() -> int:
             print("DATA_MAP.md missing; run generate_data_map.py", file=sys.stderr)
             return 1
         existing = OUT.read_text(encoding="utf-8")
-        if _canonical_for_check(existing) != _canonical_for_check(content):
+        want = _canonical_for_check(content)
+        have = _canonical_for_check(existing)
+        if have != want:
+            import difflib
             print("DATA_MAP.md is STALE — run: python scripts/generate_data_map.py", file=sys.stderr)
+            diff = difflib.unified_diff(
+                have.splitlines(), want.splitlines(),
+                fromfile="committed DATA_MAP.md", tofile="freshly generated", lineterm="",
+            )
+            for line in list(diff)[:60]:
+                print(line, file=sys.stderr)
             return 1
         print("DATA_MAP.md is current.")
         return 0
