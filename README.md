@@ -26,6 +26,14 @@ python scripts/validate_all.py && python -m pytest -q
 
 Gates include `validate_control_plane.py` (master context lock + routing).
 
+## Contributing
+
+`main` is protected: all changes land via Pull Request (passing the `validate` check
++ CODEOWNER review). See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the PR workflow,
+agent-swarm/token guidance, and capability-based model routing
+([`config/agents/model_routing.yaml`](config/agents/model_routing.yaml) +
+[`.ai/control/MODEL_ROSTER.md`](.ai/control/MODEL_ROSTER.md)).
+
 ## Raw source drop location
 
 Put downloaded Bible/source files only under:
