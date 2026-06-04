@@ -10,6 +10,13 @@ dependencies = []
 validate = ["jsonschema>=4.18", "pyyaml>=6.0"]
 test = ["pytest>=7.0"]
 
+# This repo runs scripts directly (python pipelines/..., python -m pytest) and is
+# not imported as an installed package — pipelines put repo root on sys.path
+# themselves. Tell setuptools there is nothing to build so `pip install -e .`
+# (used in CI to pull the extras) does not trip flat-layout auto-discovery.
+[tool.setuptools]
+py-modules = []
+
 [tool.logos]
 raw_source_root = "data/raw"
 chunking_policy = "config/chunking/chunking_policy.yaml"
