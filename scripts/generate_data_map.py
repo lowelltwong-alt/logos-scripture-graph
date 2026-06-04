@@ -73,13 +73,18 @@ PIPELINE_ENDPOINTS = [
     },
     {
         "script": "pipelines/chunking/chunker.py",
-        "role": "Chunk assembler v0 (joins passages + witnesses; sentence-safe grouping)",
+        "role": "Chunk assembler v1 (genre-aware, boundary-driven; whole-psalm, no mid-sentence)",
         "inputs": [
             "data/canonical/scripture/passages/passages.jsonl (--passages)",
             "data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)",
-            "config/chunking/chunking_policy.yaml (--policy)",
+            "data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)",
+            "data/canonical/translations/eng-web/footnotes.jsonl + editorial_cross_references.jsonl (carry-through)",
+            "config/chunking/book_genres.yaml (--genres), config/chunking/chunking_policy.yaml (--policy)",
         ],
-        "outputs": ["data/derived/chunks/eng-web/chunks.jsonl"],
+        "outputs": [
+            "data/derived/chunks/eng-web/chunks.jsonl",
+            "data/derived/chunks/eng-web/context_packets.jsonl (--context-out)",
+        ],
     },
     {
         "script": "pipelines/chunking/boundary_scorer.py",
@@ -91,6 +96,18 @@ PIPELINE_ENDPOINTS = [
         "script": "pipelines/validate/validate_manifest.py",
         "role": "Source manifest + checksum validation",
         "inputs": ["data/raw/**/source_manifest.yaml"],
+        "outputs": ["pass/fail"],
+    },
+    {
+        "script": "scripts/scan_raw_sources.py",
+        "role": "First-pass scan of the REAL raw documents (mandatory before processing)",
+        "inputs": ["data/raw/**/*.zip (USFM)"],
+        "outputs": [".ai/control/RAW_SOURCE_INVENTORY.md"],
+    },
+    {
+        "script": "scripts/validate_raw_coverage.py",
+        "role": "HARD gate: every raw USFM marker must be classified",
+        "inputs": ["data/raw/**/*.zip", "config/ingest/usfm_marker_coverage.yaml"],
         "outputs": ["pass/fail"],
     },
     {

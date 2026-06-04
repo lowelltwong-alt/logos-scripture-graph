@@ -26,6 +26,8 @@ ROADMAP_STATE = ROOT / "ROADMAP_STATE.yaml"
 
 DATA_MAP = ROOT / ".ai" / "control" / "DATA_MAP.md"
 ROUTING_GUIDE = ROOT / ".ai" / "handoffs" / "AGENT_ROUTING_GUIDE.md"
+RAW_INVENTORY = ROOT / ".ai" / "control" / "RAW_SOURCE_INVENTORY.md"
+MARKER_COVERAGE = ROOT / "config" / "ingest" / "usfm_marker_coverage.yaml"
 
 REQUIRED_CONTROL_FILES = [
     MASTER_CONTEXT,
@@ -34,6 +36,8 @@ REQUIRED_CONTROL_FILES = [
     CURRENT_FOCUS,
     DATA_MAP,
     ROUTING_GUIDE,
+    RAW_INVENTORY,
+    MARKER_COVERAGE,
     ROOT / ".ai" / "context" / "README.md",
     ROOT / ".ai" / "context" / "agent_work",
     ROOT / ".ai" / "context" / "recommendations",
@@ -51,6 +55,7 @@ FRONT_DOOR_REQUIRED_REFS = [
     ".ai/control/MASTER_CONTEXT.md",
     ".ai/control/PROJECT_STATUS.md",
     ".ai/control/DATA_MAP.md",
+    ".ai/control/RAW_SOURCE_INVENTORY.md",
     "AGENT_ROUTING_GUIDE.md",
     "HANDOFF_PROTOCOL.md",
     "validate_control_plane.py",

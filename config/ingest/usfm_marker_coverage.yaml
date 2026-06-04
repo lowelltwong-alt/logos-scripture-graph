@@ -1,0 +1,84 @@
+# USFM marker coverage registry — the HARD contract between the raw source and the
+# pipeline. scripts/validate_raw_coverage.py FAILS CI if data/raw/ contains any
+# marker NOT declared here, or any marker declared `handling: UNHANDLED`.
+#
+# This guarantees the chunking/graph algorithms are designed against the markers
+# that ACTUALLY appear in the source — not assumptions. When a new source archive
+# introduces a new marker, a human must classify it here before the gate goes green.
+#
+# handling values:
+#   verse | chapter | paragraph | poetry_line | stanza_break | superscription |
+#   speaker | heading | major_title | intro | list | running_header | book_id |
+#   metadata | inline_lexeme | footnote | variant_reading | crossref |
+#   words_of_jesus | inline_format | glossary | ignored_safely | UNHANDLED
+version: 0.1.0
+source_basis: "eng-web_usfm.zip (scan 2026-06-04); regenerate via scripts/scan_raw_sources.py"
+
+markers:
+  # --- core reference structure ---
+  id:    {handling: book_id,        chunker_relevant: false, note: "book identifier line"}
+  ide:   {handling: metadata,       chunker_relevant: false, note: "character encoding"}
+  h:     {handling: running_header,  chunker_relevant: false}
+  toc1:  {handling: metadata,       chunker_relevant: false}
+  toc2:  {handling: metadata,       chunker_relevant: false}
+  toc3:  {handling: metadata,       chunker_relevant: false}
+  cl:    {handling: metadata,       chunker_relevant: false, note: "chapter label"}
+  cp:    {handling: metadata,       chunker_relevant: false, note: "published chapter number"}
+  c:     {handling: chapter,        chunker_relevant: true}
+  v:     {handling: verse,          chunker_relevant: true}
+
+  # --- titles / headings / intro ---
+  mt1:   {handling: major_title,    chunker_relevant: true}
+  mt2:   {handling: major_title,    chunker_relevant: true}
+  mt3:   {handling: major_title,    chunker_relevant: true}
+  ms1:   {handling: heading,        chunker_relevant: true, note: "major section heading (strong boundary)"}
+  s1:    {handling: heading,        chunker_relevant: true, note: "section heading (strong boundary)"}
+  is1:   {handling: intro,          chunker_relevant: false, note: "intro section heading"}
+  ip:    {handling: intro,          chunker_relevant: false, note: "intro paragraph"}
+
+  # --- paragraphs ---
+  p:     {handling: paragraph,      chunker_relevant: true}
+  m:     {handling: paragraph,      chunker_relevant: true}
+  mi:    {handling: paragraph,      chunker_relevant: true}
+  pi1:   {handling: paragraph,      chunker_relevant: true}
+  pc:    {handling: paragraph,      chunker_relevant: true, note: "centered paragraph"}
+  nb:    {handling: paragraph,      chunker_relevant: true, note: "no-break (continues prior)"}
+
+  # --- poetry / liturgy ---
+  q1:    {handling: poetry_line,    chunker_relevant: true, note: "do not split mid-colon"}
+  q2:    {handling: poetry_line,    chunker_relevant: true}
+  q3:    {handling: poetry_line,    chunker_relevant: true}
+  b:     {handling: stanza_break,   chunker_relevant: true}
+  d:     {handling: superscription, chunker_relevant: true, note: "psalm title; keep with psalm"}
+  qs:    {handling: variant_reading, chunker_relevant: true, note: "Selah; liturgical rubric (inline)"}
+
+  # --- speaker / dialogue ---
+  sp:    {handling: speaker,        chunker_relevant: true, note: "speaker label e.g. Job dialogue"}
+
+  # --- lists ---
+  ili:   {handling: list,           chunker_relevant: true}
+  li1:   {handling: list,           chunker_relevant: true}
+
+  # --- inline lexical / notes / formatting ---
+  w:     {handling: inline_lexeme,  chunker_relevant: true, note: "word w/ Strong's attribute -> WordToken"}
+  f:     {handling: footnote,       chunker_relevant: true}
+  fr:    {handling: footnote,       chunker_relevant: false, note: "footnote reference subfield"}
+  ft:    {handling: footnote,       chunker_relevant: false, note: "footnote text subfield"}
+  fl:    {handling: footnote,       chunker_relevant: false, note: "footnote label subfield"}
+  fq:    {handling: footnote,       chunker_relevant: false, note: "footnote quotation subfield"}
+  fqa:   {handling: variant_reading, chunker_relevant: true, note: "alternate reading = textual-variant seed"}
+  k:     {handling: glossary,       chunker_relevant: false, note: "keyword / glossary term in text"}
+  x:     {handling: crossref,       chunker_relevant: true}
+  xo:    {handling: crossref,       chunker_relevant: false, note: "crossref origin subfield"}
+  xt:    {handling: crossref,       chunker_relevant: false, note: "crossref target subfield"}
+  wj:    {handling: words_of_jesus, chunker_relevant: true, note: "speaker = Jesus / red-letter"}
+  bk:    {handling: inline_format,  chunker_relevant: false, note: "book name in text"}
+  wh:    {handling: glossary,       chunker_relevant: false, note: "Hebrew word (glossary/notes)"}
+
+# Markers explicitly declared but expected only in FUTURE source-language sources
+# (WLC/SBLGNT/LXX). Forward-declared so they pass the gate when those land.
+forward_declared:
+  nd:    {handling: inline_format,  note: "divine name"}
+  add:   {handling: inline_format,  note: "translator-added words"}
+  qt:    {handling: inline_format,  note: "quoted text (OT in NT)"}
+  tl:    {handling: inline_format,  note: "transliterated word"}
