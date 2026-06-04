@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AlignmentRecord",
+  "description": "Aligns an English (translation) token/span to a source-language token/lexeme. The bridge that lets the English WEB layer point at Hebrew/Greek without merging them (separate witnesses, per MASTER_CONTEXT multilingual path). Seeded by the 677,688 Strong's-tagged WordTokens; matures with WLC/SBLGNT word alignment (taxonomy-scaffold v0.2 Patch 5; ADR-0006).",
+  "type": "object",
+  "required": ["id", "type", "osis_ref", "translation_id", "source", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "type": {"const": "AlignmentRecord"},
+    "osis_ref": {"type": "string"},
+    "translation_id": {"type": "string", "description": "e.g. eng-web"},
+    "translation_token_ids": {"type": "array", "items": {"type": "string"}, "description": "WordToken ids on the translation side."},
+    "source": {
+      "type": "object",
+      "required": ["language"],
+      "properties": {
+        "language": {"type": "string", "enum": ["hebrew", "aramaic", "greek"]},
+        "lexeme_id": {"type": "string"},
+        "strong": {"type": "string", "description": "v0 bridge (present in current data)."},
+        "source_token_ids": {"type": "array", "items": {"type": "string"}, "description": "Source-language token ids (when WLC/SBLGNT land)."}
+      }
+    },
+    "alignment_type": {"type": "string", "enum": ["one_to_one", "one_to_many", "many_to_one", "many_to_many", "null_added", "null_omitted"], "description": "null_added = translator-added word with no source; important for fidelity."},
+    "method": {"type": "string", "enum": ["strong_bridge", "manual", "automatic_aligner", "macula"], "description": "Provenance of the alignment."},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
+    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "inferred"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}}
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}

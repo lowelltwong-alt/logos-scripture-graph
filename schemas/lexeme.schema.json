@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lexeme",
+  "description": "A dictionary/lemma-level source-language unit (Hebrew/Aramaic/Greek). Today's data has Strong's numbers only (no morphology/lemma) — this schema is the bridge from that v0 to real lexical data (lemma, gloss, semantic domain). Strong's is explicitly a bridge, NOT scholarly morphology (taxonomy-scaffold v0.2 Patch 5; ADR-0006).",
+  "type": "object",
+  "required": ["id", "type", "language", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "description": "e.g. lexeme:heb:H2617 (hesed), lexeme:grk:G26 (agape)"},
+    "type": {"const": "Lexeme"},
+    "language": {"type": "string", "enum": ["hebrew", "aramaic", "greek"]},
+    "strong": {"type": "string", "description": "Strong's number (v0 bridge), e.g. H2617, G26."},
+    "lemma": {"type": "string", "description": "Dictionary form in source script (populated when real lexical data lands)."},
+    "transliteration": {"type": "string"},
+    "glosses": {"type": "array", "items": {"type": "string"}, "description": "Short English glosses; NOT a definition."},
+    "semantic_domains": {"type": "array", "items": {"type": "string"}, "description": "SemanticDomain ids (Louw-Nida / SDBH)."},
+    "lexical_source": {"type": "string", "description": "BDB, HALOT, BDAG, LSJ, Louw-Nida, SDBH, Strong's, ..."},
+    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "context"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}, "license": {"type": "string"}}
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}

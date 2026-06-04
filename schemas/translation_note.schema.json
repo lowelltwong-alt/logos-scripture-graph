@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TranslationNote",
+  "description": "Flags where the English surface wording hides an original-language distinction: idiom, lexical ambiguity, semantic-domain mismatch, gender/number lost in English, wordplay, or a gloss caveat. The structured home for 'lost in translation' so retrieval/answering never silently overclaims the English (taxonomy-scaffold v0.2 Patch 5; addresses translation/original-language risk).",
+  "type": "object",
+  "required": ["id", "type", "osis_ref", "note_kind", "explanation", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "type": {"const": "TranslationNote"},
+    "osis_ref": {"type": "string"},
+    "english_surface": {"type": "string", "description": "The English wording in view."},
+    "note_kind": {
+      "type": "string",
+      "enum": ["idiom", "lexical_ambiguity", "semantic_domain_mismatch", "gender_or_number", "wordplay_or_pun", "gloss_caveat", "untranslatable_particle", "honorific_or_register", "figure_of_speech", "textual_variant_affects_sense"]
+    },
+    "source_language": {"type": "string", "enum": ["hebrew", "aramaic", "greek"]},
+    "source_terms": {"type": "array", "items": {"type": "string"}, "description": "Lexeme ids or source terms involved."},
+    "explanation": {"type": "string", "minLength": 1},
+    "assertion_mode": {"type": "string", "enum": ["asserted_curated", "asserted_by_tradition", "inferred_rule", "inferred_ai_candidate"], "description": "Translation notes are interpretive; never asserted_textual."},
+    "evidence": {"type": "array", "items": {"type": "object", "required": ["kind", "ref"], "properties": {"kind": {"type": "string"}, "ref": {"type": "string"}, "note": {"type": "string"}}}},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
+    "trust_zone": {"type": "string", "enum": ["asserted", "candidate", "inferred"]},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}}
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}

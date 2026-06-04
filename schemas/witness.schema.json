@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Witness",
+  "description": "A textual witness to a passage: manuscript, version, fragment, church-father citation, or critical edition. The growth path toward Dead Sea Scrolls, LXX witnesses, papyri, codices, and variants (taxonomy-scaffold v0.2 Patch 4 / Patch 8). Carries siglum, type, date, provenance, and confidence so the apparatus can scale.",
+  "type": "object",
+  "required": ["id", "type", "siglum", "witness_type", "language", "trust_zone", "provenance", "status"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1, "description": "e.g. witness:dss:1QIsaa, witness:ms:P46, witness:version:LXX-Vaticanus"},
+    "type": {"const": "Witness"},
+    "siglum": {"type": "string", "minLength": 1, "description": "Standard critical siglum (e.g. 1QIsaa, P46, B, A, NA28)."},
+    "witness_type": {
+      "type": "string",
+      "enum": ["manuscript", "fragment", "papyrus", "codex", "scroll", "version", "lectionary", "father_citation", "critical_edition", "printed_edition"]
+    },
+    "language": {"type": "string", "description": "Hebrew | Aramaic | Greek | Latin | Syriac | Coptic | ..."},
+    "script": {"type": "string"},
+    "date_range": {
+      "type": "object",
+      "description": "Estimated date; ranges only — never assert a precise date the evidence cannot support.",
+      "properties": {
+        "earliest": {"type": "integer", "description": "Year; negative = BCE."},
+        "latest": {"type": "integer"},
+        "label": {"type": "string", "description": "e.g. '2nd c. BCE', 'c. 200 CE'"},
+        "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]}
+      }
+    },
+    "repository": {"type": "string", "description": "Holding institution / collection."},
+    "coverage": {"type": "array", "items": {"type": "string"}, "description": "OSIS ranges this witness attests."},
+    "tradition_text_type": {"type": "string", "description": "e.g. Masoretic, Septuagintal, Byzantine, Alexandrian, Western, Proto-MT."},
+    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "context"], "description": "Witnesses are source evidence, not the canonical English layer; default asserted/context."},
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {
+        "created_by": {"type": "string"},
+        "created_at": {"type": "string"},
+        "basis": {"type": "string"},
+        "source_catalog": {"type": "string", "description": "e.g. Leon Levy DSS, INTF, Rahlfs number."}
+      }
+    },
+    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+  },
+  "additionalProperties": true
+}
