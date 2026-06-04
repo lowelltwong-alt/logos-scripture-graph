@@ -139,7 +139,10 @@ def iter_data_files():
         base = ROOT / d
         if not base.exists():
             continue
-        for path in sorted(base.rglob("*")):
+        # Sort by posix string (NOT Path objects): WindowsPath sorts case-
+        # insensitively while PosixPath sorts case-sensitively, which would make
+        # the file order — and thus the staleness gate — differ across OS.
+        for path in sorted(base.rglob("*"), key=lambda p: p.as_posix()):
             if not path.is_file():
                 continue
             rel = path.relative_to(ROOT).as_posix()
@@ -169,7 +172,7 @@ def build_data_table() -> tuple[list[str], int, int]:
 
 def build_schema_rows() -> list[str]:
     rows = []
-    for path in sorted(SCHEMA_DIR.glob("*.json")):
+    for path in sorted(SCHEMA_DIR.glob("*.json"), key=lambda p: p.as_posix()):
         try:
             title = json.loads(path.read_text(encoding="utf-8")).get("title", "")
         except (OSError, json.JSONDecodeError):
