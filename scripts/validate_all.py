@@ -34,6 +34,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ("validate_control_plane.py", [PY, str(ROOT / "scripts" / "validate_control_plane.py")]),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
     ]
+    # Raw-source gates (the committed raw archives are the real pipeline input).
+    if (ROOT / "data" / "raw").exists():
+        gates.append(("validate_raw_coverage.py", [PY, str(ROOT / "scripts" / "validate_raw_coverage.py")]))
+        gates.append(("scan_raw_sources.py --check", [PY, str(ROOT / "scripts" / "scan_raw_sources.py"), "--check"]))
     if MANIFEST.exists():
         gates.append(
             ("validate_manifest.py", [PY, str(ROOT / "pipelines" / "validate" / "validate_manifest.py"), str(MANIFEST)])

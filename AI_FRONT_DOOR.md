@@ -10,7 +10,8 @@ Read these files before making changes:
 2. `.ai/control/MASTER_CONTEXT.md` — **human-gated architecture authority (READ ONLY for AI)**
 3. `.ai/control/PROJECT_STATUS.md` — **current operational state**
 4. `.ai/control/DATA_MAP.md` — **data artifacts + pipeline endpoints (generated)**
-5. `ROADMAP.md`
+5. `.ai/control/RAW_SOURCE_INVENTORY.md` — **the ACTUAL raw documents to be processed** (generated). **Mandatory before any ingest/chunking/graph work** — see "Raw source inspection" below.
+6. `ROADMAP.md`
 6. `ROADMAP_STATE.yaml`
 7. `HANDOFF_PROTOCOL.md`
 8. `docs/architecture/ARCHITECTURE.md`
@@ -51,6 +52,29 @@ python scripts/agent/validate_handoffs.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
+
+## Raw source inspection (HARD RULE — mandatory before processing)
+
+The whole pipeline exists to ingest, chunk, and graph the **raw source documents**
+under `data/raw/`. The actual job is defined by what those files really contain
+(USFM markers, Strong's lexeme tags, words-of-Jesus `\wj`, alternate readings
+`\fqa`, superscriptions `\d`, poetry `\q*`, footnotes, cross-references).
+
+**Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
+
+1. Read `.ai/control/RAW_SOURCE_INVENTORY.md` (the generated first-pass inventory of the real raw documents).
+2. Re-scan if data/raw changed: `python scripts/scan_raw_sources.py`.
+3. Confirm every marker in the raw source is classified in `config/ingest/usfm_marker_coverage.yaml`.
+
+Enforcement (these run in `validate_all.py` and CI — fail red):
+
+```bash
+python scripts/validate_raw_coverage.py     # fails if raw has an unclassified marker
+python scripts/scan_raw_sources.py --check  # fails if the inventory is stale vs data/raw
+```
+
+A chunking/processing change is **not acceptable** unless it is demonstrably designed
+against the markers that actually appear in `RAW_SOURCE_INVENTORY.md`.
 
 ## Operating modes
 
@@ -102,6 +126,7 @@ Do not:
 
 - Edit `.ai/control/MASTER_CONTEXT.md` or `MASTER_CONTEXT.lock.yaml` (AI forbidden; human only).
 - Put raw Bible files anywhere except `data/raw/`.
+- **Design or change ingest/chunking/graph processing without first inspecting the real raw documents** (`RAW_SOURCE_INVENTORY.md` + a fresh `scan_raw_sources.py`). This is enforced by `validate_raw_coverage.py`.
 - Treat an LLM-generated chunk boundary as canonical truth.
 - Rewrite source text during chunking.
 - Mix asserted and inferred relationships in the same artifact.

@@ -20,6 +20,12 @@ jobs:
       - name: Source manifest checksum gate
         run: python pipelines/validate/validate_manifest.py data/raw/bible/eng-web/source_manifest.yaml
 
+      - name: Raw-source marker coverage gate (chunker must handle real markers)
+        run: python scripts/validate_raw_coverage.py
+
+      - name: Raw-source inventory freshness
+        run: python scripts/scan_raw_sources.py --check
+
       - name: Regenerate canonical data from raw (deterministic ingest)
         run: python pipelines/ingest/usfm_importer.py
 
