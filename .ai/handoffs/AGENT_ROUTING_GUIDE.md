@@ -15,6 +15,7 @@ and routes it correctly. It is not task-specific; it is the always-on navigation
 | 2 | `.ai/control/MASTER_CONTEXT.md` | **Why** the project exists (READ ONLY — never edit) |
 | 3 | `.ai/control/PROJECT_STATUS.md` | **Where** we are now (phase, blockers, active task) |
 | 4 | `.ai/control/DATA_MAP.md` | **What** data + pipeline endpoints exist (generated) |
+| 4b | `.ai/control/RAW_SOURCE_INVENTORY.md` | **The actual raw documents** to be processed — markers, Strong's, `\wj`, `\fqa`, etc. **Mandatory before ingest/chunking/graph work.** |
 | 5 | `ROADMAP_STATE.yaml` | Machine-readable task list + statuses |
 | 6 | `.ai/handoffs/<active_task>/handoff.md` | **Your** exact next actions (active task in PROJECT_STATUS) |
 
@@ -55,6 +56,7 @@ Route by **capability profile**, not by habit (`config/agents/model_routing.yaml
 ## Step 3 — Work within guardrails
 
 **Never:**
+- Touch ingest/chunking/graph logic without first inspecting the real raw documents (`RAW_SOURCE_INVENTORY.md` + `python scripts/scan_raw_sources.py`). `validate_raw_coverage.py` fails CI on any unclassified marker.
 - Edit `.ai/control/MASTER_CONTEXT.md` or `MASTER_CONTEXT.lock.yaml` (human-gated).
 - Run `scripts/agent/approve_master_context.py` — that is the **human's** command, not an agent's.
   (The script's name blocklist does **not** make it agent-safe; using it is a governance violation

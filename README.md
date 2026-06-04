@@ -20,6 +20,7 @@ Every human or AI contributor must follow this read order:
 | 1 | [`AI_FRONT_DOOR.md`](AI_FRONT_DOOR.md) | Entry point, modes, validation gates |
 | 2 | [`.ai/control/MASTER_CONTEXT.md`](.ai/control/MASTER_CONTEXT.md) | **Human-gated** architecture theory & decisions (AI read-only) |
 | 3 | [`.ai/control/PROJECT_STATUS.md`](.ai/control/PROJECT_STATUS.md) | Current phase, blockers, active handoffs |
+| 3b | [`.ai/control/RAW_SOURCE_INVENTORY.md`](.ai/control/RAW_SOURCE_INVENTORY.md) | **The actual raw documents to be processed** (generated). Mandatory before ingest/chunking work. |
 | 4 | [`ROADMAP.md`](ROADMAP.md) | Phase plan |
 | 5 | [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml) | Machine-readable task state |
 | 6 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |

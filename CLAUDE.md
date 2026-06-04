@@ -5,6 +5,7 @@ This repo is the Bible semantic substrate. Start with `AI_FRONT_DOOR.md` before 
 ## Non-negotiables
 
 - Read `.ai/control/MASTER_CONTEXT.md` at task start — **do not edit it** (human-gated).
+- **Before any ingest/chunking/graph work, inspect the real raw documents first:** read `.ai/control/RAW_SOURCE_INVENTORY.md`, re-scan with `python scripts/scan_raw_sources.py`, and confirm every marker is classified in `config/ingest/usfm_marker_coverage.yaml`. Enforced by `scripts/validate_raw_coverage.py` (CI fails on an unclassified marker).
 - Treat `data/raw/` as immutable source evidence.
 - Never overwrite canonical source text while chunking.
 - Chunks are derived retrieval objects, not canonical truth.
@@ -26,3 +27,7 @@ This repo is the Bible semantic substrate. Start with `AI_FRONT_DOOR.md` before 
 ## Chunking principle
 
 Do not split in the middle of an English sentence, Hebrew poetic colon, Greek clause, direct quotation, psalm superscription, section heading unit, or literary form unless the split is explicitly represented as a continuation and justified in metadata.
+
+The chunker must be designed against the markers that **actually appear** in
+`.ai/control/RAW_SOURCE_INVENTORY.md` (e.g. words-of-Jesus `\wj`, Selah `\qs`,
+superscriptions `\d`, alternate readings `\fqa`), not against assumed structure.

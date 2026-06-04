@@ -1,0 +1,110 @@
+# Book → genre map (drives genre-aware chunking; pairs with chunking_policy.yaml genre_policies).
+#
+# OSIS book code -> genre key. Genre keys match chunking_policy.yaml `genre_policies`:
+#   narrative | law | psalms | wisdom | prophets | gospels | acts | epistles | apocalypse
+#
+# A book has ONE primary genre for unit selection; mixed books (e.g. Exodus = narrative+law,
+# Daniel = narrative+apocalyptic) take their dominant structural genre. Finer-grained
+# per-pericope genre is a future curated layer (see CHUNKING_DESIGN human review loop).
+version: 0.1.0
+
+genres:
+  # --- Torah / Pentateuch ---
+  Gen: narrative
+  Exod: narrative      # narrative + law; covenant-code sections handled by paragraph/heading units
+  Lev: law
+  Num: narrative
+  Deut: law
+
+  # --- Historical narrative ---
+  Josh: narrative
+  Judg: narrative
+  Ruth: narrative
+  1Sam: narrative
+  2Sam: narrative
+  1Kgs: narrative
+  2Kgs: narrative
+  1Chr: narrative
+  2Chr: narrative
+  Ezra: narrative
+  Neh: narrative
+  Esth: narrative
+
+  # --- Poetry & wisdom ---
+  Job: wisdom
+  Ps: psalms
+  Prov: wisdom
+  Eccl: wisdom
+  Song: psalms          # poetry; whole-poem/stanza handling
+
+  # --- Prophets ---
+  Isa: prophets
+  Jer: prophets
+  Lam: psalms           # acrostic poetry; preserve lines/stanzas
+  Ezek: prophets
+  Dan: prophets         # narrative + apocalyptic; oracle/vision units
+  Hos: prophets
+  Joel: prophets
+  Amos: prophets
+  Obad: prophets
+  Jonah: narrative      # prophetic narrative
+  Mic: prophets
+  Nah: prophets
+  Hab: prophets
+  Zeph: prophets
+  Hag: prophets
+  Zech: prophets
+  Mal: prophets
+
+  # --- Gospels & Acts ---
+  Matt: gospels
+  Mark: gospels
+  Luke: gospels
+  John: gospels
+  Acts: acts
+
+  # --- Epistles ---
+  Rom: epistles
+  1Cor: epistles
+  2Cor: epistles
+  Gal: epistles
+  Eph: epistles
+  Phil: epistles
+  Col: epistles
+  1Thess: epistles
+  2Thess: epistles
+  1Tim: epistles
+  2Tim: epistles
+  Titus: epistles
+  Phlm: epistles
+  Heb: epistles
+  Jas: epistles
+  1Pet: epistles
+  2Pet: epistles
+  1John: epistles
+  2John: epistles
+  3John: epistles
+  Jude: epistles
+
+  # --- Apocalypse ---
+  Rev: apocalypse
+
+  # --- Deuterocanonical / additional (canon membership in config/canon/canon_profiles.yaml) ---
+  Tob: narrative
+  Jdt: narrative
+  AddEsth: narrative
+  Wis: wisdom
+  Sir: wisdom
+  Bar: prophets
+  1Macc: narrative
+  2Macc: narrative
+  3Macc: narrative
+  4Macc: narrative
+  1Esd: narrative
+  2Esd: apocalypse      # apocalyptic
+  PrMan: psalms         # prayer/poetry
+  Ps151: psalms
+  AddDan: narrative
+
+# Fallback genre for any unmapped book (fail-safe; prose paragraph/sentence chunking).
+default_genre: narrative
