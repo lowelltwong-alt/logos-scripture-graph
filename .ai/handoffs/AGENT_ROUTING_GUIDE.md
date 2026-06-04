@@ -35,6 +35,23 @@ After step 1 you should be able to answer: what is this repo, what phase, what i
 
 ---
 
+## Step 2.5 — Use the right model for the task
+
+Route by **capability profile**, not by habit (`config/agents/model_routing.yaml`):
+
+| Task kind | Profile | Examples |
+|-----------|---------|----------|
+| Design / judgment | **reasoner** | architecture, ADRs, schema design, canon/literary policy, gold sets |
+| Bounded build | **executor** | implement-to-spec, tests, mechanical fixes, exhaustive audits |
+| Chores | **orchestrator** | triage, summarization, doc path fixes |
+
+- Which real model fills each profile **this month**: `.ai/control/MODEL_ROSTER.md`.
+- **Security tier:** code touching `pipelines/ scripts/ schemas/ config/ .github/workflows/ data/raw/ .ai/control/` (sensitive) must come from an **approved-provider** model AND get human CODEOWNER review (see roster allowlist). Docs/handoffs are general-tier.
+- If you are an **executor**-profile model and hit a design decision → write it in "Open questions" and stop. Do not guess.
+- All AI output is `candidate` trust zone until a human promotes it — regardless of model.
+
+---
+
 ## Step 3 — Work within guardrails
 
 **Never:**

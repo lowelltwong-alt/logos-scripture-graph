@@ -1,0 +1,110 @@
+# Model routing policy — route by CAPABILITY PROFILE, never by model name.
+#
+# Why: model versions change every few months; capability *profiles* do not.
+# This file maps task types -> profiles and sets the (model-agnostic) security
+# policy. The dated mapping of real models -> profiles lives in
+# `.ai/control/MODEL_ROSTER.md` (update that one file when models change).
+#
+# Governance: profiles + security_policy are principles (human-gated discipline,
+# like MASTER_CONTEXT). The roster is agent-proposable, human-approved.
+version: 0.1.0
+last_reviewed: "2026-06-04"
+roster: .ai/control/MODEL_ROSTER.md
+
+# ---------------------------------------------------------------------------
+# Capability profiles (durable; do not encode vendor names here)
+# ---------------------------------------------------------------------------
+profiles:
+  reasoner:
+    description: "Deep reasoning, judgment, and novel design."
+    strengths:
+      - open-ended architecture and system design
+      - novel schema / contract design
+      - biblical & literary scholarship judgment (chunking literary policy, gold sets)
+      - multi-tradition / theological decisions (canon profiles)
+      - cross-cutting trade-offs and ambiguity resolution
+      - authoring ADRs and governance
+    anti_patterns:
+      - large-volume mechanical edits (slow, expensive)
+      - tasks already fully specified (overkill)
+
+  executor:
+    description: "Fast, precise, bounded implementation."
+    strengths:
+      - implementation against explicit acceptance criteria
+      - test-driven fixes; iterate-on-failure loops
+      - exhaustive systematic audits (every file vs a criterion)
+      - mechanical refactors with known inputs/outputs
+      - running pipelines and diagnosing output
+    anti_patterns:
+      - open-ended design decisions
+      - resolving genuine ambiguity (will guess — must escalate instead)
+
+  orchestrator:
+    description: "Cheap, fast routing and chores."
+    strengths:
+      - task triage and routing
+      - summarization, doc path fixes, formatting
+      - first-pass classification before a stronger model
+    anti_patterns:
+      - anything subtle, security-sensitive, or design-bearing
+
+# ---------------------------------------------------------------------------
+# Task -> profile routing (advisory; pick the rostered model for the profile)
+# ---------------------------------------------------------------------------
+task_routing:
+  architecture_design:        {profile: reasoner}
+  adr_authoring:              {profile: reasoner}
+  schema_design:              {profile: reasoner}
+  canon_or_theology_decision: {profile: reasoner, also: domain_reviewer}
+  chunking_literary_policy:   {profile: reasoner, also: domain_reviewer}
+  gold_set_curation:          {profile: reasoner, also: domain_reviewer}
+  architecture_review:        {profile: reasoner}
+  bounded_implementation:     {profile: executor}
+  mechanical_fix:             {profile: executor}
+  test_authoring:             {profile: executor}
+  refactor_known_io:          {profile: executor}
+  exhaustive_code_audit:      {profile: executor}
+  pipeline_run_and_diagnose:  {profile: executor}
+  code_review_mechanical:     {profile: executor}
+  doc_path_fix:               {profile: orchestrator}
+  triage_and_routing:         {profile: orchestrator}
+  summarization:              {profile: orchestrator}
+
+# ---------------------------------------------------------------------------
+# Security policy — TIERED (model-agnostic enforcement is the real protection)
+# ---------------------------------------------------------------------------
+security_policy:
+  posture: tiered
+  principle: >
+    Do not trust the model. Enforce at the gate. A provider allowlist reduces one
+    supply-chain vector; it does NOT replace gate-enforcement, because an approved
+    model can still be wrong or prompt-injected. Any model origin can emit
+    subtly-wrong or backdoored code.
+
+  # Surfaces where an approved provider (see MODEL_ROSTER allowlist) is REQUIRED
+  # and a human CODEOWNER review is mandatory.
+  sensitive_surfaces:
+    - pipelines/
+    - scripts/
+    - .github/workflows/
+    - schemas/
+    - config/
+    - data/raw/
+    - .ai/control/
+  # Lower-sensitivity surfaces: any model allowed, still CI + review.
+  general_surfaces:
+    - docs/
+    - .ai/handoffs/
+    - .ai/context/
+
+  # Enforced for EVERY contribution regardless of model, origin, or surface:
+  mandatory_regardless_of_model:
+    - all output passes CI gates (validate_all + pytest + schema validation)
+    - AI/bulk output lands in the `candidate` trust zone until human-promoted
+    - no auto-promotion of generated artifacts to canonical/asserted
+    - CODEOWNERS + branch protection on control plane + sensitive surfaces
+    - dependencies pinned/hash-locked; no unreviewed new dependencies
+    - untrusted/local-agent output runs through CI in isolation before merge
+
+  provider_allowlist_ref: ".ai/control/MODEL_ROSTER.md#provider-allowlist"
