@@ -90,6 +90,10 @@ def main() -> int:
     parser.add_argument("variants", nargs="+", help="name=path.jsonl pairs")
     parser.add_argument("--report", default=None)
     parser.add_argument("--json", default=None)
+    # Scorecard mode: write a committed, comparable record per run (multi-agent A/B).
+    parser.add_argument("--scorecard-dir", default=None, help="Write eval/chunking_runs/<run-id>.json scorecards here")
+    parser.add_argument("--agent", default="unknown", help="Agent/model id producing these chunks")
+    parser.add_argument("--pass-num", default="1", help="Pass number (agents may do >1)")
     args = parser.parse_args()
 
     results: dict[str, dict] = {}
@@ -124,6 +128,25 @@ def main() -> int:
         print(f"\nWrote {rp}")
     if args.json:
         Path(args.json).write_text(json.dumps(results, indent=2), encoding="utf-8")
+
+    if args.scorecard_dir:
+        from datetime import datetime, timezone
+        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        scdir = Path(args.scorecard_dir)
+        scdir.mkdir(parents=True, exist_ok=True)
+        for name, metrics in results.items():
+            run_id = f"{args.agent}__pass{args.pass_num}__{name}__{ts}"
+            card = {
+                "run_id": run_id,
+                "agent": args.agent,
+                "pass": args.pass_num,
+                "variant": name,
+                "created_at": ts,
+                "metrics": metrics,
+            }
+            out = scdir / f"{run_id}.json"
+            out.write_text(json.dumps(card, indent=2) + "\n", encoding="utf-8")
+            print(f"scorecard: {out}")
     return 0
 
 
