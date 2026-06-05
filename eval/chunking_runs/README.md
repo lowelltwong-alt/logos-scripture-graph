@@ -34,6 +34,9 @@ python pipelines/chunking/leaderboard.py   # -> eval/LEADERBOARD.md
 ## Ranking
 
 Hard gates (must pass to be eligible): 0 USFM leaks, 0 book crossings, 100% prose
-sentence integrity, Psalm 23 = one whole-psalm chunk. Eligible runs ranked by a
-transparent composite (psalm fragmentation + size-fitness to ~600 tokens + coverage).
-The human picks the winner to promote to `data/derived/chunks/eng-web/chunks.jsonl`.
+sentence integrity, Psalm 23 = one whole-psalm chunk, Genesis 1 = no mid-sentence
+split. Eligible runs ranked by a transparent composite using literal Psalm
+fragmentation, size-fitness to ~600 tokens, and coverage. `poetry_books_fragmented`
+remains visible as the broader poetry-book metric, and Psalm 119 intentional
+sectioning is reported separately as `psalm119_section_chunks`. The human picks the
+winner to promote to `data/derived/chunks/eng-web/chunks.jsonl`.

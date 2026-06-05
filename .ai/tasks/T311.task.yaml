@@ -1,0 +1,28 @@
+id: T311
+phase: phase_3
+title: "Fix psalms_fragmented evaluator grouping"
+mode: build
+status: complete
+owner: codex-5
+scope:
+  allowed_paths:
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - tests/
+    - .ai/
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "psalms_fragmented no longer groups chunks by bare chapter across multiple books."
+  - "Evaluator tests cover cross-book chapter collisions, same-book same-chapter fragmentation, Psalm 119 handling, Psalm 23 hard gate, and existing hard gates."
+  - "Before/after leaderboard impact is documented."
+  - "No chunk outputs, raw data, or canonical data change."
+  - "python scripts/validate_all.py and python -m pytest -q pass."
+required_handoff: .ai/handoffs/T311/handoff.md
+created_at: "2026-06-05"
+updated_at: "2026-06-05"
