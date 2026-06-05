@@ -11,8 +11,8 @@
 
 - agent_name: codex-5.5
 - mode: build
-- stage: start
-- updated_at: 2026-06-05T03:29:42+00:00
+- stage: final
+- updated_at: 2026-06-05T04:05:00+00:00
 - handoff_id: 0b69fff5c3b21933
 
 ---
@@ -153,23 +153,86 @@ This is what the human uses to resolve differences after run N.
 - Regenerate `DATA_MAP.md` (new data/candidate files + new pipeline endpoints).
 
 ## Files read
-- (Codex: fill in)
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `.ai/handoffs/CONNECTION_DISCOVERY_AGENT.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/chunking/CHUNKING_DESIGN.md`
+- `config/agents/agent_roles.yaml`
+- `config/governance/predicate_registry.yaml`
+- `schemas/relationship_object.schema.json`
+- `schemas/word_token.schema.json`
+- `schemas/translation_witness.schema.json`
+- `schemas/editorial_cross_reference.schema.json`
+- `data/candidate/connections/2026-06-04-ab-review.jsonl`
+- Existing pipeline/test conventions under `pipelines/`, `scripts/`, and `tests/`.
 
 ## Files changed
-- (Codex: fill in)
+- `.gitignore` — unignored `build/discovery/` review reports only.
+- `.ai/control/DATA_MAP.md` — regenerated after adding candidate artifacts and graph endpoints.
+- `.ai/control/handoff_ledger.jsonl` — refreshed by required `force_handoff.py` start command.
+- `.ai/control/roadmap_events.jsonl` — appended `connections_proposed`.
+- `.ai/handoffs/T308/handoff.md` — close-out details.
+- `scripts/generate_data_map.py` — declared graph discovery and comparison endpoints.
+- `pipelines/graph/discover_connections.py` — deterministic candidate discovery CLI and methods.
+- `pipelines/graph/compare_candidate_batches.py` — multi-agent agreement/disagreement harness.
+- `tests/test_discover_connections.py` — method fixtures and candidate contract checks.
+- `tests/test_compare_candidate_batches.py` — agreement/disagreement fixture checks.
+- `data/candidate/connections/codex-5.5-2026-06-05.jsonl` — 249 candidate RelationshipObjects.
+- `data/candidate/connections/codex-5.5-2026-06-05.manifest.yaml` — reproducibility manifest.
+- `build/discovery/codex-5.5-report.md` — discovery counts/top candidates/false-positive notes.
+- `build/discovery/comparison.md` — comparison report against the seed batch.
+- `build/discovery/codex-5.5-vs-seed-agreement.jsonl` — 0 agreement records.
+- `build/discovery/codex-5.5-vs-seed-disagreement.jsonl` — 257 disagreement records.
 
 ## Decisions made
-- (Codex: fill in — esp. thresholds chosen and any precision/recall calls)
+- Implemented only candidate edges: every emitted record uses `assertion_mode: candidate`, `status: candidate`, and `trust_zone: candidate`.
+- Lexical co-occurrence uses rare Strong's ids with document frequency `<= 6`, requires at least 2 shared rare lemmas, skips adjacent same-book chapter pairs, and caps output at 150.
+- Shared rare phrase uses exact NT-to-OT 4-7 gram overlap with corpus phrase document frequency `<= 3`, de-dups against editorial `\x`, and caps output at 200.
+- Citation formula detection uses explicit trigger phrases plus rare phrase overlap (`max_phrase_df <= 4`), caps output at 100, and conservatively skips formula-based proposals from NT verses that already have editorial cross-reference leads to avoid weaker alternate matches.
+- Did not emit `typifies` or `fulfills`; no tradition-scoped theology calls were made.
+- Final merged output is ranked by confidence and capped at 350, producing 249 candidates for this run.
 
 ## Validation run
-- (Codex: paste exact outputs)
+- `pip install -e ".[validate,test]"` returned an inconclusive shell-wrapper status, but dependency check passed: `deps ok`.
+- `python pipelines/ingest/usfm_importer.py`:
+  - `Wrote canonical records under ...\data\canonical`
+  - `Wrote processed USFM reports under ...\data\processed\bible\eng-web\usfm`
+- Baseline `python scripts/validate_all.py`: `All validation gates passed.`
+- Baseline `python -m pytest -q`: `23 passed in 14.10s`
+- Focused graph tests: `4 passed`
+- Discovery run: `Wrote 249 candidates to data/candidate/connections/codex-5.5-2026-06-05.jsonl`
+- Comparison run vs seed: `Wrote 0 agreements and 257 disagreements.`
+- `python scripts/validate_schemas.py data/candidate/connections/codex-5.5-2026-06-05.jsonl`: `Schema validation passed.`
+- Candidate invariant check: `checked=249 bad_candidate_fields=0 missing_evidence_refs=0`
+- `git diff --quiet -- data/raw data/canonical`: exit 0.
+- Final `python scripts/validate_all.py`:
+  - `Repo validation passed.`
+  - `Control plane validation passed.`
+  - `Handoff validation passed for 15 referenced handoff path(s).`
+  - `Raw coverage OK: 46 distinct markers across 1 archive(s), all classified.`
+  - `RAW_SOURCE_INVENTORY.md is current.`
+  - `Manifest validation passed.`
+  - `JSONL validation passed for 78742 records.`
+  - `All validation gates passed.`
+- Final `python -m pytest -q`: `27 passed in 13.21s`
 
 ## Known risks
 - English-surface phrase matching will miss Hebrew/Greek-only links and catch coincidental phrases — keep confidence honest; this is run 1, not truth.
 - word_tokens.jsonl is 432MB — stream it; do not load all into memory at once.
+- Citation-formula matching still depends on English phrase overlap and can surface review-only alternates; candidates remain weak until human adjudication.
+- Deuterocanonical WEB books are included as OT by the existing canon helper; candidates touching them remain candidate-only and unpromoted.
 
 ## Open questions
-- (Codex: log any design call you made conservatively instead of guessing.)
+- Should future runs skip all formula-based candidates from verses with editorial `\x` leads, as this run does, or only skip the exact known target pair? This run chose the conservative skip-all-source behavior for precision.
+- Should shared rare phrase `quotesFrom` require a citation formula unless the phrase is very long, or is exact 7-gram rarity sufficient for candidate review?
+- Should future comparison normalize semantically equivalent but direction/id-different seed records before agreement counting? This run compares exact `subject_id + predicate + object_id` per the handoff contract.
 
 ## Paste prompt for Codex 5.5
 
@@ -210,3 +273,12 @@ After T308: the human runs the SAME task with another model (run 2..N), then use
 Agreed, well-evidenced candidates go to a human-reviewed promotion (candidate → asserted)
 via the governed path; the rest stay candidate. Do not let any candidate become canonical
 without human review.
+
+---
+
+## Handoff refresh: start
+
+- agent_name: codex-5.5
+- mode: build
+- updated_at: 2026-06-05T03:49:56+00:00
+- handoff_id: 0b69fff5c3b21933
