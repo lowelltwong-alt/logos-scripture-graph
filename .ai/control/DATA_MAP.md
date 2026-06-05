@@ -158,6 +158,21 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
   - `data/derived/chunks/eng-web/chunks.jsonl`
   - `data/derived/chunks/eng-web/context_packets.jsonl (--context-out)`
 
+### `pipelines/chunking/orchestrator.py`
+
+- **Role:** T310 byte-identical orchestrator shim (monolith Pass-2 route ledger)
+- **Inputs:**
+  - `data/canonical/scripture/passages/passages.jsonl (--passages)`
+  - `data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)`
+  - `data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)`
+  - `data/canonical/translations/eng-web/footnotes.jsonl + editorial_cross_references.jsonl (carry-through)`
+  - `config/chunking/book_genres.yaml (--genres), config/chunking/chunking_policy.yaml (--policy)`
+  - `registry/chunking/approved-skills.json (--approved-skills)`
+- **Outputs:**
+  - `chunks JSONL byte-identical to chunker.py (--out)`
+  - `optional ContextPacket JSONL byte-identical to chunker.py (--context-out)`
+  - `optional JSONL route ledger (--route-ledger)`
+
 ### `pipelines/chunking/boundary_scorer.py`
 
 - **Role:** Boundary scoring helper (Sprint 3: wire into boundary-driven chunker)
@@ -165,6 +180,18 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
   - `boundary evidence types`
 - **Outputs:**
   - `boundary scores`
+
+### `pipelines/chunking/detect_form.py`
+
+- **Role:** T310 read-only textual-form detector (candidate ClassificationAssignment sidecar)
+- **Inputs:**
+  - `data/canonical/scripture/passages/passages.jsonl (--passages)`
+  - `data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)`
+  - `data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)`
+  - `config/chunking/book_genres.yaml (--genres), config/chunking/form_registry.yaml (--form-registry)`
+  - `optional word_tokens.jsonl (--word-tokens), footnotes.jsonl (--footnotes)`
+- **Outputs:**
+  - `data/candidate/chunking/form_assignments/<source>-detect_form-v0.1.0-<timestamp>.jsonl`
 
 ### `pipelines/chunking/evaluate_chunks.py`
 

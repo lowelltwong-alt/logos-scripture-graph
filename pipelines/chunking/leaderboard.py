@@ -9,8 +9,9 @@ committed, so runs from different agents/PRs/machines are durably comparable.
 
 Ranking:
   1. HARD GATES (must pass to be eligible): usfm_leaks==0, book_crossings==0,
-     sentence_integrity_pct==100, gold_psalm23_one_chunk==True.
-  2. Among eligible, sort by: psalms_fragmented asc, then size-fitness |p50-600| asc.
+     sentence_integrity_pct==100, gold_psalm23_one_chunk==True,
+     gold_gen1_no_midsentence==True.
+  2. Among eligible, sort by: literal Psalm fragmentation asc, then size-fitness |p50-600| asc.
   Transparent composite shown; humans make the final call.
 
 Usage: python pipelines/chunking/leaderboard.py [--runs-dir eval/chunking_runs] [--out eval/LEADERBOARD.md]
@@ -32,6 +33,7 @@ def eligible(m: dict) -> bool:
         and m.get("book_crossings", 1) == 0
         and m.get("sentence_integrity_pct", 0) == 100.0
         and m.get("gold_psalm23_one_chunk", False) is True
+        and m.get("gold_gen1_no_midsentence", False) is True
     )
 
 
@@ -40,7 +42,7 @@ OVERSIZE_LIMIT = 1600  # hard_max tokens; chunks above this hurt retrieval (mons
 
 def composite(m: dict) -> float:
     score = 100.0
-    score -= m.get("psalms_fragmented", 0) * 0.5
+    score -= m.get("literal_psalms_fragmented", m.get("psalms_fragmented", 0)) * 0.5
     score -= abs(m.get("tok_p50", 0) - TARGET_P50) / 20.0
     # Penalize monster chunks (e.g. an unsplit Ps 119) — the single worst retrieval failure.
     score -= max(0, m.get("tok_max", 0) - OVERSIZE_LIMIT) / 100.0
@@ -79,6 +81,9 @@ def main() -> int:
             "chunks": m.get("chunks"),
             "tok_p50": m.get("tok_p50"),
             "psalms_fragmented": m.get("psalms_fragmented"),
+            "literal_psalms_fragmented": m.get("literal_psalms_fragmented"),
+            "poetry_books_fragmented": m.get("poetry_books_fragmented"),
+            "psalm119_section_chunks": m.get("psalm119_section_chunks"),
             "sent_pct": m.get("sentence_integrity_pct"),
             "leaks": m.get("usfm_leaks"),
             "crossings": m.get("book_crossings"),
@@ -87,14 +92,17 @@ def main() -> int:
     rows.sort(key=lambda r: (not r["eligible"], -(r["composite"] or -1e9)))
 
     cols = ["rank", "agent", "pass", "eligible", "composite", "chunks", "tok_p50",
-            "psalms_fragmented", "sent_pct", "leaks", "crossings", "run_id"]
+            "psalms_fragmented", "literal_psalms_fragmented", "poetry_books_fragmented",
+            "psalm119_section_chunks", "sent_pct", "leaks", "crossings", "run_id"]
     lines = ["| " + " | ".join(cols) + " |", "|" + "|".join("---" for _ in cols) + "|"]
     for i, r in enumerate(rows, 1):
         rank = i if r["eligible"] else "—"
         cells = [str(rank), r["agent"], str(r["pass"]),
                  "yes" if r["eligible"] else "NO", str(r["composite"]),
                  str(r["chunks"]), str(r["tok_p50"]), str(r["psalms_fragmented"]),
-                 str(r["sent_pct"]), str(r["leaks"]), str(r["crossings"]), r["run_id"]]
+                 str(r["literal_psalms_fragmented"]), str(r["poetry_books_fragmented"]),
+                 str(r["psalm119_section_chunks"]), str(r["sent_pct"]), str(r["leaks"]),
+                 str(r["crossings"]), r["run_id"]]
         lines.append("| " + " | ".join(cells) + " |")
     table = "\n".join(lines)
     print(table)
@@ -106,7 +114,8 @@ def main() -> int:
         f"**Generated:** {now}  |  **Runs:** {len(cards)}  |  target p50={TARGET_P50} tokens",
         "",
         "Hard gates (must pass to rank): 0 USFM leaks, 0 book crossings, 100% prose",
-        "sentence integrity, Psalm 23 = one whole-psalm chunk. Ineligible runs shown last.",
+        "sentence integrity, Psalm 23 = one whole-psalm chunk, Genesis 1 = no mid-sentence",
+        "split. Ineligible runs shown last.",
         "",
         table,
         "",

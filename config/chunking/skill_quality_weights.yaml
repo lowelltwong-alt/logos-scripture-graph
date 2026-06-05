@@ -1,0 +1,35 @@
+# Chunking-skill quality scoring (ADR-0011 B+3). Converged from Codex + Composer
+# proposals; legal metrics swapped for chunking metrics. PROPRIETARY: see ../NOTICE.
+#
+# Composite is advisory; HARD GATES lead (a skill that fails a hard gate is
+# ineligible regardless of composite).
+version: scripture-chunking-skill-quality.v1
+hard_gates:            # must all pass to be eligible (mirror eval/leaderboard)
+  - usfm_leaks_zero
+  - book_crossings_zero
+  - prose_sentence_integrity_100
+  - psalm23_one_whole_chunk
+  - no_mid_sentence_split
+  - no_orphan_psalm_superscription
+metric_weights:        # sum = 100
+  gold_set_success:        25   # passes the form's gold cases
+  boundary_compliance:     20   # no forbidden splits; correct boundary_basis
+  evidence_completeness:   15   # osis span, boundary basis, source manifest, license
+  schema_conformance:      10   # valid RetrievalChunk / ContextPacket
+  size_fitness:            10   # token p50 near target; few oversized chunks
+  form_specificity:         5   # handles the form precisely vs generic fallback
+  eval_coverage:            5   # fraction of the form's gold cases actually run
+  recency_health:           3   # recently re-evaluated at HEAD
+  reuse_fit:                4   # routed often with low failure rate
+  cost_efficiency:          3   # chunk count / token economy
+hard_penalties:
+  raw_or_canonical_write:  -100
+  source_text_mutation:    -100
+  schema_invalid_output:    -50
+  missing_boundary_basis:   -40
+  stale_registry_surface:   -30
+thresholds:
+  preferred_min: 90
+  active_min:    80
+  improve_below: 75
+  quarantine_below: 40

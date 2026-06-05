@@ -15,7 +15,11 @@ Metrics (per variant):
   chunks                  total chunk count
   tokens p50/p90/max      approx word-count distribution
   sentence_integrity      % prose chunks ending on a sentence (higher better)
-  psalms_fragmented       # psalms split into >1 chunk (lower better)
+  psalms_fragmented       legacy alias for literal_psalms_fragmented (lower better)
+  literal_psalms_fragmented
+                          # literal Psalms split into >1 chunk, by book+chapter
+  poetry_books_fragmented # poetry/psalm-genre books split into >1 chunk, by book+chapter
+  psalm119_section_chunks # explicit non-penalty signal for intentional Ps 119 sections
   book_crossings          # chunks spanning >1 book (must be 0)
   boundary_basis_cov      % chunks with >=1 boundary basis
   metadata_carry          % chunks carrying footnote/crossref refs OR lexeme flag
@@ -32,6 +36,7 @@ from pathlib import Path
 
 SENTENCE_END_RE = re.compile(r"[.!?][\"')\]”’»›]*$")
 RAW_USFM = re.compile(r"\\(?:\+?[A-Za-z0-9]+)\*?")
+INTENTIONAL_SECTION_CHAPTERS = {("Ps", "119")}
 
 
 def approx_tokens(text: str) -> int:
@@ -46,6 +51,29 @@ def book_of(osis: str) -> str:
     return (osis or "").split(".")[0]
 
 
+def book_chapter_of(osis: str) -> tuple[str, str]:
+    parts = (osis or "").split(".")
+    book = parts[0] if parts and parts[0] else "?"
+    chapter = parts[1] if len(parts) > 1 and parts[1] else "?"
+    return book, chapter
+
+
+def fragmented_book_chapters(chunks: list[dict], *, literal_psalms_only: bool) -> dict[tuple[str, str], int]:
+    grouped: dict[tuple[str, str], int] = {}
+    for c in chunks:
+        book, chapter = book_chapter_of(c.get("osis_start", ""))
+        if (book, chapter) in INTENTIONAL_SECTION_CHAPTERS:
+            continue
+        if literal_psalms_only:
+            qualifies = book == "Ps"
+        else:
+            qualifies = c.get("genre") == "psalms" or book == "Ps"
+        if qualifies:
+            key = (book, chapter)
+            grouped[key] = grouped.get(key, 0) + 1
+    return {key: count for key, count in grouped.items() if count > 1}
+
+
 def load(path: Path) -> list[dict]:
     return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
 
@@ -55,13 +83,9 @@ def score(chunks: list[dict]) -> dict:
     toks = [approx_tokens(c.get("text", "")) for c in chunks]
     prose = [c for c in chunks if c.get("genre") != "psalms"]
     prose_ok = sum(1 for c in prose if c.get("validation", {}).get("sentence_ended", sentence_ended(c.get("text", ""))))
-    # psalm fragmentation: group psalms chunks by chapter
-    psalm_chaps: dict[str, int] = {}
-    for c in chunks:
-        if c.get("genre") == "psalms" or book_of(c.get("osis_start", "")) == "Ps":
-            ch = c.get("osis_start", "").split(".")[1] if c.get("osis_start", "").count(".") >= 1 else "?"
-            psalm_chaps[ch] = psalm_chaps.get(ch, 0) + 1
-    fragmented = sum(1 for v in psalm_chaps.values() if v > 1)
+    literal_psalms_fragmented = len(fragmented_book_chapters(chunks, literal_psalms_only=True))
+    poetry_books_fragmented = len(fragmented_book_chapters(chunks, literal_psalms_only=False))
+    ps119_section_chunks = sum(1 for c in chunks if book_chapter_of(c.get("osis_start", "")) == ("Ps", "119"))
     crossings = sum(1 for c in chunks if book_of(c.get("osis_start", "")) != book_of(c.get("osis_end", "")))
     basis_cov = sum(1 for c in chunks if c.get("boundary_basis"))
     meta = sum(1 for c in chunks if c.get("footnote_refs") or c.get("editorial_crossref_refs") or c.get("has_lexeme_alignment"))
@@ -75,7 +99,10 @@ def score(chunks: list[dict]) -> dict:
         "tok_p90": int(sorted(toks)[int(0.9 * (len(toks) - 1))]) if toks else 0,
         "tok_max": max(toks) if toks else 0,
         "sentence_integrity_pct": round(100 * prose_ok / len(prose), 1) if prose else 100.0,
-        "psalms_fragmented": fragmented,
+        "psalms_fragmented": literal_psalms_fragmented,
+        "literal_psalms_fragmented": literal_psalms_fragmented,
+        "poetry_books_fragmented": poetry_books_fragmented,
+        "psalm119_section_chunks": ps119_section_chunks,
         "book_crossings": crossings,
         "usfm_leaks": leaks,
         "boundary_basis_cov_pct": round(100 * basis_cov / n, 1) if n else 0.0,

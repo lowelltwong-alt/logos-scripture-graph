@@ -1,0 +1,214 @@
+# Form registry — the bounded taxonomy of literary FORMS the chunking orchestrator
+# routes on (ADR-0011). PROPRIETARY: see ../NOTICE and pipelines/chunking/LICENSE.
+#
+# Routing key = marker-evidenced STRUCTURAL FORM, not book genre. `book_genres.yaml`
+# is a PRIOR only. Overlays (\wj, \fqa, \x, \qs, \d) are METADATA MODIFIERS, never
+# separate routing skills (ADR-0011 D1/D7).
+#
+# Marker counts below are grounded in the REAL corpus
+# (.ai/control/RAW_SOURCE_INVENTORY.md, eng-web scan 2026-06-04). Note: section
+# headings \s1/\ms1 are RARE in WEB Classic (5 each) — routing leans on paragraphs
+# (\p 9,254), poetry lines (\q1 10,094 / \q2 13,237), stanza breaks (\b 1,070), and
+# chapters, NOT on headings.
+#
+# status:
+#   active        = a dedicated, gold-anchored skill exists and is routable.
+#   declared-gap  = the form is known and registered, but no dedicated skill+gold
+#                   yet. `interim_skill` says what handles it for now (the monolith
+#                   fallback, or null = genuinely unhandled — the orchestrator alerts).
+# At Increment 0 NO form is `active` yet (the only skill is the monolith wrapper);
+# biblical forms carry interim_skill: monolith-pass2-v1; Tier C carry null.
+version: 0.1.0
+policy_version: chunk-policy-v0.1.0
+source_basis: "eng-web_usfm.zip (scan 2026-06-04)"
+
+overlays:
+  # Metadata modifiers — attach to chunk metadata / post-process; NOT routing forms.
+  superscription_attached: {marker: "d",   count: 139,  rule: "keep \\d psalm title with its psalm; never orphan"}
+  words_of_jesus:          {marker: "wj",  count: 4580, rule: "tag chunk; optional sub-boundary hint in gospels"}
+  selah_rubric:            {marker: "qs",  count: 148,  rule: "carry Selah in metadata; not a split driver"}
+  variant_reading:         {marker: "fqa", count: 519,  rule: "textual-variant seed; never a split driver"}
+  footnote_carry:          {marker: "f",   count: 3710, rule: "footnote refs per verse; no boundary effect"}
+  crossref_carry:          {marker: "x",   count: 726,  rule: "editorial crossref; carry only, NEVER a graph edge"}
+  lexeme_alignment:        {marker: "w",   count: 1355376, rule: "Strong's WordToken alignment carried on chunk"}
+
+forms:
+  # ---------------- Tier A: prose ----------------
+  - id: prose_paragraph
+    tier: prose
+    primary_markers: [p, m, mi, pi1, pc, nb]
+    preferred_unit: paragraph_then_sentence
+    book_priors: [narrative, law, gospels, acts, epistles]
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Default prose; ~60% of verses. No mid-sentence split."
+  - id: prose_section_heading
+    tier: prose
+    primary_markers: [ms1, s1]
+    preferred_unit: heading_bounded_section
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "RARE in WEB Classic (ms1=5, s1=5). Strong boundary where present; fail_orphan_heading."
+  - id: narrative_scene
+    tier: prose
+    primary_markers: [p, m]
+    book_priors: [narrative, gospels, acts]
+    preferred_unit: scene
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: genealogy_or_list
+    tier: prose
+    primary_markers: [ili, li1]
+    counts: {ili: 98, li1: 72}
+    preferred_unit: list_item_or_cluster
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Genealogies/lists (Gen 5, Matt 1); list-preserving."
+  - id: law_statute
+    tier: prose
+    primary_markers: [p, li1]
+    book_priors: [law]
+    preferred_unit: legal_unit
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  # ---------------- Tier A: poetry ----------------
+  - id: poetry_line_or_colon
+    tier: poetry
+    primary_markers: [q1, q2, q3]
+    counts: {q1: 10094, q2: 13237, q3: 7}
+    preferred_unit: poetic_line
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Never split mid-colon (poetic_colon is a forbidden split)."
+  - id: poetry_stanza
+    tier: poetry
+    primary_markers: [q1, q2, b]
+    counts: {b: 1070}
+    preferred_unit: poetic_stanza
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: poetry_acrostic_section
+    tier: poetry
+    primary_markers: [q1, q2, b, d]
+    preferred_unit: acrostic_section
+    book_priors: [psalms]
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Interior \\d titles between stanzas (Ps 119, Lam). NOT the opening v1 \\d."
+  - id: psalm_whole
+    tier: poetry
+    primary_markers: [q1, q2, d]
+    book_priors: [psalms]
+    preferred_unit: whole_psalm
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    gold_seed: "Ps 23 = one whole-psalm chunk (existing hard gate)"
+    note: "Keep superscription with psalm; long psalms split at \\b / interior \\d."
+  - id: wisdom_saying_cluster
+    tier: poetry
+    primary_markers: [p, q1, q2]
+    book_priors: [wisdom]
+    preferred_unit: saying_cluster
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Proverbs/Eccl; tighter budget; preserve parallelism."
+  - id: speaker_dialogue
+    tier: poetry
+    primary_markers: [sp]
+    counts: {sp: 33}
+    book_priors: [wisdom]
+    preferred_unit: speaker_turn
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Job dialogue; speaker-bounded."
+  # ---------------- Tier A: prophetic / apocalyptic ----------------
+  - id: prophetic_oracle
+    tier: prophecy
+    primary_markers: [p, q1, q2]
+    book_priors: [prophets]
+    preferred_unit: oracle_or_vision
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: vision_report
+    tier: prophecy
+    primary_markers: [p, q1]
+    book_priors: [prophets, apocalypse]
+    preferred_unit: vision
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: apocalyptic_cycle
+    tier: apocalyptic
+    primary_markers: [p, q1]
+    book_priors: [apocalypse]
+    preferred_unit: vision_cycle
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  # ---------------- Tier A: gospel / epistle ----------------
+  - id: gospel_pericope
+    tier: gospel
+    primary_markers: [p, s1]
+    book_priors: [gospels]
+    preferred_unit: pericope_or_discourse
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: parable_or_discourse
+    tier: gospel
+    primary_markers: [p]
+    book_priors: [gospels]
+    preferred_unit: discourse_unit
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Parable + its interpretation should not be severed (Matt 13)."
+  - id: acts_speech_or_episode
+    tier: narrative
+    primary_markers: [p]
+    book_priors: [acts]
+    preferred_unit: speech_or_episode
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: epistle_argument
+    tier: epistle
+    primary_markers: [p]
+    book_priors: [epistles]
+    preferred_unit: argument_or_exhortation
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+    note: "Context packet when chunk opens with therefore / for this reason / so then."
+  - id: epistle_opening_closing
+    tier: epistle
+    primary_markers: [p]
+    book_priors: [epistles]
+    preferred_unit: formulaic_unit
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  # ---------------- Tier A: front matter (usually excluded from chunks) ----------------
+  - id: major_title_block
+    tier: front_matter
+    primary_markers: [mt1, mt2, mt3]
+    counts: {mt1: 84, mt2: 41, mt3: 7}
+    preferred_unit: excluded
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+  - id: intro_block
+    tier: front_matter
+    primary_markers: [is1, ip]
+    counts: {is1: 9, ip: 37}
+    preferred_unit: excluded
+    status: declared-gap
+    interim_skill: monolith-pass2-v1
+
+  # ---------------- Tier C: early-church / future corpora (no source yet) ----------------
+  # interim_skill: null  => genuinely unhandled; the orchestrator emits a skill-gap
+  # alert if such a form is ever detected. Quarantined until raw source + gold exist.
+  - {id: patristic_homily,        tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: apologetic_treatise,     tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: pastoral_letter,         tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: martyrology,             tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: creed_or_rule_of_faith,  tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: dialogue_treatise,       tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: catena_commentary,       tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: liturgy_or_prayer,       tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: church_order,            tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: pseudepigrapha_vision,   tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: hagiography,             tier: early_church, status: declared-gap, interim_skill: null}
+  - {id: gnostic_logion_collection, tier: early_church, status: declared-gap, interim_skill: null}

@@ -88,10 +88,41 @@ PIPELINE_ENDPOINTS = [
         ],
     },
     {
+        "script": "pipelines/chunking/orchestrator.py",
+        "role": "T310 byte-identical orchestrator shim (monolith Pass-2 route ledger)",
+        "inputs": [
+            "data/canonical/scripture/passages/passages.jsonl (--passages)",
+            "data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)",
+            "data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)",
+            "data/canonical/translations/eng-web/footnotes.jsonl + editorial_cross_references.jsonl (carry-through)",
+            "config/chunking/book_genres.yaml (--genres), config/chunking/chunking_policy.yaml (--policy)",
+            "registry/chunking/approved-skills.json (--approved-skills)",
+        ],
+        "outputs": [
+            "chunks JSONL byte-identical to chunker.py (--out)",
+            "optional ContextPacket JSONL byte-identical to chunker.py (--context-out)",
+            "optional JSONL route ledger (--route-ledger)",
+        ],
+    },
+    {
         "script": "pipelines/chunking/boundary_scorer.py",
         "role": "Boundary scoring helper (Sprint 3: wire into boundary-driven chunker)",
         "inputs": ["boundary evidence types"],
         "outputs": ["boundary scores"],
+    },
+    {
+        "script": "pipelines/chunking/detect_form.py",
+        "role": "T310 read-only textual-form detector (candidate ClassificationAssignment sidecar)",
+        "inputs": [
+            "data/canonical/scripture/passages/passages.jsonl (--passages)",
+            "data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)",
+            "data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)",
+            "config/chunking/book_genres.yaml (--genres), config/chunking/form_registry.yaml (--form-registry)",
+            "optional word_tokens.jsonl (--word-tokens), footnotes.jsonl (--footnotes)",
+        ],
+        "outputs": [
+            "data/candidate/chunking/form_assignments/<source>-detect_form-v0.1.0-<timestamp>.jsonl",
+        ],
     },
     {
         "script": "pipelines/chunking/evaluate_chunks.py",

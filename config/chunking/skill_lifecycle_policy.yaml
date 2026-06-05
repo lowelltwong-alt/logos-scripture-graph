@@ -1,0 +1,34 @@
+# Chunking-skill lifecycle policy (ADR-0011 D5). Ported from LawFirm OS
+# skill-agent-lifecycle-policy-registry.json. PROPRIETARY: see ../NOTICE.
+#
+# Nothing self-promotes. Human gate on every promotion to routable.
+version: 0.1.0
+states:
+  - draft        # author-local; not routable
+  - candidate    # tests + metadata pass; eligible for A/B, not default
+  - active       # human-approved; routable
+  - preferred    # default when multiple active skills match a form
+  - deprecated   # still runnable for reproducibility; not selected for new runs
+  - superseded   # replaced by a higher-scoring skill on its form(s)
+  - retired      # unavailable except for provenance replay
+  - quarantined  # failed a safety / boundary / hard gate
+transitions:
+  - {from: draft,      to: candidate,   gate: "tests + metadata pass",            approval: automatic}
+  - {from: candidate,  to: active,      gate: "gold pass + review",               approval: human_required}
+  - {from: active,     to: preferred,   gate: "score threshold",                  approval: human_required}
+  - {from: active,     to: deprecated,  gate: "replacement approved or decision",  approval: human_required}
+  - {from: active,     to: superseded,  gate: "higher-scoring skill on same form", approval: human_required}
+  - {from: deprecated, to: retired,     gate: "decision",                         approval: human_required}
+  - {from: any,        to: quarantined, gate: "hard safety/boundary failure",     approval: automatic}
+auto_actions_allowed:
+  - score
+  - detect_gap
+  - draft_candidate
+  - quarantine_on_hard_failure
+  - generate_recommendation
+auto_actions_forbidden:
+  - promote_to_active_or_preferred
+  - expand_write_authority
+  - write_data_raw_or_canonical
+  - delete_stable_resource     # deprecate instead
+  - weaken_validation

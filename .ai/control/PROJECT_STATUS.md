@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-05
-**Updated by:** T308 in progress (Codex 5.5 connection discovery run 1)
-**Active task:** → **T308**; candidate connection discovery run emitted and awaiting multi-agent comparison/adjudication
+**Updated by:** T310 planning (ADR-0011 chunking orchestrator + skill registry accepted)
+**Active task:** → **T310** (chunking orchestrator + skill registry, ADR-0011 — phased build, Increment 0 next); **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
+> form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
+> (`docs/architecture/ADR-0011-…`). Decisions D1–D8 + B+ locked (marker-evidenced form routing +
+> LLM-adjudicator shadow records; full ~40-form map flagged active/declared-gap; parametric skills;
+> 8-state lifecycle; committed `registry/chunking/`; incremental per-form gold; deferred contract-lock
+> gate). Build is a **byte-identical extraction** of the current chunker, every step gated at composite
+> **≥ 88.5**. The chunking subtrees (`pipelines/chunking/`, `config/chunking/`, `registry/chunking/`)
+> are now **proprietary / All Rights Reserved** (`pipelines/chunking/LICENSE`, carved out of root MIT).
+> Source designs + reconciliation: `.ai/context/recommendations/`. Next: T310 Increment 0 (registry stub).
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
