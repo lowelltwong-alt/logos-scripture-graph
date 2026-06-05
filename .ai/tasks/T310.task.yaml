@@ -1,0 +1,34 @@
+id: T310
+phase: phase_3
+title: "Chunking orchestrator + skill registry (ADR-0011) — phased build"
+mode: build
+status: in_progress
+owner: claude-opus-4.8
+scope:
+  allowed_paths:
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - docs/chunking/
+    - docs/architecture/
+    - schemas/
+    - .ai/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "ADR-0011 accepted and referenced from the front door / status."
+  - "Each increment keeps composite >= 88.5 and all hard gates (0 USFM leaks, 0 book crossings, 100% prose sentence integrity, Ps 23 = one whole-psalm chunk)."
+  - "Increment 0: form_registry.yaml (full ~40-form map, active vs declared-gap) + committed registry/chunking/ stub + a SKILL_METADATA.json wrapping the current monolith; gates green."
+  - "Increment 1: read-only form detector emits candidate FormAssignment sidecar (deterministic + LLM-adjudicator shadow contract); chunker output unchanged."
+  - "Increment 2: orchestrator.py shim reproduces current Pass-2 output byte-identically via a single skill pin."
+  - "Increment 3+: extract psalm, then prose/wisdom skills behind the skill interface; per-form gold added as each lands."
+  - "pipelines/chunking/ + config/chunking/ + registry/chunking/ remain under the proprietary license carve-out."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T310/handoff.md
+created_at: "2026-06-05"
+updated_at: "2026-06-05"
