@@ -1,0 +1,171 @@
+# Task Handoff — T308: Scale connection discovery (Codex 5.5)
+
+## Task
+
+- task_id: T308
+- title: Scale connection discovery over the full WEB corpus (Codex 5.5, run 1 of N for A/B)
+- phase: phase_7
+- status: in_progress
+
+## Agent
+
+- agent_name: codex-5.5
+- mode: build
+- stage: start
+- updated_at: 2026-06-05T03:29:42+00:00
+- handoff_id: 0b69fff5c3b21933
+
+---
+
+## Why this is a Codex 5.5 task
+
+This is **bounded, deterministic, test-driven implementation** — Codex's strength.
+You are NOT inventing theology or new ontology. You implement evidence-based discovery
+methods, emit candidate edges in a fixed contract, and build a comparison harness so
+later agents' runs can be diffed against yours. **This is run 1 of N**: other agents
+(other models) will run the SAME task; the human compares and resolves. So your output
+must be deterministic and comparable, not clever.
+
+If you hit a genuine design decision (e.g. "is this fuzzy match a real allusion?"),
+**choose precision over recall, log it in Open questions, and move on. Do not guess
+theology and do not promote anything.**
+
+---
+
+## Prerequisite
+
+Start from `main` with PR #3 merged (it adds the connection-discovery brief, the
+`candidate` zone, and the relationship_object contract). If PR #3 is not yet merged,
+branch from `feat/chunking-ab-eval`. Confirm these exist before starting:
+`.ai/handoffs/CONNECTION_DISCOVERY_AGENT.md`, `data/candidate/connections/`,
+`schemas/relationship_object.schema.json`, `config/governance/predicate_registry.yaml`.
+
+## Mandatory reading (in order)
+
+1. `AI_FRONT_DOOR.md` → `.ai/control/MASTER_CONTEXT.md` → `PROJECT_STATUS.md` → `DATA_MAP.md`
+2. **`.ai/handoffs/CONNECTION_DISCOVERY_AGENT.md`** — the governing brief (READ FULLY; it is the law for this task)
+3. `.ai/control/RAW_SOURCE_INVENTORY.md` (the real data) + `config/governance/predicate_registry.yaml`
+4. `schemas/relationship_object.schema.json` (the output contract)
+5. `data/candidate/connections/2026-06-04-ab-review.jsonl` (8 hand-seeded examples — match this shape)
+
+## Start sequence
+
+```bash
+python scripts/agent/force_handoff.py --task-id T308 --agent codex-5.5 --stage start --mode build
+pip install -e ".[validate,test]"
+python pipelines/ingest/usfm_importer.py          # regenerate canonical data (~60s; gitignored)
+python scripts/validate_all.py && python -m pytest -q   # baseline green
+```
+
+---
+
+## Hard rules (non-negotiable — from CONNECTION_DISCOVERY_AGENT.md)
+
+- **Candidates only.** Every edge: `assertion_mode: "candidate"`, `status: "candidate"`,
+  `trust_zone: "candidate"`. Never `asserted`/`active`. Never write `data/canonical/` or `data/raw/`.
+- **Evidence or it doesn't ship.** Every edge needs concrete `evidence_refs` (shared Strong's id,
+  shared rare phrase, citation formula). No bare `thematicallyRelatedTo` noise.
+- **De-dup against curated `\x`.** Do NOT re-propose edges already in
+  `data/canonical/translations/eng-web/editorial_cross_references.jsonl`. Editorial `\x` are leads, not theology.
+- **Predicate registry only** (`config/governance/predicate_registry.yaml`):
+  quotesFrom, alludesTo, echoes, fulfills, typifies, parallelTo, thematicallyRelatedTo, groundedIn.
+- **Precision over recall.** Cap and rank; a few hundred well-evidenced beats tens of thousands of noise.
+- **No theology calls.** typifies/fulfills require tradition_scope + strong evidence; if unsure, downgrade to alludesTo/echoes or drop.
+
+## Implement (deterministic discovery methods)
+
+Build `pipelines/graph/discover_connections.py` with these methods (each independently testable):
+
+1. **`lexical_cooccurrence`** — from `word_tokens.jsonl` (677k; field `strong`, `osis_ref`).
+   - Compute per-Strong's document frequency (how many verses contain it).
+   - Propose `thematicallyRelatedTo` between passages that share ≥2 **rare** Strong's lemmas
+     (low DF, e.g. appears in < N verses). Evidence = the shared Strong's ids. Rank by rarity.
+   - This is the lexical/concordance bridge (Hebrew/Greek root metadata) — Codex's bread and butter.
+2. **`shared_rare_phrase`** — n-gram (4–7 word) overlap between an NT passage and an OT passage,
+   restricted to phrases that are rare corpus-wide. Propose `quotesFrom` (high overlap) or `alludesTo`.
+   Evidence = the shared phrase + both osis refs.
+3. **`citation_formula`** — detect quotation triggers ("as it is written", "the scripture says",
+   "spoken through the prophet", "it is written") and link the NT passage to the OT source when the
+   following text matches method 2. Propose `quotesFrom`. Evidence = formula + matched phrase.
+
+Wire a CLI:
+```bash
+python pipelines/graph/discover_connections.py \
+  --word-tokens data/canonical/translations/eng-web/word_tokens.jsonl \
+  --witnesses   data/canonical/translations/eng-web/translation_witnesses.jsonl \
+  --crossrefs   data/canonical/translations/eng-web/editorial_cross_references.jsonl \
+  --agent codex-5.5 \
+  --out data/candidate/connections/codex-5.5-2026-06-05.jsonl \
+  --manifest data/candidate/connections/codex-5.5-2026-06-05.manifest.yaml \
+  --report build/discovery/codex-5.5-report.md
+```
+
+## Output contract (so runs are COMPARABLE across agents)
+
+- **Edges** → `data/candidate/connections/<agent>-<date>.jsonl`, one RelationshipObject per line,
+  valid against `schemas/relationship_object.schema.json`. Deterministic id:
+  `cand:rel:<subject_osis>--<predicate>--<object_osis>` (so two agents proposing the same edge collide
+  on id → that's the agreement signal). Include `discovery_method`, `evidence_refs`, `confidence` (0–1),
+  `provenance{created_by, created_at, method, params}`.
+- **Manifest** → `<agent>-<date>.manifest.yaml`: methods + parameters (thresholds, n-gram size, rarity cutoff),
+  total candidates, breakdown by predicate, de-dup count vs `\x`, runtime. (Reproducibility + comparison.)
+- **Report** → `build/discovery/<agent>-report.md`: counts, top-30 by confidence, false-positive notes.
+
+## ALSO build the comparison harness (enables "compare and resolve")
+
+`pipelines/graph/compare_candidate_batches.py` — given ≥2 candidate JSONL files (yours + others'),
+emit:
+- **agreement set** (same subject+predicate+object across ≥2 agents) → highest priority for human promotion,
+- **disagreement set** (proposed by exactly one agent) → needs adjudication,
+- a `build/discovery/comparison.md` table (per-agent counts, overlap %, agreement list).
+This is what the human uses to resolve differences after run N.
+
+## Tests (test-driven; add to tests/)
+
+- `tests/test_discover_connections.py`: each method on a tiny fixture; assert every emitted edge is
+  schema-valid, `assertion_mode==candidate`, has ≥1 evidence_ref, and is NOT a dup of a provided `\x` set.
+- `tests/test_compare_candidate_batches.py`: agreement/disagreement computed correctly on 2 toy batches.
+
+## Acceptance criteria (all must hold)
+
+1. `python scripts/validate_schemas.py data/candidate/connections/codex-5.5-*.jsonl` → passes.
+2. Zero edges with `assertion_mode != candidate` or `status != candidate`.
+3. `git diff --quiet data/raw/ data/canonical/` → clean (you only wrote `data/candidate/` + `build/` + code/tests).
+4. Manifest + report present; comparison harness runs on your batch vs the seed file
+   `data/candidate/connections/2026-06-04-ab-review.jsonl`.
+5. `python scripts/validate_all.py && python -m pytest -q` → green.
+6. De-dup verified: report states how many candidates were dropped as existing `\x`.
+
+## Close-out
+
+- Update this handoff (files changed, decisions, validation, counts).
+- Append a `connections_proposed` event to `.ai/control/roadmap_events.jsonl`.
+- Open a PR titled "Scale connection discovery (Codex 5.5, run 1)". Do NOT merge; do NOT promote candidates.
+- Regenerate `DATA_MAP.md` (new data/candidate files + new pipeline endpoints).
+
+## Files read
+- (Codex: fill in)
+
+## Files changed
+- (Codex: fill in)
+
+## Decisions made
+- (Codex: fill in — esp. thresholds chosen and any precision/recall calls)
+
+## Validation run
+- (Codex: paste exact outputs)
+
+## Known risks
+- English-surface phrase matching will miss Hebrew/Greek-only links and catch coincidental phrases — keep confidence honest; this is run 1, not truth.
+- word_tokens.jsonl is 432MB — stream it; do not load all into memory at once.
+
+## Open questions
+- (Codex: log any design call you made conservatively instead of guessing.)
+
+## Next agent instruction
+
+After T308: the human runs the SAME task with another model (run 2..N), then uses
+`compare_candidate_batches.py` to produce agreement/disagreement sets and adjudicates.
+Agreed, well-evidenced candidates go to a human-reviewed promotion (candidate → asserted)
+via the governed path; the rest stay candidate. Do not let any candidate become canonical
+without human review.
