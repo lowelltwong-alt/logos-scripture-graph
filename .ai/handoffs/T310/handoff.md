@@ -156,11 +156,48 @@ Files:
 Validation: `validate_all` all gates green; pytest **40 passed** (+8 new); leaderboard still **88.5**
 (claude-opus-4.8 pass2 / D). `chunker.py`, `evaluate_chunks.py`, `leaderboard.py` **not edited**.
 
+## Increment 2 - COMPLETED (2026-06-05, Codex)
+
+Byte-identical orchestrator shim landed. `pipelines/chunking/orchestrator.py` delegates to the existing
+Pass-2 chunker functions (`read_policy_version`, `load_budgets`, `load_genres`, `index_by_osis`,
+`build_units`, `chunk_corpus`) and writes chunks/context with the same JSONL serialization as
+`chunker.py`. It emits a separate JSONL route ledger only when `--route-ledger` is passed.
+
+Files:
+- `pipelines/chunking/orchestrator.py` - monolith Pass-2 shim pinned to `monolith-pass2-v1`
+- `tests/test_chunking_orchestrator.py` - smoke, context, real-corpus, ledger, no-routing, and no-mutation tests
+- `scripts/generate_data_map.py` + regenerated `.ai/control/DATA_MAP.md`
+- `.ai/handoffs/T310/handoff.md`
+
+Route ledger:
+- `type: ChunkingRouteLedger`
+- `route_mode: monolith_pass2`
+- `skill_id: monolith-pass2-v1`
+- `form_based_routing_enabled: false`
+- `detect_form_consumed: false`
+- includes input/output/context hashes and `registry_surface_sha`
+
+Byte-identity proof against current full corpus:
+- chunks direct/orchestrator SHA-256:
+  `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`
+- context direct/orchestrator SHA-256:
+  `f3128daba9d9be91aa02e8e53dc6baba9bd9fb3b89ae3eeff031b96e6d2c76ab`
+- raw bytes matched for both streams
+
+Validation:
+- `python -m pytest -q tests/test_chunking_orchestrator.py` -> 7 passed
+- `python scripts/validate_all.py` -> all validation gates passed
+- `python -m pytest -q` -> 48 passed
+- `python pipelines/chunking/leaderboard.py` -> D / claude-opus-4.8 pass2 still rank 1 at 88.5
+
+Protected files not edited: `chunker.py`, `evaluate_chunks.py`, `leaderboard.py`, `detect_form.py`,
+`schemas/*`, `registry/chunking/*`, `config/chunking/*`, `data/raw/*`, `data/canonical/*`.
+
 ## Next agent instruction
 
-Start **Increment 2** (orchestrator shim): `pipelines/chunking/orchestrator.py` reproduces Pass-2 output
-byte-identically via monolith skill pin; emits route ledger. Do not enable routing on detected forms yet
-until byte-identical gate proven.
+Commit/review **Increment 2** only after confirming the patch boundary is still clean. Start
+**Increment 3** only in a separate task/branch after the byte-identical shim is accepted; do not enable
+form-based routing or specialized skills in the Increment 2 patch.
 
 <!-- superseded instruction below kept for history -->
 <!--
