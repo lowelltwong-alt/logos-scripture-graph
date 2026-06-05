@@ -57,7 +57,12 @@ Reserved** under `pipelines/chunking/LICENSE` (carved out of root MIT; see `conf
 When you create `registry/chunking/`, drop a `NOTICE` there pointing to `pipelines/chunking/LICENSE`.
 Copyright (c) 2026 Lowell Wong.
 
-## Build plan (each increment gated at composite >= 88.5; byte-identical until extraction proven)
+## Build plan (corrected baseline >= 93.0 for output-changing work; byte-identical until extraction proven)
+
+T311 corrected the evaluator after the early increments. Historical entries below that say 88.5 are
+old-evaluator provenance for the same D / Claude pass2 output. T310 3b and later output-changing
+work must plan against the corrected 93.0 baseline and cite per-form gold evidence before claiming
+improvement.
 
 - **Increment 0 — registry stub.** `config/chunking/form_registry.yaml` (full ~40-form map, `status:
   active|declared-gap`), `config/chunking/skill_lifecycle_policy.yaml`, `config/chunking/skill_quality_weights.yaml`,
@@ -313,13 +318,79 @@ Open questions:
 - Whether a future increment should add script-enforced branch hygiene for evaluator, skill, and
   methodology workstreams.
 
+## Pre-3b readiness baseline/gold scaffold - COMPLETED (2026-06-05, Codex)
+
+This checkpoint prepares T310 3b planning. It does not implement 3b, change chunk output, mutate
+raw/canonical data, or change evaluator scoring behavior.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ADR-0011-chunking-orchestrator-skill-registry.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.github/pull_request_template.md`
+- `.ai/context/agent_work/T311_psalms_fragmented_before_after.md`
+- `tests/test_chunker_gold.py`
+- `tests/test_evaluate_chunks.py`
+
+Files changed:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/tasks/T310.task.yaml`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `.github/pull_request_template.md`
+- `docs/architecture/ADR-0011-chunking-orchestrator-skill-registry.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `eval/LEADERBOARD.md`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `pipelines/chunking/leaderboard.py`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `pipelines/chunking/skills/approved/monolith-pass2-v1/SKILL.md`
+- `pipelines/chunking/skills/approved/monolith-pass2-v1/SKILL_METADATA.json`
+- `pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/SKILL_METADATA.json`
+- `registry/chunking/approved-skills.json`
+- `registry/chunking/skill-graph-index.json`
+- `.ai/handoffs/T310/handoff.md`
+
+Decisions made:
+- Active metadata now treats 93.0 as the corrected T311 evaluator baseline.
+- 88.5 is retained only as old-evaluator provenance for the same D / Claude pass2 output.
+- Added a planning-only `eval/chunking_gold/` scaffold; no promoted gold assertions were added.
+- T310 3b and later output-changing skill work must cite per-form gold evidence before claiming
+  improvement.
+- T311 analysis identifies the current D literal Psalm fragmentation target as `Ps.78`; generated D
+  chunks are not committed, so 3b must regenerate/capture the split before editing output.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 54 passed.
+- `python pipelines/chunking/leaderboard.py` -> D / claude-opus-4.8 pass2 rank 1 at corrected 93.0.
+
+Known risks:
+- The gold scaffold is a plan, not reviewed/promoted gold.
+- The per-form gold gate is documentation/control-plane visible, not a new CI validator.
+- The single current literal Psalm fragmentation penalty is only 0.5 composite points; 3b must avoid
+  overfitting to a weak aggregate lever.
+
+Open questions:
+- Whether future work should add a formal `eval/chunking_gold/` manifest schema.
+- Whether a CI validator should require per-form gold citations for output-changing skill PRs.
+
 ## Next agent instruction
 
-Review and commit the living methodology update as its own documentation/control-plane PR. Future
-chunking-related PRs must include either `Methodology updated: yes` or
-`Methodology reviewed: no change required - <rationale>`. Do not export the methodology to LawFirm
-OS as final doctrine yet, and do not start T310 3b until the corrected evaluator baseline is
-acknowledged.
+Review and merge the pre-3b readiness patch. Then plan T310 3b only after the corrected 93.0
+baseline and per-form Psalm gold scaffold are acknowledged. Do not implement 3b, do not claim chunker
+improvement from T311, and do not export the methodology to LawFirm OS as final doctrine yet.
 
 <!-- superseded instruction below kept for history -->
 <!--

@@ -50,6 +50,12 @@ Every chunking-related PR must include one of:
 Score-moving chunking PRs must also state whether evaluator sanity was checked and whether any score
 movement reflects output improvement or evaluator-surface correction.
 
+## Per-Form Gold Rule
+
+Before any output-changing chunking skill work, the PR or handoff must cite a per-form gold file or
+manifest under `eval/chunking_gold/`. A planning scaffold is enough to start analysis, but promotion
+requires reviewed target-form output evidence.
+
 ## Handoff Note
 
 Chunking-related handoffs must record the methodology decision under `Decisions made` or the task's

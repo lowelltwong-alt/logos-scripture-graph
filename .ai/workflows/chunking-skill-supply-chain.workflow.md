@@ -20,6 +20,8 @@ AI-operational checklist for chunking-related work. Use with
 - Identify baseline evidence: hashes, scorecard, route ledger, evaluator-risk note, and fallback.
 - Before any score-moving skill, verify that the evaluator is not measuring a confounded proxy.
 - If the evaluator is wrong, plan a separate evaluator PR before any skill-improvement PR.
+- Before any output-changing skill work, cite the per-form gold file or manifest under
+  `eval/chunking_gold/`.
 - Define target output drift expectations before editing.
 - Decide whether the methodology must change or can be reviewed with no change.
 
@@ -43,6 +45,8 @@ AI-operational checklist for chunking-related work. Use with
 - For evaluator work, document before/after score meaning.
 - For true improvements, compare target-form output against fallback and check non-target
   regressions.
+- Confirm the cited per-form gold plan or manifest covers the target behavior and non-target
+  controls.
 - Treat corrected evaluator score movement as an evaluator-surface correction, not a chunk-output
   improvement claim.
 
@@ -59,6 +63,7 @@ AI-operational checklist for chunking-related work. Use with
 - Confirm no raw/canonical mutation.
 - Confirm route metadata did not enter chunk/context records.
 - Confirm evaluator signals are trustworthy for the claim being made.
+- Confirm output-changing skill work cites per-form gold evidence.
 - Confirm any score movement is supported by target-form output evidence.
 - Confirm the handoff names risks, validation, and exact next action.
 
@@ -83,4 +88,5 @@ AI-operational checklist for chunking-related work. Use with
 - Stop if route metadata enters chunk/context records.
 - Stop if score improves by metric gaming.
 - Stop if score improves without target-form output evidence.
+- Stop if output-changing skill work lacks a cited per-form gold file or manifest.
 - Stop if methodology was not reviewed.

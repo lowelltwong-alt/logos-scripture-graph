@@ -6,9 +6,13 @@
 ## What it is
 
 A thin metadata wrapper around the **current** `pipelines/chunking/chunker.py` Pass-2
-behavior (genre-aware, boundary-driven; leaderboard composite **88.5**). It is the
+behavior (genre-aware, boundary-driven; corrected T311 evaluator composite **93.0**). It is the
 **interim fallback default** for every biblical (non-Tier-C) form until dedicated
 per-form skills are extracted (ADR-0011 Increments 3+).
+
+Score provenance: the same D / Claude pass2 chunk output scored **88.5** under the old evaluator.
+T311 corrected Psalm fragmentation grouping from bare chapter to `(book, chapter)`, moving that
+unchanged output to **93.0**. This is evaluator-surface correction, not chunk-output improvement.
 
 At Increment 0 this skill changes **no** behavior — it only makes the existing
 chunker addressable from the registry so the orchestrator shim (Increment 2) can

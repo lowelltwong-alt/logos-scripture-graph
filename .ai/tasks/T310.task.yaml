@@ -22,7 +22,8 @@ scope:
     - .ai/control/MASTER_CONTEXT.lock.yaml
 acceptance_criteria:
   - "ADR-0011 accepted and referenced from the front door / status."
-  - "Each increment keeps composite >= 88.5 and all hard gates (0 USFM leaks, 0 book crossings, 100% prose sentence integrity, Ps 23 = one whole-psalm chunk)."
+  - "Each output-changing increment keeps composite >= 93.0 under the corrected T311 evaluator and all hard gates (0 USFM leaks, 0 book crossings, 100% prose sentence integrity, Ps 23 = one whole-psalm chunk, Gen 1 no mid-sentence). The old evaluator baseline was 88.5 for the same D_claude_pass2 output."
+  - "Any output-changing skill work cites a per-form gold file or manifest before claiming improvement."
   - "Increment 0: form_registry.yaml (full ~40-form map, active vs declared-gap) + committed registry/chunking/ stub + a SKILL_METADATA.json wrapping the current monolith; gates green."
   - "Increment 1: read-only form detector emits candidate FormAssignment sidecar (deterministic + LLM-adjudicator shadow contract); chunker output unchanged."
   - "Increment 2: orchestrator.py shim reproduces current Pass-2 output byte-identically via a single skill pin."
