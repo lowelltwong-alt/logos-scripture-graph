@@ -228,10 +228,23 @@ def make_context_packet(chunk, prev_chunk):
     }
 
 
+# Per-genre budget scaling (Pass 2): wisdom -> saying-cluster size (Proverbs should
+# not become 1100-token chunks). Others use the policy budgets as-is.
+GENRE_TARGET_SCALE = {"wisdom": 0.45}
+
+
+def effective_budgets(genre, budgets):
+    scale = GENRE_TARGET_SCALE.get(genre, 1.0)
+    if scale == 1.0:
+        return budgets
+    return {k: max(60, int(v * scale)) for k, v in budgets.items()}
+
+
 def chunk_book(units, genre, budgets, policy_version, footnotes_by_osis, crossrefs_by_osis, start_index):
     """Chunk one book's units by genre. Returns (chunks, next_index)."""
     chunks = []
     idx = start_index
+    budgets = effective_budgets(genre, budgets)
     is_poetry = genre in POETRY_GENRES
 
     def flush(buf, basis):
@@ -243,26 +256,42 @@ def chunk_book(units, genre, budgets, policy_version, footnotes_by_osis, crossre
         idx += 1
 
     if is_poetry:
-        # Unit = whole chapter (psalm/poem); superscription stays with it.
+        # Unit = whole chapter (psalm/poem). Short psalms stay whole (superscription kept).
+        # LONG psalms (> soft_max) are split into stanzas at \b stanza breaks (acrostic-
+        # faithful for Ps 119), with a soft-max safety cap — never mid-verse (Pass 2).
+        def emit_psalm(pbuf):
+            nonlocal idx
+            if not pbuf:
+                return
+            total = approx_tokens(" ".join(x["text"] for x in pbuf))
+            if total <= budgets["soft_max_tokens"]:
+                flush(pbuf, {"whole_psalm", "chapter_boundary"})
+                return
+            stanza = []
+            for i, u in enumerate(pbuf):
+                # Stanza boundary = a blank-line break (\b) OR an interior descriptive
+                # title (\d): in acrostics like Ps 119, WEB marks each Hebrew-letter
+                # section (Aleph, Beth, ...) with \d. The psalm's own opening title
+                # (i == 0) is NOT a split point.
+                stanza_boundary = u["has_stanza_break"] or (u["has_superscription"] and i > 0)
+                if stanza and stanza_boundary:
+                    flush(stanza, {"poetic_stanza", "whole_psalm_split"})
+                    stanza = []
+                stanza.append(u)
+                if approx_tokens(" ".join(x["text"] for x in stanza)) >= budgets["soft_max_tokens"]:
+                    flush(stanza, {"poetic_stanza", "whole_psalm_split", "token_budget"})
+                    stanza = []
+            flush(stanza, {"poetic_stanza", "whole_psalm_split"})
+
         current_chapter = None
-        buf, basis = [], set()
+        buf = []
         for u in units:
             if buf and u["chapter"] != current_chapter:
-                basis.add("whole_psalm")
-                basis.add("chapter_boundary")
-                flush(buf, basis)
-                buf, basis = [], set()
+                emit_psalm(buf)
+                buf = []
             current_chapter = u["chapter"]
             buf.append(u)
-            joined = " ".join(x["text"] for x in buf)
-            # Only split an over-long psalm at a stanza/paragraph boundary, never mid-verse.
-            if approx_tokens(joined) >= budgets["hard_max_tokens"] and (u["has_stanza_break"] or u["has_paragraph"]):
-                basis.add("poetic_stanza")
-                flush(buf, basis)
-                buf, basis = [], set()
-        if buf:
-            basis.add("whole_psalm")
-            flush(buf, basis)
+        emit_psalm(buf)
         return chunks, idx
 
     # Prose: heading-bounded sections, subdivided at paragraph + sentence under budget.

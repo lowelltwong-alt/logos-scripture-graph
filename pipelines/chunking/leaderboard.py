@@ -35,10 +35,15 @@ def eligible(m: dict) -> bool:
     )
 
 
+OVERSIZE_LIMIT = 1600  # hard_max tokens; chunks above this hurt retrieval (monster chunks)
+
+
 def composite(m: dict) -> float:
     score = 100.0
-    score -= m.get("psalms_fragmented", 0) * 1.0
+    score -= m.get("psalms_fragmented", 0) * 0.5
     score -= abs(m.get("tok_p50", 0) - TARGET_P50) / 20.0
+    # Penalize monster chunks (e.g. an unsplit Ps 119) — the single worst retrieval failure.
+    score -= max(0, m.get("tok_max", 0) - OVERSIZE_LIMIT) / 100.0
     score -= (100.0 - m.get("boundary_basis_cov_pct", 0)) * 0.1
     score -= (100.0 - m.get("metadata_carry_pct", 0)) * 0.1
     return round(score, 1)
