@@ -231,11 +231,95 @@ for this increment. `evaluate_chunks.py` currently groups every `genre == "psalm
 chapter number without book key, so `Ps`, `Song`, `Lam`, `PrMan`, and `Ps151` can collide. Increment 3a
 intentionally leaves evaluator/leaderboard unchanged and claims no quality improvement.
 
+## Living methodology artifact - COMPLETED (2026-06-05, Codex)
+
+Created a living methodology artifact for the Chunking Skill Supply Chain and added a forced
+methodology update/review rule for future chunking-related work. This is documentation and
+coordination only: no runtime behavior, evaluator logic, chunk output, raw data, or canonical data
+was intentionally changed by this checkpoint.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/architecture/ADR-0011-chunking-orchestrator-skill-registry.md`
+- `docs/chunking/CHUNKING_DESIGN.md`
+- `docs/workflows/*`
+- `config/agents/agent_roles.yaml`
+- `config/chunking/form_registry.yaml`
+- `config/chunking/skill_lifecycle_policy.yaml`
+- `pipelines/chunking/skills/*/SKILL_METADATA.json`
+- `registry/chunking/*`
+- `scripts/validate_all.py`
+- `scripts/agent/force_handoff.py`
+- `scripts/agent/validate_handoffs.py`
+- `.github/pull_request_template.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/handoffs/T311/handoff.md`
+
+Files changed:
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md` - new living methodology
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md` - new AI-operational checklist
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md` - new skill author playbook
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md` - new forced update/review rule
+- `AI_FRONT_DOOR.md` - references the chunking methodology rule for future agents
+- `.github/pull_request_template.md` - adds required methodology PR note
+- `.ai/control/PROJECT_STATUS.md` - records the methodology rule checkpoint
+- `.ai/handoffs/T310/handoff.md` - records this checkpoint
+- `.ai/control/handoff_ledger.jsonl` - updated by `force_handoff.py`
+
+Decisions made:
+- Created the requested `.ai/workflows/` path because the workflow is AI-operational and does not
+  conflict with the existing lightweight `docs/workflows/` convention.
+- Kept the rule lightweight: markdown control-plane rule, front-door discoverability, PR-template
+  note, and handoff documentation. No new validator or governance subsystem was added.
+- Treated T310/T311 methodology as provisional and explicitly blocked final LawFirm OS export until
+  the required detector, shim, extraction, evaluator-risk, and improvement/rejected-improvement
+  evidence exists.
+- Recorded `Methodology updated: yes` for this checkpoint.
+
+Validation run:
+- command: `python scripts/validate_all.py`
+- result: green
+- output:
+  - `Repo validation passed.`
+  - `Control plane validation passed.`
+  - `Cross-repo governance contract validation passed.`
+  - `Handoff validation passed for 17 referenced handoff path(s).`
+  - `Raw coverage OK: 46 distinct markers across 1 archive(s), all classified.`
+  - `RAW_SOURCE_INVENTORY.md is current.`
+  - `Manifest validation passed.`
+  - `JSONL validation passed for 78742 records.`
+  - `All validation gates passed.`
+- command: `python -m pytest -q`
+- result: green, `54 passed in 34.58s`
+- failures: none
+
+Known risks:
+- The rule is documentation/coordination-enforced today, not script-enforced.
+- T311 has now landed as a separate evaluator-surface correction. The unchanged D / Claude pass2
+  output scores 93.0 under the corrected evaluator instead of 88.5 under the old evaluator.
+- Future score-moving skill work must still prove target-form output improvement; corrected
+  evaluator score movement is not a chunker improvement claim.
+
+Open questions:
+- Whether a future increment should add a CI validator for methodology PR-note compliance.
+- Whether a future increment should add script-enforced branch hygiene for evaluator, skill, and
+  methodology workstreams.
+
 ## Next agent instruction
 
-Review/commit **Increment 3a** only if full validation remains green and leaderboard remains 88.5.
-Plan **Increment 3b** separately: either fix the evaluator bug or add a true quality-improving Psalm
-skill, but do not mix either into the 3a seam-proof patch.
+Review and commit the living methodology update as its own documentation/control-plane PR. Future
+chunking-related PRs must include either `Methodology updated: yes` or
+`Methodology reviewed: no change required - <rationale>`. Do not export the methodology to LawFirm
+OS as final doctrine yet, and do not start T310 3b until the corrected evaluator baseline is
+acknowledged.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -247,3 +331,21 @@ that writes a SEPARATE shadow `FormAssignment` (never overwrites deterministic).
 output. Validate ≥95% of chunks get a form at confidence ≥0.7; gates green; leaderboard still 88.5. Open
 a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then update this handoff.
 -->
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode:
+- updated_at: 2026-06-05T20:07:01+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-05T20:14:46+00:00
+- handoff_id: 807fb27628ea5a91
