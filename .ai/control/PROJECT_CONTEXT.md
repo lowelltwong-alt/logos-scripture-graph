@@ -32,6 +32,22 @@ schemas), consistent with this repo's ADR-0001 (standalone semantic repo) and
 the three-plane model in `MASTER_CONTEXT.md`. The shells differ in format; the
 ontology stays continuous.
 
+Contract file: `config/governance/repository_link_contract.yaml`
+
+GitHub coordination:
+
+- Parent governance issue: `https://github.com/lowelltwong-alt/logos-governance-architecture/issues/54`
+- Child data-plane issue: `https://github.com/lowelltwong-alt/logos-scripture-graph/issues/7`
+- Intended Project board: `Logos governed Scripture graph`
+
+## Agent-hostile protection
+
+`config/agents/agent_hostile_policy.yaml` is the local fail-closed protection
+surface for hostile, confused, or over-authorized agents. It prevents instruction
+hierarchy bypass, raw/canonical mutation, trust-zone mixing, candidate promotion,
+and hidden cross-repo authority changes. The policy is checked by
+`scripts/validate_repository_link_contract.py`.
+
 ## Registration
 
 This linkage is registered upstream in

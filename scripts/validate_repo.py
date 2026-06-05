@@ -10,6 +10,7 @@ import json, sys
 ROOT = Path(__file__).resolve().parent.parent
 REQUIRED = [
     "AI_FRONT_DOOR.md",
+    "AI_TABLE_OF_CONTENTS.md",
     "ROADMAP.md",
     "ROADMAP_STATE.yaml",
     "HANDOFF_PROTOCOL.md",
@@ -18,8 +19,11 @@ REQUIRED = [
     "schemas/chunk.schema.json",
     ".ai/control/MASTER_CONTEXT.md",
     ".ai/control/MASTER_CONTEXT.lock.yaml",
+    ".ai/control/PROJECT_CONTEXT.md",
     ".ai/control/PROJECT_STATUS.md",
     ".ai/control/current_focus.yaml",
+    "config/governance/repository_link_contract.yaml",
+    "config/agents/agent_hostile_policy.yaml",
 ]
 
 
