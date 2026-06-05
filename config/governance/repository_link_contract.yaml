@@ -1,0 +1,48 @@
+version: 0.1.0
+contract_id: logos.cross_repo.scripture_graph_to_governance.v1
+status: active
+trust_zone: governance
+
+local_repository:
+  owner: lowelltwong-alt
+  name: logos-scripture-graph
+  github: https://github.com/lowelltwong-alt/logos-scripture-graph
+  role: scripture_data_plane
+  plane: knowledge_plane
+
+upstream_repository:
+  owner: lowelltwong-alt
+  name: logos-governance-architecture
+  github: https://github.com/lowelltwong-alt/logos-governance-architecture
+  role: governance_architecture_authority
+  plane: governance_plane
+
+link:
+  type: governance_contract
+  coupling: explicit_contract_validated_release
+  not_linked_by:
+    - submodule
+    - hidden_runtime_dependency
+    - automatic_promotion
+  github_parent_issue: https://github.com/lowelltwong-alt/logos-governance-architecture/issues/54
+  github_child_issue: https://github.com/lowelltwong-alt/logos-scripture-graph/issues/7
+  shared_milestone: Logos cross-repo governance integration
+  project_board_name: Logos governed Scripture graph
+
+authority_rules:
+  - logos-governance-architecture defines upstream theological and governance meaning.
+  - logos-scripture-graph implements Scripture data-plane artifacts under that governance.
+  - Downstream artifacts must not silently redefine upstream governance authority.
+  - New authority concepts, trust-zone rules, or relationship vocabulary require an upstream proposal.
+  - Candidate, derived, inferred, and asserted outputs must remain separated by trust zone.
+
+deterministic_enforcement:
+  validator: scripts/validate_repository_link_contract.py
+  required_docs:
+    - README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/architecture/ARCHITECTURE.md
+    - .ai/control/PROJECT_CONTEXT.md
+    - .ai/control/DATA_MAP.md
+  agent_hostile_policy: config/agents/agent_hostile_policy.yaml
