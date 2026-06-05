@@ -29,7 +29,10 @@ edges — never relabel them as `quotesFrom`/`fulfills`/etc.
 
 Only from the registry (`config/governance/predicate_registry.yaml`):
 `quotesFrom, alludesTo, echoes, fulfills, typifies, parallelTo, thematicallyRelatedTo, groundedIn`.
-Each requires an `assertion_mode` (start at `inferred_ai_candidate`) and `evidence_refs`.
+Each requires `assertion_mode: candidate` (per `schemas/relationship_object.schema.json`)
++ `evidence_refs`. Record the finer method (e.g. `inferred_ai_candidate`) in a
+`discovery_method` field. (NOTE: the relationship_object enum {asserted,inferred,candidate}
+and the classification_assignment 5-mode enum should be harmonized — tracked follow-up.)
 
 ## How to emit a candidate (the contract)
 
@@ -39,7 +42,7 @@ to `data/candidate/connections/<batch>.jsonl`:
 ```json
 {"id":"cand:rel:Isa.53.5-alludedby-1Pet.2.24","type":"RelationshipObject",
  "subject_id":"scripture:1Pet.2.24","predicate":"alludesTo","object_id":"scripture:Isa.53.5",
- "assertion_mode":"inferred_ai_candidate","confidence":0.6,
+ "assertion_mode":"candidate","discovery_method":"inferred_ai_candidate","confidence":0.6,
  "evidence_refs":["lexical:shared-wounds-healing","phrase:by-his-wounds-you-were-healed"],
  "provenance":{"created_by":"connection_discoverer","created_at":"...","method":"lexical+phrase"},
  "trust_zone":"candidate","status":"candidate"}
