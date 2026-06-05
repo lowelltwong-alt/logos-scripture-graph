@@ -121,11 +121,30 @@ Do NOT start LLM-first detection, sharding, early-church forms, or a graph UI.
 - Exact composite-metric deltas a new skill must clear to supersede an incumbent (propose in Increment 3).
 - Whether `registry/chunking/` freshness gets its own freshness gate (like DATA_MAP) at Increment 0 or 2.
 
+## Increment 0 — COMPLETED (2026-06-05)
+
+Registry stub landed, marker-grounded against `RAW_SOURCE_INVENTORY.md` (note: `\s1`/`\ms1` headings
+are RARE in WEB Classic — 5 each — so routing leans on `\p`/`\q*`/`\b`/chapter, not headings). Files:
+- `config/chunking/form_registry.yaml` — 33 forms (21 biblical w/ `interim_skill: monolith-pass2-v1`
+  + 12 early-church Tier-C declared-gaps) + 7 overlays. `status: declared-gap` everywhere (no dedicated
+  skill+gold yet at Inc 0).
+- `config/chunking/skill_lifecycle_policy.yaml` (8 states), `skill_quality_weights.yaml` (converged),
+  `skill_overrides.yaml` (empty).
+- `registry/chunking/{skill-toc.json,skill-graph-index.json,approved-skills.json,NOTICE}` (committed,
+  proprietary).
+- `pipelines/chunking/skills/approved/monolith-pass2-v1/{SKILL.md,SKILL_METADATA.json}` — wraps current
+  Pass-2 (88.5) as the interim fallback default; NO behavior change.
+
+Validation: `validate_all` all gates green; pytest 32 passed; leaderboard still **88.5** (unchanged).
+Registry JSON/YAML all parse. The registry files are hand-authored stubs — a generator (from skill
+metadata + form_registry) replaces them in a later increment.
+
 ## Next agent instruction
 
-Start **Increment 0** (registry stub) only. Create `config/chunking/form_registry.yaml` (full ~40-form
-map with `status: active|declared-gap`, grounded in `RAW_SOURCE_INVENTORY.md` markers), the lifecycle +
-quality-weights + empty overrides YAML, the committed `registry/chunking/` stub + `NOTICE`, and a
-`SKILL_METADATA.json` wrapping the current monolith as `monolith-pass2-v1`. Change NO pipeline behavior.
-Run `validate_all` + pytest; confirm leaderboard composite is still 88.5. Open a PR "T310 Increment 0:
-chunking registry stub"; do not merge, do not promote. Then update this handoff.
+Start **Increment 1** (read-only form detector). Add `pipelines/chunking/detect_form.py` that emits
+candidate `FormAssignment` JSONL to `data/candidate/chunking/form_assignments/` using DETERMINISTIC
+marker rules over `build_units()` marker sets (decision tree grounded in `form_registry.yaml` +
+`usfm_marker_coverage.yaml`). Define — but leave default-OFF behind a flag — the LLM-adjudicator path
+that writes a SEPARATE shadow `FormAssignment` (never overwrites deterministic). Change NO chunker
+output. Validate ≥95% of chunks get a form at confidence ≥0.7; gates green; leaderboard still 88.5. Open
+a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then update this handoff.

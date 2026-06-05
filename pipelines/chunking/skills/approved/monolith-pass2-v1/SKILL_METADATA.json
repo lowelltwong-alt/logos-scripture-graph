@@ -1,0 +1,56 @@
+{
+  "schema_version": "scripture-chunking-skill.v1",
+  "id": "monolith-pass2-v1",
+  "kind": "chunking_skill",
+  "name": "Monolith Pass-2 chunker (interim default)",
+  "owning_repo": "logos-scripture-graph",
+  "owning_plane": "knowledge_plane",
+  "address": "logos.chunking.skill.monolith.pass2.v1.active",
+  "version": "1.0.0",
+  "lifecycle_state": "active",
+  "risk_tier": "low",
+  "role": "fallback_default",
+  "handles_forms": [
+    "prose_paragraph", "prose_section_heading", "narrative_scene", "genealogy_or_list",
+    "law_statute", "poetry_line_or_colon", "poetry_stanza", "poetry_acrostic_section",
+    "psalm_whole", "wisdom_saying_cluster", "speaker_dialogue", "prophetic_oracle",
+    "vision_report", "apocalyptic_cycle", "gospel_pericope", "parable_or_discourse",
+    "acts_speech_or_episode", "epistle_argument", "epistle_opening_closing",
+    "major_title_block", "intro_block"
+  ],
+  "handles_overlays": ["superscription_attached", "words_of_jesus", "selah_rubric", "variant_reading", "footnote_carry", "crossref_carry", "lexeme_alignment"],
+  "source_profiles": ["eng-web_usfm"],
+  "entrypoint": "pipelines/chunking/chunker.py (current Pass-2 behavior; wrapped, not modified at Increment 0)",
+  "input_contracts": ["ScripturePassage", "TranslationWitness", "BoundaryClaim"],
+  "output_contracts": ["RetrievalChunk", "ContextPacket"],
+  "required_evidence": ["osis_span", "boundary_basis", "source_manifest", "license"],
+  "forbidden_actions": [
+    "write_data_raw", "write_data_canonical", "rewrite_source_text",
+    "promote_candidate_form", "split_mid_sentence", "split_poetic_colon",
+    "orphan_psalm_superscription"
+  ],
+  "dependencies": [
+    "config/chunking/chunking_policy.yaml",
+    "config/chunking/book_genres.yaml",
+    "pipelines/chunking/boundary_scorer.py"
+  ],
+  "parameters": {"variant_id": "pass2", "budget_profile": "default"},
+  "eval": {
+    "scorecard_dir": "eval/chunking_runs",
+    "leaderboard_ref": "eval/LEADERBOARD.md",
+    "composite_score": 88.5
+  },
+  "quality": {"score": 88.5, "score_version": "scripture-chunking-skill-quality.v1", "last_evaluated_at": "2026-06-05T12:21:44+00:00"},
+  "graph_node_ref": "chunking-skill-graph://skill/monolith-pass2-v1",
+  "quality_score_ref": "chunking-skill-quality://monolith-pass2-v1/latest",
+  "relationships": {"supersedes": [], "superseded_by": null, "combines_with": [], "conflicts_with": []},
+  "staleness": {
+    "reevaluate_on": ["raw_inventory_sha_change", "marker_coverage_change", "chunking_policy_change", "schema_change", "gold_set_change"],
+    "max_days_without_eval": 90
+  },
+  "approval_required": true,
+  "recommended_update_policy": "human_gate",
+  "created_at": "2026-06-05T00:00:00+00:00",
+  "updated_at": "2026-06-05T00:00:00+00:00",
+  "notes": "Interim wrapper of current chunker.py Pass-2 (88.5). No behavior change at Increment 0. Superseded per-form as dedicated skills are extracted (Increment 3+)."
+}
