@@ -16,9 +16,11 @@ Read these files before making changes:
 7. `HANDOFF_PROTOCOL.md`
 8. `docs/architecture/ARCHITECTURE.md`
 9. `docs/chunking/CHUNKING_DESIGN.md`
-10. `config/agents/agent_roles.yaml`
-11. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
-12. The specific files in the task scope.
+10. For chunking-related work: `.ai/control/METHODOLOGY_UPDATE_RULES.md` and
+    `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+11. `config/agents/agent_roles.yaml`
+12. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+13. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -145,6 +147,10 @@ Before stopping work, every agent must:
 8. Regenerate the data/endpoint map if data, schemas, or pipelines changed: `python scripts/generate_data_map.py`.
 9. Run `python scripts/validate_all.py` and `python -m pytest -q` — or explain why they could not run.
 10. Leave the repo in a state another agent can resume.
+11. For chunking-related paths, update `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+    or document the no-change rationale required by `.ai/control/METHODOLOGY_UPDATE_RULES.md`.
+12. Before any score-moving chunking skill, verify evaluator sanity. If the evaluator is confounded,
+    stop and fix the evaluator in a separate PR before claiming skill improvement.
 
 ## Forbidden shortcuts
 
@@ -155,6 +161,8 @@ Do not:
 - **Design or change ingest/chunking/graph processing without first inspecting the real raw documents** (`RAW_SOURCE_INVENTORY.md` + a fresh `scan_raw_sources.py`). This is enforced by `validate_raw_coverage.py`.
 - Treat an LLM-generated chunk boundary as canonical truth.
 - Rewrite source text during chunking.
+- Claim chunking quality improved when only the evaluator surface changed.
+- Mix evaluator fixes, skill changes, and methodology updates unless the task explicitly requires it.
 - Mix asserted and inferred relationships in the same artifact.
 - Add a relationship type without schema registration.
 - Change stable IDs because a label changed.
