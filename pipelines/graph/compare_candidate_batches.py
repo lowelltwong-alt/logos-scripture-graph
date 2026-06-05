@@ -1,169 +1,116 @@
 #!/usr/bin/env python3
-"""Compare candidate connection batches from multiple agents."""
+"""Compare candidate RelationshipObject batches from multiple agents."""
 from __future__ import annotations
 
 import argparse
-from collections import Counter, defaultdict
-from datetime import datetime, timezone
 import json
+from collections import defaultdict
 from pathlib import Path
-from typing import Any, Iterable
 
 
-def iter_jsonl(path: Path) -> Iterable[dict[str, Any]]:
+def load_batch(path: Path) -> dict[tuple[str, str, str], dict[str, object]]:
+    records: dict[tuple[str, str, str], dict[str, object]] = {}
     with path.open("r", encoding="utf-8") as handle:
         for line in handle:
-            if line.strip():
-                yield json.loads(line)
+            if not line.strip():
+                continue
+            rec = json.loads(line)
+            key = (str(rec.get("subject_id")), str(rec.get("predicate")), str(rec.get("object_id")))
+            records[key] = rec
+    return records
 
 
-def agent_name(path: Path, record: dict[str, Any]) -> str:
-    provenance = record.get("provenance") or {}
-    created_by = str(provenance.get("created_by") or "")
-    if ":" in created_by:
-        return created_by.rsplit(":", 1)[-1]
-    if created_by:
-        return created_by
-    return path.stem
+def compare_batches(paths: list[Path]) -> dict[str, object]:
+    if len(paths) < 2:
+        raise ValueError("compare_candidate_batches requires at least two input batches")
+    by_agent: dict[str, dict[tuple[str, str, str], dict[str, object]]] = {p.as_posix(): load_batch(p) for p in paths}
+    key_to_agents: dict[tuple[str, str, str], list[str]] = defaultdict(list)
+    for agent, records in by_agent.items():
+        for key in records:
+            key_to_agents[key].append(agent)
+    agreements = {key: sorted(agents) for key, agents in key_to_agents.items() if len(agents) >= 2}
+    disagreements = {key: agents[0] for key, agents in key_to_agents.items() if len(agents) == 1}
+    return {"by_agent": by_agent, "agreements": agreements, "disagreements": disagreements}
 
 
-def edge_key(record: dict[str, Any]) -> tuple[str, str, str]:
-    return (
-        str(record.get("subject_id")),
-        str(record.get("predicate")),
-        str(record.get("object_id")),
-    )
-
-
-def compare_batches(paths: list[Path]) -> dict[str, Any]:
-    by_key: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
-    per_agent = Counter()
-    for path in paths:
-        for record in iter_jsonl(path):
-            agent = agent_name(path, record)
-            wrapped = {"agent": agent, "path": str(path), "record": record}
-            by_key[edge_key(record)].append(wrapped)
-            per_agent[agent] += 1
-
-    agreements = []
-    disagreements = []
-    for key, proposals in sorted(by_key.items()):
-        agents = sorted({proposal["agent"] for proposal in proposals})
-        best = max(proposals, key=lambda proposal: proposal["record"].get("confidence", 0))
-        item = {
-            "subject_id": key[0],
-            "predicate": key[1],
-            "object_id": key[2],
-            "agents": agents,
-            "agent_count": len(agents),
-            "proposal_count": len(proposals),
-            "highest_confidence": best["record"].get("confidence", 0),
-            "evidence_refs": sorted(
-                {
-                    evidence
-                    for proposal in proposals
-                    for evidence in proposal["record"].get("evidence_refs", [])
-                }
-            ),
-        }
-        if len(agents) >= 2:
-            agreements.append(item)
-        else:
-            disagreements.append(item)
-
-    return {
-        "created_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
-        "input_files": [str(path) for path in paths],
-        "per_agent_counts": dict(sorted(per_agent.items())),
-        "total_unique_edges": len(by_key),
-        "agreement_count": len(agreements),
-        "disagreement_count": len(disagreements),
-        "agreements": sorted(
-            agreements,
-            key=lambda item: (-item["agent_count"], -item["highest_confidence"], item["subject_id"], item["predicate"], item["object_id"]),
-        ),
-        "disagreements": sorted(
-            disagreements,
-            key=lambda item: (-item["highest_confidence"], item["subject_id"], item["predicate"], item["object_id"]),
-        ),
-    }
-
-
-def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="\n") as handle:
+    with path.open("w", encoding="utf-8") as handle:
         for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
+            handle.write(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n")
 
 
-def write_report(path: Path, comparison: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [
-        "# Candidate Batch Comparison",
-        "",
-        f"- Generated: `{comparison['created_at']}`",
-        f"- Input files: **{len(comparison['input_files'])}**",
-        f"- Unique edges: **{comparison['total_unique_edges']}**",
-        f"- Agreements: **{comparison['agreement_count']}**",
-        f"- Disagreements: **{comparison['disagreement_count']}**",
-        "",
-        "## Per-Agent Counts",
-        "",
-        "| Agent | Candidates |",
-        "|---|---:|",
+def materialize_outputs(result: dict[str, object], out_dir: Path, report_path: Path) -> tuple[Path, Path, Path]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    agreement_path = out_dir / "agreement.jsonl"
+    disagreement_path = out_dir / "disagreement.jsonl"
+    agreements: dict[tuple[str, str, str], list[str]] = result["agreements"]  # type: ignore[assignment]
+    disagreements: dict[tuple[str, str, str], str] = result["disagreements"]  # type: ignore[assignment]
+    agreement_rows = [
+        {"subject_id": k[0], "predicate": k[1], "object_id": k[2], "agents": agents, "agent_count": len(agents)}
+        for k, agents in sorted(agreements.items())
     ]
-    for agent, count in comparison["per_agent_counts"].items():
-        lines.append(f"| `{agent}` | {count} |")
-    lines.extend(["", "## Agreement Set", ""])
-    if comparison["agreements"]:
-        lines.append("| Edge | Agents | Confidence |")
-        lines.append("|---|---|---:|")
-        for item in comparison["agreements"][:50]:
-            edge = f"{item['subject_id']} {item['predicate']} {item['object_id']}"
-            lines.append(f"| `{edge}` | {', '.join(item['agents'])} | {item['highest_confidence']} |")
-    else:
-        lines.append("_No agreements across two or more agents._")
-    lines.extend(["", "## Disagreement Set (Top 50)", ""])
-    if comparison["disagreements"]:
-        lines.append("| Edge | Agent | Confidence |")
-        lines.append("|---|---|---:|")
-        for item in comparison["disagreements"][:50]:
-            edge = f"{item['subject_id']} {item['predicate']} {item['object_id']}"
-            lines.append(f"| `{edge}` | {', '.join(item['agents'])} | {item['highest_confidence']} |")
-    else:
-        lines.append("_No single-agent-only edges._")
-    lines.append("")
-    path.write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    disagreement_rows = [
+        {"subject_id": k[0], "predicate": k[1], "object_id": k[2], "agent": agent}
+        for k, agent in sorted(disagreements.items())
+    ]
+    write_jsonl(agreement_path, agreement_rows)
+    write_jsonl(disagreement_path, disagreement_rows)
+    by_agent: dict[str, dict[tuple[str, str, str], dict[str, object]]] = result["by_agent"]  # type: ignore[assignment]
+    all_keys = set()
+    for records in by_agent.values():
+        all_keys.update(records)
+    lines = [
+        "# Candidate batch comparison",
+        "",
+        "## Per-agent counts",
+        "",
+        "| agent batch | candidates | overlap with any other | overlap % |",
+        "|-------------|------------|------------------------|-----------|",
+    ]
+    agreement_keys = set(agreements)
+    for agent, records in sorted(by_agent.items()):
+        overlap = len(set(records) & agreement_keys)
+        pct = (overlap / len(records) * 100) if records else 0.0
+        lines.append(f"| `{agent}` | {len(records)} | {overlap} | {pct:.1f}% |")
+    lines.extend([
+        "",
+        "## Summary",
+        "",
+        f"- Unique subject/predicate/object triples: {len(all_keys)}",
+        f"- Agreement triples (>=2 agents): {len(agreement_rows)}",
+        f"- Disagreement triples (single agent): {len(disagreement_rows)}",
+        f"- Agreement JSONL: `{agreement_path.as_posix()}`",
+        f"- Disagreement JSONL: `{disagreement_path.as_posix()}`",
+        "",
+        "## Agreement list",
+        "",
+        "| subject | predicate | object | agents |",
+        "|---------|-----------|--------|--------|",
+    ])
+    for row in agreement_rows[:100]:
+        lines.append(f"| {row['subject_id']} | {row['predicate']} | {row['object_id']} | {', '.join(row['agents'])} |")
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return agreement_path, disagreement_path, report_path
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("batches", nargs="+", help="Candidate JSONL batch paths")
-    parser.add_argument("--agreement-out", default="build/discovery/agreement.jsonl")
-    parser.add_argument("--disagreement-out", default="build/discovery/disagreement.jsonl")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("batches", nargs="+", help="Candidate JSONL batches to compare")
+    parser.add_argument("--out-dir", default="build/discovery/comparison")
     parser.add_argument("--report", default="build/discovery/comparison.md")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    paths = [Path(path) for path in args.batches]
-    if len(paths) < 2:
-        print("Need at least two candidate batches to compare.")
-        return 1
-    missing = [str(path) for path in paths if not path.exists()]
-    if missing:
-        print("Missing batch file(s): " + ", ".join(missing))
-        return 1
-    comparison = compare_batches(paths)
-    write_jsonl(Path(args.agreement_out), comparison["agreements"])
-    write_jsonl(Path(args.disagreement_out), comparison["disagreements"])
-    write_report(Path(args.report), comparison)
-    print(
-        f"Wrote {comparison['agreement_count']} agreements and "
-        f"{comparison['disagreement_count']} disagreements."
-    )
-    print(f"Wrote report to {args.report}")
+    paths = [Path(p) for p in args.batches]
+    result = compare_batches(paths)
+    agreement_path, disagreement_path, report_path = materialize_outputs(result, Path(args.out_dir), Path(args.report))
+    print(f"Agreement set: {agreement_path}")
+    print(f"Disagreement set: {disagreement_path}")
+    print(f"Report: {report_path}")
     return 0
 
 

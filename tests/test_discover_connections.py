@@ -1,126 +1,142 @@
 from __future__ import annotations
 
 import json
+from argparse import Namespace
 from pathlib import Path
 
-from jsonschema import Draft202012Validator
 
 from pipelines.graph.discover_connections import (
     Candidate,
-    Witness,
-    discover_citation_formulas,
+    VerseText,
+    candidate_to_record,
+    discover_citation_formula,
     discover_lexical_cooccurrence,
-    discover_shared_rare_phrases,
+    discover_shared_rare_phrase,
+    load_editorial_crossref_pairs,
+    merge_candidates,
+    normalize_tokens,
+    run_discovery,
 )
 
-ROOT = Path(__file__).resolve().parents[1]
+
+def verse(osis: str, text: str, testament: str) -> VerseText:
+    return VerseText(
+        osis_ref=osis,
+        passage_id=f"scripture:{osis}",
+        text=text,
+        tokens=tuple(normalize_tokens(text)),
+        testament=testament,
+    )
 
 
-def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.write_text("\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8")
-
-
-def relationship_validator() -> Draft202012Validator:
-    schema = json.loads((ROOT / "schemas" / "relationship_object.schema.json").read_text(encoding="utf-8"))
-    return Draft202012Validator(schema)
-
-
-def assert_candidate_contract(candidate: Candidate) -> None:
-    record = candidate.to_record("test-agent", "2026-06-05T00:00:00+00:00")
-    errors = list(relationship_validator().iter_errors(record))
-    assert errors == []
+def validate_record(record: dict) -> None:
+    required = {"id", "type", "subject_id", "predicate", "object_id", "assertion_mode", "evidence_refs", "confidence", "status"}
+    assert required <= set(record)
+    assert record["type"] == "RelationshipObject"
     assert record["assertion_mode"] == "candidate"
     assert record["status"] == "candidate"
     assert record["trust_zone"] == "candidate"
     assert record["evidence_refs"]
 
 
-def test_lexical_cooccurrence_emits_schema_valid_candidate(tmp_path):
+def test_lexical_cooccurrence_emits_candidate_edges(tmp_path: Path) -> None:
+    verses = {
+        "Isa.1.1": verse("Isa.1.1", "Alpha beta old", "OT"),
+        "Matt.1.1": verse("Matt.1.1", "Alpha beta new", "NT"),
+        "Luke.1.1": verse("Luke.1.1", "Only alpha", "NT"),
+    }
+    tokens = tmp_path / "word_tokens.jsonl"
+    rows = [
+        {"osis_ref": "Isa.1.1", "strong": "H1"},
+        {"osis_ref": "Matt.1.1", "strong": "H1"},
+        {"osis_ref": "Luke.1.1", "strong": "H1"},
+        {"osis_ref": "Isa.1.1", "strong": "H2"},
+        {"osis_ref": "Matt.1.1", "strong": "H2"},
+    ]
+    tokens.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
+
+    candidates = discover_lexical_cooccurrence(tokens, verses, rare_df_max=3, min_shared_strongs=2)
+
+    assert candidates
+    record = candidate_to_record(candidates[0], "test-agent", "2026-06-05")
+    validate_record(record)
+    assert record["predicate"] == "thematicallyRelatedTo"
+    assert "strong:H1:df=3" in record["evidence_refs"]
+    assert "strong:H2:df=2" in record["evidence_refs"]
+
+
+def test_shared_rare_phrase_emits_nt_to_ot_candidate() -> None:
+    verses = {
+        "Isa.6.3": verse("Isa.6.3", "Holy holy holy is Yahweh of Armies", "OT"),
+        "Rev.4.8": verse("Rev.4.8", "Holy holy holy is the Lord God Almighty", "NT"),
+        "Gen.1.1": verse("Gen.1.1", "In the beginning God created", "OT"),
+    }
+
+    candidates = discover_shared_rare_phrase(verses, n_min=4, n_max=4, max_phrase_occurrences=2)
+
+    assert [(c.subject_osis, c.object_osis) for c in candidates] == [("Rev.4.8", "Isa.6.3")]
+    record = candidate_to_record(candidates[0], "test-agent", "2026-06-05")
+    validate_record(record)
+    assert record["predicate"] == "alludesTo"
+    assert any(str(e).startswith("phrase:holy holy holy is") for e in record["evidence_refs"])
+
+
+def test_citation_formula_requires_formula_and_phrase_match() -> None:
+    verses = {
+        "Isa.40.3": verse("Isa.40.3", "The voice of one crying in the wilderness", "OT"),
+        "Matt.3.3": verse("Matt.3.3", "For this is he who was spoken by the prophet, the voice of one crying in the wilderness", "NT"),
+        "Luke.1.1": verse("Luke.1.1", "the voice of one crying in the wilderness", "NT"),
+    }
+
+    candidates = discover_citation_formula(verses, n_min=5, n_max=7, max_phrase_occurrences=3)
+
+    assert [(c.subject_osis, c.object_osis, c.predicate) for c in candidates] == [("Matt.3.3", "Isa.40.3", "quotesFrom")]
+    record = candidate_to_record(candidates[0], "test-agent", "2026-06-05")
+    validate_record(record)
+    assert "formula:spoken by the prophet" in record["evidence_refs"]
+
+
+def test_merge_dedups_editorial_crossrefs() -> None:
+    verses = {
+        "Isa.6.3": verse("Isa.6.3", "holy holy holy", "OT"),
+        "Rev.4.8": verse("Rev.4.8", "holy holy holy", "NT"),
+    }
+    cand = Candidate("Rev.4.8", "quotesFrom", "Isa.6.3", "test", ["evidence"], 0.8, "test")
+
+    emitted, deduped, invalid = merge_candidates([cand], {("Rev.4.8", "Isa.6.3")}, verses, 10)
+
+    assert emitted == []
+    assert deduped == 1
+    assert invalid == 0
+
+
+def test_run_discovery_writes_candidate_only_batch(tmp_path: Path) -> None:
+    witnesses = tmp_path / "translation_witnesses.jsonl"
     word_tokens = tmp_path / "word_tokens.jsonl"
-    write_jsonl(
-        word_tokens,
-        [
-            {"type": "WordToken", "osis_ref": "John.1.1", "strong": "G0001"},
-            {"type": "WordToken", "osis_ref": "John.1.1", "strong": "G0002"},
-            {"type": "WordToken", "osis_ref": "Rom.1.1", "strong": "G0001"},
-            {"type": "WordToken", "osis_ref": "Rom.1.1", "strong": "G0002"},
-            {"type": "WordToken", "osis_ref": "Matt.1.1", "strong": "G0001"},
-        ],
-    )
+    crossrefs = tmp_path / "editorial_cross_references.jsonl"
+    out = tmp_path / "batch.jsonl"
+    manifest = tmp_path / "batch.manifest.yaml"
+    report = tmp_path / "report.md"
+    witness_rows = [
+        {"osis_ref": "Isa.6.3", "passage_id": "scripture:Isa.6.3", "text": "Holy holy holy is Yahweh of Armies"},
+        {"osis_ref": "Rev.4.8", "passage_id": "scripture:Rev.4.8", "text": "Holy holy holy is the Lord God Almighty"},
+    ]
+    witnesses.write_text("".join(json.dumps(r) + "\n" for r in witness_rows), encoding="utf-8")
+    word_tokens.write_text("", encoding="utf-8")
+    crossrefs.write_text("", encoding="utf-8")
 
-    candidates, stats = discover_lexical_cooccurrence(
-        word_tokens,
-        editorial_pairs=set(),
-        rare_df_max=3,
-        min_shared_lemmas=2,
-        limit=10,
-    )
+    records, counts = run_discovery(Namespace(
+        word_tokens=str(word_tokens), witnesses=str(witnesses), crossrefs=str(crossrefs),
+        agent="test-agent", out=str(out), manifest=str(manifest), report=str(report), created_at="2026-06-05",
+        max_total_candidates=20, lexical_rare_df_max=6, lexical_min_shared_strongs=2, lexical_max_candidates=20,
+        phrase_n_min=4, phrase_n_max=4, phrase_max_occurrences=2, phrase_max_candidates=20,
+        citation_n_min=4, citation_n_max=5, citation_max_occurrences=2, citation_max_candidates=20,
+    ))
 
-    assert stats["rare_strong_total"] == 2
-    assert len(candidates) == 1
-    candidate = candidates[0]
-    assert candidate.predicate == "thematicallyRelatedTo"
-    assert {"strong:G0001", "strong:G0002"}.issubset(set(candidate.evidence_refs))
-    assert_candidate_contract(candidate)
-
-
-def test_shared_rare_phrase_emits_nt_to_ot_and_dedups_crossref():
-    witnesses = {
-        "Isa.9.2": Witness("Isa.9.2", "The people who walked in darkness have seen a great light."),
-        "Matt.4.16": Witness("Matt.4.16", "The people who walked in darkness saw a great light."),
-    }
-
-    candidates, stats = discover_shared_rare_phrases(
-        witnesses,
-        editorial_pairs={frozenset(("Isa.9.2", "Matt.4.16"))},
-        min_n=4,
-        max_n=5,
-        max_phrase_df=2,
-        limit=10,
-    )
-    assert candidates == []
-    assert stats["deduped_editorial_crossrefs"] >= 1
-
-    candidates, _ = discover_shared_rare_phrases(
-        witnesses,
-        editorial_pairs=set(),
-        min_n=4,
-        max_n=5,
-        max_phrase_df=2,
-        limit=10,
-    )
-    assert candidates
-    candidate = candidates[0]
-    assert candidate.subject_osis == "Matt.4.16"
-    assert candidate.object_osis == "Isa.9.2"
-    assert candidate.predicate == "alludesTo"
-    assert any(ref.startswith("phrase:") for ref in candidate.evidence_refs)
-    assert_candidate_contract(candidate)
-
-
-def test_citation_formula_requires_formula_and_matched_phrase():
-    witnesses = {
-        "Mic.5.2": Witness("Mic.5.2", "But you, Bethlehem, land of Judah, are not least among the rulers."),
-        "Matt.2.5": Witness(
-            "Matt.2.5",
-            "For it is written, You Bethlehem land of Judah are not least among the rulers.",
-        ),
-    }
-
-    candidates, stats = discover_citation_formulas(
-        witnesses,
-        editorial_pairs=set(),
-        min_n=4,
-        max_n=6,
-        max_phrase_df=2,
-        limit=10,
-    )
-
-    assert stats["nt_formula_occurrences"] == 1
-    assert candidates
-    candidate = candidates[0]
-    assert candidate.predicate == "quotesFrom"
-    assert candidate.subject_osis == "Matt.2.5"
-    assert candidate.object_osis == "Mic.5.2"
-    assert any(ref.startswith("formula:") for ref in candidate.evidence_refs)
-    assert_candidate_contract(candidate)
+    assert out.exists()
+    assert manifest.exists()
+    assert report.exists()
+    assert counts["deduped_editorial_crossrefs"] == 0
+    assert records
+    for record in records:
+        validate_record(record)

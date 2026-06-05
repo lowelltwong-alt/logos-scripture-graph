@@ -3,54 +3,52 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from pipelines.graph.compare_candidate_batches import compare_batches
+import pytest
+
+from pipelines.graph.compare_candidate_batches import compare_batches, materialize_outputs
 
 
-def write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.write_text("\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8")
+def write_batch(path: Path, triples: list[tuple[str, str, str]]) -> None:
+    rows = [
+        {
+            "id": f"id:{i}",
+            "type": "RelationshipObject",
+            "subject_id": s,
+            "predicate": p,
+            "object_id": o,
+            "assertion_mode": "candidate",
+            "evidence_refs": ["evidence"],
+            "confidence": 0.5,
+            "status": "candidate",
+        }
+        for i, (s, p, o) in enumerate(triples)
+    ]
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
 
 
-def rel(subject: str, predicate: str, obj: str, agent: str, confidence: float = 0.7) -> dict:
-    return {
-        "id": f"cand:rel:{subject}--{predicate}--{obj}",
-        "type": "RelationshipObject",
-        "subject_id": f"scripture:{subject}",
-        "predicate": predicate,
-        "object_id": f"scripture:{obj}",
-        "assertion_mode": "candidate",
-        "evidence_refs": [f"phrase:{subject}-{obj}"],
-        "confidence": confidence,
-        "trust_zone": "candidate",
-        "status": "candidate",
-        "provenance": {"created_by": f"connection_discoverer:{agent}"},
-    }
-
-
-def test_compare_batches_splits_agreement_and_disagreement(tmp_path):
+def test_compare_batches_finds_agreement_and_disagreement(tmp_path: Path) -> None:
     batch_a = tmp_path / "a.jsonl"
     batch_b = tmp_path / "b.jsonl"
-    write_jsonl(
-        batch_a,
-        [
-            rel("Matt.2.5", "quotesFrom", "Mic.5.2", "agent-a", 0.8),
-            rel("John.1.1", "thematicallyRelatedTo", "Gen.1.1", "agent-a", 0.5),
-        ],
-    )
-    write_jsonl(
-        batch_b,
-        [
-            rel("Matt.2.5", "quotesFrom", "Mic.5.2", "agent-b", 0.9),
-            rel("Rev.4.8", "quotesFrom", "Isa.6.3", "agent-b", 0.85),
-        ],
-    )
+    shared = ("scripture:Rev.4.8", "quotesFrom", "scripture:Isa.6.3")
+    only_a = ("scripture:Matt.1.23", "quotesFrom", "scripture:Isa.7.14")
+    only_b = ("scripture:Rom.4.3", "quotesFrom", "scripture:Gen.15.6")
+    write_batch(batch_a, [shared, only_a])
+    write_batch(batch_b, [shared, only_b])
 
-    comparison = compare_batches([batch_a, batch_b])
+    result = compare_batches([batch_a, batch_b])
 
-    assert comparison["agreement_count"] == 1
-    assert comparison["disagreement_count"] == 2
-    agreement = comparison["agreements"][0]
-    assert agreement["subject_id"] == "scripture:Matt.2.5"
-    assert agreement["predicate"] == "quotesFrom"
-    assert agreement["object_id"] == "scripture:Mic.5.2"
-    assert agreement["agents"] == ["agent-a", "agent-b"]
-    assert agreement["highest_confidence"] == 0.9
+    assert set(result["agreements"]) == {shared}
+    assert set(result["disagreements"]) == {only_a, only_b}
+
+    agreement_path, disagreement_path, report_path = materialize_outputs(result, tmp_path / "comparison", tmp_path / "comparison.md")
+    assert agreement_path.exists()
+    assert disagreement_path.exists()
+    assert report_path.exists()
+    assert "Agreement triples (>=2 agents): 1" in report_path.read_text(encoding="utf-8")
+
+
+def test_compare_batches_requires_two_batches(tmp_path: Path) -> None:
+    batch = tmp_path / "a.jsonl"
+    write_batch(batch, [])
+    with pytest.raises(ValueError):
+        compare_batches([batch])

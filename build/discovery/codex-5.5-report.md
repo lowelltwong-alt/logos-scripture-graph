@@ -1,57 +1,68 @@
-# Connection Discovery Report
+# Connection discovery report — codex-5.5
 
-- Agent: `codex-5.5`
-- Created: `2026-06-05T04:00:12+00:00`
-- Candidates emitted: **249**
-- Dropped as editorial cross-reference duplicates: **805**
+Generated: 2026-06-05
 
-## Predicate Counts
+## Summary
 
-- `quotesFrom`: 99
-- `thematicallyRelatedTo`: 150
+- Total emitted candidates: 500
+- Dropped as existing editorial `\x`: 55
+- Dropped for non NT→OT direction: 0
+- Assertion mode/status/trust zone: candidate/candidate/candidate for every emitted edge.
 
-## Method Counts
+## Parameters
 
-- `citation_formula`: 16
-- `citation_formula+shared_rare_phrase`: 1
-- `lexical_cooccurrence`: 150
-- `shared_rare_phrase`: 82
+- lexical_cooccurrence: rare_df_max=6, min_shared_strongs=2, max_candidates=250
+- shared_rare_phrase: n_min=4, n_max=7, max_phrase_occurrences=2, max_candidates=250
+- citation_formula: n_min=4, n_max=9, max_phrase_occurrences=3, max_candidates=150
 
-## Top 30 Candidates
+## Breakdown by predicate
 
-- `scripture:Luke.4.10` `quotesFrom` `scripture:Ps.91.11` confidence=0.93 evidence=Luke.4.10, Ps.91.11, formula:it-is-written, phrase:angels-in-charge-of
-- `scripture:Luke.3.4` `quotesFrom` `scripture:Tob.1.1` confidence=0.92 evidence=Luke.3.4, Tob.1.1, formula:as-it-is-written, formula:it-is-written
-- `scripture:Mark.7.6` `quotesFrom` `scripture:Isa.29.13` confidence=0.92 evidence=Isa.29.13, Mark.7.6, formula:as-it-is-written, formula:it-is-written
-- `scripture:Luke.3.4` `quotesFrom` `scripture:2Chr.32.32` confidence=0.91 evidence=2Chr.32.32, Luke.3.4, formula:as-it-is-written, formula:it-is-written
-- `scripture:Acts.7.42` `quotesFrom` `scripture:Amos.5.1` confidence=0.9 evidence=Acts.7.42, Amos.5.1, formula:as-it-is-written, formula:it-is-written
-- `scripture:Luke.24.46` `quotesFrom` `scripture:Ps.135.7` confidence=0.9 evidence=Luke.24.46, Ps.135.7, formula:it-is-written, phrase:to-rise-from-the
-- `scripture:Mark.14.21` `quotesFrom` `scripture:Sir.23.14` confidence=0.9 evidence=Mark.14.21, Sir.23.14, formula:as-it-is-written, formula:it-is-written
-- `scripture:Mark.14.21` `quotesFrom` `scripture:Sir.44.9` confidence=0.9 evidence=Mark.14.21, Sir.44.9, formula:as-it-is-written, formula:it-is-written
-- `scripture:Mark.7.6` `quotesFrom` `scripture:Ps.22.7` confidence=0.9 evidence=Mark.7.6, Ps.22.7, formula:as-it-is-written, formula:it-is-written
-- `scripture:Matt.2.23` `quotesFrom` `scripture:Exod.4.16` confidence=0.9 evidence=Exod.4.16, Matt.2.23, formula:that-it-might-be-fulfilled-which-was-spoken, phrase:that-he-will-be
-- `scripture:Matt.2.23` `quotesFrom` `scripture:Isa.54.5` confidence=0.9 evidence=Isa.54.5, Matt.2.23, formula:that-it-might-be-fulfilled-which-was-spoken, phrase:he-will-be-called
-- `scripture:Matt.2.23` `quotesFrom` `scripture:Jer.23.6` confidence=0.9 evidence=Jer.23.6, Matt.2.23, formula:that-it-might-be-fulfilled-which-was-spoken, phrase:he-will-be-called
-- `scripture:Matt.26.24` `quotesFrom` `scripture:Sir.23.14` confidence=0.9 evidence=Matt.26.24, Sir.23.14, formula:as-it-is-written, formula:it-is-written
-- `scripture:Matt.26.24` `quotesFrom` `scripture:Sir.44.9` confidence=0.9 evidence=Matt.26.24, Sir.44.9, formula:as-it-is-written, formula:it-is-written
-- `scripture:Rom.11.26` `quotesFrom` `scripture:Ps.14.7` confidence=0.9 evidence=Ps.14.7, Rom.11.26, formula:as-it-is-written, formula:it-is-written
-- `scripture:Rom.11.26` `quotesFrom` `scripture:Ps.50.2` confidence=0.9 evidence=Ps.50.2, Rom.11.26, formula:as-it-is-written, formula:it-is-written
-- `scripture:Rom.11.26` `quotesFrom` `scripture:Ps.53.6` confidence=0.9 evidence=Ps.53.6, Rom.11.26, formula:as-it-is-written, formula:it-is-written
-- `scripture:1Pet.1.24` `quotesFrom` `scripture:Isa.40.6` confidence=0.84 evidence=1Pet.1.24, Isa.40.6, phrase:all-flesh-is-like-grass-and-all
-- `scripture:1Pet.3.12` `quotesFrom` `scripture:Sir.34.16` confidence=0.84 evidence=1Pet.3.12, Sir.34.16, phrase:the-eyes-of-the-lord-are-on
-- `scripture:2Tim.4.17` `quotesFrom` `scripture:Amos.3.12` confidence=0.84 evidence=2Tim.4.17, Amos.3.12, phrase:out-of-the-mouth-of-the-lion
-- `scripture:Acts.11.6` `quotesFrom` `scripture:Gen.6.7` confidence=0.84 evidence=Acts.11.6, Gen.6.7, phrase:animals-creeping-things-and-birds-of-the
-- `scripture:Acts.12.11` `quotesFrom` `scripture:Jdt.16.3` confidence=0.84 evidence=Acts.12.11, Jdt.16.3, phrase:delivered-me-out-of-the-hand-of
-- `scripture:Acts.15.17` `quotesFrom` `scripture:Amos.9.12` confidence=0.84 evidence=Acts.15.17, Amos.9.12, phrase:who-are-called-by-my-name-says
-- `scripture:Acts.17.26` `quotesFrom` `scripture:Ezek.34.6` confidence=0.84 evidence=Acts.17.26, Ezek.34.6, phrase:on-all-the-surface-of-the-earth
-- `scripture:Acts.17.31` `quotesFrom` `scripture:Ps.9.8` confidence=0.84 evidence=Acts.17.31, Ps.9.8, phrase:he-will-judge-the-world-in-righteousness
-- `scripture:Acts.2.17` `quotesFrom` `scripture:Joel.2.28` confidence=0.84 evidence=Acts.2.17, Joel.2.28, phrase:pour-out-my-spirit-on-all-flesh, phrase:sons-and-your-daughters-will-prophesy-your
-- `scripture:Acts.2.18` `quotesFrom` `scripture:Joel.2.29` confidence=0.84 evidence=Acts.2.18, Joel.2.29, phrase:days-i-will-pour-out-my-spirit, phrase:in-those-days-i-will-pour-out
-- `scripture:Acts.2.20` `quotesFrom` `scripture:Joel.2.31` confidence=0.84 evidence=Acts.2.20, Joel.2.31, phrase:and-the-moon-into-blood-before-the, phrase:be-turned-into-darkness-and-the-moon
-- `scripture:Acts.2.27` `quotesFrom` `scripture:Ps.16.10` confidence=0.84 evidence=Acts.2.27, Ps.16.10, phrase:neither-will-you-allow-your-holy-one, phrase:will-you-allow-your-holy-one-to
-- `scripture:Acts.21.11` `quotesFrom` `scripture:Jdt.6.10` confidence=0.84 evidence=Acts.21.11, Jdt.6.10, phrase:deliver-him-into-the-hands-of-the
+- quotesFrom: 261
+- thematicallyRelatedTo: 239
 
-## False-Positive Notes
+## Breakdown by method
 
-- English surface phrase overlap can catch repeated liturgical or legal formulae that are not quotations.
-- Lexical co-occurrence is capped and requires two rare Strong's ids, but it still indicates a thematic lead rather than a claim.
-- Citation-formula candidates require both a trigger phrase and rare phrase overlap; unmatched formulas are intentionally dropped.
+- citation_formula_phrase_match: 52
+- lexical_strongs_cooccurrence: 239
+- shared_rare_phrase: 209
+
+## Top 30 by confidence
+
+| # | confidence | subject | predicate | object | evidence |
+|---|------------|---------|-----------|--------|----------|
+| 1 | 0.93 | scripture:Luke.4.10 | quotesFrom | scripture:Ps.91.11 | formula:it is written; phrase:he will put his angels in charge of you:occ=2; phrase:his angels in charge of you to guard you:occ=2; phrase:put his angels in charge of you to guard:occ=2 |
+| 2 | 0.93 | scripture:Matt.4.6 | quotesFrom | scripture:Ps.91.12 | formula:it is written; phrase:t dash your foot against a stone:occ=2; phrase:dash your foot against a stone:occ=3; phrase:t dash your foot against a:occ=2 |
+| 3 | 0.91 | scripture:1Pet.1.16 | quotesFrom | scripture:Lev.11.44 | formula:it is written; phrase:be holy for i am holy:occ=3; phrase:holy for i am holy:occ=3; phrase:for i am holy:occ=3 |
+| 4 | 0.91 | scripture:1Pet.1.16 | quotesFrom | scripture:Lev.11.45 | formula:it is written; phrase:be holy for i am holy:occ=3; phrase:holy for i am holy:occ=3; phrase:for i am holy:occ=3 |
+| 5 | 0.91 | scripture:Matt.27.9 | quotesFrom | scripture:Zech.11.13 | formula:that which was spoken; phrase:took the thirty pieces of silver:occ=2; phrase:the thirty pieces of silver:occ=3; phrase:took the thirty pieces of:occ=2 |
+| 6 | 0.885 | scripture:Gal.4.27 | quotesFrom | scripture:Job.24.21 | formula:it is written; phrase:barren who don t bear:occ=2; phrase:barren who don t:occ=2; phrase:who don t bear:occ=2 |
+| 7 | 0.885 | scripture:Rom.10.15 | quotesFrom | scripture:Bar.6.17 | formula:as it is written; phrase:the feet of those who:occ=3; phrase:feet of those who:occ=3; phrase:the feet of those:occ=3 |
+| 8 | 0.885 | scripture:Rom.9.17 | quotesFrom | scripture:Jer.29.14 | formula:the scripture says; phrase:i caused you to be:occ=2; phrase:caused you to be:occ=3; phrase:i caused you to:occ=3 |
+| 9 | 0.885 | scripture:Rom.9.33 | quotesFrom | scripture:Isa.28.16 | formula:as it is written; phrase:behold i lay in zion:occ=3; phrase:behold i lay in:occ=3; phrase:i lay in zion:occ=3 |
+| 10 | 0.87 | scripture:1Pet.1.16 | quotesFrom | scripture:Lev.19.2 | formula:it is written; phrase:you shall be holy for i:occ=2; phrase:shall be holy for i:occ=2; 1Pet.1.16 |
+| 11 | 0.87 | scripture:Gal.3.10 | quotesFrom | scripture:Bar.2.2 | formula:it is written; phrase:things that are written in the:occ=2; phrase:things that are written in:occ=3; Gal.3.10 |
+| 12 | 0.87 | scripture:Mark.7.6 | quotesFrom | scripture:Isa.29.13 | formula:as it is written; phrase:honors me with their lips but:occ=2; phrase:honors me with their lips:occ=2; Mark.7.6 |
+| 13 | 0.86 | scripture:Heb.8.9 | quotesFrom | scripture:Jer.31.32 | phrase:according to the covenant that i made:occ=2; phrase:covenant that i made with their fathers:occ=2; phrase:day that i took them by the:occ=2; Heb.8.9 |
+| 14 | 0.86 | scripture:Acts.2.20 | quotesFrom | scripture:Joel.2.31 | phrase:and the moon into blood before the:occ=2; phrase:be turned into darkness and the moon:occ=2; phrase:darkness and the moon into blood before:occ=2; Acts.2.20 |
+| 15 | 0.86 | scripture:Heb.8.8 | quotesFrom | scripture:Jer.31.31 | phrase:a new covenant with the house of:occ=2; phrase:covenant with the house of israel and:occ=2; phrase:house of israel and with the house:occ=2; Heb.8.8 |
+| 16 | 0.86 | scripture:Heb.1.9 | quotesFrom | scripture:Ps.45.7 | phrase:anointed you with the oil of gladness:occ=2; phrase:god has anointed you with the oil:occ=2; phrase:god your god has anointed you with:occ=2; Heb.1.9 |
+| 17 | 0.86 | scripture:Acts.7.34 | quotesFrom | scripture:Exod.3.7 | phrase:affliction of my people who are in:occ=2; phrase:are in egypt and have heard their:occ=2; phrase:have surely seen the affliction of my:occ=2; Acts.7.34 |
+| 18 | 0.86 | scripture:Heb.8.10 | quotesFrom | scripture:Jer.31.33 | phrase:covenant that i will make with the:occ=2; phrase:heart i will be their god and:occ=2; phrase:house of israel after those days says:occ=2; Heb.8.10 |
+| 19 | 0.86 | scripture:Matt.12.20 | quotesFrom | scripture:Isa.42.3 | phrase:a bruised reed he won t quench:occ=2; phrase:break a bruised reed he won t:occ=2; phrase:bruised reed he won t quench a:occ=2; Matt.12.20 |
+| 20 | 0.86 | scripture:Matt.4.15 | quotesFrom | scripture:Isa.9.1 | phrase:land of zebulun and the land of:occ=2; phrase:of zebulun and the land of naphtali:occ=2; phrase:sea beyond the jordan galilee of the:occ=2; Matt.4.15 |
+| 21 | 0.86 | scripture:Acts.4.25 | quotesFrom | scripture:Ps.2.1 | phrase:and the peoples plot a vain thing:occ=2; phrase:do the nations rage and the peoples:occ=2; phrase:nations rage and the peoples plot a:occ=2; Acts.4.25 |
+| 22 | 0.86 | scripture:Acts.2.17 | quotesFrom | scripture:Joel.2.28 | phrase:pour out my spirit on all flesh:occ=2; phrase:sons and your daughters will prophesy your:occ=2; phrase:that i will pour out my spirit:occ=2; Acts.2.17 |
+| 23 | 0.86 | scripture:Rev.10.10 | quotesFrom | scripture:Ezek.3.3 | phrase:as sweet as honey in my mouth:occ=2; phrase:ate it it was as sweet as:occ=2; phrase:it it was as sweet as honey:occ=2; Rev.10.10 |
+| 24 | 0.86 | scripture:Acts.4.26 | quotesFrom | scripture:Ps.2.2 | phrase:earth take a stand and the rulers:occ=2; phrase:kings of the earth take a stand:occ=2; phrase:of the earth take a stand and:occ=2; Acts.4.26 |
+| 25 | 0.86 | scripture:Luke.4.18 | quotesFrom | scripture:Isa.61.1 | phrase:anointed me to preach good news to:occ=2; phrase:has anointed me to preach good news:occ=2; phrase:me to preach good news to the:occ=2; Luke.4.18 |
+| 26 | 0.86 | scripture:Matt.23.37 | quotesFrom | scripture:2Esd.1.30 | phrase:a hen gathers her chicks under her:occ=2; phrase:as a hen gathers her chicks under:occ=2; phrase:hen gathers her chicks under her wings:occ=2; Matt.23.37 |
+| 27 | 0.86 | scripture:Rom.12.20 | quotesFrom | scripture:Prov.25.22 | phrase:heap coals of fire on his head:occ=2; phrase:will heap coals of fire on his:occ=2; phrase:you will heap coals of fire on:occ=2; Rom.12.20 |
+| 28 | 0.86 | scripture:Acts.7.49 | quotesFrom | scripture:Isa.66.1 | phrase:heaven is my throne and the earth:occ=2; phrase:what kind of house will you build:occ=2; phrase:heaven is my throne and the:occ=2; Acts.7.49 |
+| 29 | 0.86 | scripture:Acts.2.27 | quotesFrom | scripture:Ps.16.10 | phrase:neither will you allow your holy one:occ=2; phrase:will you allow your holy one to:occ=2; phrase:you allow your holy one to see:occ=2; Acts.2.27 |
+| 30 | 0.86 | scripture:Matt.14.31 | quotesFrom | scripture:2Sam.15.5 | phrase:his hand took hold of him and:occ=2; phrase:out his hand took hold of him:occ=2; phrase:stretched out his hand took hold of:occ=2; Matt.14.31 |
+
+## False-positive notes
+
+- Shared English phrases can reflect translation style rather than source-text dependence; exact phrase candidates stay candidate-only.
+- Lexical Strong's co-occurrence is capped to rare multi-lemma bridges and emitted as thematicallyRelatedTo only.
+- Citation formulas are linked only when the formula verse also shares a rare phrase with an OT verse.

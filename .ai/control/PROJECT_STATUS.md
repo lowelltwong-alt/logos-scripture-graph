@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-03  
-**Updated by:** T304 complete (Claude 4.8 full review)  
-**Active task:** → **Codex Sprint 1 (T301)**; T304 review complete
+**Last updated:** 2026-06-05
+**Updated by:** T308 in progress (Codex 5.5 connection discovery run 1)
+**Active task:** → **T308**; candidate connection discovery run emitted and awaiting multi-agent comparison/adjudication
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
@@ -72,11 +72,17 @@ Full review: `.ai/handoffs/T302/handoff.md`
 
 | Field | Value |
 |-------|-------|
-| Phase | **phase_3** — Chunking engine v0 |
+| Phase | **phase_7** — Cross-reference and intertextual graph (T308 run 1 active alongside phase_3 chunking work) |
 | Ingest | **COMPLETE** ✓ |
 | T302 review | **COMPLETE** ✓ |
-| Chunking | **NOT STARTED** (broken skeleton) |
-| Next | Sprint 1 → Codex |
+| Connection discovery | **RUN 1 EMITTED** — 500 candidate-only edges under `data/candidate/connections/`; no promotion |
+| Next | Human runs additional A/B agents, then compares agreement/disagreement for adjudication |
+
+## T308 connection discovery status (2026-06-05)
+
+- Codex 5.5 run 1 emitted `data/candidate/connections/codex-5.5-2026-06-05.jsonl` plus manifest/report.
+- Comparison harness ran against `data/candidate/connections/2026-06-04-ab-review.jsonl`; current overlap is 0 agreement triples and 508 disagreement triples.
+- All emitted edges are candidate-only (`assertion_mode=status=trust_zone=candidate`) and remain outside canonical promotion.
 
 ---
 

@@ -101,12 +101,11 @@ PIPELINE_ENDPOINTS = [
     },
     {
         "script": "pipelines/graph/discover_connections.py",
-        "role": "Candidate-only connection discovery (rare Strong's co-occurrence, rare NT/OT phrase overlap, citation formula matching)",
+        "role": "Candidate-only connection discovery (Strong's co-occurrence, rare phrase overlap, citation formulas)",
         "inputs": [
             "data/canonical/translations/eng-web/word_tokens.jsonl",
             "data/canonical/translations/eng-web/translation_witnesses.jsonl",
             "data/canonical/translations/eng-web/editorial_cross_references.jsonl",
-            "config/governance/predicate_registry.yaml",
         ],
         "outputs": [
             "data/candidate/connections/<agent>-<date>.jsonl",
@@ -116,12 +115,12 @@ PIPELINE_ENDPOINTS = [
     },
     {
         "script": "pipelines/graph/compare_candidate_batches.py",
-        "role": "Multi-agent candidate comparison harness — agreement/disagreement sets for human review",
+        "role": "Compare candidate batches and split agreement/disagreement sets for human adjudication",
         "inputs": ["two or more data/candidate/connections/*.jsonl batches"],
         "outputs": [
-            "build/discovery/agreement.jsonl",
-            "build/discovery/disagreement.jsonl",
             "build/discovery/comparison.md",
+            "build/discovery/comparison/agreement.jsonl",
+            "build/discovery/comparison/disagreement.jsonl",
         ],
     },
     {
