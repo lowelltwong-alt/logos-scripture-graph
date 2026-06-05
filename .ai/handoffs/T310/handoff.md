@@ -193,11 +193,49 @@ Validation:
 Protected files not edited: `chunker.py`, `evaluate_chunks.py`, `leaderboard.py`, `detect_form.py`,
 `schemas/*`, `registry/chunking/*`, `config/chunking/*`, `data/raw/*`, `data/canonical/*`.
 
+## Increment 3a - COMPLETED (2026-06-05, Codex)
+
+Behavior-preserving Psalm skill extraction seam landed. This is **not** a scoring improvement
+increment. The candidate `psalm-whole-then-stanza-v1` skill routes literal Book of Psalms (`book == Ps`)
+only, delegates to existing monolith Psalm behavior, and preserves chunk/context bytes exactly.
+
+Files:
+- `pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/{SKILL.md,SKILL_METADATA.json,algorithm.py}`
+- `pipelines/chunking/orchestrator.py` - literal-Ps route seam + per-book route ledger records
+- `registry/chunking/{skill-toc.json,skill-graph-index.json}` - candidate metadata only; `approved-skills.json` unchanged
+- `tests/test_chunking_orchestrator.py` - byte identity, route ledger, fallback, no-metadata-leak tests
+- `.ai/handoffs/T310/handoff.md`
+
+Route behavior:
+- literal `Ps` -> `psalm-whole-then-stanza-v1`
+- `Song`, `Lam`, `PrMan`, `Ps151`, and all other non-Ps books -> `monolith-pass2-v1`
+- `detect_form_consumed: false`
+- `form_based_routing_enabled: false`
+- route facts live only in route ledger; chunk/context records remain unchanged
+
+Byte-identity proof against current full corpus:
+- chunks direct/routed SHA-256:
+  `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`
+- context direct/routed SHA-256:
+  `f3128daba9d9be91aa02e8e53dc6baba9bd9fb3b89ae3eeff031b96e6d2c76ab`
+- raw bytes matched for both streams
+
+Validation:
+- `python -m pytest -q tests/test_chunking_orchestrator.py` -> 8 passed
+- `python scripts/validate_all.py` -> all validation gates passed
+- `python -m pytest -q` -> 49 passed
+- `python pipelines/chunking/leaderboard.py` -> D / claude-opus-4.8 pass2 still rank 1 at 88.5
+
+Important evaluator note: do **not** use `psalms_fragmented` or composite movement as the success signal
+for this increment. `evaluate_chunks.py` currently groups every `genre == "psalms"` chunk by bare
+chapter number without book key, so `Ps`, `Song`, `Lam`, `PrMan`, and `Ps151` can collide. Increment 3a
+intentionally leaves evaluator/leaderboard unchanged and claims no quality improvement.
+
 ## Next agent instruction
 
-Commit/review **Increment 2** only after confirming the patch boundary is still clean. Start
-**Increment 3** only in a separate task/branch after the byte-identical shim is accepted; do not enable
-form-based routing or specialized skills in the Increment 2 patch.
+Review/commit **Increment 3a** only if full validation remains green and leaderboard remains 88.5.
+Plan **Increment 3b** separately: either fix the evaluator bug or add a true quality-improving Psalm
+skill, but do not mix either into the 3a seam-proof patch.
 
 <!-- superseded instruction below kept for history -->
 <!--

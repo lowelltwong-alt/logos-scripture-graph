@@ -1,4 +1,4 @@
-"""Tests for the T310 Increment 2 byte-identical chunking orchestrator."""
+"""Tests for the T310 byte-identical chunking orchestrator."""
 from __future__ import annotations
 
 import ast
@@ -111,6 +111,20 @@ LEDGER_REQUIRED_FIELDS = {
     "form_based_routing_enabled",
     "detect_form_consumed",
 }
+ROUTE_METADATA_KEYS = {
+    "route_mode",
+    "skill_id",
+    "skill_version",
+    "registry_surface_sha",
+    "input_hash",
+    "output_hash",
+    "form_based_routing_enabled",
+    "detect_form_consumed",
+    "route_reason",
+    "candidate_skill_ids",
+    "skills_used",
+}
+ROUTE_BOOKS = ("Ps", "Song", "Lam", "PrMan", "Ps151", "John")
 
 requires_data = pytest.mark.skipif(
     not (PASSAGES.exists() and WITNESSES.exists() and BOUNDARIES.exists()),
@@ -156,6 +170,33 @@ def _write_context_inputs(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     return passages, witnesses, boundaries, policy
 
 
+def _write_route_inputs(tmp_path: Path) -> tuple[Path, Path]:
+    passages = tmp_path / "route-passages.jsonl"
+    witnesses = tmp_path / "route-witnesses.jsonl"
+    passage_rows = []
+    witness_rows = []
+    for book in ROUTE_BOOKS:
+        osis = f"{book}.1.1"
+        passage_id = f"scripture:{osis}"
+        passage_rows.append({
+            "id": passage_id,
+            "type": "ScripturePassage",
+            "osis_ref": osis,
+            "book": book,
+            "chapter": 1,
+        })
+        witness_rows.append({
+            "id": f"witness:{osis}",
+            "type": "TranslationWitness",
+            "passage_id": passage_id,
+            "osis_ref": osis,
+            "text": f"{book} control sentence.",
+        })
+    _write_jsonl(passages, passage_rows)
+    _write_jsonl(witnesses, witness_rows)
+    return passages, witnesses
+
+
 def _tree_snapshot(root: Path) -> dict[str, tuple[int, int]]:
     if not root.exists():
         return {}
@@ -164,6 +205,12 @@ def _tree_snapshot(root: Path) -> dict[str, tuple[int, int]]:
         for path in sorted(root.rglob("*"), key=lambda p: p.as_posix())
         if path.is_file()
     }
+
+
+def _assert_no_route_metadata(path: Path) -> None:
+    for record in _read_jsonl(path):
+        leaked = ROUTE_METADATA_KEYS & set(record)
+        assert not leaked, f"{path} leaked route metadata keys: {sorted(leaked)}"
 
 
 def test_orchestrator_output_byte_identical_to_chunker_smoke(tmp_path: Path) -> None:
@@ -194,6 +241,7 @@ def test_orchestrator_output_byte_identical_to_chunker_smoke(tmp_path: Path) -> 
 
     assert direct.read_bytes() == orchestrated.read_bytes()
     assert _sha256(direct) == _sha256(orchestrated)
+    _assert_no_route_metadata(orchestrated)
 
 
 def test_orchestrator_context_output_byte_identical(tmp_path: Path) -> None:
@@ -241,6 +289,8 @@ def test_orchestrator_context_output_byte_identical(tmp_path: Path) -> None:
     assert _sha256(direct_chunks) == _sha256(orchestrated_chunks)
     assert _sha256(direct_context) == _sha256(orchestrated_context)
     assert len(_read_jsonl(direct_context)) == 1
+    _assert_no_route_metadata(orchestrated_chunks)
+    _assert_no_route_metadata(orchestrated_context)
 
 
 @requires_data
@@ -292,6 +342,15 @@ def test_orchestrator_real_corpus_byte_identical_when_data_present(tmp_path: Pat
     if direct_context.exists() or orchestrated_context.exists():
         assert direct_context.read_bytes() == orchestrated_context.read_bytes()
         assert _sha256(direct_context) == _sha256(orchestrated_context)
+        _assert_no_route_metadata(orchestrated_context)
+    chunks = _read_jsonl(orchestrated_chunks)
+    ps23 = [c for c in chunks if c["osis_start"].startswith("Ps.23.") or c["osis_end"].startswith("Ps.23.")]
+    assert len(ps23) == 1
+    assert ps23[0]["osis_start"] == "Ps.23.1"
+    assert ps23[0]["osis_end"] == "Ps.23.6"
+    ps119 = [c for c in chunks if c["osis_start"].startswith("Ps.119.")]
+    assert len(ps119) > 1
+    _assert_no_route_metadata(orchestrated_chunks)
 
 
 def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
@@ -327,7 +386,7 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     ])
 
     raw_lines = ledger_path.read_text(encoding="utf-8").splitlines()
-    assert len(raw_lines) == 1
+    assert len(raw_lines) >= 2
     record = json.loads(raw_lines[0])
     assert set(record) >= LEDGER_REQUIRED_FIELDS
     assert record["type"] == "ChunkingRouteLedger"
@@ -335,7 +394,10 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     assert record["context_output_hash"] is None
     assert len(record["input_hash"]) == 64
     assert len(record["registry_surface_sha"]) == 64
+    assert record["route_mode"] == "literal_psalm_candidate_seam"
+    assert record["candidate_skill_ids"] == ["psalm-whole-then-stanza-v1"]
     assert record["validation_status"] in {"byte_identical_pending", "byte_identical_passed"}
+    assert any(json.loads(line)["type"] == "ChunkingRouteLedgerRoute" for line in raw_lines[1:])
 
 
 def test_route_ledger_declares_no_form_routing(tmp_path: Path) -> None:
@@ -357,10 +419,51 @@ def test_route_ledger_declares_no_form_routing(tmp_path: Path) -> None:
     ])
 
     record = _read_jsonl(ledger_path)[0]
-    assert record["route_mode"] == "monolith_pass2"
-    assert record["skill_id"] == "monolith-pass2-v1"
+    assert record["route_mode"] == "literal_psalm_candidate_seam"
     assert record["form_based_routing_enabled"] is False
     assert record["detect_form_consumed"] is False
+
+
+def test_route_ledger_records_literal_psalm_candidate_and_non_ps_fallback(tmp_path: Path) -> None:
+    passages, witnesses = _write_route_inputs(tmp_path)
+    direct_chunks = tmp_path / "direct-chunks.jsonl"
+    orchestrated_chunks = tmp_path / "orchestrated-chunks.jsonl"
+    ledger_path = tmp_path / "route-ledger.jsonl"
+
+    _run([
+        sys.executable,
+        str(CHUNKER),
+        "--passages",
+        str(passages),
+        "--witnesses",
+        str(witnesses),
+        "--out",
+        str(direct_chunks),
+    ])
+    _run([
+        sys.executable,
+        str(ORCHESTRATOR),
+        "--passages",
+        str(passages),
+        "--witnesses",
+        str(witnesses),
+        "--out",
+        str(orchestrated_chunks),
+        "--route-ledger",
+        str(ledger_path),
+    ])
+
+    assert direct_chunks.read_bytes() == orchestrated_chunks.read_bytes()
+    records = _read_jsonl(ledger_path)
+    routes = {record["book"]: record for record in records if record["type"] == "ChunkingRouteLedgerRoute"}
+    assert routes["Ps"]["skill_id"] == "psalm-whole-then-stanza-v1"
+    assert routes["Ps"]["route_reason"] == "literal_book_ps_candidate_seam"
+    for book in ("Song", "Lam", "PrMan", "Ps151", "John"):
+        assert routes[book]["skill_id"] == "monolith-pass2-v1"
+        assert routes[book]["route_reason"] == "monolith_fallback_non_target_book"
+    assert all(record["detect_form_consumed"] is False for record in records)
+    assert all(record["form_based_routing_enabled"] is False for record in records)
+    _assert_no_route_metadata(orchestrated_chunks)
 
 
 def test_orchestrator_does_not_import_detect_form() -> None:
