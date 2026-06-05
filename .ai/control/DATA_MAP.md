@@ -146,6 +146,18 @@ Generated data (canonical/processed) is gitignored and regenerable from raw + im
 - **Outputs:**
   - `boundary scores`
 
+### `pipelines/chunking/detect_form.py`
+
+- **Role:** T310 read-only textual-form detector (candidate ClassificationAssignment sidecar)
+- **Inputs:**
+  - `data/canonical/scripture/passages/passages.jsonl (--passages)`
+  - `data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)`
+  - `data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)`
+  - `config/chunking/book_genres.yaml (--genres), config/chunking/form_registry.yaml (--form-registry)`
+  - `optional word_tokens.jsonl (--word-tokens), footnotes.jsonl (--footnotes)`
+- **Outputs:**
+  - `data/candidate/chunking/form_assignments/<source>-detect_form-v0.1.0-<timestamp>.jsonl`
+
 ### `pipelines/chunking/evaluate_chunks.py`
 
 - **Role:** A/B evaluation harness — scores chunk variants (sentence integrity, psalm fragmentation, size, gold checks)

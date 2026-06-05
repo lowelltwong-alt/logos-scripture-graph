@@ -139,8 +139,31 @@ Validation: `validate_all` all gates green; pytest 32 passed; leaderboard still 
 Registry JSON/YAML all parse. The registry files are hand-authored stubs — a generator (from skill
 metadata + form_registry) replaces them in a later increment.
 
+## Increment 1 — COMPLETED (2026-06-05, Composer 2.5)
+
+Read-only deterministic form detector landed. Emits **candidate-zone `ClassificationAssignment`**
+records (`axis: textual_form`, `assertion_mode: inferred_rule`, `trust_zone: candidate`) — no new
+schema; reuses `schemas/classification_assignment.schema.json`. No LLM path. No routing. No chunker
+behavior change.
+
+Files:
+- `pipelines/chunking/detect_form.py` — marker-first detector; imports `build_units()` read-only from chunker
+- `scripts/chunking/emit_form_assignments.py` — CLI → `data/candidate/chunking/form_assignments/`
+- `tests/test_detect_form.py` + `tests/fixtures/chunking/form_detect_units.jsonl`
+- `.gitignore` — ignores `data/candidate/chunking/`
+- `scripts/generate_data_map.py` + regenerated `.ai/control/DATA_MAP.md`
+
+Validation: `validate_all` all gates green; pytest **40 passed** (+8 new); leaderboard still **88.5**
+(claude-opus-4.8 pass2 / D). `chunker.py`, `evaluate_chunks.py`, `leaderboard.py` **not edited**.
+
 ## Next agent instruction
 
+Start **Increment 2** (orchestrator shim): `pipelines/chunking/orchestrator.py` reproduces Pass-2 output
+byte-identically via monolith skill pin; emits route ledger. Do not enable routing on detected forms yet
+until byte-identical gate proven.
+
+<!-- superseded instruction below kept for history -->
+<!--
 Start **Increment 1** (read-only form detector). Add `pipelines/chunking/detect_form.py` that emits
 candidate `FormAssignment` JSONL to `data/candidate/chunking/form_assignments/` using DETERMINISTIC
 marker rules over `build_units()` marker sets (decision tree grounded in `form_registry.yaml` +
@@ -148,3 +171,4 @@ marker rules over `build_units()` marker sets (decision tree grounded in `form_r
 that writes a SEPARATE shadow `FormAssignment` (never overwrites deterministic). Change NO chunker
 output. Validate ≥95% of chunks get a form at confidence ≥0.7; gates green; leaderboard still 88.5. Open
 a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then update this handoff.
+-->

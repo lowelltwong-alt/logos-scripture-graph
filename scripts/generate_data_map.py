@@ -94,6 +94,20 @@ PIPELINE_ENDPOINTS = [
         "outputs": ["boundary scores"],
     },
     {
+        "script": "pipelines/chunking/detect_form.py",
+        "role": "T310 read-only textual-form detector (candidate ClassificationAssignment sidecar)",
+        "inputs": [
+            "data/canonical/scripture/passages/passages.jsonl (--passages)",
+            "data/canonical/translations/eng-web/translation_witnesses.jsonl (--witnesses)",
+            "data/canonical/translations/eng-web/boundary_claims.jsonl (--boundary-claims)",
+            "config/chunking/book_genres.yaml (--genres), config/chunking/form_registry.yaml (--form-registry)",
+            "optional word_tokens.jsonl (--word-tokens), footnotes.jsonl (--footnotes)",
+        ],
+        "outputs": [
+            "data/candidate/chunking/form_assignments/<source>-detect_form-v0.1.0-<timestamp>.jsonl",
+        ],
+    },
+    {
         "script": "pipelines/chunking/evaluate_chunks.py",
         "role": "A/B evaluation harness — scores chunk variants (sentence integrity, psalm fragmentation, size, gold checks)",
         "inputs": ["one or more chunks.jsonl variants (name=path)"],
