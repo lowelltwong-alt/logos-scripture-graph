@@ -85,3 +85,18 @@ roles:
     required_outputs:
       - roadmap_event
       - handoff_validation
+  connection_discoverer:
+    purpose: "Find NEW connections we have not curated (intertextual, lexical, thematic, extra-biblical) and emit them as CANDIDATE claims with evidence — never auto-promote. See .ai/handoffs/CONNECTION_DISCOVERY_AGENT.md."
+    allowed_paths:
+      - data/derived/
+      - data/candidate/
+      - .ai/handoffs/
+    forbidden_actions:
+      - "write to data/canonical/ or data/raw/"
+      - "promote a candidate edge to asserted/canonical (human-gated)"
+      - "emit an edge without evidence_refs + provenance + confidence"
+      - "promote editorial \\x crossrefs to theological predicates"
+    required_outputs:
+      - candidate_relationship_objects
+      - discovery_report
+      - handoff

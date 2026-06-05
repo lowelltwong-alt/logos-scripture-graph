@@ -30,9 +30,10 @@ TRUST_ZONE_BY_PREFIX = [
     ("data/canonical", "canonical"),
     ("data/processed", "processed"),
     ("data/derived", "derived"),
+    ("data/candidate", "candidate"),
 ]
 
-DATA_DIRS = ["data/raw", "data/canonical", "data/processed", "data/derived"]
+DATA_DIRS = ["data/raw", "data/canonical", "data/processed", "data/derived", "data/candidate"]
 SKIP_SUBSTRINGS = ("extracted", "__pycache__", ".pytest_cache")
 
 LFS_THRESHOLD_BYTES = 100 * 1024 * 1024  # flag files >100MB
@@ -91,6 +92,12 @@ PIPELINE_ENDPOINTS = [
         "role": "Boundary scoring helper (Sprint 3: wire into boundary-driven chunker)",
         "inputs": ["boundary evidence types"],
         "outputs": ["boundary scores"],
+    },
+    {
+        "script": "pipelines/chunking/evaluate_chunks.py",
+        "role": "A/B evaluation harness — scores chunk variants (sentence integrity, psalm fragmentation, size, gold checks)",
+        "inputs": ["one or more chunks.jsonl variants (name=path)"],
+        "outputs": ["comparison table + report.md + scores.json"],
     },
     {
         "script": "pipelines/validate/validate_manifest.py",
