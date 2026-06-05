@@ -34,7 +34,7 @@ TRUST_ZONE_BY_PREFIX = [
 ]
 
 DATA_DIRS = ["data/raw", "data/canonical", "data/processed", "data/derived", "data/candidate"]
-SKIP_SUBSTRINGS = ("extracted", "__pycache__", ".pytest_cache")
+SKIP_SUBSTRINGS = ("extracted", "__pycache__", ".pytest_cache", "derived/chunks")
 
 LFS_THRESHOLD_BYTES = 100 * 1024 * 1024  # flag files >100MB
 
