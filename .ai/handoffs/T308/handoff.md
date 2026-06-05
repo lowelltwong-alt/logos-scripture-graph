@@ -153,23 +153,70 @@ This is what the human uses to resolve differences after run N.
 - Regenerate `DATA_MAP.md` (new data/candidate files + new pipeline endpoints).
 
 ## Files read
-- (Codex: fill in)
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `.ai/handoffs/T308/handoff.md`
+- `.ai/handoffs/CONNECTION_DISCOVERY_AGENT.md`
+- `config/governance/predicate_registry.yaml`
+- `schemas/relationship_object.schema.json`
+- `data/candidate/connections/2026-06-04-ab-review.jsonl`
+- `data/canonical/translations/eng-web/translation_witnesses.jsonl` (streamed/sample-inspected)
+- `data/canonical/translations/eng-web/word_tokens.jsonl` (streamed/sample-inspected)
+- `data/canonical/translations/eng-web/editorial_cross_references.jsonl` (streamed/sample-inspected)
 
 ## Files changed
-- (Codex: fill in)
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/handoff_ledger.jsonl`
+- `.ai/control/roadmap_events.jsonl`
+- `.ai/handoffs/T308/handoff.md`
+- `scripts/generate_data_map.py`
+- `pipelines/graph/discover_connections.py`
+- `pipelines/graph/compare_candidate_batches.py`
+- `tests/test_discover_connections.py`
+- `tests/test_compare_candidate_batches.py`
+- `data/candidate/connections/codex-5.5-2026-06-05.jsonl`
+- `data/candidate/connections/codex-5.5-2026-06-05.manifest.yaml`
+- `build/discovery/codex-5.5-report.md`
+- `build/discovery/comparison.md`
+- `build/discovery/comparison/agreement.jsonl`
+- `build/discovery/comparison/disagreement.jsonl`
 
 ## Decisions made
-- (Codex: fill in — esp. thresholds chosen and any precision/recall calls)
+- Emitted candidate-only `RelationshipObject` rows with deterministic IDs in the requested `cand:rel:<subject_osis>--<predicate>--<object_osis>` shape.
+- Used three independent deterministic methods: lexical Strong's co-occurrence (`rare_df_max=6`, `min_shared_strongs=2`), shared rare phrase (`n=4..7`, `max_occurrences=2`), and citation-formula phrase matching (`n=4..9`, `max_occurrences=3`).
+- Kept phrase and citation edges NT→OT only; allowed lexical Strong's co-occurrence across any two distinct books because WEB Strong IDs are language-prefixed (OT `H*`, NT `G*`) and therefore do not naturally overlap cross-testament.
+- Chose conservative candidate predicates only: `quotesFrom` for citation/exact high-overlap phrase matches and `thematicallyRelatedTo` for lexical co-occurrence; did not emit `typifies` or `fulfills`.
+- De-duplicated both directions against editorial `\x`, dropping 55 candidate rows that matched existing curated cross-reference pairs.
+- Capped final output at 500 candidates and left all rows in the candidate trust zone for human/multi-agent adjudication.
 
 ## Validation run
-- (Codex: paste exact outputs)
+- `pip install -e ".[validate,test]"` — failed in this environment because pip could not reach setuptools through the configured package tunnel (`403 Forbidden`).
+- `pip install --no-build-isolation -e ".[validate,test]"` — failed because the local Python 3.14 environment cannot import `setuptools.build_meta`; existing dependency-light gates still run.
+- `python pipelines/ingest/usfm_importer.py` — passed; wrote canonical records under `data/canonical` and processed USFM reports under `data/processed/bible/eng-web/usfm`.
+- Baseline `python scripts/validate_all.py && python -m pytest -q` — passed before changes: validation gates passed; `19 passed, 4 skipped in 13.56s`.
+- Targeted `python -m pytest tests/test_discover_connections.py tests/test_compare_candidate_batches.py -q` — passed: `7 passed in 0.07s`.
+- Discovery CLI — passed: wrote 500 candidate connections and dropped 55 existing editorial cross-reference candidates.
+- Comparison CLI against `data/candidate/connections/2026-06-04-ab-review.jsonl` — passed: 0 agreement triples, 508 disagreement triples.
+- `python scripts/validate_schemas.py data/candidate/connections/codex-5.5-2026-06-05.jsonl` — environment warning: `jsonschema not installed; skipping schema validation`.
+- Candidate invariant check — passed: 0 rows with non-candidate assertion/status/trust zone or missing evidence.
+- `git diff --quiet data/raw/ data/canonical/` — passed (exit 0).
+- Final `python scripts/validate_all.py && python -m pytest -q` — passed: Repo validation, control plane, handoff validation, raw coverage, raw inventory, manifest validation, JSONL validation, and all validation gates passed; pytest `26 passed, 4 skipped in 13.22s`.
 
 ## Known risks
 - English-surface phrase matching will miss Hebrew/Greek-only links and catch coincidental phrases — keep confidence honest; this is run 1, not truth.
 - word_tokens.jsonl is 432MB — stream it; do not load all into memory at once.
 
 ## Open questions
-- (Codex: log any design call you made conservatively instead of guessing.)
+- Strong's lexical co-occurrence cannot discover OT↔NT links in this WEB corpus using raw IDs alone because OT lemmas are Hebrew `H*` and NT lemmas are Greek `G*`; cross-language lexical alignment would require a governed lexicon not present in this task.
+- Shared English phrase matching still catches translation-style and narrative-formula coincidences; all such rows are candidate-only and should be adjudicated by overlap with additional agent runs rather than promoted from this run alone.
+- No `typifies`/`fulfills` candidates were emitted because those require theological/tradition-scoped judgment beyond deterministic evidence matching.
 
 ## Paste prompt for Codex 5.5
 
@@ -210,3 +257,21 @@ After T308: the human runs the SAME task with another model (run 2..N), then use
 Agreed, well-evidenced candidates go to a human-reviewed promotion (candidate → asserted)
 via the governed path; the rest stay candidate. Do not let any candidate become canonical
 without human review.
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex 5.5
+- mode: build
+- updated_at: 2026-06-05T03:49:59+00:00
+- handoff_id: d16460f9a3b84630
+
+---
+
+## Handoff refresh: final
+
+- agent_name: codex-5.5
+- mode: build
+- updated_at: 2026-06-05T03:58:52+00:00
+- handoff_id: 1b5ec68c9522b526

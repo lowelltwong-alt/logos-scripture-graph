@@ -100,6 +100,30 @@ PIPELINE_ENDPOINTS = [
         "outputs": ["comparison table + report.md + scores.json"],
     },
     {
+        "script": "pipelines/graph/discover_connections.py",
+        "role": "Candidate-only connection discovery (Strong's co-occurrence, rare phrase overlap, citation formulas)",
+        "inputs": [
+            "data/canonical/translations/eng-web/word_tokens.jsonl",
+            "data/canonical/translations/eng-web/translation_witnesses.jsonl",
+            "data/canonical/translations/eng-web/editorial_cross_references.jsonl",
+        ],
+        "outputs": [
+            "data/candidate/connections/<agent>-<date>.jsonl",
+            "data/candidate/connections/<agent>-<date>.manifest.yaml",
+            "build/discovery/<agent>-report.md",
+        ],
+    },
+    {
+        "script": "pipelines/graph/compare_candidate_batches.py",
+        "role": "Compare candidate batches and split agreement/disagreement sets for human adjudication",
+        "inputs": ["two or more data/candidate/connections/*.jsonl batches"],
+        "outputs": [
+            "build/discovery/comparison.md",
+            "build/discovery/comparison/agreement.jsonl",
+            "build/discovery/comparison/disagreement.jsonl",
+        ],
+    },
+    {
         "script": "pipelines/validate/validate_manifest.py",
         "role": "Source manifest + checksum validation",
         "inputs": ["data/raw/**/source_manifest.yaml"],
