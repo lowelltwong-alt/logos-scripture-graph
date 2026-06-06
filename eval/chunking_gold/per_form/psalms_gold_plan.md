@@ -1,6 +1,7 @@
 # Psalms Gold Plan
 
-Status: planning scaffold for T310 3b; not promoted gold.
+Status: T310 3b-gold executable settled cases plus Ps.78 characterization. The reviewed/executable
+manifest is `eval/chunking_gold/per_form/psalms_gold_manifest.json`.
 
 Target form: literal Book of Psalms (`Ps`) routed through the candidate
 `psalm-whole-then-stanza-v1` skill.
@@ -8,16 +9,21 @@ Target form: literal Book of Psalms (`Ps`) routed through the candidate
 Baseline: unchanged D / Claude pass2 output scores 93.0 under the corrected T311 evaluator. The
 old 88.5 score is retained only as old-evaluator provenance.
 
-## Minimum Planned Cases
+## Executable Reviewed Cases
 
 | Case | Expected behavior | Purpose |
 | --- | --- | --- |
 | `Ps.23.1-Ps.23.6` | One whole-psalm chunk. | Existing hard gate; must not regress. |
-| Psalm superscriptions with `\d` title material | Superscription/title remains attached to its Psalm. | Prevent orphan title chunks. |
+| `Ps.3` superscription source evidence | Real `\d` title source evidence exists and no standalone orphan title chunk is emitted. | Prevent orphan title chunks under the current witness/chunk model. |
 | `Ps.119` | Exact 22 stanza/section chunks, reported via `psalm119_section_chunks` and not penalized as fragmentation. | Preserve intentional structure. |
-| Short Psalm holdouts: `Ps.1`, `Ps.8`, `Ps.23`, `Ps.100`, `Ps.117` | One chunk each unless future reviewed gold says otherwise. | Prevent over-fragmenting short Psalms. |
-| Current literal fragmentation target: `Ps.78` | Investigate current split and propose reviewed expected boundary behavior before changing output. | The only current `literal_psalms_fragmented=1` D target. |
-| Non-target controls: `Song`, `Lam`, `PrMan`, `Ps151` | Remain on monolith fallback and byte-identical to the baseline output. | Prove the Psalm skill does not rewrite adjacent poetry books. |
+| Short Psalm holdouts: `Ps.1`, `Ps.8`, `Ps.100`, `Ps.117` | One chunk each unless future reviewed gold says otherwise. | Prevent over-fragmenting short Psalms. |
+| Non-target controls: `Song`, `Lam`, `PrMan`, `Ps151` | Remain on monolith fallback / route-stable under the current orchestrator strategy. | Prove the Psalm skill does not rewrite adjacent poetry books. |
+
+## Characterization-Only Cases
+
+| Case | Observed behavior | Status |
+| --- | --- | --- |
+| Current literal fragmentation target: `Ps.78` | `Ps.78.1-Ps.78.69` (1109 tokens), `Ps.78.70-Ps.78.71` (35 tokens), `Ps.78.72-Ps.78.72` (21 tokens); merged Psalm would be 1165 tokens; `\b` marker at `Ps.78.72`. | `pending_human_review`; merge-vs-preserve-`\b` boundary is unresolved and human-gated. |
 
 ## Hard Gates
 
@@ -39,9 +45,8 @@ old 88.5 score is retained only as old-evaluator provenance.
 ## Current Target Finding
 
 T311 analysis identified the single D / Claude pass2 literal Psalm fragmentation target as `Ps.78`.
-The clean checkout does not commit the generated D chunk output, so T310 3b must first regenerate or
-capture the current `Ps.78` split and review the intended boundary before implementing an output
-change.
+T310 3b-gold captured the current `Ps.78` split as characterization-only evidence. It is not a
+promoted expected boundary and does not authorize an output change.
 
 ## Scoring Caveat
 

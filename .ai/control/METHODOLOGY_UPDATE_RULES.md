@@ -50,16 +50,29 @@ Every chunking-related PR must include one of:
 Score-moving chunking PRs must also state whether evaluator sanity was checked and whether any score
 movement reflects output improvement or evaluator-surface correction.
 
+Gold-related PRs must also state whether each cited artifact is scaffold/plan, executable reviewed
+gold, characterization-only evidence, or pending human review.
+
 ## Per-Form Gold Rule
 
 Before any output-changing chunking skill work, the PR or handoff must cite a per-form gold file or
-manifest under `eval/chunking_gold/`. A planning scaffold is enough to start analysis, but promotion
-requires reviewed target-form output evidence.
+manifest under `eval/chunking_gold/`.
+
+- A planning scaffold is enough to start analysis.
+- Characterization-only evidence is enough to describe current behavior and risk.
+- Neither scaffold nor characterization-only evidence is promoted expected output.
+- Output-changing skill work requires executable/reviewed gold first.
+- Promotion requires reviewed target-form output evidence and non-target controls.
+- Weak evaluator levers, such as Ps.78's +0.5 composite upside, must not drive implementation
+  without target-form evidence.
+- Human-gated boundary decisions must remain `pending_human_review` until explicitly reviewed.
 
 ## Handoff Note
 
 Chunking-related handoffs must record the methodology decision under `Decisions made` or the task's
 increment-specific section. Use the exact PR note wording when possible so reviewers can find it.
+For gold-related work, handoffs must also record whether target evidence is reviewed gold,
+characterization-only, or pending human review.
 
 ## Related Workflow
 
