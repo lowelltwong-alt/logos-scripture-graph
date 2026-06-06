@@ -255,8 +255,19 @@ def test_psalm_78_reviewed_parent_child_structural_split(chunks, psalms_gold_man
     assert observed == case["expected"]["child_chunks"]
     assert _approx_tokens(" ".join(c["text"] for c in ps78)) == case["expected"]["merged_tokens"]
     assert case["expected"]["hard_max_violation_if_merged"] is False
-    # The current evaluator formula is intentionally unchanged in this gold-only decision.
-    assert score(chunks)["literal_psalms_fragmented"] == 1
+    metrics = score(chunks)
+    assert metrics["literal_psalms_fragmented_raw"] == 1
+    assert metrics["literal_psalms_fragmented"] == 0
+    assert metrics["reviewed_structural_splits"] == [{
+        "case_id": "ps78_parent_child_structural_split",
+        "osis_span": "Ps.78.1-Ps.78.72",
+        "parent": {"osis_start": "Ps.78.1", "osis_end": "Ps.78.72"},
+        "child_spans": [
+            {"osis_start": "Ps.78.1", "osis_end": "Ps.78.69"},
+            {"osis_start": "Ps.78.70", "osis_end": "Ps.78.71"},
+            {"osis_start": "Ps.78.72", "osis_end": "Ps.78.72"},
+        ],
+    }]
 
 
 @requires_data

@@ -8,10 +8,11 @@ skill work must cite a per-form gold file or manifest before claiming improvemen
 
 ## Current Baseline
 
-- Corrected evaluator baseline: `D_claude_pass2` = 93.0.
+- Current T314 evaluator-policy baseline: `D_claude_pass2` = 93.5.
+- T311 book/chapter evaluator baseline: 93.0.
 - Old evaluator baseline: 88.5.
-- Provenance: the same D / Claude pass2 chunk output was scored under both evaluators.
-- Interpretation: T311 corrected the evaluator surface; it did not improve chunk output.
+- Provenance: the same D / Claude pass2 chunk output was scored under all three evaluator surfaces.
+- Interpretation: T311 and T314 corrected evaluator policy; neither improved chunk output.
 
 ## Current Executable Gold
 

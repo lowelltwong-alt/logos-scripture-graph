@@ -47,6 +47,8 @@ Confirmed:
   and initially left Ps.78 as characterization-only pending human review.
 - Human review then approved Psalm 78's current child chunks as a structural split under a parent
   whole-psalm literary unit.
+- T314 preserved raw Psalm-fragmentation diagnostics while excluding exact manifest-reviewed
+  structural splits from the final bad-fragmentation penalty.
 
 Unknown or unfinished:
 
@@ -68,9 +70,12 @@ Unknown or unfinished:
    as characterization-only, not approved expected output.
 6. T310 Ps.78 human decision: preserve current child boundaries as a reviewed structural split under
    the parent whole-psalm unit.
-7. Pending true Psalm improvement after reviewed target-form boundary evidence identifies a new
+7. T314 evaluator-policy correction: report `literal_psalms_fragmented_raw`, report
+   `reviewed_structural_splits`, and exclude exact reviewed structural splits from final
+   `literal_psalms_fragmented`.
+8. Pending true Psalm improvement after reviewed target-form boundary evidence identifies a new
    output-changing target.
-8. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
+9. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
 
 Increment 1 and Increment 2 were intentionally non-scoring. Increment 3a is behavior-preserving
 extraction, not a quality improvement. T311 changed the evaluator surface, not chunk output. T310
@@ -149,6 +154,8 @@ or treat route metadata as chunk/context content.
   authorize output changes or promotion.
 - Reviewed structural split is not bad fragmentation by default. Psalm 119 is the strong precedent;
   Psalm 78 is now a reviewed lighter case.
+- Evaluator policy may exclude exact manifest-reviewed structural splits from the final
+  bad-fragmentation penalty only while preserving raw diagnostics.
 - Weak evaluator levers must not drive implementation by themselves. Example: merging Ps.78 offered
   only +0.5 composite upside and was rejected as metric-chasing after human review.
 - Human-gated boundary decisions must stay `pending_human_review` until explicitly reviewed.
@@ -161,6 +168,11 @@ or treat route metadata as chunk/context content.
 The pre-T311 recorded 88.5 score was an old-evaluator baseline, not final quality. After T311, the
 unchanged D / Claude pass2 output scores 93.0 under the corrected evaluator. That is an evaluator
 correction, not evidence that the chunker improved.
+
+After T314, the same unchanged output scores 93.5 because the evaluator keeps
+`literal_psalms_fragmented_raw=1`, records Ps.78 in `reviewed_structural_splits`, and excludes that
+exact reviewed structural split from final `literal_psalms_fragmented`. That is also
+evaluator-policy correction, not chunk-output improvement.
 
 ## 8. What is still incomplete
 
@@ -260,6 +272,8 @@ Rules:
 - Similar future cases should be reviewed through gold before evaluator or chunker changes.
 - If the current evaluator still counts a reviewed structural split as fragmentation, handle that in
   a separate evaluator-policy PR; do not use it to justify an output change.
+- T314 is the reference implementation: exact reviewed child-boundary match required; missing,
+  malformed, or under-specified gold falls back to raw counting and excludes nothing.
 
 ## 10c. Future lane categorization rule
 
@@ -373,3 +387,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-06: Added the Psalm 78 parent/child structural-split lesson. Reviewed structural splits are
   not bad fragmentation by default; Psalm 119 is the strong precedent and Psalm 78 is now a reviewed
   lighter case.
+- 2026-06-06: Added the T314 evaluator-policy lesson. Raw literal Psalm fragmentation diagnostics
+  remain visible, while exact manifest-reviewed structural splits can be excluded from final bad
+  fragmentation without changing chunk output or claiming chunking improvement.

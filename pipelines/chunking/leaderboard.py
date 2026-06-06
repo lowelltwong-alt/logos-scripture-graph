@@ -11,7 +11,8 @@ Ranking:
   1. HARD GATES (must pass to be eligible): usfm_leaks==0, book_crossings==0,
      sentence_integrity_pct==100, gold_psalm23_one_chunk==True,
      gold_gen1_no_midsentence==True.
-  2. Among eligible, sort by: literal Psalm fragmentation asc, then size-fitness |p50-600| asc.
+  2. Among eligible, sort by: final unreviewed literal Psalm fragmentation asc, then
+     size-fitness |p50-600| asc.
   Transparent composite shown; humans make the final call.
 
 Usage: python pipelines/chunking/leaderboard.py [--runs-dir eval/chunking_runs] [--out eval/LEADERBOARD.md]
@@ -72,6 +73,9 @@ def main() -> int:
     rows = []
     for c in cards:
         m = c.get("metrics", {})
+        reviewed_splits = m.get("reviewed_structural_splits") or []
+        if not isinstance(reviewed_splits, list):
+            reviewed_splits = []
         rows.append({
             "run_id": c.get("run_id", "?"),
             "agent": c.get("agent", "?"),
@@ -81,6 +85,8 @@ def main() -> int:
             "chunks": m.get("chunks"),
             "tok_p50": m.get("tok_p50"),
             "psalms_fragmented": m.get("psalms_fragmented"),
+            "literal_psalms_fragmented_raw": m.get("literal_psalms_fragmented_raw"),
+            "reviewed_structural_splits": len(reviewed_splits),
             "literal_psalms_fragmented": m.get("literal_psalms_fragmented"),
             "poetry_books_fragmented": m.get("poetry_books_fragmented"),
             "psalm119_section_chunks": m.get("psalm119_section_chunks"),
@@ -92,14 +98,16 @@ def main() -> int:
     rows.sort(key=lambda r: (not r["eligible"], -(r["composite"] or -1e9)))
 
     cols = ["rank", "agent", "pass", "eligible", "composite", "chunks", "tok_p50",
-            "psalms_fragmented", "literal_psalms_fragmented", "poetry_books_fragmented",
-            "psalm119_section_chunks", "sent_pct", "leaks", "crossings", "run_id"]
+            "psalms_fragmented", "literal_psalms_fragmented_raw", "reviewed_structural_splits",
+            "literal_psalms_fragmented", "poetry_books_fragmented", "psalm119_section_chunks",
+            "sent_pct", "leaks", "crossings", "run_id"]
     lines = ["| " + " | ".join(cols) + " |", "|" + "|".join("---" for _ in cols) + "|"]
     for i, r in enumerate(rows, 1):
         rank = i if r["eligible"] else "—"
         cells = [str(rank), r["agent"], str(r["pass"]),
                  "yes" if r["eligible"] else "NO", str(r["composite"]),
                  str(r["chunks"]), str(r["tok_p50"]), str(r["psalms_fragmented"]),
+                 str(r["literal_psalms_fragmented_raw"]), str(r["reviewed_structural_splits"]),
                  str(r["literal_psalms_fragmented"]), str(r["poetry_books_fragmented"]),
                  str(r["psalm119_section_chunks"]), str(r["sent_pct"]), str(r["leaks"]),
                  str(r["crossings"]), r["run_id"]]
@@ -119,8 +127,10 @@ def main() -> int:
         "",
         "Scoring provenance: T311 corrected Psalm fragmentation grouping from bare chapter to",
         "`(book, chapter)`. The unchanged D / Claude pass2 output scored 88.5 under the old",
-        "evaluator and scores 93.0 under the corrected evaluator; this is evaluator-surface",
-        "correction, not chunk-output improvement.",
+        "evaluator and 93.0 under the T311 book/chapter evaluator. T314 excludes reviewed",
+        "parent/child structural Psalm splits, such as Ps.78, from the bad-fragmentation penalty;",
+        "the same unchanged output now scores 93.5. These are evaluator-policy corrections, not",
+        "chunk-output improvement.",
         "",
         table,
         "",

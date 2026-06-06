@@ -58,6 +58,8 @@ AI-operational checklist for chunking-related work. Use with
 - Run `python -m pytest -q`.
 - For behavior-preserving work, prove byte identity against the baseline.
 - For evaluator work, document before/after score meaning.
+- For reviewed-structural-split evaluator work, preserve raw diagnostics, require exact reviewed
+  child-boundary matches, and label score movement as evaluator-policy correction.
 - For true improvements, compare target-form output against fallback and check non-target
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target

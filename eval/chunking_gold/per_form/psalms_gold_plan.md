@@ -7,8 +7,9 @@ structural split. The reviewed/executable manifest is
 Target form: literal Book of Psalms (`Ps`) routed through the candidate
 `psalm-whole-then-stanza-v1` skill.
 
-Baseline: unchanged D / Claude pass2 output scores 93.0 under the corrected T311 evaluator. The
-old 88.5 score is retained only as old-evaluator provenance.
+Baseline: unchanged D / Claude pass2 output scores 93.5 under the T314 reviewed-structural-split
+evaluator policy. The T311 book/chapter evaluator score was 93.0, and the old 88.5 score is
+retained only as old-evaluator provenance.
 
 ## Executable Reviewed Cases
 
@@ -62,7 +63,7 @@ structural chunks. This records reviewed gold and does not authorize or require 
 
 ## Scoring Caveat
 
-The corrected composite currently penalizes `literal_psalms_fragmented` by 0.5 per unit. Because the
-evaluator formula is unchanged, it may still count Psalm 78 as `literal_psalms_fragmented=1` even
-though gold now treats it as a reviewed structural split. Any change to that treatment belongs in a
-separate evaluator-policy PR.
+The corrected composite still penalizes final `literal_psalms_fragmented` by 0.5 per unit. T314 keeps
+`literal_psalms_fragmented_raw=1` for Ps.78, records one `reviewed_structural_splits` diagnostic, and
+sets final `literal_psalms_fragmented=0` because the observed child boundaries exactly match reviewed
+gold. This is evaluator-policy correction, not output improvement.

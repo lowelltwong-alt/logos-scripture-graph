@@ -6,10 +6,11 @@
   "promotion_status": "settled_cases_executable_gold_with_ps78_reviewed_structural_split",
   "baseline": {
     "run_id": "claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z",
-    "corrected_evaluator_composite": 93.0,
+    "t314_reviewed_structural_split_composite": 93.5,
+    "t311_book_chapter_evaluator_composite": 93.0,
     "old_evaluator_composite": 88.5,
     "chunk_output_sha256": "8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7",
-    "score_provenance": "Same D_claude_pass2 chunk output; T311 corrected Psalm fragmentation grouping from bare chapter to (book, chapter)."
+    "score_provenance": "Same D_claude_pass2 chunk output; T311 corrected Psalm fragmentation grouping from bare chapter to (book, chapter), and T314 excludes manifest-reviewed parent/child structural Psalm splits from the bad-fragmentation penalty."
   },
   "reviewed_gold": [
     {
@@ -156,8 +157,11 @@
       "evaluator_context": {
         "current_literal_psalms_fragmented_target": true,
         "direct_composite_upside_if_merged": 0.5,
+        "t314_literal_psalms_fragmented_raw": 1,
+        "t314_reviewed_structural_splits": 1,
+        "t314_literal_psalms_fragmented": 0,
         "evaluator_formula_changed": false,
-        "evaluator_policy_note": "Current evaluator may still count this as literal_psalms_fragmented=1 until a separate evaluator-policy PR distinguishes reviewed structural splits."
+        "evaluator_policy_note": "T314 preserves raw diagnostics while excluding this exact reviewed structural split from the final bad-fragmentation penalty."
       },
       "precedent": "Psalm 119 is the stronger reviewed precedent for parent whole-unit plus child structural chunks.",
       "purpose": "Lock the reviewed current Psalm 78 child boundaries without changing output or metric-chasing a weak merge."

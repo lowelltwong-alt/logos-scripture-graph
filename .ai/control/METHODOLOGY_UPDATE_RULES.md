@@ -70,6 +70,8 @@ manifest under `eval/chunking_gold/`.
 - Reviewed parent whole-unit plus child structural chunks are not bad fragmentation by default.
 - Psalm 119 is the strong precedent; Psalm 78 is now a reviewed lighter case.
 - Similar future cases must be reviewed through gold before evaluator or chunker changes.
+- Evaluator policy may exclude reviewed structural splits from final bad-fragmentation scoring only
+  when raw diagnostics remain visible and observed boundaries exactly match reviewed gold.
 
 ## Handoff Note
 

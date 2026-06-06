@@ -773,11 +773,89 @@ Open questions:
   78 from bad-fragmentation scoring?
 - Should the parent whole-unit object become explicit in a future schema rather than gold metadata?
 
+## T314 reviewed structural split evaluator policy - COMPLETED (2026-06-06, Codex)
+
+Evaluator-policy correction implemented. This does not change chunk output, raw/canonical data,
+chunker/orchestrator behavior, runtime skill code, skill promotion, or composite weighting.
+
+Files read:
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `eval/chunking_gold/review_packets/ps78_boundary_review.md`
+- `tests/test_chunker_gold.py`
+- `tests/test_evaluate_chunks.py`
+- `pipelines/chunking/evaluate_chunks.py`
+- `pipelines/chunking/leaderboard.py`
+- `eval/LEADERBOARD.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/handoffs/T310/handoff.md`
+
+Files changed:
+- `pipelines/chunking/evaluate_chunks.py`
+- `pipelines/chunking/leaderboard.py`
+- `tests/test_evaluate_chunks.py`
+- `tests/test_chunker_gold.py`
+- `eval/chunking_runs/*.json`
+- `eval/LEADERBOARD.md`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `eval/chunking_gold/review_packets/ps78_boundary_review.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Decisions made:
+- Methodology updated: yes.
+- Added `literal_psalms_fragmented_raw` as the raw diagnostic before reviewed structural-split
+  exclusions.
+- Added `reviewed_structural_splits` diagnostics for exact manifest-reviewed parent/child splits.
+- Final `literal_psalms_fragmented` now excludes only qualifying reviewed structural splits.
+- Qualification is defensive: approved/reviewed status, explicit parent, explicit child chunks,
+  `reviewed_structural_split: true`, `not_bad_fragmentation_gold: true`, and exact observed
+  start/end boundary match.
+- Missing, malformed, or under-specified manifest falls back to raw counting and excludes nothing.
+- Psalm 119 remains handled separately as `psalm119_section_chunks`.
+- Unreviewed multi-chunk literal Psalms still count as bad fragmentation.
+- Score provenance chain is now 88.5 old evaluator -> 93.0 T311 book/chapter evaluator -> 93.5
+  T314 reviewed-structural-split evaluator policy, all for unchanged D / Claude pass2 output.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed:
+  - `Repo validation passed.`
+  - `Control plane validation passed.`
+  - `Cross-repo governance contract validation passed.`
+  - `Handoff validation passed for 17 referenced handoff path(s).`
+  - `Raw coverage OK: 46 distinct markers across 1 archive(s), all classified.`
+  - `RAW_SOURCE_INVENTORY.md is current.`
+  - `Manifest validation passed.`
+  - `JSONL validation passed for 78742 records.`
+  - `All validation gates passed.`
+- `python -m pytest -q` -> 64 passed.
+- `python pipelines/chunking/leaderboard.py` -> D / Claude pass2 remains rank 1 at composite 93.5,
+  with `literal_psalms_fragmented_raw=1`, `reviewed_structural_splits=1`, and final
+  `literal_psalms_fragmented=0`.
+
+Known risks:
+- The evaluator now consumes optional gold metadata defensively; malformed or missing gold excludes
+  nothing, but formal manifest schema validation remains deferred.
+- Overusing reviewed structural split exceptions could hide real fragmentation if future reviews are
+  loose; exact boundary matching and raw diagnostics mitigate this.
+
+Open questions:
+- Should a future manifest schema validator formalize reviewed structural split fields?
+- Should additional reviewed long-Psalm split classes get separate diagnostics beyond the current
+  `reviewed_structural_splits` list?
+
 ## Next agent instruction
 
-Review/accept the Ps.78 parent/child gold decision. Do not implement output-changing 3b unless a new
-reviewed target exists. Consider a separate future evaluator-policy task for whether reviewed
-structural splits should be excluded from bad-fragmentation scoring or reported separately.
+Review/accept the T314 evaluator-policy correction. Treat the 93.5 score as evaluator-policy
+correction for unchanged output, not chunking improvement. Do not implement output-changing 3b unless
+a new reviewed output target exists.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -896,4 +974,22 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-06T18:22:21+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T18:50:26+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T19:00:43+00:00
 - handoff_id: 807fb27628ea5a91

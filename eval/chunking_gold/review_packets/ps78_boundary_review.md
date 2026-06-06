@@ -86,20 +86,20 @@ Reviewed child structural chunks:
   Ps.78.72
 ```
 
-This reviewed structural split is not the same as bad fragmentation. It remains possible that the
-current evaluator will count `literal_psalms_fragmented=1` until a separate evaluator-policy PR
-distinguishes reviewed long-Psalm structural splits from unreviewed fragmentation.
+This reviewed structural split is not the same as bad fragmentation. T314 keeps Ps.78 visible in
+`literal_psalms_fragmented_raw`, records it in `reviewed_structural_splits`, and excludes it from
+the final `literal_psalms_fragmented` bad-fragmentation penalty when the observed child boundaries
+exactly match this packet.
 
 ## Future Evaluator-Policy Question
 
-Should reviewed parent/child structural splits, such as Psalm 119 and now Psalm 78, be excluded from
-the bad-fragmentation signal or reported separately?
-
-That is a separate evaluator-policy task. This packet does not change the evaluator.
+Reviewed parent/child structural splits, such as Psalm 119 and now Psalm 78, should stay visible in
+diagnostics even when excluded from the final bad-fragmentation penalty. This packet does not change
+chunk output.
 
 ## Unknown
 
 - Whether future Hebrew/source-language boundary evidence would strengthen or refine the current
   child boundaries.
-- Whether evaluator policy should distinguish invalid Psalm fragmentation from reviewed long-Psalm
-  structural splits.
+- Whether future evaluator policy should also distinguish additional long-Psalm structural split
+  classes after gold review.

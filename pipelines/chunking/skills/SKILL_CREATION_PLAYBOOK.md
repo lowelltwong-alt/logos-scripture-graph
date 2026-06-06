@@ -99,6 +99,11 @@ both unity and internal structure matter. Psalm 119 is the strong precedent; Psa
 reviewed lighter case. Similar future cases should be reviewed through gold before evaluator or
 chunker changes.
 
+T314 lesson: evaluator policy can exclude exact manifest-reviewed structural splits from final bad
+fragmentation only while preserving raw diagnostics such as `literal_psalms_fragmented_raw` and
+`reviewed_structural_splits`. Score movement from that exclusion is evaluator-policy correction, not
+chunking improvement.
+
 T311 lesson: the old `psalms_fragmented` metric grouped Psalm-like chunks by bare chapter number,
 causing cross-book collisions such as `Ps.3`, `Song.3`, and `Lam.3`. The same chunk output moved
 from 88.5 to 93.0 after T311 fixed grouping to `(book, chapter)`. That was evaluator correction,
