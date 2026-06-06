@@ -599,12 +599,105 @@ Known risks:
 Open questions:
 - Whether future work should add CI validation for gold maturity labels in `eval/chunking_gold/`.
 
+## Post-3b roadmap planning pack - COMPLETED (2026-06-06, Codex)
+
+Roadmap-preparation pass completed on branch `roadmap/post-3b-planning-pack`. This pass is
+non-output-changing: no chunk output, evaluator formula, raw/canonical data, skill runtime, skill
+promotion, or T320/T330/T340 implementation changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/chunking/CHUNKING_DESIGN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `config/agents/agent_roles.yaml`
+- `.ai/tasks/T310.task.yaml`
+- `.ai/handoffs/T310/handoff.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `eval/chunking_runs/claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z.json`
+- `eval/LEADERBOARD.md`
+- `config/chunking/chunking_policy.yaml`
+- `pipelines/chunking/leaderboard.py`
+- `pipelines/chunking/evaluate_chunks.py`
+- `schemas/relationship_object.schema.json`
+- `schemas/classification_assignment.schema.json`
+- `docs/architecture/ADR-0010-source-language-witness-and-extra-biblical-layers.md`
+- `docs/architecture/OBJECT_CONTRACT.md`
+
+Files changed:
+- `eval/chunking_gold/review_packets/ps78_boundary_review.md`
+- `docs/roadmap/T313_TOKEN_SIZE_EVALUATOR_POLICY_ALIGNMENT.md`
+- `docs/roadmap/T320_BIBLICAL_ENTITY_AND_SPIRITUAL_REALM_LAYER.md`
+- `docs/roadmap/T330_THEOLOGICAL_CONCEPT_GRAPH.md`
+- `docs/roadmap/T340_RETRIEVAL_RENDERING_CONTRACTS.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Ignored/generated analysis outputs:
+- `build/post-3b-planning-pack/chunks.jsonl`
+- `build/post-3b-planning-pack/context_packets.jsonl`
+- `build/post-3b-planning-pack/route_ledger.jsonl`
+- `build/post-3b-planning-pack/eval_report.md`
+- `build/post-3b-planning-pack/eval_scores.json`
+
+Decisions made:
+- Created a Ps.78 boundary review packet with `Decision: pending`; no merge or preserve decision was
+  encoded.
+- Confirmed regenerated D/pass2 chunks match SHA-256
+  `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7` when generated with footnote
+  and editorial-cross-reference sidecars.
+- Recorded T313 as evaluator/policy alignment work, not token-size implementation.
+- Recorded T320 as an entity/spiritual-realm planning lane only; no schemas implemented.
+- Recorded T330 as concept graph planning only; no predicates or graph claims implemented.
+- Recorded T340 as retrieval/rendering contract planning only; no runtime or view implementation.
+- Methodology updated: yes. Added a small future-lane categorization rule so adjacent roadmap work is
+  categorized as chunking, evaluator, entity layer, concept graph, retrieval/rendering, methodology,
+  or external export before implementation begins.
+- No output-changing 3b work started.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed:
+  - `Repo validation passed.`
+  - `Control plane validation passed.`
+  - `Cross-repo governance contract validation passed.`
+  - `Handoff validation passed for 17 referenced handoff path(s).`
+  - `Raw coverage OK: 46 distinct markers across 1 archive(s), all classified.`
+  - `RAW_SOURCE_INVENTORY.md is current.`
+  - `Manifest validation passed.`
+  - `JSONL validation passed for 78742 records.`
+  - `All validation gates passed.`
+- `python -m pytest -q` -> 60 passed.
+
+Known risks:
+- Ps.78 remains human-gated and unresolved.
+- T313 p50 target/policy alignment could become a broad output-changing task if not scoped first.
+- T320/T330/T340 are roadmap plans only and still need schemas/gold/review before implementation.
+
+Open questions:
+- Should Ps.78 merge under hard-max tolerance, preserve the `\b`/stanza-sensitive split, or trigger
+  a separate evaluator-policy PR for reviewed long-Psalm splits?
+- Should T313 reconcile leaderboard target p50=600 with policy `target_tokens=700`, or intentionally
+  keep separate retrieval-median and assembly-policy targets?
+- Which T320 interpretive profiles beyond the Heiser divine council profile should be seeded first?
+
 ## Next agent instruction
 
-Review/accept the T310 3b-gold patch plus methodology update. Do not implement Ps.78 output changes
-until a human decides whether to merge Ps.78 or preserve the `\b` boundary. Keep Ps.78 as
-`pending_human_review`, and keep any future output-changing Psalm work gated by executable/reviewed
-gold plus non-target route and byte-identity checks.
+Review the post-3b roadmap planning pack. Next human action is Ps.78 boundary review, then an
+explicit merge-vs-preserve decision. Do not implement output-changing 3b until that decision is
+recorded. Keep T313/T320/T330/T340 as separate future lanes, and keep any future output-changing
+Psalm work gated by executable/reviewed gold plus non-target route and byte-identity checks.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -687,4 +780,22 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-06T04:34:47+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: plan
+- updated_at: 2026-06-06T13:14:14+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: plan
+- updated_at: 2026-06-06T13:22:54+00:00
 - handoff_id: 807fb27628ea5a91

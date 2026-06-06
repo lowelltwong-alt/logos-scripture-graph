@@ -233,6 +233,24 @@ For Psalm work, Ps.23, Ps.119, short Psalm holdouts, Ps.3 superscription behavio
 route controls now have executable gold gates. Ps.78 remains characterization-only pending human
 review of whether to merge the Psalm or preserve the `\b` boundary.
 
+## 10b. Future lane categorization rule
+
+When roadmap work identifies a future lane adjacent to chunking, categorize it before implementation
+or promotion work begins. Use one primary lane:
+
+- chunking
+- evaluator
+- entity layer
+- concept graph
+- retrieval/rendering
+- methodology
+- external export
+
+This prevents roadmap notes from smuggling output-changing chunking work, evaluator changes, graph
+schema work, retrieval contracts, and export doctrine into one ambiguous task. If a future task spans
+multiple lanes, name the primary lane and the deferred lanes in the handoff before editing runtime or
+schema files.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -319,3 +337,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   characterization-only evidence is not approved expected output; output-changing skill work needs
   executable/reviewed gold first; weak evaluator levers cannot drive implementation without
   target-form evidence; human-gated boundary decisions stay pending until reviewed.
+- 2026-06-06: Added the future lane categorization rule for post-3b roadmap work. New lanes must be
+  categorized as chunking, evaluator, entity layer, concept graph, retrieval/rendering, methodology,
+  or external export before implementation or promotion work begins.

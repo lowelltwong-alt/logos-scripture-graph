@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-06
-**Updated by:** T310 3b-gold methodology update (Codex)
-**Active task:** → **T310** 3b-gold implemented with methodology updated for executable gold maturity; Ps.78 output change remains human-gated and unresolved; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T310 post-3b roadmap planning pack (Codex)
+**Active task:** → **T310** 3b-gold implemented; post-3b roadmap pack prepared; Ps.78 output change remains human-gated and unresolved; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -38,6 +38,13 @@
 > characterization-only evidence, and pending human review. Output-changing skill work now explicitly
 > requires executable/reviewed gold first; weak evaluator levers like Ps.78's +0.5 upside cannot drive
 > implementation without target-form evidence.
+
+> **Post-3b roadmap planning pack (2026-06-06):** T310 3b-gold is complete and remains a gold-gate
+> increment, not a chunking improvement claim. The next T310 action is human review of the Ps.78
+> boundary packet, followed by an explicit merge-vs-preserve decision before any output-changing 3b
+> work. T313 token-size evaluator/policy alignment, T320 biblical entity/spiritual realm layer, T330
+> theological concept graph, and T340 retrieval/rendering contracts are separate future lanes. No
+> output-changing 3b work has started.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
