@@ -68,6 +68,11 @@ Metadata must never grant authority to write `data/raw/` or `data/canonical/`.
 A dedicated form skill needs a per-form gold anchor before promotion. If a gold set is not available,
 the handoff must explain the gap and keep the skill as candidate or lower.
 
+Before any output-changing skill work, cite the relevant per-form gold file or manifest under
+`eval/chunking_gold/`. For Psalm work after T311, start from
+`eval/chunking_gold/per_form/psalms_gold_plan.md` and convert it into reviewed gold evidence before
+promotion.
+
 Gold evidence should cover the form's hard cases, not only the easiest passage. Before a skill author
 optimizes for any score-moving metric, verify that the evaluator is measuring the intended
 target-form output behavior and not a confounded proxy.
@@ -120,6 +125,7 @@ A skill can be promoted only when:
 - package metadata is complete
 - tests and validation gates pass
 - target-form gold or evaluator-risk evidence is present
+- output-changing work cites a per-form gold file or manifest
 - evaluator signals are trustworthy for the claim
 - any evaluator fix needed to trust the claim has already landed separately
 - fallback is beaten without non-target regressions

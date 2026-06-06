@@ -1,10 +1,15 @@
 # Chunking Leaderboard (generated)
 
-**Generated:** 2026-06-05T20:47:18+00:00  |  **Runs:** 4  |  target p50=600 tokens
+**Generated:** 2026-06-05T23:43:08+00:00  |  **Runs:** 4  |  target p50=600 tokens
 
 Hard gates (must pass to rank): 0 USFM leaks, 0 book crossings, 100% prose
 sentence integrity, Psalm 23 = one whole-psalm chunk, Genesis 1 = no mid-sentence
 split. Ineligible runs shown last.
+
+Scoring provenance: T311 corrected Psalm fragmentation grouping from bare chapter to
+`(book, chapter)`. The unchanged D / Claude pass2 output scored 88.5 under the old
+evaluator and scores 93.0 under the corrected evaluator; this is evaluator-surface
+correction, not chunk-output improvement.
 
 | rank | agent | pass | eligible | composite | chunks | tok_p50 | psalms_fragmented | literal_psalms_fragmented | poetry_books_fragmented | psalm119_section_chunks | sent_pct | leaks | crossings | run_id |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|

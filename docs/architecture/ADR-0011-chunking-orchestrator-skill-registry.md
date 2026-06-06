@@ -9,10 +9,21 @@ Source proposals (four independent blind designs) and their reconciliation:
 `.ai/context/recommendations/{CLAUDE,CODEX,CURSOR,COMPOSER}-orchestrator-skill-registry-design.md`
 and `.ai/context/recommendations/ADJUDICATION-orchestrator-skill-registry.md`.
 
+## Post-T311 scoring note
+
+ADR-0011 originally protected the Pass-2 leaderboard score of 88.5. T311 later showed this was
+old-evaluator provenance: Psalm-like chunks were grouped by bare chapter number, causing cross-book
+collisions such as `Ps.3`, `Song.3`, and `Lam.3`. T311 corrected fragmentation grouping to
+`(book, chapter)`.
+
+The same D / Claude pass2 chunk output now scores 93.0 under the corrected evaluator. References
+below to 88.5 are historical old-evaluator gates, not the current corrected baseline and not a
+chunk-output improvement claim.
+
 ## Context
 
 - The chunker (`pipelines/chunking/chunker.py`) is a single genre-dispatch function keyed on nine
-  book-level genres. Pass-2 scores 88.5 on the leaderboard but conflates three separable concerns:
+  book-level genres. Pass-2 scores 93.0 on the corrected T311 leaderboard but conflates three separable concerns:
   (1) what literary **shape** a passage is, (2) which **algorithm** should chunk it, (3) whether the
   output **passed gates**.
 - Vision (repo owner): an **orchestrator** that detects a passage's form, routes it to the best-fit
@@ -71,9 +82,10 @@ chunker (not a rebuild). Locked decisions:
 13. **The orchestrator is a thin, fail-closed, deterministic router in the knowledge plane — NOT an
     agent runtime.**
 
-**Build by byte-identical extraction, each step gated at composite ≥ 88.5:** registry stub →
-read-only form detector (sidecar) → orchestrator shim (byte-identical to current Pass-2) → extract
-psalm skill → extract prose/wisdom skills → gap factory.
+**Build by byte-identical extraction:** registry stub → read-only form detector (sidecar) →
+orchestrator shim (byte-identical to current Pass-2) → extract psalm skill → extract prose/wisdom
+skills → gap factory. Output-changing work is now gated against the corrected evaluator baseline of
+composite ≥ 93.0 plus hard gates; the earlier ≥ 88.5 gate was the old-evaluator baseline.
 
 ## Licensing (proprietary carve-out)
 
@@ -88,7 +100,7 @@ root MIT License (see root `LICENSE` and `config/chunking/NOTICE`). Copyright (c
 - The chunker becomes a pluggable, self-aware, governed system; new corpora add forms/skills, not
   rewrites. Self-aware gap detection + the multi-agent skill factory become first-class.
 - Real upfront work: per-form **gold curation** (the critical path) and the extraction refactor —
-  both incremental and gated so the 88.5 baseline never regresses.
+  both incremental and gated so the corrected 93.0 baseline never regresses.
 - The proprietary carve-out restricts reuse of the method; the rest of the repository stays MIT.
 - Adds new committed surfaces (`registry/chunking/`, `config/chunking/*`, `eval/chunking_gold/`) that
   need freshness/validation wiring as they land (sequenced in T310).

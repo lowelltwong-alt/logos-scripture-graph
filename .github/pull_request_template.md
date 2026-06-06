@@ -48,6 +48,7 @@ For chunking-related PRs, include one:
 For score-moving chunking PRs:
 
 - [ ] evaluator sanity checked
+- [ ] per-form gold file or manifest cited
 - [ ] score movement is backed by target-form output evidence
 - [ ] evaluator fixes, skill changes, and methodology updates are separated or explicitly justified
 

@@ -111,8 +111,8 @@ or treat route metadata as chunk/context content.
   lifecycle state, handled forms, forbidden actions, and staleness triggers.
 - Route artifacts: route ledger, registry surface SHA, input/output/context hashes, selected skill,
   fallback reason, and proof that route facts did not enter chunk/context records.
-- Evaluation artifacts: per-form gold sets, scorecards, evaluator-risk notes, regression reports, and
-  promotion/rejection rationale.
+- Evaluation artifacts: per-form gold plans/manifests, scorecards, evaluator-risk notes, regression
+  reports, and promotion/rejection rationale.
 - Coordination artifacts: task handoff, project status update, PR methodology note, and this
   methodology update or no-change rationale.
 
@@ -128,6 +128,9 @@ or treat route metadata as chunk/context content.
 - Route metadata stays in the route ledger only.
 - Before any score-moving skill, prove the evaluator is measuring the target output behavior and not
   a confounded proxy.
+- Before any output-changing skill work, cite a per-form gold file or manifest under
+  `eval/chunking_gold/`. For T310 3b Psalm work, start from
+  `eval/chunking_gold/per_form/psalms_gold_plan.md`.
 - Evaluator fixes must land in separate PRs from skill extraction or skill-improvement PRs.
 - Corrected evaluator scores must be labeled as score-surface corrections, not chunk-output
   improvements.
@@ -145,6 +148,8 @@ correction, not evidence that the chunker improved.
 - Increment 1 and 2 were intentionally non-scoring.
 - Increment 3a is behavior-preserving extraction, not quality improvement.
 - A true score-moving skill still needs target-form output evidence after evaluator sanity checks.
+- T310 3b still needs reviewed Psalm boundary evidence before promoting any output-changing Psalm
+  skill; the current gold scaffold is a plan, not promoted gold.
 - Final LawFirm OS export should wait until at least one true score-moving skill is safely promoted
   or rejected with documented evidence.
 
@@ -165,6 +170,8 @@ Rules:
 - If the evaluator is wrong, fix the evaluator in a separate PR before claiming skill improvement.
 - A corrected evaluator score is not the same thing as chunk-output improvement.
 - A score-moving skill must show target-form output evidence, not only aggregate score movement.
+- Output-changing skill work must cite a per-form gold file or manifest before implementation
+  proceeds beyond planning.
 - Keep evaluator, skill, and methodology workstreams on separate branches/PRs unless a task
   explicitly says otherwise.
 - Stop if non-target output drifts during a target-form improvement attempt.
@@ -175,6 +182,7 @@ A skill may move toward active/preferred only when all of these are true:
 
 - The skill has a valid package, metadata, lifecycle state, tests, and handled-form declaration.
 - The target form has a per-form gold anchor or an explicit evaluator-risk analysis.
+- The output-changing proposal cites the relevant `eval/chunking_gold/` plan or manifest.
 - The evaluator signal used for promotion is trusted for that form.
 - The skill beats the fallback on the target form without regressing hard gates or non-target output.
 - Any evaluator correction needed to trust the score already landed separately.
@@ -218,6 +226,7 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - Route metadata enters chunk or context records.
 - Score improves because the metric is gamed or broken.
 - Score improves without target-form output evidence.
+- Output-changing skill work starts without citing a per-form gold file or manifest.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.

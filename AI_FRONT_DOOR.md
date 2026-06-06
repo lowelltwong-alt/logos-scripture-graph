@@ -151,6 +151,8 @@ Before stopping work, every agent must:
     or document the no-change rationale required by `.ai/control/METHODOLOGY_UPDATE_RULES.md`.
 12. Before any score-moving chunking skill, verify evaluator sanity. If the evaluator is confounded,
     stop and fix the evaluator in a separate PR before claiming skill improvement.
+13. Before any output-changing chunking skill, cite the relevant per-form gold file or manifest under
+    `eval/chunking_gold/`.
 
 ## Forbidden shortcuts
 
