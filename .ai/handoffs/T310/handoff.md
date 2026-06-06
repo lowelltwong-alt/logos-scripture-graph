@@ -386,11 +386,179 @@ Open questions:
 - Whether future work should add a formal `eval/chunking_gold/` manifest schema.
 - Whether a CI validator should require per-form gold citations for output-changing skill PRs.
 
+## Increment 3b target selection plan - COMPLETED (2026-06-06, Codex)
+
+Planning-only investigation completed on branch `t310-3b-plan-target-selection`. No implementation,
+chunk output, raw/canonical data, evaluator formula, skill promotion, or broad routing change was made.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `config/agents/agent_roles.yaml`
+- `.ai/tasks/T310.task.yaml`
+- `.ai/handoffs/T310/handoff.md`
+- `eval/LEADERBOARD.md`
+- `eval/chunking_runs/claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z.json`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `config/chunking/chunking_policy.yaml`
+- `config/chunking/book_genres.yaml`
+- `registry/chunking/approved-skills.json`
+- `registry/chunking/skill-toc.json`
+- `registry/chunking/skill-graph-index.json`
+- `pipelines/chunking/chunker.py`
+- `pipelines/chunking/orchestrator.py`
+- `pipelines/chunking/evaluate_chunks.py`
+- `pipelines/chunking/leaderboard.py`
+- `pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/{SKILL.md,SKILL_METADATA.json,algorithm.py}`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.github/pull_request_template.md`
+
+Files changed:
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Ignored/generated analysis outputs:
+- `build/t310-3b-plan/orchestrator/chunks.jsonl`
+- `build/t310-3b-plan/orchestrator/context_packets.jsonl`
+- `build/t310-3b-plan/orchestrator/route_ledger.jsonl`
+- `build/t310-3b-plan/eval_report.md`
+- `build/t310-3b-plan/eval_scores.json`
+- `build/t310-3b-plan/LEADERBOARD.md`
+
+Decisions made:
+- Recommended T310 3b path: **3b-gold**, convert the Psalm gold scaffold into executable/reviewed
+  Psalm gold before any Ps.78 output change.
+- Rationale: current `Ps.78` fragmentation is real but direct score upside is only +0.5 composite;
+  the current split is partly token-budget and partly real `\b` stanza evidence, so merging is a
+  policy/gold decision rather than a safe mechanical bug fix.
+- Size fitness has much larger formula headroom (+6.5 from p50 alone) but requires broad output
+  changes and should not be the first output-changing increment without a corpus-level gold/eval plan.
+- Methodology reviewed: no change required - planning confirmed the existing supply-chain rule that
+  output-changing skill work must cite reviewed per-form gold and should not optimize a weak aggregate
+  score without target-form evidence.
+
+Validation / investigation run:
+- `git fetch origin main`; `git pull --ff-only origin main`; branch created from updated `main`.
+- Regenerated current orchestrator chunks into ignored `build/t310-3b-plan/`.
+- Existing D/pass2 chunks and regenerated orchestrator chunks share SHA-256
+  `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`.
+- Fresh evaluation of existing D/pass2 and regenerated current output matched: 1374 chunks, p50 729,
+  literal Psalm fragmentation 1, Psalm 119 section chunks 22, no leaks/crossings, 100% sentence integrity.
+- Fresh leaderboard in ignored `build/` still ranks D / Claude pass2 first at corrected composite 93.0.
+- Current route ledger uses `psalm-whole-then-stanza-v1` for literal `Ps` only; `Song`, `Lam`,
+  `PrMan`, `Ps151`, and all other books stay on `monolith-pass2-v1`.
+
+Known risks:
+- `Ps.78` is the only current literal Psalm fragmentation target, but reviewed expected boundaries do
+  not yet exist.
+- Current `eval/chunking_gold/per_form/psalms_gold_plan.md` is a scaffold, not promoted gold.
+- A narrow Ps.78 merge would likely pass hard token/sentence/book gates but could ignore real stanza
+  evidence and encode an unreviewed Psalm policy decision.
+- Token p50 improvement is the largest formula lever, but it is broad and likely crosses many forms.
+
+Open questions:
+- Should reviewed Psalm gold define Psalm 78 as one whole-psalm chunk because 1165 tokens is under
+  hard max, or preserve the final `\b` stanza split?
+- Should the next gold artifact be markdown-plus-tests first, or a formal manifest schema plus tests?
+- What minimum target-form evidence should be required before promoting the Psalm candidate skill from
+  `candidate` toward `active`?
+
+## Increment 3b-gold - COMPLETED (2026-06-06, Codex)
+
+Executable Psalm gold checks landed for settled cases. This increment is intentionally
+non-output-changing: no chunking behavior, evaluator formula, raw/canonical data, skill promotion,
+or broad routing changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/chunking/CHUNKING_DESIGN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `config/agents/agent_roles.yaml`
+- `tests/test_chunker_gold.py`
+- `tests/test_evaluate_chunks.py`
+- `tests/test_chunking_orchestrator.py`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `eval/chunking_runs/claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z.json`
+- `config/chunking/chunking_policy.yaml`
+
+Files changed:
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `tests/test_chunker_gold.py`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Gold checks added:
+- `Ps.23.1-Ps.23.6` remains exactly one whole-psalm chunk.
+- `Ps.119` remains exactly 22 chunks/sections and is reported, not penalized, by the corrected
+  evaluator surface.
+- Short Psalm holdouts `Ps.1`, `Ps.8`, `Ps.100`, and `Ps.117` remain one chunk each.
+- Real `Ps.3` `\d` superscription source evidence is checked, and no standalone orphan title chunk is emitted.
+- Non-target poetry controls `Song`, `Lam`, `PrMan`, and `Ps151` remain route-stable on
+  `monolith-pass2-v1` fallback with `detect_form_consumed: false`.
+- The generated chunk stream is checked against baseline SHA-256
+  `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`.
+
+Ps.78 characterization:
+- Current observed chunks are captured only as characterization: `Ps.78.1-Ps.78.69` (1109 tokens),
+  `Ps.78.70-Ps.78.71` (35 tokens), and `Ps.78.72-Ps.78.72` (21 tokens).
+- Merged Ps.78 would be 1165 tokens, exceeding soft max 1100 by 65 and staying below hard max 1600.
+- Structural evidence includes q1/q2 throughout and a `b` marker at `Ps.78.72`.
+- Status remains `pending_human_review`; the merge-vs-preserve-`\b` decision is not made here.
+
+Decisions made:
+- Added a lightweight JSON manifest under `eval/chunking_gold/per_form/` instead of introducing a
+  repository-wide formal manifest schema.
+- Kept Ps.78 out of `reviewed_gold`; it lives under `characterization_only`.
+- Methodology reviewed: no change required - this patch follows the existing supply-chain rule by
+  adding per-form gold gates without changing runtime behavior, evaluator logic, or promotion state.
+
+Validation run:
+- `python -m pytest -q tests/test_chunker_gold.py` -> 13 passed.
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 60 passed.
+- `python pipelines/chunking/leaderboard.py` -> D / Claude pass2 remains rank 1 at corrected
+  composite 93.0; command rewrote only generated timestamp/newline churn in `eval/LEADERBOARD.md`,
+  which was restored so no leaderboard artifact change remains.
+
+Known risks:
+- The Ps.3 superscription check verifies source evidence and absence of an orphan title chunk under
+  the current witness/chunk model; title text inclusion is not newly modeled in this increment.
+- Ps.78 remains unresolved and must not be treated as reviewed expected-boundary gold.
+- The manifest schema is intentionally lightweight and may need formalization later.
+
+Open questions:
+- Human review must decide whether Ps.78 should merge under hard-max tolerance or preserve the final
+  `\b` stanza boundary.
+- Future work should decide whether `eval/chunking_gold/` needs a formal schema validator.
+
 ## Next agent instruction
 
-Review and merge the pre-3b readiness patch. Then plan T310 3b only after the corrected 93.0
-baseline and per-form Psalm gold scaffold are acknowledged. Do not implement 3b, do not claim chunker
-improvement from T311, and do not export the methodology to LawFirm OS as final doctrine yet.
+Review/accept the T310 3b-gold patch. Do not implement Ps.78 output changes until a human decides
+whether to merge Ps.78 or preserve the `\b` boundary. Keep Ps.78 as `pending_human_review`, and keep
+any future output-changing Psalm work gated by the Psalm manifest/tests plus non-target route and byte
+identity checks.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -419,4 +587,40 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-05T20:14:46+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode:
+- updated_at: 2026-06-06T03:54:25+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: plan
+- updated_at: 2026-06-06T04:02:57+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T04:12:48+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T04:23:51+00:00
 - handoff_id: 807fb27628ea5a91

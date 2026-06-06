@@ -1,0 +1,153 @@
+{
+  "schema_version": "chunking-gold-manifest.v0",
+  "manifest_id": "psalms-gold-v0",
+  "target_form": "literal_book_psalms",
+  "route_or_skill_under_test": "psalm-whole-then-stanza-v1",
+  "promotion_status": "settled_cases_executable_gold_with_ps78_characterization",
+  "baseline": {
+    "run_id": "claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z",
+    "corrected_evaluator_composite": 93.0,
+    "old_evaluator_composite": 88.5,
+    "chunk_output_sha256": "8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7",
+    "score_provenance": "Same D_claude_pass2 chunk output; T311 corrected Psalm fragmentation grouping from bare chapter to (book, chapter)."
+  },
+  "reviewed_gold": [
+    {
+      "case_id": "ps23_whole_psalm",
+      "status": "reviewed_gold",
+      "osis_span": "Ps.23.1-Ps.23.6",
+      "expected": {
+        "chunk_count": 1,
+        "osis_start": "Ps.23.1",
+        "osis_end": "Ps.23.6",
+        "required_boundary_basis": ["whole_psalm"],
+        "genre": "psalms"
+      },
+      "purpose": "Existing hard gate; Psalm 23 must remain one whole-psalm chunk."
+    },
+    {
+      "case_id": "ps119_acrostic_sections",
+      "status": "reviewed_gold",
+      "osis_span": "Ps.119.1-Ps.119.176",
+      "expected": {
+        "chunk_count": 22,
+        "psalm119_section_chunks": 22,
+        "literal_psalms_fragmented_for_case": 0,
+        "poetry_books_fragmented_for_case": 0,
+        "spans": [
+          ["Ps.119.1", "Ps.119.7"],
+          ["Ps.119.8", "Ps.119.15"],
+          ["Ps.119.16", "Ps.119.23"],
+          ["Ps.119.24", "Ps.119.31"],
+          ["Ps.119.32", "Ps.119.39"],
+          ["Ps.119.40", "Ps.119.47"],
+          ["Ps.119.48", "Ps.119.55"],
+          ["Ps.119.56", "Ps.119.63"],
+          ["Ps.119.64", "Ps.119.71"],
+          ["Ps.119.72", "Ps.119.79"],
+          ["Ps.119.80", "Ps.119.87"],
+          ["Ps.119.88", "Ps.119.95"],
+          ["Ps.119.96", "Ps.119.103"],
+          ["Ps.119.104", "Ps.119.111"],
+          ["Ps.119.112", "Ps.119.119"],
+          ["Ps.119.120", "Ps.119.127"],
+          ["Ps.119.128", "Ps.119.135"],
+          ["Ps.119.136", "Ps.119.143"],
+          ["Ps.119.144", "Ps.119.151"],
+          ["Ps.119.152", "Ps.119.159"],
+          ["Ps.119.160", "Ps.119.167"],
+          ["Ps.119.168", "Ps.119.176"]
+        ]
+      },
+      "purpose": "Preserve intentional acrostic sectioning and keep it out of the literal Psalm fragmentation penalty."
+    },
+    {
+      "case_id": "short_psalm_holdouts",
+      "status": "reviewed_gold",
+      "osis_chapters": ["Ps.1", "Ps.8", "Ps.100", "Ps.117"],
+      "expected": {
+        "chunk_count_per_chapter": 1,
+        "required_boundary_basis": ["whole_psalm"]
+      },
+      "purpose": "Prevent over-fragmenting short Psalms."
+    },
+    {
+      "case_id": "ps3_superscription_attached",
+      "status": "reviewed_gold",
+      "osis_span": "Ps.3.1-Ps.3.8",
+      "source_evidence": {
+        "source_file": "20-PSAeng-web.usfm",
+        "source_line": 72,
+        "marker": "d",
+        "raw_marker": "\\d A Psalm by David, when he fled from Absalom his son.  "
+      },
+      "expected": {
+        "chunk_count": 1,
+        "osis_start": "Ps.3.1",
+        "osis_end": "Ps.3.8",
+        "required_boundary_basis": ["whole_psalm"],
+        "no_orphan_superscription_chunk": true
+      },
+      "purpose": "Use a real titled Psalm from source data and prevent a standalone title/superscription chunk."
+    },
+    {
+      "case_id": "non_target_poetry_controls",
+      "status": "reviewed_gold",
+      "books": ["Song", "Lam", "PrMan", "Ps151"],
+      "expected": {
+        "route_skill_id": "monolith-pass2-v1",
+        "route_reason": "monolith_fallback_non_target_book",
+        "detect_form_consumed": false,
+        "form_based_routing_enabled": false
+      },
+      "purpose": "Prove the Psalm candidate route does not absorb adjacent poetry-like books."
+    }
+  ],
+  "characterization_only": [
+    {
+      "case_id": "ps78_current_split",
+      "status": "pending_human_review",
+      "osis_span": "Ps.78.1-Ps.78.72",
+      "current_observed_chunks": [
+        {
+          "osis_start": "Ps.78.1",
+          "osis_end": "Ps.78.69",
+          "tokens": 1109,
+          "boundary_basis": ["poetic_stanza", "token_budget", "whole_psalm_split"]
+        },
+        {
+          "osis_start": "Ps.78.70",
+          "osis_end": "Ps.78.71",
+          "tokens": 35,
+          "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
+        },
+        {
+          "osis_start": "Ps.78.72",
+          "osis_end": "Ps.78.72",
+          "tokens": 21,
+          "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
+        }
+      ],
+      "structural_evidence": {
+        "markers_throughout": ["q1", "q2"],
+        "terminal_marker": {"osis_ref": "Ps.78.72", "marker": "b"}
+      },
+      "token_policy_context": {
+        "merged_tokens": 1165,
+        "soft_max_tokens": 1100,
+        "hard_max_tokens": 1600,
+        "soft_max_excess_if_merged": 65,
+        "hard_max_violation_if_merged": false
+      },
+      "evaluator_context": {
+        "current_literal_psalms_fragmented_target": true,
+        "direct_composite_upside_if_resolved": 0.5
+      },
+      "human_gate": "The merge-vs-preserve-b-boundary decision is unresolved and human-gated.",
+      "forbidden_assertions": [
+        "do_not_assert_ps78_should_merge",
+        "do_not_assert_ps78_must_remain_split_forever"
+      ]
+    }
+  ]
+}

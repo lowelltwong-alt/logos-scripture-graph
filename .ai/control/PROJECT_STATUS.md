@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-05
-**Updated by:** T310/T311 merged; pre-3b readiness baseline/gold scaffold
-**Active task:** → **T310** pre-3b readiness (do not start 3b yet); **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-06
+**Updated by:** T310 Increment 3b-gold executable Psalm gold checks (Codex)
+**Active task:** → **T310** 3b-gold implemented; Ps.78 output change remains human-gated and unresolved; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -17,9 +17,21 @@
 > Source designs + reconciliation: `.ai/context/recommendations/`. Next: finish pre-3b readiness,
 > then plan T310 3b against corrected baseline and per-form gold evidence.
 
-> **Pre-3b readiness:** T310 3b must plan against the corrected evaluator baseline (`D_claude_pass2`
-> = 93.0) and cite per-form gold evidence before any output-changing Psalm skill work. The 88.5 score
-> is retained only as old-evaluator provenance.
+> **T310 3b target selection (2026-06-06):** Planning-only investigation recommends **3b-gold**.
+> Current D/pass2 chunks were located/regenerated in ignored space and byte-match SHA-256
+> `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`; corrected score remains 93.0.
+> `Ps.78` is the single literal Psalm fragmentation target, currently split into `Ps.78.1-69`,
+> `Ps.78.70-71`, and `Ps.78.72` (1165 tokens if merged). Direct composite upside is only +0.5, and
+> the split reflects soft-token/stanza evidence rather than a clear hard-gate bug. Before any output
+> change, convert `eval/chunking_gold/per_form/psalms_gold_plan.md` into executable/reviewed Psalm
+> gold covering Ps 23, Ps 119, Ps 78, short-Psalm holdouts, and non-target poetry controls.
+
+> **T310 3b-gold implemented (2026-06-06):** Added executable Psalm gold manifest/tests for settled
+> cases without changing output: Ps.23 one chunk, Ps.119 22 sections and not penalized, short Psalm
+> holdouts (`Ps.1`, `Ps.8`, `Ps.100`, `Ps.117`), real Ps.3 superscription source evidence with no
+> orphan title chunk, and non-target route controls (`Song`, `Lam`, `PrMan`, `Ps151`) staying on
+> monolith fallback. Ps.78 is recorded as characterization-only with current boundaries/token counts
+> and `pending_human_review`; no merge/preserve decision was promoted.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
