@@ -5,7 +5,7 @@
 - Status: Living / provisional
 - Owner: T310/T311 chunking workstream
 - Export status: Not ready for LawFirm OS final export
-- Last reviewed: 2026-06-05
+- Last reviewed: 2026-06-06
 - Must update when:
   - chunking algorithm changes
   - form detector changes
@@ -43,11 +43,13 @@ Confirmed:
 - Increment 2 added a byte-identical orchestrator shim and route ledger.
 - Increment 3a added a behavior-preserving Psalm skill extraction seam.
 - T311 fixed the `psalms_fragmented` evaluator grouping from bare chapter to `(book, chapter)`.
+- Increment 3b-gold converted the Psalm scaffold into executable tests/manifest for settled cases
+  while leaving Ps.78 as characterization-only pending human review.
 
 Unknown or unfinished:
 
-- Increment 3b must attempt a true Psalm quality improvement only after evaluator/gold evidence is
-  trustworthy.
+- Any true Psalm quality improvement still depends on reviewed target-boundary evidence, especially
+  the unresolved Ps.78 merge-vs-preserve-`\b` decision.
 - Later increments still need more skills, per-form gold sets, staleness enforcement, promotion
   rules, and final export.
 
@@ -60,12 +62,14 @@ Unknown or unfinished:
 4. T311 evaluator correction for `psalms_fragmented`: group by `(book, chapter)`, report literal
    Psalm fragmentation separately from broader poetry-book fragmentation, and expose Psalm 119
    sectioning as a non-penalty signal.
-5. Pending true Psalm improvement after evaluator/gold evidence is trustworthy.
-6. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
+5. T310 3b-gold conversion: executable Psalm gold manifest/tests for settled cases; Ps.78 captured
+   as characterization-only, not approved expected output.
+6. Pending true Psalm improvement after reviewed target-form boundary evidence is trustworthy.
+7. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
 
 Increment 1 and Increment 2 were intentionally non-scoring. Increment 3a is behavior-preserving
-extraction, not a quality improvement. T311 changed the evaluator surface, not chunk output. The
-T310 methodology is not complete.
+extraction, not a quality improvement. T311 changed the evaluator surface, not chunk output. T310
+3b-gold added gold gates, not chunk-output improvement. The T310 methodology is not complete.
 
 ## 4. Core principle
 
@@ -86,15 +90,19 @@ or treat route metadata as chunk/context content.
 4. Build skill registry / TOC / graph.
 5. Add byte-identical orchestrator shim.
 6. Extract candidate skill without changing output.
-7. Add per-form gold/eval anchors.
-8. Sanity-check the evaluator against target-form evidence.
-9. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+7. Add per-form gold/eval anchors and label their maturity: scaffold, reviewed executable gold,
+   characterization-only, or pending human review.
+8. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
+   of approved expected-output assertions.
+9. Sanity-check the evaluator against target-form evidence.
+10. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-10. Attempt one narrow improvement.
-11. Promote only if target-form output evidence beats fallback without regressions.
-12. Record provenance, route ledger, and staleness triggers.
-13. Update this methodology.
-14. Repeat for next form.
+11. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+   non-target controls.
+12. Promote only if target-form output evidence beats fallback without regressions.
+13. Record provenance, route ledger, and staleness triggers.
+14. Update this methodology.
+15. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -111,7 +119,8 @@ or treat route metadata as chunk/context content.
   lifecycle state, handled forms, forbidden actions, and staleness triggers.
 - Route artifacts: route ledger, registry surface SHA, input/output/context hashes, selected skill,
   fallback reason, and proof that route facts did not enter chunk/context records.
-- Evaluation artifacts: per-form gold plans/manifests, scorecards, evaluator-risk notes, regression
+- Evaluation artifacts: per-form gold plans/manifests with explicit maturity status, executable
+  reviewed-gold tests, characterization-only records, scorecards, evaluator-risk notes, regression
   reports, and promotion/rejection rationale.
 - Coordination artifacts: task handoff, project status update, PR methodology note, and this
   methodology update or no-change rationale.
@@ -128,9 +137,12 @@ or treat route metadata as chunk/context content.
 - Route metadata stays in the route ledger only.
 - Before any score-moving skill, prove the evaluator is measuring the target output behavior and not
   a confounded proxy.
-- Before any output-changing skill work, cite a per-form gold file or manifest under
-  `eval/chunking_gold/`. For T310 3b Psalm work, start from
-  `eval/chunking_gold/per_form/psalms_gold_plan.md`.
+- Before any output-changing skill work, cite executable/reviewed per-form gold under
+  `eval/chunking_gold/`. A scaffold or characterization-only record can start analysis but cannot
+  authorize output changes or promotion.
+- Weak evaluator levers must not drive implementation by themselves. Example: Ps.78 offers only
+  +0.5 composite upside and remains blocked until target-form boundary evidence is reviewed.
+- Human-gated boundary decisions must stay `pending_human_review` until explicitly reviewed.
 - Evaluator fixes must land in separate PRs from skill extraction or skill-improvement PRs.
 - Corrected evaluator scores must be labeled as score-surface corrections, not chunk-output
   improvements.
@@ -147,9 +159,10 @@ correction, not evidence that the chunker improved.
 - Current corrected baseline is D / Claude pass2 = 93.0 under the T311 evaluator, not final quality.
 - Increment 1 and 2 were intentionally non-scoring.
 - Increment 3a is behavior-preserving extraction, not quality improvement.
+- T310 3b-gold added executable Psalm gates for settled cases but did not change output.
 - A true score-moving skill still needs target-form output evidence after evaluator sanity checks.
-- T310 3b still needs reviewed Psalm boundary evidence before promoting any output-changing Psalm
-  skill; the current gold scaffold is a plan, not promoted gold.
+- Ps.78 still needs a human-gated boundary decision before any output-changing Psalm skill can use it
+  as expected-output gold.
 - Final LawFirm OS export should wait until at least one true score-moving skill is safely promoted
   or rejected with documented evidence.
 
@@ -182,7 +195,8 @@ A skill may move toward active/preferred only when all of these are true:
 
 - The skill has a valid package, metadata, lifecycle state, tests, and handled-form declaration.
 - The target form has a per-form gold anchor or an explicit evaluator-risk analysis.
-- The output-changing proposal cites the relevant `eval/chunking_gold/` plan or manifest.
+- The output-changing proposal cites executable/reviewed gold, not merely a scaffold or
+  characterization-only record.
 - The evaluator signal used for promotion is trusted for that form.
 - The skill beats the fallback on the target form without regressing hard gates or non-target output.
 - Any evaluator correction needed to trust the score already landed separately.
@@ -195,6 +209,29 @@ A skill may move toward active/preferred only when all of these are true:
 - This methodology is updated or a no-change rationale is documented.
 
 No skill self-promotes. Metric gaming is a failure mode, not a promotion path.
+
+## 10a. Gold maturity rule and T310 3b-gold lesson
+
+T310 3b-gold established a stricter gold maturity ladder:
+
+1. `scaffold` or plan: useful for analysis and task framing, but not promoted gold.
+2. `characterization_only`: observed current behavior, evaluator context, and risk evidence. This is
+   not an approved expected-output assertion.
+3. `pending_human_review`: a decision point that must remain unresolved until explicit review.
+4. `reviewed_gold`: settled expected behavior named in a manifest and/or executable tests.
+
+Rules:
+
+- Gold scaffold is not promoted gold.
+- Characterization-only evidence is not the same as approved expected output.
+- Output-changing skill work requires executable/reviewed gold first.
+- Weak evaluator levers, such as Ps.78's +0.5 composite upside, must not drive implementation
+  without target-form evidence.
+- Human-gated boundary decisions must remain pending until explicitly reviewed.
+
+For Psalm work, Ps.23, Ps.119, short Psalm holdouts, Ps.3 superscription behavior, and non-target
+route controls now have executable gold gates. Ps.78 remains characterization-only pending human
+review of whether to merge the Psalm or preserve the `\b` boundary.
 
 ## 11. Staleness rules
 
@@ -227,6 +264,9 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - Score improves because the metric is gamed or broken.
 - Score improves without target-form output evidence.
 - Output-changing skill work starts without citing a per-form gold file or manifest.
+- A scaffold or characterization-only record is treated as reviewed expected-output gold.
+- A weak aggregate evaluator lever drives implementation without target-form evidence.
+- A human-gated boundary decision is silently resolved by an agent or metric.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.
@@ -260,6 +300,7 @@ Export only after the methodology has been tested through at least:
 - one byte-identical orchestrator shim
 - one behavior-preserving skill extraction
 - one evaluator correction or evaluator-risk analysis
+- one scaffold-to-executable-gold conversion with characterization-only evidence kept separate
 - one true improvement attempt or documented rejected attempt
 - a documented branch-hygiene pattern that keeps evaluator, skill, and methodology changes separate
 
@@ -274,3 +315,7 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-05: Added the T311 evaluator lesson. Score-moving skills must sanity-check evaluator
   signals first; evaluator fixes are separate PRs; corrected evaluator scores are not chunk-output
   improvement claims.
+- 2026-06-06: Added the T310 3b-gold lesson. Gold scaffolds are not promoted gold;
+  characterization-only evidence is not approved expected output; output-changing skill work needs
+  executable/reviewed gold first; weak evaluator levers cannot drive implementation without
+  target-form evidence; human-gated boundary decisions stay pending until reviewed.

@@ -12,6 +12,8 @@ AI-operational checklist for chunking-related work. Use with
   evaluator notes, and gold/eval artifacts for the target form.
 - Confirm whether the task is detector, registry, orchestrator, skill, evaluator, gold, staleness,
   route-ledger, or methodology work.
+- Classify gold artifacts by maturity: scaffold/plan, executable reviewed gold,
+  characterization-only evidence, or pending human review.
 
 ## Plan
 
@@ -22,6 +24,11 @@ AI-operational checklist for chunking-related work. Use with
 - If the evaluator is wrong, plan a separate evaluator PR before any skill-improvement PR.
 - Before any output-changing skill work, cite the per-form gold file or manifest under
   `eval/chunking_gold/`.
+- Confirm that cited gold is executable/reviewed for the target behavior. A scaffold or
+  characterization-only record is enough for analysis, not for output-changing implementation.
+- If a target is characterization-only, state the human-gated decision that remains pending.
+- Treat weak evaluator levers as planning signals only until target-form evidence supports an
+  implementation.
 - Define target output drift expectations before editing.
 - Decide whether the methodology must change or can be reviewed with no change.
 
@@ -35,6 +42,8 @@ AI-operational checklist for chunking-related work. Use with
   explicitly says to do so.
 - Keep evaluator, skill, and methodology workstreams on separate branches unless the task explicitly
   requires a combined branch.
+- For gold-only increments, convert settled cases into executable checks and keep unresolved cases
+  characterization-only. Do not change chunk output as part of gold conversion.
 
 ## Verify
 
@@ -47,6 +56,8 @@ AI-operational checklist for chunking-related work. Use with
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target
   controls.
+- Confirm characterization-only evidence is not asserted as approved expected output.
+- Confirm pending human-review decisions remain pending in manifests, tests, handoffs, and status.
 - Treat corrected evaluator score movement as an evaluator-surface correction, not a chunk-output
   improvement claim.
 
@@ -64,6 +75,10 @@ AI-operational checklist for chunking-related work. Use with
 - Confirm route metadata did not enter chunk/context records.
 - Confirm evaluator signals are trustworthy for the claim being made.
 - Confirm output-changing skill work cites per-form gold evidence.
+- Confirm the cited evidence is executable/reviewed gold, not merely a scaffold or
+  characterization-only record.
+- Confirm weak evaluator levers did not drive implementation without target-form output evidence.
+- Confirm unresolved human-gated boundaries remain explicitly pending.
 - Confirm any score movement is supported by target-form output evidence.
 - Confirm the handoff names risks, validation, and exact next action.
 
@@ -88,5 +103,8 @@ AI-operational checklist for chunking-related work. Use with
 - Stop if route metadata enters chunk/context records.
 - Stop if score improves by metric gaming.
 - Stop if score improves without target-form output evidence.
-- Stop if output-changing skill work lacks a cited per-form gold file or manifest.
+- Stop if output-changing skill work lacks cited executable/reviewed per-form gold.
+- Stop if a scaffold or characterization-only record is treated as approved expected output.
+- Stop if a weak evaluator lever becomes the sole reason for output-changing implementation.
+- Stop if a human-gated boundary decision is resolved without explicit review.
 - Stop if methodology was not reviewed.

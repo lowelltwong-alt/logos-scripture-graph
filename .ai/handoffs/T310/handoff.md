@@ -553,12 +553,58 @@ Open questions:
   `\b` stanza boundary.
 - Future work should decide whether `eval/chunking_gold/` needs a formal schema validator.
 
+## Increment 3b-gold methodology update - COMPLETED (2026-06-06, Codex)
+
+The methodology requirement triggered by scaffold-to-executable-gold conversion was handled. This is
+documentation/control-plane only: no runtime, evaluator formula, chunk output, raw/canonical data, or
+skill promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+
+Files changed:
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Decisions made:
+- Methodology updated: yes.
+- Gold maturity is now explicit: scaffold/plan, executable reviewed gold, characterization-only, and
+  pending human review.
+- Gold scaffold is not promoted gold.
+- Characterization-only evidence is not approved expected output.
+- Output-changing skill work requires executable/reviewed gold first.
+- Weak evaluator levers, such as Ps.78's +0.5 upside, cannot drive implementation without
+  target-form evidence.
+- Human-gated boundary decisions remain pending until explicitly reviewed.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 60 passed.
+- `git diff --check` -> clean; only CRLF normalization warnings on handoff/control-plane files.
+
+Known risks:
+- Methodology now names a lightweight maturity ladder but no formal manifest schema validator exists yet.
+
+Open questions:
+- Whether future work should add CI validation for gold maturity labels in `eval/chunking_gold/`.
+
 ## Next agent instruction
 
-Review/accept the T310 3b-gold patch. Do not implement Ps.78 output changes until a human decides
-whether to merge Ps.78 or preserve the `\b` boundary. Keep Ps.78 as `pending_human_review`, and keep
-any future output-changing Psalm work gated by the Psalm manifest/tests plus non-target route and byte
-identity checks.
+Review/accept the T310 3b-gold patch plus methodology update. Do not implement Ps.78 output changes
+until a human decides whether to merge Ps.78 or preserve the `\b` boundary. Keep Ps.78 as
+`pending_human_review`, and keep any future output-changing Psalm work gated by executable/reviewed
+gold plus non-target route and byte-identity checks.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -623,4 +669,22 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-06T04:23:51+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T04:28:42+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T04:34:47+00:00
 - handoff_id: 807fb27628ea5a91

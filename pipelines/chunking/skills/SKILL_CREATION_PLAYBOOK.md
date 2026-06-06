@@ -69,13 +69,28 @@ A dedicated form skill needs a per-form gold anchor before promotion. If a gold 
 the handoff must explain the gap and keep the skill as candidate or lower.
 
 Before any output-changing skill work, cite the relevant per-form gold file or manifest under
-`eval/chunking_gold/`. For Psalm work after T311, start from
-`eval/chunking_gold/per_form/psalms_gold_plan.md` and convert it into reviewed gold evidence before
-promotion.
+`eval/chunking_gold/`. For Psalm work after T310 3b-gold, start from
+`eval/chunking_gold/per_form/psalms_gold_manifest.json` and
+`eval/chunking_gold/per_form/psalms_gold_plan.md`.
+
+Gold has maturity states:
+
+- `scaffold` or plan: analysis and task framing only; not promoted gold.
+- `characterization_only`: observed current behavior and risk evidence; not approved expected output.
+- `pending_human_review`: unresolved boundary or policy decision; do not implement against it.
+- `reviewed_gold`: settled expected behavior captured in a manifest and/or executable tests.
+
+Output-changing skill work requires executable/reviewed gold first. A scaffold, plan, or
+characterization-only record can support investigation but cannot authorize a behavior change or
+skill promotion.
 
 Gold evidence should cover the form's hard cases, not only the easiest passage. Before a skill author
 optimizes for any score-moving metric, verify that the evaluator is measuring the intended
 target-form output behavior and not a confounded proxy.
+
+Weak evaluator levers must not drive implementation without target-form evidence. Psalm 78 is the
+reference case: eliminating its current fragmentation is only a +0.5 composite lever, and the
+merge-vs-preserve-`\b` boundary decision remains human-gated.
 
 T311 lesson: the old `psalms_fragmented` metric grouped Psalm-like chunks by bare chapter number,
 causing cross-book collisions such as `Ps.3`, `Song.3`, and `Lam.3`. The same chunk output moved
@@ -126,6 +141,8 @@ A skill can be promoted only when:
 - tests and validation gates pass
 - target-form gold or evaluator-risk evidence is present
 - output-changing work cites a per-form gold file or manifest
+- cited gold is executable/reviewed for the target behavior, not merely scaffold or
+  characterization-only evidence
 - evaluator signals are trustworthy for the claim
 - any evaluator fix needed to trust the claim has already landed separately
 - fallback is beaten without non-target regressions
@@ -134,6 +151,7 @@ A skill can be promoted only when:
 - route-ledger evidence is recorded
 - staleness triggers are recorded
 - human review approves the promotion
+- human-gated boundary decisions have been explicitly reviewed
 - the methodology is updated or reviewed with a no-change rationale
 
 Corrected evaluator score movement is not a chunk-output improvement claim. Record it as evaluator
