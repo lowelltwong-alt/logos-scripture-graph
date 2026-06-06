@@ -3,7 +3,7 @@
   "manifest_id": "psalms-gold-v0",
   "target_form": "literal_book_psalms",
   "route_or_skill_under_test": "psalm-whole-then-stanza-v1",
-  "promotion_status": "settled_cases_executable_gold_with_ps78_characterization",
+  "promotion_status": "settled_cases_executable_gold_with_ps78_reviewed_structural_split",
   "baseline": {
     "run_id": "claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z",
     "corrected_evaluator_composite": 93.0,
@@ -101,53 +101,67 @@
         "form_based_routing_enabled": false
       },
       "purpose": "Prove the Psalm candidate route does not absorb adjacent poetry-like books."
-    }
-  ],
-  "characterization_only": [
+    },
     {
-      "case_id": "ps78_current_split",
-      "status": "pending_human_review",
+      "case_id": "ps78_parent_child_structural_split",
+      "status": "approved_structural_split_under_parent_whole_psalm",
       "osis_span": "Ps.78.1-Ps.78.72",
-      "current_observed_chunks": [
-        {
-          "osis_start": "Ps.78.1",
-          "osis_end": "Ps.78.69",
-          "tokens": 1109,
-          "boundary_basis": ["poetic_stanza", "token_budget", "whole_psalm_split"]
-        },
-        {
-          "osis_start": "Ps.78.70",
-          "osis_end": "Ps.78.71",
-          "tokens": 35,
-          "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
-        },
-        {
-          "osis_start": "Ps.78.72",
-          "osis_end": "Ps.78.72",
-          "tokens": 21,
-          "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
-        }
-      ],
-      "structural_evidence": {
-        "markers_throughout": ["q1", "q2"],
-        "terminal_marker": {"osis_ref": "Ps.78.72", "marker": "b"}
+      "parent_literary_unit": {
+        "osis_start": "Ps.78.1",
+        "osis_end": "Ps.78.72",
+        "unit_type": "whole_psalm",
+        "literary_unity": true
       },
-      "token_policy_context": {
+      "expected": {
+        "chunk_count": 3,
+        "child_chunks": [
+          {
+            "osis_start": "Ps.78.1",
+            "osis_end": "Ps.78.69",
+            "tokens": 1109,
+            "boundary_basis": ["poetic_stanza", "token_budget", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.78.70",
+            "osis_end": "Ps.78.71",
+            "tokens": 35,
+            "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.78.72",
+            "osis_end": "Ps.78.72",
+            "tokens": 21,
+            "boundary_basis": ["poetic_stanza", "whole_psalm_split"]
+          }
+        ],
         "merged_tokens": 1165,
         "soft_max_tokens": 1100,
         "hard_max_tokens": 1600,
-        "soft_max_excess_if_merged": 65,
-        "hard_max_violation_if_merged": false
+        "hard_max_violation_if_merged": false,
+        "reviewed_structural_split": true,
+        "not_bad_fragmentation_gold": true
+      },
+      "structural_evidence": {
+        "markers_throughout": ["q1", "q2"],
+        "terminal_marker": {"osis_ref": "Ps.78.72", "marker": "b"},
+        "human_rationale": [
+          "Psalm 78 is one literary psalm.",
+          "The current internal split is structurally plausible.",
+          "Ps.78.70-72 functions as a David/shepherd coda.",
+          "Current split has marker/token evidence.",
+          "Merging only to eliminate literal_psalms_fragmented=1 would be metric-chasing.",
+          "The correct model is parent whole-psalm unity plus child-level structural chunks."
+        ]
       },
       "evaluator_context": {
         "current_literal_psalms_fragmented_target": true,
-        "direct_composite_upside_if_resolved": 0.5
+        "direct_composite_upside_if_merged": 0.5,
+        "evaluator_formula_changed": false,
+        "evaluator_policy_note": "Current evaluator may still count this as literal_psalms_fragmented=1 until a separate evaluator-policy PR distinguishes reviewed structural splits."
       },
-      "human_gate": "The merge-vs-preserve-b-boundary decision is unresolved and human-gated.",
-      "forbidden_assertions": [
-        "do_not_assert_ps78_should_merge",
-        "do_not_assert_ps78_must_remain_split_forever"
-      ]
+      "precedent": "Psalm 119 is the stronger reviewed precedent for parent whole-unit plus child structural chunks.",
+      "purpose": "Lock the reviewed current Psalm 78 child boundaries without changing output or metric-chasing a weak merge."
     }
-  ]
+  ],
+  "characterization_only": []
 }

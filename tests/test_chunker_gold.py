@@ -121,9 +121,11 @@ def test_psalms_gold_manifest_separates_reviewed_gold_from_characterization(psal
         "short_psalm_holdouts",
         "ps3_superscription_attached",
         "non_target_poetry_controls",
+        "ps78_parent_child_structural_split",
     }
-    assert set(characterization) == {"ps78_current_split"}
-    assert characterization["ps78_current_split"]["status"] == "pending_human_review"
+    assert characterization == {}
+    assert reviewed["ps78_parent_child_structural_split"]["status"] == \
+        "approved_structural_split_under_parent_whole_psalm"
 
 
 @requires_data
@@ -227,12 +229,18 @@ def test_non_target_poetry_books_remain_on_monolith_fallback(route_ledger, psalm
 
 
 @requires_data
-def test_psalm_78_current_split_is_characterization_only(chunks, psalms_gold_manifest):
-    case = _case(psalms_gold_manifest, "characterization_only", "ps78_current_split")
-    assert case["status"] == "pending_human_review"
-    assert case["human_gate"] == "The merge-vs-preserve-b-boundary decision is unresolved and human-gated."
-    assert "do_not_assert_ps78_should_merge" in case["forbidden_assertions"]
-    assert "do_not_assert_ps78_must_remain_split_forever" in case["forbidden_assertions"]
+def test_psalm_78_reviewed_parent_child_structural_split(chunks, psalms_gold_manifest):
+    case = _case(psalms_gold_manifest, "reviewed_gold", "ps78_parent_child_structural_split")
+    assert case["status"] == "approved_structural_split_under_parent_whole_psalm"
+    assert case["parent_literary_unit"] == {
+        "osis_start": "Ps.78.1",
+        "osis_end": "Ps.78.72",
+        "unit_type": "whole_psalm",
+        "literary_unity": True,
+    }
+    assert case["expected"]["reviewed_structural_split"] is True
+    assert case["expected"]["not_bad_fragmentation_gold"] is True
+    assert case["evaluator_context"]["evaluator_formula_changed"] is False
 
     ps78 = _chapter_chunks(chunks, "Ps", "78")
     observed = [
@@ -244,8 +252,10 @@ def test_psalm_78_current_split_is_characterization_only(chunks, psalms_gold_man
         }
         for c in ps78
     ]
-    assert observed == case["current_observed_chunks"]
-    assert _approx_tokens(" ".join(c["text"] for c in ps78)) == case["token_policy_context"]["merged_tokens"]
+    assert observed == case["expected"]["child_chunks"]
+    assert _approx_tokens(" ".join(c["text"] for c in ps78)) == case["expected"]["merged_tokens"]
+    assert case["expected"]["hard_max_violation_if_merged"] is False
+    # The current evaluator formula is intentionally unchanged in this gold-only decision.
     assert score(chunks)["literal_psalms_fragmented"] == 1
 
 

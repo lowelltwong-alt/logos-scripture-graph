@@ -692,12 +692,92 @@ Open questions:
   keep separate retrieval-median and assembly-policy targets?
 - Which T320 interpretive profiles beyond the Heiser divine council profile should be seeded first?
 
+## Ps.78 parent/child gold decision - COMPLETED (2026-06-06, Codex)
+
+Human decision recorded: preserve the current Psalm 78 split, but mark it as an approved structural
+split under a parent whole-psalm unit. This is gold/methodology work only: no chunk output,
+evaluator formula, raw/canonical data, runtime chunking code, orchestrator route behavior, or skill
+promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `config/agents/agent_roles.yaml`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/review_packets/ps78_boundary_review.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `tests/test_chunker_gold.py`
+- `.ai/handoffs/T310/handoff.md`
+
+Files changed:
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/review_packets/ps78_boundary_review.md`
+- `eval/chunking_gold/per_form/psalms_gold_plan.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `tests/test_chunker_gold.py`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T310/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` (updated by `force_handoff.py`)
+
+Decisions made:
+- Methodology updated: yes.
+- Parent whole-psalm unit: `Ps.78.1-72`.
+- Reviewed child structural chunks: `Ps.78.1-69`, `Ps.78.70-71`, and `Ps.78.72`.
+- Status recorded as `approved_structural_split_under_parent_whole_psalm`.
+- Psalm 119 remains the stronger precedent for parent whole-unit plus child sectioning; Psalm 78 is
+  now a reviewed lighter case.
+- Reviewed structural split is not the same as bad fragmentation.
+- Similar future cases should be reviewed through gold before evaluator or chunker changes.
+- Current evaluator formula remains unchanged and may still report `literal_psalms_fragmented=1`.
+- This is not a chunking improvement claim.
+
+Validation run:
+- `python -m pytest -q tests/test_chunker_gold.py` -> 13 passed.
+- `python scripts/validate_all.py` -> all validation gates passed:
+  - `Repo validation passed.`
+  - `Control plane validation passed.`
+  - `Cross-repo governance contract validation passed.`
+  - `Handoff validation passed for 17 referenced handoff path(s).`
+  - `Raw coverage OK: 46 distinct markers across 1 archive(s), all classified.`
+  - `RAW_SOURCE_INVENTORY.md is current.`
+  - `Manifest validation passed.`
+  - `JSONL validation passed for 78742 records.`
+  - `All validation gates passed.`
+- `python -m pytest -q` -> 60 passed.
+- `python pipelines/chunking/leaderboard.py` -> D / Claude pass2 remains rank 1 at corrected
+  composite 93.0; current evaluator still reports `literal_psalms_fragmented=1`.
+
+Known risks:
+- Current evaluator policy may still count reviewed Psalm 78 child chunks as
+  `literal_psalms_fragmented=1`.
+- Future evaluator-policy work should decide whether reviewed structural splits are excluded from
+  bad-fragmentation scoring or reported separately.
+
+Open questions:
+- Should a future evaluator-policy PR exempt reviewed structural splits such as Psalm 119 and Psalm
+  78 from bad-fragmentation scoring?
+- Should the parent whole-unit object become explicit in a future schema rather than gold metadata?
+
 ## Next agent instruction
 
-Review the post-3b roadmap planning pack. Next human action is Ps.78 boundary review, then an
-explicit merge-vs-preserve decision. Do not implement output-changing 3b until that decision is
-recorded. Keep T313/T320/T330/T340 as separate future lanes, and keep any future output-changing
-Psalm work gated by executable/reviewed gold plus non-target route and byte-identity checks.
+Review/accept the Ps.78 parent/child gold decision. Do not implement output-changing 3b unless a new
+reviewed target exists. Consider a separate future evaluator-policy task for whether reviewed
+structural splits should be excluded from bad-fragmentation scoring or reported separately.
 
 <!-- superseded instruction below kept for history -->
 <!--
@@ -798,4 +878,22 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - agent_name: Codex
 - mode: plan
 - updated_at: 2026-06-06T13:22:54+00:00
+- handoff_id: 807fb27628ea5a91
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T18:13:30+00:00
+- handoff_id: 3ca46ac50ebb6e9e
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-06T18:22:21+00:00
 - handoff_id: 807fb27628ea5a91
