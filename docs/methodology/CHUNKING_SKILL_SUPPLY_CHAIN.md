@@ -55,6 +55,8 @@ Confirmed:
   authorizing output-changing work.
 - T316b converts selected stress-atlas cases into pending review packets that record current
   behavior and local evidence, but still do not approve boundaries or authorize output-changing work.
+- T316c adds marker-sensitive stress cases for words-of-Jesus `\wj`, Selah `\qs`, and related
+  discourse/speaker-boundary risks without authorizing output-changing work.
 
 Unknown or unfinished:
 
@@ -359,6 +361,22 @@ Rules:
 - A human decision must promote the packet into reviewed gold, characterization-only evidence, or an
   approved parent/child structural split before implementation can cite it.
 
+## 10g. Marker-sensitive stress rule
+
+T316c records a stricter marker-governance lesson for words-of-Jesus `\wj` spans, Selah `\qs`
+markers, and similar USFM marker-sensitive cases.
+
+Rules:
+
+- Chunking may preserve observed marker structure and expose marker evidence for review.
+- `\wj` is evidence, not speaker-attribution authority.
+- `\qs` is liturgical-rubric evidence, not an automatic chunk boundary.
+- Speaker attribution, theological interpretation, textual-critical status, source-language scope,
+  canon/boundary-text decisions, and tradition-scoped interpretations require explicit human
+  authorization and reviewed evidence/gold before implementation.
+- Marker-sensitive stress cases remain `status: proposed` with `implementation_allowed: false`
+  until promoted through review.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -462,3 +480,5 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   passages but do not authorize output-changing work until promoted through review.
 - 2026-06-07: Added the T316b stress review packet lesson. Pending packets can capture current
   behavior and evidence, but remain non-authorizing until human review promotes them.
+- 2026-06-07: Added the T316c marker-sensitive stress lesson. Words-of-Jesus and Selah markers are
+  evidence for review, not authority for unreviewed speaker, theology, or boundary decisions.

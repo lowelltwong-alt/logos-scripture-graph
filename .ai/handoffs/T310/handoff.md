@@ -1030,12 +1030,69 @@ Open questions:
 - Which pending packet should receive human review first?
 - Should text-critical packets wait for source-language/tradition policy before any gold promotion?
 
+## T316c words-of-Jesus marker stress cases - COMPLETED (2026-06-07, Codex)
+
+Added proposed marker-sensitive stress cases for words-of-Jesus `\wj`, Selah `\qs`, and related
+speaker-boundary/discourse risks. This is stress-atlas planning only: no chunk output, evaluator
+formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, reviewed gold, or
+skill promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+- `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `eval/chunking_gold/review_packets/`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `tests/test_chunking_stress_atlas.py`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `data/canonical/translations/eng-web/boundary_claims.jsonl`
+- `data/canonical/translations/eng-web/word_tokens.jsonl`
+
+Files changed:
+- `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+- `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `tests/test_chunking_stress_atlas.py`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `eval/chunking_gold/README.md`
+- `docs/roadmap/T316_BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/tasks/T316c.task.yaml`
+- `.ai/handoffs/T316c/handoff.md`
+- `.ai/handoffs/T310/handoff.md`
+
+Decisions made:
+- Methodology updated: yes.
+- Added proposed stress cases for `\wj` spans, `\qs` Selah markers, John 3, Matthew 5-7,
+  John 13-17, Matthew 24-25 / Mark 13, and John 7:53-8:11 as a variant-plus-`wj` issue.
+- `\wj` is evidence, not speaker-attribution authority.
+- `\qs` is liturgical-rubric evidence, not an automatic chunk boundary.
+- Marker-sensitive cases remain `status: proposed` and `implementation_allowed: false`.
+- No output-changing work is authorized.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 79 passed.
+
+Known risks:
+- Marker-sensitive cases are not reviewed gold.
+- Future speaker/textual/boundary decisions require human review before implementation.
+
+Open questions:
+- Which marker-sensitive case should become a review packet first?
+- Should future `\wj` or `\qs` diagnostics be separate from chunk boundaries?
+
 ## Next agent instruction
 
-Review/accept the T316b pending review packets. Treat the 93.5 score as T314 evaluator-policy
-correction for unchanged output, not chunking improvement. Do not implement output-changing chunk
-work unless a selected packet is explicitly promoted by human review into reviewed gold,
-characterization-only evidence, or an approved parent/child structural split.
+Review/accept the T316c proposed marker-sensitive stress cases. Treat the 93.5 score as T314
+evaluator-policy correction for unchanged output, not chunking improvement. Do not implement
+output-changing chunk work unless a selected packet/case is explicitly promoted by human review into
+reviewed gold, characterization-only evidence, or an approved parent/child structural split.
 
 <!-- superseded instruction below kept for history -->
 <!--

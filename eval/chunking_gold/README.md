@@ -77,3 +77,11 @@ T316b converts five proposed stress-atlas cases into pending human-readable revi
 
 These packets are `pending_human_review`. They are not reviewed gold, do not approve expected
 output, and do not authorize output-changing work.
+
+## Marker-Sensitive Stress Cases
+
+T316c adds proposed marker-sensitive stress-atlas cases for words-of-Jesus `\wj` spans, Selah
+`\qs` spans, and related discourse/speaker-boundary passages.
+
+These cases are proposed only. `\wj` and `\qs` are evidence to preserve and review, not authority to
+approve speaker attribution, textual-critical status, or chunk boundaries.

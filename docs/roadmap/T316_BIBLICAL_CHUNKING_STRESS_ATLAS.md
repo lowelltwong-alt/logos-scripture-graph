@@ -81,6 +81,21 @@ T316b creates pending review packets for:
 These packets record current chunk behavior and local marker/footnote evidence. They remain
 `pending_human_review`; they are not reviewed gold and do not authorize output-changing work.
 
+## T316c Follow-Up
+
+T316c adds proposed marker-sensitive stress cases for:
+
+- words-of-Jesus `\wj` spans;
+- Selah / `\qs` mid-psalm markers;
+- John 3 speaker-boundary ambiguity;
+- Matthew 5-7;
+- John 13-17;
+- Matthew 24-25 / Mark 13;
+- John 7:53-8:11 as a textual-variant plus `\wj` speech issue.
+
+These cases do not approve boundaries, speaker attribution, textual-critical status, or chunk
+output. They name marker-sensitive review targets only.
+
 ## Unknown
 
 - Which packet should be reviewed first.

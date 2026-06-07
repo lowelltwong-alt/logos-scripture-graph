@@ -93,6 +93,23 @@ output-changing work. They preserve current evidence so a human can later decide
 should become reviewed gold, characterization-only evidence, or an approved parent/child structural
 split.
 
+## T316c Proposed Marker-Sensitive Stress Cases
+
+T316c adds proposed stress cases for USFM marker-sensitive review:
+
+| Case | Status | Marker risk |
+| --- | --- | --- |
+| Gospels / Acts / Rev words-of-Jesus spans | `proposed` | `\wj` is evidence, not speaker authority. |
+| Psalms with Selah / `\qs` markers | `proposed` | `\qs` is liturgical-rubric evidence, not an automatic boundary. |
+| John.3 | `proposed` | Speaker boundary cannot be silently decided from red-letter markup. |
+| Matt.5-Matt.7 | `proposed` | Long Jesus discourse needs parent/child review before output changes. |
+| John.13-John.17 | `proposed` | Discourse/prayer/speaker boundaries need review despite `\wj` evidence. |
+| Matt.24-Matt.25 / Mark.13 | `proposed` | Apocalyptic discourse and parallel-account scope need review. |
+| John.7.53-John.8.11 | `proposed` | Major textual variant plus `\wj` speech evidence needs textual and speaker review. |
+
+These are not reviewed gold, not approved expected output, and not authorization for
+output-changing work.
+
 ## Unknown
 
 - Whether future gold should use one cross-form schema or per-form manifest schemas.

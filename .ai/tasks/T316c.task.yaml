@@ -1,0 +1,35 @@
+id: T316c
+phase: phase_4
+title: "Words-of-Jesus marker stress cases"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/stress_atlas/
+    - eval/chunking_gold/README.md
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/
+    - ROADMAP_STATE.yaml
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Stress atlas contains proposed cases for words-of-Jesus wj spans and Selah qs markers."
+  - "Stress atlas covers John 3, Matthew 5-7, John 13-17, Matthew 24-25 / Mark 13, and John 7:53-8:11 marker-sensitive risks."
+  - "All added cases remain status: proposed and implementation_allowed: false."
+  - "Marker governance says wj and qs are evidence, not authority."
+  - "No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T316c/handoff.md
+created_at: "2026-06-07"
+updated_at: "2026-06-07"

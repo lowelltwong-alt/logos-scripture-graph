@@ -82,6 +82,10 @@ manifest under `eval/chunking_gold/`.
 - Pending stress review packets may preserve current behavior, marker evidence, text-critical risk,
   and possible alternatives, but they are not reviewed gold and do not authorize output-changing
   work until a human decision promotes them.
+- Marker-sensitive cases, including words-of-Jesus `\wj` spans and Selah `\qs` markers, may preserve
+  observed structure as evidence, but must not silently encode speaker attribution, theological,
+  textual-critical, source-language, canon/boundary-text, or tradition-scoped interpretations without
+  explicit human authorization and reviewed evidence/gold.
 
 ## Handoff Note
 
