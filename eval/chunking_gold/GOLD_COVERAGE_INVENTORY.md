@@ -18,6 +18,8 @@ not authorize output-changing chunk work.
 | Ps.117 | `reviewed_gold` | Short Psalm holdout remains one whole-psalm chunk. |
 | Ps.3 superscription | `reviewed_gold` | Real `\d` source evidence exists; no orphan title/superscription chunk is emitted. |
 | Ps.78 | `approved_structural_split_under_parent_whole_psalm` | Parent `Ps.78.1-72` with child chunks `Ps.78.1-69`, `Ps.78.70-71`, and `Ps.78.72`; not bad fragmentation when exact boundaries match. |
+| Ps.105 | `reviewed_gold` | Current `Ps.105.1-45` whole-psalm chunk is approved; no output change. |
+| Ps.106 | `reviewed_gold` | Current `Ps.106.1-48` whole-psalm chunk is approved; `b` markers are evidence, not automatic split authority. |
 | Song | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
 | Lam | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
 | PrMan | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
@@ -56,8 +58,8 @@ The validator checks:
 | Candidate | Why it matters | Required gold before output change |
 | --- | --- | --- |
 | Ps.89 | Long royal/lament Psalm with structural turns. | Parent unit plus reviewed child boundary targets. |
-| Ps.105 | Long historical Psalm; tests narrative-poetry compression. | Reviewed sections and non-fragmentation diagnostics. |
-| Ps.106 | Long historical confession Psalm; likely parent/child candidate. | Reviewed sections and merge/preserve rationale. |
+| Ps.105 future child sections | Long historical Psalm; tests narrative-poetry compression if the approved whole-psalm behavior is revisited. | New human decision, exact child spans, and non-fragmentation diagnostics. |
+| Ps.106 future child sections | Long historical confession Psalm with `b` marker evidence if the approved whole-psalm behavior is revisited. | New human decision, exact child spans, and merge/preserve rationale. |
 | Ps.136 | Refrain-driven Psalm; tests repeated liturgical structure. | Refrain-aware boundary expectations. |
 | Lamentations 1-4 | Acrostic poems outside literal Psalms. | Parent/child acrostic section gold and non-target route controls. |
 | Proverbs 31:10-31 | Acrostic wisdom poem. | Poem-level and stanza-level boundary review. |
@@ -78,20 +80,40 @@ and not authorization for output-changing work.
 
 ## T316b Pending Review Packets
 
-T316b creates pending review packets for selected stress-atlas cases:
+T316b created review packets for selected stress-atlas cases. T317 later promoted Ps.105 and
+Ps.106 to reviewed whole-psalm gold; the other T316b packets remain pending.
 
 | Case | Packet | Status | Current behavior summary |
 | --- | --- | --- | --- |
-| Ps.105 | `eval/chunking_gold/review_packets/ps105_boundary_review.md` | `pending_human_review` | Current output keeps the whole psalm as one chunk. |
-| Ps.106 | `eval/chunking_gold/review_packets/ps106_boundary_review.md` | `pending_human_review` | Current output keeps the whole psalm as one chunk; `b` markers provide possible internal evidence. |
+| Ps.105 | `eval/chunking_gold/review_packets/ps105_boundary_review.md` | `reviewed_gold` | Current output keeps the whole psalm as one chunk; approved by human review. |
+| Ps.106 | `eval/chunking_gold/review_packets/ps106_boundary_review.md` | `reviewed_gold` | Current output keeps the whole psalm as one chunk; `b` markers are evidence, not automatic split authority. |
 | Isa.52.13-53.12 | `eval/chunking_gold/review_packets/isa52_13_53_12_boundary_review.md` | `pending_human_review` | Current output embeds the cross-chapter target in a larger Isaiah chunk. |
 | Mark.16.9-20 | `eval/chunking_gold/review_packets/mark16_9_20_textual_variant_review.md` | `pending_human_review` | Current output embeds the variant zone in a larger Mark ending chunk. |
 | John.7.53-8.11 | `eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md` | `pending_human_review` | Current output splits and mixes the variant zone across two larger John chunks. |
 
-These packets are not reviewed gold, not approved expected output, and not authorization for
+Pending packets are not reviewed gold, not approved expected output, and not authorization for
 output-changing work. They preserve current evidence so a human can later decide whether any case
 should become reviewed gold, characterization-only evidence, or an approved parent/child structural
 split.
+
+## T317 Reviewed Psalm Gold And WJ Packets
+
+T317 promotes the Psalm 105 and Psalm 106 review packets to reviewed whole-psalm gold:
+
+| Case | Packet | Status | Reviewed behavior |
+| --- | --- | --- | --- |
+| Ps.105 | `eval/chunking_gold/review_packets/ps105_boundary_review.md` | `reviewed_gold` | Current `Ps.105.1-45` whole-psalm chunk is approved. |
+| Ps.106 | `eval/chunking_gold/review_packets/ps106_boundary_review.md` | `reviewed_gold` | Current `Ps.106.1-48` whole-psalm chunk is approved; `b` markers are internal evidence only. |
+
+T317 also adds pending words-of-Jesus review packets:
+
+| Case | Packet | Status | Marker risk |
+| --- | --- | --- | --- |
+| John.3 | `eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md` | `pending_human_review` | `\wj` and punctuation cannot silently decide the speaker boundary. |
+| Matt.5-Matt.7 | `eval/chunking_gold/review_packets/matt5_7_wj_discourse_review.md` | `pending_human_review` | Whole discourse unity and child teaching units require human review. |
+
+The John 3 and Matthew 5-7 packets are not reviewed gold, not approved expected output, and not
+authorization for output-changing work.
 
 ## T316c Proposed Marker-Sensitive Stress Cases
 

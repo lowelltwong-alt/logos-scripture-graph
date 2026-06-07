@@ -24,6 +24,9 @@ skill work must cite a per-form gold file or manifest before claiming improvemen
   - Ps.119 as 22 intentional sections, reported but not penalized as literal fragmentation.
   - Ps.78 as parent `Ps.78.1-72` with reviewed child chunks `Ps.78.1-69`, `Ps.78.70-71`,
     and `Ps.78.72`.
+  - Ps.105 as reviewed `Ps.105.1-45` whole-psalm behavior.
+  - Ps.106 as reviewed `Ps.106.1-48` whole-psalm behavior; `b` markers are evidence, not automatic
+    split authority.
   - Short Psalm holdouts: Ps.1, Ps.8, Ps.100, Ps.117.
   - Real superscription source evidence for Ps.3 with no orphan title chunk.
   - Non-target poetry controls route-stable on monolith fallback: Song, Lam, PrMan, Ps151.
@@ -65,9 +68,9 @@ candidates, not reviewed gold and not approved expected output. A stress case mu
 gold, characterization-only evidence, or an explicit pending-human-review packet before it can drive
 output-changing work.
 
-## Pending Review Packets
+## Review Packets
 
-T316b converts five proposed stress-atlas cases into pending human-readable review packets:
+T316b converted five proposed stress-atlas cases into human-readable review packets:
 
 - `eval/chunking_gold/review_packets/ps105_boundary_review.md`
 - `eval/chunking_gold/review_packets/ps106_boundary_review.md`
@@ -75,8 +78,17 @@ T316b converts five proposed stress-atlas cases into pending human-readable revi
 - `eval/chunking_gold/review_packets/mark16_9_20_textual_variant_review.md`
 - `eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md`
 
-These packets are `pending_human_review`. They are not reviewed gold, do not approve expected
-output, and do not authorize output-changing work.
+T317 promoted the Ps.105 and Ps.106 packets to reviewed whole-psalm gold. The Isaiah, Mark, and
+John 7:53-8:11 packets remain `pending_human_review`; they are not reviewed gold, do not approve
+expected output, and do not authorize output-changing work.
+
+T317 also adds pending marker-sensitive review packets:
+
+- `eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md`
+- `eval/chunking_gold/review_packets/matt5_7_wj_discourse_review.md`
+
+These packets are `pending_human_review`. `\wj` is evidence, not authority, and speaker attribution
+requires human review before gold or output change.
 
 ## Marker-Sensitive Stress Cases
 

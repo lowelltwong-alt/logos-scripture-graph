@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-07
-**Updated by:** T316c words-of-Jesus marker stress cases (Codex)
-**Active task:** -> **T316c** marker-sensitive stress cases completed; no reviewed gold added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T317 Psalm gold, WJ packets, token policy (Codex)
+**Active task:** -> **T317** non-output governance/gold/policy pack completed; Ps.105/Ps.106 reviewed whole-psalm gold added, John 3/Matt.5-7 WJ packets remain pending, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -95,6 +95,16 @@
 > for speaker attribution, theological/text-critical decisions, or chunk boundaries. No reviewed
 > gold, output change, evaluator change, raw/canonical mutation, runtime skill change, or skill
 > promotion occurred.
+
+> **T317 Psalm gold, WJ packets, token policy (2026-06-07):** Human review approved current Ps.105
+> and Ps.106 whole-psalm behavior as reviewed gold: `Ps.105.1-45` remains one 601-token chunk and
+> `Ps.106.1-48` remains one 721-token chunk. Ps.106 `b` markers are recorded as internal
+> formatting/stanza evidence, not automatic child-boundary authority. Added pending WJ review
+> packets for John 3 and Matthew 5-7; `\wj` and punctuation are evidence, not speaker attribution
+> authority, and both packets remain `pending_human_review`. Updated T313 analysis to state that
+> the p50 metric headroom is an evaluator/policy alignment risk, not authorization to retune
+> chunking. No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior,
+> runtime skill code, or skill promotion changed.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

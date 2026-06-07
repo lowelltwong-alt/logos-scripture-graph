@@ -20,6 +20,13 @@ def _write_manifest(tmp_path: Path, manifest: dict) -> Path:
     return path
 
 
+def _reviewed_case(manifest: dict, case_id: str) -> dict:
+    for case in manifest["reviewed_gold"]:
+        if case["case_id"] == case_id:
+            return case
+    raise AssertionError(f"missing reviewed case {case_id}")
+
+
 def test_current_psalms_gold_manifest_validates() -> None:
     assert validate_manifest(PSALMS_MANIFEST) == []
 
@@ -44,7 +51,7 @@ def test_pending_case_cannot_live_under_reviewed_gold(tmp_path: Path) -> None:
 
 def test_characterization_case_cannot_carry_promoted_flags(tmp_path: Path) -> None:
     manifest = _base_manifest()
-    case = copy.deepcopy(manifest["reviewed_gold"][-1])
+    case = copy.deepcopy(_reviewed_case(manifest, "ps78_parent_child_structural_split"))
     case["status"] = "characterization_only"
     manifest["reviewed_gold"] = []
     manifest["characterization_only"] = [case]
@@ -56,7 +63,7 @@ def test_characterization_case_cannot_carry_promoted_flags(tmp_path: Path) -> No
 
 def test_approved_structural_split_requires_parent_and_children(tmp_path: Path) -> None:
     manifest = _base_manifest()
-    case = manifest["reviewed_gold"][-1]
+    case = _reviewed_case(manifest, "ps78_parent_child_structural_split")
     del case["parent_literary_unit"]
     case["expected"]["child_chunks"] = []
 

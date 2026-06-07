@@ -5,6 +5,9 @@
 Analyze the mismatch between the leaderboard token-size target and the configured chunking policy
 before any broad token-size optimization.
 
+This document is analysis only. It does not change the evaluator formula, change chunking policy,
+or authorize output-changing work.
+
 ## Confirmed
 
 - Current T314 evaluator-policy baseline: D / Claude pass2 = 93.5.
@@ -73,6 +76,17 @@ Before any broad token-size optimization, decide whether:
   retrieval and cases where smaller chunks damage discourse or literary boundaries.
 - Keep T313 separate from output-changing Psalm work and separate from any future evaluator formula
   PR until the intended target is reviewed.
+- Treat the +6.45 p50 headroom as a risk signal, not an implementation target. Token-size
+  improvements without reviewed gold are not authorized.
+
+## Non-Authorization
+
+- T313 is analysis only.
+- It does not change evaluator formula.
+- It does not change leaderboard scoring policy.
+- It does not change chunk output.
+- It does not authorize broad retuning.
+- It does not authorize output-changing work without reviewed target gold.
 
 ## Unknown
 

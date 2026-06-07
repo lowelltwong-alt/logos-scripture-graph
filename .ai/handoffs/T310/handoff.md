@@ -1230,3 +1230,35 @@ a PR "T310 Increment 1: read-only form detector"; do not merge/promote. Then upd
 - mode: build
 - updated_at: 2026-06-06T19:00:43+00:00
 - handoff_id: 807fb27628ea5a91
+
+---
+
+## T317 Psalm gold, WJ packets, and token policy update
+
+Updated 2026-06-07 by Codex.
+
+Summary:
+
+- Ps.105 current whole-psalm chunk `Ps.105.1-45` is now reviewed gold.
+- Ps.106 current whole-psalm chunk `Ps.106.1-48` is now reviewed gold.
+- Ps.106 `b` markers are recorded as internal formatting/stanza evidence, not automatic
+  child-boundary authority.
+- John 3 and Matthew 5-7 WJ review packets were created and remain `pending_human_review`.
+- `\wj` is evidence, not speaker-attribution authority; speaker attribution requires human review.
+- T313 token-size policy analysis was updated to state that p50 headroom is not authorization to
+  retune chunking.
+
+Boundary:
+
+- No chunk output change.
+- No evaluator formula change.
+- No raw/canonical mutation.
+- No chunker/orchestrator behavior change.
+- No runtime skill code change.
+- No skill promotion.
+
+Next:
+
+- Claude review T317.
+- Merge if validation and review are green.
+- Do not start output-changing work until reviewed target gold authorizes it.

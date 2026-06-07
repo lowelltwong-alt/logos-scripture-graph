@@ -6,17 +6,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PACKET_DIR = ROOT / "eval" / "chunking_gold" / "review_packets"
 
-EXPECTED_PACKETS = {
-    "ps105_boundary_review.md": "ps105_historical_psalm",
-    "ps106_boundary_review.md": "ps106_historical_confession",
+PENDING_PACKETS = {
     "isa52_13_53_12_boundary_review.md": "isa52_13_53_12_servant_song",
     "mark16_9_20_textual_variant_review.md": "mark16_9_20_longer_ending",
     "john7_53_8_11_textual_variant_review.md": "john7_53_8_11_pericope_adulterae",
+    "john3_wj_speaker_boundary_review.md": "john3_wj_speaker_boundary",
+    "matt5_7_wj_discourse_review.md": "matt5_7_sermon_on_mount_wj_discourse",
+}
+
+REVIEWED_WHOLE_PSALM_PACKETS = {
+    "ps105_boundary_review.md": "ps105_historical_psalm",
+    "ps106_boundary_review.md": "ps106_historical_confession",
 }
 
 
-def test_t316b_review_packets_exist_and_stay_pending() -> None:
-    for filename, case_id in EXPECTED_PACKETS.items():
+def test_pending_review_packets_exist_and_stay_pending() -> None:
+    for filename, case_id in PENDING_PACKETS.items():
         text = (PACKET_DIR / filename).read_text(encoding="utf-8")
         assert "Status: `pending_human_review`" in text, filename
         assert f"Stress atlas case ID: `{case_id}`" in text, filename
@@ -24,16 +29,36 @@ def test_t316b_review_packets_exist_and_stay_pending() -> None:
         assert "This packet does not authorize output-changing work." in text, filename
 
 
-def test_t316b_review_packets_do_not_claim_reviewed_gold() -> None:
+def test_pending_review_packets_do_not_claim_reviewed_gold() -> None:
     forbidden = {
         "reviewed_gold",
         "approved_structural_split_under_parent_whole_psalm",
         "authorizes_output_change",
         "implementation_allowed: true",
     }
-    for filename in EXPECTED_PACKETS:
+    for filename in PENDING_PACKETS:
         text = (PACKET_DIR / filename).read_text(encoding="utf-8")
         lowered = text.lower()
         for phrase in forbidden:
             assert phrase not in lowered, f"{filename} contains forbidden phrase {phrase}"
 
+
+def test_t317_psalm_packets_record_reviewed_whole_psalm_gold() -> None:
+    for filename, case_id in REVIEWED_WHOLE_PSALM_PACKETS.items():
+        text = (PACKET_DIR / filename).read_text(encoding="utf-8")
+        assert "Status: `reviewed_gold`" in text, filename
+        assert f"Stress atlas case ID: `{case_id}`" in text, filename
+        assert "Decision: approved_preserve_current_whole_psalm" in text, filename
+        assert "This reviewed decision does not authorize output-changing work." in text, filename
+        assert "Decision: pending" not in text, filename
+
+
+def test_t317_words_of_jesus_packets_preserve_marker_governance() -> None:
+    for filename in {
+        "john3_wj_speaker_boundary_review.md",
+        "matt5_7_wj_discourse_review.md",
+    }:
+        text = (PACKET_DIR / filename).read_text(encoding="utf-8")
+        assert "\\wj is evidence, not authority" in text, filename
+        assert "speaker attribution requires human review" in text.lower(), filename
+        assert "This packet does not authorize output-changing work." in text, filename
