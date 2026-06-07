@@ -18,6 +18,7 @@ skill work must cite a per-form gold file or manifest before claiming improvemen
 
 - Psalm manifest: `eval/chunking_gold/per_form/psalms_gold_manifest.json`
 - Executable tests: `tests/test_chunker_gold.py`
+- Manifest maturity validator: `scripts/validate_chunking_gold.py`
 - Reviewed/settled Psalm cases:
   - Ps.23 as one whole-psalm chunk.
   - Ps.119 as 22 intentional sections, reported but not penalized as literal fragmentation.
@@ -47,3 +48,8 @@ manifest or plan must state:
 Do not treat characterization-only records as promoted expected boundaries. Promotion requires
 explicit review and committed tests or manifests that name the accepted boundaries.
 Reviewed parent/child structural split is not bad fragmentation by default.
+
+T315 adds a lightweight semantic validator for per-form manifest maturity. It checks explicit
+statuses, keeps characterization-only and pending-human-review cases from carrying promoted-output
+flags, and requires approved parent/child structural split cases to name parent and child
+boundaries.

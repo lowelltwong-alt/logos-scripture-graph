@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-06
-**Updated by:** T314 reviewed structural split evaluator policy (Codex)
-**Active task:** → **T314** evaluator-policy correction implemented for reviewed structural Psalm splits; no chunk output change and no output-changing 3b started; **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-07
+**Updated by:** T315 gold/evaluator/roadmap hardening (Codex)
+**Active task:** -> **T315** hardening completed; no chunk output change and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -60,6 +60,15 @@
 > `literal_psalms_fragmented=0`, and composite is 93.5. Score provenance chain is now 88.5 old
 > evaluator -> 93.0 T311 book/chapter evaluator -> 93.5 T314 reviewed-structural-split policy. This
 > is evaluator-policy correction, not chunk-output improvement.
+
+> **T315 gold/evaluator/roadmap hardening (2026-06-07):** Added semantic validation for
+> `eval/chunking_gold/per_form/*_manifest.json`, wired it into `validate_all`, added focused tests,
+> created `GOLD_COVERAGE_INVENTORY.md`, audited score-language references, updated stale T313/ADR
+> baseline prose to the T314 93.5 policy baseline, and created future-target / roadmap-registration
+> plans. Broad future task registration is deferred until those tasks have real handoffs. No chunk
+> output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or
+> skill promotion changed. Next possible work: T316 Biblical Chunking Stress Atlas, T313 token-size
+> policy alignment, or T320/T321 planning. No output-changing chunk work is currently authorized.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

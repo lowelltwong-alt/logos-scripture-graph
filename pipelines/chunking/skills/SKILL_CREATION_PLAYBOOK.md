@@ -90,6 +90,10 @@ Gold evidence should cover the form's hard cases, not only the easiest passage. 
 optimizes for any score-moving metric, verify that the evaluator is measuring the intended
 target-form output behavior and not a confounded proxy.
 
+Gold manifests must pass semantic maturity validation before they authorize output-changing work.
+Run `python scripts/validate_chunking_gold.py` or rely on `python scripts/validate_all.py` after
+editing `eval/chunking_gold/per_form/*_manifest.json`.
+
 Weak evaluator levers must not drive implementation without target-form evidence. Psalm 78 is the
 reference case: eliminating its current fragmentation was only a +0.5 composite lever, and human
 review approved preserving the current child boundaries under a parent whole-psalm unit.

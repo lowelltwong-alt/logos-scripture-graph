@@ -27,6 +27,7 @@ AI-operational checklist for chunking-related work. Use with
   `eval/chunking_gold/`.
 - Confirm that cited gold is executable/reviewed for the target behavior. A scaffold or
   characterization-only record is enough for analysis, not for output-changing implementation.
+- Confirm the cited per-form gold manifest passes semantic maturity validation.
 - If a target is characterization-only, state the human-gated decision that remains pending.
 - If a target is a reviewed structural split, record the parent whole unit and child boundaries and
   do not treat it as bad fragmentation without a separate evaluator-policy review.
@@ -64,6 +65,8 @@ AI-operational checklist for chunking-related work. Use with
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target
   controls.
+- Confirm `python scripts/validate_chunking_gold.py` passes directly or through
+  `python scripts/validate_all.py` when manifest semantics are in scope.
 - Confirm characterization-only evidence is not asserted as approved expected output.
 - Confirm pending human-review decisions remain pending in manifests, tests, handoffs, and status.
 - Confirm reviewed structural splits are locked as parent/child gold, not confused with bad

@@ -5,7 +5,7 @@
 - Status: Living / provisional
 - Owner: T310/T311 chunking workstream
 - Export status: Not ready for LawFirm OS final export
-- Last reviewed: 2026-06-06
+- Last reviewed: 2026-06-07
 - Must update when:
   - chunking algorithm changes
   - form detector changes
@@ -49,6 +49,8 @@ Confirmed:
   whole-psalm literary unit.
 - T314 preserved raw Psalm-fragmentation diagnostics while excluding exact manifest-reviewed
   structural splits from the final bad-fragmentation penalty.
+- T315 added semantic validation for per-form gold manifests so maturity labels and approved
+  structural split metadata fail closed before output-changing work can cite them.
 
 Unknown or unfinished:
 
@@ -104,17 +106,18 @@ or treat route metadata as chunk/context content.
    characterization-only, or pending human review.
 8. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
    of approved expected-output assertions.
-9. When both whole-unit unity and internal structure matter, model parent literary units plus child
+9. Validate gold manifest maturity before relying on it for evaluator or output-changing work.
+10. When both whole-unit unity and internal structure matter, model parent literary units plus child
    structural chunks instead of forcing a merge-or-fragmentation binary.
-10. Sanity-check the evaluator against target-form evidence.
-11. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+11. Sanity-check the evaluator against target-form evidence.
+12. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-12. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+13. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
    non-target controls.
-13. Promote only if target-form output evidence beats fallback without regressions.
-14. Record provenance, route ledger, and staleness triggers.
-15. Update this methodology.
-16. Repeat for next form.
+14. Promote only if target-form output evidence beats fallback without regressions.
+15. Record provenance, route ledger, and staleness triggers.
+16. Update this methodology.
+17. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -141,6 +144,8 @@ or treat route metadata as chunk/context content.
 
 - `python scripts/validate_all.py`
 - `python -m pytest -q`
+- `python scripts/validate_chunking_gold.py` is included in `validate_all.py` when per-form gold
+  manifests are present.
 - Raw and canonical data remain untouched.
 - No runtime behavior change unless the task explicitly targets a behavior-changing increment.
 - No evaluator/leaderboard change unless the task explicitly targets evaluator behavior.
@@ -177,7 +182,8 @@ evaluator-policy correction, not chunk-output improvement.
 ## 8. What is still incomplete
 
 - T310 methodology is not complete.
-- Current corrected baseline is D / Claude pass2 = 93.0 under the T311 evaluator, not final quality.
+- Current corrected policy baseline is D / Claude pass2 = 93.5 under T314. The T311 93.0 score
+  remains provenance for the same unchanged output, not final quality.
 - Increment 1 and 2 were intentionally non-scoring.
 - Increment 3a is behavior-preserving extraction, not quality improvement.
 - T310 3b-gold added executable Psalm gates for settled cases but did not change output.
@@ -293,6 +299,25 @@ schema work, retrieval contracts, and export doctrine into one ambiguous task. I
 multiple lanes, name the primary lane and the deferred lanes in the handoff before editing runtime or
 schema files.
 
+## 10d. Gold manifest validation rule
+
+T315 added a lightweight semantic validator for per-form gold manifests:
+`scripts/validate_chunking_gold.py`.
+
+Rules:
+
+- Reviewed cases must carry an explicit status.
+- Cases under `reviewed_gold` may be `reviewed_gold` or
+  `approved_structural_split_under_parent_whole_psalm`; characterization-only and
+  pending-human-review cases cannot live there.
+- Characterization-only and pending-human-review cases must not carry promoted-output flags such as
+  `reviewed_structural_split`, `not_bad_fragmentation_gold`, or `authorizes_output_change`.
+- Approved parent/child structural split cases must include a parent literary unit, non-empty child
+  boundaries, `reviewed_structural_split: true`, and `not_bad_fragmentation_gold: true`.
+
+This is a maturity/metadata gate only. It does not change chunk output, evaluator formula, or review
+status by itself.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -390,3 +415,5 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-06: Added the T314 evaluator-policy lesson. Raw literal Psalm fragmentation diagnostics
   remain visible, while exact manifest-reviewed structural splits can be excluded from final bad
   fragmentation without changing chunk output or claiming chunking improvement.
+- 2026-06-07: Added the T315 gold manifest validation lesson. Per-form gold manifests now have a
+  semantic validation gate for maturity labels and approved structural split metadata.
