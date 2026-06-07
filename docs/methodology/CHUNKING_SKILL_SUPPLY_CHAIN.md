@@ -53,6 +53,8 @@ Confirmed:
   structural split metadata fail closed before output-changing work can cite them.
 - T316 added a proposed Biblical Chunking Stress Atlas to inventory future hard cases without
   authorizing output-changing work.
+- T316b converts selected stress-atlas cases into pending review packets that record current
+  behavior and local evidence, but still do not approve boundaries or authorize output-changing work.
 
 Unknown or unfinished:
 
@@ -111,17 +113,19 @@ or treat route metadata as chunk/context content.
 9. Validate gold manifest maturity before relying on it for evaluator or output-changing work.
 10. Use stress atlases only for target selection and review planning until cases become reviewed
    gold, characterization-only evidence, or pending-human-review packets.
-11. When both whole-unit unity and internal structure matter, model parent literary units plus child
+11. Treat pending review packets as decision surfaces: they can record current chunks, marker
+   evidence, risks, and possible alternatives, but they are not approved expected output.
+12. When both whole-unit unity and internal structure matter, model parent literary units plus child
    structural chunks instead of forcing a merge-or-fragmentation binary.
-12. Sanity-check the evaluator against target-form evidence.
-13. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+13. Sanity-check the evaluator against target-form evidence.
+14. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-14. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+15. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
    non-target controls.
-15. Promote only if target-form output evidence beats fallback without regressions.
-16. Record provenance, route ledger, and staleness triggers.
-17. Update this methodology.
-18. Repeat for next form.
+16. Promote only if target-form output evidence beats fallback without regressions.
+17. Record provenance, route ledger, and staleness triggers.
+18. Update this methodology.
+19. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -337,6 +341,24 @@ Rules:
   converted into a reviewed packet or per-form gold artifact.
 - Use stress atlases to choose future review packets, not to bypass review.
 
+## 10f. Stress review packet rule
+
+T316b adds pending review packets under `eval/chunking_gold/review_packets/` for selected
+stress-atlas cases.
+
+Rules:
+
+- A review packet may record current chunk behavior, observed boundaries, local marker evidence,
+  footnotes, text-critical risk, punctuation risk, speaker risk, possible alternatives, and review
+  questions.
+- A review packet with `Status: pending_human_review` and `Decision: pending` is not reviewed gold.
+- Pending packets do not approve expected output, do not make textual-critical or theological
+  decisions, and do not authorize output-changing work.
+- Text-critical packets must use only local source evidence unless a separate task explicitly
+  approves external textual-critical research.
+- A human decision must promote the packet into reviewed gold, characterization-only evidence, or an
+  approved parent/child structural split before implementation can cite it.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -438,3 +460,5 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   semantic validation gate for maturity labels and approved structural split metadata.
 - 2026-06-07: Added the T316 stress atlas lesson. Proposed stress cases identify future hard
   passages but do not authorize output-changing work until promoted through review.
+- 2026-06-07: Added the T316b stress review packet lesson. Pending packets can capture current
+  behavior and evidence, but remain non-authorizing until human review promotes them.

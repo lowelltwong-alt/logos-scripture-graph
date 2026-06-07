@@ -68,6 +68,19 @@ T316 is not a chunking improvement claim. A proposed stress case:
 3. Add executable checks for reviewed cases.
 4. Only then consider evaluator or chunking changes.
 
+## T316b Follow-Up
+
+T316b creates pending review packets for:
+
+- Ps.105.
+- Ps.106.
+- Isa.52.13-53.12.
+- Mark.16.9-20.
+- John.7.53-8.11.
+
+These packets record current chunk behavior and local marker/footnote evidence. They remain
+`pending_human_review`; they are not reviewed gold and do not authorize output-changing work.
+
 ## Unknown
 
 - Which packet should be reviewed first.
