@@ -43,6 +43,9 @@ def build_gates() -> list[tuple[str, list[str]]]:
         gates.append(
             ("validate_manifest.py", [PY, str(ROOT / "pipelines" / "validate" / "validate_manifest.py"), str(MANIFEST)])
         )
+    gold_dir = ROOT / "eval" / "chunking_gold" / "per_form"
+    if gold_dir.exists():
+        gates.append(("validate_chunking_gold.py", [PY, str(ROOT / "scripts" / "validate_chunking_gold.py")]))
     present = [p for p in SMALL_CANON if p.exists()]
     if present:
         cmd = [PY, str(ROOT / "scripts" / "validate_jsonl.py"), "--require-canon", *[str(p) for p in present]]

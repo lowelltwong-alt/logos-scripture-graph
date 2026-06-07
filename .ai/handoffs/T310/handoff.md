@@ -851,11 +851,77 @@ Open questions:
 - Should additional reviewed long-Psalm split classes get separate diagnostics beyond the current
   `reviewed_structural_splits` list?
 
+## T315 gold/evaluator/roadmap hardening - COMPLETED (2026-06-07, Codex)
+
+Gold/evaluator/roadmap hardening completed on branch `t315-gold-evaluator-roadmap-hardening`. This
+is governance and validation hardening only: no chunk output, evaluator formula, raw/canonical data,
+chunker/orchestrator behavior, runtime skill code, or skill promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `ROADMAP.md`
+- `ROADMAP_STATE.yaml`
+- `HANDOFF_PROTOCOL.md`
+- `docs/architecture/ARCHITECTURE.md`
+- `docs/chunking/CHUNKING_DESIGN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `tests/test_chunker_gold.py`
+- `tests/test_evaluate_chunks.py`
+
+Files changed:
+- `scripts/validate_chunking_gold.py`
+- `scripts/validate_all.py`
+- `tests/test_validate_chunking_gold.py`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `docs/roadmap/T315_SCORE_LANGUAGE_AUDIT.md`
+- `docs/roadmap/T315_NEXT_TARGET_INVENTORY.md`
+- `docs/roadmap/T315_ROADMAP_REGISTRATION_PLAN.md`
+- `docs/roadmap/T313_TOKEN_SIZE_EVALUATOR_POLICY_ALIGNMENT.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/workflows/chunking-skill-supply-chain.workflow.md`
+- `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T315/handoff.md`
+- `.ai/handoffs/T310/handoff.md`
+
+Decisions made:
+- Methodology updated: yes.
+- Implemented minimal semantic gold manifest validation instead of deferring.
+- Added a coverage inventory for reviewed Psalm gold, non-target controls, uncovered areas, and
+  candidate future gold.
+- Updated stale score-language docs so T314 93.5 is the current policy baseline while 93.0 remains
+  T311 provenance and 88.5 remains old-evaluator provenance.
+- Deferred broad future roadmap registration to a plan because the state convention expects real
+  handoff references.
+
+Validation run:
+- `python scripts/validate_chunking_gold.py` -> passed.
+- `python -m pytest -q tests/test_validate_chunking_gold.py tests/test_chunker_gold.py tests/test_evaluate_chunks.py` -> 27 passed.
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 69 passed.
+
+Known risks:
+- Active skill/registry score metadata still references T311 93.0 provenance and should be rebased
+  only in an explicit metadata reconciliation task.
+- Future output-changing work still needs reviewed target-form gold beyond the current Psalm set.
+
+Open questions:
+- Should future gold manifests also get a formal JSON Schema?
+- Should T316 stress atlas precede T313 policy changes, or run alongside them?
+
 ## Next agent instruction
 
-Review/accept the T314 evaluator-policy correction. Treat the 93.5 score as evaluator-policy
-correction for unchanged output, not chunking improvement. Do not implement output-changing 3b unless
-a new reviewed output target exists.
+Review/accept the T315 governance hardening patch. Treat the 93.5 score as T314 evaluator-policy
+correction for unchanged output, not chunking improvement. Next likely work is to push/open a T315
+PR, then run T316 stress atlas or T313 token-size policy planning after review. Do not implement
+output-changing chunk work unless a new reviewed target exists.
 
 <!-- superseded instruction below kept for history -->
 <!--

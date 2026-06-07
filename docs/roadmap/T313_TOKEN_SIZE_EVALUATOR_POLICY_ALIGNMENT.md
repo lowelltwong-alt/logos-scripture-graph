@@ -7,14 +7,18 @@ before any broad token-size optimization.
 
 ## Confirmed
 
-- Current corrected baseline: D / Claude pass2 = 93.0.
+- Current T314 evaluator-policy baseline: D / Claude pass2 = 93.5.
+- T311 book/chapter evaluator baseline for the same unchanged output: 93.0.
+- Old evaluator baseline for the same unchanged output: 88.5.
 - Current D metrics from `eval/chunking_runs/claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z.json`:
   - chunks: 1374.
   - `tok_p50`: 729.
   - `tok_p90`: 907.
   - `tok_max`: 1441.
   - sentence integrity: 100.0%.
-  - `literal_psalms_fragmented`: 1.
+  - `literal_psalms_fragmented_raw`: 1.
+  - `reviewed_structural_splits`: 1.
+  - final `literal_psalms_fragmented`: 0.
   - boundary basis coverage: 100.0%.
   - metadata carry: 100.0%.
 - Leaderboard formula in `pipelines/chunking/leaderboard.py`:
@@ -51,6 +55,8 @@ score -= (100.0 - m.get("metadata_carry_pct", 0)) * 0.1
   behavior, prose argument units, or non-target poetry controls.
 - Changing output to chase size fitness before aligning evaluator/policy could repeat the T311
   lesson: score movement can reflect metric surface choices rather than real quality.
+- T314 adds the same caution: evaluator-policy correction moved unchanged output from 93.0 to 93.5,
+  not because chunk output improved.
 
 ## Proposed Next Step
 

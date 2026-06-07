@@ -72,6 +72,10 @@ manifest under `eval/chunking_gold/`.
 - Similar future cases must be reviewed through gold before evaluator or chunker changes.
 - Evaluator policy may exclude reviewed structural splits from final bad-fragmentation scoring only
   when raw diagnostics remain visible and observed boundaries exactly match reviewed gold.
+- Per-form gold manifests must pass semantic maturity validation before they are cited for
+  output-changing work. Reviewed cases need explicit statuses; characterization-only and
+  pending-human-review cases must not carry promoted-output flags; approved parent/child structural
+  split cases need parent and child boundaries.
 
 ## Handoff Note
 

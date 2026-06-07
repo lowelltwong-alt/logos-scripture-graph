@@ -161,6 +161,12 @@ PIPELINE_ENDPOINTS = [
         "outputs": ["pass/fail"],
     },
     {
+        "script": "scripts/validate_chunking_gold.py",
+        "role": "Chunking gold manifest maturity and reviewed structural-split validation",
+        "inputs": ["eval/chunking_gold/per_form/*_manifest.json"],
+        "outputs": ["pass/fail"],
+    },
+    {
         "script": "scripts/scan_raw_sources.py",
         "role": "First-pass scan of the REAL raw documents (mandatory before processing)",
         "inputs": ["data/raw/**/*.zip (USFM)"],

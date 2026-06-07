@@ -1,0 +1,32 @@
+id: T315
+phase: phase_3
+title: "Gold / evaluator / roadmap hardening pack"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - scripts/
+    - tests/
+    - eval/chunking_gold/
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Gold manifest maturity validation is implemented or deferred with rationale."
+  - "Gold coverage inventory documents reviewed, uncovered, and proposed cases."
+  - "Score-language audit preserves evaluator-policy correction language and avoids chunking-improvement claims."
+  - "Future target inventory keeps T313/T316/T320/T321/T330/T340 as separate lanes."
+  - "No chunk output, raw/canonical data, evaluator formula, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T315/handoff.md
+created_at: "2026-06-07"
+updated_at: "2026-06-07"
