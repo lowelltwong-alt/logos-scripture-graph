@@ -2,16 +2,30 @@
 
 ## Status
 
-- Status: `pending_human_review`
-- Purpose: prepare the human decision on whether Psalm 78 should remain split or become one
-  whole-psalm chunk.
-- Decision: pending
+- Status: `approved_structural_split_under_parent_whole_psalm`
+- Purpose: record the human decision for Psalm 78 after review.
+- Decision: approved preserve-current-structural-split.
+- Parent literary unit: `Ps.78.1-72`.
+- Child chunk boundaries:
+  - `Ps.78.1-69`
+  - `Ps.78.70-71`
+  - `Ps.78.72`
 
-This packet is evidence for review only. It does not encode a merge or preserve decision.
+This records a gold/methodology decision only. It is not a chunking improvement claim, does not
+change chunk output, and does not change the evaluator formula.
 
 ## Confirmed
 
-- Current D / Claude pass2 output has three Psalm 78 chunks:
+- Human decision: preserve the current Psalm 78 split under a parent whole-psalm literary unit.
+- Human rationale:
+  - Psalm 78 is one literary psalm.
+  - The current internal split is structurally plausible.
+  - `Ps.78.70-72` functions as a David/shepherd coda.
+  - Current split has marker/token evidence.
+  - Merging would produce only +0.5 composite upside.
+  - Merging only to eliminate `literal_psalms_fragmented=1` would be metric-chasing.
+  - The correct model is parent whole-psalm unity plus child-level structural chunks.
+- Current D / Claude pass2 output has three Psalm 78 child chunks:
   - `Ps.78.1-69`, 1109 tokens.
   - `Ps.78.70-71`, 35 tokens.
   - `Ps.78.72`, 21 tokens.
@@ -20,7 +34,7 @@ This packet is evidence for review only. It does not encode a merge or preserve 
   - soft max: 1100 tokens.
   - hard max: 1600 tokens.
 - Merging would remove the current `literal_psalms_fragmented=1` penalty for a direct composite
-  upside of +0.5.
+  upside of +0.5, but that is not sufficient target-form evidence for an output change.
 - Regenerated current D/pass2 chunks in ignored output:
   - `build/post-3b-planning-pack/chunks.jsonl`
   - SHA-256: `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7`
@@ -31,7 +45,7 @@ This packet is evidence for review only. It does not encode a merge or preserve 
 
 Generated chunk evidence:
 
-| Current chunk | Tokens | Boundary basis |
+| Current child chunk | Tokens | Boundary basis |
 |---|---:|---|
 | `Ps.78.1` to `Ps.78.69` | 1109 | `poetic_stanza`, `token_budget`, `whole_psalm_split` |
 | `Ps.78.70` to `Ps.78.71` | 35 | `poetic_stanza`, `whole_psalm_split` |
@@ -56,48 +70,36 @@ Source marker evidence from `data/processed/bible/eng-web/usfm/usfm_events.jsonl
 - The current split is not a simple hard-gate bug. It reflects both token-budget pressure and
   poetic-stanza / whole-psalm split basis.
 - A full merge is legal under the hard max but exceeds the soft max by 65 tokens.
-- The last two small chunks may represent a real David-shepherd coda boundary, but that is a review
-  question, not an agent decision.
+- The parent/child model preserves literary unity without erasing a plausible coda boundary.
 
-## Alternatives
+## Reviewed Outcome
 
-1. Preserve current split.
-   - Keeps the current stanza-sensitive long-Psalm output.
-   - Leaves `literal_psalms_fragmented=1`.
-2. Merge entire Psalm 78.
-   - Treats Psalm 78 as one whole-psalm unit.
-   - Removes the +0.5 fragmentation penalty.
-   - Exceeds the configured soft max while staying under hard max.
-3. Adjust evaluator treatment for structurally valid long-Psalm splits.
-   - Separate evaluator PR only.
-   - Requires evidence that the current split is structurally valid and should not be counted as
-     literal Psalm fragmentation.
+The approved model is:
 
-## Risks Of Merging
+```text
+Parent literary unit:
+  Ps.78.1-72
 
-- Metric-chasing a weak +0.5 lever.
-- Overriding possible real stanza / David-shepherd coda boundary evidence.
-- Exceeding the 1100-token soft max.
-- Encoding an output-changing Psalm policy before human review.
+Reviewed child structural chunks:
+  Ps.78.1-69
+  Ps.78.70-71
+  Ps.78.72
+```
 
-## Risks Of Preserving
+This reviewed structural split is not the same as bad fragmentation. T314 keeps Ps.78 visible in
+`literal_psalms_fragmented_raw`, records it in `reviewed_structural_splits`, and excludes it from
+the final `literal_psalms_fragmented` bad-fragmentation penalty when the observed child boundaries
+exactly match this packet.
 
-- Keeps `literal_psalms_fragmented=1`.
-- May split a whole-psalm unit if human review decides whole Psalm integrity is the higher priority.
-- Leaves Psalm 78 as a visible unresolved exception in the Psalm gold lane.
+## Future Evaluator-Policy Question
 
-## Proposed Review Question
-
-Should Psalm 78 be treated as:
-
-- one whole-psalm retrieval chunk despite soft-max excess, or
-- a structurally valid long-Psalm split that should remain split and perhaps be handled by evaluator
-  policy separately?
+Reviewed parent/child structural splits, such as Psalm 119 and now Psalm 78, should stay visible in
+diagnostics even when excluded from the final bad-fragmentation penalty. This packet does not change
+chunk output.
 
 ## Unknown
 
-- Whether the `Ps.78.70-72` David-shepherd ending should be preserved as a distinct retrieval unit.
-- Whether future Hebrew/source-language boundary evidence would strengthen or weaken the current
-  split.
-- Whether evaluator policy should distinguish invalid Psalm fragmentation from reviewed long-Psalm
-  structural splits.
+- Whether future Hebrew/source-language boundary evidence would strengthen or refine the current
+  child boundaries.
+- Whether future evaluator policy should also distinguish additional long-Psalm structural split
+  classes after gold review.

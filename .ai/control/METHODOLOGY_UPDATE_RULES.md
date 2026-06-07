@@ -51,7 +51,8 @@ Score-moving chunking PRs must also state whether evaluator sanity was checked a
 movement reflects output improvement or evaluator-surface correction.
 
 Gold-related PRs must also state whether each cited artifact is scaffold/plan, executable reviewed
-gold, characterization-only evidence, or pending human review.
+gold, characterization-only evidence, pending human review, or approved structural split under a
+parent whole unit.
 
 ## Per-Form Gold Rule
 
@@ -66,13 +67,18 @@ manifest under `eval/chunking_gold/`.
 - Weak evaluator levers, such as Ps.78's +0.5 composite upside, must not drive implementation
   without target-form evidence.
 - Human-gated boundary decisions must remain `pending_human_review` until explicitly reviewed.
+- Reviewed parent whole-unit plus child structural chunks are not bad fragmentation by default.
+- Psalm 119 is the strong precedent; Psalm 78 is now a reviewed lighter case.
+- Similar future cases must be reviewed through gold before evaluator or chunker changes.
+- Evaluator policy may exclude reviewed structural splits from final bad-fragmentation scoring only
+  when raw diagnostics remain visible and observed boundaries exactly match reviewed gold.
 
 ## Handoff Note
 
 Chunking-related handoffs must record the methodology decision under `Decisions made` or the task's
 increment-specific section. Use the exact PR note wording when possible so reviewers can find it.
 For gold-related work, handoffs must also record whether target evidence is reviewed gold,
-characterization-only, or pending human review.
+characterization-only, pending human review, or reviewed parent/child structural split.
 
 ## Related Workflow
 

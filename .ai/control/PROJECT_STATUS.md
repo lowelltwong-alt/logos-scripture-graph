@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-06
-**Updated by:** T310 post-3b roadmap planning pack (Codex)
-**Active task:** → **T310** 3b-gold implemented; post-3b roadmap pack prepared; Ps.78 output change remains human-gated and unresolved; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T314 reviewed structural split evaluator policy (Codex)
+**Active task:** → **T314** evaluator-policy correction implemented for reviewed structural Psalm splits; no chunk output change and no output-changing 3b started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -45,6 +45,21 @@
 > work. T313 token-size evaluator/policy alignment, T320 biblical entity/spiritual realm layer, T330
 > theological concept graph, and T340 retrieval/rendering contracts are separate future lanes. No
 > output-changing 3b work has started.
+
+> **Ps.78 parent/child gold decision (2026-06-06):** Human review approved preserving the current
+> Psalm 78 child chunks under a parent whole-psalm literary unit. Parent: `Ps.78.1-72`; children:
+> `Ps.78.1-69`, `Ps.78.70-71`, and `Ps.78.72`. This records reviewed gold and the parent/child
+> structural-split lesson; it does not change chunk output, evaluator formula, raw/canonical data,
+> runtime chunking code, or skill promotion. Current evaluator policy may still report
+> `literal_psalms_fragmented=1`; any change to that treatment is a separate evaluator-policy task.
+
+> **T314 reviewed structural split evaluator policy (2026-06-06):** Evaluator policy now preserves
+> raw literal Psalm fragmentation diagnostics while excluding exact manifest-reviewed parent/child
+> structural splits from final bad-fragmentation scoring. For unchanged D / Claude pass2 output,
+> `literal_psalms_fragmented_raw=1`, `reviewed_structural_splits=1`, final
+> `literal_psalms_fragmented=0`, and composite is 93.5. Score provenance chain is now 88.5 old
+> evaluator -> 93.0 T311 book/chapter evaluator -> 93.5 T314 reviewed-structural-split policy. This
+> is evaluator-policy correction, not chunk-output improvement.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

@@ -79,6 +79,8 @@ Gold has maturity states:
 - `characterization_only`: observed current behavior and risk evidence; not approved expected output.
 - `pending_human_review`: unresolved boundary or policy decision; do not implement against it.
 - `reviewed_gold`: settled expected behavior captured in a manifest and/or executable tests.
+- `approved_structural_split_under_parent_whole_psalm`: reviewed parent whole-unit plus child
+  structural chunks; not bad fragmentation by default.
 
 Output-changing skill work requires executable/reviewed gold first. A scaffold, plan, or
 characterization-only record can support investigation but cannot authorize a behavior change or
@@ -89,8 +91,18 @@ optimizes for any score-moving metric, verify that the evaluator is measuring th
 target-form output behavior and not a confounded proxy.
 
 Weak evaluator levers must not drive implementation without target-form evidence. Psalm 78 is the
-reference case: eliminating its current fragmentation is only a +0.5 composite lever, and the
-merge-vs-preserve-`\b` boundary decision remains human-gated.
+reference case: eliminating its current fragmentation was only a +0.5 composite lever, and human
+review approved preserving the current child boundaries under a parent whole-psalm unit.
+
+Parent whole-unit + child structural chunks is the preferred model for long structured text when
+both unity and internal structure matter. Psalm 119 is the strong precedent; Psalm 78 is now a
+reviewed lighter case. Similar future cases should be reviewed through gold before evaluator or
+chunker changes.
+
+T314 lesson: evaluator policy can exclude exact manifest-reviewed structural splits from final bad
+fragmentation only while preserving raw diagnostics such as `literal_psalms_fragmented_raw` and
+`reviewed_structural_splits`. Score movement from that exclusion is evaluator-policy correction, not
+chunking improvement.
 
 T311 lesson: the old `psalms_fragmented` metric grouped Psalm-like chunks by bare chapter number,
 causing cross-book collisions such as `Ps.3`, `Song.3`, and `Lam.3`. The same chunk output moved
@@ -152,6 +164,8 @@ A skill can be promoted only when:
 - staleness triggers are recorded
 - human review approves the promotion
 - human-gated boundary decisions have been explicitly reviewed
+- reviewed structural splits are not treated as bad fragmentation without a separate
+  evaluator-policy review
 - the methodology is updated or reviewed with a no-change rationale
 
 Corrected evaluator score movement is not a chunk-output improvement claim. Record it as evaluator

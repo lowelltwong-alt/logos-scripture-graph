@@ -13,7 +13,8 @@ AI-operational checklist for chunking-related work. Use with
 - Confirm whether the task is detector, registry, orchestrator, skill, evaluator, gold, staleness,
   route-ledger, or methodology work.
 - Classify gold artifacts by maturity: scaffold/plan, executable reviewed gold,
-  characterization-only evidence, or pending human review.
+  characterization-only evidence, pending human review, or approved structural split under a parent
+  whole unit.
 
 ## Plan
 
@@ -27,6 +28,8 @@ AI-operational checklist for chunking-related work. Use with
 - Confirm that cited gold is executable/reviewed for the target behavior. A scaffold or
   characterization-only record is enough for analysis, not for output-changing implementation.
 - If a target is characterization-only, state the human-gated decision that remains pending.
+- If a target is a reviewed structural split, record the parent whole unit and child boundaries and
+  do not treat it as bad fragmentation without a separate evaluator-policy review.
 - Treat weak evaluator levers as planning signals only until target-form evidence supports an
   implementation.
 - Define target output drift expectations before editing.
@@ -44,6 +47,9 @@ AI-operational checklist for chunking-related work. Use with
   requires a combined branch.
 - For gold-only increments, convert settled cases into executable checks and keep unresolved cases
   characterization-only. Do not change chunk output as part of gold conversion.
+- For long structured text, prefer parent whole-unit + child structural chunks when review confirms
+  both unity and internal structure. Psalm 119 is the strong precedent; Psalm 78 is now a reviewed
+  lighter case.
 
 ## Verify
 
@@ -52,12 +58,16 @@ AI-operational checklist for chunking-related work. Use with
 - Run `python -m pytest -q`.
 - For behavior-preserving work, prove byte identity against the baseline.
 - For evaluator work, document before/after score meaning.
+- For reviewed-structural-split evaluator work, preserve raw diagnostics, require exact reviewed
+  child-boundary matches, and label score movement as evaluator-policy correction.
 - For true improvements, compare target-form output against fallback and check non-target
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target
   controls.
 - Confirm characterization-only evidence is not asserted as approved expected output.
 - Confirm pending human-review decisions remain pending in manifests, tests, handoffs, and status.
+- Confirm reviewed structural splits are locked as parent/child gold, not confused with bad
+  fragmentation.
 - Treat corrected evaluator score movement as an evaluator-surface correction, not a chunk-output
   improvement claim.
 
@@ -79,6 +89,7 @@ AI-operational checklist for chunking-related work. Use with
   characterization-only record.
 - Confirm weak evaluator levers did not drive implementation without target-form output evidence.
 - Confirm unresolved human-gated boundaries remain explicitly pending.
+- Confirm reviewed parent/child structural splits cite gold before evaluator or chunker changes.
 - Confirm any score movement is supported by target-form output evidence.
 - Confirm the handoff names risks, validation, and exact next action.
 
@@ -107,4 +118,6 @@ AI-operational checklist for chunking-related work. Use with
 - Stop if a scaffold or characterization-only record is treated as approved expected output.
 - Stop if a weak evaluator lever becomes the sole reason for output-changing implementation.
 - Stop if a human-gated boundary decision is resolved without explicit review.
+- Stop if a reviewed parent/child structural split is treated as bad fragmentation without a
+  separate evaluator-policy review.
 - Stop if methodology was not reviewed.

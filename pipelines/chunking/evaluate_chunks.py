@@ -16,8 +16,12 @@ Metrics (per variant):
   tokens p50/p90/max      approx word-count distribution
   sentence_integrity      % prose chunks ending on a sentence (higher better)
   psalms_fragmented       legacy alias for literal_psalms_fragmented (lower better)
+  literal_psalms_fragmented_raw
+                          # raw literal Psalm splits before reviewed-gold exclusions
+  reviewed_structural_splits
+                          # reviewed parent/child splits excluded from bad-fragmentation penalty
   literal_psalms_fragmented
-                          # literal Psalms split into >1 chunk, by book+chapter
+                          # unreviewed/bad literal Psalm splits after reviewed-gold exclusions
   poetry_books_fragmented # poetry/psalm-genre books split into >1 chunk, by book+chapter
   psalm119_section_chunks # explicit non-penalty signal for intentional Ps 119 sections
   book_crossings          # chunks spanning >1 book (must be 0)
@@ -33,6 +37,9 @@ import json
 import re
 import statistics
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PSALMS_GOLD = ROOT / "eval" / "chunking_gold" / "per_form" / "psalms_gold_manifest.json"
 
 SENTENCE_END_RE = re.compile(r"[.!?][\"')\]”’»›]*$")
 RAW_USFM = re.compile(r"\\(?:\+?[A-Za-z0-9]+)\*?")
@@ -58,11 +65,17 @@ def book_chapter_of(osis: str) -> tuple[str, str]:
     return book, chapter
 
 
-def fragmented_book_chapters(chunks: list[dict], *, literal_psalms_only: bool) -> dict[tuple[str, str], int]:
+def fragmented_book_chapters(
+    chunks: list[dict],
+    *,
+    literal_psalms_only: bool,
+    skip_chapters: set[tuple[str, str]] | None = None,
+) -> dict[tuple[str, str], int]:
+    skip_chapters = skip_chapters or set()
     grouped: dict[tuple[str, str], int] = {}
     for c in chunks:
         book, chapter = book_chapter_of(c.get("osis_start", ""))
-        if (book, chapter) in INTENTIONAL_SECTION_CHAPTERS:
+        if (book, chapter) in skip_chapters:
             continue
         if literal_psalms_only:
             qualifies = book == "Ps"
@@ -78,13 +91,119 @@ def load(path: Path) -> list[dict]:
     return [json.loads(l) for l in path.read_text(encoding="utf-8").splitlines() if l.strip()]
 
 
-def score(chunks: list[dict]) -> dict:
+def _reviewed_split_cases(manifest_path: Path | None) -> list[dict]:
+    """Load reviewed structural-split gold defensively; invalid input excludes nothing."""
+    if manifest_path is None:
+        return []
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+
+    cases = manifest.get("reviewed_gold")
+    if not isinstance(cases, list):
+        return []
+
+    reviewed: list[dict] = []
+    for case in cases:
+        if not isinstance(case, dict):
+            continue
+        status = str(case.get("status", ""))
+        if not (status.startswith("approved") or status.startswith("reviewed")):
+            continue
+        parent = case.get("parent_literary_unit")
+        expected = case.get("expected")
+        if not isinstance(parent, dict) or not isinstance(expected, dict):
+            continue
+        if not expected.get("reviewed_structural_split"):
+            continue
+        if not expected.get("not_bad_fragmentation_gold"):
+            continue
+        if not parent.get("osis_start") or not parent.get("osis_end"):
+            continue
+        child_chunks = expected.get("child_chunks")
+        if not isinstance(child_chunks, list) or not child_chunks:
+            continue
+        child_spans: list[tuple[str, str]] = []
+        for child in child_chunks:
+            if not isinstance(child, dict):
+                child_spans = []
+                break
+            start = child.get("osis_start")
+            end = child.get("osis_end")
+            if not start or not end:
+                child_spans = []
+                break
+            child_spans.append((start, end))
+        if not child_spans:
+            continue
+        reviewed.append({
+            "case_id": case.get("case_id", "?"),
+            "osis_span": case.get("osis_span", f"{parent['osis_start']}-{parent['osis_end']}"),
+            "key": book_chapter_of(parent["osis_start"]),
+            "parent": (parent["osis_start"], parent["osis_end"]),
+            "child_spans": child_spans,
+        })
+    return reviewed
+
+
+def _matching_reviewed_structural_splits(
+    chunks: list[dict],
+    fragmented_keys: set[tuple[str, str]],
+    manifest_path: Path | None,
+) -> list[dict]:
+    matches: list[dict] = []
+    for case in _reviewed_split_cases(manifest_path):
+        key = case["key"]
+        if key not in fragmented_keys:
+            continue
+        observed = [
+            (c.get("osis_start"), c.get("osis_end"))
+            for c in chunks
+            if book_chapter_of(c.get("osis_start", "")) == key
+        ]
+        if observed != case["child_spans"]:
+            continue
+        matches.append({
+            "case_id": case["case_id"],
+            "osis_span": case["osis_span"],
+            "parent": {"osis_start": case["parent"][0], "osis_end": case["parent"][1]},
+            "child_spans": [
+                {"osis_start": start, "osis_end": end}
+                for start, end in case["child_spans"]
+            ],
+        })
+    return matches
+
+
+def score(chunks: list[dict], *, psalms_gold_manifest: Path | None = DEFAULT_PSALMS_GOLD) -> dict:
     n = len(chunks)
     toks = [approx_tokens(c.get("text", "")) for c in chunks]
     prose = [c for c in chunks if c.get("genre") != "psalms"]
     prose_ok = sum(1 for c in prose if c.get("validation", {}).get("sentence_ended", sentence_ended(c.get("text", ""))))
-    literal_psalms_fragmented = len(fragmented_book_chapters(chunks, literal_psalms_only=True))
-    poetry_books_fragmented = len(fragmented_book_chapters(chunks, literal_psalms_only=False))
+    literal_raw = fragmented_book_chapters(
+        chunks,
+        literal_psalms_only=True,
+        skip_chapters=INTENTIONAL_SECTION_CHAPTERS,
+    )
+    reviewed_structural_splits = _matching_reviewed_structural_splits(
+        chunks,
+        set(literal_raw),
+        psalms_gold_manifest,
+    )
+    reviewed_keys = {
+        book_chapter_of(split["parent"]["osis_start"])
+        for split in reviewed_structural_splits
+    }
+    literal_psalms_fragmented = len({
+        key: count for key, count in literal_raw.items()
+        if key not in reviewed_keys
+    })
+    poetry_books_fragmented = len(fragmented_book_chapters(
+        chunks,
+        literal_psalms_only=False,
+        skip_chapters=INTENTIONAL_SECTION_CHAPTERS,
+    ))
     ps119_section_chunks = sum(1 for c in chunks if book_chapter_of(c.get("osis_start", "")) == ("Ps", "119"))
     crossings = sum(1 for c in chunks if book_of(c.get("osis_start", "")) != book_of(c.get("osis_end", "")))
     basis_cov = sum(1 for c in chunks if c.get("boundary_basis"))
@@ -100,6 +219,8 @@ def score(chunks: list[dict]) -> dict:
         "tok_max": max(toks) if toks else 0,
         "sentence_integrity_pct": round(100 * prose_ok / len(prose), 1) if prose else 100.0,
         "psalms_fragmented": literal_psalms_fragmented,
+        "literal_psalms_fragmented_raw": len(literal_raw),
+        "reviewed_structural_splits": reviewed_structural_splits,
         "literal_psalms_fragmented": literal_psalms_fragmented,
         "poetry_books_fragmented": poetry_books_fragmented,
         "psalm119_section_chunks": ps119_section_chunks,

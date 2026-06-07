@@ -44,12 +44,16 @@ Confirmed:
 - Increment 3a added a behavior-preserving Psalm skill extraction seam.
 - T311 fixed the `psalms_fragmented` evaluator grouping from bare chapter to `(book, chapter)`.
 - Increment 3b-gold converted the Psalm scaffold into executable tests/manifest for settled cases
-  while leaving Ps.78 as characterization-only pending human review.
+  and initially left Ps.78 as characterization-only pending human review.
+- Human review then approved Psalm 78's current child chunks as a structural split under a parent
+  whole-psalm literary unit.
+- T314 preserved raw Psalm-fragmentation diagnostics while excluding exact manifest-reviewed
+  structural splits from the final bad-fragmentation penalty.
 
 Unknown or unfinished:
 
-- Any true Psalm quality improvement still depends on reviewed target-boundary evidence, especially
-  the unresolved Ps.78 merge-vs-preserve-`\b` decision.
+- Any true Psalm quality improvement still depends on reviewed target-boundary evidence beyond the
+  now-reviewed Psalm 78 parent/child structural split.
 - Later increments still need more skills, per-form gold sets, staleness enforcement, promotion
   rules, and final export.
 
@@ -64,8 +68,14 @@ Unknown or unfinished:
    sectioning as a non-penalty signal.
 5. T310 3b-gold conversion: executable Psalm gold manifest/tests for settled cases; Ps.78 captured
    as characterization-only, not approved expected output.
-6. Pending true Psalm improvement after reviewed target-form boundary evidence is trustworthy.
-7. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
+6. T310 Ps.78 human decision: preserve current child boundaries as a reviewed structural split under
+   the parent whole-psalm unit.
+7. T314 evaluator-policy correction: report `literal_psalms_fragmented_raw`, report
+   `reviewed_structural_splits`, and exclude exact reviewed structural splits from final
+   `literal_psalms_fragmented`.
+8. Pending true Psalm improvement after reviewed target-form boundary evidence identifies a new
+   output-changing target.
+9. Later form skills, per-form gold sets, staleness enforcement, promotion, and export.
 
 Increment 1 and Increment 2 were intentionally non-scoring. Increment 3a is behavior-preserving
 extraction, not a quality improvement. T311 changed the evaluator surface, not chunk output. T310
@@ -94,15 +104,17 @@ or treat route metadata as chunk/context content.
    characterization-only, or pending human review.
 8. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
    of approved expected-output assertions.
-9. Sanity-check the evaluator against target-form evidence.
-10. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+9. When both whole-unit unity and internal structure matter, model parent literary units plus child
+   structural chunks instead of forcing a merge-or-fragmentation binary.
+10. Sanity-check the evaluator against target-form evidence.
+11. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-11. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+12. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
    non-target controls.
-12. Promote only if target-form output evidence beats fallback without regressions.
-13. Record provenance, route ledger, and staleness triggers.
-14. Update this methodology.
-15. Repeat for next form.
+13. Promote only if target-form output evidence beats fallback without regressions.
+14. Record provenance, route ledger, and staleness triggers.
+15. Update this methodology.
+16. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -140,8 +152,12 @@ or treat route metadata as chunk/context content.
 - Before any output-changing skill work, cite executable/reviewed per-form gold under
   `eval/chunking_gold/`. A scaffold or characterization-only record can start analysis but cannot
   authorize output changes or promotion.
-- Weak evaluator levers must not drive implementation by themselves. Example: Ps.78 offers only
-  +0.5 composite upside and remains blocked until target-form boundary evidence is reviewed.
+- Reviewed structural split is not bad fragmentation by default. Psalm 119 is the strong precedent;
+  Psalm 78 is now a reviewed lighter case.
+- Evaluator policy may exclude exact manifest-reviewed structural splits from the final
+  bad-fragmentation penalty only while preserving raw diagnostics.
+- Weak evaluator levers must not drive implementation by themselves. Example: merging Ps.78 offered
+  only +0.5 composite upside and was rejected as metric-chasing after human review.
 - Human-gated boundary decisions must stay `pending_human_review` until explicitly reviewed.
 - Evaluator fixes must land in separate PRs from skill extraction or skill-improvement PRs.
 - Corrected evaluator scores must be labeled as score-surface corrections, not chunk-output
@@ -153,6 +169,11 @@ The pre-T311 recorded 88.5 score was an old-evaluator baseline, not final qualit
 unchanged D / Claude pass2 output scores 93.0 under the corrected evaluator. That is an evaluator
 correction, not evidence that the chunker improved.
 
+After T314, the same unchanged output scores 93.5 because the evaluator keeps
+`literal_psalms_fragmented_raw=1`, records Ps.78 in `reviewed_structural_splits`, and excludes that
+exact reviewed structural split from final `literal_psalms_fragmented`. That is also
+evaluator-policy correction, not chunk-output improvement.
+
 ## 8. What is still incomplete
 
 - T310 methodology is not complete.
@@ -161,8 +182,8 @@ correction, not evidence that the chunker improved.
 - Increment 3a is behavior-preserving extraction, not quality improvement.
 - T310 3b-gold added executable Psalm gates for settled cases but did not change output.
 - A true score-moving skill still needs target-form output evidence after evaluator sanity checks.
-- Ps.78 still needs a human-gated boundary decision before any output-changing Psalm skill can use it
-  as expected-output gold.
+- Psalm 78 is now reviewed as a parent whole-psalm unit with child structural chunks; it does not
+  authorize an output-changing merge.
 - Final LawFirm OS export should wait until at least one true score-moving skill is safely promoted
   or rejected with documented evidence.
 
@@ -230,10 +251,31 @@ Rules:
 - Human-gated boundary decisions must remain pending until explicitly reviewed.
 
 For Psalm work, Ps.23, Ps.119, short Psalm holdouts, Ps.3 superscription behavior, and non-target
-route controls now have executable gold gates. Ps.78 remains characterization-only pending human
-review of whether to merge the Psalm or preserve the `\b` boundary.
+route controls now have executable gold gates. Ps.78 has moved from characterization-only to
+approved structural split under a parent whole-psalm unit.
 
-## 10b. Future lane categorization rule
+## 10b. Parent whole-unit plus child structural chunks
+
+Long structured text can require both a parent whole-unit claim and child retrieval chunks. When
+literary unity and internal structure both matter, prefer an explicit parent/child model over a
+forced binary of "one chunk" versus "bad fragmentation."
+
+Rules:
+
+- Parent whole-unit + child structural chunks is the preferred model for long structured text when
+  both unity and internal structure matter.
+- Reviewed structural split is not the same as bad fragmentation.
+- Psalm 119 is the strong precedent: a parent whole Psalm with 22 reviewed acrostic/stanza child
+  chunks.
+- Psalm 78 is now a reviewed lighter case: a parent whole Psalm with child chunks `Ps.78.1-69`,
+  `Ps.78.70-71`, and `Ps.78.72`.
+- Similar future cases should be reviewed through gold before evaluator or chunker changes.
+- If the current evaluator still counts a reviewed structural split as fragmentation, handle that in
+  a separate evaluator-policy PR; do not use it to justify an output change.
+- T314 is the reference implementation: exact reviewed child-boundary match required; missing,
+  malformed, or under-specified gold falls back to raw counting and excludes nothing.
+
+## 10c. Future lane categorization rule
 
 When roadmap work identifies a future lane adjacent to chunking, categorize it before implementation
 or promotion work begins. Use one primary lane:
@@ -285,6 +327,8 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - A scaffold or characterization-only record is treated as reviewed expected-output gold.
 - A weak aggregate evaluator lever drives implementation without target-form evidence.
 - A human-gated boundary decision is silently resolved by an agent or metric.
+- A reviewed parent/child structural split is treated as bad fragmentation without a separate
+  evaluator-policy review.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.
@@ -340,3 +384,9 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-06: Added the future lane categorization rule for post-3b roadmap work. New lanes must be
   categorized as chunking, evaluator, entity layer, concept graph, retrieval/rendering, methodology,
   or external export before implementation or promotion work begins.
+- 2026-06-06: Added the Psalm 78 parent/child structural-split lesson. Reviewed structural splits are
+  not bad fragmentation by default; Psalm 119 is the strong precedent and Psalm 78 is now a reviewed
+  lighter case.
+- 2026-06-06: Added the T314 evaluator-policy lesson. Raw literal Psalm fragmentation diagnostics
+  remain visible, while exact manifest-reviewed structural splits can be excluded from final bad
+  fragmentation without changing chunk output or claiming chunking improvement.
