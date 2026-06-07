@@ -79,6 +79,9 @@ manifest under `eval/chunking_gold/`.
 - Stress atlas cases are proposed candidates only. They do not authorize output-changing work,
   evaluator changes, or skill promotion until converted into reviewed gold, characterization-only
   evidence, or an explicit pending-human-review packet.
+- Pending stress review packets may preserve current behavior, marker evidence, text-critical risk,
+  and possible alternatives, but they are not reviewed gold and do not authorize output-changing
+  work until a human decision promotes them.
 
 ## Handoff Note
 

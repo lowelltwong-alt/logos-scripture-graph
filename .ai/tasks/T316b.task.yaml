@@ -1,0 +1,35 @@
+id: T316b
+phase: phase_4
+title: "Stress-case review packets"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/review_packets/
+    - eval/chunking_gold/README.md
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/
+    - ROADMAP_STATE.yaml
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Review packets exist for Ps.105, Ps.106, Isa.52.13-53.12, Mark.16.9-20, and John.7.53-8.11."
+  - "Each packet is pending_human_review with Decision: pending."
+  - "Each packet states that it does not authorize output-changing work."
+  - "No packet marks a case as reviewed gold or approved output."
+  - "No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T316b/handoff.md
+created_at: "2026-06-07"
+updated_at: "2026-06-07"

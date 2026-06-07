@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-07
-**Updated by:** T316 Biblical Chunking Stress Atlas (Codex)
-**Active task:** -> **T316** stress atlas completed; no chunk output change and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T316b stress-case review packets (Codex)
+**Active task:** -> **T316b** review packets completed; no reviewed gold added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -79,6 +79,13 @@
 > `implementation_allowed: false`. This does not change chunk output, evaluator formula,
 > raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion. Stress
 > cases must become reviewed gold or review packets before implementation.
+
+> **T316b stress-case review packets (2026-06-07):** Created pending review packets for Ps.105,
+> Ps.106, Isa.52.13-53.12, Mark.16.9-20, and John.7.53-8.11. Packets record current chunk behavior
+> and local marker/footnote evidence only. All decisions remain `pending_human_review`; no packet is
+> reviewed gold, no selected case is approved expected output, and no output-changing work is
+> authorized. Ps.105 and Ps.106 are prioritized as long-Psalm parent/child candidates; textual
+> variant packets require textual-criticism review before gold.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

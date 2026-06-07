@@ -76,6 +76,23 @@ T316 adds a proposed-only stress atlas:
 These cases are future review candidates. They are not reviewed gold, not approved expected output,
 and not authorization for output-changing work.
 
+## T316b Pending Review Packets
+
+T316b creates pending review packets for selected stress-atlas cases:
+
+| Case | Packet | Status | Current behavior summary |
+| --- | --- | --- | --- |
+| Ps.105 | `eval/chunking_gold/review_packets/ps105_boundary_review.md` | `pending_human_review` | Current output keeps the whole psalm as one chunk. |
+| Ps.106 | `eval/chunking_gold/review_packets/ps106_boundary_review.md` | `pending_human_review` | Current output keeps the whole psalm as one chunk; `b` markers provide possible internal evidence. |
+| Isa.52.13-53.12 | `eval/chunking_gold/review_packets/isa52_13_53_12_boundary_review.md` | `pending_human_review` | Current output embeds the cross-chapter target in a larger Isaiah chunk. |
+| Mark.16.9-20 | `eval/chunking_gold/review_packets/mark16_9_20_textual_variant_review.md` | `pending_human_review` | Current output embeds the variant zone in a larger Mark ending chunk. |
+| John.7.53-8.11 | `eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md` | `pending_human_review` | Current output splits and mixes the variant zone across two larger John chunks. |
+
+These packets are not reviewed gold, not approved expected output, and not authorization for
+output-changing work. They preserve current evidence so a human can later decide whether any case
+should become reviewed gold, characterization-only evidence, or an approved parent/child structural
+split.
+
 ## Unknown
 
 - Whether future gold should use one cross-form schema or per-form manifest schemas.

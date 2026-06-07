@@ -971,12 +971,71 @@ Open questions:
 - Which atlas packet should become reviewed gold first?
 - Should future stress atlas JSON get a dedicated schema/validator?
 
+## T316b stress-case review packets - COMPLETED (2026-06-07, Codex)
+
+Created pending review packets for selected T316 stress-atlas cases. This is gold-review
+infrastructure only: no chunk output, evaluator formula, raw/canonical data, chunker/orchestrator
+behavior, runtime skill code, or skill promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+- `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `eval/chunking_gold/per_form/psalms_gold_manifest.json`
+- `tests/test_chunker_gold.py`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+
+Files changed:
+- `eval/chunking_gold/review_packets/ps105_boundary_review.md`
+- `eval/chunking_gold/review_packets/ps106_boundary_review.md`
+- `eval/chunking_gold/review_packets/isa52_13_53_12_boundary_review.md`
+- `eval/chunking_gold/review_packets/mark16_9_20_textual_variant_review.md`
+- `eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md`
+- `tests/test_stress_review_packets.py`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `docs/roadmap/T316_BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/tasks/T316b.task.yaml`
+- `.ai/handoffs/T316b/handoff.md`
+- `.ai/handoffs/T310/handoff.md`
+
+Decisions made:
+- Methodology updated: yes.
+- Ps.105, Ps.106, Isa.52.13-53.12, Mark.16.9-20, and John.7.53-8.11 remain
+  `pending_human_review`.
+- No selected case was marked as reviewed gold, approved output, or an approved structural split.
+- Textual-variant packets cite only existing local WEB footnote evidence and require future
+  textual-criticism review before gold.
+- The packets do not authorize output-changing work.
+
+Validation run:
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 76 passed.
+
+Known risks:
+- Review packets are not reviewed gold and must not drive implementation by themselves.
+- T316b uses a suffix task id requested by the owner; the current force-handoff helper only accepts
+  numeric `T###` IDs.
+
+Open questions:
+- Which pending packet should receive human review first?
+- Should text-critical packets wait for source-language/tradition policy before any gold promotion?
+
 ## Next agent instruction
 
-Review/accept the T316 stress atlas. Treat the 93.5 score as T314 evaluator-policy correction for
-unchanged output, not chunking improvement. Use the atlas only to choose future review packets; do
-not implement output-changing chunk work unless a selected stress case becomes reviewed gold or an
-explicit review packet.
+Review/accept the T316b pending review packets. Treat the 93.5 score as T314 evaluator-policy
+correction for unchanged output, not chunking improvement. Do not implement output-changing chunk
+work unless a selected packet is explicitly promoted by human review into reviewed gold,
+characterization-only evidence, or an approved parent/child structural split.
 
 <!-- superseded instruction below kept for history -->
 <!--

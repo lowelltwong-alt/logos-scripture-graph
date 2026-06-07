@@ -64,3 +64,16 @@ Stress atlas cases are `proposed` and have `implementation_allowed: false`. They
 candidates, not reviewed gold and not approved expected output. A stress case must become reviewed
 gold, characterization-only evidence, or an explicit pending-human-review packet before it can drive
 output-changing work.
+
+## Pending Review Packets
+
+T316b converts five proposed stress-atlas cases into pending human-readable review packets:
+
+- `eval/chunking_gold/review_packets/ps105_boundary_review.md`
+- `eval/chunking_gold/review_packets/ps106_boundary_review.md`
+- `eval/chunking_gold/review_packets/isa52_13_53_12_boundary_review.md`
+- `eval/chunking_gold/review_packets/mark16_9_20_textual_variant_review.md`
+- `eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md`
+
+These packets are `pending_human_review`. They are not reviewed gold, do not approve expected
+output, and do not authorize output-changing work.
