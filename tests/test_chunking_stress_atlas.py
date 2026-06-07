@@ -64,6 +64,13 @@ REQUIRED_CASE_IDS = {
     "exod20_23_covenant_code",
     "heb7_10_priesthood_argument",
     "1cor8_10_food_offered_to_idols",
+    "gospels_wj_marker_spans",
+    "psalms_selah_qs_markers",
+    "john3_wj_speaker_boundary",
+    "matt5_7_sermon_on_mount_wj_discourse",
+    "john13_17_wj_farewell_discourse_marker_focus",
+    "synoptic_apocalyptic_wj_discourses",
+    "john7_53_8_11_wj_variant_speech",
 }
 
 REQUIRED_CASE_FIELDS = {
@@ -139,3 +146,53 @@ def test_requested_major_text_critical_cases_are_high_risk() -> None:
             for difficulty in ("major_textual_variant", "textual_tradition_divergence")
         )
         assert case["text_critical_risk"].startswith("high")
+
+
+def test_t316c_marker_sensitive_cases_are_proposed_and_non_authorizing() -> None:
+    cases = {case["case_id"]: case for case in atlas()["cases"]}
+    marker_cases = {
+        "gospels_wj_marker_spans",
+        "psalms_selah_qs_markers",
+        "john3_wj_speaker_boundary",
+        "matt5_7_sermon_on_mount_wj_discourse",
+        "john13_17_wj_farewell_discourse_marker_focus",
+        "synoptic_apocalyptic_wj_discourses",
+        "john7_53_8_11_wj_variant_speech",
+    }
+    for case_id in marker_cases:
+        case = cases[case_id]
+        joined = " ".join(str(value) for value in case.values())
+        lowered = joined.lower()
+        assert case["status"] == "proposed"
+        assert case["implementation_allowed"] is False
+        assert "human review" in lowered
+        assert "output change" in lowered or "output-changing" in lowered
+
+
+def test_words_of_jesus_cases_treat_wj_as_evidence_not_authority() -> None:
+    cases = {case["case_id"]: case for case in atlas()["cases"]}
+    wj_cases = {
+        "gospels_wj_marker_spans",
+        "john3_wj_speaker_boundary",
+        "matt5_7_sermon_on_mount_wj_discourse",
+        "john13_17_wj_farewell_discourse_marker_focus",
+        "synoptic_apocalyptic_wj_discourses",
+        "john7_53_8_11_wj_variant_speech",
+    }
+    for case_id in wj_cases:
+        case = cases[case_id]
+        joined = " ".join(str(value) for value in case.values())
+        lowered = joined.lower()
+        assert "\\wj" in joined
+        assert "evidence, not authority" in joined
+        assert "speaker" in case["difficulty_types"][0] or "speaker_change_ambiguity" in case["difficulty_types"]
+        assert "speaker attribution" in lowered
+
+
+def test_selah_case_tracks_qs_marker_without_authorizing_boundaries() -> None:
+    case = {case["case_id"]: case for case in atlas()["cases"]}["psalms_selah_qs_markers"]
+    joined = " ".join(str(value) for value in case.values())
+    assert "\\qs" in joined
+    assert "Selah" in joined
+    assert case["parent_child_candidate"] is True
+    assert "not automatically approved chunk boundaries" in joined

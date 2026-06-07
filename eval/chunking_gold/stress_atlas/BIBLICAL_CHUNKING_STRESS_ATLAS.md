@@ -93,6 +93,25 @@ The atlas currently covers all required categories:
 | John.13-17 | Long discourse with narrative, dialogue, teaching, and prayer subunits. |
 | Rom.9-11 | Sustained argument where chapter splits can fracture rhetorical movement. |
 
+## Marker-Sensitive Cases
+
+T316c adds proposed cases for marker-sensitive review:
+
+| Case | Marker concern |
+| --- | --- |
+| Gospels / Acts / Rev words-of-Jesus spans | `\wj` is red-letter/editorial evidence, not automatic speaker authority. |
+| Psalms with Selah / `\qs` markers | `\qs` may be liturgical or performance evidence, not an automatic chunk boundary. |
+| John.3 | Speaker-boundary ambiguity; `\wj` and punctuation cannot silently decide attribution. |
+| Matt.5-Matt.7 | Long Jesus discourse; parent/child structure needs review before chunk changes. |
+| John.13-John.17 | Farewell discourse marker focus; `\wj` cannot settle discourse/prayer boundaries by itself. |
+| Matt.24-Matt.25 / Mark.13 | Apocalyptic Jesus discourse with parallel-account and speaker-scope risk. |
+| John.7.53-John.8.11 | Textual-variant zone plus `\wj` speech evidence requires textual and speaker review. |
+
+These cases are proposed only. Marker preservation is allowed, but marker-sensitive chunking must
+not silently encode theological, speaker-attribution, textual-critical, source-language,
+canon/boundary-text, or tradition-scoped interpretations without explicit human authorization and
+reviewed evidence.
+
 ## Governance Rule
 
 Stress atlas case status is `proposed`. Proposed stress cases are not reviewed gold, not

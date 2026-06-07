@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-07
-**Updated by:** T316b stress-case review packets (Codex)
-**Active task:** -> **T316b** review packets completed; no reviewed gold added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T316c words-of-Jesus marker stress cases (Codex)
+**Active task:** -> **T316c** marker-sensitive stress cases completed; no reviewed gold added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -86,6 +86,15 @@
 > reviewed gold, no selected case is approved expected output, and no output-changing work is
 > authorized. Ps.105 and Ps.106 are prioritized as long-Psalm parent/child candidates; textual
 > variant packets require textual-criticism review before gold.
+
+> **T316c words-of-Jesus marker stress cases (2026-06-07):** Added proposed stress-atlas coverage
+> for words-of-Jesus `\wj` spans, Selah / `\qs` mid-psalm markers, John 3 speaker-boundary
+> ambiguity, Matthew 5-7, John 13-17, Matthew 24-25 / Mark 13, and John 7:53-8:11 as a textual
+> variant plus `\wj` speech issue. All cases remain `status: proposed` with
+> `implementation_allowed: false`. `\wj` and `\qs` are recorded as marker evidence, not authority
+> for speaker attribution, theological/text-critical decisions, or chunk boundaries. No reviewed
+> gold, output change, evaluator change, raw/canonical mutation, runtime skill change, or skill
+> promotion occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
