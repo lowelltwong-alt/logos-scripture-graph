@@ -66,6 +66,16 @@ The validator checks:
 | Gospel discourse | Long discourse/pericope structure. | Reviewed discourse spans and sentence/pericope controls. |
 | Pauline argument section | Sustained argument chains. | Reviewed argument units and context-packet requirements. |
 
+## T316 Proposed Stress Atlas
+
+T316 adds a proposed-only stress atlas:
+
+- `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+
+These cases are future review candidates. They are not reviewed gold, not approved expected output,
+and not authorization for output-changing work.
+
 ## Unknown
 
 - Whether future gold should use one cross-form schema or per-form manifest schemas.

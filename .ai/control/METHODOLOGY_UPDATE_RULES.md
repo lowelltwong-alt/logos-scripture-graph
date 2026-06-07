@@ -76,6 +76,9 @@ manifest under `eval/chunking_gold/`.
   output-changing work. Reviewed cases need explicit statuses; characterization-only and
   pending-human-review cases must not carry promoted-output flags; approved parent/child structural
   split cases need parent and child boundaries.
+- Stress atlas cases are proposed candidates only. They do not authorize output-changing work,
+  evaluator changes, or skill promotion until converted into reviewed gold, characterization-only
+  evidence, or an explicit pending-human-review packet.
 
 ## Handoff Note
 

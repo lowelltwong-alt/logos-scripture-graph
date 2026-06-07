@@ -916,12 +916,67 @@ Open questions:
 - Should future gold manifests also get a formal JSON Schema?
 - Should T316 stress atlas precede T313 policy changes, or run alongside them?
 
+## T316 Biblical Chunking Stress Atlas - COMPLETED (2026-06-07, Codex)
+
+Created a proposed-only Biblical Chunking Stress Atlas. This is planning/gold-target inventory only:
+no chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill
+code, or skill promotion changed.
+
+Files read:
+- `AI_FRONT_DOOR.md`
+- `.ai/control/MASTER_CONTEXT.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/control/DATA_MAP.md`
+- `.ai/control/RAW_SOURCE_INVENTORY.md`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `tests/test_chunker_gold.py`
+- `docs/roadmap/T315_NEXT_TARGET_INVENTORY.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+
+Files changed:
+- `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+- `docs/roadmap/T316_BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- `tests/test_chunking_stress_atlas.py`
+- `eval/chunking_gold/README.md`
+- `eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md`
+- `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `.ai/control/METHODOLOGY_UPDATE_RULES.md`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/handoffs/T316/handoff.md`
+
+Decisions made:
+- Methodology updated: yes.
+- Stress atlas cases are future candidates only: `status: proposed` and
+  `implementation_allowed: false`.
+- Covered all required stress categories, including long structured units, long verses/lists, short
+  context-dependent units, Greek long sentences, punctuation risk, major textual variants,
+  DSS/LXX/MT divergence, speaker ambiguity, prophetic/apocalyptic material, legal blocks,
+  genealogies/lists, parallel accounts, rhetorical arguments, hard exegesis, and parent/child needs.
+- Stress cases must become reviewed gold or review packets before implementation.
+
+Validation run:
+- `python -m pytest -q tests/test_chunking_stress_atlas.py` -> 5 passed.
+- `python scripts/validate_all.py` -> all validation gates passed.
+- `python -m pytest -q` -> 74 passed.
+
+Known risks:
+- Atlas entries are planning-level risk notes, not formal exegesis or reviewed boundary decisions.
+- Text-critical/source-tradition cases likely need future source-language/tradition policy before
+  output-changing work.
+
+Open questions:
+- Which atlas packet should become reviewed gold first?
+- Should future stress atlas JSON get a dedicated schema/validator?
+
 ## Next agent instruction
 
-Review/accept the T315 governance hardening patch. Treat the 93.5 score as T314 evaluator-policy
-correction for unchanged output, not chunking improvement. Next likely work is to push/open a T315
-PR, then run T316 stress atlas or T313 token-size policy planning after review. Do not implement
-output-changing chunk work unless a new reviewed target exists.
+Review/accept the T316 stress atlas. Treat the 93.5 score as T314 evaluator-policy correction for
+unchanged output, not chunking improvement. Use the atlas only to choose future review packets; do
+not implement output-changing chunk work unless a selected stress case becomes reviewed gold or an
+explicit review packet.
 
 <!-- superseded instruction below kept for history -->
 <!--
