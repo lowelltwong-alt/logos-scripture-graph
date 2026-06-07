@@ -53,3 +53,14 @@ T315 adds a lightweight semantic validator for per-form manifest maturity. It ch
 statuses, keeps characterization-only and pending-human-review cases from carrying promoted-output
 flags, and requires approved parent/child structural split cases to name parent and child
 boundaries.
+
+## Proposed Stress Atlas
+
+- Stress atlas overview: `eval/chunking_gold/stress_atlas/BIBLICAL_CHUNKING_STRESS_ATLAS.md`
+- Stress atlas cases: `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`
+- Stress atlas tests: `tests/test_chunking_stress_atlas.py`
+
+Stress atlas cases are `proposed` and have `implementation_allowed: false`. They are future review
+candidates, not reviewed gold and not approved expected output. A stress case must become reviewed
+gold, characterization-only evidence, or an explicit pending-human-review packet before it can drive
+output-changing work.

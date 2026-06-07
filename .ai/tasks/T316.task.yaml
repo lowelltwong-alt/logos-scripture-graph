@@ -1,0 +1,33 @@
+id: T316
+phase: phase_4
+title: "Biblical Chunking Stress Atlas"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/stress_atlas/
+    - eval/chunking_gold/README.md
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/
+    - ROADMAP_STATE.yaml
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Stress atlas includes all required categories and proposed cases."
+  - "All stress cases are proposed with implementation_allowed: false."
+  - "Atlas does not change chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion."
+  - "Methodology/status/handoff record that stress cases do not authorize output-changing work."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T316/handoff.md
+created_at: "2026-06-07"
+updated_at: "2026-06-07"

@@ -51,6 +51,8 @@ Confirmed:
   structural splits from the final bad-fragmentation penalty.
 - T315 added semantic validation for per-form gold manifests so maturity labels and approved
   structural split metadata fail closed before output-changing work can cite them.
+- T316 added a proposed Biblical Chunking Stress Atlas to inventory future hard cases without
+  authorizing output-changing work.
 
 Unknown or unfinished:
 
@@ -107,17 +109,19 @@ or treat route metadata as chunk/context content.
 8. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
    of approved expected-output assertions.
 9. Validate gold manifest maturity before relying on it for evaluator or output-changing work.
-10. When both whole-unit unity and internal structure matter, model parent literary units plus child
+10. Use stress atlases only for target selection and review planning until cases become reviewed
+   gold, characterization-only evidence, or pending-human-review packets.
+11. When both whole-unit unity and internal structure matter, model parent literary units plus child
    structural chunks instead of forcing a merge-or-fragmentation binary.
-11. Sanity-check the evaluator against target-form evidence.
-12. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+12. Sanity-check the evaluator against target-form evidence.
+13. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-13. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+14. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
    non-target controls.
-14. Promote only if target-form output evidence beats fallback without regressions.
-15. Record provenance, route ledger, and staleness triggers.
-16. Update this methodology.
-17. Repeat for next form.
+15. Promote only if target-form output evidence beats fallback without regressions.
+16. Record provenance, route ledger, and staleness triggers.
+17. Update this methodology.
+18. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -318,6 +322,21 @@ Rules:
 This is a maturity/metadata gate only. It does not change chunk output, evaluator formula, or review
 status by itself.
 
+## 10e. Stress atlas rule
+
+T316 added `eval/chunking_gold/stress_atlas/` as a proposed-candidate inventory for hard biblical
+chunking cases.
+
+Rules:
+
+- A stress atlas case is not reviewed gold.
+- A stress atlas case is not approved expected output.
+- A stress atlas case does not authorize output-changing work, evaluator changes, skill promotion,
+  or raw/canonical mutation.
+- Each stress case must remain `status: proposed` with `implementation_allowed: false` until it is
+  converted into a reviewed packet or per-form gold artifact.
+- Use stress atlases to choose future review packets, not to bypass review.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -417,3 +436,5 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   fragmentation without changing chunk output or claiming chunking improvement.
 - 2026-06-07: Added the T315 gold manifest validation lesson. Per-form gold manifests now have a
   semantic validation gate for maturity labels and approved structural split metadata.
+- 2026-06-07: Added the T316 stress atlas lesson. Proposed stress cases identify future hard
+  passages but do not authorize output-changing work until promoted through review.
