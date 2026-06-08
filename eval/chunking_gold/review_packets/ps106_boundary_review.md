@@ -2,13 +2,14 @@
 
 ## Status
 
-- Status: `pending_human_review`
+- Status: `reviewed_gold`
 - Stress atlas case ID: `ps106_historical_confession`
-- Decision: pending
-- Parent/child candidate: yes
-- Proposed parent unit: `Ps.106.1-Ps.106.48`
+- Decision: approved_preserve_current_whole_psalm
+- Parent/child candidate: no for current approved behavior
+- Approved parent unit: `Ps.106.1-Ps.106.48`
+- Approved child chunks: none; one whole-psalm chunk is reviewed gold
 
-This packet does not authorize output-changing work.
+This reviewed decision does not authorize output-changing work.
 
 ## Current Chunk Behavior
 
@@ -19,6 +20,18 @@ Confirmed from a temporary current chunker run on 2026-06-07:
 | `Ps.106.1-Ps.106.48` | 721 | `psalms` | `chapter_boundary`, `whole_psalm` | true |
 
 Current behavior preserves Psalm 106 as one whole-psalm chunk. No child chunks are emitted today.
+
+## Human Decision
+
+The owner approves the current whole-psalm chunk as reviewed gold:
+
+- Approved boundary: `Ps.106.1-Ps.106.48`.
+- Approved chunk count: 1.
+- Current output preserves whole-psalm unity.
+- Token size is acceptable at approximately 721 tokens.
+- `b` markers may reflect internal formatting/stanza hints.
+- `b` markers alone do not require child chunks without stronger human-reviewed literary evidence.
+- No output change is needed.
 
 ## Relevant Marker/Form Evidence
 
@@ -37,6 +50,9 @@ Confirmed local source evidence:
 Inferred from the marker pattern: Psalm 106 has stronger internal stanza evidence than Psalm 105,
 including `b` markers near confession/praise and closing petition material.
 
+T317 decision: those `b` markers are preserved as evidence, but they are not automatic split
+authority for this reviewed case.
+
 ## Risks
 
 Risks of preserving current behavior:
@@ -53,16 +69,15 @@ Risks of changing behavior:
 - Child boundaries could fragment the confession-cycle logic without a reviewed parent claim.
 - Psalm 106 should not be marked as a reviewed structural split until a human approves exact spans.
 
-## Possible Boundary Alternatives
+## Deferred Boundary Alternatives
 
-Proposed for human review only:
+Deferred for future review only:
 
-- Preserve current one-chunk whole-psalm behavior.
 - Approve parent `Ps.106.1-Ps.106.48` with child chunks around reviewed confession/rebellion/mercy
   cycles.
 - Use current `b` markers as evidence candidates, not as automatic child-boundary targets.
 
-## Review Questions
+## Deferred Review Questions
 
 - Do the `b` markers at `Ps.106.5`, `Ps.106.12`, `Ps.106.46`, and `Ps.106.47` identify useful
   child boundaries?
@@ -72,7 +87,7 @@ Proposed for human review only:
 
 ## Proposed Gold Needed Before Implementation
 
-- A human decision preserving whole-psalm behavior or approving exact child boundaries.
-- If child chunks are approved, an explicit parent unit plus exact child spans and rationale.
-- Executable checks or manifest entries before any evaluator, chunker, orchestrator, or skill work.
-
+- Current whole-psalm behavior is now reviewed gold and is locked in
+  `eval/chunking_gold/per_form/psalms_gold_manifest.json`.
+- Future child chunks would require a new human decision, exact child spans and rationale, and
+  executable checks before any evaluator, chunker, orchestrator, or skill work.

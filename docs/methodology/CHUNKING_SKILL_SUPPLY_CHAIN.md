@@ -377,6 +377,22 @@ Rules:
 - Marker-sensitive stress cases remain `status: proposed` with `implementation_allowed: false`
   until promoted through review.
 
+## 10h. Reviewed whole-psalm and token-policy analysis rule
+
+T317 records two additional maturity distinctions.
+
+Rules:
+
+- Ps.105 and Ps.106 whole-psalm behavior is reviewed gold because a human approved the current
+  output; no chunk output change is implied.
+- Internal marker evidence such as Ps.106 `\b` may be recorded as evidence without becoming
+  automatic child-boundary authority.
+- John 3 and Matthew 5-7 words-of-Jesus packets remain `pending_human_review`; they are not
+  reviewed gold and do not authorize output-changing work.
+- `\wj` is evidence, not authority; speaker attribution requires human review.
+- Token-size metric analysis is not authorization to retune chunking. A large p50 score lever must
+  be reconciled with chunking policy and reviewed gold before any output-changing implementation.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:

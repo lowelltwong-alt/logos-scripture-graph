@@ -108,6 +108,12 @@ fragmentation only while preserving raw diagnostics such as `literal_psalms_frag
 `reviewed_structural_splits`. Score movement from that exclusion is evaluator-policy correction, not
 chunking improvement.
 
+T317 lesson: reviewed gold can also approve preserving a current whole-unit behavior. Psalm 105 and
+Psalm 106 are reviewed whole-psalm cases, not structural splits; Psalm 106 `\b` markers are evidence
+but not automatic split authority. Words-of-Jesus packets such as John 3 and Matthew 5-7 remain
+pending until human speaker-boundary review. Token-size analysis is not authorization to retune
+chunking.
+
 T311 lesson: the old `psalms_fragmented` metric grouped Psalm-like chunks by bare chapter number,
 causing cross-book collisions such as `Ps.3`, `Song.3`, and `Lam.3`. The same chunk output moved
 from 88.5 to 93.0 after T311 fixed grouping to `(book, chapter)`. That was evaluator correction,

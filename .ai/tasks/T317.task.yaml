@@ -1,0 +1,38 @@
+id: T317
+phase: phase_4
+title: "Psalm gold, WJ review packets, and token policy analysis"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/
+    - docs/roadmap/T313_TOKEN_SIZE_EVALUATOR_POLICY_ALIGNMENT.md
+    - docs/methodology/
+    - .ai/workflows/
+    - .ai/control/
+    - .ai/handoffs/T310/
+    - .ai/handoffs/T317/
+    - .ai/tasks/T317.task.yaml
+    - ROADMAP_STATE.yaml
+    - tests/
+    - pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Ps.105 current whole-psalm chunk is reviewed gold."
+  - "Ps.106 current whole-psalm chunk is reviewed gold, with b markers treated as evidence but not automatic split authority."
+  - "John 3 and Matthew 5-7 WJ review packets exist and remain pending_human_review."
+  - "T313 token-size evaluator/policy analysis is analysis only and does not authorize retuning."
+  - "No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T317/handoff.md
+created_at: "2026-06-07"
+updated_at: "2026-06-07"

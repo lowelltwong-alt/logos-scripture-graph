@@ -86,6 +86,11 @@ manifest under `eval/chunking_gold/`.
   observed structure as evidence, but must not silently encode speaker attribution, theological,
   textual-critical, source-language, canon/boundary-text, or tradition-scoped interpretations without
   explicit human authorization and reviewed evidence/gold.
+- Reviewed whole-unit preservation is reviewed gold only when a human explicitly approves the
+  current behavior; marker evidence inside that unit, such as Ps.106 `\b`, remains evidence and not
+  automatic split authority unless separately reviewed.
+- Token-size metric analysis, including large p50 headroom, is not authorization to retune chunking
+  until evaluator target and chunking policy alignment are reviewed and target gold exists.
 
 ## Handoff Note
 

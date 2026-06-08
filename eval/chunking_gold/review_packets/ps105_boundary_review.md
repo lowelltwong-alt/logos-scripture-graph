@@ -2,13 +2,14 @@
 
 ## Status
 
-- Status: `pending_human_review`
+- Status: `reviewed_gold`
 - Stress atlas case ID: `ps105_historical_psalm`
-- Decision: pending
-- Parent/child candidate: yes
-- Proposed parent unit: `Ps.105.1-Ps.105.45`
+- Decision: approved_preserve_current_whole_psalm
+- Parent/child candidate: no for current approved behavior
+- Approved parent unit: `Ps.105.1-Ps.105.45`
+- Approved child chunks: none; one whole-psalm chunk is reviewed gold
 
-This packet does not authorize output-changing work.
+This reviewed decision does not authorize output-changing work.
 
 ## Current Chunk Behavior
 
@@ -19,6 +20,17 @@ Confirmed from a temporary current chunker run on 2026-06-07:
 | `Ps.105.1-Ps.105.45` | 601 | `psalms` | `chapter_boundary`, `whole_psalm` | true |
 
 Current behavior preserves Psalm 105 as one whole-psalm chunk. No child chunks are emitted today.
+
+## Human Decision
+
+The owner approves the current whole-psalm chunk as reviewed gold:
+
+- Approved boundary: `Ps.105.1-Ps.105.45`.
+- Approved chunk count: 1.
+- Current output preserves whole-psalm unity.
+- Token size is moderate at approximately 601 tokens.
+- No internal boundary evidence appears strong enough to require child chunks.
+- No output change is needed.
 
 ## Relevant Marker/Form Evidence
 
@@ -49,16 +61,15 @@ Risks of changing behavior:
 - No internal `b` markers were observed, so child boundaries would need human literary review rather
   than a simple marker rule.
 
-## Possible Boundary Alternatives
+## Deferred Boundary Alternatives
 
-Proposed for human review only:
+Deferred for future review only:
 
-- Preserve current one-chunk whole-psalm behavior.
 - Approve a parent whole-psalm unit with child historical-episode chunks.
 - Create characterization-only evidence first, then defer child-boundary approval until a reviewer
   marks episode boundaries.
 
-## Review Questions
+## Deferred Review Questions
 
 - Does Psalm 105 need child retrieval chunks despite being only about 601 tokens?
 - If yes, should child boundaries follow historical episodes, poetic lines, or another reviewed
@@ -68,7 +79,7 @@ Proposed for human review only:
 
 ## Proposed Gold Needed Before Implementation
 
-- A human decision preserving whole-psalm behavior or approving exact child boundaries.
-- If child chunks are approved, an explicit parent unit plus exact child spans.
-- Executable checks or manifest entries before any evaluator, chunker, orchestrator, or skill work.
-
+- Current whole-psalm behavior is now reviewed gold and is locked in
+  `eval/chunking_gold/per_form/psalms_gold_manifest.json`.
+- Future child chunks would require a new human decision, exact child spans, and executable checks
+  before any evaluator, chunker, orchestrator, or skill work.

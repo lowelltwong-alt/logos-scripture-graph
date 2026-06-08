@@ -19,6 +19,8 @@ retained only as old-evaluator provenance.
 | `Ps.3` superscription source evidence | Real `\d` title source evidence exists and no standalone orphan title chunk is emitted. | Prevent orphan title chunks under the current witness/chunk model. |
 | `Ps.119` | Parent literary unit `Ps.119.1-176` with exact 22 stanza/section child chunks, reported via `psalm119_section_chunks` and not penalized as fragmentation. | Strong precedent for parent whole-unit plus child-level structural chunks. |
 | `Ps.78` | Parent literary unit `Ps.78.1-72` with reviewed child chunks `Ps.78.1-69`, `Ps.78.70-71`, and `Ps.78.72`. | Approved lighter parent/child structural split; preserve current output without metric-chasing a +0.5 merge. |
+| `Ps.105.1-Ps.105.45` | One whole-psalm chunk. | Human-approved current behavior; token size is moderate and no child chunks are required. |
+| `Ps.106.1-Ps.106.48` | One whole-psalm chunk. | Human-approved current behavior; `b` markers are internal formatting/stanza evidence, not automatic split authority. |
 | Short Psalm holdouts: `Ps.1`, `Ps.8`, `Ps.100`, `Ps.117` | One chunk each unless future reviewed gold says otherwise. | Prevent over-fragmenting short Psalms. |
 | Non-target controls: `Song`, `Lam`, `PrMan`, `Ps151` | Remain on monolith fallback / route-stable under the current orchestrator strategy. | Prove the Psalm skill does not rewrite adjacent poetry books. |
 
@@ -36,6 +38,17 @@ psalm at the parent level while retaining child-level structural chunks for retr
 
 No current Psalm case remains `pending_human_review` in this manifest. Future unresolved Psalm cases
 should be recorded here until reviewed.
+
+## Reviewed Whole-Psalm Cases With Deferred Child Questions
+
+| Case | Reviewed parent unit | Current child chunks | Marker note |
+| --- | --- | --- | --- |
+| Psalm 105 | `Ps.105.1-45` | None; one whole-psalm chunk. | Current marker evidence does not require child chunks. |
+| Psalm 106 | `Ps.106.1-48` | None; one whole-psalm chunk. | `b` markers are evidence, not automatic child-boundary authority. |
+
+These are reviewed whole-psalm gold cases, not reviewed structural splits. Future child chunks for
+either psalm would require a new human decision, exact child boundaries, and executable checks before
+any output-changing work.
 
 ## Hard Gates
 

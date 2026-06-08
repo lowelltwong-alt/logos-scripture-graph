@@ -122,6 +122,8 @@ def test_psalms_gold_manifest_separates_reviewed_gold_from_characterization(psal
         "ps3_superscription_attached",
         "non_target_poetry_controls",
         "ps78_parent_child_structural_split",
+        "ps105_whole_psalm",
+        "ps106_whole_psalm_with_b_marker_note",
     }
     assert characterization == {}
     assert reviewed["ps78_parent_child_structural_split"]["status"] == \
@@ -169,6 +171,38 @@ def test_short_psalm_holdouts_are_not_fragmented(chunks, psalms_gold_manifest):
         assert len(hits) == case["expected"]["chunk_count_per_chapter"], \
             f"{chapter_ref} fragmented into {len(hits)} chunks"
         assert set(case["expected"]["required_boundary_basis"]) <= set(hits[0]["boundary_basis"])
+
+
+@requires_data
+def test_psalm_105_reviewed_whole_psalm_gold(chunks, psalms_gold_manifest):
+    case = _case(psalms_gold_manifest, "reviewed_gold", "ps105_whole_psalm")
+    expected = case["expected"]
+    ps105 = _chapter_chunks(chunks, "Ps", "105")
+    assert len(ps105) == expected["chunk_count"]
+    assert ps105[0]["osis_start"] == expected["osis_start"]
+    assert ps105[0]["osis_end"] == expected["osis_end"]
+    assert ps105[0]["genre"] == expected["genre"]
+    assert _approx_tokens(ps105[0]["text"]) == expected["tokens"]
+    assert set(expected["required_boundary_basis"]) <= set(ps105[0]["boundary_basis"])
+    assert expected["reviewed_whole_psalm"] is True
+    assert expected["child_chunks_required"] is False
+
+
+@requires_data
+def test_psalm_106_reviewed_whole_psalm_gold_with_b_marker_note(chunks, psalms_gold_manifest):
+    case = _case(psalms_gold_manifest, "reviewed_gold", "ps106_whole_psalm_with_b_marker_note")
+    expected = case["expected"]
+    ps106 = _chapter_chunks(chunks, "Ps", "106")
+    assert len(ps106) == expected["chunk_count"]
+    assert ps106[0]["osis_start"] == expected["osis_start"]
+    assert ps106[0]["osis_end"] == expected["osis_end"]
+    assert ps106[0]["genre"] == expected["genre"]
+    assert _approx_tokens(ps106[0]["text"]) == expected["tokens"]
+    assert set(expected["required_boundary_basis"]) <= set(ps106[0]["boundary_basis"])
+    assert expected["reviewed_whole_psalm"] is True
+    assert expected["child_chunks_required"] is False
+    assert case["internal_marker_note"]["markers_observed"] == ["b"]
+    assert "not sufficient" in case["internal_marker_note"]["boundary_authority"]
 
 
 @requires_data

@@ -27,6 +27,8 @@ AI-operational checklist for chunking-related work. Use with
   `eval/chunking_gold/`.
 - Confirm that cited gold is executable/reviewed for the target behavior. A scaffold or
   characterization-only record is enough for analysis, not for output-changing implementation.
+- For reviewed whole-unit preservation cases, confirm the human decision explicitly approves the
+  current behavior and does not merely characterize it.
 - Confirm the cited per-form gold manifest passes semantic maturity validation.
 - If a target is characterization-only, state the human-gated decision that remains pending.
 - If a target is a reviewed structural split, record the parent whole unit and child boundaries and
@@ -61,6 +63,10 @@ AI-operational checklist for chunking-related work. Use with
 - For evaluator work, document before/after score meaning.
 - For reviewed-structural-split evaluator work, preserve raw diagnostics, require exact reviewed
   child-boundary matches, and label score movement as evaluator-policy correction.
+- For marker-sensitive packets, confirm `\wj`, `\qs`, paragraph, heading, and punctuation evidence
+  are not treated as automatic speaker or boundary authority.
+- For token-size policy work, confirm analysis does not authorize retuning unless reviewed target
+  gold and policy alignment are present.
 - For true improvements, compare target-form output against fallback and check non-target
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target

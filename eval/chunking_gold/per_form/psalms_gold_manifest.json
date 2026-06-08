@@ -3,7 +3,7 @@
   "manifest_id": "psalms-gold-v0",
   "target_form": "literal_book_psalms",
   "route_or_skill_under_test": "psalm-whole-then-stanza-v1",
-  "promotion_status": "settled_cases_executable_gold_with_ps78_reviewed_structural_split",
+  "promotion_status": "settled_cases_executable_gold_with_ps78_reviewed_structural_split_and_ps105_106_whole_psalm",
   "baseline": {
     "run_id": "claude-opus-4.8__pass2__D_claude_pass2__20260605T112450Z",
     "t314_reviewed_structural_split_composite": 93.5,
@@ -165,6 +165,56 @@
       },
       "precedent": "Psalm 119 is the stronger reviewed precedent for parent whole-unit plus child structural chunks.",
       "purpose": "Lock the reviewed current Psalm 78 child boundaries without changing output or metric-chasing a weak merge."
+    },
+    {
+      "case_id": "ps105_whole_psalm",
+      "status": "reviewed_gold",
+      "osis_span": "Ps.105.1-Ps.105.45",
+      "expected": {
+        "chunk_count": 1,
+        "osis_start": "Ps.105.1",
+        "osis_end": "Ps.105.45",
+        "tokens": 601,
+        "required_boundary_basis": ["whole_psalm"],
+        "genre": "psalms",
+        "reviewed_whole_psalm": true,
+        "child_chunks_required": false
+      },
+      "human_rationale": [
+        "Current output preserves whole-psalm unity.",
+        "Token size is moderate.",
+        "No internal boundary evidence appears strong enough to require child chunks.",
+        "No output change is needed."
+      ],
+      "purpose": "Lock current Psalm 105 whole-psalm behavior as reviewed gold without changing output."
+    },
+    {
+      "case_id": "ps106_whole_psalm_with_b_marker_note",
+      "status": "reviewed_gold",
+      "osis_span": "Ps.106.1-Ps.106.48",
+      "expected": {
+        "chunk_count": 1,
+        "osis_start": "Ps.106.1",
+        "osis_end": "Ps.106.48",
+        "tokens": 721,
+        "required_boundary_basis": ["whole_psalm"],
+        "genre": "psalms",
+        "reviewed_whole_psalm": true,
+        "child_chunks_required": false
+      },
+      "internal_marker_note": {
+        "markers_observed": ["b"],
+        "marker_role": "internal formatting/stanza evidence",
+        "boundary_authority": "b markers alone are not sufficient to require child chunks without stronger human-reviewed literary evidence."
+      },
+      "human_rationale": [
+        "Current output preserves whole-psalm unity.",
+        "Token size is acceptable.",
+        "b markers may reflect internal formatting/stanza hints.",
+        "b markers alone do not require child chunks without stronger human-reviewed literary evidence.",
+        "No output change is needed."
+      ],
+      "purpose": "Lock current Psalm 106 whole-psalm behavior as reviewed gold while recording that b markers are evidence, not automatic split authority."
     }
   ],
   "characterization_only": []
