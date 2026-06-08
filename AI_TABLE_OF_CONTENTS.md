@@ -6,7 +6,9 @@ This file maps the repository for AI agents, coding assistants, maintainers, and
 
 - Upstream governance authority: [logos-governance-architecture](https://github.com/lowelltwong-alt/logos-governance-architecture)
 - This repository: [logos-scripture-graph](https://github.com/lowelltwong-alt/logos-scripture-graph)
+- Supporting boundary literature repo: `logos-boundary-literature`
 - Link contract: [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
+- Governance registry source of truth: `logos-governance-architecture/governance/LOGOS_REPO_REGISTRY.yaml`
 - Local context: [`.ai/control/PROJECT_CONTEXT.md`](.ai/control/PROJECT_CONTEXT.md)
 
 Role hierarchy:
@@ -14,10 +16,13 @@ Role hierarchy:
 ```text
 logos-governance-architecture
   -> upstream theological / governance architecture authority
-  -> approved governance contract surface
+  -> cross-repo policy, authority contracts, update rules, validation patterns
   -> logos-scripture-graph
-     -> governed Scripture data-plane / knowledge-plane implementation
-     -> validated release artifacts for future runtime consumers
+     -> canonical 66-book Scripture truth and governed Scripture data-plane
+     -> Scripture passages, chunks, gold/evaluator surfaces, graph outputs
+     -> logos-boundary-literature
+        -> supporting boundary / reception / comparison / refutation material
+        -> never equal or superior authority to canonical Scripture
 ```
 
 Coupling is by explicit contract, schemas, validated releases, and GitHub coordination
@@ -40,6 +45,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
+- [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
 - [`config/governance/predicate_registry.yaml`](config/governance/predicate_registry.yaml)
 - [`config/agents/agent_roles.yaml`](config/agents/agent_roles.yaml)
 - [`config/agents/model_routing.yaml`](config/agents/model_routing.yaml)
