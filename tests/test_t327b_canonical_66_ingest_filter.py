@@ -97,7 +97,15 @@ def test_synthetic_mixed_input_filters_to_canonical_only() -> None:
 
 def test_importer_filter_flag_excludes_non_66_from_canonical_outputs(tmp_path: Path) -> None:
     archive = tmp_path / "fixture.zip"
-    john = "\n".join([r"\id JHN Test", r"\c 1", r"\v 1 Canonical fixture text."])
+    john = "\n".join(
+        [
+            r"\id JHN Test",
+            r"\c 1",
+            r"\s1 Canonical heading\f + \fr 1:0 \ft heading note\f*",
+            r"\p",
+            r"\v 1 Canonical fixture text.",
+        ]
+    )
     tob = "\n".join([r"\id TOB Test", r"\c 1", r"\v 1 Noncanonical fixture text."])
     glossary = "\n".join([r"\id GLO", r"\ili \k Abba\k* Abba means father."])
     with zipfile.ZipFile(archive, "w") as zf:
@@ -123,11 +131,17 @@ def test_importer_filter_flag_excludes_non_66_from_canonical_outputs(tmp_path: P
 
     passages = read_jsonl(canonical / "scripture" / "passages" / "passages.jsonl")
     witnesses = read_jsonl(canonical / "translations" / "eng-web" / "translation_witnesses.jsonl")
+    boundary_claims = read_jsonl(canonical / "translations" / "eng-web" / "boundary_claims.jsonl")
+    footnotes = read_jsonl(canonical / "translations" / "eng-web" / "footnotes.jsonl")
+    section_headings = read_jsonl(canonical / "translations" / "eng-web" / "section_headings.jsonl")
     glossary_entries = read_jsonl(canonical / "translations" / "eng-web" / "glossary_entries.jsonl")
     events = read_jsonl(processed / "usfm_events.jsonl")
 
     assert {record["book"] for record in passages} == {"John"}
     assert {record["osis_ref"].split(".", 1)[0] for record in witnesses} == {"John"}
+    assert_records_are_canonical_66(boundary_claims, source="fixture-boundaries")
+    assert_records_are_canonical_66(footnotes, source="fixture-footnotes")
+    assert_records_are_canonical_66(section_headings, source="fixture-section-headings")
     assert glossary_entries == []
     assert {"John", "Tob", "GLO"} <= {record["osis_book"] for record in events}
 

@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327B.1 canonical scope validator fail-closed hardening (Codex)
-**Active task:** -> **T327B.1** canonical scope validator fail-closed hardening completed; canonical-output validation now fails when a record lacks resolvable book identity, while valid 66-book records still pass and excluded/GLO/FRT records fail; documented that fake or altered content under an allowed book label is a source-integrity/provenance risk outside this scope validator; no raw/canonical data mutation, output regeneration, chunk regeneration, evaluator change, scorecard/leaderboard change, text import, T327C/D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327C canonical 66-output regeneration (Codex)
+**Active task:** -> **T327C** canonical 66-output regeneration completed as corpus-scope correction; regenerated canonical Scripture outputs with `--canonical-66-filter`, confirmed passage/witness outputs now contain 66 books and 31,103 records, removed 6,955 non-66 passage/witness records, excluded FRT/GLO from canonical Scripture content, updated CI/validation to enforce the filter and fail-closed scope validation; no raw mutation, chunk regeneration, evaluator change, scorecard/leaderboard change, gold/stress/index update, text import, boundary repo work, T327D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -177,6 +177,20 @@
 > book such as `Mark`; that remains a raw source manifest, checksum, provenance, parser determinism,
 > and raw immutability concern. No raw/canonical data, generated output, chunks, evaluator formula,
 > leaderboard, scorecards, source texts, or T327C/D/E/F/G work changed.
+
+> **T327C regenerate canonical 66 outputs (2026-06-08):** Regenerated local ignored canonical
+> Scripture outputs with `python pipelines/ingest/usfm_importer.py --canonical-66-filter
+> --processed-root build/t327c_processed/usfm`. Passage/witness outputs now contain exactly 66
+> books and 31,103 records, down from 81 books and 38,058 records; 6,955 non-66
+> deuterocanonical/apocrypha records were removed from generated canonical passage/witness outputs.
+> `GLO` glossary entries are now zero in canonical outputs, and `FRT`/`GLO` are not canonical
+> Scripture content. Canonical sidecars now carry book identity where needed for fail-closed
+> validation. CI regeneration now uses `--canonical-66-filter`, and `validate_all` runs
+> canonical-scope validation over regenerated canonical outputs and sidecars. This is corpus-scope
+> correction, not chunking improvement. No data/raw mutation, chunk regeneration, evaluator formula
+> change, leaderboard/scorecard update, gold/stress/review packet index update, source-text import,
+> boundary repo change, or T327D/E/F/G work occurred. T327D owns chunk regeneration, scorecards,
+> leaderboard, baseline language, and gold test hash/token updates.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
