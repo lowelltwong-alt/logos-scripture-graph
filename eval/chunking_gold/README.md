@@ -8,11 +8,14 @@ skill work must cite a per-form gold file or manifest before claiming improvemen
 
 ## Current Baseline
 
-- Current T314 evaluator-policy baseline: `D_claude_pass2` = 93.5.
+- Current post-T327 canonical-66 corpus baseline: `D_claude_pass2_post_t327` = 93.6 under the
+  unchanged T314 evaluator policy.
+- Pre-T327 wider-corpus T314 evaluator-policy baseline: `D_claude_pass2` = 93.5.
 - T311 book/chapter evaluator baseline: 93.0.
 - Old evaluator baseline: 88.5.
-- Provenance: the same D / Claude pass2 chunk output was scored under all three evaluator surfaces.
-- Interpretation: T311 and T314 corrected evaluator policy; neither improved chunk output.
+- Provenance: T311 and T314 corrected evaluator policy; T327D resets the corpus baseline after T327C
+  removed non-66 canonical outputs.
+- Interpretation: evaluator corrections and corpus-scope resets are not chunking improvement.
 
 ## Current Executable Gold
 
@@ -29,9 +32,12 @@ skill work must cite a per-form gold file or manifest before claiming improvemen
     split authority.
   - Short Psalm holdouts: Ps.1, Ps.8, Ps.100, Ps.117.
   - Real superscription source evidence for Ps.3 with no orphan title chunk.
-  - Non-target poetry controls route-stable on monolith fallback: Song, Lam, PrMan, Ps151.
+  - Non-target poetry controls route-stable on monolith fallback: Song, Lam.
 - Characterization-only cases:
   - None currently in the Psalm manifest.
+
+T327D removed `PrMan` and `Ps151` from canonical controls because they are outside the
+owner-approved 66-book corpus.
 
 ## Manifest Convention
 

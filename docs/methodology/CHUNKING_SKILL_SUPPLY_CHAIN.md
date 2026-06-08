@@ -5,7 +5,7 @@
 - Status: Living / provisional
 - Owner: T310/T311 chunking workstream
 - Export status: Not ready for LawFirm OS final export
-- Last reviewed: 2026-06-07
+- Last reviewed: 2026-06-08
 - Must update when:
   - chunking algorithm changes
   - form detector changes
@@ -57,6 +57,8 @@ Confirmed:
   behavior and local evidence, but still do not approve boundaries or authorize output-changing work.
 - T316c adds marker-sensitive stress cases for words-of-Jesus `\wj`, Selah `\qs`, and related
   discourse/speaker-boundary risks without authorizing output-changing work.
+- T327D reset chunk/gold/score/leaderboard baselines after the canonical-66 corpus correction
+  without changing the evaluator formula or chunking algorithm.
 
 Unknown or unfinished:
 
@@ -453,6 +455,12 @@ Rules:
   scoped boundary/tradition repository after separate source/license review and human authorization.
 - Any score movement after 66-book filtering and regeneration is corpus-scope correction, not
   chunk-output improvement.
+- After corpus-scope correction, scorecards and leaderboards must label baseline families so
+  pre-correction rows are not compared to post-correction rows as chunking quality improvement.
+- Baseline reset tasks must remove temporary xfail quarantines or convert them back to normal
+  assertions once the new corpus baseline is established.
+- Non-66 material such as PrMan or Ps151 must be removed from canonical gold/control expectations,
+  not retained as canonical regression controls.
 - Do not start output-changing chunking work until canonical scope correction is implemented or the
   target task proves it is unaffected by excluded-material surfaces.
 - Boundary literature may provide background, comparison, reception history, refutation targets,
@@ -499,6 +507,9 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - A reviewed parent/child structural split is treated as bad fragmentation without a separate
   evaluator-policy review.
 - A review packet index or promotion queue is treated as output-changing authorization.
+- A pre/post corpus-scope score movement is treated as chunking improvement instead of baseline
+  reset.
+- Non-66 books remain in canonical gold/control expectations after the 66-book scope correction.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.
@@ -581,3 +592,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   routes to `logos-boundary-literature`, cross-repo authority conflicts route to
   `logos-governance-architecture`, the governance registry is the source of truth for repo
   relationships, and boundary material cannot modify canonical Scripture outputs.
+- 2026-06-08: Added the T327D baseline-reset lesson. Post-corpus chunk/score baselines must label
+  corpus families, remove temporary quarantines after reset, and remove non-66 material from
+  canonical gold/control expectations without claiming chunking improvement.

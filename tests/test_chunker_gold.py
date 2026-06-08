@@ -28,11 +28,7 @@ BOUNDARIES = CANON / "translations" / "eng-web" / "boundary_claims.jsonl"
 FOOTNOTES = CANON / "translations" / "eng-web" / "footnotes.jsonl"
 CROSSREFS = CANON / "translations" / "eng-web" / "editorial_cross_references.jsonl"
 PSALMS_GOLD = ROOT / "eval" / "chunking_gold" / "per_form" / "psalms_gold_manifest.json"
-BASELINE_D_SHA256 = "8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7"
-T327D_CHUNK_GOLD_FALLOUT = (
-    "T327D will re-baseline chunk/gold expectations after T327C canonical 66-book corpus shrinkage; "
-    "this is corpus-scope correction, not chunking improvement."
-)
+BASELINE_D_SHA256 = "4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025"
 
 RAW_USFM = re.compile(r"\\(?:\+?[A-Za-z0-9]+)\*?")
 
@@ -135,7 +131,6 @@ def test_psalms_gold_manifest_separates_reviewed_gold_from_characterization(psal
 
 
 @requires_data
-@pytest.mark.xfail(reason=T327D_CHUNK_GOLD_FALLOUT, strict=False)
 def test_current_chunk_output_sha_matches_corrected_baseline(chunk_output):
     assert _sha256(chunk_output["path"]) == BASELINE_D_SHA256
 
@@ -252,7 +247,6 @@ def test_real_superscription_psalm_has_no_orphan_title_chunk(chunks, psalms_gold
 
 
 @requires_data
-@pytest.mark.xfail(reason=T327D_CHUNK_GOLD_FALLOUT, strict=False)
 def test_non_target_poetry_books_remain_on_monolith_fallback(route_ledger, psalms_gold_manifest):
     case = _case(psalms_gold_manifest, "reviewed_gold", "non_target_poetry_controls")
     routes = {

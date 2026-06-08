@@ -1,0 +1,46 @@
+id: T327D
+phase: phase_4
+title: "Regenerate Chunks for Canonical 66 Baseline"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - tests/test_chunker_gold.py
+    - tests/test_chunking_orchestrator.py
+    - eval/chunking_gold/per_form/psalms_gold_manifest.json
+    - eval/chunking_gold/per_form/psalms_gold_plan.md
+    - eval/chunking_gold/README.md
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+    - eval/chunking_gold/review_packets/review_packet_index.json
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - pipelines/chunking/leaderboard.py
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - docs/roadmap/T327D_REGENERATE_CHUNKS_BASELINE_RESET.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/handoffs/T327D/
+    - .ai/tasks/T327D.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - data/canonical/
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Chunks are regenerated from the corrected 66-book canonical outputs in ignored derived space."
+  - "Post-T327 chunk SHA/count/token baselines are updated."
+  - "Temporary T327C xfails are removed from the two chunk-gold tests."
+  - "PrMan/Ps151/non-66 materials are not retained as canonical chunk-gold controls."
+  - "Scorecards and leaderboard distinguish pre-T327 wider-corpus baselines from the post-T327 canonical-66 baseline."
+  - "Score movement is described as corpus-scope correction / baseline reset, not chunking improvement."
+  - "No raw data, canonical passage/witness outputs, chunking algorithm, evaluator formula, or boundary repo content is changed."
+required_handoff: .ai/handoffs/T327D/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"

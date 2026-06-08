@@ -18,6 +18,11 @@ The big `chunks.jsonl` itself goes under `data/derived/chunks/variants/<run_id>/
 (gitignored — regenerable). **Only the small scorecard is committed**, so runs from
 different agents / PRs / machines stay durably comparable.
 
+Scorecards may span corpus baselines. Pre-T327 scorecards are wider-corpus baselines;
+T327D adds the post-T327 canonical-66 corpus baseline. Movement between those baselines
+is corpus-scope correction / baseline reset, not chunking improvement. Compare runs
+within the same `corpus_baseline`.
+
 ## How to produce a scorecard
 
 ```bash

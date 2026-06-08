@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327C canonical 66-output regeneration (Codex)
-**Active task:** -> **T327C** canonical 66-output regeneration completed as corpus-scope correction; regenerated canonical Scripture outputs with `--canonical-66-filter`, confirmed passage/witness outputs now contain 66 books and 31,103 records, removed 6,955 non-66 passage/witness records, excluded FRT/GLO from canonical Scripture content, updated CI/validation to enforce the filter and fail-closed scope validation; no raw mutation, chunk regeneration, evaluator change, scorecard/leaderboard change, gold/stress/index update, text import, boundary repo work, T327D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327D canonical 66 chunk baseline reset (Codex)
+**Active task:** -> **T327D** canonical 66 chunk baseline reset completed as corpus-scope correction; regenerated D / Claude pass2 chunks from corrected 66-book canonical outputs in ignored derived space, updated chunk SHA from `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7` to `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, chunk count from 1,374 to 1,131, token p50 from 729 to 728, and score row from pre-T327 wider-corpus 93.5 to post-T327 canonical-66 93.6; this is baseline reset / corpus-scope correction, not chunking improvement; no raw mutation, canonical passage/witness mutation, evaluator formula change, chunking algorithm change, boundary repo work, T327E/F/G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -191,6 +191,18 @@
 > change, leaderboard/scorecard update, gold/stress/review packet index update, source-text import,
 > boundary repo change, or T327D/E/F/G work occurred. T327D owns chunk regeneration, scorecards,
 > leaderboard, baseline language, and gold test hash/token updates.
+
+> **T327D regenerate chunks for canonical 66 baseline (2026-06-08):** Regenerated D / Claude
+> pass2 chunks from the corrected 66-book canonical outputs in ignored derived space. The
+> post-T327 canonical-66 chunk baseline is 1,131 chunks with SHA-256
+> `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, token p50 728,
+> token p90 898, token max 1,152, and composite 93.6 under unchanged T314 evaluator policy. The
+> previous 1,374-chunk / 93.5 row is now explicitly labeled as `pre_t327_wider_corpus`; the new
+> row is `post_t327_canonical_66_corpus`. Removed temporary T327C xfails and removed `PrMan` /
+> `Ps151` from canonical Psalm gold controls. This is corpus-scope correction / baseline reset,
+> not chunking improvement. No raw data, canonical passage/witness outputs, evaluator formula,
+> chunking algorithm, boundary repo, T327E/F/G, or text import work occurred. T327E owns broader
+> gold/stress/observed/index cleanup.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

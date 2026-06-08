@@ -7,9 +7,11 @@ structural split. The reviewed/executable manifest is
 Target form: literal Book of Psalms (`Ps`) routed through the candidate
 `psalm-whole-then-stanza-v1` skill.
 
-Baseline: unchanged D / Claude pass2 output scores 93.5 under the T314 reviewed-structural-split
-evaluator policy. The T311 book/chapter evaluator score was 93.0, and the old 88.5 score is
-retained only as old-evaluator provenance.
+Baseline: post-T327 canonical-66 D / Claude pass2 output scores 93.6 under the unchanged T314
+reviewed-structural-split evaluator policy. The pre-T327 wider-corpus score was 93.5, the T311
+book/chapter evaluator score was 93.0, and the old 88.5 score is retained only as provenance.
+Movement between pre/post T327 baselines is corpus-scope correction / baseline reset, not chunking
+improvement.
 
 ## Executable Reviewed Cases
 
@@ -22,7 +24,7 @@ retained only as old-evaluator provenance.
 | `Ps.105.1-Ps.105.45` | One whole-psalm chunk. | Human-approved current behavior; token size is moderate and no child chunks are required. |
 | `Ps.106.1-Ps.106.48` | One whole-psalm chunk. | Human-approved current behavior; `b` markers are internal formatting/stanza evidence, not automatic split authority. |
 | Short Psalm holdouts: `Ps.1`, `Ps.8`, `Ps.100`, `Ps.117` | One chunk each unless future reviewed gold says otherwise. | Prevent over-fragmenting short Psalms. |
-| Non-target controls: `Song`, `Lam`, `PrMan`, `Ps151` | Remain on monolith fallback / route-stable under the current orchestrator strategy. | Prove the Psalm skill does not rewrite adjacent poetry books. |
+| Non-target controls: `Song`, `Lam` | Remain on monolith fallback / route-stable under the current orchestrator strategy. | Prove the Psalm skill does not rewrite adjacent canonical poetry books. |
 
 ## Reviewed Structural Split Cases
 
@@ -58,6 +60,7 @@ any output-changing work.
 - Psalm 23 remains one whole-psalm chunk.
 - Genesis 1 remains no mid-sentence.
 - Non-target controls remain byte-identical.
+- Non-66 material such as `PrMan` and `Ps151` must not be reintroduced as canonical controls.
 
 ## Forbidden Diffs
 
