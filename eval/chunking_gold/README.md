@@ -109,3 +109,15 @@ These observations are triage evidence only. They do not promote stress cases to
 not approve current output as expected output, do not change evaluator policy, and do not authorize
 output-changing work. A future implementation must still pass through human review and reviewed
 gold for the selected target behavior.
+
+## Review Packet Index
+
+T319 adds the review packet index and promotion queue:
+
+- `eval/chunking_gold/review_packets/review_packet_index.json`
+- `eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md`
+
+The index ties together existing review packets, reviewed Psalm manifest cases, and observed
+stress-audit cases. It is diagnostic/control infrastructure only. Queue entries are review
+candidates with `implementation_allowed: false`; they are not authorization for output-changing
+work.

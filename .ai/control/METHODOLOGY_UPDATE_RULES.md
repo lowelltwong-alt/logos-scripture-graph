@@ -96,6 +96,9 @@ manifest under `eval/chunking_gold/`.
   not review-packet decisions, and not authorization for output-changing work. A current split is
   not automatically bad fragmentation; a current containment is not automatically approved
   preservation.
+- Review packet indexes and promotion queues are control surfaces only. They may organize existing
+  reviewed gold, pending packets, observed cases, and next review gates, but they do not approve
+  pending packets, create new reviewed gold, or authorize output-changing work.
 
 ## Handoff Note
 

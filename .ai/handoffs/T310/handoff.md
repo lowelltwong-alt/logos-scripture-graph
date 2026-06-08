@@ -1262,3 +1262,38 @@ Next:
 - Claude review T317.
 - Merge if validation and review are green.
 - Do not start output-changing work until reviewed target gold authorizes it.
+
+---
+
+## T319 Review Packet Index and Promotion Queue update
+
+Updated 2026-06-08 by Codex.
+
+Summary:
+
+- Added a review packet index and promotion queue under `eval/chunking_gold/review_packets/`.
+- Indexed all existing review packet files.
+- Indexed Psalm manifest reviewed cases, including Ps.78 parent/child structural split, Ps.105 and
+  Ps.106 reviewed whole-psalm gold, and Ps.119 reviewed acrostic section behavior.
+- Indexed all T318 observed stress-audit cases with their current non-authorizing status and next
+  review gate.
+- The promotion queue is a review queue, not an implementation backlog.
+
+Boundary:
+
+- No new reviewed gold added.
+- No pending packet approved.
+- No chunk output change.
+- No evaluator formula change.
+- No raw/canonical mutation.
+- No chunker/orchestrator behavior change.
+- No runtime skill code change.
+- No skill promotion.
+- No output-changing work authorized.
+
+Next:
+
+- Claude review T319.
+- Merge if validation and review are green.
+- Next non-output lane: T320/T321/T322 planning pack.
+- Do not start output-changing work until reviewed target gold explicitly authorizes it.
