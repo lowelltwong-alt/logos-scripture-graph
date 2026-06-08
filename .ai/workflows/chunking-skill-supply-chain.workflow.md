@@ -15,6 +15,8 @@ AI-operational checklist for chunking-related work. Use with
 - Classify gold artifacts by maturity: scaffold/plan, executable reviewed gold,
   characterization-only evidence, pending human review, or approved structural split under a parent
   whole unit.
+- If using a stress-atlas observed behavior audit, classify it as diagnostic triage only. It is not
+  reviewed gold, not a review-packet decision, and not implementation authorization.
 
 ## Plan
 
@@ -67,6 +69,9 @@ AI-operational checklist for chunking-related work. Use with
   are not treated as automatic speaker or boundary authority.
 - For token-size policy work, confirm analysis does not authorize retuning unless reviewed target
   gold and policy alignment are present.
+- For observed stress behavior audits, confirm every entry remains non-authorizing, every stress
+  case is covered, reviewed-current-behavior claims cite existing reviewed gold, and pending packets
+  remain pending.
 - For true improvements, compare target-form output against fallback and check non-target
   regressions.
 - Confirm the cited per-form gold plan or manifest covers the target behavior and non-target
@@ -99,6 +104,7 @@ AI-operational checklist for chunking-related work. Use with
 - Confirm weak evaluator levers did not drive implementation without target-form output evidence.
 - Confirm unresolved human-gated boundaries remain explicitly pending.
 - Confirm reviewed parent/child structural splits cite gold before evaluator or chunker changes.
+- Confirm observed current behavior is not treated as approved expected output.
 - Confirm any score movement is supported by target-form output evidence.
 - Confirm the handoff names risks, validation, and exact next action.
 
@@ -129,4 +135,6 @@ AI-operational checklist for chunking-related work. Use with
 - Stop if a human-gated boundary decision is resolved without explicit review.
 - Stop if a reviewed parent/child structural split is treated as bad fragmentation without a
   separate evaluator-policy review.
+- Stop if an observed stress behavior entry is treated as reviewed gold or used to authorize
+  output-changing work.
 - Stop if methodology was not reviewed.

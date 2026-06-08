@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-07
-**Updated by:** T317 Psalm gold, WJ packets, token policy (Codex)
-**Active task:** -> **T317** non-output governance/gold/policy pack completed; Ps.105/Ps.106 reviewed whole-psalm gold added, John 3/Matt.5-7 WJ packets remain pending, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-08
+**Updated by:** T318 observed stress atlas behavior audit (Codex)
+**Active task:** -> **T318** observation-only stress atlas audit completed; every stress case is mapped to current chunk behavior for triage only, no reviewed gold or output authorization added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -105,6 +105,14 @@
 > the p50 metric headroom is an evaluator/policy alignment risk, not authorization to retune
 > chunking. No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior,
 > runtime skill code, or skill promotion changed.
+
+> **T318 observed stress atlas behavior audit (2026-06-08):** Added a diagnostic-only observed
+> behavior surface for every T316/T316c stress-atlas case. The audit records current chunks touching
+> each case, containment, splitting, extra-context mixing, marker evidence, review-packet status, and
+> recommended next review steps. It preserves Ps.105/Ps.106 as already reviewed current behavior and
+> keeps pending packets pending. All observed entries have `implementation_allowed: false`. This is
+> triage evidence only: no reviewed gold was added, no evaluator policy changed, no chunk output
+> changed, and no output-changing work is authorized.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

@@ -1,0 +1,40 @@
+id: T318
+phase: phase_4
+title: "Observed Stress Atlas Behavior Audit"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/stress_atlas/
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - eval/chunking_gold/README.md
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/workflows/
+    - .ai/control/
+    - .ai/handoffs/T318/
+    - .ai/tasks/T318.task.yaml
+    - ROADMAP_STATE.yaml
+    - tests/
+    - pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Every stress-atlas case has a diagnostic observed-behavior entry."
+  - "Every observed entry keeps implementation_allowed false."
+  - "Observed statuses and recommended next steps use controlled vocabularies."
+  - "Reviewed-gold preservation claims are limited to already reviewed Ps.105/Ps.106 current behavior."
+  - "Pending review packets remain pending and non-authorizing."
+  - "No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T318/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"

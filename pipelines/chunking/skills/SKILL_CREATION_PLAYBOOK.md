@@ -114,6 +114,12 @@ but not automatic split authority. Words-of-Jesus packets such as John 3 and Mat
 pending until human speaker-boundary review. Token-size analysis is not authorization to retune
 chunking.
 
+T318 lesson: an observed stress behavior audit is diagnostic triage, not reviewed gold and not a
+review-packet decision. It can show that a stress case is contained, split, mixed with extra
+context, or marker-sensitive, but it cannot approve expected output or authorize output-changing
+work. Current containment is not automatically reviewed preservation, and current splitting is not
+automatically bad fragmentation.
+
 T311 lesson: the old `psalms_fragmented` metric grouped Psalm-like chunks by bare chapter number,
 causing cross-book collisions such as `Ps.3`, `Song.3`, and `Lam.3`. The same chunk output moved
 from 88.5 to 93.0 after T311 fixed grouping to `(book, chapter)`. That was evaluator correction,

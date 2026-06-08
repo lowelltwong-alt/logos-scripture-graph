@@ -16,6 +16,9 @@ policy. That score is evaluator-policy correction for unchanged output, not chun
 ## Structure
 
 Machine-readable cases live in `eval/chunking_gold/stress_atlas/chunking_stress_cases.json`.
+T318 observed current behavior for every case in
+`eval/chunking_gold/stress_atlas/observed_stress_behavior.json`, with a human-readable summary in
+`eval/chunking_gold/stress_atlas/OBSERVED_STRESS_BEHAVIOR.md`.
 
 Every case records:
 
@@ -138,3 +141,14 @@ Use the atlas to select narrow future gold work:
 - text-critical / source-tradition boundary packets.
 
 Do not use it as an implementation backlog by itself.
+
+## T318 Observed Behavior Audit
+
+T318 adds a diagnostic-only observed behavior surface for every stress-atlas case. It records which
+current chunks touch each case, whether the case is contained, split, or mixed with extra context,
+whether marker evidence is present, whether a review packet already exists, and the recommended
+next review step.
+
+The observed behavior audit is not reviewed gold and does not authorize output-changing work. It is
+evidence triage for future review packets. A current split is not automatically bad fragmentation,
+and a current whole-unit containment is not automatically approved expected output.

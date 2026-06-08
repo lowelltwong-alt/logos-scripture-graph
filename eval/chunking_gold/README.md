@@ -97,3 +97,15 @@ T316c adds proposed marker-sensitive stress-atlas cases for words-of-Jesus `\wj`
 
 These cases are proposed only. `\wj` and `\qs` are evidence to preserve and review, not authority to
 approve speaker attribution, textual-critical status, or chunk boundaries.
+
+## Observed Stress Behavior
+
+T318 adds diagnostic current-behavior observations for every stress-atlas case:
+
+- `eval/chunking_gold/stress_atlas/observed_stress_behavior.json`
+- `eval/chunking_gold/stress_atlas/OBSERVED_STRESS_BEHAVIOR.md`
+
+These observations are triage evidence only. They do not promote stress cases to reviewed gold, do
+not approve current output as expected output, do not change evaluator policy, and do not authorize
+output-changing work. A future implementation must still pass through human review and reviewed
+gold for the selected target behavior.
