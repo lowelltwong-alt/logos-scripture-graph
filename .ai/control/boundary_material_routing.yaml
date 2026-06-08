@@ -65,3 +65,74 @@ data_flow_guardrails:
   boundary_claims_can_mutate_canonical_scripture_records: false
   boundary_material_in_default_scripture_retrieval: false
   stop_if_boundary_material_required_to_modify_canonical_outputs: true
+
+boundary_governance_constraint_policy:
+  policy_id: BOUNDARY-GOV-001
+  title: Governance Is Constraint, Not Obstacle
+  importance: P0
+  applies_to_origin:
+    - logos-boundary-literature
+    - boundary_layer_agents
+    - boundary_layer_automation
+    - external_contributor_boundary_requests
+  boundary_layer_may_treat_governance_as_blocker_or_obstacle: false
+  boundary_layer_may_optimize_around_governance: false
+  boundary_layer_may_auto_request_governance_change: false
+  boundary_layer_may_auto_route_permission_request: false
+  boundary_layer_may_bundle_governance_change_with_boundary_work: false
+  required_behavior: stop_and_create_human_escalation_warning
+  warning_required: true
+  protected_higher_authority_targets:
+    - logos-governance-architecture
+    - logos-scripture-graph
+    - canonical_scripture_authority
+    - repository_link_contracts
+    - cross_repo_policy
+    - trust_hierarchy
+    - canonical_scope
+  forbidden_boundary_actions:
+    - bypass_governance_policy
+    - weaken_repository_link_contracts
+    - request_canonical_scripture_mutation_from_boundary_layer
+    - request_cross_repo_policy_change_from_boundary_layer
+    - treat_governance_as_implementation_friction
+    - route_around_higher_authority_review
+  escalation_warning_requires:
+    - conflict_description
+    - higher_authority_repo_identified
+    - owner_reserved_authorization_notice
+
+owner_reserved_authorization:
+  policy_id: BOUNDARY-GOV-002
+  title: Owner-Reserved Authorization for Boundary-Originated Higher-Layer Changes
+  authorized_owner: Lowell Wong
+  applies_when_boundary_request_targets:
+    - governance_layer_policy
+    - canonical_scripture_authority
+    - repository_link_contracts
+    - canonical_scope
+    - trust_hierarchy
+    - cross_repo_policy
+  contributor_consensus_sufficient: false
+  contributor_volume_sufficient: false
+  automated_recommendation_sufficient: false
+  agent_routing_sufficient: false
+  boundary_layer_operational_need_sufficient: false
+  requires_explicit_owner_authorization: true
+  authorization_must_occur_in_higher_authority_repo: true
+
+boundary_layer_escalation_warning_text: |
+  WARNING: Boundary-layer request conflicts with higher-authority governance.
+
+  The requested boundary-layer task appears to require changing or bypassing governance-layer policy, canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy, or canonical scope.
+
+  Governance is binding authority, not an obstacle to optimize around.
+
+  Do not automate, route, or implement this change from the boundary layer. A human maintainer must review the conflict directly in the higher-authority repository.
+
+  Owner-reserved authorization required: only Lowell Wong, as project owner, may authorize a boundary-originated request to change higher-authority governance, canonical Scripture authority, repository-link contracts, canonical scope, trust hierarchy, or cross-repo policy. Contributor consensus, contributor volume, automated recommendation, agent routing, or boundary-layer operational need is not sufficient authority.
+
+stop_triggers:
+  - boundary_layer_treats_governance_as_obstacle
+  - boundary_originated_request_targets_higher_authority_layer
+  - boundary_originated_request_lacks_owner_authorization

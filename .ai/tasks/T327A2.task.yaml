@@ -1,0 +1,44 @@
+id: T327A2
+phase: phase_4
+title: "Boundary Governance Stop Rules"
+mode: plan
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - .ai/control/boundary_material_routing.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - docs/roadmap/T327A1_THREE_REPO_ROUTING_GUARDRAILS.md
+    - docs/roadmap/T327A2_BOUNDARY_GOVERNANCE_STOP_RULES.md
+    - .ai/handoffs/T327A2/
+    - .ai/tasks/T327A2.task.yaml
+    - ROADMAP_STATE.yaml
+    - tests/test_boundary_material_routing_policy.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/chunks/
+    - pipelines/ingest/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "BOUNDARY-GOV-001 and BOUNDARY-GOV-002 are recorded in the local routing policy."
+  - "Boundary-originated higher-layer changes require explicit Lowell Wong owner authorization."
+  - "Required warning text is available to agents entering the Scripture repo."
+  - "No raw/canonical/processed/derived data is mutated."
+  - "No output, evaluator, scorecard, parser/chunker/orchestrator, or text-import change."
+  - "T327B is not started."
+required_handoff: .ai/handoffs/T327A2/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"

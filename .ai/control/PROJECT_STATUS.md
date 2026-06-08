@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327A1 three-repo routing guardrails (Codex)
-**Active task:** -> **T327A1** three-repo routing guardrails completed as governance/routing documentation; `logos-scripture-graph` remains canonical 66-book Scripture authority, `logos-boundary-literature` is supporting boundary/reception authority under or never above Scripture authority, and `logos-governance-architecture` owns the cross-repo registry / relationship-contract source of truth; no data mutation, output change, evaluator change, scorecard change, text import, or T327B work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327A2 boundary governance stop rules (Codex)
+**Active task:** -> **T327A2** boundary governance stop rules completed as governance/routing documentation; boundary-originated requests that conflict with governance-layer policy, canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy, or canonical scope must stop and require explicit Lowell Wong owner authorization in the higher-authority repo; no data mutation, output change, evaluator change, scorecard change, text import, or T327B work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -142,6 +142,18 @@
 > material must not override, contaminate, or become equal authority to canonical Scripture.
 > Scripture-side routing mirrors the governance registry locally for agent routing. No data, output,
 > evaluator, scorecard, runtime, text-import, or T327B work occurred.
+
+> **T327A2 boundary governance stop rules (2026-06-08):** Added Scripture-side mirrors of
+> `BOUNDARY-GOV-001 - Governance Is Constraint, Not Obstacle` and `BOUNDARY-GOV-002 -
+> Owner-Reserved Authorization for Boundary-Originated Higher-Layer Changes`. Boundary-originated
+> requests that conflict with governance-layer policy, canonical Scripture authority,
+> repository-link contracts, routing policy, trust hierarchy, or canonical scope must stop and be
+> reviewed in the higher-authority repo. Only Lowell Wong, as project owner, may authorize
+> boundary-originated changes to higher-authority governance, canonical Scripture authority,
+> repository-link contracts, canonical scope, trust hierarchy, or cross-repo policy. Contributor
+> consensus, contributor volume, automated recommendation, agent routing, and boundary-layer
+> operational need are not sufficient authority. No data, output, evaluator, scorecard, runtime,
+> text-import, or T327B work occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
