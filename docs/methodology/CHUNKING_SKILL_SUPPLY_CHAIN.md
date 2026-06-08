@@ -432,6 +432,30 @@ Rules:
   in the index.
 - The index must fail closed for pending and policy-required entries.
 
+## 10k. Canonical corpus scope rule
+
+T327A records the owner decision that `logos-scripture-graph` canonical Scripture and chunking scope
+is the 66-book canon. Corpus scope is now a chunking governance input.
+
+Rules:
+
+- Deuterocanonical, apocrypha, boundary, front-matter, glossary, and other non-Scripture editorial
+  material must not enter canonical passages, canonical translation witnesses, chunk outputs,
+  scorecards, reviewed gold, stress-atlas controls, observed behavior audits, or review packet
+  indexes by default.
+- Front matter and glossary are source/editorial artifacts, not Scripture content for canonical
+  chunking.
+- Additions to Daniel, additions to Esther, Prayer of Manasses, Psalm 151, and other non-66 material
+  must not remain as canonical Scripture-repo controls after the 66-book decision.
+- Raw source artifact provenance must be handled carefully. Do not hand-edit raw archives; use a
+  reviewed source replacement, explicit ingest filter, or migration plan.
+- Any future use of excluded material belongs in `logos-boundary-literature` or another explicitly
+  scoped boundary/tradition repository after separate source/license review and human authorization.
+- Any score movement after 66-book filtering and regeneration is corpus-scope correction, not
+  chunk-output improvement.
+- Do not start output-changing chunking work until canonical scope correction is implemented or the
+  target task proves it is unaffected by excluded-material surfaces.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -544,3 +568,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-08: Added the T319 review packet index lesson. Review indexes and promotion queues are
   control surfaces only; they do not approve pending packets, create new reviewed gold, or authorize
   output-changing work.
+- 2026-06-08: Added the T327A canonical corpus scope lesson. The Scripture/chunking corpus is now
+  governed by the owner-approved 66-book scope; non-66/front-matter/glossary material must be
+  excluded from canonical chunking and score surfaces by future isolated correction tasks.

@@ -99,6 +99,10 @@ manifest under `eval/chunking_gold/`.
 - Review packet indexes and promotion queues are control surfaces only. They may organize existing
   reviewed gold, pending packets, observed cases, and next review gates, but they do not approve
   pending packets, create new reviewed gold, or authorize output-changing work.
+- Canonical corpus scope is a chunking governance input. The 66-book owner decision must be enforced
+  before canonical regeneration, chunk regeneration, scorecard/leaderboard re-baselining, or
+  output-changing work. Excluded deuterocanonical/apocrypha/front-matter/glossary material must not
+  remain in canonical Scripture/chunking gold, stress, index, or score surfaces by default.
 
 ## Handoff Note
 
