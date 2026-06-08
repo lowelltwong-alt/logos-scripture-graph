@@ -175,3 +175,19 @@ T327B adds the canonical 66-book allow-list and ingest/build filter mechanism on
 generated outputs may still contain non-66 records until T327C regeneration. T327D handles
 chunks, scorecards, leaderboard, and score language. T327E cleans gold/stress/review packet
 surfaces.
+
+## T327B.1 Validator Fail-Closed Note
+
+Canonical Scripture output validation must fail closed when a record cannot be classified to a
+book. A record in canonical Scripture outputs or canonical Scripture sidecars must expose a valid
+66-book identity through `book`, `osis_book`, `usfm_book`, `osis_ref`, or `passage_id`.
+
+Glossary, front-matter, concordance, and source metadata may be preserved only as explicitly scoped
+non-scripture supporting/reference artifacts outside canonical Scripture outputs. They must not be
+canonical passages, canonical chunks, canonical witness text, leaderboard inputs, scorecard inputs,
+or default Scripture retrieval text.
+
+This validator does not prove that text labeled with an allowed book identity is authentic source
+content for that book. A fake or altered record labeled `Mark`, for example, is handled by raw source
+manifest checksums, provenance, parser determinism, and raw immutability controls, not by the
+canonical 66-book scope filter alone.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate T327B canonical 66-book allow-list and optional JSONL records."""
+"""Validate T327B canonical 66-book allow-list and optional canonical JSONL records."""
 from __future__ import annotations
 
 import argparse
@@ -70,7 +70,8 @@ def main(argv: list[str] | None = None) -> int:
         nargs="*",
         help=(
             "Optional generated JSONL files to validate. Existing canonical outputs are not "
-            "passed by validate_all until T327C regeneration."
+            "passed by validate_all until T327C regeneration. When files are supplied, every "
+            "record must expose a valid canonical 66-book identity."
         ),
     )
     args = parser.parse_args(argv)

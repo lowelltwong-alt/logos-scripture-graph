@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327B canonical 66-book ingest filter (Codex)
-**Active task:** -> **T327B** canonical 66-book ingest filter completed as mechanism-only corpus-scope correction; T327A.1/T327A.2 guardrails are live on main; added a 66-book allow-list, explicit importer filter flag for future T327C regeneration, config validator, and synthetic tests; no raw/canonical data mutation, output regeneration, chunk regeneration, evaluator change, scorecard/leaderboard change, text import, T327C/D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327B.1 canonical scope validator fail-closed hardening (Codex)
+**Active task:** -> **T327B.1** canonical scope validator fail-closed hardening completed; canonical-output validation now fails when a record lacks resolvable book identity, while valid 66-book records still pass and excluded/GLO/FRT records fail; documented that fake or altered content under an allowed book label is a source-integrity/provenance risk outside this scope validator; no raw/canonical data mutation, output regeneration, chunk regeneration, evaluator change, scorecard/leaderboard change, text import, T327C/D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -165,6 +165,18 @@
 > scorecards, leaderboard, and score language; T327E cleans gold/stress/review packet surfaces. No
 > raw/canonical data, generated output, chunks, evaluator formula, leaderboard, scorecards, source
 > texts, or T327C/D/E/F/G work changed.
+
+> **T327B.1 canonical scope validator fail-closed hardening (2026-06-08):** Hardened
+> `scripts/validate_canonical_66_scope.py` / `pipelines/util/canonical_scope.py` so optional
+> canonical JSONL validation fails closed when a record has no resolvable `book`, `osis_book`,
+> `usfm_book`, `osis_ref`, or `passage_id`. Valid 66-book records pass; excluded books, `GLO`,
+> `FRT`, and glossary-like unclassified records fail. Glossary/front-matter/concordance/source
+> metadata may be preserved only as separately scoped non-scripture supporting/reference artifacts,
+> not canonical passages/chunks/witness text/leaderboard inputs/default retrieval text. The validator
+> does not prove content authenticity if fake or altered text is falsely labeled with an allowed
+> book such as `Mark`; that remains a raw source manifest, checksum, provenance, parser determinism,
+> and raw immutability concern. No raw/canonical data, generated output, chunks, evaluator formula,
+> leaderboard, scorecards, source texts, or T327C/D/E/F/G work changed.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

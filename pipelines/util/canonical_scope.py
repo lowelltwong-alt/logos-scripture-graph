@@ -17,7 +17,7 @@ DEFAULT_CONFIG = ROOT / "config" / "canon" / "canonical_66_books.yaml"
 
 
 class CanonicalScopeError(ValueError):
-    """Raised when a canonical-output record contains a non-66 book."""
+    """Raised when a canonical-output record is outside the 66-book scope."""
 
 
 def _load_scalar_list(config_path: Path, key: str) -> tuple[str, ...]:
@@ -95,12 +95,16 @@ def filter_to_canonical_66(records: Iterable[Mapping[str, Any]]) -> list[Mapping
 
 
 def assert_records_are_canonical_66(records: Iterable[Mapping[str, Any]], source: str = "records") -> None:
-    """Fail closed when canonical-output records include non-66/front/glossary books."""
+    """Fail closed when canonical-output records are not classifiable as 66-book Scripture."""
     blocked = set(excluded_books())
     for index, record in enumerate(records, start=1):
         book = record_book_id(record)
+        record_id = record.get("id", "<missing-id>")
+        if book is None:
+            raise CanonicalScopeError(
+                f"{source}:{index}: {record_id} is missing canonical book identity"
+            )
         if book in blocked or (book is not None and not is_canonical_66_book(book)):
-            record_id = record.get("id", "<missing-id>")
             raise CanonicalScopeError(
                 f"{source}:{index}: {record_id} uses non-66 canonical-scope book {book}"
             )

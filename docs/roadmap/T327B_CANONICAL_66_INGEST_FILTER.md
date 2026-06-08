@@ -24,6 +24,18 @@ FRT front matter, and GLO glossary material from entering canonical Scripture ou
   canonical passages, witnesses, and canonical sidecars only for allowed 66-book Scripture books.
 - Added synthetic tests for allow-list integrity, mixed-input filtering, and fail-closed validation.
 
+## T327B.1 Validator Hardening
+
+T327B.1 adds `CANON-SCOPE-VALIDATOR-001`: canonical-scope validation fails closed on unclassified
+records. When optional JSONL files are supplied to `scripts/validate_canonical_66_scope.py`, every
+record must expose a valid canonical 66-book identity. Records without `book`, `osis_book`,
+`usfm_book`, `osis_ref`, or `passage_id` do not silently pass.
+
+Glossary, front-matter, concordance, and source metadata may be preserved only as separately scoped
+non-scripture supporting/reference artifacts. They must not pass as canonical Scripture passages,
+canonical chunks, canonical witness text, leaderboard inputs, scorecard inputs, or default
+Scripture retrieval text.
+
 ## Non-Regeneration Boundary
 
 Existing generated outputs may still contain non-66 records until T327C regeneration. Default CI
