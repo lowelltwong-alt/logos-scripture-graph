@@ -24,6 +24,15 @@ Any future use of excluded material belongs in `logos-boundary-literature` or
 another explicitly scoped boundary/tradition repository, after separate
 license/source review and human authorization.
 
+`logos-boundary-literature` may interoperate with this repository, but it is
+hierarchically under, or at minimum never above, canonical Scripture authority.
+Boundary literature may provide background, comparison, reception history,
+refutation targets, commentary/reception claims, and tradition-scoped claims. It
+must not override, contaminate, or become equal authority to canonical Scripture.
+
+For cross-repo policy or authority conflicts, route to
+`logos-governance-architecture`.
+
 Raw source artifact provenance must be handled carefully. Do not hand-edit raw
 archives. If a raw source archive contains excluded material, correct it through
 a reviewed source replacement, ingest filter, or migration plan.
