@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327A forensic canonical corpus scope audit (Codex)
-**Active task:** -> **T327A** forensic canonical corpus scope audit completed as planning/control infrastructure; owner decision recorded that `logos-scripture-graph` canonical Scripture/chunking corpus is scoped to the 66-book canon; non-66/front-matter/glossary material must be excluded by future isolated work; no raw/canonical mutation, output change, evaluator change, scorecard change, or boundary-repo import occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327A1 three-repo routing guardrails (Codex)
+**Active task:** -> **T327A1** three-repo routing guardrails completed as governance/routing documentation; `logos-scripture-graph` remains canonical 66-book Scripture authority, `logos-boundary-literature` is supporting boundary/reception authority under or never above Scripture authority, and `logos-governance-architecture` owns cross-repo policy/authority contracts; no data mutation, output change, evaluator change, scorecard change, text import, or T327B work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -132,6 +132,16 @@
 > data, generated output, parser/chunker/orchestrator/evaluator behavior, scorecards, or boundary
 > repo content changed. Next: T327B explicit 66-book allow-list / ingest filter before any
 > T320/T325/T326 implementation work continues.
+
+> **T327A1 three-repo routing guardrails (2026-06-08):** Added Scripture-side AI front-door routing
+> and `.ai/control/boundary_material_routing.yaml`. `logos-scripture-graph` owns canonical 66-book
+> Scripture truth and canonical chunking/evaluator/gold surfaces; `logos-boundary-literature` owns
+> boundary, deuterocanonical/apocrypha, heterodox, disputed, forged, commentary/reception, and
+> supporting literature as scoped background/comparison/refutation material; `logos-governance-
+> architecture` owns cross-repo policy/authority contracts. Boundary material must not override,
+> contaminate, or become equal authority to canonical Scripture. Local governance repo edits were
+> deferred because that checkout had pre-existing dirty work. No data, output, evaluator, scorecard,
+> runtime, text-import, or T327B work occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

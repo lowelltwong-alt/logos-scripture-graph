@@ -49,6 +49,60 @@ Agents must not treat GitHub issues, Project-board fields, or generated model ou
 as canonical governance truth. They are coordination surfaces. Governance meaning
 comes from the upstream contract and this repo's human-gated control plane.
 
+## Canonical Scripture entry point
+
+`logos-scripture-graph` owns the canonical 66-book Scripture graph.
+
+Use this repo for:
+
+- canonical 66-book Scripture passage records;
+- canonical Scripture chunking;
+- canonical Scripture gold/evaluator surfaces;
+- Scripture stress atlas and review packets;
+- canonical Scripture graph outputs.
+
+Do not use this repo for:
+
+- deuterocanonical/apocrypha source text;
+- noncanonical boundary literature;
+- gnostic or heterodox texts;
+- disputed or forged texts;
+- fake gospels;
+- commentary/reception corpora;
+- Josephus / Philo / DSS / Qumran / patristic corpora as source texts;
+- front matter or glossary as Scripture content.
+
+Route those tasks to:
+
+`logos-boundary-literature`
+
+`logos-boundary-literature` may interoperate with this repo, but it is hierarchically under, or at
+minimum never above, canonical Scripture authority. It may provide background, comparison,
+reception history, refutation targets, commentary/reception claims, and tradition-scoped claims. It
+must not override, contaminate, or become equal authority to canonical Scripture.
+
+For cross-repo policy or authority conflicts, route to:
+
+`logos-governance-architecture`
+
+If a task involves noncanonical, boundary, heterodox, disputed, forged, commentary/reception, or
+supporting literature, do not import or normalize that material into `logos-scripture-graph`. Use
+`logos-boundary-literature` or create only planning/cross-repo contract docs here.
+
+Machine-readable local routing policy:
+`.ai/control/boundary_material_routing.yaml`.
+
+| User/task intent | Correct repo |
+|---|---|
+| 66-book Scripture passages/chunks | `logos-scripture-graph` |
+| Apocrypha/deuterocanon/boundary literature | `logos-boundary-literature` |
+| Gnostic/fake/forged texts | `logos-boundary-literature` |
+| Commentary/reception claims | `logos-boundary-literature` |
+| Cross-repo policy/authority/update rules | `logos-governance-architecture` |
+| Canonical corpus correction | `logos-scripture-graph` |
+| Boundary text source intake | `logos-boundary-literature` |
+| Repository-link contract changes | `logos-governance-architecture` or coordinated PR |
+
 ## Context layers (who may write)
 
 | Layer | Path | AI writes? |

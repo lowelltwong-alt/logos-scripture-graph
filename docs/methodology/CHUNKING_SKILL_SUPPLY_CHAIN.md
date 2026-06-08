@@ -455,6 +455,12 @@ Rules:
   chunk-output improvement.
 - Do not start output-changing chunking work until canonical scope correction is implemented or the
   target task proves it is unaffected by excluded-material surfaces.
+- Boundary literature may provide background, comparison, reception history, refutation targets,
+  commentary/reception claims, and tradition-scoped claims, but it is hierarchically under, or at
+  minimum never above, canonical Scripture authority.
+- If a task appears to require boundary material to modify canonical Scripture outputs, canonical
+  chunks, evaluator inputs, or default Scripture retrieval, stop and report.
+- Use `.ai/control/boundary_material_routing.yaml` for machine-readable local routing.
 
 ## 11. Staleness rules
 
@@ -571,3 +577,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-08: Added the T327A canonical corpus scope lesson. The Scripture/chunking corpus is now
   governed by the owner-approved 66-book scope; non-66/front-matter/glossary material must be
   excluded from canonical chunking and score surfaces by future isolated correction tasks.
+- 2026-06-08: Added the T327A1 three-repo routing lesson. Boundary/reception/supporting literature
+  routes to `logos-boundary-literature`, cross-repo authority conflicts route to
+  `logos-governance-architecture`, and boundary material cannot modify canonical Scripture outputs.

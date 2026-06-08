@@ -1,0 +1,65 @@
+routing_policy_id: BOUNDARY-MATERIAL-ROUTING-v1
+owner_repo: logos-scripture-graph
+canonical_authority_repo: logos-scripture-graph
+supporting_boundary_repo: logos-boundary-literature
+governance_authority_repo: logos-governance-architecture
+status: active_policy
+
+authority_hierarchy:
+  governance_policy_authority: logos-governance-architecture
+  canonical_scripture_authority: logos-scripture-graph
+  boundary_support_authority: logos-boundary-literature
+  boundary_repo_can_override_scripture: false
+  boundary_repo_can_equal_scripture_authority: false
+  governance_repo_can_define_cross_repo_policy: true
+
+canonical_scope:
+  default_corpus: canonical_66
+  canonical_claims_owned_here: true
+
+route_to_boundary_repo:
+  - deuterocanonical_apocrypha
+  - noncanonical_boundary_literature
+  - heterodox_or_gnostic_texts
+  - disputed_attribution_texts
+  - known_forgery_or_fake_texts
+  - commentary_reception_corpus
+  - josephus_philo_dss_qumran_corpora
+  - patristic_reception_corpora
+
+route_to_governance_repo:
+  - cross_repo_authority_policy
+  - repository_link_contracts
+  - rule_registry_policy
+  - update_flow_policy
+  - validation_contract_policy
+
+forbidden_in_scripture_graph:
+  - canonical_passage_records_for_boundary_material
+  - canonical_chunks_for_boundary_material
+  - leaderboard_inputs_from_boundary_material
+  - default_scripture_retrieval_from_boundary_material
+  - canonical_truth_claims_from_boundary_material
+  - unscoped_commentary_claims
+
+allowed_in_scripture_graph:
+  - planning_docs
+  - cross_repo_contract_references
+  - contamination_controls
+  - source_acquisition_plans
+  - references_to_boundary_repo
+  - scoped_background_links
+
+boundary_claims_require_scope:
+  - trust_level
+  - tradition_scope
+  - profile_scope
+  - provenance
+
+data_flow_guardrails:
+  scripture_refs_may_point_to_boundary_material_as: background_or_comparison
+  boundary_literature_may_reference_scripture: true
+  commentary_may_discuss_scripture_and_boundary_literature: true
+  boundary_claims_can_mutate_canonical_scripture_records: false
+  boundary_material_in_default_scripture_retrieval: false
+  stop_if_boundary_material_required_to_modify_canonical_outputs: true

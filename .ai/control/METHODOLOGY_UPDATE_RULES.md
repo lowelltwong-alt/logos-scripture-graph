@@ -103,6 +103,11 @@ manifest under `eval/chunking_gold/`.
   before canonical regeneration, chunk regeneration, scorecard/leaderboard re-baselining, or
   output-changing work. Excluded deuterocanonical/apocrypha/front-matter/glossary material must not
   remain in canonical Scripture/chunking gold, stress, index, or score surfaces by default.
+- Boundary-material routing is a chunking governance input. Noncanonical, deuterocanonical,
+  apocrypha, heterodox, disputed, forged, commentary/reception, Josephus/Philo/DSS/Qumran, and
+  patristic source-text work routes to `logos-boundary-literature`; cross-repo authority conflicts
+  route to `logos-governance-architecture`. Boundary material must not modify canonical Scripture
+  outputs, canonical chunks, evaluator inputs, or default Scripture retrieval.
 
 ## Handoff Note
 
