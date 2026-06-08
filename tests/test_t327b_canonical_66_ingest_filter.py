@@ -143,6 +143,45 @@ def test_synthetic_validator_fails_closed_on_non_66_record() -> None:
         )
 
 
+def test_synthetic_validator_accepts_valid_canonical_book_identity() -> None:
+    assert_records_are_canonical_66(
+        [
+            {"id": "scripture:Gen.1.1", "book": "Gen"},
+            {"id": "witness:eng-web:John.3.16", "osis_ref": "John.3.16"},
+            {"id": "scripture:Rev.22.21", "passage_id": "scripture:Rev.22.21"},
+        ],
+        source="synthetic",
+    )
+
+
+@pytest.mark.parametrize("book", ["GLO", "FRT"])
+def test_synthetic_validator_fails_on_front_or_glossary_books(book: str) -> None:
+    with pytest.raises(CanonicalScopeError, match=book):
+        assert_records_are_canonical_66(
+            [{"id": f"source:{book}:sample", "book": book}],
+            source="synthetic",
+        )
+
+
+def test_synthetic_validator_fails_closed_on_missing_book_identity() -> None:
+    with pytest.raises(CanonicalScopeError, match="missing canonical book identity"):
+        assert_records_are_canonical_66(
+            [{"id": "canonical-sidecar:unclassified", "text": "No book metadata here."}],
+            source="synthetic",
+        )
+
+
+def test_glossary_like_record_without_book_identity_fails_in_canonical_output_mode() -> None:
+    glossary_like_record = {
+        "id": "glossary:abba",
+        "term": "Abba",
+        "definition": "father",
+        "source_marker": "k",
+    }
+    with pytest.raises(CanonicalScopeError, match="synthetic-glossary:1"):
+        assert_records_are_canonical_66([glossary_like_record], source="synthetic-glossary")
+
+
 def test_validator_script_checks_config_without_existing_generated_outputs() -> None:
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "validate_canonical_66_scope.py")],
@@ -174,6 +213,22 @@ def test_validator_script_fails_on_synthetic_non_66_jsonl(tmp_path: Path) -> Non
     )
     assert result.returncode == 1
     assert "Bar" in result.stderr
+
+
+def test_validator_script_fails_on_synthetic_unclassified_jsonl(tmp_path: Path) -> None:
+    sample = tmp_path / "unclassified.jsonl"
+    sample.write_text(
+        json.dumps({"id": "glossary:abba", "term": "Abba", "definition": "father"}) + "\n",
+        encoding="utf-8",
+    )
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "validate_canonical_66_scope.py"), str(sample)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 1
+    assert "missing canonical book identity" in result.stderr
 
 
 def test_t327b_docs_record_non_regeneration_boundary() -> None:
