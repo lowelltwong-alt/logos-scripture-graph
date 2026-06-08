@@ -9,6 +9,7 @@ This file maps the repository for AI agents, coding assistants, maintainers, and
 - Supporting boundary literature repo: `logos-boundary-literature`
 - Link contract: [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
 - Governance registry source of truth: `logos-governance-architecture/governance/LOGOS_REPO_REGISTRY.yaml`
+- Boundary-originated higher-layer stop rules: [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
 - Local context: [`.ai/control/PROJECT_CONTEXT.md`](.ai/control/PROJECT_CONTEXT.md)
 
 Role hierarchy:

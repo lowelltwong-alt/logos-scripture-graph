@@ -63,6 +63,22 @@ Forbidden:
 If a task appears to require boundary material to modify canonical Scripture outputs, stop and
 report.
 
+## Boundary-Originated Governance Stop Rules
+
+T327A.2 adds local Scripture-side mirrors of the governance stop rules:
+
+- `BOUNDARY-GOV-001 - Governance Is Constraint, Not Obstacle`
+- `BOUNDARY-GOV-002 - Owner-Reserved Authorization for Boundary-Originated Higher-Layer Changes`
+
+If a boundary-originated request appears to require changing or bypassing governance-layer policy,
+canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy, or
+canonical scope, agents must stop and emit the warning in `.ai/control/boundary_material_routing.yaml`.
+
+Only Lowell Wong, as project owner, may authorize a boundary-originated request to change
+higher-authority governance, canonical Scripture authority, repository-link contracts, canonical
+scope, trust hierarchy, or cross-repo policy. Contributor consensus, contributor volume, automated
+recommendation, agent routing, and boundary-layer operational need are not sufficient authority.
+
 ## Machine-Readable Policies
 
 Added in `logos-scripture-graph`:

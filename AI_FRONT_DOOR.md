@@ -94,6 +94,23 @@ supporting literature, do not import or normalize that material into `logos-scri
 Machine-readable local routing policy:
 `.ai/control/boundary_material_routing.yaml`.
 
+Boundary-originated requests that conflict with higher-authority governance must stop. This repo
+must not automate, route, or implement requests from the boundary layer to change governance-layer
+policy, canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy,
+or canonical scope.
+
+```text
+WARNING: Boundary-layer request conflicts with higher-authority governance.
+
+The requested boundary-layer task appears to require changing or bypassing governance-layer policy, canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy, or canonical scope.
+
+Governance is binding authority, not an obstacle to optimize around.
+
+Do not automate, route, or implement this change from the boundary layer. A human maintainer must review the conflict directly in the higher-authority repository.
+
+Owner-reserved authorization required: only Lowell Wong, as project owner, may authorize a boundary-originated request to change higher-authority governance, canonical Scripture authority, repository-link contracts, canonical scope, trust hierarchy, or cross-repo policy. Contributor consensus, contributor volume, automated recommendation, agent routing, or boundary-layer operational need is not sufficient authority.
+```
+
 | User/task intent | Correct repo |
 |---|---|
 | 66-book Scripture passages/chunks | `logos-scripture-graph` |
