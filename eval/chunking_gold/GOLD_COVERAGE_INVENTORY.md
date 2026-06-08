@@ -152,6 +152,24 @@ Observed behavior maturity:
   `source_tradition_review_required`, and `unknown_needs_human_review` are triage states only.
 - `implementation_allowed` remains `false` for the audit root and every observed entry.
 
+## T319 Review Packet Index And Promotion Queue
+
+T319 adds a single diagnostic/control index for reviewed Psalm gold, existing review packets, and
+all observed stress-audit cases:
+
+- `eval/chunking_gold/review_packets/review_packet_index.json`
+- `eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md`
+
+The index covers 60 entries:
+
+- 8 existing review packet files;
+- 8 Psalm manifest reviewed cases;
+- all 44 observed stress behavior cases.
+
+The promotion queue is a review queue, not an implementation backlog. All entries keep
+`implementation_allowed: false` and `output_change_authorized: false`. T319 does not add reviewed
+gold, approve pending packets, change evaluator policy, or authorize output-changing work.
+
 ## Unknown
 
 - Whether future gold should use one cross-form schema or per-form manifest schemas.

@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T318 observed stress atlas behavior audit (Codex)
-**Active task:** -> **T318** observation-only stress atlas audit completed; every stress case is mapped to current chunk behavior for triage only, no reviewed gold or output authorization added, no chunk output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T319 review packet index and promotion queue (Codex)
+**Active task:** -> **T319** review packet index + promotion queue completed as diagnostic/control infrastructure; all existing packets, Psalm manifest reviewed cases, and observed stress cases are indexed with non-authorizing gates, no new reviewed gold, no output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -113,6 +113,15 @@
 > keeps pending packets pending. All observed entries have `implementation_allowed: false`. This is
 > triage evidence only: no reviewed gold was added, no evaluator policy changed, no chunk output
 > changed, and no output-changing work is authorized.
+
+> **T319 review packet index and promotion queue (2026-06-08):** Added
+> `eval/chunking_gold/review_packets/review_packet_index.json` and
+> `REVIEW_PACKET_INDEX.md` as a single diagnostic/control surface over 8 existing review packet
+> files, 8 Psalm manifest reviewed cases, and all 44 observed stress-audit cases. The index has 60
+> entries and a review queue for pending/policy-required/manual-investigation work. Every entry keeps
+> `implementation_allowed: false` and `output_change_authorized: false`. T319 does not add reviewed
+> gold, approve pending packets, change evaluator policy, change chunk output, mutate raw/canonical
+> data, change runtime skill code, or authorize output-changing work.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

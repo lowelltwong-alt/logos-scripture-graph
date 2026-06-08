@@ -1,0 +1,41 @@
+id: T319
+phase: phase_4
+title: "Review Packet Index and Promotion Queue"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/review_packets/
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - eval/chunking_gold/README.md
+    - docs/roadmap/
+    - docs/methodology/
+    - .ai/control/
+    - .ai/handoffs/T310/
+    - .ai/handoffs/T319/
+    - .ai/tasks/T319.task.yaml
+    - ROADMAP_STATE.yaml
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Review packet index JSON and Markdown exist."
+  - "Every review packet file is indexed."
+  - "Every Psalm manifest reviewed case is indexed."
+  - "Every observed stress-audit case is indexed or explicitly excluded."
+  - "Pending, variant, speaker, source-tradition, and manual-investigation entries do not authorize output changes."
+  - "No new reviewed gold is added."
+  - "No chunk output, evaluator formula, raw/canonical data, chunker/orchestrator behavior, runtime skill code, or skill promotion changes."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T319/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"

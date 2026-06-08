@@ -413,6 +413,25 @@ Rules:
   authority.
 - Future output-changing work must still cite reviewed gold for the selected target behavior.
 
+## 10j. Review packet index and promotion queue rule
+
+T319 adds a control index over reviewed gold, review packets, observed audit cases, and promotion
+queue candidates.
+
+Rules:
+
+- A review packet index is a control surface, not a promotion action.
+- A promotion queue is a review queue, not an implementation backlog.
+- Queue entries must keep `implementation_allowed: false` and `output_change_authorized: false`
+  until a separate human decision and reviewed gold explicitly authorize output-changing work.
+- Indexing existing reviewed gold does not create new reviewed gold.
+- Indexing pending packets does not approve them.
+- Indexing observed audit cases does not convert them into review packets or reviewed expected
+  output.
+- Variant, speaker-boundary, source/tradition, and manual-investigation gates must remain explicit
+  in the index.
+- The index must fail closed for pending and policy-required entries.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -449,6 +468,7 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - A human-gated boundary decision is silently resolved by an agent or metric.
 - A reviewed parent/child structural split is treated as bad fragmentation without a separate
   evaluator-policy review.
+- A review packet index or promotion queue is treated as output-changing authorization.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.
@@ -520,4 +540,7 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   evidence for review, not authority for unreviewed speaker, theology, or boundary decisions.
 - 2026-06-08: Added the T318 observed stress behavior audit lesson. Current-behavior observations
   are triage evidence only; they do not promote reviewed gold, resolve pending packets, or authorize
+  output-changing work.
+- 2026-06-08: Added the T319 review packet index lesson. Review indexes and promotion queues are
+  control surfaces only; they do not approve pending packets, create new reviewed gold, or authorize
   output-changing work.
