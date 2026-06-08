@@ -96,6 +96,15 @@ T316c adds proposed marker-sensitive stress cases for:
 These cases do not approve boundaries, speaker attribution, textual-critical status, or chunk
 output. They name marker-sensitive review targets only.
 
+## T318 Follow-Up
+
+T318 observes current chunk behavior for every stress-atlas case without changing output. The audit
+records containment, splitting, extra-context mixing, marker evidence, existing review-packet
+status, and recommended next review steps.
+
+T318 is triage only. It does not promote reviewed gold, approve current behavior, change evaluator
+policy, or authorize output-changing work.
+
 ## Unknown
 
 - Which packet should be reviewed first.

@@ -132,6 +132,26 @@ T316c adds proposed stress cases for USFM marker-sensitive review:
 These are not reviewed gold, not approved expected output, and not authorization for
 output-changing work.
 
+## T318 Observed Stress Behavior Audit
+
+T318 adds a diagnostic-only observed behavior audit for every stress-atlas case:
+
+- `eval/chunking_gold/stress_atlas/observed_stress_behavior.json`
+- `eval/chunking_gold/stress_atlas/OBSERVED_STRESS_BEHAVIOR.md`
+
+The audit maps proposed cases to current chunks and records containment, splitting, extra-context
+mixing, marker evidence, review-packet status, and recommended next review steps. It does not add
+reviewed gold, approve expected output, change evaluator policy, or authorize output-changing work.
+
+Observed behavior maturity:
+
+- `reviewed_gold_preserves_current_behavior` is limited to already reviewed Ps.105 and Ps.106
+  whole-psalm gold.
+- `review_packet_pending` means the existing packet remains pending and non-authorizing.
+- `needs_review_packet`, `speaker_review_required`, `variant_policy_required`,
+  `source_tradition_review_required`, and `unknown_needs_human_review` are triage states only.
+- `implementation_allowed` remains `false` for the audit root and every observed entry.
+
 ## Unknown
 
 - Whether future gold should use one cross-form schema or per-form manifest schemas.

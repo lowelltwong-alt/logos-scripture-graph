@@ -393,6 +393,26 @@ Rules:
 - Token-size metric analysis is not authorization to retune chunking. A large p50 score lever must
   be reconciled with chunking policy and reviewed gold before any output-changing implementation.
 
+## 10i. Observed stress behavior audit rule
+
+T318 adds diagnostic current-behavior observations for proposed stress-atlas cases.
+
+Rules:
+
+- Observed behavior audits are evidence triage only.
+- An observed audit entry is not reviewed gold, not a review packet, and not approved expected
+  output.
+- A current case split is not automatically bad fragmentation.
+- A current whole-unit containment is not automatically approved preservation.
+- `implementation_allowed` must remain `false` for the audit root and every observed entry.
+- Reviewed-current-behavior claims in observed audits may cite only cases already promoted by human
+  review and executable/manifest gold.
+- Pending review packets remain pending; observed behavior cannot silently resolve them.
+- Marker evidence in observed audits, including `\wj`, `\qs`, `\sp`, paragraph, and `\b` evidence,
+  remains diagnostic evidence rather than speaker, textual-critical, theological, or boundary
+  authority.
+- Future output-changing work must still cite reviewed gold for the selected target behavior.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -498,3 +518,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
   behavior and evidence, but remain non-authorizing until human review promotes them.
 - 2026-06-07: Added the T316c marker-sensitive stress lesson. Words-of-Jesus and Selah markers are
   evidence for review, not authority for unreviewed speaker, theology, or boundary decisions.
+- 2026-06-08: Added the T318 observed stress behavior audit lesson. Current-behavior observations
+  are triage evidence only; they do not promote reviewed gold, resolve pending packets, or authorize
+  output-changing work.

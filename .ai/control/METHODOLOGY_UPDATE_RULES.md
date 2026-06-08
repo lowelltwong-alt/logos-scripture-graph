@@ -91,6 +91,11 @@ manifest under `eval/chunking_gold/`.
   automatic split authority unless separately reviewed.
 - Token-size metric analysis, including large p50 headroom, is not authorization to retune chunking
   until evaluator target and chunking policy alignment are reviewed and target gold exists.
+- Observed stress behavior audits are diagnostic triage only. They may map current chunks to stress
+  cases and recommend review steps, but they are not reviewed gold, not approved expected output,
+  not review-packet decisions, and not authorization for output-changing work. A current split is
+  not automatically bad fragmentation; a current containment is not automatically approved
+  preservation.
 
 ## Handoff Note
 
