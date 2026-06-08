@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T319 review packet index and promotion queue (Codex)
-**Active task:** -> **T319** review packet index + promotion queue completed as diagnostic/control infrastructure; all existing packets, Psalm manifest reviewed cases, and observed stress cases are indexed with non-authorizing gates, no new reviewed gold, no output change, and no output-changing work started; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327A forensic canonical corpus scope audit (Codex)
+**Active task:** -> **T327A** forensic canonical corpus scope audit completed as planning/control infrastructure; owner decision recorded that `logos-scripture-graph` canonical Scripture/chunking corpus is scoped to the 66-book canon; non-66/front-matter/glossary material must be excluded by future isolated work; no raw/canonical mutation, output change, evaluator change, scorecard change, or boundary-repo import occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -122,6 +122,16 @@
 > `implementation_allowed: false` and `output_change_authorized: false`. T319 does not add reviewed
 > gold, approve pending packets, change evaluator policy, change chunk output, mutate raw/canonical
 > data, change runtime skill code, or authorize output-changing work.
+
+> **T327A forensic canonical corpus scope audit (2026-06-08):** Owner decision recorded:
+> `logos-scripture-graph` canonical Scripture/chunking scope is the 66-book canon. The current raw
+> WEB archive has 83 USFM files: 66 canonical files, 15 deuterocanonical/apocrypha/non-66 files,
+> front matter, and glossary. Current generated passages/witnesses contain 81 books and 6,955
+> excluded non-66 records; local generated chunk variants and committed scorecards/leaderboard
+> lineage were produced against the wider corpus. T327A is audit/planning only: no raw/canonical
+> data, generated output, parser/chunker/orchestrator/evaluator behavior, scorecards, or boundary
+> repo content changed. Next: T327B explicit 66-book allow-list / ingest filter before any
+> T320/T325/T326 implementation work continues.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

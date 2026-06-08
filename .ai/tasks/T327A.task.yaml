@@ -1,0 +1,47 @@
+id: T327A
+phase: phase_4
+title: "Forensic Canonical Corpus Scope Audit"
+mode: plan
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T327A_FORENSIC_CANONICAL_CORPUS_SCOPE_AUDIT.md
+    - docs/roadmap/CANONICAL_66_BOOK_SCOPE_POLICY.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/METHODOLOGY_UPDATE_RULES.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/handoffs/T327A/
+    - .ai/tasks/T327A.task.yaml
+    - ROADMAP_STATE.yaml
+    - tests/test_t327a_canonical_scope_audit.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/chunks/
+    - pipelines/ingest/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Forensic audit document exists."
+  - "66-book scope policy document exists."
+  - "Raw archive, generated canonical outputs, generated chunks, scorecards, gold/stress/index surfaces, and tests are audited."
+  - "Git/PR forensic findings identify suspect commits and inspection commands."
+  - "Future implementation is split into isolated T327B-T327G tasks."
+  - "No raw/canonical/processed/derived data is mutated."
+  - "No parser/chunker/orchestrator/evaluator/leaderboard/runtime behavior is changed."
+  - "No scorecards are changed and leaderboard is not run."
+  - "No boundary repo content is created."
+  - "python scripts/validate_all.py and python -m pytest -q green."
+required_handoff: .ai/handoffs/T327A/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"
