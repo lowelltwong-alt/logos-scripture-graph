@@ -258,6 +258,7 @@ def record_usfm_event(
     if marker in STRUCTURAL_MARKERS:
         boundary = {
             **state.common(),
+            **canonical_book_identity(state),
             "id": f"boundary-claim:{source_file}:{source_line}:{marker}".replace("\\", "/"),
             "type": "BoundaryClaim",
             "passage_id": record["passage_id"],
@@ -277,6 +278,7 @@ def record_usfm_event(
     if marker in HEADING_MARKERS and text:
         heading = {
             **state.common(),
+            **canonical_book_identity(state),
             "id": f"section-heading:{source_file}:{source_line}:{marker}".replace("\\", "/"),
             "type": "SectionHeading",
             "passage_id": record["passage_id"],
@@ -293,20 +295,36 @@ def record_usfm_event(
         state.counts["section_headings"] += 1
 
 
+def canonical_book_identity(state: ImportState) -> dict[str, str]:
+    """Return canonical book identity fields for canonical sidecar records."""
+    if not state.book:
+        return {}
+    osis_b = osis_book(state.book)
+    return {"book": osis_b, "osis_book": osis_b, "usfm_book": state.book}
+
+
+def attach_book_identity(state: ImportState, record: dict[str, Any]) -> dict[str, Any]:
+    """Add book identity to canonical sidecars that may not have a verse scope."""
+    return {**canonical_book_identity(state), **record}
+
+
 def write_inline_sidecars(
     state: ImportState,
     writers: dict[str, JsonlWriter],
     result: Any,
 ) -> None:
     for token in result.word_tokens:
+        token = attach_book_identity(state, token)
         state.unique(token)
         writers["word_tokens"].write(token)
         state.counts["word_tokens"] += 1
     for footnote in result.footnotes:
+        footnote = attach_book_identity(state, footnote)
         state.unique(footnote)
         writers["footnotes"].write(footnote)
         state.counts["footnotes"] += 1
     for crossref in result.crossrefs:
+        crossref = attach_book_identity(state, crossref)
         state.unique(crossref)
         writers["editorial_crossrefs"].write(crossref)
         state.counts["editorial_crossrefs"] += 1

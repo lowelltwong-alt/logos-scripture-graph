@@ -26,6 +26,11 @@ SMALL_CANON = [
     CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
     CANON_DIR / "translations" / "eng-web" / "glossary_entries.jsonl",
 ]
+CANON_SCOPE_FILES = [
+    *SMALL_CANON,
+    CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl",
+]
 
 
 def build_gates() -> list[tuple[str, list[str]]]:
@@ -47,6 +52,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
     gold_dir = ROOT / "eval" / "chunking_gold" / "per_form"
     if gold_dir.exists():
         gates.append(("validate_chunking_gold.py", [PY, str(ROOT / "scripts" / "validate_chunking_gold.py")]))
+    scope_present = [p for p in CANON_SCOPE_FILES if p.exists()]
+    if scope_present:
+        scope_cmd = [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py"), *[str(p) for p in scope_present]]
+        gates.append(("validate_canonical_66_scope.py (canonical)", scope_cmd))
     present = [p for p in SMALL_CANON if p.exists()]
     if present:
         cmd = [PY, str(ROOT / "scripts" / "validate_jsonl.py"), "--require-canon", *[str(p) for p in present]]

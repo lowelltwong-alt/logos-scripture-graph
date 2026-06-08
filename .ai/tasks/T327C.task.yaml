@@ -1,0 +1,45 @@
+id: T327C
+phase: phase_4
+title: "Regenerate Canonical 66 Outputs"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - data/canonical/
+    - pipelines/ingest/usfm_importer.py
+    - scripts/validate_all.py
+    - .github/workflows/validate.yml
+    - tests/test_t327b_canonical_66_ingest_filter.py
+    - .ai/control/DATA_MAP.md
+    - docs/roadmap/T327C_REGENERATE_CANONICAL_66_OUTPUTS.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/handoffs/T327C/
+    - .ai/tasks/T327C.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/derived/chunks/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - eval/chunking_gold/
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Canonical outputs are regenerated with --canonical-66-filter."
+  - "Canonical passage/witness outputs contain exactly 66 books."
+  - "Non-66/deuterocanonical/apocrypha records are removed from generated canonical outputs."
+  - "FRT and GLO are excluded from canonical Scripture content."
+  - "Canonical-scope validation passes across regenerated canonical JSONL outputs and sidecars."
+  - "No raw source data is mutated."
+  - "No chunks, evaluator formula, leaderboard, scorecards, gold/stress/index surfaces, or boundary repo content are changed."
+  - "T327D/E/F/G are not started."
+required_handoff: .ai/handoffs/T327C/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"
