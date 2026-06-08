@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-08
-**Updated by:** T327A2 boundary governance stop rules (Codex)
-**Active task:** -> **T327A2** boundary governance stop rules completed as governance/routing documentation; boundary-originated requests that conflict with governance-layer policy, canonical Scripture authority, repository-link contracts, routing policy, trust hierarchy, or canonical scope must stop and require explicit Lowell Wong owner authorization in the higher-authority repo; no data mutation, output change, evaluator change, scorecard change, text import, or T327B work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327B canonical 66-book ingest filter (Codex)
+**Active task:** -> **T327B** canonical 66-book ingest filter completed as mechanism-only corpus-scope correction; T327A.1/T327A.2 guardrails are live on main; added a 66-book allow-list, explicit importer filter flag for future T327C regeneration, config validator, and synthetic tests; no raw/canonical data mutation, output regeneration, chunk regeneration, evaluator change, scorecard/leaderboard change, text import, T327C/D/E/F/G work, or chunking improvement claim occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -154,6 +154,17 @@
 > consensus, contributor volume, automated recommendation, agent routing, and boundary-layer
 > operational need are not sufficient authority. No data, output, evaluator, scorecard, runtime,
 > text-import, or T327B work occurred.
+
+> **T327B canonical 66-book ingest filter (2026-06-08):** Confirmed T327A.1 routing guardrails and
+> T327A.2 stop-rule mirror are live on main, then added `config/canon/canonical_66_books.yaml`,
+> `pipelines/util/canonical_scope.py`, and `scripts/validate_canonical_66_scope.py`. Future WEB
+> USFM importer now has an explicit `--canonical-66-filter` flag that gates canonical passages,
+> witnesses, and canonical sidecars to the owner-approved 66-book allow-list while preserving raw
+> USFM event observation. Existing generated outputs may still contain non-66 records until T327C
+> regeneration. T327D handles chunks,
+> scorecards, leaderboard, and score language; T327E cleans gold/stress/review packet surfaces. No
+> raw/canonical data, generated output, chunks, evaluator formula, leaderboard, scorecards, source
+> texts, or T327C/D/E/F/G work changed.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

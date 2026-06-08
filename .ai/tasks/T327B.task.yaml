@@ -1,0 +1,47 @@
+id: T327B
+phase: phase_4
+title: "Canonical 66-Book Ingest Filter"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - config/canon/canonical_66_books.yaml
+    - pipelines/util/canonical_scope.py
+    - pipelines/ingest/usfm_importer.py
+    - scripts/validate_canonical_66_scope.py
+    - scripts/validate_all.py
+    - tests/test_t327b_canonical_66_ingest_filter.py
+    - tests/test_web_usfm_feature_extraction.py
+    - docs/roadmap/T327B_CANONICAL_66_INGEST_FILTER.md
+    - docs/roadmap/CANONICAL_66_BOOK_SCOPE_POLICY.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/handoffs/T327B/
+    - .ai/tasks/T327B.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/chunks/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Canonical 66-book allow-list exists and contains exactly 66 unique books."
+  - "FRT, GLO, and known non-66 books are explicitly excluded."
+  - "Synthetic mixed inputs filter to canonical-only records."
+  - "Synthetic validation fails closed when non-66 records appear in canonical-output samples."
+  - "Existing generated data is not used as the failing condition until T327C."
+  - "No raw/canonical/processed/derived data is mutated."
+  - "No chunks, evaluator formula, leaderboard, scorecards, or source texts are changed."
+required_handoff: .ai/handoffs/T327B/handoff.md
+created_at: "2026-06-08"
+updated_at: "2026-06-08"

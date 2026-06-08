@@ -168,3 +168,10 @@ Future implementation must be isolated:
 
 Any score movement after filtering is corpus-scope correction, not chunking
 improvement.
+
+## T327B Implementation Note
+
+T327B adds the canonical 66-book allow-list and ingest/build filter mechanism only. Existing
+generated outputs may still contain non-66 records until T327C regeneration. T327D handles
+chunks, scorecards, leaderboard, and score language. T327E cleans gold/stress/review packet
+surfaces.

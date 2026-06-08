@@ -34,6 +34,7 @@ from pipelines.ingest.usfm_inline_parser import (  # noqa: E402
 )
 from pipelines.util.usfm_to_osis import osis_book, osis_ref  # noqa: E402
 from pipelines.util.canon import canon_profiles, testament  # noqa: E402
+from pipelines.util.canonical_scope import is_canonical_66_book  # noqa: E402
 
 BOOK_RE = re.compile(r"^\\id\s+(?P<book>\S+)")
 MARKER_RE = re.compile(r"^\\(?P<marker>[A-Za-z0-9]+)\s*(?P<body>.*)$")
@@ -102,9 +103,10 @@ class JsonlWriter:
 
 
 class ImportState:
-    def __init__(self, archive: Path, source_sha256: str):
+    def __init__(self, archive: Path, source_sha256: str, canonical_66_filter_enabled: bool = False):
         self.archive = archive
         self.source_sha256 = source_sha256
+        self.canonical_66_filter_enabled = canonical_66_filter_enabled
         self.parser = InlineParser()
         self.book: str | None = None
         self.chapter: int | None = None
@@ -251,6 +253,8 @@ def record_usfm_event(
     state.unique(record)
     writers["usfm_events"].write(record)
     state.counts["usfm_events"] += 1
+    if state.canonical_66_filter_enabled and not is_canonical_66_book(state.book):
+        return
     if marker in STRUCTURAL_MARKERS:
         boundary = {
             **state.common(),
@@ -504,12 +508,18 @@ def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_
                 state.unsupported_samples["v"].append(raw_line)
                 continue
             verse = int(verse_match.group("verse"))
-            if state.book not in CONTENT_EXCLUDE:
+            if (
+                is_canonical_66_book(state.book)
+                if state.canonical_66_filter_enabled
+                else state.book not in CONTENT_EXCLUDE
+            ):
                 start_verse(state, verse, source_file, source_line)
                 append_verse_text(state, writers, verse_match.group("text"), source_file, source_line)
             record_usfm_event(state, writers, marker, raw_line, source_file, source_line, verse_match.group("text"))
             continue
         record_usfm_event(state, writers, marker, raw_line, source_file, source_line, body)
+        if state.canonical_66_filter_enabled and not is_canonical_66_book(state.book):
+            continue
         if marker == "ili" and state.book == "GLO":
             parse_glossary_line(state, writers, raw_line, source_file, source_line, body)
         will_append_to_verse = marker in STRUCTURAL_MARKERS and body and state.current
@@ -615,6 +625,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--processed-root", default="data/processed/bible/eng-web/usfm")
     parser.add_argument("--out", help="Compatibility alias for --processed-root")
     parser.add_argument("--skip-sha-check", action="store_true", help="Only for local fixtures in tests.")
+    parser.add_argument(
+        "--canonical-66-filter",
+        action="store_true",
+        help=(
+            "Apply the T327B 66-book canonical-output filter. T327C owns regeneration "
+            "of existing canonical outputs with this flag."
+        ),
+    )
     args = parser.parse_args(argv)
 
     default_archive = (ROOT / SOURCE_ARCHIVE).resolve()
@@ -639,7 +657,7 @@ def main(argv: list[str] | None = None) -> int:
         if source_sha.lower() != expected_sha.lower():
             raise SystemExit(f"Unexpected archive SHA256: {source_sha} (expected {expected_sha})")
 
-    state = ImportState(archive, source_sha)
+    state = ImportState(archive, source_sha, canonical_66_filter_enabled=args.canonical_66_filter)
     extraction_entries = safe_extract_archive(archive, processed_root / "extracted")
     writers = build_writers(canonical_root, processed_root)
     try:
