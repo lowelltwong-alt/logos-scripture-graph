@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-08
-**Updated by:** T327D canonical 66 chunk baseline reset (Codex)
-**Active task:** -> **T327D** canonical 66 chunk baseline reset completed as corpus-scope correction; regenerated D / Claude pass2 chunks from corrected 66-book canonical outputs in ignored derived space, updated chunk SHA from `8c134378e6391be2034c9e534267df218f5dd20b04970b55660aae128c86c5e7` to `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, chunk count from 1,374 to 1,131, token p50 from 729 to 728, and score row from pre-T327 wider-corpus 93.5 to post-T327 canonical-66 93.6; this is baseline reset / corpus-scope correction, not chunking improvement; no raw mutation, canonical passage/witness mutation, evaluator formula change, chunking algorithm change, boundary repo work, T327E/F/G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-09
+**Updated by:** T327E old-corpus eval surface cleanup (Codex)
+**Active task:** -> **T327E** old-corpus eval surface cleanup completed as corpus-scope baseline cleanup; stress-atlas and observed-audit baseline language now points to the post-T327 canonical-66 D / Claude pass2 93.6 baseline, the T318 observed audit is explicitly labeled as historical pre-T327 diagnostic evidence requiring refresh before implementation, and the Psalm candidate skill metadata/docs now keep only canonical `Song`/`Lam` as non-target controls while stating `PrMan`/`Ps151` must not be reintroduced as canonical controls; no raw mutation, canonical passage/witness mutation, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard scoring change, boundary repo work, T327F/G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -203,6 +203,18 @@
 > not chunking improvement. No raw data, canonical passage/witness outputs, evaluator formula,
 > chunking algorithm, boundary repo, T327E/F/G, or text import work occurred. T327E owns broader
 > gold/stress/observed/index cleanup.
+
+> **T327E old-corpus eval surface cleanup (2026-06-09):** Searched old-corpus terms across
+> gold/stress/observed/review-packet/governance surfaces and classified occurrences as active
+> controls, stale baseline language, historical audit/provenance, exclusion tests, boundary-routing
+> policy, or unclear review. Updated stress-atlas baseline wording to the post-T327 canonical-66
+> 93.6 baseline, labeled the T318 observed audit as historical pre-T327 wider-corpus diagnostic
+> evidence rather than current post-T327 behavior, and updated the Psalm candidate skill docs/metadata
+> so active canonical non-target controls are only `Song` and `Lam`. Historical T327A/T327B/T327C
+> audit evidence, exclusion tests/config, raw source inventories, and boundary-routing policy were
+> preserved. This is corpus-scope cleanup, not chunking improvement. No raw data, canonical
+> passage/witness outputs, chunk regeneration, evaluator formula, chunking algorithm, leaderboard
+> scoring, boundary repo, T327F/G, or text import work occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

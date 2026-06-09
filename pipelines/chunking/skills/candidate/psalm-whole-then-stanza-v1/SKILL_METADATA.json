@@ -12,7 +12,7 @@
   "role": "behavior_preserving_extraction_seam",
   "handles_forms": ["psalm_whole"],
   "handles_books": ["Ps"],
-  "excluded_books": ["Song", "Lam", "PrMan", "Ps151"],
+  "excluded_books": ["Song", "Lam"],
   "handles_overlays": ["superscription_attached", "selah_rubric", "footnote_carry", "crossref_carry", "lexeme_alignment"],
   "source_profiles": ["eng-web_usfm"],
   "entrypoint": "pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/algorithm.py",
@@ -42,10 +42,13 @@
   "eval": {
     "scorecard_dir": "eval/chunking_runs",
     "leaderboard_ref": "eval/LEADERBOARD.md",
-    "baseline_composite_score": 93.0,
+    "baseline_composite_score": 93.6,
+    "corpus_baseline": "post_t327_canonical_66_corpus",
+    "pre_t327_t314_baseline_composite_score": 93.5,
+    "t311_book_chapter_baseline_composite_score": 93.0,
     "old_evaluator_baseline_composite_score": 88.5,
-    "evaluator_metric_version": "psalm-fragmentation-book-chapter-v2",
-    "score_provenance": "Same D_claude_pass2 chunk output; T311 corrected Psalm fragmentation grouping from bare chapter to (book, chapter).",
+    "evaluator_metric_version": "psalm-fragmentation-reviewed-structural-split-v3",
+    "score_provenance": "T327D resets the D_claude_pass2 baseline to the post-T327 canonical-66 corpus at 93.6; movement from the pre-T327 93.5 wider-corpus row is corpus-scope correction / baseline reset, not chunking improvement. T311/T314 remain evaluator-policy corrections.",
     "quality_improvement_claimed": false
   },
   "quality": {
@@ -69,6 +72,6 @@
   "approval_required": true,
   "recommended_update_policy": "human_gate",
   "created_at": "2026-06-05T00:00:00+00:00",
-  "updated_at": "2026-06-05T00:00:00+00:00",
-  "notes": "Increment 3a candidate seam. Delegates to monolith Psalm behavior and must remain byte-identical; no scoring improvement claimed. Corrected evaluator baseline is 93.0; 88.5 was the old evaluator baseline."
+  "updated_at": "2026-06-09T00:00:00+00:00",
+  "notes": "Increment 3a candidate seam. Delegates to monolith Psalm behavior and must remain byte-identical; no scoring improvement claimed. Post-T327 canonical-66 baseline is 93.6. Song and Lam remain canonical non-target controls; PrMan and Ps151 were removed from canonical controls because they are outside the owner-approved 66-book corpus."
 }

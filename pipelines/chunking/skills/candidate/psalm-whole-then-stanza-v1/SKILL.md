@@ -18,8 +18,10 @@ without changing output.
 
 - Form: `psalm_whole`
 - Source book: literal `Ps` only
-- Non-target poetry books (`Song`, `Lam`, `PrMan`, `Ps151`) remain on
-  `monolith-pass2-v1` during Increment 3a.
+- Canonical non-target poetry books (`Song`, `Lam`) remain on
+  `monolith-pass2-v1` during Increment 3a. T327D/T327E removed `PrMan` and
+  `Ps151` from canonical controls because they are outside the owner-approved
+  66-book corpus.
 
 ## Method
 
@@ -37,6 +39,8 @@ literal Psalms. Route facts live only in the route ledger.
 
 - Do not consume `detect_form` output.
 - Do not route all `genre == "psalms"` material.
-- Do not route `Song`, `Lam`, `PrMan`, or `Ps151`.
+- Do not route `Song` or `Lam`.
+- Do not reintroduce `PrMan`, `Ps151`, or other non-66 material as canonical
+  controls.
 - Do not add route metadata to chunk/context records.
 - Do not claim quality improvement.

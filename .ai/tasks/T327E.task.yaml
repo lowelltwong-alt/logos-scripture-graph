@@ -1,0 +1,38 @@
+id: T327E
+phase: phase_4
+title: "Clean Old-Corpus Eval Surfaces"
+mode: cleanup
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - eval/chunking_gold/stress_atlas/
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/SKILL.md
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/SKILL_METADATA.json
+    - docs/roadmap/T327E_CLEAN_OLD_CORPUS_EVAL_SURFACES.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/handoffs/T327E/
+    - .ai/tasks/T327E.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/chunks/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Residual pre-T327 wider-corpus references in live eval/governance surfaces are removed or relabeled."
+  - "Historical T327A/T327B audit and exclusion-test references are preserved."
+  - "PrMan/Ps151/non-66 material does not remain as a live canonical control."
+  - "Observed stress behavior is not presented as current post-T327 behavior unless regenerated."
+  - "No raw data, canonical passage/witness outputs, chunk regeneration, evaluator formula, or chunking algorithm changes occur."
+  - "T327F/G are not started."
+required_handoff: .ai/handoffs/T327E/handoff.md
+created_at: "2026-06-09"
+updated_at: "2026-06-09"
