@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T327E old-corpus eval surface cleanup (Codex)
-**Active task:** -> **T327E** old-corpus eval surface cleanup completed as corpus-scope baseline cleanup; stress-atlas and observed-audit baseline language now points to the post-T327 canonical-66 D / Claude pass2 93.6 baseline, the T318 observed audit is explicitly labeled as historical pre-T327 diagnostic evidence requiring refresh before implementation, and the Psalm candidate skill metadata/docs now keep only canonical `Song`/`Lam` as non-target controls while stating `PrMan`/`Ps151` must not be reintroduced as canonical controls; no raw mutation, canonical passage/witness mutation, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard scoring change, boundary repo work, T327F/G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T327F boundary source intake planning (Codex)
+**Active task:** -> **T327F** boundary source intake planning completed after T327E post-merge verification passed; added Scripture-side planning doc and machine-readable control metadata for future `logos-boundary-literature` source intake, with imports/downloads/corpus records/canonical overrides all disallowed and future intake gated on owner authorization, source/license/provenance review, trust hierarchy, tradition-scoped canon status, contamination controls, and a separate boundary-repo PR; no raw mutation, canonical passage/witness mutation, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary repo work, T327G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -215,6 +215,20 @@
 > preserved. This is corpus-scope cleanup, not chunking improvement. No raw data, canonical
 > passage/witness outputs, chunk regeneration, evaluator formula, chunking algorithm, leaderboard
 > scoring, boundary repo, T327F/G, or text import work occurred.
+
+> **T327F boundary source intake planning (2026-06-09):** Verified T327E PR #31 was merged, commit
+> `a20aefb` was present on `main`, CI validate succeeded, and the working tree had no merge/rebase
+> state before starting T327F. Added `docs/roadmap/T327F_BOUNDARY_SOURCE_INTAKE_PLANNING.md` and
+> `.ai/control/boundary_source_intake_plan.yaml` as planning-only surfaces for future
+> `logos-boundary-literature` source intake. Candidate source families include
+> deuterocanonical/apocrypha, noncanonical boundary literature, gnostic/heterodox texts,
+> disputed/forged/fake texts, commentary/reception corpora, Josephus/Philo/DSS/Qumran/patristic
+> corpora, and front matter/glossary artifacts as non-Scripture supporting material. T327F authorizes
+> no imports, downloads, boundary corpus records, raw/canonical mutation, chunk regeneration,
+> evaluator/chunker/orchestrator changes, leaderboard/scorecard changes, boundary repo edits, or
+> T327G work. Future intake requires owner authorization, source/license/provenance controls,
+> trust hierarchy, tradition-scoped canon status, contamination tests, and a separate boundary-repo
+> PR.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
