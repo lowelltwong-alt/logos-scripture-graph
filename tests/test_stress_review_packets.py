@@ -12,6 +12,8 @@ PENDING_PACKETS = {
     "john7_53_8_11_textual_variant_review.md": "john7_53_8_11_pericope_adulterae",
     "john3_wj_speaker_boundary_review.md": "john3_wj_speaker_boundary",
     "matt5_7_wj_discourse_review.md": "matt5_7_sermon_on_mount_wj_discourse",
+    "ps89_boundary_review.md": "ps89_royal_lament",
+    "ps136_boundary_review.md": "ps136_refrain_litany",
 }
 
 REVIEWED_WHOLE_PSALM_PACKETS = {

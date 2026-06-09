@@ -56,6 +56,8 @@ REVIEWED_CURRENT_BEHAVIOR_CASES = {
 }
 
 PENDING_REVIEW_CASES = {
+    "ps89_royal_lament",
+    "ps136_refrain_litany",
     "isa52_13_53_12_servant_song",
     "mark16_9_20_longer_ending",
     "john7_53_8_11_pericope_adulterae",

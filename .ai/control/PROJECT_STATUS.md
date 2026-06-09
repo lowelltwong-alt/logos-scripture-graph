@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T334 T333 Psalm guardrail evaluation (Codex)
-**Active task:** -> **T334** same-baseline evaluation of merged T333 completed after PR #39 was verified merged into `main` at merge commit `ade6f26`, with implementation commit `3bb9396` present and no merge/rebase state. T334 documents that T333 kept the Psalm candidate skill as a monolith-delegating same-baseline guardrail: no default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, boundary corpus record, broad rewrite, or T327G work occurred. Focused tests now assert exact delegation, literal-Psalm-only guardrail scope, no `PrMan`/`Ps151` controls, reviewed Psalm evidence refs, and no quality-improvement claim; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T335 reviewed Psalm stress/gold coverage expansion (Codex)
+**Active task:** -> **T335** expanded Psalm stress/gold coverage after PR #40 / T334 was verified merged into `main` at merge commit `4f9ce2`, with T334 commit `a748cf3` present and no merge/rebase state. T335 adds pending, non-authorizing Psalm review packets for Ps.89 and Ps.136 and wires matching pending status through the Psalm manifest, stress observed behavior surface, review-packet index, coverage inventory, roadmap note, and focused tests. No reviewed gold was promoted; no future behavior-changing work is authorized by T335 alone. No default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, boundary corpus record, broad rewrite, or T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T335 reviewed Psalm stress/gold coverage expansion (2026-06-09):** Verified PR #40 / T334 was
+> merged into `main`, merge commit `4f9ce2` is present, T334 commit `a748cf3` is present, and no
+> merge/rebase state existed before starting. Added pending human-review packets for `Ps.89.1-52`
+> and `Ps.136.1-26` as characterization-only, non-authorizing Psalm stress/gold coverage. The
+> Psalm manifest, gold plan, coverage inventory, observed stress behavior, review-packet index, and
+> tests now agree that these cases are pending review, `implementation_allowed: false`, and
+> `output_change_authorized: false`. Marker/refrain evidence remains evidence only; no new reviewed
+> gold, output-changing authorization, chunk output/default behavior change, evaluator formula
+> change, leaderboard/scorecard change, raw/canonical/generated mutation, source import, boundary
+> import, or T327G work occurred. Next safe lane: human review may promote a specific Psalm packet
+> with exact spans before any behavior-changing T336 work.
 
 > **T334 T333 Psalm guardrail evaluation (2026-06-09):** Verified PR #39 / T333 was merged into
 > `main`, commit `3bb9396` is present, GitHub validate succeeded, `main` fast-forwarded cleanly,

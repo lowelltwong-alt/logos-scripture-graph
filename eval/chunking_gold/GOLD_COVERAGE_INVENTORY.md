@@ -134,6 +134,20 @@ T316c adds proposed stress cases for USFM marker-sensitive review:
 These are not reviewed gold, not approved expected output, and not authorization for
 output-changing work.
 
+## T335 Pending Psalm Review Packets
+
+T335 adds two Psalm-only pending review packets and manifest characterization entries. They expand
+the review queue for future Psalm behavior selection but do not promote reviewed gold or authorize
+output-changing work.
+
+| Case | Packet | Status | Current evidence summary |
+| --- | --- | --- | --- |
+| Ps.89 | `eval/chunking_gold/review_packets/ps89_boundary_review.md` | `pending_human_review` / characterization-only | Long royal/lament Psalm; T318 historical observation kept it as one 823-token chunk with `q1`, `q2`, `b`, and `qs` / Selah evidence. |
+| Ps.136 | `eval/chunking_gold/review_packets/ps136_boundary_review.md` | `pending_human_review` / characterization-only | Refrain-driven litany Psalm; T318 historical observation kept it as one 346-token chunk with refrain/form evidence. |
+
+Both packets require a fresh human decision and exact expected spans before any chunker, evaluator,
+or skill behavior can change. Marker evidence remains evidence, not automatic boundary authority.
+
 ## T318 Observed Stress Behavior Audit
 
 T318 adds a diagnostic-only observed behavior audit for every stress-atlas case:

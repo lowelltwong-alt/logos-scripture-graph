@@ -31,6 +31,29 @@ def test_current_psalms_gold_manifest_validates() -> None:
     assert validate_manifest(PSALMS_MANIFEST) == []
 
 
+def test_t335_pending_psalm_cases_are_non_authorizing() -> None:
+    manifest = _base_manifest()
+    pending_cases = {
+        case["case_id"]: case
+        for case in manifest["characterization_only"]
+        if case["case_id"] in {
+            "ps89_royal_lament_pending_review",
+            "ps136_refrain_litany_pending_review",
+        }
+    }
+
+    assert set(pending_cases) == {
+        "ps89_royal_lament_pending_review",
+        "ps136_refrain_litany_pending_review",
+    }
+    for case in pending_cases.values():
+        assert case["status"] == "pending_human_review"
+        assert case["implementation_allowed"] is False
+        assert case["output_change_authorized"] is False
+        assert "PrMan" not in json.dumps(case)
+        assert "Ps151" not in json.dumps(case)
+
+
 def test_reviewed_case_requires_explicit_status(tmp_path: Path) -> None:
     manifest = _base_manifest()
     del manifest["reviewed_gold"][0]["status"]

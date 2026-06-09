@@ -12,8 +12,8 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 - Fully contained in one current chunk: 16
 - Split across current chunks: 25
 - Mixed with extra context: 34
-- Needs review packet: 25
-- Review packet pending: 6
+- Needs review packet: 23
+- Review packet pending: 8
 - Reviewed gold preserving current behavior: 2
 - Variant-policy required: 2
 - Speaker-review required: 5
@@ -39,10 +39,10 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 
 | Case | Passage | Status | Chunks | Fully contained | Split | Mixed extra context | Review | Next |
 | --- | --- | --- | ---: | --- | --- | --- | --- | --- |
-| `ps89_royal_lament` | Ps.89 | `needs_review_packet` | 1 | true | false | false | `none` | `create_review_packet` |
+| `ps89_royal_lament` | Ps.89 | `review_packet_pending` | 1 | true | false | false | `pending_human_review` | `await_human_review` |
 | `ps105_historical_psalm` | Ps.105 | `reviewed_gold_preserves_current_behavior` | 1 | true | false | false | `reviewed_gold` | `none_current_behavior_acceptable` |
 | `ps106_historical_confession` | Ps.106 | `reviewed_gold_preserves_current_behavior` | 1 | true | false | false | `reviewed_gold` | `none_current_behavior_acceptable` |
-| `ps136_refrain_litany` | Ps.136 | `needs_review_packet` | 1 | true | false | false | `none` | `create_review_packet` |
+| `ps136_refrain_litany` | Ps.136 | `review_packet_pending` | 1 | true | false | false | `pending_human_review` | `await_human_review` |
 | `lam1_4_acrostic_poems` | Lam.1-Lam.4 | `needs_review_packet` | 4 | false | true | false | `none` | `create_review_packet` |
 | `prov31_10_31_acrostic_woman` | Prov.31.10-31 | `needs_review_packet` | 2 | false | true | true | `none` | `create_review_packet` |
 | `job38_41_divine_speeches` | Job.38-Job.41 | `needs_review_packet` | 5 | false | true | true | `none` | `create_review_packet` |
