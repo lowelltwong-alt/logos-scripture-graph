@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T331 post-T327 chunking backlog reset (Codex)
-**Active task:** -> **T331** post-T327 chunking backlog reset completed after T327F/T328/T330 post-merge verification passed; added planning-only `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` to anchor the canonical-66 corpus baseline, T327D chunk baseline, candidate future chunking work areas, and recommended T332-T335 sequence; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T328B workflow rules registry lessons (Codex)
+**Active task:** -> **T328B** workflow rules registry lessons completed after current `main` was verified clean; committed uploaded `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` and lightweight pointers/status surfaces. This is docs/control-plane only: no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -267,6 +267,16 @@
 > T314 policy), what T327 fixed, what it did not improve, candidate future chunking areas, and the
 > recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
 > mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
+
+> **T328B workflow rules registry lessons (2026-06-09):** Added
+> `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` from the uploaded v0.3 T327 lessons
+> artifact and linked it from the workflow lesson collector, chunking methodology, and AI table of
+> contents. The registry records `RULE-META-001`, `CHUNK-CANON-001`, T327 corpus-scope rules,
+> boundary intake/governance stop rules, `WORKFLOW-EXCEPTION-001`, and LawFirm transfer patterns.
+> T327 root-cause lesson: semantic rules are insufficient without deterministic ingest/filter/
+> validation architecture; raw source scope must not silently become canonical output scope. T328B
+> is docs/control-plane only and authorizes no raw/canonical/generated/chunk/evaluator/runtime/
+> scorecard/source-import/boundary-import/T327G work.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

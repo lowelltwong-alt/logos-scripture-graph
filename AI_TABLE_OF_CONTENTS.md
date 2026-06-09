@@ -46,6 +46,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
+- [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)
 - [`docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`](docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
 - [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
