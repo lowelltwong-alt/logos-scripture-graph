@@ -33,6 +33,18 @@ If an agent determines the roadmap is wrong, it may propose a correction, but mu
 - migration path
 - handoff explanation
 
+## Unintended-consequence review rule
+
+For high-leverage roadmap, authority, routing, evaluator, default-behavior, corpus-scope,
+generated-artifact, automation, cross-repo, workflow-rule, or master-chunker changes, run the
+unintended-consequence review in `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md` before merge.
+
+The required question is:
+
+```text
+What could this change accidentally authorize, weaken, contaminate, overfit, globalize, or make harder to reverse?
+```
+
 ## Workflow lesson rule
 
 When a roadmap change exposes a reusable generated-artifact, boundary-intake, candidate-promotion,

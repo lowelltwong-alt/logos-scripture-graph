@@ -18,6 +18,10 @@ python scripts/agent/force_handoff.py --task-id <ID> --agent <NAME> --stage star
 
 Agents may only modify files allowed by the task. Architecture changes require an ADR.
 
+For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated-artifact,
+automation, cross-repo, workflow-rule, or master-chunker changes, run the unintended-consequence
+review in `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md` before merge.
+
 ## Step 5: Validate
 
 Run:

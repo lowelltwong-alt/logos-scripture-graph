@@ -44,6 +44,33 @@ Applies to:
 - Agent harness outputs.
 - Any system where generated artifacts are not committed as source truth.
 
+## WORKFLOW-LESSON-002 - High-Leverage Changes Need an Unintended-Consequence Map
+
+For roadmap, authority, routing, evaluator, chunker, generated-artifact, default-retrieval,
+master-chunker, or automation changes, success is not only "does the intended change work?" The
+agent must also ask what the change might accidentally authorize, weaken, contaminate, overfit,
+globalize, or make harder to reverse.
+
+Required question: What could this change accidentally authorize, weaken, contaminate, overfit, globalize, or make harder to reverse?
+
+The answer must be recorded as an unintended-consequence map with:
+
+- confirmed risks;
+- plausible risks;
+- unlikely but high-impact risks;
+- watch-later conditions;
+- tests or guards needed;
+- owner decisions needed.
+
+This applies to:
+
+- canonical Scripture chunking;
+- boundary/noncanonical routing;
+- Revelation and other hard-book atlas lanes;
+- future master-chunker extraction;
+- LawFirm exception-to-automation workflows;
+- cross-repo governance changes.
+
 ## T327-LESSON-001 - Untracked Generated Outputs Move the Burden to Generator and CI
 
 T327C showed that `data/canonical/**` can be intentionally gitignored generated output. In that

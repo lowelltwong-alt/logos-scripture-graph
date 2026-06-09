@@ -146,7 +146,10 @@ or treat route metadata as chunk/context content.
 21. Keep future boundary/noncanonical/legal/commentary/master-chunker adaptations subordinate to
     canonical Bible chunking; split or rebuild a separate harness if adaptation would degrade the
     Bible chunker.
-22. Repeat for next form.
+22. Run the unintended-consequence review gate for high-leverage roadmap, authority, routing,
+    evaluator, default-retrieval, generated-artifact, automation, cross-repo, or master-chunker
+    changes.
+23. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -515,6 +518,22 @@ Rules:
   from and subordinate/non-superior to canonical Bible chunking.
 - If adaptation for boundary or noncanonical material would degrade canonical Bible chunking, split
   or rebuild a separate chunker/harness rather than compromising the Bible chunker.
+- A future master chunker must not use a single shared cross-corpus optimization objective across
+  Bible and non-Bible corpora.
+- Non-Bible training/eval cases must not tune canonical Bible behavior.
+
+## 10m. Unintended-consequence review gate
+
+High-leverage changes require an unintended-consequence map before merge. Ask:
+
+```text
+What could this change accidentally authorize, weaken, contaminate, overfit, globalize, or make harder to reverse?
+```
+
+Record confirmed risks, plausible risks, unlikely but high-impact risks, watch-later conditions,
+tests or guards needed, and owner decisions needed. The full methodology lives in
+[`UNINTENDED_CONSEQUENCE_REVIEW.md`](UNINTENDED_CONSEQUENCE_REVIEW.md), and the named registry rule
+is `RISK-GATE-001`.
 
 ## 11. Staleness rules
 
@@ -659,3 +678,6 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
   the highest priority; Psalms are the current implementation lane because evidence and a seam
   exist; Revelation moves early in atlas/review, not implementation; future master/boundary
   chunkers must stay separate if adaptation would degrade Bible chunking.
+- 2026-06-09: Added the T336B unintended-consequence review gate. High-leverage changes now need a
+  risk map before merge, and future master chunkers must not optimize canonical Bible behavior
+  against non-Bible training/eval cases or a shared cross-corpus objective.
