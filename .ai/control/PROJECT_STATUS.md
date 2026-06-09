@@ -5,8 +5,9 @@
 **Active task:** -> **T336** optimized the post-T327 whole-Bible chunking roadmap as roadmap/methodology/control-plane work only. The Bible-first priority is now explicit: the canonical 66-book Bible chunker remains the highest-priority substrate. Psalms remain the current implementation lane because reviewed evidence, stress surfaces, and a candidate skill seam already exist; this does not mean Psalms are harder than Revelation. Revelation is now an early future hard-book atlas/review lane but not an implementation lane until reviewed gold exists. Future boundary/noncanonical/legal/commentary/master-chunker work must remain separate from and subordinate/non-superior to canonical Bible chunking; if adaptation would degrade Bible chunking, split or rebuild a separate chunker/harness. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T336 optimized whole-Bible chunking roadmap (2026-06-09):** Reconstructed current state from
-> `main`, confirmed T336 was unused, confirmed T335 was merged via PR #41, and noted PR #42 as an
-> open T335 follow-up. Added `docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md` and
+> `main`, confirmed T336 was unused, confirmed T335 was merged via PR #41, noted PR #42 as a T335
+> follow-up during original drafting, and later refreshed the PR branch after PR #42 merged. Added
+> `docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md` and
 > concise updates to front-door, TOC, roadmap, roadmap state, prior roadmap docs, methodology, task,
 > status, and handoff surfaces. T336 records the implementation order
 > Psalms -> epistles -> narrative -> wisdom/dialogue -> prophetic oracle -> Gospel discourse/WJ ->
@@ -25,8 +26,11 @@
 > `output_change_authorized: false`. Marker/refrain evidence remains evidence only; no new reviewed
 > gold, output-changing authorization, chunk output/default behavior change, evaluator formula
 > change, leaderboard/scorecard change, raw/canonical/generated mutation, source import, boundary
-> import, or T327G work occurred. Next safe lane: human review may promote a specific Psalm packet
-> with exact spans before any behavior-changing T336 work.
+> import, Revelation implementation, or T327G work occurred. T335 records Revelation only as a
+> future hard-book atlas/review-packet lane: likely higher interpretive risk than Psalms, requiring
+> apocalypse/Revelation-specific review rules and reviewed gold before implementation. Next safe
+> lane: human review may promote a specific Psalm packet with exact spans before any
+> behavior-changing T336 work.
 
 > **T334 T333 Psalm guardrail evaluation (2026-06-09):** Verified PR #39 / T333 was merged into
 > `main`, commit `3bb9396` is present, GitHub validate succeeded, `main` fast-forwarded cleanly,
