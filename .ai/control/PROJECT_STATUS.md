@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T330 canonical corpus QA (Codex)
-**Active task:** -> **T330** canonical corpus QA completed after T328 post-merge verification passed; added read-only `scripts/qa_canonical_corpus.py`, synthetic QA tests, conditional `validate_all` integration, and `docs/roadmap/T330_CANONICAL_CORPUS_QA.md` to verify 66-book generated corpus coherence without regenerating or mutating outputs; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T328 cross-repo lesson mirror prep (Codex)
+**Active task:** -> **T328_MIRROR_PREP** cross-repo lesson mirror prep completed after T332 PR creation and clean `main` restoration; added planning-only `docs/roadmap/T328_CROSS_REPO_LESSON_MIRROR_PREP.md` to prepare future lesson mirrors for governance, boundary, and LawFirm/FMG repos without editing those repos; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -256,6 +256,16 @@
 > only: no raw/canonical mutation, generated output regeneration, chunk regeneration, evaluator
 > formula change, chunker/orchestrator behavior change, leaderboard/scorecard change, boundary
 > import, boundary corpus records, source acquisition, or T327G work occurred.
+
+> **T328 cross-repo lesson mirror prep (2026-06-09):** After T332 PR creation and clean `main`
+> restoration, added `docs/roadmap/T328_CROSS_REPO_LESSON_MIRROR_PREP.md` as planning/reporting
+> only. The report prepares future mirror updates for `logos-governance-architecture`,
+> `logos-boundary-literature`, and the selected LawFirm/FMG repo. It names the lessons to mirror:
+> `WORKFLOW-LESSON-001`, `T327-LESSON-001`, `BOUNDARY-WORKFLOW-LESSON-001`, and
+> `LAW-FIRM-WORKFLOW-LESSON-001`; records repo-by-repo mirror needs, prerequisites, and future task
+> prompts; and states that governance should eventually be the source of truth with child repos
+> mirroring. No other repos were edited, and no raw/canonical/generated/chunk/evaluator/leaderboard/
+> runtime/source-import/boundary-import/T327G work occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
