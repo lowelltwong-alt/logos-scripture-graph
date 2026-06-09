@@ -268,6 +268,27 @@
 > recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
 > mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
 
+> **T332 narrow chunking target selection (2026-06-09):** After T331 PR creation and clean `main`
+> restoration, added `docs/roadmap/T332_SELECT_NARROW_CHUNKING_TARGET.md` as planning/reporting
+> only. Selected **Psalms / poetry stanza behavior** as the single next chunking target because the
+> repo already has the strongest local evidence base there: Psalm gold manifest coverage, reviewed
+> Ps.78 parent/child structural split, reviewed Ps.105/Ps.106 whole-psalm preservation, Psalm 119
+> sectioning precedent, stress/observed Psalm cases, and an existing behavior-preserving candidate
+> Psalm skill seam. T332 rejects broader wisdom, prophetic, narrative, epistle, context-packet,
+> stress-atlas, skill-promotion, and gold-only alternatives for now. Future T333 must cite reviewed
+> target gold or an explicit human-reviewed review packet before output-changing work. T332 made no
+> raw/canonical/generated/chunk/evaluator/leaderboard/runtime/boundary import/T327G changes.
+
+> **T328 cross-repo lesson mirror prep (2026-06-09):** After T332 PR creation and clean `main`
+> restoration, added `docs/roadmap/T328_CROSS_REPO_LESSON_MIRROR_PREP.md` as planning/reporting
+> only. The report prepares future mirror updates for `logos-governance-architecture`,
+> `logos-boundary-literature`, and the selected LawFirm/FMG repo. It names the lessons to mirror:
+> `WORKFLOW-LESSON-001`, `T327-LESSON-001`, `BOUNDARY-WORKFLOW-LESSON-001`, and
+> `LAW-FIRM-WORKFLOW-LESSON-001`; records repo-by-repo mirror needs, prerequisites, and future task
+> prompts; and states that governance should eventually be the source of truth with child repos
+> mirroring. No other repos were edited, and no raw/canonical/generated/chunk/evaluator/leaderboard/
+> runtime/source-import/boundary-import/T327G work occurred.
+
 > **T328B workflow rules registry lessons (2026-06-09):** Added
 > `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` from the uploaded v0.3 T327 lessons
 > artifact and linked it from the workflow lesson collector, chunking methodology, and AI table of

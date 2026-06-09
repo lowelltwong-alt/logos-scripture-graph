@@ -95,4 +95,6 @@
 
 ## Next agent instruction
 
-Review PR `T328B: commit workflow rules registry lessons`; merge if CI/review are green. Do not mutate raw/canonical data, regenerate outputs, change chunks/evaluator/leaderboard/runtime code, import boundary material, or start T327G.
+Review and merge PR #38 if CI/review are green; then proceed to T333 only. Do not mutate
+raw/canonical data, regenerate outputs, change chunks/evaluator/leaderboard/runtime code, import
+boundary material, or start T327G.
