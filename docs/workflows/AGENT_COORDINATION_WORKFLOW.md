@@ -38,3 +38,9 @@ Then edit `.ai/handoffs/<ID>/handoff.md` with exact work performed.
 ## Step 7: Roadmap event
 
 If task status or roadmap changed, append a JSON line to `.ai/control/roadmap_events.jsonl`.
+
+## Step 8: Capture reusable workflow lessons
+
+If the task reveals a reusable lesson about generated artifacts, boundary intake, candidate
+promotion, validation gates, or downstream handoff sequencing, update
+`docs/methodology/WORKFLOW_LESSONS.md` or record a no-change rationale in the handoff.
