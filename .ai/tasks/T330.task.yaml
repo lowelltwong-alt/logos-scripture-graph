@@ -1,0 +1,42 @@
+id: T330
+phase: phase_4
+title: "Canonical Corpus QA"
+mode: qa-reporting
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - scripts/qa_canonical_corpus.py
+    - scripts/validate_all.py
+    - tests/test_qa_canonical_corpus.py
+    - docs/roadmap/T330_CANONICAL_CORPUS_QA.md
+    - AI_TABLE_OF_CONTENTS.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T330/
+    - .ai/tasks/T330.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "T328 post-merge verification passes before T330 starts."
+  - "Canonical corpus QA report document is created."
+  - "Read-only canonical corpus QA script checks generated output coherence."
+  - "QA script is covered by synthetic/read-only tests."
+  - "validate_all integration is conditional on generated canonical outputs being present."
+  - "No raw/canonical/generated/chunk/evaluator/leaderboard/runtime/source-import/T327G work occurs."
+required_handoff: .ai/handoffs/T330/handoff.md
+created_at: "2026-06-09"
+updated_at: "2026-06-09"

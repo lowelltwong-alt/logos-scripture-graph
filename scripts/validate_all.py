@@ -31,6 +31,10 @@ CANON_SCOPE_FILES = [
     CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
     CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl",
 ]
+QA_REQUIRED = [
+    CANON_DIR / "scripture" / "passages" / "passages.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
+]
 
 
 def build_gates() -> list[tuple[str, list[str]]]:
@@ -60,6 +64,11 @@ def build_gates() -> list[tuple[str, list[str]]]:
     if present:
         cmd = [PY, str(ROOT / "scripts" / "validate_jsonl.py"), "--require-canon", *[str(p) for p in present]]
         gates.append(("validate_jsonl.py (canonical)", cmd))
+    if all(path.exists() for path in QA_REQUIRED):
+        qa_cmd = [PY, str(ROOT / "scripts" / "qa_canonical_corpus.py")]
+        if not (CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl").exists():
+            qa_cmd.append("--skip-word-tokens")
+        gates.append(("qa_canonical_corpus.py", qa_cmd))
     return gates
 
 

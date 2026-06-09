@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T328 workflow lesson collector update (Codex)
-**Active task:** -> **T328** workflow lesson collector update completed after T327F post-merge verification passed; added `docs/methodology/WORKFLOW_LESSONS.md` and linked it from workflow/methodology/status surfaces with generated-artifact durability, T327 untracked-output generator/CI, boundary-source intake gating, and LawFirm/FMG exception-to-action analogue lessons; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T330 canonical corpus QA (Codex)
+**Active task:** -> **T330** canonical corpus QA completed after T328 post-merge verification passed; added read-only `scripts/qa_canonical_corpus.py`, synthetic QA tests, conditional `validate_all` integration, and `docs/roadmap/T330_CANONICAL_CORPUS_QA.md` to verify 66-book generated corpus coherence without regenerating or mutating outputs; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -243,6 +243,19 @@
 > T328 is docs/control-plane only and authorizes no raw/canonical mutation, generated output
 > regeneration, chunk regeneration, evaluator/chunker/orchestrator changes, leaderboard/scorecard
 > changes, text import, boundary corpus records, or T327G work.
+
+> **T330 canonical corpus QA (2026-06-09):** Verified T328 PR #33 was merged, commit `8498976` was
+> present on `main`, CI validate succeeded, and the working tree had no merge/rebase state before
+> starting T330. Added `scripts/qa_canonical_corpus.py` as a read-only corpus-health check over
+> existing generated canonical outputs. The QA verifies configured 66-book presence/order,
+> excluded-book absence, no `FRT`/`GLO` Scripture content, passage and witness ID integrity,
+> passage/witness alignment, non-empty witness text except explicitly listed textual-variant empty
+> witnesses, canonical sidecar book identity, glossary non-Scripture handling, and word-token
+> canonical identity. Added synthetic tests and conditional
+> `validate_all` integration when generated passage/witness files are present. T330 is QA/reporting
+> only: no raw/canonical mutation, generated output regeneration, chunk regeneration, evaluator
+> formula change, chunker/orchestrator behavior change, leaderboard/scorecard change, boundary
+> import, boundary corpus records, source acquisition, or T327G work occurred.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

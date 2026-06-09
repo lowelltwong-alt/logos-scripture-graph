@@ -73,6 +73,12 @@ python scripts/validate_all.py
 python -m pytest -q
 ```
 
+Canonical corpus QA:
+
+```bash
+python scripts/qa_canonical_corpus.py
+```
+
 Timeout-aware local pytest runner:
 
 ```bash
