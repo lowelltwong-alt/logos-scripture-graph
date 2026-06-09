@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T333 Psalm stanza narrow improvement (Codex)
-**Active task:** -> **T333** Psalm stanza narrow improvement completed after PR #37 and PR #38 were verified merged and current `main` was clean. Added a reviewed-gold guardrail around the candidate Psalm skill seam so delegated Psalm output fails closed if reviewed Psalm spans drift. This is same-baseline work: no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunker/orchestrator change, leaderboard/scorecard change, boundary text import, boundary corpus record, broad rewrite, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T334 T333 Psalm guardrail evaluation (Codex)
+**Active task:** -> **T334** same-baseline evaluation of merged T333 completed after PR #39 was verified merged into `main` at merge commit `ade6f26`, with implementation commit `3bb9396` present and no merge/rebase state. T334 documents that T333 kept the Psalm candidate skill as a monolith-delegating same-baseline guardrail: no default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, boundary corpus record, broad rewrite, or T327G work occurred. Focused tests now assert exact delegation, literal-Psalm-only guardrail scope, no `PrMan`/`Ps151` controls, reviewed Psalm evidence refs, and no quality-improvement claim; **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T334 T333 Psalm guardrail evaluation (2026-06-09):** Verified PR #39 / T333 was merged into
+> `main`, commit `3bb9396` is present, GitHub validate succeeded, `main` fast-forwarded cleanly,
+> and no merge/rebase state existed before starting. Added
+> `docs/roadmap/T334_EVALUATE_T333_PSALM_GUARDRAIL.md` and small read-only assertions in
+> `tests/test_psalm_candidate_skill.py`. Finding: T333 is same-baseline guardrail work only. The
+> candidate Psalm skill still delegates to `chunker.chunk_book(...)`; reviewed Psalm spans fail
+> closed on drift; reviewed evidence is cited; no chunk output/default behavior change or score
+> movement is claimed. Next safe lane: T335 reviewed Psalm stress/gold coverage expansion before any
+> behavior-changing Psalm work. No raw/canonical/generated/chunk/evaluator/runtime/scorecard/source-
+> import/boundary-import/T327G work occurred.
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
