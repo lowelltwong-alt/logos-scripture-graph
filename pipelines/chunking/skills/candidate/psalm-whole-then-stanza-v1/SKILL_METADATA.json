@@ -6,10 +6,10 @@
   "owning_repo": "logos-scripture-graph",
   "owning_plane": "knowledge_plane",
   "address": "logos.chunking.skill.psalm.whole_then_stanza.v1.candidate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "lifecycle_state": "candidate",
   "risk_tier": "medium",
-  "role": "behavior_preserving_extraction_seam",
+  "role": "behavior_preserving_extraction_seam_with_reviewed_gold_guardrail",
   "handles_forms": ["psalm_whole"],
   "handles_books": ["Ps"],
   "excluded_books": ["Song", "Lam"],
@@ -37,7 +37,14 @@
   ],
   "parameters": {
     "variant_id": "increment3a-seam",
-    "budget_profile": "monolith-pass2-default"
+    "budget_profile": "monolith-pass2-default",
+    "reviewed_gold_guardrail": true,
+    "reviewed_gold_refs": [
+      "eval/chunking_gold/per_form/psalms_gold_manifest.json",
+      "eval/chunking_gold/review_packets/ps78_boundary_review.md",
+      "eval/chunking_gold/review_packets/ps105_boundary_review.md",
+      "eval/chunking_gold/review_packets/ps106_boundary_review.md"
+    ]
   },
   "eval": {
     "scorecard_dir": "eval/chunking_runs",
@@ -73,5 +80,5 @@
   "recommended_update_policy": "human_gate",
   "created_at": "2026-06-05T00:00:00+00:00",
   "updated_at": "2026-06-09T00:00:00+00:00",
-  "notes": "Increment 3a candidate seam. Delegates to monolith Psalm behavior and must remain byte-identical; no scoring improvement claimed. Post-T327 canonical-66 baseline is 93.6. Song and Lam remain canonical non-target controls; PrMan and Ps151 were removed from canonical controls because they are outside the owner-approved 66-book corpus."
+  "notes": "T333 keeps the candidate seam byte-identical while adding fail-closed reviewed Psalm gold postconditions for settled whole-psalm and parent/child cases. No scoring improvement claimed. Post-T327 canonical-66 baseline is 93.6. Song and Lam remain canonical non-target controls; PrMan and Ps151 were removed from canonical controls because they are outside the owner-approved 66-book corpus."
 }
