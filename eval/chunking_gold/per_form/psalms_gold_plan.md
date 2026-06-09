@@ -36,10 +36,16 @@ improvement.
 Reviewed structural split is not the same as bad fragmentation. Psalm 78 remains a single literary
 psalm at the parent level while retaining child-level structural chunks for retrieval.
 
-## Characterization-Only Cases
+## Characterization-Only / Pending Review Cases
 
-No current Psalm case remains `pending_human_review` in this manifest. Future unresolved Psalm cases
-should be recorded here until reviewed.
+| Case | Current observation | Status | Review need |
+| --- | --- | --- | --- |
+| `Ps.89.1-Ps.89.52` | T318 historical observation: one 823-token whole-psalm chunk, with `q1`, `q2`, `b`, and `qs` / Selah evidence. | `pending_human_review` / non-authorizing characterization. | Decide whether to preserve whole-psalm behavior or approve exact parent/child spans for a royal/lament Psalm with Selah evidence. |
+| `Ps.136.1-Ps.136.26` | T318 historical observation: one 346-token whole-psalm chunk with refrain/litany form evidence. | `pending_human_review` / non-authorizing characterization. | Decide whether to preserve whole-psalm litany unity or approve exact refrain-aware child spans. |
+
+These cases are not reviewed gold, not approved expected output, and not authorization for
+output-changing work. They exist so a future T336/T337 selection can choose a concrete Psalm review
+target without treating stress-atlas evidence or marker evidence as approval.
 
 ## Reviewed Whole-Psalm Cases With Deferred Child Questions
 

@@ -125,7 +125,14 @@ def test_psalms_gold_manifest_separates_reviewed_gold_from_characterization(psal
         "ps105_whole_psalm",
         "ps106_whole_psalm_with_b_marker_note",
     }
-    assert characterization == {}
+    assert set(characterization) == {
+        "ps89_royal_lament_pending_review",
+        "ps136_refrain_litany_pending_review",
+    }
+    for case in characterization.values():
+        assert case["status"] == "pending_human_review"
+        assert case["implementation_allowed"] is False
+        assert case["output_change_authorized"] is False
     assert reviewed["ps78_parent_child_structural_split"]["status"] == \
         "approved_structural_split_under_parent_whole_psalm"
 

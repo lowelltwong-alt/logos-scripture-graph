@@ -1,0 +1,43 @@
+id: T335
+phase: phase_4
+title: "Expand Reviewed Psalm Stress Gold"
+mode: evidence-gold-stress-coverage
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T335_REVIEWED_PSALM_STRESS_GOLD_EXPANSION.md
+    - eval/chunking_gold/
+    - tests/test_chunker_gold.py
+    - tests/test_validate_chunking_gold.py
+    - tests/test_observed_stress_behavior.py
+    - tests/test_stress_review_packets.py
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T335/
+    - .ai/tasks/T335.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "PR #40 / T334 is verified merged before T335 starts."
+  - "T335 expands Psalm stress/gold coverage surfaces without adding reviewed gold or output authorization."
+  - "Added Psalm review packets remain pending human review and non-authorizing."
+  - "Stress atlas, review-packet index, and Psalm manifest surfaces agree on pending status."
+  - "No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G work occurs."
+required_handoff: .ai/handoffs/T335/handoff.md
+created_at: "2026-06-09"
+updated_at: "2026-06-09"
