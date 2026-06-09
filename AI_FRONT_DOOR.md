@@ -18,9 +18,12 @@ Read these files before making changes:
 9. `docs/chunking/CHUNKING_DESIGN.md`
 10. For chunking-related work: `.ai/control/METHODOLOGY_UPDATE_RULES.md` and
     `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
-11. `config/agents/agent_roles.yaml`
-12. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
-13. The specific files in the task scope.
+11. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
+    artifact, automation, cross-repo, workflow-rule, or master-chunker work:
+    `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
+12. `config/agents/agent_roles.yaml`
+13. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+14. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -75,6 +78,17 @@ Bible-first chunking priority:
 - Future boundary, noncanonical, legal, commentary, reception, or master-chunker work must remain
   separate from and subordinate to canonical Bible chunking. If adaptation would degrade the Bible
   chunker, split or rebuild a separate chunker/harness instead.
+- A future master chunker must not use a single shared global optimization objective across Bible
+  and non-Bible corpora, and non-Bible training/eval cases must not tune canonical Bible behavior.
+  It must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and
+  authority/trust profiles.
+
+High-leverage change risk gate:
+
+- Before high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
+  artifact, automation, cross-repo, workflow-rule, or master-chunker changes merge, agents must run
+  the unintended-consequence review in
+  `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`.
 
 Do not use this repo for:
 

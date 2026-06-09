@@ -313,6 +313,8 @@ This avoids:
 | RULE-META-001 | Rules Must Carry Context | P0 | Every rule must explain why it exists, when it applies, and when it can be overridden. |
 | CHUNK-RISK-001 | Combine Same-Risk Work Only | P1 | Combine work only when all tasks share the same safety class. |
 | CHUNK-RISK-002 | Split When Risk Profile Changes | P0 | Split work if any item changes output, evaluator policy, raw/canonical data, runtime behavior, or human-gated decisions. |
+| RISK-GATE-001 | High-Leverage Changes Require Unintended-Consequence Review | P0 / P1 | High-leverage changes must map what they could accidentally authorize, weaken, contaminate, overfit, globalize, or make harder to reverse before merge. |
+| TEXT-HYGIENE-001 | Machine-Checked Control Files Prefer ASCII-Safe Punctuation | P2 / P1 when machine-checked | Machine-checked control strings should prefer ASCII-safe punctuation and verify real file bytes before changing display-only mojibake. |
 | CHUNK-SEM-001 | No Semantic Smuggling Through Chunk Boundaries | P0 | Chunking may preserve structure but must not silently decide theology, text criticism, speaker attribution, canon status, privilege, or legal issue classification. |
 | CHUNK-GOLD-001 | Reviewed Gold Before Output Change | P0 | Output-changing chunking requires reviewed gold, human decision, rationale, and tests. |
 | CHUNK-GOLD-002 | Characterization Is Not Approval | P0 | Characterization describes behavior; it does not authorize implementation. |
@@ -498,6 +500,180 @@ create email-thread stress case
 ```
 
 That must be split into separate PRs.
+
+---
+
+## RISK-GATE-001 - High-Leverage Changes Require Unintended-Consequence Review
+
+**Importance:** P0 for authority, routing, default-behavior, evaluator, corpus-scope, boundary, or
+master-chunker changes; P1 for roadmap/control-plane changes
+
+### Rule
+
+Before a high-leverage change is merged, the agent must map what the change could accidentally
+authorize, weaken, contaminate, overfit, globalize, or make harder to reverse.
+
+Required review question:
+
+```text
+What could this change accidentally authorize, weaken, contaminate, overfit, globalize, or make harder to reverse?
+```
+
+Required output categories:
+
+- confirmed risks;
+- plausible risks;
+- unlikely but high-impact risks;
+- watch-later conditions;
+- tests or guards needed;
+- owner decisions needed.
+
+### Context for future AI
+
+T336 made Bible-first chunker priority, Revelation atlas sequencing, route isolation, and
+master-chunker subordination explicit. Claude's post-merge audit found no corrective patch was
+needed, but it recommended a deterministic guard for high-leverage follow-up changes.
+
+This rule converts that recommendation into a repeatable review gate. It applies beyond Logos
+Scripture work: the same pattern should travel to governance, boundary literature, LawFirm/FMG, and
+future reusable architecture when those repos adopt it.
+
+### What this prevents
+
+This prevents roadmap or architecture changes from silently creating permission paths, global
+heuristic leakage, canonical/boundary contamination, evaluator overfitting, accidental
+implementation authorization, or future degradation of the Bible-first chunking objective.
+
+### Applies when
+
+Use this rule before merging changes that touch:
+
+- authority hierarchy;
+- canonical/boundary scope;
+- routing/orchestrator behavior;
+- chunker/evaluator behavior;
+- default retrieval;
+- score/leaderboard policy;
+- generated artifact behavior;
+- workflow rules;
+- cross-repo contracts;
+- automation permissions;
+- master-chunker or reusable architecture;
+- client-facing/legal-facing automation.
+
+### Does not apply when
+
+It does not need a full map for tiny typo fixes or formatting-only edits that do not affect rule
+meaning, authority, routing, defaults, tests, generated artifacts, or future implementation
+authorization. If uncertain, run the review.
+
+### Override policy
+
+P0 triggers cannot be waived by an agent. They require explicit owner or governance review if the
+map identifies authority leakage, output authorization, corpus contamination, default-retrieval
+change, evaluator/leaderboard meaning change, or unsafe automation.
+
+P1 roadmap/control-plane risks may be accepted by a reviewer only when the map records the rationale
+and the guard or watch condition.
+
+### Required evidence
+
+- unintended-consequence map using the categories above;
+- tests or guards for machine-checkable risks;
+- owner decision for risks that cannot be resolved in the PR;
+- future task or watchlist item for deferred risks.
+
+### Logos examples
+
+- A future master chunker must not create a single shared global optimization objective across Bible
+  and non-Bible corpora.
+- Non-Bible training/eval cases must not tune canonical Bible behavior.
+- A future master chunker must isolate corpora, routes, skills, objectives, eval sets, default
+  retrieval policy, and authority/trust profiles.
+- Revelation/apocalypse rules must remain route-isolated and must not leak globally.
+- Boundary-source planning must not become backdoor boundary import or default retrieval.
+
+### LawFirm OS transfer
+
+Before a legal or client-facing automation change merges, map whether it could accidentally
+authorize action, weaken review, overfit an exception pattern, globalize a client-specific rule, or
+make rollback harder.
+
+---
+
+## TEXT-HYGIENE-001 - Machine-Checked Control Files Prefer ASCII-Safe Punctuation
+
+**Importance:** P2 normally; P1 when text is machine-checked, parsed, or exact-string tested
+
+### Rule
+
+Machine-checked control-plane files should prefer ASCII-safe punctuation in tests, YAML, JSON,
+JSONL, task files, handoffs, and policy strings unless existing repo style requires Unicode.
+
+Preferred:
+
+- hyphen-minus: `-`
+- straight quotes: `"` and `'`
+- ASCII-safe punctuation in machine-checked strings
+
+Avoid in machine-checked strings when not necessary:
+
+- em dash
+- en dash
+- smart quotes
+- curly apostrophes
+- invisible Unicode separators
+
+### Context for future AI
+
+During T336B work, terminal output displayed mojibake around an em dash even though the source file
+contained valid text. The safe response is to verify the actual file bytes/content before editing,
+not to assume terminal rendering is authoritative.
+
+### What this prevents
+
+This prevents terminal/display encoding issues from becoming committed text corruption, brittle
+tests, YAML/JSONL parse issues, or false diffs.
+
+### Applies when
+
+Use this rule for:
+
+- exact-string tests;
+- YAML, JSON, and JSONL control files;
+- task files and handoffs;
+- policy strings copied across repos;
+- validation messages or text that scripts parse;
+- PR templates, roadmap state, and workflow rules.
+
+### Does not apply when
+
+Unicode may remain when it is already established repo style, human-facing prose benefits from it,
+or the exact character is semantically required. Do not churn unrelated prose just to make it ASCII.
+
+### Mojibake handling
+
+If terminal display shows mojibake, terminal mojibake must be checked against actual file
+bytes/content before editing. Do not corrupt files to fix display-only mojibake. If the file content
+is valid UTF-8 and renders correctly in source, avoid unnecessary churn.
+
+### Override policy
+
+P2 by default: use judgment and avoid noisy typography-only rewrites. P1 when the string is parsed,
+machine-checked, copied into JSON/YAML/JSONL, or exact-string tested.
+
+### Required evidence
+
+- byte/content verification when terminal display looks corrupted;
+- whitespace-normalized assertions where exact wrapping or punctuation is not the decision under
+  test;
+- no unrelated punctuation churn.
+
+### Logos examples
+
+- Use ASCII-safe punctuation in policy strings asserted by `tests/test_t336b_policy_docs.py`.
+- Normalize whitespace in tests when the invariant is a sentence spread across wrapped Markdown.
+- Preserve valid existing UTF-8 prose when the issue is only terminal display.
 
 ---
 

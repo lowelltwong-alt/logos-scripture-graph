@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T336 optimized whole-Bible chunking roadmap (Codex)
-**Active task:** -> **T336** optimized the post-T327 whole-Bible chunking roadmap as roadmap/methodology/control-plane work only. The Bible-first priority is now explicit: the canonical 66-book Bible chunker remains the highest-priority substrate. Psalms remain the current implementation lane because reviewed evidence, stress surfaces, and a candidate skill seam already exist; this does not mean Psalms are harder than Revelation. Revelation is now an early future hard-book atlas/review lane but not an implementation lane until reviewed gold exists. Future boundary/noncanonical/legal/commentary/master-chunker work must remain separate from and subordinate/non-superior to canonical Bible chunking; if adaptation would degrade Bible chunking, split or rebuild a separate chunker/harness. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T336B unintended consequence review gate (Codex)
+**Active task:** -> **T336B** added a deterministic unintended-consequence review gate as documentation/control-plane/test-only work after the T336 post-merge audit. Added `RISK-GATE-001`, `TEXT-HYGIENE-001`, `WORKFLOW-LESSON-002`, `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`, entry-surface workflow pointers, and doc-policy tests for the gate plus T336 Bible-first hardening and mojibake/text-hygiene handling. Tightened future master-chunker wording: no single shared global optimization objective across Bible and non-Bible corpora, non-Bible training/eval cases must not tune canonical Bible behavior, and future master chunkers must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and authority/trust profiles. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/T337 work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T336B unintended consequence review gate (2026-06-09):** Verified PR #43 / T336 was merged into
+> `main`, confirmed a clean worktree with no merge/rebase state, and created
+> `t336b-unintended-consequence-review-gate`. Added `RISK-GATE-001` requiring high-leverage changes
+> to map what they could accidentally authorize, weaken, contaminate, overfit, globalize, or make
+> harder to reverse. Added `TEXT-HYGIENE-001` so machine-checked control strings prefer ASCII-safe
+> punctuation and terminal mojibake is verified against real file bytes/content before editing.
+> Added `WORKFLOW-LESSON-002`, the reusable methodology doc, front-door/TOC and
+> workflow discoverability pointers, and deterministic doc-policy tests for the new rule plus T336
+> Bible-first priority, Revelation atlas-before-implementation, route isolation, master-chunker
+> safety, boundary import prohibition, T327G not-started state, and text-hygiene handling.
+> Documentation/control-plane/test only; no runtime behavior or data/output mutation.
 
 > **T336 optimized whole-Bible chunking roadmap (2026-06-09):** Reconstructed current state from
 > `main`, confirmed T336 was unused, confirmed T335 was merged via PR #41, noted PR #42 as a T335
