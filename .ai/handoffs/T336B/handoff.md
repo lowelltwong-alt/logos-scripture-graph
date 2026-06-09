@@ -12,13 +12,14 @@
 - agent_name: Codex
 - mode: implementation
 - stage: final
-- updated_at: 2026-06-09T19:47:06Z
+- updated_at: 2026-06-09T20:08:20Z
 - note: `force_handoff.py` rejects alphanumeric task ids such as `T336B`, so this handoff was created manually using the repository-required handoff sections.
 
 ## Files read
 
 - C:/Users/lowel/.codex/attachments/5e7a15d5-69dc-4a23-8118-0b3d4f82d53c/pasted-text.txt
 - C:/Users/lowel/.codex/attachments/540a13e0-8572-472a-b2f2-e38f4e59a58f/pasted-text.txt
+- C:/Users/lowel/.codex/attachments/3c45e846-f08f-4c72-b24e-55f9a4a9dff4/pasted-text.txt
 - AI_FRONT_DOOR.md
 - AI_TABLE_OF_CONTENTS.md
 - .ai/control/MASTER_CONTEXT.md
@@ -60,17 +61,18 @@
 - Treated this as documentation/control-plane/test-only work.
 - Verified `main` was clean and PR #43 / T336 was merged before branching.
 - Added `RISK-GATE-001` as the deterministic unintended-consequence review gate.
+- Added `TEXT-HYGIENE-001` so machine-checked control files prefer ASCII-safe punctuation and terminal mojibake is verified against actual file bytes/content before editing.
 - Added `WORKFLOW-LESSON-002` as the compact workflow lesson.
 - Created `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md` with the required question, map template, rubric, handling outcomes, and examples.
 - Added entry-surface pointers in the front door, TOC, and workflow docs.
-- Added deterministic doc-policy tests for the new rule/lesson/doc and T336 hardening claims.
-- Tightened master-chunker wording so a future master chunker cannot use a single shared cross-corpus optimization objective across Bible and non-Bible corpora, and non-Bible training/eval cases cannot tune canonical Bible behavior.
+- Added deterministic doc-policy tests for the new rules/lesson/doc, T336 hardening claims, and mojibake text-hygiene handling.
+- Tightened master-chunker wording so a future master chunker cannot use a single shared global optimization objective across Bible and non-Bible corpora, non-Bible training/eval cases cannot tune canonical Bible behavior, and future master chunkers must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and authority/trust profiles.
 - Did not mutate raw/canonical/generated data, regenerate outputs/chunks, change evaluator/chunker/orchestrator behavior, update leaderboard/scorecards, import boundary texts, create boundary corpus records, start Revelation implementation, start T327G, or start T337.
 
 ## Validation run
 
 - command: python -m pytest tests/test_t336b_policy_docs.py -q
-- result: passed; 3 passed.
+- result: passed; 4 passed.
 - failures: none
 - command: python scripts/validate_canonical_66_scope.py
 - result: passed; Canonical 66 scope config validation passed.
@@ -94,7 +96,7 @@
 - result: passed; all validation gates passed.
 - failures: none
 - command: python -m pytest -q
-- result: passed; 157 passed.
+- result: passed; 158 passed.
 - failures: none
 
 ## Known risks

@@ -518,9 +518,11 @@ Rules:
   from and subordinate/non-superior to canonical Bible chunking.
 - If adaptation for boundary or noncanonical material would degrade canonical Bible chunking, split
   or rebuild a separate chunker/harness rather than compromising the Bible chunker.
-- A future master chunker must not use a single shared cross-corpus optimization objective across
-  Bible and non-Bible corpora.
+- A future master chunker must not use a single shared global optimization objective across Bible
+  and non-Bible corpora.
 - Non-Bible training/eval cases must not tune canonical Bible behavior.
+- A future master chunker must isolate corpora, routes, skills, objectives, eval sets, default
+  retrieval policy, and authority/trust profiles.
 
 ## 10m. Unintended-consequence review gate
 

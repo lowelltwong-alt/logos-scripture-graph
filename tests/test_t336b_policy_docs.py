@@ -45,6 +45,7 @@ def test_unintended_consequence_review_gate_is_registered() -> None:
     assert "WORKFLOW-LESSON-002" in lesson
     assert "High-Leverage Changes Need an Unintended-Consequence Map" in lesson
     assert REVIEW.exists()
+    assert "TEXT-HYGIENE-001" in registry
 
     for text in [registry, lesson, review]:
         assert REQUIRED_QUESTION in text
@@ -73,9 +74,21 @@ def test_t336_bible_first_hardening_claims_remain_locked() -> None:
     assert "Revelation is a future hard-book atlas/review-packet lane" in front_flat
     assert "Revelation implementation must wait until reviewed gold exists" in front_flat
     assert "must not leak globally" in combined
-    assert "single shared cross-corpus optimization objective" in combined
+    assert "single shared global optimization objective" in combined
     assert "Non-Bible training/eval cases must not tune canonical Bible behavior" in combined
+    assert "isolate corpora, routes, skills, objectives, eval sets, default retrieval policy" in combined
     assert "No boundary import" in roadmap
     assert "No T327G" in roadmap
     assert "T337" in state and "status: planned" in state
     assert "T341" in state and "output_change_authorized: false" in state
+
+
+def test_text_hygiene_rule_locks_mojibake_handling() -> None:
+    registry_flat = squish(read(REGISTRY))
+
+    assert "TEXT-HYGIENE-001" in registry_flat
+    assert "Machine-Checked Control Files Prefer ASCII-Safe Punctuation" in registry_flat
+    assert "hyphen-minus" in registry_flat
+    assert "straight quotes" in registry_flat
+    assert "terminal mojibake must be checked against actual file bytes/content before editing" in registry_flat
+    assert "Do not corrupt files to fix display-only mojibake" in registry_flat

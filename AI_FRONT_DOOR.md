@@ -78,9 +78,10 @@ Bible-first chunking priority:
 - Future boundary, noncanonical, legal, commentary, reception, or master-chunker work must remain
   separate from and subordinate to canonical Bible chunking. If adaptation would degrade the Bible
   chunker, split or rebuild a separate chunker/harness instead.
-- A future master chunker must not use a single shared cross-corpus optimization objective across
-  Bible and non-Bible corpora, and non-Bible training/eval cases must not tune canonical Bible
-  behavior.
+- A future master chunker must not use a single shared global optimization objective across Bible
+  and non-Bible corpora, and non-Bible training/eval cases must not tune canonical Bible behavior.
+  It must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and
+  authority/trust profiles.
 
 High-leverage change risk gate:
 

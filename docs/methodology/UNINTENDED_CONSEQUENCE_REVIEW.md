@@ -118,14 +118,15 @@ canonical/boundary contamination, or unsafe automation.
 ### Bible-First / Master-Chunker Risk
 
 Risk: a future master chunker could treat Bible, boundary, commentary, and legal corpora as one
-shared optimization problem.
+shared global optimization problem.
 
-Why it matters: a single shared cross-corpus optimization objective across Bible and non-Bible
+Why it matters: a single shared global optimization objective across Bible and non-Bible
 corpora is forbidden. Non-Bible training/eval cases must not tune canonical Bible behavior.
 
 Mitigation: keep the canonical Bible chunker as the highest-priority substrate. The master chunker
 may coordinate separate harnesses, but it must not collapse authority layers or optimize canonical
-Bible behavior against non-Bible cases.
+Bible behavior against non-Bible cases. It must isolate corpora, routes, skills, objectives, eval
+sets, default retrieval policy, and authority/trust profiles.
 
 ### Revelation Rule Leakage Risk
 

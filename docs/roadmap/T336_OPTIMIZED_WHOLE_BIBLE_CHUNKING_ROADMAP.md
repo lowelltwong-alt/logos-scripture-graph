@@ -234,8 +234,10 @@ A future master chunker may eventually coordinate multiple chunking harnesses:
 The master chunker must be an orchestrator/harness, not a reason to collapse all corpora into one
 authority layer. The canonical Bible chunker remains the highest-priority substrate.
 
-A master chunker must not create a single shared cross-corpus optimization objective across Bible
-and non-Bible corpora. Non-Bible training/eval cases must not tune canonical Bible behavior.
+A master chunker must not create a single shared global optimization objective across Bible and
+non-Bible corpora. Non-Bible training/eval cases must not tune canonical Bible behavior. It must
+isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and
+authority/trust profiles.
 
 If boundary or noncanonical adaptation interferes with canonical Bible quality, split or rebuild a
 separate chunker or harness rather than degrading Bible chunking.
