@@ -5,7 +5,7 @@
 - Status: Living / provisional
 - Owner: T310/T311 chunking workstream
 - Export status: Not ready for LawFirm OS final export
-- Last reviewed: 2026-06-08
+- Last reviewed: 2026-06-09
 - Must update when:
   - chunking algorithm changes
   - form detector changes
@@ -59,6 +59,8 @@ Confirmed:
   discourse/speaker-boundary risks without authorizing output-changing work.
 - T327D reset chunk/gold/score/leaderboard baselines after the canonical-66 corpus correction
   without changing the evaluator formula or chunking algorithm.
+- T327E classified residual old-corpus references and cleaned live eval/governance surfaces while
+  preserving historical audit and exclusion-test evidence.
 
 Unknown or unfinished:
 
@@ -461,6 +463,12 @@ Rules:
   assertions once the new corpus baseline is established.
 - Non-66 material such as PrMan or Ps151 must be removed from canonical gold/control expectations,
   not retained as canonical regression controls.
+- After a corpus reset, classify residual old-corpus references before editing them:
+  active controls should be removed or converted to canonical controls; stale baseline language
+  should be updated; historical audit evidence, exclusion tests, and boundary-routing policies
+  should be preserved.
+- Observed-behavior audits generated before a corpus reset must be labeled as historical until
+  refreshed; do not cite them as current post-reset behavior for output-changing work.
 - Do not start output-changing chunking work until canonical scope correction is implemented or the
   target task proves it is unaffected by excluded-material surfaces.
 - Boundary literature may provide background, comparison, reception history, refutation targets,
@@ -510,6 +518,8 @@ Stale skills may remain reproducible, but stale-only routing must not be promote
 - A pre/post corpus-scope score movement is treated as chunking improvement instead of baseline
   reset.
 - Non-66 books remain in canonical gold/control expectations after the 66-book scope correction.
+- Historical old-corpus observations are presented as current post-reset behavior without
+  regeneration.
 - A skill lacks gold, route-ledger proof, or fallback behavior.
 - A methodology update is skipped without rationale.
 - LawFirm OS export is treated as final doctrine before the workflow is tested.
@@ -595,3 +605,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-08: Added the T327D baseline-reset lesson. Post-corpus chunk/score baselines must label
   corpus families, remove temporary quarantines after reset, and remove non-66 material from
   canonical gold/control expectations without claiming chunking improvement.
+- 2026-06-09: Added the T327E cleanup lesson. Residual old-corpus references must be classified
+  before editing; live controls and stale baselines are cleaned, while historical audit,
+  exclusion-test, source-inventory, and boundary-routing references are preserved.

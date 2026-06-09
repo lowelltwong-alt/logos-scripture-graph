@@ -10,8 +10,10 @@ It does not approve expected output. It does not authorize output-changing work.
 promoted through review into per-form gold before it can drive chunker, orchestrator, evaluator, or
 skill changes.
 
-Current baseline remains D / Claude pass2 = 93.5 under T314 reviewed-structural-split evaluator
-policy. That score is evaluator-policy correction for unchanged output, not chunking improvement.
+Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unchanged T314
+reviewed-structural-split evaluator policy. The prior 93.5 row is a pre-T327 wider-corpus
+baseline. Movement between those rows is corpus-scope correction / baseline reset, not chunking
+improvement.
 
 ## Structure
 

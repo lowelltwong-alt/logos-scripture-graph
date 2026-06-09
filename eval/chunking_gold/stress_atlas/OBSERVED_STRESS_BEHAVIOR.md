@@ -2,9 +2,9 @@
 
 Status: diagnostic observation only. This audit does not authorize output-changing work, does not promote reviewed gold, and does not change evaluator policy.
 
-Current official baseline remains D / Claude pass2 = 93.5 under T314 reviewed-structural-split evaluator policy. That score is evaluator-policy correction for unchanged output, not chunking improvement.
+Current official post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unchanged T314 reviewed-structural-split evaluator policy. The prior 93.5 row is a pre-T327 wider-corpus baseline. Movement between those rows is corpus-scope correction / baseline reset, not chunking improvement.
 
-The audit was generated from a temporary local current chunker run. The chunk output itself is not committed.
+The audit was generated from a temporary local pre-T327 chunker run against the wider corpus. The chunk output itself is not committed. The observed rows remain diagnostic triage evidence only and should be refreshed before any future output-changing work cites current post-T327 behavior.
 
 ## Summary
 
