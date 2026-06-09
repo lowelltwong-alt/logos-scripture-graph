@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T331 post-T327 chunking backlog reset (Codex)
-**Active task:** -> **T331** post-T327 chunking backlog reset completed after T327F/T328/T330 post-merge verification passed; added planning-only `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` to anchor the canonical-66 corpus baseline, T327D chunk baseline, candidate future chunking work areas, and recommended T332-T335 sequence; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T332 narrow chunking target selection (Codex)
+**Active task:** -> **T332** narrow chunking target selection completed after T331 PR creation and clean `main` restoration; selected Psalms/poetry stanza behavior as the single next chunking target for future work, with rejected alternatives, required evidence, required tests, future T333 stop conditions, and Claude review focus documented; no implementation, raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -267,6 +267,17 @@
 > T314 policy), what T327 fixed, what it did not improve, candidate future chunking areas, and the
 > recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
 > mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
+
+> **T332 narrow chunking target selection (2026-06-09):** After T331 PR creation and clean `main`
+> restoration, added `docs/roadmap/T332_SELECT_NARROW_CHUNKING_TARGET.md` as planning/reporting
+> only. Selected **Psalms / poetry stanza behavior** as the single next chunking target because the
+> repo already has the strongest local evidence base there: Psalm gold manifest coverage, reviewed
+> Ps.78 parent/child structural split, reviewed Ps.105/Ps.106 whole-psalm preservation, Psalm 119
+> sectioning precedent, stress/observed Psalm cases, and an existing behavior-preserving candidate
+> Psalm skill seam. T332 rejects broader wisdom, prophetic, narrative, epistle, context-packet,
+> stress-atlas, skill-promotion, and gold-only alternatives for now. Future T333 must cite reviewed
+> target gold or an explicit human-reviewed review packet before output-changing work. T332 made no
+> raw/canonical/generated/chunk/evaluator/leaderboard/runtime/boundary import/T327G changes.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
