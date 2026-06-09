@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T330 canonical corpus QA (Codex)
-**Active task:** -> **T330** canonical corpus QA completed after T328 post-merge verification passed; added read-only `scripts/qa_canonical_corpus.py`, synthetic QA tests, conditional `validate_all` integration, and `docs/roadmap/T330_CANONICAL_CORPUS_QA.md` to verify 66-book generated corpus coherence without regenerating or mutating outputs; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T331 post-T327 chunking backlog reset (Codex)
+**Active task:** -> **T331** post-T327 chunking backlog reset completed after T327F/T328/T330 post-merge verification passed; added planning-only `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` to anchor the canonical-66 corpus baseline, T327D chunk baseline, candidate future chunking work areas, and recommended T332-T335 sequence; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -256,6 +256,17 @@
 > only: no raw/canonical mutation, generated output regeneration, chunk regeneration, evaluator
 > formula change, chunker/orchestrator behavior change, leaderboard/scorecard change, boundary
 > import, boundary corpus records, source acquisition, or T327G work occurred.
+
+> **T331 post-T327 chunking backlog reset (2026-06-09):** Verified current `main` includes merged
+> T327F PR #32, T328 PR #33, and T330 PR #34, with commits `44da678`, `8498976`, and `5dd3718`
+> present, green CI, clean working tree, and no merge/rebase state. Added
+> `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` as planning/reporting only. The backlog
+> reset records the post-T327 canonical corpus baseline (66 books, 31,103 passages, 31,103
+> witnesses), the T327D chunk baseline (1,131 chunks, SHA-256
+> `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, score 93.6 under unchanged
+> T314 policy), what T327 fixed, what it did not improve, candidate future chunking areas, and the
+> recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
+> mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
