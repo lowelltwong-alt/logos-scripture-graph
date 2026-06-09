@@ -75,5 +75,6 @@
 
 ## Next agent instruction
 
-Stop after this PR. Do not merge PRs without owner instruction. Do not start T327G, source import, or
-boundary corpus creation.
+After PR #37 is merged, refresh and resolve PR #38 if it remains open; then proceed to T333 only
+after PR #38 is resolved or explicitly deferred. Do not execute cross-repo mirrors in this PR. Do
+not start T333, T327G, source import, boundary import, or boundary corpus creation from this handoff.

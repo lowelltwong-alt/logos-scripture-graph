@@ -257,6 +257,28 @@
 > formula change, chunker/orchestrator behavior change, leaderboard/scorecard change, boundary
 > import, boundary corpus records, source acquisition, or T327G work occurred.
 
+> **T331 post-T327 chunking backlog reset (2026-06-09):** Verified current `main` includes merged
+> T327F PR #32, T328 PR #33, and T330 PR #34, with commits `44da678`, `8498976`, and `5dd3718`
+> present, green CI, clean working tree, and no merge/rebase state. Added
+> `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` as planning/reporting only. The backlog
+> reset records the post-T327 canonical corpus baseline (66 books, 31,103 passages, 31,103
+> witnesses), the T327D chunk baseline (1,131 chunks, SHA-256
+> `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, score 93.6 under unchanged
+> T314 policy), what T327 fixed, what it did not improve, candidate future chunking areas, and the
+> recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
+> mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
+
+> **T332 narrow chunking target selection (2026-06-09):** After T331 PR creation and clean `main`
+> restoration, added `docs/roadmap/T332_SELECT_NARROW_CHUNKING_TARGET.md` as planning/reporting
+> only. Selected **Psalms / poetry stanza behavior** as the single next chunking target because the
+> repo already has the strongest local evidence base there: Psalm gold manifest coverage, reviewed
+> Ps.78 parent/child structural split, reviewed Ps.105/Ps.106 whole-psalm preservation, Psalm 119
+> sectioning precedent, stress/observed Psalm cases, and an existing behavior-preserving candidate
+> Psalm skill seam. T332 rejects broader wisdom, prophetic, narrative, epistle, context-packet,
+> stress-atlas, skill-promotion, and gold-only alternatives for now. Future T333 must cite reviewed
+> target gold or an explicit human-reviewed review packet before output-changing work. T332 made no
+> raw/canonical/generated/chunk/evaluator/leaderboard/runtime/boundary import/T327G changes.
+
 > **T328 cross-repo lesson mirror prep (2026-06-09):** After T332 PR creation and clean `main`
 > restoration, added `docs/roadmap/T328_CROSS_REPO_LESSON_MIRROR_PREP.md` as planning/reporting
 > only. The report prepares future mirror updates for `logos-governance-architecture`,
