@@ -257,6 +257,17 @@
 > formula change, chunker/orchestrator behavior change, leaderboard/scorecard change, boundary
 > import, boundary corpus records, source acquisition, or T327G work occurred.
 
+> **T331 post-T327 chunking backlog reset (2026-06-09):** Verified current `main` includes merged
+> T327F PR #32, T328 PR #33, and T330 PR #34, with commits `44da678`, `8498976`, and `5dd3718`
+> present, green CI, clean working tree, and no merge/rebase state. Added
+> `docs/roadmap/T331_POST_T327_CHUNKING_BACKLOG_RESET.md` as planning/reporting only. The backlog
+> reset records the post-T327 canonical corpus baseline (66 books, 31,103 passages, 31,103
+> witnesses), the T327D chunk baseline (1,131 chunks, SHA-256
+> `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`, score 93.6 under unchanged
+> T314 policy), what T327 fixed, what it did not improve, candidate future chunking areas, and the
+> recommended T332-T335 sequence. T331 authorizes no output-changing chunking work, raw/canonical
+> mutation, regeneration, evaluator/leaderboard/scorecard change, boundary import, or T327G work.
+
 > **T332 narrow chunking target selection (2026-06-09):** After T331 PR creation and clean `main`
 > restoration, added `docs/roadmap/T332_SELECT_NARROW_CHUNKING_TARGET.md` as planning/reporting
 > only. Selected **Psalms / poetry stanza behavior** as the single next chunking target because the

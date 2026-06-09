@@ -80,5 +80,6 @@
 
 ## Next agent instruction
 
-Proceed to T328 mirror prep only if this PR is created cleanly and `main` can be restored clean.
-Do not merge PRs without owner instruction. Do not start T327G or boundary import.
+Proceed to T333 only after PR #36 is merged. T333 should implement one narrow Psalm/poetry stanza
+behavior improvement only if it cites reviewed target gold or an explicit human-reviewed review
+packet. Do not start T328 mirror prep, T327G, boundary import, or broad chunking rewrites.
