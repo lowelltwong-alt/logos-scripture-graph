@@ -14,6 +14,12 @@ This skill is **candidate** only. It is not active, preferred, or a quality
 improvement. It exists to prove the orchestrator can route one target form
 without changing output.
 
+T333 adds a reviewed-gold guardrail around the delegated output. The guardrail
+fails closed if the current Psalm route violates already reviewed Psalm gold:
+Psalm 23, Psalm 3, short Psalm holdouts, Psalm 119, Psalm 78, Psalm 105, and
+Psalm 106. This does not authorize new Psalm boundaries and does not claim score
+or chunking improvement.
+
 ## Handles
 
 - Form: `psalm_whole`
@@ -30,6 +36,12 @@ the existing `chunker.chunk_book(...)` implementation with the same arguments th
 monolith would receive. No new boundary choices, budget changes, score tuning, or
 Psalm optimization are made in Increment 3a.
 
+After delegation, the algorithm validates exact reviewed Psalm postconditions
+when those chapters are present in the returned chunks. Reviewed whole-psalm
+cases must remain whole-psalm chunks. Reviewed parent/child cases must retain
+their exact reviewed child spans. Partial Psalm inputs that do not include a
+reviewed chapter are not forced through unrelated reviewed cases.
+
 ## Output contract
 
 `RetrievalChunk[]` produced byte-for-byte identically to the monolith path for
@@ -44,3 +56,5 @@ literal Psalms. Route facts live only in the route ledger.
   controls.
 - Do not add route metadata to chunk/context records.
 - Do not claim quality improvement.
+- Do not use the reviewed-gold guardrail as permission to split Ps.105/Ps.106,
+  merge Ps.78, change Psalm 119, or infer new speaker/marker-based boundaries.

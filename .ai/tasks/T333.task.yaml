@@ -1,0 +1,41 @@
+id: T333
+phase: phase_4
+title: "Psalm Stanza Narrow Improvement"
+mode: narrow-implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T333_PSALM_STANZA_NARROW_IMPROVEMENT.md
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/algorithm.py
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/SKILL.md
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/SKILL_METADATA.json
+    - tests/test_psalm_candidate_skill.py
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T333/
+    - .ai/tasks/T333.task.yaml
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "PR #37 and PR #38 are verified merged before T333 starts."
+  - "T333 cites reviewed Psalm gold or explicit human-reviewed review packets."
+  - "Candidate Psalm skill delegates to monolith behavior and remains byte-identical on the current corpus."
+  - "Reviewed Psalm guardrail fails closed on exact reviewed Psalm drift."
+  - "No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G work occurs."
+required_handoff: .ai/handoffs/T333/handoff.md
+created_at: "2026-06-09"
+updated_at: "2026-06-09"

@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T328B workflow rules registry lessons (Codex)
-**Active task:** -> **T328B** workflow rules registry lessons completed after current `main` was verified clean; committed uploaded `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` and lightweight pointers/status surfaces. This is docs/control-plane only: no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T333 Psalm stanza narrow improvement (Codex)
+**Active task:** -> **T333** Psalm stanza narrow improvement completed after PR #37 and PR #38 were verified merged and current `main` was clean. Added a reviewed-gold guardrail around the candidate Psalm skill seam so delegated Psalm output fails closed if reviewed Psalm spans drift. This is same-baseline work: no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunker/orchestrator change, leaderboard/scorecard change, boundary text import, boundary corpus record, broad rewrite, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -298,6 +298,17 @@
 > validation architecture; raw source scope must not silently become canonical output scope. T328B
 > is docs/control-plane only and authorizes no raw/canonical/generated/chunk/evaluator/runtime/
 > scorecard/source-import/boundary-import/T327G work.
+
+> **T333 Psalm stanza narrow improvement (2026-06-09):** Verified PR #37 and PR #38 were merged
+> with green CI and started from clean current `main`. Implemented one narrow Psalm/poetry stanza
+> guardrail inside the candidate `psalm-whole-then-stanza-v1` skill: the skill still delegates to
+> `chunker.chunk_book(...)`, then validates exact reviewed Psalm postconditions when reviewed
+> chapters are present. The guardrail cites reviewed Psalm manifest/review-packet evidence for
+> Ps.23, Ps.3, short Psalm holdouts, Ps.119, Ps.78, Ps.105, and Ps.106. It fails closed on reviewed
+> Psalm drift such as merging Ps.78, splitting Ps.105/Ps.106, or shifting Psalm 119 sections. T333
+> does not create new Psalm boundaries, regenerate chunks, change output, change evaluator policy,
+> update leaderboard/scorecards, mutate raw/canonical/generated outputs, import source or boundary
+> texts, edit chunker/orchestrator, or start T327G.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
