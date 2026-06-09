@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 from types import ModuleType
 
@@ -10,6 +11,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 ALGORITHM = ROOT / "pipelines" / "chunking" / "skills" / "candidate" / \
     "psalm-whole-then-stanza-v1" / "algorithm.py"
+METADATA = ALGORITHM.with_name("SKILL_METADATA.json")
 
 
 @pytest.fixture()
@@ -127,3 +129,68 @@ def test_reviewed_ps119_sections_fail_closed_if_shifted(psalm_skill: ModuleType)
 def test_literal_psalm_skill_rejects_non_psalm_units(psalm_skill: ModuleType) -> None:
     with pytest.raises(ValueError, match="only handles book == 'Ps'"):
         _call_skill(psalm_skill, [], units=[_unit("Song")])
+
+
+def test_skill_delegates_to_monolith_with_same_arguments(psalm_skill: ModuleType) -> None:
+    units = [_unit(osis_ref="Ps.2.1")]
+    budgets = {"soft_max_tokens": 1100}
+    footnotes_by_osis = {"Ps.2.1": [{"id": "fn"}]}
+    crossrefs_by_osis = {"Ps.2.1": [{"id": "xref"}]}
+    chunks = [_chunk("Ps.2.1", "Ps.2.12")]
+    captured = {}
+
+    def fake_chunk_book(*args):
+        captured["args"] = args
+        return chunks, 42
+
+    psalm_skill.chunker.chunk_book = fake_chunk_book
+
+    returned_chunks, next_index = psalm_skill.chunk_psalm_book(
+        units,
+        "psalms",
+        budgets,
+        "policy-v-test",
+        footnotes_by_osis,
+        crossrefs_by_osis,
+        41,
+    )
+
+    assert returned_chunks == chunks
+    assert next_index == 42
+    assert captured["args"] == (
+        units,
+        "psalms",
+        budgets,
+        "policy-v-test",
+        footnotes_by_osis,
+        crossrefs_by_osis,
+        41,
+    )
+
+
+def test_reviewed_guardrail_scope_stays_literal_psalms_only(psalm_skill: ModuleType) -> None:
+    refs = {
+        ref
+        for spans in psalm_skill.REVIEWED_PSALM_CHAPTER_SPANS.values()
+        for span in spans
+        for ref in span
+    }
+
+    assert refs
+    assert all(ref.startswith("Ps.") for ref in refs)
+    assert all(not ref.startswith(("PrMan.", "Ps151.")) for ref in refs)
+
+
+def test_skill_metadata_cites_reviewed_psalm_evidence_only() -> None:
+    metadata = json.loads(METADATA.read_text(encoding="utf-8"))
+    refs = metadata["parameters"]["reviewed_gold_refs"]
+
+    assert refs == [
+        "eval/chunking_gold/per_form/psalms_gold_manifest.json",
+        "eval/chunking_gold/review_packets/ps78_boundary_review.md",
+        "eval/chunking_gold/review_packets/ps105_boundary_review.md",
+        "eval/chunking_gold/review_packets/ps106_boundary_review.md",
+    ]
+    assert metadata["handles_books"] == ["Ps"]
+    assert metadata["excluded_books"] == ["Song", "Lam"]
+    assert metadata["eval"]["quality_improvement_claimed"] is False
