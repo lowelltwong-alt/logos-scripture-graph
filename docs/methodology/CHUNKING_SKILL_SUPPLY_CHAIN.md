@@ -61,6 +61,8 @@ Confirmed:
   without changing the evaluator formula or chunking algorithm.
 - T327E classified residual old-corpus references and cleaned live eval/governance surfaces while
   preserving historical audit and exclusion-test evidence.
+- T328 added a workflow lesson collector so generated-artifact corrections, boundary-source intake,
+  and candidate-to-action analogues are captured outside the immediate T327 PR sequence.
 
 Unknown or unfinished:
 
@@ -131,7 +133,9 @@ or treat route metadata as chunk/context content.
 16. Promote only if target-form output evidence beats fallback without regressions.
 17. Record provenance, route ledger, and staleness triggers.
 18. Update this methodology.
-19. Repeat for next form.
+19. If the task exposes a reusable generated-artifact, boundary-intake, or candidate-promotion
+    workflow rule, update `docs/methodology/WORKFLOW_LESSONS.md` or record why no update was needed.
+20. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -164,6 +168,9 @@ or treat route metadata as chunk/context content.
 - No runtime behavior change unless the task explicitly targets a behavior-changing increment.
 - No evaluator/leaderboard change unless the task explicitly targets evaluator behavior.
 - No chunk output change for detector, registry, shim, or behavior-preserving extraction increments.
+- Generated artifact corrections must land in committed generator behavior, policy/config,
+  fail-closed validation, CI regeneration, tests, count/provenance surfaces, and explicit downstream
+  handoff. Local ignored output alone is not durable evidence.
 - Byte-identical proof is required for shims and behavior-preserving extractions.
 - Route metadata stays in the route ledger only.
 - Before any score-moving skill, prove the evaluator is measuring the target output behavior and not

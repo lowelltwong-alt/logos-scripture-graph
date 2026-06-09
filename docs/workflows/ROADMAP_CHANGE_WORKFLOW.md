@@ -32,3 +32,9 @@ If an agent determines the roadmap is wrong, it may propose a correction, but mu
 - files changed
 - migration path
 - handoff explanation
+
+## Workflow lesson rule
+
+When a roadmap change exposes a reusable generated-artifact, boundary-intake, candidate-promotion,
+or downstream-handoff rule, update `docs/methodology/WORKFLOW_LESSONS.md` or record why the lesson
+collector did not need a change.

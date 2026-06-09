@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T327F boundary source intake planning (Codex)
-**Active task:** -> **T327F** boundary source intake planning completed after T327E post-merge verification passed; added Scripture-side planning doc and machine-readable control metadata for future `logos-boundary-literature` source intake, with imports/downloads/corpus records/canonical overrides all disallowed and future intake gated on owner authorization, source/license/provenance review, trust hierarchy, tradition-scoped canon status, contamination controls, and a separate boundary-repo PR; no raw mutation, canonical passage/witness mutation, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary repo work, T327G work, or text import occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T328 workflow lesson collector update (Codex)
+**Active task:** -> **T328** workflow lesson collector update completed after T327F post-merge verification passed; added `docs/methodology/WORKFLOW_LESSONS.md` and linked it from workflow/methodology/status surfaces with generated-artifact durability, T327 untracked-output generator/CI, boundary-source intake gating, and LawFirm/FMG exception-to-action analogue lessons; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -229,6 +229,20 @@
 > T327G work. Future intake requires owner authorization, source/license/provenance controls,
 > trust hierarchy, tradition-scoped canon status, contamination tests, and a separate boundary-repo
 > PR.
+
+> **T328 workflow lesson collector update (2026-06-09):** Verified T327F PR #32 was merged, commit
+> `44da678` was present on `main`, CI validate succeeded, and the working tree had no merge/rebase
+> state before starting T328. Created `docs/methodology/WORKFLOW_LESSONS.md` as a reusable
+> control-plane lesson collector. Added `WORKFLOW-LESSON-001` for generated-artifact durability,
+> `T327-LESSON-001` for untracked generated outputs shifting review burden to generator/config/CI
+> validation and downstream handoff, `BOUNDARY-WORKFLOW-LESSON-001` for planning/authority-gated
+> boundary-source intake, and `LAW-FIRM-WORKFLOW-LESSON-001` as an exception-to-action analogue.
+> Governance and boundary repos were inspected but not edited because governance had existing dirty
+> work and boundary had local untracked cache output; LawFirm/FMG repos were locally present but not
+> safe for this Scripture-side PR because candidate worktrees were on unrelated branches or dirty.
+> T328 is docs/control-plane only and authorizes no raw/canonical mutation, generated output
+> regeneration, chunk regeneration, evaluator/chunker/orchestrator changes, leaderboard/scorecard
+> changes, text import, boundary corpus records, or T327G work.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).

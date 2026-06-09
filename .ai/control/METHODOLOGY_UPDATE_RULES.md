@@ -5,6 +5,8 @@ This control-plane rule forces future chunking-related work to keep the living m
 ## Required Methodology Artifact
 
 - `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+- `docs/methodology/WORKFLOW_LESSONS.md` for cross-workflow generated-artifact, boundary-intake,
+  and candidate-to-action lessons.
 
 ## Forced Update Rule
 
@@ -108,6 +110,10 @@ manifest under `eval/chunking_gold/`.
   patristic source-text work routes to `logos-boundary-literature`; cross-repo authority conflicts
   route to `logos-governance-architecture`. Boundary material must not modify canonical Scripture
   outputs, canonical chunks, evaluator inputs, or default Scripture retrieval.
+- Generated artifact corrections must be durable in committed generator behavior, committed
+  policy/config, fail-closed validation, CI regeneration behavior, tests, count/provenance surfaces,
+  and explicit downstream handoff. A local regenerated output is not enough when the artifact is
+  ignored or rebuildable. See `WORKFLOW-LESSON-001` and `T327-LESSON-001`.
 
 ## Handoff Note
 
@@ -120,3 +126,4 @@ characterization-only, pending human review, or reviewed parent/child structural
 
 - `.ai/workflows/chunking-skill-supply-chain.workflow.md`
 - `pipelines/chunking/skills/SKILL_CREATION_PLAYBOOK.md`
+- `docs/methodology/WORKFLOW_LESSONS.md`
