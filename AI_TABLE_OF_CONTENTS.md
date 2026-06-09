@@ -50,6 +50,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`](docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md)
 - [`docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`](docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md)
 - [`docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md`](docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md)
+- [`docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md`](docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
 - [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
 - [`config/governance/predicate_registry.yaml`](config/governance/predicate_registry.yaml)

@@ -79,7 +79,8 @@ def test_t336_bible_first_hardening_claims_remain_locked() -> None:
     assert "isolate corpora, routes, skills, objectives, eval sets, default retrieval policy" in combined
     assert "No boundary import" in roadmap
     assert "No T327G" in roadmap
-    assert "T337" in state and "status: planned" in state
+    assert "T337" in state and "status: complete" in state
+    assert "T338" in state and "requires_reviewed_gold: true" in state
     assert "T341" in state and "output_change_authorized: false" in state
 
 
