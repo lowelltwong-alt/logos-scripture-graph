@@ -42,6 +42,7 @@
 - tests/test_validate_chunking_gold.py
 - tests/test_observed_stress_behavior.py
 - tests/test_stress_review_packets.py
+- AI_TABLE_OF_CONTENTS.md
 
 ## Files changed
 
@@ -74,6 +75,7 @@
 - Added Ps.89 and Ps.136 as pending human-review packets because they broaden reviewed Psalm stress coverage and already had historical T318 observed behavior evidence.
 - Kept both cases characterization-only and non-authorizing in every control surface.
 - Preserved the rule that q/qs/b marker evidence and refrain form may support review but do not automatically authorize chunk boundaries.
+- Added the requested future Revelation hard-book atlas lane note as planning only: no T340 files, no Revelation implementation, no global rule leakage, and no Revelation expected output.
 - Did not promote new reviewed gold, change chunk output, regenerate chunks, change evaluator policy, update leaderboard/scorecards, mutate raw/canonical/generated data, import source or boundary material, or start T327G.
 
 ## Validation run
@@ -85,7 +87,7 @@
 - result: passed; 66 canonical books, 31,103 passage records, 31,103 translation witness records.
 - failures: none
 - command: focused Psalm/gold tests
-- result: passed; `python -m pytest -q tests/test_chunker_gold.py tests/test_validate_chunking_gold.py tests/test_observed_stress_behavior.py tests/test_stress_review_packets.py tests/test_review_packet_index.py` -> 44 passed.
+- result: passed; `python -m pytest -q tests/test_chunker_gold.py tests/test_validate_chunking_gold.py tests/test_observed_stress_behavior.py tests/test_stress_review_packets.py tests/test_review_packet_index.py tests/test_psalm_candidate_skill.py` -> 53 passed.
 - failures: none
 - command: python scripts/validate_all.py
 - result: passed; all validation gates passed.
@@ -96,11 +98,15 @@
 - command: YAML/JSON/JSONL parse checks and git diff --check
 - result: passed; changed YAML, JSON, and JSONL parsed successfully; `git diff --check` reported no whitespace errors.
 - failures: none
+- command: follow-up Revelation atlas note validation
+- result: passed; roadmap/status/handoff record Revelation as future-only hard-book atlas/review-packet work with no implementation authorization.
+- failures: none
 
 ## Known risks
 
 - Ps.89 and Ps.136 are not current post-T327 refreshed behavior observations; the recorded chunk observations remain historical pre-T327 wider-corpus diagnostic evidence until refreshed.
 - Human review is still required before any exact Psalm boundary or behavior-changing T336 work.
+- Revelation remains a future hard-book atlas/review-packet lane only; it likely needs apocalypse/Revelation-specific review rules and reviewed gold before any implementation.
 - Review-packet/index counts changed and must remain synchronized across JSON and Markdown surfaces.
 
 ## Open questions
@@ -110,7 +116,7 @@
 
 ## Next agent instruction
 
-Run the full T335 validation gate, then commit, push, and open a PR only if every required validation passes; do not implement behavior-changing Psalm work until a human-reviewed packet promotes exact output gold.
+Run the full T335 validation gate, then commit, push, and open a PR only if every required validation passes; do not implement behavior-changing Psalm work until a human-reviewed packet promotes exact output gold, and do not start Revelation implementation from the future atlas note.
 
 ---
 
@@ -119,4 +125,13 @@ Run the full T335 validation gate, then commit, push, and open a PR only if ever
 - agent_name: Codex
 - mode: evidence-gold-stress-coverage
 - updated_at: 2026-06-09T17:22:00+00:00
+- handoff_id: 727e663e059d0c10
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: evidence-gold-stress-coverage
+- updated_at: 2026-06-09T18:04:50+00:00
 - handoff_id: 727e663e059d0c10

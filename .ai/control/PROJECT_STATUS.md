@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-06-09
 **Updated by:** T335 reviewed Psalm stress/gold coverage expansion (Codex)
-**Active task:** -> **T335** expanded Psalm stress/gold coverage after PR #40 / T334 was verified merged into `main` at merge commit `4f9ce2`, with T334 commit `a748cf3` present and no merge/rebase state. T335 adds pending, non-authorizing Psalm review packets for Ps.89 and Ps.136 and wires matching pending status through the Psalm manifest, stress observed behavior surface, review-packet index, coverage inventory, roadmap note, and focused tests. No reviewed gold was promoted; no future behavior-changing work is authorized by T335 alone. No default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, boundary corpus record, broad rewrite, or T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Active task:** -> **T335** expanded Psalm stress/gold coverage after PR #40 / T334 was verified merged into `main` at merge commit `4f9ce2`, with T334 commit `a748cf3` present and no merge/rebase state. T335 adds pending, non-authorizing Psalm review packets for Ps.89 and Ps.136 and wires matching pending status through the Psalm manifest, stress observed behavior surface, review-packet index, coverage inventory, roadmap note, and focused tests. T335 also records a future Revelation hard-book atlas/review-packet lane as non-implementation planning only. No reviewed gold was promoted; no future behavior-changing work is authorized by T335 alone. No default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, Revelation implementation, boundary corpus record, broad rewrite, or T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T335 reviewed Psalm stress/gold coverage expansion (2026-06-09):** Verified PR #40 / T334 was
 > merged into `main`, merge commit `4f9ce2` is present, T334 commit `a748cf3` is present, and no
@@ -13,8 +13,11 @@
 > `output_change_authorized: false`. Marker/refrain evidence remains evidence only; no new reviewed
 > gold, output-changing authorization, chunk output/default behavior change, evaluator formula
 > change, leaderboard/scorecard change, raw/canonical/generated mutation, source import, boundary
-> import, or T327G work occurred. Next safe lane: human review may promote a specific Psalm packet
-> with exact spans before any behavior-changing T336 work.
+> import, Revelation implementation, or T327G work occurred. T335 records Revelation only as a
+> future hard-book atlas/review-packet lane: likely higher interpretive risk than Psalms, requiring
+> apocalypse/Revelation-specific review rules and reviewed gold before implementation. Next safe
+> lane: human review may promote a specific Psalm packet with exact spans before any
+> behavior-changing T336 work.
 
 > **T334 T333 Psalm guardrail evaluation (2026-06-09):** Verified PR #39 / T333 was merged into
 > `main`, commit `3bb9396` is present, GitHub validate succeeded, `main` fast-forwarded cleanly,

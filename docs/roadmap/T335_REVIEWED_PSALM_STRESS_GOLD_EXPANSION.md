@@ -95,6 +95,20 @@ T335 does make the next selection step clearer:
   human-reviewed packet authorizes it.
 - If no human review is available, T336 should remain planning/review only.
 
+## Future Hard-Book Atlas Lane
+
+Revelation is likely harder than Psalms interpretively because apocalyptic vision cycles, embedded
+oracles, symbolic scenes, speaker shifts, and source/tradition questions can make chunk boundaries
+carry theological and literary assumptions.
+
+Revelation should receive a future hard-book stress atlas and review-packet lane after the Psalm
+lane proves the workflow. This note does not create T340 files, start Revelation implementation,
+authorize Revelation chunking behavior, or add Revelation expected output.
+
+Any future Revelation-specific behavior must be routed to an apocalypse/Revelation skill or review
+lane and must not leak globally into Psalms, poetry, prophecy, Gospel discourse, epistles, or the
+monolith fallback. Revelation chunking must not be implemented until reviewed gold exists.
+
 ## Non-Authorizing Rules Preserved
 
 - `\qs`, `\b`, `q1`, `q2`, and repeated refrain form are evidence, not automatic boundary
@@ -137,6 +151,8 @@ Next safe task:
 
 - T336 should select one Psalm behavior change only if reviewed gold authorizes it.
 - Otherwise T336 should remain a review/planning task.
+- A later Revelation hard-book atlas/review-packet lane should be created only as a separate future
+  task, with no implementation until reviewed gold exists.
 
 Do not start T327G, boundary import, source acquisition, broad chunker rewrites, or new Psalm
-boundaries from T335 alone.
+boundaries from T335 alone. Do not start Revelation implementation from T335.
