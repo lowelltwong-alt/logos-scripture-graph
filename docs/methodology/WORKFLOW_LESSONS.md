@@ -8,6 +8,11 @@ This file collects reusable workflow lessons that apply across generated artifac
 surfaces, boundary-source intake, and adjacent operational systems. It is not canonical Scripture
 truth, not boundary corpus approval, and not authorization for output-changing work.
 
+Expanded rule registry: see
+[`LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md) for rule
+IDs, importance levels, enforcement notes, T327 root-cause lessons, and LawFirm transfer patterns.
+This file remains the compact workflow lesson collector.
+
 ## How To Use This Collector
 
 - Cite the relevant lesson in task handoffs when a task follows or updates one of these patterns.

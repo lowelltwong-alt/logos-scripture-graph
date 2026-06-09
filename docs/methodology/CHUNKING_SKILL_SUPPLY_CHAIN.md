@@ -567,7 +567,13 @@ Export only after the methodology has been tested through at least:
 The export should identify what is confirmed by T310/T311 evidence, what is inferred from the
 Scripture chunking domain, what is proposed for broader use, and what remains unknown.
 
-## 15. Change log
+## 15. Related workflow rule registry
+
+See [`LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md) for the
+expanded Logos chunking workflow rule registry, including T327 root-cause lessons, deterministic
+canon-scope enforcement rules, boundary-governance stop rules, and LawFirm transfer notes.
+
+## 16. Change log
 
 - 2026-06-05: Initial living methodology artifact created for T310/T311. Captures the current
   non-final workflow, evaluator risk, promotion constraints, staleness triggers, and deferred
@@ -615,3 +621,6 @@ Scripture chunking domain, what is proposed for broader use, and what remains un
 - 2026-06-09: Added the T327E cleanup lesson. Residual old-corpus references must be classified
   before editing; live controls and stale baselines are cleaned, while historical audit,
   exclusion-test, source-inventory, and boundary-routing references are preserved.
+- 2026-06-09: Added the T328B workflow rule registry pointer. The expanded registry records
+  `CHUNK-CANON-001`, deterministic T327 corpus-scope rules, boundary intake/governance stop rules,
+  and LawFirm transfer patterns as control-plane methodology.

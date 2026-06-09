@@ -1,8 +1,8 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T328 cross-repo lesson mirror prep (Codex)
-**Active task:** -> **T328_MIRROR_PREP** cross-repo lesson mirror prep completed after T332 PR creation and clean `main` restoration; added planning-only `docs/roadmap/T328_CROSS_REPO_LESSON_MIRROR_PREP.md` to prepare future lesson mirrors for governance, boundary, and LawFirm/FMG repos without editing those repos; no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T328B workflow rules registry lessons (Codex)
+**Active task:** -> **T328B** workflow rules registry lessons completed after current `main` was verified clean; committed uploaded `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` and lightweight pointers/status surfaces. This is docs/control-plane only: no raw mutation, canonical passage/witness mutation, generated output regeneration, chunk regeneration, evaluator formula change, chunking algorithm change, leaderboard/scorecard change, boundary text import, boundary corpus record, runtime behavior change, or T327G work occurred; **T308** connection discovery + **T309** chunking bake-off still open
 
 > **T310 (new, 2026-06-05):** Four blind design proposals (Claude/Codex/Cursor/Composer) for a
 > form-routed chunking orchestrator + skill registry were reconciled with the owner into **ADR-0011**
@@ -288,6 +288,16 @@
 > prompts; and states that governance should eventually be the source of truth with child repos
 > mirroring. No other repos were edited, and no raw/canonical/generated/chunk/evaluator/leaderboard/
 > runtime/source-import/boundary-import/T327G work occurred.
+
+> **T328B workflow rules registry lessons (2026-06-09):** Added
+> `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` from the uploaded v0.3 T327 lessons
+> artifact and linked it from the workflow lesson collector, chunking methodology, and AI table of
+> contents. The registry records `RULE-META-001`, `CHUNK-CANON-001`, T327 corpus-scope rules,
+> boundary intake/governance stop rules, `WORKFLOW-EXCEPTION-001`, and LawFirm transfer patterns.
+> T327 root-cause lesson: semantic rules are insufficient without deterministic ingest/filter/
+> validation architecture; raw source scope must not silently become canonical output scope. T328B
+> is docs/control-plane only and authorizes no raw/canonical/generated/chunk/evaluator/runtime/
+> scorecard/source-import/boundary-import/T327G work.
 
 > Every agent reads this file **after** `ROADMAP_STATE.yaml` and **before** starting work.  
 > Read **`.ai/control/MASTER_CONTEXT.md`** first for architecture authority (AI read-only).
