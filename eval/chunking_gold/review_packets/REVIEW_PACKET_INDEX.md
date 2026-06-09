@@ -2,7 +2,7 @@
 
 Status: diagnostic/control surface only. This index does not authorize output-changing work, does not add reviewed gold, and does not change evaluator policy.
 
-Current official baseline remains D / Claude pass2 = 93.5 under T314 reviewed-structural-split evaluator policy. That score is evaluator-policy correction for unchanged output, not chunking improvement.
+Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unchanged T314 reviewed-structural-split evaluator policy. The prior 93.5 row is a pre-T327 wider-corpus baseline. This movement is corpus-scope correction / baseline reset, not chunking improvement.
 
 ## Source Surfaces
 
@@ -69,7 +69,7 @@ These entries record existing reviewed decisions only. T319 does not promote new
 | `manifest_ps119_acrostic_sections` | `ps119_acrostic_sections` | Ps.119.1-Ps.119.176 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_short_psalm_holdouts` | `short_psalm_holdouts` | Ps.1; Ps.8; Ps.100; Ps.117 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps3_superscription_attached` | `ps3_superscription_attached` | Ps.3.1-Ps.3.8 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
-| `manifest_non_target_poetry_controls` | `non_target_poetry_controls` | Song; Lam; PrMan; Ps151 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
+| `manifest_non_target_poetry_controls` | `non_target_poetry_controls` | Song; Lam | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps78_parent_child_structural_split` | `ps78_parent_child_structural_split` | Ps.78.1-Ps.78.72 | `approved_structural_split_under_parent_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps105_whole_psalm` | `ps105_whole_psalm` | Ps.105.1-Ps.105.45 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps106_whole_psalm_with_b_marker_note` | `ps106_whole_psalm_with_b_marker_note` | Ps.106.1-Ps.106.48 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |

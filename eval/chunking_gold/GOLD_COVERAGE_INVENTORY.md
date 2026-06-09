@@ -1,6 +1,6 @@
 # Gold Coverage Inventory
 
-Status: T315 inventory after T314 evaluator-policy merge.
+Status: T327D inventory after canonical-66 chunk baseline reset.
 
 This inventory distinguishes reviewed executable gold, reviewed parent/child structural splits,
 non-target controls, uncovered areas, and proposed future gold. It records coverage only; it does
@@ -22,8 +22,10 @@ not authorize output-changing chunk work.
 | Ps.106 | `reviewed_gold` | Current `Ps.106.1-48` whole-psalm chunk is approved; `b` markers are evidence, not automatic split authority. |
 | Song | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
 | Lam | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
-| PrMan | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
-| Ps151 | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by literal Book of Psalms route. |
+
+T327D removed `PrMan` and `Ps151` from canonical non-target controls because they are outside the
+owner-approved 66-book corpus. Any future use of excluded material belongs in a boundary-literature
+or tradition-scoped surface, not canonical chunking gold.
 
 Executable anchors:
 

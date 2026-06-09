@@ -6,6 +6,7 @@ Reads the committed per-run scorecards in eval/chunking_runs/*.json (each produc
 can be compared to converge on the best ("get it perfect"). The big chunks.jsonl outputs
 stay gitignored under data/derived/chunks/variants/; only the small scorecards are
 committed, so runs from different agents/PRs/machines are durably comparable.
+Scorecards may span corpus baselines; compare runs within the same corpus_baseline.
 
 Ranking:
   1. HARD GATES (must pass to be eligible): usfm_leaks==0, book_crossings==0,
@@ -80,6 +81,7 @@ def main() -> int:
             "run_id": c.get("run_id", "?"),
             "agent": c.get("agent", "?"),
             "pass": c.get("pass", "?"),
+            "corpus_baseline": c.get("corpus_baseline", "pre_t327_wider_corpus"),
             "eligible": eligible(m),
             "composite": composite(m) if eligible(m) else None,
             "chunks": m.get("chunks"),
@@ -97,14 +99,14 @@ def main() -> int:
     # eligible first, ranked by composite desc; ineligible after
     rows.sort(key=lambda r: (not r["eligible"], -(r["composite"] or -1e9)))
 
-    cols = ["rank", "agent", "pass", "eligible", "composite", "chunks", "tok_p50",
+    cols = ["rank", "agent", "pass", "corpus_baseline", "eligible", "composite", "chunks", "tok_p50",
             "psalms_fragmented", "literal_psalms_fragmented_raw", "reviewed_structural_splits",
             "literal_psalms_fragmented", "poetry_books_fragmented", "psalm119_section_chunks",
             "sent_pct", "leaks", "crossings", "run_id"]
     lines = ["| " + " | ".join(cols) + " |", "|" + "|".join("---" for _ in cols) + "|"]
     for i, r in enumerate(rows, 1):
         rank = i if r["eligible"] else "—"
-        cells = [str(rank), r["agent"], str(r["pass"]),
+        cells = [str(rank), r["agent"], str(r["pass"]), r["corpus_baseline"],
                  "yes" if r["eligible"] else "NO", str(r["composite"]),
                  str(r["chunks"]), str(r["tok_p50"]), str(r["psalms_fragmented"]),
                  str(r["literal_psalms_fragmented_raw"]), str(r["reviewed_structural_splits"]),
@@ -131,6 +133,13 @@ def main() -> int:
         "parent/child structural Psalm splits, such as Ps.78, from the bad-fragmentation penalty;",
         "the same unchanged output now scores 93.5. These are evaluator-policy corrections, not",
         "chunk-output improvement.",
+        "",
+        "Corpus provenance: pre-T327 scorecards are wider-corpus baselines produced before",
+        "the owner-approved 66-book canonical scope correction. T327D introduces the",
+        "post-T327 canonical-66 corpus baseline after T327C removed non-66 canonical outputs.",
+        "Movement between pre-T327 and post-T327 rows is corpus-scope correction / baseline",
+        "reset, not chunking improvement. Compare leaderboard rows within the same",
+        "`corpus_baseline`.",
         "",
         table,
         "",

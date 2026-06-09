@@ -124,7 +124,7 @@ ROUTE_METADATA_KEYS = {
     "candidate_skill_ids",
     "skills_used",
 }
-ROUTE_BOOKS = ("Ps", "Song", "Lam", "PrMan", "Ps151", "John")
+ROUTE_BOOKS = ("Ps", "Song", "Lam", "John")
 
 requires_data = pytest.mark.skipif(
     not (PASSAGES.exists() and WITNESSES.exists() and BOUNDARIES.exists()),
@@ -458,7 +458,7 @@ def test_route_ledger_records_literal_psalm_candidate_and_non_ps_fallback(tmp_pa
     routes = {record["book"]: record for record in records if record["type"] == "ChunkingRouteLedgerRoute"}
     assert routes["Ps"]["skill_id"] == "psalm-whole-then-stanza-v1"
     assert routes["Ps"]["route_reason"] == "literal_book_ps_candidate_seam"
-    for book in ("Song", "Lam", "PrMan", "Ps151", "John"):
+    for book in ("Song", "Lam", "John"):
         assert routes[book]["skill_id"] == "monolith-pass2-v1"
         assert routes[book]["route_reason"] == "monolith_fallback_non_target_book"
     assert all(record["detect_form_consumed"] is False for record in records)
