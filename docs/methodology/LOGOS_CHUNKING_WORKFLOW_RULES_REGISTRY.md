@@ -326,6 +326,8 @@ This avoids:
 | CHUNK-QS-001 | Selah / `\qs` Is Evidence, Not Automatic Boundary | P1 | Selah/liturgical rubric markers need review before becoming chunk boundaries. |
 | CHUNK-VARIANT-001 | Textual Variants Require Textual-Criticism Review | P0 | Major textual variants require textual-criticism review before gold or output change. |
 | CHUNK-CANON-001 | Boundary Texts Must Not Contaminate Canonical Scripture | P0 | Noncanonical/boundary texts may reference Scripture but must not become canonical truth by default. |
+| CHUNK-BIBLE-001 | Bible-First Chunker Priority | P0 | Canonical 66-book Bible chunking is the highest-priority substrate; split/rebuild other harnesses if adaptation would degrade it. |
+| CHUNK-ROUTE-002 | Route-Specific Skills Must Not Leak Globally | P0 | Book/genre-specific rules must stay behind route gates and reviewed gold, not become global heuristics. |
 | CORPUS-SCOPE-001 | Raw Source Scope Is Not Canonical Output Scope | P0 | A raw archive may contain more material than the authorized canonical corpus; ingest must enforce the canonical scope. |
 | CORPUS-SCOPE-002 | Generated Artifact Corrections Require Durable Generator + Gate | P0 | A local regeneration is not durable unless the generator/config/validator/CI path is committed and fail-closed. |
 | CORPUS-SCOPE-003 | Canonical Scope Validation Fails Closed on Missing Identity | P0 | Canonical records without resolvable book/passage identity must fail validation, not silently pass. |
@@ -1041,6 +1043,83 @@ Any task involves:
 
 ---
 
+
+## CHUNK-BIBLE-001 - Bible-First Chunker Priority
+
+**Importance:** P0 - Critical / stop-the-line
+
+### Rule
+
+The canonical 66-book Bible chunker is the highest-priority chunking substrate. Future boundary,
+noncanonical, commentary/reception, legal-document, or master-chunker adaptations must remain
+separate from and subordinate/non-superior to canonical Bible chunking.
+
+If adapting the chunker for noncanonical or boundary material would degrade canonical Bible
+chunking quality, split or rebuild a separate chunker/harness rather than compromising the Bible
+chunker.
+
+### Context for future AI
+
+T336 records the optimized post-T327 roadmap. Psalms are the current implementation lane because
+reviewed evidence and a candidate skill seam already exist. Revelation is likely a harder
+interpretive book and should move early in atlas/review work, but no Revelation implementation may
+start until reviewed gold exists.
+
+### What this prevents
+
+This prevents future agents from treating a master chunker, boundary corpus, legal-document chunker,
+or Revelation-specific work as permission to weaken the canonical Bible chunker.
+
+### Applies when
+
+Use this rule whenever work touches chunker sequencing, skill promotion, future master-chunker
+planning, boundary/noncanonical adaptation, or cross-domain chunking transfer.
+
+### Required evidence
+
+- protected-path check for raw/canonical/chunk/evaluator surfaces;
+- explicit corpus/authority lane;
+- reviewed gold before output-changing Bible chunking;
+- separate harness plan if noncanonical/boundary/legal adaptation could degrade Bible chunking.
+
+---
+
+## CHUNK-ROUTE-002 - Route-Specific Skills Must Not Leak Globally
+
+**Importance:** P0 - Critical / stop-the-line
+
+### Rule
+
+Book-specific and genre-specific chunking rules must stay behind router/orchestrator gates and must
+not leak globally.
+
+### Context for future AI
+
+The optimized roadmap teaches structural primitives through routed skills rather than one global
+heuristic pile. Revelation/apocalypse assumptions must not leak into Psalms, Psalm marker rules
+must not leak into prophets, WJ/speaker assumptions must not leak into Revelation, and specialized
+rules must not degrade simple books.
+
+### What this prevents
+
+This prevents semantic smuggling and quality regressions caused by applying a hard-book rule to the
+wrong book or genre.
+
+### Applies when
+
+Use this rule whenever adding, promoting, or planning a skill for Psalms, epistles, narrative,
+wisdom/dialogue, prophetic oracle, Gospel discourse/WJ, Revelation/apocalypse, or a master
+orchestrator.
+
+### Required evidence
+
+- route ledger or route plan;
+- applies-to scope;
+- forbidden global applications;
+- reviewed gold or explicit non-authorizing status;
+- fail-closed behavior when evidence is insufficient.
+
+---
 
 ## CORPUS-SCOPE-001 — Raw Source Scope Is Not Canonical Output Scope
 

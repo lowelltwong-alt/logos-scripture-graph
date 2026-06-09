@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T335 reviewed Psalm stress/gold coverage expansion (Codex)
-**Active task:** -> **T335** expanded Psalm stress/gold coverage after PR #40 / T334 was verified merged into `main` at merge commit `4f9ce2`, with T334 commit `a748cf3` present and no merge/rebase state. T335 adds pending, non-authorizing Psalm review packets for Ps.89 and Ps.136 and wires matching pending status through the Psalm manifest, stress observed behavior surface, review-packet index, coverage inventory, roadmap note, and focused tests. No reviewed gold was promoted; no future behavior-changing work is authorized by T335 alone. No default chunking behavior change, chunk output change, chunk regeneration, evaluator formula change, leaderboard/scorecard change, raw/canonical mutation, source import, new Psalm boundary, boundary corpus record, broad rewrite, or T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T336 optimized whole-Bible chunking roadmap (Codex)
+**Active task:** -> **T336** optimized the post-T327 whole-Bible chunking roadmap as roadmap/methodology/control-plane work only. The Bible-first priority is now explicit: the canonical 66-book Bible chunker remains the highest-priority substrate. Psalms remain the current implementation lane because reviewed evidence, stress surfaces, and a candidate skill seam already exist; this does not mean Psalms are harder than Revelation. Revelation is now an early future hard-book atlas/review lane but not an implementation lane until reviewed gold exists. Future boundary/noncanonical/legal/commentary/master-chunker work must remain separate from and subordinate/non-superior to canonical Bible chunking; if adaptation would degrade Bible chunking, split or rebuild a separate chunker/harness. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T336 optimized whole-Bible chunking roadmap (2026-06-09):** Reconstructed current state from
+> `main`, confirmed T336 was unused, confirmed T335 was merged via PR #41, and noted PR #42 as an
+> open T335 follow-up. Added `docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md` and
+> concise updates to front-door, TOC, roadmap, roadmap state, prior roadmap docs, methodology, task,
+> status, and handoff surfaces. T336 records the implementation order
+> Psalms -> epistles -> narrative -> wisdom/dialogue -> prophetic oracle -> Gospel discourse/WJ ->
+> Revelation/apocalypse -> Bible-wide orchestration, and the hard-book atlas order Revelation ->
+> prophets -> Gospel discourse/WJ -> Job/Song/Wisdom -> Daniel bridge. T336 is planning/control-
+> plane only and authorizes no chunking behavior change, Revelation implementation, boundary import,
+> source import, raw/canonical/generated mutation, evaluator formula change, leaderboard/scorecard
+> change, or T327G work.
 
 > **T335 reviewed Psalm stress/gold coverage expansion (2026-06-09):** Verified PR #40 / T334 was
 > merged into `main`, merge commit `4f9ce2` is present, T334 commit `a748cf3` is present, and no

@@ -89,6 +89,33 @@ Exit criteria:
 
 - known hard cases pass: Psalms, Proverbs, prophetic oracles, Gospel pericopes, Pauline arguments
 
+### Current post-T327 chunking sequence
+
+T336 records the optimized whole-Bible chunking roadmap after the T327 canonical-scope correction
+and T331-T335 Psalm guardrail sequence.
+
+Priority:
+
+- canonical 66-book Bible chunking remains the highest-priority substrate;
+- Psalms are first for implementation because reviewed evidence and the candidate Psalm seam already
+  exist;
+- Revelation should receive an early hard-book atlas/review-packet lane but no implementation until
+  reviewed gold exists;
+- book-specific rules must stay behind router/orchestrator gates and must not leak globally;
+- future boundary, noncanonical, legal, commentary, reception, or master-chunker work must remain
+  separate from and subordinate to canonical Bible chunking.
+
+Recommended sequence:
+
+1. Psalms / poetry stanza implementation lane.
+2. Epistle argument/paragraph lane.
+3. Narrative/pericope lane.
+4. Wisdom/dialogue lane.
+5. Prophetic oracle lane.
+6. Gospel discourse / words-of-Jesus lane.
+7. Revelation / apocalypse lane.
+8. Bible-wide orchestration/promotion pass.
+
 ## Phase 5 — Hebrew/Greek source alignment
 
 Goal: align English chunks to source-language references before deep morphology.

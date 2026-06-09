@@ -63,11 +63,16 @@ Confirmed:
   preserving historical audit and exclusion-test evidence.
 - T328 added a workflow lesson collector so generated-artifact corrections, boundary-source intake,
   and candidate-to-action analogues are captured outside the immediate T327 PR sequence.
+- T336 records the optimized post-T327 whole-Bible roadmap: canonical 66-book Bible chunking is the
+  highest-priority substrate; Psalms are the current implementation lane because reviewed evidence
+  and a candidate seam exist; Revelation moves early in atlas/review but not implementation until
+  reviewed gold exists; route-specific skills must not leak globally.
 
 Unknown or unfinished:
 
 - Any true Psalm quality improvement still depends on reviewed target-boundary evidence beyond the
   now-reviewed Psalm 78 parent/child structural split.
+- Future Revelation implementation depends on a separate hard-book atlas/review/gold lane.
 - Later increments still need more skills, per-form gold sets, staleness enforcement, promotion
   rules, and final export.
 
@@ -135,7 +140,13 @@ or treat route metadata as chunk/context content.
 18. Update this methodology.
 19. If the task exposes a reusable generated-artifact, boundary-intake, or candidate-promotion
     workflow rule, update `docs/methodology/WORKFLOW_LESSONS.md` or record why no update was needed.
-20. Repeat for next form.
+20. Keep book-specific and genre-specific skills route-isolated so Revelation assumptions do not
+    leak into Psalms, Psalm marker rules do not leak into prophets, and speaker/WJ assumptions do
+    not leak into apocalyptic work.
+21. Keep future boundary/noncanonical/legal/commentary/master-chunker adaptations subordinate to
+    canonical Bible chunking; split or rebuild a separate harness if adaptation would degrade the
+    Bible chunker.
+22. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -485,6 +496,26 @@ Rules:
   chunks, evaluator inputs, or default Scripture retrieval, stop and report.
 - Use `.ai/control/boundary_material_routing.yaml` for machine-readable local routing.
 
+## 10l. Bible-first route-isolation rule
+
+T336 records the whole-Bible roadmap after the T327 correction and Psalm guardrail sequence.
+
+Rules:
+
+- The canonical 66-book Bible chunker is the highest-priority substrate.
+- Psalms are the current implementation lane because reviewed evidence, stress surfaces, and the
+  candidate Psalm skill seam already exist; this does not mean Psalms are harder than Revelation.
+- Revelation should move early in hard-book atlas/review work, but not into implementation until
+  reviewed gold exists.
+- The chunker should be taught by reusable structural primitives behind router/orchestrator gates,
+  not by a global pile of heuristics.
+- Book-specific and genre-specific rules must not leak globally. Revelation/apocalypse assumptions
+  must not leak into Psalms, prophecy, Gospel discourse, epistles, or the monolith fallback.
+- Future boundary/noncanonical/legal/commentary/reception/master-chunker work must remain separate
+  from and subordinate/non-superior to canonical Bible chunking.
+- If adaptation for boundary or noncanonical material would degrade canonical Bible chunking, split
+  or rebuild a separate chunker/harness rather than compromising the Bible chunker.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -624,3 +655,7 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
 - 2026-06-09: Added the T328B workflow rule registry pointer. The expanded registry records
   `CHUNK-CANON-001`, deterministic T327 corpus-scope rules, boundary intake/governance stop rules,
   and LawFirm transfer patterns as control-plane methodology.
+- 2026-06-09: Added the T336 Bible-first route-isolation rule. Canonical 66-book Bible chunking is
+  the highest priority; Psalms are the current implementation lane because evidence and a seam
+  exist; Revelation moves early in atlas/review, not implementation; future master/boundary
+  chunkers must stay separate if adaptation would degrade Bible chunking.

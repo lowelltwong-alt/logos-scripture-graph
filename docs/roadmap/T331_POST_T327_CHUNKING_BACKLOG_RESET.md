@@ -90,10 +90,18 @@ Future chunking improvements must be measured against the post-T327 canonical-66
 
 ## Recommended Task Sequence
 
-1. T332: select one narrow chunking target.
-2. T333: implement one candidate skill/config improvement only after reviewed target evidence exists.
-3. T334: evaluate against the post-T327 canonical-66 baseline.
-4. T335: expand gold/stress coverage if needed.
+T336 supersedes the short T331 sequence with the optimized whole-Bible roadmap while preserving the
+post-T327 safety posture.
+
+1. T336: optimize the whole-Bible chunking roadmap.
+2. T337: select one Psalm behavior change.
+3. T338: implement one Psalm behavior change.
+4. T339: evaluate same-baseline Psalm improvement.
+5. T340: promote/reject Psalm candidate skill.
+6. T341-T343: run Revelation hard-book atlas, observed behavior audit, and review packets/gold
+   candidates only.
+7. T344-T346: select, implement, and evaluate one Revelation behavior only if reviewed gold exists.
+8. T347: select the next genre lane.
 
 ## Stop Conditions For Future Work
 
@@ -110,7 +118,8 @@ Stop before implementation if a proposed task:
 
 ## Recommendation
 
-Use T332 to choose one narrow target. Psalms/poetry stanza behavior is a strong candidate because the
-repo already has Psalm gold, stress cases, reviewed Psalm 78 parent/child behavior, and reviewed
-Ps.105/Ps.106 preservation. T332 should still compare alternatives and document why the selected
-target is safer than the rest.
+Use T336 as the controlling roadmap update for post-T327 whole-Bible chunking order. Psalms remain
+the current implementation lane because the repo already has Psalm gold, stress cases, reviewed
+Psalm 78 parent/child behavior, reviewed Ps.105/Ps.106 preservation, and a candidate skill seam.
+Revelation should move early in the atlas/review lane, not the implementation lane, until reviewed
+gold exists.

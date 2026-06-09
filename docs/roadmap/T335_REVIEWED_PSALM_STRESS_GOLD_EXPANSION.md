@@ -138,5 +138,9 @@ Next safe task:
 - T336 should select one Psalm behavior change only if reviewed gold authorizes it.
 - Otherwise T336 should remain a review/planning task.
 
-Do not start T327G, boundary import, source acquisition, broad chunker rewrites, or new Psalm
-boundaries from T335 alone.
+T336 later refines this into an optimized whole-Bible roadmap: Psalms remain the current
+implementation lane, Revelation becomes an early hard-book atlas/review lane, and all future
+book-specific skills must remain route-isolated.
+
+Do not start T327G, boundary import, source acquisition, broad chunker rewrites, Revelation
+implementation, or new Psalm boundaries from T335 alone.
