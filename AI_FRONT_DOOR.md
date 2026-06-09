@@ -63,6 +63,19 @@ Use this repo for:
 - Scripture stress atlas and review packets;
 - canonical Scripture graph outputs.
 
+Bible-first chunking priority:
+
+- The highest chunking priority is a highly reliable, near-perfect / perfectly governed chunker for
+  the canonical 66-book Bible.
+- Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
+  already exist, not because Psalms are necessarily the hardest book.
+- Revelation is a future hard-book atlas/review-packet lane; Revelation implementation must wait
+  until reviewed gold exists and must route to apocalypse/Revelation-specific rules.
+- Book-specific and genre-specific chunking rules must not leak globally.
+- Future boundary, noncanonical, legal, commentary, reception, or master-chunker work must remain
+  separate from and subordinate to canonical Bible chunking. If adaptation would degrade the Bible
+  chunker, split or rebuild a separate chunker/harness instead.
+
 Do not use this repo for:
 
 - deuterocanonical/apocrypha source text;

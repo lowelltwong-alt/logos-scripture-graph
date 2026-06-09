@@ -143,3 +143,13 @@ Claude should review T333 for:
 
 Proceed to T333 only after a reviewed Psalm/poetry target is named. A gold-first T333 may be safer
 than an implementation T333 if the exact stanza target is not yet reviewed.
+
+## T336 Roadmap Clarification
+
+T336 preserves the T332 Psalm selection as the current implementation lane, but clarifies why:
+Psalms are first because reviewed evidence, stress surfaces, and the candidate Psalm skill seam
+already exist. This does not mean Psalms are necessarily harder than Revelation.
+
+Revelation should receive an early hard-book atlas/review-packet lane, while Revelation
+implementation waits until reviewed gold exists. Book-specific Revelation assumptions must not leak
+globally into Psalm, prophecy, Gospel discourse, epistle, or monolith fallback behavior.

@@ -154,5 +154,9 @@ Next safe task:
 - A later Revelation hard-book atlas/review-packet lane should be created only as a separate future
   task, with no implementation until reviewed gold exists.
 
-Do not start T327G, boundary import, source acquisition, broad chunker rewrites, or new Psalm
-boundaries from T335 alone. Do not start Revelation implementation from T335.
+T336 later refines this into an optimized whole-Bible roadmap: Psalms remain the current
+implementation lane, Revelation becomes an early hard-book atlas/review lane, and all future
+book-specific skills must remain route-isolated.
+
+Do not start T327G, boundary import, source acquisition, broad chunker rewrites, Revelation
+implementation, or new Psalm boundaries from T335 alone.

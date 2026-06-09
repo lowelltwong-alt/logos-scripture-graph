@@ -85,6 +85,22 @@ Future boundary intake requires:
 Boundary material must not override, equal, contaminate, or silently reinterpret canonical Scripture
 authority. `logos-scripture-graph` remains the canonical 66-book Scripture graph.
 
+## BIBLE-CHUNKING-WORKFLOW-LESSON-001 - Bible-First Chunker Priority and Route Isolation
+
+The canonical 66-book Bible chunker is the highest-priority chunking substrate. Future
+noncanonical, boundary, commentary/reception, legal-document, or master-chunker adaptations must be
+separate from and subordinate/non-superior to that priority.
+
+The optimized post-T327 roadmap teaches structural primitives behind route-specific skills instead
+of one global heuristic pile. Psalms are the current implementation lane because reviewed evidence
+and a candidate-skill seam already exist. Revelation is likely a harder interpretive book and should
+receive an early hard-book atlas/review-packet lane, but no Revelation implementation should begin
+until reviewed gold exists.
+
+If adapting the chunker for boundary or noncanonical material would degrade canonical Bible
+chunking quality, split or rebuild a separate chunker/harness rather than compromising the Bible
+chunker.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures
