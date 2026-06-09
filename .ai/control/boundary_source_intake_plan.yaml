@@ -1,0 +1,94 @@
+plan_id: T327F-BOUNDARY-SOURCE-INTAKE-PLANNING
+repo: logos-scripture-graph
+status: planning_only
+created_at: "2026-06-09"
+
+canonical_authority_repo: logos-scripture-graph
+supporting_boundary_repo: logos-boundary-literature
+governance_authority_repo: logos-governance-architecture
+
+imports_allowed: false
+downloads_allowed: false
+corpus_records_allowed: false
+source_text_ingestion_allowed: false
+canonical_override_allowed: false
+boundary_material_can_equal_scripture_authority: false
+boundary_material_can_mutate_scripture_records: false
+future_intake_requires_owner_authorization: true
+t327g_started: false
+
+candidate_source_families:
+  - deuterocanonical_apocrypha
+  - noncanonical_boundary_literature
+  - gnostic_heterodox_texts
+  - disputed_forged_fake_texts
+  - commentary_reception_corpora
+  - josephus_philo
+  - dss_qumran
+  - patristic_corpora
+  - front_matter_glossary_as_non_scripture_artifacts
+
+required_controls:
+  - source_license_review
+  - source_provenance_manifest
+  - source_checksum_manifest
+  - immutable_source_archive_policy
+  - tradition_scoped_canon_status
+  - trust_level_model
+  - attribution_forgery_policy
+  - contamination_control_tests
+  - retrieval_default_exclusion
+  - owner_authorization
+  - governance_contract_review_if_data_flows_change
+
+minimum_future_metadata:
+  - source_family
+  - source_edition
+  - license_ref
+  - provenance_ref
+  - checksum_ref
+  - tradition_scope
+  - canon_status
+  - trust_level
+  - authority_scope
+  - attribution_status
+  - claim_scope
+
+forbidden_flows:
+  - boundary_text_to_canonical_passage_record
+  - boundary_text_to_canonical_chunk
+  - boundary_claim_to_default_scripture_meaning
+  - boundary_claim_to_canonical_truth_claim
+  - boundary_material_to_leaderboard_input
+  - boundary_material_to_scorecard_input
+  - boundary_material_to_default_scripture_retrieval
+  - boundary_repo_override_of_scripture_authority
+  - boundary_repo_equal_authority_to_scripture
+  - commentary_claim_mutates_scripture_record
+
+allowed_future_flows_after_review:
+  - scripture_ref_points_to_boundary_background
+  - boundary_record_references_scripture_ref
+  - scoped_commentary_discusses_scripture_and_boundary_material
+  - tradition_scoped_claim_with_provenance
+
+stop_triggers:
+  - task_requests_text_import
+  - task_requests_boundary_corpus_records
+  - task_requests_raw_mutation
+  - task_requests_canonical_mutation
+  - task_requests_boundary_material_to_modify_scripture_outputs
+  - task_requests_canonical_override_from_boundary_claim
+  - task_requests_t327g_without_separate_authorization
+
+future_tasks_before_import:
+  - boundary_repo_source_intake_schema_design
+  - boundary_repo_license_provenance_registry
+  - boundary_repo_trust_hierarchy_schema
+  - boundary_repo_contamination_control_tests
+  - boundary_repo_retrieval_default_policy
+  - governance_contract_update_if_needed
+  - owner_approved_source_selection_packet
+  - checksum_only_source_manifest_dry_run
+  - fixture_only_parser_test
+  - separate_source_specific_intake_pr
