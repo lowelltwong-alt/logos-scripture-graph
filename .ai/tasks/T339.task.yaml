@@ -1,0 +1,45 @@
+id: T339
+phase: phase_4
+title: "Evaluate Psalm 89 Same-Baseline Risk"
+mode: review
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T339.task.yaml
+    - .ai/handoffs/T339/
+    - docs/roadmap/T339_PS89_SAME_BASELINE_RISK_EVALUATION.md
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - pipelines/chunking/skills/
+    - registry/chunking/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "PR #48 / T338 merge state and commits are verified on main."
+  - "Pre-T338 and post-T338 routed outputs are compared using temporary evaluation artifacts only."
+  - "Psalm 89 before/after behavior, hashes, chunk count movement, and doxology handling are documented."
+  - "Non-Psalm-89 identity and named Psalm/non-target poetry controls are documented."
+  - "Metric movement is interpreted as Psalm 89 reviewed structural correction only, not whole-Bible improvement."
+  - "RISK-GATE-001 analysis covers global Psalm, doxology, marker heuristic, premature promotion, and overclaim risks."
+  - "Stale current-focus wording about T338 review/merge is cleaned up."
+  - "No chunking behavior, evaluator formula, leaderboard/scorecard, raw/canonical/derived data, boundary import, T327G, Revelation implementation, or global marker rule is changed."
+required_handoff: .ai/handoffs/T339/handoff.md
+created_at: "2026-06-10"
+updated_at: "2026-06-10"

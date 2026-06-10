@@ -66,7 +66,7 @@ def test_t337b_packet_preserves_guardrails_while_authorizing_ps89_only() -> None
     assert "chunking improvement claims" in ps89
 
 
-def test_t337a_roadmap_state_and_focus_advance_after_t338_completion() -> None:
+def test_t337a_roadmap_state_and_focus_advance_after_t339_completion() -> None:
     state = yaml.safe_load(read(ROADMAP_STATE))
     phase_4 = state["phases"]["phase_4"]
     tasks = {task["id"]: task for task in phase_4["tasks"]}
@@ -79,6 +79,9 @@ def test_t337a_roadmap_state_and_focus_advance_after_t338_completion() -> None:
     assert tasks["T337B"]["required_handoff"] == ".ai/handoffs/T337B/handoff.md"
     assert tasks["T338"]["status"] == "complete"
     assert tasks["T338"]["required_handoff"] == ".ai/handoffs/T338/handoff.md"
+    assert tasks["T339"]["status"] == "complete"
+    assert tasks["T339"]["required_handoff"] == ".ai/handoffs/T339/handoff.md"
     assert "T338" not in future
-    assert future["T339"]["status"] == "planned"
-    assert "T338 - Psalm 89 Option C implemented" in combined
+    assert "T339" not in future
+    assert future["T340"]["status"] == "planned"
+    assert "T339 - same-baseline/risk evaluation completed" in combined
