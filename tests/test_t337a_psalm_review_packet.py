@@ -66,7 +66,7 @@ def test_t337b_packet_preserves_guardrails_while_authorizing_ps89_only() -> None
     assert "chunking improvement claims" in ps89
 
 
-def test_t337a_roadmap_state_and_focus_advance_after_t340_hold() -> None:
+def test_t337a_roadmap_state_and_focus_advance_after_t341_atlas() -> None:
     state = yaml.safe_load(read(ROADMAP_STATE))
     phase_4 = state["phases"]["phase_4"]
     tasks = {task["id"]: task for task in phase_4["tasks"]}
@@ -83,8 +83,12 @@ def test_t337a_roadmap_state_and_focus_advance_after_t340_hold() -> None:
     assert tasks["T339"]["required_handoff"] == ".ai/handoffs/T339/handoff.md"
     assert tasks["T340"]["status"] == "complete"
     assert tasks["T340"]["required_handoff"] == ".ai/handoffs/T340/handoff.md"
+    assert tasks["T341"]["status"] == "complete"
+    assert tasks["T341"]["required_handoff"] == ".ai/handoffs/T341/handoff.md"
     assert "T338" not in future
     assert "T339" not in future
     assert "T340" not in future
-    assert future["T341"]["status"] == "planned"
-    assert "T340 - Psalm candidate promotion decision recorded as hold" in combined
+    assert "T341" not in future
+    assert future["T342"]["status"] == "planned"
+    assert future["T342"]["title"] == "Revelation Review-Packet Candidate Selection"
+    assert "T341 - Revelation hard-book atlas" in combined
