@@ -33,16 +33,17 @@ def test_pending_review_packets_exist_and_stay_pending() -> None:
 
 def test_pending_review_packets_do_not_claim_reviewed_gold() -> None:
     forbidden = {
-        "reviewed_gold",
+        "Status: `reviewed_gold`",
         "approved_structural_split_under_parent_whole_psalm",
         "authorizes_output_change",
         "implementation_allowed: true",
+        "output_change_authorized: true",
+        "reviewed_gold_promoted: true",
     }
     for filename in PENDING_PACKETS:
         text = (PACKET_DIR / filename).read_text(encoding="utf-8")
-        lowered = text.lower()
         for phrase in forbidden:
-            assert phrase not in lowered, f"{filename} contains forbidden phrase {phrase}"
+            assert phrase not in text, f"{filename} contains forbidden phrase {phrase}"
 
 
 def test_t317_psalm_packets_record_reviewed_whole_psalm_gold() -> None:

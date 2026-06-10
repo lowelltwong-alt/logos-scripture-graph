@@ -1,0 +1,82 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import yaml
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PS89 = ROOT / "eval" / "chunking_gold" / "review_packets" / "ps89_boundary_review.md"
+PS136 = ROOT / "eval" / "chunking_gold" / "review_packets" / "ps136_boundary_review.md"
+ROADMAP_STATE = ROOT / "ROADMAP_STATE.yaml"
+CURRENT_FOCUS = ROOT / ".ai" / "control" / "current_focus.yaml"
+PROJECT_STATUS = ROOT / ".ai" / "control" / "PROJECT_STATUS.md"
+
+
+EXPECTED_PS89_SPANS = [
+    "`Ps.89.1-Ps.89.4`",
+    "`Ps.89.5-Ps.89.18`",
+    "`Ps.89.19-Ps.89.37`",
+    "`Ps.89.38-Ps.89.45`",
+    "`Ps.89.46-Ps.89.48`",
+    "`Ps.89.49-Ps.89.52`",
+]
+
+
+def read(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
+def test_t337a_selects_exactly_one_pending_psalm_review_target() -> None:
+    ps89 = read(PS89)
+    ps136 = read(PS136)
+
+    assert "T337A selection: selected as the single Psalm target for human review" in ps89
+    assert "T337A selection" not in ps136
+    assert "Psalm 136 remains pending and non-authorizing" in ps89
+    assert "It does not promote Psalm 89 to reviewed gold" in ps89
+    assert "does not start T338" in ps89
+
+
+def test_t337a_ps89_packet_has_exact_proposed_spans_and_decision_box() -> None:
+    ps89 = read(PS89)
+
+    for span in EXPECTED_PS89_SPANS:
+        assert span in ps89
+
+    assert "human_review_decision:" in ps89
+    assert "decision: pending" in ps89
+    assert "implementation_allowed: false" in ps89
+    assert "output_change_authorized: false" in ps89
+    assert "reviewed_gold_promoted: false" in ps89
+    assert "T338 remains blocked" in ps89
+
+
+def test_t337a_packet_preserves_non_authorizing_boundaries() -> None:
+    ps89 = read(PS89)
+
+    assert "This packet does not authorize output-changing work." in ps89
+    assert "No fresh chunk regeneration was performed for T337A." in ps89
+    assert "Marker evidence is evidence only." in ps89
+    assert "does not authorize:" in ps89
+    assert "chunk output regeneration" in ps89
+    assert "raw or canonical data mutation" in ps89
+    assert "source text or boundary text imports" in ps89
+    assert "T327G" in ps89
+    assert "Revelation implementation" in ps89
+    assert "chunking improvement claims" in ps89
+
+
+def test_t337a_roadmap_state_and_focus_keep_t338_blocked() -> None:
+    state = yaml.safe_load(read(ROADMAP_STATE))
+    phase_4 = state["phases"]["phase_4"]
+    tasks = {task["id"]: task for task in phase_4["tasks"]}
+    future = {task["id"]: task for task in phase_4["future_sequence"]}
+    combined = "\n".join([read(CURRENT_FOCUS), read(PROJECT_STATUS)])
+
+    assert tasks["T337A"]["status"] == "complete"
+    assert tasks["T337A"]["required_handoff"] == ".ai/handoffs/T337A/handoff.md"
+    assert future["T338"]["status"] == "planned"
+    assert future["T338"]["requires_reviewed_gold"] is True
+    assert "T338 remains blocked" in combined
+    assert "do not start T338" in combined

@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-09
-**Updated by:** T337 Psalm behavior-change target selection (Codex)
-**Active task:** -> **T337** verified PR #44 / T336B was merged, then completed selection/control-plane work only. Added `docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md` and status/handoff/test pointers. Decision: no reviewed-gold-supported Psalm output-changing behavior target is currently authorized. Reviewed Psalm evidence supports current behavior preservation or exact existing structural splits; Ps89 and Ps136 remain pending/characterization-only and cannot authorize implementation. T338 remains blocked until human review promotes exactly one Psalm target with exact spans, executable reviewed-gold checks, `implementation_allowed: true`, and `output_change_authorized: true`. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-10
+**Updated by:** T337A Psalm target human-review packet (Codex)
+**Active task:** -> **T337A** verified PR #45 / T337 was merged, then created a review/evidence/control-plane-only human-review packet for exactly one Psalm target. Selected Psalm 89 as the single review candidate because it is the pending Psalm case most likely to unlock a narrow parent/child behavior target. Updated `eval/chunking_gold/review_packets/ps89_boundary_review.md` with exact proposed spans, required executable checks, non-target identity requirements, a RISK-GATE-001 map, and a human decision box. The decision remains pending with `implementation_allowed: false`, `output_change_authorized: false`, and `reviewed_gold_promoted: false`; T338 remains blocked and must not start until human approval changes those fields. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T337A Psalm target human-review packet (2026-06-10):** Verified PR #45 / T337 was merged into
+> `main`, confirmed commit `b78b267` is present, and confirmed a clean worktree with no merge/rebase
+> state before starting. Selected Psalm 89, not Psalm 136, as the single human-review candidate.
+> Psalm 89 is longer, structurally richer, and more likely to support a narrow parent/child review
+> decision; Psalm 136 remains pending and non-authorizing. Expanded the Psalm 89 review packet with
+> exact proposed child spans (`Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`,
+> `Ps.89.46-48`, `Ps.89.49-52`), required future executable checks, non-target identity
+> requirements, and RISK-GATE-001 mapping. The packet is still pending and non-authorizing; no new
+> reviewed gold, output authorization, chunking behavior, generated output, evaluator, leaderboard,
+> scorecard, raw/canonical data, source import, boundary import, T327G, T338, or Revelation
+> implementation changed.
 
 > **T337 Psalm behavior-change target selection (2026-06-09):** After PR #44 / T336B post-merge
 > verification passed, reviewed the Psalm gold manifest, Psalm gold plan, Ps78/Ps105/Ps106 reviewed
