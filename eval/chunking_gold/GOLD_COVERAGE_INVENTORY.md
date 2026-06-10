@@ -18,6 +18,7 @@ not authorize output-changing chunk work.
 | Ps.117 | `reviewed_gold` | Short Psalm holdout remains one whole-psalm chunk. |
 | Ps.3 superscription | `reviewed_gold` | Real `\d` source evidence exists; no orphan title/superscription chunk is emitted. |
 | Ps.78 | `approved_structural_split_under_parent_whole_psalm` | Parent `Ps.78.1-72` with child chunks `Ps.78.1-69`, `Ps.78.70-71`, and `Ps.78.72`; not bad fragmentation when exact boundaries match. |
+| Ps.89 | `approved_structural_split_under_parent_whole_psalm` | Owner Option C parent `Ps.89.1-52` with child chunks `Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`, `Ps.89.46-48`, and `Ps.89.49-52`; `Ps.89.52` is the Book III doxology and must not be a one-verse orphan. |
 | Ps.105 | `reviewed_gold` | Current `Ps.105.1-45` whole-psalm chunk is approved; no output change. |
 | Ps.106 | `reviewed_gold` | Current `Ps.106.1-48` whole-psalm chunk is approved; `b` markers are evidence, not automatic split authority. |
 | Song | non-target control | Stays on `monolith-pass2-v1` fallback; not absorbed by Psalm route. |
@@ -59,7 +60,6 @@ The validator checks:
 
 | Candidate | Why it matters | Required gold before output change |
 | --- | --- | --- |
-| Ps.89 | Long royal/lament Psalm with structural turns. | Parent unit plus reviewed child boundary targets. |
 | Ps.105 future child sections | Long historical Psalm; tests narrative-poetry compression if the approved whole-psalm behavior is revisited. | New human decision, exact child spans, and non-fragmentation diagnostics. |
 | Ps.106 future child sections | Long historical confession Psalm with `b` marker evidence if the approved whole-psalm behavior is revisited. | New human decision, exact child spans, and merge/preserve rationale. |
 | Ps.136 | Refrain-driven Psalm; tests repeated liturgical structure. | Refrain-aware boundary expectations. |
@@ -136,17 +136,18 @@ output-changing work.
 
 ## T335 Pending Psalm Review Packets
 
-T335 adds two Psalm-only pending review packets and manifest characterization entries. They expand
-the review queue for future Psalm behavior selection but do not promote reviewed gold or authorize
-output-changing work.
+T335 added two Psalm-only pending review packets and manifest characterization entries. T337B later
+promoted Psalm 89 via owner Option C; Psalm 136 remains pending and non-authorizing.
 
 | Case | Packet | Status | Current evidence summary |
 | --- | --- | --- | --- |
-| Ps.89 | `eval/chunking_gold/review_packets/ps89_boundary_review.md` | `pending_human_review` / characterization-only | Long royal/lament Psalm; T318 historical observation kept it as one 823-token chunk with `q1`, `q2`, `b`, and `qs` / Selah evidence. |
+| Ps.89 | `eval/chunking_gold/review_packets/ps89_boundary_review.md` | `approved_structural_split_under_parent_whole_psalm` / owner Option C | Approved parent `Ps.89.1-52` with final child `Ps.89.49-52`; `Ps.89.52` is the Book III doxology and must not be a one-verse orphan. |
 | Ps.136 | `eval/chunking_gold/review_packets/ps136_boundary_review.md` | `pending_human_review` / characterization-only | Refrain-driven litany Psalm; T318 historical observation kept it as one 346-token chunk with refrain/form evidence. |
 
-Both packets require a fresh human decision and exact expected spans before any chunker, evaluator,
-or skill behavior can change. Marker evidence remains evidence, not automatic boundary authority.
+Psalm 136 still requires a fresh human decision and exact expected spans before any chunker,
+evaluator, or skill behavior can change. Marker evidence remains evidence, not automatic boundary
+authority. Psalm 89 authorization is exact-target only and does not authorize global Selah,
+blank-line, doxology, poetry, or long-Psalm rules.
 
 ## T318 Observed Stress Behavior Audit
 

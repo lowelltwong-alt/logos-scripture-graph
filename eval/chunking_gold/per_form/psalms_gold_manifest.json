@@ -3,7 +3,7 @@
   "manifest_id": "psalms-gold-v0",
   "target_form": "literal_book_psalms",
   "route_or_skill_under_test": "psalm-whole-then-stanza-v1",
-  "promotion_status": "settled_cases_executable_gold_with_ps78_reviewed_structural_split_and_ps105_106_whole_psalm",
+  "promotion_status": "settled_cases_executable_gold_with_ps78_and_ps89_reviewed_structural_splits_and_ps105_106_whole_psalm",
   "baseline": {
     "run_id": "claude-opus-4.8__pass2__D_claude_pass2_post_t327__20260608T215149Z",
     "post_t327_canonical_66_composite": 93.6,
@@ -218,33 +218,87 @@
         "No output change is needed."
       ],
       "purpose": "Lock current Psalm 106 whole-psalm behavior as reviewed gold while recording that b markers are evidence, not automatic split authority."
+    },
+    {
+      "case_id": "ps89_owner_decision_option_c",
+      "status": "approved_structural_split_under_parent_whole_psalm",
+      "osis_span": "Ps.89.1-Ps.89.52",
+      "review_packet": "eval/chunking_gold/review_packets/ps89_boundary_review.md",
+      "owner_decision": {
+        "reviewer": "Lowell Wong",
+        "date": "2026-06-10",
+        "decision": "approved_with_scope_note",
+        "option": "Option C",
+        "implementation_allowed": true,
+        "output_change_authorized": true,
+        "reviewed_gold_promoted": true
+      },
+      "parent_literary_unit": {
+        "osis_start": "Ps.89.1",
+        "osis_end": "Ps.89.52",
+        "unit_type": "whole_psalm",
+        "literary_unity": true
+      },
+      "expected": {
+        "chunk_count": 6,
+        "child_chunks": [
+          {
+            "osis_start": "Ps.89.1",
+            "osis_end": "Ps.89.4",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.89.5",
+            "osis_end": "Ps.89.18",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.89.19",
+            "osis_end": "Ps.89.37",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.89.38",
+            "osis_end": "Ps.89.45",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.89.46",
+            "osis_end": "Ps.89.48",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split"]
+          },
+          {
+            "osis_start": "Ps.89.49",
+            "osis_end": "Ps.89.52",
+            "boundary_basis": ["reviewed_structural_split", "whole_psalm_split", "book_iii_doxology_scope_note"],
+            "contains_book_iii_doxology": true,
+            "book_iii_doxology_ref": "Ps.89.52",
+            "no_one_verse_orphan_split": true
+          }
+        ],
+        "reviewed_structural_split": true,
+        "not_bad_fragmentation_gold": true,
+        "ps89_only": true,
+        "route_isolated_future_implementation_only": true,
+        "global_rule_authorized": false
+      },
+      "scope_limits": {
+        "approval_scope": "Psalm 89 only",
+        "ps89_52_note": "Ps.89.52 is the Book III doxology and remains inside final child Ps.89.49-Ps.89.52.",
+        "not_ordinary_lament_continuation": true,
+        "no_one_verse_orphan_split_for_ps89_52": true,
+        "no_global_selah_rule": true,
+        "no_global_blank_line_rule": true,
+        "no_global_doxology_rule": true,
+        "no_global_poetry_rule": true,
+        "no_revelation_implementation": true,
+        "no_boundary_import": true,
+        "no_t327g": true
+      },
+      "purpose": "Record the owner-approved Psalm 89 Option C reviewed-gold target without implementing chunking behavior."
     }
   ],
   "characterization_only": [
-    {
-      "case_id": "ps89_royal_lament_pending_review",
-      "status": "pending_human_review",
-      "osis_span": "Ps.89.1-Ps.89.52",
-      "review_packet": "eval/chunking_gold/review_packets/ps89_boundary_review.md",
-      "stress_atlas_case_id": "ps89_royal_lament",
-      "current_observation": {
-        "source": "T318 historical pre-T327 observed stress audit",
-        "observed_chunk_count": 1,
-        "observed_span": ["Ps.89.1", "Ps.89.52"],
-        "observed_tokens": 823,
-        "post_t327_refresh_required_before_promotion": true
-      },
-      "marker_evidence": {
-        "markers_observed": ["q1", "q2", "b", "qs"],
-        "qs_sample_refs": ["Ps.89.4", "Ps.89.37", "Ps.89.45", "Ps.89.48"],
-        "marker_role": "poetry, blank-line, and Selah/liturgical-rubric evidence",
-        "boundary_authority": "markers alone are not sufficient to require child chunks without human-reviewed literary evidence"
-      },
-      "review_need": "Decide whether Psalm 89 should remain a whole-psalm chunk or become a reviewed parent/child structural split with exact child spans.",
-      "implementation_allowed": false,
-      "output_change_authorized": false,
-      "purpose": "Create a non-authorizing review surface for a long royal/lament Psalm with Selah evidence."
-    },
     {
       "case_id": "ps136_refrain_litany_pending_review",
       "status": "pending_human_review",

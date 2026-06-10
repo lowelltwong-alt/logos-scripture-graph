@@ -12,13 +12,16 @@ PENDING_PACKETS = {
     "john7_53_8_11_textual_variant_review.md": "john7_53_8_11_pericope_adulterae",
     "john3_wj_speaker_boundary_review.md": "john3_wj_speaker_boundary",
     "matt5_7_wj_discourse_review.md": "matt5_7_sermon_on_mount_wj_discourse",
-    "ps89_boundary_review.md": "ps89_royal_lament",
     "ps136_boundary_review.md": "ps136_refrain_litany",
 }
 
 REVIEWED_WHOLE_PSALM_PACKETS = {
     "ps105_boundary_review.md": "ps105_historical_psalm",
     "ps106_boundary_review.md": "ps106_historical_confession",
+}
+
+REVIEWED_STRUCTURAL_PACKETS = {
+    "ps89_boundary_review.md": "ps89_royal_lament",
 }
 
 
@@ -54,6 +57,18 @@ def test_t317_psalm_packets_record_reviewed_whole_psalm_gold() -> None:
         assert "Decision: approved_preserve_current_whole_psalm" in text, filename
         assert "This reviewed decision does not authorize output-changing work." in text, filename
         assert "Decision: pending" not in text, filename
+
+
+def test_t337b_ps89_packet_records_owner_authorized_structural_gold() -> None:
+    for filename, case_id in REVIEWED_STRUCTURAL_PACKETS.items():
+        text = (PACKET_DIR / filename).read_text(encoding="utf-8")
+        assert "Status: `approved_structural_split_under_parent_whole_psalm`" in text, filename
+        assert f"Stress atlas case ID: `{case_id}`" in text, filename
+        assert "Decision: approved_with_scope_note" in text, filename
+        assert "implementation_allowed: true" in text, filename
+        assert "output_change_authorized: true" in text, filename
+        assert "reviewed_gold_promoted: true" in text, filename
+        assert "T338 has not started" in text, filename
 
 
 def test_t317_words_of_jesus_packets_preserve_marker_governance() -> None:

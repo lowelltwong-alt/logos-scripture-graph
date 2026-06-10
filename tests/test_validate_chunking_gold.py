@@ -31,27 +31,32 @@ def test_current_psalms_gold_manifest_validates() -> None:
     assert validate_manifest(PSALMS_MANIFEST) == []
 
 
-def test_t335_pending_psalm_cases_are_non_authorizing() -> None:
+def test_pending_psalm_cases_are_non_authorizing_and_ps89_is_promoted() -> None:
     manifest = _base_manifest()
     pending_cases = {
         case["case_id"]: case
         for case in manifest["characterization_only"]
         if case["case_id"] in {
-            "ps89_royal_lament_pending_review",
             "ps136_refrain_litany_pending_review",
         }
     }
 
-    assert set(pending_cases) == {
-        "ps89_royal_lament_pending_review",
-        "ps136_refrain_litany_pending_review",
-    }
+    assert set(pending_cases) == {"ps136_refrain_litany_pending_review"}
     for case in pending_cases.values():
         assert case["status"] == "pending_human_review"
         assert case["implementation_allowed"] is False
         assert case["output_change_authorized"] is False
         assert "PrMan" not in json.dumps(case)
         assert "Ps151" not in json.dumps(case)
+
+    ps89 = _reviewed_case(manifest, "ps89_owner_decision_option_c")
+    assert ps89["status"] == "approved_structural_split_under_parent_whole_psalm"
+    assert ps89["owner_decision"]["implementation_allowed"] is True
+    assert ps89["owner_decision"]["output_change_authorized"] is True
+    assert ps89["owner_decision"]["reviewed_gold_promoted"] is True
+    assert ps89["expected"]["child_chunks"][-1]["osis_start"] == "Ps.89.49"
+    assert ps89["expected"]["child_chunks"][-1]["osis_end"] == "Ps.89.52"
+    assert ps89["expected"]["child_chunks"][-1]["book_iii_doxology_ref"] == "Ps.89.52"
 
 
 def test_reviewed_case_requires_explicit_status(tmp_path: Path) -> None:

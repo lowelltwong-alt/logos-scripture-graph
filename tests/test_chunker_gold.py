@@ -124,9 +124,9 @@ def test_psalms_gold_manifest_separates_reviewed_gold_from_characterization(psal
         "ps78_parent_child_structural_split",
         "ps105_whole_psalm",
         "ps106_whole_psalm_with_b_marker_note",
+        "ps89_owner_decision_option_c",
     }
     assert set(characterization) == {
-        "ps89_royal_lament_pending_review",
         "ps136_refrain_litany_pending_review",
     }
     for case in characterization.values():

@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T337A Psalm target human-review packet (Codex)
-**Active task:** -> **T337A** verified PR #45 / T337 was merged, then created a review/evidence/control-plane-only human-review packet for exactly one Psalm target. Selected Psalm 89 as the single review candidate because it is the pending Psalm case most likely to unlock a narrow parent/child behavior target. Updated `eval/chunking_gold/review_packets/ps89_boundary_review.md` with exact proposed spans, required executable checks, non-target identity requirements, a RISK-GATE-001 map, and a human decision box. The decision remains pending with `implementation_allowed: false`, `output_change_authorized: false`, and `reviewed_gold_promoted: false`; T338 remains blocked and must not start until human approval changes those fields. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T337B Psalm 89 owner decision Option C (Codex)
+**Active task:** -> **T337B** verified PR #46 / T337A was already merged, then recorded the owner's human-review decision for Psalm 89 Option C as a reviewed-gold/authorization update only. Psalm 89 is now reviewed-gold approved with parent `Ps.89.1-Ps.89.52` and child spans `Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`, `Ps.89.46-48`, and `Ps.89.49-52`. `Ps.89.52` is explicitly labeled as the Book III doxology, is not an ordinary continuation of the lament appeal, and must not be split into a one-verse orphan child. The approval is Psalm 89 only: future T338 may be planned as a route-isolated implementation of exactly this target, but T337B did not implement T338 or change chunking behavior. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T337B Psalm 89 owner decision Option C (2026-06-10):** PR #46 / T337A was already merged, so
+> T337B was created as a follow-up branch from current `main`. Applied the owner's Option C human
+> review decision to the Psalm 89 packet, Psalm manifest, Psalm plan, and review-packet index.
+> Psalm 89 is now reviewed gold with `implementation_allowed: true`, `output_change_authorized:
+> true`, and `reviewed_gold_promoted: true` for this exact target only. The approved model preserves
+> parent `Ps.89.1-52`, keeps `Ps.89.49-52` as one final retrieval child, labels `Ps.89.52` as the
+> Book III doxology, and forbids treating `Ps.89.52` as ordinary lament continuation or splitting it
+> into a one-verse orphan. T337B authorizes future route-isolated T338 planning/implementation for
+> Psalm 89 only; it does not authorize global Selah, blank-line, doxology, poetry, or long-Psalm
+> rules. No T338 implementation, chunk output change, regeneration, evaluator/chunker/orchestrator
+> behavior change, leaderboard/scorecard change, raw/canonical mutation, source import, boundary
+> import, T327G, or Revelation implementation occurred.
 
 > **T337A Psalm target human-review packet (2026-06-10):** Verified PR #45 / T337 was merged into
 > `main`, confirmed commit `b78b267` is present, and confirmed a clean worktree with no merge/rebase
