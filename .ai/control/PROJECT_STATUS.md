@@ -1,8 +1,25 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T338 Psalm 89 route-isolated implementation (Codex)
-**Active task:** -> **T338** implemented the owner-approved Psalm 89 Option C target only inside the literal Psalm candidate route. Routed Psalm output now replaces parent `Ps.89.1-Ps.89.52` with exact child chunks `Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`, `Ps.89.46-48`, and `Ps.89.49-52`; `Ps.89.52` stays in final child `Ps.89.49-Ps.89.52` with a Book III doxology scope note and is not emitted as a one-verse orphan. Direct monolith chunker output remains byte-identical to the post-T327 baseline; routed non-Psalm-89 records are identical to the pre-change routed baseline. No evaluator formula, leaderboard, scorecard, raw/canonical data, committed output/chunk regeneration, boundary import, T327G, or Revelation implementation occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T339 Psalm 89 same-baseline risk evaluation (Codex)
+**Active task:** -> **T339** evaluated merged T338 using temporary pre/post outputs only. Pre-T338 routed Psalm 89 was one `Ps.89.1-Ps.89.52` whole-psalm chunk; post-T338 routed Psalm 89 is exactly the six owner-approved children ending with `Ps.89.49-Ps.89.52` carrying `book_iii_doxology_scope_note`, with no orphan `Ps.89.52`. Direct chunker SHA stayed `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`; routed SHA moved to `eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619`; routed count moved `1131 -> 1136`; non-Psalm-89 routed records were identical. This is Psalm 89 reviewed structural correction only, not a whole-Bible improvement claim. No chunking behavior, evaluator formula, leaderboard, scorecard, raw/canonical/derived data, committed output/chunk regeneration, boundary import, T327G, Revelation implementation, or global Psalm/poetry/Selah/blank-line/doxology rule changed. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T339 Psalm 89 same-baseline risk evaluation (2026-06-10):** Verified PR #48 / T338 was merged
+> into `main`, confirmed merge commit `a495e0c78961195db8a0d6b3df95bcc58f203dd2` and commit
+> `00cc891` are reachable, and evaluated pre-T338 commit `1db3f12` against current T338 main using
+> temporary outputs under `%TEMP%/t339_eval`. Direct chunker output remained byte-identical at SHA
+> `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`; routed output moved from the
+> same SHA to `eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619`. The routed count
+> changed from 1,131 to 1,136 because one Psalm 89 parent was replaced by six reviewed children.
+> Non-Psalm-89 routed records were identical, including Ps78, Ps105, Ps106, Ps119, short Psalms,
+> Ps3 superscription, Song, and Lamentations controls. Evaluator diagnostics changed as expected:
+> raw literal Psalm fragmentation 1 -> 2, reviewed structural splits Ps78 -> Ps78/Ps89, final
+> `literal_psalms_fragmented` stayed 0. T339 records RISK-GATE-001 risks for hidden global Psalm
+> rules, global doxology handling, marker-heuristic confusion, premature candidate-skill promotion,
+> and overclaiming broad Bible improvement. T340 is next as a promote-or-reject decision only; no
+> chunking behavior, evaluator formula, leaderboard, scorecard, raw/canonical/derived data,
+> committed output/chunk regeneration, boundary import, T327G, Revelation implementation, or global
+> Psalm/poetry/Selah/blank-line/doxology rule changed.
 
 > **T338 Psalm 89 route-isolated parent/child implementation (2026-06-10):** Verified PR #47 /
 > T337B was merged into `main` before branching. Implemented the exact Psalm 89 Option C target only
