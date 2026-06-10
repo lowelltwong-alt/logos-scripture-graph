@@ -2,23 +2,31 @@
 
 ## Status
 
-- Status: `pending_human_review`
+- Status: `approved_structural_split_under_parent_whole_psalm`
 - Stress atlas case ID: `ps89_royal_lament`
 - T337A selection: selected as the single Psalm target for human review
-- Decision: pending
-- Parent/child candidate: yes, pending review
-- Proposed parent unit for review: `Ps.89.1-Ps.89.52`
-- Approved child chunks: none
+- T337B owner decision: Option C
+- Decision: approved_with_scope_note
+- Parent/child candidate: approved for Psalm 89 only
+- Approved parent unit: `Ps.89.1-Ps.89.52`
+- Approved child chunks:
+  - `Ps.89.1-Ps.89.4`
+  - `Ps.89.5-Ps.89.18`
+  - `Ps.89.19-Ps.89.37`
+  - `Ps.89.38-Ps.89.45`
+  - `Ps.89.46-Ps.89.48`
+  - `Ps.89.49-Ps.89.52`
 
-This packet does not authorize output-changing work.
+This packet records reviewed gold and authorizes a future route-isolated T338 implementation for
+Psalm 89 only. It does not implement chunking behavior.
 
 ## 1. Review Target
 
 Review target: Psalm 89, `Ps.89.1-Ps.89.52`.
 
-T337A selects Psalm 89 as the one Psalm target for human review. This is a review/evidence packet
-only. It does not promote Psalm 89 to reviewed gold, does not start T338, and does not implement new
-Psalm boundaries.
+T337A selected Psalm 89 as the one Psalm target for human review. T337B records the owner's Option C
+decision and promotes Psalm 89 to reviewed gold. This is still a human-reviewed gold/authorization
+update only: it does not start T338 and does not implement new Psalm boundaries.
 
 ## 2. Why This Target Was Selected
 
@@ -39,18 +47,18 @@ than the next narrow behavior-change target.
 
 ## 3. Current Status
 
-- Current status: `pending_human_review`.
-- Implementation authorization: none.
-- Output-change authorization: none.
-- Reviewed-gold promotion: none.
+- Current status: `approved_structural_split_under_parent_whole_psalm`.
+- Implementation authorization: true for a future route-isolated Psalm 89 implementation only.
+- Output-change authorization: true for the exact approved Psalm 89 target only.
+- Reviewed-gold promotion: true for Psalm 89 only.
 
-The existing observation is historical diagnostic evidence from T318, not current post-T327
-reviewed gold. It must not be treated as approved expected output.
+The existing chunk observation remains historical diagnostic evidence from T318. The authority in
+this packet is the owner's 2026-06-10 Option C decision, not the historical observation.
 
 ## 4. Exact Passage And Span References
 
-- Parent candidate: `Ps.89.1-Ps.89.52`
-- Proposed child-span set for human review:
+- Approved parent: `Ps.89.1-Ps.89.52`
+- Approved child-span set:
   - `Ps.89.1-Ps.89.4`
   - `Ps.89.5-Ps.89.18`
   - `Ps.89.19-Ps.89.37`
@@ -58,8 +66,10 @@ reviewed gold. It must not be treated as approved expected output.
   - `Ps.89.46-Ps.89.48`
   - `Ps.89.49-Ps.89.52`
 
-These proposed child spans are not approved. They exist so the reviewer can approve, reject, or
-replace one exact span set without inventing boundaries during implementation.
+`Ps.89.52` is the Book III doxology. Option C keeps `Ps.89.49-Ps.89.52` as one final retrieval
+child to avoid a one-verse orphan and preserve canonical/final-form usefulness. `Ps.89.52` must not
+be treated as an ordinary continuation of the lament appeal, but it also must not be split into a
+one-verse orphan child.
 
 ## 5. Current Chunker Behavior, If Available
 
@@ -74,9 +84,9 @@ it is not reviewed gold, not approved expected output, and not a post-T327 chunk
 
 No fresh chunk regeneration was performed for T337A.
 
-## 6. Proposed Reviewed Target Behavior
+## 6. Approved Reviewed Target Behavior
 
-If the reviewer approves a behavior-changing target, the proposed target behavior is:
+The approved target behavior is:
 
 ```text
 Parent literary unit:
@@ -91,19 +101,19 @@ Reviewed child structural chunks:
   Ps.89.49-Ps.89.52
 ```
 
-The parent unit must remain the whole Psalm. Child chunks, if approved, are retrieval children under
-the parent whole-psalm literary unit.
+The parent unit must remain the whole Psalm. Child chunks are retrieval children under the parent
+whole-psalm literary unit.
 
-## 7. Proposed Exact Spans And Boundaries
+## 7. Approved Exact Spans And Boundaries
 
-| Proposed child span | Review label | Boundary evidence to review |
+| Approved child span | Review label | Boundary evidence and scope note |
 | --- | --- | --- |
 | `Ps.89.1-Ps.89.4` | Opening praise and covenant promise | Ends at a recorded Selah / `qs` sample ref (`Ps.89.4`). |
 | `Ps.89.5-Ps.89.18` | Hymnic praise of Yahweh's rule and blessed people | T318 records a blank-line / `b` sample ref at `Ps.89.18`. |
 | `Ps.89.19-Ps.89.37` | Davidic covenant oracle and promise | Ends at recorded Selah / `qs` and `b` sample refs (`Ps.89.37`). |
 | `Ps.89.38-Ps.89.45` | Lament over apparent covenant rejection | Ends at a recorded Selah / `qs` sample ref (`Ps.89.45`). |
 | `Ps.89.46-Ps.89.48` | Mortality plea and urgent petition | Ends at a recorded Selah / `qs` sample ref (`Ps.89.48`). |
-| `Ps.89.49-Ps.89.52` | Closing plea and doxology | Preserves the Psalm's closing appeal and doxology together. |
+| `Ps.89.49-Ps.89.52` | Closing plea plus Book III doxology | Keeps `Ps.89.52` with the final retrieval child; no one-verse orphan split. |
 
 Marker evidence is evidence only. `\qs`, `\b`, `q1`, and `q2` do not automatically approve child
 chunk boundaries.
@@ -120,13 +130,12 @@ parent/child Psalm model:
   children;
 - it can be evaluated without a broad Psalm rewrite or a global poetry heuristic.
 
-The proposal intentionally does not derive a rule such as "split every Selah" or "split every long
-Psalm." The only review question is whether this exact Psalm 89 span set should be promoted.
+The approval intentionally does not derive a rule such as "split every Selah" or "split every long
+Psalm." It approves only the exact Psalm 89 span set.
 
-## 9. What This Would Authorize If Approved
+## 9. What This Authorizes
 
-If and only if the human review decision below is changed from pending/false to an explicit approval,
-this packet would authorize a future T338 implementation task to:
+This packet authorizes a future T338 implementation task to:
 
 - implement or guard exactly the approved Psalm 89 parent/child target;
 - add executable checks for the approved Psalm 89 spans;
@@ -138,9 +147,9 @@ this packet would authorize a future T338 implementation task to:
 
 This packet does not authorize:
 
-- T338 before human approval;
-- any chunking behavior change while decision remains pending;
 - a global Psalm, Selah, `\qs`, `\b`, refrain, or poetry heuristic;
+- a global doxology rule;
+- splitting `Ps.89.52` into a one-verse orphan child;
 - changing Psalm 78, Psalm 105, Psalm 106, Psalm 119, short Psalm, or superscription reviewed
   decisions;
 - splitting Psalm 136;
@@ -155,10 +164,12 @@ This packet does not authorize:
 
 ## 11. Required Executable Gold Checks
 
-If approved, a future T338 PR must add focused executable checks that prove:
+A future T338 PR must add focused executable checks that prove:
 
 - Psalm 89 has parent `Ps.89.1-Ps.89.52`.
 - Psalm 89 child spans exactly match the human-approved span set.
+- `Ps.89.52` is treated as the Book III doxology within final child `Ps.89.49-Ps.89.52`.
+- `Ps.89.52` is not split into a one-verse orphan child.
 - The implementation does not split or merge reviewed Psalm 78 child spans.
 - Psalm 105 remains one reviewed whole-psalm chunk.
 - Psalm 106 remains one reviewed whole-psalm chunk.
@@ -184,8 +195,6 @@ globalize, or make harder to reverse?
 
 ### Confirmed Risks
 
-- Promoting this packet without human approval would turn pending characterization into behavior
-  authority.
 - Treating Selah / `\qs` or `\b` markers as automatic split authority would weaken the reviewed-gold
   gate.
 - Calling this a chunking improvement before implementation and same-baseline evaluation would
@@ -197,8 +206,8 @@ globalize, or make harder to reverse?
   rule.
 - A Psalm-specific behavior may leak into Song, Lam, Job, prophecy, Gospel discourse, or Revelation
   if route isolation is weakened.
-- T338 may be started with this packet still pending because the exact spans are already written
-  here.
+- T338 may generalize beyond the exact Psalm 89 approval because the exact spans are now
+  implementation-authorizing.
 
 ### Unlikely But High-Impact Risks
 
@@ -211,40 +220,47 @@ globalize, or make harder to reverse?
 
 ### Watch-Later Conditions
 
-- Any PR that flips implementation allowance to true without a human reviewer, date, and approval
-  notes.
 - Any PR that changes chunks, evaluator, orchestrator, leaderboard, scorecards, raw data, or canonical
   data while claiming to be T337A.
 - Any implementation that changes non-target Psalm or non-Psalm output without explicit explanation.
 
 ### Tests Or Guards Needed
 
-- A deterministic test should keep this packet selected, pending, and non-authorizing until human
-  review changes the decision box.
+- Deterministic tests should keep this packet scoped to Psalm 89 Option C and forbid global Selah,
+  blank-line, doxology, or poetry rules.
 - Future T338 tests must assert the exact approved spans and non-target identity.
 - Existing tests must continue to reject pending packet promotion and global route leakage.
 
 ### Owner Decisions Needed
 
-- Approve, reject, or replace the proposed Psalm 89 child-span set.
-- Decide whether approval should authorize T338 implementation or only create reviewed gold.
-- Decide whether Psalm 136 remains pending, becomes a whole-psalm control, or receives a later
-  separate review packet.
+- No owner decision remains for Psalm 89 Option C.
+- The owner must authorize any future change beyond the exact Psalm 89 target separately.
+- The owner must decide separately whether Psalm 136 remains pending, becomes a whole-psalm control,
+  or receives a later separate review packet.
 
 ## 14. Human Review Decision Box
 
 ```yaml
 human_review_decision:
-  reviewer:
-  date:
-  decision: pending
-  implementation_allowed: false
-  output_change_authorized: false
-  reviewed_gold_promoted: false
-  notes:
+  reviewer: Lowell Wong
+  date: 2026-06-10
+  decision: approved_with_scope_note
+  implementation_allowed: true
+  output_change_authorized: true
+  reviewed_gold_promoted: true
+  notes: >
+    Approved Psalm 89 parent/child reviewed-gold target using Option C.
+    Keep Ps.89.49-Ps.89.52 as one final retrieval child while explicitly
+    labeling Ps.89.52 as the Book III doxology. Ps.89.52 must not be treated
+    as an ordinary continuation of the lament appeal, and must not be split
+    into a one-verse orphan child. This approval authorizes only this Psalm 89
+    reviewed-gold target and a future route-isolated Psalm implementation task.
+    It does not authorize broad Psalm rewrites, global poetry rules, automatic
+    Selah splitting, automatic blank-line splitting, automatic doxology splitting,
+    Revelation implementation, boundary import, T327G, or non-Psalm route leakage.
 ```
 
-## 15. Current Non-Authorizing Rule
+## 15. Current Authorizing Rule
 
-Until the decision box is updated by a human reviewer, Psalm 89 remains pending and non-authorizing.
-T338 remains blocked.
+Psalm 89 is now reviewed-gold approved for Option C. T338 may now be planned as a route-isolated
+implementation of exactly this Psalm 89 target, but T338 has not started in this task.

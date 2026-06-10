@@ -1,9 +1,9 @@
 {
   "schema_version": "review-packet-index.v0",
   "index_id": "T319-review-packet-index-promotion-queue",
-  "status": "diagnostic_control_surface",
-  "implementation_allowed": false,
-  "output_change_authorized": false,
+  "status": "diagnostic_control_surface_with_t337b_owner_authorization",
+  "implementation_allowed": true,
+  "output_change_authorized": true,
   "baseline": {
     "current_official_baseline": "D / Claude pass2 = 93.6 under post-T327 canonical-66 corpus baseline and unchanged T314 reviewed-structural-split evaluator policy",
     "pre_t327_wider_corpus_baseline": "D / Claude pass2 = 93.5 under T314 reviewed-structural-split evaluator policy",
@@ -35,13 +35,17 @@
     "not_authorized"
   ],
   "applicable_rule_registry": {
-    "no_output_authorization": "Index entries do not authorize chunk output changes.",
-    "no_new_reviewed_gold_t319": "T319 records existing decisions only and does not promote new reviewed gold.",
+    "no_output_authorization": "Index entries do not authorize chunk output changes unless explicitly owner-authorized by a later task.",
+    "t337b_ps89_owner_authorization": "T337B records owner approval for the exact Psalm 89 Option C target only.",
+    "no_new_reviewed_gold_t319": "T319 records existing decisions only and does not promote new reviewed gold; later tasks may add explicit owner-reviewed gold.",
     "pending_packets_non_authorizing": "Pending review packets remain pending and non-authorizing.",
     "observed_audit_non_authorizing": "Observed audit cases are triage evidence only, not approved expected output.",
     "review_packet_required_before_implementation": "A proposed or observed stress case needs a review packet or reviewed gold before implementation.",
     "reviewed_gold_preserves_current_behavior": "Reviewed current behavior remains locked without implying new output change.",
     "parent_child_structural_review": "Reviewed parent/child structural splits preserve parent unity and child boundaries.",
+    "no_global_selah_rule": "Psalm-specific Selah evidence does not authorize a global Selah splitting rule.",
+    "no_global_blank_line_rule": "Psalm-specific blank-line evidence does not authorize a global blank-line splitting rule.",
+    "no_global_doxology_rule": "Psalm-specific doxology handling does not authorize a global doxology splitting rule.",
     "wj_evidence_not_authority": "Words-of-Jesus markers are evidence, not speaker-attribution authority.",
     "qs_evidence_not_boundary_authority": "Selah or qs markers are evidence, not automatic boundary authority.",
     "variant_policy_before_gold": "Textual-variant zones require variant policy or human textual review before gold.",
@@ -52,9 +56,9 @@
     "current_containment_not_automatically_approved": "Current containment is not automatically approved preservation."
   },
   "summary": {
-    "total_entries": 62,
-    "reviewed_gold_entries": 13,
-    "pending_human_review": 15,
+    "total_entries": 63,
+    "reviewed_gold_entries": 15,
+    "pending_human_review": 14,
     "needs_review_packet": 23,
     "variant_policy_required": 2,
     "speaker_review_required": 5,
@@ -62,12 +66,12 @@
     "manual_investigation_required": 1,
     "not_authorized": 0,
     "review_packet_files_indexed": 10,
-    "psalm_manifest_cases_indexed": 8,
+    "psalm_manifest_cases_indexed": 9,
     "observed_audit_cases_indexed": 44
   },
   "type_counts": {
     "review_packet": 7,
-    "reviewed_gold": 11,
+    "reviewed_gold": 12,
     "observed_audit_case": 33,
     "policy_required": 10,
     "manual_investigation_required": 1
@@ -248,16 +252,6 @@
       "case_id": "matt5_7_sermon_on_mount_wj_discourse",
       "status": "pending_human_review",
       "priority": 17,
-      "recommended_next_action": "await_human_review",
-      "gate_required": "human_review_required",
-      "output_change_authorized": false,
-      "implementation_allowed": false
-    },
-    {
-      "entry_id": "packet_ps89_boundary_review",
-      "case_id": "ps89_royal_lament",
-      "status": "pending_human_review",
-      "priority": 18,
       "recommended_next_action": "await_human_review",
       "gate_required": "human_review_required",
       "output_change_authorized": false,
@@ -670,28 +664,31 @@
       "passage": "Ps.89",
       "source_path": "eval/chunking_gold/review_packets/ps89_boundary_review.md",
       "entry_type": "review_packet",
-      "status": "pending_human_review",
-      "decision": "pending",
-      "human_review_required": true,
-      "output_change_authorized": false,
-      "implementation_allowed": false,
-      "gold_manifest_case_id": "ps89_royal_lament_pending_review",
-      "observed_status": "review_packet_pending",
-      "recommended_next_action": "await_human_review",
+      "status": "reviewed_gold",
+      "decision": "approved_with_scope_note",
+      "human_review_required": false,
+      "output_change_authorized": true,
+      "implementation_allowed": true,
+      "gold_manifest_case_id": "ps89_owner_decision_option_c",
+      "observed_status": "owner_reviewed_gold_t337b",
+      "recommended_next_action": "plan_route_isolated_t338_ps89_only",
       "risk_tags": [
         "psalm",
         "long_structured_unit",
         "parent_child_candidate",
-        "qs_marker_evidence"
+        "qs_marker_evidence",
+        "book_iii_doxology_scope_note",
+        "owner_authorized_ps89_only"
       ],
       "applicable_rules": [
-        "no_new_reviewed_gold_t319",
-        "no_output_authorization",
-        "pending_packets_non_authorizing",
+        "t337b_ps89_owner_authorization",
+        "parent_child_structural_review",
         "qs_evidence_not_boundary_authority",
-        "review_packet_required_before_implementation"
+        "no_global_selah_rule",
+        "no_global_blank_line_rule",
+        "no_global_doxology_rule"
       ],
-      "notes": "T335 pending Psalm review packet. Selah and marker evidence are not automatic boundary authority."
+      "notes": "T337B owner-approved Psalm 89 Option C. Ps.89.49-Ps.89.52 remains one final retrieval child; Ps.89.52 is the Book III doxology and must not become a one-verse orphan. Authorization is Psalm 89 only."
     },
     {
       "entry_id": "packet_ps136_boundary_review",
@@ -1003,6 +1000,36 @@
       "notes": "Existing Psalm manifest reviewed case. T319 indexes it but does not promote new gold: Lock current Psalm 106 whole-psalm behavior as reviewed gold while recording that b markers are evidence, not automatic split authority."
     },
     {
+      "entry_id": "manifest_ps89_owner_decision_option_c",
+      "case_id": "ps89_owner_decision_option_c",
+      "passage": "Ps.89.1-Ps.89.52",
+      "source_path": "eval/chunking_gold/per_form/psalms_gold_manifest.json",
+      "entry_type": "reviewed_gold",
+      "status": "reviewed_gold",
+      "decision": "approved_with_scope_note",
+      "human_review_required": false,
+      "output_change_authorized": true,
+      "implementation_allowed": true,
+      "gold_manifest_case_id": "ps89_owner_decision_option_c",
+      "observed_status": null,
+      "recommended_next_action": "plan_route_isolated_t338_ps89_only",
+      "risk_tags": [
+        "psalm_gold",
+        "parent_child_structural_split",
+        "book_iii_doxology_scope_note",
+        "owner_authorized_ps89_only"
+      ],
+      "applicable_rules": [
+        "t337b_ps89_owner_authorization",
+        "parent_child_structural_review",
+        "qs_evidence_not_boundary_authority",
+        "no_global_selah_rule",
+        "no_global_blank_line_rule",
+        "no_global_doxology_rule"
+      ],
+      "notes": "T337B owner-approved Psalm 89 Option C in manifest. Future T338 may implement exactly this route-isolated Psalm 89 target only; no global rule is authorized."
+    },
+    {
       "entry_id": "observed_ps89_royal_lament",
       "case_id": "ps89_royal_lament",
       "passage": "Ps.89",
@@ -1013,7 +1040,7 @@
       "human_review_required": true,
       "output_change_authorized": false,
       "implementation_allowed": false,
-      "gold_manifest_case_id": "ps89_royal_lament_pending_review",
+      "gold_manifest_case_id": "ps89_owner_decision_option_c",
       "observed_status": "review_packet_pending",
       "recommended_next_action": "await_human_review",
       "risk_tags": [

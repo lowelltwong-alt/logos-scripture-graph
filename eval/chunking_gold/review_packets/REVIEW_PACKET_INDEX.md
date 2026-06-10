@@ -1,6 +1,8 @@
 # Review Packet Index And Promotion Queue
 
-Status: diagnostic/control surface only. This index does not authorize output-changing work, does not add reviewed gold, and does not change evaluator policy.
+Status: diagnostic/control surface with one later owner authorization. T319 did not authorize
+output-changing work or add reviewed gold; T337B later authorizes only the exact Psalm 89 Option C
+reviewed-gold target. This index does not change evaluator policy.
 
 Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unchanged T314 reviewed-structural-split evaluator policy. The prior 93.5 row is a pre-T327 wider-corpus baseline. This movement is corpus-scope correction / baseline reset, not chunking improvement.
 
@@ -14,9 +16,9 @@ Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unc
 
 ## Summary
 
-- Total entries: 62
-- Reviewed gold entries: 13
-- Pending human review: 15
+- Total entries: 63
+- Reviewed gold entries: 15
+- Pending human review: 14
 - Needs review packet: 23
 - Variant policy required: 2
 - Speaker review required: 5
@@ -25,7 +27,7 @@ Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unc
 
 ## Promotion Queue
 
-The queue is a review queue, not an implementation queue. Every queued item has `implementation_allowed: false` and `output_change_authorized: false`.
+The queue is a review queue, not an implementation queue. Every queued item has `implementation_allowed: false` and `output_change_authorized: false`. Psalm 89 was removed from the queue by the T337B owner decision.
 
 | Priority | Case | Status | Next action | Gate |
 | ---: | --- | --- | --- | --- |
@@ -46,7 +48,6 @@ The queue is a review queue, not an implementation queue. Every queued item has 
 | 15 | `john7_53_8_11_wj_variant_speech` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 16 | `mark16_9_20_longer_ending` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 17 | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `await_human_review` | `human_review_required` |
-| 18 | `ps89_royal_lament` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 19 | `ps136_refrain_litany` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 20 | `1chr1_9_primeval_genealogies` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
 | 21 | `1cor8_10_food_offered_to_idols` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
@@ -58,13 +59,14 @@ The queue is a review queue, not an implementation queue. Every queued item has 
 
 ## Reviewed Gold Entries
 
-These entries record existing reviewed decisions only. T319 does not promote new reviewed gold.
+These entries record existing reviewed decisions plus the later T337B Psalm 89 owner decision.
 
 | Entry | Case | Passage | Decision | Source |
 | --- | --- | --- | --- | --- |
 | `packet_ps105_boundary_review` | `ps105_historical_psalm` | Ps.105 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/review_packets/ps105_boundary_review.md` |
 | `packet_ps106_boundary_review` | `ps106_historical_confession` | Ps.106 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/review_packets/ps106_boundary_review.md` |
 | `packet_ps78_boundary_review` | `ps78_parent_child_structural_split` | Ps.78.1-Ps.78.72 | `approved_structural_split_under_parent_whole_psalm` | `eval/chunking_gold/review_packets/ps78_boundary_review.md` |
+| `packet_ps89_boundary_review` | `ps89_royal_lament` | Ps.89.1-Ps.89.52 | `approved_with_scope_note` | `eval/chunking_gold/review_packets/ps89_boundary_review.md` |
 | `manifest_ps23_whole_psalm` | `ps23_whole_psalm` | Ps.23.1-Ps.23.6 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps119_acrostic_sections` | `ps119_acrostic_sections` | Ps.119.1-Ps.119.176 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_short_psalm_holdouts` | `short_psalm_holdouts` | Ps.1; Ps.8; Ps.100; Ps.117 | `reviewed_gold` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
@@ -73,6 +75,7 @@ These entries record existing reviewed decisions only. T319 does not promote new
 | `manifest_ps78_parent_child_structural_split` | `ps78_parent_child_structural_split` | Ps.78.1-Ps.78.72 | `approved_structural_split_under_parent_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps105_whole_psalm` | `ps105_whole_psalm` | Ps.105.1-Ps.105.45 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `manifest_ps106_whole_psalm_with_b_marker_note` | `ps106_whole_psalm_with_b_marker_note` | Ps.106.1-Ps.106.48 | `approved_preserve_current_whole_psalm` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
+| `manifest_ps89_owner_decision_option_c` | `ps89_owner_decision_option_c` | Ps.89.1-Ps.89.52 | `approved_with_scope_note` | `eval/chunking_gold/per_form/psalms_gold_manifest.json` |
 | `observed_ps105_historical_psalm` | `ps105_historical_psalm` | Ps.105 | `approved_preserve_current_behavior` | `eval/chunking_gold/stress_atlas/observed_stress_behavior.json` |
 | `observed_ps106_historical_confession` | `ps106_historical_confession` | Ps.106 | `approved_preserve_current_behavior` | `eval/chunking_gold/stress_atlas/observed_stress_behavior.json` |
 
@@ -85,7 +88,6 @@ These entries record existing reviewed decisions only. T319 does not promote new
 | `packet_john7_53_8_11_textual_variant_review` | `john7_53_8_11_pericope_adulterae` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `speaker_review_required`, `variant_policy_before_gold` |
 | `packet_mark16_9_20_textual_variant_review` | `mark16_9_20_longer_ending` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `variant_policy_before_gold` |
 | `packet_matt5_7_wj_discourse_review` | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `parent_child_structural_review`, `pending_packets_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
-| `packet_ps89_boundary_review` | `ps89_royal_lament` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `qs_evidence_not_boundary_authority`, `review_packet_required_before_implementation` |
 | `packet_ps136_boundary_review` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_ps89_royal_lament` | `ps89_royal_lament` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `qs_evidence_not_boundary_authority` |
 | `observed_ps136_refrain_litany` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing` |
@@ -127,11 +129,12 @@ These entries record existing reviewed decisions only. T319 does not promote new
 ## Governance Boundary
 
 - Pending review packets do not authorize output changes.
+- T337B authorizes only the exact Psalm 89 Option C target.
 - Observed audit entries do not authorize output changes.
 - Textual-variant entries are not reviewed gold unless already explicitly reviewed.
 - Words-of-Jesus entries require speaker review unless already reviewed.
 - Boundary/source-tradition entries require source/tradition review.
 - Current containment is not automatically approved preservation.
 - Current splitting is not automatically bad fragmentation.
-- `implementation_allowed` remains `false` for every entry.
-- T319 adds no reviewed gold and authorizes no output-changing work.
+- `implementation_allowed` remains `false` for every queued or non-authorized entry.
+- T319 adds no reviewed gold and authorizes no output-changing work; T337B is a later owner decision.

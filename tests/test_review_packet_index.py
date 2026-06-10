@@ -52,6 +52,7 @@ SUPPORTED_REVIEWED_ENTRY_IDS = {
     "packet_ps78_boundary_review",
     "packet_ps105_boundary_review",
     "packet_ps106_boundary_review",
+    "packet_ps89_boundary_review",
     "manifest_ps23_whole_psalm",
     "manifest_ps119_acrostic_sections",
     "manifest_short_psalm_holdouts",
@@ -60,8 +61,14 @@ SUPPORTED_REVIEWED_ENTRY_IDS = {
     "manifest_ps78_parent_child_structural_split",
     "manifest_ps105_whole_psalm",
     "manifest_ps106_whole_psalm_with_b_marker_note",
+    "manifest_ps89_owner_decision_option_c",
     "observed_ps105_historical_psalm",
     "observed_ps106_historical_confession",
+}
+
+OWNER_AUTHORIZED_OUTPUT_ENTRY_IDS = {
+    "packet_ps89_boundary_review",
+    "manifest_ps89_owner_decision_option_c",
 }
 
 
@@ -85,9 +92,9 @@ def test_review_packet_index_root_is_diagnostic_only() -> None:
     data = index()
     assert data["schema_version"] == "review-packet-index.v0"
     assert data["index_id"] == "T319-review-packet-index-promotion-queue"
-    assert data["status"] == "diagnostic_control_surface"
-    assert data["implementation_allowed"] is False
-    assert data["output_change_authorized"] is False
+    assert data["status"] == "diagnostic_control_surface_with_t337b_owner_authorization"
+    assert data["implementation_allowed"] is True
+    assert data["output_change_authorized"] is True
     assert data["baseline"]["leaderboard_run"] is False
     assert "not chunking improvement" in data["baseline"]["score_interpretation"]
     assert set(data["controlled_entry_types"]) == CONTROLLED_ENTRY_TYPES
@@ -102,10 +109,15 @@ def test_entries_have_required_fields_and_controlled_values() -> None:
         seen_ids.add(entry["entry_id"])
         assert entry["entry_type"] in CONTROLLED_ENTRY_TYPES, entry["entry_id"]
         assert entry["status"] in CONTROLLED_STATUSES, entry["entry_id"]
-        assert entry["output_change_authorized"] is False, entry["entry_id"]
-        assert entry["implementation_allowed"] is False, entry["entry_id"]
-        assert "no_output_authorization" in entry["applicable_rules"], entry["entry_id"]
-        assert "no_new_reviewed_gold_t319" in entry["applicable_rules"], entry["entry_id"]
+        if entry["entry_id"] in OWNER_AUTHORIZED_OUTPUT_ENTRY_IDS:
+            assert entry["output_change_authorized"] is True, entry["entry_id"]
+            assert entry["implementation_allowed"] is True, entry["entry_id"]
+            assert "t337b_ps89_owner_authorization" in entry["applicable_rules"], entry["entry_id"]
+        else:
+            assert entry["output_change_authorized"] is False, entry["entry_id"]
+            assert entry["implementation_allowed"] is False, entry["entry_id"]
+            assert "no_output_authorization" in entry["applicable_rules"], entry["entry_id"]
+            assert "no_new_reviewed_gold_t319" in entry["applicable_rules"], entry["entry_id"]
 
 
 def test_every_review_packet_file_is_indexed() -> None:
@@ -156,8 +168,13 @@ def test_reviewed_gold_entries_are_only_pre_t319_supported_cases() -> None:
     for entry_id in reviewed_ids:
         entry = entries_by_id()[entry_id]
         assert entry["human_review_required"] is False
-        assert entry["output_change_authorized"] is False
-        assert entry["implementation_allowed"] is False
+        if entry_id in OWNER_AUTHORIZED_OUTPUT_ENTRY_IDS:
+            assert entry["output_change_authorized"] is True
+            assert entry["implementation_allowed"] is True
+            assert entry["decision"] == "approved_with_scope_note"
+        else:
+            assert entry["output_change_authorized"] is False
+            assert entry["implementation_allowed"] is False
 
 
 def test_pending_policy_and_manual_entries_fail_closed() -> None:
@@ -204,6 +221,7 @@ def test_promotion_queue_is_non_authorizing() -> None:
         assert item["output_change_authorized"] is False
         assert item["implementation_allowed"] is False
         assert item["status"] != "reviewed_gold"
+        assert item["entry_id"] not in OWNER_AUTHORIZED_OUTPUT_ENTRY_IDS
 
 
 def test_pending_entries_contain_no_positive_authorization_language() -> None:
