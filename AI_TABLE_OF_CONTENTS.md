@@ -54,6 +54,8 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T337B_PS89_OWNER_DECISION_OPTION_C.md`](docs/roadmap/T337B_PS89_OWNER_DECISION_OPTION_C.md)
 - [`docs/roadmap/T338_PS89_ROUTE_ISOLATED_IMPLEMENTATION.md`](docs/roadmap/T338_PS89_ROUTE_ISOLATED_IMPLEMENTATION.md)
 - [`docs/roadmap/T339_PS89_SAME_BASELINE_RISK_EVALUATION.md`](docs/roadmap/T339_PS89_SAME_BASELINE_RISK_EVALUATION.md)
+- [`docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md`](docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md)
+- [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
 - [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
 - [`config/governance/predicate_registry.yaml`](config/governance/predicate_registry.yaml)

@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T339 Psalm 89 same-baseline risk evaluation (Codex)
-**Active task:** -> **T339** evaluated merged T338 using temporary pre/post outputs only. Pre-T338 routed Psalm 89 was one `Ps.89.1-Ps.89.52` whole-psalm chunk; post-T338 routed Psalm 89 is exactly the six owner-approved children ending with `Ps.89.49-Ps.89.52` carrying `book_iii_doxology_scope_note`, with no orphan `Ps.89.52`. Direct chunker SHA stayed `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`; routed SHA moved to `eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619`; routed count moved `1131 -> 1136`; non-Psalm-89 routed records were identical. This is Psalm 89 reviewed structural correction only, not a whole-Bible improvement claim. No chunking behavior, evaluator formula, leaderboard, scorecard, raw/canonical/derived data, committed output/chunk regeneration, boundary import, T327G, Revelation implementation, or global Psalm/poetry/Selah/blank-line/doxology rule changed. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T340 Psalm candidate promotion decision (Codex)
+**Active task:** -> **T340** verified merged PR #49 / T339 on `main`, confirmed merge commit `bd221478c01314bcd452a7d8fe6ca0dab869a956` and T339 commit `fabb268` are reachable, reran Stage A validation successfully, and recorded the Psalm candidate promotion decision as `hold`. T337B/T338/T339 evidence supports retaining exact route-isolated Psalm 89 Option C behavior, but not lifecycle promotion of `psalm-whole-then-stanza-v1` to approved/active because there is only one output-changing reviewed-gold case and promotion could be overread as broad Psalm optimization. T340 makes no runtime, skill-code, evaluator, leaderboard, scorecard, raw/canonical/derived data, boundary import, T327G, Revelation implementation, or global Psalm/poetry/Selah/blank-line/doxology rule change. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T340 Psalm candidate promotion decision (2026-06-10):** Stage A post-merge verification for PR
+> #49 / T339 passed: `main` fast-forwarded cleanly, PR #49 was `MERGED`, GitHub validate succeeded,
+> merge commit `bd221478c01314bcd452a7d8fe6ca0dab869a956` and commit `fabb268` were reachable,
+> protected paths were clean, and local validation passed. Stage B records decision `hold` in
+> `.ai/control/t340_psalm_candidate_promotion_decision.yaml` and
+> `docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md`. The Psalm candidate skill remains
+> `lifecycle_state: candidate`; `approved-skills.json`, skill registries, runtime code, and chunking
+> behavior were not changed. The decision preserves the exact Psalm 89 Option C route-isolated
+> behavior and reviewed Psalm guardrails while explicitly not authorizing broad Psalm optimization,
+> global Psalm/poetry/Selah/blank-line/doxology/long-Psalm rules, marker-only boundary authority,
+> whole-Bible improvement claims, boundary import, T327G, or Revelation implementation. T341 may
+> proceed only as a Revelation hard-book atlas/review lane, not implementation; alternatively collect
+> additional reviewed Psalm evidence before reconsidering promotion.
 
 > **T339 Psalm 89 same-baseline risk evaluation (2026-06-10):** Verified PR #48 / T338 was merged
 > into `main`, confirmed merge commit `a495e0c78961195db8a0d6b3df95bcc58f203dd2` and commit
