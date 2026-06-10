@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T340 Psalm candidate promotion decision (Codex)
-**Active task:** -> **T340** verified merged PR #49 / T339 on `main`, confirmed merge commit `bd221478c01314bcd452a7d8fe6ca0dab869a956` and T339 commit `fabb268` are reachable, reran Stage A validation successfully, and recorded the Psalm candidate promotion decision as `hold`. T337B/T338/T339 evidence supports retaining exact route-isolated Psalm 89 Option C behavior, but not lifecycle promotion of `psalm-whole-then-stanza-v1` to approved/active because there is only one output-changing reviewed-gold case and promotion could be overread as broad Psalm optimization. T340 makes no runtime, skill-code, evaluator, leaderboard, scorecard, raw/canonical/derived data, boundary import, T327G, Revelation implementation, or global Psalm/poetry/Selah/blank-line/doxology rule change. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T341 Revelation hard-book atlas (Codex)
+**Active task:** -> **T341** verified merged PR #50 / T340 on `main`, confirmed PR #50 was `MERGED`, commit `b1ca468` is reachable, reran required validation successfully, and created a Revelation hard-book atlas plus observed-behavior audit as planning/control-plane work only. T341 inspected existing committed Revelation chunk output without regeneration, recorded the current 15-chunk post-T327 Revelation snapshot, mapped RISK-GATE-001 risks, and set T342 as Revelation review-packet candidate selection. T341 makes no Revelation implementation, route behavior, reviewed gold promotion, output change, chunk regeneration, evaluator/leaderboard/scorecard change, raw/canonical/derived data mutation, skill lifecycle promotion, boundary import, T327G, global apocalypse/prophecy/poetry/WJ/discourse rule, or whole-Bible improvement claim. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T341 Revelation hard-book atlas (2026-06-10):** Post-merge verification for PR #50 / T340
+> passed before T341 started: `main` fast-forwarded cleanly, PR #50 was `MERGED`, GitHub validate
+> succeeded, merge commit `abaa35485a844db3b0ffcd00a84f6c308038908a` and commit `b1ca468` were
+> reachable, the working tree had no merge/rebase state, and local validation passed. T341 adds
+> `docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md` and
+> `docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md`. The atlas maps Revelation hard-case
+> areas, current committed post-T327 Revelation chunks, RISK-GATE-001 unintended-consequence risks,
+> candidate future review packets, and guardrails before implementation. The audit is limited to
+> committed artifacts; no protected output was regenerated. T341 is non-output-changing
+> planning/control-plane work only and does not authorize Revelation implementation, reviewed gold,
+> route behavior, global apocalypse/prophecy/poetry/WJ/discourse rules, boundary import, T327G,
+> skill promotion, evaluator/leaderboard/scorecard changes, or whole-Bible improvement claims. Next
+> should be T342 Revelation review-packet candidate selection, not implementation.
 
 > **T340 Psalm candidate promotion decision (2026-06-10):** Stage A post-merge verification for PR
 > #49 / T339 passed: `main` fast-forwarded cleanly, PR #49 was `MERGED`, GitHub validate succeeded,
