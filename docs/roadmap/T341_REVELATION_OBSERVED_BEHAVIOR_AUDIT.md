@@ -9,7 +9,7 @@ documentation.
 
 This audit does not authorize Revelation implementation, reviewed gold promotion, route behavior,
 chunk output changes, evaluator changes, leaderboard or scorecard updates, boundary import, T327G,
-or whole-Bible improvement claims.
+boundary/apocryphal material import, or whole-Bible improvement claims.
 
 ## 2. Artifacts Inspected
 
@@ -90,6 +90,8 @@ T341 therefore treats the T318 record as historical diagnostic triage, not curre
 - A boundary may encode speaker or angelic-speech scope without human review.
 - A boundary may encode Babylon or millennium interpretation.
 - A future global apocalypse rule may affect prophets, Gospels, Daniel, Psalms, or epistles.
+- Boundary/apocryphal material may be imported as context if future tasks bypass boundary-routing
+  rules.
 - A future master chunker may treat Revelation as a shared optimization signal across corpora.
 
 ## 7. Non-Authorizing Observations

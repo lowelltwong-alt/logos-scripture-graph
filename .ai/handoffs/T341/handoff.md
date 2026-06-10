@@ -74,6 +74,7 @@
 - Applied RISK-GATE-001 for Revelation rule leakage, interpretive tradition encoding, boundary import, and master-chunker cross-corpus optimization risk.
 - Set next task recommendation to T342 Revelation review-packet candidate selection, not implementation.
 - Did not update chunking methodology because no chunking algorithm, form detector, route/orchestrator behavior, skill registry, evaluator, leaderboard, gold-set promotion, or lifecycle logic changed; T341 applies existing methodology rules.
+- Redo/high-risk audit compared the work product against the original prompt and found one material wording delta: the prompt required guarding against boundary/apocryphal material import, while the first pass mostly said boundary/apocalyptic literature. Patched the exact boundary/apocryphal guardrail into the atlas, audit, task metadata, tests, and handoff.
 
 ## Validation run
 
@@ -101,6 +102,9 @@
 - command: python -m pytest -q
 - result: passed; 186 passed
 - failures: none
+- command: redo prompt coverage audit
+- result: passed after patch; required T341 sections, hard-case areas, hard-problem categories, RISK-GATE-001 categories, non-authorization claims, and exact boundary/apocryphal guardrail present
+- failures: initial redo found missing exact "apocryphal" wording; patched
 - command: YAML parse checks
 - result: passed; 69 YAML files parsed
 - failures: none
@@ -116,7 +120,7 @@
 - Revelation atlas language could be misread as implementation authorization if future agents ignore the non-authorization sections.
 - Revelation/apocalypse structures could leak into prophets, Gospels, epistles, Psalms, Daniel, or the monolith fallback.
 - Interpretive traditions could be encoded through labels such as interlude, recapitulation, Babylon, or millennium.
-- Boundary/apocalyptic literature could be imported as context if future tasks bypass boundary-routing rules.
+- Boundary/apocalyptic literature or boundary/apocryphal material could be imported as context if future tasks bypass boundary-routing rules.
 - A future master chunker could use Revelation as a shared cross-corpus optimization signal.
 
 ## Open questions
@@ -136,4 +140,13 @@ Review PR #51 / T341 if opened. Next safe work is T342 Revelation review-packet 
 - agent_name: Codex
 - mode: plan
 - updated_at: 2026-06-10T19:46:43+00:00
+- handoff_id: 588cba94d4ab0006
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: plan
+- updated_at: 2026-06-10T19:58:49+00:00
 - handoff_id: 588cba94d4ab0006

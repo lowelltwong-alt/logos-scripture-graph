@@ -44,6 +44,7 @@ def test_t341_blocks_boundary_import_t327g_and_global_rules() -> None:
 
     required = [
         "boundary import",
+        "boundary/apocryphal material",
         "T327G",
         "global apocalypse",
         "global apocalypse, prophecy, poetry, words-of-Jesus, discourse",
@@ -103,6 +104,7 @@ def test_t341_task_forbids_protected_paths_and_authorizations() -> None:
     assert auth["output_change_authorized"] is False
     assert auth["reviewed_gold_promoted"] is False
     assert auth["boundary_import_allowed"] is False
+    assert auth["boundary_apocryphal_material_import_allowed"] is False
     assert auth["global_rule_allowed"] is False
     assert auth["t327g_allowed"] is False
 

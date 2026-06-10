@@ -30,12 +30,13 @@ Chunking Revelation can accidentally encode:
 - Babylon identity assumptions;
 - millennium interpretation assumptions;
 - boundary or apocalyptic literature as contextual authority.
+- boundary/apocryphal material as contextual authority.
 
 ## 3. Canonical Scope
 
 The scope is the canonical 66-book Revelation text already present in the Scripture graph. T341 does
 not import, normalize, quote, or depend on boundary/apocalyptic literature outside the canonical
-66-book corpus.
+66-book corpus. It also does not import boundary/apocryphal material.
 
 Reference scope:
 
@@ -53,6 +54,7 @@ T341 does not authorize:
 - a Revelation route or route behavior;
 - reviewed gold promotion;
 - boundary import;
+- boundary/apocryphal material import;
 - boundary corpus records;
 - source acquisition;
 - raw or canonical data mutation;
@@ -96,6 +98,7 @@ These are review candidates, not approved expected output:
   chunk boundary by itself.
 - Letter, vision, and oracle forms may overlap; a single book-level genre label is too coarse.
 - Boundary/apocalyptic literature may not be imported as context for canonical Revelation chunking.
+- The final canonical text must be preserved without importing boundary/apocryphal material.
 
 ## 7. Current Observed Behavior
 
@@ -152,7 +155,8 @@ globalize, or make harder to reverse?
 
 ### Unlikely But High-Impact Risks
 
-- Boundary/apocalyptic literature could be imported as context and contaminate canonical authority.
+- Boundary/apocalyptic literature or boundary/apocryphal material could be imported as context and
+  contaminate canonical authority.
 - A future agent could cite Revelation difficulty to justify weakening Bible-first chunking
   priority.
 - A future implementation could optimize Revelation at the expense of simpler books through a global
