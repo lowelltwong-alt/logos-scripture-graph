@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T337B Psalm 89 owner decision Option C (Codex)
-**Active task:** -> **T337B** verified PR #46 / T337A was already merged, then recorded the owner's human-review decision for Psalm 89 Option C as a reviewed-gold/authorization update only. Psalm 89 is now reviewed-gold approved with parent `Ps.89.1-Ps.89.52` and child spans `Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`, `Ps.89.46-48`, and `Ps.89.49-52`. `Ps.89.52` is explicitly labeled as the Book III doxology, is not an ordinary continuation of the lament appeal, and must not be split into a one-verse orphan child. The approval is Psalm 89 only: future T338 may be planned as a route-isolated implementation of exactly this target, but T337B did not implement T338 or change chunking behavior. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T338 Psalm 89 route-isolated implementation (Codex)
+**Active task:** -> **T338** implemented the owner-approved Psalm 89 Option C target only inside the literal Psalm candidate route. Routed Psalm output now replaces parent `Ps.89.1-Ps.89.52` with exact child chunks `Ps.89.1-4`, `Ps.89.5-18`, `Ps.89.19-37`, `Ps.89.38-45`, `Ps.89.46-48`, and `Ps.89.49-52`; `Ps.89.52` stays in final child `Ps.89.49-Ps.89.52` with a Book III doxology scope note and is not emitted as a one-verse orphan. Direct monolith chunker output remains byte-identical to the post-T327 baseline; routed non-Psalm-89 records are identical to the pre-change routed baseline. No evaluator formula, leaderboard, scorecard, raw/canonical data, committed output/chunk regeneration, boundary import, T327G, or Revelation implementation occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T338 Psalm 89 route-isolated parent/child implementation (2026-06-10):** Verified PR #47 /
+> T337B was merged into `main` before branching. Implemented the exact Psalm 89 Option C target only
+> in `psalm-whole-then-stanza-v1`, behind the existing literal `Ps` orchestrator route. The skill
+> delegates to the monolith Psalm behavior, applies the approved Psalm 89 child spans only when full
+> `Ps.89.1-Ps.89.52` input is present, preserves downstream/non-target chunk records and IDs, and
+> fails closed against reviewed Psalm gold. Same-baseline temp evaluation: direct chunker stayed
+> byte-identical at SHA `4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025`; routed
+> output changed from 1,131 to 1,136 chunks with after SHA
+> `eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619`; non-Psalm-89 routed records
+> were identical; evaluator diagnostics now show reviewed structural splits for Ps78 and Ps89 with
+> `literal_psalms_fragmented` still 0. No committed chunk outputs, scorecards, leaderboard rows,
+> evaluator formula, raw/canonical data, boundary import, T327G, Revelation implementation, global
+> Selah/blank-line/doxology/poetry/long-Psalm rule, or whole-Bible improvement claim occurred.
 
 > **T337B Psalm 89 owner decision Option C (2026-06-10):** PR #46 / T337A was already merged, so
 > T337B was created as a follow-up branch from current `main`. Applied the owner's Option C human

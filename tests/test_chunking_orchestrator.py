@@ -150,6 +150,16 @@ def _read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def _outside_ps89(records: list[dict]) -> list[dict]:
+    return [
+        record for record in records
+        if not (
+            str(record.get("osis_start", "")).startswith("Ps.89.")
+            or str(record.get("osis_end", "")).startswith("Ps.89.")
+        )
+    ]
+
+
 def _write_smoke_inputs(tmp_path: Path) -> tuple[Path, Path]:
     passages = tmp_path / "passages.jsonl"
     witnesses = tmp_path / "witnesses.jsonl"
@@ -294,7 +304,7 @@ def test_orchestrator_context_output_byte_identical(tmp_path: Path) -> None:
 
 
 @requires_data
-def test_orchestrator_real_corpus_byte_identical_when_data_present(tmp_path: Path) -> None:
+def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(tmp_path: Path) -> None:
     direct_chunks = tmp_path / "direct-chunks.jsonl"
     direct_context = tmp_path / "direct-context.jsonl"
     orchestrated_chunks = tmp_path / "orchestrated-chunks.jsonl"
@@ -337,18 +347,28 @@ def test_orchestrator_real_corpus_byte_identical_when_data_present(tmp_path: Pat
         str(orchestrated_context),
     ])
 
-    assert direct_chunks.read_bytes() == orchestrated_chunks.read_bytes()
-    assert _sha256(direct_chunks) == _sha256(orchestrated_chunks)
+    direct_records = _read_jsonl(direct_chunks)
+    orchestrated_records = _read_jsonl(orchestrated_chunks)
+    assert _outside_ps89(orchestrated_records) == _outside_ps89(direct_records)
     if direct_context.exists() or orchestrated_context.exists():
         assert direct_context.read_bytes() == orchestrated_context.read_bytes()
         assert _sha256(direct_context) == _sha256(orchestrated_context)
         _assert_no_route_metadata(orchestrated_context)
-    chunks = _read_jsonl(orchestrated_chunks)
-    ps23 = [c for c in chunks if c["osis_start"].startswith("Ps.23.") or c["osis_end"].startswith("Ps.23.")]
+    ps23 = [c for c in orchestrated_records if c["osis_start"].startswith("Ps.23.") or c["osis_end"].startswith("Ps.23.")]
     assert len(ps23) == 1
     assert ps23[0]["osis_start"] == "Ps.23.1"
     assert ps23[0]["osis_end"] == "Ps.23.6"
-    ps119 = [c for c in chunks if c["osis_start"].startswith("Ps.119.")]
+    ps89 = [c for c in orchestrated_records if c["osis_start"].startswith("Ps.89.")]
+    assert [(c["osis_start"], c["osis_end"]) for c in ps89] == [
+        ("Ps.89.1", "Ps.89.4"),
+        ("Ps.89.5", "Ps.89.18"),
+        ("Ps.89.19", "Ps.89.37"),
+        ("Ps.89.38", "Ps.89.45"),
+        ("Ps.89.46", "Ps.89.48"),
+        ("Ps.89.49", "Ps.89.52"),
+    ]
+    assert not any(c["osis_start"] == "Ps.89.52" and c["osis_end"] == "Ps.89.52" for c in ps89)
+    ps119 = [c for c in orchestrated_records if c["osis_start"].startswith("Ps.119.")]
     assert len(ps119) > 1
     _assert_no_route_metadata(orchestrated_chunks)
 
@@ -396,7 +416,11 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     assert len(record["registry_surface_sha"]) == 64
     assert record["route_mode"] == "literal_psalm_candidate_seam"
     assert record["candidate_skill_ids"] == ["psalm-whole-then-stanza-v1"]
-    assert record["validation_status"] in {"byte_identical_pending", "byte_identical_passed"}
+    assert record["validation_status"] in {
+        "byte_identical_pending",
+        "byte_identical_passed",
+        "same_baseline_ps89_only_pending",
+    }
     assert any(json.loads(line)["type"] == "ChunkingRouteLedgerRoute" for line in raw_lines[1:])
 
 

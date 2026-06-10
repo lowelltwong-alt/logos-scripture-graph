@@ -66,7 +66,7 @@ def test_t337b_packet_preserves_guardrails_while_authorizing_ps89_only() -> None
     assert "chunking improvement claims" in ps89
 
 
-def test_t337a_roadmap_state_and_focus_keep_t338_blocked() -> None:
+def test_t337a_roadmap_state_and_focus_advance_after_t338_completion() -> None:
     state = yaml.safe_load(read(ROADMAP_STATE))
     phase_4 = state["phases"]["phase_4"]
     tasks = {task["id"]: task for task in phase_4["tasks"]}
@@ -77,7 +77,8 @@ def test_t337a_roadmap_state_and_focus_keep_t338_blocked() -> None:
     assert tasks["T337A"]["required_handoff"] == ".ai/handoffs/T337A/handoff.md"
     assert tasks["T337B"]["status"] == "complete"
     assert tasks["T337B"]["required_handoff"] == ".ai/handoffs/T337B/handoff.md"
-    assert future["T338"]["status"] == "planned"
-    assert future["T338"]["requires_reviewed_gold"] is True
-    assert future["T338"]["authorized_target"] == "ps89_owner_decision_option_c"
-    assert "T338 may be planned" in combined or "T338 route-isolated" in combined
+    assert tasks["T338"]["status"] == "complete"
+    assert tasks["T338"]["required_handoff"] == ".ai/handoffs/T338/handoff.md"
+    assert "T338" not in future
+    assert future["T339"]["status"] == "planned"
+    assert "T338 - Psalm 89 Option C implemented" in combined

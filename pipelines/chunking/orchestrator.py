@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""T310 Increment 2 chunking orchestrator shim.
+"""Chunking orchestrator shim with a literal-Psalm candidate seam.
 
-This is intentionally only a byte-identical wrapper around the current Pass-2
-chunker path. It does not route by form, consume form detector output, or apply
-specialized skills. Route metadata is emitted only to a separate JSONL ledger.
+The orchestrator routes literal Book of Psalms units through the candidate Psalm
+skill while non-target books remain on the current Pass-2 monolith fallback. It
+does not consume form detector output. Route metadata is emitted only to a
+separate JSONL ledger.
 """
 from __future__ import annotations
 
@@ -34,6 +35,7 @@ PSALM_SKILL_DIR = ROOT / "pipelines" / "chunking" / "skills" / "candidate" / PSA
 DEFAULT_SOURCE_CORPUS = "eng-web_usfm"
 DEFAULT_SOURCE_TEXT_ID = "eng-web"
 ROUTE_MODE = "literal_psalm_candidate_seam"
+ROUTE_VALIDATION_STATUS = "same_baseline_ps89_only_pending"
 
 
 @dataclass(frozen=True)
@@ -150,7 +152,7 @@ def chunk_routed_corpus(
     footnotes_by_osis: dict[str, list],
     crossrefs_by_osis: dict[str, list],
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
-    """Route literal Psalms through the candidate skill while preserving output."""
+    """Route literal Psalms through the candidate skill and isolate all others."""
     all_chunks: list[dict[str, Any]] = []
     context_packets: list[dict[str, Any]] = []
     route_records: list[dict[str, Any]] = []
@@ -237,7 +239,7 @@ def run_monolith_pass2(
     source_corpus: str,
     source_text_id: str,
 ) -> OrchestratorResult:
-    """Delegate to the existing Pass-2 chunker path and optionally write ledger."""
+    """Run the routed chunking path and optionally write a route ledger."""
     policy_version = chunker.read_policy_version(policy_path)
     budgets = chunker.load_budgets(policy_path)
     genres, default_genre = chunker.load_genres(genres_path)
@@ -310,14 +312,14 @@ def run_monolith_pass2(
             }),
             "output_hash": output_hash,
             "context_output_hash": context_hash,
-            "validation_status": "byte_identical_pending",
+            "validation_status": ROUTE_VALIDATION_STATUS,
             **common,
         }]
         ledger.extend({
             **record,
             **common,
             "skill_version": skill_versions[record["skill_id"]],
-            "validation_status": "byte_identical_pending",
+            "validation_status": ROUTE_VALIDATION_STATUS,
         } for record in route_records)
         write_route_ledger(ledger, route_ledger)
 

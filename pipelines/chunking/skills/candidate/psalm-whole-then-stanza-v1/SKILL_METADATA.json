@@ -6,10 +6,10 @@
   "owning_repo": "logos-scripture-graph",
   "owning_plane": "knowledge_plane",
   "address": "logos.chunking.skill.psalm.whole_then_stanza.v1.candidate",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "lifecycle_state": "candidate",
   "risk_tier": "medium",
-  "role": "behavior_preserving_extraction_seam_with_reviewed_gold_guardrail",
+  "role": "route_isolated_ps89_option_c_behavior_with_reviewed_gold_guardrails",
   "handles_forms": ["psalm_whole"],
   "handles_books": ["Ps"],
   "excluded_books": ["Song", "Lam"],
@@ -36,12 +36,15 @@
     "config/chunking/book_genres.yaml"
   ],
   "parameters": {
-    "variant_id": "increment3a-seam",
+    "variant_id": "t338-ps89-option-c",
     "budget_profile": "monolith-pass2-default",
     "reviewed_gold_guardrail": true,
+    "output_change_authorized_case_id": "ps89_owner_decision_option_c",
+    "output_change_scope": "Psalm 89 only",
     "reviewed_gold_refs": [
       "eval/chunking_gold/per_form/psalms_gold_manifest.json",
       "eval/chunking_gold/review_packets/ps78_boundary_review.md",
+      "eval/chunking_gold/review_packets/ps89_boundary_review.md",
       "eval/chunking_gold/review_packets/ps105_boundary_review.md",
       "eval/chunking_gold/review_packets/ps106_boundary_review.md"
     ]
@@ -62,7 +65,7 @@
     "score": null,
     "score_version": "scripture-chunking-skill-quality.v1",
     "last_evaluated_at": null,
-    "promotion_blocked_until": "per-form gold and byte-identity proof pass"
+    "promotion_blocked_until": "same-baseline Psalm 89-only evaluation and review pass"
   },
   "graph_node_ref": "chunking-skill-graph://skill/psalm-whole-then-stanza-v1",
   "quality_score_ref": null,
@@ -79,6 +82,6 @@
   "approval_required": true,
   "recommended_update_policy": "human_gate",
   "created_at": "2026-06-05T00:00:00+00:00",
-  "updated_at": "2026-06-09T00:00:00+00:00",
-  "notes": "T333 keeps the candidate seam byte-identical while adding fail-closed reviewed Psalm gold postconditions for settled whole-psalm and parent/child cases. No scoring improvement claimed. Post-T327 canonical-66 baseline is 93.6. Song and Lam remain canonical non-target controls; PrMan and Ps151 were removed from canonical controls because they are outside the owner-approved 66-book corpus."
+  "updated_at": "2026-06-10T00:00:00+00:00",
+  "notes": "T338 applies the owner-authorized Psalm 89 Option C split only inside the literal Psalm candidate route. Non-Psalm-89 chunks must remain identical to the monolith baseline; no whole-Bible improvement is claimed. Post-T327 canonical-66 baseline is 93.6. Song and Lam remain canonical non-target controls; PrMan and Ps151 were removed from canonical controls because they are outside the owner-approved 66-book corpus."
 }

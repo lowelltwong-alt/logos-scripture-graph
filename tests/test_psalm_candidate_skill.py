@@ -26,7 +26,7 @@ def psalm_skill() -> ModuleType:
 def _chunk(start: str, end: str) -> dict:
     return {
         "type": "RetrievalChunk",
-        "id": f"chunk:{start}-{end}",
+        "id": f"chunk--eng-web--test-policy--psalms--{start}--{end}--00564",
         "osis_start": start,
         "osis_end": end,
         "genre": "psalms",
@@ -36,7 +36,21 @@ def _chunk(start: str, end: str) -> dict:
 
 
 def _unit(book: str = "Ps", osis_ref: str | None = None) -> dict:
-    return {"book": book, "osis_ref": osis_ref or f"{book}.1.1"}
+    ref = osis_ref or f"{book}.1.1"
+    chapter = int(ref.split(".")[1]) if ref.startswith("Ps.") else 1
+    return {
+        "book": book,
+        "osis_ref": ref,
+        "passage_id": f"scripture:{ref}",
+        "chapter": chapter,
+        "text": f"{ref} text.",
+        "markers": set(),
+        "has_heading": False,
+        "has_paragraph": False,
+        "has_superscription": False,
+        "is_poetry": True,
+        "has_stanza_break": False,
+    }
 
 
 def _units_for_reviewed_cases(module: ModuleType, *case_ids: str) -> list[dict]:
@@ -63,6 +77,10 @@ def _call_skill(module: ModuleType, chunks: list[dict], units: list[dict] | None
     )
 
 
+def _ps89_units() -> list[dict]:
+    return [_unit(osis_ref=f"Ps.89.{verse}") for verse in range(1, 53)]
+
+
 def test_delegated_reviewed_psalm_gold_passes_unchanged(psalm_skill: ModuleType) -> None:
     chunks = [
         _chunk("Ps.23.1", "Ps.23.6"),
@@ -85,6 +103,55 @@ def test_delegated_reviewed_psalm_gold_passes_unchanged(psalm_skill: ModuleType)
 
     assert returned_chunks == chunks
     assert next_index == 100 + len(chunks)
+
+
+def test_reviewed_ps89_option_c_is_applied_to_full_psalm_only(psalm_skill: ModuleType) -> None:
+    chunks = [
+        _chunk("Ps.88.1", "Ps.88.18"),
+        _chunk("Ps.89.1", "Ps.89.52"),
+        _chunk("Ps.90.1", "Ps.90.17"),
+    ]
+
+    returned_chunks, next_index = _call_skill(psalm_skill, chunks, units=_ps89_units())
+
+    ps89 = [
+        (chunk["osis_start"], chunk["osis_end"], chunk["boundary_basis"])
+        for chunk in returned_chunks
+        if chunk["osis_start"].startswith("Ps.89.")
+    ]
+    assert [(start, end) for start, end, _basis in ps89] == psalm_skill.PS89_APPROVED_CHILD_SPANS
+    assert ps89[-1] == (
+        "Ps.89.49",
+        "Ps.89.52",
+        ["reviewed_structural_split", "whole_psalm_split", "book_iii_doxology_scope_note"],
+    )
+    assert not any(
+        chunk["osis_start"] == "Ps.89.52" and chunk["osis_end"] == "Ps.89.52"
+        for chunk in returned_chunks
+    )
+    assert returned_chunks[0] == chunks[0]
+    assert returned_chunks[-1] == chunks[-1]
+    assert next_index == 100 + len(chunks)
+
+
+def test_partial_ps89_endpoint_input_is_not_forced_into_reviewed_split(psalm_skill: ModuleType) -> None:
+    chunks = [_chunk("Ps.89.1", "Ps.89.52")]
+    units = _units_for_reviewed_cases(psalm_skill, "ps89_owner_decision_option_c")
+
+    returned_chunks, next_index = _call_skill(psalm_skill, chunks, units=units)
+
+    assert returned_chunks == chunks
+    assert next_index == 101
+
+
+def test_full_ps89_input_fails_closed_if_delegated_shape_is_unexpected(psalm_skill: ModuleType) -> None:
+    chunks = [
+        _chunk("Ps.89.1", "Ps.89.48"),
+        _chunk("Ps.89.49", "Ps.89.52"),
+    ]
+
+    with pytest.raises(ValueError, match="ps89_owner_decision_option_c"):
+        _call_skill(psalm_skill, chunks, units=_ps89_units())
 
 
 def test_partial_unreviewed_psalm_input_is_not_forced_into_gold_case(psalm_skill: ModuleType) -> None:
@@ -179,6 +246,9 @@ def test_reviewed_guardrail_scope_stays_literal_psalms_only(psalm_skill: ModuleT
     assert refs
     assert all(ref.startswith("Ps.") for ref in refs)
     assert all(not ref.startswith(("PrMan.", "Ps151.")) for ref in refs)
+    assert set(psalm_skill.PS89_APPROVED_CHILD_SPANS) == set(
+        psalm_skill.REVIEWED_PSALM_CHAPTER_SPANS["ps89_owner_decision_option_c"]
+    )
 
 
 def test_skill_metadata_cites_reviewed_psalm_evidence_only() -> None:
@@ -188,6 +258,7 @@ def test_skill_metadata_cites_reviewed_psalm_evidence_only() -> None:
     assert refs == [
         "eval/chunking_gold/per_form/psalms_gold_manifest.json",
         "eval/chunking_gold/review_packets/ps78_boundary_review.md",
+        "eval/chunking_gold/review_packets/ps89_boundary_review.md",
         "eval/chunking_gold/review_packets/ps105_boundary_review.md",
         "eval/chunking_gold/review_packets/ps106_boundary_review.md",
     ]

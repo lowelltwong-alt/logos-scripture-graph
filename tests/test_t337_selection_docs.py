@@ -52,7 +52,7 @@ def test_t337_locks_protected_path_and_no_start_rules() -> None:
     assert "do not start Revelation implementation, T327G, or boundary import" in combined
 
 
-def test_t337_roadmap_state_completed_and_t338_still_gated() -> None:
+def test_t337_roadmap_state_completed_and_t338_no_longer_future_after_t338() -> None:
     state = yaml.safe_load(read(ROADMAP_STATE))
     phase_4 = state["phases"]["phase_4"]
     tasks = {task["id"]: task for task in phase_4["tasks"]}
@@ -60,6 +60,8 @@ def test_t337_roadmap_state_completed_and_t338_still_gated() -> None:
 
     assert tasks["T337"]["status"] == "complete"
     assert tasks["T337"]["required_handoff"] == ".ai/handoffs/T337/handoff.md"
+    assert tasks["T338"]["status"] == "complete"
+    assert tasks["T338"]["required_handoff"] == ".ai/handoffs/T338/handoff.md"
     assert "T337" not in future
-    assert future["T338"]["status"] == "planned"
-    assert future["T338"]["requires_reviewed_gold"] is True
+    assert "T338" not in future
+    assert future["T339"]["status"] == "planned"
