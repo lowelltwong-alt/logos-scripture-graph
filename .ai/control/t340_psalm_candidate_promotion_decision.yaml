@@ -1,0 +1,90 @@
+schema_version: t340-psalm-candidate-promotion-decision.v1
+task_id: T340
+decision: hold
+decided_at: "2026-06-10"
+decided_by: Codex
+subject:
+  skill_id: psalm-whole-then-stanza-v1
+  current_lifecycle_state: candidate
+  promotion_requested_lane: psalm_candidate_skill
+evidence_basis:
+  owner_reviewed_gold:
+    - T337B
+    - ps89_owner_decision_option_c
+  implementation:
+    - T338
+    - route_isolated_ps89_option_c
+  same_baseline_risk_eval:
+    - T339
+  reviewed_output_change_cases:
+    - ps89_owner_decision_option_c
+  reviewed_preservation_or_guardrail_cases:
+    - ps23_whole_psalm
+    - ps3_superscription_attached
+    - short_psalm_holdouts
+    - ps78_parent_child_structural_split
+    - ps105_whole_psalm
+    - ps106_whole_psalm_with_b_marker_note
+    - ps119_acrostic_sections
+decision_rationale:
+  summary: >
+    Hold promotion. T337B/T338/T339 provide strong evidence for the exact
+    route-isolated Psalm 89 Option C behavior and non-target identity, but they
+    do not yet justify promoting the Psalm candidate skill as an approved or
+    active Psalm skill. The skill has one output-changing reviewed-gold case,
+    and promotion could be overread as broad Psalm optimization.
+  sufficient_for:
+    - retaining Psalm 89 Option C behind the literal Psalm candidate route
+    - keeping reviewed Psalm guardrails fail-closed
+    - using T338/T339 evidence in future promotion review
+  insufficient_for:
+    - lifecycle promotion to approved or active
+    - broad Psalm optimization
+    - global marker-driven boundary behavior
+promotion_effect:
+  skill_lifecycle_change: false
+  registry_change: false
+  runtime_behavior_change: false
+  approved_skills_registry_change: false
+  leaderboard_or_scorecard_change: false
+authorization_scope:
+  reviewed_psalm_route_only: true
+  approved_output_change_case_ids:
+    - ps89_owner_decision_option_c
+  ps89_parent: Ps.89.1-Ps.89.52
+  ps89_children:
+    - Ps.89.1-Ps.89.4
+    - Ps.89.5-Ps.89.18
+    - Ps.89.19-Ps.89.37
+    - Ps.89.38-Ps.89.45
+    - Ps.89.46-Ps.89.48
+    - Ps.89.49-Ps.89.52
+  ps89_52_scope_note: book_iii_doxology_scope_note
+  no_ps89_52_orphan: true
+explicit_non_authorizations:
+  whole_bible_improvement_claim: false
+  broad_psalm_optimization: false
+  global_psalm_rule: false
+  global_poetry_rule: false
+  global_selah_rule: false
+  global_blank_line_rule: false
+  global_doxology_rule: false
+  long_psalm_rule: false
+  marker_only_boundary_authority: false
+  psalm_136_change: false
+  psalm_78_change: false
+  psalm_105_change: false
+  psalm_106_change: false
+  psalm_119_change: false
+  non_psalm_route_leakage: false
+  revelation_implementation: false
+  boundary_import: false
+  t327g: false
+next_requirements:
+  before_promotion:
+    - owner_or_reviewer_explicitly_approves_limited_promotion
+    - rerun_same_baseline_identity_checks
+    - preserve_non_psalm_fallback_controls
+    - keep_marker_evidence_subordinate_to_reviewed_gold
+  recommended_next:
+    - collect_additional_reviewed_psalm_cases_or_keep_skill_candidate

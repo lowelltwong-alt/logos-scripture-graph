@@ -1,0 +1,52 @@
+id: T340
+phase: phase_4
+title: "Psalm Candidate Promotion Decision"
+mode: review
+status: complete
+owner: codex
+decision:
+  value: hold
+  decision_file: .ai/control/t340_psalm_candidate_promotion_decision.yaml
+  subject_skill_id: psalm-whole-then-stanza-v1
+  lifecycle_promotion_authorized: false
+  runtime_behavior_change_authorized: false
+  whole_bible_improvement_claim_authorized: false
+scope:
+  allowed_paths:
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/t340_psalm_candidate_promotion_decision.yaml
+    - .ai/tasks/T340.task.yaml
+    - .ai/handoffs/T340/
+    - docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_t340_psalm_candidate_decision.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - pipelines/chunking/skills/
+    - registry/chunking/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "Stage A verifies PR #49 / T339 is merged, reachable, validated, and clean before T340 starts."
+  - "Decision is machine-readable and one of promote_limited, hold, or reject."
+  - "Decision scope is limited to governance/status and does not change runtime behavior."
+  - "Decision does not authorize global Psalm, poetry, Selah, blank-line, doxology, or long-Psalm rules."
+  - "Decision does not authorize T327G, boundary import, Revelation implementation, evaluator changes, leaderboard/scorecard changes, or whole-Bible improvement claims."
+  - "If decision is hold, Psalm skill metadata and registry lifecycle remain candidate-only."
+required_handoff: .ai/handoffs/T340/handoff.md
+created_at: "2026-06-10"
+updated_at: "2026-06-10"
