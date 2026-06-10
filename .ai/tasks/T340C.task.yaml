@@ -1,0 +1,57 @@
+id: T340C
+phase: phase_4
+title: "Harden post-merge verification"
+mode: build
+status: complete
+owner: claude
+scope:
+  allowed_paths:
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T340C.task.yaml
+    - .ai/handoffs/T340C/
+    - .ai/templates/POST_MERGE_AND_NEXT_TASK_PROMPT.md
+    - .ai/templates/NEXT_TASK_HANDOFF_CHECKLIST.md
+    - docs/workflows/POST_MERGE_VERIFICATION_WORKFLOW.md
+    - scripts/agent/post_merge_verify.py
+    - tests/test_post_merge_verify_behavior.py
+    - tests/test_post_merge_verification_workflow.py
+    - tests/test_t337a_psalm_review_packet.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - pipelines/chunking/skills/
+    - registry/chunking/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  runtime_chunking_behavior_change_allowed: false
+  raw_canonical_mutation_allowed: false
+  generated_output_regeneration_allowed: false
+  evaluator_change_allowed: false
+  leaderboard_scorecard_change_allowed: false
+  boundary_import_allowed: false
+  revelation_implementation_allowed: false
+  t327g_allowed: false
+  skill_lifecycle_change_allowed: false
+acceptance_criteria:
+  - "run_command fails closed (returncode 127) with the message 'command not found: <tool>' when git/gh is missing, instead of raising an uncaught traceback; text and JSON reports stay clean and the exit code is nonzero."
+  - "--skip-pytest is surfaced explicitly: the text report prints 'pytest: SKIPPED via --skip-pytest' plus a WARNING, and the JSON report carries pytest_skipped: true, so a PASS verdict cannot silently hide that the test gate was not run."
+  - "--next-task detection prefers exact .ai/tasks/<id>.task.yaml, .ai/handoffs/<id>/handoff.md, and roadmap-state id matches, falls back to token-bounded prose mentions (T340 must not match T340B), reports found/ambiguous/not_found, never changes the verdict, and never authorizes implementation."
+  - "Behavioral tests simulate missing gh/git, unmerged PR, unreachable expected commit, dirty working tree, failing validation command, missing merge commit, skipped pytest, and next-task status taxonomy, asserting FAIL verdict and nonzero exit where applicable."
+  - "Workflow doc and templates state the hardened behavior: visible skip, fail-closed missing tools, report-only next-task detection, and that verification PASS does not authorize the next task."
+  - "No public flag or output behavior is removed; the verification model is not weakened, only hardened."
+  - "No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/boundary-import/T327G/Revelation-implementation/skill-lifecycle work occurs."
+required_handoff: .ai/handoffs/T340C/handoff.md
+created_at: "2026-06-10"
+updated_at: "2026-06-10"

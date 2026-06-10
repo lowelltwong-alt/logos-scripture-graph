@@ -16,6 +16,13 @@ If verification fails:
 - do not edit files;
 - report failure.
 
+Notes:
+- Missing-tool failures (`command not found: git` / `command not found: gh`) are FAIL, not retries.
+- Do not pass --skip-pytest for gated next-task work; if it was passed, the report says
+  `pytest: SKIPPED via --skip-pytest` and the PASS does not cover the test suite.
+- The next-task field reports `found`, `ambiguous`, or `not_found`; it is report-only and never
+  authorizes implementation.
+
 If verification passes:
 - read `.ai/tasks/{NEXT_TASK_ID}.task.yaml` if it exists;
 - read the relevant roadmap doc;

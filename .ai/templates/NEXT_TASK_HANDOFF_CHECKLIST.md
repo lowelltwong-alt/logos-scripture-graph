@@ -7,7 +7,8 @@ Use this checklist before beginning a task that follows a merged PR.
 - [ ] Working tree clean.
 - [ ] No merge/rebase state.
 - [ ] Validation passed.
-- [ ] Next task found in roadmap/control state.
+- [ ] Full pytest gate actually ran (verification was not run with `--skip-pytest`).
+- [ ] Next task reported `found` (not `ambiguous`/`not_found`) in roadmap/control state.
 - [ ] Task scope read.
 - [ ] Hard prohibitions copied from task.
 - [ ] Protected paths identified.

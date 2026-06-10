@@ -1,8 +1,16 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T340B standard post-merge verification (Codex)
-**Active task:** -> **T340B** added a reusable post-merge verification workflow, script, and next-task handoff templates as workflow/tooling/control-plane work only. The new `scripts/agent/post_merge_verify.py` syncs `main`, verifies merged PR state and commit reachability, checks clean working tree and no merge/rebase state, runs canonical scope/corpus/repo/pytest/YAML/JSONL/diff validations, reports optional next-task state, and exits nonzero on failed verification. T340B also adds reusable post-merge prompt/checklist templates, workflow documentation, front-door/TOC/workflow discoverability, and focused tests. T340B makes no runtime chunking behavior, raw/canonical/generated data, chunk output, evaluator, leaderboard, scorecard, skill-code, skill lifecycle, boundary import, T327G, Revelation implementation, or Psalm candidate promotion change. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T340C harden post-merge verification script (Claude)
+**Active task:** -> **T340C** hardened `scripts/agent/post_merge_verify.py` after a gated post-merge verification of PR #52/T340B passed. `run_command` now fails closed (returncode 127) with a clean report line when `git`/`gh` is missing instead of raising an uncaught traceback; `--skip-pytest` is surfaced explicitly via a `pytest` SKIPPED check, a `pytest_skipped` JSON field, and a text WARNING so a PASS verdict cannot silently hide that the test gate was not run; next-task presence matching is token-bounded so `T340` does not falsely match `T340B`; and `tests/test_post_merge_verify_behavior.py` adds monkeypatch behavioral tests for unmerged PR, unreachable commit, dirty tree, failing validation, missing merge commit, and skipped pytest. No CLI flag or gate was removed; the verification model is hardened, not weakened. Tooling/test/control-plane only — no runtime chunking behavior, raw/canonical/generated data, chunk output, evaluator, leaderboard, scorecard, skill-code, skill lifecycle, boundary import, T327G, Revelation implementation, or Psalm candidate promotion change. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T340C harden post-merge verification script (2026-06-10):** Hardened
+> `scripts/agent/post_merge_verify.py` (fail-closed missing-binary handling, explicit `--skip-pytest`
+> surfacing, token-bounded next-task matching) and added `tests/test_post_merge_verify_behavior.py`.
+> Gated on a passing post-merge verification of PR #52/T340B (verdict PASS). No verification gate or
+> CLI flag removed; tooling/test/control-plane only; no raw/canonical/generated/chunk/evaluator/
+> leaderboard/scorecard/boundary-import/T327G/Revelation-implementation/skill-lifecycle/Psalm-promotion
+> work.
 
 > **T340B standard post-merge verification (2026-06-10):** Added
 > `scripts/agent/post_merge_verify.py`,
