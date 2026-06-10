@@ -1,0 +1,45 @@
+id: T338
+phase: phase_4
+title: "Implement Psalm 89 Route-Isolated Parent Child Behavior"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/DATA_MAP.md
+    - .ai/tasks/T338.task.yaml
+    - .ai/handoffs/T338/
+    - docs/roadmap/T338_PS89_ROUTE_ISOLATED_IMPLEMENTATION.md
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/
+    - registry/chunking/skill-graph-index.json
+    - tests/test_chunker_gold.py
+    - tests/test_chunking_orchestrator.py
+    - tests/test_psalm_candidate_skill.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "PR #47 / T337B is verified merged before implementation."
+  - "Psalm 89 routed output has parent Ps.89.1-Ps.89.52 and exact approved child spans."
+  - "Ps.89.52 remains inside final child Ps.89.49-Ps.89.52 and is not emitted as a one-verse orphan."
+  - "Implementation is isolated to the literal Psalm candidate route and does not create global Selah, blank-line, doxology, poetry, or long-Psalm rules."
+  - "Non-Psalm-89 routed chunks remain identical to the pre-change routed baseline."
+  - "Evaluator formula, leaderboard, scorecards, raw/canonical data, boundary import, T327G, and Revelation implementation remain untouched."
+required_handoff: .ai/handoffs/T338/handoff.md
+created_at: "2026-06-10"
+updated_at: "2026-06-10"

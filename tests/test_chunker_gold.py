@@ -67,6 +67,29 @@ def chunks(chunk_output):
 
 
 @pytest.fixture(scope="module")
+def routed_chunk_output(tmp_path_factory):
+    out = tmp_path_factory.mktemp("routed-chunks") / "gold-routed.jsonl"
+    result = subprocess.run(
+        [sys.executable, str(ORCHESTRATOR),
+         "--passages", str(PASSAGES), "--witnesses", str(WITNESSES),
+         "--boundary-claims", str(BOUNDARIES),
+         "--footnotes", str(FOOTNOTES), "--crossrefs", str(CROSSREFS),
+         "--out", str(out)],
+        cwd=ROOT, capture_output=True, text=True,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    return {
+        "path": out,
+        "records": [json.loads(l) for l in out.read_text(encoding="utf-8").splitlines() if l.strip()],
+    }
+
+
+@pytest.fixture(scope="module")
+def routed_chunks(routed_chunk_output):
+    return routed_chunk_output["records"]
+
+
+@pytest.fixture(scope="module")
 def route_ledger(tmp_path_factory):
     temp = tmp_path_factory.mktemp("psalm-routes")
     out = temp / "chunks.jsonl"
@@ -309,6 +332,48 @@ def test_psalm_78_reviewed_parent_child_structural_split(chunks, psalms_gold_man
             {"osis_start": "Ps.78.72", "osis_end": "Ps.78.72"},
         ],
     }]
+
+
+@requires_data
+def test_psalm_89_reviewed_owner_option_c_routed_output(routed_chunks, psalms_gold_manifest):
+    case = _case(psalms_gold_manifest, "reviewed_gold", "ps89_owner_decision_option_c")
+    expected = case["expected"]
+    assert case["owner_decision"]["implementation_allowed"] is True
+    assert case["owner_decision"]["output_change_authorized"] is True
+    assert case["owner_decision"]["reviewed_gold_promoted"] is True
+    assert expected["ps89_only"] is True
+    assert expected["global_rule_authorized"] is False
+
+    ps89 = _chapter_chunks(routed_chunks, "Ps", "89")
+    observed = [
+        {
+            "osis_start": c["osis_start"],
+            "osis_end": c["osis_end"],
+            "boundary_basis": c["boundary_basis"],
+        }
+        for c in ps89
+    ]
+    assert observed == [
+        {
+            "osis_start": child["osis_start"],
+            "osis_end": child["osis_end"],
+            "boundary_basis": child["boundary_basis"],
+        }
+        for child in expected["child_chunks"]
+    ]
+    assert len(ps89) == expected["chunk_count"]
+    assert ps89[-1]["osis_start"] == "Ps.89.49"
+    assert ps89[-1]["osis_end"] == "Ps.89.52"
+    assert "book_iii_doxology_scope_note" in ps89[-1]["boundary_basis"]
+    assert not any(c["osis_start"] == "Ps.89.52" and c["osis_end"] == "Ps.89.52" for c in ps89)
+
+    metrics = score(routed_chunks)
+    assert metrics["literal_psalms_fragmented_raw"] == 2
+    assert metrics["literal_psalms_fragmented"] == 0
+    assert [split["case_id"] for split in metrics["reviewed_structural_splits"]] == [
+        "ps78_parent_child_structural_split",
+        "ps89_owner_decision_option_c",
+    ]
 
 
 @requires_data

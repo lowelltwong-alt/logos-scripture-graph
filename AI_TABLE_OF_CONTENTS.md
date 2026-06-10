@@ -52,6 +52,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md`](docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md)
 - [`docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md`](docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md)
 - [`docs/roadmap/T337B_PS89_OWNER_DECISION_OPTION_C.md`](docs/roadmap/T337B_PS89_OWNER_DECISION_OPTION_C.md)
+- [`docs/roadmap/T338_PS89_ROUTE_ISOLATED_IMPLEMENTATION.md`](docs/roadmap/T338_PS89_ROUTE_ISOLATED_IMPLEMENTATION.md)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
 - [`.ai/control/boundary_material_routing.yaml`](.ai/control/boundary_material_routing.yaml)
 - [`config/governance/predicate_registry.yaml`](config/governance/predicate_registry.yaml)
