@@ -60,6 +60,20 @@ The script:
 - runs `git diff --check`;
 - reports next-task presence if `--next-task` is supplied.
 
+Hardened behavior (T340C):
+
+- `--skip-pytest` is always visibly reported: the text report prints
+  `pytest: SKIPPED via --skip-pytest` plus a WARNING line, and the JSON report carries
+  `"pytest_skipped": true`. A PASS with the skip flag does not cover the test suite.
+- Missing tools fail closed: if `git` or `gh` is not available, the affected command is recorded as
+  `command not found: git` / `command not found: gh` with return code 127, the verdict is FAIL, and
+  the exit code is nonzero. JSON mode still emits valid JSON with the failure detail.
+- Next-task detection is exact-first and report-only: it checks
+  `.ai/tasks/<TASK_ID>.task.yaml`, `.ai/handoffs/<TASK_ID>/handoff.md`, and the roadmap-state id
+  field, then token-bounded prose mentions (so `T340` never matches `T340B`), and reports
+  `found`, `ambiguous`, or `not_found`. Detection status never changes the verdict and never
+  authorizes implementation.
+
 ## 5. What The Script Does Not Do
 
 The script does not:

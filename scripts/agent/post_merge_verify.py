@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 import sys
 from dataclasses import dataclass, asdict
@@ -52,7 +53,18 @@ class CommandResult:
 
 
 def run_command(name: str, command: list[str]) -> CommandResult:
-    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+    try:
+        result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+    except FileNotFoundError:
+        # Missing executable (e.g. gh or git absent) must fail closed with a clean
+        # report line, not an uncaught traceback that hides the verdict.
+        return CommandResult(
+            name=name,
+            command=command,
+            returncode=127,
+            stdout="",
+            stderr=f"command not found: {command[0]}",
+        )
     return CommandResult(
         name=name,
         command=command,
@@ -154,10 +166,18 @@ def task_in_roadmap_state(task_id: str) -> bool:
     return walk(state)
 
 
+def mentions_task(text: str, task_id: str) -> bool:
+    """Token-bounded match so ``T340`` does not falsely match ``T340B``."""
+    return re.search(rf"\b{re.escape(task_id)}\b", text) is not None
+
+
 def next_task_state(task_id: str | None) -> dict[str, Any]:
+    """Report-only next-task presence. Detection never authorizes implementation."""
     if not task_id:
         return {"provided": False, "status": "not requested"}
 
+    task_file = ROOT / ".ai" / "tasks" / f"{task_id}.task.yaml"
+    handoff_file = ROOT / ".ai" / "handoffs" / task_id / "handoff.md"
     status_paths = [
         ROOT / "ROADMAP_STATE.yaml",
         ROOT / ".ai" / "control" / "PROJECT_STATUS.md",
@@ -166,14 +186,28 @@ def next_task_state(task_id: str | None) -> dict[str, Any]:
     mentions = [
         str(path.relative_to(ROOT))
         for path in status_paths
-        if path.exists() and task_id in path.read_text(encoding="utf-8")
+        if path.exists() and mentions_task(path.read_text(encoding="utf-8"), task_id)
     ]
+    roadmap_found = task_in_roadmap_state(task_id)
+
+    # Exact authorization surfaces (task file / handoff / roadmap id field) -> found.
+    # Token-bounded prose mentions alone -> ambiguous. Nothing at all -> not_found.
+    if task_file.exists() or handoff_file.exists() or roadmap_found:
+        status = "found"
+    elif mentions:
+        status = "ambiguous"
+    else:
+        status = "not_found"
+
     return {
         "provided": True,
         "task_id": task_id,
-        "roadmap_state_field_found": task_in_roadmap_state(task_id),
+        "task_file_exists": task_file.exists(),
+        "handoff_exists": handoff_file.exists(),
+        "roadmap_state_field_found": roadmap_found,
         "mentioned_in": mentions,
-        "status": "found" if mentions else "unknown",
+        "status": status,
+        "authorization_note": "report-only: presence does not authorize implementation",
     }
 
 
@@ -223,8 +257,17 @@ def format_text_report(report: dict[str, Any]) -> str:
     )
     lines.extend(f"- {item['name']}: {'PASS' if item['passed'] else 'FAIL'} - {item['detail']}" for item in report["state_checks"])
     lines.extend(["", "## Validation Results"])
-    lines.extend(f"- {item['name']}: {'PASS' if item['passed'] else 'FAIL'}" for item in report["validation_checks"])
+    for item in report["validation_checks"]:
+        if item["name"] == "pytest" and item["detail"].startswith("SKIPPED"):
+            lines.append(f"- pytest: {item['detail']}")
+            continue
+        status = "PASS" if item["passed"] else "FAIL"
+        suffix = f" - {item['detail']}" if not item["passed"] else ""
+        lines.append(f"- {item['name']}: {status}{suffix}")
+    if report.get("pytest_skipped"):
+        lines.append("> WARNING: full pytest gate was SKIPPED via --skip-pytest; this verdict does not cover the test suite.")
     lines.extend(["", "## Next Task State", json.dumps(report["next_task"], indent=2)])
+    lines.append("> Next-task detection is report-only. A PASS verdict verifies the merge; it does not authorize the next task, output-changing work, reviewed-gold promotion, or skill lifecycle promotion.")
     lines.extend(["", "## Protected-Path Reminder"])
     lines.extend(f"- {path}" for path in report["protected_paths"])
     return "\n".join(lines)
@@ -324,6 +367,11 @@ def build_report(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
 
     validation_checks: list[CheckResult] = []
     append_command_checks(validation_checks, validation_commands)
+    if args.skip_pytest:
+        # Surface the skip explicitly so a PASS verdict can never silently hide
+        # that the full test gate was not run. passed=True because skipping is an
+        # allowed mode, but the report and JSON make the gap unmistakable.
+        validation_checks.append(CheckResult("pytest", True, "SKIPPED via --skip-pytest"))
     try:
         validation_checks.append(parse_yaml_files([ROOT / "ROADMAP_STATE.yaml", *all_task_yaml_paths()]))
     except Exception as exc:  # pragma: no cover - reports exact local parse failure
@@ -351,6 +399,7 @@ def build_report(args: argparse.Namespace) -> tuple[dict[str, Any], int]:
         "pr_checks": [asdict(check) for check in pr_checks],
         "commit_checks": [asdict(check) for check in commit_checks],
         "validation_checks": [asdict(check) for check in validation_checks],
+        "pytest_skipped": bool(args.skip_pytest),
         "next_task": next_task_state(args.next_task),
         "protected_paths": PROTECTED_PATHS,
     }
