@@ -65,6 +65,14 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`config/agents/model_routing.yaml`](config/agents/model_routing.yaml)
 - [`config/agents/agent_hostile_policy.yaml`](config/agents/agent_hostile_policy.yaml)
 
+## Workflows And Templates
+
+- [`docs/workflows/POST_MERGE_VERIFICATION_WORKFLOW.md`](docs/workflows/POST_MERGE_VERIFICATION_WORKFLOW.md)
+- [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
+- [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
+- [`.ai/templates/POST_MERGE_AND_NEXT_TASK_PROMPT.md`](.ai/templates/POST_MERGE_AND_NEXT_TASK_PROMPT.md)
+- [`.ai/templates/NEXT_TASK_HANDOFF_CHECKLIST.md`](.ai/templates/NEXT_TASK_HANDOFF_CHECKLIST.md)
+
 ## Data Plane
 
 - `data/raw/` - immutable source artifacts
