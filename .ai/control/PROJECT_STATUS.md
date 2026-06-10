@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-10
-**Updated by:** T341 Revelation hard-book atlas (Codex)
-**Active task:** -> **T341** verified merged PR #50 / T340 on `main`, confirmed PR #50 was `MERGED`, commit `b1ca468` is reachable, reran required validation successfully, and created a Revelation hard-book atlas plus observed-behavior audit as planning/control-plane work only. T341 inspected existing committed Revelation chunk output without regeneration, recorded the current 15-chunk post-T327 Revelation snapshot, mapped RISK-GATE-001 risks, and set T342 as Revelation review-packet candidate selection. T341 makes no Revelation implementation, route behavior, reviewed gold promotion, output change, chunk regeneration, evaluator/leaderboard/scorecard change, raw/canonical/derived data mutation, skill lifecycle promotion, boundary import, T327G, global apocalypse/prophecy/poetry/WJ/discourse rule, or whole-Bible improvement claim. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T340B standard post-merge verification (Codex)
+**Active task:** -> **T340B** added a reusable post-merge verification workflow, script, and next-task handoff templates as workflow/tooling/control-plane work only. The new `scripts/agent/post_merge_verify.py` syncs `main`, verifies merged PR state and commit reachability, checks clean working tree and no merge/rebase state, runs canonical scope/corpus/repo/pytest/YAML/JSONL/diff validations, reports optional next-task state, and exits nonzero on failed verification. T340B also adds reusable post-merge prompt/checklist templates, workflow documentation, front-door/TOC/workflow discoverability, and focused tests. T340B makes no runtime chunking behavior, raw/canonical/generated data, chunk output, evaluator, leaderboard, scorecard, skill-code, skill lifecycle, boundary import, T327G, Revelation implementation, or Psalm candidate promotion change. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T340B standard post-merge verification (2026-06-10):** Added
+> `scripts/agent/post_merge_verify.py`,
+> `.ai/templates/POST_MERGE_AND_NEXT_TASK_PROMPT.md`,
+> `.ai/templates/NEXT_TASK_HANDOFF_CHECKLIST.md`, and
+> `docs/workflows/POST_MERGE_VERIFICATION_WORKFLOW.md`. The workflow standardizes recurring
+> post-merge checks: sync `main`, confirm PR state, verify expected and merge commits are reachable,
+> confirm clean tree and no merge/rebase state, run required validation, report optional next-task
+> state, and stop on failure. The script does not edit files, create commits, create branches, push,
+> open PRs, or start the next task. Entry surfaces now point agents to the reusable workflow before
+> follow-up work. This is workflow/tooling/control-plane only and does not authorize output-changing
+> work, raw/canonical mutation, generated output regeneration, evaluator/chunker/orchestrator
+> changes, leaderboard/scorecard changes, boundary import, T327G, Revelation implementation, or
+> Psalm candidate promotion.
 
 > **T341 Revelation hard-book atlas (2026-06-10):** Post-merge verification for PR #50 / T340
 > passed before T341 started: `main` fast-forwarded cleanly, PR #50 was `MERGED`, GitHub validate
