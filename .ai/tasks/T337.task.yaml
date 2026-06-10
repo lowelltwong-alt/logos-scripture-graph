@@ -1,0 +1,42 @@
+id: T337
+phase: phase_4
+title: "Select One Psalm Behavior Change"
+mode: selection
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T337.task.yaml
+    - .ai/handoffs/T337/
+    - docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md
+    - tests/test_t336b_policy_docs.py
+    - tests/test_t337_selection_docs.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/chunker.py
+    - pipelines/chunking/orchestrator.py
+    - pipelines/chunking/evaluate_chunks.py
+    - pipelines/chunking/leaderboard.py
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+acceptance_criteria:
+  - "PR #44 / T336B is verified merged on main before T337 begins."
+  - "T337 records whether exactly one reviewed-gold-supported Psalm behavior-change target is authorized."
+  - "T337 records that no output-changing Psalm target is authorized if reviewed gold only supports preservation/current behavior."
+  - "Pending and characterization-only Psalm evidence is not promoted into implementation authority."
+  - "T338 remains blocked until one Psalm target has exact spans, executable reviewed-gold checks, implementation_allowed true, and output_change_authorized true."
+  - "No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation work occurs."
+required_handoff: .ai/handoffs/T337/handoff.md
+created_at: "2026-06-09"
+updated_at: "2026-06-09"

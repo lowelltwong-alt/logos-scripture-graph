@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-09
-**Updated by:** T336B unintended consequence review gate (Codex)
-**Active task:** -> **T336B** added a deterministic unintended-consequence review gate as documentation/control-plane/test-only work after the T336 post-merge audit. Added `RISK-GATE-001`, `TEXT-HYGIENE-001`, `WORKFLOW-LESSON-002`, `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`, entry-surface workflow pointers, and doc-policy tests for the gate plus T336 Bible-first hardening and mojibake/text-hygiene handling. Tightened future master-chunker wording: no single shared global optimization objective across Bible and non-Bible corpora, non-Bible training/eval cases must not tune canonical Bible behavior, and future master chunkers must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and authority/trust profiles. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/T337 work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T337 Psalm behavior-change target selection (Codex)
+**Active task:** -> **T337** verified PR #44 / T336B was merged, then completed selection/control-plane work only. Added `docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md` and status/handoff/test pointers. Decision: no reviewed-gold-supported Psalm output-changing behavior target is currently authorized. Reviewed Psalm evidence supports current behavior preservation or exact existing structural splits; Ps89 and Ps136 remain pending/characterization-only and cannot authorize implementation. T338 remains blocked until human review promotes exactly one Psalm target with exact spans, executable reviewed-gold checks, `implementation_allowed: true`, and `output_change_authorized: true`. No raw/canonical/generated/chunk/evaluator/leaderboard/scorecard/source-import/boundary-import/T327G/Revelation-implementation/runtime behavior work occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T337 Psalm behavior-change target selection (2026-06-09):** After PR #44 / T336B post-merge
+> verification passed, reviewed the Psalm gold manifest, Psalm gold plan, Ps78/Ps105/Ps106 reviewed
+> packets, Ps89/Ps136 pending packets, T332/T335/T336 roadmap surfaces, and the existing Psalm
+> candidate skill seam. T337 found no authorized behavior-changing Psalm target. Ps78, Ps105,
+> Ps106, Ps119, short Psalm, and superscription cases are reviewed preservation or exact-current-
+> behavior guardrails; Ps89 and Ps136 are pending only. T337 therefore blocks T338 until a T335-style
+> follow-up human review promotes one exact Psalm target with executable checks and explicit output
+> authorization. Documentation/control-plane/test only; no chunking behavior, generated output,
+> evaluator, leaderboard, scorecard, raw/canonical data, source import, boundary import, T327G, or
+> Revelation implementation changed.
 
 > **T336B unintended consequence review gate (2026-06-09):** Verified PR #43 / T336 was merged into
 > `main`, confirmed a clean worktree with no merge/rebase state, and created
