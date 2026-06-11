@@ -1,0 +1,92 @@
+plan_id: T348-SCRIPTURE-VECTORIZATION-DURABILITY-PLAN
+repo: logos-scripture-graph
+status: planning_only
+created_at: "2026-06-11"
+
+# MASTER_CONTEXT gate (human-gated, AI read-only):
+# "Do not skip to embeddings or graph edges." Embedding runs stay unauthorized
+# until the substrate gaps below are implemented and the owner flips these flags.
+master_context_gate:
+  blocked_until_implemented:
+    - TextSpan
+    - ContextPacket
+    - SourceLanguageWitness
+    - AlignmentRecord
+  owner_authorization_required: true
+
+embedding_runs_allowed: false
+index_builds_allowed: false
+model_inferred_edge_generation_allowed: false
+vector_space_mixing_allowed: false
+shared_index_with_non_bible_corpora_allowed: false
+boundary_material_in_default_scripture_retrieval: false
+default_scripture_retrieval_change_requires_owner: true
+reviewed_semantic_edges_require_owner: true
+chunk_policy_tuning_from_retrieval_eval_allowed: false
+
+durable_layers:
+  - raw_source_archive_and_checksums
+  - canonical_passage_ids_osis
+  - source_span_maps_and_typed_sidecars
+  - chunk_policy_and_generators
+  - reviewed_gold_and_decision_records
+  - reviewed_semantic_edge_records
+  - build_manifests_and_model_registry
+  - retrieval_profiles_registry
+  - golden_retrieval_questions
+
+derived_rebuildable_layers:
+  - chunks
+  - embeddings
+  - vector_indexes
+  - keyword_indexes
+  - structural_graph_edges
+  - model_inferred_graph_edges
+  - entity_and_community_summaries
+  - reranker_scores
+  - answers
+
+graph_edge_classes:
+  - id: structural_derived
+    durability: code
+    rule: derived deterministically from canonical data and policy; never stored as truth; regenerated
+  - id: reviewed_semantic
+    durability: committed_record
+    rule: human-reviewed claim records with evidence, reviewer, date, and scope; the graph database row is a disposable projection
+  - id: model_inferred_candidate
+    durability: none
+    rule: always carries generator model and prompt version; status candidate_unreviewed; never promoted without human gate; never feeds canonical conclusions
+
+required_controls:
+  - embedding_model_registry_entry_before_any_use
+  - one_embedding_model_per_index
+  - query_model_must_match_index_model
+  - index_manifest_pins_chunk_set_sha_and_policy_version_and_corpus_baseline
+  - separate_indexes_and_profiles_per_corpus
+  - shadow_migration_with_golden_questions_before_promotion
+  - rollback_path_by_retrieval_profile_switch
+  - red_team_queries_for_non_66_and_boundary_leakage
+  - owner_authorization_for_default_profile_changes
+
+forbidden_flows:
+  - retrieval_eval_pressure_to_chunk_policy
+  - non_bible_corpus_tuning_bible_behavior
+  - boundary_or_noncanonical_content_in_default_scripture_retrieval
+  - mixed_model_vector_spaces_in_one_index
+  - unreviewed_model_inferred_edge_to_canonical_claim
+  - backend_specific_feature_becoming_load_bearing_without_profile_record
+
+stop_triggers:
+  - task_requests_embedding_run_while_flags_false
+  - task_requests_index_build_while_flags_false
+  - task_requests_default_retrieval_profile_change_without_owner
+  - task_requests_shared_objective_across_corpora
+  - task_requests_chunk_boundary_change_from_retrieval_scores
+
+future_tasks_before_embedding:
+  - implement_textspan_contextpacket_sourcelanguagewitness_alignmentrecord
+  - owner_approved_embedding_model_selection_packet
+  - golden_retrieval_question_set_from_reviewed_gold
+  - red_team_query_suite
+  - index_manifest_validator_dry_run
+  - separate_owner_gated_embedding_run_task

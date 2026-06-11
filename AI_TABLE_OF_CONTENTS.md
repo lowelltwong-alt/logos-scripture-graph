@@ -44,6 +44,8 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 ## Architecture And Governance
 
 - [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)
+- [`docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md`](docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md) - planning-only; embedding runs not authorized
+- [`.ai/control/scripture_vectorization_plan.yaml`](.ai/control/scripture_vectorization_plan.yaml) - machine-readable fail-closed vectorization flags
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
 - [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)

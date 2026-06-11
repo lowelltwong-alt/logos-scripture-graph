@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos-scripture-graph/schemas/graph_edge_record.schema.json",
+  "title": "GraphEdgeRecord",
+  "description": "One graph edge with provenance-classed durability. structural_derived edges survive as generator code and are never stored as truth; reviewed_semantic edges are committed human-judgment records (the irreplaceable layer); model_inferred_candidate edges are disposable and never feed canonical conclusions without a human gate. Any graph database is a projection of these records plus the structural generators.",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "edge_class",
+    "edge_type",
+    "subject_ref",
+    "object_ref",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "edge_id": { "type": "string", "minLength": 1 },
+    "edge_class": {
+      "type": "string",
+      "enum": ["structural_derived", "reviewed_semantic", "model_inferred_candidate"]
+    },
+    "edge_type": {
+      "type": "string",
+      "description": "e.g. contains, parent_child_chunk, cross_reference, cites_covenant, reception_comment"
+    },
+    "subject_ref": {
+      "type": "string",
+      "description": "OSIS ref, chunk id, or stable work id (boundary repos point INTO Scripture by OSIS ref; Scripture records never depend on boundary ids)"
+    },
+    "object_ref": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["derived", "candidate_unreviewed", "reviewed_approved", "reviewed_rejected", "deprecated"]
+    },
+    "tradition_scope": { "type": "string" },
+    "trust_level": { "type": "string" },
+    "evidence": { "type": "string" },
+    "reviewer": { "type": "string" },
+    "reviewed_at": { "type": "string", "format": "date" },
+    "generator_ref": {
+      "type": "string",
+      "description": "Required for structural_derived: the committed generator code/config that reproduces this edge"
+    },
+    "generator_model": {
+      "type": "string",
+      "description": "Required for model_inferred_candidate"
+    },
+    "prompt_version": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "edge_class": { "const": "reviewed_semantic" } } },
+      "then": { "required": ["evidence", "reviewer", "reviewed_at"] }
+    },
+    {
+      "if": { "properties": { "edge_class": { "const": "model_inferred_candidate" } } },
+      "then": {
+        "required": ["generator_model"],
+        "properties": { "status": { "enum": ["candidate_unreviewed", "reviewed_rejected", "deprecated"] } }
+      }
+    },
+    {
+      "if": { "properties": { "edge_class": { "const": "structural_derived" } } },
+      "then": { "required": ["generator_ref"], "properties": { "status": { "enum": ["derived", "deprecated"] } } }
+    }
+  ]
+}

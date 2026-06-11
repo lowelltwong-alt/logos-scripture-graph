@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos-scripture-graph/schemas/retrieval_profile.schema.json",
+  "title": "RetrievalProfile",
+  "description": "Named, versioned retrieval configuration. Behavior changes happen by switching or versioning profiles, never by editing live behavior in place. The query embedding model must equal each referenced index's embedding model (validator-enforced). Default Scripture retrieval profile changes require an owner decision.",
+  "type": "object",
+  "required": [
+    "profile_id",
+    "purpose",
+    "index_ids",
+    "query_embedding_model_id",
+    "default_for_scripture",
+    "owner_gated",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "pattern": "^rprof:[a-z0-9][a-z0-9._-]*$"
+    },
+    "purpose": { "type": "string", "minLength": 1 },
+    "index_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^vidx:[a-z0-9][a-z0-9._-]*$" },
+      "description": "Multiple indexes allowed only when all share the same embedding model and corpus class"
+    },
+    "query_embedding_model_id": {
+      "type": "string",
+      "pattern": "^emb:[a-z0-9][a-z0-9._-]*$"
+    },
+    "default_for_scripture": {
+      "type": "boolean",
+      "description": "True only for the one default Scripture retrieval profile; changing which profile is default requires an owner decision"
+    },
+    "includes_boundary_material": {
+      "type": "boolean",
+      "default": false,
+      "description": "Must be false when default_for_scripture is true; boundary/reception material is an explicit opt-in profile choice, never the default"
+    },
+    "owner_gated": { "type": "boolean" },
+    "owner_decision_ref": { "type": "string" },
+    "reranker": { "type": "string" },
+    "filters": { "type": "object" },
+    "status": { "type": "string", "enum": ["candidate", "production", "deprecated", "retired"] },
+    "rollback_profile_id": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}

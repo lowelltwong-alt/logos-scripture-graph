@@ -1,0 +1,60 @@
+id: T348
+phase: phase_4
+title: "Scripture vectorization and graph-edge durability contracts (planning-only)"
+mode: planning
+status: complete
+owner: fable
+scope:
+  allowed_paths:
+    - .ai/control/scripture_vectorization_plan.yaml
+    - docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+    - schemas/embedding_model.schema.json
+    - schemas/vector_index_manifest.schema.json
+    - schemas/retrieval_profile.schema.json
+    - schemas/graph_edge_record.schema.json
+    - config/retrieval/embedding_models.yaml
+    - config/retrieval/retrieval_profiles.yaml
+    - scripts/validate_vectorization_plan.py
+    - scripts/validate_all.py
+    - tests/test_t348_vectorization_contracts.py
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T348.task.yaml
+    - .ai/handoffs/T348/
+    - AI_TABLE_OF_CONTENTS.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/
+authorization:
+  authorized:
+    - "Commit planning-only vectorization/edge-durability contracts, schemas, empty registries, a fail-closed validator wired into validate_all, and focused tests."
+  explicit_non_authorizations:
+    - "No embedding runs, index builds, or backend selection."
+    - "No model-inferred edge generation."
+    - "No retrieval behavior or default retrieval definition."
+    - "No chunk policy or chunk boundary changes."
+    - "No boundary text import or logos-boundary-literature changes."
+    - "No evaluator/leaderboard/scorecard changes."
+    - "No T327G; no Revelation implementation; no Psalm candidate promotion."
+acceptance_criteria:
+  - "scripture_vectorization_plan.yaml exists with all authorization flags false, owner gates true, and the MASTER_CONTEXT substrate gate recorded; validator fails closed if any flag flips."
+  - "Four schemas (embedding model, vector index manifest, retrieval profile, graph edge record) parse and enforce: one model per index, chunk-set SHA + policy version + corpus_baseline pinning, the three edge durability classes, and reviewed_semantic evidence/reviewer requirements."
+  - "Registries are empty skeletons; validator rejects approved models and production profiles while planning_only, rejects boundary material in a default Scripture profile, and rejects profiles referencing unregistered models."
+  - "validate_all runs the new gate; focused tests cover pass and fail-closed paths via --plan/--models/--profiles."
+  - "Contract doc states the one law, identity rules, migration playbook, 100-year survival kit, an explicit does-not-authorize section, and a RISK-GATE-001 map."
+validation:
+  - python scripts/validate_vectorization_plan.py
+  - python -m pytest -q tests/test_t348_vectorization_contracts.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff: .ai/handoffs/T348/handoff.md
+next_task: "T342 Revelation review-packet candidate selection (gated); embedding work blocked behind MASTER_CONTEXT substrate gaps + owner decision."
+owner_decisions_needed:
+  - "Future: embedding model selection/approval; first index build authorization; default Scripture retrieval profile designation."
