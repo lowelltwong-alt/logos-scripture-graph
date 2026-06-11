@@ -4,18 +4,6 @@
 
 Every agent reads `AI_FRONT_DOOR.md`.
 
-## Step 1a: Verify prior merge before follow-up work
-
-If this task follows a merged PR, run the standard post-merge verification workflow before creating
-a follow-up branch or editing files:
-
-```bash
-python scripts/agent/post_merge_verify.py --pr <PR_NUMBER> --expected-commit <SHA> --next-task <TASK_ID>
-```
-
-The verification script reports PR state, commit reachability, working-tree state, validation, and
-next-task presence. It does not start the next task.
-
 ## Step 2: Claim or create task
 
 Use `ROADMAP_STATE.yaml` to find a planned task. If no task exists, create `.ai/tasks/<task_id>.task.yaml` from template and add it to roadmap state.
