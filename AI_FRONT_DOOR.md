@@ -27,10 +27,6 @@ Read these files before making changes:
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
-Post-merge verification: before starting follow-up work after a PR merges, run the standard workflow
-in `docs/workflows/POST_MERGE_VERIFICATION_WORKFLOW.md`, normally through
-`python scripts/agent/post_merge_verify.py --pr <PR_NUMBER> --expected-commit <SHA>`.
-
 ## Cross-repo governance
 
 This repository is the governed Scripture data-plane / knowledge-plane implementation
@@ -186,9 +182,8 @@ python scripts/agent/validate_handoffs.py
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
 
-Post-merge gate: a merged PR does not automatically authorize the next task. Verify the merge first
-with `scripts/agent/post_merge_verify.py`, then read the next task file, roadmap state, and handoff
-before creating a branch or making changes.
+A merged PR does not automatically authorize the next task. Read the next task file, roadmap state,
+and handoff before creating a branch or making changes.
 
 ## Raw source inspection (HARD RULE — mandatory before processing)
 

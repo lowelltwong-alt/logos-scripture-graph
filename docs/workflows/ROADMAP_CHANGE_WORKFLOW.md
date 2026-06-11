@@ -22,17 +22,10 @@ Append one JSON line to `.ai/control/roadmap_events.jsonl`:
 {"event":"task_status_changed","task_id":"T001","from":"planned","to":"in_progress","agent":"claude","reason":"started chunking policy review","timestamp":"2026-05-28T00:00:00Z"}
 ```
 
-## Post-merge verification rule
+## Merge-state principle
 
-Before using a merged roadmap/control-plane PR as the base for a next task, run:
-
-```bash
-python scripts/agent/post_merge_verify.py --pr <PR_NUMBER> --expected-commit <SHA> --next-task <TASK_ID>
-```
-
-If verification fails, stop and report. A roadmap merge records state; it does not by itself
-authorize implementation, output changes, reviewed-gold promotion, boundary imports, or skill
-lifecycle promotion.
+A roadmap merge records state; it does not by itself authorize implementation, output changes,
+reviewed-gold promotion, boundary imports, or skill lifecycle promotion.
 
 ## Roadmap correction rule
 
