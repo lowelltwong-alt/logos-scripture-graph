@@ -45,9 +45,9 @@ authorization:
     - "No T327G; no Revelation implementation; no Psalm candidate promotion."
 acceptance_criteria:
   - "scripture_vectorization_plan.yaml exists with all authorization flags false, owner gates true, and the MASTER_CONTEXT substrate gate recorded; validator fails closed if any flag flips."
-  - "Four schemas (embedding model, vector index manifest, retrieval profile, graph edge record) parse and enforce: one model per index, chunk-set SHA + policy version + corpus_baseline pinning, the three edge durability classes, and reviewed_semantic evidence/reviewer requirements."
-  - "Registries are empty skeletons; validator rejects approved models and production profiles while planning_only, rejects boundary material in a default Scripture profile, and rejects profiles referencing unregistered models."
-  - "validate_all runs the new gate; focused tests cover pass and fail-closed paths via --plan/--models/--profiles."
+  - "Four schemas (embedding model, vector index manifest, retrieval profile, graph edge record) parse and enforce: one model per index, model-version/dimension/normalization/metric + chunk-set SHA + policy version + corpus_baseline pinning, the three edge durability classes, and reviewed_semantic evidence/reviewer requirements."
+  - "Registries are empty skeletons; validator rejects approved models, malformed registry entries, duplicate ids, production profiles while planning_only, boundary material in a default Scripture profile, unauthorized index references, unregistered models/indexes, and graph edge predicates outside the governance registry."
+  - "validate_all runs the new gate; focused tests cover pass and fail-closed paths via --plan/--models/--profiles plus direct manifest and graph-edge red-team checks."
   - "Contract doc states the one law, identity rules, migration playbook, 100-year survival kit, an explicit does-not-authorize section, and a RISK-GATE-001 map."
 validation:
   - python scripts/validate_vectorization_plan.py

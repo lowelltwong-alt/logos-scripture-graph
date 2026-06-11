@@ -45,5 +45,20 @@
     "status": { "type": "string", "enum": ["candidate", "production", "deprecated", "retired"] },
     "rollback_profile_id": { "type": "string" },
     "notes": { "type": "string" }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "default_for_scripture": { "const": true } },
+        "required": ["default_for_scripture"]
+      },
+      "then": {
+        "required": ["owner_decision_ref", "includes_boundary_material"],
+        "properties": {
+          "owner_gated": { "const": true },
+          "includes_boundary_material": { "const": false }
+        }
+      }
+    }
+  ]
 }

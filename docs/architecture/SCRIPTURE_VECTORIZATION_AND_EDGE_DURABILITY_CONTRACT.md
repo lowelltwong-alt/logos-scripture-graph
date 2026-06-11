@@ -28,8 +28,8 @@ source text + stable IDs + span maps + provenance + human-reviewed decisions
 Embeddings, vector indexes, graph databases, entity/community summaries, and
 reranker scores are build products. Every one of them must be reproducible
 from committed files plus a committed manifest. If an artifact cannot be
-deleted and rebuilt bit-for-bit from durable layers, it must not live in a
-vector database or graph store.
+deleted and rebuilt from pinned inputs with equivalent records/manifests, it
+must not live in a vector database or graph store.
 
 Durable vs derived layers are enumerated machine-readably in
 `scripture_vectorization_plan.yaml` (`durable_layers`,
@@ -56,8 +56,9 @@ Durable vs derived layers are enumerated machine-readably in
   interpretable.
 - Every index has a committed manifest
   (`schemas/vector_index_manifest.schema.json`) pinning: embedding model id,
-  exact chunk-set SHA-256, chunk-policy version, and corpus baseline. The
-  manifest is the durable artifact; the index is disposable.
+  embedding model version, dimension, normalization, distance metric, exact
+  chunk-set SHA-256, chunk-policy version, and corpus baseline. The manifest is
+  the durable artifact; the index is disposable.
 - Canonical and non-canonical corpora never share an index
   (`shared_index_with_non_bible_corpora_allowed: false`).
 
@@ -65,17 +66,19 @@ Durable vs derived layers are enumerated machine-readably in
 
 Schema: `schemas/graph_edge_record.schema.json`.
 
-1. `structural_derived` — containment, parent/child chunk relations,
+1. `structural_deterministic` — containment, parent/child chunk relations,
    cross-reference sidecar edges. Survive as committed generator code; never
-   stored as truth; regenerated on demand.
+   stored as truth; regenerated on demand from a derivation rule/generator and
+   source policy version.
 2. `reviewed_semantic` — human-reviewed claims with evidence, reviewer, date,
    and scope. These are the most expensive artifacts the project produces;
    human review does not re-run. They are committed records; any graph
    database row is a disposable projection.
 3. `model_inferred_candidate` — GraphRAG entities, community summaries,
-   LLM-extracted relations. Always carry generator model + prompt version;
-   always `candidate_unreviewed`; never promoted to reviewed without a human
-   gate; never feed canonical conclusions; rebuilt or discarded at will.
+   LLM-extracted relations. Always carry generator model, prompt version, and
+   rebuild provenance; always `candidate_unreviewed`; never promoted to
+   reviewed without a human gate; never feed canonical conclusions; rebuilt or
+   discarded at will.
 
 ## 5. Retrieval Profiles And Backends
 

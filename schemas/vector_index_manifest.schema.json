@@ -7,11 +7,13 @@
   "required": [
     "index_id",
     "embedding_model_id",
+    "embedding_model_version",
     "source_corpus",
     "chunk_set_sha256",
     "chunk_policy_version",
     "corpus_baseline",
     "dimension",
+    "normalization",
     "distance_metric",
     "backend",
     "status",
@@ -28,6 +30,11 @@
       "pattern": "^emb:[a-z0-9][a-z0-9._-]*$",
       "description": "Single string by design: one model per index"
     },
+    "embedding_model_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must match the registered embedding model version used for document and query vectors"
+    },
     "source_corpus": {
       "type": "string",
       "description": "e.g. eng-web_canonical_66; canonical and boundary corpora never share an index"
@@ -40,6 +47,7 @@
     "chunk_policy_version": { "type": "string", "minLength": 1 },
     "corpus_baseline": { "type": "string", "minLength": 1 },
     "dimension": { "type": "integer", "minimum": 1 },
+    "normalization": { "type": "string", "enum": ["l2", "none", "provider_default"] },
     "distance_metric": { "type": "string", "enum": ["cosine", "dot", "euclidean"] },
     "backend": {
       "type": "string",

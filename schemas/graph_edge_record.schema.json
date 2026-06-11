@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://logos-scripture-graph/schemas/graph_edge_record.schema.json",
   "title": "GraphEdgeRecord",
-  "description": "One graph edge with provenance-classed durability. structural_derived edges survive as generator code and are never stored as truth; reviewed_semantic edges are committed human-judgment records (the irreplaceable layer); model_inferred_candidate edges are disposable and never feed canonical conclusions without a human gate. Any graph database is a projection of these records plus the structural generators.",
+  "description": "One graph edge with provenance-classed durability. structural_deterministic edges survive as generator code and are never stored as truth; reviewed_semantic edges are committed human-judgment records (the irreplaceable layer); model_inferred_candidate edges are disposable and never feed canonical conclusions without a human gate. Any graph database is a projection of these records plus the structural generators.",
   "type": "object",
   "required": [
     "edge_id",
@@ -17,11 +17,24 @@
     "edge_id": { "type": "string", "minLength": 1 },
     "edge_class": {
       "type": "string",
-      "enum": ["structural_derived", "reviewed_semantic", "model_inferred_candidate"]
+      "enum": ["structural_deterministic", "reviewed_semantic", "model_inferred_candidate"]
     },
     "edge_type": {
       "type": "string",
-      "description": "e.g. contains, parent_child_chunk, cross_reference, cites_covenant, reception_comment"
+      "enum": [
+        "editorial_cross_reference",
+        "quotesFrom",
+        "alludesTo",
+        "echoes",
+        "fulfills",
+        "typifies",
+        "parallelTo",
+        "thematicallyRelatedTo",
+        "groundedIn",
+        "renders",
+        "occursIn"
+      ],
+      "description": "Must be registered in config/governance/predicate_registry.yaml"
     },
     "subject_ref": {
       "type": "string",
@@ -34,35 +47,57 @@
     },
     "tradition_scope": { "type": "string" },
     "trust_level": { "type": "string" },
-    "evidence": { "type": "string" },
-    "reviewer": { "type": "string" },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reviewer_ref": { "type": "string", "minLength": 1 },
     "reviewed_at": { "type": "string", "format": "date" },
     "generator_ref": {
       "type": "string",
-      "description": "Required for structural_derived: the committed generator code/config that reproduces this edge"
+      "description": "Required for structural_deterministic unless derivation_rule_ref is present: the committed generator code/config that reproduces this edge"
     },
+    "derivation_rule_ref": { "type": "string", "minLength": 1 },
+    "source_policy_version": { "type": "string", "minLength": 1 },
     "generator_model": {
       "type": "string",
       "description": "Required for model_inferred_candidate"
     },
-    "prompt_version": { "type": "string" },
+    "prompt_version": { "type": "string", "minLength": 1 },
+    "provenance_ref": { "type": "string", "minLength": 1 },
+    "generator_run_id": { "type": "string", "minLength": 1 },
     "notes": { "type": "string" }
   },
   "allOf": [
     {
       "if": { "properties": { "edge_class": { "const": "reviewed_semantic" } } },
-      "then": { "required": ["evidence", "reviewer", "reviewed_at"] }
+      "then": {
+        "required": ["evidence_refs", "reviewer_ref", "reviewed_at"],
+        "properties": { "status": { "const": "reviewed_approved" } }
+      }
     },
     {
       "if": { "properties": { "edge_class": { "const": "model_inferred_candidate" } } },
       "then": {
-        "required": ["generator_model"],
-        "properties": { "status": { "enum": ["candidate_unreviewed", "reviewed_rejected", "deprecated"] } }
+        "required": ["generator_model", "prompt_version"],
+        "properties": { "status": { "const": "candidate_unreviewed" } },
+        "anyOf": [
+          { "required": ["provenance_ref"] },
+          { "required": ["generator_run_id"] }
+        ]
       }
     },
     {
-      "if": { "properties": { "edge_class": { "const": "structural_derived" } } },
-      "then": { "required": ["generator_ref"], "properties": { "status": { "enum": ["derived", "deprecated"] } } }
+      "if": { "properties": { "edge_class": { "const": "structural_deterministic" } } },
+      "then": {
+        "required": ["source_policy_version"],
+        "properties": { "status": { "enum": ["derived", "deprecated"] } },
+        "anyOf": [
+          { "required": ["generator_ref"] },
+          { "required": ["derivation_rule_ref"] }
+        ]
+      }
     }
   ]
 }
