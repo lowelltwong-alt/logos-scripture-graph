@@ -15,6 +15,36 @@ PLAN = ROOT / ".ai" / "control" / "scripture_vectorization_plan.yaml"
 MODELS = ROOT / "config" / "retrieval" / "embedding_models.yaml"
 PROFILES = ROOT / "config" / "retrieval" / "retrieval_profiles.yaml"
 CONTRACT = ROOT / "docs" / "architecture" / "SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md"
+REQUIRED_NON_AUTHORIZED_ACTIONS = {
+    "embedding_runs",
+    "vector_index_builds",
+    "graph_edge_generation",
+    "boundary_imports",
+    "backend_selection",
+    "retrieval_profile_promotion",
+}
+
+
+def _contract_metadata() -> dict:
+    return {
+        "task_id": "T348",
+        "contract_scope": "planning_only",
+        "governance_authority": False,
+        "authority_note": (
+            "Planning metadata only; not governance authority and not authorization to run "
+            "embeddings, build indexes, generate graph edges, import boundary corpora, choose "
+            "a backend, or promote retrieval profiles."
+        ),
+        "non_authorized_actions": sorted(REQUIRED_NON_AUTHORIZED_ACTIONS),
+    }
+
+
+def _assert_planning_only_metadata(metadata: dict) -> None:
+    assert metadata["task_id"] == "T348"
+    assert metadata["contract_scope"] == "planning_only"
+    assert metadata["governance_authority"] is False
+    assert "not governance authority" in metadata["authority_note"]
+    assert REQUIRED_NON_AUTHORIZED_ACTIONS.issubset(set(metadata["non_authorized_actions"]))
 
 
 def _model(**overrides: object) -> dict:
@@ -34,7 +64,11 @@ def _model(**overrides: object) -> dict:
 
 
 def _models_registry(*entries: dict) -> dict:
-    return {"registry_id": "test", "models": list(entries or [_model()])}
+    return {
+        "registry_id": "test",
+        "contract_metadata": _contract_metadata(),
+        "models": list(entries or [_model()]),
+    }
 
 
 def _profile(**overrides: object) -> dict:
@@ -52,7 +86,11 @@ def _profile(**overrides: object) -> dict:
 
 
 def _profiles_registry(*entries: dict) -> dict:
-    return {"registry_id": "test", "profiles": list(entries)}
+    return {
+        "registry_id": "test",
+        "contract_metadata": _contract_metadata(),
+        "profiles": list(entries),
+    }
 
 
 def _manifest(**overrides: object) -> dict:
@@ -99,6 +137,7 @@ def _run_validator(*args: str) -> subprocess.CompletedProcess:
 def test_plan_flags_are_fail_closed() -> None:
     plan = yaml.safe_load(PLAN.read_text(encoding="utf-8"))
     assert plan["status"] == "planning_only"
+    _assert_planning_only_metadata(plan["contract_metadata"])
     assert plan["embedding_runs_allowed"] is False
     assert plan["index_builds_allowed"] is False
     assert plan["model_inferred_edge_generation_allowed"] is False
@@ -117,6 +156,21 @@ def test_plan_flags_are_fail_closed() -> None:
     }.issubset(set(plan["master_context_gate"]["blocked_until_implemented"]))
 
 
+def test_t348_artifacts_carry_non_governance_authority_metadata() -> None:
+    module = _load_module()
+    plan = yaml.safe_load(PLAN.read_text(encoding="utf-8"))
+    models = yaml.safe_load(MODELS.read_text(encoding="utf-8"))
+    profiles = yaml.safe_load(PROFILES.read_text(encoding="utf-8"))
+
+    _assert_planning_only_metadata(plan["contract_metadata"])
+    _assert_planning_only_metadata(models["contract_metadata"])
+    _assert_planning_only_metadata(profiles["contract_metadata"])
+
+    for schema_path in module.SCHEMAS.values():
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        _assert_planning_only_metadata(schema["x_contract_metadata"])
+
+
 def test_validator_passes_on_committed_state() -> None:
     result = _run_validator()
     assert result.returncode == 0, result.stderr
@@ -132,6 +186,42 @@ def test_validator_fails_closed_on_authorizing_plan(tmp_path: Path) -> None:
     result = _run_validator("--plan", str(tampered))
     assert result.returncode == 1
     assert "embedding_runs_allowed" in result.stderr
+
+
+def test_validator_fails_closed_on_missing_contract_metadata(tmp_path: Path) -> None:
+    plan = yaml.safe_load(PLAN.read_text(encoding="utf-8"))
+    plan.pop("contract_metadata")
+    tampered = tmp_path / "plan.yaml"
+    tampered.write_text(yaml.safe_dump(plan), encoding="utf-8")
+
+    result = _run_validator("--plan", str(tampered))
+
+    assert result.returncode == 1
+    assert "contract_metadata" in result.stderr
+
+
+def test_validator_fails_closed_on_governance_authority_metadata(tmp_path: Path) -> None:
+    models = _models_registry()
+    models["contract_metadata"]["governance_authority"] = True
+    models_path = _write_yaml(tmp_path / "models.yaml", models)
+
+    result = _run_validator("--models", str(models_path))
+
+    assert result.returncode == 1
+    assert "governance_authority" in result.stderr
+
+
+def test_schema_governance_authority_metadata_fails() -> None:
+    module = _load_module()
+    schema = json.loads(module.SCHEMAS["embedding_model"].read_text(encoding="utf-8"))
+    schema["x_contract_metadata"]["governance_authority"] = True
+
+    with pytest.raises(module.VectorizationPlanError, match="governance_authority"):
+        module.validate_contract_metadata(
+            schema,
+            "schema",
+            key=module.SCHEMA_CONTRACT_METADATA_KEY,
+        )
 
 
 def test_validator_fails_closed_on_approved_model_while_planning(tmp_path: Path) -> None:
@@ -559,6 +649,8 @@ def test_registries_are_empty_planning_skeletons() -> None:
 
 def test_contract_doc_preserves_non_authorization_and_gates() -> None:
     text = CONTRACT.read_text(encoding="utf-8")
+    assert "Governance authority: none" in text
+    assert "not governance authority" in text
     assert "authorizes no embedding run" in text
     assert "Do not skip" in text and "embeddings or graph edges" in text
     assert "One embedding model per index" in text

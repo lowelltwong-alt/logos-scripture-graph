@@ -11,7 +11,9 @@ Enforces, while the plan is planning_only:
   - registry entries that do exist carry schema-required fields and any
     referenced embedding model is registered;
   - the four retrieval/graph schemas parse and declare required fields;
-  - no vector index manifest exists while index builds are unauthorized.
+  - no vector index manifest exists while index builds are unauthorized;
+  - the plan, registries, and schemas declare planning-only metadata with no
+    governance authority.
 """
 from __future__ import annotations
 
@@ -41,6 +43,16 @@ SCHEMAS = {
     "graph_edge_record": ROOT / "schemas" / "graph_edge_record.schema.json",
 }
 INDEX_MANIFEST_SUFFIXES = {".json", ".yaml", ".yml"}
+CONTRACT_METADATA_KEY = "contract_metadata"
+SCHEMA_CONTRACT_METADATA_KEY = "x_contract_metadata"
+REQUIRED_NON_AUTHORIZED_ACTIONS = {
+    "embedding_runs",
+    "vector_index_builds",
+    "graph_edge_generation",
+    "boundary_imports",
+    "backend_selection",
+    "retrieval_profile_promotion",
+}
 REQUIRED_SUBSTRATE_GAPS = {
     "TextSpan",
     "ContextPacket",
@@ -77,6 +89,41 @@ def load_yaml(path: Path) -> dict:
     return data
 
 
+def validate_contract_metadata(container: dict, label: str, *, key: str = CONTRACT_METADATA_KEY) -> None:
+    metadata = container.get(key)
+    if not isinstance(metadata, dict):
+        raise VectorizationPlanError(f"{label}: {key} must be a mapping")
+    if metadata.get("task_id") != "T348":
+        raise VectorizationPlanError(
+            f"{label}: {key}.task_id must be T348, found {metadata.get('task_id')!r}"
+        )
+    if metadata.get("contract_scope") != "planning_only":
+        raise VectorizationPlanError(
+            f"{label}: {key}.contract_scope must be planning_only, "
+            f"found {metadata.get('contract_scope')!r}"
+        )
+    if metadata.get("governance_authority") is not False:
+        raise VectorizationPlanError(
+            f"{label}: {key}.governance_authority must be false, "
+            f"found {metadata.get('governance_authority')!r}"
+        )
+    note = metadata.get("authority_note")
+    if not isinstance(note, str) or "not governance authority" not in note.lower():
+        raise VectorizationPlanError(
+            f"{label}: {key}.authority_note must state this is not governance authority"
+        )
+    actions = metadata.get("non_authorized_actions")
+    if not isinstance(actions, list):
+        raise VectorizationPlanError(f"{label}: {key}.non_authorized_actions must be a list")
+    if not all(isinstance(action, str) for action in actions):
+        raise VectorizationPlanError(f"{label}: {key}.non_authorized_actions must list strings")
+    missing = sorted(REQUIRED_NON_AUTHORIZED_ACTIONS - set(actions))
+    if missing:
+        raise VectorizationPlanError(
+            f"{label}: {key}.non_authorized_actions missing {missing}"
+        )
+
+
 def require_jsonschema() -> None:
     if Draft202012Validator is None:
         raise VectorizationPlanError(
@@ -93,6 +140,7 @@ def load_schema(path: Path) -> dict:
     for key in ("$schema", "title", "type", "required", "properties"):
         if key not in schema:
             raise VectorizationPlanError(f"{path}: schema missing {key}")
+    validate_contract_metadata(schema, str(path), key=SCHEMA_CONTRACT_METADATA_KEY)
     require_jsonschema()
     Draft202012Validator.check_schema(schema)
     return schema
@@ -127,6 +175,7 @@ def load_predicate_names() -> set[str]:
 
 def validate_plan(plan_path: Path) -> dict:
     plan = load_yaml(plan_path)
+    validate_contract_metadata(plan, str(plan_path))
     if plan.get("status") != "planning_only":
         raise VectorizationPlanError(
             f"{plan_path}: status must be planning_only, found {plan.get('status')!r}"
@@ -163,6 +212,7 @@ def validate_plan(plan_path: Path) -> dict:
 
 def validate_models(models_path: Path) -> dict[str, dict]:
     registry = load_yaml(models_path)
+    validate_contract_metadata(registry, str(models_path))
     models = registry.get("models")
     if not isinstance(models, list):
         raise VectorizationPlanError(f"{models_path}: models must be a list")
@@ -251,6 +301,7 @@ def validate_profiles(
     index_builds_allowed: bool,
 ) -> None:
     registry = load_yaml(profiles_path)
+    validate_contract_metadata(registry, str(profiles_path))
     profiles = registry.get("profiles")
     if not isinstance(profiles, list):
         raise VectorizationPlanError(f"{profiles_path}: profiles must be a list")

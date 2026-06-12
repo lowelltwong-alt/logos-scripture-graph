@@ -3,12 +3,16 @@
 ## Status
 
 - Task: T348
-- Mode: planning
-- Contract status: active as planning/governance contract
+- Mode: planning-only
+- Contract status: active as a planning-only contract
+- Governance authority: none; this document and its schemas are not governance authority
+  and do not override MASTER_CONTEXT, upstream governance, or owner authorization gates
 - Embedding runs: not authorized (`embedding_runs_allowed: false`)
 - Index builds: not authorized
 - Model-inferred edge generation: not authorized
 - Machine-readable flags: `.ai/control/scripture_vectorization_plan.yaml`
+- Machine-readable metadata: the plan, registries, and T348 schemas carry
+  `contract_scope: planning_only` and `governance_authority: false`
 - MASTER_CONTEXT gate: TextSpan, ContextPacket, SourceLanguageWitness, and
   AlignmentRecord must be implemented before any embedding work; "Do not skip
   to embeddings or graph edges."

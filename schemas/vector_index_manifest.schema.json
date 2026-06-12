@@ -3,6 +3,20 @@
   "$id": "https://logos-scripture-graph/schemas/vector_index_manifest.schema.json",
   "title": "VectorIndexManifest",
   "description": "Build manifest for one vector index. The index itself is a disposable derived artifact; this manifest is the durable record that makes it rebuildable and comparable. Exactly one embedding model per index (vector spaces never mix).",
+  "x_contract_metadata": {
+    "task_id": "T348",
+    "contract_scope": "planning_only",
+    "governance_authority": false,
+    "authority_note": "Planning metadata only; not governance authority and not authorization to run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, or promote retrieval profiles.",
+    "non_authorized_actions": [
+      "embedding_runs",
+      "vector_index_builds",
+      "graph_edge_generation",
+      "boundary_imports",
+      "backend_selection",
+      "retrieval_profile_promotion"
+    ]
+  },
   "type": "object",
   "required": [
     "index_id",

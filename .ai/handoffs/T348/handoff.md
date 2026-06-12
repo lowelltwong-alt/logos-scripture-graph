@@ -136,3 +136,31 @@ Do not start T327G; do not import boundary texts; do not promote the Psalm candi
 - Risks introduced: future graph-edge records are more tightly constrained to current governance predicates; future structural edge predicates will need an explicit predicate-registry update before use.
 - Unresolved questions: none for this hardening patch; owner decisions for embedding model selection, first index build, and default Scripture retrieval profile remain future-gated.
 - Exact next action: review the hardened PR diff; do not run embeddings, build indexes, generate edges, import boundary texts, promote profiles, start T327G, implement Revelation, or promote the Psalm candidate skill.
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-12T14:14:30+00:00
+- handoff_id: 8d35c0b7dacfe2db
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-12T14:26:28+00:00
+- handoff_id: 7737e70af1fc85a3
+
+### Codex planning-only non-authority metadata update
+
+- Files read: AI_FRONT_DOOR.md; .ai/control/MASTER_CONTEXT.md; .ai/control/PROJECT_STATUS.md; .ai/tasks/T348.task.yaml; .ai/handoffs/T348/handoff.md; .ai/control/current_focus.yaml; ROADMAP_STATE.yaml; T348 plan, registries, schemas, contract doc, validator, and focused tests.
+- Files changed: `.ai/control/scripture_vectorization_plan.yaml`, `config/retrieval/embedding_models.yaml`, `config/retrieval/retrieval_profiles.yaml`, `schemas/embedding_model.schema.json`, `schemas/vector_index_manifest.schema.json`, `schemas/retrieval_profile.schema.json`, `schemas/graph_edge_record.schema.json`, `scripts/validate_vectorization_plan.py`, `tests/test_t348_vectorization_contracts.py`, `docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md`, `.ai/tasks/T348.task.yaml`, `.ai/control/PROJECT_STATUS.md`, `.ai/control/current_focus.yaml`, `.ai/control/DATA_MAP.md`, `.ai/control/handoff_ledger.jsonl`, and this handoff.
+- Decisions made: added explicit `contract_scope: planning_only`, `governance_authority: false`, and non-authorized-action metadata to the T348 plan, empty retrieval registries, and four T348 schemas; changed the contract doc wording from planning/governance contract to planning-only/no-governance-authority; extended the validator to fail closed if the metadata is missing, authorizing, or omits embeddings/indexes/edges/boundary/backend/profile non-authorizations.
+- Validation performed: `python scripts/validate_vectorization_plan.py` passed; `python -m pytest -q tests/test_t348_vectorization_contracts.py` passed with 47 tests; `python scripts/generate_data_map.py` regenerated DATA_MAP; `python scripts/validate_all.py` passed; `python scripts/generate_data_map.py --check` passed; `python -m pytest -q` passed with 233 tests; `git diff --check` passed.
+- Risks introduced: future T348 schema/registry edits now must preserve the non-authority metadata; this is intentional fail-closed friction for planning-only surfaces.
+- Unresolved questions: none for this metadata hardening patch; owner decisions for embedding model selection, first index build, backend choice, and default Scripture retrieval profile remain future-gated.
+- Exact next action: review/merge the PR as a planning-only contract PR. Do not run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, promote retrieval profiles, start T327G, implement Revelation, or promote the Psalm candidate skill from this merge.

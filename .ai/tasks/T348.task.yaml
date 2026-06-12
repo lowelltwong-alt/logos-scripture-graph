@@ -4,6 +4,18 @@ title: "Scripture vectorization and graph-edge durability contracts (planning-on
 mode: planning
 status: complete
 owner: fable
+contract_metadata:
+  task_id: T348
+  contract_scope: planning_only
+  governance_authority: false
+  authority_note: "Planning metadata only; not governance authority and not authorization to run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, or promote retrieval profiles."
+  non_authorized_actions:
+    - embedding_runs
+    - vector_index_builds
+    - graph_edge_generation
+    - boundary_imports
+    - backend_selection
+    - retrieval_profile_promotion
 scope:
   allowed_paths:
     - .ai/control/scripture_vectorization_plan.yaml
@@ -45,6 +57,7 @@ authorization:
     - "No T327G; no Revelation implementation; no Psalm candidate promotion."
 acceptance_criteria:
   - "scripture_vectorization_plan.yaml exists with all authorization flags false, owner gates true, and the MASTER_CONTEXT substrate gate recorded; validator fails closed if any flag flips."
+  - "The plan, empty registries, and T348 schemas carry planning-only metadata with governance_authority: false and the validator fails closed if that metadata is missing or authorizing."
   - "Four schemas (embedding model, vector index manifest, retrieval profile, graph edge record) parse and enforce: one model per index, model-version/dimension/normalization/metric + chunk-set SHA + policy version + corpus_baseline pinning, the three edge durability classes, and reviewed_semantic evidence/reviewer requirements."
   - "Registries are empty skeletons; validator rejects approved models, malformed registry entries, duplicate ids, production profiles while planning_only, boundary material in a default Scripture profile, unauthorized index references, unregistered models/indexes, and graph edge predicates outside the governance registry."
   - "validate_all runs the new gate; focused tests cover pass and fail-closed paths via --plan/--models/--profiles plus direct manifest and graph-edge red-team checks."
