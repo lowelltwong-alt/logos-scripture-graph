@@ -31,6 +31,7 @@
 - .ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md
 - .ai/control/audit_surface_map.yaml
 - .ai/control/harness_upgrade_roadmap.yaml
+- .ai/audits/reports/20260617-T344-codex-post-merge.md
 
 ## Files changed
 
@@ -52,6 +53,8 @@
 - .ai/control/harness_upgrade_roadmap.yaml
 - scripts/validate_audit_surface_map.py
 - scripts/agent/no_context_audit_harness.py
+- .ai/audits/reports/20260617-T344-codex-post-merge.md
+- .ai/audits/reports/README.md
 - AI_TABLE_OF_CONTENTS.md
 - AI_FRONT_DOOR.md
 - docs/methodology/WORKFLOW_LESSONS.md
@@ -73,6 +76,7 @@
 - Decision register entry CD-016 records that Revelation owner selection is required before reviewed gold or implementation.
 - Added a no-context audit path and harness so an independent AI/human reviewer can reconstruct branch/PR intent, changed files, changelogs, decision surfaces, validation, future harness watch conditions, and stop conditions after commit/push without chat context.
 - Added a future harness-upgrade roadmap with candidate harnesses for protected-path scope checks, owner-decision consistency, CI parity, review-packet authorization drift, source-metadata authority risk, route leakage, generated artifact reproducibility, cross-repo mirrors, lesson capture, theological label risk, and owner-selection-to-implementation gating.
+- Added a durable post-merge no-context audit report for PR #60 / T344 and exposed it through `current_focus.yaml` plus the audit report index.
 
 ## Validation run
 
@@ -104,6 +108,18 @@
 - result: 273 passed
 - failures: none
 
+- command: python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref origin/main --print
+- result: passed; emitted a branch-local no-context audit brief showing this follow-up branch's audit/control-plane changes and the untracked report before staging
+- failures: none
+
+- command: python scripts/validate_all.py
+- result: all validation gates passed after adding the post-merge audit report
+- failures: none
+
+- command: python -m pytest -q
+- result: 273 passed after adding the post-merge audit report
+- failures: none
+
 ## Known risks
 
 - A docket can be mistaken for reviewed gold; all authorization flags remain false to prevent that.
@@ -119,4 +135,4 @@
 
 ## Next agent instruction
 
-Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md` or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref origin/main --print`. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.
+Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md`, `.ai/audits/reports/20260617-T344-codex-post-merge.md`, or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref origin/main --print`. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.
