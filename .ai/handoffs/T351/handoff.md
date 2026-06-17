@@ -126,3 +126,100 @@ Start from `AI_FRONT_DOOR.md`, read the T351 atlas and machine-readable triage m
 - mode: plan
 - updated_at: 2026-06-17T22:36:59+00:00
 - handoff_id: bd9cf76e6363c968
+
+---
+
+## Follow-up: divine-name/title capitalization lane
+
+- agent_name: codex
+- mode: plan
+- updated_at: 2026-06-17T23:14:18+00:00
+
+### Files read
+
+- AI_FRONT_DOOR.md
+- AGENTS.md
+- .ai/control/MASTER_CONTEXT.md
+- .ai/control/PROJECT_STATUS.md
+- .ai/control/current_focus.yaml
+- .ai/control/bible_chunking_research_triage_map.yaml
+- .ai/control/chunking_agent_preflight.yaml
+- .ai/control/chunking_theological_decision_register.yaml
+- docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md
+- scripts/validate_bible_chunking_research_triage.py
+- scripts/validate_chunking_agent_preflight.py
+- tests/test_t351_bible_wide_research_triage.py
+- tests/test_chunking_agent_preflight.py
+
+### Files changed
+
+- .ai/control/bible_chunking_research_triage_map.yaml
+- .ai/control/chunking_agent_preflight.yaml
+- .ai/control/chunking_theological_decision_register.yaml
+- .ai/control/PROJECT_STATUS.md
+- .ai/tasks/T351.task.yaml
+- AI_FRONT_DOOR.md
+- docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md
+- scripts/validate_bible_chunking_research_triage.py
+- scripts/validate_chunking_agent_preflight.py
+- tests/test_t351_bible_wide_research_triage.py
+- tests/test_chunking_agent_preflight.py
+- .ai/handoffs/T351/handoff.md
+
+### Decisions made
+
+- Added `divine_name_title_capitalization` as a required `research_first` Bible-wide lane.
+- Recorded CD-018: English capitalization of divine names, titles, and pronouns is evidence only, not graph/chunk/retrieval/theological authority.
+- Required future agents to read CD-018 and the capitalization lane during preflight before ingest, chunking, graph, or retrieval work.
+
+### Validation run
+
+- command: python scripts/validate_bible_chunking_research_triage.py
+- result: passed
+- failures: none
+
+- command: python scripts/validate_chunking_agent_preflight.py
+- result: passed
+- failures: none
+
+- command: python scripts/validate_chunking_theological_decision_register.py
+- result: passed
+- failures: none
+
+- command: python scripts/validate_source_metadata_authority.py
+- result: passed
+- failures: none
+
+- command: python scripts/validate_task_scope.py --task-id T351
+- result: passed
+- failures: none
+
+- command: python -m pytest -q tests/test_t351_bible_wide_research_triage.py tests/test_chunking_agent_preflight.py
+- result: 12 passed
+- failures: none
+
+- command: python scripts/validate_all.py
+- result: all validation gates passed
+- failures: none
+
+- command: python -m pytest -q
+- result: 300 passed
+- failures: none
+
+### Known risks
+
+- Capitalization can still bias future graph/retrieval work if later agents treat translation/editorial conventions as ontology.
+- CD-018 blocks capitalization-only authority, but future original-language alignment still needs separate governed inventory and policy before use.
+
+### Next agent instruction
+
+Start from `AI_FRONT_DOOR.md`, read `.ai/control/chunking_agent_preflight.yaml`, CD-018, and the `divine_name_title_capitalization` lane before any graph, retrieval, ingest, or chunking work. Do not infer divine identity, Trinitarian relation, speaker attribution, graph edges, chunk boundaries, lexical truth, or output changes from capitalization alone.
+
+---
+
+## Handoff refresh: final
+
+- agent_name: codex
+- mode: plan
+- updated_at: 2026-06-17T23:14:29+00:00
+- handoff_id: bd9cf76e6363c968

@@ -38,9 +38,11 @@ scope:
     - tests/test_t337_selection_docs.py
     - tests/test_t337a_psalm_review_packet.py
     - scripts/validate_bible_chunking_research_triage.py
+    - scripts/validate_chunking_agent_preflight.py
     - scripts/validate_bible_chunking_readiness_map.py
     - scripts/validate_owner_selection_implementation_gate.py
     - scripts/validate_all.py
+    - tests/test_chunking_agent_preflight.py
   forbidden_paths:
     - data/raw/
     - data/canonical/
@@ -72,6 +74,7 @@ acceptance_criteria:
   - "The triage distinguishes review_packet_ready, research_first, governed_hold, and implementation_blocked lanes."
   - "Revelation remains research/prep-only under REV-T344-E."
   - "All metadata, cross-reference, lexical-rarity, speaker, source-tradition, and structure evidence stays evidence only."
+  - "Divine-name/title capitalization stays evidence only and cannot authorize graph edges, chunk boundaries, speaker attribution, or theological claims."
   - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge surfaces are touched."
   - "Any reusable lesson, theological downstream decision, or harness need is recorded in governed surfaces."
 validation:

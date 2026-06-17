@@ -41,6 +41,7 @@ evidence_rules:
   headings_and_formatting: "Edition evidence only; never Scripture authority or automatic discourse structure."
   speaker_markers: "Diagnostic evidence only; require reviewed speaker policy before chunk authority."
   theological_labels: "Retrieval labels must remain descriptive and text-local; they must not select a theological school."
+  divine_name_capitalization: "English capitalization of divine names, titles, pronouns, and identity terms is translation/editorial evidence only, not authority; God/god, LORD/Lord/lord, Spirit/spirit, Father/father, Son/son, Word/word, Christ/christ, Messiah/messiah, Holy Spirit/holy spirit, He/he, Him/him, and His/his never by themselves authorize divine identity, Trinitarian relation, speaker attribution, graph edges, chunk boundaries, lexical truth, or output changes."
 lanes:
   - lane_id: psalms_poetry
     canonical_scope: "Psalms and adjacent poetry controls already used in Psalm-route work."
@@ -206,6 +207,30 @@ lanes:
     downstream_theological_risks:
       - "Canon/text authority, variant inclusion, source preference, noncanonical-source overreach, and footnote authority."
     next_action: "Policy/research first; no output or graph use."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: divine_name_title_capitalization
+    canonical_scope: "Bible-wide English rendering and capitalization of divine names, titles, pronouns, and identity terms."
+    triage_status: research_first
+    current_evidence: "Owner flagged God/god, Spirit/spirit, Father/father, and Word/word as graph/chunking risks; raw sources may also include LORD/Lord/lord conventions, WJ markers, headings, footnotes, cross-references, and Strong's-style numbers."
+    why_not_chunk_now: "English capitalization is a translation/editorial convention; using it directly can assert divinity, personhood, Trinitarian relation, messianic identity, speaker identity, lexical authority, or graph relation."
+    review_packet_candidates:
+      - John.1.1-John.1.18 Word/word
+      - Gen.1.1-Gen.1.3 God/Spirit
+      - Ps.110.1 LORD/Lord/lord
+      - Matt.6 Father/father
+      - John.3 Spirit/spirit
+      - Rom.8 Spirit/spirit
+      - 1John.4 spirit/Spirit
+    research_questions:
+      - "Which capitalization variants actually occur in the raw and canonical witnesses before graph, chunking, or retrieval work uses them?"
+      - "How should English translation capitalization be distinguished from Hebrew/Greek lemma, morphology, source metadata, and edition formatting?"
+      - "How can divine-name/title capitalization be stored as evidence without authorizing divine-identity graph edges or chunk boundaries?"
+      - "Which pronoun capitalization practices for God, Christ, and the Spirit are edition conventions rather than canonical identity claims?"
+    downstream_theological_risks:
+      - "Capitalization can encode divine identity, Trinitarian relation, Christology, pneumatology, messianic interpretation, speaker attribution, lexical truth, graph-edge truth, or retrieval bias."
+    next_action: "Research and inventory capitalization variants first; create policy/review packets before any graph, retrieval, or chunk authority."
     output_change_authorized: false
     implementation_authorized: false
     reviewed_gold_promoted: false

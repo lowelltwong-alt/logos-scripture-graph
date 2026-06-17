@@ -53,10 +53,37 @@ def test_t351_classifies_required_lanes_before_chunking() -> None:
     assert lanes["narrative_pericope"]["triage_status"] == "review_packet_ready"
     assert lanes["legal_covenant"]["triage_status"] == "review_packet_ready"
     assert lanes["psalms_poetry"]["triage_status"] == "governed_hold"
+    assert lanes["divine_name_title_capitalization"]["triage_status"] == "research_first"
     assert lanes["bible_wide_orchestration"]["triage_status"] == "implementation_blocked"
     assert all(lane["output_change_authorized"] is False for lane in lanes.values())
     assert all(lane["implementation_authorized"] is False for lane in lanes.values())
     assert all(lane["reviewed_gold_promoted"] is False for lane in lanes.values())
+
+
+def test_t351_divine_capitalization_rule_is_non_authorizing() -> None:
+    data = validator.validate_triage_map(TRIAGE_MAP)
+    lanes = {lane["lane_id"]: lane for lane in data["lanes"]}
+    rule = data["evidence_rules"]["divine_name_capitalization"]
+    lane = lanes["divine_name_title_capitalization"]
+
+    for phrase in [
+        "God/god",
+        "LORD/Lord/lord",
+        "Spirit/spirit",
+        "Father/father",
+        "Word/word",
+        "Holy Spirit/holy spirit",
+        "graph edges",
+        "chunk boundaries",
+        "Trinitarian relation",
+    ]:
+        assert phrase in rule
+    assert lane["triage_status"] == "research_first"
+    assert lane["output_change_authorized"] is False
+    assert lane["implementation_authorized"] is False
+    assert lane["reviewed_gold_promoted"] is False
+    assert "John.1.1-John.1.18 Word/word" in lane["review_packet_candidates"]
+    assert "Capitalization can encode divine identity" in lane["downstream_theological_risks"][0]
 
 
 def test_t351_atlas_records_whole_bible_first_decision() -> None:
@@ -69,6 +96,10 @@ def test_t351_atlas_records_whole_bible_first_decision() -> None:
         "governed_hold",
         "implementation_blocked",
         "Epistle argument boundaries are still a strong candidate",
+        "Divine Name/Title Capitalization Watchlist",
+        "God/god",
+        "Spirit/spirit",
+        "Word/word",
         "That is not implementation authority",
         "T351 does not authorize",
     ]:
@@ -102,6 +133,10 @@ def test_t351_decision_register_records_triage_decision() -> None:
     assert "Bible-wide research triage before more chunking algorithm work" in register
     assert "review_packet_ready" in register
     assert "lane_implementation_without_review_packet" in register
+    assert "CD-018" in register
+    assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
+    assert "capitalization_driven_graph_edge" in register
+    assert "translation_convention_as_theological_truth" in register
 
 
 def test_triage_validator_rejects_output_authority(tmp_path: Path) -> None:

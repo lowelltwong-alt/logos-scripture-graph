@@ -18,6 +18,8 @@ def test_chunking_agent_preflight_validates() -> None:
     data = validate_preflight(PREFLIGHT)
 
     assert data["object_type"] == "chunking_agent_preflight_contract"
+    assert "divine_name_title_capitalization" in data["non_authorizing_metadata_types"]
+    assert "divine_pronoun_capitalization" in data["non_authorizing_metadata_types"]
     assert data["metadata_authority_policy"]["may_preserve_as_evidence"] is True
     assert data["metadata_authority_policy"]["authorizes_chunk_boundaries"] is False
     assert data["metadata_authority_policy"]["authorizes_graph_edges"] is False
@@ -30,6 +32,11 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert ".ai/control/chunking_agent_preflight.yaml" in text
     assert "CHUNK-METADATA-001" in text
     assert "Source metadata is evidence, not authority" in text
+    assert "divine-name/title capitalization" in text
+    assert "God/god" in text
+    assert "Spirit/spirit" in text
+    assert "Word/word" in text
+    assert "graph edges" in text
 
 
 def test_metadata_rule_is_first_class_methodology() -> None:
@@ -47,6 +54,18 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-003" in lessons
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-004" in lessons
     assert "CD-015" in register
+    assert "CD-018" in register
+    assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
+
+
+def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
+    data = validate_preflight(PREFLIGHT)
+    reading = {item["path"]: item for item in data["mandatory_reading"]}
+    register_entry = reading[".ai/control/chunking_theological_decision_register.yaml"]
+    triage_entry = reading[".ai/control/bible_chunking_research_triage_map.yaml"]
+
+    assert "CD-018" in register_entry["required_decision_ids"]
+    assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
 
 
 def test_midflight_lesson_capture_is_enforced() -> None:

@@ -28,6 +28,7 @@ REQUIRED_LANES = {
     "prophetic_oracle",
     "gospel_discourse_wj",
     "textual_variant_source_tradition",
+    "divine_name_title_capitalization",
     "bible_wide_orchestration",
 }
 
@@ -154,10 +155,25 @@ def validate_triage_map(path: Path = TRIAGE_MAP) -> dict[str, Any]:
     evidence_rules = data["evidence_rules"]
     if not isinstance(evidence_rules, dict):
         raise TriageMapError(f"{_rel(path)}: evidence_rules must be a mapping")
-    for required_rule in ("source_metadata", "cross_references", "original_language", "speaker_markers"):
+    for required_rule in (
+        "source_metadata",
+        "cross_references",
+        "original_language",
+        "speaker_markers",
+        "divine_name_capitalization",
+    ):
         _require_string(evidence_rules.get(required_rule), f"evidence_rules.{required_rule}")
         if "authority" not in evidence_rules[required_rule].lower():
             raise TriageMapError(f"evidence_rules.{required_rule} must explicitly limit authority")
+    divine_rule = evidence_rules["divine_name_capitalization"].lower()
+    for term in ("god/god", "spirit/spirit", "father/father", "word/word"):
+        if term not in divine_rule:
+            raise TriageMapError(f"evidence_rules.divine_name_capitalization missing {term}")
+    for required_word in ("graph", "trinitarian", "chunk"):
+        if required_word not in divine_rule:
+            raise TriageMapError(
+                "evidence_rules.divine_name_capitalization must block graph, Trinitarian, and chunk authority"
+            )
 
     lanes = data["lanes"]
     if not isinstance(lanes, list) or not lanes:
@@ -193,6 +209,8 @@ def validate_triage_map(path: Path = TRIAGE_MAP) -> dict[str, Any]:
         raise TriageMapError("revelation_apocalyptic must remain research_first")
     if by_lane["epistle_argument"]["triage_status"] != "review_packet_ready":
         raise TriageMapError("epistle_argument must remain review_packet_ready unless the owner changes the route")
+    if by_lane["divine_name_title_capitalization"]["triage_status"] != "research_first":
+        raise TriageMapError("divine_name_title_capitalization must remain research_first")
     if by_lane["bible_wide_orchestration"]["triage_status"] != "implementation_blocked":
         raise TriageMapError("bible_wide_orchestration must remain implementation_blocked")
 

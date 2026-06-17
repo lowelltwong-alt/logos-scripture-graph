@@ -22,6 +22,12 @@
 > first, Psalms are a governed hold, and Bible-wide orchestration remains implementation-blocked.
 > No output, reviewed-gold, graph/vector, boundary import, evaluator, generated chunk, or T345 work
 > is authorized.
+> Follow-up T351 divine-name/title capitalization lane: after the owner flagged `God/god`,
+> `Spirit/spirit`, `Father/father`, `Word/word`, and related capitalization risks, T351 now treats
+> English divine-name/title/pronoun capitalization as translation/editorial evidence only. It must
+> be inventoried and reviewed before graph, retrieval, or chunking use, and it cannot by itself
+> authorize divine identity, Trinitarian relation, speaker attribution, graph edges, chunk
+> boundaries, lexical truth, or output changes.
 
 > **T344 REV-T344-E owner decision (2026-06-17):** Added
 > `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md` as the exact decision surface for the
