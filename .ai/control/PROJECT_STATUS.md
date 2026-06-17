@@ -33,6 +33,9 @@
 > `validate_all` to keep source metadata, internal cross-references, Strong's-style numbers,
 > lexical rarity, headings, footnotes, WJ markers, and formatting as evidence only, not boundary,
 > lexical, intertext, graph-edge, truth, or output authority.
+> Post-merge audit report:
+> `.ai/audits/reports/20260617-T344-HARN-006-codex-post-merge.md` records the merged PR #64
+> HARN-006 state, no findings, and the remaining T344 owner-selection requirement.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected
