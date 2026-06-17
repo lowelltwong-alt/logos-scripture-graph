@@ -33,6 +33,7 @@
 - .ai/control/audit_surface_map.yaml
 - .ai/control/harness_upgrade_roadmap.yaml
 - .ai/audits/reports/20260617-T344-codex-post-merge.md
+- .ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md
 - .ai/tasks/T344.task.yaml
 - docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
 
@@ -58,6 +59,7 @@
 - scripts/agent/no_context_audit_harness.py
 - scripts/validate_owner_selection_implementation_gate.py
 - .ai/audits/reports/20260617-T344-codex-post-merge.md
+- .ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md
 - .ai/audits/reports/README.md
 - AI_TABLE_OF_CONTENTS.md
 - AI_FRONT_DOOR.md
@@ -84,6 +86,7 @@
 - Added a durable post-merge no-context audit report for PR #60 / T344 and exposed it through `current_focus.yaml` plus the audit report index.
 - Implemented HARN-012 owner-selection-to-implementation gate as `scripts/validate_owner_selection_implementation_gate.py`, wired it into `validate_all`, and linked it from T345 roadmap state, the T344 task, readiness map, decision register, front door, and AI TOC.
 - HARN-012 v1 keeps T345 planned and non-authorized while T344 owner selection is pending; it fails closed if T345 starts or a T345 task file appears before owner selection and governed evidence agree.
+- Added a post-merge no-context audit report for merged PR #62 / HARN-012 and exposed it through `current_focus.yaml` plus the audit report index.
 
 ## Validation run
 
@@ -151,6 +154,34 @@
 - result: 278 passed
 - failures: none
 
+- command: python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref HEAD^1 --pr 62 --print
+- result: passed; emitted a no-context audit brief over the merged PR #62 diff plus this follow-up branch's audit-report changes
+- failures: none
+
+- command: python scripts/validate_owner_selection_implementation_gate.py
+- result: passed after post-merge audit report update
+- failures: none
+
+- command: python -m pytest -q tests/test_owner_selection_implementation_gate.py tests/test_t344_revelation_owner_selection.py tests/test_audit_surface_map.py tests/test_bible_chunking_readiness_map.py
+- result: 21 passed after post-merge audit report update
+- failures: none
+
+- command: python scripts/validate_audit_surface_map.py
+- result: passed after post-merge audit report update
+- failures: none
+
+- command: python scripts/validate_chunking_theological_decision_register.py
+- result: passed after post-merge audit report update
+- failures: none
+
+- command: python scripts/validate_all.py
+- result: all validation gates passed after post-merge audit report update
+- failures: none
+
+- command: python -m pytest -q
+- result: 278 passed after post-merge audit report update
+- failures: none
+
 ## Known risks
 
 - A docket can be mistaken for reviewed gold; all authorization flags remain false to prevent that.
@@ -167,4 +198,4 @@
 
 ## Next agent instruction
 
-Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md`, `.ai/audits/reports/20260617-T344-codex-post-merge.md`, or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref origin/main --print`. Keep `scripts/validate_owner_selection_implementation_gate.py` passing before any T345/output-changing work. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.
+Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md`, `.ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md`, or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref HEAD^1 --pr 62 --print` while on the post-merge audit branch. Keep `scripts/validate_owner_selection_implementation_gate.py` passing before any T345/output-changing work. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.
