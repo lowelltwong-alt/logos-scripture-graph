@@ -1,8 +1,25 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-12
-**Updated by:** T348 planning-only non-authority metadata hardening (Codex)
-**Active task:** -> **T348** added and then post-review hardened planning-only vectorization/graph-edge durability contracts so future RAG/GraphRAG work (Pinecone, LightRAG, or successors) is born rebuildable: machine-readable fail-closed plan (`.ai/control/scripture_vectorization_plan.yaml`: embedding runs, index builds, model-inferred edge generation, vector-space mixing, and shared Bible/non-Bible indexes all NOT allowed), contract doc with the one law (vectors/edges are never truth; source text + stable IDs + span maps + provenance + reviewed decisions are), four schemas (embedding model registry, vector index manifest pinning model version + dimension + normalization + metric + chunk-set SHA + policy version + corpus_baseline, retrieval profiles, graph edge records in three durability classes: structural_deterministic / reviewed_semantic / model_inferred_candidate), empty registries, a fail-closed validator wired into validate_all, and 47 focused tests. The plan, empty registries, and T348 schemas now carry explicit `contract_scope: planning_only` / `governance_authority: false` metadata, and the validator fails closed if that metadata is missing or authorizing. Embedding work remains blocked behind the MASTER_CONTEXT substrate gate (TextSpan, ContextPacket, SourceLanguageWitness, AlignmentRecord) plus a future owner decision. No embedding run, index build, edge generation, chunk/output change, evaluator/leaderboard/scorecard change, boundary import, backend choice, retrieval profile promotion, T327G, Revelation implementation, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-17
+**Updated by:** T349 first-class chunking theological decision register (Codex)
+**Active task:** -> **T349** added a machine-readable, non-authorizing chunking theological decision register for chunking/evaluator/gold/route/default-behavior decisions with possible theological downstream effects. The register is fully backfilled through T348 by decision entries or no-impact markers, uses Nicene/Chalcedonian core as the default orthodoxy boundary, and is guarded by a validator wired into `validate_all`. No chunk algorithm, route behavior, reviewed-gold promotion, evaluator formula, generated output, raw/canonical data, boundary import, T327G, Revelation implementation, embedding/index/edge work, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T349 first-class chunking theological decision register (2026-06-17):** Added
+> `.ai/control/chunking_theological_decision_register.yaml` as a machine-readable,
+> non-authorizing governance ledger for chunking/evaluator/gold/route/default-behavior decisions
+> with possible theological downstream effects. The register uses the Nicene/Chalcedonian core as
+> default orthodoxy boundary, classifies decisions as `text_neutral`, `theological_risk`,
+> `interpretive_boundary`, `canon_scope`, or `non_authorizing_review`, and records owner decision
+> refs, task/PR refs, affected passages/books/routes, downstream risks, theological assumptions
+> avoided, reviewed-gold dependencies, non-authorizations, validators, and supersession/deprecation
+> fields. Seeded decisions include canonical 66 scope, Psalm 78 parent/child, Psalm 89 Option C,
+> WJ marker limits, Revelation non-implementation, Psalm candidate non-promotion, and vector/edge
+> "never truth." `scripts/validate_chunking_theological_decision_register.py` is wired into
+> `validate_all` and fails closed if required seed decisions, backfill coverage, non-authority
+> flags, or changed-path register updates are missing. Control-plane only; no chunk algorithm,
+> route behavior, reviewed-gold promotion, evaluator formula, generated output, raw/canonical data,
+> boundary import, T327G, Revelation implementation, embedding/index/edge work, or Psalm candidate
+> promotion occurred.
 
 > **T340D remove post-merge verification requirement (2026-06-11):** Owner decision (Lowell Wong)
 > deleted the post-merge verification script/workflow/templates/tests; the principle that a merged

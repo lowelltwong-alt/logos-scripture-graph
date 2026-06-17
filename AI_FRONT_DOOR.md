@@ -18,12 +18,14 @@ Read these files before making changes:
 9. `docs/chunking/CHUNKING_DESIGN.md`
 10. For chunking-related work: `.ai/control/METHODOLOGY_UPDATE_RULES.md` and
     `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
-11. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
+11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
+    downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
+12. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
     artifact, automation, cross-repo, workflow-rule, or master-chunker work:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
-12. `config/agents/agent_roles.yaml`
-13. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
-14. The specific files in the task scope.
+13. `config/agents/agent_roles.yaml`
+14. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+15. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -82,6 +84,11 @@ Bible-first chunking priority:
   and non-Bible corpora, and non-Bible training/eval cases must not tune canonical Bible behavior.
   It must isolate corpora, routes, skills, objectives, eval sets, default retrieval policy, and
   authority/trust profiles.
+- The chunking theological decision register at
+  `.ai/control/chunking_theological_decision_register.yaml` is a required governance surface for
+  chunking/evaluator/gold/route/default-behavior decisions. It records owner decisions, theological
+  risks, dependencies, non-authorizations, and supersession history; it does not authorize output
+  changes by itself.
 
 High-leverage change risk gate:
 
@@ -178,6 +185,7 @@ python scripts/validate_repo.py
 python scripts/validate_control_plane.py   # master context lock + front-door routing
 python scripts/validate_repository_link_contract.py
 python scripts/agent/validate_handoffs.py
+python scripts/validate_chunking_theological_decision_register.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
@@ -257,6 +265,9 @@ Before stopping work, every agent must:
     stop and fix the evaluator in a separate PR before claiming skill improvement.
 13. Before any output-changing chunking skill, cite the relevant per-form gold file or manifest under
     `eval/chunking_gold/`.
+14. Update `.ai/control/chunking_theological_decision_register.yaml` when touching chunking,
+    evaluator, gold, route, default-behavior, generated chunk, or roadmap surfaces covered by its
+    changed-path gate.
 
 ## Forbidden shortcuts
 
