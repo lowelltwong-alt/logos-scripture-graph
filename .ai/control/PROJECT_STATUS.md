@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T350 Bible-wide chunking readiness plan (Codex)
-**Active task:** -> **T350** added `.ai/control/bible_chunking_readiness_map.yaml` and `docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md` as non-authorizing readiness surfaces. The whole canonical 66-book Bible remains the destination, but new algorithm work proceeds one reviewed, route-isolated lane at a time. The map records current algorithm readiness, lane sequence, lesson-storage surfaces, and the next safe route: T342 Revelation review-packet candidate selection, recommended target Rev.12-Rev.14. No chunk algorithm, route behavior, reviewed-gold promotion, evaluator formula, generated output, raw/canonical data, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T342 Revelation review-packet candidate selection (Codex)
+**Active task:** -> **T342** selected `Rev.12-Rev.14` / `Rev.12.1-Rev.14.20` as the single Revelation target for T343 pending review-packet and gold-candidate creation. T342 also added `docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md` and linked it from `AI_TABLE_OF_CONTENTS.md` so T337A/T342 artifact trails are discoverable without guessing filenames. Selection is non-authorizing: no review packet, reviewed-gold promotion, route behavior, output change, evaluator formula change, generated output, raw/canonical data mutation, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T342 Revelation review-packet candidate selection (2026-06-17):** Selected
+> `Rev.12-Rev.14` / `Rev.12.1-Rev.14.20` as the single Revelation target for T343 packet creation
+> because it concentrates symbolic scenes, speaker shifts, and cycle/interlude risk while remaining
+> narrow enough for one packet. Added `docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`,
+> advanced `.ai/control/bible_chunking_readiness_map.yaml` to T343, recorded decision `CD-014` in
+> the chunking theological decision register, and added deterministic tests for T342. Also added
+> `docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md` after the maintainer observed that the T337A trail
+> should have been easier to find; the local TOC links back to the main AI TOC and names the actual
+> T337A task, handoff, and Psalm 89 review-packet files. Control-plane only; no review packet,
+> reviewed gold, output change, route behavior, evaluator change, generated output, raw/canonical
+> mutation, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge
+> generation, whole-Bible output-changing pass, or Psalm candidate promotion.
 
 > **T350 Bible-wide chunking readiness plan (2026-06-17):** Added
 > `.ai/control/bible_chunking_readiness_map.yaml` as a machine-readable, non-authorizing readiness

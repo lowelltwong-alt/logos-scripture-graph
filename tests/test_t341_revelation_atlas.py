@@ -118,5 +118,6 @@ def test_t341_status_points_next_to_review_packet_not_implementation() -> None:
     assert "id: T341" in state
     assert "status: complete" in state
     assert "T342 Revelation review-packet candidate selection" in combined
+    assert "T343 remains Revelation review packets and gold candidates" in combined
     assert "do not start Revelation implementation" in combined
     assert "do not import boundary texts" in combined

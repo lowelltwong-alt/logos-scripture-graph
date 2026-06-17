@@ -39,6 +39,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/RAW_SOURCE_INVENTORY.md`](.ai/control/RAW_SOURCE_INVENTORY.md) - actual raw-source marker inventory
 - [`ROADMAP.md`](ROADMAP.md) - phase plan
 - [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml) - machine-readable task state
+- [`docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md`](docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md) - local AI roadmap/review artifact map
 - [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) - deterministic agent handoff rules
 
 ## Architecture And Governance
@@ -61,6 +62,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md`](docs/roadmap/T340_PSALM_CANDIDATE_PROMOTION_DECISION.md)
 - [`docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md`](docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md)
 - [`docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md`](docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md)
+- [`docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`](docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md)
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
