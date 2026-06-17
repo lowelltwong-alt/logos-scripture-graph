@@ -50,12 +50,12 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
 
 
-def test_next_route_advances_to_t343_after_t342_selection() -> None:
+def test_next_route_advances_to_t344_after_t343_packet_creation() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T343"
-    assert data["next_route"]["route_type"] == "review_packet_and_gold_candidate_creation"
-    assert data["next_route"]["recommended_target"] == "Rev.12-Rev.14"
+    assert data["next_route"]["task_id"] == "T344"
+    assert data["next_route"]["route_type"] == "owner_target_selection"
+    assert data["next_route"]["recommended_target"] == "Rev.12.1-Rev.14.20"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
 

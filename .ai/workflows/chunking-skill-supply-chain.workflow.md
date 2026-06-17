@@ -8,6 +8,9 @@ AI-operational checklist for chunking-related work. Use with
 
 - Read `AI_FRONT_DOOR.md`, `.ai/control/MASTER_CONTEXT.md`, `.ai/control/PROJECT_STATUS.md`,
   `.ai/control/DATA_MAP.md`, `.ai/control/RAW_SOURCE_INVENTORY.md`, and the active handoff.
+- Read `.ai/control/chunking_agent_preflight.yaml` before any ingest, chunking, review-packet,
+  evaluator, route, graph, or retrieval work. Apply `CHUNK-METADATA-001`: source metadata is
+  evidence, not authority.
 - Read ADR-0011, `docs/chunking/CHUNKING_DESIGN.md`, the relevant skill metadata, registry files,
   evaluator notes, and gold/eval artifacts for the target form.
 - Read `.ai/control/chunking_theological_decision_register.yaml` before changing chunking,
@@ -72,6 +75,10 @@ AI-operational checklist for chunking-related work. Use with
   child-boundary matches, and label score movement as evaluator-policy correction.
 - For marker-sensitive packets, confirm `\wj`, `\qs`, paragraph, heading, and punctuation evidence
   are not treated as automatic speaker or boundary authority.
+- Confirm internal cross-references, Strong's-style word numbers, lexeme tags, footnotes, headings,
+  red-letter/WJ markers, alternate readings, and source formatting remain evidence only and do not
+  authorize lexical truth, intertext claims, speaker attribution, graph edges, chunk boundaries, or
+  output changes.
 - For token-size policy work, confirm analysis does not authorize retuning unless reviewed target
   gold and policy alignment are present.
 - For observed stress behavior audits, confirm every entry remains non-authorizing, every stress
@@ -119,6 +126,27 @@ AI-operational checklist for chunking-related work. Use with
   in `.ai/control/METHODOLOGY_UPDATE_RULES.md`.
 - If no methodology change is needed, document the rationale in the handoff and PR note.
 
+## Midflight Lesson Capture
+
+- Ask: What did this task teach that future chunking agents must receive before or during similar
+  work?
+- Treat something as a lesson candidate when:
+  - the maintainer corrects or reminds the agent about a rule or context;
+  - required context was missing from preflight, workflow, methodology, handoff, TOC, or validator;
+  - the issue could recur in future chunking work;
+  - the issue affects source metadata, authority, theology, canon, speaker boundaries, intertext
+    claims, graph edges, reviewed gold, or output-changing behavior;
+  - future agents must read it before work, check it during work, or verify it before closing;
+  - validation or tests failed to catch the governance risk;
+  - the same warning would need to be repeated in more than one handoff or task.
+- If the lesson must be known before work starts, update `.ai/control/chunking_agent_preflight.yaml`.
+- If the lesson changes working steps, update this workflow.
+- If it is a reusable rule, update methodology and/or `LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`.
+- If it has possible theological downstream effect, update the chunking theological decision
+  register.
+- If it is machine-checkable, add or update a validator/test.
+- If no surface changes, record the no-change rationale in the task handoff.
+
 ## Export When Mature
 
 - Do not export to LawFirm OS as final doctrine during T310/T311 provisional work.
@@ -142,4 +170,6 @@ AI-operational checklist for chunking-related work. Use with
   separate evaluator-policy review.
 - Stop if an observed stress behavior entry is treated as reviewed gold or used to authorize
   output-changing work.
+- Stop if source metadata is treated as Scripture authority, lexical authority, intertext authority,
+  speaker authority, graph-edge authority, or chunk-boundary authority without owner-reviewed gold.
 - Stop if methodology was not reviewed.

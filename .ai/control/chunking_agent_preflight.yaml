@@ -1,0 +1,112 @@
+---
+object_type: chunking_agent_preflight_contract
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 during T343 after the maintainer noted that source metadata lessons should be handed to every future chunking agent before work begins."
+reason_for_inclusion: "Make source metadata, cross-reference, Strong's-number, marker, and Revelation hermeneutic risks mandatory preflight reading for chunking agents instead of relying on chat memory."
+---
+schema_version: chunking_agent_preflight.v1
+contract_id: chunking_agent_mandatory_preflight
+owner: Lowell Wong
+applies_to_work_types:
+  - ingest
+  - chunking
+  - review_packet
+  - evaluator
+  - route_or_orchestrator
+  - graph_or_edge_generation
+  - retrieval_profile
+  - roadmap_chunking_lane
+mandatory_reading:
+  - path: AI_FRONT_DOOR.md
+    reason: "Agent entry point and required validation gates."
+  - path: .ai/control/RAW_SOURCE_INVENTORY.md
+    reason: "Actual source metadata and marker inventory; must be read before ingest, chunking, or graph work."
+  - path: config/ingest/usfm_marker_coverage.yaml
+    reason: "Marker classification and source-feature governance."
+  - path: docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    required_rule_ids:
+      - CHUNK-METADATA-001
+      - CHUNK-MARKER-001
+      - CHUNK-WJ-001
+      - CHUNK-SEM-001
+    reason: "Reusable chunking rules that metadata, markers, and boundaries are evidence, not automatic authority."
+  - path: docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    required_sections:
+      - "10o. Chunking-agent preflight and source-metadata rule"
+    reason: "Step-zero chunking methodology and supply-chain rule."
+  - path: docs/methodology/WORKFLOW_LESSONS.md
+    required_sections:
+      - "BIBLE-CHUNKING-WORKFLOW-LESSON-003"
+      - "BIBLE-CHUNKING-WORKFLOW-LESSON-004"
+    reason: "Compact workflow lesson that future agents should inherit."
+  - path: .ai/control/chunking_theological_decision_register.yaml
+    required_decision_ids:
+      - CD-015
+    reason: "Decision-register entry for source metadata as non-authorizing evidence."
+midflight_lesson_capture:
+  status: required
+  trigger: "A task discovers a reusable chunking, source-metadata, theological-risk, workflow, validator, or agent-handoff lesson not already encoded in preflight/workflow/methodology."
+  recognize_as_lesson_when:
+    - human_corrects_or_reminds_agent_about_a_rule_or_context
+    - agent_discovers_required_context_was_missing_from_preflight_or_handoff
+    - issue_could_recur_in_future_chunking_work
+    - issue_affects_source_metadata_authority_theology_canon_speaker_boundary_or_intertext_claims
+    - issue_changes_what_future_agents_must_read_before_work
+    - issue_changes_what_future_agents_must_check_during_or_after_work
+    - validation_or_tests_failed_to_catch_a_governance_risk
+    - a_review_packet_or_register_needed_new_non_authorization_language
+    - a_rule_would_need_to_be_repeated_in_more_than_one_handoff_or_task
+  lesson_candidate_questions:
+    - "Did the maintainer have to remind the agent of context the repo should already provide?"
+    - "Would a future agent repeat this mistake if no file changed?"
+    - "Does this affect authority, source metadata, theology, canon, speaker attribution, intertexts, graph edges, output changes, or reviewed gold?"
+    - "Should this be known before work starts, checked during work, or verified before closing?"
+    - "Can this be enforced by validator or test?"
+  required_action_before_task_close:
+    - update_preflight_if_future_agents_must_read_it_first
+    - update_workflow_if_future_agents_must_do_it_midflight_or_postflight
+    - update_methodology_or_rules_registry_if_it_is_a_reusable_rule
+    - update_decision_register_if_it_has_possible_theological_downstream_effect
+    - add_or_update_validator_or_test_if_machine_checkable
+    - record_no_change_rationale_in_handoff_if_no_surface_changed
+  required_surfaces:
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/workflows/chunking-skill-supply-chain.workflow.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/handoffs/<task_id>/handoff.md
+  postflight_question: "What did this task teach that future chunking agents must receive before or during similar work?"
+non_authorizing_metadata_types:
+  - internal_cross_references
+  - strongs_style_word_numbers
+  - hebrew_greek_lexeme_tags
+  - footnotes
+  - alternate_readings
+  - section_headings
+  - paragraph_markers
+  - poetry_markers
+  - words_of_jesus_markers
+  - speaker_labels
+  - edition_formatting
+metadata_authority_policy:
+  may_preserve_as_evidence: true
+  may_surface_for_review: true
+  authorizes_scripture_truth: false
+  authorizes_lexical_truth: false
+  authorizes_intertext_truth: false
+  authorizes_speaker_attribution: false
+  authorizes_graph_edges: false
+  authorizes_chunk_boundaries: false
+  authorizes_output_change: false
+future_output_changing_use_requires:
+  - owner_review
+  - exact_scope
+  - reviewed_gold_or_equivalent_governed_evidence
+  - decision_register_update
+  - executable_tests
+  - non_target_identity_proof
+validator: scripts/validate_chunking_agent_preflight.py
+...

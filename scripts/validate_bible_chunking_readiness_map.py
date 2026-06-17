@@ -77,6 +77,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "review_packet_and_gold_candidate_creation",
         "title": "Revelation Review Packets and Gold Candidates",
     },
+    "T344": {
+        "route_type": "owner_target_selection",
+        "title": "Select One Revelation Behavior Target",
+    },
 }
 
 

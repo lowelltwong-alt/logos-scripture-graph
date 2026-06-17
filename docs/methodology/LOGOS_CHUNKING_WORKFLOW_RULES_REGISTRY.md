@@ -9,7 +9,7 @@ related_projects:
 status: living_methodology
 version: 0.3
 created: 2026-06-08
-updated: 2026-06-09
+updated: 2026-06-17
 importance_scale:
   P0: Critical / stop-the-line
   P1: High / required gate
@@ -324,6 +324,7 @@ This avoids:
 | CHUNK-EVAL-002 | Fix Confounded Evaluators Separately | P0 | If the evaluator is wrong, fix it in a separate PR before claiming skill improvement. |
 | CHUNK-EVAL-003 | Score Movement Is Not Output Improvement | P0 | If output is unchanged, score movement from evaluator change is evaluator correction, not chunking improvement. |
 | CHUNK-MARKER-001 | Markers Are Evidence, Not Authority | P0 | USFM/formatting markers are evidence, not automatic boundary authority. |
+| CHUNK-METADATA-001 | Source Metadata Is Evidence, Not Authority | P0 | Internal cross-references, Strong's-style IDs, headings, footnotes, and edition metadata are preservation/review signals, not authority. |
 | CHUNK-WJ-001 | Words-of-Jesus Markup Requires Speaker Review | P0 | `\wj` cannot decide Jesus/narrator speaker boundaries without review. |
 | CHUNK-QS-001 | Selah / `\qs` Is Evidence, Not Automatic Boundary | P1 | Selah/liturgical rubric markers need review before becoming chunk boundaries. |
 | CHUNK-VARIANT-001 | Textual Variants Require Textual-Criticism Review | P0 | Major textual variants require textual-criticism review before gold or output change. |
@@ -1056,6 +1057,106 @@ Any chunking decision depends on formatting/source markers.
 ### Override policy
 
 A marker can become boundary authority only through reviewed gold.
+
+---
+
+## CHUNK-METADATA-001 - Source Metadata Is Evidence, Not Authority
+
+**Importance:** P0 - Critical / stop-the-line
+
+### Rule
+
+Source metadata may be preserved, inventoried, indexed, surfaced for review, and used as evidence,
+but it may not become automatic Scripture authority, lexical authority, intertext authority, speaker
+authority, doctrine authority, graph-edge authority, or chunk-boundary authority.
+
+This includes:
+
+- internal cross-references;
+- Strong's-style Hebrew/Greek word numbers;
+- lexeme tags;
+- footnotes;
+- alternate readings;
+- headings;
+- paragraph and poetry markers;
+- words-of-Jesus / red-letter markers;
+- speaker labels;
+- source-side formatting and editorial annotations.
+
+### Context for future AI
+
+The raw WEB USFM source contains more than plain verse text. It includes internal cross-references,
+Strong's lexeme tags, formatting markers, footnotes, headings, and other edition-level metadata.
+Those features are valuable evidence, but they are not self-interpreting and do not carry the same
+authority as canonical Scripture text.
+
+This rule became explicit during T343 Revelation review-packet work after the maintainer observed
+that future chunking must remember metadata risks without relying on the maintainer to re-state
+them in chat.
+
+### What this prevents
+
+It prevents:
+
+- internal cross-references from becoming automatic theological graph edges;
+- Strong's-style numbers from becoming unreviewed lexical or original-language authority;
+- headings or section labels from becoming interpretive structure;
+- footnotes or alternate readings from silently making textual-critical decisions;
+- red-letter / `\wj` metadata from deciding speaker boundaries;
+- paragraph, poetry, or formatting markers from becoming automatic split rules;
+- source metadata from smuggling a theological viewpoint into chunking.
+
+### Applies when
+
+Apply this rule when any ingest, chunking, review-packet, evaluator, graph, retrieval, or route work
+uses source-side metadata.
+
+### Does not apply when
+
+It does not prohibit preserving metadata, exposing it in sidecars, indexing it as candidate evidence,
+or citing it in review packets. It prohibits treating that metadata as automatic authority.
+
+### Override policy
+
+P0. An agent may not override this rule. A specific metadata type may influence output-changing
+behavior only after explicit owner review, reviewed gold or equivalent governed evidence, and tests
+that lock the exact decision and scope.
+
+### Required evidence
+
+Before source metadata can influence output-changing behavior:
+
+- source provenance and inventory must be current;
+- metadata type must be classified;
+- review packet must state how the metadata is being weighed;
+- owner decision must authorize the exact behavior;
+- executable tests must prove scope and non-target identity;
+- decision register must record downstream theological risk.
+
+### Enforcement
+
+- `AI_FRONT_DOOR.md` requires raw source inspection before ingest/chunk/graph changes.
+- `.ai/control/chunking_agent_preflight.yaml` lists mandatory chunking-agent preflight reading.
+- `config/ingest/usfm_marker_coverage.yaml` classifies raw markers.
+- `RAW_SOURCE_INVENTORY.md` records source-side metadata counts.
+- Review packets and decision registers must keep metadata non-authorizing until reviewed.
+- Future validators should fail if source metadata is used for output-changing work without a
+  corresponding decision-register entry and reviewed-gold dependency.
+
+### Logos examples
+
+- T343 Revelation packet records Daniel/Ezekiel/Zechariah/Exodus/Isaiah/Psalms/Genesis allusions,
+  internal cross-references, Strong's-style Greek word numbers, and formatting metadata as review
+  signals only.
+- T316c and T317 record `\wj` and `\qs` as evidence, not authority.
+- CD-015 records the decision-register version of this rule.
+
+### LawFirm OS transfer
+
+Legal metadata such as sender, recipient, cc, bcc, thread ID, attachment markers, privilege tags,
+OCR confidence, exhibit labels, Bates ranges, file paths, and system classifications may be
+preserved as evidence. They must not automatically decide privilege, responsiveness, legal issue,
+client position, or evidentiary status.
 
 ---
 

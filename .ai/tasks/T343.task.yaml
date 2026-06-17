@@ -1,0 +1,86 @@
+id: T343
+phase: phase_4
+title: "Revelation Review Packets And Gold Candidates"
+mode: plan
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - AI_TABLE_OF_CONTENTS.md
+    - AI_FRONT_DOOR.md
+    - .ai/control/chunking_agent_preflight.yaml
+    - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - .ai/workflows/chunking-skill-supply-chain.workflow.md
+    - eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md
+    - eval/chunking_gold/review_packets/review_packet_index.json
+    - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+    - eval/chunking_gold/README.md
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_all.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_review_packet_index.py
+    - tests/test_stress_review_packets.py
+    - .ai/control/chunking_theological_decision_register.yaml
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T343.task.yaml
+    - .ai/handoffs/T343/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  selected_target: Rev.12.1-Rev.14.20
+  selected_target_id: rev12_14_symbolic_scenes
+  review_packet_created: true
+  review_packet_status: pending_human_review
+  revelation_implementation_allowed: false
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+  boundary_import_allowed: false
+  boundary_apocryphal_material_import_allowed: false
+  source_metadata_authority_allowed: false
+  internal_cross_reference_authority_allowed: false
+  strongs_number_authority_allowed: false
+  greek_lexical_rarity_authority_allowed: false
+  global_rule_allowed: false
+  t327g_allowed: false
+  skill_lifecycle_promotion_allowed: false
+acceptance_criteria:
+  - "T343 creates one pending Revelation review packet for Rev.12.1-Rev.14.20."
+  - "The packet records gold candidates and review questions without promoting reviewed gold."
+  - "The packet preserves orthodox Revelation interpretive possibilities without choosing an eschatological position."
+  - "Canonical allusions, source metadata, internal cross-references, Strong's-style numbers, and Greek lexical rarity are evidence only, not authority."
+  - "Future chunking agents must read the chunking-agent preflight before chunking work."
+  - "Reusable midflight lessons must be routed into preflight, workflow, methodology, decision register, validator/test, or handoff before task close."
+  - "The review-packet indexes list the new packet as pending_human_review."
+  - "The Bible readiness map advances the next route to T344 owner selection without authorizing implementation."
+validation:
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python -m pytest -q tests/test_t343_revelation_review_packet.py tests/test_chunking_agent_preflight.py tests/test_ai_roadmap_table_of_contents.py tests/test_bible_chunking_readiness_map.py tests/test_review_packet_index.py tests/test_stress_review_packets.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff: .ai/handoffs/T343/handoff.md
+next_task: "T344 owner selection for the Revelation packet only; no Revelation implementation."

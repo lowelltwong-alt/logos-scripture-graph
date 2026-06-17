@@ -439,6 +439,40 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-015
+    title: Source metadata is evidence, not authority for chunking
+    classification: interpretive_boundary
+    task_ids: [T343]
+    owner_decision_ref: docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md#CHUNK-METADATA-001
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [all_canonical_passages, Rev.12.1-Rev.14.20]
+      routes: [all_chunking_routes, future_revelation_review, future_graph_edge_generation]
+      surfaces: [.ai/control/chunking_agent_preflight.yaml, docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md, docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md, docs/methodology/WORKFLOW_LESSONS.md, eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md]
+    decision: "Internal cross-references, Strong's-style Hebrew/Greek word numbers, lexeme tags, footnotes, headings, paragraph and poetry markers, words-of-Jesus markers, alternate readings, speaker labels, and edition formatting may be preserved as provenance-bearing evidence, but they do not automatically authorize Scripture truth, lexical truth, intertext claims, speaker attribution, graph edges, chunk boundaries, or output changes."
+    downstream_risk: "Source metadata could smuggle an edition, lexicon, cross-reference system, or theological interpretation into chunking as if it were canonical authority."
+    theological_assumptions_avoided:
+      - "Editorial cross-references do not become theological graph edges."
+      - "Strong's-style numbers do not become unreviewed original-language authority."
+      - "Headings and formatting do not become Revelation structure or eschatological chronology."
+      - "Metadata can support review without choosing among orthodox interpretive profiles."
+    reviewed_gold_dependency: "Any output-changing use of source metadata requires owner review, exact reviewed evidence/gold, executable tests, non-target identity proof, and an explicit scoped decision."
+    non_authorizations:
+      - automatic_cross_reference_edge
+      - automatic_strongs_lexical_authority
+      - automatic_heading_boundary
+      - automatic_footnote_textual_decision
+      - automatic_wj_speaker_boundary
+      - metadata_driven_output_change
+      - revelation_interpretive_profile_selection
+    validators:
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -504,4 +538,5 @@ backfill_coverage:
     - T349
     - T350
     - T342
+    - T343
 ...

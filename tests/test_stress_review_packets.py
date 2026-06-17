@@ -13,6 +13,7 @@ PENDING_PACKETS = {
     "john3_wj_speaker_boundary_review.md": "john3_wj_speaker_boundary",
     "matt5_7_wj_discourse_review.md": "matt5_7_sermon_on_mount_wj_discourse",
     "ps136_boundary_review.md": "ps136_refrain_litany",
+    "rev12_14_symbolic_scenes_review.md": "rev12_18_vision_cycle",
 }
 
 REVIEWED_WHOLE_PSALM_PACKETS = {

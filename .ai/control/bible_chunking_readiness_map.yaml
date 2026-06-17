@@ -77,18 +77,19 @@ lane_sequence:
   - lane_id: revelation_apocalyptic
     implementation_order: 7
     review_order: 1
-    current_state: t342_target_selected_packet_creation_next
+    current_state: t343_pending_packet_created_owner_selection_next
     new_algorithm_work_ready: false
     selected_review_target:
       task_id: T342
       target_id: rev12_14_symbolic_scenes
       passage: Rev.12.1-Rev.14.20
-      packet_to_create_in: T343
+      packet_created_in: T343
+      packet: eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md
+      packet_status: pending_human_review
       implementation_allowed: false
       output_change_authorized: false
       reviewed_gold_promoted: false
     required_before_new_work:
-      - T343 create pending review packet and gold candidates
       - T344 owner selects one exact target
       - reviewed gold with executable checks
     theological_risk: "Chunk boundaries could imply chronology, recapitulation, symbolic identity, Babylon identity, millennium interpretation, or eschatological school."
@@ -154,11 +155,11 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T343
-  title: Revelation Review Packets and Gold Candidates
-  route_type: review_packet_and_gold_candidate_creation
-  recommended_target: Rev.12-Rev.14
-  rationale: "T342 selected Rev.12-Rev.14 because it concentrates symbolic scenes, speaker shifts, and cycle/interlude risk while remaining narrow enough for one non-authorizing review packet."
+  task_id: T344
+  title: Select One Revelation Behavior Target
+  route_type: owner_target_selection
+  recommended_target: Rev.12.1-Rev.14.20
+  rationale: "T343 created a pending, non-authorizing Revelation review packet and gold-candidate surface. T344 must be an owner selection step only, choosing whether any exact Revelation target becomes reviewed gold before implementation is considered."
   output_change_authorized: false
   implementation_authorized: false
 update_triggers:

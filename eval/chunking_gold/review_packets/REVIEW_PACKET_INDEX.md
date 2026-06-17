@@ -16,9 +16,9 @@ Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unc
 
 ## Summary
 
-- Total entries: 63
+- Total entries: 64
 - Reviewed gold entries: 15
-- Pending human review: 14
+- Pending human review: 15
 - Needs review packet: 23
 - Variant policy required: 2
 - Speaker review required: 5
@@ -48,6 +48,7 @@ The queue is a review queue, not an implementation queue. Every queued item has 
 | 15 | `john7_53_8_11_wj_variant_speech` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 16 | `mark16_9_20_longer_ending` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 17 | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `await_human_review` | `human_review_required` |
+| 18 | `rev12_14_symbolic_scenes` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 19 | `ps136_refrain_litany` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 20 | `1chr1_9_primeval_genealogies` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
 | 21 | `1cor8_10_food_offered_to_idols` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
@@ -88,6 +89,7 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `packet_john7_53_8_11_textual_variant_review` | `john7_53_8_11_pericope_adulterae` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `speaker_review_required`, `variant_policy_before_gold` |
 | `packet_mark16_9_20_textual_variant_review` | `mark16_9_20_longer_ending` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `variant_policy_before_gold` |
 | `packet_matt5_7_wj_discourse_review` | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `parent_child_structural_review`, `pending_packets_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
+| `packet_rev12_14_symbolic_scenes_review` | `rev12_14_symbolic_scenes` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation`, `speaker_review_required`, `wj_evidence_not_authority` |
 | `packet_ps136_boundary_review` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_ps89_royal_lament` | `ps89_royal_lament` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `qs_evidence_not_boundary_authority` |
 | `observed_ps136_refrain_litany` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing` |

@@ -31,6 +31,7 @@ AI_TABLE_OF_CONTENTS.md
 | T341 | Revelation hard-book atlas | `docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md`; `docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md` |
 | T350 | Bible-wide readiness map | `docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`; `.ai/control/bible_chunking_readiness_map.yaml` |
 | T342 | Revelation review-packet target selection | `docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`; `.ai/tasks/T342.task.yaml`; `.ai/handoffs/T342/handoff.md` |
+| T343 | Revelation review packet and gold candidates | `docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`; `.ai/tasks/T343.task.yaml`; `.ai/handoffs/T343/handoff.md`; `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` |
 
 ## Review Packet Surfaces
 
@@ -41,21 +42,22 @@ AI_TABLE_OF_CONTENTS.md
 | `eval/chunking_gold/per_form/psalms_gold_manifest.json` | Psalm reviewed-gold and structural-split manifest. |
 | `.ai/control/chunking_theological_decision_register.yaml` | Decision ledger for chunking choices with possible theological downstream effects. |
 | `.ai/control/bible_chunking_readiness_map.yaml` | Lane/readiness map for whole-Bible chunking. |
+| `.ai/control/chunking_agent_preflight.yaml` | Mandatory preflight for chunking agents; source metadata is evidence, not authority. |
 
 ## Current Next Route
 
-After T342, the next route is:
+After T343, the next route is:
 
 ```text
-T343 - Revelation Review Packets and Gold Candidates
+T344 - Select One Revelation Behavior Target
 ```
 
-T343 should create a pending, non-authorizing packet for:
+T344 should review the pending, non-authorizing packet for:
 
 ```text
 Rev.12.1-Rev.14.20
 ```
 
 No Revelation implementation, reviewed-gold promotion, chunk regeneration, evaluator change,
-boundary import, T327G, embedding/index work, graph-edge generation, or Psalm candidate promotion is
-authorized by this table of contents.
+boundary import, T327G, embedding/index work, graph-edge generation, Psalm candidate promotion, or
+source-metadata authority is authorized by this table of contents.

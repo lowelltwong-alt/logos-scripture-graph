@@ -1,0 +1,60 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from scripts.validate_chunking_agent_preflight import validate_preflight
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PREFLIGHT = ROOT / ".ai" / "control" / "chunking_agent_preflight.yaml"
+FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
+REGISTRY = ROOT / "docs" / "methodology" / "LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md"
+SUPPLY_CHAIN = ROOT / "docs" / "methodology" / "CHUNKING_SKILL_SUPPLY_CHAIN.md"
+LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
+REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
+
+
+def test_chunking_agent_preflight_validates() -> None:
+    data = validate_preflight(PREFLIGHT)
+
+    assert data["object_type"] == "chunking_agent_preflight_contract"
+    assert data["metadata_authority_policy"]["may_preserve_as_evidence"] is True
+    assert data["metadata_authority_policy"]["authorizes_chunk_boundaries"] is False
+    assert data["metadata_authority_policy"]["authorizes_graph_edges"] is False
+    assert data["metadata_authority_policy"]["authorizes_output_change"] is False
+
+
+def test_front_door_requires_metadata_preflight() -> None:
+    text = FRONT_DOOR.read_text(encoding="utf-8")
+
+    assert ".ai/control/chunking_agent_preflight.yaml" in text
+    assert "CHUNK-METADATA-001" in text
+    assert "Source metadata is evidence, not authority" in text
+
+
+def test_metadata_rule_is_first_class_methodology() -> None:
+    registry = REGISTRY.read_text(encoding="utf-8")
+    supply = SUPPLY_CHAIN.read_text(encoding="utf-8")
+    lessons = LESSONS.read_text(encoding="utf-8")
+    register = REGISTER.read_text(encoding="utf-8")
+
+    assert "CHUNK-METADATA-001" in registry
+    assert "Source Metadata Is Evidence, Not Authority" in registry
+    assert "internal cross-references" in registry
+    assert "Strong's-style" in registry
+    assert "graph-edge authority" in registry
+    assert "10o. Chunking-agent preflight and source-metadata rule" in supply
+    assert "BIBLE-CHUNKING-WORKFLOW-LESSON-003" in lessons
+    assert "BIBLE-CHUNKING-WORKFLOW-LESSON-004" in lessons
+    assert "CD-015" in register
+
+
+def test_midflight_lesson_capture_is_enforced() -> None:
+    data = validate_preflight(PREFLIGHT)
+    capture = data["midflight_lesson_capture"]
+
+    assert capture["status"] == "required"
+    assert "human_corrects_or_reminds_agent_about_a_rule_or_context" in capture["recognize_as_lesson_when"]
+    assert "issue_could_recur_in_future_chunking_work" in capture["recognize_as_lesson_when"]
+    assert "add_or_update_validator_or_test_if_machine_checkable" in capture["required_action_before_task_close"]
+    assert ".ai/control/chunking_agent_preflight.yaml" in capture["required_surfaces"]

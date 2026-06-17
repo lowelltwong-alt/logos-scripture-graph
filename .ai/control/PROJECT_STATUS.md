@@ -1,8 +1,23 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T342 Revelation review-packet candidate selection (Codex)
-**Active task:** -> **T342** selected `Rev.12-Rev.14` / `Rev.12.1-Rev.14.20` as the single Revelation target for T343 pending review-packet and gold-candidate creation. T342 also added `docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md` and linked it from `AI_TABLE_OF_CONTENTS.md` so T337A/T342 artifact trails are discoverable without guessing filenames. Selection is non-authorizing: no review packet, reviewed-gold promotion, route behavior, output change, evaluator formula change, generated output, raw/canonical data mutation, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T343 Revelation review packets and metadata preflight (Codex)
+**Active task:** -> **T343** created a pending, non-authorizing Revelation review packet and gold-candidate surface for `Rev.12.1-Rev.14.20`, then added mandatory chunking-agent preflight enforcement so source metadata is read first and remains evidence only. Internal cross-references, Strong's-style word numbers, lexeme tags, lexical rarity, footnotes, headings, WJ/red-letter markers, paragraph/poetry markers, alternate readings, and edition formatting do not authorize Scripture truth, lexical truth, intertext claims, speaker attribution, graph edges, chunk boundaries, reviewed gold, output changes, or Revelation implementation. Next safe route is T344 owner selection only. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
+> `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected
+> `Rev.12.1-Rev.14.20` target. The packet is `pending_human_review` and records candidate
+> parent/child options, current observed chunk behavior, Revelation hermeneutic-neutrality
+> constraints, canonical allusion research-prep issues, source metadata risks, Greek lexical-rarity
+> constraints, and RISK-GATE-001 risks. Added `docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`,
+> updated the review-packet indexes, coverage docs, AI roadmap TOC, readiness map, roadmap state,
+> task, tests, and handoff surfaces. Added `.ai/control/chunking_agent_preflight.yaml`,
+> `scripts/validate_chunking_agent_preflight.py`, methodology rule `CHUNK-METADATA-001`, workflow
+> lesson `BIBLE-CHUNKING-WORKFLOW-LESSON-003`, and decision register entry `CD-015` so future
+> chunking agents must inherit the metadata lesson before work. Control-plane/review-only; no
+> reviewed gold, output change, route behavior, evaluator change, generated output, raw/canonical
+> mutation, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge
+> generation, whole-Bible output-changing pass, or Psalm candidate promotion.
 
 > **T342 Revelation review-packet candidate selection (2026-06-17):** Selected
 > `Rev.12-Rev.14` / `Rev.12.1-Rev.14.20` as the single Revelation target for T343 packet creation
