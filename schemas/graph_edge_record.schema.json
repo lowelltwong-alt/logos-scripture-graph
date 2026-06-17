@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos-scripture-graph/schemas/graph_edge_record.schema.json",
+  "title": "GraphEdgeRecord",
+  "description": "One graph edge with provenance-classed durability. structural_deterministic edges survive as generator code and are never stored as truth; reviewed_semantic edges are committed human-judgment records (the irreplaceable layer); model_inferred_candidate edges are disposable and never feed canonical conclusions without a human gate. Any graph database is a projection of these records plus the structural generators.",
+  "x_contract_metadata": {
+    "task_id": "T348",
+    "contract_scope": "planning_only",
+    "governance_authority": false,
+    "authority_note": "Planning metadata only; not governance authority and not authorization to run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, or promote retrieval profiles.",
+    "non_authorized_actions": [
+      "embedding_runs",
+      "vector_index_builds",
+      "graph_edge_generation",
+      "boundary_imports",
+      "backend_selection",
+      "retrieval_profile_promotion"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "edge_id",
+    "edge_class",
+    "edge_type",
+    "subject_ref",
+    "object_ref",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "edge_id": { "type": "string", "minLength": 1 },
+    "edge_class": {
+      "type": "string",
+      "enum": ["structural_deterministic", "reviewed_semantic", "model_inferred_candidate"]
+    },
+    "edge_type": {
+      "type": "string",
+      "enum": [
+        "editorial_cross_reference",
+        "quotesFrom",
+        "alludesTo",
+        "echoes",
+        "fulfills",
+        "typifies",
+        "parallelTo",
+        "thematicallyRelatedTo",
+        "groundedIn",
+        "renders",
+        "occursIn"
+      ],
+      "description": "Must be registered in config/governance/predicate_registry.yaml"
+    },
+    "subject_ref": {
+      "type": "string",
+      "description": "OSIS ref, chunk id, or stable work id (boundary repos point INTO Scripture by OSIS ref; Scripture records never depend on boundary ids)"
+    },
+    "object_ref": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["derived", "candidate_unreviewed", "reviewed_approved", "reviewed_rejected", "deprecated"]
+    },
+    "tradition_scope": { "type": "string" },
+    "trust_level": { "type": "string" },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reviewer_ref": { "type": "string", "minLength": 1 },
+    "reviewed_at": { "type": "string", "format": "date" },
+    "generator_ref": {
+      "type": "string",
+      "description": "Required for structural_deterministic unless derivation_rule_ref is present: the committed generator code/config that reproduces this edge"
+    },
+    "derivation_rule_ref": { "type": "string", "minLength": 1 },
+    "source_policy_version": { "type": "string", "minLength": 1 },
+    "generator_model": {
+      "type": "string",
+      "description": "Required for model_inferred_candidate"
+    },
+    "prompt_version": { "type": "string", "minLength": 1 },
+    "provenance_ref": { "type": "string", "minLength": 1 },
+    "generator_run_id": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "edge_class": { "const": "reviewed_semantic" } } },
+      "then": {
+        "required": ["evidence_refs", "reviewer_ref", "reviewed_at"],
+        "properties": { "status": { "const": "reviewed_approved" } }
+      }
+    },
+    {
+      "if": { "properties": { "edge_class": { "const": "model_inferred_candidate" } } },
+      "then": {
+        "required": ["generator_model", "prompt_version"],
+        "properties": { "status": { "const": "candidate_unreviewed" } },
+        "anyOf": [
+          { "required": ["provenance_ref"] },
+          { "required": ["generator_run_id"] }
+        ]
+      }
+    },
+    {
+      "if": { "properties": { "edge_class": { "const": "structural_deterministic" } } },
+      "then": {
+        "required": ["source_policy_version"],
+        "properties": { "status": { "enum": ["derived", "deprecated"] } },
+        "anyOf": [
+          { "required": ["generator_ref"] },
+          { "required": ["derivation_rule_ref"] }
+        ]
+      }
+    }
+  ]
+}

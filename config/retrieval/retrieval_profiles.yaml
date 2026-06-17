@@ -1,0 +1,30 @@
+# Retrieval profile registry (T348 — planning-only skeleton).
+#
+# Retrieval behavior changes happen by adding/versioning profiles and switching
+# which profile serves a purpose — never by editing live behavior in place.
+# Profiles must conform to schemas/retrieval_profile.schema.json.
+#
+# Hard rules (validator-enforced):
+# - exactly zero or one profile may have default_for_scripture: true;
+# - a default Scripture profile must have includes_boundary_material: false;
+# - changing the default Scripture profile requires an owner decision;
+# - while the plan has index_builds_allowed: false, no profile may have
+#   status production.
+
+registry_id: logos-scripture-graph-retrieval-profiles
+schema_ref: schemas/retrieval_profile.schema.json
+plan_ref: .ai/control/scripture_vectorization_plan.yaml
+contract_metadata:
+  task_id: T348
+  contract_scope: planning_only
+  governance_authority: false
+  authority_note: "Planning metadata only; not governance authority and not authorization to run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, or promote retrieval profiles."
+  non_authorized_actions:
+    - embedding_runs
+    - vector_index_builds
+    - graph_edge_generation
+    - boundary_imports
+    - backend_selection
+    - retrieval_profile_promotion
+
+profiles: []

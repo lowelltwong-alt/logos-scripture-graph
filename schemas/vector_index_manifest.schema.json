@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos-scripture-graph/schemas/vector_index_manifest.schema.json",
+  "title": "VectorIndexManifest",
+  "description": "Build manifest for one vector index. The index itself is a disposable derived artifact; this manifest is the durable record that makes it rebuildable and comparable. Exactly one embedding model per index (vector spaces never mix).",
+  "x_contract_metadata": {
+    "task_id": "T348",
+    "contract_scope": "planning_only",
+    "governance_authority": false,
+    "authority_note": "Planning metadata only; not governance authority and not authorization to run embeddings, build indexes, generate graph edges, import boundary corpora, choose a backend, or promote retrieval profiles.",
+    "non_authorized_actions": [
+      "embedding_runs",
+      "vector_index_builds",
+      "graph_edge_generation",
+      "boundary_imports",
+      "backend_selection",
+      "retrieval_profile_promotion"
+    ]
+  },
+  "type": "object",
+  "required": [
+    "index_id",
+    "embedding_model_id",
+    "embedding_model_version",
+    "source_corpus",
+    "chunk_set_sha256",
+    "chunk_policy_version",
+    "corpus_baseline",
+    "dimension",
+    "normalization",
+    "distance_metric",
+    "backend",
+    "status",
+    "built_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "index_id": {
+      "type": "string",
+      "pattern": "^vidx:[a-z0-9][a-z0-9._-]*$"
+    },
+    "embedding_model_id": {
+      "type": "string",
+      "pattern": "^emb:[a-z0-9][a-z0-9._-]*$",
+      "description": "Single string by design: one model per index"
+    },
+    "embedding_model_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must match the registered embedding model version used for document and query vectors"
+    },
+    "source_corpus": {
+      "type": "string",
+      "description": "e.g. eng-web_canonical_66; canonical and boundary corpora never share an index"
+    },
+    "chunk_set_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of the exact chunks.jsonl this index embeds"
+    },
+    "chunk_policy_version": { "type": "string", "minLength": 1 },
+    "corpus_baseline": { "type": "string", "minLength": 1 },
+    "dimension": { "type": "integer", "minimum": 1 },
+    "normalization": { "type": "string", "enum": ["l2", "none", "provider_default"] },
+    "distance_metric": { "type": "string", "enum": ["cosine", "dot", "euclidean"] },
+    "backend": {
+      "type": "string",
+      "description": "e.g. pinecone, pgvector, lightrag, faiss; the backend is an adapter, never the source of truth"
+    },
+    "backend_specific_features_used": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Any backend feature behavior depends on must be recorded here"
+    },
+    "status": { "type": "string", "enum": ["candidate", "production", "frozen", "retired"] },
+    "golden_questions_ref": { "type": "string" },
+    "eval_results_ref": { "type": "string" },
+    "built_at": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}
