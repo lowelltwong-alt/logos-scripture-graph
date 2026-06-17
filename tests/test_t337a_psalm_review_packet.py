@@ -99,9 +99,12 @@ def test_t337a_roadmap_state_and_focus_advance_after_t341_atlas() -> None:
     assert tasks["T344"]["title"] == "Select One Revelation Behavior Target"
     assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
     assert "T344" not in future
-    assert tasks["T351"]["status"] == "in_progress"
+    assert tasks["T351"]["status"] == "complete"
     assert tasks["T351"]["title"] == "Bible-Wide Chunking Research Triage Atlas"
     assert tasks["T351"]["required_handoff"] == ".ai/handoffs/T351/handoff.md"
+    assert tasks["T352"]["status"] == "in_progress"
+    assert tasks["T352"]["title"] == "Epistle Argument Review Packets"
+    assert tasks["T352"]["required_handoff"] == ".ai/handoffs/T352/handoff.md"
     # The control plane has advanced past the T341 atlas to a later completed task; T341
     # remains recorded complete above, and the active focus is no longer the atlas itself.
     # (Asserted robustly so routine post-T341 task advancement does not require editing this test.)

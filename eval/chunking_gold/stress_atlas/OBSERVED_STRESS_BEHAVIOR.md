@@ -12,8 +12,8 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 - Fully contained in one current chunk: 16
 - Split across current chunks: 25
 - Mixed with extra context: 34
-- Needs review packet: 23
-- Review packet pending: 8
+- Needs review packet: 19
+- Review packet pending: 12
 - Reviewed gold preserving current behavior: 2
 - Variant-policy required: 2
 - Speaker-review required: 5
@@ -30,8 +30,11 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 | `mark16_9_20_longer_ending` | `review_packet_pending` | mixed with extra context, contained | textual or tradition policy, speaker marker evidence, pending packet |
 | `deut32_8_9_divine_council_variant` | `variant_policy_required` | mixed with extra context, contained | textual or tradition policy |
 | `isa52_13_53_12_servant_song` | `review_packet_pending` | mixed with extra context, contained | pending packet |
+| `rom9_11_argument` | `review_packet_pending` | split, mixed with extra context | pending packet |
+| `heb7_10_priesthood_argument` | `review_packet_pending` | split, mixed with extra context | pending packet |
 | `john3_wj_speaker_boundary` | `review_packet_pending` | split, mixed with extra context | speaker marker evidence, pending packet |
 | `matt5_7_sermon_on_mount_wj_discourse` | `review_packet_pending` | split, mixed with extra context | speaker marker evidence, pending packet |
+| `1cor8_10_food_offered_to_idols` | `review_packet_pending` | split, mixed with extra context | pending packet |
 | `synoptic_apocalyptic_wj_discourses` | `speaker_review_required` | split, mixed with extra context | speaker marker evidence |
 | `rev12_18_vision_cycle` | `speaker_review_required` | split, mixed with extra context | speaker marker evidence |
 
@@ -50,7 +53,7 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 | `isa52_13_53_12_servant_song` | Isa.52.13-Isa.53.12 | `review_packet_pending` | 1 | true | false | true | `pending_human_review` | `await_human_review` |
 | `dan10_12_final_vision` | Dan.10-Dan.12 | `needs_review_packet` | 5 | false | true | true | `none` | `create_review_packet` |
 | `rev12_18_vision_cycle` | Rev.12-Rev.18 | `speaker_review_required` | 5 | false | true | true | `none` | `define_speaker_policy_before_gold` |
-| `eph1_3_14_greek_sentence` | Eph.1.3-Eph.1.14 | `needs_review_packet` | 1 | true | false | true | `none` | `create_review_packet` |
+| `eph1_3_14_greek_sentence` | Eph.1.3-Eph.1.14 | `review_packet_pending` | 1 | true | false | true | `pending_human_review` | `await_human_review` |
 | `mark16_9_20_longer_ending` | Mark.16.9-Mark.16.20 | `review_packet_pending` | 1 | true | false | true | `pending_human_review` | `await_human_review` |
 | `john7_53_8_11_pericope_adulterae` | John.7.53-John.8.11 | `review_packet_pending` | 2 | false | true | true | `pending_human_review` | `await_human_review` |
 | `jeremiah_mt_lxx_divergence` | Jeremiah MT/LXX divergence | `unknown_needs_human_review` | 0 | false | false | false | `none` | `manual_investigation_required` |
@@ -64,7 +67,7 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 | `zech1_6_night_visions` | Zech.1-Zech.6 | `needs_review_packet` | 3 | false | true | true | `none` | `create_review_packet` |
 | `matt24_25_olivet_discourse` | Matt.24-Matt.25 | `needs_review_packet` | 4 | false | true | true | `none` | `create_review_packet` |
 | `john13_17_farewell_discourse` | John.13-John.17 | `speaker_review_required` | 6 | false | true | true | `none` | `define_speaker_policy_before_gold` |
-| `rom9_11_argument` | Rom.9-Rom.11 | `needs_review_packet` | 4 | false | true | true | `none` | `create_review_packet` |
+| `rom9_11_argument` | Rom.9-Rom.11 | `review_packet_pending` | 4 | false | true | true | `pending_human_review` | `await_human_review` |
 | `1pet3_18_22_spirits_prison` | 1Pet.3.18-1Pet.3.22 | `needs_review_packet` | 1 | true | false | true | `none` | `create_review_packet` |
 | `jude5_15_examples_and_enoch` | Jude.5-Jude.15 | `source_tradition_review_required` | 1 | true | false | true | `none` | `define_source_tradition_policy_before_gold` |
 | `esth8_9_long_administrative_verse` | Esth.8.9 | `needs_review_packet` | 1 | true | false | true | `none` | `create_review_packet` |
@@ -74,8 +77,8 @@ The audit was generated from a temporary local pre-T327 chunker run against the 
 | `josh13_21_land_allotments` | Josh.13-Josh.21 | `needs_review_packet` | 7 | false | true | true | `none` | `create_review_packet` |
 | `lev16_day_of_atonement` | Lev.16 | `needs_review_packet` | 3 | false | true | true | `none` | `create_review_packet` |
 | `exod20_23_covenant_code` | Exod.20-Exod.23 | `needs_review_packet` | 5 | false | true | true | `none` | `create_review_packet` |
-| `heb7_10_priesthood_argument` | Heb.7-Heb.10 | `needs_review_packet` | 4 | false | true | true | `none` | `create_review_packet` |
-| `1cor8_10_food_offered_to_idols` | 1Cor.8-1Cor.10 | `needs_review_packet` | 3 | false | true | true | `none` | `create_review_packet` |
+| `heb7_10_priesthood_argument` | Heb.7-Heb.10 | `review_packet_pending` | 4 | false | true | true | `pending_human_review` | `await_human_review` |
+| `1cor8_10_food_offered_to_idols` | 1Cor.8-1Cor.10 | `review_packet_pending` | 3 | false | true | true | `pending_human_review` | `await_human_review` |
 | `gospels_wj_marker_spans` | Gospels / Acts / Rev words-of-Jesus spans | `speaker_review_required` | 1 | false | false | false | `none` | `define_speaker_policy_before_gold` |
 | `psalms_selah_qs_markers` | Psalms with Selah / `\qs` markers | `needs_review_packet` | 7 | false | false | false | `none` | `create_review_packet` |
 | `john3_wj_speaker_boundary` | John.3 | `review_packet_pending` | 2 | false | true | true | `pending_human_review` | `await_human_review` |

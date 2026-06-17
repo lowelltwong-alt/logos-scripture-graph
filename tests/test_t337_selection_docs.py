@@ -83,6 +83,9 @@ def test_t337_roadmap_state_completed_and_t342_next_after_t341() -> None:
     assert tasks["T344"]["title"] == "Select One Revelation Behavior Target"
     assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
     assert "T344" not in future
-    assert tasks["T351"]["status"] == "in_progress"
+    assert tasks["T351"]["status"] == "complete"
     assert tasks["T351"]["title"] == "Bible-Wide Chunking Research Triage Atlas"
     assert tasks["T351"]["required_handoff"] == ".ai/handoffs/T351/handoff.md"
+    assert tasks["T352"]["status"] == "in_progress"
+    assert tasks["T352"]["title"] == "Epistle Argument Review Packets"
+    assert tasks["T352"]["required_handoff"] == ".ai/handoffs/T352/handoff.md"

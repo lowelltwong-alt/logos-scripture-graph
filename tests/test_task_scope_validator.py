@@ -10,6 +10,7 @@ from scripts import validate_task_scope as validator
 ROOT = Path(__file__).resolve().parents[1]
 T344_TASK = ROOT / ".ai" / "tasks" / "T344.task.yaml"
 T351_TASK = ROOT / ".ai" / "tasks" / "T351.task.yaml"
+T352_TASK = ROOT / ".ai" / "tasks" / "T352.task.yaml"
 
 
 def test_t344_scope_accepts_harn_001_surfaces() -> None:
@@ -67,6 +68,29 @@ def test_t351_scope_accepts_bible_wide_triage_surfaces() -> None:
     )
 
     assert result["task_file"] == ".ai/tasks/T351.task.yaml"
+
+
+def test_t352_scope_accepts_epistle_packet_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T352_TASK,
+        changed_files=[
+            "docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md",
+            "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+            "eval/chunking_gold/review_packets/rom9_11_argument_review.md",
+            "eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md",
+            "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md",
+            "eval/chunking_gold/review_packets/review_packet_index.json",
+            "eval/chunking_gold/stress_atlas/observed_stress_behavior.json",
+            "scripts/validate_epistle_argument_review_packets.py",
+            "tests/test_t352_epistle_argument_review_packets.py",
+            ".ai/tasks/T352.task.yaml",
+            ".ai/handoffs/T352/handoff.md",
+            "ROADMAP_STATE.yaml",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T352.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:

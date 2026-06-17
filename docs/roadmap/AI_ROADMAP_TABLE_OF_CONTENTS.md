@@ -34,6 +34,7 @@ AI_TABLE_OF_CONTENTS.md
 | T343 | Revelation review packet and gold candidates | `docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`; `.ai/tasks/T343.task.yaml`; `.ai/handoffs/T343/handoff.md`; `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` |
 | T344 | Revelation owner-selection docket, selected `REV-T344-E` | `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`; `.ai/tasks/T344.task.yaml`; `.ai/handoffs/T344/handoff.md` |
 | T351 | Bible-wide chunking research triage before more chunking work | `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`; `.ai/control/bible_chunking_research_triage_map.yaml`; `.ai/tasks/T351.task.yaml`; `.ai/handoffs/T351/handoff.md` |
+| T352 | Epistle argument review-packet prep | `docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`; `.ai/tasks/T352.task.yaml`; `.ai/handoffs/T352/handoff.md`; `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`; `eval/chunking_gold/review_packets/rom9_11_argument_review.md`; `eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md` |
 
 ## Review Packet Surfaces
 
@@ -48,14 +49,15 @@ AI_TABLE_OF_CONTENTS.md
 
 ## Current Next Route
 
-After T344 owner decision and the later owner guidance to research the whole Bible first, the next
+After T344 owner decision, T351 Bible-wide triage, and the later owner guidance to review one lane
+at a time, the next
 route is:
 
 ```text
-T351 - Bible-Wide Chunking Research Triage Atlas
+T352 - Epistle Argument Review Packets
 ```
 
-T351 should triage the canonical 66 before more chunking work. Revelation remains research/prep
+T352 creates pending, non-authorizing epistle argument packets. Revelation remains research/prep
 only for the pending, non-authorizing packet for:
 
 ```text
@@ -67,9 +69,10 @@ Lowell Wong selected `REV-T344-E` on 2026-06-17:
 ```text
 Research/triage the whole Bible first.
 Classify lanes as review_packet_ready, research_first, governed_hold, or implementation_blocked.
-Then choose one review-packet-ready lane; do not implement chunks.
+Then create review packets for one review-packet-ready lane; do not implement chunks.
 ```
 
 No Revelation implementation, reviewed-gold promotion, chunk regeneration, evaluator change,
 boundary import, T327G, embedding/index work, graph-edge generation, Psalm candidate promotion, or
-source-metadata authority is authorized by this table of contents.
+source-metadata authority is authorized by this table of contents. T352 does not authorize epistle
+route implementation or output changes.

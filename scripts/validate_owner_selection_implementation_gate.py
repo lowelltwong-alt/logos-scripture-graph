@@ -275,17 +275,42 @@ def validate_owner_selection_implementation_gate(
             next_route=next_route,
         )
         if selected_option == "REV-T344-E":
-            _require_equal(next_route.get("task_id"), "T351", "readiness.next_route.task_id")
-            _require_equal(
-                next_route.get("route_type"),
-                "bible_wide_research_triage",
-                "readiness.next_route.route_type",
-            )
-            _require_equal(
-                next_route.get("requires_triage_before_lane_selection"),
-                True,
-                "readiness.next_route.requires_triage_before_lane_selection",
-            )
+            next_task_id = next_route.get("task_id")
+            if next_task_id not in {"T351", "T352"}:
+                raise OwnerSelectionGateError("readiness.next_route.task_id must be 'T351' or 'T352' under REV-T344-E")
+            if next_task_id == "T351":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "bible_wide_research_triage",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(
+                    next_route.get("requires_triage_before_lane_selection"),
+                    True,
+                    "readiness.next_route.requires_triage_before_lane_selection",
+                )
+                _require_equal(
+                    next_route.get("next_review_lane_after_completion"),
+                    "select_from_review_packet_ready_lanes",
+                    "readiness.next_route.next_review_lane_after_completion",
+                )
+            if next_task_id == "T352":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "epistle_argument_review_packet_prep",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(next_route.get("prior_triage_task"), "T351", "readiness.next_route.prior_triage_task")
+                _require_equal(
+                    next_route.get("review_packet_lane"),
+                    "epistle_argument",
+                    "readiness.next_route.review_packet_lane",
+                )
+                _require_equal(
+                    next_route.get("packet_status"),
+                    "pending_human_review",
+                    "readiness.next_route.packet_status",
+                )
             _require_equal(
                 packet_decision.get("decision"),
                 "requires_more_research_before_gold",
@@ -300,11 +325,6 @@ def validate_owner_selection_implementation_gate(
                 auth.get("next_review_lane_after_revelation_research_prep"),
                 "epistle_argument_boundaries",
                 "T344.authorization.next_review_lane_after_revelation_research_prep",
-            )
-            _require_equal(
-                next_route.get("next_review_lane_after_completion"),
-                "select_from_review_packet_ready_lanes",
-                "readiness.next_route.next_review_lane_after_completion",
             )
             for label, mapping in (
                 ("T344 docket owner_selection", docket_owner),

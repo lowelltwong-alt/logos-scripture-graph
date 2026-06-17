@@ -85,6 +85,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "bible_wide_research_triage",
         "title": "Bible-Wide Chunking Research Triage Atlas",
     },
+    "T352": {
+        "route_type": "epistle_argument_review_packet_prep",
+        "title": "Epistle Argument Review Packets",
+    },
 }
 
 
@@ -230,6 +234,13 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         raise ReadinessMapError(f"{_rel(path)}: next_route.output_change_authorized must be false")
     if next_route.get("implementation_authorized") is not False:
         raise ReadinessMapError(f"{_rel(path)}: next_route.implementation_authorized must be false")
+    if task_id == "T352":
+        if next_route.get("review_packet_lane") != "epistle_argument":
+            raise ReadinessMapError(f"{_rel(path)}: T352 next_route.review_packet_lane must be epistle_argument")
+        if next_route.get("packet_status") != "pending_human_review":
+            raise ReadinessMapError(f"{_rel(path)}: T352 next_route.packet_status must be pending_human_review")
+        if next_route.get("prior_triage_task") != "T351":
+            raise ReadinessMapError(f"{_rel(path)}: T352 next_route.prior_triage_task must be T351")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

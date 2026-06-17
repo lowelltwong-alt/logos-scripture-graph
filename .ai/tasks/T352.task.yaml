@@ -1,0 +1,91 @@
+id: T352
+phase: phase_4
+title: "Epistle Argument Review Packets"
+mode: plan
+status: in_progress
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+    - eval/chunking_gold/review_packets/rom9_11_argument_review.md
+    - eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md
+    - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+    - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+    - eval/chunking_gold/review_packets/review_packet_index.json
+    - eval/chunking_gold/stress_atlas/observed_stress_behavior.json
+    - eval/chunking_gold/stress_atlas/OBSERVED_STRESS_BEHAVIOR.md
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T351.task.yaml
+    - .ai/tasks/T352.task.yaml
+    - .ai/handoffs/T351/
+    - .ai/handoffs/T352/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_epistle_argument_review_packets.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+    - tests/test_t352_epistle_argument_review_packets.py
+    - tests/test_stress_review_packets.py
+    - tests/test_observed_stress_behavior.py
+    - tests/test_review_packet_index.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t351_bible_wide_research_triage.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_task_scope_validator.py
+    - tests/test_owner_selection_implementation_gate.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  owner_decision_ref: docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md
+  triggering_owner_guidance: "Use epistle argument boundaries as the next review lane after Revelation research prep; research/triage the whole Bible first, then chunk one lane at a time."
+  epistle_review_packets_allowed: true
+  non_output_changing_review_packets_allowed: true
+  non_output_changing_lane_prep_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  revelation_implementation_allowed: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+acceptance_criteria:
+  - "Four epistle argument review packets exist and remain pending human review."
+  - "Review-packet and observed-behavior indexes record the four cases as review_packet_pending, not reviewed gold."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge surfaces are touched."
+  - "All implementation, output-change, reviewed-gold, route, graph, vector, boundary-import, and T345 flags remain false."
+  - "A T352 validator and tests fail closed if the packets become authorizing."
+validation:
+  - python scripts/validate_task_scope.py --task-id T352
+  - python scripts/validate_epistle_argument_review_packets.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_owner_selection_implementation_gate.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T352/handoff.md
+next_task: "After T352 validates and merges, owner may review one exact epistle target for a later decision. Do not implement epistle chunks until reviewed gold and explicit owner implementation authorization exist."
+

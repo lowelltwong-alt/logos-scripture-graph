@@ -17,10 +17,10 @@ Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unc
 
 ## Summary
 
-- Total entries: 64
+- Total entries: 68
 - Reviewed gold entries: 15
-- Pending human review: 15
-- Needs review packet: 23
+- Pending human review: 23
+- Needs review packet: 19
 - Variant policy required: 2
 - Speaker review required: 5
 - Source/tradition review required: 3
@@ -52,11 +52,11 @@ The queue is a review queue, not an implementation queue. Every queued item has 
 | 18 | `rev12_14_symbolic_scenes` | `pending_human_review` | `continue_revelation_research_prep` | `research_prep_before_gold` |
 | 19 | `ps136_refrain_litany` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 20 | `1chr1_9_primeval_genealogies` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
-| 21 | `1cor8_10_food_offered_to_idols` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
+| 21 | `1cor8_10_food_offered_to_idols` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 22 | `1kgs22_micaiah_council_scene` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
 | 23 | `1pet3_18_22_spirits_prison` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
 | 24 | `dan10_12_final_vision` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
-| 25 | `eph1_3_14_greek_sentence` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
+| 25 | `eph1_3_14_greek_sentence` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | ... | 19 additional queued cases |  |  |  |
 
 ## Reviewed Gold Entries
@@ -92,6 +92,10 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `packet_matt5_7_wj_discourse_review` | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `parent_child_structural_review`, `pending_packets_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
 | `packet_rev12_14_symbolic_scenes_review` | `rev12_14_symbolic_scenes` | `pending_human_review` | `requires_more_research_before_gold` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `rev_t344_e_research_only_non_authorizing`, `review_packet_required_before_implementation`, `speaker_review_required`, `wj_evidence_not_authority` |
 | `packet_ps136_boundary_review` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
+| `packet_eph1_3_14_argument_review` | `eph1_3_14_greek_sentence` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
+| `packet_rom9_11_argument_review` | `rom9_11_argument` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
+| `packet_heb7_10_priesthood_argument_review` | `heb7_10_priesthood_argument` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
+| `packet_1cor8_10_food_offered_to_idols_review` | `1cor8_10_food_offered_to_idols` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_ps89_royal_lament` | `ps89_royal_lament` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `qs_evidence_not_boundary_authority` |
 | `observed_ps136_refrain_litany` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing` |
 | `observed_lam1_4_acrostic_poems` | `lam1_4_acrostic_poems` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
@@ -101,7 +105,7 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `observed_isa52_13_53_12_servant_song` | `isa52_13_53_12_servant_song` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing` |
 | `observed_dan10_12_final_vision` | `dan10_12_final_vision` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_rev12_18_vision_cycle` | `rev12_18_vision_cycle` | `speaker_review_required` | `speaker_review_required` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
-| `observed_eph1_3_14_greek_sentence` | `eph1_3_14_greek_sentence` | `needs_review_packet` | `needs_review_packet` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
+| `observed_eph1_3_14_greek_sentence` | `eph1_3_14_greek_sentence` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_mark16_9_20_longer_ending` | `mark16_9_20_longer_ending` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `speaker_review_required`, `variant_policy_before_gold`, `wj_evidence_not_authority` |
 | `observed_john7_53_8_11_pericope_adulterae` | `john7_53_8_11_pericope_adulterae` | `pending_human_review` | `pending` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `speaker_review_required`, `variant_policy_before_gold`, `wj_evidence_not_authority` |
 | `observed_jeremiah_mt_lxx_divergence` | `jeremiah_mt_lxx_divergence` | `manual_investigation_required` | `unknown_needs_human_review` | `manual_investigation_required`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `variant_policy_before_gold` |
@@ -115,7 +119,7 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `observed_zech1_6_night_visions` | `zech1_6_night_visions` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_matt24_25_olivet_discourse` | `matt24_25_olivet_discourse` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation`, `speaker_review_required`, `wj_evidence_not_authority` |
 | `observed_john13_17_farewell_discourse` | `john13_17_farewell_discourse` | `speaker_review_required` | `speaker_review_required` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
-| `observed_rom9_11_argument` | `rom9_11_argument` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
+| `observed_rom9_11_argument` | `rom9_11_argument` | `pending_human_review` | `pending` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_1pet3_18_22_spirits_prison` | `1pet3_18_22_spirits_prison` | `needs_review_packet` | `needs_review_packet` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_jude5_15_examples_and_enoch` | `jude5_15_examples_and_enoch` | `source_tradition_review_required` | `source_tradition_review_required` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `source_tradition_review_required`, `variant_policy_before_gold` |
 | `observed_esth8_9_long_administrative_verse` | `esth8_9_long_administrative_verse` | `needs_review_packet` | `needs_review_packet` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
@@ -125,8 +129,8 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `observed_josh13_21_land_allotments` | `josh13_21_land_allotments` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_lev16_day_of_atonement` | `lev16_day_of_atonement` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_exod20_23_covenant_code` | `exod20_23_covenant_code` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
-| `observed_heb7_10_priesthood_argument` | `heb7_10_priesthood_argument` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
-| `observed_1cor8_10_food_offered_to_idols` | `1cor8_10_food_offered_to_idols` | `needs_review_packet` | `needs_review_packet` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `review_packet_required_before_implementation` |
+| `observed_heb7_10_priesthood_argument` | `heb7_10_priesthood_argument` | `pending_human_review` | `pending` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
+| `observed_1cor8_10_food_offered_to_idols` | `1cor8_10_food_offered_to_idols` | `pending_human_review` | `pending` | `current_split_not_automatically_bad_fragmentation`, `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | ... | 7 additional pending/policy entries |  |  |  |
 
 ## Governance Boundary

@@ -14,6 +14,10 @@ PENDING_PACKETS = {
     "matt5_7_wj_discourse_review.md": "matt5_7_sermon_on_mount_wj_discourse",
     "ps136_boundary_review.md": "ps136_refrain_litany",
     "rev12_14_symbolic_scenes_review.md": "rev12_18_vision_cycle",
+    "eph1_3_14_argument_review.md": "eph1_3_14_greek_sentence",
+    "rom9_11_argument_review.md": "rom9_11_argument",
+    "heb7_10_priesthood_argument_review.md": "heb7_10_priesthood_argument",
+    "1cor8_10_food_offered_to_idols_review.md": "1cor8_10_food_offered_to_idols",
 }
 
 REVIEWED_WHOLE_PSALM_PACKETS = {

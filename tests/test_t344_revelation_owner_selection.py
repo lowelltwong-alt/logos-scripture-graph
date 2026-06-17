@@ -90,12 +90,12 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T351"
-    assert readiness["next_route"]["route_type"] == "bible_wide_research_triage"
+    assert readiness["next_route"]["task_id"] == "T352"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_prep"
     assert readiness["next_route"]["owner_selection_status"] == "selected"
     assert readiness["next_route"]["selected_option"] == "REV-T344-E"
-    assert readiness["next_route"]["requires_triage_before_lane_selection"] is True
-    assert readiness["next_route"]["next_review_lane_after_completion"] == "select_from_review_packet_ready_lanes"
+    assert readiness["next_route"]["prior_triage_task"] == "T351"
+    assert readiness["next_route"]["review_packet_lane"] == "epistle_argument"
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert "CD-016" in register
@@ -114,8 +114,11 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T344"]["selected_option"] == "REV-T344-E"
     assert tasks["T344"]["output_change_authorized"] is False
     assert "T344" not in future
-    assert tasks["T351"]["status"] == "in_progress"
+    assert tasks["T351"]["status"] == "complete"
     assert tasks["T351"]["lane"] == "bible_wide_research_triage"
     assert tasks["T351"]["next_review_lane_after_completion"] == "select_from_review_packet_ready_lanes"
+    assert tasks["T352"]["status"] == "in_progress"
+    assert tasks["T352"]["lane"] == "epistle_argument"
+    assert tasks["T352"]["packet_status"] == "pending_human_review"
     assert future["T345"]["status"] == "planned"
     assert future["T345"]["requires_owner_selection_gate"] == "scripts/validate_owner_selection_implementation_gate.py"
