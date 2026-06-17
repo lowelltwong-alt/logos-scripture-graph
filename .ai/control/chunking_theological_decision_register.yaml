@@ -373,6 +373,39 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-013
+    title: Whole-Bible chunking readiness proceeds one reviewed lane at a time
+    classification: interpretive_boundary
+    task_ids: [T350]
+    owner_decision_ref: docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_lane_targets]
+      routes: [monolith_fallback, form_router, psalm_candidate_skill, future_revelation_review, future_bible_wide_orchestration]
+      surfaces: [.ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md, docs/methodology/WORKFLOW_LESSONS.md]
+    decision: "The project keeps whole-Bible canonical chunking as the destination, but new algorithm work must proceed through one reviewed, route-isolated lane at a time."
+    downstream_risk: "A Bible-wide readiness conversation could be misread as permission for a global output-changing pass that encodes theology through broad boundary heuristics."
+    theological_assumptions_avoided:
+      - "Whole-Bible readiness does not authorize Revelation implementation."
+      - "A global chunking objective does not outrank lane-specific reviewed gold."
+      - "Book or genre assumptions must stay route-isolated until reviewed."
+    reviewed_gold_dependency: "Each output-changing lane still requires exact reviewed gold, owner decision, executable checks, non-target identity proof, and same-baseline evaluation."
+    non_authorizations:
+      - whole_bible_output_changing_pass
+      - revelation_implementation
+      - global_apocalypse_rule
+      - global_psalm_or_poetry_rule
+      - skill_lifecycle_promotion
+      - boundary_import
+      - master_chunker_global_objective
+    validators:
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -436,4 +469,5 @@ backfill_coverage:
     - T341
     - T348
     - T349
+    - T350
 ...

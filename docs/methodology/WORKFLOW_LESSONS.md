@@ -128,6 +128,34 @@ If adapting the chunker for boundary or noncanonical material would degrade cano
 chunking quality, split or rebuild a separate chunker/harness rather than compromising the Bible
 chunker.
 
+## BIBLE-CHUNKING-WORKFLOW-LESSON-002 - Whole-Bible Readiness Requires Lane Evidence, Not Global Permission
+
+A whole-Bible chunker is the destination, but whole-Bible algorithm work should not begin as a
+single global pass. The faithful route is one reviewed lane at a time: target selection, pending
+review packet, owner decision, executable reviewed gold, route-isolated implementation, same-baseline
+evaluation, and then a promotion or hold decision.
+
+This lesson exists because "get the algorithms ready for the whole Bible" can sound like permission
+to run broad output-changing work. It is not. Whole-Bible readiness is a map of prerequisites,
+lane status, algorithm surfaces, and lesson/decision registers. It does not authorize output
+changes by itself.
+
+Applies to:
+
+- Revelation review and future Revelation implementation.
+- Epistle, narrative, wisdom/dialogue, prophetic, Gospel discourse/WJ, and Bible-wide
+  orchestration lanes.
+- Any future master-chunker or cross-corpus adaptation.
+
+Required posture:
+
+- Keep the canonical 66-book Bible goal visible.
+- Choose one lane and one exact target at a time.
+- Keep route-specific assumptions isolated.
+- Record theological-downstream decisions in the chunking theological decision register.
+- Update this lesson collector or record a no-change rationale when an increment teaches a reusable
+  workflow lesson.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures

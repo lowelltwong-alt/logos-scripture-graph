@@ -20,12 +20,14 @@ Read these files before making changes:
     `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
-12. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
+12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
+    `.ai/control/bible_chunking_readiness_map.yaml`
+13. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
     artifact, automation, cross-repo, workflow-rule, or master-chunker work:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
-13. `config/agents/agent_roles.yaml`
-14. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
-15. The specific files in the task scope.
+14. `config/agents/agent_roles.yaml`
+15. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+16. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -89,6 +91,10 @@ Bible-first chunking priority:
   chunking/evaluator/gold/route/default-behavior decisions. It records owner decisions, theological
   risks, dependencies, non-authorizations, and supersession history; it does not authorize output
   changes by itself.
+- The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
+  whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
+  next safe route. It is non-authorizing and currently points to T342 Revelation review-packet
+  candidate selection only.
 
 High-leverage change risk gate:
 
@@ -186,6 +192,7 @@ python scripts/validate_control_plane.py   # master context lock + front-door ro
 python scripts/validate_repository_link_contract.py
 python scripts/agent/validate_handoffs.py
 python scripts/validate_chunking_theological_decision_register.py
+python scripts/validate_bible_chunking_readiness_map.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
@@ -268,6 +275,8 @@ Before stopping work, every agent must:
 14. Update `.ai/control/chunking_theological_decision_register.yaml` when touching chunking,
     evaluator, gold, route, default-behavior, generated chunk, or roadmap surfaces covered by its
     changed-path gate.
+15. Update `.ai/control/bible_chunking_readiness_map.yaml` when changing whole-Bible chunking lane
+    sequence, algorithm readiness, lesson-storage surfaces, or next safe route.
 
 ## Forbidden shortcuts
 
