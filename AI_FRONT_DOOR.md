@@ -26,6 +26,8 @@ Read these files before making changes:
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
     `.ai/control/bible_chunking_readiness_map.yaml`
+12. For pre-chunking Bible-wide research triage:
+    `.ai/control/bible_chunking_research_triage_map.yaml`
 13. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
     artifact, automation, cross-repo, workflow-rule, or master-chunker work:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
@@ -87,6 +89,8 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
+- T351 requires Bible-wide research triage before more chunking algorithm work; select the next
+  review lane from the triage map, not from chat memory or agent momentum.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -106,8 +110,10 @@ Bible-first chunking priority:
   changes by itself.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T344R Revelation research/prep
-  only, with epistle argument boundaries as the next review lane after Revelation prep.
+  next safe route. It is non-authorizing and currently points to T351 Bible-wide research triage.
+- The Bible chunking research triage map at `.ai/control/bible_chunking_research_triage_map.yaml`
+  classifies canonical lanes before more algorithm work. It is non-authorizing; `review_packet_ready`
+  means ready for review packets, not ready to chunk.
 
 High-leverage change risk gate:
 

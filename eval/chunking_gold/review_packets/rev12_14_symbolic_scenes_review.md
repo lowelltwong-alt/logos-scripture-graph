@@ -234,7 +234,7 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 
 - Deterministic tests should assert pending status and false authorization flags.
 - Review-packet indexes should list this packet as pending, not reviewed gold.
-- The readiness map should advance to T344R as Revelation research/prep only, not implementation.
+- The readiness map should advance to T351 as Bible-wide research triage, not implementation.
 
 ### Owner Decisions Needed
 

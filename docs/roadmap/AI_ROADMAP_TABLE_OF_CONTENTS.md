@@ -33,7 +33,7 @@ AI_TABLE_OF_CONTENTS.md
 | T342 | Revelation review-packet target selection | `docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`; `.ai/tasks/T342.task.yaml`; `.ai/handoffs/T342/handoff.md` |
 | T343 | Revelation review packet and gold candidates | `docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`; `.ai/tasks/T343.task.yaml`; `.ai/handoffs/T343/handoff.md`; `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` |
 | T344 | Revelation owner-selection docket, selected `REV-T344-E` | `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`; `.ai/tasks/T344.task.yaml`; `.ai/handoffs/T344/handoff.md` |
-| T344R | Revelation research/prep only after selected `REV-T344-E` | `.ai/tasks/T344R.task.yaml`; `.ai/handoffs/T344R/handoff.md`; `.ai/control/bible_chunking_readiness_map.yaml` |
+| T351 | Bible-wide chunking research triage before more chunking work | `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`; `.ai/control/bible_chunking_research_triage_map.yaml`; `.ai/tasks/T351.task.yaml`; `.ai/handoffs/T351/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -48,13 +48,15 @@ AI_TABLE_OF_CONTENTS.md
 
 ## Current Next Route
 
-After T344 owner decision, the next route is:
+After T344 owner decision and the later owner guidance to research the whole Bible first, the next
+route is:
 
 ```text
-T344R - Revelation Research Prep After Owner Decision E
+T351 - Bible-Wide Chunking Research Triage Atlas
 ```
 
-T344R should continue research/prep only for the pending, non-authorizing packet for:
+T351 should triage the canonical 66 before more chunking work. Revelation remains research/prep
+only for the pending, non-authorizing packet for:
 
 ```text
 Rev.12.1-Rev.14.20
@@ -63,9 +65,9 @@ Rev.12.1-Rev.14.20
 Lowell Wong selected `REV-T344-E` on 2026-06-17:
 
 ```text
-Continue Revelation research/prep only until stronger governed evidence exists.
-Authorize non-output-changing harnesses, review packets, and lane prep.
-Use epistle argument boundaries as the next review lane after Revelation research prep.
+Research/triage the whole Bible first.
+Classify lanes as review_packet_ready, research_first, governed_hold, or implementation_blocked.
+Then choose one review-packet-ready lane; do not implement chunks.
 ```
 
 No Revelation implementation, reviewed-gold promotion, chunk regeneration, evaluator change,

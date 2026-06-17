@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T344 REV-T344-E owner decision and HARN-001 scope gate (Codex)
-**Active task:** -> **T344** records Lowell Wong's selected `REV-T344-E` owner decision for the pending `Rev.12.1-Rev.14.20` Revelation packet. Revelation may continue as research/prep only; non-output-changing harnesses, review packets, and lane prep are authorized; epistle argument boundaries are the next review lane after Revelation research prep. The decision does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T351 Bible-wide chunking research triage (Codex)
+**Active task:** -> **T351** researches and triages the whole canonical 66 Bible before more chunking algorithm work. It classifies lanes as `review_packet_ready`, `research_first`, `governed_hold`, or `implementation_blocked`, while keeping `REV-T344-E` in force for Revelation. The triage does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T351 Bible-wide chunking research triage (2026-06-17):** Added
+> `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md` and
+> `.ai/control/bible_chunking_research_triage_map.yaml` so the project researches the whole Bible
+> before selecting more chunking work. T351 also replaces invalid nonnumeric `T344R` continuation
+> surfaces with numeric task `T351`. The triage says epistle argument and narrative/legal lanes are
+> review-packet-ready, Revelation/prophetic/wisdom/Gospel-WJ/textual-variant lanes need research
+> first, Psalms are a governed hold, and Bible-wide orchestration remains implementation-blocked.
+> No output, reviewed-gold, graph/vector, boundary import, evaluator, generated chunk, or T345 work
+> is authorized.
 
 > **T344 REV-T344-E owner decision (2026-06-17):** Added
 > `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md` as the exact decision surface for the
