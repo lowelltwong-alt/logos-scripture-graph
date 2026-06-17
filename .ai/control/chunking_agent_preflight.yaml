@@ -2,8 +2,8 @@
 object_type: chunking_agent_preflight_contract
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 during T343 after the maintainer noted that source metadata lessons should be handed to every future chunking agent before work begins."
-reason_for_inclusion: "Make source metadata, cross-reference, Strong's-number, marker, and Revelation hermeneutic risks mandatory preflight reading for chunking agents instead of relying on chat memory."
+provenance_note: "Created 2026-06-17 during T343 after the maintainer noted that source metadata lessons should be handed to every future chunking agent before work begins; updated during T351 to add divine-name/title capitalization as a required graph and chunking risk."
+reason_for_inclusion: "Make source metadata, cross-reference, Strong's-number, marker, divine-name capitalization, and Revelation hermeneutic risks mandatory preflight reading for chunking agents instead of relying on chat memory."
 ---
 schema_version: chunking_agent_preflight.v1
 contract_id: chunking_agent_mandatory_preflight
@@ -43,7 +43,12 @@ mandatory_reading:
   - path: .ai/control/chunking_theological_decision_register.yaml
     required_decision_ids:
       - CD-015
-    reason: "Decision-register entry for source metadata as non-authorizing evidence."
+      - CD-018
+    reason: "Decision-register entries for source metadata and divine-name/title capitalization as non-authorizing evidence."
+  - path: .ai/control/bible_chunking_research_triage_map.yaml
+    required_lane_ids:
+      - divine_name_title_capitalization
+    reason: "Bible-wide lane that keeps capitalization variants evidence-only before graph, retrieval, or chunking use."
 midflight_lesson_capture:
   status: required
   trigger: "A task discovers a reusable chunking, source-metadata, theological-risk, workflow, validator, or agent-handoff lesson not already encoded in preflight/workflow/methodology."
@@ -91,6 +96,8 @@ non_authorizing_metadata_types:
   - words_of_jesus_markers
   - speaker_labels
   - edition_formatting
+  - divine_name_title_capitalization
+  - divine_pronoun_capitalization
 metadata_authority_policy:
   may_preserve_as_evidence: true
   may_surface_for_review: true
