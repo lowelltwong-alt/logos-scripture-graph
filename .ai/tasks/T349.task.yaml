@@ -1,0 +1,51 @@
+id: T349
+phase: phase_4
+title: "First-class chunking theological decision register"
+mode: governance
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/chunking_theological_decision_register.yaml
+    - scripts/validate_chunking_theological_decision_register.py
+    - tests/test_chunking_theological_decision_register.py
+    - scripts/validate_all.py
+    - .ai/workflows/chunking-skill-supply-chain.workflow.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T349.task.yaml
+    - .ai/handoffs/T349/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+authorization:
+  authorized:
+    - "Create a first-class machine-readable register for chunking theological decisions and a deterministic validator wired into validate_all."
+  explicit_non_authorizations:
+    - "No chunk output changes."
+    - "No chunking algorithm or route behavior changes."
+    - "No reviewed-gold promotion."
+    - "No evaluator formula change."
+    - "No leaderboard or scorecard update."
+    - "No boundary import, T327G, Revelation implementation, embedding run, index build, or graph-edge generation."
+acceptance_criteria:
+  - "The register records owner decisions, affected books/passages/routes, downstream risk, avoided theological assumptions, reviewed-gold dependencies, non-authorizations, validators, and supersession/deprecation fields."
+  - "Seed decisions include canonical 66 scope, Psalm 78 parent/child, Psalm 89 Option C, WJ marker limits, Revelation non-implementation, Psalm candidate non-promotion, and vector/edge never-truth."
+  - "Full historical backfill coverage is represented by decision entries or no-impact markers for relevant chunking/governance tasks through T348."
+  - "Validator fails closed if required metadata, seed decisions, backfill coverage, or changed-path register updates are missing."
+validation:
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python -m pytest -q tests/test_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff: .ai/handoffs/T349/handoff.md
+next_task: "T342 Revelation review-packet candidate selection (gated); no new chunking algorithm work until the register remains current."

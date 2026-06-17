@@ -10,6 +10,8 @@ AI-operational checklist for chunking-related work. Use with
   `.ai/control/DATA_MAP.md`, `.ai/control/RAW_SOURCE_INVENTORY.md`, and the active handoff.
 - Read ADR-0011, `docs/chunking/CHUNKING_DESIGN.md`, the relevant skill metadata, registry files,
   evaluator notes, and gold/eval artifacts for the target form.
+- Read `.ai/control/chunking_theological_decision_register.yaml` before changing chunking,
+  evaluator, gold, route, generated chunk, default-behavior, or relevant roadmap surfaces.
 - Confirm whether the task is detector, registry, orchestrator, skill, evaluator, gold, staleness,
   route-ledger, or methodology work.
 - Classify gold artifacts by maturity: scaffold/plan, executable reviewed gold,
@@ -39,6 +41,9 @@ AI-operational checklist for chunking-related work. Use with
   implementation.
 - Define target output drift expectations before editing.
 - Decide whether the methodology must change or can be reviewed with no change.
+- Decide whether the chunking theological decision register needs a new decision entry,
+  supersession update, or no-impact marker. For watched paths, validation fails unless the register
+  is updated in the same diff.
 
 ## Implement
 

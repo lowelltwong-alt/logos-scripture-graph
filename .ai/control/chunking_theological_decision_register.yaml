@@ -1,0 +1,439 @@
+---
+object_type: chunking_theological_decision_register
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic."
+reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
+---
+schema_version: chunking_theological_decision_register.v1
+register_id: scripture_chunking_theological_decision_register
+owner: Lowell Wong
+default_orthodoxy_boundary: nicene_chalcedonian_core
+register_authority:
+  records_decisions: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_skill_lifecycle_promotion: false
+  authorizes_boundary_import: false
+update_policy:
+  full_backfill_required_before_new_algorithm_work: true
+  changed_path_gate_enabled: true
+  register_update_required_when_paths_change:
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - data/derived/chunks/
+    - docs/roadmap/
+  validator: scripts/validate_chunking_theological_decision_register.py
+allowed_classifications:
+  - text_neutral
+  - theological_risk
+  - interpretive_boundary
+  - canon_scope
+  - non_authorizing_review
+decisions:
+  - decision_id: CD-001
+    title: Chunking policy and role separation are derived, not source truth
+    classification: text_neutral
+    task_ids: [T001, T302, T303, T304, T305]
+    owner_decision_ref: ROADMAP_STATE.yaml#T001
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [monolith_baseline]
+      surfaces: [docs/chunking, config/chunking, scripts/validate_all.py]
+    decision: "Chunks are derived retrieval artifacts; source text, stable IDs, provenance, and reviewed decisions outrank generated chunk boundaries."
+    downstream_risk: "Generated boundaries could be mistaken for theological or canonical truth."
+    theological_assumptions_avoided:
+      - "No chunk boundary is treated as doctrine."
+      - "No generated chunk label becomes canonical interpretation."
+    reviewed_gold_dependency: none
+    non_authorizations:
+      - raw_or_canonical_text_mutation
+      - doctrine_claim_from_chunk_boundary
+      - output_improvement_claim_without_same_baseline
+    validators:
+      - scripts/validate_all.py
+      - scripts/validate_control_plane.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-002
+    title: Raw USFM markers are evidence, not automatic boundary authority
+    classification: interpretive_boundary
+    task_ids: [T201, T316c]
+    owner_decision_ref: config/ingest/usfm_marker_coverage.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [marker_sensitive_routes]
+      surfaces: [config/ingest/usfm_marker_coverage.yaml, docs/patches/web_usfm_patch_2a]
+    decision: "USFM headings, paragraphs, poetry lines, superscriptions, Selah, cross-references, footnotes, and words-of-Jesus markers may inform review but do not automatically authorize speaker, boundary, doctrine, or intertextual claims."
+    downstream_risk: "Edition or translation formatting could be elevated into theological structure."
+    theological_assumptions_avoided:
+      - "Words-of-Jesus markers do not by themselves resolve speaker scope."
+      - "Selah and headings do not by themselves authorize Psalm splits."
+      - "Editorial cross-references do not become theological graph edges."
+    reviewed_gold_dependency: "Executable reviewed gold is required before output-changing marker-sensitive behavior."
+    non_authorizations:
+      - automatic_wj_speaker_boundary
+      - automatic_selah_split
+      - automatic_heading_split
+      - editorial_crossref_as_theological_edge
+    validators:
+      - scripts/validate_raw_coverage.py
+      - scripts/scan_raw_sources.py --check
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-003
+    title: Form-routed chunking skills must stay isolated
+    classification: interpretive_boundary
+    task_ids: [T310, T311, T315]
+    owner_decision_ref: docs/architecture/ADR-0011*
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [form_router, skill_registry, route_ledger]
+      surfaces: [pipelines/chunking, config/chunking, registry/chunking]
+    decision: "Chunking may evolve through form-routed, lifecycle-governed skills, but route facts stay isolated and candidate skills do not become default behavior without human approval."
+    downstream_risk: "A local form heuristic could leak globally and encode an unintended theological reading across unrelated books."
+    theological_assumptions_avoided:
+      - "Psalm rules do not become prophecy, Gospel, epistle, or Revelation rules."
+      - "Revelation/apocalypse rules do not become global chronology or symbolism rules."
+      - "Evaluator movement does not itself authorize behavior."
+    reviewed_gold_dependency: "Candidate-to-active and active-to-preferred transitions require reviewed gold plus human review."
+    non_authorizations:
+      - automatic_skill_promotion
+      - global_heuristic_leakage
+      - evaluator_only_improvement_claim
+    validators:
+      - scripts/validate_chunking_gold.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-004
+    title: Canonical 66-book scope controls Scripture chunking
+    classification: canon_scope
+    task_ids: [T327A, T327A1, T327A2, T327B, T327B1, T327C, T327D, T327E, T327F]
+    owner_decision_ref: config/canon/canonical_66_books.yaml
+    pr_refs: [PR-26, PR-27, PR-28, PR-29, PR-30, PR-31, PR-32]
+    affected_scope:
+      books: [canonical_66]
+      passages: [all_canonical_passages]
+      routes: [canonical_ingest, canonical_chunking, canonical_eval]
+      surfaces: [config/canon, pipelines/ingest, scripts/validate_canonical_66_scope.py, data/canonical, data/derived/chunks]
+    decision: "Canonical Scripture outputs, chunking, evaluator surfaces, and default retrieval must be limited to the owner-approved 66-book canon."
+    downstream_risk: "Noncanonical, deuterocanonical, front-matter, or glossary material could contaminate canonical Scripture outputs and downstream theology."
+    theological_assumptions_avoided:
+      - "Boundary or apocryphal texts do not become equal Scripture authority."
+      - "Raw archive breadth does not define canonical output scope."
+      - "Front matter and glossary records do not become Scripture chunks."
+    reviewed_gold_dependency: "Canonical-66 corpus QA and validator gates must pass before chunking baselines are trusted."
+    non_authorizations:
+      - boundary_import
+      - non_66_default_scripture_retrieval
+      - canonical_claim_from_front_matter
+      - t327g
+    validators:
+      - scripts/validate_canonical_66_scope.py
+      - scripts/qa_canonical_corpus.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-005
+    title: Post-T327 baseline reset is corpus correction, not theological improvement
+    classification: text_neutral
+    task_ids: [T331, T332, T336, T336B]
+    owner_decision_ref: docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md
+    pr_refs: [PR-35, PR-36, PR-43, PR-44]
+    affected_scope:
+      books: [canonical_66]
+      passages: [all_canonical_passages]
+      routes: [canonical_chunk_baseline, roadmap_sequence]
+      surfaces: [docs/roadmap, ROADMAP_STATE.yaml, eval/chunking_gold]
+    decision: "The post-T327 chunking roadmap prioritizes a governed canonical Bible chunker; baseline reset and roadmap sequencing do not themselves claim theological or quality improvement."
+    downstream_risk: "A cleanup or roadmap note could be overread as authorization for output-changing chunking behavior."
+    theological_assumptions_avoided:
+      - "Bible-first priority does not authorize noncanonical tuning."
+      - "Planning order does not approve a route or boundary."
+    reviewed_gold_dependency: "Every output-changing lane still needs executable reviewed gold and same-baseline evaluation."
+    non_authorizations:
+      - chunk_regeneration
+      - evaluator_formula_change
+      - leaderboard_update
+      - master_chunker_global_objective
+    validators:
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-006
+    title: Psalm 78 parent-child structural split is reviewed gold
+    classification: interpretive_boundary
+    task_ids: [T310, T315, T317, T319]
+    owner_decision_ref: eval/chunking_gold/per_form/psalms_manifest.json
+    pr_refs: []
+    affected_scope:
+      books: [Ps]
+      passages: [Ps.78.1-Ps.78.72]
+      routes: [psalm_poetry]
+      surfaces: [eval/chunking_gold/per_form/psalms_manifest.json]
+    decision: "Psalm 78 preserves the whole psalm as parent literary unit while recognizing reviewed child chunks Ps.78.1-69, Ps.78.70-71, and Ps.78.72."
+    downstream_risk: "The child split could be misread as bad fragmentation or as a global long-Psalm rule."
+    theological_assumptions_avoided:
+      - "A reviewed structural split does not deny whole-psalm unity."
+      - "Psalm 78 does not authorize global poetry or stanza behavior."
+    reviewed_gold_dependency: "Psalm gold manifest must keep the parent and exact child spans together."
+    non_authorizations:
+      - global_long_psalm_rule
+      - psalm_78_as_broad_psalm_optimizer
+      - evaluator_penalty_for_reviewed_structural_split
+    validators:
+      - scripts/validate_chunking_gold.py
+      - tests/test_chunker_gold.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-007
+    title: Psalm candidate skill guardrail is behavior-preserving until exact owner authorization
+    classification: non_authorizing_review
+    task_ids: [T333, T334, T335, T337]
+    owner_decision_ref: docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md
+    pr_refs: [PR-39, PR-40, PR-41, PR-45]
+    affected_scope:
+      books: [Ps]
+      passages: [Ps.23, Ps.78, Ps.89, Ps.105, Ps.106, Ps.119, Ps.136]
+      routes: [psalm_whole_then_stanza_candidate]
+      surfaces: [pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1, eval/chunking_gold/per_form/psalms_manifest.json]
+    decision: "The Psalm candidate skill may fail closed against reviewed Psalm evidence, but pending packets and guardrails do not authorize output changes."
+    downstream_risk: "Candidate metadata could be overread as broad Psalm optimization."
+    theological_assumptions_avoided:
+      - "Pending Psalm packets remain pending."
+      - "Reviewed current behavior is not a new behavior authorization."
+    reviewed_gold_dependency: "Output-changing Psalm work requires exact owner-reviewed gold."
+    non_authorizations:
+      - psalm_136_change
+      - broad_psalm_optimization
+      - global_poetry_rule
+    validators:
+      - tests/test_psalm_candidate_skill.py
+      - scripts/validate_chunking_gold.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-008
+    title: Psalm 89 Option C is the only authorized Psalm output change
+    classification: interpretive_boundary
+    task_ids: [T337A, T337B, T338, T339]
+    owner_decision_ref: docs/roadmap/T337B_PS89_OWNER_DECISION_OPTION_C.md
+    pr_refs: [PR-46, PR-47, PR-48, PR-49]
+    affected_scope:
+      books: [Ps]
+      passages: [Ps.89.1-Ps.89.52]
+      routes: [psalm_whole_then_stanza_candidate]
+      surfaces: [pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1, eval/chunking_gold/per_form/psalms_manifest.json]
+    decision: "Owner-approved Psalm 89 Option C keeps Ps.89.49-Ps.89.52 as one final child with Ps.89.52 labeled as Book III doxology scope note; no orphan Ps.89.52 split."
+    downstream_risk: "The decision could imply a doxology, Selah, lament, or long-Psalm rule outside Psalm 89."
+    theological_assumptions_avoided:
+      - "Book III doxology recognition does not become a global doxology split rule."
+      - "Psalm 89 structure does not become broad Psalm theology."
+    reviewed_gold_dependency: "Exact Psalm 89 owner decision and same-baseline evidence from T338/T339."
+    non_authorizations:
+      - global_doxology_rule
+      - global_selah_rule
+      - psalm_136_change
+      - whole_bible_improvement_claim
+    validators:
+      - tests/test_t340_psalm_candidate_decision.py
+      - tests/test_psalm_candidate_skill.py
+      - scripts/validate_chunking_gold.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-009
+    title: Psalm candidate skill remains unpromoted
+    classification: non_authorizing_review
+    task_ids: [T340, T340B, T340C, T340D]
+    owner_decision_ref: .ai/control/t340_psalm_candidate_promotion_decision.yaml
+    pr_refs: [PR-50, PR-52, PR-53, PR-54]
+    affected_scope:
+      books: [Ps]
+      passages: [Ps.89.1-Ps.89.52]
+      routes: [psalm_whole_then_stanza_candidate]
+      surfaces: [registry/chunking, pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1]
+    decision: "Retain the Psalm 89 route-isolated behavior but do not promote the Psalm candidate skill to approved, active, or preferred."
+    downstream_risk: "A single reviewed output-changing case could be overread as enough evidence for broad Psalm default behavior."
+    theological_assumptions_avoided:
+      - "One Psalm case does not authorize a broad Psalm hermeneutic."
+      - "Skill lifecycle status remains separate from reviewed target behavior."
+    reviewed_gold_dependency: "Additional reviewed Psalm evidence is required before reconsidering lifecycle promotion."
+    non_authorizations:
+      - approved_skill_registry_entry
+      - active_skill_route
+      - preferred_skill_default
+      - broad_psalm_optimization
+    validators:
+      - tests/test_t340_psalm_candidate_decision.py
+      - config/chunking/skill_lifecycle_policy.yaml
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-010
+    title: Revelation hard-book atlas is non-authorizing review only
+    classification: non_authorizing_review
+    task_ids: [T341]
+    owner_decision_ref: docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md
+    pr_refs: [PR-51]
+    affected_scope:
+      books: [Rev]
+      passages: [Rev.1.1-Rev.22.21]
+      routes: [monolith_fallback, future_revelation_review]
+      surfaces: [docs/roadmap/T341_REVELATION_HARD_BOOK_ATLAS.md, docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md]
+    decision: "Revelation structure candidates and observed chunk behavior are planning evidence only; no Revelation route, reviewed gold, output change, or apocalypse rule is authorized."
+    downstream_risk: "Revelation labels could encode chronology, recapitulation, Babylon identity, millennium interpretation, symbolic identity, or boundary-apocalyptic authority."
+    theological_assumptions_avoided:
+      - "No eschatological school is encoded by chunking labels."
+      - "Boundary/apocalyptic literature is not imported as context authority."
+      - "Observed chunks are not reviewed gold."
+    reviewed_gold_dependency: "Future T342-T345 sequence must create and approve one exact Revelation target before implementation."
+    non_authorizations:
+      - revelation_implementation
+      - global_apocalypse_rule
+      - boundary_apocalyptic_import
+      - eschatology_assumption
+    validators:
+      - tests/test_t341_revelation_atlas.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-011
+    title: Vector and graph-edge outputs are never truth
+    classification: theological_risk
+    task_ids: [T348]
+    owner_decision_ref: docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+    pr_refs: [PR-55]
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_vector_indexes, future_graph_edges]
+      routes: [future_retrieval_profiles, future_graph_edge_generation]
+      surfaces: [config/retrieval, schemas/*edge*, scripts/validate_vectorization_plan.py]
+    decision: "Vectors and graph edges are retrieval or relationship artifacts, never Scripture truth; source text, stable IDs, span maps, provenance, and reviewed decisions remain authoritative."
+    downstream_risk: "Model-inferred similarity or edge generation could be mistaken for doctrine, canon, or theological assertion."
+    theological_assumptions_avoided:
+      - "Embedding neighborhoods do not become doctrine."
+      - "Model-inferred edges do not become reviewed semantic claims."
+      - "Retrieval profiles do not tune canonical Scripture from non-Bible corpora."
+    reviewed_gold_dependency: "Embedding/index/edge work remains blocked behind MASTER_CONTEXT substrate gaps plus future owner decision."
+    non_authorizations:
+      - embedding_runs
+      - vector_index_builds
+      - graph_edge_generation
+      - default_retrieval_profile_promotion
+      - boundary_material_in_default_scripture_retrieval
+    validators:
+      - scripts/validate_vectorization_plan.py
+      - tests/test_t348_vectorization_contracts.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-012
+    title: Chunking theological decision register is mandatory and non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T349]
+    owner_decision_ref: .ai/control/chunking_theological_decision_register.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_chunking_decisions]
+      routes: [all_chunking_routes]
+      surfaces: [.ai/control/chunking_theological_decision_register.yaml, scripts/validate_chunking_theological_decision_register.py]
+    decision: "Future chunking, evaluator, gold, route, default-behavior, generated chunk, or relevant roadmap changes must update this register when the changed-path gate applies."
+    downstream_risk: "A future agent could make a seemingly technical chunking change without recording its theological or governance implications."
+    theological_assumptions_avoided:
+      - "Technical chunking changes are not presumed theologically neutral."
+      - "The register records decisions without granting implementation authority."
+    reviewed_gold_dependency: "Output-changing work still requires executable reviewed gold and explicit owner authorization for the exact target."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - skill_lifecycle_promotion
+      - boundary_import
+    validators:
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+no_impact_markers:
+  - marker_id: NI-001
+    task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
+    rationale: "Backfilled as control-plane, review, candidate-discovery, QA, or stress/observed-evidence work that did not itself authorize a downstream theological chunking decision beyond the explicit decisions recorded above."
+    validators:
+      - scripts/validate_all.py
+backfill_coverage:
+  required_task_ids:
+    - T000
+    - T001
+    - T100
+    - T201
+    - T300
+    - T301
+    - T302
+    - T303
+    - T304
+    - T305
+    - T306
+    - T307
+    - T308
+    - T309
+    - T310
+    - T311
+    - T315
+    - T316
+    - T316b
+    - T316c
+    - T317
+    - T318
+    - T319
+    - T327A
+    - T327A1
+    - T327A2
+    - T327B
+    - T327B1
+    - T327C
+    - T327D
+    - T327E
+    - T327F
+    - T328
+    - T328_MIRROR_PREP
+    - T328B
+    - T330
+    - T331
+    - T332
+    - T333
+    - T334
+    - T335
+    - T336
+    - T336B
+    - T337
+    - T337A
+    - T337B
+    - T338
+    - T339
+    - T340
+    - T340B
+    - T340C
+    - T340D
+    - T341
+    - T348
+    - T349
+...
