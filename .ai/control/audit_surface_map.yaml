@@ -1,0 +1,58 @@
+---
+object_type: audit_surface_map
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 during T344 after the maintainer requested a transparent no-context AI audit path after commit and push."
+reason_for_inclusion: "Make independent A/B review and red-team checks deterministic, repo-resident, and discoverable from the AI front door."
+---
+schema_version: audit_surface_map.v1
+map_id: no_context_ai_review_audit_surfaces
+owner: Lowell Wong
+authority:
+  records_audit_surfaces: true
+  authorizes_code_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_owner_decision: false
+required_entrypoints:
+  - AI_FRONT_DOOR.md
+  - .ai/audits/README.md
+  - .ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md
+  - .ai/audits/templates/REVIEW_REPORT_TEMPLATE.md
+  - .ai/audits/reports/README.md
+required_changelogs:
+  - .ai/control/roadmap_events.jsonl
+  - .ai/control/handoff_ledger.jsonl
+  - .ai/control/PROJECT_STATUS.md
+  - ROADMAP_STATE.yaml
+required_decision_surfaces:
+  - .ai/control/chunking_theological_decision_register.yaml
+  - .ai/control/bible_chunking_readiness_map.yaml
+  - .ai/control/chunking_agent_preflight.yaml
+  - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+required_harness:
+  - scripts/validate_audit_surface_map.py
+  - scripts/agent/no_context_audit_harness.py
+future_harness_roadmap: .ai/control/harness_upgrade_roadmap.yaml
+audit_dimensions:
+  - task_intent
+  - changed_files
+  - scope_boundaries
+  - protected_paths
+  - owner_decisions
+  - theological_downstream_decisions
+  - dependency_and_readiness_state
+  - lesson_capture
+  - non_authorizations
+  - validation_evidence
+  - next_action
+stop_conditions:
+  - chat_only_claim
+  - raw_or_canonical_mutation_without_authorization
+  - generated_chunk_or_evaluator_change_without_authorization
+  - pending_packet_treated_as_reviewed_gold
+  - owner_selection_docket_treated_as_owner_decision
+  - theological_downstream_decision_missing_register_entry
+  - master_context_changed_without_human_lock
+validator: scripts/validate_audit_surface_map.py
+...

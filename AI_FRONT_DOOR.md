@@ -35,6 +35,13 @@ Read these files before making changes:
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
+Independent reviewers or no-context A/B/red-team agents: after this front door, read
+`.ai/audits/README.md` and `.ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md`. Those files define the
+repo-resident audit path, required changelogs, review report location, validation commands, harness
+script, future harness-upgrade roadmap, and stop conditions. Reviewers must prove claims from repo
+files, git/PR state, logs, handoffs, decision registers, readiness maps, review packets, and
+validators rather than chat memory.
+
 ## Cross-repo governance
 
 This repository is the governed Scripture data-plane / knowledge-plane implementation
@@ -174,6 +181,7 @@ Owner-reserved authorization required: only Lowell Wong, as project owner, may a
 | Master context | `.ai/control/MASTER_CONTEXT.md` | **NO** — propose via `scripts/agent/propose_master_context_change.py` |
 | Project status | `.ai/control/PROJECT_STATUS.md` | Yes — after each task |
 | Task handoff | `.ai/handoffs/T###/handoff.md` | Yes — task agent only |
+| Audit reports | `.ai/audits/reports/` | Yes — independent review outputs; not authorization |
 | Agent work notes | `.ai/context/agent_work/` | Yes — non-authoritative |
 | Recommendations | `.ai/context/recommendations/` | Yes — proposals only |
 
@@ -198,6 +206,7 @@ python scripts/agent/validate_handoffs.py
 python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
+python scripts/validate_audit_surface_map.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.

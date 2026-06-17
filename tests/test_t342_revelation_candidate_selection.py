@@ -64,7 +64,9 @@ def test_t342_advances_state_to_t343_without_implementation_authority() -> None:
     assert tasks["T343"]["status"] == "complete"
     assert tasks["T343"]["required_handoff"] == ".ai/handoffs/T343/handoff.md"
     assert "T343" not in future
-    assert future["T344"]["status"] == "planned"
+    assert tasks["T344"]["status"] == "in_progress"
+    assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
+    assert "T344" not in future
     assert readiness["next_route"]["task_id"] == "T344"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False

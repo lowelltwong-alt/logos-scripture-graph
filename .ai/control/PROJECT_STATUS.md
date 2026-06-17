@@ -1,8 +1,23 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T343 Revelation review packets and metadata preflight (Codex)
-**Active task:** -> **T343** created a pending, non-authorizing Revelation review packet and gold-candidate surface for `Rev.12.1-Rev.14.20`, then added mandatory chunking-agent preflight enforcement so source metadata is read first and remains evidence only. Internal cross-references, Strong's-style word numbers, lexeme tags, lexical rarity, footnotes, headings, WJ/red-letter markers, paragraph/poetry markers, alternate readings, and edition formatting do not authorize Scripture truth, lexical truth, intertext claims, speaker attribution, graph edges, chunk boundaries, reviewed gold, output changes, or Revelation implementation. Next safe route is T344 owner selection only. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T344 Revelation owner-selection docket (Codex)
+**Active task:** -> **T344** opens the owner-selection docket for the pending `Rev.12.1-Rev.14.20` Revelation packet. Owner selection remains pending. The docket lists five options but does not select one, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T344 Revelation owner-selection docket (2026-06-17):** Added
+> `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md` as the exact decision surface for the
+> pending `Rev.12.1-Rev.14.20` Revelation packet. The docket offers five owner options:
+> `REV-T344-A` preserve current behavior, `REV-T344-B` promote parent-only reviewed gold,
+> `REV-T344-C` promote parent plus exact child spans, `REV-T344-D` mark characterization-only, or
+> `REV-T344-E` require more research. T344 is active but owner selection is still pending, so all
+> implementation, output-change, reviewed-gold, graph-edge, embedding/index, boundary-import,
+> source-metadata authority, and skill-promotion flags remain false. T344 also adds a no-context
+> audit harness (`.ai/audits/`, `.ai/control/audit_surface_map.yaml`,
+> `.ai/control/harness_upgrade_roadmap.yaml`, `scripts/agent/no_context_audit_harness.py`, and
+> `scripts/validate_audit_surface_map.py`) so a separate reviewer can reconstruct intent, changed
+> files, changelogs, decision surfaces, validation, future harness watch conditions, and likely
+> harness-upgrade candidates from repo state after commit/push. Control-plane/selection/audit-
+> harness only; no raw/canonical/generated chunk/evaluator/runtime work occurred.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected

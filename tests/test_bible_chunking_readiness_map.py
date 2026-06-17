@@ -56,6 +56,8 @@ def test_next_route_advances_to_t344_after_t343_packet_creation() -> None:
     assert data["next_route"]["task_id"] == "T344"
     assert data["next_route"]["route_type"] == "owner_target_selection"
     assert data["next_route"]["recommended_target"] == "Rev.12.1-Rev.14.20"
+    assert data["next_route"]["owner_selection_status"] == "pending"
+    assert data["next_route"]["selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
 

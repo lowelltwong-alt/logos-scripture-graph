@@ -65,6 +65,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md`](docs/roadmap/T341_REVELATION_OBSERVED_BEHAVIOR_AUDIT.md)
 - [`docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`](docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md)
 - [`docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`](docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md)
+- [`docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`](docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md)
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
@@ -76,6 +77,12 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 
 ## Workflows And Templates
 
+- [`.ai/audits/README.md`](.ai/audits/README.md) - no-context review and red-team audit entry point
+- [`.ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md`](.ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md) - independent reviewer instructions
+- [`.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`](.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md) - durable review report template
+- [`.ai/control/audit_surface_map.yaml`](.ai/control/audit_surface_map.yaml) - machine-readable audit surface map
+- [`.ai/control/harness_upgrade_roadmap.yaml`](.ai/control/harness_upgrade_roadmap.yaml) - future harness upgrade watchlist and roadmap
+- [`scripts/agent/no_context_audit_harness.py`](scripts/agent/no_context_audit_harness.py) - generates no-context audit briefs
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 
