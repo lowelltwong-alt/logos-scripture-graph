@@ -71,6 +71,35 @@ This applies to:
 - LawFirm exception-to-automation workflows;
 - cross-repo governance changes.
 
+## WORKFLOW-LESSON-003 - No-Context Review Requires A Repo-Resident Audit Path
+
+Independent review should not depend on chat memory, agent summaries, or a previous assistant's
+interpretation of its own work. If a separate AI or human reviewer needs to A/B check, red-team, or
+verify a branch after commit and push, the repo must provide a durable audit entry point and a
+harness that reconstructs the work from repo state.
+
+The required path is:
+
+- `AI_FRONT_DOOR.md`
+- `.ai/audits/README.md`
+- `.ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md`
+- `.ai/control/audit_surface_map.yaml`
+- `.ai/control/harness_upgrade_roadmap.yaml`
+- `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`
+- `.ai/audits/reports/`
+- `scripts/agent/no_context_audit_harness.py`
+
+The reviewer must reconstruct intent from roadmap state, project status, task files, handoffs, git
+diffs, PR metadata, roadmap events, handoff ledger, decision registers, readiness maps, review
+packets, and validation output. Chat-only rationale is unproven.
+
+When a task needs independent review, point the reviewer to `.ai/audits/README.md` through the AI
+front door and ask for findings-first output.
+
+If a review discovers a repeated manual check, local/CI mismatch, authorization ambiguity,
+protected-path risk, source-metadata authority risk, or cross-repo drift, update
+`.ai/control/harness_upgrade_roadmap.yaml` or record why no harness is needed.
+
 ## T327-LESSON-001 - Untracked Generated Outputs Move the Burden to Generator and CI
 
 T327C showed that `data/canonical/**` can be intentionally gitignored generated output. In that

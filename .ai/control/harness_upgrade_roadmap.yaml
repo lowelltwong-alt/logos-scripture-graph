@@ -1,0 +1,129 @@
+---
+object_type: harness_upgrade_roadmap
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 during T344 after the maintainer asked for future harness upgrades and watch conditions to be mapped explicitly."
+reason_for_inclusion: "Keep likely future audit, validation, and chunking harness needs visible so repeated issues become deterministic checks instead of recurring chat reminders."
+---
+schema_version: harness_upgrade_roadmap.v1
+map_id: future_audit_and_chunking_harness_upgrades
+owner: Lowell Wong
+authority:
+  records_future_harness_needs: true
+  authorizes_harness_implementation: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_owner_decision: false
+upgrade_policy:
+  promote_issue_to_harness_when:
+    - same_failure_or_warning_appears_in_multiple_tasks
+    - maintainer_has_to_repeat_context_the_repo_should_provide
+    - local_validation_and_ci_validation_disagree
+    - protected_path_or_scope_boundary_is_easy_to_miss
+    - pending_review_packet_or_owner_docket_could_be_misread_as_authorization
+    - theological_downstream_decision_could_hide_inside_a_technical_change
+    - generated_artifact_correctness_cannot_be_reviewed_from_diff_alone
+    - cross_repo_mirror_or_dependency_drift_could_break_governance
+    - validation_only_proves_a_string_not_the_actual_claim
+    - future_agent_would_need_the_same_manual_checklist_more_than_once
+  default_status_for_new_candidates: candidate_not_started
+  required_before_implementation:
+    - exact_scope
+    - failure_mode
+    - non_authorizations
+    - validator_or_test_plan
+    - no_raw_or_canonical_mutation_unless_task_authorizes_it
+candidate_harnesses:
+  - harness_id: HARN-001
+    title: Protected path and task-scope diff validator
+    status: candidate_not_started
+    trigger: "A PR touches paths outside .ai/tasks/<task_id>.task.yaml allowed_paths or touches forbidden_paths."
+    purpose: "Fail closed when a task changes raw/canonical/generated/runtime/evaluator/route surfaces without explicit scope."
+    likely_surfaces: [scripts/agent, scripts/validate_all.py, .ai/tasks]
+    non_authorizations: [raw_mutation, canonical_mutation, generated_chunk_change, evaluator_change]
+  - harness_id: HARN-002
+    title: Owner decision state consistency checker
+    status: candidate_not_started
+    trigger: "A packet, docket, register, readiness map, roadmap, or task file disagrees on owner selection, reviewed gold, or implementation flags."
+    purpose: "Prove pending, approved, characterization-only, and blocked states agree across review packet, docket, register, readiness map, task, and roadmap."
+    likely_surfaces: [eval/chunking_gold/review_packets, .ai/control, ROADMAP_STATE.yaml]
+    non_authorizations: [owner_decision, reviewed_gold_promotion, output_change]
+  - harness_id: HARN-003
+    title: Local versus CI parity harness
+    status: candidate_not_started
+    trigger: "A test passes locally but fails in GitHub Actions, or a harness depends on unavailable remote refs."
+    purpose: "Simulate CI checkout/base-ref behavior locally and require fail-soft audit output when refs are unavailable."
+    likely_surfaces: [scripts/agent, tests, .github/workflows]
+    non_authorizations: [ci_bypass, validation_skip]
+  - harness_id: HARN-004
+    title: No-context audit brief harness
+    status: implemented_v1
+    trigger: "An independent AI or human reviewer needs to audit a branch or PR without chat history."
+    purpose: "Generate branch/base/head, changed-file sections, required reads, validation commands, and red-team focus."
+    implemented_surfaces: [scripts/agent/no_context_audit_harness.py, .ai/audits, scripts/validate_audit_surface_map.py]
+    future_upgrade_needed: "Add direct PR metadata ingestion and optional persisted report generation after PR number is known."
+    non_authorizations: [owner_decision, reviewed_gold_promotion, output_change]
+  - harness_id: HARN-005
+    title: Review-packet authorization drift scanner
+    status: candidate_not_started
+    trigger: "A pending review packet or index entry gains language that could be read as reviewed gold or implementation authority."
+    purpose: "Scan review packets, indexes, and coverage docs for inconsistent authorization flags and risky approval wording."
+    likely_surfaces: [eval/chunking_gold/review_packets, eval/chunking_gold/README.md, eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md]
+    non_authorizations: [reviewed_gold_promotion, implementation_authority]
+  - harness_id: HARN-006
+    title: Source-metadata authority scanner
+    status: candidate_not_started
+    trigger: "A chunking, graph, route, review, or evaluator change cites cross-references, Strong's-style numbers, lexical rarity, headings, footnotes, WJ markers, or formatting."
+    purpose: "Detect language or code paths that turn source metadata from evidence into boundary, lexical, speaker, intertext, graph-edge, or truth authority."
+    likely_surfaces: [docs/methodology, eval/chunking_gold, pipelines, registry, .ai/control]
+    non_authorizations: [metadata_driven_boundary, automatic_cross_reference_edge, automatic_strongs_lexical_authority]
+  - harness_id: HARN-007
+    title: Route leakage and non-target identity harness
+    status: candidate_not_started
+    trigger: "A route-isolated implementation changes any non-target book, genre lane, or monolith fallback behavior."
+    purpose: "Compare pre/post routed outputs and prove exact target-only behavior for output-changing lane work."
+    likely_surfaces: [pipelines/chunking, registry/chunking, eval/chunking_runs]
+    non_authorizations: [global_rule_leakage, non_target_output_change]
+  - harness_id: HARN-008
+    title: Generated artifact reproducibility harness
+    status: candidate_not_started
+    trigger: "Correctness depends on ignored or regenerated artifacts rather than committed diffs."
+    purpose: "Capture exact command, config, input SHA, output SHA, counts, and protected-path fallout for generated surfaces."
+    likely_surfaces: [data/canonical, data/derived, eval, scripts]
+    non_authorizations: [silent_rebaseline, undocumented_generated_output_change]
+  - harness_id: HARN-009
+    title: Cross-repo mirror and governance dependency checker
+    status: candidate_not_started
+    trigger: "A lesson, governance dependency, or repo relationship contract must be mirrored across Logos repos."
+    purpose: "Verify child-repo mirrors and governance dependency maps agree without letting lower-trust repos rewrite higher authority."
+    likely_surfaces: [config/governance, docs/governance, .ai/control]
+    non_authorizations: [cross_repo_policy_override, boundary_layer_authority]
+  - harness_id: HARN-010
+    title: Lesson-capture and no-change-rationale checker
+    status: candidate_not_started
+    trigger: "A task touches methodology/workflow/review surfaces but does not update lessons, preflight, decision register, or handoff rationale."
+    purpose: "Require either a durable lesson update or explicit no-change rationale when a task discovers reusable process knowledge."
+    likely_surfaces: [.ai/control/chunking_agent_preflight.yaml, docs/methodology, .ai/handoffs]
+    non_authorizations: [chat_only_lesson]
+  - harness_id: HARN-011
+    title: Theological label risk scanner
+    status: candidate_not_started
+    trigger: "A chunk label, retrieval label, or review label could be mistaken for symbolic identity, doctrine, chronology, speaker attribution, or eschatological position."
+    purpose: "Flag labels that need non-authorizing wording or decision-register coverage before becoming route or output behavior."
+    likely_surfaces: [eval/chunking_gold, docs/roadmap, pipelines/chunking]
+    non_authorizations: [doctrine_from_label, eschatology_assumption]
+  - harness_id: HARN-012
+    title: Owner-selection-to-implementation gate harness
+    status: candidate_not_started
+    trigger: "A future task attempts T345 or any output-changing work after an owner-selection docket."
+    purpose: "Prove selected option, reviewed evidence, executable checks, decision register, readiness map, and non-target identity plan exist before implementation."
+    likely_surfaces: [.ai/tasks, .ai/control, eval/chunking_gold, pipelines/chunking]
+    non_authorizations: [implementation_without_owner_selection, reviewed_gold_without_evidence]
+watchlist:
+  - "If agents repeatedly ask what to read, upgrade the audit harness to emit exact file excerpts/line references."
+  - "If reviewers miss changed-path obligations, implement HARN-001 before the next output-changing PR."
+  - "If Revelation owner selection proceeds, implement HARN-012 before T345."
+  - "If source metadata is cited in implementation, implement HARN-006 before merging that PR."
+  - "If cross-repo governance mirrors resume, implement HARN-009 in the appropriate repo sequence."
+validator: scripts/validate_audit_surface_map.py
+...

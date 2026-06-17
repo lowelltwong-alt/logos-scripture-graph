@@ -79,5 +79,7 @@ def test_t337_roadmap_state_completed_and_t342_next_after_t341() -> None:
     assert tasks["T343"]["status"] == "complete"
     assert tasks["T343"]["required_handoff"] == ".ai/handoffs/T343/handoff.md"
     assert "T343" not in future
-    assert future["T344"]["status"] == "planned"
-    assert future["T344"]["title"] == "Select One Revelation Behavior Target"
+    assert tasks["T344"]["status"] == "in_progress"
+    assert tasks["T344"]["title"] == "Select One Revelation Behavior Target"
+    assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
+    assert "T344" not in future

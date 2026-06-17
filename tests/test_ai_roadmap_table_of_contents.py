@@ -39,3 +39,5 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/chunking_agent_preflight.yaml" in toc
     assert "T344 - Select One Revelation Behavior Target" in toc
     assert "Rev.12.1-Rev.14.20" in toc
+    assert "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md" in toc
+    assert "REV-T344-C promote parent plus exact child spans" in toc
