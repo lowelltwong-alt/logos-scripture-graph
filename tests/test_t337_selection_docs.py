@@ -73,5 +73,8 @@ def test_t337_roadmap_state_completed_and_t342_next_after_t341() -> None:
     assert "T339" not in future
     assert "T340" not in future
     assert "T341" not in future
-    assert future["T342"]["status"] == "planned"
-    assert future["T342"]["title"] == "Revelation Review-Packet Candidate Selection"
+    assert tasks["T342"]["status"] == "complete"
+    assert tasks["T342"]["required_handoff"] == ".ai/handoffs/T342/handoff.md"
+    assert "T342" not in future
+    assert future["T343"]["status"] == "planned"
+    assert future["T343"]["title"] == "Revelation Review Packets and Gold Candidates"

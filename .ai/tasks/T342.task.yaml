@@ -1,0 +1,63 @@
+id: T342
+phase: phase_4
+title: "Revelation Review-Packet Candidate Selection"
+mode: plan
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - AI_TABLE_OF_CONTENTS.md
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - scripts/validate_bible_chunking_readiness_map.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - .ai/control/chunking_theological_decision_register.yaml
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T342.task.yaml
+    - .ai/handoffs/T342/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  selected_target: Rev.12.1-Rev.14.20
+  selected_target_id: rev12_14_symbolic_scenes
+  revelation_implementation_allowed: false
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+  review_packet_created: false
+  boundary_import_allowed: false
+  boundary_apocryphal_material_import_allowed: false
+  global_rule_allowed: false
+  t327g_allowed: false
+  skill_lifecycle_promotion_allowed: false
+acceptance_criteria:
+  - "T342 selects exactly one Revelation target for T343 review-packet creation."
+  - "Selected target is Rev.12.1-Rev.14.20 / Rev.12-Rev.14."
+  - "T342 remains selection/control-plane only and creates no review packet or reviewed gold."
+  - "T342 keeps implementation_allowed, output_change_authorized, and reviewed_gold_promoted false."
+  - "The Bible readiness map advances the next route to T343 without authorizing implementation."
+  - "The local AI roadmap table of contents makes T337A and T342 artifact trails easy to find and links back to AI_TABLE_OF_CONTENTS.md."
+validation:
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python -m pytest -q tests/test_t342_revelation_candidate_selection.py tests/test_ai_roadmap_table_of_contents.py tests/test_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff: .ai/handoffs/T342/handoff.md
+next_task: "T343 Revelation review packets and gold candidates for Rev.12.1-Rev.14.20 only; no Revelation implementation."

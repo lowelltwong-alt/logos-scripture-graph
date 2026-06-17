@@ -77,10 +77,17 @@ lane_sequence:
   - lane_id: revelation_apocalyptic
     implementation_order: 7
     review_order: 1
-    current_state: atlas_done_review_packet_selection_next
+    current_state: t342_target_selected_packet_creation_next
     new_algorithm_work_ready: false
+    selected_review_target:
+      task_id: T342
+      target_id: rev12_14_symbolic_scenes
+      passage: Rev.12.1-Rev.14.20
+      packet_to_create_in: T343
+      implementation_allowed: false
+      output_change_authorized: false
+      reviewed_gold_promoted: false
     required_before_new_work:
-      - T342 select exactly one review target
       - T343 create pending review packet and gold candidates
       - T344 owner selects one exact target
       - reviewed gold with executable checks
@@ -147,11 +154,11 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T342
-  title: Revelation Review-Packet Candidate Selection
-  route_type: review_selection_only
+  task_id: T343
+  title: Revelation Review Packets and Gold Candidates
+  route_type: review_packet_and_gold_candidate_creation
   recommended_target: Rev.12-Rev.14
-  rationale: "T341 ranks Rev.12-Rev.14 first because it concentrates symbolic scenes, speaker shifts, and cycle/interlude risk."
+  rationale: "T342 selected Rev.12-Rev.14 because it concentrates symbolic scenes, speaker shifts, and cycle/interlude risk while remaining narrow enough for one non-authorizing review packet."
   output_change_authorized: false
   implementation_authorized: false
 update_triggers:

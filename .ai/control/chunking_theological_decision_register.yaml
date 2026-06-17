@@ -406,6 +406,39 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-014
+    title: Revelation Rev.12-Rev.14 selected for review-packet creation only
+    classification: non_authorizing_review
+    task_ids: [T342]
+    owner_decision_ref: docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md
+    pr_refs: []
+    affected_scope:
+      books: [Rev]
+      passages: [Rev.12.1-Rev.14.20]
+      routes: [future_revelation_review]
+      surfaces: [docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md]
+    decision: "Select Rev.12-Rev.14 as the single Revelation target for T343 pending review-packet and gold-candidate creation."
+    downstream_risk: "Target selection could be misread as approving Revelation boundaries, symbolic identities, chronology, recapitulation, or implementation momentum."
+    theological_assumptions_avoided:
+      - "Symbolic scene labels do not decide symbolic identities."
+      - "Cycle or interlude language does not decide chronology or recapitulation."
+      - "Selecting a target does not authorize a Revelation route or output change."
+    reviewed_gold_dependency: "T343 must create pending, non-authorizing packet/gold-candidate surfaces; owner-reviewed gold is still required before implementation."
+    non_authorizations:
+      - revelation_implementation
+      - revelation_route_behavior
+      - reviewed_gold_promotion
+      - output_change
+      - global_apocalypse_rule
+      - boundary_import
+      - boundary_apocalyptic_import
+    validators:
+      - tests/test_t342_revelation_candidate_selection.py
+      - tests/test_ai_roadmap_table_of_contents.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -470,4 +503,5 @@ backfill_coverage:
     - T348
     - T349
     - T350
+    - T342
 ...

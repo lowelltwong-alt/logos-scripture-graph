@@ -68,6 +68,17 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "master_chunker_global_objective",
 }
 
+ALLOWED_NEXT_ROUTES = {
+    "T342": {
+        "route_type": "review_selection_only",
+        "title": "Revelation Review-Packet Candidate Selection",
+    },
+    "T343": {
+        "route_type": "review_packet_and_gold_candidate_creation",
+        "title": "Revelation Review Packets and Gold Candidates",
+    },
+}
+
 
 class ReadinessMapError(ValueError):
     """Raised when the readiness map is invalid."""
@@ -197,10 +208,16 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     next_route = data["next_route"]
     if not isinstance(next_route, dict):
         raise ReadinessMapError(f"{_rel(path)}: next_route must be a mapping")
-    if next_route.get("task_id") != "T342":
-        raise ReadinessMapError(f"{_rel(path)}: next_route.task_id must be T342")
-    if next_route.get("route_type") != "review_selection_only":
-        raise ReadinessMapError(f"{_rel(path)}: next_route.route_type must be review_selection_only")
+    task_id = next_route.get("task_id")
+    if task_id not in ALLOWED_NEXT_ROUTES:
+        raise ReadinessMapError(
+            f"{_rel(path)}: next_route.task_id must be one of {sorted(ALLOWED_NEXT_ROUTES)}"
+        )
+    expected_route_type = ALLOWED_NEXT_ROUTES[task_id]["route_type"]
+    if next_route.get("route_type") != expected_route_type:
+        raise ReadinessMapError(
+            f"{_rel(path)}: next_route.route_type must be {expected_route_type} for {task_id}"
+        )
     if next_route.get("output_change_authorized") is not False:
         raise ReadinessMapError(f"{_rel(path)}: next_route.output_change_authorized must be false")
     if next_route.get("implementation_authorized") is not False:
