@@ -5,7 +5,7 @@
 - Status: `pending_human_review`
 - T342 selected target ID: `rev12_14_symbolic_scenes`
 - Stress atlas case ID: `rev12_18_vision_cycle`
-- Decision: pending
+- Decision: pending_human_review / requires_more_research_before_gold
 - Parent/child candidate: yes
 - Proposed parent unit candidate: `Rev.12.1-Rev.14.20`
 - Implementation allowed: false
@@ -13,6 +13,10 @@
 - Reviewed gold promoted: false
 
 This packet does not authorize output-changing work.
+
+T344 owner selection: Lowell Wong selected `REV-T344-E` on 2026-06-17. This packet remains
+pending and non-authorizing; Revelation work may continue as research/prep only until stronger
+governed evidence exists.
 
 ## Review Target
 
@@ -230,29 +234,39 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 
 - Deterministic tests should assert pending status and false authorization flags.
 - Review-packet indexes should list this packet as pending, not reviewed gold.
-- The readiness map should advance to T344 as owner target selection, not implementation.
+- The readiness map should advance to T344R as Revelation research/prep only, not implementation.
 
 ### Owner Decisions Needed
 
-- Owner must decide whether `Rev.12.1-Rev.14.20` is the reviewed parent unit.
-- Owner must decide whether to preserve current behavior, approve a parent-only unit, approve exact
-  child spans, or mark the packet characterization-only.
+- Owner selected `REV-T344-E`: require more research before reviewed-gold promotion or
+  implementation.
+- A later owner decision is still required before treating `Rev.12.1-Rev.14.20` as a reviewed
+  parent unit, approving parent-only gold, approving exact child spans, or marking the packet
+  characterization-only.
 - Owner must decide whether speaker/voice boundaries need a separate policy before Revelation gold.
 
 ## Human Review Decision Box
 
 ```yaml
 human_review_decision:
-  reviewer: null
-  date: null
-  decision: pending
+  reviewer: Lowell Wong
+  date: "2026-06-17"
+  decision: requires_more_research_before_gold
+  selected_option: REV-T344-E
   implementation_allowed: false
   output_change_authorized: false
   reviewed_gold_promoted: false
+  continuing_authorization:
+    revelation_research_prep_only: true
+    non_output_changing_harnesses: true
+    non_output_changing_review_packets: true
+    non_output_changing_lane_prep: true
+    next_review_lane_after_revelation_research_prep: epistle_argument_boundaries
   notes: >
-    T343 creates a pending, non-authorizing Revelation review packet and gold-candidate
-    surface for Rev.12.1-Rev.14.20 only. No reviewed gold, implementation authority,
-    route behavior, output change, evaluator change, generated output, boundary import,
-    T327G, embedding/index/edge work, graph-edge generation, whole-Bible output-changing
-    pass, or Psalm candidate promotion is authorized.
+    T344 owner selection requires more Revelation research before reviewed gold or
+    implementation. This remains a pending, non-authorizing Revelation review packet and
+    gold-candidate surface for Rev.12.1-Rev.14.20 only. No reviewed gold, implementation
+    authority, route behavior, output change, evaluator change, generated output, boundary
+    import, T327G, embedding/index/edge work, graph-edge generation, whole-Bible
+    output-changing pass, or Psalm candidate promotion is authorized.
 ```

@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_advances_state_to_t343_without_implementation_authority() -> None:
+def test_t342_and_t343_remain_complete_while_live_route_points_to_t344r() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -67,7 +67,8 @@ def test_t342_advances_state_to_t343_without_implementation_authority() -> None:
     assert tasks["T344"]["status"] == "in_progress"
     assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
     assert "T344" not in future
-    assert readiness["next_route"]["task_id"] == "T344"
+    assert readiness["next_route"]["task_id"] == "T344R"
+    assert readiness["next_route"]["selected_option"] == "REV-T344-E"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
 

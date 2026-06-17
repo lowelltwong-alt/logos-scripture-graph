@@ -37,7 +37,10 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md" in toc
     assert "eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md" in toc
     assert ".ai/control/chunking_agent_preflight.yaml" in toc
-    assert "T344 - Select One Revelation Behavior Target" in toc
+    assert "T344R - Revelation Research Prep After Owner Decision E" in toc
     assert "Rev.12.1-Rev.14.20" in toc
     assert "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md" in toc
-    assert "REV-T344-C promote parent plus exact child spans" in toc
+    assert ".ai/tasks/T344R.task.yaml" in toc
+    assert ".ai/handoffs/T344R/handoff.md" in toc
+    assert "REV-T344-E" in toc
+    assert "epistle argument boundaries" in toc

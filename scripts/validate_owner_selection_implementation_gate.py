@@ -113,6 +113,27 @@ def _implementation_attempted(t345_state: dict[str, Any], t345_task: Path) -> bo
     return t345_task.exists() or t345_state.get("status") in {"in_progress", "complete"}
 
 
+def _require_non_authorizing_revelation_state(
+    *,
+    auth: dict[str, Any],
+    docket_owner: dict[str, Any],
+    packet_decision: dict[str, Any],
+    selected_target: dict[str, Any],
+    next_route: dict[str, Any],
+) -> None:
+    for label, mapping, implementation_key in (
+        ("T344.authorization", auth, "revelation_implementation_allowed"),
+        ("T344 docket owner_selection", docket_owner, "implementation_allowed"),
+        ("review packet human_review_decision", packet_decision, "implementation_allowed"),
+        ("readiness selected_review_target", selected_target, "implementation_allowed"),
+    ):
+        _require_false(mapping, implementation_key, label)
+        _require_false(mapping, "output_change_authorized", label)
+        _require_false(mapping, "reviewed_gold_promoted", label)
+    _require_false(next_route, "implementation_authorized", "readiness.next_route")
+    _require_false(next_route, "output_change_authorized", "readiness.next_route")
+
+
 def _validate_harn_012(harness_roadmap: Path) -> None:
     data = _read_yaml(harness_roadmap)
     candidates = data.get("candidate_harnesses")
@@ -155,7 +176,7 @@ def validate_owner_selection_implementation_gate(
     roadmap_t344, t344_collection = _find_task(state, "T344")
     roadmap_t345, t345_collection = _find_task(state, "T345")
     if t344_collection != "tasks":
-        raise OwnerSelectionGateError("T344 must remain an active task while owner selection is pending")
+        raise OwnerSelectionGateError("T344 must remain an active task until the owner-selection gate is closed")
     if t345_collection != "future_sequence":
         raise OwnerSelectionGateError("T345 must remain in future_sequence until the gate is satisfied")
 
@@ -183,7 +204,9 @@ def validate_owner_selection_implementation_gate(
     selected_option = _selected_option(
         str(auth.get("selected_option")),
         str(docket_owner.get("selected_option")),
+        str(packet_decision.get("selected_option")),
         str(selected_target.get("selected_option")),
+        str(next_route.get("selected_option")),
         str(roadmap_t344.get("selected_option")),
     )
 
@@ -212,17 +235,13 @@ def validate_owner_selection_implementation_gate(
             raise OwnerSelectionGateError(
                 "T345 implementation cannot start while T344 owner selection is pending"
             )
-        for label, mapping, implementation_key in (
-            ("T344.authorization", auth, "revelation_implementation_allowed"),
-            ("T344 docket owner_selection", docket_owner, "implementation_allowed"),
-            ("review packet human_review_decision", packet_decision, "implementation_allowed"),
-            ("readiness selected_review_target", selected_target, "implementation_allowed"),
-        ):
-            _require_false(mapping, implementation_key, label)
-            _require_false(mapping, "output_change_authorized", label)
-            _require_false(mapping, "reviewed_gold_promoted", label)
-        _require_false(next_route, "implementation_authorized", "readiness.next_route")
-        _require_false(next_route, "output_change_authorized", "readiness.next_route")
+        _require_non_authorizing_revelation_state(
+            auth=auth,
+            docket_owner=docket_owner,
+            packet_decision=packet_decision,
+            selected_target=selected_target,
+            next_route=next_route,
+        )
         return {
             "gate_id": "HARN-012",
             "owner_selection_status": owner_status,
@@ -231,10 +250,74 @@ def validate_owner_selection_implementation_gate(
             "implementation_allowed": False,
         }
 
+    _require_equal(owner_status, "selected", "owner_selection_status")
+    _require_equal(roadmap_t344.get("status"), "in_progress", "ROADMAP_STATE.T344.status")
+    _require_equal(roadmap_t345.get("status"), "planned", "ROADMAP_STATE.T345.status")
+    _require_equal(roadmap_t345.get("requires_reviewed_gold"), True, "ROADMAP_STATE.T345.requires_reviewed_gold")
+    _require_equal(
+        roadmap_t345.get("requires_owner_selection_gate"),
+        VALIDATOR_PATH,
+        "ROADMAP_STATE.T345.requires_owner_selection_gate",
+    )
+
     if selected_option not in IMPLEMENTATION_OPTIONS and _implementation_attempted(roadmap_t345, t345_task):
         raise OwnerSelectionGateError(
             f"T345 implementation is not allowed for selected option {selected_option}"
         )
+
+    if selected_option not in IMPLEMENTATION_OPTIONS:
+        _require_non_authorizing_revelation_state(
+            auth=auth,
+            docket_owner=docket_owner,
+            packet_decision=packet_decision,
+            selected_target=selected_target,
+            next_route=next_route,
+        )
+        if selected_option == "REV-T344-E":
+            _require_equal(next_route.get("task_id"), "T344R", "readiness.next_route.task_id")
+            _require_equal(
+                next_route.get("route_type"),
+                "revelation_research_prep_only",
+                "readiness.next_route.route_type",
+            )
+            _require_equal(
+                packet_decision.get("decision"),
+                "requires_more_research_before_gold",
+                "review packet human_review_decision.decision",
+            )
+            _require_equal(
+                auth.get("revelation_research_prep_only_allowed"),
+                True,
+                "T344.authorization.revelation_research_prep_only_allowed",
+            )
+            _require_equal(
+                auth.get("next_review_lane_after_revelation_research_prep"),
+                "epistle_argument_boundaries",
+                "T344.authorization.next_review_lane_after_revelation_research_prep",
+            )
+            _require_equal(
+                next_route.get("next_review_lane_after_completion"),
+                "epistle_argument_boundaries",
+                "readiness.next_route.next_review_lane_after_completion",
+            )
+            for label, mapping in (
+                ("T344 docket owner_selection", docket_owner),
+                ("review packet human_review_decision", packet_decision),
+                ("ROADMAP_STATE.T344", roadmap_t344),
+            ):
+                continuing = mapping.get("continuing_authorization")
+                if not isinstance(continuing, dict):
+                    raise OwnerSelectionGateError(f"{label}.continuing_authorization must be a mapping")
+                _require_equal(
+                    continuing.get("revelation_research_prep_only"),
+                    True,
+                    f"{label}.continuing_authorization.revelation_research_prep_only",
+                )
+                _require_equal(
+                    continuing.get("next_review_lane_after_revelation_research_prep"),
+                    "epistle_argument_boundaries",
+                    f"{label}.continuing_authorization.next_review_lane_after_revelation_research_prep",
+                )
 
     if selected_option in IMPLEMENTATION_OPTIONS and _implementation_attempted(roadmap_t345, t345_task):
         for label, mapping, implementation_key in (

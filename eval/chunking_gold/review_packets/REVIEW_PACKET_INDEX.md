@@ -1,8 +1,9 @@
 # Review Packet Index And Promotion Queue
 
-Status: diagnostic/control surface with one later owner authorization. T319 did not authorize
+Status: diagnostic/control surface with later owner decisions. T319 did not authorize
 output-changing work or add reviewed gold; T337B later authorizes only the exact Psalm 89 Option C
-reviewed-gold target. This index does not change evaluator policy.
+reviewed-gold target, and T344 later authorizes only Revelation research/prep under REV-T344-E.
+This index does not change evaluator policy.
 
 Current post-T327 canonical-66 baseline is D / Claude pass2 = 93.6 under the unchanged T314 reviewed-structural-split evaluator policy. The prior 93.5 row is a pre-T327 wider-corpus baseline. This movement is corpus-scope correction / baseline reset, not chunking improvement.
 
@@ -48,7 +49,7 @@ The queue is a review queue, not an implementation queue. Every queued item has 
 | 15 | `john7_53_8_11_wj_variant_speech` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 16 | `mark16_9_20_longer_ending` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 17 | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `await_human_review` | `human_review_required` |
-| 18 | `rev12_14_symbolic_scenes` | `pending_human_review` | `await_human_review` | `human_review_required` |
+| 18 | `rev12_14_symbolic_scenes` | `pending_human_review` | `continue_revelation_research_prep` | `research_prep_before_gold` |
 | 19 | `ps136_refrain_litany` | `pending_human_review` | `await_human_review` | `human_review_required` |
 | 20 | `1chr1_9_primeval_genealogies` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
 | 21 | `1cor8_10_food_offered_to_idols` | `needs_review_packet` | `create_review_packet` | `create_review_packet_before_gold` |
@@ -89,7 +90,7 @@ These entries record existing reviewed decisions plus the later T337B Psalm 89 o
 | `packet_john7_53_8_11_textual_variant_review` | `john7_53_8_11_pericope_adulterae` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `speaker_review_required`, `variant_policy_before_gold` |
 | `packet_mark16_9_20_textual_variant_review` | `mark16_9_20_longer_ending` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `variant_policy_before_gold` |
 | `packet_matt5_7_wj_discourse_review` | `matt5_7_sermon_on_mount_wj_discourse` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `parent_child_structural_review`, `pending_packets_non_authorizing`, `speaker_review_required`, `wj_evidence_not_authority` |
-| `packet_rev12_14_symbolic_scenes_review` | `rev12_14_symbolic_scenes` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation`, `speaker_review_required`, `wj_evidence_not_authority` |
+| `packet_rev12_14_symbolic_scenes_review` | `rev12_14_symbolic_scenes` | `pending_human_review` | `requires_more_research_before_gold` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `rev_t344_e_research_only_non_authorizing`, `review_packet_required_before_implementation`, `speaker_review_required`, `wj_evidence_not_authority` |
 | `packet_ps136_boundary_review` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `pending_packets_non_authorizing`, `review_packet_required_before_implementation` |
 | `observed_ps89_royal_lament` | `ps89_royal_lament` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing`, `qs_evidence_not_boundary_authority` |
 | `observed_ps136_refrain_litany` | `ps136_refrain_litany` | `pending_human_review` | `pending` | `no_new_reviewed_gold_t319`, `observed_audit_non_authorizing`, `pending_packets_non_authorizing` |

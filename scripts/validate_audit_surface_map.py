@@ -200,6 +200,13 @@ def _validate_harness_roadmap(path: Path = HARNESS_ROADMAP) -> None:
                 raise AuditSurfaceError(f"{label}: missing {key}")
         if not isinstance(item["non_authorizations"], list) or not item["non_authorizations"]:
             raise AuditSurfaceError(f"{label}: non_authorizations must be a non-empty list")
+        if str(item["status"]).startswith("implemented"):
+            surfaces = item.get("implemented_surfaces")
+            if not isinstance(surfaces, list) or not surfaces:
+                raise AuditSurfaceError(f"{label}: implemented_surfaces must be a non-empty list")
+            missing = sorted(str(surface) for surface in surfaces if not (ROOT / str(surface)).exists())
+            if missing:
+                raise AuditSurfaceError(f"{label}: implemented_surfaces missing paths {missing}")
     if not isinstance(data["watchlist"], list) or not data["watchlist"]:
         raise AuditSurfaceError(f"{_rel(path)}: watchlist must be a non-empty list")
 

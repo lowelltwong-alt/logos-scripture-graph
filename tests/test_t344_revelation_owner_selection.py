@@ -26,25 +26,32 @@ def load_yaml(path: Path) -> dict:
     return yaml.safe_load(text)
 
 
-def test_t344_docket_lists_owner_options_without_selecting() -> None:
+def test_t344_docket_records_owner_selected_research_only_option() -> None:
     doc = read(DOC)
 
-    assert "owner_selection_status: pending" in doc
+    assert "owner_selection_status: selected" in doc
+    assert "selected_option: REV-T344-E" in doc
     assert "Rev.12.1-Rev.14.20" in doc
     for option in ["REV-T344-A", "REV-T344-B", "REV-T344-C", "REV-T344-D", "REV-T344-E"]:
         assert option in doc
     assert "Only one option may be selected." in doc
     assert "These spans are not approved unless the owner selects `REV-T344-C`." in doc
+    assert "Revelation work may continue as research, review-packet" in doc
 
 
-def test_t344_is_non_authorizing_until_owner_selection() -> None:
+def test_t344_selected_e_is_research_only_and_non_authorizing() -> None:
     doc = read(DOC)
     task = load_yaml(TASK)
     auth = task["authorization"]
 
     assert auth["owner_selection_required"] is True
-    assert auth["owner_selection_status"] == "pending"
-    assert auth["selected_option"] == "pending"
+    assert auth["owner_selection_status"] == "selected"
+    assert auth["selected_option"] == "REV-T344-E"
+    assert auth["revelation_research_prep_only_allowed"] is True
+    assert auth["non_output_changing_harnesses_allowed"] is True
+    assert auth["non_output_changing_review_packets_allowed"] is True
+    assert auth["non_output_changing_lane_prep_allowed"] is True
+    assert auth["next_review_lane_after_revelation_research_prep"] == "epistle_argument_boundaries"
     assert auth["revelation_implementation_allowed"] is False
     assert auth["output_change_authorized"] is False
     assert auth["reviewed_gold_promoted"] is False
@@ -80,18 +87,21 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert target["owner_selection_status"] == "pending"
-    assert target["selected_option"] == "pending"
+    assert target["owner_selection_status"] == "selected"
+    assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T344"
-    assert readiness["next_route"]["owner_selection_status"] == "pending"
+    assert readiness["next_route"]["task_id"] == "T344R"
+    assert readiness["next_route"]["route_type"] == "revelation_research_prep_only"
+    assert readiness["next_route"]["owner_selection_status"] == "selected"
+    assert readiness["next_route"]["selected_option"] == "REV-T344-E"
+    assert readiness["next_route"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert "CD-016" in register
-    assert "Revelation owner selection is required before reviewed gold or implementation" in register
+    assert "Revelation owner selected research-only before reviewed gold or implementation" in register
 
 
-def test_t344_moves_from_future_sequence_to_active_task() -> None:
+def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     state = load_yaml(ROADMAP_STATE)
     phase_4 = state["phases"]["phase_4"]
     tasks = {task["id"]: task for task in phase_4["tasks"]}
@@ -99,8 +109,12 @@ def test_t344_moves_from_future_sequence_to_active_task() -> None:
 
     assert tasks["T344"]["status"] == "in_progress"
     assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
-    assert tasks["T344"]["owner_selection_status"] == "pending"
+    assert tasks["T344"]["owner_selection_status"] == "selected"
+    assert tasks["T344"]["selected_option"] == "REV-T344-E"
     assert tasks["T344"]["output_change_authorized"] is False
     assert "T344" not in future
+    assert future["T344R"]["status"] == "planned"
+    assert future["T344R"]["lane"] == "revelation_research_prep"
+    assert future["T344R"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
     assert future["T345"]["status"] == "planned"
     assert future["T345"]["requires_owner_selection_gate"] == "scripts/validate_owner_selection_implementation_gate.py"

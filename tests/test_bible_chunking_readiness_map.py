@@ -50,14 +50,16 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
 
 
-def test_next_route_advances_to_t344_after_t343_packet_creation() -> None:
+def test_next_route_advances_to_t344r_after_selected_research_only_decision() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T344"
-    assert data["next_route"]["route_type"] == "owner_target_selection"
+    assert data["next_route"]["task_id"] == "T344R"
+    assert data["next_route"]["route_type"] == "revelation_research_prep_only"
     assert data["next_route"]["recommended_target"] == "Rev.12.1-Rev.14.20"
-    assert data["next_route"]["owner_selection_status"] == "pending"
+    assert data["next_route"]["owner_selection_status"] == "selected"
+    assert data["next_route"]["selected_option"] == "REV-T344-E"
     assert data["next_route"]["selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
+    assert data["next_route"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
 
