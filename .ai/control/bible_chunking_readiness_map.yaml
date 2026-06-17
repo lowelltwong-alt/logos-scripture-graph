@@ -1,0 +1,184 @@
+---
+object_type: bible_chunking_readiness_map
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time."
+reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
+---
+schema_version: bible_chunking_readiness_map.v1
+map_id: canonical_66_bible_chunking_readiness
+owner: Lowell Wong
+authority:
+  records_readiness: true
+  authorizes_chunk_output_change: false
+  authorizes_new_algorithm_work: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_skill_lifecycle_promotion: false
+  authorizes_boundary_import: false
+faithful_execution_model:
+  route: one_lane_at_a_time_under_bible_wide_map
+  rationale: "The destination is whole-Bible chunking, but faithful execution requires reviewed gold, route isolation, same-baseline evaluation, and decision-register updates per lane."
+  bible_wide_goal: "Highly reliable governed chunking for the canonical 66-book Bible."
+  implementation_rule: "Do not run a whole-Bible output-changing algorithm pass until enough route-isolated lanes have reviewed gold, promotion evidence, and non-target identity protections."
+lessons_storage:
+  status: active
+  surfaces:
+    - .ai/control/chunking_theological_decision_register.yaml
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md
+    - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+  rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
+current_baseline:
+  corpus_scope: canonical_66
+  corpus_records:
+    passages: 31103
+    witnesses: 31103
+  chunk_variant: "D / Claude pass2 post-T327 canonical-66 baseline"
+  chunk_count: 1131
+  chunk_sha256: 4c4e4d1f62de1951d13327830f55031bfed4f3464e8c86d75cc2410053e93025
+  evaluator_policy: "T314 reviewed-structural-split policy"
+  composite_score: 93.6
+  improvement_claim_allowed: false
+algorithm_readiness:
+  monolith_fallback:
+    status: baseline_active
+    role: "Current deterministic fallback for canonical chunking."
+    output_change_authorized: false
+  form_detector:
+    status: candidate_metadata_only
+    role: "Candidate form assignment sidecar; not authority."
+    output_change_authorized: false
+  orchestrator:
+    status: byte_identical_shim
+    role: "Route ledger and skill selection seam that must preserve route metadata outside chunk records."
+    output_change_authorized: false
+  psalm_candidate_skill:
+    status: candidate_hold
+    role: "Contains exact Psalm 89 route-isolated behavior, but the skill is not promoted to approved, active, or preferred."
+    output_change_authorized: false
+    next_safe_action: "Gather more reviewed Psalm evidence or leave held while Revelation review proceeds."
+  revelation_skill:
+    status: not_implemented
+    role: "Future route only after exact reviewed gold exists."
+    output_change_authorized: false
+lane_sequence:
+  - lane_id: psalms_poetry
+    implementation_order: 1
+    current_state: partial_exact_target_done_skill_not_promoted
+    new_algorithm_work_ready: false
+    required_before_new_work:
+      - exact reviewed gold for any new target
+      - non-target byte identity proof
+      - same-baseline evaluation
+      - owner promotion decision before lifecycle change
+    theological_risk: "Psalm unity, doxology, Selah, stanza, and long-psalm handling could become global poetry assumptions."
+  - lane_id: revelation_apocalyptic
+    implementation_order: 7
+    review_order: 1
+    current_state: atlas_done_review_packet_selection_next
+    new_algorithm_work_ready: false
+    required_before_new_work:
+      - T342 select exactly one review target
+      - T343 create pending review packet and gold candidates
+      - T344 owner selects one exact target
+      - reviewed gold with executable checks
+    theological_risk: "Chunk boundaries could imply chronology, recapitulation, symbolic identity, Babylon identity, millennium interpretation, or eschatological school."
+  - lane_id: epistle_argument
+    implementation_order: 2
+    current_state: needs_review_packets
+    new_algorithm_work_ready: false
+    candidate_cases:
+      - Eph.1.3-Eph.1.14
+      - Rom.9-Rom.11
+      - Heb.7-Heb.10
+      - 1Cor.8-1Cor.10
+    theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
+  - lane_id: narrative_pericope
+    implementation_order: 3
+    current_state: needs_review_packets
+    new_algorithm_work_ready: false
+    candidate_cases:
+      - Matt.1 genealogy
+      - Luke.3 genealogy
+      - Josh.13-Josh.21 land allotments
+      - 1Chr.1-1Chr.9 genealogies
+    theological_risk: "Pericope boundaries can isolate covenant, genealogy, fulfillment, or narrative causality."
+  - lane_id: wisdom_dialogue
+    implementation_order: 4
+    current_state: needs_atlas_then_review_packets
+    new_algorithm_work_ready: false
+    candidate_cases:
+      - Job.38-Job.41 divine speeches
+      - Prov.31.10-Prov.31.31
+      - Song
+      - Lamentations
+    theological_risk: "Dialogue, acrostic, and poetic structure could be flattened or overinterpreted."
+  - lane_id: prophetic_oracle
+    implementation_order: 5
+    current_state: needs_atlas_then_review_packets
+    new_algorithm_work_ready: false
+    candidate_cases:
+      - Isa.52.13-Isa.53.12
+      - Ezek.1
+      - Ezek.40-Ezek.48
+      - Zech.1-Zech.6
+    theological_risk: "Oracle, servant-song, temple-vision, and source/tradition boundaries can imply interpretive claims."
+  - lane_id: gospel_discourse_wj
+    implementation_order: 6
+    current_state: needs_speaker_policy_and_reviewed_gold
+    new_algorithm_work_ready: false
+    candidate_cases:
+      - John.3
+      - Matt.5-Matt.7
+      - Matt.24-Matt.25
+      - John.13-John.17
+    theological_risk: "Words-of-Jesus and speaker boundaries can encode speaker attribution or discourse scope without review."
+  - lane_id: bible_wide_orchestration
+    implementation_order: 8
+    current_state: blocked_until_lane_evidence_matures
+    new_algorithm_work_ready: false
+    required_before_new_work:
+      - multiple promoted or rejected lane attempts with evidence
+      - route ledger stability
+      - per-lane gold coverage
+      - cross-lane non-target identity checks
+      - decision register current for every theological downstream decision
+    theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
+next_route:
+  task_id: T342
+  title: Revelation Review-Packet Candidate Selection
+  route_type: review_selection_only
+  recommended_target: Rev.12-Rev.14
+  rationale: "T341 ranks Rev.12-Rev.14 first because it concentrates symbolic scenes, speaker shifts, and cycle/interlude risk."
+  output_change_authorized: false
+  implementation_authorized: false
+update_triggers:
+  - roadmap_sequence_change
+  - chunking_algorithm_change
+  - route_or_orchestrator_change
+  - skill_lifecycle_change
+  - reviewed_gold_change
+  - evaluator_or_leaderboard_change
+  - generated_chunk_surface_change
+  - lesson_or_methodology_change
+  - theological_decision_register_change
+explicit_non_authorizations:
+  - raw_or_canonical_mutation
+  - generated_chunk_regeneration
+  - chunk_output_change
+  - evaluator_formula_change
+  - leaderboard_or_scorecard_update
+  - revelation_implementation
+  - global_apocalypse_rule
+  - global_psalm_or_poetry_rule
+  - reviewed_gold_promotion
+  - skill_lifecycle_promotion
+  - embedding_run
+  - vector_index_build
+  - graph_edge_generation
+  - boundary_import
+  - t327g
+  - master_chunker_global_objective
+...

@@ -5,7 +5,7 @@
 - Status: Living / provisional
 - Owner: T310/T311 chunking workstream
 - Export status: Not ready for LawFirm OS final export
-- Last reviewed: 2026-06-09
+- Last reviewed: 2026-06-17
 - Must update when:
   - chunking algorithm changes
   - form detector changes
@@ -67,6 +67,8 @@ Confirmed:
   highest-priority substrate; Psalms are the current implementation lane because reviewed evidence
   and a candidate seam exist; Revelation moves early in atlas/review but not implementation until
   reviewed gold exists; route-specific skills must not leak globally.
+- T350 adds a machine-readable Bible-wide chunking readiness map. The goal is the whole canonical
+  66-book Bible, but the faithful route remains one reviewed, route-isolated lane at a time.
 
 Unknown or unfinished:
 
@@ -149,7 +151,9 @@ or treat route metadata as chunk/context content.
 22. Run the unintended-consequence review gate for high-leverage roadmap, authority, routing,
     evaluator, default-retrieval, generated-artifact, automation, cross-repo, or master-chunker
     changes.
-23. Repeat for next form.
+23. Keep `.ai/control/bible_chunking_readiness_map.yaml` current when a task changes lane sequence,
+    algorithm readiness, lesson storage, or the next safe route.
+24. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -537,6 +541,22 @@ tests or guards needed, and owner decisions needed. The full methodology lives i
 [`UNINTENDED_CONSEQUENCE_REVIEW.md`](UNINTENDED_CONSEQUENCE_REVIEW.md), and the named registry rule
 is `RISK-GATE-001`.
 
+## 10n. Bible-wide readiness map rule
+
+T350 adds `.ai/control/bible_chunking_readiness_map.yaml` as a non-authorizing readiness surface.
+
+Rules:
+
+- The whole canonical 66-book Bible remains the destination.
+- New algorithm work proceeds one reviewed lane at a time.
+- A readiness map does not authorize chunk output changes, reviewed-gold promotion, skill lifecycle
+  promotion, boundary import, embedding/index work, or graph-edge generation.
+- Lane readiness must name current state, prerequisites, and theological risk.
+- The next route must be explicit and non-authorizing unless a later owner decision promotes exact
+  reviewed gold.
+- If a task changes lane sequence, algorithm readiness, next safe route, or lesson-storage surfaces,
+  update the readiness map or record why no update was needed.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -683,3 +703,5 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
 - 2026-06-09: Added the T336B unintended-consequence review gate. High-leverage changes now need a
   risk map before merge, and future master chunkers must not optimize canonical Bible behavior
   against non-Bible training/eval cases or a shared cross-corpus objective.
+- 2026-06-17: Added the T350 Bible-wide readiness map lesson. Whole-Bible chunking remains the
+  destination, but new algorithm work must proceed one reviewed, route-isolated lane at a time.

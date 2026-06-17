@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T349 first-class chunking theological decision register (Codex)
-**Active task:** -> **T349** added a machine-readable, non-authorizing chunking theological decision register for chunking/evaluator/gold/route/default-behavior decisions with possible theological downstream effects. The register is fully backfilled through T348 by decision entries or no-impact markers, uses Nicene/Chalcedonian core as the default orthodoxy boundary, and is guarded by a validator wired into `validate_all`. No chunk algorithm, route behavior, reviewed-gold promotion, evaluator formula, generated output, raw/canonical data, boundary import, T327G, Revelation implementation, embedding/index/edge work, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T350 Bible-wide chunking readiness plan (Codex)
+**Active task:** -> **T350** added `.ai/control/bible_chunking_readiness_map.yaml` and `docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md` as non-authorizing readiness surfaces. The whole canonical 66-book Bible remains the destination, but new algorithm work proceeds one reviewed, route-isolated lane at a time. The map records current algorithm readiness, lane sequence, lesson-storage surfaces, and the next safe route: T342 Revelation review-packet candidate selection, recommended target Rev.12-Rev.14. No chunk algorithm, route behavior, reviewed-gold promotion, evaluator formula, generated output, raw/canonical data, boundary import, T327G, Revelation implementation, embedding/index/edge work, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion occurred. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T350 Bible-wide chunking readiness plan (2026-06-17):** Added
+> `.ai/control/bible_chunking_readiness_map.yaml` as a machine-readable, non-authorizing readiness
+> map for whole-Bible chunking. The map records the faithful route as one reviewed lane at a time
+> under the Bible-wide goal, names current algorithm surfaces, records lane readiness and theological
+> risks, points lesson storage to the workflow lessons, rules registry, supply chain, unintended
+> consequence review, review-packet index, and chunking theological decision register, and keeps
+> T342 as Revelation review-packet candidate selection only. Added
+> `scripts/validate_bible_chunking_readiness_map.py`, focused tests, validate_all integration,
+> T350 roadmap/task/handoff state, and a T350 decision-register entry. Control-plane only; no
+> output-changing chunking, reviewed-gold promotion, evaluator formula change, generated output,
+> raw/canonical mutation, boundary import, T327G, Revelation implementation, embedding/index/edge
+> work, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion.
 
 > **T349 first-class chunking theological decision register (2026-06-17):** Added
 > `.ai/control/chunking_theological_decision_register.yaml` as a machine-readable,

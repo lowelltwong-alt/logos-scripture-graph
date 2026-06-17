@@ -1,0 +1,59 @@
+id: T350
+phase: phase_4
+title: "Bible-wide chunking readiness plan"
+mode: plan
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - scripts/validate_bible_chunking_readiness_map.py
+    - tests/test_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T350.task.yaml
+    - .ai/handoffs/T350/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/chunks/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+authorization:
+  authorized:
+    - "Create a non-authorizing Bible-wide chunking readiness map and roadmap plan that keeps the whole canonical 66-book Bible as the destination while requiring one reviewed, route-isolated lane at a time."
+    - "Add deterministic validation for the readiness map and wire it into validate_all."
+    - "Update methodology and decision-register surfaces so the T350 readiness decision is not lost in chat context."
+  explicit_non_authorizations:
+    - "No chunk output changes."
+    - "No chunking algorithm or route behavior changes."
+    - "No generated chunk regeneration."
+    - "No reviewed-gold promotion."
+    - "No evaluator formula change."
+    - "No leaderboard or scorecard update."
+    - "No boundary import, T327G, Revelation implementation, embedding run, index build, graph-edge generation, whole-Bible output-changing pass, or Psalm candidate promotion."
+acceptance_criteria:
+  - "Readiness map records Bible-wide goal, faithful one-lane-at-a-time route, current algorithm readiness, lane sequence, lessons-storage surfaces, update triggers, next safe route, and explicit non-authorizations."
+  - "Validator fails closed if the readiness map becomes authorizing, omits required lanes/surfaces, or changes the next route away from T342 review selection."
+  - "Roadmap plan states whether lessons are being stored and why one-lane-at-a-time is more faithful than a global pass."
+  - "The chunking theological decision register records the T350 planning decision."
+validation:
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python -m pytest -q tests/test_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff: .ai/handoffs/T350/handoff.md
+next_task: "T342 Revelation review-packet candidate selection only; recommended target Rev.12-Rev.14; no Revelation implementation."
