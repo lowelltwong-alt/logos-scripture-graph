@@ -18,6 +18,10 @@ Read these files before making changes:
 9. `docs/chunking/CHUNKING_DESIGN.md`
 10. For chunking-related work: `.ai/control/METHODOLOGY_UPDATE_RULES.md` and
     `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
+10. For any ingest, chunking, review-packet, evaluator, route, graph, or retrieval work:
+    `.ai/control/chunking_agent_preflight.yaml` and
+    `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
+    Source metadata is evidence, not authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
@@ -193,6 +197,7 @@ python scripts/validate_repository_link_contract.py
 python scripts/agent/validate_handoffs.py
 python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
+python scripts/validate_chunking_agent_preflight.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
@@ -206,6 +211,13 @@ The whole pipeline exists to ingest, chunk, and graph the **raw source documents
 under `data/raw/`. The actual job is defined by what those files really contain
 (USFM markers, Strong's lexeme tags, words-of-Jesus `\wj`, alternate readings
 `\fqa`, superscriptions `\d`, poetry `\q*`, footnotes, cross-references).
+
+For any ingest, chunking, review-packet, evaluator, route, graph, or retrieval work, agents must
+first read `.ai/control/chunking_agent_preflight.yaml`. Source metadata is evidence, not authority:
+internal cross-references, Strong's-style word numbers, lexeme tags, footnotes, headings, red-letter
+or `\wj` markers, paragraph/poetry markers, alternate readings, and edition formatting may be
+preserved and surfaced for review, but they do not automatically authorize Scripture truth, lexical
+truth, intertext claims, speaker attribution, graph edges, chunk boundaries, or output changes.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

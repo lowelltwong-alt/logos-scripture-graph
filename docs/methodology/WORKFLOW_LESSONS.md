@@ -2,7 +2,7 @@
 
 Status: living control-plane lesson collector
 Owner: methodology / roadmap governance
-Last updated: 2026-06-09
+Last updated: 2026-06-17
 
 This file collects reusable workflow lessons that apply across generated artifacts, control-plane
 surfaces, boundary-source intake, and adjacent operational systems. It is not canonical Scripture
@@ -155,6 +155,47 @@ Required posture:
 - Record theological-downstream decisions in the chunking theological decision register.
 - Update this lesson collector or record a no-change rationale when an increment teaches a reusable
   workflow lesson.
+
+## BIBLE-CHUNKING-WORKFLOW-LESSON-003 - Source Metadata Must Be Read First And Kept Non-Authorizing
+
+Every chunking agent must read the chunking-agent preflight and source-metadata rule before doing
+chunking, review-packet, evaluator, route, graph, or ingest work. The raw Bible source includes
+metadata such as internal cross-references, Strong's-style Hebrew/Greek word numbers, lexeme tags,
+footnotes, headings, words-of-Jesus markers, paragraph/poetry markers, alternate readings, and other
+edition formatting.
+
+That metadata must be preserved as provenance-bearing evidence, but it must not become automatic
+Scripture authority, lexical authority, intertext authority, speaker authority, graph-edge
+authority, or chunk-boundary authority. If a future task wants any metadata type to influence
+output-changing behavior, it needs owner review, reviewed gold or equivalent governed evidence,
+explicit scope, tests, and a decision-register entry.
+
+Enforcement surfaces:
+
+- `.ai/control/chunking_agent_preflight.yaml`
+- `scripts/validate_chunking_agent_preflight.py`
+- `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`
+- `.ai/control/chunking_theological_decision_register.yaml` decision `CD-015`
+
+## BIBLE-CHUNKING-WORKFLOW-LESSON-004 - Midflight Lessons Must Feed Back Into Preflight
+
+A task has learned a durable lesson when the maintainer has to remind the agent of context the repo
+should already provide, when an agent discovers that required context was missing from preflight or
+handoff, or when the same warning would otherwise need to be repeated across future tasks.
+
+Treat the issue as a lesson candidate when it could recur and it affects source metadata authority,
+theology, canon scope, speaker attribution, intertext claims, graph edges, output changes, reviewed
+gold, or chunking workflow. The closeout question is: What did this task teach that future chunking
+agents must receive before or during similar work?
+
+Required routing:
+
+- If future agents must know it before work starts, update `.ai/control/chunking_agent_preflight.yaml`.
+- If agents must do or check it during work, update `.ai/workflows/chunking-skill-supply-chain.workflow.md`.
+- If it is a reusable chunking rule, update the methodology/rules registry.
+- If it can create theological downstream effects, update the chunking theological decision register.
+- If it is machine-checkable, add or update a validator/test.
+- If no durable surface changes, record the no-change rationale in the task handoff.
 
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 

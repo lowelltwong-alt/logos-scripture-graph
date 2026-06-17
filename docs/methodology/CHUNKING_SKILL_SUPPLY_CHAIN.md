@@ -69,6 +69,10 @@ Confirmed:
   reviewed gold exists; route-specific skills must not leak globally.
 - T350 adds a machine-readable Bible-wide chunking readiness map. The goal is the whole canonical
   66-book Bible, but the faithful route remains one reviewed, route-isolated lane at a time.
+- T343 makes source metadata non-authority explicit for future chunking work. Internal
+  cross-references, Strong's-style word numbers, lexeme tags, footnotes, headings, WJ markers,
+  paragraph/poetry markers, alternate readings, and edition formatting must be read before chunking
+  work, preserved as evidence, and kept subordinate to reviewed decisions.
 
 Unknown or unfinished:
 
@@ -114,46 +118,49 @@ or treat route metadata as chunk/context content.
 
 ## 5. Current workflow algorithm
 
-0. Protect raw/canonical source.
-1. Establish trusted baseline.
-2. Capture baseline hashes and scorecard.
-3. Detect text form as candidate metadata.
-4. Build skill registry / TOC / graph.
-5. Add byte-identical orchestrator shim.
-6. Extract candidate skill without changing output.
-7. Add per-form gold/eval anchors and label their maturity: scaffold, reviewed executable gold,
+0. Run chunking-agent preflight: read `.ai/control/chunking_agent_preflight.yaml`,
+   `RAW_SOURCE_INVENTORY.md`, `config/ingest/usfm_marker_coverage.yaml`,
+   `LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`, and the decision register.
+1. Protect raw/canonical source.
+2. Establish trusted baseline.
+3. Capture baseline hashes and scorecard.
+4. Detect text form as candidate metadata.
+5. Build skill registry / TOC / graph.
+6. Add byte-identical orchestrator shim.
+7. Extract candidate skill without changing output.
+8. Add per-form gold/eval anchors and label their maturity: scaffold, reviewed executable gold,
    characterization-only, or pending human review.
-8. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
+9. Promote only settled cases into executable/reviewed gold. Keep characterization-only evidence out
    of approved expected-output assertions.
-9. Validate gold manifest maturity before relying on it for evaluator or output-changing work.
-10. Use stress atlases only for target selection and review planning until cases become reviewed
+10. Validate gold manifest maturity before relying on it for evaluator or output-changing work.
+11. Use stress atlases only for target selection and review planning until cases become reviewed
    gold, characterization-only evidence, or pending-human-review packets.
-11. Treat pending review packets as decision surfaces: they can record current chunks, marker
+12. Treat pending review packets as decision surfaces: they can record current chunks, marker
    evidence, risks, and possible alternatives, but they are not approved expected output.
-12. When both whole-unit unity and internal structure matter, model parent literary units plus child
+13. When both whole-unit unity and internal structure matter, model parent literary units plus child
    structural chunks instead of forcing a merge-or-fragmentation binary.
-13. Sanity-check the evaluator against target-form evidence.
-14. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
+14. Sanity-check the evaluator against target-form evidence.
+15. If the evaluator is confounded, fix it in a separate evaluator PR and re-baseline before any
    score-moving skill attempt.
-15. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
+16. Attempt one narrow improvement only after executable/reviewed gold covers the target behavior and
    non-target controls.
-16. Promote only if target-form output evidence beats fallback without regressions.
-17. Record provenance, route ledger, and staleness triggers.
-18. Update this methodology.
-19. If the task exposes a reusable generated-artifact, boundary-intake, or candidate-promotion
+17. Promote only if target-form output evidence beats fallback without regressions.
+18. Record provenance, route ledger, and staleness triggers.
+19. Update this methodology.
+20. If the task exposes a reusable generated-artifact, boundary-intake, or candidate-promotion
     workflow rule, update `docs/methodology/WORKFLOW_LESSONS.md` or record why no update was needed.
-20. Keep book-specific and genre-specific skills route-isolated so Revelation assumptions do not
+21. Keep book-specific and genre-specific skills route-isolated so Revelation assumptions do not
     leak into Psalms, Psalm marker rules do not leak into prophets, and speaker/WJ assumptions do
     not leak into apocalyptic work.
-21. Keep future boundary/noncanonical/legal/commentary/master-chunker adaptations subordinate to
+22. Keep future boundary/noncanonical/legal/commentary/master-chunker adaptations subordinate to
     canonical Bible chunking; split or rebuild a separate harness if adaptation would degrade the
     Bible chunker.
-22. Run the unintended-consequence review gate for high-leverage roadmap, authority, routing,
+23. Run the unintended-consequence review gate for high-leverage roadmap, authority, routing,
     evaluator, default-retrieval, generated-artifact, automation, cross-repo, or master-chunker
     changes.
-23. Keep `.ai/control/bible_chunking_readiness_map.yaml` current when a task changes lane sequence,
+24. Keep `.ai/control/bible_chunking_readiness_map.yaml` current when a task changes lane sequence,
     algorithm readiness, lesson storage, or the next safe route.
-24. Repeat for next form.
+25. Repeat for next form.
 
 ## 6. Required artifacts
 
@@ -180,6 +187,7 @@ or treat route metadata as chunk/context content.
 
 - `python scripts/validate_all.py`
 - `python -m pytest -q`
+- `python scripts/validate_chunking_agent_preflight.py`
 - `python scripts/validate_chunking_gold.py` is included in `validate_all.py` when per-form gold
   manifests are present.
 - Raw and canonical data remain untouched.
@@ -557,6 +565,28 @@ Rules:
 - If a task changes lane sequence, algorithm readiness, next safe route, or lesson-storage surfaces,
   update the readiness map or record why no update was needed.
 
+## 10o. Chunking-agent preflight and source-metadata rule
+
+T343 makes the source-metadata lesson explicit and machine-checked for future chunking agents.
+
+Rules:
+
+- Before chunking, review-packet, evaluator, route, graph, or ingest work, agents must read
+  `.ai/control/chunking_agent_preflight.yaml`.
+- The preflight requires `RAW_SOURCE_INVENTORY.md`, `config/ingest/usfm_marker_coverage.yaml`,
+  `LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`, and
+  `.ai/control/chunking_theological_decision_register.yaml`.
+- Internal cross-references, Strong's-style Hebrew/Greek word numbers, lexeme tags, footnotes,
+  headings, WJ/red-letter markers, paragraph/poetry markers, alternate readings, and edition
+  formatting are evidence only.
+- Source metadata may be preserved, indexed, surfaced for review, and cited as provenance-bearing
+  evidence, but it must not become automatic Scripture authority, lexical authority, intertext
+  authority, speaker authority, graph-edge authority, or chunk-boundary authority.
+- Any output-changing use of source metadata requires owner review, exact reviewed evidence/gold,
+  decision-register coverage, and tests.
+- `scripts/validate_chunking_agent_preflight.py` runs in `validate_all.py` to fail closed if this
+  preflight contract or the metadata rule is removed.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -705,3 +735,8 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
   against non-Bible training/eval cases or a shared cross-corpus objective.
 - 2026-06-17: Added the T350 Bible-wide readiness map lesson. Whole-Bible chunking remains the
   destination, but new algorithm work must proceed one reviewed, route-isolated lane at a time.
+- 2026-06-17: Added the T343 chunking-agent preflight and source-metadata rule. Future chunking
+  agents must read the preflight first; internal cross-references, Strong's-style numbers, lexeme
+  tags, footnotes, headings, WJ markers, paragraph/poetry markers, alternate readings, and edition
+  formatting are evidence only, not authority for lexical claims, intertexts, speaker attribution,
+  graph edges, chunk boundaries, or output changes.

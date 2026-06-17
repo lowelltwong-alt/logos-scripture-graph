@@ -149,6 +149,19 @@ evaluator, or skill behavior can change. Marker evidence remains evidence, not a
 authority. Psalm 89 authorization is exact-target only and does not authorize global Selah,
 blank-line, doxology, poetry, or long-Psalm rules.
 
+## T343 Pending Revelation Review Packet
+
+T343 adds one Revelation review packet and gold-candidate surface for the T342-selected target.
+
+| Case | Packet | Status | Current evidence summary |
+| --- | --- | --- | --- |
+| Rev.12.1-Rev.14.20 | `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` | `pending_human_review` | Current observed behavior splits the target across three apocalypse chunks and mixes it with extra context; symbolic-scene, speaker/voice, chronology, and recapitulation evidence remains diagnostic only. |
+
+The Revelation packet is not reviewed gold, not approved expected output, and not authorization for
+output-changing work. It records candidate parent/child options and review questions only. Any
+future Revelation implementation requires an explicit owner decision, exact reviewed spans,
+executable checks, same-baseline evaluation, and non-target identity proof.
+
 ## T318 Observed Stress Behavior Audit
 
 T318 adds a diagnostic-only observed behavior audit for every stress-atlas case:
