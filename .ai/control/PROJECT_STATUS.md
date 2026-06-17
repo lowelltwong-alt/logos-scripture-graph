@@ -26,6 +26,9 @@
 > `validate_all` to keep T345 planned and non-authorized while T344 owner selection is pending, and
 > to fail closed if T345/output-changing work starts before selected reviewed evidence agrees across
 > the docket, task, review packet, readiness map, roadmap state, and harness roadmap.
+> Post-merge audit report:
+> `.ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md` records the merged PR #62
+> HARN-012 state, no findings, and the remaining T344 owner-selection requirement.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected
