@@ -18,6 +18,10 @@
 > files, changelogs, decision surfaces, validation, future harness watch conditions, and likely
 > harness-upgrade candidates from repo state after commit/push. Control-plane/selection/audit-
 > harness only; no raw/canonical/generated chunk/evaluator/runtime work occurred.
+> Follow-up audit report:
+> `.ai/audits/reports/20260617-T344-codex-post-merge.md` records a post-merge no-context review
+> of PR #60, no P0-P2 findings, one fixed stale-focus wording issue, and the still-pending T344
+> owner selection.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected
