@@ -207,6 +207,7 @@ python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_audit_surface_map.py
+python scripts/validate_owner_selection_implementation_gate.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.

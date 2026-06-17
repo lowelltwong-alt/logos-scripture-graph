@@ -1,0 +1,280 @@
+#!/usr/bin/env python3
+"""Validate that owner-selection dockets cannot be treated as implementation authority."""
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+ROADMAP_STATE = ROOT / "ROADMAP_STATE.yaml"
+T344_TASK = ROOT / ".ai" / "tasks" / "T344.task.yaml"
+T345_TASK = ROOT / ".ai" / "tasks" / "T345.task.yaml"
+READINESS_MAP = ROOT / ".ai" / "control" / "bible_chunking_readiness_map.yaml"
+HARNESS_ROADMAP = ROOT / ".ai" / "control" / "harness_upgrade_roadmap.yaml"
+T344_DOCKET = ROOT / "docs" / "roadmap" / "T344_REVELATION_OWNER_SELECTION_DOCKET.md"
+REVIEW_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "rev12_14_symbolic_scenes_review.md"
+VALIDATOR_PATH = "scripts/validate_owner_selection_implementation_gate.py"
+
+OWNER_OPTIONS = {"REV-T344-A", "REV-T344-B", "REV-T344-C", "REV-T344-D", "REV-T344-E"}
+IMPLEMENTATION_OPTIONS = {"REV-T344-B", "REV-T344-C"}
+
+
+class OwnerSelectionGateError(ValueError):
+    """Raised when owner-selection and implementation state disagree."""
+
+
+def _rel(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise OwnerSelectionGateError(f"{_rel(path)}: unreadable: {exc}") from exc
+
+
+def _read_yaml(path: Path) -> dict[str, Any]:
+    try:
+        text = _read_text(path)
+        if text.startswith("---\n"):
+            parts = text.split("---\n", 2)
+            if len(parts) == 3:
+                text = parts[1] + "\n" + parts[2]
+        data = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        raise OwnerSelectionGateError(f"{_rel(path)}: YAML unreadable: {exc}") from exc
+    if not isinstance(data, dict):
+        raise OwnerSelectionGateError(f"{_rel(path)}: expected a YAML mapping")
+    return data
+
+
+def _extract_markdown_yaml(path: Path, required_key: str) -> dict[str, Any]:
+    text = _read_text(path)
+    blocks = re.findall(r"```yaml\s*\n(.*?)\n```", text, flags=re.DOTALL)
+    for block in blocks:
+        try:
+            data = yaml.safe_load(block)
+        except yaml.YAMLError as exc:
+            raise OwnerSelectionGateError(f"{_rel(path)}: fenced YAML unreadable: {exc}") from exc
+        if isinstance(data, dict) and required_key in data:
+            value = data[required_key]
+            if not isinstance(value, dict):
+                raise OwnerSelectionGateError(f"{_rel(path)}: {required_key} must be a mapping")
+            return value
+    raise OwnerSelectionGateError(f"{_rel(path)}: missing fenced YAML key {required_key}")
+
+
+def _find_task(state: dict[str, Any], task_id: str) -> tuple[dict[str, Any], str]:
+    phases = state.get("phases")
+    if not isinstance(phases, dict):
+        raise OwnerSelectionGateError("ROADMAP_STATE.yaml: phases must be a mapping")
+    for phase in phases.values():
+        if not isinstance(phase, dict):
+            continue
+        for collection_name in ("tasks", "future_sequence"):
+            collection = phase.get(collection_name, [])
+            if not isinstance(collection, list):
+                continue
+            for task in collection:
+                if isinstance(task, dict) and task.get("id") == task_id:
+                    return task, collection_name
+    raise OwnerSelectionGateError(f"ROADMAP_STATE.yaml: missing task {task_id}")
+
+
+def _require_false(mapping: dict[str, Any], key: str, label: str) -> None:
+    if mapping.get(key) is not False:
+        raise OwnerSelectionGateError(f"{label}.{key} must be false")
+
+
+def _require_equal(actual: Any, expected: Any, label: str) -> None:
+    if actual != expected:
+        raise OwnerSelectionGateError(f"{label} must be {expected!r}, got {actual!r}")
+
+
+def _selected_option(*values: str) -> str:
+    unique = set(values)
+    if len(unique) != 1:
+        raise OwnerSelectionGateError(f"selected_option surfaces disagree: {sorted(unique)}")
+    selected = values[0]
+    if selected != "pending" and selected not in OWNER_OPTIONS:
+        raise OwnerSelectionGateError(f"selected_option {selected!r} is not a valid T344 option")
+    return selected
+
+
+def _implementation_attempted(t345_state: dict[str, Any], t345_task: Path) -> bool:
+    return t345_task.exists() or t345_state.get("status") in {"in_progress", "complete"}
+
+
+def _validate_harn_012(harness_roadmap: Path) -> None:
+    data = _read_yaml(harness_roadmap)
+    candidates = data.get("candidate_harnesses")
+    if not isinstance(candidates, list):
+        raise OwnerSelectionGateError(f"{_rel(harness_roadmap)}: candidate_harnesses must be a list")
+    harn_012 = next(
+        (item for item in candidates if isinstance(item, dict) and item.get("harness_id") == "HARN-012"),
+        None,
+    )
+    if harn_012 is None:
+        raise OwnerSelectionGateError(f"{_rel(harness_roadmap)}: missing HARN-012")
+    _require_equal(harn_012.get("status"), "implemented_v1", "HARN-012.status")
+    surfaces = harn_012.get("implemented_surfaces")
+    if not isinstance(surfaces, list) or VALIDATOR_PATH not in surfaces:
+        raise OwnerSelectionGateError(f"HARN-012.implemented_surfaces must include {VALIDATOR_PATH}")
+    if "implementation_without_owner_selection" not in harn_012.get("non_authorizations", []):
+        raise OwnerSelectionGateError("HARN-012.non_authorizations missing implementation_without_owner_selection")
+
+
+def validate_owner_selection_implementation_gate(
+    *,
+    roadmap_state: Path = ROADMAP_STATE,
+    t344_task: Path = T344_TASK,
+    t345_task: Path = T345_TASK,
+    readiness_map: Path = READINESS_MAP,
+    harness_roadmap: Path = HARNESS_ROADMAP,
+    docket: Path = T344_DOCKET,
+    review_packet: Path = REVIEW_PACKET,
+) -> dict[str, Any]:
+    """Return a compact state summary when the owner-selection gate is valid."""
+
+    _validate_harn_012(harness_roadmap)
+
+    state = _read_yaml(roadmap_state)
+    task = _read_yaml(t344_task)
+    readiness = _read_yaml(readiness_map)
+    docket_owner = _extract_markdown_yaml(docket, "owner_selection")
+    packet_decision = _extract_markdown_yaml(review_packet, "human_review_decision")
+
+    roadmap_t344, t344_collection = _find_task(state, "T344")
+    roadmap_t345, t345_collection = _find_task(state, "T345")
+    if t344_collection != "tasks":
+        raise OwnerSelectionGateError("T344 must remain an active task while owner selection is pending")
+    if t345_collection != "future_sequence":
+        raise OwnerSelectionGateError("T345 must remain in future_sequence until the gate is satisfied")
+
+    auth = task.get("authorization")
+    if not isinstance(auth, dict):
+        raise OwnerSelectionGateError(f"{_rel(t344_task)}: authorization must be a mapping")
+    if auth.get("owner_selection_required") is not True:
+        raise OwnerSelectionGateError("T344.authorization.owner_selection_required must be true")
+
+    lanes = readiness.get("lane_sequence")
+    if not isinstance(lanes, list):
+        raise OwnerSelectionGateError(f"{_rel(readiness_map)}: lane_sequence must be a list")
+    by_lane = {lane.get("lane_id"): lane for lane in lanes if isinstance(lane, dict)}
+    revelation_lane = by_lane.get("revelation_apocalyptic")
+    if not isinstance(revelation_lane, dict):
+        raise OwnerSelectionGateError(f"{_rel(readiness_map)}: missing revelation_apocalyptic lane")
+    selected_target = revelation_lane.get("selected_review_target")
+    if not isinstance(selected_target, dict):
+        raise OwnerSelectionGateError("revelation_apocalyptic.selected_review_target must be a mapping")
+
+    next_route = readiness.get("next_route")
+    if not isinstance(next_route, dict):
+        raise OwnerSelectionGateError(f"{_rel(readiness_map)}: next_route must be a mapping")
+
+    selected_option = _selected_option(
+        str(auth.get("selected_option")),
+        str(docket_owner.get("selected_option")),
+        str(selected_target.get("selected_option")),
+        str(roadmap_t344.get("selected_option")),
+    )
+
+    owner_statuses = {
+        str(auth.get("owner_selection_status")),
+        str(selected_target.get("owner_selection_status")),
+        str(next_route.get("owner_selection_status")),
+        str(roadmap_t344.get("owner_selection_status")),
+    }
+    if len(owner_statuses) != 1:
+        raise OwnerSelectionGateError(f"owner_selection_status surfaces disagree: {sorted(owner_statuses)}")
+    owner_status = owner_statuses.pop()
+
+    if selected_option == "pending" or owner_status == "pending":
+        _require_equal(selected_option, "pending", "selected_option")
+        _require_equal(owner_status, "pending", "owner_selection_status")
+        _require_equal(roadmap_t344.get("status"), "in_progress", "ROADMAP_STATE.T344.status")
+        _require_equal(roadmap_t345.get("status"), "planned", "ROADMAP_STATE.T345.status")
+        _require_equal(roadmap_t345.get("requires_reviewed_gold"), True, "ROADMAP_STATE.T345.requires_reviewed_gold")
+        _require_equal(
+            roadmap_t345.get("requires_owner_selection_gate"),
+            VALIDATOR_PATH,
+            "ROADMAP_STATE.T345.requires_owner_selection_gate",
+        )
+        if _implementation_attempted(roadmap_t345, t345_task):
+            raise OwnerSelectionGateError(
+                "T345 implementation cannot start while T344 owner selection is pending"
+            )
+        for label, mapping, implementation_key in (
+            ("T344.authorization", auth, "revelation_implementation_allowed"),
+            ("T344 docket owner_selection", docket_owner, "implementation_allowed"),
+            ("review packet human_review_decision", packet_decision, "implementation_allowed"),
+            ("readiness selected_review_target", selected_target, "implementation_allowed"),
+        ):
+            _require_false(mapping, implementation_key, label)
+            _require_false(mapping, "output_change_authorized", label)
+            _require_false(mapping, "reviewed_gold_promoted", label)
+        _require_false(next_route, "implementation_authorized", "readiness.next_route")
+        _require_false(next_route, "output_change_authorized", "readiness.next_route")
+        return {
+            "gate_id": "HARN-012",
+            "owner_selection_status": owner_status,
+            "selected_option": selected_option,
+            "t345_status": roadmap_t345.get("status"),
+            "implementation_allowed": False,
+        }
+
+    if selected_option not in IMPLEMENTATION_OPTIONS and _implementation_attempted(roadmap_t345, t345_task):
+        raise OwnerSelectionGateError(
+            f"T345 implementation is not allowed for selected option {selected_option}"
+        )
+
+    if selected_option in IMPLEMENTATION_OPTIONS and _implementation_attempted(roadmap_t345, t345_task):
+        for label, mapping, implementation_key in (
+            ("T344.authorization", auth, "revelation_implementation_allowed"),
+            ("T344 docket owner_selection", docket_owner, "implementation_allowed"),
+            ("review packet human_review_decision", packet_decision, "implementation_allowed"),
+            ("readiness selected_review_target", selected_target, "implementation_allowed"),
+        ):
+            if mapping.get(implementation_key) is not True:
+                raise OwnerSelectionGateError(f"{label}.{implementation_key} must be true before T345")
+            if mapping.get("output_change_authorized") is not True:
+                raise OwnerSelectionGateError(f"{label}.output_change_authorized must be true before T345")
+            if mapping.get("reviewed_gold_promoted") is not True:
+                raise OwnerSelectionGateError(f"{label}.reviewed_gold_promoted must be true before T345")
+        return {
+            "gate_id": "HARN-012",
+            "owner_selection_status": owner_status,
+            "selected_option": selected_option,
+            "t345_status": roadmap_t345.get("status"),
+            "implementation_allowed": True,
+        }
+
+    return {
+        "gate_id": "HARN-012",
+        "owner_selection_status": owner_status,
+        "selected_option": selected_option,
+        "t345_status": roadmap_t345.get("status"),
+        "implementation_allowed": False,
+    }
+
+
+def main() -> int:
+    try:
+        validate_owner_selection_implementation_gate()
+    except OwnerSelectionGateError as exc:
+        print(f"Owner-selection implementation gate validation failed: {exc}", file=sys.stderr)
+        return 1
+    print("Owner-selection implementation gate validation passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

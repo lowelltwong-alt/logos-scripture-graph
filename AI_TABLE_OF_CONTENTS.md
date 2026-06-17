@@ -83,6 +83,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/audit_surface_map.yaml`](.ai/control/audit_surface_map.yaml) - machine-readable audit surface map
 - [`.ai/control/harness_upgrade_roadmap.yaml`](.ai/control/harness_upgrade_roadmap.yaml) - future harness upgrade watchlist and roadmap
 - [`scripts/agent/no_context_audit_harness.py`](scripts/agent/no_context_audit_harness.py) - generates no-context audit briefs
+- [`scripts/validate_owner_selection_implementation_gate.py`](scripts/validate_owner_selection_implementation_gate.py) - HARN-012 gate blocking T345/output-changing work until owner selection and governed evidence agree
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 
