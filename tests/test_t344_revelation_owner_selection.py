@@ -90,11 +90,12 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T344R"
-    assert readiness["next_route"]["route_type"] == "revelation_research_prep_only"
+    assert readiness["next_route"]["task_id"] == "T351"
+    assert readiness["next_route"]["route_type"] == "bible_wide_research_triage"
     assert readiness["next_route"]["owner_selection_status"] == "selected"
     assert readiness["next_route"]["selected_option"] == "REV-T344-E"
-    assert readiness["next_route"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
+    assert readiness["next_route"]["requires_triage_before_lane_selection"] is True
+    assert readiness["next_route"]["next_review_lane_after_completion"] == "select_from_review_packet_ready_lanes"
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert "CD-016" in register
@@ -107,14 +108,14 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     tasks = {task["id"]: task for task in phase_4["tasks"]}
     future = {task["id"]: task for task in phase_4["future_sequence"]}
 
-    assert tasks["T344"]["status"] == "in_progress"
+    assert tasks["T344"]["status"] == "complete"
     assert tasks["T344"]["required_handoff"] == ".ai/handoffs/T344/handoff.md"
     assert tasks["T344"]["owner_selection_status"] == "selected"
     assert tasks["T344"]["selected_option"] == "REV-T344-E"
     assert tasks["T344"]["output_change_authorized"] is False
     assert "T344" not in future
-    assert future["T344R"]["status"] == "planned"
-    assert future["T344R"]["lane"] == "revelation_research_prep"
-    assert future["T344R"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
+    assert tasks["T351"]["status"] == "in_progress"
+    assert tasks["T351"]["lane"] == "bible_wide_research_triage"
+    assert tasks["T351"]["next_review_lane_after_completion"] == "select_from_review_packet_ready_lanes"
     assert future["T345"]["status"] == "planned"
     assert future["T345"]["requires_owner_selection_gate"] == "scripts/validate_owner_selection_implementation_gate.py"

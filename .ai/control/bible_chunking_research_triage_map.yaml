@@ -1,0 +1,233 @@
+---
+object_type: bible_chunking_research_triage_map
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-17 during T351 after the owner asked whether the whole Bible should be researched and triaged before more chunking."
+reason_for_inclusion: "Keep the Bible-wide pre-chunking research triage deterministic, reviewable, and non-authorizing before selecting the next chunking lane."
+---
+schema_version: bible_chunking_research_triage_map.v1
+map_id: canonical_66_pre_chunking_research_triage
+owner: Lowell Wong
+authority:
+  records_research_triage: true
+  authorizes_chunk_output_change: false
+  authorizes_new_algorithm_work: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_revelation_implementation: false
+  authorizes_graph_or_vector_work: false
+  authorizes_boundary_import: false
+triage_rule: "Research and classify the canonical 66 Bible before more chunking algorithm work; then choose one review lane at a time from reviewed evidence."
+allowed_triage_statuses:
+  - review_packet_ready
+  - research_first
+  - governed_hold
+  - implementation_blocked
+global_non_authorizations:
+  - raw_or_canonical_mutation
+  - generated_chunk_regeneration
+  - chunk_output_change
+  - reviewed_gold_promotion
+  - evaluator_formula_change
+  - leaderboard_or_scorecard_update
+  - graph_edge_generation
+  - embedding_or_vector_work
+  - boundary_import
+  - t327g
+  - t345_revelation_implementation
+evidence_rules:
+  source_metadata: "Evidence only; never boundary, lexical, speaker, intertext, graph-edge, truth, or output authority."
+  cross_references: "Canonical intertext candidates only; never automatic graph edges or chunk-boundary authority."
+  original_language: "Requires governed source, morphology, lemma normalization, and corpus-count policy; lexical rarity is not original-language authority and cannot influence review until governed."
+  headings_and_formatting: "Edition evidence only; never Scripture authority or automatic discourse structure."
+  speaker_markers: "Diagnostic evidence only; require reviewed speaker policy before chunk authority."
+  theological_labels: "Retrieval labels must remain descriptive and text-local; they must not select a theological school."
+lanes:
+  - lane_id: psalms_poetry
+    canonical_scope: "Psalms and adjacent poetry controls already used in Psalm-route work."
+    triage_status: governed_hold
+    current_evidence: "Reviewed Psalm gold, Psalm 89 route-isolated work, same-baseline evaluation, and non-promotion decision already exist."
+    why_not_chunk_now: "Psalm candidate skill remains unpromoted; more evidence is useful before lifecycle promotion or broader poetry generalization."
+    review_packet_candidates:
+      - Ps.136 refrain/litany
+      - additional long Psalm controls
+    research_questions:
+      - "Which Psalm evidence generalizes only within Psalms, and which must stay target-specific?"
+      - "What non-target poetry controls are enough before promotion?"
+    downstream_theological_risks:
+      - "Psalm unity, superscriptions, Selah, doxology, stanza, lament/praise movement, and refrain patterns can become global poetry assumptions."
+    next_action: "Hold as governed evidence; do not promote skill without owner decision and broader controls."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: revelation_apocalyptic
+    canonical_scope: "Revelation, starting from Rev.12.1-Rev.14.20 packet."
+    triage_status: research_first
+    current_evidence: "T343 pending packet and T344 REV-T344-E owner decision require more research before gold or implementation."
+    why_not_chunk_now: "Boundaries can imply chronology, recapitulation, symbolic identity, seven-church scope, millennium interpretation, or eschatological school."
+    review_packet_candidates:
+      - Rev.12.1-Rev.14.20 research-prep expansion
+      - seven churches address pattern
+      - seals/trumpets/bowls structural comparison
+    research_questions:
+      - "Which repeated openings and voice transitions are observable discourse evidence without deciding chronology?"
+      - "How should Daniel, Ezekiel, Zechariah, Exodus, Psalms, and Gospel apocalyptic parallels be recorded as evidence only?"
+      - "What metadata, Strong's-style numbers, and Greek rarity claims must be blocked until original-language governance exists?"
+    downstream_theological_risks:
+      - "Chronology, recapitulation, interlude status, symbolic identity, Babylon identity, millennium interpretation, and intertext authority."
+    next_action: "Continue research/prep only; no T345 implementation."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: epistle_argument
+    canonical_scope: "Pauline, general, and Hebrews argument/discourse units."
+    triage_status: review_packet_ready
+    current_evidence: "Candidate cases are known; risk is argument-boundary review rather than pre-review research blockade."
+    why_not_chunk_now: "Argument boundaries can shift doctrinal context or sever exhortation from theological grounds."
+    review_packet_candidates:
+      - Eph.1.3-Eph.1.14
+      - Rom.9-Rom.11
+      - Heb.7-Heb.10
+      - 1Cor.8-1Cor.10
+    research_questions:
+      - "How should long Greek sentences, quotations, catenae, therefore/for transitions, and exhortation/doctrine movement be described without deciding a doctrinal system?"
+    downstream_theological_risks:
+      - "Election, Israel/church relation, covenant theology, perseverance, sacrament/ethics, and doctrine/application boundaries."
+    next_action: "Create review packets after T351 selects the next lane; do not implement."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: narrative_pericope
+    canonical_scope: "Old Testament narrative, Gospel narrative, Acts narrative, genealogies, lists, and land allotments."
+    triage_status: review_packet_ready
+    current_evidence: "Known candidate cases can be packetized from canonical structure without deep pre-research."
+    why_not_chunk_now: "Pericope boundaries can isolate covenant context, fulfillment, genealogy, speech, or narrative causality."
+    review_packet_candidates:
+      - Matt.1 genealogy
+      - Luke.3 genealogy
+      - Josh.13-Josh.21 land allotments
+      - 1Chr.1-1Chr.9 genealogies
+      - Acts speech-plus-narrative samples
+    research_questions:
+      - "Which narrative seams are scene changes, speech transitions, genealogy/list forms, or covenant context markers?"
+    downstream_theological_risks:
+      - "Fulfillment context, covenant continuity, chronology, genealogy scope, speech attribution, and narrative causality."
+    next_action: "Create representative review packets after the first post-triage lane is selected."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: legal_covenant
+    canonical_scope: "Torah law, covenant stipulations, case law, ritual instructions, and covenant renewal material."
+    triage_status: review_packet_ready
+    current_evidence: "Canonical form categories are visible, but need review packets before any route."
+    why_not_chunk_now: "Law boundaries can imply covenant theology, moral/ceremonial/civil taxonomies, or continuity/discontinuity claims."
+    review_packet_candidates:
+      - Exod.20-Decalogue context
+      - Exod.21-23 case-law sample
+      - Lev.16 Day of Atonement
+      - Deut.27-Deut.30 covenant renewal
+    research_questions:
+      - "How can form and covenant-context markers be captured without imposing later theological taxonomies?"
+    downstream_theological_risks:
+      - "Law/gospel relation, covenant continuity, typology, ritual/moral category boundaries, and fulfillment claims."
+    next_action: "Create review packets only after higher-priority lanes are chosen."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: wisdom_dialogue
+    canonical_scope: "Job, Proverbs, Ecclesiastes, Song, and Lamentations/acrostic-adjacent wisdom poetry."
+    triage_status: research_first
+    current_evidence: "Candidate cases exist, but dialogue, speaker shifts, acrostic form, and poetic voices need more research before packet authority."
+    why_not_chunk_now: "Dialogue or poetic speaker boundaries can encode theological stance or flatten canonical form."
+    review_packet_candidates:
+      - Job.38-Job.41 divine speeches
+      - Prov.31.10-Prov.31.31
+      - Ecclesiastes discourse samples
+      - Song speaker/poetic-unit samples
+      - Lamentations acrostic poems
+    research_questions:
+      - "How should speaker shifts, dialogue cycles, acrostics, refrains, and poetic voice be preserved without speaker-overclaiming?"
+    downstream_theological_risks:
+      - "Divine/human speech attribution, wisdom voice, gender/bridal allegory, lament unity, and poetic form authority."
+    next_action: "Research first; then create tightly scoped review packets."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: prophetic_oracle
+    canonical_scope: "Major and minor prophets, servant songs, visions, oracles, woe/judgment/salvation units."
+    triage_status: research_first
+    current_evidence: "Known candidates include servant-song, throne/temple visions, and night visions, but oracle boundaries are high-risk."
+    why_not_chunk_now: "Oracle divisions can imply fulfillment, messianic scope, Israel/church relation, temple interpretation, or source structure."
+    review_packet_candidates:
+      - Isa.52.13-Isa.53.12
+      - Ezek.1
+      - Ezek.40-Ezek.48
+      - Zech.1-Zech.6
+      - Dan.10-Dan.12
+    research_questions:
+      - "Which oracle formulas, vision openings, messenger speeches, and poetic forms are observable without deciding fulfillment systems?"
+    downstream_theological_risks:
+      - "Messianic fulfillment, temple interpretation, exile/restoration, apocalyptic chronology, and source/tradition boundaries."
+    next_action: "Research-first atlas before review packet promotion."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: gospel_discourse_wj
+    canonical_scope: "Gospel discourses, parables, WJ/red-letter spans, and speaker-boundary cases."
+    triage_status: research_first
+    current_evidence: "WJ packets exist but remain pending; speaker attribution policy is still needed."
+    why_not_chunk_now: "Speaker boundaries and red-letter markers can silently decide who is speaking or where discourse begins/ends."
+    review_packet_candidates:
+      - John.3
+      - Matt.5-Matt.7
+      - Matt.24-Matt.25
+      - John.13-John.17
+      - parable clusters in Luke
+    research_questions:
+      - "How should WJ markers, punctuation, paragraphing, and narrative framing be weighed without becoming speaker authority?"
+    downstream_theological_risks:
+      - "Speaker attribution, discourse unity, eschatological discourse boundaries, parable grouping, and Gospel harmonization assumptions."
+    next_action: "Research speaker policy first; review packets remain non-authorizing."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: textual_variant_source_tradition
+    canonical_scope: "Major textual variants and source/tradition uncertainty surfaces."
+    triage_status: research_first
+    current_evidence: "Known packets/cases include Mark 16, John 7:53-8:11, Jeremiah MT/LXX, Deut 32:8-9, and Jude/Enoch examples."
+    why_not_chunk_now: "Variant boundaries can imply textual-critical decisions or source-tradition authority."
+    review_packet_candidates:
+      - Mark.16.9-Mark.16.20
+      - John.7.53-John.8.11
+      - Jeremiah MT/LXX divergence sample
+      - Deut.32.8-Deut.32.9
+      - Jude.5-Jude.15
+    research_questions:
+      - "What variant/source-tradition policy is required before any variant-sensitive chunk boundary can be reviewed?"
+    downstream_theological_risks:
+      - "Canon/text authority, variant inclusion, source preference, noncanonical-source overreach, and footnote authority."
+    next_action: "Policy/research first; no output or graph use."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - lane_id: bible_wide_orchestration
+    canonical_scope: "Whole-canon route selection, master chunking, cross-lane evaluation, and global optimization."
+    triage_status: implementation_blocked
+    current_evidence: "Current baseline is canonical 66 D/Claude pass2 with route-isolated lessons; lane evidence is not mature enough for global orchestration."
+    why_not_chunk_now: "A global objective can overwrite book-specific guardrails and tune Scripture against non-reviewed cases."
+    review_packet_candidates: []
+    research_questions:
+      - "How many lane attempts, reviewed gold manifests, non-target identity proofs, and same-baseline evaluations are enough before orchestration?"
+    downstream_theological_risks:
+      - "Globalizing local rules, flattening genre/form distinctions, contaminating canonical authority with non-Bible corpora, and claiming Bible-wide improvement too early."
+    next_action: "Block implementation until multiple lanes have reviewed evidence and owner promotion decisions."
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+recommended_sequence_after_triage:
+  immediate_next: "Select one review_packet_ready lane from this map after T351 validation; epistle_argument is a strong candidate but not implementation authority."
+  blocked_until_later_owner_decision:
+    - T345 Revelation implementation
+    - whole-Bible output-changing pass
+    - skill lifecycle promotion
+    - graph/vector/index build
+...

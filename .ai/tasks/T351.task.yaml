@@ -1,0 +1,88 @@
+id: T351
+phase: phase_4
+title: "Bible-Wide Chunking Research Triage Atlas"
+mode: plan
+status: in_progress
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - .ai/control/bible_chunking_research_triage_map.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/harness_upgrade_roadmap.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T344.task.yaml
+    - .ai/tasks/T344R.task.yaml
+    - .ai/tasks/T351.task.yaml
+    - .ai/handoffs/T344/
+    - .ai/handoffs/T344R/
+    - .ai/handoffs/T351/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md
+    - tests/test_t351_bible_wide_research_triage.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_owner_selection_implementation_gate.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_task_scope_validator.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - scripts/validate_bible_chunking_research_triage.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  owner_decision_ref: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md#owner-decision-box
+  triggering_owner_guidance: "Research/triage the entire Bible first, decide what needs more research and what does not, then chunk."
+  bible_wide_research_triage_allowed: true
+  non_output_changing_harnesses_allowed: true
+  non_output_changing_review_packets_allowed: true
+  non_output_changing_lane_prep_allowed: true
+  revelation_research_prep_only_allowed: true
+  revelation_implementation_allowed: false
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+acceptance_criteria:
+  - "A Bible-wide research triage atlas classifies canonical lanes before more chunking algorithm work."
+  - "The triage distinguishes review_packet_ready, research_first, governed_hold, and implementation_blocked lanes."
+  - "Revelation remains research/prep-only under REV-T344-E."
+  - "All metadata, cross-reference, lexical-rarity, speaker, source-tradition, and structure evidence stays evidence only."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge surfaces are touched."
+  - "Any reusable lesson, theological downstream decision, or harness need is recorded in governed surfaces."
+validation:
+  - python scripts/validate_task_scope.py --task-id T351
+  - python scripts/validate_bible_chunking_research_triage.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_owner_selection_implementation_gate.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_source_metadata_authority.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T351/handoff.md
+next_task: "After T351 triage validates, pick the next review-packet lane from the triage map; do not implement T345 or any chunk output until reviewed gold and a later owner implementation decision authorize it."

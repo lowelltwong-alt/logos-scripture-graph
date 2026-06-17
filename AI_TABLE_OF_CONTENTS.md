@@ -50,6 +50,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/chunking_agent_preflight.yaml`](.ai/control/chunking_agent_preflight.yaml) - mandatory chunking-agent preflight and lesson-capture contract
 - [`.ai/control/chunking_theological_decision_register.yaml`](.ai/control/chunking_theological_decision_register.yaml) - first-class chunking/theological decision register
 - [`.ai/control/bible_chunking_readiness_map.yaml`](.ai/control/bible_chunking_readiness_map.yaml) - non-authorizing Bible-wide lane and algorithm readiness map
+- [`.ai/control/bible_chunking_research_triage_map.yaml`](.ai/control/bible_chunking_research_triage_map.yaml) - non-authorizing Bible-wide research triage before more chunking work
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
 - [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)
@@ -66,8 +67,9 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`](docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md)
 - [`docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`](docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md)
 - [`docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`](docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md)
-- [`.ai/tasks/T344R.task.yaml`](.ai/tasks/T344R.task.yaml) - planned Revelation research/prep-only task after selected `REV-T344-E`
-- [`.ai/handoffs/T344R/handoff.md`](.ai/handoffs/T344R/handoff.md) - seed handoff for Revelation research/prep-only continuation
+- [`docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`](docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md)
+- [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - active Bible-wide research triage before more chunking work
+- [`.ai/handoffs/T351/handoff.md`](.ai/handoffs/T351/handoff.md) - handoff for Bible-wide research triage
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)

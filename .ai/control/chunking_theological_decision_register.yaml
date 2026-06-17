@@ -512,6 +512,44 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-017
+    title: Bible-wide research triage before more chunking algorithm work
+    classification: non_authorizing_review
+    task_ids: [T351]
+    owner_decision_ref: docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md
+    pr_refs: []
+    affected_scope:
+      books: [Gen, Exod, Lev, Num, Deut, Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs, 2Kgs, 1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl, Song, Isa, Jer, Lam, Ezek, Dan, Hos, Joel, Amos, Obad, Jonah, Mic, Nah, Hab, Zeph, Hag, Zech, Mal, Matt, Mark, Luke, John, Acts, Rom, 1Cor, 2Cor, Gal, Eph, Phil, Col, 1Thess, 2Thess, 1Tim, 2Tim, Titus, Phlm, Heb, Jas, 1Pet, 2Pet, 1John, 2John, 3John, Jude, Rev]
+      passages: [canonical_66]
+      routes: [bible_wide_research_triage, future_review_packet_selection, future_route_isolated_implementation]
+      surfaces: [docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md, .ai/control/bible_chunking_research_triage_map.yaml, .ai/control/bible_chunking_readiness_map.yaml]
+    decision: "Before more chunking algorithm work, run a Bible-wide research triage that classifies each canonical lane as review_packet_ready, research_first, governed_hold, or implementation_blocked. This triage does not authorize chunk output, reviewed gold, route behavior, graph/vector work, boundary import, or T345."
+    downstream_risk: "A Bible-wide triage could be mistaken for whole-Bible implementation authority, or a review_packet_ready lane could be mistaken for reviewed gold."
+    theological_assumptions_avoided:
+      - "Research-first lanes do not choose eschatology, covenant system, speaker attribution, textual-critical decision, symbolic identity, or fulfillment model."
+      - "Review-packet-ready means ready to draft non-authorizing review packets, not ready to chunk."
+      - "Source metadata, cross-references, Greek lexical rarity, headings, and formatting stay evidence only."
+      - "The next lane must be selected from governed evidence after T351, not from agent momentum."
+    reviewed_gold_dependency: "Every future output-changing lane still requires exact reviewed gold or equivalent governed evidence, executable checks, same-baseline evaluation, non-target identity proof, and a later owner implementation decision."
+    non_authorizations:
+      - whole_bible_output_pass
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - lane_implementation_without_review_packet
+      - revelation_implementation
+      - metadata_driven_boundary
+      - automatic_cross_reference_edge
+      - graph_or_vector_work
+      - boundary_import
+      - t345_without_later_owner_decision
+    validators:
+      - scripts/validate_bible_chunking_research_triage.py
+      - tests/test_t351_bible_wide_research_triage.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -579,4 +617,5 @@ backfill_coverage:
     - T342
     - T343
     - T344
+    - T351
 ...

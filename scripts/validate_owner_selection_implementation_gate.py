@@ -251,7 +251,8 @@ def validate_owner_selection_implementation_gate(
         }
 
     _require_equal(owner_status, "selected", "owner_selection_status")
-    _require_equal(roadmap_t344.get("status"), "in_progress", "ROADMAP_STATE.T344.status")
+    if roadmap_t344.get("status") not in {"in_progress", "complete"}:
+        raise OwnerSelectionGateError("ROADMAP_STATE.T344.status must be 'in_progress' or 'complete'")
     _require_equal(roadmap_t345.get("status"), "planned", "ROADMAP_STATE.T345.status")
     _require_equal(roadmap_t345.get("requires_reviewed_gold"), True, "ROADMAP_STATE.T345.requires_reviewed_gold")
     _require_equal(
@@ -274,11 +275,16 @@ def validate_owner_selection_implementation_gate(
             next_route=next_route,
         )
         if selected_option == "REV-T344-E":
-            _require_equal(next_route.get("task_id"), "T344R", "readiness.next_route.task_id")
+            _require_equal(next_route.get("task_id"), "T351", "readiness.next_route.task_id")
             _require_equal(
                 next_route.get("route_type"),
-                "revelation_research_prep_only",
+                "bible_wide_research_triage",
                 "readiness.next_route.route_type",
+            )
+            _require_equal(
+                next_route.get("requires_triage_before_lane_selection"),
+                True,
+                "readiness.next_route.requires_triage_before_lane_selection",
             )
             _require_equal(
                 packet_decision.get("decision"),
@@ -297,7 +303,7 @@ def validate_owner_selection_implementation_gate(
             )
             _require_equal(
                 next_route.get("next_review_lane_after_completion"),
-                "epistle_argument_boundaries",
+                "select_from_review_packet_ready_lanes",
                 "readiness.next_route.next_review_lane_after_completion",
             )
             for label, mapping in (

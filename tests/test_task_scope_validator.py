@@ -9,6 +9,7 @@ from scripts import validate_task_scope as validator
 
 ROOT = Path(__file__).resolve().parents[1]
 T344_TASK = ROOT / ".ai" / "tasks" / "T344.task.yaml"
+T351_TASK = ROOT / ".ai" / "tasks" / "T351.task.yaml"
 
 
 def test_t344_scope_accepts_harn_001_surfaces() -> None:
@@ -47,6 +48,25 @@ def test_scope_rejects_forbidden_raw_or_chunking_paths() -> None:
             task_file=T344_TASK,
             changed_files=["pipelines/chunking/chunker.py"],
         )
+
+
+def test_t351_scope_accepts_bible_wide_triage_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T351_TASK,
+        changed_files=[
+            ".ai/control/bible_chunking_research_triage_map.yaml",
+            "docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md",
+            "scripts/validate_bible_chunking_research_triage.py",
+            "tests/test_t351_bible_wide_research_triage.py",
+            ".ai/tasks/T344R.task.yaml",
+            ".ai/handoffs/T344R/handoff.md",
+            ".ai/tasks/T351.task.yaml",
+            ".ai/handoffs/T351/handoff.md",
+            "ROADMAP_STATE.yaml",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T351.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:
