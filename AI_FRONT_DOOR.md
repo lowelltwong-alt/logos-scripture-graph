@@ -21,7 +21,7 @@ Read these files before making changes:
 10. For any ingest, chunking, review-packet, evaluator, route, graph, or retrieval work:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
-    Source metadata is evidence, not authority.
+    Source metadata and divine-name/title capitalization are evidence, not authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
@@ -114,6 +114,11 @@ Bible-first chunking priority:
 - The Bible chunking research triage map at `.ai/control/bible_chunking_research_triage_map.yaml`
   classifies canonical lanes before more algorithm work. It is non-authorizing; `review_packet_ready`
   means ready for review packets, not ready to chunk.
+- Divine-name/title capitalization is a `research_first` lane. `God/god`, `LORD/Lord/lord`,
+  `Spirit/spirit`, `Father/father`, `Son/son`, `Word/word`, `Christ/christ`,
+  `Holy Spirit/holy spirit`, and divine-pronoun capitalization are translation/editorial evidence
+  only. They do not by themselves authorize divine identity, Trinitarian relation, speaker
+  attribution, graph edges, chunk boundaries, retrieval truth, or output changes.
 
 High-leverage change risk gate:
 
@@ -238,6 +243,8 @@ internal cross-references, Strong's-style word numbers, lexeme tags, footnotes, 
 or `\wj` markers, paragraph/poetry markers, alternate readings, and edition formatting may be
 preserved and surfaced for review, but they do not automatically authorize Scripture truth, lexical
 truth, intertext claims, speaker attribution, graph edges, chunk boundaries, or output changes.
+The same rule applies to divine-name/title capitalization such as `God/god`, `Spirit/spirit`,
+`Father/father`, `Word/word`, `LORD/Lord/lord`, and divine-pronoun capitalization.
 `python scripts/validate_source_metadata_authority.py` fails closed if governed surfaces drift
 toward source metadata authority.
 

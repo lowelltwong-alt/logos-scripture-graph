@@ -43,6 +43,7 @@ All lanes keep `implementation_authorized: false`, `output_change_authorized: fa
 | Prophetic oracle | `research_first` | Research oracle/vision/form boundaries before packets. | Fulfillment, messianic scope, temple interpretation, and source/tradition boundaries. |
 | Gospel discourse/WJ | `research_first` | Research speaker policy before WJ/discourse packets can carry more weight. | WJ markers and punctuation can become speaker authority. |
 | Textual variant/source tradition | `research_first` | Create policy before variant-sensitive packets can influence chunking. | Variant/source choices can become hidden canon or text authority. |
+| Divine names/title capitalization | `research_first` | Inventory capitalization variants and create evidence-only policy before graph/chunk use. | Capitalization can silently encode divinity, Trinitarian relation, Christology, pneumatology, speaker attribution, or graph-edge truth. |
 | Bible-wide orchestration | `implementation_blocked` | Wait for multiple reviewed lanes and same-baseline evaluations. | Global objectives can overwrite book-specific guardrails. |
 
 ## 4. Evidence Rules
@@ -57,8 +58,29 @@ These rules apply across all lanes:
   source, morphology, lemma normalization, and corpus-count policy before they can influence review.
 - Headings, footnotes, paragraphing, poetry markers, punctuation, WJ/red-letter markers, and other
   edition formatting never become Scripture authority by themselves.
+- English capitalization of divine names, titles, pronouns, and identity terms is translation or
+  editorial evidence only. `God/god`, `LORD/Lord/lord`, `Spirit/spirit`, `Father/father`,
+  `Son/son`, `Word/word`, `Christ/christ`, `Messiah/messiah`, `Holy Spirit/holy spirit`,
+  `He/he`, `Him/him`, and `His/his` do not by themselves authorize divine identity,
+  Trinitarian relation, speaker attribution, graph edges, chunk boundaries, lexical truth, or output
+  changes.
 - Labels must remain descriptive and text-local. They must not select chronology, covenant system,
   eschatological school, speaker attribution, symbolic identity, or textual-critical decision.
+
+## 4a. Divine Name/Title Capitalization Watchlist
+
+Before graph, retrieval, or chunking logic uses capitalization, create review packets or an
+inventory policy for at least these cases:
+
+- `John.1.1-John.1.18` for `Word/word`.
+- `Gen.1.1-Gen.1.3`, `John.3`, `Rom.8`, and `1John.4` for `Spirit/spirit`.
+- `Ps.110.1` for `LORD/Lord/lord`.
+- `Matt.6` for `Father/father`.
+- Any edition that capitalizes pronouns for God, Christ, or the Spirit.
+
+The inventory should preserve observed forms and source provenance. It must not infer ontology,
+Trinitarian relation, Christology, pneumatology, speaker identity, or graph-edge truth from
+capitalization alone.
 
 ## 5. Recommended Route After T351
 
@@ -83,6 +105,8 @@ T351 does not authorize:
 - graph edges, embedding runs, or vector indexes;
 - boundary, apocalyptic, apocryphal, or noncanonical material import;
 - source metadata as authority;
+- capitalization-driven divine identity, speaker attribution, graph edge, chunk boundary, or
+  Trinitarian relation;
 - whole-Bible improvement claims.
 
 ## 7. RISK-GATE-001 Map
@@ -98,11 +122,15 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 - A Bible-wide triage table could be mistaken for permission to chunk the whole Bible.
 - A lane marked `review_packet_ready` could be mistaken for reviewed gold.
 - Epistle argument boundaries could be selected too quickly if the packet remains too thin.
+- Divine-name/title capitalization could be treated as ontology or graph truth instead of
+  translation/editorial evidence.
 
 ### Plausible Risks
 
 - Research labels could encode theological systems.
 - Source metadata or cross-references could become hidden authority.
+- God/god, LORD/Lord/lord, Spirit/spirit, Father/father, Son/son, Word/word, and pronoun
+  capitalization could bias retrieval, speaker attribution, Christology, or pneumatology.
 - A broad atlas could become too abstract to guide concrete review packets.
 
 ### Unlikely But High-Impact Risks
@@ -115,6 +143,7 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 
 - A validator must fail if the triage map becomes authorizing.
 - Tests must assert each lane has a controlled triage status and false output/implementation flags.
+- Tests must assert divine-name/title capitalization remains `research_first` and non-authorizing.
 - HARN-012 must keep T345 blocked while T351 triage is active.
 
 ## 8. Next Step

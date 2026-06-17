@@ -15,6 +15,7 @@ RULE_REGISTRY = ROOT / "docs" / "methodology" / "LOGOS_CHUNKING_WORKFLOW_RULES_R
 SUPPLY_CHAIN = ROOT / "docs" / "methodology" / "CHUNKING_SKILL_SUPPLY_CHAIN.md"
 WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
+TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
 
 REQUIRED_TOP_LEVEL = {
     "object_type",
@@ -50,7 +51,9 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018"}
+
+REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization"}
 
 REQUIRED_WORKFLOW_LESSON_IDS = {
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
@@ -69,6 +72,8 @@ REQUIRED_METADATA_TYPES = {
     "words_of_jesus_markers",
     "speaker_labels",
     "edition_formatting",
+    "divine_name_title_capitalization",
+    "divine_pronoun_capitalization",
 }
 
 REQUIRED_AUTHORITY_FALSE = {
@@ -85,6 +90,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     ".ai/control/chunking_agent_preflight.yaml",
     "CHUNK-METADATA-001",
     "Source metadata is evidence, not authority",
+    "divine-name/title capitalization",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -230,6 +236,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
         "docs/methodology/WORKFLOW_LESSONS.md",
         ".ai/control/chunking_theological_decision_register.yaml",
+        ".ai/control/bible_chunking_research_triage_map.yaml",
     ):
         if required_path not in reading_by_path:
             raise PreflightError(f"{_rel(path)}: mandatory_reading missing {required_path}")
@@ -238,6 +245,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     _require_subset(REQUIRED_RULE_IDS, registry_entry.get("required_rule_ids"), "required_rule_ids")
     decision_entry = reading_by_path[".ai/control/chunking_theological_decision_register.yaml"]
     _require_subset(REQUIRED_DECISION_IDS, decision_entry.get("required_decision_ids"), "required_decision_ids")
+    triage_entry = reading_by_path[".ai/control/bible_chunking_research_triage_map.yaml"]
+    _require_subset(REQUIRED_TRIAGE_LANES, triage_entry.get("required_lane_ids"), "required_lane_ids")
     lessons_entry = reading_by_path["docs/methodology/WORKFLOW_LESSONS.md"]
     _require_subset(
         REQUIRED_WORKFLOW_LESSON_IDS,
@@ -267,8 +276,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         if lesson_id not in lessons_text:
             raise PreflightError(f"{_rel(WORKFLOW_LESSONS)}: missing {lesson_id}")
     register_text = _read_text(DECISION_REGISTER)
-    if "CD-015" not in register_text:
-        raise PreflightError(f"{_rel(DECISION_REGISTER)}: missing CD-015")
+    for decision_id in REQUIRED_DECISION_IDS:
+        if decision_id not in register_text:
+            raise PreflightError(f"{_rel(DECISION_REGISTER)}: missing {decision_id}")
+    triage_text = _read_text(TRIAGE_MAP)
+    for phrase in (
+        "divine_name_title_capitalization",
+        "God/god",
+        "Spirit/spirit",
+        "Word/word",
+        "graph edges",
+    ):
+        if phrase not in triage_text:
+            raise PreflightError(f"{_rel(TRIAGE_MAP)}: missing divine capitalization phrase {phrase!r}")
 
     front_door_text = _read_text(FRONT_DOOR)
     for phrase in REQUIRED_FRONT_DOOR_STRINGS:

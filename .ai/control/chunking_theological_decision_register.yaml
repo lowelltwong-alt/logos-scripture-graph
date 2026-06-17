@@ -550,6 +550,45 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-018
+    title: Divine-name capitalization is evidence, not graph or chunk authority
+    classification: theological_risk
+    task_ids: [T351]
+    owner_decision_ref: docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md#4a-divine-nametitle-capitalization-watchlist
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [all_canonical_passages, John.1.1-John.1.18, Gen.1.1-Gen.1.3, Ps.110.1, Matt.6, John.3, Rom.8, 1John.4]
+      routes: [future_graph_edge_generation, future_retrieval_profiles, future_chunking_review, future_original_language_alignment]
+      surfaces: [.ai/control/bible_chunking_research_triage_map.yaml, .ai/control/chunking_agent_preflight.yaml, docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md]
+    decision: "English capitalization of divine names, titles, pronouns, and identity terms may be preserved and surfaced as source/edition evidence, but it does not by itself authorize divine identity, Trinitarian relation, Christological claim, pneumatological claim, speaker attribution, lexical truth, graph edges, chunk boundaries, retrieval truth, or output changes."
+    downstream_risk: "Capitalization conventions such as God/god, LORD/Lord/lord, Spirit/spirit, Father/father, Son/son, Word/word, Christ/christ, Holy Spirit/holy spirit, or divine pronoun capitalization could silently encode theological conclusions if treated as graph or chunk authority."
+    theological_assumptions_avoided:
+      - "No divine identity edge is inferred from capitalization alone."
+      - "No Trinitarian person relation is inferred from capitalization alone."
+      - "No Christology is inferred from Word/word or Son/son capitalization alone."
+      - "No pneumatology is inferred from Spirit/spirit or Holy Spirit/holy spirit capitalization alone."
+      - "No Father/father or LORD/Lord/lord relationship is inferred without reviewed evidence and owner decision."
+      - "No edition-specific divine-pronoun convention becomes canonical Scripture truth."
+    reviewed_gold_dependency: "Any graph, retrieval, or chunking use requires an inventory of observed source/canonical forms, source provenance, reviewed policy or packets, executable tests, and a later owner decision for exact scope."
+    non_authorizations:
+      - capitalization_driven_divine_identity
+      - capitalization_driven_trinitarian_relation
+      - capitalization_driven_christology
+      - capitalization_driven_pneumatology
+      - capitalization_driven_speaker_attribution
+      - capitalization_driven_graph_edge
+      - capitalization_driven_chunk_boundary
+      - capitalization_driven_retrieval_truth
+      - translation_convention_as_theological_truth
+    validators:
+      - scripts/validate_bible_chunking_research_triage.py
+      - tests/test_t351_bible_wide_research_triage.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
