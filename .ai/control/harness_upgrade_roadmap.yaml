@@ -114,15 +114,17 @@ candidate_harnesses:
     non_authorizations: [doctrine_from_label, eschatology_assumption]
   - harness_id: HARN-012
     title: Owner-selection-to-implementation gate harness
-    status: candidate_not_started
+    status: implemented_v1
     trigger: "A future task attempts T345 or any output-changing work after an owner-selection docket."
     purpose: "Prove selected option, reviewed evidence, executable checks, decision register, readiness map, and non-target identity plan exist before implementation."
     likely_surfaces: [.ai/tasks, .ai/control, eval/chunking_gold, pipelines/chunking]
+    implemented_surfaces: [scripts/validate_owner_selection_implementation_gate.py, tests/test_owner_selection_implementation_gate.py, scripts/validate_all.py]
+    future_upgrade_needed: "When T344 selects REV-T344-B or REV-T344-C, extend the gate to verify exact executable Revelation reviewed-gold checks and concrete non-target identity comparison before T345 can merge."
     non_authorizations: [implementation_without_owner_selection, reviewed_gold_without_evidence]
 watchlist:
   - "If agents repeatedly ask what to read, upgrade the audit harness to emit exact file excerpts/line references."
   - "If reviewers miss changed-path obligations, implement HARN-001 before the next output-changing PR."
-  - "If Revelation owner selection proceeds, implement HARN-012 before T345."
+  - "HARN-012 is implemented in v1; if Revelation owner selection proceeds, keep it passing and extend it with exact reviewed-gold/non-target identity checks before T345."
   - "If source metadata is cited in implementation, implement HARN-006 before merging that PR."
   - "If cross-repo governance mirrors resume, implement HARN-009 in the appropriate repo sequence."
 validator: scripts/validate_audit_surface_map.py

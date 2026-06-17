@@ -22,6 +22,10 @@
 > `.ai/audits/reports/20260617-T344-codex-post-merge.md` records a post-merge no-context review
 > of PR #60, no P0-P2 findings, one fixed stale-focus wording issue, and the still-pending T344
 > owner selection.
+> Follow-up HARN-012 gate: `scripts/validate_owner_selection_implementation_gate.py` is wired into
+> `validate_all` to keep T345 planned and non-authorized while T344 owner selection is pending, and
+> to fail closed if T345/output-changing work starts before selected reviewed evidence agrees across
+> the docket, task, review packet, readiness map, roadmap state, and harness roadmap.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected

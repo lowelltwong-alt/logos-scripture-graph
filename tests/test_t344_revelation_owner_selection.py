@@ -103,3 +103,4 @@ def test_t344_moves_from_future_sequence_to_active_task() -> None:
     assert tasks["T344"]["output_change_authorized"] is False
     assert "T344" not in future
     assert future["T345"]["status"] == "planned"
+    assert future["T345"]["requires_owner_selection_gate"] == "scripts/validate_owner_selection_implementation_gate.py"
