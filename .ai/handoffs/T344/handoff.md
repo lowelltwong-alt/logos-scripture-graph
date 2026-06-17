@@ -12,7 +12,7 @@
 - agent_name: codex
 - mode: plan
 - stage: update
-- updated_at: 2026-06-17T21:04:09+00:00
+- updated_at: 2026-06-17T21:26:09+00:00
 - handoff_id: bca0c1ed741f2be7
 
 ## Files read
@@ -34,6 +34,8 @@
 - .ai/control/harness_upgrade_roadmap.yaml
 - .ai/audits/reports/20260617-T344-codex-post-merge.md
 - .ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md
+- scripts/validate_source_metadata_authority.py
+- tests/test_source_metadata_authority.py
 - .ai/tasks/T344.task.yaml
 - docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
 
@@ -58,6 +60,7 @@
 - scripts/validate_audit_surface_map.py
 - scripts/agent/no_context_audit_harness.py
 - scripts/validate_owner_selection_implementation_gate.py
+- scripts/validate_source_metadata_authority.py
 - .ai/audits/reports/20260617-T344-codex-post-merge.md
 - .ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md
 - .ai/audits/reports/README.md
@@ -68,6 +71,7 @@
 - tests/test_t344_revelation_owner_selection.py
 - tests/test_audit_surface_map.py
 - tests/test_owner_selection_implementation_gate.py
+- tests/test_source_metadata_authority.py
 - tests/test_ai_roadmap_table_of_contents.py
 - tests/test_bible_chunking_readiness_map.py
 - tests/test_t337_selection_docs.py
@@ -87,6 +91,8 @@
 - Implemented HARN-012 owner-selection-to-implementation gate as `scripts/validate_owner_selection_implementation_gate.py`, wired it into `validate_all`, and linked it from T345 roadmap state, the T344 task, readiness map, decision register, front door, and AI TOC.
 - HARN-012 v1 keeps T345 planned and non-authorized while T344 owner selection is pending; it fails closed if T345 starts or a T345 task file appears before owner selection and governed evidence agree.
 - Added a post-merge no-context audit report for merged PR #62 / HARN-012 and exposed it through `current_focus.yaml` plus the audit report index.
+- Implemented HARN-006 source-metadata authority scanner as `scripts/validate_source_metadata_authority.py`, wired it into `validate_all`, and linked it from the front door, AI TOC, T344 task, harness roadmap, and CD-015 decision-register entry.
+- HARN-006 v1 fails closed if governed surfaces allow source metadata, internal cross-references, Strong's-style numbers, Greek lexical rarity, headings, footnotes, WJ markers, or formatting to become boundary, lexical, intertext, graph-edge, truth, or output authority.
 
 ## Validation run
 
@@ -182,6 +188,22 @@
 - result: 278 passed after post-merge audit report update
 - failures: none
 
+- command: python scripts/validate_source_metadata_authority.py
+- result: passed
+- failures: none
+
+- command: python -m pytest -q tests/test_source_metadata_authority.py
+- result: 7 passed
+- failures: none
+
+- command: python scripts/validate_chunking_agent_preflight.py
+- result: passed after HARN-006 update
+- failures: none
+
+- command: python scripts/validate_chunking_theological_decision_register.py
+- result: passed after HARN-006 update
+- failures: none
+
 ## Known risks
 
 - A docket can be mistaken for reviewed gold; all authorization flags remain false to prevent that.
@@ -189,6 +211,7 @@
 - Revelation boundaries can imply chronology, recapitulation, interlude status, symbolic identity, or eschatological school if labels are overread.
 - Audit reports can recommend or block but must not be treated as owner authorization.
 - HARN-012 v1 proves the pending-state stop rule; if owner selects `REV-T344-B` or `REV-T344-C`, extend the gate before T345 to verify exact executable Revelation reviewed-gold checks and concrete non-target identity comparison.
+- HARN-006 v1 proves explicit metadata non-authority flags and scans governed surfaces for authority drift; if a future implementation cites metadata, extend it with changed-path-aware checks for the exact implementation diff.
 
 ## Open questions
 
@@ -198,4 +221,4 @@
 
 ## Next agent instruction
 
-Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md`, `.ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md`, or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref HEAD^1 --pr 62 --print` while on the post-merge audit branch. Keep `scripts/validate_owner_selection_implementation_gate.py` passing before any T345/output-changing work. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.
+Run the full validation gates, then present the owner with the five T344 options. For independent review, point the reviewer to `.ai/audits/README.md`, `.ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md`, or generate a brief with `python scripts/agent/no_context_audit_harness.py --task-id T344 --base-ref HEAD^1 --pr 62 --print` while on the post-merge audit branch. Keep `scripts/validate_owner_selection_implementation_gate.py` and `scripts/validate_source_metadata_authority.py` passing before any T345/output-changing work. Ask the reviewer to check `.ai/control/harness_upgrade_roadmap.yaml` for any repeated issue that should become a harness. Do not start T345 or edit implementation/gold/output surfaces until Lowell Wong explicitly selects one option and the required governed evidence is updated.

@@ -208,6 +208,7 @@ python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
+python scripts/validate_source_metadata_authority.py
 ```
 
 **CI fails red** if any gate fails. Agents must not mark tasks complete with failing validation.
@@ -228,6 +229,8 @@ internal cross-references, Strong's-style word numbers, lexeme tags, footnotes, 
 or `\wj` markers, paragraph/poetry markers, alternate readings, and edition formatting may be
 preserved and surfaced for review, but they do not automatically authorize Scripture truth, lexical
 truth, intertext claims, speaker attribution, graph edges, chunk boundaries, or output changes.
+`python scripts/validate_source_metadata_authority.py` fails closed if governed surfaces drift
+toward source metadata authority.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

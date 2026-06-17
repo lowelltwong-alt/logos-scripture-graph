@@ -62,6 +62,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_owner_selection_implementation_gate.py",
             [PY, str(ROOT / "scripts" / "validate_owner_selection_implementation_gate.py")],
         ),
+        (
+            "validate_source_metadata_authority.py",
+            [PY, str(ROOT / "scripts" / "validate_source_metadata_authority.py")],
+        ),
     ]
     # Raw-source gates (the committed raw archives are the real pipeline input).
     if (ROOT / "data" / "raw").exists():
