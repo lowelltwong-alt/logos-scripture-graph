@@ -81,6 +81,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "owner_target_selection",
         "title": "Select One Revelation Behavior Target",
     },
+    "T344R": {
+        "route_type": "revelation_research_prep_only",
+        "title": "Revelation Research Prep After Owner Decision E",
+    },
 }
 
 

@@ -61,7 +61,7 @@ algorithm_readiness:
     next_safe_action: "Gather more reviewed Psalm evidence or leave held while Revelation review proceeds."
   revelation_skill:
     status: not_implemented
-    role: "Future route only after exact reviewed gold exists."
+    role: "Future route only after exact reviewed gold exists; T344 owner decision REV-T344-E keeps Revelation in research/prep only."
     output_change_authorized: false
 lane_sequence:
   - lane_id: psalms_poetry
@@ -77,7 +77,7 @@ lane_sequence:
   - lane_id: revelation_apocalyptic
     implementation_order: 7
     review_order: 1
-    current_state: t344_owner_selection_docket_open
+    current_state: rev_t344_e_research_prep_only
     new_algorithm_work_ready: false
     selected_review_target:
       task_id: T342
@@ -86,20 +86,22 @@ lane_sequence:
       packet_created_in: T343
       packet: eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md
       owner_selection_docket: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
-      owner_selection_status: pending
-      selected_option: pending
+      owner_selection_status: selected
+      selected_option: REV-T344-E
       packet_status: pending_human_review
       implementation_allowed: false
       output_change_authorized: false
       reviewed_gold_promoted: false
     required_before_new_work:
-      - T344 owner selects one exact option
-      - reviewed gold with executable checks
+      - additional Revelation research/prep under REV-T344-E
+      - stronger reviewed evidence/gold with executable checks
+      - future owner decision replacing research-only posture before implementation
       - HARN-012 owner-selection-to-implementation gate passes
     theological_risk: "Chunk boundaries could imply chronology, recapitulation, symbolic identity, Babylon identity, millennium interpretation, or eschatological school."
   - lane_id: epistle_argument
     implementation_order: 2
-    current_state: needs_review_packets
+    review_order: 2
+    current_state: next_review_lane_after_revelation_research_prep
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -159,13 +161,15 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T344
-  title: Select One Revelation Behavior Target
-  route_type: owner_target_selection
+  task_id: T344R
+  title: Revelation Research Prep After Owner Decision E
+  route_type: revelation_research_prep_only
   recommended_target: Rev.12.1-Rev.14.20
-  owner_selection_status: pending
+  owner_selection_status: selected
+  selected_option: REV-T344-E
   selection_docket: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
-  rationale: "T344 is active as an owner-selection docket for the pending, non-authorizing Revelation review packet. It must choose whether any exact Revelation target becomes reviewed gold before implementation is considered."
+  rationale: "The owner selected REV-T344-E: continue Revelation research/prep only until stronger reviewed evidence exists. After Revelation research prep, the next review lane is epistle argument boundaries."
+  next_review_lane_after_completion: epistle_argument_boundaries
   output_change_authorized: false
   implementation_authorized: false
 update_triggers:

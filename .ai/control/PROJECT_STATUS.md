@@ -1,17 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T344 Revelation owner-selection docket (Codex)
-**Active task:** -> **T344** opens the owner-selection docket for the pending `Rev.12.1-Rev.14.20` Revelation packet. Owner selection remains pending. The docket lists five options but does not select one, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T344 REV-T344-E owner decision and HARN-001 scope gate (Codex)
+**Active task:** -> **T344** records Lowell Wong's selected `REV-T344-E` owner decision for the pending `Rev.12.1-Rev.14.20` Revelation packet. Revelation may continue as research/prep only; non-output-changing harnesses, review packets, and lane prep are authorized; epistle argument boundaries are the next review lane after Revelation research prep. The decision does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
 
-> **T344 Revelation owner-selection docket (2026-06-17):** Added
+> **T344 REV-T344-E owner decision (2026-06-17):** Added
 > `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md` as the exact decision surface for the
 > pending `Rev.12.1-Rev.14.20` Revelation packet. The docket offers five owner options:
 > `REV-T344-A` preserve current behavior, `REV-T344-B` promote parent-only reviewed gold,
 > `REV-T344-C` promote parent plus exact child spans, `REV-T344-D` mark characterization-only, or
-> `REV-T344-E` require more research. T344 is active but owner selection is still pending, so all
-> implementation, output-change, reviewed-gold, graph-edge, embedding/index, boundary-import,
-> source-metadata authority, and skill-promotion flags remain false. T344 also adds a no-context
+> `REV-T344-E` require more research. Lowell Wong selected `REV-T344-E`: Revelation work may
+> continue as research/prep only until stronger governed evidence exists, and epistle argument
+> boundaries are the next review lane after Revelation research prep. All implementation,
+> output-change, reviewed-gold, graph-edge, embedding/index, boundary-import, source-metadata
+> authority, and skill-promotion flags remain false. T344 also adds a no-context
 > audit harness (`.ai/audits/`, `.ai/control/audit_surface_map.yaml`,
 > `.ai/control/harness_upgrade_roadmap.yaml`, `scripts/agent/no_context_audit_harness.py`, and
 > `scripts/validate_audit_surface_map.py`) so a separate reviewer can reconstruct intent, changed
@@ -20,22 +22,27 @@
 > harness only; no raw/canonical/generated chunk/evaluator/runtime work occurred.
 > Follow-up audit report:
 > `.ai/audits/reports/20260617-T344-codex-post-merge.md` records a post-merge no-context review
-> of PR #60, no P0-P2 findings, one fixed stale-focus wording issue, and the still-pending T344
-> owner selection.
+> of PR #60, no P0-P2 findings, one fixed stale-focus wording issue, and the then-pending T344
+> owner selection before REV-T344-E was recorded.
 > Follow-up HARN-012 gate: `scripts/validate_owner_selection_implementation_gate.py` is wired into
-> `validate_all` to keep T345 planned and non-authorized while T344 owner selection is pending, and
-> to fail closed if T345/output-changing work starts before selected reviewed evidence agrees across
-> the docket, task, review packet, readiness map, roadmap state, and harness roadmap.
+> `validate_all` to keep T345 planned and non-authorized while T344 is selected as REV-T344-E
+> research/prep only, and to fail closed if T345/output-changing work starts before selected
+> reviewed evidence agrees across the docket, task, review packet, readiness map, roadmap state,
+> and harness roadmap.
 > Post-merge audit report:
 > `.ai/audits/reports/20260617-T344-HARN-012-codex-post-merge.md` records the merged PR #62
-> HARN-012 state, no findings, and the remaining T344 owner-selection requirement.
+> HARN-012 state, no findings, and the then-remaining T344 owner-selection requirement.
 > Follow-up HARN-006 scanner: `scripts/validate_source_metadata_authority.py` is wired into
 > `validate_all` to keep source metadata, internal cross-references, Strong's-style numbers,
 > lexical rarity, headings, footnotes, WJ markers, and formatting as evidence only, not boundary,
 > lexical, intertext, graph-edge, truth, or output authority.
 > Post-merge audit report:
 > `.ai/audits/reports/20260617-T344-HARN-006-codex-post-merge.md` records the merged PR #64
-> HARN-006 state, no findings, and the remaining T344 owner-selection requirement.
+> HARN-006 state, no findings, and the then-remaining T344 owner-selection requirement.
+> Follow-up HARN-001 scope gate: `scripts/validate_task_scope.py` is wired into `validate_all` to
+> require changed files to stay inside the active task's declared `allowed_paths`, fail on
+> `forbidden_paths`, and hard-stop AI changes to the human-gated master context surfaces. CI now
+> checks out full history so changed-path validators can inspect PR diffs.
 
 > **T343 Revelation review packets and metadata preflight (2026-06-17):** Created
 > `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` for the T342-selected

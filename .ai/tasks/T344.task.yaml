@@ -16,14 +16,22 @@ scope:
     - docs/methodology/WORKFLOW_LESSONS.md
     - .ai/control/bible_chunking_readiness_map.yaml
     - .ai/control/chunking_theological_decision_register.yaml
+    - eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md
+    - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
+    - eval/chunking_gold/review_packets/review_packet_index.json
+    - eval/chunking_gold/README.md
+    - eval/chunking_gold/GOLD_COVERAGE_INVENTORY.md
     - ROADMAP_STATE.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
     - .ai/control/roadmap_events.jsonl
     - .ai/control/handoff_ledger.jsonl
     - .ai/tasks/T344.task.yaml
+    - .ai/tasks/T344R.task.yaml
     - .ai/handoffs/T344/
+    - .ai/handoffs/T344R/
     - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t343_revelation_review_packet.py
     - tests/test_ai_roadmap_table_of_contents.py
     - tests/test_bible_chunking_readiness_map.py
     - tests/test_t337_selection_docs.py
@@ -31,11 +39,16 @@ scope:
     - tests/test_t342_revelation_candidate_selection.py
     - tests/test_audit_surface_map.py
     - scripts/validate_audit_surface_map.py
+    - scripts/validate_bible_chunking_readiness_map.py
     - scripts/agent/no_context_audit_harness.py
     - scripts/validate_owner_selection_implementation_gate.py
     - tests/test_owner_selection_implementation_gate.py
     - scripts/validate_source_metadata_authority.py
     - tests/test_source_metadata_authority.py
+    - scripts/validate_task_scope.py
+    - tests/test_task_scope_validator.py
+    - scripts/validate_all.py
+    - .github/workflows/validate.yml
   forbidden_paths:
     - data/raw/
     - data/canonical/
@@ -50,13 +63,18 @@ scope:
     - .ai/control/MASTER_CONTEXT.lock.yaml
 authorization:
   owner_selection_required: true
-  owner_selection_status: pending
+  owner_selection_status: selected
   selected_target: Rev.12.1-Rev.14.20
   selected_target_id: rev12_14_symbolic_scenes
-  selected_option: pending
+  selected_option: REV-T344-E
   revelation_implementation_allowed: false
   output_change_authorized: false
   reviewed_gold_promoted: false
+  revelation_research_prep_only_allowed: true
+  non_output_changing_harnesses_allowed: true
+  non_output_changing_review_packets_allowed: true
+  non_output_changing_lane_prep_allowed: true
+  next_review_lane_after_revelation_research_prep: epistle_argument_boundaries
   boundary_import_allowed: false
   boundary_apocryphal_material_import_allowed: false
   source_metadata_authority_allowed: false
@@ -76,7 +94,7 @@ selection_options:
   - REV-T344-E
 acceptance_criteria:
   - "T344 provides a first-class owner-selection docket for the pending Rev.12.1-Rev.14.20 packet."
-  - "The docket lists exact options without selecting one for the owner."
+  - "The docket records owner-selected REV-T344-E as research/prep only."
   - "All implementation, output-change, reviewed-gold, graph-edge, embedding/index, boundary-import, and metadata-authority flags remain false."
   - "The readiness map, AI roadmap TOC, roadmap state, and decision register point to the T344 owner-selection docket."
   - "Independent no-context reviewers can find audit instructions, audit surface map, future harness roadmap, harness, changelogs, and report templates through the AI front door."
@@ -88,8 +106,10 @@ validation:
   - python scripts/validate_audit_surface_map.py
   - python scripts/validate_owner_selection_implementation_gate.py
   - python scripts/validate_source_metadata_authority.py
+  - python scripts/validate_task_scope.py --task-id T344
+  - python -m pytest -q tests/test_task_scope_validator.py
   - python -m pytest -q tests/test_t344_revelation_owner_selection.py tests/test_audit_surface_map.py tests/test_ai_roadmap_table_of_contents.py tests/test_bible_chunking_readiness_map.py tests/test_t337_selection_docs.py tests/test_t337a_psalm_review_packet.py tests/test_t342_revelation_candidate_selection.py
   - python scripts/validate_all.py
   - python -m pytest -q
 required_handoff: .ai/handoffs/T344/handoff.md
-next_task: "Owner selects one T344 option before T345 implementation can be considered."
+next_task: "T344R Revelation research/prep only; after that, epistle argument boundaries are the next review lane. T345 implementation remains blocked until stronger reviewed gold and a future owner decision authorize it."

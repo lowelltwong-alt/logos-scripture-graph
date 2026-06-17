@@ -92,22 +92,28 @@ def test_t343_index_lists_packet_as_pending() -> None:
 
     assert entry["case_id"] == "rev12_14_symbolic_scenes"
     assert entry["status"] == "pending_human_review"
-    assert entry["decision"] == "pending"
+    assert entry["decision"] == "requires_more_research_before_gold"
+    assert entry["recommended_next_action"] == "continue_revelation_research_prep"
     assert entry["output_change_authorized"] is False
     assert entry["implementation_allowed"] is False
     assert queue["packet_rev12_14_symbolic_scenes_review"]["priority"] == 18
+    assert queue["packet_rev12_14_symbolic_scenes_review"]["recommended_next_action"] == "continue_revelation_research_prep"
     assert queue["packet_rev12_14_symbolic_scenes_review"]["implementation_allowed"] is False
 
 
-def test_t343_advances_readiness_to_t344_not_implementation() -> None:
+def test_t343_readiness_now_points_to_t344r_research_prep_not_implementation() -> None:
     readiness = load_yaml(READINESS)
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert readiness["next_route"]["task_id"] == "T344"
-    assert readiness["next_route"]["route_type"] == "owner_target_selection"
+    assert readiness["next_route"]["task_id"] == "T344R"
+    assert readiness["next_route"]["route_type"] == "revelation_research_prep_only"
+    assert readiness["next_route"]["selected_option"] == "REV-T344-E"
     assert readiness["next_route"]["implementation_authorized"] is False
+    assert readiness["next_route"]["next_review_lane_after_completion"] == "epistle_argument_boundaries"
     assert target["packet_status"] == "pending_human_review"
+    assert target["owner_selection_status"] == "selected"
+    assert target["selected_option"] == "REV-T344-E"
     assert target["implementation_allowed"] is False
     assert target["output_change_authorized"] is False
     assert target["reviewed_gold_promoted"] is False

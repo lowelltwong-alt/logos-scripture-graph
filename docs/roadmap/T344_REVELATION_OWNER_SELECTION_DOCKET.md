@@ -23,7 +23,8 @@ rev12_14_symbolic_scenes
 Owner selection status:
 
 ```yaml
-owner_selection_status: pending
+owner_selection_status: selected
+selected_option: REV-T344-E
 implementation_allowed: false
 output_change_authorized: false
 reviewed_gold_promoted: false
@@ -59,7 +60,7 @@ Only one option may be selected.
 | `REV-T344-B` | Promote parent-only reviewed gold for `Rev.12.1-Rev.14.20`. | A future T345 may implement only the exact parent span after executable reviewed-gold checks are added. | No |
 | `REV-T344-C` | Promote parent plus exact child spans. | A future T345 may implement only the exact parent and child spans after executable reviewed-gold checks are added. | No |
 | `REV-T344-D` | Mark the packet characterization-only. | Revelation implementation remains blocked; evidence may inform later review but not output. | No |
-| `REV-T344-E` | Require more research before selection. | T344 stays pending; future research must remain non-authorizing unless separately governed. | No |
+| `REV-T344-E` | Require more research before implementation or gold promotion. | T344 records a research-only owner decision; future research must remain non-authorizing unless separately governed. | No |
 
 ## 4. Exact Candidate For Option C
 
@@ -76,6 +77,10 @@ If the owner selects `REV-T344-C`, the exact child-span candidate from T343 is:
 These spans are not approved unless the owner selects `REV-T344-C`.
 
 ## 5. Recommended Posture
+
+Owner selected `REV-T344-E` on 2026-06-17. Revelation work may continue as research, review-packet
+prep, metadata/allusion prep, harnessing, and lane planning only. It must not implement Revelation
+chunk behavior or promote reviewed gold until stronger governed evidence exists.
 
 If the owner is ready to authorize a future Revelation implementation target, `REV-T344-C` is the
 most implementation-useful option because it preserves a parent unit while making exact scene-shift
@@ -188,6 +193,8 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 - A selection docket could be mistaken for reviewed gold.
 - Listing exact Option C child spans could be mistaken for owner approval.
 - Recommending Option C could be overread as an agent-made theological or output decision.
+- Owner-selected research-only work could still drift into implementation unless T345 remains
+  blocked and future research packets keep all output flags false.
 
 ### Plausible Risks
 
@@ -211,34 +218,45 @@ What could this change accidentally authorize, weaken, contaminate, overfit, glo
 
 ### Tests Or Guards Needed
 
-- T344 tests must assert owner selection is pending and all authorization flags are false.
+- T344 tests must assert owner selection is `REV-T344-E`, research/prep-only authorization is
+  present, and all implementation/output/reviewed-gold flags are false.
 - Future owner-selected reviewed gold must have exact executable checks.
 - Future implementation must prove non-Revelation output identity.
 
-### Owner Decisions Needed
+### Owner Decisions Recorded
 
-- Select exactly one option: `REV-T344-A`, `REV-T344-B`, `REV-T344-C`, `REV-T344-D`, or
-  `REV-T344-E`.
-- If selecting `REV-T344-C`, confirm whether the exact listed child spans are approved.
-- Decide whether speaker/voice policy is needed before Revelation implementation.
+- Lowell Wong selected `REV-T344-E` on 2026-06-17.
+- Revelation may continue as research/prep only.
+- Non-output-changing harnesses, review packets, and lane prep are authorized.
+- Epistle argument boundaries are the next review lane after Revelation research prep.
+- T345 implementation remains blocked until stronger reviewed gold and a future owner decision
+  authorize an exact implementation target.
 
 ## 10. Owner Decision Box
 
 ```yaml
 owner_selection:
-  reviewer: null
-  date: null
-  selected_option: pending
+  reviewer: Lowell Wong
+  date: "2026-06-17"
+  selected_option: REV-T344-E
   selected_parent: null
   selected_children: []
-  rationale: null
+  rationale: >
+    Require more Revelation research and prep before any reviewed-gold promotion or
+    output-changing implementation. This preserves orthodox interpretive possibilities and
+    avoids forcing debated Revelation hermeneutics through chunk boundaries.
   implementation_allowed: false
   output_change_authorized: false
   reviewed_gold_promoted: false
+  continuing_authorization:
+    revelation_research_prep_only: true
+    non_output_changing_harnesses: true
+    non_output_changing_review_packets: true
+    non_output_changing_lane_prep: true
+    next_review_lane_after_revelation_research_prep: epistle_argument_boundaries
   notes: >
-    T344 opens the owner-selection docket only. No Revelation reviewed gold, implementation,
+    T344 records a research-only owner decision. No Revelation reviewed gold, implementation,
     route behavior, output change, evaluator change, generated output, boundary import,
     T327G, embedding/index/edge work, graph-edge generation, whole-Bible output-changing pass,
-    or Psalm candidate promotion is authorized until the owner selects one exact option and the
-    required governed evidence is updated.
+    or Psalm candidate promotion is authorized.
 ```

@@ -43,6 +43,7 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ("validate_control_plane.py", [PY, str(ROOT / "scripts" / "validate_control_plane.py")]),
         ("validate_repository_link_contract.py", [PY, str(ROOT / "scripts" / "validate_repository_link_contract.py")]),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
+        ("validate_task_scope.py", [PY, str(ROOT / "scripts" / "validate_task_scope.py")]),
         ("validate_canonical_66_scope.py", [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py")]),
         ("validate_vectorization_plan.py", [PY, str(ROOT / "scripts" / "validate_vectorization_plan.py")]),
         (

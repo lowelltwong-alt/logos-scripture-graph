@@ -155,7 +155,7 @@ T343 adds one Revelation review packet and gold-candidate surface for the T342-s
 
 | Case | Packet | Status | Current evidence summary |
 | --- | --- | --- | --- |
-| Rev.12.1-Rev.14.20 | `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` | `pending_human_review` | Current observed behavior splits the target across three apocalypse chunks and mixes it with extra context; symbolic-scene, speaker/voice, chronology, and recapitulation evidence remains diagnostic only. |
+| Rev.12.1-Rev.14.20 | `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` | `pending_human_review` / `REV-T344-E` research-prep only | Current observed behavior splits the target across three apocalypse chunks and mixes it with extra context; symbolic-scene, speaker/voice, chronology, and recapitulation evidence remains diagnostic only. T344 selected more Revelation research/prep before reviewed gold or implementation. |
 
 The Revelation packet is not reviewed gold, not approved expected output, and not authorization for
 output-changing work. It records candidate parent/child options and review questions only. Any

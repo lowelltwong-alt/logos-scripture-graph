@@ -13,17 +13,17 @@ HARNESS_ROADMAP = ROOT / ".ai" / "control" / "harness_upgrade_roadmap.yaml"
 T344_TASK = ROOT / ".ai" / "tasks" / "T344.task.yaml"
 
 
-def test_owner_selection_gate_validates_current_pending_state() -> None:
+def test_owner_selection_gate_validates_current_selected_e_state() -> None:
     data = gate.validate_owner_selection_implementation_gate()
 
     assert data["gate_id"] == "HARN-012"
-    assert data["owner_selection_status"] == "pending"
-    assert data["selected_option"] == "pending"
+    assert data["owner_selection_status"] == "selected"
+    assert data["selected_option"] == "REV-T344-E"
     assert data["t345_status"] == "planned"
     assert data["implementation_allowed"] is False
 
 
-def test_gate_rejects_t345_start_while_owner_selection_pending(tmp_path: Path) -> None:
+def test_gate_rejects_t345_start_for_selected_research_only_option(tmp_path: Path) -> None:
     text = ROADMAP_STATE.read_text(encoding="utf-8")
     text = text.replace("status: planned\n        lane: revelation_implementation", "status: in_progress\n        lane: revelation_implementation")
     candidate = tmp_path / "ROADMAP_STATE.yaml"
@@ -33,16 +33,16 @@ def test_gate_rejects_t345_start_while_owner_selection_pending(tmp_path: Path) -
         gate.validate_owner_selection_implementation_gate(roadmap_state=candidate)
 
 
-def test_gate_rejects_t345_task_file_before_owner_selection(tmp_path: Path) -> None:
+def test_gate_rejects_t345_task_file_for_selected_research_only_option(tmp_path: Path) -> None:
     t345_task = tmp_path / "T345.task.yaml"
     t345_task.write_text("id: T345\nstatus: in_progress\n", encoding="utf-8")
 
-    with pytest.raises(gate.OwnerSelectionGateError, match="T345 implementation cannot start"):
+    with pytest.raises(gate.OwnerSelectionGateError, match="T345 implementation is not allowed for selected option REV-T344-E"):
         gate.validate_owner_selection_implementation_gate(t345_task=t345_task)
 
 
 def test_gate_rejects_selected_option_drift(tmp_path: Path) -> None:
-    text = T344_TASK.read_text(encoding="utf-8").replace("selected_option: pending", "selected_option: REV-T344-C")
+    text = T344_TASK.read_text(encoding="utf-8").replace("selected_option: REV-T344-E", "selected_option: REV-T344-C")
     candidate = tmp_path / "T344.task.yaml"
     candidate.write_text(text, encoding="utf-8")
 

@@ -32,7 +32,8 @@ AI_TABLE_OF_CONTENTS.md
 | T350 | Bible-wide readiness map | `docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`; `.ai/control/bible_chunking_readiness_map.yaml` |
 | T342 | Revelation review-packet target selection | `docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`; `.ai/tasks/T342.task.yaml`; `.ai/handoffs/T342/handoff.md` |
 | T343 | Revelation review packet and gold candidates | `docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`; `.ai/tasks/T343.task.yaml`; `.ai/handoffs/T343/handoff.md`; `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md` |
-| T344 | Revelation owner-selection docket | `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`; `.ai/tasks/T344.task.yaml`; `.ai/handoffs/T344/handoff.md` |
+| T344 | Revelation owner-selection docket, selected `REV-T344-E` | `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`; `.ai/tasks/T344.task.yaml`; `.ai/handoffs/T344/handoff.md` |
+| T344R | Revelation research/prep only after selected `REV-T344-E` | `.ai/tasks/T344R.task.yaml`; `.ai/handoffs/T344R/handoff.md`; `.ai/control/bible_chunking_readiness_map.yaml` |
 
 ## Review Packet Surfaces
 
@@ -47,26 +48,24 @@ AI_TABLE_OF_CONTENTS.md
 
 ## Current Next Route
 
-After T343, the active route is:
+After T344 owner decision, the next route is:
 
 ```text
-T344 - Select One Revelation Behavior Target
+T344R - Revelation Research Prep After Owner Decision E
 ```
 
-T344 should review the pending, non-authorizing packet for:
+T344R should continue research/prep only for the pending, non-authorizing packet for:
 
 ```text
 Rev.12.1-Rev.14.20
 ```
 
-The T344 owner selection is still pending. The docket gives the owner five choices:
+Lowell Wong selected `REV-T344-E` on 2026-06-17:
 
 ```text
-REV-T344-A preserve current behavior
-REV-T344-B promote parent-only reviewed gold
-REV-T344-C promote parent plus exact child spans
-REV-T344-D mark characterization-only
-REV-T344-E require more research
+Continue Revelation research/prep only until stronger governed evidence exists.
+Authorize non-output-changing harnesses, review packets, and lane prep.
+Use epistle argument boundaries as the next review lane after Revelation research prep.
 ```
 
 No Revelation implementation, reviewed-gold promotion, chunk regeneration, evaluator change,

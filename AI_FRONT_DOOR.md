@@ -87,8 +87,10 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- Revelation is a future hard-book atlas/review-packet lane; Revelation implementation must wait
-  until reviewed gold exists and must route to apocalypse/Revelation-specific rules.
+- Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
+  research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
+  reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
+  decision exists, and must route to apocalypse/Revelation-specific rules.
 - Book-specific and genre-specific chunking rules must not leak globally.
 - Future boundary, noncanonical, legal, commentary, reception, or master-chunker work must remain
   separate from and subordinate to canonical Bible chunking. If adaptation would degrade the Bible
@@ -104,8 +106,8 @@ Bible-first chunking priority:
   changes by itself.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T342 Revelation review-packet
-  candidate selection only.
+  next safe route. It is non-authorizing and currently points to T344R Revelation research/prep
+  only, with epistle argument boundaries as the next review lane after Revelation prep.
 
 High-leverage change risk gate:
 
@@ -203,6 +205,7 @@ python scripts/validate_repo.py
 python scripts/validate_control_plane.py   # master context lock + front-door routing
 python scripts/validate_repository_link_contract.py
 python scripts/agent/validate_handoffs.py
+python scripts/validate_task_scope.py
 python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py

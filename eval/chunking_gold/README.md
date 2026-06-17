@@ -100,11 +100,12 @@ T343 adds a pending Revelation review packet:
 
 - `eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md`
 
-This packet is `pending_human_review` for `Rev.12.1-Rev.14.20`. It records gold candidates and
-review questions only. It does not authorize Revelation implementation, reviewed-gold promotion,
-output-changing work, route behavior, evaluator changes, generated chunk regeneration, boundary
-import, T327G, embedding/index/edge work, graph-edge generation, whole-Bible output-changing work,
-or Psalm candidate promotion.
+This packet is `pending_human_review` for `Rev.12.1-Rev.14.20`. T344 owner-selected
+`REV-T344-E`, so the next allowed step is Revelation research/prep only until stronger governed
+evidence exists. It records gold candidates and review questions only. It does not authorize
+Revelation implementation, reviewed-gold promotion, output-changing work, route behavior,
+evaluator changes, generated chunk regeneration, boundary import, T327G, embedding/index/edge
+work, graph-edge generation, whole-Bible output-changing work, or Psalm candidate promotion.
 
 ## Marker-Sensitive Stress Cases
 

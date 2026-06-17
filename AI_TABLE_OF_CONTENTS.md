@@ -66,6 +66,8 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md`](docs/roadmap/T342_REVELATION_REVIEW_PACKET_CANDIDATE_SELECTION.md)
 - [`docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`](docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md)
 - [`docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`](docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md)
+- [`.ai/tasks/T344R.task.yaml`](.ai/tasks/T344R.task.yaml) - planned Revelation research/prep-only task after selected `REV-T344-E`
+- [`.ai/handoffs/T344R/handoff.md`](.ai/handoffs/T344R/handoff.md) - seed handoff for Revelation research/prep-only continuation
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
@@ -83,6 +85,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/audit_surface_map.yaml`](.ai/control/audit_surface_map.yaml) - machine-readable audit surface map
 - [`.ai/control/harness_upgrade_roadmap.yaml`](.ai/control/harness_upgrade_roadmap.yaml) - future harness upgrade watchlist and roadmap
 - [`scripts/agent/no_context_audit_harness.py`](scripts/agent/no_context_audit_harness.py) - generates no-context audit briefs
+- [`scripts/validate_task_scope.py`](scripts/validate_task_scope.py) - HARN-001 protected-path and task-scope diff validator
 - [`scripts/validate_owner_selection_implementation_gate.py`](scripts/validate_owner_selection_implementation_gate.py) - HARN-012 gate blocking T345/output-changing work until owner selection and governed evidence agree
 - [`scripts/validate_source_metadata_authority.py`](scripts/validate_source_metadata_authority.py) - HARN-006 scanner keeping source metadata evidence from becoming boundary, lexical, intertext, graph-edge, or truth authority
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)

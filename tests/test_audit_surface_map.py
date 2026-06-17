@@ -49,6 +49,7 @@ def test_front_door_and_toc_expose_no_context_audit_path() -> None:
         ".ai/control/audit_surface_map.yaml",
         ".ai/control/harness_upgrade_roadmap.yaml",
         "scripts/agent/no_context_audit_harness.py",
+        "scripts/validate_task_scope.py",
     ]:
         assert phrase in toc
 
@@ -109,3 +110,6 @@ def test_harness_upgrade_roadmap_records_future_watch_items() -> None:
         assert harness_id in roadmap
     assert "promote_issue_to_harness_when" in roadmap
     assert "local_validation_and_ci_validation_disagree" in roadmap
+    assert "HARN-001" in roadmap
+    assert "status: implemented_v1" in roadmap
+    assert "scripts/validate_task_scope.py" in roadmap
