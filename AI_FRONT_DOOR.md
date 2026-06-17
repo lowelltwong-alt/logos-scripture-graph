@@ -89,8 +89,9 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 requires Bible-wide research triage before more chunking algorithm work; select the next
-  review lane from the triage map, not from chat memory or agent momentum.
+- T351 completed Bible-wide research triage before more chunking algorithm work; T352 is the next
+  non-authorizing review-packet lane for epistle argument packets. Do not move from packet prep to
+  implementation without later owner-reviewed gold and exact authorization.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -113,7 +114,8 @@ Bible-first chunking priority:
   next safe route. It is non-authorizing and currently points to T351 Bible-wide research triage.
 - The Bible chunking research triage map at `.ai/control/bible_chunking_research_triage_map.yaml`
   classifies canonical lanes before more algorithm work. It is non-authorizing; `review_packet_ready`
-  means ready for review packets, not ready to chunk.
+  means ready for review packets, not ready to chunk. T352 creates pending epistle argument packets,
+  not reviewed gold.
 
 High-leverage change risk gate:
 

@@ -1,8 +1,17 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-17
-**Updated by:** T351 Bible-wide chunking research triage (Codex)
-**Active task:** -> **T351** researches and triages the whole canonical 66 Bible before more chunking algorithm work. It classifies lanes as `review_packet_ready`, `research_first`, `governed_hold`, or `implementation_blocked`, while keeping `REV-T344-E` in force for Revelation. The triage does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T352 epistle argument review packets (Codex)
+**Active task:** -> **T352** creates pending, non-authorizing epistle argument review packets after T351 Bible-wide triage. Targets: `Eph.1.3-Eph.1.14`, `Rom.9-Rom.11`, `Heb.7-Heb.10`, and `1Cor.8-1Cor.10`. Revelation remains research/prep-only under `REV-T344-E`. T352 does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T352 epistle argument review packets (2026-06-17):** Added pending review packets for
+> `Eph.1.3-Eph.1.14`, `Rom.9-Rom.11`, `Heb.7-Heb.10`, and `1Cor.8-1Cor.10` as the first
+> review-packet-ready lane after T351 triage. The packet and observed-behavior indexes now mark
+> these cases as `review_packet_pending`, not reviewed gold. Added CD-019 and
+> `scripts/validate_epistle_argument_review_packets.py` so epistle argument packets stay
+> non-authorizing. No chunk implementation, reviewed-gold promotion, output change, evaluator
+> change, generated chunk regeneration, graph/vector work, T345, or Revelation implementation is
+> authorized.
 
 > **T351 Bible-wide chunking research triage (2026-06-17):** Added
 > `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md` and

@@ -83,12 +83,14 @@ def test_t351_task_and_roadmap_are_active_and_numeric() -> None:
     future = {item["id"]: item for item in phase_4["future_sequence"]}
 
     assert task["id"] == "T351"
-    assert task["status"] == "in_progress"
+    assert task["status"] == "complete"
     assert task["authorization"]["bible_wide_research_triage_allowed"] is True
     assert task["authorization"]["output_change_authorized"] is False
     assert tasks["T344"]["status"] == "complete"
-    assert tasks["T351"]["status"] == "in_progress"
+    assert tasks["T351"]["status"] == "complete"
     assert tasks["T351"]["supersedes_invalid_task_id"] == "T344R"
+    assert tasks["T352"]["status"] == "in_progress"
+    assert tasks["T352"]["lane"] == "epistle_argument"
     assert "T344R" not in future
     assert future["T345"]["status"] == "planned"
 

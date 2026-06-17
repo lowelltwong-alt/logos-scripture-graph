@@ -62,6 +62,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_bible_chunking_research_triage.py",
             [PY, str(ROOT / "scripts" / "validate_bible_chunking_research_triage.py")],
         ),
+        (
+            "validate_epistle_argument_review_packets.py",
+            [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
+        ),
         ("validate_audit_surface_map.py", [PY, str(ROOT / "scripts" / "validate_audit_surface_map.py")]),
         (
             "validate_owner_selection_implementation_gate.py",

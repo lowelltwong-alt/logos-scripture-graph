@@ -64,6 +64,10 @@ PENDING_REVIEW_CASES = {
     "john3_wj_speaker_boundary",
     "matt5_7_sermon_on_mount_wj_discourse",
     "john7_53_8_11_wj_variant_speech",
+    "eph1_3_14_greek_sentence",
+    "rom9_11_argument",
+    "heb7_10_priesthood_argument",
+    "1cor8_10_food_offered_to_idols",
 }
 
 

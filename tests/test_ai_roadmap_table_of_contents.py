@@ -37,11 +37,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md" in toc
     assert "eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md" in toc
     assert ".ai/control/chunking_agent_preflight.yaml" in toc
-    assert "T351 - Bible-Wide Chunking Research Triage Atlas" in toc
+    assert "T352 - Epistle Argument Review Packets" in toc
     assert "Rev.12.1-Rev.14.20" in toc
     assert "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md" in toc
     assert "docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md" in toc
-    assert ".ai/tasks/T351.task.yaml" in toc
-    assert ".ai/handoffs/T351/handoff.md" in toc
+    assert "docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md" in toc
+    assert ".ai/tasks/T352.task.yaml" in toc
+    assert ".ai/handoffs/T352/handoff.md" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

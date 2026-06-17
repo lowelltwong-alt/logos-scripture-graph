@@ -550,6 +550,44 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-019
+    title: Epistle argument review packets are non-authorizing lane prep
+    classification: non_authorizing_review
+    task_ids: [T352]
+    owner_decision_ref: docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md
+    pr_refs: []
+    affected_scope:
+      books: [Eph, Rom, Heb, 1Cor]
+      passages: [Eph.1.3-Eph.1.14, Rom.9-Rom.11, Heb.7-Heb.10, 1Cor.8-1Cor.10]
+      routes: [epistle_argument, future_route_isolated_implementation]
+      surfaces: [docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md, eval/chunking_gold/review_packets, eval/chunking_gold/stress_atlas/observed_stress_behavior.json]
+    decision: "Create pending, non-authorizing epistle argument review packets for Eph.1.3-14, Rom.9-11, Heb.7-10, and 1Cor.8-10 after T351 triage. These packets move observed cases from needs_review_packet to review_packet_pending but do not approve parent spans, child spans, reviewed gold, route behavior, output changes, graph edges, or theological labels as authority."
+    downstream_risk: "Epistle argument boundaries can shift doctrinal context or encode election, Israel/church relation, covenant, sacrifice, perseverance, sacramental, ecclesial, ethical-system, or Trinitarian claims if labels or boundaries become authority."
+    theological_assumptions_avoided:
+      - "Romans 9-11 packets do not choose an election or Israel/church system."
+      - "Hebrews 7-10 packets do not choose a covenant, sacrifice, typology, or perseverance system."
+      - "1 Corinthians 8-10 packets do not choose a sacramental, ecclesial, or ethical system."
+      - "Ephesians 1:3-14 packets do not infer Trinitarian relation, election system, or divine-identity graph truth from labels."
+      - "Paragraphing, punctuation, cross-references, quotations, and original-language observations remain evidence only."
+    reviewed_gold_dependency: "Any epistle output-changing work requires later owner review of one exact target, exact parent/child spans if any, executable checks, non-target identity proof, same-baseline evaluation, and explicit implementation authorization."
+    non_authorizations:
+      - epistle_route_implementation
+      - reviewed_gold_promotion
+      - parent_span_approval
+      - child_span_approval
+      - output_change
+      - doctrinal_system_from_argument_boundary
+      - automatic_cross_reference_edge
+      - paragraphing_as_boundary_authority
+      - original_language_as_ungoverned_authority
+    validators:
+      - scripts/validate_epistle_argument_review_packets.py
+      - tests/test_t352_epistle_argument_review_packets.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -618,4 +656,5 @@ backfill_coverage:
     - T343
     - T344
     - T351
+    - T352
 ...

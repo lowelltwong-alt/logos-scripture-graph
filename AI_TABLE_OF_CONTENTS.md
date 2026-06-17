@@ -68,8 +68,10 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md`](docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md)
 - [`docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`](docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md)
 - [`docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`](docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md)
-- [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - active Bible-wide research triage before more chunking work
-- [`.ai/handoffs/T351/handoff.md`](.ai/handoffs/T351/handoff.md) - handoff for Bible-wide research triage
+- [`docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`](docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md)
+- [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - completed Bible-wide research triage before more chunking work
+- [`.ai/tasks/T352.task.yaml`](.ai/tasks/T352.task.yaml) - active epistle argument review-packet prep
+- [`.ai/handoffs/T352/handoff.md`](.ai/handoffs/T352/handoff.md) - handoff for epistle argument review-packet prep
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)

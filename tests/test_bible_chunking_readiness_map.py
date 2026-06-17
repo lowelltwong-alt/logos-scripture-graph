@@ -50,18 +50,19 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
 
 
-def test_next_route_advances_to_t351_bible_wide_triage() -> None:
+def test_next_route_advances_to_t352_epistle_packet_prep() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T351"
-    assert data["next_route"]["route_type"] == "bible_wide_research_triage"
-    assert data["next_route"]["recommended_target"] == "canonical_66"
+    assert data["next_route"]["task_id"] == "T352"
+    assert data["next_route"]["route_type"] == "epistle_argument_review_packet_prep"
+    assert data["next_route"]["recommended_target"] == "epistle_argument"
     assert data["next_route"]["owner_selection_status"] == "selected"
     assert data["next_route"]["selected_option"] == "REV-T344-E"
     assert data["next_route"]["selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
     assert data["next_route"]["triage_map"] == ".ai/control/bible_chunking_research_triage_map.yaml"
-    assert data["next_route"]["requires_triage_before_lane_selection"] is True
-    assert data["next_route"]["next_review_lane_after_completion"] == "select_from_review_packet_ready_lanes"
+    assert data["next_route"]["prior_triage_task"] == "T351"
+    assert data["next_route"]["review_packet_lane"] == "epistle_argument"
+    assert data["next_route"]["packet_status"] == "pending_human_review"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
 
