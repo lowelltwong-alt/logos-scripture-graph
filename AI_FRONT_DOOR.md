@@ -21,9 +21,9 @@ Read these files before making changes:
 10. For any ingest, chunking, review-packet, evaluator, route, graph, or retrieval work:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
-    Source metadata is evidence, not authority. Divine-name/title capitalization and WJ/red-letter
-    markers, WJ speaker/discourse policy, and John 3 owner-review docket are evidence/review
-    policy, not authority.
+    Source metadata is evidence, not authority. The source-metadata research atlas,
+    divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy, and
+    John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
@@ -158,6 +158,13 @@ Bible-first chunking priority:
   graph edges, retrieval truth, embeddings, source metadata authority, speaker attribution,
   boundary import, or implementation. It is validated by
   `scripts/validate_bible_wide_chunking_research_registry.py`.
+- The source-metadata research atlas at `.ai/control/source_metadata_research_atlas.yaml` records
+  observed metadata families and canonical surfaces for internal cross-references, Strong's-style
+  numbers, lexical rarity, footnotes, headings, boundary markers, WJ/red-letter markers, speaker
+  labels, formatting, and divine capitalization. It does not authorize Scripture truth, lexical
+  truth, intertext truth, speaker attribution, graph edges, retrieval truth, reviewed gold, chunk
+  boundaries, output changes, boundary import, or algorithm work. It is validated by
+  `scripts/validate_source_metadata_research_atlas.py`.
 
 High-leverage change risk gate:
 
@@ -259,6 +266,7 @@ python scripts/validate_task_scope.py
 python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
+python scripts/validate_source_metadata_research_atlas.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -300,6 +308,9 @@ preflight context.
 `python scripts/validate_bible_wide_chunking_research_registry.py` fails closed if the Bible-wide
 research registry loses canonical 66 coverage, becomes authorizing, or drops sensitive book-level
 watchpoints.
+`python scripts/validate_source_metadata_research_atlas.py` fails closed if the source-metadata
+research atlas loses required metadata families, stale canonical source-surface counts, priority
+cases, or evidence-only non-authorizations.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

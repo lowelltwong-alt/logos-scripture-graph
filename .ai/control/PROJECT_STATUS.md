@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T358 Bible-wide chunking research registry (Codex)
-**Active task:** -> **T358** is complete as non-output-changing research PR work. It creates a canonical 66-book research registry at `.ai/control/bible_wide_chunking_research_registry.yaml` with use-when routing, book-level theological risks, source-metadata watchpoints, and future review-packet candidates. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T359 source metadata research atlas (Codex)
+**Active task:** -> **T359** is complete as non-output-changing research PR work stacked after T358. It creates `.ai/control/source_metadata_research_atlas.yaml` to record internal cross-references, Strong's-style numbers, lexical rarity, footnotes, headings, boundary markers, WJ/red-letter markers, speaker labels, formatting, and divine capitalization as evidence only. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T359 source metadata research atlas (2026-06-18):** Added
+> `.ai/control/source_metadata_research_atlas.yaml`, checked by
+> `scripts/validate_source_metadata_research_atlas.py`, so future chunking, graph, retrieval,
+> review-packet, evaluator, and audit agents can see source metadata families before relying on
+> chat memory. The atlas records observed canonical surfaces and evidence-only handling for
+> internal cross-references, Strong's-style word numbers, lexical rarity, footnotes, alternate
+> readings, headings, paragraph/poetry markers, WJ/red-letter markers, speaker labels, edition
+> formatting, and divine-name/title capitalization. It is stacked after T358 and remains
+> non-authorizing: no Scripture truth, lexical truth, intertext truth, speaker attribution, graph
+> edge, retrieval truth, reviewed gold, chunk boundary, output change, boundary import, vector work,
+> or algorithm behavior is approved.
 
 > **T358 Bible-wide chunking research registry (2026-06-18):** Added
 > `.ai/control/bible_wide_chunking_research_registry.yaml`, checked by

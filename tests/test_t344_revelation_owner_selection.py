@@ -149,6 +149,10 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T358"]["research_registry"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
     assert tasks["T358"]["book_count"] == 66
     assert tasks["T358"]["implementation_authorized"] is False
+    assert tasks["T359"]["status"] == "complete"
+    assert tasks["T359"]["lane"] == "source_metadata_research"
+    assert tasks["T359"]["research_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
+    assert tasks["T359"]["source_metadata_authority_allowed"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"

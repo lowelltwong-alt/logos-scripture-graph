@@ -41,6 +41,11 @@ def test_research_registry_records_sensitive_research_watchpoints() -> None:
     assert "source_metadata_features" in {
         dimension["dimension_id"] for dimension in data["research_dimensions"]
     }
+    source_metadata = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "source_metadata_features"
+    )
+    assert source_metadata["companion_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
     assert "divine_name_title_capitalization" in {
         dimension["dimension_id"] for dimension in data["research_dimensions"]
     }

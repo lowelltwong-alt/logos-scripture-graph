@@ -29,7 +29,7 @@ Common tags in this file:
 - `theology-risk`, `hermeneutic-neutrality`, `source-metadata`
 - `audit`, `handoff`, `task-scope`, `validator`, `harness`
 - `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`,
-  `whole-bible-research`, `canonical-66`, `research-registry`
+  `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`
 
 ## Current Bible Chunking Path
 
@@ -54,6 +54,7 @@ Common tags in this file:
 | T355 | WJ speaker/discourse policy and target selection | `wj-speaker`, `gospel-discourse-wj`, `john3`, `policy` | Understanding why John 3 was selected for owner review only. | `docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`; `.ai/control/wj_speaker_discourse_policy.yaml`; `scripts/validate_wj_speaker_discourse_policy.py`; `.ai/tasks/T355.task.yaml`; `.ai/handoffs/T355/handoff.md` |
 | T356 | John 3 WJ owner-review docket | `john3`, `owner-review`, `speaker-boundary`, `current-route` | Presenting owner options before any John 3 parent/child/speaker/chunk approval. | `docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`; `.ai/control/john3_wj_owner_review_docket.yaml`; `scripts/validate_john3_owner_review_docket.py`; `.ai/tasks/T356.task.yaml`; `.ai/handoffs/T356/handoff.md` |
 | T358 | Bible-wide chunking research registry | `whole-bible-research`, `canonical-66`, `research-registry`, `non-authorizing` | Preparing future research packets across all 66 books without starting chunk implementation. | `docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`; `.ai/control/bible_wide_chunking_research_registry.yaml`; `scripts/validate_bible_wide_chunking_research_registry.py`; `.ai/tasks/T358.task.yaml`; `.ai/handoffs/T358/handoff.md` |
+| T359 | Source metadata research atlas | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`, `non-authorizing` | Checking metadata families before future chunking, graph, retrieval, or review-packet work. | `docs/roadmap/T359_SOURCE_METADATA_RESEARCH_ATLAS.md`; `.ai/control/source_metadata_research_atlas.yaml`; `scripts/validate_source_metadata_research_atlas.py`; `.ai/tasks/T359.task.yaml`; `.ai/handoffs/T359/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -70,6 +71,7 @@ Common tags in this file:
 | `.ai/control/wj_speaker_discourse_policy.yaml` | `wj-speaker`, `john3`, `policy`, `owner-review` | Work weighs WJ/speaker/discourse evidence before owner review. | Policy for weighing WJ/speaker/discourse evidence; selects John 3 for owner review only. |
 | `.ai/control/john3_wj_owner_review_docket.yaml` | `john3`, `owner-review`, `current-route`, `non-authorizing` | Owner needs John 3 options or an agent needs to know what is still pending. | Pending John 3 owner-review options; no parent/child/speaker/chunk approval. |
 | `.ai/control/bible_wide_chunking_research_registry.yaml` | `whole-bible-research`, `canonical-66`, `research-registry`, `book-watchpoints` | Future agents need book-level research prompts before exact review packets or algorithms. | Canonical 66-book research queue; no chunk/gold/graph/output authority. |
+| `.ai/control/source_metadata_research_atlas.yaml` | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization` | Future agents need source metadata families, observed surfaces, and non-authorizations before chunk/graph/retrieval work. | Metadata research atlas; no Scripture/lexical/intertext/speaker/graph/chunk/retrieval/output authority. |
 
 ## Current Next Route
 
@@ -113,3 +115,8 @@ route behavior, or output changes.
 T358 does not authorize any book-level research prompt or future review-packet candidate as
 reviewed gold, route behavior, graph truth, retrieval truth, source-metadata authority, or output
 change.
+T359 does not authorize internal cross-references, Strong's-style numbers, lexical rarity,
+footnotes, headings, boundary markers, WJ/red-letter markers, speaker labels, formatting, or
+capitalization as Scripture truth, lexical truth, intertext truth, speaker attribution, graph
+edges, retrieval truth, reviewed gold, chunk boundaries, output changes, boundary import, or
+algorithm behavior.
