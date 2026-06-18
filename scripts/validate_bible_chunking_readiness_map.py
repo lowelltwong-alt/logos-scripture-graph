@@ -56,6 +56,7 @@ REQUIRED_LESSON_SURFACES = {
     "docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md",
     "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
     ".ai/control/bible_wide_chunking_research_registry.yaml",
+    ".ai/control/source_metadata_research_atlas.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {

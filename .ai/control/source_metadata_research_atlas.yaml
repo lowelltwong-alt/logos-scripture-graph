@@ -1,0 +1,260 @@
+object_type: source_metadata_research_atlas
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T359 after the maintainer reminded agents that internal cross-references, Strong's-style numbers, red-letter/WJ markers, capitalization, and other source metadata must be remembered before Bible chunking resumes."
+reason_for_inclusion: "Give future chunking, graph, retrieval, review-packet, and audit agents a first-class source-metadata research atlas so metadata is preserved as evidence without becoming Scripture, lexical, intertext, speaker, graph, chunk, retrieval, reviewed-gold, or output authority."
+schema_version: source_metadata_research_atlas.v1
+atlas_id: t359_source_metadata_research_atlas
+owner: Lowell Wong
+authority:
+  records_source_metadata_research_atlas: true
+  records_observed_canonical_surfaces: true
+  may_surface_for_review: true
+  authorizes_scripture_truth: false
+  authorizes_lexical_truth: false
+  authorizes_intertext_truth: false
+  authorizes_speaker_attribution: false
+  authorizes_graph_edges: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_output_change: false
+  authorizes_boundary_import: false
+  authorizes_new_algorithm_work: false
+scope:
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  research_mode: non_output_changing
+  relation_to_t358: "Companion atlas to the Bible-wide research registry; it expands source_metadata_features without authorizing any chunk, gold, graph, retrieval, or implementation behavior."
+  relation_to_t356_t357: "Does not select a John 3 option and does not supersede pending owner review or reviewed-gold gates."
+observed_source_surfaces:
+  - surface_id: canonical_word_tokens
+    path: data/canonical/translations/eng-web/word_tokens.jsonl
+    record_count: 677688
+    observed_features: [surface_text, strongs_style_word_numbers, hebrew_greek_lexeme_tags, nesting_context, wj_markers]
+    use_when: "A future packet wants lexical, WJ, capitalization, or formatting evidence from tokenized canonical text."
+    non_authorization: "Word-token metadata is evidence only; it does not authorize lexical truth, speaker attribution, graph edges, chunk boundaries, retrieval truth, or output changes."
+  - surface_id: editorial_cross_references
+    path: data/canonical/translations/eng-web/editorial_cross_references.jsonl
+    record_count: 340
+    observed_features: [origin_ref, target_text, candidate_osis_refs, raw_marker]
+    use_when: "A passage appears connected to another biblical passage through source editorial cross-reference metadata."
+    non_authorization: "Editorial cross-references are evidence only; they do not authorize graph edges, intertext truth, fulfillment claims, or chunk boundaries."
+  - surface_id: footnotes
+    path: data/canonical/translations/eng-web/footnotes.jsonl
+    record_count: 1130
+    observed_features: [alternate_readings, hebrew_word_spans, labels, raw_marker, text]
+    use_when: "A passage has textual, lexical, title, alternate-reading, or explanatory note metadata."
+    non_authorization: "Footnotes are evidence only; they do not authorize canonical preference, lexical truth, doctrinal claims, or chunk boundaries."
+  - surface_id: section_headings
+    path: data/canonical/translations/eng-web/section_headings.jsonl
+    record_count: 283
+    observed_features: [book_titles, major_titles, section_titles, source_marker]
+    use_when: "A heading suggests a pericope, discourse, oracle, or literary-unit boundary."
+    non_authorization: "Section headings are evidence only; they do not authorize chunk boundaries, pericope labels, or theological interpretation."
+  - surface_id: boundary_claims
+    path: data/canonical/translations/eng-web/boundary_claims.jsonl
+    record_count: 28165
+    observed_features: [paragraph_markers, poetry_markers, source_markers, boundary_candidates]
+    use_when: "A packet needs observed paragraph, poetry, or layout boundary evidence."
+    non_authorization: "Boundary claims are evidence only; they do not authorize regenerated chunks or route behavior without reviewed gold."
+  - surface_id: wj_marker_inventory
+    path: .ai/control/wj_marker_inventory.yaml
+    observed_counts:
+      wj_word_tokens: 38094
+      wj_token_runs: 675
+      books_with_wj: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
+    observed_features: [words_of_jesus_markers, red_letter_formatting, non_gospel_wj_cases, split_wj_evidence]
+    use_when: "A passage touches Jesus speech, WJ/red-letter formatting, narrator boundaries, or Revelation voice shifts."
+    non_authorization: "WJ/red-letter metadata is evidence only; it does not authorize Jesus speaker attribution, discourse boundaries, graph edges, reviewed gold, chunk boundaries, or output changes."
+  - surface_id: divine_capitalization_inventory
+    path: .ai/control/divine_capitalization_inventory.yaml
+    observed_features: [God_god, Spirit_spirit, Father_father, Word_word, LORD_Lord_lord, divine_pronoun_capitalization, strongs_metadata]
+    use_when: "A passage touches divine names, titles, pronouns, Christological language, pneumatology, or lexical identity claims."
+    non_authorization: "Capitalization metadata is evidence only; it does not authorize divine identity, Trinitarian relation, speaker attribution, lexical truth, graph edges, chunk boundaries, retrieval truth, or output changes."
+  - surface_id: raw_source_inventory
+    path: .ai/control/RAW_SOURCE_INVENTORY.md
+    observed_features: [raw_usfm_markers, marker_coverage, source_archive, source_metadata_summary]
+    use_when: "A future agent needs to understand what metadata the source actually contains before planning ingest, chunk, graph, or retrieval work."
+    non_authorization: "Raw-source marker inventory is evidence only; it does not authorize source import, boundary import, graph edges, chunk boundaries, or output changes."
+metadata_families:
+  - family_id: editorial_cross_references
+    tags: [cross_reference, intertext, fulfillment, graph]
+    source_surfaces: [editorial_cross_references, raw_source_inventory]
+    use_when: "Cross-reference metadata appears to connect passages, typology, fulfillment, quotation, echo, allusion, or canonical themes."
+    required_review_questions:
+      - "Is the connection editorial metadata, explicit canonical quotation, lexical overlap, thematic resemblance, or later theological inference?"
+      - "Could promoting the connection imply fulfillment, typology, covenant continuity, eschatology, or graph truth?"
+    theological_downstream_risks:
+      - "Automatic cross-reference edges can turn editorial metadata into theological claims."
+      - "Dense crossrefs in Revelation, Daniel, Matthew, Hebrews, Romans, Psalms, and Jude can bias hermeneutics."
+    authority_boundary: "Cross-references are evidence only and do not authorize graph edges, intertext truth, fulfillment claims, retrieval truth, or chunk boundaries."
+    non_authorizations: [automatic_cross_reference_edge, cross_reference_as_intertext_truth, cross_reference_as_fulfillment_authority, cross_reference_as_chunk_boundary]
+  - family_id: strongs_style_word_numbers
+    tags: [strongs, lexeme, greek, hebrew, lexical]
+    source_surfaces: [canonical_word_tokens, divine_capitalization_inventory, footnotes]
+    use_when: "A packet observes a shared Strong's-style number, Hebrew/Greek tag, lexical gloss, or rare term."
+    required_review_questions:
+      - "Is the same number attached to the same lexeme, a homonym, a translational gloss, or a source tagging artifact?"
+      - "Would using the number imply lexical truth, theological identity, word-study authority, or graph edges?"
+    theological_downstream_risks:
+      - "Shared lexeme metadata can overstate connections between passages."
+      - "Rare Greek or Hebrew tags can bias Christology, pneumatology, soteriology, or eschatology if treated as decisive."
+    authority_boundary: "Strong's-style numbers are evidence only and do not authorize lexical truth, theological identity, graph edges, retrieval truth, or chunk boundaries."
+    non_authorizations: [automatic_strongs_lexical_authority, strongs_number_as_theological_identity, strongs_number_as_graph_edge, strongs_number_as_chunk_boundary]
+  - family_id: lexical_rarity_and_shared_lemmas
+    tags: [lexical_rarity, shared_lemma, concordance, graph]
+    source_surfaces: [canonical_word_tokens, footnotes]
+    use_when: "A packet notices a Greek/Hebrew word is rare, shared across distant passages, or concentrated in a book."
+    required_review_questions:
+      - "Is rarity measured against the same corpus, translation, morphology layer, and source-tagging policy?"
+      - "Could rarity be a retrieval hint while still not becoming theological or intertext authority?"
+    theological_downstream_risks:
+      - "Rare-word observations can become hidden doctrinal or intertext claims."
+      - "Graph or retrieval systems may over-rank lexical coincidence without reviewed evidence."
+    authority_boundary: "Lexical rarity is evidence only and does not authorize lexical truth, intertext truth, graph edges, retrieval truth, or chunk boundaries."
+    non_authorizations: [lexical_rarity_as_theological_truth, lexical_rarity_as_intertext_truth, lexical_rarity_as_retrieval_truth, lexical_rarity_as_chunk_boundary]
+  - family_id: footnotes_and_alternate_readings
+    tags: [footnotes, alternate_readings, textual_variant, notes]
+    source_surfaces: [footnotes, raw_source_inventory]
+    use_when: "Footnotes, alternate readings, Hebrew/Greek word spans, book-title spans, or explanatory notes appear relevant."
+    required_review_questions:
+      - "Is the note a translation explanation, textual variant, lexical gloss, title note, or editorial clarification?"
+      - "Would using the note change canonical text, passage scope, doctrine, or reviewed-gold status?"
+    theological_downstream_risks:
+      - "Alternate readings can be mistaken for canonical preference."
+      - "Lexical or title notes can bias divine-name, Christology, or speaker-boundary decisions."
+    authority_boundary: "Footnotes and alternate readings are evidence only and do not authorize canonical preference, lexical truth, doctrinal claims, graph edges, chunk boundaries, or output changes."
+    non_authorizations: [alternate_reading_as_canonical_preference, footnote_as_doctrinal_authority, footnote_as_chunk_boundary, footnote_as_output_change]
+  - family_id: section_headings_and_titles
+    tags: [headings, titles, pericope, editorial]
+    source_surfaces: [section_headings, raw_source_inventory]
+    use_when: "Book titles, section headings, or editorial headings appear to mark a pericope, discourse, oracle, psalm, or argument unit."
+    required_review_questions:
+      - "Is this a source heading, a book title, an editorial pericope label, or a marker generated by the pipeline?"
+      - "Would following the heading impose a tradition, harmonization, or theological topic boundary?"
+    theological_downstream_risks:
+      - "Headings can smuggle editorial interpretations into chunk boundaries."
+      - "Pericope labels can isolate verses from context or overstate doctrinal topics."
+    authority_boundary: "Section headings and titles are evidence only and do not authorize pericope labels, chunk boundaries, theological topics, or output changes."
+    non_authorizations: [section_heading_as_boundary_authority, heading_as_doctrinal_label, title_as_canonical_scope, heading_as_output_change]
+  - family_id: paragraph_poetry_and_boundary_markers
+    tags: [paragraph, poetry, stanza, layout, boundary]
+    source_surfaces: [boundary_claims, raw_source_inventory]
+    use_when: "Paragraph, poetry, line, stanza, acrostic, refrain, Selah, or layout markers appear to support a boundary."
+    required_review_questions:
+      - "Is the marker structural, editorial, typographic, poetic, or generated by the importer?"
+      - "Would following the marker split a theological argument, speech, oracle, psalm unity, or narrative scene?"
+    theological_downstream_risks:
+      - "Layout markers can over-fragment poetry or flatten discourse."
+      - "A marker-only rule can become a hidden global Psalm, prophecy, or Gospel boundary policy."
+    authority_boundary: "Paragraph, poetry, and boundary markers are evidence only and do not authorize route behavior, regenerated chunks, reviewed gold, or output changes."
+    non_authorizations: [formatting_marker_as_boundary_authority, marker_only_global_rule, stanza_as_reviewed_gold, marker_as_output_change]
+  - family_id: wj_red_letter_markers
+    tags: [wj, red_letter, speaker, gospel, revelation]
+    source_surfaces: [canonical_word_tokens, wj_marker_inventory]
+    use_when: "Words-of-Jesus/red-letter metadata appears in Gospel discourse, Acts, epistle quotation, or Revelation voice contexts."
+    required_review_questions:
+      - "Is WJ evidence aligned with syntax, speaker formula, narrative frame, quotation, and discourse context?"
+      - "Could treating WJ as authority decide Jesus/narrator attribution, Revelation voice identity, or chunk boundaries?"
+    theological_downstream_risks:
+      - "WJ metadata can collapse Jesus speech and narrator comment boundaries."
+      - "Non-Gospel WJ cases can encode assumptions about divine speaker identity."
+    authority_boundary: "WJ/red-letter markers are evidence only and do not authorize Jesus speaker attribution, Revelation voice identity, discourse boundaries, graph edges, reviewed gold, chunk boundaries, or output changes."
+    non_authorizations: [wj_marker_as_speaker_attribution, wj_marker_as_discourse_boundary, wj_marker_as_revelation_voice_identity, wj_marker_as_chunk_boundary]
+  - family_id: divine_name_title_capitalization
+    tags: [capitalization, divine_name, christology, pneumatology]
+    source_surfaces: [canonical_word_tokens, divine_capitalization_inventory, footnotes]
+    use_when: "Capitalization of God/god, Spirit/spirit, Father/father, Word/word, LORD/Lord/lord, pronouns, titles, or divine phrases appears relevant."
+    required_review_questions:
+      - "Is capitalization a translation convention, title, proper name, pronoun policy, or context-sensitive theological signal?"
+      - "Could using the capitalization imply divine identity, Trinitarian relation, Christology, pneumatology, or speaker attribution?"
+    theological_downstream_risks:
+      - "Capitalization can smuggle doctrinal conclusions into graph or retrieval behavior."
+      - "Spirit/spirit, Word/word, Son/son, Lord/lord, and pronoun cases need passage review before any authority claim."
+    authority_boundary: "Divine-name/title capitalization is evidence only and does not authorize divine identity, Trinitarian relation, Christology, pneumatology, speaker attribution, graph edges, retrieval truth, chunk boundaries, or output changes."
+    non_authorizations: [capitalization_as_theological_truth, capitalization_driven_graph_edge, capitalization_driven_chunk_boundary, pronoun_capitalization_as_referent_identity]
+  - family_id: speaker_labels_and_dialogue_markers
+    tags: [speaker, dialogue, discourse, quotation]
+    source_surfaces: [boundary_claims, canonical_word_tokens, raw_source_inventory]
+    use_when: "Speaker labels, quotation structure, dialogue markers, or discourse framing appear to identify a speaker or boundary."
+    required_review_questions:
+      - "Does the canonical text itself identify the speaker, or is the signal a source/layout artifact?"
+      - "Could this decide Jesus/narrator boundaries, divine speech, prophecy, epistle quotation, or Revelation voice identity?"
+    theological_downstream_risks:
+      - "Speaker labels can over-authorize attribution and graph edges."
+      - "Dialogue boundaries in Job, Song, Gospels, and Revelation are theology-sensitive."
+    authority_boundary: "Speaker labels and dialogue markers are evidence only and do not authorize speaker attribution, graph edges, chunk boundaries, reviewed gold, or output changes."
+    non_authorizations: [speaker_label_as_attribution_authority, dialogue_marker_as_chunk_boundary, speaker_label_as_graph_edge, speaker_label_as_reviewed_gold]
+  - family_id: edition_formatting_and_layout
+    tags: [formatting, layout, typography, edition]
+    source_surfaces: [raw_source_inventory, section_headings, boundary_claims, canonical_word_tokens]
+    use_when: "Formatting, typography, layout, nesting, or edition-specific marker behavior looks meaningful."
+    required_review_questions:
+      - "Is the feature preserved from source metadata, generated by ingestion, or inferred by later tooling?"
+      - "Would relying on this feature change chunking, retrieval, graph, or theological interpretation?"
+    theological_downstream_risks:
+      - "Edition-specific formatting can masquerade as canonical structure."
+      - "Generated formatting sidecars can hide pipeline assumptions."
+    authority_boundary: "Edition formatting and layout are evidence only and do not authorize Scripture truth, chunk boundaries, graph edges, retrieval truth, or output changes."
+    non_authorizations: [edition_formatting_as_canonical_structure, layout_as_chunk_boundary, generated_sidecar_as_truth, formatting_as_output_change]
+required_future_metadata_packet_fields:
+  - exact_passage_scope
+  - metadata_family_ids
+  - observed_source_surfaces
+  - raw_or_canonical_paths_consulted
+  - source_feature_summary
+  - theological_downstream_risks
+  - assumptions_avoided
+  - reviewed_gold_dependency
+  - non_authorizations
+  - validator_or_test_plan
+  - non_target_identity_plan
+priority_research_cases:
+  - case_id: revelation_crossrefs_wj_and_symbolic_intertexts
+    passages: [Rev.1.8, Rev.1.17-Rev.1.18, Rev.12.1-Rev.14.20, Rev.22.13]
+    metadata_families: [editorial_cross_references, wj_red_letter_markers, divine_name_title_capitalization, lexical_rarity_and_shared_lemmas]
+    status: research_only
+    reason: "Revelation metadata can imply voice identity, chronology, Danielic connections, Alpha/Omega identity, and eschatological systems."
+  - case_id: john3_wj_speaker_boundary_metadata
+    passages: [John.3.1-John.3.36]
+    metadata_families: [wj_red_letter_markers, speaker_labels_and_dialogue_markers, paragraph_poetry_and_boundary_markers]
+    status: owner_review_pending
+    reason: "John 3 WJ and speaker/discourse evidence remains pending owner review and does not authorize output changes."
+  - case_id: romans_9_11_argument_and_crossrefs
+    passages: [Rom.9-Rom.11]
+    metadata_families: [editorial_cross_references, strongs_style_word_numbers, lexical_rarity_and_shared_lemmas, paragraph_poetry_and_boundary_markers]
+    status: research_only
+    reason: "Argument boundaries and crossrefs can affect soteriology, Israel/church, covenant, and election debates."
+  - case_id: psalms_messianic_headings_and_lexemes
+    passages: [Ps.2, Ps.22, Ps.89, Ps.110]
+    metadata_families: [section_headings_and_titles, editorial_cross_references, strongs_style_word_numbers, paragraph_poetry_and_boundary_markers]
+    status: governed_hold_existing_gold
+    reason: "Psalms include messianic/theological crossrefs and existing governed Psalm 89 reviewed-gold constraints."
+  - case_id: jude_noncanonical_reference_metadata
+    passages: [Jude.14-Jude.15]
+    metadata_families: [editorial_cross_references, footnotes_and_alternate_readings, speaker_labels_and_dialogue_markers]
+    status: research_only
+    reason: "Jude's noncanonical-reference questions must not authorize boundary material import or canon-scope changes."
+global_non_authorizations:
+  - metadata_as_scripture_truth
+  - metadata_as_lexical_truth
+  - metadata_as_intertext_truth
+  - metadata_as_speaker_attribution
+  - metadata_as_graph_edge
+  - metadata_as_chunk_boundary
+  - metadata_as_reviewed_gold
+  - metadata_as_retrieval_truth
+  - metadata_as_output_change
+  - metadata_as_algorithm_permission
+  - boundary_import
+  - t345
+validators:
+  - scripts/validate_source_metadata_research_atlas.py
+  - tests/test_source_metadata_research_atlas.py
+  - scripts/validate_source_metadata_authority.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py

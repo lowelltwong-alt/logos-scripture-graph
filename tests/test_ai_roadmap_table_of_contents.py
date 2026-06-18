@@ -31,6 +31,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "whole-bible-research",
         "bible_wide_chunking_research_registry.yaml",
         "source-metadata",
+        "source_metadata_research_atlas.yaml",
         "john3",
         "task-scope",
         "graph",
@@ -54,6 +55,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`task-scope`",
         "`john3`, `owner-review`, `speaker-boundary`, `current-route`",
         "`divine-capitalization`, `source-metadata`, `harness`",
+        "`source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`",
         "A reviewer needs the packet queue",
         "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
     ]:
@@ -109,6 +111,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/bible_wide_chunking_research_registry.yaml" in toc
     assert ".ai/tasks/T358.task.yaml" in toc
     assert ".ai/handoffs/T358/handoff.md" in toc
+    assert "T359 | Source metadata research atlas" in toc
+    assert "docs/roadmap/T359_SOURCE_METADATA_RESEARCH_ATLAS.md" in toc
+    assert ".ai/control/source_metadata_research_atlas.yaml" in toc
+    assert ".ai/tasks/T359.task.yaml" in toc
+    assert ".ai/handoffs/T359/handoff.md" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

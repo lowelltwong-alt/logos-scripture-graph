@@ -228,6 +228,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
             raise ResearchRegistryError(
                 f"research_dimensions.{dimension_id}.non_authorization must explicitly negate authority"
             )
+        if dimension_id == "source_metadata_features":
+            if dimension.get("companion_atlas") != ".ai/control/source_metadata_research_atlas.yaml":
+                raise ResearchRegistryError(
+                    "research_dimensions.source_metadata_features.companion_atlas must point to source metadata atlas"
+                )
     missing_dimensions = sorted(REQUIRED_DIMENSIONS - dimension_ids)
     if missing_dimensions:
         raise ResearchRegistryError(f"{_rel(path)}: missing research dimensions {missing_dimensions}")

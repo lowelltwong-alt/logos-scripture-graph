@@ -17,6 +17,7 @@ WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
 RESEARCH_REGISTRY = ROOT / ".ai" / "control" / "bible_wide_chunking_research_registry.yaml"
+SOURCE_METADATA_ATLAS = ROOT / ".ai" / "control" / "source_metadata_research_atlas.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -56,7 +57,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -102,6 +103,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "wj_speaker_discourse_policy.yaml",
     "john3_wj_owner_review_docket.yaml",
     "bible_wide_chunking_research_registry.yaml",
+    "source_metadata_research_atlas.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -249,6 +251,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/chunking_theological_decision_register.yaml",
         ".ai/control/bible_chunking_research_triage_map.yaml",
         ".ai/control/bible_wide_chunking_research_registry.yaml",
+        ".ai/control/source_metadata_research_atlas.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -319,6 +322,18 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in research_registry_text:
             raise PreflightError(f"{_rel(RESEARCH_REGISTRY)}: missing registry phrase {phrase!r}")
+    source_metadata_atlas_text = _read_text(SOURCE_METADATA_ATLAS)
+    for phrase in (
+        "object_type: source_metadata_research_atlas",
+        "editorial_cross_references",
+        "strongs_style_word_numbers",
+        "wj_red_letter_markers",
+        "divine_name_title_capitalization",
+        "authorizes_graph_edges: false",
+        "metadata_as_chunk_boundary",
+    ):
+        if phrase not in source_metadata_atlas_text:
+            raise PreflightError(f"{_rel(SOURCE_METADATA_ATLAS)}: missing atlas phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

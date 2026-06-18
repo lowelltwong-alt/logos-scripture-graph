@@ -134,3 +134,5 @@ def test_t343_decision_register_records_metadata_lesson() -> None:
     assert "Source metadata is evidence, not authority for chunking" in register
     assert "automatic_strongs_lexical_authority" in register
     assert "automatic_cross_reference_edge" in register
+    assert "CD-025" in register
+    assert "Source-metadata research atlas is evidence-only review memory" in register
