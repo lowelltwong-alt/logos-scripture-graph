@@ -1220,6 +1220,56 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-032
+    title: Textual-variant/source-tradition dossiers preserve canon-boundary neutrality
+    classification: non_authorizing_review
+    task_ids: [T366]
+    owner_decision_ref: .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+    pr_refs: []
+    affected_scope:
+      books: [Mark, John, Acts, Rom, Deut, Jer, Jude, Dan, Esth, 1John]
+      passages: [Mark.16.1-Mark.16.20, Mark.16.9-Mark.16.20, John.7.53-John.8.11, Acts.8.37, Acts.15.34, Acts.24.7, Rom.16.25-Rom.16.27, Deut.32.8-Deut.32.9, Jer.1-Jer.52, Jude.5-Jude.15, Dan, Esth, 1John.5.6-1John.5.8]
+      routes: [textual_variant_source_tradition, future_variant_review, future_graph_review, future_retrieval_review, future_evaluator_review]
+      surfaces: [.ai/control/textual_variant_source_tradition_dossier_queue.yaml, .ai/control/bible_wide_chunking_research_registry.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T366_TEXTUAL_VARIANT_SOURCE_TRADITION_DOSSIERS.md]
+    decision: "Create a textual-variant/source-tradition dossier queue that records Mark 16 longer-ending, John 7:53-8:11 pericope adulterae, Acts empty witnesses, Romans doxology, Deuteronomy 32 source-tradition, Jeremiah MT/LXX order, Jude noncanonical reference, Daniel/Esther boundary-routing, and 1 John 5:7 Comma Johanneum risks as review-prep only. The queue preserves variant-policy-first, canonical-text-only, source-tradition comparison, footnote evidence, empty witness, noncanonical reference, boundary-material routing, doctrinal-sensitivity, and owner textual-decision review options, but it does not authorize textual-critical decisions, canon-scope changes, source-tradition preference, boundary imports, noncanonical authority, reviewed gold, chunk boundaries, route behavior, evaluator behavior, graph edges, retrieval truth, output changes, or algorithm behavior."
+    downstream_risk: "Future agents could treat variant markers, footnotes, empty witnesses, omitted verses, source-tradition differences, boundary material, noncanonical references, doctrinal sensitivity, cross-references, Strong's-style numbers, lexical markers, WJ/red-letter markers, or source formatting as approved textual-critical, canon, graph, retrieval, or chunk-boundary authority. That could silently choose a longer-ending policy, pericope adulterae policy, Romans doxology placement, Deuteronomy 32 divine-council reading, Jeremiah MT/LXX preference, Jude source authority, Daniel/Esther additions route, 1 John 5:7 proof-text use, or canon-scope boundary import."
+    theological_assumptions_avoided:
+      - "No textual-critical preferred reading, source-tradition preference, canon-scope expansion or contraction, boundary import, or noncanonical source authority is selected."
+      - "No longer-ending, pericope adulterae, Comma Johanneum, Deuteronomy 32, Jeremiah MT/LXX, Romans doxology, Jude source, or Daniel/Esther additions policy is selected."
+      - "No variant marker, empty witness, omitted verse, source heading, footnote, WJ/red-letter marker, cross-reference, lexical marker, or source formatting becomes chunk-boundary, graph, retrieval, route, or textual authority."
+      - "No pending textual-variant/source-tradition dossier becomes reviewed gold or implementation authority."
+    reviewed_gold_dependency: "Future output-changing use of any textual-variant/source-tradition dossier still requires exact passage scope, owner review, reviewed gold or equivalent governed evidence, textual policy if needed, non-target identity proof, graph and retrieval denial checks, route denial checks, validators/tests, and a later implementation-authorizing decision."
+    non_authorizations:
+      - textual_variant_dossier_as_reviewed_gold
+      - variant_marker_as_textual_decision
+      - source_tradition_as_preference
+      - empty_witness_as_text_addition
+      - omitted_verse_as_chunk_boundary
+      - noncanonical_reference_as_authority
+      - boundary_material_as_canonical_source
+      - canon_scope_change
+      - doctrinal_sensitivity_as_proof_text
+      - source_metadata_as_authority
+      - textual_critical_decision
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - t345_authority
+    validators:
+      - scripts/validate_textual_variant_source_tradition_dossier_queue.py
+      - tests/test_textual_variant_source_tradition_dossier_queue.py
+      - scripts/validate_bible_wide_chunking_research_registry.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1301,4 +1351,5 @@ backfill_coverage:
     - T363
     - T364
     - T365
+    - T366
 ...

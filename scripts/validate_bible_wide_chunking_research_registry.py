@@ -78,6 +78,7 @@ REQUIRED_DIMENSIONS = {
     "gospel_discourse_speaker_wj",
     "source_metadata_features",
     "divine_name_title_capitalization",
+    "textual_variant_source_tradition",
 }
 
 REQUIRED_PACKET_FIELDS = {
@@ -262,6 +263,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
             if dimension.get("companion_dossier_queue") != ".ai/control/gospel_wj_discourse_dossier_queue.yaml":
                 raise ResearchRegistryError(
                     "research_dimensions.gospel_discourse_speaker_wj.companion_dossier_queue must point to Gospel/WJ queue"
+                )
+        if dimension_id == "textual_variant_source_tradition":
+            if dimension.get("companion_dossier_queue") != ".ai/control/textual_variant_source_tradition_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    "research_dimensions.textual_variant_source_tradition.companion_dossier_queue must point to textual-variant/source-tradition queue"
                 )
     missing_dimensions = sorted(REQUIRED_DIMENSIONS - dimension_ids)
     if missing_dimensions:

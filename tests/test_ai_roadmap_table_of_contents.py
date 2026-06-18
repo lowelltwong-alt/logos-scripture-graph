@@ -38,7 +38,11 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "narrative_legal_covenant_dossier_queue.yaml",
         "wisdom_dialogue_poetry_dossier_queue.yaml",
         "prophetic_oracle_vision_dossier_queue.yaml",
+        "textual_variant_source_tradition_dossier_queue.yaml",
         "servant-song",
+        "textual-variant",
+        "source-tradition",
+        "comma-johanneum",
         "john3",
         "task-scope",
         "graph",
@@ -69,6 +73,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization`",
         "`wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`",
         "`prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`",
+        "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
         "A reviewer needs the packet queue",
         "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
     ]:
@@ -159,6 +164,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in toc
     assert ".ai/tasks/T365.task.yaml" in toc
     assert ".ai/handoffs/T365/handoff.md" in toc
+    assert "T366 | Textual variant source tradition dossier queue" in toc
+    assert "docs/roadmap/T366_TEXTUAL_VARIANT_SOURCE_TRADITION_DOSSIERS.md" in toc
+    assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in toc
+    assert ".ai/tasks/T366.task.yaml" in toc
+    assert ".ai/handoffs/T366/handoff.md" in toc
+    assert "scripts/validate_textual_variant_source_tradition_dossier_queue.py" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

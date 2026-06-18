@@ -38,7 +38,7 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
 
     assert set(by_lane) >= validator.REQUIRED_LANES
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
-    assert by_lane["bible_wide_orchestration"]["implementation_order"] == 8
+    assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
     assert all(lane["new_algorithm_work_ready"] is False for lane in by_lane.values())
 
 
@@ -57,6 +57,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/narrative_legal_covenant_dossier_queue.yaml" in surfaces
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in surfaces
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in surfaces
+    assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in surfaces
 
 
 def test_prophetic_oracle_lane_records_t365_without_algorithm_authority() -> None:
@@ -71,6 +72,22 @@ def test_prophetic_oracle_lane_records_t365_without_algorithm_authority() -> Non
     assert prophetic["dossier_queue"]["output_change_authorized"] is False
     assert prophetic["dossier_queue"]["implementation_authorized"] is False
     assert prophetic["dossier_queue"]["reviewed_gold_promoted"] is False
+
+
+def test_textual_variant_source_tradition_lane_records_t366_without_algorithm_authority() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
+    textual = by_lane["textual_variant_source_tradition"]
+
+    assert textual["current_state"] == "t366_research_dossier_queue_seeded_needs_policy_or_review_packets"
+    assert textual["new_algorithm_work_ready"] is False
+    assert textual["dossier_queue"]["task_id"] == "T366"
+    assert textual["dossier_queue"]["path"] == ".ai/control/textual_variant_source_tradition_dossier_queue.yaml"
+    assert textual["dossier_queue"]["output_change_authorized"] is False
+    assert textual["dossier_queue"]["implementation_authorized"] is False
+    assert textual["dossier_queue"]["reviewed_gold_promoted"] is False
+    assert "Mark.16.9-Mark.16.20" in textual["candidate_cases"]
+    assert "1John.5.6-1John.5.8" in textual["candidate_cases"]
 
 
 def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:

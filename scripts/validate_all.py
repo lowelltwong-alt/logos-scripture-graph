@@ -95,6 +95,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_prophetic_oracle_vision_dossier_queue.py")],
         ),
         (
+            "validate_textual_variant_source_tradition_dossier_queue.py",
+            [PY, str(ROOT / "scripts" / "validate_textual_variant_source_tradition_dossier_queue.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

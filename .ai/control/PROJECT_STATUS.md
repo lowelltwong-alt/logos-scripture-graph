@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T365 prophetic oracle vision dossier queue (Codex)
-**Active task:** -> **T365** is complete as non-output-changing research PR work. It creates `.ai/control/prophetic_oracle_vision_dossier_queue.yaml` to record Isaiah servant/comfort oracles, Jeremiah restoration/new covenant, Ezekiel restoration and temple visions, Daniel prophetic-apocalyptic visions, Hosea sign-act/covenant metaphor, Joel day-of-Yahweh/Spirit, and Zechariah night vision risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize fulfillment theology, eschatological systems, covenant systems, Israel/church relations, messianic identification, temple theology, route behavior, evaluator changes, retrieval truth, intertext truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T366 textual variant source tradition dossier queue (Codex)
+**Active task:** -> **T366** is complete as non-output-changing research PR work. It creates `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` to record Mark 16 longer-ending, John 7:53-8:11 pericope adulterae, Acts empty witnesses, Romans doxology, Deuteronomy 32, Jeremiah MT/LXX, Jude noncanonical reference, Daniel/Esther boundary-routing, and 1 John 5:7 risks while preserving canon-boundary neutrality. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize textual-critical decisions, canon-scope changes, source-tradition preference, noncanonical source authority, route behavior, evaluator changes, retrieval truth, intertext truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T366 textual variant source tradition dossier queue (2026-06-18):** Added
+> `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`, checked by
+> `scripts/validate_textual_variant_source_tradition_dossier_queue.py`, so future
+> textual-variant, source-tradition, canon-sensitive, graph, retrieval, review-packet, evaluator,
+> and chunking agents can start from explicit dossiers instead of chat memory. The queue records
+> Mark 16 longer-ending, John 7:53-8:11 pericope adulterae, Acts empty witnesses, Romans doxology,
+> Deuteronomy 32 source-tradition, Jeremiah MT/LXX order/length, Jude noncanonical reference,
+> Daniel/Esther additions boundary-routing, and 1 John 5:7 Comma Johanneum risks. It is
+> non-authorizing: no textual-critical decision, canon-scope change, source-tradition preference,
+> noncanonical source authority, boundary import, reviewed gold, chunk boundary, route behavior,
+> evaluator change, graph edge, retrieval truth, output change, vector work, intertext truth, or
+> algorithm behavior is approved.
 
 > **T365 prophetic oracle vision dossier queue (2026-06-18):** Added
 > `.ai/control/prophetic_oracle_vision_dossier_queue.yaml`, checked by

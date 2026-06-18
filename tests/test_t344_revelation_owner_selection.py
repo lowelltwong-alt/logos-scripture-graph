@@ -178,6 +178,11 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T365"]["dossier_queue"] == ".ai/control/prophetic_oracle_vision_dossier_queue.yaml"
     assert tasks["T365"]["fulfillment_theology_authorized"] is False
     assert tasks["T365"]["messianic_identification_authorized"] is False
+    assert tasks["T366"]["status"] == "complete"
+    assert tasks["T366"]["lane"] == "textual_variant_source_tradition"
+    assert tasks["T366"]["dossier_queue"] == ".ai/control/textual_variant_source_tradition_dossier_queue.yaml"
+    assert tasks["T366"]["textual_critical_decision_authorized"] is False
+    assert tasks["T366"]["canon_scope_change_authorized"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"
