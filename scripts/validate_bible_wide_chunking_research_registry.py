@@ -238,6 +238,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
                 raise ResearchRegistryError(
                     "research_dimensions.discourse_argument_flow.companion_dossier_queue must point to epistle issue queue"
                 )
+        if dimension_id in {"narrative_scene_pericope", "legal_covenant_formulae"}:
+            if dimension.get("companion_dossier_queue") != ".ai/control/narrative_legal_covenant_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    f"research_dimensions.{dimension_id}.companion_dossier_queue must point to narrative/legal queue"
+                )
         if dimension_id in {"prophetic_oracle_vision", "apocalyptic_symbol_intertext"}:
             if dimension.get("companion_dossier_queue") != ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml":
                 raise ResearchRegistryError(

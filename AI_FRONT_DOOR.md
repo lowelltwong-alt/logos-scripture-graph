@@ -190,6 +190,15 @@ Bible-first chunking priority:
   boundaries, discourse boundaries, reviewed gold, route behavior, graph edges, retrieval truth,
   chunk boundaries, output changes, boundary import, or Gospel/WJ implementation. It is validated
   by `scripts/validate_gospel_wj_discourse_dossier_queue.py`.
+- The narrative/legal covenant dossier queue at
+  `.ai/control/narrative_legal_covenant_dossier_queue.yaml` records Genesis, Sinai, Levitical
+  ritual law, Deuteronomy, Joshua allotment, Samuel-Kings, Chronicles/Ezra/Nehemiah, and
+  Matthew/Luke genealogy/birth narrative risks. It preserves scene, cycle, genealogy/list,
+  law-code, covenant-speech, ritual, royal-annal, embedded-document, and Gospel narrative review
+  options without authorizing covenant theology, law/gospel frameworks, typology, harmonization,
+  source-critical partition, reviewed gold, route behavior, graph edges, retrieval truth, chunk
+  boundaries, output changes, boundary import, or implementation. It is validated by
+  `scripts/validate_narrative_legal_covenant_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -295,6 +304,7 @@ python scripts/validate_source_metadata_research_atlas.py
 python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
 python scripts/validate_epistle_argument_theological_issue_dossier_queue.py
 python scripts/validate_gospel_wj_discourse_dossier_queue.py
+python scripts/validate_narrative_legal_covenant_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -350,6 +360,10 @@ pending-packet dependencies, treats pending packets as approved, or omits non-au
 discourse queue becomes authorizing, loses required WJ inventory counts, drops pending packet
 dependencies, drops required Gospel/Revelation/non-Gospel WJ dossiers, treats WJ metadata as
 speaker authority, or omits non-authorization guards.
+`python scripts/validate_narrative_legal_covenant_dossier_queue.py` fails closed if the
+narrative/legal covenant queue becomes authorizing, loses required narrative/legal evidence
+channels, drops required dossiers, treats covenant/law/list/scene evidence as boundary authority,
+or omits non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
