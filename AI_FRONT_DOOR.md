@@ -21,7 +21,8 @@ Read these files before making changes:
 10. For any ingest, chunking, review-packet, evaluator, route, graph, or retrieval work:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
-    Source metadata and divine-name/title capitalization are evidence, not authority.
+    Source metadata is evidence, not authority. Divine-name/title capitalization and WJ/red-letter
+    markers are evidence, not authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
@@ -127,6 +128,12 @@ Bible-first chunking priority:
   capitalization. It is evidence only, validated by
   `scripts/validate_divine_capitalization_inventory.py`, and never authorizes identity, theology,
   graph edges, chunk boundaries, retrieval truth, or output changes.
+- The words-of-Jesus marker inventory at `.ai/control/wj_marker_inventory.yaml` records observed
+  WJ/red-letter token runs from canonical `eng-web` word tokens. Read it before Gospel discourse,
+  speaker-boundary, graph, retrieval, route, evaluator, review-packet, or chunk work cites WJ/red
+  lettering. It is evidence only, validated by `scripts/validate_wj_marker_inventory.py`, and
+  never authorizes Jesus speaker attribution, speaker boundaries, discourse boundaries, graph
+  edges, chunk boundaries, retrieval truth, reviewed gold, or output changes.
 
 High-leverage change risk gate:
 
@@ -258,6 +265,8 @@ toward source metadata authority.
 `python scripts/validate_divine_capitalization_inventory.py` rebuilds the capitalization inventory
 from canonical word tokens and translation witnesses and fails closed if it becomes stale or
 authorizing.
+`python scripts/validate_wj_marker_inventory.py` rebuilds/checks the WJ/red-letter inventory from
+canonical word tokens and fails closed if it becomes stale or authorizing.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

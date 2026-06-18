@@ -79,6 +79,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_divine_capitalization_inventory.py",
             [PY, str(ROOT / "scripts" / "validate_divine_capitalization_inventory.py")],
         ),
+        (
+            "validate_wj_marker_inventory.py",
+            [PY, str(ROOT / "scripts" / "validate_wj_marker_inventory.py")],
+        ),
     ]
     # Raw-source gates (the committed raw archives are the real pipeline input).
     if (ROOT / "data" / "raw").exists():

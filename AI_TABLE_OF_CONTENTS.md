@@ -52,6 +52,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/bible_chunking_readiness_map.yaml`](.ai/control/bible_chunking_readiness_map.yaml) - non-authorizing Bible-wide lane and algorithm readiness map
 - [`.ai/control/bible_chunking_research_triage_map.yaml`](.ai/control/bible_chunking_research_triage_map.yaml) - non-authorizing Bible-wide research triage before more chunking work
 - [`.ai/control/divine_capitalization_inventory.yaml`](.ai/control/divine_capitalization_inventory.yaml) - observed divine-name/title/pronoun capitalization inventory; evidence only, not graph/chunk/retrieval authority
+- [`.ai/control/wj_marker_inventory.yaml`](.ai/control/wj_marker_inventory.yaml) - observed words-of-Jesus/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
 - [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)
@@ -70,9 +71,15 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`](docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md)
 - [`docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`](docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md)
 - [`docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`](docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md)
+- [`docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`](docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md)
+- [`docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`](docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md)
 - [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - completed Bible-wide research triage before more chunking work
-- [`.ai/tasks/T352.task.yaml`](.ai/tasks/T352.task.yaml) - active epistle argument review-packet prep
+- [`.ai/tasks/T352.task.yaml`](.ai/tasks/T352.task.yaml) - completed epistle argument review-packet prep
+- [`.ai/tasks/T353.task.yaml`](.ai/tasks/T353.task.yaml) - completed divine capitalization inventory harness
+- [`.ai/tasks/T354.task.yaml`](.ai/tasks/T354.task.yaml) - active WJ/red-letter marker inventory harness
 - [`.ai/handoffs/T352/handoff.md`](.ai/handoffs/T352/handoff.md) - handoff for epistle argument review-packet prep
+- [`.ai/handoffs/T353/handoff.md`](.ai/handoffs/T353/handoff.md) - handoff for divine capitalization inventory harness
+- [`.ai/handoffs/T354/handoff.md`](.ai/handoffs/T354/handoff.md) - handoff for WJ/red-letter marker inventory harness
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
@@ -95,6 +102,8 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`scripts/validate_source_metadata_authority.py`](scripts/validate_source_metadata_authority.py) - HARN-006 scanner keeping source metadata evidence from becoming boundary, lexical, intertext, graph-edge, or truth authority
 - [`scripts/validate_divine_capitalization_inventory.py`](scripts/validate_divine_capitalization_inventory.py) - rebuilds/checks the divine capitalization inventory and fails if it is stale or authorizing
 - [`scripts/build_divine_capitalization_inventory.py`](scripts/build_divine_capitalization_inventory.py) - regenerates the evidence-only capitalization inventory from canonical word tokens
+- [`scripts/validate_wj_marker_inventory.py`](scripts/validate_wj_marker_inventory.py) - rebuilds/checks the WJ/red-letter marker inventory and fails if it is stale or authorizing
+- [`scripts/build_wj_marker_inventory.py`](scripts/build_wj_marker_inventory.py) - regenerates the evidence-only WJ marker inventory from canonical word tokens
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 

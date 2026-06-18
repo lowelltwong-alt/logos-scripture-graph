@@ -106,12 +106,14 @@ def test_t343_readiness_now_points_to_t351_triage_not_implementation() -> None:
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert readiness["next_route"]["task_id"] == "T352"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_prep"
+    assert readiness["next_route"]["task_id"] == "T354"
+    assert readiness["next_route"]["route_type"] == "gospel_wj_marker_inventory_harness"
     assert readiness["next_route"]["selected_option"] == "REV-T344-E"
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["prior_triage_task"] == "T351"
-    assert readiness["next_route"]["review_packet_lane"] == "epistle_argument"
+    assert readiness["next_route"]["prior_inventory_task"] == "T353"
+    assert readiness["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
+    assert readiness["next_route"]["inventory_status"] == "generated_non_authorizing"
     assert target["packet_status"] == "pending_human_review"
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"

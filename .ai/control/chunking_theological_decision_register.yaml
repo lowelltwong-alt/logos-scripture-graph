@@ -672,6 +672,51 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-021
+    title: Words-of-Jesus marker inventory is observed evidence only
+    classification: theological_risk
+    task_ids: [T354]
+    owner_decision_ref: docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md
+    pr_refs: []
+    affected_scope:
+      books: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
+      passages: [Matt.3.15, Matt.5.3-Matt.7.27, John.3.3-John.3.21, John.7.53-John.8.11, John.13.31-John.17.26, Acts.1.4-Acts.1.8, 1Cor.11.24-1Cor.11.25, 2Cor.12.9, 1Tim.5.18, Rev.1.8, Rev.1.17-Rev.3.22, Rev.16.15, Rev.21.5-Rev.21.8, Rev.22.7, Rev.22.12-Rev.22.20]
+      routes: [future_gospel_discourse_wj_review, future_speaker_boundary_review, future_graph_edge_generation, future_retrieval_profiles, future_chunking_review]
+      surfaces: [.ai/control/wj_marker_inventory.yaml, scripts/build_wj_marker_inventory.py, scripts/validate_wj_marker_inventory.py, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml]
+    decision: "Generate a deterministic inventory of observed canonical eng-web words-of-Jesus/red-letter marker token runs. The inventory may be preserved and surfaced for review, but it does not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, reviewed gold, graph edges, chunk boundaries, retrieval truth, or output changes."
+    downstream_risk: "WJ/red-letter markup can look like direct speaker authority and can silently decide where Jesus begins or stops speaking, where discourse units begin or end, whether an epistle quotation is dominical speech, or whether Revelation voice shifts should be attributed in a particular way."
+    theological_assumptions_avoided:
+      - "No WJ marker is treated as automatic Jesus speaker attribution."
+      - "No WJ marker start or stop is treated as an automatic speaker boundary."
+      - "No WJ token run is treated as an automatic discourse or chunk boundary."
+      - "No Revelation WJ marker decides voice identity, chronology, seven-church structure, or eschatological interpretation."
+      - "No John 3 WJ span decides the disputed Jesus/narrator boundary without reviewed speaker policy."
+      - "No John 13-17 WJ coverage decides Farewell Discourse structure without reviewed gold."
+      - "No epistle WJ quotation becomes lexical, doctrinal, graph-edge, retrieval-truth, or output-change authority."
+      - "No red-letter editorial convention becomes theological truth."
+    reviewed_gold_dependency: "Any output-changing WJ/red-letter chunking, speaker-attribution, graph, retrieval, route, or evaluator use requires owner review, exact scoped target, reviewed gold or equivalent governed evidence, decision-register update, executable tests, non-target identity proof, and later implementation authorization."
+    non_authorizations:
+      - wj_marker_as_speaker_authority
+      - wj_marker_as_jesus_speaker_attribution
+      - wj_marker_as_speaker_boundary
+      - wj_marker_as_discourse_boundary
+      - wj_marker_as_chunk_boundary
+      - wj_marker_as_reviewed_gold
+      - wj_marker_as_graph_edge
+      - wj_marker_as_retrieval_truth
+      - wj_marker_as_output_change
+      - red_letter_markup_as_theological_truth
+    validators:
+      - scripts/validate_wj_marker_inventory.py
+      - tests/test_wj_marker_inventory.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_owner_selection_implementation_gate.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -742,4 +787,5 @@ backfill_coverage:
     - T351
     - T352
     - T353
+    - T354
 ...

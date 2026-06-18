@@ -89,6 +89,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "epistle_argument_review_packet_prep",
         "title": "Epistle Argument Review Packets",
     },
+    "T354": {
+        "route_type": "gospel_wj_marker_inventory_harness",
+        "title": "WJ Marker Inventory Harness",
+    },
 }
 
 
@@ -241,6 +245,13 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: T352 next_route.packet_status must be pending_human_review")
         if next_route.get("prior_triage_task") != "T351":
             raise ReadinessMapError(f"{_rel(path)}: T352 next_route.prior_triage_task must be T351")
+    if task_id == "T354":
+        if next_route.get("review_packet_lane") != "gospel_discourse_wj":
+            raise ReadinessMapError(f"{_rel(path)}: T354 next_route.review_packet_lane must be gospel_discourse_wj")
+        if next_route.get("prior_inventory_task") != "T353":
+            raise ReadinessMapError(f"{_rel(path)}: T354 next_route.prior_inventory_task must be T353")
+        if next_route.get("inventory_status") != "generated_non_authorizing":
+            raise ReadinessMapError(f"{_rel(path)}: T354 next_route.inventory_status must be generated_non_authorizing")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

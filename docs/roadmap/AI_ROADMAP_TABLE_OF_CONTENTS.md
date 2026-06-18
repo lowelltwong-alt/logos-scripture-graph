@@ -36,6 +36,7 @@ AI_TABLE_OF_CONTENTS.md
 | T351 | Bible-wide chunking research triage before more chunking work | `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`; `.ai/control/bible_chunking_research_triage_map.yaml`; `.ai/tasks/T351.task.yaml`; `.ai/handoffs/T351/handoff.md` |
 | T352 | Epistle argument review-packet prep | `docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`; `.ai/tasks/T352.task.yaml`; `.ai/handoffs/T352/handoff.md`; `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`; `eval/chunking_gold/review_packets/rom9_11_argument_review.md`; `eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md` |
 | T353 | Divine capitalization inventory harness | `docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`; `.ai/control/divine_capitalization_inventory.yaml`; `scripts/validate_divine_capitalization_inventory.py`; `.ai/tasks/T353.task.yaml`; `.ai/handoffs/T353/handoff.md` |
+| T354 | WJ/red-letter marker inventory harness | `docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`; `.ai/control/wj_marker_inventory.yaml`; `scripts/validate_wj_marker_inventory.py`; `.ai/tasks/T354.task.yaml`; `.ai/handoffs/T354/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -48,6 +49,7 @@ AI_TABLE_OF_CONTENTS.md
 | `.ai/control/bible_chunking_readiness_map.yaml` | Lane/readiness map for whole-Bible chunking. |
 | `.ai/control/chunking_agent_preflight.yaml` | Mandatory preflight for chunking agents; source metadata is evidence, not authority. |
 | `.ai/control/divine_capitalization_inventory.yaml` | Observed divine-name/title/pronoun capitalization variants; evidence only, not graph/chunk/retrieval authority. |
+| `.ai/control/wj_marker_inventory.yaml` | Observed WJ/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority. |
 
 ## Current Next Route
 
@@ -56,11 +58,12 @@ at a time, the next
 route is:
 
 ```text
-T353 - Divine Capitalization Inventory Harness
+T354 - WJ/Red-Letter Marker Inventory Harness
 ```
 
-T353 creates a non-authorizing inventory of observed capitalization variants before future graph,
-retrieval, or chunk work can cite capitalization. Revelation remains research/prep only for the
+T354 creates a non-authorizing inventory of observed WJ/red-letter marker token runs before future
+Gospel discourse, speaker-boundary, graph, retrieval, or chunk work can cite red-letter metadata.
+Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
 ```text
@@ -79,4 +82,6 @@ No Revelation implementation, reviewed-gold promotion, chunk regeneration, evalu
 boundary import, T327G, embedding/index work, graph-edge generation, Psalm candidate promotion, or
 source-metadata authority is authorized by this table of contents. T352 does not authorize epistle
 route implementation or output changes. T353 does not authorize capitalization-driven graph edges,
-chunk boundaries, retrieval truth, speaker attribution, lexical truth, or output changes.
+chunk boundaries, retrieval truth, speaker attribution, lexical truth, or output changes. T354 does
+not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, WJ-driven graph
+edges, chunk boundaries, retrieval truth, reviewed gold, or output changes.

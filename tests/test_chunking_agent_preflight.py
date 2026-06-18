@@ -24,6 +24,8 @@ def test_chunking_agent_preflight_validates() -> None:
     assert data["metadata_authority_policy"]["authorizes_chunk_boundaries"] is False
     assert data["metadata_authority_policy"]["authorizes_graph_edges"] is False
     assert data["metadata_authority_policy"]["authorizes_output_change"] is False
+    reading = {item["path"]: item for item in data["mandatory_reading"]}
+    assert ".ai/control/wj_marker_inventory.yaml" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -33,6 +35,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "CHUNK-METADATA-001" in text
     assert "Source metadata is evidence, not authority" in text
     assert "divine-name/title capitalization" in text
+    assert "wj_marker_inventory.yaml" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -55,7 +58,9 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-004" in lessons
     assert "CD-015" in register
     assert "CD-018" in register
+    assert "CD-021" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
+    assert "Words-of-Jesus marker inventory is observed evidence only" in register
 
 
 def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
@@ -65,8 +70,11 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     triage_entry = reading[".ai/control/bible_chunking_research_triage_map.yaml"]
 
     assert ".ai/control/divine_capitalization_inventory.yaml" in reading
+    assert ".ai/control/wj_marker_inventory.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
+    assert "CD-021" in register_entry["required_decision_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
+    assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 
 
 def test_midflight_lesson_capture_is_enforced() -> None:
