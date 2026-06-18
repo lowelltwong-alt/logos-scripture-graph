@@ -37,6 +37,7 @@ AI_TABLE_OF_CONTENTS.md
 | T352 | Epistle argument review-packet prep | `docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`; `.ai/tasks/T352.task.yaml`; `.ai/handoffs/T352/handoff.md`; `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`; `eval/chunking_gold/review_packets/rom9_11_argument_review.md`; `eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md` |
 | T353 | Divine capitalization inventory harness | `docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`; `.ai/control/divine_capitalization_inventory.yaml`; `scripts/validate_divine_capitalization_inventory.py`; `.ai/tasks/T353.task.yaml`; `.ai/handoffs/T353/handoff.md` |
 | T354 | WJ/red-letter marker inventory harness | `docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`; `.ai/control/wj_marker_inventory.yaml`; `scripts/validate_wj_marker_inventory.py`; `.ai/tasks/T354.task.yaml`; `.ai/handoffs/T354/handoff.md` |
+| T355 | WJ speaker/discourse policy and target selection | `docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`; `.ai/control/wj_speaker_discourse_policy.yaml`; `scripts/validate_wj_speaker_discourse_policy.py`; `.ai/tasks/T355.task.yaml`; `.ai/handoffs/T355/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -50,6 +51,7 @@ AI_TABLE_OF_CONTENTS.md
 | `.ai/control/chunking_agent_preflight.yaml` | Mandatory preflight for chunking agents; source metadata is evidence, not authority. |
 | `.ai/control/divine_capitalization_inventory.yaml` | Observed divine-name/title/pronoun capitalization variants; evidence only, not graph/chunk/retrieval authority. |
 | `.ai/control/wj_marker_inventory.yaml` | Observed WJ/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority. |
+| `.ai/control/wj_speaker_discourse_policy.yaml` | Policy for weighing WJ/speaker/discourse evidence; selects John 3 for owner review only. |
 
 ## Current Next Route
 
@@ -58,11 +60,13 @@ at a time, the next
 route is:
 
 ```text
-T354 - WJ/Red-Letter Marker Inventory Harness
+T355 - WJ Speaker/Discourse Policy And Target Selection
 ```
 
-T354 creates a non-authorizing inventory of observed WJ/red-letter marker token runs before future
-Gospel discourse, speaker-boundary, graph, retrieval, or chunk work can cite red-letter metadata.
+T355 records a non-authorizing WJ speaker/discourse policy and selects
+`John.3.1-John.3.36` / `john3_wj_speaker_boundary` as the next exact owner-review target before
+future Gospel discourse, speaker-boundary, graph, retrieval, or chunk work can cite red-letter
+metadata.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -84,4 +88,6 @@ source-metadata authority is authorized by this table of contents. T352 does not
 route implementation or output changes. T353 does not authorize capitalization-driven graph edges,
 chunk boundaries, retrieval truth, speaker attribution, lexical truth, or output changes. T354 does
 not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, WJ-driven graph
-edges, chunk boundaries, retrieval truth, reviewed gold, or output changes.
+edges, chunk boundaries, retrieval truth, reviewed gold, or output changes. T355 does not authorize
+John 3 speaker boundaries, discourse boundaries, reviewed gold, WJ-driven route behavior, graph
+edges, retrieval truth, or output changes.

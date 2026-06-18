@@ -1,0 +1,126 @@
+---
+object_type: wj_speaker_discourse_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T355 after T354 made WJ/red-letter marker coverage visible and the maintainer asked whether red-letter text can be chunked faithfully without taking hidden theological positions."
+reason_for_inclusion: "Define non-authorizing rules for weighing WJ/red-letter, punctuation, paragraphing, and narrative evidence before any Gospel speaker/discourse chunking work."
+---
+schema_version: wj_speaker_discourse_policy.v1
+policy_id: canonical_66_wj_speaker_discourse_policy
+owner: Lowell Wong
+authority:
+  records_policy: true
+  selects_review_target: true
+  may_surface_for_review: true
+  authorizes_jesus_speaker_attribution: false
+  authorizes_speaker_boundary: false
+  authorizes_discourse_boundary: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_output_change: false
+source_inputs:
+  - path: .ai/control/wj_marker_inventory.yaml
+    used_for: "Observed WJ/red-letter marker coverage and known WJ review-case status."
+  - path: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+    used_for: "Existing pending John 3 speaker-boundary packet and first exact target selection."
+  - path: eval/chunking_gold/review_packets/matt5_7_wj_discourse_review.md
+    used_for: "Existing pending long-discourse contrast case."
+  - path: eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md
+    used_for: "Variant-sensitive WJ caution case."
+  - path: eval/chunking_gold/review_packets/review_packet_index.json
+    used_for: "Current WJ and speaker-boundary packet state."
+policy_rules:
+  - rule_id: WJ-SPK-001
+    title: WJ marker evidence is never speaker authority by itself
+    rule: "A WJ/red-letter token run may be cited as edition/source evidence, but cannot by itself decide whether Jesus, a narrator, a quotation, or another speaker controls a word, verse, discourse, or boundary."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, chunk_boundary]
+  - rule_id: WJ-SPK-002
+    title: Speaker and discourse decisions require reviewed scope
+    rule: "Any speaker-boundary or discourse-boundary decision must name an exact passage span, competing boundary alternatives, evidence considered, and owner-reviewed conclusion before it can become reviewed gold or behavior."
+    non_authorizations: [implicit_scope, unreviewed_speaker_gold, route_behavior]
+  - rule_id: WJ-SPK-003
+    title: Split WJ coverage must remain visible
+    rule: "When WJ token runs are split inside a review passage, preserve the split evidence rather than collapsing it into a single uninterrupted Jesus-speech or discourse span."
+    non_authorizations: [smoothed_speaker_span, smoothed_discourse_span]
+  - rule_id: WJ-SPK-004
+    title: Formatting and punctuation are evidence only
+    rule: "Paragraph markers, section headings, quotation marks, punctuation, line markers, and WJ starts/stops may inform review but cannot automatically authorize speaker or chunk boundaries."
+    non_authorizations: [formatting_as_authority, punctuation_as_authority]
+  - rule_id: WJ-SPK-005
+    title: Variant and Revelation WJ cases need their own gates
+    rule: "Major textual-variant WJ cases and Revelation voice-shift WJ cases require their own variant/Revelation review gates before any WJ evidence can affect chunk behavior."
+    non_authorizations: [variant_policy_bypass, revelation_voice_identity]
+selected_first_review_target:
+  target_id: john3_wj_speaker_boundary
+  passage: John.3.1-John.3.36
+  selection_status: selected_for_next_owner_review
+  selected_in_task: T355
+  review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+  selection_rationale:
+    - "An existing pending review packet already frames the WJ speaker-boundary risk."
+    - "The target is smaller than John 13-17 and easier to review before algorithm work."
+    - "WJ evidence in John 3 is split across observed token runs, so it tests the policy rule that red-letter evidence must not be smoothed into one speaker span."
+    - "Current chunk behavior overlaps John 3 with adjacent Gospel material, making it a practical future review target without authorizing output change now."
+  owner_review_needed:
+    - "Whether John.3.1-John.3.36 should be a reviewed parent unit."
+    - "Whether any child speaker/discourse boundaries should be approved."
+    - "Whether John.3.10-John.3.21 is Jesus speech, narrator/commentary, or should remain unresolved for chunking."
+    - "Whether WJ evidence remains diagnostic only or may be cited inside reviewed boundary rationale."
+  implementation_allowed: false
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+candidate_target_queue:
+  - target_id: matt5_7_sermon_on_mount_wj_discourse
+    passage: Matt.5.1-Matt.7.29
+    status: pending_after_john3
+    reason: "Long whole-discourse and child-unit question; already has a pending packet but is broader than the first speaker-policy target."
+    implementation_allowed: false
+  - target_id: john13_17_wj_farewell_discourse_marker_focus
+    passage: John.13-John.17
+    status: needs_review_packet_after_policy
+    reason: "Large Farewell Discourse / prayer complex with split WJ evidence and no dedicated packet yet."
+    implementation_allowed: false
+  - target_id: matt24_25_olivet_discourse
+    passage: Matt.24-Matt.25
+    status: needs_review_packet_after_policy
+    reason: "Synoptic apocalyptic discourse; must avoid eschatological system assumptions."
+    implementation_allowed: false
+  - target_id: john7_53_8_11_wj_variant_speech
+    passage: John.7.53-John.8.11
+    status: variant_policy_first
+    reason: "WJ evidence sits inside a major textual-variant zone, so variant policy must precede WJ use."
+    implementation_allowed: false
+  - target_id: revelation_wj_voice_shifts
+    passage: Rev.1-Rev.3; Rev.21-Rev.22
+    status: revelation_research_first
+    reason: "Revelation voice identity and structure remain under REV-T344-E research/prep only."
+    implementation_allowed: false
+future_output_changing_use_requires:
+  - owner_review
+  - exact_scope
+  - reviewed_speaker_discourse_gold_or_equivalent_governed_evidence
+  - decision_register_update
+  - executable_tests
+  - non_target_identity_proof
+  - same_baseline_evaluation
+  - later_implementation_authorization
+non_authorizations:
+  - wj_marker_as_speaker_authority
+  - wj_marker_as_jesus_speaker_attribution
+  - wj_marker_as_speaker_boundary
+  - wj_marker_as_discourse_boundary
+  - wj_marker_as_chunk_boundary
+  - wj_marker_as_reviewed_gold
+  - wj_marker_as_graph_edge
+  - wj_marker_as_retrieval_truth
+  - wj_marker_as_output_change
+  - red_letter_markup_as_theological_truth
+validators:
+  - scripts/validate_wj_speaker_discourse_policy.py
+  - tests/test_wj_speaker_discourse_policy.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_all.py
+...

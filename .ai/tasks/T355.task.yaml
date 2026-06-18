@@ -1,0 +1,93 @@
+id: T355
+phase: phase_4
+title: "WJ Speaker/Discourse Policy And Target Selection"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - .ai/control/wj_speaker_discourse_policy.yaml
+    - .ai/control/wj_marker_inventory.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/bible_chunking_research_triage_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T355.task.yaml
+    - .ai/handoffs/T355/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_wj_speaker_discourse_policy.py
+    - scripts/validate_wj_marker_inventory.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_theological_decision_register.py
+    - scripts/validate_task_scope.py
+    - scripts/validate_all.py
+    - tests/test_wj_speaker_discourse_policy.py
+    - tests/test_wj_marker_inventory.py
+    - tests/test_owner_selection_implementation_gate.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_task_scope_validator.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t351_bible_wide_research_triage.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_gold/review_packets/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  owner_decision_ref: AI_FRONT_DOOR.md#canonical-scripture-entry-point
+  triggering_owner_guidance: "Can we chunk the red letters in the Bible correctly? Not sure if this version has it."
+  continuing_owner_guidance: "Research/prep only; authorize non-output-changing harnesses, review packets, and lane prep. Do not implement Revelation chunks until reviewed gold is stronger."
+  non_output_changing_harness_allowed: true
+  policy_record_allowed: true
+  review_target_selection_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  speaker_attribution_authorized: false
+  speaker_boundary_authorized: false
+  discourse_boundary_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+  source_metadata_authority_allowed: false
+  red_letter_authority_allowed: false
+acceptance_criteria:
+  - "A first-class WJ speaker/discourse policy records that WJ/red-letter, punctuation, paragraphing, and narrative evidence may inform review but cannot authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, graph edges, chunk boundaries, reviewed gold, retrieval truth, or output changes."
+  - "The policy selects John.3.1-John.3.36 / john3_wj_speaker_boundary as the next exact owner-review target without implementing chunks or promoting reviewed gold."
+  - "The policy is mandatory chunking-agent preflight reading before Gospel discourse, speaker-boundary, graph, retrieval, route, evaluator, review-packet, or chunk work can cite WJ/red-letter metadata."
+  - "A validator fails if the policy becomes authorizing, loses the John 3 target, loses the candidate queue, or drops governed links to preflight/readiness/register surfaces."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_task_scope.py --task-id T355
+  - python scripts/validate_wj_speaker_discourse_policy.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T355/handoff.md
+next_task: "After T355 validates and merges, the owner may review John 3 speaker/discourse boundaries. Future output-changing WJ work still requires reviewed speaker/discourse gold or equivalent governed evidence, non-target identity proof, same-baseline evaluation, and later scoped implementation authorization."

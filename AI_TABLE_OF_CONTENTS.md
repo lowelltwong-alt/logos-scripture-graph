@@ -53,6 +53,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/bible_chunking_research_triage_map.yaml`](.ai/control/bible_chunking_research_triage_map.yaml) - non-authorizing Bible-wide research triage before more chunking work
 - [`.ai/control/divine_capitalization_inventory.yaml`](.ai/control/divine_capitalization_inventory.yaml) - observed divine-name/title/pronoun capitalization inventory; evidence only, not graph/chunk/retrieval authority
 - [`.ai/control/wj_marker_inventory.yaml`](.ai/control/wj_marker_inventory.yaml) - observed words-of-Jesus/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority
+- [`.ai/control/wj_speaker_discourse_policy.yaml`](.ai/control/wj_speaker_discourse_policy.yaml) - WJ speaker/discourse policy and John 3 owner-review target selection; review-only, not chunk/speaker/graph/retrieval authority
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
 - [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)
@@ -73,13 +74,16 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`](docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md)
 - [`docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`](docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md)
 - [`docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`](docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md)
+- [`docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`](docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md)
 - [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - completed Bible-wide research triage before more chunking work
 - [`.ai/tasks/T352.task.yaml`](.ai/tasks/T352.task.yaml) - completed epistle argument review-packet prep
 - [`.ai/tasks/T353.task.yaml`](.ai/tasks/T353.task.yaml) - completed divine capitalization inventory harness
-- [`.ai/tasks/T354.task.yaml`](.ai/tasks/T354.task.yaml) - active WJ/red-letter marker inventory harness
+- [`.ai/tasks/T354.task.yaml`](.ai/tasks/T354.task.yaml) - completed WJ/red-letter marker inventory harness
+- [`.ai/tasks/T355.task.yaml`](.ai/tasks/T355.task.yaml) - active WJ speaker/discourse policy and target selection
 - [`.ai/handoffs/T352/handoff.md`](.ai/handoffs/T352/handoff.md) - handoff for epistle argument review-packet prep
 - [`.ai/handoffs/T353/handoff.md`](.ai/handoffs/T353/handoff.md) - handoff for divine capitalization inventory harness
 - [`.ai/handoffs/T354/handoff.md`](.ai/handoffs/T354/handoff.md) - handoff for WJ/red-letter marker inventory harness
+- [`.ai/handoffs/T355/handoff.md`](.ai/handoffs/T355/handoff.md) - handoff for WJ speaker/discourse policy and John 3 target selection
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
@@ -104,6 +108,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`scripts/build_divine_capitalization_inventory.py`](scripts/build_divine_capitalization_inventory.py) - regenerates the evidence-only capitalization inventory from canonical word tokens
 - [`scripts/validate_wj_marker_inventory.py`](scripts/validate_wj_marker_inventory.py) - rebuilds/checks the WJ/red-letter marker inventory and fails if it is stale or authorizing
 - [`scripts/build_wj_marker_inventory.py`](scripts/build_wj_marker_inventory.py) - regenerates the evidence-only WJ marker inventory from canonical word tokens
+- [`scripts/validate_wj_speaker_discourse_policy.py`](scripts/validate_wj_speaker_discourse_policy.py) - checks the WJ speaker/discourse policy, John 3 target selection, and non-authorization flags
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 

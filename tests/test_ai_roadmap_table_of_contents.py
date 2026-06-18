@@ -48,10 +48,16 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/divine_capitalization_inventory.yaml" in toc
     assert ".ai/tasks/T353.task.yaml" in toc
     assert ".ai/handoffs/T353/handoff.md" in toc
-    assert "T354 - WJ/Red-Letter Marker Inventory Harness" in toc
+    assert "T354 | WJ/red-letter marker inventory harness" in toc
     assert "docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md" in toc
     assert ".ai/control/wj_marker_inventory.yaml" in toc
     assert ".ai/tasks/T354.task.yaml" in toc
     assert ".ai/handoffs/T354/handoff.md" in toc
+    assert "T355 - WJ Speaker/Discourse Policy And Target Selection" in toc
+    assert "docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md" in toc
+    assert ".ai/control/wj_speaker_discourse_policy.yaml" in toc
+    assert ".ai/tasks/T355.task.yaml" in toc
+    assert ".ai/handoffs/T355/handoff.md" in toc
+    assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

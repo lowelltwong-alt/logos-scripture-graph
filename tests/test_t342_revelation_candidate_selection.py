@@ -75,7 +75,9 @@ def test_t342_and_t343_remain_complete_while_live_route_points_to_t351() -> None
     assert tasks["T353"]["required_handoff"] == ".ai/handoffs/T353/handoff.md"
     assert tasks["T354"]["status"] == "complete"
     assert tasks["T354"]["required_handoff"] == ".ai/handoffs/T354/handoff.md"
-    assert readiness["next_route"]["task_id"] == "T354"
+    assert tasks["T355"]["status"] == "complete"
+    assert tasks["T355"]["required_handoff"] == ".ai/handoffs/T355/handoff.md"
+    assert readiness["next_route"]["task_id"] == "T355"
     assert readiness["next_route"]["selected_option"] == "REV-T344-E"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False

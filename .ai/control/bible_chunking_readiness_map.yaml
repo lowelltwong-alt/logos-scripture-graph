@@ -31,6 +31,7 @@ lessons_storage:
     - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
     - .ai/control/bible_chunking_research_triage_map.yaml
     - .ai/control/wj_marker_inventory.yaml
+    - .ai/control/wj_speaker_discourse_policy.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -149,7 +150,7 @@ lane_sequence:
     theological_risk: "Oracle, servant-song, temple-vision, and source/tradition boundaries can imply interpretive claims."
   - lane_id: gospel_discourse_wj
     implementation_order: 6
-    current_state: t354_wj_inventory_generated_non_authorizing_needs_speaker_policy_and_reviewed_gold
+    current_state: t355_wj_speaker_policy_selected_john3_for_owner_review
     new_algorithm_work_ready: false
     candidate_cases:
       - John.3
@@ -165,6 +166,16 @@ lane_sequence:
       books_with_wj: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
       output_change_authorized: false
       implementation_authorized: false
+    speaker_discourse_policy:
+      task_id: T355
+      path: .ai/control/wj_speaker_discourse_policy.yaml
+      status: selected_for_next_owner_review
+      selected_target: john3_wj_speaker_boundary
+      selected_passage: John.3.1-John.3.36
+      review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
     theological_risk: "Words-of-Jesus and speaker boundaries can encode speaker attribution or discourse scope without review."
   - lane_id: bible_wide_orchestration
     implementation_order: 8
@@ -178,21 +189,26 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T354
-  title: WJ Marker Inventory Harness
-  route_type: gospel_wj_marker_inventory_harness
+  task_id: T355
+  title: WJ Speaker/Discourse Policy And Target Selection
+  route_type: wj_speaker_discourse_policy_and_target_selection
   recommended_target: gospel_discourse_wj
   owner_selection_status: selected
   selected_option: REV-T344-E
   selection_docket: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
-  rationale: "After T353 capitalization inventory, owner asked whether this source version has red-letter/WJ evidence and whether it can be chunked faithfully. T354 creates a non-authorizing WJ marker inventory before any Gospel discourse or speaker-boundary output work."
+  rationale: "After T354 showed the source preserves WJ/red-letter evidence, T355 records a non-authorizing speaker/discourse policy and selects John 3 as the first exact owner-review target without approving chunks, speaker attribution, reviewed gold, graph edges, or output changes."
   triage_map: .ai/control/bible_chunking_research_triage_map.yaml
   prior_triage_task: T351
-  prior_inventory_task: T353
+  prior_inventory_task: T354
   review_packet_lane: gospel_discourse_wj
-  inventory_status: generated_non_authorizing
+  policy: .ai/control/wj_speaker_discourse_policy.yaml
+  selected_target: john3_wj_speaker_boundary
+  selected_passage: John.3.1-John.3.36
+  selected_target_status: selected_for_next_owner_review
+  review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
   output_change_authorized: false
   implementation_authorized: false
+  reviewed_gold_promoted: false
 update_triggers:
   - roadmap_sequence_change
   - chunking_algorithm_change

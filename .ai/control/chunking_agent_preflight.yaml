@@ -2,8 +2,8 @@
 object_type: chunking_agent_preflight_contract
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 during T343 after the maintainer noted that source metadata lessons should be handed to every future chunking agent before work begins; updated during T351/T353 to add divine-name/title capitalization and during T354 to add words-of-Jesus marker inventory as required graph and chunking risks."
-reason_for_inclusion: "Make source metadata, cross-reference, Strong's-number, marker, divine-name capitalization, WJ/red-letter marker, and Revelation hermeneutic risks mandatory preflight reading for chunking agents instead of relying on chat memory."
+provenance_note: "Created 2026-06-17 during T343 after the maintainer noted that source metadata lessons should be handed to every future chunking agent before work begins; updated during T351/T353 to add divine-name/title capitalization, during T354 to add words-of-Jesus marker inventory, and during T355 to add WJ speaker/discourse policy as required graph and chunking risks."
+reason_for_inclusion: "Make source metadata, cross-reference, Strong's-number, marker, divine-name capitalization, WJ/red-letter marker, WJ speaker/discourse policy, and Revelation hermeneutic risks mandatory preflight reading for chunking agents instead of relying on chat memory."
 ---
 schema_version: chunking_agent_preflight.v1
 contract_id: chunking_agent_mandatory_preflight
@@ -45,7 +45,8 @@ mandatory_reading:
       - CD-015
       - CD-018
       - CD-021
-    reason: "Decision-register entries for source metadata, divine-name/title capitalization, and WJ/red-letter markers as non-authorizing evidence."
+      - CD-022
+    reason: "Decision-register entries for source metadata, divine-name/title capitalization, WJ/red-letter markers, and WJ speaker/discourse policy as non-authorizing evidence."
   - path: .ai/control/bible_chunking_research_triage_map.yaml
     required_lane_ids:
       - divine_name_title_capitalization
@@ -55,6 +56,8 @@ mandatory_reading:
     reason: "Observed God/god, Spirit/spirit, Father/father, Word/word, LORD/Lord/lord, divine-pronoun, and phrase capitalization variants; evidence only, not authority."
   - path: .ai/control/wj_marker_inventory.yaml
     reason: "Observed words-of-Jesus/red-letter token runs from canonical eng-web word tokens; evidence only, not speaker attribution, graph, retrieval, reviewed-gold, output, or chunk-boundary authority."
+  - path: .ai/control/wj_speaker_discourse_policy.yaml
+    reason: "Policy for weighing WJ/red-letter, punctuation, paragraphing, and narrative evidence before Gospel speaker/discourse review; selects John 3 for owner review but does not authorize speaker attribution, reviewed gold, output changes, graph edges, or chunk boundaries."
 midflight_lesson_capture:
   status: required
   trigger: "A task discovers a reusable chunking, source-metadata, theological-risk, workflow, validator, or agent-handoff lesson not already encoded in preflight/workflow/methodology."

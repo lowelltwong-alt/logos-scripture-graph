@@ -18,6 +18,7 @@ DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_re
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
+WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
 
 REQUIRED_TOP_LEVEL = {
     "object_type",
@@ -53,7 +54,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -95,6 +96,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "divine-name/title capitalization",
     "divine_capitalization_inventory.yaml",
     "wj_marker_inventory.yaml",
+    "wj_speaker_discourse_policy.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -243,6 +245,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/bible_chunking_research_triage_map.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
+        ".ai/control/wj_speaker_discourse_policy.yaml",
     ):
         if required_path not in reading_by_path:
             raise PreflightError(f"{_rel(path)}: mandatory_reading missing {required_path}")
@@ -320,6 +323,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in wj_inventory_text:
             raise PreflightError(f"{_rel(WJ_MARKER_INVENTORY)}: missing inventory phrase {phrase!r}")
+    wj_policy_text = _read_text(WJ_SPEAKER_POLICY)
+    for phrase in (
+        "object_type: wj_speaker_discourse_policy",
+        "WJ-SPK-001",
+        "target_id: john3_wj_speaker_boundary",
+        "passage: John.3.1-John.3.36",
+        "authorizes_speaker_boundary: false",
+        "authorizes_discourse_boundary: false",
+        "authorizes_chunk_boundaries: false",
+        "reviewed_gold_promoted: false",
+    ):
+        if phrase not in wj_policy_text:
+            raise PreflightError(f"{_rel(WJ_SPEAKER_POLICY)}: missing policy phrase {phrase!r}")
 
     front_door_text = _read_text(FRONT_DOOR)
     for phrase in REQUIRED_FRONT_DOOR_STRINGS:
