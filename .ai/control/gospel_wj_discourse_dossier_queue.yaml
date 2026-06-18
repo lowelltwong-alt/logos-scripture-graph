@@ -1,0 +1,346 @@
+object_type: gospel_wj_discourse_dossier_queue
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T362 as non-output-changing research prep after T354 WJ marker inventory, T355 WJ policy, T356 John 3 docket, and T361 epistle issue dossiers."
+reason_for_inclusion: "Give future Gospel discourse, WJ/red-letter, speaker-boundary, graph, retrieval, review-packet, evaluator, and chunking agents a first-class dossier queue so red-letter/source metadata remains review evidence without becoming Jesus speaker attribution, discourse boundaries, reviewed gold, or chunk authority."
+schema_version: gospel_wj_discourse_dossier_queue.v1
+queue_id: t362_gospel_wj_discourse_dossier_queue
+owner: Lowell Wong
+authority:
+  records_gospel_wj_dossier_queue: true
+  records_wj_discourse_risks: true
+  may_surface_for_review: true
+  requires_owner_review_before_output: true
+  authorizes_scripture_truth: false
+  authorizes_jesus_speaker_attribution: false
+  authorizes_speaker_boundary: false
+  authorizes_discourse_boundary: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_output_change: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_source_metadata_truth: false
+  authorizes_boundary_import: false
+  authorizes_new_algorithm_work: false
+scope:
+  corpus_scope: canonical_66
+  lane: gospel_discourse_wj
+  research_mode: non_output_changing
+  relation_to_t354: "Companion dossier queue for the WJ marker inventory; observed WJ token runs are evidence only."
+  relation_to_t355: "Companion dossier queue for the WJ speaker/discourse policy; it expands candidate targets without selecting speaker or discourse boundaries."
+  relation_to_t356: "John 3 remains owner_selection_pending and is not promoted by this queue."
+  relation_to_t358: "Companion dossier queue for the gospel_discourse_speaker_wj dimension of the Bible-wide research registry."
+  relation_to_t360: "Olivet and Revelation WJ cases must preserve apocalyptic/prophetic hermeneutic neutrality and cannot import Revelation implementation authority."
+observed_wj_metadata:
+  source_inventory: .ai/control/wj_marker_inventory.yaml
+  wj_word_tokens: 38094
+  wj_token_runs: 675
+  books_with_wj: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
+  books_outside_four_gospels_with_wj: [Acts, 1Cor, 2Cor, 1Tim, Rev]
+  warning: "WJ/red-letter source metadata is sparse and edition-scoped evidence only; presence is not Jesus speaker authority and absence is not narrator or non-Jesus authority."
+existing_packet_state:
+  packet_index: eval/chunking_gold/review_packets/review_packet_index.json
+  required_pending_packets:
+    - entry_id: packet_john3_wj_speaker_boundary_review
+      case_id: john3_wj_speaker_boundary
+      passage: John.3
+    - entry_id: packet_matt5_7_wj_discourse_review
+      case_id: matt5_7_sermon_on_mount_wj_discourse
+      passage: Matt.5-Matt.7
+    - entry_id: packet_john7_53_8_11_textual_variant_review
+      case_id: john7_53_8_11_pericope_adulterae
+      passage: John.7.53-John.8.11
+  required_policy_cases:
+    - entry_id: observed_john13_17_wj_farewell_discourse_marker_focus
+      case_id: john13_17_wj_farewell_discourse_marker_focus
+      status: speaker_review_required
+    - entry_id: observed_synoptic_apocalyptic_wj_discourses
+      case_id: synoptic_apocalyptic_wj_discourses
+      status: speaker_review_required
+wj_discourse_preservation_policy:
+  orthodox_boundary: "Use Nicene/Chalcedonian core as the broad orthodoxy boundary while refusing to infer speaker identity, discourse boundaries, Christological claims, or eschatological systems from red-letter/source metadata alone."
+  preserved_review_options:
+    - jesus_speech
+    - narrator_commentary
+    - unresolved_for_chunking
+    - parent_only_discourse_review
+    - parent_with_child_discourse_review
+    - variant_policy_first
+    - revelation_research_first
+    - synoptic_parallel_review
+    - dominical_quotation_review
+  not_selected_by_queue:
+    - John 3 Jesus/narrator boundary
+    - Sermon on the Mount child boundaries
+    - Farewell Discourse child boundaries
+    - Olivet Discourse eschatological system
+    - Pericope Adulterae textual-variant policy
+    - Revelation voice identity
+    - Acts or epistle dominical quotation authority
+evidence_channels:
+  - channel_id: wj_red_letter_metadata
+    use_when: "A token run carries WJ/red-letter source metadata."
+    non_authorization: "WJ/red-letter metadata is evidence only and does not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, chunk boundaries, graph edges, retrieval truth, or output changes."
+  - channel_id: speaker_formula_and_narrative_frame
+    use_when: "Canonical speaker formula, narrative frame, or quotation frame may identify who speaks."
+    non_authorization: "Speaker formulas and narrative frame are evidence only until reviewed; they do not authorize route behavior, graph edges, reviewed gold, or output changes."
+  - channel_id: discourse_connector_and_scene_flow
+    use_when: "A Gospel discourse spans scenes, paragraphs, chapters, or teaching blocks."
+    non_authorization: "Discourse flow is evidence only and does not authorize chunk boundaries, discourse boundaries, or reviewed gold."
+  - channel_id: paragraph_heading_or_formatting_metadata
+    use_when: "Paragraphing, headings, quotation marks, punctuation, or layout may affect perceived discourse boundaries."
+    non_authorization: "Formatting metadata is evidence only and does not authorize speaker attribution, discourse boundaries, chunk boundaries, graph edges, or output changes."
+  - channel_id: textual_variant_policy
+    use_when: "WJ evidence occurs in a textual-variant-sensitive passage."
+    non_authorization: "Variant-sensitive WJ evidence is evidence only and cannot authorize canonical preference, speaker boundaries, chunk boundaries, or output changes before variant policy review."
+  - channel_id: synoptic_parallel_or_intertext_context
+    use_when: "Parallel Gospel accounts, Olivet discourse links, or Revelation/apocalyptic voice-shift questions affect review."
+    non_authorization: "Parallel or intertext context is evidence only and does not authorize harmonization, eschatological system selection, graph edges, retrieval truth, or chunk boundaries."
+required_future_dossier_fields:
+  - dossier_id
+  - title
+  - status
+  - priority
+  - exact_passage_scope
+  - existing_review_dependency
+  - source_metadata_observed
+  - evidence_channels
+  - speaker_or_discourse_questions
+  - review_options_preserved
+  - theological_downstream_risks
+  - assumptions_avoided
+  - reviewed_gold_dependency
+  - non_authorizations
+  - validator_or_test_plan
+  - non_target_identity_plan
+dossier_queue:
+  - dossier_id: JOHN3_WJ_SPEAKER_BOUNDARY
+    title: John 3 WJ speaker and narrator boundary
+    status: owner_selection_pending
+    priority: 1
+    exact_passage_scope: [John.3.1-John.3.36]
+    existing_review_dependency: .ai/control/john3_wj_owner_review_docket.yaml
+    source_metadata_observed:
+      review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+      packet_status: pending_human_review
+      wj_inventory_case: john3_wj_speaker_boundary
+      wj_word_token_refs_count: 17
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, discourse_connector_and_scene_flow, paragraph_heading_or_formatting_metadata]
+    speaker_or_discourse_questions:
+      - "Should John.3.1-John.3.36 be reviewed as a parent unit without deciding internal child spans?"
+      - "Should John.3.9-John.3.21 be Jesus speech, narrator commentary, or unresolved for chunking?"
+    review_options_preserved: [jesus_speech, narrator_commentary, unresolved_for_chunking, parent_only_discourse_review, parent_with_child_discourse_review]
+    theological_downstream_risks:
+      - "WJ markup can silently decide the disputed John 3 Jesus/narrator boundary."
+      - "A child-boundary label can affect Christology, regeneration, judgment, and faith language retrieval."
+    assumptions_avoided:
+      - "No John 3 speaker boundary is selected."
+      - "No parent or child span is approved."
+      - "No WJ marker is treated as Jesus speaker authority."
+    reviewed_gold_dependency: "Requires owner selection, human review, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change]
+    validator_or_test_plan: "Keep John 3 owner-selection pending and fail if the docket or packet becomes authorizing without later owner review."
+    non_target_identity_plan: "Before implementation, compare all non-John Gospel discourse outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: MATT5_7_SERMON_ON_MOUNT_WJ_DISCOURSE
+    title: Sermon on the Mount WJ discourse and child-boundary review
+    status: existing_packet_pending
+    priority: 2
+    exact_passage_scope: [Matt.5.1-Matt.7.29]
+    existing_review_dependency: packet_matt5_7_wj_discourse_review
+    source_metadata_observed:
+      review_packet: eval/chunking_gold/review_packets/matt5_7_wj_discourse_review.md
+      packet_status: pending_human_review
+      wj_inventory_case: matt5_7_sermon_on_mount_wj_discourse
+      wj_word_token_refs_count: 107
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, discourse_connector_and_scene_flow, paragraph_heading_or_formatting_metadata]
+    speaker_or_discourse_questions:
+      - "Should Matthew 5-7 be reviewed as one parent discourse, parent with child teaching units, or smaller teaching blocks?"
+      - "Which child labels are safe retrieval labels rather than moral-system or kingdom-theology claims?"
+    review_options_preserved: [parent_only_discourse_review, parent_with_child_discourse_review, jesus_speech]
+    theological_downstream_risks:
+      - "Discourse child labels can bias law/gospel, kingdom, ethics, discipleship, and fulfillment readings."
+      - "Red-letter continuity can obscure narrative frame and audience context."
+    assumptions_avoided:
+      - "No Sermon on the Mount child-boundary scheme is selected."
+      - "No moral or kingdom-theology system is selected."
+      - "No WJ continuity becomes automatic parent or child chunk authority."
+    reviewed_gold_dependency: "Requires owner review, exact selected spans, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change]
+    validator_or_test_plan: "Keep packet pending; fail if it becomes reviewed gold or output-authorizing without owner decision."
+    non_target_identity_plan: "Before implementation, compare all non-Matthew Gospel outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: JOHN13_17_FAREWELL_DISCOURSE
+    title: John 13-17 Farewell Discourse and prayer complex
+    status: speaker_review_required
+    priority: 3
+    exact_passage_scope: [John.13-John.17]
+    existing_review_dependency: observed_john13_17_wj_farewell_discourse_marker_focus
+    source_metadata_observed:
+      review_packet: none
+      packet_status: no_packet
+      wj_inventory_case: john13_17_wj_farewell_discourse_marker_focus
+      wj_word_token_refs_count: 135
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, discourse_connector_and_scene_flow, paragraph_heading_or_formatting_metadata]
+    speaker_or_discourse_questions:
+      - "Should John 13-17 be one parent discourse, scene-aware parent with child units, or separate discourse/prayer sections?"
+      - "How should Jesus speech, narrative actions, Peter/Thomas/Philip/Judas exchanges, and the high-priestly prayer remain visible?"
+    review_options_preserved: [parent_only_discourse_review, parent_with_child_discourse_review, jesus_speech, unresolved_for_chunking]
+    theological_downstream_risks:
+      - "Boundaries can bias Christology, pneumatology, ecclesiology, assurance, union with Christ, and prayer theology."
+      - "A single WJ span can flatten scene changes and interlocutor exchanges."
+    assumptions_avoided:
+      - "No Farewell Discourse child-boundary scheme is selected."
+      - "No pneumatology or ecclesiology claim is inferred from a child label."
+      - "No split WJ evidence is smoothed into a single uninterrupted discourse authority."
+    reviewed_gold_dependency: "Requires a future review packet, owner review, exact selected spans, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change]
+    validator_or_test_plan: "Future packet must remain pending until owner-reviewed and must preserve scene/interlocutor evidence."
+    non_target_identity_plan: "Before implementation, compare all non-John Gospel discourse outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: SYNOPTIC_OLIVET_WJ_APOCALYPTIC_DISCOURSE
+    title: Synoptic Olivet WJ discourse and apocalyptic neutrality
+    status: speaker_review_required
+    priority: 4
+    exact_passage_scope: [Matt.24-Matt.25, Mark.13, Luke.21]
+    existing_review_dependency: observed_synoptic_apocalyptic_wj_discourses
+    source_metadata_observed:
+      review_packet: none
+      packet_status: no_packet
+      wj_inventory_case: synoptic_apocalyptic_wj_discourses
+      wj_word_token_refs_count: 129
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, discourse_connector_and_scene_flow, paragraph_heading_or_formatting_metadata, synoptic_parallel_or_intertext_context]
+    speaker_or_discourse_questions:
+      - "Should Olivet discourse units be reviewed separately by Gospel, synoptic parallels, or local discourse flow?"
+      - "Can apocalyptic discourse boundaries preserve futurist, preterist, historicist, idealist, and already/not-yet readings without choosing one?"
+    review_options_preserved: [parent_only_discourse_review, parent_with_child_discourse_review, synoptic_parallel_review, jesus_speech, unresolved_for_chunking]
+    theological_downstream_risks:
+      - "Boundaries can select an eschatological system, chronology, temple-fulfillment view, or harmonization strategy."
+      - "Synoptic parallels can become graph or retrieval truth before review."
+    assumptions_avoided:
+      - "No Olivet eschatological system or chronology is selected."
+      - "No synoptic harmonization becomes chunk authority."
+      - "No Revelation or Daniel implementation authority is imported."
+    reviewed_gold_dependency: "Requires a future review packet, owner review, exact selected spans, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change, eschatological_system_selection]
+    validator_or_test_plan: "Future packet must cross-reference T360 and preserve apocalyptic hermeneutic neutrality."
+    non_target_identity_plan: "Before implementation, compare all non-target Gospel and Revelation outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: JOHN7_53_8_11_VARIANT_WJ_SPEECH
+    title: John 7:53-8:11 textual-variant WJ speech
+    status: variant_policy_first
+    priority: 5
+    exact_passage_scope: [John.7.53-John.8.11]
+    existing_review_dependency: packet_john7_53_8_11_textual_variant_review
+    source_metadata_observed:
+      review_packet: eval/chunking_gold/review_packets/john7_53_8_11_textual_variant_review.md
+      packet_status: pending_human_review
+      wj_inventory_case: john7_53_8_11_wj_variant_speech
+      wj_word_token_refs_count: 3
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, paragraph_heading_or_formatting_metadata, textual_variant_policy]
+    speaker_or_discourse_questions:
+      - "Can WJ evidence in this passage remain visible without making a canonical preference?"
+      - "What variant-policy gate is required before speaker/discourse evidence can become reviewed gold?"
+    review_options_preserved: [variant_policy_first, jesus_speech, unresolved_for_chunking]
+    theological_downstream_risks:
+      - "WJ metadata can imply canonical preference for a textual-variant passage."
+      - "Speaker labels can hide variant-policy decisions."
+    assumptions_avoided:
+      - "No textual-variant policy is selected."
+      - "No canonical preference is inferred from WJ metadata."
+      - "No Jesus speech span is approved."
+    reviewed_gold_dependency: "Requires variant policy review, owner review, exact selected spans, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change, canonical_preference]
+    validator_or_test_plan: "Keep variant-policy-first status; fail if WJ metadata authorizes canonical preference or output."
+    non_target_identity_plan: "Before implementation, compare all non-target John outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: REVELATION_WJ_VOICE_SHIFTS
+    title: Revelation WJ voice shifts and seven-church/new-creation speech
+    status: revelation_research_first
+    priority: 6
+    exact_passage_scope: [Rev.1-Rev.3, Rev.21-Rev.22]
+    existing_review_dependency: .ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml
+    source_metadata_observed:
+      review_packet: none
+      packet_status: no_packet
+      wj_inventory_case: revelation_wj_voice_shifts
+      wj_word_token_refs_count: 1725
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, discourse_connector_and_scene_flow, paragraph_heading_or_formatting_metadata, synoptic_parallel_or_intertext_context]
+    speaker_or_discourse_questions:
+      - "How should Revelation WJ markers remain visible without deciding voice identity or apocalyptic structure?"
+      - "Which voice-shift cases need separate Revelation review before any WJ evidence can affect behavior?"
+    review_options_preserved: [revelation_research_first, jesus_speech, unresolved_for_chunking]
+    theological_downstream_risks:
+      - "WJ markers can decide Revelation voice identity, seven-church structure, Alpha/Omega identity, or new-creation speech boundaries."
+      - "Red-letter evidence can bypass REV-T344-E research-only status."
+    assumptions_avoided:
+      - "No Revelation voice identity is selected."
+      - "No Revelation implementation or T345 authority is created."
+      - "No Alpha/Omega or divine-title identity claim is inferred from WJ metadata alone."
+    reviewed_gold_dependency: "Requires Revelation research, owner review, exact selected spans, reviewed speaker/discourse gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change, revelation_implementation]
+    validator_or_test_plan: "Future packet must keep REV-T344-E and T360 non-authorizations active."
+    non_target_identity_plan: "Before implementation, compare all non-Revelation outputs and monolith fallback outputs for unchanged identity."
+  - dossier_id: ACTS_EPISTLE_WJ_DOMINICAL_QUOTES
+    title: Acts and epistle WJ dominical quotations outside the four Gospels
+    status: research_packet_pending
+    priority: 7
+    exact_passage_scope: [Acts, 1Cor, 2Cor, 1Tim]
+    existing_review_dependency: .ai/control/wj_marker_inventory.yaml
+    source_metadata_observed:
+      review_packet: none
+      packet_status: no_packet
+      wj_inventory_books: [Acts, 1Cor, 2Cor, 1Tim]
+      wj_word_token_refs_count: 524
+    evidence_channels: [wj_red_letter_metadata, speaker_formula_and_narrative_frame, paragraph_heading_or_formatting_metadata]
+    speaker_or_discourse_questions:
+      - "How should non-Gospel WJ markers for reported sayings or dominical quotations be preserved without giving them graph, speaker, or retrieval authority?"
+      - "Should Acts and epistle WJ evidence require a separate dominical-quotation review policy before chunking use?"
+    review_options_preserved: [dominical_quotation_review, jesus_speech, unresolved_for_chunking]
+    theological_downstream_risks:
+      - "Non-Gospel WJ markers can imply direct speaker authority, quotation status, or doctrinal hierarchy."
+      - "Epistle WJ markup can bias Lord's Supper, revelation, pastoral, or apostolic-authority readings."
+    assumptions_avoided:
+      - "No Acts or epistle WJ marker becomes direct speaker attribution."
+      - "No dominical quotation policy is selected."
+      - "No graph, retrieval, or chunk behavior is authorized."
+    reviewed_gold_dependency: "Requires future review packet, owner review, exact selected spans, reviewed speaker/quotation gold or equivalent governed evidence, graph and retrieval denial checks, route denial checks, and non-target identity proof before output changes."
+    non_authorizations: [speaker_attribution, speaker_boundary, discourse_boundary, reviewed_gold, chunk_boundary, route_behavior, graph_edge, retrieval_truth, output_change, dominical_quotation_authority]
+    validator_or_test_plan: "Future packet must preserve non-Gospel WJ as source metadata evidence only."
+    non_target_identity_plan: "Before implementation, compare all Gospel, Acts, epistle, and monolith fallback outputs for unchanged identity."
+global_non_authorizations:
+  - wj_dossier_as_reviewed_gold
+  - pending_packet_as_approval
+  - wj_marker_as_speaker_authority
+  - wj_marker_as_jesus_speaker_attribution
+  - wj_marker_as_speaker_boundary
+  - wj_marker_as_discourse_boundary
+  - wj_marker_as_chunk_boundary
+  - wj_marker_as_graph_edge
+  - wj_marker_as_retrieval_truth
+  - wj_marker_as_output_change
+  - formatting_as_speaker_authority
+  - punctuation_as_discourse_authority
+  - variant_wj_as_canonical_preference
+  - synoptic_parallel_as_harmonization_authority
+  - revelation_voice_identity_from_wj
+  - dominical_quotation_authority
+  - gospel_wj_implementation
+  - route_behavior_change
+  - evaluator_change
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - graph_edge_generation
+  - retrieval_truth
+  - boundary_import
+  - t345
+validators:
+  - scripts/validate_gospel_wj_discourse_dossier_queue.py
+  - tests/test_gospel_wj_discourse_dossier_queue.py
+  - scripts/validate_wj_marker_inventory.py
+  - scripts/validate_wj_speaker_discourse_policy.py
+  - scripts/validate_john3_owner_review_docket.py
+  - scripts/validate_bible_wide_chunking_research_registry.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py

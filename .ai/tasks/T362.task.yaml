@@ -1,0 +1,91 @@
+id: T362
+phase: phase_4
+title: "Gospel WJ Discourse Dossier Queue"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/gospel_wj_discourse_dossier_queue.yaml
+    - .ai/control/bible_wide_chunking_research_registry.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T362.task.yaml
+    - .ai/handoffs/T362/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T362_GOSPEL_WJ_DISCOURSE_DOSSIERS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/validate_gospel_wj_discourse_dossier_queue.py
+    - scripts/validate_bible_wide_chunking_research_registry.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_gospel_wj_discourse_dossier_queue.py
+    - tests/test_bible_wide_chunking_research_registry.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_task_scope_validator.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t351_bible_wide_research_triage.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "Continue research-only whole-Bible chunking prep; preserve red-letter/WJ metadata lessons before future Gospel discourse or chunking work."
+  gospel_wj_discourse_dossier_queue_allowed: true
+  research_packet_scaffold_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  speaker_attribution_authorized: false
+  speaker_boundary_authorized: false
+  discourse_boundary_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  source_metadata_authority_allowed: false
+  boundary_import_allowed: false
+  t345_allowed: false
+acceptance_criteria:
+  - "A machine-readable dossier queue records Gospel/WJ discourse and speaker-boundary-sensitive research cases."
+  - "The queue preserves review options for Jesus speech, narrator commentary, unresolved-for-chunking, parent-only, parent-with-child, variant-policy-first, Revelation-research-first, synoptic, and dominical quotation cases."
+  - "The queue verifies WJ inventory counts and pending review packet state remain non-authorizing."
+  - "The T358 registry and chunking-agent preflight point future agents to the queue."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_task_scope.py --task-id T362
+  - python scripts/validate_gospel_wj_discourse_dossier_queue.py
+  - python scripts/validate_wj_marker_inventory.py
+  - python scripts/validate_wj_speaker_discourse_policy.py
+  - python scripts/validate_john3_owner_review_docket.py
+  - python scripts/validate_bible_wide_chunking_research_registry.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T362/handoff.md
+next_task: "Continue research-only stack with narrative/legal dossiers, exact Gospel/WJ review packets, or exact epistle packet review prep. Do not implement chunks or promote reviewed gold without later owner authorization."

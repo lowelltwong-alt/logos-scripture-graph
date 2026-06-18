@@ -32,6 +32,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/source_metadata_research_atlas.yaml" in reading
     assert ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml" in reading
     assert ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml" in reading
+    assert ".ai/control/gospel_wj_discourse_dossier_queue.yaml" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -48,6 +49,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "source_metadata_research_atlas.yaml" in text
     assert "apocalyptic_prophetic_intertext_dossier_queue.yaml" in text
     assert "epistle_argument_theological_issue_dossier_queue.yaml" in text
+    assert "gospel_wj_discourse_dossier_queue.yaml" in text
     assert "T352 is the next" not in text
     assert "currently points to T356 John 3 owner review" in text
     assert "God/god" in text
@@ -81,10 +83,12 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-025" in register
     assert "CD-026" in register
     assert "CD-027" in register
+    assert "CD-028" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
     assert "Epistle argument issue dossiers preserve theological options" in register
+    assert "Gospel/WJ discourse dossiers preserve speaker-boundary neutrality" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -104,6 +108,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/source_metadata_research_atlas.yaml" in reading
     assert ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml" in reading
     assert ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml" in reading
+    assert ".ai/control/gospel_wj_discourse_dossier_queue.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "CD-021" in register_entry["required_decision_ids"]
     assert "CD-022" in register_entry["required_decision_ids"]
@@ -112,6 +117,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-025" in register_entry["required_decision_ids"]
     assert "CD-026" in register_entry["required_decision_ids"]
     assert "CD-027" in register_entry["required_decision_ids"]
+    assert "CD-028" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

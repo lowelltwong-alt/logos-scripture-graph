@@ -181,6 +181,15 @@ Bible-first chunking priority:
   gold, route behavior, graph edges, retrieval truth, chunk boundaries, output changes, boundary
   import, or epistle implementation. It is validated by
   `scripts/validate_epistle_argument_theological_issue_dossier_queue.py`.
+- The Gospel/WJ discourse dossier queue at
+  `.ai/control/gospel_wj_discourse_dossier_queue.yaml` records John 3, Sermon on the Mount,
+  Farewell Discourse, Olivet discourse, textual-variant WJ, Revelation voice-shift, and non-Gospel
+  WJ/dominical quotation risks. It preserves Jesus-speech, narrator-commentary, unresolved,
+  parent-only, parent-with-child, variant-policy-first, Revelation-research-first, synoptic, and
+  dominical-quotation review options without authorizing Jesus speaker attribution, speaker
+  boundaries, discourse boundaries, reviewed gold, route behavior, graph edges, retrieval truth,
+  chunk boundaries, output changes, boundary import, or Gospel/WJ implementation. It is validated
+  by `scripts/validate_gospel_wj_discourse_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -285,6 +294,7 @@ python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_source_metadata_research_atlas.py
 python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
 python scripts/validate_epistle_argument_theological_issue_dossier_queue.py
+python scripts/validate_gospel_wj_discourse_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -336,6 +346,10 @@ guards.
 `python scripts/validate_epistle_argument_theological_issue_dossier_queue.py` fails closed if the
 epistle argument issue queue becomes authorizing, loses required orthodox options, drops T352
 pending-packet dependencies, treats pending packets as approved, or omits non-authorization guards.
+`python scripts/validate_gospel_wj_discourse_dossier_queue.py` fails closed if the Gospel/WJ
+discourse queue becomes authorizing, loses required WJ inventory counts, drops pending packet
+dependencies, drops required Gospel/Revelation/non-Gospel WJ dossiers, treats WJ metadata as
+speaker authority, or omits non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

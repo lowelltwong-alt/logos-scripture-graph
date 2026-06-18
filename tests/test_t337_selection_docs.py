@@ -113,3 +113,6 @@ def test_t337_roadmap_state_completed_and_t342_next_after_t341() -> None:
     assert tasks["T361"]["status"] == "complete"
     assert tasks["T361"]["title"] == "Epistle Argument Theological Issue Dossier Queue"
     assert tasks["T361"]["required_handoff"] == ".ai/handoffs/T361/handoff.md"
+    assert tasks["T362"]["status"] == "complete"
+    assert tasks["T362"]["title"] == "Gospel WJ Discourse Dossier Queue"
+    assert tasks["T362"]["required_handoff"] == ".ai/handoffs/T362/handoff.md"

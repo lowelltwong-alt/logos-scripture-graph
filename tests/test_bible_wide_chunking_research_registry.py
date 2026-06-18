@@ -61,6 +61,11 @@ def test_research_registry_records_sensitive_research_watchpoints() -> None:
     )
     assert apocalyptic["companion_dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
     assert prophetic["companion_dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
+    gospel_wj = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "gospel_discourse_speaker_wj"
+    )
+    assert gospel_wj["companion_dossier_queue"] == ".ai/control/gospel_wj_discourse_dossier_queue.yaml"
     assert "divine_name_title_capitalization" in {
         dimension["dimension_id"] for dimension in data["research_dimensions"]
     }
