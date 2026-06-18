@@ -33,6 +33,10 @@ def test_forecast_names_predictable_human_decision_gates() -> None:
 
     assert set(by_id) >= validator.REQUIRED_DECISIONS
     assert by_id["HDF-001"]["earliest_task"] == "T369"
+    assert by_id["HDF-001"]["status"] == "projected_owner_pattern_selected"
+    assert by_id["HDF-001"]["selected_option"] == "1COR8-10-T369-B"
+    assert by_id["HDF-001"]["selected_children"] == []
+    assert by_id["HDF-001"]["conflict_scan_result"] == "no_conflict_detected"
     assert by_id["HDF-002"]["status"] == "pending_owner_policy"
     assert "chunk_output_change" in by_id["HDF-004"]["must_stop_for"]
     assert by_id["HDF-007"]["recommended_default_if_owner_unavailable"] == "systematic_theology_can_be_advisory_not_chunk_authority"
@@ -58,6 +62,8 @@ def test_forecast_roadmap_doc_explains_what_not_to_do() -> None:
     assert "HDF-001 - 1 Corinthians 8-10 Owner Option" in text
     assert "Do not treat this roadmap or forecast as authorization" in text
     assert "Do not implement chunks from pending packets" in text
+    assert "projected owner pattern" in text
+    assert "conflicting prior owner decisions" in text
 
 
 def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
@@ -70,6 +76,9 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     for task_id in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
         assert task_id in future
     assert future["T369"]["human_decision_forecast"] == ".ai/control/chunking_human_decision_forecast.yaml"
+    assert future["T369"]["status"] == "complete"
+    assert future["T369"]["selected_option"] == "1COR8-10-T369-B"
+    assert future["T370"]["starts_only_if"] == "T369_parent_only_projected_selection"
     assert future["T371"]["owner_decision_required"] is True
     assert future["T373"]["owner_decision_required"] is True
     assert future["T374"]["output_change_authorized"] is False

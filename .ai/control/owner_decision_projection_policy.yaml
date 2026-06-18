@@ -1,0 +1,115 @@
+---
+object_type: owner_decision_projection_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T369 after the owner authorized agents to project highly confident repeated owner-decision patterns while stopping for new or conflicting patterns."
+reason_for_inclusion: "Let future agents continue non-output-changing governed prep when an owner decision is materially the same shape as prior owner decisions, while forcing real-time owner review for new patterns or conflicts."
+---
+schema_version: owner_decision_projection_policy.v1
+policy_id: owner_pattern_projection_for_chunking_decisions
+owner: Lowell Wong
+authority:
+  records_projection_policy: true
+  records_projected_owner_pattern_decisions: true
+  authorizes_real_time_owner_decision_replacement: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edge_generation: false
+  authorizes_retrieval_truth: false
+  authorizes_textual_critical_policy: false
+  authorizes_boundary_import: false
+projection_allowed_when:
+  - prior_owner_decisions_are_materially_same_shape
+  - projected_default_is_conservative_and_fail_closed
+  - projection_preserves_canonical_scripture_authority
+  - projection_preserves_nicene_chalcedonian_orthodoxy
+  - projection_refuses_hidden_liberal_critical_anti_supernatural_anti_canonical_or_heterodox_defaults
+  - projection_refuses_one_denominational_system_as_chunk_authority
+  - projection_keeps_metadata_evidence_only
+  - projection_does_not_promote_reviewed_gold
+  - projection_does_not_change_chunks_routes_evaluators_graph_retrieval_vectors_or_outputs
+  - conflict_scan_finds_no_conflicting_owner_decisions_for_the_target_text
+projection_must_stop_when:
+  - decision_pattern_is_new_or_not_materially_same_shape
+  - prior_owner_decisions_conflict_for_the_target_text
+  - projection_would_choose_child_spans_without_exact_owner_selection
+  - projection_would_select_textual_critical_policy_or_preferred_reading
+  - projection_would_select_revelation_chronology_symbolic_identity_millennium_or_eschatological_system
+  - projection_would_select_speaker_boundary_or_jesus_narrator_boundary
+  - projection_would_select_sacramental_ecclesial_covenant_law_gospel_or_systematic_theology_as_chunk_authority
+  - projection_would_import_boundary_material
+  - projection_would_change_any_output_or_default_runtime_behavior
+conflict_policy:
+  conflict_scan_required_for_every_projected_decision: true
+  conflict_exists_when:
+    - two_or_more_prior_owner_decisions_imply_incompatible_rules_for_the_target_text
+    - one_prior_decision_would_project_a_selection_and_another_would_require_real_time_owner_review
+    - one_prior_decision_would_treat_a_feature_as_evidence_only_and_another_would_treat_it_as_boundary_or_truth_authority
+    - one_prior_decision_would_keep_child_spans_unselected_and_another_would_project_child_span_authority
+    - source_text_variant_or_metadata_evidence_would_change_the_decision_scope
+  required_conflict_report_fields:
+    - target_text_or_passage
+    - prior_decisions_considered
+    - projected_pattern
+    - possible_conflicts_checked
+    - conflict_scan_result
+    - stop_or_continue_rationale
+  if_conflict_detected: stop_and_surface_to_owner_before_work_continues
+projectable_owner_patterns:
+  - pattern_id: ODP-001
+    title: Parent-only review target can project when materially same shape
+    based_on_decisions: [JOHN3-T356-B, CD-033, HDF-006]
+    rule: "A parent-only review target may be selected for later evidence-building when it preserves the whole passage scope, authorizes no child spans, and does not promote reviewed gold or output changes."
+    forbidden_projection: "Do not project child spans, speaker boundaries, reviewed gold, route behavior, evaluator behavior, graph/retrieval truth, or output changes from parent-only selection."
+  - pattern_id: ODP-002
+    title: Metadata remains evidence only
+    based_on_decisions: [CD-002, CD-015, CD-018, CD-021, CD-022, CD-023, CD-037, HDF-011]
+    rule: "Cross-references, Strong's-style numbers, lexical rarity, headings, footnotes, paragraphing, WJ/red-letter markers, capitalization, and formatting may inform review but do not become truth, graph, retrieval, speaker, lexical, route, or chunk-boundary authority."
+    forbidden_projection: "Do not project metadata into boundary or truth authority."
+  - pattern_id: ODP-003
+    title: Orthodox firewall projects as a refusal, not a denominational system
+    based_on_decisions: [CD-034, HDF-007]
+    rule: "Agents may project refusal of hidden anti-supernatural, anti-canonical, heterodox, liberal-critical, or one-denomination defaults while preserving multiple orthodox readings."
+    forbidden_projection: "Do not project a denominational systematic theology as chunk authority."
+  - pattern_id: ODP-004
+    title: Output-changing and authority-changing gates never project
+    based_on_decisions: [CD-001, CD-003, CD-011, CD-012, CD-038, HDF-003, HDF-004, HDF-010, HDF-012]
+    rule: "Reviewed-gold promotion, chunk output changes, route/evaluator behavior, graph/retrieval/vector outputs, textual-critical policy, boundary import, and theological authority changes require explicit owner authorization."
+    forbidden_projection: "Do not treat this projection policy as implementation authority."
+current_projected_decisions:
+  - projection_id: ODP-20260618-1COR8-10-PARENT
+    task_id: T369
+    forecast_decision_id: HDF-001
+    target_text_or_passage: 1Cor.8.1-1Cor.10.33
+    selected_option: 1COR8-10-T369-B
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    confidence: high
+    projected_pattern_ids: [ODP-001, ODP-002, ODP-003, ODP-004]
+    prior_decisions_considered: [JOHN3-T356-B, REV-T344-E, CD-033, CD-034, CD-035, CD-036, CD-037, CD-038, HDF-001, HDF-006, HDF-007, HDF-011]
+    conflict_scan_result: no_conflict_detected
+    conflict_scan_rationale: "The repeated owner pattern allows conservative parent-only review targets while refusing child-span, reviewed-gold, output, route/evaluator, textual-critical, graph/retrieval, and doctrinal-system authority. Selecting option B for 1Cor.8-10 respects that pattern; projecting option C would conflict with the child-span rule."
+    downstream_effect: "Unblocks T370 governed evidence-packet preparation for parent-only 1Cor.8.1-1Cor.10.33 while keeping implementation and reviewed-gold promotion blocked."
+    non_authorizations:
+      - 1cor8_10_parent_span_as_reviewed_gold
+      - 1cor8_10_parent_span_as_chunk_boundary
+      - 1cor8_10_child_span_approval
+      - child_span_projection
+      - doctrinal_system_selection
+      - sacramental_system_selection
+      - textual_critical_policy_selection
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+validators:
+  - scripts/validate_owner_decision_projection_policy.py
+  - tests/test_owner_decision_projection_policy.py
+  - scripts/validate_1cor8_10_owner_review_docket.py
+  - scripts/validate_chunking_human_decision_forecast.py
+  - scripts/validate_all.py
+...

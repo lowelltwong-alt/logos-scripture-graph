@@ -24,8 +24,6 @@ REQUIRED_OPTIONS = {
 }
 
 REQUIRED_FALSE_AUTHORITY = {
-    "records_owner_review_selection",
-    "authorizes_parent_only_review_target",
     "authorizes_parent_span_as_reviewed_gold",
     "authorizes_child_spans_as_reviewed_gold",
     "authorizes_argument_boundary",
@@ -120,8 +118,12 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
         raise OneCorDocketError(f"{_rel(path)}: authority must be a mapping")
     if authority.get("records_owner_review_options") is not True:
         raise OneCorDocketError(f"{_rel(path)}: authority.records_owner_review_options must be true")
+    if authority.get("records_owner_review_selection") is not True:
+        raise OneCorDocketError(f"{_rel(path)}: authority.records_owner_review_selection must be true")
     if authority.get("may_surface_for_review") is not True:
         raise OneCorDocketError(f"{_rel(path)}: authority.may_surface_for_review must be true")
+    if authority.get("authorizes_parent_only_review_target") is not True:
+        raise OneCorDocketError(f"{_rel(path)}: authority.authorizes_parent_only_review_target must be true")
     for key in REQUIRED_FALSE_AUTHORITY:
         if authority.get(key) is not False:
             raise OneCorDocketError(f"{_rel(path)}: authority.{key} must be false")
@@ -138,7 +140,7 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
         "prior_issue_dossier_task": "T361",
         "prior_owner_decision_task": "T367",
         "strengthening_task": "T368",
-        "status": "pending_owner_review",
+        "status": "parent_only_review_target_selected",
     }
     for key, value in expected_target.items():
         if target.get(key) != value:
@@ -147,12 +149,20 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
     selection = data.get("owner_selection")
     if not isinstance(selection, dict):
         raise OneCorDocketError(f"{_rel(path)}: owner_selection must be a mapping")
-    if selection.get("owner_selection_status") != "pending_owner_decision":
-        raise OneCorDocketError(f"{_rel(path)}: owner_selection.owner_selection_status must be pending_owner_decision")
-    if selection.get("selected_option") is not None:
-        raise OneCorDocketError(f"{_rel(path)}: owner_selection.selected_option must be null")
-    if selection.get("selected_parent") is not None:
-        raise OneCorDocketError(f"{_rel(path)}: owner_selection.selected_parent must be null")
+    if selection.get("owner_selection_status") != "selected":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.owner_selection_status must be selected")
+    if selection.get("selection_mode") != "projected_owner_pattern":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.selection_mode must be projected_owner_pattern")
+    if selection.get("projection_policy") != ".ai/control/owner_decision_projection_policy.yaml":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.projection_policy is stale")
+    if selection.get("projection_id") != "ODP-20260618-1COR8-10-PARENT":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.projection_id is stale")
+    if selection.get("conflict_scan_result") != "no_conflict_detected":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.conflict_scan_result must be no_conflict_detected")
+    if selection.get("selected_option") != "1COR8-10-T369-B":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.selected_option must be 1COR8-10-T369-B")
+    if selection.get("selected_parent") != "1Cor.8.1-1Cor.10.33":
+        raise OneCorDocketError(f"{_rel(path)}: owner_selection.selected_parent is wrong")
     if selection.get("selected_children") != []:
         raise OneCorDocketError(f"{_rel(path)}: owner_selection.selected_children must be []")
     for key in ("implementation_allowed", "output_change_authorized", "reviewed_gold_promoted"):
@@ -194,7 +204,6 @@ def _validate_packet_links() -> None:
         "T368 strengthened packet: true",
         "Owner-review docket: `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`",
         "Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`",
-        "No option above is approved. No reviewed gold is promoted.",
         "1Cor.9.20",
         "1Cor.10.9",
         "Deut.25.4",
@@ -209,6 +218,8 @@ def _validate_packet_links() -> None:
         "G4221",
         "G1140",
         "G2842",
+        "Only `1COR8-10-T369-B` is selected, by projected owner pattern, as a parent-only review target.",
+        "No child span, reviewed gold, route behavior, graph/retrieval truth, textual-critical policy",
     ):
         if phrase not in text:
             raise OneCorDocketError(f"{_rel(PACKET)}: missing strengthened-packet phrase {phrase!r}")
@@ -225,7 +236,13 @@ def _validate_packet_links() -> None:
 
 def _validate_governed_links() -> None:
     register_text = _read_text(REGISTER)
-    for phrase in ("CD-037", "1 Corinthians 8-10 strengthened packet remains non-authorizing", "T368"):
+    for phrase in (
+        "CD-037",
+        "CD-041",
+        "1 Corinthians 8-10 strengthened packet remains non-authorizing",
+        "1 Corinthians 8-10 parent-only review target selected by projected owner pattern",
+        "T369",
+    ):
         if phrase not in register_text:
             raise OneCorDocketError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -242,8 +259,8 @@ def _validate_governed_links() -> None:
     next_route = readiness.get("next_route")
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
-    if next_route.get("task_id") != "T369":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T369 after T368")
+    if next_route.get("task_id") != "T370":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T370 after T369")
     if next_route.get("owner_review_docket") != ".ai/control/1cor8_10_epistle_owner_review_docket.yaml":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.owner_review_docket is stale")
     for key in (

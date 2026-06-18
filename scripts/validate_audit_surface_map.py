@@ -52,6 +52,8 @@ REQUIRED_CHANGELOGS = {
 
 REQUIRED_DECISION_SURFACES = {
     ".ai/control/chunking_theological_decision_register.yaml",
+    ".ai/control/governance_memory_durability_policy.yaml",
+    ".ai/control/owner_decision_projection_policy.yaml",
     ".ai/control/bible_chunking_readiness_map.yaml",
     ".ai/control/chunking_agent_preflight.yaml",
     "eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md",

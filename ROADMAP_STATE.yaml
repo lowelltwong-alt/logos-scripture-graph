@@ -683,9 +683,13 @@ phases:
     future_sequence:
       - id: T369
         title: 1 Corinthians 8-10 Owner Review Docket
-        status: planned
+        status: complete
         lane: epistle_argument
-        owner_selection_required: true
+        owner_selection_required: false
+        owner_selection_status: selected
+        completed_by: projected_owner_pattern
+        projection_policy: .ai/control/owner_decision_projection_policy.yaml
+        conflict_scan_result: no_conflict_detected
         human_decision_forecast: .ai/control/chunking_human_decision_forecast.yaml
         chunking_ready_roadmap: docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md
         owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
@@ -693,6 +697,10 @@ phases:
         textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
         review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
         exact_parent_candidate: 1Cor.8.1-1Cor.10.33
+        selected_option: 1COR8-10-T369-B
+        selected_parent: 1Cor.8.1-1Cor.10.33
+        selected_children: []
+        authorizes_parent_only_review_target: true
         review_only: true
         output_change_authorized: false
         implementation_authorized: false
@@ -707,8 +715,12 @@ phases:
         title: Build Selected 1 Corinthians 8-10 Reviewed-Gold Evidence Packet
         status: planned
         lane: epistle_argument
-        starts_only_if: T369_selects_option_requiring_gold_strengthening
+        starts_only_if: T369_parent_only_projected_selection
         human_decision_forecast: .ai/control/chunking_human_decision_forecast.yaml
+        selected_option: 1COR8-10-T369-B
+        selected_parent: 1Cor.8.1-1Cor.10.33
+        selected_children: []
+        evidence_scope: parent_only
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false

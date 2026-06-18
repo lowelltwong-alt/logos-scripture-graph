@@ -29,6 +29,8 @@ ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_do
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 HUMAN_DECISION_FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
+GOVERNANCE_MEMORY_DURABILITY = ROOT / ".ai" / "control" / "governance_memory_durability_policy.yaml"
+OWNER_DECISION_PROJECTION = ROOT / ".ai" / "control" / "owner_decision_projection_policy.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -68,7 +70,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -126,6 +128,10 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "textual_critical_policy_docket.yaml",
     "1cor8_10_epistle_owner_review_docket.yaml",
     "chunking_human_decision_forecast.yaml",
+    "governance_memory_durability_policy.yaml",
+    "owner_decision_projection_policy.yaml",
+    "conflicting prior owner decisions",
+    "projected owner pattern",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -285,6 +291,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         ".ai/control/chunking_human_decision_forecast.yaml",
+        ".ai/control/governance_memory_durability_policy.yaml",
+        ".ai/control/owner_decision_projection_policy.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -492,7 +500,9 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "object_type: epistle_argument_owner_review_docket",
         "target_id: 1cor8_10_food_offered_to_idols",
         "exact_parent_candidate: 1Cor.8.1-1Cor.10.33",
-        "owner_selection_status: pending_owner_decision",
+        "owner_selection_status: selected",
+        "selection_mode: projected_owner_pattern",
+        "selected_option: 1COR8-10-T369-B",
         "1COR8-10-T369-C",
         "authorizes_reviewed_gold: false",
         "authorizes_chunk_boundaries: false",
@@ -512,6 +522,27 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in forecast_text:
             raise PreflightError(f"{_rel(HUMAN_DECISION_FORECAST)}: missing human-decision forecast phrase {phrase!r}")
+    durability_text = _read_text(GOVERNANCE_MEMORY_DURABILITY)
+    for phrase in (
+        "object_type: governance_memory_durability_policy",
+        "critical_non_deletable_governance_memory",
+        "authorizes_register_deletion: false",
+        "chunking_theological_decision_register.yaml",
+        "bypassing_register_validator",
+    ):
+        if phrase not in durability_text:
+            raise PreflightError(f"{_rel(GOVERNANCE_MEMORY_DURABILITY)}: missing durability phrase {phrase!r}")
+    projection_text = _read_text(OWNER_DECISION_PROJECTION)
+    for phrase in (
+        "object_type: owner_decision_projection_policy",
+        "conflict_scan_required_for_every_projected_decision: true",
+        "prior_owner_decisions_conflict_for_the_target_text",
+        "ODP-20260618-1COR8-10-PARENT",
+        "selected_option: 1COR8-10-T369-B",
+        "child_span_projection",
+    ):
+        if phrase not in projection_text:
+            raise PreflightError(f"{_rel(OWNER_DECISION_PROJECTION)}: missing projection phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

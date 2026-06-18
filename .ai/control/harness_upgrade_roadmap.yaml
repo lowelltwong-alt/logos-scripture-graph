@@ -143,6 +143,15 @@ candidate_harnesses:
     implemented_surfaces: [scripts/build_wj_marker_inventory.py, scripts/validate_wj_marker_inventory.py, tests/test_wj_marker_inventory.py, .ai/control/wj_marker_inventory.yaml]
     future_upgrade_needed: "Before any output-changing implementation cites WJ markers, extend this harness with changed-path-aware review of the exact implementation diff, reviewed speaker/discourse evidence, and non-target identity checks for Gospel, Acts, epistle, and Revelation WJ surfaces."
     non_authorizations: [wj_marker_as_speaker_authority, wj_marker_as_speaker_boundary, wj_marker_as_chunk_boundary, red_letter_markup_as_theological_truth]
+  - harness_id: HARN-015
+    title: Owner-pattern projection conflict scanner
+    status: implemented_v1
+    trigger: "A future agent projects a prior owner decision pattern instead of asking the owner in real time."
+    purpose: "Require a recorded projection policy, high-confidence same-shape rationale, target-text conflict scan, register entry, and explicit non-authorizations before a projected owner-pattern decision can unblock non-output work."
+    likely_surfaces: [.ai/control/owner_decision_projection_policy.yaml, .ai/control/chunking_theological_decision_register.yaml, .ai/control/1cor8_10_epistle_owner_review_docket.yaml, scripts]
+    implemented_surfaces: [scripts/validate_owner_decision_projection_policy.py, tests/test_owner_decision_projection_policy.py, .ai/control/owner_decision_projection_policy.yaml]
+    future_upgrade_needed: "If multiple projected decisions accumulate, add a decision-register cross-reference graph that detects conflicting prior owner decisions by passage, lane, metadata type, and authority flag."
+    non_authorizations: [new_pattern_without_owner, conflict_ignored, child_span_projection, reviewed_gold_promotion, chunk_output_change]
 watchlist:
   - "If agents repeatedly ask what to read, upgrade the audit harness to emit exact file excerpts/line references."
   - "HARN-001 is implemented in v1; keep task files current so future protected-path diffs fail without explicit scope."
@@ -150,6 +159,7 @@ watchlist:
   - "HARN-006 is implemented in v1; if source metadata is cited in implementation, extend it with changed-path-aware checks before merging that PR."
   - "HARN-013 is implemented in v1; if capitalization is cited in implementation, extend it with changed-path-aware checks before merging that PR."
   - "HARN-014 is implemented in v1; if WJ/red-letter markers are cited in implementation, extend it with changed-path-aware speaker/discourse review checks before merging that PR."
+  - "HARN-015 is implemented in v1; if future projected owner-pattern decisions accumulate, upgrade it from fixed policy validation to cross-register conflict detection by passage, lane, and authority flag."
   - "If cross-repo governance mirrors resume, implement HARN-009 in the appropriate repo sequence."
 validator: scripts/validate_audit_surface_map.py
 ...

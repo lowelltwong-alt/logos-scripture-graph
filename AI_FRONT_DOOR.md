@@ -33,6 +33,12 @@ Read these files before making changes:
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
+11. For protected decision memory, owner-pattern projection, or conflict checks:
+    `.ai/control/governance_memory_durability_policy.yaml` and
+    `.ai/control/owner_decision_projection_policy.yaml`. Projected owner patterns are allowed only
+    when materially same-shape prior decisions agree, confidence is high, the result is recorded,
+    no output/authority changes occur, and no conflicting prior owner decisions apply to the target
+    text.
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
     `.ai/control/bible_chunking_readiness_map.yaml`
 12. For predictable owner decisions, goal-blocked explanation, chunking-ready definition, and
@@ -124,11 +130,21 @@ Bible-first chunking priority:
   chunking/evaluator/gold/route/default-behavior decisions. It records owner decisions, theological
   risks, dependencies, non-authorizations, and supersession history; it does not authorize output
   changes by itself.
+- The governance memory durability policy at
+  `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
+  register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing
+  the register must fail validation unless a later explicit owner-governed replacement supersedes it.
+- The owner decision projection policy at `.ai/control/owner_decision_projection_policy.yaml`
+  allows agents to project highly confident, materially same-shape owner patterns only for
+  conservative, non-output-changing decisions. This is a projected owner pattern, not a replacement
+  for real-time owner review. If prior owner decisions conflict for the target text, or if the
+  pattern is new, agents must stop and tell Lowell before continuing.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T369 1Cor.8-10 owner-review gating,
-  with T367 preserved as the owner-decision firewall and target-selection record and T368 preserved
-  as the review-packet strengthening record.
+  next safe route. It is non-authorizing and currently points to T370 parent-only evidence prep for
+  `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall and target-selection
+  record, T368 preserved as the review-packet strengthening record, and T369 preserved as the
+  projected owner-pattern parent-only selection record.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -361,6 +377,8 @@ python scripts/validate_repository_link_contract.py
 python scripts/agent/validate_handoffs.py
 python scripts/validate_task_scope.py
 python scripts/validate_chunking_theological_decision_register.py
+python scripts/validate_governance_memory_durability.py
+python scripts/validate_owner_decision_projection_policy.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_source_metadata_research_atlas.py

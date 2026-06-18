@@ -40,7 +40,8 @@ Common tags in this file:
   `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`,
   `comma-johanneum`, `orthodox-hermeneutic-firewall`, `anti-smuggling`,
   `orthodoxy-boundary`, `canon-authority`, `textual-critical-policy`, `variant-sensitive`,
-  `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`
+  `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`,
+  `owner-projection`, `projected-owner-pattern`, `conflict-scan`, `governance-memory`
 
 ## Current Bible Chunking Path
 
@@ -75,7 +76,7 @@ Common tags in this file:
 | T366 | Textual variant source tradition dossier queue | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum`, `non-authorizing` | Preparing textual-variant/source-tradition dossiers without selecting textual-critical policy, canon scope, source-tradition preference, boundary import, noncanonical authority, reviewed-gold, or chunk authority. | `docs/roadmap/T366_TEXTUAL_VARIANT_SOURCE_TRADITION_DOSSIERS.md`; `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`; `scripts/validate_textual_variant_source_tradition_dossier_queue.py`; `.ai/tasks/T366.task.yaml`; `.ai/handoffs/T366/handoff.md` |
 | T367 | Owner decision firewall and next target | `owner-decision`, `orthodox-hermeneutic-firewall`, `anti-smuggling`, `textual-critical-policy`, `john3`, `1cor8-10`, `non-authorizing` | Auditing JOHN3-T356-B, the orthodox firewall, textual-critical policy requirement, and the next review-only epistle target. | `docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md`; `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`; `.ai/control/textual_critical_policy_docket.yaml`; `.ai/tasks/T367.task.yaml`; `.ai/handoffs/T367/handoff.md` |
 | T368 | 1 Corinthians 8-10 packet strengthening | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`, `christian-liberty`, `non-authorizing` | Auditing the strengthened 1Cor.8-10 packet, pending owner options, and non-authorizing evidence. | `docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md`; `scripts/validate_1cor8_10_owner_review_docket.py`; `.ai/tasks/T368.task.yaml`; `.ai/handoffs/T368/handoff.md` |
-| T369 | 1Cor.8-10 owner review and decision forecast | `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `owner-gate`, `stop-conditions`, `non-authorizing` | Choosing the 1Cor.8-10 owner option and reviewing predictable decisions early so chunking readiness does not stall mid-flight. | `docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md`; `.ai/control/chunking_human_decision_forecast.yaml`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `scripts/validate_chunking_human_decision_forecast.py` |
+| T369 | 1Cor.8-10 projected parent-only review selection | `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`, `owner-projection`, `projected-owner-pattern`, `conflict-scan`, `non-authorizing` | Auditing the parent-only projected owner-pattern decision and conflict scan that unblocks T370 evidence prep without output authority. | `docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md`; `.ai/control/chunking_human_decision_forecast.yaml`; `.ai/control/owner_decision_projection_policy.yaml`; `.ai/control/governance_memory_durability_policy.yaml`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `scripts/validate_chunking_human_decision_forecast.py`; `scripts/validate_owner_decision_projection_policy.py`; `scripts/validate_governance_memory_durability.py`; `.ai/tasks/T369.task.yaml`; `.ai/handoffs/T369/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -85,6 +86,8 @@ Common tags in this file:
 | `eval/chunking_gold/review_packets/review_packet_index.json` | `review-packet`, `machine-readable`, `validator` | A validator or agent needs structured packet status. | Machine-readable review-packet index. |
 | `eval/chunking_gold/per_form/psalms_gold_manifest.json` | `reviewed-gold`, `psalms`, `manifest` | Work touches approved Psalm reviewed-gold spans. | Psalm reviewed-gold and structural-split manifest. |
 | `.ai/control/chunking_theological_decision_register.yaml` | `theology-risk`, `decision-register`, `downstream-risk` | A chunking/evaluator/gold/route/default decision may affect theological interpretation. | Decision ledger for chunking choices with possible theological downstream effects. |
+| `.ai/control/governance_memory_durability_policy.yaml` | `governance-memory`, `decision-register-protection`, `protected-paths` | An agent needs to prove the decision register remains discoverable, canonical, active, protected, and validator-enforced. | Register durability policy; no register deletion, downgrade, output, gold, or owner authority. |
+| `.ai/control/owner_decision_projection_policy.yaml` | `owner-projection`, `projected-owner-pattern`, `conflict-scan`, `theology-risk` | A future decision may be the same shape as a prior owner decision or may conflict with a prior decision for the target text. | Projection policy; allows only high-confidence conservative non-output projections and stops for conflicts. |
 | `.ai/control/bible_chunking_readiness_map.yaml` | `readiness`, `next-route`, `whole-bible` | A future agent needs the active route and lane readiness. | Lane/readiness map for whole-Bible chunking. |
 | `.ai/control/chunking_agent_preflight.yaml` | `preflight`, `source-metadata`, `required-reading` | Any chunking-related work starts or a lesson must be encoded. | Mandatory preflight for chunking agents; source metadata is evidence, not authority. |
 | `.ai/control/divine_capitalization_inventory.yaml` | `divine-capitalization`, `source-metadata`, `evidence-only` | Work touches God/god, Spirit/spirit, Father/father, Word/word, or capitalization evidence. | Observed divine-name/title/pronoun capitalization variants; evidence only, not graph/chunk/retrieval authority. |
@@ -107,17 +110,19 @@ Common tags in this file:
 
 ## Current Next Route
 
-After T344 owner decision, T351 Bible-wide triage, T367 owner firewall guidance, and T368 packet
-strengthening, the next route is:
+After T344 owner decision, T351 Bible-wide triage, T367 owner firewall guidance, T368 packet
+strengthening, and T369 projected parent-only owner-pattern selection, the next route is:
 
 ```text
-T369 - 1 Corinthians 8-10 Owner Review Docket
+T370 - Build selected 1 Corinthians 8-10 parent-only reviewed-gold evidence packet
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
 adds the Orthodox Hermeneutic Firewall and textual-critical policy docket requirement, and points
 the epistle lane to 1Cor.8-10. T368 strengthens the packet and creates
-`.ai/control/1cor8_10_epistle_owner_review_docket.yaml`. T369 is owner-review only.
+`.ai/control/1cor8_10_epistle_owner_review_docket.yaml`. T369 selects parent-only
+`1Cor.8.1-1Cor.10.33` by projected owner pattern after a no-conflict scan. T370 is evidence prep
+only.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -183,7 +188,10 @@ intertext truth, chunk boundaries, output changes, or T345.
 T368 may only strengthen the existing `1Cor.8-1Cor.10` packet as review prep; it may not promote
 reviewed gold, implement chunks, change route/evaluator behavior, generate graph edges, assert
 retrieval truth, select textual-critical policy, or change output.
-T369 may only record a future owner selection from the 1Cor.8-10 docket; it still may not
-implement chunks, promote reviewed gold, change route/evaluator behavior, generate graph edges,
-assert retrieval truth, select textual-critical policy, or change output without later exact
-implementation authorization.
+T369 selected parent-only `1Cor.8.1-1Cor.10.33` by projected owner pattern; it did not select
+child spans and did not authorize reviewed gold, chunks, route/evaluator behavior, graph edges,
+retrieval truth, textual-critical policy, or output changes. T370 may prepare governed parent-only
+evidence only; it may not promote reviewed gold, implement chunks, project child spans, ignore
+conflicting prior owner decisions, change route/evaluator behavior, generate graph edges, assert
+retrieval truth, select textual-critical policy, or change output without later exact owner
+authorization.

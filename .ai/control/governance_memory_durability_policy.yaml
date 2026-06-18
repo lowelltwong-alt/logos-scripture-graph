@@ -1,0 +1,61 @@
+---
+object_type: governance_memory_durability_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T369 after the owner emphasized that the chunking theological decision register must not be lost again."
+reason_for_inclusion: "Protect the decision register as a required governance memory surface so future agents cannot delete, hide, or bypass it without validation failing."
+---
+schema_version: governance_memory_durability_policy.v1
+policy_id: chunking_decision_register_durability
+owner: Lowell Wong
+authority:
+  records_protected_memory_surfaces: true
+  authorizes_register_deletion: false
+  authorizes_register_downgrade: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_owner_decision: false
+protected_memory_surfaces:
+  - surface_id: chunking_theological_decision_register
+    path: .ai/control/chunking_theological_decision_register.yaml
+    object_type: chunking_theological_decision_register
+    trust_zone: canonical
+    lifecycle_status: active
+    protection_level: critical_non_deletable_governance_memory
+    reason: "This register is the audit chain for chunking, evaluator, gold, route, default-behavior, source-metadata, and theological downstream decisions."
+    must_be_discoverable_from:
+      - AI_FRONT_DOOR.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - .ai/control/audit_surface_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    required_validators:
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_governance_memory_durability.py
+      - scripts/validate_task_scope.py
+      - scripts/validate_all.py
+    deletion_policy: "Deletion, renaming, trust-zone downgrade, lifecycle downgrade, or removal from required discovery surfaces must fail validation unless a later explicit owner-governed replacement supersedes it."
+    allowed_change_policy: "Edits are allowed only as explicit governed updates that preserve canonical active status, required metadata, non-authorizing authority flags, supersession history, and validator coverage."
+required_task_scope_protection:
+  protected_exact_paths:
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/governance_memory_durability_policy.yaml
+    - .ai/control/owner_decision_projection_policy.yaml
+  rule: "Protected memory surfaces may change only when the active task explicitly allows them and the appropriate validator passes."
+non_authorizations:
+  - register_deletion
+  - register_rename_without_supersession
+  - register_trust_zone_downgrade
+  - register_lifecycle_downgrade
+  - hiding_register_from_front_door_or_toc
+  - bypassing_register_validator
+  - chunk_output_change
+  - reviewed_gold_promotion
+  - owner_decision
+validators:
+  - scripts/validate_governance_memory_durability.py
+  - tests/test_governance_memory_durability.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

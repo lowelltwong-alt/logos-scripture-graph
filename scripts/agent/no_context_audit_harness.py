@@ -73,6 +73,8 @@ def build_brief(task_id: str, base_ref: str, pr: str | None) -> str:
         ".ai/control/handoff_ledger.jsonl",
         ".ai/control/harness_upgrade_roadmap.yaml",
         ".ai/control/chunking_theological_decision_register.yaml",
+        ".ai/control/governance_memory_durability_policy.yaml",
+        ".ai/control/owner_decision_projection_policy.yaml",
         ".ai/control/bible_chunking_readiness_map.yaml",
     ]
 
@@ -80,6 +82,8 @@ def build_brief(task_id: str, base_ref: str, pr: str | None) -> str:
         "python scripts/validate_audit_surface_map.py",
         "python scripts/validate_chunking_agent_preflight.py",
         "python scripts/validate_chunking_theological_decision_register.py",
+        "python scripts/validate_governance_memory_durability.py",
+        "python scripts/validate_owner_decision_projection_policy.py",
         "python scripts/validate_bible_chunking_readiness_map.py",
         "python scripts/validate_all.py",
         "python -m pytest -q",
@@ -127,6 +131,7 @@ def build_brief(task_id: str, base_ref: str, pr: str | None) -> str:
 - Verify that pending packets or owner-selection dockets are not treated as reviewed gold.
 - Verify that raw/canonical/generated chunk/evaluator/vector/edge surfaces were not touched without explicit authorization.
 - Verify that theological downstream decisions are recorded in the decision register.
+- Verify that the decision register remains protected and discoverable, and that any projected owner-pattern decision includes a conflict scan.
 - Verify that no source metadata, cross-reference, Strong's-style number, Greek lexical rarity, heading, footnote, WJ marker, or formatting becomes hidden authority.
 - Check `.ai/control/harness_upgrade_roadmap.yaml`; if this review reveals a repeated manual check or likely future failure mode, update the roadmap or record why no harness is needed.
 
