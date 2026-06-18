@@ -12,6 +12,7 @@ T344_TASK = ROOT / ".ai" / "tasks" / "T344.task.yaml"
 T351_TASK = ROOT / ".ai" / "tasks" / "T351.task.yaml"
 T353_TASK = ROOT / ".ai" / "tasks" / "T353.task.yaml"
 T354_TASK = ROOT / ".ai" / "tasks" / "T354.task.yaml"
+T355_TASK = ROOT / ".ai" / "tasks" / "T355.task.yaml"
 T352_TASK = ROOT / ".ai" / "tasks" / "T352.task.yaml"
 
 
@@ -174,6 +175,44 @@ def test_t352_scope_accepts_epistle_packet_surfaces() -> None:
     )
 
     assert result["task_file"] == ".ai/tasks/T352.task.yaml"
+
+
+def test_t355_scope_accepts_wj_speaker_policy_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T355_TASK,
+        changed_files=[
+            ".ai/control/wj_speaker_discourse_policy.yaml",
+            ".ai/control/chunking_agent_preflight.yaml",
+            ".ai/control/chunking_theological_decision_register.yaml",
+            ".ai/control/bible_chunking_readiness_map.yaml",
+            ".ai/tasks/T355.task.yaml",
+            ".ai/handoffs/T355/handoff.md",
+            "docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md",
+            "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
+            "scripts/validate_wj_speaker_discourse_policy.py",
+            "scripts/validate_owner_selection_implementation_gate.py",
+            "scripts/validate_chunking_agent_preflight.py",
+            "scripts/validate_bible_chunking_readiness_map.py",
+            "scripts/validate_all.py",
+            "tests/test_wj_speaker_discourse_policy.py",
+            "tests/test_owner_selection_implementation_gate.py",
+            "tests/test_chunking_agent_preflight.py",
+            "tests/test_task_scope_validator.py",
+            "tests/test_ai_roadmap_table_of_contents.py",
+            "tests/test_bible_chunking_readiness_map.py",
+            "tests/test_t337a_psalm_review_packet.py",
+            "tests/test_t337_selection_docs.py",
+            "tests/test_t342_revelation_candidate_selection.py",
+            "tests/test_t343_revelation_review_packet.py",
+            "tests/test_t344_revelation_owner_selection.py",
+            "tests/test_t351_bible_wide_research_triage.py",
+            "ROADMAP_STATE.yaml",
+            "AI_FRONT_DOOR.md",
+            "AI_TABLE_OF_CONTENTS.md",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T355.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:

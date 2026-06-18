@@ -93,6 +93,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "gospel_wj_marker_inventory_harness",
         "title": "WJ Marker Inventory Harness",
     },
+    "T355": {
+        "route_type": "wj_speaker_discourse_policy_and_target_selection",
+        "title": "WJ Speaker/Discourse Policy And Target Selection",
+    },
 }
 
 
@@ -252,6 +256,23 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: T354 next_route.prior_inventory_task must be T353")
         if next_route.get("inventory_status") != "generated_non_authorizing":
             raise ReadinessMapError(f"{_rel(path)}: T354 next_route.inventory_status must be generated_non_authorizing")
+    if task_id == "T355":
+        if next_route.get("review_packet_lane") != "gospel_discourse_wj":
+            raise ReadinessMapError(f"{_rel(path)}: T355 next_route.review_packet_lane must be gospel_discourse_wj")
+        if next_route.get("prior_inventory_task") != "T354":
+            raise ReadinessMapError(f"{_rel(path)}: T355 next_route.prior_inventory_task must be T354")
+        if next_route.get("selected_target") != "john3_wj_speaker_boundary":
+            raise ReadinessMapError(f"{_rel(path)}: T355 next_route.selected_target must be john3_wj_speaker_boundary")
+        if next_route.get("selected_target_status") != "selected_for_next_owner_review":
+            raise ReadinessMapError(
+                f"{_rel(path)}: T355 next_route.selected_target_status must be selected_for_next_owner_review"
+            )
+        if next_route.get("policy") != ".ai/control/wj_speaker_discourse_policy.yaml":
+            raise ReadinessMapError(
+                f"{_rel(path)}: T355 next_route.policy must be .ai/control/wj_speaker_discourse_policy.yaml"
+            )
+        if next_route.get("reviewed_gold_promoted") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T355 next_route.reviewed_gold_promoted must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

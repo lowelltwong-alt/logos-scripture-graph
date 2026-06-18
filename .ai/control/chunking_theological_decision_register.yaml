@@ -717,6 +717,49 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-022
+    title: WJ speaker and discourse policy selects John 3 for review only
+    classification: interpretive_boundary
+    task_ids: [T355]
+    owner_decision_ref: docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md
+    pr_refs: []
+    affected_scope:
+      books: [Matt, John, Rev]
+      passages: [John.3.1-John.3.36, Matt.5.1-Matt.7.29, Matt.24-Matt.25, John.7.53-John.8.11, John.13-John.17, Rev.1-Rev.3, Rev.21-Rev.22]
+      routes: [future_gospel_discourse_wj_review, future_speaker_boundary_review, future_revelation_review, future_graph_edge_generation, future_retrieval_profiles, future_chunking_review]
+      surfaces: [.ai/control/wj_speaker_discourse_policy.yaml, .ai/control/wj_marker_inventory.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md]
+    decision: "Record a non-authorizing WJ speaker/discourse policy and select John.3.1-John.3.36 / john3_wj_speaker_boundary as the next exact owner-review target. WJ/red-letter, punctuation, paragraphing, and narrative evidence may be weighed for review, but they do not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, reviewed gold, graph edges, chunk boundaries, retrieval truth, or output changes."
+    downstream_risk: "A formatting-aware WJ policy could silently decide the disputed John 3 Jesus/narrator boundary, smooth split WJ runs into a single discourse, turn Gospel discourse labels into chunk authority, or leak speaker assumptions into Revelation voice-shift cases."
+    theological_assumptions_avoided:
+      - "No John 3 WJ span decides whether John.3.10-John.3.21 is Jesus speech, narrator commentary, or unresolved for chunking."
+      - "No WJ run start or stop becomes automatic speaker, discourse, or chunk boundary."
+      - "No red-letter editorial convention becomes theological truth."
+      - "No Sermon on the Mount, Farewell Discourse, Olivet Discourse, textual-variant, or Revelation voice-shift case is implemented by analogy from John 3."
+      - "No future graph or retrieval edge is inferred from WJ formatting."
+    reviewed_gold_dependency: "Any output-changing WJ/speaker/discourse work requires owner review, exact scoped target, reviewed speaker/discourse gold or equivalent governed evidence, decision-register update, executable tests, non-target identity proof, same-baseline evaluation, and a later implementation authorization."
+    non_authorizations:
+      - wj_marker_as_speaker_authority
+      - wj_marker_as_jesus_speaker_attribution
+      - wj_marker_as_speaker_boundary
+      - wj_marker_as_discourse_boundary
+      - wj_marker_as_chunk_boundary
+      - wj_marker_as_reviewed_gold
+      - wj_marker_as_graph_edge
+      - wj_marker_as_retrieval_truth
+      - wj_marker_as_output_change
+      - red_letter_markup_as_theological_truth
+      - john3_review_target_as_implementation_authority
+      - revelation_voice_identity_from_wj
+    validators:
+      - scripts/validate_wj_speaker_discourse_policy.py
+      - tests/test_wj_speaker_discourse_policy.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -788,4 +831,5 @@ backfill_coverage:
     - T352
     - T353
     - T354
+    - T355
 ...

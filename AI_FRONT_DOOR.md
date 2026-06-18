@@ -22,7 +22,7 @@ Read these files before making changes:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
     Source metadata is evidence, not authority. Divine-name/title capitalization and WJ/red-letter
-    markers are evidence, not authority.
+    markers and WJ speaker/discourse policy are evidence/review policy, not authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
@@ -112,7 +112,8 @@ Bible-first chunking priority:
   changes by itself.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T351 Bible-wide research triage.
+  next safe route. It is non-authorizing and currently points to T355 WJ speaker/discourse policy
+  and John 3 target selection.
 - The Bible chunking research triage map at `.ai/control/bible_chunking_research_triage_map.yaml`
   classifies canonical lanes before more algorithm work. It is non-authorizing; `review_packet_ready`
   means ready for review packets, not ready to chunk. T352 creates pending epistle argument packets,
@@ -134,6 +135,12 @@ Bible-first chunking priority:
   lettering. It is evidence only, validated by `scripts/validate_wj_marker_inventory.py`, and
   never authorizes Jesus speaker attribution, speaker boundaries, discourse boundaries, graph
   edges, chunk boundaries, retrieval truth, reviewed gold, or output changes.
+- The WJ speaker/discourse policy at `.ai/control/wj_speaker_discourse_policy.yaml` records how
+  WJ/red-letter, punctuation, paragraphing, and narrative evidence may be weighed before speaker
+  or discourse review. It selects `John.3.1-John.3.36` / `john3_wj_speaker_boundary` as the next
+  exact owner-review target, but it does not authorize Jesus speaker attribution, speaker
+  boundaries, discourse boundaries, reviewed gold, graph edges, chunk boundaries, retrieval truth,
+  or output changes. It is validated by `scripts/validate_wj_speaker_discourse_policy.py`.
 
 High-leverage change risk gate:
 
@@ -267,6 +274,9 @@ from canonical word tokens and translation witnesses and fails closed if it beco
 authorizing.
 `python scripts/validate_wj_marker_inventory.py` rebuilds/checks the WJ/red-letter inventory from
 canonical word tokens and fails closed if it becomes stale or authorizing.
+`python scripts/validate_wj_speaker_discourse_policy.py` fails closed if the WJ speaker/discourse
+policy becomes authorizing, loses the John 3 selected target, or stops being mandatory preflight
+context.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

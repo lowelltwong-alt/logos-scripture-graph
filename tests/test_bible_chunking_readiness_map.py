@@ -50,22 +50,26 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
 
 
-def test_next_route_advances_to_t354_wj_inventory_harness() -> None:
+def test_next_route_advances_to_t355_wj_policy_selection() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T354"
-    assert data["next_route"]["route_type"] == "gospel_wj_marker_inventory_harness"
+    assert data["next_route"]["task_id"] == "T355"
+    assert data["next_route"]["route_type"] == "wj_speaker_discourse_policy_and_target_selection"
     assert data["next_route"]["recommended_target"] == "gospel_discourse_wj"
     assert data["next_route"]["owner_selection_status"] == "selected"
     assert data["next_route"]["selected_option"] == "REV-T344-E"
     assert data["next_route"]["selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
     assert data["next_route"]["triage_map"] == ".ai/control/bible_chunking_research_triage_map.yaml"
     assert data["next_route"]["prior_triage_task"] == "T351"
-    assert data["next_route"]["prior_inventory_task"] == "T353"
+    assert data["next_route"]["prior_inventory_task"] == "T354"
     assert data["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
-    assert data["next_route"]["inventory_status"] == "generated_non_authorizing"
+    assert data["next_route"]["policy"] == ".ai/control/wj_speaker_discourse_policy.yaml"
+    assert data["next_route"]["selected_target"] == "john3_wj_speaker_boundary"
+    assert data["next_route"]["selected_passage"] == "John.3.1-John.3.36"
+    assert data["next_route"]["selected_target_status"] == "selected_for_next_owner_review"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
+    assert data["next_route"]["reviewed_gold_promoted"] is False
 
 
 def test_validator_rejects_missing_required_lane(tmp_path: Path) -> None:
