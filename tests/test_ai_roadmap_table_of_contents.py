@@ -33,6 +33,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "source-metadata",
         "source_metadata_research_atlas.yaml",
         "apocalyptic_prophetic_intertext_dossier_queue.yaml",
+        "epistle_argument_theological_issue_dossier_queue.yaml",
         "john3",
         "task-scope",
         "graph",
@@ -58,6 +59,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`divine-capitalization`, `source-metadata`, `harness`",
         "`source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`",
         "`apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`",
+        "`epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance`",
         "A reviewer needs the packet queue",
         "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
     ]:
@@ -123,6 +125,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml" in toc
     assert ".ai/tasks/T360.task.yaml" in toc
     assert ".ai/handoffs/T360/handoff.md" in toc
+    assert "T361 | Epistle argument theological issue dossier queue" in toc
+    assert "docs/roadmap/T361_EPISTLE_ARGUMENT_THEOLOGICAL_ISSUE_DOSSIERS.md" in toc
+    assert ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml" in toc
+    assert ".ai/tasks/T361.task.yaml" in toc
+    assert ".ai/handoffs/T361/handoff.md" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

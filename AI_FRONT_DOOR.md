@@ -22,9 +22,9 @@ Read these files before making changes:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
     Source metadata is evidence, not authority. The source-metadata research atlas,
-    apocalyptic/prophetic intertext dossier queue, divine-name/title capitalization and
-    WJ/red-letter markers, WJ speaker/discourse policy, and John 3 owner-review docket are
-    evidence/review policy, not authority.
+    apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
+    divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy, and
+    John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
@@ -173,6 +173,14 @@ Bible-first chunking priority:
   truth, graph edges, retrieval truth, reviewed gold, chunk boundaries, output changes,
   Revelation implementation, boundary import, or an eschatological system. It is validated by
   `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`.
+- The epistle argument theological issue dossier queue at
+  `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml` records T352 pending epistle
+  packet risks and future epistle issue candidates for election, covenant, law/gospel, assurance,
+  sacramental language, faith/works, 1 Peter/Jude source-sensitive questions, and related
+  argument-boundary risks. It preserves orthodox options without authorizing doctrine, reviewed
+  gold, route behavior, graph edges, retrieval truth, chunk boundaries, output changes, boundary
+  import, or epistle implementation. It is validated by
+  `scripts/validate_epistle_argument_theological_issue_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -276,6 +284,7 @@ python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_source_metadata_research_atlas.py
 python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
+python scripts/validate_epistle_argument_theological_issue_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -324,6 +333,9 @@ cases, or evidence-only non-authorizations.
 apocalyptic/prophetic dossier queue becomes authorizing, loses required hermeneutic options,
 misstates source cross-reference counts, drops required dossiers, or omits non-authorization
 guards.
+`python scripts/validate_epistle_argument_theological_issue_dossier_queue.py` fails closed if the
+epistle argument issue queue becomes authorizing, loses required orthodox options, drops T352
+pending-packet dependencies, treats pending packets as approved, or omits non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
