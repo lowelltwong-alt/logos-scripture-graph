@@ -64,6 +64,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     register_entry = reading[".ai/control/chunking_theological_decision_register.yaml"]
     triage_entry = reading[".ai/control/bible_chunking_research_triage_map.yaml"]
 
+    assert ".ai/control/divine_capitalization_inventory.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
 

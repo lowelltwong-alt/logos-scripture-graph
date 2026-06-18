@@ -121,6 +121,12 @@ Bible-first chunking priority:
   `Holy Spirit/holy spirit`, and divine-pronoun capitalization are translation/editorial evidence
   only. They do not by themselves authorize divine identity, Trinitarian relation, speaker
   attribution, graph edges, chunk boundaries, retrieval truth, or output changes.
+- The divine capitalization inventory at `.ai/control/divine_capitalization_inventory.yaml`
+  records observed token and phrase casing from canonical `eng-web` word tokens and translation
+  witnesses. Read it before graph, retrieval, route, evaluator, review-packet, or chunk work cites
+  capitalization. It is evidence only, validated by
+  `scripts/validate_divine_capitalization_inventory.py`, and never authorizes identity, theology,
+  graph edges, chunk boundaries, retrieval truth, or output changes.
 
 High-leverage change risk gate:
 
@@ -249,6 +255,9 @@ The same rule applies to divine-name/title capitalization such as `God/god`, `Sp
 `Father/father`, `Word/word`, `LORD/Lord/lord`, and divine-pronoun capitalization.
 `python scripts/validate_source_metadata_authority.py` fails closed if governed surfaces drift
 toward source metadata authority.
+`python scripts/validate_divine_capitalization_inventory.py` rebuilds the capitalization inventory
+from canonical word tokens and translation witnesses and fails closed if it becomes stale or
+authorizing.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
