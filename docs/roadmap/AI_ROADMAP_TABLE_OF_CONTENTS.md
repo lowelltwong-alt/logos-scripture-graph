@@ -35,6 +35,7 @@ AI_TABLE_OF_CONTENTS.md
 | T344 | Revelation owner-selection docket, selected `REV-T344-E` | `docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md`; `.ai/tasks/T344.task.yaml`; `.ai/handoffs/T344/handoff.md` |
 | T351 | Bible-wide chunking research triage before more chunking work | `docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md`; `.ai/control/bible_chunking_research_triage_map.yaml`; `.ai/tasks/T351.task.yaml`; `.ai/handoffs/T351/handoff.md` |
 | T352 | Epistle argument review-packet prep | `docs/roadmap/T352_EPISTLE_ARGUMENT_REVIEW_PACKETS.md`; `.ai/tasks/T352.task.yaml`; `.ai/handoffs/T352/handoff.md`; `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`; `eval/chunking_gold/review_packets/rom9_11_argument_review.md`; `eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md` |
+| T353 | Divine capitalization inventory harness | `docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`; `.ai/control/divine_capitalization_inventory.yaml`; `scripts/validate_divine_capitalization_inventory.py`; `.ai/tasks/T353.task.yaml`; `.ai/handoffs/T353/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -46,6 +47,7 @@ AI_TABLE_OF_CONTENTS.md
 | `.ai/control/chunking_theological_decision_register.yaml` | Decision ledger for chunking choices with possible theological downstream effects. |
 | `.ai/control/bible_chunking_readiness_map.yaml` | Lane/readiness map for whole-Bible chunking. |
 | `.ai/control/chunking_agent_preflight.yaml` | Mandatory preflight for chunking agents; source metadata is evidence, not authority. |
+| `.ai/control/divine_capitalization_inventory.yaml` | Observed divine-name/title/pronoun capitalization variants; evidence only, not graph/chunk/retrieval authority. |
 
 ## Current Next Route
 
@@ -54,11 +56,12 @@ at a time, the next
 route is:
 
 ```text
-T352 - Epistle Argument Review Packets
+T353 - Divine Capitalization Inventory Harness
 ```
 
-T352 creates pending, non-authorizing epistle argument packets. Revelation remains research/prep
-only for the pending, non-authorizing packet for:
+T353 creates a non-authorizing inventory of observed capitalization variants before future graph,
+retrieval, or chunk work can cite capitalization. Revelation remains research/prep only for the
+pending, non-authorizing packet for:
 
 ```text
 Rev.12.1-Rev.14.20
@@ -69,10 +72,11 @@ Lowell Wong selected `REV-T344-E` on 2026-06-17:
 ```text
 Research/triage the whole Bible first.
 Classify lanes as review_packet_ready, research_first, governed_hold, or implementation_blocked.
-Then create review packets for one review-packet-ready lane; do not implement chunks.
+Then create review packets or evidence inventories for one reviewed lane at a time; do not implement chunks.
 ```
 
 No Revelation implementation, reviewed-gold promotion, chunk regeneration, evaluator change,
 boundary import, T327G, embedding/index work, graph-edge generation, Psalm candidate promotion, or
 source-metadata authority is authorized by this table of contents. T352 does not authorize epistle
-route implementation or output changes.
+route implementation or output changes. T353 does not authorize capitalization-driven graph edges,
+chunk boundaries, retrieval truth, speaker attribution, lexical truth, or output changes.

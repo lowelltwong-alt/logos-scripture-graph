@@ -51,6 +51,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/chunking_theological_decision_register.yaml`](.ai/control/chunking_theological_decision_register.yaml) - first-class chunking/theological decision register
 - [`.ai/control/bible_chunking_readiness_map.yaml`](.ai/control/bible_chunking_readiness_map.yaml) - non-authorizing Bible-wide lane and algorithm readiness map
 - [`.ai/control/bible_chunking_research_triage_map.yaml`](.ai/control/bible_chunking_research_triage_map.yaml) - non-authorizing Bible-wide research triage before more chunking work
+- [`.ai/control/divine_capitalization_inventory.yaml`](.ai/control/divine_capitalization_inventory.yaml) - observed divine-name/title/pronoun capitalization inventory; evidence only, not graph/chunk/retrieval authority
 - [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md)
 - [`docs/methodology/WORKFLOW_LESSONS.md`](docs/methodology/WORKFLOW_LESSONS.md)
 - [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md)
@@ -92,6 +93,8 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`scripts/validate_task_scope.py`](scripts/validate_task_scope.py) - HARN-001 protected-path and task-scope diff validator
 - [`scripts/validate_owner_selection_implementation_gate.py`](scripts/validate_owner_selection_implementation_gate.py) - HARN-012 gate blocking T345/output-changing work until owner selection and governed evidence agree
 - [`scripts/validate_source_metadata_authority.py`](scripts/validate_source_metadata_authority.py) - HARN-006 scanner keeping source metadata evidence from becoming boundary, lexical, intertext, graph-edge, or truth authority
+- [`scripts/validate_divine_capitalization_inventory.py`](scripts/validate_divine_capitalization_inventory.py) - rebuilds/checks the divine capitalization inventory and fails if it is stale or authorizing
+- [`scripts/build_divine_capitalization_inventory.py`](scripts/build_divine_capitalization_inventory.py) - regenerates the evidence-only capitalization inventory from canonical word tokens
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 

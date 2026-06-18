@@ -16,6 +16,7 @@ SUPPLY_CHAIN = ROOT / "docs" / "methodology" / "CHUNKING_SKILL_SUPPLY_CHAIN.md"
 WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
+CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 
 REQUIRED_TOP_LEVEL = {
     "object_type",
@@ -91,6 +92,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "CHUNK-METADATA-001",
     "Source metadata is evidence, not authority",
     "divine-name/title capitalization",
+    "divine_capitalization_inventory.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -237,6 +239,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "docs/methodology/WORKFLOW_LESSONS.md",
         ".ai/control/chunking_theological_decision_register.yaml",
         ".ai/control/bible_chunking_research_triage_map.yaml",
+        ".ai/control/divine_capitalization_inventory.yaml",
     ):
         if required_path not in reading_by_path:
             raise PreflightError(f"{_rel(path)}: mandatory_reading missing {required_path}")
@@ -289,6 +292,18 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in triage_text:
             raise PreflightError(f"{_rel(TRIAGE_MAP)}: missing divine capitalization phrase {phrase!r}")
+    inventory_text = _read_text(CAPITALIZATION_INVENTORY)
+    for phrase in (
+        "object_type: divine_capitalization_inventory",
+        "God/god",
+        "Spirit/spirit",
+        "Father/father",
+        "Word/word",
+        "authorizes_graph_edges: false",
+        "authorizes_chunk_boundaries: false",
+    ):
+        if phrase not in inventory_text:
+            raise PreflightError(f"{_rel(CAPITALIZATION_INVENTORY)}: missing inventory phrase {phrase!r}")
 
     front_door_text = _read_text(FRONT_DOOR)
     for phrase in REQUIRED_FRONT_DOOR_STRINGS:

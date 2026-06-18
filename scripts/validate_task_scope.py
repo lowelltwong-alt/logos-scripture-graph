@@ -89,10 +89,20 @@ def git_changed_files(base_ref: str) -> list[str]:
     """Return committed and working-tree changed files, best-effort."""
 
     paths: list[str] = []
-    base_candidates = [base_ref]
+    base_candidates: list[str] = []
     github_base = os.environ.get("GITHUB_BASE_REF")
-    if github_base:
+    if github_base and base_ref == "origin/main":
         base_candidates.append(f"origin/{github_base}")
+    if base_ref:
+        base_candidates.append(base_ref)
+    if base_ref == "origin/main":
+        try:
+            upstream = _run_git(["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{upstream}"])
+            current_branch = _run_git(["branch", "--show-current"])
+            if upstream and not upstream.endswith(f"/{current_branch}"):
+                base_candidates.insert(0, upstream)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            pass
 
     for candidate in base_candidates:
         try:

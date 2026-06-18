@@ -120,8 +120,10 @@ def test_t351_task_and_roadmap_are_active_and_numeric() -> None:
     assert tasks["T344"]["status"] == "complete"
     assert tasks["T351"]["status"] == "complete"
     assert tasks["T351"]["supersedes_invalid_task_id"] == "T344R"
-    assert tasks["T352"]["status"] == "in_progress"
+    assert tasks["T352"]["status"] == "complete"
     assert tasks["T352"]["lane"] == "epistle_argument"
+    assert tasks["T353"]["status"] == "in_progress"
+    assert tasks["T353"]["lane"] == "divine_name_title_capitalization"
     assert "T344R" not in future
     assert future["T345"]["status"] == "planned"
 
