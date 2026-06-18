@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T360 apocalyptic prophetic intertext dossier queue (Codex)
-**Active task:** -> **T360** is complete as non-output-changing research PR work. It creates `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` to record Revelation, Daniel, prophetic, Olivet discourse, cosmic-sign, temple-city, Psalm 2, and Zechariah intertext-sensitive dossiers while preserving multiple orthodox hermeneutic options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, authorize intertext truth, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T361 epistle argument theological issue dossier queue (Codex)
+**Active task:** -> **T361** is complete as non-output-changing research PR work. It creates `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml` to record T352 pending packet risks and future epistle issue candidates for election, covenant, law/gospel, assurance, sacramental language, faith/works, 1 Peter, 1 John, and Jude while preserving orthodox options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize doctrine/system selection, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T361 epistle argument theological issue dossier queue (2026-06-18):** Added
+> `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml`, checked by
+> `scripts/validate_epistle_argument_theological_issue_dossier_queue.py`, so future epistle
+> argument, graph, retrieval, review-packet, evaluator, and chunking agents can start from explicit
+> issue dossiers instead of chat memory. The queue records existing T352 pending packet risks for
+> `Eph.1.3-Eph.1.14`, `Rom.9-Rom.11`, `Heb.7-Heb.10`, and `1Cor.8-1Cor.10`, plus future
+> candidates in `Gal.3-Gal.4`, `Rom.7-Rom.8`, `Jas.2`, `1Pet.3.18-1Pet.3.22`,
+> `1John.1-1John.2`, and `Jude.5-Jude.15`. It preserves multiple orthodox options for election,
+> covenant, law/gospel, assurance, sacramental language, faith/works, justification, union with
+> Christ, and source/tradition-sensitive questions. It is non-authorizing: no doctrine system,
+> reviewed gold, argument boundary, chunk boundary, route behavior, evaluator change, graph edge,
+> retrieval truth, output change, boundary import, vector work, or algorithm behavior is approved.
 
 > **T360 apocalyptic prophetic intertext dossier queue (2026-06-18):** Added
 > `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`, checked by

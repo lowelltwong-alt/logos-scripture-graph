@@ -58,6 +58,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/bible_wide_chunking_research_registry.yaml",
     ".ai/control/source_metadata_research_atlas.yaml",
     ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml",
+    ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {

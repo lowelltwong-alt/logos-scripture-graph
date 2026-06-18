@@ -30,7 +30,8 @@ Common tags in this file:
 - `audit`, `handoff`, `task-scope`, `validator`, `harness`
 - `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`,
   `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`,
-  `apocalyptic-prophetic`, `intertext`, `hermeneutic-neutrality`
+  `apocalyptic-prophetic`, `intertext`, `hermeneutic-neutrality`, `argument-boundary`,
+  `election`, `law-gospel`, `faith-works`, `assurance`
 
 ## Current Bible Chunking Path
 
@@ -57,6 +58,7 @@ Common tags in this file:
 | T358 | Bible-wide chunking research registry | `whole-bible-research`, `canonical-66`, `research-registry`, `non-authorizing` | Preparing future research packets across all 66 books without starting chunk implementation. | `docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`; `.ai/control/bible_wide_chunking_research_registry.yaml`; `scripts/validate_bible_wide_chunking_research_registry.py`; `.ai/tasks/T358.task.yaml`; `.ai/handoffs/T358/handoff.md` |
 | T359 | Source metadata research atlas | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`, `non-authorizing` | Checking metadata families before future chunking, graph, retrieval, or review-packet work. | `docs/roadmap/T359_SOURCE_METADATA_RESEARCH_ATLAS.md`; `.ai/control/source_metadata_research_atlas.yaml`; `scripts/validate_source_metadata_research_atlas.py`; `.ai/tasks/T359.task.yaml`; `.ai/handoffs/T359/handoff.md` |
 | T360 | Apocalyptic prophetic intertext dossier queue | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`, `non-authorizing` | Preparing Revelation/Daniel/prophetic intertext dossiers without selecting a hermeneutic system. | `docs/roadmap/T360_APOCALYPTIC_PROPHETIC_INTERTEXT_DOSSIERS.md`; `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`; `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`; `.ai/tasks/T360.task.yaml`; `.ai/handoffs/T360/handoff.md` |
+| T361 | Epistle argument theological issue dossier queue | `epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance`, `non-authorizing` | Preparing epistle issue dossiers without selecting a doctrinal system or treating pending packets as reviewed gold. | `docs/roadmap/T361_EPISTLE_ARGUMENT_THEOLOGICAL_ISSUE_DOSSIERS.md`; `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml`; `scripts/validate_epistle_argument_theological_issue_dossier_queue.py`; `.ai/tasks/T361.task.yaml`; `.ai/handoffs/T361/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -75,6 +77,7 @@ Common tags in this file:
 | `.ai/control/bible_wide_chunking_research_registry.yaml` | `whole-bible-research`, `canonical-66`, `research-registry`, `book-watchpoints` | Future agents need book-level research prompts before exact review packets or algorithms. | Canonical 66-book research queue; no chunk/gold/graph/output authority. |
 | `.ai/control/source_metadata_research_atlas.yaml` | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization` | Future agents need source metadata families, observed surfaces, and non-authorizations before chunk/graph/retrieval work. | Metadata research atlas; no Scripture/lexical/intertext/speaker/graph/chunk/retrieval/output authority. |
 | `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality` | Future agents need Revelation/Daniel/prophetic intertext dossiers before exact packets or algorithm work. | Dossier queue; no intertext/graph/retrieval/chunk/output authority. |
+| `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml` | `epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance` | Future agents need epistle theological issue dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no doctrine/reviewed-gold/graph/retrieval/chunk/output authority. |
 
 ## Current Next Route
 
@@ -126,3 +129,6 @@ algorithm behavior.
 T360 does not authorize Revelation implementation, Daniel/Revelation chronology, hermeneutic
 system selection, graph edges, retrieval truth, reviewed gold, chunk boundaries, output changes,
 boundary import, or T345.
+T361 does not authorize epistle implementation, doctrinal system selection, pending packet
+approval, reviewed-gold promotion, route behavior, evaluator changes, graph edges, retrieval truth,
+chunk boundaries, output changes, boundary import, or T345.

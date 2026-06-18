@@ -45,7 +45,12 @@ def test_research_registry_records_sensitive_research_watchpoints() -> None:
         dimension for dimension in data["research_dimensions"]
         if dimension["dimension_id"] == "source_metadata_features"
     )
+    discourse = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "discourse_argument_flow"
+    )
     assert source_metadata["companion_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
+    assert discourse["companion_dossier_queue"] == ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml"
     apocalyptic = next(
         dimension for dimension in data["research_dimensions"]
         if dimension["dimension_id"] == "apocalyptic_symbol_intertext"

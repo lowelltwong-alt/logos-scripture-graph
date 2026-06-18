@@ -157,6 +157,10 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T360"]["lane"] == "apocalyptic_prophetic_intertext"
     assert tasks["T360"]["dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
     assert tasks["T360"]["intertext_truth_authorized"] is False
+    assert tasks["T361"]["status"] == "complete"
+    assert tasks["T361"]["lane"] == "epistle_argument"
+    assert tasks["T361"]["dossier_queue"] == ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml"
+    assert tasks["T361"]["doctrinal_system_selection_allowed"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"
