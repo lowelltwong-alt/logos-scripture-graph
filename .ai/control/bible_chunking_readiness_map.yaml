@@ -41,6 +41,7 @@ lessons_storage:
     - .ai/control/narrative_legal_covenant_dossier_queue.yaml
     - .ai/control/wisdom_dialogue_poetry_dossier_queue.yaml
     - .ai/control/prophetic_oracle_vision_dossier_queue.yaml
+    - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -225,8 +226,26 @@ lane_sequence:
       implementation_authorized: false
       reviewed_gold_promoted: false
     theological_risk: "Words-of-Jesus and speaker boundaries can encode speaker attribution or discourse scope without review."
-  - lane_id: bible_wide_orchestration
+  - lane_id: textual_variant_source_tradition
     implementation_order: 8
+    current_state: t366_research_dossier_queue_seeded_needs_policy_or_review_packets
+    new_algorithm_work_ready: false
+    dossier_queue:
+      task_id: T366
+      path: .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+      status: complete_non_authorizing
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
+    candidate_cases:
+      - Mark.16.9-Mark.16.20
+      - John.7.53-John.8.11
+      - Deut.32.8-Deut.32.9
+      - Jude.5-Jude.15
+      - 1John.5.6-1John.5.8
+    theological_risk: "Textual variants, source-tradition differences, canon-scope edges, and noncanonical references can become textual-critical, canon, graph, retrieval, or chunk-boundary authority without review."
+  - lane_id: bible_wide_orchestration
+    implementation_order: 9
     current_state: t358_research_registry_seeded_implementation_blocked
     new_algorithm_work_ready: false
     research_registry:

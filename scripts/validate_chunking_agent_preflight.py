@@ -24,6 +24,7 @@ GOSPEL_WJ_QUEUE = ROOT / ".ai" / "control" / "gospel_wj_discourse_dossier_queue.
 NARRATIVE_LEGAL_QUEUE = ROOT / ".ai" / "control" / "narrative_legal_covenant_dossier_queue.yaml"
 WISDOM_POETRY_QUEUE = ROOT / ".ai" / "control" / "wisdom_dialogue_poetry_dossier_queue.yaml"
 PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dossier_queue.yaml"
+TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradition_dossier_queue.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -63,7 +64,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -116,6 +117,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "narrative_legal_covenant_dossier_queue.yaml",
     "wisdom_dialogue_poetry_dossier_queue.yaml",
     "prophetic_oracle_vision_dossier_queue.yaml",
+    "textual_variant_source_tradition_dossier_queue.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -270,6 +272,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/narrative_legal_covenant_dossier_queue.yaml",
         ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
         ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
+        ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -434,6 +437,20 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in prophetic_oracle_queue_text:
             raise PreflightError(f"{_rel(PROPHETIC_ORACLE_QUEUE)}: missing queue phrase {phrase!r}")
+    textual_variant_queue_text = _read_text(TEXTUAL_VARIANT_QUEUE)
+    for phrase in (
+        "object_type: textual_variant_source_tradition_dossier_queue",
+        "MARK16_LONGER_ENDING",
+        "JOHN7_53_8_11_PERICOPE_ADULTERAE",
+        "DEUT32_8_9_SONS_OF_GOD_VARIANT",
+        "JUDE_NONCANONICAL_REFERENCE_SENSITIVITY",
+        "ONEJOHN5_7_COMMA_JOHANNEUM",
+        "authorizes_textual_critical_decision: false",
+        "authorizes_boundary_import: false",
+        "textual_variant_dossier_as_reviewed_gold",
+    ):
+        if phrase not in textual_variant_queue_text:
+            raise PreflightError(f"{_rel(TEXTUAL_VARIANT_QUEUE)}: missing queue phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

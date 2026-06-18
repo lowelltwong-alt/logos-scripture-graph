@@ -138,3 +138,5 @@ def test_t343_decision_register_records_metadata_lesson() -> None:
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "CD-026" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
+    assert "CD-032" in register
+    assert "Textual-variant/source-tradition dossiers preserve canon-boundary neutrality" in register

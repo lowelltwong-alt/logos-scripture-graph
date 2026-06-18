@@ -24,6 +24,7 @@ Read these files before making changes:
     Source metadata is evidence, not authority. The source-metadata research atlas,
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
+    textual-variant/source-tradition dossier queue,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
@@ -221,6 +222,17 @@ Bible-first chunking priority:
   temple theology, reviewed gold, route behavior, graph edges, retrieval truth, chunk boundaries,
   output changes, boundary import, intertext truth, or implementation. It is validated by
   `scripts/validate_prophetic_oracle_vision_dossier_queue.py`.
+- The textual-variant/source-tradition dossier queue at
+  `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` records Mark 16 longer-ending,
+  John 7:53-8:11 pericope adulterae, Acts empty witnesses, Romans doxology, Deuteronomy 32,
+  Jeremiah MT/LXX, Jude noncanonical references, Daniel/Esther boundary routing, and 1 John 5:7
+  risks. It preserves variant-policy-first, canonical-text-only, source-tradition comparison,
+  footnote evidence, empty-witness, noncanonical-reference, boundary-material routing,
+  doctrinal-sensitivity, and owner textual-decision review options without authorizing
+  textual-critical decisions, canon-scope changes, source-tradition preference, noncanonical
+  source authority, boundary import, reviewed gold, route behavior, graph edges, retrieval truth,
+  chunk boundaries, output changes, intertext truth, or implementation. It is validated by
+  `scripts/validate_textual_variant_source_tradition_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -329,6 +341,7 @@ python scripts/validate_gospel_wj_discourse_dossier_queue.py
 python scripts/validate_narrative_legal_covenant_dossier_queue.py
 python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py
 python scripts/validate_prophetic_oracle_vision_dossier_queue.py
+python scripts/validate_textual_variant_source_tradition_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -396,6 +409,12 @@ authority, or omits non-authorization guards.
 prophetic/oracle/vision queue becomes authorizing, loses required prophetic/oracle/vision evidence
 channels, drops required dossiers, treats oracle/vision/servant/temple/day-of-Yahweh/canonical-echo
 evidence as fulfillment, graph, retrieval, or chunk-boundary authority, or omits
+non-authorization guards.
+`python scripts/validate_textual_variant_source_tradition_dossier_queue.py` fails closed if the
+textual-variant/source-tradition queue becomes authorizing, loses required evidence channels,
+drops Mark 16, John 7:53-8:11, Acts empty witnesses, Romans doxology, Deuteronomy 32, Jeremiah
+MT/LXX, Jude, Daniel/Esther, or 1 John 5:7 dossiers, treats variant/source-tradition evidence as
+textual-critical, canon, boundary-import, graph, retrieval, or chunk-boundary authority, or omits
 non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**

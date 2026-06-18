@@ -39,6 +39,7 @@ REQUIRED_LANES = {
     "wisdom_dialogue",
     "prophetic_oracle",
     "gospel_discourse_wj",
+    "textual_variant_source_tradition",
     "bible_wide_orchestration",
 }
 
@@ -63,6 +64,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/narrative_legal_covenant_dossier_queue.yaml",
     ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
     ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
+    ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {

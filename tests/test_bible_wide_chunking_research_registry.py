@@ -82,6 +82,11 @@ def test_research_registry_records_sensitive_research_watchpoints() -> None:
         if dimension["dimension_id"] == "gospel_discourse_speaker_wj"
     )
     assert gospel_wj["companion_dossier_queue"] == ".ai/control/gospel_wj_discourse_dossier_queue.yaml"
+    textual_variant = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "textual_variant_source_tradition"
+    )
+    assert textual_variant["companion_dossier_queue"] == ".ai/control/textual_variant_source_tradition_dossier_queue.yaml"
     assert "divine_name_title_capitalization" in {
         dimension["dimension_id"] for dimension in data["research_dimensions"]
     }
