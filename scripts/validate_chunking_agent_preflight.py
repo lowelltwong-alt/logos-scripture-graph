@@ -17,6 +17,7 @@ WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
+WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 
 REQUIRED_TOP_LEVEL = {
     "object_type",
@@ -52,9 +53,9 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021"}
 
-REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization"}
+REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
 REQUIRED_WORKFLOW_LESSON_IDS = {
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
@@ -93,6 +94,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "Source metadata is evidence, not authority",
     "divine-name/title capitalization",
     "divine_capitalization_inventory.yaml",
+    "wj_marker_inventory.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -240,6 +242,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/chunking_theological_decision_register.yaml",
         ".ai/control/bible_chunking_research_triage_map.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
+        ".ai/control/wj_marker_inventory.yaml",
     ):
         if required_path not in reading_by_path:
             raise PreflightError(f"{_rel(path)}: mandatory_reading missing {required_path}")
@@ -285,6 +288,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     triage_text = _read_text(TRIAGE_MAP)
     for phrase in (
         "divine_name_title_capitalization",
+        "gospel_discourse_wj",
         "God/god",
         "Spirit/spirit",
         "Word/word",
@@ -304,6 +308,18 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in inventory_text:
             raise PreflightError(f"{_rel(CAPITALIZATION_INVENTORY)}: missing inventory phrase {phrase!r}")
+    wj_inventory_text = _read_text(WJ_MARKER_INVENTORY)
+    for phrase in (
+        "object_type: wj_marker_inventory",
+        "authorizes_speaker_boundary: false",
+        "authorizes_chunk_boundaries: false",
+        "authorizes_graph_edges: false",
+        "books_outside_four_gospels_with_wj",
+        "John.3.10",
+        "Rev.1.17",
+    ):
+        if phrase not in wj_inventory_text:
+            raise PreflightError(f"{_rel(WJ_MARKER_INVENTORY)}: missing inventory phrase {phrase!r}")
 
     front_door_text = _read_text(FRONT_DOOR)
     for phrase in REQUIRED_FRONT_DOOR_STRINGS:

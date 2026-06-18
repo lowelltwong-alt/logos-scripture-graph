@@ -134,12 +134,22 @@ candidate_harnesses:
     implemented_surfaces: [scripts/build_divine_capitalization_inventory.py, scripts/validate_divine_capitalization_inventory.py, tests/test_divine_capitalization_inventory.py, .ai/control/divine_capitalization_inventory.yaml]
     future_upgrade_needed: "Before any output-changing implementation cites capitalization, extend this harness with changed-path-aware review of the exact implementation diff and reviewed-gold evidence."
     non_authorizations: [capitalization_driven_divine_identity, capitalization_driven_graph_edge, capitalization_driven_chunk_boundary, pronoun_capitalization_as_referent_identity]
+  - harness_id: HARN-014
+    title: WJ marker inventory freshness and speaker-authority harness
+    status: implemented_v1
+    trigger: "A future chunking, graph, retrieval, route, review, evaluator, or speaker-boundary change cites words-of-Jesus/red-letter markers, WJ token runs, Gospel discourse spans, epistle dominical quotations, or Revelation WJ voice shifts."
+    purpose: "Regenerate and validate observed WJ marker token runs from canonical word tokens while keeping red-letter markup evidence only."
+    likely_surfaces: [.ai/control/wj_marker_inventory.yaml, scripts, tests, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml]
+    implemented_surfaces: [scripts/build_wj_marker_inventory.py, scripts/validate_wj_marker_inventory.py, tests/test_wj_marker_inventory.py, .ai/control/wj_marker_inventory.yaml]
+    future_upgrade_needed: "Before any output-changing implementation cites WJ markers, extend this harness with changed-path-aware review of the exact implementation diff, reviewed speaker/discourse evidence, and non-target identity checks for Gospel, Acts, epistle, and Revelation WJ surfaces."
+    non_authorizations: [wj_marker_as_speaker_authority, wj_marker_as_speaker_boundary, wj_marker_as_chunk_boundary, red_letter_markup_as_theological_truth]
 watchlist:
   - "If agents repeatedly ask what to read, upgrade the audit harness to emit exact file excerpts/line references."
   - "HARN-001 is implemented in v1; keep task files current so future protected-path diffs fail without explicit scope."
   - "HARN-012 is implemented in v1; while REV-T344-E is selected, keep T345 blocked and extend it with exact reviewed-gold/non-target identity checks before any later T345 implementation authorization."
   - "HARN-006 is implemented in v1; if source metadata is cited in implementation, extend it with changed-path-aware checks before merging that PR."
   - "HARN-013 is implemented in v1; if capitalization is cited in implementation, extend it with changed-path-aware checks before merging that PR."
+  - "HARN-014 is implemented in v1; if WJ/red-letter markers are cited in implementation, extend it with changed-path-aware speaker/discourse review checks before merging that PR."
   - "If cross-repo governance mirrors resume, implement HARN-009 in the appropriate repo sequence."
 validator: scripts/validate_audit_surface_map.py
 ...

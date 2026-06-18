@@ -276,8 +276,8 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352"}:
-                raise OwnerSelectionGateError("readiness.next_route.task_id must be 'T351' or 'T352' under REV-T344-E")
+            if next_task_id not in {"T351", "T352", "T354"}:
+                raise OwnerSelectionGateError("readiness.next_route.task_id must be 'T351', 'T352', or 'T354' under REV-T344-E")
             if next_task_id == "T351":
                 _require_equal(
                     next_route.get("route_type"),
@@ -310,6 +310,24 @@ def validate_owner_selection_implementation_gate(
                     next_route.get("packet_status"),
                     "pending_human_review",
                     "readiness.next_route.packet_status",
+                )
+            if next_task_id == "T354":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "gospel_wj_marker_inventory_harness",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(next_route.get("prior_triage_task"), "T351", "readiness.next_route.prior_triage_task")
+                _require_equal(next_route.get("prior_inventory_task"), "T353", "readiness.next_route.prior_inventory_task")
+                _require_equal(
+                    next_route.get("review_packet_lane"),
+                    "gospel_discourse_wj",
+                    "readiness.next_route.review_packet_lane",
+                )
+                _require_equal(
+                    next_route.get("inventory_status"),
+                    "generated_non_authorizing",
+                    "readiness.next_route.inventory_status",
                 )
             _require_equal(
                 packet_decision.get("decision"),

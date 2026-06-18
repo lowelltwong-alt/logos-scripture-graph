@@ -1,40 +1,47 @@
-id: T353
+id: T354
 phase: phase_4
-title: "Divine Capitalization Inventory Harness"
+title: "WJ Marker Inventory Harness"
 mode: implementation
 status: complete
 owner: codex
 scope:
   allowed_paths:
-    - docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md
+    - docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
-    - .ai/control/divine_capitalization_inventory.yaml
+    - .ai/control/wj_marker_inventory.yaml
     - .ai/control/chunking_agent_preflight.yaml
     - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/bible_chunking_research_triage_map.yaml
     - .ai/control/harness_upgrade_roadmap.yaml
     - .ai/control/current_focus.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/roadmap_events.jsonl
     - .ai/control/handoff_ledger.jsonl
-    - .ai/tasks/T352.task.yaml
     - .ai/tasks/T353.task.yaml
-    - .ai/handoffs/T352/
+    - .ai/tasks/T354.task.yaml
     - .ai/handoffs/T353/
+    - .ai/handoffs/T354/
     - ROADMAP_STATE.yaml
     - AI_FRONT_DOOR.md
     - AI_TABLE_OF_CONTENTS.md
-    - scripts/build_divine_capitalization_inventory.py
-    - scripts/validate_divine_capitalization_inventory.py
+    - scripts/build_wj_marker_inventory.py
+    - scripts/validate_wj_marker_inventory.py
     - scripts/validate_chunking_agent_preflight.py
-    - scripts/validate_task_scope.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_owner_selection_implementation_gate.py
     - scripts/validate_all.py
+    - tests/test_wj_marker_inventory.py
     - tests/test_divine_capitalization_inventory.py
     - tests/test_chunking_agent_preflight.py
     - tests/test_task_scope_validator.py
     - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_owner_selection_implementation_gate.py
     - tests/test_t337a_psalm_review_packet.py
     - tests/test_t337_selection_docs.py
     - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
     - tests/test_t344_revelation_owner_selection.py
     - tests/test_t351_bible_wide_research_triage.py
   forbidden_paths:
@@ -50,30 +57,33 @@ scope:
     - .ai/control/MASTER_CONTEXT.md
     - .ai/control/MASTER_CONTEXT.lock.yaml
 authorization:
-  owner_decision_ref: docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md#4a-divine-nametitle-capitalization-watchlist
-  triggering_owner_guidance: "Understand capitalization for names/titles/pronouns for God such as spirit/Spirit, father/Father, god/God, and word/Word before graph or chunk use."
+  owner_decision_ref: AI_FRONT_DOOR.md#canonical-scripture-entry-point
+  triggering_owner_guidance: "Can we chunk the red letters in the Bible correctly? Not sure if this version has it."
   non_output_changing_harness_allowed: true
-  capitalization_inventory_allowed: true
+  wj_marker_inventory_allowed: true
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
+  speaker_attribution_authorized: false
   graph_edge_generation_allowed: false
   embedding_or_vector_work_allowed: false
   boundary_import_allowed: false
   source_metadata_authority_allowed: false
-  capitalization_authority_allowed: false
+  red_letter_authority_allowed: false
 acceptance_criteria:
-  - "A deterministic inventory records observed capitalization variants for divine-name/title/pronoun and related phrase watch terms from canonical eng-web word tokens and translation witnesses."
-  - "The inventory is evidence only and denies divine identity, Trinitarian relation, Christology, pneumatology, speaker attribution, lexical truth, graph-edge, chunk-boundary, retrieval-truth, and output-change authority."
-  - "The inventory is mandatory chunking-agent preflight reading before ingest, chunking, graph, retrieval, route, evaluator, or review-packet work can cite capitalization."
+  - "A deterministic inventory records observed WJ/red-letter token runs from canonical eng-web word tokens."
+  - "The inventory is evidence only and denies Jesus speaker attribution, speaker-boundary, discourse-boundary, graph-edge, chunk-boundary, retrieval-truth, reviewed-gold, and output-change authority."
+  - "The inventory is mandatory chunking-agent preflight reading before Gospel discourse, speaker-boundary, graph, retrieval, route, evaluator, review-packet, or chunk work can cite WJ/red-letter metadata."
   - "A validator rebuilds the inventory from canonical word tokens and fails if the committed inventory is stale or authorizing."
   - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge surfaces are touched."
 validation:
-  - python scripts/validate_task_scope.py --task-id T353 --base-ref origin/codex/t352-epistle-review-packets-main
-  - python scripts/validate_divine_capitalization_inventory.py
+  - python scripts/validate_task_scope.py --task-id T354
+  - python scripts/validate_wj_marker_inventory.py
   - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_owner_selection_implementation_gate.py
   - python scripts/validate_chunking_theological_decision_register.py
   - python scripts/validate_all.py
   - python -m pytest -q
-required_handoff: .ai/handoffs/T353/handoff.md
-next_task: "After T353 validates and merges after T352, future capitalization use still requires owner review, exact scope, reviewed evidence/gold or equivalent governed evidence, and later implementation authorization before graph, retrieval, or chunk output changes."
+required_handoff: .ai/handoffs/T354/handoff.md
+next_task: "After T354 validates and merges, future WJ/red-letter use still requires owner review, exact scope, reviewed speaker/discourse evidence or reviewed gold, and later implementation authorization before graph, retrieval, speaker-attribution, or chunk output changes."

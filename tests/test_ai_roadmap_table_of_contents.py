@@ -37,7 +37,7 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "docs/roadmap/T343_REVELATION_REVIEW_PACKETS_AND_GOLD_CANDIDATES.md" in toc
     assert "eval/chunking_gold/review_packets/rev12_14_symbolic_scenes_review.md" in toc
     assert ".ai/control/chunking_agent_preflight.yaml" in toc
-    assert "T353 - Divine Capitalization Inventory Harness" in toc
+    assert "T353 | Divine capitalization inventory harness" in toc
     assert "Rev.12.1-Rev.14.20" in toc
     assert "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md" in toc
     assert "docs/roadmap/T351_BIBLE_WIDE_CHUNKING_RESEARCH_TRIAGE_ATLAS.md" in toc
@@ -48,5 +48,10 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/divine_capitalization_inventory.yaml" in toc
     assert ".ai/tasks/T353.task.yaml" in toc
     assert ".ai/handoffs/T353/handoff.md" in toc
+    assert "T354 - WJ/Red-Letter Marker Inventory Harness" in toc
+    assert "docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md" in toc
+    assert ".ai/control/wj_marker_inventory.yaml" in toc
+    assert ".ai/tasks/T354.task.yaml" in toc
+    assert ".ai/handoffs/T354/handoff.md" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

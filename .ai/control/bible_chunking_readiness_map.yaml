@@ -30,6 +30,7 @@ lessons_storage:
     - docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md
     - eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md
     - .ai/control/bible_chunking_research_triage_map.yaml
+    - .ai/control/wj_marker_inventory.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -103,7 +104,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t352_review_packets_pending_human_review
+    current_state: t352_review_packets_pending_human_review_non_authorizing
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -148,13 +149,22 @@ lane_sequence:
     theological_risk: "Oracle, servant-song, temple-vision, and source/tradition boundaries can imply interpretive claims."
   - lane_id: gospel_discourse_wj
     implementation_order: 6
-    current_state: needs_speaker_policy_and_reviewed_gold
+    current_state: t354_wj_inventory_generated_non_authorizing_needs_speaker_policy_and_reviewed_gold
     new_algorithm_work_ready: false
     candidate_cases:
       - John.3
       - Matt.5-Matt.7
       - Matt.24-Matt.25
       - John.13-John.17
+    inventory:
+      task_id: T354
+      path: .ai/control/wj_marker_inventory.yaml
+      status: generated_non_authorizing
+      wj_word_tokens: 38094
+      wj_token_runs: 675
+      books_with_wj: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
+      output_change_authorized: false
+      implementation_authorized: false
     theological_risk: "Words-of-Jesus and speaker boundaries can encode speaker attribution or discourse scope without review."
   - lane_id: bible_wide_orchestration
     implementation_order: 8
@@ -168,18 +178,19 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T352
-  title: Epistle Argument Review Packets
-  route_type: epistle_argument_review_packet_prep
-  recommended_target: epistle_argument
+  task_id: T354
+  title: WJ Marker Inventory Harness
+  route_type: gospel_wj_marker_inventory_harness
+  recommended_target: gospel_discourse_wj
   owner_selection_status: selected
   selected_option: REV-T344-E
   selection_docket: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
-  rationale: "T351 triage selected review-packet-ready lanes; T344 owner guidance names epistle argument boundaries as the next review lane after Revelation research/prep. T352 creates non-authorizing epistle packets only."
+  rationale: "After T353 capitalization inventory, owner asked whether this source version has red-letter/WJ evidence and whether it can be chunked faithfully. T354 creates a non-authorizing WJ marker inventory before any Gospel discourse or speaker-boundary output work."
   triage_map: .ai/control/bible_chunking_research_triage_map.yaml
   prior_triage_task: T351
-  review_packet_lane: epistle_argument
-  packet_status: pending_human_review
+  prior_inventory_task: T353
+  review_packet_lane: gospel_discourse_wj
+  inventory_status: generated_non_authorizing
   output_change_authorized: false
   implementation_authorized: false
 update_triggers:

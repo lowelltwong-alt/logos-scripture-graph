@@ -5,15 +5,15 @@
 - task_id: T353
 - title: Divine Capitalization Inventory Harness
 - phase: phase_4
-- status: in_progress
+- status: complete
 
 ## Agent
 
 - agent_name: codex
 - mode: implementation
-- stage: start
+- stage: final
 - updated_at: 2026-06-17T23:58:00+00:00
-- handoff_id: t353-start
+- handoff_id: t353-final-after-pr70
 
 ## Files read
 
@@ -65,7 +65,17 @@
 
 ## Validation run
 
-- pending
+- command: python scripts/validate_divine_capitalization_inventory.py
+- result: passed in PR70 before merge
+- failures: none
+
+- command: python scripts/validate_all.py
+- result: passed in PR70 before merge
+- failures: none
+
+- command: python -m pytest -q
+- result: passed in PR70 before merge
+- failures: none
 
 ## Known risks
 
@@ -80,7 +90,7 @@
 
 ## Next agent instruction
 
-Continue T353 only as a non-output-changing harness. Regenerate the inventory with
+T353 is complete after PR70. Regenerate the inventory with
 `python scripts/build_divine_capitalization_inventory.py --write` if canonical token or witness
 data changes, then run the T353 validation commands. Do not implement graph edges, retrieval truth,
 chunk boundaries, speaker attribution, reviewed gold, or output changes from capitalization.
