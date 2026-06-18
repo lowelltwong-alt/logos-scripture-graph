@@ -39,6 +39,10 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "wisdom_dialogue_poetry_dossier_queue.yaml",
         "prophetic_oracle_vision_dossier_queue.yaml",
         "textual_variant_source_tradition_dossier_queue.yaml",
+        "orthodox_hermeneutic_firewall_docket.yaml",
+        "textual_critical_policy_docket.yaml",
+        "orthodox-hermeneutic-firewall",
+        "textual-critical-policy",
         "servant-song",
         "textual-variant",
         "source-tradition",
@@ -64,7 +68,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
     for phrase in [
         "`audit`",
         "`task-scope`",
-        "`john3`, `owner-review`, `speaker-boundary`, `current-route`",
+        "`john3`, `owner-review`, `speaker-boundary`",
         "`divine-capitalization`, `source-metadata`, `harness`",
         "`source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`",
         "`apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`",
@@ -74,8 +78,10 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`",
         "`prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`",
         "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
+        "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
+        "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "A reviewer needs the packet queue",
-        "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
+        "Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target.",
     ]:
         assert phrase in toc
 
@@ -119,7 +125,6 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/tasks/T355.task.yaml" in toc
     assert ".ai/handoffs/T355/handoff.md" in toc
     assert "T356 | John 3 WJ owner-review docket" in toc
-    assert "T356 - John 3 WJ Owner Review Docket" in toc
     assert "docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md" in toc
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in toc
     assert ".ai/tasks/T356.task.yaml" in toc
@@ -170,6 +175,13 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/tasks/T366.task.yaml" in toc
     assert ".ai/handoffs/T366/handoff.md" in toc
     assert "scripts/validate_textual_variant_source_tradition_dossier_queue.py" in toc
+    assert "T367 | Owner decision firewall and next target" in toc
+    assert "docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md" in toc
+    assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in toc
+    assert ".ai/control/textual_critical_policy_docket.yaml" in toc
+    assert ".ai/tasks/T367.task.yaml" in toc
+    assert ".ai/handoffs/T367/handoff.md" in toc
+    assert "T368 - 1 Corinthians 8-10 Epistle Argument Packet Strengthening" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

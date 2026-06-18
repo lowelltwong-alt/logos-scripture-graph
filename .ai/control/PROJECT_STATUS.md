@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T366 textual variant source tradition dossier queue (Codex)
-**Active task:** -> **T366** is complete as non-output-changing research PR work. It creates `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` to record Mark 16 longer-ending, John 7:53-8:11 pericope adulterae, Acts empty witnesses, Romans doxology, Deuteronomy 32, Jeremiah MT/LXX, Jude noncanonical reference, Daniel/Esther boundary-routing, and 1 John 5:7 risks while preserving canon-boundary neutrality. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize textual-critical decisions, canon-scope changes, source-tradition preference, noncanonical source authority, route behavior, evaluator changes, retrieval truth, intertext truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T367 owner decision firewall and next target (Codex)
+**Active task:** -> **T367** is complete as non-output-changing control-plane work. It records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target, adds `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`, adds `.ai/control/textual_critical_policy_docket.yaml`, and advances readiness to T368 / `1Cor.8-1Cor.10` review-only epistle packet strengthening. It does not authorize John 3 child spans, Jesus/narrator boundary decisions, textual-critical policy selection, reviewed gold, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T367 owner decision firewall and next target (2026-06-18):** Recorded
+> `JOHN3-T356-B` as parent-only `John.3.1-John.3.36` review target selection in
+> `.ai/control/john3_wj_owner_review_docket.yaml`; added the Orthodox Hermeneutic Firewall /
+> Anti-Smuggling Docket, checked by `scripts/validate_orthodox_hermeneutic_firewall_docket.py`;
+> added the textual-critical policy requirement docket, checked by
+> `scripts/validate_textual_critical_policy_docket.py`; and advanced the readiness map to T368 /
+> `1Cor.8-1Cor.10` review-only packet strengthening. The firewall affirms Nicene/Chalcedonian
+> orthodox Christianity and canonical Scripture authority while refusing hidden anti-supernatural,
+> anti-canonical, heterodox, liberal-critical, or one-denomination systematic-theology defaults.
+> The textual-critical docket requires a later explicit owner policy before variant-sensitive
+> promotion/use. No output, chunk, graph, retrieval, route, evaluator, reviewed-gold, textual-critical,
+> canon-scope, source-tradition, boundary-import, or vector authority is created. Next work remains
+> review-only; do not start Revelation implementation, T327G, or boundary import.
 
 > **T366 textual variant source tradition dossier queue (2026-06-18):** Added
 > `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`, checked by

@@ -1,0 +1,78 @@
+---
+object_type: textual_critical_policy_docket
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T367 after the owner authorized a textual-critical policy docket before any variant-sensitive packet can be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions."
+reason_for_inclusion: "Fail closed on variant-sensitive review-packet, canon, source-tradition, graph, retrieval, or boundary work until an explicit later owner textual-critical policy decision exists."
+---
+schema_version: textual_critical_policy_docket.v1
+docket_id: textual_critical_policy_required_before_variant_sensitive_use
+owner: Lowell Wong
+authority:
+  records_policy_requirement: true
+  may_surface_for_review: true
+  requires_policy_before_variant_sensitive_promotion: true
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_canon_scope_change: false
+  authorizes_source_tradition_preference: false
+  authorizes_noncanonical_source_authority: false
+  authorizes_boundary_import: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_boundaries: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_output_change: false
+policy_status:
+  textual_critical_policy_selected: false
+  selected_policy: pending_owner_decision
+  owner_decision_required: true
+  applies_before:
+    - variant_sensitive_packet_promotion
+    - variant_sensitive_chunk_implementation
+    - variant_sensitive_reviewed_gold_use
+    - canon_scope_decision
+    - source_tradition_decision
+    - boundary_import_decision
+    - graph_or_retrieval_truth_use
+variant_sensitive_surfaces:
+  - Mark.16.9-Mark.16.20
+  - John.7.53-John.8.11
+  - Acts empty witnesses
+  - Rom.16.25-Rom.16.27
+  - Deut.32.8-Deut.32.9
+  - Jeremiah MT/LXX order and length
+  - Jude noncanonical references
+  - Daniel and Esther boundary additions
+  - 1John.5.6-1John.5.8
+required_before_use:
+  - explicit_owner_textual_critical_policy
+  - exact_scope
+  - source_tradition_provenance
+  - canon_scope_check
+  - decision_register_update
+  - non_authorization_review
+  - executable_validator_or_test
+non_authorizations:
+  - textual_critical_preferred_reading
+  - canon_scope_change
+  - source_tradition_preference
+  - noncanonical_source_authority
+  - boundary_import
+  - variant_packet_as_reviewed_gold
+  - variant_marker_as_chunk_boundary
+  - omitted_verse_as_output_decision
+  - graph_edge_generation
+  - retrieval_truth
+  - route_behavior_change
+  - evaluator_change
+  - chunk_output_change
+validators:
+  - scripts/validate_textual_critical_policy_docket.py
+  - tests/test_textual_critical_policy_docket.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

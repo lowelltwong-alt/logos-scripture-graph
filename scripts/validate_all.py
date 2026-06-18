@@ -99,6 +99,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_textual_variant_source_tradition_dossier_queue.py")],
         ),
         (
+            "validate_orthodox_hermeneutic_firewall_docket.py",
+            [PY, str(ROOT / "scripts" / "validate_orthodox_hermeneutic_firewall_docket.py")],
+        ),
+        (
+            "validate_textual_critical_policy_docket.py",
+            [PY, str(ROOT / "scripts" / "validate_textual_critical_policy_docket.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

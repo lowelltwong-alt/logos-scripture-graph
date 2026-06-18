@@ -1270,6 +1270,155 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-033
+    title: John 3 parent-only owner selection remains review-only
+    classification: non_authorizing_review
+    task_ids: [T367]
+    owner_decision_ref: .ai/control/john3_wj_owner_review_docket.yaml
+    pr_refs: []
+    affected_scope:
+      books: [John]
+      passages: [John.3.1-John.3.36]
+      routes: [gospel_discourse_wj, future_john3_review]
+      surfaces: [.ai/control/john3_wj_owner_review_docket.yaml, docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md, docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md, .ai/control/bible_chunking_readiness_map.yaml]
+    decision: "Owner selected JOHN3-T356-B: John.3.1-John.3.36 is approved as a parent-only review target, while child spans, Jesus/narrator boundaries, reviewed-gold promotion, route behavior, graph/retrieval truth, and output changes remain unauthorized."
+    downstream_risk: "Future agents could treat parent-only review target approval as a reviewed chunk boundary, speaker-boundary decision, or output-changing authorization."
+    theological_assumptions_avoided:
+      - "No John 3 Jesus/narrator boundary is decided."
+      - "No child span is selected for reviewed gold or chunk behavior."
+      - "No WJ/red-letter evidence becomes speaker, graph, retrieval, or chunk authority."
+    reviewed_gold_dependency: "Future John 3 output-changing use still requires reviewed gold or equivalent governed evidence plus separate owner implementation authorization."
+    non_authorizations:
+      - john3_child_span_approval
+      - john3_jesus_speaker_attribution
+      - john3_narrator_boundary_decision
+      - john3_parent_span_as_reviewed_gold
+      - route_behavior_change
+      - reviewed_gold_promotion
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_john3_owner_review_docket.py
+      - tests/test_john3_owner_review_docket.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-034
+    title: Orthodox hermeneutic firewall blocks hidden anti-orthodox defaults
+    classification: interpretive_boundary
+    task_ids: [T367]
+    owner_decision_ref: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_review_packets]
+      routes: [epistle_argument, future_chunking_routes, future_graph_review, future_retrieval_review]
+      surfaces: [.ai/control/orthodox_hermeneutic_firewall_docket.yaml, .ai/control/chunking_agent_preflight.yaml, docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md]
+    decision: "Create an Orthodox Hermeneutic Firewall / Anti-Smuggling Docket that affirms Nicene/Chalcedonian orthodox Christianity and canonical Scripture authority, refuses hidden anti-supernatural, anti-canonical, heterodox, or liberal-critical defaults, and refuses to hardcode one denominational systematic theology as chunk authority."
+    downstream_risk: "Review-packet strengthening could smuggle liberal-critical suspicion, anti-supernatural assumptions, canon-diminishing defaults, heterodox theology, or one denominational system into boundaries."
+    theological_assumptions_avoided:
+      - "No anti-supernatural or anti-canonical assumption becomes default behavior."
+      - "No heterodox Christology, Trinity, Scripture, salvation, or resurrection assumption is accepted."
+      - "No single orthodox denominational systematic theology becomes chunk authority where multiple orthodox readings remain possible."
+    reviewed_gold_dependency: "Future reviewed-gold promotion still requires exact scope, owner review, governed evidence, non-target identity proof, tests, and separate implementation authorization."
+    non_authorizations:
+      - liberal_critical_default
+      - anti_supernatural_default
+      - anti_canonical_default
+      - heterodox_default
+      - denominational_system_as_chunk_authority
+      - doctrinal_system_selection
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - chunk_output_change
+    validators:
+      - scripts/validate_orthodox_hermeneutic_firewall_docket.py
+      - tests/test_orthodox_hermeneutic_firewall_docket.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-035
+    title: Textual-critical policy docket required before variant-sensitive use
+    classification: canon_scope
+    task_ids: [T367]
+    owner_decision_ref: .ai/control/textual_critical_policy_docket.yaml
+    pr_refs: []
+    affected_scope:
+      books: [Mark, John, Acts, Rom, Deut, Jer, Jude, Dan, Esth, 1John]
+      passages: [Mark.16.9-Mark.16.20, John.7.53-John.8.11, Acts_empty_witnesses, Rom.16.25-Rom.16.27, Deut.32.8-Deut.32.9, Jer_MT_LXX, Jude.5-Jude.15, Dan, Esth, 1John.5.6-1John.5.8]
+      routes: [textual_variant_source_tradition, future_variant_review, future_graph_review, future_retrieval_review]
+      surfaces: [.ai/control/textual_critical_policy_docket.yaml, .ai/control/textual_variant_source_tradition_dossier_queue.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml]
+    decision: "A textual-critical policy docket must exist before any variant-sensitive packet can be promoted, implemented, used as reviewed gold, or used for canon, source-tradition, boundary, graph, or retrieval decisions; T367 records the requirement but selects no textual-critical policy."
+    downstream_risk: "Variant markers, empty witnesses, omitted verses, footnotes, source-tradition differences, or boundary material could silently become preferred text, canon-scope, source-tradition, graph, retrieval, or chunk-boundary authority."
+    theological_assumptions_avoided:
+      - "No longer-ending, pericope adulterae, Comma Johanneum, Deuteronomy 32, Jeremiah MT/LXX, Romans doxology, Jude source, Daniel/Esther additions, or Acts omitted-verse policy is selected."
+      - "No textual-critical preferred reading or source-tradition preference is chosen."
+      - "No boundary import or noncanonical authority is created."
+    reviewed_gold_dependency: "Variant-sensitive reviewed-gold use requires a later explicit owner textual-critical policy plus exact scope, provenance, tests, and decision-register update."
+    non_authorizations:
+      - textual_critical_preferred_reading
+      - textual_critical_decision
+      - canon_scope_change
+      - source_tradition_preference
+      - noncanonical_source_authority
+      - boundary_import
+      - variant_packet_as_reviewed_gold
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_textual_critical_policy_docket.py
+      - tests/test_textual_critical_policy_docket.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-036
+    title: 1 Corinthians 8-10 selected for review-only epistle strengthening
+    classification: non_authorizing_review
+    task_ids: [T367]
+    owner_decision_ref: docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8-1Cor.10]
+      routes: [epistle_argument, future_epistle_review]
+      surfaces: [.ai/control/bible_chunking_readiness_map.yaml, eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md, docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md]
+    decision: "After the orthodox firewall is recorded, 1Cor.8-1Cor.10 is selected as the next epistle argument review-packet strengthening target, review-only and non-output-changing."
+    downstream_risk: "Food-offered-to-idols boundaries could smuggle conscience, Christian liberty, idolatry, sacramental/table, weak/strong, ecclesiology, or denominational assumptions into chunking."
+    theological_assumptions_avoided:
+      - "No systematic theology of Christian liberty or conscience is selected as chunk authority."
+      - "No sacramental or table-fellowship system is selected as route behavior."
+      - "No pending epistle packet becomes reviewed gold."
+    reviewed_gold_dependency: "T368 may strengthen the review packet only; reviewed-gold promotion and implementation require later owner authorization."
+    non_authorizations:
+      - epistle_packet_as_reviewed_gold
+      - doctrinal_system_selection
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_bible_chunking_readiness_map.py
+      - tests/test_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1352,4 +1501,5 @@ backfill_coverage:
     - T364
     - T365
     - T366
+    - T367
 ...

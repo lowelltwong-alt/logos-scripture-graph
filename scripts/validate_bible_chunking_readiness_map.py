@@ -65,6 +65,8 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
     ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
     ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
+    ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+    ".ai/control/textual_critical_policy_docket.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
@@ -110,6 +112,10 @@ ALLOWED_NEXT_ROUTES = {
     "T356": {
         "route_type": "john3_wj_owner_review_docket",
         "title": "John 3 WJ Owner Review Docket",
+    },
+    "T368": {
+        "route_type": "epistle_argument_review_packet_strengthening",
+        "title": "1 Corinthians 8-10 Epistle Argument Packet Strengthening",
     },
 }
 
@@ -304,6 +310,36 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             )
         if next_route.get("reviewed_gold_promoted") is not False:
             raise ReadinessMapError(f"{_rel(path)}: T356 next_route.reviewed_gold_promoted must be false")
+    if task_id == "T368":
+        expected_t368 = {
+            "recommended_target": "epistle_argument",
+            "selected_target": "1cor8_10_food_offered_to_idols",
+            "selected_passage": "1Cor.8-1Cor.10",
+            "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "packet_status": "pending_human_review",
+            "prior_owner_decision_task": "T367",
+            "prior_packet_task": "T352",
+            "prior_issue_dossier_task": "T361",
+            "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+            "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+            "john3_owner_selection_status": "selected",
+            "john3_selected_option": "JOHN3-T356-B",
+            "john3_selected_parent": "John.3.1-John.3.36",
+        }
+        for key, value in expected_t368.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T368 next_route.{key} must be {value}")
+        if next_route.get("review_only") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T368 next_route.review_only must be true")
+        for key in (
+            "reviewed_gold_promoted",
+            "route_behavior_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T368 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

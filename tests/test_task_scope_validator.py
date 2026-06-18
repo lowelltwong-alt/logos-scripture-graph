@@ -23,6 +23,7 @@ T363_TASK = ROOT / ".ai" / "tasks" / "T363.task.yaml"
 T364_TASK = ROOT / ".ai" / "tasks" / "T364.task.yaml"
 T365_TASK = ROOT / ".ai" / "tasks" / "T365.task.yaml"
 T366_TASK = ROOT / ".ai" / "tasks" / "T366.task.yaml"
+T367_TASK = ROOT / ".ai" / "tasks" / "T367.task.yaml"
 T352_TASK = ROOT / ".ai" / "tasks" / "T352.task.yaml"
 
 
@@ -650,6 +651,51 @@ def test_t366_scope_accepts_textual_variant_source_tradition_surfaces() -> None:
     )
 
     assert result["task_file"] == ".ai/tasks/T366.task.yaml"
+
+
+def test_t367_scope_accepts_owner_decision_firewall_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T367_TASK,
+        changed_files=[
+            ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+            ".ai/control/textual_critical_policy_docket.yaml",
+            ".ai/control/john3_wj_owner_review_docket.yaml",
+            ".ai/control/chunking_agent_preflight.yaml",
+            ".ai/control/chunking_theological_decision_register.yaml",
+            ".ai/control/bible_chunking_readiness_map.yaml",
+            ".ai/control/current_focus.yaml",
+            ".ai/control/PROJECT_STATUS.md",
+            ".ai/control/roadmap_events.jsonl",
+            ".ai/control/handoff_ledger.jsonl",
+            ".ai/tasks/T367.task.yaml",
+            ".ai/handoffs/T367/handoff.md",
+            ".ai/audits/reports/20260618-T367-owner-decision-firewall.md",
+            "ROADMAP_STATE.yaml",
+            "AI_FRONT_DOOR.md",
+            "AI_TABLE_OF_CONTENTS.md",
+            "docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md",
+            "docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md",
+            "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
+            "scripts/validate_john3_owner_review_docket.py",
+            "scripts/validate_wj_speaker_discourse_policy.py",
+            "scripts/validate_orthodox_hermeneutic_firewall_docket.py",
+            "scripts/validate_textual_critical_policy_docket.py",
+            "scripts/validate_owner_selection_implementation_gate.py",
+            "scripts/validate_bible_chunking_readiness_map.py",
+            "scripts/validate_chunking_agent_preflight.py",
+            "scripts/validate_all.py",
+            "tests/test_john3_owner_review_docket.py",
+            "tests/test_wj_speaker_discourse_policy.py",
+            "tests/test_orthodox_hermeneutic_firewall_docket.py",
+            "tests/test_textual_critical_policy_docket.py",
+            "tests/test_chunking_agent_preflight.py",
+            "tests/test_bible_chunking_readiness_map.py",
+            "tests/test_task_scope_validator.py",
+            "tests/test_ai_roadmap_table_of_contents.py",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T367.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:

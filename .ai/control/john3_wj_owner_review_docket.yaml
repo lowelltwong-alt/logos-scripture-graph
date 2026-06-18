@@ -2,18 +2,21 @@
 object_type: john3_wj_owner_review_docket
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-18 during T356 after T355 selected John.3.1-John.3.36 as the first exact WJ speaker/discourse owner-review target."
-reason_for_inclusion: "Make the next John 3 WJ speaker/discourse owner decision explicit, auditable, and non-authorizing before any chunk implementation or reviewed-gold promotion."
+provenance_note: "Created 2026-06-18 during T356 after T355 selected John.3.1-John.3.36 as the first exact WJ speaker/discourse owner-review target; updated during T367 after the owner selected JOHN3-T356-B as a parent-only review target."
+reason_for_inclusion: "Make the John 3 WJ speaker/discourse owner decision explicit, auditable, and non-authorizing before any chunk implementation, speaker-boundary decision, or reviewed-gold promotion."
 ---
 schema_version: john3_wj_owner_review_docket.v1
 docket_id: john3_wj_speaker_boundary_owner_review
 owner: Lowell Wong
 authority:
   records_owner_review_options: true
+  records_owner_review_selection: true
   may_surface_for_review: true
+  authorizes_parent_only_review_target: true
   authorizes_jesus_speaker_attribution: false
   authorizes_speaker_boundary: false
   authorizes_discourse_boundary: false
+  authorizes_parent_span_as_reviewed_gold: false
   authorizes_parent_span: false
   authorizes_child_spans: false
   authorizes_reviewed_gold: false
@@ -36,7 +39,7 @@ target:
   review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
   prior_policy_task: T355
   owner_review_task: T356
-  status: owner_selection_pending
+  status: parent_only_review_target_selected
   current_chunk_behavior:
     - John.1.40-John.3.2
     - John.3.3-John.4.6
@@ -47,14 +50,14 @@ target:
     - chapter_boundary_as_discourse_authority
     - smoothing_split_wj_runs
 owner_selection:
-  reviewer: null
-  date: null
-  owner_selection_status: pending
-  selected_option: pending
-  selected_parent: null
+  reviewer: Lowell Wong
+  date: "2026-06-18"
+  owner_selection_status: selected
+  selected_option: JOHN3-T356-B
+  selected_parent: John.3.1-John.3.36
   selected_children: []
   selected_jesus_speech_span: null
-  rationale: null
+  rationale: "Owner selected the parent-only review target to preserve John 3 scope while refusing to decide child spans, Jesus/narrator boundaries, reviewed-gold status, route behavior, graph/retrieval truth, or output changes."
   implementation_allowed: false
   output_change_authorized: false
   reviewed_gold_promoted: false
@@ -71,6 +74,7 @@ options:
     description: "Owner may approve John.3.1-John.3.36 as a parent review unit without approving internal child speaker/discourse boundaries."
     future_effect_if_selected: "A later task may prepare reviewed-gold/equivalent governed evidence for the parent span only; implementation still requires a separate authorization."
     implementation_allowed_now: false
+    owner_selected_in_task: T367
   - option_id: JOHN3-T356-C
     title: Approve parent plus exact child-boundary review target
     selected_parent_candidate: John.3.1-John.3.36
@@ -110,7 +114,8 @@ future_output_changing_use_requires:
   - same_baseline_evaluation
   - later_implementation_authorization
 non_authorizations:
-  - john3_parent_span_approval
+  - john3_parent_span_as_reviewed_gold
+  - john3_parent_span_as_chunk_boundary
   - john3_child_span_approval
   - john3_jesus_speaker_attribution
   - john3_narrator_boundary_decision

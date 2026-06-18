@@ -29,6 +29,7 @@ REQUIRED_FALSE_AUTHORITY = {
     "authorizes_jesus_speaker_attribution",
     "authorizes_speaker_boundary",
     "authorizes_discourse_boundary",
+    "authorizes_parent_span_as_reviewed_gold",
     "authorizes_parent_span",
     "authorizes_child_spans",
     "authorizes_reviewed_gold",
@@ -39,7 +40,8 @@ REQUIRED_FALSE_AUTHORITY = {
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
-    "john3_parent_span_approval",
+    "john3_parent_span_as_reviewed_gold",
+    "john3_parent_span_as_chunk_boundary",
     "john3_child_span_approval",
     "john3_jesus_speaker_attribution",
     "john3_narrator_boundary_decision",
@@ -125,8 +127,12 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
         raise John3DocketError(f"{_rel(path)}: authority must be a mapping")
     if authority.get("records_owner_review_options") is not True:
         raise John3DocketError(f"{_rel(path)}: authority.records_owner_review_options must be true")
+    if authority.get("records_owner_review_selection") is not True:
+        raise John3DocketError(f"{_rel(path)}: authority.records_owner_review_selection must be true")
     if authority.get("may_surface_for_review") is not True:
         raise John3DocketError(f"{_rel(path)}: authority.may_surface_for_review must be true")
+    if authority.get("authorizes_parent_only_review_target") is not True:
+        raise John3DocketError(f"{_rel(path)}: authority.authorizes_parent_only_review_target must be true")
     for key in REQUIRED_FALSE_AUTHORITY:
         if authority.get(key) is not False:
             raise John3DocketError(f"{_rel(path)}: authority.{key} must be false")
@@ -140,7 +146,7 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
         "review_packet": "eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md",
         "prior_policy_task": "T355",
         "owner_review_task": "T356",
-        "status": "owner_selection_pending",
+        "status": "parent_only_review_target_selected",
     }
     for key, value in expected_target.items():
         if target.get(key) != value:
@@ -149,10 +155,20 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
     selection = data.get("owner_selection")
     if not isinstance(selection, dict):
         raise John3DocketError(f"{_rel(path)}: owner_selection must be a mapping")
-    if selection.get("owner_selection_status") != "pending":
-        raise John3DocketError(f"{_rel(path)}: owner_selection_status must be pending")
-    if selection.get("selected_option") != "pending":
-        raise John3DocketError(f"{_rel(path)}: selected_option must be pending")
+    expected_selection = {
+        "reviewer": "Lowell Wong",
+        "date": "2026-06-18",
+        "owner_selection_status": "selected",
+        "selected_option": "JOHN3-T356-B",
+        "selected_parent": "John.3.1-John.3.36",
+    }
+    for key, value in expected_selection.items():
+        if selection.get(key) != value:
+            raise John3DocketError(f"{_rel(path)}: owner_selection.{key} must be {value}")
+    if selection.get("selected_children") != []:
+        raise John3DocketError(f"{_rel(path)}: owner_selection.selected_children must be []")
+    if selection.get("selected_jesus_speech_span") is not None:
+        raise John3DocketError(f"{_rel(path)}: owner_selection.selected_jesus_speech_span must be null")
     for key in ("implementation_allowed", "output_change_authorized", "reviewed_gold_promoted"):
         if selection.get(key) is not False:
             raise John3DocketError(f"{_rel(path)}: owner_selection.{key} must be false")
@@ -171,8 +187,9 @@ def _validate_docket(data: dict[str, Any], path: Path) -> None:
 def _validate_roadmap_doc() -> None:
     text = _read_text(ROADMAP_DOC)
     for phrase in (
-        "owner_selection_status: pending",
-        "selected_option: pending",
+        "owner_selection_status: selected",
+        "selected_option: JOHN3-T356-B",
+        "selected_parent: John.3.1-John.3.36",
         "JOHN3-T356-A",
         "JOHN3-T356-B",
         "JOHN3-T356-C",
@@ -184,10 +201,14 @@ def _validate_roadmap_doc() -> None:
         if phrase not in text:
             raise John3DocketError(f"{_rel(ROADMAP_DOC)}: missing phrase {phrase!r}")
     decision_box = _extract_markdown_yaml(ROADMAP_DOC, "john3_owner_review")
-    if decision_box.get("owner_selection_status") != "pending":
-        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box owner_selection_status must be pending")
-    if decision_box.get("selected_option") != "pending":
-        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box selected_option must be pending")
+    if decision_box.get("owner_selection_status") != "selected":
+        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box owner_selection_status must be selected")
+    if decision_box.get("selected_option") != "JOHN3-T356-B":
+        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box selected_option must be JOHN3-T356-B")
+    if decision_box.get("selected_parent") != "John.3.1-John.3.36":
+        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box selected_parent must be John.3.1-John.3.36")
+    if decision_box.get("selected_children") != []:
+        raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box selected_children must be []")
     for key in ("implementation_allowed", "output_change_authorized", "reviewed_gold_promoted"):
         if decision_box.get(key) is not False:
             raise John3DocketError(f"{_rel(ROADMAP_DOC)}: decision box {key} must be false")
@@ -208,6 +229,16 @@ def _validate_governed_links() -> None:
     for validator in ("scripts/validate_john3_owner_review_docket.py", "tests/test_john3_owner_review_docket.py"):
         if validator not in cd023.get("validators", []):
             raise John3DocketError(f"{_rel(REGISTER)}: CD-023 validators missing {validator}")
+    cd033 = next(
+        (
+            item
+            for item in register.get("decisions", [])
+            if isinstance(item, dict) and item.get("decision_id") == "CD-033"
+        ),
+        None,
+    )
+    if not isinstance(cd033, dict):
+        raise John3DocketError(f"{_rel(REGISTER)}: missing CD-033")
 
     preflight = _read_yaml(PREFLIGHT)
     reading_paths = {
@@ -219,24 +250,28 @@ def _validate_governed_links() -> None:
         raise John3DocketError(f"{_rel(PREFLIGHT)}: John 3 docket must be mandatory reading")
 
     readiness = _read_yaml(READINESS_MAP)
-    next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict):
-        raise John3DocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
-    expected = {
-        "task_id": "T356",
-        "route_type": "john3_wj_owner_review_docket",
-        "selected_target": "john3_wj_speaker_boundary",
-        "john3_owner_selection_status": "pending",
-        "john3_selected_option": "pending",
-        "docket": ".ai/control/john3_wj_owner_review_docket.yaml",
-        "review_packet": "eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md",
+    lanes = readiness.get("lane_sequence")
+    gospel_lane = next(
+        (item for item in lanes if isinstance(item, dict) and item.get("lane_id") == "gospel_discourse_wj"),
+        None,
+    ) if isinstance(lanes, list) else None
+    if not isinstance(gospel_lane, dict):
+        raise John3DocketError(f"{_rel(READINESS_MAP)}: missing gospel_discourse_wj lane")
+    docket_surface = gospel_lane.get("owner_review_docket")
+    if not isinstance(docket_surface, dict):
+        raise John3DocketError(f"{_rel(READINESS_MAP)}: owner_review_docket must be a mapping")
+    expected_docket = {
+        "status": "parent_only_review_target_selected",
+        "selected_option": "JOHN3-T356-B",
+        "selected_parent": "John.3.1-John.3.36",
+        "path": ".ai/control/john3_wj_owner_review_docket.yaml",
     }
-    for key, value in expected.items():
-        if next_route.get(key) != value:
-            raise John3DocketError(f"{_rel(READINESS_MAP)}: next_route.{key} must be {value}")
+    for key, value in expected_docket.items():
+        if docket_surface.get(key) != value:
+            raise John3DocketError(f"{_rel(READINESS_MAP)}: owner_review_docket.{key} must be {value}")
     for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
-        if next_route.get(key) is not False:
-            raise John3DocketError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
+        if docket_surface.get(key) is not False:
+            raise John3DocketError(f"{_rel(READINESS_MAP)}: owner_review_docket.{key} must be false")
 
     if not T356_TASK.exists():
         raise John3DocketError(f"{_rel(T356_TASK)}: T356 task file is missing")
