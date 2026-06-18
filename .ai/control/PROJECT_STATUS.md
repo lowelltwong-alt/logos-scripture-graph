@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T356 John 3 WJ owner-review docket (Codex)
-**Active task:** -> **T356** is complete as non-output-changing PR work. It records pending owner-review options for `John.3.1-John.3.36` / `john3_wj_speaker_boundary` without selecting an option. The docket treats WJ/red-letter markers, punctuation, paragraphing, sectioning, and narrative framing as review evidence only; it does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer Jesus speaker attribution, infer speaker or discourse boundaries, approve parent/child spans, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T358 Bible-wide chunking research registry (Codex)
+**Active task:** -> **T358** is complete as non-output-changing research PR work. It creates a canonical 66-book research registry at `.ai/control/bible_wide_chunking_research_registry.yaml` with use-when routing, book-level theological risks, source-metadata watchpoints, and future review-packet candidates. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T358 Bible-wide chunking research registry (2026-06-18):** Added
+> `.ai/control/bible_wide_chunking_research_registry.yaml`, checked by
+> `scripts/validate_bible_wide_chunking_research_registry.py`, so future chunking agents can begin
+> whole-Bible research from a canonical 66-book queue instead of chat memory. The registry records
+> book-level lanes, boundary questions, theological downstream risks, source-metadata watchpoints,
+> and future review-packet candidates. It is parallel research-only work: it does not select a John
+> 3 option, does not supersede the pending T357 owner-selection/gold gate, and does not authorize
+> chunks, reviewed gold, route behavior, graph edges, retrieval truth, embeddings, source metadata
+> authority, speaker attribution, boundary import, or implementation.
 
 > **T356 John 3 WJ owner-review docket (2026-06-18):** Added
 > `.ai/control/john3_wj_owner_review_docket.yaml`, checked by

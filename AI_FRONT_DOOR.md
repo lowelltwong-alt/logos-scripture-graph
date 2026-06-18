@@ -24,6 +24,8 @@ Read these files before making changes:
     Source metadata is evidence, not authority. Divine-name/title capitalization and WJ/red-letter
     markers, WJ speaker/discourse policy, and John 3 owner-review docket are evidence/review
     policy, not authority.
+    The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
+    authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 12. For Bible-wide chunking readiness, lane sequencing, algorithm readiness, and next safe route:
@@ -149,6 +151,13 @@ Bible-first chunking priority:
   an option, approve parent or child spans, decide Jesus/narrator boundaries, promote reviewed
   gold, authorize graph edges, authorize chunk boundaries, authorize retrieval truth, or change
   output. It is validated by `scripts/validate_john3_owner_review_docket.py`.
+- The Bible-wide chunking research registry at
+  `.ai/control/bible_wide_chunking_research_registry.yaml` records a canonical 66-book research
+  queue with use-when routing, book-level theological risks, source-metadata watchpoints, and
+  future review-packet candidates. It does not authorize chunks, reviewed gold, route behavior,
+  graph edges, retrieval truth, embeddings, source metadata authority, speaker attribution,
+  boundary import, or implementation. It is validated by
+  `scripts/validate_bible_wide_chunking_research_registry.py`.
 
 High-leverage change risk gate:
 
@@ -288,6 +297,9 @@ context.
 `python scripts/validate_john3_owner_review_docket.py` fails closed if the John 3 owner-review
 docket becomes authorizing, selects an option before owner review, or stops being mandatory
 preflight context.
+`python scripts/validate_bible_wide_chunking_research_registry.py` fails closed if the Bible-wide
+research registry loses canonical 66 coverage, becomes authorizing, or drops sensitive book-level
+watchpoints.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

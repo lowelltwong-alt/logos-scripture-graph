@@ -1,0 +1,1016 @@
+object_type: bible_wide_chunking_research_registry
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T358 after the maintainer asked to begin whole-Bible chunking research before more chunk implementation work."
+reason_for_inclusion: "Give future chunking agents a canonical 66-book research queue with tags, use-when triggers, metadata watchpoints, and non-authorizing theological-risk prompts before choosing later review packets or algorithms."
+schema_version: bible_wide_chunking_research_registry.v1
+registry_id: t358_bible_wide_chunking_research_registry
+owner: Lowell Wong
+authority:
+  records_research_queue: true
+  records_book_level_watchpoints: true
+  authorizes_chunk_output_change: false
+  authorizes_new_algorithm_work: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_source_metadata_truth: false
+  authorizes_speaker_attribution: false
+  authorizes_boundary_import: false
+scope:
+  corpus_scope: canonical_66
+  book_count: 66
+  research_mode: non_output_changing
+  relationship_to_t356: "Parallel research-only queue; does not select a John 3 option and does not supersede the pending T357 owner-selection/gold gate."
+global_non_authorizations:
+  - raw_or_canonical_mutation
+  - generated_chunk_regeneration
+  - chunk_output_change
+  - reviewed_gold_promotion
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - source_metadata_authority
+  - speaker_attribution
+  - boundary_import
+  - revelation_implementation
+  - epistle_implementation
+  - wj_implementation
+  - t345
+research_dimensions:
+  - dimension_id: genre_form_boundary
+    tags: [genre, form, chunk_boundary]
+    use_when: "A book or passage needs form-aware candidate boundaries without making output changes."
+    non_authorization: "Genre labels are review evidence only, not automatic chunk-boundary authority."
+  - dimension_id: discourse_argument_flow
+    tags: [argument, discourse, epistle]
+    use_when: "A passage develops a theological argument across sentences, paragraphs, or chapters."
+    non_authorization: "Argument outlines are review evidence only and require reviewed gold before route behavior authority changes."
+  - dimension_id: narrative_scene_pericope
+    tags: [narrative, scene, pericope]
+    use_when: "A narrative book needs scene, speaker, or episode boundary review."
+    non_authorization: "Scene labels are review evidence only and do not authorize regenerated chunks."
+  - dimension_id: legal_covenant_formulae
+    tags: [law, covenant, formula]
+    use_when: "Torah or covenant material mixes narrative, law, speeches, blessings, or curses."
+    non_authorization: "Law-code headings or covenant formulas are review evidence only, not chunk-boundary authority."
+  - dimension_id: poetry_parallelism_stanza
+    tags: [poetry, parallelism, stanza, refrain]
+    use_when: "Poetry may be structured by parallelism, refrain, acrostic, lament, or praise."
+    non_authorization: "Poetic structure is review evidence only, not reviewed gold or chunk-boundary authority unless explicitly promoted."
+  - dimension_id: prophetic_oracle_vision
+    tags: [prophecy, oracle, vision, judgment, hope]
+    use_when: "Prophetic books combine oracle units, historical framing, visions, and future hope."
+    non_authorization: "Prophetic fulfillment or eschatology systems are review evidence only and are not selected by chunk-boundary authority."
+  - dimension_id: apocalyptic_symbol_intertext
+    tags: [apocalyptic, revelation, daniel, intertext]
+    use_when: "Symbolic visions or cross-book echoes could bias interpretation."
+    non_authorization: "Cross-references and intertexts are review evidence only, not graph truth or hermeneutic authority."
+  - dimension_id: gospel_discourse_speaker_wj
+    tags: [gospel, wj, red_letter, speaker_boundary]
+    use_when: "Jesus speech, narrator comment, or discourse boundary may be disputed."
+    non_authorization: "WJ/red-letter formatting is review evidence only and does not decide Jesus speaker attribution or chunk-boundary authority."
+  - dimension_id: source_metadata_features
+    tags: [metadata, cross_reference, strongs, headings, footnotes]
+    use_when: "Source formatting, cross-references, Strong's-style numbers, headings, or notes appear relevant."
+    non_authorization: "Source metadata is evidence only and never automatic Scripture, lexical, intertext, or chunk authority."
+  - dimension_id: divine_name_title_capitalization
+    tags: [capitalization, divine_name, spirit, word]
+    use_when: "God/god, LORD/Lord/lord, Spirit/spirit, Father/father, Word/word, or pronoun capitalization may matter."
+    non_authorization: "Translation capitalization is review evidence only and does not by itself authorize divine identity, Trinitarian relation, graph edges, or chunk-boundary authority."
+required_future_research_packet_fields:
+  - exact_passage_scope
+  - genre_or_lane
+  - source_metadata_observed
+  - cross_reference_or_intertext_observed
+  - theological_downstream_risks
+  - assumptions_avoided
+  - reviewed_gold_dependency
+  - non_authorizations
+  - validators_or_tests_needed
+book_research_queue:
+  - book_id: Gen
+    canonical_order: 1
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [legal_covenant, genealogy, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research patriarchal narrative, creation/fall, covenant, genealogy, and blessing units before broader narrative chunking."
+    representative_boundary_questions: ["How should creation accounts, genealogies, covenant scenes, and Joseph cycle episodes be distinguished without imposing a theology of origins or promise fulfillment?"]
+    theological_downstream_risks: ["Chunking can overstate covenant continuity/discontinuity or isolate promises from narrative context."]
+    metadata_watchpoints: [section_headings, genealogies, divine_names, cross_references]
+    future_review_packet_candidates: [Gen.1-Gen.2, Gen.12-Gen.17, Gen.37-Gen.50]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Exod
+    canonical_order: 2
+    testament: OT
+    primary_lane: legal_covenant
+    secondary_lanes: [narrative_pericope, worship_tabernacle, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research exodus narrative, covenant law, tabernacle instructions, and divine-name contexts."
+    representative_boundary_questions: ["Where do plague cycles, Sinai covenant units, and tabernacle instruction blocks naturally begin and end?"]
+    theological_downstream_risks: ["Boundaries can bias law/gospel, covenant, divine-name, and worship-theology readings."]
+    metadata_watchpoints: [section_headings, divine_names, cross_references, paragraph_markers]
+    future_review_packet_candidates: [Exod.3-Exod.4, Exod.19-Exod.24, Exod.25-Exod.31]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Lev
+    canonical_order: 3
+    testament: OT
+    primary_lane: legal_covenant
+    secondary_lanes: [ritual_law, holiness_code, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research sacrifice, purity, holiness, priesthood, and feast-law units."
+    representative_boundary_questions: ["How should ritual law sections be grouped without treating later theological fulfillment claims as boundary authority?"]
+    theological_downstream_risks: ["Chunking can bias sacrificial theology, holiness, priesthood, atonement, or continuity/discontinuity views."]
+    metadata_watchpoints: [section_headings, cross_references, repeated_formulae]
+    future_review_packet_candidates: [Lev.1-Lev.7, Lev.16, Lev.17-Lev.26]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Num
+    canonical_order: 4
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [legal_covenant, census, wilderness_journey]
+    research_status: seeded_needs_research
+    use_when: "Research census frames, wilderness episodes, legal insertions, and Balaam oracles."
+    representative_boundary_questions: ["How should narrative travel sequences, legal interruptions, and oracle units be separated?"]
+    theological_downstream_risks: ["Boundaries can over-focus rebellion, mediation, or promise themes apart from canonical narrative flow."]
+    metadata_watchpoints: [section_headings, oracle_markers, cross_references]
+    future_review_packet_candidates: [Num.1-Num.4, Num.13-Num.14, Num.22-Num.24]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Deut
+    canonical_order: 5
+    testament: OT
+    primary_lane: legal_covenant
+    secondary_lanes: [discourse_argument_flow, covenant_speech, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research Moses' speeches, covenant renewal, law restatement, blessings, and curses."
+    representative_boundary_questions: ["Where do speech units, law-code sections, covenant warnings, and blessing/curse blocks divide?"]
+    theological_downstream_risks: ["Boundaries can bias covenant theology, obedience/grace framing, and later Scripture cross-reference use."]
+    metadata_watchpoints: [speech_markers, section_headings, cross_references]
+    future_review_packet_candidates: [Deut.5-Deut.11, Deut.12-Deut.26, Deut.27-Deut.30]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Josh
+    canonical_order: 6
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [conquest_allotment, covenant_renewal]
+    research_status: seeded_needs_research
+    use_when: "Research conquest episodes, land allotments, covenant renewal, and memorial scenes."
+    representative_boundary_questions: ["How should conquest narrative, lists/allotments, and covenant speeches be chunked without flattening genre differences?"]
+    theological_downstream_risks: ["Chunking can affect readings of holy war, promise, judgment, and land theology."]
+    metadata_watchpoints: [section_headings, place_names, cross_references]
+    future_review_packet_candidates: [Josh.1-Josh.6, Josh.13-Josh.21, Josh.23-Josh.24]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Judg
+    canonical_order: 7
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [cycle_structure, song_poetry]
+    research_status: seeded_needs_research
+    use_when: "Research judge-cycle boundaries, embedded songs, and epilogue narrative units."
+    representative_boundary_questions: ["How should repeated cycle formulae, individual judge accounts, and the Deborah song be separated?"]
+    theological_downstream_risks: ["Boundaries can overstate moral cycles, monarchy polemic, or deliverer typology."]
+    metadata_watchpoints: [repeated_formulae, poetry_markers, section_headings]
+    future_review_packet_candidates: [Judg.2-Judg.3, Judg.4-Judg.5, Judg.17-Judg.21]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Ruth
+    canonical_order: 8
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [genealogy, covenant_loyalty]
+    research_status: seeded_needs_research
+    use_when: "Research compact narrative scenes, dialogue, redemption/legal scenes, and genealogy."
+    representative_boundary_questions: ["How should scene changes and the closing genealogy be handled without reducing the book to a typology claim?"]
+    theological_downstream_risks: ["Boundaries can bias providence, redemption, Davidic lineage, and typological readings."]
+    metadata_watchpoints: [dialogue_markers, genealogy, section_headings]
+    future_review_packet_candidates: [Ruth.1-Ruth.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Sam
+    canonical_order: 9
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [kingship, prophetic_speech, poetry_prayer]
+    research_status: seeded_needs_research
+    use_when: "Research Samuel/Saul/David narrative arcs, speeches, songs, and transition-to-kingship units."
+    representative_boundary_questions: ["How should narrative cycles and speeches be split without predetermining monarchy theology?"]
+    theological_downstream_risks: ["Boundaries can bias kingship, anointing, covenant, and divine rejection themes."]
+    metadata_watchpoints: [speech_markers, poetry_markers, section_headings]
+    future_review_packet_candidates: [1Sam.1-1Sam.3, 1Sam.8-1Sam.12, 1Sam.16-1Sam.31]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Sam
+    canonical_order: 10
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [davidic_covenant, royal_narrative, poetry_prayer]
+    research_status: seeded_needs_research
+    use_when: "Research Davidic covenant, royal narrative, sin/judgment scenes, and appended poems/lists."
+    representative_boundary_questions: ["Where should covenant oracle, narrative consequences, and appendix material be grouped?"]
+    theological_downstream_risks: ["Boundaries can bias Davidic covenant, messianic, repentance, and judgment readings."]
+    metadata_watchpoints: [poetry_markers, cross_references, section_headings]
+    future_review_packet_candidates: [2Sam.7, 2Sam.11-2Sam.12, 2Sam.21-2Sam.24]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Kgs
+    canonical_order: 11
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [royal_annals, prophetic_oracle, temple]
+    research_status: seeded_needs_research
+    use_when: "Research royal succession, temple dedication, divided kingdom cycles, and prophetic confrontation."
+    representative_boundary_questions: ["How should royal annal formulas, temple speeches, and Elijah cycle units be separated?"]
+    theological_downstream_risks: ["Chunking can bias temple theology, prophetic authority, covenant failure, and wisdom readings."]
+    metadata_watchpoints: [royal_formulae, speech_markers, cross_references]
+    future_review_packet_candidates: [1Kgs.3-1Kgs.11, 1Kgs.12-1Kgs.14, 1Kgs.17-1Kgs.19]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Kgs
+    canonical_order: 12
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [royal_annals, prophetic_oracle, exile]
+    research_status: seeded_needs_research
+    use_when: "Research Elisha cycles, royal annals, reform narratives, and exile framing."
+    representative_boundary_questions: ["How should prophetic miracle cycles, reign summaries, and exile units be grouped?"]
+    theological_downstream_risks: ["Boundaries can bias exile theology, reform, judgment, and remnant themes."]
+    metadata_watchpoints: [royal_formulae, section_headings, cross_references]
+    future_review_packet_candidates: [2Kgs.2-2Kgs.8, 2Kgs.17, 2Kgs.22-2Kgs.25]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Chr
+    canonical_order: 13
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [genealogy, temple, royal_narrative]
+    research_status: seeded_needs_research
+    use_when: "Research genealogy blocks, Davidic temple preparation, and rewritten royal narrative."
+    representative_boundary_questions: ["How should long genealogies and temple-focused narrative units be separated?"]
+    theological_downstream_risks: ["Boundaries can bias lineage, worship, temple, and canonical-history interpretation."]
+    metadata_watchpoints: [genealogies, lists, section_headings]
+    future_review_packet_candidates: [1Chr.1-1Chr.9, 1Chr.17, 1Chr.22-1Chr.29]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Chr
+    canonical_order: 14
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [temple, royal_annals, reform]
+    research_status: seeded_needs_research
+    use_when: "Research temple dedication, reform cycles, royal reigns, and exile/return horizon."
+    representative_boundary_questions: ["Where do reign summaries, temple scenes, and reform narratives naturally divide?"]
+    theological_downstream_risks: ["Chunking can bias worship, retribution, reform, and restoration themes."]
+    metadata_watchpoints: [royal_formulae, speech_markers, section_headings]
+    future_review_packet_candidates: [2Chr.5-2Chr.7, 2Chr.20, 2Chr.29-2Chr.36]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Ezra
+    canonical_order: 15
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [return_restoration, lists, covenant_reform]
+    research_status: seeded_needs_research
+    use_when: "Research return narratives, official letters, temple rebuilding, lists, and covenant reform."
+    representative_boundary_questions: ["How should documents, lists, narrative scenes, and reform units be grouped?"]
+    theological_downstream_risks: ["Boundaries can bias restoration, temple, identity, and covenant-separation readings."]
+    metadata_watchpoints: [official_letters, lists, language_shift, section_headings]
+    future_review_packet_candidates: [Ezra.1-Ezra.6, Ezra.7-Ezra.10]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Neh
+    canonical_order: 16
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [memoir, lists, covenant_renewal]
+    research_status: seeded_needs_research
+    use_when: "Research memoir units, rebuilding scenes, lists, covenant reading, and reforms."
+    representative_boundary_questions: ["How should first-person memoir, lists, public reading, and reform scenes divide?"]
+    theological_downstream_risks: ["Boundaries can bias law, community identity, leadership, and restoration themes."]
+    metadata_watchpoints: [first_person_markers, lists, section_headings]
+    future_review_packet_candidates: [Neh.1-Neh.7, Neh.8-Neh.10, Neh.11-Neh.13]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Esth
+    canonical_order: 17
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [court_narrative, feast_origin]
+    research_status: seeded_needs_research
+    use_when: "Research court-scene boundaries, reversal structure, and feast-origin material."
+    representative_boundary_questions: ["How should court scenes and reversal episodes be separated without forcing explicit providence language?"]
+    theological_downstream_risks: ["Boundaries can bias providence, identity, violence, and feast-theology readings."]
+    metadata_watchpoints: [scene_markers, royal_decrees, section_headings]
+    future_review_packet_candidates: [Esth.1-Esth.10]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Job
+    canonical_order: 18
+    testament: OT
+    primary_lane: wisdom_dialogue
+    secondary_lanes: [poetry_parallelism_stanza, narrative_frame, divine_speech]
+    research_status: seeded_needs_research
+    use_when: "Research prose frame, dialogue cycles, Elihu speeches, and LORD speeches."
+    representative_boundary_questions: ["How should poetic dialogue cycles and divine speeches be identified without deciding theodicy debates?"]
+    theological_downstream_risks: ["Boundaries can bias suffering, retribution, divine justice, and wisdom-theology claims."]
+    metadata_watchpoints: [speaker_labels, poetry_markers, divine_names]
+    future_review_packet_candidates: [Job.1-Job.2, Job.3-Job.31, Job.38-Job.42]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Ps
+    canonical_order: 19
+    testament: OT
+    primary_lane: psalms_poetry
+    secondary_lanes: [poetry_parallelism_stanza, superscription, refrain]
+    research_status: governed_hold_existing_gold
+    use_when: "Research Psalm subgenres only without disturbing existing reviewed Psalm 89 gold or governed holds."
+    representative_boundary_questions: ["Which Psalms need stanza/refrain/acrostic review packets distinct from existing Psalm 89 and Psalm hold decisions?"]
+    theological_downstream_risks: ["Boundaries can bias messianic, lament, praise, covenant, and imprecatory readings."]
+    metadata_watchpoints: [superscriptions, poetry_markers, acrostic, refrains]
+    future_review_packet_candidates: [Ps.1-Ps.2, Ps.22, Ps.119]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Prov
+    canonical_order: 20
+    testament: OT
+    primary_lane: wisdom_dialogue
+    secondary_lanes: [proverb_collection, poetry_parallelism_stanza]
+    research_status: seeded_needs_research
+    use_when: "Research proverb collections, speeches, and individual saying boundaries."
+    representative_boundary_questions: ["How should extended wisdom speeches and compact individual sayings be chunked differently?"]
+    theological_downstream_risks: ["Chunking can bias wisdom as promise, principle, command, or observation."]
+    metadata_watchpoints: [collection_headings, poetry_markers, parallelism]
+    future_review_packet_candidates: [Prov.1-Prov.9, Prov.10-Prov.22, Prov.31]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Eccl
+    canonical_order: 21
+    testament: OT
+    primary_lane: wisdom_dialogue
+    secondary_lanes: [discourse_argument_flow, poetry_parallelism_stanza]
+    research_status: seeded_needs_research
+    use_when: "Research Qoheleth discourse flow, poem units, and frame/narrator boundaries."
+    representative_boundary_questions: ["How should repeated themes and frame statements be bounded without deciding pessimistic/orthodox interpretive debates?"]
+    theological_downstream_risks: ["Boundaries can bias meaning, vanity, joy, death, and fear-of-God interpretations."]
+    metadata_watchpoints: [speaker_frame, repeated_phrases, section_headings]
+    future_review_packet_candidates: [Eccl.1-Eccl.3, Eccl.7-Eccl.12]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Song
+    canonical_order: 22
+    testament: OT
+    primary_lane: poetry_parallelism_stanza
+    secondary_lanes: [speaker_boundary, wisdom_dialogue]
+    research_status: seeded_needs_research
+    use_when: "Research speaker changes, poetic units, and canonical handling without choosing allegorical or literal-only readings."
+    representative_boundary_questions: ["How should speaker transitions be handled when source speaker labels may be editorial?"]
+    theological_downstream_risks: ["Boundaries can bias allegorical, marital, Christological, or wisdom-literary readings."]
+    metadata_watchpoints: [speaker_labels, poetry_markers, section_headings]
+    future_review_packet_candidates: [Song.1-Song.8]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Isa
+    canonical_order: 23
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [servant_songs, apocalypse, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research oracle groupings, servant passages, narrative interludes, and eschatological visions."
+    representative_boundary_questions: ["How should judgment, comfort, servant, and new-creation units be divided without selecting a school of prophetic fulfillment?"]
+    theological_downstream_risks: ["Boundaries can bias messianic fulfillment, Israel/church, eschatology, and servant identity readings."]
+    metadata_watchpoints: [section_headings, cross_references, poetry_markers, divine_names]
+    future_review_packet_candidates: [Isa.6, Isa.40-Isa.55, Isa.65-Isa.66]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Jer
+    canonical_order: 24
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [narrative_pericope, covenant, lament]
+    research_status: seeded_needs_research
+    use_when: "Research oracle collections, narrative episodes, symbolic actions, and new covenant passage."
+    representative_boundary_questions: ["How should non-linear oracle material and narrative episodes be grouped?"]
+    theological_downstream_risks: ["Boundaries can bias covenant, exile, restoration, and prophetic chronology claims."]
+    metadata_watchpoints: [oracle_formulae, section_headings, cross_references]
+    future_review_packet_candidates: [Jer.1, Jer.30-Jer.33, Jer.46-Jer.51]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Lam
+    canonical_order: 25
+    testament: OT
+    primary_lane: poetry_parallelism_stanza
+    secondary_lanes: [lament, acrostic, prophetic_oracle]
+    research_status: seeded_needs_research
+    use_when: "Research acrostic poem structures, lament voice changes, and hope/judgment units."
+    representative_boundary_questions: ["How should poems and internal voice shifts be chunked without minimizing lament or hope?"]
+    theological_downstream_risks: ["Boundaries can bias divine judgment, suffering, hope, and communal lament readings."]
+    metadata_watchpoints: [acrostic, poetry_markers, speaker_voice]
+    future_review_packet_candidates: [Lam.1-Lam.5]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Ezek
+    canonical_order: 26
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [apocalyptic_symbol_intertext, vision, temple]
+    research_status: seeded_needs_research
+    use_when: "Research vision reports, symbolic acts, judgment/restoration, and temple vision units."
+    representative_boundary_questions: ["How should visions, oracles, and symbolic actions divide without forcing Revelation/Daniel links into authority?"]
+    theological_downstream_risks: ["Boundaries can bias temple, restoration, eschatology, and apocalyptic intertext readings."]
+    metadata_watchpoints: [vision_markers, cross_references, divine_names]
+    future_review_packet_candidates: [Ezek.1-Ezek.3, Ezek.36-Ezek.37, Ezek.40-Ezek.48]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Dan
+    canonical_order: 27
+    testament: OT
+    primary_lane: apocalyptic_symbol_intertext
+    secondary_lanes: [narrative_pericope, prophetic_oracle, language_shift]
+    research_status: research_first
+    use_when: "Research narrative/vision division, symbolic kingdoms, language shifts, and Revelation intertexts without choosing an eschatology system."
+    representative_boundary_questions: ["How should court tales, visions, interpretation speeches, and time-symbol passages be separated?"]
+    theological_downstream_risks: ["Boundaries can bias futurist, historicist, preterist, idealist, premillennial, amillennial, or other orthodox eschatology readings."]
+    metadata_watchpoints: [language_shift, vision_markers, cross_references, strongs_numbers]
+    future_review_packet_candidates: [Dan.2, Dan.7, Dan.9-Dan.12]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Hos
+    canonical_order: 28
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [symbolic_marriage, covenant_lawsuit]
+    research_status: seeded_needs_research
+    use_when: "Research symbolic narrative, covenant lawsuit, judgment/restoration, and oracle units."
+    representative_boundary_questions: ["How should symbolic biography and oracle collections be separated?"]
+    theological_downstream_risks: ["Boundaries can bias covenant-love, idolatry, restoration, and judgment readings."]
+    metadata_watchpoints: [oracle_formulae, section_headings, cross_references]
+    future_review_packet_candidates: [Hos.1-Hos.3, Hos.11-Hos.14]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Joel
+    canonical_order: 29
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [apocalyptic_symbol_intertext, day_of_lord]
+    research_status: seeded_needs_research
+    use_when: "Research plague imagery, call to repentance, Spirit promise, and day-of-LORD units."
+    representative_boundary_questions: ["How should locust/day-of-LORD imagery and restoration promises be bounded?"]
+    theological_downstream_risks: ["Boundaries can bias Pentecost, eschatology, judgment, and restoration readings."]
+    metadata_watchpoints: [cross_references, oracle_formulae, section_headings]
+    future_review_packet_candidates: [Joel.1-Joel.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Amos
+    canonical_order: 30
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [judgment_oracles, vision]
+    research_status: seeded_needs_research
+    use_when: "Research nations oracles, covenant judgment, vision sequence, and restoration ending."
+    representative_boundary_questions: ["How should repeated judgment formulas and vision reports divide?"]
+    theological_downstream_risks: ["Boundaries can bias justice, covenant, remnant, and restoration readings."]
+    metadata_watchpoints: [oracle_formulae, vision_markers, cross_references]
+    future_review_packet_candidates: [Amos.1-Amos.2, Amos.7-Amos.9]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Obad
+    canonical_order: 31
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [day_of_lord, nations_oracle]
+    research_status: seeded_needs_research
+    use_when: "Research short-book oracle shape, Edom judgment, and day-of-LORD framing."
+    representative_boundary_questions: ["Should the whole book remain one unit or split judgment and restoration?"]
+    theological_downstream_risks: ["Boundaries can bias judgment/restoration and nations theology."]
+    metadata_watchpoints: [section_headings, cross_references]
+    future_review_packet_candidates: [Obad.1-Obad.21]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Jonah
+    canonical_order: 32
+    testament: OT
+    primary_lane: narrative_pericope
+    secondary_lanes: [prophetic_oracle, prayer_poetry]
+    research_status: seeded_needs_research
+    use_when: "Research narrative scenes, prayer psalm, oracle brevity, and ending dialogue."
+    representative_boundary_questions: ["How should narrative scenes and the prayer poem be separated?"]
+    theological_downstream_risks: ["Boundaries can bias repentance, mercy, judgment, and mission readings."]
+    metadata_watchpoints: [poetry_markers, scene_markers, section_headings]
+    future_review_packet_candidates: [Jonah.1-Jonah.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Mic
+    canonical_order: 33
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [lawsuit, restoration]
+    research_status: seeded_needs_research
+    use_when: "Research lawsuit forms, judgment/restoration alternation, and messianic/covenant passages."
+    representative_boundary_questions: ["How should alternating judgment and hope units be identified?"]
+    theological_downstream_risks: ["Boundaries can bias messianic, justice, remnant, and restoration readings."]
+    metadata_watchpoints: [oracle_formulae, cross_references, section_headings]
+    future_review_packet_candidates: [Mic.4-Mic.5, Mic.6-Mic.7]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Nah
+    canonical_order: 34
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [nations_oracle, poetry_parallelism_stanza]
+    research_status: seeded_needs_research
+    use_when: "Research acrostic-like opening, Nineveh judgment, and poetic oracle flow."
+    representative_boundary_questions: ["How should poetic stanzas and judgment oracle units divide?"]
+    theological_downstream_risks: ["Boundaries can bias wrath, justice, comfort, and nations theology."]
+    metadata_watchpoints: [poetry_markers, section_headings, cross_references]
+    future_review_packet_candidates: [Nah.1-Nah.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Hab
+    canonical_order: 35
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [dialogue, prayer_poetry]
+    research_status: seeded_needs_research
+    use_when: "Research prophet/LORD dialogue, woe oracles, and final prayer."
+    representative_boundary_questions: ["How should dialogue turns and the prayer psalm be separated?"]
+    theological_downstream_risks: ["Boundaries can bias faith, justice, sovereignty, and judgment readings."]
+    metadata_watchpoints: [speaker_markers, poetry_markers, cross_references]
+    future_review_packet_candidates: [Hab.1-Hab.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Zeph
+    canonical_order: 36
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [day_of_lord, restoration]
+    research_status: seeded_needs_research
+    use_when: "Research day-of-LORD judgment, nations material, and restoration promises."
+    representative_boundary_questions: ["How should judgment and restoration units be divided in a compact prophetic book?"]
+    theological_downstream_risks: ["Boundaries can bias eschatology, remnant, judgment, and salvation readings."]
+    metadata_watchpoints: [oracle_formulae, section_headings, cross_references]
+    future_review_packet_candidates: [Zeph.1-Zeph.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Hag
+    canonical_order: 37
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [temple, dated_oracles]
+    research_status: seeded_needs_research
+    use_when: "Research dated oracle units, temple rebuilding, and covenant blessing/cursing."
+    representative_boundary_questions: ["Should dated oracle headings control candidate unit boundaries?"]
+    theological_downstream_risks: ["Boundaries can bias temple, presence, obedience, and restoration readings."]
+    metadata_watchpoints: [date_markers, oracle_formulae, section_headings]
+    future_review_packet_candidates: [Hag.1-Hag.2]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Zech
+    canonical_order: 38
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [apocalyptic_symbol_intertext, vision, messianic_oracle]
+    research_status: research_first
+    use_when: "Research night visions, symbolic actions, oracles, and later NT/Revelation cross-references without making them authority."
+    representative_boundary_questions: ["How should visions, explanations, and oracle blocks be separated?"]
+    theological_downstream_risks: ["Boundaries can bias messianic, temple, eschatology, and Revelation intertext readings."]
+    metadata_watchpoints: [vision_markers, cross_references, section_headings]
+    future_review_packet_candidates: [Zech.1-Zech.6, Zech.9-Zech.14]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Mal
+    canonical_order: 39
+    testament: OT
+    primary_lane: prophetic_oracle
+    secondary_lanes: [disputation, covenant]
+    research_status: seeded_needs_research
+    use_when: "Research disputation units, covenant warnings, priesthood, and messenger promises."
+    representative_boundary_questions: ["How should question/answer disputation units be chunked?"]
+    theological_downstream_risks: ["Boundaries can bias covenant, priesthood, tithing, messenger, and eschatological readings."]
+    metadata_watchpoints: [question_answer_markers, cross_references, section_headings]
+    future_review_packet_candidates: [Mal.1-Mal.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Matt
+    canonical_order: 40
+    testament: NT
+    primary_lane: gospel_discourse_wj
+    secondary_lanes: [narrative_pericope, discourse_blocks, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research narrative/discourse alternation, fulfillment quotations, WJ evidence, and major discourse boundaries."
+    representative_boundary_questions: ["How should Jesus discourse blocks and narrative frames be separated without WJ formatting becoming speaker authority?"]
+    theological_downstream_risks: ["Boundaries can bias kingdom theology, law/fulfillment, eschatology, and Jesus speaker attribution."]
+    metadata_watchpoints: [wj_markers, section_headings, cross_references, speaker_labels]
+    future_review_packet_candidates: [Matt.5-Matt.7, Matt.13, Matt.24-Matt.25]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Mark
+    canonical_order: 41
+    testament: NT
+    primary_lane: narrative_pericope
+    secondary_lanes: [gospel_discourse_wj, passion_narrative, textual_variant_source_tradition]
+    research_status: seeded_needs_research
+    use_when: "Research fast narrative scenes, miracle/sandwich structures, passion narrative, and longer-ending source issues."
+    representative_boundary_questions: ["How should Markan intercalation and the longer ending be handled without source-variant authority drift?"]
+    theological_downstream_risks: ["Boundaries can bias Christology, discipleship, passion theology, and textual-ending treatment."]
+    metadata_watchpoints: [wj_markers, section_headings, textual_variant_notes, cross_references]
+    future_review_packet_candidates: [Mark.4, Mark.8-Mark.10, Mark.16]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Luke
+    canonical_order: 42
+    testament: NT
+    primary_lane: narrative_pericope
+    secondary_lanes: [gospel_discourse_wj, travel_narrative, parables]
+    research_status: seeded_needs_research
+    use_when: "Research infancy narrative, travel narrative, parable clusters, WJ evidence, and passion/resurrection scenes."
+    representative_boundary_questions: ["Where do narrative frames, parables, and speeches naturally divide in the travel section?"]
+    theological_downstream_risks: ["Boundaries can bias salvation history, Spirit, social ethics, parable interpretation, and Jesus speaker attribution."]
+    metadata_watchpoints: [wj_markers, section_headings, cross_references, speaker_labels]
+    future_review_packet_candidates: [Luke.1-Luke.2, Luke.9.51-Luke.19.27, Luke.24]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: John
+    canonical_order: 43
+    testament: NT
+    primary_lane: gospel_discourse_wj
+    secondary_lanes: [narrative_pericope, speaker_boundary, divine_name_title_capitalization]
+    research_status: owner_decision_pending
+    use_when: "Research signs, dialogues, Farewell Discourse, WJ evidence, and narrator/Jesus boundary issues after T356."
+    representative_boundary_questions: ["How should John 3 and other long discourses treat disputed Jesus/narrator transitions?"]
+    theological_downstream_risks: ["Boundaries can bias Christology, pneumatology, new birth, monergism/synergism debates, and Jesus speaker attribution."]
+    metadata_watchpoints: [wj_markers, speaker_labels, Word_word, Spirit_spirit, cross_references]
+    future_review_packet_candidates: [John.3, John.13-John.17, John.20-John.21]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Acts
+    canonical_order: 44
+    testament: NT
+    primary_lane: narrative_pericope
+    secondary_lanes: [sermon_speech, pneumatology, source_metadata_features]
+    research_status: seeded_needs_research
+    use_when: "Research narrative scenes, speeches/sermons, mission transitions, Spirit language, and variant verses."
+    representative_boundary_questions: ["How should speeches be separated from narrative frames without over-authorizing sermon substructure?"]
+    theological_downstream_risks: ["Boundaries can bias pneumatology, mission, ecclesiology, conversion sequence, and apostolic authority readings."]
+    metadata_watchpoints: [speech_markers, Spirit_spirit, textual_variant_notes, cross_references]
+    future_review_packet_candidates: [Acts.2, Acts.10-Acts.11, Acts.15]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Rom
+    canonical_order: 45
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [discourse_argument_flow, diatribe, doxology]
+    research_status: review_packet_pending
+    use_when: "Research macro-argument, diatribe questions, Romans 9-11 packet, exhortation, and doxology boundaries."
+    representative_boundary_questions: ["How should argument turns and Romans 9-11 be bounded without taking a Calvinist, Arminian, or other orthodox soteriology position?"]
+    theological_downstream_risks: ["Boundaries can bias justification, election, Israel/church, law/gospel, and sanctification readings."]
+    metadata_watchpoints: [rhetorical_questions, cross_references, section_headings]
+    future_review_packet_candidates: [Rom.1-Rom.4, Rom.5-Rom.8, Rom.9-Rom.11]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Cor
+    canonical_order: 46
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [case_response, worship_order, source_metadata_features]
+    research_status: review_packet_pending
+    use_when: "Research issue-by-issue argument, quotation responses, worship order, resurrection argument, and food-offered packet."
+    representative_boundary_questions: ["How should topic shifts and quoted Corinthian slogans be recognized without embedding a denominational worship practice?"]
+    theological_downstream_risks: ["Boundaries can bias ecclesiology, spiritual gifts, gender/order, resurrection, and conscience readings."]
+    metadata_watchpoints: [quotation_markers, section_headings, cross_references]
+    future_review_packet_candidates: [1Cor.8-1Cor.10, 1Cor.11-1Cor.14, 1Cor.15]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Cor
+    canonical_order: 47
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [apostolic_defense, collection_appeal]
+    research_status: seeded_needs_research
+    use_when: "Research shifts between comfort, ministry defense, collection appeal, and apostolic authority."
+    representative_boundary_questions: ["How should major tone and topic shifts be handled without presuming compositional theories?"]
+    theological_downstream_risks: ["Boundaries can bias suffering, ministry, reconciliation, generosity, and apostolic authority readings."]
+    metadata_watchpoints: [section_headings, rhetorical_markers, cross_references]
+    future_review_packet_candidates: [2Cor.1-2Cor.7, 2Cor.8-2Cor.9, 2Cor.10-2Cor.13]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Gal
+    canonical_order: 48
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [law_gospel, autobiographical_argument]
+    research_status: seeded_needs_research
+    use_when: "Research autobiographical defense, law/gospel argument, promise/covenant, and Spirit/flesh sections."
+    representative_boundary_questions: ["How should argument units divide without hard-coding a particular law/gospel framework?"]
+    theological_downstream_risks: ["Boundaries can bias justification, covenant, sanctification, and Spirit/flesh readings."]
+    metadata_watchpoints: [rhetorical_markers, Spirit_spirit, cross_references]
+    future_review_packet_candidates: [Gal.1-Gal.2, Gal.3-Gal.4, Gal.5-Gal.6]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Eph
+    canonical_order: 49
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [doxology_prayer, household_code, ecclesiology]
+    research_status: review_packet_pending
+    use_when: "Research long doxology/prayer syntax, Jew-Gentile unity, church/body imagery, and household code."
+    representative_boundary_questions: ["How should Eph.1.3-14 and subsequent prayer/argument units be bounded without deciding election debates?"]
+    theological_downstream_risks: ["Boundaries can bias election, union with Christ, ecclesiology, and household ethics readings."]
+    metadata_watchpoints: [long_sentence, cross_references, Spirit_spirit, section_headings]
+    future_review_packet_candidates: [Eph.1.3-Eph.1.14, Eph.2-Eph.3, Eph.5-Eph.6]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Phil
+    canonical_order: 50
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [christ_hymn, exhortation, thanksgiving]
+    research_status: seeded_needs_research
+    use_when: "Research thanksgiving, Christ hymn, exhortation, joy, and partnership themes."
+    representative_boundary_questions: ["How should the Christ hymn and surrounding argument be bounded?"]
+    theological_downstream_risks: ["Boundaries can bias Christology, humility, sanctification, and joy/suffering readings."]
+    metadata_watchpoints: [hymn_poetry, section_headings, cross_references]
+    future_review_packet_candidates: [Phil.1, Phil.2.1-Phil.2.18, Phil.3-Phil.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Col
+    canonical_order: 51
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [christ_hymn, household_code, warnings]
+    research_status: seeded_needs_research
+    use_when: "Research Christ hymn, fullness language, warnings, new-life exhortation, and household code."
+    representative_boundary_questions: ["How should hymn/confession material relate to polemic and exhortation units?"]
+    theological_downstream_risks: ["Boundaries can bias Christology, creation, church, asceticism, and household ethics readings."]
+    metadata_watchpoints: [hymn_poetry, cross_references, section_headings]
+    future_review_packet_candidates: [Col.1.15-Col.1.23, Col.2, Col.3-Col.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Thess
+    canonical_order: 52
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [eschatology, exhortation, thanksgiving]
+    research_status: seeded_needs_research
+    use_when: "Research thanksgiving, holiness exhortation, and coming-of-the-Lord comfort."
+    representative_boundary_questions: ["How should eschatological comfort and exhortation units be separated?"]
+    theological_downstream_risks: ["Boundaries can bias sanctification, resurrection, rapture/timing, and pastoral comfort readings."]
+    metadata_watchpoints: [eschatology_terms, cross_references, section_headings]
+    future_review_packet_candidates: [1Thess.4-1Thess.5]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Thess
+    canonical_order: 53
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [eschatology, church_order]
+    research_status: seeded_needs_research
+    use_when: "Research day-of-Lord correction, man of lawlessness passage, and idleness exhortation."
+    representative_boundary_questions: ["How should eschatological correction be bounded without choosing a timeline position?"]
+    theological_downstream_risks: ["Boundaries can bias eschatology, perseverance, judgment, and church-discipline readings."]
+    metadata_watchpoints: [eschatology_terms, cross_references, section_headings]
+    future_review_packet_candidates: [2Thess.1-2Thess.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Tim
+    canonical_order: 54
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [pastoral_instruction, church_order]
+    research_status: seeded_needs_research
+    use_when: "Research false-teaching warnings, worship/order instructions, overseer/deacon qualifications, and household-of-God logic."
+    representative_boundary_questions: ["How should instruction units be separated without embedding polity or gender-role conclusions?"]
+    theological_downstream_risks: ["Boundaries can bias ecclesiology, gender/order, office, and pastoral authority readings."]
+    metadata_watchpoints: [section_headings, cross_references, lists]
+    future_review_packet_candidates: [1Tim.2-1Tim.3, 1Tim.4-1Tim.6]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Tim
+    canonical_order: 55
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [pastoral_exhortation, suffering, scripture_doctrine]
+    research_status: seeded_needs_research
+    use_when: "Research personal exhortation, suffering, false teachers, Scripture doctrine, and final charge."
+    representative_boundary_questions: ["How should personal appeal and doctrinal exhortation units be separated?"]
+    theological_downstream_risks: ["Boundaries can bias Scripture doctrine, perseverance, ministry, and suffering readings."]
+    metadata_watchpoints: [section_headings, cross_references, personal_names]
+    future_review_packet_candidates: [2Tim.1-2Tim.4]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Titus
+    canonical_order: 56
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [pastoral_instruction, church_order, ethics]
+    research_status: seeded_needs_research
+    use_when: "Research elder qualifications, household teaching, grace/works logic, and divisive-person warning."
+    representative_boundary_questions: ["How should church order and ethical instruction units be grouped?"]
+    theological_downstream_risks: ["Boundaries can bias polity, sanctification, grace/works, and social ethics readings."]
+    metadata_watchpoints: [lists, cross_references, section_headings]
+    future_review_packet_candidates: [Titus.1-Titus.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Phlm
+    canonical_order: 57
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [personal_letter, social_ethics]
+    research_status: seeded_needs_research
+    use_when: "Research compact personal letter structure, appeal logic, and social-ethical sensitivity."
+    representative_boundary_questions: ["Should Philemon remain one unit or split thanksgiving, appeal, and closing?"]
+    theological_downstream_risks: ["Boundaries can bias slavery, reconciliation, authority, and fellowship readings."]
+    metadata_watchpoints: [personal_names, section_headings]
+    future_review_packet_candidates: [Phlm.1-Phlm.25]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Heb
+    canonical_order: 58
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [sermon_homily, priesthood, warning_passages]
+    research_status: review_packet_pending
+    use_when: "Research argument/warning alternation, priesthood argument, covenant comparisons, and exhortation."
+    representative_boundary_questions: ["How should Heb.7-10 and warning passages be bounded without deciding perseverance/apostasy debates?"]
+    theological_downstream_risks: ["Boundaries can bias Christology, priesthood, covenant, perseverance, and sacrificial theology."]
+    metadata_watchpoints: [OT_quotations, cross_references, section_headings]
+    future_review_packet_candidates: [Heb.3-Heb.4, Heb.7-Heb.10, Heb.11-Heb.12]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Jas
+    canonical_order: 59
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [wisdom_exhortation, ethics]
+    research_status: seeded_needs_research
+    use_when: "Research wisdom-style exhortation, faith/works passage, speech ethics, and prayer ending."
+    representative_boundary_questions: ["How should topical wisdom exhortations and faith/works argument be divided?"]
+    theological_downstream_risks: ["Boundaries can bias justification, sanctification, speech ethics, and prayer readings."]
+    metadata_watchpoints: [section_headings, cross_references, rhetorical_markers]
+    future_review_packet_candidates: [Jas.1-Jas.2, Jas.3-Jas.5]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1Pet
+    canonical_order: 60
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [suffering_exile, household_code, baptism]
+    research_status: seeded_needs_research
+    use_when: "Research exile identity, suffering exhortation, household code, and difficult spirits-in-prison passage."
+    representative_boundary_questions: ["How should suffering exhortations and difficult interpretive passages be bounded without resolving debates?"]
+    theological_downstream_risks: ["Boundaries can bias suffering, baptism, household ethics, and descent/spirits interpretations."]
+    metadata_watchpoints: [cross_references, section_headings, difficult_passage_flags]
+    future_review_packet_candidates: [1Pet.1-1Pet.2, 1Pet.3.18-1Pet.4.6, 1Pet.5]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2Pet
+    canonical_order: 61
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [false_teaching, eschatology, scripture_doctrine]
+    research_status: seeded_needs_research
+    use_when: "Research false-teacher polemic, transfiguration witness, Scripture doctrine, and day-of-Lord passage."
+    representative_boundary_questions: ["How should polemic and eschatological exhortation divide?"]
+    theological_downstream_risks: ["Boundaries can bias inspiration, judgment, eschatology, and apostasy readings."]
+    metadata_watchpoints: [cross_references, section_headings, eschatology_terms]
+    future_review_packet_candidates: [2Pet.1-2Pet.3]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 1John
+    canonical_order: 62
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [tests_of_life, christology, assurance]
+    research_status: seeded_needs_research
+    use_when: "Research cyclical argument, love/obedience/belief tests, antichrist language, and assurance units."
+    representative_boundary_questions: ["How should cyclical themes be bounded without flattening repeated tests?"]
+    theological_downstream_risks: ["Boundaries can bias assurance, sin/perfection, love, and Christology readings."]
+    metadata_watchpoints: [repeated_themes, cross_references, section_headings]
+    future_review_packet_candidates: [1John.1-1John.5]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 2John
+    canonical_order: 63
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [personal_letter, christology]
+    research_status: seeded_needs_research
+    use_when: "Research compact letter structure, love/truth exhortation, and false-teacher warning."
+    representative_boundary_questions: ["Should the whole letter remain one unit or split greeting, exhortation, warning, and closing?"]
+    theological_downstream_risks: ["Boundaries can bias hospitality, false teaching, and Christology readings."]
+    metadata_watchpoints: [personal_letter_markers, section_headings]
+    future_review_packet_candidates: [2John.1-2John.13]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: 3John
+    canonical_order: 64
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [personal_letter, church_conflict]
+    research_status: seeded_needs_research
+    use_when: "Research compact letter structure, hospitality, named-person contrasts, and authority conflict."
+    representative_boundary_questions: ["Should named-person sections be treated as separate units?"]
+    theological_downstream_risks: ["Boundaries can bias church authority, hospitality, and personal-example readings."]
+    metadata_watchpoints: [personal_names, section_headings]
+    future_review_packet_candidates: [3John.1-3John.15]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Jude
+    canonical_order: 65
+    testament: NT
+    primary_lane: epistle_argument
+    secondary_lanes: [false_teaching, noncanonical_reference, eschatology]
+    research_status: seeded_needs_research
+    use_when: "Research false-teacher polemic, examples, noncanonical-reference sensitivity, and doxology."
+    representative_boundary_questions: ["How should examples and noncanonical-reference material be surfaced without importing boundary authority?"]
+    theological_downstream_risks: ["Boundaries can bias apostasy, judgment, noncanonical source use, and perseverance readings."]
+    metadata_watchpoints: [cross_references, source_reference_flags, section_headings]
+    future_review_packet_candidates: [Jude.1-Jude.25]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false
+  - book_id: Rev
+    canonical_order: 66
+    testament: NT
+    primary_lane: revelation_apocalyptic
+    secondary_lanes: [apocalyptic_symbol_intertext, prophetic_oracle, gospel_discourse_wj]
+    research_status: research_first
+    use_when: "Research Revelation letters, visions, symbols, hymns, WJ/voice shifts, and Daniel/Ezekiel/Zechariah intertexts without choosing an eschatological system."
+    representative_boundary_questions: ["How can review packets preserve futurist, preterist, historicist, idealist, premillennial, amillennial, and postmillennial orthodox possibilities?"]
+    theological_downstream_risks: ["Boundaries can bias chronology, millennium views, church-age readings, symbolic identities, Israel/church relationships, and intertext authority."]
+    metadata_watchpoints: [wj_markers, cross_references, strongs_numbers, section_headings, apocalyptic_symbols]
+    future_review_packet_candidates: [Rev.1-Rev.3, Rev.12.1-Rev.14.20, Rev.20-Rev.22]
+    output_change_authorized: false
+    implementation_authorized: false
+    reviewed_gold_promoted: false

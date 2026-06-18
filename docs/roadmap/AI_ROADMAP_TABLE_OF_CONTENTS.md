@@ -28,7 +28,8 @@ Common tags in this file:
 - `review-packet`, `reviewed-gold`, `gold-gate`, `non-authorizing`
 - `theology-risk`, `hermeneutic-neutrality`, `source-metadata`
 - `audit`, `handoff`, `task-scope`, `validator`, `harness`
-- `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`
+- `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`,
+  `whole-bible-research`, `canonical-66`, `research-registry`
 
 ## Current Bible Chunking Path
 
@@ -52,6 +53,7 @@ Common tags in this file:
 | T354 | WJ/red-letter marker inventory harness | `wj`, `red-letter`, `source-metadata`, `harness` | Checking words-of-Jesus marker evidence without authorizing speaker/chunk behavior. | `docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`; `.ai/control/wj_marker_inventory.yaml`; `scripts/validate_wj_marker_inventory.py`; `.ai/tasks/T354.task.yaml`; `.ai/handoffs/T354/handoff.md` |
 | T355 | WJ speaker/discourse policy and target selection | `wj-speaker`, `gospel-discourse-wj`, `john3`, `policy` | Understanding why John 3 was selected for owner review only. | `docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`; `.ai/control/wj_speaker_discourse_policy.yaml`; `scripts/validate_wj_speaker_discourse_policy.py`; `.ai/tasks/T355.task.yaml`; `.ai/handoffs/T355/handoff.md` |
 | T356 | John 3 WJ owner-review docket | `john3`, `owner-review`, `speaker-boundary`, `current-route` | Presenting owner options before any John 3 parent/child/speaker/chunk approval. | `docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`; `.ai/control/john3_wj_owner_review_docket.yaml`; `scripts/validate_john3_owner_review_docket.py`; `.ai/tasks/T356.task.yaml`; `.ai/handoffs/T356/handoff.md` |
+| T358 | Bible-wide chunking research registry | `whole-bible-research`, `canonical-66`, `research-registry`, `non-authorizing` | Preparing future research packets across all 66 books without starting chunk implementation. | `docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`; `.ai/control/bible_wide_chunking_research_registry.yaml`; `scripts/validate_bible_wide_chunking_research_registry.py`; `.ai/tasks/T358.task.yaml`; `.ai/handoffs/T358/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -67,6 +69,7 @@ Common tags in this file:
 | `.ai/control/wj_marker_inventory.yaml` | `wj`, `red-letter`, `source-metadata`, `evidence-only` | Work touches words-of-Jesus markers or red-letter formatting. | Observed WJ/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority. |
 | `.ai/control/wj_speaker_discourse_policy.yaml` | `wj-speaker`, `john3`, `policy`, `owner-review` | Work weighs WJ/speaker/discourse evidence before owner review. | Policy for weighing WJ/speaker/discourse evidence; selects John 3 for owner review only. |
 | `.ai/control/john3_wj_owner_review_docket.yaml` | `john3`, `owner-review`, `current-route`, `non-authorizing` | Owner needs John 3 options or an agent needs to know what is still pending. | Pending John 3 owner-review options; no parent/child/speaker/chunk approval. |
+| `.ai/control/bible_wide_chunking_research_registry.yaml` | `whole-bible-research`, `canonical-66`, `research-registry`, `book-watchpoints` | Future agents need book-level research prompts before exact review packets or algorithms. | Canonical 66-book research queue; no chunk/gold/graph/output authority. |
 
 ## Current Next Route
 
@@ -107,3 +110,6 @@ John 3 speaker boundaries, discourse boundaries, reviewed gold, WJ-driven route 
 edges, retrieval truth, or output changes. T356 does not authorize John 3 parent spans, child
 spans, Jesus speaker attribution, narrator boundaries, reviewed gold, graph edges, retrieval truth,
 route behavior, or output changes.
+T358 does not authorize any book-level research prompt or future review-packet candidate as
+reviewed gold, route behavior, graph truth, retrieval truth, source-metadata authority, or output
+change.

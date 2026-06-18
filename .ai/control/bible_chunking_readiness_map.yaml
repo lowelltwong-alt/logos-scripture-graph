@@ -33,6 +33,7 @@ lessons_storage:
     - .ai/control/wj_marker_inventory.yaml
     - .ai/control/wj_speaker_discourse_policy.yaml
     - .ai/control/john3_wj_owner_review_docket.yaml
+    - .ai/control/bible_wide_chunking_research_registry.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -190,8 +191,16 @@ lane_sequence:
     theological_risk: "Words-of-Jesus and speaker boundaries can encode speaker attribution or discourse scope without review."
   - lane_id: bible_wide_orchestration
     implementation_order: 8
-    current_state: blocked_until_lane_evidence_matures
+    current_state: t358_research_registry_seeded_implementation_blocked
     new_algorithm_work_ready: false
+    research_registry:
+      task_id: T358
+      path: .ai/control/bible_wide_chunking_research_registry.yaml
+      status: canonical_66_research_queue_seeded
+      book_count: 66
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
     required_before_new_work:
       - multiple promoted or rejected lane attempts with evidence
       - route ledger stability
@@ -221,6 +230,18 @@ next_route:
   john3_owner_selection_status: pending
   john3_selected_option: pending
   review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+parallel_research_queue:
+  task_id: T358
+  title: Bible-Wide Chunking Research Registry
+  route_type: whole_bible_research_registry
+  path: .ai/control/bible_wide_chunking_research_registry.yaml
+  status: complete_non_authorizing
+  relation_to_next_route: "Parallel research-only queue; does not select a John 3 option and does not supersede T356/T357 owner review."
+  corpus_scope: canonical_66
+  book_count: 66
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
