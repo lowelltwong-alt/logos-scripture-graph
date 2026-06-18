@@ -144,6 +144,11 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T356"]["selected_option"] == "pending"
     assert tasks["T356"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
     assert tasks["T356"]["selected_target"] == "john3_wj_speaker_boundary"
+    assert tasks["T358"]["status"] == "complete"
+    assert tasks["T358"]["lane"] == "bible_wide_research"
+    assert tasks["T358"]["research_registry"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
+    assert tasks["T358"]["book_count"] == 66
+    assert tasks["T358"]["implementation_authorized"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"

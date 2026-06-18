@@ -49,6 +49,22 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert validator.REQUIRED_LESSON_SURFACES <= surfaces
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in surfaces
+    assert ".ai/control/bible_wide_chunking_research_registry.yaml" in surfaces
+
+
+def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    queue = data["parallel_research_queue"]
+
+    assert data["next_route"]["task_id"] == "T356"
+    assert queue["task_id"] == "T358"
+    assert queue["route_type"] == "whole_bible_research_registry"
+    assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
+    assert queue["corpus_scope"] == "canonical_66"
+    assert queue["book_count"] == 66
+    assert queue["output_change_authorized"] is False
+    assert queue["implementation_authorized"] is False
+    assert queue["reviewed_gold_promoted"] is False
 
 
 def test_next_route_advances_to_t356_john3_owner_review_docket() -> None:

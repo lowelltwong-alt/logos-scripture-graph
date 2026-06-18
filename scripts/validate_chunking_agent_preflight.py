@@ -16,6 +16,7 @@ SUPPLY_CHAIN = ROOT / "docs" / "methodology" / "CHUNKING_SKILL_SUPPLY_CHAIN.md"
 WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
+RESEARCH_REGISTRY = ROOT / ".ai" / "control" / "bible_wide_chunking_research_registry.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -55,7 +56,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -100,6 +101,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "wj_marker_inventory.yaml",
     "wj_speaker_discourse_policy.yaml",
     "john3_wj_owner_review_docket.yaml",
+    "bible_wide_chunking_research_registry.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -246,6 +248,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "docs/methodology/WORKFLOW_LESSONS.md",
         ".ai/control/chunking_theological_decision_register.yaml",
         ".ai/control/bible_chunking_research_triage_map.yaml",
+        ".ai/control/bible_wide_chunking_research_registry.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -303,6 +306,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in triage_text:
             raise PreflightError(f"{_rel(TRIAGE_MAP)}: missing divine capitalization phrase {phrase!r}")
+    research_registry_text = _read_text(RESEARCH_REGISTRY)
+    for phrase in (
+        "object_type: bible_wide_chunking_research_registry",
+        "book_count: 66",
+        "John.3",
+        "Rev.12.1-Rev.14.20",
+        "source_metadata_features",
+        "divine_name_title_capitalization",
+        "authorizes_chunk_output_change: false",
+        "reviewed_gold_promoted: false",
+    ):
+        if phrase not in research_registry_text:
+            raise PreflightError(f"{_rel(RESEARCH_REGISTRY)}: missing registry phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

@@ -28,6 +28,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/wj_marker_inventory.yaml" in reading
     assert ".ai/control/wj_speaker_discourse_policy.yaml" in reading
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in reading
+    assert ".ai/control/bible_wide_chunking_research_registry.yaml" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -40,6 +41,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "wj_marker_inventory.yaml" in text
     assert "wj_speaker_discourse_policy.yaml" in text
     assert "john3_wj_owner_review_docket.yaml" in text
+    assert "bible_wide_chunking_research_registry.yaml" in text
     assert "T352 is the next" not in text
     assert "currently points to T356 John 3 owner review" in text
     assert "God/god" in text
@@ -69,6 +71,8 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-021" in register
     assert "CD-022" in register
     assert "CD-023" in register
+    assert "CD-024" in register
+    assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -84,10 +88,12 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/wj_marker_inventory.yaml" in reading
     assert ".ai/control/wj_speaker_discourse_policy.yaml" in reading
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in reading
+    assert ".ai/control/bible_wide_chunking_research_registry.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "CD-021" in register_entry["required_decision_ids"]
     assert "CD-022" in register_entry["required_decision_ids"]
     assert "CD-023" in register_entry["required_decision_ids"]
+    assert "CD-024" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

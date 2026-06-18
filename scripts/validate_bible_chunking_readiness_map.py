@@ -55,6 +55,7 @@ REQUIRED_LESSON_SURFACES = {
     "docs/methodology/WORKFLOW_LESSONS.md",
     "docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md",
     "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
+    ".ai/control/bible_wide_chunking_research_registry.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
@@ -294,6 +295,23 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             )
         if next_route.get("reviewed_gold_promoted") is not False:
             raise ReadinessMapError(f"{_rel(path)}: T356 next_route.reviewed_gold_promoted must be false")
+
+    parallel_research = data.get("parallel_research_queue")
+    if isinstance(parallel_research, dict):
+        expected_parallel = {
+            "task_id": "T358",
+            "route_type": "whole_bible_research_registry",
+            "path": ".ai/control/bible_wide_chunking_research_registry.yaml",
+            "status": "complete_non_authorizing",
+            "corpus_scope": "canonical_66",
+            "book_count": 66,
+        }
+        for key, value in expected_parallel.items():
+            if parallel_research.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: parallel_research_queue.{key} must be {value}")
+        for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
+            if parallel_research.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: parallel_research_queue.{key} must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

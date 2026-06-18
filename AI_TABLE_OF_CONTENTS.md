@@ -23,6 +23,7 @@ If a future task creates or updates an AI TOC, apply this pattern there too. Thi
 | `front-door`, `agent-startup`, `required-reading`, `mode-selection` | Any AI starts work in this repo or needs the mandatory entry protocol. | [`AI_FRONT_DOOR.md`](AI_FRONT_DOOR.md); [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) |
 | `current-state`, `status`, `handoff`, `roadmap`, `next-route` | An agent needs to know what is active, complete, blocked, or next. | [`.ai/control/PROJECT_STATUS.md`](.ai/control/PROJECT_STATUS.md); [`.ai/control/current_focus.yaml`](.ai/control/current_focus.yaml); [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml); [`docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md`](docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md) |
 | `chunking`, `theology-risk`, `decision-register`, `owner-decision`, `non-authorizing` | A change could affect chunking, evaluator behavior, gold, routes, defaults, speaker attribution, intertexts, or theology-facing output. | [`.ai/control/chunking_agent_preflight.yaml`](.ai/control/chunking_agent_preflight.yaml); [`.ai/control/chunking_theological_decision_register.yaml`](.ai/control/chunking_theological_decision_register.yaml); [`.ai/control/bible_chunking_readiness_map.yaml`](.ai/control/bible_chunking_readiness_map.yaml) |
+| `whole-bible-research`, `canonical-66`, `book-watchpoints`, `research-registry`, `review-packet-candidates` | An agent needs to prepare Bible-wide research before choosing exact review packets or algorithms. | [`.ai/control/bible_wide_chunking_research_registry.yaml`](.ai/control/bible_wide_chunking_research_registry.yaml); [`docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`](docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md) |
 | `source-metadata`, `cross-references`, `strongs`, `footnotes`, `headings`, `wj`, `red-letter`, `capitalization` | Source formatting or metadata may look theologically meaningful and must remain evidence-only unless authorized. | [`.ai/control/RAW_SOURCE_INVENTORY.md`](.ai/control/RAW_SOURCE_INVENTORY.md); [`docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md`](docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md); [`.ai/control/divine_capitalization_inventory.yaml`](.ai/control/divine_capitalization_inventory.yaml); [`.ai/control/wj_marker_inventory.yaml`](.ai/control/wj_marker_inventory.yaml) |
 | `john3`, `wj-speaker`, `speaker-boundary`, `owner-review`, `gospel-discourse` | Work touches John 3, WJ/red-letter evidence, Jesus/narrator boundaries, or Gospel discourse chunking. | [`.ai/control/wj_speaker_discourse_policy.yaml`](.ai/control/wj_speaker_discourse_policy.yaml); [`.ai/control/john3_wj_owner_review_docket.yaml`](.ai/control/john3_wj_owner_review_docket.yaml); [`docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`](docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md) |
 | `validation`, `ci`, `harness`, `task-scope`, `protected-paths`, `regression` | A developer or agent needs to know what must pass or why a change is blocked. | [`scripts/validate_all.py`](scripts/validate_all.py); [`scripts/validate_task_scope.py`](scripts/validate_task_scope.py); [`.ai/control/harness_upgrade_roadmap.yaml`](.ai/control/harness_upgrade_roadmap.yaml) |
@@ -80,6 +81,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`.ai/control/chunking_theological_decision_register.yaml`](.ai/control/chunking_theological_decision_register.yaml) - first-class chunking/theological decision register
 - [`.ai/control/bible_chunking_readiness_map.yaml`](.ai/control/bible_chunking_readiness_map.yaml) - non-authorizing Bible-wide lane and algorithm readiness map
 - [`.ai/control/bible_chunking_research_triage_map.yaml`](.ai/control/bible_chunking_research_triage_map.yaml) - non-authorizing Bible-wide research triage before more chunking work
+- [`.ai/control/bible_wide_chunking_research_registry.yaml`](.ai/control/bible_wide_chunking_research_registry.yaml) - canonical 66-book research queue; tags: `whole-bible-research`, `canonical-66`, `review-packet-candidates`; evidence only, not chunk/gold/graph authority
 - [`.ai/control/divine_capitalization_inventory.yaml`](.ai/control/divine_capitalization_inventory.yaml) - observed divine-name/title/pronoun capitalization inventory; evidence only, not graph/chunk/retrieval authority
 - [`.ai/control/wj_marker_inventory.yaml`](.ai/control/wj_marker_inventory.yaml) - observed words-of-Jesus/red-letter marker token runs; evidence only, not speaker/chunk/graph/retrieval authority
 - [`.ai/control/wj_speaker_discourse_policy.yaml`](.ai/control/wj_speaker_discourse_policy.yaml) - WJ speaker/discourse policy and John 3 owner-review target selection; review-only, not chunk/speaker/graph/retrieval authority
@@ -106,17 +108,20 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`](docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md)
 - [`docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`](docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md)
 - [`docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`](docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md)
+- [`docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`](docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md)
 - [`.ai/tasks/T351.task.yaml`](.ai/tasks/T351.task.yaml) - completed Bible-wide research triage before more chunking work
 - [`.ai/tasks/T352.task.yaml`](.ai/tasks/T352.task.yaml) - completed epistle argument review-packet prep
 - [`.ai/tasks/T353.task.yaml`](.ai/tasks/T353.task.yaml) - completed divine capitalization inventory harness
 - [`.ai/tasks/T354.task.yaml`](.ai/tasks/T354.task.yaml) - completed WJ/red-letter marker inventory harness
 - [`.ai/tasks/T355.task.yaml`](.ai/tasks/T355.task.yaml) - completed WJ speaker/discourse policy and target selection
 - [`.ai/tasks/T356.task.yaml`](.ai/tasks/T356.task.yaml) - active John 3 WJ owner-review docket
+- [`.ai/tasks/T358.task.yaml`](.ai/tasks/T358.task.yaml) - completed Bible-wide chunking research registry
 - [`.ai/handoffs/T352/handoff.md`](.ai/handoffs/T352/handoff.md) - handoff for epistle argument review-packet prep
 - [`.ai/handoffs/T353/handoff.md`](.ai/handoffs/T353/handoff.md) - handoff for divine capitalization inventory harness
 - [`.ai/handoffs/T354/handoff.md`](.ai/handoffs/T354/handoff.md) - handoff for WJ/red-letter marker inventory harness
 - [`.ai/handoffs/T355/handoff.md`](.ai/handoffs/T355/handoff.md) - handoff for WJ speaker/discourse policy and John 3 target selection
 - [`.ai/handoffs/T356/handoff.md`](.ai/handoffs/T356/handoff.md) - handoff for John 3 WJ owner-review docket
+- [`.ai/handoffs/T358/handoff.md`](.ai/handoffs/T358/handoff.md) - handoff for Bible-wide chunking research registry
 - [`docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md`](docs/roadmap/T350_BIBLE_WIDE_CHUNKING_READINESS_PLAN.md)
 - [`.ai/control/t340_psalm_candidate_promotion_decision.yaml`](.ai/control/t340_psalm_candidate_promotion_decision.yaml)
 - [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml)
@@ -143,6 +148,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`scripts/build_wj_marker_inventory.py`](scripts/build_wj_marker_inventory.py) - regenerates the evidence-only WJ marker inventory from canonical word tokens
 - [`scripts/validate_wj_speaker_discourse_policy.py`](scripts/validate_wj_speaker_discourse_policy.py) - checks the WJ speaker/discourse policy, John 3 target selection, and non-authorization flags
 - [`scripts/validate_john3_owner_review_docket.py`](scripts/validate_john3_owner_review_docket.py) - checks the pending John 3 owner-review docket and non-authorization flags
+- [`scripts/validate_bible_wide_chunking_research_registry.py`](scripts/validate_bible_wide_chunking_research_registry.py) - checks canonical 66 research registry coverage, sensitive watchpoints, and non-authorization flags
 - [`docs/workflows/AGENT_COORDINATION_WORKFLOW.md`](docs/workflows/AGENT_COORDINATION_WORKFLOW.md)
 - [`docs/workflows/ROADMAP_CHANGE_WORKFLOW.md`](docs/workflows/ROADMAP_CHANGE_WORKFLOW.md)
 

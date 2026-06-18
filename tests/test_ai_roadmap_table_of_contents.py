@@ -28,6 +28,8 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "`audit`, `no-context-review`, `red-team`, `a-b-check`, `review-report`",
         ".ai/audits/README.md",
         "developer-engineering",
+        "whole-bible-research",
+        "bible_wide_chunking_research_registry.yaml",
         "source-metadata",
         "john3",
         "task-scope",
@@ -102,6 +104,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in toc
     assert ".ai/tasks/T356.task.yaml" in toc
     assert ".ai/handoffs/T356/handoff.md" in toc
+    assert "T358 | Bible-wide chunking research registry" in toc
+    assert "docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md" in toc
+    assert ".ai/control/bible_wide_chunking_research_registry.yaml" in toc
+    assert ".ai/tasks/T358.task.yaml" in toc
+    assert ".ai/handoffs/T358/handoff.md" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc
