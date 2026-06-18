@@ -46,6 +46,16 @@ def test_research_registry_records_sensitive_research_watchpoints() -> None:
         if dimension["dimension_id"] == "source_metadata_features"
     )
     assert source_metadata["companion_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
+    apocalyptic = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "apocalyptic_symbol_intertext"
+    )
+    prophetic = next(
+        dimension for dimension in data["research_dimensions"]
+        if dimension["dimension_id"] == "prophetic_oracle_vision"
+    )
+    assert apocalyptic["companion_dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
+    assert prophetic["companion_dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
     assert "divine_name_title_capitalization" in {
         dimension["dimension_id"] for dimension in data["research_dimensions"]
     }

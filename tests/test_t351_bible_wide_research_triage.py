@@ -142,6 +142,10 @@ def test_t351_task_and_roadmap_are_active_and_numeric() -> None:
     assert tasks["T359"]["lane"] == "source_metadata_research"
     assert tasks["T359"]["research_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
     assert tasks["T359"]["source_metadata_authority_allowed"] is False
+    assert tasks["T360"]["status"] == "complete"
+    assert tasks["T360"]["lane"] == "apocalyptic_prophetic_intertext"
+    assert tasks["T360"]["dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
+    assert tasks["T360"]["intertext_truth_authorized"] is False
     assert "T344R" not in future
     assert future["T357"]["status"] == "planned"
     assert future["T345"]["status"] == "planned"

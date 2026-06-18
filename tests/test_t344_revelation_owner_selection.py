@@ -153,6 +153,10 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T359"]["lane"] == "source_metadata_research"
     assert tasks["T359"]["research_atlas"] == ".ai/control/source_metadata_research_atlas.yaml"
     assert tasks["T359"]["source_metadata_authority_allowed"] is False
+    assert tasks["T360"]["status"] == "complete"
+    assert tasks["T360"]["lane"] == "apocalyptic_prophetic_intertext"
+    assert tasks["T360"]["dossier_queue"] == ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml"
+    assert tasks["T360"]["intertext_truth_authorized"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"

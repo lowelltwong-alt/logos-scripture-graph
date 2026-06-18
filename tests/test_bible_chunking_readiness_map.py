@@ -51,6 +51,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in surfaces
     assert ".ai/control/bible_wide_chunking_research_registry.yaml" in surfaces
     assert ".ai/control/source_metadata_research_atlas.yaml" in surfaces
+    assert ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml" in surfaces
 
 
 def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:

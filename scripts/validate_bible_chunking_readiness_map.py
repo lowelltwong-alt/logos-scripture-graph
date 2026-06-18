@@ -57,6 +57,7 @@ REQUIRED_LESSON_SURFACES = {
     "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
     ".ai/control/bible_wide_chunking_research_registry.yaml",
     ".ai/control/source_metadata_research_atlas.yaml",
+    ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {

@@ -71,6 +71,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_source_metadata_research_atlas.py")],
         ),
         (
+            "validate_apocalyptic_prophetic_intertext_dossier_queue.py",
+            [PY, str(ROOT / "scripts" / "validate_apocalyptic_prophetic_intertext_dossier_queue.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

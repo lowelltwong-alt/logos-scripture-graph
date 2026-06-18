@@ -22,8 +22,9 @@ Read these files before making changes:
     `.ai/control/chunking_agent_preflight.yaml` and
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
     Source metadata is evidence, not authority. The source-metadata research atlas,
-    divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy, and
-    John 3 owner-review docket are evidence/review policy, not authority.
+    apocalyptic/prophetic intertext dossier queue, divine-name/title capitalization and
+    WJ/red-letter markers, WJ speaker/discourse policy, and John 3 owner-review docket are
+    evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
@@ -165,6 +166,13 @@ Bible-first chunking priority:
   truth, intertext truth, speaker attribution, graph edges, retrieval truth, reviewed gold, chunk
   boundaries, output changes, boundary import, or algorithm work. It is validated by
   `scripts/validate_source_metadata_research_atlas.py`.
+- The apocalyptic/prophetic intertext dossier queue at
+  `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` records Revelation, Daniel,
+  prophetic, Olivet discourse, cosmic-sign, temple-city, Psalm 2, and Zechariah intertext research
+  cases while preserving multiple orthodox hermeneutic options. It does not authorize intertext
+  truth, graph edges, retrieval truth, reviewed gold, chunk boundaries, output changes,
+  Revelation implementation, boundary import, or an eschatological system. It is validated by
+  `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -267,6 +275,7 @@ python scripts/validate_chunking_theological_decision_register.py
 python scripts/validate_bible_chunking_readiness_map.py
 python scripts/validate_chunking_agent_preflight.py
 python scripts/validate_source_metadata_research_atlas.py
+python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -311,6 +320,10 @@ watchpoints.
 `python scripts/validate_source_metadata_research_atlas.py` fails closed if the source-metadata
 research atlas loses required metadata families, stale canonical source-surface counts, priority
 cases, or evidence-only non-authorizations.
+`python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py` fails closed if the
+apocalyptic/prophetic dossier queue becomes authorizing, loses required hermeneutic options,
+misstates source cross-reference counts, drops required dossiers, or omits non-authorization
+guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
