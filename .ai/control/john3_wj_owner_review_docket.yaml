@@ -1,0 +1,132 @@
+---
+object_type: john3_wj_owner_review_docket
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T356 after T355 selected John.3.1-John.3.36 as the first exact WJ speaker/discourse owner-review target."
+reason_for_inclusion: "Make the next John 3 WJ speaker/discourse owner decision explicit, auditable, and non-authorizing before any chunk implementation or reviewed-gold promotion."
+---
+schema_version: john3_wj_owner_review_docket.v1
+docket_id: john3_wj_speaker_boundary_owner_review
+owner: Lowell Wong
+authority:
+  records_owner_review_options: true
+  may_surface_for_review: true
+  authorizes_jesus_speaker_attribution: false
+  authorizes_speaker_boundary: false
+  authorizes_discourse_boundary: false
+  authorizes_parent_span: false
+  authorizes_child_spans: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_boundaries: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_output_change: false
+source_inputs:
+  - path: .ai/control/wj_speaker_discourse_policy.yaml
+    used_for: "T355 policy and selected John 3 target."
+  - path: .ai/control/wj_marker_inventory.yaml
+    used_for: "Observed WJ/red-letter token-run evidence."
+  - path: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+    used_for: "Existing pending speaker-boundary review packet."
+  - path: .ai/control/bible_chunking_readiness_map.yaml
+    used_for: "Current non-authorizing next route and lane readiness."
+target:
+  target_id: john3_wj_speaker_boundary
+  passage: John.3.1-John.3.36
+  review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+  prior_policy_task: T355
+  owner_review_task: T356
+  status: owner_selection_pending
+  current_chunk_behavior:
+    - John.1.40-John.3.2
+    - John.3.3-John.4.6
+  known_review_risks:
+    - disputed_jesus_narrator_boundary
+    - wj_marker_as_speaker_authority
+    - punctuation_as_speaker_authority
+    - chapter_boundary_as_discourse_authority
+    - smoothing_split_wj_runs
+owner_selection:
+  reviewer: null
+  date: null
+  owner_selection_status: pending
+  selected_option: pending
+  selected_parent: null
+  selected_children: []
+  selected_jesus_speech_span: null
+  rationale: null
+  implementation_allowed: false
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+options:
+  - option_id: JOHN3-T356-A
+    title: Preserve current overlapping Gospel chunks
+    description: "Do not approve a John 3 parent or child unit from this packet."
+    future_effect_if_selected: "Keep current chunk behavior and leave John 3 WJ/speaker evidence as review-only."
+    implementation_allowed_now: false
+  - option_id: JOHN3-T356-B
+    title: Approve parent-only John 3 review target
+    selected_parent_candidate: John.3.1-John.3.36
+    selected_children_candidate: []
+    description: "Owner may approve John.3.1-John.3.36 as a parent review unit without approving internal child speaker/discourse boundaries."
+    future_effect_if_selected: "A later task may prepare reviewed-gold/equivalent governed evidence for the parent span only; implementation still requires a separate authorization."
+    implementation_allowed_now: false
+  - option_id: JOHN3-T356-C
+    title: Approve parent plus exact child-boundary review target
+    selected_parent_candidate: John.3.1-John.3.36
+    child_span_candidates:
+      - span: John.3.1-John.3.2
+        review_label: "Narrative setup and Nicodemus arrival"
+        guardrail: "Narrative label does not authorize a theological or discourse boundary by itself."
+      - span: John.3.3-John.3.8
+        review_label: "Initial Jesus/Nicodemus exchange with WJ evidence"
+        guardrail: "WJ evidence remains diagnostic and not speaker authority."
+      - span: John.3.9-John.3.21
+        review_label: "Disputed speaker/discourse zone"
+        guardrail: "Owner must explicitly decide Jesus speech, narrator/commentary, or unresolved-for-chunking status before any child span can become gold."
+      - span: John.3.22-John.3.36
+        review_label: "John's witness after the Nicodemus scene"
+        guardrail: "Following witness material must not be merged or split by WJ metadata alone."
+    description: "Owner may approve exact child spans only with explicit handling of the disputed John.3.9-John.3.21 speaker/discourse zone."
+    future_effect_if_selected: "A later task may prepare exact reviewed-gold/equivalent governed evidence for the selected parent and children; implementation still requires a separate authorization."
+    implementation_allowed_now: false
+  - option_id: JOHN3-T356-D
+    title: Approve a narrower Jesus-speech unit only
+    description: "Owner may approve one exact Jesus-speech span while leaving John 3 parent/child chunking unresolved."
+    future_effect_if_selected: "A later task must record the exact selected span and keep non-selected John 3 material unchanged unless separately reviewed."
+    implementation_allowed_now: false
+  - option_id: JOHN3-T356-E
+    title: Require more research before John 3 gold or implementation
+    description: "Keep the packet pending and gather more evidence before approving parent, child, or Jesus-speech spans."
+    future_effect_if_selected: "Continue research/prep only; no reviewed gold or implementation follows from this docket."
+    implementation_allowed_now: false
+future_output_changing_use_requires:
+  - owner_selection
+  - exact_scope
+  - reviewed_speaker_discourse_gold_or_equivalent_governed_evidence
+  - decision_register_update
+  - executable_tests
+  - non_target_identity_proof
+  - same_baseline_evaluation
+  - later_implementation_authorization
+non_authorizations:
+  - john3_parent_span_approval
+  - john3_child_span_approval
+  - john3_jesus_speaker_attribution
+  - john3_narrator_boundary_decision
+  - wj_marker_as_speaker_authority
+  - wj_marker_as_speaker_boundary
+  - wj_marker_as_discourse_boundary
+  - wj_marker_as_chunk_boundary
+  - wj_marker_as_reviewed_gold
+  - wj_marker_as_graph_edge
+  - wj_marker_as_retrieval_truth
+  - wj_marker_as_output_change
+  - red_letter_markup_as_theological_truth
+validators:
+  - scripts/validate_john3_owner_review_docket.py
+  - tests/test_john3_owner_review_docket.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_all.py
+...

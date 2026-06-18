@@ -129,7 +129,13 @@ def test_t351_task_and_roadmap_are_active_and_numeric() -> None:
     assert tasks["T355"]["status"] == "complete"
     assert tasks["T355"]["lane"] == "gospel_discourse_wj"
     assert tasks["T355"]["selected_target"] == "john3_wj_speaker_boundary"
+    assert tasks["T356"]["status"] == "complete"
+    assert tasks["T356"]["lane"] == "gospel_discourse_wj"
+    assert tasks["T356"]["owner_selection_status"] == "pending"
+    assert tasks["T356"]["selected_option"] == "pending"
+    assert tasks["T356"]["selected_target"] == "john3_wj_speaker_boundary"
     assert "T344R" not in future
+    assert future["T357"]["status"] == "planned"
     assert future["T345"]["status"] == "planned"
 
 

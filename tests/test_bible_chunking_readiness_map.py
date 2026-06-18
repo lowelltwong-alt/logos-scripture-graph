@@ -48,13 +48,14 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     surfaces = set(data["lessons_storage"]["surfaces"])
     assert validator.REQUIRED_LESSON_SURFACES <= surfaces
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
+    assert ".ai/control/john3_wj_owner_review_docket.yaml" in surfaces
 
 
-def test_next_route_advances_to_t355_wj_policy_selection() -> None:
+def test_next_route_advances_to_t356_john3_owner_review_docket() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T355"
-    assert data["next_route"]["route_type"] == "wj_speaker_discourse_policy_and_target_selection"
+    assert data["next_route"]["task_id"] == "T356"
+    assert data["next_route"]["route_type"] == "john3_wj_owner_review_docket"
     assert data["next_route"]["recommended_target"] == "gospel_discourse_wj"
     assert data["next_route"]["owner_selection_status"] == "selected"
     assert data["next_route"]["selected_option"] == "REV-T344-E"
@@ -62,11 +63,15 @@ def test_next_route_advances_to_t355_wj_policy_selection() -> None:
     assert data["next_route"]["triage_map"] == ".ai/control/bible_chunking_research_triage_map.yaml"
     assert data["next_route"]["prior_triage_task"] == "T351"
     assert data["next_route"]["prior_inventory_task"] == "T354"
+    assert data["next_route"]["prior_policy_task"] == "T355"
     assert data["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
     assert data["next_route"]["policy"] == ".ai/control/wj_speaker_discourse_policy.yaml"
+    assert data["next_route"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
     assert data["next_route"]["selected_target"] == "john3_wj_speaker_boundary"
     assert data["next_route"]["selected_passage"] == "John.3.1-John.3.36"
-    assert data["next_route"]["selected_target_status"] == "selected_for_next_owner_review"
+    assert data["next_route"]["selected_target_status"] == "owner_selection_pending"
+    assert data["next_route"]["john3_owner_selection_status"] == "pending"
+    assert data["next_route"]["john3_selected_option"] == "pending"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
     assert data["next_route"]["reviewed_gold_promoted"] is False

@@ -98,3 +98,6 @@ def test_t337_roadmap_state_completed_and_t342_next_after_t341() -> None:
     assert tasks["T355"]["status"] == "complete"
     assert tasks["T355"]["title"] == "WJ Speaker/Discourse Policy And Target Selection"
     assert tasks["T355"]["required_handoff"] == ".ai/handoffs/T355/handoff.md"
+    assert tasks["T356"]["status"] == "complete"
+    assert tasks["T356"]["title"] == "John 3 WJ Owner Review Docket"
+    assert tasks["T356"]["required_handoff"] == ".ai/handoffs/T356/handoff.md"

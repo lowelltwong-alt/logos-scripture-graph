@@ -203,17 +203,69 @@ def _validate_governed_links() -> None:
         raise WJSpeakerPolicyError(f"{_rel(PREFLIGHT)}: decision register reading must require CD-022")
 
     readiness = _read_yaml(READINESS_MAP)
+    lanes = readiness.get("lane_sequence")
+    if not isinstance(lanes, list):
+        raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: lane_sequence must be a list")
+    gospel_lane = next(
+        (item for item in lanes if isinstance(item, dict) and item.get("lane_id") == "gospel_discourse_wj"),
+        None,
+    )
+    if not isinstance(gospel_lane, dict):
+        raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: missing gospel_discourse_wj lane")
+
+    policy_surface = gospel_lane.get("speaker_discourse_policy")
+    if not isinstance(policy_surface, dict):
+        raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: gospel_discourse_wj.speaker_discourse_policy must be a mapping")
+    expected_policy = {
+        "task_id": "T355",
+        "path": ".ai/control/wj_speaker_discourse_policy.yaml",
+        "status": "selected_for_next_owner_review",
+        "selected_target": "john3_wj_speaker_boundary",
+        "selected_passage": "John.3.1-John.3.36",
+        "review_packet": "eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md",
+    }
+    for key, value in expected_policy.items():
+        if policy_surface.get(key) != value:
+            raise WJSpeakerPolicyError(
+                f"{_rel(READINESS_MAP)}: speaker_discourse_policy.{key} must be {value}"
+            )
+    for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
+        if policy_surface.get(key) is not False:
+            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: speaker_discourse_policy.{key} must be false")
+
+    docket_surface = gospel_lane.get("owner_review_docket")
+    if not isinstance(docket_surface, dict):
+        raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: gospel_discourse_wj.owner_review_docket must be a mapping")
+    expected_docket = {
+        "task_id": "T356",
+        "path": ".ai/control/john3_wj_owner_review_docket.yaml",
+        "status": "owner_selection_pending",
+        "selected_target": "john3_wj_speaker_boundary",
+        "selected_passage": "John.3.1-John.3.36",
+        "selected_option": "pending",
+    }
+    for key, value in expected_docket.items():
+        if docket_surface.get(key) != value:
+            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: owner_review_docket.{key} must be {value}")
+    for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
+        if docket_surface.get(key) is not False:
+            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: owner_review_docket.{key} must be false")
+
     next_route = readiness.get("next_route")
     if not isinstance(next_route, dict):
         raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     expected_next = {
-        "task_id": "T355",
-        "route_type": "wj_speaker_discourse_policy_and_target_selection",
+        "task_id": "T356",
+        "route_type": "john3_wj_owner_review_docket",
         "selected_target": "john3_wj_speaker_boundary",
-        "selected_target_status": "selected_for_next_owner_review",
+        "selected_target_status": "owner_selection_pending",
+        "john3_owner_selection_status": "pending",
+        "john3_selected_option": "pending",
         "policy": ".ai/control/wj_speaker_discourse_policy.yaml",
+        "docket": ".ai/control/john3_wj_owner_review_docket.yaml",
         "review_packet_lane": "gospel_discourse_wj",
         "prior_inventory_task": "T354",
+        "prior_policy_task": "T355",
     }
     for key, value in expected_next.items():
         if next_route.get(key) != value:

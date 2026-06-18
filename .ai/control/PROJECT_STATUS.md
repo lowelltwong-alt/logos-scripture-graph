@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T355 WJ speaker/discourse policy and target selection (Codex)
-**Active task:** -> **T355** is complete as non-output-changing PR work. It records a first-class WJ speaker/discourse policy and selects `John.3.1-John.3.36` / `john3_wj_speaker_boundary` as the next exact owner-review target. The policy treats WJ/red-letter markers, punctuation, paragraphing, sectioning, and narrative framing as review evidence only; it does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer Jesus speaker attribution, infer speaker or discourse boundaries, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T356 John 3 WJ owner-review docket (Codex)
+**Active task:** -> **T356** is complete as non-output-changing PR work. It records pending owner-review options for `John.3.1-John.3.36` / `john3_wj_speaker_boundary` without selecting an option. The docket treats WJ/red-letter markers, punctuation, paragraphing, sectioning, and narrative framing as review evidence only; it does not promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer Jesus speaker attribution, infer speaker or discourse boundaries, approve parent/child spans, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T356 John 3 WJ owner-review docket (2026-06-18):** Added
+> `.ai/control/john3_wj_owner_review_docket.yaml`, checked by
+> `scripts/validate_john3_owner_review_docket.py`, so the next John 3 human decision is explicit
+> and no-context-auditable. The docket presents options `JOHN3-T356-A` through `JOHN3-T356-E`:
+> preserve current chunks, approve parent-only John 3 review scope, approve parent plus exact
+> child-boundary review target, approve a narrower Jesus-speech unit only, or require more
+> research. Owner selection remains pending. No John 3 parent span, child span, Jesus/narrator
+> boundary, reviewed gold, chunk output, graph edge, retrieval truth, or route behavior is
+> approved.
 
 > **T355 WJ speaker/discourse policy and target selection (2026-06-18):** Added
 > `.ai/control/wj_speaker_discourse_policy.yaml`, checked by

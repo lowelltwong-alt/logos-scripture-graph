@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_and_t343_remain_complete_while_live_route_points_to_t351() -> None:
+def test_t342_through_t356_remain_complete_while_live_route_points_to_john3_docket() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -77,8 +77,15 @@ def test_t342_and_t343_remain_complete_while_live_route_points_to_t351() -> None
     assert tasks["T354"]["required_handoff"] == ".ai/handoffs/T354/handoff.md"
     assert tasks["T355"]["status"] == "complete"
     assert tasks["T355"]["required_handoff"] == ".ai/handoffs/T355/handoff.md"
-    assert readiness["next_route"]["task_id"] == "T355"
+    assert tasks["T356"]["status"] == "complete"
+    assert tasks["T356"]["required_handoff"] == ".ai/handoffs/T356/handoff.md"
+    assert tasks["T356"]["selected_target"] == "john3_wj_speaker_boundary"
+    assert tasks["T356"]["owner_selection_status"] == "pending"
+    assert tasks["T356"]["selected_option"] == "pending"
+    assert readiness["next_route"]["task_id"] == "T356"
+    assert readiness["next_route"]["route_type"] == "john3_wj_owner_review_docket"
     assert readiness["next_route"]["selected_option"] == "REV-T344-E"
+    assert readiness["next_route"]["john3_selected_option"] == "pending"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
 

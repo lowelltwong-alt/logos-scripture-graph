@@ -100,6 +100,31 @@ If a review discovers a repeated manual check, local/CI mismatch, authorization 
 protected-path risk, source-metadata authority risk, or cross-repo drift, update
 `.ai/control/harness_upgrade_roadmap.yaml` or record why no harness is needed.
 
+## WORKFLOW-LESSON-004 - AI Tables Of Contents Need Tags And Use-When Routing
+
+AI tables of contents are operational routing surfaces, not title lists. A no-context agent,
+software engineer, auditor, reviewer, or maintainer should be able to search the TOC for the kind
+of work they are doing and know which files become relevant before they already understand the
+architecture.
+
+Every AI-facing TOC should include:
+
+- a functional tag index;
+- `tags:` or `Tags` values for files, task rows, or artifact groups;
+- `use when:` or `Use when` triggers that describe the situation where the file matters;
+- start-here paths for audit, current state, roadmap, validation, task scope, source metadata,
+  theological-risk, owner-decision, data-plane, graph/vector/retrieval, cross-repo governance, and
+  developer-engineering work;
+- enough vocabulary that another AI can search for likely user phrases such as audit, red-team,
+  A/B check, validation, harness, PR review, chunking, WJ, red-letter, capitalization, Strong's,
+  cross-reference, owner decision, graph edge, retrieval, raw, canonical, pipeline, schema, or
+  governance.
+
+When a maintainer says a file should have been easier to find, treat that as a lesson candidate.
+Update the relevant AI TOC and, if the pattern is reusable, this lesson collector. If it can be
+checked mechanically, add a test or validator that fails when AI TOCs lose the relevant tag/use-when
+routing.
+
 ## T327-LESSON-001 - Untracked Generated Outputs Move the Burden to Generator and CI
 
 T327C showed that `data/canonical/**` can be intentionally gitignored generated output. In that
