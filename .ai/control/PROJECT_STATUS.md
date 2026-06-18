@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T368 1 Corinthians 8-10 packet strengthening (Codex)
-**Active task:** -> **T368** is complete as non-output-changing review prep. It strengthens `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md`, creates `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`, creates `.ai/control/chunking_human_decision_forecast.yaml`, records `CD-037` and `CD-038`, and advances readiness to T369 / `1Cor.8-10` owner-review gating. It does not authorize parent spans as reviewed gold, child spans, doctrine systems, textual-critical policy selection, reviewed gold, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T369 owner-pattern projection and register durability (Codex)
+**Active task:** -> **T369** is complete as non-output-changing governance work. It protects `.ai/control/chunking_theological_decision_register.yaml` as critical governance memory, records `.ai/control/owner_decision_projection_policy.yaml` with the conflict-stop rule, selects `1Cor.8.1-1Cor.10.33` as a parent-only review target by projected owner pattern, records `CD-039` through `CD-041`, and advances readiness to T370 parent-only evidence prep. It does not authorize child spans, reviewed gold, doctrine systems, textual-critical policy selection, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T369 owner-pattern projection and register durability (2026-06-18):** Added
+> `.ai/control/governance_memory_durability_policy.yaml`, checked by
+> `scripts/validate_governance_memory_durability.py`, so the chunking theological decision
+> register is treated as critical, non-deletable governance memory and remains discoverable from
+> the front door, AI TOCs, audit map, preflight, readiness map, task scope, and `validate_all`.
+> Added `.ai/control/owner_decision_projection_policy.yaml`, checked by
+> `scripts/validate_owner_decision_projection_policy.py`, so future agents may project only
+> high-confidence, materially same-shape, conservative owner patterns and must stop if prior owner
+> decisions conflict for the target text. T369 applies that policy to select `1COR8-10-T369-B`:
+> parent-only `1Cor.8.1-1Cor.10.33` review target, no child spans, no reviewed gold, no route or
+> evaluator behavior, no graph/retrieval truth, no textual-critical policy, no doctrinal system,
+> and no output change. The next route is T370 evidence prep only.
 
 > **T368 1 Corinthians 8-10 packet strengthening (2026-06-18):** Strengthened the
 > `1Cor.8.1-1Cor.10.33` epistle argument packet with source-evidence snapshots, candidate owner

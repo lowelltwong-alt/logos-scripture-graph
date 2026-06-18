@@ -119,6 +119,12 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     policy = data.get("decision_policy")
     if not isinstance(policy, dict):
         raise ForecastError(f"{_rel(path)}: decision_policy must be a mapping")
+    if policy.get("owner_pattern_projection_policy") != ".ai/control/owner_decision_projection_policy.yaml":
+        raise ForecastError(f"{_rel(path)}: decision_policy.owner_pattern_projection_policy is stale")
+    _string_list(policy.get("projected_decisions_allowed_when"), "decision_policy.projected_decisions_allowed_when")
+    owner_must_be_told = set(_string_list(policy.get("owner_must_be_told_when"), "decision_policy.owner_must_be_told_when"))
+    if "prior_owner_decisions_conflict_for_the_text_under_review" not in owner_must_be_told:
+        raise ForecastError(f"{_rel(path)}: owner_must_be_told_when must include conflict stop")
     required_owner = set(_string_list(policy.get("owner_decision_required_for"), "decision_policy.owner_decision_required_for"))
     for item in (
         "reviewed_gold_promotion",
@@ -142,10 +148,20 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         raise ForecastError(f"{_rel(path)}: missing front-loaded decisions {missing}")
 
     hdf_001 = by_id["HDF-001"]
-    if hdf_001.get("status") != "pending_owner_decision":
-        raise ForecastError(f"{_rel(path)}: HDF-001 must remain pending_owner_decision")
+    if hdf_001.get("status") != "projected_owner_pattern_selected":
+        raise ForecastError(f"{_rel(path)}: HDF-001 must be projected_owner_pattern_selected")
     if hdf_001.get("earliest_task") != "T369":
         raise ForecastError(f"{_rel(path)}: HDF-001 earliest_task must be T369")
+    if hdf_001.get("selected_option") != "1COR8-10-T369-B":
+        raise ForecastError(f"{_rel(path)}: HDF-001 selected_option must be 1COR8-10-T369-B")
+    if hdf_001.get("selected_parent") != "1Cor.8.1-1Cor.10.33":
+        raise ForecastError(f"{_rel(path)}: HDF-001 selected_parent is wrong")
+    if hdf_001.get("selected_children") != []:
+        raise ForecastError(f"{_rel(path)}: HDF-001 selected_children must remain empty")
+    if hdf_001.get("selection_mode") != "projected_owner_pattern":
+        raise ForecastError(f"{_rel(path)}: HDF-001 selection_mode must be projected_owner_pattern")
+    if hdf_001.get("conflict_scan_result") != "no_conflict_detected":
+        raise ForecastError(f"{_rel(path)}: HDF-001 conflict_scan_result must be no_conflict_detected")
     option_ids = {
         option.get("option_id")
         for option in hdf_001.get("options", [])
@@ -201,6 +217,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         "do_not_treat_this_forecast_as_authorization",
         "do_not_implement_chunks_from_pending_packets",
         "do_not_merge_output_changing_work_without_owner_authorization",
+        "do_not_project_owner_decisions_when_prior_decisions_conflict_for_the_target_text",
     ):
         if item not in data.get("what_not_to_do", []):
             raise ForecastError(f"{_rel(path)}: what_not_to_do missing {item}")
@@ -254,6 +271,12 @@ def _validate_governed_links() -> None:
     for task_id in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
         if task_id not in by_id:
             raise ForecastError(f"{_rel(ROADMAP_STATE)}: future_sequence missing {task_id}")
+    if by_id["T369"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must be complete after projection")
+    if by_id["T369"].get("selected_option") != "1COR8-10-T369-B":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 selected_option is wrong")
+    if by_id["T370"].get("starts_only_if") != "T369_parent_only_projected_selection":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 starts_only_if is stale")
     if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
     if by_id["T374"].get("output_change_authorized") is not False:

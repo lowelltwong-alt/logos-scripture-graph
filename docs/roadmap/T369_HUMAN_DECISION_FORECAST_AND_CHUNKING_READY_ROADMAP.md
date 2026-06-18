@@ -18,6 +18,12 @@ critical policy, boundary import, or chunk output changes.
 The fix is not to remove those gates. The fix is to ask the predictable owner decisions early and
 record them in durable dockets before agents reach them mid-flight.
 
+During T369, the owner also authorized a narrow projection policy: if a future decision is
+materially the same shape as a repeated owner pattern, is highly confident, stays conservative and
+non-output-changing, and has no conflicting prior owner decisions for the text under review, agents
+may project that pattern and record it. If prior owner decisions conflict for the target text, or
+the pattern is new, agents must stop and surface the conflict to the owner.
+
 Machine-readable forecast:
 
 ```text
@@ -47,6 +53,15 @@ change chunk output.
 ### HDF-001 - 1 Corinthians 8-10 Owner Option
 
 Earliest gate: `T369`.
+
+T369 result: `1COR8-10-T369-B` is selected by projected owner pattern as parent-only review prep.
+This follows the established parent-only pattern from John 3 and the broader rule that child spans,
+speaker boundaries, reviewed gold, implementation, route/evaluator behavior, graph/retrieval truth,
+textual-critical policy, and output changes do not project.
+
+Conflict scan: no conflicting prior owner decisions were found for selecting
+`1Cor.8.1-1Cor.10.33` as a parent-only review target. Projecting child spans would conflict with
+the existing rule that child spans need exact owner selection, so option C is not projected.
 
 Options:
 
@@ -124,8 +139,8 @@ implementation authorization.
 
 ## Roadmap From Here
 
-1. `T369`: owner selects one 1Cor.8-10 option from the docket.
-2. `T370`: if selected, build the governed reviewed-gold evidence packet, still no output changes.
+1. `T369`: completed by projected owner pattern; parent-only `1Cor.8.1-1Cor.10.33` review target selected.
+2. `T370`: build the governed parent-only reviewed-gold evidence packet, still no output changes.
 3. `T371`: owner decides whether reviewed gold is promoted.
 4. `T372`: build route-isolated implementation harness and non-target identity plan, still no output
    changes.
@@ -147,11 +162,13 @@ implementation authorization.
 - Do not import boundary material into canonical Scripture.
 - Do not claim improvement without same-baseline evaluation.
 - Do not merge output-changing work without exact owner authorization.
+- Do not project owner decisions when conflicting prior owner decisions apply to the target text.
 
 ## Stop Conditions
 
 Stop and ask the owner if any of these appears:
 
+- conflicting prior owner decisions for the text under review;
 - unanticipated theological downstream risk;
 - source metadata would become authority;
 - variant-sensitive claim without policy;

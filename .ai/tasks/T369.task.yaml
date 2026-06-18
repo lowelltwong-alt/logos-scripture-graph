@@ -1,0 +1,85 @@
+id: T369
+phase: phase_4
+title: "Owner-Pattern Projection And Decision Register Durability"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/
+    - .ai/tasks/T369.task.yaml
+    - .ai/handoffs/T369/
+    - .ai/audits/reports/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/
+    - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+    - scripts/validate_governance_memory_durability.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_chunking_human_decision_forecast.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_audit_surface_map.py
+    - scripts/validate_epistle_argument_review_packets.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_task_scope.py
+    - scripts/validate_all.py
+    - scripts/agent/no_context_audit_harness.py
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "If future decisions can be solved very confidently from the owner's prior pattern, agents may project that pattern if recorded; if prior decisions conflict for the target text, stop and tell the owner."
+  register_durability_policy_allowed: true
+  owner_projection_policy_allowed: true
+  selected_target: 1cor8_10_food_offered_to_idols
+  selected_passage: 1Cor.8-1Cor.10
+  exact_parent_candidate: 1Cor.8.1-1Cor.10.33
+  selected_option: 1COR8-10-T369-B
+  selection_mode: projected_owner_pattern
+  conflict_scan_result: no_conflict_detected
+  parent_only_review_target_authorized: true
+  child_spans_authorized: false
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  boundary_import_allowed: false
+  textual_critical_policy_selected: false
+acceptance_criteria:
+  - "The decision register is protected as critical governance memory by a machine-readable durability policy and validator."
+  - "The owner-pattern projection policy records when agents may project owner decisions and when they must stop for real-time owner review."
+  - "The projection policy requires conflict scans when prior owner decisions could conflict for the text under review."
+  - "1Cor.8.1-1Cor.10.33 is selected as parent-only review target by projected owner pattern, with no child spans or output authority."
+  - "Readiness advances to T370 parent-only evidence prep, not implementation."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_governance_memory_durability.py
+  - python scripts/validate_owner_decision_projection_policy.py
+  - python scripts/validate_1cor8_10_owner_review_docket.py
+  - python scripts/validate_chunking_human_decision_forecast.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_audit_surface_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T369
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T369/handoff.md
+next_task: "T370 parent-only evidence prep for 1Cor.8.1-1Cor.10.33. Do not promote reviewed gold, implement chunks, project child spans, ignore conflicting prior owner decisions, change route/evaluator behavior, generate graph/retrieval outputs, import boundary material, or make textual-critical policy decisions without later exact owner authorization."

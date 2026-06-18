@@ -48,6 +48,8 @@ def test_front_door_and_toc_expose_no_context_audit_path() -> None:
         ".ai/audits/templates/REVIEW_REPORT_TEMPLATE.md",
         ".ai/control/audit_surface_map.yaml",
         ".ai/control/harness_upgrade_roadmap.yaml",
+        ".ai/control/governance_memory_durability_policy.yaml",
+        ".ai/control/owner_decision_projection_policy.yaml",
         "scripts/agent/no_context_audit_harness.py",
         "scripts/validate_task_scope.py",
     ]:
@@ -86,6 +88,10 @@ def test_no_context_audit_harness_prints_brief() -> None:
     assert "[untracked]" in result.stdout
     assert "git/PR state" in result.stdout
     assert ".ai/control/harness_upgrade_roadmap.yaml" in result.stdout
+    assert ".ai/control/governance_memory_durability_policy.yaml" in result.stdout
+    assert ".ai/control/owner_decision_projection_policy.yaml" in result.stdout
+    assert "python scripts/validate_governance_memory_durability.py" in result.stdout
+    assert "python scripts/validate_owner_decision_projection_policy.py" in result.stdout
     assert "python scripts/validate_audit_surface_map.py" in result.stdout
 
 
@@ -106,6 +112,7 @@ def test_harness_upgrade_roadmap_records_future_watch_items() -> None:
         "HARN-010",
         "HARN-011",
         "HARN-012",
+        "HARN-015",
     ]:
         assert harness_id in roadmap
     assert "promote_issue_to_harness_when" in roadmap
@@ -113,3 +120,4 @@ def test_harness_upgrade_roadmap_records_future_watch_items() -> None:
     assert "HARN-001" in roadmap
     assert "status: implemented_v1" in roadmap
     assert "scripts/validate_task_scope.py" in roadmap
+    assert "Owner-pattern projection conflict scanner" in roadmap

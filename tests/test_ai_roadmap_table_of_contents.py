@@ -43,6 +43,10 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "textual_critical_policy_docket.yaml",
         "1cor8_10_epistle_owner_review_docket.yaml",
         "chunking_human_decision_forecast.yaml",
+        "governance_memory_durability_policy.yaml",
+        "owner_decision_projection_policy.yaml",
+        "owner-projection",
+        "conflict-scan",
         "orthodox-hermeneutic-firewall",
         "textual-critical-policy",
         "1cor8-10",
@@ -87,6 +91,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
         "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
+        "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
         "A reviewer needs the packet queue",
         "Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target.",
     ]:
@@ -197,7 +202,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "T369 |" in toc
     assert "docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md" in toc
     assert "scripts/validate_chunking_human_decision_forecast.py" in toc
-    assert "T369 - 1 Corinthians 8-10 Owner Review Docket" in toc
+    assert ".ai/control/owner_decision_projection_policy.yaml" in toc
+    assert ".ai/control/governance_memory_durability_policy.yaml" in toc
+    assert "scripts/validate_owner_decision_projection_policy.py" in toc
+    assert "scripts/validate_governance_memory_durability.py" in toc
+    assert "T370 - Build selected 1 Corinthians 8-10 parent-only reviewed-gold evidence packet" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

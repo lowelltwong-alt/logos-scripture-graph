@@ -69,6 +69,8 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_policy_docket.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
+    ".ai/control/governance_memory_durability_policy.yaml",
+    ".ai/control/owner_decision_projection_policy.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
@@ -122,6 +124,10 @@ ALLOWED_NEXT_ROUTES = {
     "T369": {
         "route_type": "epistle_argument_owner_review_gate",
         "title": "1 Corinthians 8-10 Owner Review Docket",
+    },
+    "T370": {
+        "route_type": "epistle_argument_parent_only_evidence_prep",
+        "title": "Build Selected 1 Corinthians 8-10 Reviewed-Gold Evidence Packet",
     },
 }
 
@@ -377,6 +383,47 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T369 next_route.{key} must be false")
+    if task_id == "T370":
+        expected_t370 = {
+            "recommended_target": "epistle_argument",
+            "selected_target": "1cor8_10_food_offered_to_idols",
+            "selected_passage": "1Cor.8-1Cor.10",
+            "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "1COR8-10-T369-B",
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selection_mode": "projected_owner_pattern",
+            "projection_policy": ".ai/control/owner_decision_projection_policy.yaml",
+            "conflict_scan_result": "no_conflict_detected",
+            "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+            "packet_status": "parent_only_evidence_prep_allowed",
+            "owner_selection_status": "selected",
+            "prior_owner_decision_task": "T367",
+            "packet_strengthening_task": "T368",
+            "parent_selection_task": "T369",
+            "prior_packet_task": "T352",
+            "prior_issue_dossier_task": "T361",
+            "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+            "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+        }
+        for key, value in expected_t370.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T370 next_route.{key} must be {value}")
+        if next_route.get("selected_children") != []:
+            raise ReadinessMapError(f"{_rel(path)}: T370 next_route.selected_children must be []")
+        if next_route.get("starts_only_if") != "T369_parent_only_projected_selection":
+            raise ReadinessMapError(f"{_rel(path)}: T370 next_route.starts_only_if is stale")
+        if next_route.get("review_only") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T370 next_route.review_only must be true")
+        for key in (
+            "reviewed_gold_promoted",
+            "route_behavior_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T370 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

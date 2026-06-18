@@ -33,6 +33,9 @@ PROTECTED_PREFIXES = (
     "eval/chunking_runs/",
     "eval/LEADERBOARD.md",
     ".github/workflows/",
+    ".ai/control/chunking_theological_decision_register.yaml",
+    ".ai/control/governance_memory_durability_policy.yaml",
+    ".ai/control/owner_decision_projection_policy.yaml",
 )
 
 

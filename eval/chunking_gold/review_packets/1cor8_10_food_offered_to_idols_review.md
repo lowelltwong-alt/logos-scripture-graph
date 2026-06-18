@@ -139,7 +139,7 @@ These lenses are reviewer prompts, not approved child spans:
 ## Proposed Review Options
 
 - `1COR8-10-T369-A`: Preserve current behavior and record only diagnostic concerns.
-- `1COR8-10-T369-B`: Approve exact parent candidate `1Cor.8.1-1Cor.10.33` with no child chunks.
+- `1COR8-10-T369-B`: Approve exact parent candidate `1Cor.8.1-1Cor.10.33` with no child chunks. Selected during T369 by projected owner pattern for non-output-changing evidence prep only.
 - `1COR8-10-T369-C`: Approve exact parent candidate plus reviewed child-span candidates around
   knowledge/conscience, apostolic example, Israel warning, table/idolatry, and liberty/conscience
   material only after owner decision.
@@ -148,7 +148,9 @@ These lenses are reviewer prompts, not approved child spans:
 - `1COR8-10-T369-E`: Reject this passage as the next implementation target and select another
   epistle or genre lane for review.
 
-No option above is approved. No reviewed gold is promoted.
+Only `1COR8-10-T369-B` is selected, by projected owner pattern, as a parent-only review target.
+No child span, reviewed gold, route behavior, graph/retrieval truth, textual-critical policy,
+chunk boundary, or output change is approved.
 
 ## Owner Review Questions
 

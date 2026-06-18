@@ -1502,6 +1502,125 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-039
+    title: Decision register durability is protected governance memory
+    classification: non_authorizing_review
+    task_ids: [T369]
+    owner_decision_ref: .ai/control/governance_memory_durability_policy.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_chunking_decisions]
+      routes: [all_chunking_routes]
+      surfaces: [.ai/control/chunking_theological_decision_register.yaml, .ai/control/governance_memory_durability_policy.yaml, scripts/validate_governance_memory_durability.py, scripts/validate_task_scope.py, scripts/validate_all.py]
+    decision: "Protect the chunking theological decision register as critical, non-deletable governance memory that must remain canonical, active, discoverable from AI entry/audit surfaces, task-scope protected, and validator-enforced."
+    downstream_risk: "Losing or hiding the register would erase the audit chain for theological downstream decisions and allow future agents to rely on chat memory or untracked assumptions."
+    theological_assumptions_avoided:
+      - "No future chunking decision can bypass the decision register by omission."
+      - "No future agent may treat the register as optional documentation."
+      - "Register protection does not authorize chunk output, reviewed gold, or theology choices."
+    reviewed_gold_dependency: "None; this is governance-memory hardening only."
+    non_authorizations:
+      - register_deletion
+      - register_rename_without_supersession
+      - register_trust_zone_downgrade
+      - register_lifecycle_downgrade
+      - hiding_register_from_front_door_or_toc
+      - bypassing_register_validator
+      - reviewed_gold_promotion
+      - chunk_output_change
+    validators:
+      - scripts/validate_governance_memory_durability.py
+      - tests/test_governance_memory_durability.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-040
+    title: Owner decision projection policy allows conservative repeated-pattern decisions
+    classification: interpretive_boundary
+    task_ids: [T369]
+    owner_decision_ref: .ai/control/owner_decision_projection_policy.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_owner_pattern_decisions]
+      routes: [all_chunking_routes]
+      surfaces: [.ai/control/owner_decision_projection_policy.yaml, .ai/control/chunking_human_decision_forecast.yaml, .ai/control/chunking_agent_preflight.yaml, AI_FRONT_DOOR.md, AI_TABLE_OF_CONTENTS.md]
+    decision: "Agents may project a prior owner decision pattern only when it is materially the same shape, high confidence, conservative, non-output-changing, recorded in policy and register, and conflict-free for the target text; new or conflicting patterns must stop for real-time owner review."
+    downstream_risk: "Projection could become a secret owner-decision substitute or hide conflicts between prior decisions for a specific passage."
+    theological_assumptions_avoided:
+      - "No new theological pattern is decided by agent projection."
+      - "No conflicting owner decisions are silently resolved by an agent."
+      - "No projection may select child spans, speaker boundaries, textual-critical policy, theological systems, reviewed gold, route behavior, graph/retrieval truth, or output changes."
+    reviewed_gold_dependency: "Projection may unblock non-output evidence prep only; reviewed-gold promotion still requires later owner authorization."
+    non_authorizations:
+      - new_pattern_without_owner
+      - conflict_ignored
+      - child_span_projection
+      - speaker_boundary_projection
+      - textual_critical_policy_selection
+      - doctrinal_system_selection
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_owner_decision_projection_policy.py
+      - tests/test_owner_decision_projection_policy.py
+      - scripts/validate_chunking_human_decision_forecast.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-041
+    title: 1 Corinthians 8-10 parent-only review target selected by projected owner pattern
+    classification: non_authorizing_review
+    task_ids: [T369]
+    owner_decision_ref: .ai/control/owner_decision_projection_policy.yaml#ODP-20260618-1COR8-10-PARENT
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33]
+      routes: [epistle_argument, future_epistle_review]
+      surfaces: [.ai/control/1cor8_10_epistle_owner_review_docket.yaml, .ai/control/owner_decision_projection_policy.yaml, .ai/control/chunking_human_decision_forecast.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "Select 1Cor.8.1-1Cor.10.33 as a parent-only review target by projected owner pattern, with no child spans selected and no reviewed gold, route behavior, evaluator behavior, graph/retrieval truth, textual-critical policy, doctrinal system, chunk boundary, or output change authorized."
+    downstream_risk: "A parent-only review target could be mistaken for reviewed gold, a chunk boundary, or permission to project child spans across the food-offered-to-idols argument."
+    theological_assumptions_avoided:
+      - "No conscience, weak/strong, Christian liberty, sacramental/table, ecclesial, or law/gospel system is selected."
+      - "No child span is selected by projection."
+      - "No source metadata, cross-reference, lexical marker, or textual variant becomes authority."
+      - "No conflicting prior owner decisions were detected for this parent-only review target; future conflicts for this text must stop for owner review."
+    reviewed_gold_dependency: "T370 may prepare parent-only governed evidence; any reviewed-gold promotion still requires later owner authorization."
+    non_authorizations:
+      - 1cor8_10_parent_span_as_reviewed_gold
+      - 1cor8_10_parent_span_as_chunk_boundary
+      - 1cor8_10_child_span_approval
+      - child_span_projection
+      - argument_boundary_as_chunk_boundary
+      - doctrinal_system_selection
+      - sacramental_system_selection
+      - textual_critical_policy_selection
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_owner_decision_projection_policy.py
+      - scripts/validate_1cor8_10_owner_review_docket.py
+      - tests/test_owner_decision_projection_policy.py
+      - tests/test_1cor8_10_owner_review_docket.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1586,4 +1705,5 @@ backfill_coverage:
     - T366
     - T367
     - T368
+    - T369
 ...

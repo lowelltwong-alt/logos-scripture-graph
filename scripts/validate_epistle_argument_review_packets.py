@@ -122,10 +122,20 @@ def validate_epistle_packets() -> None:
             "Output change authorized: false",
             "Reviewed gold promoted: false",
             "This packet does not authorize output-changing work.",
-            "No option above is approved. No reviewed gold is promoted.",
         ):
             if phrase not in text:
                 raise EpistlePacketError(f"{_rel(packet_path)} missing {phrase!r}")
+        if case_id == "1cor8_10_food_offered_to_idols":
+            for phrase in (
+                "Only `1COR8-10-T369-B` is selected, by projected owner pattern, as a parent-only review target.",
+                "No child span, reviewed gold, route behavior, graph/retrieval truth, textual-critical policy",
+            ):
+                if phrase not in text:
+                    raise EpistlePacketError(f"{_rel(packet_path)} missing {phrase!r}")
+        elif "No option above is approved. No reviewed gold is promoted." not in text:
+            raise EpistlePacketError(
+                f"{_rel(packet_path)} missing 'No option above is approved. No reviewed gold is promoted.'"
+            )
         for forbidden in (
             "Status: `reviewed_gold`",
             "implementation_allowed: true",

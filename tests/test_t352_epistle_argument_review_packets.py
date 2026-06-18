@@ -31,7 +31,11 @@ def test_t352_packets_are_pending_and_non_authorizing() -> None:
         assert "Output change authorized: false" in text
         assert "Reviewed gold promoted: false" in text
         assert "This packet does not authorize output-changing work." in text
-        assert "No option above is approved. No reviewed gold is promoted." in text
+        if case_id == "1cor8_10_food_offered_to_idols":
+            assert "Only `1COR8-10-T369-B` is selected" in text
+            assert "No child span, reviewed gold" in text
+        else:
+            assert "No option above is approved. No reviewed gold is promoted." in text
 
 
 def test_t352_index_entries_are_pending_review_packets() -> None:
@@ -80,4 +84,3 @@ def test_t352_task_and_roadmap_record_non_authorization() -> None:
     assert "reviewed_gold_promoted: false" in task
     assert "T352 does not authorize" in roadmap
     assert "No option above is approved" not in roadmap
-

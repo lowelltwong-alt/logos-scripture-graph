@@ -21,8 +21,29 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
+  current_unblock_status: t369_parent_only_review_target_unblocked_for_t370_non_output_evidence_prep
+  remaining_blocks:
+    - reviewed_gold_promotion
+    - implementation_authorization
+    - chunk_output_change
+    - route_behavior_change
+    - evaluator_behavior_change
+    - graph_retrieval_vector_output
+    - textual_critical_policy_selection
   unblock_strategy: "Front-load predictable owner decisions as dockets and stop conditions, then let agents continue non-output-changing harness, review-packet, audit, and readiness work until an explicit gate is reached."
 decision_policy:
+  owner_pattern_projection_policy: .ai/control/owner_decision_projection_policy.yaml
+  projected_decisions_allowed_when:
+    - prior_owner_decisions_are_materially_same_shape
+    - projected_default_is_conservative_and_fail_closed
+    - no_conflicting_owner_decisions_apply_to_the_target_text
+    - decision_is_recorded_in_the_projection_policy_and_decision_register
+    - no_output_or_authority_change_is_created
+  owner_must_be_told_when:
+    - prior_owner_decisions_conflict_for_the_text_under_review
+    - decision_pattern_is_new
+    - projection_confidence_is_not_high
+    - projection_would_select_child_spans_speaker_boundaries_textual_policy_or_theological_system
   owner_decision_required_for:
     - reviewed_gold_promotion
     - chunk_output_change
@@ -56,8 +77,16 @@ orthodoxy_boundary:
 front_loaded_decisions:
   - decision_id: HDF-001
     title: 1 Corinthians 8-10 owner-review option
-    status: pending_owner_decision
+    status: projected_owner_pattern_selected
     earliest_task: T369
+    selected_option: 1COR8-10-T369-B
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    selection_mode: projected_owner_pattern
+    projection_policy: .ai/control/owner_decision_projection_policy.yaml
+    projection_id: ODP-20260618-1COR8-10-PARENT
+    conflict_scan_result: no_conflict_detected
+    projection_rationale: "Projects the owner-approved parent-only review pattern from John 3 to the materially similar 1Cor.8.1-1Cor.10.33 review target while refusing child spans, reviewed gold, implementation, route/evaluator behavior, graph/retrieval truth, textual-critical policy, theological-system selection, and output changes."
     required_before:
       - 1cor8_10_reviewed_gold_promotion
       - 1cor8_10_route_behavior_change
@@ -78,10 +107,11 @@ front_loaded_decisions:
       - option_id: 1COR8-10-T369-E
         label: Reject as next implementation target
         downstream_effect: "Stops 1Cor.8-10 as the implementation lane and returns to lane selection."
-    recommended_default_if_owner_unavailable: stop_and_preserve_current_behavior
+    recommended_default_if_owner_unavailable: use_recorded_projected_parent_only_selection_for_non_output_t370_prep_only
     non_authorizations:
       - 1cor8_10_parent_span_as_reviewed_gold
       - 1cor8_10_child_span_approval
+      - child_span_projection
       - doctrinal_system_selection
       - route_behavior_change
       - chunk_output_change
@@ -289,10 +319,13 @@ what_not_to_do:
   - do_not_import_boundary_material_into_canonical_scripture
   - do_not_claim improvement_without_same_baseline_evaluation
   - do_not_merge_output_changing_work_without_owner_authorization
+  - do_not_project_owner_decisions_when_prior_decisions_conflict_for_the_target_text
 next_roadmap_steps:
   - task_id: T369
     title: 1 Corinthians 8-10 Owner Review Docket
-    owner_decision_required: true
+    owner_decision_required: false
+    status: complete_by_projected_owner_pattern
+    selected_option: 1COR8-10-T369-B
     output_change_authorized: false
   - task_id: T370
     title: Build selected 1Cor.8-10 reviewed-gold evidence packet
