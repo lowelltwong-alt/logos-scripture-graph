@@ -1,8 +1,24 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T367 owner decision firewall and next target (Codex)
-**Active task:** -> **T367** is complete as non-output-changing control-plane work. It records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target, adds `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`, adds `.ai/control/textual_critical_policy_docket.yaml`, and advances readiness to T368 / `1Cor.8-1Cor.10` review-only epistle packet strengthening. It does not authorize John 3 child spans, Jesus/narrator boundary decisions, textual-critical policy selection, reviewed gold, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T368 1 Corinthians 8-10 packet strengthening (Codex)
+**Active task:** -> **T368** is complete as non-output-changing review prep. It strengthens `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md`, creates `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`, creates `.ai/control/chunking_human_decision_forecast.yaml`, records `CD-037` and `CD-038`, and advances readiness to T369 / `1Cor.8-10` owner-review gating. It does not authorize parent spans as reviewed gold, child spans, doctrine systems, textual-critical policy selection, reviewed gold, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T368 1 Corinthians 8-10 packet strengthening (2026-06-18):** Strengthened the
+> `1Cor.8.1-1Cor.10.33` epistle argument packet with source-evidence snapshots, candidate owner
+> options, orthodox-hermeneutic/firewall dependencies, textual-critical policy dependency, and
+> explicit non-authorizations. Added `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`,
+> checked by `scripts/validate_1cor8_10_owner_review_docket.py`, added
+> `.ai/control/chunking_human_decision_forecast.yaml`, checked by
+> `scripts/validate_chunking_human_decision_forecast.py`, and recorded `CD-037` and `CD-038` in
+> the chunking theological decision register. The forecast explains why the broad thread goal was
+> blocked, names predictable owner decisions early, defines chunking-ready conditions, and extends
+> the roadmap through T376 without authorizing output. The readiness map now points to T369 owner
+> review. No
+> parent span, child span, doctrinal system, sacramental/ecclesial/Christian-liberty framework,
+> textual-critical policy, reviewed gold, route behavior, evaluator change, graph edge, retrieval
+> truth, chunk output, boundary import, vector work, raw/canonical data, generated chunks, or
+> output change is authorized.
 
 > **T367 owner decision firewall and next target (2026-06-18):** Recorded
 > `JOHN3-T356-B` as parent-only `John.3.1-John.3.36` review target selection in

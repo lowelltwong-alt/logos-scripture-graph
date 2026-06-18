@@ -24,6 +24,7 @@ T364_TASK = ROOT / ".ai" / "tasks" / "T364.task.yaml"
 T365_TASK = ROOT / ".ai" / "tasks" / "T365.task.yaml"
 T366_TASK = ROOT / ".ai" / "tasks" / "T366.task.yaml"
 T367_TASK = ROOT / ".ai" / "tasks" / "T367.task.yaml"
+T368_TASK = ROOT / ".ai" / "tasks" / "T368.task.yaml"
 T352_TASK = ROOT / ".ai" / "tasks" / "T352.task.yaml"
 
 
@@ -696,6 +697,54 @@ def test_t367_scope_accepts_owner_decision_firewall_surfaces() -> None:
     )
 
     assert result["task_file"] == ".ai/tasks/T367.task.yaml"
+
+
+def test_t368_scope_accepts_1cor8_10_strengthening_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T368_TASK,
+        changed_files=[
+            ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+            ".ai/control/chunking_human_decision_forecast.yaml",
+            ".ai/control/chunking_agent_preflight.yaml",
+            ".ai/control/chunking_theological_decision_register.yaml",
+            ".ai/control/bible_chunking_readiness_map.yaml",
+            ".ai/control/current_focus.yaml",
+            ".ai/control/PROJECT_STATUS.md",
+            ".ai/control/roadmap_events.jsonl",
+            ".ai/control/handoff_ledger.jsonl",
+            ".ai/tasks/T368.task.yaml",
+            ".ai/handoffs/T368/handoff.md",
+            ".ai/audits/reports/20260618-T368-1cor8-10-packet-strengthening.md",
+            "ROADMAP_STATE.yaml",
+            "AI_FRONT_DOOR.md",
+            "AI_TABLE_OF_CONTENTS.md",
+            "docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md",
+            "docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md",
+            "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
+            "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "scripts/validate_1cor8_10_owner_review_docket.py",
+            "scripts/validate_chunking_human_decision_forecast.py",
+            "scripts/validate_epistle_argument_review_packets.py",
+            "scripts/validate_bible_chunking_readiness_map.py",
+            "scripts/validate_chunking_agent_preflight.py",
+            "scripts/validate_owner_selection_implementation_gate.py",
+            "scripts/validate_all.py",
+            "tests/test_1cor8_10_owner_review_docket.py",
+            "tests/test_chunking_human_decision_forecast.py",
+            "tests/test_t352_epistle_argument_review_packets.py",
+            "tests/test_bible_chunking_readiness_map.py",
+            "tests/test_chunking_agent_preflight.py",
+            "tests/test_owner_selection_implementation_gate.py",
+            "tests/test_task_scope_validator.py",
+            "tests/test_ai_roadmap_table_of_contents.py",
+            "tests/test_t342_revelation_candidate_selection.py",
+            "tests/test_t343_revelation_review_packet.py",
+            "tests/test_t344_revelation_owner_selection.py",
+            "tests/test_t351_bible_wide_research_triage.py",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T368.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:

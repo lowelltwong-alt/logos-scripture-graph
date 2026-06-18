@@ -44,6 +44,8 @@ lessons_storage:
     - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
     - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
     - .ai/control/textual_critical_policy_docket.yaml
+    - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -117,7 +119,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t352_review_packets_pending_human_review_non_authorizing
+    current_state: t368_1cor8_10_packet_strengthened_owner_review_pending
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -129,6 +131,21 @@ lane_sequence:
       - eval/chunking_gold/review_packets/rom9_11_argument_review.md
       - eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md
       - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+    owner_review_docket:
+      task_id: T368
+      next_gate_task_id: T369
+      path: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
+      status: pending_owner_decision
+      selected_target: 1cor8_10_food_offered_to_idols
+      selected_passage: 1Cor.8-1Cor.10
+      exact_parent_candidate: 1Cor.8.1-1Cor.10.33
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -279,24 +296,25 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T368
-  title: 1 Corinthians 8-10 Epistle Argument Packet Strengthening
-  route_type: epistle_argument_review_packet_strengthening
+  task_id: T369
+  title: 1 Corinthians 8-10 Owner Review Docket
+  route_type: epistle_argument_owner_review_gate
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
+  exact_parent_candidate: 1Cor.8.1-1Cor.10.33
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+  owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
   packet_status: pending_human_review
+  owner_selection_status: pending_owner_decision
   prior_owner_decision_task: T367
+  packet_strengthening_task: T368
   prior_packet_task: T352
   prior_issue_dossier_task: T361
   orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
   textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
-  john3_owner_selection_status: selected
-  john3_selected_option: JOHN3-T356-B
-  john3_selected_parent: John.3.1-John.3.36
   review_only: true
-  rationale: "After T367 recorded JOHN3-T356-B, the orthodox firewall, and the textual-critical policy docket requirement, the next safe route is review-only strengthening of the existing 1Cor.8-1Cor.10 epistle packet."
+  rationale: "T368 strengthened the 1Cor.8.1-1Cor.10.33 packet and created a pending owner-review docket; the next safe route is an owner decision only, with no implementation authority."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -310,7 +328,7 @@ parallel_research_queue:
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not supersede T368 review-only packet strengthening or authorize algorithm work."
+  relation_to_next_route: "Parallel research-only queue; does not supersede T369 owner-review gating or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -329,6 +347,8 @@ update_triggers:
   - bible_wide_research_triage_change
   - orthodox_firewall_change
   - textual_critical_policy_docket_change
+  - 1cor8_10_owner_review_docket_change
+  - chunking_human_decision_forecast_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration

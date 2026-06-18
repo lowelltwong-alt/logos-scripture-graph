@@ -1419,6 +1419,89 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-037
+    title: 1 Corinthians 8-10 strengthened packet remains non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T368]
+    owner_decision_ref: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33]
+      routes: [epistle_argument, future_epistle_review, future_epistle_implementation]
+      surfaces: [.ai/control/1cor8_10_epistle_owner_review_docket.yaml, eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md]
+    decision: "Strengthen the 1Cor.8.1-1Cor.10.33 review packet and create a pending owner-review docket as non-authorizing review prep; no parent span, child span, doctrine, textual-critical decision, reviewed gold, route behavior, evaluator change, graph/retrieval truth, or chunk output is authorized."
+    downstream_risk: "Future agents could treat the packet, paragraph markers, footnotes, cross-references, Strong's-style clusters, current overlapping chunks, or candidate owner options as approved argument boundaries. That could silently smuggle conscience, Christian liberty, idolatry, sacramental/table, ecclesial, weak/strong, law/gospel, cross-reference, lexical, or textual-critical assumptions into chunking."
+    theological_assumptions_avoided:
+      - "No sacramental, memorial-only, table-fellowship, ecclesial, Christian-liberty, weak/strong, or law/gospel system is selected."
+      - "No paragraph marker, footnote, cross-reference, Strong's-style number, lexical cluster, or current chunk overlap becomes argument-boundary, graph, retrieval, or chunk authority."
+      - "No pending owner-review option becomes reviewed gold or implementation authority."
+    reviewed_gold_dependency: "Future output-changing use requires owner selection, exact scope, reviewed argument gold or equivalent governed evidence, textual policy before variant-sensitive use, executable tests, route isolation, non-target identity proof, same-baseline evaluation, decision-register update, and later implementation authorization."
+    non_authorizations:
+      - 1cor8_10_parent_span_as_reviewed_gold
+      - 1cor8_10_parent_span_as_chunk_boundary
+      - 1cor8_10_child_span_approval
+      - argument_boundary_as_chunk_boundary
+      - doctrinal_system_selection
+      - sacramental_system_selection
+      - textual_critical_decision
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_1cor8_10_owner_review_docket.py
+      - tests/test_1cor8_10_owner_review_docket.py
+      - scripts/validate_epistle_argument_review_packets.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-038
+    title: Human decision forecast front-loads chunking gates
+    classification: non_authorizing_review
+    task_ids: [T368]
+    owner_decision_ref: .ai/control/chunking_human_decision_forecast.yaml
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_chunking_targets]
+      routes: [all_chunking_routes, epistle_argument, gospel_discourse_wj, revelation_apocalyptic, narrative_legal_covenant, wisdom_dialogue_poetry, prophetic_oracle, textual_variant_source_tradition]
+      surfaces: [.ai/control/chunking_human_decision_forecast.yaml, docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "Create a human-decision forecast that explains the blocked thread goal, names predictable owner-decision gates, defines chunking-ready conditions, records stop conditions, and extends the roadmap from T369 through T376 without authorizing output-changing work."
+    downstream_risk: "Future agents could mistake a roadmap, forecast, owner option, or non-output harness as permission to promote reviewed gold, choose textual-critical policy, change route/evaluator behavior, generate graph or retrieval outputs, or modify chunks without owner authorization."
+    theological_assumptions_avoided:
+      - "Predictable decision gates are named early rather than hidden in implementation work."
+      - "No pending owner-review option becomes reviewed gold or chunk authority."
+      - "No systematic theology, source metadata, textual-critical, graph, retrieval, or lane-order decision becomes a hidden default."
+    reviewed_gold_dependency: "The forecast requires owner-selected exact target, promoted reviewed gold or equivalent governed evidence, textual policy if variant-sensitive, route isolation, executable tests, non-target identity proof, same-baseline evaluation plan, decision-register currency, audit surface, and separate owner implementation authorization before the first output-changing chunk PR."
+    non_authorizations:
+      - forecast_as_authorization
+      - roadmap_as_output_authority
+      - owner_option_as_reviewed_gold
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - textual_critical_policy_selection
+      - boundary_import
+      - chunk_output_change
+    validators:
+      - scripts/validate_chunking_human_decision_forecast.py
+      - tests/test_chunking_human_decision_forecast.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1502,4 +1585,5 @@ backfill_coverage:
     - T365
     - T366
     - T367
+    - T368
 ...

@@ -1,0 +1,74 @@
+id: T368
+phase: phase_4
+title: "1 Corinthians 8-10 Epistle Argument Packet Strengthening"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/
+    - .ai/tasks/T368.task.yaml
+    - .ai/handoffs/T368/
+    - .ai/audits/reports/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/
+    - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_chunking_human_decision_forecast.py
+    - scripts/validate_epistle_argument_review_packets.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "After the Orthodox Hermeneutic Firewall is recorded, authorize 1Cor.8-1Cor.10 as the next epistle argument review-packet strengthening target, review-only and non-output-changing."
+  selected_target: 1cor8_10_food_offered_to_idols
+  selected_passage: 1Cor.8-1Cor.10
+  exact_parent_candidate: 1Cor.8.1-1Cor.10.33
+  review_packet_strengthening_allowed: true
+  owner_review_docket_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  boundary_import_allowed: false
+  textual_critical_policy_selected: false
+acceptance_criteria:
+  - "The 1Cor.8.1-1Cor.10.33 review packet is strengthened with source evidence, candidate owner options, theological-risk notes, and explicit non-authorizations."
+  - "A machine-readable 1Cor.8-10 owner-review docket exists and remains pending, non-authorizing, and validator-enforced."
+  - "The decision register records CD-037 and the preflight/readiness map require future agents to read the docket."
+  - "Readiness advances to T369 owner-review gating, not implementation."
+  - "A human decision forecast names predictable owner gates and defines chunking-ready conditions without authorizing output."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_epistle_argument_review_packets.py
+  - python scripts/validate_1cor8_10_owner_review_docket.py
+  - python scripts/validate_chunking_human_decision_forecast.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_owner_selection_implementation_gate.py
+  - python scripts/validate_task_scope.py --task-id T368
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T368/handoff.md
+next_task: "T369 owner review: Lowell chooses one 1Cor.8-10 option from the docket. Do not implement chunks, promote reviewed gold, change route/evaluator behavior, generate graph/retrieval outputs, import boundary material, or make textual-critical policy decisions without later exact owner authorization."

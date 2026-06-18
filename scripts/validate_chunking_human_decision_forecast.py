@@ -1,0 +1,290 @@
+#!/usr/bin/env python3
+"""Validate the chunking human decision forecast."""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+ROOT = Path(__file__).resolve().parent.parent
+FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
+ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md"
+PREFLIGHT = ROOT / ".ai" / "control" / "chunking_agent_preflight.yaml"
+READINESS_MAP = ROOT / ".ai" / "control" / "bible_chunking_readiness_map.yaml"
+REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
+FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
+ROADMAP_STATE = ROOT / "ROADMAP_STATE.yaml"
+
+REQUIRED_DECISIONS = {
+    "HDF-001",
+    "HDF-002",
+    "HDF-003",
+    "HDF-004",
+    "HDF-005",
+    "HDF-006",
+    "HDF-007",
+    "HDF-008",
+    "HDF-009",
+    "HDF-010",
+    "HDF-011",
+    "HDF-012",
+}
+
+REQUIRED_FALSE_AUTHORITY_FLAGS = {
+    "authorizes_chunk_output_change",
+    "authorizes_reviewed_gold_promotion",
+    "authorizes_route_behavior_change",
+    "authorizes_evaluator_change",
+    "authorizes_graph_edge_generation",
+    "authorizes_retrieval_truth",
+    "authorizes_textual_critical_policy",
+    "authorizes_boundary_import",
+}
+
+
+class ForecastError(ValueError):
+    """Raised when the human decision forecast is invalid."""
+
+
+def _rel(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ForecastError(f"{_rel(path)}: unreadable: {exc}") from exc
+
+
+def _read_yaml(path: Path) -> dict[str, Any]:
+    try:
+        text = _read_text(path)
+        if text.startswith("---\n"):
+            parts = text.split("---\n", 2)
+            if len(parts) == 3:
+                text = parts[1] + "\n" + parts[2]
+        data = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        raise ForecastError(f"{_rel(path)}: YAML unreadable: {exc}") from exc
+    if not isinstance(data, dict):
+        raise ForecastError(f"{_rel(path)}: expected a YAML mapping")
+    return data
+
+
+def _require_false(mapping: dict[str, Any], key: str, label: str) -> None:
+    if mapping.get(key) is not False:
+        raise ForecastError(f"{label}.{key} must be false")
+
+
+def _string_list(value: Any, label: str, *, allow_empty: bool = False) -> list[str]:
+    if not isinstance(value, list) or (not allow_empty and not value):
+        raise ForecastError(f"{label} must be a {'possibly empty ' if allow_empty else ''}list")
+    if not all(isinstance(item, str) and item.strip() for item in value):
+        raise ForecastError(f"{label} must contain only non-empty strings")
+    return value
+
+
+def _validate_forecast(data: dict[str, Any], path: Path) -> None:
+    expected = {
+        "object_type": "chunking_human_decision_forecast",
+        "trust_zone": "canonical",
+        "lifecycle_status": "active",
+        "schema_version": "chunking_human_decision_forecast.v1",
+        "forecast_id": "chunking_ready_owner_decision_forecast",
+    }
+    for key, value in expected.items():
+        if data.get(key) != value:
+            raise ForecastError(f"{_rel(path)}: {key} must be {value!r}")
+
+    authority = data.get("authority")
+    if not isinstance(authority, dict):
+        raise ForecastError(f"{_rel(path)}: authority must be a mapping")
+    if authority.get("records_anticipated_decisions") is not True:
+        raise ForecastError(f"{_rel(path)}: authority.records_anticipated_decisions must be true")
+    for key in REQUIRED_FALSE_AUTHORITY_FLAGS:
+        _require_false(authority, key, "authority")
+
+    blocked = data.get("goal_blocked_explanation")
+    if not isinstance(blocked, dict) or blocked.get("thread_goal_status") != "blocked":
+        raise ForecastError(f"{_rel(path)}: goal_blocked_explanation.thread_goal_status must be blocked")
+    if "owner decisions" not in str(blocked.get("reason", "")):
+        raise ForecastError(f"{_rel(path)}: goal_blocked_explanation.reason must mention owner decisions")
+
+    policy = data.get("decision_policy")
+    if not isinstance(policy, dict):
+        raise ForecastError(f"{_rel(path)}: decision_policy must be a mapping")
+    required_owner = set(_string_list(policy.get("owner_decision_required_for"), "decision_policy.owner_decision_required_for"))
+    for item in (
+        "reviewed_gold_promotion",
+        "chunk_output_change",
+        "route_behavior_change",
+        "evaluator_behavior_change",
+        "textual_critical_policy_selection",
+        "boundary_import",
+    ):
+        if item not in required_owner:
+            raise ForecastError(f"{_rel(path)}: owner_decision_required_for missing {item}")
+    if policy.get("if_owner_unavailable") != "stop_before_authority_change":
+        raise ForecastError(f"{_rel(path)}: decision_policy.if_owner_unavailable must stop before authority change")
+
+    decisions = data.get("front_loaded_decisions")
+    if not isinstance(decisions, list):
+        raise ForecastError(f"{_rel(path)}: front_loaded_decisions must be a list")
+    by_id = {item.get("decision_id"): item for item in decisions if isinstance(item, dict)}
+    missing = sorted(REQUIRED_DECISIONS - set(by_id))
+    if missing:
+        raise ForecastError(f"{_rel(path)}: missing front-loaded decisions {missing}")
+
+    hdf_001 = by_id["HDF-001"]
+    if hdf_001.get("status") != "pending_owner_decision":
+        raise ForecastError(f"{_rel(path)}: HDF-001 must remain pending_owner_decision")
+    if hdf_001.get("earliest_task") != "T369":
+        raise ForecastError(f"{_rel(path)}: HDF-001 earliest_task must be T369")
+    option_ids = {
+        option.get("option_id")
+        for option in hdf_001.get("options", [])
+        if isinstance(option, dict)
+    }
+    expected_options = {
+        "1COR8-10-T369-A",
+        "1COR8-10-T369-B",
+        "1COR8-10-T369-C",
+        "1COR8-10-T369-D",
+        "1COR8-10-T369-E",
+    }
+    if option_ids != expected_options:
+        raise ForecastError(f"{_rel(path)}: HDF-001 options must match {sorted(expected_options)}")
+
+    hdf_002 = by_id["HDF-002"]
+    if hdf_002.get("status") != "pending_owner_policy":
+        raise ForecastError(f"{_rel(path)}: HDF-002 must remain pending_owner_policy")
+    if "preferred_reading_selection" not in hdf_002.get("non_authorizations", []):
+        raise ForecastError(f"{_rel(path)}: HDF-002 must deny preferred_reading_selection")
+
+    hdf_004 = by_id["HDF-004"]
+    if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
+        raise ForecastError(f"{_rel(path)}: HDF-004 must stop for chunk_output_change")
+
+    ready = data.get("chunking_ready_definition")
+    if not isinstance(ready, dict):
+        raise ForecastError(f"{_rel(path)}: chunking_ready_definition must be a mapping")
+    ready_required = set(_string_list(
+        ready.get("ready_for_first_output_changing_chunk_pr_requires"),
+        "chunking_ready_definition.ready_for_first_output_changing_chunk_pr_requires",
+    ))
+    for item in (
+        "owner_selected_exact_target",
+        "reviewed_gold_or_equivalent_governed_evidence_promoted_by_owner",
+        "non_target_identity_proof",
+        "same_baseline_evaluation_plan",
+        "explicit_owner_implementation_authorization",
+    ):
+        if item not in ready_required:
+            raise ForecastError(f"{_rel(path)}: chunking-ready definition missing {item}")
+
+    for item in (
+        "source_metadata_would_become_authority",
+        "missing_reviewed_gold",
+        "non_target_output_diff",
+        "graph_retrieval_vector_output_requested",
+    ):
+        if item not in data.get("stop_conditions", []):
+            raise ForecastError(f"{_rel(path)}: stop_conditions missing {item}")
+
+    for item in (
+        "do_not_treat_this_forecast_as_authorization",
+        "do_not_implement_chunks_from_pending_packets",
+        "do_not_merge_output_changing_work_without_owner_authorization",
+    ):
+        if item not in data.get("what_not_to_do", []):
+            raise ForecastError(f"{_rel(path)}: what_not_to_do missing {item}")
+
+    steps = data.get("next_roadmap_steps")
+    if not isinstance(steps, list):
+        raise ForecastError(f"{_rel(path)}: next_roadmap_steps must be a list")
+    step_ids = [step.get("task_id") for step in steps if isinstance(step, dict)]
+    for expected in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
+        if expected not in step_ids:
+            raise ForecastError(f"{_rel(path)}: next_roadmap_steps missing {expected}")
+
+
+def _validate_governed_links() -> None:
+    roadmap = _read_text(ROADMAP_DOC)
+    for phrase in (
+        "Why The Goal Looked Blocked",
+        "Front-Loaded Human Decisions",
+        "HDF-001 - 1 Corinthians 8-10 Owner Option",
+        "Roadmap From Here",
+        "What Not To Do",
+        "Stop Conditions",
+    ):
+        if phrase not in roadmap:
+            raise ForecastError(f"{_rel(ROADMAP_DOC)}: missing phrase {phrase!r}")
+
+    preflight = _read_yaml(PREFLIGHT)
+    reading_paths = {
+        str(item.get("path"))
+        for item in preflight.get("mandatory_reading", [])
+        if isinstance(item, dict)
+    }
+    if ".ai/control/chunking_human_decision_forecast.yaml" not in reading_paths:
+        raise ForecastError(f"{_rel(PREFLIGHT)}: human decision forecast must be mandatory reading")
+
+    readiness = _read_yaml(READINESS_MAP)
+    surfaces = set(readiness.get("lessons_storage", {}).get("surfaces", []))
+    if ".ai/control/chunking_human_decision_forecast.yaml" not in surfaces:
+        raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
+
+    register = _read_text(REGISTER)
+    for phrase in ("CD-038", "Human decision forecast front-loads chunking gates", "T368"):
+        if phrase not in register:
+            raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
+
+    roadmap_state = _read_yaml(ROADMAP_STATE)
+    future = roadmap_state.get("phases", {}).get("phase_4", {}).get("future_sequence")
+    if not isinstance(future, list):
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: phase_4.future_sequence must be a list")
+    by_id = {item.get("id"): item for item in future if isinstance(item, dict)}
+    for task_id in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
+        if task_id not in by_id:
+            raise ForecastError(f"{_rel(ROADMAP_STATE)}: future_sequence missing {task_id}")
+    if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
+    if by_id["T374"].get("output_change_authorized") is not False:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 must not be pre-authorized for output change")
+
+    front_door = _read_text(FRONT_DOOR)
+    for phrase in (
+        "chunking_human_decision_forecast.yaml",
+        "predictable owner decisions",
+        "ready for the first new output-changing chunk PR",
+    ):
+        if phrase not in front_door:
+            raise ForecastError(f"{_rel(FRONT_DOOR)}: missing {phrase!r}")
+
+
+def validate_chunking_human_decision_forecast(path: Path = FORECAST) -> dict[str, Any]:
+    data = _read_yaml(path)
+    _validate_forecast(data, path)
+    _validate_governed_links()
+    return data
+
+
+def main() -> int:
+    try:
+        validate_chunking_human_decision_forecast()
+    except ForecastError as exc:
+        print(f"Chunking human decision forecast validation failed: {exc}", file=sys.stderr)
+        return 1
+    print("Chunking human decision forecast validation passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

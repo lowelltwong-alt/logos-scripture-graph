@@ -35,6 +35,31 @@ PACKETS = {
     },
 }
 
+T368_1COR_REQUIRED_PHRASES = {
+    "T368 strengthened packet: true",
+    "Owner-review docket: `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`",
+    "Orthodox Hermeneutic Firewall: `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`",
+    "Textual-critical policy docket: `.ai/control/textual_critical_policy_docket.yaml`",
+    "Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`",
+    "Exact parent candidate for owner review: `1Cor.8.1-1Cor.10.33`",
+    "1Cor.9.20",
+    "1Cor.10.9",
+    "Deut.25.4",
+    "Exod.32.6",
+    "Ps.24.1",
+    "G1108",
+    "G4893",
+    "G1494",
+    "G1497",
+    "G1849",
+    "G5132",
+    "G4221",
+    "G1140",
+    "G2842",
+    "No sacramental presence, memorial-only, or table-fellowship system is selected.",
+    "No textual-critical preference is selected from the `1Cor.9.20` or `1Cor.10.9` footnotes.",
+}
+
 
 class EpistlePacketError(ValueError):
     """Raised when T352 epistle packet state is invalid."""
@@ -110,6 +135,10 @@ def validate_epistle_packets() -> None:
         ):
             if forbidden in text:
                 raise EpistlePacketError(f"{_rel(packet_path)} contains forbidden {forbidden!r}")
+        if case_id == "1cor8_10_food_offered_to_idols":
+            for phrase in T368_1COR_REQUIRED_PHRASES:
+                if phrase not in text:
+                    raise EpistlePacketError(f"{_rel(packet_path)} missing T368 phrase {phrase!r}")
 
         packet_entry = _entry_by_id(index_entries, spec["entry_id"])
         if packet_entry.get("entry_type") != "review_packet":
@@ -155,4 +184,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
