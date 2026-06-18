@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T364 wisdom dialogue poetry dossier queue (Codex)
-**Active task:** -> **T364** is complete as non-output-changing research PR work. It creates `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml` to record Job dialogue cycles, Proverbs wisdom speeches, Proverbs 31, Ecclesiastes refrains, Song speaker-boundary and genre risks, Lamentations acrostics, and Psalm 119 risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize wisdom theology, speaker attribution, speaker boundaries, allegorical/literal readings, liturgical use, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T365 prophetic oracle vision dossier queue (Codex)
+**Active task:** -> **T365** is complete as non-output-changing research PR work. It creates `.ai/control/prophetic_oracle_vision_dossier_queue.yaml` to record Isaiah servant/comfort oracles, Jeremiah restoration/new covenant, Ezekiel restoration and temple visions, Daniel prophetic-apocalyptic visions, Hosea sign-act/covenant metaphor, Joel day-of-Yahweh/Spirit, and Zechariah night vision risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize fulfillment theology, eschatological systems, covenant systems, Israel/church relations, messianic identification, temple theology, route behavior, evaluator changes, retrieval truth, intertext truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T365 prophetic oracle vision dossier queue (2026-06-18):** Added
+> `.ai/control/prophetic_oracle_vision_dossier_queue.yaml`, checked by
+> `scripts/validate_prophetic_oracle_vision_dossier_queue.py`, so future Isaiah, Jeremiah,
+> Ezekiel, Daniel, Hosea, Joel, Zechariah, graph, retrieval, review-packet, evaluator, and
+> chunking agents can start from explicit dossiers instead of chat memory. The queue records
+> Isaiah servant and comfort oracles, Jeremiah restoration and new covenant material, Ezekiel
+> restoration and temple visions, Daniel prophetic-apocalyptic visions, Hosea sign-act/covenant
+> metaphor, Joel day-of-Yahweh/Spirit material, and Zechariah night visions. It is
+> non-authorizing: no fulfillment theology, eschatological system, covenant system, Israel/church
+> relation, messianic identification, temple theology, prophetic chronology, reviewed gold, chunk
+> boundary, route behavior, evaluator change, graph edge, retrieval truth, output change, boundary
+> import, vector work, intertext truth, or algorithm behavior is approved.
 
 > **T364 wisdom dialogue poetry dossier queue (2026-06-18):** Added
 > `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml`, checked by

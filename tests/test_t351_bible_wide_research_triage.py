@@ -162,6 +162,11 @@ def test_t351_task_and_roadmap_are_active_and_numeric() -> None:
     assert tasks["T364"]["lane"] == "wisdom_dialogue"
     assert tasks["T364"]["dossier_queue"] == ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml"
     assert tasks["T364"]["wisdom_theology_authorized"] is False
+    assert tasks["T365"]["status"] == "complete"
+    assert tasks["T365"]["lane"] == "prophetic_oracle"
+    assert tasks["T365"]["dossier_queue"] == ".ai/control/prophetic_oracle_vision_dossier_queue.yaml"
+    assert tasks["T365"]["fulfillment_theology_authorized"] is False
+    assert tasks["T365"]["temple_theology_authorized"] is False
     assert "T344R" not in future
     assert future["T357"]["status"] == "planned"
     assert future["T345"]["status"] == "planned"

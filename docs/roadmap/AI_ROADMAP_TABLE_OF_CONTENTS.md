@@ -34,7 +34,9 @@ Common tags in this file:
   `election`, `law-gospel`, `faith-works`, `assurance`, `red-letter`, `speaker-boundary`,
   `sermon-on-mount`, `farewell-discourse`, `dominical-quotation`, `narrative`, `legal`,
   `covenant`, `genealogy`, `lists`, `typology`, `harmonization`, `wisdom`, `dialogue`,
-  `poetry`, `acrostic`, `refrain`, `job`, `song`, `lamentations`, `ps119`
+  `poetry`, `acrostic`, `refrain`, `job`, `song`, `lamentations`, `ps119`, `prophetic`,
+  `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`,
+  `israel-church`, `messianic`, `zechariah`
 
 ## Current Bible Chunking Path
 
@@ -65,6 +67,7 @@ Common tags in this file:
 | T362 | Gospel WJ discourse dossier queue | `gospel-discourse-wj`, `red-letter`, `speaker-boundary`, `john3`, `sermon-on-mount`, `farewell-discourse`, `non-authorizing` | Preparing Gospel/WJ discourse dossiers without selecting speaker, discourse, reviewed-gold, or chunk authority. | `docs/roadmap/T362_GOSPEL_WJ_DISCOURSE_DOSSIERS.md`; `.ai/control/gospel_wj_discourse_dossier_queue.yaml`; `scripts/validate_gospel_wj_discourse_dossier_queue.py`; `.ai/tasks/T362.task.yaml`; `.ai/handoffs/T362/handoff.md` |
 | T363 | Narrative legal covenant dossier queue | `narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization`, `non-authorizing` | Preparing narrative/legal/covenant dossiers without selecting covenant systems, law/gospel, typology, harmonization, reviewed-gold, or chunk authority. | `docs/roadmap/T363_NARRATIVE_LEGAL_COVENANT_DOSSIERS.md`; `.ai/control/narrative_legal_covenant_dossier_queue.yaml`; `scripts/validate_narrative_legal_covenant_dossier_queue.py`; `.ai/tasks/T363.task.yaml`; `.ai/handoffs/T363/handoff.md` |
 | T364 | Wisdom dialogue poetry dossier queue | `wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`, `non-authorizing` | Preparing wisdom/dialogue/poetry dossiers without selecting wisdom theology, speaker boundaries, Song readings, reviewed-gold, or chunk authority. | `docs/roadmap/T364_WISDOM_DIALOGUE_POETRY_DOSSIERS.md`; `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml`; `scripts/validate_wisdom_dialogue_poetry_dossier_queue.py`; `.ai/tasks/T364.task.yaml`; `.ai/handoffs/T364/handoff.md` |
+| T365 | Prophetic oracle vision dossier queue | `prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`, `israel-church`, `messianic`, `zechariah`, `non-authorizing` | Preparing prophetic/oracle/vision dossiers without selecting fulfillment theology, eschatology, covenant systems, Israel/church relation, messianic identification, temple theology, reviewed-gold, or chunk authority. | `docs/roadmap/T365_PROPHETIC_ORACLE_VISION_DOSSIERS.md`; `.ai/control/prophetic_oracle_vision_dossier_queue.yaml`; `scripts/validate_prophetic_oracle_vision_dossier_queue.py`; `.ai/tasks/T365.task.yaml`; `.ai/handoffs/T365/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -87,6 +90,7 @@ Common tags in this file:
 | `.ai/control/gospel_wj_discourse_dossier_queue.yaml` | `gospel-discourse-wj`, `red-letter`, `speaker-boundary`, `john3`, `sermon-on-mount`, `farewell-discourse`, `dominical-quotation` | Future agents need Gospel/WJ discourse dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no speaker/discourse/reviewed-gold/graph/retrieval/chunk/output authority. |
 | `.ai/control/narrative_legal_covenant_dossier_queue.yaml` | `narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization` | Future agents need narrative/legal/covenant dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no covenant/law-gospel/typology/graph/retrieval/chunk/output authority. |
 | `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml` | `wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119` | Future agents need wisdom/dialogue/poetry dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no wisdom/speaker/graph/retrieval/chunk/output authority. |
+| `.ai/control/prophetic_oracle_vision_dossier_queue.yaml` | `prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`, `israel-church`, `messianic`, `zechariah` | Future agents need prophetic/oracle/vision dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no fulfillment/eschatology/covenant/Israel-church/messianic/temple/graph/retrieval/chunk/output authority. |
 
 ## Current Next Route
 
@@ -153,3 +157,7 @@ T364 does not authorize wisdom theology, Job theodicy selection, Ecclesiastes fr
 allegorical/literal system selection, speaker attribution, speaker boundaries, liturgical use,
 pending packet approval, reviewed-gold promotion, route behavior, evaluator changes, graph edges,
 retrieval truth, chunk boundaries, output changes, boundary import, or T345.
+T365 does not authorize fulfillment theology, eschatological system selection, covenant system
+selection, Israel/church relation, messianic identification, temple theology, prophetic chronology,
+pending packet approval, reviewed-gold promotion, route behavior, evaluator changes, graph edges,
+retrieval truth, intertext truth, chunk boundaries, output changes, boundary import, or T345.

@@ -253,6 +253,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
                 raise ResearchRegistryError(
                     f"research_dimensions.{dimension_id}.companion_dossier_queue must point to apocalyptic/prophetic queue"
                 )
+        if dimension_id == "prophetic_oracle_vision":
+            if dimension.get("companion_oracle_dossier_queue") != ".ai/control/prophetic_oracle_vision_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    "research_dimensions.prophetic_oracle_vision.companion_oracle_dossier_queue must point to prophetic/oracle/vision queue"
+                )
         if dimension_id == "gospel_discourse_speaker_wj":
             if dimension.get("companion_dossier_queue") != ".ai/control/gospel_wj_discourse_dossier_queue.yaml":
                 raise ResearchRegistryError(
