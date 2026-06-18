@@ -24,7 +24,8 @@ Read these files before making changes:
     Source metadata is evidence, not authority. The source-metadata research atlas,
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
-    textual-variant/source-tradition dossier queue,
+    textual-variant/source-tradition dossier queue, Orthodox Hermeneutic Firewall,
+    textual-critical policy requirement docket,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
@@ -96,11 +97,12 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T356 keep the current route non-output-changing: Bible-wide triage is complete,
-  T352 epistle packets remain pending review packets, T355 selected John 3 for owner review, and
-  T356 records pending owner options for `John.3.1-John.3.36` / `john3_wj_speaker_boundary`.
-  Do not move from packet/docket prep to implementation without later owner-reviewed gold and
-  exact authorization.
+- T351 through T367 keep the current route non-output-changing: Bible-wide triage is complete,
+  T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
+  T367 selected `JOHN3-T356-B` as parent-only review target, and T367 added the Orthodox
+  Hermeneutic Firewall plus textual-critical policy requirement. The readiness map now points to
+  T368 / `1Cor.8-1Cor.10` packet strengthening as review-only work. Do not move from packet/docket
+  prep to implementation without later owner-reviewed gold and exact authorization.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -120,8 +122,9 @@ Bible-first chunking priority:
   changes by itself.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T356 John 3 owner review, with
-  T355 preserved as the prior WJ speaker/discourse policy selection.
+  next safe route. It is non-authorizing and currently points to T368 1Cor.8-1Cor.10 epistle
+  packet strengthening as review-only work, with T367 preserved as the owner-decision firewall and
+  target-selection record.
 - The Bible chunking research triage map at `.ai/control/bible_chunking_research_triage_map.yaml`
   classifies canonical lanes before more algorithm work. It is non-authorizing; `review_packet_ready`
   means ready for review packets, not ready to chunk. T352 creates pending epistle argument packets,
@@ -150,10 +153,10 @@ Bible-first chunking priority:
   boundaries, discourse boundaries, reviewed gold, graph edges, chunk boundaries, retrieval truth,
   or output changes. It is validated by `scripts/validate_wj_speaker_discourse_policy.py`.
 - The John 3 WJ owner-review docket at `.ai/control/john3_wj_owner_review_docket.yaml` records
-  pending owner options for `John.3.1-John.3.36` / `john3_wj_speaker_boundary`. It does not select
-  an option, approve parent or child spans, decide Jesus/narrator boundaries, promote reviewed
-  gold, authorize graph edges, authorize chunk boundaries, authorize retrieval truth, or change
-  output. It is validated by `scripts/validate_john3_owner_review_docket.py`.
+  `JOHN3-T356-B` as the selected parent-only review target for `John.3.1-John.3.36` /
+  `john3_wj_speaker_boundary`. It does not approve child spans, decide Jesus/narrator boundaries,
+  promote reviewed gold, authorize graph edges, authorize chunk boundaries, authorize retrieval
+  truth, or change output. It is validated by `scripts/validate_john3_owner_review_docket.py`.
 - The Bible-wide chunking research registry at
   `.ai/control/bible_wide_chunking_research_registry.yaml` records a canonical 66-book research
   queue with use-when routing, book-level theological risks, source-metadata watchpoints, and
@@ -233,6 +236,16 @@ Bible-first chunking priority:
   source authority, boundary import, reviewed gold, route behavior, graph edges, retrieval truth,
   chunk boundaries, output changes, intertext truth, or implementation. It is validated by
   `scripts/validate_textual_variant_source_tradition_dossier_queue.py`.
+- The Orthodox Hermeneutic Firewall / Anti-Smuggling Docket at
+  `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` affirms Nicene/Chalcedonian orthodox
+  Christianity and canonical Scripture authority while refusing hidden anti-supernatural,
+  anti-canonical, heterodox, liberal-critical, or one-denomination systematic-theology defaults.
+  It is validated by `scripts/validate_orthodox_hermeneutic_firewall_docket.py`.
+- The textual-critical policy docket at `.ai/control/textual_critical_policy_docket.yaml` records
+  that no variant-sensitive packet may be promoted, implemented, used as reviewed gold, or used
+  for canon/source-tradition/boundary decisions before a later explicit owner policy. It does not
+  select a textual-critical policy. It is validated by
+  `scripts/validate_textual_critical_policy_docket.py`.
 
 High-leverage change risk gate:
 
@@ -342,6 +355,8 @@ python scripts/validate_narrative_legal_covenant_dossier_queue.py
 python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py
 python scripts/validate_prophetic_oracle_vision_dossier_queue.py
 python scripts/validate_textual_variant_source_tradition_dossier_queue.py
+python scripts/validate_orthodox_hermeneutic_firewall_docket.py
+python scripts/validate_textual_critical_policy_docket.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -416,6 +431,14 @@ drops Mark 16, John 7:53-8:11, Acts empty witnesses, Romans doxology, Deuteronom
 MT/LXX, Jude, Daniel/Esther, or 1 John 5:7 dossiers, treats variant/source-tradition evidence as
 textual-critical, canon, boundary-import, graph, retrieval, or chunk-boundary authority, or omits
 non-authorization guards.
+`python scripts/validate_orthodox_hermeneutic_firewall_docket.py` fails closed if the orthodox
+firewall loses Nicene/Chalcedonian/canonical Scripture commitments or starts authorizing
+anti-supernatural, anti-canonical, heterodox, liberal-critical, one-denomination systematic,
+reviewed-gold, graph, retrieval, chunk, route, evaluator, or output authority.
+`python scripts/validate_textual_critical_policy_docket.py` fails closed if the textual-critical
+policy docket selects a hidden policy, authorizes preferred readings, canon-scope changes,
+source-tradition preferences, boundary imports, reviewed gold, graph/retrieval truth, chunks, or
+output changes.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

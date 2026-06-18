@@ -41,7 +41,7 @@ place.
 It is safer than implementing chunks because:
 
 - Revelation remains research/prep only under `REV-T344-E`.
-- John 3 owner selection remains pending after T356.
+- John 3 parent-only review target selection is now recorded as `JOHN3-T356-B` after T367.
 - Epistle packets remain pending review packets, not reviewed gold.
 - Source metadata remains evidence only.
 - Whole-Bible orchestration remains implementation-blocked.

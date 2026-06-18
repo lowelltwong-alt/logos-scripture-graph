@@ -101,24 +101,20 @@ def test_t343_index_lists_packet_as_pending() -> None:
     assert queue["packet_rev12_14_symbolic_scenes_review"]["implementation_allowed"] is False
 
 
-def test_t343_readiness_now_points_to_t356_john3_docket_not_implementation() -> None:
+def test_t343_readiness_now_points_to_t368_review_only_not_implementation() -> None:
     readiness = load_yaml(READINESS)
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert readiness["next_route"]["task_id"] == "T356"
-    assert readiness["next_route"]["route_type"] == "john3_wj_owner_review_docket"
-    assert readiness["next_route"]["selected_option"] == "REV-T344-E"
+    assert readiness["next_route"]["task_id"] == "T368"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert readiness["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
+    assert readiness["next_route"]["review_only"] is True
     assert readiness["next_route"]["implementation_authorized"] is False
-    assert readiness["next_route"]["prior_triage_task"] == "T351"
-    assert readiness["next_route"]["prior_inventory_task"] == "T354"
-    assert readiness["next_route"]["prior_policy_task"] == "T355"
-    assert readiness["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
-    assert readiness["next_route"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
-    assert readiness["next_route"]["selected_target"] == "john3_wj_speaker_boundary"
-    assert readiness["next_route"]["selected_target_status"] == "owner_selection_pending"
-    assert readiness["next_route"]["john3_owner_selection_status"] == "pending"
-    assert readiness["next_route"]["john3_selected_option"] == "pending"
+    assert readiness["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
+    assert readiness["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
+    assert readiness["next_route"]["john3_owner_selection_status"] == "selected"
+    assert readiness["next_route"]["john3_selected_option"] == "JOHN3-T356-B"
     assert target["packet_status"] == "pending_human_review"
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"

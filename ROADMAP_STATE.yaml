@@ -423,8 +423,10 @@ phases:
         discourse_boundary_authorized: false
         parent_span_authorized: false
         child_spans_authorized: false
-        owner_selection_status: pending
-        selected_option: pending
+        owner_selection_status: selected
+        selected_option: JOHN3-T356-B
+        selected_parent: John.3.1-John.3.36
+        selected_children: []
         docket: .ai/control/john3_wj_owner_review_docket.yaml
         selected_target: john3_wj_speaker_boundary
         selected_passage: John.3.1-John.3.36
@@ -526,7 +528,7 @@ phases:
         boundary_import_allowed: false
         dossier_queue: .ai/control/gospel_wj_discourse_dossier_queue.yaml
         relation_to_t354: companion_dossier_queue_for_wj_marker_inventory
-        relation_to_t356: john3_owner_selection_remains_pending
+        relation_to_t356: john3_parent_only_review_target_selected_no_output_authority
         relation_to_t358: companion_research_queue_for_gospel_discourse_speaker_wj_dimension
         relation_to_t357: parallel_research_only_does_not_select_john3_option
       - id: T363
@@ -630,12 +632,47 @@ phases:
         relation_to_t327: preserves_canonical_66_and_boundary_routing
         relation_to_t358: companion_research_queue_for_textual_variant_source_tradition_lane
         relation_to_t357: parallel_research_only_does_not_select_john3_option
+      - id: T367
+        title: Owner Decision Firewall And Next Target
+        status: complete
+        owner: codex
+        lane: owner_decision_control_plane
+        required_handoff: .ai/handoffs/T367/handoff.md
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        embedding_or_vector_work_allowed: false
+        retrieval_truth_authorized: false
+        boundary_import_allowed: false
+        john3_parent_only_review_target_authorized: true
+        john3_selected_option: JOHN3-T356-B
+        john3_selected_parent: John.3.1-John.3.36
+        john3_child_spans_authorized: false
+        john3_jesus_narrator_boundary_authorized: false
+        orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+        textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
+        textual_critical_policy_selected: false
+        next_review_target: 1Cor.8-1Cor.10
+        next_review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
     future_sequence:
+      - id: T368
+        title: 1 Corinthians 8-10 Epistle Argument Packet Strengthening
+        status: planned
+        lane: epistle_argument
+        requires_orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+        review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+        review_only: true
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned
         lane: gospel_discourse_wj
-        requires_owner_selection: true
+        requires_owner_selection: false
         requires_reviewed_gold_or_equivalent_governed_evidence: true
         output_change_authorized: false
         implementation_authorized: false

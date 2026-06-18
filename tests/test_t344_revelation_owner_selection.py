@@ -91,19 +91,14 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T356"
-    assert readiness["next_route"]["route_type"] == "john3_wj_owner_review_docket"
-    assert readiness["next_route"]["owner_selection_status"] == "selected"
-    assert readiness["next_route"]["selected_option"] == "REV-T344-E"
-    assert readiness["next_route"]["prior_triage_task"] == "T351"
-    assert readiness["next_route"]["prior_inventory_task"] == "T354"
-    assert readiness["next_route"]["prior_policy_task"] == "T355"
-    assert readiness["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
-    assert readiness["next_route"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
-    assert readiness["next_route"]["selected_target"] == "john3_wj_speaker_boundary"
-    assert readiness["next_route"]["selected_target_status"] == "owner_selection_pending"
-    assert readiness["next_route"]["john3_owner_selection_status"] == "pending"
-    assert readiness["next_route"]["john3_selected_option"] == "pending"
+    assert readiness["next_route"]["task_id"] == "T368"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert readiness["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
+    assert readiness["next_route"]["prior_owner_decision_task"] == "T367"
+    assert readiness["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
+    assert readiness["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
+    assert readiness["next_route"]["john3_owner_selection_status"] == "selected"
+    assert readiness["next_route"]["john3_selected_option"] == "JOHN3-T356-B"
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert "CD-016" in register
@@ -140,8 +135,8 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T355"]["selected_target"] == "john3_wj_speaker_boundary"
     assert tasks["T356"]["status"] == "complete"
     assert tasks["T356"]["lane"] == "gospel_discourse_wj"
-    assert tasks["T356"]["owner_selection_status"] == "pending"
-    assert tasks["T356"]["selected_option"] == "pending"
+    assert tasks["T356"]["owner_selection_status"] == "selected"
+    assert tasks["T356"]["selected_option"] == "JOHN3-T356-B"
     assert tasks["T356"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
     assert tasks["T356"]["selected_target"] == "john3_wj_speaker_boundary"
     assert tasks["T358"]["status"] == "complete"
@@ -183,7 +178,13 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T366"]["dossier_queue"] == ".ai/control/textual_variant_source_tradition_dossier_queue.yaml"
     assert tasks["T366"]["textual_critical_decision_authorized"] is False
     assert tasks["T366"]["canon_scope_change_authorized"] is False
+    assert tasks["T367"]["status"] == "complete"
+    assert tasks["T367"]["john3_selected_option"] == "JOHN3-T356-B"
+    assert tasks["T367"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
+    assert tasks["T367"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
     assert future["T357"]["status"] == "planned"
-    assert future["T357"]["requires_owner_selection"] is True
+    assert future["T357"]["requires_owner_selection"] is False
+    assert future["T368"]["status"] == "planned"
+    assert future["T368"]["review_only"] is True
     assert future["T345"]["status"] == "planned"
     assert future["T345"]["requires_owner_selection_gate"] == "scripts/validate_owner_selection_implementation_gate.py"

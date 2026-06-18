@@ -239,10 +239,11 @@ def _validate_governed_links() -> None:
     expected_docket = {
         "task_id": "T356",
         "path": ".ai/control/john3_wj_owner_review_docket.yaml",
-        "status": "owner_selection_pending",
+        "status": "parent_only_review_target_selected",
         "selected_target": "john3_wj_speaker_boundary",
         "selected_passage": "John.3.1-John.3.36",
-        "selected_option": "pending",
+        "selected_option": "JOHN3-T356-B",
+        "selected_parent": "John.3.1-John.3.36",
     }
     for key, value in expected_docket.items():
         if docket_surface.get(key) != value:
@@ -252,27 +253,10 @@ def _validate_governed_links() -> None:
             raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: owner_review_docket.{key} must be false")
 
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict):
-        raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
-    expected_next = {
-        "task_id": "T356",
-        "route_type": "john3_wj_owner_review_docket",
-        "selected_target": "john3_wj_speaker_boundary",
-        "selected_target_status": "owner_selection_pending",
-        "john3_owner_selection_status": "pending",
-        "john3_selected_option": "pending",
-        "policy": ".ai/control/wj_speaker_discourse_policy.yaml",
-        "docket": ".ai/control/john3_wj_owner_review_docket.yaml",
-        "review_packet_lane": "gospel_discourse_wj",
-        "prior_inventory_task": "T354",
-        "prior_policy_task": "T355",
-    }
-    for key, value in expected_next.items():
-        if next_route.get(key) != value:
-            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.{key} must be {value}")
-    for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
-        if next_route.get(key) is not False:
-            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
+    if isinstance(next_route, dict):
+        for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
+            if next_route.get(key) is not False:
+                raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
 
     if not T355_TASK.exists():
         raise WJSpeakerPolicyError(f"{_rel(T355_TASK)}: T355 task file is missing")

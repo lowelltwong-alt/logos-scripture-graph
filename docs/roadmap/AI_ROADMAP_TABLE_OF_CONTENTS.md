@@ -38,7 +38,9 @@ Common tags in this file:
   `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`,
   `israel-church`, `messianic`, `zechariah`, `textual-variant`, `source-tradition`,
   `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`,
-  `comma-johanneum`
+  `comma-johanneum`, `orthodox-hermeneutic-firewall`, `anti-smuggling`,
+  `orthodoxy-boundary`, `canon-authority`, `textual-critical-policy`, `variant-sensitive`,
+  `1cor8-10`
 
 ## Current Bible Chunking Path
 
@@ -61,7 +63,7 @@ Common tags in this file:
 | T353 | Divine capitalization inventory harness | `divine-capitalization`, `source-metadata`, `harness` | Checking God/god, Spirit/spirit, Father/father, Word/word evidence-only handling. | `docs/roadmap/T353_DIVINE_CAPITALIZATION_INVENTORY_HARNESS.md`; `.ai/control/divine_capitalization_inventory.yaml`; `scripts/validate_divine_capitalization_inventory.py`; `.ai/tasks/T353.task.yaml`; `.ai/handoffs/T353/handoff.md` |
 | T354 | WJ/red-letter marker inventory harness | `wj`, `red-letter`, `source-metadata`, `harness` | Checking words-of-Jesus marker evidence without authorizing speaker/chunk behavior. | `docs/roadmap/T354_WJ_MARKER_INVENTORY_HARNESS.md`; `.ai/control/wj_marker_inventory.yaml`; `scripts/validate_wj_marker_inventory.py`; `.ai/tasks/T354.task.yaml`; `.ai/handoffs/T354/handoff.md` |
 | T355 | WJ speaker/discourse policy and target selection | `wj-speaker`, `gospel-discourse-wj`, `john3`, `policy` | Understanding why John 3 was selected for owner review only. | `docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md`; `.ai/control/wj_speaker_discourse_policy.yaml`; `scripts/validate_wj_speaker_discourse_policy.py`; `.ai/tasks/T355.task.yaml`; `.ai/handoffs/T355/handoff.md` |
-| T356 | John 3 WJ owner-review docket | `john3`, `owner-review`, `speaker-boundary`, `current-route` | Presenting owner options before any John 3 parent/child/speaker/chunk approval. | `docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`; `.ai/control/john3_wj_owner_review_docket.yaml`; `scripts/validate_john3_owner_review_docket.py`; `.ai/tasks/T356.task.yaml`; `.ai/handoffs/T356/handoff.md` |
+| T356 | John 3 WJ owner-review docket | `john3`, `owner-review`, `speaker-boundary` | Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target. | `docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`; `.ai/control/john3_wj_owner_review_docket.yaml`; `scripts/validate_john3_owner_review_docket.py`; `.ai/tasks/T356.task.yaml`; `.ai/handoffs/T356/handoff.md` |
 | T358 | Bible-wide chunking research registry | `whole-bible-research`, `canonical-66`, `research-registry`, `non-authorizing` | Preparing future research packets across all 66 books without starting chunk implementation. | `docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`; `.ai/control/bible_wide_chunking_research_registry.yaml`; `scripts/validate_bible_wide_chunking_research_registry.py`; `.ai/tasks/T358.task.yaml`; `.ai/handoffs/T358/handoff.md` |
 | T359 | Source metadata research atlas | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`, `non-authorizing` | Checking metadata families before future chunking, graph, retrieval, or review-packet work. | `docs/roadmap/T359_SOURCE_METADATA_RESEARCH_ATLAS.md`; `.ai/control/source_metadata_research_atlas.yaml`; `scripts/validate_source_metadata_research_atlas.py`; `.ai/tasks/T359.task.yaml`; `.ai/handoffs/T359/handoff.md` |
 | T360 | Apocalyptic prophetic intertext dossier queue | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`, `non-authorizing` | Preparing Revelation/Daniel/prophetic intertext dossiers without selecting a hermeneutic system. | `docs/roadmap/T360_APOCALYPTIC_PROPHETIC_INTERTEXT_DOSSIERS.md`; `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`; `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`; `.ai/tasks/T360.task.yaml`; `.ai/handoffs/T360/handoff.md` |
@@ -71,6 +73,7 @@ Common tags in this file:
 | T364 | Wisdom dialogue poetry dossier queue | `wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`, `non-authorizing` | Preparing wisdom/dialogue/poetry dossiers without selecting wisdom theology, speaker boundaries, Song readings, reviewed-gold, or chunk authority. | `docs/roadmap/T364_WISDOM_DIALOGUE_POETRY_DOSSIERS.md`; `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml`; `scripts/validate_wisdom_dialogue_poetry_dossier_queue.py`; `.ai/tasks/T364.task.yaml`; `.ai/handoffs/T364/handoff.md` |
 | T365 | Prophetic oracle vision dossier queue | `prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`, `israel-church`, `messianic`, `zechariah`, `non-authorizing` | Preparing prophetic/oracle/vision dossiers without selecting fulfillment theology, eschatology, covenant systems, Israel/church relation, messianic identification, temple theology, reviewed-gold, or chunk authority. | `docs/roadmap/T365_PROPHETIC_ORACLE_VISION_DOSSIERS.md`; `.ai/control/prophetic_oracle_vision_dossier_queue.yaml`; `scripts/validate_prophetic_oracle_vision_dossier_queue.py`; `.ai/tasks/T365.task.yaml`; `.ai/handoffs/T365/handoff.md` |
 | T366 | Textual variant source tradition dossier queue | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum`, `non-authorizing` | Preparing textual-variant/source-tradition dossiers without selecting textual-critical policy, canon scope, source-tradition preference, boundary import, noncanonical authority, reviewed-gold, or chunk authority. | `docs/roadmap/T366_TEXTUAL_VARIANT_SOURCE_TRADITION_DOSSIERS.md`; `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`; `scripts/validate_textual_variant_source_tradition_dossier_queue.py`; `.ai/tasks/T366.task.yaml`; `.ai/handoffs/T366/handoff.md` |
+| T367 | Owner decision firewall and next target | `owner-decision`, `orthodox-hermeneutic-firewall`, `anti-smuggling`, `textual-critical-policy`, `john3`, `1cor8-10`, `non-authorizing` | Auditing JOHN3-T356-B, the orthodox firewall, textual-critical policy requirement, and the next review-only epistle target. | `docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md`; `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`; `.ai/control/textual_critical_policy_docket.yaml`; `.ai/tasks/T367.task.yaml`; `.ai/handoffs/T367/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -95,6 +98,8 @@ Common tags in this file:
 | `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml` | `wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119` | Future agents need wisdom/dialogue/poetry dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no wisdom/speaker/graph/retrieval/chunk/output authority. |
 | `.ai/control/prophetic_oracle_vision_dossier_queue.yaml` | `prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`, `israel-church`, `messianic`, `zechariah` | Future agents need prophetic/oracle/vision dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no fulfillment/eschatology/covenant/Israel-church/messianic/temple/graph/retrieval/chunk/output authority. |
 | `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum` | Future agents need textual-variant/source-tradition dossiers before exact packet review, route, graph, retrieval, boundary, or algorithm work. | Dossier queue; no textual-critical/canon/source-tradition/boundary-import/noncanonical/graph/retrieval/chunk/output authority. |
+| `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` | `orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority` | Future epistle, graph, retrieval, or chunking work might smuggle hidden anti-orthodox defaults. | Firewall docket; affirms Nicene/Chalcedonian and canonical Scripture commitments; no denominational-system/chunk/output authority. |
+| `.ai/control/textual_critical_policy_docket.yaml` | `textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate` | Variant-sensitive packets might be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions. | Policy requirement docket; no textual-critical policy selected and no preferred-reading/canon/boundary/output authority. |
 
 ## Current Next Route
 
@@ -103,12 +108,12 @@ at a time, the next
 route is:
 
 ```text
-T356 - John 3 WJ Owner Review Docket
+T368 - 1 Corinthians 8-10 Epistle Argument Packet Strengthening
 ```
 
-T356 records pending owner-review options for `John.3.1-John.3.36` /
-`john3_wj_speaker_boundary` before any future Gospel discourse, speaker-boundary, graph,
-retrieval, reviewed-gold, or chunk work can cite red-letter metadata for behavior.
+T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
+adds the Orthodox Hermeneutic Firewall and textual-critical policy docket requirement, and points
+the next route to T368 / `1Cor.8-1Cor.10` review-only epistle argument packet strengthening.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -134,7 +139,9 @@ edges, chunk boundaries, retrieval truth, reviewed gold, or output changes. T355
 John 3 speaker boundaries, discourse boundaries, reviewed gold, WJ-driven route behavior, graph
 edges, retrieval truth, or output changes. T356 does not authorize John 3 parent spans, child
 spans, Jesus speaker attribution, narrator boundaries, reviewed gold, graph edges, retrieval truth,
-route behavior, or output changes.
+route behavior, or output changes. T367 does not authorize John 3 child spans, Jesus/narrator
+boundary decisions, reviewed-gold promotion, route behavior, graph/retrieval truth, textual-critical
+policy selection, or output changes.
 T358 does not authorize any book-level research prompt or future review-packet candidate as
 reviewed gold, route behavior, graph truth, retrieval truth, source-metadata authority, or output
 change.
@@ -169,3 +176,6 @@ T366 does not authorize textual-critical decision selection, canon-scope change,
 preference, noncanonical source authority, boundary import, pending packet approval,
 reviewed-gold promotion, route behavior, evaluator changes, graph edges, retrieval truth,
 intertext truth, chunk boundaries, output changes, or T345.
+T368 may only strengthen the existing `1Cor.8-1Cor.10` packet as review prep; it may not promote
+reviewed gold, implement chunks, change route/evaluator behavior, generate graph edges, assert
+retrieval truth, select textual-critical policy, or change output.

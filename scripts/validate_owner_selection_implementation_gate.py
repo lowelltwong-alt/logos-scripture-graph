@@ -201,21 +201,24 @@ def validate_owner_selection_implementation_gate(
     if not isinstance(next_route, dict):
         raise OwnerSelectionGateError(f"{_rel(readiness_map)}: next_route must be a mapping")
 
-    selected_option = _selected_option(
+    selected_option_values = [
         str(auth.get("selected_option")),
         str(docket_owner.get("selected_option")),
         str(packet_decision.get("selected_option")),
         str(selected_target.get("selected_option")),
-        str(next_route.get("selected_option")),
         str(roadmap_t344.get("selected_option")),
-    )
+    ]
+    if "selected_option" in next_route:
+        selected_option_values.append(str(next_route.get("selected_option")))
+    selected_option = _selected_option(*selected_option_values)
 
     owner_statuses = {
         str(auth.get("owner_selection_status")),
         str(selected_target.get("owner_selection_status")),
-        str(next_route.get("owner_selection_status")),
         str(roadmap_t344.get("owner_selection_status")),
     }
+    if "owner_selection_status" in next_route:
+        owner_statuses.add(str(next_route.get("owner_selection_status")))
     if len(owner_statuses) != 1:
         raise OwnerSelectionGateError(f"owner_selection_status surfaces disagree: {sorted(owner_statuses)}")
     owner_status = owner_statuses.pop()
@@ -276,9 +279,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', or 'T356' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', or 'T368' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -395,6 +398,41 @@ def validate_owner_selection_implementation_gate(
                     "readiness.next_route.john3_selected_option",
                 )
                 _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+            if next_task_id == "T368":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "epistle_argument_review_packet_strengthening",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(
+                    next_route.get("selected_target"),
+                    "1cor8_10_food_offered_to_idols",
+                    "readiness.next_route.selected_target",
+                )
+                _require_equal(
+                    next_route.get("review_packet"),
+                    "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+                    "readiness.next_route.review_packet",
+                )
+                _require_equal(next_route.get("prior_owner_decision_task"), "T367", "readiness.next_route.prior_owner_decision_task")
+                _require_equal(
+                    next_route.get("orthodox_firewall"),
+                    ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+                    "readiness.next_route.orthodox_firewall",
+                )
+                _require_equal(
+                    next_route.get("textual_critical_policy_docket"),
+                    ".ai/control/textual_critical_policy_docket.yaml",
+                    "readiness.next_route.textual_critical_policy_docket",
+                )
+                _require_equal(next_route.get("review_only"), True, "readiness.next_route.review_only")
+                _require_equal(next_route.get("john3_owner_selection_status"), "selected", "readiness.next_route.john3_owner_selection_status")
+                _require_equal(next_route.get("john3_selected_option"), "JOHN3-T356-B", "readiness.next_route.john3_selected_option")
+                _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+                _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
+                _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
+                _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+                _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
             _require_equal(
                 packet_decision.get("decision"),
                 "requires_more_research_before_gold",

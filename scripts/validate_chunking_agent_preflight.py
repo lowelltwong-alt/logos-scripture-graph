@@ -25,6 +25,8 @@ NARRATIVE_LEGAL_QUEUE = ROOT / ".ai" / "control" / "narrative_legal_covenant_dos
 WISDOM_POETRY_QUEUE = ROOT / ".ai" / "control" / "wisdom_dialogue_poetry_dossier_queue.yaml"
 PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dossier_queue.yaml"
 TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradition_dossier_queue.yaml"
+ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_docket.yaml"
+TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -64,7 +66,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -118,6 +120,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "wisdom_dialogue_poetry_dossier_queue.yaml",
     "prophetic_oracle_vision_dossier_queue.yaml",
     "textual_variant_source_tradition_dossier_queue.yaml",
+    "orthodox_hermeneutic_firewall_docket.yaml",
+    "textual_critical_policy_docket.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -273,6 +277,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
         ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
         ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
+        ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+        ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -451,6 +457,30 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in textual_variant_queue_text:
             raise PreflightError(f"{_rel(TEXTUAL_VARIANT_QUEUE)}: missing queue phrase {phrase!r}")
+    orthodox_firewall_text = _read_text(ORTHODOX_FIREWALL)
+    for phrase in (
+        "object_type: orthodox_hermeneutic_firewall_docket",
+        "Nicene/Chalcedonian orthodox Christianity",
+        "Canonical Scripture",
+        "authorizes_liberal_critical_default: false",
+        "authorizes_anti_supernatural_default: false",
+        "authorizes_denominational_system_as_chunk_authority: false",
+        "FIREWALL-ORTH-005",
+    ):
+        if phrase not in orthodox_firewall_text:
+            raise PreflightError(f"{_rel(ORTHODOX_FIREWALL)}: missing firewall phrase {phrase!r}")
+    textual_critical_text = _read_text(TEXTUAL_CRITICAL_DOCKET)
+    for phrase in (
+        "object_type: textual_critical_policy_docket",
+        "requires_policy_before_variant_sensitive_promotion: true",
+        "textual_critical_policy_selected: false",
+        "selected_policy: pending_owner_decision",
+        "authorizes_textual_critical_decision: false",
+        "authorizes_canon_scope_change: false",
+        "variant_packet_as_reviewed_gold",
+    ):
+        if phrase not in textual_critical_text:
+            raise PreflightError(f"{_rel(TEXTUAL_CRITICAL_DOCKET)}: missing textual-critical phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",
@@ -493,8 +523,9 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "object_type: john3_wj_owner_review_docket",
         "target_id: john3_wj_speaker_boundary",
         "passage: John.3.1-John.3.36",
-        "owner_selection_status: pending",
-        "selected_option: pending",
+        "owner_selection_status: selected",
+        "selected_option: JOHN3-T356-B",
+        "selected_parent: John.3.1-John.3.36",
         "JOHN3-T356-B",
         "authorizes_chunk_boundaries: false",
         "reviewed_gold_promoted: false",

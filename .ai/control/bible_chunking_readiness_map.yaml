@@ -42,6 +42,8 @@ lessons_storage:
     - .ai/control/wisdom_dialogue_poetry_dossier_queue.yaml
     - .ai/control/prophetic_oracle_vision_dossier_queue.yaml
     - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+    - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    - .ai/control/textual_critical_policy_docket.yaml
   rule: "Every increment must update these surfaces when it creates a reusable lesson, theological downstream decision, route/gold/evaluator decision, or changed-path trigger; otherwise the handoff must record a no-change rationale."
 current_baseline:
   corpus_scope: canonical_66
@@ -181,7 +183,7 @@ lane_sequence:
     theological_risk: "Oracle, servant-song, temple-vision, and source/tradition boundaries can imply interpretive claims."
   - lane_id: gospel_discourse_wj
     implementation_order: 6
-    current_state: t356_john3_owner_review_docket_pending_owner_selection
+    current_state: t367_john3_parent_only_review_target_selected_no_output_authority
     new_algorithm_work_ready: false
     candidate_cases:
       - John.3
@@ -210,10 +212,15 @@ lane_sequence:
     owner_review_docket:
       task_id: T356
       path: .ai/control/john3_wj_owner_review_docket.yaml
-      status: owner_selection_pending
+      status: parent_only_review_target_selected
       selected_target: john3_wj_speaker_boundary
       selected_passage: John.3.1-John.3.36
-      selected_option: pending
+      selected_option: JOHN3-T356-B
+      selected_parent: John.3.1-John.3.36
+      selected_children: []
+      parent_only_review_target_authorized: true
+      child_spans_authorized: false
+      speaker_boundary_authorized: false
       output_change_authorized: false
       implementation_authorized: false
       reviewed_gold_promoted: false
@@ -234,6 +241,14 @@ lane_sequence:
       task_id: T366
       path: .ai/control/textual_variant_source_tradition_dossier_queue.yaml
       status: complete_non_authorizing
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
+    textual_critical_policy_docket:
+      task_id: T367
+      path: .ai/control/textual_critical_policy_docket.yaml
+      status: required_before_variant_sensitive_use
+      textual_critical_policy_selected: false
       output_change_authorized: false
       implementation_authorized: false
       reviewed_gold_promoted: false
@@ -264,37 +279,38 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T356
-  title: John 3 WJ Owner Review Docket
-  route_type: john3_wj_owner_review_docket
-  recommended_target: gospel_discourse_wj
-  owner_selection_status: selected
-  selected_option: REV-T344-E
-  selection_docket: docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md
-  rationale: "After T355 selected John 3 for owner review, T356 records a pending owner-review docket with explicit options and keeps all implementation, output, reviewed-gold, speaker-boundary, graph-edge, and retrieval-truth flags false."
-  triage_map: .ai/control/bible_chunking_research_triage_map.yaml
-  prior_triage_task: T351
-  prior_inventory_task: T354
-  prior_policy_task: T355
-  review_packet_lane: gospel_discourse_wj
-  policy: .ai/control/wj_speaker_discourse_policy.yaml
-  docket: .ai/control/john3_wj_owner_review_docket.yaml
-  selected_target: john3_wj_speaker_boundary
-  selected_passage: John.3.1-John.3.36
-  selected_target_status: owner_selection_pending
-  john3_owner_selection_status: pending
-  john3_selected_option: pending
-  review_packet: eval/chunking_gold/review_packets/john3_wj_speaker_boundary_review.md
+  task_id: T368
+  title: 1 Corinthians 8-10 Epistle Argument Packet Strengthening
+  route_type: epistle_argument_review_packet_strengthening
+  recommended_target: epistle_argument
+  selected_target: 1cor8_10_food_offered_to_idols
+  selected_passage: 1Cor.8-1Cor.10
+  review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+  packet_status: pending_human_review
+  prior_owner_decision_task: T367
+  prior_packet_task: T352
+  prior_issue_dossier_task: T361
+  orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+  textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
+  john3_owner_selection_status: selected
+  john3_selected_option: JOHN3-T356-B
+  john3_selected_parent: John.3.1-John.3.36
+  review_only: true
+  rationale: "After T367 recorded JOHN3-T356-B, the orthodox firewall, and the textual-critical policy docket requirement, the next safe route is review-only strengthening of the existing 1Cor.8-1Cor.10 epistle packet."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
 parallel_research_queue:
   task_id: T358
   title: Bible-Wide Chunking Research Registry
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not select a John 3 option and does not supersede T356/T357 owner review."
+  relation_to_next_route: "Parallel research-only queue; does not supersede T368 review-only packet strengthening or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -311,6 +327,8 @@ update_triggers:
   - lesson_or_methodology_change
   - theological_decision_register_change
   - bible_wide_research_triage_change
+  - orthodox_firewall_change
+  - textual_critical_policy_docket_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration
@@ -326,6 +344,11 @@ explicit_non_authorizations:
   - vector_index_build
   - graph_edge_generation
   - boundary_import
+  - textual_critical_policy_selection
+  - denominational_system_as_chunk_authority
+  - liberal_critical_default
+  - anti_supernatural_default
+  - anti_canonical_default
   - t327g
   - master_chunker_global_objective
 ...

@@ -58,6 +58,8 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in surfaces
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in surfaces
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in surfaces
+    assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
+    assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
 
 
 def test_prophetic_oracle_lane_records_t365_without_algorithm_authority() -> None:
@@ -90,11 +92,11 @@ def test_textual_variant_source_tradition_lane_records_t366_without_algorithm_au
     assert "1John.5.6-1John.5.8" in textual["candidate_cases"]
 
 
-def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:
+def test_parallel_research_queue_records_t358_without_replacing_next_route() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T356"
+    assert data["next_route"]["task_id"] == "T368"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -105,30 +107,28 @@ def test_parallel_research_queue_records_t358_without_replacing_john3_route() ->
     assert queue["reviewed_gold_promoted"] is False
 
 
-def test_next_route_advances_to_t356_john3_owner_review_docket() -> None:
+def test_next_route_advances_to_t368_review_only_1cor_packet_strengthening() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T356"
-    assert data["next_route"]["route_type"] == "john3_wj_owner_review_docket"
-    assert data["next_route"]["recommended_target"] == "gospel_discourse_wj"
-    assert data["next_route"]["owner_selection_status"] == "selected"
-    assert data["next_route"]["selected_option"] == "REV-T344-E"
-    assert data["next_route"]["selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert data["next_route"]["triage_map"] == ".ai/control/bible_chunking_research_triage_map.yaml"
-    assert data["next_route"]["prior_triage_task"] == "T351"
-    assert data["next_route"]["prior_inventory_task"] == "T354"
-    assert data["next_route"]["prior_policy_task"] == "T355"
-    assert data["next_route"]["review_packet_lane"] == "gospel_discourse_wj"
-    assert data["next_route"]["policy"] == ".ai/control/wj_speaker_discourse_policy.yaml"
-    assert data["next_route"]["docket"] == ".ai/control/john3_wj_owner_review_docket.yaml"
-    assert data["next_route"]["selected_target"] == "john3_wj_speaker_boundary"
-    assert data["next_route"]["selected_passage"] == "John.3.1-John.3.36"
-    assert data["next_route"]["selected_target_status"] == "owner_selection_pending"
-    assert data["next_route"]["john3_owner_selection_status"] == "pending"
-    assert data["next_route"]["john3_selected_option"] == "pending"
+    assert data["next_route"]["task_id"] == "T368"
+    assert data["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert data["next_route"]["recommended_target"] == "epistle_argument"
+    assert data["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
+    assert data["next_route"]["selected_passage"] == "1Cor.8-1Cor.10"
+    assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md"
+    assert data["next_route"]["packet_status"] == "pending_human_review"
+    assert data["next_route"]["prior_owner_decision_task"] == "T367"
+    assert data["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
+    assert data["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
+    assert data["next_route"]["john3_owner_selection_status"] == "selected"
+    assert data["next_route"]["john3_selected_option"] == "JOHN3-T356-B"
+    assert data["next_route"]["review_only"] is True
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
     assert data["next_route"]["reviewed_gold_promoted"] is False
+    assert data["next_route"]["route_behavior_authorized"] is False
+    assert data["next_route"]["evaluator_change_authorized"] is False
+    assert data["next_route"]["graph_edge_generation_allowed"] is False
 
 
 def test_validator_rejects_missing_required_lane(tmp_path: Path) -> None:

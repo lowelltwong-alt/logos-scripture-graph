@@ -37,6 +37,8 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in reading
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
+    assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
+    assert ".ai/control/textual_critical_policy_docket.yaml" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -59,7 +61,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "prophetic_oracle_vision_dossier_queue.yaml" in text
     assert "textual_variant_source_tradition_dossier_queue.yaml" in text
     assert "T352 is the next" not in text
-    assert "currently points to T356 John 3 owner review" in text
+    assert "currently points to T368 1Cor.8-1Cor.10 epistle" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -96,6 +98,10 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-030" in register
     assert "CD-031" in register
     assert "CD-032" in register
+    assert "CD-033" in register
+    assert "CD-034" in register
+    assert "CD-035" in register
+    assert "CD-036" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -129,6 +135,8 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in reading
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
+    assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
+    assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "CD-021" in register_entry["required_decision_ids"]
     assert "CD-022" in register_entry["required_decision_ids"]
@@ -142,6 +150,10 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-030" in register_entry["required_decision_ids"]
     assert "CD-031" in register_entry["required_decision_ids"]
     assert "CD-032" in register_entry["required_decision_ids"]
+    assert "CD-033" in register_entry["required_decision_ids"]
+    assert "CD-034" in register_entry["required_decision_ids"]
+    assert "CD-035" in register_entry["required_decision_ids"]
+    assert "CD-036" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

@@ -14,9 +14,13 @@ def test_john3_owner_review_docket_validates_current_repo() -> None:
 
     assert data["target"]["target_id"] == "john3_wj_speaker_boundary"
     assert data["target"]["passage"] == "John.3.1-John.3.36"
-    assert data["owner_selection"]["owner_selection_status"] == "pending"
-    assert data["owner_selection"]["selected_option"] == "pending"
+    assert data["owner_selection"]["owner_selection_status"] == "selected"
+    assert data["owner_selection"]["selected_option"] == "JOHN3-T356-B"
+    assert data["owner_selection"]["selected_parent"] == "John.3.1-John.3.36"
+    assert data["owner_selection"]["selected_children"] == []
     assert data["authority"]["authorizes_chunk_boundaries"] is False
+    assert data["authority"]["authorizes_parent_only_review_target"] is True
+    assert data["authority"]["authorizes_parent_span_as_reviewed_gold"] is False
 
 
 def test_john3_owner_review_docket_has_all_owner_options() -> None:
@@ -43,11 +47,12 @@ def test_john3_owner_review_docket_rejects_authorizing_parent_span(tmp_path: Pat
         validator.validate_john3_owner_review_docket(candidate)
 
 
-def test_john3_owner_review_docket_rejects_selected_option_before_owner(tmp_path: Path) -> None:
+def test_john3_owner_review_docket_rejects_stale_pending_selection(tmp_path: Path) -> None:
     data = copy.deepcopy(validator.validate_john3_owner_review_docket())
-    data["owner_selection"]["selected_option"] = "JOHN3-T356-B"
+    data["owner_selection"]["owner_selection_status"] = "pending"
+    data["owner_selection"]["selected_option"] = "pending"
     candidate = tmp_path / "john3.yaml"
     candidate.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
 
-    with pytest.raises(validator.John3DocketError, match="selected_option"):
+    with pytest.raises(validator.John3DocketError, match="owner_selection_status"):
         validator.validate_john3_owner_review_docket(candidate)

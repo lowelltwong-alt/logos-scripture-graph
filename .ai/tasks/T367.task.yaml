@@ -1,0 +1,73 @@
+id: T367
+phase: phase_4
+title: "Owner Decision Firewall And Next Target"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/
+    - .ai/tasks/T367.task.yaml
+    - .ai/handoffs/T367/
+    - .ai/audits/reports/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/
+    - scripts/validate_all.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_john3_owner_review_docket.py
+    - scripts/validate_wj_speaker_discourse_policy.py
+    - scripts/validate_orthodox_hermeneutic_firewall_docket.py
+    - scripts/validate_textual_critical_policy_docket.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - tests/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "Authorize JOHN3-T356-B; require a textual-critical policy docket before variant-sensitive promotion/use; require an Orthodox Hermeneutic Firewall / Anti-Smuggling Docket before next epistle packet strengthening; then authorize 1Cor.8-1Cor.10 as the next epistle argument review-packet strengthening target, review-only and non-output-changing."
+  john3_parent_only_review_target_authorized: true
+  john3_selected_option: JOHN3-T356-B
+  john3_selected_parent: John.3.1-John.3.36
+  orthodox_firewall_required: true
+  textual_critical_policy_required: true
+  next_epistle_review_target: 1Cor.8-1Cor.10
+  review_packet_strengthening_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  boundary_import_allowed: false
+acceptance_criteria:
+  - "John 3 docket and roadmap record JOHN3-T356-B as parent-only review target selection while denying child, speaker, gold, graph/retrieval, route, and output authority."
+  - "Orthodox Hermeneutic Firewall / Anti-Smuggling Docket is machine-readable, mandatory preflight, and validator-enforced."
+  - "Textual-critical policy docket records a required future policy before variant-sensitive promotion/use while selecting no textual-critical policy."
+  - "Readiness map advances to T368 / 1Cor.8-1Cor.10 review-only packet strengthening with all output/implementation/gold/route/evaluator/graph/retrieval flags false."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_john3_owner_review_docket.py
+  - python scripts/validate_orthodox_hermeneutic_firewall_docket.py
+  - python scripts/validate_textual_critical_policy_docket.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T367
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T367/handoff.md
+next_task: "T368 may strengthen the existing 1Cor.8-1Cor.10 epistle argument review packet as review-only work after reading the firewall. Do not implement chunks, promote reviewed gold, change route/evaluator behavior, generate graph/retrieval outputs, import boundary material, or make textual-critical policy decisions without later owner authorization."
