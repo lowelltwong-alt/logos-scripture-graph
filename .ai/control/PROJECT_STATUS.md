@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T363 narrative legal covenant dossier queue (Codex)
-**Active task:** -> **T363** is complete as non-output-changing research PR work. It creates `.ai/control/narrative_legal_covenant_dossier_queue.yaml` to record narrative scene, law/covenant, genealogy/list, ritual, royal-annal, restoration-document, and Gospel birth narrative risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize covenant theology, law/gospel frameworks, typology, harmonization, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T364 wisdom dialogue poetry dossier queue (Codex)
+**Active task:** -> **T364** is complete as non-output-changing research PR work. It creates `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml` to record Job dialogue cycles, Proverbs wisdom speeches, Proverbs 31, Ecclesiastes refrains, Song speaker-boundary and genre risks, Lamentations acrostics, and Psalm 119 risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize wisdom theology, speaker attribution, speaker boundaries, allegorical/literal readings, liturgical use, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T364 wisdom dialogue poetry dossier queue (2026-06-18):** Added
+> `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml`, checked by
+> `scripts/validate_wisdom_dialogue_poetry_dossier_queue.py`, so future Job, Proverbs,
+> Ecclesiastes, Song, Lamentations, Psalm 119, graph, retrieval, review-packet, evaluator, and
+> chunking agents can start from explicit dossiers instead of chat memory. The queue records Job
+> dialogue cycles and divine speeches, Proverbs wisdom speeches, Proverbs 31, Ecclesiastes refrain
+> and argument cycles, Song speaker-boundary and genre-sensitive lyric units, Lamentations acrostic
+> lament units, and Psalm 119. It is non-authorizing: no wisdom theology, Job theodicy system,
+> Ecclesiastes frame, Song allegorical/literal system, speaker assignment, liturgical use,
+> reviewed gold, chunk boundary, route behavior, evaluator change, graph edge, retrieval truth,
+> output change, boundary import, vector work, or algorithm behavior is approved.
 
 > **T363 narrative legal covenant dossier queue (2026-06-18):** Added
 > `.ai/control/narrative_legal_covenant_dossier_queue.yaml`, checked by

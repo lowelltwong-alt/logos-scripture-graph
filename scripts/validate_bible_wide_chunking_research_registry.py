@@ -243,6 +243,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
                 raise ResearchRegistryError(
                     f"research_dimensions.{dimension_id}.companion_dossier_queue must point to narrative/legal queue"
                 )
+        if dimension_id == "poetry_parallelism_stanza":
+            if dimension.get("companion_dossier_queue") != ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    "research_dimensions.poetry_parallelism_stanza.companion_dossier_queue must point to wisdom/dialogue/poetry queue"
+                )
         if dimension_id in {"prophetic_oracle_vision", "apocalyptic_symbol_intertext"}:
             if dimension.get("companion_dossier_queue") != ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml":
                 raise ResearchRegistryError(

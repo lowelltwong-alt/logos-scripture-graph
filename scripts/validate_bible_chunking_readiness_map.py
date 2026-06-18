@@ -61,6 +61,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml",
     ".ai/control/gospel_wj_discourse_dossier_queue.yaml",
     ".ai/control/narrative_legal_covenant_dossier_queue.yaml",
+    ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
