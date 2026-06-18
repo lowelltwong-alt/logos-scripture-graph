@@ -23,6 +23,7 @@ EPISTLE_ISSUE_QUEUE = ROOT / ".ai" / "control" / "epistle_argument_theological_i
 GOSPEL_WJ_QUEUE = ROOT / ".ai" / "control" / "gospel_wj_discourse_dossier_queue.yaml"
 NARRATIVE_LEGAL_QUEUE = ROOT / ".ai" / "control" / "narrative_legal_covenant_dossier_queue.yaml"
 WISDOM_POETRY_QUEUE = ROOT / ".ai" / "control" / "wisdom_dialogue_poetry_dossier_queue.yaml"
+PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dossier_queue.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -62,7 +63,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -114,6 +115,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "gospel_wj_discourse_dossier_queue.yaml",
     "narrative_legal_covenant_dossier_queue.yaml",
     "wisdom_dialogue_poetry_dossier_queue.yaml",
+    "prophetic_oracle_vision_dossier_queue.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -267,6 +269,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/gospel_wj_discourse_dossier_queue.yaml",
         ".ai/control/narrative_legal_covenant_dossier_queue.yaml",
         ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
+        ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -417,6 +420,20 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in wisdom_poetry_queue_text:
             raise PreflightError(f"{_rel(WISDOM_POETRY_QUEUE)}: missing queue phrase {phrase!r}")
+    prophetic_oracle_queue_text = _read_text(PROPHETIC_ORACLE_QUEUE)
+    for phrase in (
+        "object_type: prophetic_oracle_vision_dossier_queue",
+        "ISA40_55_SERVANT_COMFORT_ORACLES",
+        "JER30_33_RESTORATION_NEW_COVENANT",
+        "EZEK40_48_TEMPLE_CITY_VISION",
+        "DAN7_12_PROPHETIC_APOCALYPTIC_VISIONS",
+        "ZECH1_6_NIGHT_VISIONS",
+        "authorizes_fulfillment_theology: false",
+        "authorizes_chunk_boundaries: false",
+        "prophetic_dossier_as_reviewed_gold",
+    ):
+        if phrase not in prophetic_oracle_queue_text:
+            raise PreflightError(f"{_rel(PROPHETIC_ORACLE_QUEUE)}: missing queue phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

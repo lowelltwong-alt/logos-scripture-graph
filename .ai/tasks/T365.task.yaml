@@ -1,0 +1,92 @@
+id: T365
+phase: phase_4
+title: "Prophetic Oracle Vision Dossier Queue"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/prophetic_oracle_vision_dossier_queue.yaml
+    - .ai/control/bible_wide_chunking_research_registry.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T365.task.yaml
+    - .ai/handoffs/T365/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T365_PROPHETIC_ORACLE_VISION_DOSSIERS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/validate_prophetic_oracle_vision_dossier_queue.py
+    - scripts/validate_bible_wide_chunking_research_registry.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_prophetic_oracle_vision_dossier_queue.py
+    - tests/test_bible_wide_chunking_research_registry.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_task_scope_validator.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t351_bible_wide_research_triage.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "Continue research-only whole-Bible chunking prep; admin-merge green non-output-changing research/prep/harness PRs until human decision or output-changing work is reached."
+  prophetic_oracle_vision_dossier_queue_allowed: true
+  research_packet_scaffold_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  fulfillment_theology_authorized: false
+  eschatological_system_authorized: false
+  covenant_system_authorized: false
+  israel_church_relation_authorized: false
+  messianic_identification_authorized: false
+  temple_theology_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  source_metadata_authority_allowed: false
+  intertext_truth_authorized: false
+  boundary_import_allowed: false
+  t345_allowed: false
+acceptance_criteria:
+  - "A machine-readable dossier queue records prophetic oracle, vision, servant-song, temple-vision, symbolic-action, judgment/hope, and day-of-Yahweh research cases."
+  - "The queue preserves local oracle, parent oracle cycle, vision report, symbolic action, judgment/hope pair, servant-song, temple-vision, day-of-Yahweh, and prophetic book-frame review options."
+  - "The queue does not select fulfillment theology, eschatological system, covenant system, Israel/church relation, messianic identification, temple theology, reviewed-gold, graph, retrieval, or chunk-output authority."
+  - "The T358 registry and chunking-agent preflight point future agents to the queue."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_task_scope.py --task-id T365
+  - python scripts/validate_prophetic_oracle_vision_dossier_queue.py
+  - python scripts/validate_bible_wide_chunking_research_registry.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T365/handoff.md
+next_task: "Continue research-only stack with textual-variant/source-tradition dossiers or exact review-packet prep, or stop for an owner decision. Do not implement chunks, graph/retrieval outputs, or promote reviewed gold without later owner authorization."

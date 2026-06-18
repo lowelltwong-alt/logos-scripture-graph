@@ -56,6 +56,21 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/gospel_wj_discourse_dossier_queue.yaml" in surfaces
     assert ".ai/control/narrative_legal_covenant_dossier_queue.yaml" in surfaces
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in surfaces
+    assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in surfaces
+
+
+def test_prophetic_oracle_lane_records_t365_without_algorithm_authority() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
+    prophetic = by_lane["prophetic_oracle"]
+
+    assert prophetic["current_state"] == "t365_research_dossier_queue_seeded_needs_review_packets"
+    assert prophetic["new_algorithm_work_ready"] is False
+    assert prophetic["dossier_queue"]["task_id"] == "T365"
+    assert prophetic["dossier_queue"]["path"] == ".ai/control/prophetic_oracle_vision_dossier_queue.yaml"
+    assert prophetic["dossier_queue"]["output_change_authorized"] is False
+    assert prophetic["dossier_queue"]["implementation_authorized"] is False
+    assert prophetic["dossier_queue"]["reviewed_gold_promoted"] is False
 
 
 def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:

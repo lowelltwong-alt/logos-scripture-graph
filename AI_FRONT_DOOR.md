@@ -23,9 +23,9 @@ Read these files before making changes:
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
     Source metadata is evidence, not authority. The source-metadata research atlas,
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
-    wisdom/dialogue/poetry dossier queue, divine-name/title capitalization and WJ/red-letter
-    markers, WJ speaker/discourse policy, and John 3 owner-review docket are evidence/review
-    policy, not authority.
+    wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
+    divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
+    and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
@@ -210,6 +210,17 @@ Bible-first chunking priority:
   route behavior, graph edges, retrieval truth, chunk boundaries, output changes, boundary import,
   or implementation. It is validated by
   `scripts/validate_wisdom_dialogue_poetry_dossier_queue.py`.
+- The prophetic/oracle/vision dossier queue at
+  `.ai/control/prophetic_oracle_vision_dossier_queue.yaml` records Isaiah servant/comfort oracles,
+  Jeremiah restoration/new covenant material, Ezekiel restoration and temple visions, Daniel
+  prophetic-apocalyptic visions, Hosea sign-act/covenant metaphor, Joel day-of-Yahweh/Spirit
+  material, and Zechariah night visions. It preserves local-oracle, parent-oracle-cycle,
+  vision-report, symbolic-action, judgment/hope-pair, servant-song, temple-vision,
+  day-of-Yahweh, and prophetic-book-frame review options without authorizing fulfillment theology,
+  eschatological systems, covenant systems, Israel/church relations, messianic identification,
+  temple theology, reviewed gold, route behavior, graph edges, retrieval truth, chunk boundaries,
+  output changes, boundary import, intertext truth, or implementation. It is validated by
+  `scripts/validate_prophetic_oracle_vision_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -317,6 +328,7 @@ python scripts/validate_epistle_argument_theological_issue_dossier_queue.py
 python scripts/validate_gospel_wj_discourse_dossier_queue.py
 python scripts/validate_narrative_legal_covenant_dossier_queue.py
 python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py
+python scripts/validate_prophetic_oracle_vision_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -380,6 +392,11 @@ or omits non-authorization guards.
 wisdom/dialogue/poetry queue becomes authorizing, loses required wisdom/poetry evidence channels,
 drops required dossiers, treats dialogue/acrostic/refrain/speaker/parallelism evidence as boundary
 authority, or omits non-authorization guards.
+`python scripts/validate_prophetic_oracle_vision_dossier_queue.py` fails closed if the
+prophetic/oracle/vision queue becomes authorizing, loses required prophetic/oracle/vision evidence
+channels, drops required dossiers, treats oracle/vision/servant/temple/day-of-Yahweh/canonical-echo
+evidence as fulfillment, graph, retrieval, or chunk-boundary authority, or omits
+non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
