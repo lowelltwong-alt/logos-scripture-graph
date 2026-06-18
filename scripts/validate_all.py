@@ -110,6 +110,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),
+        (
+            "validate_1cor8_10_owner_review_docket.py",
+            [PY, str(ROOT / "scripts" / "validate_1cor8_10_owner_review_docket.py")],
+        ),
+        (
+            "validate_chunking_human_decision_forecast.py",
+            [PY, str(ROOT / "scripts" / "validate_chunking_human_decision_forecast.py")],
+        ),
         ("validate_audit_surface_map.py", [PY, str(ROOT / "scripts" / "validate_audit_surface_map.py")]),
         (
             "validate_owner_selection_implementation_gate.py",

@@ -27,6 +27,8 @@ PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dos
 TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradition_dossier_queue.yaml"
 ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_docket.yaml"
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
+ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
+HUMAN_DECISION_FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -66,7 +68,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -122,6 +124,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "textual_variant_source_tradition_dossier_queue.yaml",
     "orthodox_hermeneutic_firewall_docket.yaml",
     "textual_critical_policy_docket.yaml",
+    "1cor8_10_epistle_owner_review_docket.yaml",
+    "chunking_human_decision_forecast.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -279,6 +283,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
         ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
         ".ai/control/textual_critical_policy_docket.yaml",
+        ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+        ".ai/control/chunking_human_decision_forecast.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -481,6 +487,31 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in textual_critical_text:
             raise PreflightError(f"{_rel(TEXTUAL_CRITICAL_DOCKET)}: missing textual-critical phrase {phrase!r}")
+    onecor_docket_text = _read_text(ONECOR_OWNER_DOCKET)
+    for phrase in (
+        "object_type: epistle_argument_owner_review_docket",
+        "target_id: 1cor8_10_food_offered_to_idols",
+        "exact_parent_candidate: 1Cor.8.1-1Cor.10.33",
+        "owner_selection_status: pending_owner_decision",
+        "1COR8-10-T369-C",
+        "authorizes_reviewed_gold: false",
+        "authorizes_chunk_boundaries: false",
+        "chunk_output_change",
+    ):
+        if phrase not in onecor_docket_text:
+            raise PreflightError(f"{_rel(ONECOR_OWNER_DOCKET)}: missing 1Cor.8-10 docket phrase {phrase!r}")
+    forecast_text = _read_text(HUMAN_DECISION_FORECAST)
+    for phrase in (
+        "object_type: chunking_human_decision_forecast",
+        "HDF-001",
+        "HDF-012",
+        "thread_goal_status: blocked",
+        "ready_for_first_output_changing_chunk_pr_requires",
+        "authorizes_chunk_output_change: false",
+        "do_not_treat_this_forecast_as_authorization",
+    ):
+        if phrase not in forecast_text:
+            raise PreflightError(f"{_rel(HUMAN_DECISION_FORECAST)}: missing human-decision forecast phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",

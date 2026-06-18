@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_through_t367_remain_complete_while_live_route_points_to_t368() -> None:
+def test_t342_through_t368_remain_complete_while_live_route_points_to_t369() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -112,9 +112,12 @@ def test_t342_through_t367_remain_complete_while_live_route_points_to_t368() -> 
     assert tasks["T367"]["status"] == "complete"
     assert tasks["T367"]["required_handoff"] == ".ai/handoffs/T367/handoff.md"
     assert tasks["T367"]["john3_selected_option"] == "JOHN3-T356-B"
-    assert readiness["next_route"]["task_id"] == "T368"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
-    assert readiness["next_route"]["john3_selected_option"] == "JOHN3-T356-B"
+    assert tasks["T368"]["status"] == "complete"
+    assert tasks["T368"]["required_handoff"] == ".ai/handoffs/T368/handoff.md"
+    assert tasks["T368"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
+    assert readiness["next_route"]["task_id"] == "T369"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_review_gate"
+    assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
 

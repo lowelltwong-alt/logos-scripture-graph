@@ -1,0 +1,332 @@
+---
+object_type: chunking_human_decision_forecast
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-18 during T368 after the maintainer asked why the thread goal was blocked and how to front-load human decisions so chunking readiness does not stall unexpectedly."
+reason_for_inclusion: "Name predictable owner decisions early, tie them to downstream gates, and prevent future agents from treating planning or review prep as implementation authority."
+---
+schema_version: chunking_human_decision_forecast.v1
+forecast_id: chunking_ready_owner_decision_forecast
+owner: Lowell Wong
+authority:
+  records_anticipated_decisions: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edge_generation: false
+  authorizes_retrieval_truth: false
+  authorizes_textual_critical_policy: false
+  authorizes_boundary_import: false
+goal_blocked_explanation:
+  thread_goal_status: blocked
+  reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
+  unblock_strategy: "Front-load predictable owner decisions as dockets and stop conditions, then let agents continue non-output-changing harness, review-packet, audit, and readiness work until an explicit gate is reached."
+decision_policy:
+  owner_decision_required_for:
+    - reviewed_gold_promotion
+    - chunk_output_change
+    - route_behavior_change
+    - evaluator_behavior_change
+    - graph_edge_generation
+    - retrieval_truth_or_default_profile
+    - textual_critical_policy_selection
+    - source_tradition_preference
+    - canon_scope_change
+    - boundary_import
+    - denominational_system_as_chunk_authority
+  if_owner_unavailable: stop_before_authority_change
+  non_output_prep_allowed:
+    - research_dossiers
+    - review_packets
+    - owner_review_dockets
+    - non_authorizing_harnesses
+    - no_context_audit_material
+    - validator_hardening
+    - same_baseline_eval_preparation
+orthodoxy_boundary:
+  default: nicene_chalcedonian_core
+  canonical_scripture_authority: true
+  refuse_hidden_defaults:
+    - anti_supernatural_default
+    - anti_canonical_default
+    - heterodox_default
+    - liberal_critical_default
+    - one_denominational_system_as_chunk_authority
+front_loaded_decisions:
+  - decision_id: HDF-001
+    title: 1 Corinthians 8-10 owner-review option
+    status: pending_owner_decision
+    earliest_task: T369
+    required_before:
+      - 1cor8_10_reviewed_gold_promotion
+      - 1cor8_10_route_behavior_change
+      - 1cor8_10_chunk_output_change
+    options:
+      - option_id: 1COR8-10-T369-A
+        label: Preserve current overlapping chunks
+        downstream_effect: "No implementation work; continue research or choose a different lane."
+      - option_id: 1COR8-10-T369-B
+        label: Approve parent-only review target
+        downstream_effect: "Allows building reviewed-gold evidence for parent-only 1Cor.8.1-1Cor.10.33 review; still no output change."
+      - option_id: 1COR8-10-T369-C
+        label: Approve parent plus exact child-boundary review target
+        downstream_effect: "Allows building reviewed-gold evidence for parent and exact child candidates; still no output change."
+      - option_id: 1COR8-10-T369-D
+        label: Require more research
+        downstream_effect: "Keeps all implementation blocked; allows only research and packet strengthening."
+      - option_id: 1COR8-10-T369-E
+        label: Reject as next implementation target
+        downstream_effect: "Stops 1Cor.8-10 as the implementation lane and returns to lane selection."
+    recommended_default_if_owner_unavailable: stop_and_preserve_current_behavior
+    non_authorizations:
+      - 1cor8_10_parent_span_as_reviewed_gold
+      - 1cor8_10_child_span_approval
+      - doctrinal_system_selection
+      - route_behavior_change
+      - chunk_output_change
+  - decision_id: HDF-002
+    title: Textual-critical policy before variant-sensitive use
+    status: pending_owner_policy
+    earliest_task: before_variant_sensitive_gold_or_implementation
+    required_before:
+      - variant_sensitive_reviewed_gold_promotion
+      - textual_variant_chunk_boundary_use
+      - source_tradition_preference
+      - canon_scope_or_boundary_decision
+    recommended_default_if_owner_unavailable: current_canonical_source_only_and_stop_before_variant_sensitive_authority
+    options_to_prepare:
+      - current_canonical_source_only_until_case_policy
+      - case_by_case_owner_policy_before_each_variant_sensitive_packet
+      - formal_project_textual_policy_before_any_variant_sensitive_promotion
+    non_authorizations:
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - variant_packet_as_reviewed_gold
+  - decision_id: HDF-003
+    title: Reviewed-gold promotion standard
+    status: pending_owner_policy
+    earliest_task: before_any_reviewed_gold_promotion
+    required_before:
+      - reviewed_gold_promotion
+      - output_changing_implementation
+    recommended_default_if_owner_unavailable: owner_selection_is_not_reviewed_gold
+    minimum_future_policy_elements:
+      - exact_scope
+      - reviewed_packet_or_equivalent_governed_evidence
+      - owner_confirmation
+      - decision_register_update
+      - validator_or_test_coverage
+      - non_target_identity_proof
+      - same_baseline_evaluation_plan
+    non_authorizations:
+      - packet_status_as_reviewed_gold
+      - owner_target_selection_as_output_authority
+      - evaluator_only_improvement_claim
+  - decision_id: HDF-004
+    title: Agent autonomy and merge boundary
+    status: partially_decided
+    earliest_task: active
+    required_before:
+      - admin_merge_of_future_prs
+      - output_changing_pr
+    current_authorization: "Agents may admin-merge green, non-output-changing research, prep, harness, audit, and readiness PRs until a human decision gate or output-changing boundary is reached."
+    must_stop_for:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_behavior_change
+      - graph_or_retrieval_output
+      - textual_critical_policy_selection
+      - boundary_import
+      - theological_authority_change
+    recommended_default_if_owner_unavailable: continue_non_output_prep_only
+  - decision_id: HDF-005
+    title: First implementation lane after readiness
+    status: pending_owner_decision
+    earliest_task: after_T369_and_gold_strengthening
+    required_before:
+      - first_new_chunking_algorithm_implementation
+    recommended_default_if_owner_unavailable: continue_review_packet_strengthening_only
+    candidate_lane_order:
+      - lane_id: epistle_argument
+        first_candidate: 1Cor.8.1-1Cor.10.33
+        reason: "Current packet and owner docket exist; theological risks are explicit and bounded."
+      - lane_id: gospel_discourse_wj
+        first_candidate: John.3.1-John.3.36
+        reason: "Owner selected parent-only review target, but speaker/child boundaries remain undecided."
+      - lane_id: narrative_legal_covenant
+        first_candidate: choose_from_existing_dossier_queue
+        reason: "Important but needs exact target owner selection before gold."
+      - lane_id: wisdom_dialogue_poetry
+        first_candidate: choose_from_existing_dossier_queue
+        reason: "Useful next lane after epistle/Gospel if poetic or dialogue boundaries are clearer."
+      - lane_id: revelation_apocalyptic
+        first_candidate: Rev.12.1-Rev.14.20
+        reason: "Research-only under REV-T344-E until stronger governed evidence exists."
+      - lane_id: textual_variant_source_tradition
+        first_candidate: none_until_textual_policy
+        reason: "Variant-sensitive use remains blocked until textual-critical policy is selected."
+  - decision_id: HDF-006
+    title: Parent-only versus parent-plus-child default
+    status: pending_owner_policy
+    earliest_task: before_any_new_reviewed_gold_promotion
+    recommended_default_if_owner_unavailable: parent_only_review_target_does_not_imply_child_spans
+    options_to_prepare:
+      - parent_only_first
+      - parent_with_exact_child_spans_only_when_owner_selects_children
+      - preserve_current_chunks_until_reviewed_child_gold_exists
+    non_authorizations:
+      - automatic_child_span_creation
+      - argument_outline_as_chunk_boundary
+      - paragraph_marker_as_chunk_boundary
+  - decision_id: HDF-007
+    title: Systematic theology usage boundary
+    status: partially_decided
+    earliest_task: active
+    current_authorization: "The Orthodox Hermeneutic Firewall affirms Nicene/Chalcedonian orthodoxy and refuses hidden liberal-critical or heterodox defaults while also refusing one denominational systematic theology as chunk authority."
+    recommended_default_if_owner_unavailable: systematic_theology_can_be_advisory_not_chunk_authority
+    required_before:
+      - any_denomination_specific_chunking_rule
+      - any_systematic_theology_route_default
+    non_authorizations:
+      - liberal_critical_default
+      - heterodox_default
+      - denominational_system_as_chunk_authority
+  - decision_id: HDF-008
+    title: Words-of-Jesus and speaker-boundary decisions
+    status: partially_decided
+    earliest_task: before_gospel_wj_implementation
+    current_authorization: "John.3.1-John.3.36 is selected as a parent-only review target; WJ/red-letter evidence remains source metadata and does not decide Jesus/narrator boundaries."
+    pending_owner_decisions:
+      - john3_child_spans
+      - john3_jesus_narrator_boundary
+      - gospel_discourse_child_policy
+    recommended_default_if_owner_unavailable: no_speaker_or_child_boundary_authority
+  - decision_id: HDF-009
+    title: Revelation hermeneutic neutrality
+    status: partially_decided
+    earliest_task: before_revelation_implementation
+    current_authorization: "REV-T344-E keeps Revelation in research/prep only."
+    pending_owner_decisions:
+      - whether_rev12_14_can_be_reviewed_gold
+      - whether_parent_only_or_child_spans_are_selected
+      - whether any apocalypse route implementation may start
+    recommended_default_if_owner_unavailable: continue_revelation_research_prep_only
+    non_authorizations:
+      - eschatological_system_selection
+      - chronology_selection
+      - symbolic_identity_selection
+      - revelation_chunk_output_change
+  - decision_id: HDF-010
+    title: Graph, retrieval, and vector output gate
+    status: partially_decided
+    earliest_task: before_any_graph_retrieval_or_vector_output
+    current_authorization: "Vectors and graph edges are never truth; no graph, retrieval, vector, or embedding output is authorized by chunking prep."
+    recommended_default_if_owner_unavailable: no_graph_retrieval_vector_output
+    required_before:
+      - graph_edge_generation
+      - vector_index_build
+      - retrieval_profile_promotion
+  - decision_id: HDF-011
+    title: Source metadata authority boundary
+    status: decided_for_now
+    earliest_task: active
+    current_authorization: "Internal cross-references, Strong's-style numbers, lexical rarity, footnotes, headings, paragraph markers, WJ/red-letter markers, and divine capitalization are evidence only."
+    required_before_any_authority_use: explicit_owner_decision_and_validator_update
+    recommended_default_if_owner_unavailable: preserve_as_evidence_only
+  - decision_id: HDF-012
+    title: Output-changing PR audit requirement
+    status: pending_owner_policy
+    earliest_task: before_first_output_changing_pr
+    recommended_default_if_owner_unavailable: require_no_context_audit_before_merge
+    minimum_future_policy_elements:
+      - no_context_audit_report
+      - changed_output_manifest
+      - non_target_identity_proof
+      - same_baseline_evaluation
+      - decision_register_update
+      - owner_implementation_authorization
+chunking_ready_definition:
+  ready_for_first_output_changing_chunk_pr_requires:
+    - owner_selected_exact_target
+    - reviewed_gold_or_equivalent_governed_evidence_promoted_by_owner
+    - textual_critical_policy_resolved_if_variant_sensitive
+    - route_isolation_plan
+    - executable_tests
+    - non_target_identity_proof
+    - same_baseline_evaluation_plan
+    - decision_register_current
+    - no_context_audit_surface_current
+    - explicit_owner_implementation_authorization
+  not_ready_if:
+    - packet_is_pending_human_review
+    - owner_selection_is_pending
+    - reviewed_gold_is_not_promoted
+    - target_is_variant_sensitive_without_policy
+    - route_or_evaluator_behavior_would_change_without_owner_authorization
+    - graph_retrieval_or_vector_output_would_be_generated
+stop_conditions:
+  - unanticipated_theological_risk
+  - source_metadata_would_become_authority
+  - variant_sensitive_claim_without_policy
+  - missing_reviewed_gold
+  - evaluator_confound_discovered
+  - non_target_output_diff
+  - route_leakage_outside_selected_lane
+  - graph_retrieval_vector_output_requested
+  - boundary_material_import_needed
+what_not_to_do:
+  - do_not_treat_this_forecast_as_authorization
+  - do_not_turn_owner_review_options_into_reviewed_gold
+  - do_not_implement_chunks_from_pending_packets
+  - do_not_use_systematic_theology_as_hidden_chunk_authority
+  - do_not_use_liberal_critical_suspicion_as_hidden_default
+  - do_not_use_source_metadata_as_graph_or_chunk_truth
+  - do_not_select_textual_critical_policy_by implication
+  - do_not_import_boundary_material_into_canonical_scripture
+  - do_not_claim improvement_without_same_baseline_evaluation
+  - do_not_merge_output_changing_work_without_owner_authorization
+next_roadmap_steps:
+  - task_id: T369
+    title: 1 Corinthians 8-10 Owner Review Docket
+    owner_decision_required: true
+    output_change_authorized: false
+  - task_id: T370
+    title: Build selected 1Cor.8-10 reviewed-gold evidence packet
+    starts_only_if: T369_selects_option_requiring_gold_strengthening
+    output_change_authorized: false
+  - task_id: T371
+    title: Owner reviewed-gold promotion decision
+    owner_decision_required: true
+    output_change_authorized: false
+  - task_id: T372
+    title: Route-isolated implementation harness and non-target identity plan
+    starts_only_if: T371_promotes_reviewed_gold
+    output_change_authorized: false
+  - task_id: T373
+    title: Owner implementation authorization gate
+    owner_decision_required: true
+    output_change_authorized: false
+  - task_id: T374
+    title: First route-isolated 1Cor.8-10 implementation
+    starts_only_if: T373_authorizes_exact_output_change
+    output_change_authorized: pending_future_owner_decision
+  - task_id: T375
+    title: Same-baseline evaluation and no-context audit
+    starts_only_if: T374_changes_output
+    output_change_authorized: false
+  - task_id: T376
+    title: Select next lane from decision forecast
+    owner_decision_required: true
+    output_change_authorized: false
+validators:
+  - scripts/validate_chunking_human_decision_forecast.py
+  - tests/test_chunking_human_decision_forecast.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

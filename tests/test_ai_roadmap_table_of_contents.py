@@ -41,8 +41,13 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "textual_variant_source_tradition_dossier_queue.yaml",
         "orthodox_hermeneutic_firewall_docket.yaml",
         "textual_critical_policy_docket.yaml",
+        "1cor8_10_epistle_owner_review_docket.yaml",
+        "chunking_human_decision_forecast.yaml",
         "orthodox-hermeneutic-firewall",
         "textual-critical-policy",
+        "1cor8-10",
+        "human-decision",
+        "chunking-ready",
         "servant-song",
         "textual-variant",
         "source-tradition",
@@ -80,6 +85,8 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
+        "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
+        "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
         "A reviewer needs the packet queue",
         "Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target.",
     ]:
@@ -181,7 +188,16 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/textual_critical_policy_docket.yaml" in toc
     assert ".ai/tasks/T367.task.yaml" in toc
     assert ".ai/handoffs/T367/handoff.md" in toc
-    assert "T368 - 1 Corinthians 8-10 Epistle Argument Packet Strengthening" in toc
+    assert "T368 | 1 Corinthians 8-10 packet strengthening" in toc
+    assert "docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md" in toc
+    assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in toc
+    assert ".ai/control/chunking_human_decision_forecast.yaml" in toc
+    assert ".ai/tasks/T368.task.yaml" in toc
+    assert ".ai/handoffs/T368/handoff.md" in toc
+    assert "T369 |" in toc
+    assert "docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md" in toc
+    assert "scripts/validate_chunking_human_decision_forecast.py" in toc
+    assert "T369 - 1 Corinthians 8-10 Owner Review Docket" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

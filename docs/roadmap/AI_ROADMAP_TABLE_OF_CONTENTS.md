@@ -40,7 +40,7 @@ Common tags in this file:
   `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`,
   `comma-johanneum`, `orthodox-hermeneutic-firewall`, `anti-smuggling`,
   `orthodoxy-boundary`, `canon-authority`, `textual-critical-policy`, `variant-sensitive`,
-  `1cor8-10`
+  `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`
 
 ## Current Bible Chunking Path
 
@@ -74,6 +74,8 @@ Common tags in this file:
 | T365 | Prophetic oracle vision dossier queue | `prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`, `fulfillment`, `israel-church`, `messianic`, `zechariah`, `non-authorizing` | Preparing prophetic/oracle/vision dossiers without selecting fulfillment theology, eschatology, covenant systems, Israel/church relation, messianic identification, temple theology, reviewed-gold, or chunk authority. | `docs/roadmap/T365_PROPHETIC_ORACLE_VISION_DOSSIERS.md`; `.ai/control/prophetic_oracle_vision_dossier_queue.yaml`; `scripts/validate_prophetic_oracle_vision_dossier_queue.py`; `.ai/tasks/T365.task.yaml`; `.ai/handoffs/T365/handoff.md` |
 | T366 | Textual variant source tradition dossier queue | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum`, `non-authorizing` | Preparing textual-variant/source-tradition dossiers without selecting textual-critical policy, canon scope, source-tradition preference, boundary import, noncanonical authority, reviewed-gold, or chunk authority. | `docs/roadmap/T366_TEXTUAL_VARIANT_SOURCE_TRADITION_DOSSIERS.md`; `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`; `scripts/validate_textual_variant_source_tradition_dossier_queue.py`; `.ai/tasks/T366.task.yaml`; `.ai/handoffs/T366/handoff.md` |
 | T367 | Owner decision firewall and next target | `owner-decision`, `orthodox-hermeneutic-firewall`, `anti-smuggling`, `textual-critical-policy`, `john3`, `1cor8-10`, `non-authorizing` | Auditing JOHN3-T356-B, the orthodox firewall, textual-critical policy requirement, and the next review-only epistle target. | `docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md`; `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`; `.ai/control/textual_critical_policy_docket.yaml`; `.ai/tasks/T367.task.yaml`; `.ai/handoffs/T367/handoff.md` |
+| T368 | 1 Corinthians 8-10 packet strengthening | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`, `christian-liberty`, `non-authorizing` | Auditing the strengthened 1Cor.8-10 packet, pending owner options, and non-authorizing evidence. | `docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md`; `scripts/validate_1cor8_10_owner_review_docket.py`; `.ai/tasks/T368.task.yaml`; `.ai/handoffs/T368/handoff.md` |
+| T369 | 1Cor.8-10 owner review and decision forecast | `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `owner-gate`, `stop-conditions`, `non-authorizing` | Choosing the 1Cor.8-10 owner option and reviewing predictable decisions early so chunking readiness does not stall mid-flight. | `docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md`; `.ai/control/chunking_human_decision_forecast.yaml`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `scripts/validate_chunking_human_decision_forecast.py` |
 
 ## Review Packet Surfaces
 
@@ -100,20 +102,22 @@ Common tags in this file:
 | `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum` | Future agents need textual-variant/source-tradition dossiers before exact packet review, route, graph, retrieval, boundary, or algorithm work. | Dossier queue; no textual-critical/canon/source-tradition/boundary-import/noncanonical/graph/retrieval/chunk/output authority. |
 | `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` | `orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority` | Future epistle, graph, retrieval, or chunking work might smuggle hidden anti-orthodox defaults. | Firewall docket; affirms Nicene/Chalcedonian and canonical Scripture commitments; no denominational-system/chunk/output authority. |
 | `.ai/control/textual_critical_policy_docket.yaml` | `textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate` | Variant-sensitive packets might be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions. | Policy requirement docket; no textual-critical policy selected and no preferred-reading/canon/boundary/output authority. |
+| `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the pending owner decision after packet strengthening. | Owner-review docket; no parent/child/doctrine/gold/chunk/output authority. |
+| `.ai/control/chunking_human_decision_forecast.yaml` | `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate` | Work needs to know which predictable owner decisions can be made early before chunk-output work starts. | Decision forecast; defines readiness and stop conditions without authorizing output. |
 
 ## Current Next Route
 
-After T344 owner decision, T351 Bible-wide triage, and the later owner guidance to review one lane
-at a time, the next
-route is:
+After T344 owner decision, T351 Bible-wide triage, T367 owner firewall guidance, and T368 packet
+strengthening, the next route is:
 
 ```text
-T368 - 1 Corinthians 8-10 Epistle Argument Packet Strengthening
+T369 - 1 Corinthians 8-10 Owner Review Docket
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
 adds the Orthodox Hermeneutic Firewall and textual-critical policy docket requirement, and points
-the next route to T368 / `1Cor.8-1Cor.10` review-only epistle argument packet strengthening.
+the epistle lane to 1Cor.8-10. T368 strengthens the packet and creates
+`.ai/control/1cor8_10_epistle_owner_review_docket.yaml`. T369 is owner-review only.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -179,3 +183,7 @@ intertext truth, chunk boundaries, output changes, or T345.
 T368 may only strengthen the existing `1Cor.8-1Cor.10` packet as review prep; it may not promote
 reviewed gold, implement chunks, change route/evaluator behavior, generate graph edges, assert
 retrieval truth, select textual-critical policy, or change output.
+T369 may only record a future owner selection from the 1Cor.8-10 docket; it still may not
+implement chunks, promote reviewed gold, change route/evaluator behavior, generate graph edges,
+assert retrieval truth, select textual-critical policy, or change output without later exact
+implementation authorization.

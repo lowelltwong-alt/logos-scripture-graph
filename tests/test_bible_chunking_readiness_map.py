@@ -60,6 +60,8 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in surfaces
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
+    assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
+    assert ".ai/control/chunking_human_decision_forecast.yaml" in surfaces
 
 
 def test_prophetic_oracle_lane_records_t365_without_algorithm_authority() -> None:
@@ -96,7 +98,7 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T368"
+    assert data["next_route"]["task_id"] == "T369"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -107,21 +109,25 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     assert queue["reviewed_gold_promoted"] is False
 
 
-def test_next_route_advances_to_t368_review_only_1cor_packet_strengthening() -> None:
+def test_next_route_advances_to_t369_owner_review_gate() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T368"
-    assert data["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert data["next_route"]["task_id"] == "T369"
+    assert data["next_route"]["route_type"] == "epistle_argument_owner_review_gate"
     assert data["next_route"]["recommended_target"] == "epistle_argument"
     assert data["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
     assert data["next_route"]["selected_passage"] == "1Cor.8-1Cor.10"
+    assert data["next_route"]["exact_parent_candidate"] == "1Cor.8.1-1Cor.10.33"
     assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md"
+    assert data["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
     assert data["next_route"]["packet_status"] == "pending_human_review"
+    assert data["next_route"]["owner_selection_status"] == "pending_owner_decision"
     assert data["next_route"]["prior_owner_decision_task"] == "T367"
+    assert data["next_route"]["packet_strengthening_task"] == "T368"
+    assert data["next_route"]["prior_packet_task"] == "T352"
+    assert data["next_route"]["prior_issue_dossier_task"] == "T361"
     assert data["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
     assert data["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
-    assert data["next_route"]["john3_owner_selection_status"] == "selected"
-    assert data["next_route"]["john3_selected_option"] == "JOHN3-T356-B"
     assert data["next_route"]["review_only"] is True
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
