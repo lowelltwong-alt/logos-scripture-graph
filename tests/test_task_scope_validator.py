@@ -18,6 +18,7 @@ T358_TASK = ROOT / ".ai" / "tasks" / "T358.task.yaml"
 T359_TASK = ROOT / ".ai" / "tasks" / "T359.task.yaml"
 T360_TASK = ROOT / ".ai" / "tasks" / "T360.task.yaml"
 T361_TASK = ROOT / ".ai" / "tasks" / "T361.task.yaml"
+T362_TASK = ROOT / ".ai" / "tasks" / "T362.task.yaml"
 T352_TASK = ROOT / ".ai" / "tasks" / "T352.task.yaml"
 
 
@@ -430,6 +431,49 @@ def test_t361_scope_accepts_epistle_argument_issue_surfaces() -> None:
     )
 
     assert result["task_file"] == ".ai/tasks/T361.task.yaml"
+
+
+def test_t362_scope_accepts_gospel_wj_discourse_surfaces() -> None:
+    result = validator.validate_task_scope(
+        task_file=T362_TASK,
+        changed_files=[
+            ".ai/control/gospel_wj_discourse_dossier_queue.yaml",
+            ".ai/control/bible_wide_chunking_research_registry.yaml",
+            ".ai/control/chunking_agent_preflight.yaml",
+            ".ai/control/chunking_theological_decision_register.yaml",
+            ".ai/control/bible_chunking_readiness_map.yaml",
+            ".ai/control/current_focus.yaml",
+            ".ai/control/PROJECT_STATUS.md",
+            ".ai/control/roadmap_events.jsonl",
+            ".ai/control/handoff_ledger.jsonl",
+            ".ai/tasks/T362.task.yaml",
+            ".ai/handoffs/T362/handoff.md",
+            "docs/roadmap/T362_GOSPEL_WJ_DISCOURSE_DOSSIERS.md",
+            "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
+            "scripts/validate_gospel_wj_discourse_dossier_queue.py",
+            "scripts/validate_bible_wide_chunking_research_registry.py",
+            "scripts/validate_chunking_agent_preflight.py",
+            "scripts/validate_bible_chunking_readiness_map.py",
+            "scripts/validate_all.py",
+            "tests/test_gospel_wj_discourse_dossier_queue.py",
+            "tests/test_bible_wide_chunking_research_registry.py",
+            "tests/test_chunking_agent_preflight.py",
+            "tests/test_bible_chunking_readiness_map.py",
+            "tests/test_task_scope_validator.py",
+            "tests/test_ai_roadmap_table_of_contents.py",
+            "tests/test_t337a_psalm_review_packet.py",
+            "tests/test_t337_selection_docs.py",
+            "tests/test_t342_revelation_candidate_selection.py",
+            "tests/test_t343_revelation_review_packet.py",
+            "tests/test_t344_revelation_owner_selection.py",
+            "tests/test_t351_bible_wide_research_triage.py",
+            "ROADMAP_STATE.yaml",
+            "AI_FRONT_DOOR.md",
+            "AI_TABLE_OF_CONTENTS.md",
+        ],
+    )
+
+    assert result["task_file"] == ".ai/tasks/T362.task.yaml"
 
 
 def test_scope_rejects_paths_outside_allowed_scope() -> None:

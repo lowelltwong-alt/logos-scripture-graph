@@ -996,6 +996,63 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-028
+    title: Gospel/WJ discourse dossiers preserve speaker-boundary neutrality
+    classification: non_authorizing_review
+    task_ids: [T362]
+    owner_decision_ref: .ai/control/gospel_wj_discourse_dossier_queue.yaml
+    pr_refs: []
+    affected_scope:
+      books: [Matt, Mark, Luke, John, Acts, 1Cor, 2Cor, 1Tim, Rev]
+      passages: [John.3.1-John.3.36, Matt.5.1-Matt.7.29, John.13-John.17, Matt.24-Matt.25, Mark.13, Luke.21, John.7.53-John.8.11, Rev.1-Rev.3, Rev.21-Rev.22, Acts, 1Cor, 2Cor, 1Tim]
+      routes: [gospel_discourse_wj, future_gospel_review, future_wj_review, future_graph_review, future_retrieval_review, future_evaluator_review]
+      surfaces: [.ai/control/gospel_wj_discourse_dossier_queue.yaml, .ai/control/bible_wide_chunking_research_registry.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T362_GOSPEL_WJ_DISCOURSE_DOSSIERS.md]
+    decision: "Create a Gospel/WJ discourse dossier queue that records red-letter, Gospel discourse, John 3 speaker-boundary, Sermon on the Mount, Farewell Discourse, Olivet discourse, textual-variant, Revelation voice-shift, and non-Gospel WJ/dominical quotation cases as review-prep only. The queue preserves Jesus-speech, narrator-commentary, unresolved-for-chunking, parent-only, parent-with-child, variant-policy-first, Revelation-research-first, synoptic, and dominical-quotation review options, but it does not authorize Jesus speaker attribution, speaker boundaries, discourse boundaries, reviewed gold, chunk boundaries, route behavior, evaluator behavior, graph edges, retrieval truth, output changes, boundary import, or algorithm behavior."
+    downstream_risk: "Future agents could treat WJ/red-letter markers, paragraphing, punctuation, headings, speaker formulas, synoptic parallels, textual-variant-sensitive formatting, or non-Gospel WJ metadata as approved speaker or discourse authority. That could silently decide the John 3 Jesus/narrator boundary, Sermon on the Mount child structure, Farewell Discourse/prayer boundaries, Olivet eschatological framing, Revelation voice identity, or dominical quotation authority."
+    theological_assumptions_avoided:
+      - "No John 3 Jesus/narrator boundary is selected."
+      - "No Gospel discourse parent or child span is approved."
+      - "No WJ/red-letter marker becomes Jesus speaker attribution, speaker-boundary authority, discourse-boundary authority, graph truth, retrieval truth, or output authority."
+      - "No textual-variant policy or canonical preference is inferred from WJ metadata."
+      - "No Revelation voice identity, Alpha/Omega identity claim, Olivet eschatological system, synoptic harmonization, or dominical quotation policy is selected."
+    reviewed_gold_dependency: "Future output-changing use of any Gospel/WJ dossier still requires exact passage scope, owner review, reviewed speaker/discourse gold or equivalent governed evidence, non-target identity proof, graph and retrieval denial checks, route denial checks, validators/tests, and a later implementation-authorizing decision."
+    non_authorizations:
+      - wj_dossier_as_reviewed_gold
+      - pending_packet_as_approval
+      - wj_marker_as_speaker_authority
+      - wj_marker_as_jesus_speaker_attribution
+      - wj_marker_as_speaker_boundary
+      - wj_marker_as_discourse_boundary
+      - wj_marker_as_chunk_boundary
+      - formatting_as_speaker_authority
+      - punctuation_as_discourse_authority
+      - variant_wj_as_canonical_preference
+      - synoptic_parallel_as_harmonization_authority
+      - revelation_voice_identity_from_wj
+      - dominical_quotation_authority
+      - gospel_wj_implementation
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - t345_authority
+    validators:
+      - scripts/validate_gospel_wj_discourse_dossier_queue.py
+      - tests/test_gospel_wj_discourse_dossier_queue.py
+      - scripts/validate_wj_marker_inventory.py
+      - scripts/validate_wj_speaker_discourse_policy.py
+      - scripts/validate_john3_owner_review_docket.py
+      - scripts/validate_bible_wide_chunking_research_registry.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1073,4 +1130,5 @@ backfill_coverage:
     - T359
     - T360
     - T361
+    - T362
 ...

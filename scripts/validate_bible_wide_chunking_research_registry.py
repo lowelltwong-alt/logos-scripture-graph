@@ -243,6 +243,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
                 raise ResearchRegistryError(
                     f"research_dimensions.{dimension_id}.companion_dossier_queue must point to apocalyptic/prophetic queue"
                 )
+        if dimension_id == "gospel_discourse_speaker_wj":
+            if dimension.get("companion_dossier_queue") != ".ai/control/gospel_wj_discourse_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    "research_dimensions.gospel_discourse_speaker_wj.companion_dossier_queue must point to Gospel/WJ queue"
+                )
     missing_dimensions = sorted(REQUIRED_DIMENSIONS - dimension_ids)
     if missing_dimensions:
         raise ResearchRegistryError(f"{_rel(path)}: missing research dimensions {missing_dimensions}")

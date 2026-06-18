@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T361 epistle argument theological issue dossier queue (Codex)
-**Active task:** -> **T361** is complete as non-output-changing research PR work. It creates `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml` to record T352 pending packet risks and future epistle issue candidates for election, covenant, law/gospel, assurance, sacramental language, faith/works, 1 Peter, 1 John, and Jude while preserving orthodox options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize doctrine/system selection, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T362 Gospel WJ discourse dossier queue (Codex)
+**Active task:** -> **T362** is complete as non-output-changing research PR work. It creates `.ai/control/gospel_wj_discourse_dossier_queue.yaml` to record Gospel/WJ discourse, red-letter, John 3 speaker-boundary, Sermon on the Mount, Farewell Discourse, Olivet, textual-variant, Revelation voice-shift, and non-Gospel WJ/dominical quotation risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize speaker/discourse boundaries, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T362 Gospel WJ discourse dossier queue (2026-06-18):** Added
+> `.ai/control/gospel_wj_discourse_dossier_queue.yaml`, checked by
+> `scripts/validate_gospel_wj_discourse_dossier_queue.py`, so future Gospel discourse,
+> WJ/red-letter, speaker-boundary, graph, retrieval, review-packet, evaluator, and chunking agents
+> can start from explicit discourse dossiers instead of chat memory. The queue records John 3,
+> Sermon on the Mount, Farewell Discourse, Olivet discourse, John 7:53-8:11, Revelation voice
+> shifts, and non-Gospel WJ/dominical quotation cases. It is non-authorizing: no Jesus speaker
+> attribution, speaker boundary, discourse boundary, reviewed gold, chunk boundary, route behavior,
+> evaluator change, graph edge, retrieval truth, output change, boundary import, vector work, or
+> algorithm behavior is approved.
 
 > **T361 epistle argument theological issue dossier queue (2026-06-18):** Added
 > `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml`, checked by

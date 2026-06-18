@@ -59,6 +59,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/source_metadata_research_atlas.yaml",
     ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml",
     ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml",
+    ".ai/control/gospel_wj_discourse_dossier_queue.yaml",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {

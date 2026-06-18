@@ -20,6 +20,7 @@ RESEARCH_REGISTRY = ROOT / ".ai" / "control" / "bible_wide_chunking_research_reg
 SOURCE_METADATA_ATLAS = ROOT / ".ai" / "control" / "source_metadata_research_atlas.yaml"
 APOCALYPTIC_INTERTEXT_QUEUE = ROOT / ".ai" / "control" / "apocalyptic_prophetic_intertext_dossier_queue.yaml"
 EPISTLE_ISSUE_QUEUE = ROOT / ".ai" / "control" / "epistle_argument_theological_issue_dossier_queue.yaml"
+GOSPEL_WJ_QUEUE = ROOT / ".ai" / "control" / "gospel_wj_discourse_dossier_queue.yaml"
 CAPITALIZATION_INVENTORY = ROOT / ".ai" / "control" / "divine_capitalization_inventory.yaml"
 WJ_MARKER_INVENTORY = ROOT / ".ai" / "control" / "wj_marker_inventory.yaml"
 WJ_SPEAKER_POLICY = ROOT / ".ai" / "control" / "wj_speaker_discourse_policy.yaml"
@@ -59,7 +60,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -108,6 +109,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "source_metadata_research_atlas.yaml",
     "apocalyptic_prophetic_intertext_dossier_queue.yaml",
     "epistle_argument_theological_issue_dossier_queue.yaml",
+    "gospel_wj_discourse_dossier_queue.yaml",
 }
 
 REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
@@ -258,6 +260,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/source_metadata_research_atlas.yaml",
         ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml",
         ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml",
+        ".ai/control/gospel_wj_discourse_dossier_queue.yaml",
         ".ai/control/divine_capitalization_inventory.yaml",
         ".ai/control/wj_marker_inventory.yaml",
         ".ai/control/wj_speaker_discourse_policy.yaml",
@@ -367,6 +370,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in epistle_issue_queue_text:
             raise PreflightError(f"{_rel(EPISTLE_ISSUE_QUEUE)}: missing queue phrase {phrase!r}")
+    gospel_wj_queue_text = _read_text(GOSPEL_WJ_QUEUE)
+    for phrase in (
+        "object_type: gospel_wj_discourse_dossier_queue",
+        "JOHN3_WJ_SPEAKER_BOUNDARY",
+        "MATT5_7_SERMON_ON_MOUNT_WJ_DISCOURSE",
+        "REVELATION_WJ_VOICE_SHIFTS",
+        "ACTS_EPISTLE_WJ_DOMINICAL_QUOTES",
+        "authorizes_jesus_speaker_attribution: false",
+        "authorizes_chunk_boundaries: false",
+        "wj_dossier_as_reviewed_gold",
+    ):
+        if phrase not in gospel_wj_queue_text:
+            raise PreflightError(f"{_rel(GOSPEL_WJ_QUEUE)}: missing queue phrase {phrase!r}")
     inventory_text = _read_text(CAPITALIZATION_INVENTORY)
     for phrase in (
         "object_type: divine_capitalization_inventory",
