@@ -55,6 +55,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/epistle_argument_theological_issue_dossier_queue.yaml" in surfaces
     assert ".ai/control/gospel_wj_discourse_dossier_queue.yaml" in surfaces
     assert ".ai/control/narrative_legal_covenant_dossier_queue.yaml" in surfaces
+    assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in surfaces
 
 
 def test_parallel_research_queue_records_t358_without_replacing_john3_route() -> None:

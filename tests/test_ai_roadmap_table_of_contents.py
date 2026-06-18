@@ -36,6 +36,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "epistle_argument_theological_issue_dossier_queue.yaml",
         "gospel_wj_discourse_dossier_queue.yaml",
         "narrative_legal_covenant_dossier_queue.yaml",
+        "wisdom_dialogue_poetry_dossier_queue.yaml",
         "john3",
         "task-scope",
         "graph",
@@ -64,6 +65,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance`",
         "`gospel-discourse-wj`, `red-letter`, `speaker-boundary`, `john3`, `sermon-on-mount`, `farewell-discourse`",
         "`narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization`",
+        "`wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`",
         "A reviewer needs the packet queue",
         "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
     ]:
@@ -144,6 +146,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/narrative_legal_covenant_dossier_queue.yaml" in toc
     assert ".ai/tasks/T363.task.yaml" in toc
     assert ".ai/handoffs/T363/handoff.md" in toc
+    assert "T364 | Wisdom dialogue poetry dossier queue" in toc
+    assert "docs/roadmap/T364_WISDOM_DIALOGUE_POETRY_DOSSIERS.md" in toc
+    assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in toc
+    assert ".ai/tasks/T364.task.yaml" in toc
+    assert ".ai/handoffs/T364/handoff.md" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

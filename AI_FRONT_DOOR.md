@@ -23,8 +23,9 @@ Read these files before making changes:
     `docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md` rule `CHUNK-METADATA-001`.
     Source metadata is evidence, not authority. The source-metadata research atlas,
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
-    divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy, and
-    John 3 owner-review docket are evidence/review policy, not authority.
+    wisdom/dialogue/poetry dossier queue, divine-name/title capitalization and WJ/red-letter
+    markers, WJ speaker/discourse policy, and John 3 owner-review docket are evidence/review
+    policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
@@ -199,6 +200,16 @@ Bible-first chunking priority:
   source-critical partition, reviewed gold, route behavior, graph edges, retrieval truth, chunk
   boundaries, output changes, boundary import, or implementation. It is validated by
   `scripts/validate_narrative_legal_covenant_dossier_queue.py`.
+- The wisdom/dialogue/poetry dossier queue at
+  `.ai/control/wisdom_dialogue_poetry_dossier_queue.yaml` records Job dialogue cycles, Proverbs
+  wisdom speeches, Proverbs 31, Ecclesiastes refrains, Song speaker-boundary and genre risks,
+  Lamentations acrostics, and Psalm 119. It preserves local-poem, parent-cycle,
+  parent-with-child-stanza, dialogue-speech-cycle, acrostic, refrain, speaker-boundary,
+  wisdom-argument, and lament review options without authorizing wisdom theology, speaker
+  attribution, speaker boundaries, allegorical/literal readings, liturgical use, reviewed gold,
+  route behavior, graph edges, retrieval truth, chunk boundaries, output changes, boundary import,
+  or implementation. It is validated by
+  `scripts/validate_wisdom_dialogue_poetry_dossier_queue.py`.
 
 High-leverage change risk gate:
 
@@ -305,6 +316,7 @@ python scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
 python scripts/validate_epistle_argument_theological_issue_dossier_queue.py
 python scripts/validate_gospel_wj_discourse_dossier_queue.py
 python scripts/validate_narrative_legal_covenant_dossier_queue.py
+python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
 python scripts/validate_source_metadata_authority.py
@@ -364,6 +376,10 @@ speaker authority, or omits non-authorization guards.
 narrative/legal covenant queue becomes authorizing, loses required narrative/legal evidence
 channels, drops required dossiers, treats covenant/law/list/scene evidence as boundary authority,
 or omits non-authorization guards.
+`python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py` fails closed if the
+wisdom/dialogue/poetry queue becomes authorizing, loses required wisdom/poetry evidence channels,
+drops required dossiers, treats dialogue/acrostic/refrain/speaker/parallelism evidence as boundary
+authority, or omits non-authorization guards.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
