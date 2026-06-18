@@ -16,8 +16,46 @@ def test_main_toc_links_to_local_roadmap_toc() -> None:
     assert "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md" in read(MAIN_TOC)
 
 
+def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
+    toc = read(MAIN_TOC)
+
+    assert "## Functional Tag Index" in toc
+    assert "AI-facing tables of contents in this repo are routing surfaces" in toc
+    assert "WORKFLOW-LESSON-004" in toc
+    assert "tags:" in toc
+    assert "use when:" in toc
+    for phrase in [
+        "`audit`, `no-context-review`, `red-team`, `a-b-check`, `review-report`",
+        ".ai/audits/README.md",
+        "developer-engineering",
+        "source-metadata",
+        "john3",
+        "task-scope",
+        "graph",
+        "cross-repo",
+    ]:
+        assert phrase in toc
+
+
 def test_local_roadmap_toc_links_back_to_main_toc() -> None:
     assert "AI_TABLE_OF_CONTENTS.md" in read(ROADMAP_TOC)
+
+
+def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
+    toc = read(ROADMAP_TOC)
+
+    assert "## AI Routing Tags" in toc
+    assert "| Task | Purpose | Tags | Use when | Primary artifacts |" in toc
+    assert "| Surface | Tags | Use when | Role |" in toc
+    for phrase in [
+        "`audit`",
+        "`task-scope`",
+        "`john3`, `owner-review`, `speaker-boundary`, `current-route`",
+        "`divine-capitalization`, `source-metadata`, `harness`",
+        "A reviewer needs the packet queue",
+        "Presenting owner options before any John 3 parent/child/speaker/chunk approval.",
+    ]:
+        assert phrase in toc
 
 
 def test_local_roadmap_toc_exposes_t337a_actual_artifact_trail() -> None:
@@ -53,11 +91,17 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/wj_marker_inventory.yaml" in toc
     assert ".ai/tasks/T354.task.yaml" in toc
     assert ".ai/handoffs/T354/handoff.md" in toc
-    assert "T355 - WJ Speaker/Discourse Policy And Target Selection" in toc
+    assert "T355 | WJ speaker/discourse policy and target selection" in toc
     assert "docs/roadmap/T355_WJ_SPEAKER_POLICY_AND_TARGET_SELECTION.md" in toc
     assert ".ai/control/wj_speaker_discourse_policy.yaml" in toc
     assert ".ai/tasks/T355.task.yaml" in toc
     assert ".ai/handoffs/T355/handoff.md" in toc
+    assert "T356 | John 3 WJ owner-review docket" in toc
+    assert "T356 - John 3 WJ Owner Review Docket" in toc
+    assert "docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md" in toc
+    assert ".ai/control/john3_wj_owner_review_docket.yaml" in toc
+    assert ".ai/tasks/T356.task.yaml" in toc
+    assert ".ai/handoffs/T356/handoff.md" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

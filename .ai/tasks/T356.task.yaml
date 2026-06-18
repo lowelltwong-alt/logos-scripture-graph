@@ -1,0 +1,91 @@
+id: T356
+phase: phase_4
+title: "John 3 WJ Owner Review Docket"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/john3_wj_owner_review_docket.yaml
+    - .ai/control/wj_speaker_discourse_policy.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/bible_chunking_research_triage_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T344.task.yaml
+    - .ai/tasks/T356.task.yaml
+    - .ai/handoffs/T356/
+    - ROADMAP_STATE.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/validate_john3_owner_review_docket.py
+    - scripts/validate_wj_speaker_discourse_policy.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+    - tests/test_john3_owner_review_docket.py
+    - tests/test_wj_speaker_discourse_policy.py
+    - tests/test_owner_selection_implementation_gate.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_task_scope_validator.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t337_selection_docs.py
+    - tests/test_t337a_psalm_review_packet.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t351_bible_wide_research_triage.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  owner_decision_ref: .ai/control/wj_speaker_discourse_policy.yaml
+  triggering_owner_guidance: "Continue toward getting all algorithms ready faithfully; after T355, the next safe human decision is John 3 owner review."
+  non_output_changing_docket_allowed: true
+  owner_review_options_allowed: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  parent_span_authorized: false
+  child_spans_authorized: false
+  speaker_attribution_authorized: false
+  speaker_boundary_authorized: false
+  discourse_boundary_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+acceptance_criteria:
+  - "A machine-readable John 3 owner-review docket records pending owner options for John.3.1-John.3.36 without selecting an option."
+  - "A human-readable roadmap docket presents options JOHN3-T356-A through JOHN3-T356-E and keeps all implementation, output, and reviewed-gold flags false."
+  - "The docket is mandatory preflight/readiness context before any John 3 WJ speaker/discourse implementation."
+  - "A validator fails if the docket becomes authorizing or loses pending owner-selection state."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_task_scope.py --task-id T356
+  - python scripts/validate_john3_owner_review_docket.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_owner_selection_implementation_gate.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T356/handoff.md
+next_task: "Owner selects one John 3 option in a later governed task. Do not implement John 3 chunks or promote reviewed gold until exact owner selection, reviewed evidence, executable tests, non-target identity proof, same-baseline evaluation, and later implementation authorization exist."

@@ -97,6 +97,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "wj_speaker_discourse_policy_and_target_selection",
         "title": "WJ Speaker/Discourse Policy And Target Selection",
     },
+    "T356": {
+        "route_type": "john3_wj_owner_review_docket",
+        "title": "John 3 WJ Owner Review Docket",
+    },
 }
 
 
@@ -273,6 +277,23 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             )
         if next_route.get("reviewed_gold_promoted") is not False:
             raise ReadinessMapError(f"{_rel(path)}: T355 next_route.reviewed_gold_promoted must be false")
+    if task_id == "T356":
+        if next_route.get("review_packet_lane") != "gospel_discourse_wj":
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.review_packet_lane must be gospel_discourse_wj")
+        if next_route.get("prior_policy_task") != "T355":
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.prior_policy_task must be T355")
+        if next_route.get("selected_target") != "john3_wj_speaker_boundary":
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.selected_target must be john3_wj_speaker_boundary")
+        if next_route.get("john3_owner_selection_status") != "pending":
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.john3_owner_selection_status must be pending")
+        if next_route.get("john3_selected_option") != "pending":
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.john3_selected_option must be pending")
+        if next_route.get("docket") != ".ai/control/john3_wj_owner_review_docket.yaml":
+            raise ReadinessMapError(
+                f"{_rel(path)}: T356 next_route.docket must be .ai/control/john3_wj_owner_review_docket.yaml"
+            )
+        if next_route.get("reviewed_gold_promoted") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T356 next_route.reviewed_gold_promoted must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

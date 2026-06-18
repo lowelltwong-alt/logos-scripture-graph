@@ -276,9 +276,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', or 'T355' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', or 'T356' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -358,6 +358,41 @@ def validate_owner_selection_implementation_gate(
                     next_route.get("selected_target_status"),
                     "selected_for_next_owner_review",
                     "readiness.next_route.selected_target_status",
+                )
+                _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+            if next_task_id == "T356":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "john3_wj_owner_review_docket",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(next_route.get("prior_triage_task"), "T351", "readiness.next_route.prior_triage_task")
+                _require_equal(next_route.get("prior_inventory_task"), "T354", "readiness.next_route.prior_inventory_task")
+                _require_equal(next_route.get("prior_policy_task"), "T355", "readiness.next_route.prior_policy_task")
+                _require_equal(
+                    next_route.get("review_packet_lane"),
+                    "gospel_discourse_wj",
+                    "readiness.next_route.review_packet_lane",
+                )
+                _require_equal(
+                    next_route.get("docket"),
+                    ".ai/control/john3_wj_owner_review_docket.yaml",
+                    "readiness.next_route.docket",
+                )
+                _require_equal(
+                    next_route.get("selected_target"),
+                    "john3_wj_speaker_boundary",
+                    "readiness.next_route.selected_target",
+                )
+                _require_equal(
+                    next_route.get("john3_owner_selection_status"),
+                    "pending",
+                    "readiness.next_route.john3_owner_selection_status",
+                )
+                _require_equal(
+                    next_route.get("john3_selected_option"),
+                    "pending",
+                    "readiness.next_route.john3_selected_option",
                 )
                 _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
             _require_equal(
