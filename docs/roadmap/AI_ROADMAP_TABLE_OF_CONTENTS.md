@@ -29,7 +29,8 @@ Common tags in this file:
 - `theology-risk`, `hermeneutic-neutrality`, `source-metadata`
 - `audit`, `handoff`, `task-scope`, `validator`, `harness`
 - `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`,
-  `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`
+  `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`,
+  `apocalyptic-prophetic`, `intertext`, `hermeneutic-neutrality`
 
 ## Current Bible Chunking Path
 
@@ -55,6 +56,7 @@ Common tags in this file:
 | T356 | John 3 WJ owner-review docket | `john3`, `owner-review`, `speaker-boundary`, `current-route` | Presenting owner options before any John 3 parent/child/speaker/chunk approval. | `docs/roadmap/T356_JOHN3_WJ_OWNER_REVIEW_DOCKET.md`; `.ai/control/john3_wj_owner_review_docket.yaml`; `scripts/validate_john3_owner_review_docket.py`; `.ai/tasks/T356.task.yaml`; `.ai/handoffs/T356/handoff.md` |
 | T358 | Bible-wide chunking research registry | `whole-bible-research`, `canonical-66`, `research-registry`, `non-authorizing` | Preparing future research packets across all 66 books without starting chunk implementation. | `docs/roadmap/T358_BIBLE_WIDE_CHUNKING_RESEARCH_REGISTRY.md`; `.ai/control/bible_wide_chunking_research_registry.yaml`; `scripts/validate_bible_wide_chunking_research_registry.py`; `.ai/tasks/T358.task.yaml`; `.ai/handoffs/T358/handoff.md` |
 | T359 | Source metadata research atlas | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`, `non-authorizing` | Checking metadata families before future chunking, graph, retrieval, or review-packet work. | `docs/roadmap/T359_SOURCE_METADATA_RESEARCH_ATLAS.md`; `.ai/control/source_metadata_research_atlas.yaml`; `scripts/validate_source_metadata_research_atlas.py`; `.ai/tasks/T359.task.yaml`; `.ai/handoffs/T359/handoff.md` |
+| T360 | Apocalyptic prophetic intertext dossier queue | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`, `non-authorizing` | Preparing Revelation/Daniel/prophetic intertext dossiers without selecting a hermeneutic system. | `docs/roadmap/T360_APOCALYPTIC_PROPHETIC_INTERTEXT_DOSSIERS.md`; `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`; `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`; `.ai/tasks/T360.task.yaml`; `.ai/handoffs/T360/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -72,6 +74,7 @@ Common tags in this file:
 | `.ai/control/john3_wj_owner_review_docket.yaml` | `john3`, `owner-review`, `current-route`, `non-authorizing` | Owner needs John 3 options or an agent needs to know what is still pending. | Pending John 3 owner-review options; no parent/child/speaker/chunk approval. |
 | `.ai/control/bible_wide_chunking_research_registry.yaml` | `whole-bible-research`, `canonical-66`, `research-registry`, `book-watchpoints` | Future agents need book-level research prompts before exact review packets or algorithms. | Canonical 66-book research queue; no chunk/gold/graph/output authority. |
 | `.ai/control/source_metadata_research_atlas.yaml` | `source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization` | Future agents need source metadata families, observed surfaces, and non-authorizations before chunk/graph/retrieval work. | Metadata research atlas; no Scripture/lexical/intertext/speaker/graph/chunk/retrieval/output authority. |
+| `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality` | Future agents need Revelation/Daniel/prophetic intertext dossiers before exact packets or algorithm work. | Dossier queue; no intertext/graph/retrieval/chunk/output authority. |
 
 ## Current Next Route
 
@@ -120,3 +123,6 @@ footnotes, headings, boundary markers, WJ/red-letter markers, speaker labels, fo
 capitalization as Scripture truth, lexical truth, intertext truth, speaker attribution, graph
 edges, retrieval truth, reviewed gold, chunk boundaries, output changes, boundary import, or
 algorithm behavior.
+T360 does not authorize Revelation implementation, Daniel/Revelation chronology, hermeneutic
+system selection, graph edges, retrieval truth, reviewed gold, chunk boundaries, output changes,
+boundary import, or T345.

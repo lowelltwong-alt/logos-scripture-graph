@@ -233,6 +233,11 @@ def validate_research_registry(path: Path = REGISTRY) -> dict[str, Any]:
                 raise ResearchRegistryError(
                     "research_dimensions.source_metadata_features.companion_atlas must point to source metadata atlas"
                 )
+        if dimension_id in {"prophetic_oracle_vision", "apocalyptic_symbol_intertext"}:
+            if dimension.get("companion_dossier_queue") != ".ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml":
+                raise ResearchRegistryError(
+                    f"research_dimensions.{dimension_id}.companion_dossier_queue must point to apocalyptic/prophetic queue"
+                )
     missing_dimensions = sorted(REQUIRED_DIMENSIONS - dimension_ids)
     if missing_dimensions:
         raise ResearchRegistryError(f"{_rel(path)}: missing research dimensions {missing_dimensions}")

@@ -892,6 +892,54 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-026
+    title: Apocalyptic and prophetic intertext dossiers preserve hermeneutic options
+    classification: non_authorizing_review
+    task_ids: [T360]
+    owner_decision_ref: .ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml
+    pr_refs: []
+    affected_scope:
+      books: [Rev, Dan, Ezek, Zech, Isa, Joel, Matt, Mark, Luke, John, Ps]
+      passages: [Rev.1.13, Rev.14.14, Dan.7.13-Dan.7.14, Rev.2.27, Rev.19.15, Ps.2.9, Rev.1.6, Exod.19.6, Isa.61.6, Matt.24.15-Matt.24.31, Mark.13.14-Mark.13.27, Luke.21.20-Luke.21.28, Ezek.40-Ezek.48, Rev.21-Rev.22, Zech.12.10, John.19.37, Rev.1.7]
+      routes: [revelation_apocalyptic, prophetic_oracle, gospel_discourse_wj, future_graph_review, future_retrieval_review]
+      surfaces: [.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml, .ai/control/bible_wide_chunking_research_registry.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T360_APOCALYPTIC_PROPHETIC_INTERTEXT_DOSSIERS.md]
+    decision: "Create an apocalyptic/prophetic intertext dossier queue that records Revelation, Daniel, prophetic, Olivet discourse, and symbolic intertext cases as review-prep only. The queue preserves futurist, preterist, historicist, idealist, premillennial, amillennial, postmillennial, already/not-yet, typological, and covenant continuity/discontinuity options where orthodox, but it does not select an eschatological system, chronology, graph edge, retrieval truth, reviewed gold, chunk boundary, output change, boundary import, or algorithm behavior."
+    downstream_risk: "Future agents could treat editorial crossrefs, shared symbols, rare words, WJ/voice metadata, divine-title capitalization, or structural parallels as settled intertext truth. In Revelation and Daniel, that could silently choose chronology, recapitulation, millennium, tribulation timing, temple fulfillment, Babylon/beast identity, Israel/church relation, or symbolic/literal readings."
+    theological_assumptions_avoided:
+      - "No Revelation/Daniel chronology or recapitulation system is selected."
+      - "No millennium, tribulation, Babylon, beast, or temple-fulfillment view is selected."
+      - "No editorial cross-reference becomes an automatic graph edge or fulfillment claim."
+      - "No shared symbol, title, lexical feature, WJ marker, or capitalization feature becomes theological authority."
+      - "No absence of source cross-reference is treated as absence of canonical intertext."
+    reviewed_gold_dependency: "Future output-changing use of any dossier still requires exact passage scope, owner review, reviewed gold or equivalent governed evidence, non-target identity proof, validators/tests, and a later implementation-authorizing decision."
+    non_authorizations:
+      - intertext_dossier_as_truth
+      - editorial_crossref_as_graph_edge
+      - lexical_rarity_as_intertext_truth
+      - shared_symbol_as_identity_claim
+      - wj_marker_as_speaker_attribution
+      - capitalization_as_divine_identity
+      - hermeneutic_system_selection
+      - revelation_implementation
+      - daniel_revelation_chronology
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - t345_authority
+    validators:
+      - scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
+      - tests/test_apocalyptic_prophetic_intertext_dossier_queue.py
+      - scripts/validate_bible_wide_chunking_research_registry.py
+      - scripts/validate_source_metadata_research_atlas.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -967,4 +1015,5 @@ backfill_coverage:
     - T356
     - T358
     - T359
+    - T360
 ...

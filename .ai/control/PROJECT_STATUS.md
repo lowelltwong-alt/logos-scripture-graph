@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T359 source metadata research atlas (Codex)
-**Active task:** -> **T359** is complete as non-output-changing research PR work stacked after T358. It creates `.ai/control/source_metadata_research_atlas.yaml` to record internal cross-references, Strong's-style numbers, lexical rarity, footnotes, headings, boundary markers, WJ/red-letter markers, speaker labels, formatting, and divine capitalization as evidence only. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T360 apocalyptic prophetic intertext dossier queue (Codex)
+**Active task:** -> **T360** is complete as non-output-changing research PR work. It creates `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` to record Revelation, Daniel, prophetic, Olivet discourse, cosmic-sign, temple-city, Psalm 2, and Zechariah intertext-sensitive dossiers while preserving multiple orthodox hermeneutic options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, infer speaker attribution, authorize intertext truth, or give source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T360 apocalyptic prophetic intertext dossier queue (2026-06-18):** Added
+> `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`, checked by
+> `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`, so future Revelation,
+> Daniel, prophetic, Gospel discourse, graph, retrieval, review-packet, evaluator, and chunking
+> agents can start from explicit intertext dossiers instead of chat memory. The queue preserves
+> futurist, preterist, historicist, idealist, premillennial, amillennial, postmillennial,
+> typological, and already/not-yet readings where orthodox, and refuses to select Revelation
+> chronology, millennium view, tribulation timing, temple fulfillment, Babylon/beast identity, or
+> Israel/church relation. It is non-authorizing: no Scripture truth, lexical truth, intertext truth,
+> speaker attribution, graph edge, retrieval truth, reviewed gold, chunk boundary, output change,
+> boundary import, vector work, or algorithm behavior is approved.
 
 > **T359 source metadata research atlas (2026-06-18):** Added
 > `.ai/control/source_metadata_research_atlas.yaml`, checked by

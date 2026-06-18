@@ -136,3 +136,5 @@ def test_t343_decision_register_records_metadata_lesson() -> None:
     assert "automatic_cross_reference_edge" in register
     assert "CD-025" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
+    assert "CD-026" in register
+    assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
