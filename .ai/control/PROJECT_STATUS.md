@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T362 Gospel WJ discourse dossier queue (Codex)
-**Active task:** -> **T362** is complete as non-output-changing research PR work. It creates `.ai/control/gospel_wj_discourse_dossier_queue.yaml` to record Gospel/WJ discourse, red-letter, John 3 speaker-boundary, Sermon on the Mount, Farewell Discourse, Olivet, textual-variant, Revelation voice-shift, and non-Gospel WJ/dominical quotation risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize speaker/discourse boundaries, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T363 narrative legal covenant dossier queue (Codex)
+**Active task:** -> **T363** is complete as non-output-changing research PR work. It creates `.ai/control/narrative_legal_covenant_dossier_queue.yaml` to record narrative scene, law/covenant, genealogy/list, ritual, royal-annal, restoration-document, and Gospel birth narrative risks while preserving orthodox review options. It does not select a John 3 option, supersede T356/T357, promote reviewed gold, authorize implementation, change output, create graph edges, import boundary material, authorize covenant theology, law/gospel frameworks, typology, harmonization, route behavior, evaluator changes, retrieval truth, or source metadata authority. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T363 narrative legal covenant dossier queue (2026-06-18):** Added
+> `.ai/control/narrative_legal_covenant_dossier_queue.yaml`, checked by
+> `scripts/validate_narrative_legal_covenant_dossier_queue.py`, so future narrative, legal,
+> covenant, genealogy/list, royal-annal, restoration-document, graph, retrieval, review-packet,
+> evaluator, and chunking agents can start from explicit dossiers instead of chat memory. The
+> queue records Genesis primeval and patriarchal cycles, Sinai, Levitical ritual law, Balaam,
+> Deuteronomy covenant speeches, Joshua allotments, Samuel-Kings royal covenant/annal material,
+> Chronicles/Ezra/Nehemiah restoration lists/documents, and Matthew/Luke genealogy/birth
+> narratives. It is non-authorizing: no covenant system, law/gospel framework, typology,
+> harmonization, source-critical partition, reviewed gold, chunk boundary, route behavior,
+> evaluator change, graph edge, retrieval truth, output change, boundary import, vector work, or
+> algorithm behavior is approved.
 
 > **T362 Gospel WJ discourse dossier queue (2026-06-18):** Added
 > `.ai/control/gospel_wj_discourse_dossier_queue.yaml`, checked by

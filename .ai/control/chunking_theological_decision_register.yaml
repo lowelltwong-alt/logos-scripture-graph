@@ -1053,6 +1053,62 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-029
+    title: Narrative/legal covenant dossiers preserve covenant-boundary neutrality
+    classification: non_authorizing_review
+    task_ids: [T363]
+    owner_decision_ref: .ai/control/narrative_legal_covenant_dossier_queue.yaml
+    pr_refs: []
+    affected_scope:
+      books: [Gen, Exod, Lev, Num, Deut, Josh, 1Sam, 2Sam, 1Kgs, 2Kgs, 1Chr, Ezra, Neh, Matt, Luke]
+      passages: [Gen.1-Gen.11, Gen.12-Gen.50, Exod.19-Exod.24, Lev.1-Lev.7, Num.22-Num.24, Deut.5-Deut.30, Josh.13-Josh.21, 1Sam.8-1Sam.12, 2Sam.7, 1Kgs.3-1Kgs.11, 1Kgs.17-2Kgs.8, 1Chr.1-1Chr.9, 1Chr.22-1Chr.29, Ezra.1-Ezra.10, Neh.1-Neh.13, Matt.1-Matt.2, Luke.1-Luke.3]
+      routes: [narrative_pericope, legal_covenant_formulae, future_narrative_review, future_legal_review, future_graph_review, future_retrieval_review, future_evaluator_review]
+      surfaces: [.ai/control/narrative_legal_covenant_dossier_queue.yaml, .ai/control/bible_wide_chunking_research_registry.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, docs/roadmap/T363_NARRATIVE_LEGAL_COVENANT_DOSSIERS.md]
+    decision: "Create a narrative/legal covenant dossier queue that records scene, covenant, law, genealogy/list, ritual, royal-annal, restoration-document, and Gospel birth narrative cases as review-prep only. The queue preserves local-scene, parent-cycle, parent-with-child, genealogy/list, law-code, covenant-speech, ritual-instruction, royal-annal, embedded-document, and Gospel narrative review options, but it does not authorize covenant theology, law/gospel frameworks, typology, harmonization, source-critical partition, reviewed gold, chunk boundaries, route behavior, evaluator behavior, graph edges, retrieval truth, output changes, boundary import, or algorithm behavior."
+    downstream_risk: "Future agents could treat narrative scene labels, law formulas, covenant language, genealogies/lists, royal annals, embedded documents, source headings, parallel accounts, or repeated motifs as approved theological boundaries. That could silently choose covenant continuity/discontinuity, law/gospel framing, land-promise fulfillment, messianic typology, chronology harmonization, monarchy theology, restoration identity, genealogy hierarchy, or source-critical partition."
+    theological_assumptions_avoided:
+      - "No covenant theology, dispensational, law/gospel, land-promise, monarchy, restoration, or typological system is selected."
+      - "No scene label, law formula, ritual sequence, genealogy, list, royal annal, embedded document, source heading, or parallel account becomes chunk-boundary authority."
+      - "No Gospel birth narrative or genealogy review cue becomes harmonization, graph truth, retrieval truth, or route behavior."
+      - "No source-critical composition theory or chronology harmonization is encoded as a default."
+      - "No pending research dossier becomes reviewed gold or implementation authority."
+    reviewed_gold_dependency: "Future output-changing use of any narrative/legal covenant dossier still requires exact passage scope, owner review, reviewed gold or equivalent governed evidence, non-target identity proof, graph and retrieval denial checks, route denial checks, validators/tests, and a later implementation-authorizing decision."
+    non_authorizations:
+      - narrative_dossier_as_reviewed_gold
+      - legal_dossier_as_reviewed_gold
+      - scene_label_as_chunk_boundary
+      - law_formula_as_covenant_system
+      - ritual_sequence_as_fulfillment_claim
+      - genealogy_as_identity_hierarchy
+      - list_formula_as_graph_edge
+      - royal_annal_as_theological_verdict
+      - embedded_document_as_source_partition
+      - parallel_account_as_harmonization_authority
+      - source_metadata_as_authority
+      - heading_as_chunk_boundary
+      - covenant_system_selection
+      - law_gospel_framework_selection
+      - typology_selection
+      - chronology_harmonization
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - t345_authority
+    validators:
+      - scripts/validate_narrative_legal_covenant_dossier_queue.py
+      - tests/test_narrative_legal_covenant_dossier_queue.py
+      - scripts/validate_bible_wide_chunking_research_registry.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1131,4 +1187,5 @@ backfill_coverage:
     - T360
     - T361
     - T362
+    - T363
 ...

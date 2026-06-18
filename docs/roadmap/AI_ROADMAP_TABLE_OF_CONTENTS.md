@@ -32,7 +32,8 @@ Common tags in this file:
   `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`,
   `apocalyptic-prophetic`, `intertext`, `hermeneutic-neutrality`, `argument-boundary`,
   `election`, `law-gospel`, `faith-works`, `assurance`, `red-letter`, `speaker-boundary`,
-  `sermon-on-mount`, `farewell-discourse`, `dominical-quotation`
+  `sermon-on-mount`, `farewell-discourse`, `dominical-quotation`, `narrative`, `legal`,
+  `covenant`, `genealogy`, `lists`, `typology`, `harmonization`
 
 ## Current Bible Chunking Path
 
@@ -61,6 +62,7 @@ Common tags in this file:
 | T360 | Apocalyptic prophetic intertext dossier queue | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality`, `non-authorizing` | Preparing Revelation/Daniel/prophetic intertext dossiers without selecting a hermeneutic system. | `docs/roadmap/T360_APOCALYPTIC_PROPHETIC_INTERTEXT_DOSSIERS.md`; `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml`; `scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py`; `.ai/tasks/T360.task.yaml`; `.ai/handoffs/T360/handoff.md` |
 | T361 | Epistle argument theological issue dossier queue | `epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance`, `non-authorizing` | Preparing epistle issue dossiers without selecting a doctrinal system or treating pending packets as reviewed gold. | `docs/roadmap/T361_EPISTLE_ARGUMENT_THEOLOGICAL_ISSUE_DOSSIERS.md`; `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml`; `scripts/validate_epistle_argument_theological_issue_dossier_queue.py`; `.ai/tasks/T361.task.yaml`; `.ai/handoffs/T361/handoff.md` |
 | T362 | Gospel WJ discourse dossier queue | `gospel-discourse-wj`, `red-letter`, `speaker-boundary`, `john3`, `sermon-on-mount`, `farewell-discourse`, `non-authorizing` | Preparing Gospel/WJ discourse dossiers without selecting speaker, discourse, reviewed-gold, or chunk authority. | `docs/roadmap/T362_GOSPEL_WJ_DISCOURSE_DOSSIERS.md`; `.ai/control/gospel_wj_discourse_dossier_queue.yaml`; `scripts/validate_gospel_wj_discourse_dossier_queue.py`; `.ai/tasks/T362.task.yaml`; `.ai/handoffs/T362/handoff.md` |
+| T363 | Narrative legal covenant dossier queue | `narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization`, `non-authorizing` | Preparing narrative/legal/covenant dossiers without selecting covenant systems, law/gospel, typology, harmonization, reviewed-gold, or chunk authority. | `docs/roadmap/T363_NARRATIVE_LEGAL_COVENANT_DOSSIERS.md`; `.ai/control/narrative_legal_covenant_dossier_queue.yaml`; `scripts/validate_narrative_legal_covenant_dossier_queue.py`; `.ai/tasks/T363.task.yaml`; `.ai/handoffs/T363/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -81,6 +83,7 @@ Common tags in this file:
 | `.ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml` | `apocalyptic-prophetic`, `revelation`, `daniel`, `intertext`, `hermeneutic-neutrality` | Future agents need Revelation/Daniel/prophetic intertext dossiers before exact packets or algorithm work. | Dossier queue; no intertext/graph/retrieval/chunk/output authority. |
 | `.ai/control/epistle_argument_theological_issue_dossier_queue.yaml` | `epistle`, `argument-boundary`, `election`, `law-gospel`, `faith-works`, `assurance` | Future agents need epistle theological issue dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no doctrine/reviewed-gold/graph/retrieval/chunk/output authority. |
 | `.ai/control/gospel_wj_discourse_dossier_queue.yaml` | `gospel-discourse-wj`, `red-letter`, `speaker-boundary`, `john3`, `sermon-on-mount`, `farewell-discourse`, `dominical-quotation` | Future agents need Gospel/WJ discourse dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no speaker/discourse/reviewed-gold/graph/retrieval/chunk/output authority. |
+| `.ai/control/narrative_legal_covenant_dossier_queue.yaml` | `narrative`, `legal`, `covenant`, `genealogy`, `lists`, `typology`, `harmonization` | Future agents need narrative/legal/covenant dossiers before exact packet review, route, graph, retrieval, or algorithm work. | Dossier queue; no covenant/law-gospel/typology/graph/retrieval/chunk/output authority. |
 
 ## Current Next Route
 
@@ -139,3 +142,7 @@ T362 does not authorize Jesus speaker attribution, speaker boundaries, discourse
 pending packet approval, reviewed-gold promotion, route behavior, evaluator changes, graph edges,
 retrieval truth, chunk boundaries, output changes, boundary import, Gospel/WJ implementation, or
 T345.
+T363 does not authorize covenant theology, law/gospel framework selection, typology,
+harmonization, source-critical partition, pending packet approval, reviewed-gold promotion, route
+behavior, evaluator changes, graph edges, retrieval truth, chunk boundaries, output changes,
+boundary import, or T345.

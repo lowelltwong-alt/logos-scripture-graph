@@ -165,6 +165,10 @@ def test_t344_records_t344r_next_and_keeps_t345_blocked() -> None:
     assert tasks["T362"]["lane"] == "gospel_discourse_wj"
     assert tasks["T362"]["dossier_queue"] == ".ai/control/gospel_wj_discourse_dossier_queue.yaml"
     assert tasks["T362"]["speaker_attribution_authorized"] is False
+    assert tasks["T363"]["status"] == "complete"
+    assert tasks["T363"]["lane"] == "narrative_pericope"
+    assert tasks["T363"]["dossier_queue"] == ".ai/control/narrative_legal_covenant_dossier_queue.yaml"
+    assert tasks["T363"]["covenant_theology_authorized"] is False
     assert future["T357"]["status"] == "planned"
     assert future["T357"]["requires_owner_selection"] is True
     assert future["T345"]["status"] == "planned"
