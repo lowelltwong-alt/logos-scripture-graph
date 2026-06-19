@@ -71,6 +71,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/textual_critical_policy_docket.yaml",
     ".ai/control/textual_critical_policy_owner_options.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
+    ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",
@@ -446,6 +447,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "conflict_scan_result": "no_conflict_detected",
             "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
             "evidence_packet": "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+            "owner_decision_packet": ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
             "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
             "packet_status": "parent_only_evidence_packet_ready_for_owner_review",
             "owner_selection_status": "selected",
@@ -543,6 +545,39 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     ):
         if case_policy.get(key) is not False:
             raise ReadinessMapError(f"{_rel(path)}: parallel_textual_critical_case_policy.{key} must be false")
+
+    t371_packet = data.get("parallel_t371_owner_decision_packet")
+    if not isinstance(t371_packet, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet must be a mapping")
+    expected_t371_packet = {
+        "task_id": "T380",
+        "path": ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+        "target_owner_task": "T371",
+        "recommended_if_owner_agrees_with_variant_non_dependency": "T371-A",
+        "conservative_hold_if_any_doubt": "T371-B",
+    }
+    for key, value in expected_t371_packet.items():
+        if t371_packet.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet.{key} must be {value}")
+    if set(t371_packet.get("exact_variant_refs", [])) != {"1Cor.9.20", "1Cor.10.9"}:
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet refs are stale")
+    if t371_packet.get("owner_decision_required") is not True:
+        raise ReadinessMapError(f"{_rel(path)}: T371 packet owner_decision_required must be true")
+    for key in (
+        "variant_dependency_finding_authorized",
+        "variant_non_dependency_finding_authorized",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "reviewed_gold_promoted",
+        "output_change_authorized",
+        "implementation_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if t371_packet.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet.{key} must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

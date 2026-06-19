@@ -197,6 +197,14 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     if "variant_dependency_projection" not in hdf_002.get("non_authorizations", []):
         raise ForecastError(f"{_rel(path)}: HDF-002 must deny variant_dependency_projection")
 
+    hdf_003 = by_id["HDF-003"]
+    if hdf_003.get("status") != "t371_owner_decision_packet_prepared":
+        raise ForecastError(f"{_rel(path)}: HDF-003 must record T371 packet preparation")
+    if hdf_003.get("current_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-003 current_decision_packet is stale")
+    if hdf_003.get("next_owner_gate") != "T371":
+        raise ForecastError(f"{_rel(path)}: HDF-003 next_owner_gate must be T371")
+
     hdf_004 = by_id["HDF-004"]
     if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
         raise ForecastError(f"{_rel(path)}: HDF-004 must stop for chunk_output_change")
@@ -240,7 +248,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     if not isinstance(steps, list):
         raise ForecastError(f"{_rel(path)}: next_roadmap_steps must be a list")
     step_ids = [step.get("task_id") for step in steps if isinstance(step, dict)]
-    for expected in ("T369", "T370", "T379", "T371", "T372", "T373", "T374", "T375", "T376"):
+    for expected in ("T369", "T370", "T379", "T380", "T371", "T372", "T373", "T374", "T375", "T376"):
         if expected not in step_ids:
             raise ForecastError(f"{_rel(path)}: next_roadmap_steps missing {expected}")
 
@@ -273,7 +281,7 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
 
     register = _read_text(REGISTER)
-    for phrase in ("CD-038", "CD-042", "Human decision forecast front-loads chunking gates", "T368", "T370"):
+    for phrase in ("CD-038", "CD-042", "CD-046", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380"):
         if phrase not in register:
             raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -282,7 +290,7 @@ def _validate_governed_links() -> None:
     if not isinstance(future, list):
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: phase_4.future_sequence must be a list")
     by_id = {item.get("id"): item for item in future if isinstance(item, dict)}
-    for task_id in ("T369", "T370", "T379", "T371", "T372", "T373", "T374", "T375", "T376"):
+    for task_id in ("T369", "T370", "T379", "T380", "T371", "T372", "T373", "T374", "T375", "T376"):
         if task_id not in by_id:
             raise ForecastError(f"{_rel(ROADMAP_STATE)}: future_sequence missing {task_id}")
     if by_id["T369"].get("status") != "complete":
@@ -301,6 +309,10 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 owner_decision_required must be true")
     if by_id["T379"].get("selected_policy") != "TCP-T378-B":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
+    if by_id["T380"].get("owner_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T380 owner_decision_packet is stale")
+    if by_id["T380"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T380 must be complete")
     if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
     if by_id["T374"].get("output_change_authorized") is not False:

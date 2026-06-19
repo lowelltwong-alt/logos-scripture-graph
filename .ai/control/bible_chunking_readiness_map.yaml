@@ -47,6 +47,7 @@ lessons_storage:
     - .ai/control/textual_critical_policy_docket.yaml
     - .ai/control/textual_critical_policy_owner_options.yaml
     - .ai/control/textual_critical_case_policy.yaml
+    - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - .ai/control/chunking_human_decision_forecast.yaml
     - .ai/control/governance_memory_durability_policy.yaml
@@ -124,7 +125,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t370_1cor8_10_parent_only_evidence_packet_built_owner_promotion_gate_next
+    current_state: t380_t371_owner_decision_packet_prepared_owner_promotion_gate_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -341,6 +342,7 @@ next_route:
   conflict_scan_result: no_conflict_detected
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
   evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+  owner_decision_packet: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
   packet_status: parent_only_evidence_packet_ready_for_owner_review
   owner_selection_status: selected
@@ -446,6 +448,29 @@ parallel_textual_critical_case_policy:
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
+parallel_t371_owner_decision_packet:
+  task_id: T380
+  title: T371 Variant-Dependency Owner Decision Packet
+  route_type: owner_decision_packet_only
+  path: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+  status: complete_non_authorizing
+  relation_to_next_route: "Packages the exact T371 owner question for 1Cor.9.20 and 1Cor.10.9; does not itself decide variant dependency/non-dependency or promote reviewed gold."
+  target_owner_task: T371
+  exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+  recommended_if_owner_agrees_with_variant_non_dependency: T371-A
+  conservative_hold_if_any_doubt: T371-B
+  owner_decision_required: true
+  variant_dependency_finding_authorized: false
+  variant_non_dependency_finding_authorized: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  reviewed_gold_promoted: false
+  output_change_authorized: false
+  implementation_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
 update_triggers:
   - roadmap_sequence_change
   - chunking_algorithm_change
@@ -461,6 +486,7 @@ update_triggers:
   - textual_critical_policy_docket_change
   - textual_critical_policy_owner_options_change
   - textual_critical_case_policy_change
+  - t371_variant_dependency_owner_decision_packet_change
   - 1cor8_10_owner_review_docket_change
   - chunking_human_decision_forecast_change
   - governance_memory_durability_policy_change
