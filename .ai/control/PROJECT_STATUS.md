@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-18
-**Updated by:** T370 parent-only evidence packet (Codex)
-**Active task:** -> **T370** is complete as non-output-changing evidence prep. It adds `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`, validates it against canonical eng-web sidecars with `scripts/validate_1cor8_10_parent_evidence_packet.py`, records `CD-042`, and advances readiness to T371 owner reviewed-gold promotion review. It does not authorize child spans, reviewed gold, doctrine systems, textual-critical policy selection, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-19
+**Updated by:** T377 orthodox original-language pressure passage dossier queue (Codex)
+**Active task:** -> **T377** is complete as non-output-changing research memory. It adds `.ai/control/orthodox_original_language_pressure_dossier_queue.yaml`, validates it with `scripts/validate_orthodox_original_language_pressure_dossier_queue.py`, records `CD-043`, and makes Greek/Hebrew grammar-overlay pressure passages mandatory preflight reading. It does not authorize source-language truth, translation preference, non-orthodox or extra-canonical authority, doctrine selection, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, vectors, or output changes. **T371** remains the next route: owner reviewed-gold promotion review for the T370 `1Cor.8.1-1Cor.10.33` parent-only evidence packet. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T377 orthodox original-language pressure passage dossier queue (2026-06-19):** Added
+> `.ai/control/orthodox_original_language_pressure_dossier_queue.yaml`, checked by
+> `scripts/validate_orthodox_original_language_pressure_dossier_queue.py`, so future chunking,
+> graph, retrieval, review-packet, route, and evaluator agents start with explicit pressure
+> passages rather than chat memory. The queue records John 1:1, Colossians 1:15-20, Titus 2:13,
+> 2 Peter 1:1, John 8:58, Hebrews 1, Matthew 28:19, Genesis 1:26-27, Deuteronomy 6:4,
+> Psalm 110:1, Isaiah 43-44, 1 Corinthians 15:29, and 1 Peter 3:18-4:6 as future
+> Greek/Hebrew grammar-overlay pressure dossiers. LDS, Watch Tower/New World Translation,
+> anti-Trinitarian, translation-divergence, and divine plurality/unity labels are pressure labels
+> only. No source-language truth, translation preference, non-orthodox source authority,
+> extra-canonical authority, doctrine selection, graph/retrieval truth, reviewed gold, chunk
+> boundary, canon-scope change, boundary import, route/evaluator change, vector work, or output
+> change is authorized.
 
 > **T370 1 Corinthians 8-10 parent-only evidence packet (2026-06-18):** Built a governed
 > parent-only evidence packet for `1Cor.8.1-1Cor.10.33` from canonical eng-web sidecars and

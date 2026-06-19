@@ -39,6 +39,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "wisdom_dialogue_poetry_dossier_queue.yaml",
         "prophetic_oracle_vision_dossier_queue.yaml",
         "textual_variant_source_tradition_dossier_queue.yaml",
+        "orthodox_original_language_pressure_dossier_queue.yaml",
         "orthodox_hermeneutic_firewall_docket.yaml",
         "textual_critical_policy_docket.yaml",
         "1cor8_10_epistle_owner_review_docket.yaml",
@@ -55,6 +56,13 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "servant-song",
         "textual-variant",
         "source-tradition",
+        "original-language",
+        "grammar-overlay",
+        "non-orthodox",
+        "lds",
+        "watch-tower",
+        "nwt",
+        "divine-plurality",
         "comma-johanneum",
         "john3",
         "task-scope",
@@ -87,6 +95,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`wisdom`, `dialogue`, `poetry`, `acrostic`, `refrain`, `speaker-boundary`, `job`, `song`, `lamentations`, `ps119`",
         "`prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`",
         "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
+        "`original-language`, `grammar-overlay`, `greek`, `hebrew`, `non-orthodox`, `lds`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
@@ -207,6 +216,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_owner_decision_projection_policy.py" in toc
     assert "scripts/validate_governance_memory_durability.py" in toc
     assert "T370 | 1Cor.8-10 parent-only evidence packet" in toc
+    assert "T377 | Orthodox original-language pressure passage queue" in toc
+    assert "docs/roadmap/T377_ORTHODOX_ORIGINAL_LANGUAGE_PRESSURE_DOSSIERS.md" in toc
+    assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in toc
+    assert "scripts/validate_orthodox_original_language_pressure_dossier_queue.py" in toc
+    assert ".ai/tasks/T377.task.yaml" in toc
+    assert ".ai/handoffs/T377/handoff.md" in toc
     assert "T371 - Owner reviewed-gold promotion decision" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc

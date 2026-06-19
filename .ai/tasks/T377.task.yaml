@@ -1,0 +1,77 @@
+id: T377
+phase: phase_4
+title: "Orthodox Original-Language Pressure Passage Dossier Queue"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T377.task.yaml
+    - .ai/handoffs/T377/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T377_ORTHODOX_ORIGINAL_LANGUAGE_PRESSURE_DOSSIERS.md
+    - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_orthodox_original_language_pressure_dossier_queue.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_owner_guidance: "Record ahead-of-time research memory for key passages often used in non-orthodox argumentation, especially LDS and Watch Tower/New World Translation pressure, with Greek/Hebrew grammar overlays before chunking."
+  dossier_queue: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+  research_memory_authorized: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  embedding_or_vector_work_allowed: false
+  retrieval_truth_authorized: false
+  source_language_authority_allowed: false
+  translation_preference_authorized: false
+  nonorthodox_source_authority_allowed: false
+  extra_canonical_source_authority_allowed: false
+  canon_scope_change_authorized: false
+  boundary_import_allowed: false
+acceptance_criteria:
+  - "A governed original-language pressure passage queue exists and is mandatory preflight reading."
+  - "The queue records Greek/Hebrew grammar-overlay pressure passages without authorizing doctrine, translation, graph, retrieval, reviewed gold, chunks, canon, boundary, route/evaluator, vector, or output changes."
+  - "The decision register records CD-043 and T377 coverage."
+  - "AI TOCs and roadmap surfaces expose the queue with functional original-language, grammar-overlay, non-orthodox, LDS, Watch Tower, NWT, Trinity, Christology, and divine-plurality tags."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T377
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T377/handoff.md
+next_task: "T371 owner reviewed-gold promotion decision for the parent-only 1Cor.8.1-1Cor.10.33 evidence packet remains the current next route. Do not promote reviewed gold, implement chunks, approve child spans, choose textual-critical policy, change route/evaluator behavior, generate graph/retrieval/vector outputs, import boundary material, or change output without later exact owner authorization."

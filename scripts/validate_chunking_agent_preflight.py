@@ -25,6 +25,7 @@ NARRATIVE_LEGAL_QUEUE = ROOT / ".ai" / "control" / "narrative_legal_covenant_dos
 WISDOM_POETRY_QUEUE = ROOT / ".ai" / "control" / "wisdom_dialogue_poetry_dossier_queue.yaml"
 PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dossier_queue.yaml"
 TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradition_dossier_queue.yaml"
+ORTHODOX_LANGUAGE_PRESSURE_QUEUE = ROOT / ".ai" / "control" / "orthodox_original_language_pressure_dossier_queue.yaml"
 ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_docket.yaml"
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
@@ -71,7 +72,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -125,6 +126,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "wisdom_dialogue_poetry_dossier_queue.yaml",
     "prophetic_oracle_vision_dossier_queue.yaml",
     "textual_variant_source_tradition_dossier_queue.yaml",
+    "orthodox_original_language_pressure_dossier_queue.yaml",
     "orthodox_hermeneutic_firewall_docket.yaml",
     "textual_critical_policy_docket.yaml",
     "1cor8_10_epistle_owner_review_docket.yaml",
@@ -290,6 +292,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
         ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
         ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
+        ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml",
         ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
         ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
@@ -475,6 +478,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in textual_variant_queue_text:
             raise PreflightError(f"{_rel(TEXTUAL_VARIANT_QUEUE)}: missing queue phrase {phrase!r}")
+    orthodox_language_pressure_queue_text = _read_text(ORTHODOX_LANGUAGE_PRESSURE_QUEUE)
+    for phrase in (
+        "object_type: orthodox_original_language_pressure_dossier_queue",
+        "JOHN1_1_LOGOS_THEOS_GRAMMAR",
+        "COL1_15_20_FIRSTBORN_ALL_THINGS",
+        "GEN1_26_ELOHIM_US_IMAGE",
+        "ISA43_44_ONE_GOD_LDS_POLYTHEISM",
+        "authorizes_nonorthodox_source_authority: false",
+        "authorizes_extra_canonical_source_authority: false",
+        "original_language_as_automatic_truth",
+    ):
+        if phrase not in orthodox_language_pressure_queue_text:
+            raise PreflightError(f"{_rel(ORTHODOX_LANGUAGE_PRESSURE_QUEUE)}: missing queue phrase {phrase!r}")
     orthodox_firewall_text = _read_text(ORTHODOX_FIREWALL)
     for phrase in (
         "object_type: orthodox_hermeneutic_firewall_docket",

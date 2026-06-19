@@ -24,8 +24,9 @@ Read these files before making changes:
     Source metadata is evidence, not authority. The source-metadata research atlas,
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
-    textual-variant/source-tradition dossier queue, Orthodox Hermeneutic Firewall,
-    textual-critical policy requirement docket, 1Cor.8-10 owner-review docket,
+    textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
+    queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
+    1Cor.8-10 owner-review docket,
     T370 parent-only evidence packet,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
@@ -265,6 +266,14 @@ Bible-first chunking priority:
   source authority, boundary import, reviewed gold, route behavior, graph edges, retrieval truth,
   chunk boundaries, output changes, intertext truth, or implementation. It is validated by
   `scripts/validate_textual_variant_source_tradition_dossier_queue.py`.
+- The orthodox original-language pressure passage queue at
+  `.ai/control/orthodox_original_language_pressure_dossier_queue.yaml` records passages that need
+  Greek/Hebrew grammar overlays before chunking because LDS, Watch Tower/New World Translation,
+  anti-Trinitarian, or other non-orthodox pressure often targets them. It is evidence only and
+  does not authorize external source authority, translation preference, doctrine, graph/retrieval
+  truth, reviewed gold, chunk boundaries, canon changes, boundary import, route/evaluator changes,
+  vectors, or output changes. It is validated by
+  `scripts/validate_orthodox_original_language_pressure_dossier_queue.py`.
 - The Orthodox Hermeneutic Firewall / Anti-Smuggling Docket at
   `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` affirms Nicene/Chalcedonian orthodox
   Christianity and canonical Scripture authority while refusing hidden anti-supernatural,
