@@ -21,15 +21,13 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t379_case_by_case_textual_policy_selected_t371_variant_dependency_owner_review_next
+  current_unblock_status: t371_a_parent_only_reviewed_gold_promoted_t372_harness_next
   remaining_blocks:
-    - reviewed_gold_promotion
     - implementation_authorization
     - chunk_output_change
     - route_behavior_change
     - evaluator_behavior_change
     - graph_retrieval_vector_output
-    - variant_dependency_owner_confirmation
   unblock_strategy: "Front-load predictable owner decisions as dockets and stop conditions, then let agents continue non-output-changing harness, review-packet, audit, and readiness work until an explicit gate is reached."
 decision_policy:
   owner_pattern_projection_policy: .ai/control/owner_decision_projection_policy.yaml
@@ -145,14 +143,31 @@ front_loaded_decisions:
       - variant_dependency_projection
   - decision_id: HDF-003
     title: Reviewed-gold promotion standard
-    status: t371_owner_decision_packet_prepared
+    status: t371_a_parent_only_reviewed_gold_promoted
     earliest_task: before_any_reviewed_gold_promotion
     current_decision_packet: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
-    next_owner_gate: T371
+    promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+    reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+    selected_option: T371-A
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+    boundary_dependency_or_non_dependency: variant_non_dependent
+    reviewed_gold_dependency_or_non_dependency: variant_non_dependent
+    reviewed_gold_promoted: true
+    output_change_authorized: false
+    implementation_authorized: false
+    route_behavior_authorized: false
+    evaluator_change_authorized: false
+    graph_edge_generation_allowed: false
+    retrieval_truth_authorized: false
+    next_safe_task: T372
+    next_owner_gate: T373
     required_before:
       - reviewed_gold_promotion
       - output_changing_implementation
-    recommended_default_if_owner_unavailable: owner_selection_is_not_reviewed_gold
+    recommended_default_if_owner_unavailable: use_existing_parent_only_gold_for_harness_planning_only
     minimum_future_policy_elements:
       - exact_scope
       - reviewed_packet_or_equivalent_governed_evidence
@@ -165,6 +180,10 @@ front_loaded_decisions:
       - packet_status_as_reviewed_gold
       - owner_target_selection_as_output_authority
       - evaluator_only_improvement_claim
+      - child_span_selection
+      - parent_span_as_chunk_boundary
+      - preferred_reading_selection
+      - source_tradition_preference
   - decision_id: HDF-004
     title: Agent autonomy and merge boundary
     status: partially_decided
@@ -369,14 +388,29 @@ next_roadmap_steps:
     output_change_authorized: false
   - task_id: T371
     title: Owner reviewed-gold promotion decision
-    owner_decision_required: true
+    status: complete_parent_only_reviewed_gold_promoted
+    owner_decision_required: false
     starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
-    variant_dependency_owner_decision_required: true
+    selected_option: T371-A
+    promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+    reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+    variant_dependency_owner_decision_required: false
+    variant_dependency_result: variant_non_dependent
     evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    reviewed_gold_promoted: true
     output_change_authorized: false
+    implementation_authorized: false
   - task_id: T372
     title: Route-isolated implementation harness and non-target identity plan
-    starts_only_if: T371_promotes_reviewed_gold
+    starts_only_if: T371_A_parent_only_reviewed_gold_promoted
+    harness_only: true
+    reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+    next_owner_gate: T373
+    owner_implementation_authorization_required: true
     output_change_authorized: false
   - task_id: T373
     title: Owner implementation authorization gate

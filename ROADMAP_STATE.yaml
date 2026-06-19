@@ -819,7 +819,7 @@ phases:
         exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
         recommended_if_owner_agrees_with_variant_non_dependency: T371-A
         conservative_hold_if_any_doubt: T371-B
-        relation_to_t371: decision_packet_prepared_t371_still_requires_owner_variant_dependency_and_parent_promotion_decision
+        relation_to_t371: decision_packet_prepared_and_resolved_by_t371_a_promotion_record
         owner_decision_required: false
         variant_dependency_finding_authorized: false
         variant_non_dependency_finding_authorized: false
@@ -836,30 +836,62 @@ phases:
         retrieval_truth_authorized: false
       - id: T371
         title: Owner Reviewed-Gold Promotion Decision
-        status: planned
+        status: complete
         lane: epistle_argument
-        owner_decision_required: true
+        owner: Lowell Wong
+        owner_decision_required: false
         starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
-        blocked_until: T371_owner_variant_dependency_and_parent_promotion_decision
+        required_handoff: .ai/handoffs/T371/handoff.md
+        completed_by: T371-A
+        promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+        reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+        reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
         textual_critical_policy_options: .ai/control/textual_critical_policy_owner_options.yaml
         textual_critical_case_policy: .ai/control/textual_critical_case_policy.yaml
         textual_critical_policy_selected: true
         selected_textual_critical_policy: TCP-T378-B
-        variant_dependency_owner_decision_required: true
+        variant_dependency_owner_decision_required: false
+        variant_dependency_result: variant_non_dependent
+        boundary_dependency_or_non_dependency: variant_non_dependent
+        reviewed_gold_dependency_or_non_dependency: variant_non_dependent
         owner_decision_packet: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+        exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
         evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
-        selected_option: 1COR8-10-T369-B
+        selected_option: T371-A
+        prior_parent_selection_option: 1COR8-10-T369-B
         selected_parent: 1Cor.8.1-1Cor.10.33
         selected_children: []
         evidence_scope: parent_only
+        parent_span_as_chunk_boundary_authorized: false
+        child_spans_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        boundary_import_allowed: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
         output_change_authorized: false
         implementation_authorized: false
-        reviewed_gold_promoted: false
+        reviewed_gold_promoted: true
       - id: T372
         title: Route-Isolated Implementation Harness And Non-Target Identity Plan
         status: planned
         lane: epistle_argument
-        starts_only_if: T371_promotes_reviewed_gold
+        starts_only_if: T371_A_parent_only_reviewed_gold_promoted
+        route_type: epistle_argument_route_isolation_harness
+        selected_target: 1cor8_10_food_offered_to_idols
+        selected_parent: 1Cor.8.1-1Cor.10.33
+        selected_children: []
+        promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+        reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+        reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+        harness_only: true
+        reviewed_gold_promoted: true
+        owner_decision_required: false
+        owner_implementation_authorization_required: true
+        next_owner_gate: T373
         output_change_authorized: false
         implementation_authorized: false
         route_behavior_authorized: false

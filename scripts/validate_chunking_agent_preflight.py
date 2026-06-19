@@ -31,8 +31,10 @@ TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_do
 TEXTUAL_CRITICAL_OPTIONS = ROOT / ".ai" / "control" / "textual_critical_policy_owner_options.yaml"
 TEXTUAL_CRITICAL_CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
 T371_DECISION_PACKET = ROOT / ".ai" / "control" / "t371_variant_dependency_owner_decision_packet.yaml"
+T371_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t371_parent_only_reviewed_gold_promotion.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
+EPISTLE_ARGUMENT_GOLD_MANIFEST = ROOT / "eval" / "chunking_gold" / "per_form" / "epistle_argument_gold_manifest.json"
 HUMAN_DECISION_FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
 GOVERNANCE_MEMORY_DURABILITY = ROOT / ".ai" / "control" / "governance_memory_durability_policy.yaml"
 OWNER_DECISION_PROJECTION = ROOT / ".ai" / "control" / "owner_decision_projection_policy.yaml"
@@ -75,7 +77,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -135,6 +137,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "textual_critical_policy_owner_options.yaml",
     "textual_critical_case_policy.yaml",
     "t371_variant_dependency_owner_decision_packet.yaml",
+    "t371_parent_only_reviewed_gold_promotion.yaml",
+    "epistle_argument_gold_manifest.json",
     "1cor8_10_epistle_owner_review_docket.yaml",
     "1cor8_10_parent_only_evidence_packet.yaml",
     "validate_1cor8_10_parent_evidence_packet.py",
@@ -304,8 +308,10 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/textual_critical_policy_owner_options.yaml",
         ".ai/control/textual_critical_case_policy.yaml",
         ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+        ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+        "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
         ".ai/control/chunking_human_decision_forecast.yaml",
         ".ai/control/governance_memory_durability_policy.yaml",
         ".ai/control/owner_decision_projection_policy.yaml",
@@ -560,17 +566,31 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     for phrase in (
         "object_type: variant_dependency_owner_decision_packet",
         "target_owner_task: T371",
-        "status: pending_owner_decision",
+        "status: resolved_by_t371_a",
         "1Cor.9.20",
         "1Cor.10.9",
         "T371-A",
         "T371-B",
+        "owner_response_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
         "authorizes_variant_non_dependency_finding: false",
         "authorizes_reviewed_gold_promotion: false",
         "authorizes_chunk_output_change: false",
     ):
         if phrase not in t371_packet_text:
             raise PreflightError(f"{_rel(T371_DECISION_PACKET)}: missing T371 packet phrase {phrase!r}")
+    promotion_text = _read_text(T371_PROMOTION_RECORD)
+    for phrase in (
+        "object_type: parent_only_reviewed_gold_promotion_record",
+        "selected_option: T371-A",
+        "selected_parent: 1Cor.8.1-1Cor.10.33",
+        "boundary_dependency_or_non_dependency: variant_non_dependent",
+        "reviewed_gold_dependency_or_non_dependency: variant_non_dependent",
+        "authorizes_parent_only_reviewed_gold_promotion: true",
+        "authorizes_chunk_output_change: false",
+        "next_allowed_task: T372",
+    ):
+        if phrase not in promotion_text:
+            raise PreflightError(f"{_rel(T371_PROMOTION_RECORD)}: missing promotion phrase {phrase!r}")
     onecor_docket_text = _read_text(ONECOR_OWNER_DOCKET)
     for phrase in (
         "object_type: epistle_argument_owner_review_docket",
@@ -600,6 +620,17 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in evidence_packet_text:
             raise PreflightError(f"{_rel(ONECOR_EVIDENCE_PACKET)}: missing evidence-packet phrase {phrase!r}")
+    manifest_text = _read_text(EPISTLE_ARGUMENT_GOLD_MANIFEST)
+    for phrase in (
+        '"manifest_id": "epistle-argument-gold-v0"',
+        '"case_id": "1cor8_10_parent_only_reviewed_gold"',
+        '"osis_span": "1Cor.8.1-1Cor.10.33"',
+        '"selected_option": "T371-A"',
+        '"selected_children": []',
+        '"chunk_output_change_authorized": false',
+    ):
+        if phrase not in manifest_text:
+            raise PreflightError(f"{_rel(EPISTLE_ARGUMENT_GOLD_MANIFEST)}: missing manifest phrase {phrase!r}")
     forecast_text = _read_text(HUMAN_DECISION_FORECAST)
     for phrase in (
         "object_type: chunking_human_decision_forecast",

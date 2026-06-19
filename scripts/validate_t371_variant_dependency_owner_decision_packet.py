@@ -19,6 +19,7 @@ FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 TOC = ROOT / "AI_TABLE_OF_CONTENTS.md"
 ROADMAP_TOC = ROOT / "docs" / "roadmap" / "AI_ROADMAP_TABLE_OF_CONTENTS.md"
 EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
+PROMOTION_RECORD = ROOT / ".ai" / "control" / "t371_parent_only_reviewed_gold_promotion.yaml"
 
 REQUIRED_FALSE_AUTHORITY = {
     "authorizes_variant_dependency_finding",
@@ -139,7 +140,7 @@ def validate_t371_variant_dependency_owner_decision_packet(path: Path = PACKET) 
         "packet_id": "t371_1cor8_10_variant_dependency_owner_decision_packet",
         "prepared_by_task": "T380",
         "target_owner_task": "T371",
-        "status": "pending_owner_decision",
+        "status": "resolved_by_t371_a",
     }
     for key, value in expected.items():
         if data.get(key) != value:
@@ -189,6 +190,43 @@ def validate_t371_variant_dependency_owner_decision_packet(path: Path = PACKET) 
     if question.get("must_stop_if_owner_response_is_ambiguous") is not True:
         raise T371PacketError(f"{_rel(path)}: ambiguous owner response must stop")
 
+    response = data.get("owner_response")
+    if not isinstance(response, dict):
+        raise T371PacketError(f"{_rel(path)}: owner_response must record the selected T371 option")
+    expected_response = {
+        "response_status": "selected",
+        "task_id": "T371",
+        "selected_option": "T371-A",
+        "owner_response_record": ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+        "boundary_dependency_or_non_dependency": "variant_non_dependent",
+        "reviewed_gold_dependency_or_non_dependency": "variant_non_dependent",
+        "parent_only_promotion_authorized_or_held": "authorized_parent_only_reviewed_gold",
+        "decision_register_update": "CD-047",
+    }
+    for key, value in expected_response.items():
+        if response.get(key) != value:
+            raise T371PacketError(f"{_rel(path)}: owner_response.{key} must be {value!r}")
+    if set(response.get("exact_variant_refs", [])) != {"1Cor.9.20", "1Cor.10.9"}:
+        raise T371PacketError(f"{_rel(path)}: owner_response.exact_variant_refs are stale")
+    if "lets go path t371-a confirmed" not in str(response.get("exact_owner_confirmation", "")):
+        raise T371PacketError(f"{_rel(path)}: owner_response exact confirmation is stale")
+    _require_subset(
+        {
+            "preferred_reading_selection",
+            "source_tradition_preference",
+            "child_span_selection",
+            "parent_span_as_chunk_boundary",
+            "route_behavior_change",
+            "evaluator_change",
+            "graph_edge_generation",
+            "retrieval_truth",
+            "chunk_output_change",
+            "implementation_authority",
+        },
+        response.get("explicit_non_authorizations"),
+        "owner_response.explicit_non_authorizations",
+    )
+
     variants = data.get("variant_dependency_review")
     if not isinstance(variants, list):
         raise T371PacketError(f"{_rel(path)}: variant_dependency_review must be a list")
@@ -204,8 +242,12 @@ def validate_t371_variant_dependency_owner_decision_packet(path: Path = PACKET) 
             "non_authorizing_agent_assessment",
         ):
             _require_string(item.get(key), f"{ref}.{key}")
-        if item.get("still_requires_owner_confirmation") is not True:
-            raise T371PacketError(f"{_rel(path)}: {ref} still_requires_owner_confirmation must be true")
+        if item.get("still_requires_owner_confirmation") is not False:
+            raise T371PacketError(f"{_rel(path)}: {ref} still_requires_owner_confirmation must be false after T371-A")
+        if item.get("owner_confirmation_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+            raise T371PacketError(f"{_rel(path)}: {ref} owner_confirmation_record is stale")
+        if item.get("owner_confirmed_dependency_result") != "variant_non_dependent":
+            raise T371PacketError(f"{_rel(path)}: {ref} owner_confirmed_dependency_result is stale")
 
     options = data.get("owner_options")
     if not isinstance(options, list):
@@ -243,7 +285,18 @@ def validate_t371_variant_dependency_owner_decision_packet(path: Path = PACKET) 
 
 def _validate_links() -> None:
     packet_rel = ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
-    for path in (REGISTER, PREFLIGHT, READINESS, FORECAST, ROADMAP, FRONT_DOOR, TOC, ROADMAP_TOC, EVIDENCE_PACKET):
+    for path in (
+        REGISTER,
+        PREFLIGHT,
+        READINESS,
+        FORECAST,
+        ROADMAP,
+        FRONT_DOOR,
+        TOC,
+        ROADMAP_TOC,
+        EVIDENCE_PACKET,
+        PROMOTION_RECORD,
+    ):
         if not path.exists():
             raise T371PacketError(f"{_rel(path)}: missing linked surface")
 
@@ -253,13 +306,13 @@ def _validate_links() -> None:
             raise T371PacketError(f"{_rel(EVIDENCE_PACKET)}: missing {phrase!r}")
 
     for path, phrases in (
-        (REGISTER, ("CD-046", "T380", packet_rel)),
-        (PREFLIGHT, (packet_rel, "CD-046")),
-        (READINESS, (packet_rel, "owner_decision_packet", "T371")),
-        (FORECAST, ("T380", packet_rel, "T371")),
-        (FRONT_DOOR, (packet_rel, "T371 owner-decision packet")),
+        (REGISTER, ("CD-046", "CD-047", "T380", "T371", packet_rel)),
+        (PREFLIGHT, (packet_rel, "CD-046", "CD-047")),
+        (READINESS, (packet_rel, "owner_decision_packet", "T372")),
+        (FORECAST, ("T380", packet_rel, "T371", "T372")),
+        (FRONT_DOOR, (packet_rel, "T371 owner-decision packet", "T371-A")),
         (TOC, (packet_rel, "variant-dependency", "owner-decision")),
-        (ROADMAP_TOC, ("T380", packet_rel, "T371 owner decision packet")),
+        (ROADMAP_TOC, ("T380", "T371", packet_rel, "T371 owner decision packet")),
     ):
         text = _read_text(path)
         for phrase in phrases:
@@ -275,10 +328,14 @@ def _validate_links() -> None:
     if t380.get("owner_decision_packet") != packet_rel:
         raise T371PacketError(f"{_rel(ROADMAP)}: T380 owner_decision_packet is stale")
     t371 = by_id.get("T371")
-    if not isinstance(t371, dict) or t371.get("blocked_until") != "T371_owner_variant_dependency_and_parent_promotion_decision":
-        raise T371PacketError(f"{_rel(ROADMAP)}: T371 must remain blocked until owner decision")
+    if not isinstance(t371, dict) or t371.get("status") != "complete":
+        raise T371PacketError(f"{_rel(ROADMAP)}: T371 must be complete after owner decision")
     if t371.get("owner_decision_packet") != packet_rel:
         raise T371PacketError(f"{_rel(ROADMAP)}: T371 must link owner decision packet")
+    if t371.get("selected_option") != "T371-A":
+        raise T371PacketError(f"{_rel(ROADMAP)}: T371 selected_option must be T371-A")
+    if t371.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+        raise T371PacketError(f"{_rel(ROADMAP)}: T371 promotion_record is stale")
 
 
 def main() -> int:

@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T380 T371 variant-dependency owner decision packet (Codex)
-**Active task:** -> **T380** is complete as a non-output-changing owner-decision packet. It adds `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`, validated by `scripts/validate_t371_variant_dependency_owner_decision_packet.py`, and registered as `CD-046`. The packet asks the exact T371 question for `1Cor.8.1-1Cor.10.33`, `1Cor.9.20`, and `1Cor.10.9`, presents options T371-A through T371-D, conditionally recommends T371-A only if the owner confirms variant non-dependency, and preserves T371-B as the conservative hold if there is doubt. This does not authorize variant dependency/non-dependency, preferred readings, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, implementation, vectors, or output changes. **T371** is next and still requires the owner to choose an option. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T371-A parent-only reviewed-gold promotion (Codex)
+**Active task:** -> **T371** is complete. Owner confirmed `T371-A`, recorded in `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml`, validated by `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`, and registered as `CD-047`. Only `1Cor.8.1-1Cor.10.33` is promoted as parent-only reviewed gold in `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`; `1Cor.9.20` and `1Cor.10.9` are variant-non-dependent only for that parent boundary and parent-only reviewed-gold claim. This does not authorize child spans, parent span as a chunk boundary, preferred readings, source-tradition preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, chunks, or output changes. **T372** is next as non-output-changing harness/non-target identity planning; **T373** remains the owner implementation gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T371-A parent-only reviewed-gold promotion (2026-06-19):** Added
+> `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml` and
+> `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`, checked by
+> `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`. The promotion records owner
+> confirmation of `T371-A`, promotes only `1Cor.8.1-1Cor.10.33` as parent-only reviewed gold, and
+> records `1Cor.9.20` and `1Cor.10.9` as variant-non-dependent only for the parent boundary and
+> parent-only reviewed-gold claim. It records `CD-047` and advances the next safe route to `T372`
+> harness/non-target identity planning. No child spans, parent span as chunk boundary, preferred
+> reading, source-tradition preference, route/evaluator behavior, graph/retrieval truth, vector,
+> implementation, chunk output, boundary import, canon change, or output change is authorized.
 
 > **T380 T371 variant-dependency owner decision packet (2026-06-19):** Added
 > `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`, checked by

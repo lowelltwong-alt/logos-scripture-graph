@@ -27,7 +27,8 @@ Read these files before making changes:
     textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
     queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
-    T371 owner-decision packet, T370 parent-only evidence packet,
+    T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
+    T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     and John 3 owner-review docket are evidence/review policy, not authority.
@@ -108,15 +109,17 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T370 keep the current route non-output-changing: Bible-wide triage is complete,
+- T351 through T371 keep the current route non-output-changing: Bible-wide triage is complete,
   T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
   T367 selected `JOHN3-T356-B` as parent-only review target, T367 added the Orthodox
   Hermeneutic Firewall plus textual-critical policy requirement, and T368 strengthened the
   `1Cor.8.1-1Cor.10.33` packet with an owner-review docket. T369 selected the parent-only
   review target by projected owner pattern, and T370 built the governed parent-only evidence
-  packet. The readiness map now points to T371 owner reviewed-gold promotion review. Do not move
-  from packet/evidence prep to implementation without later owner-reviewed gold and exact
-  authorization.
+  packet. T371-A now promotes only `1Cor.8.1-1Cor.10.33` as parent-only reviewed gold, with
+  `1Cor.9.20` and `1Cor.10.9` variant-non-dependent only for that parent boundary and
+  parent-only reviewed-gold claim. The readiness map now points to T372 harness/non-target
+  identity planning. Do not move from parent-only gold to implementation without later exact owner
+  authorization at T373.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -145,11 +148,12 @@ Bible-first chunking priority:
   pattern is new, agents must stop and tell Lowell before continuing.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T371 owner reviewed-gold promotion review
+  next safe route. It is non-authorizing and currently points to T372 route-isolated harness planning
   for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
-  record.
+  record. T371-A is recorded separately as parent-only reviewed-gold promotion, not as child-span,
+  implementation, route/evaluator, graph/retrieval, vector, or output authority.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -308,6 +312,15 @@ Bible-first chunking priority:
   dependency or non-dependency findings, preferred readings, source-tradition preference, reviewed
   gold, graph/retrieval truth, route/evaluator behavior, chunk output, implementation, or output
   change. It is validated by `scripts/validate_t371_variant_dependency_owner_decision_packet.py`.
+- The T371-A parent-only reviewed-gold promotion record at
+  `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml` records owner confirmation that
+  `1Cor.8.1-1Cor.10.33` is promoted only as parent-only reviewed gold, and that `1Cor.9.20` and
+  `1Cor.10.9` are variant-non-dependent only for that parent boundary and parent-only
+  reviewed-gold claim. The reviewed-gold case is listed in
+  `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`. T371-A does not authorize
+  child spans, the parent span as a chunk boundary, preferred readings, source-tradition
+  preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, chunks, or
+  output changes. It is validated by `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review
@@ -436,6 +449,7 @@ python scripts/validate_textual_variant_source_tradition_dossier_queue.py
 python scripts/validate_orthodox_hermeneutic_firewall_docket.py
 python scripts/validate_textual_critical_policy_docket.py
 python scripts/validate_t371_variant_dependency_owner_decision_packet.py
+python scripts/validate_t371_parent_only_reviewed_gold_promotion.py
 python scripts/validate_1cor8_10_owner_review_docket.py
 python scripts/validate_1cor8_10_parent_evidence_packet.py
 python scripts/validate_chunking_human_decision_forecast.py
@@ -533,6 +547,11 @@ graph/retrieval/vector output, or advances without the T371 owner promotion gate
 decisions are not front-loaded, if the forecast becomes authorizing, if it stops defining what is
 ready for the first new output-changing chunk PR, or if it falls out of preflight/readiness/register
 surfaces.
+`python scripts/validate_t371_parent_only_reviewed_gold_promotion.py` fails closed if the T371-A
+promotion record, epistle argument gold manifest, T371 packet, decision register, readiness map,
+forecast, front door, or AI TOCs drift from parent-only reviewed gold into child spans, preferred
+readings, route/evaluator behavior, graph/retrieval truth, implementation, chunks, or output
+authority.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

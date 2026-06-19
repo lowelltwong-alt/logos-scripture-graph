@@ -44,6 +44,8 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "textual_critical_policy_docket.yaml",
         "textual_critical_policy_owner_options.yaml",
         "t371_variant_dependency_owner_decision_packet.yaml",
+        "t371_parent_only_reviewed_gold_promotion.yaml",
+        "epistle_argument_gold_manifest.json",
         "1cor8_10_epistle_owner_review_docket.yaml",
         "chunking_human_decision_forecast.yaml",
         "governance_memory_durability_policy.yaml",
@@ -56,6 +58,9 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "case-by-case",
         "reviewed-gold-blocker",
         "owner-decision-packet",
+        "t371-a",
+        "variant-non-dependent",
+        "harness-next",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -106,6 +111,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
         "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
+        "`t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
         "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
         "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
@@ -249,7 +255,14 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t371_variant_dependency_owner_decision_packet.py" in toc
     assert ".ai/tasks/T380.task.yaml" in toc
     assert ".ai/handoffs/T380/handoff.md" in toc
-    assert "T371 - Owner reviewed-gold promotion decision" in toc
+    assert "T371 | T371-A parent-only reviewed-gold promotion" in toc
+    assert "docs/roadmap/T371_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in toc
+    assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in toc
+    assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in toc
+    assert "scripts/validate_t371_parent_only_reviewed_gold_promotion.py" in toc
+    assert ".ai/tasks/T371.task.yaml" in toc
+    assert ".ai/handoffs/T371/handoff.md" in toc
+    assert "T372 - Route-isolated implementation harness and non-target identity plan" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc

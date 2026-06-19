@@ -34,10 +34,12 @@ def test_t371_variant_dependency_packet_validates_current_repo() -> None:
     assert data["object_type"] == "variant_dependency_owner_decision_packet"
     assert data["prepared_by_task"] == "T380"
     assert data["target_owner_task"] == "T371"
-    assert data["status"] == "pending_owner_decision"
+    assert data["status"] == "resolved_by_t371_a"
     assert data["authority"]["authorizes_reviewed_gold_promotion"] is False
     assert data["authority"]["authorizes_variant_non_dependency_finding"] is False
     assert data["authority"]["authorizes_chunk_output_change"] is False
+    assert data["owner_response"]["selected_option"] == "T371-A"
+    assert data["owner_response"]["owner_response_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
 
 
 def test_packet_names_exact_variant_refs_and_owner_response_fields() -> None:
@@ -59,8 +61,20 @@ def test_packet_keeps_t371_a_conditional_not_selected() -> None:
     assert data["recommendation_for_owner_review"]["recommended_if_owner_agrees_with_variant_non_dependency"] == "T371-A"
     assert data["recommendation_for_owner_review"]["conservative_hold_if_any_doubt"] == "T371-B"
     assert options["T371-A"]["if_selected_authorizes_parent_only_reviewed_gold"] is True
+    assert data["owner_response"]["selected_option"] == "T371-A"
     assert data["authority"]["authorizes_reviewed_gold_promotion"] is False
     assert data["owner_question"]["must_stop_if_owner_response_is_ambiguous"] is True
+
+
+def test_packet_records_resolved_variant_non_dependency_without_becoming_authority() -> None:
+    data = load_packet()
+    refs = {item["ref"]: item for item in data["variant_dependency_review"]}
+
+    assert refs["1Cor.9.20"]["still_requires_owner_confirmation"] is False
+    assert refs["1Cor.10.9"]["still_requires_owner_confirmation"] is False
+    assert refs["1Cor.9.20"]["owner_confirmed_dependency_result"] == "variant_non_dependent"
+    assert refs["1Cor.10.9"]["owner_confirmed_dependency_result"] == "variant_non_dependent"
+    assert data["authority"]["authorizes_variant_non_dependency_finding"] is False
 
 
 def test_packet_rejects_promotion_authority(tmp_path: Path) -> None:

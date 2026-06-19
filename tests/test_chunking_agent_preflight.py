@@ -43,11 +43,13 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
     assert ".ai/control/textual_critical_case_policy.yaml" in reading
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
+    assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
     assert ".ai/control/owner_decision_projection_policy.yaml" in reading
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in reading
+    assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -75,6 +77,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "textual_critical_policy_owner_options.yaml" in text
     assert "textual_critical_case_policy.yaml" in text
     assert "t371_variant_dependency_owner_decision_packet.yaml" in text
+    assert "t371_parent_only_reviewed_gold_promotion.yaml" in text
+    assert "epistle_argument_gold_manifest.json" in text
     assert "1cor8_10_epistle_owner_review_docket.yaml" in text
     assert "chunking_human_decision_forecast.yaml" in text
     assert "governance_memory_durability_policy.yaml" in text
@@ -84,7 +88,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently points to T371 owner reviewed-gold promotion review" in text
+    assert "currently points to T372 route-isolated harness planning" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -135,6 +139,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-044" in register
     assert "CD-045" in register
     assert "CD-046" in register
+    assert "CD-047" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -180,11 +185,13 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
     assert ".ai/control/textual_critical_case_policy.yaml" in reading
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
+    assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
     assert ".ai/control/owner_decision_projection_policy.yaml" in reading
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in reading
+    assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "CD-021" in register_entry["required_decision_ids"]
     assert "CD-022" in register_entry["required_decision_ids"]
@@ -212,6 +219,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-044" in register_entry["required_decision_ids"]
     assert "CD-045" in register_entry["required_decision_ids"]
     assert "CD-046" in register_entry["required_decision_ids"]
+    assert "CD-047" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

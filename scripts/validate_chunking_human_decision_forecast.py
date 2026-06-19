@@ -198,12 +198,32 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         raise ForecastError(f"{_rel(path)}: HDF-002 must deny variant_dependency_projection")
 
     hdf_003 = by_id["HDF-003"]
-    if hdf_003.get("status") != "t371_owner_decision_packet_prepared":
-        raise ForecastError(f"{_rel(path)}: HDF-003 must record T371 packet preparation")
+    if hdf_003.get("status") != "t371_a_parent_only_reviewed_gold_promoted":
+        raise ForecastError(f"{_rel(path)}: HDF-003 must record T371-A parent-only reviewed-gold promotion")
     if hdf_003.get("current_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":
         raise ForecastError(f"{_rel(path)}: HDF-003 current_decision_packet is stale")
-    if hdf_003.get("next_owner_gate") != "T371":
-        raise ForecastError(f"{_rel(path)}: HDF-003 next_owner_gate must be T371")
+    if hdf_003.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-003 promotion_record is stale")
+    if hdf_003.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
+        raise ForecastError(f"{_rel(path)}: HDF-003 reviewed_gold_manifest is stale")
+    if hdf_003.get("selected_option") != "T371-A":
+        raise ForecastError(f"{_rel(path)}: HDF-003 selected_option must be T371-A")
+    if hdf_003.get("reviewed_gold_promoted") is not True:
+        raise ForecastError(f"{_rel(path)}: HDF-003 reviewed_gold_promoted must be true")
+    if hdf_003.get("next_safe_task") != "T372":
+        raise ForecastError(f"{_rel(path)}: HDF-003 next_safe_task must be T372")
+    if hdf_003.get("next_owner_gate") != "T373":
+        raise ForecastError(f"{_rel(path)}: HDF-003 next_owner_gate must be T373")
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if hdf_003.get(key) is not False:
+            raise ForecastError(f"{_rel(path)}: HDF-003.{key} must be false")
 
     hdf_004 = by_id["HDF-004"]
     if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
@@ -281,7 +301,7 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
 
     register = _read_text(REGISTER)
-    for phrase in ("CD-038", "CD-042", "CD-046", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380"):
+    for phrase in ("CD-038", "CD-042", "CD-046", "CD-047", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380", "T371-A"):
         if phrase not in register:
             raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -305,8 +325,20 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 evidence_packet is stale")
     if by_id["T371"].get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 starts_only_if is stale")
-    if by_id["T371"].get("owner_decision_required") is not True:
-        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 owner_decision_required must be true")
+    if by_id["T371"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 must be complete after T371-A")
+    if by_id["T371"].get("owner_decision_required") is not False:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 owner_decision_required must be false after T371-A")
+    if by_id["T371"].get("selected_option") != "T371-A":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 selected_option must be T371-A")
+    if by_id["T371"].get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 promotion_record is stale")
+    if by_id["T371"].get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 reviewed_gold_manifest is stale")
+    if by_id["T371"].get("reviewed_gold_promoted") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 reviewed_gold_promoted must be true")
+    if by_id["T372"].get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T372 starts_only_if is stale")
     if by_id["T379"].get("selected_policy") != "TCP-T378-B":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
     if by_id["T380"].get("owner_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":

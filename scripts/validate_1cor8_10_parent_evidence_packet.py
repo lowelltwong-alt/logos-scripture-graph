@@ -365,16 +365,23 @@ def _validate_governed_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
-    if next_route.get("task_id") != "T371":
-        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.task_id must advance to T371")
-    if next_route.get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
-        raise ParentEvidenceError(f"{_rel(READINESS)}: T371 starts_only_if is stale")
+    if next_route.get("task_id") != "T372":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.task_id must advance to T372 after T371-A")
+    if next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: T372 starts_only_if is stale")
     if next_route.get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
         raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.evidence_packet is stale")
+    if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.promotion_record is stale")
+    if next_route.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.reviewed_gold_manifest is stale")
+    if next_route.get("harness_only") is not True:
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.harness_only must be true")
+    if next_route.get("reviewed_gold_promoted") is not True:
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.reviewed_gold_promoted must be true")
     for key in (
         "output_change_authorized",
         "implementation_authorized",
-        "reviewed_gold_promoted",
         "route_behavior_authorized",
         "evaluator_change_authorized",
         "graph_edge_generation_allowed",
