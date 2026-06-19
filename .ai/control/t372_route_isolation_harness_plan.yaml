@@ -1,0 +1,173 @@
+---
+object_type: route_isolation_harness_plan
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-19 during T372 after T371-A promoted only the 1Cor.8.1-1Cor.10.33 parent span as reviewed gold."
+reason_for_inclusion: "Make the route-isolation and non-target identity requirements auditable before any owner-authorized 1Cor.8-10 implementation or output change."
+---
+schema_version: route_isolation_harness_plan.v1
+plan_id: t372_1cor8_10_route_isolation_harness_plan
+task_id: T372
+owner: Lowell Wong
+status: complete_non_output_changing_plan
+lane: epistle_argument
+scope:
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  target_id: 1cor8_10_food_offered_to_idols
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  reviewed_gold_kind: parent_only_span
+  promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+  review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+  owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
+  orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+  textual_critical_case_policy: .ai/control/textual_critical_case_policy.yaml
+authority:
+  records_harness_plan: true
+  authorizes_parent_only_reviewed_gold_promotion: false
+  authorizes_parent_span_as_chunk_boundary: false
+  authorizes_child_spans: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_chunk_output_change: false
+  authorizes_implementation: false
+reviewed_gold_input_limits:
+  may_cite_parent_only_reviewed_gold_as_input: true
+  may_treat_parent_span_as_output_chunk_boundary: false
+  may_infer_child_spans: false
+  may_use_argument_outline_as_child_boundary: false
+  may_use_paragraph_markers_as_chunk_boundaries: false
+  may_use_source_metadata_as_authority: false
+  may_select_preferred_readings: false
+  exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+  variant_dependency_or_non_dependency: variant_non_dependent_for_parent_boundary_and_parent_only_reviewed_gold_claim_only
+planned_harnesses:
+  - harness_id: T372-HARN-001
+    title: Parent-only gold scope denial check
+    status: planned_for_future_implementation_pr
+    purpose: "Fail future implementation if it treats the T371-A parent-only gold as child spans or as an output chunk boundary without T373 owner authorization."
+    must_fail_if:
+      - selected_children_not_empty_without_owner_authorization
+      - parent_span_used_as_chunk_boundary_without_owner_authorization
+      - argument_outline_used_as_child_boundary
+      - paragraph_marker_used_as_chunk_boundary
+  - harness_id: T372-HARN-002
+    title: Route activation denial check
+    status: planned_for_future_implementation_pr
+    purpose: "Fail future implementation if an epistle argument route becomes active before the exact T373 owner authorization exists."
+    must_fail_if:
+      - route_behavior_changes_without_t373_owner_authorization
+      - route_selection_applies_outside_1cor8_10_target
+      - candidate_route_becomes_default_or_preferred
+  - harness_id: T372-HARN-003
+    title: Non-target identity proof
+    status: planned_for_future_implementation_pr
+    purpose: "Require future output-changing work to prove non-target chunks are byte-identical or explicitly stop."
+    required_evidence:
+      - baseline_chunk_count
+      - baseline_chunk_sha256
+      - candidate_chunk_count
+      - candidate_chunk_sha256
+      - list_of_changed_chunk_ids_or_spans
+      - proof_that_changes_are_limited_to_owner_authorized_target
+    must_fail_if:
+      - non_target_output_diff_detected
+      - generated_chunk_surface_missing_identity_report
+      - identity_report_omits_baseline_commit_or_sha
+  - harness_id: T372-HARN-004
+    title: Same-baseline evaluation plan
+    status: planned_for_future_implementation_pr
+    purpose: "Require future implementation to compare against the same canonical-66 baseline before any improvement claim."
+    required_evidence:
+      - baseline_variant
+      - evaluator_policy
+      - baseline_composite_score
+      - candidate_composite_score
+      - explicit_statement_if_no_improvement_claim_is_made
+    must_fail_if:
+      - evaluator_formula_changes_inside_implementation_pr
+      - improvement_claim_without_same_baseline
+      - leaderboard_update_without_owner_authorization
+  - harness_id: T372-HARN-005
+    title: Source metadata authority denial check
+    status: planned_for_future_implementation_pr
+    purpose: "Keep internal cross-references, Strong's-style numbers, capitalization, footnotes, WJ markers, and formatting as evidence only."
+    must_fail_if:
+      - cross_reference_as_graph_edge
+      - strong_number_as_lexical_truth
+      - capitalization_as_divine_identity
+      - footnote_or_variant_as_preferred_reading
+      - source_metadata_as_chunk_boundary
+  - harness_id: T372-HARN-006
+    title: Owner gate check
+    status: planned_for_t373_and_future_implementation_pr
+    purpose: "Require T373 before any implementation or output-changing PR."
+    required_before_t374:
+      - exact_owner_implementation_authorization
+      - selected_scope
+      - whether_parent_span_can_be_output_boundary
+      - whether_any_child_spans_are_selected
+      - whether_route_behavior_change_is_authorized
+      - whether_output_change_is_authorized
+    must_fail_if:
+      - t374_starts_without_t373_authorization
+      - owner_authorization_is_ambiguous
+      - authorization_conflicts_with_prior_decisions_for_target_text
+t373_owner_gate:
+  next_task_id: T373
+  owner_decision_required: true
+  owner_must_decide_before_any_implementation:
+    - whether_to_authorize_exact_output_changing_implementation
+    - whether_parent_span_may_be_used_as_output_chunk_boundary
+    - whether_child_spans_remain_disallowed_or_are_separately_selected
+    - whether_route_behavior_change_is_allowed_for_exact_target_only
+    - whether same-baseline evaluation and no-context audit are required before merge
+  default_if_owner_unavailable: stop_before_implementation_or_output_change
+required_before_t374:
+  - T373_owner_implementation_authorization
+  - exact_scope_recorded
+  - decision_register_update_for_any_output_or_route_authority
+  - non_target_identity_proof
+  - same_baseline_evaluation_plan
+  - task_scope_for_any_output_changing_paths
+  - no_context_audit_surface_if_output_changes
+non_authorizations:
+  - parent_only_gold_as_chunk_boundary
+  - child_span_selection
+  - argument_outline_as_child_boundary
+  - paragraph_marker_as_chunk_boundary
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - noncanonical_source_authority
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - implementation_authority
+  - chunk_output_change
+  - improvement_claim
+  - leaderboard_update
+validators:
+  - scripts/validate_t372_route_isolation_harness_plan.py
+  - tests/test_t372_route_isolation_harness_plan.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_human_decision_forecast.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_task_scope.py --task-id T372
+  - scripts/validate_all.py
+...

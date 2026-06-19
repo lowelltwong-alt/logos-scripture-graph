@@ -21,7 +21,7 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t371_a_parent_only_reviewed_gold_promoted_t372_harness_next
+  current_unblock_status: t372_route_isolation_harness_plan_complete_t373_owner_gate_next
   remaining_blocks:
     - implementation_authorization
     - chunk_output_change
@@ -308,6 +308,34 @@ front_loaded_decisions:
       - same_baseline_evaluation
       - decision_register_update
       - owner_implementation_authorization
+  - decision_id: HDF-013
+    title: T372 route-isolation harness plan completed
+    status: complete_non_output_changing_plan
+    earliest_task: T372
+    harness_plan: .ai/control/t372_route_isolation_harness_plan.yaml
+    reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    next_owner_gate: T373
+    required_before:
+      - first_route_isolated_1cor8_10_implementation
+      - any_parent_span_as_output_chunk_boundary
+      - any_child_span_selection
+      - any_route_behavior_change
+      - any_chunk_output_change
+    current_authorization: "T372 authorizes only a non-output-changing harness plan. It does not authorize implementation, parent span as chunk boundary, child spans, route/evaluator behavior, graph/retrieval truth, vectors, generated chunks, or output changes."
+    recommended_default_if_owner_unavailable: stop_at_t373_before_implementation_or_output_change
+    non_authorizations:
+      - parent_only_gold_as_chunk_boundary
+      - child_span_selection
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - chunk_output_change
+      - implementation_authority
 chunking_ready_definition:
   ready_for_first_output_changing_chunk_pr_requires:
     - owner_selected_exact_target
@@ -405,7 +433,9 @@ next_roadmap_steps:
     implementation_authorized: false
   - task_id: T372
     title: Route-isolated implementation harness and non-target identity plan
+    status: complete_non_output_changing_plan
     starts_only_if: T371_A_parent_only_reviewed_gold_promoted
+    harness_plan: .ai/control/t372_route_isolation_harness_plan.yaml
     harness_only: true
     reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
     reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
@@ -414,8 +444,10 @@ next_roadmap_steps:
     output_change_authorized: false
   - task_id: T373
     title: Owner implementation authorization gate
+    starts_only_if: T372_route_isolation_harness_plan_complete
     owner_decision_required: true
     output_change_authorized: false
+    implementation_authorized: false
   - task_id: T374
     title: First route-isolated 1Cor.8-10 implementation
     starts_only_if: T373_authorizes_exact_output_change

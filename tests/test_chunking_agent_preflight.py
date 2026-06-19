@@ -44,6 +44,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/textual_critical_case_policy.yaml" in reading
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
     assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
+    assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
@@ -78,6 +79,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "textual_critical_case_policy.yaml" in text
     assert "t371_variant_dependency_owner_decision_packet.yaml" in text
     assert "t371_parent_only_reviewed_gold_promotion.yaml" in text
+    assert "t372_route_isolation_harness_plan.yaml" in text
     assert "epistle_argument_gold_manifest.json" in text
     assert "1cor8_10_epistle_owner_review_docket.yaml" in text
     assert "chunking_human_decision_forecast.yaml" in text
@@ -88,7 +90,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently points to T372 route-isolated harness planning" in text
+    assert "currently points to T373 owner implementation authorization" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -140,6 +142,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-045" in register
     assert "CD-046" in register
     assert "CD-047" in register
+    assert "CD-048" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -153,6 +156,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "Textual-critical policy options block variant-sensitive reviewed-gold promotion" in register
     assert "TCP-T378-B case-by-case textual-critical policy selected as process pattern" in register
     assert "T371 variant-dependency owner decision packet is non-authorizing" in register
+    assert "T372 route-isolation harness plan is non-authorizing" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -186,6 +190,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/textual_critical_case_policy.yaml" in reading
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
     assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
+    assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
@@ -220,6 +225,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-045" in register_entry["required_decision_ids"]
     assert "CD-046" in register_entry["required_decision_ids"]
     assert "CD-047" in register_entry["required_decision_ids"]
+    assert "CD-048" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

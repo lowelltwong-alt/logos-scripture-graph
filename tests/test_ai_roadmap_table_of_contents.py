@@ -45,6 +45,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "textual_critical_policy_owner_options.yaml",
         "t371_variant_dependency_owner_decision_packet.yaml",
         "t371_parent_only_reviewed_gold_promotion.yaml",
+        "t372_route_isolation_harness_plan.yaml",
         "epistle_argument_gold_manifest.json",
         "1cor8_10_epistle_owner_review_docket.yaml",
         "chunking_human_decision_forecast.yaml",
@@ -59,6 +60,9 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "reviewed-gold-blocker",
         "owner-decision-packet",
         "t371-a",
+        "t372",
+        "route-isolation",
+        "non-target-identity",
         "variant-non-dependent",
         "harness-next",
         "1cor8-10",
@@ -112,6 +116,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
         "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
         "`t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next`",
+        "`t372`, `route-isolation`, `non-target-identity`, `harness`, `owner-gate`, `1cor8-10`, `non-authorizing`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
         "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
         "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
@@ -262,7 +267,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t371_parent_only_reviewed_gold_promotion.py" in toc
     assert ".ai/tasks/T371.task.yaml" in toc
     assert ".ai/handoffs/T371/handoff.md" in toc
-    assert "T372 - Route-isolated implementation harness and non-target identity plan" in toc
+    assert "T373 - Owner implementation authorization gate" in toc
+    assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc
+    assert ".ai/control/t372_route_isolation_harness_plan.yaml" in toc
+    assert "scripts/validate_t372_route_isolation_harness_plan.py" in toc
+    assert ".ai/tasks/T372.task.yaml" in toc
+    assert ".ai/handoffs/T372/handoff.md" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc

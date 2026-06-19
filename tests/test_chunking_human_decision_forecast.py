@@ -49,6 +49,9 @@ def test_forecast_names_predictable_human_decision_gates() -> None:
     assert by_id["HDF-003"]["reviewed_gold_promoted"] is True
     assert by_id["HDF-003"]["next_safe_task"] == "T372"
     assert by_id["HDF-003"]["next_owner_gate"] == "T373"
+    assert by_id["HDF-013"]["status"] == "complete_non_output_changing_plan"
+    assert by_id["HDF-013"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
+    assert by_id["HDF-013"]["next_owner_gate"] == "T373"
     assert "chunk_output_change" in by_id["HDF-004"]["must_stop_for"]
     assert by_id["HDF-007"]["recommended_default_if_owner_unavailable"] == "systematic_theology_can_be_advisory_not_chunk_authority"
     assert by_id["HDF-012"]["recommended_default_if_owner_unavailable"] == "require_no_context_audit_before_merge"
@@ -107,10 +110,14 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     assert future["T371"]["promotion_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
     assert future["T371"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
     assert future["T371"]["reviewed_gold_promoted"] is True
+    assert future["T372"]["status"] == "complete"
     assert future["T372"]["starts_only_if"] == "T371_A_parent_only_reviewed_gold_promoted"
+    assert future["T372"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert future["T372"]["harness_only"] is True
     assert future["T372"]["owner_implementation_authorization_required"] is True
+    assert future["T373"]["starts_only_if"] == "T372_route_isolation_harness_plan_complete"
     assert future["T373"]["owner_decision_required"] is True
+    assert future["T373"]["implementation_authorized"] is False
     assert future["T374"]["output_change_authorized"] is False
 
 

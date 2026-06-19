@@ -30,6 +30,7 @@ REQUIRED_DECISIONS = {
     "HDF-010",
     "HDF-011",
     "HDF-012",
+    "HDF-013",
 }
 
 REQUIRED_FALSE_AUTHORITY_FLAGS = {
@@ -229,6 +230,25 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
         raise ForecastError(f"{_rel(path)}: HDF-004 must stop for chunk_output_change")
 
+    hdf_013 = by_id["HDF-013"]
+    if hdf_013.get("status") != "complete_non_output_changing_plan":
+        raise ForecastError(f"{_rel(path)}: HDF-013 must record completed T372 plan")
+    if hdf_013.get("harness_plan") != ".ai/control/t372_route_isolation_harness_plan.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-013 harness_plan is stale")
+    if hdf_013.get("next_owner_gate") != "T373":
+        raise ForecastError(f"{_rel(path)}: HDF-013 next_owner_gate must be T373")
+    if hdf_013.get("selected_children") != []:
+        raise ForecastError(f"{_rel(path)}: HDF-013 selected_children must remain []")
+    for item in (
+        "parent_only_gold_as_chunk_boundary",
+        "child_span_selection",
+        "route_behavior_change",
+        "chunk_output_change",
+        "implementation_authority",
+    ):
+        if item not in hdf_013.get("non_authorizations", []):
+            raise ForecastError(f"{_rel(path)}: HDF-013 non_authorizations missing {item}")
+
     ready = data.get("chunking_ready_definition")
     if not isinstance(ready, dict):
         raise ForecastError(f"{_rel(path)}: chunking_ready_definition must be a mapping")
@@ -301,7 +321,7 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
 
     register = _read_text(REGISTER)
-    for phrase in ("CD-038", "CD-042", "CD-046", "CD-047", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380", "T371-A"):
+    for phrase in ("CD-038", "CD-042", "CD-046", "CD-047", "CD-048", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380", "T371-A", "T372 route-isolation harness plan"):
         if phrase not in register:
             raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -339,6 +359,14 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 reviewed_gold_promoted must be true")
     if by_id["T372"].get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T372 starts_only_if is stale")
+    if by_id["T372"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T372 must be complete")
+    if by_id["T372"].get("harness_plan") != ".ai/control/t372_route_isolation_harness_plan.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T372 harness_plan is stale")
+    if by_id["T373"].get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 starts_only_if is stale")
+    if by_id["T373"].get("owner_decision_required") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 owner_decision_required must be true")
     if by_id["T379"].get("selected_policy") != "TCP-T378-B":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
     if by_id["T380"].get("owner_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":

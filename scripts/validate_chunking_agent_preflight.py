@@ -32,6 +32,7 @@ TEXTUAL_CRITICAL_OPTIONS = ROOT / ".ai" / "control" / "textual_critical_policy_o
 TEXTUAL_CRITICAL_CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
 T371_DECISION_PACKET = ROOT / ".ai" / "control" / "t371_variant_dependency_owner_decision_packet.yaml"
 T371_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t371_parent_only_reviewed_gold_promotion.yaml"
+T372_HARNESS_PLAN = ROOT / ".ai" / "control" / "t372_route_isolation_harness_plan.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
 EPISTLE_ARGUMENT_GOLD_MANIFEST = ROOT / "eval" / "chunking_gold" / "per_form" / "epistle_argument_gold_manifest.json"
@@ -77,7 +78,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -138,6 +139,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "textual_critical_case_policy.yaml",
     "t371_variant_dependency_owner_decision_packet.yaml",
     "t371_parent_only_reviewed_gold_promotion.yaml",
+    "t372_route_isolation_harness_plan.yaml",
+    "validate_t372_route_isolation_harness_plan.py",
     "epistle_argument_gold_manifest.json",
     "1cor8_10_epistle_owner_review_docket.yaml",
     "1cor8_10_parent_only_evidence_packet.yaml",
@@ -309,6 +312,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/textual_critical_case_policy.yaml",
         ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
         ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+        ".ai/control/t372_route_isolation_harness_plan.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
         "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
@@ -591,6 +595,20 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in promotion_text:
             raise PreflightError(f"{_rel(T371_PROMOTION_RECORD)}: missing promotion phrase {phrase!r}")
+    t372_plan_text = _read_text(T372_HARNESS_PLAN)
+    for phrase in (
+        "object_type: route_isolation_harness_plan",
+        "task_id: T372",
+        "status: complete_non_output_changing_plan",
+        "authorizes_route_behavior: false",
+        "authorizes_chunk_output_change: false",
+        "T372-HARN-003",
+        "non_target_identity_proof",
+        "next_task_id: T373",
+        "parent_only_gold_as_chunk_boundary",
+    ):
+        if phrase not in t372_plan_text:
+            raise PreflightError(f"{_rel(T372_HARNESS_PLAN)}: missing T372 plan phrase {phrase!r}")
     onecor_docket_text = _read_text(ONECOR_OWNER_DOCKET)
     for phrase in (
         "object_type: epistle_argument_owner_review_docket",
