@@ -66,6 +66,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml",
     ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
     ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
+    ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_policy_docket.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",

@@ -37,6 +37,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in reading
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
+    assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
@@ -65,6 +66,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "wisdom_dialogue_poetry_dossier_queue.yaml" in text
     assert "prophetic_oracle_vision_dossier_queue.yaml" in text
     assert "textual_variant_source_tradition_dossier_queue.yaml" in text
+    assert "orthodox_original_language_pressure_dossier_queue.yaml" in text
     assert "orthodox_hermeneutic_firewall_docket.yaml" in text
     assert "textual_critical_policy_docket.yaml" in text
     assert "1cor8_10_epistle_owner_review_docket.yaml" in text
@@ -123,6 +125,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-040" in register
     assert "CD-041" in register
     assert "CD-042" in register
+    assert "CD-043" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -132,6 +135,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "Wisdom/dialogue/poetry dossiers preserve poetic-boundary neutrality" in register
     assert "Prophetic/oracle/vision dossiers preserve fulfillment-boundary neutrality" in register
     assert "Textual-variant/source-tradition dossiers preserve canon-boundary neutrality" in register
+    assert "Original-language pressure passages require governed review before chunk authority" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -158,6 +162,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in reading
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
+    assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
@@ -188,6 +193,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-040" in register_entry["required_decision_ids"]
     assert "CD-041" in register_entry["required_decision_ids"]
     assert "CD-042" in register_entry["required_decision_ids"]
+    assert "CD-043" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

@@ -58,6 +58,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/wisdom_dialogue_poetry_dossier_queue.yaml" in surfaces
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in surfaces
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in surfaces
+    assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in surfaces
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -109,6 +110,25 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     assert queue["output_change_authorized"] is False
     assert queue["implementation_authorized"] is False
     assert queue["reviewed_gold_promoted"] is False
+
+
+def test_parallel_original_language_pressure_queue_does_not_replace_next_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    queue = data["parallel_original_language_pressure_queue"]
+
+    assert data["next_route"]["task_id"] == "T371"
+    assert queue["task_id"] == "T377"
+    assert queue["route_type"] == "cross_lane_original_language_pressure_memory"
+    assert queue["path"] == ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml"
+    assert queue["output_change_authorized"] is False
+    assert queue["implementation_authorized"] is False
+    assert queue["reviewed_gold_promoted"] is False
+    assert queue["source_language_authority_allowed"] is False
+    assert queue["translation_preference_authorized"] is False
+    assert queue["nonorthodox_source_authority_allowed"] is False
+    assert queue["extra_canonical_source_authority_allowed"] is False
+    assert queue["graph_edge_generation_allowed"] is False
+    assert queue["retrieval_truth_authorized"] is False
 
 
 def test_next_route_advances_to_t371_owner_promotion_gate() -> None:

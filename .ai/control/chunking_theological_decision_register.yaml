@@ -1672,6 +1672,50 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-043
+    title: Original-language pressure passages require governed review before chunk authority
+    classification: theological_risk
+    task_ids: [T377]
+    owner_decision_ref: "Maintainer requested ahead-of-time research memory for key passages often used by LDS, Watch Tower/New World Translation, anti-Trinitarian, or other non-orthodox arguments, with Greek/Hebrew grammar overlays before chunking."
+    pr_refs: []
+    affected_scope:
+      books: [Gen, Deut, Ps, Isa, Matt, John, 1Cor, Col, Titus, Heb, 1Pet, 2Pet]
+      passages: [John.1.1-John.1.18, Col.1.15-Col.1.20, Titus.2.11-Titus.2.14, 2Pet.1.1-2Pet.1.4, John.8.48-John.8.59, Heb.1.1-Heb.1.14, Matt.28.16-Matt.28.20, Gen.1.26-Gen.1.27, Deut.6.4-Deut.6.9, Ps.110.1-Ps.110.7, Isa.43.10-Isa.43.13, Isa.44.6-Isa.44.8, 1Cor.15.12-1Cor.15.34, 1Pet.3.18-1Pet.4.6]
+      routes: [source_metadata_research, textual_variant_source_tradition, epistle_argument, gospel_discourse_wj, prophetic_oracle, narrative_pericope]
+      surfaces: [.ai/control/orthodox_original_language_pressure_dossier_queue.yaml]
+    decision: "Create a non-output-changing original-language pressure passage queue. Future agents must treat Greek/Hebrew grammar, translation divergence, LDS extra-canonical pressure, Watch Tower/New World Translation pressure, anti-Trinitarian pressure, and ancient Jewish context as governed evidence requiring review, not as automatic chunk, graph, retrieval, doctrine, translation, canon, or output authority."
+    downstream_risk: "Without this queue, future chunking could isolate pressure passages or metadata in ways that unintentionally favor anti-Trinitarian, LDS, Watch Tower/New World Translation, polytheistic, modalist, liberal-critical, or one-denomination readings."
+    theological_assumptions_avoided:
+      - "No LDS extra-canonical authority is accepted."
+      - "No Watch Tower/New World Translation authority or translation preference is selected."
+      - "No Greek/Hebrew lemma, morphology, syntax, or grammar overlay becomes automatic doctrine."
+      - "No Trinitarian proof text, anti-Trinitarian default, modalist default, tritheist/polytheist default, or one-denomination systematic theology is hardcoded as chunk authority."
+      - "No original-language evidence becomes graph edge, retrieval truth, reviewed gold, chunk boundary, canon change, boundary import, route behavior, or output change."
+    reviewed_gold_dependency: "Any future output-changing use requires exact review packet, owner review, grammar overlay, reviewed gold or equivalent governed evidence, non-target identity proof, graph/retrieval denial checks, route denial checks, decision-register update, and validators/tests."
+    non_authorizations:
+      - original_language_as_automatic_truth
+      - grammar_overlay_as_chunk_boundary
+      - translation_divergence_as_translation_preference
+      - nonorthodox_source_as_authority
+      - extra_canonical_source_as_authority
+      - external_translation_import
+      - canon_scope_change
+      - boundary_import
+      - doctrinal_system_selection
+      - graph_edge_generation
+      - retrieval_truth
+      - route_behavior_change
+      - evaluator_change
+      - reviewed_gold_promotion
+      - chunk_output_change
+    validators:
+      - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+      - tests/test_orthodox_original_language_pressure_dossier_queue.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1758,4 +1802,5 @@ backfill_coverage:
     - T368
     - T369
     - T370
+    - T377
 ...
