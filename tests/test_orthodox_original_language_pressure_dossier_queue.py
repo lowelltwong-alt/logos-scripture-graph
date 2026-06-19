@@ -57,6 +57,11 @@ def test_queue_preserves_orthodox_boundary_without_selecting_pressure_authority(
     assert "Watch Tower/New World Translation authority" in policy["not_selected_by_queue"]
     assert "LDS extra-canonical authority" in policy["not_selected_by_queue"]
     assert "automatic proof-text conclusion from one lemma or grammar label" in policy["not_selected_by_queue"]
+    assert "phrase_context_rule" in policy
+    assert "phrase" in policy["phrase_context_rule"]
+    assert "clause" in policy["phrase_context_rule"]
+    assert "discourse" in policy["phrase_context_rule"]
+    assert "isolated_word_as_theological_truth" in data["global_non_authorizations"]
 
 
 def test_queue_rejects_nonorthodox_authority(tmp_path: Path) -> None:

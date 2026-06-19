@@ -1,0 +1,139 @@
+---
+object_type: original_language_phrase_context_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-19 during T381 after the maintainer asked whether Greek phrases matter more than isolated words and how to remember that when Greek words are included."
+reason_for_inclusion: "Prevent Greek/Hebrew lemmas, Strong's-style tags, lexical rarity, or grammar labels from becoming isolated-word theological authority; require phrase, clause, syntax, discourse, and canonical context in future original-language packets."
+---
+schema_version: original_language_phrase_context_policy.v1
+policy_id: t381_original_language_phrase_context_policy
+owner: Lowell Wong
+status: active_non_output_changing_policy
+research_assessment:
+  short_answer: "Directionally true as a warning, but too blunt if stated absolutely."
+  refined_rule: "A Greek or Hebrew word is meaningful evidence only inside its phrase, clause, syntax, discourse unit, author/book context, genre, and canonical context."
+  why_this_matters: "Isolated word studies, lemma matches, Strong's-style numbers, lexical rarity, and grammar labels can smuggle theological conclusions if future packets do not preserve the phrase and discourse frame."
+authority:
+  records_original_language_phrase_context_policy: true
+  may_surface_original_language_evidence_for_review: true
+  authorizes_original_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_doctrinal_system: false
+  authorizes_translation_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_nonorthodox_source_authority: false
+  authorizes_extra_canonical_source_authority: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_chunk_output_change: false
+scope:
+  corpus_scope: canonical_66
+  language_scope: [greek, hebrew]
+  research_mode: non_output_changing
+  relation_to_t359: "Strengthens the source-metadata atlas by requiring phrase/clause/discourse context before Greek/Hebrew word metadata can be used in review packets."
+  relation_to_t377: "Strengthens the original-language pressure queue without authorizing source-language truth, translation preference, doctrine, chunk boundaries, graph/retrieval truth, route behavior, or output changes."
+  relation_to_t373: "Parallel lesson memory only; does not supersede the T373 owner implementation authorization gate."
+context_layers_required:
+  - layer_id: surface_word_or_phrase
+    required_when: "A packet includes a Greek/Hebrew word, phrase, Strong's-style number, lemma, or lexical rarity observation."
+    must_record:
+      - exact_surface_word_or_phrase
+      - exact_passage_scope
+      - source_surface_or_tag_path
+    non_authorization: "Surface words and tags are evidence only and do not authorize lexical truth, doctrine, chunk boundaries, graph edges, retrieval truth, or output changes."
+  - layer_id: lemma_and_morphology
+    required_when: "A packet cites a lemma, parsing, morphology, article use, case, tense/aspect, participle, predicate nominative, construct phrase, or agreement pattern."
+    must_record:
+      - lemma_or_normalized_form_if_available
+      - morphology_or_parsing_if_available
+      - grammar_label_source_or_absence
+    non_authorization: "Lemma and morphology evidence is evidence only; grammar labels do not by themselves authorize doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes."
+  - layer_id: phrase_clause_syntax
+    required_when: "A packet uses original-language evidence for any boundary, review-packet, graph, retrieval, or theological-risk discussion."
+    must_record:
+      - phrase_or_clause_scope
+      - syntax_role
+      - modifying_or_governing_words
+      - whether_the_claim_depends_on_the_phrase_not_only_the_word
+    non_authorization: "Phrase and clause context is evidence only and required for review, but it still does not automatically authorize doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes."
+  - layer_id: discourse_and_argument_context
+    required_when: "A packet touches a theological pressure passage, epistle argument, Gospel discourse, prophetic oracle, Revelation/apocalyptic unit, quotation chain, or difficult passage."
+    must_record:
+      - immediate_discourse_unit
+      - surrounding_argument_or_narrative_flow
+      - speaker_or_quotation_frame_if_relevant
+      - risk_if_the_word_or_phrase_is_isolated
+    non_authorization: "Discourse context is evidence only and protects against isolated proof-texting, but it does not authorize a route, boundary, graph edge, retrieval truth, reviewed gold, or output change."
+  - layer_id: canonical_and_orthodox_context
+    required_when: "A packet is used near LDS, Watch Tower/New World Translation, anti-Trinitarian, anti-supernatural, canon-sensitive, or liberal-critical pressure."
+    must_record:
+      - canonical_context_needed_to_avoid_prooftexting
+      - orthodox_boundary_considered
+      - non_orthodox_or_heterodox_assumptions_refused
+      - orthodox_options_preserved
+    non_authorization: "Canonical and orthodox context is evidence only and preserves review boundaries without authorizing one denomination's systematic theology as chunk authority."
+handling_when_including_greek_words:
+  - "Include the exact Greek word or phrase only with its passage scope, phrase/clause scope, and discourse context."
+  - "Treat Strong's-style numbers and lemma tags as lookup evidence, not lexical truth or theological identity."
+  - "Prefer phrase/clause observations over isolated glosses when a claim depends on syntax or discourse."
+  - "Record whether the proposed claim depends on an exact phrase, a grammatical construction, a semantic domain, a discourse unit, or a broader canonical pattern."
+  - "Preserve multiple orthodox interpretations when the grammar does not force one conclusion."
+  - "Stop for owner review if a Greek/Hebrew observation would affect doctrine, reviewed gold, chunk boundary, route behavior, graph/retrieval truth, or output."
+required_future_original_language_packet_fields:
+  - exact_passage_scope
+  - exact_surface_word_or_phrase
+  - lemma_or_strongs_tag_if_available
+  - morphology_or_parsing_if_available
+  - phrase_or_clause_scope
+  - syntax_role
+  - immediate_discourse_context
+  - author_book_genre_context
+  - canonical_context_needed_to_avoid_prooftexting
+  - semantic_range_not_single_gloss
+  - translation_divergence_if_any
+  - theological_downstream_risks
+  - assumptions_avoided
+  - orthodox_options_preserved
+  - reviewed_gold_dependency
+  - non_authorizations
+  - validator_or_test_plan
+  - non_target_identity_plan
+non_authorizations:
+  - isolated_word_as_theological_truth
+  - isolated_lemma_as_doctrine
+  - single_gloss_as_meaning
+  - strongs_number_as_lexical_truth
+  - lexical_rarity_as_intertext_truth
+  - grammar_label_as_doctrine
+  - phrase_context_as_automatic_chunk_boundary
+  - discourse_context_as_route_authority
+  - original_language_as_graph_edge
+  - original_language_as_retrieval_truth
+  - source_language_as_automatic_truth
+  - translation_preference
+  - textual_critical_decision
+  - doctrinal_system_selection
+  - nonorthodox_source_authority
+  - extra_canonical_source_authority
+  - canon_scope_change
+  - boundary_import
+  - reviewed_gold_promotion
+  - route_behavior_change
+  - evaluator_change
+  - chunk_output_change
+validators:
+  - scripts/validate_original_language_phrase_context_policy.py
+  - tests/test_original_language_phrase_context_policy.py
+  - scripts/validate_source_metadata_research_atlas.py
+  - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

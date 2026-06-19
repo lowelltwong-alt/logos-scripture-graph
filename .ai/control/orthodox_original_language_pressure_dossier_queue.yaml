@@ -47,11 +47,13 @@ preservation_policy:
   orthodox_boundary: "Use Nicene/Chalcedonian orthodox Christianity and canonical Scripture authority as the boundary while refusing LDS extra-canonical authority, Watch Tower/New World Translation authority, anti-Trinitarian defaults, anti-supernatural defaults, liberal-critical defaults, and one-denomination systematic theology as chunk authority."
   canonical_source_rule: "Canonical Scripture in the canonical 66 remains the governed Scripture source. External non-orthodox texts or translations may be named as pressure-source labels for future review, but they are not imported, quoted as authority, and not promoted into canonical outputs by this queue."
   source_language_rule: "Greek/Hebrew lemma, morphology, syntax, grammar, and ancient Jewish or early Christian context may be preserved as evidence for review. They do not by themselves authorize doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes."
+  phrase_context_rule: "When Greek/Hebrew words are included, future packets must record the exact phrase or clause, syntax role, immediate discourse context, and canonical context; isolated words, lemmas, Strong's-style numbers, one-gloss definitions, and grammar labels do not authorize doctrine or chunk authority."
   preserved_review_options:
     - canonical_text_review
     - greek_grammar_overlay_review
     - hebrew_grammar_overlay_review
     - morphology_syntax_review
+    - phrase_clause_discourse_context_review
     - lexical_semantic_range_review
     - translation_divergence_review
     - non_orthodox_pressure_review
@@ -66,11 +68,12 @@ preservation_policy:
     - tritheist or polytheist reading
     - one-denomination systematic theology as chunk authority
     - automatic proof-text conclusion from one lemma or grammar label
+    - automatic proof-text conclusion from one isolated word or gloss
     - automatic graph edge from original-language evidence
 evidence_channels:
   - channel_id: greek_lemma_morphology_syntax
     use_when: "A Greek passage is often argued from article use, predicate nominatives, participles, case agreement, tense/aspect, or syntax."
-    non_authorization: "Greek evidence is evidence only and does not authorize lexical truth, doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes."
+    non_authorization: "Greek evidence is evidence only and does not authorize lexical truth, doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes; phrase, clause, syntax, and discourse context are required before review use."
   - channel_id: hebrew_lemma_morphology_syntax
     use_when: "A Hebrew passage is often argued from plurality, construct phrases, divine names/titles, verb agreement, or lexical range."
     non_authorization: "Hebrew evidence is evidence only and does not authorize doctrine, graph edges, retrieval truth, chunk boundaries, reviewed gold, or output changes."
@@ -96,6 +99,7 @@ required_future_dossier_fields:
   - pressure_sources
   - evidence_channels
   - original_language_focus
+  - phrase_clause_discourse_context
   - grammar_overlay_needed
   - boundary_questions
   - orthodox_boundary
@@ -422,6 +426,9 @@ dossier_queue:
 global_non_authorizations:
   - pressure_queue_as_reviewed_gold
   - original_language_as_automatic_truth
+  - isolated_word_as_theological_truth
+  - isolated_lemma_as_doctrine
+  - single_gloss_as_meaning
   - grammar_overlay_as_chunk_boundary
   - translation_divergence_as_translation_preference
   - nonorthodox_source_as_authority
@@ -439,6 +446,8 @@ global_non_authorizations:
 validators:
   - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
   - tests/test_orthodox_original_language_pressure_dossier_queue.py
+  - scripts/validate_original_language_phrase_context_policy.py
+  - tests/test_original_language_phrase_context_policy.py
   - scripts/validate_chunking_agent_preflight.py
   - scripts/validate_bible_chunking_readiness_map.py
   - scripts/validate_chunking_theological_decision_register.py

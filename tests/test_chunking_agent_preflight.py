@@ -38,6 +38,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
+    assert ".ai/control/original_language_phrase_context_policy.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
@@ -73,6 +74,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "prophetic_oracle_vision_dossier_queue.yaml" in text
     assert "textual_variant_source_tradition_dossier_queue.yaml" in text
     assert "orthodox_original_language_pressure_dossier_queue.yaml" in text
+    assert "original_language_phrase_context_policy.yaml" in text
+    assert "validate_original_language_phrase_context_policy.py" in text
     assert "orthodox_hermeneutic_firewall_docket.yaml" in text
     assert "textual_critical_policy_docket.yaml" in text
     assert "textual_critical_policy_owner_options.yaml" in text
@@ -143,6 +146,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-046" in register
     assert "CD-047" in register
     assert "CD-048" in register
+    assert "CD-049" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -153,6 +157,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "Prophetic/oracle/vision dossiers preserve fulfillment-boundary neutrality" in register
     assert "Textual-variant/source-tradition dossiers preserve canon-boundary neutrality" in register
     assert "Original-language pressure passages require governed review before chunk authority" in register
+    assert "Original-language word evidence requires phrase and discourse context" in register
     assert "Textual-critical policy options block variant-sensitive reviewed-gold promotion" in register
     assert "TCP-T378-B case-by-case textual-critical policy selected as process pattern" in register
     assert "T371 variant-dependency owner decision packet is non-authorizing" in register
@@ -184,6 +189,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in reading
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
+    assert ".ai/control/original_language_phrase_context_policy.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
@@ -226,6 +232,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-046" in register_entry["required_decision_ids"]
     assert "CD-047" in register_entry["required_decision_ids"]
     assert "CD-048" in register_entry["required_decision_ids"]
+    assert "CD-049" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

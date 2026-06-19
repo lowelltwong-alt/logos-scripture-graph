@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T372 route-isolation harness plan (Codex)
-**Active task:** -> **T372** is complete. The route-isolation and non-target identity plan is recorded in `.ai/control/t372_route_isolation_harness_plan.yaml`, validated by `scripts/validate_t372_route_isolation_harness_plan.py`, and registered as `CD-048`. It uses the T371-A `1Cor.8.1-1Cor.10.33` parent-only reviewed-gold case only as input context and advances the next safe route to **T373** owner implementation authorization. This does not authorize child spans, parent span as chunk boundary, preferred readings, source-tradition preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, generated chunks, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T381 original-language phrase/context policy (Codex)
+**Active task:** -> **T381** is complete. The original-language phrase/context policy is recorded in `.ai/control/original_language_phrase_context_policy.yaml`, validated by `scripts/validate_original_language_phrase_context_policy.py`, and registered as `CD-049`. It records the maintainer lesson that Greek/Hebrew words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context. It does not authorize original-language truth, doctrine, chunk boundaries, route/evaluator behavior, graph/retrieval truth, vectors, reviewed gold, implementation, generated chunks, or output changes. **T373** remains the next owner implementation authorization gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T381 original-language phrase/context policy (2026-06-19):** Added
+> `.ai/control/original_language_phrase_context_policy.yaml`, checked by
+> `scripts/validate_original_language_phrase_context_policy.py`, so future packets that include
+> Greek/Hebrew words, lemmas, Strong's-style tags, lexical rarity, morphology, or grammar labels
+> must preserve phrase/clause/syntax/discourse/canonical context and cannot use isolated words,
+> one-gloss definitions, Strong's-style numbers, rare lemmas, or grammar labels as theological,
+> graph, retrieval, route, chunk-boundary, reviewed-gold, or output authority. The policy records
+> `CD-049` and is mandatory preflight context. T373 remains the next owner implementation gate; no
+> route/evaluator behavior, graph/retrieval truth, vector, implementation, chunk output, boundary
+> import, canon change, doctrine system, or output change is authorized.
 
 > **T372 route-isolation harness plan (2026-06-19):** Added
 > `.ai/control/t372_route_isolation_harness_plan.yaml`, checked by

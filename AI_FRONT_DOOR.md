@@ -25,10 +25,11 @@ Read these files before making changes:
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
     textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
-    queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
+    queue, original-language phrase/context policy, Orthodox Hermeneutic Firewall,
+    textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
-    T372 route-isolation harness plan,
+    T372 route-isolation harness plan, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
@@ -110,7 +111,7 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T372 keep the current route non-output-changing: Bible-wide triage is complete,
+- T351 through T381 keep the current route non-output-changing: Bible-wide triage is complete,
   T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
   T367 selected `JOHN3-T356-B` as parent-only review target, T367 added the Orthodox
   Hermeneutic Firewall plus textual-critical policy requirement, and T368 strengthened the
@@ -119,7 +120,10 @@ Bible-first chunking priority:
   packet. T371-A now promotes only `1Cor.8.1-1Cor.10.33` as parent-only reviewed gold, with
   `1Cor.9.20` and `1Cor.10.9` variant-non-dependent only for that parent boundary and
   parent-only reviewed-gold claim. T372 records the route-isolation harness plan and non-target
-  identity requirements. The readiness map now points to T373 owner implementation authorization.
+  identity requirements. T381 records the original-language phrase/context policy: Greek/Hebrew
+  words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be
+  reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context and
+  are not authority. The readiness map now points to T373 owner implementation authorization.
   Do not move from parent-only gold or T372 planning to implementation without exact owner
   authorization at T373.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
@@ -281,6 +285,13 @@ Bible-first chunking priority:
   truth, reviewed gold, chunk boundaries, canon changes, boundary import, route/evaluator changes,
   vectors, or output changes. It is validated by
   `scripts/validate_orthodox_original_language_pressure_dossier_queue.py`.
+- The original-language phrase/context policy at
+  `.ai/control/original_language_phrase_context_policy.yaml` records the rule that Greek/Hebrew
+  words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be
+  reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context.
+  An isolated word, lemma, gloss, rare-word, or grammar-label observation does not authorize doctrine,
+  graph edges, retrieval truth, reviewed gold, chunk boundaries, route/evaluator behavior, or
+  output changes. It is validated by `scripts/validate_original_language_phrase_context_policy.py`.
 - The Orthodox Hermeneutic Firewall / Anti-Smuggling Docket at
   `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` affirms Nicene/Chalcedonian orthodox
   Christianity and canonical Scripture authority while refusing hidden anti-supernatural,
@@ -456,6 +467,8 @@ python scripts/validate_narrative_legal_covenant_dossier_queue.py
 python scripts/validate_wisdom_dialogue_poetry_dossier_queue.py
 python scripts/validate_prophetic_oracle_vision_dossier_queue.py
 python scripts/validate_textual_variant_source_tradition_dossier_queue.py
+python scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+python scripts/validate_original_language_phrase_context_policy.py
 python scripts/validate_orthodox_hermeneutic_firewall_docket.py
 python scripts/validate_textual_critical_policy_docket.py
 python scripts/validate_t371_variant_dependency_owner_decision_packet.py
