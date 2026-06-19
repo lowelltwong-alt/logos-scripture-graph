@@ -43,6 +43,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
     assert ".ai/control/owner_decision_projection_policy.yaml" in reading
+    assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in reading
 
 
 def test_front_door_requires_metadata_preflight() -> None:
@@ -70,11 +71,12 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "chunking_human_decision_forecast.yaml" in text
     assert "governance_memory_durability_policy.yaml" in text
     assert "owner_decision_projection_policy.yaml" in text
+    assert "1cor8_10_parent_only_evidence_packet.yaml" in text
     assert "conflicting prior owner decisions" in text
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently points to T370 parent-only evidence prep" in text
+    assert "currently points to T371 owner reviewed-gold promotion review" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -120,6 +122,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-039" in register
     assert "CD-040" in register
     assert "CD-041" in register
+    assert "CD-042" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -161,6 +164,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
     assert ".ai/control/governance_memory_durability_policy.yaml" in reading
     assert ".ai/control/owner_decision_projection_policy.yaml" in reading
+    assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in reading
     assert "CD-018" in register_entry["required_decision_ids"]
     assert "CD-021" in register_entry["required_decision_ids"]
     assert "CD-022" in register_entry["required_decision_ids"]
@@ -183,6 +187,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-039" in register_entry["required_decision_ids"]
     assert "CD-040" in register_entry["required_decision_ids"]
     assert "CD-041" in register_entry["required_decision_ids"]
+    assert "CD-042" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

@@ -40,7 +40,7 @@ Common tags in this file:
   `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`,
   `comma-johanneum`, `orthodox-hermeneutic-firewall`, `anti-smuggling`,
   `orthodoxy-boundary`, `canon-authority`, `textual-critical-policy`, `variant-sensitive`,
-  `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`,
+  `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`,
   `owner-projection`, `projected-owner-pattern`, `conflict-scan`, `governance-memory`
 
 ## Current Bible Chunking Path
@@ -77,6 +77,7 @@ Common tags in this file:
 | T367 | Owner decision firewall and next target | `owner-decision`, `orthodox-hermeneutic-firewall`, `anti-smuggling`, `textual-critical-policy`, `john3`, `1cor8-10`, `non-authorizing` | Auditing JOHN3-T356-B, the orthodox firewall, textual-critical policy requirement, and the next review-only epistle target. | `docs/roadmap/T367_OWNER_DECISION_FIREWALL_AND_NEXT_TARGET.md`; `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`; `.ai/control/textual_critical_policy_docket.yaml`; `.ai/tasks/T367.task.yaml`; `.ai/handoffs/T367/handoff.md` |
 | T368 | 1 Corinthians 8-10 packet strengthening | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`, `christian-liberty`, `non-authorizing` | Auditing the strengthened 1Cor.8-10 packet, pending owner options, and non-authorizing evidence. | `docs/roadmap/T368_1COR8_10_PACKET_STRENGTHENING.md`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md`; `scripts/validate_1cor8_10_owner_review_docket.py`; `.ai/tasks/T368.task.yaml`; `.ai/handoffs/T368/handoff.md` |
 | T369 | 1Cor.8-10 projected parent-only review selection | `1cor8-10`, `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`, `owner-projection`, `projected-owner-pattern`, `conflict-scan`, `non-authorizing` | Auditing the parent-only projected owner-pattern decision and conflict scan that unblocks T370 evidence prep without output authority. | `docs/roadmap/T369_HUMAN_DECISION_FORECAST_AND_CHUNKING_READY_ROADMAP.md`; `.ai/control/chunking_human_decision_forecast.yaml`; `.ai/control/owner_decision_projection_policy.yaml`; `.ai/control/governance_memory_durability_policy.yaml`; `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`; `scripts/validate_chunking_human_decision_forecast.py`; `scripts/validate_owner_decision_projection_policy.py`; `scripts/validate_governance_memory_durability.py`; `.ai/tasks/T369.task.yaml`; `.ai/handoffs/T369/handoff.md` |
+| T370 | 1Cor.8-10 parent-only evidence packet | `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `source-metadata`, `parent-only`, `non-authorizing` | Auditing the governed parent-only evidence packet before any owner reviewed-gold promotion decision. | `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`; `scripts/validate_1cor8_10_parent_evidence_packet.py`; `.ai/tasks/T370.task.yaml`; `.ai/handoffs/T370/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -105,24 +106,26 @@ Common tags in this file:
 | `.ai/control/textual_variant_source_tradition_dossier_queue.yaml` | `textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`, `deut32`, `jude`, `comma-johanneum` | Future agents need textual-variant/source-tradition dossiers before exact packet review, route, graph, retrieval, boundary, or algorithm work. | Dossier queue; no textual-critical/canon/source-tradition/boundary-import/noncanonical/graph/retrieval/chunk/output authority. |
 | `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` | `orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority` | Future epistle, graph, retrieval, or chunking work might smuggle hidden anti-orthodox defaults. | Firewall docket; affirms Nicene/Chalcedonian and canonical Scripture commitments; no denominational-system/chunk/output authority. |
 | `.ai/control/textual_critical_policy_docket.yaml` | `textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate` | Variant-sensitive packets might be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions. | Policy requirement docket; no textual-critical policy selected and no preferred-reading/canon/boundary/output authority. |
-| `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the pending owner decision after packet strengthening. | Owner-review docket; no parent/child/doctrine/gold/chunk/output authority. |
+| `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the projected parent-only selection after packet strengthening. | Owner-review docket; no child/doctrine/gold/chunk/output authority. |
+| `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml` | `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `source-metadata`, `parent-only` | Work audits T370 evidence or prepares the T371 owner promotion decision. | Parent-only evidence packet; not reviewed gold and no child/route/evaluator/graph/retrieval/output authority. |
 | `.ai/control/chunking_human_decision_forecast.yaml` | `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate` | Work needs to know which predictable owner decisions can be made early before chunk-output work starts. | Decision forecast; defines readiness and stop conditions without authorizing output. |
 
 ## Current Next Route
 
 After T344 owner decision, T351 Bible-wide triage, T367 owner firewall guidance, T368 packet
-strengthening, and T369 projected parent-only owner-pattern selection, the next route is:
+strengthening, T369 projected parent-only owner-pattern selection, and T370 parent-only evidence
+prep, the next route is:
 
 ```text
-T370 - Build selected 1 Corinthians 8-10 parent-only reviewed-gold evidence packet
+T371 - Owner reviewed-gold promotion decision
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
 adds the Orthodox Hermeneutic Firewall and textual-critical policy docket requirement, and points
 the epistle lane to 1Cor.8-10. T368 strengthens the packet and creates
 `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`. T369 selects parent-only
-`1Cor.8.1-1Cor.10.33` by projected owner pattern after a no-conflict scan. T370 is evidence prep
-only.
+`1Cor.8.1-1Cor.10.33` by projected owner pattern after a no-conflict scan. T370 builds the
+parent-only evidence packet. T371 is owner promotion review only.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -190,8 +193,9 @@ reviewed gold, implement chunks, change route/evaluator behavior, generate graph
 retrieval truth, select textual-critical policy, or change output.
 T369 selected parent-only `1Cor.8.1-1Cor.10.33` by projected owner pattern; it did not select
 child spans and did not authorize reviewed gold, chunks, route/evaluator behavior, graph edges,
-retrieval truth, textual-critical policy, or output changes. T370 may prepare governed parent-only
-evidence only; it may not promote reviewed gold, implement chunks, project child spans, ignore
+retrieval truth, textual-critical policy, or output changes. T370 prepared governed parent-only
+evidence only; it did not promote reviewed gold, implement chunks, project child spans, ignore
 conflicting prior owner decisions, change route/evaluator behavior, generate graph edges, assert
-retrieval truth, select textual-critical policy, or change output without later exact owner
-authorization.
+retrieval truth, select textual-critical policy, or change output. T371 may only ask the owner
+whether the evidence packet should be promoted to reviewed gold; it still cannot implement chunks
+or change output.

@@ -121,7 +121,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t369_1cor8_10_parent_only_review_target_selected_evidence_prep_next
+    current_state: t370_1cor8_10_parent_only_evidence_packet_built_owner_promotion_gate_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -135,7 +135,7 @@ lane_sequence:
       - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
     owner_review_docket:
       task_id: T369
-      next_gate_task_id: T370
+      next_gate_task_id: T371
       path: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
       status: parent_only_review_target_selected_by_projected_owner_pattern
       selected_target: 1cor8_10_food_offered_to_idols
@@ -150,6 +150,20 @@ lane_sequence:
       output_change_authorized: false
       implementation_authorized: false
       reviewed_gold_promoted: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+    parent_only_evidence_packet:
+      task_id: T370
+      path: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+      status: ready_for_owner_promotion_review
+      evidence_scope: parent_only
+      selected_parent: 1Cor.8.1-1Cor.10.33
+      selected_children: []
+      reviewed_gold_promoted: false
+      output_change_authorized: false
+      implementation_authorized: false
       route_behavior_authorized: false
       evaluator_change_authorized: false
       graph_edge_generation_allowed: false
@@ -304,10 +318,10 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T370
-  title: Build Selected 1 Corinthians 8-10 Reviewed-Gold Evidence Packet
-  route_type: epistle_argument_parent_only_evidence_prep
-  starts_only_if: T369_parent_only_projected_selection
+  task_id: T371
+  title: Owner Reviewed-Gold Promotion Decision
+  route_type: epistle_argument_owner_reviewed_gold_promotion_gate
+  starts_only_if: T370_builds_governed_evidence
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
@@ -319,18 +333,21 @@ next_route:
   projection_policy: .ai/control/owner_decision_projection_policy.yaml
   conflict_scan_result: no_conflict_detected
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+  evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
-  packet_status: parent_only_evidence_prep_allowed
+  packet_status: parent_only_evidence_packet_ready_for_owner_review
   owner_selection_status: selected
+  owner_decision_required: true
   prior_owner_decision_task: T367
   packet_strengthening_task: T368
   parent_selection_task: T369
+  evidence_prep_task: T370
   prior_packet_task: T352
   prior_issue_dossier_task: T361
   orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
   textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
   review_only: true
-  rationale: "T369 used the owner-authorized projection policy to select parent-only 1Cor.8.1-1Cor.10.33 as a review target. The next safe route is non-output evidence prep only, with no reviewed-gold promotion or implementation authority."
+  rationale: "T370 built governed parent-only evidence for 1Cor.8.1-1Cor.10.33. The next safe route is owner reviewed-gold promotion review only; no promotion, implementation, child spans, route/evaluator behavior, graph/retrieval truth, textual-critical policy, or output change is authorized by readiness."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -367,6 +384,7 @@ update_triggers:
   - chunking_human_decision_forecast_change
   - governance_memory_durability_policy_change
   - owner_decision_projection_policy_change
+  - 1cor8_10_parent_evidence_packet_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration

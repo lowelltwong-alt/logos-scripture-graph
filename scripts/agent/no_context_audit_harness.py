@@ -76,6 +76,7 @@ def build_brief(task_id: str, base_ref: str, pr: str | None) -> str:
         ".ai/control/governance_memory_durability_policy.yaml",
         ".ai/control/owner_decision_projection_policy.yaml",
         ".ai/control/bible_chunking_readiness_map.yaml",
+        "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
     ]
 
     validations = [
@@ -85,6 +86,7 @@ def build_brief(task_id: str, base_ref: str, pr: str | None) -> str:
         "python scripts/validate_governance_memory_durability.py",
         "python scripts/validate_owner_decision_projection_policy.py",
         "python scripts/validate_bible_chunking_readiness_map.py",
+        "python scripts/validate_1cor8_10_parent_evidence_packet.py",
         "python scripts/validate_all.py",
         "python -m pytest -q",
     ]

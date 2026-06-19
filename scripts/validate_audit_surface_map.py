@@ -57,6 +57,7 @@ REQUIRED_DECISION_SURFACES = {
     ".ai/control/bible_chunking_readiness_map.yaml",
     ".ai/control/chunking_agent_preflight.yaml",
     "eval/chunking_gold/review_packets/REVIEW_PACKET_INDEX.md",
+    "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
 }
 
 REQUIRED_HARNESS = {
@@ -276,6 +277,7 @@ def validate_audit_surface_map(path: Path = MAP) -> dict[str, Any]:
         ".ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md",
         ".ai/audits/templates/REVIEW_REPORT_TEMPLATE.md",
         ".ai/control/harness_upgrade_roadmap.yaml",
+        "1cor8_10_parent_only_evidence_packet.yaml",
     ):
         if phrase not in toc:
             raise AuditSurfaceError(f"{_rel(TOC)}: missing audit TOC phrase {phrase!r}")

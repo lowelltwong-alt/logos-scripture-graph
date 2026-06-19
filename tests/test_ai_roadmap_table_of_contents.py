@@ -206,7 +206,9 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/governance_memory_durability_policy.yaml" in toc
     assert "scripts/validate_owner_decision_projection_policy.py" in toc
     assert "scripts/validate_governance_memory_durability.py" in toc
-    assert "T370 - Build selected 1 Corinthians 8-10 parent-only reviewed-gold evidence packet" in toc
+    assert "T370 | 1Cor.8-10 parent-only evidence packet" in toc
+    assert "T371 - Owner reviewed-gold promotion decision" in toc
+    assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
     assert "review_packet_ready" in toc

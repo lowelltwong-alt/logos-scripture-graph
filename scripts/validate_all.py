@@ -123,6 +123,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_1cor8_10_owner_review_docket.py")],
         ),
         (
+            "validate_1cor8_10_parent_evidence_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_1cor8_10_parent_evidence_packet.py")],
+        ),
+        (
             "validate_chunking_human_decision_forecast.py",
             [PY, str(ROOT / "scripts" / "validate_chunking_human_decision_forecast.py")],
         ),

@@ -28,6 +28,7 @@ TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradi
 ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_docket.yaml"
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
+ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
 HUMAN_DECISION_FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
 GOVERNANCE_MEMORY_DURABILITY = ROOT / ".ai" / "control" / "governance_memory_durability_policy.yaml"
 OWNER_DECISION_PROJECTION = ROOT / ".ai" / "control" / "owner_decision_projection_policy.yaml"
@@ -70,7 +71,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -127,6 +128,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "orthodox_hermeneutic_firewall_docket.yaml",
     "textual_critical_policy_docket.yaml",
     "1cor8_10_epistle_owner_review_docket.yaml",
+    "1cor8_10_parent_only_evidence_packet.yaml",
+    "validate_1cor8_10_parent_evidence_packet.py",
     "chunking_human_decision_forecast.yaml",
     "governance_memory_durability_policy.yaml",
     "owner_decision_projection_policy.yaml",
@@ -290,6 +293,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
         ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+        "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
         ".ai/control/chunking_human_decision_forecast.yaml",
         ".ai/control/governance_memory_durability_policy.yaml",
         ".ai/control/owner_decision_projection_policy.yaml",
@@ -510,6 +514,20 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in onecor_docket_text:
             raise PreflightError(f"{_rel(ONECOR_OWNER_DOCKET)}: missing 1Cor.8-10 docket phrase {phrase!r}")
+    evidence_packet_text = _read_text(ONECOR_EVIDENCE_PACKET)
+    for phrase in (
+        "object_type: parent_only_review_evidence_packet",
+        "selected_parent: 1Cor.8.1-1Cor.10.33",
+        "selected_children: []",
+        "review_status: ready_for_owner_promotion_review",
+        "reviewed_gold_promoted: false",
+        "authorizes_output_change: false",
+        "strong_style_numbers_are_metadata_not_lexical_or_theological_truth",
+        "capitalization_is_translation_evidence_not_divine_identity_or_chunk_authority",
+        "stop and surface the conflict",
+    ):
+        if phrase not in evidence_packet_text:
+            raise PreflightError(f"{_rel(ONECOR_EVIDENCE_PACKET)}: missing evidence-packet phrase {phrase!r}")
     forecast_text = _read_text(HUMAN_DECISION_FORECAST)
     for phrase in (
         "object_type: chunking_human_decision_forecast",

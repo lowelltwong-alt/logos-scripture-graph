@@ -91,14 +91,16 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T370"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_parent_only_evidence_prep"
+    assert readiness["next_route"]["task_id"] == "T371"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_gate"
     assert readiness["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
     assert readiness["next_route"]["selected_option"] == "1COR8-10-T369-B"
     assert readiness["next_route"]["selected_parent"] == "1Cor.8.1-1Cor.10.33"
     assert readiness["next_route"]["selected_children"] == []
     assert readiness["next_route"]["conflict_scan_result"] == "no_conflict_detected"
     assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
+    assert readiness["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    assert readiness["next_route"]["owner_decision_required"] is True
     assert readiness["next_route"]["prior_owner_decision_task"] == "T367"
     assert readiness["next_route"]["parent_selection_task"] == "T369"
     assert readiness["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
