@@ -16,8 +16,11 @@ def test_textual_critical_policy_docket_validates_current_repo() -> None:
     assert data["authority"]["requires_policy_before_variant_sensitive_promotion"] is True
     assert data["policy_status"]["textual_critical_policy_selected"] is False
     assert data["policy_status"]["selected_policy"] == "pending_owner_decision"
+    assert data["policy_status"]["owner_options_docket"] == ".ai/control/textual_critical_policy_owner_options.yaml"
+    assert data["policy_status"]["owner_options_task"] == "T378"
     assert data["authority"]["authorizes_textual_critical_decision"] is False
     assert "John.7.53-John.8.11" in data["variant_sensitive_surfaces"]
+    assert "scripts/validate_textual_critical_policy_owner_options.py" in data["validators"]
 
 
 def test_textual_critical_policy_rejects_hidden_selected_policy(tmp_path: Path) -> None:

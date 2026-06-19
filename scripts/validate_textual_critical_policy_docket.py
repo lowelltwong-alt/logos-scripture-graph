@@ -112,6 +112,10 @@ def validate_textual_critical_policy(path: Path = DOCKET) -> dict[str, Any]:
         raise TextualCriticalPolicyError(f"{_rel(path)}: selected_policy must be pending_owner_decision")
     if policy_status.get("owner_decision_required") is not True:
         raise TextualCriticalPolicyError(f"{_rel(path)}: owner_decision_required must be true")
+    if policy_status.get("owner_options_docket") != ".ai/control/textual_critical_policy_owner_options.yaml":
+        raise TextualCriticalPolicyError(f"{_rel(path)}: owner_options_docket is stale")
+    if policy_status.get("owner_options_task") != "T378":
+        raise TextualCriticalPolicyError(f"{_rel(path)}: owner_options_task must be T378")
 
     _require_subset(REQUIRED_SURFACES, data.get("variant_sensitive_surfaces"), "variant_sensitive_surfaces")
     _require_subset(
@@ -120,6 +124,14 @@ def validate_textual_critical_policy(path: Path = DOCKET) -> dict[str, Any]:
         "required_before_use",
     )
     _require_subset(REQUIRED_NON_AUTHORIZATIONS, data.get("non_authorizations"), "non_authorizations")
+    _require_subset(
+        {
+            "scripts/validate_textual_critical_policy_owner_options.py",
+            "tests/test_textual_critical_policy_owner_options.py",
+        },
+        data.get("validators"),
+        "validators",
+    )
     return data
 
 
