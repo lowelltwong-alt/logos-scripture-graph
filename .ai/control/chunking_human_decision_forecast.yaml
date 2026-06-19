@@ -21,7 +21,7 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t370_parent_only_evidence_packet_ready_for_t371_owner_promotion_review
+  current_unblock_status: t379_case_by_case_textual_policy_selected_t371_variant_dependency_owner_review_next
   remaining_blocks:
     - reviewed_gold_promotion
     - implementation_authorization
@@ -29,7 +29,7 @@ goal_blocked_explanation:
     - route_behavior_change
     - evaluator_behavior_change
     - graph_retrieval_vector_output
-    - textual_critical_policy_selection
+    - variant_dependency_owner_confirmation
   unblock_strategy: "Front-load predictable owner decisions as dockets and stop conditions, then let agents continue non-output-changing harness, review-packet, audit, and readiness work until an explicit gate is reached."
 decision_policy:
   owner_pattern_projection_policy: .ai/control/owner_decision_projection_policy.yaml
@@ -51,7 +51,8 @@ decision_policy:
     - evaluator_behavior_change
     - graph_edge_generation
     - retrieval_truth_or_default_profile
-    - textual_critical_policy_selection
+    - new_textual_critical_policy_selection
+    - variant_sensitive_promotion_owner_confirmation
     - source_tradition_preference
     - canon_scope_change
     - boundary_import
@@ -117,24 +118,31 @@ front_loaded_decisions:
       - chunk_output_change
   - decision_id: HDF-002
     title: Textual-critical policy before variant-sensitive use
-    status: pending_owner_policy
+    status: selected_case_by_case_policy
     earliest_task: before_variant_sensitive_gold_or_implementation
+    selected_policy: TCP-T378-B
+    owner_selection_task: T379
+    policy_record: .ai/control/textual_critical_case_policy.yaml
+    projection_policy_pattern: ODP-005
+    current_authorization: "Owner selected case-by-case policy before each variant-sensitive promotion. Future variant-sensitive reviewed-gold promotion must record exact variants, boundary dependency or non-dependency, reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, and validators/tests."
     required_before:
       - variant_sensitive_reviewed_gold_promotion
       - textual_variant_chunk_boundary_use
       - source_tradition_preference
       - canon_scope_or_boundary_decision
-    recommended_default_if_owner_unavailable: current_canonical_source_only_and_stop_before_variant_sensitive_authority
-    options_to_prepare:
+    recommended_default_if_owner_unavailable: apply_case_by_case_process_rule_and_stop_before_specific_promotion_without_owner_confirmation
+    options_prepared:
       - current_canonical_source_only_until_case_policy
       - case_by_case_owner_policy_before_each_variant_sensitive_packet
       - formal_project_textual_policy_before_any_variant_sensitive_promotion
+    future_pattern_memory: "Future agents may project the TCP-T378-B process rule but may not project preferred readings, source-tradition preference, dependency/non-dependency findings, reviewed-gold promotion, or output changes."
     non_authorizations:
       - preferred_reading_selection
       - source_tradition_preference
       - canon_scope_change
       - boundary_import
       - variant_packet_as_reviewed_gold
+      - variant_dependency_projection
   - decision_id: HDF-003
     title: Reviewed-gold promotion standard
     status: pending_owner_policy
@@ -337,10 +345,20 @@ next_roadmap_steps:
     selected_children: []
     reviewed_gold_promoted: false
     output_change_authorized: false
+  - task_id: T379
+    title: Select textual-critical case-by-case policy
+    owner_decision_required: false
+    status: complete_owner_policy_selected
+    selected_policy: TCP-T378-B
+    policy_record: .ai/control/textual_critical_case_policy.yaml
+    projectable_pattern: ODP-005
+    reviewed_gold_promoted: false
+    output_change_authorized: false
   - task_id: T371
     title: Owner reviewed-gold promotion decision
     owner_decision_required: true
-    starts_only_if: T370_builds_governed_evidence
+    starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
+    variant_dependency_owner_decision_required: true
     evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
     output_change_authorized: false
   - task_id: T372

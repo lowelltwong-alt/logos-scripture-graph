@@ -1,0 +1,93 @@
+id: T379
+phase: phase_4
+title: "Textual-Critical Case-By-Case Policy Selection"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/textual_critical_case_policy.yaml
+    - .ai/control/textual_critical_policy_owner_options.yaml
+    - .ai/control/textual_critical_policy_docket.yaml
+    - .ai/control/owner_decision_projection_policy.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T379.task.yaml
+    - .ai/handoffs/T379/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T379_TEXTUAL_CRITICAL_CASE_POLICY_SELECTION.md
+    - scripts/validate_textual_critical_case_policy.py
+    - scripts/validate_textual_critical_policy_owner_options.py
+    - scripts/validate_textual_critical_policy_docket.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_human_decision_forecast.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+    - tests/test_textual_critical_case_policy.py
+    - tests/test_textual_critical_policy_owner_options.py
+    - tests/test_textual_critical_policy_docket.py
+    - tests/test_owner_decision_projection_policy.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_chunking_human_decision_forecast.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  owner_decision: "Authorize TCP-T378-B: case-by-case owner policy before each variant-sensitive promotion."
+  policy_record: .ai/control/textual_critical_case_policy.yaml
+  selected_policy: TCP-T378-B
+  projectable_pattern: ODP-005
+  records_future_process_pattern: true
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  graph_retrieval_truth_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  chunk_output_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+acceptance_criteria:
+  - "The owner-selected TCP-T378-B case-by-case policy is recorded as first-class governance memory."
+  - "Future agents can project the process rule but cannot project preferred readings, variant dependency findings, reviewed gold, implementation, or output authority."
+  - "T371 is unblocked only to ask the exact variant dependency/non-dependency and parent-only promotion question."
+  - "CD-045 and ODP-005 are recorded and validator-enforced."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_textual_critical_case_policy.py
+  - python scripts/validate_textual_critical_policy_owner_options.py
+  - python scripts/validate_textual_critical_policy_docket.py
+  - python scripts/validate_owner_decision_projection_policy.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_human_decision_forecast.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T379
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T379/handoff.md
+next_task: "T371 owner variant-dependency and reviewed-gold promotion decision for 1Cor.8.1-1Cor.10.33."

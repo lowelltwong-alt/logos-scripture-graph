@@ -46,6 +46,7 @@ lessons_storage:
     - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
     - .ai/control/textual_critical_policy_docket.yaml
     - .ai/control/textual_critical_policy_owner_options.yaml
+    - .ai/control/textual_critical_case_policy.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - .ai/control/chunking_human_decision_forecast.yaml
     - .ai/control/governance_memory_durability_policy.yaml
@@ -288,8 +289,12 @@ lane_sequence:
     textual_critical_policy_docket:
       task_id: T367
       path: .ai/control/textual_critical_policy_docket.yaml
-      status: required_before_variant_sensitive_use
-      textual_critical_policy_selected: false
+      status: case_by_case_policy_selected
+      textual_critical_policy_selected: true
+      selected_policy: TCP-T378-B
+      selected_policy_record: .ai/control/textual_critical_case_policy.yaml
+      owner_selection_task: T379
+      owner_confirmation_required_per_variant_sensitive_promotion: true
       output_change_authorized: false
       implementation_authorized: false
       reviewed_gold_promoted: false
@@ -323,7 +328,7 @@ next_route:
   task_id: T371
   title: Owner Reviewed-Gold Promotion Decision
   route_type: epistle_argument_owner_reviewed_gold_promotion_gate
-  starts_only_if: T370_builds_governed_evidence
+  starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
@@ -349,11 +354,14 @@ next_route:
   orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
   textual_critical_policy_docket: .ai/control/textual_critical_policy_docket.yaml
   textual_critical_policy_owner_options: .ai/control/textual_critical_policy_owner_options.yaml
-  variant_sensitive_policy_gate_task: T378
-  variant_sensitive_policy_selected: false
-  t371_promotion_blocked_until_textual_policy: true
+  textual_critical_case_policy: .ai/control/textual_critical_case_policy.yaml
+  variant_sensitive_policy_gate_task: T379
+  variant_sensitive_policy_selected: true
+  selected_textual_critical_policy: TCP-T378-B
+  t371_promotion_blocked_until_textual_policy: false
+  variant_dependency_owner_decision_required: true
   review_only: true
-  rationale: "T370 built governed parent-only evidence for 1Cor.8.1-1Cor.10.33. T378 records textual-critical policy options because the packet contains variant-sensitive 1Cor.9.20 and 1Cor.10.9 footnotes. The next safe route is owner reviewed-gold promotion review only after textual-critical policy selection or explicit owner hold; no promotion, implementation, child spans, route/evaluator behavior, graph/retrieval truth, textual-critical policy, or output change is authorized by readiness."
+  rationale: "T370 built governed parent-only evidence for 1Cor.8.1-1Cor.10.33. T379 selected TCP-T378-B case-by-case textual-critical process policy, so the broad textual-policy blocker is resolved. The next safe route is T371 owner review of whether the parent boundary and reviewed-gold claim are variant-non-dependent with respect to 1Cor.9.20 and 1Cor.10.9, plus separate parent-only promotion authorization; no promotion, implementation, child spans, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -400,10 +408,33 @@ parallel_textual_critical_policy_options:
   title: Textual-Critical Policy Owner Options
   route_type: owner_policy_options_only
   path: .ai/control/textual_critical_policy_owner_options.yaml
-  status: complete_non_authorizing
-  relation_to_next_route: "Blocks T371 reviewed-gold promotion until the owner selects a textual-critical policy or explicitly holds variant-sensitive promotion."
+  status: complete_selected_by_t379
+  relation_to_next_route: "T379 selected TCP-T378-B from these options; T371 still needs variant dependency/non-dependency owner confirmation and separate promotion authorization."
   recommended_option: TCP-T378-B
-  textual_critical_policy_selected: false
+  textual_critical_policy_selected: true
+  selected_policy: TCP-T378-B
+  selection_record: .ai/control/textual_critical_case_policy.yaml
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  boundary_import_allowed: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+parallel_textual_critical_case_policy:
+  task_id: T379
+  title: Textual-Critical Case-By-Case Policy Selection
+  route_type: owner_policy_selection_record_only
+  path: .ai/control/textual_critical_case_policy.yaml
+  status: complete_non_output_changing
+  relation_to_next_route: "Unblocks T371 to ask exact variant dependency/non-dependency and parent-only reviewed-gold promotion questions; does not itself promote reviewed gold."
+  selected_policy: TCP-T378-B
+  projectable_pattern: ODP-005
+  variant_dependency_owner_decision_required: true
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -429,6 +460,7 @@ update_triggers:
   - orthodox_firewall_change
   - textual_critical_policy_docket_change
   - textual_critical_policy_owner_options_change
+  - textual_critical_case_policy_change
   - 1cor8_10_owner_review_docket_change
   - chunking_human_decision_forecast_change
   - governance_memory_durability_policy_change
@@ -450,7 +482,9 @@ explicit_non_authorizations:
   - vector_index_build
   - graph_edge_generation
   - boundary_import
-  - textual_critical_policy_selection
+  - unrecorded_textual_critical_policy_selection
+  - preferred_reading_selection
+  - source_tradition_preference
   - denominational_system_as_chunk_authority
   - owner_projection_without_conflict_scan
   - conflicting_prior_owner_decisions_ignored

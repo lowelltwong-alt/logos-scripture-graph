@@ -367,7 +367,7 @@ def _validate_governed_links() -> None:
     next_route = readiness.get("next_route", {})
     if next_route.get("task_id") != "T371":
         raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.task_id must advance to T371")
-    if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
+    if next_route.get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T371 starts_only_if is stale")
     if next_route.get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
         raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.evidence_packet is stale")
@@ -393,7 +393,7 @@ def _validate_governed_links() -> None:
         raise ParentEvidenceError(f"{_rel(ROADMAP)}: T370 must be complete after evidence prep")
     if t370.get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
         raise ParentEvidenceError(f"{_rel(ROADMAP)}: T370 evidence_packet is stale")
-    if future.get("T371", {}).get("starts_only_if") != "T370_builds_governed_evidence":
+    if future.get("T371", {}).get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
         raise ParentEvidenceError(f"{_rel(ROADMAP)}: T371 starts_only_if is stale")
 
 

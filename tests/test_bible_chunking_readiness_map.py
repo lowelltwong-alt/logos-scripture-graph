@@ -62,6 +62,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in surfaces
+    assert ".ai/control/textual_critical_case_policy.yaml" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
     assert ".ai/control/chunking_human_decision_forecast.yaml" in surfaces
     assert ".ai/control/governance_memory_durability_policy.yaml" in surfaces
@@ -137,13 +138,17 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     queue = data["parallel_textual_critical_policy_options"]
 
     assert data["next_route"]["task_id"] == "T371"
-    assert data["next_route"]["variant_sensitive_policy_gate_task"] == "T378"
-    assert data["next_route"]["variant_sensitive_policy_selected"] is False
-    assert data["next_route"]["t371_promotion_blocked_until_textual_policy"] is True
+    assert data["next_route"]["variant_sensitive_policy_gate_task"] == "T379"
+    assert data["next_route"]["variant_sensitive_policy_selected"] is True
+    assert data["next_route"]["selected_textual_critical_policy"] == "TCP-T378-B"
+    assert data["next_route"]["t371_promotion_blocked_until_textual_policy"] is False
+    assert data["next_route"]["variant_dependency_owner_decision_required"] is True
     assert queue["task_id"] == "T378"
     assert queue["path"] == ".ai/control/textual_critical_policy_owner_options.yaml"
     assert queue["recommended_option"] == "TCP-T378-B"
-    assert queue["textual_critical_policy_selected"] is False
+    assert queue["textual_critical_policy_selected"] is True
+    assert queue["selected_policy"] == "TCP-T378-B"
+    assert queue["selection_record"] == ".ai/control/textual_critical_case_policy.yaml"
     assert queue["preferred_reading_authorized"] is False
     assert queue["source_tradition_preference_authorized"] is False
     assert queue["reviewed_gold_promoted"] is False
@@ -151,12 +156,29 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     assert queue["retrieval_truth_authorized"] is False
 
 
+def test_parallel_textual_critical_case_policy_records_t379_without_promotion() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    policy = data["parallel_textual_critical_case_policy"]
+
+    assert data["next_route"]["task_id"] == "T371"
+    assert policy["task_id"] == "T379"
+    assert policy["path"] == ".ai/control/textual_critical_case_policy.yaml"
+    assert policy["selected_policy"] == "TCP-T378-B"
+    assert policy["projectable_pattern"] == "ODP-005"
+    assert policy["variant_dependency_owner_decision_required"] is True
+    assert policy["preferred_reading_authorized"] is False
+    assert policy["source_tradition_preference_authorized"] is False
+    assert policy["reviewed_gold_promoted"] is False
+    assert policy["graph_edge_generation_allowed"] is False
+    assert policy["retrieval_truth_authorized"] is False
+
+
 def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
     assert data["next_route"]["task_id"] == "T371"
     assert data["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_gate"
-    assert data["next_route"]["starts_only_if"] == "T370_builds_governed_evidence"
+    assert data["next_route"]["starts_only_if"] == "T370_builds_governed_evidence_and_T379_selects_case_policy"
     assert data["next_route"]["recommended_target"] == "epistle_argument"
     assert data["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
     assert data["next_route"]["selected_passage"] == "1Cor.8-1Cor.10"

@@ -1763,6 +1763,56 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-045
+    title: TCP-T378-B case-by-case textual-critical policy selected as process pattern
+    classification: theological_risk
+    task_ids: [T379]
+    owner_decision_ref: ".ai/control/textual_critical_case_policy.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor, canonical_66]
+      passages: [1Cor.8.1-1Cor.10.33, 1Cor.9.20, 1Cor.10.9]
+      routes: [epistle_argument, textual_variant_source_tradition, owner_decision_projection]
+      surfaces: [.ai/control/textual_critical_case_policy.yaml, .ai/control/textual_critical_policy_owner_options.yaml, .ai/control/textual_critical_policy_docket.yaml, .ai/control/owner_decision_projection_policy.yaml, eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml]
+    decision: "Owner selected TCP-T378-B: every future variant-sensitive reviewed-gold promotion must proceed case-by-case with exact variant refs, source surface/provenance, boundary dependency or non-dependency, reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, and validators/tests. The selected policy is projectable as a process pattern for future similar variant-sensitive gates, but it does not project a specific promotion, dependency claim, preferred reading, source-tradition preference, graph/retrieval truth, chunk output, route/evaluator behavior, or implementation authority."
+    downstream_risk: "If future agents treat the selected case-by-case policy as preferred-reading authority or as automatic permission to promote variant-sensitive gold, chunking could silently encode a source-tradition preference, Christological reading, canon-scope decision, boundary import, graph truth, retrieval truth, or output behavior without owner review."
+    theological_assumptions_avoided:
+      - "No critical text, majority text, Textus Receptus, current-source, or other source-tradition default is selected."
+      - "No preferred reading is selected for 1Cor.9.20, 1Cor.10.9, or any future variant-sensitive passage."
+      - "No variant dependency or non-dependency finding is projected for a specific packet."
+      - "No reviewed-gold promotion, chunk boundary, graph edge, retrieval truth, route/evaluator behavior, canon-scope change, boundary import, implementation, vector work, or output change follows from T379."
+      - "No liberal-critical, anti-canonical, or denominational textual-policy default is smuggled into chunking."
+    reviewed_gold_dependency: "T371 may proceed to owner variant-dependency review, but before any 1Cor.8.1-1Cor.10.33 parent-only reviewed-gold promotion it must record exact refs 1Cor.9.20 and 1Cor.10.9, boundary/reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, validators/tests, and separate promotion authorization."
+    non_authorizations:
+      - preferred_reading_selection
+      - critical_text_default
+      - majority_text_default
+      - textus_receptus_default
+      - current_source_as_hidden_textual_policy
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - noncanonical_source_authority
+      - variant_dependency_projection
+      - reviewed_gold_promotion
+      - chunk_boundary_authority
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+      - implementation_authority
+    validators:
+      - scripts/validate_textual_critical_case_policy.py
+      - tests/test_textual_critical_case_policy.py
+      - scripts/validate_textual_critical_policy_owner_options.py
+      - scripts/validate_textual_critical_policy_docket.py
+      - scripts/validate_owner_decision_projection_policy.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1851,4 +1901,5 @@ backfill_coverage:
     - T370
     - T377
     - T378
+    - T379
 ...

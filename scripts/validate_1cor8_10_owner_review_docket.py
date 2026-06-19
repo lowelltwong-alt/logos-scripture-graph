@@ -266,8 +266,11 @@ def _validate_governed_links() -> None:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     if next_route.get("task_id") != "T371":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T371 after T370")
-    if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.starts_only_if must be T370_builds_governed_evidence")
+    if next_route.get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
+        raise OneCorDocketError(
+            f"{_rel(READINESS_MAP)}: next_route.starts_only_if must be "
+            "T370_builds_governed_evidence_and_T379_selects_case_policy"
+        )
     if (
         next_route.get("evidence_packet")
         != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"

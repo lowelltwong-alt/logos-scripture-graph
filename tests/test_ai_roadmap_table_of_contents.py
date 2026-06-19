@@ -233,6 +233,13 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_textual_critical_policy_owner_options.py" in toc
     assert ".ai/tasks/T378.task.yaml" in toc
     assert ".ai/handoffs/T378/handoff.md" in toc
+    assert "T379 | Textual-critical case-by-case policy selection" in toc
+    assert "docs/roadmap/T379_TEXTUAL_CRITICAL_CASE_POLICY_SELECTION.md" in toc
+    assert ".ai/control/textual_critical_case_policy.yaml" in toc
+    assert "scripts/validate_textual_critical_case_policy.py" in toc
+    assert ".ai/tasks/T379.task.yaml" in toc
+    assert ".ai/handoffs/T379/handoff.md" in toc
+    assert "ODP-005" in toc
     assert "T371 - Owner reviewed-gold promotion decision" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc

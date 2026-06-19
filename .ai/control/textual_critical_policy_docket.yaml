@@ -2,8 +2,8 @@
 object_type: textual_critical_policy_docket
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-18 during T367 after the owner authorized a textual-critical policy docket before any variant-sensitive packet can be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions."
-reason_for_inclusion: "Fail closed on variant-sensitive review-packet, canon, source-tradition, graph, retrieval, or boundary work until an explicit later owner textual-critical policy decision exists."
+provenance_note: "Created 2026-06-18 during T367 after the owner authorized a textual-critical policy docket before any variant-sensitive packet can be promoted, implemented, used as reviewed gold, or used for canon/source-tradition/boundary decisions. Updated 2026-06-19 during T379 after the owner selected TCP-T378-B."
+reason_for_inclusion: "Fail closed on variant-sensitive review-packet, canon, source-tradition, graph, retrieval, or boundary work until the selected case-by-case owner policy is satisfied for the exact packet."
 ---
 schema_version: textual_critical_policy_docket.v1
 docket_id: textual_critical_policy_required_before_variant_sensitive_use
@@ -26,11 +26,14 @@ authority:
   authorizes_retrieval_truth: false
   authorizes_output_change: false
 policy_status:
-  textual_critical_policy_selected: false
-  selected_policy: pending_owner_decision
-  owner_decision_required: true
+  textual_critical_policy_selected: true
+  selected_policy: TCP-T378-B
+  owner_decision_required: false
   owner_options_docket: .ai/control/textual_critical_policy_owner_options.yaml
   owner_options_task: T378
+  selected_policy_record: .ai/control/textual_critical_case_policy.yaml
+  owner_selection_task: T379
+  owner_confirmation_required_per_variant_sensitive_promotion: true
   applies_before:
     - variant_sensitive_packet_promotion
     - variant_sensitive_chunk_implementation
@@ -50,9 +53,11 @@ variant_sensitive_surfaces:
   - Daniel and Esther boundary additions
   - 1John.5.6-1John.5.8
 required_before_use:
-  - explicit_owner_textual_critical_policy
-  - exact_scope
-  - source_tradition_provenance
+  - exact_variant_sensitive_refs
+  - source_surface_and_provenance
+  - boundary_dependency_or_non_dependency
+  - reviewed_gold_dependency_or_non_dependency
+  - owner_confirmation_per_promotion
   - canon_scope_check
   - decision_register_update
   - non_authorization_review
@@ -74,6 +79,8 @@ non_authorizations:
 validators:
   - scripts/validate_textual_critical_policy_docket.py
   - tests/test_textual_critical_policy_docket.py
+  - scripts/validate_textual_critical_case_policy.py
+  - tests/test_textual_critical_case_policy.py
   - scripts/validate_textual_critical_policy_owner_options.py
   - tests/test_textual_critical_policy_owner_options.py
   - scripts/validate_chunking_agent_preflight.py
