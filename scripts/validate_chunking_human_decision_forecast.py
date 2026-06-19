@@ -259,7 +259,7 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
 
     register = _read_text(REGISTER)
-    for phrase in ("CD-038", "Human decision forecast front-loads chunking gates", "T368"):
+    for phrase in ("CD-038", "CD-042", "Human decision forecast front-loads chunking gates", "T368", "T370"):
         if phrase not in register:
             raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -277,6 +277,14 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 selected_option is wrong")
     if by_id["T370"].get("starts_only_if") != "T369_parent_only_projected_selection":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 starts_only_if is stale")
+    if by_id["T370"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 must be complete after evidence prep")
+    if by_id["T370"].get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 evidence_packet is stale")
+    if by_id["T371"].get("starts_only_if") != "T370_builds_governed_evidence":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 starts_only_if is stale")
+    if by_id["T371"].get("owner_decision_required") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 owner_decision_required must be true")
     if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
     if by_id["T374"].get("output_change_authorized") is not False:

@@ -78,8 +78,13 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     assert future["T369"]["human_decision_forecast"] == ".ai/control/chunking_human_decision_forecast.yaml"
     assert future["T369"]["status"] == "complete"
     assert future["T369"]["selected_option"] == "1COR8-10-T369-B"
+    assert future["T370"]["status"] == "complete"
     assert future["T370"]["starts_only_if"] == "T369_parent_only_projected_selection"
+    assert future["T370"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    assert future["T370"]["reviewed_gold_promoted"] is False
     assert future["T371"]["owner_decision_required"] is True
+    assert future["T371"]["starts_only_if"] == "T370_builds_governed_evidence"
+    assert future["T371"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     assert future["T373"]["owner_decision_required"] is True
     assert future["T374"]["output_change_authorized"] is False
 

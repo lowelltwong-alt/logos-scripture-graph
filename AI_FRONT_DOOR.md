@@ -26,6 +26,7 @@ Read these files before making changes:
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
     textual-variant/source-tradition dossier queue, Orthodox Hermeneutic Firewall,
     textual-critical policy requirement docket, 1Cor.8-10 owner-review docket,
+    T370 parent-only evidence packet,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     and John 3 owner-review docket are evidence/review policy, not authority.
@@ -106,13 +107,15 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T367 keep the current route non-output-changing: Bible-wide triage is complete,
+- T351 through T370 keep the current route non-output-changing: Bible-wide triage is complete,
   T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
   T367 selected `JOHN3-T356-B` as parent-only review target, T367 added the Orthodox
   Hermeneutic Firewall plus textual-critical policy requirement, and T368 strengthened the
-  `1Cor.8.1-1Cor.10.33` packet with an owner-review docket. The readiness map now points to
-  T369 / `1Cor.8-10` owner-review gating as review-only work. Do not move from packet/docket prep
-  to implementation without later owner-reviewed gold and exact authorization.
+  `1Cor.8.1-1Cor.10.33` packet with an owner-review docket. T369 selected the parent-only
+  review target by projected owner pattern, and T370 built the governed parent-only evidence
+  packet. The readiness map now points to T371 owner reviewed-gold promotion review. Do not move
+  from packet/evidence prep to implementation without later owner-reviewed gold and exact
+  authorization.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -141,10 +144,11 @@ Bible-first chunking priority:
   pattern is new, agents must stop and tell Lowell before continuing.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T370 parent-only evidence prep for
-  `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall and target-selection
-  record, T368 preserved as the review-packet strengthening record, and T369 preserved as the
-  projected owner-pattern parent-only selection record.
+  next safe route. It is non-authorizing and currently points to T371 owner reviewed-gold promotion review
+  for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
+  preserved as the review-packet strengthening record, T369 preserved as the projected
+  owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
+  record.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -272,12 +276,19 @@ Bible-first chunking priority:
   select a textual-critical policy. It is validated by
   `scripts/validate_textual_critical_policy_docket.py`.
 - The 1Cor.8-10 epistle owner-review docket at
-  `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records pending owner options for
-  `1Cor.8.1-1Cor.10.33` after T368 strengthened the review packet. It does not authorize a parent
+  `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
+  projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review
+  packet and T369 selected option `1COR8-10-T369-B`. It does not authorize a parent
   span as reviewed gold, approve child spans, select sacramental/ecclesial/Christian-liberty or
   law/gospel systems, choose textual-critical policy, promote reviewed gold, authorize graph edges,
   authorize chunk boundaries, authorize retrieval truth, or change output. It is validated by
   `scripts/validate_1cor8_10_owner_review_docket.py`.
+- The T370 1Cor.8-10 parent-only evidence packet at
+  `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml` records governed
+  evidence for owner promotion review only. It is not reviewed gold and does not authorize child
+  spans, chunk boundaries, route/evaluator behavior, textual-critical policy, graph/retrieval
+  truth, vectors, or output changes. It is validated by
+  `scripts/validate_1cor8_10_parent_evidence_packet.py`.
 
 High-leverage change risk gate:
 
@@ -392,6 +403,7 @@ python scripts/validate_textual_variant_source_tradition_dossier_queue.py
 python scripts/validate_orthodox_hermeneutic_firewall_docket.py
 python scripts/validate_textual_critical_policy_docket.py
 python scripts/validate_1cor8_10_owner_review_docket.py
+python scripts/validate_1cor8_10_parent_evidence_packet.py
 python scripts/validate_chunking_human_decision_forecast.py
 python scripts/validate_audit_surface_map.py
 python scripts/validate_owner_selection_implementation_gate.py
@@ -476,8 +488,13 @@ policy docket selects a hidden policy, authorizes preferred readings, canon-scop
 source-tradition preferences, boundary imports, reviewed gold, graph/retrieval truth, chunks, or
 output changes.
 `python scripts/validate_1cor8_10_owner_review_docket.py` fails closed if the 1Cor.8-10
-owner-review docket becomes authorizing, selects an option before owner review, promotes reviewed
-gold, changes the readiness gate away from T369, or stops being mandatory preflight context.
+owner-review docket becomes authorizing, loses the projected parent-only selection, promotes
+reviewed gold, changes the readiness gate away from T371 after T370, or stops being mandatory
+preflight context.
+`python scripts/validate_1cor8_10_parent_evidence_packet.py` fails closed if the T370 parent-only
+evidence packet becomes authorizing, goes stale against canonical sidecars, loses the conflict-stop
+rule, promotes reviewed gold, selects child spans, changes route/evaluator behavior, authorizes
+graph/retrieval/vector output, or advances without the T371 owner promotion gate.
 `python scripts/validate_chunking_human_decision_forecast.py` fails closed if predictable owner
 decisions are not front-loaded, if the forecast becomes authorizing, if it stops defining what is
 ready for the first new output-changing chunk PR, or if it falls out of preflight/readiness/register

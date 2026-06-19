@@ -107,6 +107,15 @@ Revelation implementation, reviewed-gold promotion, output-changing work, route 
 evaluator changes, generated chunk regeneration, boundary import, T327G, embedding/index/edge
 work, graph-edge generation, whole-Bible output-changing work, or Psalm candidate promotion.
 
+T370 adds a governed 1 Corinthians parent-only evidence packet:
+
+- `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`
+
+This packet is ready for owner promotion review for `1Cor.8.1-1Cor.10.33` only. It records
+canonical sidecar evidence, metadata, and conflict-scan carry-forward, but it does not promote
+reviewed gold, approve child spans, authorize route or evaluator behavior, create graph/retrieval
+truth, select a textual-critical policy, or authorize chunk/output changes.
+
 ## Marker-Sensitive Stress Cases
 
 T316c adds proposed marker-sensitive stress-atlas cases for words-of-Jesus `\wj` spans, Selah

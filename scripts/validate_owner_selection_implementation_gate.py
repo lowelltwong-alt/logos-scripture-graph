@@ -279,9 +279,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', or 'T370' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', or 'T371' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -487,6 +487,43 @@ def validate_owner_selection_implementation_gate(
                     _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
                 _require_equal(next_route.get("selected_children"), [], "readiness.next_route.selected_children")
                 _require_equal(next_route.get("starts_only_if"), "T369_parent_only_projected_selection", "readiness.next_route.starts_only_if")
+                _require_equal(next_route.get("review_only"), True, "readiness.next_route.review_only")
+                _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+                _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
+                _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
+                _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+                _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+            if next_task_id == "T371":
+                expected = {
+                    "route_type": "epistle_argument_owner_reviewed_gold_promotion_gate",
+                    "recommended_target": "epistle_argument",
+                    "selected_target": "1cor8_10_food_offered_to_idols",
+                    "selected_passage": "1Cor.8-1Cor.10",
+                    "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
+                    "selected_option": "1COR8-10-T369-B",
+                    "selected_parent": "1Cor.8.1-1Cor.10.33",
+                    "selection_mode": "projected_owner_pattern",
+                    "projection_policy": ".ai/control/owner_decision_projection_policy.yaml",
+                    "conflict_scan_result": "no_conflict_detected",
+                    "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+                    "evidence_packet": "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+                    "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+                    "packet_status": "parent_only_evidence_packet_ready_for_owner_review",
+                    "owner_selection_status": "selected",
+                    "prior_owner_decision_task": "T367",
+                    "packet_strengthening_task": "T368",
+                    "parent_selection_task": "T369",
+                    "evidence_prep_task": "T370",
+                    "prior_packet_task": "T352",
+                    "prior_issue_dossier_task": "T361",
+                    "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+                    "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+                }
+                for key, value in expected.items():
+                    _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
+                _require_equal(next_route.get("selected_children"), [], "readiness.next_route.selected_children")
+                _require_equal(next_route.get("starts_only_if"), "T370_builds_governed_evidence", "readiness.next_route.starts_only_if")
+                _require_equal(next_route.get("owner_decision_required"), True, "readiness.next_route.owner_decision_required")
                 _require_equal(next_route.get("review_only"), True, "readiness.next_route.review_only")
                 _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
                 _require_false(next_route, "route_behavior_authorized", "readiness.next_route")

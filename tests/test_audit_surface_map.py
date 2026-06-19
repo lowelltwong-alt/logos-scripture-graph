@@ -50,6 +50,7 @@ def test_front_door_and_toc_expose_no_context_audit_path() -> None:
         ".ai/control/harness_upgrade_roadmap.yaml",
         ".ai/control/governance_memory_durability_policy.yaml",
         ".ai/control/owner_decision_projection_policy.yaml",
+        "1cor8_10_parent_only_evidence_packet.yaml",
         "scripts/agent/no_context_audit_harness.py",
         "scripts/validate_task_scope.py",
     ]:
@@ -90,8 +91,10 @@ def test_no_context_audit_harness_prints_brief() -> None:
     assert ".ai/control/harness_upgrade_roadmap.yaml" in result.stdout
     assert ".ai/control/governance_memory_durability_policy.yaml" in result.stdout
     assert ".ai/control/owner_decision_projection_policy.yaml" in result.stdout
+    assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in result.stdout
     assert "python scripts/validate_governance_memory_durability.py" in result.stdout
     assert "python scripts/validate_owner_decision_projection_policy.py" in result.stdout
+    assert "python scripts/validate_1cor8_10_parent_evidence_packet.py" in result.stdout
     assert "python scripts/validate_audit_surface_map.py" in result.stdout
 
 

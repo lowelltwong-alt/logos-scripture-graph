@@ -1621,6 +1621,57 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-042
+    title: 1 Corinthians 8-10 parent-only evidence packet remains non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T370]
+    owner_decision_ref: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33]
+      routes: [epistle_argument, future_epistle_review]
+      surfaces: [eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml, eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "Build a governed parent-only evidence packet for 1Cor.8.1-1Cor.10.33 so the owner can later decide reviewed-gold promotion, while keeping the parent span, paragraph markers, cross-references, Strong-style numbers, capitalization, footnotes, and current chunk behavior as evidence only."
+    downstream_risk: "A strong evidence packet could be mistaken for reviewed gold, a chunk boundary, child-span approval, textual-critical preference, graph/retrieval truth, sacramental or ecclesial system selection, or implementation authority."
+    theological_assumptions_avoided:
+      - "No sacramental, ecclesial, weak/strong, Christian-liberty, law/gospel, covenant, or denominational system is selected."
+      - "No child span is selected; parent-only evidence does not imply child boundaries."
+      - "No source metadata becomes authority, including paragraph markers, editorial cross-references, Strong-style numbers, divine-name/title capitalization, or footnotes."
+      - "No textual-critical policy is selected for 1Cor.9.20 or 1Cor.10.9."
+      - "If prior owner decisions conflict for this text in future review, agents must stop and surface the conflict before promotion or implementation."
+    reviewed_gold_dependency: "T371 requires explicit owner reviewed-gold promotion before this evidence packet can become reviewed gold or drive implementation."
+    non_authorizations:
+      - reviewed_gold_promotion
+      - parent_span_as_chunk_boundary
+      - child_span_selection
+      - argument_outline_as_child_boundary
+      - paragraph_marker_as_chunk_boundary
+      - source_metadata_as_authority
+      - cross_reference_as_graph_edge
+      - strong_number_as_lexical_truth
+      - capitalization_as_divine_identity
+      - textual_critical_policy_selection
+      - sacramental_system_selection
+      - ecclesial_system_selection
+      - weak_strong_system_selection
+      - christian_liberty_system_selection
+      - law_gospel_system_selection
+      - covenant_system_selection
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - chunk_output_change
+    validators:
+      - scripts/validate_1cor8_10_parent_evidence_packet.py
+      - tests/test_1cor8_10_parent_evidence_packet.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1706,4 +1757,5 @@ backfill_coverage:
     - T367
     - T368
     - T369
+    - T370
 ...

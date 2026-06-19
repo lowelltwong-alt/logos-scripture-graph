@@ -1,8 +1,17 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-18
-**Updated by:** T369 owner-pattern projection and register durability (Codex)
-**Active task:** -> **T369** is complete as non-output-changing governance work. It protects `.ai/control/chunking_theological_decision_register.yaml` as critical governance memory, records `.ai/control/owner_decision_projection_policy.yaml` with the conflict-stop rule, selects `1Cor.8.1-1Cor.10.33` as a parent-only review target by projected owner pattern, records `CD-039` through `CD-041`, and advances readiness to T370 parent-only evidence prep. It does not authorize child spans, reviewed gold, doctrine systems, textual-critical policy selection, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T370 parent-only evidence packet (Codex)
+**Active task:** -> **T370** is complete as non-output-changing evidence prep. It adds `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`, validates it against canonical eng-web sidecars with `scripts/validate_1cor8_10_parent_evidence_packet.py`, records `CD-042`, and advances readiness to T371 owner reviewed-gold promotion review. It does not authorize child spans, reviewed gold, doctrine systems, textual-critical policy selection, route behavior, evaluator changes, graph edges, retrieval truth, chunks, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T370 1 Corinthians 8-10 parent-only evidence packet (2026-06-18):** Built a governed
+> parent-only evidence packet for `1Cor.8.1-1Cor.10.33` from canonical eng-web sidecars and
+> existing T352/T368/T369 controls. The packet records verse count, current chunk behavior,
+> paragraph-marker evidence, variant-sensitive footnotes, editorial cross-references,
+> Strong-style clusters, divine-name/title capitalization, conflict-scan carry-forward, and T371
+> promotion blockers. It is ready for owner promotion review only. No reviewed gold, child span,
+> route/evaluator behavior, graph/retrieval truth, textual-critical policy, chunk boundary, or
+> output change is authorized.
 
 > **T369 owner-pattern projection and register durability (2026-06-18):** Added
 > `.ai/control/governance_memory_durability_policy.yaml`, checked by
@@ -15,7 +24,8 @@
 > decisions conflict for the target text. T369 applies that policy to select `1COR8-10-T369-B`:
 > parent-only `1Cor.8.1-1Cor.10.33` review target, no child spans, no reviewed gold, no route or
 > evaluator behavior, no graph/retrieval truth, no textual-critical policy, no doctrinal system,
-> and no output change. The next route is T370 evidence prep only.
+> and no output change. T370 evidence prep has since completed; the current next route is T371
+> owner reviewed-gold promotion review only.
 
 > **T368 1 Corinthians 8-10 packet strengthening (2026-06-18):** Strengthened the
 > `1Cor.8.1-1Cor.10.33` epistle argument packet with source-evidence snapshots, candidate owner

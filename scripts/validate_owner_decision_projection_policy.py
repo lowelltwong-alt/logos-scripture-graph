@@ -231,18 +231,38 @@ def _validate_governed_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
-    if next_route.get("task_id") != "T370":
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must advance to T370")
-    if next_route.get("starts_only_if") != "T369_parent_only_projected_selection":
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T370 starts_only_if is wrong")
+    if next_route.get("task_id") != "T371":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must advance to T371 after T370 evidence prep")
+    if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T371 starts_only_if is wrong")
+    if (
+        next_route.get("evidence_packet")
+        != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    ):
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T371 evidence_packet is stale")
+    if next_route.get("owner_decision_required") is not True:
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T371 must require an owner decision")
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "reviewed_gold_promoted",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if next_route.get(key) is not False:
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T371 {key} must remain false")
 
     register_text = _read_text(REGISTER)
     for phrase in (
         "CD-039",
         "CD-040",
         "CD-041",
+        "CD-042",
         "Owner decision projection policy allows conservative repeated-pattern decisions",
         "1 Corinthians 8-10 parent-only review target selected by projected owner pattern",
+        "1 Corinthians 8-10 parent-only evidence packet remains non-authorizing",
     ):
         if phrase not in register_text:
             raise ProjectionPolicyError(f"{_rel(REGISTER)}: missing {phrase!r}")

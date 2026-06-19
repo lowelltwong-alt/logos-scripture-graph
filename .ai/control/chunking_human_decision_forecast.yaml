@@ -21,7 +21,7 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t369_parent_only_review_target_unblocked_for_t370_non_output_evidence_prep
+  current_unblock_status: t370_parent_only_evidence_packet_ready_for_t371_owner_promotion_review
   remaining_blocks:
     - reviewed_gold_promotion
     - implementation_authorization
@@ -329,11 +329,19 @@ next_roadmap_steps:
     output_change_authorized: false
   - task_id: T370
     title: Build selected 1Cor.8-10 reviewed-gold evidence packet
-    starts_only_if: T369_selects_option_requiring_gold_strengthening
+    status: complete_non_authorizing
+    starts_only_if: T369_parent_only_projected_selection
+    evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
+    evidence_scope: parent_only
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    reviewed_gold_promoted: false
     output_change_authorized: false
   - task_id: T371
     title: Owner reviewed-gold promotion decision
     owner_decision_required: true
+    starts_only_if: T370_builds_governed_evidence
+    evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
     output_change_authorized: false
   - task_id: T372
     title: Route-isolated implementation harness and non-target identity plan

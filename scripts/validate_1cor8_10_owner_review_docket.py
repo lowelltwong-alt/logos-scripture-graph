@@ -203,7 +203,9 @@ def _validate_packet_links() -> None:
     for phrase in (
         "T368 strengthened packet: true",
         "Owner-review docket: `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`",
-        "Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`",
+        "T370 parent-only evidence packet: `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`",
+        "Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`, `CD-042`",
+        "No reviewed gold is promoted by the T370 evidence packet.",
         "1Cor.9.20",
         "1Cor.10.9",
         "Deut.25.4",
@@ -239,9 +241,12 @@ def _validate_governed_links() -> None:
     for phrase in (
         "CD-037",
         "CD-041",
+        "CD-042",
         "1 Corinthians 8-10 strengthened packet remains non-authorizing",
         "1 Corinthians 8-10 parent-only review target selected by projected owner pattern",
+        "1 Corinthians 8-10 parent-only evidence packet remains non-authorizing",
         "T369",
+        "T370",
     ):
         if phrase not in register_text:
             raise OneCorDocketError(f"{_rel(REGISTER)}: missing {phrase!r}")
@@ -259,10 +264,19 @@ def _validate_governed_links() -> None:
     next_route = readiness.get("next_route")
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
-    if next_route.get("task_id") != "T370":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T370 after T369")
+    if next_route.get("task_id") != "T371":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T371 after T370")
+    if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.starts_only_if must be T370_builds_governed_evidence")
+    if (
+        next_route.get("evidence_packet")
+        != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    ):
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.evidence_packet is stale")
     if next_route.get("owner_review_docket") != ".ai/control/1cor8_10_epistle_owner_review_docket.yaml":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.owner_review_docket is stale")
+    if next_route.get("owner_decision_required") is not True:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.owner_decision_required must be true")
     for key in (
         "output_change_authorized",
         "implementation_authorized",

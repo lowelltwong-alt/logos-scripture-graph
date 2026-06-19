@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_through_t368_remain_complete_while_live_route_points_to_t369() -> None:
+def test_t342_through_t370_remain_complete_while_live_route_points_to_t371() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -118,8 +118,12 @@ def test_t342_through_t368_remain_complete_while_live_route_points_to_t369() -> 
     assert future["T369"]["status"] == "complete"
     assert future["T369"]["selected_option"] == "1COR8-10-T369-B"
     assert future["T369"]["selected_children"] == []
-    assert readiness["next_route"]["task_id"] == "T370"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_parent_only_evidence_prep"
+    assert future["T370"]["status"] == "complete"
+    assert future["T370"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    assert future["T370"]["reviewed_gold_promoted"] is False
+    assert readiness["next_route"]["task_id"] == "T371"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_gate"
+    assert readiness["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False

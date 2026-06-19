@@ -9,15 +9,17 @@
 - Proposed parent unit for review: `1Cor.8-1Cor.10`
 - Exact parent candidate for owner review: `1Cor.8.1-1Cor.10.33`
 - T368 strengthened packet: true
+- T370 parent-only evidence packet: `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml`
 - Owner-review docket: `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`
 - Orthodox Hermeneutic Firewall: `.ai/control/orthodox_hermeneutic_firewall_docket.yaml`
 - Textual-critical policy docket: `.ai/control/textual_critical_policy_docket.yaml`
-- Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`
+- Decision-register anchors: `CD-034`, `CD-035`, `CD-036`, `CD-037`, `CD-042`
 - Implementation allowed: false
 - Output change authorized: false
 - Reviewed gold promoted: false
 
 This packet does not authorize output-changing work.
+No reviewed gold is promoted by the T370 evidence packet.
 
 ## Review Target
 
