@@ -1716,6 +1716,53 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-044
+    title: Textual-critical policy options block variant-sensitive reviewed-gold promotion
+    classification: theological_risk
+    task_ids: [T378]
+    owner_decision_ref: ".ai/control/textual_critical_policy_owner_options.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33, 1Cor.9.20, 1Cor.10.9]
+      routes: [epistle_argument, textual_variant_source_tradition]
+      surfaces: [.ai/control/textual_critical_policy_owner_options.yaml, .ai/control/textual_critical_policy_docket.yaml, eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml]
+    decision: "Create a non-authorizing textual-critical policy options docket and keep T371 reviewed-gold promotion blocked until the owner selects a textual-critical policy or explicitly holds variant-sensitive promotion. T378 recommends a case-by-case owner policy but does not select it."
+    downstream_risk: "Promoting a packet containing 1Cor.9.20 or 1Cor.10.9 before a textual-critical policy could silently select a preferred reading, source-tradition preference, Christological implication, boundary decision, graph truth, retrieval truth, or current-source default."
+    theological_assumptions_avoided:
+      - "No critical text, majority text, Textus Receptus, current-source, or other source-tradition default is selected."
+      - "No variant-sensitive reviewed-gold promotion is authorized by the options docket."
+      - "No Christological conclusion from the 1Cor.10.9 Lord/Christ footnote is encoded."
+      - "No liberal-critical, anti-canonical, or denominational textual-policy default is smuggled into chunking."
+      - "No graph edge, retrieval truth, chunk boundary, canon-scope change, boundary import, route behavior, evaluator change, or output change follows from T378."
+    reviewed_gold_dependency: "Before T371 can promote the 1Cor.8.1-1Cor.10.33 parent-only evidence packet, the owner must select a textual-critical policy or explicitly hold variant-sensitive promotion; any future promotion must record exact variant refs, boundary non-dependency or dependency, owner confirmation, decision-register update, and validator/test coverage."
+    non_authorizations:
+      - textual_critical_policy_selection
+      - preferred_reading_selection
+      - current_source_as_hidden_textual_policy
+      - critical_text_default
+      - majority_text_default
+      - textus_receptus_default
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - noncanonical_source_authority
+      - reviewed_gold_promotion
+      - chunk_boundary_authority
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - output_change
+    validators:
+      - scripts/validate_textual_critical_policy_owner_options.py
+      - tests/test_textual_critical_policy_owner_options.py
+      - scripts/validate_textual_critical_policy_docket.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -1803,4 +1850,5 @@ backfill_coverage:
     - T369
     - T370
     - T377
+    - T378
 ...

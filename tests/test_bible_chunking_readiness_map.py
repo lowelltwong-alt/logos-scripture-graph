@@ -61,6 +61,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in surfaces
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
+    assert ".ai/control/textual_critical_policy_owner_options.yaml" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
     assert ".ai/control/chunking_human_decision_forecast.yaml" in surfaces
     assert ".ai/control/governance_memory_durability_policy.yaml" in surfaces
@@ -127,6 +128,25 @@ def test_parallel_original_language_pressure_queue_does_not_replace_next_route()
     assert queue["translation_preference_authorized"] is False
     assert queue["nonorthodox_source_authority_allowed"] is False
     assert queue["extra_canonical_source_authority_allowed"] is False
+    assert queue["graph_edge_generation_allowed"] is False
+    assert queue["retrieval_truth_authorized"] is False
+
+
+def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    queue = data["parallel_textual_critical_policy_options"]
+
+    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["variant_sensitive_policy_gate_task"] == "T378"
+    assert data["next_route"]["variant_sensitive_policy_selected"] is False
+    assert data["next_route"]["t371_promotion_blocked_until_textual_policy"] is True
+    assert queue["task_id"] == "T378"
+    assert queue["path"] == ".ai/control/textual_critical_policy_owner_options.yaml"
+    assert queue["recommended_option"] == "TCP-T378-B"
+    assert queue["textual_critical_policy_selected"] is False
+    assert queue["preferred_reading_authorized"] is False
+    assert queue["source_tradition_preference_authorized"] is False
+    assert queue["reviewed_gold_promoted"] is False
     assert queue["graph_edge_generation_allowed"] is False
     assert queue["retrieval_truth_authorized"] is False
 

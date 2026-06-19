@@ -69,6 +69,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_policy_docket.yaml",
+    ".ai/control/textual_critical_policy_owner_options.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",

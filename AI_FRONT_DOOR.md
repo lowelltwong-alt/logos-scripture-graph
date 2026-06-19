@@ -26,7 +26,7 @@ Read these files before making changes:
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
     textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
     queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
-    1Cor.8-10 owner-review docket,
+    textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T370 parent-only evidence packet,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
@@ -284,6 +284,13 @@ Bible-first chunking priority:
   for canon/source-tradition/boundary decisions before a later explicit owner policy. It does not
   select a textual-critical policy. It is validated by
   `scripts/validate_textual_critical_policy_docket.py`.
+- The textual-critical owner options docket at
+  `.ai/control/textual_critical_policy_owner_options.yaml` records T378 policy choices for
+  variant-sensitive promotion gates, including T371 `1Cor.9.20` and `1Cor.10.9`. It recommends
+  case-by-case owner policy before each variant-sensitive promotion, but does not select that
+  policy, choose a preferred reading, authorize source-tradition preference, promote reviewed gold,
+  create graph/retrieval truth, authorize chunk boundaries, or change output. It is validated by
+  `scripts/validate_textual_critical_policy_owner_options.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review

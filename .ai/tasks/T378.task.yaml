@@ -1,0 +1,81 @@
+id: T378
+phase: phase_4
+title: "Textual-Critical Policy Owner Options"
+mode: implementation
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/textual_critical_policy_owner_options.yaml
+    - .ai/control/textual_critical_policy_docket.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T378.task.yaml
+    - .ai/handoffs/T378/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T378_TEXTUAL_CRITICAL_POLICY_OWNER_OPTIONS.md
+    - scripts/validate_textual_critical_policy_owner_options.py
+    - scripts/validate_textual_critical_policy_docket.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_textual_critical_policy_owner_options.py
+    - tests/test_textual_critical_policy_docket.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  triggering_context: "T371 review found that the 1Cor.8.1-1Cor.10.33 parent-only evidence packet includes variant-sensitive 1Cor.9.20 and 1Cor.10.9 footnotes."
+  policy_options: .ai/control/textual_critical_policy_owner_options.yaml
+  records_policy_options: true
+  textual_critical_policy_selected: false
+  selected_policy: pending_owner_decision
+  recommended_option: TCP-T378-B
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  boundary_import_allowed: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+acceptance_criteria:
+  - "A textual-critical policy owner options docket exists and is mandatory preflight reading."
+  - "The docket recommends case-by-case owner policy but selects no textual-critical policy or preferred reading."
+  - "T371 is recorded as blocked until owner policy selection or explicit hold."
+  - "The decision register records CD-044 and T378 coverage."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_textual_critical_policy_owner_options.py
+  - python scripts/validate_textual_critical_policy_docket.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T378
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T378/handoff.md
+next_task: "Owner must select a textual-critical policy option before T371 reviewed-gold promotion can proceed. Recommended option is TCP-T378-B: case-by-case owner policy before each variant-sensitive promotion."

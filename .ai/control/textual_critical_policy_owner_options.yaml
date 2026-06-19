@@ -1,0 +1,121 @@
+---
+object_type: textual_critical_policy_owner_options_docket
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-19 during T378 after T371 review showed that the 1Cor.8.1-1Cor.10.33 parent-only evidence packet contains variant-sensitive footnotes and cannot be promoted before an explicit owner textual-critical policy."
+reason_for_inclusion: "Give the owner a first-class, non-authorizing decision surface for textual-critical policy before variant-sensitive packets are promoted, implemented, used as reviewed gold, or used for canon, source-tradition, boundary, graph, retrieval, or chunk decisions."
+---
+schema_version: textual_critical_policy_owner_options.v1
+docket_id: t378_textual_critical_policy_owner_options
+owner: Lowell Wong
+authority:
+  records_policy_options: true
+  records_recommendation: true
+  may_surface_for_owner_decision: true
+  authorizes_textual_critical_policy: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_noncanonical_source_authority: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_boundaries: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_output_change: false
+policy_status:
+  textual_critical_policy_selected: false
+  selected_policy: pending_owner_decision
+  owner_decision_required: true
+  blocks_t371_until_selected: true
+  next_owner_decision_id: TCP-T378
+relation_to_existing_docket:
+  requirement_docket: .ai/control/textual_critical_policy_docket.yaml
+  requirement_preserved: true
+  relation_to_t371: "T371 reviewed-gold promotion for 1Cor.8.1-1Cor.10.33 must not proceed until the owner selects a textual-critical policy or explicitly holds variant-sensitive promotion."
+variant_sensitive_trigger_examples:
+  - passage: 1Cor.9.20
+    surface: footnote
+    issue: "NU addition note: though I myself am not under the law."
+    t371_relevance: "Inside the proposed parent span; parent-boundary promotion must prove it does not depend on this wording or must wait."
+  - passage: 1Cor.10.9
+    surface: footnote
+    issue: "NU reading note: the Lord instead of Christ."
+    t371_relevance: "Inside the proposed parent span and potentially Christological; graph, retrieval, boundary, and reviewed-gold use must not imply a preferred reading."
+owner_options:
+  - option_id: TCP-T378-A
+    title: Current canonical source only until case policy
+    summary: "Use the current canonical eng-web source as the working data witness for non-variant-dependent chunk boundaries, while treating variant notes as evidence only and stopping before any variant-dependent promotion."
+    upside: "Keeps work moving where boundaries do not depend on a variant and avoids importing external textual traditions."
+    downside: "Could be overread as silently privileging the current source unless validators require variant-non-dependency proof."
+    downstream_effect_if_selected: "T371 could proceed only if the parent-boundary promotion records that the 1Cor.8.1-1Cor.10.33 boundary does not depend on the 1Cor.9.20 or 1Cor.10.9 readings."
+    non_authorizations: [preferred_reading, source_tradition_preference, canon_scope_change, graph_edge, retrieval_truth, output_change]
+  - option_id: TCP-T378-B
+    title: Case-by-case owner policy before each variant-sensitive promotion
+    summary: "Require every variant-sensitive packet to record exact variants, prove whether the boundary or reviewed-gold claim depends on them, and receive owner confirmation before promotion."
+    upside: "Most conservative while still allowing faithful progress; it refuses hidden source-tradition preference, liberal-critical default, and automatic current-source authority."
+    downside: "Adds an owner gate for each variant-sensitive packet and may slow future work."
+    downstream_effect_if_selected: "T371 could proceed only after an owner note records that the parent-only boundary is variant-non-dependent, or else the packet remains held."
+    recommended_by_agent: true
+    recommendation_rationale: "This best preserves canonical Scripture authority, textual humility, and orthodox boundaries without smuggling a current-source, denominational, or critical-text default."
+    non_authorizations: [preferred_reading, source_tradition_preference, canon_scope_change, graph_edge, retrieval_truth, output_change]
+  - option_id: TCP-T378-C
+    title: Formal global textual policy before any variant-sensitive promotion
+    summary: "Stop all variant-sensitive promotion until a later formal project-level textual policy chooses how to handle source traditions across the whole canon."
+    upside: "Strong consistency and maximum auditability before any variant-sensitive gold is created."
+    downside: "Likely stalls chunking and risks turning textual tradition selection into a broader denominational or scholarly-policy fight before boundary work can continue."
+    downstream_effect_if_selected: "T371 remains blocked until that formal policy exists."
+    non_authorizations: [preferred_reading_until_later_policy, canon_scope_change, graph_edge, retrieval_truth, output_change]
+  - option_id: TCP-T378-D
+    title: Hold all variant-sensitive packets
+    summary: "Do not promote, implement, graph, retrieve, or use any packet containing a variant-sensitive verse until original-language and textual-critical research is complete."
+    upside: "Maximum fail-closed safety."
+    downside: "Blocks many important passages even when the proposed boundary does not depend on the variant."
+    downstream_effect_if_selected: "T371 is held; agents must choose a non-variant-sensitive target or continue research only."
+    non_authorizations: [reviewed_gold_promotion, implementation, graph_edge, retrieval_truth, output_change]
+recommended_owner_path:
+  option_id: TCP-T378-B
+  recommendation: "Select case-by-case owner policy before each variant-sensitive promotion."
+  why_more_faithful: "It protects canonical Scripture from hidden source-tradition preference and liberal-critical assumptions while avoiding a new denominational textual policy as chunk authority. It also lets non-variant-dependent boundaries move only after explicit owner confirmation."
+minimum_future_policy_if_selected:
+  - exact_variant_sensitive_refs
+  - source_surface_and_provenance
+  - "boundary_depends_on_variant: true_or_false"
+  - "reviewed_gold_claim_depends_on_variant: true_or_false"
+  - "graph_retrieval_depends_on_variant: must_be_false_without_later_owner_authorization"
+  - owner_confirmation
+  - decision_register_update
+  - validator_or_test_update
+t371_specific_recommendation:
+  recommended_next_owner_decision: "Do not promote T371 reviewed gold until TCP-T378 is selected. If TCP-T378-B is selected, then T371 may ask whether the 1Cor.8.1-1Cor.10.33 parent boundary is variant-non-dependent and can be promoted parent-only."
+  child_spans_authorized: false
+  implementation_authorized: false
+  output_change_authorized: false
+non_authorizations:
+  - textual_critical_policy_selection
+  - preferred_reading_selection
+  - current_source_as_hidden_textual_policy
+  - critical_text_default
+  - majority_text_default
+  - textus_receptus_default
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - noncanonical_source_authority
+  - reviewed_gold_promotion
+  - chunk_boundary_authority
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - output_change
+validators:
+  - scripts/validate_textual_critical_policy_owner_options.py
+  - tests/test_textual_critical_policy_owner_options.py
+  - scripts/validate_textual_critical_policy_docket.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

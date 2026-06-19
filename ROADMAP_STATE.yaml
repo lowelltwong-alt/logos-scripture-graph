@@ -755,12 +755,40 @@ phases:
         extra_canonical_source_authority_allowed: false
         canon_scope_change_authorized: false
         boundary_import_allowed: false
+      - id: T378
+        title: Textual-Critical Policy Owner Options
+        status: complete
+        lane: textual_variant_source_tradition
+        owner: codex
+        starts_only_if: T371_identifies_variant_sensitive_promotion_blocker
+        required_handoff: .ai/handoffs/T378/handoff.md
+        policy_options: .ai/control/textual_critical_policy_owner_options.yaml
+        requirement_docket: .ai/control/textual_critical_policy_docket.yaml
+        relation_to_t371: blocks_reviewed_gold_promotion_until_owner_policy_selection_or_explicit_hold
+        recommended_option: TCP-T378-B
+        textual_critical_policy_selected: false
+        selected_policy: pending_owner_decision
+        owner_decision_required: true
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        boundary_import_allowed: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
       - id: T371
         title: Owner Reviewed-Gold Promotion Decision
         status: planned
         lane: epistle_argument
         owner_decision_required: true
         starts_only_if: T370_builds_governed_evidence
+        blocked_until: T378_owner_textual_critical_policy_selection_or_explicit_hold
+        textual_critical_policy_options: .ai/control/textual_critical_policy_owner_options.yaml
+        textual_critical_policy_selected: false
         evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
         selected_option: 1COR8-10-T369-B
         selected_parent: 1Cor.8.1-1Cor.10.33

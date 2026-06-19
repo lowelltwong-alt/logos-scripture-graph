@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T377 orthodox original-language pressure passage dossier queue (Codex)
-**Active task:** -> **T377** is complete as non-output-changing research memory. It adds `.ai/control/orthodox_original_language_pressure_dossier_queue.yaml`, validates it with `scripts/validate_orthodox_original_language_pressure_dossier_queue.py`, records `CD-043`, and makes Greek/Hebrew grammar-overlay pressure passages mandatory preflight reading. It does not authorize source-language truth, translation preference, non-orthodox or extra-canonical authority, doctrine selection, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, vectors, or output changes. **T371** remains the next route: owner reviewed-gold promotion review for the T370 `1Cor.8.1-1Cor.10.33` parent-only evidence packet. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T378 textual-critical policy owner options (Codex)
+**Active task:** -> **T378** is complete as non-output-changing owner-decision prep. It adds `.ai/control/textual_critical_policy_owner_options.yaml`, validates it with `scripts/validate_textual_critical_policy_owner_options.py`, records `CD-044`, and makes T371's variant-sensitive blocker explicit: `1Cor.9.20` and `1Cor.10.9` require owner textual-critical policy selection or explicit hold before reviewed-gold promotion. It recommends `TCP-T378-B` case-by-case owner policy but does not select textual-critical policy, preferred reading, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T378 textual-critical policy owner options (2026-06-19):** Added
+> `.ai/control/textual_critical_policy_owner_options.yaml`, checked by
+> `scripts/validate_textual_critical_policy_owner_options.py`, so the owner can select a
+> textual-critical policy before variant-sensitive promotion. T378 identifies `1Cor.9.20` and
+> `1Cor.10.9` inside the T370 parent-only evidence packet as T371 blockers. It recommends
+> `TCP-T378-B`, case-by-case owner policy before each variant-sensitive promotion, because that
+> preserves canonical Scripture authority without smuggling critical-text, majority-text, Textus
+> Receptus, current-source, liberal-critical, or denominational defaults. No policy is selected
+> and no preferred reading, source-tradition preference, reviewed gold, graph/retrieval truth,
+> chunk boundary, route/evaluator behavior, canon change, boundary import, vector work, or output
+> change is authorized.
 
 > **T377 orthodox original-language pressure passage dossier queue (2026-06-19):** Added
 > `.ai/control/orthodox_original_language_pressure_dossier_queue.yaml`, checked by
