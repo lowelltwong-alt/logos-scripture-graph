@@ -245,25 +245,36 @@ def _validate_governed_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
-    if next_route.get("task_id") != "T372":
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must advance to T372 after T371-A promotion")
-    if next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
+    next_task_id = next_route.get("task_id")
+    if next_task_id not in {"T372", "T373"}:
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must be T372 or T373 after T371-A promotion")
+    if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 starts_only_if is wrong")
+    if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T373 starts_only_if is wrong")
     if (
         next_route.get("evidence_packet")
         != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     ):
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 evidence_packet is stale")
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} evidence_packet is stale")
     if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 promotion_record is stale")
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} promotion_record is stale")
     if next_route.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 reviewed_gold_manifest is stale")
-    if next_route.get("owner_decision_required") is not False:
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 owner_decision_required must be false")
-    if next_route.get("harness_only") is not True:
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 harness_only must be true")
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} reviewed_gold_manifest is stale")
+    if next_task_id == "T372":
+        if next_route.get("owner_decision_required") is not False:
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 owner_decision_required must be false")
+        if next_route.get("harness_only") is not True:
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 harness_only must be true")
+    if next_task_id == "T373":
+        if next_route.get("owner_decision_required") is not True:
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T373 owner_decision_required must be true")
+        if next_route.get("harness_only") is not False:
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T373 harness_only must be false")
+        if next_route.get("harness_plan") != ".ai/control/t372_route_isolation_harness_plan.yaml":
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T373 harness_plan is stale")
     if next_route.get("reviewed_gold_promoted") is not True:
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 reviewed_gold_promoted must be true")
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} reviewed_gold_promoted must be true")
     for key in (
         "output_change_authorized",
         "implementation_authorized",
@@ -273,7 +284,7 @@ def _validate_governed_links() -> None:
         "retrieval_truth_authorized",
     ):
         if next_route.get(key) is not False:
-            raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 {key} must remain false")
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} {key} must remain false")
 
     register_text = _read_text(REGISTER)
     for phrase in (

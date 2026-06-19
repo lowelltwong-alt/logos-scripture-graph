@@ -28,6 +28,7 @@ Read these files before making changes:
     queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
+    T372 route-isolation harness plan,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
@@ -109,7 +110,7 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T371 keep the current route non-output-changing: Bible-wide triage is complete,
+- T351 through T372 keep the current route non-output-changing: Bible-wide triage is complete,
   T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
   T367 selected `JOHN3-T356-B` as parent-only review target, T367 added the Orthodox
   Hermeneutic Firewall plus textual-critical policy requirement, and T368 strengthened the
@@ -117,8 +118,9 @@ Bible-first chunking priority:
   review target by projected owner pattern, and T370 built the governed parent-only evidence
   packet. T371-A now promotes only `1Cor.8.1-1Cor.10.33` as parent-only reviewed gold, with
   `1Cor.9.20` and `1Cor.10.9` variant-non-dependent only for that parent boundary and
-  parent-only reviewed-gold claim. The readiness map now points to T372 harness/non-target
-  identity planning. Do not move from parent-only gold to implementation without later exact owner
+  parent-only reviewed-gold claim. T372 records the route-isolation harness plan and non-target
+  identity requirements. The readiness map now points to T373 owner implementation authorization.
+  Do not move from parent-only gold or T372 planning to implementation without exact owner
   authorization at T373.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
@@ -148,12 +150,13 @@ Bible-first chunking priority:
   pattern is new, agents must stop and tell Lowell before continuing.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T372 route-isolated harness planning
+  next safe route. It is non-authorizing and currently points to T373 owner implementation authorization
   for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
   record. T371-A is recorded separately as parent-only reviewed-gold promotion, not as child-span,
-  implementation, route/evaluator, graph/retrieval, vector, or output authority.
+  implementation, route/evaluator, graph/retrieval, vector, or output authority. T372 is recorded
+  separately as a route-isolation harness plan, not as implementation or output authority.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -321,6 +324,13 @@ Bible-first chunking priority:
   child spans, the parent span as a chunk boundary, preferred readings, source-tradition
   preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, chunks, or
   output changes. It is validated by `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`.
+- The T372 route-isolation harness plan at
+  `.ai/control/t372_route_isolation_harness_plan.yaml` records required future checks for exact
+  T373 owner authorization, route isolation, non-target identity, same-baseline evaluation planning,
+  source-metadata denial, and no child-span inference before any T374 implementation. It does not
+  authorize parent span as a chunk boundary, child spans, route/evaluator behavior, graph/retrieval
+  truth, vectors, implementation, chunks, or output changes. It is validated by
+  `scripts/validate_t372_route_isolation_harness_plan.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review
@@ -450,6 +460,7 @@ python scripts/validate_orthodox_hermeneutic_firewall_docket.py
 python scripts/validate_textual_critical_policy_docket.py
 python scripts/validate_t371_variant_dependency_owner_decision_packet.py
 python scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+python scripts/validate_t372_route_isolation_harness_plan.py
 python scripts/validate_1cor8_10_owner_review_docket.py
 python scripts/validate_1cor8_10_parent_evidence_packet.py
 python scripts/validate_chunking_human_decision_forecast.py
@@ -552,6 +563,10 @@ promotion record, epistle argument gold manifest, T371 packet, decision register
 forecast, front door, or AI TOCs drift from parent-only reviewed gold into child spans, preferred
 readings, route/evaluator behavior, graph/retrieval truth, implementation, chunks, or output
 authority.
+`python scripts/validate_t372_route_isolation_harness_plan.py` fails closed if the T372 harness
+plan, decision register, preflight, readiness map, forecast, roadmap, front door, or AI TOCs drift
+from non-output-changing route-isolation planning into parent-boundary, child-span, route/evaluator,
+graph/retrieval, implementation, chunk, or output authority.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

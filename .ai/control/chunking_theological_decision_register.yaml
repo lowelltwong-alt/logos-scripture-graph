@@ -1932,6 +1932,57 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-048
+    title: T372 route-isolation harness plan is non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T372]
+    owner_decision_ref: ".ai/control/t372_route_isolation_harness_plan.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33, 1Cor.9.20, 1Cor.10.9]
+      routes: [epistle_argument, route_isolation_harness, non_target_identity_proof]
+      surfaces: [.ai/control/t372_route_isolation_harness_plan.yaml, .ai/control/t371_parent_only_reviewed_gold_promotion.yaml, eval/chunking_gold/per_form/epistle_argument_gold_manifest.json, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "Create a non-output-changing route-isolation and non-target identity harness plan for the 1Cor.8.1-1Cor.10.33 parent-only reviewed-gold case. The plan may be used to prepare later T373/T374 gated work, but it does not authorize child spans, parent span as chunk boundary, route/evaluator behavior, graph/retrieval truth, implementation, vectors, chunks, or output changes."
+    downstream_risk: "A future agent could mistake a readiness harness plan for implementation authority or silently let the T371-A parent-only reviewed-gold span become an output chunk boundary."
+    theological_assumptions_avoided:
+      - "Parent-only reviewed gold remains evidence for review and harness design, not a child-span or chunk-boundary decision."
+      - "Epistle argument route-isolation planning does not encode sacramental, ecclesial, Christian-liberty, law/gospel, covenant, or denominational system selection."
+      - "Source metadata, cross-references, Strong's-style numbers, capitalization, and variant notes remain evidence only."
+      - "T373 owner authorization is required before implementation, route behavior, parent-boundary use, child spans, or output changes."
+    reviewed_gold_dependency: "Depends on the T371-A parent-only reviewed-gold case only as input context. Future implementation still requires T373 owner authorization, non-target identity proof, same-baseline evaluation planning, task scope, and a fresh decision-register entry for any output or route authority."
+    non_authorizations:
+      - parent_only_gold_as_chunk_boundary
+      - child_span_selection
+      - argument_outline_as_child_boundary
+      - paragraph_marker_as_chunk_boundary
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - noncanonical_source_authority
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - implementation_authority
+      - chunk_output_change
+      - improvement_claim
+      - leaderboard_update
+    validators:
+      - scripts/validate_t372_route_isolation_harness_plan.py
+      - tests/test_t372_route_isolation_harness_plan.py
+      - scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_human_decision_forecast.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_task_scope.py --task-id T372
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2023,4 +2074,5 @@ backfill_coverage:
     - T379
     - T380
     - T371
+    - T372
 ...

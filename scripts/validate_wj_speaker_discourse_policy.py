@@ -257,8 +257,8 @@ def _validate_governed_links() -> None:
         for key in ("output_change_authorized", "implementation_authorized"):
             if next_route.get(key) is not False:
                 raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
-        if next_route.get("task_id") != "T372" and next_route.get("reviewed_gold_promoted") is not False:
-            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_promoted must be false outside T372")
+        if next_route.get("task_id") not in {"T372", "T373"} and next_route.get("reviewed_gold_promoted") is not False:
+            raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_promoted must be false outside T372/T373")
 
     if not T355_TASK.exists():
         raise WJSpeakerPolicyError(f"{_rel(T355_TASK)}: T355 task file is missing")

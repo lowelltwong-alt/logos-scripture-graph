@@ -264,29 +264,42 @@ def _validate_governed_links() -> None:
     next_route = readiness.get("next_route")
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
-    if next_route.get("task_id") != "T372":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372 after T371-A")
-    if next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
+    next_task_id = next_route.get("task_id")
+    if next_task_id not in {"T372", "T373"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372 or T373 after T371-A")
+    if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
-            f"{_rel(READINESS_MAP)}: next_route.starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
+            f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
+        )
+    if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
+        raise OneCorDocketError(
+            f"{_rel(READINESS_MAP)}: T373 starts_only_if must be T372_route_isolation_harness_plan_complete"
         )
     if (
         next_route.get("evidence_packet")
         != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     ):
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.evidence_packet is stale")
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.evidence_packet is stale")
     if next_route.get("owner_review_docket") != ".ai/control/1cor8_10_epistle_owner_review_docket.yaml":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.owner_review_docket is stale")
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.owner_review_docket is stale")
     if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.promotion_record is stale")
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.promotion_record is stale")
     if next_route.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_manifest is stale")
-    if next_route.get("owner_decision_required") is not False:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.owner_decision_required must be false")
-    if next_route.get("harness_only") is not True:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.harness_only must be true")
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_manifest is stale")
+    if next_task_id == "T372":
+        if next_route.get("owner_decision_required") is not False:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T372 owner_decision_required must be false")
+        if next_route.get("harness_only") is not True:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T372 harness_only must be true")
+    if next_task_id == "T373":
+        if next_route.get("owner_decision_required") is not True:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T373 owner_decision_required must be true")
+        if next_route.get("harness_only") is not False:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T373 harness_only must be false")
+        if next_route.get("harness_plan") != ".ai/control/t372_route_isolation_harness_plan.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T373 harness_plan is stale")
     if next_route.get("reviewed_gold_promoted") is not True:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_promoted must be true")
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
     for key in (
         "output_change_authorized",
         "implementation_authorized",
@@ -296,7 +309,7 @@ def _validate_governed_links() -> None:
         "retrieval_truth_authorized",
     ):
         if next_route.get(key) is not False:
-            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.{key} must be false")
 
 
 def validate_1cor8_10_owner_review_docket(path: Path = DOCKET) -> dict[str, Any]:

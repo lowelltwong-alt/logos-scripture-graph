@@ -49,6 +49,7 @@ lessons_storage:
     - .ai/control/textual_critical_case_policy.yaml
     - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
     - .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+    - .ai/control/t372_route_isolation_harness_plan.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
     - .ai/control/chunking_human_decision_forecast.yaml
@@ -127,7 +128,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t371_a_parent_only_reviewed_gold_promoted_t372_harness_next
+    current_state: t372_route_isolation_harness_plan_complete_t373_owner_gate_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -188,6 +189,25 @@ lane_sequence:
       reviewed_gold_dependency_or_non_dependency: variant_non_dependent
       reviewed_gold_promoted: true
       parent_span_as_chunk_boundary_authorized: false
+      output_change_authorized: false
+      implementation_authorized: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+    route_isolation_harness_plan:
+      task_id: T372
+      path: .ai/control/t372_route_isolation_harness_plan.yaml
+      status: complete_non_output_changing_plan
+      starts_only_if: T371_A_parent_only_reviewed_gold_promoted
+      selected_parent: 1Cor.8.1-1Cor.10.33
+      selected_children: []
+      reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+      owner_implementation_authorization_required: true
+      next_owner_gate: T373
+      parent_span_as_chunk_boundary_authorized: false
+      child_spans_authorized: false
       output_change_authorized: false
       implementation_authorized: false
       route_behavior_authorized: false
@@ -348,10 +368,10 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T372
-  title: Route-Isolated Implementation Harness And Non-Target Identity Plan
-  route_type: epistle_argument_route_isolation_harness
-  starts_only_if: T371_A_parent_only_reviewed_gold_promoted
+  task_id: T373
+  title: Owner Implementation Authorization Gate
+  route_type: epistle_argument_owner_implementation_authorization_gate
+  starts_only_if: T372_route_isolation_harness_plan_complete
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
@@ -368,10 +388,12 @@ next_route:
   promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
   reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
   reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  harness_plan: .ai/control/t372_route_isolation_harness_plan.yaml
+  harness_plan_status: complete_non_output_changing_plan
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
   packet_status: parent_only_reviewed_gold_promoted
   owner_selection_status: selected
-  owner_decision_required: false
+  owner_decision_required: true
   selected_t371_option: T371-A
   prior_owner_decision_task: T367
   packet_strengthening_task: T368
@@ -391,10 +413,20 @@ next_route:
   variant_dependency_owner_decision_required: false
   variant_dependency_result: variant_non_dependent
   reviewed_gold_promoted: true
-  harness_only: true
+  harness_only: false
   owner_implementation_authorization_required: true
-  next_owner_gate: T373
-  rationale: "T371-A promoted only the 1Cor.8.1-1Cor.10.33 parent span as reviewed gold and confirmed variant non-dependency with respect to 1Cor.9.20 and 1Cor.10.9. The next safe route is T372 non-output-changing route-isolation and non-target identity harness planning; no implementation, child spans, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
+  prior_harness_task: T372
+  required_owner_decision_must_record:
+    - exact_output_or_implementation_authorization_or_hold
+    - whether_parent_span_may_be_used_as_output_chunk_boundary
+    - whether_child_spans_remain_disallowed_or_are_separately_selected
+    - whether_route_behavior_change_is_authorized_for_exact_target_only
+    - non_target_identity_proof_requirement
+    - same_baseline_evaluation_requirement
+    - decision_register_update_requirement
+  default_if_owner_unavailable: stop_before_implementation_or_output_change
+  next_task_if_authorized: T374
+  rationale: "T372 completed only a non-output-changing route-isolation and non-target identity harness plan. The next safe route is T373 owner implementation authorization; no implementation, child spans, parent span as output chunk boundary, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
   output_change_authorized: false
   implementation_authorized: false
   route_behavior_authorized: false
@@ -407,7 +439,7 @@ parallel_research_queue:
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not supersede T372 harness gating or authorize algorithm work."
+  relation_to_next_route: "Parallel research-only queue; does not supersede the T373 owner implementation gate or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -419,7 +451,7 @@ parallel_original_language_pressure_queue:
   route_type: cross_lane_original_language_pressure_memory
   path: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research memory only; does not supersede T372 harness gating and does not authorize pressure-passage chunking."
+  relation_to_next_route: "Parallel research memory only; does not supersede the T373 owner implementation gate and does not authorize pressure-passage chunking."
   corpus_scope: canonical_66
   output_change_authorized: false
   implementation_authorized: false
@@ -511,7 +543,7 @@ parallel_t371_parent_only_promotion_record:
   reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
   reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
   status: complete_parent_only_reviewed_gold_promoted
-  relation_to_next_route: "Allows T372 harness/identity planning only; does not authorize implementation, route behavior, evaluator behavior, graph/retrieval truth, child spans, or output changes."
+  relation_to_next_route: "Backs the completed T372 harness/identity plan and the T373 owner gate; does not authorize implementation, route behavior, evaluator behavior, graph/retrieval truth, child spans, parent span as chunk boundary, or output changes."
   selected_option: T371-A
   exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
   boundary_dependency_or_non_dependency: variant_non_dependent
@@ -521,6 +553,27 @@ parallel_t371_parent_only_promotion_record:
   child_spans_authorized: false
   preferred_reading_authorized: false
   source_tradition_preference_authorized: false
+  output_change_authorized: false
+  implementation_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+parallel_t372_route_isolation_harness_plan:
+  task_id: T372
+  title: Route-Isolated Implementation Harness And Non-Target Identity Plan
+  route_type: epistle_argument_route_isolation_harness_plan
+  path: .ai/control/t372_route_isolation_harness_plan.yaml
+  status: complete_non_output_changing_plan
+  relation_to_next_route: "Defines requirements for the T373 owner implementation gate and any later T374 implementation; does not itself authorize implementation or output."
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  owner_implementation_authorization_required: true
+  next_owner_gate: T373
+  parent_span_as_chunk_boundary_authorized: false
+  child_spans_authorized: false
   output_change_authorized: false
   implementation_authorized: false
   route_behavior_authorized: false
@@ -544,6 +597,7 @@ update_triggers:
   - textual_critical_case_policy_change
   - t371_variant_dependency_owner_decision_packet_change
   - t371_parent_only_reviewed_gold_promotion_change
+  - t372_route_isolation_harness_plan_change
   - epistle_argument_gold_manifest_change
   - 1cor8_10_owner_review_docket_change
   - chunking_human_decision_forecast_change
@@ -572,6 +626,7 @@ explicit_non_authorizations:
   - denominational_system_as_chunk_authority
   - owner_projection_without_conflict_scan
   - conflicting_prior_owner_decisions_ignored
+  - parent_only_gold_as_chunk_boundary
   - child_span_projection
   - liberal_critical_default
   - anti_supernatural_default

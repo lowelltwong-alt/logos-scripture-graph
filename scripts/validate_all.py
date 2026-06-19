@@ -135,6 +135,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t371_parent_only_reviewed_gold_promotion.py")],
         ),
         (
+            "validate_t372_route_isolation_harness_plan.py",
+            [PY, str(ROOT / "scripts" / "validate_t372_route_isolation_harness_plan.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

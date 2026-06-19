@@ -73,6 +73,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
     ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+    ".ai/control/t372_route_isolation_harness_plan.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",
@@ -86,6 +87,7 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "reviewed_gold_promotion",
     "skill_lifecycle_promotion",
     "boundary_import",
+    "parent_only_gold_as_chunk_boundary",
     "t327g",
     "master_chunker_global_objective",
 }
@@ -142,6 +144,10 @@ ALLOWED_NEXT_ROUTES = {
     "T372": {
         "route_type": "epistle_argument_route_isolation_harness",
         "title": "Route-Isolated Implementation Harness And Non-Target Identity Plan",
+    },
+    "T373": {
+        "route_type": "epistle_argument_owner_implementation_authorization_gate",
+        "title": "Owner Implementation Authorization Gate",
     },
 }
 
@@ -554,6 +560,83 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T372 next_route.{key} must be false")
+    if task_id == "T373":
+        expected_t373 = {
+            "recommended_target": "epistle_argument",
+            "selected_target": "1cor8_10_food_offered_to_idols",
+            "selected_passage": "1Cor.8-1Cor.10",
+            "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "1COR8-10-T369-B",
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selection_mode": "projected_owner_pattern",
+            "projection_policy": ".ai/control/owner_decision_projection_policy.yaml",
+            "conflict_scan_result": "no_conflict_detected",
+            "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "evidence_packet": "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+            "owner_decision_packet": ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+            "promotion_record": ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+            "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+            "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
+            "harness_plan": ".ai/control/t372_route_isolation_harness_plan.yaml",
+            "harness_plan_status": "complete_non_output_changing_plan",
+            "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+            "packet_status": "parent_only_reviewed_gold_promoted",
+            "owner_selection_status": "selected",
+            "selected_t371_option": "T371-A",
+            "parent_gold_promotion_task": "T371",
+            "prior_harness_task": "T372",
+            "prior_owner_decision_task": "T367",
+            "packet_strengthening_task": "T368",
+            "parent_selection_task": "T369",
+            "evidence_prep_task": "T370",
+            "prior_packet_task": "T352",
+            "prior_issue_dossier_task": "T361",
+            "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+            "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+        }
+        for key, value in expected_t373.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T373 next_route.{key} must be {value}")
+        if next_route.get("selected_children") != []:
+            raise ReadinessMapError(f"{_rel(path)}: T373 next_route.selected_children must be []")
+        if next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
+            raise ReadinessMapError(f"{_rel(path)}: T373 starts_only_if is stale")
+        if next_route.get("owner_decision_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T373 owner_decision_required must be true")
+        if next_route.get("reviewed_gold_promoted") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T373 reviewed_gold_promoted must be true")
+        if next_route.get("harness_only") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T373 next_route.harness_only must be false")
+        if next_route.get("owner_implementation_authorization_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T373 implementation owner gate must be required")
+        if next_route.get("next_task_if_authorized") != "T374":
+            raise ReadinessMapError(f"{_rel(path)}: T373 next_task_if_authorized must be T374")
+        required_owner = set(_require_string_list(
+            next_route.get("required_owner_decision_must_record"),
+            "T373 required_owner_decision_must_record",
+        ))
+        for item in (
+            "exact_output_or_implementation_authorization_or_hold",
+            "whether_parent_span_may_be_used_as_output_chunk_boundary",
+            "whether_child_spans_remain_disallowed_or_are_separately_selected",
+            "non_target_identity_proof_requirement",
+            "same_baseline_evaluation_requirement",
+            "decision_register_update_requirement",
+        ):
+            if item not in required_owner:
+                raise ReadinessMapError(f"{_rel(path)}: T373 required owner decision missing {item}")
+        if next_route.get("default_if_owner_unavailable") != "stop_before_implementation_or_output_change":
+            raise ReadinessMapError(f"{_rel(path)}: T373 default_if_owner_unavailable must stop")
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "route_behavior_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T373 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):
@@ -681,6 +764,39 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     ):
         if promotion.get(key) is not False:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t371_parent_only_promotion_record.{key} must be false")
+
+    t372_plan = data.get("parallel_t372_route_isolation_harness_plan")
+    if not isinstance(t372_plan, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t372_route_isolation_harness_plan must be a mapping")
+    expected_t372_plan = {
+        "task_id": "T372",
+        "path": ".ai/control/t372_route_isolation_harness_plan.yaml",
+        "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+        "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
+        "status": "complete_non_output_changing_plan",
+        "next_owner_gate": "T373",
+    }
+    for key, value in expected_t372_plan.items():
+        if t372_plan.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t372_route_isolation_harness_plan.{key} must be {value}")
+    if t372_plan.get("selected_parent") != "1Cor.8.1-1Cor.10.33":
+        raise ReadinessMapError(f"{_rel(path)}: T372 plan selected_parent is stale")
+    if t372_plan.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T372 plan selected_children must be []")
+    if t372_plan.get("owner_implementation_authorization_required") is not True:
+        raise ReadinessMapError(f"{_rel(path)}: T372 plan must require T373 owner authorization")
+    for key in (
+        "parent_span_as_chunk_boundary_authorized",
+        "child_spans_authorized",
+        "output_change_authorized",
+        "implementation_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if t372_plan.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t372_route_isolation_harness_plan.{key} must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

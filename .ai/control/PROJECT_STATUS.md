@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T371-A parent-only reviewed-gold promotion (Codex)
-**Active task:** -> **T371** is complete. Owner confirmed `T371-A`, recorded in `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml`, validated by `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`, and registered as `CD-047`. Only `1Cor.8.1-1Cor.10.33` is promoted as parent-only reviewed gold in `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`; `1Cor.9.20` and `1Cor.10.9` are variant-non-dependent only for that parent boundary and parent-only reviewed-gold claim. This does not authorize child spans, parent span as a chunk boundary, preferred readings, source-tradition preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, chunks, or output changes. **T372** is next as non-output-changing harness/non-target identity planning; **T373** remains the owner implementation gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T372 route-isolation harness plan (Codex)
+**Active task:** -> **T372** is complete. The route-isolation and non-target identity plan is recorded in `.ai/control/t372_route_isolation_harness_plan.yaml`, validated by `scripts/validate_t372_route_isolation_harness_plan.py`, and registered as `CD-048`. It uses the T371-A `1Cor.8.1-1Cor.10.33` parent-only reviewed-gold case only as input context and advances the next safe route to **T373** owner implementation authorization. This does not authorize child spans, parent span as chunk boundary, preferred readings, source-tradition preference, route/evaluator behavior, graph/retrieval truth, vectors, implementation, generated chunks, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T372 route-isolation harness plan (2026-06-19):** Added
+> `.ai/control/t372_route_isolation_harness_plan.yaml`, checked by
+> `scripts/validate_t372_route_isolation_harness_plan.py`, so future implementation work must prove
+> T373 owner authorization, exact scope, non-target identity, same-baseline evaluation planning,
+> source-metadata denial, and decision-register updates before any T374 output-changing work. The
+> plan records `CD-048` and advances the next route to `T373`. No child spans, parent span as chunk
+> boundary, preferred reading, source-tradition preference, route/evaluator behavior, graph/retrieval
+> truth, vector, implementation, chunk output, boundary import, canon change, or output change is
+> authorized.
 
 > **T371-A parent-only reviewed-gold promotion (2026-06-19):** Added
 > `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml` and
@@ -114,7 +124,9 @@
 > The textual-critical docket requires a later explicit owner policy before variant-sensitive
 > promotion/use. No output, chunk, graph, retrieval, route, evaluator, reviewed-gold, textual-critical,
 > canon-scope, source-tradition, boundary-import, or vector authority is created. Next work remains
-> review-only; do not start Revelation implementation, T327G, or boundary import.
+> review-only; do not start Revelation implementation, T327G, or boundary import; do not import
+> boundary texts.
+> Boundary-text guardrail: do not import boundary texts.
 
 > **T366 textual variant source tradition dossier queue (2026-06-18):** Added
 > `.ai/control/textual_variant_source_tradition_dossier_queue.yaml`, checked by
