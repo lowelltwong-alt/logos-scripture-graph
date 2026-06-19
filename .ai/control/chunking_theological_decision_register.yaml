@@ -1983,6 +1983,60 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-049
+    title: Original-language word evidence requires phrase and discourse context
+    classification: theological_risk
+    task_ids: [T381]
+    owner_decision_ref: ".ai/control/original_language_phrase_context_policy.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_original_language_pressure_passages]
+      routes: [source_metadata_research, original_language_pressure_review, future_review_packets, future_graph_retrieval]
+      surfaces: [.ai/control/original_language_phrase_context_policy.yaml, .ai/control/source_metadata_research_atlas.yaml, .ai/control/orthodox_original_language_pressure_dossier_queue.yaml, .ai/control/chunking_agent_preflight.yaml]
+    decision: "Greek and Hebrew words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels may be preserved as evidence, but future packets must review them inside phrase, clause, syntax, discourse, author/book, genre, and canonical context. The phrase/context rule refines the warning that Greek phrases matter more than isolated words; it does not authorize original-language truth, doctrine, graph/retrieval truth, reviewed gold, chunk boundaries, route behavior, implementation, or output changes."
+    downstream_risk: "A future agent could use an isolated Greek/Hebrew word, one-gloss definition, Strong's-style number, rare lemma, or grammar label to smuggle a theological conclusion, anti-orthodox prooftext, intertext edge, retrieval truth, or chunk boundary without reviewed context."
+    theological_assumptions_avoided:
+      - "No isolated word, lemma, or gloss becomes doctrine."
+      - "No Strong's-style number or rare lemma becomes lexical truth, graph truth, retrieval truth, or theological identity."
+      - "No grammar label is treated as automatic Christology, pneumatology, soteriology, eschatology, canon, or boundary authority."
+      - "Greek/Hebrew context requirements preserve orthodox review options without hardcoding one denominational systematic theology."
+      - "Non-orthodox pressure claims remain pressure labels only and do not become authority."
+    reviewed_gold_dependency: "Future reviewed-gold or output-changing work that cites Greek/Hebrew evidence must record exact passage scope, surface word or phrase, lemma/tag if available, morphology if available, phrase/clause scope, syntax role, discourse context, canonical context, semantic range, assumptions avoided, non-authorizations, validators/tests, and non-target identity proof."
+    non_authorizations:
+      - isolated_word_as_theological_truth
+      - isolated_lemma_as_doctrine
+      - single_gloss_as_meaning
+      - strongs_number_as_lexical_truth
+      - lexical_rarity_as_intertext_truth
+      - grammar_label_as_doctrine
+      - phrase_context_as_automatic_chunk_boundary
+      - discourse_context_as_route_authority
+      - original_language_as_graph_edge
+      - original_language_as_retrieval_truth
+      - source_language_as_automatic_truth
+      - translation_preference
+      - textual_critical_decision
+      - doctrinal_system_selection
+      - nonorthodox_source_authority
+      - extra_canonical_source_authority
+      - canon_scope_change
+      - boundary_import
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - chunk_output_change
+    validators:
+      - scripts/validate_original_language_phrase_context_policy.py
+      - tests/test_original_language_phrase_context_policy.py
+      - scripts/validate_source_metadata_research_atlas.py
+      - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2075,4 +2129,5 @@ backfill_coverage:
     - T380
     - T371
     - T372
+    - T381
 ...

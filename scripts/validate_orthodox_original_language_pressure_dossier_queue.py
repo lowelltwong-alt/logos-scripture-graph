@@ -72,6 +72,7 @@ REQUIRED_REVIEW_OPTIONS = {
     "greek_grammar_overlay_review",
     "hebrew_grammar_overlay_review",
     "morphology_syntax_review",
+    "phrase_clause_discourse_context_review",
     "lexical_semantic_range_review",
     "translation_divergence_review",
     "non_orthodox_pressure_review",
@@ -120,6 +121,9 @@ REQUIRED_DOSSIER_FIELDS = {
 REQUIRED_GLOBAL_NON_AUTHORIZATIONS = {
     "pressure_queue_as_reviewed_gold",
     "original_language_as_automatic_truth",
+    "isolated_word_as_theological_truth",
+    "isolated_lemma_as_doctrine",
+    "single_gloss_as_meaning",
     "grammar_overlay_as_chunk_boundary",
     "translation_divergence_as_translation_preference",
     "nonorthodox_source_as_authority",
@@ -139,6 +143,8 @@ REQUIRED_GLOBAL_NON_AUTHORIZATIONS = {
 REQUIRED_VALIDATORS = {
     "scripts/validate_orthodox_original_language_pressure_dossier_queue.py",
     "tests/test_orthodox_original_language_pressure_dossier_queue.py",
+    "scripts/validate_original_language_phrase_context_policy.py",
+    "tests/test_original_language_phrase_context_policy.py",
     "scripts/validate_chunking_agent_preflight.py",
     "scripts/validate_bible_chunking_readiness_map.py",
     "scripts/validate_chunking_theological_decision_register.py",
@@ -254,6 +260,10 @@ def validate_orthodox_original_language_pressure_dossier_queue(path: Path = QUEU
     for phrase in ("evidence", "do not", "chunk boundaries", "output changes"):
         if phrase not in language_rule:
             raise OrthodoxLanguagePressureQueueError(f"{_rel(path)}: source_language_rule missing {phrase!r}")
+    phrase_rule = str(policy.get("phrase_context_rule", ""))
+    for phrase in ("phrase", "clause", "syntax", "discourse", "isolated words"):
+        if phrase not in phrase_rule:
+            raise OrthodoxLanguagePressureQueueError(f"{_rel(path)}: phrase_context_rule missing {phrase!r}")
     _require_subset(REQUIRED_REVIEW_OPTIONS, policy.get("preserved_review_options"), "preserved_review_options")
     _require_string_list(policy.get("not_selected_by_queue"), "not_selected_by_queue")
 

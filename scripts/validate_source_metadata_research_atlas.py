@@ -77,6 +77,9 @@ REQUIRED_PACKET_FIELDS = {
     "observed_source_surfaces",
     "raw_or_canonical_paths_consulted",
     "source_feature_summary",
+    "phrase_clause_discourse_context",
+    "syntax_role_if_original_language",
+    "semantic_range_not_single_gloss",
     "theological_downstream_risks",
     "assumptions_avoided",
     "reviewed_gold_dependency",
@@ -96,6 +99,9 @@ REQUIRED_GLOBAL_NON_AUTHORIZATIONS = {
     "metadata_as_retrieval_truth",
     "metadata_as_output_change",
     "metadata_as_algorithm_permission",
+    "isolated_word_as_theological_truth",
+    "isolated_lemma_as_doctrine",
+    "single_gloss_as_meaning",
     "boundary_import",
     "t345",
 }
@@ -103,6 +109,8 @@ REQUIRED_GLOBAL_NON_AUTHORIZATIONS = {
 REQUIRED_VALIDATORS = {
     "scripts/validate_source_metadata_research_atlas.py",
     "tests/test_source_metadata_research_atlas.py",
+    "scripts/validate_original_language_phrase_context_policy.py",
+    "tests/test_original_language_phrase_context_policy.py",
     "scripts/validate_source_metadata_authority.py",
     "scripts/validate_chunking_agent_preflight.py",
     "scripts/validate_all.py",
@@ -292,6 +300,11 @@ def validate_source_metadata_research_atlas(path: Path = ATLAS) -> dict[str, Any
         _require_string_list(family.get("theological_downstream_risks"), f"{family_id}.theological_downstream_risks")
         _require_string(family.get("authority_boundary"), f"{family_id}.authority_boundary")
         _require_evidence_only(family["authority_boundary"], f"{family_id}.authority_boundary")
+        if family_id in {"strongs_style_word_numbers", "lexical_rarity_and_shared_lemmas"}:
+            family_text = " ".join(str(value) for value in family.values()).lower()
+            for phrase in ("phrase", "clause", "discourse"):
+                if phrase not in family_text:
+                    raise SourceMetadataResearchAtlasError(f"{family_id} missing original-language context phrase {phrase!r}")
         non_authorizations = set(_require_string_list(family.get("non_authorizations"), f"{family_id}.non_authorizations"))
         required_non_authorization = REQUIRED_FAMILY_NON_AUTHORIZATIONS.get(family_id)
         if required_non_authorization and required_non_authorization not in non_authorizations:

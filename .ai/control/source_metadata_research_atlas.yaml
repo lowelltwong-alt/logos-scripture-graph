@@ -97,24 +97,29 @@ metadata_families:
     use_when: "A packet observes a shared Strong's-style number, Hebrew/Greek tag, lexical gloss, or rare term."
     required_review_questions:
       - "Is the same number attached to the same lexeme, a homonym, a translational gloss, or a source tagging artifact?"
+      - "What phrase, clause, syntax role, discourse unit, and canonical context govern this word observation?"
+      - "Does the proposed claim depend on an exact phrase or construction rather than the isolated word?"
       - "Would using the number imply lexical truth, theological identity, word-study authority, or graph edges?"
     theological_downstream_risks:
       - "Shared lexeme metadata can overstate connections between passages."
       - "Rare Greek or Hebrew tags can bias Christology, pneumatology, soteriology, or eschatology if treated as decisive."
-    authority_boundary: "Strong's-style numbers are evidence only and do not authorize lexical truth, theological identity, graph edges, retrieval truth, or chunk boundaries."
-    non_authorizations: [automatic_strongs_lexical_authority, strongs_number_as_theological_identity, strongs_number_as_graph_edge, strongs_number_as_chunk_boundary]
+      - "Isolated-word handling can hide phrase, clause, syntax, discourse, and canonical context."
+    authority_boundary: "Strong's-style numbers are evidence only and do not authorize lexical truth, theological identity, graph edges, retrieval truth, or chunk boundaries; original-language use must preserve phrase/clause/discourse context."
+    non_authorizations: [automatic_strongs_lexical_authority, strongs_number_as_theological_identity, strongs_number_as_graph_edge, strongs_number_as_chunk_boundary, isolated_word_as_theological_truth]
   - family_id: lexical_rarity_and_shared_lemmas
     tags: [lexical_rarity, shared_lemma, concordance, graph]
     source_surfaces: [canonical_word_tokens, footnotes]
     use_when: "A packet notices a Greek/Hebrew word is rare, shared across distant passages, or concentrated in a book."
     required_review_questions:
       - "Is rarity measured against the same corpus, translation, morphology layer, and source-tagging policy?"
+      - "What phrase, clause, syntax, discourse, and canonical context prevent an isolated rare word from becoming a proof text?"
       - "Could rarity be a retrieval hint while still not becoming theological or intertext authority?"
     theological_downstream_risks:
       - "Rare-word observations can become hidden doctrinal or intertext claims."
       - "Graph or retrieval systems may over-rank lexical coincidence without reviewed evidence."
-    authority_boundary: "Lexical rarity is evidence only and does not authorize lexical truth, intertext truth, graph edges, retrieval truth, or chunk boundaries."
-    non_authorizations: [lexical_rarity_as_theological_truth, lexical_rarity_as_intertext_truth, lexical_rarity_as_retrieval_truth, lexical_rarity_as_chunk_boundary]
+      - "A rare lemma can be overread when phrase/clause/discourse context is not recorded."
+    authority_boundary: "Lexical rarity is evidence only and does not authorize lexical truth, intertext truth, graph edges, retrieval truth, or chunk boundaries; rarity must be reviewed inside phrase/clause/discourse context."
+    non_authorizations: [lexical_rarity_as_theological_truth, lexical_rarity_as_intertext_truth, lexical_rarity_as_retrieval_truth, lexical_rarity_as_chunk_boundary, isolated_lemma_as_doctrine]
   - family_id: footnotes_and_alternate_readings
     tags: [footnotes, alternate_readings, textual_variant, notes]
     source_surfaces: [footnotes, raw_source_inventory]
@@ -205,6 +210,9 @@ required_future_metadata_packet_fields:
   - observed_source_surfaces
   - raw_or_canonical_paths_consulted
   - source_feature_summary
+  - phrase_clause_discourse_context
+  - syntax_role_if_original_language
+  - semantic_range_not_single_gloss
   - theological_downstream_risks
   - assumptions_avoided
   - reviewed_gold_dependency
@@ -248,11 +256,16 @@ global_non_authorizations:
   - metadata_as_retrieval_truth
   - metadata_as_output_change
   - metadata_as_algorithm_permission
+  - isolated_word_as_theological_truth
+  - isolated_lemma_as_doctrine
+  - single_gloss_as_meaning
   - boundary_import
   - t345
 validators:
   - scripts/validate_source_metadata_research_atlas.py
   - tests/test_source_metadata_research_atlas.py
+  - scripts/validate_original_language_phrase_context_policy.py
+  - tests/test_original_language_phrase_context_policy.py
   - scripts/validate_source_metadata_authority.py
   - scripts/validate_chunking_agent_preflight.py
   - scripts/validate_bible_chunking_readiness_map.py

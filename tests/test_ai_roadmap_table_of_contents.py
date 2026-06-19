@@ -40,6 +40,9 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "prophetic_oracle_vision_dossier_queue.yaml",
         "textual_variant_source_tradition_dossier_queue.yaml",
         "orthodox_original_language_pressure_dossier_queue.yaml",
+        "original_language_phrase_context_policy.yaml",
+        "phrase/context",
+        "isolated word",
         "orthodox_hermeneutic_firewall_docket.yaml",
         "textual_critical_policy_docket.yaml",
         "textual_critical_policy_owner_options.yaml",
@@ -111,6 +114,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`prophetic`, `oracle`, `vision`, `servant-song`, `temple-vision`, `day-of-yahweh`",
         "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
         "`original-language`, `grammar-overlay`, `greek`, `hebrew`, `non-orthodox`, `lds`",
+        "`original-language`, `phrase/context`, `greek`, `hebrew`, `isolated word`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
@@ -241,6 +245,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_orthodox_original_language_pressure_dossier_queue.py" in toc
     assert ".ai/tasks/T377.task.yaml" in toc
     assert ".ai/handoffs/T377/handoff.md" in toc
+    assert "T381 | Original-language phrase/context policy" in toc
+    assert "docs/roadmap/T381_ORIGINAL_LANGUAGE_PHRASE_CONTEXT_POLICY.md" in toc
+    assert ".ai/control/original_language_phrase_context_policy.yaml" in toc
+    assert "scripts/validate_original_language_phrase_context_policy.py" in toc
+    assert ".ai/tasks/T381.task.yaml" in toc
+    assert ".ai/handoffs/T381/handoff.md" in toc
     assert "T378 | Textual-critical policy owner options" in toc
     assert "docs/roadmap/T378_TEXTUAL_CRITICAL_POLICY_OWNER_OPTIONS.md" in toc
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in toc

@@ -26,6 +26,7 @@ WISDOM_POETRY_QUEUE = ROOT / ".ai" / "control" / "wisdom_dialogue_poetry_dossier
 PROPHETIC_ORACLE_QUEUE = ROOT / ".ai" / "control" / "prophetic_oracle_vision_dossier_queue.yaml"
 TEXTUAL_VARIANT_QUEUE = ROOT / ".ai" / "control" / "textual_variant_source_tradition_dossier_queue.yaml"
 ORTHODOX_LANGUAGE_PRESSURE_QUEUE = ROOT / ".ai" / "control" / "orthodox_original_language_pressure_dossier_queue.yaml"
+ORIGINAL_LANGUAGE_PHRASE_CONTEXT_POLICY = ROOT / ".ai" / "control" / "original_language_phrase_context_policy.yaml"
 ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_docket.yaml"
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 TEXTUAL_CRITICAL_OPTIONS = ROOT / ".ai" / "control" / "textual_critical_policy_owner_options.yaml"
@@ -78,7 +79,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -92,6 +93,7 @@ REQUIRED_METADATA_TYPES = {
     "internal_cross_references",
     "strongs_style_word_numbers",
     "hebrew_greek_lexeme_tags",
+    "original_language_phrase_clause_context",
     "footnotes",
     "alternate_readings",
     "section_headings",
@@ -141,6 +143,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t371_parent_only_reviewed_gold_promotion.yaml",
     "t372_route_isolation_harness_plan.yaml",
     "validate_t372_route_isolation_harness_plan.py",
+    "original_language_phrase_context_policy.yaml",
+    "validate_original_language_phrase_context_policy.py",
     "epistle_argument_gold_manifest.json",
     "1cor8_10_epistle_owner_review_docket.yaml",
     "1cor8_10_parent_only_evidence_packet.yaml",
@@ -157,6 +161,7 @@ REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
     "exact_scope",
     "reviewed_gold_or_equivalent_governed_evidence",
     "decision_register_update",
+    "original_language_phrase_context_review_if_greek_or_hebrew_is_used",
     "executable_tests",
     "non_target_identity_proof",
 }
@@ -306,6 +311,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
         ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
         ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml",
+        ".ai/control/original_language_phrase_context_policy.yaml",
         ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
         ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/textual_critical_policy_owner_options.yaml",
@@ -510,6 +516,18 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in orthodox_language_pressure_queue_text:
             raise PreflightError(f"{_rel(ORTHODOX_LANGUAGE_PRESSURE_QUEUE)}: missing queue phrase {phrase!r}")
+    original_language_policy_text = _read_text(ORIGINAL_LANGUAGE_PHRASE_CONTEXT_POLICY)
+    for phrase in (
+        "object_type: original_language_phrase_context_policy",
+        "phrase_clause_syntax",
+        "discourse_and_argument_context",
+        "canonical_and_orthodox_context",
+        "isolated_word_as_theological_truth",
+        "single_gloss_as_meaning",
+        "authorizes_chunk_output_change: false",
+    ):
+        if phrase not in original_language_policy_text:
+            raise PreflightError(f"{_rel(ORIGINAL_LANGUAGE_PHRASE_CONTEXT_POLICY)}: missing phrase/context policy phrase {phrase!r}")
     orthodox_firewall_text = _read_text(ORTHODOX_FIREWALL)
     for phrase in (
         "object_type: orthodox_hermeneutic_firewall_docket",

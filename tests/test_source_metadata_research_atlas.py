@@ -40,8 +40,15 @@ def test_atlas_records_required_metadata_families() -> None:
 
     assert "automatic_cross_reference_edge" in families["editorial_cross_references"]["non_authorizations"]
     assert "automatic_strongs_lexical_authority" in families["strongs_style_word_numbers"]["non_authorizations"]
+    assert "isolated_word_as_theological_truth" in families["strongs_style_word_numbers"]["non_authorizations"]
+    assert "isolated_lemma_as_doctrine" in families["lexical_rarity_and_shared_lemmas"]["non_authorizations"]
     assert "wj_marker_as_speaker_attribution" in families["wj_red_letter_markers"]["non_authorizations"]
     assert "capitalization_as_theological_truth" in families["divine_name_title_capitalization"]["non_authorizations"]
+
+    strongs_text = " ".join(families["strongs_style_word_numbers"]["required_review_questions"])
+    assert "phrase" in strongs_text
+    assert "clause" in strongs_text
+    assert "discourse" in strongs_text
 
 
 def test_atlas_records_observed_canonical_source_counts() -> None:

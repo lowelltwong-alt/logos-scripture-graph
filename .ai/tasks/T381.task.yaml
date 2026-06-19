@@ -1,0 +1,78 @@
+id: T381
+phase: phase_4
+title: "Original-Language Phrase/Context Policy"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/original_language_phrase_context_policy.yaml
+    - .ai/control/source_metadata_research_atlas.yaml
+    - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T381.task.yaml
+    - .ai/handoffs/T381/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T381_ORIGINAL_LANGUAGE_PHRASE_CONTEXT_POLICY.md
+    - scripts/validate_original_language_phrase_context_policy.py
+    - scripts/validate_source_metadata_research_atlas.py
+    - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_all.py
+    - tests/test_original_language_phrase_context_policy.py
+    - tests/test_source_metadata_research_atlas.py
+    - tests/test_orthodox_original_language_pressure_dossier_queue.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_output_changing_original_language_context_policy
+  decision_register_entry: CD-049
+  records_owner_lesson: true
+  authorizes_original_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_doctrinal_system: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_chunk_output_change: false
+acceptance_criteria:
+  - "T381 records that Greek/Hebrew word metadata must be handled inside phrase, clause, syntax, discourse, and canonical context."
+  - "The policy refines, rather than absolutizes, the claim that the phrase is more important than the word."
+  - "Source-metadata and original-language queues require future Greek-word packets to preserve phrase/clause/discourse context."
+  - "CD-049, preflight, front door, AI TOCs, ROADMAP_STATE, validators, and tests make the lesson discoverable and deterministic."
+  - "No raw/canonical/generated chunks, route runtime, evaluator runtime, graph/retrieval/vector output, or implementation files are touched."
+validation:
+  - python scripts/validate_original_language_phrase_context_policy.py
+  - python scripts/validate_source_metadata_research_atlas.py
+  - python scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T381
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T381/handoff.md
+next_task: "T373 remains the owner implementation authorization gate. Do not implement chunks, route behavior, graph/retrieval/vector outputs, or output changes from T381."
