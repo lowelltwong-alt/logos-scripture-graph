@@ -32,13 +32,17 @@ def test_textual_critical_policy_owner_options_validate_current_repo() -> None:
     data = validator.validate_textual_critical_policy_owner_options()
 
     assert data["object_type"] == "textual_critical_policy_owner_options_docket"
-    assert data["policy_status"]["textual_critical_policy_selected"] is False
-    assert data["policy_status"]["selected_policy"] == "pending_owner_decision"
-    assert data["policy_status"]["blocks_t371_until_selected"] is True
+    assert data["policy_status"]["textual_critical_policy_selected"] is True
+    assert data["policy_status"]["selected_policy"] == "TCP-T378-B"
+    assert data["policy_status"]["owner_decision_required"] is False
+    assert data["policy_status"]["blocks_t371_until_selected"] is False
+    assert data["policy_status"]["owner_selection_task"] == "T379"
+    assert data["policy_status"]["selection_record"] == ".ai/control/textual_critical_case_policy.yaml"
     assert data["authority"]["authorizes_textual_critical_policy"] is False
     assert data["authority"]["authorizes_preferred_reading"] is False
     assert data["authority"]["authorizes_reviewed_gold"] is False
     assert data["recommended_owner_path"]["option_id"] == "TCP-T378-B"
+    assert data["recommended_owner_path"]["selection_status"] == "selected_by_owner"
 
 
 def test_t371_variant_triggers_are_recorded() -> None:
@@ -64,11 +68,10 @@ def test_owner_options_include_recommended_case_by_case_policy() -> None:
 
 def test_options_reject_hidden_policy_selection(tmp_path: Path) -> None:
     data = copy.deepcopy(load_options())
-    data["policy_status"]["textual_critical_policy_selected"] = True
     data["policy_status"]["selected_policy"] = "critical_text_default"
     candidate = write_candidate(tmp_path, data)
 
-    with pytest.raises(validator.TextualCriticalOptionsError, match="textual_critical_policy_selected"):
+    with pytest.raises(validator.TextualCriticalOptionsError, match="selected_policy"):
         validator.validate_textual_critical_policy_owner_options(candidate)
 
 

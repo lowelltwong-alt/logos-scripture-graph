@@ -70,6 +70,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_policy_docket.yaml",
     ".ai/control/textual_critical_policy_owner_options.yaml",
+    ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",
@@ -374,6 +375,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "prior_issue_dossier_task": "T361",
             "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
             "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+            "textual_critical_policy_owner_options": ".ai/control/textual_critical_policy_owner_options.yaml",
+            "textual_critical_case_policy": ".ai/control/textual_critical_case_policy.yaml",
         }
         for key, value in expected_t369.items():
             if next_route.get(key) != value:
@@ -460,10 +463,20 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
                 raise ReadinessMapError(f"{_rel(path)}: T371 next_route.{key} must be {value}")
         if next_route.get("selected_children") != []:
             raise ReadinessMapError(f"{_rel(path)}: T371 next_route.selected_children must be []")
-        if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
+        if next_route.get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
             raise ReadinessMapError(f"{_rel(path)}: T371 next_route.starts_only_if is stale")
         if next_route.get("owner_decision_required") is not True:
             raise ReadinessMapError(f"{_rel(path)}: T371 next_route.owner_decision_required must be true")
+        if next_route.get("variant_sensitive_policy_gate_task") != "T379":
+            raise ReadinessMapError(f"{_rel(path)}: T371 variant_sensitive_policy_gate_task must be T379")
+        if next_route.get("variant_sensitive_policy_selected") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T371 variant_sensitive_policy_selected must be true")
+        if next_route.get("selected_textual_critical_policy") != "TCP-T378-B":
+            raise ReadinessMapError(f"{_rel(path)}: T371 selected_textual_critical_policy must be TCP-T378-B")
+        if next_route.get("t371_promotion_blocked_until_textual_policy") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T371 textual-policy blocker must be resolved")
+        if next_route.get("variant_dependency_owner_decision_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T371 variant dependency owner decision must be required")
         if next_route.get("review_only") is not True:
             raise ReadinessMapError(f"{_rel(path)}: T371 next_route.review_only must be true")
         for key in (
@@ -492,6 +505,44 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         for key in ("output_change_authorized", "implementation_authorized", "reviewed_gold_promoted"):
             if parallel_research.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: parallel_research_queue.{key} must be false")
+
+    options = data.get("parallel_textual_critical_policy_options")
+    if not isinstance(options, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_textual_critical_policy_options must be a mapping")
+    if options.get("task_id") != "T378":
+        raise ReadinessMapError(f"{_rel(path)}: textual-critical options task_id must be T378")
+    if options.get("textual_critical_policy_selected") is not True:
+        raise ReadinessMapError(f"{_rel(path)}: textual-critical options must record selected policy")
+    if options.get("selected_policy") != "TCP-T378-B":
+        raise ReadinessMapError(f"{_rel(path)}: textual-critical selected_policy must be TCP-T378-B")
+    if options.get("selection_record") != ".ai/control/textual_critical_case_policy.yaml":
+        raise ReadinessMapError(f"{_rel(path)}: textual-critical selection_record is stale")
+
+    case_policy = data.get("parallel_textual_critical_case_policy")
+    if not isinstance(case_policy, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_textual_critical_case_policy must be a mapping")
+    expected_case = {
+        "task_id": "T379",
+        "path": ".ai/control/textual_critical_case_policy.yaml",
+        "selected_policy": "TCP-T378-B",
+        "projectable_pattern": "ODP-005",
+    }
+    for key, value in expected_case.items():
+        if case_policy.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_textual_critical_case_policy.{key} must be {value}")
+    if case_policy.get("variant_dependency_owner_decision_required") is not True:
+        raise ReadinessMapError(f"{_rel(path)}: variant dependency owner decision must be required")
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "reviewed_gold_promoted",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if case_policy.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_textual_critical_case_policy.{key} must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

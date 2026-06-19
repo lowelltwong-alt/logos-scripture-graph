@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T378 textual-critical policy owner options (Codex)
-**Active task:** -> **T378** is complete as non-output-changing owner-decision prep. It adds `.ai/control/textual_critical_policy_owner_options.yaml`, validates it with `scripts/validate_textual_critical_policy_owner_options.py`, records `CD-044`, and makes T371's variant-sensitive blocker explicit: `1Cor.9.20` and `1Cor.10.9` require owner textual-critical policy selection or explicit hold before reviewed-gold promotion. It recommends `TCP-T378-B` case-by-case owner policy but does not select textual-critical policy, preferred reading, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, vectors, or output changes. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T379 textual-critical case-by-case policy selection (Codex)
+**Active task:** -> **T379** is complete as a non-output-changing owner-policy record. The owner selected `TCP-T378-B`, recorded in `.ai/control/textual_critical_case_policy.yaml`, validated by `scripts/validate_textual_critical_case_policy.py`, and registered as `CD-045` plus `ODP-005`. Future variant-sensitive reviewed-gold promotion must record exact variants, boundary dependency or non-dependency, reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, and validators/tests. This does not authorize preferred readings, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, implementation, vectors, or output changes. **T371** is next and must ask the exact variant-dependency/parent-only promotion question. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T379 textual-critical case-by-case policy selection (2026-06-19):** Owner selected
+> `TCP-T378-B` as the standing case-by-case process policy before each variant-sensitive
+> promotion. Added `.ai/control/textual_critical_case_policy.yaml`, checked by
+> `scripts/validate_textual_critical_case_policy.py`, and updated the owner projection policy
+> with `ODP-005` so future agents remember the process pattern without treating it as preferred
+> reading, source-tradition preference, dependency finding, reviewed-gold promotion, graph/retrieval
+> truth, route/evaluator behavior, implementation, chunk output, or output authority. T371 may now
+> proceed to the narrower owner question: whether `1Cor.8.1-1Cor.10.33` is variant-non-dependent
+> with respect to `1Cor.9.20` and `1Cor.10.9`, and whether the parent-only evidence packet should
+> be promoted.
 
 > **T378 textual-critical policy owner options (2026-06-19):** Added
 > `.ai/control/textual_critical_policy_owner_options.yaml`, checked by

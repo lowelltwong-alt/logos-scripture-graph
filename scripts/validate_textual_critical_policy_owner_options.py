@@ -11,6 +11,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 OPTIONS = ROOT / ".ai" / "control" / "textual_critical_policy_owner_options.yaml"
 REQUIREMENT = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
+CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
 REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 PREFLIGHT = ROOT / ".ai" / "control" / "chunking_agent_preflight.yaml"
 READINESS = ROOT / ".ai" / "control" / "bible_chunking_readiness_map.yaml"
@@ -38,7 +39,7 @@ REQUIRED_FALSE_AUTHORITY = {
 REQUIRED_OPTIONS = {"TCP-T378-A", "TCP-T378-B", "TCP-T378-C", "TCP-T378-D"}
 
 REQUIRED_NON_AUTHORIZATIONS = {
-    "textual_critical_policy_selection",
+    "additional_textual_critical_policy_selection_without_owner",
     "preferred_reading_selection",
     "current_source_as_hidden_textual_policy",
     "critical_text_default",
@@ -126,7 +127,12 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
     authority = data.get("authority")
     if not isinstance(authority, dict):
         raise TextualCriticalOptionsError(f"{_rel(path)}: authority must be a mapping")
-    for key in ("records_policy_options", "records_recommendation", "may_surface_for_owner_decision"):
+    for key in (
+        "records_policy_options",
+        "records_recommendation",
+        "records_owner_selection",
+        "may_surface_for_owner_decision",
+    ):
         if authority.get(key) is not True:
             raise TextualCriticalOptionsError(f"{_rel(path)}: authority.{key} must be true")
     for key in REQUIRED_FALSE_AUTHORITY:
@@ -136,14 +142,18 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
     status = data.get("policy_status")
     if not isinstance(status, dict):
         raise TextualCriticalOptionsError(f"{_rel(path)}: policy_status must be a mapping")
-    if status.get("textual_critical_policy_selected") is not False:
-        raise TextualCriticalOptionsError(f"{_rel(path)}: textual_critical_policy_selected must be false")
-    if status.get("selected_policy") != "pending_owner_decision":
-        raise TextualCriticalOptionsError(f"{_rel(path)}: selected_policy must be pending_owner_decision")
-    if status.get("owner_decision_required") is not True:
-        raise TextualCriticalOptionsError(f"{_rel(path)}: owner_decision_required must be true")
-    if status.get("blocks_t371_until_selected") is not True:
-        raise TextualCriticalOptionsError(f"{_rel(path)}: blocks_t371_until_selected must be true")
+    if status.get("textual_critical_policy_selected") is not True:
+        raise TextualCriticalOptionsError(f"{_rel(path)}: textual_critical_policy_selected must be true")
+    if status.get("selected_policy") != "TCP-T378-B":
+        raise TextualCriticalOptionsError(f"{_rel(path)}: selected_policy must be TCP-T378-B")
+    if status.get("owner_decision_required") is not False:
+        raise TextualCriticalOptionsError(f"{_rel(path)}: owner_decision_required must be false")
+    if status.get("blocks_t371_until_selected") is not False:
+        raise TextualCriticalOptionsError(f"{_rel(path)}: blocks_t371_until_selected must be false")
+    if status.get("owner_selection_task") != "T379":
+        raise TextualCriticalOptionsError(f"{_rel(path)}: owner_selection_task must be T379")
+    if status.get("selection_record") != ".ai/control/textual_critical_case_policy.yaml":
+        raise TextualCriticalOptionsError(f"{_rel(path)}: selection_record is stale")
 
     relation = data.get("relation_to_existing_docket")
     if not isinstance(relation, dict):
@@ -152,7 +162,11 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
         raise TextualCriticalOptionsError(f"{_rel(path)}: requirement_docket is stale")
     if relation.get("requirement_preserved") is not True:
         raise TextualCriticalOptionsError(f"{_rel(path)}: requirement_preserved must be true")
-    if "T371" not in str(relation.get("relation_to_t371", "")):
+    relation_to_t371 = str(relation.get("relation_to_t371", ""))
+    for phrase in ("T379", "T371", "dependency", "promotion"):
+        if phrase not in relation_to_t371:
+            raise TextualCriticalOptionsError(f"{_rel(path)}: relation_to_t371 must name {phrase}")
+    if "T371" not in relation_to_t371:
         raise TextualCriticalOptionsError(f"{_rel(path)}: relation_to_t371 must name T371")
 
     triggers = data.get("variant_sensitive_trigger_examples")
@@ -199,6 +213,10 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
         raise TextualCriticalOptionsError(f"{_rel(path)}: recommended_owner_path must be a mapping")
     if recommendation.get("option_id") != "TCP-T378-B":
         raise TextualCriticalOptionsError(f"{_rel(path)}: recommended option must be TCP-T378-B")
+    if recommendation.get("selection_status") != "selected_by_owner":
+        raise TextualCriticalOptionsError(f"{_rel(path)}: recommendation must record selected_by_owner")
+    if recommendation.get("selection_task") != "T379":
+        raise TextualCriticalOptionsError(f"{_rel(path)}: recommendation selection_task must be T379")
     for phrase in ("canonical Scripture", "hidden source-tradition preference", "liberal-critical", "denominational"):
         if phrase not in str(recommendation.get("why_more_faithful", "")):
             raise TextualCriticalOptionsError(f"{_rel(path)}: recommendation missing {phrase}")
@@ -219,7 +237,7 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
     t371 = data.get("t371_specific_recommendation")
     if not isinstance(t371, dict):
         raise TextualCriticalOptionsError(f"{_rel(path)}: t371_specific_recommendation must be a mapping")
-    for phrase in ("Do not promote", "TCP-T378", "variant-non-dependent"):
+    for phrase in ("TCP-T378-B is selected", "Do not promote", "variant-non-dependent", "1Cor.9.20", "1Cor.10.9"):
         if phrase not in str(t371.get("recommended_next_owner_decision", "")):
             raise TextualCriticalOptionsError(f"{_rel(path)}: T371 recommendation missing {phrase}")
     for key in ("child_spans_authorized", "implementation_authorized", "output_change_authorized"):
@@ -232,8 +250,11 @@ def validate_textual_critical_policy_owner_options(path: Path = OPTIONS) -> dict
 
 def _validate_links() -> None:
     options_rel = ".ai/control/textual_critical_policy_owner_options.yaml"
+    case_policy_rel = ".ai/control/textual_critical_case_policy.yaml"
     if not REQUIREMENT.exists():
         raise TextualCriticalOptionsError(f"{_rel(REQUIREMENT)}: missing requirement docket")
+    if not CASE_POLICY.exists():
+        raise TextualCriticalOptionsError(f"{_rel(CASE_POLICY)}: missing selected case policy")
 
     preflight = _read_yaml(PREFLIGHT)
     reading_paths = {str(item.get("path")) for item in preflight.get("mandatory_reading", []) if isinstance(item, dict)}
@@ -241,12 +262,12 @@ def _validate_links() -> None:
         raise TextualCriticalOptionsError(f"{_rel(PREFLIGHT)}: options docket must be mandatory reading")
 
     register_text = _read_text(REGISTER)
-    for phrase in ("CD-044", "Textual-critical policy options block variant-sensitive reviewed-gold promotion", "T378"):
+    for phrase in ("CD-044", "CD-045", "Textual-critical policy options block variant-sensitive reviewed-gold promotion", "T378", "T379"):
         if phrase not in register_text:
             raise TextualCriticalOptionsError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
     readiness_text = _read_text(READINESS)
-    for phrase in (options_rel, "T378", "T371"):
+    for phrase in (options_rel, case_policy_rel, "T378", "T379", "T371"):
         if phrase not in readiness_text:
             raise TextualCriticalOptionsError(f"{_rel(READINESS)}: missing {phrase!r}")
 
@@ -258,12 +279,17 @@ def _validate_links() -> None:
         raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T378 must be recorded complete")
     if task.get("policy_options") != options_rel:
         raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T378 policy_options is stale")
-    if task.get("textual_critical_policy_selected") is not False:
-        raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T378 must not select policy")
+    if task.get("textual_critical_policy_selected") is not True:
+        raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T378 must record selected policy after T379")
+    if task.get("selected_policy") != "TCP-T378-B":
+        raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T378 selected_policy is stale")
+    t379 = tasks.get("T379")
+    if not isinstance(t379, dict) or t379.get("status") != "complete":
+        raise TextualCriticalOptionsError(f"{_rel(ROADMAP)}: T379 must be recorded complete")
 
     for path in (FRONT_DOOR, TOC, ROADMAP_TOC):
         text = _read_text(path)
-        for phrase in (options_rel, "textual-critical", "owner", "T378"):
+        for phrase in (options_rel, case_policy_rel, "textual-critical", "owner", "T378", "T379"):
             if phrase not in text:
                 raise TextualCriticalOptionsError(f"{_rel(path)}: missing {phrase!r}")
 

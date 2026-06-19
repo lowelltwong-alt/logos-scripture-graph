@@ -131,7 +131,8 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         "chunk_output_change",
         "route_behavior_change",
         "evaluator_behavior_change",
-        "textual_critical_policy_selection",
+        "new_textual_critical_policy_selection",
+        "variant_sensitive_promotion_owner_confirmation",
         "boundary_import",
     ):
         if item not in required_owner:
@@ -178,10 +179,23 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         raise ForecastError(f"{_rel(path)}: HDF-001 options must match {sorted(expected_options)}")
 
     hdf_002 = by_id["HDF-002"]
-    if hdf_002.get("status") != "pending_owner_policy":
-        raise ForecastError(f"{_rel(path)}: HDF-002 must remain pending_owner_policy")
+    if hdf_002.get("status") != "selected_case_by_case_policy":
+        raise ForecastError(f"{_rel(path)}: HDF-002 must be selected_case_by_case_policy")
+    if hdf_002.get("selected_policy") != "TCP-T378-B":
+        raise ForecastError(f"{_rel(path)}: HDF-002 selected_policy must be TCP-T378-B")
+    if hdf_002.get("owner_selection_task") != "T379":
+        raise ForecastError(f"{_rel(path)}: HDF-002 owner_selection_task must be T379")
+    if hdf_002.get("policy_record") != ".ai/control/textual_critical_case_policy.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-002 policy_record is stale")
+    if hdf_002.get("projection_policy_pattern") != "ODP-005":
+        raise ForecastError(f"{_rel(path)}: HDF-002 projection policy must be ODP-005")
+    for phrase in ("exact variants", "owner confirmation", "validators/tests"):
+        if phrase not in str(hdf_002.get("current_authorization", "")):
+            raise ForecastError(f"{_rel(path)}: HDF-002 current_authorization missing {phrase!r}")
     if "preferred_reading_selection" not in hdf_002.get("non_authorizations", []):
         raise ForecastError(f"{_rel(path)}: HDF-002 must deny preferred_reading_selection")
+    if "variant_dependency_projection" not in hdf_002.get("non_authorizations", []):
+        raise ForecastError(f"{_rel(path)}: HDF-002 must deny variant_dependency_projection")
 
     hdf_004 = by_id["HDF-004"]
     if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
@@ -226,7 +240,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     if not isinstance(steps, list):
         raise ForecastError(f"{_rel(path)}: next_roadmap_steps must be a list")
     step_ids = [step.get("task_id") for step in steps if isinstance(step, dict)]
-    for expected in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
+    for expected in ("T369", "T370", "T379", "T371", "T372", "T373", "T374", "T375", "T376"):
         if expected not in step_ids:
             raise ForecastError(f"{_rel(path)}: next_roadmap_steps missing {expected}")
 
@@ -268,7 +282,7 @@ def _validate_governed_links() -> None:
     if not isinstance(future, list):
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: phase_4.future_sequence must be a list")
     by_id = {item.get("id"): item for item in future if isinstance(item, dict)}
-    for task_id in ("T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"):
+    for task_id in ("T369", "T370", "T379", "T371", "T372", "T373", "T374", "T375", "T376"):
         if task_id not in by_id:
             raise ForecastError(f"{_rel(ROADMAP_STATE)}: future_sequence missing {task_id}")
     if by_id["T369"].get("status") != "complete":
@@ -281,10 +295,12 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 must be complete after evidence prep")
     if by_id["T370"].get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T370 evidence_packet is stale")
-    if by_id["T371"].get("starts_only_if") != "T370_builds_governed_evidence":
+    if by_id["T371"].get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 starts_only_if is stale")
     if by_id["T371"].get("owner_decision_required") is not True:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T371 owner_decision_required must be true")
+    if by_id["T379"].get("selected_policy") != "TCP-T378-B":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
     if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
     if by_id["T374"].get("output_change_authorized") is not False:

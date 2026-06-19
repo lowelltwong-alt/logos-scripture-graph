@@ -281,16 +281,25 @@ Bible-first chunking priority:
   It is validated by `scripts/validate_orthodox_hermeneutic_firewall_docket.py`.
 - The textual-critical policy docket at `.ai/control/textual_critical_policy_docket.yaml` records
   that no variant-sensitive packet may be promoted, implemented, used as reviewed gold, or used
-  for canon/source-tradition/boundary decisions before a later explicit owner policy. It does not
-  select a textual-critical policy. It is validated by
+  for canon/source-tradition/boundary decisions unless the selected case-by-case owner policy is
+  satisfied for the exact packet. It records `TCP-T378-B` as selected but does not choose a
+  preferred reading or source-tradition preference. It is validated by
   `scripts/validate_textual_critical_policy_docket.py`.
 - The textual-critical owner options docket at
   `.ai/control/textual_critical_policy_owner_options.yaml` records T378 policy choices for
   variant-sensitive promotion gates, including T371 `1Cor.9.20` and `1Cor.10.9`. It recommends
-  case-by-case owner policy before each variant-sensitive promotion, but does not select that
-  policy, choose a preferred reading, authorize source-tradition preference, promote reviewed gold,
-  create graph/retrieval truth, authorize chunk boundaries, or change output. It is validated by
+  case-by-case owner policy before each variant-sensitive promotion and records T379's selection
+  of `TCP-T378-B`, but does not choose a preferred reading, authorize source-tradition preference,
+  promote reviewed gold, create graph/retrieval truth, authorize chunk boundaries, or change
+  output. It is validated by
   `scripts/validate_textual_critical_policy_owner_options.py`.
+- The textual-critical case policy at `.ai/control/textual_critical_case_policy.yaml` records
+  T379 owner selection of `TCP-T378-B`. Future agents may project the process pattern through
+  `ODP-005`, but every specific variant-sensitive promotion still requires exact variants,
+  boundary/reviewed-gold dependency or non-dependency, owner confirmation, decision-register
+  update, and validators/tests. It authorizes no preferred reading, source-tradition preference,
+  reviewed gold, graph/retrieval truth, route/evaluator behavior, chunk output, implementation, or
+  output change. It is validated by `scripts/validate_textual_critical_case_policy.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review

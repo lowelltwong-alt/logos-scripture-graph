@@ -31,6 +31,7 @@ def test_projection_policy_requires_conflict_scan_and_stop_for_conflicts() -> No
     assert conflict["if_conflict_detected"] == "stop_and_surface_to_owner_before_work_continues"
     assert "prior_owner_decisions_conflict_for_the_target_text" in data["projection_must_stop_when"]
     assert "conflict_scan_finds_no_conflicting_owner_decisions_for_the_target_text" in data["projection_allowed_when"]
+    assert "projection_would_skip_owner_confirmation_for_variant_sensitive_promotion" in data["projection_must_stop_when"]
 
 
 def test_1cor8_10_projection_is_parent_only_and_non_authorizing() -> None:
@@ -47,6 +48,21 @@ def test_1cor8_10_projection_is_parent_only_and_non_authorizing() -> None:
     assert onecor["conflict_scan_result"] == "no_conflict_detected"
     assert "child_span_projection" in onecor["non_authorizations"]
     assert "chunk_output_change" in onecor["non_authorizations"]
+
+
+def test_textual_critical_case_policy_projects_process_only() -> None:
+    data = validator.validate_owner_decision_projection_policy(POLICY)
+    patterns = {item["pattern_id"]: item for item in data["projectable_owner_patterns"]}
+    pattern = patterns["ODP-005"]
+
+    assert "TCP-T378-B" in pattern["rule"]
+    assert "case-by-case process rule" in pattern["rule"]
+    assert "owner confirmation" in pattern["rule"]
+    assert "validators/tests" in pattern["rule"]
+    assert "preferred reading" in pattern["forbidden_projection"]
+    assert "source-tradition preference" in pattern["forbidden_projection"]
+    assert "variant dependency" in pattern["forbidden_projection"]
+    assert "reviewed-gold promotion" in pattern["forbidden_projection"]
 
 
 def test_projection_policy_rejects_missing_conflict_scan(tmp_path: Path) -> None:

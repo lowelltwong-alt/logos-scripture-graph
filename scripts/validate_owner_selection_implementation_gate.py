@@ -522,7 +522,11 @@ def validate_owner_selection_implementation_gate(
                 for key, value in expected.items():
                     _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
                 _require_equal(next_route.get("selected_children"), [], "readiness.next_route.selected_children")
-                _require_equal(next_route.get("starts_only_if"), "T370_builds_governed_evidence", "readiness.next_route.starts_only_if")
+                _require_equal(
+                    next_route.get("starts_only_if"),
+                    "T370_builds_governed_evidence_and_T379_selects_case_policy",
+                    "readiness.next_route.starts_only_if",
+                )
                 _require_equal(next_route.get("owner_decision_required"), True, "readiness.next_route.owner_decision_required")
                 _require_equal(next_route.get("review_only"), True, "readiness.next_route.review_only")
                 _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")

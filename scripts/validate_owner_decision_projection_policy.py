@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 POLICY = ROOT / ".ai" / "control" / "owner_decision_projection_policy.yaml"
+CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
 DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
 REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
@@ -35,7 +36,8 @@ REQUIRED_TOP_LEVEL = {
     "validators",
 }
 
-REQUIRED_PATTERNS = {"ODP-001", "ODP-002", "ODP-003", "ODP-004"}
+REQUIRED_PATTERNS = {"ODP-001", "ODP-002", "ODP-003", "ODP-004", "ODP-005"}
+REQUIRED_ONECOR_PATTERNS = {"ODP-001", "ODP-002", "ODP-003", "ODP-004"}
 REQUIRED_FALSE_AUTHORITY = {
     "authorizes_real_time_owner_decision_replacement",
     "authorizes_chunk_output_change",
@@ -120,6 +122,7 @@ def _validate_policy(data: dict[str, Any], path: Path) -> None:
             "prior_owner_decisions_are_materially_same_shape",
             "projected_default_is_conservative_and_fail_closed",
             "projection_keeps_metadata_evidence_only",
+            "projection_applies_textual_critical_case_policy_as_process_not_reading_preference",
             "projection_does_not_promote_reviewed_gold",
             "projection_does_not_change_chunks_routes_evaluators_graph_retrieval_vectors_or_outputs",
             "conflict_scan_finds_no_conflicting_owner_decisions_for_the_target_text",
@@ -133,6 +136,8 @@ def _validate_policy(data: dict[str, Any], path: Path) -> None:
             "prior_owner_decisions_conflict_for_the_target_text",
             "projection_would_choose_child_spans_without_exact_owner_selection",
             "projection_would_select_textual_critical_policy_or_preferred_reading",
+            "projection_would_skip_owner_confirmation_for_variant_sensitive_promotion",
+            "projection_would_project_variant_dependency_or_non_dependency_for_a_specific_packet",
             "projection_would_change_any_output_or_default_runtime_behavior",
         },
         data["projection_must_stop_when"],
@@ -166,6 +171,15 @@ def _validate_policy(data: dict[str, Any], path: Path) -> None:
     missing_patterns = sorted(REQUIRED_PATTERNS - pattern_ids)
     if missing_patterns:
         raise ProjectionPolicyError(f"{_rel(path)}: missing projectable patterns {missing_patterns}")
+    odp_005 = next((item for item in patterns if isinstance(item, dict) and item.get("pattern_id") == "ODP-005"), None)
+    if not isinstance(odp_005, dict):
+        raise ProjectionPolicyError(f"{_rel(path)}: missing ODP-005")
+    for phrase in ("TCP-T378-B", "case-by-case process rule", "owner confirmation", "validators/tests"):
+        if phrase not in str(odp_005.get("rule", "")):
+            raise ProjectionPolicyError(f"{_rel(path)}: ODP-005 rule missing {phrase!r}")
+    for phrase in ("preferred reading", "source-tradition preference", "variant dependency", "reviewed-gold promotion"):
+        if phrase not in str(odp_005.get("forbidden_projection", "")):
+            raise ProjectionPolicyError(f"{_rel(path)}: ODP-005 forbidden_projection missing {phrase!r}")
 
     projected = data["current_projected_decisions"]
     if not isinstance(projected, list) or not projected:
@@ -184,7 +198,7 @@ def _validate_policy(data: dict[str, Any], path: Path) -> None:
         raise ProjectionPolicyError(f"{_rel(path)}: 1Cor projection confidence must be high")
     if onecor.get("conflict_scan_result") != "no_conflict_detected":
         raise ProjectionPolicyError(f"{_rel(path)}: 1Cor projection must have no-conflict scan")
-    _require_subset(REQUIRED_PATTERNS, onecor.get("projected_pattern_ids"), "projected_pattern_ids")
+    _require_subset(REQUIRED_ONECOR_PATTERNS, onecor.get("projected_pattern_ids"), "projected_pattern_ids")
     _require_subset(
         {
             "1cor8_10_parent_span_as_reviewed_gold",
@@ -233,7 +247,7 @@ def _validate_governed_links() -> None:
     next_route = readiness.get("next_route", {})
     if next_route.get("task_id") != "T371":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must advance to T371 after T370 evidence prep")
-    if next_route.get("starts_only_if") != "T370_builds_governed_evidence":
+    if next_route.get("starts_only_if") != "T370_builds_governed_evidence_and_T379_selects_case_policy":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T371 starts_only_if is wrong")
     if (
         next_route.get("evidence_packet")
@@ -273,9 +287,17 @@ def _validate_governed_links() -> None:
             "owner_decision_projection_policy.yaml",
             "conflict",
             "projected owner pattern",
+            "ODP-005",
         ):
             if phrase not in text:
                 raise ProjectionPolicyError(f"{_rel(path)}: missing {phrase!r}")
+
+    case_policy = _read_yaml(CASE_POLICY)
+    projection = case_policy.get("future_projection_memory", {})
+    if projection.get("projectable_pattern_id") != "ODP-005":
+        raise ProjectionPolicyError(f"{_rel(CASE_POLICY)}: projectable_pattern_id must be ODP-005")
+    if projection.get("can_project_process_rule") is not True:
+        raise ProjectionPolicyError(f"{_rel(CASE_POLICY)}: can_project_process_rule must be true")
 
 
 def validate_owner_decision_projection_policy(path: Path = POLICY) -> dict[str, Any]:

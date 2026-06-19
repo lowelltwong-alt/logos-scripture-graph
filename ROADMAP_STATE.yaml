@@ -764,11 +764,38 @@ phases:
         required_handoff: .ai/handoffs/T378/handoff.md
         policy_options: .ai/control/textual_critical_policy_owner_options.yaml
         requirement_docket: .ai/control/textual_critical_policy_docket.yaml
-        relation_to_t371: blocks_reviewed_gold_promotion_until_owner_policy_selection_or_explicit_hold
+        relation_to_t371: options_selected_by_t379_t371_still_requires_variant_dependency_and_promotion_decision
         recommended_option: TCP-T378-B
-        textual_critical_policy_selected: false
-        selected_policy: pending_owner_decision
-        owner_decision_required: true
+        textual_critical_policy_selected: true
+        selected_policy: TCP-T378-B
+        selection_record: .ai/control/textual_critical_case_policy.yaml
+        owner_decision_required: false
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        boundary_import_allowed: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+      - id: T379
+        title: Textual-Critical Case-By-Case Policy Selection
+        status: complete
+        lane: textual_variant_source_tradition
+        owner: Lowell Wong
+        starts_only_if: T378_owner_options_prepared
+        required_handoff: .ai/handoffs/T379/handoff.md
+        selected_policy: TCP-T378-B
+        policy_record: .ai/control/textual_critical_case_policy.yaml
+        policy_options: .ai/control/textual_critical_policy_owner_options.yaml
+        requirement_docket: .ai/control/textual_critical_policy_docket.yaml
+        projectable_pattern: ODP-005
+        relation_to_t371: unblocks_variant_dependency_review_not_promotion
+        owner_decision_required: false
+        variant_dependency_owner_decision_required: true
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false
@@ -785,10 +812,13 @@ phases:
         status: planned
         lane: epistle_argument
         owner_decision_required: true
-        starts_only_if: T370_builds_governed_evidence
-        blocked_until: T378_owner_textual_critical_policy_selection_or_explicit_hold
+        starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
+        blocked_until: T371_owner_variant_dependency_and_parent_promotion_decision
         textual_critical_policy_options: .ai/control/textual_critical_policy_owner_options.yaml
-        textual_critical_policy_selected: false
+        textual_critical_case_policy: .ai/control/textual_critical_case_policy.yaml
+        textual_critical_policy_selected: true
+        selected_textual_critical_policy: TCP-T378-B
+        variant_dependency_owner_decision_required: true
         evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
         selected_option: 1COR8-10-T369-B
         selected_parent: 1Cor.8.1-1Cor.10.33

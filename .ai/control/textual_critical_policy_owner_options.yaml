@@ -2,8 +2,8 @@
 object_type: textual_critical_policy_owner_options_docket
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-19 during T378 after T371 review showed that the 1Cor.8.1-1Cor.10.33 parent-only evidence packet contains variant-sensitive footnotes and cannot be promoted before an explicit owner textual-critical policy."
-reason_for_inclusion: "Give the owner a first-class, non-authorizing decision surface for textual-critical policy before variant-sensitive packets are promoted, implemented, used as reviewed gold, or used for canon, source-tradition, boundary, graph, retrieval, or chunk decisions."
+provenance_note: "Created 2026-06-19 during T378 after T371 review showed that the 1Cor.8.1-1Cor.10.33 parent-only evidence packet contains variant-sensitive footnotes and cannot be promoted before an explicit owner textual-critical policy. Updated 2026-06-19 during T379 after the owner selected TCP-T378-B."
+reason_for_inclusion: "Give the owner a first-class, non-authorizing decision surface for textual-critical policy before variant-sensitive packets are promoted, implemented, used as reviewed gold, or used for canon, source-tradition, boundary, graph, retrieval, or chunk decisions; preserve the selected option history after T379."
 ---
 schema_version: textual_critical_policy_owner_options.v1
 docket_id: t378_textual_critical_policy_owner_options
@@ -11,6 +11,7 @@ owner: Lowell Wong
 authority:
   records_policy_options: true
   records_recommendation: true
+  records_owner_selection: true
   may_surface_for_owner_decision: true
   authorizes_textual_critical_policy: false
   authorizes_preferred_reading: false
@@ -26,15 +27,17 @@ authority:
   authorizes_retrieval_truth: false
   authorizes_output_change: false
 policy_status:
-  textual_critical_policy_selected: false
-  selected_policy: pending_owner_decision
-  owner_decision_required: true
-  blocks_t371_until_selected: true
-  next_owner_decision_id: TCP-T378
+  textual_critical_policy_selected: true
+  selected_policy: TCP-T378-B
+  owner_decision_required: false
+  blocks_t371_until_selected: false
+  owner_selection_task: T379
+  selection_record: .ai/control/textual_critical_case_policy.yaml
+  next_owner_decision_id: T371_VARIANT_DEPENDENCY_AND_PARENT_PROMOTION
 relation_to_existing_docket:
   requirement_docket: .ai/control/textual_critical_policy_docket.yaml
   requirement_preserved: true
-  relation_to_t371: "T371 reviewed-gold promotion for 1Cor.8.1-1Cor.10.33 must not proceed until the owner selects a textual-critical policy or explicitly holds variant-sensitive promotion."
+  relation_to_t371: "T379 selected TCP-T378-B, so T371 may proceed to exact variant dependency review. T371 reviewed-gold promotion still must not proceed until the owner confirms boundary/reviewed-gold dependency or non-dependency for 1Cor.9.20 and 1Cor.10.9 and separately authorizes promotion."
 variant_sensitive_trigger_examples:
   - passage: 1Cor.9.20
     surface: footnote
@@ -77,6 +80,8 @@ owner_options:
     non_authorizations: [reviewed_gold_promotion, implementation, graph_edge, retrieval_truth, output_change]
 recommended_owner_path:
   option_id: TCP-T378-B
+  selection_status: selected_by_owner
+  selection_task: T379
   recommendation: "Select case-by-case owner policy before each variant-sensitive promotion."
   why_more_faithful: "It protects canonical Scripture from hidden source-tradition preference and liberal-critical assumptions while avoiding a new denominational textual policy as chunk authority. It also lets non-variant-dependent boundaries move only after explicit owner confirmation."
 minimum_future_policy_if_selected:
@@ -89,12 +94,12 @@ minimum_future_policy_if_selected:
   - decision_register_update
   - validator_or_test_update
 t371_specific_recommendation:
-  recommended_next_owner_decision: "Do not promote T371 reviewed gold until TCP-T378 is selected. If TCP-T378-B is selected, then T371 may ask whether the 1Cor.8.1-1Cor.10.33 parent boundary is variant-non-dependent and can be promoted parent-only."
+  recommended_next_owner_decision: "TCP-T378-B is selected. Do not promote T371 reviewed gold until the owner confirms whether the 1Cor.8.1-1Cor.10.33 parent boundary and reviewed-gold claim are variant-non-dependent with respect to 1Cor.9.20 and 1Cor.10.9, then separately authorizes parent-only promotion."
   child_spans_authorized: false
   implementation_authorized: false
   output_change_authorized: false
 non_authorizations:
-  - textual_critical_policy_selection
+  - additional_textual_critical_policy_selection_without_owner
   - preferred_reading_selection
   - current_source_as_hidden_textual_policy
   - critical_text_default
@@ -114,6 +119,8 @@ non_authorizations:
 validators:
   - scripts/validate_textual_critical_policy_owner_options.py
   - tests/test_textual_critical_policy_owner_options.py
+  - scripts/validate_textual_critical_case_policy.py
+  - tests/test_textual_critical_case_policy.py
   - scripts/validate_textual_critical_policy_docket.py
   - scripts/validate_chunking_agent_preflight.py
   - scripts/validate_chunking_theological_decision_register.py

@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
+CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
 
 REQUIRED_FALSE_AUTHORITY = {
     "authorizes_textual_critical_decision",
@@ -106,32 +107,52 @@ def validate_textual_critical_policy(path: Path = DOCKET) -> dict[str, Any]:
     policy_status = data.get("policy_status")
     if not isinstance(policy_status, dict):
         raise TextualCriticalPolicyError(f"{_rel(path)}: policy_status must be a mapping")
-    if policy_status.get("textual_critical_policy_selected") is not False:
-        raise TextualCriticalPolicyError(f"{_rel(path)}: textual_critical_policy_selected must be false")
-    if policy_status.get("selected_policy") != "pending_owner_decision":
-        raise TextualCriticalPolicyError(f"{_rel(path)}: selected_policy must be pending_owner_decision")
-    if policy_status.get("owner_decision_required") is not True:
-        raise TextualCriticalPolicyError(f"{_rel(path)}: owner_decision_required must be true")
+    if policy_status.get("textual_critical_policy_selected") is not True:
+        raise TextualCriticalPolicyError(f"{_rel(path)}: textual_critical_policy_selected must be true")
+    if policy_status.get("selected_policy") != "TCP-T378-B":
+        raise TextualCriticalPolicyError(f"{_rel(path)}: selected_policy must be TCP-T378-B")
+    if policy_status.get("owner_decision_required") is not False:
+        raise TextualCriticalPolicyError(f"{_rel(path)}: owner_decision_required must be false after T379")
     if policy_status.get("owner_options_docket") != ".ai/control/textual_critical_policy_owner_options.yaml":
         raise TextualCriticalPolicyError(f"{_rel(path)}: owner_options_docket is stale")
     if policy_status.get("owner_options_task") != "T378":
         raise TextualCriticalPolicyError(f"{_rel(path)}: owner_options_task must be T378")
+    if policy_status.get("selected_policy_record") != ".ai/control/textual_critical_case_policy.yaml":
+        raise TextualCriticalPolicyError(f"{_rel(path)}: selected_policy_record is stale")
+    if policy_status.get("owner_selection_task") != "T379":
+        raise TextualCriticalPolicyError(f"{_rel(path)}: owner_selection_task must be T379")
+    if policy_status.get("owner_confirmation_required_per_variant_sensitive_promotion") is not True:
+        raise TextualCriticalPolicyError(
+            f"{_rel(path)}: owner confirmation must be required per variant-sensitive promotion"
+        )
 
     _require_subset(REQUIRED_SURFACES, data.get("variant_sensitive_surfaces"), "variant_sensitive_surfaces")
     _require_subset(
-        {"explicit_owner_textual_critical_policy", "exact_scope", "decision_register_update"},
+        {
+            "exact_variant_sensitive_refs",
+            "source_surface_and_provenance",
+            "boundary_dependency_or_non_dependency",
+            "reviewed_gold_dependency_or_non_dependency",
+            "owner_confirmation_per_promotion",
+            "decision_register_update",
+            "executable_validator_or_test",
+        },
         data.get("required_before_use"),
         "required_before_use",
     )
     _require_subset(REQUIRED_NON_AUTHORIZATIONS, data.get("non_authorizations"), "non_authorizations")
     _require_subset(
         {
+            "scripts/validate_textual_critical_case_policy.py",
+            "tests/test_textual_critical_case_policy.py",
             "scripts/validate_textual_critical_policy_owner_options.py",
             "tests/test_textual_critical_policy_owner_options.py",
         },
         data.get("validators"),
         "validators",
     )
+    if not CASE_POLICY.exists():
+        raise TextualCriticalPolicyError(f"{_rel(CASE_POLICY)}: selected case policy is missing")
     return data
 
 

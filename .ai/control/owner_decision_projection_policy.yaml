@@ -2,8 +2,8 @@
 object_type: owner_decision_projection_policy
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-18 during T369 after the owner authorized agents to project highly confident repeated owner-decision patterns while stopping for new or conflicting patterns."
-reason_for_inclusion: "Let future agents continue non-output-changing governed prep when an owner decision is materially the same shape as prior owner decisions, while forcing real-time owner review for new patterns or conflicts."
+provenance_note: "Created 2026-06-18 during T369 after the owner authorized agents to project highly confident repeated owner-decision patterns while stopping for new or conflicting patterns. Updated 2026-06-19 during T379 after the owner asked that TCP-T378-B be remembered as a future process pattern."
+reason_for_inclusion: "Let future agents continue non-output-changing governed prep when an owner decision is materially the same shape as prior owner decisions, while forcing real-time owner review for new patterns, conflicts, variant-specific promotion, or authority changes."
 ---
 schema_version: owner_decision_projection_policy.v1
 policy_id: owner_pattern_projection_for_chunking_decisions
@@ -28,6 +28,7 @@ projection_allowed_when:
   - projection_refuses_hidden_liberal_critical_anti_supernatural_anti_canonical_or_heterodox_defaults
   - projection_refuses_one_denominational_system_as_chunk_authority
   - projection_keeps_metadata_evidence_only
+  - projection_applies_textual_critical_case_policy_as_process_not_reading_preference
   - projection_does_not_promote_reviewed_gold
   - projection_does_not_change_chunks_routes_evaluators_graph_retrieval_vectors_or_outputs
   - conflict_scan_finds_no_conflicting_owner_decisions_for_the_target_text
@@ -36,6 +37,8 @@ projection_must_stop_when:
   - prior_owner_decisions_conflict_for_the_target_text
   - projection_would_choose_child_spans_without_exact_owner_selection
   - projection_would_select_textual_critical_policy_or_preferred_reading
+  - projection_would_skip_owner_confirmation_for_variant_sensitive_promotion
+  - projection_would_project_variant_dependency_or_non_dependency_for_a_specific_packet
   - projection_would_select_revelation_chronology_symbolic_identity_millennium_or_eschatological_system
   - projection_would_select_speaker_boundary_or_jesus_narrator_boundary
   - projection_would_select_sacramental_ecclesial_covenant_law_gospel_or_systematic_theology_as_chunk_authority
@@ -49,6 +52,7 @@ conflict_policy:
     - one_prior_decision_would_treat_a_feature_as_evidence_only_and_another_would_treat_it_as_boundary_or_truth_authority
     - one_prior_decision_would_keep_child_spans_unselected_and_another_would_project_child_span_authority
     - source_text_variant_or_metadata_evidence_would_change_the_decision_scope
+    - a_variant_sensitive_packet_needs_dependency_or_non_dependency_claims_not_yet_recorded
   required_conflict_report_fields:
     - target_text_or_passage
     - prior_decisions_considered
@@ -78,6 +82,11 @@ projectable_owner_patterns:
     based_on_decisions: [CD-001, CD-003, CD-011, CD-012, CD-038, HDF-003, HDF-004, HDF-010, HDF-012]
     rule: "Reviewed-gold promotion, chunk output changes, route/evaluator behavior, graph/retrieval/vector outputs, textual-critical policy, boundary import, and theological authority changes require explicit owner authorization."
     forbidden_projection: "Do not treat this projection policy as implementation authority."
+  - pattern_id: ODP-005
+    title: Textual-critical case policy projects as process only
+    based_on_decisions: [TCP-T378-B, CD-045]
+    rule: "Agents may project the selected TCP-T378-B case-by-case process rule for future variant-sensitive promotion gates: exact variant refs, source surface/provenance, boundary dependency or non-dependency, reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, and validators/tests are required before each promotion."
+    forbidden_projection: "Do not project a preferred reading, source-tradition preference, canon-scope change, boundary import, variant dependency or non-dependency finding, reviewed-gold promotion, route/evaluator behavior, graph/retrieval truth, chunk output, or implementation authority from this pattern."
 current_projected_decisions:
   - projection_id: ODP-20260618-1COR8-10-PARENT
     task_id: T369
@@ -109,6 +118,8 @@ current_projected_decisions:
 validators:
   - scripts/validate_owner_decision_projection_policy.py
   - tests/test_owner_decision_projection_policy.py
+  - scripts/validate_textual_critical_case_policy.py
+  - tests/test_textual_critical_case_policy.py
   - scripts/validate_1cor8_10_owner_review_docket.py
   - scripts/validate_chunking_human_decision_forecast.py
   - scripts/validate_all.py
