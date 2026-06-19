@@ -241,6 +241,9 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["selected_t371_option"] == "T371-A"
     assert data["next_route"]["selected_t373_option"] == "T373-A"
     assert data["next_route"]["prior_owner_decision_task"] == "T367"
+    assert data["next_route"]["general_parent_first_pilot_pattern"] == "parent_first_pilot_then_child_necessity_review"
+    assert data["next_route"]["post_pilot_child_necessity_review_required"] is True
+    assert data["next_route"]["child_span_work_requires_later_owner_promotion"] is True
     assert data["next_route"]["packet_strengthening_task"] == "T368"
     assert data["next_route"]["parent_selection_task"] == "T369"
     assert data["next_route"]["evidence_prep_task"] == "T370"
@@ -265,7 +268,9 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["evaluator_change_authorized"] is False
     assert data["next_route"]["graph_edge_generation_allowed"] is False
     assert "no_context_audit_surface" in data["next_route"]["required_t374_work_must_record"]
+    assert "post_pilot_child_necessity_review_gate" in data["next_route"]["required_t374_work_must_record"]
     assert "child_spans_are_added_without_later_owner_promotion" in data["next_route"]["must_fail_if"]
+    assert "child_spans_are_added_without_post_pilot_review" in data["next_route"]["must_fail_if"]
 
     by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
     epistle = by_lane["epistle_argument"]
@@ -293,6 +298,9 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert auth["selected_option"] == "T373-A"
     assert auth["selected_parent"] == "1Cor.8.1-1Cor.10.33"
     assert auth["selected_children"] == []
+    assert auth["general_parent_first_pilot_pattern"] == "parent_first_pilot_then_child_necessity_review"
+    assert auth["post_pilot_child_necessity_review_required"] is True
+    assert auth["child_span_work_requires_later_owner_promotion"] is True
     assert auth["parent_span_as_chunk_boundary_authorized"] is True
     assert auth["child_spans_authorized"] is False
     assert auth["output_change_authorized"] is True

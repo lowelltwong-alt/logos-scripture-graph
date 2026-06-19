@@ -153,6 +153,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-049" in register
     assert "CD-050" in register
     assert "CD-051" in register
+    assert "CD-052" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -170,6 +171,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "T372 route-isolation harness plan is non-authorizing" in register
     assert "T373-A authorizes exact parent-only 1 Corinthians 8-10 implementation pilot" in register
     assert "Owner gates must present options and repercussions" in register
+    assert "Parent-first pilot then child-necessity review is an authorized general pattern" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -245,6 +247,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-049" in register_entry["required_decision_ids"]
     assert "CD-050" in register_entry["required_decision_ids"]
     assert "CD-051" in register_entry["required_decision_ids"]
+    assert "CD-052" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

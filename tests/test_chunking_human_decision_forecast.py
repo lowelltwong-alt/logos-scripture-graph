@@ -60,6 +60,8 @@ def test_forecast_names_predictable_human_decision_gates() -> None:
     assert "chunk_output_change" in by_id["HDF-004"]["must_stop_for"]
     assert by_id["HDF-005"]["status"] == "selected_t373_a"
     assert by_id["HDF-006"]["status"] == "decided_for_t374_parent_only_first"
+    assert "post-pilot review" in by_id["HDF-006"]["parent_first_pilot_pattern"]
+    assert "child_span_without_post_pilot_review" in by_id["HDF-006"]["non_authorizations"]
     assert by_id["HDF-007"]["recommended_default_if_owner_unavailable"] == "systematic_theology_can_be_advisory_not_chunk_authority"
     assert by_id["HDF-012"]["recommended_default_if_owner_unavailable"] == "require_no_context_audit_before_merge"
     assert by_id["HDF-012"]["status"] == "decided_for_t374_required"
@@ -130,12 +132,18 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     assert future["T373"]["owner_decision_required"] is False
     assert future["T373"]["selected_option"] == "T373-A"
     assert future["T373"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert "CD-052" in future["T373"]["decision_register_entries"]
+    assert future["T373"]["general_parent_first_pilot_pattern"] == "parent_first_pilot_then_child_necessity_review"
+    assert future["T373"]["post_pilot_child_necessity_review_required"] is True
     assert future["T373"]["implementation_authorized"] is True
     assert future["T373"]["child_spans_authorized"] is False
     assert future["T374"]["starts_only_if"] == "T373_A_authorizes_exact_parent_only_output_pilot"
     assert future["T374"]["output_change_authorized"] is True
     assert future["T374"]["implementation_authorized"] is True
     assert future["T374"]["child_spans_authorized"] is False
+    assert future["T374"]["requires_post_pilot_child_necessity_review_gate"] is True
+    assert future["T375"]["post_pilot_child_necessity_review_required"] is True
+    assert future["T375"]["child_span_work_requires_later_owner_promotion"] is True
 
 
 def test_forecast_rejects_output_authority(tmp_path: Path) -> None:

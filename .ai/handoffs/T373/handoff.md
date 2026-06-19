@@ -80,9 +80,10 @@
 - Authorized only the exact future T374 parent-only implementation pilot for 1Cor.8.1-1Cor.10.33.
 - Confirmed selected_children is empty for T374 and child spans remain disallowed for this pilot.
 - Recorded the general child-span principle: child spans can be faithful when added carefully, with review, and only when necessary, but any future child span requires exact child evidence, necessity rationale, owner promotion, validators/tests, decision-register update, and audit trail.
+- Recorded the owner-authorized parent-first pilot pattern: future matching exact-scope parent-only pilots may run first when reviewed gold or equivalent governed evidence exists, then a post-pilot review must decide whether child spans are necessary.
 - Preserved non-authorizations for graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary imports, broader epistle generalization, whole-Bible output changes, and Revelation implementation.
 - Added owner option presentation policy so future owner gates must present good options, recommendation, upside/downside, faithfulness rationale, downstream effects, non-authorizations, tests, and stop conditions.
-- Added CD-050 and CD-051 to the chunking theological decision register.
+- Added CD-050, CD-051, and CD-052 to the chunking theological decision register.
 
 ## Validation run
 
@@ -128,12 +129,25 @@
 - command: python -m pytest -q
 - result: passed, 488 tests
 - failures: none
+- command: python scripts/validate_t373_owner_implementation_authorization.py; python scripts/validate_bible_chunking_readiness_map.py; python scripts/validate_chunking_agent_preflight.py; python scripts/validate_chunking_human_decision_forecast.py; python scripts/validate_chunking_theological_decision_register.py
+- result: passed after adding CD-052 parent-first pilot/post-pilot child-review pattern
+- failures: none
+- command: python -m pytest tests/test_t373_owner_implementation_authorization.py tests/test_bible_chunking_readiness_map.py tests/test_chunking_agent_preflight.py tests/test_chunking_human_decision_forecast.py tests/test_ai_roadmap_table_of_contents.py -q
+- result: passed, 39 tests
+- failures: none
+- command: python scripts/validate_all.py
+- result: passed after CD-052 update, all validation gates passed
+- failures: none
+- command: python -m pytest -q
+- result: passed, 490 tests
+- failures: none
 
 ## Known risks
 
 - T374 is the first output-changing pilot after this authorization and must be kept exact-scope.
 - Parent-only output must prove non-target identity and run same-baseline evaluation before merge.
 - No child span is authorized by T373. Future child spans are allowed only by later exact owner promotion.
+- The parent-first pilot pattern does not allow automatic child spans after pilot success; the post-pilot child-necessity review remains required.
 
 ## Open questions
 
@@ -141,7 +155,7 @@
 
 ## Next agent instruction
 
-After this PR merges, start T374 as the first route-isolated 1Cor.8-10 output pilot. Implement only the exact parent-only boundary 1Cor.8.1-1Cor.10.33, prove non-target identity, run same-baseline evaluation, update the decision register, produce a no-context audit surface, and do not add child spans, graph/retrieval/vector output, evaluator changes, preferred readings, source-tradition preference, boundary imports, broader epistle generalization, or whole-Bible output changes.
+After this PR merges, start T374 as the first route-isolated 1Cor.8-10 output pilot. Implement only the exact parent-only boundary 1Cor.8.1-1Cor.10.33, prove non-target identity, run same-baseline evaluation, update the decision register, produce a no-context audit surface, and include the post-pilot child-necessity review gate. Do not add child spans, graph/retrieval/vector output, evaluator changes, preferred readings, source-tradition preference, boundary imports, broader epistle generalization, or whole-Bible output changes.
 
 ---
 
@@ -150,4 +164,22 @@ After this PR merges, start T374 as the first route-isolated 1Cor.8-10 output pi
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-19T22:57:27+00:00
+- handoff_id: 3ddafd55e0639bc5
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-19T23:18:44+00:00
+- handoff_id: 3ddafd55e0639bc5
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-19T23:26:42+00:00
 - handoff_id: 3ddafd55e0639bc5

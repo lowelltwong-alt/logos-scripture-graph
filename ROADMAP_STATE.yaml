@@ -946,7 +946,9 @@ phases:
         selected_children: []
         reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
         reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
-        decision_register_entries: [CD-050, CD-051]
+        decision_register_entries: [CD-050, CD-051, CD-052]
+        general_parent_first_pilot_pattern: parent_first_pilot_then_child_necessity_review
+        post_pilot_child_necessity_review_required: true
         next_task_if_authorized: T374
         parent_span_as_chunk_boundary_authorized: true
         parent_span_authorization_scope: exact_t374_pilot_only
@@ -984,11 +986,14 @@ phases:
         requires_changed_output_manifest: true
         requires_decision_register_update: true
         requires_no_context_audit_surface: true
+        requires_post_pilot_child_necessity_review_gate: true
       - id: T375
-        title: Same-Baseline Evaluation And No-Context Audit
+        title: Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review
         status: planned
         lane: epistle_argument
         starts_only_if: T374_changes_output
+        post_pilot_child_necessity_review_required: true
+        child_span_work_requires_later_owner_promotion: true
         output_change_authorized: false
         implementation_authorized: false
       - id: T376

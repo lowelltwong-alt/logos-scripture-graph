@@ -33,6 +33,7 @@ REQUIRED_TRUE_AUTHORITY = {
     "records_owner_implementation_authorization",
     "authorizes_exact_t374_pilot",
     "authorizes_parent_span_as_chunk_boundary_for_exact_t374_pilot",
+    "authorizes_parent_first_pilot_then_child_necessity_review_pattern",
     "authorizes_route_behavior_for_exact_t374_target_only",
     "authorizes_chunk_output_change_for_exact_t374_target_only",
     "authorizes_implementation_for_exact_t374_target_only",
@@ -40,6 +41,7 @@ REQUIRED_TRUE_AUTHORITY = {
 
 REQUIRED_FALSE_AUTHORITY = {
     "authorizes_child_spans",
+    "authorizes_child_span_after_pilot_without_review",
     "authorizes_preferred_reading",
     "authorizes_source_tradition_preference",
     "authorizes_canon_scope_change",
@@ -64,6 +66,7 @@ REQUIRED_T374_REQUIREMENTS = {
     "validators_and_tests",
     "no_context_audit_surface",
     "handoff_validates",
+    "post_pilot_child_necessity_review_gate",
 }
 
 REQUIRED_T374_FAILS = {
@@ -82,6 +85,8 @@ REQUIRED_T374_FAILS = {
 }
 
 REQUIRED_CHILD_FUTURE = {
+    "parent_first_pilot_has_been_reviewed_when_this_pattern_is_used",
+    "post_parent_pilot_review_finds_child_span_is_necessary",
     "exact_child_spans_are_proposed",
     "reviewed_child_span_gold_or_equivalent_governed_evidence_exists",
     "necessity_rationale_is_recorded",
@@ -90,6 +95,40 @@ REQUIRED_CHILD_FUTURE = {
     "decision_register_is_updated",
     "validators_and_tests_cover_child_span_non_smuggling",
     "non_target_identity_proof_is_kept",
+}
+
+REQUIRED_GENERAL_PATTERN_APPLIES = {
+    "exact_parent_candidate_has_reviewed_gold_or_equivalent_governed_evidence",
+    "pilot_is_route_isolated_and_exact_scope",
+    "owner_or_projected_owner_authorization_records_it_as_pilot",
+    "child_span_need_is_uncertain_or_not_strong_enough_before_the_pilot",
+    "future_case_matches_this_owner_pattern_without_conflict",
+}
+
+REQUIRED_GENERAL_PATTERN_SEQUENCE = {
+    "authorize_exact_parent_only_pilot",
+    "implement_parent_only_pilot_first",
+    "run_same_baseline_evaluation",
+    "produce_no_context_audit_surface",
+    "perform_post_pilot_child_necessity_review",
+    "owner_decides_whether_child_span_work_is_needed",
+}
+
+REQUIRED_GENERAL_PATTERN_REVIEW = {
+    "whether_parent_only_chunk_faithfully_serves_the_passage",
+    "whether_absence_of_child_spans_hides_material_discourse_or_theological_distinctions",
+    "whether_child_spans_would_smuggle_theology_or_a_systematic_framework",
+    "whether_reviewed_child_span_evidence_exists",
+    "whether_non_target_identity_and_route_isolation_remain_protected",
+}
+
+REQUIRED_GENERAL_PATTERN_NON_AUTHS = {
+    "automatic_child_spans_after_parent_pilot",
+    "child_span_without_post_pilot_review",
+    "child_span_without_owner_promotion",
+    "treating_pilot_success_as_general_algorithm_authority",
+    "denominational_system_as_child_boundary",
+    "parent_pilot_as_whole_bible_authority",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
@@ -188,6 +227,8 @@ def _validate_auth(path: Path) -> dict[str, Any]:
         "implementation_authorized": "authorized_for_exact_t374_pilot_only",
         "route_behavior_authorized": "authorized_for_exact_t374_target_only",
         "decision_register_update": "CD-050",
+        "general_parent_first_pilot_pattern_authorized": True,
+        "pilot_pattern_decision_register_update": "CD-052",
     }
     for key, value in expected_owner.items():
         if owner_decision.get(key) != value:
@@ -251,6 +292,24 @@ def _validate_auth(path: Path) -> dict[str, Any]:
         raise T373AuthorizationError(f"{_rel(path)}: child_span_policy.for_t374 must be disallowed")
     _require_subset(REQUIRED_CHILD_FUTURE, child.get("future_allowed_only_if"), "child_span_policy.future_allowed_only_if")
 
+    pattern = data.get("general_parent_first_pilot_pattern")
+    if not isinstance(pattern, dict):
+        raise T373AuthorizationError(f"{_rel(path)}: general_parent_first_pilot_pattern must be a mapping")
+    expected_pattern = {
+        "pattern_id": "parent_first_pilot_then_child_necessity_review",
+        "status": "owner_authorized_general_pattern",
+        "decision_register_entry": "CD-052",
+    }
+    for key, value in expected_pattern.items():
+        if pattern.get(key) != value:
+            raise T373AuthorizationError(f"{_rel(path)}: general_parent_first_pilot_pattern.{key} must be {value!r}")
+    if not isinstance(pattern.get("owner_authorization"), str) or "parent-only pilot" not in pattern["owner_authorization"]:
+        raise T373AuthorizationError(f"{_rel(path)}: general_parent_first_pilot_pattern.owner_authorization must record the owner pilot pattern")
+    _require_subset(REQUIRED_GENERAL_PATTERN_APPLIES, pattern.get("applies_when"), "general_parent_first_pilot_pattern.applies_when")
+    _require_subset(REQUIRED_GENERAL_PATTERN_SEQUENCE, pattern.get("required_sequence"), "general_parent_first_pilot_pattern.required_sequence")
+    _require_subset(REQUIRED_GENERAL_PATTERN_REVIEW, pattern.get("post_pilot_review_must_assess"), "general_parent_first_pilot_pattern.post_pilot_review_must_assess")
+    _require_subset(REQUIRED_GENERAL_PATTERN_NON_AUTHS, pattern.get("non_authorizations"), "general_parent_first_pilot_pattern.non_authorizations")
+
     next_task = data.get("next_task")
     if not isinstance(next_task, dict) or next_task.get("task_id") != "T374":
         raise T373AuthorizationError(f"{_rel(path)}: next_task.task_id must be T374")
@@ -289,15 +348,16 @@ def _validate_links() -> None:
     linked_requirements = (
         (REGISTER, ("CD-050", AUTH_REL, "T373-A authorizes exact parent-only")),
         (REGISTER, ("CD-051", OPTION_POLICY_REL, "Owner gates must present options and repercussions")),
-        (PREFLIGHT, (AUTH_REL, OPTION_POLICY_REL, "CD-050", "CD-051")),
+        (REGISTER, ("CD-052", "Parent-first pilot then child-necessity review")),
+        (PREFLIGHT, (AUTH_REL, OPTION_POLICY_REL, "CD-050", "CD-051", "CD-052")),
         (READINESS, ("task_id: T374", AUTH_REL, "parallel_t373_owner_implementation_authorization")),
         (FORECAST, ("HDF-014", AUTH_REL, "T373-A")),
         (ROADMAP, ("id: T373", "status: complete", AUTH_REL, "id: T374")),
-        (FRONT_DOOR, (AUTH_REL, "T373-A", "T374 may implement only")),
-        (TOC, (AUTH_REL, "t373", VALIDATOR_REL)),
-        (ROADMAP_TOC, ("T373 | Owner implementation authorization", AUTH_REL, VALIDATOR_REL)),
-        (TASK, ("id: T373", AUTH_REL, "decision_register_entries: [CD-050, CD-051]")),
-        (ROADMAP_DOC, ("T373 Owner Implementation Authorization", AUTH_REL, "Child spans remain disallowed")),
+        (FRONT_DOOR, (AUTH_REL, "T373-A", "post-pilot child-necessity review gate")),
+        (TOC, (AUTH_REL, "parent-first-pilot", VALIDATOR_REL)),
+        (ROADMAP_TOC, ("T373 | Owner implementation authorization", AUTH_REL, "post-pilot child review gate", VALIDATOR_REL)),
+        (TASK, ("id: T373", AUTH_REL, "decision_register_entries: [CD-050, CD-051, CD-052]")),
+        (ROADMAP_DOC, ("T373 Owner Implementation Authorization", AUTH_REL, "parent-first pilot", "post-pilot child-necessity review gate")),
     )
     for linked, phrases in linked_requirements:
         text = _read_text(linked)
@@ -320,6 +380,9 @@ def _validate_links() -> None:
         "output_change_authorized": True,
         "implementation_authorized": True,
         "route_behavior_authorized": True,
+        "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
+        "post_pilot_child_necessity_review_required": True,
+        "child_span_work_requires_later_owner_promotion": True,
         "evaluator_change_authorized": False,
         "graph_edge_generation_allowed": False,
         "retrieval_truth_authorized": False,
@@ -338,6 +401,12 @@ def _validate_links() -> None:
         raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 must be complete")
     if t373.get("authorization_record") != AUTH_REL:
         raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 authorization_record is stale")
+    if "CD-052" not in t373.get("decision_register_entries", []):
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 decision_register_entries must include CD-052")
+    if t373.get("general_parent_first_pilot_pattern") != "parent_first_pilot_then_child_necessity_review":
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 general_parent_first_pilot_pattern is stale")
+    if t373.get("post_pilot_child_necessity_review_required") is not True:
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 post_pilot_child_necessity_review_required must be true")
     if t373.get("child_spans_authorized") is not False:
         raise T373AuthorizationError(f"{_rel(ROADMAP)}: T373 child_spans_authorized must be false")
     t374 = by_id.get("T374")
@@ -349,6 +418,13 @@ def _validate_links() -> None:
         raise T373AuthorizationError(f"{_rel(ROADMAP)}: T374 implementation_authorized must be true")
     if t374.get("child_spans_authorized") is not False:
         raise T373AuthorizationError(f"{_rel(ROADMAP)}: T374 child_spans_authorized must be false")
+    if t374.get("requires_post_pilot_child_necessity_review_gate") is not True:
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T374 requires_post_pilot_child_necessity_review_gate must be true")
+    t375 = by_id.get("T375")
+    if not isinstance(t375, dict) or t375.get("post_pilot_child_necessity_review_required") is not True:
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T375 must require post-pilot child-necessity review")
+    if t375.get("child_span_work_requires_later_owner_promotion") is not True:
+        raise T373AuthorizationError(f"{_rel(ROADMAP)}: T375 child_span_work_requires_later_owner_promotion must be true")
 
 
 def validate_t373_owner_implementation_authorization(path: Path = AUTH) -> dict[str, Any]:

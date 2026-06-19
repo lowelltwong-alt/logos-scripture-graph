@@ -247,6 +247,10 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         raise ForecastError(f"{_rel(path)}: HDF-006 must record parent-only-first decision for T374")
     if "child spans can be acceptable" not in str(hdf_006.get("current_authorization", "")):
         raise ForecastError(f"{_rel(path)}: HDF-006 current_authorization must preserve child-span principle")
+    if "post-pilot review" not in str(hdf_006.get("parent_first_pilot_pattern", "")):
+        raise ForecastError(f"{_rel(path)}: HDF-006 parent_first_pilot_pattern must require post-pilot review")
+    if "child_span_without_post_pilot_review" not in hdf_006.get("non_authorizations", []):
+        raise ForecastError(f"{_rel(path)}: HDF-006 non_authorizations missing child_span_without_post_pilot_review")
 
     hdf_012 = by_id["HDF-012"]
     if hdf_012.get("status") != "decided_for_t374_required":
@@ -293,6 +297,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         "changed_output_manifest",
         "decision_register_update",
         "no_context_audit_surface",
+        "post_pilot_child_necessity_review_gate",
     ):
         if item not in hdf_014.get("required_before_t374_merge", []):
             raise ForecastError(f"{_rel(path)}: HDF-014 required_before_t374_merge missing {item}")
@@ -426,6 +431,10 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 selected_option must be T373-A")
     if by_id["T373"].get("authorization_record") != ".ai/control/t373_owner_implementation_authorization.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 authorization_record is stale")
+    if "CD-052" not in by_id["T373"].get("decision_register_entries", []):
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 decision_register_entries must include CD-052")
+    if by_id["T373"].get("general_parent_first_pilot_pattern") != "parent_first_pilot_then_child_necessity_review":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 general_parent_first_pilot_pattern is stale")
     if by_id["T379"].get("selected_policy") != "TCP-T378-B":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
     if by_id["T380"].get("owner_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":
@@ -442,6 +451,12 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 implementation_authorized must be true after T373-A")
     if by_id["T374"].get("child_spans_authorized") is not False:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 child_spans_authorized must be false")
+    if by_id["T374"].get("requires_post_pilot_child_necessity_review_gate") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 requires_post_pilot_child_necessity_review_gate must be true")
+    if by_id["T375"].get("post_pilot_child_necessity_review_required") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T375 post_pilot_child_necessity_review_required must be true")
+    if by_id["T375"].get("child_span_work_requires_later_owner_promotion") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T375 child_span_work_requires_later_owner_promotion must be true")
 
     front_door = _read_text(FRONT_DOOR)
     for phrase in (

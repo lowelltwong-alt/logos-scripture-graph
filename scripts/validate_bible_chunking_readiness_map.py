@@ -680,6 +680,9 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "implementation_authorization_task": "T373",
             "prior_harness_task": "T372",
             "variant_dependency_result": "variant_non_dependent",
+            "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
+            "post_pilot_child_necessity_review_required": True,
+            "child_span_work_requires_later_owner_promotion": True,
         }
         for key, value in expected_t374.items():
             if next_route.get(key) != value:
@@ -713,12 +716,14 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "decision_register_update",
             "validators_and_tests",
             "no_context_audit_surface",
+            "post_pilot_child_necessity_review_gate",
         ):
             if item not in required_t374:
                 raise ReadinessMapError(f"{_rel(path)}: T374 required work missing {item}")
         must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T374 must_fail_if"))
         for item in (
             "child_spans_are_added_without_later_owner_promotion",
+            "child_spans_are_added_without_post_pilot_review",
             "route_behavior_applies_outside_1cor8_10",
             "graph_or_retrieval_truth_is_generated",
             "non_target_output_diff_is_detected",
@@ -899,6 +904,9 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "status": "complete_owner_authorized_exact_parent_only_pilot",
         "selected_option": "T373-A",
         "selected_parent": "1Cor.8.1-1Cor.10.33",
+        "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
+        "post_pilot_child_necessity_review_required": True,
+        "child_span_work_requires_later_owner_promotion": True,
         "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
         "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
         "parent_span_as_chunk_boundary_authorized": True,

@@ -2142,6 +2142,51 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-052
+    title: Parent-first pilot then child-necessity review is an authorized general pattern
+    classification: theological_risk
+    task_ids: [T373]
+    owner_decision_ref: ".ai/control/t373_owner_implementation_authorization.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_parent_first_pilot_targets, 1Cor.8.1-1Cor.10.33]
+      routes: [route_isolated_output_pilot, implementation_authorization_gate, post_pilot_child_necessity_review]
+      surfaces: [.ai/control/t373_owner_implementation_authorization.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml, docs/roadmap/T373_OWNER_IMPLEMENTATION_AUTHORIZATION.md]
+    decision: "Owner authorized a reusable parent-first pilot pattern: when an exact parent-only pilot has reviewed gold or equivalent governed evidence and the future case matches this owner pattern without conflict, a parent-only route-isolated pilot may be authorized first, followed by a required post-pilot review to decide whether any child span is truly necessary. This does not authorize automatic child spans after the pilot; child spans still require exact proposed spans, governed evidence, necessity rationale, owner promotion, decision-register update, validators/tests, and non-target identity proof."
+    downstream_risk: "A future agent could mistake pilot success for whole-Bible algorithm authority, treat parent-only pilot authorization as automatic child-span authorization, skip the post-pilot review, or use child spans to smuggle a theological or denominational framework."
+    theological_assumptions_avoided:
+      - "No child span becomes automatic merely because a parent pilot was authorized or succeeded."
+      - "No parent-only pilot becomes a universal epistle, Gospel, Revelation, Psalm, or whole-Bible algorithm."
+      - "No systematic-theology framework, denominational system, paragraph marker, argument outline, or source metadata becomes child-boundary authority."
+      - "No post-pilot review may ignore whether parent-only output already serves the text faithfully."
+      - "No child span may be added without asking whether it is necessary to avoid hiding material discourse or theological distinctions."
+    reviewed_gold_dependency: "A future use of this pattern requires exact parent-only reviewed gold or equivalent governed evidence before the parent pilot, and any later child-span work requires a separate post-pilot review, exact child-span evidence, owner promotion, decision-register update, validators/tests, and non-target identity proof. T374 remains parent-only."
+    non_authorizations:
+      - automatic_child_spans_after_parent_pilot
+      - child_span_without_post_pilot_review
+      - child_span_without_owner_promotion
+      - treating_pilot_success_as_general_algorithm_authority
+      - parent_pilot_as_whole_bible_authority
+      - denominational_system_as_child_boundary
+      - argument_outline_as_child_boundary
+      - paragraph_marker_as_child_boundary
+      - source_metadata_as_authority
+      - route_behavior_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - whole_bible_output_pass
+    validators:
+      - scripts/validate_t373_owner_implementation_authorization.py
+      - tests/test_t373_owner_implementation_authorization.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]

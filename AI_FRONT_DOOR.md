@@ -126,9 +126,11 @@ Bible-first chunking priority:
   words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be
   reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context and
   are not authority. T373 records owner selection of `T373-A`: T374 may implement only the exact
-  parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. Child spans remain
-  disallowed unless later exact reviewed evidence and owner promotion authorize them. The readiness
-  map now points to T374. Do not generalize the 1Cor.8-10 pilot to child spans, other epistles,
+  parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. T373 also records the
+  owner-authorized parent-first pilot pattern: run the exact parent-only pilot, then conduct a
+  post-pilot review to decide whether child spans are necessary. Child spans remain disallowed
+  unless later exact reviewed evidence and owner promotion authorize them. The readiness map now
+  points to T374. Do not generalize the 1Cor.8-10 pilot to child spans, other epistles,
   graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference,
   boundary imports, or whole-Bible output.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
@@ -358,9 +360,11 @@ Bible-first chunking priority:
   It authorizes only a future T374 route-isolated output-changing pilot for the exact parent-only
   `1Cor.8.1-1Cor.10.33` target. It requires non-target identity proof, same-baseline evaluation,
   changed-output manifest, decision-register update, validators/tests, no-context audit surface,
-  and handoff validation before any T374 merge. It does not authorize child spans, preferred
-  readings, source-tradition preference, graph/retrieval/vector truth, evaluator changes, boundary
-  imports, broader epistle generalization, or whole-Bible output. It is validated by
+  post-pilot child-necessity review gate, and handoff validation before any T374 merge. It also
+  records the owner-authorized parent-first pilot pattern: run a real exact-scope parent-only pilot,
+  then review whether child spans are necessary later. It does not authorize automatic child spans,
+  preferred readings, source-tradition preference, graph/retrieval/vector truth, evaluator changes,
+  boundary imports, broader epistle generalization, or whole-Bible output. It is validated by
   `scripts/validate_t373_owner_implementation_authorization.py`.
 - The owner decision option presentation policy at
   `.ai/control/owner_decision_option_presentation_policy.yaml` records the owner's instruction that
