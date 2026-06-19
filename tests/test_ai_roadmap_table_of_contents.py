@@ -43,6 +43,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "orthodox_hermeneutic_firewall_docket.yaml",
         "textual_critical_policy_docket.yaml",
         "textual_critical_policy_owner_options.yaml",
+        "t371_variant_dependency_owner_decision_packet.yaml",
         "1cor8_10_epistle_owner_review_docket.yaml",
         "chunking_human_decision_forecast.yaml",
         "governance_memory_durability_policy.yaml",
@@ -54,6 +55,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "owner-options",
         "case-by-case",
         "reviewed-gold-blocker",
+        "owner-decision-packet",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -103,6 +105,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
+        "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
         "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
         "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
@@ -240,6 +243,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/tasks/T379.task.yaml" in toc
     assert ".ai/handoffs/T379/handoff.md" in toc
     assert "ODP-005" in toc
+    assert "T380 | T371 owner decision packet" in toc
+    assert "docs/roadmap/T380_T371_VARIANT_DEPENDENCY_OWNER_DECISION_PACKET.md" in toc
+    assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in toc
+    assert "scripts/validate_t371_variant_dependency_owner_decision_packet.py" in toc
+    assert ".ai/tasks/T380.task.yaml" in toc
+    assert ".ai/handoffs/T380/handoff.md" in toc
     assert "T371 - Owner reviewed-gold promotion decision" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc

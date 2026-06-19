@@ -1,0 +1,78 @@
+id: T380
+phase: phase_4
+title: "T371 Variant-Dependency Owner Decision Packet"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T380.task.yaml
+    - .ai/handoffs/T380/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T380_T371_VARIANT_DEPENDENCY_OWNER_DECISION_PACKET.md
+    - scripts/validate_t371_variant_dependency_owner_decision_packet.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_human_decision_forecast.py
+    - scripts/validate_all.py
+    - tests/test_t371_variant_dependency_owner_decision_packet.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_chunking_human_decision_forecast.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_output_changing_owner_decision_packet
+  target_owner_task: T371
+  owner_decision_packet: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+  reviewed_gold_promoted: false
+  variant_dependency_finding_authorized: false
+  variant_non_dependency_finding_authorized: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  graph_retrieval_truth_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  chunk_output_authorized: false
+  implementation_authorized: false
+acceptance_criteria:
+  - "The T371 owner decision packet records exact refs 1Cor.9.20 and 1Cor.10.9."
+  - "The packet presents T371-A through T371-D without selecting an option."
+  - "The packet names T371-A as conditional only if the owner confirms variant non-dependency; T371-B remains the conservative hold if any doubt exists."
+  - "CD-046 and mandatory preflight/readiness links make the packet discoverable."
+  - "No raw/canonical/generated chunk/evaluator/runtime/vector/edge/reviewed-gold surfaces are touched."
+validation:
+  - python scripts/validate_t371_variant_dependency_owner_decision_packet.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_human_decision_forecast.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T380
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T380/handoff.md
+next_task: "T371 owner response: choose T371-A, T371-B, T371-C, or T371-D. Do not promote reviewed gold, implement chunks, choose readings, change routes/evaluators, generate graph/retrieval/vector outputs, or change output without exact owner authorization."

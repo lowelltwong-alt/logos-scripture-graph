@@ -63,6 +63,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in surfaces
     assert ".ai/control/textual_critical_case_policy.yaml" in surfaces
+    assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
     assert ".ai/control/chunking_human_decision_forecast.yaml" in surfaces
     assert ".ai/control/governance_memory_durability_policy.yaml" in surfaces
@@ -173,6 +174,28 @@ def test_parallel_textual_critical_case_policy_records_t379_without_promotion() 
     assert policy["retrieval_truth_authorized"] is False
 
 
+def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    packet = data["parallel_t371_owner_decision_packet"]
+
+    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
+    assert packet["task_id"] == "T380"
+    assert packet["path"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
+    assert packet["target_owner_task"] == "T371"
+    assert set(packet["exact_variant_refs"]) == {"1Cor.9.20", "1Cor.10.9"}
+    assert packet["recommended_if_owner_agrees_with_variant_non_dependency"] == "T371-A"
+    assert packet["conservative_hold_if_any_doubt"] == "T371-B"
+    assert packet["owner_decision_required"] is True
+    assert packet["variant_dependency_finding_authorized"] is False
+    assert packet["variant_non_dependency_finding_authorized"] is False
+    assert packet["preferred_reading_authorized"] is False
+    assert packet["source_tradition_preference_authorized"] is False
+    assert packet["reviewed_gold_promoted"] is False
+    assert packet["output_change_authorized"] is False
+    assert packet["implementation_authorized"] is False
+
+
 def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
@@ -192,6 +215,7 @@ def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
     assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md"
     assert data["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
     assert data["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+    assert data["next_route"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
     assert data["next_route"]["packet_status"] == "parent_only_evidence_packet_ready_for_owner_review"
     assert data["next_route"]["owner_selection_status"] == "selected"
     assert data["next_route"]["owner_decision_required"] is True

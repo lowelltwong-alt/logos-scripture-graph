@@ -127,6 +127,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_textual_critical_case_policy.py")],
         ),
         (
+            "validate_t371_variant_dependency_owner_decision_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_t371_variant_dependency_owner_decision_packet.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

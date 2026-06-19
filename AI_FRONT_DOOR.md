@@ -27,7 +27,7 @@ Read these files before making changes:
     textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
     queue, Orthodox Hermeneutic Firewall, textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
-    T370 parent-only evidence packet,
+    T371 owner-decision packet, T370 parent-only evidence packet,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     and John 3 owner-review docket are evidence/review policy, not authority.
@@ -300,6 +300,14 @@ Bible-first chunking priority:
   update, and validators/tests. It authorizes no preferred reading, source-tradition preference,
   reviewed gold, graph/retrieval truth, route/evaluator behavior, chunk output, implementation, or
   output change. It is validated by `scripts/validate_textual_critical_case_policy.py`.
+- The T371 owner-decision packet at
+  `.ai/control/t371_variant_dependency_owner_decision_packet.yaml` records the exact next owner
+  question for `1Cor.8.1-1Cor.10.33`, `1Cor.9.20`, and `1Cor.10.9`. It presents T371-A through
+  T371-D, conditionally recommends T371-A only if the owner confirms variant non-dependency, and
+  preserves T371-B as the conservative hold if there is doubt. It does not authorize variant
+  dependency or non-dependency findings, preferred readings, source-tradition preference, reviewed
+  gold, graph/retrieval truth, route/evaluator behavior, chunk output, implementation, or output
+  change. It is validated by `scripts/validate_t371_variant_dependency_owner_decision_packet.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review
@@ -427,6 +435,7 @@ python scripts/validate_prophetic_oracle_vision_dossier_queue.py
 python scripts/validate_textual_variant_source_tradition_dossier_queue.py
 python scripts/validate_orthodox_hermeneutic_firewall_docket.py
 python scripts/validate_textual_critical_policy_docket.py
+python scripts/validate_t371_variant_dependency_owner_decision_packet.py
 python scripts/validate_1cor8_10_owner_review_docket.py
 python scripts/validate_1cor8_10_parent_evidence_packet.py
 python scripts/validate_chunking_human_decision_forecast.py

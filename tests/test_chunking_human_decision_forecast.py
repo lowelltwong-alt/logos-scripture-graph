@@ -41,6 +41,9 @@ def test_forecast_names_predictable_human_decision_gates() -> None:
     assert by_id["HDF-002"]["selected_policy"] == "TCP-T378-B"
     assert by_id["HDF-002"]["policy_record"] == ".ai/control/textual_critical_case_policy.yaml"
     assert by_id["HDF-002"]["projection_policy_pattern"] == "ODP-005"
+    assert by_id["HDF-003"]["status"] == "t371_owner_decision_packet_prepared"
+    assert by_id["HDF-003"]["current_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
+    assert by_id["HDF-003"]["next_owner_gate"] == "T371"
     assert "chunk_output_change" in by_id["HDF-004"]["must_stop_for"]
     assert by_id["HDF-007"]["recommended_default_if_owner_unavailable"] == "systematic_theology_can_be_advisory_not_chunk_authority"
     assert by_id["HDF-012"]["recommended_default_if_owner_unavailable"] == "require_no_context_audit_before_merge"
@@ -76,7 +79,7 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
         for item in state["phases"]["phase_4"]["future_sequence"]
     }
 
-    for task_id in ("T369", "T370", "T379", "T371", "T372", "T373", "T374", "T375", "T376"):
+    for task_id in ("T369", "T370", "T379", "T380", "T371", "T372", "T373", "T374", "T375", "T376"):
         assert task_id in future
     assert future["T369"]["human_decision_forecast"] == ".ai/control/chunking_human_decision_forecast.yaml"
     assert future["T369"]["status"] == "complete"
@@ -88,6 +91,9 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     assert future["T379"]["status"] == "complete"
     assert future["T379"]["selected_policy"] == "TCP-T378-B"
     assert future["T379"]["policy_record"] == ".ai/control/textual_critical_case_policy.yaml"
+    assert future["T380"]["status"] == "complete"
+    assert future["T380"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
+    assert future["T380"]["target_owner_task"] == "T371"
     assert future["T371"]["owner_decision_required"] is True
     assert future["T371"]["starts_only_if"] == "T370_builds_governed_evidence_and_T379_selects_case_policy"
     assert future["T371"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"

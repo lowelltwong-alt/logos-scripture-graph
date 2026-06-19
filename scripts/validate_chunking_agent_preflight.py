@@ -30,6 +30,7 @@ ORTHODOX_FIREWALL = ROOT / ".ai" / "control" / "orthodox_hermeneutic_firewall_do
 TEXTUAL_CRITICAL_DOCKET = ROOT / ".ai" / "control" / "textual_critical_policy_docket.yaml"
 TEXTUAL_CRITICAL_OPTIONS = ROOT / ".ai" / "control" / "textual_critical_policy_owner_options.yaml"
 TEXTUAL_CRITICAL_CASE_POLICY = ROOT / ".ai" / "control" / "textual_critical_case_policy.yaml"
+T371_DECISION_PACKET = ROOT / ".ai" / "control" / "t371_variant_dependency_owner_decision_packet.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
 HUMAN_DECISION_FORECAST = ROOT / ".ai" / "control" / "chunking_human_decision_forecast.yaml"
@@ -74,7 +75,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -133,6 +134,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "textual_critical_policy_docket.yaml",
     "textual_critical_policy_owner_options.yaml",
     "textual_critical_case_policy.yaml",
+    "t371_variant_dependency_owner_decision_packet.yaml",
     "1cor8_10_epistle_owner_review_docket.yaml",
     "1cor8_10_parent_only_evidence_packet.yaml",
     "validate_1cor8_10_parent_evidence_packet.py",
@@ -301,6 +303,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/textual_critical_policy_docket.yaml",
         ".ai/control/textual_critical_policy_owner_options.yaml",
         ".ai/control/textual_critical_case_policy.yaml",
+        ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
         ".ai/control/chunking_human_decision_forecast.yaml",
@@ -553,6 +556,21 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in textual_critical_case_policy_text:
             raise PreflightError(f"{_rel(TEXTUAL_CRITICAL_CASE_POLICY)}: missing case-policy phrase {phrase!r}")
+    t371_packet_text = _read_text(T371_DECISION_PACKET)
+    for phrase in (
+        "object_type: variant_dependency_owner_decision_packet",
+        "target_owner_task: T371",
+        "status: pending_owner_decision",
+        "1Cor.9.20",
+        "1Cor.10.9",
+        "T371-A",
+        "T371-B",
+        "authorizes_variant_non_dependency_finding: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_chunk_output_change: false",
+    ):
+        if phrase not in t371_packet_text:
+            raise PreflightError(f"{_rel(T371_DECISION_PACKET)}: missing T371 packet phrase {phrase!r}")
     onecor_docket_text = _read_text(ONECOR_OWNER_DOCKET)
     for phrase in (
         "object_type: epistle_argument_owner_review_docket",

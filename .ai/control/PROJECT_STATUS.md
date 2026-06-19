@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T379 textual-critical case-by-case policy selection (Codex)
-**Active task:** -> **T379** is complete as a non-output-changing owner-policy record. The owner selected `TCP-T378-B`, recorded in `.ai/control/textual_critical_case_policy.yaml`, validated by `scripts/validate_textual_critical_case_policy.py`, and registered as `CD-045` plus `ODP-005`. Future variant-sensitive reviewed-gold promotion must record exact variants, boundary dependency or non-dependency, reviewed-gold dependency or non-dependency, owner confirmation, decision-register update, and validators/tests. This does not authorize preferred readings, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, implementation, vectors, or output changes. **T371** is next and must ask the exact variant-dependency/parent-only promotion question. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T380 T371 variant-dependency owner decision packet (Codex)
+**Active task:** -> **T380** is complete as a non-output-changing owner-decision packet. It adds `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`, validated by `scripts/validate_t371_variant_dependency_owner_decision_packet.py`, and registered as `CD-046`. The packet asks the exact T371 question for `1Cor.8.1-1Cor.10.33`, `1Cor.9.20`, and `1Cor.10.9`, presents options T371-A through T371-D, conditionally recommends T371-A only if the owner confirms variant non-dependency, and preserves T371-B as the conservative hold if there is doubt. This does not authorize variant dependency/non-dependency, preferred readings, source-tradition preference, reviewed gold, route/evaluator behavior, graph edges, retrieval truth, chunks, canon changes, boundary import, implementation, vectors, or output changes. **T371** is next and still requires the owner to choose an option. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T380 T371 variant-dependency owner decision packet (2026-06-19):** Added
+> `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`, checked by
+> `scripts/validate_t371_variant_dependency_owner_decision_packet.py`, so the next owner decision
+> is no-context-auditable. The packet names exact refs `1Cor.9.20` and `1Cor.10.9`, records
+> options `T371-A` through `T371-D`, conditionally recommends `T371-A` only if the owner confirms
+> variant non-dependency, and preserves `T371-B` as the conservative hold if there is doubt. It
+> records `CD-046` and keeps T371 blocked until an exact owner response. No preferred reading,
+> source-tradition preference, variant dependency/non-dependency finding, reviewed gold,
+> route/evaluator behavior, graph/retrieval truth, chunk, implementation, vector, boundary import,
+> canon change, or output change is authorized.
 
 > **T379 textual-critical case-by-case policy selection (2026-06-19):** Owner selected
 > `TCP-T378-B` as the standing case-by-case process policy before each variant-sensitive
