@@ -1,0 +1,105 @@
+id: T371
+phase: phase_4
+title: "T371-A Parent-Only Reviewed-Gold Promotion"
+mode: build
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+    - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T371.task.yaml
+    - .ai/handoffs/T371/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T371_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+    - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    - scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+    - scripts/validate_t371_variant_dependency_owner_decision_packet.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_wj_speaker_discourse_policy.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_human_decision_forecast.py
+    - scripts/validate_all.py
+    - tests/test_t371_parent_only_reviewed_gold_promotion.py
+    - tests/test_t371_variant_dependency_owner_decision_packet.py
+    - tests/test_owner_decision_projection_policy.py
+    - tests/test_1cor8_10_owner_review_docket.py
+    - tests/test_1cor8_10_parent_evidence_packet.py
+    - tests/test_owner_selection_implementation_gate.py
+    - tests/test_wj_speaker_discourse_policy.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_chunking_human_decision_forecast.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: parent_only_reviewed_gold_promotion_record
+  owner_decision: T371-A
+  owner_decision_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+  decision_register_entry: CD-047
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+  boundary_dependency_or_non_dependency: variant_non_dependent
+  reviewed_gold_dependency_or_non_dependency: variant_non_dependent
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  parent_only_reviewed_gold_promoted: true
+  parent_span_as_chunk_boundary_authorized: false
+  child_spans_authorized: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  boundary_import_allowed: false
+  graph_retrieval_truth_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  chunk_output_authorized: false
+  implementation_authorized: false
+acceptance_criteria:
+  - "The exact owner selection T371-A is recorded in a canonical promotion record."
+  - "The exact parent-only reviewed-gold case is added to the epistle argument gold manifest."
+  - "The variant non-dependency finding is limited to 1Cor.9.20 and 1Cor.10.9 for this parent-only promotion only."
+  - "CD-047, preflight, readiness map, forecast, ROADMAP_STATE, front door, and AI TOCs make the promotion discoverable."
+  - "T372 is the next safe route and remains harness-only/non-output-changing."
+  - "No raw/canonical/generated chunks, route behavior, evaluator behavior, graph/retrieval/vector output, or implementation files are touched."
+validation:
+  - python scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+  - python scripts/validate_t371_variant_dependency_owner_decision_packet.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_human_decision_forecast.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T371
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T371/handoff.md
+next_task: "T372 route-isolated implementation harness and non-target identity plan. Do not implement chunks, change routes/evaluators, create graph/retrieval/vector output, select child spans, or change output until T372 is green and T373 owner implementation authorization exists."

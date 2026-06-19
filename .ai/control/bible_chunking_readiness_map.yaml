@@ -48,7 +48,9 @@ lessons_storage:
     - .ai/control/textual_critical_policy_owner_options.yaml
     - .ai/control/textual_critical_case_policy.yaml
     - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+    - .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
+    - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
     - .ai/control/chunking_human_decision_forecast.yaml
     - .ai/control/governance_memory_durability_policy.yaml
     - .ai/control/owner_decision_projection_policy.yaml
@@ -125,7 +127,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t380_t371_owner_decision_packet_prepared_owner_promotion_gate_next
+    current_state: t371_a_parent_only_reviewed_gold_promoted_t372_harness_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -166,6 +168,26 @@ lane_sequence:
       selected_parent: 1Cor.8.1-1Cor.10.33
       selected_children: []
       reviewed_gold_promoted: false
+      output_change_authorized: false
+      implementation_authorized: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+    parent_only_reviewed_gold_promotion:
+      task_id: T371
+      path: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+      status: complete_parent_only_reviewed_gold_promoted
+      selected_option: T371-A
+      reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+      selected_parent: 1Cor.8.1-1Cor.10.33
+      selected_children: []
+      exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+      boundary_dependency_or_non_dependency: variant_non_dependent
+      reviewed_gold_dependency_or_non_dependency: variant_non_dependent
+      reviewed_gold_promoted: true
+      parent_span_as_chunk_boundary_authorized: false
       output_change_authorized: false
       implementation_authorized: false
       route_behavior_authorized: false
@@ -326,10 +348,10 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T371
-  title: Owner Reviewed-Gold Promotion Decision
-  route_type: epistle_argument_owner_reviewed_gold_promotion_gate
-  starts_only_if: T370_builds_governed_evidence_and_T379_selects_case_policy
+  task_id: T372
+  title: Route-Isolated Implementation Harness And Non-Target Identity Plan
+  route_type: epistle_argument_route_isolation_harness
+  starts_only_if: T371_A_parent_only_reviewed_gold_promoted
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
@@ -343,14 +365,19 @@ next_route:
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
   evidence_packet: eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml
   owner_decision_packet: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
+  promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
-  packet_status: parent_only_evidence_packet_ready_for_owner_review
+  packet_status: parent_only_reviewed_gold_promoted
   owner_selection_status: selected
-  owner_decision_required: true
+  owner_decision_required: false
+  selected_t371_option: T371-A
   prior_owner_decision_task: T367
   packet_strengthening_task: T368
   parent_selection_task: T369
   evidence_prep_task: T370
+  parent_gold_promotion_task: T371
   prior_packet_task: T352
   prior_issue_dossier_task: T361
   orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
@@ -361,12 +388,15 @@ next_route:
   variant_sensitive_policy_selected: true
   selected_textual_critical_policy: TCP-T378-B
   t371_promotion_blocked_until_textual_policy: false
-  variant_dependency_owner_decision_required: true
-  review_only: true
-  rationale: "T370 built governed parent-only evidence for 1Cor.8.1-1Cor.10.33. T379 selected TCP-T378-B case-by-case textual-critical process policy, so the broad textual-policy blocker is resolved. The next safe route is T371 owner review of whether the parent boundary and reviewed-gold claim are variant-non-dependent with respect to 1Cor.9.20 and 1Cor.10.9, plus separate parent-only promotion authorization; no promotion, implementation, child spans, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
+  variant_dependency_owner_decision_required: false
+  variant_dependency_result: variant_non_dependent
+  reviewed_gold_promoted: true
+  harness_only: true
+  owner_implementation_authorization_required: true
+  next_owner_gate: T373
+  rationale: "T371-A promoted only the 1Cor.8.1-1Cor.10.33 parent span as reviewed gold and confirmed variant non-dependency with respect to 1Cor.9.20 and 1Cor.10.9. The next safe route is T372 non-output-changing route-isolation and non-target identity harness planning; no implementation, child spans, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
   output_change_authorized: false
   implementation_authorized: false
-  reviewed_gold_promoted: false
   route_behavior_authorized: false
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
@@ -377,7 +407,7 @@ parallel_research_queue:
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not supersede T369 owner-review gating or authorize algorithm work."
+  relation_to_next_route: "Parallel research-only queue; does not supersede T372 harness gating or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -389,7 +419,7 @@ parallel_original_language_pressure_queue:
   route_type: cross_lane_original_language_pressure_memory
   path: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research memory only; does not supersede T371 owner reviewed-gold promotion review and does not authorize pressure-passage chunking."
+  relation_to_next_route: "Parallel research memory only; does not supersede T372 harness gating and does not authorize pressure-passage chunking."
   corpus_scope: canonical_66
   output_change_authorized: false
   implementation_authorized: false
@@ -411,7 +441,7 @@ parallel_textual_critical_policy_options:
   route_type: owner_policy_options_only
   path: .ai/control/textual_critical_policy_owner_options.yaml
   status: complete_selected_by_t379
-  relation_to_next_route: "T379 selected TCP-T378-B from these options; T371 still needs variant dependency/non-dependency owner confirmation and separate promotion authorization."
+  relation_to_next_route: "T379 selected TCP-T378-B from these options; T371-A now records exact variant non-dependency and parent-only promotion, while all later variant-sensitive uses remain case-by-case."
   recommended_option: TCP-T378-B
   textual_critical_policy_selected: true
   selected_policy: TCP-T378-B
@@ -433,7 +463,7 @@ parallel_textual_critical_case_policy:
   route_type: owner_policy_selection_record_only
   path: .ai/control/textual_critical_case_policy.yaml
   status: complete_non_output_changing
-  relation_to_next_route: "Unblocks T371 to ask exact variant dependency/non-dependency and parent-only reviewed-gold promotion questions; does not itself promote reviewed gold."
+  relation_to_next_route: "Unblocked the T371 exact variant dependency/non-dependency and parent-only promotion question; this policy itself still does not promote reviewed gold."
   selected_policy: TCP-T378-B
   projectable_pattern: ODP-005
   variant_dependency_owner_decision_required: true
@@ -453,18 +483,44 @@ parallel_t371_owner_decision_packet:
   title: T371 Variant-Dependency Owner Decision Packet
   route_type: owner_decision_packet_only
   path: .ai/control/t371_variant_dependency_owner_decision_packet.yaml
-  status: complete_non_authorizing
-  relation_to_next_route: "Packages the exact T371 owner question for 1Cor.9.20 and 1Cor.10.9; does not itself decide variant dependency/non-dependency or promote reviewed gold."
+  status: complete_resolved_by_t371_a_non_authorizing
+  relation_to_next_route: "Packages the exact T371 owner question and now links to the separate T371-A promotion record; the packet itself remains non-authorizing."
   target_owner_task: T371
   exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
   recommended_if_owner_agrees_with_variant_non_dependency: T371-A
   conservative_hold_if_any_doubt: T371-B
-  owner_decision_required: true
+  owner_decision_required: false
+  owner_response_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+  selected_option: T371-A
   variant_dependency_finding_authorized: false
   variant_non_dependency_finding_authorized: false
   preferred_reading_authorized: false
   source_tradition_preference_authorized: false
   reviewed_gold_promoted: false
+  output_change_authorized: false
+  implementation_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+parallel_t371_parent_only_promotion_record:
+  task_id: T371
+  title: T371-A Parent-Only Reviewed-Gold Promotion
+  route_type: owner_promotion_record_only
+  path: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  status: complete_parent_only_reviewed_gold_promoted
+  relation_to_next_route: "Allows T372 harness/identity planning only; does not authorize implementation, route behavior, evaluator behavior, graph/retrieval truth, child spans, or output changes."
+  selected_option: T371-A
+  exact_variant_refs: [1Cor.9.20, 1Cor.10.9]
+  boundary_dependency_or_non_dependency: variant_non_dependent
+  reviewed_gold_dependency_or_non_dependency: variant_non_dependent
+  reviewed_gold_promoted: true
+  parent_span_as_chunk_boundary_authorized: false
+  child_spans_authorized: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
   output_change_authorized: false
   implementation_authorized: false
   route_behavior_authorized: false
@@ -487,6 +543,8 @@ update_triggers:
   - textual_critical_policy_owner_options_change
   - textual_critical_case_policy_change
   - t371_variant_dependency_owner_decision_packet_change
+  - t371_parent_only_reviewed_gold_promotion_change
+  - epistle_argument_gold_manifest_change
   - 1cor8_10_owner_review_docket_change
   - chunking_human_decision_forecast_change
   - governance_memory_durability_policy_change

@@ -72,9 +72,11 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/textual_critical_policy_owner_options.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+    ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",
+    "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
 }
 
 REQUIRED_NON_AUTHORIZATIONS = {
@@ -136,6 +138,10 @@ ALLOWED_NEXT_ROUTES = {
     "T371": {
         "route_type": "epistle_argument_owner_reviewed_gold_promotion_gate",
         "title": "Owner Reviewed-Gold Promotion Decision",
+    },
+    "T372": {
+        "route_type": "epistle_argument_route_isolation_harness",
+        "title": "Route-Isolated Implementation Harness And Non-Target Identity Plan",
     },
 }
 
@@ -490,6 +496,64 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T371 next_route.{key} must be false")
+    if task_id == "T372":
+        expected_t372 = {
+            "recommended_target": "epistle_argument",
+            "selected_target": "1cor8_10_food_offered_to_idols",
+            "selected_passage": "1Cor.8-1Cor.10",
+            "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "1COR8-10-T369-B",
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selection_mode": "projected_owner_pattern",
+            "projection_policy": ".ai/control/owner_decision_projection_policy.yaml",
+            "conflict_scan_result": "no_conflict_detected",
+            "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "evidence_packet": "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+            "owner_decision_packet": ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+            "promotion_record": ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+            "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+            "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
+            "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
+            "packet_status": "parent_only_reviewed_gold_promoted",
+            "owner_selection_status": "selected",
+            "selected_t371_option": "T371-A",
+            "parent_gold_promotion_task": "T371",
+            "prior_owner_decision_task": "T367",
+            "packet_strengthening_task": "T368",
+            "parent_selection_task": "T369",
+            "evidence_prep_task": "T370",
+            "prior_packet_task": "T352",
+            "prior_issue_dossier_task": "T361",
+            "orthodox_firewall": ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
+            "textual_critical_policy_docket": ".ai/control/textual_critical_policy_docket.yaml",
+        }
+        for key, value in expected_t372.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T372 next_route.{key} must be {value}")
+        if next_route.get("selected_children") != []:
+            raise ReadinessMapError(f"{_rel(path)}: T372 next_route.selected_children must be []")
+        if next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
+            raise ReadinessMapError(f"{_rel(path)}: T372 starts_only_if is stale")
+        if next_route.get("reviewed_gold_promoted") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T372 reviewed_gold_promoted must be true")
+        if next_route.get("variant_dependency_result") != "variant_non_dependent":
+            raise ReadinessMapError(f"{_rel(path)}: T372 variant_dependency_result is stale")
+        if next_route.get("variant_dependency_owner_decision_required") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T372 variant dependency owner decision must be resolved")
+        if next_route.get("harness_only") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T372 next_route.harness_only must be true")
+        if next_route.get("owner_implementation_authorization_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T372 implementation owner gate must be required")
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "route_behavior_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T372 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):
@@ -561,8 +625,12 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet.{key} must be {value}")
     if set(t371_packet.get("exact_variant_refs", [])) != {"1Cor.9.20", "1Cor.10.9"}:
         raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet refs are stale")
-    if t371_packet.get("owner_decision_required") is not True:
-        raise ReadinessMapError(f"{_rel(path)}: T371 packet owner_decision_required must be true")
+    if t371_packet.get("owner_decision_required") is not False:
+        raise ReadinessMapError(f"{_rel(path)}: T371 packet owner_decision_required must be false after T371-A")
+    if t371_packet.get("owner_response_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+        raise ReadinessMapError(f"{_rel(path)}: T371 packet owner_response_record is stale")
+    if t371_packet.get("selected_option") != "T371-A":
+        raise ReadinessMapError(f"{_rel(path)}: T371 packet selected_option must be T371-A")
     for key in (
         "variant_dependency_finding_authorized",
         "variant_non_dependency_finding_authorized",
@@ -578,6 +646,41 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     ):
         if t371_packet.get(key) is not False:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t371_owner_decision_packet.{key} must be false")
+
+    promotion = data.get("parallel_t371_parent_only_promotion_record")
+    if not isinstance(promotion, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t371_parent_only_promotion_record must be a mapping")
+    expected_promotion = {
+        "task_id": "T371",
+        "path": ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+        "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+        "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
+        "status": "complete_parent_only_reviewed_gold_promoted",
+        "selected_option": "T371-A",
+        "boundary_dependency_or_non_dependency": "variant_non_dependent",
+        "reviewed_gold_dependency_or_non_dependency": "variant_non_dependent",
+    }
+    for key, value in expected_promotion.items():
+        if promotion.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t371_parent_only_promotion_record.{key} must be {value}")
+    if set(promotion.get("exact_variant_refs", [])) != {"1Cor.9.20", "1Cor.10.9"}:
+        raise ReadinessMapError(f"{_rel(path)}: T371 promotion refs are stale")
+    if promotion.get("reviewed_gold_promoted") is not True:
+        raise ReadinessMapError(f"{_rel(path)}: T371 promotion must record reviewed_gold_promoted true")
+    for key in (
+        "parent_span_as_chunk_boundary_authorized",
+        "child_spans_authorized",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "output_change_authorized",
+        "implementation_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+    ):
+        if promotion.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t371_parent_only_promotion_record.{key} must be false")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

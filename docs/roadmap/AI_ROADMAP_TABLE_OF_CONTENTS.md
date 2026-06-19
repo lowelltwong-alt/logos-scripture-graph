@@ -46,7 +46,8 @@ Common tags in this file:
   `watch-tower`, `nwt`, `trinity`, `christology`, `divine-plurality`,
   `owner-options`, `case-by-case`, `1cor9-20`, `1cor10-9`, `reviewed-gold-blocker`,
   `case-policy`, `selected-policy`, `owner-confirmation`, `ODP-005`, `T379`, `T380`,
-  `variant-dependency`, `owner-decision-packet`
+  `variant-dependency`, `owner-decision-packet`, `T371-A`, `variant-non-dependent`,
+  `harness-next`
 
 ## Current Bible Chunking Path
 
@@ -87,6 +88,7 @@ Common tags in this file:
 | T378 | Textual-critical policy owner options | `textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`, `reviewed-gold-blocker`, `non-authorizing` | T371 or another packet needs textual-critical owner policy before variant-sensitive reviewed-gold promotion. | `docs/roadmap/T378_TEXTUAL_CRITICAL_POLICY_OWNER_OPTIONS.md`; `.ai/control/textual_critical_policy_owner_options.yaml`; `scripts/validate_textual_critical_policy_owner_options.py`; `.ai/tasks/T378.task.yaml`; `.ai/handoffs/T378/handoff.md` |
 | T379 | Textual-critical case-by-case policy selection | `textual-critical-policy`, `case-policy`, `selected-policy`, `owner-confirmation`, `ODP-005`, `variant-dependency`, `non-authorizing` | Owner selected `TCP-T378-B`; future agents need the process pattern without treating it as preferred-reading, promotion, or output authority. | `docs/roadmap/T379_TEXTUAL_CRITICAL_CASE_POLICY_SELECTION.md`; `.ai/control/textual_critical_case_policy.yaml`; `scripts/validate_textual_critical_case_policy.py`; `.ai/tasks/T379.task.yaml`; `.ai/handoffs/T379/handoff.md` |
 | T380 | T371 owner decision packet | `t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`, `non-authorizing` | Owner or auditor needs the exact T371 options before parent-only reviewed-gold promotion. | `docs/roadmap/T380_T371_VARIANT_DEPENDENCY_OWNER_DECISION_PACKET.md`; `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`; `scripts/validate_t371_variant_dependency_owner_decision_packet.py`; `.ai/tasks/T380.task.yaml`; `.ai/handoffs/T380/handoff.md` |
+| T371 | T371-A parent-only reviewed-gold promotion | `t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next` | Auditing the owner-confirmed parent-only reviewed-gold promotion or preparing T372 harness work. | `docs/roadmap/T371_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md`; `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml`; `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`; `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`; `.ai/tasks/T371.task.yaml`; `.ai/handoffs/T371/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -119,6 +121,8 @@ Common tags in this file:
 | `.ai/control/textual_critical_policy_owner_options.yaml` | `textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`, `reviewed-gold-blocker` | T371 or another variant-sensitive packet needs owner policy options before promotion. | Owner options docket; records T379 selection of `TCP-T378-B` but no preferred reading, source-tradition preference, reviewed gold, graph/retrieval truth, chunk boundary, or output authority. |
 | `.ai/control/textual_critical_case_policy.yaml` | `textual-critical-policy`, `case-policy`, `selected-policy`, `owner-confirmation`, `ODP-005`, `variant-dependency` | Future agents need the selected case-by-case process policy for variant-sensitive gates. | Selected `TCP-T378-B` process policy; no preferred reading, source-tradition preference, dependency projection, reviewed gold, graph/retrieval truth, route/evaluator behavior, chunk boundary, implementation, or output authority. |
 | `.ai/control/t371_variant_dependency_owner_decision_packet.yaml` | `t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only` | Owner or auditor needs the exact T371 options before parent-only reviewed-gold promotion. | Owner decision packet; conditionally recommends T371-A only if the owner confirms variant non-dependency and preserves T371-B as the conservative hold; no dependency finding, reviewed gold, output, route, graph, retrieval, or implementation authority. |
+| `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml` | `t371-a`, `reviewed-gold`, `variant-non-dependent`, `parent-only`, `1cor8-10` | T372 harness work or an audit needs the exact owner-confirmed promotion boundary and its limits. | T371-A promotion record; authorizes only parent-only reviewed gold for `1Cor.8.1-1Cor.10.33` and denies child, route, graph, retrieval, implementation, and output authority. |
+| `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json` | `reviewed-gold`, `epistle`, `manifest`, `1cor8-10`, `parent-only` | A future implementation or audit needs the machine-readable epistle argument reviewed-gold case. | Reviewed-gold manifest; currently records the T371-A parent-only case without child-span, route, evaluator, graph, retrieval, implementation, or output authority. |
 | `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the projected parent-only selection after packet strengthening. | Owner-review docket; no child/doctrine/gold/chunk/output authority. |
 | `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml` | `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `source-metadata`, `parent-only` | Work audits T370 evidence or prepares the T371 owner promotion decision. | Parent-only evidence packet; not reviewed gold and no child/route/evaluator/graph/retrieval/output authority. |
 | `.ai/control/chunking_human_decision_forecast.yaml` | `human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate` | Work needs to know which predictable owner decisions can be made early before chunk-output work starts. | Decision forecast; defines readiness and stop conditions without authorizing output. |
@@ -127,10 +131,10 @@ Common tags in this file:
 
 After T344 owner decision, T351 Bible-wide triage, T367 owner firewall guidance, T368 packet
 strengthening, T369 projected parent-only owner-pattern selection, T370 parent-only evidence
-prep, and T380 T371 owner-decision packet prep, the next route is:
+prep, T380 T371 owner-decision packet prep, and T371-A parent-only reviewed-gold promotion, the next route is:
 
 ```text
-T371 - Owner reviewed-gold promotion decision
+T372 - Route-isolated implementation harness and non-target identity plan
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
@@ -138,11 +142,11 @@ adds the Orthodox Hermeneutic Firewall and textual-critical policy docket requir
 the epistle lane to 1Cor.8-10. T368 strengthens the packet and creates
 `.ai/control/1cor8_10_epistle_owner_review_docket.yaml`. T369 selects parent-only
 `1Cor.8.1-1Cor.10.33` by projected owner pattern after a no-conflict scan. T370 builds the
-parent-only evidence packet. T371 is owner promotion review only.
-T380 adds `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`, so T371 now asks
-the narrower owner question: whether the parent-only boundary and reviewed-gold claim are
-variant-non-dependent for `1Cor.9.20` and `1Cor.10.9`, and whether parent-only promotion is
-authorized.
+parent-only evidence packet. T380 adds `.ai/control/t371_variant_dependency_owner_decision_packet.yaml`.
+T371-A then records the owner response in `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml`
+and `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`: the parent-only boundary
+and reviewed-gold claim are variant-non-dependent for `1Cor.9.20` and `1Cor.10.9`, and only
+`1Cor.8.1-1Cor.10.33` is promoted as parent-only reviewed gold.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -213,9 +217,9 @@ child spans and did not authorize reviewed gold, chunks, route/evaluator behavio
 retrieval truth, textual-critical policy, or output changes. T370 prepared governed parent-only
 evidence only; it did not promote reviewed gold, implement chunks, project child spans, ignore
 conflicting prior owner decisions, change route/evaluator behavior, generate graph edges, assert
-retrieval truth, select textual-critical policy, or change output. T371 may only ask the owner
-whether the evidence packet should be promoted to reviewed gold; it still cannot implement chunks
-or change output.
+retrieval truth, select textual-critical policy, or change output. T371-A promotes only parent-only
+reviewed gold; it still cannot implement chunks, select child spans, treat the parent as a chunk
+boundary, change route/evaluator behavior, create graph/retrieval/vector output, or change output.
 T377 records original-language pressure-passage review memory; it does not authorize Greek/Hebrew
 as automatic truth, translation preference, non-orthodox source authority, extra-canonical source
 authority, doctrine selection, graph/retrieval truth, reviewed gold, chunk boundaries, canon-scope

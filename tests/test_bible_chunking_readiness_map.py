@@ -64,6 +64,8 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in surfaces
     assert ".ai/control/textual_critical_case_policy.yaml" in surfaces
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in surfaces
+    assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in surfaces
+    assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
     assert ".ai/control/chunking_human_decision_forecast.yaml" in surfaces
     assert ".ai/control/governance_memory_durability_policy.yaml" in surfaces
@@ -104,7 +106,7 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["task_id"] == "T372"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -119,7 +121,7 @@ def test_parallel_original_language_pressure_queue_does_not_replace_next_route()
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_original_language_pressure_queue"]
 
-    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["task_id"] == "T372"
     assert queue["task_id"] == "T377"
     assert queue["route_type"] == "cross_lane_original_language_pressure_memory"
     assert queue["path"] == ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml"
@@ -138,12 +140,12 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_textual_critical_policy_options"]
 
-    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["task_id"] == "T372"
     assert data["next_route"]["variant_sensitive_policy_gate_task"] == "T379"
     assert data["next_route"]["variant_sensitive_policy_selected"] is True
     assert data["next_route"]["selected_textual_critical_policy"] == "TCP-T378-B"
     assert data["next_route"]["t371_promotion_blocked_until_textual_policy"] is False
-    assert data["next_route"]["variant_dependency_owner_decision_required"] is True
+    assert data["next_route"]["variant_dependency_owner_decision_required"] is False
     assert queue["task_id"] == "T378"
     assert queue["path"] == ".ai/control/textual_critical_policy_owner_options.yaml"
     assert queue["recommended_option"] == "TCP-T378-B"
@@ -161,7 +163,7 @@ def test_parallel_textual_critical_case_policy_records_t379_without_promotion() 
     data = validator.validate_readiness_map(READINESS_MAP)
     policy = data["parallel_textual_critical_case_policy"]
 
-    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["task_id"] == "T372"
     assert policy["task_id"] == "T379"
     assert policy["path"] == ".ai/control/textual_critical_case_policy.yaml"
     assert policy["selected_policy"] == "TCP-T378-B"
@@ -178,7 +180,7 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
     packet = data["parallel_t371_owner_decision_packet"]
 
-    assert data["next_route"]["task_id"] == "T371"
+    assert data["next_route"]["task_id"] == "T372"
     assert data["next_route"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
     assert packet["task_id"] == "T380"
     assert packet["path"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
@@ -186,7 +188,9 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert set(packet["exact_variant_refs"]) == {"1Cor.9.20", "1Cor.10.9"}
     assert packet["recommended_if_owner_agrees_with_variant_non_dependency"] == "T371-A"
     assert packet["conservative_hold_if_any_doubt"] == "T371-B"
-    assert packet["owner_decision_required"] is True
+    assert packet["owner_decision_required"] is False
+    assert packet["owner_response_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
+    assert packet["selected_option"] == "T371-A"
     assert packet["variant_dependency_finding_authorized"] is False
     assert packet["variant_non_dependency_finding_authorized"] is False
     assert packet["preferred_reading_authorized"] is False
@@ -196,12 +200,12 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert packet["implementation_authorized"] is False
 
 
-def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
+def test_next_route_advances_to_t372_harness_gate() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T371"
-    assert data["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_gate"
-    assert data["next_route"]["starts_only_if"] == "T370_builds_governed_evidence_and_T379_selects_case_policy"
+    assert data["next_route"]["task_id"] == "T372"
+    assert data["next_route"]["route_type"] == "epistle_argument_route_isolation_harness"
+    assert data["next_route"]["starts_only_if"] == "T371_A_parent_only_reviewed_gold_promoted"
     assert data["next_route"]["recommended_target"] == "epistle_argument"
     assert data["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
     assert data["next_route"]["selected_passage"] == "1Cor.8-1Cor.10"
@@ -216,21 +220,28 @@ def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
     assert data["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
     assert data["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     assert data["next_route"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
-    assert data["next_route"]["packet_status"] == "parent_only_evidence_packet_ready_for_owner_review"
+    assert data["next_route"]["promotion_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
+    assert data["next_route"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
+    assert data["next_route"]["reviewed_gold_case_id"] == "1cor8_10_parent_only_reviewed_gold"
+    assert data["next_route"]["packet_status"] == "parent_only_reviewed_gold_promoted"
     assert data["next_route"]["owner_selection_status"] == "selected"
-    assert data["next_route"]["owner_decision_required"] is True
+    assert data["next_route"]["owner_decision_required"] is False
+    assert data["next_route"]["selected_t371_option"] == "T371-A"
     assert data["next_route"]["prior_owner_decision_task"] == "T367"
     assert data["next_route"]["packet_strengthening_task"] == "T368"
     assert data["next_route"]["parent_selection_task"] == "T369"
     assert data["next_route"]["evidence_prep_task"] == "T370"
+    assert data["next_route"]["parent_gold_promotion_task"] == "T371"
     assert data["next_route"]["prior_packet_task"] == "T352"
     assert data["next_route"]["prior_issue_dossier_task"] == "T361"
     assert data["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
     assert data["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
-    assert data["next_route"]["review_only"] is True
+    assert data["next_route"]["harness_only"] is True
+    assert data["next_route"]["owner_implementation_authorization_required"] is True
+    assert data["next_route"]["next_owner_gate"] == "T373"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
-    assert data["next_route"]["reviewed_gold_promoted"] is False
+    assert data["next_route"]["reviewed_gold_promoted"] is True
     assert data["next_route"]["route_behavior_authorized"] is False
     assert data["next_route"]["evaluator_change_authorized"] is False
     assert data["next_route"]["graph_edge_generation_allowed"] is False
@@ -240,6 +251,30 @@ def test_next_route_advances_to_t371_owner_promotion_gate() -> None:
     assert epistle["parent_only_evidence_packet"]["task_id"] == "T370"
     assert epistle["parent_only_evidence_packet"]["status"] == "ready_for_owner_promotion_review"
     assert epistle["parent_only_evidence_packet"]["reviewed_gold_promoted"] is False
+    promotion = epistle["parent_only_reviewed_gold_promotion"]
+    assert promotion["task_id"] == "T371"
+    assert promotion["selected_option"] == "T371-A"
+    assert promotion["reviewed_gold_promoted"] is True
+    assert promotion["selected_children"] == []
+    assert promotion["parent_span_as_chunk_boundary_authorized"] is False
+
+
+def test_parallel_t371_promotion_record_is_narrow_and_non_output_changing() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    promotion = data["parallel_t371_parent_only_promotion_record"]
+
+    assert promotion["task_id"] == "T371"
+    assert promotion["path"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
+    assert promotion["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
+    assert promotion["reviewed_gold_case_id"] == "1cor8_10_parent_only_reviewed_gold"
+    assert promotion["selected_option"] == "T371-A"
+    assert set(promotion["exact_variant_refs"]) == {"1Cor.9.20", "1Cor.10.9"}
+    assert promotion["boundary_dependency_or_non_dependency"] == "variant_non_dependent"
+    assert promotion["reviewed_gold_dependency_or_non_dependency"] == "variant_non_dependent"
+    assert promotion["reviewed_gold_promoted"] is True
+    assert promotion["child_spans_authorized"] is False
+    assert promotion["output_change_authorized"] is False
+    assert promotion["implementation_authorized"] is False
 
 
 def test_validator_rejects_missing_required_lane(tmp_path: Path) -> None:

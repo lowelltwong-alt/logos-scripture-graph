@@ -1824,15 +1824,15 @@ decisions:
       passages: [1Cor.8.1-1Cor.10.33, 1Cor.9.20, 1Cor.10.9]
       routes: [epistle_argument, textual_variant_source_tradition, reviewed_gold_promotion_gate]
       surfaces: [.ai/control/t371_variant_dependency_owner_decision_packet.yaml, eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml, .ai/control/textual_critical_case_policy.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
-    decision: "Create a non-authorizing T371 owner-decision packet that asks whether the 1Cor.8.1-1Cor.10.33 parent-only boundary and reviewed-gold claim are variant-non-dependent with respect to 1Cor.9.20 and 1Cor.10.9, and whether parent-only reviewed-gold promotion is authorized. The packet presents T371-A through T371-D, conditionally recommends T371-A only if the owner confirms variant non-dependency, and preserves T371-B as the conservative hold if any doubt remains."
+    decision: "Create a non-authorizing T371 owner-decision packet that asks whether the 1Cor.8.1-1Cor.10.33 parent-only boundary and reviewed-gold claim are variant-non-dependent with respect to 1Cor.9.20 and 1Cor.10.9, and whether parent-only reviewed-gold promotion is authorized. The packet presents T371-A through T371-D, conditionally recommends T371-A only if the owner confirms variant non-dependency, and preserves T371-B as the conservative hold if any doubt remains. CD-047 later records the owner-selected T371-A answer; this packet remains non-authorizing."
     downstream_risk: "A future agent could treat the decision packet or conditional recommendation as an actual variant non-dependency finding, preferred reading, source-tradition preference, reviewed-gold promotion, chunk boundary, graph/retrieval truth, or implementation authority."
     theological_assumptions_avoided:
       - "No preferred reading is selected for 1Cor.9.20 or 1Cor.10.9."
       - "No source-tradition preference, critical-text default, majority-text default, Textus Receptus default, or current-source default is selected."
       - "No Christological conclusion from the 1Cor.10.9 Lord/Christ footnote is encoded as chunk, graph, retrieval, or theological authority."
-      - "No parent span is promoted to reviewed gold until the owner gives an exact T371 response."
+      - "T380 itself does not promote the parent span; CD-047 records the later exact T371 owner response."
       - "No child spans, route behavior, evaluator behavior, graph/retrieval truth, vector work, implementation, or output change follows from T380."
-    reviewed_gold_dependency: "T371 remains blocked until the owner records exact variant refs, boundary/reviewed-gold dependency or non-dependency, parent-only promotion authorization or hold, decision-register update, and validators/tests."
+    reviewed_gold_dependency: "Resolved for the exact parent-only 1Cor.8.1-1Cor.10.33 promotion by CD-047/T371-A; the packet itself remains non-authorizing, and any later implementation still requires route harnesses, non-target identity proof, same-baseline planning, and owner output authorization."
     non_authorizations:
       - variant_dependency_finding
       - variant_non_dependency_finding
@@ -1858,10 +1858,76 @@ decisions:
     validators:
       - scripts/validate_t371_variant_dependency_owner_decision_packet.py
       - tests/test_t371_variant_dependency_owner_decision_packet.py
+      - scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+      - tests/test_t371_parent_only_reviewed_gold_promotion.py
       - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_bible_chunking_readiness_map.py
       - scripts/validate_chunking_agent_preflight.py
       - scripts/validate_chunking_human_decision_forecast.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-047
+    title: T371-A promotes 1 Corinthians 8-10 parent-only reviewed gold
+    classification: theological_risk
+    task_ids: [T371]
+    owner_decision_ref: ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33, 1Cor.9.20, 1Cor.10.9]
+      routes: [epistle_argument, reviewed_gold_promotion_gate, textual_variant_source_tradition]
+      surfaces: [.ai/control/t371_parent_only_reviewed_gold_promotion.yaml, .ai/control/t371_variant_dependency_owner_decision_packet.yaml, eval/chunking_gold/per_form/epistle_argument_gold_manifest.json, eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "Owner selected T371-A: 1Cor.9.20 and 1Cor.10.9 are variant-non-dependent for the exact 1Cor.8.1-1Cor.10.33 parent-only boundary and reviewed-gold claim, and the exact parent span is promoted as parent-only reviewed gold. This does not select preferred readings, source-tradition preference, child spans, parent span as a chunk boundary, route/evaluator behavior, graph/retrieval truth, implementation, vectors, or output changes."
+    downstream_risk: "A future agent could overread parent-only reviewed gold as child-boundary approval, as a preferred reading for the 1Cor.9.20 or 1Cor.10.9 variants, as sacramental/ecclesial/law-gospel system selection, or as output/implementation authority."
+    theological_assumptions_avoided:
+      - "No preferred reading is selected for the 1Cor.9.20 addition note or the 1Cor.10.9 Lord/Christ note."
+      - "No source-tradition default, critical-text default, majority-text default, Textus Receptus default, or current-source default is selected."
+      - "No Christological, sacramental, ecclesial, weak/strong, Christian-liberty, law/gospel, covenant, or denominational system is encoded as chunk authority."
+      - "Parent-only reviewed gold does not imply child spans, argument-outline boundaries, paragraph-marker boundaries, source-metadata authority, or graph/retrieval truth."
+      - "Implementation and output changes remain blocked behind T372/T373+ route isolation, non-target identity proof, same-baseline planning, and explicit owner authorization."
+    reviewed_gold_dependency: "The exact reviewed-gold surface is eval/chunking_gold/per_form/epistle_argument_gold_manifest.json case 1cor8_10_parent_only_reviewed_gold, backed by .ai/control/t371_parent_only_reviewed_gold_promotion.yaml and the T370 evidence packet. Future implementation may cite this parent-only gold but may not infer child spans or output authority from it."
+    non_authorizations:
+      - preferred_reading_selection
+      - critical_text_default
+      - majority_text_default
+      - textus_receptus_default
+      - current_source_as_hidden_textual_policy
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - noncanonical_source_authority
+      - parent_span_as_chunk_boundary
+      - child_span_selection
+      - argument_outline_as_child_boundary
+      - paragraph_marker_as_chunk_boundary
+      - source_metadata_as_authority
+      - cross_reference_as_graph_edge
+      - strong_number_as_lexical_truth
+      - capitalization_as_divine_identity
+      - sacramental_system_selection
+      - ecclesial_system_selection
+      - weak_strong_system_selection
+      - christian_liberty_system_selection
+      - law_gospel_system_selection
+      - covenant_system_selection
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - chunk_output_change
+      - implementation_authority
+    validators:
+      - scripts/validate_t371_parent_only_reviewed_gold_promotion.py
+      - tests/test_t371_parent_only_reviewed_gold_promotion.py
+      - scripts/validate_t371_variant_dependency_owner_decision_packet.py
+      - tests/test_t371_variant_dependency_owner_decision_packet.py
+      - scripts/validate_chunking_gold.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_agent_preflight.py
       - scripts/validate_all.py
     lifecycle_status: active
     supersedes: []
@@ -1956,4 +2022,5 @@ backfill_coverage:
     - T378
     - T379
     - T380
+    - T371
 ...
