@@ -931,20 +931,32 @@ phases:
         boundary_import_allowed: false
       - id: T373
         title: Owner Implementation Authorization Gate
-        status: planned
+        status: complete
         lane: epistle_argument
-        owner_decision_required: true
+        owner_decision_required: false
         starts_only_if: T372_route_isolation_harness_plan_complete
+        owner: codex
+        required_handoff: .ai/handoffs/T373/handoff.md
+        authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+        option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
+        selected_option: T373-A
         harness_plan: .ai/control/t372_route_isolation_harness_plan.yaml
+        promotion_record: .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
         selected_parent: 1Cor.8.1-1Cor.10.33
         selected_children: []
         reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
         reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
-        parent_span_as_chunk_boundary_authorized: false
+        decision_register_entries: [CD-050, CD-051]
+        next_task_if_authorized: T374
+        parent_span_as_chunk_boundary_authorized: true
+        parent_span_authorization_scope: exact_t374_pilot_only
         child_spans_authorized: false
-        output_change_authorized: false
-        implementation_authorized: false
-        route_behavior_authorized: false
+        output_change_authorized: true
+        output_change_authorization_scope: exact_t374_pilot_only
+        implementation_authorized: true
+        implementation_authorization_scope: exact_t374_pilot_only
+        route_behavior_authorized: true
+        route_behavior_authorization_scope: exact_t374_target_only
         evaluator_change_authorized: false
         graph_edge_generation_allowed: false
         retrieval_truth_authorized: false
@@ -952,12 +964,26 @@ phases:
         title: First Route-Isolated 1 Corinthians 8-10 Implementation
         status: planned
         lane: epistle_argument
-        starts_only_if: T373_authorizes_exact_output_change
-        output_change_authorized: false
-        implementation_authorized: false
+        starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
+        authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+        selected_parent: 1Cor.8.1-1Cor.10.33
+        selected_children: []
+        output_change_authorized: true
+        output_change_authorization_scope: exact_t374_pilot_only
+        implementation_authorized: true
+        implementation_authorization_scope: exact_t374_pilot_only
+        child_spans_authorized: false
+        route_behavior_authorized: true
+        route_behavior_authorization_scope: exact_t374_target_only
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
         requires_reviewed_gold: true
         requires_non_target_identity_proof: true
         requires_same_baseline_evaluation: true
+        requires_changed_output_manifest: true
+        requires_decision_register_update: true
+        requires_no_context_audit_surface: true
       - id: T375
         title: Same-Baseline Evaluation And No-Context Audit
         status: planned

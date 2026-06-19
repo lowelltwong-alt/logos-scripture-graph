@@ -50,6 +50,8 @@ lessons_storage:
     - .ai/control/t371_variant_dependency_owner_decision_packet.yaml
     - .ai/control/t371_parent_only_reviewed_gold_promotion.yaml
     - .ai/control/t372_route_isolation_harness_plan.yaml
+    - .ai/control/t373_owner_implementation_authorization.yaml
+    - .ai/control/owner_decision_option_presentation_policy.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
     - .ai/control/chunking_human_decision_forecast.yaml
@@ -128,8 +130,8 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t372_route_isolation_harness_plan_complete_t373_owner_gate_next
-    new_algorithm_work_ready: false
+    current_state: t373_a_authorized_exact_parent_only_t374_pilot_next
+    new_algorithm_work_ready: true
     candidate_cases:
       - Eph.1.3-Eph.1.14
       - Rom.9-Rom.11
@@ -368,18 +370,18 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T373
-  title: Owner Implementation Authorization Gate
-  route_type: epistle_argument_owner_implementation_authorization_gate
-  starts_only_if: T372_route_isolation_harness_plan_complete
+  task_id: T374
+  title: First Route-Isolated 1 Corinthians 8-10 Implementation
+  route_type: epistle_argument_route_isolated_output_pilot
+  starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
   exact_parent_candidate: 1Cor.8.1-1Cor.10.33
-  selected_option: 1COR8-10-T369-B
+  selected_option: T373-A
   selected_parent: 1Cor.8.1-1Cor.10.33
   selected_children: []
-  selection_mode: projected_owner_pattern
+  selection_mode: explicit_owner_authorization
   projection_policy: .ai/control/owner_decision_projection_policy.yaml
   conflict_scan_result: no_conflict_detected
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
@@ -390,16 +392,20 @@ next_route:
   reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
   harness_plan: .ai/control/t372_route_isolation_harness_plan.yaml
   harness_plan_status: complete_non_output_changing_plan
+  authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+  option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
   packet_status: parent_only_reviewed_gold_promoted
   owner_selection_status: selected
-  owner_decision_required: true
+  owner_decision_required: false
   selected_t371_option: T371-A
+  selected_t373_option: T373-A
   prior_owner_decision_task: T367
   packet_strengthening_task: T368
   parent_selection_task: T369
   evidence_prep_task: T370
   parent_gold_promotion_task: T371
+  implementation_authorization_task: T373
   prior_packet_task: T352
   prior_issue_dossier_task: T361
   orthodox_firewall: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
@@ -414,22 +420,39 @@ next_route:
   variant_dependency_result: variant_non_dependent
   reviewed_gold_promoted: true
   harness_only: false
-  owner_implementation_authorization_required: true
+  owner_implementation_authorization_required: false
+  owner_implementation_authorization_recorded: true
   prior_harness_task: T372
-  required_owner_decision_must_record:
-    - exact_output_or_implementation_authorization_or_hold
-    - whether_parent_span_may_be_used_as_output_chunk_boundary
-    - whether_child_spans_remain_disallowed_or_are_separately_selected
-    - whether_route_behavior_change_is_authorized_for_exact_target_only
-    - non_target_identity_proof_requirement
-    - same_baseline_evaluation_requirement
-    - decision_register_update_requirement
-  default_if_owner_unavailable: stop_before_implementation_or_output_change
-  next_task_if_authorized: T374
-  rationale: "T372 completed only a non-output-changing route-isolation and non-target identity harness plan. The next safe route is T373 owner implementation authorization; no implementation, child spans, parent span as output chunk boundary, route/evaluator behavior, graph/retrieval truth, preferred reading, source-tradition preference, or output change is authorized by readiness."
-  output_change_authorized: false
-  implementation_authorized: false
-  route_behavior_authorized: false
+  required_t374_work_must_record:
+    - exact_t373_authorization_record_present
+    - parent_only_scope_proof
+    - selected_children_must_be_empty
+    - non_target_identity_proof
+    - same_baseline_evaluation
+    - changed_output_manifest
+    - decision_register_update
+    - validators_and_tests
+    - no_context_audit_surface
+  must_fail_if:
+    - child_spans_are_added_without_later_owner_promotion
+    - route_behavior_applies_outside_1cor8_10
+    - parent_span_generalizes_to_other_epistles
+    - evaluator_formula_changes_inside_implementation_pr
+    - graph_or_retrieval_truth_is_generated
+    - embedding_or_vector_output_is_generated
+    - source_metadata_becomes_chunk_authority
+    - non_target_output_diff_is_detected
+  default_if_owner_unavailable: t373_already_recorded_but_stop_if_authorization_conflict_or_scope_ambiguity
+  next_task_after_t374: T375
+  rationale: "T373 selected T373-A. The next safe route is a route-isolated T374 implementation for only the exact parent-only 1Cor.8.1-1Cor.10.33 target. Child spans, broader epistle generalization, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary import, and whole-Bible output remain unauthorized."
+  parent_span_as_chunk_boundary_authorized: true
+  parent_span_authorization_scope: exact_t374_pilot_only
+  output_change_authorized: true
+  output_change_authorization_scope: exact_t374_pilot_only
+  implementation_authorized: true
+  implementation_authorization_scope: exact_t374_pilot_only
+  route_behavior_authorized: true
+  route_behavior_authorization_scope: exact_t374_target_only
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
@@ -580,6 +603,31 @@ parallel_t372_route_isolation_harness_plan:
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
+parallel_t373_owner_implementation_authorization:
+  task_id: T373
+  title: Owner Implementation Authorization Gate
+  route_type: epistle_argument_owner_implementation_authorization_gate
+  path: .ai/control/t373_owner_implementation_authorization.yaml
+  option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
+  status: complete_owner_authorized_exact_parent_only_pilot
+  relation_to_next_route: "Authorizes T374 only as an exact parent-only 1Cor.8.1-1Cor.10.33 route-isolated output-changing pilot; does not authorize child spans, broader epistle generalization, graph/retrieval truth, vectors, evaluator changes, source-tradition preference, preferred readings, boundary import, or whole-Bible output."
+  selected_option: T373-A
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  parent_span_as_chunk_boundary_authorized: true
+  parent_span_authorization_scope: exact_t374_pilot_only
+  child_spans_authorized: false
+  output_change_authorized: true
+  output_change_authorization_scope: exact_t374_pilot_only
+  implementation_authorized: true
+  implementation_authorization_scope: exact_t374_pilot_only
+  route_behavior_authorized: true
+  route_behavior_authorization_scope: exact_t374_target_only
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
 update_triggers:
   - roadmap_sequence_change
   - chunking_algorithm_change
@@ -598,6 +646,8 @@ update_triggers:
   - t371_variant_dependency_owner_decision_packet_change
   - t371_parent_only_reviewed_gold_promotion_change
   - t372_route_isolation_harness_plan_change
+  - t373_owner_implementation_authorization_change
+  - owner_decision_option_presentation_policy_change
   - epistle_argument_gold_manifest_change
   - 1cor8_10_owner_review_docket_change
   - chunking_human_decision_forecast_change
@@ -626,7 +676,8 @@ explicit_non_authorizations:
   - denominational_system_as_chunk_authority
   - owner_projection_without_conflict_scan
   - conflicting_prior_owner_decisions_ignored
-  - parent_only_gold_as_chunk_boundary
+  - parent_only_gold_as_chunk_boundary_outside_exact_t373_t374_pilot
+  - child_span_selection_without_later_owner_promotion
   - child_span_projection
   - liberal_critical_default
   - anti_supernatural_default

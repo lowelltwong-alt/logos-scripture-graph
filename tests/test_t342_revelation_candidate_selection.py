@@ -126,18 +126,19 @@ def test_t342_through_t372_remain_complete_while_live_route_points_to_t373() -> 
     assert future["T371"]["reviewed_gold_promoted"] is True
     assert future["T372"]["status"] == "complete"
     assert future["T372"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
-    assert readiness["next_route"]["task_id"] == "T373"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_implementation_authorization_gate"
-    assert readiness["next_route"]["starts_only_if"] == "T372_route_isolation_harness_plan_complete"
+    assert readiness["next_route"]["task_id"] == "T374"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_route_isolated_output_pilot"
+    assert readiness["next_route"]["starts_only_if"] == "T373_A_authorizes_exact_parent_only_output_pilot"
     assert readiness["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
     assert readiness["next_route"]["promotion_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
     assert readiness["next_route"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
     assert readiness["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
-    assert readiness["next_route"]["owner_decision_required"] is True
-    assert readiness["next_route"]["harness_only"] is False
-    assert readiness["next_route"]["output_change_authorized"] is False
-    assert readiness["next_route"]["implementation_authorized"] is False
+    assert readiness["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert readiness["next_route"]["owner_decision_required"] is False
+    assert readiness["next_route"]["output_change_authorized"] is True
+    assert readiness["next_route"]["implementation_authorized"] is True
+    assert readiness["next_route"]["selected_children"] == []
 
 
 def test_t342_risk_gate_categories_present() -> None:

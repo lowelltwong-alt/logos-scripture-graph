@@ -101,16 +101,16 @@ def test_t343_index_lists_packet_as_pending() -> None:
     assert queue["packet_rev12_14_symbolic_scenes_review"]["implementation_allowed"] is False
 
 
-def test_t343_readiness_now_points_to_t373_owner_gate_not_implementation() -> None:
+def test_t343_readiness_now_points_to_t374_1cor_pilot_not_revelation_implementation() -> None:
     readiness = load_yaml(READINESS)
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert readiness["next_route"]["task_id"] == "T373"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_implementation_authorization_gate"
-    assert readiness["next_route"]["starts_only_if"] == "T372_route_isolation_harness_plan_complete"
+    assert readiness["next_route"]["task_id"] == "T374"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_route_isolated_output_pilot"
+    assert readiness["next_route"]["starts_only_if"] == "T373_A_authorizes_exact_parent_only_output_pilot"
     assert readiness["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
-    assert readiness["next_route"]["selected_option"] == "1COR8-10-T369-B"
+    assert readiness["next_route"]["selected_option"] == "T373-A"
     assert readiness["next_route"]["selected_children"] == []
     assert readiness["next_route"]["conflict_scan_result"] == "no_conflict_detected"
     assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
@@ -118,10 +118,10 @@ def test_t343_readiness_now_points_to_t373_owner_gate_not_implementation() -> No
     assert readiness["next_route"]["promotion_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
     assert readiness["next_route"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
     assert readiness["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
-    assert readiness["next_route"]["owner_decision_required"] is True
-    assert readiness["next_route"]["harness_only"] is False
-    assert readiness["next_route"]["implementation_authorized"] is False
-    assert readiness["next_route"]["output_change_authorized"] is False
+    assert readiness["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert readiness["next_route"]["owner_decision_required"] is False
+    assert readiness["next_route"]["implementation_authorized"] is True
+    assert readiness["next_route"]["output_change_authorized"] is True
     assert readiness["next_route"]["orthodox_firewall"] == ".ai/control/orthodox_hermeneutic_firewall_docket.yaml"
     assert readiness["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
     assert readiness["next_route"]["owner_selection_status"] == "selected"

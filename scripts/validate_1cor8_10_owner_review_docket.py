@@ -265,8 +265,8 @@ def _validate_governed_links() -> None:
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373"}:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372 or T373 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, or T374 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
@@ -274,6 +274,10 @@ def _validate_governed_links() -> None:
     if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T373 starts_only_if must be T372_route_isolation_harness_plan_complete"
+        )
+    if next_task_id == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
+        raise OneCorDocketError(
+            f"{_rel(READINESS_MAP)}: T374 starts_only_if must be T373_A_authorizes_exact_parent_only_output_pilot"
         )
     if (
         next_route.get("evidence_packet")
@@ -298,18 +302,33 @@ def _validate_governed_links() -> None:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T373 harness_only must be false")
         if next_route.get("harness_plan") != ".ai/control/t372_route_isolation_harness_plan.yaml":
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T373 harness_plan is stale")
+    if next_task_id == "T374":
+        if next_route.get("owner_decision_required") is not False:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374 owner_decision_required must be false")
+        if next_route.get("authorization_record") != ".ai/control/t373_owner_implementation_authorization.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374 authorization_record is stale")
+        if next_route.get("selected_children") != []:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374 selected_children must be []")
     if next_route.get("reviewed_gold_promoted") is not True:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
-    for key in (
-        "output_change_authorized",
-        "implementation_authorized",
-        "route_behavior_authorized",
-        "evaluator_change_authorized",
-        "graph_edge_generation_allowed",
-        "retrieval_truth_authorized",
-    ):
-        if next_route.get(key) is not False:
-            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.{key} must be false")
+    if next_task_id == "T374":
+        for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
+            if next_route.get(key) is not True:
+                raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374.{key} must be true after T373-A")
+        for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
+            if next_route.get(key) is not False:
+                raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374.{key} must be false")
+    else:
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "route_behavior_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.{key} must be false")
 
 
 def validate_1cor8_10_owner_review_docket(path: Path = DOCKET) -> dict[str, Any]:

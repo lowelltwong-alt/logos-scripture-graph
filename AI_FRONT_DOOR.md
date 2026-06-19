@@ -29,7 +29,8 @@ Read these files before making changes:
     textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
-    T372 route-isolation harness plan, T381 original-language phrase/context policy,
+    T372 route-isolation harness plan, T373 owner implementation authorization record,
+    owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
@@ -111,7 +112,8 @@ Bible-first chunking priority:
   the canonical 66-book Bible.
 - Psalms are the current implementation lane because reviewed evidence and a candidate-skill seam
   already exist, not because Psalms are necessarily the hardest book.
-- T351 through T381 keep the current route non-output-changing: Bible-wide triage is complete,
+- T351 through T381 prepared the current route, and T373 now records exact implementation
+  authorization: Bible-wide triage is complete,
   T352 epistle packets remain pending review packets, T355 selected John 3 for owner review,
   T367 selected `JOHN3-T356-B` as parent-only review target, T367 added the Orthodox
   Hermeneutic Firewall plus textual-critical policy requirement, and T368 strengthened the
@@ -123,9 +125,12 @@ Bible-first chunking priority:
   identity requirements. T381 records the original-language phrase/context policy: Greek/Hebrew
   words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be
   reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context and
-  are not authority. The readiness map now points to T373 owner implementation authorization.
-  Do not move from parent-only gold or T372 planning to implementation without exact owner
-  authorization at T373.
+  are not authority. T373 records owner selection of `T373-A`: T374 may implement only the exact
+  parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. Child spans remain
+  disallowed unless later exact reviewed evidence and owner promotion authorize them. The readiness
+  map now points to T374. Do not generalize the 1Cor.8-10 pilot to child spans, other epistles,
+  graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference,
+  boundary imports, or whole-Bible output.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
   research/prep-only mode under selected `REV-T344-E`; Revelation implementation must wait until
   reviewed gold exists, stronger governed evidence is recorded, and a later owner implementation
@@ -152,15 +157,21 @@ Bible-first chunking priority:
   conservative, non-output-changing decisions. This is a projected owner pattern, not a replacement
   for real-time owner review. If prior owner decisions conflict for the target text, or if the
   pattern is new, agents must stop and tell Lowell before continuing.
+- The owner decision option presentation policy at
+  `.ai/control/owner_decision_option_presentation_policy.yaml` requires future owner gates to show
+  serious faithful options, repercussions, risks, recommendations, downstream effects, and
+  non-authorizations before the owner decides. Option lists and recommendations are not owner
+  selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T373 owner implementation authorization
-  for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
+  next safe route. It is non-authorizing and currently points to T374 first route-isolated
+  implementation for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
   record. T371-A is recorded separately as parent-only reviewed-gold promotion, not as child-span,
-  implementation, route/evaluator, graph/retrieval, vector, or output authority. T372 is recorded
-  separately as a route-isolation harness plan, not as implementation or output authority.
+  route/evaluator, graph/retrieval, vector, or broad output authority. T372 is recorded
+  separately as a route-isolation harness plan. T373 is recorded separately as exact owner
+  implementation authorization for the parent-only T374 pilot only.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -342,6 +353,19 @@ Bible-first chunking priority:
   authorize parent span as a chunk boundary, child spans, route/evaluator behavior, graph/retrieval
   truth, vectors, implementation, chunks, or output changes. It is validated by
   `scripts/validate_t372_route_isolation_harness_plan.py`.
+- The T373 owner implementation authorization record at
+  `.ai/control/t373_owner_implementation_authorization.yaml` records owner selection of `T373-A`.
+  It authorizes only a future T374 route-isolated output-changing pilot for the exact parent-only
+  `1Cor.8.1-1Cor.10.33` target. It requires non-target identity proof, same-baseline evaluation,
+  changed-output manifest, decision-register update, validators/tests, no-context audit surface,
+  and handoff validation before any T374 merge. It does not authorize child spans, preferred
+  readings, source-tradition preference, graph/retrieval/vector truth, evaluator changes, boundary
+  imports, broader epistle generalization, or whole-Bible output. It is validated by
+  `scripts/validate_t373_owner_implementation_authorization.py`.
+- The owner decision option presentation policy at
+  `.ai/control/owner_decision_option_presentation_policy.yaml` records the owner's instruction that
+  future gates should always show serious faithful options and repercussions. It is validated by
+  `scripts/validate_owner_decision_option_presentation_policy.py`.
 - The 1Cor.8-10 epistle owner-review docket at
   `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` records owner-review options and the
   projected parent-only selection for `1Cor.8.1-1Cor.10.33` after T368 strengthened the review

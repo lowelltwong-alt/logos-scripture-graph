@@ -52,9 +52,17 @@ def test_forecast_names_predictable_human_decision_gates() -> None:
     assert by_id["HDF-013"]["status"] == "complete_non_output_changing_plan"
     assert by_id["HDF-013"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert by_id["HDF-013"]["next_owner_gate"] == "T373"
+    assert by_id["HDF-014"]["status"] == "complete_owner_authorized_exact_parent_only_pilot"
+    assert by_id["HDF-014"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert by_id["HDF-014"]["selected_option"] == "T373-A"
+    assert by_id["HDF-014"]["selected_children"] == []
+    assert by_id["HDF-014"]["next_task"] == "T374"
     assert "chunk_output_change" in by_id["HDF-004"]["must_stop_for"]
+    assert by_id["HDF-005"]["status"] == "selected_t373_a"
+    assert by_id["HDF-006"]["status"] == "decided_for_t374_parent_only_first"
     assert by_id["HDF-007"]["recommended_default_if_owner_unavailable"] == "systematic_theology_can_be_advisory_not_chunk_authority"
     assert by_id["HDF-012"]["recommended_default_if_owner_unavailable"] == "require_no_context_audit_before_merge"
+    assert by_id["HDF-012"]["status"] == "decided_for_t374_required"
 
 
 def test_forecast_defines_chunking_ready_without_authorizing_output() -> None:
@@ -64,8 +72,10 @@ def test_forecast_defines_chunking_ready_without_authorizing_output() -> None:
     assert "owner_selected_exact_target" in ready["ready_for_first_output_changing_chunk_pr_requires"]
     assert "reviewed_gold_or_equivalent_governed_evidence_promoted_by_owner" in ready["ready_for_first_output_changing_chunk_pr_requires"]
     assert "explicit_owner_implementation_authorization" in ready["ready_for_first_output_changing_chunk_pr_requires"]
+    assert "owner_decision_option_presentation_policy_if_owner_gate" in ready["ready_for_first_output_changing_chunk_pr_requires"]
     assert "packet_is_pending_human_review" in ready["not_ready_if"]
     assert "do_not_treat_this_forecast_as_authorization" in data["what_not_to_do"]
+    assert "do_not_present_owner_gates_without_options_repercussions_risks_and_non_authorizations" in data["what_not_to_do"]
 
 
 def test_forecast_roadmap_doc_explains_what_not_to_do() -> None:
@@ -116,9 +126,16 @@ def test_roadmap_state_contains_explicit_t369_to_t376_runway() -> None:
     assert future["T372"]["harness_only"] is True
     assert future["T372"]["owner_implementation_authorization_required"] is True
     assert future["T373"]["starts_only_if"] == "T372_route_isolation_harness_plan_complete"
-    assert future["T373"]["owner_decision_required"] is True
-    assert future["T373"]["implementation_authorized"] is False
-    assert future["T374"]["output_change_authorized"] is False
+    assert future["T373"]["status"] == "complete"
+    assert future["T373"]["owner_decision_required"] is False
+    assert future["T373"]["selected_option"] == "T373-A"
+    assert future["T373"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert future["T373"]["implementation_authorized"] is True
+    assert future["T373"]["child_spans_authorized"] is False
+    assert future["T374"]["starts_only_if"] == "T373_A_authorizes_exact_parent_only_output_pilot"
+    assert future["T374"]["output_change_authorized"] is True
+    assert future["T374"]["implementation_authorized"] is True
+    assert future["T374"]["child_spans_authorized"] is False
 
 
 def test_forecast_rejects_output_authority(tmp_path: Path) -> None:
