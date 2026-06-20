@@ -81,7 +81,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -535,6 +535,14 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "canonical_and_orthodox_context",
         "isolated_word_as_theological_truth",
         "single_gloss_as_meaning",
+        "root_fallacy_guard",
+        "semantic_range_not_totality",
+        "greek_article_predication_guard",
+        "hebrew_plural_form_guard",
+        "lxx_nt_quotation_guard",
+        "textual_variant_gate",
+        "punctuation_capitalization_editorial_guard",
+        "discourse_markers_and_poetry_need_context",
         "authorizes_chunk_output_change: false",
     ):
         if phrase not in original_language_policy_text:

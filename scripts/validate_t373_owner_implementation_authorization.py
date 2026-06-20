@@ -356,7 +356,7 @@ def _validate_links() -> None:
         (FRONT_DOOR, (AUTH_REL, "T373-A", "post-pilot child-necessity review gate")),
         (TOC, (AUTH_REL, "parent-first-pilot", VALIDATOR_REL)),
         (ROADMAP_TOC, ("T373 | Owner implementation authorization", AUTH_REL, "post-pilot child review gate", VALIDATOR_REL)),
-        (TASK, ("id: T373", AUTH_REL, "decision_register_entries: [CD-050, CD-051, CD-052]")),
+        (TASK, ("id: T373", AUTH_REL, "decision_register_entries: [CD-050, CD-051, CD-052, CD-053]")),
         (ROADMAP_DOC, ("T373 Owner Implementation Authorization", AUTH_REL, "parent-first pilot", "post-pilot child-necessity review gate")),
     )
     for linked, phrases in linked_requirements:

@@ -302,9 +302,14 @@ Bible-first chunking priority:
   `.ai/control/original_language_phrase_context_policy.yaml` records the rule that Greek/Hebrew
   words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be
   reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context.
-  An isolated word, lemma, gloss, rare-word, or grammar-label observation does not authorize doctrine,
-  graph edges, retrieval truth, reviewed gold, chunk boundaries, route/evaluator behavior, or
-  output changes. It is validated by `scripts/validate_original_language_phrase_context_policy.py`.
+  It also records Greek/Hebrew chunking lessons for root-fallacy guards, semantic range versus
+  totality transfer, interlinear-gloss danger, Greek article/predication review, Hebrew plural-form
+  review, LXX/NT quotation behavior, textual-variant gates, punctuation/capitalization as editorial
+  evidence, discourse markers, and poetic parallelism. An isolated word, lemma, gloss, rare-word,
+  root, grammar-label, article, Hebrew plural, LXX wording, discourse marker, or poetic feature does
+  not authorize doctrine, graph edges, retrieval truth, reviewed gold, chunk boundaries,
+  route/evaluator behavior, or output changes. It is validated by
+  `scripts/validate_original_language_phrase_context_policy.py`.
 - The Orthodox Hermeneutic Firewall / Anti-Smuggling Docket at
   `.ai/control/orthodox_hermeneutic_firewall_docket.yaml` affirms Nicene/Chalcedonian orthodox
   Christianity and canonical Scripture authority while refusing hidden anti-supernatural,

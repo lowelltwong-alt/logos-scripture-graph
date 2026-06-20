@@ -36,6 +36,7 @@
 
 - .ai/control/t373_owner_implementation_authorization.yaml
 - .ai/control/owner_decision_option_presentation_policy.yaml
+- .ai/control/original_language_phrase_context_policy.yaml
 - .ai/control/chunking_theological_decision_register.yaml
 - .ai/control/chunking_agent_preflight.yaml
 - .ai/control/bible_chunking_readiness_map.yaml
@@ -52,6 +53,7 @@
 - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
 - docs/roadmap/T373_OWNER_IMPLEMENTATION_AUTHORIZATION.md
 - scripts/validate_t373_owner_implementation_authorization.py
+- scripts/validate_original_language_phrase_context_policy.py
 - scripts/validate_owner_decision_option_presentation_policy.py
 - scripts/validate_bible_chunking_readiness_map.py
 - scripts/validate_chunking_agent_preflight.py
@@ -64,6 +66,7 @@
 - scripts/validate_wj_speaker_discourse_policy.py
 - scripts/validate_all.py
 - tests/test_t373_owner_implementation_authorization.py
+- tests/test_original_language_phrase_context_policy.py
 - tests/test_owner_decision_option_presentation_policy.py
 - tests/test_bible_chunking_readiness_map.py
 - tests/test_chunking_agent_preflight.py
@@ -84,6 +87,7 @@
 - Preserved non-authorizations for graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary imports, broader epistle generalization, whole-Bible output changes, and Revelation implementation.
 - Added owner option presentation policy so future owner gates must present good options, recommendation, upside/downside, faithfulness rationale, downstream effects, non-authorizations, tests, and stop conditions.
 - Added CD-050, CD-051, and CD-052 to the chunking theological decision register.
+- Added CD-053 and expanded the T381 original-language phrase/context policy with governed Greek/Hebrew chunking lessons: root fallacy, semantic-range overreach, Strong's/interlinear metadata, grammar labels, Greek articles, Hebrew plural forms, LXX/NT quotations, textual variants, punctuation/capitalization, discourse markers, poetry, and pressure passages.
 
 ## Validation run
 
@@ -141,6 +145,18 @@
 - command: python -m pytest -q
 - result: passed, 490 tests
 - failures: none
+- command: python scripts/validate_original_language_phrase_context_policy.py; python scripts/validate_chunking_agent_preflight.py; python scripts/validate_t373_owner_implementation_authorization.py
+- result: passed after adding CD-053 Greek/Hebrew chunking evidence lessons
+- failures: none
+- command: python -m pytest tests/test_original_language_phrase_context_policy.py tests/test_chunking_agent_preflight.py tests/test_ai_roadmap_table_of_contents.py tests/test_t373_owner_implementation_authorization.py -q
+- result: passed, 25 tests
+- failures: none
+- command: python scripts/validate_all.py
+- result: passed after CD-053 update, all validation gates passed
+- failures: none
+- command: python -m pytest -q
+- result: passed, 492 tests
+- failures: none
 
 ## Known risks
 
@@ -148,6 +164,7 @@
 - Parent-only output must prove non-target identity and run same-baseline evaluation before merge.
 - No child span is authorized by T373. Future child spans are allowed only by later exact owner promotion.
 - The parent-first pilot pattern does not allow automatic child spans after pilot success; the post-pilot child-necessity review remains required.
+- Greek/Hebrew evidence is now discoverable as required preflight, but it remains non-authorizing until governed review ties it to exact phrase/clause/discourse/textual/canonical context.
 
 ## Open questions
 
@@ -182,4 +199,22 @@ After this PR merges, start T374 as the first route-isolated 1Cor.8-10 output pi
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-19T23:26:42+00:00
+- handoff_id: 3ddafd55e0639bc5
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-20T00:48:39+00:00
+- handoff_id: 3ddafd55e0639bc5
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-20T01:08:29+00:00
 - handoff_id: 3ddafd55e0639bc5

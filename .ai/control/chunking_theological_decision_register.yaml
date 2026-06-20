@@ -2187,6 +2187,55 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-053
+    title: Greek and Hebrew chunking evidence requires governed language lessons
+    classification: theological_risk
+    task_ids: [T373, T381]
+    owner_decision_ref: ".ai/control/original_language_phrase_context_policy.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [original_language_pressure_passages, future_chunking_review_packets]
+      routes: [original_language_review, chunking_review_packet, route_isolated_output_pilot, graph_review, retrieval_review]
+      surfaces: [.ai/control/original_language_phrase_context_policy.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/source_metadata_research_atlas.yaml, .ai/control/orthodox_original_language_pressure_dossier_queue.yaml, AI_FRONT_DOOR.md, AI_TABLE_OF_CONTENTS.md]
+    decision: "Record Greek/Hebrew chunking lessons as governed preflight memory: phrase and clause context outrank isolated words; roots, etymologies, semantic range, Strong's-style numbers, interlinear glosses, grammar labels, Greek articles, Hebrew plural forms, LXX/NT quotation patterns, textual variants, punctuation/capitalization, discourse markers, and poetic structures are evidence for review but never automatic doctrine, chunk boundaries, graph edges, retrieval truth, route behavior, reviewed gold, or output authority."
+    downstream_risk: "Original-language evidence is a high-value but high-risk surface: future agents could use it to smuggle word-study theology, anti-Trinitarian readings, hidden textual-critical choices, denominational systems, automatic intertexts, or unsupported chunk/child boundaries."
+    theological_assumptions_avoided:
+      - "No root, etymology, Strong's number, interlinear gloss, or semantic range list becomes doctrine or lexical truth."
+      - "No Greek article rule, Hebrew plural form, or grammar label becomes automatic Trinitarian or anti-Trinitarian proof."
+      - "No LXX/NT wording, exact-match absence, or editorial cross-reference becomes automatic graph/intertext truth."
+      - "No punctuation, capitalization, paragraphing, heading, or red-letter marker becomes original-language authority."
+      - "No discourse marker, poetic parallelism, acrostic, inclusio, or refrain becomes a chunk boundary without governed review."
+    reviewed_gold_dependency: "Any original-language-supported boundary, child span, graph/retrieval claim, route behavior, or output change requires exact passage scope, phrase/clause/syntax/discourse/canonical context, textual-variant dependency or non-dependency if relevant, owner review, decision-register update, validators/tests, non-target identity proof, and reviewed gold or equivalent governed evidence."
+    non_authorizations:
+      - isolated_word_as_theological_truth
+      - root_or_etymology_as_meaning
+      - semantic_range_totality_transfer
+      - interlinear_gloss_as_authority
+      - strongs_number_as_lexical_truth
+      - grammar_label_as_doctrine
+      - greek_article_rule_as_automatic_doctrine
+      - hebrew_plural_form_as_automatic_trinity_proof
+      - lxx_or_nt_quotation_as_automatic_boundary
+      - modern_punctuation_or_capitalization_as_original_language_authority
+      - discourse_marker_as_automatic_boundary
+      - poetic_parallelism_as_automatic_boundary
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - doctrinal_system_selection
+      - graph_edge_generation
+      - retrieval_truth
+      - chunk_output_change
+    validators:
+      - scripts/validate_original_language_phrase_context_policy.py
+      - tests/test_original_language_phrase_context_policy.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]

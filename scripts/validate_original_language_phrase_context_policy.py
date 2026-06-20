@@ -37,6 +37,7 @@ REQUIRED_TOP_LEVEL = {
     "scope",
     "context_layers_required",
     "handling_when_including_greek_words",
+    "original_language_chunking_lessons",
     "required_future_original_language_packet_fields",
     "non_authorizations",
     "validators",
@@ -81,6 +82,12 @@ REQUIRED_PACKET_FIELDS = {
     "author_book_genre_context",
     "canonical_context_needed_to_avoid_prooftexting",
     "semantic_range_not_single_gloss",
+    "root_or_etymology_claim_review_if_any",
+    "article_or_construct_claim_review_if_any",
+    "quotation_or_lxx_relation_if_relevant",
+    "textual_variant_dependency_if_any",
+    "discourse_marker_function_if_relevant",
+    "poetry_parallelism_or_structural_feature_if_relevant",
     "theological_downstream_risks",
     "assumptions_avoided",
     "orthodox_options_preserved",
@@ -94,9 +101,18 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "isolated_word_as_theological_truth",
     "isolated_lemma_as_doctrine",
     "single_gloss_as_meaning",
+    "root_or_etymology_as_meaning",
+    "semantic_range_totality_transfer",
+    "interlinear_gloss_as_authority",
     "strongs_number_as_lexical_truth",
     "lexical_rarity_as_intertext_truth",
     "grammar_label_as_doctrine",
+    "greek_article_rule_as_automatic_doctrine",
+    "hebrew_plural_form_as_automatic_trinity_proof",
+    "lxx_or_nt_quotation_as_automatic_boundary",
+    "modern_punctuation_or_capitalization_as_original_language_authority",
+    "discourse_marker_as_automatic_boundary",
+    "poetic_parallelism_as_automatic_boundary",
     "phrase_context_as_automatic_chunk_boundary",
     "discourse_context_as_route_authority",
     "original_language_as_graph_edge",
@@ -113,6 +129,21 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "route_behavior_change",
     "evaluator_change",
     "chunk_output_change",
+}
+
+REQUIRED_LESSON_IDS = {
+    "phrase_before_word",
+    "root_fallacy_guard",
+    "semantic_range_not_totality",
+    "strongs_and_interlinear_metadata",
+    "grammar_labels_need_review",
+    "greek_article_predication_guard",
+    "hebrew_plural_form_guard",
+    "lxx_nt_quotation_guard",
+    "textual_variant_gate",
+    "punctuation_capitalization_editorial_guard",
+    "discourse_markers_and_poetry_need_context",
+    "pressure_passage_extra_review",
 }
 
 REQUIRED_VALIDATORS = {
@@ -249,6 +280,26 @@ def validate_original_language_phrase_context_policy(path: Path = POLICY) -> dic
         if phrase not in handling_text:
             raise OriginalLanguagePhraseContextPolicyError(f"{_rel(path)}: handling list missing {phrase!r}")
 
+    lessons = data["original_language_chunking_lessons"]
+    if not isinstance(lessons, list) or not lessons:
+        raise OriginalLanguagePhraseContextPolicyError(f"{_rel(path)}: original_language_chunking_lessons must be a list")
+    lesson_ids = set()
+    for lesson in lessons:
+        if not isinstance(lesson, dict):
+            raise OriginalLanguagePhraseContextPolicyError(f"{_rel(path)}: each original-language lesson must be a mapping")
+        lesson_id = str(lesson.get("lesson_id", ""))
+        _require_non_empty_string(lesson_id, "original_language_chunking_lessons.lesson_id")
+        lesson_ids.add(lesson_id)
+        _require_subset({"greek", "hebrew"} & set(lesson.get("applies_to", [])) or {"greek", "hebrew"}, lesson.get("applies_to"), f"{lesson_id}.applies_to")
+        for key in ("rule", "use_when", "non_authorization"):
+            _require_non_empty_string(lesson.get(key), f"{lesson_id}.{key}")
+        non_auth = str(lesson["non_authorization"]).lower()
+        if "authorize" not in non_auth and "authority" not in non_auth:
+            raise OriginalLanguagePhraseContextPolicyError(f"{lesson_id}.non_authorization must deny authority")
+    missing_lessons = sorted(REQUIRED_LESSON_IDS - lesson_ids)
+    if missing_lessons:
+        raise OriginalLanguagePhraseContextPolicyError(f"{_rel(path)}: missing original-language lessons {missing_lessons}")
+
     _require_subset(REQUIRED_PACKET_FIELDS, data["required_future_original_language_packet_fields"], "required_future_original_language_packet_fields")
     _require_subset(REQUIRED_NON_AUTHORIZATIONS, data["non_authorizations"], "non_authorizations")
     _require_subset(REQUIRED_VALIDATORS, data["validators"], "validators")
@@ -259,7 +310,7 @@ def validate_original_language_phrase_context_policy(path: Path = POLICY) -> dic
 
 def _validate_linked_surfaces() -> None:
     register_text = _read_text(REGISTER)
-    for phrase in ("CD-049", "Original-language word evidence requires phrase and discourse context", "T381", POLICY_REL):
+    for phrase in ("CD-049", "CD-053", "Original-language word evidence requires phrase and discourse context", "T381", POLICY_REL):
         if phrase not in register_text:
             raise OriginalLanguagePhraseContextPolicyError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -271,8 +322,9 @@ def _validate_linked_surfaces() -> None:
         (item for item in preflight.get("mandatory_reading", []) if isinstance(item, dict) and item.get("path") == ".ai/control/chunking_theological_decision_register.yaml"),
         {},
     )
-    if "CD-049" not in decision_entry.get("required_decision_ids", []):
-        raise OriginalLanguagePhraseContextPolicyError(f"{_rel(PREFLIGHT)}: CD-049 must be required")
+    for decision_id in ("CD-049", "CD-053"):
+        if decision_id not in decision_entry.get("required_decision_ids", []):
+            raise OriginalLanguagePhraseContextPolicyError(f"{_rel(PREFLIGHT)}: {decision_id} must be required")
     if "original_language_phrase_clause_context" not in preflight.get("non_authorizing_metadata_types", []):
         raise OriginalLanguagePhraseContextPolicyError(f"{_rel(PREFLIGHT)}: missing original_language_phrase_clause_context metadata type")
 
@@ -311,7 +363,7 @@ def _validate_linked_surfaces() -> None:
 
     for path in (FRONT_DOOR, TOC, ROADMAP_TOC):
         text = _read_text(path)
-        for phrase in (POLICY_REL, "phrase/context", "original-language", "isolated word"):
+        for phrase in (POLICY_REL, "phrase/context", "original-language", "isolated word", "root-fallacy"):
             if phrase not in text:
                 raise OriginalLanguagePhraseContextPolicyError(f"{_rel(path)}: missing {phrase!r}")
 
