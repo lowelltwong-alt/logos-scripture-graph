@@ -1,20 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-20
-**Updated by:** T374 baseline-overlap owner decision packet (Codex)
-**Active task:** -> **T374** is blocked pending owner decision. T373 still authorizes only the exact parent-only `1Cor.8.1-1Cor.10.33` route-isolated pilot, but T374 baseline inspection found current chunks cross into and out of that span. Replacement-style implementation cannot satisfy T372 non-target identity without a new owner choice. The packet is `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`, validated by `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`, and registered as `CD-054`. Do not implement chunks until Lowell selects one exact `T374-OVERLAP-*` option. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T374-OVERLAP-B owner selection record (Codex)
+**Active task:** -> **T374** owner selection is recorded. Lowell selected `T374-OVERLAP-B`: a future separate implementation may add only an exact additive parent overlay for `1Cor.8.1-1Cor.10.33` while preserving existing baseline chunks byte-identical. The packet is `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`, validated by `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`, and registered as `CD-054` stop record plus `CD-055` selection record. This status update changes no chunk output. **T308** connection discovery + **T309** chunking bake-off still open
 
-> **T374 baseline-overlap owner decision packet (2026-06-20):** Added
+> **T374-OVERLAP-B owner selection record (2026-06-20):** Updated
 > `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`, checked by
 > `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`, after a temp baseline run
 > showed current 1 Corinthians chunks crossing `1Cor.8.1-1Cor.10.33`: `1Cor.7.25-1Cor.9.2`,
-> `1Cor.9.3-1Cor.10.5`, and `1Cor.10.6-1Cor.11.10`. This pauses implementation until the owner
-> selects conservative hold, additive parent overlay, replacement with adjacent spill splits,
-> target widening, or dry-run/report semantics. The packet recommends additive parent overlay only
-> if output movement is desired, but recommendation is not owner selection. No raw/canonical data,
+> `1Cor.9.3-1Cor.10.5`, and `1Cor.10.6-1Cor.11.10`. Lowell selected additive parent overlay
+> semantics, so a later implementation may add only an exact `1Cor.8.1-1Cor.10.33` parent overlay
+> while preserving existing baseline chunks byte-identical. Replacement with adjacent spill splits,
+> deletion/replacement, target widening, and dry-run-only semantics were not selected. No raw/canonical data,
 > generated chunk output, chunker/route/evaluator behavior, graph/retrieval/vector truth, child
 > spans, preferred readings, source-tradition preference, boundary import, broader epistle
-> generalization, or whole-Bible output is authorized.
+> generalization, or whole-Bible output is changed by this selection record.
 
 > **T373 owner implementation authorization (2026-06-19):** Added
 > `.ai/control/t373_owner_implementation_authorization.yaml`, checked by

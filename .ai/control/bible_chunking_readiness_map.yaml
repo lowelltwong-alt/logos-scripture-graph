@@ -131,8 +131,8 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t374_baseline_overlap_owner_decision_required
-    new_algorithm_work_ready: false
+    current_state: t374_overlap_b_selected_additive_overlay_ready
+    new_algorithm_work_ready: true
     candidate_cases:
       - Eph.1.3-Eph.1.14
       - Rom.9-Rom.11
@@ -395,12 +395,18 @@ next_route:
   harness_plan_status: complete_non_output_changing_plan
   authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
   baseline_overlap_decision_packet: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
-  baseline_overlap_status: blocked_pending_owner_decision
-  implementation_paused_until_owner_selects_baseline_overlap_option: true
-  selected_baseline_overlap_option: pending_owner_selection
+  baseline_overlap_status: complete_owner_selected_additive_parent_overlay
+  implementation_paused_until_owner_selects_baseline_overlap_option: false
+  selected_baseline_overlap_option: T374-OVERLAP-B
+  additive_parent_overlay_selected: true
+  preserve_existing_baseline_chunks_byte_identical: true
+  delete_or_replace_existing_chunks_authorized: false
+  duplicate_parent_coverage_allowed_for_exact_pilot: true
+  adjacent_spill_splits_authorized: false
   replacement_style_implementation_paused: true
   replacement_safe_without_new_owner_decision: false
   additive_overlay_requires_owner_decision: true
+  additive_overlay_owner_decision_recorded: true
   option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
   owner_review_docket: .ai/control/1cor8_10_epistle_owner_review_docket.yaml
   packet_status: parent_only_reviewed_gold_promoted
@@ -458,7 +464,7 @@ next_route:
   default_if_owner_unavailable: t373_already_recorded_but_stop_if_authorization_conflict_or_scope_ambiguity
   next_task_after_t374: T375
   rationale: "T373 selected T373-A. The next safe route is a route-isolated T374 implementation for only the exact parent-only 1Cor.8.1-1Cor.10.33 target. This follows the owner-authorized parent-first pilot pattern: run the parent-only pilot first, then review whether child spans are necessary. Child spans, broader epistle generalization, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary import, and whole-Bible output remain unauthorized."
-  baseline_overlap_rationale: "T374 inspection found current baseline chunks cross into and out of the exact parent span. Replacement-style implementation is paused until the owner selects conservative hold, additive parent overlay, replacement with adjacent spill splits, target widening, or dry-run/report semantics."
+  baseline_overlap_rationale: "T374 inspection found current baseline chunks cross into and out of the exact parent span. Owner selected T374-OVERLAP-B additive parent overlay: future implementation may add only an exact parent overlay while preserving existing baseline chunks byte-identical. Replacement splits, deletion/replacement, child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, and whole-Bible output remain unauthorized."
   parent_span_as_chunk_boundary_authorized: true
   parent_span_authorization_scope: exact_t374_pilot_only
   output_change_authorized: true

@@ -39,8 +39,8 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert set(by_lane) >= validator.REQUIRED_LANES
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
-    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
-    assert by_lane["epistle_argument"]["current_state"] == "t374_baseline_overlap_owner_decision_required"
+    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is True
+    assert by_lane["epistle_argument"]["current_state"] == "t374_overlap_b_selected_additive_overlay_ready"
     assert all(
         lane["new_algorithm_work_ready"] is False
         for lane_id, lane in by_lane.items()
@@ -236,12 +236,18 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert data["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
     assert data["next_route"]["baseline_overlap_decision_packet"] == ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
-    assert data["next_route"]["baseline_overlap_status"] == "blocked_pending_owner_decision"
-    assert data["next_route"]["implementation_paused_until_owner_selects_baseline_overlap_option"] is True
-    assert data["next_route"]["selected_baseline_overlap_option"] == "pending_owner_selection"
+    assert data["next_route"]["baseline_overlap_status"] == "complete_owner_selected_additive_parent_overlay"
+    assert data["next_route"]["implementation_paused_until_owner_selects_baseline_overlap_option"] is False
+    assert data["next_route"]["selected_baseline_overlap_option"] == "T374-OVERLAP-B"
+    assert data["next_route"]["additive_parent_overlay_selected"] is True
+    assert data["next_route"]["preserve_existing_baseline_chunks_byte_identical"] is True
+    assert data["next_route"]["delete_or_replace_existing_chunks_authorized"] is False
+    assert data["next_route"]["duplicate_parent_coverage_allowed_for_exact_pilot"] is True
+    assert data["next_route"]["adjacent_spill_splits_authorized"] is False
     assert data["next_route"]["replacement_style_implementation_paused"] is True
     assert data["next_route"]["replacement_safe_without_new_owner_decision"] is False
     assert data["next_route"]["additive_overlay_requires_owner_decision"] is True
+    assert data["next_route"]["additive_overlay_owner_decision_recorded"] is True
     assert data["next_route"]["option_presentation_policy"] == ".ai/control/owner_decision_option_presentation_policy.yaml"
     assert data["next_route"]["harness_plan_status"] == "complete_non_output_changing_plan"
     assert data["next_route"]["packet_status"] == "parent_only_reviewed_gold_promoted"

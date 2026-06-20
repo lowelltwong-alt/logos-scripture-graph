@@ -82,7 +82,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -668,14 +668,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     t374_packet_text = _read_text(T374_BASELINE_OVERLAP_PACKET)
     for phrase in (
         "object_type: t374_baseline_overlap_owner_decision_packet",
-        "status: blocked_pending_owner_decision",
+        "status: complete_owner_selected_additive_parent_overlay",
         "1Cor.7.25",
         "1Cor.11.10",
         "replacement_style_implementation_paused: true",
         "replacement_safe_without_new_owner_decision: false",
         "additive_overlay_requires_owner_decision: true",
+        "additive_overlay_owner_decision_recorded: true",
         "T374-OVERLAP-B",
-        "selected_option: pending_owner_selection",
+        "selected_option: T374-OVERLAP-B",
+        "output_semantics_authorized_for_future_implementation: additive_parent_overlay_only",
+        "preserve_existing_baseline_chunks_byte_identical: true",
+        "delete_or_replace_existing_chunks_authorized: false",
+        "decision_register_update: CD-055",
         "authorizes_chunk_output_change: false",
         "implementation_without_selected_overlap_option",
     ):

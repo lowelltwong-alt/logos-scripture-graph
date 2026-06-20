@@ -3,9 +3,9 @@
 ## Task
 
 - task_id: T374
-- title: T374 Baseline-Overlap Owner Decision Packet
+- title: T374 Baseline-Overlap Owner Selection Record
 - phase: phase_4
-- status: blocked_pending_owner_decision
+- status: complete_owner_selected_additive_parent_overlay
 
 ## Agent
 
@@ -62,12 +62,13 @@
 
 ## Decisions made
 
-- Recorded CD-054: T374 baseline-overlap output semantics require owner selection.
+- Recorded CD-054: T374 baseline-overlap output semantics required owner selection.
+- Recorded CD-055: Lowell selected T374-OVERLAP-B additive parent overlay semantics.
 - Observed current baseline chunks crossing the exact parent: 1Cor.7.25-1Cor.9.2, 1Cor.9.3-1Cor.10.5, and 1Cor.10.6-1Cor.11.10.
 - Paused replacement-style implementation because it would change adjacent non-target spill regions 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10.
 - Presented five owner options: conservative hold, additive parent overlay, replacement with adjacent spill splits, target widening, and dry-run/report only.
-- Conditional recommendation is T374-OVERLAP-B if owner wants output movement, but it is not owner selection.
-- No chunk output, raw/canonical data, route behavior, evaluator behavior, graph/retrieval/vector truth, child span, preferred reading, source-tradition preference, boundary import, broader epistle generalization, or whole-Bible output was authorized or changed.
+- Selected semantics: a future separate implementation PR may add only an exact additive parent overlay for 1Cor.8.1-1Cor.10.33 while preserving existing baseline chunks byte-identical.
+- No chunk output, raw/canonical data, route behavior, evaluator behavior, graph/retrieval/vector truth, child span, preferred reading, source-tradition preference, boundary import, broader epistle generalization, deletion/replacement, adjacent spill split, or whole-Bible output was changed by this selection record.
 
 ## Validation run
 
@@ -95,17 +96,17 @@
 
 ## Known risks
 
-- T373 still authorizes an exact parent-only pilot in principle, but implementation is now paused in practice until owner output semantics are selected.
-- Additive overlay may be the safest output path if selected, but it needs later explicit consumer/audit semantics for duplicate coverage.
-- Replacement split would change adjacent non-target chunk records and should not proceed without explicit owner selection.
+- Additive overlay creates duplicate parent coverage semantics; future output manifests must label it as exact parent-only route-isolated overlay and not as truth-bearing hierarchy.
+- Replacement split would change adjacent non-target chunk records and is not authorized.
+- Child spans remain disallowed until later exact reviewed evidence, post-pilot child-necessity review, owner promotion, decision-register update, validators/tests, and non-target identity proof.
 
 ## Open questions
 
-- Which T374 overlap option does Lowell select: T374-OVERLAP-A, B, C, D, or E?
+- None for this selection record.
 
 ## Next agent instruction
 
-Stop before output-changing implementation. Ask Lowell to select one exact T374-OVERLAP option, then record the selected semantics in the decision register, readiness map, validators/tests, task scope, roadmap/status, and handoff before any chunk output or route behavior changes.
+Start the separate output-changing implementation only if it is exactly T374-OVERLAP-B: add an exact additive parent overlay for 1Cor.8.1-1Cor.10.33, preserve existing baseline chunks byte-identical, keep selected_children empty, prove non-target identity, record a changed-output manifest, run same-baseline evaluation, add a no-context audit surface, and stop before deletion/replacement, adjacent spill splits, child spans, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary import, broader epistle generalization, or whole-Bible output.
 
 ---
 
@@ -114,4 +115,13 @@ Stop before output-changing implementation. Ask Lowell to select one exact T374-
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-20T01:59:34+00:00
+- handoff_id: 24ee6efe991b6fd5
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-20T05:27:06+00:00
 - handoff_id: 24ee6efe991b6fd5

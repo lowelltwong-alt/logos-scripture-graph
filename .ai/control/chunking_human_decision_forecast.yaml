@@ -21,7 +21,7 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t373_a_authorized_exact_parent_only_t374_pilot_next
+  current_unblock_status: t374_overlap_b_selected_additive_overlay_ready
   remaining_blocks:
     - evaluator_behavior_change
     - graph_retrieval_vector_output
@@ -216,6 +216,10 @@ front_loaded_decisions:
       selected_children: []
       authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
       next_task: T374
+      selected_baseline_overlap_option: T374-OVERLAP-B
+      selected_output_semantics: additive_parent_overlay_only
+      preserve_existing_baseline_chunks_byte_identical: true
+      delete_or_replace_existing_chunks_authorized: false
       output_change_authorized: true
       implementation_authorized: true
     candidate_lane_order:
@@ -383,6 +387,43 @@ front_loaded_decisions:
       - source_tradition_preference
       - boundary_import
       - whole_bible_output_pass
+  - decision_id: HDF-015
+    title: T374 baseline-overlap output semantics
+    status: complete_owner_selected_additive_parent_overlay
+    earliest_task: T374
+    selection_packet: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+    decision_register_entry: CD-055
+    selected_option: T374-OVERLAP-B
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    selected_output_semantics: additive_parent_overlay_only
+    current_authorization: "Owner selected T374-OVERLAP-B. A future separate T374 implementation may add only an exact additive parent overlay for 1Cor.8.1-1Cor.10.33, preserving existing baseline chunks byte-identical."
+    required_before_t374_output_merge:
+      - parent_only_scope_proof
+      - selected_children_must_be_empty
+      - existing_baseline_chunks_byte_identical
+      - changed_output_manifest_for_additive_overlay
+      - non_target_identity_proof
+      - same_baseline_evaluation
+      - decision_register_update
+      - validators_and_tests
+      - no_context_audit_surface
+      - post_pilot_child_necessity_review_gate
+      - handoff_validates
+    non_authorizations:
+      - chunk_output_change_in_selection_record
+      - deleting_or_replacing_existing_chunks
+      - adjacent_spill_splits
+      - child_span_selection
+      - broader_epistle_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - preferred_reading_selection
+      - source_tradition_preference
+      - boundary_import
+      - whole_bible_output_pass
 chunking_ready_definition:
   ready_for_first_output_changing_chunk_pr_requires:
     - owner_selected_exact_target
@@ -508,8 +549,13 @@ next_roadmap_steps:
     title: First route-isolated 1Cor.8-10 implementation
     starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
     authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+    baseline_overlap_decision_packet: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+    selected_baseline_overlap_option: T374-OVERLAP-B
+    selected_output_semantics: additive_parent_overlay_only
     selected_parent: 1Cor.8.1-1Cor.10.33
     selected_children: []
+    preserve_existing_baseline_chunks_byte_identical: true
+    delete_or_replace_existing_chunks_authorized: false
     output_change_authorized: true
     implementation_authorized: true
     child_spans_authorized: false

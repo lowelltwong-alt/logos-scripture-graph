@@ -141,7 +141,7 @@ def _validate_packet(path: Path) -> dict[str, Any]:
         "schema_version": "t374_baseline_overlap_owner_decision_packet.v1",
         "packet_id": "t374_1cor8_10_baseline_overlap_owner_decision_packet",
         "task_id": "T374",
-        "status": "blocked_pending_owner_decision",
+        "status": "complete_owner_selected_additive_parent_overlay",
         "lane": "epistle_argument",
     }
     for key, value in expected.items():
@@ -178,6 +178,7 @@ def _validate_packet(path: Path) -> dict[str, Any]:
         "replacement_style_implementation_paused": True,
         "replacement_safe_without_new_owner_decision": False,
         "additive_overlay_requires_owner_decision": True,
+        "additive_overlay_owner_decision_recorded": True,
         "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
     }
     for key, value in expected_finding.items():
@@ -206,6 +207,9 @@ def _validate_packet(path: Path) -> dict[str, Any]:
     for option in options:
         if not isinstance(option, dict):
             raise T374BaselineOverlapError(f"{_rel(path)}: each option must be a mapping")
+        expected_status = "selected_by_owner" if option.get("option_id") == "T374-OVERLAP-B" else "not_selected"
+        if option.get("status") != expected_status:
+            raise T374BaselineOverlapError(f"{_rel(path)}: {option.get('option_id')}.status must be {expected_status}")
         for key in ("label", "upside", "downside", "downstream_effect", "theological_or_hermeneutic_risk", "faithfulness_rationale"):
             if not isinstance(option.get(key), str) or not option[key].strip():
                 raise T374BaselineOverlapError(f"{_rel(path)}: {option.get('option_id')}.{key} is required")
@@ -225,17 +229,48 @@ def _validate_packet(path: Path) -> dict[str, Any]:
     selection = data.get("required_owner_selection_record")
     if not isinstance(selection, dict):
         raise T374BaselineOverlapError(f"{_rel(path)}: required_owner_selection_record must be a mapping")
-    if selection.get("selected_option") != "pending_owner_selection":
-        raise T374BaselineOverlapError(f"{_rel(path)}: selected_option must remain pending")
+    if selection.get("selected_option") != "T374-OVERLAP-B":
+        raise T374BaselineOverlapError(f"{_rel(path)}: selected_option must be T374-OVERLAP-B")
     if set(selection.get("allowed_option_ids", [])) != EXPECTED_OPTIONS:
         raise T374BaselineOverlapError(f"{_rel(path)}: allowed_option_ids are stale")
     _require_subset(REQUIRED_SELECTION_FIELDS, selection.get("must_record_before_implementation_resumes"), "must_record_before_implementation_resumes")
+    recorded = selection.get("recorded_owner_selection")
+    if not isinstance(recorded, dict):
+        raise T374BaselineOverlapError(f"{_rel(path)}: recorded_owner_selection must be a mapping")
+    if recorded.get("selected_option") != "T374-OVERLAP-B":
+        raise T374BaselineOverlapError(f"{_rel(path)}: recorded_owner_selection.selected_option must be T374-OVERLAP-B")
+    if recorded.get("decision_register_update") != "CD-055":
+        raise T374BaselineOverlapError(f"{_rel(path)}: recorded_owner_selection.decision_register_update must be CD-055")
+
+    owner_selection = data.get("owner_selection")
+    if not isinstance(owner_selection, dict):
+        raise T374BaselineOverlapError(f"{_rel(path)}: owner_selection must be a mapping")
+    expected_owner_selection = {
+        "selected_option": "T374-OVERLAP-B",
+        "selected_parent": "1Cor.8.1-1Cor.10.33",
+        "selected_children": [],
+        "output_semantics_authorized_for_future_implementation": "additive_parent_overlay_only",
+        "preserve_existing_baseline_chunks_byte_identical": True,
+        "delete_or_replace_existing_chunks_authorized": False,
+        "duplicate_parent_coverage_allowed_for_exact_pilot": True,
+        "adjacent_spill_splits_authorized": False,
+        "implementation_must_be_separate_task": True,
+        "chunk_output_changed_in_this_task": False,
+        "route_behavior_changed_in_this_task": False,
+        "decision_register_update": "CD-055",
+        "post_pilot_child_necessity_review_required": True,
+    }
+    for key, value in expected_owner_selection.items():
+        if owner_selection.get(key) != value:
+            raise T374BaselineOverlapError(f"{_rel(path)}: owner_selection.{key} must be {value!r}")
     _require_subset(REQUIRED_NON_AUTHS, data.get("non_authorizations"), "non_authorizations")
     _require_subset({VALIDATOR_REL, "tests/test_t374_baseline_overlap_owner_decision_packet.py"}, data.get("validators"), "validators")
 
     links = data.get("links")
-    if not isinstance(links, dict) or links.get("decision_register_entry") != "CD-054":
-        raise T374BaselineOverlapError(f"{_rel(path)}: links.decision_register_entry must be CD-054")
+    if not isinstance(links, dict) or links.get("decision_register_entry") != "CD-055":
+        raise T374BaselineOverlapError(f"{_rel(path)}: links.decision_register_entry must be CD-055")
+    if links.get("prior_decision_register_entry") != "CD-054":
+        raise T374BaselineOverlapError(f"{_rel(path)}: links.prior_decision_register_entry must be CD-054")
 
     return data
 
@@ -246,15 +281,15 @@ def _validate_links() -> None:
             raise T374BaselineOverlapError(f"{_rel(linked)}: missing linked surface")
 
     linked_requirements = (
-        (REGISTER, ("CD-054", PACKET_REL, "T374 baseline-overlap output semantics require owner selection")),
-        (PREFLIGHT, (PACKET_REL, "CD-054", "baseline-overlap")),
-        (READINESS, (PACKET_REL, "implementation_paused_until_owner_selects_baseline_overlap_option: true", "selected_baseline_overlap_option: pending_owner_selection")),
-        (ROADMAP, ("id: T374", "status: blocked_pending_owner_decision", PACKET_REL)),
-        (FRONT_DOOR, (PACKET_REL, "baseline overlap", "Do not implement chunks until Lowell selects")),
+        (REGISTER, ("CD-054", "CD-055", PACKET_REL, "T374-OVERLAP-B selects additive parent overlay semantics")),
+        (PREFLIGHT, (PACKET_REL, "CD-055", "T374-OVERLAP-B")),
+        (READINESS, (PACKET_REL, "implementation_paused_until_owner_selects_baseline_overlap_option: false", "selected_baseline_overlap_option: T374-OVERLAP-B")),
+        (ROADMAP, ("id: T374", "status: ready_owner_selected_additive_parent_overlay", PACKET_REL)),
+        (FRONT_DOOR, (PACKET_REL, "baseline overlap", "T374-OVERLAP-B")),
         (TOC, (PACKET_REL, "baseline-overlap", VALIDATOR_REL)),
-        (ROADMAP_TOC, ("T374 | Baseline-overlap owner decision packet", PACKET_REL, "baseline-overlap", VALIDATOR_REL)),
-        (TASK, ("id: T374", PACKET_REL, "blocked_pending_owner_decision")),
-        (ROADMAP_DOC, ("T374 Baseline-Overlap Owner Decision Packet", PACKET_REL, "T374-OVERLAP-B")),
+        (ROADMAP_TOC, ("T374 | Baseline-overlap owner decision packet", PACKET_REL, "owner-selection", VALIDATOR_REL)),
+        (TASK, ("id: T374", PACKET_REL, "complete_owner_selected_additive_parent_overlay")),
+        (ROADMAP_DOC, ("T374 Baseline-Overlap Owner Decision Packet", PACKET_REL, "T374-OVERLAP-B", "preserving all existing baseline chunks byte-identical")),
     )
     for linked, phrases in linked_requirements:
         text = _read_text(linked)
@@ -268,12 +303,18 @@ def _validate_links() -> None:
         raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374")
     expected_next = {
         "baseline_overlap_decision_packet": PACKET_REL,
-        "baseline_overlap_status": "blocked_pending_owner_decision",
-        "implementation_paused_until_owner_selects_baseline_overlap_option": True,
-        "selected_baseline_overlap_option": "pending_owner_selection",
+        "baseline_overlap_status": "complete_owner_selected_additive_parent_overlay",
+        "implementation_paused_until_owner_selects_baseline_overlap_option": False,
+        "selected_baseline_overlap_option": "T374-OVERLAP-B",
+        "additive_parent_overlay_selected": True,
+        "preserve_existing_baseline_chunks_byte_identical": True,
+        "delete_or_replace_existing_chunks_authorized": False,
+        "duplicate_parent_coverage_allowed_for_exact_pilot": True,
+        "adjacent_spill_splits_authorized": False,
         "replacement_style_implementation_paused": True,
         "replacement_safe_without_new_owner_decision": False,
         "additive_overlay_requires_owner_decision": True,
+        "additive_overlay_owner_decision_recorded": True,
     }
     for key, value in expected_next.items():
         if next_route.get(key) != value:
@@ -285,12 +326,18 @@ def _validate_links() -> None:
     t374 = by_id.get("T374")
     if not isinstance(t374, dict):
         raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 roadmap entry missing")
-    if t374.get("status") != "blocked_pending_owner_decision":
-        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 status must be blocked_pending_owner_decision")
+    if t374.get("status") != "ready_owner_selected_additive_parent_overlay":
+        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 status must be ready_owner_selected_additive_parent_overlay")
     if t374.get("baseline_overlap_decision_packet") != PACKET_REL:
         raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 baseline packet is stale")
-    if t374.get("implementation_paused_until_owner_selects_baseline_overlap_option") is not True:
-        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 must pause implementation")
+    if t374.get("implementation_paused_until_owner_selects_baseline_overlap_option") is not False:
+        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 owner-selection pause must be resolved")
+    if t374.get("selected_baseline_overlap_option") != "T374-OVERLAP-B":
+        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 selected_baseline_overlap_option must be T374-OVERLAP-B")
+    if t374.get("preserve_existing_baseline_chunks_byte_identical") is not True:
+        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 must preserve baseline chunks byte-identical")
+    if t374.get("delete_or_replace_existing_chunks_authorized") is not False:
+        raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 must not authorize delete/replace")
     if t374.get("chunk_output_changed_in_this_task") is not False:
         raise T374BaselineOverlapError(f"{_rel(ROADMAP)}: T374 packet task must not change chunk output")
 
