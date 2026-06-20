@@ -39,7 +39,8 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert set(by_lane) >= validator.REQUIRED_LANES
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
-    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is True
+    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
+    assert by_lane["epistle_argument"]["current_state"] == "t374_baseline_overlap_owner_decision_required"
     assert all(
         lane["new_algorithm_work_ready"] is False
         for lane_id, lane in by_lane.items()
@@ -72,6 +73,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in surfaces
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in surfaces
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in surfaces
+    assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -233,6 +235,13 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["reviewed_gold_case_id"] == "1cor8_10_parent_only_reviewed_gold"
     assert data["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert data["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
+    assert data["next_route"]["baseline_overlap_decision_packet"] == ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
+    assert data["next_route"]["baseline_overlap_status"] == "blocked_pending_owner_decision"
+    assert data["next_route"]["implementation_paused_until_owner_selects_baseline_overlap_option"] is True
+    assert data["next_route"]["selected_baseline_overlap_option"] == "pending_owner_selection"
+    assert data["next_route"]["replacement_style_implementation_paused"] is True
+    assert data["next_route"]["replacement_safe_without_new_owner_decision"] is False
+    assert data["next_route"]["additive_overlay_requires_owner_decision"] is True
     assert data["next_route"]["option_presentation_policy"] == ".ai/control/owner_decision_option_presentation_policy.yaml"
     assert data["next_route"]["harness_plan_status"] == "complete_non_output_changing_plan"
     assert data["next_route"]["packet_status"] == "parent_only_reviewed_gold_promoted"

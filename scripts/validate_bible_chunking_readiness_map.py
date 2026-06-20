@@ -75,6 +75,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
     ".ai/control/t372_route_isolation_harness_plan.yaml",
     ".ai/control/t373_owner_implementation_authorization.yaml",
+    ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -90,6 +91,7 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "skill_lifecycle_promotion",
     "boundary_import",
     "parent_only_gold_as_chunk_boundary_outside_exact_t373_t374_pilot",
+    "t374_implementation_without_baseline_overlap_owner_option",
     "child_span_selection_without_later_owner_promotion",
     "t327g",
     "master_chunker_global_objective",
@@ -278,6 +280,9 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         if lane_id == "epistle_argument" and lane.get("current_state") == "t373_a_authorized_exact_parent_only_t374_pilot_next":
             if lane.get("new_algorithm_work_ready") is not True:
                 raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be true after T373-A")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t374_baseline_overlap_owner_decision_required":
+            if lane.get("new_algorithm_work_ready") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T374 overlap owner decision is pending")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -671,6 +676,13 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
             "harness_plan": ".ai/control/t372_route_isolation_harness_plan.yaml",
             "authorization_record": ".ai/control/t373_owner_implementation_authorization.yaml",
+            "baseline_overlap_decision_packet": ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
+            "baseline_overlap_status": "blocked_pending_owner_decision",
+            "implementation_paused_until_owner_selects_baseline_overlap_option": True,
+            "selected_baseline_overlap_option": "pending_owner_selection",
+            "replacement_style_implementation_paused": True,
+            "replacement_safe_without_new_owner_decision": False,
+            "additive_overlay_requires_owner_decision": True,
             "option_presentation_policy": ".ai/control/owner_decision_option_presentation_policy.yaml",
             "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
             "packet_status": "parent_only_reviewed_gold_promoted",
@@ -923,6 +935,12 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t373_owner_implementation_authorization.{key} must be {value!r}")
     if t373_auth.get("selected_children") != []:
         raise ReadinessMapError(f"{_rel(path)}: T373 parallel selected_children must be []")
+
+    if data["next_route"].get("task_id") == "T374":
+        if data["next_route"].get("baseline_overlap_decision_packet") != ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml":
+            raise ReadinessMapError(f"{_rel(path)}: T374 baseline_overlap_decision_packet is stale")
+        if data["next_route"].get("implementation_paused_until_owner_selects_baseline_overlap_option") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T374 implementation must pause until owner selects overlap option")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")
