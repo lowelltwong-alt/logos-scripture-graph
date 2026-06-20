@@ -2,7 +2,7 @@
 
 Status: living control-plane lesson collector
 Owner: methodology / roadmap governance
-Last updated: 2026-06-17
+Last updated: 2026-06-20
 
 This file collects reusable workflow lessons that apply across generated artifacts, control-plane
 surfaces, boundary-source intake, and adjacent operational systems. It is not canonical Scripture
@@ -124,6 +124,34 @@ When a maintainer says a file should have been easier to find, treat that as a l
 Update the relevant AI TOC and, if the pattern is reusable, this lesson collector. If it can be
 checked mechanically, add a test or validator that fails when AI TOCs lose the relevant tag/use-when
 routing.
+
+## WORKFLOW-LESSON-005 - Lessons Need A Tagged Index And Graph
+
+Reusable lessons should not live only as prose notes or chat memory. When an increment teaches a
+lesson that future agents need before, during, or after chunking work, record it in the appropriate
+preflight/workflow/register surface and in the machine-readable chunking lesson index:
+
+- `.ai/control/chunking_lesson_index.yaml`
+
+That index must include:
+
+- searchable tags;
+- use-when triggers;
+- categories;
+- related tasks, decisions, and workflow lessons;
+- source and preflight surfaces;
+- downstream risks;
+- non-authorizations;
+- validators;
+- graph edges to related lessons.
+
+The point is not to create a new authority layer. The index is a routing and memory surface. It does
+not authorize chunk output, reviewed-gold promotion, graph/retrieval truth, route behavior,
+evaluator changes, boundary import, or theological claims by itself.
+
+When a task changes lesson/preflight/methodology/register/audit/TOC surfaces, update the lesson
+index or record in the task handoff why the change taught no reusable lesson. If the relationship is
+machine-checkable, update `scripts/validate_chunking_lesson_index.py` and focused tests.
 
 ## T327-LESSON-001 - Untracked Generated Outputs Move the Burden to Generator and CI
 

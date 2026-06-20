@@ -14,6 +14,7 @@ FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 RULE_REGISTRY = ROOT / "docs" / "methodology" / "LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md"
 SUPPLY_CHAIN = ROOT / "docs" / "methodology" / "CHUNKING_SKILL_SUPPLY_CHAIN.md"
 WORKFLOW_LESSONS = ROOT / "docs" / "methodology" / "WORKFLOW_LESSONS.md"
+LESSON_INDEX = ROOT / ".ai" / "control" / "chunking_lesson_index.yaml"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 TRIAGE_MAP = ROOT / ".ai" / "control" / "bible_chunking_research_triage_map.yaml"
 RESEARCH_REGISTRY = ROOT / ".ai" / "control" / "bible_wide_chunking_research_registry.yaml"
@@ -84,12 +85,26 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058"}
+
+REQUIRED_LESSON_IDS = {
+    "LSN-001",
+    "LSN-002",
+    "LSN-003",
+    "LSN-004",
+    "LSN-005",
+    "LSN-006",
+    "LSN-007",
+    "LSN-008",
+    "LSN-009",
+    "LSN-010",
+}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
 REQUIRED_WORKFLOW_LESSON_IDS = {
     "WORKFLOW-LESSON-004",
+    "WORKFLOW-LESSON-005",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-004",
 }
@@ -152,6 +167,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t374_baseline_overlap_owner_decision_packet.yaml",
     "t374_additive_parent_overlay_manifest.yaml",
     "t375_post_pilot_review.yaml",
+    "chunking_lesson_index.yaml",
+    "validate_chunking_lesson_index.py",
     "owner_decision_option_presentation_policy.yaml",
     "validate_t373_owner_implementation_authorization.py",
     "validate_t374_additive_parent_overlay.py",
@@ -276,6 +293,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
             "update_workflow_if_future_agents_must_do_it_midflight_or_postflight",
             "update_methodology_or_rules_registry_if_it_is_a_reusable_rule",
             "update_decision_register_if_it_has_possible_theological_downstream_effect",
+            "update_chunking_lesson_index_if_lesson_relationship_or_tags_change",
             "add_or_update_validator_or_test_if_machine_checkable",
             "record_no_change_rationale_in_handoff_if_no_surface_changed",
         },
@@ -285,6 +303,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     _require_subset(
         {
             ".ai/control/chunking_agent_preflight.yaml",
+            ".ai/control/chunking_lesson_index.yaml",
             ".ai/workflows/chunking-skill-supply-chain.workflow.md",
             "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
             "docs/methodology/WORKFLOW_LESSONS.md",
@@ -315,6 +334,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         "docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md",
         "docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md",
         "docs/methodology/WORKFLOW_LESSONS.md",
+        ".ai/control/chunking_lesson_index.yaml",
         ".ai/control/chunking_theological_decision_register.yaml",
         ".ai/control/bible_chunking_research_triage_map.yaml",
         ".ai/control/bible_wide_chunking_research_registry.yaml",
@@ -366,6 +386,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         lessons_entry.get("required_sections"),
         "workflow_lesson_required_sections",
     )
+    lesson_index_entry = reading_by_path[".ai/control/chunking_lesson_index.yaml"]
+    _require_subset(REQUIRED_LESSON_IDS, lesson_index_entry.get("required_lesson_ids"), "required_lesson_ids")
 
     registry_text = _read_text(RULE_REGISTRY)
     for rule_id in REQUIRED_RULE_IDS:
@@ -388,6 +410,19 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     for lesson_id in REQUIRED_WORKFLOW_LESSON_IDS:
         if lesson_id not in lessons_text:
             raise PreflightError(f"{_rel(WORKFLOW_LESSONS)}: missing {lesson_id}")
+    lesson_index_text = _read_text(LESSON_INDEX)
+    for lesson_id in REQUIRED_LESSON_IDS:
+        if lesson_id not in lesson_index_text:
+            raise PreflightError(f"{_rel(LESSON_INDEX)}: missing {lesson_id}")
+    for phrase in (
+        "object_type: chunking_lesson_index",
+        "tags:",
+        "use_when:",
+        "lesson_graph:",
+        "update_chunking_lesson_index_if_lesson_relationship_or_tags_change",
+    ):
+        if phrase not in lesson_index_text:
+            raise PreflightError(f"{_rel(LESSON_INDEX)}: missing lesson-index phrase {phrase!r}")
     register_text = _read_text(DECISION_REGISTER)
     for decision_id in REQUIRED_DECISION_IDS:
         if decision_id not in register_text:

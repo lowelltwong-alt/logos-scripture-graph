@@ -54,6 +54,10 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "chunking_human_decision_forecast.yaml",
         "governance_memory_durability_policy.yaml",
         "owner_decision_projection_policy.yaml",
+        "chunking_lesson_index.yaml",
+        "lessons-learned",
+        "lesson-index",
+        "lesson-graph",
         "owner-projection",
         "conflict-scan",
         "orthodox-hermeneutic-firewall",
@@ -107,6 +111,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
     for phrase in [
         "`audit`",
         "`task-scope`",
+        "`T382`, `lessons-learned`, `lesson-index`, `lesson-graph`",
         "`john3`, `owner-review`, `speaker-boundary`",
         "`divine-capitalization`, `source-metadata`, `harness`",
         "`source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`",
@@ -286,6 +291,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "docs/roadmap/T375_POST_PILOT_REVIEW.md" in toc
     assert ".ai/control/t375_post_pilot_review.yaml" in toc
     assert "scripts/validate_t375_post_pilot_review.py" in toc
+    assert "T382 | Chunking lesson index" in toc
+    assert "docs/roadmap/T382_CHUNKING_LESSON_INDEX.md" in toc
+    assert ".ai/control/chunking_lesson_index.yaml" in toc
+    assert "scripts/validate_chunking_lesson_index.py" in toc
+    assert ".ai/tasks/T382.task.yaml" in toc
+    assert ".ai/handoffs/T382/handoff.md" in toc
     assert "T376 - Select Next Chunking Lane From Decision Forecast" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc

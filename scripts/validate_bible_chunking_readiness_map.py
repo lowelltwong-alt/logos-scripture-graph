@@ -52,6 +52,7 @@ REQUIRED_ALGORITHMS = {
 }
 
 REQUIRED_LESSON_SURFACES = {
+    ".ai/control/chunking_lesson_index.yaml",
     ".ai/control/chunking_theological_decision_register.yaml",
     "docs/methodology/WORKFLOW_LESSONS.md",
     "docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md",
