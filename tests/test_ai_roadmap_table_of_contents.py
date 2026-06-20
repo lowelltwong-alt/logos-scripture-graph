@@ -71,6 +71,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "parent-first-pilot",
         "post-pilot-review",
         "child-necessity-review",
+        "t376-next",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -281,7 +282,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t371_parent_only_reviewed_gold_promotion.py" in toc
     assert ".ai/tasks/T371.task.yaml" in toc
     assert ".ai/handoffs/T371/handoff.md" in toc
-    assert "T375 - Same-baseline evaluation, no-context audit, and child-necessity review" in toc
+    assert "T375 | Post-pilot review" in toc
+    assert "docs/roadmap/T375_POST_PILOT_REVIEW.md" in toc
+    assert ".ai/control/t375_post_pilot_review.yaml" in toc
+    assert "scripts/validate_t375_post_pilot_review.py" in toc
+    assert "T376 - Select Next Chunking Lane From Decision Forecast" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

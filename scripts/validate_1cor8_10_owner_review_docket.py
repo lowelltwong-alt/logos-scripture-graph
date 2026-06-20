@@ -265,8 +265,8 @@ def _validate_governed_links() -> None:
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375"}:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, or T375 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, T375, or T376 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
@@ -281,17 +281,20 @@ def _validate_governed_links() -> None:
         )
     if next_task_id == "T375" and next_route.get("starts_only_if") != "T374_additive_parent_overlay_implemented":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 starts_only_if must be T374_additive_parent_overlay_implemented")
-    if (
-        next_route.get("evidence_packet")
-        != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
-    ):
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.evidence_packet is stale")
-    if next_route.get("owner_review_docket") != ".ai/control/1cor8_10_epistle_owner_review_docket.yaml":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.owner_review_docket is stale")
-    if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.promotion_record is stale")
-    if next_route.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_manifest is stale")
+    if next_task_id == "T376" and next_route.get("starts_only_if") != "T375_post_pilot_review_complete":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 starts_only_if must be T375_post_pilot_review_complete")
+    if next_task_id != "T376":
+        if (
+            next_route.get("evidence_packet")
+            != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
+        ):
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.evidence_packet is stale")
+        if next_route.get("owner_review_docket") != ".ai/control/1cor8_10_epistle_owner_review_docket.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.owner_review_docket is stale")
+        if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.promotion_record is stale")
+        if next_route.get("reviewed_gold_manifest") != "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_manifest is stale")
     if next_task_id == "T372":
         if next_route.get("owner_decision_required") is not False:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T372 owner_decision_required must be false")
@@ -318,7 +321,15 @@ def _validate_governed_links() -> None:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 additive_parent_overlay_implemented must be true")
         if next_route.get("selected_children") != []:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 selected_children must be []")
-    if next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id == "T376":
+        if next_route.get("prior_post_pilot_review") != ".ai/control/t375_post_pilot_review.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 prior_post_pilot_review is stale")
+        result = next_route.get("t375_result", {})
+        if result.get("child_span_result") != "child_spans_not_necessary_now":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 t375_result.child_span_result is stale")
+        if result.get("selected_children") != []:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 t375_result.selected_children must be []")
+    if next_task_id != "T376" and next_route.get("reviewed_gold_promoted") is not True:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
     if next_task_id == "T374":
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):

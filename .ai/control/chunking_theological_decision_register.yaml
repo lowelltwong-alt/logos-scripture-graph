@@ -2375,6 +2375,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-057
+    title: T375 post-pilot review keeps child spans unnecessary now
+    classification: non_authorizing_review
+    task_ids: [T375]
+    owner_decision_ref: ".ai/control/t375_post_pilot_review.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33]
+      routes: [epistle_argument, post_pilot_child_necessity_review, next_lane_selection_gate]
+      surfaces: [.ai/control/t375_post_pilot_review.yaml, docs/roadmap/T375_POST_PILOT_REVIEW.md, .ai/audits/reports/20260620-T375-post-pilot-review.md, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml]
+    decision: "T375 completes the required post-pilot review for the T374 additive parent-only overlay. The review records that child spans are not necessary now because T374 preserved existing baseline chunks byte-identical while adding the exact whole-argument parent overlay for 1Cor.8.1-1Cor.10.33. This is not a permanent child-span rejection and does not authorize output, reviewed-gold promotion, route behavior, graph/retrieval truth, or broader epistle behavior. Any future child-span work requires exact child spans, governed child evidence, theological risk review, owner promotion, decision-register update, validators/tests, non-target identity proof, and same-baseline evaluation."
+    downstream_risk: "Future agents could treat parent-only pilot success as automatic denial of all children, or the opposite: treat the post-pilot review as hidden permission to add child spans. Either move could smuggle interpretive hierarchy or theological system choices into 1Cor.8-10."
+    theological_assumptions_avoided:
+      - "No child-span outline is promoted from T369 review labels."
+      - "No conscience, weak/strong, Christian-liberty, table, sacramental, ecclesial, or Israel-example structure becomes a chunking system."
+      - "No parent-only success becomes a claim that internal discourse units are never useful."
+      - "No graph/retrieval/vector truth, preferred reading, source-tradition preference, boundary import, or broader epistle algorithm is authorized."
+    reviewed_gold_dependency: "Depends on the T374 implementation manifest and CD-056 only as review input. T375 adds no reviewed gold, no child spans, and no output change. Later child-span promotion would require separate owner promotion and new governed evidence."
+    non_authorizations:
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - automatic_child_spans_after_parent_pilot
+      - permanent_child_span_denial
+      - treating_t374_overlay_as_truth_bearing_hierarchy
+      - treating_duplicate_parent_coverage_as_child_span_authority
+      - route_behavior_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - preferred_reading_selection
+      - source_tradition_preference
+      - boundary_import
+      - broader_epistle_generalization
+      - whole_bible_output_pass
+    validators:
+      - scripts/validate_t375_post_pilot_review.py
+      - tests/test_t375_post_pilot_review.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2470,4 +2516,5 @@ backfill_coverage:
     - T381
     - T373
     - T374
+    - T375
 ...

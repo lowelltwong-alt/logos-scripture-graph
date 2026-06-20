@@ -283,7 +283,7 @@ def _validate_links() -> None:
     linked_requirements = (
         (REGISTER, ("CD-054", "CD-055", PACKET_REL, "T374-OVERLAP-B selects additive parent overlay semantics")),
         (PREFLIGHT, (PACKET_REL, "CD-055", "T374-OVERLAP-B")),
-        (READINESS, (PACKET_REL, "implementation_paused_until_owner_selects_baseline_overlap_option: false", "selected_baseline_overlap_option: T374-OVERLAP-B")),
+        (READINESS, (PACKET_REL, "task_id: T376", "t375_post_pilot_review_complete_next_lane_selection_required")),
         (ROADMAP, ("id: T374", "status: complete_output_changed_additive_parent_overlay", PACKET_REL)),
         (FRONT_DOOR, (PACKET_REL, "baseline overlap", "T374-OVERLAP-B")),
         (TOC, (PACKET_REL, "baseline-overlap", VALIDATOR_REL)),
@@ -299,31 +299,44 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375"}:
-        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374 or T375")
-    expected_next = {
-        "baseline_overlap_decision_packet": PACKET_REL,
-        "baseline_overlap_status": "complete_owner_selected_additive_parent_overlay",
-        "implementation_paused_until_owner_selects_baseline_overlap_option": False,
-        "selected_baseline_overlap_option": "T374-OVERLAP-B",
-        "additive_parent_overlay_selected": True,
-        "preserve_existing_baseline_chunks_byte_identical": True,
-        "delete_or_replace_existing_chunks_authorized": False,
-        "duplicate_parent_coverage_allowed_for_exact_pilot": True,
-        "adjacent_spill_splits_authorized": False,
-        "replacement_style_implementation_paused": True,
-        "replacement_safe_without_new_owner_decision": False,
-        "additive_overlay_requires_owner_decision": True,
-        "additive_overlay_owner_decision_recorded": True,
-    }
-    for key, value in expected_next.items():
-        if next_route.get(key) != value:
-            raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.{key} must be {value!r}")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376"}:
+        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, or T376")
+    if next_route.get("task_id") in {"T374", "T375"}:
+        expected_next = {
+            "baseline_overlap_decision_packet": PACKET_REL,
+            "baseline_overlap_status": "complete_owner_selected_additive_parent_overlay",
+            "implementation_paused_until_owner_selects_baseline_overlap_option": False,
+            "selected_baseline_overlap_option": "T374-OVERLAP-B",
+            "additive_parent_overlay_selected": True,
+            "preserve_existing_baseline_chunks_byte_identical": True,
+            "delete_or_replace_existing_chunks_authorized": False,
+            "duplicate_parent_coverage_allowed_for_exact_pilot": True,
+            "adjacent_spill_splits_authorized": False,
+            "replacement_style_implementation_paused": True,
+            "replacement_safe_without_new_owner_decision": False,
+            "additive_overlay_requires_owner_decision": True,
+            "additive_overlay_owner_decision_recorded": True,
+        }
+        for key, value in expected_next.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.{key} must be {value!r}")
     if next_route.get("task_id") == "T375":
         if next_route.get("implementation_manifest") != ".ai/control/t374_additive_parent_overlay_manifest.yaml":
             raise T374BaselineOverlapError(f"{_rel(READINESS)}: T375 next_route implementation manifest is stale")
         if next_route.get("additive_parent_overlay_implemented") is not True:
             raise T374BaselineOverlapError(f"{_rel(READINESS)}: T375 must record the T374 overlay as implemented")
+    if next_route.get("task_id") == "T376":
+        if next_route.get("starts_only_if") != "T375_post_pilot_review_complete":
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T376 starts_only_if is stale")
+        if next_route.get("prior_implementation_manifest") != ".ai/control/t374_additive_parent_overlay_manifest.yaml":
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T376 prior_implementation_manifest is stale")
+        if "CD-057" not in next_route.get("prior_decision_register_entries", []):
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T376 must reference CD-057")
+        result = next_route.get("t375_result", {})
+        if result.get("child_span_result") != "child_spans_not_necessary_now":
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T376 t375_result.child_span_result is stale")
+        if result.get("selected_children") != []:
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T376 t375_result.selected_children must be []")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

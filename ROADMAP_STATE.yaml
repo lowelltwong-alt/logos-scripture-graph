@@ -1014,24 +1014,49 @@ phases:
         requires_post_pilot_child_necessity_review_gate: true
       - id: T375
         title: Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review
-        status: ready
+        status: complete_review_only_child_spans_not_necessary_now
         lane: epistle_argument
         starts_only_if: T374_changes_output
+        required_handoff: .ai/handoffs/T375/handoff.md
+        post_pilot_review: .ai/control/t375_post_pilot_review.yaml
+        decision_register_entry: CD-057
         post_pilot_child_necessity_review_required: true
         child_span_work_requires_later_owner_promotion: true
         implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
         no_context_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+        t375_audit_review_surface: .ai/audits/reports/20260620-T375-post-pilot-review.md
+        same_baseline_reviewed: true
+        no_context_audit_reviewed: true
+        child_necessity_reviewed: true
+        child_spans_necessary_now: false
+        selected_parent: 1Cor.8.1-1Cor.10.33
+        selected_children: []
         review_only: true
         output_change_authorized: false
         implementation_authorized: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        next_task: T376
       - id: T376
         title: Select Next Chunking Lane From Decision Forecast
-        status: planned
+        status: ready_owner_decision_required
         lane: next_genre_selection
+        starts_only_if: T375_post_pilot_review_complete
         owner_decision_required: true
+        prior_post_pilot_review: .ai/control/t375_post_pilot_review.yaml
         human_decision_forecast: .ai/control/chunking_human_decision_forecast.yaml
         output_change_authorized: false
         implementation_authorized: false
+        reviewed_gold_promoted: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

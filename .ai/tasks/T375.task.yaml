@@ -1,0 +1,86 @@
+id: T375
+phase: phase_4
+title: "T375 Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review"
+mode: review
+status: complete_review_only_child_spans_not_necessary_now
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t375_post_pilot_review.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T375.task.yaml
+    - .ai/handoffs/T375/
+    - .ai/audits/reports/20260620-T375-post-pilot-review.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T375_POST_PILOT_REVIEW.md
+    - scripts/validate_t374_additive_parent_overlay.py
+    - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+    - scripts/validate_t375_post_pilot_review.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_t372_route_isolation_harness_plan.py
+    - scripts/validate_t373_owner_implementation_authorization.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_all.py
+    - tests/test_t375_post_pilot_review.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: post_pilot_review_only
+  prior_implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  output_change_authorized: false
+  implementation_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  child_spans_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+acceptance_criteria:
+  - "Record same-baseline review of the T374 additive parent overlay without claiming improvement."
+  - "Record no-context audit review and make the audit route discoverable from AI TOCs."
+  - "Record child spans as not necessary now, while preserving the later owner gate if exact child evidence becomes necessary."
+  - "Advance the next route to T376 owner lane selection without authorizing output or authority changes."
+  - "Confirm raw, canonical, processed, derived chunk output, eval leaderboard, graph, retrieval, and vector surfaces are unchanged."
+validation:
+  - python scripts/validate_t375_post_pilot_review.py
+  - python scripts/validate_t374_additive_parent_overlay.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T375
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T375/handoff.md
+next_task: "T376 owner lane selection. Stop for owner decision before selecting the next output-changing target, child spans, reviewed-gold promotion, route/evaluator behavior, graph/retrieval/vector truth, boundary import, or whole-Bible output."
+created_at: "2026-06-20"
+updated_at: "2026-06-20"

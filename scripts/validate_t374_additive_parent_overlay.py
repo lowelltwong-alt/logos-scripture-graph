@@ -363,7 +363,7 @@ def _validate_links() -> None:
     linked_requirements = (
         (REGISTER, ("CD-056", "T374 additive parent overlay implemented as output-changing exact parent-only pilot", MANIFEST_REL)),
         (PREFLIGHT, ("CD-056", MANIFEST_REL)),
-        (READINESS, ("task_id: T375", MANIFEST_REL, "t374_additive_parent_overlay_implemented_post_pilot_review_next")),
+        (READINESS, ("task_id: T375", MANIFEST_REL, "t375_post_pilot_review_complete_next_lane_selection_required")),
         (ROADMAP, ("id: T374", "status: complete_output_changed_additive_parent_overlay", MANIFEST_REL)),
         (FRONT_DOOR, (MANIFEST_REL, VALIDATOR_REL, "T374 additive parent overlay implementation manifest")),
         (TOC, (MANIFEST_REL, VALIDATOR_REL, "output-manifest")),

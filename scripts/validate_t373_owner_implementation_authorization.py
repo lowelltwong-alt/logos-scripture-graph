@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374 or T375")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, or T376")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -388,7 +388,7 @@ def _validate_links() -> None:
             "graph_edge_generation_allowed": False,
             "retrieval_truth_authorized": False,
         }
-    else:
+    elif next_route.get("task_id") == "T375":
         expected_next = {
             "starts_only_if": "T374_additive_parent_overlay_implemented",
             "authorization_record": AUTH_REL,
@@ -410,11 +410,32 @@ def _validate_links() -> None:
             "graph_edge_generation_allowed": False,
             "retrieval_truth_authorized": False,
         }
+    else:
+        expected_next = {
+            "starts_only_if": "T375_post_pilot_review_complete",
+            "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+            "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "route_type": "next_genre_selection",
+            "owner_decision_required": True,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+        }
     for key, value in expected_next.items():
         if next_route.get(key) != value:
             raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.{key} must be {value!r}")
-    if next_route.get("selected_children") != []:
+    if next_route.get("task_id") in {"T374", "T375"} and next_route.get("selected_children") != []:
         raise T373AuthorizationError(f"{_rel(READINESS)}: {next_route.get('task_id')} selected_children must be []")
+    if next_route.get("task_id") == "T376":
+        result = next_route.get("t375_result", {})
+        if result.get("child_span_result") != "child_spans_not_necessary_now":
+            raise T373AuthorizationError(f"{_rel(READINESS)}: T376 t375_result.child_span_result is stale")
+        if result.get("selected_children") != []:
+            raise T373AuthorizationError(f"{_rel(READINESS)}: T376 t375_result.selected_children must be []")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])
