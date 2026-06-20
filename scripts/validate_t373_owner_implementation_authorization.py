@@ -350,7 +350,7 @@ def _validate_links() -> None:
         (REGISTER, ("CD-051", OPTION_POLICY_REL, "Owner gates must present options and repercussions")),
         (REGISTER, ("CD-052", "Parent-first pilot then child-necessity review")),
         (PREFLIGHT, (AUTH_REL, OPTION_POLICY_REL, "CD-050", "CD-051", "CD-052")),
-        (READINESS, ("task_id: T374", AUTH_REL, "parallel_t373_owner_implementation_authorization")),
+        (READINESS, ("task_id: T375", AUTH_REL, "parallel_t373_owner_implementation_authorization")),
         (FORECAST, ("HDF-014", AUTH_REL, "T373-A")),
         (ROADMAP, ("id: T373", "status: complete", AUTH_REL, "id: T374")),
         (FRONT_DOOR, (AUTH_REL, "T373-A", "post-pilot child-necessity review gate")),
@@ -367,31 +367,54 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") != "T374":
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374")
-    expected_next = {
-        "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
-        "authorization_record": AUTH_REL,
-        "selected_parent": "1Cor.8.1-1Cor.10.33",
-        "selected_option": "T373-A",
-        "owner_decision_required": False,
-        "owner_implementation_authorization_recorded": True,
-        "parent_span_as_chunk_boundary_authorized": True,
-        "output_change_authorized": True,
-        "implementation_authorized": True,
-        "route_behavior_authorized": True,
-        "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
-        "post_pilot_child_necessity_review_required": True,
-        "child_span_work_requires_later_owner_promotion": True,
-        "evaluator_change_authorized": False,
-        "graph_edge_generation_allowed": False,
-        "retrieval_truth_authorized": False,
-    }
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374 or T375")
+    if next_route.get("task_id") == "T374":
+        expected_next = {
+            "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
+            "authorization_record": AUTH_REL,
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "T373-A",
+            "owner_decision_required": False,
+            "owner_implementation_authorization_recorded": True,
+            "parent_span_as_chunk_boundary_authorized": True,
+            "output_change_authorized": True,
+            "implementation_authorized": True,
+            "route_behavior_authorized": True,
+            "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
+            "post_pilot_child_necessity_review_required": True,
+            "child_span_work_requires_later_owner_promotion": True,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+        }
+    else:
+        expected_next = {
+            "starts_only_if": "T374_additive_parent_overlay_implemented",
+            "authorization_record": AUTH_REL,
+            "implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "T374-OVERLAP-B",
+            "selected_t373_option": "T373-A",
+            "owner_implementation_authorization_recorded": True,
+            "additive_parent_overlay_implemented": True,
+            "parent_span_as_chunk_boundary_authorized": True,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "general_parent_first_pilot_pattern": "parent_first_pilot_then_child_necessity_review",
+            "post_pilot_child_necessity_review_required": True,
+            "child_span_work_requires_later_owner_promotion": True,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+        }
     for key, value in expected_next.items():
         if next_route.get(key) != value:
             raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.{key} must be {value!r}")
     if next_route.get("selected_children") != []:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: T374 selected_children must be []")
+        raise T373AuthorizationError(f"{_rel(READINESS)}: {next_route.get('task_id')} selected_children must be []")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

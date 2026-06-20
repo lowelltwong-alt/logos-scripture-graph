@@ -366,14 +366,16 @@ def _validate_governed_links() -> None:
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374"}:
-        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.task_id must be T372, T373, or T374 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374", "T375"}:
+        raise ParentEvidenceError(f"{_rel(READINESS)}: next_route.task_id must be T372, T373, T374, or T375 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T372 starts_only_if is stale")
     if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T373 starts_only_if is stale")
     if next_task_id == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T374 starts_only_if is stale")
+    if next_task_id == "T375" and next_route.get("starts_only_if") != "T374_additive_parent_overlay_implemented":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: T375 starts_only_if is stale")
     if next_route.get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
         raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.evidence_packet is stale")
     if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
@@ -394,6 +396,13 @@ def _validate_governed_links() -> None:
             raise ParentEvidenceError(f"{_rel(READINESS)}: T374 authorization_record is stale")
         if next_route.get("selected_children") != []:
             raise ParentEvidenceError(f"{_rel(READINESS)}: T374 selected_children must be []")
+    if next_task_id == "T375":
+        if next_route.get("implementation_manifest") != ".ai/control/t374_additive_parent_overlay_manifest.yaml":
+            raise ParentEvidenceError(f"{_rel(READINESS)}: T375 implementation_manifest is stale")
+        if next_route.get("additive_parent_overlay_implemented") is not True:
+            raise ParentEvidenceError(f"{_rel(READINESS)}: T375 additive_parent_overlay_implemented must be true")
+        if next_route.get("selected_children") != []:
+            raise ParentEvidenceError(f"{_rel(READINESS)}: T375 selected_children must be []")
     if next_route.get("reviewed_gold_promoted") is not True:
         raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.reviewed_gold_promoted must be true")
     if next_task_id == "T374":

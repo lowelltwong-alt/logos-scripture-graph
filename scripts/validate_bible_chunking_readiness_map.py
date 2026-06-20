@@ -76,6 +76,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t372_route_isolation_harness_plan.yaml",
     ".ai/control/t373_owner_implementation_authorization.yaml",
     ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
+    ".ai/control/t374_additive_parent_overlay_manifest.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -157,6 +158,10 @@ ALLOWED_NEXT_ROUTES = {
     "T374": {
         "route_type": "epistle_argument_route_isolated_output_pilot",
         "title": "First Route-Isolated 1 Corinthians 8-10 Implementation",
+    },
+    "T375": {
+        "route_type": "epistle_argument_post_pilot_review",
+        "title": "Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review",
     },
 }
 
@@ -286,6 +291,38 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         elif lane_id == "epistle_argument" and lane.get("current_state") == "t374_overlap_b_selected_additive_overlay_ready":
             if lane.get("new_algorithm_work_ready") is not True:
                 raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be true after T374-OVERLAP-B")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t374_additive_parent_overlay_implemented_post_pilot_review_next":
+            if lane.get("new_algorithm_work_ready") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T375 review is next")
+            implementation = lane.get("additive_parent_overlay_implementation")
+            if not isinstance(implementation, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation must be present")
+            expected_implementation = {
+                "task_id": "T374",
+                "path": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+                "status": "complete_output_changed_additive_parent_overlay",
+                "selected_option": "T374-OVERLAP-B",
+                "selected_parent": "1Cor.8.1-1Cor.10.33",
+                "baseline_chunk_count": 1136,
+                "candidate_chunk_count": 1137,
+                "added_overlay_count": 1,
+                "baseline_prefix_matches_pre_t374_bytes": True,
+                "non_target_output_diff_detected": False,
+                "next_review_task": "T375",
+            }
+            for key, value in expected_implementation.items():
+                if implementation.get(key) != value:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation.{key} must be {value!r}")
+            if implementation.get("selected_children") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation.selected_children must be []")
+            for key in (
+                "child_spans_authorized",
+                "evaluator_change_authorized",
+                "graph_edge_generation_allowed",
+                "retrieval_truth_authorized",
+            ):
+                if implementation.get(key) is not False:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation.{key} must be false")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -754,6 +791,94 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T374 next_route.{key} must be false")
+    if task_id == "T375":
+        expected_t375 = {
+            "recommended_target": "epistle_argument",
+            "selected_target": "1cor8_10_food_offered_to_idols",
+            "selected_passage": "1Cor.8-1Cor.10",
+            "exact_parent_candidate": "1Cor.8.1-1Cor.10.33",
+            "selected_option": "T374-OVERLAP-B",
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "selection_mode": "post_pilot_review_required",
+            "review_packet": "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md",
+            "evidence_packet": "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
+            "owner_decision_packet": ".ai/control/t371_variant_dependency_owner_decision_packet.yaml",
+            "promotion_record": ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
+            "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+            "reviewed_gold_case_id": "1cor8_10_parent_only_reviewed_gold",
+            "harness_plan": ".ai/control/t372_route_isolation_harness_plan.yaml",
+            "authorization_record": ".ai/control/t373_owner_implementation_authorization.yaml",
+            "baseline_overlap_decision_packet": ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
+            "implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "no_context_audit_surface": ".ai/audits/reports/20260620-T374-additive-parent-overlay.md",
+            "decision_register_entry": "CD-056",
+            "baseline_overlap_status": "complete_owner_selected_additive_parent_overlay",
+            "selected_baseline_overlap_option": "T374-OVERLAP-B",
+            "selected_t371_option": "T371-A",
+            "selected_t373_option": "T373-A",
+            "selected_t374_option": "T374-OVERLAP-B",
+            "implementation_task": "T374",
+            "next_task_after_t375": "T376",
+            "route_behavior_authorization_scope": "none_review_only",
+        }
+        for key, value in expected_t375.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T375 next_route.{key} must be {value!r}")
+        if next_route.get("selected_children") != []:
+            raise ReadinessMapError(f"{_rel(path)}: T375 next_route.selected_children must be []")
+        for key in (
+            "additive_parent_overlay_implemented",
+            "preserve_existing_baseline_chunks_byte_identical",
+            "baseline_prefix_matches_pre_t374_bytes",
+            "reviewed_gold_promoted",
+            "post_pilot_child_necessity_review_required",
+            "child_span_work_requires_later_owner_promotion",
+        ):
+            if next_route.get(key) is not True:
+                raise ReadinessMapError(f"{_rel(path)}: T375 next_route.{key} must be true")
+        for key, value in (
+            ("baseline_chunk_count", 1136),
+            ("candidate_chunk_count", 1137),
+            ("added_overlay_count", 1),
+        ):
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T375 next_route.{key} must be {value}")
+        required_t375 = set(_require_string_list(
+            next_route.get("required_t375_work_must_record"),
+            "T375 required_t375_work_must_record",
+        ))
+        for item in (
+            "same_baseline_evaluation_review",
+            "no_context_audit_review",
+            "child_necessity_review",
+            "selected_children_must_remain_empty_unless_later_owner_promotion",
+            "decision_register_update_or_no_impact_marker",
+            "validators_and_tests",
+            "handoff_next_route_recommendation",
+        ):
+            if item not in required_t375:
+                raise ReadinessMapError(f"{_rel(path)}: T375 required work missing {item}")
+        must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T375 must_fail_if"))
+        for item in (
+            "child_spans_are_added_without_later_owner_promotion",
+            "child_spans_are_added_without_post_pilot_review",
+            "t374_overlay_is_treated_as_truth_bearing_hierarchy",
+            "post_pilot_review_claims_child_spans_are_authorized",
+            "graph_or_retrieval_truth_is_generated",
+        ):
+            if item not in must_fail:
+                raise ReadinessMapError(f"{_rel(path)}: T375 must_fail_if missing {item}")
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "route_behavior_authorized",
+            "child_spans_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T375 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

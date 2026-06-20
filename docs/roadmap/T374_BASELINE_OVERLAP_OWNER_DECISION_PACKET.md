@@ -2,8 +2,8 @@
 object_type: roadmap_task_note
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T374 after baseline inspection found the current 1 Corinthians chunks overlap the exact owner-authorized parent span; updated after Lowell selected T374-OVERLAP-B."
-reason_for_inclusion: "Give future agents and auditors a human-readable explanation of why T374 stopped before implementation, which option was selected, and what remains unauthorized."
+provenance_note: "Created 2026-06-20 during T374 after baseline inspection found the current 1 Corinthians chunks overlap the exact owner-authorized parent span; updated after Lowell selected T374-OVERLAP-B and after the exact additive parent overlay was implemented."
+reason_for_inclusion: "Give future agents and auditors a human-readable explanation of why T374 stopped before implementation, which option was selected, how the later implementation was constrained, and what remains unauthorized."
 ---
 
 # T374 Baseline-Overlap Owner Decision Packet
@@ -19,6 +19,7 @@ That means a replacement-style implementation would affect adjacent non-target m
 Machine-readable packet:
 
 - `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`
+- `.ai/control/t374_additive_parent_overlay_manifest.yaml`
 
 ## Owner Options
 
@@ -30,10 +31,14 @@ Machine-readable packet:
 
 ## Selected Semantics
 
-Lowell selected `T374-OVERLAP-B` on 2026-06-20. A later separate output-changing implementation PR may add only an exact additive parent overlay for `1Cor.8.1-1Cor.10.33` while preserving all existing baseline chunks byte-identical.
+Lowell selected `T374-OVERLAP-B` on 2026-06-20. The later output-changing implementation adds only an exact additive parent overlay for `1Cor.8.1-1Cor.10.33` while preserving all existing baseline chunks byte-identical.
 
-This selection record itself changes no chunk output. It does not authorize deleting or replacing existing chunks, adjacent spill splits, child spans, graph/retrieval truth, evaluator behavior changes, broader epistle generalization, preferred reading selection, source-tradition preference, boundary import, vector work, or whole-Bible output.
+The selection record itself changes no chunk output. The implementation manifest records the output change and still does not authorize deleting or replacing existing chunks, adjacent spill splits, child spans, graph/retrieval truth, evaluator behavior changes, broader epistle generalization, preferred reading selection, source-tradition preference, boundary import, vector work, or whole-Bible output.
 
-## Current Implementation Rule
+## Implementation Result
 
-Do not implement chunks unless the implementation is exactly `T374-OVERLAP-B`: additive parent overlay only, exact parent `1Cor.8.1-1Cor.10.33`, existing baseline chunks byte-identical, no child spans, and no graph/retrieval/vector/evaluator/broader-route behavior.
+T374 now appends one non-truth-bearing overlay chunk:
+
+- `chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Cor.8.1--1Cor.10.33--T374-OVERLAP-B`
+
+The baseline prefix remains byte-identical, `selected_children` remains empty, and T375 is the next review-only gate for same-baseline review, no-context audit review, and child-necessity review.

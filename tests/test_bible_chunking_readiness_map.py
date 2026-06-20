@@ -39,12 +39,11 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert set(by_lane) >= validator.REQUIRED_LANES
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
-    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is True
-    assert by_lane["epistle_argument"]["current_state"] == "t374_overlap_b_selected_additive_overlay_ready"
+    assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
+    assert by_lane["epistle_argument"]["current_state"] == "t374_additive_parent_overlay_implemented_post_pilot_review_next"
     assert all(
         lane["new_algorithm_work_ready"] is False
-        for lane_id, lane in by_lane.items()
-        if lane_id != "epistle_argument"
+        for lane in by_lane.values()
     )
 
 
@@ -74,6 +73,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in surfaces
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in surfaces
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in surfaces
+    assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -116,7 +116,7 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T374"
+    assert data["next_route"]["task_id"] == "T375"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -131,7 +131,7 @@ def test_parallel_original_language_pressure_queue_does_not_replace_next_route()
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_original_language_pressure_queue"]
 
-    assert data["next_route"]["task_id"] == "T374"
+    assert data["next_route"]["task_id"] == "T375"
     assert queue["task_id"] == "T377"
     assert queue["route_type"] == "cross_lane_original_language_pressure_memory"
     assert queue["path"] == ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml"
@@ -150,7 +150,7 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_textual_critical_policy_options"]
 
-    assert data["next_route"]["task_id"] == "T374"
+    assert data["next_route"]["task_id"] == "T375"
     assert data["next_route"]["variant_sensitive_policy_gate_task"] == "T379"
     assert data["next_route"]["variant_sensitive_policy_selected"] is True
     assert data["next_route"]["selected_textual_critical_policy"] == "TCP-T378-B"
@@ -173,7 +173,7 @@ def test_parallel_textual_critical_case_policy_records_t379_without_promotion() 
     data = validator.validate_readiness_map(READINESS_MAP)
     policy = data["parallel_textual_critical_case_policy"]
 
-    assert data["next_route"]["task_id"] == "T374"
+    assert data["next_route"]["task_id"] == "T375"
     assert policy["task_id"] == "T379"
     assert policy["path"] == ".ai/control/textual_critical_case_policy.yaml"
     assert policy["selected_policy"] == "TCP-T378-B"
@@ -190,7 +190,7 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
     packet = data["parallel_t371_owner_decision_packet"]
 
-    assert data["next_route"]["task_id"] == "T374"
+    assert data["next_route"]["task_id"] == "T375"
     assert data["next_route"]["owner_decision_packet"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
     assert packet["task_id"] == "T380"
     assert packet["path"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
@@ -210,20 +210,20 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert packet["implementation_authorized"] is False
 
 
-def test_next_route_advances_to_t374_after_t373_authorization() -> None:
+def test_next_route_advances_to_t375_after_t374_implementation() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T374"
-    assert data["next_route"]["route_type"] == "epistle_argument_route_isolated_output_pilot"
-    assert data["next_route"]["starts_only_if"] == "T373_A_authorizes_exact_parent_only_output_pilot"
+    assert data["next_route"]["task_id"] == "T375"
+    assert data["next_route"]["route_type"] == "epistle_argument_post_pilot_review"
+    assert data["next_route"]["starts_only_if"] == "T374_additive_parent_overlay_implemented"
     assert data["next_route"]["recommended_target"] == "epistle_argument"
     assert data["next_route"]["selected_target"] == "1cor8_10_food_offered_to_idols"
     assert data["next_route"]["selected_passage"] == "1Cor.8-1Cor.10"
     assert data["next_route"]["exact_parent_candidate"] == "1Cor.8.1-1Cor.10.33"
-    assert data["next_route"]["selected_option"] == "T373-A"
+    assert data["next_route"]["selected_option"] == "T374-OVERLAP-B"
     assert data["next_route"]["selected_parent"] == "1Cor.8.1-1Cor.10.33"
     assert data["next_route"]["selected_children"] == []
-    assert data["next_route"]["selection_mode"] == "explicit_owner_authorization"
+    assert data["next_route"]["selection_mode"] == "post_pilot_review_required"
     assert data["next_route"]["projection_policy"] == ".ai/control/owner_decision_projection_policy.yaml"
     assert data["next_route"]["conflict_scan_result"] == "no_conflict_detected"
     assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md"
@@ -236,11 +236,20 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
     assert data["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
     assert data["next_route"]["baseline_overlap_decision_packet"] == ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
+    assert data["next_route"]["implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+    assert data["next_route"]["no_context_audit_surface"] == ".ai/audits/reports/20260620-T374-additive-parent-overlay.md"
+    assert data["next_route"]["decision_register_entry"] == "CD-056"
     assert data["next_route"]["baseline_overlap_status"] == "complete_owner_selected_additive_parent_overlay"
     assert data["next_route"]["implementation_paused_until_owner_selects_baseline_overlap_option"] is False
     assert data["next_route"]["selected_baseline_overlap_option"] == "T374-OVERLAP-B"
     assert data["next_route"]["additive_parent_overlay_selected"] is True
+    assert data["next_route"]["additive_parent_overlay_implemented"] is True
     assert data["next_route"]["preserve_existing_baseline_chunks_byte_identical"] is True
+    assert data["next_route"]["baseline_prefix_matches_pre_t374_bytes"] is True
+    assert data["next_route"]["baseline_chunk_count"] == 1136
+    assert data["next_route"]["candidate_chunk_count"] == 1137
+    assert data["next_route"]["added_overlay_count"] == 1
+    assert data["next_route"]["non_target_output_diff_detected"] is False
     assert data["next_route"]["delete_or_replace_existing_chunks_authorized"] is False
     assert data["next_route"]["duplicate_parent_coverage_allowed_for_exact_pilot"] is True
     assert data["next_route"]["adjacent_spill_splits_authorized"] is False
@@ -255,6 +264,7 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["owner_decision_required"] is False
     assert data["next_route"]["selected_t371_option"] == "T371-A"
     assert data["next_route"]["selected_t373_option"] == "T373-A"
+    assert data["next_route"]["selected_t374_option"] == "T374-OVERLAP-B"
     assert data["next_route"]["prior_owner_decision_task"] == "T367"
     assert data["next_route"]["general_parent_first_pilot_pattern"] == "parent_first_pilot_then_child_necessity_review"
     assert data["next_route"]["post_pilot_child_necessity_review_required"] is True
@@ -264,6 +274,7 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["evidence_prep_task"] == "T370"
     assert data["next_route"]["parent_gold_promotion_task"] == "T371"
     assert data["next_route"]["implementation_authorization_task"] == "T373"
+    assert data["next_route"]["implementation_task"] == "T374"
     assert data["next_route"]["prior_harness_task"] == "T372"
     assert data["next_route"]["prior_packet_task"] == "T352"
     assert data["next_route"]["prior_issue_dossier_task"] == "T361"
@@ -271,21 +282,24 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert data["next_route"]["textual_critical_policy_docket"] == ".ai/control/textual_critical_policy_docket.yaml"
     assert data["next_route"]["harness_only"] is False
     assert data["next_route"]["owner_implementation_authorization_recorded"] is True
-    assert data["next_route"]["output_change_authorized"] is True
-    assert data["next_route"]["output_change_authorization_scope"] == "exact_t374_pilot_only"
-    assert data["next_route"]["implementation_authorized"] is True
-    assert data["next_route"]["implementation_authorization_scope"] == "exact_t374_pilot_only"
+    assert data["next_route"]["output_change_authorized"] is False
+    assert data["next_route"]["output_change_authorization_scope"] == "none_review_only"
+    assert data["next_route"]["implementation_authorized"] is False
+    assert data["next_route"]["implementation_authorization_scope"] == "none_review_only"
     assert data["next_route"]["reviewed_gold_promoted"] is True
     assert data["next_route"]["parent_span_as_chunk_boundary_authorized"] is True
     assert data["next_route"]["parent_span_authorization_scope"] == "exact_t374_pilot_only"
-    assert data["next_route"]["route_behavior_authorized"] is True
-    assert data["next_route"]["route_behavior_authorization_scope"] == "exact_t374_target_only"
+    assert data["next_route"]["route_behavior_authorized"] is False
+    assert data["next_route"]["route_behavior_authorization_scope"] == "none_review_only"
+    assert data["next_route"]["child_spans_authorized"] is False
     assert data["next_route"]["evaluator_change_authorized"] is False
     assert data["next_route"]["graph_edge_generation_allowed"] is False
-    assert "no_context_audit_surface" in data["next_route"]["required_t374_work_must_record"]
-    assert "post_pilot_child_necessity_review_gate" in data["next_route"]["required_t374_work_must_record"]
+    assert "same_baseline_evaluation_review" in data["next_route"]["required_t375_work_must_record"]
+    assert "no_context_audit_review" in data["next_route"]["required_t375_work_must_record"]
+    assert "child_necessity_review" in data["next_route"]["required_t375_work_must_record"]
     assert "child_spans_are_added_without_later_owner_promotion" in data["next_route"]["must_fail_if"]
     assert "child_spans_are_added_without_post_pilot_review" in data["next_route"]["must_fail_if"]
+    assert "t374_overlay_is_treated_as_truth_bearing_hierarchy" in data["next_route"]["must_fail_if"]
 
     by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
     epistle = by_lane["epistle_argument"]
@@ -298,6 +312,14 @@ def test_next_route_advances_to_t374_after_t373_authorization() -> None:
     assert promotion["reviewed_gold_promoted"] is True
     assert promotion["selected_children"] == []
     assert promotion["parent_span_as_chunk_boundary_authorized"] is False
+    implementation = epistle["additive_parent_overlay_implementation"]
+    assert implementation["task_id"] == "T374"
+    assert implementation["path"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+    assert implementation["status"] == "complete_output_changed_additive_parent_overlay"
+    assert implementation["selected_children"] == []
+    assert implementation["baseline_prefix_matches_pre_t374_bytes"] is True
+    assert implementation["non_target_output_diff_detected"] is False
+    assert implementation["child_spans_authorized"] is False
 
     plan = data["parallel_t372_route_isolation_harness_plan"]
     assert plan["task_id"] == "T372"

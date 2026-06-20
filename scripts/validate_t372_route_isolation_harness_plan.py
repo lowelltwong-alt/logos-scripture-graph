@@ -260,7 +260,7 @@ def _validate_links() -> None:
     for path, phrases in (
         (REGISTER, ("CD-048", PLAN_REL, "T372 route-isolation harness plan is non-authorizing")),
         (PREFLIGHT, (PLAN_REL, "CD-048", "T372 route-isolation harness plan")),
-        (READINESS, (PLAN_REL, "task_id: T374", "parallel_t372_route_isolation_harness_plan", "parallel_t373_owner_implementation_authorization")),
+        (READINESS, (PLAN_REL, "task_id: T375", "parallel_t372_route_isolation_harness_plan", "parallel_t373_owner_implementation_authorization")),
         (FORECAST, ("HDF-013", PLAN_REL, "T373")),
         (ROADMAP, ("id: T372", "status: complete", PLAN_REL, "starts_only_if: T372_route_isolation_harness_plan_complete")),
         (FRONT_DOOR, (PLAN_REL, "T372 route-isolation harness plan", "T373 owner implementation authorization")),
@@ -276,12 +276,14 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374"}:
-        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373 or T374 after T372")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375"}:
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, or T375 after T372")
     if next_route.get("task_id") == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T373 starts_only_if is stale")
     if next_route.get("task_id") == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T374 starts_only_if is stale")
+    if next_route.get("task_id") == "T375" and next_route.get("starts_only_if") != "T374_additive_parent_overlay_implemented":
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: T375 starts_only_if is stale")
     if next_route.get("harness_plan") != PLAN_REL:
         raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.harness_plan is stale")
     if next_route.get("task_id") == "T373":
@@ -305,6 +307,14 @@ def _validate_links() -> None:
         for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
             if next_route.get(key) is not False:
                 raise T372HarnessPlanError(f"{_rel(READINESS)}: T374 next_route.{key} must be false")
+    if next_route.get("task_id") == "T375":
+        if next_route.get("implementation_manifest") != ".ai/control/t374_additive_parent_overlay_manifest.yaml":
+            raise T372HarnessPlanError(f"{_rel(READINESS)}: T375 implementation_manifest is stale")
+        if next_route.get("selected_children") != []:
+            raise T372HarnessPlanError(f"{_rel(READINESS)}: T375 selected_children must be []")
+        for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized", "evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
+            if next_route.get(key) is not False:
+                raise T372HarnessPlanError(f"{_rel(READINESS)}: T375 next_route.{key} must be false")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

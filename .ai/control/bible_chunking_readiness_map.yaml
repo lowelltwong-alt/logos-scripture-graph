@@ -52,6 +52,7 @@ lessons_storage:
     - .ai/control/t372_route_isolation_harness_plan.yaml
     - .ai/control/t373_owner_implementation_authorization.yaml
     - .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+    - .ai/control/t374_additive_parent_overlay_manifest.yaml
     - .ai/control/owner_decision_option_presentation_policy.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
@@ -131,8 +132,8 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t374_overlap_b_selected_additive_overlay_ready
-    new_algorithm_work_ready: true
+    current_state: t374_additive_parent_overlay_implemented_post_pilot_review_next
+    new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
       - Rom.9-Rom.11
@@ -217,6 +218,27 @@ lane_sequence:
       evaluator_change_authorized: false
       graph_edge_generation_allowed: false
       retrieval_truth_authorized: false
+    additive_parent_overlay_implementation:
+      task_id: T374
+      path: .ai/control/t374_additive_parent_overlay_manifest.yaml
+      status: complete_output_changed_additive_parent_overlay
+      selected_option: T374-OVERLAP-B
+      selected_parent: 1Cor.8.1-1Cor.10.33
+      selected_children: []
+      output_change_authorized: true
+      implementation_authorized: true
+      chunk_output_changed: true
+      route_behavior_changed: true
+      baseline_chunk_count: 1136
+      candidate_chunk_count: 1137
+      added_overlay_count: 1
+      baseline_prefix_matches_pre_t374_bytes: true
+      non_target_output_diff_detected: false
+      child_spans_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+      next_review_task: T375
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -371,18 +393,18 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T374
-  title: First Route-Isolated 1 Corinthians 8-10 Implementation
-  route_type: epistle_argument_route_isolated_output_pilot
-  starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
+  task_id: T375
+  title: Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review
+  route_type: epistle_argument_post_pilot_review
+  starts_only_if: T374_additive_parent_overlay_implemented
   recommended_target: epistle_argument
   selected_target: 1cor8_10_food_offered_to_idols
   selected_passage: 1Cor.8-1Cor.10
   exact_parent_candidate: 1Cor.8.1-1Cor.10.33
-  selected_option: T373-A
+  selected_option: T374-OVERLAP-B
   selected_parent: 1Cor.8.1-1Cor.10.33
   selected_children: []
-  selection_mode: explicit_owner_authorization
+  selection_mode: post_pilot_review_required
   projection_policy: .ai/control/owner_decision_projection_policy.yaml
   conflict_scan_result: no_conflict_detected
   review_packet: eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
@@ -395,11 +417,20 @@ next_route:
   harness_plan_status: complete_non_output_changing_plan
   authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
   baseline_overlap_decision_packet: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+  implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  no_context_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+  decision_register_entry: CD-056
   baseline_overlap_status: complete_owner_selected_additive_parent_overlay
   implementation_paused_until_owner_selects_baseline_overlap_option: false
   selected_baseline_overlap_option: T374-OVERLAP-B
   additive_parent_overlay_selected: true
+  additive_parent_overlay_implemented: true
   preserve_existing_baseline_chunks_byte_identical: true
+  baseline_prefix_matches_pre_t374_bytes: true
+  baseline_chunk_count: 1136
+  candidate_chunk_count: 1137
+  added_overlay_count: 1
+  non_target_output_diff_detected: false
   delete_or_replace_existing_chunks_authorized: false
   duplicate_parent_coverage_allowed_for_exact_pilot: true
   adjacent_spill_splits_authorized: false
@@ -414,12 +445,14 @@ next_route:
   owner_decision_required: false
   selected_t371_option: T371-A
   selected_t373_option: T373-A
+  selected_t374_option: T374-OVERLAP-B
   prior_owner_decision_task: T367
   packet_strengthening_task: T368
   parent_selection_task: T369
   evidence_prep_task: T370
   parent_gold_promotion_task: T371
   implementation_authorization_task: T373
+  implementation_task: T374
   general_parent_first_pilot_pattern: parent_first_pilot_then_child_necessity_review
   post_pilot_child_necessity_review_required: true
   child_span_work_requires_later_owner_promotion: true
@@ -440,39 +473,36 @@ next_route:
   owner_implementation_authorization_required: false
   owner_implementation_authorization_recorded: true
   prior_harness_task: T372
-  required_t374_work_must_record:
-    - exact_t373_authorization_record_present
-    - parent_only_scope_proof
-    - selected_children_must_be_empty
-    - non_target_identity_proof
-    - same_baseline_evaluation
-    - changed_output_manifest
-    - decision_register_update
+  required_t375_work_must_record:
+    - same_baseline_evaluation_review
+    - no_context_audit_review
+    - child_necessity_review
+    - selected_children_must_remain_empty_unless_later_owner_promotion
+    - decision_register_update_or_no_impact_marker
     - validators_and_tests
-    - no_context_audit_surface
-    - post_pilot_child_necessity_review_gate
+    - handoff_next_route_recommendation
   must_fail_if:
     - child_spans_are_added_without_later_owner_promotion
     - child_spans_are_added_without_post_pilot_review
-    - route_behavior_applies_outside_1cor8_10
-    - parent_span_generalizes_to_other_epistles
-    - evaluator_formula_changes_inside_implementation_pr
+    - t374_overlay_is_treated_as_truth_bearing_hierarchy
+    - post_pilot_review_claims_child_spans_are_authorized
+    - evaluator_formula_changes_inside_review_task
     - graph_or_retrieval_truth_is_generated
     - embedding_or_vector_output_is_generated
     - source_metadata_becomes_chunk_authority
-    - non_target_output_diff_is_detected
-  default_if_owner_unavailable: t373_already_recorded_but_stop_if_authorization_conflict_or_scope_ambiguity
-  next_task_after_t374: T375
-  rationale: "T373 selected T373-A. The next safe route is a route-isolated T374 implementation for only the exact parent-only 1Cor.8.1-1Cor.10.33 target. This follows the owner-authorized parent-first pilot pattern: run the parent-only pilot first, then review whether child spans are necessary. Child spans, broader epistle generalization, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary import, and whole-Bible output remain unauthorized."
-  baseline_overlap_rationale: "T374 inspection found current baseline chunks cross into and out of the exact parent span. Owner selected T374-OVERLAP-B additive parent overlay: future implementation may add only an exact parent overlay while preserving existing baseline chunks byte-identical. Replacement splits, deletion/replacement, child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, and whole-Bible output remain unauthorized."
+  default_if_owner_unavailable: complete_review_surfaces_only_and_stop_before_child_span_or_output_authority
+  next_task_after_t375: T376
+  rationale: "T374 implemented the exact additive parent-only overlay for 1Cor.8.1-1Cor.10.33 and preserved every pre-T374 baseline chunk byte-identical. The next safe route is T375 review: inspect same-baseline results, no-context audit surface, and whether child spans are necessary. T375 is review-only and authorizes no child spans, output changes, evaluator changes, graph/retrieval/vector truth, broader epistle generalization, preferred readings, source-tradition preference, boundary import, or whole-Bible output."
+  baseline_overlap_rationale: "T374 inspection found current baseline chunks cross into and out of the exact parent span. Lowell selected and T374 implemented T374-OVERLAP-B additive parent overlay. Replacement splits, deletion/replacement, child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, and whole-Bible output remain unauthorized."
   parent_span_as_chunk_boundary_authorized: true
   parent_span_authorization_scope: exact_t374_pilot_only
-  output_change_authorized: true
-  output_change_authorization_scope: exact_t374_pilot_only
-  implementation_authorized: true
-  implementation_authorization_scope: exact_t374_pilot_only
-  route_behavior_authorized: true
-  route_behavior_authorization_scope: exact_t374_target_only
+  output_change_authorized: false
+  output_change_authorization_scope: none_review_only
+  implementation_authorized: false
+  implementation_authorization_scope: none_review_only
+  route_behavior_authorized: false
+  route_behavior_authorization_scope: none_review_only
+  child_spans_authorized: false
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
@@ -482,7 +512,7 @@ parallel_research_queue:
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not supersede the T373 owner implementation gate or authorize algorithm work."
+  relation_to_next_route: "Parallel research-only queue; does not supersede the T375 post-pilot review gate or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -494,7 +524,7 @@ parallel_original_language_pressure_queue:
   route_type: cross_lane_original_language_pressure_memory
   path: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research memory only; does not supersede the T373 owner implementation gate and does not authorize pressure-passage chunking."
+  relation_to_next_route: "Parallel research memory only; does not supersede the T375 post-pilot review gate and does not authorize pressure-passage chunking."
   corpus_scope: canonical_66
   output_change_authorized: false
   implementation_authorized: false

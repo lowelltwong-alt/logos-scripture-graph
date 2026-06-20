@@ -964,13 +964,16 @@ phases:
         retrieval_truth_authorized: false
       - id: T374
         title: First Route-Isolated 1 Corinthians 8-10 Implementation
-        status: ready_owner_selected_additive_parent_overlay
+        status: complete_output_changed_additive_parent_overlay
         lane: epistle_argument
         starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
         owner_decision_required: false
         required_handoff: .ai/handoffs/T374/handoff.md
         authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
         baseline_overlap_decision_packet: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+        implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+        no_context_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+        decision_register_entry: CD-056
         baseline_overlap_status: complete_owner_selected_additive_parent_overlay
         implementation_paused_until_owner_selects_baseline_overlap_option: false
         selected_baseline_overlap_option: T374-OVERLAP-B
@@ -985,12 +988,17 @@ phases:
         additive_overlay_owner_decision_recorded: true
         selected_parent: 1Cor.8.1-1Cor.10.33
         selected_children: []
+        added_overlay_count: 1
+        baseline_chunk_count: 1136
+        candidate_chunk_count: 1137
+        baseline_prefix_matches_pre_t374_bytes: true
+        non_target_output_diff_detected: false
         output_change_authorized: true
         output_change_authorization_scope: exact_t374_pilot_only
         implementation_authorized: true
         implementation_authorization_scope: exact_t374_pilot_only
-        chunk_output_changed_in_this_task: false
-        route_behavior_changed_in_this_task: false
+        chunk_output_changed_in_this_task: true
+        route_behavior_changed_in_this_task: true
         child_spans_authorized: false
         route_behavior_authorized: true
         route_behavior_authorization_scope: exact_t374_target_only
@@ -1006,11 +1014,14 @@ phases:
         requires_post_pilot_child_necessity_review_gate: true
       - id: T375
         title: Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review
-        status: planned
+        status: ready
         lane: epistle_argument
         starts_only_if: T374_changes_output
         post_pilot_child_necessity_review_required: true
         child_span_work_requires_later_owner_promotion: true
+        implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+        no_context_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+        review_only: true
         output_change_authorized: false
         implementation_authorized: false
       - id: T376

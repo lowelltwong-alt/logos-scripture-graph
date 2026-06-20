@@ -1,12 +1,13 @@
 id: T374
 phase: phase_4
-title: "T374 Baseline-Overlap Owner Selection Record"
+title: "T374 Additive Parent Overlay Implementation"
 mode: build
-status: complete_owner_selected_additive_parent_overlay
+status: complete_output_changed_additive_parent_overlay
 owner: codex
 scope:
   allowed_paths:
     - .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+    - .ai/control/t374_additive_parent_overlay_manifest.yaml
     - .ai/control/chunking_theological_decision_register.yaml
     - .ai/control/chunking_agent_preflight.yaml
     - .ai/control/bible_chunking_readiness_map.yaml
@@ -17,24 +18,40 @@ scope:
     - .ai/control/handoff_ledger.jsonl
     - .ai/tasks/T374.task.yaml
     - .ai/handoffs/T374/
+    - .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+    - .ai/audits/reports/README.md
     - AI_FRONT_DOOR.md
     - AI_TABLE_OF_CONTENTS.md
     - ROADMAP_STATE.yaml
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
     - docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md
+    - pipelines/chunking/orchestrator.py
     - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+    - scripts/validate_t374_additive_parent_overlay.py
+    - scripts/validate_t372_route_isolation_harness_plan.py
+    - scripts/validate_t373_owner_implementation_authorization.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_wj_speaker_discourse_policy.py
     - scripts/validate_chunking_agent_preflight.py
     - scripts/validate_bible_chunking_readiness_map.py
     - scripts/validate_all.py
     - tests/test_t374_baseline_overlap_owner_decision_packet.py
+    - tests/test_t374_additive_parent_overlay.py
+    - tests/test_chunking_orchestrator.py
     - tests/test_chunking_agent_preflight.py
     - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
   forbidden_paths:
     - data/raw/
     - data/canonical/
     - data/processed/
     - data/derived/
-    - pipelines/chunking/
     - registry/chunking/
     - eval/chunking_gold/per_form/
     - eval/chunking_runs/
@@ -43,7 +60,7 @@ scope:
     - .ai/control/MASTER_CONTEXT.md
     - .ai/control/MASTER_CONTEXT.lock.yaml
 authorization:
-  task_kind: owner_decision_packet
+  task_kind: output_changing_route_isolated_pilot
   prior_authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
   selected_parent: 1Cor.8.1-1Cor.10.33
   selected_children: []
@@ -58,17 +75,18 @@ authorization:
   delete_or_replace_existing_chunks_authorized: false
   adjacent_spill_splits_authorized: false
   duplicate_parent_coverage_allowed_for_exact_pilot: true
-  future_implementation_must_be_separate_output_changing_pr: true
-  chunk_output_changed_in_this_task: false
-  route_behavior_changed_in_this_task: false
+  future_implementation_must_be_separate_output_changing_pr: false
+  implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  chunk_output_changed_in_this_task: true
+  route_behavior_changed_in_this_task: true
 acceptance_criteria:
-  - "Record the exact baseline-overlap finding for 1Cor.8.1-1Cor.10.33."
-  - "Present serious faithful owner options with repercussions under the owner option presentation policy."
-  - "Record Lowell's selected T374-OVERLAP-B additive parent overlay semantics without treating this selection-record task as a chunk-output change."
-  - "Keep raw, canonical, derived chunk, chunker, route, evaluator, graph, retrieval, vector, and output surfaces unchanged."
-  - "Make the packet discoverable from preflight, readiness, AI TOCs, the decision register, and validators."
-  - "Stop before any actual additive overlay, replacement split, target widening, child span, graph/retrieval, evaluator, or output-changing implementation in this selection-record task."
+  - "Implement only T374-OVERLAP-B: one exact additive parent overlay for 1Cor.8.1-1Cor.10.33."
+  - "Preserve every pre-T374 baseline chunk record byte-identical and append exactly one overlay record."
+  - "Keep selected_children empty and do not add child spans, replacement splits, adjacent spill splits, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition preference, boundary imports, broader epistle behavior, or whole-Bible output."
+  - "Record the changed-output manifest, same-baseline evaluation, decision-register entry, no-context audit surface, readiness/roadmap updates, and validators/tests."
+  - "Confirm raw, canonical, processed, derived chunk output, eval leaderboard, graph, retrieval, and vector surfaces are unchanged."
 validation:
+  - python scripts/validate_t374_additive_parent_overlay.py
   - python scripts/validate_t374_baseline_overlap_owner_decision_packet.py
   - python scripts/validate_chunking_agent_preflight.py
   - python scripts/validate_bible_chunking_readiness_map.py
@@ -77,4 +95,4 @@ validation:
   - python scripts/validate_all.py
   - python -m pytest -q
 required_handoff: .ai/handoffs/T374/handoff.md
-next_task: "After this selection record lands, a separate output-changing T374 implementation PR may implement only T374-OVERLAP-B additive parent overlay for 1Cor.8.1-1Cor.10.33 while preserving existing baseline chunks byte-identical and adding no child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, whole-Bible output, deletion, or replacement."
+next_task: "After this output-changing implementation lands, move to T375: same-baseline evaluation/no-context audit/post-pilot child-necessity review. T375 is review-only and authorizes no child spans, output changes, evaluator changes, graph/retrieval truth, broader epistle generalization, or whole-Bible output."
