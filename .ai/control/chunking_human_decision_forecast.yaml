@@ -21,13 +21,13 @@ authority:
 goal_blocked_explanation:
   thread_goal_status: blocked
   reason: "The thread goal required future owner decisions before output-changing chunking could faithfully continue. The repo itself is not blocked for non-output-changing prep; it is blocked only at owner-decision and implementation gates."
-  current_unblock_status: t372_route_isolation_harness_plan_complete_t373_owner_gate_next
+  current_unblock_status: t373_a_authorized_exact_parent_only_t374_pilot_next
   remaining_blocks:
-    - implementation_authorization
-    - chunk_output_change
-    - route_behavior_change
     - evaluator_behavior_change
     - graph_retrieval_vector_output
+    - child_span_selection
+    - broader_epistle_generalization
+    - whole_bible_output_pass
   unblock_strategy: "Front-load predictable owner decisions as dockets and stop conditions, then let agents continue non-output-changing harness, review-packet, audit, and readiness work until an explicit gate is reached."
 decision_policy:
   owner_pattern_projection_policy: .ai/control/owner_decision_projection_policy.yaml
@@ -204,11 +204,20 @@ front_loaded_decisions:
     recommended_default_if_owner_unavailable: continue_non_output_prep_only
   - decision_id: HDF-005
     title: First implementation lane after readiness
-    status: pending_owner_decision
+    status: selected_t373_a
     earliest_task: after_T369_and_gold_strengthening
     required_before:
       - first_new_chunking_algorithm_implementation
     recommended_default_if_owner_unavailable: continue_review_packet_strengthening_only
+    selected_lane:
+      lane_id: epistle_argument
+      selected_option: T373-A
+      selected_parent: 1Cor.8.1-1Cor.10.33
+      selected_children: []
+      authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+      next_task: T374
+      output_change_authorized: true
+      implementation_authorized: true
     candidate_lane_order:
       - lane_id: epistle_argument
         first_candidate: 1Cor.8.1-1Cor.10.33
@@ -230,15 +239,18 @@ front_loaded_decisions:
         reason: "Variant-sensitive use remains blocked until textual-critical policy is selected."
   - decision_id: HDF-006
     title: Parent-only versus parent-plus-child default
-    status: pending_owner_policy
+    status: decided_for_t374_parent_only_first
     earliest_task: before_any_new_reviewed_gold_promotion
     recommended_default_if_owner_unavailable: parent_only_review_target_does_not_imply_child_spans
+    current_authorization: "Owner confirmed child spans can be acceptable only when added carefully with review and when necessary, but selected T373-A for the first pilot. T374 remains parent-only; child spans require later exact reviewed evidence and owner promotion."
+    parent_first_pilot_pattern: "Owner authorized a reusable parent-first pilot pattern: run the exact parent-only pilot first, then conduct a post-pilot review to decide whether child spans are necessary. This does not authorize automatic child spans."
     options_to_prepare:
       - parent_only_first
       - parent_with_exact_child_spans_only_when_owner_selects_children
       - preserve_current_chunks_until_reviewed_child_gold_exists
     non_authorizations:
       - automatic_child_span_creation
+      - child_span_without_post_pilot_review
       - argument_outline_as_chunk_boundary
       - paragraph_marker_as_chunk_boundary
   - decision_id: HDF-007
@@ -298,9 +310,10 @@ front_loaded_decisions:
     recommended_default_if_owner_unavailable: preserve_as_evidence_only
   - decision_id: HDF-012
     title: Output-changing PR audit requirement
-    status: pending_owner_policy
+    status: decided_for_t374_required
     earliest_task: before_first_output_changing_pr
     recommended_default_if_owner_unavailable: require_no_context_audit_before_merge
+    current_authorization: "T373-A requires non-target identity proof, same-baseline evaluation, changed-output manifest, decision-register update, validators/tests, no-context audit surface, and handoff validation before any T374 merge."
     minimum_future_policy_elements:
       - no_context_audit_report
       - changed_output_manifest
@@ -336,6 +349,40 @@ front_loaded_decisions:
       - embedding_or_vector_work
       - chunk_output_change
       - implementation_authority
+  - decision_id: HDF-014
+    title: T373-A owner implementation authorization
+    status: complete_owner_authorized_exact_parent_only_pilot
+    earliest_task: T373
+    authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+    option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
+    selected_option: T373-A
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    next_task: T374
+    current_authorization: "Owner selected T373-A. T374 may implement only the exact parent-only 1Cor.8.1-1Cor.10.33 route-isolated output-changing pilot, following the parent-first pilot then post-pilot child-necessity review pattern."
+    required_before_t374_merge:
+      - parent_only_scope_proof
+      - non_target_identity_proof
+      - same_baseline_evaluation
+      - changed_output_manifest
+      - decision_register_update
+      - validators_and_tests
+      - no_context_audit_surface
+      - post_pilot_child_necessity_review_gate
+      - handoff_validates
+    non_authorizations:
+      - child_span_selection
+      - automatic_child_spans_after_parent_pilot
+      - child_span_without_post_pilot_review
+      - broader_epistle_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - preferred_reading_selection
+      - source_tradition_preference
+      - boundary_import
+      - whole_bible_output_pass
 chunking_ready_definition:
   ready_for_first_output_changing_chunk_pr_requires:
     - owner_selected_exact_target
@@ -348,6 +395,7 @@ chunking_ready_definition:
     - decision_register_current
     - no_context_audit_surface_current
     - explicit_owner_implementation_authorization
+    - owner_decision_option_presentation_policy_if_owner_gate
   not_ready_if:
     - packet_is_pending_human_review
     - owner_selection_is_pending
@@ -377,6 +425,7 @@ what_not_to_do:
   - do_not_claim improvement_without_same_baseline_evaluation
   - do_not_merge_output_changing_work_without_owner_authorization
   - do_not_project_owner_decisions_when_prior_decisions_conflict_for_the_target_text
+  - do_not_present_owner_gates_without_options_repercussions_risks_and_non_authorizations
 next_roadmap_steps:
   - task_id: T369
     title: 1 Corinthians 8-10 Owner Review Docket
@@ -445,13 +494,25 @@ next_roadmap_steps:
   - task_id: T373
     title: Owner implementation authorization gate
     starts_only_if: T372_route_isolation_harness_plan_complete
-    owner_decision_required: true
-    output_change_authorized: false
-    implementation_authorized: false
+    status: complete_owner_authorized_exact_parent_only_pilot
+    owner_decision_required: false
+    selected_option: T373-A
+    authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    output_change_authorized: true
+    output_change_authorization_scope: exact_t374_pilot_only
+    implementation_authorized: true
+    implementation_authorization_scope: exact_t374_pilot_only
   - task_id: T374
     title: First route-isolated 1Cor.8-10 implementation
-    starts_only_if: T373_authorizes_exact_output_change
-    output_change_authorized: pending_future_owner_decision
+    starts_only_if: T373_A_authorizes_exact_parent_only_output_pilot
+    authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+    selected_parent: 1Cor.8.1-1Cor.10.33
+    selected_children: []
+    output_change_authorized: true
+    implementation_authorized: true
+    child_spans_authorized: false
   - task_id: T375
     title: Same-baseline evaluation and no-context audit
     starts_only_if: T374_changes_output

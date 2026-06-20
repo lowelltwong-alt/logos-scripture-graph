@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-19
-**Updated by:** T381 original-language phrase/context policy (Codex)
-**Active task:** -> **T381** is complete. The original-language phrase/context policy is recorded in `.ai/control/original_language_phrase_context_policy.yaml`, validated by `scripts/validate_original_language_phrase_context_policy.py`, and registered as `CD-049`. It records the maintainer lesson that Greek/Hebrew words, lemmas, Strong's-style tags, lexical rarity, morphology, and grammar labels must be reviewed inside phrase, clause, syntax, discourse, author/book, genre, and canonical context. It does not authorize original-language truth, doctrine, chunk boundaries, route/evaluator behavior, graph/retrieval truth, vectors, reviewed gold, implementation, generated chunks, or output changes. **T373** remains the next owner implementation authorization gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T373 owner implementation authorization (Codex)
+**Active task:** -> **T373** is complete. The owner selected `T373-A`, recorded in `.ai/control/t373_owner_implementation_authorization.yaml`, validated by `scripts/validate_t373_owner_implementation_authorization.py`, and registered as `CD-050`. T374 is authorized only as an exact parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. Child spans remain disallowed unless later exact reviewed child-span evidence, owner promotion, decision-register update, validators/tests, and necessity rationale authorize them. Future owner gates must present serious options and repercussions under `.ai/control/owner_decision_option_presentation_policy.yaml`, validated by `scripts/validate_owner_decision_option_presentation_policy.py`, and registered as `CD-051`. **T374** is the next route. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T373 owner implementation authorization (2026-06-19):** Added
+> `.ai/control/t373_owner_implementation_authorization.yaml`, checked by
+> `scripts/validate_t373_owner_implementation_authorization.py`, so future T374 work may implement
+> only the exact parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. T373
+> authorizes parent-span-as-output-boundary and route behavior only for that exact target, and
+> requires non-target identity proof, same-baseline evaluation, changed-output manifest,
+> decision-register update, validators/tests, no-context audit surface, and handoff validation
+> before any T374 merge. It does not authorize child spans, preferred readings, source-tradition
+> preference, graph/retrieval/vector truth, evaluator changes, boundary imports, broader epistle
+> generalization, whole-Bible output, or hidden theological systems. Added
+> `.ai/control/owner_decision_option_presentation_policy.yaml`, checked by
+> `scripts/validate_owner_decision_option_presentation_policy.py`, so future owner gates must show
+> all serious faithful options, repercussions, risks, recommendations, and non-authorizations.
 
 > **T381 original-language phrase/context policy (2026-06-19):** Added
 > `.ai/control/original_language_phrase_context_policy.yaml`, checked by

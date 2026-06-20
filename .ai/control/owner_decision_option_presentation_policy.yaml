@@ -1,0 +1,66 @@
+---
+object_type: owner_decision_option_presentation_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-19 during T373 after the maintainer said future owner gates should always show all good options and repercussions."
+reason_for_inclusion: "Make option-and-repercussion presentation a deterministic owner-decision workflow requirement instead of chat memory."
+---
+schema_version: owner_decision_option_presentation_policy.v1
+policy_id: owner_decision_option_presentation_policy
+owner: Lowell Wong
+status: active
+decision_register_entry: CD-051
+authority:
+  records_presentation_requirement: true
+  authorizes_owner_decision_projection: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_boundary_import: false
+required_for_future_owner_gates:
+  - exact_question_being_decided
+  - all_good_options
+  - recommendation
+  - faithfulness_rationale
+  - upside
+  - downside
+  - downstream_effect
+  - theological_or_hermeneutic_risk
+  - engineering_or_audit_risk
+  - what_each_option_authorizes
+  - what_each_option_does_not_authorize
+  - validators_or_tests_needed
+  - next_task_if_selected
+  - stop_conditions
+option_quality_rule: "Present serious faithful options, including conservative holds and review-only alternatives; do not pad the list with straw options."
+recommendation_rule: "Recommendation must be explicit and must explain why it is faithful to canonical Scripture authority, Nicene/Chalcedonian orthodoxy, and the current reviewed evidence without hardcoding one denominational systematic theology."
+must_stop_if:
+  - options_are_not_materially_understood
+  - prior_owner_decisions_conflict_for_the_target_text
+  - recommendation_would_smuggle_theology
+  - recommendation_would_create_output_authority_without_owner_review
+  - child_spans_speaker_boundaries_textual_policy_or_theological_system_would_be_selected_by_default
+non_authorizations:
+  - option_list_as_owner_selection
+  - recommendation_as_owner_selection
+  - projected_decision_as_output_authority
+  - straw_option_framing
+  - hidden_theological_default
+  - child_span_default
+  - source_metadata_as_authority
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - chunk_output_change
+validators:
+  - scripts/validate_owner_decision_option_presentation_policy.py
+  - tests/test_owner_decision_option_presentation_policy.py
+  - scripts/validate_t373_owner_implementation_authorization.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_human_decision_forecast.py
+  - scripts/validate_all.py
+...

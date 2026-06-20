@@ -31,6 +31,7 @@ REQUIRED_DECISIONS = {
     "HDF-011",
     "HDF-012",
     "HDF-013",
+    "HDF-014",
 }
 
 REQUIRED_FALSE_AUTHORITY_FLAGS = {
@@ -230,6 +231,34 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
     if "chunk_output_change" not in hdf_004.get("must_stop_for", []):
         raise ForecastError(f"{_rel(path)}: HDF-004 must stop for chunk_output_change")
 
+    hdf_005 = by_id["HDF-005"]
+    if hdf_005.get("status") != "selected_t373_a":
+        raise ForecastError(f"{_rel(path)}: HDF-005 must record selected_t373_a")
+    selected_lane = hdf_005.get("selected_lane")
+    if not isinstance(selected_lane, dict):
+        raise ForecastError(f"{_rel(path)}: HDF-005 selected_lane must be a mapping")
+    if selected_lane.get("selected_option") != "T373-A":
+        raise ForecastError(f"{_rel(path)}: HDF-005 selected_lane selected_option must be T373-A")
+    if selected_lane.get("next_task") != "T374":
+        raise ForecastError(f"{_rel(path)}: HDF-005 selected_lane next_task must be T374")
+
+    hdf_006 = by_id["HDF-006"]
+    if hdf_006.get("status") != "decided_for_t374_parent_only_first":
+        raise ForecastError(f"{_rel(path)}: HDF-006 must record parent-only-first decision for T374")
+    if "child spans can be acceptable" not in str(hdf_006.get("current_authorization", "")):
+        raise ForecastError(f"{_rel(path)}: HDF-006 current_authorization must preserve child-span principle")
+    if "post-pilot review" not in str(hdf_006.get("parent_first_pilot_pattern", "")):
+        raise ForecastError(f"{_rel(path)}: HDF-006 parent_first_pilot_pattern must require post-pilot review")
+    if "child_span_without_post_pilot_review" not in hdf_006.get("non_authorizations", []):
+        raise ForecastError(f"{_rel(path)}: HDF-006 non_authorizations missing child_span_without_post_pilot_review")
+
+    hdf_012 = by_id["HDF-012"]
+    if hdf_012.get("status") != "decided_for_t374_required":
+        raise ForecastError(f"{_rel(path)}: HDF-012 must require T374 audit proof")
+    for phrase in ("non-target identity proof", "same-baseline evaluation", "no-context audit surface"):
+        if phrase not in str(hdf_012.get("current_authorization", "")):
+            raise ForecastError(f"{_rel(path)}: HDF-012 current_authorization missing {phrase!r}")
+
     hdf_013 = by_id["HDF-013"]
     if hdf_013.get("status") != "complete_non_output_changing_plan":
         raise ForecastError(f"{_rel(path)}: HDF-013 must record completed T372 plan")
@@ -249,6 +278,33 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         if item not in hdf_013.get("non_authorizations", []):
             raise ForecastError(f"{_rel(path)}: HDF-013 non_authorizations missing {item}")
 
+    hdf_014 = by_id["HDF-014"]
+    if hdf_014.get("status") != "complete_owner_authorized_exact_parent_only_pilot":
+        raise ForecastError(f"{_rel(path)}: HDF-014 must record completed T373-A authorization")
+    if hdf_014.get("authorization_record") != ".ai/control/t373_owner_implementation_authorization.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-014 authorization_record is stale")
+    if hdf_014.get("option_presentation_policy") != ".ai/control/owner_decision_option_presentation_policy.yaml":
+        raise ForecastError(f"{_rel(path)}: HDF-014 option_presentation_policy is stale")
+    if hdf_014.get("selected_option") != "T373-A":
+        raise ForecastError(f"{_rel(path)}: HDF-014 selected_option must be T373-A")
+    if hdf_014.get("selected_children") != []:
+        raise ForecastError(f"{_rel(path)}: HDF-014 selected_children must be []")
+    if hdf_014.get("next_task") != "T374":
+        raise ForecastError(f"{_rel(path)}: HDF-014 next_task must be T374")
+    for item in (
+        "non_target_identity_proof",
+        "same_baseline_evaluation",
+        "changed_output_manifest",
+        "decision_register_update",
+        "no_context_audit_surface",
+        "post_pilot_child_necessity_review_gate",
+    ):
+        if item not in hdf_014.get("required_before_t374_merge", []):
+            raise ForecastError(f"{_rel(path)}: HDF-014 required_before_t374_merge missing {item}")
+    for item in ("child_span_selection", "broader_epistle_generalization", "graph_edge_generation", "retrieval_truth"):
+        if item not in hdf_014.get("non_authorizations", []):
+            raise ForecastError(f"{_rel(path)}: HDF-014 non_authorizations missing {item}")
+
     ready = data.get("chunking_ready_definition")
     if not isinstance(ready, dict):
         raise ForecastError(f"{_rel(path)}: chunking_ready_definition must be a mapping")
@@ -262,6 +318,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         "non_target_identity_proof",
         "same_baseline_evaluation_plan",
         "explicit_owner_implementation_authorization",
+        "owner_decision_option_presentation_policy_if_owner_gate",
     ):
         if item not in ready_required:
             raise ForecastError(f"{_rel(path)}: chunking-ready definition missing {item}")
@@ -280,6 +337,7 @@ def _validate_forecast(data: dict[str, Any], path: Path) -> None:
         "do_not_implement_chunks_from_pending_packets",
         "do_not_merge_output_changing_work_without_owner_authorization",
         "do_not_project_owner_decisions_when_prior_decisions_conflict_for_the_target_text",
+        "do_not_present_owner_gates_without_options_repercussions_risks_and_non_authorizations",
     ):
         if item not in data.get("what_not_to_do", []):
             raise ForecastError(f"{_rel(path)}: what_not_to_do missing {item}")
@@ -321,7 +379,7 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(READINESS_MAP)}: lessons_storage must include human decision forecast")
 
     register = _read_text(REGISTER)
-    for phrase in ("CD-038", "CD-042", "CD-046", "CD-047", "CD-048", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380", "T371-A", "T372 route-isolation harness plan"):
+    for phrase in ("CD-038", "CD-042", "CD-046", "CD-047", "CD-048", "CD-050", "CD-051", "Human decision forecast front-loads chunking gates", "T368", "T370", "T380", "T371-A", "T372 route-isolation harness plan", "T373-A authorizes exact parent-only"):
         if phrase not in register:
             raise ForecastError(f"{_rel(REGISTER)}: missing {phrase!r}")
 
@@ -365,8 +423,18 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T372 harness_plan is stale")
     if by_id["T373"].get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 starts_only_if is stale")
-    if by_id["T373"].get("owner_decision_required") is not True:
-        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 owner_decision_required must be true")
+    if by_id["T373"].get("status") != "complete":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 must be complete")
+    if by_id["T373"].get("owner_decision_required") is not False:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 owner_decision_required must be false after T373-A")
+    if by_id["T373"].get("selected_option") != "T373-A":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 selected_option must be T373-A")
+    if by_id["T373"].get("authorization_record") != ".ai/control/t373_owner_implementation_authorization.yaml":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 authorization_record is stale")
+    if "CD-052" not in by_id["T373"].get("decision_register_entries", []):
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 decision_register_entries must include CD-052")
+    if by_id["T373"].get("general_parent_first_pilot_pattern") != "parent_first_pilot_then_child_necessity_review":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T373 general_parent_first_pilot_pattern is stale")
     if by_id["T379"].get("selected_policy") != "TCP-T378-B":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T379 selected_policy is stale")
     if by_id["T380"].get("owner_decision_packet") != ".ai/control/t371_variant_dependency_owner_decision_packet.yaml":
@@ -375,8 +443,20 @@ def _validate_governed_links() -> None:
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T380 must be complete")
     if by_id["T369"].get("human_decision_forecast") != ".ai/control/chunking_human_decision_forecast.yaml":
         raise ForecastError(f"{_rel(ROADMAP_STATE)}: T369 must link the human decision forecast")
-    if by_id["T374"].get("output_change_authorized") is not False:
-        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 must not be pre-authorized for output change")
+    if by_id["T374"].get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 starts_only_if is stale")
+    if by_id["T374"].get("output_change_authorized") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 output_change_authorized must be true after T373-A")
+    if by_id["T374"].get("implementation_authorized") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 implementation_authorized must be true after T373-A")
+    if by_id["T374"].get("child_spans_authorized") is not False:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 child_spans_authorized must be false")
+    if by_id["T374"].get("requires_post_pilot_child_necessity_review_gate") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T374 requires_post_pilot_child_necessity_review_gate must be true")
+    if by_id["T375"].get("post_pilot_child_necessity_review_required") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T375 post_pilot_child_necessity_review_required must be true")
+    if by_id["T375"].get("child_span_work_requires_later_owner_promotion") is not True:
+        raise ForecastError(f"{_rel(ROADMAP_STATE)}: T375 child_span_work_requires_later_owner_promotion must be true")
 
     front_door = _read_text(FRONT_DOOR)
     for phrase in (

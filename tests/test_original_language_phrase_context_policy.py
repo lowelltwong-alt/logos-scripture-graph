@@ -47,6 +47,23 @@ def test_policy_requires_context_layers_and_packet_fields() -> None:
     assert "syntax_role" in data["required_future_original_language_packet_fields"]
     assert "immediate_discourse_context" in data["required_future_original_language_packet_fields"]
     assert "semantic_range_not_single_gloss" in data["required_future_original_language_packet_fields"]
+    assert "textual_variant_dependency_if_any" in data["required_future_original_language_packet_fields"]
+    assert "poetry_parallelism_or_structural_feature_if_relevant" in data["required_future_original_language_packet_fields"]
+
+
+def test_policy_records_greek_hebrew_chunking_lessons() -> None:
+    data = validator.validate_original_language_phrase_context_policy()
+    lesson_ids = {lesson["lesson_id"] for lesson in data["original_language_chunking_lessons"]}
+
+    assert validator.REQUIRED_LESSON_IDS <= lesson_ids
+    assert "root_fallacy_guard" in lesson_ids
+    assert "semantic_range_not_totality" in lesson_ids
+    assert "greek_article_predication_guard" in lesson_ids
+    assert "hebrew_plural_form_guard" in lesson_ids
+    assert "lxx_nt_quotation_guard" in lesson_ids
+    assert "textual_variant_gate" in lesson_ids
+    assert "punctuation_capitalization_editorial_guard" in lesson_ids
+    assert "discourse_markers_and_poetry_need_context" in lesson_ids
 
 
 def test_policy_rejects_original_language_truth_authority(tmp_path: Path) -> None:
@@ -76,4 +93,16 @@ def test_policy_rejects_isolated_word_authorization_loss(tmp_path: Path) -> None
     candidate = write_candidate(tmp_path, data)
 
     with pytest.raises(validator.OriginalLanguagePhraseContextPolicyError, match="isolated_word_as_theological_truth"):
+        validator.validate_original_language_phrase_context_policy(candidate)
+
+
+def test_policy_rejects_missing_root_fallacy_guard(tmp_path: Path) -> None:
+    data = copy.deepcopy(load_policy())
+    data["original_language_chunking_lessons"] = [
+        lesson for lesson in data["original_language_chunking_lessons"]
+        if lesson["lesson_id"] != "root_fallacy_guard"
+    ]
+    candidate = write_candidate(tmp_path, data)
+
+    with pytest.raises(validator.OriginalLanguagePhraseContextPolicyError, match="root_fallacy_guard"):
         validator.validate_original_language_phrase_context_policy(candidate)

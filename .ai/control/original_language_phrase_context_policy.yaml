@@ -2,8 +2,8 @@
 object_type: original_language_phrase_context_policy
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-19 during T381 after the maintainer asked whether Greek phrases matter more than isolated words and how to remember that when Greek words are included."
-reason_for_inclusion: "Prevent Greek/Hebrew lemmas, Strong's-style tags, lexical rarity, or grammar labels from becoming isolated-word theological authority; require phrase, clause, syntax, discourse, and canonical context in future original-language packets."
+provenance_note: "Created 2026-06-19 during T381 after the maintainer asked whether Greek phrases matter more than isolated words and how to remember that when Greek words are included. Updated during T373 follow-up after the maintainer asked to save broader Greek/Hebrew chunking lessons for future discovery and use."
+reason_for_inclusion: "Prevent Greek/Hebrew lemmas, Strong's-style tags, lexical rarity, grammar labels, roots, articles, Hebrew plural forms, LXX/NT quotation patterns, punctuation/capitalization, interlinear glosses, or discourse markers from becoming isolated-word theological authority; require phrase, clause, syntax, discourse, genre, textual, and canonical context in future original-language packets."
 ---
 schema_version: original_language_phrase_context_policy.v1
 policy_id: t381_original_language_phrase_context_policy
@@ -86,6 +86,67 @@ handling_when_including_greek_words:
   - "Record whether the proposed claim depends on an exact phrase, a grammatical construction, a semantic domain, a discourse unit, or a broader canonical pattern."
   - "Preserve multiple orthodox interpretations when the grammar does not force one conclusion."
   - "Stop for owner review if a Greek/Hebrew observation would affect doctrine, reviewed gold, chunk boundary, route behavior, graph/retrieval truth, or output."
+original_language_chunking_lessons:
+  - lesson_id: phrase_before_word
+    applies_to: [greek, hebrew]
+    rule: "Words matter, but a word's review value is governed by phrase, clause, syntax, discourse, genre, author/book, and canonical context."
+    use_when: "Any packet cites a Greek or Hebrew word, lemma, gloss, Strong's-style number, morphology, or lexical rarity."
+    non_authorization: "An isolated word never authorizes doctrine, chunk boundaries, graph edges, retrieval truth, reviewed gold, route behavior, or output changes."
+  - lesson_id: root_fallacy_guard
+    applies_to: [greek, hebrew]
+    rule: "Do not infer meaning from an etymological root unless the passage itself or governed evidence requires that relationship."
+    use_when: "A packet mentions a Hebrew root, Greek root, etymology, name meaning, or family of related words."
+    non_authorization: "Root or etymology claims do not authorize theology, intertext links, child spans, or chunk boundaries."
+  - lesson_id: semantic_range_not_totality
+    applies_to: [greek, hebrew]
+    rule: "Record semantic range, but do not import every possible meaning of a word into one occurrence."
+    use_when: "A packet lists glosses, semantic domains, lexicon summaries, or alternate translation possibilities."
+    non_authorization: "Semantic range does not authorize totality transfer, doctrine selection, or output changes."
+  - lesson_id: strongs_and_interlinear_metadata
+    applies_to: [greek, hebrew]
+    rule: "Strong's-style numbers, interlinear glosses, and lemma tags are lookup metadata; they are not lexical or theological authority."
+    use_when: "Source data includes word numbers, interlinear-like glosses, lemma tags, morphology tags, or token alignments."
+    non_authorization: "Metadata does not authorize meaning, speaker attribution, intertext truth, graph edges, child spans, or chunks."
+  - lesson_id: grammar_labels_need_review
+    applies_to: [greek, hebrew]
+    rule: "Grammar labels matter, but case, article, tense/aspect, voice, mood, stem, construct, or agreement claims must be reviewed inside the phrase and discourse."
+    use_when: "A packet cites Greek article use, predicate nominative, participle, genitive, tense/aspect, Hebrew stem, construct phrase, waw, or agreement."
+    non_authorization: "A grammar label alone cannot authorize doctrine, boundary changes, route behavior, graph/retrieval truth, or output."
+  - lesson_id: greek_article_predication_guard
+    applies_to: [greek]
+    rule: "Greek article presence or absence can matter, but it must be reviewed with syntax, predicate structure, discourse, and orthodox/canonical context."
+    use_when: "A packet touches John 1:1-style or other article/predication pressure passages."
+    non_authorization: "Article presence or absence does not authorize an automatic doctrinal rule or chunk boundary."
+  - lesson_id: hebrew_plural_form_guard
+    applies_to: [hebrew]
+    rule: "Hebrew plural forms, divine names, and 'let us' language can be important evidence, but must be reviewed with grammar, context, and orthodox/canonical constraints."
+    use_when: "A packet touches Elohim, divine plurality language, divine council language, plural pronouns, or anti-Trinitarian pressure passages."
+    non_authorization: "A plural form alone is not automatic Trinity proof, anti-Trinity proof, graph truth, or chunk authority."
+  - lesson_id: lxx_nt_quotation_guard
+    applies_to: [greek, hebrew]
+    rule: "New Testament use of the Old Testament may quote Hebrew, LXX, paraphrase, summarize, or allude; exact wording is evidence but not the only canonical connection."
+    use_when: "A packet touches OT-in-NT quotation chains, fulfillment language, allusions, or intertext links."
+    non_authorization: "LXX wording, exact-match absence, or editorial cross-reference cannot automatically authorize graph edges, fulfillment claims, or chunk boundaries."
+  - lesson_id: textual_variant_gate
+    applies_to: [greek, hebrew]
+    rule: "If an original-language observation depends on a textual variant, source tradition, or disputed reading, it must stop for the textual-critical case policy."
+    use_when: "A packet touches variant-sensitive readings, source-tradition differences, MT/LXX/DSS issues, or Greek textual-family differences."
+    non_authorization: "Original-language evidence does not authorize silently choosing a preferred reading, source tradition, canon scope, reviewed gold, or output."
+  - lesson_id: punctuation_capitalization_editorial_guard
+    applies_to: [greek, hebrew]
+    rule: "Modern punctuation, quotation marks, paragraphing, headings, and capitalization are translation/editorial evidence, not original-language authority."
+    use_when: "A packet depends on punctuation, red letters, section headings, paragraph marks, capitalization, or quotation boundaries."
+    non_authorization: "Editorial formatting does not authorize speaker boundaries, divine identity, chunk boundaries, graph truth, or output changes."
+  - lesson_id: discourse_markers_and_poetry_need_context
+    applies_to: [greek, hebrew]
+    rule: "Conjunctions, particles, vocatives, imperatives, rhetorical questions, Hebrew clause chains, parallelism, refrains, inclusio, and acrostics can inform review only inside discourse and genre."
+    use_when: "A packet uses discourse markers, Hebrew narrative connectors, poetic parallelism, inclusio, refrain, acrostic, or argument transitions."
+    non_authorization: "A marker or poetic feature alone cannot authorize a chunk boundary, child span, route behavior, or output."
+  - lesson_id: pressure_passage_extra_review
+    applies_to: [greek, hebrew]
+    rule: "Original-language pressure passages used by non-orthodox systems require extra grammar, phrase, discourse, textual, canonical, and orthodox review."
+    use_when: "A packet touches John 1:1, Col 1:15-20, Heb 1, Gen 1:26, Isa 43-44, Ps 110, Dan 7, or similar LDS/Watch Tower/NWT/anti-Trinitarian pressure texts."
+    non_authorization: "Pressure-passage review protects orthodoxy but does not authorize one denomination's systematic theology as chunk authority."
 required_future_original_language_packet_fields:
   - exact_passage_scope
   - exact_surface_word_or_phrase
@@ -97,6 +158,12 @@ required_future_original_language_packet_fields:
   - author_book_genre_context
   - canonical_context_needed_to_avoid_prooftexting
   - semantic_range_not_single_gloss
+  - root_or_etymology_claim_review_if_any
+  - article_or_construct_claim_review_if_any
+  - quotation_or_lxx_relation_if_relevant
+  - textual_variant_dependency_if_any
+  - discourse_marker_function_if_relevant
+  - poetry_parallelism_or_structural_feature_if_relevant
   - translation_divergence_if_any
   - theological_downstream_risks
   - assumptions_avoided
@@ -109,9 +176,18 @@ non_authorizations:
   - isolated_word_as_theological_truth
   - isolated_lemma_as_doctrine
   - single_gloss_as_meaning
+  - root_or_etymology_as_meaning
+  - semantic_range_totality_transfer
+  - interlinear_gloss_as_authority
   - strongs_number_as_lexical_truth
   - lexical_rarity_as_intertext_truth
   - grammar_label_as_doctrine
+  - greek_article_rule_as_automatic_doctrine
+  - hebrew_plural_form_as_automatic_trinity_proof
+  - lxx_or_nt_quotation_as_automatic_boundary
+  - modern_punctuation_or_capitalization_as_original_language_authority
+  - discourse_marker_as_automatic_boundary
+  - poetic_parallelism_as_automatic_boundary
   - phrase_context_as_automatic_chunk_boundary
   - discourse_context_as_route_authority
   - original_language_as_graph_edge

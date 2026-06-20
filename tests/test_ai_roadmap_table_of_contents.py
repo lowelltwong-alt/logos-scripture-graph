@@ -68,6 +68,9 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "non-target-identity",
         "variant-non-dependent",
         "harness-next",
+        "parent-first-pilot",
+        "post-pilot-review",
+        "child-necessity-review",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -121,6 +124,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
         "`t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next`",
         "`t372`, `route-isolation`, `non-target-identity`, `harness`, `owner-gate`, `1cor8-10`, `non-authorizing`",
+        "`t373`, `implementation-authorization`, `t374-next`, `parent-only`, `parent-first-pilot`, `post-pilot-review`, `child-necessity-review`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
         "`human-decision`, `chunking-ready`, `goal-blocked`, `stop-conditions`, `owner-gate`",
         "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
@@ -277,12 +281,20 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t371_parent_only_reviewed_gold_promotion.py" in toc
     assert ".ai/tasks/T371.task.yaml" in toc
     assert ".ai/handoffs/T371/handoff.md" in toc
-    assert "T373 - Owner implementation authorization gate" in toc
+    assert "T374 - First route-isolated 1Cor.8-10 implementation" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in toc
     assert "scripts/validate_t372_route_isolation_harness_plan.py" in toc
     assert ".ai/tasks/T372.task.yaml" in toc
     assert ".ai/handoffs/T372/handoff.md" in toc
+    assert "T373 | Owner implementation authorization" in toc
+    assert "docs/roadmap/T373_OWNER_IMPLEMENTATION_AUTHORIZATION.md" in toc
+    assert ".ai/control/t373_owner_implementation_authorization.yaml" in toc
+    assert ".ai/control/owner_decision_option_presentation_policy.yaml" in toc
+    assert "scripts/validate_t373_owner_implementation_authorization.py" in toc
+    assert "scripts/validate_owner_decision_option_presentation_policy.py" in toc
+    assert ".ai/tasks/T373.task.yaml" in toc
+    assert ".ai/handoffs/T373/handoff.md" in toc
     assert "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml" in toc
     assert "john3_wj_speaker_boundary" in toc
     assert "REV-T344-E" in toc
