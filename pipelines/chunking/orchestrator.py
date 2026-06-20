@@ -35,7 +35,20 @@ PSALM_SKILL_DIR = ROOT / "pipelines" / "chunking" / "skills" / "candidate" / PSA
 DEFAULT_SOURCE_CORPUS = "eng-web_usfm"
 DEFAULT_SOURCE_TEXT_ID = "eng-web"
 ROUTE_MODE = "literal_psalm_candidate_seam"
-ROUTE_VALIDATION_STATUS = "same_baseline_ps89_only_pending"
+ROUTE_VALIDATION_STATUS = "t374_additive_parent_overlay_parent_only"
+T374_OVERLAY_ID = "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Cor.8.1--1Cor.10.33--T374-OVERLAP-B"
+T374_OVERLAY_START = "1Cor.8.1"
+T374_OVERLAY_END = "1Cor.10.33"
+T374_OVERLAY_REVIEWED_GOLD_CASE_ID = "1cor8_10_parent_only_reviewed_gold"
+T374_OVERLAY_OWNER_DECISION_REF = ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
+T374_OVERLAY_IMPLEMENTATION_MANIFEST = ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+T374_OVERLAY_DECISION_REGISTER_ENTRY = "CD-056"
+T374_OVERLAY_BOUNDARY_BASIS = [
+    "additive_parent_overlay",
+    "owner_selected_t374_overlap_b",
+    "reviewed_gold_parent_only",
+    "route_isolated_exact_pilot",
+]
 
 
 @dataclass(frozen=True)
@@ -143,6 +156,89 @@ def route_for_book(book: str) -> tuple[str, str]:
     return DEFAULT_SKILL_ID, "monolith_fallback_non_target_book"
 
 
+def osis_parts(osis: str) -> tuple[str, int, int]:
+    parts = osis.split(".")
+    if len(parts) != 3:
+        raise ValueError(f"Unsupported OSIS reference for T374 overlay: {osis!r}")
+    return parts[0], int(parts[1]), int(parts[2])
+
+
+def is_t374_overlay_unit(unit: dict[str, Any]) -> bool:
+    book, chapter, verse = osis_parts(unit["osis_ref"])
+    if book != "1Cor":
+        return False
+    return (chapter > 8 or (chapter == 8 and verse >= 1)) and (
+        chapter < 10 or (chapter == 10 and verse <= 33)
+    )
+
+
+def make_t374_parent_overlay(
+    units: list[dict[str, Any]],
+    policy_version: str,
+    footnotes_by_osis: dict[str, list],
+    crossrefs_by_osis: dict[str, list],
+) -> dict[str, Any] | None:
+    selected = [unit for unit in units if is_t374_overlay_unit(unit)]
+    if not selected:
+        return None
+    first = selected[0]["osis_ref"]
+    last = selected[-1]["osis_ref"]
+    if first != T374_OVERLAY_START or last != T374_OVERLAY_END:
+        raise ValueError(
+            "T374 overlay requires the exact parent span "
+            f"{T374_OVERLAY_START}-{T374_OVERLAY_END}; observed {first}-{last}"
+        )
+
+    text = " ".join(unit["text"].strip() for unit in selected if unit["text"].strip()).strip()
+    footnote_refs: list[Any] = []
+    crossref_refs: list[Any] = []
+    for unit in selected:
+        osis = unit["osis_ref"]
+        footnote_refs.extend(footnotes_by_osis.get(osis, []))
+        crossref_refs.extend(crossrefs_by_osis.get(osis, []))
+
+    return {
+        "id": T374_OVERLAY_ID,
+        "type": "RetrievalChunk",
+        "chunk_kind": "epistles_parent_overlay",
+        "genre": "epistles",
+        "source_text_id": DEFAULT_SOURCE_TEXT_ID,
+        "source_artifact_id": DEFAULT_SOURCE_CORPUS,
+        "osis_start": T374_OVERLAY_START,
+        "osis_end": T374_OVERLAY_END,
+        "text": text,
+        "included_text_span_ids": [unit["passage_id"] for unit in selected],
+        "boundary_basis": T374_OVERLAY_BOUNDARY_BASIS,
+        "footnote_refs": footnote_refs,
+        "editorial_crossref_refs": crossref_refs,
+        "has_lexeme_alignment": True,
+        "chunking_policy_version": policy_version,
+        "license": "public-domain",
+        "validation": {
+            "sentence_ended": chunker.sentence_ended(text),
+            "book_boundary_crossed": False,
+            "starts_on_heading_or_superscription": bool(
+                selected[0]["has_heading"] or selected[0]["has_superscription"]
+            ),
+            "parent_only_overlay": True,
+            "selected_children_empty": True,
+        },
+        "status": "active",
+        "overlay_kind": "additive_parent_only",
+        "overlay_status": "owner_selected_t374_overlap_b_implemented",
+        "reviewed_gold_case_id": T374_OVERLAY_REVIEWED_GOLD_CASE_ID,
+        "owner_decision_ref": T374_OVERLAY_OWNER_DECISION_REF,
+        "implementation_manifest": T374_OVERLAY_IMPLEMENTATION_MANIFEST,
+        "decision_register_entry": T374_OVERLAY_DECISION_REGISTER_ENTRY,
+        "selected_children": [],
+        "baseline_chunks_preserved_byte_identical": True,
+        "non_truth_bearing_overlay": True,
+        "graph_retrieval_truth_authorized": False,
+        "child_span_authorized": False,
+        "broader_epistle_generalization_authorized": False,
+    }
+
+
 def chunk_routed_corpus(
     units_iter,
     genres: dict[str, str],
@@ -238,6 +334,7 @@ def run_monolith_pass2(
     skill_id: str,
     source_corpus: str,
     source_text_id: str,
+    enable_t374_overlay: bool = True,
 ) -> OrchestratorResult:
     """Run the routed chunking path and optionally write a route ledger."""
     policy_version = chunker.read_policy_version(policy_path)
@@ -246,7 +343,7 @@ def run_monolith_pass2(
     footnotes_by_osis = chunker.index_by_osis(footnotes, "id") if footnotes else {}
     crossrefs_by_osis = chunker.index_by_osis(crossrefs, "id") if crossrefs else {}
 
-    units = chunker.build_units(passages, witnesses, boundary_claims)
+    units = list(chunker.build_units(passages, witnesses, boundary_claims))
     chunks, packets, route_records = chunk_routed_corpus(
         units,
         genres,
@@ -256,6 +353,12 @@ def run_monolith_pass2(
         footnotes_by_osis,
         crossrefs_by_osis,
     )
+    overlays: list[dict[str, Any]] = []
+    if enable_t374_overlay:
+        overlay = make_t374_parent_overlay(units, policy_version, footnotes_by_osis, crossrefs_by_osis)
+        if overlay:
+            overlays.append(overlay)
+            chunks.extend(overlays)
 
     write_jsonl(chunks, out)
     if context_out and packets:
@@ -313,6 +416,9 @@ def run_monolith_pass2(
             "output_hash": output_hash,
             "context_output_hash": context_hash,
             "validation_status": ROUTE_VALIDATION_STATUS,
+            "t374_additive_overlay_enabled": enable_t374_overlay,
+            "t374_additive_overlay_count": len(overlays),
+            "t374_additive_overlay_ids": [overlay["id"] for overlay in overlays],
             **common,
         }]
         ledger.extend({
@@ -321,6 +427,23 @@ def run_monolith_pass2(
             "skill_version": skill_versions[record["skill_id"]],
             "validation_status": ROUTE_VALIDATION_STATUS,
         } for record in route_records)
+        ledger.extend({
+            "type": "ChunkingRouteLedgerOverlay",
+            "overlay_id": overlay["id"],
+            "overlay_kind": overlay["overlay_kind"],
+            "osis_start": overlay["osis_start"],
+            "osis_end": overlay["osis_end"],
+            "selected_children": overlay["selected_children"],
+            "owner_decision_ref": overlay["owner_decision_ref"],
+            "decision_register_entry": overlay["decision_register_entry"],
+            "reviewed_gold_case_id": overlay["reviewed_gold_case_id"],
+            "baseline_chunks_preserved_byte_identical": overlay["baseline_chunks_preserved_byte_identical"],
+            "non_truth_bearing_overlay": overlay["non_truth_bearing_overlay"],
+            "graph_retrieval_truth_authorized": overlay["graph_retrieval_truth_authorized"],
+            "child_span_authorized": overlay["child_span_authorized"],
+            **common,
+            "validation_status": ROUTE_VALIDATION_STATUS,
+        } for overlay in overlays)
         write_route_ledger(ledger, route_ledger)
 
     return OrchestratorResult(
@@ -350,6 +473,11 @@ def main() -> int:
     parser.add_argument("--skill-id", default=DEFAULT_SKILL_ID)
     parser.add_argument("--source-corpus", default=DEFAULT_SOURCE_CORPUS)
     parser.add_argument("--source-text-id", default=DEFAULT_SOURCE_TEXT_ID)
+    parser.add_argument(
+        "--disable-t374-overlay",
+        action="store_true",
+        help="Generate the pre-T374 baseline without the additive 1Cor.8.1-1Cor.10.33 parent overlay.",
+    )
     args = parser.parse_args()
 
     result = run_monolith_pass2(
@@ -367,6 +495,7 @@ def main() -> int:
         skill_id=args.skill_id,
         source_corpus=args.source_corpus,
         source_text_id=args.source_text_id,
+        enable_t374_overlay=not args.disable_t374_overlay,
     )
     print(
         f"Wrote {result.chunk_count} chunks to {result.chunks_path} "

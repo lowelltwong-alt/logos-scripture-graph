@@ -155,6 +155,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t374_baseline_overlap_owner_decision_packet.py")],
         ),
         (
+            "validate_t374_additive_parent_overlay.py",
+            [PY, str(ROOT / "scripts" / "validate_t374_additive_parent_overlay.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

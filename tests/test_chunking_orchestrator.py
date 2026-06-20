@@ -125,6 +125,10 @@ ROUTE_METADATA_KEYS = {
     "skills_used",
 }
 ROUTE_BOOKS = ("Ps", "Song", "Lam", "John")
+T374_OVERLAY_ID = (
+    "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+    "1Cor.8.1--1Cor.10.33--T374-OVERLAP-B"
+)
 
 requires_data = pytest.mark.skipif(
     not (PASSAGES.exists() and WITNESSES.exists() and BOUNDARIES.exists()),
@@ -158,6 +162,10 @@ def _outside_ps89(records: list[dict]) -> list[dict]:
             or str(record.get("osis_end", "")).startswith("Ps.89.")
         )
     ]
+
+
+def _without_t374_overlay(records: list[dict]) -> list[dict]:
+    return [record for record in records if record.get("id") != T374_OVERLAY_ID]
 
 
 def _write_smoke_inputs(tmp_path: Path) -> tuple[Path, Path]:
@@ -349,7 +357,23 @@ def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(
 
     direct_records = _read_jsonl(direct_chunks)
     orchestrated_records = _read_jsonl(orchestrated_chunks)
-    assert _outside_ps89(orchestrated_records) == _outside_ps89(direct_records)
+    overlay = orchestrated_records[-1]
+    assert overlay["id"] == T374_OVERLAY_ID
+    assert overlay["chunk_kind"] == "epistles_parent_overlay"
+    assert overlay["osis_start"] == "1Cor.8.1"
+    assert overlay["osis_end"] == "1Cor.10.33"
+    assert overlay["overlay_kind"] == "additive_parent_only"
+    assert overlay["reviewed_gold_case_id"] == "1cor8_10_parent_only_reviewed_gold"
+    assert overlay["owner_decision_ref"] == ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
+    assert overlay["implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+    assert overlay["decision_register_entry"] == "CD-056"
+    assert overlay["selected_children"] == []
+    assert overlay["baseline_chunks_preserved_byte_identical"] is True
+    assert overlay["non_truth_bearing_overlay"] is True
+    assert overlay["graph_retrieval_truth_authorized"] is False
+    assert overlay["child_span_authorized"] is False
+    assert len(overlay["included_text_span_ids"]) == 73
+    assert _outside_ps89(_without_t374_overlay(orchestrated_records)) == _outside_ps89(direct_records)
     if direct_context.exists() or orchestrated_context.exists():
         assert direct_context.read_bytes() == orchestrated_context.read_bytes()
         assert _sha256(direct_context) == _sha256(orchestrated_context)
@@ -416,10 +440,14 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     assert len(record["registry_surface_sha"]) == 64
     assert record["route_mode"] == "literal_psalm_candidate_seam"
     assert record["candidate_skill_ids"] == ["psalm-whole-then-stanza-v1"]
+    assert record["t374_additive_overlay_enabled"] is True
+    assert record["t374_additive_overlay_count"] == 0
+    assert record["t374_additive_overlay_ids"] == []
     assert record["validation_status"] in {
         "byte_identical_pending",
         "byte_identical_passed",
         "same_baseline_ps89_only_pending",
+        "t374_additive_parent_overlay_parent_only",
     }
     assert any(json.loads(line)["type"] == "ChunkingRouteLedgerRoute" for line in raw_lines[1:])
 

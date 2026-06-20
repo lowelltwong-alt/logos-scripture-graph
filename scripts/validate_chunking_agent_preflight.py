@@ -36,6 +36,7 @@ T371_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t371_parent_only_reviewed_go
 T372_HARNESS_PLAN = ROOT / ".ai" / "control" / "t372_route_isolation_harness_plan.yaml"
 T373_AUTHORIZATION = ROOT / ".ai" / "control" / "t373_owner_implementation_authorization.yaml"
 T374_BASELINE_OVERLAP_PACKET = ROOT / ".ai" / "control" / "t374_baseline_overlap_owner_decision_packet.yaml"
+T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_parent_overlay_manifest.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -82,7 +83,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -148,8 +149,10 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "validate_t372_route_isolation_harness_plan.py",
     "t373_owner_implementation_authorization.yaml",
     "t374_baseline_overlap_owner_decision_packet.yaml",
+    "t374_additive_parent_overlay_manifest.yaml",
     "owner_decision_option_presentation_policy.yaml",
     "validate_t373_owner_implementation_authorization.py",
+    "validate_t374_additive_parent_overlay.py",
     "validate_owner_decision_option_presentation_policy.py",
     "original_language_phrase_context_policy.yaml",
     "validate_original_language_phrase_context_policy.py",
@@ -332,6 +335,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t372_route_isolation_harness_plan.yaml",
         ".ai/control/t373_owner_implementation_authorization.yaml",
         ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
+        ".ai/control/t374_additive_parent_overlay_manifest.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -686,6 +690,25 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t374_packet_text:
             raise PreflightError(f"{_rel(T374_BASELINE_OVERLAP_PACKET)}: missing T374 packet phrase {phrase!r}")
+    t374_overlay_text = _read_text(T374_ADDITIVE_OVERLAY_MANIFEST)
+    for phrase in (
+        "object_type: t374_additive_parent_overlay_manifest",
+        "status: complete_output_changed_additive_parent_overlay",
+        "selected_option: T374-OVERLAP-B",
+        "selected_parent: 1Cor.8.1-1Cor.10.33",
+        "selected_children: []",
+        "baseline_chunk_count: 1136",
+        "candidate_chunk_count: 1137",
+        "baseline_prefix_matches_pre_t374_bytes: true",
+        "decision_register_entry: CD-056",
+        "non_truth_bearing_overlay: true",
+        "authorizes_child_spans: false",
+        "authorizes_graph_edges: false",
+        "authorizes_retrieval_truth: false",
+        "scripts/validate_t374_additive_parent_overlay.py",
+    ):
+        if phrase not in t374_overlay_text:
+            raise PreflightError(f"{_rel(T374_ADDITIVE_OVERLAY_MANIFEST)}: missing T374 overlay phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",

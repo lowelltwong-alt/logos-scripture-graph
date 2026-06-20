@@ -1,0 +1,139 @@
+---
+object_type: t374_additive_parent_overlay_manifest
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-20 during T374 after Lowell authorized T374-OVERLAP-B: an additive parent overlay for 1Cor.8.1-1Cor.10.33 that preserves all baseline chunk records byte-identical."
+reason_for_inclusion: "Record the exact output-changing implementation, hashes, non-target identity proof, same-baseline evaluation, non-authorizations, and audit surface so future agents can verify that T374 added only one non-truth-bearing parent overlay and no child spans, replacement splits, graph/retrieval truth, evaluator change, or broader epistle behavior."
+---
+schema_version: t374_additive_parent_overlay_manifest.v1
+manifest_id: t374_1cor8_10_additive_parent_overlay_manifest
+task_id: T374
+status: complete_output_changed_additive_parent_overlay
+owner: Lowell Wong
+selected_option: T374-OVERLAP-B
+selected_parent: 1Cor.8.1-1Cor.10.33
+selected_children: []
+authority:
+  records_output_change: true
+  authorizes_exact_additive_parent_overlay: true
+  authorizes_child_spans: false
+  authorizes_deleting_or_replacing_existing_chunks: false
+  authorizes_adjacent_spill_splits: false
+  authorizes_broader_epistle_generalization: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+implementation:
+  generator: pipelines/chunking/orchestrator.py
+  baseline_disable_flag: --disable-t374-overlay
+  default_output_behavior_after_t374: additive_parent_overlay_enabled
+  overlay_appended_after_baseline_records: true
+  baseline_records_mutated: false
+  route_validation_status: t374_additive_parent_overlay_parent_only
+output_change:
+  baseline_chunk_count: 1136
+  candidate_chunk_count: 1137
+  added_overlay_count: 1
+  baseline_chunk_sha256: eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619
+  candidate_chunk_sha256: 681a0840edd8513daeb204579ed0a1b0b0f818c910abfc83a7890317c3b481e7
+  preserved_baseline_prefix_sha256: eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619
+  baseline_prefix_matches_pre_t374_bytes: true
+  changed_output_ids:
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Cor.8.1--1Cor.10.33--T374-OVERLAP-B
+  changed_spans:
+    - 1Cor.8.1-1Cor.10.33
+  non_target_output_diff_detected: false
+overlay_record:
+  id: chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Cor.8.1--1Cor.10.33--T374-OVERLAP-B
+  chunk_kind: epistles_parent_overlay
+  overlay_kind: additive_parent_only
+  osis_start: 1Cor.8.1
+  osis_end: 1Cor.10.33
+  included_text_span_count: 73
+  text_sha256: 819c54cd3cac60746f35b1cde8c13d20d7d7b5bc2b876eb9ccd8ac528a149eaa
+  overlay_record_line_sha256: cf115a3b457192b7e79a9500d5ed8371f32afc7bf6e0281e3f246f7d1d6d7d90
+  footnote_ref_count: 2
+  editorial_crossref_ref_count: 3
+  boundary_basis:
+    - additive_parent_overlay
+    - owner_selected_t374_overlap_b
+    - reviewed_gold_parent_only
+    - route_isolated_exact_pilot
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  owner_decision_ref: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+  implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  decision_register_entry: CD-056
+  selected_children: []
+  baseline_chunks_preserved_byte_identical: true
+  non_truth_bearing_overlay: true
+  graph_retrieval_truth_authorized: false
+  child_span_authorized: false
+  broader_epistle_generalization_authorized: false
+same_baseline_evaluation:
+  evaluator: pipelines/chunking/evaluate_chunks.py
+  evaluator_formula_changed: false
+  leaderboard_updated: false
+  improvement_claim_allowed: false
+  baseline_metrics:
+    chunks: 1136
+    tok_p90: 897
+    tok_max: 1152
+    sentence_integrity_pct: 100.0
+    literal_psalms_fragmented: 0
+    poetry_books_fragmented: 2
+    book_crossings: 0
+    usfm_leaks: 0
+    boundary_basis_cov_pct: 100.0
+    metadata_carry_pct: 100.0
+    gold_psalm23_one_chunk: true
+    gold_gen1_no_midsentence: true
+  candidate_metrics:
+    chunks: 1137
+    tok_p90: 898
+    tok_max: 1622
+    sentence_integrity_pct: 100.0
+    literal_psalms_fragmented: 0
+    poetry_books_fragmented: 2
+    book_crossings: 0
+    usfm_leaks: 0
+    boundary_basis_cov_pct: 100.0
+    metadata_carry_pct: 100.0
+    gold_psalm23_one_chunk: true
+    gold_gen1_no_midsentence: true
+  expected_score_effect: "One additive parent overlay increases chunk count and max token length; no improvement claim, evaluator change, graph/retrieval truth, or leaderboard promotion is authorized."
+links:
+  prior_owner_authorization: .ai/control/t373_owner_implementation_authorization.yaml
+  baseline_overlap_owner_selection: .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  decision_register_entry: CD-056
+  no_context_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+validators:
+  - scripts/validate_t374_additive_parent_overlay.py
+  - tests/test_t374_additive_parent_overlay.py
+  - tests/test_chunking_orchestrator.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+non_authorizations:
+  - child_span_selection
+  - deleting_or_replacing_existing_chunks
+  - adjacent_spill_splits
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - evaluator_change
+  - preferred_reading_selection
+  - source_tradition_preference
+  - boundary_import
+  - broader_epistle_generalization
+  - whole_bible_output_pass
+  - treating_overlay_as_truth_bearing_hierarchy
+  - treating_duplicate_parent_coverage_as_child_span_authority
+...

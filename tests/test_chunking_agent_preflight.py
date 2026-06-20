@@ -48,6 +48,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
+    assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
@@ -88,6 +89,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "t372_route_isolation_harness_plan.yaml" in text
     assert "t373_owner_implementation_authorization.yaml" in text
     assert "t374_baseline_overlap_owner_decision_packet.yaml" in text
+    assert "t374_additive_parent_overlay_manifest.yaml" in text
+    assert "validate_t374_additive_parent_overlay.py" in text
     assert "owner_decision_option_presentation_policy.yaml" in text
     assert "epistle_argument_gold_manifest.json" in text
     assert "1cor8_10_epistle_owner_review_docket.yaml" in text
@@ -99,11 +102,12 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently points to T374 first route-isolated" in text
+    assert "currently points to T375 post-pilot review" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
     assert "graph edges" in text
+    assert "T374 additive parent overlay implementation manifest" in text
 
 
 def test_metadata_rule_is_first_class_methodology() -> None:
@@ -159,6 +163,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-053" in register
     assert "CD-054" in register
     assert "CD-055" in register
+    assert "CD-056" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -180,6 +185,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "Greek and Hebrew chunking evidence requires governed language lessons" in register
     assert "T374 baseline-overlap output semantics require owner selection" in register
     assert "T374-OVERLAP-B selects additive parent overlay semantics" in register
+    assert "T374 additive parent overlay implemented as output-changing exact parent-only pilot" in register
     assert "Divine-name capitalization is evidence, not graph or chunk authority" in register
     assert "Words-of-Jesus marker inventory is observed evidence only" in register
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
@@ -217,6 +223,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
+    assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
@@ -260,6 +267,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-053" in register_entry["required_decision_ids"]
     assert "CD-054" in register_entry["required_decision_ids"]
     assert "CD-055" in register_entry["required_decision_ids"]
+    assert "CD-056" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]

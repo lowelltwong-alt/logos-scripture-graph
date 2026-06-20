@@ -49,7 +49,7 @@ Common tags in this file:
   `variant-dependency`, `owner-decision-packet`, `T371-A`, `variant-non-dependent`,
   `harness-next`, `T372`, `route-isolation`, `non-target-identity`, `T373`,
   `implementation-authorization`, `T374`, `child-span-denial`, `decision-presentation`,
-  `baseline-overlap`, `additive-overlay`, `replacement-split`, `target-widening`, `dry-run`,
+  `baseline-overlap`, `additive-overlay`, `output-manifest`, `same-baseline`, `T375`, `replacement-split`, `target-widening`, `dry-run`,
   `T381`, `phrase/context`, `isolated word`, `lemma`, `syntax`, `discourse`
 
 ## Current Bible Chunking Path
@@ -95,7 +95,7 @@ Common tags in this file:
 | T371 | T371-A parent-only reviewed-gold promotion | `t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next` | Auditing the owner-confirmed parent-only reviewed-gold promotion or preparing T372 harness work. | `docs/roadmap/T371_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md`; `.ai/control/t371_parent_only_reviewed_gold_promotion.yaml`; `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`; `scripts/validate_t371_parent_only_reviewed_gold_promotion.py`; `.ai/tasks/T371.task.yaml`; `.ai/handoffs/T371/handoff.md` |
 | T372 | Route-isolation harness plan | `t372`, `route-isolation`, `non-target-identity`, `harness`, `owner-gate`, `1cor8-10`, `non-authorizing` | Auditing the completed harness plan before the T373 owner implementation gate. | `docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md`; `.ai/control/t372_route_isolation_harness_plan.yaml`; `scripts/validate_t372_route_isolation_harness_plan.py`; `.ai/tasks/T372.task.yaml`; `.ai/handoffs/T372/handoff.md` |
 | T373 | Owner implementation authorization | `t373`, `implementation-authorization`, `t374-next`, `parent-only`, `parent-first-pilot`, `post-pilot-review`, `child-necessity-review`, `child-span-denial`, `1cor8-10`, `output-changing`, `owner-options` | Auditing the exact T373-A owner authorization, parent-first pilot pattern, and post-pilot child review gate before the first route-isolated output-changing pilot. | `docs/roadmap/T373_OWNER_IMPLEMENTATION_AUTHORIZATION.md`; `.ai/control/t373_owner_implementation_authorization.yaml`; `.ai/control/owner_decision_option_presentation_policy.yaml`; `scripts/validate_t373_owner_implementation_authorization.py`; `scripts/validate_owner_decision_option_presentation_policy.py`; `.ai/tasks/T373.task.yaml`; `.ai/handoffs/T373/handoff.md` |
-| T374 | Baseline-overlap owner decision packet | `t374`, `baseline-overlap`, `owner-selection`, `selected-semantics`, `non-target-identity`, `additive-overlay`, `preserve-baseline`, `no-replacement`, `1cor8-10`, `non-authorizing` | Auditing the selected `T374-OVERLAP-B` additive parent overlay semantics and what remains unauthorized before chunks change. | `docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md`; `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`; `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`; `.ai/tasks/T374.task.yaml`; `.ai/handoffs/T374/handoff.md` |
+| T374 | Additive parent overlay implementation | `t374`, `baseline-overlap`, `owner-selection`, `selected-semantics`, `non-target-identity`, `additive-overlay`, `output-manifest`, `preserve-baseline`, `same-baseline`, `1cor8-10`, `audit` | Auditing the selected `T374-OVERLAP-B` additive parent overlay semantics, completed output manifest, and remaining non-authorizations before T375 review. | `docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md`; `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`; `.ai/control/t374_additive_parent_overlay_manifest.yaml`; `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`; `scripts/validate_t374_additive_parent_overlay.py`; `.ai/tasks/T374.task.yaml`; `.ai/handoffs/T374/handoff.md` |
 
 ## Review Packet Surfaces
 
@@ -134,6 +134,7 @@ Common tags in this file:
 | `.ai/control/t372_route_isolation_harness_plan.yaml` | `t372`, `route-isolation`, `non-target-identity`, `harness-plan`, `owner-gate` | T373 gate work or an audit needs the non-output-changing implementation requirements before any T374 work. | Harness plan; requires owner authorization, non-target identity, same-baseline planning, and source-metadata denial while authorizing no implementation or output. |
 | `.ai/control/t373_owner_implementation_authorization.yaml` | `t373`, `implementation-authorization`, `t374-next`, `parent-only`, `parent-first-pilot`, `post-pilot-review`, `child-necessity-review`, `child-span-denial`, `output-changing` | T374 implementation work or an audit needs exact owner authorization, parent-first pilot pattern, post-pilot child review gate, and the limits on child spans, scope, and output authority. | Authorization record; authorizes only the exact parent-only `1Cor.8.1-1Cor.10.33` pilot and the reusable parent-first pilot/post-pilot child review pattern; requires non-target identity, same-baseline evaluation, changed-output manifest, decision-register update, validators/tests, no-context audit surface, and post-pilot child-necessity review gate. |
 | `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml` | `t374`, `baseline-overlap`, `owner-selection`, `selected-semantics`, `non-target-identity`, `additive-overlay`, `preserve-baseline`, `no-replacement` | T374 implementation work or an audit needs the selected additive parent overlay semantics before any chunk change. | Owner selection packet; records the current baseline overlap across `1Cor.7.25-1Cor.9.2`, `1Cor.9.3-1Cor.10.5`, and `1Cor.10.6-1Cor.11.10`; records selected `T374-OVERLAP-B`; authorizes no output in the selection record. |
+| `.ai/control/t374_additive_parent_overlay_manifest.yaml` | `t374`, `output-manifest`, `additive-overlay`, `preserve-baseline`, `same-baseline`, `no-context-audit`, `cd-056`, `t375-next` | T375 review or an audit needs the actual output-change proof and hashes. | Implementation manifest; records one appended parent-only overlay, preserved baseline-prefix hash, same-baseline metrics, audit report, decision-register entry, and non-authorizations. |
 | `.ai/control/owner_decision_option_presentation_policy.yaml` | `owner-options`, `decision-presentation`, `human-decision`, `recommendation`, `non-authorizations` | A future owner gate needs options, repercussions, risks, and recommendations before the owner decides. | Presentation policy; requires serious faithful options and repercussions while authorizing no output by itself. |
 | `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the projected parent-only selection after packet strengthening. | Owner-review docket; no child/doctrine/gold/chunk/output authority. |
 | `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml` | `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `source-metadata`, `parent-only` | Work audits T370 evidence or prepares the T371 owner promotion decision. | Parent-only evidence packet; not reviewed gold and no child/route/evaluator/graph/retrieval/output authority. |
@@ -148,7 +149,7 @@ route-isolation harness planning, T373-A owner implementation authorization sele
 parent-only implementation pilot. The next route is:
 
 ```text
-T374 - First route-isolated 1Cor.8-10 implementation
+T375 - Same-baseline evaluation, no-context audit, and child-necessity review
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
@@ -166,10 +167,10 @@ requires T373 owner authorization, non-target identity proof, and same-baseline 
 T374 can start. T373 records that authorization in
 `.ai/control/t373_owner_implementation_authorization.yaml`: T374 may implement only the exact
 parent-only `1Cor.8.1-1Cor.10.33` pilot. Child spans remain disallowed unless later exact reviewed
-child-span evidence and owner promotion authorize them. T374 then found the baseline overlap and
-recorded selected `T374-OVERLAP-B` in `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`;
-implementation must be exact additive parent overlay only and preserve existing baseline chunks
-byte-identical.
+child-span evidence and owner promotion authorize them. T374 then found the baseline overlap,
+recorded selected `T374-OVERLAP-B` in `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`,
+and implemented one exact additive parent overlay recorded in
+`.ai/control/t374_additive_parent_overlay_manifest.yaml`. The next route is T375 review-only.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -246,12 +247,11 @@ boundary, change route/evaluator behavior, create graph/retrieval/vector output,
 T372 records only the route-isolation harness plan; it cannot implement chunks, select child spans,
 treat parent-only gold as an output boundary, change route/evaluator behavior, create
 graph/retrieval/vector output, or change output. T373 records the owner-selected T373-A exact
-parent-only implementation authorization; T374 is the next route-isolated output pilot and remains
+parent-only implementation authorization; T374 implemented the route-isolated additive parent overlay
 limited to 1Cor.8.1-1Cor.10.33 with no child spans. T373 also records the owner-authorized
 parent-first pilot pattern: run the exact parent-only pilot, then review whether child spans are
-necessary before any later child-span work. T374 records a baseline-overlap selection:
-`T374-OVERLAP-B` additive parent overlay is selected, but no chunk output changes in the selection
-record; any later implementation must preserve existing baseline chunks byte-identical.
+necessary before any later child-span work. T374 records a baseline-overlap selection and a separate
+implementation manifest; T375 is now the review-only next route.
 T377 records original-language pressure-passage review memory; it does not authorize Greek/Hebrew
 as automatic truth, translation preference, non-orthodox source authority, extra-canonical source
 authority, doctrine selection, graph/retrieval truth, reviewed gold, chunk boundaries, canon-scope

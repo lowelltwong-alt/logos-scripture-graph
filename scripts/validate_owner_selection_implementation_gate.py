@@ -312,9 +312,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', or 'T374' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', or 'T375' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(

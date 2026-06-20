@@ -30,7 +30,7 @@ Read these files before making changes:
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
     T372 route-isolation harness plan, T373 owner implementation authorization record,
-    T374 baseline-overlap owner decision packet,
+    T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -131,11 +131,13 @@ Bible-first chunking priority:
   owner-authorized parent-first pilot pattern: run the exact parent-only pilot, then conduct a
   post-pilot review to decide whether child spans are necessary. Child spans remain disallowed
   unless later exact reviewed evidence and owner promotion authorize them. The readiness map now
-  points to T374, and T374 found a baseline overlap recorded by
+  points to T375, and T374 found a baseline overlap recorded by
   `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`. Lowell selected
-  `T374-OVERLAP-B`: future implementation may add only an exact additive parent overlay for
-  `1Cor.8.1-1Cor.10.33` while preserving existing baseline chunks byte-identical. Do not generalize
-  the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
+  `T374-OVERLAP-B`, and `.ai/control/t374_additive_parent_overlay_manifest.yaml` records the
+  completed implementation: exactly one additive parent overlay for `1Cor.8.1-1Cor.10.33`,
+  appended after all pre-T374 baseline chunks with the baseline prefix byte-identical. T375 is now
+  the next review gate: same-baseline review, no-context audit review, and child-necessity review.
+  Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
@@ -171,16 +173,17 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T374 first route-isolated
-  implementation for `1Cor.8.1-1Cor.10.33`, with T367 preserved as the owner-decision firewall, T368
+  next safe route. It is non-authorizing and currently points to T375 post-pilot review for the
+  implemented T374 `1Cor.8.1-1Cor.10.33` additive parent overlay, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
   record. T371-A is recorded separately as parent-only reviewed-gold promotion, not as child-span,
   route/evaluator, graph/retrieval, vector, or broad output authority. T372 is recorded
   separately as a route-isolation harness plan. T373 is recorded separately as exact owner
   implementation authorization for the parent-only T374 pilot only. T374 is recorded separately as
-  a baseline-overlap selection record: `T374-OVERLAP-B` additive parent overlay is selected, but the
-  selection record itself is not an output implementation.
+  both a baseline-overlap selection record and an output implementation manifest: the selection
+  record itself is not output authority, and the implementation manifest records one exact
+  non-truth-bearing additive parent overlay.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -388,6 +391,14 @@ Bible-first chunking priority:
   unauthorized. It is validated by
   `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`. Do not implement chunks unless
   the work is exactly this additive parent overlay and includes the required output-change proof.
+- The T374 additive parent overlay implementation manifest at
+  `.ai/control/t374_additive_parent_overlay_manifest.yaml` records the completed output-changing
+  pilot: one appended `1Cor.8.1-1Cor.10.33` parent overlay, baseline-prefix byte identity,
+  same-baseline metrics, no-context audit surface, and `CD-056`. It is validated by
+  `scripts/validate_t374_additive_parent_overlay.py`. It does not authorize child spans,
+  replacement, adjacent spill splits, graph/retrieval/vector truth, evaluator change, broader
+  epistle behavior, preferred readings, source-tradition preference, boundary imports, or
+  whole-Bible output. T375 is the next review-only gate.
 - The owner decision option presentation policy at
   `.ai/control/owner_decision_option_presentation_policy.yaml` records the owner's instruction that
   future gates should always show serious faithful options and repercussions. It is validated by
@@ -525,6 +536,7 @@ python scripts/validate_t371_variant_dependency_owner_decision_packet.py
 python scripts/validate_t371_parent_only_reviewed_gold_promotion.py
 python scripts/validate_t372_route_isolation_harness_plan.py
 python scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+python scripts/validate_t374_additive_parent_overlay.py
 python scripts/validate_1cor8_10_owner_review_docket.py
 python scripts/validate_1cor8_10_parent_evidence_packet.py
 python scripts/validate_chunking_human_decision_forecast.py
@@ -637,6 +649,10 @@ baseline-overlap packet loses the observed `1Cor.7.25-1Cor.9.2`, `1Cor.9.3-1Cor.
 output in the selection record, or stops being mandatory preflight/readiness/TOC context. Do not
 implement chunks unless the work is exactly the selected additive parent overlay and preserves
 existing baseline chunks byte-identical.
+`python scripts/validate_t374_additive_parent_overlay.py` fails closed if the completed T374 overlay
+manifest, generated output hashes, baseline-prefix identity proof, same-baseline metrics, route
+ledger overlay record, decision-register link, no-context audit surface, or T375 readiness handoff
+drift from the exact owner-authorized parent-only output pilot.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

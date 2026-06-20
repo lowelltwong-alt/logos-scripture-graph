@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-20
-**Updated by:** T374-OVERLAP-B owner selection record (Codex)
-**Active task:** -> **T374** owner selection is recorded. Lowell selected `T374-OVERLAP-B`: a future separate implementation may add only an exact additive parent overlay for `1Cor.8.1-1Cor.10.33` while preserving existing baseline chunks byte-identical. The packet is `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`, validated by `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`, and registered as `CD-054` stop record plus `CD-055` selection record. This status update changes no chunk output. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T374 additive parent overlay implementation (Codex)
+**Active task:** -> **T374** implemented Lowell's selected `T374-OVERLAP-B`: exactly one additive parent overlay for `1Cor.8.1-1Cor.10.33`, appended after the pre-T374 baseline chunks with the baseline prefix byte-identical. The implementation manifest is `.ai/control/t374_additive_parent_overlay_manifest.yaml`, validated by `scripts/validate_t374_additive_parent_overlay.py`, and registered as `CD-056`. T375 is the next review-only gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T374 additive parent overlay implementation (2026-06-20):** Updated
+> `pipelines/chunking/orchestrator.py` to append one exact non-truth-bearing parent overlay for
+> `1Cor.8.1-1Cor.10.33` by default, with `--disable-t374-overlay` available for baseline proof.
+> Added `.ai/control/t374_additive_parent_overlay_manifest.yaml`, checked by
+> `scripts/validate_t374_additive_parent_overlay.py`, and recorded `CD-056`. The manifest records
+> baseline chunk count `1136`, candidate count `1137`, candidate hash
+> `681a0840edd8513daeb204579ed0a1b0b0f818c910abfc83a7890317c3b481e7`, and preserved baseline
+> prefix hash `eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619`. No raw/canonical
+> data, generated committed derived chunks, evaluator formula, leaderboard, graph/retrieval/vector
+> truth, child spans, replacement, adjacent spill splits, preferred readings, source-tradition
+> preference, boundary import, broader epistle generalization, or whole-Bible output is authorized.
+> The next safe task is T375 review: same-baseline review, no-context audit review, and
+> child-necessity review.
 
 > **T374-OVERLAP-B owner selection record (2026-06-20):** Updated
 > `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`, checked by

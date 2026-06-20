@@ -265,8 +265,8 @@ def _validate_governed_links() -> None:
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374"}:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, or T374 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374", "T375"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, or T375 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
@@ -279,6 +279,8 @@ def _validate_governed_links() -> None:
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T374 starts_only_if must be T373_A_authorizes_exact_parent_only_output_pilot"
         )
+    if next_task_id == "T375" and next_route.get("starts_only_if") != "T374_additive_parent_overlay_implemented":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 starts_only_if must be T374_additive_parent_overlay_implemented")
     if (
         next_route.get("evidence_packet")
         != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
@@ -309,6 +311,13 @@ def _validate_governed_links() -> None:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374 authorization_record is stale")
         if next_route.get("selected_children") != []:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T374 selected_children must be []")
+    if next_task_id == "T375":
+        if next_route.get("implementation_manifest") != ".ai/control/t374_additive_parent_overlay_manifest.yaml":
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 implementation_manifest is stale")
+        if next_route.get("additive_parent_overlay_implemented") is not True:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 additive_parent_overlay_implemented must be true")
+        if next_route.get("selected_children") != []:
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 selected_children must be []")
     if next_route.get("reviewed_gold_promoted") is not True:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
     if next_task_id == "T374":

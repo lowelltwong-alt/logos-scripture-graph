@@ -281,7 +281,9 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t371_parent_only_reviewed_gold_promotion.py" in toc
     assert ".ai/tasks/T371.task.yaml" in toc
     assert ".ai/handoffs/T371/handoff.md" in toc
-    assert "T374 - First route-isolated 1Cor.8-10 implementation" in toc
+    assert "T375 - Same-baseline evaluation, no-context audit, and child-necessity review" in toc
+    assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
+    assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in toc
     assert "scripts/validate_t372_route_isolation_harness_plan.py" in toc

@@ -2327,6 +2327,54 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-056
+    title: T374 additive parent overlay implemented as output-changing exact parent-only pilot
+    classification: interpretive_boundary
+    task_ids: [T374]
+    owner_decision_ref: ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.8.1-1Cor.10.33]
+      routes: [epistle_argument, route_isolated_output_pilot, additive_parent_overlay]
+      surfaces: [pipelines/chunking/orchestrator.py, .ai/control/t374_additive_parent_overlay_manifest.yaml, .ai/control/t374_baseline_overlap_owner_decision_packet.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml, tests/test_t374_additive_parent_overlay.py, tests/test_chunking_orchestrator.py]
+    decision: "Implement T374-OVERLAP-B as the exact output-changing pilot: append one additive parent-only overlay for 1Cor.8.1-1Cor.10.33 after all pre-T374 baseline chunk records. The baseline prefix remains byte-identical, selected_children remains empty, and the overlay is explicitly non-truth-bearing. The output change records the parent boundary authorized by T373/T374 only; it does not delete or replace existing chunks, split adjacent spill chunks, create child spans, generalize to epistles, alter evaluator scoring, or generate graph/retrieval/vector truth."
+    downstream_risk: "An additive parent overlay creates duplicate coverage over existing baseline chunks. If unlabeled, future agents could treat the duplicate as a hierarchy, use it to infer child spans, or spread the exact 1Cor.8-10 authorization into broader epistle behavior."
+    theological_assumptions_avoided:
+      - "No adjacent 1Cor.7 or 1Cor.11 material is reclassified or reshaped as part of the 1Cor.8-10 parent."
+      - "No parent overlay becomes a theological outline, child-span structure, or doctrinal hierarchy."
+      - "No child span is selected or authorized by pilot success."
+      - "No graph edge, retrieval truth, vector truth, preferred reading, source-tradition preference, or boundary import is created."
+      - "No broader epistle argument algorithm is authorized by this exact pilot."
+    reviewed_gold_dependency: "Depends on T371-A parent-only reviewed gold for 1Cor.8.1-1Cor.10.33, T372 route-isolation/non-target identity requirements, T373-A exact implementation authorization, CD-055 owner-selected additive overlay semantics, and the T374 implementation manifest. T375 must review same-baseline results, no-context audit findings, and whether child spans are necessary before any later child-span owner decision."
+    non_authorizations:
+      - child_span_selection
+      - automatic_child_spans_after_parent_pilot
+      - deleting_or_replacing_existing_chunks
+      - adjacent_spill_splits
+      - treating_overlay_as_truth_bearing_hierarchy
+      - treating_duplicate_parent_coverage_as_child_span_authority
+      - route_behavior_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - preferred_reading_selection
+      - source_tradition_preference
+      - boundary_import
+      - broader_epistle_generalization
+      - whole_bible_output_pass
+    validators:
+      - scripts/validate_t374_additive_parent_overlay.py
+      - tests/test_t374_additive_parent_overlay.py
+      - tests/test_chunking_orchestrator.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]

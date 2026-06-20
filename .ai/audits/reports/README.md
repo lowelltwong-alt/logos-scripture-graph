@@ -20,3 +20,6 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260617-T344-HARN-006-codex-post-merge.md` - Codex post-merge no-context audit report for PR
   #64 / HARN-006 source-metadata authority scanner readiness; records no findings and the
   remaining required owner selection.
+- `20260620-T374-additive-parent-overlay.md` - No-context audit surface for the T374 output
+  implementation; verifies one exact additive parent overlay, baseline-prefix identity,
+  non-authorizations, validator coverage, and T375 review-only next route.
