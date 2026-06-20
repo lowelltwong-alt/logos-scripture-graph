@@ -131,10 +131,11 @@ Bible-first chunking priority:
   owner-authorized parent-first pilot pattern: run the exact parent-only pilot, then conduct a
   post-pilot review to decide whether child spans are necessary. Child spans remain disallowed
   unless later exact reviewed evidence and owner promotion authorize them. The readiness map now
-  points to T374, but T374 found a baseline overlap and is paused by
-  `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`. Do not implement chunks until
-  Lowell selects conservative hold, additive parent overlay, replacement spill split, target
-  widening, or dry-run/report semantics. Do not generalize the 1Cor.8-10 pilot to child spans,
+  points to T374, and T374 found a baseline overlap recorded by
+  `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`. Lowell selected
+  `T374-OVERLAP-B`: future implementation may add only an exact additive parent overlay for
+  `1Cor.8.1-1Cor.10.33` while preserving existing baseline chunks byte-identical. Do not generalize
+  the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
 - Revelation is a future hard-book atlas/review-packet lane for implementation and is currently in
@@ -178,7 +179,8 @@ Bible-first chunking priority:
   route/evaluator, graph/retrieval, vector, or broad output authority. T372 is recorded
   separately as a route-isolation harness plan. T373 is recorded separately as exact owner
   implementation authorization for the parent-only T374 pilot only. T374 is recorded separately as
-  a baseline-overlap stop, not as an output implementation.
+  a baseline-overlap selection record: `T374-OVERLAP-B` additive parent overlay is selected, but the
+  selection record itself is not an output implementation.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -378,14 +380,14 @@ Bible-first chunking priority:
   `scripts/validate_t373_owner_implementation_authorization.py`.
 - The T374 baseline-overlap owner decision packet at
   `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml` records that current baseline
-  chunks cross into and out of `1Cor.8.1-1Cor.10.33`, so replacement-style implementation is
-  paused. It presents conservative hold, additive parent overlay, replacement spill split, target
-  widening, and dry-run/report options. The packet does not select an option or authorize output,
-  route behavior, evaluator behavior, graph/retrieval/vector truth, child spans, preferred
-  readings, source-tradition preference, boundary import, broader epistle generalization, or
-  whole-Bible output. It is validated by
-  `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`. Do not implement chunks until
-  Lowell selects an option.
+  chunks cross into and out of `1Cor.8.1-1Cor.10.33`. It records Lowell's selected
+  `T374-OVERLAP-B` additive parent overlay semantics for a future separate implementation. Existing
+  baseline chunks must stay byte-identical, and deletion/replacement, adjacent spill splits, child
+  spans, graph/retrieval/vector truth, evaluator changes, preferred readings, source-tradition
+  preference, boundary import, broader epistle generalization, and whole-Bible output remain
+  unauthorized. It is validated by
+  `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`. Do not implement chunks unless
+  the work is exactly this additive parent overlay and includes the required output-change proof.
 - The owner decision option presentation policy at
   `.ai/control/owner_decision_option_presentation_policy.yaml` records the owner's instruction that
   future gates should always show serious faithful options and repercussions. It is validated by
@@ -631,9 +633,10 @@ from non-output-changing route-isolation planning into parent-boundary, child-sp
 graph/retrieval, implementation, chunk, or output authority.
 `python scripts/validate_t374_baseline_overlap_owner_decision_packet.py` fails closed if the T374
 baseline-overlap packet loses the observed `1Cor.7.25-1Cor.9.2`, `1Cor.9.3-1Cor.10.5`, and
-`1Cor.10.6-1Cor.11.10` overlap evidence, selects an owner option, authorizes output, or stops
-being mandatory preflight/readiness/TOC context. Do not implement chunks until Lowell selects an
-option.
+`1Cor.10.6-1Cor.11.10` overlap evidence, loses the selected `T374-OVERLAP-B` semantics, authorizes
+output in the selection record, or stops being mandatory preflight/readiness/TOC context. Do not
+implement chunks unless the work is exactly the selected additive parent overlay and preserves
+existing baseline chunks byte-identical.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

@@ -9,7 +9,7 @@ schema_version: t374_baseline_overlap_owner_decision_packet.v1
 packet_id: t374_1cor8_10_baseline_overlap_owner_decision_packet
 task_id: T374
 owner: Lowell Wong
-status: blocked_pending_owner_decision
+status: complete_owner_selected_additive_parent_overlay
 lane: epistle_argument
 target:
   corpus_scope: canonical_66
@@ -67,6 +67,7 @@ finding:
   replacement_style_implementation_paused: true
   replacement_safe_without_new_owner_decision: false
   additive_overlay_requires_owner_decision: true
+  additive_overlay_owner_decision_recorded: true
   exact_parent_candidate: 1Cor.8.1-1Cor.10.33
   reason: "The current baseline has no preexisting exact chunk that begins at 1Cor.8.1 and ends at 1Cor.10.33. A replacement-style implementation would need to rewrite adjacent baseline chunks containing 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10, so T372 non-target byte identity cannot be satisfied without a new owner decision about output semantics."
 authority:
@@ -90,7 +91,7 @@ option_presentation_policy: .ai/control/owner_decision_option_presentation_polic
 owner_options:
   - option_id: T374-OVERLAP-A
     label: Conservative hold
-    status: available_owner_option
+    status: not_selected
     what_it_would_authorize:
       - keep_t374_paused
       - no_output_change
@@ -109,7 +110,7 @@ owner_options:
     faithfulness_rationale: "Faithful if there is any doubt about whether additive or replacement semantics would overstate the reviewed-gold target."
   - option_id: T374-OVERLAP-B
     label: Additive parent overlay
-    status: available_owner_option
+    status: selected_by_owner
     what_it_would_authorize:
       - add_exact_parent_chunk_1Cor.8.1_1Cor.10.33
       - preserve_existing_baseline_chunks_byte_identical
@@ -128,7 +129,7 @@ owner_options:
     faithfulness_rationale: "Most faithful if the owner wants output movement now because it respects the exact reviewed-gold parent while not rewriting adjacent 1Cor.7 or 1Cor.11 material."
   - option_id: T374-OVERLAP-C
     label: Replacement with adjacent spill splits
-    status: available_owner_option
+    status: not_selected
     what_it_would_authorize:
       - replace_target_overlap_chunks
       - split_adjacent_non_target_spills_for_identity_accounting
@@ -147,7 +148,7 @@ owner_options:
     faithfulness_rationale: "Potentially faithful only if the owner explicitly accepts adjacent spill splits as necessary engineering fallout, not as theological boundary claims."
   - option_id: T374-OVERLAP-D
     label: Widen target to baseline-aligned span
-    status: available_owner_option
+    status: not_selected
     what_it_would_authorize:
       - select_baseline_aligned_span_1Cor.7.25_1Cor.11.10_for_future_review
       - pause_exact_parent_implementation
@@ -164,7 +165,7 @@ owner_options:
     faithfulness_rationale: "Not recommended now because it would let baseline convenience redefine the owner-reviewed passage."
   - option_id: T374-OVERLAP-E
     label: Dry-run and report only
-    status: available_owner_option
+    status: not_selected
     what_it_would_authorize:
       - build_non_committed_dry_run_report
       - compare_additive_and_replacement_semantics_without_output_change
@@ -185,7 +186,7 @@ recommendation:
   recommendation_is_owner_selection: false
   rationale: "T374-OVERLAP-B best preserves the exact reviewed-gold parent and non-target identity if output movement is desired. T374-OVERLAP-A is safest if duplicate coverage semantics are not yet acceptable."
 required_owner_selection_record:
-  selected_option: pending_owner_selection
+  selected_option: T374-OVERLAP-B
   exact_option_id_required: true
   allowed_option_ids:
     - T374-OVERLAP-A
@@ -201,6 +202,29 @@ required_owner_selection_record:
     - whether_adjacent_spill_splits_are_allowed
     - decision_register_update
     - validators_and_tests
+  recorded_owner_selection:
+    selected_option: T374-OVERLAP-B
+    decision_register_update: CD-055
+    readiness_map_updated: true
+    validators_and_tests_updated: true
+owner_selection:
+  selected_option: T374-OVERLAP-B
+  owner_authorization_date: "2026-06-20"
+  owner_authorization_summary: "Lowell authorized T374-OVERLAP-B: additive parent overlay for 1Cor.8.1-1Cor.10.33; preserve existing baseline chunks byte-identical; do not delete or replace existing chunks; do not authorize child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, or whole-Bible output."
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  output_semantics_authorized_for_future_implementation: additive_parent_overlay_only
+  preserve_existing_baseline_chunks_byte_identical: true
+  delete_or_replace_existing_chunks_authorized: false
+  duplicate_parent_coverage_allowed_for_exact_pilot: true
+  adjacent_spill_splits_authorized: false
+  implementation_must_be_separate_task: true
+  chunk_output_changed_in_this_task: false
+  route_behavior_changed_in_this_task: false
+  decision_register_update: CD-055
+  readiness_map_update_required: true
+  validators_and_tests_required: true
+  post_pilot_child_necessity_review_required: true
 non_authorizations:
   - option_packet_as_owner_selection
   - recommendation_as_owner_selection
@@ -221,7 +245,8 @@ non_authorizations:
   - broader_epistle_generalization
   - whole_bible_output_pass
 links:
-  decision_register_entry: CD-054
+  decision_register_entry: CD-055
+  prior_decision_register_entry: CD-054
   decision_register: .ai/control/chunking_theological_decision_register.yaml
   preflight: .ai/control/chunking_agent_preflight.yaml
   readiness_map: .ai/control/bible_chunking_readiness_map.yaml
@@ -240,6 +265,6 @@ validators:
   - scripts/validate_task_scope.py --task-id T374
   - scripts/validate_all.py
 next_task:
-  task_id: pending_owner_selection
-  instruction: "Stop before output-changing implementation until the owner selects one T374-OVERLAP option and the selected semantics are recorded in the decision register and validators."
+  task_id: T374
+  instruction: "After this selection record lands, a separate output-changing implementation PR may implement only T374-OVERLAP-B additive parent overlay for 1Cor.8.1-1Cor.10.33, preserving existing baseline chunks byte-identical and adding no child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, whole-Bible output, deletion, or replacement."
 ...

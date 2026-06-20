@@ -283,6 +283,9 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         elif lane_id == "epistle_argument" and lane.get("current_state") == "t374_baseline_overlap_owner_decision_required":
             if lane.get("new_algorithm_work_ready") is not False:
                 raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T374 overlap owner decision is pending")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t374_overlap_b_selected_additive_overlay_ready":
+            if lane.get("new_algorithm_work_ready") is not True:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be true after T374-OVERLAP-B")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -677,12 +680,18 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "harness_plan": ".ai/control/t372_route_isolation_harness_plan.yaml",
             "authorization_record": ".ai/control/t373_owner_implementation_authorization.yaml",
             "baseline_overlap_decision_packet": ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
-            "baseline_overlap_status": "blocked_pending_owner_decision",
-            "implementation_paused_until_owner_selects_baseline_overlap_option": True,
-            "selected_baseline_overlap_option": "pending_owner_selection",
+            "baseline_overlap_status": "complete_owner_selected_additive_parent_overlay",
+            "implementation_paused_until_owner_selects_baseline_overlap_option": False,
+            "selected_baseline_overlap_option": "T374-OVERLAP-B",
+            "additive_parent_overlay_selected": True,
+            "preserve_existing_baseline_chunks_byte_identical": True,
+            "delete_or_replace_existing_chunks_authorized": False,
+            "duplicate_parent_coverage_allowed_for_exact_pilot": True,
+            "adjacent_spill_splits_authorized": False,
             "replacement_style_implementation_paused": True,
             "replacement_safe_without_new_owner_decision": False,
             "additive_overlay_requires_owner_decision": True,
+            "additive_overlay_owner_decision_recorded": True,
             "option_presentation_policy": ".ai/control/owner_decision_option_presentation_policy.yaml",
             "owner_review_docket": ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
             "packet_status": "parent_only_reviewed_gold_promoted",
@@ -939,8 +948,14 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     if data["next_route"].get("task_id") == "T374":
         if data["next_route"].get("baseline_overlap_decision_packet") != ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml":
             raise ReadinessMapError(f"{_rel(path)}: T374 baseline_overlap_decision_packet is stale")
-        if data["next_route"].get("implementation_paused_until_owner_selects_baseline_overlap_option") is not True:
-            raise ReadinessMapError(f"{_rel(path)}: T374 implementation must pause until owner selects overlap option")
+        if data["next_route"].get("implementation_paused_until_owner_selects_baseline_overlap_option") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T374 owner-selection pause must be resolved")
+        if data["next_route"].get("selected_baseline_overlap_option") != "T374-OVERLAP-B":
+            raise ReadinessMapError(f"{_rel(path)}: T374 selected_baseline_overlap_option must be T374-OVERLAP-B")
+        if data["next_route"].get("preserve_existing_baseline_chunks_byte_identical") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T374 must preserve existing baseline chunks byte-identical")
+        if data["next_route"].get("delete_or_replace_existing_chunks_authorized") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T374 must not authorize deletion or replacement")
 
     non_authorizations = set(
         _require_string_list(data["explicit_non_authorizations"], "explicit_non_authorizations")

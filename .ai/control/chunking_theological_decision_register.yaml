@@ -2247,14 +2247,14 @@ decisions:
       passages: [1Cor.7.25-1Cor.7.40, 1Cor.8.1-1Cor.10.33, 1Cor.11.1-1Cor.11.10]
       routes: [epistle_argument, route_isolated_output_pilot, baseline_overlap_owner_gate]
       surfaces: [.ai/control/t374_baseline_overlap_owner_decision_packet.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, ROADMAP_STATE.yaml, docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md]
-    decision: "T374 baseline inspection found that current chunks cross into and out of the exact owner-authorized parent span 1Cor.8.1-1Cor.10.33. Replacement-style implementation is paused because it would alter adjacent non-target chunk records for 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10. The packet records owner options and conditionally recommends additive parent overlay if output movement is desired, but no option is selected and no output change is authorized by the packet."
+    decision: "T374 baseline inspection found that current chunks cross into and out of the exact owner-authorized parent span 1Cor.8.1-1Cor.10.33. Replacement-style implementation is paused because it would alter adjacent non-target chunk records for 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10. The packet records owner options and conditionally recommends additive parent overlay if output movement is desired. CD-055 later records the owner-selected T374-OVERLAP-B semantics; CD-054 remains the historical stop record and does not itself authorize output."
     downstream_risk: "A future implementation could quietly redefine non-target identity, hide adjacent spill changes, treat additive overlay as automatic hierarchy, or widen the reviewed-gold target by baseline convenience."
     theological_assumptions_avoided:
       - "No adjacent marriage/singleness material in 1Cor.7.25-1Cor.7.40 is silently reshaped as part of the 1Cor.8-10 target."
       - "No adjacent head-covering/worship material in 1Cor.11.1-1Cor.11.10 is silently reshaped as part of the 1Cor.8-10 target."
       - "No additive parent overlay, replacement split, or target widening becomes owner selection by recommendation."
       - "No child span, argument hierarchy, source metadata, doctrinal system, graph/retrieval truth, or evaluator behavior is authorized."
-    reviewed_gold_dependency: "The T371-A parent-only reviewed-gold case remains exact to 1Cor.8.1-1Cor.10.33, but implementation must wait until the owner selects output semantics for baseline overlap and the selected option is recorded with validators/tests and non-target identity handling."
+    reviewed_gold_dependency: "The T371-A parent-only reviewed-gold case remains exact to 1Cor.8.1-1Cor.10.33. CD-055 records the owner-selected additive overlay semantics required before any future implementation; CD-054 itself remains non-output-changing."
     non_authorizations:
       - output_change_without_selected_overlap_option
       - implementation_without_selected_overlap_option
@@ -2270,6 +2270,51 @@ decisions:
       - graph_edge_generation
       - retrieval_truth
       - embedding_or_vector_work
+      - broader_epistle_generalization
+      - whole_bible_output_pass
+    validators:
+      - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+      - tests/test_t374_baseline_overlap_owner_decision_packet.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-055
+    title: T374-OVERLAP-B selects additive parent overlay semantics
+    classification: interpretive_boundary
+    task_ids: [T374]
+    owner_decision_ref: ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [1Cor]
+      passages: [1Cor.7.25-1Cor.7.40, 1Cor.8.1-1Cor.10.33, 1Cor.11.1-1Cor.11.10]
+      routes: [epistle_argument, route_isolated_output_pilot, additive_parent_overlay]
+      surfaces: [.ai/control/t374_baseline_overlap_owner_decision_packet.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/bible_chunking_readiness_map.yaml, .ai/control/chunking_human_decision_forecast.yaml, ROADMAP_STATE.yaml, docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md]
+    decision: "Owner selected T374-OVERLAP-B for the exact parent-only 1Cor.8.1-1Cor.10.33 pilot: a future separate implementation may add an exact additive parent overlay while preserving all existing baseline chunks byte-identical. This selection does not authorize deleting or replacing existing chunks, adjacent spill splits, child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, whole-Bible output, preferred readings, source-tradition preference, or boundary imports. The selection record itself changes no chunk output."
+    downstream_risk: "Duplicate parent coverage can be misread as a truth-bearing hierarchy or as preparation for child spans unless future output manifests label it as an exact route-isolated parent-only overlay and prove existing baseline chunks remain byte-identical."
+    theological_assumptions_avoided:
+      - "The exact reviewed-gold parent remains 1Cor.8.1-1Cor.10.33; adjacent 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10 material is not reclassified as part of that target."
+      - "Duplicate coverage is an engineering overlay for the exact pilot, not an argument hierarchy, theological outline, child-span authorization, or graph/retrieval truth claim."
+      - "The owner selection chooses additive overlay semantics only; it does not choose replacement, target widening, preferred readings, source-tradition preference, or broader epistle behavior."
+      - "Parent-first pilot semantics still require later post-pilot child-necessity review before any child span is proposed or promoted."
+    reviewed_gold_dependency: "Depends on T371-A parent-only reviewed gold for 1Cor.8.1-1Cor.10.33, T372 route-isolation/non-target identity requirements, and T373-A exact parent-only implementation authorization. A future implementation must still record parent-only scope proof, selected_children: [], byte-identical preservation of existing baseline chunks, changed-output manifest for the additive overlay, same-baseline evaluation, no-context audit surface, decision-register update, validators/tests, and handoff validation."
+    non_authorizations:
+      - chunk_output_change_in_this_selection_record
+      - deleting_or_replacing_existing_chunks
+      - adjacent_spill_splits
+      - child_span_selection
+      - automatic_child_spans_after_parent_pilot
+      - route_behavior_generalization
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - preferred_reading_selection
+      - source_tradition_preference
+      - boundary_import
       - broader_epistle_generalization
       - whole_bible_output_pass
     validators:

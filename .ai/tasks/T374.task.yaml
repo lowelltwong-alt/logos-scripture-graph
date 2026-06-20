@@ -1,8 +1,8 @@
 id: T374
 phase: phase_4
-title: "T374 Baseline-Overlap Owner Decision Packet"
+title: "T374 Baseline-Overlap Owner Selection Record"
 mode: build
-status: blocked_pending_owner_decision
+status: complete_owner_selected_additive_parent_overlay
 owner: codex
 scope:
   allowed_paths:
@@ -52,15 +52,22 @@ authorization:
   output_change_authorized_by_prior_gate: true
   implementation_authorized_by_prior_gate: true
   implementation_paused_reason: "Baseline chunks cross into and out of the exact parent span, so replacement-style implementation cannot satisfy non-target byte identity without a new owner decision."
+  selected_baseline_overlap_option: T374-OVERLAP-B
+  selected_output_semantics: additive_parent_overlay_only
+  preserve_existing_baseline_chunks_byte_identical: true
+  delete_or_replace_existing_chunks_authorized: false
+  adjacent_spill_splits_authorized: false
+  duplicate_parent_coverage_allowed_for_exact_pilot: true
+  future_implementation_must_be_separate_output_changing_pr: true
   chunk_output_changed_in_this_task: false
   route_behavior_changed_in_this_task: false
 acceptance_criteria:
   - "Record the exact baseline-overlap finding for 1Cor.8.1-1Cor.10.33."
   - "Present serious faithful owner options with repercussions under the owner option presentation policy."
-  - "Recommend the safest path without treating the recommendation as owner selection."
+  - "Record Lowell's selected T374-OVERLAP-B additive parent overlay semantics without treating this selection-record task as a chunk-output change."
   - "Keep raw, canonical, derived chunk, chunker, route, evaluator, graph, retrieval, vector, and output surfaces unchanged."
   - "Make the packet discoverable from preflight, readiness, AI TOCs, the decision register, and validators."
-  - "Stop before any additive overlay, replacement split, target widening, child span, graph/retrieval, evaluator, or output-changing implementation."
+  - "Stop before any actual additive overlay, replacement split, target widening, child span, graph/retrieval, evaluator, or output-changing implementation in this selection-record task."
 validation:
   - python scripts/validate_t374_baseline_overlap_owner_decision_packet.py
   - python scripts/validate_chunking_agent_preflight.py
@@ -70,4 +77,4 @@ validation:
   - python scripts/validate_all.py
   - python -m pytest -q
 required_handoff: .ai/handoffs/T374/handoff.md
-next_task: "Owner must select a T374 baseline-overlap option before implementation resumes. Do not implement chunks until the selected output semantics are explicitly recorded."
+next_task: "After this selection record lands, a separate output-changing T374 implementation PR may implement only T374-OVERLAP-B additive parent overlay for 1Cor.8.1-1Cor.10.33 while preserving existing baseline chunks byte-identical and adding no child spans, graph/retrieval truth, evaluator changes, broader epistle generalization, whole-Bible output, deletion, or replacement."
