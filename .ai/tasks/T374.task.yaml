@@ -1,0 +1,73 @@
+id: T374
+phase: phase_4
+title: "T374 Baseline-Overlap Owner Decision Packet"
+mode: build
+status: blocked_pending_owner_decision
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T374.task.yaml
+    - .ai/handoffs/T374/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md
+    - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_t374_baseline_overlap_owner_decision_packet.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: owner_decision_packet
+  prior_authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  output_change_authorized_by_prior_gate: true
+  implementation_authorized_by_prior_gate: true
+  implementation_paused_reason: "Baseline chunks cross into and out of the exact parent span, so replacement-style implementation cannot satisfy non-target byte identity without a new owner decision."
+  chunk_output_changed_in_this_task: false
+  route_behavior_changed_in_this_task: false
+acceptance_criteria:
+  - "Record the exact baseline-overlap finding for 1Cor.8.1-1Cor.10.33."
+  - "Present serious faithful owner options with repercussions under the owner option presentation policy."
+  - "Recommend the safest path without treating the recommendation as owner selection."
+  - "Keep raw, canonical, derived chunk, chunker, route, evaluator, graph, retrieval, vector, and output surfaces unchanged."
+  - "Make the packet discoverable from preflight, readiness, AI TOCs, the decision register, and validators."
+  - "Stop before any additive overlay, replacement split, target widening, child span, graph/retrieval, evaluator, or output-changing implementation."
+validation:
+  - python scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T374
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T374/handoff.md
+next_task: "Owner must select a T374 baseline-overlap option before implementation resumes. Do not implement chunks until the selected output semantics are explicitly recorded."

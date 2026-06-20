@@ -35,6 +35,7 @@ T371_DECISION_PACKET = ROOT / ".ai" / "control" / "t371_variant_dependency_owner
 T371_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t371_parent_only_reviewed_gold_promotion.yaml"
 T372_HARNESS_PLAN = ROOT / ".ai" / "control" / "t372_route_isolation_harness_plan.yaml"
 T373_AUTHORIZATION = ROOT / ".ai" / "control" / "t373_owner_implementation_authorization.yaml"
+T374_BASELINE_OVERLAP_PACKET = ROOT / ".ai" / "control" / "t374_baseline_overlap_owner_decision_packet.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -81,7 +82,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -146,6 +147,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t372_route_isolation_harness_plan.yaml",
     "validate_t372_route_isolation_harness_plan.py",
     "t373_owner_implementation_authorization.yaml",
+    "t374_baseline_overlap_owner_decision_packet.yaml",
     "owner_decision_option_presentation_policy.yaml",
     "validate_t373_owner_implementation_authorization.py",
     "validate_owner_decision_option_presentation_policy.py",
@@ -329,6 +331,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml",
         ".ai/control/t372_route_isolation_harness_plan.yaml",
         ".ai/control/t373_owner_implementation_authorization.yaml",
+        ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -662,6 +665,22 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t373_authorization_text:
             raise PreflightError(f"{_rel(T373_AUTHORIZATION)}: missing T373 authorization phrase {phrase!r}")
+    t374_packet_text = _read_text(T374_BASELINE_OVERLAP_PACKET)
+    for phrase in (
+        "object_type: t374_baseline_overlap_owner_decision_packet",
+        "status: blocked_pending_owner_decision",
+        "1Cor.7.25",
+        "1Cor.11.10",
+        "replacement_style_implementation_paused: true",
+        "replacement_safe_without_new_owner_decision: false",
+        "additive_overlay_requires_owner_decision: true",
+        "T374-OVERLAP-B",
+        "selected_option: pending_owner_selection",
+        "authorizes_chunk_output_change: false",
+        "implementation_without_selected_overlap_option",
+    ):
+        if phrase not in t374_packet_text:
+            raise PreflightError(f"{_rel(T374_BASELINE_OVERLAP_PACKET)}: missing T374 packet phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",

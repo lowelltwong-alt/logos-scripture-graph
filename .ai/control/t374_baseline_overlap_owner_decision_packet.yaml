@@ -1,0 +1,245 @@
+---
+object_type: t374_baseline_overlap_owner_decision_packet
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-20 during T374 after route-isolated baseline inspection showed the current 1 Corinthians chunks cross into and out of the exact owner-authorized parent span."
+reason_for_inclusion: "Record the baseline-overlap finding and the faithful owner options before any 1Cor.8.1-1Cor.10.33 output-changing implementation resumes."
+---
+schema_version: t374_baseline_overlap_owner_decision_packet.v1
+packet_id: t374_1cor8_10_baseline_overlap_owner_decision_packet
+task_id: T374
+owner: Lowell Wong
+status: blocked_pending_owner_decision
+lane: epistle_argument
+target:
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  target_id: 1cor8_10_food_offered_to_idols
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  prior_authorization_record: .ai/control/t373_owner_implementation_authorization.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+baseline_inspection:
+  generated_temp_artifact: not_committed
+  command_summary: "python pipelines/chunking/orchestrator.py with canonical passages, eng-web witnesses, boundary claims, footnotes, crossrefs, and temp output paths."
+  observed_chunk_count: 1136
+  route_mode: literal_psalm_candidate_seam
+  observed_window:
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.4.6--1Cor.6.8--01043
+      osis_start: 1Cor.4.6
+      osis_end: 1Cor.6.8
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.6.9--1Cor.7.24--01044
+      osis_start: 1Cor.6.9
+      osis_end: 1Cor.7.24
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.7.25--1Cor.9.2--01045
+      osis_start: 1Cor.7.25
+      osis_end: 1Cor.9.2
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.9.3--1Cor.10.5--01046
+      osis_start: 1Cor.9.3
+      osis_end: 1Cor.10.5
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.10.6--1Cor.11.10--01047
+      osis_start: 1Cor.10.6
+      osis_end: 1Cor.11.10
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.11.11--1Cor.12.11--01048
+      osis_start: 1Cor.11.11
+      osis_end: 1Cor.12.11
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.12.12--1Cor.14.5--01049
+      osis_start: 1Cor.12.12
+      osis_end: 1Cor.14.5
+  target_overlap_chunks:
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.7.25--1Cor.9.2--01045
+      overlap_kind: crosses_target_start
+      osis_start: 1Cor.7.25
+      osis_end: 1Cor.9.2
+      non_target_spill: 1Cor.7.25-1Cor.7.40
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.9.3--1Cor.10.5--01046
+      overlap_kind: fully_inside_target
+      osis_start: 1Cor.9.3
+      osis_end: 1Cor.10.5
+      non_target_spill: none
+    - chunk_id: chunk--eng-web--chunk-policy-v0.1.0--epistles--1Cor.10.6--1Cor.11.10--01047
+      overlap_kind: crosses_target_end
+      osis_start: 1Cor.10.6
+      osis_end: 1Cor.11.10
+      non_target_spill: 1Cor.11.1-1Cor.11.10
+finding:
+  replacement_style_implementation_paused: true
+  replacement_safe_without_new_owner_decision: false
+  additive_overlay_requires_owner_decision: true
+  exact_parent_candidate: 1Cor.8.1-1Cor.10.33
+  reason: "The current baseline has no preexisting exact chunk that begins at 1Cor.8.1 and ends at 1Cor.10.33. A replacement-style implementation would need to rewrite adjacent baseline chunks containing 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10, so T372 non-target byte identity cannot be satisfied without a new owner decision about output semantics."
+authority:
+  records_owner_options: true
+  authorizes_chunk_output_change: false
+  authorizes_implementation: false
+  authorizes_route_behavior: false
+  authorizes_child_spans: false
+  authorizes_additive_overlay: false
+  authorizes_replacement_split: false
+  authorizes_target_widening: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+option_presentation_policy: .ai/control/owner_decision_option_presentation_policy.yaml
+owner_options:
+  - option_id: T374-OVERLAP-A
+    label: Conservative hold
+    status: available_owner_option
+    what_it_would_authorize:
+      - keep_t374_paused
+      - no_output_change
+      - more_review_or_design_before_implementation
+    what_it_does_not_authorize:
+      - additive_parent_overlay
+      - replacement_split
+      - target_widening
+      - child_spans
+      - route_behavior_change
+      - chunk_output_change
+    upside: "Maximizes non-target identity and audit clarity."
+    downside: "Delays the first output-changing epistle pilot."
+    downstream_effect: "T374 remains blocked until a later packet or owner response selects exact output semantics."
+    theological_or_hermeneutic_risk: "Lowest immediate risk; no adjacent passage is silently pulled into or out of the target."
+    faithfulness_rationale: "Faithful if there is any doubt about whether additive or replacement semantics would overstate the reviewed-gold target."
+  - option_id: T374-OVERLAP-B
+    label: Additive parent overlay
+    status: available_owner_option
+    what_it_would_authorize:
+      - add_exact_parent_chunk_1Cor.8.1_1Cor.10.33
+      - preserve_existing_baseline_chunks_byte_identical
+      - mark_overlay_as_parent_only_route_isolated_pilot
+    what_it_does_not_authorize:
+      - deleting_or_replacing_existing_chunks
+      - child_spans
+      - graph_or_retrieval_truth
+      - evaluator_change
+      - broader_epistle_generalization
+      - whole_bible_output_pass
+    upside: "Preserves non-target byte identity while testing the exact reviewed parent span."
+    downside: "Creates duplicate coverage semantics that must be explicit in consumers, audit reports, and changed-output manifests."
+    downstream_effect: "Requires a later implementation PR to prove the overlay is exact-scope, route-isolated, non-truth-bearing, and discoverable as parent-only."
+    theological_or_hermeneutic_risk: "Moderate; duplicate parent coverage could be misunderstood as a hierarchy or as child-span preparation if labels are careless."
+    faithfulness_rationale: "Most faithful if the owner wants output movement now because it respects the exact reviewed-gold parent while not rewriting adjacent 1Cor.7 or 1Cor.11 material."
+  - option_id: T374-OVERLAP-C
+    label: Replacement with adjacent spill splits
+    status: available_owner_option
+    what_it_would_authorize:
+      - replace_target_overlap_chunks
+      - split_adjacent_non_target_spills_for_identity_accounting
+      - create_exact_parent_chunk_1Cor.8.1_1Cor.10.33
+    what_it_does_not_authorize:
+      - unbounded_non_target_diff
+      - child_spans
+      - preferred_reading
+      - source_tradition_preference
+      - graph_or_retrieval_truth
+      - evaluator_change
+    upside: "Produces a conventional non-overlapping chunk list with the exact parent as a single chunk."
+    downside: "Changes adjacent non-target chunk records for 1Cor.7.25-1Cor.7.40 and 1Cor.11.1-1Cor.11.10, so it requires owner revision or waiver of the T372 non-target identity rule for those spill regions."
+    downstream_effect: "Would need an especially strong changed-output manifest and audit explanation because non-target chunk IDs/text records would change."
+    theological_or_hermeneutic_risk: "Higher; adjacent marriage/singleness and head-covering/worship context could be reshaped while claiming a 1Cor.8-10-only target."
+    faithfulness_rationale: "Potentially faithful only if the owner explicitly accepts adjacent spill splits as necessary engineering fallout, not as theological boundary claims."
+  - option_id: T374-OVERLAP-D
+    label: Widen target to baseline-aligned span
+    status: available_owner_option
+    what_it_would_authorize:
+      - select_baseline_aligned_span_1Cor.7.25_1Cor.11.10_for_future_review
+      - pause_exact_parent_implementation
+    what_it_does_not_authorize:
+      - treating_1Cor.7.25_1Cor.11.10_as_reviewed_gold_now
+      - implementing_without_new_reviewed_gold
+      - child_spans
+      - route_behavior_change
+      - chunk_output_change_now
+    upside: "Avoids overlap mechanics by aligning to the existing baseline window."
+    downside: "Abandons the exact reviewed-gold target and would require fresh review for materially different theological content."
+    downstream_effect: "Moves work back to review/gold prep before implementation."
+    theological_or_hermeneutic_risk: "High; the widened span folds marriage/singleness and head-covering/worship material into the target."
+    faithfulness_rationale: "Not recommended now because it would let baseline convenience redefine the owner-reviewed passage."
+  - option_id: T374-OVERLAP-E
+    label: Dry-run and report only
+    status: available_owner_option
+    what_it_would_authorize:
+      - build_non_committed_dry_run_report
+      - compare_additive_and_replacement_semantics_without_output_change
+    what_it_does_not_authorize:
+      - committed_chunk_output_change
+      - route_behavior_change
+      - child_spans
+      - reviewed_gold_change
+      - graph_or_retrieval_truth
+    upside: "Gives more engineering evidence while preserving all current output."
+    downside: "Does not get to the first chunk-output pilot yet."
+    downstream_effect: "Creates another review packet or audit report before owner chooses A-D."
+    theological_or_hermeneutic_risk: "Low; evidence remains non-authorizing."
+    faithfulness_rationale: "Faithful if the owner wants more proof before choosing additive overlay or replacement semantics."
+recommendation:
+  recommended_if_owner_wants_output: T374-OVERLAP-B
+  conservative_recommendation_if_any_doubt: T374-OVERLAP-A
+  recommendation_is_owner_selection: false
+  rationale: "T374-OVERLAP-B best preserves the exact reviewed-gold parent and non-target identity if output movement is desired. T374-OVERLAP-A is safest if duplicate coverage semantics are not yet acceptable."
+required_owner_selection_record:
+  selected_option: pending_owner_selection
+  exact_option_id_required: true
+  allowed_option_ids:
+    - T374-OVERLAP-A
+    - T374-OVERLAP-B
+    - T374-OVERLAP-C
+    - T374-OVERLAP-D
+    - T374-OVERLAP-E
+  must_record_before_implementation_resumes:
+    - exact_selected_option
+    - what_output_semantics_are_authorized
+    - what_non_target_identity_rule_applies
+    - whether_duplicate_parent_coverage_is_allowed
+    - whether_adjacent_spill_splits_are_allowed
+    - decision_register_update
+    - validators_and_tests
+non_authorizations:
+  - option_packet_as_owner_selection
+  - recommendation_as_owner_selection
+  - output_change_without_selected_overlap_option
+  - implementation_without_selected_overlap_option
+  - additive_overlay_without_owner_selection
+  - replacement_split_without_owner_selection
+  - target_widening_without_new_reviewed_gold
+  - child_span_selection
+  - adjacent_spill_as_theological_boundary
+  - source_metadata_as_authority
+  - preferred_reading_selection
+  - source_tradition_preference
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - broader_epistle_generalization
+  - whole_bible_output_pass
+links:
+  decision_register_entry: CD-054
+  decision_register: .ai/control/chunking_theological_decision_register.yaml
+  preflight: .ai/control/chunking_agent_preflight.yaml
+  readiness_map: .ai/control/bible_chunking_readiness_map.yaml
+  front_door: AI_FRONT_DOOR.md
+  ai_toc: AI_TABLE_OF_CONTENTS.md
+  roadmap_toc: docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+  roadmap_state: ROADMAP_STATE.yaml
+  task_file: .ai/tasks/T374.task.yaml
+  roadmap_doc: docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md
+validators:
+  - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+  - tests/test_t374_baseline_overlap_owner_decision_packet.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_task_scope.py --task-id T374
+  - scripts/validate_all.py
+next_task:
+  task_id: pending_owner_selection
+  instruction: "Stop before output-changing implementation until the owner selects one T374-OVERLAP option and the selected semantics are recorded in the decision register and validators."
+...
