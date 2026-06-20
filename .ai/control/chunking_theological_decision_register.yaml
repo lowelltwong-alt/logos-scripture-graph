@@ -2421,6 +2421,44 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-058
+    title: Chunking lesson index is mandatory tagged preflight memory
+    classification: text_neutral
+    task_ids: [T382]
+    owner_decision_ref: ".ai/control/chunking_lesson_index.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [chunking_preflight, lesson_capture, auditability, ai_toc_routing]
+      surfaces: [.ai/control/chunking_lesson_index.yaml, .ai/control/chunking_agent_preflight.yaml, docs/methodology/WORKFLOW_LESSONS.md, AI_TABLE_OF_CONTENTS.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md]
+    decision: "Create a mandatory tagged lesson index and lesson graph so reusable chunking, source-metadata, theological-risk, workflow, validator, audit, or agent-handoff lessons are discoverable by category, tag, use-when trigger, related task, related decision, source surface, downstream risk, non-authorization, and validator. Future agents must update the index when lesson relationships or tags change, or record a no-change rationale in the handoff."
+    downstream_risk: "Without an indexed lesson graph, future agents may miss prior lessons, repeat errors, or rely on chat memory. The index itself could also be mistaken for authority unless it explicitly denies output, reviewed-gold, graph/retrieval, route/evaluator, boundary, and theology authority."
+    theological_assumptions_avoided:
+      - "No lesson-index tag becomes a theological claim."
+      - "No lesson row authorizes chunk output, reviewed gold, route behavior, graph/retrieval truth, or evaluator changes."
+      - "No tagged routing surface replaces owner decisions, reviewed evidence, or the chunking theological decision register."
+    reviewed_gold_dependency: "None. This is governance memory and preflight routing only; it does not create or promote reviewed gold."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - theological_claim_from_lesson_tag
+      - owner_decision_from_lesson_index
+    validators:
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2517,4 +2555,5 @@ backfill_coverage:
     - T373
     - T374
     - T375
+    - T382
 ...

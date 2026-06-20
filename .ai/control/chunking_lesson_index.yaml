@@ -1,0 +1,397 @@
+---
+object_type: chunking_lesson_index
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph."
+reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
+---
+schema_version: chunking_lesson_index.v1
+index_id: scripture_chunking_lesson_index
+owner: Lowell Wong
+prepared_by_task: T382
+authority:
+  records_lessons: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_boundary_import: false
+update_policy:
+  status: required
+  rule: "Every reusable chunking, source-metadata, theological-risk, workflow, validator, audit, or agent-handoff lesson must either update this index and the appropriate preflight/workflow/register surface, or the task handoff must record an explicit no-change rationale."
+  required_action_before_task_close:
+    - update_chunking_lesson_index_if_lesson_relationship_or_tags_change
+    - update_preflight_if_future_agents_must_read_it_first
+    - update_decision_register_if_it_has_possible_theological_downstream_effect
+    - update_validator_or_test_if_machine_checkable
+    - record_no_change_rationale_in_handoff_if_no_surface_changed
+  changed_path_gate_enabled: true
+  update_required_when_paths_change:
+    - .ai/control/chunking_agent_preflight.yaml
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/*_dossier_queue.yaml
+    - .ai/control/*_policy*.yaml
+    - .ai/control/*_inventory.yaml
+    - .ai/control/*_review*.yaml
+    - .ai/audits/reports/
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+  validator: scripts/validate_chunking_lesson_index.py
+category_taxonomy:
+  - category_id: source_metadata
+    use_when: "Source formatting, internal cross-references, Strong's-style tags, red-letter/WJ markers, headings, footnotes, or capitalization appear relevant."
+  - category_id: original_language
+    use_when: "Greek/Hebrew words, lemmas, morphology, grammar labels, roots, LXX/NT quotation links, or phrase/context claims are used."
+  - category_id: theological_risk
+    use_when: "A lesson could affect doctrine-facing boundaries, speaker attribution, intertexts, eschatology, canon/source-tradition, or theology-risk review."
+  - category_id: owner_decision
+    use_when: "A prior owner pattern, new owner gate, option/repercussion presentation, or conflict stop may control the next step."
+  - category_id: auditability
+    use_when: "A no-context reviewer, red-team agent, A/B checker, or future maintainer needs to reconstruct why a change happened."
+  - category_id: workflow_governance
+    use_when: "A lesson affects preflight, midflight, postflight, handoff, validator, TOC, task scope, or methodology behavior."
+  - category_id: graph_retrieval_vector
+    use_when: "Work could create graph edges, retrieval truth, vector/embedding output, or allow evidence labels to become truth-bearing."
+lessons:
+  - lesson_id: LSN-001
+    title: Source metadata is evidence, not authority
+    lifecycle_status: active
+    priority: P0
+    categories: [source_metadata, theological_risk, graph_retrieval_vector]
+    tags: [source-metadata, cross-references, strongs, lexeme-tags, footnotes, headings, wj, red-letter, capitalization, evidence-only]
+    use_when:
+      - "A task touches source formatting, internal cross-references, Strong's-style word numbers, lexeme tags, footnotes, headings, WJ/red-letter markers, paragraph/poetry markers, alternate readings, or capitalization."
+      - "A future agent wants metadata to influence chunk boundaries, graph edges, retrieval, speaker attribution, reviewed gold, or output."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/source_metadata_research_atlas.yaml
+      - docs/methodology/WORKFLOW_LESSONS.md
+      - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+    related_decision_ids: [CD-002, CD-015]
+    related_workflow_lesson_ids: [BIBLE-CHUNKING-WORKFLOW-LESSON-003]
+    related_task_ids: [T343, T359]
+    downstream_risk: "Edition metadata can be elevated into theological structure, lexical truth, intertext truth, speaker truth, graph truth, or chunk-boundary authority."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/source_metadata_research_atlas.yaml
+      - .ai/control/RAW_SOURCE_INVENTORY.md
+    non_authorizations:
+      - scripture_truth_from_metadata
+      - lexical_truth_from_strongs
+      - intertext_truth_from_editorial_cross_reference
+      - speaker_truth_from_wj_marker
+      - graph_edge_from_metadata
+      - chunk_boundary_from_metadata
+      - output_change_from_metadata
+    validators:
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_source_metadata_authority.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-002
+    title: Lessons discovered midflight must feed preflight and the lesson graph
+    lifecycle_status: active
+    priority: P0
+    categories: [workflow_governance, auditability]
+    tags: [lessons-learned, preflight, midflight, postflight, handoff, lesson-index, graph, deterministic-update]
+    use_when:
+      - "The maintainer has to remind an agent of a rule/context the repo should already provide."
+      - "An agent discovers reusable context missing from preflight, handoff, TOC, validator, methodology, or decision register."
+      - "A repeated warning would otherwise live only in chat."
+    preflight_stage: midflight_and_postflight
+    source_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - docs/methodology/WORKFLOW_LESSONS.md
+      - .ai/handoffs/<task_id>/handoff.md
+    related_decision_ids: [CD-058]
+    related_workflow_lesson_ids: [BIBLE-CHUNKING-WORKFLOW-LESSON-004, WORKFLOW-LESSON-005]
+    related_task_ids: [T343, T382]
+    downstream_risk: "Lessons can be lost in chat context, producing repeated mistakes, hidden assumptions, or missing preflight instructions."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - docs/methodology/WORKFLOW_LESSONS.md
+    non_authorizations:
+      - lesson_as_output_authority
+      - lesson_as_owner_decision
+      - lesson_as_reviewed_gold
+      - lesson_as_theology_claim
+    validators:
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_task_scope.py
+  - lesson_id: LSN-003
+    title: AI TOCs require tags, use-when routing, and lesson discoverability
+    lifecycle_status: active
+    priority: P1
+    categories: [workflow_governance, auditability]
+    tags: [ai-toc, tags, use-when, searchability, audit, developer-engineering, routing]
+    use_when:
+      - "A future AI, software engineer, auditor, reviewer, or maintainer needs to find relevant files without already knowing the architecture."
+      - "A task adds a governance, audit, lesson, roadmap, or review artifact."
+    preflight_stage: before_work
+    source_surfaces:
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/methodology/WORKFLOW_LESSONS.md
+    related_decision_ids: [CD-058]
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-004, WORKFLOW-LESSON-005]
+    related_task_ids: [T342, T382]
+    downstream_risk: "Relevant governance or audit files can become functionally invisible, forcing future agents to rely on memory or guesswork."
+    required_preflight_surfaces:
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - .ai/control/chunking_lesson_index.yaml
+    non_authorizations:
+      - toc_as_authority
+      - search_tag_as_decision
+      - routing_row_as_output_permission
+    validators:
+      - scripts/validate_chunking_lesson_index.py
+      - tests/test_ai_roadmap_table_of_contents.py
+  - lesson_id: LSN-004
+    title: Greek and Hebrew evidence requires phrase, clause, syntax, discourse, and canonical context
+    lifecycle_status: active
+    priority: P0
+    categories: [original_language, theological_risk, source_metadata]
+    tags: [original-language, greek, hebrew, phrase-context, lemma, strongs, morphology, syntax, discourse, root-fallacy, semantic-range]
+    use_when:
+      - "A packet cites Greek/Hebrew words, lemmas, Strong's-style tags, lexical rarity, morphology, roots, articles, plurals, LXX/NT quotation links, punctuation, discourse markers, or poetic structure."
+      - "A pressure passage is used by LDS, Watch Tower/NWT, anti-Trinitarian, or other non-orthodox argumentation."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+      - .ai/control/source_metadata_research_atlas.yaml
+    related_decision_ids: [CD-043, CD-049, CD-053]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T377, T381, T373]
+    downstream_risk: "Isolated word studies, one-gloss readings, root fallacy, article overreach, or grammar-label overreach can smuggle doctrinal or anti-orthodox claims."
+    required_preflight_surfaces:
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+    non_authorizations:
+      - doctrine_from_isolated_word
+      - translation_preference_from_metadata
+      - source_language_truth_from_strongs
+      - graph_edge_from_lemma
+      - chunk_boundary_from_greek_or_hebrew_tag
+    validators:
+      - scripts/validate_original_language_phrase_context_policy.py
+      - scripts/validate_orthodox_original_language_pressure_dossier_queue.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-005
+    title: Orthodox Hermeneutic Firewall blocks hidden anti-orthodox defaults
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision, workflow_governance]
+    tags: [orthodox-hermeneutic-firewall, anti-smuggling, nicene, chalcedonian, canon-authority, liberal-critical-defaults, anti-supernatural]
+    use_when:
+      - "Epistle, Revelation, Gospel, graph, retrieval, or chunking work could smuggle anti-supernatural, anti-canonical, heterodox, liberal-critical, or one-denominational systematic defaults."
+      - "A review packet has theology-facing boundaries but should preserve orthodox options."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    related_decision_ids: [CD-035]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T367]
+    downstream_risk: "A boundary or label can make hidden liberal-critical, anti-supernatural, anti-canonical, heterodox, or denominational assumptions act like defaults."
+    required_preflight_surfaces:
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - anti_supernatural_default
+      - anti_canonical_default
+      - heterodox_default
+      - liberal_critical_default
+      - one_denominational_system_as_chunk_authority
+    validators:
+      - scripts/validate_orthodox_hermeneutic_firewall_docket.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-006
+    title: Variant-sensitive promotion is case-by-case and owner-confirmed
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision]
+    tags: [textual-critical-policy, variant-sensitive, case-by-case, preferred-reading, source-tradition, reviewed-gold-blocker]
+    use_when:
+      - "A reviewed-gold promotion, boundary decision, canon/source-tradition decision, or packet touches textual variants or source-tradition divergence."
+      - "A future agent wants to project TCP-T378-B."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/textual_critical_policy_docket.yaml
+      - .ai/control/textual_critical_policy_owner_options.yaml
+      - .ai/control/textual_critical_case_policy.yaml
+    related_decision_ids: [CD-036, CD-044, CD-045, CD-046, CD-047]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T367, T378, T379, T380, T371]
+    downstream_risk: "A variant-sensitive packet could silently choose a preferred reading, source tradition, canon-scope implication, reviewed-gold dependency, or boundary dependency."
+    required_preflight_surfaces:
+      - .ai/control/textual_critical_case_policy.yaml
+      - .ai/control/textual_critical_policy_docket.yaml
+    non_authorizations:
+      - preferred_reading_projection
+      - source_tradition_preference
+      - canon_scope_change
+      - reviewed_gold_promotion_without_owner_confirmation
+      - graph_or_retrieval_truth_from_variant_note
+    validators:
+      - scripts/validate_textual_critical_case_policy.py
+      - scripts/validate_textual_critical_policy_docket.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-007
+    title: Owner-pattern projection requires same-shape confidence and conflict stop
+    lifecycle_status: active
+    priority: P0
+    categories: [owner_decision, theological_risk, workflow_governance]
+    tags: [owner-projection, projected-owner-pattern, conflict-scan, human-decision, stop-condition]
+    use_when:
+      - "A future decision resembles a prior owner decision and an agent wants to proceed without asking again."
+      - "Two prior owner decisions might conflict for the target text or downstream action."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/owner_decision_projection_policy.yaml
+      - .ai/control/chunking_human_decision_forecast.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-040, CD-045]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T369, T379]
+    downstream_risk: "Projection can become a hidden substitute for owner judgment, especially where two prior decisions pull in different directions for a passage."
+    required_preflight_surfaces:
+      - .ai/control/owner_decision_projection_policy.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - new_owner_pattern_without_owner
+      - conflicted_owner_pattern_projection
+      - output_change_by_projection
+      - theology_claim_by_projection
+    validators:
+      - scripts/validate_owner_decision_projection_policy.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-008
+    title: Parent-first pilot must be followed by child-necessity review
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision, workflow_governance]
+    tags: [parent-first-pilot, child-necessity-review, child-spans, post-pilot-review, 1cor8-10]
+    use_when:
+      - "A route-isolated parent-only output pilot is authorized before deciding whether child spans are necessary."
+      - "A future agent wants to add child spans after a parent pilot."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/t373_owner_implementation_authorization.yaml
+      - .ai/control/t375_post_pilot_review.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-052, CD-057]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T373, T375]
+    downstream_risk: "Child spans can smuggle hierarchy, argument outline, or theological system choices if promoted without exact evidence and owner review."
+    required_preflight_surfaces:
+      - .ai/control/t373_owner_implementation_authorization.yaml
+      - .ai/control/t375_post_pilot_review.yaml
+    non_authorizations:
+      - automatic_child_spans_after_parent_pilot
+      - permanent_child_span_denial
+      - child_span_reviewed_gold_without_owner_promotion
+      - broader_epistle_generalization
+    validators:
+      - scripts/validate_t373_owner_implementation_authorization.py
+      - scripts/validate_t375_post_pilot_review.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-009
+    title: Graph, retrieval, vector, and edge outputs are never truth by themselves
+    lifecycle_status: active
+    priority: P0
+    categories: [graph_retrieval_vector, theological_risk]
+    tags: [graph, retrieval, vector, embeddings, edge-generation, truth-bearing, planning-only]
+    use_when:
+      - "A task might generate graph edges, retrieval profiles, vector embeddings, or edge candidates from chunking, metadata, intertexts, or original-language evidence."
+    preflight_stage: before_work
+    source_surfaces:
+      - docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+      - .ai/control/scripture_vectorization_plan.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-011, CD-015, CD-057]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T348, T375]
+    downstream_risk: "Graph, retrieval, and vector surfaces can look authoritative to users even when they are derived evidence or planning artifacts."
+    required_preflight_surfaces:
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+    non_authorizations:
+      - graph_edge_as_truth
+      - retrieval_result_as_truth
+      - vector_similarity_as_intertext_claim
+      - embedding_output_as_doctrine
+      - output_change_from_vector_plan
+    validators:
+      - scripts/validate_vectorization_plan.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-010
+    title: No-context audit requires repo-resident evidence and harness paths
+    lifecycle_status: active
+    priority: P1
+    categories: [auditability, workflow_governance]
+    tags: [audit, no-context-review, red-team, a-b-check, review-report, harness, pr-review]
+    use_when:
+      - "A separate AI or human reviewer must check a branch/PR without chat context."
+      - "A task changes output, governance, review packets, validators, decisions, or lesson surfaces."
+    preflight_stage: postflight
+    source_surfaces:
+      - .ai/audits/README.md
+      - .ai/audits/NO_CONTEXT_REVIEW_PROTOCOL.md
+      - .ai/control/audit_surface_map.yaml
+      - scripts/agent/no_context_audit_harness.py
+    related_decision_ids: []
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-003]
+    related_task_ids: [T374, T375, T382]
+    downstream_risk: "Future reviewers may only see summaries instead of repo evidence, hiding rationale, authorization limits, or validation gaps."
+    required_preflight_surfaces:
+      - .ai/audits/README.md
+      - .ai/control/audit_surface_map.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    non_authorizations:
+      - audit_report_as_owner_decision
+      - audit_report_as_output_authority
+      - chat_summary_as_provenance
+    validators:
+      - scripts/validate_audit_surface_map.py
+      - scripts/validate_chunking_lesson_index.py
+lesson_graph:
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-001
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-003
+  - from: LSN-001
+    relation: constrains
+    to: LSN-004
+  - from: LSN-001
+    relation: constrains
+    to: LSN-009
+  - from: LSN-005
+    relation: constrains
+    to: LSN-006
+  - from: LSN-007
+    relation: constrains
+    to: LSN-006
+  - from: LSN-007
+    relation: constrains
+    to: LSN-008
+  - from: LSN-010
+    relation: audits
+    to: LSN-008
+  - from: LSN-003
+    relation: discovers
+    to: LSN-010
+validator: scripts/validate_chunking_lesson_index.py

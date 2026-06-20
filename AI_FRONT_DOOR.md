@@ -39,6 +39,11 @@ Read these files before making changes:
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
+10. For reusable lessons, lesson discovery, or "why was this remembered?" questions:
+    `.ai/control/chunking_lesson_index.yaml`. It is the tagged lesson TOC/graph with categories,
+    use-when routing, related decisions/tasks, downstream risks, source surfaces, validators, and
+    non-authorizations. It is mandatory preflight memory, not chunk/output/graph/retrieval
+    authority.
 11. For chunking, evaluator, gold, route, or default-behavior decisions with possible theological
     downstream effects: `.ai/control/chunking_theological_decision_register.yaml`
 11. For protected decision memory, owner-pattern projection, or conflict checks:
@@ -159,6 +164,12 @@ Bible-first chunking priority:
   chunking/evaluator/gold/route/default-behavior decisions. It records owner decisions, theological
   risks, dependencies, non-authorizations, and supersession history; it does not authorize output
   changes by itself.
+- The chunking lesson index at `.ai/control/chunking_lesson_index.yaml` is a required tagged
+  lesson TOC/graph. Read it before chunking-related work to find lessons by category, tag, use-when
+  trigger, related decision/task, downstream risk, source surface, and validator. It is validated by
+  `scripts/validate_chunking_lesson_index.py` and does not authorize chunk output, reviewed-gold
+  promotion, route/evaluator behavior, graph/retrieval/vector truth, boundary import, or theology
+  claims.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing

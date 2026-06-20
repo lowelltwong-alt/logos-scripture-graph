@@ -26,3 +26,6 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260620-T375-post-pilot-review.md` - No-context audit review for the T375 post-pilot gate;
   records same-baseline/audit review, child spans not necessary now, and T376 owner lane selection
   as the next gate.
+- `20260620-T382-chunking-lesson-index.md` - No-context audit surface for the T382 lesson-index
+  governance task; records the tagged lesson TOC/graph, CD-058, validator coverage, and the
+  non-authorizing boundary.

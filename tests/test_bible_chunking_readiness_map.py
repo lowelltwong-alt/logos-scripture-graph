@@ -52,6 +52,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
 
     surfaces = set(data["lessons_storage"]["surfaces"])
     assert validator.REQUIRED_LESSON_SURFACES <= surfaces
+    assert ".ai/control/chunking_lesson_index.yaml" in surfaces
     assert ".ai/control/chunking_theological_decision_register.yaml" in surfaces
     assert ".ai/control/john3_wj_owner_review_docket.yaml" in surfaces
     assert ".ai/control/bible_wide_chunking_research_registry.yaml" in surfaces

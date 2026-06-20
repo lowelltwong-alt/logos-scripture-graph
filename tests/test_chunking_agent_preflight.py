@@ -50,6 +50,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
     assert ".ai/control/t375_post_pilot_review.yaml" in reading
+    assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
@@ -94,6 +95,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "validate_t374_additive_parent_overlay.py" in text
     assert "t375_post_pilot_review.yaml" in text
     assert "validate_t375_post_pilot_review.py" in text
+    assert "chunking_lesson_index.yaml" in text
+    assert "validate_chunking_lesson_index.py" in text
     assert "owner_decision_option_presentation_policy.yaml" in text
     assert "epistle_argument_gold_manifest.json" in text
     assert "1cor8_10_epistle_owner_review_docket.yaml" in text
@@ -128,6 +131,8 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-003" in lessons
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-004" in lessons
     assert "WORKFLOW-LESSON-004" in lessons
+    assert "WORKFLOW-LESSON-005" in lessons
+    assert "Lessons Need A Tagged Index And Graph" in lessons
     assert "AI Tables Of Contents Need Tags And Use-When Routing" in lessons
     assert "CD-015" in register
     assert "CD-018" in register
@@ -168,6 +173,8 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-055" in register
     assert "CD-056" in register
     assert "CD-057" in register
+    assert "CD-058" in register
+    assert "Chunking lesson index is mandatory tagged preflight memory" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -230,6 +237,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
     assert ".ai/control/t375_post_pilot_review.yaml" in reading
+    assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
     assert ".ai/control/chunking_human_decision_forecast.yaml" in reading
@@ -275,7 +283,11 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-055" in register_entry["required_decision_ids"]
     assert "CD-056" in register_entry["required_decision_ids"]
     assert "CD-057" in register_entry["required_decision_ids"]
+    assert "CD-058" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
+    assert "WORKFLOW-LESSON-005" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
+    assert "LSN-001" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-010" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 
@@ -289,3 +301,5 @@ def test_midflight_lesson_capture_is_enforced() -> None:
     assert "issue_could_recur_in_future_chunking_work" in capture["recognize_as_lesson_when"]
     assert "add_or_update_validator_or_test_if_machine_checkable" in capture["required_action_before_task_close"]
     assert ".ai/control/chunking_agent_preflight.yaml" in capture["required_surfaces"]
+    assert ".ai/control/chunking_lesson_index.yaml" in capture["required_surfaces"]
+    assert "update_chunking_lesson_index_if_lesson_relationship_or_tags_change" in capture["required_action_before_task_close"]

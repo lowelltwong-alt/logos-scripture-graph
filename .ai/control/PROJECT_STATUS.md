@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-20
-**Updated by:** T375 post-pilot review (Codex)
-**Active task:** -> **T375** completed the post-pilot review for the T374 additive parent overlay. `.ai/control/t375_post_pilot_review.yaml`, validated by `scripts/validate_t375_post_pilot_review.py`, records same-baseline review, no-context audit review, child spans not necessary now, and `CD-057`. T376 owner lane selection is the next gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T382 chunking lesson index (Codex)
+**Active task:** -> **T382** added `.ai/control/chunking_lesson_index.yaml`, validated by `scripts/validate_chunking_lesson_index.py`, as the tagged lesson TOC/graph for reusable chunking lessons. It records `CD-058` and keeps T376 owner lane selection as the next human gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T382 chunking lesson index (2026-06-20):** Added
+> `.ai/control/chunking_lesson_index.yaml`, `docs/roadmap/T382_CHUNKING_LESSON_INDEX.md`, and
+> `.ai/audits/reports/20260620-T382-chunking-lesson-index.md`, checked by
+> `scripts/validate_chunking_lesson_index.py`. T382 makes reusable lessons discoverable by category,
+> tags, use-when triggers, related tasks/decisions, downstream risks, source surfaces,
+> non-authorizations, validators, and graph edges. The index is mandatory chunking-agent preflight
+> memory and a required midflight lesson-capture surface. It records `CD-058` and does not authorize
+> chunk output, reviewed-gold promotion, route/evaluator behavior, graph/retrieval/vector truth,
+> boundary import, or theology claims. T376 owner lane selection remains the next gate.
 
 > **T375 post-pilot review (2026-06-20):** Added
 > `.ai/control/t375_post_pilot_review.yaml`, `docs/roadmap/T375_POST_PILOT_REVIEW.md`, and
