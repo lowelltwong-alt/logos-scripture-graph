@@ -31,6 +31,7 @@ Read these files before making changes:
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
     T372 route-isolation harness plan, T373 owner implementation authorization record,
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
+    T375 post-pilot review,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -130,13 +131,14 @@ Bible-first chunking priority:
   parent-only `1Cor.8.1-1Cor.10.33` route-isolated output-changing pilot. T373 also records the
   owner-authorized parent-first pilot pattern: run the exact parent-only pilot, then conduct a
   post-pilot review to decide whether child spans are necessary. Child spans remain disallowed
-  unless later exact reviewed evidence and owner promotion authorize them. The readiness map now
-  points to T375, and T374 found a baseline overlap recorded by
+  unless later exact reviewed evidence and owner promotion authorize them. T374 found a baseline overlap recorded by
   `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`. Lowell selected
   `T374-OVERLAP-B`, and `.ai/control/t374_additive_parent_overlay_manifest.yaml` records the
   completed implementation: exactly one additive parent overlay for `1Cor.8.1-1Cor.10.33`,
-  appended after all pre-T374 baseline chunks with the baseline prefix byte-identical. T375 is now
-  the next review gate: same-baseline review, no-context audit review, and child-necessity review.
+  appended after all pre-T374 baseline chunks with the baseline prefix byte-identical. T375 is
+  complete in `.ai/control/t375_post_pilot_review.yaml`: same-baseline review and no-context audit
+  review are recorded, child spans are not necessary now, and T376 owner lane selection is the
+  next gate.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -173,8 +175,9 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to T375 post-pilot review for the
-  implemented T374 `1Cor.8.1-1Cor.10.33` additive parent overlay, with T367 preserved as the owner-decision firewall, T368
+  next safe route. It is non-authorizing and currently points to T376 owner lane selection after
+  the completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33` additive
+  parent overlay, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
   record. T371-A is recorded separately as parent-only reviewed-gold promotion, not as child-span,
@@ -183,7 +186,8 @@ Bible-first chunking priority:
   implementation authorization for the parent-only T374 pilot only. T374 is recorded separately as
   both a baseline-overlap selection record and an output implementation manifest: the selection
   record itself is not output authority, and the implementation manifest records one exact
-  non-truth-bearing additive parent overlay.
+  non-truth-bearing additive parent overlay. T375 is recorded separately as review-only and says
+  child spans are not necessary now, not that child spans are permanently rejected.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -398,7 +402,15 @@ Bible-first chunking priority:
   `scripts/validate_t374_additive_parent_overlay.py`. It does not authorize child spans,
   replacement, adjacent spill splits, graph/retrieval/vector truth, evaluator change, broader
   epistle behavior, preferred readings, source-tradition preference, boundary imports, or
-  whole-Bible output. T375 is the next review-only gate.
+  whole-Bible output. T375 is complete and points to T376 owner lane selection.
+- The T375 post-pilot review at
+  `.ai/control/t375_post_pilot_review.yaml` records same-baseline review, no-context audit review,
+  and child-necessity review for the T374 overlay. It records that child spans are not necessary
+  now because local baseline chunks remain byte-identical, but it does not permanently reject child
+  spans. Later child-span work still requires exact governed evidence and owner promotion. It is
+  validated by `scripts/validate_t375_post_pilot_review.py` and does not authorize output, route
+  behavior, graph/retrieval/vector truth, evaluator changes, reviewed-gold promotion, boundary
+  imports, broader epistle behavior, or whole-Bible output.
 - The owner decision option presentation policy at
   `.ai/control/owner_decision_option_presentation_policy.yaml` records the owner's instruction that
   future gates should always show serious faithful options and repercussions. It is validated by
@@ -651,8 +663,11 @@ implement chunks unless the work is exactly the selected additive parent overlay
 existing baseline chunks byte-identical.
 `python scripts/validate_t374_additive_parent_overlay.py` fails closed if the completed T374 overlay
 manifest, generated output hashes, baseline-prefix identity proof, same-baseline metrics, route
-ledger overlay record, decision-register link, no-context audit surface, or T375 readiness handoff
+ledger overlay record, decision-register link, no-context audit surface, or T375/T376 readiness handoff
 drift from the exact owner-authorized parent-only output pilot.
+`python scripts/validate_t375_post_pilot_review.py` fails closed if the T375 post-pilot review loses
+same-baseline/no-context audit review, promotes child spans, authorizes output or graph/retrieval
+truth, drops `CD-057`, or stops pointing to T376 owner lane selection.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

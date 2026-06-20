@@ -77,6 +77,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t373_owner_implementation_authorization.yaml",
     ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
     ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+    ".ai/control/t375_post_pilot_review.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -162,6 +163,10 @@ ALLOWED_NEXT_ROUTES = {
     "T375": {
         "route_type": "epistle_argument_post_pilot_review",
         "title": "Same-Baseline Evaluation, No-Context Audit, And Child-Necessity Review",
+    },
+    "T376": {
+        "route_type": "next_genre_selection",
+        "title": "Select Next Chunking Lane From Decision Forecast",
     },
 }
 
@@ -323,6 +328,40 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             ):
                 if implementation.get(key) is not False:
                     raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation.{key} must be false")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t375_post_pilot_review_complete_next_lane_selection_required":
+            if lane.get("new_algorithm_work_ready") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T376 owner lane selection is next")
+            implementation = lane.get("additive_parent_overlay_implementation")
+            if not isinstance(implementation, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation must be present")
+            if implementation.get("task_id") != "T374":
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: additive_parent_overlay_implementation.task_id must be T374")
+            review = lane.get("post_pilot_review")
+            if not isinstance(review, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: post_pilot_review must be present")
+            expected_review = {
+                "task_id": "T375",
+                "path": ".ai/control/t375_post_pilot_review.yaml",
+                "status": "complete_review_only_child_spans_not_necessary_now",
+                "selected_parent": "1Cor.8.1-1Cor.10.33",
+                "same_baseline_reviewed": True,
+                "no_context_audit_reviewed": True,
+                "child_necessity_reviewed": True,
+                "child_spans_necessary_now": False,
+                "child_spans_authorized": False,
+                "output_change_authorized": False,
+                "implementation_authorized": False,
+                "route_behavior_authorized": False,
+                "evaluator_change_authorized": False,
+                "graph_edge_generation_allowed": False,
+                "retrieval_truth_authorized": False,
+                "next_route": "T376",
+            }
+            for key, value in expected_review.items():
+                if review.get(key) != value:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: post_pilot_review.{key} must be {value!r}")
+            if review.get("selected_children") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: post_pilot_review.selected_children must be []")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -879,6 +918,69 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T375 next_route.{key} must be false")
+    if task_id == "T376":
+        expected_t376 = {
+            "title": "Select Next Chunking Lane From Decision Forecast",
+            "starts_only_if": "T375_post_pilot_review_complete",
+            "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+            "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "selection_mode": "owner_decision_required",
+            "reason_owner_required": "T375 completed the review-only post-pilot gate. Selecting the next chunking lane or target could shift theological, genre, review-gold, or implementation priorities and must be chosen by the owner.",
+        }
+        for key, value in expected_t376.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T376 next_route.{key} must be {value!r}")
+        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057"}:
+            raise ReadinessMapError(f"{_rel(path)}: T376 prior decision register entries are stale")
+        if next_route.get("owner_decision_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T376 must require owner decision")
+        options = next_route.get("available_lane_options")
+        if not isinstance(options, list) or len(options) < 4:
+            raise ReadinessMapError(f"{_rel(path)}: T376 must present lane options")
+        option_ids = {option.get("option_id") for option in options if isinstance(option, dict)}
+        if {"T376-A", "T376-B", "T376-C", "T376-D"} - option_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T376 lane options are incomplete")
+        result = next_route.get("t375_result")
+        if not isinstance(result, dict):
+            raise ReadinessMapError(f"{_rel(path)}: T376 t375_result must be present")
+        expected_result = {
+            "selected_parent": "1Cor.8.1-1Cor.10.33",
+            "same_baseline_reviewed": True,
+            "no_context_audit_reviewed": True,
+            "child_necessity_reviewed": True,
+            "child_span_result": "child_spans_not_necessary_now",
+            "child_spans_authorized": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+        }
+        for key, value in expected_result.items():
+            if result.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T376 t375_result.{key} must be {value!r}")
+        if result.get("selected_children") != []:
+            raise ReadinessMapError(f"{_rel(path)}: T376 t375_result.selected_children must be []")
+        must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T376 must_fail_if"))
+        for item in (
+            "T376_selects_lane_without_owner_decision",
+            "child_spans_are_added_without_later_owner_promotion",
+            "reviewed_gold_is_promoted_without_owner_gate",
+            "graph_or_retrieval_truth_is_generated",
+            "route_behavior_changes_without_exact_authorization",
+            "whole_bible_output_is_run",
+        ):
+            if item not in must_fail:
+                raise ReadinessMapError(f"{_rel(path)}: T376 must_fail_if missing {item}")
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "reviewed_gold_promoted",
+            "route_behavior_authorized",
+            "child_spans_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T376 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

@@ -312,9 +312,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', or 'T375' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', or 'T376' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -713,6 +713,33 @@ def validate_owner_selection_implementation_gate(
                 _require_equal(next_route.get("output_change_authorized"), True, "readiness.next_route.output_change_authorized")
                 _require_equal(next_route.get("implementation_authorized"), True, "readiness.next_route.implementation_authorized")
                 _require_equal(next_route.get("route_behavior_authorized"), True, "readiness.next_route.route_behavior_authorized")
+                _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
+                _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+                _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+            if next_task_id == "T376":
+                _require_equal(
+                    next_route.get("route_type"),
+                    "next_genre_selection",
+                    "readiness.next_route.route_type",
+                )
+                _require_equal(
+                    next_route.get("starts_only_if"),
+                    "T375_post_pilot_review_complete",
+                    "readiness.next_route.starts_only_if",
+                )
+                _require_equal(
+                    next_route.get("prior_post_pilot_review"),
+                    ".ai/control/t375_post_pilot_review.yaml",
+                    "readiness.next_route.prior_post_pilot_review",
+                )
+                result = next_route.get("t375_result", {})
+                _require_equal(result.get("child_span_result"), "child_spans_not_necessary_now", "readiness.next_route.t375_result.child_span_result")
+                _require_equal(result.get("selected_children"), [], "readiness.next_route.t375_result.selected_children")
+                _require_equal(next_route.get("owner_decision_required"), True, "readiness.next_route.owner_decision_required")
+                _require_false(next_route, "output_change_authorized", "readiness.next_route")
+                _require_false(next_route, "implementation_authorized", "readiness.next_route")
+                _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+                _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
                 _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
                 _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
                 _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")

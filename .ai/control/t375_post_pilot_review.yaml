@@ -1,0 +1,145 @@
+---
+object_type: t375_post_pilot_review
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-20 during T375 after PR #97/T374 landed the additive parent-only 1Cor.8.1-1Cor.10.33 overlay."
+reason_for_inclusion: "Record the post-pilot same-baseline review, no-context audit review, and child-necessity review so future agents cannot treat the T374 overlay as child-span, graph/retrieval, evaluator, or broader epistle authority."
+---
+schema_version: t375_post_pilot_review.v1
+review_id: t375_1cor8_10_post_pilot_review
+task_id: T375
+status: complete_review_only_child_spans_not_necessary_now
+owner: Lowell Wong
+reviewer: Codex
+review_date: "2026-06-20"
+scope:
+  lane: epistle_argument
+  selected_target: 1cor8_10_food_offered_to_idols
+  selected_passage: 1Cor.8-1Cor.10
+  selected_parent: 1Cor.8.1-1Cor.10.33
+  selected_children: []
+  prior_reviewed_gold_case_id: 1cor8_10_parent_only_reviewed_gold
+  prior_implementation_task: T374
+  implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  prior_decision_register_entry: CD-056
+  decision_register_entry: CD-057
+authority:
+  records_post_pilot_review: true
+  records_same_baseline_review: true
+  records_no_context_audit_review: true
+  records_child_necessity_review: true
+  authorizes_child_spans: false
+  authorizes_child_span_reviewed_gold: false
+  authorizes_new_chunk_output: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_boundary_import: false
+  authorizes_broader_epistle_generalization: false
+  authorizes_whole_bible_output_pass: false
+same_baseline_review:
+  source_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
+  evaluator: pipelines/chunking/evaluate_chunks.py
+  evaluator_formula_changed: false
+  leaderboard_updated: false
+  improvement_claim_allowed: false
+  finding: no_safety_regression_no_improvement_claim
+  baseline_chunk_count: 1136
+  candidate_chunk_count: 1137
+  added_overlay_count: 1
+  baseline_prefix_matches_pre_t374_bytes: true
+  non_target_output_diff_detected: false
+  baseline_chunk_sha256: eda6232b2cb7f0ab4c8dacac10ed672c247a1e41ccb1f807ace05d0ca9eec619
+  candidate_chunk_sha256: 681a0840edd8513daeb204579ed0a1b0b0f818c910abfc83a7890317c3b481e7
+  metric_notes:
+    - "Chunk count increased by exactly one because T374 appended one additive parent overlay."
+    - "Candidate tok_max increased from 1152 to 1622 because the exact parent covers the whole 1Cor.8.1-1Cor.10.33 argument; this is recorded as a review risk, not an improvement."
+    - "Sentence integrity, book crossings, USFM leaks, boundary-basis coverage, metadata carry, and existing gold smoke checks stayed unchanged."
+no_context_audit_review:
+  source_audit_surface: .ai/audits/reports/20260620-T374-additive-parent-overlay.md
+  t375_audit_review_surface: .ai/audits/reports/20260620-T375-post-pilot-review.md
+  finding: audit_trail_sufficient_for_external_no_context_review
+  required_context_present:
+    - exact_owner_selection
+    - implementation_manifest
+    - output_hashes
+    - baseline_prefix_identity
+    - same_baseline_metrics
+    - non_authorizations
+    - decision_register_links
+    - next_route_statement
+  audit_limits:
+    - "The T374 and T375 audit surfaces make the decision traceable but do not authorize child spans, graph/retrieval truth, evaluator changes, or whole-Bible output."
+    - "A future no-context auditor must still read the listed governance artifacts before judging a later output-changing or authority-changing PR."
+child_necessity_review:
+  finding: child_spans_not_necessary_now
+  summary: "child spans are not necessary now for this additive parent-only pilot; later child-span work remains possible only through a separate owner gate with exact governed evidence."
+  rationale:
+    - "The T374 additive parent overlay supplies the exact whole-argument parent while preserving existing baseline chunks byte-identical."
+    - "Those preserved baseline chunks still provide smaller local coverage, so this pilot does not need child spans to avoid losing local access."
+    - "The existing T369 child-span candidates remain useful review options, but T375 does not promote or implement them."
+    - "Adding children now would create new interpretive-boundary authority without a separate owner gate and governed child evidence."
+  current_child_span_authority: none
+  selected_children: []
+  child_span_candidates_not_promoted:
+    - span: 1Cor.8.1-1Cor.8.13
+      reason_not_promoted_now: "Useful review label, but not necessary for the additive parent-only pilot."
+    - span: 1Cor.9.1-1Cor.9.18
+      reason_not_promoted_now: "Useful review label, but apostolic-right structure remains non-authorizing."
+    - span: 1Cor.9.19-1Cor.9.27
+      reason_not_promoted_now: "Useful review label, but discipline/race imagery cannot become an automatic child rule."
+    - span: 1Cor.10.1-1Cor.10.13
+      reason_not_promoted_now: "Useful review label, but Israel examples and cross-references remain evidence only."
+    - span: 1Cor.10.14-1Cor.10.22
+      reason_not_promoted_now: "Useful review label, but table language cannot select a sacramental or ecclesial system."
+    - span: 1Cor.10.23-1Cor.10.33
+      reason_not_promoted_now: "Useful review label, but liberty/conscience boundaries remain non-authorizing."
+  later_child_span_gate_required_if:
+    - future_use_case_needs_internal_argument_units
+    - retrieval_or_review_precision_needs_exact_children
+    - parent_overlay_token_length_becomes_operational_problem
+    - reviewer_finds_parent_only_overlay_hides_material_discourse_structure
+  later_child_span_gate_must_include:
+    - exact_child_spans
+    - governed_child_evidence
+    - theological_risk_review
+    - source_metadata_denial
+    - owner_promotion
+    - decision_register_update
+    - validators_and_tests
+    - non_target_identity_proof
+    - same_baseline_evaluation
+next_route:
+  task_id: T376
+  title: Select Next Chunking Lane From Decision Forecast
+  route_type: next_genre_selection
+  owner_decision_required: true
+  rationale: "T375 completes the required post-pilot review and keeps child spans unauthorized. The next step is owner lane selection, not automatic child-span or output work."
+non_authorizations:
+  - child_span_selection
+  - automatic_child_spans_after_parent_pilot
+  - treating_parent_only_success_as_child_span_denial_forever
+  - treating_t374_overlay_as_truth_bearing_hierarchy
+  - treating_duplicate_parent_coverage_as_child_span_authority
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - evaluator_change
+  - reviewed_gold_promotion
+  - preferred_reading_selection
+  - source_tradition_preference
+  - boundary_import
+  - broader_epistle_generalization
+  - whole_bible_output_pass
+validators:
+  - scripts/validate_t375_post_pilot_review.py
+  - tests/test_t375_post_pilot_review.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

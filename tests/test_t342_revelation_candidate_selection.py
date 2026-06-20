@@ -126,20 +126,19 @@ def test_t342_through_t372_remain_complete_while_live_route_points_to_t373() -> 
     assert future["T371"]["reviewed_gold_promoted"] is True
     assert future["T372"]["status"] == "complete"
     assert future["T372"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
-    assert readiness["next_route"]["task_id"] == "T375"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_post_pilot_review"
-    assert readiness["next_route"]["starts_only_if"] == "T374_additive_parent_overlay_implemented"
-    assert readiness["next_route"]["evidence_packet"] == "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
-    assert readiness["next_route"]["promotion_record"] == ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml"
-    assert readiness["next_route"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
-    assert readiness["next_route"]["harness_plan"] == ".ai/control/t372_route_isolation_harness_plan.yaml"
-    assert readiness["next_route"]["owner_review_docket"] == ".ai/control/1cor8_10_epistle_owner_review_docket.yaml"
-    assert readiness["next_route"]["authorization_record"] == ".ai/control/t373_owner_implementation_authorization.yaml"
-    assert readiness["next_route"]["implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
-    assert readiness["next_route"]["owner_decision_required"] is False
+    assert future["T373"]["status"] == "complete"
+    assert future["T374"]["status"] == "complete_output_changed_additive_parent_overlay"
+    assert future["T375"]["status"] == "complete_review_only_child_spans_not_necessary_now"
+    assert readiness["next_route"]["task_id"] == "T376"
+    assert readiness["next_route"]["route_type"] == "next_genre_selection"
+    assert readiness["next_route"]["starts_only_if"] == "T375_post_pilot_review_complete"
+    assert readiness["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
+    assert readiness["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
+    assert readiness["next_route"]["owner_decision_required"] is True
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
-    assert readiness["next_route"]["selected_children"] == []
+    assert readiness["next_route"]["t375_result"]["child_span_result"] == "child_spans_not_necessary_now"
+    assert readiness["next_route"]["t375_result"]["selected_children"] == []
 
 
 def test_t342_risk_gate_categories_present() -> None:

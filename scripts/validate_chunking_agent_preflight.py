@@ -37,6 +37,7 @@ T372_HARNESS_PLAN = ROOT / ".ai" / "control" / "t372_route_isolation_harness_pla
 T373_AUTHORIZATION = ROOT / ".ai" / "control" / "t373_owner_implementation_authorization.yaml"
 T374_BASELINE_OVERLAP_PACKET = ROOT / ".ai" / "control" / "t374_baseline_overlap_owner_decision_packet.yaml"
 T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_parent_overlay_manifest.yaml"
+T375_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t375_post_pilot_review.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -83,7 +84,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057"}
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
 
@@ -150,6 +151,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t373_owner_implementation_authorization.yaml",
     "t374_baseline_overlap_owner_decision_packet.yaml",
     "t374_additive_parent_overlay_manifest.yaml",
+    "t375_post_pilot_review.yaml",
     "owner_decision_option_presentation_policy.yaml",
     "validate_t373_owner_implementation_authorization.py",
     "validate_t374_additive_parent_overlay.py",
@@ -336,6 +338,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t373_owner_implementation_authorization.yaml",
         ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
         ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+        ".ai/control/t375_post_pilot_review.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -709,6 +712,24 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t374_overlay_text:
             raise PreflightError(f"{_rel(T374_ADDITIVE_OVERLAY_MANIFEST)}: missing T374 overlay phrase {phrase!r}")
+    t375_review_text = _read_text(T375_POST_PILOT_REVIEW)
+    for phrase in (
+        "object_type: t375_post_pilot_review",
+        "status: complete_review_only_child_spans_not_necessary_now",
+        "selected_parent: 1Cor.8.1-1Cor.10.33",
+        "selected_children: []",
+        "decision_register_entry: CD-057",
+        "finding: child_spans_not_necessary_now",
+        "child spans are not necessary now",
+        "authorizes_child_spans: false",
+        "authorizes_new_chunk_output: false",
+        "authorizes_graph_edges: false",
+        "authorizes_retrieval_truth: false",
+        "task_id: T376",
+        "owner_decision_required: true",
+    ):
+        if phrase not in t375_review_text:
+            raise PreflightError(f"{_rel(T375_POST_PILOT_REVIEW)}: missing T375 review phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",

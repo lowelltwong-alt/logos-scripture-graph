@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-20
-**Updated by:** T374 additive parent overlay implementation (Codex)
-**Active task:** -> **T374** implemented Lowell's selected `T374-OVERLAP-B`: exactly one additive parent overlay for `1Cor.8.1-1Cor.10.33`, appended after the pre-T374 baseline chunks with the baseline prefix byte-identical. The implementation manifest is `.ai/control/t374_additive_parent_overlay_manifest.yaml`, validated by `scripts/validate_t374_additive_parent_overlay.py`, and registered as `CD-056`. T375 is the next review-only gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T375 post-pilot review (Codex)
+**Active task:** -> **T375** completed the post-pilot review for the T374 additive parent overlay. `.ai/control/t375_post_pilot_review.yaml`, validated by `scripts/validate_t375_post_pilot_review.py`, records same-baseline review, no-context audit review, child spans not necessary now, and `CD-057`. T376 owner lane selection is the next gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T375 post-pilot review (2026-06-20):** Added
+> `.ai/control/t375_post_pilot_review.yaml`, `docs/roadmap/T375_POST_PILOT_REVIEW.md`, and
+> `.ai/audits/reports/20260620-T375-post-pilot-review.md`, checked by
+> `scripts/validate_t375_post_pilot_review.py`. T375 reviewed the T374 same-baseline evidence and
+> no-context audit trail, recorded `CD-057`, and concluded that child spans are not necessary now
+> because the additive parent-only overlay preserves the whole `1Cor.8.1-1Cor.10.33` argument while
+> existing baseline chunks remain byte-identical for smaller local coverage. This is not a permanent
+> child-span denial and does not authorize child spans, reviewed-gold promotion, route/evaluator
+> behavior, graph/retrieval/vector truth, output changes, preferred readings, source-tradition
+> preference, boundary import, broader epistle generalization, or whole-Bible output. The next gate
+> is T376 owner lane selection.
 
 > **T374 additive parent overlay implementation (2026-06-20):** Updated
 > `pipelines/chunking/orchestrator.py` to append one exact non-truth-bearing parent overlay for

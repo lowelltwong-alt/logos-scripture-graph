@@ -23,3 +23,6 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260620-T374-additive-parent-overlay.md` - No-context audit surface for the T374 output
   implementation; verifies one exact additive parent overlay, baseline-prefix identity,
   non-authorizations, validator coverage, and T375 review-only next route.
+- `20260620-T375-post-pilot-review.md` - No-context audit review for the T375 post-pilot gate;
+  records same-baseline/audit review, child spans not necessary now, and T376 owner lane selection
+  as the next gate.
