@@ -65,6 +65,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/prophetic_oracle_vision_dossier_queue.yaml" in surfaces
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in surfaces
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in surfaces
+    assert ".ai/control/contextual_reading_policy.yaml" in surfaces
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_docket.yaml" in surfaces
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in surfaces

@@ -68,6 +68,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/prophetic_oracle_vision_dossier_queue.yaml",
     ".ai/control/textual_variant_source_tradition_dossier_queue.yaml",
     ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml",
+    ".ai/control/contextual_reading_policy.yaml",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_policy_docket.yaml",
     ".ai/control/textual_critical_policy_owner_options.yaml",
@@ -96,6 +97,8 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "parent_only_gold_as_chunk_boundary_outside_exact_t373_t374_pilot",
     "t374_implementation_without_baseline_overlap_owner_option",
     "child_span_selection_without_later_owner_promotion",
+    "context_as_chunk_boundary_authority",
+    "historical_background_as_scripture_authority",
     "t327g",
     "master_chunker_global_objective",
 }

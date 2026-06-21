@@ -25,7 +25,8 @@ Read these files before making changes:
     apocalyptic/prophetic intertext dossier queue, epistle argument theological issue queue,
     wisdom/dialogue/poetry dossier queue, prophetic/oracle/vision dossier queue,
     textual-variant/source-tradition dossier queue, orthodox original-language pressure passage
-    queue, original-language phrase/context policy, Orthodox Hermeneutic Firewall,
+    queue, original-language phrase/context policy, contextual reading policy,
+    Orthodox Hermeneutic Firewall,
     textual-critical policy requirement docket,
     textual-critical owner options docket, 1Cor.8-10 owner-review docket,
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
@@ -39,6 +40,12 @@ Read these files before making changes:
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
+10. For context-sensitive Bible reading, chunking, review packets, intertexts, historical/cultural
+    background, or proof-texting risk: `.ai/control/contextual_reading_policy.yaml`. It requires
+    immediate, paragraph/section, chapter/book, canonical, original-language, historical/cultural,
+    and source-metadata context as applicable. Context is evidence and guardrail, not doctrine,
+    chunk-boundary, graph/retrieval, route/evaluator, reviewed-gold, output, or history-repo
+    authority. Tags: `contextual-reading`, `chapter-context`, `historical-context`.
 10. For reusable lessons, lesson discovery, or "why was this remembered?" questions:
     `.ai/control/chunking_lesson_index.yaml`. It is the tagged lesson TOC/graph with categories,
     use-when routing, related decisions/tasks, downstream risks, source surfaces, validators, and
@@ -170,6 +177,14 @@ Bible-first chunking priority:
   `scripts/validate_chunking_lesson_index.py` and does not authorize chunk output, reviewed-gold
   promotion, route/evaluator behavior, graph/retrieval/vector truth, boundary import, or theology
   claims.
+- The contextual reading policy at `.ai/control/contextual_reading_policy.yaml` is required
+  preflight for Bible reading, chunking, review-packet, graph, retrieval, route, evaluator, and
+  theology-risk work. It records that immediate previous/following context, paragraph or section
+  context, chapter/book flow, canonical links, original-language context, historical/cultural
+  background, and source metadata context must be considered as applicable. It is validated by
+  `scripts/validate_contextual_reading_policy.py`. It does not authorize doctrine, reviewed gold,
+  chunk boundaries, graph/retrieval truth, route/evaluator changes, output changes, or a separate
+  history repo.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing

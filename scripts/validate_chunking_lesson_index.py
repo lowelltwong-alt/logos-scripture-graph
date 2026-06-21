@@ -53,6 +53,7 @@ REQUIRED_CATEGORIES = {
     "auditability",
     "workflow_governance",
     "graph_retrieval_vector",
+    "contextual_reading",
 }
 
 REQUIRED_LESSON_IDS = {
@@ -66,6 +67,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-008",
     "LSN-009",
     "LSN-010",
+    "LSN-011",
 }
 
 REQUIRED_TAGS = {
@@ -81,6 +83,9 @@ REQUIRED_TAGS = {
     "parent-first-pilot",
     "graph",
     "no-context-review",
+    "contextual-reading",
+    "chapter-context",
+    "historical-context",
 }
 
 REQUIRED_SURFACES = {
@@ -89,6 +94,7 @@ REQUIRED_SURFACES = {
     ".ai/control/chunking_theological_decision_register.yaml",
     ".ai/control/source_metadata_research_atlas.yaml",
     ".ai/control/original_language_phrase_context_policy.yaml",
+    ".ai/control/contextual_reading_policy.yaml",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",

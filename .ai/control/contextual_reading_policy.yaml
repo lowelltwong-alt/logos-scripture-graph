@@ -1,0 +1,197 @@
+---
+object_type: contextual_reading_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-21 during T383 after the maintainer asked how to encode that context always matters when reading the Bible, including previous paragraphs, chapter/book context, canonical context, and whether a separate history repo is needed."
+reason_for_inclusion: "Make layered context a mandatory non-output-changing preflight discipline for chunking and review packets while keeping Scripture authority above historical, metadata, and model-inferred context."
+---
+schema_version: contextual_reading_policy.v1
+policy_id: t383_contextual_reading_policy
+owner: Lowell Wong
+status: active_non_output_changing_policy
+research_assessment:
+  short_answer: "Yes, context always matters; encode it as required layered evidence, not as automatic chunk or doctrine authority."
+  refined_rule: "Every chunking, review-packet, graph, retrieval, route, evaluator, or theological-risk task must consider immediate discourse, paragraph/section, chapter/book, canonical, original-language, historical/cultural, and source-metadata context as applicable before making or proposing boundaries."
+  why_this_matters: "A verse or phrase isolated from its local, book-level, canonical, language, or historical setting can become proof-texting, hidden system selection, anti-orthodox smuggling, or accidental output authority."
+authority:
+  records_contextual_reading_policy: true
+  may_surface_context_evidence_for_review: true
+  authorizes_scripture_truth: false
+  authorizes_doctrinal_system: false
+  authorizes_historical_context_as_authority: false
+  authorizes_cultural_background_as_authority: false
+  authorizes_canonical_intertext_truth: false
+  authorizes_original_language_truth: false
+  authorizes_source_metadata_truth: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_chunk_output_change: false
+scope:
+  corpus_scope: canonical_66
+  research_mode: non_output_changing
+  relation_to_t382: "Extends the T382 lesson index by adding LSN-011 so future agents discover context discipline by tag and use-when trigger."
+  relation_to_t376: "Parallel preflight governance only; does not supersede the T376 owner lane-selection gate."
+  relation_to_history_repo: "Do not create a separate history repo from T383. A later historical-background sidecar may be proposed only as learning-sidecar/proposed evidence that cannot govern Scripture, chunk output, graph truth, retrieval truth, or doctrine."
+context_layers_required:
+  - layer_id: immediate_discourse_context
+    required_when: "A task cites or proposes any passage span, verse, sentence, speech, oracle, argument move, or local boundary."
+    must_record:
+      - exact_passage_scope
+      - previous_sentence_or_unit_if_available
+      - following_sentence_or_unit_if_available
+      - immediate_discourse_or_narrative_flow
+      - why_isolation_would_mislead_if_relevant
+    non_authorization: "Immediate context is evidence only and does not by itself authorize doctrine, reviewed gold, graph edges, retrieval truth, chunk boundaries, route behavior, or output changes."
+  - layer_id: paragraph_section_context
+    required_when: "A source paragraph, section heading, poetic stanza, speech unit, oracle marker, discourse marker, or pericope boundary may affect the proposed span."
+    must_record:
+      - paragraph_or_section_scope_if_available
+      - source_marker_or_heading_if_relevant
+      - adjacent_paragraph_or_section_relation
+      - whether_source_formatting_is_metadata_only
+    non_authorization: "Paragraphs, headings, markers, and sections are evidence only; they do not become automatic chunk-boundary, speaker, doctrine, graph, retrieval, or output authority."
+  - layer_id: chapter_book_context
+    required_when: "A proposed boundary or theological-risk note depends on the broader chapter, book argument, narrative arc, speech cycle, covenant frame, oracle collection, or authorial flow."
+    must_record:
+      - chapter_context_summary
+      - book_argument_or_narrative_context
+      - genre_context
+      - risk_if_the_span_is_detached_from_book_flow
+    non_authorization: "Chapter and book context is evidence only and guards against proof-texting, but it does not authorize one outline, denominational system, reviewed gold, route behavior, graph truth, or output change."
+  - layer_id: canonical_context
+    required_when: "A packet cites cross-references, OT/NT quotation or allusion, typology, Daniel/Revelation links, fulfillment language, repeated phrases, or canon-sensitive claims."
+    must_record:
+      - canonical_links_considered
+      - source_of_cross_reference_or_allusion
+      - whether_link_is_editorial_observed_or_reviewed
+      - orthodox_options_preserved
+    non_authorization: "Canonical context is evidence only and required for review, but editorial cross-references, allusion candidates, or model-inferred links do not automatically authorize intertext truth, graph edges, chunk boundaries, retrieval truth, or doctrine."
+  - layer_id: original_language_context
+    required_when: "A packet uses Greek/Hebrew words, lemmas, Strong's-style tags, morphology, grammar labels, lexical rarity, phrase claims, or translation divergence."
+    must_record:
+      - phrase_clause_syntax_context
+      - discourse_context
+      - textual_variant_dependency_if_any
+      - relation_to_original_language_phrase_context_policy
+    non_authorization: "Original-language context is evidence only and follows the phrase/context policy; it does not authorize source-language truth, translation preference, doctrine, graph edges, retrieval truth, chunk boundaries, or output changes."
+  - layer_id: historical_cultural_context
+    required_when: "A task invokes audience, date, empire, temple, synagogue, geography, Greco-Roman or ancient Near Eastern background, church history, Jewish background, or historical setting."
+    must_record:
+      - historical_or_cultural_background_used
+      - source_or_absence_of_source
+      - whether_background_is_necessary_or_optional
+      - anti_smuggling_review
+    non_authorization: "Historical and cultural background is evidence only and serves Scripture; it cannot override the text, require anti-supernatural or liberal-critical defaults, govern chunks, or become doctrine authority."
+  - layer_id: source_metadata_context
+    required_when: "A task uses internal cross-references, headings, footnotes, Strong's-style numbers, WJ/red-letter markers, capitalization, paragraphing, poetry markers, alternate readings, or other edition formatting."
+    must_record:
+      - metadata_type_used
+      - source_surface
+      - evidence_only_status
+      - related_metadata_policy_or_inventory
+    non_authorization: "Source metadata is evidence only and never automatic Scripture truth, lexical truth, speaker truth, intertext truth, graph truth, retrieval truth, chunk-boundary authority, or output authority."
+context_window_defaults:
+  review_packet_minimum:
+    previous_context: "Record the previous sentence, paragraph, or discourse unit when available, or explain why it is not relevant."
+    following_context: "Record the following sentence, paragraph, or discourse unit when available, or explain why it is not relevant."
+    broader_context: "Record the chapter/book function and any canonical links that materially reduce proof-texting risk."
+    history_context: "Record historical/cultural background only when it helps the text be read in context; keep it lower than canonical Scripture authority."
+  output_changing_prerequisite:
+    required: true
+    rule: "Any future output-changing chunk work must include contextual reading review or an explicit no-impact rationale before implementation."
+future_history_sidecar_policy:
+  create_history_repo_now: false
+  possible_future_repo_name: logos-biblical-background
+  allowed_trust_zones: [learning-sidecar, proposed]
+  allowed_role: "Historical/cultural evidence, background bibliography, geography, audience, dating, and Second Temple/Greco-Roman/ANE context for review packets."
+  disallowed_roles:
+    - scripture_authority
+    - doctrine_authority
+    - chunk_boundary_authority
+    - graph_edge_authority
+    - retrieval_truth_authority
+    - anti_supernatural_default
+    - liberal_critical_default
+    - source_of_canon_scope_change
+  required_before_creation:
+    - owner_authorization
+    - cross_repo_governance_contract
+    - trust_zone_policy
+    - anti_smuggling_validator
+    - no_default_retrieval_or_chunk_authority
+required_future_review_packet_fields:
+  - exact_passage_scope
+  - immediate_previous_context
+  - immediate_following_context
+  - paragraph_or_section_context
+  - chapter_context
+  - book_argument_or_narrative_context
+  - canonical_context_links_considered
+  - original_language_context_if_used
+  - historical_cultural_context_if_used
+  - source_metadata_context_if_used
+  - context_needed_to_avoid_prooftexting
+  - assumptions_avoided
+  - orthodox_options_preserved
+  - theological_downstream_risks
+  - reviewed_gold_dependency
+  - non_authorizations
+  - validator_or_test_plan
+contextual_reading_lessons:
+  - lesson_id: context_before_boundary
+    rule: "Before proposing a chunk boundary, read the passage inside immediate, paragraph, chapter/book, canonical, and relevant language/history context."
+    use_when: "Any task proposes, audits, or prepares a passage boundary or review-packet target."
+    non_authorization: "Context review is required discipline, not automatic chunk authority or output permission."
+  - lesson_id: immediate_neighbors_matter
+    rule: "Previous and following units can carry argument, speaker, contrast, warning, promise, or narrative dependencies that a span alone may hide."
+    use_when: "A proposed span starts or ends near a paragraph, discourse, speech, oracle, argument, or scene transition."
+    non_authorization: "Adjacent context does not authorize widening, narrowing, child spans, graph edges, or output changes without governed review."
+  - lesson_id: chapter_book_argument_matter
+    rule: "A passage must be read inside the chapter and book flow, especially in epistles, prophecy, Gospel discourse, narrative, wisdom, and Revelation."
+    use_when: "A packet mentions argument flow, pericope, oracle sequence, speech cycle, fulfillment, covenant frame, or book-level structure."
+    non_authorization: "Book-level context guards review but does not authorize one outline, system, route behavior, or doctrine."
+  - lesson_id: canonical_context_preserves_interpretive_scope
+    rule: "Cross-references, quotations, allusions, repeated phrases, and typology must preserve canonical context without turning editorial or model-inferred links into truth."
+    use_when: "A packet touches intertexts, Daniel/Revelation links, OT-in-NT use, fulfillment claims, or repeated phrase networks."
+    non_authorization: "Canonical links require review and cannot authorize automatic graph truth, retrieval truth, chunk boundaries, or theological claims."
+  - lesson_id: history_serves_scripture_not_governs_it
+    rule: "Historical/cultural background can clarify setting, but canonical Scripture remains the governing authority."
+    use_when: "A packet invokes audience, date, empire, temple, geography, Jewish background, Greco-Roman or ANE setting, or later reception."
+    non_authorization: "History cannot override Scripture, import anti-supernatural assumptions, authorize liberal-critical defaults, or govern chunks."
+  - lesson_id: context_does_not_authorize_output
+    rule: "Context discipline is a prerequisite for faithful review, but output changes still require exact owner authorization, reviewed gold or governed evidence, validators, and non-target identity proof."
+    use_when: "A future agent treats context review as enough to implement chunk, route, graph, retrieval, evaluator, or output behavior."
+    non_authorization: "No context layer authorizes chunk output, reviewed gold, graph/retrieval truth, route behavior, evaluator changes, or boundary import by itself."
+non_authorizations:
+  - prooftexting_from_isolated_verse
+  - context_as_doctrinal_system
+  - context_as_chunk_boundary_authority
+  - context_as_reviewed_gold
+  - context_as_route_behavior
+  - context_as_evaluator_change
+  - context_as_graph_edge
+  - context_as_retrieval_truth
+  - historical_background_as_scripture_authority
+  - cultural_background_as_doctrine_authority
+  - anti_supernatural_default
+  - liberal_critical_default
+  - editorial_cross_reference_as_canonical_intertext_truth
+  - model_inferred_context_as_truth
+  - metadata_as_context_authority
+  - history_sidecar_as_canonical_repo
+  - boundary_import
+  - chunk_output_change
+validators:
+  - scripts/validate_contextual_reading_policy.py
+  - tests/test_contextual_reading_policy.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_chunking_lesson_index.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_all.py
+...

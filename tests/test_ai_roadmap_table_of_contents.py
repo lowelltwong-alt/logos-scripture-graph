@@ -58,6 +58,10 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "lessons-learned",
         "lesson-index",
         "lesson-graph",
+        "contextual_reading_policy.yaml",
+        "contextual-reading",
+        "chapter-context",
+        "historical-context",
         "owner-projection",
         "conflict-scan",
         "orthodox-hermeneutic-firewall",
@@ -112,6 +116,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`audit`",
         "`task-scope`",
         "`T382`, `lessons-learned`, `lesson-index`, `lesson-graph`",
+        "`T383`, `contextual-reading`, `prooftexting`",
         "`john3`, `owner-review`, `speaker-boundary`",
         "`divine-capitalization`, `source-metadata`, `harness`",
         "`source-metadata-atlas`, `cross-references`, `strongs`, `wj`, `capitalization`",
@@ -124,6 +129,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-variant`, `source-tradition`, `canon-scope`, `boundary-routing`, `mark16`, `pericope-adulterae`",
         "`original-language`, `grammar-overlay`, `greek`, `hebrew`, `non-orthodox`, `lds`",
         "`original-language`, `phrase/context`, `greek`, `hebrew`, `isolated word`",
+        "`contextual-reading`, `context`, `prooftexting`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
@@ -297,6 +303,12 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_chunking_lesson_index.py" in toc
     assert ".ai/tasks/T382.task.yaml" in toc
     assert ".ai/handoffs/T382/handoff.md" in toc
+    assert "T383 | Contextual reading policy" in toc
+    assert "docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md" in toc
+    assert ".ai/control/contextual_reading_policy.yaml" in toc
+    assert "scripts/validate_contextual_reading_policy.py" in toc
+    assert ".ai/tasks/T383.task.yaml" in toc
+    assert ".ai/handoffs/T383/handoff.md" in toc
     assert "T376 - Select Next Chunking Lane From Decision Forecast" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
