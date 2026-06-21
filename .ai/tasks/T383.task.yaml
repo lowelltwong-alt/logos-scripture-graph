@@ -1,0 +1,83 @@
+id: T383
+phase: phase_4
+title: "Contextual Reading Policy"
+mode: governance
+status: complete
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/contextual_reading_policy.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T383.task.yaml
+    - .ai/handoffs/T383/
+    - .ai/audits/reports/20260621-T383-contextual-reading-policy.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md
+    - scripts/validate_contextual_reading_policy.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_contextual_reading_policy.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_output_changing_contextual_reading_policy
+  decision_register_entry: CD-059
+  records_lesson: LSN-011
+  authorizes_context_as_scripture_truth: false
+  authorizes_historical_context_as_authority: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_chunk_output_change: false
+acceptance_criteria:
+  - "Add a contextual reading policy requiring immediate, paragraph/section, chapter/book, canonical, original-language, historical/cultural, and source-metadata context review as applicable."
+  - "Record that historical/cultural background may be useful evidence but cannot override Scripture, authorize liberal-critical or anti-supernatural defaults, or govern chunks."
+  - "Record that no separate history repo is created now; any future history sidecar must be lower-trust and non-authorizing."
+  - "Add LSN-011, CD-059, workflow lesson, preflight, readiness map, TOC, roadmap/status, audit, handoff, validator, and tests."
+  - "Confirm no raw/canonical/processed/derived chunk output, eval leaderboard, graph, retrieval, vector, route runtime, or evaluator runtime surfaces change."
+validation:
+  - python scripts/validate_contextual_reading_policy.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T383
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T383/handoff.md
+next_task: "T376 owner lane selection remains the next human decision gate. Do not select a lane, implement chunks, promote reviewed gold, alter evaluator formulas, generate graph/retrieval/vector truth, import boundaries, create a history repo, or run whole-Bible output from T383."
+created_at: "2026-06-21"
+updated_at: "2026-06-21"

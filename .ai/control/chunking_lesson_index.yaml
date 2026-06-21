@@ -2,13 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph."
-reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-21 during T383 to add contextual reading discipline."
+reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
+last_updated_by_task: T383
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -58,6 +59,8 @@ category_taxonomy:
     use_when: "A lesson affects preflight, midflight, postflight, handoff, validator, TOC, task scope, or methodology behavior."
   - category_id: graph_retrieval_vector
     use_when: "Work could create graph edges, retrieval truth, vector/embedding output, or allow evidence labels to become truth-bearing."
+  - category_id: contextual_reading
+    use_when: "A passage, verse, phrase, review packet, boundary, intertext, historical background note, or source-metadata observation needs local, book, canonical, language, or historical context."
 lessons:
   - lesson_id: LSN-001
     title: Source metadata is evidence, not authority
@@ -366,6 +369,41 @@ lessons:
     validators:
       - scripts/validate_audit_surface_map.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-011
+    title: Context always matters
+    lifecycle_status: active
+    priority: P0
+    categories: [contextual_reading, theological_risk, workflow_governance]
+    tags: [context, contextual-reading, prooftexting, immediate-context, previous-context, following-context, paragraph-context, chapter-context, book-context, canonical-context, historical-context, source-metadata-context]
+    use_when:
+      - "A future agent reads, chunks, reviews, cites, or proposes a boundary for any passage and needs to know what local, book, canonical, original-language, historical, or metadata context must be considered."
+      - "A task asks whether previous paragraphs, chapter context, the rest of a book, cross-references, or historical background should affect faithful chunking."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - docs/methodology/WORKFLOW_LESSONS.md
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-059]
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-006]
+    related_task_ids: [T383]
+    downstream_risk: "A verse, phrase, or boundary isolated from its immediate, paragraph, chapter/book, canonical, language, or historical setting can create proof-texting, hidden system selection, anti-orthodox smuggling, or accidental output authority."
+    required_preflight_surfaces:
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - context_as_doctrinal_system
+      - context_as_chunk_boundary_authority
+      - historical_context_as_scripture_authority
+      - editorial_cross_reference_as_intertext_truth
+      - model_inferred_context_as_truth
+      - history_sidecar_as_canonical_repo
+      - chunk_output_change_from_context
+    validators:
+      - scripts/validate_contextual_reading_policy.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -394,4 +432,16 @@ lesson_graph:
   - from: LSN-003
     relation: discovers
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-011
+  - from: LSN-011
+    relation: constrains
+    to: LSN-001
+  - from: LSN-011
+    relation: constrains
+    to: LSN-004
+  - from: LSN-011
+    relation: constrains
+    to: LSN-005
 validator: scripts/validate_chunking_lesson_index.py

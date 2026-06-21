@@ -39,6 +39,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
     assert ".ai/control/original_language_phrase_context_policy.yaml" in reading
+    assert ".ai/control/contextual_reading_policy.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
@@ -82,6 +83,9 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "orthodox_original_language_pressure_dossier_queue.yaml" in text
     assert "original_language_phrase_context_policy.yaml" in text
     assert "validate_original_language_phrase_context_policy.py" in text
+    assert "contextual_reading_policy.yaml" in text
+    assert "validate_contextual_reading_policy.py" in text
+    assert "contextual-reading" in text
     assert "orthodox_hermeneutic_firewall_docket.yaml" in text
     assert "textual_critical_policy_docket.yaml" in text
     assert "textual_critical_policy_owner_options.yaml" in text
@@ -132,6 +136,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "BIBLE-CHUNKING-WORKFLOW-LESSON-004" in lessons
     assert "WORKFLOW-LESSON-004" in lessons
     assert "WORKFLOW-LESSON-005" in lessons
+    assert "WORKFLOW-LESSON-006" in lessons
     assert "Lessons Need A Tagged Index And Graph" in lessons
     assert "AI Tables Of Contents Need Tags And Use-When Routing" in lessons
     assert "CD-015" in register
@@ -174,7 +179,9 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-056" in register
     assert "CD-057" in register
     assert "CD-058" in register
+    assert "CD-059" in register
     assert "Chunking lesson index is mandatory tagged preflight memory" in register
+    assert "Contextual reading discipline is mandatory non-authorizing preflight" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
     assert "Source-metadata research atlas is evidence-only review memory" in register
     assert "Apocalyptic and prophetic intertext dossiers preserve hermeneutic options" in register
@@ -226,6 +233,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/textual_variant_source_tradition_dossier_queue.yaml" in reading
     assert ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml" in reading
     assert ".ai/control/original_language_phrase_context_policy.yaml" in reading
+    assert ".ai/control/contextual_reading_policy.yaml" in reading
     assert ".ai/control/orthodox_hermeneutic_firewall_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_docket.yaml" in reading
     assert ".ai/control/textual_critical_policy_owner_options.yaml" in reading
@@ -284,10 +292,13 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-056" in register_entry["required_decision_ids"]
     assert "CD-057" in register_entry["required_decision_ids"]
     assert "CD-058" in register_entry["required_decision_ids"]
+    assert "CD-059" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-005" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
+    assert "WORKFLOW-LESSON-006" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "LSN-001" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-010" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-011" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 
@@ -303,3 +314,4 @@ def test_midflight_lesson_capture_is_enforced() -> None:
     assert ".ai/control/chunking_agent_preflight.yaml" in capture["required_surfaces"]
     assert ".ai/control/chunking_lesson_index.yaml" in capture["required_surfaces"]
     assert "update_chunking_lesson_index_if_lesson_relationship_or_tags_change" in capture["required_action_before_task_close"]
+    assert "contextual_reading_review" in data["future_output_changing_use_requires"]

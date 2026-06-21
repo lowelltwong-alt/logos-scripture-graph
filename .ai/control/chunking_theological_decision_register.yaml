@@ -2459,6 +2459,54 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-059
+    title: Contextual reading discipline is mandatory non-authorizing preflight
+    classification: theological_risk
+    task_ids: [T383]
+    owner_decision_ref: ".ai/control/contextual_reading_policy.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [future_review_packets, future_chunking_targets]
+      routes: [chunking_preflight, review_packet_prep, graph_or_retrieval_review, future_output_gates]
+      surfaces: [.ai/control/contextual_reading_policy.yaml, .ai/control/chunking_agent_preflight.yaml, .ai/control/chunking_lesson_index.yaml, docs/methodology/WORKFLOW_LESSONS.md, docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md]
+    decision: "Future chunking, review-packet, graph, retrieval, route, evaluator, or theological-risk work must consider layered context as applicable before proposing or using a passage boundary: immediate previous/following discourse, paragraph/section context, chapter/book flow, canonical links, original-language context if used, historical/cultural background if relevant, and source metadata context if cited. Context is required evidence and guardrail, but it does not authorize doctrine, reviewed gold, chunk boundaries, route/evaluator behavior, graph/retrieval truth, vector work, boundary import, output changes, or a separate history repo."
+    downstream_risk: "A verse, phrase, or boundary isolated from context can create proof-texting, hidden theological system selection, anti-orthodox smuggling, liberal-critical or anti-supernatural defaults, or false graph/retrieval/chunk authority."
+    theological_assumptions_avoided:
+      - "No historical/cultural background is allowed to override canonical Scripture."
+      - "No editorial cross-reference, allusion candidate, or model-inferred context becomes canonical intertext truth."
+      - "No chapter/book outline becomes one denomination's systematic theology as chunk authority."
+      - "No context review becomes output permission, reviewed gold, graph truth, retrieval truth, or route behavior."
+      - "No history sidecar is created or treated as canonical authority by this task."
+    reviewed_gold_dependency: "None. Contextual reading is required preflight evidence. Any future output-changing use still requires exact owner authorization, reviewed gold or equivalent governed evidence, decision-register update, validators/tests, non-target identity proof, same-baseline evaluation, and no-context audit."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - context_as_doctrinal_system
+      - context_as_chunk_boundary_authority
+      - historical_background_as_scripture_authority
+      - cultural_background_as_doctrine_authority
+      - editorial_cross_reference_as_canonical_intertext_truth
+      - model_inferred_context_as_truth
+      - anti_supernatural_default
+      - liberal_critical_default
+      - history_sidecar_as_canonical_repo
+    validators:
+      - scripts/validate_contextual_reading_policy.py
+      - tests/test_contextual_reading_policy.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2556,4 +2604,5 @@ backfill_coverage:
     - T374
     - T375
     - T382
+    - T383
 ...

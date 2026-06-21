@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-20
-**Updated by:** T382 chunking lesson index (Codex)
-**Active task:** -> **T382** added `.ai/control/chunking_lesson_index.yaml`, validated by `scripts/validate_chunking_lesson_index.py`, as the tagged lesson TOC/graph for reusable chunking lessons. It records `CD-058` and keeps T376 owner lane selection as the next human gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-21
+**Updated by:** T383 contextual reading policy (Codex)
+**Active task:** -> **T383** added `.ai/control/contextual_reading_policy.yaml`, validated by `scripts/validate_contextual_reading_policy.py`, as mandatory layered context preflight for Bible reading, chunking, review packets, intertexts, history, and metadata context. It records `CD-059` and `LSN-011`, and keeps T376 owner lane selection as the next human gate. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T383 contextual reading policy (2026-06-21):** Added
+> `.ai/control/contextual_reading_policy.yaml`, `docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md`,
+> and `.ai/audits/reports/20260621-T383-contextual-reading-policy.md`, checked by
+> `scripts/validate_contextual_reading_policy.py`. T383 records that context always matters:
+> immediate previous/following context, paragraph/section context, chapter/book flow, canonical
+> links, original-language context, historical/cultural background, and source metadata context
+> must be considered as applicable before chunking or review use. Historical/cultural background
+> remains evidence only and cannot override Scripture, authorize liberal-critical or
+> anti-supernatural defaults, govern chunks, or create a history repo. T383 records `CD-059` and
+> `LSN-011` and does not authorize output, reviewed gold, route/evaluator behavior,
+> graph/retrieval/vector truth, boundary import, doctrine, or history-sidecar authority. T376 owner
+> lane selection remains the next gate.
 
 > **T382 chunking lesson index (2026-06-20):** Added
 > `.ai/control/chunking_lesson_index.yaml`, `docs/roadmap/T382_CHUNKING_LESSON_INDEX.md`, and

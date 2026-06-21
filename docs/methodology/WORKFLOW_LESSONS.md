@@ -279,6 +279,29 @@ Required routing:
 - If it is machine-checkable, add or update a validator/test.
 - If no durable surface changes, record the no-change rationale in the task handoff.
 
+## WORKFLOW-LESSON-006 - Context Always Matters Before Chunking
+
+Every Bible passage must be read in context before a chunking, review-packet, graph, retrieval,
+route, evaluator, or theological-risk task treats it as evidence. At minimum, future agents should
+check the immediate previous/following unit, paragraph or section context, chapter and book flow,
+canonical context, original-language context if used, historical/cultural background if relevant,
+and source metadata context if cited.
+
+This lesson exists because a verse, phrase, or proposed boundary isolated from its setting can
+become proof-texting, hidden system selection, anti-orthodox smuggling, or accidental output
+authority.
+
+Required routing:
+
+- Read `.ai/control/contextual_reading_policy.yaml` before chunking or review-packet work.
+- Record immediate, local, book, canonical, language, historical, and metadata context fields in
+  future review packets when applicable.
+- Keep historical/cultural background lower than canonical Scripture authority.
+- Do not create a separate history repo unless later owner authorization, trust-zone policy,
+  cross-repo governance, and anti-smuggling validation exist.
+- Treat context as required evidence and guardrail, not automatic doctrine, chunk-boundary,
+  reviewed-gold, graph, retrieval, route, evaluator, or output authority.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures

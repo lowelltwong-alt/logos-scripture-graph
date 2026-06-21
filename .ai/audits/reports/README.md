@@ -29,3 +29,6 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260620-T382-chunking-lesson-index.md` - No-context audit surface for the T382 lesson-index
   governance task; records the tagged lesson TOC/graph, CD-058, validator coverage, and the
   non-authorizing boundary.
+- `20260621-T383-contextual-reading-policy.md` - No-context audit surface for the T383 contextual
+  reading policy; records layered context preflight, CD-059, LSN-011, validator coverage, no history
+  repo creation, and non-authorizations.
