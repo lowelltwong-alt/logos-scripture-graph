@@ -40,7 +40,7 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
     assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
-    assert by_lane["epistle_argument"]["current_state"] == "t375_post_pilot_review_complete_next_lane_selection_required"
+    assert by_lane["epistle_argument"]["current_state"] == "t376_a_epistle_research_runway_selected_next_t384_options_matrix"
     assert all(
         lane["new_algorithm_work_ready"] is False
         for lane in by_lane.values()
@@ -77,6 +77,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in surfaces
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in surfaces
     assert ".ai/control/t375_post_pilot_review.yaml" in surfaces
+    assert ".ai/control/t376_epistle_research_runway.yaml" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -119,7 +120,7 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T376"
+    assert data["next_route"]["task_id"] == "T384"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -134,7 +135,7 @@ def test_parallel_original_language_pressure_queue_does_not_replace_next_route()
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_original_language_pressure_queue"]
 
-    assert data["next_route"]["task_id"] == "T376"
+    assert data["next_route"]["task_id"] == "T384"
     assert queue["task_id"] == "T377"
     assert queue["route_type"] == "cross_lane_original_language_pressure_memory"
     assert queue["path"] == ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml"
@@ -153,7 +154,7 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_textual_critical_policy_options"]
 
-    assert data["next_route"]["task_id"] == "T376"
+    assert data["next_route"]["task_id"] == "T384"
     assert queue["task_id"] == "T378"
     assert queue["path"] == ".ai/control/textual_critical_policy_owner_options.yaml"
     assert queue["recommended_option"] == "TCP-T378-B"
@@ -171,7 +172,7 @@ def test_parallel_textual_critical_case_policy_records_t379_without_promotion() 
     data = validator.validate_readiness_map(READINESS_MAP)
     policy = data["parallel_textual_critical_case_policy"]
 
-    assert data["next_route"]["task_id"] == "T376"
+    assert data["next_route"]["task_id"] == "T384"
     assert policy["task_id"] == "T379"
     assert policy["path"] == ".ai/control/textual_critical_case_policy.yaml"
     assert policy["selected_policy"] == "TCP-T378-B"
@@ -188,7 +189,7 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
     packet = data["parallel_t371_owner_decision_packet"]
 
-    assert data["next_route"]["task_id"] == "T376"
+    assert data["next_route"]["task_id"] == "T384"
     assert data["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert packet["task_id"] == "T380"
     assert packet["path"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
@@ -208,29 +209,29 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert packet["implementation_authorized"] is False
 
 
-def test_next_route_advances_to_t376_after_t375_review() -> None:
+def test_next_route_advances_to_t384_after_t376_selection() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T376"
-    assert data["next_route"]["route_type"] == "next_genre_selection"
-    assert data["next_route"]["starts_only_if"] == "T375_post_pilot_review_complete"
+    assert data["next_route"]["task_id"] == "T384"
+    assert data["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert data["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
+    assert data["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert data["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert data["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
-    assert set(data["next_route"]["prior_decision_register_entries"]) == {"CD-056", "CD-057"}
-    assert data["next_route"]["selection_mode"] == "owner_decision_required"
-    assert data["next_route"]["owner_decision_required"] is True
-    assert {option["option_id"] for option in data["next_route"]["available_lane_options"]} >= {
-        "T376-A",
-        "T376-B",
-        "T376-C",
-        "T376-D",
+    assert set(data["next_route"]["prior_decision_register_entries"]) == {"CD-056", "CD-057", "CD-060"}
+    assert data["next_route"]["selected_t376_option"] == "T376-A"
+    assert data["next_route"]["selected_lane"] == "epistle_argument"
+    assert data["next_route"]["selection_mode"] == "research_first_non_authorizing"
+    assert data["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
+    assert data["next_route"]["exact_target_selected"] is False
+    assert {option["option_id"] for option in data["next_route"]["available_target_options"]} >= {
+        "T384-A",
+        "T384-B",
+        "T384-C",
+        "T384-D",
+        "T384-E",
+        "T384-F",
     }
-    assert data["next_route"]["t375_result"]["selected_parent"] == "1Cor.8.1-1Cor.10.33"
-    assert data["next_route"]["t375_result"]["selected_children"] == []
-    assert data["next_route"]["t375_result"]["same_baseline_reviewed"] is True
-    assert data["next_route"]["t375_result"]["no_context_audit_reviewed"] is True
-    assert data["next_route"]["t375_result"]["child_necessity_reviewed"] is True
-    assert data["next_route"]["t375_result"]["child_span_result"] == "child_spans_not_necessary_now"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
     assert data["next_route"]["reviewed_gold_promoted"] is False
@@ -238,7 +239,9 @@ def test_next_route_advances_to_t376_after_t375_review() -> None:
     assert data["next_route"]["child_spans_authorized"] is False
     assert data["next_route"]["evaluator_change_authorized"] is False
     assert data["next_route"]["graph_edge_generation_allowed"] is False
-    assert "T376_selects_lane_without_owner_decision" in data["next_route"]["must_fail_if"]
+    assert data["next_route"]["embedding_or_vector_work_allowed"] is False
+    assert "T384_selects_exact_target_without_owner_decision" in data["next_route"]["must_fail_if"]
+    assert "research_recommendation_is_treated_as_owner_selection" in data["next_route"]["must_fail_if"]
     assert "child_spans_are_added_without_later_owner_promotion" in data["next_route"]["must_fail_if"]
     assert "whole_bible_output_is_run" in data["next_route"]["must_fail_if"]
 
@@ -271,6 +274,16 @@ def test_next_route_advances_to_t376_after_t375_review() -> None:
     assert review["child_necessity_reviewed"] is True
     assert review["child_spans_necessary_now"] is False
     assert review["next_route"] == "T376"
+    runway = epistle["research_runway_selection"]
+    assert runway["task_id"] == "T376"
+    assert runway["path"] == ".ai/control/t376_epistle_research_runway.yaml"
+    assert runway["selected_option"] == "T376-A"
+    assert runway["exact_target_selected"] is False
+    assert runway["next_route"] == "T384"
+    assert runway["output_change_authorized"] is False
+    assert runway["implementation_authorized"] is False
+    assert runway["reviewed_gold_promoted"] is False
+    assert runway["graph_edge_generation_allowed"] is False
 
     plan = data["parallel_t372_route_isolation_harness_plan"]
     assert plan["task_id"] == "T372"

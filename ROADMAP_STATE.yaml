@@ -1085,13 +1085,22 @@ phases:
         history_sidecar_authority_allowed: false
         next_task: T376
       - id: T376
-        title: Select Next Chunking Lane From Decision Forecast
-        status: ready_owner_decision_required
-        lane: next_genre_selection
+        title: Epistle Argument Research Runway Selection
+        status: complete_selected_research_first_epistle_argument_runway
+        lane: epistle_argument
         starts_only_if: T375_post_pilot_review_complete
-        owner_decision_required: true
+        selected_option: T376-A
+        selected_lane: epistle_argument
+        selected_lane_mode: research_and_prep_only
+        owner_decision_required: false
+        research_runway: .ai/control/t376_epistle_research_runway.yaml
+        required_handoff: .ai/handoffs/T376/handoff.md
         prior_post_pilot_review: .ai/control/t375_post_pilot_review.yaml
         human_decision_forecast: .ai/control/chunking_human_decision_forecast.yaml
+        decision_register_entry: CD-060
+        lesson_index_entry: LSN-012
+        exact_target_selected: false
+        research_autonomy_boundary: research_autonomy_is_not_authority_autonomy
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false
@@ -1100,6 +1109,40 @@ phases:
         evaluator_change_authorized: false
         graph_edge_generation_allowed: false
         retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        next_task: T384
+      - id: T384
+        title: Epistle Argument Research Runway And Target Options Matrix
+        status: ready_non_output_changing_research_prep
+        lane: epistle_argument
+        starts_only_if: T376_A_epistle_argument_research_runway_selected
+        prior_lane_selection: .ai/control/t376_epistle_research_runway.yaml
+        owner_decision_required_before_promotion_or_implementation: true
+        exact_target_selected: false
+        required_target_options: [T384-A, T384-B, T384-C, T384-D, T384-E, T384-F]
+        required_fields:
+          - serious_faithful_target_options
+          - repercussions_for_each_option
+          - contextual_reading_policy_fields
+          - source_metadata_evidence_only_handling
+          - original_language_phrase_context_review_where_used
+          - textual_variant_or_source_tradition_sensitivity
+          - orthodox_hermeneutic_firewall_compliance
+          - no_exact_target_selected
+          - validators_and_tests
+          - audit_surface
+          - handoff_next_owner_gate
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

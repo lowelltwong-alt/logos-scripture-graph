@@ -32,3 +32,6 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260621-T383-contextual-reading-policy.md` - No-context audit surface for the T383 contextual
   reading policy; records layered context preflight, CD-059, LSN-011, validator coverage, no history
   repo creation, and non-authorizations.
+- `20260621-T376-epistle-research-runway.md` - No-context audit surface for the T376-A epistle
+  argument research runway; records CD-060, LSN-012, T384 as the next non-output-changing
+  research/options route, and the boundary between research autonomy and authority autonomy.

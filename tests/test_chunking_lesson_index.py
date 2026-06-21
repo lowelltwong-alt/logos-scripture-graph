@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 12)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 13)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -46,6 +46,8 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "no-context-review" in by_id["LSN-010"]["tags"]
     assert "contextual-reading" in by_id["LSN-011"]["tags"]
     assert "historical-context" in by_id["LSN-011"]["tags"]
+    assert "research-runway" in by_id["LSN-012"]["tags"]
+    assert "authority-boundary" in by_id["LSN-012"]["tags"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

@@ -51,6 +51,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
     assert ".ai/control/t375_post_pilot_review.yaml" in reading
+    assert ".ai/control/t376_epistle_research_runway.yaml" in reading
     assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
@@ -99,6 +100,10 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "validate_t374_additive_parent_overlay.py" in text
     assert "t375_post_pilot_review.yaml" in text
     assert "validate_t375_post_pilot_review.py" in text
+    assert "t376_epistle_research_runway.yaml" in text
+    assert "validate_t376_epistle_research_runway.py" in text
+    assert "Research autonomy is not authority autonomy" in text
+    assert "T384 epistle argument research/options matrix" in text
     assert "chunking_lesson_index.yaml" in text
     assert "validate_chunking_lesson_index.py" in text
     assert "owner_decision_option_presentation_policy.yaml" in text
@@ -112,7 +117,7 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently points to T376 owner lane selection" in text
+    assert "currently points to the T384 epistle argument research/options matrix" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
     assert "Word/word" in text
@@ -137,8 +142,10 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "WORKFLOW-LESSON-004" in lessons
     assert "WORKFLOW-LESSON-005" in lessons
     assert "WORKFLOW-LESSON-006" in lessons
+    assert "WORKFLOW-LESSON-007" in lessons
     assert "Lessons Need A Tagged Index And Graph" in lessons
     assert "AI Tables Of Contents Need Tags And Use-When Routing" in lessons
+    assert "Research Autonomy Is Not Authority Autonomy" in lessons
     assert "CD-015" in register
     assert "CD-018" in register
     assert "CD-021" in register
@@ -180,6 +187,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-057" in register
     assert "CD-058" in register
     assert "CD-059" in register
+    assert "CD-060" in register
     assert "Chunking lesson index is mandatory tagged preflight memory" in register
     assert "Contextual reading discipline is mandatory non-authorizing preflight" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
@@ -210,6 +218,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "WJ speaker and discourse policy selects John 3 for review only" in register
     assert "1 Corinthians 8-10 strengthened packet remains non-authorizing" in register
     assert "Human decision forecast front-loads chunking gates" in register
+    assert "T376-A selects epistle argument research/prep runway" in register
 
 
 def test_divine_capitalization_is_mandatory_preflight_reading() -> None:

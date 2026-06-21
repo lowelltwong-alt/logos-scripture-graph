@@ -2,7 +2,7 @@
 
 Status: living control-plane lesson collector
 Owner: methodology / roadmap governance
-Last updated: 2026-06-20
+Last updated: 2026-06-21
 
 This file collects reusable workflow lessons that apply across generated artifacts, control-plane
 surfaces, boundary-source intake, and adjacent operational systems. It is not canonical Scripture
@@ -301,6 +301,27 @@ Required routing:
   cross-repo governance, and anti-smuggling validation exist.
 - Treat context as required evidence and guardrail, not automatic doctrine, chunk-boundary,
   reviewed-gold, graph, retrieval, route, evaluator, or output authority.
+
+## WORKFLOW-LESSON-007 - Research Autonomy Is Not Authority Autonomy
+
+When the owner authorizes non-output-changing research/prep to continue, agents may compile target
+options, risks, evidence, review-packet drafts, metadata watchpoints, contextual reading fields,
+and original-language or textual-variant sensitivities without stopping at every research step.
+
+That speed-up does not authorize target selection, reviewed-gold promotion, child spans,
+implementation, output, route/evaluator behavior, graph/retrieval/vector truth, boundary import,
+preferred readings, source-tradition preference, canon-scope change, or theological authority.
+
+Required routing:
+
+- Record the runway in a machine-readable control surface such as
+  `.ai/control/t376_epistle_research_runway.yaml`.
+- Add the theological-downstream decision to `.ai/control/chunking_theological_decision_register.yaml`.
+- Add the reusable lesson to `.ai/control/chunking_lesson_index.yaml`.
+- Update `.ai/control/chunking_agent_preflight.yaml` if future agents must read it before work.
+- Add validators/tests that fail if a research surface becomes authorizing.
+- Return to the owner before any promotion, implementation, output, graph/retrieval/vector,
+  boundary-import, or theological-authority decision.
 
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 

@@ -80,6 +80,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
     ".ai/control/t374_additive_parent_overlay_manifest.yaml",
     ".ai/control/t375_post_pilot_review.yaml",
+    ".ai/control/t376_epistle_research_runway.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -171,6 +172,10 @@ ALLOWED_NEXT_ROUTES = {
     "T376": {
         "route_type": "next_genre_selection",
         "title": "Select Next Chunking Lane From Decision Forecast",
+    },
+    "T384": {
+        "route_type": "epistle_argument_research_runway",
+        "title": "Epistle Argument Research Runway And Target Options Matrix",
     },
 }
 
@@ -366,6 +371,56 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
                     raise ReadinessMapError(f"{_rel(path)}:{lane_id}: post_pilot_review.{key} must be {value!r}")
             if review.get("selected_children") != []:
                 raise ReadinessMapError(f"{_rel(path)}:{lane_id}: post_pilot_review.selected_children must be []")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t376_a_epistle_research_runway_selected_next_t384_options_matrix":
+            if lane.get("new_algorithm_work_ready") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T384 research/options is next")
+            review = lane.get("post_pilot_review")
+            if not isinstance(review, dict) or review.get("task_id") != "T375":
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: T375 post_pilot_review must remain recorded")
+            if review.get("next_route") != "T376":
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: T375 post_pilot_review.next_route must remain T376")
+            selection = lane.get("research_runway_selection")
+            if not isinstance(selection, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection must be present")
+            expected_selection = {
+                "task_id": "T376",
+                "path": ".ai/control/t376_epistle_research_runway.yaml",
+                "status": "complete_selected_research_first_epistle_argument_runway",
+                "selected_option": "T376-A",
+                "selected_lane": "epistle_argument",
+                "selected_lane_mode": "research_and_prep_only",
+                "lesson": "research_autonomy_is_not_authority_autonomy",
+                "decision_register_entry": "CD-060",
+                "exact_target_selected": False,
+                "next_route": "T384",
+            }
+            for key, value in expected_selection.items():
+                if selection.get(key) != value:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection.{key} must be {value!r}")
+            _require_string_list(selection.get("may_continue_without_new_owner_decision"), "research_runway_selection.may_continue_without_new_owner_decision")
+            must_stop = set(_require_string_list(selection.get("must_stop_for_owner_decision_before"), "research_runway_selection.must_stop_for_owner_decision_before"))
+            for item in (
+                "exact_epistle_target_selection_for_promotion_or_implementation",
+                "reviewed_gold_promotion",
+                "child_span_selection_or_child_span_reviewed_gold",
+                "chunk_output_change",
+                "graph_edge_generation",
+                "denominational_systematic_theology_as_chunk_authority",
+            ):
+                if item not in must_stop:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection must_stop missing {item}")
+            for key in (
+                "output_change_authorized",
+                "implementation_authorized",
+                "reviewed_gold_promoted",
+                "child_spans_authorized",
+                "route_behavior_authorized",
+                "evaluator_change_authorized",
+                "graph_edge_generation_allowed",
+                "retrieval_truth_authorized",
+            ):
+                if selection.get(key) is not False:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection.{key} must be false")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -985,6 +1040,69 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T376 next_route.{key} must be false")
+    if task_id == "T384":
+        expected_t384 = {
+            "title": "Epistle Argument Research Runway And Target Options Matrix",
+            "starts_only_if": "T376_A_epistle_argument_research_runway_selected",
+            "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
+            "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+            "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "selected_t376_option": "T376-A",
+            "selected_lane": "epistle_argument",
+            "selection_mode": "research_first_non_authorizing",
+            "owner_decision_required_before_promotion_or_implementation": True,
+            "exact_target_selected": False,
+            "lesson": "research_autonomy_is_not_authority_autonomy",
+        }
+        for key, value in expected_t384.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be {value!r}")
+        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057", "CD-060"}:
+            raise ReadinessMapError(f"{_rel(path)}: T384 prior decision register entries are stale")
+        options = next_route.get("available_target_options")
+        if not isinstance(options, list) or len(options) < 6:
+            raise ReadinessMapError(f"{_rel(path)}: T384 must present target options")
+        option_ids = {option.get("option_id") for option in options if isinstance(option, dict)}
+        if {"T384-A", "T384-B", "T384-C", "T384-D", "T384-E", "T384-F"} - option_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T384 target options are incomplete")
+        required_work = set(_require_string_list(next_route.get("required_t384_work_must_record"), "T384 required_t384_work_must_record"))
+        for item in (
+            "serious_faithful_target_options",
+            "repercussions_for_each_option",
+            "contextual_reading_policy_fields",
+            "source_metadata_evidence_only_handling",
+            "original_language_phrase_context_review_where_used",
+            "orthodox_hermeneutic_firewall_compliance",
+            "no_exact_target_selected",
+            "audit_surface",
+            "handoff_next_owner_gate",
+        ):
+            if item not in required_work:
+                raise ReadinessMapError(f"{_rel(path)}: T384 required work missing {item}")
+        must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T384 must_fail_if"))
+        for item in (
+            "T384_selects_exact_target_without_owner_decision",
+            "research_recommendation_is_treated_as_owner_selection",
+            "reviewed_gold_is_promoted_without_owner_gate",
+            "graph_or_retrieval_truth_is_generated",
+            "whole_bible_output_is_run",
+            "denominational_systematic_theology_becomes_chunk_authority",
+        ):
+            if item not in must_fail:
+                raise ReadinessMapError(f"{_rel(path)}: T384 must_fail_if missing {item}")
+        for key in (
+            "output_change_authorized",
+            "implementation_authorized",
+            "reviewed_gold_promoted",
+            "route_behavior_authorized",
+            "child_spans_authorized",
+            "evaluator_change_authorized",
+            "graph_edge_generation_allowed",
+            "retrieval_truth_authorized",
+            "embedding_or_vector_work_allowed",
+        ):
+            if next_route.get(key) is not False:
+                raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

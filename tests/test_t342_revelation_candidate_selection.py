@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_through_t372_remain_complete_while_live_route_points_to_t373() -> None:
+def test_t342_through_t376_remain_complete_while_live_route_points_to_t384() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -129,16 +129,22 @@ def test_t342_through_t372_remain_complete_while_live_route_points_to_t373() -> 
     assert future["T373"]["status"] == "complete"
     assert future["T374"]["status"] == "complete_output_changed_additive_parent_overlay"
     assert future["T375"]["status"] == "complete_review_only_child_spans_not_necessary_now"
-    assert readiness["next_route"]["task_id"] == "T376"
-    assert readiness["next_route"]["route_type"] == "next_genre_selection"
-    assert readiness["next_route"]["starts_only_if"] == "T375_post_pilot_review_complete"
+    assert future["T376"]["status"] == "complete_selected_research_first_epistle_argument_runway"
+    assert readiness["next_route"]["task_id"] == "T384"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert readiness["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
+    assert readiness["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert readiness["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert readiness["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
-    assert readiness["next_route"]["owner_decision_required"] is True
+    assert readiness["next_route"]["selected_t376_option"] == "T376-A"
+    assert readiness["next_route"]["selected_lane"] == "epistle_argument"
+    assert readiness["next_route"]["selection_mode"] == "research_first_non_authorizing"
+    assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
+    assert readiness["next_route"]["exact_target_selected"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
-    assert readiness["next_route"]["t375_result"]["child_span_result"] == "child_spans_not_necessary_now"
-    assert readiness["next_route"]["t375_result"]["selected_children"] == []
+    assert readiness["next_route"]["reviewed_gold_promoted"] is False
+    assert readiness["next_route"]["child_spans_authorized"] is False
 
 
 def test_t342_risk_gate_categories_present() -> None:

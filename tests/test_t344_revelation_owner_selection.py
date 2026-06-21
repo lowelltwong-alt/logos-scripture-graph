@@ -91,17 +91,20 @@ def test_t344_updates_readiness_and_decision_register() -> None:
     assert target["owner_selection_status"] == "selected"
     assert target["selected_option"] == "REV-T344-E"
     assert target["owner_selection_docket"] == "docs/roadmap/T344_REVELATION_OWNER_SELECTION_DOCKET.md"
-    assert readiness["next_route"]["task_id"] == "T376"
-    assert readiness["next_route"]["route_type"] == "next_genre_selection"
-    assert readiness["next_route"]["starts_only_if"] == "T375_post_pilot_review_complete"
+    assert readiness["next_route"]["task_id"] == "T384"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert readiness["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
+    assert readiness["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert readiness["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert readiness["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
-    assert readiness["next_route"]["owner_decision_required"] is True
-    assert readiness["next_route"]["t375_result"]["selected_parent"] == "1Cor.8.1-1Cor.10.33"
-    assert readiness["next_route"]["t375_result"]["selected_children"] == []
-    assert readiness["next_route"]["t375_result"]["child_span_result"] == "child_spans_not_necessary_now"
+    assert readiness["next_route"]["selected_t376_option"] == "T376-A"
+    assert readiness["next_route"]["selected_lane"] == "epistle_argument"
+    assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
+    assert readiness["next_route"]["exact_target_selected"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
+    assert readiness["next_route"]["reviewed_gold_promoted"] is False
+    assert readiness["next_route"]["child_spans_authorized"] is False
     assert "CD-016" in register
     assert "Revelation owner selected research-only before reviewed gold or implementation" in register
 
