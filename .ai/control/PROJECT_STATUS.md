@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-21
-**Updated by:** T383 contextual reading policy (Codex)
-**Active task:** -> **T383** added `.ai/control/contextual_reading_policy.yaml`, validated by `scripts/validate_contextual_reading_policy.py`, as mandatory layered context preflight for Bible reading, chunking, review packets, intertexts, history, and metadata context. It records `CD-059` and `LSN-011`, and keeps T376 owner lane selection as the next human gate. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T376 epistle research runway (Codex)
+**Active task:** -> **T376** selected `T376-A` in `.ai/control/t376_epistle_research_runway.yaml`, validated by `scripts/validate_t376_epistle_research_runway.py`, as the non-output-changing epistle argument research/prep runway. It records `CD-060` and `LSN-012`: research autonomy is not authority autonomy. T384 epistle argument research/options matrix is the next route. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T376 epistle argument research runway (2026-06-21):** Added
+> `.ai/control/t376_epistle_research_runway.yaml`,
+> `docs/roadmap/T376_EPISTLE_RESEARCH_RUNWAY.md`, and
+> `.ai/audits/reports/20260621-T376-epistle-research-runway.md`, checked by
+> `scripts/validate_t376_epistle_research_runway.py`. T376 records owner selection of `T376-A`:
+> continue epistle argument review/prep only, and allow non-output-changing research/options work
+> to proceed before later owner decisions. It records `CD-060` and `LSN-012`, and points the next
+> route to T384: an epistle argument target-options/repercussions matrix. T376 does not select an
+> exact target, promote reviewed gold, authorize child spans, change output, alter route/evaluator
+> behavior, generate graph/retrieval/vector truth, import boundaries, prefer readings/source
+> traditions, change canon scope, or allow denominational systematic theology as chunk authority.
 
 > **T383 contextual reading policy (2026-06-21):** Added
 > `.ai/control/contextual_reading_policy.yaml`, `docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md`,
@@ -14,8 +26,8 @@
 > remains evidence only and cannot override Scripture, authorize liberal-critical or
 > anti-supernatural defaults, govern chunks, or create a history repo. T383 records `CD-059` and
 > `LSN-011` and does not authorize output, reviewed gold, route/evaluator behavior,
-> graph/retrieval/vector truth, boundary import, doctrine, or history-sidecar authority. T376 owner
-> lane selection remains the next gate.
+> graph/retrieval/vector truth, boundary import, doctrine, or history-sidecar authority. At T383
+> creation, T376 owner lane selection was the next gate; T376 is now complete and T384 is active.
 
 > **T382 chunking lesson index (2026-06-20):** Added
 > `.ai/control/chunking_lesson_index.yaml`, `docs/roadmap/T382_CHUNKING_LESSON_INDEX.md`, and
@@ -25,7 +37,8 @@
 > non-authorizations, validators, and graph edges. The index is mandatory chunking-agent preflight
 > memory and a required midflight lesson-capture surface. It records `CD-058` and does not authorize
 > chunk output, reviewed-gold promotion, route/evaluator behavior, graph/retrieval/vector truth,
-> boundary import, or theology claims. T376 owner lane selection remains the next gate.
+> boundary import, or theology claims. At T382 creation, T376 owner lane selection was the next gate;
+> T376 is now complete and T384 is active.
 
 > **T375 post-pilot review (2026-06-20):** Added
 > `.ai/control/t375_post_pilot_review.yaml`, `docs/roadmap/T375_POST_PILOT_REVIEW.md`, and

@@ -80,6 +80,11 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "post-pilot-review",
         "child-necessity-review",
         "t376-next",
+        "research-runway",
+        "research-autonomy",
+        "authority-boundary",
+        "target-options",
+        "t384",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -130,6 +135,8 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`original-language`, `grammar-overlay`, `greek`, `hebrew`, `non-orthodox`, `lds`",
         "`original-language`, `phrase/context`, `greek`, `hebrew`, `isolated word`",
         "`contextual-reading`, `context`, `prooftexting`",
+        "`canonical-context`, `historical-context`, `research-runway`, `research-autonomy`",
+        "`authority-boundary`, `target-options`, `T384`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
@@ -142,6 +149,8 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`owner-projection`, `projected-owner-pattern`, `conflict-scan`",
         "A reviewer needs the packet queue",
         "Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target.",
+        "Auditing the selected T376-A epistle argument research/prep runway",
+        "T384 work or an audit needs to know why epistle research/options may continue",
     ]:
         assert phrase in toc
 
@@ -309,7 +318,13 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_contextual_reading_policy.py" in toc
     assert ".ai/tasks/T383.task.yaml" in toc
     assert ".ai/handoffs/T383/handoff.md" in toc
-    assert "T376 - Select Next Chunking Lane From Decision Forecast" in toc
+    assert "T376 | Epistle research runway" in toc
+    assert ".ai/control/t376_epistle_research_runway.yaml" in toc
+    assert "docs/roadmap/T376_EPISTLE_RESEARCH_RUNWAY.md" in toc
+    assert "scripts/validate_t376_epistle_research_runway.py" in toc
+    assert ".ai/tasks/T376.task.yaml" in toc
+    assert ".ai/handoffs/T376/handoff.md" in toc
+    assert "T384 - Epistle Argument Research Runway And Target Options Matrix" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

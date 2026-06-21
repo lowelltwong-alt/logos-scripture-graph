@@ -56,6 +56,7 @@ lessons_storage:
     - .ai/control/t374_baseline_overlap_owner_decision_packet.yaml
     - .ai/control/t374_additive_parent_overlay_manifest.yaml
     - .ai/control/t375_post_pilot_review.yaml
+    - .ai/control/t376_epistle_research_runway.yaml
     - .ai/control/owner_decision_option_presentation_policy.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
@@ -135,7 +136,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t375_post_pilot_review_complete_next_lane_selection_required
+    current_state: t376_a_epistle_research_runway_selected_next_t384_options_matrix
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -260,6 +261,50 @@ lane_sequence:
       graph_edge_generation_allowed: false
       retrieval_truth_authorized: false
       next_route: T376
+      historical_completion_gate: t375_post_pilot_review_complete_next_lane_selection_required
+    research_runway_selection:
+      task_id: T376
+      path: .ai/control/t376_epistle_research_runway.yaml
+      status: complete_selected_research_first_epistle_argument_runway
+      selected_option: T376-A
+      selected_lane: epistle_argument
+      selected_lane_mode: research_and_prep_only
+      lesson: research_autonomy_is_not_authority_autonomy
+      decision_register_entry: CD-060
+      exact_target_selected: false
+      next_route: T384
+      may_continue_without_new_owner_decision:
+        - compile_epistle_argument_target_options
+        - inspect_existing_pending_review_packets
+        - inspect_epistle_argument_dossier_queue
+        - identify_contextual_reading_requirements
+        - identify_source_metadata_watchpoints
+        - identify_original_language_phrase_context_needs
+        - identify_textual_variant_or_source_tradition_sensitivities
+        - identify_orthodox_hermeneutic_firewall_risks
+        - create_non_authorizing_research_dockets_or_review_packet_drafts
+      must_stop_for_owner_decision_before:
+        - exact_epistle_target_selection_for_promotion_or_implementation
+        - reviewed_gold_promotion
+        - child_span_selection_or_child_span_reviewed_gold
+        - chunk_output_change
+        - route_behavior_change
+        - evaluator_behavior_or_formula_change
+        - graph_edge_generation
+        - retrieval_truth_or_vector_output
+        - boundary_import
+        - whole_bible_output_pass
+        - preferred_reading_or_source_tradition_preference
+        - canon_scope_change
+        - denominational_systematic_theology_as_chunk_authority
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
+      child_spans_authorized: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -414,48 +459,69 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T376
-  title: Select Next Chunking Lane From Decision Forecast
-  route_type: next_genre_selection
-  starts_only_if: T375_post_pilot_review_complete
+  task_id: T384
+  title: Epistle Argument Research Runway And Target Options Matrix
+  route_type: epistle_argument_research_runway
+  starts_only_if: T376_A_epistle_argument_research_runway_selected
+  prior_lane_selection: .ai/control/t376_epistle_research_runway.yaml
   prior_post_pilot_review: .ai/control/t375_post_pilot_review.yaml
   prior_implementation_manifest: .ai/control/t374_additive_parent_overlay_manifest.yaml
-  prior_decision_register_entries: [CD-056, CD-057]
-  selection_mode: owner_decision_required
-  owner_decision_required: true
-  reason_owner_required: "T375 completed the review-only post-pilot gate. Selecting the next chunking lane or target could shift theological, genre, review-gold, or implementation priorities and must be chosen by the owner."
-  available_lane_options:
-    - option_id: T376-A
-      lane: epistle_argument
-      description: "Continue epistle argument review with another parent-only governed target or a later child-span owner packet if exact child evidence is requested."
-    - option_id: T376-B
-      lane: gospel_discourse_wj
-      description: "Return to John 3/Gospel WJ review-only work, still without speaker-boundary or child-span output authority."
-    - option_id: T376-C
-      lane: revelation_apocalyptic
-      description: "Continue Revelation research/prep only under REV-T344-E; no Revelation chunks or reviewed-gold promotion."
-    - option_id: T376-D
-      lane: narrative_pericope_or_wisdom_or_prophetic
-      description: "Prepare another non-output-changing review packet from the seeded dossier queues."
-  t375_result:
-    selected_parent: 1Cor.8.1-1Cor.10.33
-    selected_children: []
-    same_baseline_reviewed: true
-    no_context_audit_reviewed: true
-    child_necessity_reviewed: true
-    child_span_result: child_spans_not_necessary_now
-    child_spans_authorized: false
-    output_change_authorized: false
-    implementation_authorized: false
+  prior_decision_register_entries: [CD-056, CD-057, CD-060]
+  selected_t376_option: T376-A
+  selected_lane: epistle_argument
+  selection_mode: research_first_non_authorizing
+  owner_decision_required_before_promotion_or_implementation: true
+  exact_target_selected: false
+  lesson: research_autonomy_is_not_authority_autonomy
+  available_target_options:
+    - option_id: T384-A
+      passage: Eph.1.3-Eph.1.14
+      risk: election_adoption_union_with_christ
+      recommendation_status: likely_first_option_to_compare_later_not_selected
+    - option_id: T384-B
+      passage: Rom.9.1-Rom.11.36
+      risk: israel_election_covenant_mercy
+      recommendation_status: research_before_owner_selection
+    - option_id: T384-C
+      passage: Heb.7.1-Heb.10.39
+      risk: priesthood_covenant_sacrifice_ot_intertext
+      recommendation_status: research_before_owner_selection
+    - option_id: T384-D
+      passage: Gal.2.15-Gal.3.29
+      risk: justification_law_promise
+      recommendation_status: research_before_owner_selection
+    - option_id: T384-E
+      passage: Jas.2.14-Jas.2.26
+      risk: faith_works_canonical_harmonization
+      recommendation_status: research_before_owner_selection
+    - option_id: T384-F
+      passage: 1Cor.11.17-1Cor.14.40
+      risk: supper_gifts_order_sacramental_charismatic_ecclesial
+      recommendation_status: research_before_owner_selection
+  required_t384_work_must_record:
+    - serious_faithful_target_options
+    - repercussions_for_each_option
+    - contextual_reading_policy_fields
+    - source_metadata_evidence_only_handling
+    - original_language_phrase_context_review_where_used
+    - textual_variant_or_source_tradition_sensitivity
+    - orthodox_hermeneutic_firewall_compliance
+    - no_exact_target_selected
+    - decision_register_update_or_no_impact_marker
+    - validators_and_tests
+    - audit_surface
+    - handoff_next_owner_gate
   must_fail_if:
-    - T376_selects_lane_without_owner_decision
-    - child_spans_are_added_without_later_owner_promotion
+    - T384_selects_exact_target_without_owner_decision
+    - research_recommendation_is_treated_as_owner_selection
     - reviewed_gold_is_promoted_without_owner_gate
+    - child_spans_are_added_without_later_owner_promotion
     - graph_or_retrieval_truth_is_generated
     - route_behavior_changes_without_exact_authorization
-    - evaluator_formula_changes_inside_lane_selection
+    - evaluator_formula_changes_inside_research_runway
     - whole_bible_output_is_run
-  rationale: "The T374/T375 parent-only pilot is closed for now: the parent overlay remains exact and non-truth-bearing, child spans are not necessary now, and T376 must ask the owner which lane should go next."
+    - denominational_systematic_theology_becomes_chunk_authority
+  rationale: "T376-A selected epistle argument research/prep as the next lane, but T376 does not select an exact target. T384 may research all serious options first and then return to the owner with a compiled options/repercussions matrix."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -464,13 +530,14 @@ next_route:
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
 parallel_research_queue:
   task_id: T358
   title: Bible-Wide Chunking Research Registry
   route_type: whole_bible_research_registry
   path: .ai/control/bible_wide_chunking_research_registry.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research-only queue; does not supersede the T376 owner lane-selection gate or authorize algorithm work."
+  relation_to_next_route: "Parallel research-only queue; does not supersede the active T384 epistle research/options route or authorize algorithm work."
   corpus_scope: canonical_66
   book_count: 66
   output_change_authorized: false
@@ -482,7 +549,7 @@ parallel_original_language_pressure_queue:
   route_type: cross_lane_original_language_pressure_memory
   path: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
   status: complete_non_authorizing
-  relation_to_next_route: "Parallel research memory only; does not supersede the T376 owner lane-selection gate and does not authorize pressure-passage chunking."
+  relation_to_next_route: "Parallel research memory only; does not supersede the active T384 epistle research/options route and does not authorize pressure-passage chunking."
   corpus_scope: canonical_66
   output_change_authorized: false
   implementation_authorized: false

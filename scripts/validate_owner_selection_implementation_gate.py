@@ -312,9 +312,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376", "T384"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', or 'T376' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', 'T376', or 'T384' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -739,6 +739,32 @@ def validate_owner_selection_implementation_gate(
                 _require_false(next_route, "output_change_authorized", "readiness.next_route")
                 _require_false(next_route, "implementation_authorized", "readiness.next_route")
                 _require_false(next_route, "reviewed_gold_promoted", "readiness.next_route")
+                _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
+                _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
+                _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+                _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+            if next_task_id == "T384":
+                expected = {
+                    "route_type": "epistle_argument_research_runway",
+                    "starts_only_if": "T376_A_epistle_argument_research_runway_selected",
+                    "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
+                    "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+                    "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+                    "selected_t376_option": "T376-A",
+                    "selected_lane": "epistle_argument",
+                    "selection_mode": "research_first_non_authorizing",
+                    "owner_decision_required_before_promotion_or_implementation": True,
+                    "exact_target_selected": False,
+                    "reviewed_gold_promoted": False,
+                    "child_spans_authorized": False,
+                    "embedding_or_vector_work_allowed": False,
+                }
+                for key, value in expected.items():
+                    _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
+                if "CD-060" not in next_route.get("prior_decision_register_entries", []):
+                    raise OwnerSelectionGateError("readiness.next_route.prior_decision_register_entries must include CD-060")
+                _require_false(next_route, "output_change_authorized", "readiness.next_route")
+                _require_false(next_route, "implementation_authorized", "readiness.next_route")
                 _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
                 _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
                 _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")

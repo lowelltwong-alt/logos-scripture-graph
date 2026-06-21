@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-21 during T383 to add contextual reading discipline."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-21 during T376 to add the research-autonomy-not-authority-autonomy lesson."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T383
+last_updated_by_task: T376
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -404,6 +404,42 @@ lessons:
       - scripts/validate_contextual_reading_policy.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-012
+    title: Research autonomy is not authority autonomy
+    lifecycle_status: active
+    priority: P0
+    categories: [owner_decision, theological_risk, workflow_governance, auditability]
+    tags: [research-runway, research-autonomy, authority-boundary, owner-gate, epistle, target-options, non-authorizing, t376, t384]
+    use_when:
+      - "The owner has authorized non-output-changing research/prep to continue before later human decisions."
+      - "A future agent wants to compile target options, risks, context requirements, metadata watchpoints, or review-packet drafts without stopping at every research step."
+      - "A recommendation or research matrix might be mistaken for exact target selection, reviewed gold, implementation, graph/retrieval truth, or chunk output authority."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/t376_epistle_research_runway.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids: [CD-060]
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-007]
+    related_task_ids: [T376]
+    downstream_risk: "Research speed can quietly become authority if agents treat compiled options or recommendations as owner decisions, reviewed gold, route behavior, graph/retrieval truth, child spans, or output permission."
+    required_preflight_surfaces:
+      - .ai/control/t376_epistle_research_runway.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - research_as_owner_decision
+      - recommendation_as_target_selection
+      - options_matrix_as_reviewed_gold
+      - research_packet_as_output_authority
+      - research_runway_as_route_behavior
+      - research_runway_as_graph_or_retrieval_truth
+      - research_runway_as_denominational_theology_authority
+    validators:
+      - scripts/validate_t376_epistle_research_runway.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -444,4 +480,16 @@ lesson_graph:
   - from: LSN-011
     relation: constrains
     to: LSN-005
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-012
+  - from: LSN-012
+    relation: constrains
+    to: LSN-007
+  - from: LSN-012
+    relation: constrains
+    to: LSN-008
+  - from: LSN-012
+    relation: constrains
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

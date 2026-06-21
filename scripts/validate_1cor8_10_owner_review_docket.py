@@ -265,8 +265,8 @@ def _validate_governed_links() -> None:
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375", "T376"}:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, T375, or T376 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, T375, T376, or T384 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
@@ -283,7 +283,9 @@ def _validate_governed_links() -> None:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T375 starts_only_if must be T374_additive_parent_overlay_implemented")
     if next_task_id == "T376" and next_route.get("starts_only_if") != "T375_post_pilot_review_complete":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 starts_only_if must be T375_post_pilot_review_complete")
-    if next_task_id != "T376":
+    if next_task_id == "T384" and next_route.get("starts_only_if") != "T376_A_epistle_argument_research_runway_selected":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T384 starts_only_if must be T376_A_epistle_argument_research_runway_selected")
+    if next_task_id not in {"T376", "T384"}:
         if (
             next_route.get("evidence_packet")
             != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
@@ -329,7 +331,26 @@ def _validate_governed_links() -> None:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 t375_result.child_span_result is stale")
         if result.get("selected_children") != []:
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T376 t375_result.selected_children must be []")
-    if next_task_id != "T376" and next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id == "T384":
+        expected_t384 = {
+            "route_type": "epistle_argument_research_runway",
+            "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
+            "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+            "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "selected_t376_option": "T376-A",
+            "selected_lane": "epistle_argument",
+            "owner_decision_required_before_promotion_or_implementation": True,
+            "exact_target_selected": False,
+            "reviewed_gold_promoted": False,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t384.items():
+            if next_route.get(key) != value:
+                raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T384.{key} must be {value!r}")
+        if "CD-060" not in next_route.get("prior_decision_register_entries", []):
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T384 must reference CD-060")
+    if next_task_id not in {"T376", "T384"} and next_route.get("reviewed_gold_promoted") is not True:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
     if next_task_id == "T374":
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):

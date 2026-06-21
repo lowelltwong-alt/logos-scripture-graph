@@ -31,4 +31,6 @@ only as lower-trust evidence and would require owner authorization, a cross-repo
 contract, trust-zone policy, anti-smuggling validation, and explicit denial of chunk/retrieval/graph
 authority.
 
-T376 owner lane selection remains the next human decision gate.
+At T383 creation, T376 owner lane selection was the next human decision gate. T376 later selected
+the epistle argument research/prep runway, and the active next route is T384 epistle argument
+research/options matrix work.

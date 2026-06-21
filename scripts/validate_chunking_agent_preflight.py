@@ -40,6 +40,7 @@ T373_AUTHORIZATION = ROOT / ".ai" / "control" / "t373_owner_implementation_autho
 T374_BASELINE_OVERLAP_PACKET = ROOT / ".ai" / "control" / "t374_baseline_overlap_owner_decision_packet.yaml"
 T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_parent_overlay_manifest.yaml"
 T375_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t375_post_pilot_review.yaml"
+T376_EPISTLE_RESEARCH_RUNWAY = ROOT / ".ai" / "control" / "t376_epistle_research_runway.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -86,7 +87,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -100,6 +101,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-009",
     "LSN-010",
     "LSN-011",
+    "LSN-012",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -108,6 +110,7 @@ REQUIRED_WORKFLOW_LESSON_IDS = {
     "WORKFLOW-LESSON-004",
     "WORKFLOW-LESSON-005",
     "WORKFLOW-LESSON-006",
+    "WORKFLOW-LESSON-007",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-004",
 }
@@ -173,6 +176,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t374_baseline_overlap_owner_decision_packet.yaml",
     "t374_additive_parent_overlay_manifest.yaml",
     "t375_post_pilot_review.yaml",
+    "t376_epistle_research_runway.yaml",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
     "owner_decision_option_presentation_policy.yaml",
@@ -183,6 +187,9 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "validate_original_language_phrase_context_policy.py",
     "contextual_reading_policy.yaml",
     "validate_contextual_reading_policy.py",
+    "validate_t376_epistle_research_runway.py",
+    "Research autonomy is not authority autonomy",
+    "T384 epistle argument research/options matrix",
     "contextual-reading",
     "historical-context",
     "chapter-context",
@@ -372,6 +379,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml",
         ".ai/control/t374_additive_parent_overlay_manifest.yaml",
         ".ai/control/t375_post_pilot_review.yaml",
+        ".ai/control/t376_epistle_research_runway.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -796,6 +804,24 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t375_review_text:
             raise PreflightError(f"{_rel(T375_POST_PILOT_REVIEW)}: missing T375 review phrase {phrase!r}")
+    t376_runway_text = _read_text(T376_EPISTLE_RESEARCH_RUNWAY)
+    for phrase in (
+        "object_type: epistle_argument_research_runway_selection",
+        "selected_option: T376-A",
+        "selected_lane: epistle_argument",
+        "Research autonomy is not authority autonomy",
+        "authorizes_non_output_changing_research_prep: true",
+        "authorizes_exact_target_selection: false",
+        "authorizes_chunk_output_change: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_graph_edges: false",
+        "authorizes_retrieval_truth: false",
+        "task_id: T384",
+        "Eph.1.3-Eph.1.14",
+        "Rom.9.1-Rom.11.36",
+    ):
+        if phrase not in t376_runway_text:
+            raise PreflightError(f"{_rel(T376_EPISTLE_RESEARCH_RUNWAY)}: missing T376 runway phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",
