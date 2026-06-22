@@ -1,0 +1,439 @@
+object_type: manuscript_source_catalog_metadata_plan
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-22 during T390 as the Scripture Graph source-catalog metadata plan following the T387 manuscript witness reliability scaffold."
+reason_for_inclusion: "Define the SQLite-ready source catalog metadata plan for biblical DSS witnesses, New Testament papyri, major codices, variants, discovery timeline, provenance, confidence, and review status before any manuscript text import or database population occurs."
+schema_version: manuscript_source_catalog_metadata_plan.v1
+plan_id: t390_manuscript_source_catalog_metadata_plan
+task_id: T390
+owner: Lowell Wong
+status: active_planning_only
+authority:
+  records_source_catalog_metadata_plan: true
+  refines_t387_scaffold: true
+  may_define_sqlite_table_candidates: true
+  may_define_source_trust_rules: true
+  may_define_future_population_goals: true
+  authorizes_sqlite_database_creation: false
+  authorizes_metadata_row_population: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+placement_decision:
+  owning_repo: logos-scripture-graph
+  repo_scope: "Canonical Scripture manuscript source-catalog metadata only: biblical DSS witnesses, New Testament papyri, major codices, holding institutions, catalog identifiers, date claims, material claims, coverage claims, discovery timeline, source trust, provenance, confidence, and review status."
+  boundary_repo_scope: "Church fathers, patristic citations, commentaries, theologian writings, reception history, early creed wording, non-biblical Qumran/DSS texts, and noncanonical corpus content route to logos-boundary-literature."
+  doctrine_repo_scope: "Who built theology on whose ideas, denominational development, doctrinal alignment/divergence, and theologian lineage route to future logos-doctrine-genealogy."
+  governance_repo_scope: "Cross-repo authority, trust-zone changes, repository registry changes, and routing policy changes remain in logos-governance-architecture."
+  split_rule: "Store Scripture references and source catalog metadata here; never store commentary, patristic, theologian, creed, non-biblical Qumran, or doctrine-lineage content in Scripture Graph canonical records."
+  implementation_mode: planning_only_no_database_no_import
+data_boundary:
+  allowed_prefixes:
+    - scripture_
+    - evidence_
+  forbidden_prefixes:
+    - canonical_
+    - boundary_
+    - doctrine_
+  forbidden_table_or_view_rule: "Never create a canonical_* table or view that includes manuscript reliability, commentary, patristic, theologian, doctrine, or boundary data."
+  unified_report_rule: "Unified apologetic or research reports may use evidence_* derived joins only when every source row remains labeled by namespace, source repo, trust level, provenance, confidence, and review status."
+sqlite_entity_plan:
+  tables:
+    - table_name: scripture_source_catalog
+      purpose: "Catalog official digital libraries, manuscript catalogs, holding-institution catalogs, source projects, and method-profile sources before any witness row is trusted."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - catalog_id
+        - catalog_name
+        - source_family
+        - authority_tier
+        - maintainer_or_institution
+        - base_url
+        - access_model
+        - rights_statement
+        - citation_policy
+        - last_checked_date
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_holding_institution
+      purpose: "Record the institution or collection that holds or publishes the witness metadata without duplicating source text."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - institution_id
+        - institution_name
+        - country_or_region
+        - collection_name
+        - official_catalog_url
+        - shelfmark_policy
+        - rights_contact
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_catalog_witness_record
+      purpose: "Represent a catalog's record for a biblical witness, including identifiers and source URL, before creating any harmonized witness identity."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - catalog_record_id
+        - catalog_id
+        - witness_id_candidate
+        - siglum
+        - alternate_identifiers
+        - shelfmark
+        - holding_institution_id
+        - source_url
+        - record_accessed_at
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_witness_identifier
+      purpose: "Preserve multiple sigla, Gregory-Aland numbers, DSS designations, shelfmarks, and project IDs as identifiers with source scope, not as merged facts by default."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - identifier_id
+        - witness_id_candidate
+        - identifier_value
+        - identifier_system
+        - identifier_scope
+        - source_catalog_ref
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_witness_date_claim
+      purpose: "Store sourced date ranges, dating methods, precision, and dissent without converting a range into a false exact date."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - date_claim_id
+        - witness_id_candidate
+        - date_earliest
+        - date_latest
+        - date_display
+        - dating_method
+        - dating_basis
+        - date_precision
+        - dissenting_date_note
+        - source_ref
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_witness_material_claim
+      purpose: "Store language, script, material, format, and physical description as sourced catalog claims."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - material_claim_id
+        - witness_id_candidate
+        - language
+        - script
+        - material
+        - format
+        - physical_description_summary
+        - source_ref
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_witness_coverage_claim
+      purpose: "Store what biblical books/passages a witness is said to cover while preserving claim precision and avoiding stored transcriptions."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - coverage_claim_id
+        - witness_id_candidate
+        - scripture_scope_type
+        - osis_scope
+        - book_scope
+        - chapter_verse_scope
+        - coverage_precision
+        - coverage_source_ref
+        - stores_text
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: scripture_witness_discovery_event
+      purpose: "Record discovery, publication, cataloging, digitization, image access, or scholarly-access events with what became knowable and what remained uncertain."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - event_id
+        - event_date_earliest
+        - event_date_latest
+        - event_type
+        - witness_or_catalog_ref
+        - what_became_known
+        - what_remained_unknown
+        - reliability_relevance_scope
+        - source_ref
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: evidence_source_catalog_method_profile
+      purpose: "Explain what a catalog or method source can and cannot prove for reliability, copy abundance, variants, dating, and discovery timeline claims."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - method_profile_id
+        - source_family
+        - method_scope
+        - proves
+        - does_not_prove
+        - required_cross_checks
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: evidence_source_trust_rule
+      purpose: "Make source-ranking and conflict-handling rules queryable so future population does not depend on memory or vibes."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - trust_rule_id
+        - applies_to_source_family
+        - rule
+        - failure_mode
+        - required_action
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+    - table_name: evidence_catalog_review_queue
+      purpose: "Track which witness groups are ready for metadata population and which still need source, rights, method, or owner review."
+      stores_scripture_text: false
+      stores_transcription_text: false
+      stores_boundary_text: false
+      required_fields:
+        - queue_id
+        - witness_group
+        - source_family
+        - priority
+        - blocker
+        - required_reviewer
+        - next_action
+        - source_url
+        - provenance_note
+        - confidence
+        - review_status
+source_families:
+  - family_id: dss_biblical_witness_catalogs
+    correct_repo: logos-scripture-graph
+    allowed_scope: "Biblical DSS/Judean Desert witness catalog metadata only."
+    routes_elsewhere: "Non-biblical Qumran/DSS community texts, sectarian texts, parabiblical texts, and reception interpretation route to logos-boundary-literature."
+  - family_id: nt_manuscript_catalogs
+    correct_repo: logos-scripture-graph
+    allowed_scope: "Greek New Testament papyri, majuscules, minuscules, lectionaries, catalog identifiers, images/access metadata, date ranges, materials, and coverage metadata."
+    routes_elsewhere: "Patristic citation reconstruction, commentary, and reception evidence route to logos-boundary-literature."
+  - family_id: major_codex_project_catalogs
+    correct_repo: logos-scripture-graph
+    allowed_scope: "Major codex catalog and holding-institution metadata such as Sinaiticus, Vaticanus, and Alexandrinus."
+    routes_elsewhere: "Theological reception, doctrinal use, and church-history commentary route outside this repo."
+  - family_id: holding_institution_catalogs
+    correct_repo: logos-scripture-graph
+    allowed_scope: "Shelfmarks, repositories, collection records, image/access rights, and catalog provenance."
+    routes_elsewhere: "Institutional essays, interpretive commentary, and secondary apologetic claims remain evidence only or route to Boundary Literature."
+  - family_id: critical_apparatus_method_profiles
+    correct_repo: logos-scripture-graph
+    allowed_scope: "Method profiles for catalog coverage, collation, variant detection, and what witness distribution can or cannot prove."
+    routes_elsewhere: "Preferred-reading decisions, edition selection, and source-tradition preference require later owner review and may not be decided by this plan."
+source_anchors:
+  - anchor_id: iaa_leon_levy_dss_digital_library
+    source_family: dss_biblical_witness_catalogs
+    source_url: "https://www.deadseascrolls.org.il/"
+    source_type: primary_digital_library
+    confirmed_metadata_use: "Official DSS digital-library anchor for fragment images, manuscript identifiers, and catalog/source access planning."
+    plan_use: "Seed source catalog records for biblical DSS witnesses only, with non-biblical content routed out."
+    not_authorized: "No transcription import, no non-biblical Qumran import into Scripture Graph, and no global unchanged-Bible conclusion."
+  - anchor_id: iaa_dss_archive_browser
+    source_family: dss_biblical_witness_catalogs
+    source_url: "https://www.deadseascrolls.org.il/explore-the-archive"
+    source_type: primary_catalog_browser
+    confirmed_metadata_use: "Source for archive browsing categories, image access, and catalog discovery workflow."
+    plan_use: "Define fields for catalog source, content category, image access status, and review status."
+    not_authorized: "No category label becomes canon or Scripture authority."
+  - anchor_id: iaa_dss_discovery_publication
+    source_family: dss_biblical_witness_catalogs
+    source_url: "https://www.deadseascrolls.org.il/learn-about-the-scrolls/discovery-and-publication"
+    source_type: primary_digital_library_history
+    confirmed_metadata_use: "Discovery and publication history source for timeline events and what became accessible when."
+    plan_use: "Seed discovery timeline fields without using discovery date as proof."
+    not_authorized: "No discovery event decides textual-critical or apologetic conclusions."
+  - anchor_id: iaa_dss_content_categories
+    source_family: dss_biblical_witness_catalogs
+    source_url: "https://www.deadseascrolls.org.il/learn-about-the-scrolls/scrolls-content"
+    source_type: primary_scope_boundary_source
+    confirmed_metadata_use: "Source for distinguishing biblical, non-biblical, and other DSS content categories."
+    plan_use: "Enforce biblical-DSS-only Scripture Graph routing and route non-biblical categories to Boundary Literature."
+    not_authorized: "No non-biblical category enters canonical Scripture records."
+  - anchor_id: israel_museum_great_isaiah_scroll
+    source_family: dss_biblical_witness_catalogs
+    source_url: "https://dss.collections.imj.org.il/isaiah"
+    source_type: museum_digital_collection
+    confirmed_metadata_use: "Holding/digital collection anchor for the Great Isaiah Scroll as a biblical DSS witness example."
+    plan_use: "Exercise date-range, coverage, material, holding institution, and completeness-scope fields."
+    not_authorized: "No single witness proves a global unchanged-Bible claim."
+  - anchor_id: intf_ntvmr
+    source_family: nt_manuscript_catalogs
+    source_url: "https://ntvmr.uni-muenster.de/"
+    source_type: academic_manuscript_catalog
+    confirmed_metadata_use: "Academic catalog anchor for Greek New Testament manuscript resources."
+    plan_use: "Seed New Testament manuscript catalog source fields and identifier cross-checks."
+    not_authorized: "No catalog listing selects a preferred reading or source tradition."
+  - anchor_id: intf_liste
+    source_family: nt_manuscript_catalogs
+    source_url: "https://ntvmr.uni-muenster.de/liste"
+    source_type: academic_manuscript_list
+    confirmed_metadata_use: "Catalog list anchor for document IDs, names, dates, and folio metadata."
+    plan_use: "Define NT witness catalog fields before population."
+    not_authorized: "No local witness merge or date claim is trusted without review."
+  - anchor_id: csntm_manuscripts_catalog
+    source_family: nt_manuscript_catalogs
+    source_url: "https://manuscripts.csntm.org/"
+    source_type: manuscript_catalog
+    confirmed_metadata_use: "Digital manuscript catalog source for New Testament witnesses and image metadata."
+    plan_use: "Secondary cross-check for NT papyri/codices metadata and rights/access notes."
+    not_authorized: "No image or catalog access permits transcription storage here."
+  - anchor_id: csntm_p52
+    source_family: nt_manuscript_catalogs
+    source_url: "https://manuscripts.csntm.org/manuscript/View/GA_P52"
+    source_type: manuscript_catalog_record
+    confirmed_metadata_use: "Catalog anchor for P52 metadata such as classification, date display, location, shelf number, content, language, and material."
+    plan_use: "Exercise early papyrus date range, coverage, material, and institution cross-check fields."
+    not_authorized: "No exact date, earliest-fragment certainty, or stored text is authorized."
+  - anchor_id: manchester_rylands_p52
+    source_family: holding_institution_catalogs
+    source_url: "https://www.digitalcollections.manchester.ac.uk/view/MS-GREEK-P-00457"
+    source_type: holding_institution_collection
+    confirmed_metadata_use: "Holding-institution anchor for P52/Greek P 457 shelfmark and catalog description."
+    plan_use: "Cross-check CSNTM/INTF catalog metadata against holding-institution metadata."
+    not_authorized: "No secondary source may override the holding institution without review."
+  - anchor_id: codex_sinaiticus_project
+    source_family: major_codex_project_catalogs
+    source_url: "https://www.codexsinaiticus.org/"
+    source_type: manuscript_project
+    confirmed_metadata_use: "Project anchor for Codex Sinaiticus metadata, images, and completeness-scope wording."
+    plan_use: "Exercise major-codex fields and complete-copy scope labels."
+    not_authorized: "No major codex becomes the preferred text by default."
+  - anchor_id: vatican_library_codex_vaticanus
+    source_family: major_codex_project_catalogs
+    source_url: "https://digi.vatlib.it/view/MSS_Vat.gr.1209"
+    source_type: holding_institution_digital_manuscript
+    confirmed_metadata_use: "Official Vatican Library digital manuscript anchor for Vat.gr.1209 source catalog planning."
+    plan_use: "Candidate official source for Codex Vaticanus metadata fields and rights review."
+    not_authorized: "No codex metadata is populated until source review and rights status are recorded."
+  - anchor_id: british_library_codex_alexandrinus
+    source_family: major_codex_project_catalogs
+    source_url: "https://searcharchives.bl.uk/catalog/040-001614686"
+    source_type: holding_institution_archive_catalog
+    confirmed_metadata_use: "Official British Library archive catalog anchor for Royal MS 1 D V / Codex Alexandrinus source planning."
+    plan_use: "Candidate official source for Alexandrinus metadata fields and rights/source review."
+    not_authorized: "No codex metadata is populated until source review and rights status are recorded."
+source_trust_rules:
+  - rule_id: official_holding_institution_over_secondary
+    rule: "Prefer official holding-institution catalog metadata over secondary summaries when they conflict, while preserving the conflict and source of each claim."
+  - rule_id: catalog_identifier_required
+    rule: "No witness row may be populated without a catalog identifier, shelfmark, siglum, or source-system identifier plus source URL."
+  - rule_id: date_range_not_point_date
+    rule: "Dates must be stored as ranges with precision, method, basis, confidence, and dissent; no exact date is inferred from a century label."
+  - rule_id: coverage_claim_requires_source_scope
+    rule: "Coverage claims require scoped book/passage fields and a source reference; never infer coverage from the witness label alone."
+  - rule_id: conflicting_catalog_claims_preserved
+    rule: "Conflicting catalog claims remain separate rows until reviewed; do not silently merge to the most apologetically useful claim."
+  - rule_id: no_transcription_text
+    rule: "No manuscript transcription, Bible text, creed wording, or quotation text is stored in this metadata plan."
+  - rule_id: no_preferred_reading_from_catalog
+    rule: "Catalog metadata, witness age, or copy abundance cannot select a preferred reading or source-tradition priority."
+  - rule_id: rights_status_before_ingest
+    rule: "Future population must record rights/access status before storing images, derived metadata, or source excerpts beyond minimal citation metadata."
+  - rule_id: biblical_dss_only_in_scripture_graph
+    rule: "Only biblical DSS witness metadata may be planned here; non-biblical Qumran/DSS content routes to Boundary Literature."
+anti_guessing_rules:
+  - "Do not claim oldest, earliest, complete, unchanged, original, or reliable without a source, scope, method, confidence, dissent check, and review status."
+  - "Do not infer date, language, script, material, coverage, location, or shelfmark from model memory."
+  - "Do not turn copy abundance into proof without recording variant units, witness distribution, and unresolved variation."
+  - "Do not turn discovery timing into apologetic victory; record what became knowable and what still required publication, collation, or review."
+  - "Do not store Scripture text, manuscript transcription, patristic quotation text, creed wording, commentary text, or theologian writing in this plan."
+  - "Do not mix boundary/commentary/theologian data into scripture_* tables or any canonical_* table/view."
+  - "Do not use a source catalog to authorize graph edges, retrieval truth, vector truth, chunk output, reviewed gold, preferred readings, source-tradition priority, canon-scope changes, or apologetic conclusions as truth."
+review_status_values:
+  - unreviewed_candidate
+  - source_catalog_located
+  - holding_institution_confirmed
+  - rights_reviewed
+  - metadata_reviewed
+  - method_reviewed
+  - owner_review_required
+  - deprecated
+future_goal_prompts:
+  - goal_id: T391_DSS_BIBLICAL_SOURCE_CATALOG_POPULATION
+    prompt: "In logos-scripture-graph, start from live origin/main and read AI_FRONT_DOOR, MASTER_CONTEXT read-only, PROJECT_STATUS, DATA_MAP, T387 scaffold, and T390 source catalog plan. Create the first metadata-only SQLite/source rows for biblical DSS witnesses from official DSS/Israel Museum source catalogs. No transcription text, non-biblical Qumran content, preferred readings, graph edges, chunks, vectors, or apologetic conclusions may be stored or authorized. Add validation proving every row has source URL, provenance, date range, confidence, and review status."
+  - goal_id: T392_NT_PAPYRI_AND_MAJOR_CODICES_SOURCE_CATALOG_POPULATION
+    prompt: "In logos-scripture-graph, after T391 or with a separate clean branch, populate metadata-only source catalog rows for NT papyri and major codices from INTF/NTVMR, CSNTM, holding institutions, and official codex projects. Preserve conflicting date/coverage claims as separate sourced rows. Do not import manuscript text or select preferred readings."
+  - goal_id: T393_VARIANT_AND_COPY_ABUNDANCE_METHOD_PROFILE
+    prompt: "Build evidence_source_catalog_method_profile records that explain what copy abundance, variant detection, witness distribution, and catalog coverage can and cannot prove. Keep the work evidence-only and non-authorizing for textual-critical decisions, source-tradition preference, canon scope, graph, retrieval, vectors, chunks, and apologetic conclusions."
+  - goal_id: T394_DISCOVERY_TIMELINE_WHAT_WAS_KNOWN_WHEN
+    prompt: "Build a discovery/publication/digitization timeline for DSS and NT manuscript witnesses showing what became knowable when, what remained uncertain, and which debates were affected. Use source-catalog metadata only and do not treat discovery timing as proof."
+  - goal_id: BOUNDARY_PATRISTIC_RECEPTION_RECONSTRUCTION
+    prompt: "In logos-boundary-literature, create the church fathers/commentary/reception source plan for patristic citations and reconstruction evidence. Store Scripture references only, not Scripture text. Require trust level, tradition/profile scope, source/provenance, attribution/forgery status, confidence, and review status. Join to Scripture Graph only through labeled evidence_* derived reports."
+  - goal_id: DOCTRINE_GENEALOGY_THEOLOGIAN_LINEAGE
+    prompt: "In future logos-doctrine-genealogy, create the theologian and denomination lineage plan consuming Scripture references from Scripture Graph and reception references from Boundary Literature. Track who built on whom, where traditions align or diverge, and scope every claim by tradition/profile."
+non_authorizations:
+  - sqlite_database_creation
+  - metadata_row_population
+  - source_text_import
+  - transcription_storage
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - canonical_chunk_change
+  - reviewed_gold_promotion
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - commentary_or_patristic_import
+  - doctrine_genealogy_import
+  - commentary_as_scripture
+  - patristic_citation_as_scripture_authority
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+validators:
+  - scripts/validate_manuscript_source_catalog_metadata_plan.py
+  - tests/test_manuscript_source_catalog_metadata_plan.py
+  - scripts/validate_all.py

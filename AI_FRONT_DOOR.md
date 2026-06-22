@@ -34,6 +34,7 @@ Read these files before making changes:
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
+    T390 manuscript source catalog metadata plan,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -239,6 +240,18 @@ Bible-first chunking priority:
   change canonical Bible text or passage records, select preferred readings or source traditions,
   change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
   apologetic conclusions as Scripture authority.
+- The T390 manuscript source catalog metadata plan at
+  `.ai/control/manuscript_source_catalog_metadata_plan.yaml` refines T387 into SQLite-ready
+  source-catalog metadata planning for biblical DSS witnesses, New Testament papyri, major codices,
+  holding institutions, identifiers, date/material/coverage/discovery claims, source trust rules,
+  anti-guessing rules, review statuses, and future goal prompts. It is validated by
+  `scripts/validate_manuscript_source_catalog_metadata_plan.py`. It creates no SQLite database,
+  imports no manuscript or Scripture text, populates no metadata rows, selects no preferred readings
+  or source traditions, changes no canon scope, imports no boundary/commentary/patristic/theologian
+  corpora, creates no graph/retrieval/vector truth, and authorizes no apologetic conclusions as
+  Scripture authority. Church fathers, commentaries, reception history, early creed wording,
+  non-biblical Qumran/DSS content, and theologian writings route to Boundary Literature; doctrine
+  lineage routes to future Doctrine Genealogy.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing

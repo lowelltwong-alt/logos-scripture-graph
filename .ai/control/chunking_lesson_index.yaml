@@ -2,7 +2,7 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
@@ -631,6 +631,48 @@ lessons:
     validators:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
+  - lesson_id: LSN-018
+    title: Source catalog metadata plans are not database or authority permission
+    lifecycle_status: active
+    priority: P0
+    categories: [source_metadata, original_language, theological_risk, workflow_governance, auditability]
+    tags: [source-catalog, metadata-plan, sqlite-plan, manuscript-witness, reliability-provenance, dead-sea-scrolls, nt-papyri, major-codices, holding-institutions, source-trust, review-status, anti-guessing, boundary-routing, doctrine-genealogy, non-authorizing, t390]
+    use_when:
+      - "A future agent wants to create a manuscript SQLite database, populate biblical DSS witness rows, populate NT papyri or major codices, or convert source-catalog metadata into reliability claims."
+      - "A future agent tries to use source catalog metadata, witness age, copy abundance, discovery timing, or holding-institution records as preferred-reading, graph, retrieval, vector, chunking, canon-scope, or apologetic authority."
+      - "A future agent needs to route church fathers, patristic citations, commentaries, theologian writings, reception history, early creed wording, non-biblical Qumran/DSS content, or doctrine lineage."
+    preflight_stage: before_database_or_population_work
+    source_surfaces:
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md
+      - .ai/tasks/T390.task.yaml
+      - .ai/handoffs/T390/handoff.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/boundary_material_routing.yaml
+    related_decision_ids: [CD-064]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T387, T390]
+    downstream_risk: "A metadata plan can be mistaken for permission to create a database, populate rows, infer source facts from memory, merge commentary/patristic/theologian data into Scripture records, or use source catalogs as preferred-reading, graph/retrieval/vector, chunk, canon, or apologetic authority."
+    required_preflight_surfaces:
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/boundary_material_routing.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - metadata_plan_as_database_creation_permission
+      - metadata_plan_as_row_population_permission
+      - source_catalog_as_preferred_reading
+      - source_catalog_as_graph_truth
+      - source_catalog_as_retrieval_truth
+      - source_catalog_as_chunk_output_authority
+      - commentary_or_patristic_data_as_scripture
+      - doctrine_lineage_as_scripture_authority
+      - discovery_timeline_as_apologetic_authority
+    validators:
+      - scripts/validate_manuscript_source_catalog_metadata_plan.py
+      - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -746,4 +788,13 @@ lesson_graph:
   - from: LSN-017
     relation: constrains
     to: LSN-001
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-018
+  - from: LSN-016
+    relation: constrains
+    to: LSN-018
+  - from: LSN-018
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
