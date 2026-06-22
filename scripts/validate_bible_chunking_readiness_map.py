@@ -82,6 +82,12 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t375_post_pilot_review.yaml",
     ".ai/control/t376_epistle_research_runway.yaml",
     ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+    ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
+    ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
+    ".ai/control/bible_verse_passage_coverage_summary.yaml",
+    ".ai/control/bible_verse_passage_readiness_matrix.yaml",
+    ".ai/control/bible_verse_passage_gap_register.yaml",
+    ".ai/control/bible_verse_passage_human_review_docket.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -1116,7 +1122,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         for key, value in expected_t384.items():
             if next_route.get(key) != value:
                 raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be {value!r}")
-        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057", "CD-060", "CD-061"}:
+        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057", "CD-060", "CD-061", "CD-062"}:
             raise ReadinessMapError(f"{_rel(path)}: T384 prior decision register entries are stale")
         options = next_route.get("available_target_options")
         if not isinstance(options, list) or len(options) < 6:

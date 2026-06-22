@@ -55,6 +55,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_chunking_lesson_index.py")],
         ),
         (
+            "validate_test_runtime_preflight.py",
+            [PY, str(ROOT / "scripts" / "validate_test_runtime_preflight.py")],
+        ),
+        (
             "validate_governance_memory_durability.py",
             [PY, str(ROOT / "scripts" / "validate_governance_memory_durability.py")],
         ),
@@ -177,6 +181,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_t384_bible_wide_research_readiness.py",
             [PY, str(ROOT / "scripts" / "validate_t384_bible_wide_research_readiness.py")],
+        ),
+        (
+            "validate_bible_verse_passage_coverage_inventory.py",
+            [PY, str(ROOT / "scripts" / "validate_bible_verse_passage_coverage_inventory.py")],
         ),
         (
             "validate_epistle_argument_review_packets.py",

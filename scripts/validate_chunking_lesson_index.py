@@ -70,6 +70,8 @@ REQUIRED_LESSON_IDS = {
     "LSN-011",
     "LSN-012",
     "LSN-013",
+    "LSN-014",
+    "LSN-015",
 }
 
 REQUIRED_TAGS = {
@@ -94,6 +96,17 @@ REQUIRED_TAGS = {
     "research-synthesis",
     "human-decision-map",
     "chunking-ready",
+    "verse-passage-coverage",
+    "coverage-inventory",
+    "coverage-taxonomy",
+    "readiness-matrix",
+    "gap-register",
+    "human-review-docket",
+    "target-passage-lookup",
+    "test-runtime",
+    "pytest-timeout",
+    "long-running-tests",
+    "focused-tests",
 }
 
 REQUIRED_SURFACES = {
@@ -106,6 +119,16 @@ REQUIRED_SURFACES = {
     ".ai/control/t376_epistle_research_runway.yaml",
     ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
     "docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md",
+    ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
+    ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
+    ".ai/control/bible_verse_passage_coverage_summary.yaml",
+    ".ai/control/bible_verse_passage_readiness_matrix.yaml",
+    ".ai/control/bible_verse_passage_gap_register.yaml",
+    ".ai/control/bible_verse_passage_human_review_docket.yaml",
+    "docs/roadmap/T386_BIBLE_VERSE_PASSAGE_COVERAGE_INVENTORY.md",
+    ".ai/control/test_runtime_preflight.yaml",
+    "scripts/validate_test_runtime_preflight.py",
+    "tests/test_test_runtime_preflight.py",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",

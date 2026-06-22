@@ -350,6 +350,52 @@ Required routing:
 - Return to the owner through the next explicit owner-decision packet before promotion,
   implementation, or output work.
 
+## WORKFLOW-LESSON-009 - Every Canonical Passage Needs Coverage Before Chunking Resumes
+
+Bible-wide research is not enough if future agents cannot prove every canonical passage was
+accounted for. Before new chunk-output work resumes, the repo needs deterministic verse/passage
+coverage that maps all 31,103 canonical passage records to routine status, deeper-review needs,
+owner-decision needs, and blocked authority actions.
+
+That coverage must show source-metadata sensitivity, Strong's-style number presence, original
+language phrase/context needs, textual-variant/source-tradition sensitivity, WJ/red-letter and
+speaker/discourse risk, cross-reference/intertext risk, divine-name/title capitalization signals,
+known non-orthodox pressure passages, theological downstream risk, and which passages need human
+owner review before promotion or implementation.
+
+Required routing:
+
+- Record the coverage as deterministic machine-readable surfaces, including a one-record-per-passage
+  inventory, taxonomy, summary, readiness matrix, gap register, and owner-review docket.
+- Add the theological-downstream decision to `.ai/control/chunking_theological_decision_register.yaml`.
+- Add the reusable lesson to `.ai/control/chunking_lesson_index.yaml`.
+- Add the summary, gap register, docket, and target-passage inventory lookup to
+  `.ai/control/chunking_agent_preflight.yaml` and AI TOCs.
+- Add validators/tests that fail if canonical passages are missing, duplicated, mislabeled as
+  routine while blocked, or disconnected from the owner-review docket.
+- Do not treat coverage status as chunk output authority, reviewed gold, graph/retrieval truth,
+  route/evaluator behavior, preferred reading/source-tradition selection, canon-scope change, or
+  denominational theology authority.
+
+## WORKFLOW-LESSON-010 - Test Runtime Preflight Prevents Tool-Timeout Confusion
+
+When a validation or pytest command exceeds the default tool timeout, agents must record that as a
+runtime lesson rather than letting future agents rediscover it. A timeout is not a passing test and
+is not an excuse to skip the gate. The right response is to rerun with an appropriate timeout,
+split the suite to isolate failures when useful, and update deterministic runtime guidance.
+
+Required routing:
+
+- Read `.ai/control/test_runtime_preflight.yaml` before repo-wide validation or full pytest runs.
+- Use the recorded timeout for known slow commands, especially `python -m pytest -q`.
+- Run focused tests first when a changed area is narrow, then run the full suite with the recorded
+  longer timeout before claiming completion.
+- If a command times out or becomes reliably slow, update the runtime profile with command,
+  observed context, observed result, recommended timeout, split strategy, and do-not rules.
+- Record tool timeouts and reruns in the handoff.
+- Never treat timeout as green, hide it from the handoff, or mark a goal complete from focused
+  tests only when the task requires the full suite.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures

@@ -1,0 +1,182 @@
+object_type: bible_verse_passage_human_review_docket
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: Created 2026-06-22 during T386 from the Bible-wide coverage taxonomy and existing owner decision patterns.
+reason_for_inclusion: Gather foreseeable human decisions before chunking resumes, with faithful options and stop conditions.
+schema_version: bible_verse_passage_human_review_docket.v1
+docket_id: t386_bible_verse_passage_human_review_docket
+task_id: T386
+owner: Lowell Wong
+authority:
+  records_coverage: true
+  records_review_needs: true
+  records_owner_decision_needs: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_denominational_systematic_theology_as_chunk_authority: false
+orthodoxy_boundary: nicene_chalcedonian_core
+decisions:
+- decision_id: T386-HDM-001
+  title: Review-packet strengthening order before chunk output
+  trigger_flags:
+  - review_packet_needed
+  - theological_downstream_risk
+  faithful_options:
+  - option_id: T386-HDM-001-A
+    summary: Strengthen one exact review packet at a time, preserving parent-first and no-output defaults.
+    repercussion: Slower than broad implementation, but keeps theology-bearing boundaries auditable.
+  - option_id: T386-HDM-001-B
+    summary: Prepare multiple packets in parallel as research-only surfaces, then ask the owner to select one.
+    repercussion: Faster research throughput, but requires careful stop conditions before promotion.
+  recommended_conservative_path: T386-HDM-001-B for research/prep only, then one exact owner selection before promotion or
+    implementation.
+  stop_conditions:
+  - A packet would select chunk output.
+  - A packet would imply reviewed-gold promotion.
+  - A packet would require child spans before owner review.
+- decision_id: T386-HDM-002
+  title: Textual-variant and source-tradition policy for variant-sensitive passages
+  trigger_flags:
+  - textual_variant_source_tradition_sensitive
+  - blocked_authority_action
+  faithful_options:
+  - option_id: T386-HDM-002-A
+    summary: Keep TCP-T378-B case-by-case owner confirmation for each variant-sensitive promotion.
+    repercussion: Prevents hidden critical-text, TR, majority-text, or current-source defaults.
+  - option_id: T386-HDM-002-B
+    summary: Create a later broader textual-critical framework after enough cases are documented.
+    repercussion: Could reduce repeated decisions later, but is a higher-authority theological/source-tradition gate.
+  recommended_conservative_path: Use T386-HDM-002-A until the owner explicitly authorizes a broader policy.
+  stop_conditions:
+  - A preferred reading is needed.
+  - A source-tradition preference is implied.
+  - A canon-scope or boundary-material decision is required.
+- decision_id: T386-HDM-003
+  title: WJ/red-letter/speaker/discourse boundary decisions
+  trigger_flags:
+  - speaker_wj_red_letter_discourse_boundary_risk
+  faithful_options:
+  - option_id: T386-HDM-003-A
+    summary: Treat WJ/red-letter markers as source metadata and require packet evidence before speaker-boundary use.
+    repercussion: Preserves Jesus/narrator and quotation boundaries without treating edition formatting as authority.
+  - option_id: T386-HDM-003-B
+    summary: Avoid WJ-dependent target promotion until a stronger WJ discourse packet exists.
+    repercussion: Safest for ambiguous discourse, but may defer Gospel work.
+  recommended_conservative_path: Use T386-HDM-003-A with exact-scope owner review.
+  stop_conditions:
+  - A red-letter marker would become speaker attribution.
+  - Narrator/Jesus boundary cannot be preserved.
+  - A WJ route behavior change is needed.
+- decision_id: T386-HDM-004
+  title: Cross-reference and intertext handling
+  trigger_flags:
+  - cross_reference_or_intertext_risk
+  - editorial_cross_reference_present
+  faithful_options:
+  - option_id: T386-HDM-004-A
+    summary: Surface crossrefs/intertexts as evidence-only review signals.
+    repercussion: Keeps canonical links visible without generating graph truth.
+  - option_id: T386-HDM-004-B
+    summary: Require a separate intertext dossier before any intertext-aware chunk target is promoted.
+    repercussion: Higher audit burden, but safer for Revelation, prophecy, and typology-heavy passages.
+  recommended_conservative_path: Use T386-HDM-004-B for high-risk intertext lanes and T386-HDM-004-A for routine metadata
+    surfacing.
+  stop_conditions:
+  - An editorial cross-reference would become a graph edge.
+  - Absence of a cross-reference would be treated as absence of an intertext.
+  - A typology or fulfillment system would become a chunking default.
+- decision_id: T386-HDM-005
+  title: Original-language phrase/context and divine capitalization handling
+  trigger_flags:
+  - original_language_phrase_context_review
+  - divine_name_title_capitalization_sensitive
+  - known_non_orthodox_pressure_passage
+  faithful_options:
+  - option_id: T386-HDM-005-A
+    summary: Use Greek/Hebrew/Strong's/capitalization only inside phrase, clause, discourse, book, and canonical context.
+    repercussion: Prevents isolated-word theology and preserves orthodox review space.
+  - option_id: T386-HDM-005-B
+    summary: Hold pressure passages until a grammar-overlay dossier is written.
+    repercussion: Safest for LDS, Watch Tower, and anti-Trinitarian pressure passages, but slows those targets.
+  recommended_conservative_path: Use T386-HDM-005-A generally and T386-HDM-005-B for pressure passages.
+  stop_conditions:
+  - A Strong's number or gloss would become lexical truth.
+  - A capitalization convention would become doctrine authority.
+  - A pressure-passage label would import non-orthodox source authority.
+- decision_id: T386-HDM-006
+  title: Blocked authority actions before chunking
+  trigger_flags:
+  - blocked_authority_action
+  - human_owner_decision_required
+  faithful_options:
+  - option_id: T386-HDM-006-A
+    summary: Keep blocked actions blocked until exact owner review, decision-register entry, and validator update.
+    repercussion: Maintains auditability and prevents hidden authority changes.
+  recommended_conservative_path: Use T386-HDM-006-A.
+  stop_conditions:
+  - The work would authorize output.
+  - The work would prefer a source tradition.
+  - The work would change canon scope or boundary import policy.
+- decision_id: T386-HDM-007
+  title: Exact next non-output step after Bible-wide coverage
+  trigger_flags:
+  - review_packet_needed
+  - human_owner_decision_required
+  faithful_options:
+  - option_id: T386-HDM-007-A
+    summary: Proceed to T385 owner decision packet using T384 synthesis plus T386 coverage as required inputs.
+    repercussion: Best continuation path toward chunking without silently selecting implementation targets.
+  - option_id: T386-HDM-007-B
+    summary: Add more research-only dossiers before T385.
+    repercussion: May improve evidence depth, but delays the owner decision packet.
+  recommended_conservative_path: T386-HDM-007-A.
+  stop_conditions:
+  - The next step would implement chunks.
+  - The next step would promote reviewed gold.
+  - The next step would select a target without owner review.
+- decision_id: T386-HDM-008
+  title: Canonical passage has no translation witness
+  trigger_flags:
+  - translation_witness_missing
+  faithful_options:
+  - option_id: T386-HDM-008-A
+    summary: Block chunking for the missing-witness passage until source integrity is repaired.
+    repercussion: Protects against silent Scripture omission.
+  recommended_conservative_path: T386-HDM-008-A.
+  stop_conditions:
+  - Any missing witness is present in the canonical passage registry.
+exact_next_non_output_step:
+  task_id: T385
+  title: Owner Decision Packet From T384/T386 Readiness Coverage
+  route_type: owner_decision_packet_only
+  required_inputs:
+  - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+  - .ai/control/bible_verse_passage_coverage_summary.yaml
+  - .ai/control/bible_verse_passage_human_review_docket.yaml
+  - .ai/control/bible_verse_passage_gap_register.yaml
+  output_change_authorized: false
+  reviewed_gold_promoted: false
+  implementation_authorized: false
+non_authorizations:
+- chunk_output_change
+- reviewed_gold_promotion
+- child_span_selection
+- route_behavior_change
+- evaluator_change
+- graph_edge_generation
+- retrieval_truth
+- embedding_or_vector_work
+- boundary_import
+- preferred_reading_selection
+- source_tradition_preference
+- canon_scope_change
+- denominational_systematic_theology_as_chunk_authority

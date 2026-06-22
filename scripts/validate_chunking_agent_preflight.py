@@ -42,6 +42,13 @@ T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_paren
 T375_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t375_post_pilot_review.yaml"
 T376_EPISTLE_RESEARCH_RUNWAY = ROOT / ".ai" / "control" / "t376_epistle_research_runway.yaml"
 T384_RESEARCH_READINESS_SYNTHESIS = ROOT / ".ai" / "control" / "t384_bible_wide_research_readiness_synthesis.yaml"
+T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
+T386_COVERAGE_SUMMARY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_summary.yaml"
+T386_READINESS_MATRIX = ROOT / ".ai" / "control" / "bible_verse_passage_readiness_matrix.yaml"
+T386_GAP_REGISTER = ROOT / ".ai" / "control" / "bible_verse_passage_gap_register.yaml"
+T386_HUMAN_REVIEW_DOCKET = ROOT / ".ai" / "control" / "bible_verse_passage_human_review_docket.yaml"
+T386_COVERAGE_INVENTORY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_inventory.jsonl"
+TEST_RUNTIME_PREFLIGHT = ROOT / ".ai" / "control" / "test_runtime_preflight.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -88,7 +95,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -104,6 +111,8 @@ REQUIRED_LESSON_IDS = {
     "LSN-011",
     "LSN-012",
     "LSN-013",
+    "LSN-014",
+    "LSN-015",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -114,6 +123,8 @@ REQUIRED_WORKFLOW_LESSON_IDS = {
     "WORKFLOW-LESSON-006",
     "WORKFLOW-LESSON-007",
     "WORKFLOW-LESSON-008",
+    "WORKFLOW-LESSON-009",
+    "WORKFLOW-LESSON-010",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-004",
 }
@@ -193,6 +204,12 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "validate_contextual_reading_policy.py",
     "validate_t376_epistle_research_runway.py",
     "validate_t384_bible_wide_research_readiness.py",
+    "bible_verse_passage_coverage_inventory.jsonl",
+    "bible_verse_passage_human_review_docket.yaml",
+    "T386 Bible-wide verse/passage coverage",
+    "test_runtime_preflight.yaml",
+    "python -m pytest -q",
+    "600000",
     "Research autonomy is not authority autonomy",
     "T384 Bible-wide research/readiness synthesis",
     "T385 owner decision packet",
@@ -222,6 +239,7 @@ REQUIRED_OUTPUT_CHANGE_REQUIREMENTS = {
     "same_baseline_evaluation",
     "no_context_audit_surface",
     "owner_option_repercussion_review_if_owner_gate",
+    "bible_verse_passage_coverage_lookup_for_target",
 }
 
 
@@ -387,6 +405,13 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t375_post_pilot_review.yaml",
         ".ai/control/t376_epistle_research_runway.yaml",
         ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+        ".ai/control/bible_verse_passage_coverage_summary.yaml",
+        ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
+        ".ai/control/bible_verse_passage_readiness_matrix.yaml",
+        ".ai/control/bible_verse_passage_gap_register.yaml",
+        ".ai/control/bible_verse_passage_human_review_docket.yaml",
+        ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
+        ".ai/control/test_runtime_preflight.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -850,6 +875,40 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t384_synthesis_text:
             raise PreflightError(f"{_rel(T384_RESEARCH_READINESS_SYNTHESIS)}: missing T384 synthesis phrase {phrase!r}")
+    t386_summary_text = _read_text(T386_COVERAGE_SUMMARY)
+    for phrase in (
+        "object_type: bible_verse_passage_coverage_summary",
+        "canonical_book_count: 66",
+        "canonical_passage_count: 31103",
+        "authorizes_chunk_output_change: false",
+        "T385 owner decision packet",
+    ):
+        if phrase not in t386_summary_text:
+            raise PreflightError(f"{_rel(T386_COVERAGE_SUMMARY)}: missing T386 summary phrase {phrase!r}")
+    for file_path, expected_object_type in (
+        (T386_COVERAGE_TAXONOMY, "object_type: bible_verse_passage_coverage_taxonomy"),
+        (T386_READINESS_MATRIX, "object_type: bible_verse_passage_readiness_matrix"),
+        (T386_GAP_REGISTER, "object_type: bible_verse_passage_gap_register"),
+        (T386_HUMAN_REVIEW_DOCKET, "object_type: bible_verse_passage_human_review_docket"),
+    ):
+        file_text = _read_text(file_path)
+        for phrase in (
+            expected_object_type,
+            "task_id: T386",
+            "authorizes_chunk_output_change: false",
+        ):
+            if phrase not in file_text:
+                raise PreflightError(f"{_rel(file_path)}: missing T386 coverage phrase {phrase!r}")
+    runtime_text = _read_text(TEST_RUNTIME_PREFLIGHT)
+    for phrase in (
+        "object_type: test_runtime_preflight",
+        "python -m pytest -q",
+        "recommended_timeout_ms: 600000",
+        "treat_timeout_as_green",
+        "scripts/validate_test_runtime_preflight.py",
+    ):
+        if phrase not in runtime_text:
+            raise PreflightError(f"{_rel(TEST_RUNTIME_PREFLIGHT)}: missing runtime preflight phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",

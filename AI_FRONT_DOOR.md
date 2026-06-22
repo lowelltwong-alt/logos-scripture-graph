@@ -32,7 +32,8 @@ Read these files before making changes:
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
     T372 route-isolation harness plan, T373 owner implementation authorization record,
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
-    T375 post-pilot review, T384 Bible-wide research/readiness synthesis,
+    T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
+    verse/passage coverage inventory,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -68,9 +69,13 @@ Read these files before making changes:
 13. For high-leverage authority, routing, evaluator, default-behavior, corpus-scope, generated
     artifact, automation, cross-repo, workflow-rule, or master-chunker work:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
-14. `config/agents/agent_roles.yaml`
-15. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
-16. The specific files in the task scope.
+14. Before repo-wide validation, `python scripts/validate_all.py`, or `python -m pytest -q`:
+    `.ai/control/test_runtime_preflight.yaml`. It records known slow commands, including full
+    pytest needing a timeout of at least `600000` ms in this worktree, and requires focused/split
+    tests plus full-suite rerun rather than treating a tool timeout as green.
+15. `config/agents/agent_roles.yaml`
+16. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+17. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -152,9 +157,12 @@ Bible-first chunking priority:
   review are recorded, child spans are not necessary now, and T376 selected the epistle argument
   research/prep runway in `.ai/control/t376_epistle_research_runway.yaml`. Research autonomy is not authority autonomy:
   T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
-  non-output-changing Bible-wide research/readiness. T385 owner decision packet is the next
-  non-output step before exact target selection, reviewed-gold promotion, child spans, output,
-  route/evaluator behavior, graph/retrieval/vector truth, boundary import, or theology authority.
+  non-output-changing Bible-wide research/readiness, and T386 adds deterministic
+  `.ai/control/bible_verse_passage_coverage_inventory.jsonl` plus the summary, matrix, gap
+  register, and human-review docket so every canonical passage is accounted for before T385.
+  T385 owner decision packet is the next non-output step before exact target selection,
+  reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
+  truth, boundary import, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -207,6 +215,21 @@ Bible-first chunking priority:
   exact target, promote reviewed gold, authorize child spans, change chunk output, alter
   route/evaluator behavior, generate graph/retrieval/vector truth, import boundaries, prefer
   readings/source traditions, change canon scope, or authorize theology claims.
+- The T386 Bible-wide verse/passage coverage surfaces at
+  `.ai/control/bible_verse_passage_coverage_summary.yaml`,
+  `.ai/control/bible_verse_passage_readiness_matrix.yaml`,
+  `.ai/control/bible_verse_passage_gap_register.yaml`,
+  `.ai/control/bible_verse_passage_human_review_docket.yaml`, and
+  `.ai/control/bible_verse_passage_coverage_inventory.jsonl` prove every canonical passage record
+  is accounted for at triage depth before chunking resumes. They classify routine passages,
+  review-packet needs, original-language phrase/context needs, textual-variant/source-tradition
+  sensitivity, source-metadata sensitivity, cross-reference/intertext risk, WJ/red-letter/speaker
+  risk, non-orthodox pressure passages, theological downstream risk, owner-decision requirements,
+  and blocked authority actions. They are validated by
+  `scripts/validate_bible_verse_passage_coverage_inventory.py` and do not select targets, promote
+  reviewed gold, authorize child spans, change output, alter route/evaluator behavior, create
+  graph/retrieval/vector truth, import boundaries, select preferred readings/source traditions,
+  change canon scope, or authorize theology claims.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing
@@ -224,9 +247,10 @@ Bible-first chunking priority:
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
   next safe route. It is non-authorizing and currently records the completed T384 Bible-wide
-  research/readiness synthesis and points to T385 owner decision packet as the next non-output step.
-  T384 research readiness cannot select a target, promote reviewed gold, implement output, add child
-  spans, or change route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
+  research/readiness synthesis plus the T386 Bible-wide verse/passage coverage gate, then points to
+  T385 owner decision packet as the next non-output step. T384/T386 readiness cannot select a
+  target, promote reviewed gold, implement output, add child spans, or change
+  route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
@@ -730,6 +754,12 @@ loses Bible-wide readiness coverage, drops `CD-061` or `LSN-013`, omits required
 stops pointing to T385 owner decision packet, or authorizes target selection, reviewed gold, child
 spans, output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
 readings/source traditions, canon-scope change, whole-Bible output, or theology authority.
+`python scripts/validate_bible_verse_passage_coverage_inventory.py` fails closed if T386 loses
+canonical 66-book passage coverage, duplicates or omits any canonical passage record, drops the
+coverage taxonomy, summary, readiness matrix, gap register, owner-review docket, `CD-062`, `LSN-014`,
+AI TOC/front-door wiring, or authorizes target selection, reviewed gold, child spans, output,
+route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source
+traditions, canon-scope change, whole-Bible output, or theology authority.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
