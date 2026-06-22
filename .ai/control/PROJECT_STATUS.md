@@ -1,17 +1,25 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-22
-**Updated by:** T388 legacy branch discovery audit (Codex)
-**Active task:** -> **T388** completed a non-authorizing cleanup audit for stale
-`feat/scale-connection-discovery-codex-5-5` and local-only
-`t320-t325-boundary-entity-commentary-planning-pack`. Neither branch should be merged directly.
-The scale branch may be rediscovered only during future T308-style candidate adjudication/rerun
-planning, and the T320/T325 branch may be rediscovered only during future Boundary
-Literature/commentary/source-marker planning after current controls are read. This audit authorizes
-no candidate-data promotion, branch direct merge, canonical Bible text or passage-record change,
-chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, boundary
-import, or governance change. The exact next chunking step remains **T385 owner decision packet**
-using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open.
+**Updated by:** T389 chunking launch readiness report (Codex)
+**Active task:** -> **T389** completed a non-authorizing Chunking Launch Readiness report at
+`docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`. It records the current clean-trunk state
+after branch reconciliation, summarizes ready surfaces from T384/T386/T387/T388, names remaining
+blocked authority changes, lists human decisions still needed, identifies epistle argument as the
+strongest next review lane, and keeps **T385 owner decision packet** as the exact next safe
+non-output step. T389 authorizes no exact target selection, chunk output, reviewed gold, child
+spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+readings/source traditions, canon-scope change, or theology/systematics as chunk authority. **T308**
+connection discovery + **T309** chunking bake-off still open.
+
+> **T389 Chunking Launch Readiness report (2026-06-22):** Added
+> `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`, task, handoff, roadmap state entry,
+> status wiring, `CD-064`, `LSN-018`, and TOC/front-door routing. The project is ready for T385
+> owner packet work, not output-changing chunking. The report uses T384 Bible-wide research/readiness, T386 passage
+> coverage, T387 manuscript witness scaffold, T388 stale-branch audit, and the Governance branch
+> reconciliation register as evidence. It keeps all output, target selection, reviewed-gold,
+> child-span, route/evaluator, graph/retrieval/vector, boundary import, preferred-reading,
+> source-tradition, canon-scope, and theology-authority changes blocked until explicit owner gates.
 
 > **T388 legacy branch discovery audit (2026-06-22):** Added
 > `.ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md`, task, handoff, roadmap

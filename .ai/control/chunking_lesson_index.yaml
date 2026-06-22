@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T388
+last_updated_by_task: T389
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -631,6 +631,44 @@ lessons:
     validators:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
+  - lesson_id: LSN-018
+    title: Clean trunk needs a launch-readiness report before owner-packet work
+    lifecycle_status: active
+    priority: P0
+    categories: [workflow_governance, auditability, owner_decision, theological_risk]
+    tags: [launch-readiness, clean-trunk, chunking-ready, next-route, owner-decision, t389, t385, blocked-authority, non-authorizing, ai-toc, lesson-index]
+    use_when:
+      - "A future agent has reconciled branches or parallel-agent work and wants to resume chunking or prepare an owner packet."
+      - "A future agent needs the current go/no-go state before target selection, reviewed-gold promotion, implementation, output, or route/evaluator work."
+      - "A project-status or AI TOC change points to a readiness report, launch state, clean trunk, or next owner gate."
+    preflight_stage: before_owner_packet_or_chunking_restart
+    source_surfaces:
+      - docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+      - .ai/tasks/T389.task.yaml
+      - .ai/handoffs/T389/handoff.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T384, T385, T386, T387, T388, T389]
+    downstream_risk: "Without a repo-resident launch-readiness report, future agents may treat clean branches, research autonomy, manuscript planning, or stale-branch cleanup as permission to select targets, promote gold, implement chunks, or change theology-facing behavior."
+    required_preflight_surfaces:
+      - docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+      - .ai/control/bible_verse_passage_coverage_summary.yaml
+    non_authorizations:
+      - launch_readiness_as_target_selection
+      - clean_trunk_as_output_authority
+      - branch_cleanup_as_chunk_authority
+      - research_readiness_as_reviewed_gold
+      - manuscript_scaffold_as_preferred_reading
+      - owner_packet_preparation_as_owner_decision
+      - epistle_lane_strength_as_exact_target_selection
+    validators:
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_task_scope.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -746,4 +784,16 @@ lesson_graph:
   - from: LSN-017
     relation: constrains
     to: LSN-001
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-018
+  - from: LSN-018
+    relation: audits
+    to: LSN-013
+  - from: LSN-018
+    relation: audits
+    to: LSN-014
+  - from: LSN-018
+    relation: constrains
+    to: LSN-017
 validator: scripts/validate_chunking_lesson_index.py
