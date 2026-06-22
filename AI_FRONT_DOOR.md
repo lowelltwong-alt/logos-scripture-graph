@@ -34,11 +34,12 @@ Read these files before making changes:
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
-    T390 manuscript source catalog metadata plan,
+    T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
+    T390 manuscript source catalog metadata plan,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
@@ -157,10 +158,18 @@ Bible-first chunking priority:
   complete in `.ai/control/t375_post_pilot_review.yaml`: same-baseline review and no-context audit
   review are recorded, child spans are not necessary now, and T376 selected the epistle argument
   research/prep runway in `.ai/control/t376_epistle_research_runway.yaml`. Research autonomy is not authority autonomy:
-  T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
-  non-output-changing Bible-wide research/readiness, and T386 adds deterministic
-  `.ai/control/bible_verse_passage_coverage_inventory.jsonl` plus the summary, matrix, gap
-  register, and human-review docket so every canonical passage is accounted for before T385.
+    T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
+    non-output-changing Bible-wide research/readiness, and T386 adds deterministic
+    `.ai/control/bible_verse_passage_coverage_inventory.jsonl` plus the summary, matrix, gap
+    register, and human-review docket so every canonical passage is accounted for before T385.
+  T389 records the current launch-readiness report at
+  `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`. T390 records
+  `.ai/control/manuscript_source_catalog_metadata_plan.yaml` and
+  `docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md` as metadata-only manuscript
+  source-catalog planning. It authorizes no SQLite database creation, row population, source text
+  import, transcription storage, preferred reading, source-tradition preference, canon-scope
+  change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, chunk output,
+  or apologetic conclusion as authority.
   T385 owner decision packet is the next non-output step before exact target selection,
   reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
   truth, boundary import, or theology authority.
@@ -240,18 +249,13 @@ Bible-first chunking priority:
   change canonical Bible text or passage records, select preferred readings or source traditions,
   change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
   apologetic conclusions as Scripture authority.
-- The T390 manuscript source catalog metadata plan at
-  `.ai/control/manuscript_source_catalog_metadata_plan.yaml` refines T387 into SQLite-ready
-  source-catalog metadata planning for biblical DSS witnesses, New Testament papyri, major codices,
-  holding institutions, identifiers, date/material/coverage/discovery claims, source trust rules,
-  anti-guessing rules, review statuses, and future goal prompts. It is validated by
-  `scripts/validate_manuscript_source_catalog_metadata_plan.py`. It creates no SQLite database,
-  imports no manuscript or Scripture text, populates no metadata rows, selects no preferred readings
-  or source traditions, changes no canon scope, imports no boundary/commentary/patristic/theologian
-  corpora, creates no graph/retrieval/vector truth, and authorizes no apologetic conclusions as
-  Scripture authority. Church fathers, commentaries, reception history, early creed wording,
-  non-biblical Qumran/DSS content, and theologian writings route to Boundary Literature; doctrine
-  lineage routes to future Doctrine Genealogy.
+- The T389 Chunking Launch Readiness report at
+  `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
+  non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It
+  points to T385 as the exact next safe non-output owner decision packet and authorizes no exact
+  target selection, reviewed gold, child spans, output, route/evaluator behavior,
+  graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope
+  change, or theology authority.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing

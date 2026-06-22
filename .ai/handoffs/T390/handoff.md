@@ -98,7 +98,7 @@
 
 - Generated validation outputs under data/canonical/ and build/t390_processed/ are ignored local artifacts and should not be committed.
 - Future T391/T392 population work must re-confirm source rights/access, preserve conflicting catalog claims, and avoid transcription text.
-- This branch intentionally does not touch the dirty parallel-agent T389 worktree.
+- T389 launch-readiness is now on main and this branch is layered after it; future agents should read both T389 and T390 before manuscript reliability or chunking restart work.
 
 ## Open questions
 
