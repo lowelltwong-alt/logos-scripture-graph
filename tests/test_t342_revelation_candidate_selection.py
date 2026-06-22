@@ -131,14 +131,14 @@ def test_t342_through_t376_remain_complete_while_live_route_points_to_t384() -> 
     assert future["T375"]["status"] == "complete_review_only_child_spans_not_necessary_now"
     assert future["T376"]["status"] == "complete_selected_research_first_epistle_argument_runway"
     assert readiness["next_route"]["task_id"] == "T384"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert readiness["next_route"]["route_type"] == "bible_wide_research_readiness_synthesis"
     assert readiness["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
     assert readiness["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert readiness["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert readiness["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
     assert readiness["next_route"]["selected_t376_option"] == "T376-A"
     assert readiness["next_route"]["selected_lane"] == "epistle_argument"
-    assert readiness["next_route"]["selection_mode"] == "research_first_non_authorizing"
+    assert readiness["next_route"]["selection_mode"] == "bible_wide_research_readiness_complete_non_authorizing"
     assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
     assert readiness["next_route"]["exact_target_selected"] is False
     assert readiness["next_route"]["output_change_authorized"] is False

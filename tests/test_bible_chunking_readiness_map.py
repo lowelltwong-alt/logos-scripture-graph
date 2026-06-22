@@ -78,6 +78,7 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in surfaces
     assert ".ai/control/t375_post_pilot_review.yaml" in surfaces
     assert ".ai/control/t376_epistle_research_runway.yaml" in surfaces
+    assert ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -209,21 +210,27 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert packet["implementation_authorized"] is False
 
 
-def test_next_route_advances_to_t384_after_t376_selection() -> None:
+def test_next_route_records_completed_t384_synthesis_and_t385_owner_packet() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
     assert data["next_route"]["task_id"] == "T384"
-    assert data["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert data["next_route"]["route_type"] == "bible_wide_research_readiness_synthesis"
     assert data["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
     assert data["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert data["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"
     assert data["next_route"]["prior_implementation_manifest"] == ".ai/control/t374_additive_parent_overlay_manifest.yaml"
-    assert set(data["next_route"]["prior_decision_register_entries"]) == {"CD-056", "CD-057", "CD-060"}
+    assert data["next_route"]["completion_surface"] == ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml"
+    assert data["next_route"]["completion_status"] == "complete_bible_wide_research_readiness_synthesis"
+    assert data["next_route"]["decision_register_entry"] == "CD-061"
+    assert data["next_route"]["lesson_index_entry"] == "LSN-013"
+    assert set(data["next_route"]["prior_decision_register_entries"]) == {"CD-056", "CD-057", "CD-060", "CD-061"}
     assert data["next_route"]["selected_t376_option"] == "T376-A"
     assert data["next_route"]["selected_lane"] == "epistle_argument"
-    assert data["next_route"]["selection_mode"] == "research_first_non_authorizing"
+    assert data["next_route"]["selection_mode"] == "bible_wide_research_readiness_complete_non_authorizing"
     assert data["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
     assert data["next_route"]["exact_target_selected"] is False
+    assert data["next_route"]["exact_next_non_output_step"] == "T385"
+    assert data["next_route"]["next_owner_packet_required"] is True
     assert {option["option_id"] for option in data["next_route"]["available_target_options"]} >= {
         "T384-A",
         "T384-B",
@@ -241,9 +248,13 @@ def test_next_route_advances_to_t384_after_t376_selection() -> None:
     assert data["next_route"]["graph_edge_generation_allowed"] is False
     assert data["next_route"]["embedding_or_vector_work_allowed"] is False
     assert "T384_selects_exact_target_without_owner_decision" in data["next_route"]["must_fail_if"]
+    assert "T384_synthesis_is_treated_as_owner_selection" in data["next_route"]["must_fail_if"]
     assert "research_recommendation_is_treated_as_owner_selection" in data["next_route"]["must_fail_if"]
     assert "child_spans_are_added_without_later_owner_promotion" in data["next_route"]["must_fail_if"]
     assert "whole_bible_output_is_run" in data["next_route"]["must_fail_if"]
+    assert "human_decision_map" in data["next_route"]["required_t384_work_must_record"]
+    assert "blocked_authority_changes" in data["next_route"]["required_t384_work_must_record"]
+    assert "exact_next_non_output_step" in data["next_route"]["required_t384_work_must_record"]
 
     by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
     epistle = by_lane["epistle_argument"]

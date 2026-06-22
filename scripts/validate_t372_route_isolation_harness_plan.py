@@ -332,7 +332,7 @@ def _validate_links() -> None:
                 raise T372HarnessPlanError(f"{_rel(READINESS)}: T376 next_route.{key} must be false")
     if next_route.get("task_id") == "T384":
         expected_t384 = {
-            "route_type": "epistle_argument_research_runway",
+            "route_type": "bible_wide_research_readiness_synthesis",
             "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
             "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
             "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",

@@ -1113,13 +1113,19 @@ phases:
         boundary_import_allowed: false
         next_task: T384
       - id: T384
-        title: Epistle Argument Research Runway And Target Options Matrix
-        status: ready_non_output_changing_research_prep
-        lane: epistle_argument
+        title: Bible-Wide Research Readiness Synthesis
+        status: complete_bible_wide_research_readiness_synthesis
+        lane: bible_wide_research_readiness
         starts_only_if: T376_A_epistle_argument_research_runway_selected
         prior_lane_selection: .ai/control/t376_epistle_research_runway.yaml
+        synthesis: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+        required_handoff: .ai/handoffs/T384/handoff.md
+        decision_register_entry: CD-061
+        lesson_index_entry: LSN-013
         owner_decision_required_before_promotion_or_implementation: true
         exact_target_selected: false
+        exact_next_non_output_step: T385
+        next_task: T385
         required_target_options: [T384-A, T384-B, T384-C, T384-D, T384-E, T384-F]
         required_fields:
           - serious_faithful_target_options
@@ -1130,9 +1136,31 @@ phases:
           - textual_variant_or_source_tradition_sensitivity
           - orthodox_hermeneutic_firewall_compliance
           - no_exact_target_selected
+          - human_decision_map
+          - blocked_authority_changes
+          - exact_next_non_output_step
           - validators_and_tests
           - audit_surface
           - handoff_next_owner_gate
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+      - id: T385
+        title: Owner Decision Packet From T384 Research Readiness Synthesis
+        status: ready_owner_decision_packet_only
+        lane: bible_wide_research_readiness
+        starts_only_if: T384_bible_wide_research_readiness_synthesis_complete
+        required_input: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+        purpose: Present HDM-001 through HDM-007 with options, repercussions, recommendation, and non-authorizations for owner review.
+        owner_decision_required: true
+        owner_decision_required_before_promotion_or_implementation: true
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false

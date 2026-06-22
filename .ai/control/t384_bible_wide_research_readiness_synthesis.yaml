@@ -1,0 +1,329 @@
+---
+object_type: bible_wide_chunking_research_readiness_synthesis
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-21 during T384 after the owner changed the goal to research all necessary Bible-wide chunking issues first, prepare for chunking without output changes, and record human decisions needed before chunking."
+reason_for_inclusion: "Close the non-output-changing Bible-wide research/readiness goal with one deterministic synthesis surface that future agents must read before selecting chunking targets, gold, routes, graph/retrieval behavior, or output work."
+---
+schema_version: t384_bible_wide_research_readiness_synthesis.v1
+synthesis_id: t384_bible_wide_chunking_research_readiness
+task_id: T384
+status: complete_bible_wide_research_readiness_synthesis
+owner: Lowell Wong
+goal_completed:
+  goal_summary: "Research everything necessary to prepare for faithful, Bible-wide chunking before making new chunk-output changes."
+  completed_as_non_output_changing_research_readiness: true
+  completion_claim: "The project now has a governed Bible-wide research/readiness map showing what is ready for review-packet strengthening, what needs more research, what human decisions are required, what must remain blocked, and the exact next non-output-changing step before implementation."
+  does_not_mean_chunking_ready_for_output: true
+authority:
+  records_research_readiness: true
+  records_human_decision_needs: true
+  records_next_non_output_step: true
+  authorizes_exact_target_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_denominational_systematic_theology_as_chunk_authority: false
+orthodoxy_boundary:
+  default: nicene_chalcedonian_core
+  canonical_scripture_authority: true
+  preserved_posture: "Preserve orthodox interpretive options where the text allows them while refusing anti-supernatural, anti-canonical, heterodox, liberal-critical, or one-denomination defaults."
+required_source_surfaces:
+  canonical_66_book_research_registry:
+    path: .ai/control/bible_wide_chunking_research_registry.yaml
+    book_count_required: 66
+    role: "Canonical book-level research queue and watchpoint inventory."
+  readiness_map:
+    path: .ai/control/bible_chunking_readiness_map.yaml
+    role: "Lane sequence, algorithm readiness, active T384 route, and stop conditions."
+  human_decision_forecast:
+    path: .ai/control/chunking_human_decision_forecast.yaml
+    role: "Previously front-loaded owner decisions and stop conditions."
+  source_metadata_atlas:
+    path: .ai/control/source_metadata_research_atlas.yaml
+    role: "Internal cross-references, Strong's-style numbers, footnotes, headings, WJ markers, capitalization, and formatting as evidence only."
+  contextual_reading_policy:
+    path: .ai/control/contextual_reading_policy.yaml
+    role: "Immediate, paragraph/section, chapter/book, canonical, original-language, historical/cultural, and source-metadata context requirements."
+  original_language_phrase_context_policy:
+    path: .ai/control/original_language_phrase_context_policy.yaml
+    role: "Greek/Hebrew word evidence must be read in phrase, clause, syntax, discourse, genre, textual, and canonical context."
+  orthodox_firewall:
+    path: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    role: "Anti-smuggling boundary for hidden anti-orthodox or one-denomination defaults."
+coverage:
+  corpus_scope: canonical_66
+  bible_wide_research_registry_book_count: 66
+  registry_statuses_observed:
+    - seeded_needs_research
+    - research_first
+    - review_packet_pending
+    - governed_hold_existing_gold
+    - owner_decision_pending
+  source_metadata_surfaces_observed:
+    - canonical_word_tokens
+    - editorial_cross_references
+    - footnotes
+    - section_headings
+    - boundary_claims
+    - wj_marker_inventory
+    - divine_capitalization_inventory
+    - raw_source_inventory
+  required_context_layers:
+    - immediate_discourse_context
+    - paragraph_section_context
+    - chapter_book_context
+    - canonical_context
+    - original_language_context_if_used
+    - historical_cultural_context_if_relevant
+    - source_metadata_context_if_cited
+what_is_ready_for_review_packet_strengthening:
+  - lane_id: epistle_argument
+    readiness: ready_for_owner_options_packet_not_output
+    basis:
+      - .ai/control/t376_epistle_research_runway.yaml
+      - .ai/control/epistle_argument_theological_issue_dossier_queue.yaml
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - eval/chunking_gold/review_packets/rom9_11_argument_review.md
+      - eval/chunking_gold/review_packets/heb7_10_priesthood_argument_review.md
+      - eval/chunking_gold/review_packets/1cor8_10_food_offered_to_idols_review.md
+    next_options:
+      - T384-A: Eph.1.3-Eph.1.14
+      - T384-B: Rom.9.1-Rom.11.36
+      - T384-C: Heb.7.1-Heb.10.39
+      - T384-D: Gal.2.15-Gal.3.29
+      - T384-E: Jas.2.14-Jas.2.26
+      - T384-F: 1Cor.11.17-1Cor.14.40
+    human_decision_needed_before_promotion_or_implementation: HDM-001
+    non_authorizations: [exact_target_selection, reviewed_gold_promotion, child_spans, output_change]
+  - lane_id: gospel_discourse_wj
+    readiness: ready_for_review_packet_strengthening_only
+    basis:
+      - .ai/control/wj_marker_inventory.yaml
+      - .ai/control/wj_speaker_discourse_policy.yaml
+      - .ai/control/john3_wj_owner_review_docket.yaml
+      - .ai/control/gospel_wj_discourse_dossier_queue.yaml
+    next_options:
+      - John.3.1-John.3.36 parent-only review target already owner-selected for review, not gold
+      - Matt.5-Matt.7 sermon discourse research
+      - John.13-John.17 farewell discourse research
+    human_decision_needed_before_promotion_or_implementation: HDM-002
+    non_authorizations: [speaker_boundary, Jesus_narrator_boundary, reviewed_gold_promotion, output_change]
+  - lane_id: source_metadata_and_original_language
+    readiness: ready_as_required_preflight_for_every_lane
+    basis:
+      - .ai/control/source_metadata_research_atlas.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+      - .ai/control/divine_capitalization_inventory.yaml
+      - .ai/control/wj_marker_inventory.yaml
+    next_options:
+      - attach evidence-only metadata sections to any future review packet
+      - prepare original-language pressure dossiers before variant-sensitive or non-orthodox pressure passages
+    human_decision_needed_before_promotion_or_implementation: HDM-006
+    non_authorizations: [metadata_as_truth, isolated_word_as_truth, graph_edge_generation, retrieval_truth, output_change]
+what_needs_more_research:
+  - lane_id: revelation_apocalyptic
+    reason: "REV-T344-E keeps Revelation research/prep only. Rev.12.1-Rev.14.20 has a pending packet but not reviewed gold."
+    required_more_research:
+      - chronology_or_recapitulation_neutrality
+      - Daniel_and_prophetic_intertext_options
+      - Revelation_voice_and_WJ_marker_limits
+      - symbol_identity_non_authorization
+    human_decision_needed_before_promotion_or_implementation: HDM-003
+  - lane_id: narrative_legal_covenant
+    reason: "Genesis through historical/narrative/legal material is seeded in the 66-book registry and dossier queue but lacks selected exact review targets and reviewed gold."
+    required_more_research:
+      - covenant_scene_boundaries
+      - genealogy_and_list_handling
+      - law_code_and_narrative_interleaving
+      - typology_and_harmonization_non_authorization
+    human_decision_needed_before_promotion_or_implementation: HDM-004
+  - lane_id: wisdom_dialogue_poetry
+    reason: "Dialogue, acrostic, refrain, speaker, lament, and poetic boundaries need review packets beyond existing Psalm pilot lessons."
+    required_more_research:
+      - Job_speaker_boundary_and_divine_speech
+      - Song_speaker_and_genre_options
+      - Lamentations_acrostic_handling
+      - Psalm_119_and_long_poetry_parent_child_policy
+    human_decision_needed_before_promotion_or_implementation: HDM-004
+  - lane_id: prophetic_oracle_vision
+    reason: "Oracle, servant-song, temple-vision, and fulfillment-sensitive boundaries are seeded but not selected for exact target review."
+    required_more_research:
+      - servant_song_scope_options
+      - temple_vision_scope_options
+      - day_of_yahweh_and_fulfillment_boundary_limits
+      - Israel_church_and_messianic_non_authorizations
+    human_decision_needed_before_promotion_or_implementation: HDM-004
+  - lane_id: textual_variant_source_tradition
+    reason: "Case-by-case textual-critical process is selected, but every variant-sensitive promotion still needs exact owner confirmation."
+    required_more_research:
+      - Mark.16.9-Mark.16.20
+      - John.7.53-John.8.11
+      - Deut.32.8-Deut.32.9
+      - Jude.5-Jude.15
+      - 1John.5.6-1John.5.8
+    human_decision_needed_before_promotion_or_implementation: HDM-005
+what_must_remain_blocked:
+  - blocker_id: BLOCK-001
+    title: Whole-Bible Output Pass
+    reason: "A global output-changing run would bypass lane-specific reviewed gold, non-target identity checks, and theological risk controls."
+    blocked_until:
+      - multiple_lane_promotions_or_rejections_with_evidence
+      - route_ledger_stability
+      - per_lane_gold_coverage
+      - cross_lane_non_target_identity_checks
+      - owner_authorization_for_whole_bible_output
+  - blocker_id: BLOCK-002
+    title: Graph, Retrieval, Vector, Or Edge Truth
+    reason: "Derived graph/retrieval/vector surfaces can look authoritative and must not be created from research metadata or chunk options."
+    blocked_until:
+      - separate_owner_authority
+      - evidence_refs_and_trust_zone_policy
+      - validation_for_non_truth_bearing_outputs
+  - blocker_id: BLOCK-003
+    title: Child Spans
+    reason: "Child spans may be useful but can smuggle argument hierarchy or theology unless exact reviewed evidence and owner promotion exist."
+    blocked_until:
+      - exact_target_review
+      - child_necessity_review
+      - owner_child_span_promotion
+  - blocker_id: BLOCK-004
+    title: Preferred Readings, Source Tradition, Canon Scope, Or Boundary Import
+    reason: "These would become textual-critical or canon-scope authority, not research."
+    blocked_until:
+      - case_specific_owner_confirmation
+      - exact_variant_or_boundary_dependency_record
+      - decision_register_update
+human_decisions_required:
+  - decision_id: HDM-001
+    title: Select first post-research epistle review-packet strengthening target
+    timing: before_any_T384_option_promotion_or_implementation
+    owner_question: "Which exact epistle argument target should be strengthened first, if any?"
+    faithful_options:
+      - option_id: T384-A
+        passage: Eph.1.3-Eph.1.14
+        upside: "Compact, high-value, strong first comparison candidate."
+        downside_risk: "Can smuggle election, adoption, sealing, or Trinitarian-economy systems if labels outrun the text."
+        recommendation: recommended_first_owner_option_not_selected
+      - option_id: T384-B
+        passage: Rom.9.1-Rom.11.36
+        upside: "Major canonical argument with high theological value."
+        downside_risk: "Very broad and highly system-sensitive; likely slower and higher risk."
+        recommendation: defer_until_after_smaller_epistle_target
+      - option_id: T384-C
+        passage: Heb.7.1-Heb.10.39
+        upside: "Important priesthood/covenant/sacrifice argument with OT intertexts."
+        downside_risk: "Large span and high covenant/typology risk."
+        recommendation: research_continues_before_implementation
+      - option_id: T384-D
+        passage: Gal.2.15-Gal.3.29
+        upside: "Compact law/promise/justification target."
+        downside_risk: "Law/gospel and justification systems can leak into boundaries."
+        recommendation: good_alternate_owner_option
+      - option_id: T384-E
+        passage: Jas.2.14-Jas.2.26
+        upside: "Small pressure passage for faith/works and canonical harmonization."
+        downside_risk: "Can force James/Paul harmonization or opposition."
+        recommendation: good_small_pressure_option
+      - option_id: T384-F
+        passage: 1Cor.11.17-1Cor.14.40
+        upside: "Natural continuation after 1Cor.8-10."
+        downside_risk: "Risks overfitting to one book and encoding sacramental/charismatic/ecclesial systems."
+        recommendation: defer_until_after_first_epistle_research_target
+    non_authorizations: [selection_by_this_synthesis, reviewed_gold, child_spans, output_change]
+  - decision_id: HDM-002
+    title: Decide whether John 3 parent-only review should be strengthened next
+    timing: before_any_gospel_wj_promotion_or_output
+    owner_question: "Should John.3.1-John.3.36 be strengthened as a parent-only Gospel/WJ packet before more epistle work?"
+    faithful_options: [hold_until_after_epistle_target, strengthen_parent_only_review, require_child_or_speaker_boundary_options_first]
+    non_authorizations: [Jesus_narrator_boundary, speaker_attribution, reviewed_gold, output_change]
+  - decision_id: HDM-003
+    title: Decide when Revelation leaves research-only posture
+    timing: before_any_Revelation_gold_or_implementation
+    owner_question: "Is any Revelation target strong enough to move beyond research/prep, or should REV-T344-E continue?"
+    faithful_options: [continue_research_only, strengthen_rev12_14_packet, select_different_Revelation_packet, defer_Revelation_until_other_lanes_mature]
+    non_authorizations: [chronology_system, millennium_system, symbol_identity, reviewed_gold, output_change]
+  - decision_id: HDM-004
+    title: Select first non-epistle genre review target after epistle/Gospel readiness
+    timing: before_narrative_wisdom_or_prophetic_gold
+    owner_question: "Which seeded non-epistle lane should get the next exact review packet?"
+    faithful_options: [narrative_legal_covenant, wisdom_dialogue_poetry, prophetic_oracle_vision, psalms_poetry_hold_or_more_evidence]
+    non_authorizations: [typology_system, covenant_system, fulfillment_system, wisdom_theology_system, output_change]
+  - decision_id: HDM-005
+    title: Confirm case-specific textual-variant dependency before variant-sensitive promotion
+    timing: before_any_variant_sensitive_gold_or_boundary
+    owner_question: "For the exact target, are named variants boundary-dependent, reviewed-gold-dependent, or non-dependent?"
+    faithful_options: [variant_non_dependent_for_exact_claim, variant_dependent_hold, variant_requires_more_research, reject_variant_sensitive_target]
+    non_authorizations: [preferred_reading, source_tradition_preference, canon_scope_change, boundary_import]
+  - decision_id: HDM-006
+    title: Confirm source metadata or original-language evidence remains evidence-only
+    timing: before_any_packet_uses_metadata_or_original_language_as_boundary_evidence
+    owner_question: "Does the packet use metadata or Greek/Hebrew observations as evidence only, or is a stronger owner decision required?"
+    faithful_options: [evidence_only_no_authority, require_original_language_dossier, require_textual_variant_case_policy, stop_before_use]
+    non_authorizations: [isolated_word_truth, capitalization_truth, cross_reference_graph_truth, metadata_driven_boundary]
+  - decision_id: HDM-007
+    title: Authorize any future route/evaluator/output implementation
+    timing: after_exact_target_reviewed_gold_or_equivalent_governed_evidence
+    owner_question: "Does the owner authorize an exact route-isolated output-changing implementation, and with what output semantics?"
+    faithful_options: [hold, dry_run_only, additive_parent_overlay_only, exact_replacement_with_spill_plan, route_behavior_without_output_rejected]
+    non_authorizations: [whole_bible_output, broader_generalization, graph_retrieval_vector_truth, evaluator_formula_change_without_owner]
+exact_next_non_output_step:
+  task_id: T385
+  title: Owner Decision Packet From T384 Research Readiness Synthesis
+  route_type: owner_decision_packet_only
+  starts_only_if: T384_bible_wide_research_readiness_synthesis_complete
+  required_input: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+  purpose: "Present HDM-001 through HDM-007 with options, repercussions, recommendation, and non-authorizations for owner review."
+  owner_decision_required_before_promotion_or_implementation: true
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  child_spans_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
+non_authorizations:
+  - exact_target_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - child_span_reviewed_gold_promotion
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - boundary_import
+  - whole_bible_output_pass
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - denominational_systematic_theology_as_chunk_authority
+  - liberal_critical_default
+  - anti_supernatural_default
+lesson_recorded:
+  lesson_id: LSN-013
+  title: Bible-wide research readiness must be synthesized before chunking resumes
+  summary: "Whole-Bible research can proceed broadly, but chunking resumes only after the synthesis maps ready lanes, research gaps, human decisions, blocked authority changes, and the next non-output owner packet."
+decision_register_entry: CD-061
+validators:
+  - scripts/validate_t384_bible_wide_research_readiness.py
+  - tests/test_t384_bible_wide_research_readiness.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_chunking_lesson_index.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_all.py
+...

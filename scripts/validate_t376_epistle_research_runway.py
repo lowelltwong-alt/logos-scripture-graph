@@ -282,7 +282,7 @@ def _validate_links() -> None:
         (LESSON_INDEX, ("LSN-012", "Research autonomy is not authority autonomy", "T376")),
         (READINESS, ("task_id: T384", RUNWAY_REL, "research_autonomy_is_not_authority_autonomy")),
         (ROADMAP, ("id: T376", "complete_selected_research_first_epistle_argument_runway", "id: T384")),
-        (FRONT_DOOR, (RUNWAY_REL, VALIDATOR_REL, "T384 epistle argument research/options matrix")),
+        (FRONT_DOOR, (RUNWAY_REL, VALIDATOR_REL, "T384 Bible-wide research/readiness synthesis")),
         (MAIN_TOC, (RUNWAY_REL, VALIDATOR_REL, "research-runway")),
         (ROADMAP_TOC, (RUNWAY_REL, DOC_REL, "T376 | Epistle research runway")),
         (ROADMAP_DOC, (RUNWAY_REL, "Research autonomy is not authority autonomy", "T384")),

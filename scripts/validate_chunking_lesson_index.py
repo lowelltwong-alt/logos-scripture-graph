@@ -69,6 +69,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-010",
     "LSN-011",
     "LSN-012",
+    "LSN-013",
 }
 
 REQUIRED_TAGS = {
@@ -89,6 +90,10 @@ REQUIRED_TAGS = {
     "historical-context",
     "research-runway",
     "authority-boundary",
+    "bible-wide-readiness",
+    "research-synthesis",
+    "human-decision-map",
+    "chunking-ready",
 }
 
 REQUIRED_SURFACES = {
@@ -99,6 +104,8 @@ REQUIRED_SURFACES = {
     ".ai/control/original_language_phrase_context_policy.yaml",
     ".ai/control/contextual_reading_policy.yaml",
     ".ai/control/t376_epistle_research_runway.yaml",
+    ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+    "docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",

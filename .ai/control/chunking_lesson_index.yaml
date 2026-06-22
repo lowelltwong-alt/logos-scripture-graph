@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-21 during T376 to add the research-autonomy-not-authority-autonomy lesson."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-21 during T384 to add the Bible-wide research/readiness synthesis lesson."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T376
+last_updated_by_task: T384
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -440,6 +440,44 @@ lessons:
       - scripts/validate_t376_epistle_research_runway.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-013
+    title: Bible-wide research readiness must be synthesized before chunking resumes
+    lifecycle_status: active
+    priority: P0
+    categories: [owner_decision, theological_risk, workflow_governance, auditability]
+    tags: [bible-wide-readiness, research-synthesis, human-decision-map, t384, t385, chunking-ready, ready-lanes, research-gaps, blocked-authority, non-authorizing]
+    use_when:
+      - "A future agent wants to resume chunking after broad Bible-wide research or decide whether the project is ready for a target, reviewed gold, implementation, graph, retrieval, vector, or output step."
+      - "A no-context reviewer or owner-decision helper needs the compiled map of ready lanes, research gaps, human decisions HDM-001 through HDM-007, blocked authority changes, and the exact next non-output step."
+      - "A research recommendation, lane readiness label, or target option could be mistaken for owner selection, reviewed gold, chunk output authority, graph/retrieval truth, or theology authority."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md
+    related_decision_ids: [CD-061]
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-008]
+    related_task_ids: [T384]
+    downstream_risk: "A Bible-wide synthesis can be mistaken for target selection, global algorithm authority, whole-Bible output permission, graph/retrieval/vector truth, child-span promotion, variant/source-tradition preference, or denominational theology authority."
+    required_preflight_surfaces:
+      - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - synthesis_as_owner_selection
+      - ready_lane_as_reviewed_gold
+      - research_gap_as_output_authority
+      - target_option_as_selected_target
+      - whole_bible_output_from_research
+      - graph_or_retrieval_truth_from_readiness
+      - denominational_theology_authority_from_readiness
+    validators:
+      - scripts/validate_t384_bible_wide_research_readiness.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -492,4 +530,22 @@ lesson_graph:
   - from: LSN-012
     relation: constrains
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-013
+  - from: LSN-012
+    relation: constrains
+    to: LSN-013
+  - from: LSN-013
+    relation: constrains
+    to: LSN-007
+  - from: LSN-013
+    relation: constrains
+    to: LSN-008
+  - from: LSN-013
+    relation: audits
+    to: LSN-010
+  - from: LSN-013
+    relation: constrains
+    to: LSN-011
 validator: scripts/validate_chunking_lesson_index.py

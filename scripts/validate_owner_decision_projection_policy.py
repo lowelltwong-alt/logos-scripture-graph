@@ -308,13 +308,13 @@ def _validate_governed_links() -> None:
             raise ProjectionPolicyError(f"{_rel(READINESS)}: T376 t375_result.selected_children must be []")
     if next_task_id == "T384":
         expected_t384 = {
-            "route_type": "epistle_argument_research_runway",
+            "route_type": "bible_wide_research_readiness_synthesis",
             "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
             "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
             "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
             "selected_t376_option": "T376-A",
             "selected_lane": "epistle_argument",
-            "selection_mode": "research_first_non_authorizing",
+            "selection_mode": "bible_wide_research_readiness_complete_non_authorizing",
             "owner_decision_required_before_promotion_or_implementation": True,
             "exact_target_selected": False,
             "reviewed_gold_promoted": False,

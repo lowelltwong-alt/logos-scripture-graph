@@ -32,7 +32,7 @@ Read these files before making changes:
     T371 owner-decision packet, T371-A parent-only reviewed-gold promotion record,
     T372 route-isolation harness plan, T373 owner implementation authorization record,
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
-    T375 post-pilot review,
+    T375 post-pilot review, T384 Bible-wide research/readiness synthesis,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -151,10 +151,10 @@ Bible-first chunking priority:
   complete in `.ai/control/t375_post_pilot_review.yaml`: same-baseline review and no-context audit
   review are recorded, child spans are not necessary now, and T376 selected the epistle argument
   research/prep runway in `.ai/control/t376_epistle_research_runway.yaml`. Research autonomy is not authority autonomy:
-  the T384 epistle argument research/options matrix may proceed as
-  non-output-changing research, but exact target selection, reviewed-gold promotion, child spans,
-  output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, or theology
-  authority still requires a later owner gate.
+  T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
+  non-output-changing Bible-wide research/readiness. T385 owner decision packet is the next
+  non-output step before exact target selection, reviewed-gold promotion, child spans, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -199,6 +199,14 @@ Bible-first chunking priority:
   route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings,
   source-tradition preference, canon-scope change, or denominational systematic theology as chunk
   authority.
+- The T384 Bible-wide research/readiness synthesis at
+  `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` records the completed
+  research-first readiness map: ready lanes, research gaps, human decisions `HDM-001` through
+  `HDM-007`, blocked authority changes, and `T385` as the next owner decision packet. It is
+  validated by `scripts/validate_t384_bible_wide_research_readiness.py`. It does not select an
+  exact target, promote reviewed gold, authorize child spans, change chunk output, alter
+  route/evaluator behavior, generate graph/retrieval/vector truth, import boundaries, prefer
+  readings/source traditions, change canon scope, or authorize theology claims.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing
@@ -215,10 +223,10 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently points to the T384 epistle argument research/options matrix after T376-A selected the epistle research/prep runway. T384 may research
-  serious faithful target options and repercussions but cannot select a target, promote reviewed
-  gold, implement output, add child spans, or change route/evaluator/graph/retrieval/vector
-  behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
+  next safe route. It is non-authorizing and currently records the completed T384 Bible-wide
+  research/readiness synthesis and points to T385 owner decision packet as the next non-output step.
+  T384 research readiness cannot select a target, promote reviewed gold, implement output, add child
+  spans, or change route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
@@ -230,7 +238,8 @@ Bible-first chunking priority:
   record itself is not output authority, and the implementation manifest records one exact
   non-truth-bearing additive parent overlay. T375 is recorded separately as review-only and says
   child spans are not necessary now, not that child spans are permanently rejected. T376 is recorded
-  separately as a non-output-changing lane selection and research-autonomy boundary.
+  separately as a non-output-changing lane selection and research-autonomy boundary. T384 is
+  recorded separately as non-output-changing research/readiness synthesis.
 - The chunking human decision forecast at
   `.ai/control/chunking_human_decision_forecast.yaml` explains why the broad thread goal was
   blocked by predictable owner decisions, names those decisions early, defines when the repo is
@@ -716,6 +725,11 @@ truth, drops `CD-057`, or stops pointing to T376 owner lane selection.
 loses `T376-A`, stops pointing to T384, drops `CD-060`, selects an exact target, promotes reviewed
 gold, authorizes child spans, output, route/evaluator behavior, graph/retrieval/vector truth,
 boundary import, or turns research autonomy into theology authority.
+`python scripts/validate_t384_bible_wide_research_readiness.py` fails closed if the T384 synthesis
+loses Bible-wide readiness coverage, drops `CD-061` or `LSN-013`, omits required human decisions,
+stops pointing to T385 owner decision packet, or authorizes target selection, reviewed gold, child
+spans, output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+readings/source traditions, canon-scope change, whole-Bible output, or theology authority.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 

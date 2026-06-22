@@ -55,7 +55,8 @@ Common tags in this file:
   `postflight`, `workflow-governance`, `T383`, `contextual-reading`, `prooftexting`,
   `immediate-context`, `paragraph-context`, `chapter-context`, `book-context`,
   `canonical-context`, `historical-context`, `research-runway`, `research-autonomy`,
-  `authority-boundary`, `target-options`, `T384`
+  `authority-boundary`, `target-options`, `T384`, `T385`, `bible-wide-readiness`,
+  `research-synthesis`, `human-decision-map`, `ready-lanes`, `blocked-authority`
 
 ## Current Bible Chunking Path
 
@@ -103,6 +104,7 @@ Common tags in this file:
 | T374 | Additive parent overlay implementation | `t374`, `baseline-overlap`, `owner-selection`, `selected-semantics`, `non-target-identity`, `additive-overlay`, `output-manifest`, `preserve-baseline`, `same-baseline`, `1cor8-10`, `audit` | Auditing the selected `T374-OVERLAP-B` additive parent overlay semantics, completed output manifest, and remaining non-authorizations before T375 review. | `docs/roadmap/T374_BASELINE_OVERLAP_OWNER_DECISION_PACKET.md`; `.ai/control/t374_baseline_overlap_owner_decision_packet.yaml`; `.ai/control/t374_additive_parent_overlay_manifest.yaml`; `scripts/validate_t374_baseline_overlap_owner_decision_packet.py`; `scripts/validate_t374_additive_parent_overlay.py`; `.ai/tasks/T374.task.yaml`; `.ai/handoffs/T374/handoff.md` |
 | T375 | Post-pilot review | `t375`, `post-pilot-review`, `child-necessity-review`, `same-baseline`, `no-context-audit`, `t376-next`, `1cor8-10`, `non-authorizing` | Auditing the completed T374 post-pilot review and why child spans are not necessary now. | `docs/roadmap/T375_POST_PILOT_REVIEW.md`; `.ai/control/t375_post_pilot_review.yaml`; `.ai/audits/reports/20260620-T375-post-pilot-review.md`; `scripts/validate_t375_post_pilot_review.py`; `.ai/tasks/T375.task.yaml`; `.ai/handoffs/T375/handoff.md` |
 | T376 | Epistle research runway | `t376`, `t384`, `research-runway`, `research-autonomy`, `authority-boundary`, `epistle`, `target-options`, `non-authorizing` | Auditing the selected T376-A epistle argument research/prep runway or preparing the next T384 options matrix without authorizing target selection or output. | `.ai/control/t376_epistle_research_runway.yaml`; `docs/roadmap/T376_EPISTLE_RESEARCH_RUNWAY.md`; `.ai/audits/reports/20260621-T376-epistle-research-runway.md`; `scripts/validate_t376_epistle_research_runway.py`; `.ai/tasks/T376.task.yaml`; `.ai/handoffs/T376/handoff.md` |
+| T384 | Bible-wide research readiness synthesis | `t384`, `t385`, `bible-wide-readiness`, `research-synthesis`, `human-decision-map`, `ready-lanes`, `blocked-authority`, `chunking-ready`, `non-authorizing` | Auditing the completed Bible-wide research/readiness synthesis or preparing the next T385 owner decision packet without authorizing target selection, reviewed gold, child spans, output, graph/retrieval/vector truth, route/evaluator behavior, boundary import, or theology authority. | `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`; `docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md`; `.ai/audits/reports/20260621-T384-bible-wide-research-readiness.md`; `scripts/validate_t384_bible_wide_research_readiness.py`; `.ai/tasks/T384.task.yaml`; `.ai/handoffs/T384/handoff.md` |
 | T382 | Chunking lesson index | `t382`, `lessons-learned`, `lesson-index`, `lesson-graph`, `preflight`, `midflight`, `postflight`, `workflow-governance`, `non-authorizing` | A reusable lesson must be discovered, tagged, routed into preflight/workflow/register surfaces, or validated after lesson/preflight/methodology/TOC/audit changes. | `docs/roadmap/T382_CHUNKING_LESSON_INDEX.md`; `.ai/control/chunking_lesson_index.yaml`; `scripts/validate_chunking_lesson_index.py`; `.ai/tasks/T382.task.yaml`; `.ai/handoffs/T382/handoff.md` |
 | T383 | Contextual reading policy | `t383`, `contextual-reading`, `context`, `prooftexting`, `immediate-context`, `paragraph-context`, `chapter-context`, `book-context`, `canonical-context`, `historical-context`, `non-authorizing` | Future Bible reading, chunking, review packets, intertexts, historical/cultural notes, or source-metadata observations need layered context before use. | `docs/roadmap/T383_CONTEXTUAL_READING_POLICY.md`; `.ai/control/contextual_reading_policy.yaml`; `scripts/validate_contextual_reading_policy.py`; `.ai/tasks/T383.task.yaml`; `.ai/handoffs/T383/handoff.md` |
 
@@ -148,6 +150,7 @@ Common tags in this file:
 | `.ai/control/t374_additive_parent_overlay_manifest.yaml` | `t374`, `output-manifest`, `additive-overlay`, `preserve-baseline`, `same-baseline`, `no-context-audit`, `cd-056`, `t375-next` | T375 review or an audit needs the actual output-change proof and hashes. | Implementation manifest; records one appended parent-only overlay, preserved baseline-prefix hash, same-baseline metrics, audit report, decision-register entry, and non-authorizations. |
 | `.ai/control/t375_post_pilot_review.yaml` | `t375`, `post-pilot-review`, `child-necessity-review`, `same-baseline`, `no-context-audit`, `cd-057`, `t376-next` | T376 work or an audit needs to know why child spans are not necessary now and why owner lane selection is next. | Post-pilot review; records same-baseline/no-context audit review, child-span non-promotion, and no output/route/evaluator/graph/retrieval authority. |
 | `.ai/control/t376_epistle_research_runway.yaml` | `t376`, `t384`, `research-runway`, `research-autonomy`, `authority-boundary`, `epistle`, `target-options` | T384 work or an audit needs to know why epistle research/options may continue and where authority-changing work must stop. | T376-A runway; authorizes non-output research/prep only and denies target selection, reviewed gold, child spans, output, graph/retrieval/vector truth, route/evaluator behavior, boundary import, and theology authority. |
+| `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` | `t384`, `t385`, `bible-wide-readiness`, `research-synthesis`, `human-decision-map`, `ready-lanes`, `blocked-authority`, `chunking-ready` | T385 owner-packet work or an audit needs the compiled ready lanes, research gaps, human decisions, blocked authority changes, and exact next step. | T384 synthesis; records HDM-001 through HDM-007 and points to T385 while denying target selection, reviewed gold, child spans, output, graph/retrieval/vector truth, route/evaluator behavior, boundary import, source-tradition preference, canon-scope change, and theology authority. |
 | `.ai/control/owner_decision_option_presentation_policy.yaml` | `owner-options`, `decision-presentation`, `human-decision`, `recommendation`, `non-authorizations` | A future owner gate needs options, repercussions, risks, and recommendations before the owner decides. | Presentation policy; requires serious faithful options and repercussions while authorizing no output by itself. |
 | `.ai/control/1cor8_10_epistle_owner_review_docket.yaml` | `1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental` | Work touches 1 Corinthians 8-10 or the projected parent-only selection after packet strengthening. | Owner-review docket; no child/doctrine/gold/chunk/output authority. |
 | `eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml` | `1cor8-10`, `evidence-packet`, `reviewed-gold-promotion`, `source-metadata`, `parent-only` | Work audits T370 evidence or prepares the T371 owner promotion decision. | Parent-only evidence packet; not reviewed gold and no child/route/evaluator/graph/retrieval/output authority. |
@@ -161,10 +164,12 @@ prep, T380 T371 owner-decision packet prep, T371-A parent-only reviewed-gold pro
 route-isolation harness planning, T373-A owner implementation authorization selected the exact
 parent-only implementation pilot. T374 implemented the exact additive parent overlay, T375
 completed the post-pilot review, and T376-A selected the epistle argument research/prep runway.
+T384 completed the Bible-wide research/readiness synthesis and did not authorize output or target
+selection.
 The next route is:
 
 ```text
-T384 - Epistle Argument Research Runway And Target Options Matrix
+T385 - Owner Decision Packet From T384 Research Readiness Synthesis
 ```
 
 T367 records `JOHN3-T356-B` as the selected parent-only `John.3.1-John.3.36` review target,
@@ -188,6 +193,9 @@ and implemented one exact additive parent overlay recorded in
 `.ai/control/t374_additive_parent_overlay_manifest.yaml`. T375 records
 `.ai/control/t375_post_pilot_review.yaml`: same-baseline/no-context audit review is complete,
 child spans are not necessary now, and T376 then selected the epistle argument research/prep runway.
+T384 records `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`: ready lanes,
+research gaps, human decisions `HDM-001` through `HDM-007`, blocked authority changes, and T385 as
+the next owner decision packet.
 Revelation remains research/prep only for the
 pending, non-authorizing packet for:
 
@@ -269,7 +277,8 @@ limited to 1Cor.8.1-1Cor.10.33 with no child spans. T373 also records the owner-
 parent-first pilot pattern: run the exact parent-only pilot, then review whether child spans are
 necessary before any later child-span work. T374 records a baseline-overlap selection and a separate
 implementation manifest; T375 is complete, T376 selected the epistle argument research/prep runway,
-and T384 epistle argument research/options matrix is now the next route.
+and T384 completed the Bible-wide research/readiness synthesis. T385 owner decision packet is now
+the next non-output step.
 T377 records original-language pressure-passage review memory; it does not authorize Greek/Hebrew
 as automatic truth, translation preference, non-orthodox source authority, extra-canonical source
 authority, doctrine selection, graph/retrieval truth, reviewed gold, chunk boundaries, canon-scope

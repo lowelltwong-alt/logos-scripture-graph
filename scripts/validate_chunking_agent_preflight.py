@@ -41,6 +41,7 @@ T374_BASELINE_OVERLAP_PACKET = ROOT / ".ai" / "control" / "t374_baseline_overlap
 T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_parent_overlay_manifest.yaml"
 T375_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t375_post_pilot_review.yaml"
 T376_EPISTLE_RESEARCH_RUNWAY = ROOT / ".ai" / "control" / "t376_epistle_research_runway.yaml"
+T384_RESEARCH_READINESS_SYNTHESIS = ROOT / ".ai" / "control" / "t384_bible_wide_research_readiness_synthesis.yaml"
 OWNER_OPTION_POLICY = ROOT / ".ai" / "control" / "owner_decision_option_presentation_policy.yaml"
 ONECOR_OWNER_DOCKET = ROOT / ".ai" / "control" / "1cor8_10_epistle_owner_review_docket.yaml"
 ONECOR_EVIDENCE_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "1cor8_10_parent_only_evidence_packet.yaml"
@@ -87,7 +88,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -102,6 +103,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-010",
     "LSN-011",
     "LSN-012",
+    "LSN-013",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -111,6 +113,7 @@ REQUIRED_WORKFLOW_LESSON_IDS = {
     "WORKFLOW-LESSON-005",
     "WORKFLOW-LESSON-006",
     "WORKFLOW-LESSON-007",
+    "WORKFLOW-LESSON-008",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-003",
     "BIBLE-CHUNKING-WORKFLOW-LESSON-004",
 }
@@ -177,6 +180,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t374_additive_parent_overlay_manifest.yaml",
     "t375_post_pilot_review.yaml",
     "t376_epistle_research_runway.yaml",
+    "t384_bible_wide_research_readiness_synthesis.yaml",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
     "owner_decision_option_presentation_policy.yaml",
@@ -188,8 +192,10 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "contextual_reading_policy.yaml",
     "validate_contextual_reading_policy.py",
     "validate_t376_epistle_research_runway.py",
+    "validate_t384_bible_wide_research_readiness.py",
     "Research autonomy is not authority autonomy",
-    "T384 epistle argument research/options matrix",
+    "T384 Bible-wide research/readiness synthesis",
+    "T385 owner decision packet",
     "contextual-reading",
     "historical-context",
     "chapter-context",
@@ -380,6 +386,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t374_additive_parent_overlay_manifest.yaml",
         ".ai/control/t375_post_pilot_review.yaml",
         ".ai/control/t376_epistle_research_runway.yaml",
+        ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
         ".ai/control/owner_decision_option_presentation_policy.yaml",
         ".ai/control/1cor8_10_epistle_owner_review_docket.yaml",
         "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml",
@@ -822,6 +829,27 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t376_runway_text:
             raise PreflightError(f"{_rel(T376_EPISTLE_RESEARCH_RUNWAY)}: missing T376 runway phrase {phrase!r}")
+    t384_synthesis_text = _read_text(T384_RESEARCH_READINESS_SYNTHESIS)
+    for phrase in (
+        "object_type: bible_wide_chunking_research_readiness_synthesis",
+        "status: complete_bible_wide_research_readiness_synthesis",
+        "completed_as_non_output_changing_research_readiness: true",
+        "does_not_mean_chunking_ready_for_output: true",
+        "HDM-001",
+        "HDM-007",
+        "what_is_ready_for_review_packet_strengthening",
+        "what_needs_more_research",
+        "what_must_remain_blocked",
+        "task_id: T385",
+        "decision_register_entry: CD-061",
+        "lesson_id: LSN-013",
+        "authorizes_chunk_output_change: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_graph_edges: false",
+        "scripts/validate_t384_bible_wide_research_readiness.py",
+    ):
+        if phrase not in t384_synthesis_text:
+            raise PreflightError(f"{_rel(T384_RESEARCH_READINESS_SYNTHESIS)}: missing T384 synthesis phrase {phrase!r}")
     option_policy_text = _read_text(OWNER_OPTION_POLICY)
     for phrase in (
         "object_type: owner_decision_option_presentation_policy",

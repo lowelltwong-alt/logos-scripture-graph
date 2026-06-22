@@ -35,3 +35,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260621-T376-epistle-research-runway.md` - No-context audit surface for the T376-A epistle
   argument research runway; records CD-060, LSN-012, T384 as the next non-output-changing
   research/options route, and the boundary between research autonomy and authority autonomy.
+- `20260621-T384-bible-wide-research-readiness.md` - No-context audit surface for the T384
+  Bible-wide research/readiness synthesis; records CD-061, LSN-013, human decisions HDM-001 through
+  HDM-007, blocked authority changes, T385 as the next owner packet, and the non-output-changing
+  boundary.
