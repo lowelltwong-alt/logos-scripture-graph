@@ -72,6 +72,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-013",
     "LSN-014",
     "LSN-015",
+    "LSN-016",
 }
 
 REQUIRED_TAGS = {
@@ -107,6 +108,15 @@ REQUIRED_TAGS = {
     "pytest-timeout",
     "long-running-tests",
     "focused-tests",
+    "manuscript-witness",
+    "reliability-provenance",
+    "oldest-fragments",
+    "dead-sea-scrolls",
+    "nt-papyri",
+    "copy-abundance",
+    "discovery-timeline",
+    "evidence-namespace",
+    "boundary-routing",
 }
 
 REQUIRED_SURFACES = {
@@ -129,6 +139,8 @@ REQUIRED_SURFACES = {
     ".ai/control/test_runtime_preflight.yaml",
     "scripts/validate_test_runtime_preflight.py",
     "tests/test_test_runtime_preflight.py",
+    ".ai/control/manuscript_witness_reliability_scaffold.yaml",
+    "docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md",
     ".ai/control/orthodox_hermeneutic_firewall_docket.yaml",
     ".ai/control/textual_critical_case_policy.yaml",
     ".ai/control/owner_decision_projection_policy.yaml",

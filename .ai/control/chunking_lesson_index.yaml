@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T386
+last_updated_by_task: T387
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -556,6 +556,45 @@ lessons:
       - scripts/validate_test_runtime_preflight.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_all.py
+  - lesson_id: LSN-016
+    title: Manuscript witness reliability research cannot become authority by vibes
+    lifecycle_status: active
+    priority: P0
+    categories: [source_metadata, original_language, theological_risk, workflow_governance, graph_retrieval_vector, auditability]
+    tags: [manuscript-witness, reliability-provenance, oldest-fragments, dead-sea-scrolls, nt-papyri, codices, variants, copy-abundance, discovery-timeline, evidence-namespace, boundary-routing, anti-guessing, source-anchors, review-status, non-authorizing, t387]
+    use_when:
+      - "A future agent researches manuscript witnesses, oldest fragments, Dead Sea Scrolls relevance, NT papyri/codices, variant attestation, copy abundance, provenance, or discovery timelines."
+      - "A future agent wants reliability evidence to influence chunking, graph edges, retrieval, vectors, preferred readings, source tradition, canon scope, or apologetic reports."
+      - "A future agent needs to route early creeds, oral tradition, church fathers, commentaries, theologians, or non-biblical Qumran material without mixing them into canonical Scripture records."
+    preflight_stage: before_work
+    source_surfaces:
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/architecture/ADR-0010-source-language-witness-and-extra-biblical-layers.md
+      - docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+    related_decision_ids: [CD-063]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T387]
+    downstream_risk: "Manuscript, language, dating, variant, provenance, or copy-abundance research can be mistaken for canonical text authority, preferred readings, graph truth, retrieval truth, or apologetic conclusions if source, method, confidence, provenance, scope, and review status are missing."
+    required_preflight_surfaces:
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/boundary_material_routing.yaml
+      - docs/architecture/SCRIPTURE_VECTORIZATION_AND_EDGE_DURABILITY_CONTRACT.md
+    non_authorizations:
+      - manuscript_claim_without_source_method_confidence_provenance_review
+      - dating_or_language_claim_as_model_truth
+      - copy_abundance_as_preferred_reading
+      - discovery_timeline_as_apologetic_authority
+      - commentary_or_patristic_data_as_scripture
+      - boundary_corpus_import_into_scripture_records
+      - graph_or_retrieval_truth_from_witness_metadata
+      - chunk_output_change_from_reliability_scaffold
+    validators:
+      - scripts/validate_manuscript_witness_reliability_scaffold.py
+      - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -645,6 +684,18 @@ lesson_graph:
     relation: governs_update_of
     to: LSN-015
   - from: LSN-015
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-016
+  - from: LSN-006
+    relation: constrains
+    to: LSN-016
+  - from: LSN-009
+    relation: constrains
+    to: LSN-016
+  - from: LSN-016
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

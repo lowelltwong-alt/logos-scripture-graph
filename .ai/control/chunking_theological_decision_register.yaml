@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -2664,6 +2664,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-063
+    title: T387 manuscript witness reliability scaffold is planning-only evidence governance
+    classification: non_authorizing_review
+    task_ids: [T387]
+    owner_decision_ref: ".ai/control/manuscript_witness_reliability_scaffold.yaml"
+    pr_refs: [PR-104]
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [manuscript_witness_reliability, textual_variant_source_tradition, discovery_timeline, evidence_reporting, chunking_preflight]
+      surfaces: [.ai/control/manuscript_witness_reliability_scaffold.yaml, .ai/control/chunking_lesson_index.yaml, docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, AI_TABLE_OF_CONTENTS.md, scripts/validate_manuscript_witness_reliability_scaffold.py]
+    decision: "T387 creates a planning-only manuscript witness reliability scaffold for canonical Scripture witness metadata, variant-unit planning, discovery timeline metadata, copy-abundance method profiling, and derived reliability reports. It records that biblical manuscript witness metadata may be planned in Scripture Graph, while non-biblical Qumran/DSS corpus text, early creeds/oral tradition wording, patristic reception, church fathers, commentaries, and theologian writings remain outside canonical Scripture records and route to Boundary Literature. T387 reserves `scripture_*` and `evidence_*` planning namespaces only and requires source, method, confidence, provenance, scope, and review status before manuscript date, language, script, material, coverage, variant, copy-abundance, discovery, or reliability claims are trusted."
+    downstream_risk: "Manuscript evidence can look more authoritative than it is. If future agents treat source age, copy abundance, discovery timing, catalog metadata, language/script labels, or derived reliability reports as Scripture authority, they could silently select preferred readings, source-tradition priority, canon-scope changes, graph/retrieval truth, chunk outputs, or apologetic conclusions without owner review."
+    theological_assumptions_avoided:
+      - "No manuscript witness age is treated as original-text authority."
+      - "No copy-abundance claim becomes proof without scoped variant and attestation review."
+      - "No discovery timeline event becomes an apologetic conclusion."
+      - "No preferred reading, source-tradition preference, or canon-scope change is selected."
+      - "No commentary, patristic citation, creed wording, theologian writing, or non-biblical Qumran text is treated as Scripture."
+      - "No graph, retrieval, vector, chunking, reviewed-gold, or route behavior changes are authorized."
+    reviewed_gold_dependency: "None. T387 is research/database scaffold planning only. Later source catalog population, database migration, witness metadata records, variant attestation records, evidence reports, graph/retrieval/vector work, chunk-output work, or owner-facing apologetic conclusions require separate scoped tasks, source review, validators/tests, and owner authorization where authority could change."
+    non_authorizations:
+      - source_text_import
+      - canonical_bible_text_change
+      - canonical_passage_record_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - commentary_as_scripture
+      - patristic_citation_as_scripture_authority
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - apologetic_conclusion_as_truth
+    validators:
+      - scripts/validate_manuscript_witness_reliability_scaffold.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2765,4 +2811,5 @@ backfill_coverage:
     - T376
     - T384
     - T386
+    - T387
 ...

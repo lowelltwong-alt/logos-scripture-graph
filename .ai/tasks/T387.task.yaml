@@ -1,0 +1,77 @@
+id: T387
+phase: phase_5
+title: "Manuscript Witness Reliability Scaffold"
+mode: plan
+status: complete_non_output_changing_scaffold
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/manuscript_witness_reliability_scaffold.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T387.task.yaml
+    - .ai/handoffs/T387/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_manuscript_witness_reliability_scaffold.py
+    - scripts/validate_all.py
+    - tests/test_manuscript_witness_reliability_scaffold.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_output_changing_manuscript_witness_reliability_scaffold
+  scaffold: .ai/control/manuscript_witness_reliability_scaffold.yaml
+  roadmap_doc: docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md
+  authorizes_source_text_import: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+acceptance_criteria:
+  - "Record the repo placement decision: canonical Scripture manuscript-witness metadata belongs in Scripture Graph; non-biblical Qumran, patristic, commentary, and theologian corpora remain in Boundary Literature."
+  - "Define SQLite-compatible namespace/table planning for scripture_* and evidence_* records without creating canonical_* reliability tables."
+  - "Require source, method, confidence, provenance, and review status before manuscript date, language, script, coverage, variant, copy-abundance, or discovery-timeline claims are trusted."
+  - "Anchor the scaffold to primary or academic source catalogs without importing corpus text."
+  - "Add validator and tests proving the scaffold remains planning-only and non-authorizing."
+  - "Confirm no raw/canonical/processed/derived data, chunks, routes, evaluator, graph, retrieval, vector, or boundary imports change."
+validation:
+  - python scripts/validate_manuscript_witness_reliability_scaffold.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T387
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T387/handoff.md
+next_task: "Populate no corpus yet. The next manuscript-reliability step is a source-catalog metadata plan for biblical DSS witnesses and NT papyri/codices; the next chunking route remains T385 owner decision packet. Do not import text, change canonical records, select preferred readings/source traditions, generate graph/retrieval/vector truth, or use apologetic conclusions as authority."
+created_at: "2026-06-22"
+updated_at: "2026-06-22"
