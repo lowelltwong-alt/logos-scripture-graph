@@ -45,6 +45,7 @@
 - scripts/validate_manuscript_source_catalog_metadata_plan.py
 - tests/test_manuscript_source_catalog_metadata_plan.py
 - scripts/validate_all.py
+- docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
 - AI_FRONT_DOOR.md
 - AI_TABLE_OF_CONTENTS.md
 - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
@@ -63,6 +64,7 @@
 - Church fathers, patristic citations, commentaries, theologian writings, reception history, early creed wording, and non-biblical Qumran/DSS material route to Boundary Literature.
 - Denominational/theologian lineage and who-built-on-whom doctrine development routes to future Doctrine Genealogy.
 - Every planned table requires source URL, provenance, confidence, and review status and denies Scripture text, transcription text, and boundary text storage.
+- The T389 launch-readiness report now includes T390 as planning-only evidence and still keeps T385 as the next chunking owner-decision route.
 
 ## Validation run
 
@@ -99,6 +101,7 @@
 - Generated validation outputs under data/canonical/ and build/t390_processed/ are ignored local artifacts and should not be committed.
 - Future T391/T392 population work must re-confirm source rights/access, preserve conflicting catalog claims, and avoid transcription text.
 - T389 launch-readiness is now on main and this branch is layered after it; future agents should read both T389 and T390 before manuscript reliability or chunking restart work.
+- The T389 readiness postscript is report-only; it does not authorize database creation, row population, preferred readings, source-tradition preference, chunk output, graph/retrieval/vector truth, or theology authority.
 
 ## Open questions
 
@@ -116,3 +119,10 @@ Start from live origin/main after this PR merges. Read AI_FRONT_DOOR.md, MASTER_
 - mode: plan
 - updated_at: 2026-06-22T19:56:22+00:00
 - handoff_id: d5d77bfa14bfeeb9
+
+## Handoff refresh: readiness postscript
+
+- agent_name: codex
+- mode: implementation
+- updated_at: 2026-06-22T20:50:00+00:00
+- summary: Refreshed `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` so the launch-readiness report includes T390 manuscript source-catalog metadata planning as non-authorizing evidence. T385 remains the next chunking owner-decision packet.
