@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T387
+last_updated_by_task: T388
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -595,6 +595,42 @@ lessons:
     validators:
       - scripts/validate_manuscript_witness_reliability_scaffold.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-017
+    title: Stale branches are rediscovery prompts, not merge authority
+    lifecycle_status: active
+    priority: P0
+    categories: [workflow_governance, auditability, graph_retrieval_vector, theological_risk]
+    tags: [legacy-branch, stale-branch, branch-cleanup, rediscovery, candidate-data, connection-discovery, boundary-literature, commentary-reception, source-marker-risk, non-authorizing, no-direct-merge, t388]
+    use_when:
+      - "A future agent finds an old branch, stale candidate run, local-only planning branch, or unmerged AI branch and wants to merge it because it appears to contain useful work."
+      - "A future agent needs to recover historical signal from old connection-discovery candidates, boundary/commentary planning, source-marker risk planning, or branch cleanup notes."
+      - "A branch predates canonical-scope, boundary-routing, source-metadata, or lesson-index guardrails and would overwrite current governance if merged directly."
+    preflight_stage: before_branch_cleanup_or_salvage
+    source_surfaces:
+      - .ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md
+      - .ai/tasks/T388.task.yaml
+      - .ai/handoffs/T388/handoff.md
+      - .ai/control/boundary_material_routing.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T308, T327F, T382, T386, T387, T388]
+    downstream_risk: "Old branch content can reintroduce pre-T327 corpus scope, stale candidate data, deleted control-plane surfaces, unscoped commentary/boundary assumptions, or graph/retrieval/vector truth if merged directly instead of rediscovered under current rules."
+    required_preflight_surfaces:
+      - .ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/boundary_material_routing.yaml
+    non_authorizations:
+      - stale_branch_as_merge_authority
+      - old_candidate_file_as_graph_truth
+      - old_candidate_file_as_retrieval_truth
+      - old_boundary_plan_as_current_repo_policy
+      - commentary_planning_as_scripture_authority
+      - source_marker_risk_as_output_change
+      - branch_cleanup_as_governance_change
+    validators:
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_task_scope.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -698,4 +734,16 @@ lesson_graph:
   - from: LSN-016
     relation: audits
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-017
+  - from: LSN-017
+    relation: constrains
+    to: LSN-009
+  - from: LSN-017
+    relation: audits
+    to: LSN-010
+  - from: LSN-017
+    relation: constrains
+    to: LSN-001
 validator: scripts/validate_chunking_lesson_index.py

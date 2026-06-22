@@ -1,8 +1,28 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-22
-**Updated by:** T387 manuscript witness reliability scaffold (Codex)
-**Active task:** -> **T387** completed `.ai/control/manuscript_witness_reliability_scaffold.yaml` and `docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md` as a planning-only Scripture Graph scaffold for canonical Scripture manuscript-witness reliability metadata, variants, discovery timeline, copy-abundance method planning, and derived reliability reports. It is validated by `scripts/validate_manuscript_witness_reliability_scaffold.py`, reserves `scripture_*` and `evidence_*` namespaces only, and authorizes no source-text import, canonical Bible text or passage-record change, preferred reading, source-tradition preference, boundary import, graph/retrieval/vector truth, chunk output, or apologetic conclusion as authority. The exact next chunking step remains **T385 owner decision packet** using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T388 legacy branch discovery audit (Codex)
+**Active task:** -> **T388** completed a non-authorizing cleanup audit for stale
+`feat/scale-connection-discovery-codex-5-5` and local-only
+`t320-t325-boundary-entity-commentary-planning-pack`. Neither branch should be merged directly.
+The scale branch may be rediscovered only during future T308-style candidate adjudication/rerun
+planning, and the T320/T325 branch may be rediscovered only during future Boundary
+Literature/commentary/source-marker planning after current controls are read. This audit authorizes
+no candidate-data promotion, branch direct merge, canonical Bible text or passage-record change,
+chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, boundary
+import, or governance change. The exact next chunking step remains **T385 owner decision packet**
+using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T388 legacy branch discovery audit (2026-06-22):** Added
+> `.ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md`, task, handoff, roadmap
+> state entry, LSN-017, and status wiring to preserve rediscovery instructions before retiring stale
+> branches. `feat/scale-connection-discovery-codex-5-5` is an old T308 candidate run that must be
+> treated as historical candidate signal only; it should be revisited only by rerunning/comparing
+> current candidate discovery against current canonical 66-book data. Local-only
+> `t320-t325-boundary-entity-commentary-planning-pack` contains useful but stale planning for
+> boundary texts, commentary/reception, and raw-marker risks; it is superseded by current T327F,
+> T382, T383, T386, T387, and Boundary Literature direction and should be revisited only as
+> historical planning signal. Do not merge either branch directly.
 
 > **T387 manuscript witness reliability scaffold (2026-06-22):** Added
 > `.ai/control/manuscript_witness_reliability_scaffold.yaml`,

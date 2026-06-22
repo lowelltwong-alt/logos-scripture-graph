@@ -44,3 +44,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   canonical passage, coverage taxonomy, readiness matrix, gap register, human-review docket, T385
   as the next owner packet, the LSN-015 test-runtime preflight lesson, and the non-output-changing
   boundary.
+- `20260622-T388-legacy-branch-discovery-audit.md` - Branch cleanup audit for stale
+  `feat/scale-connection-discovery-codex-5-5` and local-only
+  `t320-t325-boundary-entity-commentary-planning-pack`; records that neither branch should be
+  merged directly and when their historical signal should be rediscovered.

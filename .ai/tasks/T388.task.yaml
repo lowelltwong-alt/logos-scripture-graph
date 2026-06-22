@@ -1,0 +1,66 @@
+id: T388
+phase: phase_7
+title: "Legacy Branch Discovery Audit"
+mode: plan
+status: complete_non_authorizing_audit
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T388.task.yaml
+    - .ai/handoffs/T388/
+    - .ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md
+    - .ai/audits/reports/README.md
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/
+    - eval/
+    - schemas/
+    - config/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_branch_cleanup_discovery_audit
+  audited_branches:
+    - feat/scale-connection-discovery-codex-5-5
+    - t320-t325-boundary-entity-commentary-planning-pack
+  authorizes_branch_direct_merge: false
+  authorizes_candidate_data_promotion: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_governance_change: false
+acceptance_criteria:
+  - "Record why feat/scale-connection-discovery-codex-5-5 must not be merged directly."
+  - "Record when any stale scale-discovery signal should be rediscovered: only during future T308-style candidate adjudication or rerun planning."
+  - "Record why t320-t325-boundary-entity-commentary-planning-pack must not be merged directly."
+  - "Identify the local-only branch content that is already superseded by current T327F/T382/T383/T386/T387 and Boundary Literature planning."
+  - "Add the reusable stale-branch rediscovery lesson to the chunking lesson index."
+  - "Keep the cleanup non-authorizing and out of data, pipeline, chunk output, canonical Scripture, and graph surfaces."
+validation:
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_task_scope.py --task-id T388
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T388/handoff.md
+next_task: "After this cleanup audit PR is merged, delete the stale scale-discovery branch locally/remotely if still present, and delete the local-only T320/T325 branch only after confirming the audit note is on main. Future agents should rediscover any stale branch signal through the T388 audit, not by merging either branch."
+created_at: "2026-06-22"
+updated_at: "2026-06-22"
