@@ -34,6 +34,7 @@ Read these files before making changes:
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
+    T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -239,6 +240,13 @@ Bible-first chunking priority:
   change canonical Bible text or passage records, select preferred readings or source traditions,
   change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
   apologetic conclusions as Scripture authority.
+- The T389 Chunking Launch Readiness report at
+  `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
+  non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It
+  points to T385 as the exact next safe non-output owner decision packet and authorizes no exact
+  target selection, reviewed gold, child spans, output, route/evaluator behavior,
+  graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope
+  change, or theology authority.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing

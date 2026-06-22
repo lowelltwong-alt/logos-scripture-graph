@@ -1,0 +1,66 @@
+id: T389
+phase: phase_4
+title: "Chunking Launch Readiness Report"
+mode: plan
+status: complete_non_authorizing_readiness_report
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T389.task.yaml
+    - .ai/handoffs/T389/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/
+    - eval/
+    - schemas/
+    - config/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_chunking_launch_readiness_report
+  readiness_report: docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+  exact_next_non_output_step: T385
+  authorizes_target_selection: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_child_spans: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_doctrinal_system: false
+acceptance_criteria:
+  - "Produce a current Chunking Launch Readiness report after branch reconciliation."
+  - "Name what is ready, what remains blocked, human decisions still needed, strongest research lanes, the next safest non-output-changing step, and what must not change yet."
+  - "Point to T385 as the exact next safe non-output owner decision packet using T384/T386/T387/T388 evidence."
+  - "Keep the report non-authorizing and out of data, pipeline, eval, generated chunk, route, graph, retrieval, and canonical Scripture surfaces."
+validation:
+  - python scripts/validate_task_scope.py --task-id T389
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T389/handoff.md
+next_task: "Start T385 owner decision packet using T384/T386/T387/T388/T389 evidence. Do not select an exact target, promote reviewed gold, add child spans, implement chunks, change route/evaluator behavior, generate graph/retrieval/vector truth, import boundaries, choose preferred readings/source traditions, change canon scope, or encode theology authority."
+created_at: "2026-06-22"
+updated_at: "2026-06-22"
