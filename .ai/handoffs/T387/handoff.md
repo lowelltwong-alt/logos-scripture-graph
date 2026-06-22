@@ -43,6 +43,7 @@
 - Added `.ai/tasks/T387.task.yaml`
 - Added `.ai/handoffs/T387/handoff.md`
 - Updated `.ai/control/chunking_lesson_index.yaml`
+- Updated `.ai/control/chunking_theological_decision_register.yaml`
 - Updated `AI_FRONT_DOOR.md`
 - Updated `AI_TABLE_OF_CONTENTS.md`
 - Updated `docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md`
@@ -61,6 +62,7 @@
 - Reserved `scripture_*` and `evidence_*` namespaces only; no `canonical_*` reliability tables.
 - Required source, method, confidence, provenance, and review status before date, language, script, material, coverage, variant, copy-abundance, discovery-timeline, or reliability claims can be trusted.
 - Kept T385 as the next chunking owner-decision route; T387 is a parallel manuscript-witness reliability scaffold and authorizes no chunking or output work.
+- Recorded `CD-063` so roadmap/lesson changes tied to manuscript-witness reliability are covered by the theological decision register without authorizing Scripture text, chunking, preferred readings, graph/retrieval/vector work, boundary import, or apologetic conclusions as truth.
 
 ## Validation run
 
@@ -68,6 +70,8 @@
 - result: passed; `T387 manuscript witness reliability validation passed (6 planned tables, 8 source anchors).`
 - command: `python scripts/validate_chunking_lesson_index.py`
 - result: passed; `Chunking lesson index validation passed.`
+- command: `python scripts/validate_chunking_theological_decision_register.py`
+- result: passed locally after CI fix; `Chunking theological decision register validation passed.`
 - command: `python scripts/validate_task_scope.py --task-id T387`
 - result: passed; `Task scope validation passed.`
 - command: `python scripts/agent/validate_handoffs.py`
