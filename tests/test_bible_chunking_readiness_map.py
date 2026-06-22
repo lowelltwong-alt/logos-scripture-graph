@@ -223,7 +223,13 @@ def test_next_route_records_completed_t384_synthesis_and_t385_owner_packet() -> 
     assert data["next_route"]["completion_status"] == "complete_bible_wide_research_readiness_synthesis"
     assert data["next_route"]["decision_register_entry"] == "CD-061"
     assert data["next_route"]["lesson_index_entry"] == "LSN-013"
-    assert set(data["next_route"]["prior_decision_register_entries"]) == {"CD-056", "CD-057", "CD-060", "CD-061"}
+    assert set(data["next_route"]["prior_decision_register_entries"]) == {
+        "CD-056",
+        "CD-057",
+        "CD-060",
+        "CD-061",
+        "CD-062",
+    }
     assert data["next_route"]["selected_t376_option"] == "T376-A"
     assert data["next_route"]["selected_lane"] == "epistle_argument"
     assert data["next_route"]["selection_mode"] == "bible_wide_research_readiness_complete_non_authorizing"

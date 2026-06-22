@@ -2,7 +2,7 @@
 object_type: bible_chunking_readiness_map
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time."
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage gate before T385 owner decisions."
 reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
 ---
 schema_version: bible_chunking_readiness_map.v1
@@ -58,6 +58,12 @@ lessons_storage:
     - .ai/control/t375_post_pilot_review.yaml
     - .ai/control/t376_epistle_research_runway.yaml
     - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+    - .ai/control/bible_verse_passage_coverage_inventory.jsonl
+    - .ai/control/bible_verse_passage_coverage_taxonomy.yaml
+    - .ai/control/bible_verse_passage_coverage_summary.yaml
+    - .ai/control/bible_verse_passage_readiness_matrix.yaml
+    - .ai/control/bible_verse_passage_gap_register.yaml
+    - .ai/control/bible_verse_passage_human_review_docket.yaml
     - .ai/control/owner_decision_option_presentation_policy.yaml
     - .ai/control/1cor8_10_epistle_owner_review_docket.yaml
     - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
@@ -471,7 +477,14 @@ next_route:
   completion_status: complete_bible_wide_research_readiness_synthesis
   decision_register_entry: CD-061
   lesson_index_entry: LSN-013
-  prior_decision_register_entries: [CD-056, CD-057, CD-060, CD-061]
+  required_coverage_gate:
+    task_id: T386
+    status: complete_bible_wide_verse_passage_coverage_required_before_t385
+    coverage_summary: .ai/control/bible_verse_passage_coverage_summary.yaml
+    human_review_docket: .ai/control/bible_verse_passage_human_review_docket.yaml
+    gap_register: .ai/control/bible_verse_passage_gap_register.yaml
+    validator: scripts/validate_bible_verse_passage_coverage_inventory.py
+  prior_decision_register_entries: [CD-056, CD-057, CD-060, CD-061, CD-062]
   selected_t376_option: T376-A
   selected_lane: epistle_argument
   selection_mode: bible_wide_research_readiness_complete_non_authorizing
@@ -532,7 +545,7 @@ next_route:
     - evaluator_formula_changes_inside_research_runway
     - whole_bible_output_is_run
     - denominational_systematic_theology_becomes_chunk_authority
-  rationale: "T376-A selected epistle argument research/prep as the next lane, but T376 does not select an exact target. T384 may research all serious options first and then return to the owner with a compiled options/repercussions matrix."
+  rationale: "T376-A selected epistle argument research/prep as the next lane, but T376 does not select an exact target. T384 completed the Bible-wide research/readiness synthesis, and T386 now adds deterministic verse/passage coverage so T385 can return to the owner with compiled options, repercussions, coverage gaps, and stop conditions."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
@@ -717,6 +730,30 @@ parallel_t373_owner_implementation_authorization:
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
+parallel_t386_verse_passage_coverage_gate:
+  task_id: T386
+  title: Bible-Wide Verse/Passage Coverage Inventory
+  route_type: bible_wide_verse_passage_coverage_gate
+  status: complete_non_output_changing_coverage
+  inventory_path: .ai/control/bible_verse_passage_coverage_inventory.jsonl
+  taxonomy_path: .ai/control/bible_verse_passage_coverage_taxonomy.yaml
+  summary_path: .ai/control/bible_verse_passage_coverage_summary.yaml
+  readiness_matrix_path: .ai/control/bible_verse_passage_readiness_matrix.yaml
+  gap_register_path: .ai/control/bible_verse_passage_gap_register.yaml
+  human_review_docket_path: .ai/control/bible_verse_passage_human_review_docket.yaml
+  validator: scripts/validate_bible_verse_passage_coverage_inventory.py
+  canonical_book_count: 66
+  canonical_passage_count: 31103
+  relation_to_next_route: "Required coverage input to T385 owner decision packet; does not supersede T384 and does not authorize target selection, promotion, implementation, output, graph/retrieval/vector truth, route/evaluator behavior, boundary import, or theology authority."
+  exact_next_non_output_step: T385
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
 update_triggers:
   - roadmap_sequence_change
   - chunking_algorithm_change
@@ -745,6 +782,7 @@ update_triggers:
   - 1cor8_10_parent_evidence_packet_change
   - orthodox_original_language_pressure_queue_change
   - contextual_reading_policy_change
+  - bible_verse_passage_coverage_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration
@@ -773,6 +811,7 @@ explicit_non_authorizations:
   - post_pilot_review_as_child_span_authority
   - context_as_chunk_boundary_authority
   - historical_background_as_scripture_authority
+  - coverage_status_as_chunk_output_authority
   - liberal_critical_default
   - anti_supernatural_default
   - anti_canonical_default

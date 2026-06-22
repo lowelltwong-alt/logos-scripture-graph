@@ -1124,8 +1124,8 @@ phases:
         lesson_index_entry: LSN-013
         owner_decision_required_before_promotion_or_implementation: true
         exact_target_selected: false
-        exact_next_non_output_step: T385
-        next_task: T385
+        exact_next_non_output_step: T386
+        next_task: T386
         required_target_options: [T384-A, T384-B, T384-C, T384-D, T384-E, T384-F]
         required_fields:
           - serious_faithful_target_options
@@ -1152,13 +1152,47 @@ phases:
         retrieval_truth_authorized: false
         embedding_or_vector_work_allowed: false
         boundary_import_allowed: false
+      - id: T386
+        title: Bible-Wide Verse/Passage Coverage Inventory
+        status: complete_non_output_changing_coverage
+        lane: bible_wide_research_readiness
+        starts_only_if: T384_bible_wide_research_readiness_synthesis_complete
+        required_input: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+        coverage_inventory: .ai/control/bible_verse_passage_coverage_inventory.jsonl
+        coverage_taxonomy: .ai/control/bible_verse_passage_coverage_taxonomy.yaml
+        coverage_summary: .ai/control/bible_verse_passage_coverage_summary.yaml
+        readiness_matrix: .ai/control/bible_verse_passage_readiness_matrix.yaml
+        gap_register: .ai/control/bible_verse_passage_gap_register.yaml
+        human_review_docket: .ai/control/bible_verse_passage_human_review_docket.yaml
+        validator: scripts/validate_bible_verse_passage_coverage_inventory.py
+        required_handoff: .ai/handoffs/T386/handoff.md
+        decision_register_entry: CD-062
+        lesson_index_entry: LSN-014
+        canonical_book_count: 66
+        canonical_passage_count: 31103
+        exact_next_non_output_step: T385
+        next_task: T385
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
       - id: T385
         title: Owner Decision Packet From T384 Research Readiness Synthesis
         status: ready_owner_decision_packet_only
         lane: bible_wide_research_readiness
-        starts_only_if: T384_bible_wide_research_readiness_synthesis_complete
-        required_input: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
-        purpose: Present HDM-001 through HDM-007 with options, repercussions, recommendation, and non-authorizations for owner review.
+        starts_only_if: T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete
+        required_inputs:
+          - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
+          - .ai/control/bible_verse_passage_coverage_summary.yaml
+          - .ai/control/bible_verse_passage_gap_register.yaml
+          - .ai/control/bible_verse_passage_human_review_docket.yaml
+        purpose: Present HDM/T386 owner decisions with options, repercussions, recommendation, coverage gaps, and non-authorizations for owner review.
         owner_decision_required: true
         owner_decision_required_before_promotion_or_implementation: true
         output_change_authorized: false

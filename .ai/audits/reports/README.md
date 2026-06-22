@@ -39,3 +39,8 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   Bible-wide research/readiness synthesis; records CD-061, LSN-013, human decisions HDM-001 through
   HDM-007, blocked authority changes, T385 as the next owner packet, and the non-output-changing
   boundary.
+- `20260622-T386-bible-verse-passage-coverage.md` - No-context audit surface for the T386
+  Bible-wide verse/passage coverage gate; records CD-062, LSN-014, one coverage record for every
+  canonical passage, coverage taxonomy, readiness matrix, gap register, human-review docket, T385
+  as the next owner packet, the LSN-015 test-runtime preflight lesson, and the non-output-changing
+  boundary.

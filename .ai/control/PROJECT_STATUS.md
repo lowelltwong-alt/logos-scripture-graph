@@ -1,8 +1,30 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-21
-**Updated by:** T384 Bible-wide research/readiness synthesis (Codex)
-**Active task:** -> **T384** completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`, validated by `scripts/validate_t384_bible_wide_research_readiness.py`, as the non-output-changing Bible-wide research/readiness synthesis. It records `CD-061` and `LSN-013`, maps ready lanes, research gaps, human decisions, blocked authority changes, and points the exact next non-output step to **T385 owner decision packet**. **T308** connection discovery + **T309** chunking bake-off still open
+**Last updated:** 2026-06-22
+**Updated by:** T386 Bible-wide verse/passage coverage inventory (Codex)
+**Active task:** -> **T386** completed deterministic Bible-wide verse/passage coverage surfaces: `.ai/control/bible_verse_passage_coverage_inventory.jsonl`, `.ai/control/bible_verse_passage_coverage_taxonomy.yaml`, `.ai/control/bible_verse_passage_coverage_summary.yaml`, `.ai/control/bible_verse_passage_readiness_matrix.yaml`, `.ai/control/bible_verse_passage_gap_register.yaml`, and `.ai/control/bible_verse_passage_human_review_docket.yaml`, validated by `scripts/validate_bible_verse_passage_coverage_inventory.py`. It records `CD-062` and `LSN-014`, proves all 31,103 canonical passage records are accounted for at triage depth, maps review/human-decision/blocked risks, and points the exact next non-output step to **T385 owner decision packet** using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T386 Bible-wide verse/passage coverage inventory (2026-06-22):** Added
+> `.ai/control/bible_verse_passage_coverage_inventory.jsonl`,
+> `.ai/control/bible_verse_passage_coverage_taxonomy.yaml`,
+> `.ai/control/bible_verse_passage_coverage_summary.yaml`,
+> `.ai/control/bible_verse_passage_readiness_matrix.yaml`,
+> `.ai/control/bible_verse_passage_gap_register.yaml`, and
+> `.ai/control/bible_verse_passage_human_review_docket.yaml`, checked by
+> `scripts/validate_bible_verse_passage_coverage_inventory.py`. T386 accounts for every canonical
+> passage at triage depth and records routine passages, review-packet needs, source metadata,
+> Strong's-style tags, original-language phrase/context needs, textual-variant/source-tradition
+> sensitivity, cross-reference/intertext risk, WJ/red-letter and speaker/discourse risk,
+> divine-name/title capitalization sensitivity, known non-orthodox pressure passages, theological
+> downstream risk, owner-decision requirements, and blocked authority actions. T386 records `CD-062`
+> and `LSN-014`, updates preflight/TOC/readiness surfaces, and keeps T385 as the next non-output
+> owner decision packet using both T384 and T386. It does not select an exact target, promote
+> reviewed gold, authorize child spans, change output, alter route/evaluator behavior, generate
+> graph/retrieval/vector truth, import boundaries, prefer readings/source traditions, change canon
+> scope, or authorize theology claims. After the full pytest suite exceeded the default 5-minute
+> tool timeout, T386 also added `.ai/control/test_runtime_preflight.yaml`, `LSN-015`, and
+> `WORKFLOW-LESSON-010` so future agents know `python -m pytest -q` needs a longer timeout or split
+> strategy and must not treat timeout as green.
 
 > **T384 Bible-wide research/readiness synthesis (2026-06-21):** Added
 > `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`,

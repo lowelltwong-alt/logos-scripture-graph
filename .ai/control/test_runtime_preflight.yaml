@@ -1,0 +1,73 @@
+---
+object_type: test_runtime_preflight
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout."
+reason_for_inclusion: "Give future agents deterministic runtime guidance before running long validation or pytest commands, so slow gates are run with enough timeout or split intentionally instead of failing from tool timeout."
+---
+schema_version: test_runtime_preflight.v1
+preflight_id: repo_test_runtime_preflight
+owner: Lowell Wong
+authority:
+  records_runtime_observations: true
+  authorizes_skipping_tests: false
+  authorizes_ignoring_failures: false
+  authorizes_output_change: false
+  authorizes_validation_bypass: false
+applies_when:
+  - before_running_repo_wide_validation
+  - before_running_pytest
+  - after_a_command_times_out
+  - when_choosing_between_focused_tests_and_full_suite
+runtime_profiles:
+  - command_id: pytest_full_suite
+    command: "python -m pytest -q"
+    observed_on: "2026-06-22"
+    observed_context: "T386 branch after adding Bible-wide coverage inventory tests."
+    observed_result: "First run timed out at the 5-minute tool timeout; rerun with 600000 ms completed in about 7 minutes 15 seconds and reported 1 failing stale-readiness-map assertion before the test was fixed."
+    recommended_timeout_ms: 600000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - run_full_suite_with_timeout_at_least_600000_ms
+      - if_full_suite_times_out_again_split_by_test_file_or_domain_then_rerun_full_suite
+    do_not:
+      - treat_timeout_as_test_pass
+      - mark_goal_complete_from_focused_tests_only
+      - hide_timeout_from_handoff
+  - command_id: validate_all
+    command: "python scripts/validate_all.py"
+    observed_on: "2026-06-22"
+    observed_context: "T386 branch with full canonical data and T386 coverage validator wired in."
+    observed_result: "Completed in about 2 minutes and passed all validation gates."
+    recommended_timeout_ms: 300000
+    recommended_strategy:
+      - run_after_focused_validators_when_possible
+      - capture_failures_before_running_full_pytest
+    do_not:
+      - shorten_timeout_below_300000_ms_on_full_canonical_data
+      - treat_timeout_as_green
+      - hide_timeout_from_handoff
+update_policy:
+  status: required
+  update_required_when:
+    - a_validation_or_test_command_times_out
+    - a_validation_or_test_command_reliably_exceeds_default_timeout
+    - a_split_strategy_is_needed_to_make_failures_actionable
+    - a_new_slow_gate_is_added_to_validate_all_or_pytest
+  required_fields_for_new_profile:
+    - command_id
+    - command
+    - observed_on
+    - observed_context
+    - observed_result
+    - recommended_timeout_ms
+    - recommended_strategy
+    - do_not
+  handoff_requirement: "Record slow commands, chosen timeout, split strategy, and whether timeout was tool/runtime or actual test failure."
+non_authorizations:
+  - skip_test_due_to_runtime
+  - ignore_timeout
+  - treat_timeout_as_green
+  - validation_bypass
+  - output_change
+validator: scripts/validate_test_runtime_preflight.py
