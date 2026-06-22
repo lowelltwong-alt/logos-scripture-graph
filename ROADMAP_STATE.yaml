@@ -1,5 +1,5 @@
 version: 0.1.0
-last_updated: "2026-06-19"
+last_updated: "2026-06-22"
 current_phase: phase_4
 policy:
   handoff_required: true
@@ -1284,7 +1284,62 @@ phases:
         retrieval_truth_authorized: false
         embedding_or_vector_work_allowed: false
         apologetic_conclusion_as_truth_authorized: false
-        next_manuscript_reliability_step: source_catalog_metadata_plan_for_biblical_dss_and_nt_papyri_codices
+        next_manuscript_reliability_step: T390_source_catalog_metadata_plan
+        next_chunking_route_remains: T385
+      - id: T390
+        title: Manuscript Source Catalog Metadata Plan
+        status: complete_non_output_changing_plan
+        lane: manuscript_witness_reliability
+        owner: codex
+        required_handoff: .ai/handoffs/T390/handoff.md
+        plan: .ai/control/manuscript_source_catalog_metadata_plan.yaml
+        roadmap_doc: docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md
+        validator: scripts/validate_manuscript_source_catalog_metadata_plan.py
+        source_catalog_metadata_plan: .ai/control/manuscript_source_catalog_metadata_plan.yaml
+        decision_register_entry: CD-065
+        lesson_index_entry: LSN-019
+        source_text_import_authorized: false
+        transcription_storage_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
+        canonical_bible_text_change_authorized: false
+        canonical_passage_record_change_authorized: false
+        textual_critical_decision_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        boundary_import_allowed: false
+        commentary_or_patristic_import_allowed: false
+        doctrine_genealogy_import_allowed: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        apologetic_conclusion_as_truth_authorized: false
+        planned_tables:
+          - scripture_source_catalog
+          - scripture_holding_institution
+          - scripture_catalog_witness_record
+          - scripture_witness_identifier
+          - scripture_witness_date_claim
+          - scripture_witness_material_claim
+          - scripture_witness_coverage_claim
+          - scripture_witness_discovery_event
+          - evidence_source_catalog_method_profile
+          - evidence_source_trust_rule
+          - evidence_catalog_review_queue
+        routes_to_boundary_literature:
+          - church_fathers
+          - patristic_citations
+          - commentaries
+          - theologian_writings
+          - reception_history
+          - early_creed_wording
+          - non_biblical_qumran_dss_content
+        routes_to_future_doctrine_genealogy:
+          - denomination_development
+          - theologian_lineage
+          - who_built_theology_on_whom
+        next_manuscript_reliability_step: T391_dss_biblical_source_catalog_metadata_population_after_source_rights_review
         next_chunking_route_remains: T385
   phase_6:
     title: Lexical and morphology layer

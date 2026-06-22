@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -2756,6 +2756,56 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-065
+    title: T390 manuscript source catalog metadata plan is metadata-only and non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T390]
+    owner_decision_ref: ".ai/control/manuscript_source_catalog_metadata_plan.yaml"
+    pr_refs: [PR-107]
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [manuscript_witness_reliability, source_catalog_metadata, textual_variant_source_tradition, discovery_timeline, evidence_reporting, boundary_routing, doctrine_genealogy_routing, chunking_preflight]
+      surfaces: [.ai/control/manuscript_source_catalog_metadata_plan.yaml, .ai/control/chunking_lesson_index.yaml, docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, AI_TABLE_OF_CONTENTS.md, scripts/validate_manuscript_source_catalog_metadata_plan.py]
+    decision: "T390 refines the T387 scaffold into a concrete SQLite-ready source-catalog metadata plan for canonical Scripture manuscript evidence. It defines metadata-only `scripture_*` and `evidence_*` table candidates for source catalogs, holding institutions, catalog witness records, identifiers, date claims, material claims, coverage claims, discovery timeline events, method profiles, source trust rules, and review queues. It requires source URL, provenance, confidence, and review status on every planned table, forbids `canonical_*` reliability/commentary/theologian views, and routes church fathers, patristic citations, commentaries, reception history, early creed wording, theologian writings, non-biblical Qumran/DSS content, and doctrine lineage outside Scripture Graph."
+    downstream_risk: "A source-catalog metadata plan can look like permission to build the database, populate rows, infer old-fragment facts from memory, select preferred readings, treat discovery timing as apologetic proof, or merge patristic/commentary/theologian evidence into Scripture records. If future agents cross that line without a later scoped task and owner review where required, manuscript reliability evidence could silently become Scripture authority, graph/retrieval truth, chunk authority, or denominational/doctrinal authority."
+    theological_assumptions_avoided:
+      - "No source catalog metadata is treated as Scripture text."
+      - "No database plan is treated as permission to create a database or populate rows."
+      - "No witness age, date range, catalog listing, copy abundance, or discovery event selects a preferred reading."
+      - "No commentary, patristic citation, creed wording, theologian writing, non-biblical DSS text, or doctrine lineage is stored in Scripture Graph canonical records."
+      - "No unified evidence report transfers authority between Scripture Graph, Boundary Literature, and Doctrine Genealogy."
+      - "No graph, retrieval, vector, chunking, reviewed-gold, or route behavior changes are authorized."
+    reviewed_gold_dependency: "None. T390 is source-catalog metadata planning only. Future DSS population, NT papyri/codices population, SQLite schema/database creation, variant attestation records, source trust method profiles, discovery timeline rows, Boundary Literature reception joins, Doctrine Genealogy lineage, graph/retrieval/vector work, chunk-output work, or apologetic reports require separate scoped tasks, validators/tests, source review, and owner authorization where authority could change."
+    non_authorizations:
+      - sqlite_database_creation
+      - metadata_row_population
+      - source_text_import
+      - transcription_storage
+      - canonical_bible_text_change
+      - canonical_passage_record_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - commentary_as_scripture
+      - patristic_citation_as_scripture_authority
+      - doctrine_genealogy_import
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - apologetic_conclusion_as_truth
+    validators:
+      - scripts/validate_manuscript_source_catalog_metadata_plan.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2859,4 +2909,5 @@ backfill_coverage:
     - T386
     - T387
     - T389
+    - T390
 ...

@@ -39,6 +39,7 @@ Read these files before making changes:
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
+    T390 manuscript source catalog metadata plan,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
@@ -157,10 +158,18 @@ Bible-first chunking priority:
   complete in `.ai/control/t375_post_pilot_review.yaml`: same-baseline review and no-context audit
   review are recorded, child spans are not necessary now, and T376 selected the epistle argument
   research/prep runway in `.ai/control/t376_epistle_research_runway.yaml`. Research autonomy is not authority autonomy:
-  T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
-  non-output-changing Bible-wide research/readiness, and T386 adds deterministic
-  `.ai/control/bible_verse_passage_coverage_inventory.jsonl` plus the summary, matrix, gap
-  register, and human-review docket so every canonical passage is accounted for before T385.
+    T384 completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml` as
+    non-output-changing Bible-wide research/readiness, and T386 adds deterministic
+    `.ai/control/bible_verse_passage_coverage_inventory.jsonl` plus the summary, matrix, gap
+    register, and human-review docket so every canonical passage is accounted for before T385.
+  T389 records the current launch-readiness report at
+  `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`. T390 records
+  `.ai/control/manuscript_source_catalog_metadata_plan.yaml` and
+  `docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md` as metadata-only manuscript
+  source-catalog planning. It authorizes no SQLite database creation, row population, source text
+  import, transcription storage, preferred reading, source-tradition preference, canon-scope
+  change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, chunk output,
+  or apologetic conclusion as authority.
   T385 owner decision packet is the next non-output step before exact target selection,
   reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
   truth, boundary import, or theology authority.

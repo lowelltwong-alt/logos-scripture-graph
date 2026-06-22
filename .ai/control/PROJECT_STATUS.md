@@ -1,16 +1,37 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-22
-**Updated by:** T389 chunking launch readiness report (Codex)
-**Active task:** -> **T389** completed a non-authorizing Chunking Launch Readiness report at
-`docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`. It records the current clean-trunk state
-after branch reconciliation, summarizes ready surfaces from T384/T386/T387/T388, names remaining
-blocked authority changes, lists human decisions still needed, identifies epistle argument as the
-strongest next review lane, and keeps **T385 owner decision packet** as the exact next safe
-non-output step. T389 authorizes no exact target selection, chunk output, reviewed gold, child
-spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
-readings/source traditions, canon-scope change, or theology/systematics as chunk authority. **T308**
-connection discovery + **T309** chunking bake-off still open.
+**Updated by:** T390 manuscript source catalog metadata plan (Codex)
+**Active task:** -> **T390** completed a planning-only manuscript source catalog metadata plan at
+`docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md`. It refines T387 into
+SQLite-ready metadata planning for biblical DSS witnesses, New Testament papyri, major codices,
+source catalogs, holding institutions, date/material/coverage/discovery claims, source trust rules,
+review statuses, and future source-research prompts. T390 creates no SQLite database, imports no
+manuscript text, stores no transcription text, populates no metadata rows, selects no preferred
+readings/source traditions, changes no canonical Bible text or passage records, and authorizes no
+chunk output, reviewed gold, graph/retrieval/vector truth, boundary import, Doctrine Genealogy
+import, or apologetic conclusion as authority. The exact next chunking step remains **T385 owner
+decision packet** using T384/T386/T387/T388/T389 evidence. **T308** connection discovery + **T309**
+chunking bake-off still open.
+
+> **T390 manuscript source catalog metadata plan (2026-06-22):** Added
+> `.ai/control/manuscript_source_catalog_metadata_plan.yaml`,
+> `docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md`,
+> `scripts/validate_manuscript_source_catalog_metadata_plan.py`, and
+> `tests/test_manuscript_source_catalog_metadata_plan.py`. T390 turns the T387 scaffold into a
+> concrete SQLite-ready metadata plan with `scripture_*` and `evidence_*` table candidates for
+> source catalogs, holding institutions, catalog witness records, identifiers, date claims,
+> material claims, coverage claims, discovery events, method profiles, source trust rules, and
+> review queues. Every planned table denies Scripture text, transcription text, and boundary text
+> storage and requires source URL, provenance, confidence, and review status. It hard-routes church
+> fathers, patristic citations, commentaries, theologian writings, reception history, early creed
+> wording, non-biblical Qumran/DSS content, and doctrine lineage outside Scripture Graph. It records
+> future goal prompts for DSS population, NT papyri/codices population, copy-abundance/variant
+> method profiling, discovery timeline, Boundary Literature reception reconstruction, and Doctrine
+> Genealogy lineage. T390 records `CD-065` and `LSN-019` and authorizes no SQLite database creation,
+> row population, source text import, preferred reading, source-tradition preference,
+> canon-scope change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import,
+> chunk output, or apologetic conclusion as Scripture authority.
 
 > **T389 Chunking Launch Readiness report (2026-06-22):** Added
 > `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md`, task, handoff, roadmap state entry,
