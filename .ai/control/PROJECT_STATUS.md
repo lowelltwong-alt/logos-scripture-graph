@@ -1,8 +1,24 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-22
-**Updated by:** T386 Bible-wide verse/passage coverage inventory (Codex)
-**Active task:** -> **T386** completed deterministic Bible-wide verse/passage coverage surfaces: `.ai/control/bible_verse_passage_coverage_inventory.jsonl`, `.ai/control/bible_verse_passage_coverage_taxonomy.yaml`, `.ai/control/bible_verse_passage_coverage_summary.yaml`, `.ai/control/bible_verse_passage_readiness_matrix.yaml`, `.ai/control/bible_verse_passage_gap_register.yaml`, and `.ai/control/bible_verse_passage_human_review_docket.yaml`, validated by `scripts/validate_bible_verse_passage_coverage_inventory.py`. It records `CD-062` and `LSN-014`, proves all 31,103 canonical passage records are accounted for at triage depth, maps review/human-decision/blocked risks, and points the exact next non-output step to **T385 owner decision packet** using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T387 manuscript witness reliability scaffold (Codex)
+**Active task:** -> **T387** completed `.ai/control/manuscript_witness_reliability_scaffold.yaml` and `docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md` as a planning-only Scripture Graph scaffold for canonical Scripture manuscript-witness reliability metadata, variants, discovery timeline, copy-abundance method planning, and derived reliability reports. It is validated by `scripts/validate_manuscript_witness_reliability_scaffold.py`, reserves `scripture_*` and `evidence_*` namespaces only, and authorizes no source-text import, canonical Bible text or passage-record change, preferred reading, source-tradition preference, boundary import, graph/retrieval/vector truth, chunk output, or apologetic conclusion as authority. The exact next chunking step remains **T385 owner decision packet** using T384 plus T386 inputs. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T387 manuscript witness reliability scaffold (2026-06-22):** Added
+> `.ai/control/manuscript_witness_reliability_scaffold.yaml`,
+> `docs/roadmap/T387_MANUSCRIPT_WITNESS_RELIABILITY_SCAFFOLD.md`,
+> `scripts/validate_manuscript_witness_reliability_scaffold.py`, and
+> `tests/test_manuscript_witness_reliability_scaffold.py`. T387 records the placement decision:
+> canonical Scripture manuscript-witness metadata belongs in Scripture Graph, while non-biblical
+> Qumran/DSS corpus text, patristic reception, church fathers, commentaries, and theologian writings
+> remain in Boundary Literature. The scaffold plans `scripture_*` and `evidence_*` tables for
+> witness sources, manuscript witnesses, variant units, attestations, discovery timeline events,
+> and derived reliability claims. It requires source, method, confidence, provenance, and review
+> status before date, language, script, material, coverage, variant, copy-abundance, discovery, or
+> reliability claims are trusted. It does not import source text, change canonical Bible text or
+> passage records, select preferred readings or source traditions, change canon scope, import
+> boundary corpora, create graph/retrieval/vector truth, or authorize apologetic conclusions as
+> Scripture authority. T385 remains the next chunking owner-decision route.
 
 > **T386 Bible-wide verse/passage coverage inventory (2026-06-22):** Added
 > `.ai/control/bible_verse_passage_coverage_inventory.jsonl`,

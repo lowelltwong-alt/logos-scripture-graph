@@ -1,0 +1,270 @@
+object_type: manuscript_witness_reliability_scaffold
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-22 during T387 as a planning-only scaffold for canonical Scripture manuscript-witness reliability and provenance evidence."
+reason_for_inclusion: "Give future agents a governed research/database shape for Bible fragments, manuscript witnesses, variants, discovery timeline, and reliability claims without importing source text or authorizing textual-critical, graph, retrieval, or chunking conclusions."
+schema_version: manuscript_witness_reliability_scaffold.v1
+scaffold_id: t387_manuscript_witness_reliability_scaffold
+task_id: T387
+owner: Lowell Wong
+status: active_planning_only
+authority:
+  records_manuscript_witness_reliability_scaffold: true
+  may_surface_for_review: true
+  may_define_future_schema_requirements: true
+  may_create_sqlite_planning_namespaces: true
+  authorizes_source_text_import: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+placement_decision:
+  owning_repo: logos-scripture-graph
+  repo_scope: "Canonical Scripture manuscript-witness metadata, textual variant evidence planning, source-language witness planning, discovery timeline metadata, and evidence-only reliability argument scaffolds."
+  boundary_repo_scope: "Non-biblical Qumran/DSS corpora, patristic reception, church-father citations, commentaries, theologian writings, and other boundary literature remain in logos-boundary-literature."
+  governance_repo_scope: "Cross-repo authority rules, trust hierarchy changes, and routing policy changes remain in logos-governance-architecture."
+  split_rule: "Biblical manuscript witness metadata may be planned here; noncanonical or community-text corpus content from Qumran/DSS must not become canonical Scripture records."
+  implementation_mode: planning_only_no_import
+database_namespace_plan:
+  allowed_prefixes:
+    - scripture_
+    - evidence_
+  forbidden_prefixes:
+    - canonical_
+    - boundary_
+    - doctrine_
+  tables:
+    - table_name: scripture_witness_source
+      purpose: "Catalog source catalogs, holding institutions, publication records, digital libraries, and image/transcription sources before any witness record is trusted."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - source_id
+        - source_url
+        - source_type
+        - holding_institution
+        - catalog_identifier
+        - license_or_rights_status
+        - access_status
+        - provenance_note
+        - review_status
+    - table_name: scripture_manuscript_witness
+      purpose: "Plan future witness records for biblical fragments, scrolls, papyri, codices, versions, lectionaries, and critical editions."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - witness_id
+        - siglum
+        - witness_type
+        - language
+        - script
+        - material
+        - date_earliest
+        - date_latest
+        - date_precision
+        - dating_method
+        - date_confidence
+        - repository
+        - coverage_scope
+        - source_catalog_ref
+        - provenance_ref
+        - confidence
+        - review_status
+    - table_name: scripture_textual_variant_unit
+      purpose: "Plan variation units as locations and evidence questions without selecting preferred readings."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - variant_unit_id
+        - osis_scope
+        - variant_kind
+        - significance_scope
+        - known_sensitivity
+        - source_catalog_refs
+        - confirmed_fact_summary
+        - candidate_claim_summary
+        - dissent_summary
+        - provenance_ref
+        - confidence
+        - review_status
+    - table_name: scripture_variant_attestation
+      purpose: "Plan witness support metadata for readings while keeping reading text and preferred-reading decisions out of the scaffold."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - attestation_id
+        - variant_unit_id
+        - witness_id
+        - attestation_status
+        - reading_label
+        - reading_text_stored
+        - evidence_source_ref
+        - method_scope
+        - provenance_ref
+        - confidence
+        - review_status
+    - table_name: scripture_discovery_timeline_event
+      purpose: "Record what was discovered, catalogued, digitized, published, or made reviewable when, without turning discovery date into apologetic proof."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - event_id
+        - event_date_earliest
+        - event_date_latest
+        - event_type
+        - witness_or_source_refs
+        - what_became_known
+        - what_remained_unknown
+        - reliability_relevance_scope
+        - source_ref
+        - provenance_ref
+        - review_status
+    - table_name: evidence_reliability_claim
+      purpose: "Plan generated reliability report claims as derived evidence joins with clear labels, not authority transfers."
+      stores_scripture_text: false
+      stores_boundary_text: false
+      required_fields:
+        - claim_id
+        - claim_type
+        - claim_scope
+        - supporting_scripture_witness_refs
+        - supporting_boundary_refs
+        - confirmed_fact_summary
+        - candidate_claim_summary
+        - dissent_summary
+        - apologetic_force_claimed
+        - method_profile_ref
+        - provenance_ref
+        - confidence
+        - review_status
+guardrails:
+  anti_guessing_controls:
+    - "No AI-inferred manuscript date, language, script, provenance, or coverage claim may be stored as fact without source, method, confidence, provenance, and review status."
+    - "Do not use 'oldest', 'earliest', 'complete', or 'unchanged' unless the source and scope define exactly what the term means."
+    - "Do not infer original text, preferred reading, or source-tradition priority from witness age alone."
+    - "Do not treat copy abundance as a standalone proof; record what the compared witnesses actually support and where variants remain."
+    - "Do not turn a discovery timeline event into an apologetic conclusion without a reviewed evidence claim."
+    - "Do not store Scripture text, creed wording, or manuscript transcription text in this scaffold."
+    - "Do not import noncanonical Qumran, patristic, commentary, or theologian text into Scripture Graph canonical tables."
+  source_required_for:
+    - manuscript_date_range
+    - discovery_date
+    - language_or_script
+    - material
+    - repository_or_shelfmark
+    - coverage_scope
+    - textual_variant_attestation
+    - copy_abundance_claim
+    - earliest_creed_or_oral_tradition_connection
+  review_status_values:
+    - unreviewed_candidate
+    - source_catalog_confirmed
+    - method_reviewed
+    - owner_review_required
+    - deprecated
+source_anchors:
+  - anchor_id: iaa_leon_levy_dss_digital_library
+    source_url: "https://www.deadseascrolls.org.il/"
+    source_type: primary_digital_library
+    confirmed_fact_summary: "The Israel Antiquities Authority digital library presents thousands of Dead Sea Scroll fragments, including old biblical-text witnesses, with high-resolution imaging access."
+    scaffold_use: "Use as a source catalog anchor for DSS/Judean Desert witness records and discovery/image-access metadata."
+    not_authorized: "Does not authorize importing non-biblical Qumran corpus content into canonical Scripture records."
+  - anchor_id: iaa_dss_discovery_publication
+    source_url: "https://www.deadseascrolls.org.il/learn-about-the-scrolls/discovery-and-publication?locale=en_US"
+    source_type: primary_digital_library_history
+    confirmed_fact_summary: "The IAA discovery/publication history records the initial scroll discovery, later cave finds, over 900 manuscripts, and publication history."
+    scaffold_use: "Use for discovery timeline and what-was-known-when events."
+    not_authorized: "Does not decide any textual-critical reading or canon-scope question."
+  - anchor_id: israel_museum_great_isaiah_scroll
+    source_url: "https://dss.collections.imj.org.il/isaiah"
+    source_type: museum_digital_collection
+    confirmed_fact_summary: "The Israel Museum identifies the Great Isaiah Scroll as a near-complete ancient Hebrew witness to Isaiah and gives a date around 125 BCE."
+    scaffold_use: "Use as an anchor example for biblical DSS witness metadata with date range and coverage scope."
+    not_authorized: "Does not by itself prove a global 'Bible unchanged' claim."
+  - anchor_id: intf_institute_profile
+    source_url: "https://www.uni-muenster.de/INTF/en/institut/index.html"
+    source_type: academic_institute
+    confirmed_fact_summary: "INTF documents and analyzes the Greek New Testament textual tradition and operates the international recording list of Greek New Testament manuscripts."
+    scaffold_use: "Use as a registry/source-catalog anchor for New Testament manuscript witness planning."
+    not_authorized: "Does not authorize local preferred-reading selection."
+  - anchor_id: intf_ecm_method_profile
+    source_url: "https://www.uni-muenster.de/INTF/ECM.html"
+    source_type: academic_method_profile
+    confirmed_fact_summary: "INTF's ECM page describes the large Greek New Testament manuscript tradition, textual variation, old translations, patristic quotations, full collation, and genealogical analysis."
+    scaffold_use: "Use as a method-profile anchor for copy-abundance and variant-detection claims."
+    not_authorized: "Does not allow this repo to claim certainty beyond the reviewed apparatus evidence."
+  - anchor_id: manchester_rylands_p52
+    source_url: "https://www.digitalcollections.manchester.ac.uk/view/MS-GREEK-P-00457"
+    source_type: holding_institution_collection
+    confirmed_fact_summary: "The University of Manchester describes Greek P 457/P52 as a small papyrus fragment of John 18, widely regarded as very early, with dating based on paleography and recent caution around the date."
+    scaffold_use: "Use as an anchor for careful early-fragment dating, coverage, material, and method fields."
+    not_authorized: "Does not allow an exact date or overconfident earliest-fragment claim."
+  - anchor_id: csntm_p52
+    source_url: "https://manuscripts.csntm.org/manuscript/View/GA_P52"
+    source_type: manuscript_catalog
+    confirmed_fact_summary: "CSNTM lists P52 as a second-century Greek papyrus fragment held at Manchester with shelf number Gr. P. 457."
+    scaffold_use: "Use as a secondary catalog anchor for P52 metadata."
+    not_authorized: "Does not store the manuscript text or settle dating debates."
+  - anchor_id: codex_sinaiticus_project
+    source_url: "https://www.codexsinaiticus.org/"
+    source_type: manuscript_project
+    confirmed_fact_summary: "The Codex Sinaiticus Project describes Sinaiticus as a Greek Christian Bible manuscript containing the oldest complete copy of the New Testament."
+    scaffold_use: "Use as an anchor for codex-level witness metadata and completeness-scope wording."
+    not_authorized: "Does not make Sinaiticus the preferred text by default."
+initial_research_backlog:
+  - backlog_id: dss_biblical_witness_spine
+    title: "Dead Sea Scrolls biblical witness metadata spine"
+    correct_repo: logos-scripture-graph
+    boundary_dependency: "Route non-biblical Qumran/community texts and reception/commentary to logos-boundary-literature."
+    first_step: "Catalog biblical witness identifiers, coverage scope, dates, language, material, repository, source URLs, and review status without transcription text."
+  - backlog_id: nt_papyri_and_major_codices_spine
+    title: "New Testament papyri and major codices metadata spine"
+    correct_repo: logos-scripture-graph
+    boundary_dependency: "Patristic citations and commentary-based reception/reconstruction evidence remain in logos-boundary-literature."
+    first_step: "Create a source-catalog plan for P52, major papyri, Sinaiticus, Vaticanus, Alexandrinus, and later editions with date/source confidence fields."
+  - backlog_id: copy_abundance_variant_detection_method
+    title: "Copy abundance and variant-detection method profile"
+    correct_repo: logos-scripture-graph
+    boundary_dependency: "Use boundary references only as labeled reception evidence in derived evidence reports."
+    first_step: "Define method-profile records that distinguish quantity of witnesses, quality of witnesses, date distribution, geographical spread, variants detected, and unresolved variation units."
+  - backlog_id: discovery_timeline_what_was_known_when
+    title: "Discovery timeline and what-was-known-when map"
+    correct_repo: logos-scripture-graph
+    boundary_dependency: "Noncanonical discovery and interpretation history may point to Boundary Literature records."
+    first_step: "Record discovery, publication, digitization, cataloguing, and scholarly access events with what became knowable and what remained uncertain."
+  - backlog_id: early_creed_oral_tradition_bridge
+    title: "Early creed/oral-tradition bridge to Boundary Literature"
+    correct_repo: logos-boundary-literature
+    boundary_dependency: "Scripture Graph may only point to reviewed metadata refs; creed wording and patristic/reception claims stay outside canonical Scripture tables."
+    first_step: "Join only by evidence_* derived report views after both repos have reviewed metadata."
+non_authorizations:
+  - source_text_import
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - canonical_chunk_change
+  - reviewed_gold_promotion
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - commentary_as_scripture
+  - patristic_citation_as_scripture_authority
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+validators:
+  - scripts/validate_manuscript_witness_reliability_scaffold.py
+  - tests/test_manuscript_witness_reliability_scaffold.py
+  - scripts/validate_all.py

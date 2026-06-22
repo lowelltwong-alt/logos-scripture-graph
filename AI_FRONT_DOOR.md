@@ -33,7 +33,7 @@ Read these files before making changes:
     T372 route-isolation harness plan, T373 owner implementation authorization record,
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
-    verse/passage coverage inventory,
+    verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
@@ -230,6 +230,15 @@ Bible-first chunking priority:
   reviewed gold, authorize child spans, change output, alter route/evaluator behavior, create
   graph/retrieval/vector truth, import boundaries, select preferred readings/source traditions,
   change canon scope, or authorize theology claims.
+- The T387 manuscript witness reliability scaffold at
+  `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
+  shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
+  DSS witness metadata, New Testament papyri/codices, textual variant units, copy-abundance method
+  profiles, discovery timeline events, and derived reliability report claims. It is validated by
+  `scripts/validate_manuscript_witness_reliability_scaffold.py`. It does not import source text,
+  change canonical Bible text or passage records, select preferred readings or source traditions,
+  change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
+  apologetic conclusions as Scripture authority.
 - The governance memory durability policy at
   `.ai/control/governance_memory_durability_policy.yaml` protects the chunking theological decision
   register as critical, non-deletable governance memory. Removing, hiding, downgrading, or bypassing
