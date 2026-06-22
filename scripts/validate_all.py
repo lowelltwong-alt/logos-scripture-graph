@@ -195,6 +195,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_metadata_plan.py")],
         ),
         (
+            "validate_manuscript_source_catalog_research_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_research_packet.py")],
+        ),
+        (
             "validate_epistle_argument_review_packets.py",
             [PY, str(ROOT / "scripts" / "validate_epistle_argument_review_packets.py")],
         ),

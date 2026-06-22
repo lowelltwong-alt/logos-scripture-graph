@@ -1,18 +1,35 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-22
-**Updated by:** T390 manuscript source catalog metadata plan (Codex)
-**Active task:** -> **T390** completed a planning-only manuscript source catalog metadata plan at
-`docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md`. It refines T387 into
-SQLite-ready metadata planning for biblical DSS witnesses, New Testament papyri, major codices,
-source catalogs, holding institutions, date/material/coverage/discovery claims, source trust rules,
-review statuses, and future source-research prompts. T390 creates no SQLite database, imports no
-manuscript text, stores no transcription text, populates no metadata rows, selects no preferred
-readings/source traditions, changes no canonical Bible text or passage records, and authorizes no
-chunk output, reviewed gold, graph/retrieval/vector truth, boundary import, Doctrine Genealogy
-import, or apologetic conclusion as authority. The exact next chunking step remains **T385 owner
-decision packet** using T384/T386/T387/T388/T389 evidence. **T308** connection discovery + **T309**
-chunking bake-off still open.
+**Updated by:** T391 manuscript source catalog research packet (Codex)
+**Active task:** -> **T391** completed a source-metadata-only manuscript source catalog research
+packet at `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md`. It curates official
+source anchors for biblical manuscript reliability metadata, records source-family taxonomy, DSS
+biblical witness packet, NT papyri/codices packet, discovery timeline source anchors, open
+questions, blocked claims, and the next goal prompt. T391 creates no SQLite database, imports no
+manuscript text, stores no transcription or Bible text, populates no source or witness rows,
+selects no preferred readings/source traditions, changes no canonical Bible text or passage records,
+and authorizes no chunk output, reviewed gold, graph/retrieval/vector truth, boundary import,
+Doctrine Genealogy import, or apologetic conclusion as authority. The next manuscript-reliability
+step is **T392 SQLite source-catalog schema shell plus curated source rows only**. The exact next
+chunking step remains **T385 owner decision packet** using T384/T386/T387/T388/T389 evidence.
+**T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T391 manuscript source catalog research packet (2026-06-22):** Added
+> `.ai/control/manuscript_source_catalog_research_packet.yaml`,
+> `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md`,
+> `scripts/validate_manuscript_source_catalog_research_packet.py`, and
+> `tests/test_manuscript_source_catalog_research_packet.py`. T391 curates official source anchors
+> including IAA/Leon Levy DSS, Israel Museum Great Isaiah Scroll anchors, INTF/NTVMR/Liste/ECM/CBGM,
+> CSNTM, Manchester Greek P 457/P52, Codex Sinaiticus Project, Vatican Library Vat.gr.1209, and
+> British Library Royal MS 1 D V. It records a five-family taxonomy, DSS biblical witness packet,
+> NT papyri/codices packet, discovery timeline anchors, open questions, blocked claims, and a next
+> goal prompt for T392 source-catalog schema/source rows only. It separates confirmed source facts
+> from candidate claims and blocked claims and requires source, method, confidence, provenance, and
+> review status. T391 records `CD-066` and `LSN-020` and authorizes no SQLite database creation,
+> row population, source text import, transcription storage, Bible text storage, preferred reading,
+> source-tradition preference, canon-scope change, graph/retrieval/vector truth, boundary import,
+> Doctrine Genealogy import, chunk output, or apologetic conclusion as Scripture authority.
 
 > **T390 manuscript source catalog metadata plan (2026-06-22):** Added
 > `.ai/control/manuscript_source_catalog_metadata_plan.yaml`,

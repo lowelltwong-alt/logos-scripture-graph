@@ -39,7 +39,7 @@ Read these files before making changes:
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
-    T390 manuscript source catalog metadata plan,
+    T390 manuscript source catalog metadata plan, T391 source-catalog research packet,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
@@ -170,6 +170,13 @@ Bible-first chunking priority:
   import, transcription storage, preferred reading, source-tradition preference, canon-scope
   change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, chunk output,
   or apologetic conclusion as authority.
+  T391 records `.ai/control/manuscript_source_catalog_research_packet.yaml` and
+  `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md` as a curated official-source
+  research packet for DSS biblical witnesses, NT papyri/codices, major codices, discovery timeline
+  anchors, open questions, and blocked claims. It remains source-metadata-only and authorizes no
+  SQLite database creation, witness row population, source text import, transcription storage,
+  preferred reading, source-tradition preference, graph/retrieval/vector truth, Boundary Literature
+  import, Doctrine Genealogy import, chunk output, or apologetic conclusion as authority.
   T385 owner decision packet is the next non-output step before exact target selection,
   reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
   truth, boundary import, or theology authority.
@@ -249,6 +256,13 @@ Bible-first chunking priority:
   change canonical Bible text or passage records, select preferred readings or source traditions,
   change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
   apologetic conclusions as Scripture authority.
+- The T391 source-catalog research packet at
+  `.ai/control/manuscript_source_catalog_research_packet.yaml` curates official source anchors and
+  separates confirmed source facts, candidate claims, blocked claims, source-family taxonomy, DSS
+  biblical witness research, NT papyri/codices research, and discovery timeline anchors. It is
+  validated by `scripts/validate_manuscript_source_catalog_research_packet.py` and does not create
+  SQLite rows, store Bible or transcription text, select readings, generate graph/retrieval/vector
+  truth, import boundary material, or authorize apologetic conclusions.
 - The T389 Chunking Launch Readiness report at
   `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
   non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It
