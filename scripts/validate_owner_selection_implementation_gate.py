@@ -745,14 +745,14 @@ def validate_owner_selection_implementation_gate(
                 _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
             if next_task_id == "T384":
                 expected = {
-                    "route_type": "epistle_argument_research_runway",
+                    "route_type": "bible_wide_research_readiness_synthesis",
                     "starts_only_if": "T376_A_epistle_argument_research_runway_selected",
                     "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
                     "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
                     "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
                     "selected_t376_option": "T376-A",
                     "selected_lane": "epistle_argument",
-                    "selection_mode": "research_first_non_authorizing",
+                    "selection_mode": "bible_wide_research_readiness_complete_non_authorizing",
                     "owner_decision_required_before_promotion_or_implementation": True,
                     "exact_target_selected": False,
                     "reviewed_gold_promoted": False,

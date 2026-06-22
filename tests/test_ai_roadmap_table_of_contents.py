@@ -85,6 +85,12 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "authority-boundary",
         "target-options",
         "t384",
+        "t385",
+        "bible-wide-readiness",
+        "research-synthesis",
+        "human-decision-map",
+        "ready-lanes",
+        "blocked-authority",
         "1cor8-10",
         "human-decision",
         "chunking-ready",
@@ -137,6 +143,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`contextual-reading`, `context`, `prooftexting`",
         "`canonical-context`, `historical-context`, `research-runway`, `research-autonomy`",
         "`authority-boundary`, `target-options`, `T384`",
+        "`research-synthesis`, `human-decision-map`, `ready-lanes`, `blocked-authority`",
         "`orthodox-hermeneutic-firewall`, `anti-smuggling`, `orthodoxy-boundary`, `canon-authority`",
         "`textual-critical-policy`, `variant-sensitive`, `canon-scope-gate`, `source-tradition-gate`",
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
@@ -151,6 +158,8 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "Checking the `john3_wj_speaker_boundary` owner-review options and the later selected parent-only target.",
         "Auditing the selected T376-A epistle argument research/prep runway",
         "T384 work or an audit needs to know why epistle research/options may continue",
+        "Auditing the completed Bible-wide research/readiness synthesis",
+        "T385 owner decision packet",
     ]:
         assert phrase in toc
 
@@ -324,7 +333,13 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t376_epistle_research_runway.py" in toc
     assert ".ai/tasks/T376.task.yaml" in toc
     assert ".ai/handoffs/T376/handoff.md" in toc
-    assert "T384 - Epistle Argument Research Runway And Target Options Matrix" in toc
+    assert "T384 | Bible-wide research readiness synthesis" in toc
+    assert ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml" in toc
+    assert "docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md" in toc
+    assert "scripts/validate_t384_bible_wide_research_readiness.py" in toc
+    assert ".ai/tasks/T384.task.yaml" in toc
+    assert ".ai/handoffs/T384/handoff.md" in toc
+    assert "T385 - Owner Decision Packet From T384 Research Readiness Synthesis" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

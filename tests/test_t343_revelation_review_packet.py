@@ -107,7 +107,7 @@ def test_t343_readiness_now_points_to_t384_research_options_not_revelation_imple
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
     assert readiness["next_route"]["task_id"] == "T384"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_research_runway"
+    assert readiness["next_route"]["route_type"] == "bible_wide_research_readiness_synthesis"
     assert readiness["next_route"]["starts_only_if"] == "T376_A_epistle_argument_research_runway_selected"
     assert readiness["next_route"]["prior_lane_selection"] == ".ai/control/t376_epistle_research_runway.yaml"
     assert readiness["next_route"]["prior_post_pilot_review"] == ".ai/control/t375_post_pilot_review.yaml"

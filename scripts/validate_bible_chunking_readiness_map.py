@@ -81,6 +81,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t374_additive_parent_overlay_manifest.yaml",
     ".ai/control/t375_post_pilot_review.yaml",
     ".ai/control/t376_epistle_research_runway.yaml",
+    ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
     ".ai/control/owner_decision_option_presentation_policy.yaml",
     ".ai/control/chunking_human_decision_forecast.yaml",
     ".ai/control/governance_memory_durability_policy.yaml",
@@ -174,8 +175,8 @@ ALLOWED_NEXT_ROUTES = {
         "title": "Select Next Chunking Lane From Decision Forecast",
     },
     "T384": {
-        "route_type": "epistle_argument_research_runway",
-        "title": "Epistle Argument Research Runway And Target Options Matrix",
+        "route_type": "bible_wide_research_readiness_synthesis",
+        "title": "Bible-Wide Research Readiness Synthesis",
     },
 }
 
@@ -453,6 +454,58 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: next_route.output_change_authorized must be false")
         if next_route.get("implementation_authorized") is not False:
             raise ReadinessMapError(f"{_rel(path)}: next_route.implementation_authorized must be false")
+    if task_id == "T384":
+        expected_t384 = {
+            "title": "Bible-Wide Research Readiness Synthesis",
+            "starts_only_if": "T376_A_epistle_argument_research_runway_selected",
+            "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
+            "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
+            "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "completion_surface": ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+            "completion_status": "complete_bible_wide_research_readiness_synthesis",
+            "decision_register_entry": "CD-061",
+            "lesson_index_entry": "LSN-013",
+            "selected_t376_option": "T376-A",
+            "selected_lane": "epistle_argument",
+            "selection_mode": "bible_wide_research_readiness_complete_non_authorizing",
+            "exact_next_non_output_step": "T385",
+            "lesson": "research_autonomy_is_not_authority_autonomy",
+        }
+        for key, value in expected_t384.items():
+            if next_route.get(key) != value:
+                raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be {value!r}")
+        if next_route.get("owner_decision_required_before_promotion_or_implementation") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T384 requires later owner decision")
+        if next_route.get("next_owner_packet_required") is not True:
+            raise ReadinessMapError(f"{_rel(path)}: T384 next_owner_packet_required must be true")
+        if next_route.get("exact_target_selected") is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T384 exact_target_selected must be false")
+        prior_entries = set(_require_string_list(next_route.get("prior_decision_register_entries"), "T384 prior_decision_register_entries"))
+        if {"CD-056", "CD-057", "CD-060", "CD-061"} - prior_entries:
+            raise ReadinessMapError(f"{_rel(path)}: T384 prior_decision_register_entries missing required ids")
+        option_ids = {
+            item.get("option_id")
+            for item in next_route.get("available_target_options", [])
+            if isinstance(item, dict)
+        }
+        if {"T384-A", "T384-B", "T384-C", "T384-D", "T384-E", "T384-F"} - option_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T384 available target options incomplete")
+        _require_string_list(next_route.get("required_t384_work_must_record"), "T384 required_t384_work_must_record")
+        for required in (
+            "human_decision_map",
+            "blocked_authority_changes",
+            "exact_next_non_output_step",
+        ):
+            if required not in next_route["required_t384_work_must_record"]:
+                raise ReadinessMapError(f"{_rel(path)}: T384 required_t384_work_must_record missing {required}")
+        must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T384 must_fail_if"))
+        for required in (
+            "T384_synthesis_is_treated_as_owner_selection",
+            "research_recommendation_is_treated_as_owner_selection",
+            "whole_bible_output_is_run",
+        ):
+            if required not in must_fail:
+                raise ReadinessMapError(f"{_rel(path)}: T384 must_fail_if missing {required}")
     if task_id == "T352":
         if next_route.get("review_packet_lane") != "epistle_argument":
             raise ReadinessMapError(f"{_rel(path)}: T352 next_route.review_packet_lane must be epistle_argument")
@@ -1042,22 +1095,28 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
                 raise ReadinessMapError(f"{_rel(path)}: T376 next_route.{key} must be false")
     if task_id == "T384":
         expected_t384 = {
-            "title": "Epistle Argument Research Runway And Target Options Matrix",
+            "title": "Bible-Wide Research Readiness Synthesis",
             "starts_only_if": "T376_A_epistle_argument_research_runway_selected",
             "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
             "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
             "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
+            "completion_surface": ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+            "completion_status": "complete_bible_wide_research_readiness_synthesis",
+            "decision_register_entry": "CD-061",
+            "lesson_index_entry": "LSN-013",
             "selected_t376_option": "T376-A",
             "selected_lane": "epistle_argument",
-            "selection_mode": "research_first_non_authorizing",
+            "selection_mode": "bible_wide_research_readiness_complete_non_authorizing",
             "owner_decision_required_before_promotion_or_implementation": True,
             "exact_target_selected": False,
+            "exact_next_non_output_step": "T385",
+            "next_owner_packet_required": True,
             "lesson": "research_autonomy_is_not_authority_autonomy",
         }
         for key, value in expected_t384.items():
             if next_route.get(key) != value:
                 raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be {value!r}")
-        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057", "CD-060"}:
+        if set(next_route.get("prior_decision_register_entries", [])) != {"CD-056", "CD-057", "CD-060", "CD-061"}:
             raise ReadinessMapError(f"{_rel(path)}: T384 prior decision register entries are stale")
         options = next_route.get("available_target_options")
         if not isinstance(options, list) or len(options) < 6:
@@ -1074,6 +1133,9 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             "original_language_phrase_context_review_where_used",
             "orthodox_hermeneutic_firewall_compliance",
             "no_exact_target_selected",
+            "human_decision_map",
+            "blocked_authority_changes",
+            "exact_next_non_output_step",
             "audit_surface",
             "handoff_next_owner_gate",
         ):
@@ -1082,6 +1144,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T384 must_fail_if"))
         for item in (
             "T384_selects_exact_target_without_owner_decision",
+            "T384_synthesis_is_treated_as_owner_selection",
             "research_recommendation_is_treated_as_owner_selection",
             "reviewed_gold_is_promoted_without_owner_gate",
             "graph_or_retrieval_truth_is_generated",

@@ -343,7 +343,7 @@ def _validate_links() -> None:
             "prior_lane_selection": ".ai/control/t376_epistle_research_runway.yaml",
             "prior_post_pilot_review": ".ai/control/t375_post_pilot_review.yaml",
             "prior_implementation_manifest": ".ai/control/t374_additive_parent_overlay_manifest.yaml",
-            "route_type": "epistle_argument_research_runway",
+            "route_type": "bible_wide_research_readiness_synthesis",
             "selected_t376_option": "T376-A",
             "selected_lane": "epistle_argument",
             "owner_decision_required_before_promotion_or_implementation": True,

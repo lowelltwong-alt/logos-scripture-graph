@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-21
-**Updated by:** T376 epistle research runway (Codex)
-**Active task:** -> **T376** selected `T376-A` in `.ai/control/t376_epistle_research_runway.yaml`, validated by `scripts/validate_t376_epistle_research_runway.py`, as the non-output-changing epistle argument research/prep runway. It records `CD-060` and `LSN-012`: research autonomy is not authority autonomy. T384 epistle argument research/options matrix is the next route. **T308** connection discovery + **T309** chunking bake-off still open
+**Updated by:** T384 Bible-wide research/readiness synthesis (Codex)
+**Active task:** -> **T384** completed `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`, validated by `scripts/validate_t384_bible_wide_research_readiness.py`, as the non-output-changing Bible-wide research/readiness synthesis. It records `CD-061` and `LSN-013`, maps ready lanes, research gaps, human decisions, blocked authority changes, and points the exact next non-output step to **T385 owner decision packet**. **T308** connection discovery + **T309** chunking bake-off still open
+
+> **T384 Bible-wide research/readiness synthesis (2026-06-21):** Added
+> `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`,
+> `docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md`, and
+> `.ai/audits/reports/20260621-T384-bible-wide-research-readiness.md`, checked by
+> `scripts/validate_t384_bible_wide_research_readiness.py`. T384 completes the broad research-first
+> goal as governed readiness, not chunk output. It records what is ready for review-packet
+> strengthening, what still needs more research, required human decisions `HDM-001` through
+> `HDM-007`, what must remain blocked, and `T385` as the next owner-decision packet. It records
+> `CD-061` and `LSN-013` and does not select an exact target, promote reviewed gold, authorize
+> child spans, change output, alter route/evaluator behavior, generate graph/retrieval/vector
+> truth, import boundaries, prefer readings/source traditions, change canon scope, or allow
+> denominational systematic theology as chunk authority.
 
 > **T376 epistle argument research runway (2026-06-21):** Added
 > `.ai/control/t376_epistle_research_runway.yaml`,

@@ -323,6 +323,33 @@ Required routing:
 - Return to the owner before any promotion, implementation, output, graph/retrieval/vector,
   boundary-import, or theological-authority decision.
 
+## WORKFLOW-LESSON-008 - Bible-Wide Research Readiness Must Be Synthesized Before Chunking Resumes
+
+Broad Bible-wide research can continue faster than target-by-target owner decisions, but it is not
+complete until the repo has one deterministic synthesis that future agents can read before chunking
+resumes.
+
+That synthesis must show:
+
+- what is ready for review-packet strengthening;
+- what still needs more research;
+- which human decisions are required, with serious faithful options and repercussions;
+- which authority-changing actions remain blocked;
+- and the exact next non-output-changing step.
+
+Required routing:
+
+- Record the synthesis in a machine-readable control surface such as
+  `.ai/control/t384_bible_wide_research_readiness_synthesis.yaml`.
+- Add the theological-downstream decision to `.ai/control/chunking_theological_decision_register.yaml`.
+- Add the reusable lesson to `.ai/control/chunking_lesson_index.yaml`.
+- Add the synthesis to `.ai/control/chunking_agent_preflight.yaml` and the AI TOCs.
+- Add validators/tests that fail if the synthesis becomes target selection, reviewed gold, child-span
+  promotion, output authority, route/evaluator behavior, graph/retrieval/vector truth, boundary
+  import, preferred reading/source-tradition selection, canon-scope change, or theology authority.
+- Return to the owner through the next explicit owner-decision packet before promotion,
+  implementation, or output work.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures
