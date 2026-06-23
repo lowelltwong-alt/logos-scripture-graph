@@ -47,6 +47,22 @@ bake-off still open.
 > preflight, and keeps owner selection pending. Recommended next owner choice is T385-A, but that
 > recommendation does not authorize Goal 4 work until Lowell explicitly selects it.
 
+> **T391 manuscript source catalog research packet (2026-06-22):** Added
+> `.ai/control/manuscript_source_catalog_research_packet.yaml`,
+> `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md`,
+> `scripts/validate_manuscript_source_catalog_research_packet.py`, and
+> `tests/test_manuscript_source_catalog_research_packet.py`. T391 curates official source anchors
+> including IAA/Leon Levy DSS, Israel Museum Great Isaiah Scroll anchors, INTF/NTVMR/Liste/ECM/CBGM,
+> CSNTM, Manchester Greek P 457/P52, Codex Sinaiticus Project, Vatican Library Vat.gr.1209, and
+> British Library Royal MS 1 D V. It records a five-family taxonomy, DSS biblical witness packet,
+> NT papyri/codices packet, discovery timeline anchors, open questions, blocked claims, and a next
+> goal prompt for a fresh source-catalog schema/source-row shell task. It separates confirmed source
+> facts from candidate claims and blocked claims and requires source, method, confidence, provenance,
+> and review status. T391 records `CD-069` and `LSN-023` and authorizes no SQLite database creation,
+> row population, source text import, transcription storage, Bible text storage, preferred reading,
+> source-tradition preference, canon-scope change, graph/retrieval/vector truth, boundary import,
+> Doctrine Genealogy import, chunk output, or apologetic conclusion as Scripture authority.
+
 > **T390 manuscript source catalog metadata plan (2026-06-22):** Added
 > `.ai/control/manuscript_source_catalog_metadata_plan.yaml`,
 > `docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md`,

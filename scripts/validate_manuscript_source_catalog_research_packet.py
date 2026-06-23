@@ -441,7 +441,7 @@ def _validate_handoff_and_next_goal(data: dict[str, Any]) -> None:
             raise ManuscriptSourceCatalogResearchPacketError(f"{_rel(PACKET)}: validation_commands missing {needle}")
 
     next_goal = _require_mapping(data.get("next_goal_prompt"), f"{_rel(PACKET)}.next_goal_prompt")
-    if next_goal.get("goal_id") != "T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL_AND_SOURCE_ROWS":
+    if next_goal.get("goal_id") != "NEXT_UNUSED_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL_AND_SOURCE_ROWS":
         raise ManuscriptSourceCatalogResearchPacketError(f"{_rel(PACKET)}: unexpected next goal id")
     prompt = _require_string(next_goal.get("prompt"), "next_goal_prompt.prompt").lower()
     for phrase in (
@@ -525,3 +525,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

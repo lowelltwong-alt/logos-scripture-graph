@@ -71,9 +71,6 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 | `data/candidate/connections/2026-06-04-ab-review.jsonl` | candidate | 4.2KB | 8 |
 | `data/candidate/connections/codex-5.5-2026-06-05.jsonl` | candidate | 301.6KB | 500 |
 | `data/candidate/connections/codex-5.5-2026-06-05.manifest.yaml` | candidate | 767B |  |
-| `data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml` | candidate | 2.9KB |  |
-| `data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql` | candidate | 11.6KB |  |
-| `data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl` | candidate | 46.1KB | 37 |
 
 ---
 
@@ -292,4 +289,3 @@ raw zip + manifest
      -> processed: usfm_events, parser_report, extraction_manifest
   -> chunker v0 (passages + witnesses join) -> derived/chunks
 ```
-

@@ -79,6 +79,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-020",
     "LSN-021",
     "LSN-022",
+    "LSN-023",
 }
 
 REQUIRED_TAGS = {
@@ -138,6 +139,9 @@ REQUIRED_TAGS = {
     "goal5",
     "variant-non-dependency",
     "child-span-necessity",
+    "source-catalog-research",
+    "official-sources",
+    "t391",
 }
 
 REQUIRED_SURFACES = {
@@ -166,6 +170,12 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md",
     "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
     "tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+    ".ai/control/manuscript_source_catalog_research_packet.yaml",
+    "docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md",
+    ".ai/tasks/T391.task.yaml",
+    ".ai/handoffs/T391/handoff.md",
+    "scripts/validate_manuscript_source_catalog_research_packet.py",
+    "tests/test_manuscript_source_catalog_research_packet.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -492,3 +502,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

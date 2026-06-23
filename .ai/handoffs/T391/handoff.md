@@ -64,7 +64,7 @@
 - Confirmed facts are source-scoped and must carry source, method, confidence, provenance, and review status.
 - Candidate claims and blocked claims are separated so future agents cannot accidentally promote them by vibe.
 - Patristic/church father/commentary/reception/creed/theologian material remains Boundary Literature; doctrine lineage remains future Doctrine Genealogy.
-- Next manuscript-reliability goal should be T392 SQLite source-catalog schema shell plus curated source/source-family/method/trust-rule rows only. Do not populate witness rows yet.
+- Next manuscript-reliability goal should use a fresh unused task id for the SQLite source-catalog schema shell plus curated source/source-family/method/trust-rule rows only. Do not populate witness rows yet, and do not reuse T392 because current main uses T392 for Eph.1.3-Eph.1.14 review-packet strengthening.
 
 ## Validation run
 
@@ -96,12 +96,12 @@
 ## Open questions
 
 - Which official holding-institution pages should be preferred for P45/P46/P66/P75?
-- Should T392 seed only source_catalog/source_family/method/trust-rule rows, or also create empty witness tables with fail-closed validators?
+- Should the next source-catalog shell task seed only source_catalog/source_family/method/trust-rule rows, or also create empty witness tables with fail-closed validators?
 - Which source rights/access fields should become mandatory before any image-derived metadata or minimal source excerpts are stored?
 
 ## Next agent instruction
 
-Start T392 only from live origin/main. Read AI_FRONT_DOOR.md, MASTER_CONTEXT.md read-only, PROJECT_STATUS.md, DATA_MAP.md, T387 scaffold, T390 metadata plan, and T391 research packet. Build the SQLite source-catalog schema shell and seed only curated source_catalog/source_family/method_profile/trust-rule metadata rows from T391 official source anchors. Do not populate witness rows, import source text, store manuscript transcription or Bible text, select preferred readings/source traditions, create graph/retrieval/vector output, or state apologetic conclusions as authority.
+Start the next source-catalog shell task only from live origin/main, using a fresh unused task id. Read AI_FRONT_DOOR.md, MASTER_CONTEXT.md read-only, PROJECT_STATUS.md, DATA_MAP.md, T387 scaffold, T390 metadata plan, and T391 research packet. Build the SQLite source-catalog schema shell and seed only curated source_catalog/source_family/method_profile/trust-rule metadata rows from T391 official source anchors. Do not populate witness rows, import source text, store manuscript transcription or Bible text, select preferred readings/source traditions, create graph/retrieval/vector output, or state apologetic conclusions as authority.
 
 ---
 
@@ -111,3 +111,4 @@ Start T392 only from live origin/main. Read AI_FRONT_DOOR.md, MASTER_CONTEXT.md 
 - mode: plan
 - updated_at: 2026-06-22T21:12:28+00:00
 - handoff_id: 829f0cf0c6b27645
+

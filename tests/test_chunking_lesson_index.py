@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 23)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 25)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -71,6 +71,10 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in by_id["LSN-022"]["source_surfaces"]
     assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in by_id["LSN-022"]["source_surfaces"]
     assert "CD-068" in by_id["LSN-022"]["related_decision_ids"]
+    assert "source-catalog-research" in by_id["LSN-023"]["tags"]
+    assert "official-sources" in by_id["LSN-023"]["tags"]
+    assert ".ai/control/manuscript_source_catalog_research_packet.yaml" in by_id["LSN-023"]["source_surfaces"]
+    assert "CD-069" in by_id["LSN-023"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 
@@ -99,3 +103,4 @@ def test_lesson_changed_path_gate_requires_index_update() -> None:
         ],
         index_updated=None,
     )
+
