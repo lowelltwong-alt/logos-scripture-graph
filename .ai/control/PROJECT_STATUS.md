@@ -1,18 +1,29 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-22
-**Updated by:** T390 manuscript source catalog metadata plan (Codex)
-**Active task:** -> **T390** completed a planning-only manuscript source catalog metadata plan at
-`docs/roadmap/T390_MANUSCRIPT_SOURCE_CATALOG_METADATA_PLAN.md`. It refines T387 into
-SQLite-ready metadata planning for biblical DSS witnesses, New Testament papyri, major codices,
-source catalogs, holding institutions, date/material/coverage/discovery claims, source trust rules,
-review statuses, and future source-research prompts. T390 creates no SQLite database, imports no
-manuscript text, stores no transcription text, populates no metadata rows, selects no preferred
-readings/source traditions, changes no canonical Bible text or passage records, and authorizes no
-chunk output, reviewed gold, graph/retrieval/vector truth, boundary import, Doctrine Genealogy
-import, or apologetic conclusion as authority. The exact next chunking step remains **T385 owner
-decision packet** using T384/T386/T387/T388/T389 evidence. **T308** connection discovery + **T309**
-chunking bake-off still open.
+**Last updated:** 2026-06-23
+**Updated by:** T385 owner decision packet (Codex)
+**Active task:** -> **T385** completed a non-output-changing owner decision packet at
+`.ai/control/t385_owner_decision_packet.yaml` and
+`docs/roadmap/T385_OWNER_DECISION_PACKET.md`. It uses T384/T386/T387/T388/T389/T390 readiness
+evidence to present serious faithful next options, repercussions, risks, and the exact
+recommendation that the owner select **T385-A: Eph.1.3-Eph.1.14 review-packet strengthening only**.
+The recommendation is not owner selection; `owner_selection_status` remains pending. Goal 4 cannot
+strengthen a packet until the owner explicitly selects one T385 option. T385 authorizes no exact
+target selection, reviewed-gold promotion, child spans, chunk output, route/evaluator behavior,
+graph/retrieval/vector truth, preferred readings/source traditions, boundary import, canon-scope
+change, theology authority, SQLite database creation, metadata row population, or source text
+import. **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T385 owner decision packet (2026-06-23):** Added
+> `.ai/control/t385_owner_decision_packet.yaml`,
+> `docs/roadmap/T385_OWNER_DECISION_PACKET.md`,
+> `scripts/validate_t385_owner_decision_packet.py`, and
+> `tests/test_t385_owner_decision_packet.py`. T385 records all serious faithful next options:
+> Eph.1.3-Eph.1.14, Gal.2.15-Gal.3.29, Jas.2.14-Jas.2.26, Rom.9.1-Rom.11.36,
+> Heb.7.1-Heb.10.39, 1Cor.11.17-1Cor.14.40, John.3.1-John.3.36, Revelation research-only, and
+> manuscript source-catalog research. It records `CD-066` and `LSN-020`, makes the packet mandatory
+> preflight, and keeps owner selection pending. Recommended next owner choice is T385-A, but that
+> recommendation does not authorize Goal 4 work until Lowell explicitly selects it.
 
 > **T390 manuscript source catalog metadata plan (2026-06-22):** Added
 > `.ai/control/manuscript_source_catalog_metadata_plan.yaml`,

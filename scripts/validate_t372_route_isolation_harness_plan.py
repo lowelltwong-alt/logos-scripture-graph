@@ -276,8 +276,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384"}:
-        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, or T384 after T372")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384", "T385"}:
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, T384, or T385 after T372")
     if next_route.get("task_id") == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T373 starts_only_if is stale")
     if next_route.get("task_id") == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
@@ -288,6 +288,8 @@ def _validate_links() -> None:
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T376 starts_only_if is stale")
     if next_route.get("task_id") == "T384" and next_route.get("starts_only_if") != "T376_A_epistle_argument_research_runway_selected":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T384 starts_only_if is stale")
+    if next_route.get("task_id") == "T385" and next_route.get("starts_only_if") != "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete":
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: T385 starts_only_if is stale")
     if next_route.get("task_id") in {"T373", "T374", "T375"} and next_route.get("harness_plan") != PLAN_REL:
         raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.harness_plan is stale")
     if next_route.get("task_id") == "T373":
@@ -350,6 +352,24 @@ def _validate_links() -> None:
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized", "evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
             if next_route.get(key) is not False:
                 raise T372HarnessPlanError(f"{_rel(READINESS)}: T384 next_route.{key} must be false")
+    if next_route.get("task_id") == "T385":
+        expected_t385 = {
+            "route_type": "owner_decision_packet_only",
+            "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+            "completion_status": "complete_owner_decision_packet_only",
+            "owner_selection_status": "pending",
+            "recommended_option": "T385-A",
+            "recommendation_is_owner_selection": False,
+            "reviewed_gold_promoted": False,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t385.items():
+            if next_route.get(key) != value:
+                raise T372HarnessPlanError(f"{_rel(READINESS)}: T385 next_route.{key} must be {value!r}")
+        for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized", "evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
+            if next_route.get(key) is not False:
+                raise T372HarnessPlanError(f"{_rel(READINESS)}: T385 next_route.{key} must be false")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

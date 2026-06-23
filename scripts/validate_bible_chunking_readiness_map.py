@@ -82,6 +82,7 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/control/t375_post_pilot_review.yaml",
     ".ai/control/t376_epistle_research_runway.yaml",
     ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+    ".ai/control/t385_owner_decision_packet.yaml",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -107,6 +108,7 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "child_span_selection_without_later_owner_promotion",
     "context_as_chunk_boundary_authority",
     "historical_background_as_scripture_authority",
+    "recommendation_as_owner_selection",
     "t327g",
     "master_chunker_global_objective",
 }
@@ -184,6 +186,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "bible_wide_research_readiness_synthesis",
         "title": "Bible-Wide Research Readiness Synthesis",
     },
+    "T385": {
+        "route_type": "owner_decision_packet_only",
+        "title": "Owner Decision Packet From T384/T386/T387/T388/T389/T390 Readiness",
+    },
 }
 
 
@@ -224,6 +230,112 @@ def _require_string_list(value: Any, label: str, *, allow_empty: bool = False) -
     if not all(isinstance(item, str) and item.strip() for item in value):
         raise ReadinessMapError(f"{label} must contain only non-empty strings")
     return value
+
+
+def _validate_t385_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "Owner Decision Packet From T384/T386/T387/T388/T389/T390 Readiness",
+        "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
+        "completion_status": "complete_owner_decision_packet_only",
+        "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+        "roadmap_doc": "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
+        "validator": "scripts/validate_t385_owner_decision_packet.py",
+        "required_handoff": ".ai/handoffs/T385/handoff.md",
+        "decision_register_entry": "CD-066",
+        "lesson_index_entry": "LSN-020",
+        "selected_t376_option": "T376-A",
+        "selected_lane": "epistle_argument",
+        "selection_mode": "owner_packet_complete_non_authorizing",
+        "owner_decision_required_before_goal_4": True,
+        "owner_decision_required_before_promotion_or_implementation": True,
+        "owner_selection_status": "pending",
+        "recommended_option": "T385-A",
+        "recommended_passage": "Eph.1.3-Eph.1.14",
+        "recommendation_is_owner_selection": False,
+        "exact_target_selected": False,
+        "exact_next_owner_action": "explicit_owner_selection_of_one_T385_option",
+        "goal_4_can_run_after": "explicit_owner_selection_of_one_T385_option",
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T385 next_route.{key} must be {value!r}")
+
+    inputs = next_route.get("prior_readiness_inputs")
+    if not isinstance(inputs, list):
+        raise ReadinessMapError(f"{_rel(path)}: T385 prior_readiness_inputs must be a list")
+    input_ids = {item.get("task_id") for item in inputs if isinstance(item, dict)}
+    for required in {"T384", "T386", "T386-docket", "T387", "T388", "T389", "T390"}:
+        if required not in input_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T385 prior_readiness_inputs missing {required}")
+
+    prior_entries = set(
+        _require_string_list(next_route.get("prior_decision_register_entries"), "T385 prior_decision_register_entries")
+    )
+    for required in {"CD-061", "CD-062", "CD-063", "CD-064", "CD-065", "CD-066"}:
+        if required not in prior_entries:
+            raise ReadinessMapError(f"{_rel(path)}: T385 prior_decision_register_entries missing {required}")
+
+    options = set(_require_string_list(next_route.get("serious_faithful_options"), "T385 serious_faithful_options"))
+    for required in {"T385-A", "T385-B", "T385-C", "T385-D", "T385-E", "T385-F", "T385-G", "T385-H", "T385-I"}:
+        if required not in options:
+            raise ReadinessMapError(f"{_rel(path)}: T385 serious_faithful_options missing {required}")
+
+    required_records = set(
+        _require_string_list(next_route.get("required_t385_packet_records"), "T385 required_t385_packet_records")
+    )
+    for required in (
+        "serious_faithful_target_options",
+        "repercussions_for_each_option",
+        "recommendation",
+        "owner_selection_pending",
+        "recommendation_is_not_owner_selection",
+        "contextual_reading_policy_fields",
+        "source_metadata_evidence_only_handling",
+        "original_language_phrase_context_review_where_used",
+        "textual_variant_or_source_tradition_sensitivity",
+        "orthodox_hermeneutic_firewall_compliance",
+        "decision_register_update",
+        "lesson_index_update",
+        "validators_and_tests",
+        "handoff_next_owner_gate",
+    ):
+        if required not in required_records:
+            raise ReadinessMapError(f"{_rel(path)}: T385 required_t385_packet_records missing {required}")
+
+    must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T385 must_fail_if"))
+    for required in (
+        "T385_recommendation_is_treated_as_owner_selection",
+        "Goal4_runs_without_explicit_owner_selection",
+        "T385_strengthens_review_packet_without_owner_selection",
+        "T385_promotes_reviewed_gold",
+        "T385_changes_chunk_output",
+        "T385_generates_graph_retrieval_or_vector_truth",
+        "T385_changes_canon_scope_or_theology_authority",
+    ):
+        if required not in must_fail:
+            raise ReadinessMapError(f"{_rel(path)}: T385 must_fail_if missing {required}")
+
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "reviewed_gold_promoted",
+        "review_packet_strengthening_authorized",
+        "route_behavior_authorized",
+        "child_spans_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "theology_authority_change_authorized",
+        "sqlite_database_creation_authorized",
+        "metadata_row_population_authorized",
+    ):
+        if next_route.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T385 next_route.{key} must be false")
 
 
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
@@ -460,6 +572,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             raise ReadinessMapError(f"{_rel(path)}: next_route.output_change_authorized must be false")
         if next_route.get("implementation_authorized") is not False:
             raise ReadinessMapError(f"{_rel(path)}: next_route.implementation_authorized must be false")
+    if task_id == "T385":
+        _validate_t385_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",

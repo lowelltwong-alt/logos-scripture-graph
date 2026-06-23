@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T390
+last_updated_by_task: T385
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -719,6 +719,47 @@ lessons:
       - scripts/validate_manuscript_source_catalog_metadata_plan.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
+  - lesson_id: LSN-020
+    title: Owner packet recommendation is not owner selection
+    lifecycle_status: active
+    priority: P0
+    categories: [owner_decision, theological_risk, workflow_governance, auditability]
+    tags: [owner-decision-packet, recommendation-not-selection, t385, owner-gate, goal4, epistle, ephesians, target-selection, non-authorizing, stop-condition, audit]
+    use_when:
+      - "A future agent reads an owner decision packet that recommends a target, lane, passage, or option before the owner has explicitly selected it."
+      - "A future agent wants to start Goal 4 or review-packet strengthening from T385, T384, T386, T389, or any readiness report."
+      - "A no-context reviewer must determine whether a recommendation authorized target selection, reviewed gold, output, route behavior, or graph/retrieval/vector work."
+    preflight_stage: before_owner_packet_or_goal4
+    source_surfaces:
+      - .ai/control/t385_owner_decision_packet.yaml
+      - docs/roadmap/T385_OWNER_DECISION_PACKET.md
+      - .ai/control/owner_decision_option_presentation_policy.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - scripts/validate_t385_owner_decision_packet.py
+      - tests/test_t385_owner_decision_packet.py
+    related_decision_ids: [CD-066]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T385]
+    downstream_risk: "If a recommendation is mistaken for selection, future agents can silently choose a passage, strengthen a packet, promote gold, add child spans, change route/evaluator behavior, or generate output without the owner decision gate."
+    required_preflight_surfaces:
+      - .ai/control/t385_owner_decision_packet.yaml
+      - .ai/control/owner_decision_option_presentation_policy.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - recommendation_as_owner_selection
+      - target_selection_without_owner
+      - review_packet_strengthening_without_owner_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - graph_or_retrieval_truth_from_owner_packet
+      - theology_authority_from_recommendation
+    validators:
+      - scripts/validate_t385_owner_decision_packet.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -855,4 +896,19 @@ lesson_graph:
   - from: LSN-019
     relation: audits
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-020
+  - from: LSN-020
+    relation: constrains
+    to: LSN-007
+  - from: LSN-020
+    relation: audits
+    to: LSN-010
+  - from: LSN-020
+    relation: constrains
+    to: LSN-013
+  - from: LSN-020
+    relation: constrains
+    to: LSN-014
 validator: scripts/validate_chunking_lesson_index.py
