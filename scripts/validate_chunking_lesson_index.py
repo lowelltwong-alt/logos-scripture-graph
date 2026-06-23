@@ -80,6 +80,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-021",
     "LSN-022",
     "LSN-023",
+    "LSN-024",
 }
 
 REQUIRED_TAGS = {
@@ -142,6 +143,13 @@ REQUIRED_TAGS = {
     "source-catalog-research",
     "official-sources",
     "t391",
+    "source-catalog-sqlite",
+    "sqlite-shell",
+    "source-family",
+    "method-profile",
+    "source-trust",
+    "seed-rows",
+    "t395",
 }
 
 REQUIRED_SURFACES = {
@@ -176,6 +184,15 @@ REQUIRED_SURFACES = {
     ".ai/handoffs/T391/handoff.md",
     "scripts/validate_manuscript_source_catalog_research_packet.py",
     "tests/test_manuscript_source_catalog_research_packet.py",
+    ".ai/control/manuscript_source_catalog_sqlite_shell.yaml",
+    "data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql",
+    "data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl",
+    "data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml",
+    "docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md",
+    ".ai/tasks/T395.task.yaml",
+    ".ai/handoffs/T395/handoff.md",
+    "scripts/validate_manuscript_source_catalog_sqlite_shell.py",
+    "tests/test_manuscript_source_catalog_sqlite_shell.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -502,4 +519,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

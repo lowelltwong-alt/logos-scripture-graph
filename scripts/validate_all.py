@@ -45,6 +45,7 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
         ["git", "diff", "--name-only", "origin/main...HEAD"],
         ["git", "diff", "--cached", "--name-only"],
         ["git", "diff", "--name-only"],
+        ["git", "ls-files", "--others", "--exclude-standard"],
     ):
         try:
             result = subprocess.run(args, cwd=ROOT, capture_output=True, text=True, check=True)
@@ -230,6 +231,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_manuscript_source_catalog_research_packet.py",
             [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_research_packet.py")],
+        ),
+        (
+            "validate_manuscript_source_catalog_sqlite_shell.py",
+            [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_sqlite_shell.py")],
         ),
         (
             "validate_t385_owner_decision_packet.py",

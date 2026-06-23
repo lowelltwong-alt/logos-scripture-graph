@@ -1,7 +1,7 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (Codex)
+**Updated by:** T395 SQLite source catalog schema shell (Codex)
 **Active task:** -> **T393** prepared the Goal 5 owner reviewed-gold promotion decision packet for
 `Eph.1.3-Eph.1.14` at
 `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
@@ -14,6 +14,23 @@ output, route/evaluator behavior, graph/retrieval/vector truth, preferred readin
 traditions, boundary import, canon-scope change, theology authority, SQLite database creation,
 metadata row population, or source text import. **T308** connection discovery + **T309** chunking
 bake-off still open.
+
+> **T395 SQLite source catalog schema shell (2026-06-23):** Added
+> `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml`,
+> `docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md`,
+> `scripts/validate_manuscript_source_catalog_sqlite_shell.py`, and
+> `tests/test_manuscript_source_catalog_sqlite_shell.py`. T395 validates the schema in in-memory
+> SQLite, seeds only source-family/source-catalog/method-profile/source-trust rows from T391
+> official anchors, keeps witness/date/material/coverage/discovery/holding-institution/review
+> queue tables empty, records `CD-070` and `LSN-024`, and forbids `canonical_*`, `boundary_*`,
+> and `doctrine_*` source-catalog objects. It authorizes no committed SQLite database file,
+> witness row population, source text import, transcription storage, Bible text storage, preferred
+> reading, source-tradition preference, canon-scope change, graph/retrieval/vector truth,
+> boundary import, doctrine lineage import, chunk output, or apologetic conclusion as Scripture
+> authority.
 
 > **T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (2026-06-23):** Added
 > `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml`,

@@ -1,0 +1,150 @@
+object_type: manuscript_source_catalog_sqlite_shell
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-23 during T395 from the T390 metadata plan and T391 official-source research packet."
+reason_for_inclusion: "Make the first SQLite source-catalog schema shell and source-only seed rows auditable before any biblical manuscript witness rows, text imports, preferred readings, graph/retrieval/vector work, or apologetic reports exist."
+schema_version: manuscript_source_catalog_sqlite_shell.v1
+shell_id: t395_manuscript_source_catalog_sqlite_shell
+task_id: T395
+owner: Lowell Wong
+status: active_source_catalog_seed_only
+authority:
+  records_sqlite_source_catalog_schema_shell: true
+  records_curated_source_family_rows: true
+  records_curated_source_catalog_rows: true
+  records_curated_method_profile_rows: true
+  records_curated_source_trust_rule_rows: true
+  refines_t390_metadata_plan: true
+  uses_t391_official_source_packet: true
+  may_validate_with_in_memory_sqlite: true
+  authorizes_committed_sqlite_database_file: false
+  authorizes_witness_row_population: false
+  authorizes_holding_institution_row_population: false
+  authorizes_date_claim_row_population: false
+  authorizes_material_claim_row_population: false
+  authorizes_coverage_claim_row_population: false
+  authorizes_discovery_event_row_population: false
+  authorizes_review_queue_row_population: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_bible_text_storage: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+placement_decision:
+  owning_repo: logos-scripture-graph
+  repo_scope: "Candidate SQLite shell and seed rows for canonical Scripture manuscript source-catalog metadata only."
+  data_path: data/candidate/source_catalog/manuscript_reliability/sqlite/
+  boundary_repo_scope: "Church fathers, patristic citations, commentaries, early creed wording, non-biblical Qumran/DSS content, reception history, and theologian writings route to logos-boundary-literature."
+  doctrine_repo_scope: "Doctrinal development, denominational lineage, theologian influence, and who built theology on whom route to future logos-doctrine-genealogy."
+  split_rule: "T395 may create source-family/source-catalog/method-profile/trust-rule rows from T391 official anchors only; it must not populate witness, date, material, coverage, discovery, review queue, boundary, doctrine, commentary, patristic, theologian, or apologetic-authority rows."
+data_boundary:
+  allowed_table_prefixes:
+    - scripture_
+    - evidence_
+  forbidden_table_or_view_prefixes:
+    - canonical_
+    - boundary_
+    - doctrine_
+  forbidden_table_or_view_rule: "No canonical_* table or view may include source-catalog, boundary, commentary, patristic, theologian, doctrine, or apologetic data."
+  seed_scope_rule: "Only scripture_source_family, scripture_source_catalog, evidence_source_catalog_method_profile, and evidence_source_trust_rule may have seed rows in T395."
+sqlite_artifacts:
+  schema_file: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+  seed_file: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+  manifest_file: data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml
+  binary_database_committed: false
+  validation_mode: in_memory_sqlite
+schema_tables:
+  seeded:
+    scripture_source_family: 5
+    scripture_source_catalog: 18
+    evidence_source_catalog_method_profile: 5
+    evidence_source_trust_rule: 9
+  empty_shell_only:
+    - scripture_holding_institution
+    - scripture_catalog_witness_record
+    - scripture_witness_identifier
+    - scripture_witness_date_claim
+    - scripture_witness_material_claim
+    - scripture_witness_coverage_claim
+    - scripture_witness_discovery_event
+    - evidence_catalog_review_queue
+required_row_fields:
+  - source_url
+  - method
+  - confidence
+  - provenance_note
+  - review_status
+  - source_family
+  - rights_access_status
+  - non_authorizing_scope_label
+  - stores_scripture_text
+  - stores_transcription_text
+  - stores_boundary_text
+seed_sources:
+  source_packet: .ai/control/manuscript_source_catalog_research_packet.yaml
+  source_count: 18
+  source_family_count: 5
+  method_profile_count: 5
+  trust_rule_count: 9
+  source_access_date: "2026-06-22"
+  seed_created_date: "2026-06-23"
+guardrails:
+  - "Every seed row must have source_url, method, confidence, provenance_note, review_status, source_family, rights_access_status, and non_authorizing_scope_label."
+  - "Every source_url must be one of the T391 curated official/primary/academic source URLs."
+  - "Seed rows may only target scripture_source_family, scripture_source_catalog, evidence_source_catalog_method_profile, and evidence_source_trust_rule."
+  - "Witness, identifier, date, material, coverage, discovery, and review-queue tables remain empty shell tables."
+  - "No table or view may use canonical_, boundary_, or doctrine_ prefixes."
+  - "No source row may store Scripture text, manuscript transcription text, Bible text, commentary text, patristic quotation text, theologian writing, creed wording, preferred readings, graph edges, retrieval truth, vector output, or apologetic conclusions as authority."
+  - "Rights/access status may be pending, but it must be explicit on every row before later population."
+non_authorizations:
+  - committed_sqlite_database_file
+  - witness_row_population
+  - holding_institution_row_population
+  - catalog_witness_record_population
+  - witness_identifier_row_population
+  - witness_date_claim_population
+  - witness_material_claim_population
+  - witness_coverage_claim_population
+  - witness_discovery_event_population
+  - review_queue_population
+  - source_text_import
+  - transcription_storage
+  - bible_text_storage
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - canonical_chunk_change
+  - reviewed_gold_promotion
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - commentary_or_patristic_import
+  - doctrine_genealogy_import
+  - commentary_as_scripture
+  - patristic_citation_as_scripture_authority
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+next_goal_prompt:
+  goal_id: T396_DSS_BIBLICAL_WITNESS_SOURCE_ROW_POPULATION
+  prompt: "Work in logos-scripture-graph after T391 and T395 are on live origin/main. Begin with a premortem and red-team pass, then fix every P0/P1 risk before editing. Read AI_FRONT_DOOR.md, MASTER_CONTEXT.md read-only, PROJECT_STATUS.md, DATA_MAP.md, T387 scaffold, T390 metadata plan, T391 source-catalog research packet, and T395 SQLite source-catalog shell. Populate the first metadata-only biblical DSS witness source rows from official IAA/Leon Levy and Israel Museum anchors, beginning with a very small exemplar set such as the Great Isaiah Scroll only if official row-level source URLs, source method, date range, material/language/coverage scope, rights/access status, provenance, confidence, dissent/uncertainty, and review status are available. Do not import source text, manuscript transcription, Bible text, non-biblical Qumran content, commentary, patristic material, preferred readings, source-tradition preferences, graph/retrieval/vector outputs, or apologetic conclusions as authority. Preserve candidate and blocked claims separately and add validation proving witness rows cannot exist without source URL, method, confidence, provenance, review status, rights/access status, and non-authorizing scope labels."
+validators:
+  - scripts/validate_manuscript_source_catalog_sqlite_shell.py
+  - tests/test_manuscript_source_catalog_sqlite_shell.py
+  - scripts/validate_all.py

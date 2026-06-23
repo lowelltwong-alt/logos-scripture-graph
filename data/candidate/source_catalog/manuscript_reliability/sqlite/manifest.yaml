@@ -1,0 +1,80 @@
+object_type: sqlite_source_catalog_seed_manifest
+trust_zone: candidate
+lifecycle_status: active
+provenance_note: "Created 2026-06-23 during T395 from the T391 curated official source packet and T390 metadata plan."
+reason_for_inclusion: "Declare the SQLite source-catalog schema shell and source-only seed rows for biblical manuscript reliability metadata without witness rows, source text, transcriptions, preferred readings, graph output, or apologetic conclusions as authority."
+schema_version: manuscript_source_catalog_sqlite_shell.v1
+manifest_id: t395_sqlite_source_catalog_seed_manifest
+task_id: T395
+status: active_source_catalog_seed_only
+schema_file: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+seed_file: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+source_packet: .ai/control/manuscript_source_catalog_research_packet.yaml
+metadata_plan: .ai/control/manuscript_source_catalog_metadata_plan.yaml
+allowed_seed_tables:
+  scripture_source_family: 5
+  scripture_source_catalog: 18
+  evidence_source_catalog_method_profile: 5
+  evidence_source_trust_rule: 9
+empty_shell_tables:
+  - scripture_holding_institution
+  - scripture_catalog_witness_record
+  - scripture_witness_identifier
+  - scripture_witness_date_claim
+  - scripture_witness_material_claim
+  - scripture_witness_coverage_claim
+  - scripture_witness_discovery_event
+  - evidence_catalog_review_queue
+forbidden_table_or_view_prefixes:
+  - canonical_
+  - boundary_
+  - doctrine_
+forbidden_seed_tables:
+  - scripture_holding_institution
+  - scripture_catalog_witness_record
+  - scripture_witness_identifier
+  - scripture_witness_date_claim
+  - scripture_witness_material_claim
+  - scripture_witness_coverage_claim
+  - scripture_witness_discovery_event
+  - evidence_catalog_review_queue
+  - canonical_source_catalog
+  - boundary_source_catalog
+  - doctrine_source_catalog
+common_required_row_fields:
+  - source_url
+  - method
+  - confidence
+  - provenance_note
+  - review_status
+  - source_family
+  - rights_access_status
+  - non_authorizing_scope_label
+  - stores_scripture_text
+  - stores_transcription_text
+  - stores_boundary_text
+non_authorizations:
+  - witness_row_population
+  - holding_institution_row_population
+  - date_claim_row_population
+  - material_claim_row_population
+  - coverage_claim_row_population
+  - discovery_event_row_population
+  - review_queue_row_population
+  - source_text_import
+  - transcription_storage
+  - bible_text_storage
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - commentary_or_patristic_import
+  - doctrine_genealogy_import
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+validation:
+  validator: scripts/validate_manuscript_source_catalog_sqlite_shell.py
+  tests: tests/test_manuscript_source_catalog_sqlite_shell.py
+  sqlite_validation_mode: in_memory_from_schema_and_seed_rows

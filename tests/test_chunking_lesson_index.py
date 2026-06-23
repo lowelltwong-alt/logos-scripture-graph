@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 24)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 25)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -75,6 +75,14 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "official-sources" in by_id["LSN-023"]["tags"]
     assert ".ai/control/manuscript_source_catalog_research_packet.yaml" in by_id["LSN-023"]["source_surfaces"]
     assert "CD-069" in by_id["LSN-023"]["related_decision_ids"]
+    assert "source-catalog-sqlite" in by_id["LSN-024"]["tags"]
+    assert "sqlite-shell" in by_id["LSN-024"]["tags"]
+    assert "seed-rows" in by_id["LSN-024"]["tags"]
+    assert "t395" in by_id["LSN-024"]["tags"]
+    assert ".ai/control/manuscript_source_catalog_sqlite_shell.yaml" in by_id["LSN-024"]["source_surfaces"]
+    assert "data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql" in by_id["LSN-024"]["source_surfaces"]
+    assert "docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md" in by_id["LSN-024"]["source_surfaces"]
+    assert "CD-070" in by_id["LSN-024"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 
@@ -103,4 +111,3 @@ def test_lesson_changed_path_gate_requires_index_update() -> None:
         ],
         index_updated=None,
     )
-
