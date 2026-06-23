@@ -69,7 +69,7 @@
 - Loaded the T395 schema/source seed rows in memory, then inserted exactly nine T396 rows.
 - Preserved date/material/coverage/shelfmark/script/rights uncertainty as candidate or blocked review status.
 - Required official source URLs routed through T391/T395 on every row.
-- Added `CD-071` and `LSN-025` so future witness-row tasks inherit the anti-overclaiming controls.
+- Added `CD-072` and `LSN-026` so future witness-row tasks inherit the anti-overclaiming controls.
 - Left T393 owner-selection/current-focus semantics untouched and made no chunk, graph, retrieval, vector, Bible-text, or doctrine changes.
 
 ## Validation run
@@ -120,13 +120,13 @@
 
 ## Open questions
 
-- Should T397 use a single NT exemplar or a tiny mixed NT papyri/codices set?
+- Should T398 use a single NT exemplar or a tiny mixed NT papyri/codices set?
 - Should a later task create a normalized date interval model, or keep official display dates and normalization claims as separate rows?
 - Which scholarly catalog should be the first cross-check for Great Isaiah Scroll accession/shelfmark/script normalization?
 
 ## Next agent instruction
 
-After T396 is merged, work from live `origin/main` and start T397 as a tiny metadata-only NT papyri/codices source-row exemplar task. Begin with premortem/red-team, use official INTF/NTVMR/Liste, CSNTM, and holding-institution anchors from T391/T395, preserve candidate/blocked status, and do not import source text, transcription text, Bible text, images, preferred readings, graph/retrieval/vector output, Boundary Literature material, Doctrine Genealogy material, or apologetic conclusions as authority.
+After T396 is merged, work from live `origin/main` and start T398 as a tiny metadata-only NT papyri/codices source-row exemplar task. Treat T397 as reserved for the T394 Goal 6 route-isolated harness lane. Begin with premortem/red-team, use official INTF/NTVMR/Liste, CSNTM, and holding-institution anchors from T391/T395, preserve candidate/blocked status, and do not import source text, transcription text, Bible text, images, preferred readings, graph/retrieval/vector output, Boundary Literature material, Doctrine Genealogy material, or apologetic conclusions as authority.
 
 ---
 

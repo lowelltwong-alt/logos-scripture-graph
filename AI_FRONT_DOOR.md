@@ -188,14 +188,20 @@ Bible-first chunking priority:
   `scripts/validate_t392_eph1_review_packet_strengthening.py`. Do not treat T392 as reviewed gold,
   output authority, child-span authority, route/evaluator authority, graph/retrieval/vector truth,
   source-tradition authority, canon-scope authority, or theology authority.
-  T393 is now prepared as the Goal 5 reviewed-gold promotion decision packet at
+  T393 was prepared as the Goal 5 reviewed-gold promotion decision packet at
   `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
   `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`, validated by
-  `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`. T393 recommends
-  `T393-A` but owner_selection_status remains pending and reviewed_gold_promoted remains false.
-  Lowell must explicitly select one T393 option before any reviewed-gold promotion, Goal 6
-  harness work, chunk output, child span, route/evaluator behavior, graph/retrieval/vector truth,
-  boundary import, preferred reading/source tradition, canon-scope change, or theology authority.
+  `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`. T393 is now resolved by
+  T394: Lowell selected `T393-A`, and the owner response is recorded at
+  `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`.
+  T394 promotes only `Eph.1.3-Eph.1.14` as parent-only reviewed gold with
+  `exact_internal_variant_refs: []`; the parent boundary and reviewed-gold claim are current-repo
+  variant-non-dependent and current-repo source-tradition-non-dependent. Child spans are not
+  necessary now and are not authorized. T394 authorizes no chunk output, child spans,
+  parent-span-as-chunk-boundary use, route/evaluator behavior, graph/retrieval/vector truth,
+  boundary import, preferred reading/source tradition, canon-scope change, source/manuscript row
+  creation, SQLite database creation, metadata row population, implementation, or theology
+  authority. The next safe step is only a later Goal 6 route-isolated harness task (`T397`).
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -293,7 +299,7 @@ Bible-first chunking priority:
   `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl`
   populate a tiny Great Isaiah Scroll metadata-only exemplar set from official Israel Museum and
   IAA/Leon Levy anchors routed through T391/T395. It is validated by
-  `scripts/validate_dss_biblical_witness_source_rows.py`, records `CD-071` and `LSN-025`, and
+  `scripts/validate_dss_biblical_witness_source_rows.py`, records `CD-072` and `LSN-026`, and
   authorizes no source text, transcription text, Bible text, image ingestion, preferred reading,
   source-tradition preference, non-biblical DSS import, graph/retrieval/vector truth, chunk output,
   or apologetic conclusion as Scripture authority.
@@ -320,10 +326,10 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently records T393 as the prepared Goal 5
-  reviewed-gold promotion decision packet for `Eph.1.3-Eph.1.14`, pending Lowell's owner
-  selection of exactly one T393 option. T384/T386/T385/T392/T393 readiness cannot promote reviewed
-  gold, implement output, add child spans, or change
+  next safe route. It is non-authorizing and currently records T394 as the owner-selected
+  parent-only reviewed-gold promotion for `Eph.1.3-Eph.1.14`, with T397 as the next
+  Goal 6 route-isolated harness step. T384/T386/T385/T392/T393/T394 readiness cannot implement
+  output, add child spans, treat reviewed gold as chunk-boundary authority, or change
   route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected

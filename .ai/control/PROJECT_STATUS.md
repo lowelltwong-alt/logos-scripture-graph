@@ -2,18 +2,17 @@
 
 **Last updated:** 2026-06-23
 **Updated by:** T396 DSS biblical witness source rows (Codex)
-**Active task:** -> **T393** prepared the Goal 5 owner reviewed-gold promotion decision packet for
-`Eph.1.3-Eph.1.14` at
-`.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
-`docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`. Owner selection is still
-pending. Recommended option is `T393-A`, but the recommendation is not owner selection.
-Reviewed gold promoted: false. Chunk output authorized: false. Goal 5 now requires Lowell to
-select exactly one T393 option before any reviewed-gold promotion record or Goal 6 harness work.
-T393 authorizes no reviewed-gold promotion, parent span as chunk boundary, child spans, chunk
-output, route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source
-traditions, boundary import, canon-scope change, theology authority, SQLite database creation,
-metadata row population, or source text import. **T308** connection discovery + **T309** chunking
-bake-off still open.
+**Active task:** -> **T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion** records Lowell's
+owner selection of `T393-A` at `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`.
+Only `Eph.1.3-Eph.1.14` is promoted as parent-only reviewed gold. `exact_internal_variant_refs`
+is empty; the parent boundary and reviewed-gold claim are current-repo variant-non-dependent and
+source-tradition-non-dependent. Child spans are not necessary now and are not authorized. T394
+authorizes no chunk output, implementation, parent span as chunk boundary, child spans,
+route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source traditions,
+boundary import, canon-scope change, source/manuscript row creation, SQLite database creation,
+metadata row population, source text import, or theology authority. The next chunking step is
+**T397** Goal 6 route-isolated harness prep only. **T308** connection discovery + **T309**
+chunking bake-off still open.
 
 > **T396 DSS biblical witness source rows (2026-06-23):** Added
 > `.ai/control/dss_biblical_witness_source_rows.yaml`,
@@ -24,9 +23,10 @@ bake-off still open.
 > `tests/test_dss_biblical_witness_source_rows.py`. T396 loads the T395 schema and source seed
 > rows in in-memory SQLite, then populates exactly nine metadata-only Great Isaiah Scroll exemplar
 > rows across holding-institution, witness-record, identifier, date, material, coverage, discovery,
-> and review-queue tables. It records `CD-071` and `LSN-025`, preserves candidate/blocked status
-> for date/material/coverage/shelfmark/script/rights normalization, and validates official source
-> URLs routed through T391/T395. It authorizes no additional witness population without a later
+> and review-queue tables. It records `CD-072` and `LSN-026` after T394 used `CD-071` and
+> `LSN-025`, preserves candidate/blocked status for date/material/coverage/shelfmark/script/rights
+> normalization, and validates official source URLs routed through T391/T395. It authorizes no
+> additional witness population without a later
 > task, committed SQLite database file, source text import, transcription storage, Bible text
 > storage, image ingestion, preferred reading, source-tradition preference, non-biblical DSS import,
 > boundary import, doctrine lineage import, graph/retrieval/vector truth, chunk output, or
@@ -49,15 +49,30 @@ bake-off still open.
 > boundary import, doctrine lineage import, chunk output, or apologetic conclusion as Scripture
 > authority.
 
+> **T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion (2026-06-23):** Added
+> `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`,
+> `docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md`,
+> `scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py`, and
+> `tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py`; updated
+> `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`, the decision register, lesson
+> index, readiness map, TOCs, audit, status, and handoff surfaces; and recorded `CD-071` plus
+> `LSN-025`. T394 promotes only `Eph.1.3-Eph.1.14` as parent-only reviewed gold, confirms no
+> current-repo internal variant refs, confirms current-repo variant/source-tradition non-dependency,
+> denies child spans now, and leaves T397 as later non-output-changing harness prep. Not authorized:
+> chunk output, implementation, route/evaluator behavior, graph/retrieval/vector truth, boundary
+> import, preferred reading/source-tradition choice, source/manuscript row creation, canon-scope
+> change, or theology authority.
+
 > **T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (2026-06-23):** Added
 > `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml`,
 > `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`,
 > `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and
 > `tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and recorded `CD-068` plus
-> `LSN-022`. This prepares Goal 5 only. It recommends `T393-A` for owner review but keeps
-> owner_selection_status pending and reviewed_gold_promoted false. No reviewed gold, chunk output,
-> child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
-> reading/source-tradition choice, canon-scope change, or theology authority is authorized.
+> `LSN-022`. This prepared Goal 5 only. It recommended `T393-A` for owner review and is now
+> resolved by the separate T394 owner response; reviewed_gold_promoted remains false in the T393
+> packet itself. No chunk output, child spans, route/evaluator behavior, graph/retrieval/vector
+> truth, boundary import, preferred reading/source-tradition choice, canon-scope change, or theology
+> authority is authorized by the T393 packet.
 
 > **T392 Eph.1.3-Eph.1.14 review packet strengthening (2026-06-23):** Added strengthened
 > evidence and controls to `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`,

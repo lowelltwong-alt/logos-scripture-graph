@@ -2,7 +2,7 @@
 object_type: bible_chunking_readiness_map
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection."
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion and advance the next route to Goal 6 harness prep."
 reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
 ---
 schema_version: bible_chunking_readiness_map.v1
@@ -67,6 +67,10 @@ lessons_storage:
     - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
     - .ai/tasks/T393.task.yaml
     - .ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md
+    - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+    - docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+    - .ai/tasks/T394.task.yaml
+    - .ai/audits/reports/20260623-T394-eph1-parent-only-reviewed-gold-promotion.md
     - .ai/control/bible_verse_passage_coverage_inventory.jsonl
     - .ai/control/bible_verse_passage_coverage_taxonomy.yaml
     - .ai/control/bible_verse_passage_coverage_summary.yaml
@@ -152,7 +156,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t393_eph1_promotion_decision_packet_pending_owner_selection
+    current_state: t394_eph1_parent_only_reviewed_gold_promoted_goal6_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -354,7 +358,7 @@ lane_sequence:
     eph1_reviewed_gold_promotion_decision_packet:
       task_id: T393
       path: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
-      status: pending_owner_reviewed_gold_promotion_decision
+      status: resolved_by_t393_a
       selected_option_from_t385: T385-A
       selected_passage: Eph.1.3-Eph.1.14
       selected_parent_candidate: Eph.1.3-Eph.1.14
@@ -365,13 +369,15 @@ lane_sequence:
       lesson_index_entry: LSN-022
       roadmap_doc: docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
       validator: scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
-      owner_selection_status: pending
+      owner_selection_status: selected
+      selected_option: T393-A
+      owner_response_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
       recommended_option: T393-A
       recommendation_is_owner_selection: false
       exact_internal_variant_refs: []
       variant_dependency_non_authorizing_assessment: current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim
       child_span_necessity_non_authorizing_assessment: child_spans_not_necessary_for_parent_only_reviewed_gold_now
-      next_owner_gate: owner_select_one_T393_option_before_promotion
+      next_owner_gate: resolved_by_t394
       output_change_authorized: false
       implementation_authorized: false
       reviewed_gold_promoted: false
@@ -386,6 +392,32 @@ lane_sequence:
       source_tradition_preference_authorized: false
       canon_scope_change_authorized: false
       theology_authority_change_authorized: false
+    eph1_parent_only_reviewed_gold_promotion:
+      task_id: T394
+      path: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+      status: complete_parent_only_reviewed_gold_promoted
+      selected_option: T393-A
+      reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      reviewed_gold_case_id: eph1_3_14_parent_only_reviewed_gold
+      selected_parent: Eph.1.3-Eph.1.14
+      selected_children: []
+      exact_internal_variant_refs: []
+      boundary_dependency_or_non_dependency: current_repo_variant_non_dependent
+      reviewed_gold_dependency_or_non_dependency: current_repo_variant_non_dependent
+      source_tradition_dependency_or_non_dependency: current_repo_source_tradition_non_dependent
+      child_spans_necessary_now: false
+      child_spans_authorized: false
+      reviewed_gold_promoted: true
+      parent_span_as_chunk_boundary_authorized: false
+      output_change_authorized: false
+      implementation_authorized: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+      embedding_or_vector_work_allowed: false
+      source_or_manuscript_rows_authorized: false
+      next_task: T397
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -540,11 +572,11 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T393
-  title: Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet
-  route_type: epistle_argument_owner_reviewed_gold_promotion_decision_packet
-  starts_only_if: T392_eph1_review_packet_strengthening_complete
-  completion_status: pending_owner_reviewed_gold_promotion_decision
+  task_id: T397
+  title: Eph.1.3-Eph.1.14 Route-Isolated Harness Prep
+  route_type: epistle_argument_goal6_route_isolation_harness_prep
+  starts_only_if: T394_eph1_parent_only_reviewed_gold_promoted
+  completion_status: planned_non_output_changing_harness_only
   selected_t376_option: T376-A
   selected_lane: epistle_argument
   selected_t385_option: T385-A
@@ -553,17 +585,20 @@ next_route:
   selected_children: []
   review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
   owner_packet: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
-  owner_selection_status: pending
-  recommended_option: T393-A
+  promotion_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: eph1_3_14_parent_only_reviewed_gold
+  owner_selection_status: selected
+  selected_option: T393-A
   recommendation_is_owner_selection: false
   exact_internal_variant_refs: []
   variant_dependency_non_authorizing_assessment: current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim
   child_span_necessity_non_authorizing_assessment: child_spans_not_necessary_for_parent_only_reviewed_gold_now
-  roadmap_doc: docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
-  validator: scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
-  required_handoff: .ai/handoffs/T393/handoff.md
-  decision_register_entry: CD-068
-  lesson_index_entry: LSN-022
+  roadmap_doc: docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+  validator: scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
+  required_handoff: .ai/handoffs/T394/handoff.md
+  decision_register_entry: CD-071
+  lesson_index_entry: LSN-025
   prior_strengthening:
     task_id: T392
     review_packet_strengthened: true
@@ -606,26 +641,24 @@ next_route:
       path: .ai/control/t385_owner_decision_packet.yaml
     - task_id: T392
       path: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
-  prior_decision_register_entries: [CD-061, CD-062, CD-063, CD-064, CD-065, CD-066, CD-067, CD-068]
+  prior_decision_register_entries: [CD-061, CD-062, CD-063, CD-064, CD-065, CD-066, CD-067, CD-068, CD-071]
   goal_5_packet_prepared: true
-  owner_decision_required_before_promotion_or_implementation: true
-  reviewed_gold_promoted: false
-  next_task_if_owner_selects_promotion: T394
-  exact_next_owner_action: owner_select_one_T393_option_before_promotion
+  owner_decision_required_before_promotion_or_implementation: false
+  reviewed_gold_promoted: true
+  exact_next_owner_action: prepare_goal6_route_isolated_harnesses_only
   must_fail_if:
-    - T393_recommendation_is_treated_as_owner_selection
-    - T393_packet_promotes_reviewed_gold_without_owner_authorization
-    - T393_adds_child_spans
-    - T393_changes_chunk_output
-    - T393_changes_route_or_evaluator_behavior
-    - T393_generates_graph_retrieval_or_vector_truth
-    - T393_imports_boundary_or_source_tradition_authority
-    - T393_changes_canon_scope_or_theology_authority
-    - Goal6_harness_runs_without_owner_promoted_gold
-  rationale: "T393 prepares the Goal 5 owner reviewed-gold promotion decision packet for the strengthened Eph.1.3-Eph.1.14 review packet. It recommends T393-A but keeps owner selection pending and reviewed_gold_promoted false. The next safe step is for Lowell to select one exact T393 option before any promotion record, Goal 6 harness, route/evaluator behavior, implementation, graph/retrieval/vector work, child span, or output change."
+    - T397_harness_changes_chunk_output
+    - T397_harness_changes_route_or_evaluator_behavior
+    - T397_harness_generates_graph_retrieval_or_vector_truth
+    - T397_harness_adds_child_spans
+    - T397_harness_imports_boundary_or_source_tradition_authority
+    - T397_harness_changes_canon_scope_or_theology_authority
+    - T397_harness_creates_source_or_manuscript_rows
+    - T397_harness_treats_reviewed_gold_as_output_authority
+  rationale: "T394 records Lowell's T393-A owner selection and promotes Eph.1.3-Eph.1.14 only as parent-only reviewed gold. The next safe step is Goal 6 route-isolated harness prep for that exact target, still non-output-changing and without child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope change, source/manuscript rows, implementation, or theology authority."
   output_change_authorized: false
   implementation_authorized: false
-  reviewed_gold_promoted: false
+  reviewed_gold_promoted: true
   review_packet_strengthening_authorized: false
   route_behavior_authorized: false
   child_spans_authorized: false
@@ -640,6 +673,7 @@ next_route:
   theology_authority_change_authorized: false
   sqlite_database_creation_authorized: false
   metadata_row_population_authorized: false
+  source_or_manuscript_rows_authorized: false
 parallel_research_queue:
   task_id: T358
   title: Bible-Wide Chunking Research Registry
@@ -871,6 +905,7 @@ update_triggers:
   - t385_owner_decision_packet_change
   - t392_eph1_review_packet_strengthening_change
   - t393_eph1_reviewed_gold_promotion_decision_packet_change
+  - t394_eph1_parent_only_reviewed_gold_promotion_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration
@@ -880,7 +915,8 @@ explicit_non_authorizations:
   - revelation_implementation
   - global_apocalypse_rule
   - global_psalm_or_poetry_rule
-  - reviewed_gold_promotion
+  - unscoped_reviewed_gold_promotion
+  - reviewed_gold_promotion_without_owner_confirmation
   - skill_lifecycle_promotion
   - embedding_run
   - vector_index_build

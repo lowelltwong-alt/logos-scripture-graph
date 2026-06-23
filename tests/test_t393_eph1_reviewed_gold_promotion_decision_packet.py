@@ -15,8 +15,10 @@ def test_t393_owner_decision_packet_validates() -> None:
     data = validate_t393_owner_decision_packet(PACKET)
 
     assert data["task_id"] == "T393"
-    assert data["status"] == "pending_owner_decision"
-    assert data["owner_selection"]["owner_selection_status"] == "pending"
+    assert data["status"] == "resolved_by_t393_a"
+    assert data["owner_selection"]["owner_selection_status"] == "selected"
+    assert data["owner_selection"]["selected_option"] == "T393-A"
+    assert data["owner_selection"]["owner_response_record"] == ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
     assert data["owner_selection"]["reviewed_gold_promoted"] is False
 
 
@@ -30,6 +32,8 @@ def test_t393_presents_options_and_recommendation_without_selection() -> None:
     assert options["T393-A"]["if_selected_authorizes_output_change"] is False
     assert data["recommendation_for_owner_review"]["recommended_option_id"] == "T393-A"
     assert "not an owner decision" in data["recommendation_for_owner_review"]["why_not_auto_select"]
+    assert data["owner_response"]["task_id"] == "T394"
+    assert data["owner_response"]["selected_option"] == "T393-A"
 
 
 def test_t393_records_variant_child_span_and_premortem_controls() -> None:
@@ -39,6 +43,8 @@ def test_t393_records_variant_child_span_and_premortem_controls() -> None:
     assert evidence["exact_internal_variant_refs"] == []
     assert evidence["variant_dependency_non_authorizing_assessment"] == "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim"
     assert evidence["child_span_necessity_non_authorizing_assessment"] == "child_spans_not_necessary_for_parent_only_reviewed_gold_now"
+    assert data["owner_response"]["exact_internal_variant_refs"] == []
+    assert data["owner_response"]["child_span_necessity_or_denial"] == "child_spans_not_necessary_now_and_not_authorized"
     assert len(data["premortem_red_team"]) >= 5
 
 

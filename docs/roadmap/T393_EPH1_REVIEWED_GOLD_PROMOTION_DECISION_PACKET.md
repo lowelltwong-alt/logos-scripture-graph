@@ -13,8 +13,8 @@ reason_for_inclusion: "Record the Goal 5 owner reviewed-gold promotion decision 
 T393 prepares Goal 5 only: an owner reviewed-gold promotion decision packet for the strengthened
 `Eph.1.3-Eph.1.14` review packet.
 
-Owner selection status: pending.
-Reviewed gold promoted: false.
+Owner selection status: selected by T394.
+Reviewed gold promoted: false. This packet remains non-promoting; the separate T394 record promotes parent-only reviewed gold.
 Output change authorized: false.
 No chunk output is implemented.
 
@@ -26,7 +26,7 @@ Recommended option: `T393-A`, if Lowell agrees with the current evidence.
 
 T393-A would promote only `Eph.1.3-Eph.1.14` as parent-only reviewed gold, with no child spans and
 no output, route/evaluator, graph/retrieval/vector, preferred-reading/source-tradition,
-canon-scope, or theology-authority change. T393-A is not selected by this task.
+canon-scope, or theology-authority change. Resolved by T394 after Lowell selected T393-A.
 
 ## Options Presented
 
@@ -66,9 +66,12 @@ canon-scope, or theology-authority change. T393-A is not selected by this task.
 
 ## Next Gate
 
-Lowell must explicitly select one `T393` option before any reviewed-gold promotion. If Lowell
-selects `T393-A`, the next governed task records the exact owner confirmation, promotion record,
-decision-register update, validators/tests, and keeps Goal 6 harness work non-output-changing.
+Lowell selected `T393-A`; the exact owner confirmation and promotion record now live in
+`.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`. The next governed task is Goal 6
+route-isolated harness work only. It remains non-output-changing and cannot implement chunks,
+select child spans, change route/evaluator behavior, create graph/retrieval/vector truth, import
+boundary material, select preferred readings/source traditions, change canon scope, create
+source/manuscript rows, or authorize theology authority.
 
 ## Validation
 
