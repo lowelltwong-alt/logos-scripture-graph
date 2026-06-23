@@ -1307,7 +1307,7 @@ phases:
         metadata_row_population_authorized: false
       - id: T393
         title: Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet
-        status: pending_owner_reviewed_gold_promotion_decision
+        status: resolved_by_t393_a
         lane: epistle_argument
         starts_only_if: T392_eph1_review_packet_strengthening_complete
         selected_option_from_t385: T385-A
@@ -1323,16 +1323,18 @@ phases:
         decision_register_entry: CD-068
         lesson_index_entry: LSN-022
         recommended_option: T393-A
-        owner_selection_status: pending
+        owner_selection_status: selected
+        selected_option: T393-A
+        owner_response_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
         recommendation_is_owner_selection: false
         exact_internal_variant_refs: []
         variant_dependency_status: non_dependent_on_current_repo_evidence
         source_tradition_dependency_status: non_dependent_on_current_repo_evidence
         child_span_necessity_assessment: not_necessary_now_for_parent_only_promotion
         reviewed_gold_promoted: false
-        next_task: owner_select_one_T393_option_before_promotion
-        next_goal_gate: owner reviewed-gold promotion selection before Goal 6 harness work
-        owner_decision_required_before_promotion_or_implementation: true
+        next_task: T394
+        next_goal_gate: resolved_by_t394_parent_only_reviewed_gold_promotion
+        owner_decision_required_before_promotion_or_implementation: false
         exact_target_selected_for_promotion_or_implementation: false
         output_change_authorized: false
         implementation_authorized: false
@@ -1349,6 +1351,52 @@ phases:
         theology_authority_change_authorized: false
         sqlite_database_creation_authorized: false
         metadata_row_population_authorized: false
+      - id: T394
+        title: Eph.1.3-Eph.1.14 Parent-Only Reviewed-Gold Promotion
+        status: complete_parent_only_reviewed_gold_promoted
+        lane: epistle_argument
+        starts_only_if: owner_selects_T393_A
+        selected_option: T393-A
+        selected_passage: Eph.1.3-Eph.1.14
+        selected_parent: Eph.1.3-Eph.1.14
+        selected_children: []
+        promotion_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+        promotion_decision_packet: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+        source_review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+        reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+        reviewed_gold_case_id: eph1_3_14_parent_only_reviewed_gold
+        roadmap_doc: docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+        task_scope: .ai/tasks/T394.task.yaml
+        required_handoff: .ai/handoffs/T394/handoff.md
+        validator: scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
+        test: tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py
+        decision_register_entry: CD-071
+        lesson_index_entry: LSN-025
+        exact_internal_variant_refs: []
+        boundary_dependency_or_non_dependency: current_repo_variant_non_dependent
+        reviewed_gold_dependency_or_non_dependency: current_repo_variant_non_dependent
+        source_tradition_dependency_or_non_dependency: current_repo_source_tradition_non_dependent
+        child_spans_necessary_now: false
+        child_spans_authorized: false
+        parent_span_as_chunk_boundary_authorized: false
+        reviewed_gold_promoted: true
+        next_task: T397
+        next_goal_gate: Goal 6 route-isolated harness prep only
+        output_change_authorized: false
+        implementation_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        theology_authority_change_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
+        source_or_manuscript_rows_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned
@@ -1554,7 +1602,7 @@ phases:
         embedding_or_vector_work_allowed: false
         apologetic_conclusion_as_truth_authorized: false
         next_manuscript_reliability_step: T396_dss_biblical_witness_source_row_population_with_official_row_level_urls
-        next_chunking_route_remains: T393_owner_select_one_option_before_promotion
+        next_chunking_route_remains: T397_goal6_route_isolated_harness_prep_only
   phase_6:
     title: Lexical and morphology layer
     status: planned

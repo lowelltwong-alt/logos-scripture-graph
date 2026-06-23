@@ -91,6 +91,10 @@ REQUIRED_LESSON_SURFACES = {
     "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
     ".ai/tasks/T393.task.yaml",
     ".ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md",
+    ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+    "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md",
+    ".ai/tasks/T394.task.yaml",
+    ".ai/audits/reports/20260623-T394-eph1-parent-only-reviewed-gold-promotion.md",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -108,7 +112,8 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "raw_or_canonical_mutation",
     "chunk_output_change",
     "revelation_implementation",
-    "reviewed_gold_promotion",
+    "unscoped_reviewed_gold_promotion",
+    "reviewed_gold_promotion_without_owner_confirmation",
     "skill_lifecycle_promotion",
     "boundary_import",
     "parent_only_gold_as_chunk_boundary_outside_exact_t373_t374_pilot",
@@ -205,6 +210,10 @@ ALLOWED_NEXT_ROUTES = {
     "T393": {
         "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
         "title": "Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet",
+    },
+    "T397": {
+        "route_type": "epistle_argument_goal6_route_isolation_harness_prep",
+        "title": "Eph.1.3-Eph.1.14 Route-Isolated Harness Prep",
     },
 }
 
@@ -589,6 +598,136 @@ def _validate_t393_next_route(next_route: dict[str, Any], path: Path) -> None:
             raise ReadinessMapError(f"{_rel(path)}: T393 next_route.{key} must be false")
 
 
+def _validate_t397_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "Eph.1.3-Eph.1.14 Route-Isolated Harness Prep",
+        "starts_only_if": "T394_eph1_parent_only_reviewed_gold_promoted",
+        "completion_status": "planned_non_output_changing_harness_only",
+        "selected_t376_option": "T376-A",
+        "selected_lane": "epistle_argument",
+        "selected_t385_option": "T385-A",
+        "selected_passage": "Eph.1.3-Eph.1.14",
+        "selected_parent_candidate": "Eph.1.3-Eph.1.14",
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+        "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+        "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+        "reviewed_gold_case_id": "eph1_3_14_parent_only_reviewed_gold",
+        "owner_selection_status": "selected",
+        "selected_option": "T393-A",
+        "recommendation_is_owner_selection": False,
+        "variant_dependency_non_authorizing_assessment": "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim",
+        "child_span_necessity_non_authorizing_assessment": "child_spans_not_necessary_for_parent_only_reviewed_gold_now",
+        "roadmap_doc": "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md",
+        "validator": "scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py",
+        "required_handoff": ".ai/handoffs/T394/handoff.md",
+        "decision_register_entry": "CD-071",
+        "lesson_index_entry": "LSN-025",
+        "goal_5_packet_prepared": True,
+        "owner_decision_required_before_promotion_or_implementation": False,
+        "reviewed_gold_promoted": True,
+        "exact_next_owner_action": "prepare_goal6_route_isolated_harnesses_only",
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T397 next_route.{key} must be {value!r}")
+    if next_route.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T397 selected_children must be []")
+    if next_route.get("exact_internal_variant_refs") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T397 exact_internal_variant_refs must be []")
+
+    strengthening = next_route.get("prior_strengthening")
+    if not isinstance(strengthening, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T397 prior_strengthening must be a mapping")
+    expected_strengthening = {
+        "task_id": "T392",
+        "review_packet_strengthened": True,
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "roadmap_doc": "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md",
+        "validator": "scripts/validate_t392_eph1_review_packet_strengthening.py",
+        "required_handoff": ".ai/handoffs/T392/handoff.md",
+        "decision_register_entry": "CD-067",
+        "lesson_index_entry": "LSN-021",
+        "selected_option": "T385-A",
+        "reviewed_gold_promoted": False,
+    }
+    for key, value in expected_strengthening.items():
+        if strengthening.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T397 prior_strengthening.{key} must be {value!r}")
+    if strengthening.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T397 prior_strengthening.selected_children must be []")
+
+    prior = next_route.get("prior_owner_packet")
+    if not isinstance(prior, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T397 prior_owner_packet must be a mapping")
+    expected_prior = {
+        "task_id": "T385",
+        "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+        "roadmap_doc": "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
+        "validator": "scripts/validate_t385_owner_decision_packet.py",
+        "owner_selection_status": "pending",
+        "recommended_option": "T385-A",
+        "recommended_passage": "Eph.1.3-Eph.1.14",
+        "recommendation_is_owner_selection": False,
+        "decision_register_entry": "CD-066",
+        "lesson_index_entry": "LSN-020",
+    }
+    for key, value in expected_prior.items():
+        if prior.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T397 prior_owner_packet.{key} must be {value!r}")
+
+    inputs = next_route.get("prior_readiness_inputs")
+    if not isinstance(inputs, list):
+        raise ReadinessMapError(f"{_rel(path)}: T397 prior_readiness_inputs must be a list")
+    input_ids = {item.get("task_id") for item in inputs if isinstance(item, dict)}
+    for required in {"T384", "T386", "T386-docket", "T387", "T388", "T389", "T390", "T385", "T392"}:
+        if required not in input_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T397 prior_readiness_inputs missing {required}")
+
+    prior_entries = set(
+        _require_string_list(next_route.get("prior_decision_register_entries"), "T397 prior_decision_register_entries")
+    )
+    for required in {"CD-061", "CD-062", "CD-063", "CD-064", "CD-065", "CD-066", "CD-067", "CD-068", "CD-071"}:
+        if required not in prior_entries:
+            raise ReadinessMapError(f"{_rel(path)}: T397 prior_decision_register_entries missing {required}")
+
+    must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T397 must_fail_if"))
+    for required in (
+        "T397_harness_changes_chunk_output",
+        "T397_harness_changes_route_or_evaluator_behavior",
+        "T397_harness_generates_graph_retrieval_or_vector_truth",
+        "T397_harness_adds_child_spans",
+        "T397_harness_imports_boundary_or_source_tradition_authority",
+        "T397_harness_changes_canon_scope_or_theology_authority",
+        "T397_harness_creates_source_or_manuscript_rows",
+        "T397_harness_treats_reviewed_gold_as_output_authority",
+    ):
+        if required not in must_fail:
+            raise ReadinessMapError(f"{_rel(path)}: T397 must_fail_if missing {required}")
+
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "review_packet_strengthening_authorized",
+        "route_behavior_authorized",
+        "child_spans_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "theology_authority_change_authorized",
+        "sqlite_database_creation_authorized",
+        "metadata_row_population_authorized",
+        "source_or_manuscript_rows_authorized",
+    ):
+        if next_route.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T397 next_route.{key} must be false")
+
+
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     data = _read_yaml(path)
     missing = sorted(REQUIRED_TOP_LEVEL - set(data))
@@ -791,6 +930,101 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             ):
                 if selection.get(key) is not False:
                     raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection.{key} must be false")
+        elif lane_id == "epistle_argument" and lane.get("current_state") == "t394_eph1_parent_only_reviewed_gold_promoted_goal6_next":
+            if lane.get("new_algorithm_work_ready") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while T397 harness prep is next")
+
+            packet = lane.get("eph1_reviewed_gold_promotion_decision_packet")
+            if not isinstance(packet, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_reviewed_gold_promotion_decision_packet must be present")
+            expected_packet = {
+                "task_id": "T393",
+                "path": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+                "status": "resolved_by_t393_a",
+                "selected_option_from_t385": "T385-A",
+                "selected_passage": "Eph.1.3-Eph.1.14",
+                "selected_parent_candidate": "Eph.1.3-Eph.1.14",
+                "source_review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+                "strengthening_task": "T392",
+                "decision_register_entry": "CD-068",
+                "lesson_index_entry": "LSN-022",
+                "roadmap_doc": "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
+                "validator": "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+                "owner_selection_status": "selected",
+                "selected_option": "T393-A",
+                "owner_response_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+                "recommended_option": "T393-A",
+                "recommendation_is_owner_selection": False,
+                "variant_dependency_non_authorizing_assessment": "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim",
+                "child_span_necessity_non_authorizing_assessment": "child_spans_not_necessary_for_parent_only_reviewed_gold_now",
+                "next_owner_gate": "resolved_by_t394",
+            }
+            for key, value in expected_packet.items():
+                if packet.get(key) != value:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_reviewed_gold_promotion_decision_packet.{key} must be {value!r}")
+            if packet.get("selected_children") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_reviewed_gold_promotion_decision_packet.selected_children must be []")
+            if packet.get("exact_internal_variant_refs") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_reviewed_gold_promotion_decision_packet.exact_internal_variant_refs must be []")
+            for key in (
+                "output_change_authorized",
+                "implementation_authorized",
+                "reviewed_gold_promoted",
+                "child_spans_authorized",
+                "route_behavior_authorized",
+                "evaluator_change_authorized",
+                "graph_edge_generation_allowed",
+                "retrieval_truth_authorized",
+                "embedding_or_vector_work_allowed",
+                "boundary_import_allowed",
+                "preferred_reading_authorized",
+                "source_tradition_preference_authorized",
+                "canon_scope_change_authorized",
+                "theology_authority_change_authorized",
+            ):
+                if packet.get(key) is not False:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_reviewed_gold_promotion_decision_packet.{key} must be false")
+
+            promotion = lane.get("eph1_parent_only_reviewed_gold_promotion")
+            if not isinstance(promotion, dict):
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion must be present")
+            expected_promotion = {
+                "task_id": "T394",
+                "path": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+                "status": "complete_parent_only_reviewed_gold_promoted",
+                "selected_option": "T393-A",
+                "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+                "reviewed_gold_case_id": "eph1_3_14_parent_only_reviewed_gold",
+                "selected_parent": "Eph.1.3-Eph.1.14",
+                "boundary_dependency_or_non_dependency": "current_repo_variant_non_dependent",
+                "reviewed_gold_dependency_or_non_dependency": "current_repo_variant_non_dependent",
+                "source_tradition_dependency_or_non_dependency": "current_repo_source_tradition_non_dependent",
+                "next_task": "T397",
+            }
+            for key, value in expected_promotion.items():
+                if promotion.get(key) != value:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.{key} must be {value!r}")
+            if promotion.get("selected_children") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.selected_children must be []")
+            if promotion.get("exact_internal_variant_refs") != []:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.exact_internal_variant_refs must be []")
+            if promotion.get("reviewed_gold_promoted") is not True:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.reviewed_gold_promoted must be true")
+            if promotion.get("child_spans_necessary_now") is not False:
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.child_spans_necessary_now must be false")
+            for key in (
+                "parent_span_as_chunk_boundary_authorized",
+                "output_change_authorized",
+                "implementation_authorized",
+                "route_behavior_authorized",
+                "evaluator_change_authorized",
+                "graph_edge_generation_allowed",
+                "retrieval_truth_authorized",
+                "embedding_or_vector_work_allowed",
+                "source_or_manuscript_rows_authorized",
+            ):
+                if promotion.get(key) is not False:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_parent_only_reviewed_gold_promotion.{key} must be false")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -829,6 +1063,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         _validate_t392_next_route(next_route, path)
     if task_id == "T393":
         _validate_t393_next_route(next_route, path)
+    if task_id == "T397":
+        _validate_t397_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",

@@ -101,27 +101,28 @@ def test_t343_index_lists_packet_as_pending() -> None:
     assert queue["packet_rev12_14_symbolic_scenes_review"]["implementation_allowed"] is False
 
 
-def test_t343_readiness_now_points_to_t393_not_revelation_implementation() -> None:
+def test_t343_readiness_now_points_to_t397_not_revelation_implementation() -> None:
     readiness = load_yaml(READINESS)
     by_lane = {lane["lane_id"]: lane for lane in readiness["lane_sequence"]}
     target = by_lane["revelation_apocalyptic"]["selected_review_target"]
 
-    assert readiness["next_route"]["task_id"] == "T393"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_decision_packet"
-    assert readiness["next_route"]["starts_only_if"] == "T392_eph1_review_packet_strengthening_complete"
+    assert readiness["next_route"]["task_id"] == "T397"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_goal6_route_isolation_harness_prep"
+    assert readiness["next_route"]["starts_only_if"] == "T394_eph1_parent_only_reviewed_gold_promoted"
     assert readiness["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
-    assert readiness["next_route"]["completion_status"] == "pending_owner_reviewed_gold_promotion_decision"
+    assert readiness["next_route"]["completion_status"] == "planned_non_output_changing_harness_only"
     assert readiness["next_route"]["selected_t376_option"] == "T376-A"
     assert readiness["next_route"]["selected_lane"] == "epistle_argument"
     assert readiness["next_route"]["selected_t385_option"] == "T385-A"
     assert readiness["next_route"]["owner_packet"] == ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
-    assert readiness["next_route"]["recommended_option"] == "T393-A"
+    assert readiness["next_route"]["promotion_record"] == ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
+    assert readiness["next_route"]["reviewed_gold_case_id"] == "eph1_3_14_parent_only_reviewed_gold"
+    assert readiness["next_route"]["selected_option"] == "T393-A"
     assert readiness["next_route"]["recommendation_is_owner_selection"] is False
-    assert readiness["next_route"]["exact_next_owner_action"] == "owner_select_one_T393_option_before_promotion"
-    assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
+    assert readiness["next_route"]["owner_selection_status"] == "selected"
+    assert readiness["next_route"]["reviewed_gold_promoted"] is True
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
-    assert readiness["next_route"]["reviewed_gold_promoted"] is False
     assert readiness["next_route"]["child_spans_authorized"] is False
     assert target["packet_status"] == "pending_human_review"
     assert target["owner_selection_status"] == "selected"

@@ -81,6 +81,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-022",
     "LSN-023",
     "LSN-024",
+    "LSN-025",
 }
 
 REQUIRED_TAGS = {
@@ -150,6 +151,14 @@ REQUIRED_TAGS = {
     "source-trust",
     "seed-rows",
     "t395",
+    "reviewed-gold",
+    "parent-only",
+    "goal6",
+    "t394",
+    "t393-a",
+    "source-tradition-non-dependency",
+    "implementation-blocked",
+    "non-output-changing",
 }
 
 REQUIRED_SURFACES = {
@@ -178,6 +187,13 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md",
     "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
     "tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+    ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+    "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md",
+    ".ai/tasks/T394.task.yaml",
+    ".ai/handoffs/T394/handoff.md",
+    ".ai/audits/reports/20260623-T394-eph1-parent-only-reviewed-gold-promotion.md",
+    "scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py",
+    "tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py",
     ".ai/control/manuscript_source_catalog_research_packet.yaml",
     "docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md",
     ".ai/tasks/T391.task.yaml",

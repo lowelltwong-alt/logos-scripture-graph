@@ -100,7 +100,7 @@ SURFACE_REQUIREMENTS = {
     MAIN_TOC: {"t392", "review-packet-strengthening", "eph1_3_14_argument_review.md"},
     ROADMAP_TOC: {"T392 | Eph.1.3-Eph.1.14 review packet strengthening", "T392_EPH1_REVIEW_PACKET_STRENGTHENING.md"},
     ROADMAP_STATE: {"id: T392", "status: complete_review_packet_strengthening_only", "next_task: T393"},
-    CURRENT_FOCUS: {"current_task: T393", "t393_eph1_reviewed_gold_promotion_decision_packet.yaml"},
+    CURRENT_FOCUS: {"current_task: T394", "t393_eph1_reviewed_gold_promotion_decision_packet.yaml", "t394_eph1_parent_only_reviewed_gold_promotion.yaml"},
     PROJECT_STATUS: {"T392 Eph.1.3-Eph.1.14 review packet strengthening", "Goal 5"},
 }
 

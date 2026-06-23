@@ -25,8 +25,10 @@ ROADMAP_TOC = ROOT / "docs" / "roadmap" / "AI_ROADMAP_TABLE_OF_CONTENTS.md"
 PROJECT_STATUS = ROOT / ".ai" / "control" / "PROJECT_STATUS.md"
 CURRENT_FOCUS = ROOT / ".ai" / "control" / "current_focus.yaml"
 VALIDATE_ALL = ROOT / "scripts" / "validate_all.py"
+PROMOTION_RECORD = ROOT / ".ai" / "control" / "t394_eph1_parent_only_reviewed_gold_promotion.yaml"
 
 PACKET_REL = ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
+PROMOTION_REL = ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
 DOC_REL = "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md"
 VALIDATOR_REL = "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py"
 REVIEW_PACKET_REL = "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
@@ -127,7 +129,7 @@ def _validate_packet(packet: dict[str, Any]) -> None:
         "schema_version": "t393_reviewed_gold_promotion_owner_decision_packet.v1",
         "packet_id": "t393_eph1_reviewed_gold_promotion_decision_packet",
         "task_id": "T393",
-        "status": "pending_owner_decision",
+        "status": "resolved_by_t393_a",
         "owner": "Lowell Wong",
     }
     for key, value in expected.items():
@@ -183,16 +185,59 @@ def _validate_packet(packet: dict[str, Any]) -> None:
     if not isinstance(selection, dict):
         raise T393PacketError(f"{PACKET_REL}: owner_selection must be a mapping")
     expected_selection = {
-        "owner_selection_status": "pending",
-        "selected_option": None,
-        "selected_parent": None,
+        "owner_selection_status": "selected",
+        "selected_option": "T393-A",
+        "selected_parent": "Eph.1.3-Eph.1.14",
         "selected_children": [],
         "reviewed_gold_promoted": False,
         "recommendation_is_owner_selection": False,
+        "owner_response_record": PROMOTION_REL,
     }
     for key, value in expected_selection.items():
         if selection.get(key) != value:
             raise T393PacketError(f"{PACKET_REL}: owner_selection.{key} must be {value!r}")
+
+    response = packet.get("owner_response")
+    if not isinstance(response, dict):
+        raise T393PacketError(f"{PACKET_REL}: owner_response must be a mapping")
+    expected_response = {
+        "response_status": "selected",
+        "task_id": "T394",
+        "selected_option": "T393-A",
+        "owner_response_record": PROMOTION_REL,
+        "exact_parent": "Eph.1.3-Eph.1.14",
+        "selected_children": [],
+        "exact_internal_variant_refs": [],
+        "boundary_dependency_or_non_dependency": "current_repo_variant_non_dependent",
+        "reviewed_gold_dependency_or_non_dependency": "current_repo_variant_non_dependent",
+        "source_tradition_dependency_or_non_dependency": "current_repo_source_tradition_non_dependent",
+        "child_span_necessity_or_denial": "child_spans_not_necessary_now_and_not_authorized",
+        "parent_only_reviewed_gold_authorized_or_held": "authorized_parent_only_reviewed_gold",
+        "decision_register_update": "CD-071",
+    }
+    for key, value in expected_response.items():
+        if response.get(key) != value:
+            raise T393PacketError(f"{PACKET_REL}: owner_response.{key} must be {value!r}")
+    _require_subset(
+        {
+            "parent_span_as_chunk_boundary",
+            "child_span_selection",
+            "chunk_output_change",
+            "route_behavior_change",
+            "evaluator_change",
+            "graph_edge_generation",
+            "retrieval_truth",
+            "embedding_or_vector_work",
+            "boundary_import",
+            "preferred_reading_selection",
+            "source_tradition_preference",
+            "canon_scope_change",
+            "source_or_manuscript_row_population",
+            "theology_authority_change",
+        },
+        response.get("explicit_non_authorizations"),
+        "owner_response.explicit_non_authorizations",
+    )
 
     evidence = packet.get("packet_evidence_summary")
     if not isinstance(evidence, dict):
@@ -292,18 +337,19 @@ def _validate_links() -> None:
         (REGISTER, ("CD-068", "T393 promotion decision packet does not promote reviewed gold", PACKET_REL)),
         (LESSON_INDEX, ("LSN-022", "Reviewed-gold promotion packets are not promotions", "related_decision_ids: [CD-068]")),
         (PREFLIGHT, (PACKET_REL, "CD-068", "LSN-022")),
-        (READINESS, ("task_id: T393", PACKET_REL, "recommended_option: T393-A", "owner_selection_status: pending")),
-        (ROADMAP, ("id: T393", "pending_owner_reviewed_gold_promotion_decision", PACKET_REL)),
+        (READINESS, ("task_id: T393", PACKET_REL, "recommended_option: T393-A", "owner_selection_status: selected", PROMOTION_REL)),
+        (ROADMAP, ("id: T393", "resolved_by_t393_a", PACKET_REL, PROMOTION_REL)),
         (FRONT_DOOR, ("T393", "Eph.1.3-Eph.1.14", "Goal 5", VALIDATOR_REL)),
         (MAIN_TOC, ("t393", "reviewed-gold-promotion-decision", PACKET_REL)),
         (ROADMAP_TOC, ("T393 | Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet", DOC_REL)),
-        (ROADMAP_DOC, ("Recommended option", "T393-A", "Reviewed gold promoted: false")),
+        (ROADMAP_DOC, ("Recommended option", "T393-A", "Resolved by T394")),
         (TASK, ("id: T393", "CD-068", "LSN-022")),
         (HANDOFF, ("task_id: T393", "T393-A", PACKET_REL)),
         (AUDIT, ("T393", "No reviewed gold is promoted", "No chunk output is implemented")),
         (PROJECT_STATUS, ("T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet", "Goal 5")),
-        (CURRENT_FOCUS, ("current_task: T393", PACKET_REL)),
+        (CURRENT_FOCUS, ("current_task: T394", PROMOTION_REL)),
         (VALIDATE_ALL, ("validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",)),
+        (PROMOTION_RECORD, ("task_id: T394", "selected_option: T393-A", PACKET_REL)),
     )
     for path, phrases in linked_requirements:
         text = _read_text(path)
