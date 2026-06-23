@@ -73,6 +73,10 @@ REQUIRED_LESSON_IDS = {
     "LSN-014",
     "LSN-015",
     "LSN-016",
+    "LSN-017",
+    "LSN-018",
+    "LSN-019",
+    "LSN-020",
 }
 
 REQUIRED_TAGS = {
@@ -117,6 +121,11 @@ REQUIRED_TAGS = {
     "discovery-timeline",
     "evidence-namespace",
     "boundary-routing",
+    "owner-decision-packet",
+    "recommendation-not-selection",
+    "goal4",
+    "ephesians",
+    "owner-gate",
 }
 
 REQUIRED_SURFACES = {
@@ -129,6 +138,10 @@ REQUIRED_SURFACES = {
     ".ai/control/t376_epistle_research_runway.yaml",
     ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
     "docs/roadmap/T384_BIBLE_WIDE_RESEARCH_READINESS_SYNTHESIS.md",
+    ".ai/control/t385_owner_decision_packet.yaml",
+    "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
+    "scripts/validate_t385_owner_decision_packet.py",
+    "tests/test_t385_owner_decision_packet.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",

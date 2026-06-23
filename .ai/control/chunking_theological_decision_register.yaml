@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -2809,6 +2809,59 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-066
+    title: T385 owner decision packet recommends but does not select
+    classification: non_authorizing_review
+    task_ids: [T385]
+    owner_decision_ref: ".ai/control/t385_owner_decision_packet.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [Eph.1.3-Eph.1.14, Gal.2.15-Gal.3.29, Jas.2.14-Jas.2.26, Rom.9.1-Rom.11.36, Heb.7.1-Heb.10.39, 1Cor.11.17-1Cor.14.40, John.3.1-John.3.36, Rev.12.1-Rev.14.20]
+      routes: [owner_decision_packet, epistle_argument, gospel_discourse_wj, revelation_apocalyptic, manuscript_source_catalog_metadata]
+      surfaces: [.ai/control/t385_owner_decision_packet.yaml, docs/roadmap/T385_OWNER_DECISION_PACKET.md, scripts/validate_t385_owner_decision_packet.py, tests/test_t385_owner_decision_packet.py]
+    decision: "T385 creates a non-output-changing owner decision packet from T384/T386/T387/T388/T389/T390 readiness. It presents serious faithful options, repercussions, risks, coverage flags, non-authorizations, and the exact recommendation that the owner select T385-A: Eph.1.3-Eph.1.14 review-packet strengthening only. The recommendation is not owner selection; owner_selection_status remains pending and Goal 4 cannot strengthen a target until the owner explicitly selects one T385 option."
+    downstream_risk: "An owner packet can look like selection if future agents treat its recommendation as permission to start packet strengthening, reviewed-gold promotion, route/evaluator work, output changes, graph/retrieval/vector work, source-tradition preference, or theology authority."
+    theological_assumptions_avoided:
+      - "No Ephesians election/adoption/sealing/assurance label becomes chunk authority before owner selection and later reviewed evidence."
+      - "No epistle, Gospel/WJ, Revelation, or manuscript metadata lane is selected by this packet."
+      - "No source metadata, Strong's-style tag, capitalization, cross-reference, manuscript metadata, or original-language observation becomes truth authority."
+      - "No liberal-critical, anti-supernatural, heterodox, anti-canonical, or one-denomination systematic default is allowed."
+    reviewed_gold_dependency: "None. T385 is an owner decision packet only. Later review-packet strengthening, reviewed-gold promotion, child spans, output implementation, route/evaluator behavior, graph/retrieval/vector work, boundary import, preferred readings, source-tradition preference, canon-scope change, or theology authority requires separate owner authorization and validators."
+    non_authorizations:
+      - exact_target_selection
+      - review_packet_strengthening_without_owner_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - denominational_systematic_theology_as_chunk_authority
+      - liberal_critical_default
+      - anti_supernatural_default
+      - recommendation_as_owner_selection
+      - coverage_status_as_output_authority
+      - manuscript_metadata_as_preferred_reading_authority
+    validators:
+      - scripts/validate_t385_owner_decision_packet.py
+      - tests/test_t385_owner_decision_packet.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -2913,4 +2966,5 @@ backfill_coverage:
     - T387
     - T389
     - T390
+    - T385
 ...

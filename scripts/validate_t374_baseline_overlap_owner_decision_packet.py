@@ -299,8 +299,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384"}:
-        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, or T384")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385"}:
+        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, or T385")
     if next_route.get("task_id") in {"T374", "T375"}:
         expected_next = {
             "baseline_overlap_decision_packet": PACKET_REL,
@@ -363,6 +363,31 @@ def _validate_links() -> None:
                 raise T374BaselineOverlapError(f"{_rel(READINESS)}: T384 next_route.{key} must be {value!r}")
         if "CD-060" not in next_route.get("prior_decision_register_entries", []):
             raise T374BaselineOverlapError(f"{_rel(READINESS)}: T384 must reference CD-060")
+    if next_route.get("task_id") == "T385":
+        expected_t385 = {
+            "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
+            "route_type": "owner_decision_packet_only",
+            "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+            "completion_status": "complete_owner_decision_packet_only",
+            "owner_selection_status": "pending",
+            "recommended_option": "T385-A",
+            "recommendation_is_owner_selection": False,
+            "exact_target_selected": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t385.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T385 next_route.{key} must be {value!r}")
+        if "CD-066" not in next_route.get("prior_decision_register_entries", []):
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T385 must reference CD-066")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

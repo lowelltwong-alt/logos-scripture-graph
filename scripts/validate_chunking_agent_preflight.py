@@ -42,6 +42,7 @@ T374_ADDITIVE_OVERLAY_MANIFEST = ROOT / ".ai" / "control" / "t374_additive_paren
 T375_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t375_post_pilot_review.yaml"
 T376_EPISTLE_RESEARCH_RUNWAY = ROOT / ".ai" / "control" / "t376_epistle_research_runway.yaml"
 T384_RESEARCH_READINESS_SYNTHESIS = ROOT / ".ai" / "control" / "t384_bible_wide_research_readiness_synthesis.yaml"
+T385_OWNER_DECISION_PACKET = ROOT / ".ai" / "control" / "t385_owner_decision_packet.yaml"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
 T386_COVERAGE_SUMMARY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_summary.yaml"
 T386_READINESS_MATRIX = ROOT / ".ai" / "control" / "bible_verse_passage_readiness_matrix.yaml"
@@ -95,7 +96,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -113,6 +114,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-013",
     "LSN-014",
     "LSN-015",
+    "LSN-020",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -213,6 +215,8 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "Research autonomy is not authority autonomy",
     "T384 Bible-wide research/readiness synthesis",
     "T385 owner decision packet",
+    "T385 owner decision packet is complete",
+    "t385_owner_decision_packet.yaml",
     "contextual-reading",
     "historical-context",
     "chapter-context",
@@ -405,6 +409,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t375_post_pilot_review.yaml",
         ".ai/control/t376_epistle_research_runway.yaml",
         ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
+        ".ai/control/t385_owner_decision_packet.yaml",
         ".ai/control/bible_verse_passage_coverage_summary.yaml",
         ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
         ".ai/control/bible_verse_passage_readiness_matrix.yaml",
@@ -875,6 +880,16 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t384_synthesis_text:
             raise PreflightError(f"{_rel(T384_RESEARCH_READINESS_SYNTHESIS)}: missing T384 synthesis phrase {phrase!r}")
+    t385_packet_text = _read_text(T385_OWNER_DECISION_PACKET)
+    for phrase in (
+        "object_type: chunking_owner_decision_packet",
+        "task_id: T385",
+        "status: pending_owner_decision",
+        "recommended_option_id: T385-A",
+        "recommendation_as_owner_selection",
+    ):
+        if phrase not in t385_packet_text:
+            raise PreflightError(f"{_rel(T385_OWNER_DECISION_PACKET)}: missing T385 packet phrase {phrase!r}")
     t386_summary_text = _read_text(T386_COVERAGE_SUMMARY)
     for phrase in (
         "object_type: bible_verse_passage_coverage_summary",

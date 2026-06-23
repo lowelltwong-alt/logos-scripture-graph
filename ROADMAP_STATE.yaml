@@ -1,5 +1,5 @@
 version: 0.1.0
-last_updated: "2026-06-22"
+last_updated: "2026-06-23"
 current_phase: phase_4
 policy:
   handoff_required: true
@@ -1219,8 +1219,8 @@ phases:
         canon_scope_change_authorized: false
         theology_authority_change_authorized: false
       - id: T385
-        title: Owner Decision Packet From T384 Research Readiness Synthesis
-        status: ready_owner_decision_packet_only
+        title: Owner Decision Packet From T384/T386/T387/T388/T389/T390 Readiness
+        status: complete_owner_decision_packet_only
         lane: bible_wide_research_readiness
         starts_only_if: T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete
         required_inputs:
@@ -1228,12 +1228,30 @@ phases:
           - .ai/control/bible_verse_passage_coverage_summary.yaml
           - .ai/control/bible_verse_passage_gap_register.yaml
           - .ai/control/bible_verse_passage_human_review_docket.yaml
-        purpose: Present HDM/T386 owner decisions with options, repercussions, recommendation, coverage gaps, and non-authorizations for owner review.
+          - .ai/control/manuscript_witness_reliability_scaffold.yaml
+          - .ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md
+          - docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+          - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+        owner_packet: .ai/control/t385_owner_decision_packet.yaml
+        roadmap_doc: docs/roadmap/T385_OWNER_DECISION_PACKET.md
+        validator: scripts/validate_t385_owner_decision_packet.py
+        required_handoff: .ai/handoffs/T385/handoff.md
+        decision_register_entry: CD-066
+        lesson_index_entry: LSN-020
+        purpose: Present all serious faithful next chunking options with options, repercussions, recommendation, coverage gaps, and non-authorizations for owner review.
         owner_decision_required: true
+        owner_selection_status: pending
+        recommended_option: T385-A
+        recommended_passage: Eph.1.3-Eph.1.14
+        recommendation_is_owner_selection: false
+        exact_target_selected: false
+        goal_4_can_run_after: explicit_owner_selection_of_one_T385_option
+        next_task: owner_select_one_T385_option_before_goal4
         owner_decision_required_before_promotion_or_implementation: true
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false
+        review_packet_strengthening_authorized: false
         route_behavior_authorized: false
         child_spans_authorized: false
         evaluator_change_authorized: false
@@ -1241,6 +1259,12 @@ phases:
         retrieval_truth_authorized: false
         embedding_or_vector_work_allowed: false
         boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        theology_authority_change_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

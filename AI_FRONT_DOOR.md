@@ -170,9 +170,15 @@ Bible-first chunking priority:
   import, transcription storage, preferred reading, source-tradition preference, canon-scope
   change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, chunk output,
   or apologetic conclusion as authority.
-  T385 owner decision packet is the next non-output step before exact target selection,
-  reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
-  truth, boundary import, or theology authority.
+  The T385 owner decision packet is complete at
+  `.ai/control/t385_owner_decision_packet.yaml` and is validated by
+  `scripts/validate_t385_owner_decision_packet.py`. T385 recommends `T385-A`
+  (`Eph.1.3-Eph.1.14`) as the next owner choice, but recommendation is not owner selection.
+  Goal 4 cannot strengthen any review packet until Lowell explicitly selects one T385 option.
+  T385 authorizes no exact target selection, reviewed-gold promotion, child spans, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings or
+  source traditions, canon-scope change, theology authority, SQLite database creation, metadata
+  row population, or source-text import.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -272,9 +278,10 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently records the completed T384 Bible-wide
-  research/readiness synthesis plus the T386 Bible-wide verse/passage coverage gate, then points to
-  T385 owner decision packet as the next non-output step. T384/T386 readiness cannot select a
+  next safe route. It is non-authorizing and currently records the completed T385 owner decision
+  packet as the active owner gate from T384/T386/T387/T388/T389/T390 readiness. T385 recommends
+  T385-A but keeps `owner_selection_status` pending; the recommendation is not owner selection and
+  Goal 4 cannot run until Lowell explicitly selects one T385 option. T384/T386/T385 readiness cannot select a
   target, promote reviewed gold, implement output, add child spans, or change
   route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
@@ -786,6 +793,13 @@ coverage taxonomy, summary, readiness matrix, gap register, owner-review docket,
 AI TOC/front-door wiring, or authorizes target selection, reviewed gold, child spans, output,
 route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source
 traditions, canon-scope change, whole-Bible output, or theology authority.
+`python scripts/validate_t385_owner_decision_packet.py` fails closed if the T385 owner decision
+packet stops being complete, loses `.ai/control/t385_owner_decision_packet.yaml`, drops `CD-066` or
+`LSN-020`, omits any serious faithful option, treats T385-A recommendation as owner selection, lets
+Goal 4 run without explicit owner selection, or authorizes target selection, review-packet
+strengthening, reviewed gold, child spans, output, route/evaluator behavior, graph/retrieval/vector
+truth, boundary import, preferred readings/source traditions, canon-scope change, theology
+authority, SQLite database creation, metadata row population, or source-text import.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
