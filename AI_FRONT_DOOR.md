@@ -40,6 +40,7 @@ Read these files before making changes:
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     T390 manuscript source catalog metadata plan, T391 source-catalog research packet,
+    T392 SQLite source-catalog shell,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
@@ -263,6 +264,13 @@ Bible-first chunking priority:
   validated by `scripts/validate_manuscript_source_catalog_research_packet.py` and does not create
   SQLite rows, store Bible or transcription text, select readings, generate graph/retrieval/vector
   truth, import boundary material, or authorize apologetic conclusions.
+- The T392 SQLite source-catalog shell at
+  `.ai/control/manuscript_source_catalog_sqlite_shell.yaml` creates a candidate SQLite schema shell
+  and seeds only source-family, source-catalog, method-profile, and source-trust-rule rows under
+  `data/candidate/source_catalog/manuscript_reliability/sqlite/`. It is validated by
+  `scripts/validate_manuscript_source_catalog_sqlite_shell.py` and keeps witness, identifier, date,
+  material, coverage, discovery, review-queue, source text, transcription, Bible text, preferred
+  reading, graph/retrieval/vector, boundary, doctrine, and apologetic-authority work blocked.
 - The T389 Chunking Launch Readiness report at
   `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
   non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It

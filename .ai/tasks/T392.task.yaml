@@ -1,0 +1,90 @@
+id: T392
+phase: phase_5
+title: "SQLite Source Catalog Schema Shell"
+mode: build
+status: complete_source_catalog_seed_only
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T392.task.yaml
+    - .ai/handoffs/T392/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - data/candidate/source_catalog/manuscript_reliability/sqlite/
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md
+    - scripts/validate_manuscript_source_catalog_sqlite_shell.py
+    - scripts/validate_all.py
+    - tests/test_manuscript_source_catalog_sqlite_shell.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunking/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: source_catalog_sqlite_schema_shell_and_seed_rows
+  shell: .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+  roadmap_doc: docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md
+  schema_file: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+  seed_file: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+  authorizes_sqlite_schema_shell: true
+  authorizes_source_catalog_seed_rows: true
+  authorizes_committed_sqlite_database_file: false
+  authorizes_witness_row_population: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_bible_text_storage: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+acceptance_criteria:
+  - "Create a SQLite schema shell using only scripture_* and evidence_* tables."
+  - "Seed only scripture_source_family, scripture_source_catalog, evidence_source_catalog_method_profile, and evidence_source_trust_rule rows from T391 official source anchors."
+  - "Keep witness, identifier, date, material, coverage, discovery, holding-institution, and review-queue tables empty."
+  - "Require source URL, method, confidence, provenance, review status, source family, rights/access status, and non-authorizing scope label on every seed row."
+  - "Prove no canonical_* table or view includes source-catalog, boundary, commentary, patristic, theologian, doctrine, or apologetic data."
+  - "Add validation/tests that build the schema in in-memory SQLite and reject forbidden namespaces, witness rows, missing provenance, or source URLs outside T391."
+validation:
+  - python scripts/validate_manuscript_source_catalog_sqlite_shell.py
+  - python scripts/validate_chunking_lesson_index.py --index .ai/control/chunking_lesson_index.yaml --changed-file .ai/control/chunking_lesson_index.yaml --index-updated true
+  - python scripts/validate_chunking_theological_decision_register.py --changed-file data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql --changed-file .ai/control/chunking_theological_decision_register.yaml --register-updated true
+  - python scripts/validate_task_scope.py --task-id T392
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T392/handoff.md
+next_task: "After T391 and T392 are on live origin/main, next safe manuscript-reliability work is a tiny DSS biblical witness source-row population task with row-level official source URLs, method, confidence, provenance, review status, rights/access status, and non-authorizing labels. Do not import source text, transcriptions, Bible text, non-biblical Qumran content, preferred readings, graph/retrieval/vector outputs, or apologetic conclusions as authority."
+created_at: "2026-06-23"
+updated_at: "2026-06-23"

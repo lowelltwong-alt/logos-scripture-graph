@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T392 to add SQLite source-catalog seed-row guardrails."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T390
+last_updated_by_task: T392
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -768,6 +768,55 @@ lessons:
       - scripts/validate_manuscript_source_catalog_research_packet.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
+  - lesson_id: LSN-021
+    title: SQLite source rows are infrastructure, not witness or authority rows
+    lifecycle_status: active
+    priority: P0
+    categories: [source_metadata, theological_risk, workflow_governance, auditability]
+    tags: [source-catalog-sqlite, sqlite-shell, source-family, source-catalog, method-profile, source-trust, seed-rows, manuscript-witness, reliability-provenance, anti-guessing, boundary-routing, doctrine-genealogy, non-authorizing, t392]
+    use_when:
+      - "A future agent wants to populate DSS, NT papyri/codices, date, material, coverage, discovery, or witness rows after the source-catalog shell exists."
+      - "A future agent is tempted to treat source-family/source-catalog/method/trust-rule rows as manuscript witness facts, preferred-reading authority, graph/retrieval/vector truth, or apologetic proof."
+      - "A future agent needs to verify that SQLite schema work still has source URL, method, confidence, provenance, review status, source family, rights/access status, and non-authorizing scope labels on every row."
+    preflight_stage: before_witness_row_population_or_reliability_reports
+    source_surfaces:
+      - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+      - data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+      - data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+      - data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml
+      - docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md
+      - .ai/tasks/T392.task.yaml
+      - .ai/handoffs/T392/handoff.md
+      - .ai/control/manuscript_source_catalog_research_packet.yaml
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+    related_decision_ids: [CD-067]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T387, T390, T391, T392]
+    downstream_risk: "A validated SQLite shell can be mistaken for permission to create witness rows, import text, copy transcriptions, collapse date or coverage uncertainty, merge boundary/theologian material into Scripture Graph, or use catalog metadata as preferred-reading, graph/retrieval/vector, canon, chunk, or apologetic authority."
+    required_preflight_surfaces:
+      - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+      - .ai/control/manuscript_source_catalog_research_packet.yaml
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - committed_sqlite_database_file
+      - witness_row_population_without_later_scope
+      - source_text_import
+      - transcription_storage
+      - bible_text_storage
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - graph_or_retrieval_truth_from_source_catalog_rows
+      - apologetic_conclusion_as_scripture_authority
+      - commentary_or_patristic_data_as_scripture
+      - doctrine_genealogy_import_into_scripture_graph
+      - boundary_material_import_into_scripture_graph
+      - chunk_output_change_from_source_catalog_rows
+    validators:
+      - scripts/validate_manuscript_source_catalog_sqlite_shell.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_task_scope.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -911,6 +960,15 @@ lesson_graph:
     relation: constrains
     to: LSN-020
   - from: LSN-020
+    relation: audits
+    to: LSN-010
+  - from: LSN-019
+    relation: constrains
+    to: LSN-021
+  - from: LSN-020
+    relation: constrains
+    to: LSN-021
+  - from: LSN-021
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
