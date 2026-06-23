@@ -1,11 +1,12 @@
-id: T392
+id: T393
 phase: phase_4
-title: "Eph.1.3-Eph.1.14 Review Packet Strengthening"
+title: "Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet"
 mode: governance
-status: complete_review_packet_strengthening_only
+status: pending_owner_decision_packet_complete
 owner: codex
 scope:
   allowed_paths:
+    - .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
     - .ai/control/chunking_agent_preflight.yaml
     - .ai/control/chunking_lesson_index.yaml
     - .ai/control/chunking_theological_decision_register.yaml
@@ -14,17 +15,16 @@ scope:
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/roadmap_events.jsonl
     - .ai/control/handoff_ledger.jsonl
-    - .ai/tasks/T392.task.yaml
-    - .ai/handoffs/T392/
-    - .ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md
+    - .ai/tasks/T393.task.yaml
+    - .ai/handoffs/T393/
+    - .ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md
     - AI_FRONT_DOOR.md
     - AI_TABLE_OF_CONTENTS.md
     - ROADMAP_STATE.yaml
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
-    - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
-    - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+    - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+    - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
     - scripts/validate_t392_eph1_review_packet_strengthening.py
-    - scripts/validate_epistle_argument_review_packets.py
     - scripts/validate_t385_owner_decision_packet.py
     - scripts/validate_1cor8_10_owner_review_docket.py
     - scripts/validate_1cor8_10_parent_evidence_packet.py
@@ -37,14 +37,15 @@ scope:
     - scripts/validate_bible_chunking_readiness_map.py
     - scripts/validate_chunking_lesson_index.py
     - scripts/validate_all.py
+    - tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py
     - tests/test_t392_eph1_review_packet_strengthening.py
-    - tests/test_t342_revelation_candidate_selection.py
-    - tests/test_t343_revelation_review_packet.py
-    - tests/test_t344_revelation_owner_selection.py
     - tests/test_chunking_agent_preflight.py
     - tests/test_bible_chunking_readiness_map.py
     - tests/test_chunking_lesson_index.py
     - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
   forbidden_paths:
     - data/raw/
     - data/canonical/
@@ -61,17 +62,17 @@ scope:
     - .ai/control/MASTER_CONTEXT.md
     - .ai/control/MASTER_CONTEXT.lock.yaml
 authorization:
-  task_kind: non_output_changing_review_packet_strengthening
-  selected_option: T385-A
+  task_kind: non_output_changing_owner_reviewed_gold_promotion_decision_packet
   selected_passage: Eph.1.3-Eph.1.14
-  review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
-  roadmap_doc: docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
-  decision_register_entry: CD-067
-  records_lesson: LSN-021
-  authorizes_review_packet_strengthening: true
-  authorizes_exact_target_selection_for_review_only: true
-  authorizes_chunk_output_change: false
+  owner_packet: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+  source_review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+  roadmap_doc: docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+  decision_register_entry: CD-068
+  records_lesson: LSN-022
+  authorizes_owner_decision_packet: true
+  authorizes_owner_selection: false
   authorizes_reviewed_gold: false
+  authorizes_chunk_output_change: false
   authorizes_child_spans: false
   authorizes_route_behavior: false
   authorizes_evaluator_change: false
@@ -85,22 +86,22 @@ authorization:
   authorizes_sqlite_database_creation: false
   authorizes_metadata_row_population: false
 acceptance_criteria:
-  - "Strengthen the existing Eph.1.3-Eph.1.14 review packet with contextual reading, source metadata, original-language phrase/context, variant/source-tradition flags, theological risk flags, audit notes, and premortem red-team fixes."
-  - "Keep the packet pending human review and non-output-changing."
-  - "Record CD-067, LSN-021, readiness/preflight/TOC/roadmap/status integration, validator, tests, and handoff."
+  - "Prepare exact owner reviewed-gold promotion options for Eph.1.3-Eph.1.14."
+  - "Present repercussions, theological risks, variant/source-tradition dependency or non-dependency, child-span necessity or denial, and recommendation."
+  - "Keep owner selection pending and reviewed_gold_promoted false."
+  - "Record CD-068, LSN-022, readiness/preflight/TOC/roadmap/status integration, validator, tests, audit, and handoff."
   - "Confirm no raw/canonical/processed/derived chunk output, eval gold manifest, route runtime, evaluator runtime, graph, retrieval, vector, or leaderboard surfaces change."
 validation:
-  - python scripts/validate_t392_eph1_review_packet_strengthening.py
-  - python scripts/validate_epistle_argument_review_packets.py
+  - python scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
   - python scripts/validate_chunking_agent_preflight.py
   - python scripts/validate_bible_chunking_readiness_map.py
   - python scripts/validate_chunking_lesson_index.py
   - python scripts/validate_chunking_theological_decision_register.py
-  - python scripts/validate_task_scope.py --task-id T392
+  - python scripts/validate_task_scope.py --task-id T393
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py
   - python -m pytest -q
-required_handoff: .ai/handoffs/T392/handoff.md
-next_task: "Goal 5 owner reviewed-gold promotion decision packet for Eph.1.3-Eph.1.14, still non-output-changing until explicit owner promotion."
+required_handoff: .ai/handoffs/T393/handoff.md
+next_task: "Owner must select one T393 option before any reviewed-gold promotion or Goal 6 harness work."
 created_at: "2026-06-23"
 updated_at: "2026-06-23"

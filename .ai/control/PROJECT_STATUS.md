@@ -1,52 +1,51 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T392 SQLite source catalog schema shell (Codex)
-**Active task:** -> **T392** completed a source-catalog SQLite schema shell and source-only seed
-rows at `docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md`. It creates text artifacts under
-`data/candidate/source_catalog/manuscript_reliability/sqlite/`: `schema.sql`, `seed_rows.jsonl`,
-and `manifest.yaml`, plus `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`. It seeds only
-`scripture_source_family`, `scripture_source_catalog`, `evidence_source_catalog_method_profile`,
-and `evidence_source_trust_rule` rows from the T391 official source anchors. T392 commits no binary
-SQLite database, imports no source text, stores no transcription or Bible text, populates no witness
-rows, date/material/coverage/discovery rows, or review-queue rows, selects no preferred readings or
-source traditions, changes no canonical Bible text or passage records, and authorizes no chunk
-output, reviewed gold, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, or
-apologetic conclusion as authority. The next manuscript-reliability step is **T393 tiny DSS
-biblical witness source-row population** only after T391/T392 are on live main. The exact next
-chunking step remains **T385 owner decision packet** using T384/T386/T387/T388/T389 evidence.
-**T308** connection discovery + **T309** chunking bake-off still open.
+**Updated by:** T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (Codex)
+**Active task:** -> **T393** prepared the Goal 5 owner reviewed-gold promotion decision packet for
+`Eph.1.3-Eph.1.14` at
+`.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
+`docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`. Owner selection is still
+pending. Recommended option is `T393-A`, but the recommendation is not owner selection.
+Reviewed gold promoted: false. Chunk output authorized: false. Goal 5 now requires Lowell to
+select exactly one T393 option before any reviewed-gold promotion record or Goal 6 harness work.
+T393 authorizes no reviewed-gold promotion, parent span as chunk boundary, child spans, chunk
+output, route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source
+traditions, boundary import, canon-scope change, theology authority, SQLite database creation,
+metadata row population, or source text import. **T308** connection discovery + **T309** chunking
+bake-off still open.
 
-> **T392 SQLite source catalog schema shell (2026-06-23):** Added
-> `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,
-> `data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql`,
-> `data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl`,
-> `data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml`,
-> `docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md`,
-> `scripts/validate_manuscript_source_catalog_sqlite_shell.py`, and
-> `tests/test_manuscript_source_catalog_sqlite_shell.py`. T392 validates the schema in in-memory
-> SQLite, proves 12 tables load, seeds exactly 37 source-only rows, keeps 8 future witness/review
-> tables empty, records `CD-067` and `LSN-021`, and forbids `canonical_*`, `boundary_*`, and
-> `doctrine_*` source-catalog objects. It authorizes no witness row population, source text import,
-> transcription storage, Bible text storage, preferred readings, source-tradition preference,
-> graph/retrieval/vector truth, Boundary Literature import, Doctrine Genealogy import, chunk output,
-> or apologetic conclusion as Scripture authority.
+> **T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (2026-06-23):** Added
+> `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml`,
+> `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`,
+> `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and
+> `tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and recorded `CD-068` plus
+> `LSN-022`. This prepares Goal 5 only. It recommends `T393-A` for owner review but keeps
+> owner_selection_status pending and reviewed_gold_promoted false. No reviewed gold, chunk output,
+> child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+> reading/source-tradition choice, canon-scope change, or theology authority is authorized.
 
-> **T391 manuscript source catalog research packet (2026-06-22):** Added
-> `.ai/control/manuscript_source_catalog_research_packet.yaml`,
-> `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md`,
-> `scripts/validate_manuscript_source_catalog_research_packet.py`, and
-> `tests/test_manuscript_source_catalog_research_packet.py`. T391 curates official source anchors
-> including IAA/Leon Levy DSS, Israel Museum Great Isaiah Scroll anchors, INTF/NTVMR/Liste/ECM/CBGM,
-> CSNTM, Manchester Greek P 457/P52, Codex Sinaiticus Project, Vatican Library Vat.gr.1209, and
-> British Library Royal MS 1 D V. It records a five-family taxonomy, DSS biblical witness packet,
-> NT papyri/codices packet, discovery timeline anchors, open questions, blocked claims, and a next
-> goal prompt for T392 source-catalog schema/source rows only. It separates confirmed source facts
-> from candidate claims and blocked claims and requires source, method, confidence, provenance, and
-> review status. T391 records `CD-066` and `LSN-020` and authorizes no SQLite database creation,
-> row population, source text import, transcription storage, Bible text storage, preferred reading,
-> source-tradition preference, canon-scope change, graph/retrieval/vector truth, boundary import,
-> Doctrine Genealogy import, chunk output, or apologetic conclusion as Scripture authority.
+> **T392 Eph.1.3-Eph.1.14 review packet strengthening (2026-06-23):** Added strengthened
+> evidence and controls to `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`,
+> added `docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`,
+> `scripts/validate_t392_eph1_review_packet_strengthening.py`, and
+> `tests/test_t392_eph1_review_packet_strengthening.py`, and recorded `CD-067` plus `LSN-021`.
+> This completes Goal 4 only. Goal 5 must present exact promotion options, repercussions,
+> theological risks, variant dependency/non-dependency, child-span necessity/denial, and a
+> recommendation. No reviewed gold, chunk output, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, boundary import, preferred reading/source-tradition choice,
+> canon-scope change, or theology authority is authorized.
+
+> **T385 owner decision packet (2026-06-23):** Added
+> `.ai/control/t385_owner_decision_packet.yaml`,
+> `docs/roadmap/T385_OWNER_DECISION_PACKET.md`,
+> `scripts/validate_t385_owner_decision_packet.py`, and
+> `tests/test_t385_owner_decision_packet.py`. T385 records all serious faithful next options:
+> Eph.1.3-Eph.1.14, Gal.2.15-Gal.3.29, Jas.2.14-Jas.2.26, Rom.9.1-Rom.11.36,
+> Heb.7.1-Heb.10.39, 1Cor.11.17-1Cor.14.40, John.3.1-John.3.36, Revelation research-only, and
+> manuscript source-catalog research. It records `CD-066` and `LSN-020`, makes the packet mandatory
+> preflight, and keeps owner selection pending. Recommended next owner choice is T385-A, but that
+> recommendation does not authorize Goal 4 work until Lowell explicitly selects it.
 
 > **T390 manuscript source catalog metadata plan (2026-06-22):** Added
 > `.ai/control/manuscript_source_catalog_metadata_plan.yaml`,

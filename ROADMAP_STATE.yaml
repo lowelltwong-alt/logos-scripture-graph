@@ -1,5 +1,5 @@
 version: 0.1.0
-last_updated: "2026-06-22"
+last_updated: "2026-06-23"
 current_phase: phase_4
 policy:
   handoff_required: true
@@ -1219,8 +1219,8 @@ phases:
         canon_scope_change_authorized: false
         theology_authority_change_authorized: false
       - id: T385
-        title: Owner Decision Packet From T384 Research Readiness Synthesis
-        status: ready_owner_decision_packet_only
+        title: Owner Decision Packet From T384/T386/T387/T388/T389/T390 Readiness
+        status: complete_owner_decision_packet_only
         lane: bible_wide_research_readiness
         starts_only_if: T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete
         required_inputs:
@@ -1228,9 +1228,67 @@ phases:
           - .ai/control/bible_verse_passage_coverage_summary.yaml
           - .ai/control/bible_verse_passage_gap_register.yaml
           - .ai/control/bible_verse_passage_human_review_docket.yaml
-        purpose: Present HDM/T386 owner decisions with options, repercussions, recommendation, coverage gaps, and non-authorizations for owner review.
+          - .ai/control/manuscript_witness_reliability_scaffold.yaml
+          - .ai/audits/reports/20260622-T388-legacy-branch-discovery-audit.md
+          - docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
+          - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+        owner_packet: .ai/control/t385_owner_decision_packet.yaml
+        roadmap_doc: docs/roadmap/T385_OWNER_DECISION_PACKET.md
+        validator: scripts/validate_t385_owner_decision_packet.py
+        required_handoff: .ai/handoffs/T385/handoff.md
+        decision_register_entry: CD-066
+        lesson_index_entry: LSN-020
+        purpose: Present all serious faithful next chunking options with options, repercussions, recommendation, coverage gaps, and non-authorizations for owner review.
         owner_decision_required: true
+        owner_selection_status: pending
+        recommended_option: T385-A
+        recommended_passage: Eph.1.3-Eph.1.14
+        recommendation_is_owner_selection: false
+        exact_target_selected: false
+        goal_4_can_run_after: explicit_owner_selection_of_one_T385_option
+        next_task: owner_select_one_T385_option_before_goal4
         owner_decision_required_before_promotion_or_implementation: true
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        review_packet_strengthening_authorized: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        theology_authority_change_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
+      - id: T392
+        title: Eph.1.3-Eph.1.14 Review Packet Strengthening
+        status: complete_review_packet_strengthening_only
+        lane: epistle_argument
+        starts_only_if: explicit_owner_selection_of_T385_A
+        selected_option: T385-A
+        selected_passage: Eph.1.3-Eph.1.14
+        selected_parent: Eph.1.3-Eph.1.14
+        selected_children: []
+        review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+        roadmap_doc: docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+        task_scope: .ai/tasks/T392.task.yaml
+        required_handoff: .ai/handoffs/T392/handoff.md
+        validator: scripts/validate_t392_eph1_review_packet_strengthening.py
+        decision_register_entry: CD-067
+        lesson_index_entry: LSN-021
+        owner_selection_recorded: true
+        review_packet_strengthened: true
+        review_only: true
+        packet_status: pending_human_review
+        next_task: T393
+        next_goal_gate: Goal 5 owner reviewed-gold promotion decision packet
+        owner_decision_required_before_promotion_or_implementation: true
+        exact_target_selected_for_promotion_or_implementation: false
         output_change_authorized: false
         implementation_authorized: false
         reviewed_gold_promoted: false
@@ -1241,6 +1299,56 @@ phases:
         retrieval_truth_authorized: false
         embedding_or_vector_work_allowed: false
         boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        theology_authority_change_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
+      - id: T393
+        title: Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet
+        status: pending_owner_reviewed_gold_promotion_decision
+        lane: epistle_argument
+        starts_only_if: T392_eph1_review_packet_strengthening_complete
+        selected_option_from_t385: T385-A
+        selected_passage: Eph.1.3-Eph.1.14
+        selected_parent: Eph.1.3-Eph.1.14
+        selected_children: []
+        source_review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+        owner_packet: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+        roadmap_doc: docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+        task_scope: .ai/tasks/T393.task.yaml
+        required_handoff: .ai/handoffs/T393/handoff.md
+        validator: scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+        decision_register_entry: CD-068
+        lesson_index_entry: LSN-022
+        recommended_option: T393-A
+        owner_selection_status: pending
+        recommendation_is_owner_selection: false
+        exact_internal_variant_refs: []
+        variant_dependency_status: non_dependent_on_current_repo_evidence
+        source_tradition_dependency_status: non_dependent_on_current_repo_evidence
+        child_span_necessity_assessment: not_necessary_now_for_parent_only_promotion
+        reviewed_gold_promoted: false
+        next_task: owner_select_one_T393_option_before_promotion
+        next_goal_gate: owner reviewed-gold promotion selection before Goal 6 harness work
+        owner_decision_required_before_promotion_or_implementation: true
+        exact_target_selected_for_promotion_or_implementation: false
+        output_change_authorized: false
+        implementation_authorized: false
+        route_behavior_authorized: false
+        child_spans_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        theology_authority_change_authorized: false
+        sqlite_database_creation_authorized: false
+        metadata_row_population_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

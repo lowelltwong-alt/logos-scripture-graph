@@ -53,6 +53,11 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t375_post_pilot_review.yaml" in reading
     assert ".ai/control/t376_epistle_research_runway.yaml" in reading
     assert ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml" in reading
+    assert ".ai/control/t385_owner_decision_packet.yaml" in reading
+    assert "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md" in reading
+    assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in reading
+    assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in reading
+    assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in reading
     assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
@@ -108,6 +113,15 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "validate_t384_bible_wide_research_readiness.py" in text
     assert "T384 Bible-wide research/readiness synthesis" in text
     assert "T385 owner decision packet" in text
+    assert "t385_owner_decision_packet.yaml" in text
+    assert "T392" in text
+    assert "T393" in text
+    assert "Eph.1.3-Eph.1.14" in text
+    assert "Goal 5" in text
+    assert "reviewed-gold promotion decision packet" in text
+    assert "validate_t392_eph1_review_packet_strengthening.py" in text
+    assert "t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in text
+    assert "validate_t393_eph1_reviewed_gold_promotion_decision_packet.py" in text
     assert "chunking_lesson_index.yaml" in text
     assert "validate_chunking_lesson_index.py" in text
     assert "owner_decision_option_presentation_policy.yaml" in text
@@ -121,7 +135,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently records the completed T384 Bible-wide" in text
+    assert "currently records T393 as the prepared Goal 5" in text
+    assert "recommendation is not owner selection" in text
     assert "T385 owner decision packet" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
@@ -195,6 +210,9 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-059" in register
     assert "CD-060" in register
     assert "CD-061" in register
+    assert "CD-066" in register
+    assert "CD-067" in register
+    assert "CD-068" in register
     assert "Chunking lesson index is mandatory tagged preflight memory" in register
     assert "Contextual reading discipline is mandatory non-authorizing preflight" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
@@ -227,6 +245,9 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "Human decision forecast front-loads chunking gates" in register
     assert "T376-A selects epistle argument research/prep runway" in register
     assert "T384 completes Bible-wide research/readiness synthesis" in register
+    assert "T385 owner decision packet recommends but does not select" in register
+    assert "T392 strengthens Eph.1.3-14 review packet without promotion" in register
+    assert "T393 promotion decision packet does not promote reviewed gold" in register
 
 
 def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
@@ -264,6 +285,11 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/t375_post_pilot_review.yaml" in reading
     assert ".ai/control/t376_epistle_research_runway.yaml" in reading
     assert ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml" in reading
+    assert ".ai/control/t385_owner_decision_packet.yaml" in reading
+    assert "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md" in reading
+    assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in reading
+    assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in reading
+    assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in reading
     assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in reading
@@ -314,6 +340,9 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-059" in register_entry["required_decision_ids"]
     assert "CD-060" in register_entry["required_decision_ids"]
     assert "CD-061" in register_entry["required_decision_ids"]
+    assert "CD-066" in register_entry["required_decision_ids"]
+    assert "CD-067" in register_entry["required_decision_ids"]
+    assert "CD-068" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-005" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-006" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
@@ -324,6 +353,9 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "LSN-011" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-012" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-013" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-020" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-021" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-022" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 

@@ -299,8 +299,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384"}:
-        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, or T384")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393"}:
+        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, or T393")
     if next_route.get("task_id") in {"T374", "T375"}:
         expected_next = {
             "baseline_overlap_decision_packet": PACKET_REL,
@@ -363,6 +363,81 @@ def _validate_links() -> None:
                 raise T374BaselineOverlapError(f"{_rel(READINESS)}: T384 next_route.{key} must be {value!r}")
         if "CD-060" not in next_route.get("prior_decision_register_entries", []):
             raise T374BaselineOverlapError(f"{_rel(READINESS)}: T384 must reference CD-060")
+    if next_route.get("task_id") == "T385":
+        expected_t385 = {
+            "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
+            "route_type": "owner_decision_packet_only",
+            "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+            "completion_status": "complete_owner_decision_packet_only",
+            "owner_selection_status": "pending",
+            "recommended_option": "T385-A",
+            "recommendation_is_owner_selection": False,
+            "exact_target_selected": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t385.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T385 next_route.{key} must be {value!r}")
+        if "CD-066" not in next_route.get("prior_decision_register_entries", []):
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T385 must reference CD-066")
+    if next_route.get("task_id") == "T392":
+        expected_t392 = {
+            "starts_only_if": "explicit_owner_selection_of_T385_A",
+            "route_type": "epistle_argument_review_packet_strengthening",
+            "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+            "completion_status": "complete_review_packet_strengthening_only",
+            "selected_option": "T385-A",
+            "review_packet_strengthened": True,
+            "exact_next_owner_action": "Goal5_owner_reviewed_gold_promotion_decision_packet",
+            "owner_decision_required_before_promotion_or_implementation": True,
+            "exact_target_selected_for_promotion_or_implementation": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t392.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T392 next_route.{key} must be {value!r}")
+        if "CD-067" not in next_route.get("prior_decision_register_entries", []):
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T392 must reference CD-067")
+    if next_route.get("task_id") == "T393":
+        expected_t393 = {
+            "starts_only_if": "T392_eph1_review_packet_strengthening_complete",
+            "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "completion_status": "pending_owner_reviewed_gold_promotion_decision",
+            "owner_selection_status": "pending",
+            "recommended_option": "T393-A",
+            "recommendation_is_owner_selection": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t393.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T393 next_route.{key} must be {value!r}")
+        if "CD-068" not in next_route.get("prior_decision_register_entries", []):
+            raise T374BaselineOverlapError(f"{_rel(READINESS)}: T393 must reference CD-068")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

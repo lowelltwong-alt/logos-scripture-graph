@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 14)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 23)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -52,6 +52,25 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "research-synthesis" in by_id["LSN-013"]["tags"]
     assert "human-decision-map" in by_id["LSN-013"]["tags"]
     assert "chunking-ready" in by_id["LSN-013"]["tags"]
+    assert "owner-decision-packet" in by_id["LSN-020"]["tags"]
+    assert "recommendation-not-selection" in by_id["LSN-020"]["tags"]
+    assert "goal4" in by_id["LSN-020"]["tags"]
+    assert "ephesians" in by_id["LSN-020"]["tags"]
+    assert ".ai/control/t385_owner_decision_packet.yaml" in by_id["LSN-020"]["source_surfaces"]
+    assert "review-packet-strengthening" in by_id["LSN-021"]["tags"]
+    assert "premortem" in by_id["LSN-021"]["tags"]
+    assert "red-team" in by_id["LSN-021"]["tags"]
+    assert "promotion-gate" in by_id["LSN-021"]["tags"]
+    assert "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md" in by_id["LSN-021"]["source_surfaces"]
+    assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in by_id["LSN-021"]["source_surfaces"]
+    assert "CD-067" in by_id["LSN-021"]["related_decision_ids"]
+    assert "reviewed-gold-promotion-decision" in by_id["LSN-022"]["tags"]
+    assert "recommendation-not-selection" in by_id["LSN-022"]["tags"]
+    assert "variant-non-dependency" in by_id["LSN-022"]["tags"]
+    assert "child-span-necessity" in by_id["LSN-022"]["tags"]
+    assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in by_id["LSN-022"]["source_surfaces"]
+    assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in by_id["LSN-022"]["source_surfaces"]
+    assert "CD-068" in by_id["LSN-022"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

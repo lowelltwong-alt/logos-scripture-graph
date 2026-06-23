@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T392 to add SQLite source-catalog seed-row guardrails."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T392
+last_updated_by_task: T393
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -720,103 +720,144 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
   - lesson_id: LSN-020
-    title: Official source research packets still need review before rows or authority
+    title: Owner packet recommendation is not owner selection
     lifecycle_status: active
     priority: P0
-    categories: [source_metadata, theological_risk, workflow_governance, auditability]
-    tags: [source-catalog-research, official-sources, manuscript-witness, reliability-provenance, dead-sea-scrolls, dss-biblical-witnesses, nt-papyri, major-codices, holding-institutions, discovery-timeline, confirmed-vs-candidate, blocked-claims, anti-guessing, boundary-routing, doctrine-genealogy, non-authorizing, t391]
+    categories: [owner_decision, theological_risk, workflow_governance, auditability]
+    tags: [owner-decision-packet, recommendation-not-selection, t385, owner-gate, goal4, epistle, ephesians, target-selection, non-authorizing, stop-condition, audit]
     use_when:
-      - "A future agent wants to turn a curated source list or official source packet into SQLite source rows, witness rows, graph edges, retrieval truth, vectors, chunks, or apologetic reports."
-      - "A future agent is tempted to treat official source anchors, archive counts, witness age, discovery timing, or holding-institution catalog pages as preferred-reading, canon, or apologetic authority."
-      - "A future agent needs to preserve confirmed facts, candidate claims, blocked claims, source method, confidence, provenance, and review status before using manuscript reliability metadata."
-    preflight_stage: before_source_catalog_schema_or_population_work
+      - "A future agent reads an owner decision packet that recommends a target, lane, passage, or option before the owner has explicitly selected it."
+      - "A future agent wants to start Goal 4 or review-packet strengthening from T385, T384, T386, T389, or any readiness report."
+      - "A no-context reviewer must determine whether a recommendation authorized target selection, reviewed gold, output, route behavior, or graph/retrieval/vector work."
+    preflight_stage: before_owner_packet_or_goal4
     source_surfaces:
-      - .ai/control/manuscript_source_catalog_research_packet.yaml
-      - docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md
-      - .ai/tasks/T391.task.yaml
-      - .ai/handoffs/T391/handoff.md
-      - AI_TABLE_OF_CONTENTS.md
-      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
-      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
-      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/t385_owner_decision_packet.yaml
+      - docs/roadmap/T385_OWNER_DECISION_PACKET.md
+      - .ai/control/owner_decision_option_presentation_policy.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - scripts/validate_t385_owner_decision_packet.py
+      - tests/test_t385_owner_decision_packet.py
     related_decision_ids: [CD-066]
     related_workflow_lesson_ids: []
-    related_task_ids: [T387, T390, T391]
-    downstream_risk: "A reputable source packet can be mistaken for permission to populate rows, import text, infer facts from memory, collapse candidate claims into confirmed claims, merge boundary/theologian material into Scripture Graph, or use source catalogs as preferred-reading, graph/retrieval/vector, chunk, canon, or apologetic authority."
+    related_task_ids: [T385]
+    downstream_risk: "If a recommendation is mistaken for selection, future agents can silently choose a passage, strengthen a packet, promote gold, add child spans, change route/evaluator behavior, or generate output without the owner decision gate."
     required_preflight_surfaces:
-      - .ai/control/manuscript_source_catalog_research_packet.yaml
-      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
-      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/t385_owner_decision_packet.yaml
+      - .ai/control/owner_decision_option_presentation_policy.yaml
       - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
     non_authorizations:
-      - sqlite_database_creation_from_research_packet
-      - metadata_row_population_without_later_scope
-      - witness_row_population_without_row_level_review
-      - source_text_import
-      - transcription_storage
-      - bible_text_storage
-      - preferred_reading_selection
-      - source_tradition_preference
-      - canon_scope_change
-      - graph_or_retrieval_truth_from_source_catalog_research
-      - apologetic_conclusion_as_scripture_authority
-      - commentary_or_patristic_data_as_scripture
-      - doctrine_genealogy_import_into_scripture_graph
-      - boundary_material_import_into_scripture_graph
-      - chunk_output_change_from_research_packet
+      - recommendation_as_owner_selection
+      - target_selection_without_owner
+      - review_packet_strengthening_without_owner_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - graph_or_retrieval_truth_from_owner_packet
+      - theology_authority_from_recommendation
     validators:
-      - scripts/validate_manuscript_source_catalog_research_packet.py
+      - scripts/validate_t385_owner_decision_packet.py
       - scripts/validate_chunking_lesson_index.py
-      - scripts/validate_task_scope.py
+      - scripts/validate_chunking_agent_preflight.py
   - lesson_id: LSN-021
-    title: SQLite source rows are infrastructure, not witness or authority rows
+    title: Review-packet strengthening requires premortem red-team before promotion
     lifecycle_status: active
     priority: P0
-    categories: [source_metadata, theological_risk, workflow_governance, auditability]
-    tags: [source-catalog-sqlite, sqlite-shell, source-family, source-catalog, method-profile, source-trust, seed-rows, manuscript-witness, reliability-provenance, anti-guessing, boundary-routing, doctrine-genealogy, non-authorizing, t392]
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, original_language, source_metadata]
+    tags: [review-packet-strengthening, premortem, red-team, goal4, t392, epistle, ephesians, owner-selection, non-authorizing, audit, source-metadata, original-language, contextual-reading, promotion-gate]
     use_when:
-      - "A future agent wants to populate DSS, NT papyri/codices, date, material, coverage, discovery, or witness rows after the source-catalog shell exists."
-      - "A future agent is tempted to treat source-family/source-catalog/method/trust-rule rows as manuscript witness facts, preferred-reading authority, graph/retrieval/vector truth, or apologetic proof."
-      - "A future agent needs to verify that SQLite schema work still has source URL, method, confidence, provenance, review status, source family, rights/access status, and non-authorizing scope labels on every row."
-    preflight_stage: before_witness_row_population_or_reliability_reports
+      - "A future agent strengthens a review packet after owner target selection but before reviewed-gold promotion."
+      - "A no-context reviewer needs to distinguish packet strengthening from reviewed gold, output, route behavior, child-span authority, or graph/retrieval truth."
+      - "A packet includes context, source metadata, original-language, variant/source-tradition, or theological-risk evidence that could be mistaken for authority."
+    preflight_stage: before_goal4_or_promotion_gate
     source_surfaces:
-      - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
-      - data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
-      - data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
-      - data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml
-      - docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
       - .ai/tasks/T392.task.yaml
-      - .ai/handoffs/T392/handoff.md
-      - .ai/control/manuscript_source_catalog_research_packet.yaml
-      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md
+      - scripts/validate_t392_eph1_review_packet_strengthening.py
+      - tests/test_t392_eph1_review_packet_strengthening.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/textual_critical_case_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
     related_decision_ids: [CD-067]
     related_workflow_lesson_ids: []
-    related_task_ids: [T387, T390, T391, T392]
-    downstream_risk: "A validated SQLite shell can be mistaken for permission to create witness rows, import text, copy transcriptions, collapse date or coverage uncertainty, merge boundary/theologian material into Scripture Graph, or use catalog metadata as preferred-reading, graph/retrieval/vector, canon, chunk, or apologetic authority."
+    related_task_ids: [T385, T392]
+    downstream_risk: "A strengthened review packet can look like owner-approved gold or implementation readiness, especially when it contains context, original-language, source-metadata, variant, or theology-risk evidence."
     required_preflight_surfaces:
-      - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
-      - .ai/control/manuscript_source_catalog_research_packet.yaml
-      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
       - .ai/control/chunking_theological_decision_register.yaml
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
     non_authorizations:
-      - committed_sqlite_database_file
-      - witness_row_population_without_later_scope
-      - source_text_import
-      - transcription_storage
-      - bible_text_storage
-      - preferred_reading_selection
-      - source_tradition_preference
-      - canon_scope_change
-      - graph_or_retrieval_truth_from_source_catalog_rows
-      - apologetic_conclusion_as_scripture_authority
-      - commentary_or_patristic_data_as_scripture
-      - doctrine_genealogy_import_into_scripture_graph
-      - boundary_material_import_into_scripture_graph
-      - chunk_output_change_from_source_catalog_rows
+      - review_packet_strengthening_as_reviewed_gold
+      - premortem_as_output_authority
+      - red_team_as_owner_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_packet_evidence
+      - theology_authority_from_packet_labels
     validators:
-      - scripts/validate_manuscript_source_catalog_sqlite_shell.py
+      - scripts/validate_t392_eph1_review_packet_strengthening.py
       - scripts/validate_chunking_lesson_index.py
-      - scripts/validate_task_scope.py
+      - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-022
+    title: Reviewed-gold promotion packets are not promotions
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, original_language, source_metadata]
+    tags: [reviewed-gold-promotion-decision, promotion-gate, recommendation-not-selection, goal5, t393, epistle, ephesians, owner-gate, non-authorizing, audit, variant-non-dependency, child-span-necessity, source-metadata, original-language, contextual-reading]
+    use_when:
+      - "A future agent prepares or audits an owner reviewed-gold promotion decision packet before the owner explicitly selects an option."
+      - "A no-context reviewer needs to confirm that a recommendation, option list, variant non-dependency assessment, or child-span assessment has not become promotion authority."
+      - "A packet presents Goal 5 reviewed-gold options after packet strengthening and must stop before reviewed gold, output, route behavior, child spans, graph, retrieval, vectors, or theology authority."
+    preflight_stage: before_goal5_promotion_or_goal6_harness
+    source_surfaces:
+      - .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+      - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+      - .ai/tasks/T393.task.yaml
+      - .ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md
+      - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/textual_critical_case_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    related_decision_ids: [CD-068]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T392, T393]
+    downstream_risk: "A reviewed-gold promotion decision packet can look like the promotion itself, especially when it recommends one option and records current-repo variant/source-tradition non-dependency and child-span necessity assessments."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+      - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+    non_authorizations:
+      - recommendation_as_owner_selection
+      - promotion_packet_as_reviewed_gold
+      - variant_non_dependency_assessment_as_universal_textual_critical_claim
+      - child_span_necessity_assessment_as_child_span_authority
+      - parent_span_as_chunk_boundary
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_promotion_packet
+      - theology_authority_from_packet_labels
+    validators:
+      - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -956,14 +997,20 @@ lesson_graph:
   - from: LSN-002
     relation: governs_update_of
     to: LSN-020
-  - from: LSN-019
+  - from: LSN-020
     relation: constrains
-    to: LSN-020
+    to: LSN-007
   - from: LSN-020
     relation: audits
     to: LSN-010
-  - from: LSN-019
+  - from: LSN-020
     relation: constrains
+    to: LSN-013
+  - from: LSN-020
+    relation: constrains
+    to: LSN-014
+  - from: LSN-002
+    relation: governs_update_of
     to: LSN-021
   - from: LSN-020
     relation: constrains
@@ -971,4 +1018,37 @@ lesson_graph:
   - from: LSN-021
     relation: audits
     to: LSN-010
+  - from: LSN-021
+    relation: constrains
+    to: LSN-004
+  - from: LSN-021
+    relation: constrains
+    to: LSN-005
+  - from: LSN-021
+    relation: constrains
+    to: LSN-006
+  - from: LSN-021
+    relation: constrains
+    to: LSN-011
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-022
+  - from: LSN-020
+    relation: constrains
+    to: LSN-022
+  - from: LSN-021
+    relation: constrains
+    to: LSN-022
+  - from: LSN-022
+    relation: audits
+    to: LSN-010
+  - from: LSN-022
+    relation: constrains
+    to: LSN-006
+  - from: LSN-022
+    relation: constrains
+    to: LSN-008
+  - from: LSN-022
+    relation: constrains
+    to: LSN-011
 validator: scripts/validate_chunking_lesson_index.py

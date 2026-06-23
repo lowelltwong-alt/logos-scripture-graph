@@ -246,8 +246,8 @@ def _validate_governed_links() -> None:
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384"}:
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must be T372, T373, T374, T375, T376, or T384 after T371-A promotion")
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393"}:
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must be T372, T373, T374, T375, T376, T384, T385, T392, or T393 after T371-A promotion")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 starts_only_if is wrong")
     if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
@@ -260,7 +260,13 @@ def _validate_governed_links() -> None:
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T376 starts_only_if is wrong")
     if next_task_id == "T384" and next_route.get("starts_only_if") != "T376_A_epistle_argument_research_runway_selected":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T384 starts_only_if is wrong")
-    if next_task_id not in {"T376", "T384"}:
+    if next_task_id == "T385" and next_route.get("starts_only_if") != "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T385 starts_only_if is wrong")
+    if next_task_id == "T392" and next_route.get("starts_only_if") != "explicit_owner_selection_of_T385_A":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T392 starts_only_if is wrong")
+    if next_task_id == "T393" and next_route.get("starts_only_if") != "T392_eph1_review_packet_strengthening_complete":
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: T393 starts_only_if is wrong")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393"}:
         if (
             next_route.get("evidence_packet")
             != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
@@ -326,7 +332,61 @@ def _validate_governed_links() -> None:
                 raise ProjectionPolicyError(f"{_rel(READINESS)}: T384 {key} must be {value!r}")
         if "CD-060" not in next_route.get("prior_decision_register_entries", []):
             raise ProjectionPolicyError(f"{_rel(READINESS)}: T384 must reference CD-060")
-    if next_task_id not in {"T376", "T384"} and next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id == "T385":
+        expected_t385 = {
+            "route_type": "owner_decision_packet_only",
+            "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+            "completion_status": "complete_owner_decision_packet_only",
+            "owner_selection_status": "pending",
+            "recommended_option": "T385-A",
+            "recommendation_is_owner_selection": False,
+            "exact_target_selected": False,
+            "reviewed_gold_promoted": False,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t385.items():
+            if next_route.get(key) != value:
+                raise ProjectionPolicyError(f"{_rel(READINESS)}: T385 {key} must be {value!r}")
+        if "CD-066" not in next_route.get("prior_decision_register_entries", []):
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T385 must reference CD-066")
+    if next_task_id == "T392":
+        expected_t392 = {
+            "route_type": "epistle_argument_review_packet_strengthening",
+            "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+            "completion_status": "complete_review_packet_strengthening_only",
+            "selected_option": "T385-A",
+            "review_packet_strengthened": True,
+            "exact_next_owner_action": "Goal5_owner_reviewed_gold_promotion_decision_packet",
+            "owner_decision_required_before_promotion_or_implementation": True,
+            "exact_target_selected_for_promotion_or_implementation": False,
+            "reviewed_gold_promoted": False,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t392.items():
+            if next_route.get(key) != value:
+                raise ProjectionPolicyError(f"{_rel(READINESS)}: T392 {key} must be {value!r}")
+        if "CD-067" not in next_route.get("prior_decision_register_entries", []):
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T392 must reference CD-067")
+    if next_task_id == "T393":
+        expected_t393 = {
+            "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "completion_status": "pending_owner_reviewed_gold_promotion_decision",
+            "owner_selection_status": "pending",
+            "recommended_option": "T393-A",
+            "recommendation_is_owner_selection": False,
+            "reviewed_gold_promoted": False,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
+        for key, value in expected_t393.items():
+            if next_route.get(key) != value:
+                raise ProjectionPolicyError(f"{_rel(READINESS)}: T393 {key} must be {value!r}")
+        if "CD-068" not in next_route.get("prior_decision_register_entries", []):
+            raise ProjectionPolicyError(f"{_rel(READINESS)}: T393 must reference CD-068")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393"} and next_route.get("reviewed_gold_promoted") is not True:
         raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} reviewed_gold_promoted must be true")
     if next_task_id == "T374":
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):

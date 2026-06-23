@@ -171,16 +171,31 @@ Bible-first chunking priority:
   import, transcription storage, preferred reading, source-tradition preference, canon-scope
   change, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, chunk output,
   or apologetic conclusion as authority.
-  T391 records `.ai/control/manuscript_source_catalog_research_packet.yaml` and
-  `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md` as a curated official-source
-  research packet for DSS biblical witnesses, NT papyri/codices, major codices, discovery timeline
-  anchors, open questions, and blocked claims. It remains source-metadata-only and authorizes no
-  SQLite database creation, witness row population, source text import, transcription storage,
-  preferred reading, source-tradition preference, graph/retrieval/vector truth, Boundary Literature
-  import, Doctrine Genealogy import, chunk output, or apologetic conclusion as authority.
-  T385 owner decision packet is the next non-output step before exact target selection,
-  reviewed-gold promotion, child spans, output, route/evaluator behavior, graph/retrieval/vector
-  truth, boundary import, or theology authority.
+  The T385 owner decision packet is complete at
+  `.ai/control/t385_owner_decision_packet.yaml` and is validated by
+  `scripts/validate_t385_owner_decision_packet.py`. T385 recommends `T385-A`
+  (`Eph.1.3-Eph.1.14`) as the next owner choice, but recommendation is not owner selection.
+  Goal 4 cannot strengthen any review packet until Lowell explicitly selects one T385 option.
+  T385 authorizes no exact target selection, reviewed-gold promotion, child spans, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings or
+  source traditions, canon-scope change, theology authority, SQLite database creation, metadata
+  row population, or source-text import.
+  T392 is now complete after Lowell selected `T385-A` for Goal 4 only. The strengthened
+  `Eph.1.3-Eph.1.14` packet lives at
+  `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md` and is governed by
+  `docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`,
+  `.ai/tasks/T392.task.yaml`, `CD-067`, `LSN-021`, and
+  `scripts/validate_t392_eph1_review_packet_strengthening.py`. Do not treat T392 as reviewed gold,
+  output authority, child-span authority, route/evaluator authority, graph/retrieval/vector truth,
+  source-tradition authority, canon-scope authority, or theology authority.
+  T393 is now prepared as the Goal 5 reviewed-gold promotion decision packet at
+  `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
+  `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`, validated by
+  `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`. T393 recommends
+  `T393-A` but owner_selection_status remains pending and reviewed_gold_promoted remains false.
+  Lowell must explicitly select one T393 option before any reviewed-gold promotion, Goal 6
+  harness work, chunk output, child span, route/evaluator behavior, graph/retrieval/vector truth,
+  boundary import, preferred reading/source tradition, canon-scope change, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -294,10 +309,10 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently records the completed T384 Bible-wide
-  research/readiness synthesis plus the T386 Bible-wide verse/passage coverage gate, then points to
-  T385 owner decision packet as the next non-output step. T384/T386 readiness cannot select a
-  target, promote reviewed gold, implement output, add child spans, or change
+  next safe route. It is non-authorizing and currently records T393 as the prepared Goal 5
+  reviewed-gold promotion decision packet for `Eph.1.3-Eph.1.14`, pending Lowell's owner
+  selection of exactly one T393 option. T384/T386/T385/T392/T393 readiness cannot promote reviewed
+  gold, implement output, add child spans, or change
   route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
@@ -808,6 +823,13 @@ coverage taxonomy, summary, readiness matrix, gap register, owner-review docket,
 AI TOC/front-door wiring, or authorizes target selection, reviewed gold, child spans, output,
 route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source
 traditions, canon-scope change, whole-Bible output, or theology authority.
+`python scripts/validate_t385_owner_decision_packet.py` fails closed if the T385 owner decision
+packet stops being complete, loses `.ai/control/t385_owner_decision_packet.yaml`, drops `CD-066` or
+`LSN-020`, omits any serious faithful option, treats T385-A recommendation as owner selection, lets
+Goal 4 run without explicit owner selection, or authorizes target selection, review-packet
+strengthening, reviewed gold, child spans, output, route/evaluator behavior, graph/retrieval/vector
+truth, boundary import, preferred readings/source traditions, canon-scope change, theology
+authority, SQLite database creation, metadata row population, or source-text import.
 
 **Before designing or changing any ingest, chunking, or graph-processing logic, you MUST:**
 
