@@ -7,10 +7,10 @@ This file is the required entry point for every AI agent and human contributor.
 Read these files before making changes:
 
 1. `AI_FRONT_DOOR.md`
-2. `.ai/control/MASTER_CONTEXT.md` — **human-gated architecture authority (READ ONLY for AI)**
-3. `.ai/control/PROJECT_STATUS.md` — **current operational state**
-4. `.ai/control/DATA_MAP.md` — **data artifacts + pipeline endpoints (generated)**
-5. `.ai/control/RAW_SOURCE_INVENTORY.md` — **the ACTUAL raw documents to be processed** (generated). **Mandatory before any ingest/chunking/graph work** — see "Raw source inspection" below.
+2. `.ai/control/MASTER_CONTEXT.md` â€” **human-gated architecture authority (READ ONLY for AI)**
+3. `.ai/control/PROJECT_STATUS.md` â€” **current operational state**
+4. `.ai/control/DATA_MAP.md` â€” **data artifacts + pipeline endpoints (generated)**
+5. `.ai/control/RAW_SOURCE_INVENTORY.md` â€” **the ACTUAL raw documents to be processed** (generated). **Mandatory before any ingest/chunking/graph work** â€” see "Raw source inspection" below.
 6. `ROADMAP.md`
 6. `ROADMAP_STATE.yaml`
 7. `HANDOFF_PROTOCOL.md`
@@ -39,7 +39,7 @@ Read these files before making changes:
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
-    T390 manuscript source catalog metadata plan,
+    T390 manuscript source catalog metadata plan, T391 source-catalog research packet,
     and John 3 owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
@@ -76,7 +76,7 @@ Read these files before making changes:
     pytest needing a timeout of at least `600000` ms in this worktree, and requires focused/split
     tests plus full-suite rerun rather than treating a tool timeout as green.
 15. `config/agents/agent_roles.yaml`
-16. `.ai/handoffs/<active_task_id>/handoff.md` — see `PROJECT_STATUS.md` for active task
+16. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
 17. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
@@ -271,6 +271,13 @@ Bible-first chunking priority:
   change canonical Bible text or passage records, select preferred readings or source traditions,
   change canon scope, import boundary corpora, create graph/retrieval/vector truth, or authorize
   apologetic conclusions as Scripture authority.
+- The T391 source-catalog research packet at
+  `.ai/control/manuscript_source_catalog_research_packet.yaml` curates official source anchors and
+  separates confirmed source facts, candidate claims, blocked claims, source-family taxonomy, DSS
+  biblical witness research, NT papyri/codices research, and discovery timeline anchors. It is
+  validated by `scripts/validate_manuscript_source_catalog_research_packet.py` and does not create
+  SQLite rows, store Bible or transcription text, select readings, generate graph/retrieval/vector
+  truth, import boundary material, or authorize apologetic conclusions.
 - The T389 Chunking Launch Readiness report at
   `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
   non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It
@@ -626,12 +633,12 @@ Owner-reserved authorization required: only Lowell Wong, as project owner, may a
 
 | Layer | Path | AI writes? |
 |-------|------|------------|
-| Master context | `.ai/control/MASTER_CONTEXT.md` | **NO** — propose via `scripts/agent/propose_master_context_change.py` |
-| Project status | `.ai/control/PROJECT_STATUS.md` | Yes — after each task |
-| Task handoff | `.ai/handoffs/T###/handoff.md` | Yes — task agent only |
-| Audit reports | `.ai/audits/reports/` | Yes — independent review outputs; not authorization |
-| Agent work notes | `.ai/context/agent_work/` | Yes — non-authoritative |
-| Recommendations | `.ai/context/recommendations/` | Yes — proposals only |
+| Master context | `.ai/control/MASTER_CONTEXT.md` | **NO** â€” propose via `scripts/agent/propose_master_context_change.py` |
+| Project status | `.ai/control/PROJECT_STATUS.md` | Yes â€” after each task |
+| Task handoff | `.ai/handoffs/T###/handoff.md` | Yes â€” task agent only |
+| Audit reports | `.ai/audits/reports/` | Yes â€” independent review outputs; not authorization |
+| Agent work notes | `.ai/context/agent_work/` | Yes â€” non-authoritative |
+| Recommendations | `.ai/context/recommendations/` | Yes â€” proposals only |
 
 Human promotes master context changes via `scripts/agent/approve_master_context.py`.
 
@@ -687,7 +694,7 @@ python scripts/validate_source_metadata_authority.py
 A merged PR does not automatically authorize the next task. Read the next task file, roadmap state,
 and handoff before creating a branch or making changes.
 
-## Raw source inspection (HARD RULE — mandatory before processing)
+## Raw source inspection (HARD RULE â€” mandatory before processing)
 
 The whole pipeline exists to ingest, chunk, and graph the **raw source documents**
 under `data/raw/`. The actual job is defined by what those files really contain
@@ -822,7 +829,7 @@ authority, SQLite database creation, metadata row population, or source-text imp
 2. Re-scan if data/raw changed: `python scripts/scan_raw_sources.py`.
 3. Confirm every marker in the raw source is classified in `config/ingest/usfm_marker_coverage.yaml`.
 
-Enforcement (these run in `validate_all.py` and CI — fail red):
+Enforcement (these run in `validate_all.py` and CI â€” fail red):
 
 ```bash
 python scripts/validate_raw_coverage.py     # fails if raw has an unclassified marker
@@ -873,7 +880,7 @@ Before stopping work, every agent must:
 6. Update `ROADMAP_STATE.yaml` if task status changed.
 7. Append to `.ai/control/roadmap_events.jsonl` if roadmap scope/status changed.
 8. Regenerate the data/endpoint map if data, schemas, or pipelines changed: `python scripts/generate_data_map.py`.
-9. Run `python scripts/validate_all.py` and `python -m pytest -q` — or explain why they could not run.
+9. Run `python scripts/validate_all.py` and `python -m pytest -q` â€” or explain why they could not run.
 10. Leave the repo in a state another agent can resume.
 11. For chunking-related paths, update `docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md`
     or document the no-change rationale required by `.ai/control/METHODOLOGY_UPDATE_RULES.md`.
@@ -917,3 +924,5 @@ Agents may challenge this architecture, but corrections must be explicit:
 4. Update `ROADMAP.md` and `ROADMAP_STATE.yaml` if the correction changes sequencing.
 5. Add a handoff explaining what changed and why.
 6. Human approves master context updates separately from code merges.
+
+

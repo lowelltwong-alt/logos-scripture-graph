@@ -2969,6 +2969,59 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-069
+    title: T391 manuscript source catalog research packet is official-source metadata only
+    classification: non_authorizing_review
+    task_ids: [T391]
+    owner_decision_ref: ".ai/control/manuscript_source_catalog_research_packet.yaml"
+    pr_refs: [PR-109]
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [manuscript_witness_reliability, source_catalog_research, dss_biblical_witnesses, nt_papyri_codices, discovery_timeline, evidence_reporting, boundary_routing, doctrine_genealogy_routing, chunking_preflight]
+      surfaces: [.ai/control/manuscript_source_catalog_research_packet.yaml, docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md, AI_TABLE_OF_CONTENTS.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, scripts/validate_manuscript_source_catalog_research_packet.py]
+    decision: "T391 creates a curated source-catalog research packet for biblical manuscript reliability metadata using official/primary anchors only. It records source families, curated source list, DSS biblical witness packet, NT papyri/codices packet, discovery timeline source anchors, open questions, blocked claims, and a next source-catalog schema shell prompt. Every confirmed claim must carry source, method, confidence, provenance, and review status. Candidate claims stay candidate, blocked claims stay blocked, and church fathers, commentaries, reception, early creed wording, theologian writings, non-biblical Qumran/DSS content, and doctrine lineage remain routed outside Scripture Graph."
+    downstream_risk: "A curated source packet can look like permission to build a database, populate witness rows, infer oldest-fragment facts from memory, import transcription text, collapse uncertain date ranges, select preferred readings, or treat manuscript evidence as an apologetic conclusion. Future agents must preserve source-scoped metadata and explicit review status before any row population or report."
+    theological_assumptions_avoided:
+      - "No source anchor is treated as Scripture text."
+      - "No source packet is treated as permission to create a SQLite database or populate rows."
+      - "No witness age, catalog count, discovery event, or copy abundance selects a preferred reading."
+      - "No commentary, patristic citation, creed wording, theologian writing, non-biblical DSS text, or doctrine lineage is imported into Scripture Graph."
+      - "No discovery timeline claim is treated as apologetic authority."
+      - "No graph, retrieval, vector, chunking, reviewed-gold, or route behavior changes are authorized."
+    reviewed_gold_dependency: "None. T391 is source-catalog research only. Future SQLite schema/source rows, DSS witness population, NT papyri/codices population, variant/copy-abundance method profiles, discovery timeline rows, Boundary Literature reception joins, Doctrine Genealogy lineage, graph/retrieval/vector work, chunk-output work, or apologetic reports require separate scoped tasks, validators/tests, source review, and owner authorization where authority could change."
+    non_authorizations:
+      - sqlite_database_creation
+      - metadata_row_population
+      - witness_row_population
+      - source_text_import
+      - transcription_storage
+      - bible_text_storage
+      - canonical_bible_text_change
+      - canonical_passage_record_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - commentary_as_scripture
+      - patristic_citation_as_scripture_authority
+      - doctrine_genealogy_import
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - apologetic_conclusion_as_truth
+    validators:
+      - scripts/validate_manuscript_source_catalog_research_packet.py
+      - tests/test_manuscript_source_catalog_research_packet.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3073,7 +3126,9 @@ backfill_coverage:
     - T387
     - T389
     - T390
+    - T391
     - T385
     - T392
     - T393
 ...
+

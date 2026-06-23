@@ -37,13 +37,46 @@ QA_REQUIRED = [
 ]
 
 
+def task_scope_gates() -> list[tuple[str, list[str]]]:
+    """Use the changed task file when a PR clearly scopes to one task."""
+
+    paths: list[str] = []
+    for args in (
+        ["git", "diff", "--name-only", "origin/main...HEAD"],
+        ["git", "diff", "--cached", "--name-only"],
+        ["git", "diff", "--name-only"],
+    ):
+        try:
+            result = subprocess.run(args, cwd=ROOT, capture_output=True, text=True, check=True)
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            continue
+        paths.extend(line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip())
+
+    task_ids = sorted(
+        {
+            Path(path).name.removesuffix(".task.yaml")
+            for path in paths
+            if path.startswith(".ai/tasks/") and path.endswith(".task.yaml")
+        }
+    )
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_task_scope.py --task-id {task_id}",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
+            )
+        ]
+    return [("validate_task_scope.py", [PY, str(ROOT / "scripts" / "validate_task_scope.py")])]
+
+
 def build_gates() -> list[tuple[str, list[str]]]:
     gates: list[tuple[str, list[str]]] = [
         ("validate_repo.py", [PY, str(ROOT / "scripts" / "validate_repo.py")]),
         ("validate_control_plane.py", [PY, str(ROOT / "scripts" / "validate_control_plane.py")]),
         ("validate_repository_link_contract.py", [PY, str(ROOT / "scripts" / "validate_repository_link_contract.py")]),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
-        ("validate_task_scope.py", [PY, str(ROOT / "scripts" / "validate_task_scope.py")]),
+        *task_scope_gates(),
         ("validate_canonical_66_scope.py", [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py")]),
         ("validate_vectorization_plan.py", [PY, str(ROOT / "scripts" / "validate_vectorization_plan.py")]),
         (
@@ -193,6 +226,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_manuscript_source_catalog_metadata_plan.py",
             [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_metadata_plan.py")],
+        ),
+        (
+            "validate_manuscript_source_catalog_research_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_research_packet.py")],
         ),
         (
             "validate_t385_owner_decision_packet.py",

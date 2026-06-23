@@ -1,0 +1,88 @@
+id: T391
+phase: phase_5
+title: "Manuscript Source Catalog Research Packet"
+mode: plan
+status: complete_non_output_changing_research_packet
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/manuscript_source_catalog_research_packet.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T391.task.yaml
+    - .ai/handoffs/T391/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md
+    - scripts/validate_manuscript_source_catalog_research_packet.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_all.py
+    - tests/test_manuscript_source_catalog_research_packet.py
+    - tests/test_chunking_lesson_index.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_output_changing_manuscript_source_catalog_research_packet
+  packet: .ai/control/manuscript_source_catalog_research_packet.yaml
+  roadmap_doc: docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md
+  authorizes_sqlite_database_creation: false
+  authorizes_metadata_row_population: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_bible_text_storage: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+acceptance_criteria:
+  - "Create a curated source list using reputable official/primary/academic anchors for DSS biblical witnesses, NT papyri/codices, holding institutions, INTF/ECM/CBGM, CSNTM, IAA/Leon Levy, Israel Museum, Codex Sinaiticus Project, Vatican Library, and British Library."
+  - "Record source-family taxonomy for DSS biblical witness catalogs, NT manuscript catalogs, major codex project catalogs, holding institution catalogs, and critical apparatus method profiles."
+  - "Add a DSS biblical witness packet separating confirmed source facts from candidate claims and blocked claims."
+  - "Add an NT papyri/codices packet separating confirmed source facts from candidate claims and blocked claims."
+  - "Add discovery timeline source anchors showing what can become knowable later without treating discovery timing as proof."
+  - "Require source, method, confidence, provenance, and review status for every confirmed claim."
+  - "Add validator and tests proving the packet remains source-metadata-only and non-authorizing."
+validation:
+  - python scripts/validate_manuscript_source_catalog_research_packet.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_task_scope.py --task-id T391
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T391/handoff.md
+next_task: "Do not populate witness rows yet. Next safe manuscript-reliability work is a fresh-task-id SQLite source-catalog schema shell plus curated source_catalog/source_family/method_profile/trust-rule source rows only, with no witness rows, no source text, no transcription text, no Bible text, no preferred readings, no graph/retrieval/vector work, and no apologetic conclusions as authority. Do not reuse T392, which current main uses for Eph.1.3-Eph.1.14 review-packet strengthening."
+created_at: "2026-06-22"
+updated_at: "2026-06-22"
+

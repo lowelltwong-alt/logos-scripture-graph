@@ -858,6 +858,57 @@ lessons:
       - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-023
+    title: Official source research packets still need review before rows or authority
+    lifecycle_status: active
+    priority: P0
+    categories: [source_metadata, theological_risk, workflow_governance, auditability]
+    tags: [source-catalog-research, official-sources, manuscript-witness, reliability-provenance, dead-sea-scrolls, dss-biblical-witnesses, nt-papyri, major-codices, holding-institutions, discovery-timeline, confirmed-vs-candidate, blocked-claims, anti-guessing, boundary-routing, doctrine-genealogy, non-authorizing, t391]
+    use_when:
+      - "A future agent wants to turn a curated source list or official source packet into SQLite source rows, witness rows, graph edges, retrieval truth, vectors, chunks, or apologetic reports."
+      - "A future agent is tempted to treat official source anchors, archive counts, witness age, discovery timing, or holding-institution catalog pages as preferred-reading, canon, or apologetic authority."
+      - "A future agent needs to preserve confirmed facts, candidate claims, blocked claims, source method, confidence, provenance, and review status before using manuscript reliability metadata."
+    preflight_stage: before_source_catalog_schema_or_population_work
+    source_surfaces:
+      - .ai/control/manuscript_source_catalog_research_packet.yaml
+      - docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md
+      - .ai/tasks/T391.task.yaml
+      - .ai/handoffs/T391/handoff.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - scripts/validate_manuscript_source_catalog_research_packet.py
+      - tests/test_manuscript_source_catalog_research_packet.py
+    related_decision_ids: [CD-069]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T387, T390, T391]
+    downstream_risk: "A reputable source packet can be mistaken for permission to populate rows, import text, infer facts from memory, collapse candidate claims into confirmed claims, merge boundary/theologian material into Scripture Graph, or use source catalogs as preferred-reading, graph/retrieval/vector, chunk, canon, or apologetic authority."
+    required_preflight_surfaces:
+      - .ai/control/manuscript_source_catalog_research_packet.yaml
+      - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+      - .ai/control/manuscript_witness_reliability_scaffold.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - sqlite_database_creation_from_research_packet
+      - metadata_row_population_without_later_scope
+      - witness_row_population_without_row_level_review
+      - source_text_import
+      - transcription_storage
+      - bible_text_storage
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - graph_or_retrieval_truth_from_source_catalog_research
+      - apologetic_conclusion_as_scripture_authority
+      - commentary_or_patristic_data_as_scripture
+      - doctrine_genealogy_import_into_scripture_graph
+      - boundary_material_import_into_scripture_graph
+      - chunk_output_change_from_research_packet
+    validators:
+      - scripts/validate_manuscript_source_catalog_research_packet.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_task_scope.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1051,4 +1102,17 @@ lesson_graph:
   - from: LSN-022
     relation: constrains
     to: LSN-011
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-023
+  - from: LSN-019
+    relation: constrains
+    to: LSN-023
+  - from: LSN-023
+    relation: audits
+    to: LSN-010
+  - from: LSN-023
+    relation: constrains
+    to: LSN-022
 validator: scripts/validate_chunking_lesson_index.py
+
