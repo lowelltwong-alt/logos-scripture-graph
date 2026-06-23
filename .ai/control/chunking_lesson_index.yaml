@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T385
+last_updated_by_task: T392
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -760,6 +760,54 @@ lessons:
       - scripts/validate_t385_owner_decision_packet.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-021
+    title: Review-packet strengthening requires premortem red-team before promotion
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, original_language, source_metadata]
+    tags: [review-packet-strengthening, premortem, red-team, goal4, t392, epistle, ephesians, owner-selection, non-authorizing, audit, source-metadata, original-language, contextual-reading, promotion-gate]
+    use_when:
+      - "A future agent strengthens a review packet after owner target selection but before reviewed-gold promotion."
+      - "A no-context reviewer needs to distinguish packet strengthening from reviewed gold, output, route behavior, child-span authority, or graph/retrieval truth."
+      - "A packet includes context, source metadata, original-language, variant/source-tradition, or theological-risk evidence that could be mistaken for authority."
+    preflight_stage: before_goal4_or_promotion_gate
+    source_surfaces:
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+      - .ai/tasks/T392.task.yaml
+      - .ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md
+      - scripts/validate_t392_eph1_review_packet_strengthening.py
+      - tests/test_t392_eph1_review_packet_strengthening.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/textual_critical_case_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    related_decision_ids: [CD-067]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T385, T392]
+    downstream_risk: "A strengthened review packet can look like owner-approved gold or implementation readiness, especially when it contains context, original-language, source-metadata, variant, or theology-risk evidence."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+    non_authorizations:
+      - review_packet_strengthening_as_reviewed_gold
+      - premortem_as_output_authority
+      - red_team_as_owner_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_packet_evidence
+      - theology_authority_from_packet_labels
+    validators:
+      - scripts/validate_t392_eph1_review_packet_strengthening.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -911,4 +959,25 @@ lesson_graph:
   - from: LSN-020
     relation: constrains
     to: LSN-014
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-021
+  - from: LSN-020
+    relation: constrains
+    to: LSN-021
+  - from: LSN-021
+    relation: audits
+    to: LSN-010
+  - from: LSN-021
+    relation: constrains
+    to: LSN-004
+  - from: LSN-021
+    relation: constrains
+    to: LSN-005
+  - from: LSN-021
+    relation: constrains
+    to: LSN-006
+  - from: LSN-021
+    relation: constrains
+    to: LSN-011
 validator: scripts/validate_chunking_lesson_index.py

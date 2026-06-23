@@ -1,18 +1,30 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T385 owner decision packet (Codex)
-**Active task:** -> **T385** completed a non-output-changing owner decision packet at
-`.ai/control/t385_owner_decision_packet.yaml` and
-`docs/roadmap/T385_OWNER_DECISION_PACKET.md`. It uses T384/T386/T387/T388/T389/T390 readiness
-evidence to present serious faithful next options, repercussions, risks, and the exact
-recommendation that the owner select **T385-A: Eph.1.3-Eph.1.14 review-packet strengthening only**.
-The recommendation is not owner selection; `owner_selection_status` remains pending. Goal 4 cannot
-strengthen a packet until the owner explicitly selects one T385 option. T385 authorizes no exact
-target selection, reviewed-gold promotion, child spans, chunk output, route/evaluator behavior,
+**Updated by:** T392 Eph.1.3-Eph.1.14 review packet strengthening (Codex)
+**Active task:** -> **T392** completed owner-selected Goal 4 review-packet strengthening for
+`Eph.1.3-Eph.1.14` at
+`eval/chunking_gold/review_packets/eph1_3_14_argument_review.md` and
+`docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`. The strengthened packet records
+contextual reading, source metadata, original-language phrase/context controls, variant/source-
+tradition flags, theological risk flags, audit notes, and a premortem red-team pass. It remains
+pending human review, non-output-changing, non-promoting, and non-authorizing. Goal 5 is next:
+prepare an owner reviewed-gold promotion decision packet before any promotion or implementation.
+T392 authorizes no reviewed-gold promotion, child spans, chunk output, route/evaluator behavior,
 graph/retrieval/vector truth, preferred readings/source traditions, boundary import, canon-scope
 change, theology authority, SQLite database creation, metadata row population, or source text
 import. **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T392 Eph.1.3-Eph.1.14 review packet strengthening (2026-06-23):** Added strengthened
+> evidence and controls to `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`,
+> added `docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`,
+> `scripts/validate_t392_eph1_review_packet_strengthening.py`, and
+> `tests/test_t392_eph1_review_packet_strengthening.py`, and recorded `CD-067` plus `LSN-021`.
+> This completes Goal 4 only. Goal 5 must present exact promotion options, repercussions,
+> theological risks, variant dependency/non-dependency, child-span necessity/denial, and a
+> recommendation. No reviewed gold, chunk output, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, boundary import, preferred reading/source-tradition choice,
+> canon-scope change, or theology authority is authorized.
 
 > **T385 owner decision packet (2026-06-23):** Added
 > `.ai/control/t385_owner_decision_packet.yaml`,

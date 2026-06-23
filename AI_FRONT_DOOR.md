@@ -179,6 +179,15 @@ Bible-first chunking priority:
   route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings or
   source traditions, canon-scope change, theology authority, SQLite database creation, metadata
   row population, or source-text import.
+  T392 is now complete after Lowell selected `T385-A` for Goal 4 only. The strengthened
+  `Eph.1.3-Eph.1.14` packet lives at
+  `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md` and is governed by
+  `docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`,
+  `.ai/tasks/T392.task.yaml`, `CD-067`, `LSN-021`, and
+  `scripts/validate_t392_eph1_review_packet_strengthening.py`. Goal 5 is the next safe step:
+  prepare an owner reviewed-gold promotion decision packet. Do not treat T392 as reviewed gold,
+  output authority, child-span authority, route/evaluator authority, graph/retrieval/vector truth,
+  source-tradition authority, canon-scope authority, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -278,11 +287,11 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently records the completed T385 owner decision
-  packet as the active owner gate from T384/T386/T387/T388/T389/T390 readiness. T385 recommends
-  T385-A but keeps `owner_selection_status` pending; the recommendation is not owner selection and
-  Goal 4 cannot run until Lowell explicitly selects one T385 option. T384/T386/T385 readiness cannot select a
-  target, promote reviewed gold, implement output, add child spans, or change
+  next safe route. It is non-authorizing and currently records T392 as the completed Goal 4
+  review-packet strengthening route from Lowell's `T385-A` selection. The strengthened
+  `Eph.1.3-Eph.1.14` packet is still pending human review and points to Goal 5 owner reviewed-gold
+  promotion decision work next. T384/T386/T385/T392 readiness cannot promote reviewed gold,
+  implement output, add child spans, or change
   route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected

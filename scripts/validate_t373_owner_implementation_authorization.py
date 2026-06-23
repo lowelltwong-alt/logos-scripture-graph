@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, or T385")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, or T392")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -446,6 +446,27 @@ def _validate_links() -> None:
             "retrieval_truth_authorized": False,
             "embedding_or_vector_work_allowed": False,
         }
+    elif next_route.get("task_id") == "T392":
+        expected_next = {
+            "starts_only_if": "explicit_owner_selection_of_T385_A",
+            "route_type": "epistle_argument_review_packet_strengthening",
+            "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+            "completion_status": "complete_review_packet_strengthening_only",
+            "selected_option": "T385-A",
+            "review_packet_strengthened": True,
+            "exact_next_owner_action": "Goal5_owner_reviewed_gold_promotion_decision_packet",
+            "owner_decision_required_before_promotion_or_implementation": True,
+            "exact_target_selected_for_promotion_or_implementation": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
     else:
         expected_next = {
             "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
@@ -481,6 +502,8 @@ def _validate_links() -> None:
         raise T373AuthorizationError(f"{_rel(READINESS)}: T384 must reference CD-060")
     if next_route.get("task_id") == "T385" and "CD-066" not in next_route.get("prior_decision_register_entries", []):
         raise T373AuthorizationError(f"{_rel(READINESS)}: T385 must reference CD-066")
+    if next_route.get("task_id") == "T392" and "CD-067" not in next_route.get("prior_decision_register_entries", []):
+        raise T373AuthorizationError(f"{_rel(READINESS)}: T392 must reference CD-067")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

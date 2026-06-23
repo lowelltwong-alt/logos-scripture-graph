@@ -40,7 +40,7 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
     assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
-    assert by_lane["epistle_argument"]["current_state"] == "t376_a_epistle_research_runway_selected_next_t384_options_matrix"
+    assert by_lane["epistle_argument"]["current_state"] == "t392_eph1_review_packet_strengthened_goal5_promotion_packet_next"
     assert all(
         lane["new_algorithm_work_ready"] is False
         for lane in by_lane.values()
@@ -122,7 +122,7 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_research_queue"]
 
-    assert data["next_route"]["task_id"] == "T385"
+    assert data["next_route"]["task_id"] == "T392"
     assert queue["task_id"] == "T358"
     assert queue["route_type"] == "whole_bible_research_registry"
     assert queue["path"] == ".ai/control/bible_wide_chunking_research_registry.yaml"
@@ -137,7 +137,7 @@ def test_parallel_original_language_pressure_queue_does_not_replace_next_route()
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_original_language_pressure_queue"]
 
-    assert data["next_route"]["task_id"] == "T385"
+    assert data["next_route"]["task_id"] == "T392"
     assert queue["task_id"] == "T377"
     assert queue["route_type"] == "cross_lane_original_language_pressure_memory"
     assert queue["path"] == ".ai/control/orthodox_original_language_pressure_dossier_queue.yaml"
@@ -156,7 +156,7 @@ def test_parallel_textual_critical_policy_options_block_t371_promotion() -> None
     data = validator.validate_readiness_map(READINESS_MAP)
     queue = data["parallel_textual_critical_policy_options"]
 
-    assert data["next_route"]["task_id"] == "T385"
+    assert data["next_route"]["task_id"] == "T392"
     assert queue["task_id"] == "T378"
     assert queue["path"] == ".ai/control/textual_critical_policy_owner_options.yaml"
     assert queue["recommended_option"] == "TCP-T378-B"
@@ -174,7 +174,7 @@ def test_parallel_textual_critical_case_policy_records_t379_without_promotion() 
     data = validator.validate_readiness_map(READINESS_MAP)
     policy = data["parallel_textual_critical_case_policy"]
 
-    assert data["next_route"]["task_id"] == "T385"
+    assert data["next_route"]["task_id"] == "T392"
     assert policy["task_id"] == "T379"
     assert policy["path"] == ".ai/control/textual_critical_case_policy.yaml"
     assert policy["selected_policy"] == "TCP-T378-B"
@@ -191,8 +191,8 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
     packet = data["parallel_t371_owner_decision_packet"]
 
-    assert data["next_route"]["task_id"] == "T385"
-    assert data["next_route"]["owner_packet"] == ".ai/control/t385_owner_decision_packet.yaml"
+    assert data["next_route"]["task_id"] == "T392"
+    assert data["next_route"]["prior_owner_packet"]["owner_packet"] == ".ai/control/t385_owner_decision_packet.yaml"
     assert packet["task_id"] == "T380"
     assert packet["path"] == ".ai/control/t371_variant_dependency_owner_decision_packet.yaml"
     assert packet["target_owner_task"] == "T371"
@@ -211,19 +211,19 @@ def test_parallel_t371_owner_decision_packet_does_not_promote_gold() -> None:
     assert packet["implementation_authorized"] is False
 
 
-def test_next_route_records_completed_t385_owner_packet_and_pending_owner_gate() -> None:
+def test_next_route_records_completed_t392_packet_strengthening_and_goal5_gate() -> None:
     data = validator.validate_readiness_map(READINESS_MAP)
 
-    assert data["next_route"]["task_id"] == "T385"
-    assert data["next_route"]["route_type"] == "owner_decision_packet_only"
-    assert data["next_route"]["starts_only_if"] == "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete"
-    assert data["next_route"]["completion_status"] == "complete_owner_decision_packet_only"
-    assert data["next_route"]["owner_packet"] == ".ai/control/t385_owner_decision_packet.yaml"
-    assert data["next_route"]["roadmap_doc"] == "docs/roadmap/T385_OWNER_DECISION_PACKET.md"
-    assert data["next_route"]["validator"] == "scripts/validate_t385_owner_decision_packet.py"
-    assert data["next_route"]["required_handoff"] == ".ai/handoffs/T385/handoff.md"
-    assert data["next_route"]["decision_register_entry"] == "CD-066"
-    assert data["next_route"]["lesson_index_entry"] == "LSN-020"
+    assert data["next_route"]["task_id"] == "T392"
+    assert data["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert data["next_route"]["starts_only_if"] == "explicit_owner_selection_of_T385_A"
+    assert data["next_route"]["completion_status"] == "complete_review_packet_strengthening_only"
+    assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
+    assert data["next_route"]["roadmap_doc"] == "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md"
+    assert data["next_route"]["validator"] == "scripts/validate_t392_eph1_review_packet_strengthening.py"
+    assert data["next_route"]["required_handoff"] == ".ai/handoffs/T392/handoff.md"
+    assert data["next_route"]["decision_register_entry"] == "CD-067"
+    assert data["next_route"]["lesson_index_entry"] == "LSN-021"
     assert set(data["next_route"]["prior_decision_register_entries"]) == {
         "CD-061",
         "CD-062",
@@ -231,33 +231,29 @@ def test_next_route_records_completed_t385_owner_packet_and_pending_owner_gate()
         "CD-064",
         "CD-065",
         "CD-066",
+        "CD-067",
     }
     assert data["next_route"]["selected_t376_option"] == "T376-A"
     assert data["next_route"]["selected_lane"] == "epistle_argument"
-    assert data["next_route"]["selection_mode"] == "owner_packet_complete_non_authorizing"
-    assert data["next_route"]["owner_decision_required_before_goal_4"] is True
+    assert data["next_route"]["selection_mode"] == "owner_selected_review_packet_strengthening_only"
+    assert data["next_route"]["owner_selection_recorded"] is True
+    assert data["next_route"]["owner_selection_record"] == ".ai/tasks/T392.task.yaml"
+    assert data["next_route"]["goal_4_completed"] is True
     assert data["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
-    assert data["next_route"]["owner_selection_status"] == "pending"
-    assert data["next_route"]["recommended_option"] == "T385-A"
-    assert data["next_route"]["recommended_passage"] == "Eph.1.3-Eph.1.14"
-    assert data["next_route"]["recommendation_is_owner_selection"] is False
-    assert data["next_route"]["exact_target_selected"] is False
-    assert data["next_route"]["goal_4_can_run_after"] == "explicit_owner_selection_of_one_T385_option"
-    assert set(data["next_route"]["serious_faithful_options"]) == {
-        "T385-A",
-        "T385-B",
-        "T385-C",
-        "T385-D",
-        "T385-E",
-        "T385-F",
-        "T385-G",
-        "T385-H",
-        "T385-I",
-    }
+    assert data["next_route"]["selected_option"] == "T385-A"
+    assert data["next_route"]["selected_passage"] == "Eph.1.3-Eph.1.14"
+    assert data["next_route"]["selected_parent_candidate"] == "Eph.1.3-Eph.1.14"
+    assert data["next_route"]["selected_children"] == []
+    assert data["next_route"]["review_packet_strengthened"] is True
+    assert data["next_route"]["review_packet_status"] == "pending_human_review"
+    assert data["next_route"]["exact_target_selected_for_review_packet_strengthening_only"] is True
+    assert data["next_route"]["exact_target_selected_for_promotion_or_implementation"] is False
+    assert data["next_route"]["exact_next_owner_action"] == "Goal5_owner_reviewed_gold_promotion_decision_packet"
+    assert data["next_route"]["next_task"] == "T393"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
     assert data["next_route"]["reviewed_gold_promoted"] is False
-    assert data["next_route"]["review_packet_strengthening_authorized"] is False
+    assert data["next_route"]["review_packet_strengthening_authorized"] is True
     assert data["next_route"]["route_behavior_authorized"] is False
     assert data["next_route"]["child_spans_authorized"] is False
     assert data["next_route"]["evaluator_change_authorized"] is False
@@ -266,14 +262,25 @@ def test_next_route_records_completed_t385_owner_packet_and_pending_owner_gate()
     assert data["next_route"]["preferred_reading_authorized"] is False
     assert data["next_route"]["source_tradition_preference_authorized"] is False
     assert data["next_route"]["theology_authority_change_authorized"] is False
-    assert "T385_recommendation_is_treated_as_owner_selection" in data["next_route"]["must_fail_if"]
-    assert "Goal4_runs_without_explicit_owner_selection" in data["next_route"]["must_fail_if"]
-    assert "T385_strengthens_review_packet_without_owner_selection" in data["next_route"]["must_fail_if"]
-    assert "recommendation_is_not_owner_selection" in data["next_route"]["required_t385_packet_records"]
-    assert "handoff_next_owner_gate" in data["next_route"]["required_t385_packet_records"]
+    assert "T392_owner_selection_is_treated_as_reviewed_gold" in data["next_route"]["must_fail_if"]
+    assert "Goal5_promotion_runs_without_owner_decision_packet" in data["next_route"]["must_fail_if"]
+    prior = data["next_route"]["prior_owner_packet"]
+    assert prior["task_id"] == "T385"
+    assert prior["owner_packet"] == ".ai/control/t385_owner_decision_packet.yaml"
+    assert prior["owner_selection_status"] == "pending"
+    assert prior["recommended_option"] == "T385-A"
+    assert prior["recommendation_is_owner_selection"] is False
 
     by_lane = {lane["lane_id"]: lane for lane in data["lane_sequence"]}
     epistle = by_lane["epistle_argument"]
+    strengthened = epistle["eph1_review_packet_strengthening"]
+    assert strengthened["task_id"] == "T392"
+    assert strengthened["selected_option"] == "T385-A"
+    assert strengthened["selected_children"] == []
+    assert strengthened["review_packet_strengthened"] is True
+    assert strengthened["reviewed_gold_promoted"] is False
+    assert strengthened["output_change_authorized"] is False
+    assert strengthened["next_owner_gate"] == "T393"
     assert epistle["parent_only_evidence_packet"]["task_id"] == "T370"
     assert epistle["parent_only_evidence_packet"]["status"] == "ready_for_owner_promotion_review"
     assert epistle["parent_only_evidence_packet"]["reviewed_gold_promoted"] is False

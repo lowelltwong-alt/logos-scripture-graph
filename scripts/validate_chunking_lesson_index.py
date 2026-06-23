@@ -77,6 +77,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-018",
     "LSN-019",
     "LSN-020",
+    "LSN-021",
 }
 
 REQUIRED_TAGS = {
@@ -126,6 +127,11 @@ REQUIRED_TAGS = {
     "goal4",
     "ephesians",
     "owner-gate",
+    "review-packet-strengthening",
+    "premortem",
+    "red-team",
+    "promotion-gate",
+    "t392",
 }
 
 REQUIRED_SURFACES = {
@@ -142,6 +148,12 @@ REQUIRED_SURFACES = {
     "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
     "scripts/validate_t385_owner_decision_packet.py",
     "tests/test_t385_owner_decision_packet.py",
+    "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+    "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md",
+    ".ai/tasks/T392.task.yaml",
+    ".ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md",
+    "scripts/validate_t392_eph1_review_packet_strengthening.py",
+    "tests/test_t392_eph1_review_packet_strengthening.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
