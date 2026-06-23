@@ -3022,6 +3022,66 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-070
+    title: T395 SQLite source catalog shell seeds only source metadata rows
+    classification: non_authorizing_review
+    task_ids: [T395]
+    owner_decision_ref: ".ai/control/manuscript_source_catalog_sqlite_shell.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [manuscript_witness_reliability, source_catalog_sqlite_shell, dss_biblical_witnesses, nt_papyri_codices, discovery_timeline, evidence_reporting, boundary_routing, doctrine_genealogy_routing, chunking_preflight]
+      surfaces: [.ai/control/manuscript_source_catalog_sqlite_shell.yaml, data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql, data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl, data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml, docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md, AI_TABLE_OF_CONTENTS.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, scripts/validate_manuscript_source_catalog_sqlite_shell.py]
+    decision: "T395 creates a candidate SQLite source-catalog schema shell and seeds only source-family, source-catalog, method-profile, and source-trust-rule rows from T391 official source anchors. Rows are source metadata only and require source URL, method, confidence, provenance, review status, source family, rights/access status, non-authorizing scope labels, and false text-storage flags. Validation loads the schema in in-memory SQLite and proves no forbidden namespace, witness-row population, or canonical_* source-catalog view exists."
+    downstream_risk: "A working SQLite shell can look like permission to create witness rows, import manuscript text, collapse date or coverage uncertainty, select preferred readings, rank source traditions, or turn catalog metadata into graph/retrieval/vector truth or apologetic proof. Future tasks must keep witness facts, textual-critical decisions, source-language graphing, and evidence reports separately scoped and source-reviewed."
+    theological_assumptions_avoided:
+      - "No source row is treated as Scripture text."
+      - "No source-catalog row is treated as a manuscript witness fact row."
+      - "No witness age, catalog count, discovery event, or copy abundance selects a preferred reading."
+      - "No canonical_* table or view carries source-catalog, boundary, commentary, patristic, theologian, doctrine, or apologetic data."
+      - "No commentary, patristic citation, creed wording, theologian writing, non-biblical DSS text, or doctrine lineage is imported into Scripture Graph."
+      - "No graph, retrieval, vector, chunking, reviewed-gold, or route behavior changes are authorized."
+    reviewed_gold_dependency: "None. T395 is source-catalog schema/source-row infrastructure only. Future DSS witness population, NT papyri/codices population, holding-institution rows, catalog witness records, identifier/date/material/coverage/discovery rows, review queues, variant/copy-abundance method profiles, Boundary Literature reception joins, Doctrine Genealogy lineage, graph/retrieval/vector work, chunk-output work, or apologetic reports require separate scoped tasks, validators/tests, source review, and owner authorization where authority could change."
+    non_authorizations:
+      - committed_sqlite_database_file
+      - witness_row_population
+      - holding_institution_row_population
+      - catalog_witness_record_population
+      - witness_identifier_row_population
+      - witness_date_claim_population
+      - witness_material_claim_population
+      - witness_coverage_claim_population
+      - witness_discovery_event_population
+      - review_queue_population
+      - source_text_import
+      - transcription_storage
+      - bible_text_storage
+      - canonical_bible_text_change
+      - canonical_passage_record_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - boundary_import
+      - commentary_as_scripture
+      - patristic_citation_as_scripture_authority
+      - doctrine_genealogy_import
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - apologetic_conclusion_as_truth
+    validators:
+      - scripts/validate_manuscript_source_catalog_sqlite_shell.py
+      - tests/test_manuscript_source_catalog_sqlite_shell.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3130,5 +3190,5 @@ backfill_coverage:
     - T385
     - T392
     - T393
+    - T395
 ...
-

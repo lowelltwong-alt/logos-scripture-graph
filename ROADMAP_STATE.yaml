@@ -1502,8 +1502,59 @@ phases:
           - denomination_development
           - theologian_lineage
           - who_built_theology_on_whom
-        next_manuscript_reliability_step: next_unused_task_id_sqlite_source_catalog_schema_shell_and_curated_source_rows_only
+        next_manuscript_reliability_step: T395_sqlite_source_catalog_schema_shell_and_curated_source_rows_only
         next_chunking_route_remains: T385
+      - id: T395
+        title: SQLite Source Catalog Schema Shell
+        status: complete_source_catalog_seed_only
+        lane: manuscript_witness_reliability
+        owner: codex
+        required_handoff: .ai/handoffs/T395/handoff.md
+        shell: .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+        roadmap_doc: docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md
+        validator: scripts/validate_manuscript_source_catalog_sqlite_shell.py
+        sqlite_artifacts:
+          schema: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+          seed_rows: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+          manifest: data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml
+          committed_database_file: false
+        decision_register_entry: CD-070
+        lesson_index_entry: LSN-024
+        source_catalog_seed_tables:
+          scripture_source_family: 5
+          scripture_source_catalog: 18
+          evidence_source_catalog_method_profile: 5
+          evidence_source_trust_rule: 9
+        empty_shell_tables:
+          - scripture_holding_institution
+          - scripture_catalog_witness_record
+          - scripture_witness_identifier
+          - scripture_witness_date_claim
+          - scripture_witness_material_claim
+          - scripture_witness_coverage_claim
+          - scripture_witness_discovery_event
+          - evidence_catalog_review_queue
+        source_text_import_authorized: false
+        transcription_storage_authorized: false
+        bible_text_storage_authorized: false
+        committed_sqlite_database_file_authorized: false
+        witness_row_population_authorized: false
+        holding_institution_row_population_authorized: false
+        canonical_bible_text_change_authorized: false
+        canonical_passage_record_change_authorized: false
+        textual_critical_decision_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        boundary_import_allowed: false
+        commentary_or_patristic_import_allowed: false
+        doctrine_genealogy_import_allowed: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        apologetic_conclusion_as_truth_authorized: false
+        next_manuscript_reliability_step: T396_dss_biblical_witness_source_row_population_with_official_row_level_urls
+        next_chunking_route_remains: T393_owner_select_one_option_before_promotion
   phase_6:
     title: Lexical and morphology layer
     status: planned
