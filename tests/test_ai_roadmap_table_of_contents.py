@@ -342,7 +342,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "T392 | Eph.1.3-Eph.1.14 review packet strengthening" in toc
     assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in toc
     assert "scripts/validate_t392_eph1_review_packet_strengthening.py" in toc
-    assert "Goal 5 owner reviewed-gold promotion decision packet for Eph.1.3-Eph.1.14" in toc
+    assert "T393 | Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet" in toc
+    assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in toc
+    assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in toc
+    assert "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py" in toc
+    assert "Owner must explicitly select one T393 option before reviewed-gold promotion or Goal 6 harness work." in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

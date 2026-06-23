@@ -251,7 +251,7 @@ def _validate_links() -> None:
         (TASK, ("id: T385", "CD-066", "LSN-020")),
         (HANDOFF, ("task_id: T385", "CD-066", "T385-A")),
         (PROJECT_STATUS, ("T385 owner decision packet", "T385-A")),
-        (CURRENT_FOCUS, ("current_task: T392", PACKET_REL)),
+        (CURRENT_FOCUS, ("current_task: T393", PACKET_REL)),
         (VALIDATE_ALL, ("validate_t385_owner_decision_packet.py",)),
     )
     for path, phrases in linked_requirements:

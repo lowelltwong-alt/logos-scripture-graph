@@ -315,9 +315,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', 'T376', 'T384', 'T385', or 'T392' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', 'T376', 'T384', 'T385', 'T392', or 'T393' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -815,6 +815,29 @@ def validate_owner_selection_implementation_gate(
                     _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
                 if "CD-067" not in next_route.get("prior_decision_register_entries", []):
                     raise OwnerSelectionGateError("readiness.next_route.prior_decision_register_entries must include CD-067")
+                _require_false(next_route, "output_change_authorized", "readiness.next_route")
+                _require_false(next_route, "implementation_authorized", "readiness.next_route")
+                _require_false(next_route, "route_behavior_authorized", "readiness.next_route")
+                _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
+                _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+                _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+            if next_task_id == "T393":
+                expected = {
+                    "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
+                    "starts_only_if": "T392_eph1_review_packet_strengthening_complete",
+                    "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+                    "completion_status": "pending_owner_reviewed_gold_promotion_decision",
+                    "owner_selection_status": "pending",
+                    "recommended_option": "T393-A",
+                    "recommendation_is_owner_selection": False,
+                    "reviewed_gold_promoted": False,
+                    "child_spans_authorized": False,
+                    "embedding_or_vector_work_allowed": False,
+                }
+                for key, value in expected.items():
+                    _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
+                if "CD-068" not in next_route.get("prior_decision_register_entries", []):
+                    raise OwnerSelectionGateError("readiness.next_route.prior_decision_register_entries must include CD-068")
                 _require_false(next_route, "output_change_authorized", "readiness.next_route")
                 _require_false(next_route, "implementation_authorized", "readiness.next_route")
                 _require_false(next_route, "route_behavior_authorized", "readiness.next_route")

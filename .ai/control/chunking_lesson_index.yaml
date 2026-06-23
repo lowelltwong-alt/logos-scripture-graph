@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T392
+last_updated_by_task: T393
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -808,6 +808,56 @@ lessons:
       - scripts/validate_t392_eph1_review_packet_strengthening.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-022
+    title: Reviewed-gold promotion packets are not promotions
+    lifecycle_status: active
+    priority: P0
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, original_language, source_metadata]
+    tags: [reviewed-gold-promotion-decision, promotion-gate, recommendation-not-selection, goal5, t393, epistle, ephesians, owner-gate, non-authorizing, audit, variant-non-dependency, child-span-necessity, source-metadata, original-language, contextual-reading]
+    use_when:
+      - "A future agent prepares or audits an owner reviewed-gold promotion decision packet before the owner explicitly selects an option."
+      - "A no-context reviewer needs to confirm that a recommendation, option list, variant non-dependency assessment, or child-span assessment has not become promotion authority."
+      - "A packet presents Goal 5 reviewed-gold options after packet strengthening and must stop before reviewed gold, output, route behavior, child spans, graph, retrieval, vectors, or theology authority."
+    preflight_stage: before_goal5_promotion_or_goal6_harness
+    source_surfaces:
+      - .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+      - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+      - .ai/tasks/T393.task.yaml
+      - .ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md
+      - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/textual_critical_case_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    related_decision_ids: [CD-068]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T392, T393]
+    downstream_risk: "A reviewed-gold promotion decision packet can look like the promotion itself, especially when it recommends one option and records current-repo variant/source-tradition non-dependency and child-span necessity assessments."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+      - docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md
+    non_authorizations:
+      - recommendation_as_owner_selection
+      - promotion_packet_as_reviewed_gold
+      - variant_non_dependency_assessment_as_universal_textual_critical_claim
+      - child_span_necessity_assessment_as_child_span_authority
+      - parent_span_as_chunk_boundary
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_promotion_packet
+      - theology_authority_from_packet_labels
+    validators:
+      - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -978,6 +1028,27 @@ lesson_graph:
     relation: constrains
     to: LSN-006
   - from: LSN-021
+    relation: constrains
+    to: LSN-011
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-022
+  - from: LSN-020
+    relation: constrains
+    to: LSN-022
+  - from: LSN-021
+    relation: constrains
+    to: LSN-022
+  - from: LSN-022
+    relation: audits
+    to: LSN-010
+  - from: LSN-022
+    relation: constrains
+    to: LSN-006
+  - from: LSN-022
+    relation: constrains
+    to: LSN-008
+  - from: LSN-022
     relation: constrains
     to: LSN-011
 validator: scripts/validate_chunking_lesson_index.py

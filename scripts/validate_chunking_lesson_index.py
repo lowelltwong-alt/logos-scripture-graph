@@ -78,6 +78,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-019",
     "LSN-020",
     "LSN-021",
+    "LSN-022",
 }
 
 REQUIRED_TAGS = {
@@ -132,6 +133,11 @@ REQUIRED_TAGS = {
     "red-team",
     "promotion-gate",
     "t392",
+    "reviewed-gold-promotion-decision",
+    "t393",
+    "goal5",
+    "variant-non-dependency",
+    "child-span-necessity",
 }
 
 REQUIRED_SURFACES = {
@@ -154,6 +160,12 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md",
     "scripts/validate_t392_eph1_review_packet_strengthening.py",
     "tests/test_t392_eph1_review_packet_strengthening.py",
+    ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+    "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
+    ".ai/tasks/T393.task.yaml",
+    ".ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md",
+    "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+    "tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
