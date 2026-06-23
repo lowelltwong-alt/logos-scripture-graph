@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -3082,6 +3082,67 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-071
+    title: T394 promotes Eph.1.3-14 parent-only reviewed gold without implementation authority
+    classification: interpretive_boundary
+    task_ids: [T394]
+    owner_decision_ref: ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [Eph]
+      passages: [Eph.1.3-Eph.1.14]
+      routes: [epistle_argument_reviewed_gold, future_goal6_route_isolation_harness]
+      surfaces: [.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml, .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml, eval/chunking_gold/per_form/epistle_argument_gold_manifest.json, docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md, scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py]
+    decision: "Lowell Wong selected T393-A, promoting only Eph.1.3-Eph.1.14 as parent-only reviewed gold from the strengthened T392 packet. The owner confirmation records exact_internal_variant_refs as empty for current repo evidence, records the parent boundary and reviewed-gold claim as current-repo variant-non-dependent and source-tradition-non-dependent, and records child spans as not necessary now and not authorized."
+    downstream_risk: "Parent-only reviewed gold can be mistaken for a parent chunk-boundary authorization, child-span denial, route/evaluator behavior, graph/retrieval/vector truth, preferred-reading/source-tradition authority, canon-scope change, source/manuscript row work, or theology authority if future agents skip the T394 limits."
+    theological_assumptions_avoided:
+      - "No election, predestination, adoption, redemption, sealing, assurance, union-with-Christ, Trinitarian economy, or ordo-salutis system is selected as chunk authority."
+      - "No Reformed, Arminian, Wesleyan, corporate-election, individual-election, sacramental, or one-denomination systematic theology becomes the boundary rule."
+      - "No child-span outline is promoted or permanently denied."
+      - "No current sidecar silence is treated as universal textual-critical certainty."
+      - "No source paragraph marker, capitalization, Strong's-style tag, or Greek word becomes boundary authority."
+      - "No preferred reading, source-tradition preference, canon-scope change, source/manuscript row creation, or boundary import is selected."
+    reviewed_gold_dependency: "T394 creates the reviewed-gold dependency for later Goal 6 route-isolated harness prep only. Goal 6 may design non-output-changing harnesses for Eph.1.3-Eph.1.14, but implementation, parent-span-as-output-boundary use, route behavior, evaluator behavior, graph/retrieval/vector truth, child spans, source/manuscript rows, or output changes still require separate owner authorization and validators."
+    non_authorizations:
+      - parent_span_as_chunk_boundary
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - permanent_child_span_denial
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - sqlite_database_creation
+      - metadata_row_population
+      - source_or_manuscript_row_population
+      - denominational_systematic_theology_as_chunk_authority
+      - liberal_critical_default
+      - anti_supernatural_default
+      - current_sidecar_silence_as_universal_variant_claim
+      - source_metadata_as_boundary_authority
+      - original_language_word_as_boundary_authority
+      - implementation_authority
+    validators:
+      - scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
+      - tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py
+      - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py
+      - scripts/validate_chunking_gold.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3191,4 +3252,5 @@ backfill_coverage:
     - T392
     - T393
     - T395
+    - T394
 ...

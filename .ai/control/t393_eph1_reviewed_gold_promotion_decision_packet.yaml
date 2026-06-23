@@ -8,7 +8,7 @@ reason_for_inclusion: "Present exact reviewed-gold promotion options, repercussi
 schema_version: t393_reviewed_gold_promotion_owner_decision_packet.v1
 packet_id: t393_eph1_reviewed_gold_promotion_decision_packet
 task_id: T393
-status: pending_owner_decision
+status: resolved_by_t393_a
 owner: Lowell Wong
 created_by: codex
 created_date: "2026-06-23"
@@ -55,13 +55,14 @@ scope:
   original_language_policy: .ai/control/original_language_phrase_context_policy.yaml
   textual_critical_case_policy: .ai/control/textual_critical_case_policy.yaml
 owner_selection:
-  owner_selection_status: pending
-  selected_option: null
-  selected_parent: null
+  owner_selection_status: selected
+  selected_option: T393-A
+  selected_parent: Eph.1.3-Eph.1.14
   selected_children: []
   reviewed_gold_promoted: false
   recommendation_is_owner_selection: false
-  next_owner_action_required: "Owner must explicitly select one T393 option before any reviewed-gold promotion, harness prep, route behavior, implementation, or output change."
+  owner_response_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+  next_owner_action_required: "Owner selection is recorded in T394. Next work is Goal 6 route-isolated harness prep only; no implementation or output change is authorized."
 owner_question:
   decision_id: T393_EPH1_REVIEWED_GOLD_PROMOTION
   exact_question: "Should Eph.1.3-Eph.1.14 be promoted as parent-only reviewed gold from the strengthened T392 packet, with no child spans, no preferred reading, no source-tradition preference, no route/evaluator behavior, no graph/retrieval/vector truth, no implementation, and no output change?"
@@ -77,8 +78,43 @@ owner_question:
     - explicit_non_authorizations
     - decision_register_update
     - validators_tests
-  decision_register_entry_required_if_selected: CD-069_or_later
+  decision_register_entry_required_if_selected: CD-071
   must_stop_if_owner_response_is_ambiguous: true
+owner_response:
+  response_status: selected
+  task_id: T394
+  selected_option: T393-A
+  exact_owner_confirmation: "Maintainer confirmed in chat on 2026-06-23: Authorize T393-A: promote only Eph.1.3-Eph.1.14 as parent-only reviewed gold from the strengthened T392 packet. Confirm exact_internal_variant_refs is empty for current repo evidence. Confirm the parent boundary and reviewed-gold claim are current-repo variant-non-dependent and source-tradition-non-dependent. Confirm child spans are not necessary now and are not authorized."
+  owner_response_record: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+  exact_parent: Eph.1.3-Eph.1.14
+  selected_children: []
+  exact_internal_variant_refs: []
+  boundary_dependency_or_non_dependency: current_repo_variant_non_dependent
+  reviewed_gold_dependency_or_non_dependency: current_repo_variant_non_dependent
+  source_tradition_dependency_or_non_dependency: current_repo_source_tradition_non_dependent
+  child_span_necessity_or_denial: child_spans_not_necessary_now_and_not_authorized
+  parent_only_reviewed_gold_authorized_or_held: authorized_parent_only_reviewed_gold
+  decision_register_update: CD-071
+  validators_tests:
+    - scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
+    - tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py
+  explicit_non_authorizations:
+    - parent_span_as_chunk_boundary
+    - child_span_selection
+    - chunk_output_change
+    - route_behavior_change
+    - evaluator_change
+    - graph_edge_generation
+    - retrieval_truth
+    - embedding_or_vector_work
+    - boundary_import
+    - preferred_reading_selection
+    - source_tradition_preference
+    - canon_scope_change
+    - sqlite_database_creation
+    - metadata_row_population
+    - source_or_manuscript_row_population
+    - theology_authority_change
 packet_evidence_summary:
   review_packet_status: pending_human_review
   strengthened_by_task: T392
@@ -176,7 +212,7 @@ recommendation_for_owner_review:
     - "It moves toward harness readiness while keeping implementation and output fully blocked."
     - "It preserves orthodox interpretive options and refuses hidden liberal-critical, heterodox, or denominational systematic defaults."
   conservative_hold_if_any_doubt: T393-B
-  why_not_auto_select: "This recommendation is not an owner decision. Reviewed gold may not be promoted until Lowell explicitly selects one T393 option and the promotion is recorded in a later governed surface."
+  why_not_auto_select: "This recommendation was not an owner decision by itself. Reviewed gold could not be promoted until Lowell explicitly selected one T393 option and the promotion was recorded in a later governed surface; T394 is that owner-response surface for T393-A."
 required_follow_up_if_t393_a_selected:
   - record_exact_owner_confirmation
   - create_parent_only_reviewed_gold_promotion_record
@@ -192,7 +228,7 @@ required_follow_up_if_t393_b_or_c_or_d_selected:
   - keep_goal6_and_output_work_blocked
 premortem_red_team:
   - failure_mode: "T393-A recommendation is treated as selected owner authorization."
-    fix_before_close: "Keep owner_selection_status pending, reviewed_gold_promoted false, and recommendation_is_owner_selection false."
+    fix_before_close: "Treat T393 as non-selecting by itself; only the separate T394 owner-response record may change owner_selection_status to selected while reviewed_gold_promoted remains false in the T393 packet."
   - failure_mode: "Parent-only promotion is mistaken for child-span denial forever."
     fix_before_close: "Record child spans as not necessary now for parent-only promotion, not permanently denied."
   - failure_mode: "Current sidecar variant silence is treated as universal textual-critical certainty."

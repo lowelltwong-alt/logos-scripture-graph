@@ -52,7 +52,7 @@ def test_t342_is_non_authorizing() -> None:
     assert auth["t327g_allowed"] is False
 
 
-def test_t342_through_t376_remain_complete_while_live_route_points_to_t384() -> None:
+def test_t342_through_t394_remain_complete_while_live_route_points_to_t397() -> None:
     state = load_yaml(ROADMAP_STATE)
     readiness = load_yaml(READINESS)
     tasks = {task["id"]: task for task in state["phases"]["phase_4"]["tasks"]}
@@ -130,22 +130,27 @@ def test_t342_through_t376_remain_complete_while_live_route_points_to_t384() -> 
     assert future["T374"]["status"] == "complete_output_changed_additive_parent_overlay"
     assert future["T375"]["status"] == "complete_review_only_child_spans_not_necessary_now"
     assert future["T376"]["status"] == "complete_selected_research_first_epistle_argument_runway"
-    assert readiness["next_route"]["task_id"] == "T393"
-    assert readiness["next_route"]["route_type"] == "epistle_argument_owner_reviewed_gold_promotion_decision_packet"
-    assert readiness["next_route"]["starts_only_if"] == "T392_eph1_review_packet_strengthening_complete"
+    assert future["T393"]["status"] == "resolved_by_t393_a"
+    assert future["T393"]["selected_option"] == "T393-A"
+    assert future["T394"]["status"] == "complete_parent_only_reviewed_gold_promoted"
+    assert future["T394"]["reviewed_gold_promoted"] is True
+    assert readiness["next_route"]["task_id"] == "T397"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_goal6_route_isolation_harness_prep"
+    assert readiness["next_route"]["starts_only_if"] == "T394_eph1_parent_only_reviewed_gold_promoted"
     assert readiness["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
-    assert readiness["next_route"]["completion_status"] == "pending_owner_reviewed_gold_promotion_decision"
+    assert readiness["next_route"]["completion_status"] == "planned_non_output_changing_harness_only"
     assert readiness["next_route"]["selected_t376_option"] == "T376-A"
     assert readiness["next_route"]["selected_lane"] == "epistle_argument"
     assert readiness["next_route"]["selected_t385_option"] == "T385-A"
+    assert readiness["next_route"]["selected_option"] == "T393-A"
+    assert readiness["next_route"]["reviewed_gold_case_id"] == "eph1_3_14_parent_only_reviewed_gold"
     assert readiness["next_route"]["owner_packet"] == ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
-    assert readiness["next_route"]["recommended_option"] == "T393-A"
-    assert readiness["next_route"]["recommendation_is_owner_selection"] is False
-    assert readiness["next_route"]["exact_next_owner_action"] == "owner_select_one_T393_option_before_promotion"
-    assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
+    assert readiness["next_route"]["promotion_record"] == ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
+    assert readiness["next_route"]["title"] == "Eph.1.3-Eph.1.14 Route-Isolated Harness Prep"
+    assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
-    assert readiness["next_route"]["reviewed_gold_promoted"] is False
+    assert readiness["next_route"]["reviewed_gold_promoted"] is True
     assert readiness["next_route"]["child_spans_authorized"] is False
 
 

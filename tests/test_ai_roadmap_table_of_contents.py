@@ -48,6 +48,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "textual_critical_policy_owner_options.yaml",
         "t371_variant_dependency_owner_decision_packet.yaml",
         "t371_parent_only_reviewed_gold_promotion.yaml",
+        "t394_eph1_parent_only_reviewed_gold_promotion.yaml",
         "t372_route_isolation_harness_plan.yaml",
         "epistle_argument_gold_manifest.json",
         "1cor8_10_epistle_owner_review_docket.yaml",
@@ -86,6 +87,8 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "target-options",
         "t384",
         "t385",
+        "t394",
+        "eph1_3_14_parent_only_reviewed_gold",
         "bible-wide-readiness",
         "research-synthesis",
         "human-decision-map",
@@ -149,6 +152,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`textual-critical-policy`, `owner-options`, `variant-sensitive`, `case-by-case`, `1cor9-20`, `1cor10-9`",
         "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
         "`t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next`",
+        "`t394`, `t393-a`, `reviewed-gold`, `parent-only`, `epistle`, `ephesians`, `eph1_3_14_parent_only_reviewed_gold`",
         "`t372`, `route-isolation`, `non-target-identity`, `harness`, `owner-gate`, `1cor8-10`, `non-authorizing`",
         "`t373`, `implementation-authorization`, `t374-next`, `parent-only`, `parent-first-pilot`, `post-pilot-review`, `child-necessity-review`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
@@ -160,6 +164,8 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "T384 work or an audit needs to know why epistle research/options may continue",
         "Auditing the completed Bible-wide research/readiness synthesis",
         "T385 owner decision packet",
+        "T394 | Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion",
+        "T397 - Route-Isolated Implementation Harness prep",
     ]:
         assert phrase in toc
 
@@ -346,7 +352,11 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in toc
     assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in toc
     assert "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py" in toc
-    assert "Owner must explicitly select one T393 option before reviewed-gold promotion or Goal 6 harness work." in toc
+    assert "T394 | Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion" in toc
+    assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in toc
+    assert "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in toc
+    assert "scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py" in toc
+    assert "T397 - Route-Isolated Implementation Harness prep for Eph.1.3-Eph.1.14 only." in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

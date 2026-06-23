@@ -265,8 +265,8 @@ def _validate_governed_links() -> None:
     if not isinstance(next_route, dict):
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route must be a mapping")
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393"}:
-        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, T375, T376, T384, T385, T392, or T393 after T371-A")
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397"}:
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: next_route.task_id must be T372, T373, T374, T375, T376, T384, T385, T392, T393, or T397 after T371-A")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise OneCorDocketError(
             f"{_rel(READINESS_MAP)}: T372 starts_only_if must be T371_A_parent_only_reviewed_gold_promoted"
@@ -291,7 +291,9 @@ def _validate_governed_links() -> None:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T392 starts_only_if must be explicit_owner_selection_of_T385_A")
     if next_task_id == "T393" and next_route.get("starts_only_if") != "T392_eph1_review_packet_strengthening_complete":
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T393 starts_only_if must be T392_eph1_review_packet_strengthening_complete")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393"}:
+    if next_task_id == "T397" and next_route.get("starts_only_if") != "T394_eph1_parent_only_reviewed_gold_promoted":
+        raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T397 starts_only_if must be T394_eph1_parent_only_reviewed_gold_promoted")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397"}:
         if (
             next_route.get("evidence_packet")
             != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
@@ -410,7 +412,25 @@ def _validate_governed_links() -> None:
                 raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T393.{key} must be {value!r}")
         if "CD-068" not in next_route.get("prior_decision_register_entries", []):
             raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T393 must reference CD-068")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393"} and next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id == "T397":
+        expected_t397 = {
+            "route_type": "epistle_argument_goal6_route_isolation_harness_prep",
+            "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "completion_status": "planned_non_output_changing_harness_only",
+            "owner_selection_status": "selected",
+            "selected_option": "T393-A",
+            "reviewed_gold_promoted": True,
+            "child_spans_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+            "source_or_manuscript_rows_authorized": False,
+        }
+        for key, value in expected_t397.items():
+            if next_route.get(key) != value:
+                raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T397.{key} must be {value!r}")
+        if "CD-071" not in next_route.get("prior_decision_register_entries", []):
+            raise OneCorDocketError(f"{_rel(READINESS_MAP)}: T397 must reference CD-071")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397"} and next_route.get("reviewed_gold_promoted") is not True:
         raise OneCorDocketError(f"{_rel(READINESS_MAP)}: {next_task_id}.reviewed_gold_promoted must be true")
     if next_task_id == "T374":
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
