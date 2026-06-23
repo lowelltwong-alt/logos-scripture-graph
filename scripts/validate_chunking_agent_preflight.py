@@ -45,6 +45,8 @@ T384_RESEARCH_READINESS_SYNTHESIS = ROOT / ".ai" / "control" / "t384_bible_wide_
 T385_OWNER_DECISION_PACKET = ROOT / ".ai" / "control" / "t385_owner_decision_packet.yaml"
 T392_EPH1_REVIEW_PACKET = ROOT / "eval" / "chunking_gold" / "review_packets" / "eph1_3_14_argument_review.md"
 T392_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T392_EPH1_REVIEW_PACKET_STRENGTHENING.md"
+T393_PROMOTION_DECISION_PACKET = ROOT / ".ai" / "control" / "t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
+T393_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
 T386_COVERAGE_SUMMARY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_summary.yaml"
 T386_READINESS_MATRIX = ROOT / ".ai" / "control" / "bible_verse_passage_readiness_matrix.yaml"
@@ -98,7 +100,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -118,6 +120,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-015",
     "LSN-020",
     "LSN-021",
+    "LSN-022",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -221,9 +224,13 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "T385 owner decision packet is complete",
     "t385_owner_decision_packet.yaml",
     "T392",
+    "T393",
     "Eph.1.3-Eph.1.14",
     "Goal 5",
+    "reviewed-gold promotion decision packet",
     "validate_t392_eph1_review_packet_strengthening.py",
+    "t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+    "validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
     "contextual-reading",
     "historical-context",
     "chapter-context",
@@ -417,6 +424,8 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t376_epistle_research_runway.yaml",
         ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
         ".ai/control/t385_owner_decision_packet.yaml",
+        ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+        "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
         ".ai/control/bible_verse_passage_coverage_summary.yaml",
         ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
         ".ai/control/bible_verse_passage_readiness_matrix.yaml",
@@ -920,6 +929,39 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t392_roadmap_text:
             raise PreflightError(f"{_rel(T392_ROADMAP_DOC)}: missing T392 roadmap phrase {phrase!r}")
+    t393_packet_text = _read_text(T393_PROMOTION_DECISION_PACKET)
+    for phrase in (
+        "object_type: reviewed_gold_promotion_owner_decision_packet",
+        "task_id: T393",
+        "status: pending_owner_decision",
+        "owner_selection_status: pending",
+        "reviewed_gold_promoted: false",
+        "recommendation_is_owner_selection: false",
+        "recommended_option_id: T393-A",
+        "exact_internal_variant_refs: []",
+        "variant_dependency_non_authorizing_assessment: current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim",
+        "child_span_necessity_non_authorizing_assessment: child_spans_not_necessary_for_parent_only_reviewed_gold_now",
+        "decision_register_entry: CD-068",
+        "lesson_id: LSN-022",
+        "authorizes_chunk_output_change: false",
+        "authorizes_route_behavior_change: false",
+        "authorizes_graph_edges: false",
+        "authorizes_retrieval_truth: false",
+    ):
+        if phrase not in t393_packet_text:
+            raise PreflightError(f"{_rel(T393_PROMOTION_DECISION_PACKET)}: missing T393 packet phrase {phrase!r}")
+    t393_roadmap_text = _read_text(T393_ROADMAP_DOC)
+    for phrase in (
+        "T393 Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet",
+        "Owner selection status: pending.",
+        "Reviewed gold promoted: false.",
+        "Recommended option: `T393-A`",
+        "T393-A is not selected by this task.",
+        "No chunk output is implemented",
+        "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+    ):
+        if phrase not in t393_roadmap_text:
+            raise PreflightError(f"{_rel(T393_ROADMAP_DOC)}: missing T393 roadmap phrase {phrase!r}")
     t386_summary_text = _read_text(T386_COVERAGE_SUMMARY)
     for phrase in (
         "object_type: bible_verse_passage_coverage_summary",

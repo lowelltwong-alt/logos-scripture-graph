@@ -87,6 +87,10 @@ REQUIRED_LESSON_SURFACES = {
     "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md",
     ".ai/tasks/T392.task.yaml",
     ".ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md",
+    ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+    "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
+    ".ai/tasks/T393.task.yaml",
+    ".ai/audits/reports/20260623-T393-eph1-reviewed-gold-promotion-decision-packet.md",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -197,6 +201,10 @@ ALLOWED_NEXT_ROUTES = {
     "T392": {
         "route_type": "epistle_argument_review_packet_strengthening",
         "title": "Eph.1.3-Eph.1.14 Review Packet Strengthening",
+    },
+    "T393": {
+        "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
+        "title": "Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet",
     },
 }
 
@@ -453,6 +461,134 @@ def _validate_t392_next_route(next_route: dict[str, Any], path: Path) -> None:
         raise ReadinessMapError(f"{_rel(path)}: T392 review_packet_strengthening_authorized must be true")
 
 
+def _validate_t393_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "Eph.1.3-Eph.1.14 Reviewed-Gold Promotion Decision Packet",
+        "starts_only_if": "T392_eph1_review_packet_strengthening_complete",
+        "completion_status": "pending_owner_reviewed_gold_promotion_decision",
+        "selected_t376_option": "T376-A",
+        "selected_lane": "epistle_argument",
+        "selected_t385_option": "T385-A",
+        "selected_passage": "Eph.1.3-Eph.1.14",
+        "selected_parent_candidate": "Eph.1.3-Eph.1.14",
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+        "owner_selection_status": "pending",
+        "recommended_option": "T393-A",
+        "recommendation_is_owner_selection": False,
+        "variant_dependency_non_authorizing_assessment": "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim",
+        "child_span_necessity_non_authorizing_assessment": "child_spans_not_necessary_for_parent_only_reviewed_gold_now",
+        "roadmap_doc": "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
+        "validator": "scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",
+        "required_handoff": ".ai/handoffs/T393/handoff.md",
+        "decision_register_entry": "CD-068",
+        "lesson_index_entry": "LSN-022",
+        "goal_5_packet_prepared": True,
+        "owner_decision_required_before_promotion_or_implementation": True,
+        "reviewed_gold_promoted": False,
+        "next_task_if_owner_selects_promotion": "T394",
+        "exact_next_owner_action": "owner_select_one_T393_option_before_promotion",
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T393 next_route.{key} must be {value!r}")
+    if next_route.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T393 selected_children must be []")
+    if next_route.get("exact_internal_variant_refs") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T393 exact_internal_variant_refs must be []")
+
+    strengthening = next_route.get("prior_strengthening")
+    if not isinstance(strengthening, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T393 prior_strengthening must be a mapping")
+    expected_strengthening = {
+        "task_id": "T392",
+        "review_packet_strengthened": True,
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "roadmap_doc": "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md",
+        "validator": "scripts/validate_t392_eph1_review_packet_strengthening.py",
+        "required_handoff": ".ai/handoffs/T392/handoff.md",
+        "decision_register_entry": "CD-067",
+        "lesson_index_entry": "LSN-021",
+        "selected_option": "T385-A",
+        "reviewed_gold_promoted": False,
+    }
+    for key, value in expected_strengthening.items():
+        if strengthening.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T393 prior_strengthening.{key} must be {value!r}")
+    if strengthening.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T393 prior_strengthening.selected_children must be []")
+
+    prior = next_route.get("prior_owner_packet")
+    if not isinstance(prior, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T393 prior_owner_packet must be a mapping")
+    expected_prior = {
+        "task_id": "T385",
+        "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+        "roadmap_doc": "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
+        "validator": "scripts/validate_t385_owner_decision_packet.py",
+        "owner_selection_status": "pending",
+        "recommended_option": "T385-A",
+        "recommended_passage": "Eph.1.3-Eph.1.14",
+        "recommendation_is_owner_selection": False,
+        "decision_register_entry": "CD-066",
+        "lesson_index_entry": "LSN-020",
+    }
+    for key, value in expected_prior.items():
+        if prior.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T393 prior_owner_packet.{key} must be {value!r}")
+
+    inputs = next_route.get("prior_readiness_inputs")
+    if not isinstance(inputs, list):
+        raise ReadinessMapError(f"{_rel(path)}: T393 prior_readiness_inputs must be a list")
+    input_ids = {item.get("task_id") for item in inputs if isinstance(item, dict)}
+    for required in {"T384", "T386", "T386-docket", "T387", "T388", "T389", "T390", "T385", "T392"}:
+        if required not in input_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T393 prior_readiness_inputs missing {required}")
+
+    prior_entries = set(
+        _require_string_list(next_route.get("prior_decision_register_entries"), "T393 prior_decision_register_entries")
+    )
+    for required in {"CD-061", "CD-062", "CD-063", "CD-064", "CD-065", "CD-066", "CD-067", "CD-068"}:
+        if required not in prior_entries:
+            raise ReadinessMapError(f"{_rel(path)}: T393 prior_decision_register_entries missing {required}")
+
+    must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T393 must_fail_if"))
+    for required in (
+        "T393_recommendation_is_treated_as_owner_selection",
+        "T393_packet_promotes_reviewed_gold_without_owner_authorization",
+        "T393_adds_child_spans",
+        "T393_changes_chunk_output",
+        "T393_changes_route_or_evaluator_behavior",
+        "T393_generates_graph_retrieval_or_vector_truth",
+        "T393_imports_boundary_or_source_tradition_authority",
+        "T393_changes_canon_scope_or_theology_authority",
+        "Goal6_harness_runs_without_owner_promoted_gold",
+    ):
+        if required not in must_fail:
+            raise ReadinessMapError(f"{_rel(path)}: T393 must_fail_if missing {required}")
+
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "review_packet_strengthening_authorized",
+        "route_behavior_authorized",
+        "child_spans_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "theology_authority_change_authorized",
+        "sqlite_database_creation_authorized",
+        "metadata_row_population_authorized",
+    ):
+        if next_route.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T393 next_route.{key} must be false")
+
+
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     data = _read_yaml(path)
     missing = sorted(REQUIRED_TOP_LEVEL - set(data))
@@ -691,6 +827,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         _validate_t385_next_route(next_route, path)
     if task_id == "T392":
         _validate_t392_next_route(next_route, path)
+    if task_id == "T393":
+        _validate_t393_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",

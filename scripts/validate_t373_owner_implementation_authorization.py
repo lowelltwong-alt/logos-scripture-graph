@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, or T392")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, or T393")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -467,6 +467,25 @@ def _validate_links() -> None:
             "retrieval_truth_authorized": False,
             "embedding_or_vector_work_allowed": False,
         }
+    elif next_route.get("task_id") == "T393":
+        expected_next = {
+            "starts_only_if": "T392_eph1_review_packet_strengthening_complete",
+            "route_type": "epistle_argument_owner_reviewed_gold_promotion_decision_packet",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "completion_status": "pending_owner_reviewed_gold_promotion_decision",
+            "owner_selection_status": "pending",
+            "recommended_option": "T393-A",
+            "recommendation_is_owner_selection": False,
+            "reviewed_gold_promoted": False,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+        }
     else:
         expected_next = {
             "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
@@ -504,6 +523,8 @@ def _validate_links() -> None:
         raise T373AuthorizationError(f"{_rel(READINESS)}: T385 must reference CD-066")
     if next_route.get("task_id") == "T392" and "CD-067" not in next_route.get("prior_decision_register_entries", []):
         raise T373AuthorizationError(f"{_rel(READINESS)}: T392 must reference CD-067")
+    if next_route.get("task_id") == "T393" and "CD-068" not in next_route.get("prior_decision_register_entries", []):
+        raise T373AuthorizationError(f"{_rel(READINESS)}: T393 must reference CD-068")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

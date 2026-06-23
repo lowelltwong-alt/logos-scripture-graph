@@ -1,19 +1,29 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T392 Eph.1.3-Eph.1.14 review packet strengthening (Codex)
-**Active task:** -> **T392** completed owner-selected Goal 4 review-packet strengthening for
+**Updated by:** T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (Codex)
+**Active task:** -> **T393** prepared the Goal 5 owner reviewed-gold promotion decision packet for
 `Eph.1.3-Eph.1.14` at
-`eval/chunking_gold/review_packets/eph1_3_14_argument_review.md` and
-`docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md`. The strengthened packet records
-contextual reading, source metadata, original-language phrase/context controls, variant/source-
-tradition flags, theological risk flags, audit notes, and a premortem red-team pass. It remains
-pending human review, non-output-changing, non-promoting, and non-authorizing. Goal 5 is next:
-prepare an owner reviewed-gold promotion decision packet before any promotion or implementation.
-T392 authorizes no reviewed-gold promotion, child spans, chunk output, route/evaluator behavior,
-graph/retrieval/vector truth, preferred readings/source traditions, boundary import, canon-scope
-change, theology authority, SQLite database creation, metadata row population, or source text
-import. **T308** connection discovery + **T309** chunking bake-off still open.
+`.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
+`docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`. Owner selection is still
+pending. Recommended option is `T393-A`, but the recommendation is not owner selection.
+Reviewed gold promoted: false. Chunk output authorized: false. Goal 5 now requires Lowell to
+select exactly one T393 option before any reviewed-gold promotion record or Goal 6 harness work.
+T393 authorizes no reviewed-gold promotion, parent span as chunk boundary, child spans, chunk
+output, route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source
+traditions, boundary import, canon-scope change, theology authority, SQLite database creation,
+metadata row population, or source text import. **T308** connection discovery + **T309** chunking
+bake-off still open.
+
+> **T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet (2026-06-23):** Added
+> `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml`,
+> `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`,
+> `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and
+> `tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py`, and recorded `CD-068` plus
+> `LSN-022`. This prepares Goal 5 only. It recommends `T393-A` for owner review but keeps
+> owner_selection_status pending and reviewed_gold_promoted false. No reviewed gold, chunk output,
+> child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+> reading/source-tradition choice, canon-scope change, or theology authority is authorized.
 
 > **T392 Eph.1.3-Eph.1.14 review packet strengthening (2026-06-23):** Added strengthened
 > evidence and controls to `eval/chunking_gold/review_packets/eph1_3_14_argument_review.md`,

@@ -95,12 +95,12 @@ SURFACE_REQUIREMENTS = {
     REGISTER: {"decision_id: CD-067", "T392 strengthens Eph.1.3-14 review packet without promotion", "task_ids: [T392]"},
     LESSON_INDEX: {"lesson_id: LSN-021", "Review-packet strengthening requires premortem red-team before promotion", "related_decision_ids: [CD-067]"},
     PREFLIGHT: {"CD-067", "LSN-021", "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"},
-    READINESS: {"task_id: T392", "selected_option: T385-A", "review_packet_strengthened: true", "next_task: T393"},
+    READINESS: {"task_id: T393", "prior_strengthening:", "task_id: T392", "selected_option: T385-A", "review_packet_strengthened: true"},
     FRONT_DOOR: {"T392", "Eph.1.3-Eph.1.14", "Goal 5", "validate_t392_eph1_review_packet_strengthening.py"},
     MAIN_TOC: {"t392", "review-packet-strengthening", "eph1_3_14_argument_review.md"},
     ROADMAP_TOC: {"T392 | Eph.1.3-Eph.1.14 review packet strengthening", "T392_EPH1_REVIEW_PACKET_STRENGTHENING.md"},
     ROADMAP_STATE: {"id: T392", "status: complete_review_packet_strengthening_only", "next_task: T393"},
-    CURRENT_FOCUS: {"current_task: T392", "Goal 5 owner reviewed-gold promotion decision packet"},
+    CURRENT_FOCUS: {"current_task: T393", "t393_eph1_reviewed_gold_promotion_decision_packet.yaml"},
     PROJECT_STATUS: {"T392 Eph.1.3-Eph.1.14 review packet strengthening", "Goal 5"},
 }
 
