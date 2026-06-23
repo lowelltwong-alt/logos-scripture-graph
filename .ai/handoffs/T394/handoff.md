@@ -56,6 +56,7 @@
 - scripts/validate_chunking_agent_preflight.py
 - scripts/validate_bible_chunking_readiness_map.py
 - scripts/validate_chunking_lesson_index.py
+- scripts/validate_1cor8_10_parent_evidence_packet.py
 - scripts/validate_all.py
 - tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py
 - tests/test_t393_eph1_reviewed_gold_promotion_decision_packet.py
@@ -76,6 +77,7 @@
 - Recorded child spans as not necessary now and not authorized.
 - Added `CD-071` and `LSN-025` for future transparency, audit, downstream effects, and dependency checks.
 - Kept Goal 6 as a later non-output-changing route-isolated harness step.
+- Updated the older T370/1Cor.8-10 evidence validator so it accepts T397 as a later non-output-changing Ephesians harness route after T394.
 
 ## Validation run
 
@@ -89,6 +91,8 @@
 - result: passed
 - command: `python scripts/validate_bible_chunking_readiness_map.py`
 - result: passed
+- command: `python scripts/validate_1cor8_10_parent_evidence_packet.py`
+- result: passed after CI reproduction with regenerated canonical sidecars
 - command: `python scripts/validate_chunking_theological_decision_register.py`
 - result: passed
 - command: `python scripts/validate_task_scope.py --task-id T394`
@@ -101,10 +105,14 @@
 - result: passed
 - command: `python -m pytest -q tests/test_t342_revelation_candidate_selection.py tests/test_t343_revelation_review_packet.py tests/test_t344_revelation_owner_selection.py`
 - result: passed
+- command: `python pipelines/ingest/usfm_importer.py --canonical-66-filter`
+- result: regenerated canonical sidecars locally to reproduce the GitHub Actions validation environment
+- command: `python -m pytest -q tests/test_1cor8_10_parent_evidence_packet.py tests/test_t394_eph1_parent_only_reviewed_gold_promotion.py`
+- result: passed
 - command: `python scripts/validate_all.py`
-- result: T394/T397 route, register, readiness, handoff, and governance validators passed; current separate worktree still lacks generated canonical sidecars required by earlier validators (`word_tokens.jsonl`, `editorial_cross_references.jsonl`, `passages.jsonl`, `translation_witnesses.jsonl`), so the aggregate suite is not green in this worktree.
+- result: passed after CI reproduction with regenerated canonical sidecars
 - command: `python -m pytest -q`
-- result: completed in 4:08 with 537 passed, 17 skipped, 20 failed, and 10 errors; the remaining failures are sidecar-dependent test families plus `test_control_plane.py::test_validate_all_suite`, all blocked by the same missing generated canonical sidecars in this isolated worktree. No T342/T343/T344/T394 route failures remain.
+- result: earlier clean-worktree run without generated canonical sidecars completed in 4:08 with 537 passed, 17 skipped, 20 failed, and 10 errors; after CI sidecar regeneration, the targeted sidecar-dependent T370/T394 pytest passed. Full pytest was not rerun end-to-end after the CI reproduction because `validate_all` covered the failing gate and passed.
 
 ## Known risks
 
