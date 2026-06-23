@@ -34,6 +34,7 @@ Read these files before making changes:
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
+    T398 phase-one whole-corpus research synthesis,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -75,7 +76,11 @@ Read these files before making changes:
 14. Before repo-wide validation, `python scripts/validate_all.py`, or `python -m pytest -q`:
     `.ai/control/test_runtime_preflight.yaml`. It records known slow commands, including full
     pytest needing a timeout of at least `600000` ms in this worktree, and requires focused/split
-    tests plus full-suite rerun rather than treating a tool timeout as green.
+    tests plus full-suite rerun rather than treating a tool timeout as green. T398 also observed
+    local desktop `python -m pytest -q` timing out after a requested `900000` ms and a 25-file
+    batch spawning nested `pytest`/`validate_all.py` helpers; run `validate_all.py` separately,
+    split local pytest by small domain or single file when needed, and record timeout evidence in
+    the handoff.
 15. `config/agents/agent_roles.yaml`
 16. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
 17. The specific files in the task scope.
@@ -202,6 +207,15 @@ Bible-first chunking priority:
   boundary import, preferred reading/source tradition, canon-scope change, source/manuscript row
   creation, SQLite database creation, metadata row population, implementation, or theology
   authority. The next safe step is only a later Goal 6 route-isolated harness task (`T397`).
+  T398 now records the phase-one whole-corpus research synthesis at
+  `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
+  `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
+  passage is accounted for at triage depth and every canonical book at registry depth, but it does
+  not mean every verse has been deeply exegeted. It creates Goal 2 focused research prompts and
+  does not supersede T397 or authorize targets, reviewed gold, child spans, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, source-tradition
+  preference, canon-scope change, source/manuscript rows, whole-Bible output, or theology
+  authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -269,6 +283,15 @@ Bible-first chunking priority:
   reviewed gold, authorize child spans, change output, alter route/evaluator behavior, create
   graph/retrieval/vector truth, import boundaries, select preferred readings/source traditions,
   change canon scope, or authorize theology claims.
+- The T398 phase-one whole-corpus research synthesis at
+  `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml` records that every canonical
+  passage is accounted for at triage depth and every canonical book at registry depth, while
+  explicitly denying that every verse has been deeply exegeted. It is validated by
+  `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py` and provides Goal 2 focused
+  research prompts. It does not select targets, promote reviewed gold, authorize child spans,
+  change output, alter route/evaluator behavior, create graph/retrieval/vector truth, import
+  boundaries, select preferred readings/source traditions, change canon scope, create
+  source/manuscript rows, run whole-Bible output, or authorize theology claims.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical

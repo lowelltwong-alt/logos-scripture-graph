@@ -1,0 +1,97 @@
+id: T398
+phase: phase_4
+title: "Bible-Wide Phase-One Research Synthesis"
+mode: build
+status: complete_phase_one_whole_corpus_research_synthesis
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/tasks/T398.task.yaml
+    - .ai/handoffs/T398/
+    - .ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
+    - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_test_runtime_preflight.py
+    - scripts/validate_all.py
+    - tests/test_t398_bible_wide_phase_one_research_synthesis.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_chunking_theological_decision_register.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_test_runtime_preflight.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: whole_corpus_phase_one_research_synthesis
+  decision_register_entry: CD-072
+  lesson_index_entry: LSN-026
+  phase_one_complete: true
+  every_canonical_passage_accounted_for_at_triage_depth: true
+  every_verse_deeply_researched: false
+  output_change_authorized: false
+  implementation_authorized: false
+  exact_target_selected: false
+  reviewed_gold_promoted: false
+  child_spans_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_retrieval_truth_authorized: false
+  boundary_import_allowed: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  source_or_manuscript_rows_authorized: false
+acceptance_criteria:
+  - "T398 records a phase-one whole-corpus synthesis from T384/T386 and the 66-book registry."
+  - "The synthesis explicitly distinguishes triage coverage from deep verse-by-verse exegesis."
+  - "The synthesis records human decision prompts for Goal 2 focused research."
+  - "Preflight, readiness map, decision register, lesson index, TOCs, status, roadmap, audit, and handoff surfaces make T398 discoverable."
+  - "T397 remains the next route and T398 stays parallel, research-only, and non-output-changing."
+  - "No raw/canonical/generated chunk, route, evaluator, graph, retrieval, source-row, or output files are touched."
+validation:
+  - python scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_test_runtime_preflight.py
+  - python scripts/validate_task_scope.py --task-id T398
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T398/handoff.md
+next_task: "Goal 2 focused Bible-wide research queue using T398 prompts, while T397 remains the current route-isolated harness prep next route."
+created_at: "2026-06-23"
+updated_at: "2026-06-23"

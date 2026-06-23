@@ -71,6 +71,12 @@ lessons_storage:
     - docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
     - .ai/tasks/T394.task.yaml
     - .ai/audits/reports/20260623-T394-eph1-parent-only-reviewed-gold-promotion.md
+    - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+    - docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
+    - .ai/tasks/T398.task.yaml
+    - .ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md
+    - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+    - tests/test_t398_bible_wide_phase_one_research_synthesis.py
     - .ai/control/bible_verse_passage_coverage_inventory.jsonl
     - .ai/control/bible_verse_passage_coverage_taxonomy.yaml
     - .ai/control/bible_verse_passage_coverage_summary.yaml
@@ -674,6 +680,39 @@ next_route:
   sqlite_database_creation_authorized: false
   metadata_row_population_authorized: false
   source_or_manuscript_rows_authorized: false
+parallel_t398_phase_one_research_synthesis:
+  task_id: T398
+  title: Bible-Wide Phase-One Research Synthesis
+  route_type: whole_corpus_phase_one_research_synthesis
+  path: .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+  roadmap_doc: docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
+  status: complete_phase_one_whole_corpus_research_synthesis
+  relation_to_next_route: "Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output."
+  corpus_scope: canonical_66
+  canonical_book_count: 66
+  canonical_passage_count: 31103
+  every_canonical_passage_accounted_for_at_triage_depth: true
+  every_verse_deeply_researched: false
+  decision_register_entry: CD-072
+  lesson_index_entry: LSN-026
+  next_goal_prompt: "Goal 2 focused Bible-wide research queue using T398 prompts."
+  output_change_authorized: false
+  implementation_authorized: false
+  exact_target_selected: false
+  reviewed_gold_promoted: false
+  child_spans_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+  whole_bible_output_authorized: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  source_or_manuscript_rows_authorized: false
+  theology_authority_change_authorized: false
 parallel_research_queue:
   task_id: T358
   title: Bible-Wide Chunking Research Registry
@@ -906,6 +945,7 @@ update_triggers:
   - t392_eph1_review_packet_strengthening_change
   - t393_eph1_reviewed_gold_promotion_decision_packet_change
   - t394_eph1_parent_only_reviewed_gold_promotion_change
+  - t398_phase_one_research_synthesis_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration

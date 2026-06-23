@@ -82,6 +82,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-023",
     "LSN-024",
     "LSN-025",
+    "LSN-026",
 }
 
 REQUIRED_TAGS = {
@@ -159,6 +160,13 @@ REQUIRED_TAGS = {
     "source-tradition-non-dependency",
     "implementation-blocked",
     "non-output-changing",
+    "phase-one-research",
+    "whole-corpus",
+    "triage-not-exegesis",
+    "goal2",
+    "focused-research",
+    "human-decision-prompts",
+    "t398",
 }
 
 REQUIRED_SURFACES = {
@@ -226,6 +234,13 @@ REQUIRED_SURFACES = {
     ".ai/control/owner_decision_projection_policy.yaml",
     ".ai/control/t373_owner_implementation_authorization.yaml",
     ".ai/control/t375_post_pilot_review.yaml",
+    ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
+    "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
+    ".ai/tasks/T398.task.yaml",
+    ".ai/handoffs/T398/handoff.md",
+    ".ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md",
+    "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py",
+    "tests/test_t398_bible_wide_phase_one_research_synthesis.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",

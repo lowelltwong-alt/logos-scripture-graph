@@ -82,6 +82,8 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t385_owner_decision_packet.yaml" in surfaces
     assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in surfaces
     assert "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in surfaces
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in surfaces
+    assert "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -133,6 +135,31 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     assert queue["output_change_authorized"] is False
     assert queue["implementation_authorized"] is False
     assert queue["reviewed_gold_promoted"] is False
+
+
+def test_parallel_t398_phase_one_synthesis_does_not_replace_next_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    synthesis = data["parallel_t398_phase_one_research_synthesis"]
+
+    assert data["next_route"]["task_id"] == "T397"
+    assert synthesis["task_id"] == "T398"
+    assert synthesis["route_type"] == "whole_corpus_phase_one_research_synthesis"
+    assert synthesis["path"] == ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml"
+    assert synthesis["status"] == "complete_phase_one_whole_corpus_research_synthesis"
+    assert synthesis["relation_to_next_route"] == "Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output."
+    assert synthesis["canonical_book_count"] == 66
+    assert synthesis["canonical_passage_count"] == 31103
+    assert synthesis["every_canonical_passage_accounted_for_at_triage_depth"] is True
+    assert synthesis["every_verse_deeply_researched"] is False
+    assert synthesis["decision_register_entry"] == "CD-072"
+    assert synthesis["lesson_index_entry"] == "LSN-026"
+    assert synthesis["output_change_authorized"] is False
+    assert synthesis["implementation_authorized"] is False
+    assert synthesis["exact_target_selected"] is False
+    assert synthesis["reviewed_gold_promoted"] is False
+    assert synthesis["graph_edge_generation_allowed"] is False
+    assert synthesis["retrieval_truth_authorized"] is False
+    assert synthesis["whole_bible_output_authorized"] is False
 
 
 def test_parallel_original_language_pressure_queue_does_not_replace_next_route() -> None:
