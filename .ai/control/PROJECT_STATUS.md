@@ -1,19 +1,36 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-22
-**Updated by:** T391 manuscript source catalog research packet (Codex)
-**Active task:** -> **T391** completed a source-metadata-only manuscript source catalog research
-packet at `docs/roadmap/T391_MANUSCRIPT_SOURCE_CATALOG_RESEARCH_PACKET.md`. It curates official
-source anchors for biblical manuscript reliability metadata, records source-family taxonomy, DSS
-biblical witness packet, NT papyri/codices packet, discovery timeline source anchors, open
-questions, blocked claims, and the next goal prompt. T391 creates no SQLite database, imports no
-manuscript text, stores no transcription or Bible text, populates no source or witness rows,
-selects no preferred readings/source traditions, changes no canonical Bible text or passage records,
-and authorizes no chunk output, reviewed gold, graph/retrieval/vector truth, boundary import,
-Doctrine Genealogy import, or apologetic conclusion as authority. The next manuscript-reliability
-step is **T392 SQLite source-catalog schema shell plus curated source rows only**. The exact next
+**Last updated:** 2026-06-23
+**Updated by:** T392 SQLite source catalog schema shell (Codex)
+**Active task:** -> **T392** completed a source-catalog SQLite schema shell and source-only seed
+rows at `docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md`. It creates text artifacts under
+`data/candidate/source_catalog/manuscript_reliability/sqlite/`: `schema.sql`, `seed_rows.jsonl`,
+and `manifest.yaml`, plus `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`. It seeds only
+`scripture_source_family`, `scripture_source_catalog`, `evidence_source_catalog_method_profile`,
+and `evidence_source_trust_rule` rows from the T391 official source anchors. T392 commits no binary
+SQLite database, imports no source text, stores no transcription or Bible text, populates no witness
+rows, date/material/coverage/discovery rows, or review-queue rows, selects no preferred readings or
+source traditions, changes no canonical Bible text or passage records, and authorizes no chunk
+output, reviewed gold, graph/retrieval/vector truth, boundary import, Doctrine Genealogy import, or
+apologetic conclusion as authority. The next manuscript-reliability step is **T393 tiny DSS
+biblical witness source-row population** only after T391/T392 are on live main. The exact next
 chunking step remains **T385 owner decision packet** using T384/T386/T387/T388/T389 evidence.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T392 SQLite source catalog schema shell (2026-06-23):** Added
+> `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/manifest.yaml`,
+> `docs/roadmap/T392_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md`,
+> `scripts/validate_manuscript_source_catalog_sqlite_shell.py`, and
+> `tests/test_manuscript_source_catalog_sqlite_shell.py`. T392 validates the schema in in-memory
+> SQLite, proves 12 tables load, seeds exactly 37 source-only rows, keeps 8 future witness/review
+> tables empty, records `CD-067` and `LSN-021`, and forbids `canonical_*`, `boundary_*`, and
+> `doctrine_*` source-catalog objects. It authorizes no witness row population, source text import,
+> transcription storage, Bible text storage, preferred readings, source-tradition preference,
+> graph/retrieval/vector truth, Boundary Literature import, Doctrine Genealogy import, chunk output,
+> or apologetic conclusion as Scripture authority.
 
 > **T391 manuscript source catalog research packet (2026-06-22):** Added
 > `.ai/control/manuscript_source_catalog_research_packet.yaml`,
