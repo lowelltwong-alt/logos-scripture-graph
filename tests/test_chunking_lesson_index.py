@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 25)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 26)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -83,6 +83,14 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql" in by_id["LSN-024"]["source_surfaces"]
     assert "docs/roadmap/T395_SQLITE_SOURCE_CATALOG_SCHEMA_SHELL.md" in by_id["LSN-024"]["source_surfaces"]
     assert "CD-070" in by_id["LSN-024"]["related_decision_ids"]
+    assert "dss-biblical-witness-rows" in by_id["LSN-025"]["tags"]
+    assert "great-isaiah-scroll" in by_id["LSN-025"]["tags"]
+    assert "witness-row-population" in by_id["LSN-025"]["tags"]
+    assert "t396" in by_id["LSN-025"]["tags"]
+    assert ".ai/control/dss_biblical_witness_source_rows.yaml" in by_id["LSN-025"]["source_surfaces"]
+    assert "data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl" in by_id["LSN-025"]["source_surfaces"]
+    assert "docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md" in by_id["LSN-025"]["source_surfaces"]
+    assert "CD-071" in by_id["LSN-025"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

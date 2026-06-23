@@ -1555,6 +1555,60 @@ phases:
         apologetic_conclusion_as_truth_authorized: false
         next_manuscript_reliability_step: T396_dss_biblical_witness_source_row_population_with_official_row_level_urls
         next_chunking_route_remains: T393_owner_select_one_option_before_promotion
+      - id: T396
+        title: DSS Biblical Witness Source Rows
+        status: complete_great_isaiah_exemplar_rows
+        lane: manuscript_witness_reliability
+        owner: codex
+        required_handoff: .ai/handoffs/T396/handoff.md
+        control: .ai/control/dss_biblical_witness_source_rows.yaml
+        roadmap_doc: docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md
+        validator: scripts/validate_dss_biblical_witness_source_rows.py
+        sqlite_artifacts:
+          schema: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+          source_seed_rows: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+          population_rows: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl
+          population_manifest: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml
+          committed_database_file: false
+        decision_register_entry: CD-071
+        lesson_index_entry: LSN-025
+        witness_scope:
+          allowed_witness_ids:
+            - dss_great_isaiah_scroll_1qisa
+          additional_witnesses_authorized: false
+        populated_tables:
+          scripture_holding_institution: 1
+          scripture_catalog_witness_record: 1
+          scripture_witness_identifier: 2
+          scripture_witness_date_claim: 1
+          scripture_witness_material_claim: 1
+          scripture_witness_coverage_claim: 1
+          scripture_witness_discovery_event: 1
+          evidence_catalog_review_queue: 1
+        source_text_import_authorized: false
+        transcription_storage_authorized: false
+        bible_text_storage_authorized: false
+        image_ingestion_authorized: false
+        image_derived_text_authorized: false
+        committed_sqlite_database_file_authorized: false
+        general_witness_row_population_authorized: false
+        additional_dss_witnesses_authorized_without_later_task: false
+        canonical_bible_text_change_authorized: false
+        canonical_passage_record_change_authorized: false
+        textual_critical_decision_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        non_biblical_dss_import_allowed: false
+        boundary_import_allowed: false
+        commentary_or_patristic_import_allowed: false
+        doctrine_genealogy_import_allowed: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        apologetic_conclusion_as_truth_authorized: false
+        next_manuscript_reliability_step: T397_nt_papyri_codices_tiny_metadata_only_exemplar_rows
+        next_chunking_route_remains: T393_owner_select_one_option_before_promotion
   phase_6:
     title: Lexical and morphology layer
     status: planned

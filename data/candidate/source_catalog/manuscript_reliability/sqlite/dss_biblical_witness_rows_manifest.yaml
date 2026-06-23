@@ -1,0 +1,78 @@
+object_type: dss_biblical_witness_rows_manifest
+trust_zone: candidate
+lifecycle_status: active
+provenance_note: "Created 2026-06-23 during T396 from official Israel Museum and IAA/Leon Levy anchors routed by T391/T395."
+reason_for_inclusion: "Declare the tiny metadata-only DSS biblical witness population file for the Great Isaiah Scroll exemplar without storing Bible text, transcription text, source text, images, preferred readings, or apologetic conclusions as authority."
+schema_version: dss_biblical_witness_source_rows.v1
+manifest_id: t396_dss_biblical_witness_rows_manifest
+task_id: T396
+status: active_great_isaiah_exemplar_rows
+schema_file: data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql
+source_seed_file: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+population_file: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl
+control_file: .ai/control/dss_biblical_witness_source_rows.yaml
+source_packet: .ai/control/manuscript_source_catalog_research_packet.yaml
+sqlite_shell: .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+allowed_witness_ids:
+  - dss_great_isaiah_scroll_1qisa
+allowed_population_tables:
+  scripture_holding_institution: 1
+  scripture_catalog_witness_record: 1
+  scripture_witness_identifier: 2
+  scripture_witness_date_claim: 1
+  scripture_witness_material_claim: 1
+  scripture_witness_coverage_claim: 1
+  scripture_witness_discovery_event: 1
+  evidence_catalog_review_queue: 1
+allowed_source_urls:
+  - "https://dss.collections.imj.org.il/isaiah"
+  - "https://www.imj.org.il/en/collections/198208-0"
+  - "https://www.deadseascrolls.org.il/learn-about-the-scrolls/discovery-and-publication"
+common_required_row_fields:
+  - source_url
+  - method
+  - confidence
+  - provenance_note
+  - review_status
+  - source_family
+  - rights_access_status
+  - non_authorizing_scope_label
+  - stores_scripture_text
+  - stores_transcription_text
+  - stores_boundary_text
+forbidden_row_keys:
+  - scripture_text
+  - transcription_text
+  - bible_text
+  - source_text
+  - reading_text
+  - preferred_reading
+  - commentary_text
+  - patristic_text
+  - theologian_text
+  - creed_wording
+  - image_path
+  - image_text
+non_authorizations:
+  - additional_witness_population_without_later_task
+  - committed_sqlite_database_file
+  - source_text_import
+  - transcription_storage
+  - bible_text_storage
+  - image_ingestion
+  - image_derived_text
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - non_biblical_dss_import
+  - boundary_import
+  - commentary_or_patristic_import
+  - doctrine_genealogy_import
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+validation:
+  validator: scripts/validate_dss_biblical_witness_source_rows.py
+  tests: tests/test_dss_biblical_witness_source_rows.py
+  sqlite_validation_mode: in_memory_from_t395_schema_seed_and_t396_rows

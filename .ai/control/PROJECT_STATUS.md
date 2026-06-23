@@ -1,7 +1,7 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T395 SQLite source catalog schema shell (Codex)
+**Updated by:** T396 DSS biblical witness source rows (Codex)
 **Active task:** -> **T393** prepared the Goal 5 owner reviewed-gold promotion decision packet for
 `Eph.1.3-Eph.1.14` at
 `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml` and
@@ -14,6 +14,23 @@ output, route/evaluator behavior, graph/retrieval/vector truth, preferred readin
 traditions, boundary import, canon-scope change, theology authority, SQLite database creation,
 metadata row population, or source text import. **T308** connection discovery + **T309** chunking
 bake-off still open.
+
+> **T396 DSS biblical witness source rows (2026-06-23):** Added
+> `.ai/control/dss_biblical_witness_source_rows.yaml`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml`,
+> `docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md`,
+> `scripts/validate_dss_biblical_witness_source_rows.py`, and
+> `tests/test_dss_biblical_witness_source_rows.py`. T396 loads the T395 schema and source seed
+> rows in in-memory SQLite, then populates exactly nine metadata-only Great Isaiah Scroll exemplar
+> rows across holding-institution, witness-record, identifier, date, material, coverage, discovery,
+> and review-queue tables. It records `CD-071` and `LSN-025`, preserves candidate/blocked status
+> for date/material/coverage/shelfmark/script/rights normalization, and validates official source
+> URLs routed through T391/T395. It authorizes no additional witness population without a later
+> task, committed SQLite database file, source text import, transcription storage, Bible text
+> storage, image ingestion, preferred reading, source-tradition preference, non-biblical DSS import,
+> boundary import, doctrine lineage import, graph/retrieval/vector truth, chunk output, or
+> apologetic conclusion as Scripture authority.
 
 > **T395 SQLite source catalog schema shell (2026-06-23):** Added
 > `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,
