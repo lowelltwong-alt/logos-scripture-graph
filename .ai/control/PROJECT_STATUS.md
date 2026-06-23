@@ -1,18 +1,32 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion (Codex)
-**Active task:** -> **T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion** records Lowell's
-owner selection of `T393-A` at `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`.
-Only `Eph.1.3-Eph.1.14` is promoted as parent-only reviewed gold. `exact_internal_variant_refs`
-is empty; the parent boundary and reviewed-gold claim are current-repo variant-non-dependent and
-source-tradition-non-dependent. Child spans are not necessary now and are not authorized. T394
-authorizes no chunk output, implementation, parent span as chunk boundary, child spans,
-route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source traditions,
-boundary import, canon-scope change, source/manuscript row creation, SQLite database creation,
-metadata row population, source text import, or theology authority. The next chunking step is
-**T397** Goal 6 route-isolated harness prep only. **T308** connection discovery + **T309**
+**Updated by:** T398 Bible-wide phase-one research synthesis (Codex)
+**Active task:** -> **T398 Bible-wide phase-one research synthesis** records a deterministic
+phase-one whole-corpus synthesis at `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`.
+Every canonical passage is accounted for at T386 triage depth and every canonical book is accounted
+for at registry depth, but every verse has not been deeply exegeted. T398 creates Goal 2 focused
+research human-decision prompts and authorizes no exact target selection, reviewed gold, child
+spans, chunk output, implementation, route/evaluator behavior, graph/retrieval/vector truth,
+boundary import, preferred readings/source traditions, canon-scope change, source/manuscript rows,
+whole-Bible output, or theology authority. The current chunking route remains **T397** Goal 6
+route-isolated harness prep only for `Eph.1.3-Eph.1.14`. **T308** connection discovery + **T309**
 chunking bake-off still open.
+
+> **T398 Bible-wide phase-one research synthesis (2026-06-23):** Added
+> `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`,
+> `docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md`,
+> `.ai/tasks/T398.task.yaml`, `.ai/handoffs/T398/handoff.md`,
+> `.ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md`,
+> `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`, and
+> `tests/test_t398_bible_wide_phase_one_research_synthesis.py`; updated preflight, the decision
+> register, lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and
+> recorded `CD-072` plus `LSN-026`. T398 proves whole-corpus accounting at triage/registry depth,
+> not deep verse-by-verse exegesis. It turns the T384/T386 findings into Goal 2 focused-research
+> prompts and keeps T397 as the next harness route. Not authorized: target selection, reviewed
+> gold, child spans, output, route/evaluator behavior, graph/retrieval/vector truth, boundary
+> import, preferred reading/source-tradition choice, canon-scope change, source/manuscript row
+> creation, whole-Bible output, or theology authority.
 
 > **T395 SQLite source catalog schema shell (2026-06-23):** Added
 > `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,

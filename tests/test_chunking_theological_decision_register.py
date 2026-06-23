@@ -56,6 +56,21 @@ def test_full_backfill_coverage_has_no_missing_task_ids() -> None:
     assert "T348" in covered
     assert "T341" in covered
     assert "T327D" in covered
+    assert "T398" in covered
+
+
+def test_t398_phase_one_research_decision_is_backfilled() -> None:
+    data = load_register()
+    by_id = {entry["decision_id"]: entry for entry in data["decisions"]}
+
+    decision = by_id["CD-072"]
+    assert decision["classification"] == "non_authorizing_review"
+    assert decision["task_ids"] == ["T398"]
+    assert decision["affected_scope"]["books"] == ["canonical_66"]
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in decision["affected_scope"]["surfaces"]
+    assert "every verse has not been deeply exegeted" in decision["decision"]
+    assert "chunk_output_change" in decision["non_authorizations"]
+    assert "whole_bible_output_pass" in decision["non_authorizations"]
 
 
 def test_changed_path_gate_requires_register_update_for_chunking_paths() -> None:

@@ -26,6 +26,11 @@ REQUIRED_PROFILES = {
         "minimum_timeout_ms": 300000,
         "required_phrases": ["2 minutes", "full canonical data"],
     },
+    "pytest_full_suite_local_desktop_t398": {
+        "command": "python -m pytest -q",
+        "minimum_timeout_ms": 1200000,
+        "required_phrases": ["900000 ms", "nested pytest/validate_all"],
+    },
 }
 
 REQUIRED_AUTHORITY_FALSE = {

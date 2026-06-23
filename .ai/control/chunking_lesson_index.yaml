@@ -1011,6 +1011,67 @@ lessons:
       - scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-026
+    title: Phase-one whole-corpus research is triage, not deep verse exegesis
+    lifecycle_status: active
+    priority: P0
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, contextual_reading, source_metadata, original_language]
+    tags: [phase-one-research, whole-corpus, canonical-66, triage-not-exegesis, goal2, focused-research, human-decision-prompts, t398, bible-wide-readiness, research-synthesis, non-output-changing, audit]
+    use_when:
+      - "A future agent asks whether all Bible research is complete, whether every verse has been deeply exegeted, or whether chunking can resume from whole-corpus phase-one findings."
+      - "A future Goal 2 focused-research task needs the human decision prompt queue and top-risk lane/book synthesis before strengthening a packet."
+      - "A no-context reviewer needs to check that phase-one whole-corpus research did not authorize target selection, reviewed gold, child spans, output, route/evaluator changes, graph/retrieval/vector truth, source-tradition preference, canon-scope changes, source rows, or theology authority."
+    preflight_stage: before_goal2_focused_research_or_any_whole_bible_chunking_claim
+    source_surfaces:
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
+      - .ai/tasks/T398.task.yaml
+      - .ai/handoffs/T398/handoff.md
+      - .ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md
+      - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+      - tests/test_t398_bible_wide_phase_one_research_synthesis.py
+      - .ai/control/bible_verse_passage_coverage_summary.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/bible_wide_chunking_research_registry.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: [CD-072]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T384, T386, T398]
+    downstream_risk: "A phase-one corpus pass can be mistaken for full exegesis, target selection, whole-Bible output readiness, or authority to bypass later owner gates unless the triage/deep-exegesis distinction is mandatory preflight."
+    required_preflight_surfaces:
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - .ai/control/bible_verse_passage_coverage_summary.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/bible_wide_chunking_research_registry.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    non_authorizations:
+      - exact_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - denominational_systematic_theology_as_chunk_authority
+    validators:
+      - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+      - tests/test_t398_bible_wide_phase_one_research_synthesis.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1246,4 +1307,16 @@ lesson_graph:
   - from: LSN-025
     relation: constrains
     to: LSN-008
+  - from: LSN-013
+    relation: discovers
+    to: LSN-026
+  - from: LSN-014
+    relation: discovers
+    to: LSN-026
+  - from: LSN-026
+    relation: constrains
+    to: LSN-012
+  - from: LSN-026
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

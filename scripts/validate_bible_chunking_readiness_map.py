@@ -95,6 +95,12 @@ REQUIRED_LESSON_SURFACES = {
     "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md",
     ".ai/tasks/T394.task.yaml",
     ".ai/audits/reports/20260623-T394-eph1-parent-only-reviewed-gold-promotion.md",
+    ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
+    "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
+    ".ai/tasks/T398.task.yaml",
+    ".ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md",
+    "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py",
+    "tests/test_t398_bible_wide_phase_one_research_synthesis.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -1777,6 +1783,49 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         ):
             if next_route.get(key) is not False:
                 raise ReadinessMapError(f"{_rel(path)}: T384 next_route.{key} must be false")
+
+    t398_synthesis = data.get("parallel_t398_phase_one_research_synthesis")
+    if not isinstance(t398_synthesis, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t398_phase_one_research_synthesis must be a mapping")
+    expected_t398 = {
+        "task_id": "T398",
+        "route_type": "whole_corpus_phase_one_research_synthesis",
+        "path": ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
+        "roadmap_doc": "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
+        "status": "complete_phase_one_whole_corpus_research_synthesis",
+        "relation_to_next_route": "Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output.",
+        "corpus_scope": "canonical_66",
+        "canonical_book_count": 66,
+        "canonical_passage_count": 31103,
+        "every_canonical_passage_accounted_for_at_triage_depth": True,
+        "every_verse_deeply_researched": False,
+        "decision_register_entry": "CD-072",
+        "lesson_index_entry": "LSN-026",
+    }
+    for key, value in expected_t398.items():
+        if t398_synthesis.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t398_phase_one_research_synthesis.{key} must be {value!r}")
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "exact_target_selected",
+        "reviewed_gold_promoted",
+        "child_spans_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "whole_bible_output_authorized",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "source_or_manuscript_rows_authorized",
+        "theology_authority_change_authorized",
+    ):
+        if t398_synthesis.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t398_phase_one_research_synthesis.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):
