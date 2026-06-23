@@ -339,7 +339,10 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert "scripts/validate_t384_bible_wide_research_readiness.py" in toc
     assert ".ai/tasks/T384.task.yaml" in toc
     assert ".ai/handoffs/T384/handoff.md" in toc
-    assert "Owner must explicitly select one T385 option before Goal 4 review-packet strengthening" in toc
+    assert "T392 | Eph.1.3-Eph.1.14 review packet strengthening" in toc
+    assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in toc
+    assert "scripts/validate_t392_eph1_review_packet_strengthening.py" in toc
+    assert "Goal 5 owner reviewed-gold promotion decision packet for Eph.1.3-Eph.1.14" in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc
     assert "docs/roadmap/T372_ROUTE_ISOLATION_HARNESS_PLAN.md" in toc

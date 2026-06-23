@@ -130,19 +130,19 @@ def test_t342_through_t376_remain_complete_while_live_route_points_to_t384() -> 
     assert future["T374"]["status"] == "complete_output_changed_additive_parent_overlay"
     assert future["T375"]["status"] == "complete_review_only_child_spans_not_necessary_now"
     assert future["T376"]["status"] == "complete_selected_research_first_epistle_argument_runway"
-    assert readiness["next_route"]["task_id"] == "T385"
-    assert readiness["next_route"]["route_type"] == "owner_decision_packet_only"
-    assert readiness["next_route"]["starts_only_if"] == "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete"
-    assert readiness["next_route"]["owner_packet"] == ".ai/control/t385_owner_decision_packet.yaml"
-    assert readiness["next_route"]["completion_status"] == "complete_owner_decision_packet_only"
+    assert readiness["next_route"]["task_id"] == "T392"
+    assert readiness["next_route"]["route_type"] == "epistle_argument_review_packet_strengthening"
+    assert readiness["next_route"]["starts_only_if"] == "explicit_owner_selection_of_T385_A"
+    assert readiness["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
+    assert readiness["next_route"]["completion_status"] == "complete_review_packet_strengthening_only"
     assert readiness["next_route"]["selected_t376_option"] == "T376-A"
     assert readiness["next_route"]["selected_lane"] == "epistle_argument"
-    assert readiness["next_route"]["selection_mode"] == "owner_packet_complete_non_authorizing"
-    assert readiness["next_route"]["owner_selection_status"] == "pending"
-    assert readiness["next_route"]["recommended_option"] == "T385-A"
-    assert readiness["next_route"]["recommendation_is_owner_selection"] is False
+    assert readiness["next_route"]["selection_mode"] == "owner_selected_review_packet_strengthening_only"
+    assert readiness["next_route"]["selected_option"] == "T385-A"
+    assert readiness["next_route"]["review_packet_strengthened"] is True
+    assert readiness["next_route"]["exact_next_owner_action"] == "Goal5_owner_reviewed_gold_promotion_decision_packet"
     assert readiness["next_route"]["owner_decision_required_before_promotion_or_implementation"] is True
-    assert readiness["next_route"]["exact_target_selected"] is False
+    assert readiness["next_route"]["exact_target_selected_for_promotion_or_implementation"] is False
     assert readiness["next_route"]["output_change_authorized"] is False
     assert readiness["next_route"]["implementation_authorized"] is False
     assert readiness["next_route"]["reviewed_gold_promoted"] is False

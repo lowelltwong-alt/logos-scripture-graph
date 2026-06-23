@@ -2,7 +2,7 @@
 object_type: bible_chunking_readiness_map
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness."
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening."
 reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
 ---
 schema_version: bible_chunking_readiness_map.v1
@@ -59,6 +59,10 @@ lessons_storage:
     - .ai/control/t376_epistle_research_runway.yaml
     - .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
     - .ai/control/t385_owner_decision_packet.yaml
+    - eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+    - docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+    - .ai/tasks/T392.task.yaml
+    - .ai/audits/reports/20260623-T392-eph1-review-packet-strengthening.md
     - .ai/control/bible_verse_passage_coverage_inventory.jsonl
     - .ai/control/bible_verse_passage_coverage_taxonomy.yaml
     - .ai/control/bible_verse_passage_coverage_summary.yaml
@@ -144,7 +148,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t376_a_epistle_research_runway_selected_next_t384_options_matrix
+    current_state: t392_eph1_review_packet_strengthened_goal5_promotion_packet_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -313,6 +317,36 @@ lane_sequence:
       evaluator_change_authorized: false
       graph_edge_generation_allowed: false
       retrieval_truth_authorized: false
+    eph1_review_packet_strengthening:
+      task_id: T392
+      path: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+      status: complete_review_packet_strengthening_only
+      selected_option: T385-A
+      selected_passage: Eph.1.3-Eph.1.14
+      selected_parent_candidate: Eph.1.3-Eph.1.14
+      selected_children: []
+      decision_register_entry: CD-067
+      lesson_index_entry: LSN-021
+      owner_selection_record: .ai/tasks/T392.task.yaml
+      roadmap_doc: docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+      validator: scripts/validate_t392_eph1_review_packet_strengthening.py
+      review_packet_strengthened: true
+      review_packet_status: pending_human_review
+      next_owner_gate: T393
+      output_change_authorized: false
+      implementation_authorized: false
+      reviewed_gold_promoted: false
+      child_spans_authorized: false
+      route_behavior_authorized: false
+      evaluator_change_authorized: false
+      graph_edge_generation_allowed: false
+      retrieval_truth_authorized: false
+      embedding_or_vector_work_allowed: false
+      boundary_import_allowed: false
+      preferred_reading_authorized: false
+      source_tradition_preference_authorized: false
+      canon_scope_change_authorized: false
+      theology_authority_change_authorized: false
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -467,17 +501,36 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T385
-  title: Owner Decision Packet From T384/T386/T387/T388/T389/T390 Readiness
-  route_type: owner_decision_packet_only
-  starts_only_if: T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete
-  completion_status: complete_owner_decision_packet_only
-  owner_packet: .ai/control/t385_owner_decision_packet.yaml
-  roadmap_doc: docs/roadmap/T385_OWNER_DECISION_PACKET.md
-  validator: scripts/validate_t385_owner_decision_packet.py
-  required_handoff: .ai/handoffs/T385/handoff.md
-  decision_register_entry: CD-066
-  lesson_index_entry: LSN-020
+  task_id: T392
+  title: Eph.1.3-Eph.1.14 Review Packet Strengthening
+  route_type: epistle_argument_review_packet_strengthening
+  starts_only_if: explicit_owner_selection_of_T385_A
+  completion_status: complete_review_packet_strengthening_only
+  selected_t376_option: T376-A
+  selected_lane: epistle_argument
+  selected_option: T385-A
+  selected_passage: Eph.1.3-Eph.1.14
+  selected_parent_candidate: Eph.1.3-Eph.1.14
+  selected_children: []
+  review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+  review_packet_status: pending_human_review
+  review_packet_strengthened: true
+  roadmap_doc: docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md
+  validator: scripts/validate_t392_eph1_review_packet_strengthening.py
+  required_handoff: .ai/handoffs/T392/handoff.md
+  decision_register_entry: CD-067
+  lesson_index_entry: LSN-021
+  prior_owner_packet:
+    task_id: T385
+    owner_packet: .ai/control/t385_owner_decision_packet.yaml
+    roadmap_doc: docs/roadmap/T385_OWNER_DECISION_PACKET.md
+    validator: scripts/validate_t385_owner_decision_packet.py
+    owner_selection_status: pending
+    recommended_option: T385-A
+    recommended_passage: Eph.1.3-Eph.1.14
+    recommendation_is_owner_selection: false
+    decision_register_entry: CD-066
+    lesson_index_entry: LSN-020
   prior_readiness_inputs:
     - task_id: T384
       path: .ai/control/t384_bible_wide_research_readiness_synthesis.yaml
@@ -493,52 +546,33 @@ next_route:
       path: docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md
     - task_id: T390
       path: .ai/control/manuscript_source_catalog_metadata_plan.yaml
-  prior_decision_register_entries: [CD-061, CD-062, CD-063, CD-064, CD-065, CD-066]
-  selected_t376_option: T376-A
-  selected_lane: epistle_argument
-  selection_mode: owner_packet_complete_non_authorizing
-  owner_decision_required_before_goal_4: true
+    - task_id: T385
+      path: .ai/control/t385_owner_decision_packet.yaml
+  prior_decision_register_entries: [CD-061, CD-062, CD-063, CD-064, CD-065, CD-066, CD-067]
+  owner_selection_recorded: true
+  owner_selection_record: .ai/tasks/T392.task.yaml
+  selection_mode: owner_selected_review_packet_strengthening_only
+  goal_4_completed: true
   owner_decision_required_before_promotion_or_implementation: true
-  owner_selection_status: pending
-  recommended_option: T385-A
-  recommended_passage: Eph.1.3-Eph.1.14
-  recommendation_is_owner_selection: false
-  exact_target_selected: false
-  exact_next_owner_action: explicit_owner_selection_of_one_T385_option
-  goal_4_can_run_after: explicit_owner_selection_of_one_T385_option
-  serious_faithful_options: [T385-A, T385-B, T385-C, T385-D, T385-E, T385-F, T385-G, T385-H, T385-I]
-  required_t385_packet_records:
-    - serious_faithful_target_options
-    - repercussions_for_each_option
-    - recommendation
-    - owner_selection_pending
-    - recommendation_is_not_owner_selection
-    - contextual_reading_policy_fields
-    - source_metadata_evidence_only_handling
-    - original_language_phrase_context_review_where_used
-    - textual_variant_or_source_tradition_sensitivity
-    - orthodox_hermeneutic_firewall_compliance
-    - decision_register_update
-    - lesson_index_update
-    - validators_and_tests
-    - handoff_next_owner_gate
+  exact_target_selected_for_review_packet_strengthening_only: true
+  exact_target_selected_for_promotion_or_implementation: false
+  exact_next_owner_action: Goal5_owner_reviewed_gold_promotion_decision_packet
+  next_task: T393
   must_fail_if:
-    - T385_recommendation_is_treated_as_owner_selection
-    - Goal4_runs_without_explicit_owner_selection
-    - T385_strengthens_review_packet_without_owner_selection
-    - T385_selects_exact_target_without_owner_decision
-    - T385_promotes_reviewed_gold
-    - T385_adds_child_spans
-    - T385_changes_chunk_output
-    - T385_changes_route_or_evaluator_behavior
-    - T385_generates_graph_retrieval_or_vector_truth
-    - T385_imports_boundary_or_source_tradition_authority
-    - T385_changes_canon_scope_or_theology_authority
-  rationale: "T385 completed the owner-facing packet from T384/T386/T387/T388/T389/T390 readiness. It recommends T385-A for owner consideration but keeps owner selection pending; Goal 4 cannot strengthen any packet until Lowell explicitly selects one T385 option."
+    - T392_owner_selection_is_treated_as_reviewed_gold
+    - T392_strengthened_packet_is_treated_as_chunk_output_authority
+    - T392_adds_child_spans
+    - T392_changes_chunk_output
+    - T392_changes_route_or_evaluator_behavior
+    - T392_generates_graph_retrieval_or_vector_truth
+    - T392_imports_boundary_or_source_tradition_authority
+    - T392_changes_canon_scope_or_theology_authority
+    - Goal5_promotion_runs_without_owner_decision_packet
+  rationale: "Lowell selected T385-A, so Goal 4 could strengthen the Eph.1.3-Eph.1.14 packet. T392 records that strengthened packet and moves the next safe step to a Goal 5 owner reviewed-gold promotion decision packet. It still authorizes no reviewed gold, child span, output, route/evaluator, graph/retrieval/vector, boundary, canon, source-tradition, preferred-reading, or theology-authority change."
   output_change_authorized: false
   implementation_authorized: false
   reviewed_gold_promoted: false
-  review_packet_strengthening_authorized: false
+  review_packet_strengthening_authorized: true
   route_behavior_authorized: false
   child_spans_authorized: false
   evaluator_change_authorized: false
@@ -781,6 +815,7 @@ update_triggers:
   - contextual_reading_policy_change
   - bible_verse_passage_coverage_change
   - t385_owner_decision_packet_change
+  - t392_eph1_review_packet_strengthening_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration

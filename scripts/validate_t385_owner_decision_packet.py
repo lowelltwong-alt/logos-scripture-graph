@@ -242,7 +242,7 @@ def _validate_links() -> None:
         (REGISTER, ("CD-066", "T385 owner decision packet recommends but does not select", PACKET_REL)),
         (LESSON_INDEX, ("LSN-020", "Owner packet recommendation is not owner selection", "T385", PACKET_REL)),
         (PREFLIGHT, (PACKET_REL, "CD-066", "LSN-020")),
-        (READINESS, ("task_id: T385", PACKET_REL, "owner_selection_status: pending")),
+        (READINESS, ("prior_owner_packet:", "task_id: T385", PACKET_REL, "owner_selection_status: pending")),
         (ROADMAP, ("id: T385", "complete_owner_decision_packet_only", PACKET_REL)),
         (FRONT_DOOR, (PACKET_REL, VALIDATOR_REL, "T385 owner decision packet is complete")),
         (MAIN_TOC, (PACKET_REL, VALIDATOR_REL, "owner-decision-packet")),
@@ -251,7 +251,7 @@ def _validate_links() -> None:
         (TASK, ("id: T385", "CD-066", "LSN-020")),
         (HANDOFF, ("task_id: T385", "CD-066", "T385-A")),
         (PROJECT_STATUS, ("T385 owner decision packet", "T385-A")),
-        (CURRENT_FOCUS, ("current_task: T385", PACKET_REL)),
+        (CURRENT_FOCUS, ("current_task: T392", PACKET_REL)),
         (VALIDATE_ALL, ("validate_t385_owner_decision_packet.py",)),
     )
     for path, phrases in linked_requirements:
