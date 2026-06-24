@@ -347,7 +347,7 @@ def _validate_links() -> None:
         (HANDOFF, ("task_id: T393", "T393-A", PACKET_REL)),
         (AUDIT, ("T393", "No reviewed gold is promoted", "No chunk output is implemented")),
         (PROJECT_STATUS, ("T393 Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet", "Goal 5")),
-        (CURRENT_FOCUS, ("current_task: T394", PROMOTION_REL)),
+        (CURRENT_FOCUS, ("t394_promotion_record", PROMOTION_REL)),
         (VALIDATE_ALL, ("validate_t393_eph1_reviewed_gold_promotion_decision_packet.py",)),
         (PROMOTION_RECORD, ("task_id: T394", "selected_option: T393-A", PACKET_REL)),
     )

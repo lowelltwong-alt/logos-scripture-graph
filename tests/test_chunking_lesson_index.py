@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 27)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 28)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -101,6 +101,13 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md" in by_id["LSN-026"]["source_surfaces"]
     assert "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py" in by_id["LSN-026"]["source_surfaces"]
     assert "CD-072" in by_id["LSN-026"]["related_decision_ids"]
+    assert "focused-research-queue" in by_id["LSN-027"]["tags"]
+    assert "owner-decision-map" in by_id["LSN-027"]["tags"]
+    assert "scoring-not-authority" in by_id["LSN-027"]["tags"]
+    assert "variant-blocked-status" in by_id["LSN-027"]["tags"]
+    assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in by_id["LSN-027"]["source_surfaces"]
+    assert "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md" in by_id["LSN-027"]["source_surfaces"]
+    assert "CD-073" in by_id["LSN-027"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

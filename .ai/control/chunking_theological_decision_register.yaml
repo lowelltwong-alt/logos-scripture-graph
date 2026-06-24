@@ -3191,6 +3191,59 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-073
+    title: T399 focused Bible-wide research queue separates score, safety, and authority
+    classification: non_authorizing_review
+    task_ids: [T399]
+    owner_decision_ref: ".ai/control/t399_focused_bible_wide_research_queue.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [focused_queue_candidates]
+      routes: [goal2_focused_research_queue, future_owner_review_packet_selection, t397_goal6_route_isolated_harness_prep]
+      surfaces: [.ai/control/t399_focused_bible_wide_research_queue.yaml, docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md, .ai/tasks/T399.task.yaml, .ai/handoffs/T399/handoff.md, .ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md, scripts/validate_t399_focused_bible_wide_research_queue.py]
+    decision: "T399 completes Goal 2 by recording a scored focused Bible-wide research queue and owner-decision map from T398/T386/dossier/policy inputs. Scores rank research priority; safety status records whether a candidate is safe for review-only strengthening, research-packet prep only, or blocked until variant/source-tradition case policy and owner decisions. No recommendation is owner selection."
+    downstream_risk: "A future agent could treat a high score, recommendation, or safe research-prep status as target selection, reviewed gold, child-span authority, chunk output readiness, graph/retrieval/vector truth, source-tradition authority, source/manuscript row authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No ranked candidate is selected as the next target by T399."
+      - "No score is treated as reviewed gold, child-span authority, or implementation authority."
+      - "No variant/source-tradition-heavy candidate selects a preferred reading or source tradition."
+      - "No original-language pressure passage uses isolated Greek or Hebrew words as truth, boundary, or doctrine authority."
+      - "No Revelation, Daniel, covenant, law/gospel, WJ/speaker, charismatic, or eschatology system becomes a hidden chunking default."
+      - "No open or conflicted parallel T396 source/manuscript-row work is imported into T399."
+    reviewed_gold_dependency: "None. T399 is a research queue and owner-decision map only. Any future strengthened packet, reviewed-gold promotion, child span, implementation, output, route/evaluator change, graph/retrieval/vector work, boundary import, source/manuscript row work, or theology authority requires a later exact owner gate and validator. T397 remains the separate Eph.1.3-Eph.1.14 harness route."
+    non_authorizations:
+      - exact_target_selection
+      - final_target_selection
+      - review_packet_strengthening_without_owner_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - source_text_import
+      - denominational_systematic_theology_as_chunk_authority
+    validators:
+      - scripts/validate_t399_focused_bible_wide_research_queue.py
+      - tests/test_t399_focused_bible_wide_research_queue.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3302,4 +3355,5 @@ backfill_coverage:
     - T395
     - T394
     - T398
+    - T399
 ...

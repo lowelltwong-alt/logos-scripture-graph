@@ -101,6 +101,12 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md",
     "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py",
     "tests/test_t398_bible_wide_phase_one_research_synthesis.py",
+    ".ai/control/t399_focused_bible_wide_research_queue.yaml",
+    "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md",
+    ".ai/tasks/T399.task.yaml",
+    ".ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md",
+    "scripts/validate_t399_focused_bible_wide_research_queue.py",
+    "tests/test_t399_focused_bible_wide_research_queue.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",
@@ -1826,6 +1832,50 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     ):
         if t398_synthesis.get(key) is not False:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t398_phase_one_research_synthesis.{key} must be false")
+
+    t399_queue = data.get("parallel_t399_focused_research_queue")
+    if not isinstance(t399_queue, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t399_focused_research_queue must be a mapping")
+    expected_t399 = {
+        "task_id": "T399",
+        "route_type": "goal2_focused_research_queue",
+        "path": ".ai/control/t399_focused_bible_wide_research_queue.yaml",
+        "roadmap_doc": "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md",
+        "status": "complete_goal2_focused_research_queue",
+        "relation_to_next_route": "Parallel focused research queue; does not supersede T397 harness prep or authorize output.",
+        "corpus_scope": "canonical_66",
+        "candidate_count": 22,
+        "owner_decision_prompt_count": 8,
+        "recommendation_is_owner_selection": False,
+        "decision_register_entry": "CD-073",
+        "lesson_index_entry": "LSN-027",
+        "next_owner_action": "choose_one_T399_HDM_option_before_new_review_packet_strengthening",
+        "next_chunking_route_remains": "T397_goal6_route_isolated_harness_prep_only",
+    }
+    for key, value in expected_t399.items():
+        if t399_queue.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t399_focused_research_queue.{key} must be {value!r}")
+    for key in (
+        "output_change_authorized",
+        "implementation_authorized",
+        "exact_target_selected",
+        "reviewed_gold_promoted",
+        "child_spans_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "whole_bible_output_authorized",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "source_or_manuscript_rows_authorized",
+        "theology_authority_change_authorized",
+    ):
+        if t399_queue.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t399_focused_research_queue.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):

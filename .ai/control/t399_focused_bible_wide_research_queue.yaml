@@ -1,0 +1,614 @@
+---
+object_type: focused_bible_wide_research_queue
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-24 during T399/Goal 2 after T398 completed phase-one whole-corpus research synthesis and the owner asked for focused Bible-wide research before more chunking."
+reason_for_inclusion: "Convert T398 phase-one prompts, T386 passage flags, dossier queues, source-metadata/original-language policies, contextual reading policy, and Orthodox Hermeneutic Firewall constraints into a deterministic non-output-changing queue and owner-decision map."
+---
+schema_version: t399_focused_bible_wide_research_queue.v1
+queue_id: t399_goal2_focused_bible_wide_research_queue
+task_id: T399
+status: complete_goal2_focused_research_queue
+owner: Lowell Wong
+prepared_by: codex
+goal2_scope:
+  corpus_scope: canonical_66
+  source_phase_one: .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+  focused_pass_status: focused_research_queue_and_owner_decision_map
+  every_canonical_passage_accounted_for_at_triage_depth: true
+  every_verse_deeply_researched: false
+  final_target_selected: false
+  reviewed_gold_promoted: false
+  chunk_output_changed: false
+  relation_to_t397: "T397 remains the current route-isolated harness prep for Eph.1.3-Eph.1.14. T399 is parallel focused research and does not supersede T397."
+authority:
+  records_scored_queue: true
+  records_owner_decision_map: true
+  records_review_only_safety_status: true
+  authorizes_exact_target_selection: false
+  authorizes_review_packet_strengthening_without_owner_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_source_or_manuscript_row_population: false
+  authorizes_denominational_systematic_theology_as_chunk_authority: false
+orthodoxy_boundary:
+  default: nicene_chalcedonian_core
+  canonical_scripture_authority: true
+  firewall_source: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+  posture: "Preserve orthodox interpretive options where Scripture allows them while refusing anti-supernatural, anti-canonical, heterodox, liberal-critical, or one-denomination systematic defaults."
+required_source_inputs:
+  - path: .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+    role: "Phase-one whole-corpus synthesis and T398-HDP prompt queue."
+  - path: .ai/control/bible_verse_passage_coverage_summary.yaml
+    role: "T386 status, flag, and owner-decision counts."
+  - path: .ai/control/bible_verse_passage_readiness_matrix.yaml
+    role: "Book/lane rollups used for lane pressure and candidate ranking."
+  - path: .ai/control/bible_verse_passage_gap_register.yaml
+    role: "Gap categories and sample flagged passages."
+  - path: .ai/control/bible_verse_passage_human_review_docket.yaml
+    role: "T386 human-decision prompts and stop conditions."
+  - path: .ai/control/bible_wide_chunking_research_registry.yaml
+    role: "Canonical 66-book candidate packet registry."
+  - path: .ai/control/source_metadata_research_atlas.yaml
+    role: "Evidence-only source metadata requirements."
+  - path: .ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml
+    role: "Apocalyptic and prophetic intertext candidate dossiers."
+  - path: .ai/control/epistle_argument_theological_issue_dossier_queue.yaml
+    role: "Epistle argument theological issue candidate dossiers."
+  - path: .ai/control/gospel_wj_discourse_dossier_queue.yaml
+    role: "Gospel/WJ discourse and speaker-boundary candidate dossiers."
+  - path: .ai/control/narrative_legal_covenant_dossier_queue.yaml
+    role: "Narrative, legal, covenant, genealogy, and list candidate dossiers."
+  - path: .ai/control/wisdom_dialogue_poetry_dossier_queue.yaml
+    role: "Wisdom, dialogue, poetry, speaker, acrostic, and refrain candidate dossiers."
+  - path: .ai/control/prophetic_oracle_vision_dossier_queue.yaml
+    role: "Prophetic oracle and vision candidate dossiers."
+  - path: .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+    role: "Variant/source-tradition case queue and blocked-case flags."
+  - path: .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+    role: "Original-language pressure passages often targeted by non-orthodox arguments."
+  - path: .ai/control/original_language_phrase_context_policy.yaml
+    role: "Phrase/clause/syntax/discourse handling for Greek/Hebrew evidence."
+  - path: .ai/control/contextual_reading_policy.yaml
+    role: "Immediate, paragraph/section, chapter/book, canonical, historical, and metadata context requirements."
+  - path: .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    role: "Anti-smuggling firewall for hidden anti-orthodox or one-denomination defaults."
+  - path: .ai/control/manuscript_source_catalog_metadata_plan.yaml
+    role: "Metadata-only manuscript/source catalog planning."
+  - path: .ai/control/manuscript_source_catalog_research_packet.yaml
+    role: "Official source anchors and source-catalog research packet."
+  - path: .ai/control/manuscript_source_catalog_sqlite_shell.yaml
+    role: "SQLite shell/seed-row status as evidence-only source metadata, not source-row authority."
+parallel_work_note:
+  open_pr: "PR #116 / T396 DSS witness rows was open and conflicted/dirty against live main when T399 started."
+  handling: "T399 does not depend on unmerged T396 rows, does not edit that branch, and does not create source/manuscript rows."
+scoring_model:
+  score_range: 0_to_100
+  criteria:
+    - criterion_id: theological_downstream_risk
+      weight: 25
+      meaning: "Higher when boundary choices could imply doctrine, hermeneutic, speaker, covenant, eschatology, or apologetic positions."
+    - criterion_id: dossier_and_packet_readiness
+      weight: 20
+      meaning: "Higher when existing packets/dossiers make review-only strengthening efficient without output authority."
+    - criterion_id: owner_decision_foreseeability
+      weight: 15
+      meaning: "Higher when likely owner decisions can be cleanly front-loaded and options can be stated without hidden theology."
+    - criterion_id: contextual_and_original_language_need
+      weight: 15
+      meaning: "Higher when phrase/clause/context review or divine-name/capitalization/Strong's-style metadata is likely to affect faithful review."
+    - criterion_id: variant_source_tradition_pressure
+      weight: 10
+      meaning: "Higher when variant/source-tradition handling must be surfaced before promotion; high score can still remain blocked from strengthening."
+    - criterion_id: lane_leverage
+      weight: 10
+      meaning: "Higher when a focused packet teaches a reusable lane pattern without authorizing global generalization."
+    - criterion_id: route_isolation_feasibility
+      weight: 5
+      meaning: "Higher when later harnesses could prove exact target/non-target isolation after owner promotion."
+safe_status_values:
+  - safe_for_review_only_strengthening_now
+  - safe_for_research_packet_prep_only
+  - blocked_until_case_policy_or_owner_decision
+  - parallel_harness_route_not_goal2_selection
+focused_research_queue:
+  - rank: 1
+    candidate_id: T399-Q001
+    lane_id: epistle_argument
+    title: "1Cor.11.17-1Cor.14.40 worship, supper, gifts, love, and order"
+    candidate_passages: [1Cor.11.17-1Cor.14.40]
+    score: 91
+    source_basis: [T398-HDP-001, T384-A_through_F, epistle_argument_theological_issue_dossier_queue, T386_1Cor_high_attention]
+    why_may_affect_chunking: "Paul's argument moves through Lord's Supper abuse, body/gifts, love, prophecy/tongues, and ordered assembly; premature child spans could encode a charismatic/cessationist, sacramental, gender/order, or ecclesiology position."
+    theological_or_hermeneutical_risks: [sacramental_theology, charismatic_or_cessationist_default, gender_order_boundary, body_metaphor_as_doctrine_boundary, local_church_order]
+    variant_source_tradition_dependency: "current_queue_variant_dependency_unknown; no preferred reading or source tradition may be selected by T399"
+    source_metadata_evidence_needs: [section_headings_evidence_only, paragraph_markers_evidence_only, footnotes_and_crossrefs_evidence_only, Strong_style_tags_evidence_only]
+    original_language_phrase_context_needs: [pneumatika_charismata_phrase_context, soma_body_metaphor_context, agape_argument_context, prophecy_tongues_phrase_context]
+    likely_owner_decisions_required: [choose_whether_to_strengthen_this_packet_next, confirm_parent_only_or_research_only, confirm_no_child_spans_without_later_gate, confirm_metadata_and_original_language_are_evidence_only]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate, route_isolation_harness, implementation_authorization_gate]
+    non_authorizations: [target_selection, reviewed_gold_promotion, child_spans, output_change, route_behavior_change, graph_retrieval_truth]
+  - rank: 2
+    candidate_id: T399-Q002
+    lane_id: epistle_argument
+    title: "Gal.2.15-Gal.3.29 justification, law, promise, seed, and sons"
+    candidate_passages: [Gal.2.15-Gal.3.29]
+    score: 89
+    source_basis: [T398-HDP-001, T385-D, epistle_argument_theological_issue_dossier_queue]
+    why_may_affect_chunking: "The argument spans justification, works of law, Abrahamic promise, curse, seed, faith, baptismal identity, and inheritance; cuts can imply law/gospel or covenant-system commitments."
+    theological_or_hermeneutical_risks: [justification_framework, law_gospel_relation, covenant_theology_default, baptism_identity_language, one_seed_interpretation]
+    variant_source_tradition_dependency: "not promoted; variant/source-tradition dependency must be checked before any later gold decision"
+    source_metadata_evidence_needs: [crossrefs_to_Genesis_as_evidence_only, section_headings_evidence_only, Strong_style_tags_evidence_only]
+    original_language_phrase_context_needs: [ergon_nomou_phrase_context, pistis_phrase_context, sperma_seed_argument_context, paidagogos_context_if_extended_to_Gal4]
+    likely_owner_decisions_required: [choose_whether_to_strengthen_this_packet_next, confirm_no_denominational_systematic_as_boundary, confirm_parent_scope, later_variant_dependency_confirmation]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [target_selection, reviewed_gold_promotion, child_spans, law_gospel_system_selection, output_change]
+  - rank: 3
+    candidate_id: T399-Q003
+    lane_id: epistle_argument
+    title: "Rom.9.1-Rom.11.36 Israel, election, mercy, and grafting"
+    candidate_passages: [Rom.9.1-Rom.11.36]
+    score: 88
+    source_basis: [T384-B, T385-B, epistle_argument_theological_issue_dossier_queue]
+    why_may_affect_chunking: "Argument boundaries can imply positions on election, Israel/church relation, hardening, remnant, grafting, and doxological closure."
+    theological_or_hermeneutical_risks: [election_system_default, Israel_church_relation, supersessionism_risk, mercy_and_hardening_boundary, doxology_scope]
+    variant_source_tradition_dependency: "check Romans doxology/source-tradition context before promotion; no dependency decision made here"
+    source_metadata_evidence_needs: [OT_citations_as_evidence_only, crossrefs_as_evidence_only, paragraph_markers_evidence_only]
+    original_language_phrase_context_needs: [ekloge_election_context, skleruno_hardening_context, pleroma_context, olive_tree_metaphor_context]
+    likely_owner_decisions_required: [choose_if_ready_for_strengthening_or_hold, confirm_preserved_orthodox_options, confirm_no_israel_church_system_as_authority]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [target_selection, reviewed_gold_promotion, child_spans, election_system_selection, Israel_church_system_selection, output_change]
+  - rank: 4
+    candidate_id: T399-Q004
+    lane_id: gospel_discourse_wj
+    title: "John.3.1-John.3.36 Jesus/narrator/WJ review target"
+    candidate_passages: [John.3.1-John.3.36]
+    score: 87
+    source_basis: [T398-HDP-004, john3_wj_owner_review_docket, gospel_wj_discourse_dossier_queue, wj_speaker_discourse_policy]
+    why_may_affect_chunking: "Jesus/narrator and WJ marker boundaries affect discourse scope without being allowed to become speaker truth or red-letter authority."
+    theological_or_hermeneutical_risks: [new_birth_discourse_scope, Son_of_Man_descent_ascent_context, belief_judgment_boundary, Jesus_narrator_boundary]
+    variant_source_tradition_dependency: "no current promotion; any variant-sensitive issue must be separately checked before gold"
+    source_metadata_evidence_needs: [WJ_markers_evidence_only, paragraph_markers_evidence_only, section_headings_evidence_only, crossrefs_evidence_only]
+    original_language_phrase_context_needs: [anothen_phrase_context, pneuma_wind_spirit_context, monogenes_context, pisteuo_life_judgment_context]
+    likely_owner_decisions_required: [confirm_if_strengthen_John3_next, confirm_parent_only_review_target_still_no_child_spans, confirm_Jesus_narrator_boundary_not_authorized]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, speaker_boundary_gate, reviewed_gold_promotion_gate]
+    non_authorizations: [speaker_attribution_authority, red_letter_truth, reviewed_gold_promotion, child_spans, output_change]
+  - rank: 5
+    candidate_id: T399-Q005
+    lane_id: acts_narrative_speech_transition
+    title: "Acts.2.1-Acts.2.47 Pentecost narrative, speech, citation, and community summary"
+    candidate_passages: [Acts.2.1-Acts.2.47]
+    score: 86
+    source_basis: [T398-HDP-005, T386_Acts_rollup, gospel_wj_discourse_dossier_queue]
+    why_may_affect_chunking: "Acts needs a distinct narrative/speech-transition lane; importing Gospel WJ or epistle argument rules would confuse narrative event, apostolic speech, OT citation, and summary units."
+    theological_or_hermeneutical_risks: [pneumatology_boundary, baptism_repentance_boundary, apostolic_speech_vs_narrative, church_origin_summary, continuationism_assumption]
+    variant_source_tradition_dependency: "Acts has known empty-witness verses elsewhere; this candidate still needs exact variant review before promotion"
+    source_metadata_evidence_needs: [speaker_markers_evidence_only, quotation_markers_evidence_only, crossrefs_to_Joel_and_Psalms_evidence_only, section_headings_evidence_only]
+    original_language_phrase_context_needs: [glossais_context, pneuma_context, metanoia_baptism_phrase_context, koinonia_summary_context]
+    likely_owner_decisions_required: [authorize_Acts_as_distinct_review_lane, choose_parent_scope, confirm_no_WJ_policy_import, confirm_no_graph_edges_from_citations]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [Acts_lane_owner_decision, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [apostolic_speech_as_epistle_route, WJ_policy_import, graph_edge_generation, reviewed_gold_promotion, output_change]
+  - rank: 6
+    candidate_id: T399-Q006
+    lane_id: epistle_argument
+    title: "Heb.7.1-Heb.10.39 priesthood, covenant, sacrifice, and warning"
+    candidate_passages: [Heb.7.1-Heb.10.39]
+    score: 85
+    source_basis: [T384-C, T385-C, epistle_argument_theological_issue_dossier_queue]
+    why_may_affect_chunking: "Boundaries can encode how Melchizedek, new covenant, once-for-all sacrifice, warning, and perseverance cohere."
+    theological_or_hermeneutical_risks: [covenant_transition, priesthood_typology, sacrificial_finality, apostasy_warning, sacramental_or_soteriological_system_default]
+    variant_source_tradition_dependency: "no preferred reading or source tradition selected; check before promotion"
+    source_metadata_evidence_needs: [OT_citations_as_evidence_only, section_headings_evidence_only, crossrefs_evidence_only]
+    original_language_phrase_context_needs: [diatheke_context, ephapax_once_for_all_context, teleioo_perfection_context, warning_clause_context]
+    likely_owner_decisions_required: [choose_if_strengthen_Hebrews_next, confirm_parent_scope, confirm_no_covenant_system_as_authority]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [target_selection, reviewed_gold_promotion, child_spans, covenant_system_selection, output_change]
+  - rank: 7
+    candidate_id: T399-Q007
+    lane_id: revelation_apocalyptic
+    title: "Rev.12.1-Rev.14.20 apocalyptic sign, beast, lamb, and proclamation complex"
+    candidate_passages: [Rev.12.1-Rev.14.20]
+    score: 84
+    source_basis: [REV-T344-E, T398-HDP-003, apocalyptic_prophetic_intertext_dossier_queue, gospel_wj_discourse_dossier_queue]
+    why_may_affect_chunking: "Revelation permits multiple orthodox hermeneutics; chunking must preserve linear, recapitulation, church-letter, premillennial, historical, symbolic, and Daniel-intertext options without selecting one."
+    theological_or_hermeneutical_risks: [eschatological_system_default, symbol_identity_as_truth, Daniel_intertext_overreach, WJ_voice_shift_authority, chronology_vs_recapitulation]
+    variant_source_tradition_dependency: "research only; no variant/source-tradition or boundary dependency selected"
+    source_metadata_evidence_needs: [editorial_crossrefs_to_Daniel_and_prophets_evidence_only, WJ_markers_evidence_only, section_headings_evidence_only]
+    original_language_phrase_context_needs: [semeion_sign_context, therion_beast_context, arnion_lamb_context, angelic_proclamation_context]
+    likely_owner_decisions_required: [decide_when_Revelation_leaves_research_only, choose_exact_review_target_later, confirm_hermeneutic_neutrality, deny_symbol_graph_truth]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: safe_for_research_packet_prep_only
+    downstream_gates_before_promotion_or_implementation: [Revelation_owner_target_selection, reviewed_gold_gate, route_isolation_harness, implementation_authorization_gate]
+    non_authorizations: [chronology_system_selection, symbol_identity_truth, Daniel_graph_edge_truth, reviewed_gold_promotion, output_change]
+  - rank: 8
+    candidate_id: T399-Q008
+    lane_id: narrative_legal_covenant
+    title: "Gen.1.1-Gen.3.24 creation, image, fall, promise, and expulsion"
+    candidate_passages: [Gen.1.1-Gen.3.24]
+    score: 83
+    source_basis: [T398-HDP-002, T386_Gen_high_attention, narrative_legal_covenant_dossier_queue, orthodox_original_language_pressure_dossier_queue]
+    why_may_affect_chunking: "Parent/child decisions can smuggle creation theology, image-of-God, serpent, fall, protoevangelium, and covenant assumptions."
+    theological_or_hermeneutical_risks: [creation_order, image_of_God, fall_and_promise_boundary, trinitarian_plural_language_pressure, typology_overreach]
+    variant_source_tradition_dependency: "no variant dependency selected; source-language pressure requires evidence-only review"
+    source_metadata_evidence_needs: [section_headings_evidence_only, divine_capitalization_evidence_only, Strong_style_tags_evidence_only, crossrefs_evidence_only]
+    original_language_phrase_context_needs: [Elohim_context, us_image_phrase_context, ruach_context, seed_promise_context]
+    likely_owner_decisions_required: [choose_if_Gen1_3_gets_focused_packet, confirm_no_systematic_creation_framework_as_boundary, confirm_phrase_context_for_plural_language]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [creation_system_selection, trinitarian_claim_from_plural_metadata, reviewed_gold_promotion, child_spans, output_change]
+  - rank: 9
+    candidate_id: T399-Q009
+    lane_id: textual_variant_source_tradition
+    title: "Deut.32.1-Deut.32.43 Song of Moses and Deut.32.8-9 source-tradition pressure"
+    candidate_passages: [Deut.32.1-Deut.32.43, Deut.32.8-Deut.32.9]
+    score: 82
+    source_basis: [T398-HDP-002, T398-HDP-008, textual_variant_source_tradition_dossier_queue, orthodox_original_language_pressure_dossier_queue]
+    why_may_affect_chunking: "The song's boundary and Deut.32.8-9 wording can affect divine council, nations, Israel, and apologetic pressure handling."
+    theological_or_hermeneutical_risks: [divine_council_language, monotheism_misread_risk, source_tradition_preference, anti_orthodox_pressure, song_boundary]
+    variant_source_tradition_dependency: "blocked before promotion; exact source-tradition dependency/non-dependency must be owner-confirmed case-by-case"
+    source_metadata_evidence_needs: [footnotes_evidence_only, crossrefs_evidence_only, divine_name_capitalization_evidence_only, Strong_style_tags_evidence_only]
+    original_language_phrase_context_needs: [bene_elohim_variant_context, Elyon_YHWH_context, song_poetry_context]
+    likely_owner_decisions_required: [prepare_case_docket_before_promotion, confirm_no_preferred_reading, confirm_if_research_only_packet_can_be_strengthened]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [textual_case_docket, owner_variant_dependency_confirmation, reviewed_gold_promotion_gate]
+    non_authorizations: [preferred_reading_selection, source_tradition_preference, canon_scope_change, reviewed_gold_promotion, output_change]
+  - rank: 10
+    candidate_id: T399-Q010
+    lane_id: wisdom_dialogue_poetry
+    title: "Job dialogue cycles and divine speeches"
+    candidate_passages: [Job.1.1-Job.42.17]
+    score: 81
+    source_basis: [T398-HDP-006, T386_Job_high_attention, wisdom_dialogue_poetry_dossier_queue]
+    why_may_affect_chunking: "Speaker cycles, prose frame, wisdom speeches, divine speeches, and epilogue require boundaries that do not treat every speaker claim as divine truth."
+    theological_or_hermeneutical_risks: [speaker_truth_attribution, suffering_theology, wisdom_dialogue_structure, divine_speech_boundary, counsel_rebuke_scope]
+    variant_source_tradition_dependency: "no dependency selected; check before any promotion"
+    source_metadata_evidence_needs: [speaker_labels_evidence_only, poetry_markers_evidence_only, section_headings_evidence_only]
+    original_language_phrase_context_needs: [speaker_transition_phrases, divine_name_usage_context, wisdom_terms_context]
+    likely_owner_decisions_required: [choose_if_Job_first_wisdom_packet, confirm_speaker_evidence_not_truth, confirm_parent_first_vs_child_need]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [speaker_claim_truth, wisdom_theology_system, child_spans, reviewed_gold_promotion, output_change]
+  - rank: 11
+    candidate_id: T399-Q011
+    lane_id: gospel_discourse_wj
+    title: "Matt.5.1-Matt.7.29 Sermon on the Mount"
+    candidate_passages: [Matt.5.1-Matt.7.29]
+    score: 80
+    source_basis: [T398-HDP-004, gospel_wj_discourse_dossier_queue, T386_Matt_high_attention]
+    why_may_affect_chunking: "Subunits can encode law/gospel, kingdom ethics, antitheses, prayer, judgment, and discipleship frameworks."
+    theological_or_hermeneutical_risks: [law_gospel_relation, kingdom_ethics_boundary, righteousness_framework, judgment_warning_boundary, WJ_discourse_scope]
+    variant_source_tradition_dependency: "check before promotion; no decision here"
+    source_metadata_evidence_needs: [WJ_markers_evidence_only, section_headings_evidence_only, crossrefs_evidence_only, paragraph_markers_evidence_only]
+    original_language_phrase_context_needs: [makarios_context, dikaiosune_context, pleroo_fulfill_context, kingdom_phrase_context]
+    likely_owner_decisions_required: [choose_if_Sermon_strengthened_next, confirm_parent_scope, confirm_child_spans_not_authorized_without_later_gate]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, WJ_speaker_boundary_review, reviewed_gold_promotion_gate]
+    non_authorizations: [red_letter_truth, law_gospel_system_selection, child_spans, reviewed_gold_promotion, output_change]
+  - rank: 12
+    candidate_id: T399-Q012
+    lane_id: prophetic_oracle_vision
+    title: "Isa.40.1-Isa.55.13 servant, comfort, one God, and restoration oracles"
+    candidate_passages: [Isa.40.1-Isa.55.13, Isa.43.10-Isa.44.8]
+    score: 79
+    source_basis: [T398-HDP-003, prophetic_oracle_vision_dossier_queue, orthodox_original_language_pressure_dossier_queue]
+    why_may_affect_chunking: "Servant scope, comfort/restoration, monotheism language, and messianic/canonical readings need boundaries that do not collapse all orthodox options."
+    theological_or_hermeneutical_risks: [servant_identity_scope, messianic_interpretation, monotheism_pressure_against_LDS_polytheism, fulfillment_boundary, Israel_restoration]
+    variant_source_tradition_dependency: "not selected; source-tradition dependency must be checked before promotion"
+    source_metadata_evidence_needs: [crossrefs_evidence_only, section_headings_evidence_only, divine_capitalization_evidence_only]
+    original_language_phrase_context_needs: [servant_term_context, one_God_phrases_context, comfort_oracle_context]
+    likely_owner_decisions_required: [choose_servant_oracle_scope, confirm_intertext_evidence_not_fulfillment_truth, confirm_no_israel_church_system]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [messianic_identity_as_graph_truth, fulfillment_system_selection, reviewed_gold_promotion, output_change]
+  - rank: 13
+    candidate_id: T399-Q013
+    lane_id: narrative_legal_covenant
+    title: "Exod.19.1-Exod.24.18 Sinai covenant narrative and law complex"
+    candidate_passages: [Exod.19.1-Exod.24.18]
+    score: 78
+    source_basis: [T398-HDP-002, narrative_legal_covenant_dossier_queue]
+    why_may_affect_chunking: "Narrative, covenant speech, Decalogue, law collection, blood rite, and ascent sequence are interleaved."
+    theological_or_hermeneutical_risks: [law_covenant_boundary, covenant_theology_default, typology_overreach, narrative_law_interleaving]
+    variant_source_tradition_dependency: "check before promotion; no decision here"
+    source_metadata_evidence_needs: [section_headings_evidence_only, crossrefs_evidence_only, paragraph_markers_evidence_only]
+    original_language_phrase_context_needs: [berit_covenant_context, holy_nation_phrase_context, law_formula_context]
+    likely_owner_decisions_required: [choose_if_Sinai_packet_strengthened, confirm_parent_scope, confirm_law_covenant_system_not_authority]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, strengthened_packet_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [covenant_system_selection, child_spans, reviewed_gold_promotion, output_change]
+  - rank: 14
+    candidate_id: T399-Q014
+    lane_id: prophetic_oracle_vision
+    title: "Dan.7.1-Dan.12.13 prophetic-apocalyptic visions"
+    candidate_passages: [Dan.7.1-Dan.12.13]
+    score: 77
+    source_basis: [T398-HDP-003, prophetic_oracle_vision_dossier_queue, apocalyptic_prophetic_intertext_dossier_queue]
+    why_may_affect_chunking: "Daniel visions feed Revelation intertexts and eschatological systems; chunking must not encode one timeline or symbol identity."
+    theological_or_hermeneutical_risks: [eschatology_system_default, Son_of_Man_intertext, empire_symbol_identity, resurrection_scope, chronology_pressure]
+    variant_source_tradition_dependency: "Daniel additions/boundary routing remain a source-tradition/boundary issue; no preference selected"
+    source_metadata_evidence_needs: [crossrefs_to_Revelation_evidence_only, section_headings_evidence_only, footnotes_evidence_only]
+    original_language_phrase_context_needs: [bar_enash_context, weeks_or_times_context, resurrection_phrase_context]
+    likely_owner_decisions_required: [decide_if_Daniel_case_waits_for_source_tradition_controls, confirm_symbol_neutrality, confirm_no_Revelation_graph_truth]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [source_tradition_case_docket, owner_target_selection, reviewed_gold_promotion_gate]
+    non_authorizations: [source_tradition_preference, eschatology_system_selection, symbol_identity_truth, boundary_import, output_change]
+  - rank: 15
+    candidate_id: T399-Q015
+    lane_id: gospel_discourse_wj
+    title: "John.13.1-John.17.26 farewell discourse and prayer"
+    candidate_passages: [John.13.1-John.17.26]
+    score: 76
+    source_basis: [T398-HDP-004, gospel_wj_discourse_dossier_queue]
+    why_may_affect_chunking: "Narrative action, discourse, prayer, Spirit promises, union language, and command/love themes span chapter boundaries."
+    theological_or_hermeneutical_risks: [trinitarian_relations_language, pneumatology, union_with_Christ, prayer_boundary, WJ_discourse_scope]
+    variant_source_tradition_dependency: "check before promotion; no dependency selected"
+    source_metadata_evidence_needs: [WJ_markers_evidence_only, section_headings_evidence_only, crossrefs_evidence_only, paragraph_markers_evidence_only]
+    original_language_phrase_context_needs: [parakletos_context, meno_abide_context, doxa_glory_context, sanctify_truth_phrase_context]
+    likely_owner_decisions_required: [choose_if_Farewell_strengthened_next, confirm_parent_scope, confirm_no_child_spans_without_later_gate]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, WJ_speaker_boundary_review, reviewed_gold_promotion_gate]
+    non_authorizations: [red_letter_truth, trinitarian_system_as_chunk_rule, child_spans, reviewed_gold_promotion, output_change]
+  - rank: 16
+    candidate_id: T399-Q016
+    lane_id: original_language_pressure
+    title: "John.1.1-John.1.18 Logos/Theos grammar pressure"
+    candidate_passages: [John.1.1-John.1.18]
+    score: 75
+    source_basis: [orthodox_original_language_pressure_dossier_queue, original_language_phrase_context_policy, contextual_reading_policy]
+    why_may_affect_chunking: "Used heavily in anti-Trinitarian and Watch Tower/New World Translation arguments; chunking should preserve prologue flow without turning isolated Greek words into truth claims."
+    theological_or_hermeneutical_risks: [Christology_pressure, isolated_word_truth, grammar_overclaim, prologue_scope, anti_trinitarian_smuggling]
+    variant_source_tradition_dependency: "no preferred reading selected; grammar evidence remains phrase/context only"
+    source_metadata_evidence_needs: [Strong_style_tags_evidence_only, capitalization_evidence_only, crossrefs_evidence_only]
+    original_language_phrase_context_needs: [Logos_phrase_context, Theos_predication_context, monogenes_context, prologue_discourse_context]
+    likely_owner_decisions_required: [confirm_original_language_pressure_packet_priority, confirm_phrase_not_word_rule, confirm_no_doctrine_graph_truth]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: safe_for_research_packet_prep_only
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, original_language_review_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [isolated_Greek_word_truth, translation_preference, doctrine_authority, graph_edge_generation, output_change]
+  - rank: 17
+    candidate_id: T399-Q017
+    lane_id: textual_variant_source_tradition
+    title: "Mark.16.9-Mark.16.20 longer ending"
+    candidate_passages: [Mark.16.1-Mark.16.20, Mark.16.9-Mark.16.20]
+    score: 74
+    source_basis: [T398-HDP-008, textual_variant_source_tradition_dossier_queue]
+    why_may_affect_chunking: "Boundary and output decisions around the longer ending can imply textual-critical and canon/source-tradition positions."
+    theological_or_hermeneutical_risks: [resurrection_ending_boundary, signs_and_baptism_pressure, canon_scope_confusion, source_tradition_preference]
+    variant_source_tradition_dependency: "blocked before reviewed gold or implementation; exact case docket and owner confirmation required"
+    source_metadata_evidence_needs: [footnotes_evidence_only, section_headings_evidence_only, textual_variant_empty_or_alternate_witness_evidence_only]
+    original_language_phrase_context_needs: [ending_transition_context, commission_language_context]
+    likely_owner_decisions_required: [prepare_variant_case_docket, confirm_no_preferred_reading, decide_if_research_only_queue_includes_this_case]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [textual_case_docket, owner_variant_dependency_confirmation, reviewed_gold_promotion_gate]
+    non_authorizations: [preferred_reading_selection, source_tradition_preference, canon_scope_change, reviewed_gold_promotion, output_change]
+  - rank: 18
+    candidate_id: T399-Q018
+    lane_id: textual_variant_source_tradition
+    title: "John.7.53-John.8.11 pericope adulterae"
+    candidate_passages: [John.7.53-John.8.11]
+    score: 73
+    source_basis: [T398-HDP-008, textual_variant_source_tradition_dossier_queue, gospel_wj_discourse_dossier_queue]
+    why_may_affect_chunking: "The passage is both textual-variant sensitive and WJ/speaker sensitive; any boundary promotion could imply source-tradition preference."
+    theological_or_hermeneutical_risks: [variant_source_tradition_preference, WJ_speech_authority, mercy_judgment_boundary, canon_scope_confusion]
+    variant_source_tradition_dependency: "blocked before promotion; exact variant/source-tradition case policy required"
+    source_metadata_evidence_needs: [footnotes_evidence_only, WJ_markers_evidence_only, section_headings_evidence_only]
+    original_language_phrase_context_needs: [accusation_mercy_judgment_phrase_context]
+    likely_owner_decisions_required: [prepare_variant_case_docket, decide_if_research_only_WJ_packet_is_allowed, confirm_no_preferred_reading]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [textual_case_docket, WJ_speaker_boundary_gate, reviewed_gold_promotion_gate]
+    non_authorizations: [preferred_reading_selection, source_tradition_preference, speaker_truth, reviewed_gold_promotion, output_change]
+  - rank: 19
+    candidate_id: T399-Q019
+    lane_id: prophetic_oracle_vision
+    title: "Jer.30.1-Jer.33.26 restoration and new covenant complex"
+    candidate_passages: [Jer.30.1-Jer.33.26, Jer.1-Jer.52]
+    score: 72
+    source_basis: [T398-HDP-003, prophetic_oracle_vision_dossier_queue, textual_variant_source_tradition_dossier_queue, T386_Jer_blocked_count]
+    why_may_affect_chunking: "Jeremiah is source-tradition heavy, and new covenant/restoration boundaries can imply covenant and Israel/church positions."
+    theological_or_hermeneutical_risks: [MT_LXX_order_length, covenant_theology_default, Israel_restoration_boundary, new_covenant_scope, source_tradition_preference]
+    variant_source_tradition_dependency: "blocked before promotion; Jeremiah MT/LXX order/length controls required"
+    source_metadata_evidence_needs: [section_headings_evidence_only, crossrefs_evidence_only, textual_source_notes_evidence_only]
+    original_language_phrase_context_needs: [berit_chadashah_new_covenant_context, restoration_oracle_context]
+    likely_owner_decisions_required: [decide_if_Jeremiah_waits_for_source_tradition_controls, prepare_case_docket, confirm_no_covenant_system_as_authority]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [source_tradition_case_docket, owner_variant_dependency_confirmation, reviewed_gold_promotion_gate]
+    non_authorizations: [source_tradition_preference, preferred_reading_selection, covenant_system_selection, reviewed_gold_promotion, output_change]
+  - rank: 20
+    candidate_id: T399-Q020
+    lane_id: wisdom_dialogue_poetry
+    title: "Song.1.1-Song.8.14 speaker boundaries and genre-sensitive lyric units"
+    candidate_passages: [Song.1.1-Song.8.14]
+    score: 70
+    source_basis: [T398-HDP-006, wisdom_dialogue_poetry_dossier_queue]
+    why_may_affect_chunking: "Speaker labels and lyric movements are translation/editorial evidence; hard boundaries can smuggle allegorical/literal or Christ/church readings."
+    theological_or_hermeneutical_risks: [speaker_attribution_authority, allegorical_vs_literal_system_selection, marriage_love_theology, canonical_theological_reading]
+    variant_source_tradition_dependency: "check before promotion; no dependency selected"
+    source_metadata_evidence_needs: [speaker_labels_evidence_only, section_headings_evidence_only, poetry_markers_evidence_only]
+    original_language_phrase_context_needs: [speaker_transition_phrases, refrain_context, love_poetry_parallelism]
+    likely_owner_decisions_required: [choose_if_Song_packet_strengthened, confirm_speaker_labels_not_authority, confirm_no_allegorical_or_literal_system_selection]
+    safe_for_review_only_strengthening_now: true
+    review_only_safety_status: safe_for_review_only_strengthening_now
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, speaker_boundary_review, reviewed_gold_promotion_gate]
+    non_authorizations: [speaker_truth, allegorical_system_selection, literal_system_selection, reviewed_gold_promotion, output_change]
+  - rank: 21
+    candidate_id: T399-Q021
+    lane_id: original_language_pressure
+    title: "Col.1.15-Col.1.20 firstborn and all-things Christology pressure"
+    candidate_passages: [Col.1.15-Col.1.20]
+    score: 69
+    source_basis: [orthodox_original_language_pressure_dossier_queue, original_language_phrase_context_policy]
+    why_may_affect_chunking: "Often pressured by anti-Trinitarian readings; review must preserve hymn/argument context without treating a single lexical item as authority."
+    theological_or_hermeneutical_risks: [Christology_pressure, firstborn_overread, creation_agency, hymn_boundary, anti_orthodox_smuggling]
+    variant_source_tradition_dependency: "no dependency selected; check before promotion"
+    source_metadata_evidence_needs: [Strong_style_tags_evidence_only, crossrefs_evidence_only, section_headings_evidence_only]
+    original_language_phrase_context_needs: [prototokos_context, ta_panta_all_things_context, eikon_image_context, reconciliation_scope_context]
+    likely_owner_decisions_required: [confirm_original_language_pressure_packet_priority, confirm_phrase_context_review, confirm_no_translation_preference]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: safe_for_research_packet_prep_only
+    downstream_gates_before_promotion_or_implementation: [owner_target_selection, original_language_review_validator, reviewed_gold_promotion_gate]
+    non_authorizations: [isolated_Greek_word_truth, translation_preference, doctrine_authority, reviewed_gold_promotion, output_change]
+  - rank: 22
+    candidate_id: T399-Q022
+    lane_id: textual_variant_source_tradition
+    title: "1John.5.6-1John.5.8 Comma Johanneum pressure zone"
+    candidate_passages: [1John.5.6-1John.5.8]
+    score: 68
+    source_basis: [textual_variant_source_tradition_dossier_queue, orthodox_hermeneutic_firewall_docket]
+    why_may_affect_chunking: "Trinitarian apologetic pressure must not smuggle a preferred reading, source-tradition choice, or anti-orthodox reaction into chunking."
+    theological_or_hermeneutical_risks: [Trinitarian_apologetic_pressure, preferred_reading_selection, source_tradition_preference, prooftext_overreach]
+    variant_source_tradition_dependency: "blocked before promotion; exact variant/source-tradition case docket required"
+    source_metadata_evidence_needs: [footnotes_evidence_only, textual_variant_notes_evidence_only, crossrefs_evidence_only]
+    original_language_phrase_context_needs: [witness_language_context, Spirit_water_blood_context]
+    likely_owner_decisions_required: [prepare_variant_case_docket, confirm_no_preferred_reading, confirm_orthodox_firewall_without_textual_authority]
+    safe_for_review_only_strengthening_now: false
+    review_only_safety_status: blocked_until_case_policy_or_owner_decision
+    downstream_gates_before_promotion_or_implementation: [textual_case_docket, owner_variant_dependency_confirmation, reviewed_gold_promotion_gate]
+    non_authorizations: [preferred_reading_selection, source_tradition_preference, prooftext_authority, canon_scope_change, output_change]
+owner_decision_map:
+  - decision_id: T399-HDM-001
+    title: "Select the next review-only strengthening target after Goal 2"
+    candidates: [T399-Q001, T399-Q002, T399-Q003, T399-Q004, T399-Q005, T399-Q006]
+    owner_question: "After T397 remains separate, which queue candidate should be strengthened next as review-only work?"
+    options:
+      - option_id: T399-HDM-001-A
+        label: "1Cor.11.17-1Cor.14.40"
+        upside: "Keeps the epistle lane moving with a high-leverage argument unit after 1Cor.8-10."
+        downside_risk: "Needs strong guardrails around gifts, order, gender, and supper theology."
+      - option_id: T399-HDM-001-B
+        label: "Gal.2.15-Gal.3.29"
+        upside: "Strong law/promise/justification packet that is high value before broader epistle generalization."
+        downside_risk: "Can smuggle law/gospel or covenant-system assumptions if child spans are premature."
+      - option_id: T399-HDM-001-C
+        label: "John.3.1-John.3.36"
+        upside: "Uses the existing owner-selected parent-only Gospel/WJ review target."
+        downside_risk: "Jesus/narrator and WJ metadata risks need careful non-authorizing handling."
+    recommendation: T399-HDM-001-A
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-002
+    title: "Confirm Acts as a distinct focused research lane"
+    candidates: [T399-Q005]
+    owner_question: "Should Acts narrative/speech transition be treated as its own lane before strengthening Acts packets?"
+    options: [Acts_distinct_lane, Acts_under_gospel_narrative, Acts_under_epistle_speech, hold_Acts_until_context_packets]
+    recommendation: Acts_distinct_lane
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-003
+    title: "Choose first non-epistle non-Gospel genre packet"
+    candidates: [T399-Q008, T399-Q010, T399-Q012, T399-Q013, T399-Q020]
+    owner_question: "Which non-epistle/non-Gospel lane should receive the first strengthened packet after epistle/Gospel work?"
+    options: [Gen.1-Gen.3, Job_dialogue_cycles, Isa.40-Isa.55, Exod.19-Exod.24, Song_speaker_boundary]
+    recommendation: Gen.1-Gen.3_if_owner_wants_creation_fall_pressure_first_else_Job_dialogue_cycles
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-004
+    title: "Handle blocked variant/source-tradition candidates"
+    candidates: [T399-Q009, T399-Q014, T399-Q017, T399-Q018, T399-Q019, T399-Q022]
+    owner_question: "Should variant/source-tradition-heavy candidates stay in the research queue with blocked status or wait for case dockets first?"
+    options: [include_with_blocked_status, prepare_case_dockets_first, hold_all_variant_sensitive_candidates]
+    recommendation: include_with_blocked_status
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-005
+    title: "Require metadata/original-language sections for focused packets"
+    candidates: [T399-Q001, T399-Q002, T399-Q004, T399-Q008, T399-Q016, T399-Q021]
+    owner_question: "Should each future focused packet require source metadata and original-language phrase/context sections where flagged?"
+    options: [required_for_flagged_candidates, required_for_all_candidates, required_before_promotion_only]
+    recommendation: required_for_flagged_candidates
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-006
+    title: "Keep Revelation in research/prep-only posture"
+    candidates: [T399-Q007]
+    owner_question: "Should Revelation remain REV-T344-E research/prep-only until stronger reviewed gold exists?"
+    options: [remain_research_prep_only, prepare_one_review_packet_options_docket, pause_Revelation_until_after_epistle_Gospel_packets]
+    recommendation: remain_research_prep_only
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-007
+    title: "Original-language pressure packet timing"
+    candidates: [T399-Q016, T399-Q021]
+    owner_question: "Should original-language pressure packets be prepared as research-only before or after next chunking review packets?"
+    options: [prepare_research_only_pressure_packets_in_parallel, attach_only_to_flagged_packet_when_selected, hold_until_source_language_witness_schema]
+    recommendation: prepare_research_only_pressure_packets_in_parallel
+    recommendation_is_owner_selection: false
+  - decision_id: T399-HDM-008
+    title: "Whole-Bible output remains blocked"
+    candidates: [canonical_66_all_lanes]
+    owner_question: "Does Goal 2 authorize any whole-Bible output-changing pass?"
+    options: [no_keep_blocked_until_multiple_lane_pilots, no_keep_blocked_until_all_lane_packets, never_use_global_objective]
+    recommendation: no_keep_blocked_until_multiple_lane_pilots
+    recommendation_is_owner_selection: false
+recommended_next_actions:
+  - action_id: T399-NEXT-001
+    action: "Keep T397 as the separate next route-isolated harness prep for Eph.1.3-Eph.1.14."
+    authorizes_output: false
+  - action_id: T399-NEXT-002
+    action: "Ask the owner to choose one T399-HDM-001 option before any new review-packet strengthening PR."
+    authorizes_output: false
+  - action_id: T399-NEXT-003
+    action: "Allow non-output-changing research-only pressure packets for original-language and blocked variant cases, but do not promote or implement them."
+    authorizes_output: false
+non_authorizations:
+  - exact_target_selection
+  - final_target_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - child_span_reviewed_gold_promotion
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - boundary_import
+  - whole_bible_output_pass
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - source_text_import
+  - denominational_systematic_theology_as_chunk_authority
+  - liberal_critical_default
+  - anti_supernatural_default
+  - anti_canonical_default
+lesson_recorded:
+  lesson_id: LSN-027
+  title: Focused Bible-wide research queues must separate score, safety, and authority
+  summary: "A high score can mean high research priority without meaning safe promotion, target selection, reviewed gold, child spans, output, or source-tradition authority."
+decision_register_entry: CD-073
+validators:
+  - scripts/validate_t399_focused_bible_wide_research_queue.py
+  - tests/test_t399_focused_bible_wide_research_queue.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_chunking_lesson_index.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_all.py
+...

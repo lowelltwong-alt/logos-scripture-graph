@@ -49,6 +49,7 @@ T393_PROMOTION_DECISION_PACKET = ROOT / ".ai" / "control" / "t393_eph1_reviewed_
 T393_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md"
 T394_EPH1_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t394_eph1_parent_only_reviewed_gold_promotion.yaml"
 T398_PHASE_ONE_SYNTHESIS = ROOT / ".ai" / "control" / "t398_bible_wide_phase_one_research_synthesis.yaml"
+T399_FOCUSED_RESEARCH_QUEUE = ROOT / ".ai" / "control" / "t399_focused_bible_wide_research_queue.yaml"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
 T386_COVERAGE_SUMMARY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_summary.yaml"
 T386_READINESS_MATRIX = ROOT / ".ai" / "control" / "bible_verse_passage_readiness_matrix.yaml"
@@ -102,7 +103,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -125,6 +126,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-022",
     "LSN-025",
     "LSN-026",
+    "LSN-027",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -206,6 +208,9 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t384_bible_wide_research_readiness_synthesis.yaml",
     "t398_bible_wide_phase_one_research_synthesis.yaml",
     "T398 phase-one whole-corpus research synthesis",
+    "t399_focused_bible_wide_research_queue.yaml",
+    "T399 focused Bible-wide research queue",
+    "validate_t399_focused_bible_wide_research_queue.py",
     "Goal 2 focused",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
@@ -433,6 +438,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t385_owner_decision_packet.yaml",
         ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
         ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
+        ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
         ".ai/control/bible_verse_passage_coverage_summary.yaml",
         ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
@@ -1009,6 +1015,24 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t398_synthesis_text:
             raise PreflightError(f"{_rel(T398_PHASE_ONE_SYNTHESIS)}: missing T398 synthesis phrase {phrase!r}")
+    t399_queue_text = _read_text(T399_FOCUSED_RESEARCH_QUEUE)
+    for phrase in (
+        "object_type: focused_bible_wide_research_queue",
+        "task_id: T399",
+        "status: complete_goal2_focused_research_queue",
+        "focused_research_queue_and_owner_decision_map",
+        "T397 remains the current route-isolated harness prep",
+        "parallel_work_note:",
+        "T399-HDM-001",
+        "recommendation_is_owner_selection: false",
+        "decision_register_entry: CD-073",
+        "lesson_id: LSN-027",
+        "authorizes_chunk_output_change: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_whole_bible_output_pass: false",
+    ):
+        if phrase not in t399_queue_text:
+            raise PreflightError(f"{_rel(T399_FOCUSED_RESEARCH_QUEUE)}: missing T399 queue phrase {phrase!r}")
     t386_summary_text = _read_text(T386_COVERAGE_SUMMARY)
     for phrase in (
         "object_type: bible_verse_passage_coverage_summary",

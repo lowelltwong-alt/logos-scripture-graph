@@ -83,6 +83,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-024",
     "LSN-025",
     "LSN-026",
+    "LSN-027",
 }
 
 REQUIRED_TAGS = {
@@ -167,6 +168,13 @@ REQUIRED_TAGS = {
     "focused-research",
     "human-decision-prompts",
     "t398",
+    "focused-research-queue",
+    "owner-decision-map",
+    "scoring-not-authority",
+    "review-only-safety",
+    "variant-blocked-status",
+    "original-language-pressure",
+    "t399",
 }
 
 REQUIRED_SURFACES = {
@@ -241,6 +249,13 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md",
     "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py",
     "tests/test_t398_bible_wide_phase_one_research_synthesis.py",
+    ".ai/control/t399_focused_bible_wide_research_queue.yaml",
+    "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md",
+    ".ai/tasks/T399.task.yaml",
+    ".ai/handoffs/T399/handoff.md",
+    ".ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md",
+    "scripts/validate_t399_focused_bible_wide_research_queue.py",
+    "tests/test_t399_focused_bible_wide_research_queue.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
