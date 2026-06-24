@@ -1,17 +1,33 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-23
-**Updated by:** T399 focused Bible-wide research queue (Codex)
-**Active task:** -> **T399 focused Bible-wide research queue** records the Goal 2 scored
-focused-research queue and owner-decision map at `.ai/control/t399_focused_bible_wide_research_queue.yaml`.
-It ranks 22 candidate passages/lanes, records eight owner-decision prompts, separates research score
-from review-only safety and authority, and keeps variant/source-tradition-heavy candidates blocked
-until exact case dockets and owner confirmations exist. T399 authorizes no final target selection,
-reviewed gold, child spans, chunk output, implementation, route/evaluator behavior,
-graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope
-change, source/manuscript rows, whole-Bible output, or theology authority. The current chunking
-route remains **T397** Goal 6 route-isolated harness prep only for `Eph.1.3-Eph.1.14`.
+**Last updated:** 2026-06-24
+**Updated by:** T397 Eph.1.3-Eph.1.14 route-isolation harness (Codex)
+**Active task:** -> **T397 Eph.1.3-Eph.1.14 route-isolation harness** completes Goal 6
+non-output-changing harness prep at `.ai/control/t397_eph1_route_isolation_harness.yaml` with
+`scripts/chunking/route_isolation_harness.py`.
+It proves non-target byte identity, exact-parent target shape, adjacent-spillover denial,
+child-span denial, and same-baseline report-shape readiness for future candidate-output
+simulations. T397 authorizes no parent span as chunk boundary, child spans, chunk output,
+implementation, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+readings/source traditions, canon-scope change, source/manuscript rows, whole-Bible output, or
+theology authority. The next authority-changing stop is a future owner output-pilot authorization
+gate for exactly `Eph.1.3-Eph.1.14`.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T397 Eph.1.3-Eph.1.14 route-isolation harness (2026-06-24):** Added
+> `.ai/control/t397_eph1_route_isolation_harness.yaml`,
+> `docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md`, `.ai/tasks/T397.task.yaml`,
+> `.ai/handoffs/T397/handoff.md`,
+> `.ai/audits/reports/20260624-T397-eph1-route-isolation-harness.md`,
+> `scripts/chunking/route_isolation_harness.py`,
+> `scripts/validate_t397_eph1_route_isolation_harness.py`, and
+> `tests/test_route_isolation_harness.py` /
+> `tests/test_t397_eph1_route_isolation_harness.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-074` plus `LSN-028`. T397 is a harness proof gate only. It does not authorize output,
+> implementation, child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary
+> import, source/manuscript rows, preferred readings/source traditions, canon-scope change, or
+> theology authority. A future output pilot requires a fresh owner gate.
 
 > **T399 focused Bible-wide research queue (2026-06-24):** Added
 > `.ai/control/t399_focused_bible_wide_research_queue.yaml`,

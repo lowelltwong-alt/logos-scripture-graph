@@ -850,7 +850,7 @@ def validate_owner_selection_implementation_gate(
                     "starts_only_if": "T394_eph1_parent_only_reviewed_gold_promoted",
                     "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
                     "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
-                    "completion_status": "planned_non_output_changing_harness_only",
+                    "completion_status": "complete_non_output_changing_route_isolation_harness_prep",
                     "owner_selection_status": "selected",
                     "selected_option": "T393-A",
                     "reviewed_gold_promoted": True,

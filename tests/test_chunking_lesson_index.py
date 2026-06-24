@@ -108,6 +108,13 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in by_id["LSN-027"]["source_surfaces"]
     assert "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md" in by_id["LSN-027"]["source_surfaces"]
     assert "CD-073" in by_id["LSN-027"]["related_decision_ids"]
+    assert "route-isolation-harness" in by_id["LSN-028"]["tags"]
+    assert "non-target-identity" in by_id["LSN-028"]["tags"]
+    assert "spill-protection" in by_id["LSN-028"]["tags"]
+    assert "child-span-denial" in by_id["LSN-028"]["tags"]
+    assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in by_id["LSN-028"]["source_surfaces"]
+    assert "scripts/chunking/route_isolation_harness.py" in by_id["LSN-028"]["source_surfaces"]
+    assert "CD-074" in by_id["LSN-028"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

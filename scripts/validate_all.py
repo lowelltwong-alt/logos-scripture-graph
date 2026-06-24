@@ -253,6 +253,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t394_eph1_parent_only_reviewed_gold_promotion.py")],
         ),
         (
+            "validate_t397_eph1_route_isolation_harness.py",
+            [PY, str(ROOT / "scripts" / "validate_t397_eph1_route_isolation_harness.py")],
+        ),
+        (
             "validate_t398_bible_wide_phase_one_research_synthesis.py",
             [PY, str(ROOT / "scripts" / "validate_t398_bible_wide_phase_one_research_synthesis.py")],
         ),

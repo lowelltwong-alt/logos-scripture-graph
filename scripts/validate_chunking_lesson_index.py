@@ -84,6 +84,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-025",
     "LSN-026",
     "LSN-027",
+    "LSN-028",
 }
 
 REQUIRED_TAGS = {
@@ -175,6 +176,14 @@ REQUIRED_TAGS = {
     "variant-blocked-status",
     "original-language-pressure",
     "t399",
+    "route-isolation-harness",
+    "non-target-identity",
+    "same-baseline",
+    "spill-protection",
+    "child-span-denial",
+    "exact-parent-target",
+    "t397",
+    "output-gate",
 }
 
 REQUIRED_SURFACES = {
@@ -256,6 +265,15 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md",
     "scripts/validate_t399_focused_bible_wide_research_queue.py",
     "tests/test_t399_focused_bible_wide_research_queue.py",
+    ".ai/control/t397_eph1_route_isolation_harness.yaml",
+    "docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md",
+    ".ai/tasks/T397.task.yaml",
+    ".ai/handoffs/T397/handoff.md",
+    ".ai/audits/reports/20260624-T397-eph1-route-isolation-harness.md",
+    "scripts/chunking/route_isolation_harness.py",
+    "tests/test_route_isolation_harness.py",
+    "scripts/validate_t397_eph1_route_isolation_harness.py",
+    "tests/test_t397_eph1_route_isolation_harness.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",

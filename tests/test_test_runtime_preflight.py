@@ -27,6 +27,8 @@ def test_test_runtime_preflight_validates_current_repo() -> None:
     assert profiles["pytest_full_suite"]["recommended_timeout_ms"] >= 600000
     assert profiles["pytest_full_suite_local_desktop_t398"]["recommended_timeout_ms"] >= 1200000
     assert "nested pytest/validate_all" in profiles["pytest_full_suite_local_desktop_t398"]["observed_result"]
+    assert profiles["pytest_full_suite_local_desktop_t397"]["recommended_timeout_ms"] >= 1200000
+    assert "608 passed in 830.68 seconds" in profiles["pytest_full_suite_local_desktop_t397"]["observed_result"]
     assert profiles["validate_all"]["recommended_timeout_ms"] >= 300000
 
 

@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T394
+last_updated_by_task: T397
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1150,6 +1150,83 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
       - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-028
+    title: Route-isolation harnesses prove output shape but do not authorize output
+    lifecycle_status: active
+    priority: mandatory_preflight
+    preflight_stage: before_goal7_or_any_eph1_3_14_output_pilot
+    categories:
+      - workflow_governance
+      - auditability
+      - owner_decision
+      - theological_risk
+    tags:
+      - route-isolation-harness
+      - non-target-identity
+      - same-baseline
+      - spill-protection
+      - child-span-denial
+      - exact-parent-target
+      - goal6
+      - t397
+      - ephesians
+      - reviewed-gold
+      - parent-only
+      - implementation-blocked
+      - output-gate
+      - non-output-changing
+    use_when:
+      - "A future agent prepares or audits Goal 7 or any Eph.1.3-Eph.1.14 candidate output change after T394 parent-only reviewed gold."
+      - "A future agent needs to prove all non-target chunk records remain byte-identical before claiming a route-isolated output pilot."
+      - "A future agent is tempted to treat a passing harness as permission to implement chunks, add child spans, change route behavior, or use parent-only gold as output authority."
+    source_surfaces:
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - scripts/chunking/route_isolation_harness.py
+      - tests/test_route_isolation_harness.py
+      - scripts/validate_t397_eph1_route_isolation_harness.py
+      - tests/test_t397_eph1_route_isolation_harness.py
+      - docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md
+      - .ai/tasks/T397.task.yaml
+      - .ai/handoffs/T397/handoff.md
+      - .ai/audits/reports/20260624-T397-eph1-route-isolation-harness.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids:
+      - CD-074
+      - CD-071
+    related_workflow_lesson_ids: []
+    related_task_ids:
+      - T397
+      - T394
+      - T393
+      - T392
+    downstream_risk: "Harness success can be mistaken for output authorization, parent-span boundary authority, child-span permission, route/evaluator behavior, graph/retrieval/vector truth, or theology authority unless the harness is always read with its non-authorizations."
+    required_preflight_surfaces:
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - scripts/chunking/route_isolation_harness.py
+      - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+      - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    non_authorizations:
+      - harness_as_output_authority
+      - parent_span_as_chunk_boundary_without_later_owner_gate
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_harness
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_from_harness
+    validators:
+      - scripts/validate_t397_eph1_route_isolation_harness.py
+      - tests/test_t397_eph1_route_isolation_harness.py
+      - tests/test_route_isolation_harness.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1409,4 +1486,13 @@ lesson_graph:
   - from: LSN-027
     relation: audits
     to: LSN-010
+  - from: LSN-025
+    relation: constrains
+    to: LSN-028
+  - from: LSN-028
+    relation: audits
+    to: LSN-010
+  - from: LSN-028
+    relation: constrains
+    to: LSN-008
 validator: scripts/validate_chunking_lesson_index.py

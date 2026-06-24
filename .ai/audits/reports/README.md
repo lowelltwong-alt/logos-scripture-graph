@@ -55,3 +55,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   Goal 2 focused Bible-wide research queue; records the scored candidate queue, owner-decision
   map, blocked variant/source-tradition statuses, T397 preservation, and the non-output-changing
   boundary.
+- `20260624-T397-eph1-route-isolation-harness.md` - T397 no-context audit surface for the
+  Eph.1.3-Eph.1.14 route-isolation harness; records executable non-target identity, exact-parent
+  target, spillover denial, child-span denial, report-shape proof, and the future owner output-gate
+  boundary.
