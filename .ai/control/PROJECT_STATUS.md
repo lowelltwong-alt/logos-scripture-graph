@@ -1,17 +1,30 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-23
-**Updated by:** T398 Bible-wide phase-one research synthesis (Codex)
-**Active task:** -> **T398 Bible-wide phase-one research synthesis** records a deterministic
-phase-one whole-corpus synthesis at `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`.
-Every canonical passage is accounted for at T386 triage depth and every canonical book is accounted
-for at registry depth, but every verse has not been deeply exegeted. T398 creates Goal 2 focused
-research human-decision prompts and authorizes no exact target selection, reviewed gold, child
-spans, chunk output, implementation, route/evaluator behavior, graph/retrieval/vector truth,
-boundary import, preferred readings/source traditions, canon-scope change, source/manuscript rows,
-whole-Bible output, or theology authority. The current chunking route remains **T397** Goal 6
-route-isolated harness prep only for `Eph.1.3-Eph.1.14`. **T308** connection discovery + **T309**
-chunking bake-off still open.
+**Updated by:** T399 focused Bible-wide research queue (Codex)
+**Active task:** -> **T399 focused Bible-wide research queue** records the Goal 2 scored
+focused-research queue and owner-decision map at `.ai/control/t399_focused_bible_wide_research_queue.yaml`.
+It ranks 22 candidate passages/lanes, records eight owner-decision prompts, separates research score
+from review-only safety and authority, and keeps variant/source-tradition-heavy candidates blocked
+until exact case dockets and owner confirmations exist. T399 authorizes no final target selection,
+reviewed gold, child spans, chunk output, implementation, route/evaluator behavior,
+graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope
+change, source/manuscript rows, whole-Bible output, or theology authority. The current chunking
+route remains **T397** Goal 6 route-isolated harness prep only for `Eph.1.3-Eph.1.14`.
+**T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T399 focused Bible-wide research queue (2026-06-24):** Added
+> `.ai/control/t399_focused_bible_wide_research_queue.yaml`,
+> `docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md`, `.ai/tasks/T399.task.yaml`,
+> `.ai/handoffs/T399/handoff.md`,
+> `.ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md`,
+> `scripts/validate_t399_focused_bible_wide_research_queue.py`, and
+> `tests/test_t399_focused_bible_wide_research_queue.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-073` plus `LSN-027`. T399 completes Goal 2 as a scored, non-output-changing focused queue
+> with owner-decision prompts. Recommendations are not owner selections, high scores are not
+> authority, and blocked variant/source-tradition cases remain blocked before promotion or
+> implementation. T397 remains the separate harness route.
 
 > **T398 Bible-wide phase-one research synthesis (2026-06-23):** Added
 > `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`,

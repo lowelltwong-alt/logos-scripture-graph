@@ -34,7 +34,7 @@ Read these files before making changes:
     T374 baseline-overlap owner decision packet, T374 additive parent overlay implementation manifest,
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
-    T398 phase-one whole-corpus research synthesis,
+    T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -216,6 +216,14 @@ Bible-first chunking priority:
   route/evaluator behavior, graph/retrieval/vector truth, boundary import, source-tradition
   preference, canon-scope change, source/manuscript rows, whole-Bible output, or theology
   authority.
+  T399 now records the Goal 2 focused Bible-wide research queue at
+  `.ai/control/t399_focused_bible_wide_research_queue.yaml`, validated by
+  `scripts/validate_t399_focused_bible_wide_research_queue.py`. It ranks high-risk candidate
+  passages/lanes and owner-decision prompts while separating research score, review-only safety,
+  and authority. T399 does not supersede T397 or authorize targets, reviewed gold, child spans,
+  output, route/evaluator behavior, graph/retrieval/vector truth, boundary import,
+  preferred readings/source traditions, canon-scope change, source/manuscript rows, whole-Bible
+  output, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
   other epistles, graph/retrieval/vector truth, evaluator changes, preferred readings,
   source-tradition preference, boundary imports, or whole-Bible output.
@@ -292,6 +300,15 @@ Bible-first chunking priority:
   change output, alter route/evaluator behavior, create graph/retrieval/vector truth, import
   boundaries, select preferred readings/source traditions, change canon scope, create
   source/manuscript rows, run whole-Bible output, or authorize theology claims.
+- The T399 focused Bible-wide research queue at
+  `.ai/control/t399_focused_bible_wide_research_queue.yaml` records Goal 2 focused-research
+  ranking, owner-decision prompts, blocked variant/source-tradition cases, source-metadata needs,
+  original-language phrase/context needs, and review-only safety status. It is validated by
+  `scripts/validate_t399_focused_bible_wide_research_queue.py`. It does not select targets,
+  promote reviewed gold, authorize child spans, change output, alter route/evaluator behavior,
+  create graph/retrieval/vector truth, import boundaries, select preferred readings/source
+  traditions, change canon scope, create source/manuscript rows, run whole-Bible output, or
+  authorize theology claims.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical

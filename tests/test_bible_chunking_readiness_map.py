@@ -84,6 +84,8 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in surfaces
     assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in surfaces
     assert "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md" in surfaces
+    assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in surfaces
+    assert "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -159,7 +161,31 @@ def test_parallel_t398_phase_one_synthesis_does_not_replace_next_route() -> None
     assert synthesis["reviewed_gold_promoted"] is False
     assert synthesis["graph_edge_generation_allowed"] is False
     assert synthesis["retrieval_truth_authorized"] is False
-    assert synthesis["whole_bible_output_authorized"] is False
+
+
+def test_parallel_t399_focused_queue_does_not_replace_next_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    queue = data["parallel_t399_focused_research_queue"]
+
+    assert data["next_route"]["task_id"] == "T397"
+    assert queue["task_id"] == "T399"
+    assert queue["route_type"] == "goal2_focused_research_queue"
+    assert queue["path"] == ".ai/control/t399_focused_bible_wide_research_queue.yaml"
+    assert queue["status"] == "complete_goal2_focused_research_queue"
+    assert queue["relation_to_next_route"] == "Parallel focused research queue; does not supersede T397 harness prep or authorize output."
+    assert queue["candidate_count"] == 22
+    assert queue["owner_decision_prompt_count"] == 8
+    assert queue["recommendation_is_owner_selection"] is False
+    assert queue["decision_register_entry"] == "CD-073"
+    assert queue["lesson_index_entry"] == "LSN-027"
+    assert queue["next_chunking_route_remains"] == "T397_goal6_route_isolated_harness_prep_only"
+    assert queue["output_change_authorized"] is False
+    assert queue["implementation_authorized"] is False
+    assert queue["exact_target_selected"] is False
+    assert queue["reviewed_gold_promoted"] is False
+    assert queue["graph_edge_generation_allowed"] is False
+    assert queue["retrieval_truth_authorized"] is False
+    assert queue["whole_bible_output_authorized"] is False
 
 
 def test_parallel_original_language_pressure_queue_does_not_replace_next_route() -> None:

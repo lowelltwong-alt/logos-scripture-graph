@@ -1072,6 +1072,84 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
       - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-027
+    title: Focused Bible-wide research queues must separate score, safety, and authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    preflight_stage: before_goal2_followup_or_review_packet_selection
+    categories:
+      - owner_decision
+      - theological_risk
+      - auditability
+      - workflow_governance
+      - contextual_reading
+      - original_language
+    tags:
+      - goal2
+      - focused-research
+      - focused-research-queue
+      - owner-decision-map
+      - scoring-not-authority
+      - review-only-safety
+      - variant-blocked-status
+      - original-language-pressure
+      - source-metadata
+      - contextual-reading
+      - orthodox-hermeneutic-firewall
+      - t399
+      - non-output-changing
+    use_when:
+      - "A future agent asks what focused packets should be strengthened next after T398 phase-one research."
+      - "A future agent is tempted to treat a high research score or recommendation as owner selection, reviewed gold, output authority, source-tradition authority, or theology authority."
+      - "A future owner gate needs all serious faithful Goal 2 options, risks, dependencies, and blocked statuses presented before packet strengthening."
+    source_surfaces:
+      - .ai/control/t399_focused_bible_wide_research_queue.yaml
+      - docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md
+      - .ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md
+      - .ai/tasks/T399.task.yaml
+      - .ai/handoffs/T399/handoff.md
+      - scripts/validate_t399_focused_bible_wide_research_queue.py
+      - tests/test_t399_focused_bible_wide_research_queue.py
+    related_decision_ids:
+      - CD-073
+    related_workflow_lesson_ids: []
+    related_task_ids:
+      - T399
+      - T398
+      - T386
+      - T384
+    downstream_risk: "Future agents could collapse research priority into target selection, reviewed gold, child-span authority, source-tradition preference, graph/retrieval truth, chunk output readiness, or theology authority."
+    required_preflight_surfaces:
+      - .ai/control/t399_focused_bible_wide_research_queue.yaml
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+      - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    non_authorizations:
+      - exact_target_selection
+      - final_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority
+    validators:
+      - scripts/validate_t399_focused_bible_wide_research_queue.py
+      - tests/test_t399_focused_bible_wide_research_queue.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1317,6 +1395,18 @@ lesson_graph:
     relation: constrains
     to: LSN-012
   - from: LSN-026
+    relation: audits
+    to: LSN-010
+  - from: LSN-026
+    relation: discovers
+    to: LSN-027
+  - from: LSN-027
+    relation: constrains
+    to: LSN-020
+  - from: LSN-027
+    relation: constrains
+    to: LSN-021
+  - from: LSN-027
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

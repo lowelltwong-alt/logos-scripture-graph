@@ -378,7 +378,7 @@ def _validate_links() -> None:
         (HANDOFF, ("task_id: T394", "T393-A", PROMOTION_REL)),
         (AUDIT, ("T394", "reviewed gold", "Not authorized")),
         (PROJECT_STATUS, ("T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion", "T397")),
-        (CURRENT_FOCUS, ("current_task: T394", PROMOTION_REL)),
+        (CURRENT_FOCUS, ("t394_promotion_record", PROMOTION_REL)),
         (VALIDATE_ALL, ("validate_t394_eph1_parent_only_reviewed_gold_promotion.py",)),
     )
     for path, phrases in linked_requirements:

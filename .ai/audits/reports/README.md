@@ -51,3 +51,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
 - `20260623-T398-bible-wide-phase-one-research-synthesis.md` - T398 no-context audit surface for
   the Bible-wide phase-one research synthesis; records whole-corpus triage coverage, Goal 2
   focused-research prompts, T397 preservation, and the non-output-changing boundary.
+- `20260624-T399-focused-bible-wide-research-queue.md` - T399 no-context audit surface for the
+  Goal 2 focused Bible-wide research queue; records the scored candidate queue, owner-decision
+  map, blocked variant/source-tradition statuses, T397 preservation, and the non-output-changing
+  boundary.
