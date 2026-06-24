@@ -2,7 +2,7 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-23 during T396 to add scoped DSS biblical witness row-population anti-overclaiming controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
@@ -1012,6 +1012,222 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
   - lesson_id: LSN-026
+    title: Phase-one whole-corpus research is triage, not deep verse exegesis
+    lifecycle_status: active
+    priority: P0
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, contextual_reading, source_metadata, original_language]
+    tags: [phase-one-research, whole-corpus, canonical-66, triage-not-exegesis, goal2, focused-research, human-decision-prompts, t398, bible-wide-readiness, research-synthesis, non-output-changing, audit]
+    use_when:
+      - "A future agent asks whether all Bible research is complete, whether every verse has been deeply exegeted, or whether chunking can resume from whole-corpus phase-one findings."
+      - "A future Goal 2 focused-research task needs the human decision prompt queue and top-risk lane/book synthesis before strengthening a packet."
+      - "A no-context reviewer needs to check that phase-one whole-corpus research did not authorize target selection, reviewed gold, child spans, output, route/evaluator changes, graph/retrieval/vector truth, source-tradition preference, canon-scope changes, source rows, or theology authority."
+    preflight_stage: before_goal2_focused_research_or_any_whole_bible_chunking_claim
+    source_surfaces:
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
+      - .ai/tasks/T398.task.yaml
+      - .ai/handoffs/T398/handoff.md
+      - .ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md
+      - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+      - tests/test_t398_bible_wide_phase_one_research_synthesis.py
+      - .ai/control/bible_verse_passage_coverage_summary.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/bible_wide_chunking_research_registry.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: [CD-072]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T384, T386, T398]
+    downstream_risk: "A phase-one corpus pass can be mistaken for full exegesis, target selection, whole-Bible output readiness, or authority to bypass later owner gates unless the triage/deep-exegesis distinction is mandatory preflight."
+    required_preflight_surfaces:
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - .ai/control/bible_verse_passage_coverage_summary.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/bible_wide_chunking_research_registry.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    non_authorizations:
+      - exact_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - denominational_systematic_theology_as_chunk_authority
+    validators:
+      - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+      - tests/test_t398_bible_wide_phase_one_research_synthesis.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-027
+    title: Focused Bible-wide research queues must separate score, safety, and authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    preflight_stage: before_goal2_followup_or_review_packet_selection
+    categories:
+      - owner_decision
+      - theological_risk
+      - auditability
+      - workflow_governance
+      - contextual_reading
+      - original_language
+    tags:
+      - goal2
+      - focused-research
+      - focused-research-queue
+      - owner-decision-map
+      - scoring-not-authority
+      - review-only-safety
+      - variant-blocked-status
+      - original-language-pressure
+      - source-metadata
+      - contextual-reading
+      - orthodox-hermeneutic-firewall
+      - t399
+      - non-output-changing
+    use_when:
+      - "A future agent asks what focused packets should be strengthened next after T398 phase-one research."
+      - "A future agent is tempted to treat a high research score or recommendation as owner selection, reviewed gold, output authority, source-tradition authority, or theology authority."
+      - "A future owner gate needs all serious faithful Goal 2 options, risks, dependencies, and blocked statuses presented before packet strengthening."
+    source_surfaces:
+      - .ai/control/t399_focused_bible_wide_research_queue.yaml
+      - docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md
+      - .ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md
+      - .ai/tasks/T399.task.yaml
+      - .ai/handoffs/T399/handoff.md
+      - scripts/validate_t399_focused_bible_wide_research_queue.py
+      - tests/test_t399_focused_bible_wide_research_queue.py
+    related_decision_ids:
+      - CD-073
+    related_workflow_lesson_ids: []
+    related_task_ids:
+      - T399
+      - T398
+      - T386
+      - T384
+    downstream_risk: "Future agents could collapse research priority into target selection, reviewed gold, child-span authority, source-tradition preference, graph/retrieval truth, chunk output readiness, or theology authority."
+    required_preflight_surfaces:
+      - .ai/control/t399_focused_bible_wide_research_queue.yaml
+      - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
+      - .ai/control/bible_verse_passage_readiness_matrix.yaml
+      - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+      - .ai/control/orthodox_original_language_pressure_dossier_queue.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    non_authorizations:
+      - exact_target_selection
+      - final_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority
+    validators:
+      - scripts/validate_t399_focused_bible_wide_research_queue.py
+      - tests/test_t399_focused_bible_wide_research_queue.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-028
+    title: Route-isolation harnesses prove output shape but do not authorize output
+    lifecycle_status: active
+    priority: mandatory_preflight
+    preflight_stage: before_goal7_or_any_eph1_3_14_output_pilot
+    categories:
+      - workflow_governance
+      - auditability
+      - owner_decision
+      - theological_risk
+    tags:
+      - route-isolation-harness
+      - non-target-identity
+      - same-baseline
+      - spill-protection
+      - child-span-denial
+      - exact-parent-target
+      - goal6
+      - t397
+      - ephesians
+      - reviewed-gold
+      - parent-only
+      - implementation-blocked
+      - output-gate
+      - non-output-changing
+    use_when:
+      - "A future agent prepares or audits Goal 7 or any Eph.1.3-Eph.1.14 candidate output change after T394 parent-only reviewed gold."
+      - "A future agent needs to prove all non-target chunk records remain byte-identical before claiming a route-isolated output pilot."
+      - "A future agent is tempted to treat a passing harness as permission to implement chunks, add child spans, change route behavior, or use parent-only gold as output authority."
+    source_surfaces:
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - scripts/chunking/route_isolation_harness.py
+      - tests/test_route_isolation_harness.py
+      - scripts/validate_t397_eph1_route_isolation_harness.py
+      - tests/test_t397_eph1_route_isolation_harness.py
+      - docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md
+      - .ai/tasks/T397.task.yaml
+      - .ai/handoffs/T397/handoff.md
+      - .ai/audits/reports/20260624-T397-eph1-route-isolation-harness.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids:
+      - CD-074
+      - CD-071
+    related_workflow_lesson_ids: []
+    related_task_ids:
+      - T397
+      - T394
+      - T393
+      - T392
+    downstream_risk: "Harness success can be mistaken for output authorization, parent-span boundary authority, child-span permission, route/evaluator behavior, graph/retrieval/vector truth, or theology authority unless the harness is always read with its non-authorizations."
+    required_preflight_surfaces:
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - scripts/chunking/route_isolation_harness.py
+      - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+      - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    non_authorizations:
+      - harness_as_output_authority
+      - parent_span_as_chunk_boundary_without_later_owner_gate
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_or_retrieval_truth_from_harness
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_from_harness
+    validators:
+      - scripts/validate_t397_eph1_route_isolation_harness.py
+      - tests/test_t397_eph1_route_isolation_harness.py
+      - tests/test_route_isolation_harness.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-029
     title: Scoped witness rows stay candidate metadata until reviewed
     lifecycle_status: active
     priority: P0
@@ -1034,7 +1250,7 @@ lessons:
       - .ai/control/manuscript_source_catalog_sqlite_shell.yaml
       - .ai/control/manuscript_source_catalog_research_packet.yaml
       - .ai/control/manuscript_source_catalog_metadata_plan.yaml
-    related_decision_ids: [CD-072]
+    related_decision_ids: [CD-075]
     related_workflow_lesson_ids: []
     related_task_ids: [T387, T390, T391, T395, T396]
     downstream_risk: "A scoped witness-row population can be mistaken for authority to add more witnesses, import manuscript text or images, flatten candidate claims into facts, normalize dates without review, select a preferred reading/source tradition, or use DSS discovery as apologetic proof."
@@ -1300,19 +1516,52 @@ lesson_graph:
   - from: LSN-025
     relation: constrains
     to: LSN-008
-  - from: LSN-002
-    relation: governs_update_of
+  - from: LSN-013
+    relation: discovers
     to: LSN-026
-  - from: LSN-024
+  - from: LSN-014
+    relation: discovers
+    to: LSN-026
+  - from: LSN-026
     relation: constrains
-    to: LSN-026
+    to: LSN-012
   - from: LSN-026
     relation: audits
     to: LSN-010
   - from: LSN-026
+    relation: discovers
+    to: LSN-027
+  - from: LSN-027
+    relation: constrains
+    to: LSN-020
+  - from: LSN-027
+    relation: constrains
+    to: LSN-021
+  - from: LSN-027
+    relation: audits
+    to: LSN-010
+  - from: LSN-025
+    relation: constrains
+    to: LSN-028
+  - from: LSN-028
+    relation: audits
+    to: LSN-010
+  - from: LSN-028
+    relation: constrains
+    to: LSN-008
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-029
+  - from: LSN-024
+    relation: constrains
+    to: LSN-029
+  - from: LSN-029
+    relation: audits
+    to: LSN-010
+  - from: LSN-029
     relation: constrains
     to: LSN-006
-  - from: LSN-026
+  - from: LSN-029
     relation: constrains
     to: LSN-019
 validator: scripts/validate_chunking_lesson_index.py

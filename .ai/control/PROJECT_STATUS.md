@@ -1,18 +1,61 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-23
-**Updated by:** T396 DSS biblical witness source rows (Codex)
-**Active task:** -> **T394 Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion** records Lowell's
-owner selection of `T393-A` at `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`.
-Only `Eph.1.3-Eph.1.14` is promoted as parent-only reviewed gold. `exact_internal_variant_refs`
-is empty; the parent boundary and reviewed-gold claim are current-repo variant-non-dependent and
-source-tradition-non-dependent. Child spans are not necessary now and are not authorized. T394
-authorizes no chunk output, implementation, parent span as chunk boundary, child spans,
-route/evaluator behavior, graph/retrieval/vector truth, preferred readings/source traditions,
-boundary import, canon-scope change, source/manuscript row creation, SQLite database creation,
-metadata row population, source text import, or theology authority. The next chunking step is
-**T397** Goal 6 route-isolated harness prep only. **T308** connection discovery + **T309**
-chunking bake-off still open.
+**Last updated:** 2026-06-24
+**Updated by:** T397 Eph.1.3-Eph.1.14 route-isolation harness (Codex)
+**Active task:** -> **T397 Eph.1.3-Eph.1.14 route-isolation harness** completes Goal 6
+non-output-changing harness prep at `.ai/control/t397_eph1_route_isolation_harness.yaml` with
+`scripts/chunking/route_isolation_harness.py`.
+It proves non-target byte identity, exact-parent target shape, adjacent-spillover denial,
+child-span denial, and same-baseline report-shape readiness for future candidate-output
+simulations. T397 authorizes no parent span as chunk boundary, child spans, chunk output,
+implementation, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
+readings/source traditions, canon-scope change, source/manuscript rows, whole-Bible output, or
+theology authority. The next authority-changing stop is a future owner output-pilot authorization
+gate for exactly `Eph.1.3-Eph.1.14`.
+**T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T397 Eph.1.3-Eph.1.14 route-isolation harness (2026-06-24):** Added
+> `.ai/control/t397_eph1_route_isolation_harness.yaml`,
+> `docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md`, `.ai/tasks/T397.task.yaml`,
+> `.ai/handoffs/T397/handoff.md`,
+> `.ai/audits/reports/20260624-T397-eph1-route-isolation-harness.md`,
+> `scripts/chunking/route_isolation_harness.py`,
+> `scripts/validate_t397_eph1_route_isolation_harness.py`, and
+> `tests/test_route_isolation_harness.py` /
+> `tests/test_t397_eph1_route_isolation_harness.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-074` plus `LSN-028`. T397 is a harness proof gate only. It does not authorize output,
+> implementation, child spans, route/evaluator behavior, graph/retrieval/vector truth, boundary
+> import, source/manuscript rows, preferred readings/source traditions, canon-scope change, or
+> theology authority. A future output pilot requires a fresh owner gate.
+
+> **T399 focused Bible-wide research queue (2026-06-24):** Added
+> `.ai/control/t399_focused_bible_wide_research_queue.yaml`,
+> `docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md`, `.ai/tasks/T399.task.yaml`,
+> `.ai/handoffs/T399/handoff.md`,
+> `.ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md`,
+> `scripts/validate_t399_focused_bible_wide_research_queue.py`, and
+> `tests/test_t399_focused_bible_wide_research_queue.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-073` plus `LSN-027`. T399 completes Goal 2 as a scored, non-output-changing focused queue
+> with owner-decision prompts. Recommendations are not owner selections, high scores are not
+> authority, and blocked variant/source-tradition cases remain blocked before promotion or
+> implementation. T397 remains the separate harness route.
+
+> **T398 Bible-wide phase-one research synthesis (2026-06-23):** Added
+> `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`,
+> `docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md`,
+> `.ai/tasks/T398.task.yaml`, `.ai/handoffs/T398/handoff.md`,
+> `.ai/audits/reports/20260623-T398-bible-wide-phase-one-research-synthesis.md`,
+> `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`, and
+> `tests/test_t398_bible_wide_phase_one_research_synthesis.py`; updated preflight, the decision
+> register, lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and
+> recorded `CD-072` plus `LSN-026`. T398 proves whole-corpus accounting at triage/registry depth,
+> not deep verse-by-verse exegesis. It turns the T384/T386 findings into Goal 2 focused-research
+> prompts and keeps T397 as the next harness route. Not authorized: target selection, reviewed
+> gold, child spans, output, route/evaluator behavior, graph/retrieval/vector truth, boundary
+> import, preferred reading/source-tradition choice, canon-scope change, source/manuscript row
+> creation, whole-Bible output, or theology authority.
 
 > **T396 DSS biblical witness source rows (2026-06-23):** Added
 > `.ai/control/dss_biblical_witness_source_rows.yaml`,
@@ -23,8 +66,8 @@ chunking bake-off still open.
 > `tests/test_dss_biblical_witness_source_rows.py`. T396 loads the T395 schema and source seed
 > rows in in-memory SQLite, then populates exactly nine metadata-only Great Isaiah Scroll exemplar
 > rows across holding-institution, witness-record, identifier, date, material, coverage, discovery,
-> and review-queue tables. It records `CD-072` and `LSN-026` after T394 used `CD-071` and
-> `LSN-025`, preserves candidate/blocked status for date/material/coverage/shelfmark/script/rights
+> and review-queue tables. It records `CD-075` and `LSN-029` after main used `CD-072`/`LSN-026`
+> for T398, `CD-073`/`LSN-027` for T399, and `CD-074`/`LSN-028` for T397. It preserves candidate/blocked status for date/material/coverage/shelfmark/script/rights
 > normalization, and validates official source URLs routed through T391/T395. It authorizes no
 > additional witness population without a later
 > task, committed SQLite database file, source text import, transcription storage, Bible text

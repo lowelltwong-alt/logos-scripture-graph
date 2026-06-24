@@ -1,0 +1,94 @@
+id: T399
+phase: phase_4
+title: "Focused Bible-Wide Research Queue"
+mode: build
+status: complete_goal2_focused_research_queue
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t399_focused_bible_wide_research_queue.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T399.task.yaml
+    - .ai/handoffs/T399/
+    - .ai/audits/reports/20260624-T399-focused-bible-wide-research-queue.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md
+    - scripts/validate_t399_focused_bible_wide_research_queue.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_t385_owner_decision_packet.py
+    - scripts/validate_t392_eph1_review_packet_strengthening.py
+    - scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py
+    - scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py
+    - scripts/validate_all.py
+    - tests/test_t399_focused_bible_wide_research_queue.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: focused_bible_wide_research_queue
+  decision_register_entry: CD-073
+  lesson_index_entry: LSN-027
+  goal2_complete: true
+  output_change_authorized: false
+  implementation_authorized: false
+  exact_target_selected: false
+  reviewed_gold_promoted: false
+  child_spans_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_retrieval_truth_authorized: false
+  boundary_import_allowed: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  source_or_manuscript_rows_authorized: false
+acceptance_criteria:
+  - "T399 records a scored focused research queue from T398/T386/dossier/policy inputs."
+  - "Each candidate records why it may affect chunking, theological/hermeneutical risks, variant/source-tradition status, source-metadata needs, original-language needs, owner decisions, and review-only safety status."
+  - "The owner-decision map presents options and recommendations without treating recommendations as owner selection."
+  - "T399 records blocked status for variant/source-tradition-heavy cases without selecting readings or source traditions."
+  - "T397 remains the current route-isolated harness prep and T399 stays parallel, research-only, and non-output-changing."
+  - "No raw/canonical/generated chunk, route, evaluator, graph, retrieval, source-row, or output files are touched."
+validation:
+  - python scripts/validate_t399_focused_bible_wide_research_queue.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_task_scope.py --task-id T399
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T399/handoff.md
+next_task: "Owner chooses one T399-HDM option before any new review-packet strengthening; T397 remains the separate route-isolated harness prep path."
+created_at: "2026-06-24"
+updated_at: "2026-06-24"

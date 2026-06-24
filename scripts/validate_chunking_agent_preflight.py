@@ -48,6 +48,10 @@ T392_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T392_EPH1_REVIEW_PACKET_STRENGTH
 T393_PROMOTION_DECISION_PACKET = ROOT / ".ai" / "control" / "t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
 T393_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md"
 T394_EPH1_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t394_eph1_parent_only_reviewed_gold_promotion.yaml"
+T397_EPH1_HARNESS = ROOT / ".ai" / "control" / "t397_eph1_route_isolation_harness.yaml"
+T397_HARNESS_SCRIPT = ROOT / "scripts" / "chunking" / "route_isolation_harness.py"
+T398_PHASE_ONE_SYNTHESIS = ROOT / ".ai" / "control" / "t398_bible_wide_phase_one_research_synthesis.yaml"
+T399_FOCUSED_RESEARCH_QUEUE = ROOT / ".ai" / "control" / "t399_focused_bible_wide_research_queue.yaml"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
 T386_COVERAGE_SUMMARY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_summary.yaml"
 T386_READINESS_MATRIX = ROOT / ".ai" / "control" / "bible_verse_passage_readiness_matrix.yaml"
@@ -101,7 +105,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073", "CD-074"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -123,6 +127,9 @@ REQUIRED_LESSON_IDS = {
     "LSN-021",
     "LSN-022",
     "LSN-025",
+    "LSN-026",
+    "LSN-027",
+    "LSN-028",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -202,6 +209,15 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t375_post_pilot_review.yaml",
     "t376_epistle_research_runway.yaml",
     "t384_bible_wide_research_readiness_synthesis.yaml",
+    "t398_bible_wide_phase_one_research_synthesis.yaml",
+    "T398 phase-one whole-corpus research synthesis",
+    "t399_focused_bible_wide_research_queue.yaml",
+    "T399 focused Bible-wide research queue",
+    "validate_t399_focused_bible_wide_research_queue.py",
+    "t397_eph1_route_isolation_harness.yaml",
+    "T397 Eph.1.3-Eph.1.14 route-isolation harness",
+    "scripts/chunking/route_isolation_harness.py",
+    "Goal 2 focused",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
     "owner_decision_option_presentation_policy.yaml",
@@ -427,6 +443,10 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t384_bible_wide_research_readiness_synthesis.yaml",
         ".ai/control/t385_owner_decision_packet.yaml",
         ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+        ".ai/control/t397_eph1_route_isolation_harness.yaml",
+        "scripts/chunking/route_isolation_harness.py",
+        ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
+        ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
         ".ai/control/bible_verse_passage_coverage_summary.yaml",
         ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
@@ -984,6 +1004,72 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t394_promotion_text:
             raise PreflightError(f"{_rel(T394_EPH1_PROMOTION_RECORD)}: missing T394 promotion phrase {phrase!r}")
+    t397_harness_text = _read_text(T397_EPH1_HARNESS)
+    for phrase in (
+        "object_type: eph1_route_isolation_harness_record",
+        "task_id: T397",
+        "status: complete_non_output_changing_route_isolation_harness_prep",
+        "selected_parent: Eph.1.3-Eph.1.14",
+        "selected_children: []",
+        "provides_future_route_isolation_gate: true",
+        "authorizes_chunk_output_change: false",
+        "authorizes_implementation: false",
+        "authorizes_route_behavior: false",
+        "authorizes_child_spans: false",
+        "authorizes_graph_edges: false",
+        "authorizes_retrieval_truth: false",
+        "route_isolation_harness_passes_on_real_baseline_candidate_outputs",
+        "decision_register_entry: CD-074",
+        "lesson_id: LSN-028",
+    ):
+        if phrase not in t397_harness_text:
+            raise PreflightError(f"{_rel(T397_EPH1_HARNESS)}: missing T397 harness phrase {phrase!r}")
+    t397_script_text = _read_text(T397_HARNESS_SCRIPT)
+    for phrase in (
+        "compare_chunk_jsonl",
+        "non-target records remain byte-identical",
+        "does not authorize",
+        "child-span payload",
+    ):
+        if phrase not in t397_script_text:
+            raise PreflightError(f"{_rel(T397_HARNESS_SCRIPT)}: missing T397 harness script phrase {phrase!r}")
+    t398_synthesis_text = _read_text(T398_PHASE_ONE_SYNTHESIS)
+    for phrase in (
+        "object_type: bible_wide_phase_one_research_synthesis",
+        "task_id: T398",
+        "status: complete_phase_one_whole_corpus_research_synthesis",
+        "every_canonical_passage_accounted_for_at_triage_depth: true",
+        "every_verse_deeply_researched: false",
+        "does_not_mean_chunking_ready_for_whole_bible_output: true",
+        "phase_two_research_recommendation:",
+        "Goal 2 focused Bible-wide research",
+        "T397 remains the next route",
+        "decision_register_entry: CD-072",
+        "lesson_id: LSN-026",
+        "authorizes_chunk_output_change: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_whole_bible_output_pass: false",
+    ):
+        if phrase not in t398_synthesis_text:
+            raise PreflightError(f"{_rel(T398_PHASE_ONE_SYNTHESIS)}: missing T398 synthesis phrase {phrase!r}")
+    t399_queue_text = _read_text(T399_FOCUSED_RESEARCH_QUEUE)
+    for phrase in (
+        "object_type: focused_bible_wide_research_queue",
+        "task_id: T399",
+        "status: complete_goal2_focused_research_queue",
+        "focused_research_queue_and_owner_decision_map",
+        "T397 remains the current route-isolated harness prep",
+        "parallel_work_note:",
+        "T399-HDM-001",
+        "recommendation_is_owner_selection: false",
+        "decision_register_entry: CD-073",
+        "lesson_id: LSN-027",
+        "authorizes_chunk_output_change: false",
+        "authorizes_reviewed_gold_promotion: false",
+        "authorizes_whole_bible_output_pass: false",
+    ):
+        if phrase not in t399_queue_text:
+            raise PreflightError(f"{_rel(T399_FOCUSED_RESEARCH_QUEUE)}: missing T399 queue phrase {phrase!r}")
     t386_summary_text = _read_text(T386_COVERAGE_SUMMARY)
     for phrase in (
         "object_type: bible_verse_passage_coverage_summary",

@@ -502,7 +502,7 @@ def _validate_governed_links() -> None:
     if next_task_id == "T397":
         expected_t397 = {
             "route_type": "epistle_argument_goal6_route_isolation_harness_prep",
-            "completion_status": "planned_non_output_changing_harness_only",
+            "completion_status": "complete_non_output_changing_route_isolation_harness_prep",
             "selected_t376_option": "T376-A",
             "selected_lane": "epistle_argument",
             "selected_t385_option": "T385-A",

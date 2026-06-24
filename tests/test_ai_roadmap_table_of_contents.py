@@ -49,6 +49,7 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "t371_variant_dependency_owner_decision_packet.yaml",
         "t371_parent_only_reviewed_gold_promotion.yaml",
         "t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+        "t397_eph1_route_isolation_harness.yaml",
         "t372_route_isolation_harness_plan.yaml",
         "epistle_argument_gold_manifest.json",
         "1cor8_10_epistle_owner_review_docket.yaml",
@@ -77,6 +78,8 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "non-target-identity",
         "variant-non-dependent",
         "harness-next",
+        "route-isolation-harness",
+        "output-gate",
         "parent-first-pilot",
         "post-pilot-review",
         "child-necessity-review",
@@ -89,6 +92,11 @@ def test_main_toc_exposes_functional_tags_and_use_when_routing() -> None:
         "t385",
         "t394",
         "eph1_3_14_parent_only_reviewed_gold",
+        "phase-one-research",
+        "triage-not-exegesis",
+        "goal2",
+        "t398_bible_wide_phase_one_research_synthesis.yaml",
+        "Goal 2 focused",
         "bible-wide-readiness",
         "research-synthesis",
         "human-decision-map",
@@ -153,6 +161,7 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "`t371`, `variant-dependency`, `owner-decision-packet`, `reviewed-gold-promotion`, `1cor9-20`, `1cor10-9`, `parent-only`",
         "`t371-a`, `reviewed-gold`, `parent-only`, `variant-non-dependent`, `1cor8-10`, `1cor9-20`, `1cor10-9`, `harness-next`",
         "`t394`, `t393-a`, `reviewed-gold`, `parent-only`, `epistle`, `ephesians`, `eph1_3_14_parent_only_reviewed_gold`",
+        "`t398`, `phase-one-research`, `whole-corpus`, `triage-not-exegesis`, `goal2`, `focused-research`, `human-decision-prompts`",
         "`t372`, `route-isolation`, `non-target-identity`, `harness`, `owner-gate`, `1cor8-10`, `non-authorizing`",
         "`t373`, `implementation-authorization`, `t374-next`, `parent-only`, `parent-first-pilot`, `post-pilot-review`, `child-necessity-review`",
         "`1cor8-10`, `epistle`, `owner-review`, `conscience`, `idol-food`, `sacramental`",
@@ -165,6 +174,10 @@ def test_local_roadmap_toc_has_tags_and_use_when_columns() -> None:
         "Auditing the completed Bible-wide research/readiness synthesis",
         "T385 owner decision packet",
         "T394 | Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion",
+        "T397 | Eph.1.3-Eph.1.14 Route-isolated harness",
+        "T398 | Bible-wide phase-one research synthesis",
+        "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
+        "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py",
         "T397 - Route-Isolated Implementation Harness prep",
     ]:
         assert phrase in toc
@@ -356,6 +369,15 @@ def test_local_roadmap_toc_exposes_t342_and_next_route() -> None:
     assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in toc
     assert "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in toc
     assert "scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py" in toc
+    assert "T397 | Eph.1.3-Eph.1.14 Route-isolated harness" in toc
+    assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in toc
+    assert "docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md" in toc
+    assert "scripts/chunking/route_isolation_harness.py" in toc
+    assert "scripts/validate_t397_eph1_route_isolation_harness.py" in toc
+    assert "T398 | Bible-wide phase-one research synthesis" in toc
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in toc
+    assert "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md" in toc
+    assert "scripts/validate_t398_bible_wide_phase_one_research_synthesis.py" in toc
     assert "T397 - Route-Isolated Implementation Harness prep for Eph.1.3-Eph.1.14 only." in toc
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in toc
     assert "scripts/validate_t374_additive_parent_overlay.py" in toc

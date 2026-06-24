@@ -40,7 +40,7 @@ def test_required_lanes_are_present_and_block_new_algorithm_work() -> None:
     assert by_lane["revelation_apocalyptic"]["review_order"] == 1
     assert by_lane["bible_wide_orchestration"]["implementation_order"] == 9
     assert by_lane["epistle_argument"]["new_algorithm_work_ready"] is False
-    assert by_lane["epistle_argument"]["current_state"] == "t394_eph1_parent_only_reviewed_gold_promoted_goal6_next"
+    assert by_lane["epistle_argument"]["current_state"] == "t397_eph1_route_isolation_harness_complete_future_owner_gate_next"
     assert all(
         lane["new_algorithm_work_ready"] is False
         for lane in by_lane.values()
@@ -82,6 +82,16 @@ def test_lessons_are_stored_in_first_class_surfaces() -> None:
     assert ".ai/control/t385_owner_decision_packet.yaml" in surfaces
     assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in surfaces
     assert "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md" in surfaces
+    assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in surfaces
+    assert "docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md" in surfaces
+    assert "scripts/chunking/route_isolation_harness.py" in surfaces
+    assert "scripts/validate_t397_eph1_route_isolation_harness.py" in surfaces
+    assert "tests/test_route_isolation_harness.py" in surfaces
+    assert "tests/test_t397_eph1_route_isolation_harness.py" in surfaces
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in surfaces
+    assert "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md" in surfaces
+    assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in surfaces
+    assert "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md" in surfaces
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in surfaces
     assert "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json" in surfaces
     assert ".ai/control/1cor8_10_epistle_owner_review_docket.yaml" in surfaces
@@ -133,6 +143,55 @@ def test_parallel_research_queue_records_t358_without_replacing_next_route() -> 
     assert queue["output_change_authorized"] is False
     assert queue["implementation_authorized"] is False
     assert queue["reviewed_gold_promoted"] is False
+
+
+def test_parallel_t398_phase_one_synthesis_does_not_replace_next_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    synthesis = data["parallel_t398_phase_one_research_synthesis"]
+
+    assert data["next_route"]["task_id"] == "T397"
+    assert synthesis["task_id"] == "T398"
+    assert synthesis["route_type"] == "whole_corpus_phase_one_research_synthesis"
+    assert synthesis["path"] == ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml"
+    assert synthesis["status"] == "complete_phase_one_whole_corpus_research_synthesis"
+    assert synthesis["relation_to_next_route"] == "Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output."
+    assert synthesis["canonical_book_count"] == 66
+    assert synthesis["canonical_passage_count"] == 31103
+    assert synthesis["every_canonical_passage_accounted_for_at_triage_depth"] is True
+    assert synthesis["every_verse_deeply_researched"] is False
+    assert synthesis["decision_register_entry"] == "CD-072"
+    assert synthesis["lesson_index_entry"] == "LSN-026"
+    assert synthesis["output_change_authorized"] is False
+    assert synthesis["implementation_authorized"] is False
+    assert synthesis["exact_target_selected"] is False
+    assert synthesis["reviewed_gold_promoted"] is False
+    assert synthesis["graph_edge_generation_allowed"] is False
+    assert synthesis["retrieval_truth_authorized"] is False
+
+
+def test_parallel_t399_focused_queue_does_not_replace_next_route() -> None:
+    data = validator.validate_readiness_map(READINESS_MAP)
+    queue = data["parallel_t399_focused_research_queue"]
+
+    assert data["next_route"]["task_id"] == "T397"
+    assert queue["task_id"] == "T399"
+    assert queue["route_type"] == "goal2_focused_research_queue"
+    assert queue["path"] == ".ai/control/t399_focused_bible_wide_research_queue.yaml"
+    assert queue["status"] == "complete_goal2_focused_research_queue"
+    assert queue["relation_to_next_route"] == "Parallel focused research queue; does not supersede T397 harness prep or authorize output."
+    assert queue["candidate_count"] == 22
+    assert queue["owner_decision_prompt_count"] == 8
+    assert queue["recommendation_is_owner_selection"] is False
+    assert queue["decision_register_entry"] == "CD-073"
+    assert queue["lesson_index_entry"] == "LSN-027"
+    assert queue["next_chunking_route_remains"] == "T397_goal6_route_isolated_harness_prep_only"
+    assert queue["output_change_authorized"] is False
+    assert queue["implementation_authorized"] is False
+    assert queue["exact_target_selected"] is False
+    assert queue["reviewed_gold_promoted"] is False
+    assert queue["graph_edge_generation_allowed"] is False
+    assert queue["retrieval_truth_authorized"] is False
+    assert queue["whole_bible_output_authorized"] is False
 
 
 def test_parallel_original_language_pressure_queue_does_not_replace_next_route() -> None:
@@ -219,17 +278,23 @@ def test_next_route_records_t397_harness_prep_after_t394_promotion() -> None:
     assert data["next_route"]["task_id"] == "T397"
     assert data["next_route"]["route_type"] == "epistle_argument_goal6_route_isolation_harness_prep"
     assert data["next_route"]["starts_only_if"] == "T394_eph1_parent_only_reviewed_gold_promoted"
-    assert data["next_route"]["completion_status"] == "planned_non_output_changing_harness_only"
+    assert data["next_route"]["completion_status"] == "complete_non_output_changing_route_isolation_harness_prep"
+    assert data["next_route"]["completion_surface"] == ".ai/control/t397_eph1_route_isolation_harness.yaml"
     assert data["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
     assert data["next_route"]["owner_packet"] == ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml"
     assert data["next_route"]["promotion_record"] == ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml"
     assert data["next_route"]["reviewed_gold_manifest"] == "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json"
     assert data["next_route"]["reviewed_gold_case_id"] == "eph1_3_14_parent_only_reviewed_gold"
-    assert data["next_route"]["roadmap_doc"] == "docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md"
-    assert data["next_route"]["validator"] == "scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py"
-    assert data["next_route"]["required_handoff"] == ".ai/handoffs/T394/handoff.md"
-    assert data["next_route"]["decision_register_entry"] == "CD-071"
-    assert data["next_route"]["lesson_index_entry"] == "LSN-025"
+    assert data["next_route"]["harness_script"] == "scripts/chunking/route_isolation_harness.py"
+    assert set(data["next_route"]["harness_tests"]) == {
+        "tests/test_route_isolation_harness.py",
+        "tests/test_t397_eph1_route_isolation_harness.py",
+    }
+    assert data["next_route"]["roadmap_doc"] == "docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md"
+    assert data["next_route"]["validator"] == "scripts/validate_t397_eph1_route_isolation_harness.py"
+    assert data["next_route"]["required_handoff"] == ".ai/handoffs/T397/handoff.md"
+    assert data["next_route"]["decision_register_entry"] == "CD-074"
+    assert data["next_route"]["lesson_index_entry"] == "LSN-028"
     assert set(data["next_route"]["prior_decision_register_entries"]) == {
         "CD-061",
         "CD-062",
@@ -240,6 +305,7 @@ def test_next_route_records_t397_harness_prep_after_t394_promotion() -> None:
         "CD-067",
         "CD-068",
         "CD-071",
+        "CD-074",
     }
     assert data["next_route"]["selected_t376_option"] == "T376-A"
     assert data["next_route"]["selected_lane"] == "epistle_argument"
@@ -255,7 +321,14 @@ def test_next_route_records_t397_harness_prep_after_t394_promotion() -> None:
     assert data["next_route"]["exact_internal_variant_refs"] == []
     assert data["next_route"]["variant_dependency_non_authorizing_assessment"] == "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim"
     assert data["next_route"]["child_span_necessity_non_authorizing_assessment"] == "child_spans_not_necessary_for_parent_only_reviewed_gold_now"
-    assert data["next_route"]["exact_next_owner_action"] == "prepare_goal6_route_isolated_harnesses_only"
+    assert data["next_route"]["route_isolation_harness_ready"] is True
+    assert data["next_route"]["non_target_identity_harness_ready"] is True
+    assert data["next_route"]["exact_parent_only_change_shape_harness_ready"] is True
+    assert data["next_route"]["spillover_denial_harness_ready"] is True
+    assert data["next_route"]["child_span_denial_harness_ready"] is True
+    assert data["next_route"]["same_baseline_report_shape_ready"] is True
+    assert data["next_route"]["future_output_pilot_owner_authorization_required"] is True
+    assert data["next_route"]["exact_next_owner_action"] == "future_owner_output_pilot_authorization_gate_for_Eph_1_3_Eph_1_14"
     assert data["next_route"]["output_change_authorized"] is False
     assert data["next_route"]["implementation_authorized"] is False
     assert data["next_route"]["reviewed_gold_promoted"] is True
@@ -271,6 +344,8 @@ def test_next_route_records_t397_harness_prep_after_t394_promotion() -> None:
     assert data["next_route"]["source_or_manuscript_rows_authorized"] is False
     assert "T397_harness_changes_chunk_output" in data["next_route"]["must_fail_if"]
     assert "T397_harness_treats_reviewed_gold_as_output_authority" in data["next_route"]["must_fail_if"]
+    assert "T397_harness_is_treated_as_output_authority" in data["next_route"]["must_fail_if"]
+    assert "future_output_pilot_starts_without_explicit_owner_authorization" in data["next_route"]["must_fail_if"]
     prior_strengthening = data["next_route"]["prior_strengthening"]
     assert prior_strengthening["task_id"] == "T392"
     assert prior_strengthening["review_packet_strengthened"] is True
@@ -324,6 +399,24 @@ def test_next_route_records_t397_harness_prep_after_t394_promotion() -> None:
     assert eph1_promotion["output_change_authorized"] is False
     assert eph1_promotion["implementation_authorized"] is False
     assert eph1_promotion["next_task"] == "T397"
+    eph1_harness = epistle["eph1_route_isolation_harness"]
+    assert eph1_harness["task_id"] == "T397"
+    assert eph1_harness["path"] == ".ai/control/t397_eph1_route_isolation_harness.yaml"
+    assert eph1_harness["status"] == "complete_non_output_changing_route_isolation_harness_prep"
+    assert eph1_harness["selected_parent"] == "Eph.1.3-Eph.1.14"
+    assert eph1_harness["selected_children"] == []
+    assert eph1_harness["harness_script"] == "scripts/chunking/route_isolation_harness.py"
+    assert eph1_harness["decision_register_entry"] == "CD-074"
+    assert eph1_harness["lesson_index_entry"] == "LSN-028"
+    assert eph1_harness["non_target_identity_harness_ready"] is True
+    assert eph1_harness["exact_parent_only_change_shape_harness_ready"] is True
+    assert eph1_harness["spillover_denial_harness_ready"] is True
+    assert eph1_harness["child_span_denial_harness_ready"] is True
+    assert eph1_harness["same_baseline_report_shape_ready"] is True
+    assert eph1_harness["future_output_pilot_owner_authorization_required"] is True
+    assert eph1_harness["output_change_authorized"] is False
+    assert eph1_harness["implementation_authorized"] is False
+    assert eph1_harness["route_behavior_authorized"] is False
     assert epistle["parent_only_evidence_packet"]["task_id"] == "T370"
     assert epistle["parent_only_evidence_packet"]["status"] == "ready_for_owner_promotion_review"
     assert epistle["parent_only_evidence_packet"]["reviewed_gold_promoted"] is False

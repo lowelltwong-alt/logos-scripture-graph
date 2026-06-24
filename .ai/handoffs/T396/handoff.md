@@ -120,13 +120,13 @@
 
 ## Open questions
 
-- Should T398 use a single NT exemplar or a tiny mixed NT papyri/codices set?
+- Should T400 use a single NT exemplar or a tiny mixed NT papyri/codices set?
 - Should a later task create a normalized date interval model, or keep official display dates and normalization claims as separate rows?
 - Which scholarly catalog should be the first cross-check for Great Isaiah Scroll accession/shelfmark/script normalization?
 
 ## Next agent instruction
 
-After T396 is merged, work from live `origin/main` and start T398 as a tiny metadata-only NT papyri/codices source-row exemplar task. Treat T397 as reserved for the T394 Goal 6 route-isolated harness lane. Begin with premortem/red-team, use official INTF/NTVMR/Liste, CSNTM, and holding-institution anchors from T391/T395, preserve candidate/blocked status, and do not import source text, transcription text, Bible text, images, preferred readings, graph/retrieval/vector output, Boundary Literature material, Doctrine Genealogy material, or apologetic conclusions as authority.
+After T396 is merged, work from live `origin/main` and start T400 as a tiny metadata-only NT papyri/codices source-row exemplar task. T397, T398, and T399 already exist on main for chunking/research-governance work. Begin with premortem/red-team, use official INTF/NTVMR/Liste, CSNTM, and holding-institution anchors from T391/T395, preserve candidate/blocked status, and do not import source text, transcription text, Bible text, images, preferred readings, graph/retrieval/vector output, Boundary Literature material, Doctrine Genealogy material, or apologetic conclusions as authority.
 
 ---
 

@@ -48,3 +48,14 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   `feat/scale-connection-discovery-codex-5-5` and local-only
   `t320-t325-boundary-entity-commentary-planning-pack`; records that neither branch should be
   merged directly and when their historical signal should be rediscovered.
+- `20260623-T398-bible-wide-phase-one-research-synthesis.md` - T398 no-context audit surface for
+  the Bible-wide phase-one research synthesis; records whole-corpus triage coverage, Goal 2
+  focused-research prompts, T397 preservation, and the non-output-changing boundary.
+- `20260624-T399-focused-bible-wide-research-queue.md` - T399 no-context audit surface for the
+  Goal 2 focused Bible-wide research queue; records the scored candidate queue, owner-decision
+  map, blocked variant/source-tradition statuses, T397 preservation, and the non-output-changing
+  boundary.
+- `20260624-T397-eph1-route-isolation-harness.md` - T397 no-context audit surface for the
+  Eph.1.3-Eph.1.14 route-isolation harness; records executable non-target identity, exact-parent
+  target, spillover denial, child-span denial, report-shape proof, and the future owner output-gate
+  boundary.

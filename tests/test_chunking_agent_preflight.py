@@ -47,6 +47,8 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
     assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
+    assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in reading
+    assert "scripts/chunking/route_isolation_harness.py" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
@@ -58,6 +60,8 @@ def test_chunking_agent_preflight_validates() -> None:
     assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in reading
     assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in reading
     assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in reading
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in reading
+    assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in reading
     assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in reading
     assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
@@ -119,6 +123,13 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "T393" in text
     assert "T394" in text
     assert "t394_eph1_parent_only_reviewed_gold_promotion.yaml" in text
+    assert "T398 phase-one whole-corpus research synthesis" in text
+    assert "t398_bible_wide_phase_one_research_synthesis.yaml" in text
+    assert "validate_t398_bible_wide_phase_one_research_synthesis.py" in text
+    assert "T399 focused Bible-wide research queue" in text
+    assert "t399_focused_bible_wide_research_queue.yaml" in text
+    assert "validate_t399_focused_bible_wide_research_queue.py" in text
+    assert "Goal 2 focused" in text
     assert "Goal 6 route-isolated harness" in text
     assert "Eph.1.3-Eph.1.14" in text
     assert "Goal 5" in text
@@ -141,6 +152,8 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "T352 is the next" not in text
     assert "currently records T394 as the owner-selected" in text
     assert "T397 as the next" in text
+    assert "t397_eph1_route_isolation_harness.yaml" in text
+    assert "route_isolation_harness.py" in text
     assert "T385 owner decision packet" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
@@ -218,6 +231,9 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-067" in register
     assert "CD-068" in register
     assert "CD-071" in register
+    assert "CD-072" in register
+    assert "CD-073" in register
+    assert "CD-074" in register
     assert "Chunking lesson index is mandatory tagged preflight memory" in register
     assert "Contextual reading discipline is mandatory non-authorizing preflight" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
@@ -254,6 +270,8 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "T392 strengthens Eph.1.3-14 review packet without promotion" in register
     assert "T393 promotion decision packet does not promote reviewed gold" in register
     assert "T394 promotes Eph.1.3-14 parent-only reviewed gold without implementation authority" in register
+    assert "T398 phase-one whole-corpus research synthesis is triage, not output authority" in register
+    assert "T399 focused Bible-wide research queue separates score, safety, and authority" in register
 
 
 def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
@@ -285,6 +303,8 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/t371_variant_dependency_owner_decision_packet.yaml" in reading
     assert ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml" in reading
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
+    assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in reading
+    assert "scripts/chunking/route_isolation_harness.py" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
@@ -296,6 +316,8 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md" in reading
     assert ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml" in reading
     assert ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml" in reading
+    assert ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml" in reading
+    assert ".ai/control/t399_focused_bible_wide_research_queue.yaml" in reading
     assert "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md" in reading
     assert ".ai/control/chunking_lesson_index.yaml" in reading
     assert ".ai/control/owner_decision_option_presentation_policy.yaml" in reading
@@ -351,6 +373,9 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-067" in register_entry["required_decision_ids"]
     assert "CD-068" in register_entry["required_decision_ids"]
     assert "CD-071" in register_entry["required_decision_ids"]
+    assert "CD-072" in register_entry["required_decision_ids"]
+    assert "CD-073" in register_entry["required_decision_ids"]
+    assert "CD-074" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-005" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-006" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
@@ -365,6 +390,9 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "LSN-021" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-022" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-025" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-026" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-027" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-028" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 

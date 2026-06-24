@@ -47,6 +47,41 @@ runtime_profiles:
       - shorten_timeout_below_300000_ms_on_full_canonical_data
       - treat_timeout_as_green
       - hide_timeout_from_handoff
+  - command_id: pytest_full_suite_local_desktop_t398
+    command: "python -m pytest -q"
+    observed_on: "2026-06-23"
+    observed_context: "T398 branch in Codex desktop with generated canonical data present and nested validation tests in the local test list."
+    observed_result: "Full pytest timed out after a requested 900000 ms without an assertion failure, and a 25-file split batch also timed out after spawning nested pytest/validate_all helper processes. Focused changed tests passed, python scripts/validate_all.py passed separately, pytest tests --ignore=tests/test_control_plane.py passed with 587 tests in about 5 minutes 10 seconds, and pytest tests/test_control_plane.py passed alone with 4 tests in about 1 minute 57 seconds. Treat the original full-suite timeout as a runtime/tool timeout, not as a green or red assertion result."
+    recommended_timeout_ms: 1200000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - run_python_scripts_validate_all_separately_before_full_pytest
+      - when_running_local_desktop_pytest_split_by_small_domain_or_single_test_file
+      - do_not_batch_tests_test_control_plane_py_validate_all_suite_with_many_other_files
+      - inspect_and_stop_only_confirmed_same_worktree_orphan_python_processes_after_timeout
+      - record_any_timeout_and_split_strategy_in_handoff
+    do_not:
+      - treat_timeout_as_test_pass
+      - treat_timeout_as_test_failure_without_assertion_output
+      - hide_timeout_from_handoff
+      - stop_unidentified_or_unrelated_parallel_agent_processes
+  - command_id: pytest_full_suite_local_desktop_t397
+    command: "python -m pytest -q"
+    observed_on: "2026-06-24"
+    observed_context: "T397 branch in Codex desktop after generated canonical data was locally regenerated and T397 route-isolation harness validators/tests were wired into the full suite."
+    observed_result: "Full pytest completed with 608 passed in 830.68 seconds (about 13 minutes 51 seconds) when run with a 900000 ms timeout. This is close enough to 15 minutes that future local desktop agents should prefer 1200000 ms when canonical data and nested validation tests are present."
+    recommended_timeout_ms: 1200000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - run_python_scripts_validate_all_separately_before_full_pytest
+      - regenerate_ignored_canonical_data_if_data_dependent_tests_need_it
+      - run_full_pytest_with_timeout_at_least_1200000_ms_on_local_desktop
+      - record_actual_runtime_in_handoff
+    do_not:
+      - treat_timeout_as_test_pass
+      - treat_timeout_as_test_failure_without_assertion_output
+      - hide_timeout_from_handoff
+      - stop_unidentified_or_unrelated_parallel_agent_processes
 update_policy:
   status: required
   update_required_when:
