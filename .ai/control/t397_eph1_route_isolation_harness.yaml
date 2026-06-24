@@ -1,0 +1,168 @@
+---
+object_type: eph1_route_isolation_harness_record
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-24 during T397/Goal 6 after T394 promoted only Eph.1.3-Eph.1.14 as parent-only reviewed gold."
+reason_for_inclusion: "Provide executable, non-output-changing route-isolation harnesses before any future owner-authorized Eph.1.3-Eph.1.14 output pilot."
+---
+schema_version: t397_eph1_route_isolation_harness.v1
+record_id: t397_eph1_3_14_route_isolation_harness
+task_id: T397
+status: complete_non_output_changing_route_isolation_harness_prep
+owner: Lowell Wong
+prepared_by: codex
+goal6_scope:
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  lane: epistle_argument
+  target_id: eph1_3_14_argument
+  selected_parent: Eph.1.3-Eph.1.14
+  selected_children: []
+  reviewed_gold_kind: parent_only_span
+  reviewed_gold_promoted_by: .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+  reviewed_gold_case_id: eph1_3_14_parent_only_reviewed_gold
+  review_packet: eval/chunking_gold/review_packets/eph1_3_14_argument_review.md
+  owner_packet: .ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml
+  exact_internal_variant_refs: []
+  boundary_dependency_or_non_dependency: current_repo_variant_non_dependent
+  reviewed_gold_dependency_or_non_dependency: current_repo_variant_non_dependent
+  source_tradition_dependency_or_non_dependency: current_repo_source_tradition_non_dependent
+authority:
+  records_harness_prep: true
+  provides_future_route_isolation_gate: true
+  authorizes_parent_span_as_chunk_boundary: false
+  authorizes_child_spans: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_chunk_output_change: false
+  authorizes_implementation: false
+  authorizes_sqlite_database_creation: false
+  authorizes_source_or_manuscript_rows: false
+harnesses:
+  - harness_id: T397-HARN-001
+    title: Non-target byte identity comparison
+    status: implemented_non_output_changing
+    script: scripts/chunking/route_isolation_harness.py
+    test: tests/test_route_isolation_harness.py
+    purpose: "Compare baseline and candidate chunk JSONL surfaces and require all non-target records to remain byte-identical."
+    must_fail_if:
+      - non_target_record_bytes_change
+      - non_target_record_added_or_removed
+      - duplicate_chunk_key_seen
+      - missing_osis_span_fields
+  - harness_id: T397-HARN-002
+    title: Exact parent target change allowance only
+    status: implemented_non_output_changing
+    script: scripts/chunking/route_isolation_harness.py
+    test: tests/test_route_isolation_harness.py
+    purpose: "Allow only the exact Eph.1.3-Eph.1.14 span shape in future candidate-output simulations when child spans are not authorized."
+    must_fail_if:
+      - changed_span_is_not_Eph_1_3_Eph_1_14
+      - adjacent_verse_spillover_detected
+      - replacement_changes_existing_non_target_chunk
+  - harness_id: T397-HARN-003
+    title: Child-span denial check
+    status: implemented_non_output_changing
+    script: scripts/chunking/route_isolation_harness.py
+    test: tests/test_route_isolation_harness.py
+    purpose: "Fail candidate simulations that add subspans or child-span payloads while T394 says child spans are not necessary now and are not authorized."
+    must_fail_if:
+      - child_subspan_added_without_owner_authorization
+      - selected_children_not_empty
+      - child_chunks_payload_not_empty
+  - harness_id: T397-HARN-004
+    title: Spillover and adjacent-boundary denial check
+    status: implemented_non_output_changing
+    script: scripts/chunking/route_isolation_harness.py
+    test: tests/test_route_isolation_harness.py
+    purpose: "Fail future candidate simulations that extend the authorized target into Eph.1.1-Eph.1.2, Eph.1.15+, or any other adjacent span."
+    must_fail_if:
+      - target_start_moves_before_Eph_1_3
+      - target_end_moves_after_Eph_1_14
+      - target_span_crosses_book_or_unsupported_reference
+  - harness_id: T397-HARN-005
+    title: Future same-baseline report input
+    status: prepared_non_output_changing
+    script: scripts/chunking/route_isolation_harness.py
+    test: tests/test_route_isolation_harness.py
+    purpose: "Emit deterministic baseline/candidate counts, sha256s, changed keys, changed spans, and non-target identity status for future same-baseline evaluation evidence."
+    must_fail_if:
+      - report_omits_baseline_sha256
+      - report_omits_candidate_sha256
+      - report_omits_changed_spans
+      - report_claims_non_target_identity_without_byte_comparison
+synthetic_proof_cases:
+  - proof_id: T397-PROOF-001
+    status: passing
+    description: "Adding one exact Eph.1.3-Eph.1.14 parent overlay while all non-target records remain byte-identical passes."
+  - proof_id: T397-PROOF-002
+    status: failing_as_expected
+    description: "Changing a non-target record fails."
+  - proof_id: T397-PROOF-003
+    status: failing_as_expected
+    description: "Adding an adjacent spillover span such as Eph.1.3-Eph.1.15 fails."
+  - proof_id: T397-PROOF-004
+    status: failing_as_expected
+    description: "Adding a child/subspan such as Eph.1.3-Eph.1.6 fails while child spans are unauthorized."
+  - proof_id: T397-PROOF-005
+    status: failing_as_expected
+    description: "Adding selected_children or child_chunks payload on the parent span fails while child spans are unauthorized."
+future_output_pilot_requirements:
+  before_any_candidate_output_change:
+    - explicit_owner_output_pilot_authorization_for_Eph_1_3_Eph_1_14
+    - parent_span_as_chunk_boundary_authorized_for_exact_pilot_or_stop
+    - reviewed_gold_manifest_case_still_current
+    - child_span_authorization_status_reconfirmed
+    - route_isolation_harness_passes_on_real_baseline_candidate_outputs
+    - same_baseline_evaluation_passes_or_records_no_improvement_claim
+    - no_context_audit_surface_created
+    - decision_register_updated_for_output_authority
+    - task_scope_explicitly_allows_output_paths
+  default_if_missing: stop_before_implementation_or_output_change
+non_authorizations:
+  - parent_span_as_chunk_boundary
+  - child_span_selection
+  - child_span_reviewed_gold_promotion
+  - permanent_child_span_denial
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - boundary_import
+  - whole_bible_output_pass
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - theology_authority_change
+  - denominational_systematic_theology_as_chunk_authority
+  - liberal_critical_default
+  - anti_supernatural_default
+  - source_metadata_as_boundary_authority
+lesson_recorded:
+  lesson_id: LSN-028
+  title: Route-isolation harnesses prove output shape but do not authorize output
+  summary: "A harness can prove non-target identity and exact-span discipline without becoming permission to implement or change chunk output."
+decision_register_entry: CD-074
+validators:
+  - scripts/validate_t397_eph1_route_isolation_harness.py
+  - tests/test_t397_eph1_route_isolation_harness.py
+  - scripts/chunking/route_isolation_harness.py
+  - tests/test_route_isolation_harness.py
+  - scripts/validate_chunking_theological_decision_register.py
+  - scripts/validate_chunking_lesson_index.py
+  - scripts/validate_chunking_agent_preflight.py
+  - scripts/validate_bible_chunking_readiness_map.py
+  - scripts/validate_all.py
+...

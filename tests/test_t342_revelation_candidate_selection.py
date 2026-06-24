@@ -138,7 +138,7 @@ def test_t342_through_t394_remain_complete_while_live_route_points_to_t397() -> 
     assert readiness["next_route"]["route_type"] == "epistle_argument_goal6_route_isolation_harness_prep"
     assert readiness["next_route"]["starts_only_if"] == "T394_eph1_parent_only_reviewed_gold_promoted"
     assert readiness["next_route"]["review_packet"] == "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md"
-    assert readiness["next_route"]["completion_status"] == "planned_non_output_changing_harness_only"
+    assert readiness["next_route"]["completion_status"] == "complete_non_output_changing_route_isolation_harness_prep"
     assert readiness["next_route"]["selected_t376_option"] == "T376-A"
     assert readiness["next_route"]["selected_lane"] == "epistle_argument"
     assert readiness["next_route"]["selected_t385_option"] == "T385-A"

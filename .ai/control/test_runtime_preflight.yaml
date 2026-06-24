@@ -65,6 +65,23 @@ runtime_profiles:
       - treat_timeout_as_test_failure_without_assertion_output
       - hide_timeout_from_handoff
       - stop_unidentified_or_unrelated_parallel_agent_processes
+  - command_id: pytest_full_suite_local_desktop_t397
+    command: "python -m pytest -q"
+    observed_on: "2026-06-24"
+    observed_context: "T397 branch in Codex desktop after generated canonical data was locally regenerated and T397 route-isolation harness validators/tests were wired into the full suite."
+    observed_result: "Full pytest completed with 608 passed in 830.68 seconds (about 13 minutes 51 seconds) when run with a 900000 ms timeout. This is close enough to 15 minutes that future local desktop agents should prefer 1200000 ms when canonical data and nested validation tests are present."
+    recommended_timeout_ms: 1200000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - run_python_scripts_validate_all_separately_before_full_pytest
+      - regenerate_ignored_canonical_data_if_data_dependent_tests_need_it
+      - run_full_pytest_with_timeout_at_least_1200000_ms_on_local_desktop
+      - record_actual_runtime_in_handoff
+    do_not:
+      - treat_timeout_as_test_pass
+      - treat_timeout_as_test_failure_without_assertion_output
+      - hide_timeout_from_handoff
+      - stop_unidentified_or_unrelated_parallel_agent_processes
 update_policy:
   status: required
   update_required_when:

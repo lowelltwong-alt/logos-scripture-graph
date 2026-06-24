@@ -206,7 +206,16 @@ Bible-first chunking priority:
   parent-span-as-chunk-boundary use, route/evaluator behavior, graph/retrieval/vector truth,
   boundary import, preferred reading/source tradition, canon-scope change, source/manuscript row
   creation, SQLite database creation, metadata row population, implementation, or theology
-  authority. The next safe step is only a later Goal 6 route-isolated harness task (`T397`).
+  authority. T394 historically made T397 the next Goal 6 route-isolated harness step.
+  T397 Eph.1.3-Eph.1.14 route-isolation harness is now recorded at
+  `.ai/control/t397_eph1_route_isolation_harness.yaml` with the executable
+  `scripts/chunking/route_isolation_harness.py`. T397 is complete and non-output-changing: it
+  proves non-target byte identity, exact-parent-only shape, adjacent spillover denial, child-span
+  denial, and same-baseline report shape for future candidate-output simulations. It still does not
+  authorize parent-span-as-chunk-boundary use, child spans, implementation, output, route/evaluator
+  behavior, graph/retrieval/vector truth, source rows, preferred readings/source traditions,
+  boundary import, canon-scope change, or theology authority. The next output-changing step is a
+  fresh owner output-pilot authorization gate for exactly `Eph.1.3-Eph.1.14`.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
@@ -359,9 +368,11 @@ Bible-first chunking priority:
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
   next safe route. It is non-authorizing and currently records T394 as the owner-selected
   parent-only reviewed-gold promotion for `Eph.1.3-Eph.1.14`, with T397 as the next
-  Goal 6 route-isolated harness step. T384/T386/T385/T392/T393/T394 readiness cannot implement
-  output, add child spans, treat reviewed gold as chunk-boundary authority, or change
-  route/evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
+  Goal 6 route-isolated harness step at the time of T394. The map now also records completed T397
+  harness prep and a future owner output-pilot gate as the next authority-changing stop.
+  T384/T386/T385/T392/T393/T394/T397 readiness cannot implement output, add child spans, treat
+  reviewed gold as chunk-boundary authority, or change route/evaluator/graph/retrieval/vector
+  behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep
