@@ -366,9 +366,9 @@ def _validate_governed_links() -> None:
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397"}:
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
         raise ParentEvidenceError(
-            f"{_rel(READINESS)}: next_route.task_id must be T372, T373, T374, T375, T376, T384, T385, T392, T393, or T397 after T371-A"
+            f"{_rel(READINESS)}: next_route.task_id must be T372, T373, T374, T375, T376, T384, T385, T392, T393, T397, or T401 after T371-A"
         )
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T372 starts_only_if is stale")
@@ -390,7 +390,9 @@ def _validate_governed_links() -> None:
         raise ParentEvidenceError(f"{_rel(READINESS)}: T393 starts_only_if is stale")
     if next_task_id == "T397" and next_route.get("starts_only_if") != "T394_eph1_parent_only_reviewed_gold_promoted":
         raise ParentEvidenceError(f"{_rel(READINESS)}: T397 starts_only_if is stale")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397"}:
+    if next_task_id == "T401" and next_route.get("starts_only_if") != "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot":
+        raise ParentEvidenceError(f"{_rel(READINESS)}: T401 starts_only_if is stale")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
         if next_route.get("evidence_packet") != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml":
             raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.evidence_packet is stale")
         if next_route.get("promotion_record") != ".ai/control/t371_parent_only_reviewed_gold_promotion.yaml":
@@ -537,15 +539,36 @@ def _validate_governed_links() -> None:
                 raise ParentEvidenceError(f"{_rel(READINESS)}: T397.{key} must be {value!r}")
         if "CD-071" not in next_route.get("prior_decision_register_entries", []):
             raise ParentEvidenceError(f"{_rel(READINESS)}: T397 must reference CD-071")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397"} and next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id == "T401":
+        expected_t401 = {
+            "route_type": "epistle_argument_goal7_exact_output_pilot",
+            "completion_status": "complete_output_changed_eph1_parent_overlay",
+            "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+            "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "reviewed_gold_promoted": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+            "source_or_manuscript_rows_authorized": False,
+        }
+        for key, value in expected_t401.items():
+            if next_route.get(key) != value:
+                raise ParentEvidenceError(f"{_rel(READINESS)}: T401.{key} must be {value!r}")
+        for required in ("CD-071", "CD-074", "CD-076"):
+            if required not in next_route.get("prior_decision_register_entries", []):
+                raise ParentEvidenceError(f"{_rel(READINESS)}: T401 must reference {required}")
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401"} and next_route.get("reviewed_gold_promoted") is not True:
         raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.reviewed_gold_promoted must be true")
-    if next_task_id == "T374":
+    if next_task_id in {"T374", "T401"}:
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
             if next_route.get(key) is not True:
-                raise ParentEvidenceError(f"{_rel(READINESS)}: T374.{key} must be true after T373-A")
+                raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.{key} must be true after explicit owner authorization")
         for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
             if next_route.get(key) is not False:
-                raise ParentEvidenceError(f"{_rel(READINESS)}: T374.{key} must be false")
+                raise ParentEvidenceError(f"{_rel(READINESS)}: {next_task_id}.{key} must be false")
     else:
         for key in (
             "output_change_authorized",

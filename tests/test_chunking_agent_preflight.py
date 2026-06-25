@@ -49,6 +49,7 @@ def test_chunking_agent_preflight_validates() -> None:
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in reading
     assert "scripts/chunking/route_isolation_harness.py" in reading
+    assert ".ai/control/t401_eph1_output_pilot_manifest.yaml" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
@@ -150,10 +151,15 @@ def test_front_door_requires_metadata_preflight() -> None:
     assert "projected owner pattern" in text
     assert "predictable owner decisions" in text
     assert "T352 is the next" not in text
-    assert "currently records T394 as the owner-selected" in text
-    assert "T397 as the next" in text
+    assert "currently records T401 as the completed exact" in text
+    assert "post-pilot review as the next" in text
     assert "t397_eph1_route_isolation_harness.yaml" in text
     assert "route_isolation_harness.py" in text
+    assert "t401_eph1_output_pilot_manifest.yaml" in text
+    assert "T401 Eph.1.3-Eph.1.14 output pilot" in text
+    assert "validate_t401_eph1_output_pilot.py" in text
+    assert "--disable-t401-eph1-overlay" in text
+    assert "post-pilot review" in text
     assert "T385 owner decision packet" in text
     assert "God/god" in text
     assert "Spirit/spirit" in text
@@ -234,6 +240,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "CD-072" in register
     assert "CD-073" in register
     assert "CD-074" in register
+    assert "CD-076" in register
     assert "Chunking lesson index is mandatory tagged preflight memory" in register
     assert "Contextual reading discipline is mandatory non-authorizing preflight" in register
     assert "Bible-wide research registry is canonical coverage for review prep only" in register
@@ -272,6 +279,7 @@ def test_metadata_rule_is_first_class_methodology() -> None:
     assert "T394 promotes Eph.1.3-14 parent-only reviewed gold without implementation authority" in register
     assert "T398 phase-one whole-corpus research synthesis is triage, not output authority" in register
     assert "T399 focused Bible-wide research queue separates score, safety, and authority" in register
+    assert "T401 implements Eph.1.3-14 exact parent-only output pilot" in register
 
 
 def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
@@ -305,6 +313,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert ".ai/control/t372_route_isolation_harness_plan.yaml" in reading
     assert ".ai/control/t397_eph1_route_isolation_harness.yaml" in reading
     assert "scripts/chunking/route_isolation_harness.py" in reading
+    assert ".ai/control/t401_eph1_output_pilot_manifest.yaml" in reading
     assert ".ai/control/t373_owner_implementation_authorization.yaml" in reading
     assert ".ai/control/t374_baseline_overlap_owner_decision_packet.yaml" in reading
     assert ".ai/control/t374_additive_parent_overlay_manifest.yaml" in reading
@@ -376,6 +385,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "CD-072" in register_entry["required_decision_ids"]
     assert "CD-073" in register_entry["required_decision_ids"]
     assert "CD-074" in register_entry["required_decision_ids"]
+    assert "CD-076" in register_entry["required_decision_ids"]
     assert "WORKFLOW-LESSON-004" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-005" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
     assert "WORKFLOW-LESSON-006" in reading["docs/methodology/WORKFLOW_LESSONS.md"]["required_sections"]
@@ -393,6 +403,7 @@ def test_divine_capitalization_is_mandatory_preflight_reading() -> None:
     assert "LSN-026" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-027" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "LSN-028" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
+    assert "LSN-030" in reading[".ai/control/chunking_lesson_index.yaml"]["required_lesson_ids"]
     assert "divine_name_title_capitalization" in triage_entry["required_lane_ids"]
     assert "gospel_discourse_wj" in triage_entry["required_lane_ids"]
 

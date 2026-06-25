@@ -104,6 +104,13 @@ REQUIRED_LESSON_SURFACES = {
     "scripts/validate_t397_eph1_route_isolation_harness.py",
     "tests/test_t397_eph1_route_isolation_harness.py",
     "tests/test_route_isolation_harness.py",
+    ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+    "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md",
+    ".ai/tasks/T401.task.yaml",
+    ".ai/handoffs/T401/handoff.md",
+    ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
+    "scripts/validate_t401_eph1_output_pilot.py",
+    "tests/test_t401_eph1_output_pilot.py",
     ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
     "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
     ".ai/tasks/T398.task.yaml",
@@ -236,6 +243,10 @@ ALLOWED_NEXT_ROUTES = {
     "T397": {
         "route_type": "epistle_argument_goal6_route_isolation_harness_prep",
         "title": "Eph.1.3-Eph.1.14 Route-Isolated Harness Prep",
+    },
+    "T401": {
+        "route_type": "epistle_argument_goal7_exact_output_pilot",
+        "title": "Eph.1.3-Eph.1.14 Exact Output Pilot",
     },
 }
 
@@ -768,6 +779,166 @@ def _validate_t397_next_route(next_route: dict[str, Any], path: Path) -> None:
             raise ReadinessMapError(f"{_rel(path)}: T397 next_route.{key} must be false")
 
 
+def _validate_t401_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "Eph.1.3-Eph.1.14 Exact Output Pilot",
+        "starts_only_if": "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot",
+        "completion_status": "complete_output_changed_eph1_parent_overlay",
+        "completion_surface": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+        "selected_t376_option": "T376-A",
+        "selected_lane": "epistle_argument",
+        "selected_t385_option": "T385-A",
+        "selected_passage": "Eph.1.3-Eph.1.14",
+        "selected_parent_candidate": "Eph.1.3-Eph.1.14",
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+        "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+        "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+        "reviewed_gold_case_id": "eph1_3_14_parent_only_reviewed_gold",
+        "owner_selection_status": "selected",
+        "selected_option": "T393-A",
+        "recommendation_is_owner_selection": False,
+        "variant_dependency_non_authorizing_assessment": "current_repo_variant_non_dependent_for_parent_boundary_and_reviewed_gold_claim",
+        "child_span_necessity_non_authorizing_assessment": "child_spans_not_necessary_for_parent_only_reviewed_gold_now",
+        "harness_script": "scripts/chunking/route_isolation_harness.py",
+        "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+        "roadmap_doc": "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md",
+        "validator": "scripts/validate_t401_eph1_output_pilot.py",
+        "required_handoff": ".ai/handoffs/T401/handoff.md",
+        "decision_register_entry": "CD-076",
+        "lesson_index_entry": "LSN-030",
+        "goal_5_packet_prepared": True,
+        "owner_decision_required_before_promotion_or_implementation": False,
+        "reviewed_gold_promoted": True,
+        "route_isolation_harness_ready": True,
+        "non_target_identity_harness_ready": True,
+        "exact_parent_only_change_shape_harness_ready": True,
+        "spillover_denial_harness_ready": True,
+        "child_span_denial_harness_ready": True,
+        "same_baseline_report_shape_ready": True,
+        "future_output_pilot_owner_authorization_required": False,
+        "exact_next_owner_action": "T402_post_pilot_review_before_child_spans_or_broader_behavior",
+        "output_pilot_complete": True,
+        "parent_span_as_chunk_boundary_authorized_for_exact_pilot": True,
+        "same_baseline_evaluated": True,
+        "no_context_audit_surface": ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
+        "baseline_chunk_count": 1137,
+        "candidate_chunk_count": 1138,
+        "added_overlay_count": 1,
+        "baseline_prefix_matches_pre_t401_bytes": True,
+        "non_target_output_diff_detected": False,
+        "overlay_id": "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--Eph.1.3--Eph.1.14--T401-EPH1-PILOT",
+        "output_change_authorized": True,
+        "implementation_authorized": True,
+        "route_behavior_authorized": True,
+        "route_behavior_authorization_scope": "exact_t401_eph1_parent_overlay_only",
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T401 next_route.{key} must be {value!r}")
+    harness_tests = set(_require_string_list(next_route.get("harness_tests"), "T401 harness_tests"))
+    for required in {
+        "tests/test_route_isolation_harness.py",
+        "tests/test_t397_eph1_route_isolation_harness.py",
+    }:
+        if required not in harness_tests:
+            raise ReadinessMapError(f"{_rel(path)}: T401 harness_tests missing {required}")
+    if next_route.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T401 selected_children must be []")
+    if next_route.get("exact_internal_variant_refs") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T401 exact_internal_variant_refs must be []")
+
+    strengthening = next_route.get("prior_strengthening")
+    if not isinstance(strengthening, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T401 prior_strengthening must be a mapping")
+    expected_strengthening = {
+        "task_id": "T392",
+        "review_packet_strengthened": True,
+        "review_packet": "eval/chunking_gold/review_packets/eph1_3_14_argument_review.md",
+        "roadmap_doc": "docs/roadmap/T392_EPH1_REVIEW_PACKET_STRENGTHENING.md",
+        "validator": "scripts/validate_t392_eph1_review_packet_strengthening.py",
+        "required_handoff": ".ai/handoffs/T392/handoff.md",
+        "decision_register_entry": "CD-067",
+        "lesson_index_entry": "LSN-021",
+        "selected_option": "T385-A",
+        "reviewed_gold_promoted": False,
+    }
+    for key, value in expected_strengthening.items():
+        if strengthening.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T401 prior_strengthening.{key} must be {value!r}")
+    if strengthening.get("selected_children") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T401 prior_strengthening.selected_children must be []")
+
+    prior = next_route.get("prior_owner_packet")
+    if not isinstance(prior, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T401 prior_owner_packet must be a mapping")
+    expected_prior = {
+        "task_id": "T385",
+        "owner_packet": ".ai/control/t385_owner_decision_packet.yaml",
+        "roadmap_doc": "docs/roadmap/T385_OWNER_DECISION_PACKET.md",
+        "validator": "scripts/validate_t385_owner_decision_packet.py",
+        "owner_selection_status": "pending",
+        "recommended_option": "T385-A",
+        "recommended_passage": "Eph.1.3-Eph.1.14",
+        "recommendation_is_owner_selection": False,
+        "decision_register_entry": "CD-066",
+        "lesson_index_entry": "LSN-020",
+    }
+    for key, value in expected_prior.items():
+        if prior.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T401 prior_owner_packet.{key} must be {value!r}")
+
+    inputs = next_route.get("prior_readiness_inputs")
+    if not isinstance(inputs, list):
+        raise ReadinessMapError(f"{_rel(path)}: T401 prior_readiness_inputs must be a list")
+    input_ids = {item.get("task_id") for item in inputs if isinstance(item, dict)}
+    for required in {"T384", "T386", "T386-docket", "T387", "T388", "T389", "T390", "T385", "T392"}:
+        if required not in input_ids:
+            raise ReadinessMapError(f"{_rel(path)}: T401 prior_readiness_inputs missing {required}")
+
+    prior_entries = set(
+        _require_string_list(next_route.get("prior_decision_register_entries"), "T401 prior_decision_register_entries")
+    )
+    for required in {"CD-061", "CD-062", "CD-063", "CD-064", "CD-065", "CD-066", "CD-067", "CD-068", "CD-071", "CD-074", "CD-076"}:
+        if required not in prior_entries:
+            raise ReadinessMapError(f"{_rel(path)}: T401 prior_decision_register_entries missing {required}")
+
+    must_fail = set(_require_string_list(next_route.get("must_fail_if"), "T401 must_fail_if"))
+    for required in (
+        "T401_changes_any_non_target_output_record",
+        "T401_adds_child_spans",
+        "T401_deletes_or_replaces_existing_chunks",
+        "T401_generates_graph_retrieval_or_vector_truth",
+        "T401_changes_evaluator_or_leaderboard",
+        "T401_imports_boundary_or_source_tradition_authority",
+        "T401_changes_canon_scope_or_theology_authority",
+        "T401_creates_source_or_manuscript_rows",
+        "T401_overlay_is_treated_as_truth_bearing_hierarchy",
+        "future_child_span_work_starts_without_post_pilot_review_and_owner_gate",
+    ):
+        if required not in must_fail:
+            raise ReadinessMapError(f"{_rel(path)}: T401 must_fail_if missing {required}")
+
+    for key in (
+        "review_packet_strengthening_authorized",
+        "child_spans_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "preferred_reading_authorized",
+        "source_tradition_preference_authorized",
+        "canon_scope_change_authorized",
+        "theology_authority_change_authorized",
+        "sqlite_database_creation_authorized",
+        "metadata_row_population_authorized",
+        "source_or_manuscript_rows_authorized",
+    ):
+        if next_route.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: T401 next_route.{key} must be false")
+
+
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     data = _read_yaml(path)
     missing = sorted(REQUIRED_TOP_LEVEL - set(data))
@@ -970,9 +1141,12 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             ):
                 if selection.get(key) is not False:
                     raise ReadinessMapError(f"{_rel(path)}:{lane_id}: research_runway_selection.{key} must be false")
-        elif lane_id == "epistle_argument" and lane.get("current_state") == "t397_eph1_route_isolation_harness_complete_future_owner_gate_next":
+        elif lane_id == "epistle_argument" and lane.get("current_state") in {
+            "t397_eph1_route_isolation_harness_complete_future_owner_gate_next",
+            "t401_eph1_output_pilot_complete_post_pilot_review_next",
+        }:
             if lane.get("new_algorithm_work_ready") is not False:
-                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while the future output-pilot owner gate is next")
+                raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false while the next stop is owner-gated")
 
             packet = lane.get("eph1_reviewed_gold_promotion_decision_packet")
             if not isinstance(packet, dict):
@@ -1122,6 +1296,68 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
             ):
                 if harness.get(key) is not False:
                     raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_route_isolation_harness.{key} must be false")
+            if lane.get("current_state") == "t401_eph1_output_pilot_complete_post_pilot_review_next":
+                output_pilot = lane.get("eph1_output_pilot")
+                if not isinstance(output_pilot, dict):
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_output_pilot must be present")
+                expected_output_pilot = {
+                    "task_id": "T401",
+                    "path": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+                    "status": "complete_output_changed_eph1_parent_overlay",
+                    "selected_parent": "Eph.1.3-Eph.1.14",
+                    "reviewed_gold_manifest": "eval/chunking_gold/per_form/epistle_argument_gold_manifest.json",
+                    "reviewed_gold_case_id": "eph1_3_14_parent_only_reviewed_gold",
+                    "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+                    "route_isolation_harness": ".ai/control/t397_eph1_route_isolation_harness.yaml",
+                    "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+                    "roadmap_doc": "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md",
+                    "validator": "scripts/validate_t401_eph1_output_pilot.py",
+                    "decision_register_entry": "CD-076",
+                    "lesson_index_entry": "LSN-030",
+                    "reviewed_gold_promoted": True,
+                    "route_isolation_harness_passed": True,
+                    "same_baseline_evaluated": True,
+                    "no_context_audit_surface": ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
+                    "parent_span_as_chunk_boundary_authorized_for_exact_pilot": True,
+                    "output_change_authorized": True,
+                    "implementation_authorized": True,
+                    "route_behavior_authorized_for_exact_target_overlay": True,
+                    "chunk_output_changed": True,
+                    "baseline_chunk_count": 1137,
+                    "candidate_chunk_count": 1138,
+                    "added_overlay_count": 1,
+                    "baseline_prefix_matches_pre_t401_bytes": True,
+                    "non_target_output_diff_detected": False,
+                    "overlay_id": "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--Eph.1.3--Eph.1.14--T401-EPH1-PILOT",
+                    "next_review_task": "T402_post_pilot_review_before_child_spans_or_broader_behavior",
+                }
+                for key, value in expected_output_pilot.items():
+                    if output_pilot.get(key) != value:
+                        raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_output_pilot.{key} must be {value!r}")
+                if output_pilot.get("selected_children") != []:
+                    raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_output_pilot.selected_children must be []")
+                pilot_tests = set(_require_string_list(output_pilot.get("tests"), "eph1_output_pilot.tests"))
+                for required in {"tests/test_t401_eph1_output_pilot.py", "tests/test_chunking_orchestrator.py"}:
+                    if required not in pilot_tests:
+                        raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_output_pilot.tests missing {required}")
+                for key in (
+                    "child_spans_authorized",
+                    "broader_epistle_generalization_authorized",
+                    "evaluator_change_authorized",
+                    "graph_edge_generation_allowed",
+                    "retrieval_truth_authorized",
+                    "embedding_or_vector_work_allowed",
+                    "boundary_import_allowed",
+                    "preferred_reading_authorized",
+                    "source_tradition_preference_authorized",
+                    "canon_scope_change_authorized",
+                    "theology_authority_change_authorized",
+                    "sqlite_database_creation_authorized",
+                    "metadata_row_population_authorized",
+                    "source_or_manuscript_rows_authorized",
+                ):
+                    if output_pilot.get(key) is not False:
+                        raise ReadinessMapError(f"{_rel(path)}:{lane_id}: eph1_output_pilot.{key} must be false")
         elif lane.get("new_algorithm_work_ready") is not False:
             raise ReadinessMapError(f"{_rel(path)}:{lane_id}: new_algorithm_work_ready must be false")
 
@@ -1144,11 +1380,11 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         raise ReadinessMapError(
             f"{_rel(path)}: next_route.route_type must be {expected_route_type} for {task_id}"
         )
-    if task_id == "T374":
+    if task_id in {"T374", "T401"}:
         if next_route.get("output_change_authorized") is not True:
-            raise ReadinessMapError(f"{_rel(path)}: T374 next_route.output_change_authorized must be true")
+            raise ReadinessMapError(f"{_rel(path)}: {task_id} next_route.output_change_authorized must be true")
         if next_route.get("implementation_authorized") is not True:
-            raise ReadinessMapError(f"{_rel(path)}: T374 next_route.implementation_authorized must be true")
+            raise ReadinessMapError(f"{_rel(path)}: {task_id} next_route.implementation_authorized must be true")
     else:
         if next_route.get("output_change_authorized") is not False:
             raise ReadinessMapError(f"{_rel(path)}: next_route.output_change_authorized must be false")
@@ -1162,6 +1398,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         _validate_t393_next_route(next_route, path)
     if task_id == "T397":
         _validate_t397_next_route(next_route, path)
+    if task_id == "T401":
+        _validate_t401_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",
@@ -1884,7 +2122,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "path": ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
         "roadmap_doc": "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
         "status": "complete_phase_one_whole_corpus_research_synthesis",
-        "relation_to_next_route": "Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output.",
+        "relation_to_next_route": "Parallel phase-one research synthesis; does not supersede the T401 output pilot/post-pilot review gate or authorize output.",
         "corpus_scope": "canonical_66",
         "canonical_book_count": 66,
         "canonical_passage_count": 31103,
@@ -1927,7 +2165,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "path": ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "roadmap_doc": "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md",
         "status": "complete_goal2_focused_research_queue",
-        "relation_to_next_route": "Parallel focused research queue; does not supersede T397 harness prep or authorize output.",
+        "relation_to_next_route": "Parallel focused research queue; does not supersede the T401 output pilot/post-pilot review gate or authorize output.",
         "corpus_scope": "canonical_66",
         "candidate_count": 22,
         "owner_decision_prompt_count": 8,
@@ -1935,7 +2173,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "decision_register_entry": "CD-073",
         "lesson_index_entry": "LSN-027",
         "next_owner_action": "choose_one_T399_HDM_option_before_new_review_packet_strengthening",
-        "next_chunking_route_remains": "T397_goal6_route_isolated_harness_prep_only",
+        "next_chunking_route_remains": "T401_post_pilot_review_gate_after_exact_output_pilot",
     }
     for key, value in expected_t399.items():
         if t399_queue.get(key) != value:

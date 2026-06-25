@@ -262,12 +262,23 @@ def _validate_governed_links() -> None:
             for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
                 if next_route.get(key) is not False:
                     raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T374 next_route.{key} must be false")
+        elif next_route.get("task_id") == "T401":
+            if next_route.get("output_manifest") != ".ai/control/t401_eph1_output_pilot_manifest.yaml":
+                raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T401 output_manifest is stale")
+            if next_route.get("selected_passage") != "Eph.1.3-Eph.1.14":
+                raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T401 selected_passage must stay Eph.1.3-Eph.1.14")
+            for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
+                if next_route.get(key) is not True:
+                    raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T401 next_route.{key} must be true")
+            for key in ("child_spans_authorized", "evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
+                if next_route.get(key) is not False:
+                    raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T401 next_route.{key} must be false")
         else:
             for key in ("output_change_authorized", "implementation_authorized"):
                 if next_route.get(key) is not False:
                     raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.{key} must be false")
-            if next_route.get("task_id") not in {"T372", "T373", "T374", "T375", "T397"} and next_route.get("reviewed_gold_promoted") is not False:
-                raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_promoted must be false outside T372/T373/T374/T375/T397")
+            if next_route.get("task_id") not in {"T372", "T373", "T374", "T375", "T397", "T401"} and next_route.get("reviewed_gold_promoted") is not False:
+                raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: next_route.reviewed_gold_promoted must be false outside T372/T373/T374/T375/T397/T401")
             if next_route.get("task_id") == "T397":
                 if next_route.get("promotion_record") != ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml":
                     raise WJSpeakerPolicyError(f"{_rel(READINESS_MAP)}: T397 promotion_record is stale")

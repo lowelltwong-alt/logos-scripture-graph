@@ -162,6 +162,30 @@ def _require_non_authorizing_revelation_state(
             True,
             "readiness.next_route.output_change_authorized",
         )
+    elif next_route.get("task_id") == "T401":
+        _require_equal(
+            next_route.get("route_type"),
+            "epistle_argument_goal7_exact_output_pilot",
+            "readiness.next_route.route_type",
+        )
+        _require_equal(
+            next_route.get("output_manifest"),
+            ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+            "readiness.next_route.output_manifest",
+        )
+        _require_equal(
+            next_route.get("implementation_authorized"),
+            True,
+            "readiness.next_route.implementation_authorized",
+        )
+        _require_equal(
+            next_route.get("output_change_authorized"),
+            True,
+            "readiness.next_route.output_change_authorized",
+        )
+        _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
+        _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+        _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
     else:
         _require_false(next_route, "implementation_authorized", "readiness.next_route")
         _require_false(next_route, "output_change_authorized", "readiness.next_route")
@@ -315,9 +339,9 @@ def validate_owner_selection_implementation_gate(
         )
         if selected_option == "REV-T344-E":
             next_task_id = next_route.get("task_id")
-            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397"}:
+            if next_task_id not in {"T351", "T352", "T354", "T355", "T356", "T368", "T369", "T370", "T371", "T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
                 raise OwnerSelectionGateError(
-                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', 'T376', 'T384', 'T385', 'T392', 'T393', or 'T397' under REV-T344-E"
+                    "readiness.next_route.task_id must be 'T351', 'T352', 'T354', 'T355', 'T356', 'T368', 'T369', 'T370', 'T371', 'T372', 'T373', 'T374', 'T375', 'T376', 'T384', 'T385', 'T392', 'T393', 'T397', or 'T401' under REV-T344-E"
                 )
             if next_task_id == "T351":
                 _require_equal(
@@ -868,6 +892,28 @@ def validate_owner_selection_implementation_gate(
                 _require_false(next_route, "evaluator_change_authorized", "readiness.next_route")
                 _require_false(next_route, "graph_edge_generation_allowed", "readiness.next_route")
                 _require_false(next_route, "retrieval_truth_authorized", "readiness.next_route")
+            if next_task_id == "T401":
+                expected = {
+                    "route_type": "epistle_argument_goal7_exact_output_pilot",
+                    "starts_only_if": "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot",
+                    "completion_status": "complete_output_changed_eph1_parent_overlay",
+                    "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+                    "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+                    "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+                    "reviewed_gold_promoted": True,
+                    "child_spans_authorized": False,
+                    "embedding_or_vector_work_allowed": False,
+                    "source_or_manuscript_rows_authorized": False,
+                }
+                for key, value in expected.items():
+                    _require_equal(next_route.get(key), value, f"readiness.next_route.{key}")
+                for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
+                    _require_equal(next_route.get(key), True, f"readiness.next_route.{key}")
+                for key in ("evaluator_change_authorized", "graph_edge_generation_allowed", "retrieval_truth_authorized"):
+                    _require_false(next_route, key, "readiness.next_route")
+                for required in ("CD-071", "CD-074", "CD-076"):
+                    if required not in next_route.get("prior_decision_register_entries", []):
+                        raise OwnerSelectionGateError(f"readiness.next_route.prior_decision_register_entries must include {required}")
             _require_equal(
                 packet_decision.get("decision"),
                 "requires_more_research_before_gold",

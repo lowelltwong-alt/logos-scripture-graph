@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -3352,6 +3352,63 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-076
+    title: T401 implements Eph.1.3-14 exact parent-only output pilot
+    classification: interpretive_boundary
+    task_ids: [T401]
+    owner_decision_ref: ".ai/control/t401_eph1_output_pilot_manifest.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [Eph]
+      passages: [Eph.1.3-Eph.1.14]
+      routes: [epistle_argument, route_isolated_output_pilot, additive_parent_overlay, goal7_exact_output_pilot]
+      surfaces: [pipelines/chunking/orchestrator.py, .ai/control/t401_eph1_output_pilot_manifest.yaml, scripts/validate_t401_eph1_output_pilot.py, tests/test_t401_eph1_output_pilot.py, tests/test_chunking_orchestrator.py, docs/roadmap/T401_EPH1_OUTPUT_PILOT.md, .ai/tasks/T401.task.yaml, .ai/audits/reports/20260625-T401-eph1-output-pilot.md]
+    decision: "Implement the owner-authorized Goal 7 pilot only for Eph.1.3-Eph.1.14 by appending one additive parent-only overlay after all pre-T401 baseline chunk records. The baseline prefix remains byte-identical, selected_children remains empty, and the overlay is explicitly non-truth-bearing. This records the parent boundary as output behavior only for this exact pilot; it does not delete or replace chunks, add child spans, generalize to epistles, alter evaluator scoring, generate graph/retrieval/vector truth, select source-tradition or preferred-reading authority, change canon scope, create source/manuscript rows, or authorize theology authority."
+    downstream_risk: "The Eph.1.3-Eph.1.14 blessing/praise sentence touches election, predestination, adoption, redemption, sealing, Trinitarian economy, union with Christ, assurance, and praise-of-glory themes. An output parent overlay could be mistaken for a denominational systematic-theology outline, child-span hierarchy, graph/retrieval truth, or broader epistle boundary rule unless the exact scope and non-authorizations stay visible."
+    theological_assumptions_avoided:
+      - "No Reformed, Arminian, Wesleyan, corporate-election, individual-election, sacramental, or one-denomination systematic theology becomes chunk authority."
+      - "No child-span outline, ordo-salutis sequence, or hierarchy is created by the parent overlay."
+      - "No Greek word, source paragraph marker, capitalization, Strong's-style tag, cross-reference, or source metadata becomes boundary authority."
+      - "No preferred reading, source-tradition preference, canon-scope change, graph/retrieval/vector truth, source/manuscript row, or theology authority is selected."
+      - "No anti-supernatural, liberal-critical, anti-canonical, or heterodox default is introduced."
+    reviewed_gold_dependency: "Depends on the strengthened T392 review packet, T394 parent-only reviewed-gold promotion for eph1_3_14_parent_only_reviewed_gold, T397 route-isolation harness readiness, and Lowell's T401 owner authorization for the exact output pilot. Future child-span work requires a separate post-pilot review, exact child-span evidence if necessary, owner promotion, decision-register update, validators/tests, and route-isolation proof."
+    non_authorizations:
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - permanent_child_span_denial
+      - deleting_or_replacing_existing_chunks
+      - adjacent_spill_splits
+      - broader_epistle_generalization
+      - evaluator_change
+      - leaderboard_update
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - boundary_import
+      - whole_bible_output_pass
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - sqlite_database_creation
+      - theology_authority_change
+      - denominational_systematic_theology_as_chunk_authority
+      - liberal_critical_default
+      - anti_supernatural_default
+      - parent_overlay_as_truth_bearing_hierarchy
+    validators:
+      - scripts/validate_t401_eph1_output_pilot.py
+      - tests/test_t401_eph1_output_pilot.py
+      - tests/test_chunking_orchestrator.py
+      - scripts/validate_t374_additive_parent_overlay.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3466,4 +3523,5 @@ backfill_coverage:
     - T399
     - T397
     - T396
+    - T401
 ...

@@ -299,8 +299,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397"}:
-        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, or T397")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
+        raise T374BaselineOverlapError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, or T401")
     if next_route.get("task_id") in {"T374", "T375"}:
         expected_next = {
             "baseline_overlap_decision_packet": PACKET_REL,
@@ -463,6 +463,32 @@ def _validate_links() -> None:
                 raise T374BaselineOverlapError(f"{_rel(READINESS)}: T397 next_route.{key} must be {value!r}")
         if "CD-071" not in next_route.get("prior_decision_register_entries", []):
             raise T374BaselineOverlapError(f"{_rel(READINESS)}: T397 must reference CD-071")
+    if next_route.get("task_id") == "T401":
+        expected_t401 = {
+            "starts_only_if": "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot",
+            "route_type": "epistle_argument_goal7_exact_output_pilot",
+            "completion_status": "complete_output_changed_eph1_parent_overlay",
+            "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+            "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "reviewed_gold_promoted": True,
+            "output_change_authorized": True,
+            "implementation_authorized": True,
+            "route_behavior_authorized": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+            "source_or_manuscript_rows_authorized": False,
+            "exact_next_owner_action": "T402_post_pilot_review_before_child_spans_or_broader_behavior",
+        }
+        for key, value in expected_t401.items():
+            if next_route.get(key) != value:
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T401 next_route.{key} must be {value!r}")
+        for required in ("CD-071", "CD-074", "CD-076"):
+            if required not in next_route.get("prior_decision_register_entries", []):
+                raise T374BaselineOverlapError(f"{_rel(READINESS)}: T401 must reference {required}")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

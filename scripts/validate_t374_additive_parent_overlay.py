@@ -252,6 +252,7 @@ def _run_orchestrator(out: Path, *, disable_overlay: bool = False, ledger: Path 
         cmd.extend(["--route-ledger", str(ledger)])
     if disable_overlay:
         cmd.append("--disable-t374-overlay")
+    cmd.append("--disable-t401-eph1-overlay")
     result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if result.returncode != 0:
         raise T374OverlayError(result.stdout + result.stderr)

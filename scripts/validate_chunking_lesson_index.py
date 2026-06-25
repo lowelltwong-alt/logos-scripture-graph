@@ -86,6 +86,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-027",
     "LSN-028",
     "LSN-029",
+    "LSN-030",
 }
 
 REQUIRED_TAGS = {
@@ -189,6 +190,14 @@ REQUIRED_TAGS = {
     "great-isaiah-scroll",
     "witness-row-population",
     "t396",
+    "eph1-output-pilot",
+    "output-pilot",
+    "exact-output-change",
+    "proof-manifest",
+    "post-pilot-review",
+    "child-span-review-gate",
+    "goal7",
+    "t401",
 }
 
 REQUIRED_SURFACES = {
@@ -287,6 +296,13 @@ REQUIRED_SURFACES = {
     "tests/test_route_isolation_harness.py",
     "scripts/validate_t397_eph1_route_isolation_harness.py",
     "tests/test_t397_eph1_route_isolation_harness.py",
+    ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+    "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md",
+    ".ai/tasks/T401.task.yaml",
+    ".ai/handoffs/T401/handoff.md",
+    ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
+    "scripts/validate_t401_eph1_output_pilot.py",
+    "tests/test_t401_eph1_output_pilot.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",

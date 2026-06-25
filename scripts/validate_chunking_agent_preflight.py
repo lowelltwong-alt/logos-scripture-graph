@@ -50,6 +50,7 @@ T393_ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T393_EPH1_REVIEWED_GOLD_PROMOTIO
 T394_EPH1_PROMOTION_RECORD = ROOT / ".ai" / "control" / "t394_eph1_parent_only_reviewed_gold_promotion.yaml"
 T397_EPH1_HARNESS = ROOT / ".ai" / "control" / "t397_eph1_route_isolation_harness.yaml"
 T397_HARNESS_SCRIPT = ROOT / "scripts" / "chunking" / "route_isolation_harness.py"
+T401_OUTPUT_PILOT = ROOT / ".ai" / "control" / "t401_eph1_output_pilot_manifest.yaml"
 T398_PHASE_ONE_SYNTHESIS = ROOT / ".ai" / "control" / "t398_bible_wide_phase_one_research_synthesis.yaml"
 T399_FOCUSED_RESEARCH_QUEUE = ROOT / ".ai" / "control" / "t399_focused_bible_wide_research_queue.yaml"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
@@ -105,7 +106,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073", "CD-074"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073", "CD-074", "CD-076"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -130,6 +131,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-026",
     "LSN-027",
     "LSN-028",
+    "LSN-030",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -217,6 +219,11 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "t397_eph1_route_isolation_harness.yaml",
     "T397 Eph.1.3-Eph.1.14 route-isolation harness",
     "scripts/chunking/route_isolation_harness.py",
+    "t401_eph1_output_pilot_manifest.yaml",
+    "T401 Eph.1.3-Eph.1.14 output pilot",
+    "validate_t401_eph1_output_pilot.py",
+    "--disable-t401-eph1-overlay",
+    "post-pilot review",
     "Goal 2 focused",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
@@ -445,6 +452,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
         ".ai/control/t397_eph1_route_isolation_harness.yaml",
         "scripts/chunking/route_isolation_harness.py",
+        ".ai/control/t401_eph1_output_pilot_manifest.yaml",
         ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
         ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
@@ -1033,6 +1041,25 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t397_script_text:
             raise PreflightError(f"{_rel(T397_HARNESS_SCRIPT)}: missing T397 harness script phrase {phrase!r}")
+    t401_output_pilot_text = _read_text(T401_OUTPUT_PILOT)
+    for phrase in (
+        "object_type: t401_eph1_output_pilot_manifest",
+        "task_id: T401",
+        "status: complete_output_changed_eph1_parent_overlay",
+        "selected_parent: Eph.1.3-Eph.1.14",
+        "selected_children: []",
+        "authorizes_exact_additive_parent_overlay: true",
+        "authorizes_exact_parent_span_as_chunk_boundary_for_pilot: true",
+        "authorizes_child_spans: false",
+        "baseline_chunk_count: 1137",
+        "candidate_chunk_count: 1138",
+        "decision_register_entry: CD-076",
+        "lesson_index_entry: LSN-030",
+        "--disable-t401-eph1-overlay",
+        "post_pilot_review_before_child_spans_or_broader_behavior",
+    ):
+        if phrase not in t401_output_pilot_text:
+            raise PreflightError(f"{_rel(T401_OUTPUT_PILOT)}: missing T401 output pilot phrase {phrase!r}")
     t398_synthesis_text = _read_text(T398_PHASE_ONE_SYNTHESIS)
     for phrase in (
         "object_type: bible_wide_phase_one_research_synthesis",

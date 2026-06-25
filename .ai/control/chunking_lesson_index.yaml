@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T396
+last_updated_by_task: T401
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1281,6 +1281,60 @@ lessons:
       - scripts/validate_dss_biblical_witness_source_rows.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_task_scope.py
+  - lesson_id: LSN-030
+    title: Exact output pilots require proof manifests and post-pilot review
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk]
+    tags: [eph1-output-pilot, output-pilot, exact-output-change, proof-manifest, route-isolation, non-target-identity, same-baseline, additive-overlay, post-pilot-review, child-span-review-gate, goal7, t401, ephesians, parent-only, no-context-audit]
+    use_when:
+      - "A future agent audits the T401 Eph.1.3-Eph.1.14 output pilot or prepares any later output-changing pilot after reviewed gold and route-isolation harnesses."
+      - "A future agent needs to know why an output pilot can append exactly one parent-only overlay while still not authorizing child spans, broader epistle behavior, graph/retrieval/vector truth, source-tradition preference, canon-scope changes, or theology authority."
+      - "A future post-pilot review considers whether child spans are necessary after a parent-only overlay."
+    preflight_stage: before_auditing_t401_or_any_later_output_pilot
+    source_surfaces:
+      - .ai/control/t401_eph1_output_pilot_manifest.yaml
+      - docs/roadmap/T401_EPH1_OUTPUT_PILOT.md
+      - .ai/audits/reports/20260625-T401-eph1-output-pilot.md
+      - .ai/tasks/T401.task.yaml
+      - .ai/handoffs/T401/handoff.md
+      - scripts/validate_t401_eph1_output_pilot.py
+      - tests/test_t401_eph1_output_pilot.py
+      - pipelines/chunking/orchestrator.py
+      - scripts/chunking/route_isolation_harness.py
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids: [CD-076, CD-074, CD-071]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T401, T397, T394]
+    downstream_risk: "An exact output pilot can be overread as child-span hierarchy, broader epistle generalization, graph/retrieval truth, or denominational theology authority unless the proof manifest, route-isolation report, same-baseline result, and post-pilot gate are mandatory reading."
+    required_preflight_surfaces:
+      - .ai/control/t401_eph1_output_pilot_manifest.yaml
+      - .ai/control/t397_eph1_route_isolation_harness.yaml
+      - scripts/chunking/route_isolation_harness.py
+      - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+      - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    non_authorizations:
+      - output_pilot_as_child_span_authority
+      - output_pilot_as_broader_epistle_generalization
+      - graph_or_retrieval_truth_from_output_pilot
+      - evaluator_change_from_output_pilot
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority_from_output_pilot
+    validators:
+      - scripts/validate_t401_eph1_output_pilot.py
+      - tests/test_t401_eph1_output_pilot.py
+      - tests/test_chunking_orchestrator.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1564,4 +1618,16 @@ lesson_graph:
   - from: LSN-029
     relation: constrains
     to: LSN-019
+  - from: LSN-025
+    relation: constrains
+    to: LSN-030
+  - from: LSN-028
+    relation: constrains
+    to: LSN-030
+  - from: LSN-030
+    relation: audits
+    to: LSN-010
+  - from: LSN-030
+    relation: constrains
+    to: LSN-008
 validator: scripts/validate_chunking_lesson_index.py

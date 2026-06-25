@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, or T397")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, or T401")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -506,6 +506,26 @@ def _validate_links() -> None:
             "embedding_or_vector_work_allowed": False,
             "source_or_manuscript_rows_authorized": False,
         }
+    elif next_route.get("task_id") == "T401":
+        expected_next = {
+            "starts_only_if": "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot",
+            "route_type": "epistle_argument_goal7_exact_output_pilot",
+            "completion_status": "complete_output_changed_eph1_parent_overlay",
+            "output_manifest": ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+            "promotion_record": ".ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml",
+            "owner_packet": ".ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml",
+            "reviewed_gold_promoted": True,
+            "output_change_authorized": True,
+            "implementation_authorized": True,
+            "route_behavior_authorized": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+            "embedding_or_vector_work_allowed": False,
+            "source_or_manuscript_rows_authorized": False,
+            "exact_next_owner_action": "T402_post_pilot_review_before_child_spans_or_broader_behavior",
+        }
     else:
         expected_next = {
             "starts_only_if": "T384_bible_wide_research_readiness_synthesis_complete_and_T386_coverage_complete",
@@ -547,6 +567,10 @@ def _validate_links() -> None:
         raise T373AuthorizationError(f"{_rel(READINESS)}: T393 must reference CD-068")
     if next_route.get("task_id") == "T397" and "CD-071" not in next_route.get("prior_decision_register_entries", []):
         raise T373AuthorizationError(f"{_rel(READINESS)}: T397 must reference CD-071")
+    if next_route.get("task_id") == "T401":
+        for required in ("CD-071", "CD-074", "CD-076"):
+            if required not in next_route.get("prior_decision_register_entries", []):
+                raise T373AuthorizationError(f"{_rel(READINESS)}: T401 must reference {required}")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])
