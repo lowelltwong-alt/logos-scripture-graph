@@ -1,17 +1,32 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-25
-**Updated by:** T401 Eph.1.3-Eph.1.14 output pilot (Codex)
-**Active task:** -> **T401 Eph.1.3-Eph.1.14 output pilot** completes Goal 7 at
-`.ai/control/t401_eph1_output_pilot_manifest.yaml`.
-It implements exactly one appended parent-only additive overlay for `Eph.1.3-Eph.1.14`, preserves
-the pre-T401 baseline/non-target output byte-identical, records route-isolation and same-baseline
-proof, and links `CD-076` plus `LSN-030`. T401 authorizes no child spans, deleting/replacing
-existing chunks, adjacent spill splits, broader epistle generalization, whole-Bible output,
-evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings/source
-traditions, canon-scope change, source/manuscript rows, or theology authority. The next safe stop
-is post-pilot review before any child-span or broader behavior work.
+**Updated by:** T402 whole-Bible low-complexity chunking candidate runway (Codex)
+**Active task:** -> **T402 low-complexity candidate runway** completes post-pilot review plus an
+all-66-book review queue at `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`.
+It records one candidate per canonical book, status buckets, terminology policy, `CD-077`, and
+`LSN-031`. Low-complexity means review eligibility only. T402 authorizes no target selection,
+review-packet strengthening without owner selection, reviewed-gold promotion, child spans, chunk
+output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings
+or source traditions, canon-scope change, source/manuscript rows, or theology authority. The next
+safe step is owner selection of one exact ready candidate for lightweight review-packet
+strengthening.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T402 low-complexity chunking runway (2026-06-25):** Added
+> `.ai/control/t402_eph1_post_pilot_review.yaml`,
+> `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`,
+> `docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md`, `.ai/tasks/T402.task.yaml`,
+> `.ai/handoffs/T402/handoff.md`,
+> `.ai/audits/reports/20260625-T402-low-complexity-runway.md`,
+> `scripts/validate_t402_low_complexity_chunking_runway.py`, and
+> `tests/test_t402_low_complexity_chunking_runway.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-077` plus `LSN-031`. T402 confirms child spans are not necessary now for the exact T401
+> Eph.1.3-Eph.1.14 pilot and creates an all-66-book candidate queue. It is review/research only
+> and authorizes no target selection, reviewed gold, child spans, output, route/evaluator behavior,
+> graph/retrieval/vector truth, boundary import, source-tradition preference, canon-scope change,
+> source/manuscript rows, whole-Bible output, or theology authority.
 
 > **T401 Eph.1.3-Eph.1.14 output pilot (2026-06-25):** Added
 > `.ai/control/t401_eph1_output_pilot_manifest.yaml`,

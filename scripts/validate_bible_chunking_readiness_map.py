@@ -111,6 +111,14 @@ REQUIRED_LESSON_SURFACES = {
     ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
     "scripts/validate_t401_eph1_output_pilot.py",
     "tests/test_t401_eph1_output_pilot.py",
+    ".ai/control/t402_eph1_post_pilot_review.yaml",
+    ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml",
+    "docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md",
+    ".ai/tasks/T402.task.yaml",
+    ".ai/handoffs/T402/handoff.md",
+    ".ai/audits/reports/20260625-T402-low-complexity-runway.md",
+    "scripts/validate_t402_low_complexity_chunking_runway.py",
+    "tests/test_t402_low_complexity_chunking_runway.py",
     ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
     "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
     ".ai/tasks/T398.task.yaml",
@@ -2199,6 +2207,58 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     ):
         if t399_queue.get(key) is not False:
             raise ReadinessMapError(f"{_rel(path)}: parallel_t399_focused_research_queue.{key} must be false")
+
+    t402_runway = data.get("parallel_t402_low_complexity_runway")
+    if not isinstance(t402_runway, dict):
+        raise ReadinessMapError(f"{_rel(path)}: parallel_t402_low_complexity_runway must be a mapping")
+    expected_t402 = {
+        "task_id": "T402",
+        "route_type": "whole_bible_low_complexity_candidate_runway",
+        "post_pilot_review": ".ai/control/t402_eph1_post_pilot_review.yaml",
+        "path": ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml",
+        "roadmap_doc": "docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md",
+        "status": "complete_review_research_only_candidate_runway",
+        "relation_to_next_route": "Parallel post-pilot and whole-Bible review runway; does not supersede the T401 output-pilot evidence, select a next target, promote reviewed gold, or authorize output.",
+        "corpus_scope": "canonical_66",
+        "canonical_book_count": 66,
+        "candidate_count": 66,
+        "ready_for_review_packet": 38,
+        "needs_context_research": 16,
+        "needs_original_language_review": 2,
+        "variant_sensitive_hold": 2,
+        "theological_risk_hold": 6,
+        "owner_decision_required": 1,
+        "do_not_chunk_now": 1,
+        "decision_register_entry": "CD-077",
+        "lesson_index_entry": "LSN-031",
+        "low_complexity_means_review_eligibility_only": True,
+        "next_owner_action": "choose_one_T402_ready_candidate_before_review_packet_strengthening",
+        "next_chunking_route_remains": "owner_selected_single_candidate_review_packet_only",
+    }
+    for key, value in expected_t402.items():
+        if t402_runway.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t402_low_complexity_runway.{key} must be {value!r}")
+    for key in (
+        "exact_target_selected",
+        "review_packet_strengthening_authorized_without_owner_selection",
+        "reviewed_gold_promoted",
+        "output_change_authorized",
+        "implementation_authorized",
+        "child_spans_authorized",
+        "route_behavior_authorized",
+        "evaluator_change_authorized",
+        "graph_edge_generation_allowed",
+        "retrieval_truth_authorized",
+        "embedding_or_vector_work_allowed",
+        "boundary_import_allowed",
+        "whole_bible_output_pass_authorized",
+        "preferred_reading_or_source_tradition_authorized",
+        "canon_scope_change_authorized",
+        "source_or_manuscript_rows_authorized",
+        "theology_authority_change_authorized",
+    ):
+        if t402_runway.get(key) is not False:
+            raise ReadinessMapError(f"{_rel(path)}: parallel_t402_low_complexity_runway.{key} must be false")
 
     parallel_research = data.get("parallel_research_queue")
     if isinstance(parallel_research, dict):
