@@ -237,6 +237,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_sqlite_shell.py")],
         ),
         (
+            "validate_dss_biblical_witness_source_rows.py",
+            [PY, str(ROOT / "scripts" / "validate_dss_biblical_witness_source_rows.py")],
+        ),
+        (
             "validate_t385_owner_decision_packet.py",
             [PY, str(ROOT / "scripts" / "validate_t385_owner_decision_packet.py")],
         ),

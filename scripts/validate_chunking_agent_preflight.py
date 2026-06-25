@@ -1098,7 +1098,7 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     for phrase in (
         "object_type: test_runtime_preflight",
         "python -m pytest -q",
-        "recommended_timeout_ms: 600000",
+        "recommended_timeout_ms: 1800000",
         "treat_timeout_as_green",
         "scripts/validate_test_runtime_preflight.py",
     ):

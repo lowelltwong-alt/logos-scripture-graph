@@ -1,0 +1,138 @@
+object_type: dss_biblical_witness_source_rows
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-23 during T396 from the T391 official-source research packet and T395 SQLite source-catalog shell."
+reason_for_inclusion: "Populate the first tiny metadata-only DSS biblical witness exemplar rows while preserving source review, candidate status, blocked claims, and non-authorizing boundaries before broader manuscript reliability work."
+schema_version: dss_biblical_witness_source_rows.v1
+task_id: T396
+owner: Lowell Wong
+status: active_great_isaiah_exemplar_rows
+source_seed_dependency: data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl
+population_file: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl
+manifest_file: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml
+authority:
+  records_scoped_dss_biblical_witness_metadata_rows: true
+  uses_t391_official_source_packet: true
+  uses_t395_sqlite_schema_shell: true
+  authorizes_scoped_great_isaiah_metadata_rows: true
+  authorizes_in_memory_sqlite_validation: true
+  authorizes_general_witness_row_population: false
+  authorizes_additional_dss_witnesses_without_row_level_sources: false
+  authorizes_committed_sqlite_database_file: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_bible_text_storage: false
+  authorizes_image_ingestion: false
+  authorizes_image_derived_text: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_non_biblical_dss_import: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_apologetic_conclusion_as_truth: false
+placement_decision:
+  owning_repo: logos-scripture-graph
+  row_scope: "Candidate Scripture Graph source-catalog metadata rows for one biblical DSS witness exemplar."
+  allowed_witness_ids:
+    - dss_great_isaiah_scroll_1qisa
+  blocked_from_this_repo:
+    - non_biblical_qumran_dss_content
+    - pesher_or_commentary_content
+    - patristic_or_church_father_citations
+    - theologian_writings
+    - doctrine_lineage
+    - apologetic_conclusions
+  boundary_repo_scope: "Non-biblical DSS/Qumran compositions, pesharim/commentary, reception history, church fathers, patristic citations, early creed wording, and theologian writings route to logos-boundary-literature."
+  doctrine_repo_scope: "Doctrinal development, denominational lineage, and theologian influence route to future logos-doctrine-genealogy."
+row_scope:
+  exemplar_policy: "T396 populates Great Isaiah Scroll metadata only. Additional DSS biblical witnesses require a later scoped task and row-level official URLs."
+  populated_tables:
+    scripture_holding_institution: 1
+    scripture_catalog_witness_record: 1
+    scripture_witness_identifier: 2
+    scripture_witness_date_claim: 1
+    scripture_witness_material_claim: 1
+    scripture_witness_coverage_claim: 1
+    scripture_witness_discovery_event: 1
+    evidence_catalog_review_queue: 1
+  allowed_source_urls:
+    - "https://dss.collections.imj.org.il/isaiah"
+    - "https://www.imj.org.il/en/collections/198208-0"
+    - "https://www.deadseascrolls.org.il/learn-about-the-scrolls/discovery-and-publication"
+source_review:
+  official_anchors:
+    - source_id: israel_museum_great_isaiah_scroll
+      source_url: "https://dss.collections.imj.org.il/isaiah"
+      source_family: dss_biblical_witness_catalogs
+      use_in_t396: "Coverage and date-display anchor for the Great Isaiah Scroll exemplar; no image, transcription, translation, or source text imported."
+    - source_id: israel_museum_great_isaiah_collection_record
+      source_url: "https://www.imj.org.il/en/collections/198208-0"
+      source_family: holding_institution_catalogs
+      use_in_t396: "Holding-institution collection-record anchor for title, identifier, material/accession, and repository review; rendered page needs later direct catalog review."
+    - source_id: iaa_dss_discovery_publication
+      source_url: "https://www.deadseascrolls.org.il/learn-about-the-scrolls/discovery-and-publication"
+      source_family: dss_biblical_witness_catalogs
+      use_in_t396: "Discovery/publication context anchor only; not a witness-text, authority, or apologetic-proof source."
+  candidate_claim_policy: "Rows with indexed or summary-level support remain candidate or review-pending until direct source extraction and scholarly cross-check are complete."
+  blocked_claim_policy: "Normalized date interval, exact shelfmark/accession treatment, script classification, rights reuse, and broader DSS row expansion remain blocked until later review."
+premortem:
+  p0_failure_modes:
+    - "Witness rows become Scripture authority or preferred-reading authority."
+    - "Rows are created from memory rather than official row-level URLs."
+    - "Bible text, source text, transcription, translation, image text, commentary, or creed wording is imported."
+    - "DSS discovery or date metadata is treated as apologetic proof."
+    - "Candidate facts are silently promoted to confirmed facts."
+    - "Non-biblical DSS/Qumran material leaks into Scripture Graph."
+    - "T393 current-focus semantics are broken by manuscript metadata work."
+    - "Parallel-agent work is overwritten or mixed into this branch."
+  fixes_applied:
+    - "Use one Great Isaiah Scroll exemplar only."
+    - "Require source_url, method, confidence, provenance_note, review_status, rights_access_status, source_family, and non_authorizing_scope_label on every row."
+    - "Reject text-bearing keys and require all text-storage flags to remain false."
+    - "Keep dates and coverage as source-display metadata with blocked normalization review."
+    - "Add a review-queue row for direct page extraction, scholarly cross-check, rights/access, and normalization blockers."
+    - "Leave current_focus unchanged and add no chunk, graph, retrieval, vector, or reviewed-gold output."
+red_team_result:
+  attack_summary: "The strongest attack is that a single famous scroll could be made to carry too much theological or apologetic weight."
+  fix_summary: "T396 names the row scope as metadata only, keeps confidence/review status explicit, forbids text/preferred readings, and records that no single witness proves global preservation or authorizes an apologetic conclusion."
+non_authorizations:
+  - additional_witness_population_without_later_task
+  - committed_sqlite_database_file
+  - source_text_import
+  - transcription_storage
+  - bible_text_storage
+  - image_ingestion
+  - image_derived_text
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - chunk_output_change
+  - reviewed_gold_promotion
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - non_biblical_dss_import
+  - boundary_import
+  - commentary_or_patristic_import
+  - doctrine_genealogy_import
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+validators:
+  - scripts/validate_dss_biblical_witness_source_rows.py
+  - tests/test_dss_biblical_witness_source_rows.py
+  - scripts/validate_all.py
+next_goal_prompt:
+  goal_id: T400_NT_PAPYRI_CODICES_SOURCE_ROW_EXEMPLARS
+  prompt: "Work in logos-scripture-graph from live origin/main after T396 is merged. T397, T398, and T399 already exist on main; use T400 for this manuscript-reliability task. Start with a premortem and red-team pass, then fix P0/P1 risks before editing. Populate a tiny metadata-only NT papyri/codices exemplar set from official INTF/NTVMR/Liste, CSNTM, and holding-institution anchors already routed through T391/T395. Prefer one or two exemplars only. Do not import source text, manuscript transcription, Bible text, images, preferred readings, source-tradition preferences, graph/retrieval/vector output, Boundary Literature material, Doctrine Genealogy material, or apologetic conclusions as authority. Every row must carry source_url, method, confidence, provenance_note, review_status, rights_access_status, source_family, non_authorizing_scope_label, and candidate/blocked status where appropriate. Add validation/tests and update TOCs/status/decision/lesson/data-map surfaces."

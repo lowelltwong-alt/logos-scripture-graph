@@ -85,6 +85,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-026",
     "LSN-027",
     "LSN-028",
+    "LSN-029",
 }
 
 REQUIRED_TAGS = {
@@ -184,6 +185,10 @@ REQUIRED_TAGS = {
     "exact-parent-target",
     "t397",
     "output-gate",
+    "dss-biblical-witness-rows",
+    "great-isaiah-scroll",
+    "witness-row-population",
+    "t396",
 }
 
 REQUIRED_SURFACES = {
@@ -234,6 +239,14 @@ REQUIRED_SURFACES = {
     ".ai/handoffs/T395/handoff.md",
     "scripts/validate_manuscript_source_catalog_sqlite_shell.py",
     "tests/test_manuscript_source_catalog_sqlite_shell.py",
+    ".ai/control/dss_biblical_witness_source_rows.yaml",
+    "data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl",
+    "data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml",
+    "docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md",
+    ".ai/tasks/T396.task.yaml",
+    ".ai/handoffs/T396/handoff.md",
+    "scripts/validate_dss_biblical_witness_source_rows.py",
+    "tests/test_dss_biblical_witness_source_rows.py",
     ".ai/control/bible_verse_passage_coverage_inventory.jsonl",
     ".ai/control/bible_verse_passage_coverage_taxonomy.yaml",
     ".ai/control/bible_verse_passage_coverage_summary.yaml",

@@ -3298,6 +3298,60 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-075
+    title: T396 DSS biblical witness source rows are Great Isaiah metadata only
+    classification: non_authorizing_review
+    task_ids: [T396]
+    owner_decision_ref: ".ai/control/dss_biblical_witness_source_rows.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [manuscript_witness_reliability, dss_biblical_witnesses, source_catalog_sqlite_shell, discovery_timeline, evidence_reporting, boundary_routing, doctrine_genealogy_routing, chunking_preflight]
+      surfaces: [.ai/control/dss_biblical_witness_source_rows.yaml, data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl, data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml, docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md, AI_TABLE_OF_CONTENTS.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, scripts/validate_dss_biblical_witness_source_rows.py]
+    decision: "T396 populates exactly one tiny metadata-only DSS biblical witness exemplar: the Great Isaiah Scroll candidate rows under the existing T395 SQLite schema. It inserts holding-institution, witness-record, identifier, date, material, coverage, discovery, and review-queue rows only when official Israel Museum or IAA/Leon Levy anchors routed through T391/T395 are available. Every row requires source URL, method, confidence, provenance, review status, source family, rights/access status, non-authorizing labels, and false text-storage flags. Date/material/coverage/shelfmark/script/rights normalization remains candidate or blocked pending later review."
+    downstream_risk: "A famous early biblical scroll can be overused as apologetic proof, preferred-reading authority, source-tradition priority, graph/retrieval/vector truth, or permission to import text and images. Future tasks must keep witness metadata separated from Scripture text, preserve candidate and blocked claims, and add later witnesses only with scoped official row-level source review."
+    theological_assumptions_avoided:
+      - "No Great Isaiah Scroll row is treated as Scripture text."
+      - "No single DSS witness proves global preservation, prophecy claims, or a preferred reading."
+      - "No date, discovery event, catalog count, coverage summary, or material claim becomes apologetic authority."
+      - "No non-biblical DSS/Qumran, commentary, patristic citation, creed wording, theologian writing, or doctrine lineage is imported into Scripture Graph."
+      - "No graph, retrieval, vector, chunking, reviewed-gold, route behavior, canon-scope, source-tradition, or textual-critical decision changes are authorized."
+    reviewed_gold_dependency: "None. T396 is source-catalog metadata-row population only. Future DSS expansion, NT papyri/codices rows, variants, copy-abundance method profiles, source-language graphing, Boundary Literature reception joins, Doctrine Genealogy lineage, graph/retrieval/vector work, chunk-output work, or apologetic reports require separate scoped tasks, validators/tests, source review, and owner authorization where authority could change."
+    non_authorizations:
+      - additional_witness_population_without_later_task
+      - committed_sqlite_database_file
+      - source_text_import
+      - transcription_storage
+      - bible_text_storage
+      - image_ingestion
+      - image_derived_text
+      - canonical_bible_text_change
+      - canonical_passage_record_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - textual_critical_decision
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - non_biblical_dss_import
+      - boundary_import
+      - commentary_as_scripture
+      - patristic_citation_as_scripture_authority
+      - doctrine_genealogy_import
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - apologetic_conclusion_as_truth
+    validators:
+      - scripts/validate_dss_biblical_witness_source_rows.py
+      - tests/test_dss_biblical_witness_source_rows.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3411,4 +3465,5 @@ backfill_coverage:
     - T398
     - T399
     - T397
+    - T396
 ...

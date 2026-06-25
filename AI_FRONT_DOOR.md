@@ -41,8 +41,8 @@ Read these files before making changes:
     chunking human-decision forecast,
     divine-name/title capitalization and WJ/red-letter markers, WJ speaker/discourse policy,
     T390 manuscript source catalog metadata plan, T391 source-catalog research packet,
-    T395 SQLite source-catalog shell, and John 3 owner-review docket are evidence/review policy,
-    not authority.
+    T395 SQLite source-catalog shell, T396 DSS biblical witness source rows, and John 3
+    owner-review docket are evidence/review policy, not authority.
     The Bible-wide research registry is a canonical 66-book research queue, not chunk/gold/graph
     authority.
 10. For context-sensitive Bible reading, chunking, review packets, intertexts, historical/cultural
@@ -343,6 +343,15 @@ Bible-first chunking priority:
   `CD-070` and `LSN-024` and authorizes no committed SQLite database file, Bible text,
   transcription text, preferred reading, graph/retrieval/vector truth, boundary import, doctrine
   lineage import, chunk output, or apologetic conclusion as Scripture authority.
+- The T396 DSS biblical witness source rows at
+  `.ai/control/dss_biblical_witness_source_rows.yaml` and
+  `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl`
+  populate a tiny Great Isaiah Scroll metadata-only exemplar set from official Israel Museum and
+  IAA/Leon Levy anchors routed through T391/T395. It is validated by
+  `scripts/validate_dss_biblical_witness_source_rows.py`, records `CD-072` and `LSN-026`, and
+  authorizes no source text, transcription text, Bible text, image ingestion, preferred reading,
+  source-tradition preference, non-biblical DSS import, graph/retrieval/vector truth, chunk output,
+  or apologetic conclusion as Scripture authority.
 - The T389 Chunking Launch Readiness report at
   `docs/roadmap/T389_CHUNKING_LAUNCH_READINESS_REPORT.md` records the current clean-trunk,
   non-output readiness state after T384/T386/T387/T388 and Governance branch reconciliation. It

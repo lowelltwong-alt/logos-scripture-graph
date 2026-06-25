@@ -1,0 +1,101 @@
+id: T396
+phase: phase_5
+title: "DSS Biblical Witness Source Rows"
+mode: build
+status: complete_great_isaiah_exemplar_rows
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/dss_biblical_witness_source_rows.yaml
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T396.task.yaml
+    - .ai/handoffs/T396/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl
+    - data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_dss_biblical_witness_source_rows.py
+    - scripts/validate_all.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_dss_biblical_witness_source_rows.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunking/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/per_form/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: dss_biblical_witness_source_row_population
+  control: .ai/control/dss_biblical_witness_source_rows.yaml
+  roadmap_doc: docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md
+  population_file: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl
+  manifest_file: data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml
+  authorizes_scoped_great_isaiah_metadata_rows: true
+  authorizes_general_witness_row_population: false
+  authorizes_additional_dss_witnesses_without_later_task: false
+  authorizes_committed_sqlite_database_file: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_bible_text_storage: false
+  authorizes_image_ingestion: false
+  authorizes_image_derived_text: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_non_biblical_dss_import: false
+  authorizes_boundary_import: false
+  authorizes_commentary_or_patristic_import: false
+  authorizes_doctrine_genealogy_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_doctrinal_system: false
+  authorizes_apologetic_conclusion_as_truth: false
+acceptance_criteria:
+  - "Populate only a tiny Great Isaiah Scroll DSS biblical witness exemplar set."
+  - "Keep all rows metadata-only with no Bible text, source text, transcription, translation, image, commentary, creed, or preferred-reading content."
+  - "Require source URL, method, confidence, provenance, review status, source family, rights/access status, and non-authorizing scope label on every row."
+  - "Preserve date/material/coverage uncertainty as candidate status or review-queue blockers."
+  - "Prove all source URLs are official anchors routed through T391/T395."
+  - "Prove no canonical_*, boundary_*, doctrine_*, graph/retrieval/vector, chunking, or apologetic-authority object is created."
+validation:
+  - python scripts/validate_dss_biblical_witness_source_rows.py
+  - python -m pytest -q tests/test_dss_biblical_witness_source_rows.py
+  - python scripts/validate_chunking_lesson_index.py --index .ai/control/chunking_lesson_index.yaml --changed-file .ai/control/chunking_lesson_index.yaml --index-updated true
+  - python scripts/validate_chunking_theological_decision_register.py --changed-file data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl --changed-file .ai/control/chunking_theological_decision_register.yaml --register-updated true
+  - python scripts/validate_test_runtime_preflight.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_task_scope.py --task-id T396
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T396/handoff.md
+next_task: "After T396 is merged, next safe manuscript-reliability work is T400: a tiny NT papyri/codices source-row exemplar task from INTF/NTVMR/Liste, CSNTM, and holding-institution anchors. Start with premortem/red-team, keep all rows metadata-only, and preserve candidate/blocked status. T397, T398, and T399 already exist on main for chunking/research-governance work."
+created_at: "2026-06-23"
+updated_at: "2026-06-23"

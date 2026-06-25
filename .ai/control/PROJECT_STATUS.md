@@ -57,6 +57,24 @@ gate for exactly `Eph.1.3-Eph.1.14`.
 > import, preferred reading/source-tradition choice, canon-scope change, source/manuscript row
 > creation, whole-Bible output, or theology authority.
 
+> **T396 DSS biblical witness source rows (2026-06-23):** Added
+> `.ai/control/dss_biblical_witness_source_rows.yaml`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl`,
+> `data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows_manifest.yaml`,
+> `docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md`,
+> `scripts/validate_dss_biblical_witness_source_rows.py`, and
+> `tests/test_dss_biblical_witness_source_rows.py`. T396 loads the T395 schema and source seed
+> rows in in-memory SQLite, then populates exactly nine metadata-only Great Isaiah Scroll exemplar
+> rows across holding-institution, witness-record, identifier, date, material, coverage, discovery,
+> and review-queue tables. It records `CD-075` and `LSN-029` after main used `CD-072`/`LSN-026`
+> for T398, `CD-073`/`LSN-027` for T399, and `CD-074`/`LSN-028` for T397. It preserves candidate/blocked status for date/material/coverage/shelfmark/script/rights
+> normalization, and validates official source URLs routed through T391/T395. It authorizes no
+> additional witness population without a later
+> task, committed SQLite database file, source text import, transcription storage, Bible text
+> storage, image ingestion, preferred reading, source-tradition preference, non-biblical DSS import,
+> boundary import, doctrine lineage import, graph/retrieval/vector truth, chunk output, or
+> apologetic conclusion as Scripture authority.
+
 > **T395 SQLite source catalog schema shell (2026-06-23):** Added
 > `.ai/control/manuscript_source_catalog_sqlite_shell.yaml`,
 > `data/candidate/source_catalog/manuscript_reliability/sqlite/schema.sql`,
