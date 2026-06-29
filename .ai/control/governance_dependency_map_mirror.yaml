@@ -1,0 +1,43 @@
+object_type: governance_dependency_map_mirror
+trust_zone: governance
+lifecycle_status: active
+provenance_note: "Created 2026-06-29 to mirror the upstream Logos governance dependency-map update gate inside logos-scripture-graph."
+reason_for_inclusion: "Force scripture-local governance changes to check the upstream governance dependency map and local mirror surfaces instead of relying on chat memory."
+schema_version: governance_dependency_map_mirror.v1
+mirror_id: logos_scripture_graph_governance_dependency_map_mirror
+owner_repo: logos-scripture-graph
+upstream_dependency_map:
+  repo: logos-governance-architecture
+  path: governance/GOVERNANCE_DEPENDENCY_MAP.yaml
+  artifact_id: GD-014
+  rule: governance_map_update_gate
+  source_of_truth: true
+local_enforcement:
+  validator: scripts/validate_governance_dependency_map_mirror.py
+  test: tests/test_governance_dependency_map_mirror.py
+  aggregate_validator: scripts/validate_all.py
+  repository_link_contract: config/governance/repository_link_contract.yaml
+  front_door: AI_FRONT_DOOR.md
+  table_of_contents: AI_TABLE_OF_CONTENTS.md
+  readme: README.md
+authority:
+  local_repo_may_override_upstream_dependency_map: false
+  local_repo_may_weaken_upstream_governance: false
+  local_repo_may_treat_scripture_data_need_as_governance_authority: false
+  local_repo_must_stop_if_upstream_map_conflicts: true
+watched_local_governance_surfaces:
+  - AI_FRONT_DOOR.md
+  - AI_TABLE_OF_CONTENTS.md
+  - README.md
+  - config/governance/
+  - .ai/control/boundary_material_routing.yaml
+  - .ai/control/governance_dependency_map_mirror.yaml
+  - scripts/validate_governance_dependency_map_mirror.py
+  - scripts/validate_repository_link_contract.py
+  - scripts/validate_all.py
+  - tests/test_governance_dependency_map_mirror.py
+required_behavior:
+  - check_upstream_governance_dependency_map_when_governance_files_change
+  - update_local_mirror_surfaces_when_upstream_governance_affects_scripture_graph
+  - keep_scripture_graph_under_upstream_governance_authority
+  - fail_closed_when_dependency_map_mirror_is_missing_or_weakened

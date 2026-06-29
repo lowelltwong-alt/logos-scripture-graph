@@ -14,6 +14,8 @@ REQUIRED_FILES = [
     ".ai/control/PROJECT_CONTEXT.md",
     ".ai/control/DATA_MAP.md",
     "config/governance/repository_link_contract.yaml",
+    ".ai/control/governance_dependency_map_mirror.yaml",
+    "scripts/validate_governance_dependency_map_mirror.py",
     "config/agents/agent_hostile_policy.yaml",
 ]
 
@@ -27,6 +29,21 @@ REQUIRED_MARKERS = {
         "explicit_contract_validated_release",
         "github_parent_issue",
         "github_child_issue",
+        "upstream_dependency_map",
+        "governance/GOVERNANCE_DEPENDENCY_MAP.yaml",
+        "artifact_id: GD-014",
+        "local_governance_dependency_map_mirror",
+        ".ai/control/governance_dependency_map_mirror.yaml",
+        "may_override_upstream_dependency_map: false",
+    ],
+    ".ai/control/governance_dependency_map_mirror.yaml": [
+        "governance_dependency_map_mirror",
+        "logos-scripture-graph",
+        "logos-governance-architecture",
+        "governance/GOVERNANCE_DEPENDENCY_MAP.yaml",
+        "artifact_id: GD-014",
+        "local_repo_may_override_upstream_dependency_map: false",
+        "local_repo_must_stop_if_upstream_map_conflicts: true",
     ],
     "config/agents/agent_hostile_policy.yaml": [
         "instruction_hierarchy",
