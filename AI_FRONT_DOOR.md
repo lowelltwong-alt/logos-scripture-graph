@@ -76,12 +76,12 @@ Read these files before making changes:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
 14. Before repo-wide validation, `python scripts/validate_all.py`, or `python -m pytest -q`:
     `.ai/control/test_runtime_preflight.yaml`. It records known slow commands, including full
-    pytest needing a timeout of at least `600000` ms in this worktree, and requires focused/split
-    tests plus full-suite rerun rather than treating a tool timeout as green. T398 also observed
-    local desktop `python -m pytest -q` timing out after a requested `900000` ms and a 25-file
-    batch spawning nested `pytest`/`validate_all.py` helpers; run `validate_all.py` separately,
-    split local pytest by small domain or single file when needed, and record timeout evidence in
-    the handoff.
+    `python scripts/validate_all.py` needing a timeout of at least `900000` ms and full pytest
+    needing its recorded preflight timeout in this worktree. Use those ceilings on the first run;
+    do not burn a short timeout and rerun. T398 also observed local desktop `python -m pytest -q`
+    timing out after a requested `900000` ms and a 25-file batch spawning nested
+    `pytest`/`validate_all.py` helpers; run `validate_all.py` separately, split local pytest by
+    small domain or single file when needed, and record timeout evidence in the handoff.
 15. `config/agents/agent_roles.yaml`
 16. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
 17. The specific files in the task scope.

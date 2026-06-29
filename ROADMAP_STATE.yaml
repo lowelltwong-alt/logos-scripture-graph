@@ -1622,6 +1622,37 @@ phases:
         source_or_manuscript_rows_authorized: false
         whole_bible_output_pass_authorized: false
         theology_authority_change_authorized: false
+      - id: T403
+        title: Deterministic Runtime Timeout Ceiling Enforcement
+        status: complete_runtime_timeout_enforcement
+        lane: control_plane_runtime
+        task_scope: .ai/tasks/T403.task.yaml
+        required_handoff: .ai/handoffs/T403/handoff.md
+        runtime_preflight: .ai/control/test_runtime_preflight.yaml
+        validator: scripts/validate_test_runtime_preflight.py
+        test: tests/test_test_runtime_preflight.py
+        validate_all_minimum_timeout_ms: 900000
+        observed_short_timeout_ms: 240000
+        observed_success_timeout_ms: 900000
+        observed_success_runtime_seconds: 477.5
+        authorizes_validation_bypass: false
+        authorizes_test_skip: false
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

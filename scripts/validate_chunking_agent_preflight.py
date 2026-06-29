@@ -250,7 +250,7 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "T386 Bible-wide verse/passage coverage",
     "test_runtime_preflight.yaml",
     "python -m pytest -q",
-    "600000",
+    "900000",
     "Research autonomy is not authority autonomy",
     "T384 Bible-wide research/readiness synthesis",
     "T385 owner decision packet",

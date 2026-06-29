@@ -2,7 +2,7 @@
 object_type: test_runtime_preflight
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window."
+provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window. Updated 2026-06-29 after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling."
 reason_for_inclusion: "Give future agents deterministic runtime guidance before running long validation or pytest commands, so slow gates are run with enough timeout or split intentionally instead of failing from tool timeout."
 ---
 schema_version: test_runtime_preflight.v1
@@ -36,15 +36,16 @@ runtime_profiles:
       - hide_timeout_from_handoff
   - command_id: validate_all
     command: "python scripts/validate_all.py"
-    observed_on: "2026-06-22"
-    observed_context: "T386 branch with full canonical data and T386 coverage validator wired in."
-    observed_result: "Completed in about 2 minutes and passed all validation gates."
-    recommended_timeout_ms: 300000
+    observed_on: "2026-06-29"
+    observed_context: "Current branch after T396/T397/T398/T399 were present in the control plane; validate_all now runs many nested governance, readiness, dossier, source-catalog, corpus, and canonical QA gates."
+    observed_result: "A run with a 240000 ms tool ceiling timed out without returning a verdict. The immediate rerun with a 900000 ms ceiling passed all validation gates in 477.5 seconds. Agents must start validate_all with at least 900000 ms so this known slow gate is not run twice."
+    recommended_timeout_ms: 900000
     recommended_strategy:
       - run_after_focused_validators_when_possible
+      - run_validate_all_with_timeout_at_least_900000_ms
       - capture_failures_before_running_full_pytest
     do_not:
-      - shorten_timeout_below_300000_ms_on_full_canonical_data
+      - shorten_timeout_below_900000_ms_on_full_canonical_data
       - treat_timeout_as_green
       - hide_timeout_from_handoff
   - command_id: pytest_full_suite_local_desktop_t398

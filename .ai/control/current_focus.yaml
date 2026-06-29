@@ -1,9 +1,9 @@
-current_task: T402
+current_task: T403
 current_phase: phase_4
 active_agent: codex
-focus: T402 - Completed the Eph.1.3-Eph.1.14 post-pilot review and created a governed all-66-book low-complexity candidate runway. Low-complexity means review eligibility only. T402 records CD-077 and LSN-031 and authorizes no target selection, reviewed gold, child spans, chunk output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source traditions, canon-scope change, source/manuscript rows, or theology authority.
-previous_completed_task: T401 exact Eph.1.3-Eph.1.14 output pilot; T397 route-isolation harness; T398/T399 research surfaces; T396 DSS metadata-only exemplar rows.
-last_updated: "2026-06-25"
+focus: T403 - Deterministically enforced runtime timeout ceilings after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling. test_runtime_preflight.yaml now records the observation, AI_FRONT_DOOR requires using the recorded ceiling on the first run, and validators/tests fail closed if validate_all drops below 900000 ms. This authorizes no validation bypass, test skip, data change, chunk output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, source/manuscript rows, or theology authority.
+previous_completed_task: T402 low-complexity candidate runway; T401 exact Eph.1.3-Eph.1.14 output pilot; T397 route-isolation harness; T398/T399 research surfaces; T396 DSS metadata-only exemplar rows.
+last_updated: "2026-06-29"
 ingest_status: complete
 t302_review: complete
 t303_control_plane: complete
@@ -22,8 +22,10 @@ remote: https://github.com/lowelltwong-alt/logos-scripture-graph
 ci_status: green (validate workflow; regenerates canonical data + 11 tests)
 cp1_status: closed (branch protection on main; CODEOWNER review + validate check required; enforce_admins=false break-glass)
 model_roster_routine: trig_014ikqKjh3qzQHMvtQ2NKEey (monthly, next 2026-07-04)
-primary_handoff: .ai/handoffs/T402/handoff.md
-review_report: docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+primary_handoff: .ai/handoffs/T403/handoff.md
+review_report: .ai/control/test_runtime_preflight.yaml
+t403_runtime_preflight: .ai/control/test_runtime_preflight.yaml
+t403_runtime_validator: scripts/validate_test_runtime_preflight.py
 t402_post_pilot_review: .ai/control/t402_eph1_post_pilot_review.yaml
 t402_low_complexity_candidate_queue: .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
 t402_low_complexity_validator: scripts/validate_t402_low_complexity_chunking_runway.py
@@ -42,4 +44,4 @@ t399_focused_research_queue: .ai/control/t399_focused_bible_wide_research_queue.
 t397_route_isolation_harness: .ai/control/t397_eph1_route_isolation_harness.yaml
 open_owner_decision_packet: T402_owner_select_one_ready_candidate_before_review_packet_strengthening
 open_human_decision: enable branch protection on default branch (CODEOWNERS = @lowelltwong-alt; ADR-0009)
-next_sprint: Owner selects one exact ready_for_review_packet candidate from the T402 queue for lightweight review-packet strengthening. Do not promote reviewed gold, implement output, add child spans, broaden to whole-Bible output, change route/evaluator behavior, create graph/retrieval/vector truth, import boundary/source-tradition authority, create source/manuscript rows, change canon scope, or authorize theology authority without later exact owner gates.
+next_sprint: Use at least 900000 ms for python scripts/validate_all.py on the first attempt, then owner/Codex selects one exact ready_for_review_packet candidate from the T402 queue before lightweight review-packet strengthening. Do not promote reviewed gold, implement output, add child spans, broaden to whole-Bible output, change route/evaluator behavior, create graph/retrieval/vector truth, import boundary/source-tradition authority, create source/manuscript rows, change canon scope, or authorize theology authority without later exact owner gates.

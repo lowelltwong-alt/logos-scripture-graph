@@ -1,17 +1,25 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-25
-**Updated by:** T402 whole-Bible low-complexity chunking candidate runway (Codex)
-**Active task:** -> **T402 low-complexity candidate runway** completes post-pilot review plus an
-all-66-book review queue at `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`.
-It records one candidate per canonical book, status buckets, terminology policy, `CD-077`, and
-`LSN-031`. Low-complexity means review eligibility only. T402 authorizes no target selection,
-review-packet strengthening without owner selection, reviewed-gold promotion, child spans, chunk
-output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings
-or source traditions, canon-scope change, source/manuscript rows, or theology authority. The next
-safe step is owner selection of one exact ready candidate for lightweight review-packet
-strengthening.
+**Last updated:** 2026-06-29
+**Updated by:** T403 deterministic runtime timeout ceiling enforcement (Codex)
+**Active task:** -> **T403 deterministic runtime timeout ceiling enforcement** records that
+`python scripts/validate_all.py` exceeded a 240000 ms tool timeout on this checkout and then passed
+with a 900000 ms ceiling in 477.5 seconds. `.ai/control/test_runtime_preflight.yaml`,
+`AI_FRONT_DOOR.md`, `scripts/validate_test_runtime_preflight.py`, and
+`tests/test_test_runtime_preflight.py` now require agents to use the recorded ceiling on the first
+run instead of burning a short timeout and rerunning. T403 authorizes no validation bypass, test
+skip, data change, chunk output, route/evaluator behavior, graph/retrieval/vector truth, boundary
+import, source/manuscript rows, or theology authority.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T403 deterministic runtime timeout ceiling enforcement (2026-06-29):** Hardened
+> `.ai/control/test_runtime_preflight.yaml`, `AI_FRONT_DOOR.md`,
+> `scripts/validate_test_runtime_preflight.py`, `scripts/validate_chunking_agent_preflight.py`, and
+> `tests/test_test_runtime_preflight.py` so `python scripts/validate_all.py` has a machine-checked
+> minimum timeout of 900000 ms. This was prompted by a known 240000 ms timeout followed by a
+> successful 900000 ms run. The rule is runtime discipline only and does not authorize skipping,
+> bypassing, output, data, chunking, graph/retrieval/vector, boundary, source/manuscript, or
+> theology-authority changes.
 
 > **T402 low-complexity chunking runway (2026-06-25):** Added
 > `.ai/control/t402_eph1_post_pilot_review.yaml`,
