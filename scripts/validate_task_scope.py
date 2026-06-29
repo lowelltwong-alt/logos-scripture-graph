@@ -259,7 +259,13 @@ def main(argv: list[str] | None = None) -> int:
             task_file = _task_file_for(task_id)
         if not task_file.is_absolute():
             task_file = ROOT / task_file
-        changed_files = args.changed_file or git_changed_files(args.base_ref)
+        base_ref = args.base_ref
+        if base_ref == "origin/main":
+            task_data = _read_yaml(task_file)
+            task_base_ref = task_data.get("base_ref")
+            if isinstance(task_base_ref, str) and task_base_ref.strip():
+                base_ref = task_base_ref.strip()
+        changed_files = args.changed_file or git_changed_files(base_ref)
         validate_task_scope(task_file=task_file, changed_files=changed_files)
     except TaskScopeError as exc:
         print(f"Task scope validation failed: {exc}", file=sys.stderr)

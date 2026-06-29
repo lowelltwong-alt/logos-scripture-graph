@@ -87,6 +87,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-028",
     "LSN-029",
     "LSN-030",
+    "LSN-031",
 }
 
 REQUIRED_TAGS = {
@@ -198,6 +199,15 @@ REQUIRED_TAGS = {
     "child-span-review-gate",
     "goal7",
     "t401",
+    "low-complexity",
+    "candidate-queue",
+    "review-eligibility",
+    "canonical-66",
+    "whole-bible-runway",
+    "status-buckets",
+    "terminology",
+    "depth",
+    "t402",
 }
 
 REQUIRED_SURFACES = {
@@ -303,6 +313,14 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
     "scripts/validate_t401_eph1_output_pilot.py",
     "tests/test_t401_eph1_output_pilot.py",
+    ".ai/control/t402_eph1_post_pilot_review.yaml",
+    ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml",
+    "docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md",
+    ".ai/tasks/T402.task.yaml",
+    ".ai/handoffs/T402/handoff.md",
+    ".ai/audits/reports/20260625-T402-low-complexity-runway.md",
+    "scripts/validate_t402_low_complexity_chunking_runway.py",
+    "tests/test_t402_low_complexity_chunking_runway.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",

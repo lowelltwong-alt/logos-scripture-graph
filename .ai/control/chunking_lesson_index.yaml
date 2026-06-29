@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T401
+last_updated_by_task: T402
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1335,6 +1335,61 @@ lessons:
       - tests/test_chunking_orchestrator.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-031
+    title: Low-complexity status is review eligibility, not chunking authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, contextual_reading, source_metadata, original_language]
+    tags: [low-complexity, candidate-queue, review-eligibility, canonical-66, whole-bible-runway, status-buckets, terminology, depth, parent, child, source-metadata, context-required, non-authorizing, t402, post-pilot-review]
+    use_when:
+      - "A future agent uses the T402 whole-Bible candidate queue, selects a next review target, or audits why low-complexity is not output authority."
+      - "A future agent sees ready_for_review_packet and must remember that it means review eligibility only, not exact target selection, reviewed gold, child-span selection, route behavior, graph/retrieval/vector truth, or output permission."
+      - "A future agent proposes parent/child/depth terminology or larger structure after a candidate looks simple."
+    preflight_stage: before_candidate_queue_use_or_review_packet_selection
+    source_surfaces:
+      - .ai/control/t402_eph1_post_pilot_review.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+      - .ai/audits/reports/20260625-T402-low-complexity-runway.md
+      - .ai/tasks/T402.task.yaml
+      - .ai/handoffs/T402/handoff.md
+      - scripts/validate_t402_low_complexity_chunking_runway.py
+      - tests/test_t402_low_complexity_chunking_runway.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: [CD-077, CD-076, CD-073, CD-072]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T402, T401, T399, T398]
+    downstream_risk: "A low-complexity runway can speed review, but it can also smuggle theology or output behavior if candidate status becomes an authority shortcut. Apparent simplicity still needs context, source-metadata evidence-only handling, variant/source-tradition flags, original-language phrase/context review where relevant, owner gates, and validators."
+    required_preflight_surfaces:
+      - .ai/control/t402_eph1_post_pilot_review.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - low_complexity_status_as_output_authority
+      - ready_for_review_packet_as_owner_selection
+      - candidate_queue_as_reviewed_gold
+      - child_span_selection_from_candidate_status
+      - graph_or_retrieval_truth_from_candidate_status
+      - source_metadata_as_boundary_authority
+      - original_language_word_as_boundary_authority
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority_from_candidate_status
+    validators:
+      - scripts/validate_t402_low_complexity_chunking_runway.py
+      - tests/test_t402_low_complexity_chunking_runway.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1630,4 +1685,25 @@ lesson_graph:
   - from: LSN-030
     relation: constrains
     to: LSN-008
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-031
+  - from: LSN-011
+    relation: constrains
+    to: LSN-031
+  - from: LSN-027
+    relation: discovers
+    to: LSN-031
+  - from: LSN-030
+    relation: discovers
+    to: LSN-031
+  - from: LSN-031
+    relation: constrains
+    to: LSN-020
+  - from: LSN-031
+    relation: constrains
+    to: LSN-021
+  - from: LSN-031
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

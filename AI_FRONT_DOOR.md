@@ -35,7 +35,7 @@ Read these files before making changes:
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
-    T401 Eph.1.3-Eph.1.14 output pilot,
+    T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -232,6 +232,15 @@ Bible-first chunking priority:
   output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings or
   source traditions, canon-scope change, source/manuscript rows, or theology authority. The next
   safe step is post-pilot review before any child-span or broader behavior work.
+  T402 now records the post-pilot review at `.ai/control/t402_eph1_post_pilot_review.yaml` and
+  the whole-Bible low-complexity candidate runway at
+  `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`, validated by
+  `scripts/validate_t402_low_complexity_chunking_runway.py`. Low-complexity means review
+  eligibility only: it is not exact target selection, reviewed gold, child-span authority, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, source-tradition
+  preference, canon-scope change, source/manuscript row authority, whole-Bible output, or theology
+  authority. The next safe step is owner selection of one exact ready candidate before
+  review-packet strengthening.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
@@ -344,6 +353,15 @@ Bible-first chunking priority:
   same-baseline metrics. It does not authorize child spans, broader epistle generalization,
   whole-Bible output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred
   readings/source traditions, canon-scope change, source/manuscript rows, or theology authority.
+- The T402 whole-Bible low-complexity candidate runway at
+  `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml` records one candidate per
+  canonical book with status buckets, context dependencies, metadata evidence-only handling,
+  variant/source-tradition flags, theological-risk flags, owner-decision requirements, and
+  non-authorizations. It is validated by `scripts/validate_t402_low_complexity_chunking_runway.py`
+  and has a no-context audit at `.ai/audits/reports/20260625-T402-low-complexity-runway.md`. It
+  authorizes no exact target selection, reviewed gold, child spans, output, route/evaluator
+  behavior, graph/retrieval/vector truth, boundary import, preferred readings/source traditions,
+  canon-scope change, source/manuscript rows, whole-Bible output, or theology authority.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
@@ -403,8 +421,9 @@ Bible-first chunking priority:
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
   next safe route. It is non-authorizing and currently records T401 as the completed exact
   Eph.1.3-Eph.1.14 output pilot after T394 reviewed-gold promotion and T397 route-isolation
-  harness prep. The map now points to post-pilot review as the next authority-changing stop before
-  any child-span or broader behavior work. T384/T386/T385/T392/T393/T394/T397/T401 readiness cannot
+  harness prep, plus T402 as the completed post-pilot review as the next completed stop and
+  review-only low-complexity candidate runway. The next owner action is selecting one exact T402 ready candidate before
+  review-packet strengthening. T384/T386/T385/T392/T393/T394/T397/T401/T402 readiness cannot
   add child spans, treat reviewed gold as unbounded chunk-boundary authority, or change
   evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the
   implemented T374 `1Cor.8.1-1Cor.10.33`
