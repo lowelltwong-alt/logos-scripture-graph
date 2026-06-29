@@ -3471,6 +3471,68 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-078
+    title: Cursor low-risk chunking delegation is compute prep only
+    classification: non_authorizing_review
+    task_ids: [T404]
+    owner_decision_ref: ".ai/control/cursor_low_risk_chunking_handoff.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [low_complexity_candidate_queue]
+      routes: [cursor_low_risk_review_prep, whole_bible_candidate_runway, codex_review_handoff]
+      surfaces:
+        - .ai/control/cursor_low_risk_chunking_handoff.yaml
+        - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+        - docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+        - docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+        - .cursor/commands/chunking-preflight.md
+        - .cursor/commands/low-risk-chunking-candidate.md
+        - .cursor/commands/codex-review-packet.md
+        - .cursor/rules/logos-scripture-low-risk-chunking.mdc
+        - scripts/validate_cursor_low_risk_chunking_handoff.py
+        - tests/test_cursor_low_risk_chunking_handoff.py
+    decision: "Cursor may be used for compute-heavy low-risk chunking prep only after Lowell or Codex supplies one exact T402 ready_for_review_packet target. T402 research is complete at all-66-book triage depth, not at review-packet, reviewed-gold, output, or implementation depth. Cursor may run preflight, classify eligibility, produce review-only notes, run focused checks, and prepare a Codex review handoff. Cursor may not select the target, promote reviewed gold, add child spans, change chunk output, change route/evaluator behavior, generate graph/retrieval/vector truth, import boundary material, choose a backend, promote a retrieval profile, add source/manuscript rows, change canon scope, or authorize theology."
+    downstream_risk: "Lower-level compute delegation can make review faster, but it can also convert apparent simplicity into target selection, source-metadata authority, graph/retrieval/vector truth, profile promotion, output behavior, or theology authority unless Plan/Agent mode use, slash commands, stop conditions, and Codex review are mandatory."
+    theological_assumptions_avoided:
+      - "No candidate status becomes theology, boundary, or output authority."
+      - "No Cursor mode, slash command, metric, or generated note becomes owner selection."
+      - "No source metadata, WJ marker, Strong's-style tag, heading, cross-reference, footnote, alternate reading, or formatting cue becomes boundary or speaker authority."
+      - "No graph/retrieval/vector or backend/profile decision is introduced through chunking prep."
+    reviewed_gold_dependency: "None. T404 promotes no reviewed gold and authorizes no output. Any future review-packet strengthening, promotion, child-span work, output pilot, route/evaluator change, graph/retrieval/vector work, boundary import, backend/profile choice, source rows, canon-scope change, or theology authority requires a later exact owner/Codex-reviewed task."
+    non_authorizations:
+      - cursor_target_selection
+      - exact_target_selection
+      - review_packet_strengthening_without_owner_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - child_span_reviewed_gold_promotion
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - vector_index_build
+      - boundary_import
+      - whole_bible_output_pass
+      - backend_choice
+      - retrieval_profile_promotion
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority_change
+    validators:
+      - scripts/validate_cursor_low_risk_chunking_handoff.py
+      - tests/test_cursor_low_risk_chunking_handoff.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3587,4 +3649,5 @@ backfill_coverage:
     - T396
     - T401
     - T402
+    - T404
 ...

@@ -53,6 +53,8 @@ T397_HARNESS_SCRIPT = ROOT / "scripts" / "chunking" / "route_isolation_harness.p
 T401_OUTPUT_PILOT = ROOT / ".ai" / "control" / "t401_eph1_output_pilot_manifest.yaml"
 T402_POST_PILOT_REVIEW = ROOT / ".ai" / "control" / "t402_eph1_post_pilot_review.yaml"
 T402_LOW_COMPLEXITY_QUEUE = ROOT / ".ai" / "control" / "whole_bible_low_complexity_chunking_candidate_queue.yaml"
+CURSOR_LOW_RISK_HANDOFF = ROOT / ".ai" / "control" / "cursor_low_risk_chunking_handoff.yaml"
+LOW_RISK_MULTI_PASS_PLAN = ROOT / ".ai" / "control" / "low_risk_chunking_multi_pass_plan.yaml"
 T398_PHASE_ONE_SYNTHESIS = ROOT / ".ai" / "control" / "t398_bible_wide_phase_one_research_synthesis.yaml"
 T399_FOCUSED_RESEARCH_QUEUE = ROOT / ".ai" / "control" / "t399_focused_bible_wide_research_queue.yaml"
 T386_COVERAGE_TAXONOMY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_taxonomy.yaml"
@@ -108,7 +110,7 @@ REQUIRED_RULE_IDS = {
     "CHUNK-SEM-001",
 }
 
-REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073", "CD-074", "CD-076", "CD-077"}
+REQUIRED_DECISION_IDS = {"CD-015", "CD-018", "CD-021", "CD-022", "CD-023", "CD-024", "CD-025", "CD-026", "CD-027", "CD-028", "CD-029", "CD-030", "CD-031", "CD-032", "CD-033", "CD-034", "CD-035", "CD-036", "CD-037", "CD-038", "CD-039", "CD-040", "CD-041", "CD-042", "CD-043", "CD-044", "CD-045", "CD-046", "CD-047", "CD-048", "CD-049", "CD-050", "CD-051", "CD-052", "CD-053", "CD-054", "CD-055", "CD-056", "CD-057", "CD-058", "CD-059", "CD-060", "CD-061", "CD-062", "CD-066", "CD-067", "CD-068", "CD-071", "CD-072", "CD-073", "CD-074", "CD-076", "CD-077", "CD-078"}
 
 REQUIRED_LESSON_IDS = {
     "LSN-001",
@@ -135,6 +137,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-028",
     "LSN-030",
     "LSN-031",
+    "LSN-032",
 }
 
 REQUIRED_TRIAGE_LANES = {"divine_name_title_capitalization", "gospel_discourse_wj"}
@@ -232,6 +235,12 @@ REQUIRED_FRONT_DOOR_STRINGS = {
     "T402 low-complexity candidate runway",
     "validate_t402_low_complexity_chunking_runway.py",
     "Low-complexity means review",
+    "cursor_low_risk_chunking_handoff.yaml",
+    "T404 Cursor low-risk",
+    "validate_cursor_low_risk_chunking_handoff.py",
+    "Cursor may not choose the target",
+    "low_risk_chunking_multi_pass_plan.yaml",
+    "all_66_book_candidate_triage",
     "Goal 2 focused",
     "chunking_lesson_index.yaml",
     "validate_chunking_lesson_index.py",
@@ -461,6 +470,10 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         ".ai/control/t397_eph1_route_isolation_harness.yaml",
         "scripts/chunking/route_isolation_harness.py",
         ".ai/control/t401_eph1_output_pilot_manifest.yaml",
+        ".ai/control/t402_eph1_post_pilot_review.yaml",
+        ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml",
+        ".ai/control/cursor_low_risk_chunking_handoff.yaml",
+        ".ai/control/low_risk_chunking_multi_pass_plan.yaml",
         ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
         ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md",
@@ -1102,6 +1115,33 @@ def validate_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
     ):
         if phrase not in t402_queue_text:
             raise PreflightError(f"{_rel(T402_LOW_COMPLEXITY_QUEUE)}: missing T402 queue phrase {phrase!r}")
+    cursor_handoff_text = _read_text(CURSOR_LOW_RISK_HANDOFF)
+    for phrase in (
+        "object_type: cursor_low_risk_chunking_handoff",
+        "task_id: T404",
+        "decision_register_entry: CD-078",
+        "lesson_id: LSN-032",
+        "complete_non_output_changing_cursor_delegation_contract",
+        "cursor_may_select_target: false",
+        "all_66_book_candidate_triage",
+        "candidate_status_allowed: ready_for_review_packet",
+        "embedding_or_vector_work_requested",
+        "authorizes_chunk_output_change: false",
+    ):
+        if phrase not in cursor_handoff_text:
+            raise PreflightError(f"{_rel(CURSOR_LOW_RISK_HANDOFF)}: missing T404 Cursor handoff phrase {phrase!r}")
+    multi_pass_plan_text = _read_text(LOW_RISK_MULTI_PASS_PLAN)
+    for phrase in (
+        "object_type: low_risk_chunking_multi_pass_plan",
+        "task_id: T404",
+        "next_planned_task_id: T406",
+        "all_66_book_candidate_triage",
+        "review_packet_strengthening",
+        "cursor_may_select_targets: false",
+        "authorizes_embedding_or_vector_work: false",
+    ):
+        if phrase not in multi_pass_plan_text:
+            raise PreflightError(f"{_rel(LOW_RISK_MULTI_PASS_PLAN)}: missing low-risk multi-pass phrase {phrase!r}")
     t398_synthesis_text = _read_text(T398_PHASE_ONE_SYNTHESIS)
     for phrase in (
         "object_type: bible_wide_phase_one_research_synthesis",

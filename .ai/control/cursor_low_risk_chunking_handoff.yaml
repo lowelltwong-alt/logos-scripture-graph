@@ -1,0 +1,242 @@
+---
+object_type: cursor_low_risk_chunking_handoff
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-29 during T404 after the owner asked Codex to hand low-level, compute-intensive, low-risk chunking prep to Cursor while preserving complete rules, guidelines, algorithms, and non-authority metadata."
+reason_for_inclusion: "Give Cursor a deterministic, review-only operating contract for low-risk chunking prep so it can do useful compute work without selecting targets, promoting gold, changing output, or smuggling governance authority."
+---
+schema_version: cursor_low_risk_chunking_handoff.v1
+handoff_id: t404_cursor_low_risk_chunking_handoff
+task_id: T404
+status: complete_non_output_changing_cursor_delegation_contract
+owner: Lowell Wong
+decision_register_entry: CD-078
+lesson_recorded:
+  lesson_id: LSN-032
+  title: Cursor low-risk chunking handoffs are compute delegation only
+authority:
+  records_cursor_delegation_contract: true
+  records_low_risk_definition: true
+  records_cursor_mode_guidance: true
+  records_review_handoff_requirements: true
+  authorizes_cursor_target_selection: false
+  authorizes_exact_target_selection: false
+  authorizes_review_packet_strengthening_without_owner_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_source_or_manuscript_row_population: false
+  authorizes_theology_authority_change: false
+cursor_usage:
+  preferred_modes:
+    - mode: Plan
+      use_for: "Read-only repository orientation, exact target confirmation, risk classification, algorithm plan, validation plan, and stop-condition check before edits."
+      write_permission: false
+    - mode: Agent
+      use_for: "Only after the target and allowed output paths are explicit; implement narrow review-only artifacts, run focused validation, and prepare a Codex review handoff."
+      write_permission: true
+    - mode: Ask
+      use_for: "Clarifying an ambiguity without file edits when the target, authority, or stop condition is unclear."
+      write_permission: false
+  slash_commands:
+    - command: /chunking-preflight
+      path: .cursor/commands/chunking-preflight.md
+      purpose: "Force Cursor to read mandatory governance, runtime, raw-source, and chunking preflight before work."
+    - command: /low-risk-chunking-candidate
+      path: .cursor/commands/low-risk-chunking-candidate.md
+      purpose: "Classify whether one exact candidate is low-risk enough for Cursor compute prep."
+    - command: /codex-review-packet
+      path: .cursor/commands/codex-review-packet.md
+      purpose: "Prepare the exact review handoff Codex should inspect after Cursor finishes."
+  project_rule:
+    path: .cursor/rules/logos-scripture-low-risk-chunking.mdc
+    purpose: "Keep Cursor's repo-local behavior aligned with the T404 non-authorizing delegation contract."
+mandatory_reading:
+  - AI_FRONT_DOOR.md
+  - .ai/control/MASTER_CONTEXT.md
+  - .ai/control/PROJECT_STATUS.md
+  - .ai/control/DATA_MAP.md
+  - .ai/control/RAW_SOURCE_INVENTORY.md
+  - ROADMAP_STATE.yaml
+  - HANDOFF_PROTOCOL.md
+  - docs/architecture/ARCHITECTURE.md
+  - docs/chunking/CHUNKING_DESIGN.md
+  - .ai/control/test_runtime_preflight.yaml
+  - .ai/control/chunking_agent_preflight.yaml
+  - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+  - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+  - docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md
+  - .ai/control/chunking_lesson_index.yaml
+  - .ai/control/chunking_theological_decision_register.yaml
+  - .ai/control/bible_chunking_readiness_map.yaml
+  - .ai/control/contextual_reading_policy.yaml
+  - .ai/control/original_language_phrase_context_policy.yaml
+  - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+  - .ai/control/t401_eph1_output_pilot_manifest.yaml
+  - .ai/control/t402_eph1_post_pilot_review.yaml
+  - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+  - .ai/control/cursor_low_risk_chunking_handoff.yaml
+  - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+  - scripts/chunking/route_isolation_harness.py
+research_completion_verdict:
+  t402_queue_research_complete_at_depth: all_66_book_candidate_triage
+  ready_for_review_packet_candidates: 38
+  not_complete_at_depths:
+    - review_packet_strengthening
+    - reviewed_gold_promotion
+    - child_span_review
+    - output_pilot
+    - route_behavior_change
+    - evaluator_change
+    - graph_or_retrieval_truth
+    - embedding_or_vector_work
+    - boundary_import
+    - source_or_manuscript_rows
+    - theology_authority
+  future_multi_pass_plan: .ai/control/low_risk_chunking_multi_pass_plan.yaml
+  next_future_roadmap_task: T406
+low_risk_eligibility:
+  cursor_may_select_target: false
+  requires_exact_target_from_owner_or_codex: true
+  requires_queue_status: true
+  candidate_status_allowed: ready_for_review_packet
+  disallowed_statuses:
+    - needs_context_research
+    - needs_original_language_review
+    - variant_sensitive_hold
+    - theological_risk_hold
+    - not_low_complexity
+    - owner_decision_required
+    - do_not_chunk_now
+  requires_no_flags:
+    - variant_source_tradition_hold
+    - theological_risk_hold
+    - owner_decision_required
+    - wj_speaker_boundary_risk
+    - source_metadata_authority_risk
+    - original_language_review_required
+    - child_span_required
+    - route_behavior_change_needed
+    - evaluator_change_needed
+    - graph_retrieval_vector_requested
+    - boundary_or_source_import_requested
+  allowed_scope_shape:
+    - one_exact_candidate_id
+    - one_exact_parent_span
+    - one_task_branch
+    - review_only_or_candidate_only_artifacts
+    - no_output_change
+allowed_work:
+  - read_governance_and_preflight_files
+  - filter_t402_queue_for_exact_ready_candidate_only
+  - run_read_only_metrics_or_diff_scripts
+  - draft_non_authorizing_candidate_notes
+  - draft_review_packet_material_only_after_owner_or_codex_target_is_explicit
+  - run_focused_validators_and_tests
+  - prepare_codex_review_handoff
+algorithms:
+  preflight_algorithm:
+    - run /chunking-preflight in Cursor Plan mode.
+    - read every mandatory file listed in this contract.
+    - record branch, base commit, target candidate id, target span, and requested outputs.
+    - load .ai/control/test_runtime_preflight.yaml and choose recorded ceilings before long validation.
+  eligibility_algorithm:
+    - locate the target in .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml.
+    - require status ready_for_review_packet.
+    - require an exact owner-or-Codex supplied target; Cursor must not choose from the queue.
+    - reject every disallowed status or flag before any write.
+    - confirm source metadata is evidence only and cannot become boundary, graph, retrieval, or theology authority.
+  baseline_algorithm:
+    - capture the current git commit and changed-file list.
+    - if output simulation is explicitly authorized by a later task, regenerate baseline only under ignored build space and record hashes.
+    - otherwise do not create, edit, or commit generated chunk output.
+  candidate_prep_algorithm:
+    - preserve raw, canonical, processed, derived, eval-gold, route, evaluator, registry, and retrieval files unchanged.
+    - produce only review-only notes, candidate metrics, or a handoff in allowed task paths.
+    - keep route metadata out of chunk records.
+    - keep source metadata, Strong's tags, WJ markers, speaker labels, headings, footnotes, cross-references, and alternate readings as evidence only.
+  route_isolation_algorithm:
+    - use scripts/chunking/route_isolation_harness.py only for read-only proof or later explicitly authorized candidate-output simulation.
+    - prove non-target byte identity before any future output-changing proposal can be reviewed.
+    - fail on child spans, adjacent spillover, duplicate ids, non-target drift, or report-shape gaps.
+  review_handoff_algorithm:
+    - run /codex-review-packet in Cursor Agent mode only after focused validation.
+    - list files read, files changed, commands run, validations, target id/span, hashes if any, stop conditions checked, and exact Codex questions.
+stop_conditions:
+  - cursor_selected_target
+  - target_missing_from_t402_queue
+  - target_status_not_ready_for_review_packet
+  - owner_or_codex_target_not_explicit
+  - variant_source_tradition_hold_detected
+  - theological_risk_hold_detected
+  - original_language_review_required
+  - wj_speaker_boundary_or_red_letter_authority_risk
+  - source_metadata_boundary_authority_risk
+  - child_span_requested_or_required
+  - route_behavior_change_requested
+  - evaluator_change_requested
+  - raw_or_canonical_or_processed_or_derived_data_change
+  - reviewed_gold_or_eval_surface_change
+  - graph_edge_generation_requested
+  - retrieval_truth_requested
+  - embedding_or_vector_work_requested
+  - boundary_import_requested
+  - preferred_reading_or_source_tradition_requested
+  - canon_scope_change_requested
+  - source_or_manuscript_rows_requested
+  - theology_authority_requested
+required_cursor_outputs:
+  - branch_name
+  - base_commit
+  - exact_target_candidate_id
+  - exact_target_span
+  - mode_used
+  - slash_commands_used
+  - files_read
+  - files_changed
+  - commands_run
+  - validation_results
+  - timeout_ceilings_used
+  - stop_conditions_checked
+  - non_authorizations_confirmed
+  - temp_or_build_paths_created
+  - exact_codex_review_request
+codex_review_checklist:
+  - confirm Cursor did not choose the target.
+  - confirm the target is ready_for_review_packet in the T402 queue.
+  - confirm changed files are review-only and task-scoped.
+  - confirm no raw, canonical, processed, derived, eval-gold, route, evaluator, registry, graph, vector, retrieval, boundary, source-row, or profile-promotion surface changed.
+  - confirm source metadata stayed evidence-only.
+  - confirm long validation used .ai/control/test_runtime_preflight.yaml ceilings.
+  - run focused validators before any merge.
+non_authorizations:
+  - cursor_target_selection
+  - exact_target_selection
+  - review_packet_strengthening_without_owner_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - child_span_reviewed_gold_promotion
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - theology_authority_change
+validator: scripts/validate_cursor_low_risk_chunking_handoff.py

@@ -88,6 +88,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-029",
     "LSN-030",
     "LSN-031",
+    "LSN-032",
 }
 
 REQUIRED_TAGS = {
@@ -208,6 +209,9 @@ REQUIRED_TAGS = {
     "terminology",
     "depth",
     "t402",
+    "cursor",
+    "low-risk-delegation",
+    "t404",
 }
 
 REQUIRED_SURFACES = {
@@ -321,6 +325,14 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260625-T402-low-complexity-runway.md",
     "scripts/validate_t402_low_complexity_chunking_runway.py",
     "tests/test_t402_low_complexity_chunking_runway.py",
+    ".ai/control/cursor_low_risk_chunking_handoff.yaml",
+    ".ai/control/low_risk_chunking_multi_pass_plan.yaml",
+    "docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md",
+    "docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md",
+    ".ai/tasks/T404.task.yaml",
+    ".ai/handoffs/T404/handoff.md",
+    "scripts/validate_cursor_low_risk_chunking_handoff.py",
+    "tests/test_cursor_low_risk_chunking_handoff.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",

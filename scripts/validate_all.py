@@ -269,6 +269,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t402_low_complexity_chunking_runway.py")],
         ),
         (
+            "validate_cursor_low_risk_chunking_handoff.py",
+            [PY, str(ROOT / "scripts" / "validate_cursor_low_risk_chunking_handoff.py")],
+        ),
+        (
             "validate_t398_bible_wide_phase_one_research_synthesis.py",
             [PY, str(ROOT / "scripts" / "validate_t398_bible_wide_phase_one_research_synthesis.py")],
         ),

@@ -1,0 +1,106 @@
+id: T404
+phase: phase_4
+title: "Cursor Low-Risk Chunking Handoff"
+mode: build
+status: complete_non_output_changing_cursor_delegation_contract
+owner: codex
+branch: codex/t404-cursor-low-risk-chunking-handoff
+base_ref: 4305a7db7fc851da815b6dc35f86611d58c527f2
+summary: "Define a Cursor-facing low-risk chunking delegation contract, project slash commands, mode guidance, validator, and review handoff without authorizing target selection or output."
+scope:
+  allowed_paths:
+    - .ai/control/cursor_low_risk_chunking_handoff.yaml
+    - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T404.task.yaml
+    - .ai/handoffs/T404/
+    - .cursor/commands/
+    - .cursor/rules/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/methodology/CHUNKING_SKILL_SUPPLY_CHAIN.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+    - docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+    - scripts/validate_cursor_low_risk_chunking_handoff.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_all.py
+    - tests/test_cursor_low_risk_chunking_handoff.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_bible_chunking_readiness_map.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: cursor_low_risk_chunking_delegation_contract
+  decision_register_entry: CD-078
+  lesson_index_entry: LSN-032
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+deliverables:
+  contract: .ai/control/cursor_low_risk_chunking_handoff.yaml
+  multi_pass_plan: .ai/control/low_risk_chunking_multi_pass_plan.yaml
+  roadmap_doc: docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+  future_roadmap_doc: docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+  cursor_commands:
+    - .cursor/commands/chunking-preflight.md
+    - .cursor/commands/low-risk-chunking-candidate.md
+    - .cursor/commands/codex-review-packet.md
+  cursor_rule: .cursor/rules/logos-scripture-low-risk-chunking.mdc
+  validator: scripts/validate_cursor_low_risk_chunking_handoff.py
+  tests: tests/test_cursor_low_risk_chunking_handoff.py
+  handoff: .ai/handoffs/T404/handoff.md
+acceptance_criteria:
+  - "Contract defines low-risk eligibility as exact owner-or-Codex supplied ready_for_review_packet only."
+  - "Cursor modes and slash commands are recorded."
+  - "Contract stop conditions cover target selection, child spans, output, route/evaluator, embeddings/indexes, graph/retrieval, boundary import, source rows, canon scope, and theology authority."
+  - "Decision register, lesson index, preflight, readiness map, front door, TOCs, roadmap/status, task, and handoff make T404 discoverable."
+  - "T404 validator and focused tests pass."
+  - "T406 is recorded as a future multi-pass review-prep phase, not implementation."
+validations:
+  - python scripts/validate_cursor_low_risk_chunking_handoff.py
+  - python -m pytest tests/test_cursor_low_risk_chunking_handoff.py -q
+  - python scripts/validate_task_scope.py --task-id T404
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T404/handoff.md
+created_at: "2026-06-29"
+updated_at: "2026-06-29"

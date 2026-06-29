@@ -1390,6 +1390,68 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
       - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-032
+    title: Cursor low-risk chunking handoffs are compute delegation only
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, source_metadata, graph_retrieval_vector]
+    tags: [cursor, low-risk-delegation, chunking-handoff, slash-commands, plan-mode, agent-mode, review-only, candidate-queue, stop-conditions, codex-review, t404]
+    use_when:
+      - "Cursor or another lower-level compute agent is asked to help with chunking candidate prep, queue inspection, metrics, or review packet drafting."
+      - "A future agent wants to delegate low-level compute-intensive chunking work while preserving owner/Codex review."
+      - "A future agent is tempted to let Cursor select a target, modify output, run embeddings, generate graph edges, import boundary material, or promote a profile."
+    preflight_stage: before_cursor_or_lower_level_chunking_delegation
+    source_surfaces:
+      - .ai/control/cursor_low_risk_chunking_handoff.yaml
+      - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+      - docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+      - docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+      - .cursor/commands/chunking-preflight.md
+      - .cursor/commands/low-risk-chunking-candidate.md
+      - .cursor/commands/codex-review-packet.md
+      - .cursor/rules/logos-scripture-low-risk-chunking.mdc
+      - .ai/tasks/T404.task.yaml
+      - .ai/handoffs/T404/handoff.md
+      - scripts/validate_cursor_low_risk_chunking_handoff.py
+      - tests/test_cursor_low_risk_chunking_handoff.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    related_decision_ids: [CD-078, CD-077]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T404, T402]
+    downstream_risk: "Delegating compute to Cursor can accelerate review prep, but can also smuggle target selection, output changes, graph/retrieval/vector truth, source-metadata authority, child spans, boundary import, backend choice, profile promotion, or theology authority if low-risk is not machine-defined."
+    required_preflight_surfaces:
+      - .ai/control/cursor_low_risk_chunking_handoff.yaml
+      - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/test_runtime_preflight.yaml
+    non_authorizations:
+      - cursor_target_selection
+      - exact_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - vector_index_build
+      - boundary_import
+      - backend_choice
+      - retrieval_profile_promotion
+      - source_or_manuscript_row_population
+      - theology_authority_change
+    validators:
+      - scripts/validate_cursor_low_risk_chunking_handoff.py
+      - tests/test_cursor_low_risk_chunking_handoff.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1704,6 +1766,15 @@ lesson_graph:
     relation: constrains
     to: LSN-021
   - from: LSN-031
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-032
+  - from: LSN-031
+    relation: constrains
+    to: LSN-032
+  - from: LSN-032
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

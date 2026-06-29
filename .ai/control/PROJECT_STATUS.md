@@ -1,16 +1,38 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-29
-**Updated by:** T403 deterministic runtime timeout ceiling enforcement (Codex)
-**Active task:** -> **T403 deterministic runtime timeout ceiling enforcement** records that
-`python scripts/validate_all.py` exceeded a 240000 ms tool timeout on this checkout and then passed
-with a 900000 ms ceiling in 477.5 seconds. `.ai/control/test_runtime_preflight.yaml`,
-`AI_FRONT_DOOR.md`, `scripts/validate_test_runtime_preflight.py`, and
-`tests/test_test_runtime_preflight.py` now require agents to use the recorded ceiling on the first
-run instead of burning a short timeout and rerunning. T403 authorizes no validation bypass, test
-skip, data change, chunk output, route/evaluator behavior, graph/retrieval/vector truth, boundary
-import, source/manuscript rows, or theology authority.
+**Updated by:** T404 Cursor low-risk chunking handoff and multi-pass plan (Codex)
+**Active task:** -> **T404 Cursor low-risk chunking handoff** records that T402 low-risk research
+is complete at all-66-book candidate-triage depth, with 38 `ready_for_review_packet` candidates,
+but not complete at review-packet, reviewed-gold, child-span, output, route/evaluator,
+graph/retrieval/vector, boundary-import, source-row, backend/profile, canon-scope, or
+theology-authority depth. T404 adds `.ai/control/cursor_low_risk_chunking_handoff.yaml`,
+`.ai/control/low_risk_chunking_multi_pass_plan.yaml`, Cursor project commands/rules, `CD-078`, and
+`LSN-032`, and places T406 on the future roadmap as a Cursor-assisted batch of at most three exact
+owner-or-Codex supplied `ready_for_review_packet` candidates. It authorizes no Cursor target
+selection, reviewed gold, child spans, chunk output, route/evaluator behavior,
+graph/retrieval/vector truth, embeddings/indexes, boundary import, backend choice, profile
+promotion, source/manuscript rows, canon-scope change, or theology authority.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T404 Cursor low-risk chunking handoff (2026-06-29):** Added
+> `.ai/control/cursor_low_risk_chunking_handoff.yaml`,
+> `.ai/control/low_risk_chunking_multi_pass_plan.yaml`,
+> `.cursor/commands/chunking-preflight.md`,
+> `.cursor/commands/low-risk-chunking-candidate.md`,
+> `.cursor/commands/codex-review-packet.md`,
+> `.cursor/rules/logos-scripture-low-risk-chunking.mdc`,
+> `docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md`,
+> `docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md`,
+> `scripts/validate_cursor_low_risk_chunking_handoff.py`, and
+> `tests/test_cursor_low_risk_chunking_handoff.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, methodology, validator, and handoff surfaces;
+> and recorded `CD-078` plus `LSN-032`. T404 confirms T402 research is complete only at
+> all-66-book triage depth and schedules T406 as a future review-only Cursor batch after exact
+> owner-or-Codex targets are supplied. It authorizes no target selection, reviewed gold, child
+> spans, output, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes,
+> boundary import, backend/profile choice, source/manuscript rows, canon-scope change, or theology
+> authority.
 
 > **T403 deterministic runtime timeout ceiling enforcement (2026-06-29):** Hardened
 > `.ai/control/test_runtime_preflight.yaml`, `AI_FRONT_DOOR.md`,
@@ -31,7 +53,7 @@ import, source/manuscript rows, or theology authority.
 > `tests/test_t402_low_complexity_chunking_runway.py`; updated preflight, the decision register,
 > lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
 > `CD-077` plus `LSN-031`. T402 confirms child spans are not necessary now for the exact T401
-> Eph.1.3-Eph.1.14 pilot and creates an all-66-book candidate queue. It is review/research only
+> Eph.1.3-Eph.1.14 pilot and creates an all-66-book candidate queue. Low-complexity means review eligibility only. It is review/research only
 > and authorizes no target selection, reviewed gold, child spans, output, route/evaluator behavior,
 > graph/retrieval/vector truth, boundary import, source-tradition preference, canon-scope change,
 > source/manuscript rows, whole-Bible output, or theology authority.
