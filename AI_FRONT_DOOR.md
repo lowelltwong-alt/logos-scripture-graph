@@ -118,6 +118,19 @@ Agents must read `AI_TABLE_OF_CONTENTS.md`, `config/governance/repository_link_c
 and `config/agents/agent_hostile_policy.yaml` when work touches cross-repo project structure,
 authority, trust zones, release contracts, or GitHub coordination.
 
+This child repo also mirrors the upstream governance dependency-map update gate.
+The upstream source of truth is
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`, artifact
+`GD-014`. The local governance dependency-map mirror is
+`.ai/control/governance_dependency_map_mirror.yaml`, validated by
+`scripts/validate_governance_dependency_map_mirror.py`.
+
+If a governance-facing file changes here, agents must check whether the upstream
+governance dependency map and this local mirror surface also need updates. This
+repo must not override, weaken, or reinterpret the upstream governance
+dependency map. If the upstream map conflicts with a scripture-graph local
+request, stop and report.
+
 Agents must not treat GitHub issues, Project-board fields, or generated model output
 as canonical governance truth. They are coordination surfaces. Governance meaning
 comes from the upstream contract and this repo's human-gated control plane.
@@ -759,6 +772,7 @@ Individual gates:
 python scripts/validate_repo.py
 python scripts/validate_control_plane.py   # master context lock + front-door routing
 python scripts/validate_repository_link_contract.py
+python scripts/validate_governance_dependency_map_mirror.py
 python scripts/agent/validate_handoffs.py
 python scripts/validate_task_scope.py
 python scripts/validate_chunking_theological_decision_register.py

@@ -1,0 +1,61 @@
+id: T405
+phase: phase_4
+title: "Child Governance Dependency-Map Mirror"
+mode: build
+status: complete_local_governance_mirror_gate
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/governance_dependency_map_mirror.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/tasks/T405.task.yaml
+    - .ai/handoffs/T405/
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - README.md
+    - config/governance/repository_link_contract.yaml
+    - scripts/validate_governance_dependency_map_mirror.py
+    - scripts/validate_repository_link_contract.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_all.py
+    - tests/test_governance_dependency_map_mirror.py
+    - tests/test_chunking_lesson_index.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: child_repo_governance_dependency_map_mirror
+  upstream_dependency_map: logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml
+  upstream_artifact_id: GD-014
+  authorizes_scripture_data_change: false
+  authorizes_chunk_output_change: false
+  authorizes_boundary_import: false
+  authorizes_graph_retrieval_vector_truth: false
+  authorizes_governance_override: false
+acceptance_criteria:
+  - "Add a local mirror of upstream GD-014 governance-map update gate."
+  - "Wire the mirror into front door, TOC, repository link contract, validator, tests, and validate_all."
+  - "Keep this repo below upstream governance authority and forbid local override."
+validation:
+  - python scripts/validate_governance_dependency_map_mirror.py
+  - python scripts/validate_repository_link_contract.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_task_scope.py --task-id T405
+  - python -m pytest -q tests/test_governance_dependency_map_mirror.py
+  - python -m pytest -q tests/test_chunking_lesson_index.py
+  - python scripts/validate_all.py
+required_handoff: .ai/handoffs/T405/handoff.md
+next_task: "When governance-facing scripture-graph files change, check upstream logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml and update this local mirror if upstream governance affects the child repo."
+created_at: "2026-06-29"
+updated_at: "2026-06-29"

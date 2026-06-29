@@ -87,6 +87,7 @@ REQUIRED_LESSON_IDS = {
     "LSN-028",
     "LSN-029",
     "LSN-030",
+    "LSN-031",
 }
 
 REQUIRED_TAGS = {
@@ -198,6 +199,12 @@ REQUIRED_TAGS = {
     "child-span-review-gate",
     "goal7",
     "t401",
+    "governance-dependency-map",
+    "child-repo-mirror",
+    "upstream-governance",
+    "governance-facing-files",
+    "repo-contract",
+    "t405",
 }
 
 REQUIRED_SURFACES = {
@@ -303,6 +310,12 @@ REQUIRED_SURFACES = {
     ".ai/audits/reports/20260625-T401-eph1-output-pilot.md",
     "scripts/validate_t401_eph1_output_pilot.py",
     "tests/test_t401_eph1_output_pilot.py",
+    ".ai/control/governance_dependency_map_mirror.yaml",
+    "config/governance/repository_link_contract.yaml",
+    ".ai/tasks/T405.task.yaml",
+    ".ai/handoffs/T405/handoff.md",
+    "scripts/validate_governance_dependency_map_mirror.py",
+    "tests/test_governance_dependency_map_mirror.py",
     ".ai/audits/README.md",
     "AI_TABLE_OF_CONTENTS.md",
     "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
