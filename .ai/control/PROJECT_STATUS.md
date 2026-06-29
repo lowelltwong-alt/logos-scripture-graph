@@ -1,18 +1,31 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-24
-**Updated by:** T397 Eph.1.3-Eph.1.14 route-isolation harness (Codex)
-**Active task:** -> **T397 Eph.1.3-Eph.1.14 route-isolation harness** completes Goal 6
-non-output-changing harness prep at `.ai/control/t397_eph1_route_isolation_harness.yaml` with
-`scripts/chunking/route_isolation_harness.py`.
-It proves non-target byte identity, exact-parent target shape, adjacent-spillover denial,
-child-span denial, and same-baseline report-shape readiness for future candidate-output
-simulations. T397 authorizes no parent span as chunk boundary, child spans, chunk output,
-implementation, route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred
-readings/source traditions, canon-scope change, source/manuscript rows, whole-Bible output, or
-theology authority. The next authority-changing stop is a future owner output-pilot authorization
-gate for exactly `Eph.1.3-Eph.1.14`.
+**Last updated:** 2026-06-25
+**Updated by:** T401 Eph.1.3-Eph.1.14 output pilot (Codex)
+**Active task:** -> **T401 Eph.1.3-Eph.1.14 output pilot** completes Goal 7 at
+`.ai/control/t401_eph1_output_pilot_manifest.yaml`.
+It implements exactly one appended parent-only additive overlay for `Eph.1.3-Eph.1.14`, preserves
+the pre-T401 baseline/non-target output byte-identical, records route-isolation and same-baseline
+proof, and links `CD-076` plus `LSN-030`. T401 authorizes no child spans, deleting/replacing
+existing chunks, adjacent spill splits, broader epistle generalization, whole-Bible output,
+evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings/source
+traditions, canon-scope change, source/manuscript rows, or theology authority. The next safe stop
+is post-pilot review before any child-span or broader behavior work.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T401 Eph.1.3-Eph.1.14 output pilot (2026-06-25):** Added
+> `.ai/control/t401_eph1_output_pilot_manifest.yaml`,
+> `docs/roadmap/T401_EPH1_OUTPUT_PILOT.md`, `.ai/tasks/T401.task.yaml`,
+> `.ai/handoffs/T401/handoff.md`,
+> `.ai/audits/reports/20260625-T401-eph1-output-pilot.md`,
+> `scripts/validate_t401_eph1_output_pilot.py`, and
+> `tests/test_t401_eph1_output_pilot.py`; updated the orchestrator, preflight, decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-076` plus `LSN-030`. T401 implements only the exact parent-only output pilot for
+> `Eph.1.3-Eph.1.14`. It preserves all baseline/non-target output byte-identical and authorizes no
+> child spans, broader behavior, evaluator changes, graph/retrieval/vector truth, boundary import,
+> source/manuscript rows, preferred readings/source traditions, canon-scope change, whole-Bible
+> output, or theology authority. Post-pilot review is next before any child-span or broader work.
 
 > **T397 Eph.1.3-Eph.1.14 route-isolation harness (2026-06-24):** Added
 > `.ai/control/t397_eph1_route_isolation_harness.yaml`,

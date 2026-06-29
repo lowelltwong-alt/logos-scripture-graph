@@ -129,6 +129,10 @@ T374_OVERLAY_ID = (
     "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
     "1Cor.8.1--1Cor.10.33--T374-OVERLAP-B"
 )
+T401_OVERLAY_ID = (
+    "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+    "Eph.1.3--Eph.1.14--T401-EPH1-PILOT"
+)
 
 requires_data = pytest.mark.skipif(
     not (PASSAGES.exists() and WITNESSES.exists() and BOUNDARIES.exists()),
@@ -166,6 +170,10 @@ def _outside_ps89(records: list[dict]) -> list[dict]:
 
 def _without_t374_overlay(records: list[dict]) -> list[dict]:
     return [record for record in records if record.get("id") != T374_OVERLAY_ID]
+
+
+def _without_parent_overlays(records: list[dict]) -> list[dict]:
+    return [record for record in records if record.get("id") not in {T374_OVERLAY_ID, T401_OVERLAY_ID}]
 
 
 def _write_smoke_inputs(tmp_path: Path) -> tuple[Path, Path]:
@@ -357,8 +365,11 @@ def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(
 
     direct_records = _read_jsonl(direct_chunks)
     orchestrated_records = _read_jsonl(orchestrated_chunks)
-    overlay = orchestrated_records[-1]
-    assert overlay["id"] == T374_OVERLAY_ID
+    t374_overlay = [record for record in orchestrated_records if record.get("id") == T374_OVERLAY_ID]
+    t401_overlay = [record for record in orchestrated_records if record.get("id") == T401_OVERLAY_ID]
+    assert len(t374_overlay) == 1
+    assert len(t401_overlay) == 1
+    overlay = t374_overlay[0]
     assert overlay["chunk_kind"] == "epistles_parent_overlay"
     assert overlay["osis_start"] == "1Cor.8.1"
     assert overlay["osis_end"] == "1Cor.10.33"
@@ -373,7 +384,23 @@ def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(
     assert overlay["graph_retrieval_truth_authorized"] is False
     assert overlay["child_span_authorized"] is False
     assert len(overlay["included_text_span_ids"]) == 73
-    assert _outside_ps89(_without_t374_overlay(orchestrated_records)) == _outside_ps89(direct_records)
+    eph_overlay = t401_overlay[0]
+    assert eph_overlay == orchestrated_records[-1]
+    assert eph_overlay["chunk_kind"] == "epistles_parent_overlay"
+    assert eph_overlay["osis_start"] == "Eph.1.3"
+    assert eph_overlay["osis_end"] == "Eph.1.14"
+    assert eph_overlay["overlay_kind"] == "additive_parent_only"
+    assert eph_overlay["reviewed_gold_case_id"] == "eph1_3_14_parent_only_reviewed_gold"
+    assert eph_overlay["owner_decision_ref"] == ".ai/control/t401_eph1_output_pilot_manifest.yaml"
+    assert eph_overlay["implementation_manifest"] == ".ai/control/t401_eph1_output_pilot_manifest.yaml"
+    assert eph_overlay["decision_register_entry"] == "CD-076"
+    assert eph_overlay["selected_children"] == []
+    assert eph_overlay["baseline_chunks_preserved_byte_identical"] is True
+    assert eph_overlay["non_truth_bearing_overlay"] is True
+    assert eph_overlay["graph_retrieval_truth_authorized"] is False
+    assert eph_overlay["child_span_authorized"] is False
+    assert len(eph_overlay["included_text_span_ids"]) == 12
+    assert _outside_ps89(_without_parent_overlays(orchestrated_records)) == _outside_ps89(direct_records)
     if direct_context.exists() or orchestrated_context.exists():
         assert direct_context.read_bytes() == orchestrated_context.read_bytes()
         assert _sha256(direct_context) == _sha256(orchestrated_context)
@@ -443,11 +470,15 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     assert record["t374_additive_overlay_enabled"] is True
     assert record["t374_additive_overlay_count"] == 0
     assert record["t374_additive_overlay_ids"] == []
+    assert record["t401_eph1_additive_overlay_enabled"] is True
+    assert record["t401_eph1_additive_overlay_count"] == 0
+    assert record["t401_eph1_additive_overlay_ids"] == []
     assert record["validation_status"] in {
         "byte_identical_pending",
         "byte_identical_passed",
         "same_baseline_ps89_only_pending",
         "t374_additive_parent_overlay_parent_only",
+        "t401_eph1_additive_parent_overlay_parent_only",
     }
     assert any(json.loads(line)["type"] == "ChunkingRouteLedgerRoute" for line in raw_lines[1:])
 

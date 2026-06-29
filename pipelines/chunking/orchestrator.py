@@ -35,7 +35,8 @@ PSALM_SKILL_DIR = ROOT / "pipelines" / "chunking" / "skills" / "candidate" / PSA
 DEFAULT_SOURCE_CORPUS = "eng-web_usfm"
 DEFAULT_SOURCE_TEXT_ID = "eng-web"
 ROUTE_MODE = "literal_psalm_candidate_seam"
-ROUTE_VALIDATION_STATUS = "t374_additive_parent_overlay_parent_only"
+T374_ROUTE_VALIDATION_STATUS = "t374_additive_parent_overlay_parent_only"
+T401_ROUTE_VALIDATION_STATUS = "t401_eph1_additive_parent_overlay_parent_only"
 T374_OVERLAY_ID = "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Cor.8.1--1Cor.10.33--T374-OVERLAP-B"
 T374_OVERLAY_START = "1Cor.8.1"
 T374_OVERLAY_END = "1Cor.10.33"
@@ -46,6 +47,19 @@ T374_OVERLAY_DECISION_REGISTER_ENTRY = "CD-056"
 T374_OVERLAY_BOUNDARY_BASIS = [
     "additive_parent_overlay",
     "owner_selected_t374_overlap_b",
+    "reviewed_gold_parent_only",
+    "route_isolated_exact_pilot",
+]
+T401_OVERLAY_ID = "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--Eph.1.3--Eph.1.14--T401-EPH1-PILOT"
+T401_OVERLAY_START = "Eph.1.3"
+T401_OVERLAY_END = "Eph.1.14"
+T401_OVERLAY_REVIEWED_GOLD_CASE_ID = "eph1_3_14_parent_only_reviewed_gold"
+T401_OVERLAY_OWNER_DECISION_REF = ".ai/control/t401_eph1_output_pilot_manifest.yaml"
+T401_OVERLAY_IMPLEMENTATION_MANIFEST = ".ai/control/t401_eph1_output_pilot_manifest.yaml"
+T401_OVERLAY_DECISION_REGISTER_ENTRY = "CD-076"
+T401_OVERLAY_BOUNDARY_BASIS = [
+    "additive_parent_overlay",
+    "owner_authorized_t401_eph1_exact_output_pilot",
     "reviewed_gold_parent_only",
     "route_isolated_exact_pilot",
 ]
@@ -159,17 +173,33 @@ def route_for_book(book: str) -> tuple[str, str]:
 def osis_parts(osis: str) -> tuple[str, int, int]:
     parts = osis.split(".")
     if len(parts) != 3:
-        raise ValueError(f"Unsupported OSIS reference for T374 overlay: {osis!r}")
+        raise ValueError(f"Unsupported OSIS reference for additive parent overlay: {osis!r}")
     return parts[0], int(parts[1]), int(parts[2])
 
 
-def is_t374_overlay_unit(unit: dict[str, Any]) -> bool:
+def is_unit_in_span(
+    unit: dict[str, Any],
+    *,
+    book_id: str,
+    start_chapter: int,
+    start_verse: int,
+    end_chapter: int,
+    end_verse: int,
+) -> bool:
     book, chapter, verse = osis_parts(unit["osis_ref"])
-    if book != "1Cor":
+    if book != book_id:
         return False
-    return (chapter > 8 or (chapter == 8 and verse >= 1)) and (
-        chapter < 10 or (chapter == 10 and verse <= 33)
+    return (chapter > start_chapter or (chapter == start_chapter and verse >= start_verse)) and (
+        chapter < end_chapter or (chapter == end_chapter and verse <= end_verse)
     )
+
+
+def is_t374_overlay_unit(unit: dict[str, Any]) -> bool:
+    return is_unit_in_span(unit, book_id="1Cor", start_chapter=8, start_verse=1, end_chapter=10, end_verse=33)
+
+
+def is_t401_overlay_unit(unit: dict[str, Any]) -> bool:
+    return is_unit_in_span(unit, book_id="Eph", start_chapter=1, start_verse=3, end_chapter=1, end_verse=14)
 
 
 def make_t374_parent_overlay(
@@ -230,6 +260,73 @@ def make_t374_parent_overlay(
         "owner_decision_ref": T374_OVERLAY_OWNER_DECISION_REF,
         "implementation_manifest": T374_OVERLAY_IMPLEMENTATION_MANIFEST,
         "decision_register_entry": T374_OVERLAY_DECISION_REGISTER_ENTRY,
+        "selected_children": [],
+        "baseline_chunks_preserved_byte_identical": True,
+        "non_truth_bearing_overlay": True,
+        "graph_retrieval_truth_authorized": False,
+        "child_span_authorized": False,
+        "broader_epistle_generalization_authorized": False,
+    }
+
+
+def make_t401_eph1_parent_overlay(
+    units: list[dict[str, Any]],
+    policy_version: str,
+    footnotes_by_osis: dict[str, list],
+    crossrefs_by_osis: dict[str, list],
+) -> dict[str, Any] | None:
+    selected = [unit for unit in units if is_t401_overlay_unit(unit)]
+    if not selected:
+        return None
+    first = selected[0]["osis_ref"]
+    last = selected[-1]["osis_ref"]
+    if first != T401_OVERLAY_START or last != T401_OVERLAY_END:
+        raise ValueError(
+            "T401 Eph.1 overlay requires the exact parent span "
+            f"{T401_OVERLAY_START}-{T401_OVERLAY_END}; observed {first}-{last}"
+        )
+
+    text = " ".join(unit["text"].strip() for unit in selected if unit["text"].strip()).strip()
+    footnote_refs: list[Any] = []
+    crossref_refs: list[Any] = []
+    for unit in selected:
+        osis = unit["osis_ref"]
+        footnote_refs.extend(footnotes_by_osis.get(osis, []))
+        crossref_refs.extend(crossrefs_by_osis.get(osis, []))
+
+    return {
+        "id": T401_OVERLAY_ID,
+        "type": "RetrievalChunk",
+        "chunk_kind": "epistles_parent_overlay",
+        "genre": "epistles",
+        "source_text_id": DEFAULT_SOURCE_TEXT_ID,
+        "source_artifact_id": DEFAULT_SOURCE_CORPUS,
+        "osis_start": T401_OVERLAY_START,
+        "osis_end": T401_OVERLAY_END,
+        "text": text,
+        "included_text_span_ids": [unit["passage_id"] for unit in selected],
+        "boundary_basis": T401_OVERLAY_BOUNDARY_BASIS,
+        "footnote_refs": footnote_refs,
+        "editorial_crossref_refs": crossref_refs,
+        "has_lexeme_alignment": True,
+        "chunking_policy_version": policy_version,
+        "license": "public-domain",
+        "validation": {
+            "sentence_ended": chunker.sentence_ended(text),
+            "book_boundary_crossed": False,
+            "starts_on_heading_or_superscription": bool(
+                selected[0]["has_heading"] or selected[0]["has_superscription"]
+            ),
+            "parent_only_overlay": True,
+            "selected_children_empty": True,
+        },
+        "status": "active",
+        "overlay_kind": "additive_parent_only",
+        "overlay_status": "owner_authorized_t401_eph1_pilot_implemented",
+        "reviewed_gold_case_id": T401_OVERLAY_REVIEWED_GOLD_CASE_ID,
+        "owner_decision_ref": T401_OVERLAY_OWNER_DECISION_REF,
+        "implementation_manifest": T401_OVERLAY_IMPLEMENTATION_MANIFEST,
+        "decision_register_entry": T401_OVERLAY_DECISION_REGISTER_ENTRY,
         "selected_children": [],
         "baseline_chunks_preserved_byte_identical": True,
         "non_truth_bearing_overlay": True,
@@ -335,6 +432,7 @@ def run_monolith_pass2(
     source_corpus: str,
     source_text_id: str,
     enable_t374_overlay: bool = True,
+    enable_t401_eph1_overlay: bool = True,
 ) -> OrchestratorResult:
     """Run the routed chunking path and optionally write a route ledger."""
     policy_version = chunker.read_policy_version(policy_path)
@@ -358,7 +456,12 @@ def run_monolith_pass2(
         overlay = make_t374_parent_overlay(units, policy_version, footnotes_by_osis, crossrefs_by_osis)
         if overlay:
             overlays.append(overlay)
-            chunks.extend(overlays)
+    if enable_t401_eph1_overlay:
+        overlay = make_t401_eph1_parent_overlay(units, policy_version, footnotes_by_osis, crossrefs_by_osis)
+        if overlay:
+            overlays.append(overlay)
+    if overlays:
+        chunks.extend(overlays)
 
     write_jsonl(chunks, out)
     if context_out and packets:
@@ -368,6 +471,7 @@ def run_monolith_pass2(
     context_hash = sha256_file(context_out) if context_out and packets and context_out.exists() else None
 
     if route_ledger:
+        validation_status = T401_ROUTE_VALIDATION_STATUS if enable_t401_eph1_overlay else T374_ROUTE_VALIDATION_STATUS
         registry_hash = registry_surface_sha(registry_path)
         skill_versions = {
             skill: load_skill_version(registry_path, skill)
@@ -415,17 +519,20 @@ def run_monolith_pass2(
             }),
             "output_hash": output_hash,
             "context_output_hash": context_hash,
-            "validation_status": ROUTE_VALIDATION_STATUS,
+            "validation_status": validation_status,
             "t374_additive_overlay_enabled": enable_t374_overlay,
-            "t374_additive_overlay_count": len(overlays),
-            "t374_additive_overlay_ids": [overlay["id"] for overlay in overlays],
+            "t374_additive_overlay_count": len([overlay for overlay in overlays if overlay["id"] == T374_OVERLAY_ID]),
+            "t374_additive_overlay_ids": [overlay["id"] for overlay in overlays if overlay["id"] == T374_OVERLAY_ID],
+            "t401_eph1_additive_overlay_enabled": enable_t401_eph1_overlay,
+            "t401_eph1_additive_overlay_count": len([overlay for overlay in overlays if overlay["id"] == T401_OVERLAY_ID]),
+            "t401_eph1_additive_overlay_ids": [overlay["id"] for overlay in overlays if overlay["id"] == T401_OVERLAY_ID],
             **common,
         }]
         ledger.extend({
             **record,
             **common,
             "skill_version": skill_versions[record["skill_id"]],
-            "validation_status": ROUTE_VALIDATION_STATUS,
+            "validation_status": validation_status,
         } for record in route_records)
         ledger.extend({
             "type": "ChunkingRouteLedgerOverlay",
@@ -442,7 +549,7 @@ def run_monolith_pass2(
             "graph_retrieval_truth_authorized": overlay["graph_retrieval_truth_authorized"],
             "child_span_authorized": overlay["child_span_authorized"],
             **common,
-            "validation_status": ROUTE_VALIDATION_STATUS,
+            "validation_status": validation_status,
         } for overlay in overlays)
         write_route_ledger(ledger, route_ledger)
 
@@ -478,6 +585,11 @@ def main() -> int:
         action="store_true",
         help="Generate the pre-T374 baseline without the additive 1Cor.8.1-1Cor.10.33 parent overlay.",
     )
+    parser.add_argument(
+        "--disable-t401-eph1-overlay",
+        action="store_true",
+        help="Generate the pre-T401 baseline without the additive Eph.1.3-Eph.1.14 parent overlay.",
+    )
     args = parser.parse_args()
 
     result = run_monolith_pass2(
@@ -496,6 +608,7 @@ def main() -> int:
         source_corpus=args.source_corpus,
         source_text_id=args.source_text_id,
         enable_t374_overlay=not args.disable_t374_overlay,
+        enable_t401_eph1_overlay=not args.disable_t401_eph1_overlay,
     )
     print(
         f"Wrote {result.chunk_count} chunks to {result.chunks_path} "

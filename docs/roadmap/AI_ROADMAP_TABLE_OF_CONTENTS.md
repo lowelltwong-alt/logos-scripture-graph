@@ -68,6 +68,8 @@ Common tags in this file:
   `recommendation-not-selection`, `goal4`, `goal5`, `ephesians`,
   `review-packet-strengthening`, `reviewed-gold-promotion-decision`,
   `variant-non-dependency`, `child-span-necessity`, `T392`, `T393`, `T394`, `T397`,
+  `T401`, `eph1-output-pilot`, `output-pilot`, `exact-output-change`, `proof-manifest`,
+  `post-pilot-review`,
   `t393-a`, `eph1_3_14_parent_only_reviewed_gold`, `source-tradition-non-dependent`,
   `resolved-by-t394`, `goal6`, `harness-next`, `premortem`,
   `red-team`, `T391`, `source-catalog-research`, `official-sources`,
@@ -138,6 +140,7 @@ Common tags in this file:
 | T393 | Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet | `t393`, `reviewed-gold-promotion-decision`, `goal5`, `owner-gate`, `epistle`, `ephesians`, `variant-non-dependency`, `child-span-necessity`, `recommendation-not-selection`, `resolved-by-t394`, `non-authorizing` | Auditing the prepared Goal 5 promotion decision packet, the T393-A recommendation, variant/source-tradition non-dependency, child-span assessment, and the T394 owner response. | `.ai/control/t393_eph1_reviewed_gold_promotion_decision_packet.yaml`; `docs/roadmap/T393_EPH1_REVIEWED_GOLD_PROMOTION_DECISION_PACKET.md`; `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`; `scripts/validate_t393_eph1_reviewed_gold_promotion_decision_packet.py`; `.ai/tasks/T393.task.yaml`; `.ai/handoffs/T393/handoff.md` |
 | T394 | Eph.1.3-Eph.1.14 parent-only reviewed-gold promotion | `t394`, `t393-a`, `reviewed-gold`, `parent-only`, `epistle`, `ephesians`, `eph1_3_14_parent_only_reviewed_gold`, `variant-non-dependent`, `source-tradition-non-dependent`, `goal6`, `harness-next`, `non-output-changing` | Auditing the owner-confirmed T393-A promotion or preparing only the later T397 Goal 6 route-isolated harness work. | `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml`; `docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md`; `eval/chunking_gold/per_form/epistle_argument_gold_manifest.json`; `scripts/validate_t394_eph1_parent_only_reviewed_gold_promotion.py`; `.ai/tasks/T394.task.yaml`; `.ai/handoffs/T394/handoff.md` |
 | T397 | Eph.1.3-Eph.1.14 Route-isolated harness | `t397`, `route-isolation-harness`, `non-target-identity`, `same-baseline`, `spill-protection`, `child-span-denial`, `exact-parent-target`, `output-gate`, `audit`, `non-output-changing` | Auditing the completed Goal 6 harness, proving only the exact Eph.1.3-Eph.1.14 target can change in future candidate-output simulations, or checking why harness readiness is not output authority. | `.ai/control/t397_eph1_route_isolation_harness.yaml`; `docs/roadmap/T397_EPH1_ROUTE_ISOLATION_HARNESS.md`; `scripts/chunking/route_isolation_harness.py`; `scripts/validate_t397_eph1_route_isolation_harness.py`; `tests/test_route_isolation_harness.py`; `tests/test_t397_eph1_route_isolation_harness.py`; `.ai/tasks/T397.task.yaml`; `.ai/handoffs/T397/handoff.md` |
+| T401 | Eph.1.3-Eph.1.14 output pilot | `t401`, `eph1-output-pilot`, `output-pilot`, `exact-output-change`, `proof-manifest`, `route-isolation`, `same-baseline`, `additive-overlay`, `post-pilot-review`, `goal7`, `audit` | Auditing the completed Goal 7 exact output pilot, proving the one added parent-only overlay and byte-identical non-target baseline, or checking the stop before child spans or broader behavior. | `.ai/control/t401_eph1_output_pilot_manifest.yaml`; `docs/roadmap/T401_EPH1_OUTPUT_PILOT.md`; `scripts/validate_t401_eph1_output_pilot.py`; `tests/test_t401_eph1_output_pilot.py`; `.ai/tasks/T401.task.yaml`; `.ai/handoffs/T401/handoff.md`; `.ai/audits/reports/20260625-T401-eph1-output-pilot.md` |
 | T398 | Bible-wide phase-one research synthesis | `t398`, `phase-one-research`, `whole-corpus`, `triage-not-exegesis`, `goal2`, `focused-research`, `human-decision-prompts`, `non-output-changing` | Auditing whether phase-one Bible-wide research is complete at triage depth, preparing Goal 2 focused research, or checking that phase one is not deep verse exegesis and not output authority. | `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`; `docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md`; `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`; `.ai/tasks/T398.task.yaml`; `.ai/handoffs/T398/handoff.md` |
 | T399 | Focused Bible-wide research queue | `t399`, `goal2`, `focused-research`, `focused-research-queue`, `owner-decision-map`, `scoring-not-authority`, `review-only-safety`, `variant-blocked-status`, `original-language-pressure`, `non-output-changing` | Preparing the next owner decision after Goal 2, auditing which high-risk packets are safe for review-only strengthening, or checking why high score is research priority rather than authority. | `.ai/control/t399_focused_bible_wide_research_queue.yaml`; `docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md`; `scripts/validate_t399_focused_bible_wide_research_queue.py`; `.ai/tasks/T399.task.yaml`; `.ai/handoffs/T399/handoff.md` |
 | T382 | Chunking lesson index | `t382`, `lessons-learned`, `lesson-index`, `lesson-graph`, `preflight`, `midflight`, `postflight`, `workflow-governance`, `non-authorizing` | A reusable lesson must be discovered, tagged, routed into preflight/workflow/register surfaces, or validated after lesson/preflight/methodology/TOC/audit changes. | `docs/roadmap/T382_CHUNKING_LESSON_INDEX.md`; `.ai/control/chunking_lesson_index.yaml`; `scripts/validate_chunking_lesson_index.py`; `.ai/tasks/T382.task.yaml`; `.ai/handoffs/T382/handoff.md` |
@@ -198,6 +201,8 @@ Common tags in this file:
 | `.ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml` | `t394`, `t393-a`, `reviewed-gold`, `parent-only`, `ephesians`, `eph1_3_14_parent_only_reviewed_gold`, `variant-non-dependent`, `source-tradition-non-dependent`, `goal6`, `harness-next` | Goal 6 harness work or an audit needs the exact owner-confirmed promotion and non-authorizations. | T394 promotion record; authorizes only parent-only reviewed gold for `Eph.1.3-Eph.1.14` and denies child spans, output, route/evaluator behavior, graph/retrieval/vector truth, boundary import, source/manuscript rows, canon change, and theology authority. |
 | `.ai/control/t397_eph1_route_isolation_harness.yaml` | `t397`, `route-isolation-harness`, `non-target-identity`, `same-baseline`, `spill-protection`, `child-span-denial`, `exact-parent-target`, `output-gate` | A future output-pilot agent or no-context auditor needs the completed Route-isolated harness constraints before any Eph.1.3-Eph.1.14 implementation work. | T397 harness record; proves non-target byte identity, exact parent-only target shape, spillover denial, child-span denial, and report shape while authorizing no output, implementation, child spans, route/evaluator changes, graph/retrieval/vector truth, boundary import, source rows, canon change, or theology authority. |
 | `scripts/chunking/route_isolation_harness.py` | `t397`, `route-isolation-harness`, `non-target-identity`, `same-baseline`, `spill-protection`, `child-span-denial`, `validation` | A candidate output must be compared with the current baseline, or an auditor needs executable proof that non-target records remain byte-identical. | Executable harness; compares baseline/candidate chunk JSONL, allows only the exact target span under owner-authorized conditions, and fails on non-target edits, adjacent spillover, child/subspan additions, child payloads, duplicate keys, or missing span fields. |
+| `.ai/control/t401_eph1_output_pilot_manifest.yaml` | `t401`, `eph1-output-pilot`, `output-pilot`, `exact-output-change`, `proof-manifest`, `route-isolation`, `same-baseline`, `additive-overlay`, `post-pilot-review` | A future agent or no-context auditor needs the exact T401 output-change proof, hashes, route-isolation result, or non-authorizations. | T401 manifest; records one appended Eph.1.3-Eph.1.14 parent-only additive overlay, preserves all baseline/non-target output byte-identical, records CD-076 and LSN-030, and denies child spans, broader generalization, evaluator changes, graph/retrieval/vector truth, source-tradition preference, canon changes, source rows, and theology authority. |
+| `docs/roadmap/T401_EPH1_OUTPUT_PILOT.md` | `t401`, `eph1-output-pilot`, `exact-output-change`, `audit`, `post-pilot-review` | A future agent needs the human-readable Goal 7 report and next stop. | Roadmap report; records the exact output pilot and points to post-pilot review before any child-span or broader behavior work. |
 | `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml` | `t398`, `phase-one-research`, `whole-corpus`, `triage-not-exegesis`, `goal2`, `focused-research`, `human-decision-prompts` | Future agents need the whole-corpus phase-one synthesis, Goal 2 focused research prompt, or the warning that triage coverage is not deep verse-by-verse exegesis. | T398 synthesis; records 66-book/31,103-passage triage coverage, Goal 2 focused prompts, T397 preservation, and no target/reviewed-gold/output/theology authority. |
 | `.ai/control/t399_focused_bible_wide_research_queue.yaml` | `t399`, `goal2`, `focused-research`, `focused-research-queue`, `owner-decision-map`, `scoring-not-authority`, `review-only-safety`, `variant-blocked-status` | Future agents need the scored Goal 2 queue, owner-decision prompts, safe review-only status, or blocked variant/source-tradition cases before any new packet strengthening. | T399 queue; ranks 22 candidates, records eight owner-decision prompts, keeps T397 as the current harness route, and authorizes no target/reviewed-gold/child/output/graph/retrieval/source-row/theology authority. |
 | `docs/roadmap/T394_EPH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md` | `t394`, `reviewed-gold`, `parent-only`, `goal6`, `harness-next`, `audit` | A future agent or no-context auditor needs the human-readable owner-confirmed promotion record and next step. | Roadmap report; records T397 - Route-Isolated Implementation Harness as the later non-output-changing next step. |
@@ -221,20 +226,29 @@ T393 prepared the Goal 5 owner reviewed-gold promotion decision packet. T394 rec
 owner selection of `T393-A`, promotes only `Eph.1.3-Eph.1.14` as parent-only reviewed gold, records
 `exact_internal_variant_refs: []`, and confirms the parent boundary and reviewed-gold claim are
 current-repo variant-non-dependent and source-tradition-non-dependent. Child spans are not
-necessary now and are not authorized. The next non-output-changing task is:
+necessary now and are not authorized. T397 then completed the non-output-changing route-isolated
+harness, and T401 completed the exact owner-authorized output pilot for:
+
+```text
+T401 - Eph.1.3-Eph.1.14 output pilot, one parent-only additive overlay only.
+```
+
+Historical Goal 6 breadcrumb retained for audit search:
 
 ```text
 T397 - Route-Isolated Implementation Harness prep for Eph.1.3-Eph.1.14 only.
 ```
 
-Status: complete as `.ai/control/t397_eph1_route_isolation_harness.yaml`. The harness is
-non-output-changing and does not authorize implementation or parent-span-as-chunk-boundary use.
-The next authority-changing stop is a future owner output-pilot authorization gate for exactly
-`Eph.1.3-Eph.1.14`.
+Status: complete as `.ai/control/t401_eph1_output_pilot_manifest.yaml`. The pilot preserves
+baseline and non-target output byte-identical and authorizes no child spans, broader behavior,
+graph/retrieval/vector truth, evaluator change, boundary import, preferred reading/source
+tradition, canon-scope change, source/manuscript rows, or theology authority. The next safe stop is
+post-pilot review before any child-span or broader behavior work.
 
 T399 completed the parallel Goal 2 focused Bible-wide research queue and owner-decision map. It
-does not replace T397 and does not authorize target selection, reviewed gold, child spans, output,
-route/evaluator behavior, graph/retrieval/vector truth, boundary import, preferred readings/source
+does not replace T401 post-pilot review and does not authorize target selection, reviewed gold,
+child spans, output beyond the exact T401 pilot, route/evaluator behavior, graph/retrieval/vector
+truth, boundary import, preferred readings/source
 traditions, canon-scope change, source/manuscript rows, or theology authority.
 
 Do not implement chunks, add child spans, treat reviewed gold as parent-span-as-chunk-boundary

@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 30)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 31)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -123,6 +123,17 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "data/candidate/source_catalog/manuscript_reliability/sqlite/dss_biblical_witness_rows.jsonl" in by_id["LSN-029"]["source_surfaces"]
     assert "docs/roadmap/T396_DSS_BIBLICAL_WITNESS_SOURCE_ROWS.md" in by_id["LSN-029"]["source_surfaces"]
     assert "CD-075" in by_id["LSN-029"]["related_decision_ids"]
+    assert "eph1-output-pilot" in by_id["LSN-030"]["tags"]
+    assert "output-pilot" in by_id["LSN-030"]["tags"]
+    assert "exact-output-change" in by_id["LSN-030"]["tags"]
+    assert "proof-manifest" in by_id["LSN-030"]["tags"]
+    assert "post-pilot-review" in by_id["LSN-030"]["tags"]
+    assert "goal7" in by_id["LSN-030"]["tags"]
+    assert "t401" in by_id["LSN-030"]["tags"]
+    assert ".ai/control/t401_eph1_output_pilot_manifest.yaml" in by_id["LSN-030"]["source_surfaces"]
+    assert "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md" in by_id["LSN-030"]["source_surfaces"]
+    assert "scripts/validate_t401_eph1_output_pilot.py" in by_id["LSN-030"]["source_surfaces"]
+    assert "CD-076" in by_id["LSN-030"]["related_decision_ids"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

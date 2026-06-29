@@ -59,3 +59,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   Eph.1.3-Eph.1.14 route-isolation harness; records executable non-target identity, exact-parent
   target, spillover denial, child-span denial, report-shape proof, and the future owner output-gate
   boundary.
+- `20260625-T401-eph1-output-pilot.md` - T401 no-context audit surface for the exact
+  Eph.1.3-Eph.1.14 output pilot; records one additive parent-only overlay, baseline/non-target byte
+  identity, route-isolation proof, same-baseline metrics, CD-076/LSN-030, and the post-pilot stop
+  before child spans or broader behavior.

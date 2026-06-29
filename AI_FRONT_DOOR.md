@@ -35,6 +35,7 @@ Read these files before making changes:
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
+    T401 Eph.1.3-Eph.1.14 output pilot,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -216,12 +217,28 @@ Bible-first chunking priority:
   behavior, graph/retrieval/vector truth, source rows, preferred readings/source traditions,
   boundary import, canon-scope change, or theology authority. The next output-changing step is a
   fresh owner output-pilot authorization gate for exactly `Eph.1.3-Eph.1.14`.
+  T401 Eph.1.3-Eph.1.14 output pilot is now recorded at
+  `.ai/control/t401_eph1_output_pilot_manifest.yaml`, validated by
+  `scripts/validate_t401_eph1_output_pilot.py`, and implemented as one appended additive
+  parent-only overlay with ID
+  `chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--Eph.1.3--Eph.1.14--T401-EPH1-PILOT`.
+  T401 preserves all pre-T401 baseline chunks byte-identical, records same-baseline metrics,
+  records `CD-076` plus `LSN-030`, and has a no-context audit at
+  `.ai/audits/reports/20260625-T401-eph1-output-pilot.md`. Use
+  `--disable-t401-eph1-overlay` when regenerating the pre-T401 baseline for route-isolation or
+  same-baseline proof. It authorizes only this exact
+  parent-span-as-chunk-boundary output pilot. It does not authorize child spans, deleting or
+  replacing existing chunks, adjacent spill splits, broader epistle generalization, whole-Bible
+  output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings or
+  source traditions, canon-scope change, source/manuscript rows, or theology authority. The next
+  safe step is post-pilot review before any child-span or broader behavior work.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
   passage is accounted for at triage depth and every canonical book at registry depth, but it does
   not mean every verse has been deeply exegeted. It creates Goal 2 focused research prompts and
-  does not supersede T397 or authorize targets, reviewed gold, child spans, output,
+  does not supersede T397/T401 or authorize new targets, reviewed gold, child spans, output beyond
+  the exact T401 pilot,
   route/evaluator behavior, graph/retrieval/vector truth, boundary import, source-tradition
   preference, canon-scope change, source/manuscript rows, whole-Bible output, or theology
   authority.
@@ -229,8 +246,9 @@ Bible-first chunking priority:
   `.ai/control/t399_focused_bible_wide_research_queue.yaml`, validated by
   `scripts/validate_t399_focused_bible_wide_research_queue.py`. It ranks high-risk candidate
   passages/lanes and owner-decision prompts while separating research score, review-only safety,
-  and authority. T399 does not supersede T397 or authorize targets, reviewed gold, child spans,
-  output, route/evaluator behavior, graph/retrieval/vector truth, boundary import,
+  and authority. T399 does not supersede T397/T401 or authorize targets, reviewed gold, child
+  spans, output beyond the exact T401 pilot, route/evaluator behavior, graph/retrieval/vector truth,
+  boundary import,
   preferred readings/source traditions, canon-scope change, source/manuscript rows, whole-Bible
   output, or theology authority.
   Do not generalize the 1Cor.8-10 pilot to deletion/replacement, adjacent spill splits, child spans,
@@ -318,6 +336,14 @@ Bible-first chunking priority:
   create graph/retrieval/vector truth, import boundaries, select preferred readings/source
   traditions, change canon scope, create source/manuscript rows, run whole-Bible output, or
   authorize theology claims.
+- The T401 Eph.1.3-Eph.1.14 output pilot at
+  `.ai/control/t401_eph1_output_pilot_manifest.yaml` records the exact Goal 7 output change for
+  one parent-only additive overlay. It is validated by `scripts/validate_t401_eph1_output_pilot.py`
+  and has a no-context audit at `.ai/audits/reports/20260625-T401-eph1-output-pilot.md`. It proves
+  baseline prefix byte identity, one added overlay, route-isolation non-target identity, and
+  same-baseline metrics. It does not authorize child spans, broader epistle generalization,
+  whole-Bible output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred
+  readings/source traditions, canon-scope change, source/manuscript rows, or theology authority.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
@@ -375,13 +401,13 @@ Bible-first chunking priority:
   selections by themselves.
 - The Bible chunking readiness map at `.ai/control/bible_chunking_readiness_map.yaml` records the
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
-  next safe route. It is non-authorizing and currently records T394 as the owner-selected
-  parent-only reviewed-gold promotion for `Eph.1.3-Eph.1.14`, with T397 as the next
-  Goal 6 route-isolated harness step at the time of T394. The map now also records completed T397
-  harness prep and a future owner output-pilot gate as the next authority-changing stop.
-  T384/T386/T385/T392/T393/T394/T397 readiness cannot implement output, add child spans, treat
-  reviewed gold as chunk-boundary authority, or change route/evaluator/graph/retrieval/vector
-  behavior. The completed T375 post-pilot review for the implemented T374 `1Cor.8.1-1Cor.10.33`
+  next safe route. It is non-authorizing and currently records T401 as the completed exact
+  Eph.1.3-Eph.1.14 output pilot after T394 reviewed-gold promotion and T397 route-isolation
+  harness prep. The map now points to post-pilot review as the next authority-changing stop before
+  any child-span or broader behavior work. T384/T386/T385/T392/T393/T394/T397/T401 readiness cannot
+  add child spans, treat reviewed gold as unbounded chunk-boundary authority, or change
+  evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the
+  implemented T374 `1Cor.8.1-1Cor.10.33`
   additive parent overlay is preserved, with T367 preserved as the owner-decision firewall, T368
   preserved as the review-packet strengthening record, T369 preserved as the projected
   owner-pattern parent-only selection record, and T370 preserved as the parent-only evidence prep

@@ -229,8 +229,8 @@ def _validate_links() -> None:
         (REGISTER, ("CD-072", "T398 phase-one whole-corpus research synthesis is triage, not output authority", SYNTHESIS_REL)),
         (LESSON_INDEX, ("LSN-026", "Phase-one whole-corpus research is triage, not deep verse exegesis", SYNTHESIS_REL)),
         (PREFLIGHT, ("CD-072", "LSN-026", SYNTHESIS_REL)),
-        (READINESS, ("parallel_t398_phase_one_research_synthesis", SYNTHESIS_REL, "relation_to_next_route: \"Parallel phase-one research synthesis; does not supersede T397 harness prep or authorize output.\"")),
-        (ROADMAP, ("id: T398", "complete_phase_one_whole_corpus_research_synthesis", "next_chunking_route_remains: T397_goal6_route_isolated_harness_prep_only")),
+        (READINESS, ("parallel_t398_phase_one_research_synthesis", SYNTHESIS_REL, "relation_to_next_route: \"Parallel phase-one research synthesis; does not supersede the T401 output pilot/post-pilot review gate or authorize output.\"")),
+        (ROADMAP, ("id: T398", "complete_phase_one_whole_corpus_research_synthesis", "T401")),
         (FRONT_DOOR, (SYNTHESIS_REL, VALIDATOR_REL, "T398 phase-one whole-corpus research synthesis")),
         (MAIN_TOC, (SYNTHESIS_REL, "phase-one-research", "Goal 2 focused")),
         (ROADMAP_TOC, ("T398 | Bible-wide phase-one research synthesis", ROADMAP_DOC_REL, VALIDATOR_REL)),
@@ -248,8 +248,8 @@ def _validate_links() -> None:
                 raise T398SynthesisError(f"{_rel(path)}: missing {phrase!r}")
 
     readiness = _read_yaml(READINESS)
-    if readiness.get("next_route", {}).get("task_id") != "T397":
-        raise T398SynthesisError(f"{_rel(READINESS)}: T398 must not change next_route away from T397")
+    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401"}:
+        raise T398SynthesisError(f"{_rel(READINESS)}: T398 must not change next_route outside the later T397/T401 path")
 
 
 def validate_t398_bible_wide_phase_one_research_synthesis(path: Path = SYNTHESIS) -> dict[str, Any]:

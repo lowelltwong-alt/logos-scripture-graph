@@ -1,0 +1,116 @@
+id: T401
+phase: phase_4
+title: "Eph.1.3-Eph.1.14 Exact Output Pilot"
+mode: build
+status: complete_output_changed_eph1_parent_overlay
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/t401_eph1_output_pilot_manifest.yaml
+    - .ai/control/t397_eph1_route_isolation_harness.yaml
+    - .ai/control/t394_eph1_parent_only_reviewed_gold_promotion.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/tasks/T401.task.yaml
+    - .ai/handoffs/T401/
+    - .ai/audits/reports/20260625-T401-eph1-output-pilot.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T401_EPH1_OUTPUT_PILOT.md
+    - pipelines/chunking/orchestrator.py
+    - scripts/validate_t401_eph1_output_pilot.py
+    - scripts/validate_t374_additive_parent_overlay.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_chunking_theological_decision_register.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_t372_route_isolation_harness_plan.py
+    - scripts/validate_t373_owner_implementation_authorization.py
+    - scripts/validate_wj_speaker_discourse_policy.py
+    - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+    - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+    - scripts/validate_t399_focused_bible_wide_research_queue.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_all.py
+    - tests/test_t401_eph1_output_pilot.py
+    - tests/test_chunking_orchestrator.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_ai_roadmap_table_of_contents.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_test_runtime_preflight.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: goal7_exact_output_changing_pilot
+  decision_register_entry: CD-076
+  lesson_index_entry: LSN-030
+  selected_parent: Eph.1.3-Eph.1.14
+  selected_children: []
+  reviewed_gold_case_id: eph1_3_14_parent_only_reviewed_gold
+  parent_only_reviewed_gold_promoted: true
+  prior_route_isolation_harness_ready: true
+  parent_span_as_chunk_boundary_authorized_for_exact_pilot: true
+  chunk_output_authorized: true
+  implementation_authorized: true
+  route_behavior_authorized_for_exact_target_overlay: true
+  child_spans_authorized: false
+  evaluator_change_authorized: false
+  graph_retrieval_truth_authorized: false
+  boundary_import_allowed: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  theology_authority_change_authorized: false
+  source_or_manuscript_rows_authorized: false
+acceptance_criteria:
+  - "T401 appends exactly one additive parent-only overlay for Eph.1.3-Eph.1.14."
+  - "The pre-T401 baseline output remains byte-identical as the candidate prefix."
+  - "The T397 route-isolation harness passes on real baseline/candidate output and reports only the exact Eph.1.3-Eph.1.14 added key."
+  - "Same-baseline evaluation records no evaluator change, no improvement claim, and no leaderboard update."
+  - "CD-076, LSN-030, preflight, readiness map, ROADMAP_STATE, AI TOCs, audit, and handoff make the output pilot discoverable."
+  - "No raw/canonical data, child spans, graph/retrieval/vector truth, source/manuscript rows, boundary import, preferred readings/source traditions, canon-scope changes, whole-Bible output, or theology authority are touched."
+validation:
+  - python scripts/validate_t401_eph1_output_pilot.py
+  - python -m pytest tests/test_t401_eph1_output_pilot.py tests/test_chunking_orchestrator.py -q
+  - python scripts/validate_t374_additive_parent_overlay.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_bible_chunking_readiness_map.py
+  - python scripts/validate_task_scope.py --task-id T401
+  - python scripts/agent/no_context_audit_harness.py --task-id T401 --base-ref origin/main --print
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T401/handoff.md
+next_task: "T402-style post-pilot review gate for Eph.1.3-Eph.1.14: review same-baseline output, no-context audit findings, and whether child spans are necessary. Stop before child spans, broader epistle generalization, route/evaluator behavior, graph/retrieval/vector truth, whole-Bible output, source-tradition preference, canon-scope change, or theology authority."
+created_at: "2026-06-25"
+updated_at: "2026-06-25"
