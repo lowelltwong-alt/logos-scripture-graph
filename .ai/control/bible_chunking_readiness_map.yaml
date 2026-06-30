@@ -2,7 +2,7 @@
 object_type: bible_chunking_readiness_map
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion and advance the next route to Goal 6 harness prep. Updated 2026-06-24 during T399 to record the parallel Goal 2 focused Bible-wide research queue without changing the T397 next route. Updated 2026-06-24 during T397 to record completed non-output-changing Eph.1.3-Eph.1.14 route-isolation harness prep and the future owner output-pilot gate. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 output pilot and the required post-pilot review gate. Updated 2026-06-25 during T402 to record the completed post-pilot review and whole-Bible low-complexity candidate runway as review eligibility only. Updated 2026-06-29 during T404 to record Cursor low-risk chunking delegation as compute prep only."
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion and advance the next route to Goal 6 harness prep. Updated 2026-06-24 during T399 to record the parallel Goal 2 focused Bible-wide research queue without changing the T397 next route. Updated 2026-06-24 during T397 to record completed non-output-changing Eph.1.3-Eph.1.14 route-isolation harness prep and the future owner output-pilot gate. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 output pilot and the required post-pilot review gate. Updated 2026-06-25 during T402 to record the completed post-pilot review and whole-Bible low-complexity candidate runway as review eligibility only. Updated 2026-06-29 during T404 to record Cursor low-risk chunking delegation as compute prep only. Updated 2026-06-30 during T410 to record the research-to-chunking Phase 1 prompt-pack conveyor and deterministic completion tracker."
 reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
 ---
 schema_version: bible_chunking_readiness_map.v1
@@ -107,6 +107,16 @@ lessons_storage:
     - .cursor/rules/logos-scripture-low-risk-chunking.mdc
     - scripts/validate_cursor_low_risk_chunking_handoff.py
     - tests/test_cursor_low_risk_chunking_handoff.py
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/bible_book_literature_prompt_hints.yaml
+    - .ai/control/cursor_to_codex_transparency_contract.yaml
+    - .ai/control/frontier_chunking_escalation_policy.yaml
+    - .ai/control/chunking_phase_completion_plan.yaml
+    - docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+    - .ai/tasks/T410.task.yaml
+    - .ai/handoffs/T410/handoff.md
+    - scripts/validate_parallel_chunking_prompt_pack.py
+    - tests/test_parallel_chunking_prompt_pack.py
     - .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
     - docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
     - .ai/tasks/T398.task.yaml
@@ -1180,6 +1190,36 @@ parallel_t386_verse_passage_coverage_gate:
   graph_edge_generation_allowed: false
   retrieval_truth_authorized: false
   embedding_or_vector_work_allowed: false
+parallel_t410_research_to_chunking_phase_one:
+  task_id: T410
+  title: Research-To-Chunking Phase One Prompt-Pack Conveyor
+  route_type: research_to_chunking_phase_one_control_plane
+  program: .ai/control/parallel_chunking_research_program.yaml
+  book_hints: .ai/control/bible_book_literature_prompt_hints.yaml
+  transparency_contract: .ai/control/cursor_to_codex_transparency_contract.yaml
+  frontier_policy: .ai/control/frontier_chunking_escalation_policy.yaml
+  phase_completion_plan: .ai/control/chunking_phase_completion_plan.yaml
+  roadmap_doc: docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+  validator: scripts/validate_parallel_chunking_prompt_pack.py
+  status: active_non_output_changing_control_plane
+  relation_to_next_route: "Turns Cursor research and review-packet prep into a governed path toward later owner-gated reviewed gold, route isolation, exact additive parent overlays, and post-pilot review; does not itself authorize output."
+  phase_one_definition: "One parent-only additive low-risk overlay per canonical book where safe, with explicit deferrals for unsafe books."
+  canonical_books_accounted_for: 66
+  output_change_authorized: false
+  implementation_authorized: false
+  reviewed_gold_promoted: false
+  child_spans_authorized: false
+  route_behavior_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
+  vector_index_build_authorized: false
+  boundary_import_allowed: false
+  backend_choice_authorized: false
+  retrieval_profile_promotion_authorized: false
+  source_or_manuscript_rows_authorized: false
+  theology_authority_change_authorized: false
 update_triggers:
   - roadmap_sequence_change
   - chunking_algorithm_change
@@ -1217,6 +1257,7 @@ update_triggers:
   - t401_eph1_output_pilot_change
   - t402_low_complexity_candidate_queue_change
   - t398_phase_one_research_synthesis_change
+  - t410_research_to_chunking_prompt_pack_change
 explicit_non_authorizations:
   - raw_or_canonical_mutation
   - generated_chunk_regeneration

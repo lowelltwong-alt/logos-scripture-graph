@@ -1,0 +1,89 @@
+---
+object_type: frontier_chunking_escalation_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-30 during T410 to define when Claude Opus/frontier review must inspect Cursor or Codex chunking research before owner-gated authority changes."
+reason_for_inclusion: "Hard literary, theological, and architecture cases need explicit escalation before reviewed-gold or output paths proceed."
+---
+schema_version: frontier_chunking_escalation_policy.v1
+policy_id: t410_frontier_chunking_escalation_policy
+task_id: T410
+status: active_non_authorizing_escalation_policy
+owner: Lowell Wong
+authority:
+  records_frontier_escalation_policy: true
+  requires_frontier_review_for_hard_cases: true
+  authorizes_exact_target_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_theology_authority_change: false
+frontier_reviewers:
+  preferred: Claude_Opus_or_equivalent_frontier_reasoning_model
+  fallback: Codex_high_reasoning_review_only_if_frontier_unavailable_and_no_authority_change
+mandatory_escalation_triggers:
+  - prophecy_or_oracle_boundary
+  - apocalyptic_or_vision_cycle
+  - dense_epistle_argument
+  - gospel_wj_or_speaker_boundary
+  - textual_variant_or_source_tradition_pressure
+  - doxology_or_benediction_boundary
+  - christology_or_trinity_pressure
+  - law_gospel_or_covenant_system_pressure
+  - ecclesiology_or_office_pressure
+  - election_assurance_faith_works_or_sacramental_pressure
+  - original_language_claim_controls_boundary
+  - source_metadata_would_become_boundary_authority
+  - low_confidence_or_blocked_claim
+  - cursor_or_codex_detects_theology_smuggling_risk
+frontier_default_books:
+  - Job
+  - Song
+  - Dan
+  - John
+  - Rom
+  - 1Cor
+  - 2Cor
+  - Gal
+  - Eph
+  - Heb
+  - Rev
+escalation_packet_required_fields:
+  - task_id
+  - book
+  - osis_ref_or_span
+  - issue_type
+  - evidence_refs
+  - current_confidence
+  - why_cursor_or_codex_cannot_decide
+  - possible_downstream_consequence
+  - non_authorizing_status
+  - exact_question_for_frontier_reviewer
+frontier_review_output_fields:
+  - reviewer
+  - reviewed_artifacts
+  - findings
+  - required_changes_before_owner_gate
+  - remaining_risks
+  - no_authority_claim
+  - recommended_next_gate
+decision_rule: "A frontier review may recommend a path, but it cannot select targets, promote reviewed gold, authorize chunk output, or make theology authority. Owner and task-specific validators remain required."
+non_authorizations:
+  - exact_target_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - theology_authority_change
+validator: scripts/validate_parallel_chunking_prompt_pack.py

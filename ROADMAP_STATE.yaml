@@ -1,5 +1,5 @@
 version: 0.1.0
-last_updated: "2026-06-25"
+last_updated: "2026-06-30"
 current_phase: phase_4
 policy:
   handoff_required: true
@@ -1726,6 +1726,45 @@ phases:
         requires_exact_targets_from_owner_or_codex: true
         cursor_may_select_targets: false
         codex_review_required_before_merge: true
+        output_change_authorized: false
+        implementation_authorized: false
+        review_packet_strengthening_authorized_without_owner_selection: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        vector_index_build_authorized: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        backend_choice_authorized: false
+        retrieval_profile_promotion_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
+      - id: T410
+        title: Research-To-Chunking Phase One Roadmap
+        status: in_progress_non_output_changing_control_plane
+        lane: whole_bible_research_to_chunking_phase_one
+        program: .ai/control/parallel_chunking_research_program.yaml
+        book_hints: .ai/control/bible_book_literature_prompt_hints.yaml
+        transparency_contract: .ai/control/cursor_to_codex_transparency_contract.yaml
+        frontier_policy: .ai/control/frontier_chunking_escalation_policy.yaml
+        phase_completion_plan: .ai/control/chunking_phase_completion_plan.yaml
+        roadmap_doc: docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+        task_scope: .ai/tasks/T410.task.yaml
+        required_handoff: .ai/handoffs/T410/handoff.md
+        validator: scripts/validate_parallel_chunking_prompt_pack.py
+        test: tests/test_parallel_chunking_prompt_pack.py
+        relation_to_t404_t406: "Turns the Cursor low-risk research runway into a governed research-to-output ladder without itself authorizing output."
+        phase_one_definition: "One parent-only additive low-risk overlay per canonical book where safe, with explicit deferrals for unsafe books."
+        canonical_books_accounted_for: 66
+        cursor_may_select_target: false
+        exact_target_selected: false
         output_change_authorized: false
         implementation_authorized: false
         review_packet_strengthening_authorized_without_owner_selection: false

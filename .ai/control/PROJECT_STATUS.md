@@ -1,18 +1,24 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-29
-**Updated by:** T404 Cursor low-risk chunking handoff and multi-pass plan (Codex); PR #123 conflict reconciliation with T405 governance mirror
-**Active task:** -> **T404 Cursor low-risk chunking handoff** records that T402 low-risk research
-is complete at all-66-book candidate-triage depth, with 38 `ready_for_review_packet` candidates,
-but not complete at review-packet, reviewed-gold, child-span, output, route/evaluator,
-graph/retrieval/vector, boundary-import, source-row, backend/profile, canon-scope, or
-theology-authority depth. T404 adds `.ai/control/cursor_low_risk_chunking_handoff.yaml`,
-`.ai/control/low_risk_chunking_multi_pass_plan.yaml`, Cursor project commands/rules, `CD-078`, and
-`LSN-032`, and places T406 on the future roadmap as a Cursor-assisted batch of at most three exact
-owner-or-Codex supplied `ready_for_review_packet` candidates. It authorizes no Cursor target
-selection, reviewed gold, child spans, chunk output, route/evaluator behavior,
-graph/retrieval/vector truth, embeddings/indexes, boundary import, backend choice, profile
-promotion, source/manuscript rows, canon-scope change, or theology authority.
+**Last updated:** 2026-06-30
+**Updated by:** T410 research-to-chunking Phase 1 prompt-pack conveyor (Codex)
+**Active task:** -> **T410 Research-To-Chunking Phase One Roadmap** turns the T402/T404/T406
+research runway into a governed conveyor belt from Cursor research, review-packet prep, Codex
+review, frontier escalation, owner gates, reviewed gold, route isolation, exact additive parent
+overlay output PRs, and post-pilot review. T410 adds
+`.ai/control/parallel_chunking_research_program.yaml`,
+`.ai/control/bible_book_literature_prompt_hints.yaml`,
+`.ai/control/cursor_to_codex_transparency_contract.yaml`,
+`.ai/control/frontier_chunking_escalation_policy.yaml`,
+`.ai/control/chunking_phase_completion_plan.yaml`, Cursor prompt-pack commands/rules, and
+`scripts/validate_parallel_chunking_prompt_pack.py`. It defines Phase 1 as one governed
+parent-only additive low-risk overlay per canonical book where safe, with explicit deferrals for
+unsafe books. It authorizes no Cursor target selection, reviewed gold, child spans, chunk output,
+route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, boundary import,
+backend choice, profile promotion, source/manuscript rows, canon-scope change, or theology
+authority.
+The prior T404/T406 low-risk handoff remains the review-only Cursor runway; T410 is the bridge
+from that runway to later owner-gated implementation tasks, not an implementation task itself.
 PR #123 conflict reconciliation also preserves the already-merged T405 governance dependency-map
 mirror at `.ai/control/governance_dependency_map_mirror.yaml`, renumbered in the lesson index as
 `LSN-033` after T402/T404. T405 remains a non-authorizing child-repo mirror of upstream

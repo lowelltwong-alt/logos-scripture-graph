@@ -37,7 +37,8 @@ Read these files before making changes:
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
     T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
     T404 Cursor low-risk chunking handoff, T405 governance dependency-map mirror,
-    and T406 future multi-pass plan,
+    T406 future multi-pass plan, and T410 research-to-chunking Phase 1 prompt-pack conveyor at
+    `.ai/control/parallel_chunking_research_program.yaml`,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -260,6 +261,16 @@ Bible-first chunking priority:
   implementation authority, output authority, reviewed-gold authority, graph/retrieval/vector
   truth, source-row authority, boundary import authority, backend selection, profile promotion, or
   theology authority.
+  T410 records the research-to-chunking Phase 1 conveyor at
+  `.ai/control/parallel_chunking_research_program.yaml`, the 66-book prompt hints at
+  `.ai/control/bible_book_literature_prompt_hints.yaml`, the Cursor-to-Codex transparency
+  contract at `.ai/control/cursor_to_codex_transparency_contract.yaml`, the frontier escalation
+  policy at `.ai/control/frontier_chunking_escalation_policy.yaml`, and the deterministic Phase 1
+  completion plan at `.ai/control/chunking_phase_completion_plan.yaml`, validated by
+  `scripts/validate_parallel_chunking_prompt_pack.py`. T410 authorizes no Cursor target selection,
+  reviewed gold, child spans, chunk output, route/evaluator behavior, graph/retrieval/vector truth,
+  boundary import, backend/profile choice, source/manuscript rows, canon-scope change, or theology
+  authority.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
@@ -389,6 +400,16 @@ Bible-first chunking priority:
   research is complete at all-66 triage depth only; it is not deep exegetical completion. Cursor
   may not choose the target and may not produce chunk output, reviewed gold, graph/retrieval/vector
   truth, source rows, boundary imports, backend choices, profile promotions, or theology authority.
+- The T410 research-to-chunking Phase 1 prompt-pack program at
+  `.ai/control/parallel_chunking_research_program.yaml` records the governed ladder from Cursor
+  research to Codex review, frontier escalation, owner gates, reviewed gold, route isolation,
+  exact additive parent overlay output PRs, and post-pilot review. Its companion files are
+  `.ai/control/bible_book_literature_prompt_hints.yaml`,
+  `.ai/control/cursor_to_codex_transparency_contract.yaml`,
+  `.ai/control/frontier_chunking_escalation_policy.yaml`, and
+  `.ai/control/chunking_phase_completion_plan.yaml`. They are validated by
+  `scripts/validate_parallel_chunking_prompt_pack.py` and authorize no output or authority by
+  themselves.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
@@ -450,8 +471,9 @@ Bible-first chunking priority:
   Eph.1.3-Eph.1.14 output pilot after T394 reviewed-gold promotion and T397 route-isolation
   harness prep, plus T402 as the completed post-pilot review as the next completed stop and
   review-only low-complexity candidate runway. T404 adds a non-authorizing Cursor low-risk handoff and T406 reserves a future
-  multi-pass review-prep phase. The next owner action is selecting one exact T402 ready candidate
-  before review-packet strengthening. T384/T386/T385/T392/T393/T394/T397/T401/T402/T404/T406 readiness cannot
+  multi-pass review-prep phase. T410 adds the research-to-chunking Phase 1 prompt-pack conveyor and
+  deterministic 66-book completion tracker. The next owner action is selecting one exact T402 ready candidate
+  before review-packet strengthening. T384/T386/T385/T392/T393/T394/T397/T401/T402/T404/T406/T410 readiness cannot
   add child spans, treat reviewed gold as unbounded chunk-boundary authority, or change
   evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the
   implemented T374 `1Cor.8.1-1Cor.10.33`

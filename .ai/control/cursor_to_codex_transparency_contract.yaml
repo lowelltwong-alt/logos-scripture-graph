@@ -1,0 +1,114 @@
+---
+object_type: cursor_to_codex_transparency_contract
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-30 during T410 to prevent black-box Cursor research and make long-running prompt-pack outputs reviewable by Codex and frontier reviewers."
+reason_for_inclusion: "Require sizes, hashes, confidence, audit logs, traceability, and explicit limitations for every Cursor research or review-prep task."
+---
+schema_version: cursor_to_codex_transparency_contract.v1
+contract_id: t410_cursor_to_codex_transparency_contract
+task_id: T410
+status: active_non_authorizing_transparency_contract
+owner: Lowell Wong
+authority:
+  records_transparency_requirements: true
+  requires_audit_logs: true
+  requires_source_size_reporting: true
+  requires_confidence_reporting: true
+  requires_claim_traceability: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_theology_authority_change: false
+required_handoff_note:
+  path_template: ".ai/handoffs/<TASK_ID>/cursor_notes_to_codex.md"
+  required_sections:
+    - files_read
+    - files_intentionally_not_read
+    - source_size_summary
+    - artifact_size_summary
+    - hashes_or_short_hashes
+    - validation_commands_and_results
+    - confidence_summary_by_book_or_span
+    - inferred_vs_observed_claims
+    - limitations
+    - unresolved_questions
+    - exact_next_action_requested_from_codex
+required_machine_logs:
+  base_path_template: ".ai/context/agent_work/<TASK_ID>/"
+  files:
+    - source_size_manifest.jsonl
+    - confidence_register.jsonl
+    - audit_log.jsonl
+    - claim_traceability_matrix.md
+  directories:
+    - escalation_packets
+source_size_manifest_fields:
+  - task_id
+  - source_path
+  - source_kind
+  - bytes_read
+  - char_count
+  - line_count
+  - record_count
+  - chapter_count
+  - verse_count
+  - sha256_short
+  - files_read
+confidence_register_fields:
+  - task_id
+  - book
+  - osis_ref_or_span
+  - claim_id
+  - confidence
+  - confidence_reason
+  - evidence_type
+  - evidence_refs
+  - inferred_or_observed
+  - theology_sensitive
+  - escalation_required
+  - escalation_reason
+  - non_authorizing
+audit_log_fields:
+  - timestamp_utc
+  - task_id
+  - command_or_action
+  - inputs
+  - outputs
+  - result
+  - limitations
+  - non_authorizing
+confidence_values:
+  - high
+  - medium
+  - low
+  - blocked
+evidence_types:
+  - raw_usfm
+  - canonical_sidecar
+  - control_plane_registry
+  - prior_reviewed_decision
+  - derived_inference
+  - external_frontier_review
+claim_rules:
+  - "No book, passage, marker, or boundary-pressure claim may appear without an evidence reference and confidence value."
+  - "If Cursor inferred rather than observed a claim, the claim must say inferred and explain the basis."
+  - "Low confidence or blocked claims must create an escalation packet or a limitation note."
+  - "Cursor must expose the evidence trail and decision trail, not private hidden reasoning."
+  - "All records produced by Cursor under this contract are non-authorizing unless a later owner-gated task promotes an exact artifact."
+non_authorizations:
+  - chunk_output_change
+  - reviewed_gold_promotion
+  - child_span_selection
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - theology_authority_change
+validator: scripts/validate_parallel_chunking_prompt_pack.py

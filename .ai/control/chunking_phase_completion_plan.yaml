@@ -1,0 +1,125 @@
+---
+object_type: chunking_phase_completion_plan
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-30 during T410 to define Phase 1 completion and future Phase 2+ routing."
+reason_for_inclusion: "Make the move from research to actual chunking measurable: every canonical book must be implemented, pending, or deferred with evidence before Phase 1 closes."
+---
+schema_version: chunking_phase_completion_plan.v1
+plan_id: t410_chunking_phase_completion_plan
+task_id: T410
+status: active_non_output_changing_completion_plan
+owner: Lowell Wong
+authority:
+  records_phase_completion_plan: true
+  records_initial_phase_one_statuses: true
+  authorizes_chunk_output_change: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_theology_authority_change: false
+phase_one:
+  definition: "One governed, parent-only, additive low-risk chunk overlay per canonical book where safe, with explicit deferrals where not safe yet."
+  completion_test: "All 66 canonical books have status implemented_existing_pilot, implemented_phase_one_overlay, pending_phase_one_gate, or deferred_phase_two_or_frontier_default, with evidence and next routing."
+  completion_artifact: ".ai/audits/reports/<DATE>-T4xx-phase-one-chunking-completion.md"
+  closure_requires:
+    - canonical_66_status_accounting
+    - output_hashes_for_implemented_books
+    - non_target_identity_proofs_for_output_changes
+    - reviewed_gold_and_owner_authorization_refs
+    - deferral_reasons_and_next_phase_routes
+    - post_pilot_review_for_each_output_batch
+status_values:
+  implemented_existing_pilot: "A pre-T410 exact parent-only additive overlay already exists and can seed Phase 1 accounting."
+  implemented_phase_one_overlay: "A later T410+ task implemented an owner-authorized parent-only additive overlay."
+  pending_phase_one_gate: "Book remains eligible for research, review packet, owner gate, reviewed gold, harness, and output steps."
+  deferred_phase_two_or_frontier_default: "Book defaults to Phase 2+ or frontier review before Phase 1 can implement a narrow exception."
+initial_phase_one_statuses:
+  - {book_id: Gen, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Exod, status: pending_phase_one_gate, route: legal_instruction_list_batch}
+  - {book_id: Lev, status: pending_phase_one_gate, route: legal_instruction_list_batch}
+  - {book_id: Num, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Deut, status: pending_phase_one_gate, route: legal_instruction_list_batch}
+  - {book_id: Josh, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Judg, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Ruth, status: pending_phase_one_gate, route: short_book_batch}
+  - {book_id: 1Sam, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: 2Sam, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: 1Kgs, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: 2Kgs, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: 1Chr, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: 2Chr, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Ezra, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Neh, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Esth, status: pending_phase_one_gate, route: narrative_list_genealogy_batch}
+  - {book_id: Job, status: deferred_phase_two_or_frontier_default, route: wisdom_poetry_frontier}
+  - {book_id: Ps, status: pending_phase_one_gate, route: poetry_lament_after_stanza_doxology_checks}
+  - {book_id: Prov, status: pending_phase_one_gate, route: wisdom_poetry_batch}
+  - {book_id: Eccl, status: pending_phase_one_gate, route: wisdom_poetry_batch}
+  - {book_id: Song, status: deferred_phase_two_or_frontier_default, route: wisdom_poetry_frontier}
+  - {book_id: Isa, status: pending_phase_one_gate, route: prophetic_oracle_batch}
+  - {book_id: Jer, status: pending_phase_one_gate, route: prophetic_oracle_batch}
+  - {book_id: Lam, status: pending_phase_one_gate, route: poetry_lament_after_stanza_doxology_checks}
+  - {book_id: Ezek, status: pending_phase_one_gate, route: prophetic_oracle_batch}
+  - {book_id: Dan, status: deferred_phase_two_or_frontier_default, route: apocalyptic_frontier}
+  - {book_id: Hos, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Joel, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Amos, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Obad, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Jonah, status: pending_phase_one_gate, route: short_book_batch}
+  - {book_id: Mic, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Nah, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Hab, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Zeph, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Hag, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Zech, status: pending_phase_one_gate, route: prophetic_oracle_batch}
+  - {book_id: Mal, status: pending_phase_one_gate, route: short_prophet_batch}
+  - {book_id: Matt, status: pending_phase_one_gate, route: gospel_frontier_when_speaker_or_fulfillment_pressure}
+  - {book_id: Mark, status: pending_phase_one_gate, route: gospel_frontier_when_speaker_or_fulfillment_pressure}
+  - {book_id: Luke, status: pending_phase_one_gate, route: gospel_frontier_when_speaker_or_fulfillment_pressure}
+  - {book_id: John, status: deferred_phase_two_or_frontier_default, route: gospel_wj_frontier}
+  - {book_id: Acts, status: pending_phase_one_gate, route: narrative_ecclesiology_frontier_when_needed}
+  - {book_id: Rom, status: deferred_phase_two_or_frontier_default, route: dense_epistle_frontier}
+  - {book_id: 1Cor, status: deferred_phase_two_or_frontier_default, route: dense_epistle_frontier}
+  - {book_id: 2Cor, status: deferred_phase_two_or_frontier_default, route: dense_epistle_frontier}
+  - {book_id: Gal, status: deferred_phase_two_or_frontier_default, route: dense_epistle_frontier}
+  - {book_id: Eph, status: implemented_existing_pilot, route: t401_existing_eph1_parent_overlay}
+  - {book_id: Phil, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Col, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 1Thess, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 2Thess, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 1Tim, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 2Tim, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Titus, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Phlm, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Heb, status: deferred_phase_two_or_frontier_default, route: dense_epistle_frontier}
+  - {book_id: Jas, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 1Pet, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 2Pet, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 1John, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 2John, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: 3John, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Jude, status: pending_phase_one_gate, route: short_epistle_batch}
+  - {book_id: Rev, status: deferred_phase_two_or_frontier_default, route: apocalyptic_frontier}
+future_phase_routes:
+  phase_2: child_span_and_textspan_refinement
+  phase_3: context_packets
+  phase_4: original_language_alignment
+  phase_5: hard_genre_algorithms
+  phase_6: whole_bible_refresh
+non_authorizations:
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - theology_authority_change
+validator: scripts/validate_parallel_chunking_prompt_pack.py

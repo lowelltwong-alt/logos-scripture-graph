@@ -567,6 +567,17 @@ next_roadmap_steps:
     title: Select next lane from decision forecast
     owner_decision_required: true
     output_change_authorized: false
+  - task_id: T410
+    title: Research-to-chunking Phase 1 prompt-pack conveyor
+    owner_decision_required: false
+    status: active_non_output_changing_control_plane
+    program: .ai/control/parallel_chunking_research_program.yaml
+    phase_completion_plan: .ai/control/chunking_phase_completion_plan.yaml
+    current_authorization: "T410 records the path from Cursor research to Codex review, frontier escalation, owner gates, reviewed gold, route isolation, exact additive parent overlays, and post-pilot review. It authorizes no output or authority itself."
+    recommended_default_if_owner_unavailable: continue_research_and_review_prep_only
+    output_change_authorized: false
+    reviewed_gold_promoted: false
+    implementation_authorized: false
 validators:
   - scripts/validate_chunking_human_decision_forecast.py
   - tests/test_chunking_human_decision_forecast.py

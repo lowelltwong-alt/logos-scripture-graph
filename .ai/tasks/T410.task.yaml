@@ -1,0 +1,111 @@
+id: T410
+phase: phase_4
+title: "Research-To-Chunking Phase One Roadmap"
+mode: build
+status: in_progress_non_output_changing_control_plane
+owner: codex
+branch: codex/t410-research-to-chunking-roadmap
+base_ref: e4a0757f9d382eaa6411bd0d3350059f5691cbac
+summary: "Turn the Cursor low-risk research runway into a governed research-to-chunking conveyor belt with prompt packs, transparency logs, frontier escalation, and deterministic Phase 1 completion tracking."
+scope:
+  allowed_paths:
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/bible_book_literature_prompt_hints.yaml
+    - .ai/control/cursor_to_codex_transparency_contract.yaml
+    - .ai/control/frontier_chunking_escalation_policy.yaml
+    - .ai/control/chunking_phase_completion_plan.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+    - .ai/control/chunking_human_decision_forecast.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T410.task.yaml
+    - .ai/handoffs/T410/
+    - .cursor/commands/verse-ledger-batch.md
+    - .cursor/commands/review-packet-batch.md
+    - .cursor/commands/next-book-or-stop.md
+    - .cursor/commands/frontier-escalation-packet.md
+    - .cursor/commands/codex-prompt-pack-review.md
+    - .cursor/rules/logos-scripture-parallel-verse-research.mdc
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+    - scripts/validate_parallel_chunking_prompt_pack.py
+    - scripts/validate_all.py
+    - tests/test_parallel_chunking_prompt_pack.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: chunking_phase_one_prompt_pack_control_plane
+  records_research_to_chunking_conveyor: true
+  records_phase_one_completion_definition: true
+  records_cursor_transparency_contract: true
+  records_frontier_escalation_policy: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+deliverables:
+  program: .ai/control/parallel_chunking_research_program.yaml
+  book_hints: .ai/control/bible_book_literature_prompt_hints.yaml
+  transparency_contract: .ai/control/cursor_to_codex_transparency_contract.yaml
+  frontier_policy: .ai/control/frontier_chunking_escalation_policy.yaml
+  phase_completion_plan: .ai/control/chunking_phase_completion_plan.yaml
+  roadmap_doc: docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+  cursor_commands:
+    - .cursor/commands/verse-ledger-batch.md
+    - .cursor/commands/review-packet-batch.md
+    - .cursor/commands/next-book-or-stop.md
+    - .cursor/commands/frontier-escalation-packet.md
+    - .cursor/commands/codex-prompt-pack-review.md
+  cursor_rule: .cursor/rules/logos-scripture-parallel-verse-research.mdc
+  validator: scripts/validate_parallel_chunking_prompt_pack.py
+  tests: tests/test_parallel_chunking_prompt_pack.py
+  handoff: .ai/handoffs/T410/handoff.md
+acceptance_criteria:
+  - "T410 defines a nine-step research-to-output ladder from Cursor research through post-pilot review."
+  - "Phase 1 completion is deterministic across all 66 canonical books as implemented, pending, or deferred."
+  - "Cursor prompt packs require audit logs, source-size manifests, confidence registers, claim traceability, and cursor_notes_to_codex.md."
+  - "Book/literature hints cover all 66 canonical books and are explicit routing hints, not memory or boundary authority."
+  - "Frontier escalation is mandatory for prophecy, apocalyptic, dense epistle argument, WJ/speaker boundaries, textual variants, doxologies, doctrinal pressure, and low confidence."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, backend/profile choices, source rows, canon changes, or theology authority are authorized by T410."
+validations:
+  - python scripts/validate_parallel_chunking_prompt_pack.py
+  - python -m pytest tests/test_parallel_chunking_prompt_pack.py -q
+  - python scripts/validate_task_scope.py --task-id T410
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T410/handoff.md
+created_at: "2026-06-30"
+updated_at: "2026-06-30"

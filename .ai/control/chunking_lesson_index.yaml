@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T405
+last_updated_by_task: T410
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1495,6 +1495,67 @@ lessons:
       - scripts/validate_governance_dependency_map_mirror.py
       - scripts/validate_repository_link_contract.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-034
+    title: Prompt-pack research must remain transparent until owner-gated chunking
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, theological_risk, owner_decision]
+    tags: [t410, research-to-chunking, phase-one-chunking, prompt-pack, cursor-transparency, frontier-escalation, completion-tracker, canonical-66, owner-gate, non-authorizing]
+    use_when:
+      - "Cursor or another workhorse agent is asked to run long Bible research, review-packet prep, or whole-book ledger passes before chunking."
+      - "Codex needs to review Cursor outputs and decide whether a later owner gate, frontier review, reviewed-gold promotion, route-isolation harness, or exact additive parent overlay task is appropriate."
+      - "A future agent is tempted to treat research, book hints, confidence labels, or source metadata as chunk boundary or theology authority."
+    preflight_stage: before_parallel_chunking_research_or_prompt_pack_execution
+    source_surfaces:
+      - .ai/control/parallel_chunking_research_program.yaml
+      - .ai/control/bible_book_literature_prompt_hints.yaml
+      - .ai/control/cursor_to_codex_transparency_contract.yaml
+      - .ai/control/frontier_chunking_escalation_policy.yaml
+      - .ai/control/chunking_phase_completion_plan.yaml
+      - docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+      - .cursor/commands/verse-ledger-batch.md
+      - .cursor/commands/review-packet-batch.md
+      - .cursor/commands/next-book-or-stop.md
+      - .cursor/commands/frontier-escalation-packet.md
+      - .cursor/commands/codex-prompt-pack-review.md
+      - .cursor/rules/logos-scripture-parallel-verse-research.mdc
+      - .ai/tasks/T410.task.yaml
+      - .ai/handoffs/T410/handoff.md
+      - scripts/validate_parallel_chunking_prompt_pack.py
+      - tests/test_parallel_chunking_prompt_pack.py
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T410, T404, T406, T402]
+    downstream_risk: "Long-running research can look like progress toward chunk output while silently skipping owner gates, reviewed-gold promotion, route-isolation proof, non-target identity checks, frontier review, or transparent evidence trails."
+    required_preflight_surfaces:
+      - .ai/control/parallel_chunking_research_program.yaml
+      - .ai/control/bible_book_literature_prompt_hints.yaml
+      - .ai/control/cursor_to_codex_transparency_contract.yaml
+      - .ai/control/frontier_chunking_escalation_policy.yaml
+      - .ai/control/chunking_phase_completion_plan.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/test_runtime_preflight.yaml
+    non_authorizations:
+      - cursor_target_selection
+      - exact_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - vector_index_build
+      - boundary_import
+      - backend_choice
+      - retrieval_profile_promotion
+      - source_or_manuscript_row_population
+      - theology_authority_change
+    validators:
+      - scripts/validate_parallel_chunking_prompt_pack.py
+      - tests/test_parallel_chunking_prompt_pack.py
+      - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -1830,6 +1891,18 @@ lesson_graph:
     relation: constrains
     to: LSN-033
   - from: LSN-033
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-034
+  - from: LSN-032
+    relation: discovers
+    to: LSN-034
+  - from: LSN-034
+    relation: constrains
+    to: LSN-031
+  - from: LSN-034
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
