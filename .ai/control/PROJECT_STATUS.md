@@ -1,7 +1,7 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-29
-**Updated by:** T404 Cursor low-risk chunking handoff and multi-pass plan (Codex)
+**Updated by:** T404 Cursor low-risk chunking handoff and multi-pass plan (Codex); PR #123 conflict reconciliation with T405 governance mirror
 **Active task:** -> **T404 Cursor low-risk chunking handoff** records that T402 low-risk research
 is complete at all-66-book candidate-triage depth, with 38 `ready_for_review_packet` candidates,
 but not complete at review-packet, reviewed-gold, child-span, output, route/evaluator,
@@ -13,6 +13,12 @@ owner-or-Codex supplied `ready_for_review_packet` candidates. It authorizes no C
 selection, reviewed gold, child spans, chunk output, route/evaluator behavior,
 graph/retrieval/vector truth, embeddings/indexes, boundary import, backend choice, profile
 promotion, source/manuscript rows, canon-scope change, or theology authority.
+PR #123 conflict reconciliation also preserves the already-merged T405 governance dependency-map
+mirror at `.ai/control/governance_dependency_map_mirror.yaml`, renumbered in the lesson index as
+`LSN-033` after T402/T404. T405 remains a non-authorizing child-repo mirror of upstream
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`; it cannot override
+upstream governance, weaken governance, change Scripture data, import boundary material, or create
+graph/retrieval/vector truth.
 **T308** connection discovery + **T309** chunking bake-off still open.
 
 > **T404 Cursor low-risk chunking handoff (2026-06-29):** Added

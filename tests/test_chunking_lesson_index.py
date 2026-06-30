@@ -33,7 +33,7 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     data = validate_lesson_index(LESSON_INDEX)
     by_id = {lesson["lesson_id"]: lesson for lesson in data["lessons"]}
 
-    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 31)}
+    assert set(by_id) >= {f"LSN-{number:03d}" for number in range(1, 34)}
     assert "source-metadata" in by_id["LSN-001"]["tags"]
     assert "lessons-learned" in by_id["LSN-002"]["tags"]
     assert "ai-toc" in by_id["LSN-003"]["tags"]
@@ -134,6 +134,25 @@ def test_chunking_lesson_index_has_required_tags_and_use_when_routing() -> None:
     assert "docs/roadmap/T401_EPH1_OUTPUT_PILOT.md" in by_id["LSN-030"]["source_surfaces"]
     assert "scripts/validate_t401_eph1_output_pilot.py" in by_id["LSN-030"]["source_surfaces"]
     assert "CD-076" in by_id["LSN-030"]["related_decision_ids"]
+    assert "low-complexity" in by_id["LSN-031"]["tags"]
+    assert "candidate-queue" in by_id["LSN-031"]["tags"]
+    assert "review-eligibility" in by_id["LSN-031"]["tags"]
+    assert ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml" in by_id["LSN-031"]["source_surfaces"]
+    assert "scripts/validate_t402_low_complexity_chunking_runway.py" in by_id["LSN-031"]["validators"]
+    assert "CD-077" in by_id["LSN-031"]["related_decision_ids"]
+    assert "cursor" in by_id["LSN-032"]["tags"]
+    assert "low-risk-delegation" in by_id["LSN-032"]["tags"]
+    assert "chunking-handoff" in by_id["LSN-032"]["tags"]
+    assert ".ai/control/cursor_low_risk_chunking_handoff.yaml" in by_id["LSN-032"]["source_surfaces"]
+    assert "scripts/validate_cursor_low_risk_chunking_handoff.py" in by_id["LSN-032"]["validators"]
+    assert "CD-078" in by_id["LSN-032"]["related_decision_ids"]
+    assert "governance-dependency-map" in by_id["LSN-033"]["tags"]
+    assert "child-repo-mirror" in by_id["LSN-033"]["tags"]
+    assert "upstream-governance" in by_id["LSN-033"]["tags"]
+    assert ".ai/control/governance_dependency_map_mirror.yaml" in by_id["LSN-033"]["source_surfaces"]
+    assert "config/governance/repository_link_contract.yaml" in by_id["LSN-033"]["source_surfaces"]
+    assert "scripts/validate_governance_dependency_map_mirror.py" in by_id["LSN-033"]["validators"]
+    assert "local_override_of_upstream_governance" in by_id["LSN-033"]["non_authorizations"]
     assert all(lesson["use_when"] for lesson in by_id.values())
 
 

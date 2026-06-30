@@ -20,6 +20,12 @@ The deterministic local contract is
 [`config/governance/repository_link_contract.yaml`](config/governance/repository_link_contract.yaml).
 This repo consumes upstream governance meaning; it does not silently redefine it.
 
+This repo also enforces a local mirror of the upstream governance dependency map at
+[`.ai/control/governance_dependency_map_mirror.yaml`](.ai/control/governance_dependency_map_mirror.yaml).
+The upstream governance dependency map remains the source of truth at
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`; this repo only mirrors
+and validates the child-repo obligations.
+
 ## Start here (table of contents)
 
 Every human or AI contributor must follow this read order:
@@ -46,6 +52,8 @@ python scripts/validate_all.py && python -m pytest -q
 Gates include `validate_control_plane.py` (master context lock + routing).
 They also include `validate_repository_link_contract.py`, which fails closed if
 the cross-repo governance contract, docs, or agent-hostile policy drift.
+They include `validate_governance_dependency_map_mirror.py`, which fails closed if
+the local mirror of the upstream governance dependency map drifts.
 
 If pytest hangs locally, use:
 

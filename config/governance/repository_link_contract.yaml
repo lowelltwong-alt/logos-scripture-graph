@@ -17,6 +17,18 @@ upstream_repository:
   role: governance_architecture_authority
   plane: governance_plane
 
+upstream_dependency_map:
+  repo: logos-governance-architecture
+  path: governance/GOVERNANCE_DEPENDENCY_MAP.yaml
+  artifact_id: GD-014
+  rule: governance_map_update_gate
+  source_of_truth: true
+
+local_governance_dependency_map_mirror:
+  path: .ai/control/governance_dependency_map_mirror.yaml
+  validator: scripts/validate_governance_dependency_map_mirror.py
+  may_override_upstream_dependency_map: false
+
 link:
   type: governance_contract
   coupling: explicit_contract_validated_release
@@ -45,4 +57,5 @@ deterministic_enforcement:
     - docs/architecture/ARCHITECTURE.md
     - .ai/control/PROJECT_CONTEXT.md
     - .ai/control/DATA_MAP.md
+    - .ai/control/governance_dependency_map_mirror.yaml
   agent_hostile_policy: config/agents/agent_hostile_policy.yaml

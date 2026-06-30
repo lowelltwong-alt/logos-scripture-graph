@@ -36,7 +36,8 @@ Read these files before making changes:
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
     T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
-    T404 Cursor low-risk chunking handoff and T406 future multi-pass plan,
+    T404 Cursor low-risk chunking handoff, T405 governance dependency-map mirror,
+    and T406 future multi-pass plan,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -104,6 +105,12 @@ repo. The link type is `governance_contract`, recorded in
 `config/governance/repository_link_contract.yaml`.
 The governance repo's `governance/LOGOS_REPO_REGISTRY.yaml` is the source of
 truth for cross-repo registry and repository relationship contracts.
+This repo also keeps a non-authorizing governance dependency-map mirror at
+`.ai/control/governance_dependency_map_mirror.yaml`, validated by
+`scripts/validate_governance_dependency_map_mirror.py`. The upstream source of truth remains
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`; the local mirror cannot
+override upstream governance, weaken governance, change Scripture data, import boundary material,
+or create graph/retrieval/vector truth.
 
 The hierarchy is:
 
@@ -799,6 +806,7 @@ Individual gates:
 python scripts/validate_repo.py
 python scripts/validate_control_plane.py   # master context lock + front-door routing
 python scripts/validate_repository_link_contract.py
+python scripts/validate_governance_dependency_map_mirror.py
 python scripts/agent/validate_handoffs.py
 python scripts/validate_task_scope.py
 python scripts/validate_chunking_theological_decision_register.py
