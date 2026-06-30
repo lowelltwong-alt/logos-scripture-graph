@@ -6,7 +6,7 @@ status: setup_pending_claude_final_audit_no_cursor_run
 owner: codex
 branch: codex/t411-cursor-readiness-gate
 base_ref: 3c2770f081c9179a7c848aa31d49931f7f1ede8c
-summary: "Prepare the first governed T411 Cursor short-book research/review-prep batch, gated by Claude's final T410 audit and by emitted-artifact validation before Cursor may run."
+summary: "Prepare the first governed T411 Cursor short-book research/review-prep batch, gated by Claude's final T410 audit, emitted-artifact validation, and the T412 Rust-first observation substrate before Cursor may run."
 cursor_execution_allowed: false
 cursor_run_status: not_started
 claude_final_audit_gate:
@@ -14,7 +14,17 @@ claude_final_audit_gate:
   status: passed_no_p0_p1_forward_p2s_only
   p0_p1_rule: "If Claude reports any P0/P1 against T410/T410-hardening, stop T411 and patch T410 first."
   p2_rule: "Fold relevant P2 findings into T411 when they affect artifact verification, candidate prep, or Cursor safety."
-  cursor_start_rule: "Cursor must not run T411 until this task file, handoff, owner-supplied candidate docket, emitted-artifact validator, clean task branch, and parallel safety preflight are present and passing."
+  cursor_start_rule: "Cursor must not run T411 until this task file, handoff, owner-supplied candidate docket, emitted-artifact validator, T412 Rust observation substrate validation, clean task branch, and parallel safety preflight are present and passing."
+rust_observation_substrate_gate:
+  task_id: T412
+  status: required_before_cursor_run
+  control: .ai/control/rust_first_observation_substrate.yaml
+  validator: scripts/validate_rust_observation_substrate.py
+  cursor_pack_builder: scripts/build_cursor_observation_pack.py
+  default_cursor_input: compressed_observation_ledgers
+  cursor_may_start_before_substrate_validates: false
+  cursor_raw_whole_bible_reread_allowed: false
+  cursor_raw_exception_requires_exact_span_or_escalation_packet: true
 scope:
   allowed_paths:
     - .ai/tasks/T411.task.yaml
@@ -114,6 +124,8 @@ required_artifacts_after_cursor_run:
     - .ai/handoffs/T411/handoff.md
 cursor_start_preconditions:
   - "Claude final audit has no P0/P1 blocking T410."
+  - "T412 Rust-first observation substrate exists and validates with python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current."
+  - "python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check passes."
   - "T411 emitted-artifact validator exists and passes in setup mode."
   - "The exact three-candidate docket is supplied by owner/Codex, not Cursor."
   - "Current branch equals codex/t411-cursor-readiness-gate."

@@ -38,8 +38,9 @@ Read these files before making changes:
     T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
     T404 Cursor low-risk chunking handoff, T405 governance dependency-map mirror,
     T406 future multi-pass plan, T410 research-to-chunking Phase 1 prompt-pack conveyor at
-    `.ai/control/parallel_chunking_research_program.yaml`, and T411 Cursor readiness gate at
-    `.ai/tasks/T411.task.yaml`,
+    `.ai/control/parallel_chunking_research_program.yaml`, T411 Cursor readiness gate at
+    `.ai/tasks/T411.task.yaml`, and T412 Rust-first observation substrate at
+    `.ai/control/rust_first_observation_substrate.yaml`,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,

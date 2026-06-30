@@ -1,0 +1,119 @@
+id: T412
+phase: phase_4
+title: "Rust-First Whole-Bible Observation Substrate"
+mode: data_pipeline_control_plane_and_tooling
+status: complete_pending_merge
+owner: codex
+branch: codex/t412-rust-observation-substrate
+base_ref: origin/main
+summary: "Insert a deterministic Rust observation layer before Cursor so whole-Bible raw USFM observation becomes Rust scan -> Python validate -> Cursor compressed packet -> Codex review -> Claude hard-case audit -> owner gate -> output task."
+scope:
+  allowed_paths:
+    - .gitignore
+    - .ai/tasks/T412.task.yaml
+    - .ai/tasks/T411.task.yaml
+    - .ai/handoffs/T412/
+    - .ai/control/rust_first_observation_substrate.yaml
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+    - docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
+    - docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md
+    - tools/
+    - tools/usfm_observation_scanner/
+    - scripts/validate_rust_observation_substrate.py
+    - scripts/build_cursor_observation_pack.py
+    - scripts/validate_parallel_chunking_prompt_pack.py
+    - scripts/validate_t411_cursor_batch_artifacts.py
+    - scripts/validate_all.py
+    - tests/test_rust_observation_substrate.py
+    - tests/test_parallel_chunking_prompt_pack.py
+    - tests/test_t411_cursor_batch_artifacts.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: rust_first_non_authorizing_observation_substrate
+  records_rust_first_observation_layer: true
+  records_python_validation_contract: true
+  records_cursor_ledger_first_gate: true
+  records_claude_architecture_audit_prompt: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+deliverables:
+  control: .ai/control/rust_first_observation_substrate.yaml
+  rust_scanner: tools/usfm_observation_scanner/
+  contract_validator: scripts/validate_rust_observation_substrate.py
+  cursor_pack_builder: scripts/build_cursor_observation_pack.py
+  roadmap_doc: docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md
+  tests:
+    - tests/test_rust_observation_substrate.py
+  handoff: .ai/handoffs/T412/handoff.md
+acceptance_criteria:
+  - "T412 creates an isolated Rust CLI contract for deterministic no-text observation ledgers under build/observation_substrate/current."
+  - "Python validators enforce generated-artifact shape, canonical 66 coverage, no-text rows, and non-authorizing authority fields."
+  - "validate_all.py runs only the fast T412 contract check and does not run the full Rust Bible scan."
+  - "T411 Cursor execution remains frozen until the Rust substrate validates and Cursor consumes compressed ledger packs by default."
+  - "No embeddings, vector indexes, graph edges, boundary imports, reviewed gold, chunk output, child spans, route/evaluator changes, source rows, canon changes, or theology authority are authorized."
+runtime_proof:
+  rust_toolchain: stable-x86_64-pc-windows-gnu
+  cargo_test_passed: true
+  rust_scan_passed: true
+  generated_validation_passed: true
+  cursor_pack_check_passed: true
+  generated_counts:
+    source_files: 83
+    book_rows: 83
+    canonical_books: 66
+    verses: 38058
+    chapter_spans: 1402
+    strong_occurrence_rows: 278168
+  generated_outputs_committed: false
+  strongs_as_risk_signal: false
+validations:
+  - cargo test --manifest-path tools/usfm_observation_scanner/Cargo.toml
+  - cargo run --manifest-path tools/usfm_observation_scanner/Cargo.toml -- scan --source data/raw/bible/eng-web/usfm/eng-web_usfm.zip --canon config/canon/canonical_66_books.yaml --marker-coverage config/ingest/usfm_marker_coverage.yaml --book-genres config/chunking/book_genres.yaml --out build/observation_substrate/current --no-text
+  - python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current
+  - python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check
+  - python -m pytest tests/test_rust_observation_substrate.py -q
+  - python scripts/validate_task_scope.py --task-id T412
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T412/handoff.md
+created_at: "2026-06-30"
+updated_at: "2026-06-30"

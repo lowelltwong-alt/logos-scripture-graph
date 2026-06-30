@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TASK_ID = "T411"
 TASK_FILE = ROOT / ".ai" / "tasks" / "T411.task.yaml"
 CONTRACT = ROOT / ".ai" / "control" / "cursor_to_codex_transparency_contract.yaml"
+RUST_SUBSTRATE = ROOT / ".ai" / "control" / "rust_first_observation_substrate.yaml"
 QUEUE = ROOT / ".ai" / "control" / "whole_bible_low_complexity_chunking_candidate_queue.yaml"
 AGENT_WORK = ROOT / ".ai" / "context" / "agent_work" / "T411"
 HANDOFF_DIR = ROOT / ".ai" / "handoffs" / "T411"
@@ -198,6 +199,15 @@ def validate_task_setup(
     gate = task.get("claude_final_audit_gate")
     if not isinstance(gate, dict) or gate.get("status") != "passed_no_p0_p1_forward_p2s_only":
         raise T411CursorBatchArtifactError(f"{_rel(task_file)}: Claude gate must record no P0/P1 and forward P2s only")
+    substrate_gate = task.get("rust_observation_substrate_gate")
+    if not isinstance(substrate_gate, dict):
+        raise T411CursorBatchArtifactError(f"{_rel(task_file)}: rust_observation_substrate_gate is required")
+    if substrate_gate.get("task_id") != "T412" or substrate_gate.get("cursor_may_start_before_substrate_validates") is not False:
+        raise T411CursorBatchArtifactError(f"{_rel(task_file)}: T412 substrate must freeze Cursor until validation passes")
+    if substrate_gate.get("default_cursor_input") != "compressed_observation_ledgers":
+        raise T411CursorBatchArtifactError(f"{_rel(task_file)}: default_cursor_input must be compressed_observation_ledgers")
+    if not RUST_SUBSTRATE.is_file():
+        raise T411CursorBatchArtifactError(f"{_rel(RUST_SUBSTRATE)}: T412 substrate control file is required")
 
     docket = task.get("candidate_docket")
     if not isinstance(docket, dict) or docket.get("cursor_may_choose_candidates") is not False:

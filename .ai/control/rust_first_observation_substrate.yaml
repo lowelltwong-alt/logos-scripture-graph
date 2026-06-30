@@ -1,0 +1,182 @@
+---
+object_type: rust_first_observation_substrate
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-30 during T412 after the owner directed that whole-Bible raw observation should be deterministic Rust-first rather than open-ended Cursor raw rereads."
+reason_for_inclusion: "Define the non-authorizing Rust observation substrate that Cursor must consume before long-running review-packet work."
+---
+schema_version: rust_first_observation_substrate.v1
+substrate_id: t412_rust_first_observation_substrate
+task_id: T412
+status: validated_non_authorizing_substrate
+owner: Lowell Wong
+authority:
+  records_rust_first_observation_layer: true
+  records_cursor_ledger_first_gate: true
+  records_python_validation_contract: true
+  records_claude_architecture_audit_prompt: true
+  authorizes_cursor_raw_whole_bible_reread: false
+  authorizes_cursor_target_selection: false
+  authorizes_exact_target_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_backend_choice: false
+  authorizes_retrieval_profile_promotion: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_source_or_manuscript_row_population: false
+  authorizes_theology_authority_change: false
+pipeline:
+  order:
+    - rust_scan
+    - python_validate
+    - cursor_compressed_packet
+    - codex_review
+    - claude_hard_case_audit
+    - owner_gate
+    - output_task
+  rust_scan:
+    tool_path: tools/usfm_observation_scanner/
+    command: "cargo run --manifest-path tools/usfm_observation_scanner/Cargo.toml -- scan --source data/raw/bible/eng-web/usfm/eng-web_usfm.zip --canon config/canon/canonical_66_books.yaml --marker-coverage config/ingest/usfm_marker_coverage.yaml --book-genres config/chunking/book_genres.yaml --out build/observation_substrate/current --no-text"
+    output_root: build/observation_substrate/current
+    large_outputs_committed: false
+    no_text_required: true
+  python_validate:
+    contract_validator: scripts/validate_rust_observation_substrate.py
+    cursor_pack_builder: scripts/build_cursor_observation_pack.py
+    validate_all_mode: contract_only_no_full_scan
+  cursor_gate:
+    t411_frozen_until_substrate_validates: true
+    cursor_default_input: build/observation_substrate/current
+    cursor_raw_usfm_read_allowed_only_for:
+      - exact_owner_or_codex_supplied_span_exception
+      - escalation_packet_exception
+    cursor_raw_usfm_exception_requires:
+      - bytes_chars_lines_hashes_logged
+      - exact_span_or_exception_reason_logged
+      - non_authorizing_true
+      - codex_review_before_owner_gate
+generated_artifacts:
+  root: build/observation_substrate/current
+  git_policy: ignored_generated_regenerable
+  required_files:
+    - scan_manifest.json
+    - book_observations.jsonl
+    - verse_observations.jsonl
+    - span_observation_features.jsonl
+    - risk_signal_index.jsonl
+    - strong_occurrence_index.jsonl
+    - marker_anomalies.jsonl
+  no_text_enforcement_assumption: "No-text enforcement is key-name based plus scanner-contract based: rows must declare no_text true and known Bible-text-bearing keys are forbidden, while free-text audit/anomaly reason fields are not length-scanned."
+  risk_signal_policy: "Strong's IDs and has_strong_h/has_strong_g remain evidence feature flags and strong_occurrence_index rows only; Strong's presence alone must not create risk_signal_index rows."
+runtime_proof:
+  proved_on: "2026-06-30"
+  rust_toolchain: stable-x86_64-pc-windows-gnu
+  cargo_test_passed: true
+  rust_scan_passed: true
+  generated_validation_passed: true
+  cursor_pack_check_passed: true
+  generated_counts:
+    source_files: 83
+    book_rows: 83
+    canonical_books: 66
+    verses: 38058
+    chapter_spans: 1402
+    strong_occurrence_rows: 278168
+  generated_outputs_committed: false
+  strongs_as_risk_signal: false
+required_record_fields:
+  common:
+    - type
+    - schema_version
+    - non_authorizing
+    - no_text
+  scan_manifest:
+    - scanner
+    - scanner_version
+    - source_path
+    - source_sha256_short
+    - canonical_book_count
+    - source_file_count
+    - output_files
+  book_observation:
+    - book_id
+    - usfm_code
+    - source_entry
+    - source_class
+    - sha256_short
+    - bytes_read
+    - char_count
+    - line_count
+    - chapter_count
+    - verse_count
+    - marker_counts
+    - strong_h_count
+    - strong_g_count
+    - feature_flags
+  verse_observation:
+    - book_id
+    - osis_ref
+    - chapter
+    - verse
+    - source_line_start
+    - source_line_end
+    - marker_counts
+    - strong_ids
+    - feature_flags
+  span_observation_feature:
+    - span_id
+    - book_id
+    - osis_start
+    - osis_end
+    - span_kind
+    - verse_count
+    - marker_counts
+    - risk_flags
+non_authorizations:
+  - cursor_raw_whole_bible_reread
+  - cursor_target_selection
+  - exact_target_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - backend_choice
+  - retrieval_profile_promotion
+  - preferred_reading_or_source_tradition
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - theology_authority_change
+validation:
+  focused_gates:
+    - cargo test --manifest-path tools/usfm_observation_scanner/Cargo.toml
+    - cargo run --manifest-path tools/usfm_observation_scanner/Cargo.toml -- scan --source data/raw/bible/eng-web/usfm/eng-web_usfm.zip --canon config/canon/canonical_66_books.yaml --marker-coverage config/ingest/usfm_marker_coverage.yaml --book-genres config/chunking/book_genres.yaml --out build/observation_substrate/current --no-text
+    - python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current
+    - python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check
+    - python -m pytest tests/test_rust_observation_substrate.py -q
+    - python scripts/validate_task_scope.py --task-id T412
+    - python scripts/agent/validate_handoffs.py
+  merge_gates:
+    - python scripts/validate_all.py
+    - python -m pytest -q
+    - python scripts/generate_data_map.py --check
+    - git diff --check
+  validate_all_policy: "validate_all.py runs the T412 contract validator only; it must not run the full Rust scan unless scanner code, raw source, marker coverage, or observation schema changed and a focused task requests it."
+claude_audit_prompt_path: docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md
+upstream_governance_note: "The generic orchestrator pattern may be proposed later to logos-governance-architecture, but this task keeps raw-source facts, USFM marker handling, and generated Bible observation ledgers local to logos-scripture-graph."
+validator: scripts/validate_rust_observation_substrate.py

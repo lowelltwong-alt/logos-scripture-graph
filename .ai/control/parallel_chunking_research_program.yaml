@@ -36,7 +36,8 @@ authority:
   authorizes_source_or_manuscript_row_population: false
   authorizes_theology_authority_change: false
 program_model:
-  cursor_role: "Long-running workhorse for read-only research, source observation, ledger creation, review-packet prep notes, and escalation packets."
+  rust_role: "Deterministic whole-Bible raw USFM observation substrate producer before Cursor performs long-running review-prep work."
+  cursor_role: "Long-running workhorse for ledger-first read-only research, review-packet prep notes, and escalation packets; Cursor does not reread the whole raw Bible unless an exact span exception is logged."
   codex_role: "Governance reviewer, prompt-pack enricher, validator/test author, exact gate implementer after owner approval, and next-pack author."
   frontier_role: "Claude Opus/frontier reviewer for hard theological, literary, and architecture risk before any hard case can move toward gold or output."
   owner_role: "Approves exact target, exact parent span, reviewed-gold promotion, and output-changing implementation scope."
@@ -51,6 +52,22 @@ program_model:
     - explorer_subagents_are_read_only_and_bounded_to_specific_questions
     - worker_subagents_require_disjoint_write_sets_task_ids_branches_and_worktrees
     - no_subagent_can_choose_targets_promote_gold_create_output_or_authorize_theology
+pre_cursor_observation_substrate:
+  task_id: T412
+  status: validated_required_before_t411_cursor_run
+  producer: Rust
+  validator: scripts/validate_rust_observation_substrate.py
+  cursor_pack_builder: scripts/build_cursor_observation_pack.py
+  output_root: build/observation_substrate/current
+  default_cursor_input: compressed_observation_ledgers
+  cursor_raw_whole_bible_reread_allowed: false
+  generated_validation_passed: true
+  cursor_pack_check_passed: true
+  cursor_raw_exception_allowed_only_for:
+    - exact_owner_or_codex_supplied_span_exception
+    - escalation_packet_exception
+  validate_all_mode: contract_only_no_full_scan
+  non_authorizing: true
 phase_ladder:
   - step_id: research
     order: 1
@@ -107,12 +124,24 @@ phase_one_task_sequence:
   - task_id: T410
     title: "Prompt-pack controls, transparency contract, frontier escalation, validators, and roadmap."
     status: merged_hardened_control_plane
-  - task_id: T411
-    title: "Cursor short-book research and review-packet prep batch."
-    status: setup_pending_cursor_run_after_claude_gate
+  - task_id: T412
+    title: "Rust-first whole-Bible observation substrate."
+    status: validated_required_before_t411_cursor_run
     starts_after:
       - T410_committed_and_merged_to_main
       - t410_parallel_execution_safety_validates
+    output_root: build/observation_substrate/current
+    validator: scripts/validate_rust_observation_substrate.py
+    cursor_pack_builder: scripts/build_cursor_observation_pack.py
+    generated_validation_passed: true
+    cursor_pack_check_passed: true
+  - task_id: T411
+    title: "Cursor short-book research and review-packet prep batch."
+    status: frozen_pending_clean_t411_branch_and_owner_launch
+    starts_after:
+      - T410_committed_and_merged_to_main
+      - t410_parallel_execution_safety_validates
+      - t412_rust_observation_substrate_validated
       - clean_branch_or_worktree_claimed_for_T411
       - t411_emitted_artifact_validator_exists
       - owner_or_codex_supplied_exact_candidate_batch
@@ -120,16 +149,16 @@ phase_one_task_sequence:
       - T402-LC-063
       - T402-LC-057
       - T402-LC-032
-  - task_id: T412
+  - task_id: T413
     title: "Codex review of T411 and owner-selection docket for first exact batch."
     status: planned_future
-  - task_id: T413
+  - task_id: T414
     title: "Owner-approved parent-only reviewed-gold promotion for batch 1."
     status: planned_future
-  - task_id: T414
+  - task_id: T415
     title: "Route-isolated additive overlay implementation for batch 1."
     status: planned_future
-  - task_id: T415_T42x
+  - task_id: T416_T42x
     title: "Repeat by genre and risk until all 66 books are implemented or explicitly deferred."
     status: planned_future
   - task_id: phase_one_closure

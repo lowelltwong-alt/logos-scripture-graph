@@ -1770,6 +1770,7 @@ phases:
         t411_start_preconditions:
           - T410_committed_and_merged_to_main
           - t410_parallel_execution_safety_validates
+          - t412_rust_observation_substrate_validated
           - clean_branch_or_worktree_claimed_for_T411
         canonical_books_accounted_for: 66
         cursor_may_select_target: false
@@ -1794,9 +1795,56 @@ phases:
         canon_scope_change_authorized: false
         source_or_manuscript_rows_authorized: false
         theology_authority_change_authorized: false
+      - id: T412
+        title: Rust-First Whole-Bible Observation Substrate
+        status: complete_pending_merge
+        lane: whole_bible_research_to_chunking_phase_one
+        control: .ai/control/rust_first_observation_substrate.yaml
+        roadmap_doc: docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md
+        task_scope: .ai/tasks/T412.task.yaml
+        required_handoff: .ai/handoffs/T412/handoff.md
+        rust_scanner: tools/usfm_observation_scanner/
+        validator: scripts/validate_rust_observation_substrate.py
+        cursor_pack_builder: scripts/build_cursor_observation_pack.py
+        generated_output_root: build/observation_substrate/current
+        validate_all_mode: contract_only_no_full_scan
+        substrate_generated_and_validated: true
+        cursor_pack_check_passed: true
+        generated_counts:
+          source_files: 83
+          book_rows: 83
+          canonical_books: 66
+          verses: 38058
+          chapter_spans: 1402
+          strong_occurrence_rows: 278168
+        t411_frozen_until_substrate_validates: false
+        t411_still_requires_clean_task_branch_preflight: true
+        cursor_default_input: compressed_observation_ledgers
+        cursor_raw_whole_bible_reread_authorized: false
+        cursor_may_select_target: false
+        exact_target_selected: false
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        vector_index_build_authorized: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        backend_choice_authorized: false
+        retrieval_profile_promotion_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
       - id: T411
         title: Cursor Readiness With Claude Final-Audit Gate
-        status: setup_pending_cursor_run
+        status: setup_frozen_pending_clean_task_branch_and_owner_launch
         lane: whole_bible_research_to_chunking_phase_one
         roadmap_doc: docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
         task_scope: .ai/tasks/T411.task.yaml
@@ -1806,7 +1854,7 @@ phases:
         tests:
           - tests/test_t411_cursor_batch_artifacts.py
           - tests/test_parallel_execution_safety.py
-        claude_gate: "T410 final audit reported no P0/P1 and forward P2s only; Cursor still must not run until clean T411 branch/worktree preflight passes."
+        claude_gate: "T410 final audit reported no P0/P1 and forward P2s only; T412 Rust substrate validation and Cursor pack check have passed, but Cursor still must not run until a clean T411 branch/worktree preflight and owner launch pass."
         first_batch_candidates:
           - T402-LC-063: 2John.1.1-2John.1.3
           - T402-LC-057: Phlm.1.1-Phlm.1.7

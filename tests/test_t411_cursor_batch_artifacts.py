@@ -25,6 +25,11 @@ def _minimal_task(tmp_path: Path) -> Path:
         "cursor_execution_allowed": False,
         "cursor_run_status": "not_started",
         "claude_final_audit_gate": {"status": "passed_no_p0_p1_forward_p2s_only"},
+        "rust_observation_substrate_gate": {
+            "task_id": "T412",
+            "cursor_may_start_before_substrate_validates": False,
+            "default_cursor_input": "compressed_observation_ledgers",
+        },
         "cursor_allowed_write_roots": [".ai/context/agent_work/T411/", ".ai/handoffs/T411/"],
         "authorization": {
             "cursor_may_select_target": False,

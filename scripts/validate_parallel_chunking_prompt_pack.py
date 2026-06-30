@@ -15,6 +15,7 @@ BOOK_HINTS = ROOT / ".ai" / "control" / "bible_book_literature_prompt_hints.yaml
 TRANSPARENCY = ROOT / ".ai" / "control" / "cursor_to_codex_transparency_contract.yaml"
 FRONTIER = ROOT / ".ai" / "control" / "frontier_chunking_escalation_policy.yaml"
 COMPLETION = ROOT / ".ai" / "control" / "chunking_phase_completion_plan.yaml"
+RUST_SUBSTRATE = ROOT / ".ai" / "control" / "rust_first_observation_substrate.yaml"
 CANON = ROOT / "config" / "canon" / "canonical_66_books.yaml"
 ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md"
 TASK = ROOT / ".ai" / "tasks" / "T410.task.yaml"
@@ -135,6 +136,7 @@ REQUIRED_SHARED_CONTROL_FILES = {
 REQUIRED_T411_STARTS_AFTER = {
     "T410_committed_and_merged_to_main",
     "t410_parallel_execution_safety_validates",
+    "t412_rust_observation_substrate_validated",
     "clean_branch_or_worktree_claimed_for_T411",
 }
 
@@ -169,7 +171,7 @@ TEXT_REQUIREMENTS = {
     ],
     HANDOFF: ["task_id: T410", "stage:", "Next agent instruction"],
     PROJECT_STATUS: ["T410", "research-to-chunking", "Phase 1"],
-    CURRENT_FOCUS: ["current_task: T411", "parallel_chunking_research_program"],
+    CURRENT_FOCUS: ["current_task: T412", "parallel_chunking_research_program"],
     READINESS: ["parallel_t410_research_to_chunking_phase_one", "chunking_phase_completion_plan.yaml"],
     LOW_RISK_PLAN: ["T410", "research-to-chunking", "Phase 1"],
     HUMAN_FORECAST: ["T410", "chunking_phase_completion_plan.yaml"],
@@ -177,7 +179,7 @@ TEXT_REQUIREMENTS = {
     MAIN_TOC: ["t410", "research-to-chunking", "parallel_chunking_research_program.yaml"],
     ROADMAP_TOC: ["T410", "Research-to-chunking", "chunking_phase_completion_plan.yaml"],
     ROADMAP_STATE: ["id: T410", "Research-To-Chunking Phase One Roadmap"],
-    VALIDATE_ALL: ["validate_parallel_chunking_prompt_pack.py", "validate_parallel_execution_safety.py"],
+    VALIDATE_ALL: ["validate_parallel_chunking_prompt_pack.py", "validate_parallel_execution_safety.py", "validate_rust_observation_substrate.py"],
     LIVE_SAFETY: ["Validate live branch/worktree safety", "allow-current-task-dirty", "require-task-branch"],
     CURSOR_RULE: ["T410", "Cursor is a research and prep workhorse only", "one task id, one branch, and one worktree"],
 }
@@ -265,6 +267,13 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
         raise PromptPackError(f"{_rel(path)}: phase_ladder must define the T410 nine-step ladder in order")
     if [item.get("order") for item in ladder if isinstance(item, dict)] != list(range(1, 10)):
         raise PromptPackError(f"{_rel(path)}: phase_ladder order values must be 1 through 9")
+    substrate = data.get("pre_cursor_observation_substrate")
+    if not isinstance(substrate, dict):
+        raise PromptPackError(f"{_rel(path)}: pre_cursor_observation_substrate must be recorded")
+    if substrate.get("task_id") != "T412" or substrate.get("cursor_raw_whole_bible_reread_allowed") is not False:
+        raise PromptPackError(f"{_rel(path)}: T412 Rust substrate must gate Cursor raw whole-Bible rereads")
+    if substrate.get("default_cursor_input") != "compressed_observation_ledgers":
+        raise PromptPackError(f"{_rel(path)}: Cursor default input must be compressed observation ledgers")
     phase_one = data.get("phase_one_definition")
     if not isinstance(phase_one, dict) or "66" not in phase_one.get("completion_rule", ""):
         raise PromptPackError(f"{_rel(path)}: phase_one_definition.completion_rule must mention all 66 books")
@@ -325,6 +334,9 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
     t411 = next((item for item in sequence if isinstance(item, dict) and item.get("task_id") == "T411"), None)
     if not isinstance(t411, dict):
         raise PromptPackError(f"{_rel(path)}: phase_one_task_sequence must include T411")
+    t412 = next((item for item in sequence if isinstance(item, dict) and item.get("task_id") == "T412"), None)
+    if not isinstance(t412, dict) or t412.get("title") != "Rust-first whole-Bible observation substrate.":
+        raise PromptPackError(f"{_rel(path)}: phase_one_task_sequence must include the T412 Rust substrate before T411")
     starts_after = set(_string_list(t411.get("starts_after"), f"{_rel(path)}: T411.starts_after"))
     missing_starts_after = sorted(REQUIRED_T411_STARTS_AFTER - starts_after)
     if missing_starts_after:
@@ -535,6 +547,8 @@ def validate_text_surfaces() -> None:
 
 def validate_parallel_chunking_prompt_pack() -> dict[str, Any]:
     program = validate_program()
+    if not RUST_SUBSTRATE.is_file():
+        raise PromptPackError(f"{_rel(RUST_SUBSTRATE)}: missing T412 Rust substrate control file")
     validate_transparency()
     validate_frontier_policy()
     validate_book_hints()

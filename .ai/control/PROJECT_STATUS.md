@@ -1,16 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-30
-**Updated by:** T411 Cursor readiness with Claude final-audit gate (Codex)
-**Active task:** -> **T411 Cursor Readiness With Claude Final-Audit Gate** is in setup, not
-execution. Claude's final T410 audit on `main @ 3c2770f` reported no P0/P1 blockers and only
-forward P2s. T411 prepares the first short-book Cursor research/review-packet batch, adds
-`scripts/validate_t411_cursor_batch_artifacts.py`, records the exact owner/Codex-supplied
-candidates `T402-LC-063` (`2John.1.1-2John.1.3`), `T402-LC-057` (`Phlm.1.1-Phlm.1.7`), and
-`T402-LC-032` (`Jonah.1.1-Jonah.1.3`), and keeps Cursor stopped until a clean T411 branch/worktree
-passes `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch`.
-Cursor has not run. Its future T411 writes are limited to `.ai/context/agent_work/T411/` and
-`.ai/handoffs/T411/`.
+**Updated by:** T412 Rust-first whole-Bible observation substrate (Codex)
+**Active task:** -> **T412 Rust-First Whole-Bible Observation Substrate** is complete pending
+merge. T412 inserts a deterministic Rust scanner before Cursor so the path becomes Rust scan ->
+Python validate -> Cursor compressed packet -> Codex review -> Claude hard-case audit -> owner
+gate -> output task. The scanner now compiles and has produced ignored no-text ledgers for 83
+source files, 66 canonical books, 38,058 verses, and 1,402 chapter spans; generated-mode
+validation and the T411 compressed ledger pack check pass. T411 remains prepared but frozen:
+Cursor has not run and must not run until a clean T411 branch/worktree preflight and owner launch
+pass. T412 adds
+`.ai/control/rust_first_observation_substrate.yaml`, `tools/usfm_observation_scanner/`,
+`scripts/validate_rust_observation_substrate.py`, `scripts/build_cursor_observation_pack.py`, and
+`docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md`. T412 authorizes no Cursor whole-Bible raw
+reread, target selection, reviewed gold, child spans, chunk output, route/evaluator behavior,
+graph/retrieval/vector truth, embeddings/indexes, boundary import, backend choice, profile
+promotion, source/manuscript rows, canon-scope change, preferred readings/source traditions, or
+theology authority.
 
 The completed **T410 Research-To-Chunking Phase One Roadmap** remains the governing
 research-to-chunking conveyor. The
@@ -27,7 +33,8 @@ post-pilot review. T410 adds
 `.ai/control/frontier_chunking_escalation_policy.yaml`,
 `.ai/control/chunking_phase_completion_plan.yaml`, Cursor prompt-pack commands/rules, and
 `scripts/validate_parallel_chunking_prompt_pack.py` plus
-`scripts/validate_parallel_execution_safety.py`. T411 adds
+`scripts/validate_parallel_execution_safety.py`. T412 adds the Rust-first no-text observation
+substrate required before T411 Cursor execution. T411 adds
 `docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md`,
 `.ai/tasks/T411.task.yaml`, `.ai/handoffs/T411/handoff.md`, the T411 candidate docket and
 per-candidate prompt notes, and the emitted-artifact validator. T410 defines Phase 1 as one governed
