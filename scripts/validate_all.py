@@ -37,9 +37,7 @@ QA_REQUIRED = [
 ]
 
 
-def task_scope_gates() -> list[tuple[str, list[str]]]:
-    """Use the changed task file when a PR clearly scopes to one task."""
-
+def changed_paths() -> list[str]:
     paths: list[str] = []
     for args in (
         ["git", "diff", "--name-only", "origin/main...HEAD"],
@@ -52,14 +50,24 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
         except (subprocess.CalledProcessError, FileNotFoundError):
             continue
         paths.extend(line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip())
+    return paths
 
-    task_ids = sorted(
+
+def changed_task_ids(paths: list[str]) -> list[str]:
+    return sorted(
         {
             Path(path).name.removesuffix(".task.yaml")
             for path in paths
             if path.startswith(".ai/tasks/") and path.endswith(".task.yaml")
         }
     )
+
+
+def task_scope_gates() -> list[tuple[str, list[str]]]:
+    """Use the changed task file when a PR clearly scopes to one task."""
+
+    paths = changed_paths()
+    task_ids = changed_task_ids(paths)
     if len(task_ids) == 1:
         task_id = task_ids[0]
         return [
@@ -69,6 +77,37 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
             )
         ]
     return [("validate_task_scope.py", [PY, str(ROOT / "scripts" / "validate_task_scope.py")])]
+
+
+def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
+    """Validate live git/worktree state without requiring a clean pre-commit tree."""
+
+    paths = changed_paths()
+    task_ids = changed_task_ids(paths)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_parallel_execution_safety.py --task-id {task_id}",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    task_id,
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
+    return [
+        (
+            "validate_parallel_execution_safety.py",
+            [
+                PY,
+                str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                "--allow-current-task-dirty",
+            ],
+        )
+    ]
 
 
 def build_gates() -> list[tuple[str, list[str]]]:
@@ -82,6 +121,7 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
         *task_scope_gates(),
+        *parallel_execution_safety_gates(),
         ("validate_canonical_66_scope.py", [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py")]),
         ("validate_vectorization_plan.py", [PY, str(ROOT / "scripts" / "validate_vectorization_plan.py")]),
         (

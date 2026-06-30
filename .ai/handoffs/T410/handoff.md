@@ -122,6 +122,7 @@
 - This is a control-plane/prompt-pack implementation, not actual Phase 1 chunk output.
 - Later output-changing work still requires exact owner gates, reviewed gold, route isolation, non-target identity proof, and post-pilot review.
 - T411+ Cursor batches must keep their own handoffs and audit logs; T410 only defines the contract.
+- T411 still needs its own emitted-artifact validator for actual Cursor logs and packets.
 
 ## Open questions
 
@@ -130,7 +131,7 @@
 
 ## Next agent instruction
 
-Start T411 only after pulling the latest branch state, confirming a clean task branch/worktree, and reading the T410 control files. Use the Cursor prompt-pack contract for a short-book research/review-prep batch, produce all required transparency logs, record the git preflight, and stop before any target selection, reviewed gold, chunk output, route/evaluator change, graph/retrieval/vector work, source rows, canon change, or theology authority.
+Start T411 only after pulling the latest branch state, creating a clean task branch/worktree, and passing `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch`. Use the Cursor prompt-pack contract for a short-book research/review-prep batch, produce all required transparency logs, record the git preflight, and stop before any target selection, reviewed gold, chunk output, route/evaluator change, graph/retrieval/vector work, source rows, canon change, or theology authority.
 
 ---
 
@@ -170,4 +171,44 @@ Start T411 only after pulling the latest branch state, confirming a clean task b
 - agent_name: Codex
 - mode:
 - updated_at: 2026-06-30T15:53:22+00:00
+- handoff_id: bffbe1eef5f3d2d0
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode:
+- updated_at: 2026-06-30T16:02:15+00:00
+- handoff_id: b7bdf016aaca9da0
+
+---
+
+## Sub-agent live safety hardening refresh
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-30T16:30:00+00:00
+- branch: codex/t410-live-execution-safety-validator
+- reviewed_feedback_source: Codex sub-agent review of T410/T411 readiness
+- closed_findings: live git/worktree safety was declarative only; one-branch rule was not enforced; T411 start preconditions were partially enforced
+- changes_made: added `scripts/validate_parallel_execution_safety.py`, `tests/test_parallel_execution_safety.py`, wired the live safety gate into `validate_all.py`, validation tiers, Cursor commands, roadmap/status mirrors, and T410 task scope
+- remaining_future_work: T411 emitted-artifact validator for Cursor-produced `source_size_manifest.jsonl`, `confidence_register.jsonl`, `audit_log.jsonl`, `claim_traceability_matrix.md`, `cursor_notes_to_codex.md`, and escalation packets
+- validation:
+  - `python scripts/validate_parallel_execution_safety.py --task-id T410 --allow-current-task-dirty --require-task-branch` passed
+  - `python -m pytest tests/test_parallel_execution_safety.py -q` passed, 9 tests
+  - `python scripts/validate_parallel_chunking_prompt_pack.py` passed
+  - `python -m pytest tests/test_parallel_chunking_prompt_pack.py -q` passed, 12 tests
+  - `python scripts/validate_task_scope.py --task-id T410` passed
+  - `python scripts/agent/validate_handoffs.py` passed
+  - `python scripts/validate_all.py` passed, including the live safety gate
+  - `python -m pytest -q` passed, 657 tests
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-30T16:39:44+00:00
 - handoff_id: bffbe1eef5f3d2d0

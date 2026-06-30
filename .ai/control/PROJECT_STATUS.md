@@ -4,9 +4,9 @@
 **Updated by:** T410 research-to-chunking Phase 1 prompt-pack conveyor hardening (Codex)
 **Active task:** -> **T410 Research-To-Chunking Phase One Roadmap** is hardened after Claude
 review. The original T410 commit (`c006f36`) is already merged to `main`; the follow-up hardening
-records one-task/one-branch/one-worktree safety, clean-status and merge-state preflights,
-cross-task artifact stop conditions, serialized shared control-file edits, and explicit validation
-tiers before any T411 Cursor batch starts. T410 turns the T402/T404/T406
+records and live-validates one-task/one-branch/one-worktree safety, clean-status and merge-state
+preflights, cross-task artifact stop conditions, serialized shared control-file edits, and explicit
+validation tiers before any T411 Cursor batch starts. T410 turns the T402/T404/T406
 research runway into a governed conveyor belt from Cursor research, review-packet prep, Codex
 review, frontier escalation, owner gates, reviewed gold, route isolation, exact additive parent
 overlay output PRs, and post-pilot review. T410 adds
@@ -15,7 +15,8 @@ overlay output PRs, and post-pilot review. T410 adds
 `.ai/control/cursor_to_codex_transparency_contract.yaml`,
 `.ai/control/frontier_chunking_escalation_policy.yaml`,
 `.ai/control/chunking_phase_completion_plan.yaml`, Cursor prompt-pack commands/rules, and
-`scripts/validate_parallel_chunking_prompt_pack.py`. It defines Phase 1 as one governed
+`scripts/validate_parallel_chunking_prompt_pack.py` plus
+`scripts/validate_parallel_execution_safety.py`. It defines Phase 1 as one governed
 parent-only additive low-risk overlay per canonical book where safe, with explicit deferrals for
 unsafe books. It authorizes no Cursor target selection, reviewed gold, child spans, chunk output,
 route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, boundary import,

@@ -55,6 +55,7 @@ Phase 2 routing.
 
 Parallelism is allowed only for isolated Cursor research and review-prep artifacts. Each batch uses
 one task id, one branch, and one worktree. Cursor must run and record `git status --short --branch`,
+run `python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch`,
 confirm no merge/rebase/cherry-pick/bisect state is active, and stop if artifacts from another task
 id are present in the same worktree.
 
@@ -97,6 +98,7 @@ Read first:
 
 Preflight:
 - run git status --short --branch
+- run python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch
 - confirm no merge/rebase/cherry-pick/bisect state
 - stop if artifacts from another task id are present
 - record the preflight in audit_log.jsonl

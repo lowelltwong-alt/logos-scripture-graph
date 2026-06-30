@@ -267,10 +267,11 @@ Bible-first chunking priority:
   contract at `.ai/control/cursor_to_codex_transparency_contract.yaml`, the frontier escalation
   policy at `.ai/control/frontier_chunking_escalation_policy.yaml`, and the deterministic Phase 1
   completion plan at `.ai/control/chunking_phase_completion_plan.yaml`, validated by
-  `scripts/validate_parallel_chunking_prompt_pack.py`. T410 authorizes no Cursor target selection,
+  `scripts/validate_parallel_chunking_prompt_pack.py` and
+  `scripts/validate_parallel_execution_safety.py`. T410 authorizes no Cursor target selection,
   reviewed gold, child spans, chunk output, route/evaluator behavior, graph/retrieval/vector truth,
-  boundary import, backend/profile choice, source/manuscript rows, canon-scope change, or theology
-  authority.
+  embeddings/indexes, boundary import, backend/profile choice, source/manuscript rows, canon-scope
+  change, or theology authority.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical

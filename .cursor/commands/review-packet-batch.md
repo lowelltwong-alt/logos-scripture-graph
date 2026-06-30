@@ -17,6 +17,7 @@ Read:
 Before packet prep:
 
 - run `git status --short --branch`
+- run `python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch`
 - confirm no merge, rebase, cherry-pick, or bisect state is active
 - stop if untracked artifacts from another task id are present
 - use one task id, one branch, and one worktree

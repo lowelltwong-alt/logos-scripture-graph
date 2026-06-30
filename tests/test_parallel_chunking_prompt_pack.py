@@ -21,6 +21,7 @@ def test_t410_prompt_pack_validates_current_repo() -> None:
 
     assert data["object_type"] == "parallel_chunking_research_program"
     assert data["task_id"] == "T410"
+    assert data["live_safety_validator"] == "scripts/validate_parallel_execution_safety.py"
     assert data["phase_one_definition"]["implementation_shape"] == "parent_only_additive_overlay"
 
 
@@ -64,6 +65,16 @@ def test_t410_rejects_missing_clean_status_preflight(tmp_path: Path) -> None:
         validator.validate_program(candidate)
 
 
+def test_t410_rejects_missing_one_branch_rule(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_program())
+    data["parallel_execution_safety"]["branch_worktree_rule"] = "One task must run in one worktree."
+    candidate = tmp_path / "program.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="one branch"):
+        validator.validate_program(candidate)
+
+
 def test_t410_rejects_missing_cross_task_artifact_stop(tmp_path: Path) -> None:
     data = copy.deepcopy(validator.validate_program())
     data["cursor_advance_gate"]["must_stop_when"].remove("untracked_artifacts_from_another_task_id_present")
@@ -71,6 +82,28 @@ def test_t410_rejects_missing_cross_task_artifact_stop(tmp_path: Path) -> None:
     write_yaml(candidate, data)
 
     with pytest.raises(validator.PromptPackError, match="untracked_artifacts_from_another_task_id_present"):
+        validator.validate_program(candidate)
+
+
+def test_t410_rejects_missing_research_live_safety_gate(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_transparency())
+    data["validation_tiers"]["research"]["required_gates"].remove(
+        "python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch"
+    )
+    candidate = tmp_path / "transparency.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="live parallel execution safety"):
+        validator.validate_transparency(candidate)
+
+
+def test_t410_rejects_missing_full_shared_file_serialization_set(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_program())
+    data["parallel_execution_safety"]["shared_control_file_serialization"]["shared_files"].remove("AI_FRONT_DOOR.md")
+    candidate = tmp_path / "program.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="AI_FRONT_DOOR.md"):
         validator.validate_program(candidate)
 
 

@@ -106,6 +106,7 @@ validation_tiers:
       - cursor_read_only_research
       - cursor_review_prep_without_shared_control_file_edits
     required_gates:
+      - python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch
       - python scripts/validate_parallel_chunking_prompt_pack.py
       - python scripts/validate_task_scope.py --task-id <TASK_ID>
       - python scripts/agent/validate_handoffs.py
@@ -117,11 +118,13 @@ validation_tiers:
       - schema_or_validator_edits
       - roadmap_or_status_edits
     required_gates:
+      - python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --allow-current-task-dirty --require-task-branch
       - focused_validator_for_changed_surface
       - focused_pytest_for_changed_surface
       - python scripts/validate_task_scope.py --task-id <TASK_ID>
       - python scripts/agent/validate_handoffs.py
       - python scripts/validate_all.py
+      - python -m pytest -q
     full_pytest_required_before_merge: true
     validate_all_required_before_merge: true
   data_pipeline:
@@ -129,6 +132,7 @@ validation_tiers:
       - raw_inventory_or_ingest_validator_change
       - canonical_or_derived_data_pipeline_change
     required_gates:
+      - python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --allow-current-task-dirty --require-task-branch
       - python scripts/validate_raw_coverage.py
       - python scripts/scan_raw_sources.py --check
       - python scripts/generate_data_map.py --check
@@ -142,6 +146,7 @@ validation_tiers:
       - reviewed_gold_promotion
       - route_or_evaluator_behavior_change
     required_gates:
+      - python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --allow-current-task-dirty --require-task-branch
       - owner_authorization_record
       - reviewed_gold_validator
       - route_isolation_harness
@@ -156,6 +161,7 @@ validation_tiers:
       - release_artifact_refresh
       - phase_closure_audit
     required_gates:
+      - python scripts/validate_parallel_execution_safety.py --allow-current-task-dirty
       - python scripts/validate_all.py
       - python -m pytest -q
       - python scripts/generate_data_map.py --check

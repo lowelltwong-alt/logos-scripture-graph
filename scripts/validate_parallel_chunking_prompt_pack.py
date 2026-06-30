@@ -29,6 +29,7 @@ MAIN_TOC = ROOT / "AI_TABLE_OF_CONTENTS.md"
 ROADMAP_TOC = ROOT / "docs" / "roadmap" / "AI_ROADMAP_TABLE_OF_CONTENTS.md"
 ROADMAP_STATE = ROOT / "ROADMAP_STATE.yaml"
 VALIDATE_ALL = ROOT / "scripts" / "validate_all.py"
+LIVE_SAFETY = ROOT / "scripts" / "validate_parallel_execution_safety.py"
 
 COMMANDS = [
     ROOT / ".cursor" / "commands" / "verse-ledger-batch.md",
@@ -119,6 +120,24 @@ REQUIRED_VALIDATION_TIERS = {
     "merge_or_release",
 }
 
+REQUIRED_SHARED_CONTROL_FILES = {
+    ".ai/control/PROJECT_STATUS.md",
+    ".ai/control/current_focus.yaml",
+    ".ai/control/handoff_ledger.jsonl",
+    ".ai/control/chunking_phase_completion_plan.yaml",
+    ".ai/control/bible_chunking_readiness_map.yaml",
+    "ROADMAP_STATE.yaml",
+    "AI_FRONT_DOOR.md",
+    "AI_TABLE_OF_CONTENTS.md",
+    "docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md",
+}
+
+REQUIRED_T411_STARTS_AFTER = {
+    "T410_committed_and_merged_to_main",
+    "t410_parallel_execution_safety_validates",
+    "clean_branch_or_worktree_claimed_for_T411",
+}
+
 REQUIRED_FRONTIER_TRIGGERS = {
     "prophecy_or_oracle_boundary",
     "apocalyptic_or_vision_cycle",
@@ -142,7 +161,12 @@ TEXT_REQUIREMENTS = {
         "Parallel Safety",
         "Validation Tiers",
     ],
-    TASK: ["id: T410", "parallel_chunking_research_program.yaml", "cursor_to_codex_transparency_contract.yaml"],
+    TASK: [
+        "id: T410",
+        "parallel_chunking_research_program.yaml",
+        "cursor_to_codex_transparency_contract.yaml",
+        "validate_parallel_execution_safety.py",
+    ],
     HANDOFF: ["task_id: T410", "stage:", "Next agent instruction"],
     PROJECT_STATUS: ["T410", "research-to-chunking", "Phase 1"],
     CURRENT_FOCUS: ["current_task: T410", "parallel_chunking_research_program"],
@@ -153,7 +177,8 @@ TEXT_REQUIREMENTS = {
     MAIN_TOC: ["t410", "research-to-chunking", "parallel_chunking_research_program.yaml"],
     ROADMAP_TOC: ["T410", "Research-to-chunking", "chunking_phase_completion_plan.yaml"],
     ROADMAP_STATE: ["id: T410", "Research-To-Chunking Phase One Roadmap"],
-    VALIDATE_ALL: ["validate_parallel_chunking_prompt_pack.py"],
+    VALIDATE_ALL: ["validate_parallel_chunking_prompt_pack.py", "validate_parallel_execution_safety.py"],
+    LIVE_SAFETY: ["Validate live branch/worktree safety", "allow-current-task-dirty", "require-task-branch"],
     CURSOR_RULE: ["T410", "Cursor is a research and prep workhorse only", "one task id, one branch, and one worktree"],
 }
 
@@ -229,6 +254,7 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
         "schema_version": "parallel_chunking_research_program.v1",
         "program_id": "t410_parallel_chunking_research_program",
         "task_id": "T410",
+        "live_safety_validator": "scripts/validate_parallel_execution_safety.py",
     }
     for key, value in expected.items():
         if data.get(key) != value:
@@ -262,8 +288,8 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
     if not isinstance(safety, dict):
         raise PromptPackError(f"{_rel(path)}: parallel_execution_safety must be a mapping")
     branch_rule = str(safety.get("branch_worktree_rule", "")).lower()
-    if "one task" not in branch_rule or "one worktree" not in branch_rule:
-        raise PromptPackError(f"{_rel(path)}: parallel_execution_safety.branch_worktree_rule must require one task and one worktree")
+    if "one task" not in branch_rule or "one branch" not in branch_rule or "one worktree" not in branch_rule:
+        raise PromptPackError(f"{_rel(path)}: parallel_execution_safety.branch_worktree_rule must require one task, one branch, and one worktree")
     clean = safety.get("clean_status_preflight")
     if not isinstance(clean, dict) or clean.get("required") is not True or clean.get("command") != "git status --short --branch":
         raise PromptPackError(f"{_rel(path)}: clean_status_preflight must require git status --short --branch")
@@ -283,9 +309,9 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
     if not isinstance(shared, dict) or shared.get("integrator_role") != "Codex" or shared.get("merge_order_required") is not True:
         raise PromptPackError(f"{_rel(path)}: shared_control_file_serialization must require Codex integrator merge order")
     shared_files = set(_string_list(shared.get("shared_files"), f"{_rel(path)}: shared_control_file_serialization.shared_files"))
-    for required_shared in (".ai/control/PROJECT_STATUS.md", ".ai/control/current_focus.yaml", "ROADMAP_STATE.yaml"):
-        if required_shared not in shared_files:
-            raise PromptPackError(f"{_rel(path)}: shared_control_file_serialization.shared_files missing {required_shared}")
+    missing_shared = sorted(REQUIRED_SHARED_CONTROL_FILES - shared_files)
+    if missing_shared:
+        raise PromptPackError(f"{_rel(path)}: shared_control_file_serialization.shared_files missing {missing_shared}")
     file_claim = safety.get("file_claim_rule")
     if not isinstance(file_claim, dict) or file_claim.get("cursor_batches_claim_task_roots_only") is not True:
         raise PromptPackError(f"{_rel(path)}: file_claim_rule must limit Cursor claims to task roots")
@@ -300,9 +326,9 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
     if not isinstance(t411, dict):
         raise PromptPackError(f"{_rel(path)}: phase_one_task_sequence must include T411")
     starts_after = set(_string_list(t411.get("starts_after"), f"{_rel(path)}: T411.starts_after"))
-    for required_start in ("T410_committed_and_merged_to_main", "t410_parallel_execution_safety_validates"):
-        if required_start not in starts_after:
-            raise PromptPackError(f"{_rel(path)}: T411.starts_after missing {required_start}")
+    missing_starts_after = sorted(REQUIRED_T411_STARTS_AFTER - starts_after)
+    if missing_starts_after:
+        raise PromptPackError(f"{_rel(path)}: T411.starts_after missing {missing_starts_after}")
     _require_non_authorizations(data, path, REQUIRED_NON_AUTHORIZATIONS | {"cursor_target_selection", "exact_target_selection"})
     return data
 
@@ -351,11 +377,20 @@ def validate_transparency(path: Path = TRANSPARENCY) -> dict[str, Any]:
             raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must be a mapping")
         _string_list(tier.get("applies_to"), f"{_rel(path)}: validation_tiers.{tier_name}.applies_to")
         _string_list(tier.get("required_gates"), f"{_rel(path)}: validation_tiers.{tier_name}.required_gates")
+    research_gates = set(tiers["research"].get("required_gates", []))
+    if "python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --require-task-branch" not in research_gates:
+        raise PromptPackError(f"{_rel(path)}: validation_tiers.research must require live parallel execution safety preflight")
     if tiers["research"].get("full_pytest_required_before_merge") is not False:
         raise PromptPackError(f"{_rel(path)}: validation_tiers.research must not require full pytest before merge")
     for tier_name in ("control_plane_or_schema", "data_pipeline", "output_changing", "merge_or_release"):
         if tiers[tier_name].get("validate_all_required_before_merge") is not True:
             raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must require validate_all before merge")
+    for tier_name in ("control_plane_or_schema", "data_pipeline", "output_changing"):
+        gates = set(tiers[tier_name].get("required_gates", []))
+        if "python scripts/validate_parallel_execution_safety.py --task-id <TASK_ID> --allow-current-task-dirty --require-task-branch" not in gates:
+            raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must require in-progress live safety validation")
+        if "python -m pytest -q" not in gates:
+            raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must require full pytest")
     output_gates = set(tiers["output_changing"].get("required_gates", []))
     for required_gate in ("owner_authorization_record", "route_isolation_harness", "non_target_identity_proof"):
         if required_gate not in output_gates:

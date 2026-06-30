@@ -4,7 +4,7 @@ title: "Research-To-Chunking Phase One Roadmap"
 mode: build
 status: complete_hardened_non_output_changing_control_plane
 owner: codex
-branch: codex/t410-orchestration-hardening
+branch: codex/t410-live-execution-safety-validator
 base_ref: e4a0757f9d382eaa6411bd0d3350059f5691cbac
 summary: "Turn the Cursor low-risk research runway into a governed research-to-chunking conveyor belt with prompt packs, transparency logs, frontier escalation, deterministic Phase 1 completion tracking, and hardened branch/worktree safety."
 scope:
@@ -34,8 +34,10 @@ scope:
     - ROADMAP_STATE.yaml
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
     - docs/roadmap/T410_RESEARCH_TO_CHUNKING_PHASE_ONE_ROADMAP.md
+    - scripts/validate_parallel_execution_safety.py
     - scripts/validate_parallel_chunking_prompt_pack.py
     - scripts/validate_all.py
+    - tests/test_parallel_execution_safety.py
     - tests/test_parallel_chunking_prompt_pack.py
   forbidden_paths:
     - data/raw/
@@ -92,20 +94,26 @@ deliverables:
     - .cursor/commands/codex-prompt-pack-review.md
   cursor_rule: .cursor/rules/logos-scripture-parallel-verse-research.mdc
   validator: scripts/validate_parallel_chunking_prompt_pack.py
-  tests: tests/test_parallel_chunking_prompt_pack.py
+  live_safety_validator: scripts/validate_parallel_execution_safety.py
+  tests:
+    - tests/test_parallel_chunking_prompt_pack.py
+    - tests/test_parallel_execution_safety.py
   handoff: .ai/handoffs/T410/handoff.md
 acceptance_criteria:
   - "T410 defines a nine-step research-to-output ladder from Cursor research through post-pilot review."
   - "Phase 1 completion is deterministic across all 66 canonical books as implemented, pending, or deferred."
   - "Cursor prompt packs require audit logs, source-size manifests, confidence registers, claim traceability, and cursor_notes_to_codex.md."
   - "T410 defines one-task/one-branch/one-worktree safety, clean-status preflight, merge-state preflight, cross-task artifact stop conditions, and serialized shared control-file edits."
+  - "T410 includes a live parallel-execution safety validator that can require a clean task branch before Cursor starts and can allow only current-task scoped dirty paths while Codex is editing."
   - "T410 defines machine-readable validation tiers for research, control-plane/schema, data-pipeline, output-changing, and merge/release work."
   - "Book/literature hints cover all 66 canonical books and are explicit routing hints, not memory or boundary authority."
   - "Frontier escalation is mandatory for prophecy, apocalyptic, dense epistle argument, WJ/speaker boundaries, textual variants, doxologies, doctrinal pressure, and low confidence."
   - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, backend/profile choices, source rows, canon changes, or theology authority are authorized by T410."
 validations:
   - python scripts/validate_parallel_chunking_prompt_pack.py
+  - python scripts/validate_parallel_execution_safety.py --task-id T410 --allow-current-task-dirty --require-task-branch
   - python -m pytest tests/test_parallel_chunking_prompt_pack.py -q
+  - python -m pytest tests/test_parallel_execution_safety.py -q
   - python scripts/validate_task_scope.py --task-id T410
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py
