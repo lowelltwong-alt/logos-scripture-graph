@@ -1,0 +1,101 @@
+id: T406
+phase: phase_4
+title: "Cursor Low-Risk Candidate Research Batch 1"
+mode: research
+status: in_review_non_authorizing
+owner: cursor_then_codex
+branch: codex/t406-cursor-artifact-hardening
+base_ref: 0684271b9f975fed86be5398de118e5566c4b31e
+summary: "Record Cursor batch-1 low-risk candidate prep and a pilot raw-source risk atlas as planning-only, non-governance-authority research artifacts."
+scope:
+  allowed_paths:
+    - .ai/tasks/T406.task.yaml
+    - .ai/handoffs/T406/
+    - .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT.md
+    - .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT_HANDOFF.md
+  forbidden_paths:
+    - .ai/control/
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: cursor_low_risk_candidate_research_batch_1
+  contract_scope: planning_only
+  governance_authority: false
+  control_plane_authority: false
+  research_only_non_authorizing: true
+  owner_supplied_candidate_id: T402-LC-064
+  owner_supplied_parent_span: 3John.1.1-3John.1.4
+  owner_supplied_queue_status: ready_for_review_packet
+  cursor_may_select_target: false
+  cursor_exact_target_selection_authorized: false
+  review_packet_strengthening_authorized_without_owner_selection: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  non_authorized_actions:
+    - chunk_output
+    - reviewed_gold_promotion
+    - child_span_selection
+    - route_behavior_change
+    - evaluator_change
+    - graph_edge_generation
+    - retrieval_truth
+    - embedding_or_vector_work
+    - boundary_import
+    - backend_choice
+    - retrieval_profile_promotion
+    - whole_bible_output_pass
+    - preferred_reading_selection
+    - source_tradition_preference
+    - canon_scope_change
+    - source_or_manuscript_row_population
+    - theology_authority_change
+deliverables:
+  candidate_prep: .ai/handoffs/T406/candidate_prep/t402_lc_064_3john_opening_greeting_candidate_prep.md
+  batch_handoff: .ai/handoffs/T406/handoff.md
+  atlas_pilot: .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT.md
+  atlas_handoff: .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT_HANDOFF.md
+acceptance_criteria:
+  - "T406 artifacts are planning-only research and explicitly not governance authority."
+  - "T402-LC-064 remains owner-supplied; Cursor does not choose an implementation target."
+  - "Candidate prep contains no child spans, reviewed gold, output changes, or implied boundary authority."
+  - "Atlas pilot states method limits and does not claim full raw USFM character-by-character verification."
+  - "Atlas book-level labels remain agent triage judgments, not governed classifications."
+  - "Task scope validation passes for the T406 artifact paths."
+validations:
+  - python scripts/validate_task_scope.py --task-id T406
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_cursor_low_risk_chunking_handoff.py
+  - python scripts/validate_t402_low_complexity_chunking_runway.py
+  - python -m pytest tests/test_cursor_low_risk_chunking_handoff.py tests/test_t402_low_complexity_chunking_runway.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+required_handoff: .ai/handoffs/T406/handoff.md
+created_at: "2026-06-29"
+updated_at: "2026-06-29"
