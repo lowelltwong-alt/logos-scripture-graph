@@ -54,6 +54,36 @@ def test_t410_rejects_missing_transparency_log(tmp_path: Path) -> None:
         validator.validate_transparency(candidate)
 
 
+def test_t410_rejects_missing_clean_status_preflight(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_program())
+    data["parallel_execution_safety"]["clean_status_preflight"]["required"] = False
+    candidate = tmp_path / "program.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="clean_status_preflight"):
+        validator.validate_program(candidate)
+
+
+def test_t410_rejects_missing_cross_task_artifact_stop(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_program())
+    data["cursor_advance_gate"]["must_stop_when"].remove("untracked_artifacts_from_another_task_id_present")
+    candidate = tmp_path / "program.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="untracked_artifacts_from_another_task_id_present"):
+        validator.validate_program(candidate)
+
+
+def test_t410_rejects_missing_validation_tier(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_transparency())
+    del data["validation_tiers"]["output_changing"]
+    candidate = tmp_path / "transparency.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.PromptPackError, match="output_changing"):
+        validator.validate_transparency(candidate)
+
+
 def test_t410_rejects_missing_frontier_trigger(tmp_path: Path) -> None:
     data = copy.deepcopy(validator.validate_frontier_policy())
     data["mandatory_escalation_triggers"].remove("apocalyptic_or_vision_cycle")

@@ -51,6 +51,28 @@ The completion audit must record implemented books, deferred books, reasons, out
 non-target identity proofs, reviewed-gold/owner authorization references, validation results, and
 Phase 2 routing.
 
+## Parallel Safety
+
+Parallelism is allowed only for isolated Cursor research and review-prep artifacts. Each batch uses
+one task id, one branch, and one worktree. Cursor must run and record `git status --short --branch`,
+confirm no merge/rebase/cherry-pick/bisect state is active, and stop if artifacts from another task
+id are present in the same worktree.
+
+Cursor writes only `.ai/context/agent_work/<TASK_ID>/` and `.ai/handoffs/<TASK_ID>/`. Shared
+control-plane files such as `PROJECT_STATUS.md`, `current_focus.yaml`, `ROADMAP_STATE.yaml`,
+readiness maps, lesson indexes, and roadmap TOCs are serialized through one Codex integrator branch
+with an explicit merge order.
+
+T411 starts only after T410 is committed, merged to `main`, and the parallel safety checks validate.
+
+## Validation Tiers
+
+Cursor research batches use focused validators, task-scope checks, and handoff checks. Control-plane
+or schema changes require the focused validator, focused pytest, task-scope validation, handoff
+validation, and `python scripts/validate_all.py`. Data-pipeline, output-changing, merge, and
+release work require the heavier gates recorded in
+`.ai/control/cursor_to_codex_transparency_contract.yaml`, including full pytest where required.
+
 ## Prompt-Pack Templates
 
 ### Cursor Batch Prompt
@@ -72,6 +94,12 @@ Read first:
 - .ai/control/cursor_to_codex_transparency_contract.yaml
 - .ai/control/frontier_chunking_escalation_policy.yaml
 - .ai/control/chunking_phase_completion_plan.yaml
+
+Preflight:
+- run git status --short --branch
+- confirm no merge/rebase/cherry-pick/bisect state
+- stop if artifacts from another task id are present
+- record the preflight in audit_log.jsonl
 
 Produce:
 - cursor_notes_to_codex.md

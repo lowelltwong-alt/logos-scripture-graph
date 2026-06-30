@@ -36,6 +36,7 @@ required_handoff_note:
     - limitations
     - unresolved_questions
     - exact_next_action_requested_from_codex
+    - validation_tier_used
 required_machine_logs:
   base_path_template: ".ai/context/agent_work/<TASK_ID>/"
   files:
@@ -80,6 +81,7 @@ audit_log_fields:
   - result
   - limitations
   - non_authorizing
+  - git_status_preflight
 confidence_values:
   - high
   - medium
@@ -98,6 +100,69 @@ claim_rules:
   - "Low confidence or blocked claims must create an escalation packet or a limitation note."
   - "Cursor must expose the evidence trail and decision trail, not private hidden reasoning."
   - "All records produced by Cursor under this contract are non-authorizing unless a later owner-gated task promotes an exact artifact."
+validation_tiers:
+  research:
+    applies_to:
+      - cursor_read_only_research
+      - cursor_review_prep_without_shared_control_file_edits
+    required_gates:
+      - python scripts/validate_parallel_chunking_prompt_pack.py
+      - python scripts/validate_task_scope.py --task-id <TASK_ID>
+      - python scripts/agent/validate_handoffs.py
+    full_pytest_required_before_merge: false
+    validate_all_required_before_merge: false
+  control_plane_or_schema:
+    applies_to:
+      - shared_control_file_edits
+      - schema_or_validator_edits
+      - roadmap_or_status_edits
+    required_gates:
+      - focused_validator_for_changed_surface
+      - focused_pytest_for_changed_surface
+      - python scripts/validate_task_scope.py --task-id <TASK_ID>
+      - python scripts/agent/validate_handoffs.py
+      - python scripts/validate_all.py
+    full_pytest_required_before_merge: true
+    validate_all_required_before_merge: true
+  data_pipeline:
+    applies_to:
+      - raw_inventory_or_ingest_validator_change
+      - canonical_or_derived_data_pipeline_change
+    required_gates:
+      - python scripts/validate_raw_coverage.py
+      - python scripts/scan_raw_sources.py --check
+      - python scripts/generate_data_map.py --check
+      - python scripts/validate_all.py
+      - python -m pytest -q
+    full_pytest_required_before_merge: true
+    validate_all_required_before_merge: true
+  output_changing:
+    applies_to:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - route_or_evaluator_behavior_change
+    required_gates:
+      - owner_authorization_record
+      - reviewed_gold_validator
+      - route_isolation_harness
+      - non_target_identity_proof
+      - python scripts/validate_all.py
+      - python -m pytest -q
+    full_pytest_required_before_merge: true
+    validate_all_required_before_merge: true
+  merge_or_release:
+    applies_to:
+      - merge_to_main
+      - release_artifact_refresh
+      - phase_closure_audit
+    required_gates:
+      - python scripts/validate_all.py
+      - python -m pytest -q
+      - python scripts/generate_data_map.py --check
+      - git diff --check
+      - ci_validate_green
+    full_pytest_required_before_merge: true
+    validate_all_required_before_merge: true
 non_authorizations:
   - chunk_output_change
   - reviewed_gold_promotion

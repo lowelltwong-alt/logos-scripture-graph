@@ -5,7 +5,7 @@
 - task_id: T410
 - title: Research-To-Chunking Phase One Roadmap
 - phase: phase_4
-- status: implemented_non_output_changing_control_plane
+- status: implemented_hardened_non_output_changing_control_plane
 
 ## Agent
 
@@ -77,6 +77,11 @@
 - Claude Opus/frontier review is required for hard prophecy, apocalyptic, dense epistle, WJ/speaker, variant, doxology, original-language, and doctrinal-pressure cases.
 - T410 records the path to later implementation tasks but does not itself authorize reviewed gold, output, child spans, route/evaluator changes, graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, backend/profile choices, or theology authority.
 - LSN-034 records the reusable lesson that prompt-pack research must stay transparent and non-authorizing until later exact owner-gated chunking work.
+- Claude follow-up P1-1 is addressed by adding one-task/one-branch/one-worktree safety, clean-status and merge-state preflights, file-claim rules, serialized shared control-file edits, and stop conditions for cross-task artifacts or dirty files outside allowed paths.
+- Claude follow-up P1-2 is closed operationally: original T410 commit `c006f36` was merged to `main` before this hardening branch began.
+- Claude follow-up P2-1 is addressed by recording validation tiers for research, control-plane/schema, data-pipeline, output-changing, and merge/release work.
+- Claude follow-up P2-2 is partially addressed by recording status-consistency requirements and reconciling T410 roadmap status; a broader cross-task status validator remains future work.
+- Claude follow-up P2-3 remains for T411: the first Cursor batch validator must verify emitted transparency artifacts and required fields.
 
 ## Validation run
 
@@ -85,7 +90,7 @@
 - failures: none
 
 - command: python -m pytest tests/test_parallel_chunking_prompt_pack.py -q
-- result: 6 passed
+- result: 9 passed
 - failures: none
 
 - command: python scripts/validate_task_scope.py --task-id T410
@@ -125,7 +130,7 @@
 
 ## Next agent instruction
 
-Start T411 only after pulling the latest branch state and reading the T410 control files. Use the Cursor prompt-pack contract for a short-book research/review-prep batch, produce all required transparency logs, and stop before any target selection, reviewed gold, chunk output, route/evaluator change, graph/retrieval/vector work, source rows, canon change, or theology authority.
+Start T411 only after pulling the latest branch state, confirming a clean task branch/worktree, and reading the T410 control files. Use the Cursor prompt-pack contract for a short-book research/review-prep batch, produce all required transparency logs, record the git preflight, and stop before any target selection, reviewed gold, chunk output, route/evaluator change, graph/retrieval/vector work, source rows, canon change, or theology authority.
 
 ---
 
@@ -134,4 +139,35 @@ Start T411 only after pulling the latest branch state and reading the T410 contr
 - agent_name: Codex
 - mode: build
 - updated_at: 2026-06-30T13:30:13+00:00
+- handoff_id: bffbe1eef5f3d2d0
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode:
+- updated_at: 2026-06-30T15:16:26+00:00
+- handoff_id: b7bdf016aaca9da0
+
+---
+
+## Claude review hardening refresh
+
+- agent_name: Codex
+- mode: build
+- updated_at: 2026-06-30T15:30:00+00:00
+- branch: codex/t410-orchestration-hardening
+- reviewed_feedback_source: Claude review of T410 orchestration/control-plane design
+- closed_findings: P1-1 branch/worktree hygiene, P1-2 commit/merge precondition, P2-1 validation tiers
+- partially_closed_findings: P2-2 status-consistency policy recorded; broad cross-task status validator remains future work
+- deferred_findings: P2-3 T411 batch artifact validator
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode:
+- updated_at: 2026-06-30T15:53:22+00:00
 - handoff_id: bffbe1eef5f3d2d0

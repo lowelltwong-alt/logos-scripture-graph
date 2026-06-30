@@ -31,6 +31,16 @@ phase_one:
     - reviewed_gold_and_owner_authorization_refs
     - deferral_reasons_and_next_phase_routes
     - post_pilot_review_for_each_output_batch
+status_consistency_policy:
+  purpose: "Prevent multi-agent task drift between task files, ROADMAP_STATE.yaml, current_focus.yaml, PROJECT_STATUS.md, and the Phase 1 book status ledger."
+  required_for_each_completed_task:
+    - task_file_status_reconciled
+    - roadmap_state_status_reconciled
+    - current_focus_next_action_reconciled
+    - project_status_updated
+    - handoff_stage_final
+    - phase_one_book_status_reconciled_when_books_are_in_scope
+  future_validator_target: "A T411+ validator should fail when a task is marked complete in one control-plane surface and active/in-progress in another without an explicit active follow-up note."
 status_values:
   implemented_existing_pilot: "A pre-T410 exact parent-only additive overlay already exists and can seed Phase 1 accounting."
   implemented_phase_one_overlay: "A later T410+ task implemented an owner-authorized parent-only additive overlay."

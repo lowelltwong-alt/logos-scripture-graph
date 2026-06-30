@@ -17,6 +17,17 @@ Read:
 - `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`
 - `.ai/control/test_runtime_preflight.yaml`
 
+Before reading or writing batch artifacts:
+
+- run `git status --short --branch`
+- confirm no merge, rebase, cherry-pick, or bisect state is active
+- stop if untracked artifacts from another task id are present
+- use one task id, one branch, and one worktree
+- record the preflight result in `.ai/context/agent_work/<TASK_ID>/audit_log.jsonl`
+
+Cursor may write only `.ai/context/agent_work/<TASK_ID>/` and `.ai/handoffs/<TASK_ID>/`.
+Shared control-plane files are for the Codex integrator, not parallel Cursor batch edits.
+
 ## Inputs
 
 The owner or Codex must supply:
@@ -51,4 +62,5 @@ rest of the batch is unaffected.
 
 Stop before target selection, reviewed-gold promotion, chunk output, child spans, route/evaluator
 changes, graph/retrieval/vector work, embeddings, index builds, boundary imports, source rows,
-canon changes, source-tradition preference, or theology authority.
+canon changes, source-tradition preference, theology authority, dirty files outside allowed paths,
+or artifacts from another task id in the same worktree.

@@ -95,6 +95,30 @@ REQUIRED_TRANSPARENCY_FILES = {
     "claim_traceability_matrix.md",
 }
 
+REQUIRED_BATCH_START_GATES = {
+    "one_task_one_branch_one_worktree_claim_recorded",
+    "git_status_clean_or_only_current_task_allowed_paths_dirty",
+    "no_merge_rebase_cherry_pick_or_bisect_state",
+    "no_untracked_artifacts_from_another_task_id_present",
+    "shared_control_file_edit_claim_absent_or_owned_by_current_codex_integrator",
+    "preflight_result_recorded_in_audit_log",
+}
+
+REQUIRED_STOP_WHEN = {
+    "untracked_artifacts_from_another_task_id_present",
+    "dirty_files_outside_current_task_allowed_paths",
+    "shared_control_file_claim_conflict",
+    "merge_rebase_cherry_pick_or_bisect_state_detected",
+}
+
+REQUIRED_VALIDATION_TIERS = {
+    "research",
+    "control_plane_or_schema",
+    "data_pipeline",
+    "output_changing",
+    "merge_or_release",
+}
+
 REQUIRED_FRONTIER_TRIGGERS = {
     "prophecy_or_oracle_boundary",
     "apocalyptic_or_vision_cycle",
@@ -111,7 +135,13 @@ REQUIRED_FRONTIER_TRIGGERS = {
 }
 
 TEXT_REQUIREMENTS = {
-    ROADMAP_DOC: ["T410 Research-To-Chunking Phase One Roadmap", "Phase 1 closes only when all 66", "Cursor Batch Prompt"],
+    ROADMAP_DOC: [
+        "T410 Research-To-Chunking Phase One Roadmap",
+        "Phase 1 closes only when all 66",
+        "Cursor Batch Prompt",
+        "Parallel Safety",
+        "Validation Tiers",
+    ],
     TASK: ["id: T410", "parallel_chunking_research_program.yaml", "cursor_to_codex_transparency_contract.yaml"],
     HANDOFF: ["task_id: T410", "stage:", "Next agent instruction"],
     PROJECT_STATUS: ["T410", "research-to-chunking", "Phase 1"],
@@ -124,7 +154,7 @@ TEXT_REQUIREMENTS = {
     ROADMAP_TOC: ["T410", "Research-to-chunking", "chunking_phase_completion_plan.yaml"],
     ROADMAP_STATE: ["id: T410", "Research-To-Chunking Phase One Roadmap"],
     VALIDATE_ALL: ["validate_parallel_chunking_prompt_pack.py"],
-    CURSOR_RULE: ["T410", "Cursor is a research and prep workhorse only"],
+    CURSOR_RULE: ["T410", "Cursor is a research and prep workhorse only", "one task id, one branch, and one worktree"],
 }
 
 
@@ -218,8 +248,61 @@ def validate_program(path: Path = PROGRAM) -> dict[str, Any]:
     advance = data.get("cursor_advance_gate")
     if not isinstance(advance, dict):
         raise PromptPackError(f"{_rel(path)}: cursor_advance_gate must be a mapping")
-    for key in ("required_before_next_book", "must_stop_before"):
+    for key in ("required_before_batch_start", "required_before_next_book", "must_stop_before", "must_stop_when"):
         _string_list(advance.get(key), f"{_rel(path)}: cursor_advance_gate.{key}")
+    batch_start = set(advance.get("required_before_batch_start", []))
+    missing_batch = sorted(REQUIRED_BATCH_START_GATES - batch_start)
+    if missing_batch:
+        raise PromptPackError(f"{_rel(path)}: cursor_advance_gate.required_before_batch_start missing {missing_batch}")
+    stop_when = set(advance.get("must_stop_when", []))
+    missing_stop = sorted(REQUIRED_STOP_WHEN - stop_when)
+    if missing_stop:
+        raise PromptPackError(f"{_rel(path)}: cursor_advance_gate.must_stop_when missing {missing_stop}")
+    safety = data.get("parallel_execution_safety")
+    if not isinstance(safety, dict):
+        raise PromptPackError(f"{_rel(path)}: parallel_execution_safety must be a mapping")
+    branch_rule = str(safety.get("branch_worktree_rule", "")).lower()
+    if "one task" not in branch_rule or "one worktree" not in branch_rule:
+        raise PromptPackError(f"{_rel(path)}: parallel_execution_safety.branch_worktree_rule must require one task and one worktree")
+    clean = safety.get("clean_status_preflight")
+    if not isinstance(clean, dict) or clean.get("required") is not True or clean.get("command") != "git status --short --branch":
+        raise PromptPackError(f"{_rel(path)}: clean_status_preflight must require git status --short --branch")
+    merge = safety.get("merge_state_preflight")
+    if not isinstance(merge, dict) or merge.get("required") is not True:
+        raise PromptPackError(f"{_rel(path)}: merge_state_preflight must be required")
+    forbidden_states = set(_string_list(merge.get("forbidden_states"), f"{_rel(path)}: merge_state_preflight.forbidden_states"))
+    if forbidden_states != {"merge", "rebase", "cherry_pick", "bisect"}:
+        raise PromptPackError(f"{_rel(path)}: merge_state_preflight.forbidden_states must cover merge/rebase/cherry_pick/bisect")
+    isolation = safety.get("task_artifact_isolation")
+    if not isinstance(isolation, dict) or isolation.get("cursor_must_not_write_shared_control_plane") is not True:
+        raise PromptPackError(f"{_rel(path)}: task_artifact_isolation must block Cursor shared control-plane writes")
+    roots = set(_string_list(isolation.get("cursor_allowed_write_roots"), f"{_rel(path)}: task_artifact_isolation.cursor_allowed_write_roots"))
+    if roots != {".ai/context/agent_work/<TASK_ID>/", ".ai/handoffs/<TASK_ID>/"}:
+        raise PromptPackError(f"{_rel(path)}: Cursor write roots must be task-scoped agent_work and handoffs only")
+    shared = safety.get("shared_control_file_serialization")
+    if not isinstance(shared, dict) or shared.get("integrator_role") != "Codex" or shared.get("merge_order_required") is not True:
+        raise PromptPackError(f"{_rel(path)}: shared_control_file_serialization must require Codex integrator merge order")
+    shared_files = set(_string_list(shared.get("shared_files"), f"{_rel(path)}: shared_control_file_serialization.shared_files"))
+    for required_shared in (".ai/control/PROJECT_STATUS.md", ".ai/control/current_focus.yaml", "ROADMAP_STATE.yaml"):
+        if required_shared not in shared_files:
+            raise PromptPackError(f"{_rel(path)}: shared_control_file_serialization.shared_files missing {required_shared}")
+    file_claim = safety.get("file_claim_rule")
+    if not isinstance(file_claim, dict) or file_claim.get("cursor_batches_claim_task_roots_only") is not True:
+        raise PromptPackError(f"{_rel(path)}: file_claim_rule must limit Cursor claims to task roots")
+    stop_conditions = set(_string_list(safety.get("stop_conditions"), f"{_rel(path)}: parallel_execution_safety.stop_conditions"))
+    missing_safety_stop = sorted(REQUIRED_STOP_WHEN - stop_conditions)
+    if missing_safety_stop:
+        raise PromptPackError(f"{_rel(path)}: parallel_execution_safety.stop_conditions missing {missing_safety_stop}")
+    sequence = data.get("phase_one_task_sequence")
+    if not isinstance(sequence, list):
+        raise PromptPackError(f"{_rel(path)}: phase_one_task_sequence must be a list")
+    t411 = next((item for item in sequence if isinstance(item, dict) and item.get("task_id") == "T411"), None)
+    if not isinstance(t411, dict):
+        raise PromptPackError(f"{_rel(path)}: phase_one_task_sequence must include T411")
+    starts_after = set(_string_list(t411.get("starts_after"), f"{_rel(path)}: T411.starts_after"))
+    for required_start in ("T410_committed_and_merged_to_main", "t410_parallel_execution_safety_validates"):
+        if required_start not in starts_after:
+            raise PromptPackError(f"{_rel(path)}: T411.starts_after missing {required_start}")
     _require_non_authorizations(data, path, REQUIRED_NON_AUTHORIZATIONS | {"cursor_target_selection", "exact_target_selection"})
     return data
 
@@ -252,8 +335,31 @@ def validate_transparency(path: Path = TRANSPARENCY) -> dict[str, Any]:
         raise PromptPackError(f"{_rel(path)}: required_machine_logs.files missing {missing}")
     for key in ("source_size_manifest_fields", "confidence_register_fields", "audit_log_fields", "claim_rules"):
         _string_list(data.get(key), f"{_rel(path)}: {key}")
+    if "git_status_preflight" not in data.get("audit_log_fields", []):
+        raise PromptPackError(f"{_rel(path)}: audit_log_fields must include git_status_preflight")
     if set(_string_list(data.get("confidence_values"), f"{_rel(path)}: confidence_values")) != {"high", "medium", "low", "blocked"}:
         raise PromptPackError(f"{_rel(path)}: confidence_values must be high/medium/low/blocked")
+    tiers = data.get("validation_tiers")
+    if not isinstance(tiers, dict):
+        raise PromptPackError(f"{_rel(path)}: validation_tiers must be a mapping")
+    missing_tiers = sorted(REQUIRED_VALIDATION_TIERS - set(tiers))
+    if missing_tiers:
+        raise PromptPackError(f"{_rel(path)}: validation_tiers missing {missing_tiers}")
+    for tier_name in REQUIRED_VALIDATION_TIERS:
+        tier = tiers.get(tier_name)
+        if not isinstance(tier, dict):
+            raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must be a mapping")
+        _string_list(tier.get("applies_to"), f"{_rel(path)}: validation_tiers.{tier_name}.applies_to")
+        _string_list(tier.get("required_gates"), f"{_rel(path)}: validation_tiers.{tier_name}.required_gates")
+    if tiers["research"].get("full_pytest_required_before_merge") is not False:
+        raise PromptPackError(f"{_rel(path)}: validation_tiers.research must not require full pytest before merge")
+    for tier_name in ("control_plane_or_schema", "data_pipeline", "output_changing", "merge_or_release"):
+        if tiers[tier_name].get("validate_all_required_before_merge") is not True:
+            raise PromptPackError(f"{_rel(path)}: validation_tiers.{tier_name} must require validate_all before merge")
+    output_gates = set(tiers["output_changing"].get("required_gates", []))
+    for required_gate in ("owner_authorization_record", "route_isolation_harness", "non_target_identity_proof"):
+        if required_gate not in output_gates:
+            raise PromptPackError(f"{_rel(path)}: validation_tiers.output_changing.required_gates missing {required_gate}")
     _require_non_authorizations(data, path)
     return data
 

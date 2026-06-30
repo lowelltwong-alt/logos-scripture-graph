@@ -14,6 +14,17 @@ Read:
 - `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`
 - prior relevant review packets and owner decisions
 
+Before packet prep:
+
+- run `git status --short --branch`
+- confirm no merge, rebase, cherry-pick, or bisect state is active
+- stop if untracked artifacts from another task id are present
+- use one task id, one branch, and one worktree
+- record the preflight result in `.ai/context/agent_work/<TASK_ID>/audit_log.jsonl`
+
+Cursor may write only `.ai/context/agent_work/<TASK_ID>/` and `.ai/handoffs/<TASK_ID>/`.
+Shared control-plane edits are serialized through a Codex integrator.
+
 ## Allowed Work
 
 - summarize source evidence
@@ -34,6 +45,8 @@ Stop before any of the following:
 - creating graph/retrieval/vector truth
 - deciding theology
 - treating source metadata as boundary authority
+- dirty files outside allowed paths
+- artifacts from another task id in the same worktree
 
 ## Deliverable
 
