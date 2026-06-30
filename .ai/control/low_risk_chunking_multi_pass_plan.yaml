@@ -1,0 +1,142 @@
+---
+object_type: low_risk_chunking_multi_pass_plan
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-29 during T404 after the owner asked whether low-risk chunking research was complete and requested a multi-pass future roadmap."
+reason_for_inclusion: "Separate completed low-risk triage research from future review-packet, Codex review, owner promotion, and output-pilot passes."
+---
+schema_version: low_risk_chunking_multi_pass_plan.v1
+plan_id: t404_low_risk_chunking_multi_pass_plan
+task_id: T404
+status: active_non_output_changing_multi_pass_plan
+owner: Lowell Wong
+decision_register_entry: CD-078
+lesson_index_entry: LSN-032
+research_completion_verdict:
+  t402_queue_research_complete_at_depth: all_66_book_candidate_triage
+  ready_for_review_packet_candidates: 38
+  not_complete_at_depths:
+    - review_packet_strengthening
+    - reviewed_gold_promotion
+    - child_span_review
+    - output_pilot
+    - route_behavior_change
+    - evaluator_change
+    - graph_or_retrieval_truth
+    - embedding_or_vector_work
+    - boundary_import
+    - source_or_manuscript_rows
+    - theology_authority
+  plain_language_verdict: "The low-risk queue is complete as triage/review eligibility research, but not complete as review packets, reviewed gold, output authority, or implementation research."
+authority:
+  records_multi_pass_plan: true
+  records_research_completion_verdict: true
+  authorizes_cursor_target_selection: false
+  authorizes_exact_target_selection: false
+  authorizes_review_packet_strengthening_without_owner_selection: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_boundary_import: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_backend_choice: false
+  authorizes_retrieval_profile_promotion: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_source_or_manuscript_row_population: false
+  authorizes_theology_authority_change: false
+multi_pass_sequence:
+  - pass_id: T402-PASS-0
+    roadmap_task_id: T402
+    title: "All-66-book low-risk candidate triage"
+    status: complete
+    depth: triage_research_only
+    owner_or_codex_target_required: true
+    cursor_allowed: false
+    output_change_authorized: false
+    result: ".ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml"
+  - pass_id: T404-PASS-1
+    roadmap_task_id: T404
+    title: "Cursor delegation contract and low-risk stop conditions"
+    status: complete_when_t404_merges
+    depth: governance_and_handoff_only
+    owner_or_codex_target_required: true
+    cursor_allowed: false
+    output_change_authorized: false
+    result: ".ai/control/cursor_low_risk_chunking_handoff.yaml"
+  - pass_id: T406-PASS-2
+    roadmap_task_id: T406
+    title: "Cursor low-risk candidate research batch 1"
+    status: planned_future
+    depth: review_packet_prep_only
+    batch_size_limit: 3
+    allowed_candidate_status: ready_for_review_packet
+    owner_or_codex_target_required: true
+    cursor_allowed: true
+    cursor_may_select_targets: false
+    required_review_before_merge: Codex
+    output_change_authorized: false
+    deliverable_type: "non-authorizing research packets or candidate prep notes for exact supplied targets"
+  - pass_id: T407-PASS-3
+    roadmap_task_id: T407
+    title: "Codex review of Cursor batch and owner selection packet"
+    status: future_placeholder
+    depth: review_and_owner_options_only
+    owner_or_codex_target_required: true
+    cursor_allowed: false
+    output_change_authorized: false
+    deliverable_type: "Codex review findings and owner options for one exact target"
+  - pass_id: T408-PASS-4
+    roadmap_task_id: T408
+    title: "Single selected candidate review-packet strengthening"
+    status: future_placeholder
+    depth: one_exact_review_packet_only
+    owner_or_codex_target_required: true
+    cursor_allowed: false
+    output_change_authorized: false
+    deliverable_type: "one strengthened review packet, still not reviewed gold"
+future_roadmap_entry:
+  next_planned_task_id: T406
+  title: "Cursor Low-Risk Candidate Research Batch 1"
+  placement: ROADMAP_STATE.yaml phase_4 after T404
+  starts_after:
+    - T404 merged
+    - owner_or_codex_supplies_exact_targets
+  batch_size_limit: 3
+  allowed_status: ready_for_review_packet
+  prohibited_statuses:
+    - needs_context_research
+    - needs_original_language_review
+    - variant_sensitive_hold
+    - theological_risk_hold
+    - owner_decision_required
+    - do_not_chunk_now
+  no_authority_changes: true
+non_authorizations:
+  - cursor_target_selection
+  - exact_target_selection
+  - review_packet_strengthening_without_owner_selection
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - vector_index_build
+  - boundary_import
+  - whole_bible_output_pass
+  - backend_choice
+  - retrieval_profile_promotion
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - theology_authority_change
+validator: scripts/validate_cursor_low_risk_chunking_handoff.py

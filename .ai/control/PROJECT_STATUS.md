@@ -1,17 +1,68 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-25
-**Updated by:** T401 Eph.1.3-Eph.1.14 output pilot (Codex)
-**Active task:** -> **T401 Eph.1.3-Eph.1.14 output pilot** completes Goal 7 at
-`.ai/control/t401_eph1_output_pilot_manifest.yaml`.
-It implements exactly one appended parent-only additive overlay for `Eph.1.3-Eph.1.14`, preserves
-the pre-T401 baseline/non-target output byte-identical, records route-isolation and same-baseline
-proof, and links `CD-076` plus `LSN-030`. T401 authorizes no child spans, deleting/replacing
-existing chunks, adjacent spill splits, broader epistle generalization, whole-Bible output,
-evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings/source
-traditions, canon-scope change, source/manuscript rows, or theology authority. The next safe stop
-is post-pilot review before any child-span or broader behavior work.
+**Last updated:** 2026-06-29
+**Updated by:** T404 Cursor low-risk chunking handoff and multi-pass plan (Codex); PR #123 conflict reconciliation with T405 governance mirror
+**Active task:** -> **T404 Cursor low-risk chunking handoff** records that T402 low-risk research
+is complete at all-66-book candidate-triage depth, with 38 `ready_for_review_packet` candidates,
+but not complete at review-packet, reviewed-gold, child-span, output, route/evaluator,
+graph/retrieval/vector, boundary-import, source-row, backend/profile, canon-scope, or
+theology-authority depth. T404 adds `.ai/control/cursor_low_risk_chunking_handoff.yaml`,
+`.ai/control/low_risk_chunking_multi_pass_plan.yaml`, Cursor project commands/rules, `CD-078`, and
+`LSN-032`, and places T406 on the future roadmap as a Cursor-assisted batch of at most three exact
+owner-or-Codex supplied `ready_for_review_packet` candidates. It authorizes no Cursor target
+selection, reviewed gold, child spans, chunk output, route/evaluator behavior,
+graph/retrieval/vector truth, embeddings/indexes, boundary import, backend choice, profile
+promotion, source/manuscript rows, canon-scope change, or theology authority.
+PR #123 conflict reconciliation also preserves the already-merged T405 governance dependency-map
+mirror at `.ai/control/governance_dependency_map_mirror.yaml`, renumbered in the lesson index as
+`LSN-033` after T402/T404. T405 remains a non-authorizing child-repo mirror of upstream
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`; it cannot override
+upstream governance, weaken governance, change Scripture data, import boundary material, or create
+graph/retrieval/vector truth.
 **T308** connection discovery + **T309** chunking bake-off still open.
+
+> **T404 Cursor low-risk chunking handoff (2026-06-29):** Added
+> `.ai/control/cursor_low_risk_chunking_handoff.yaml`,
+> `.ai/control/low_risk_chunking_multi_pass_plan.yaml`,
+> `.cursor/commands/chunking-preflight.md`,
+> `.cursor/commands/low-risk-chunking-candidate.md`,
+> `.cursor/commands/codex-review-packet.md`,
+> `.cursor/rules/logos-scripture-low-risk-chunking.mdc`,
+> `docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md`,
+> `docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md`,
+> `scripts/validate_cursor_low_risk_chunking_handoff.py`, and
+> `tests/test_cursor_low_risk_chunking_handoff.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, methodology, validator, and handoff surfaces;
+> and recorded `CD-078` plus `LSN-032`. T404 confirms T402 research is complete only at
+> all-66-book triage depth and schedules T406 as a future review-only Cursor batch after exact
+> owner-or-Codex targets are supplied. It authorizes no target selection, reviewed gold, child
+> spans, output, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes,
+> boundary import, backend/profile choice, source/manuscript rows, canon-scope change, or theology
+> authority.
+
+> **T403 deterministic runtime timeout ceiling enforcement (2026-06-29):** Hardened
+> `.ai/control/test_runtime_preflight.yaml`, `AI_FRONT_DOOR.md`,
+> `scripts/validate_test_runtime_preflight.py`, `scripts/validate_chunking_agent_preflight.py`, and
+> `tests/test_test_runtime_preflight.py` so `python scripts/validate_all.py` has a machine-checked
+> minimum timeout of 900000 ms. This was prompted by a known 240000 ms timeout followed by a
+> successful 900000 ms run. The rule is runtime discipline only and does not authorize skipping,
+> bypassing, output, data, chunking, graph/retrieval/vector, boundary, source/manuscript, or
+> theology-authority changes.
+
+> **T402 low-complexity chunking runway (2026-06-25):** Added
+> `.ai/control/t402_eph1_post_pilot_review.yaml`,
+> `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`,
+> `docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md`, `.ai/tasks/T402.task.yaml`,
+> `.ai/handoffs/T402/handoff.md`,
+> `.ai/audits/reports/20260625-T402-low-complexity-runway.md`,
+> `scripts/validate_t402_low_complexity_chunking_runway.py`, and
+> `tests/test_t402_low_complexity_chunking_runway.py`; updated preflight, the decision register,
+> lesson index, readiness map, TOCs, roadmap/status, audit, and handoff surfaces; and recorded
+> `CD-077` plus `LSN-031`. T402 confirms child spans are not necessary now for the exact T401
+> Eph.1.3-Eph.1.14 pilot and creates an all-66-book candidate queue. Low-complexity means review eligibility only. It is review/research only
+> and authorizes no target selection, reviewed gold, child spans, output, route/evaluator behavior,
+> graph/retrieval/vector truth, boundary import, source-tradition preference, canon-scope change,
+> source/manuscript rows, whole-Bible output, or theology authority.
 
 > **T401 Eph.1.3-Eph.1.14 output pilot (2026-06-25):** Added
 > `.ai/control/t401_eph1_output_pilot_manifest.yaml`,

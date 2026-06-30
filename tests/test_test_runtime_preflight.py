@@ -29,7 +29,9 @@ def test_test_runtime_preflight_validates_current_repo() -> None:
     assert "nested pytest/validate_all" in profiles["pytest_full_suite_local_desktop_t398"]["observed_result"]
     assert profiles["pytest_full_suite_local_desktop_t397"]["recommended_timeout_ms"] >= 1200000
     assert "608 passed in 830.68 seconds" in profiles["pytest_full_suite_local_desktop_t397"]["observed_result"]
-    assert profiles["validate_all"]["recommended_timeout_ms"] >= 300000
+    assert profiles["validate_all"]["recommended_timeout_ms"] >= 900000
+    assert "240000 ms" in profiles["validate_all"]["observed_result"]
+    assert "477.5 seconds" in profiles["validate_all"]["observed_result"]
 
 
 def test_test_runtime_preflight_rejects_short_pytest_timeout(tmp_path: Path) -> None:
@@ -41,6 +43,18 @@ def test_test_runtime_preflight_rejects_short_pytest_timeout(tmp_path: Path) -> 
     write_yaml(candidate, data)
 
     with pytest.raises(validator.TestRuntimePreflightError, match="recommended_timeout_ms"):
+        validator.validate_test_runtime_preflight(candidate)
+
+
+def test_test_runtime_preflight_rejects_short_validate_all_timeout(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_test_runtime_preflight(PREFLIGHT))
+    for profile in data["runtime_profiles"]:
+        if profile["command_id"] == "validate_all":
+            profile["recommended_timeout_ms"] = 300000
+    candidate = tmp_path / "test-runtime-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.TestRuntimePreflightError, match="900000"):
         validator.validate_test_runtime_preflight(candidate)
 
 

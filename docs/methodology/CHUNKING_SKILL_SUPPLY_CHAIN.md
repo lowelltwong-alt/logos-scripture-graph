@@ -587,6 +587,30 @@ Rules:
 - `scripts/validate_chunking_agent_preflight.py` runs in `validate_all.py` to fail closed if this
   preflight contract or the metadata rule is removed.
 
+## 10p. Cursor low-risk chunking delegation rule
+
+T404 records how Cursor may help with low-level, compute-intensive chunking prep without becoming an
+authority layer.
+
+Rules:
+
+- T402 low-risk research is complete at all-66-book candidate-triage depth, not at review-packet,
+  reviewed-gold, output, or implementation depth.
+- Cursor may not choose the target. Lowell or Codex must supply one exact T402
+  `ready_for_review_packet` candidate.
+- Use Cursor Plan mode for preflight, target confirmation, risk classification, and validation
+  planning before edits.
+- Use Cursor Agent mode only for explicit, task-scoped, review-only artifacts after stop conditions
+  are clear.
+- Cursor project slash commands live under `.cursor/commands/`: `/chunking-preflight`,
+  `/low-risk-chunking-candidate`, and `/codex-review-packet`.
+- Stop if work would add child spans, change chunk output, change route/evaluator behavior, run
+  embeddings, build vector indexes, generate graph edges, import boundary material, choose a
+  backend, promote a retrieval profile, add source/manuscript rows, change canon scope, select a
+  preferred reading/source tradition, or authorize theology.
+- T406 is the future multi-pass batch step, limited to at most three exact owner-or-Codex supplied
+  ready candidates and Codex review before merge.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -740,3 +764,7 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
   tags, footnotes, headings, WJ markers, paragraph/poetry markers, alternate readings, and edition
   formatting are evidence only, not authority for lexical claims, intertexts, speaker attribution,
   graph edges, chunk boundaries, or output changes.
+- 2026-06-29: Added the T404 Cursor low-risk delegation rule. Cursor can help with review-only
+  compute prep after exact owner-or-Codex target supply, but may not select targets, change output,
+  promote gold, run embeddings/indexes, generate graph/retrieval truth, choose backends/profiles,
+  import boundary material, add source rows, or authorize theology. T406 is the future batch pass.

@@ -2,7 +2,7 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T405 to add child-repo governance dependency-map mirror discovery controls."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
@@ -1336,10 +1336,127 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_agent_preflight.py
   - lesson_id: LSN-031
+    title: Low-complexity status is review eligibility, not chunking authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, contextual_reading, source_metadata, original_language]
+    tags: [low-complexity, candidate-queue, review-eligibility, canonical-66, whole-bible-runway, status-buckets, terminology, depth, parent, child, source-metadata, context-required, non-authorizing, t402, post-pilot-review]
+    use_when:
+      - "A future agent uses the T402 whole-Bible candidate queue, selects a next review target, or audits why low-complexity is not output authority."
+      - "A future agent sees ready_for_review_packet and must remember that it means review eligibility only, not exact target selection, reviewed gold, child-span selection, route behavior, graph/retrieval/vector truth, or output permission."
+      - "A future agent proposes parent/child/depth terminology or larger structure after a candidate looks simple."
+    preflight_stage: before_candidate_queue_use_or_review_packet_selection
+    source_surfaces:
+      - .ai/control/t402_eph1_post_pilot_review.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+      - .ai/audits/reports/20260625-T402-low-complexity-runway.md
+      - .ai/tasks/T402.task.yaml
+      - .ai/handoffs/T402/handoff.md
+      - scripts/validate_t402_low_complexity_chunking_runway.py
+      - tests/test_t402_low_complexity_chunking_runway.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: [CD-077, CD-076, CD-073, CD-072]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T402, T401, T399, T398]
+    downstream_risk: "A low-complexity runway can speed review, but it can also smuggle theology or output behavior if candidate status becomes an authority shortcut. Apparent simplicity still needs context, source-metadata evidence-only handling, variant/source-tradition flags, original-language phrase/context review where relevant, owner gates, and validators."
+    required_preflight_surfaces:
+      - .ai/control/t402_eph1_post_pilot_review.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - low_complexity_status_as_output_authority
+      - ready_for_review_packet_as_owner_selection
+      - candidate_queue_as_reviewed_gold
+      - child_span_selection_from_candidate_status
+      - graph_or_retrieval_truth_from_candidate_status
+      - source_metadata_as_boundary_authority
+      - original_language_word_as_boundary_authority
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_or_manuscript_row_population
+      - theology_authority_from_candidate_status
+    validators:
+      - scripts/validate_t402_low_complexity_chunking_runway.py
+      - tests/test_t402_low_complexity_chunking_runway.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+      - scripts/validate_bible_chunking_readiness_map.py
+  - lesson_id: LSN-032
+    title: Cursor low-risk chunking handoffs are compute delegation only
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk, source_metadata, graph_retrieval_vector]
+    tags: [cursor, low-risk-delegation, chunking-handoff, slash-commands, plan-mode, agent-mode, review-only, candidate-queue, stop-conditions, codex-review, t404]
+    use_when:
+      - "Cursor or another lower-level compute agent is asked to help with chunking candidate prep, queue inspection, metrics, or review packet drafting."
+      - "A future agent wants to delegate low-level compute-intensive chunking work while preserving owner/Codex review."
+      - "A future agent is tempted to let Cursor select a target, modify output, run embeddings, generate graph edges, import boundary material, or promote a profile."
+    preflight_stage: before_cursor_or_lower_level_chunking_delegation
+    source_surfaces:
+      - .ai/control/cursor_low_risk_chunking_handoff.yaml
+      - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+      - docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+      - docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+      - .cursor/commands/chunking-preflight.md
+      - .cursor/commands/low-risk-chunking-candidate.md
+      - .cursor/commands/codex-review-packet.md
+      - .cursor/rules/logos-scripture-low-risk-chunking.mdc
+      - .ai/tasks/T404.task.yaml
+      - .ai/handoffs/T404/handoff.md
+      - scripts/validate_cursor_low_risk_chunking_handoff.py
+      - tests/test_cursor_low_risk_chunking_handoff.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+    related_decision_ids: [CD-078, CD-077]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T404, T402]
+    downstream_risk: "Delegating compute to Cursor can accelerate review prep, but can also smuggle target selection, output changes, graph/retrieval/vector truth, source-metadata authority, child spans, boundary import, backend choice, profile promotion, or theology authority if low-risk is not machine-defined."
+    required_preflight_surfaces:
+      - .ai/control/cursor_low_risk_chunking_handoff.yaml
+      - .ai/control/low_risk_chunking_multi_pass_plan.yaml
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+      - .ai/control/test_runtime_preflight.yaml
+    non_authorizations:
+      - cursor_target_selection
+      - exact_target_selection
+      - reviewed_gold_promotion
+      - child_span_selection
+      - chunk_output_change
+      - route_behavior_change
+      - evaluator_change
+      - graph_edge_generation
+      - retrieval_truth
+      - embedding_or_vector_work
+      - vector_index_build
+      - boundary_import
+      - backend_choice
+      - retrieval_profile_promotion
+      - source_or_manuscript_row_population
+      - theology_authority_change
+    validators:
+      - scripts/validate_cursor_low_risk_chunking_handoff.py
+      - tests/test_cursor_low_risk_chunking_handoff.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_agent_preflight.py
+  - lesson_id: LSN-033
     title: Child repos must mirror the upstream governance dependency map
     lifecycle_status: active
     priority: mandatory_preflight
-    categories: [workflow_governance, auditability]
+    categories: [workflow_governance, auditability, graph_retrieval_vector]
     tags: [governance-dependency-map, child-repo-mirror, upstream-governance, governance-facing-files, ai-front-door, ai-toc, repo-contract, validation, t405, non-authorizing]
     use_when:
       - "A future agent changes AI front doors, AI TOCs, repository-link contracts, validators, governance controls, workflow rules, or other governance-facing files in this child repo."
@@ -1676,10 +1793,43 @@ lesson_graph:
   - from: LSN-002
     relation: governs_update_of
     to: LSN-031
-  - from: LSN-003
+  - from: LSN-011
+    relation: constrains
+    to: LSN-031
+  - from: LSN-027
+    relation: discovers
+    to: LSN-031
+  - from: LSN-030
     relation: discovers
     to: LSN-031
   - from: LSN-031
     relation: constrains
-    to: LSN-009
+    to: LSN-020
+  - from: LSN-031
+    relation: constrains
+    to: LSN-021
+  - from: LSN-031
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-032
+  - from: LSN-031
+    relation: constrains
+    to: LSN-032
+  - from: LSN-032
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-033
+  - from: LSN-003
+    relation: discovers
+    to: LSN-033
+  - from: LSN-009
+    relation: constrains
+    to: LSN-033
+  - from: LSN-033
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

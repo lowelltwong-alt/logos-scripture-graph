@@ -35,7 +35,9 @@ Read these files before making changes:
     T375 post-pilot review, T384 Bible-wide research/readiness synthesis, T386 Bible-wide
     verse/passage coverage inventory, T387 manuscript witness reliability scaffold,
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
-    T401 Eph.1.3-Eph.1.14 output pilot,
+    T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
+    T404 Cursor low-risk chunking handoff, T405 governance dependency-map mirror,
+    and T406 future multi-pass plan,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -76,12 +78,12 @@ Read these files before making changes:
     `docs/methodology/UNINTENDED_CONSEQUENCE_REVIEW.md`
 14. Before repo-wide validation, `python scripts/validate_all.py`, or `python -m pytest -q`:
     `.ai/control/test_runtime_preflight.yaml`. It records known slow commands, including full
-    pytest needing a timeout of at least `600000` ms in this worktree, and requires focused/split
-    tests plus full-suite rerun rather than treating a tool timeout as green. T398 also observed
-    local desktop `python -m pytest -q` timing out after a requested `900000` ms and a 25-file
-    batch spawning nested `pytest`/`validate_all.py` helpers; run `validate_all.py` separately,
-    split local pytest by small domain or single file when needed, and record timeout evidence in
-    the handoff.
+    `python scripts/validate_all.py` needing a timeout of at least `900000` ms and full pytest
+    needing its recorded preflight timeout in this worktree. Use those ceilings on the first run;
+    do not burn a short timeout and rerun. T398 also observed local desktop `python -m pytest -q`
+    timing out after a requested `900000` ms and a 25-file batch spawning nested
+    `pytest`/`validate_all.py` helpers; run `validate_all.py` separately, split local pytest by
+    small domain or single file when needed, and record timeout evidence in the handoff.
 15. `config/agents/agent_roles.yaml`
 16. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
 17. The specific files in the task scope.
@@ -103,6 +105,12 @@ repo. The link type is `governance_contract`, recorded in
 `config/governance/repository_link_contract.yaml`.
 The governance repo's `governance/LOGOS_REPO_REGISTRY.yaml` is the source of
 truth for cross-repo registry and repository relationship contracts.
+This repo also keeps a non-authorizing governance dependency-map mirror at
+`.ai/control/governance_dependency_map_mirror.yaml`, validated by
+`scripts/validate_governance_dependency_map_mirror.py`. The upstream source of truth remains
+`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`; the local mirror cannot
+override upstream governance, weaken governance, change Scripture data, import boundary material,
+or create graph/retrieval/vector truth.
 
 The hierarchy is:
 
@@ -117,19 +125,6 @@ logos-governance-architecture
 Agents must read `AI_TABLE_OF_CONTENTS.md`, `config/governance/repository_link_contract.yaml`,
 and `config/agents/agent_hostile_policy.yaml` when work touches cross-repo project structure,
 authority, trust zones, release contracts, or GitHub coordination.
-
-This child repo also mirrors the upstream governance dependency-map update gate.
-The upstream source of truth is
-`logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml`, artifact
-`GD-014`. The local governance dependency-map mirror is
-`.ai/control/governance_dependency_map_mirror.yaml`, validated by
-`scripts/validate_governance_dependency_map_mirror.py`.
-
-If a governance-facing file changes here, agents must check whether the upstream
-governance dependency map and this local mirror surface also need updates. This
-repo must not override, weaken, or reinterpret the upstream governance
-dependency map. If the upstream map conflicts with a scripture-graph local
-request, stop and report.
 
 Agents must not treat GitHub issues, Project-board fields, or generated model output
 as canonical governance truth. They are coordination surfaces. Governance meaning
@@ -245,6 +240,26 @@ Bible-first chunking priority:
   output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred readings or
   source traditions, canon-scope change, source/manuscript rows, or theology authority. The next
   safe step is post-pilot review before any child-span or broader behavior work.
+  T402 now records the post-pilot review at `.ai/control/t402_eph1_post_pilot_review.yaml` and
+  the whole-Bible low-complexity candidate runway at
+  `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`, validated by
+  `scripts/validate_t402_low_complexity_chunking_runway.py`. Low-complexity means review
+  eligibility only: it is not exact target selection, reviewed gold, child-span authority, output,
+  route/evaluator behavior, graph/retrieval/vector truth, boundary import, source-tradition
+  preference, canon-scope change, source/manuscript row authority, whole-Bible output, or theology
+  authority. The next safe step is owner selection of one exact ready candidate before
+  review-packet strengthening.
+  T404 records the Cursor low-risk chunking handoff at
+  `.ai/control/cursor_low_risk_chunking_handoff.yaml`, validated by
+  `scripts/validate_cursor_low_risk_chunking_handoff.py`, and the future multi-pass plan at
+  `.ai/control/low_risk_chunking_multi_pass_plan.yaml`. The low-risk research is complete only at
+  T402 `all_66_book_candidate_triage` depth, not deeper verse-by-verse exegesis. Cursor may not choose the target:
+  it may only prepare one exact owner-or-Codex supplied T402
+  `ready_for_review_packet` candidate under the contract. T406 is reserved as a future
+  multi-pass review-prep phase, not
+  implementation authority, output authority, reviewed-gold authority, graph/retrieval/vector
+  truth, source-row authority, boundary import authority, backend selection, profile promotion, or
+  theology authority.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
@@ -357,6 +372,23 @@ Bible-first chunking priority:
   same-baseline metrics. It does not authorize child spans, broader epistle generalization,
   whole-Bible output, evaluator changes, graph/retrieval/vector truth, boundary import, preferred
   readings/source traditions, canon-scope change, source/manuscript rows, or theology authority.
+- The T402 whole-Bible low-complexity candidate runway at
+  `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml` records one candidate per
+  canonical book with status buckets, context dependencies, metadata evidence-only handling,
+  variant/source-tradition flags, theological-risk flags, owner-decision requirements, and
+  non-authorizations. It is validated by `scripts/validate_t402_low_complexity_chunking_runway.py`
+  and has a no-context audit at `.ai/audits/reports/20260625-T402-low-complexity-runway.md`. It
+  authorizes no exact target selection, reviewed gold, child spans, output, route/evaluator
+  behavior, graph/retrieval/vector truth, boundary import, preferred readings/source traditions,
+  canon-scope change, source/manuscript rows, whole-Bible output, or theology authority.
+- The T404 Cursor low-risk chunking handoff at
+  `.ai/control/cursor_low_risk_chunking_handoff.yaml` records the rules, slash-command workflow,
+  stop conditions, and review packet handoff for delegating low-risk review-prep work to Cursor. It
+  is validated by `scripts/validate_cursor_low_risk_chunking_handoff.py` and paired with the future
+  multi-pass plan at `.ai/control/low_risk_chunking_multi_pass_plan.yaml`. It records that T402
+  research is complete at all-66 triage depth only; it is not deep exegetical completion. Cursor
+  may not choose the target and may not produce chunk output, reviewed gold, graph/retrieval/vector
+  truth, source rows, boundary imports, backend choices, profile promotions, or theology authority.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
@@ -416,8 +448,10 @@ Bible-first chunking priority:
   whole-Bible destination, current algorithm readiness, lane sequence, lesson-storage surfaces, and
   next safe route. It is non-authorizing and currently records T401 as the completed exact
   Eph.1.3-Eph.1.14 output pilot after T394 reviewed-gold promotion and T397 route-isolation
-  harness prep. The map now points to post-pilot review as the next authority-changing stop before
-  any child-span or broader behavior work. T384/T386/T385/T392/T393/T394/T397/T401 readiness cannot
+  harness prep, plus T402 as the completed post-pilot review as the next completed stop and
+  review-only low-complexity candidate runway. T404 adds a non-authorizing Cursor low-risk handoff and T406 reserves a future
+  multi-pass review-prep phase. The next owner action is selecting one exact T402 ready candidate
+  before review-packet strengthening. T384/T386/T385/T392/T393/T394/T397/T401/T402/T404/T406 readiness cannot
   add child spans, treat reviewed gold as unbounded chunk-boundary authority, or change
   evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the
   implemented T374 `1Cor.8.1-1Cor.10.33`

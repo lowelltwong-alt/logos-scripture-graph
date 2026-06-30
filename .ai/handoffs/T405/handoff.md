@@ -51,7 +51,7 @@
 
 - Added a local child-repo mirror of upstream `logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml` artifact `GD-014`.
 - Wired the mirror into the repository link contract, front door, AI table of contents, README, aggregate validator, and focused pytest.
-- Added `LSN-031` to the chunking lesson index so governance-facing child-repo mirror work is discoverable from the Scripture Graph preflight surfaces.
+- Added `LSN-033` to the chunking lesson index so governance-facing child-repo mirror work is discoverable from the Scripture Graph preflight surfaces.
 - Kept the mirror non-authorizing: it cannot override upstream governance, weaken governance, change Scripture data, change chunk output, import boundary material, or create graph/retrieval/vector truth.
 
 ## Validation run

@@ -1,0 +1,101 @@
+id: T402
+phase: phase_4
+title: "Whole-Bible Low-Complexity Chunking Candidate Runway"
+mode: build
+status: complete_review_research_only_candidate_runway
+owner: codex
+branch: codex/t402-low-complexity-runway
+base_ref: origin/codex/t401-eph1-output-pilot
+summary: "Create a governed all-66-book low-complexity review runway, post-pilot review, terminology policy, validators, audit surface, and handoff without authorizing output."
+scope:
+  allowed_paths:
+    - .ai/control/t402_eph1_post_pilot_review.yaml
+    - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T402.task.yaml
+    - .ai/handoffs/T402/
+    - .ai/audits/reports/20260625-T402-low-complexity-runway.md
+    - .ai/audits/reports/README.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+    - scripts/validate_t402_low_complexity_chunking_runway.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_task_scope.py
+    - scripts/validate_all.py
+    - tests/test_t402_low_complexity_chunking_runway.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_bible_chunking_readiness_map.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: whole_bible_low_complexity_review_runway
+  decision_register_entry: CD-077
+  lesson_index_entry: LSN-031
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+deliverables:
+  post_pilot_review: .ai/control/t402_eph1_post_pilot_review.yaml
+  candidate_queue: .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+  roadmap_doc: docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+  validator: scripts/validate_t402_low_complexity_chunking_runway.py
+  tests: tests/test_t402_low_complexity_chunking_runway.py
+  audit: .ai/audits/reports/20260625-T402-low-complexity-runway.md
+  handoff: .ai/handoffs/T402/handoff.md
+candidate_queue_summary:
+  canonical_book_count: 66
+  candidate_count: 66
+  ready_for_review_packet: 38
+  needs_context_research: 16
+  needs_original_language_review: 2
+  variant_sensitive_hold: 2
+  theological_risk_hold: 6
+  owner_decision_required: 1
+  do_not_chunk_now: 1
+acceptance_criteria:
+  - "Queue covers all 66 canonical books exactly once."
+  - "Every candidate has a risk/status classification, metadata evidence-only note, variant/source-tradition flag, theological risk flag, original-language review status, owner-decision requirement, and non-authorizations."
+  - "Terminology policy uses unit, parent, child, overlay, lane, route, and depth; grandparent/great-grandparent are avoided."
+  - "T401 post-pilot review records child spans not necessary now without authorizing permanent denial or child spans."
+  - "Decision register, lesson index, preflight, readiness map, ROADMAP_STATE, AI TOCs, audit, and handoff make T402 discoverable."
+  - "T402 validator and focused tests pass."
+  - "Task-scope validation uses base_ref origin/codex/t401-eph1-output-pilot so local full pytest does not treat stacked T401 files as T402 changes."
+validations:
+  - python scripts/validate_t402_low_complexity_chunking_runway.py
+  - python -m pytest tests/test_t402_low_complexity_chunking_runway.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T402/handoff.md

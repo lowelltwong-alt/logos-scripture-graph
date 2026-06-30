@@ -23,8 +23,8 @@ REQUIRED_PROFILES = {
     },
     "validate_all": {
         "command": "python scripts/validate_all.py",
-        "minimum_timeout_ms": 300000,
-        "required_phrases": ["2 minutes", "full canonical data"],
+        "minimum_timeout_ms": 900000,
+        "required_phrases": ["240000 ms", "900000 ms", "477.5 seconds"],
     },
     "pytest_full_suite_local_desktop_t398": {
         "command": "python -m pytest -q",
@@ -49,7 +49,7 @@ REQUIRED_NON_AUTHORIZATIONS = {
 }
 
 REQUIRED_WIRING = {
-    FRONT_DOOR: ["test_runtime_preflight.yaml", "python -m pytest -q", "600000"],
+    FRONT_DOOR: ["test_runtime_preflight.yaml", "python scripts/validate_all.py", "900000", "python -m pytest -q"],
     MAIN_TOC: ["test-runtime", "pytest-timeout", "test_runtime_preflight.yaml"],
     WORKFLOW_LESSONS: ["WORKFLOW-LESSON-010", "Test Runtime Preflight"],
     LESSON_INDEX: ["LSN-015", "test-runtime", "test_runtime_preflight.yaml"],

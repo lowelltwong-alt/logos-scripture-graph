@@ -1574,6 +1574,178 @@ phases:
         sqlite_database_creation_authorized: false
         metadata_row_population_authorized: false
         source_or_manuscript_rows_authorized: false
+      - id: T402
+        title: Whole-Bible Low-Complexity Chunking Candidate Runway
+        status: complete_review_research_only_candidate_runway
+        lane: whole_bible_low_complexity_review_runway
+        post_pilot_review: .ai/control/t402_eph1_post_pilot_review.yaml
+        candidate_queue: .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+        roadmap_doc: docs/roadmap/T402_LOW_COMPLEXITY_CHUNKING_RUNWAY.md
+        task_scope: .ai/tasks/T402.task.yaml
+        required_handoff: .ai/handoffs/T402/handoff.md
+        audit_report: .ai/audits/reports/20260625-T402-low-complexity-runway.md
+        validator: scripts/validate_t402_low_complexity_chunking_runway.py
+        test: tests/test_t402_low_complexity_chunking_runway.py
+        decision_register_entry: CD-077
+        lesson_index_entry: LSN-031
+        corpus_scope: canonical_66
+        canonical_book_count: 66
+        candidate_count: 66
+        ready_for_review_packet: 38
+        needs_context_research: 16
+        needs_original_language_review: 2
+        variant_sensitive_hold: 2
+        theological_risk_hold: 6
+        owner_decision_required: 1
+        do_not_chunk_now: 1
+        low_complexity_means_review_eligibility_only: true
+        terminology_policy:
+          governed_terms: [unit, parent, child, overlay, lane, route, depth]
+          avoided_terms: [grandparent, great_grandparent]
+        relation_to_t401: "Completes the post-pilot review after the exact Eph.1.3-Eph.1.14 output pilot and confirms child spans are not necessary now."
+        next_task: Owner selects one exact ready_for_review_packet candidate before review-packet strengthening
+        exact_target_selected: false
+        review_packet_strengthening_authorized_without_owner_selection: false
+        reviewed_gold_promoted: false
+        output_change_authorized: false
+        implementation_authorized: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        whole_bible_output_pass_authorized: false
+        theology_authority_change_authorized: false
+      - id: T403
+        title: Deterministic Runtime Timeout Ceiling Enforcement
+        status: complete_runtime_timeout_enforcement
+        lane: control_plane_runtime
+        task_scope: .ai/tasks/T403.task.yaml
+        required_handoff: .ai/handoffs/T403/handoff.md
+        runtime_preflight: .ai/control/test_runtime_preflight.yaml
+        validator: scripts/validate_test_runtime_preflight.py
+        test: tests/test_test_runtime_preflight.py
+        validate_all_minimum_timeout_ms: 900000
+        observed_short_timeout_ms: 240000
+        observed_success_timeout_ms: 900000
+        observed_success_runtime_seconds: 477.5
+        authorizes_validation_bypass: false
+        authorizes_test_skip: false
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
+      - id: T404
+        title: Cursor Low-Risk Chunking Handoff
+        status: complete_non_output_changing_cursor_delegation_contract
+        lane: whole_bible_low_complexity_review_runway
+        contract: .ai/control/cursor_low_risk_chunking_handoff.yaml
+        multi_pass_plan: .ai/control/low_risk_chunking_multi_pass_plan.yaml
+        roadmap_doc: docs/roadmap/T404_CURSOR_LOW_RISK_CHUNKING_HANDOFF.md
+        future_roadmap_doc: docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+        task_scope: .ai/tasks/T404.task.yaml
+        required_handoff: .ai/handoffs/T404/handoff.md
+        validator: scripts/validate_cursor_low_risk_chunking_handoff.py
+        test: tests/test_cursor_low_risk_chunking_handoff.py
+        decision_register_entry: CD-078
+        lesson_index_entry: LSN-032
+        relation_to_t402: "Uses the T402 queue as triage/review eligibility only and defines Cursor delegation guardrails."
+        t402_research_complete_at_triage_depth: true
+        t402_research_complete_at_review_packet_depth: false
+        ready_for_review_packet_candidates: 38
+        next_future_task: T406
+        cursor_may_select_target: false
+        exact_target_selected: false
+        output_change_authorized: false
+        implementation_authorized: false
+        review_packet_strengthening_authorized_without_owner_selection: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        vector_index_build_authorized: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        backend_choice_authorized: false
+        retrieval_profile_promotion_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
+      - id: T405
+        title: Child Governance Dependency-Map Mirror
+        status: complete_local_governance_mirror_gate
+        lane: governance_control_plane
+        mirror: .ai/control/governance_dependency_map_mirror.yaml
+        upstream_dependency_map: logos-governance-architecture/governance/GOVERNANCE_DEPENDENCY_MAP.yaml
+        upstream_artifact_id: GD-014
+        repository_link_contract: config/governance/repository_link_contract.yaml
+        task_scope: .ai/tasks/T405.task.yaml
+        required_handoff: .ai/handoffs/T405/handoff.md
+        validator: scripts/validate_governance_dependency_map_mirror.py
+        test: tests/test_governance_dependency_map_mirror.py
+        lesson_index_entry: LSN-033
+        relation_to_t404: "Merged from main during PR #123 conflict resolution; not part of Cursor low-risk chunking output authority."
+        local_repo_may_override_upstream_dependency_map: false
+        local_repo_may_weaken_upstream_governance: false
+        scripture_data_need_as_governance_authority_authorized: false
+        chunk_output_change_authorized: false
+        boundary_import_authorized: false
+        graph_retrieval_vector_truth_authorized: false
+        theology_authority_change_authorized: false
+      - id: T406
+        title: Cursor Low-Risk Candidate Research Batch 1
+        status: planned
+        lane: whole_bible_low_complexity_review_runway
+        roadmap_doc: docs/roadmap/T406_LOW_RISK_CHUNKING_MULTI_PASS_PLAN.md
+        starts_after: T404
+        batch_size_limit: 3
+        allowed_candidate_status: ready_for_review_packet
+        requires_exact_targets_from_owner_or_codex: true
+        cursor_may_select_targets: false
+        codex_review_required_before_merge: true
+        output_change_authorized: false
+        implementation_authorized: false
+        review_packet_strengthening_authorized_without_owner_selection: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        vector_index_build_authorized: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        backend_choice_authorized: false
+        retrieval_profile_promotion_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

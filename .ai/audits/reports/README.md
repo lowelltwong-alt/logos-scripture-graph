@@ -63,3 +63,7 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   Eph.1.3-Eph.1.14 output pilot; records one additive parent-only overlay, baseline/non-target byte
   identity, route-isolation proof, same-baseline metrics, CD-076/LSN-030, and the post-pilot stop
   before child spans or broader behavior.
+- `20260625-T402-low-complexity-runway.md` - T402 no-context audit surface for the post-pilot
+  review and whole-Bible low-complexity candidate runway; records one candidate per canonical book,
+  status buckets, metadata evidence-only handling, CD-077/LSN-031, and the rule that
+  low-complexity means review eligibility only.

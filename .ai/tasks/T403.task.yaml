@@ -1,0 +1,61 @@
+id: T403
+phase: phase_4
+title: "Deterministic Runtime Timeout Ceiling Enforcement"
+mode: build
+status: complete_runtime_timeout_enforcement
+owner: codex
+scope:
+  allowed_paths:
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/tasks/T403.task.yaml
+    - .ai/handoffs/T403/
+    - AI_FRONT_DOOR.md
+    - ROADMAP_STATE.yaml
+    - scripts/validate_test_runtime_preflight.py
+    - scripts/validate_chunking_agent_preflight.py
+    - tests/test_test_runtime_preflight.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: runtime_timeout_preflight_enforcement
+  authorizes_validation_bypass: false
+  authorizes_test_skip: false
+  authorizes_output_change: false
+  authorizes_chunk_output: false
+  authorizes_route_or_evaluator_behavior: false
+  authorizes_graph_retrieval_vector_truth: false
+  authorizes_boundary_import: false
+  authorizes_source_or_manuscript_rows: false
+acceptance_criteria:
+  - "test_runtime_preflight.yaml records that validate_all timed out at 240000 ms and passed with a 900000 ms ceiling."
+  - "validate_test_runtime_preflight.py fails closed if validate_all recommended_timeout_ms drops below 900000."
+  - "AI_FRONT_DOOR.md tells agents to use the recorded timeout ceiling on the first run rather than burning a short timeout and rerunning."
+  - "tests/test_test_runtime_preflight.py covers the validate_all minimum timeout regression."
+  - "No data, chunk output, route/evaluator, graph/retrieval/vector, boundary, source/manuscript, or theology-authority work is authorized."
+validation:
+  - python scripts/validate_test_runtime_preflight.py
+  - python scripts/validate_chunking_agent_preflight.py
+  - python -m pytest -q tests/test_test_runtime_preflight.py
+  - python scripts/validate_task_scope.py --task-id T403
+  - python scripts/validate_all.py
+required_handoff: .ai/handoffs/T403/handoff.md
+next_task: "Use at least 900000 ms for python scripts/validate_all.py and the recorded test_runtime_preflight timeout for full pytest on the first attempt. Do not run a known slow gate with a short ceiling."
+created_at: "2026-06-29"
+updated_at: "2026-06-29"
