@@ -1,0 +1,117 @@
+id: T409
+phase: phase_4
+title: "Raw USFM Observation Pass (eng-web)"
+mode: explore
+status: read_only_raw_source_observation
+owner: cursor_then_codex
+branch: main
+base_ref: 23721ecf99214c953b4734c145c88568bcc358cd
+summary: "Read every eng-web USFM file in canonical book order from eng-web_usfm.zip; record per-book in-situ marker observations in agent_work only; checkpoint every 5–8 books."
+scope:
+  allowed_paths:
+    - .ai/tasks/T409.task.yaml
+    - .ai/handoffs/T409/
+    - .ai/context/agent_work/T409_RAW_USFM_OBSERVATION_PASS.md
+    - .ai/context/agent_work/T409_BATCH_01.md
+    - .ai/context/agent_work/T409_BATCH_02.md
+    - .ai/context/agent_work/T409_BATCH_03.md
+    - .ai/context/agent_work/T409_BATCH_04.md
+    - .ai/context/agent_work/T409_BATCH_05.md
+    - .ai/context/agent_work/T409_BATCH_06.md
+    - .ai/context/agent_work/T409_BATCH_07.md
+    - .ai/context/agent_work/T409_BATCH_08.md
+    - .ai/context/agent_work/T409_BATCH_09.md
+    - .ai/context/agent_work/T409_BATCH_APPENDIX.md
+  forbidden_paths:
+    - .ai/control/
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - .ai/tasks/T406.task.yaml
+    - .ai/handoffs/T406/
+    - .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT.md
+    - .ai/context/agent_work/WHOLE_BIBLE_CHUNKING_RISK_ATLAS_PILOT_HANDOFF.md
+authorization:
+  task_kind: read_only_raw_source_observation
+  contract_scope: planning_only
+  governance_authority: false
+  control_plane_authority: false
+  research_only_non_authorizing: true
+  cursor_may_select_target: false
+  cursor_exact_target_selection_authorized: false
+  review_packet_strengthening_authorized_without_owner_selection: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  non_authorized_actions:
+    - chunk_output
+    - reviewed_gold_promotion
+    - child_span_selection
+    - route_behavior_change
+    - evaluator_change
+    - graph_edge_generation
+    - retrieval_truth
+    - embedding_or_vector_work
+    - boundary_import
+    - backend_choice
+    - retrieval_profile_promotion
+    - whole_bible_output_pass
+    - preferred_reading_selection
+    - source_tradition_preference
+    - canon_scope_change
+    - source_or_manuscript_row_population
+    - theology_authority_change
+    - control_plane_promotion
+    - t406_file_modification
+deliverables:
+  master_ledger: .ai/context/agent_work/T409_RAW_USFM_OBSERVATION_PASS.md
+  batch_checkpoints:
+    - .ai/context/agent_work/T409_BATCH_01.md
+    - .ai/context/agent_work/T409_BATCH_02.md
+    - .ai/context/agent_work/T409_BATCH_03.md
+    - .ai/context/agent_work/T409_BATCH_04.md
+    - .ai/context/agent_work/T409_BATCH_05.md
+    - .ai/context/agent_work/T409_BATCH_06.md
+    - .ai/context/agent_work/T409_BATCH_07.md
+    - .ai/context/agent_work/T409_BATCH_08.md
+    - .ai/context/agent_work/T409_BATCH_09.md
+    - .ai/context/agent_work/T409_BATCH_APPENDIX.md
+  handoff: .ai/handoffs/T409/handoff.md
+acceptance_criteria:
+  - "All 83 eng-web USFM zip entries opened and fully decoded with per-file proof fields."
+  - "Observation order follows canonical_66_books.yaml; excluded files documented in appendix batch."
+  - "Risk labels are scoped (book_level / example_span_level / raw_marker_only) and non-authorizing."
+  - "No writes under data/raw/ or .ai/control/; T406 artifacts untouched."
+  - "Atlas pilot Torah labels qualified where in-situ reading differs."
+validations:
+  - python scripts/validate_task_scope.py --task-id T409
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - git diff --check
+required_handoff: .ai/handoffs/T409/handoff.md
+created_at: "2026-06-29"
+updated_at: "2026-06-29"
