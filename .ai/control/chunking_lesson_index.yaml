@@ -1500,11 +1500,12 @@ lessons:
     lifecycle_status: active
     priority: mandatory_preflight
     categories: [workflow_governance, auditability, theological_risk, owner_decision]
-    tags: [t410, research-to-chunking, phase-one-chunking, prompt-pack, cursor-transparency, frontier-escalation, completion-tracker, canonical-66, owner-gate, non-authorizing]
+    tags: [t410, t411, research-to-chunking, phase-one-chunking, prompt-pack, cursor-transparency, frontier-escalation, completion-tracker, canonical-66, owner-gate, cursor-readiness, claude-gate, artifact-validator, short-book-batch, non-authorizing]
     use_when:
       - "Cursor or another workhorse agent is asked to run long Bible research, review-packet prep, or whole-book ledger passes before chunking."
       - "Codex needs to review Cursor outputs and decide whether a later owner gate, frontier review, reviewed-gold promotion, route-isolation harness, or exact additive parent overlay task is appropriate."
       - "A future agent is tempted to treat research, book hints, confidence labels, or source metadata as chunk boundary or theology authority."
+      - "A future agent prepares or starts the T411 Cursor short-book batch and must verify the Claude gate, clean branch/worktree preflight, exact supplied candidates, and emitted-artifact validator before Cursor runs."
     preflight_stage: before_parallel_chunking_research_or_prompt_pack_execution
     source_surfaces:
       - .ai/control/parallel_chunking_research_program.yaml
@@ -1521,11 +1522,18 @@ lessons:
       - .cursor/rules/logos-scripture-parallel-verse-research.mdc
       - .ai/tasks/T410.task.yaml
       - .ai/handoffs/T410/handoff.md
+      - .ai/tasks/T411.task.yaml
+      - .ai/handoffs/T411/handoff.md
+      - .ai/context/agent_work/T411/candidate_options_docket.md
+      - .ai/context/agent_work/T411/per_candidate_prompt_notes.md
+      - docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
       - scripts/validate_parallel_chunking_prompt_pack.py
       - tests/test_parallel_chunking_prompt_pack.py
+      - scripts/validate_t411_cursor_batch_artifacts.py
+      - tests/test_t411_cursor_batch_artifacts.py
     related_decision_ids: []
     related_workflow_lesson_ids: []
-    related_task_ids: [T410, T404, T406, T402]
+    related_task_ids: [T411, T410, T404, T406, T402]
     downstream_risk: "Long-running research can look like progress toward chunk output while silently skipping owner gates, reviewed-gold promotion, route-isolation proof, non-target identity checks, frontier review, or transparent evidence trails."
     required_preflight_surfaces:
       - .ai/control/parallel_chunking_research_program.yaml
@@ -1535,6 +1543,8 @@ lessons:
       - .ai/control/chunking_phase_completion_plan.yaml
       - .ai/control/chunking_lesson_index.yaml
       - .ai/control/test_runtime_preflight.yaml
+      - .ai/tasks/T411.task.yaml
+      - scripts/validate_t411_cursor_batch_artifacts.py
     non_authorizations:
       - cursor_target_selection
       - exact_target_selection
@@ -1555,6 +1565,8 @@ lessons:
     validators:
       - scripts/validate_parallel_chunking_prompt_pack.py
       - tests/test_parallel_chunking_prompt_pack.py
+      - scripts/validate_t411_cursor_batch_artifacts.py
+      - tests/test_t411_cursor_batch_artifacts.py
       - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002

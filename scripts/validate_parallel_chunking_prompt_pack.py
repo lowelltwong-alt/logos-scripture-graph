@@ -169,7 +169,7 @@ TEXT_REQUIREMENTS = {
     ],
     HANDOFF: ["task_id: T410", "stage:", "Next agent instruction"],
     PROJECT_STATUS: ["T410", "research-to-chunking", "Phase 1"],
-    CURRENT_FOCUS: ["current_task: T410", "parallel_chunking_research_program"],
+    CURRENT_FOCUS: ["current_task: T411", "parallel_chunking_research_program"],
     READINESS: ["parallel_t410_research_to_chunking_phase_one", "chunking_phase_completion_plan.yaml"],
     LOW_RISK_PLAN: ["T410", "research-to-chunking", "Phase 1"],
     HUMAN_FORECAST: ["T410", "chunking_phase_completion_plan.yaml"],

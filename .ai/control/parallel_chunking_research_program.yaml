@@ -40,6 +40,17 @@ program_model:
   codex_role: "Governance reviewer, prompt-pack enricher, validator/test author, exact gate implementer after owner approval, and next-pack author."
   frontier_role: "Claude Opus/frontier reviewer for hard theological, literary, and architecture risk before any hard case can move toward gold or output."
   owner_role: "Approves exact target, exact parent span, reviewed-gold promotion, and output-changing implementation scope."
+  specialist_reviewer_roles:
+    greek_reviewer: "Read-only, recommend-only reviewer for Greek word/phrase, discourse, greeting, thanksgiving, doxology, and identity-pressure questions."
+    hebrew_reviewer: "Read-only, recommend-only reviewer for Hebrew/Aramaic word/phrase, narrative, prophecy, poetry, and typology-pressure questions."
+    biblical_literature_reviewer: "Read-only, recommend-only reviewer for genre, discourse, stanza, scene, oracle, and argument-boundary questions."
+    explorer_subagent: "Bounded read-only Codex-side audit worker for specific repo questions; cannot authorize output or make shared control-plane changes."
+    worker_subagent: "Implementation worker only for later disjoint task-id/branch/worktree slices with explicit write ownership and live-safety preflight."
+  specialist_guardrails:
+    - language_and_literature_reviewers_are_read_only_recommend_only
+    - explorer_subagents_are_read_only_and_bounded_to_specific_questions
+    - worker_subagents_require_disjoint_write_sets_task_ids_branches_and_worktrees
+    - no_subagent_can_choose_targets_promote_gold_create_output_or_authorize_theology
 phase_ladder:
   - step_id: research
     order: 1
@@ -98,11 +109,17 @@ phase_one_task_sequence:
     status: merged_hardened_control_plane
   - task_id: T411
     title: "Cursor short-book research and review-packet prep batch."
-    status: planned_future
+    status: setup_pending_cursor_run_after_claude_gate
     starts_after:
       - T410_committed_and_merged_to_main
       - t410_parallel_execution_safety_validates
       - clean_branch_or_worktree_claimed_for_T411
+      - t411_emitted_artifact_validator_exists
+      - owner_or_codex_supplied_exact_candidate_batch
+    first_batch_candidates:
+      - T402-LC-063
+      - T402-LC-057
+      - T402-LC-032
   - task_id: T412
     title: "Codex review of T411 and owner-selection docket for first exact batch."
     status: planned_future

@@ -37,8 +37,9 @@ Read these files before making changes:
     T398 phase-one whole-corpus research synthesis, T399 focused Bible-wide research queue,
     T401 Eph.1.3-Eph.1.14 output pilot, T402 low-complexity candidate runway,
     T404 Cursor low-risk chunking handoff, T405 governance dependency-map mirror,
-    T406 future multi-pass plan, and T410 research-to-chunking Phase 1 prompt-pack conveyor at
-    `.ai/control/parallel_chunking_research_program.yaml`,
+    T406 future multi-pass plan, T410 research-to-chunking Phase 1 prompt-pack conveyor at
+    `.ai/control/parallel_chunking_research_program.yaml`, and T411 Cursor readiness gate at
+    `.ai/tasks/T411.task.yaml`,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -272,6 +273,14 @@ Bible-first chunking priority:
   reviewed gold, child spans, chunk output, route/evaluator behavior, graph/retrieval/vector truth,
   embeddings/indexes, boundary import, backend/profile choice, source/manuscript rows, canon-scope
   change, or theology authority.
+  T411 records the first Cursor short-book research/review-packet batch setup at
+  `.ai/tasks/T411.task.yaml` and `docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md`,
+  validated by `scripts/validate_t411_cursor_batch_artifacts.py`. It supplies only the exact
+  owner/Codex candidate docket (`T402-LC-063`, `T402-LC-057`, `T402-LC-032`) and keeps Cursor
+  stopped until a clean branch/worktree passes `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch`.
+  T411 authorizes no Cursor target selection, reviewed gold, child spans, chunk output,
+  route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, boundary import,
+  backend/profile choice, source/manuscript rows, canon-scope change, or theology authority.
   T398 now records the phase-one whole-corpus research synthesis at
   `.ai/control/t398_bible_wide_phase_one_research_synthesis.yaml`, validated by
   `scripts/validate_t398_bible_wide_phase_one_research_synthesis.py`. It proves every canonical
@@ -411,6 +420,11 @@ Bible-first chunking priority:
   `.ai/control/chunking_phase_completion_plan.yaml`. They are validated by
   `scripts/validate_parallel_chunking_prompt_pack.py` and authorize no output or authority by
   themselves.
+- The T411 Cursor readiness gate at `.ai/tasks/T411.task.yaml` and
+  `docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md` prepares only the exact supplied
+  candidates `T402-LC-063`, `T402-LC-057`, and `T402-LC-032`; Cursor has not run and may not run
+  until the clean task-branch preflight passes. Its emitted-artifact validator is
+  `scripts/validate_t411_cursor_batch_artifacts.py`.
 - The T387 manuscript witness reliability scaffold at
   `.ai/control/manuscript_witness_reliability_scaffold.yaml` records the planning-only database
   shape for canonical Scripture manuscript-witness reliability and provenance evidence: biblical
@@ -473,8 +487,9 @@ Bible-first chunking priority:
   harness prep, plus T402 as the completed post-pilot review as the next completed stop and
   review-only low-complexity candidate runway. T404 adds a non-authorizing Cursor low-risk handoff and T406 reserves a future
   multi-pass review-prep phase. T410 adds the research-to-chunking Phase 1 prompt-pack conveyor and
-  deterministic 66-book completion tracker. The next owner action is selecting one exact T402 ready candidate
-  before review-packet strengthening. T384/T386/T385/T392/T393/T394/T397/T401/T402/T404/T406/T410 readiness cannot
+  deterministic 66-book completion tracker. T411 prepares, but has not started, the first Cursor
+  short-book review-prep batch after Claude's final T410 audit. The next safe action is running
+  Cursor only after the clean T411 branch/worktree preflight passes. T384/T386/T385/T392/T393/T394/T397/T401/T402/T404/T406/T410/T411 readiness cannot
   add child spans, treat reviewed gold as unbounded chunk-boundary authority, or change
   evaluator/graph/retrieval/vector behavior. The completed T375 post-pilot review for the
   implemented T374 `1Cor.8.1-1Cor.10.33`

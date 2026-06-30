@@ -1,27 +1,41 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-06-30
-**Updated by:** T410 research-to-chunking Phase 1 prompt-pack conveyor hardening (Codex)
-**Active task:** -> **T410 Research-To-Chunking Phase One Roadmap** is hardened after Claude
-review. The original T410 commit (`c006f36`) is already merged to `main`; the follow-up hardening
-records and live-validates one-task/one-branch/one-worktree safety, clean-status and merge-state
-preflights, cross-task artifact stop conditions, serialized shared control-file edits, and explicit
-validation tiers before any T411 Cursor batch starts. T410 turns the T402/T404/T406
-research runway into a governed conveyor belt from Cursor research, review-packet prep, Codex
-review, frontier escalation, owner gates, reviewed gold, route isolation, exact additive parent
-overlay output PRs, and post-pilot review. T410 adds
+**Updated by:** T411 Cursor readiness with Claude final-audit gate (Codex)
+**Active task:** -> **T411 Cursor Readiness With Claude Final-Audit Gate** is in setup, not
+execution. Claude's final T410 audit on `main @ 3c2770f` reported no P0/P1 blockers and only
+forward P2s. T411 prepares the first short-book Cursor research/review-packet batch, adds
+`scripts/validate_t411_cursor_batch_artifacts.py`, records the exact owner/Codex-supplied
+candidates `T402-LC-063` (`2John.1.1-2John.1.3`), `T402-LC-057` (`Phlm.1.1-Phlm.1.7`), and
+`T402-LC-032` (`Jonah.1.1-Jonah.1.3`), and keeps Cursor stopped until a clean T411 branch/worktree
+passes `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch`.
+Cursor has not run. Its future T411 writes are limited to `.ai/context/agent_work/T411/` and
+`.ai/handoffs/T411/`.
+
+The completed **T410 Research-To-Chunking Phase One Roadmap** remains the governing
+research-to-chunking conveyor. The
+original T410 commit (`c006f36`) is already merged to `main`; the follow-up hardening records and
+live-validates one-task/one-branch/one-worktree safety, clean-status and merge-state preflights,
+cross-task artifact stop conditions, serialized shared control-file edits, and explicit validation
+tiers before any T411 Cursor batch starts. T410 turns the T402/T404/T406 research runway into a
+governed conveyor belt from Cursor research, review-packet prep, Codex review, frontier escalation,
+owner gates, reviewed gold, route isolation, exact additive parent overlay output PRs, and
+post-pilot review. T410 adds
 `.ai/control/parallel_chunking_research_program.yaml`,
 `.ai/control/bible_book_literature_prompt_hints.yaml`,
 `.ai/control/cursor_to_codex_transparency_contract.yaml`,
 `.ai/control/frontier_chunking_escalation_policy.yaml`,
 `.ai/control/chunking_phase_completion_plan.yaml`, Cursor prompt-pack commands/rules, and
 `scripts/validate_parallel_chunking_prompt_pack.py` plus
-`scripts/validate_parallel_execution_safety.py`. It defines Phase 1 as one governed
+`scripts/validate_parallel_execution_safety.py`. T411 adds
+`docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md`,
+`.ai/tasks/T411.task.yaml`, `.ai/handoffs/T411/handoff.md`, the T411 candidate docket and
+per-candidate prompt notes, and the emitted-artifact validator. T410 defines Phase 1 as one governed
 parent-only additive low-risk overlay per canonical book where safe, with explicit deferrals for
 unsafe books. It authorizes no Cursor target selection, reviewed gold, child spans, chunk output,
 route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, boundary import,
 backend choice, profile promotion, source/manuscript rows, canon-scope change, or theology
-authority.
+authority. T411 also authorizes none of those surfaces.
 The prior T404/T406 low-risk handoff remains the review-only Cursor runway; T410 is the bridge
 from that runway to later owner-gated implementation tasks, not an implementation task itself.
 PR #123 conflict reconciliation also preserves the already-merged T405 governance dependency-map

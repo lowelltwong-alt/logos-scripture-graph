@@ -321,6 +321,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_parallel_chunking_prompt_pack.py")],
         ),
         (
+            "validate_t411_cursor_batch_artifacts.py",
+            [PY, str(ROOT / "scripts" / "validate_t411_cursor_batch_artifacts.py")],
+        ),
+        (
             "validate_t398_bible_wide_phase_one_research_synthesis.py",
             [PY, str(ROOT / "scripts" / "validate_t398_bible_wide_phase_one_research_synthesis.py")],
         ),

@@ -1794,6 +1794,47 @@ phases:
         canon_scope_change_authorized: false
         source_or_manuscript_rows_authorized: false
         theology_authority_change_authorized: false
+      - id: T411
+        title: Cursor Readiness With Claude Final-Audit Gate
+        status: setup_pending_cursor_run
+        lane: whole_bible_research_to_chunking_phase_one
+        roadmap_doc: docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
+        task_scope: .ai/tasks/T411.task.yaml
+        required_handoff: .ai/handoffs/T411/handoff.md
+        validator: scripts/validate_t411_cursor_batch_artifacts.py
+        live_safety_validator: scripts/validate_parallel_execution_safety.py
+        tests:
+          - tests/test_t411_cursor_batch_artifacts.py
+          - tests/test_parallel_execution_safety.py
+        claude_gate: "T410 final audit reported no P0/P1 and forward P2s only; Cursor still must not run until clean T411 branch/worktree preflight passes."
+        first_batch_candidates:
+          - T402-LC-063: 2John.1.1-2John.1.3
+          - T402-LC-057: Phlm.1.1-Phlm.1.7
+          - T402-LC-032: Jonah.1.1-Jonah.1.3
+        cursor_write_roots:
+          - .ai/context/agent_work/T411/
+          - .ai/handoffs/T411/
+        cursor_may_select_target: false
+        exact_target_selected: false
+        output_change_authorized: false
+        implementation_authorized: false
+        reviewed_gold_promoted: false
+        child_spans_authorized: false
+        route_behavior_authorized: false
+        evaluator_change_authorized: false
+        graph_edge_generation_allowed: false
+        retrieval_truth_authorized: false
+        embedding_or_vector_work_allowed: false
+        vector_index_build_authorized: false
+        boundary_import_allowed: false
+        whole_bible_output_authorized: false
+        backend_choice_authorized: false
+        retrieval_profile_promotion_authorized: false
+        preferred_reading_authorized: false
+        source_tradition_preference_authorized: false
+        canon_scope_change_authorized: false
+        source_or_manuscript_rows_authorized: false
+        theology_authority_change_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

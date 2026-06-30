@@ -1,0 +1,139 @@
+id: T411
+phase: phase_4
+title: "Cursor Readiness With Claude Final-Audit Gate"
+mode: research_only_review_packet_prep_setup
+status: setup_pending_claude_final_audit_no_cursor_run
+owner: codex
+branch: codex/t411-cursor-readiness-gate
+base_ref: 3c2770f081c9179a7c848aa31d49931f7f1ede8c
+summary: "Prepare the first governed T411 Cursor short-book research/review-prep batch, gated by Claude's final T410 audit and by emitted-artifact validation before Cursor may run."
+cursor_execution_allowed: false
+cursor_run_status: not_started
+claude_final_audit_gate:
+  source: "Claude final audit for main @ 3c2770f"
+  status: passed_no_p0_p1_forward_p2s_only
+  p0_p1_rule: "If Claude reports any P0/P1 against T410/T410-hardening, stop T411 and patch T410 first."
+  p2_rule: "Fold relevant P2 findings into T411 when they affect artifact verification, candidate prep, or Cursor safety."
+  cursor_start_rule: "Cursor must not run T411 until this task file, handoff, owner-supplied candidate docket, emitted-artifact validator, clean task branch, and parallel safety preflight are present and passing."
+scope:
+  allowed_paths:
+    - .ai/tasks/T411.task.yaml
+    - .ai/handoffs/T411/
+    - .ai/context/agent_work/T411/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/test_runtime_preflight.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - .gitignore
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
+    - scripts/validate_t411_cursor_batch_artifacts.py
+    - scripts/validate_parallel_chunking_prompt_pack.py
+    - scripts/validate_all.py
+    - tests/test_t411_cursor_batch_artifacts.py
+    - tests/test_parallel_chunking_prompt_pack.py
+    - tests/test_parallel_execution_safety.py
+    - tests/test_test_runtime_preflight.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+cursor_allowed_write_roots:
+  - .ai/context/agent_work/T411/
+  - .ai/handoffs/T411/
+candidate_docket:
+  source: owner_or_codex_supplied_not_cursor_selected
+  cursor_may_choose_candidates: false
+  candidates:
+    - candidate_id: T402-LC-063
+      book: 2John
+      parent_span: 2John.1.1-2John.1.3
+      queue_status: ready_for_review_packet
+      literature_lane: epistle_opening_or_greeting
+      original_language_layer: greek_optional_for_review_packet
+    - candidate_id: T402-LC-057
+      book: Phlm
+      parent_span: Phlm.1.1-Phlm.1.7
+      queue_status: ready_for_review_packet
+      literature_lane: epistle_opening_or_greeting
+      original_language_layer: greek_optional_for_review_packet
+    - candidate_id: T402-LC-032
+      book: Jonah
+      parent_span: Jonah.1.1-Jonah.1.3
+      queue_status: ready_for_review_packet
+      literature_lane: narrative_scene_or_notice
+      original_language_layer: hebrew_optional_for_review_packet
+authorization:
+  task_kind: cursor_short_book_research_review_packet_readiness
+  records_owner_supplied_candidate_options: true
+  records_claude_final_audit_gate: true
+  records_emitted_artifact_validation: true
+  records_subagent_reviewer_routing: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+required_artifacts_after_cursor_run:
+  agent_work:
+    - .ai/context/agent_work/T411/source_size_manifest.jsonl
+    - .ai/context/agent_work/T411/confidence_register.jsonl
+    - .ai/context/agent_work/T411/audit_log.jsonl
+    - .ai/context/agent_work/T411/claim_traceability_matrix.md
+    - .ai/context/agent_work/T411/escalation_packets/
+  handoff:
+    - .ai/handoffs/T411/cursor_notes_to_codex.md
+    - .ai/handoffs/T411/handoff.md
+cursor_start_preconditions:
+  - "Claude final audit has no P0/P1 blocking T410."
+  - "T411 emitted-artifact validator exists and passes in setup mode."
+  - "The exact three-candidate docket is supplied by owner/Codex, not Cursor."
+  - "Current branch equals codex/t411-cursor-readiness-gate."
+  - "python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch passes on a clean branch/worktree."
+  - "Cursor writes only .ai/context/agent_work/T411/ and .ai/handoffs/T411/."
+acceptance_criteria:
+  - "T411 remains research-only and review-packet prep only."
+  - "The first batch is limited to T402-LC-063, T402-LC-057, and T402-LC-032."
+  - "Cursor cannot choose targets or promote output, gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, or theology authority."
+  - "The validator can verify required future Cursor artifacts and fails partial, missing, non-authorizing, or forbidden-authority artifacts."
+  - "Claude's forward P2 emitted-artifact validator gap is closed before Cursor runs."
+validations:
+  - python scripts/validate_parallel_execution_safety.py --task-id T411 --allow-current-task-dirty --require-task-branch
+  - python scripts/validate_t411_cursor_batch_artifacts.py
+  - python -m pytest tests/test_t411_cursor_batch_artifacts.py -q
+  - python -m pytest tests/test_parallel_execution_safety.py -q
+  - python scripts/validate_task_scope.py --task-id T411
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T411/handoff.md
+created_at: "2026-06-30"
+updated_at: "2026-06-30"

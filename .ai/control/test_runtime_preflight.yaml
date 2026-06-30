@@ -83,6 +83,24 @@ runtime_profiles:
       - treat_timeout_as_test_failure_without_assertion_output
       - hide_timeout_from_handoff
       - stop_unidentified_or_unrelated_parallel_agent_processes
+  - command_id: pytest_full_suite_local_desktop_t411
+    command: "python -m pytest -q"
+    observed_on: "2026-06-30"
+    observed_context: "T411 Cursor readiness branch after validate_all passed and focused T411/T410/live-safety tests passed, with generated canonical data present and many nested validation tests in the local test list."
+    observed_result: "Full pytest timed out after a requested 1800000 ms without assertion output or a pytest verdict. A follow-up `python -m pytest tests --ignore=tests/test_control_plane.py -q` timed out after 1200000 ms, and `python -m pytest tests/test_control_plane.py -q` timed out after 300000 ms because the nested `test_validate_all_suite` was still running `validate_all.py`. Direct `python scripts/validate_all.py` passed separately in 349.4 seconds. `python scripts/run_pytest_guarded.py --timeout-seconds 180 --collect-timeout-seconds 120 --max-segment-size 20 tests` collected 666 tests and isolated only `tests/test_control_plane.py::test_validate_all_suite` as timeout-prone; `python scripts/run_pytest_guarded.py --timeout-seconds 180 --collect-timeout-seconds 120 --max-segment-size 20 -- tests -k \"not test_validate_all_suite\"` then passed the remaining 665 collected tests. Treat this as a runtime/tool timeout, not a green or red assertion result."
+    recommended_timeout_ms: 2400000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - run_python_scripts_validate_all_separately_before_full_pytest
+      - if_full_pytest_times_out_at_1800000_ms_split_by_domain_or_single_file
+      - run_direct_validate_all_then_guarded_pytest_excluding_test_validate_all_suite_if_control_plane_nested_validate_all_times_out
+      - run_pytest_tests_ignore_test_control_plane_py_then_test_control_plane_py_alone_when_not_under_process_contention
+      - record_timeout_and_split_strategy_in_handoff
+    do_not:
+      - treat_timeout_as_test_pass
+      - treat_timeout_as_test_failure_without_assertion_output
+      - hide_timeout_from_handoff
+      - stop_unidentified_or_unrelated_parallel_agent_processes
 update_policy:
   status: required
   update_required_when:

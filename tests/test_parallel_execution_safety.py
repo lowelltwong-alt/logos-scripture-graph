@@ -77,6 +77,28 @@ def test_parallel_safety_rejects_wrong_branch(monkeypatch: pytest.MonkeyPatch) -
         validator.validate_parallel_execution_safety(task_id="T410", require_task_branch=True)
 
 
+def test_parallel_safety_rejects_duplicate_worktree_checkout(monkeypatch: pytest.MonkeyPatch) -> None:
+    branch = "codex/t410-live-execution-safety-validator"
+
+    def fake_run_git(args: list[str]) -> str:
+        if args == ["status", "--porcelain=v1"]:
+            return ""
+        if args == ["branch", "--show-current"]:
+            return branch
+        if args == ["worktree", "list", "--porcelain"]:
+            return (
+                f"worktree /repo/main\nHEAD abc\nbranch refs/heads/{branch}\n\n"
+                f"worktree /repo/other\nHEAD def\nbranch refs/heads/{branch}\n"
+            )
+        raise AssertionError(f"unexpected git args: {args}")
+
+    monkeypatch.setattr(validator, "run_git", fake_run_git)
+    monkeypatch.setattr(validator, "active_merge_states", lambda: [])
+
+    with pytest.raises(validator.ParallelSafetyError, match="multiple worktrees"):
+        validator.validate_parallel_execution_safety(task_id="T410", require_task_branch=True)
+
+
 def test_parse_porcelain_status_uses_renamed_destination() -> None:
     entries = validator.parse_porcelain_status("R  old/path.txt -> new/path.txt\n")
 
