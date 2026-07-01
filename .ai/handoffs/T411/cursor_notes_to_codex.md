@@ -105,9 +105,22 @@ Owner authorized **4 more waves** (context-research lane). Processed **18 candid
 | 15 | short prophets B | Mic.1, Nah.1, Hab.1, Zeph.1, Mal.1 |
 | 16 | narrative/epistle context | Isa.36, Acts.6, 1Cor.1, Prov.10, 2Pet.1 |
 
-Added claims T411-CLAIM-123 through T411-CLAIM-176 (54 claims). Each candidate has a `context_research_hold` escalation packet. **Cumulative: 56 candidates, 176 claims.**
+Added claims T411-CLAIM-123 through T411-CLAIM-176 (54 claims). Each candidate has a `context_research_hold` escalation packet. **Cumulative after wave 16: 56 candidates, 176 claims.**
 
-**Not processed** (await separate owner gate): variant holds, theology holds, owner-decision John 21, `do_not_chunk_now` Rev.
+## WAVES 17-20 Addendum (2026-07-01)
+
+Owner authorized **4 more waves** (frontier-hold lane). Processed the **final 10 queue candidates**:
+
+| Wave | Lane | Candidates |
+|------|------|------------|
+| 17 | variant/source-tradition holds | Esth.9.20–32, Jer.30.1–31.40 |
+| 18 | theological risk A | Song.1.1–4, Lam.3.1–66, Ezek.40.1–49 |
+| 19 | theological risk B | Dan.1.1–21, Zech.1.1–6, 1John.1.1–4 |
+| 20 | owner + deferred | John.21.24–25, Rev.1.1–3 |
+
+Added claims T411-CLAIM-177 through T411-CLAIM-206 (30 claims). Each candidate has a frontier-hold escalation packet (`variant_sensitive_hold`, `theological_risk_hold`, `owner_decision_hold`, or `do_not_chunk_hold`).
+
+**Cumulative: 66 candidates (full T402 queue), 206 claims.** T411 Cursor prep queue is **exhausted**; next phase is Codex review (T413).
 
 ## Validation Tier Used
 

@@ -213,3 +213,41 @@ All CHUNKS 3-12 claims remain **non-authorizing**.
 | T411-CLAIM-176 | T402-LC-061 | 2Pet.1.1-2Pet.1.2 | low | Context-research wave narrative_epistle_context_research cannot resolv |
 
 Context-research wave claims remain **non-authorizing**.
+
+
+## WAVES 17-20 Frontier-Hold Claims (2026-07-01)
+
+| claim_id | candidate | span | confidence | summary |
+| --- | --- | --- | --- | --- |
+| T411-CLAIM-177 | T402-LC-017 | Esth.9.20-Esth.9.32 | medium | Substrate shows 13 in-span verse rows; markers none |
+| T411-CLAIM-178 | T402-LC-017 | Esth.9.20-Esth.9.32 | medium | Queue status is variant_sensitive_hold; review eligibility is not output authority |
+| T411-CLAIM-179 | T402-LC-017 | Esth.9.20-Esth.9.32 | low | Frontier-hold wave variant_source_tradition_holds cannot clear variant_sensitive_hold from ledgers alone |
+| T411-CLAIM-180 | T402-LC-024 | Jer.30.1-Jer.31.40 | medium | Substrate shows 64 in-span verse rows; markers none |
+| T411-CLAIM-181 | T402-LC-024 | Jer.30.1-Jer.31.40 | medium | Queue status is variant_sensitive_hold; review eligibility is not output authority |
+| T411-CLAIM-182 | T402-LC-024 | Jer.30.1-Jer.31.40 | low | Frontier-hold wave variant_source_tradition_holds cannot clear variant_sensitive_hold from ledgers alone |
+| T411-CLAIM-183 | T402-LC-022 | Song.1.1-Song.1.4 | medium | Substrate shows 4 in-span verse rows; markers none |
+| T411-CLAIM-184 | T402-LC-022 | Song.1.1-Song.1.4 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-185 | T402-LC-022 | Song.1.1-Song.1.4 | low | Frontier-hold wave theological_risk_holds_a cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-186 | T402-LC-025 | Lam.3.1-Lam.3.66 | medium | Substrate shows 66 in-span verse rows; markers none |
+| T411-CLAIM-187 | T402-LC-025 | Lam.3.1-Lam.3.66 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-188 | T402-LC-025 | Lam.3.1-Lam.3.66 | low | Frontier-hold wave theological_risk_holds_a cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-189 | T402-LC-026 | Ezek.40.1-Ezek.40.49 | medium | Substrate shows 49 in-span verse rows; markers none |
+| T411-CLAIM-190 | T402-LC-026 | Ezek.40.1-Ezek.40.49 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-191 | T402-LC-026 | Ezek.40.1-Ezek.40.49 | low | Frontier-hold wave theological_risk_holds_a cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-192 | T402-LC-027 | Dan.1.1-Dan.1.21 | medium | Substrate shows 21 in-span verse rows; markers none |
+| T411-CLAIM-193 | T402-LC-027 | Dan.1.1-Dan.1.21 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-194 | T402-LC-027 | Dan.1.1-Dan.1.21 | low | Frontier-hold wave theological_risk_holds_b cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-195 | T402-LC-038 | Zech.1.1-Zech.1.6 | medium | Substrate shows 6 in-span verse rows; markers none |
+| T411-CLAIM-196 | T402-LC-038 | Zech.1.1-Zech.1.6 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-197 | T402-LC-038 | Zech.1.1-Zech.1.6 | low | Frontier-hold wave theological_risk_holds_b cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-198 | T402-LC-062 | 1John.1.1-1John.1.4 | medium | Substrate shows 4 in-span verse rows; markers none |
+| T411-CLAIM-199 | T402-LC-062 | 1John.1.1-1John.1.4 | medium | Queue status is theological_risk_hold; review eligibility is not output authority |
+| T411-CLAIM-200 | T402-LC-062 | 1John.1.1-1John.1.4 | low | Frontier-hold wave theological_risk_holds_b cannot clear theological_risk_hold from ledgers alone |
+| T411-CLAIM-201 | T402-LC-043 | John.21.24-John.21.25 | medium | Substrate shows 2 in-span verse rows; markers none |
+| T411-CLAIM-202 | T402-LC-043 | John.21.24-John.21.25 | medium | Queue status is owner_decision_required; review eligibility is not output authority |
+| T411-CLAIM-203 | T402-LC-043 | John.21.24-John.21.25 | low | Frontier-hold wave owner_and_deferred_holds cannot clear owner_decision_required from ledgers alone |
+| T411-CLAIM-204 | T402-LC-066 | Rev.1.1-Rev.1.3 | medium | Substrate shows 3 in-span verse rows; markers none |
+| T411-CLAIM-205 | T402-LC-066 | Rev.1.1-Rev.1.3 | medium | Queue status is do_not_chunk_now; review eligibility is not output authority |
+| T411-CLAIM-206 | T402-LC-066 | Rev.1.1-Rev.1.3 | low | Frontier-hold wave owner_and_deferred_holds cannot clear do_not_chunk_now from ledgers alone |
+
+Frontier-hold wave claims remain **non-authorizing**. **All 66 T402 queue candidates now have Cursor prep artifacts.**

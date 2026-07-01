@@ -194,6 +194,7 @@ def validate_task_setup(
         "chunk_2_in_progress", "chunk_2_complete",
         "chunk_12_complete",
         "chunk_16_complete",
+        "chunk_20_complete",
     }
     if task.get("cursor_run_status") not in allowed_run_statuses:
         raise T411CursorBatchArtifactError(
