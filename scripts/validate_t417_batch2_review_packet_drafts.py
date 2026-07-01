@@ -1,31 +1,16 @@
 #!/usr/bin/env python3
-"""Validate T417 batch2/batch3 draft review packets stay non-authorizing prep artifacts."""
+"""Validate T417 draft review packets stay non-authorizing prep artifacts."""
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DRAFT_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417" / "review_packet_drafts"
+WORK_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417"
 STANDING_POLICY = ROOT / ".ai" / "control" / "standing_owner_escalation_policy.yaml"
-
-DRAFTS = {
-    "T402-LC-057": DRAFT_DIR / "phlm_opening_draft.md",
-    "T402-LC-065": DRAFT_DIR / "jude_opening_draft.md",
-    "T402-LC-032": DRAFT_DIR / "jonah_opening_draft.md",
-    "T402-LC-048": DRAFT_DIR / "gal_opening_draft.md",
-    "T402-LC-049": DRAFT_DIR / "eph_closing_draft.md",
-    "T402-LC-050": DRAFT_DIR / "phil_opening_draft.md",
-}
-
-TRACE_FILES = {
-    "batch2": ROOT / ".ai" / "context" / "agent_work" / "T417" / "claim_traceability_batch2.jsonl",
-    "batch3": ROOT / ".ai" / "context" / "agent_work" / "T417" / "claim_traceability_batch3.jsonl",
-}
-
-BATCH2_IDS = {"T402-LC-057", "T402-LC-065", "T402-LC-032"}
-BATCH3_IDS = {"T402-LC-048", "T402-LC-049", "T402-LC-050"}
 
 REQUIRED_MARKERS = (
     "draft_pending_standing_policy",
@@ -45,7 +30,7 @@ FORBIDDEN_MARKERS = (
 
 
 class T417DraftPacketError(ValueError):
-    """Raised when batch2 draft packets leak authority or miss traceability."""
+    """Raised when draft packets leak authority or miss traceability."""
 
 
 def _rel(path: Path) -> str:
@@ -55,12 +40,34 @@ def _rel(path: Path) -> str:
         return path.as_posix()
 
 
+def _discover_drafts() -> dict[str, Path]:
+    drafts: dict[str, Path] = {}
+    for path in sorted(DRAFT_DIR.glob("*_draft.md")):
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"T402-LC-\d+", text)
+        if match:
+            drafts[match.group(0)] = path
+    return drafts
+
+
+def _discover_trace_files() -> dict[str, Path]:
+    traces: dict[str, Path] = {}
+    for path in sorted(WORK_DIR.glob("claim_traceability_batch*.jsonl")):
+        batch_id = path.stem.replace("claim_traceability_", "")
+        traces[batch_id] = path
+    return traces
+
+
 def validate_drafts() -> list[str]:
     errors: list[str] = []
     if not STANDING_POLICY.is_file():
         errors.append(f"missing {_rel(STANDING_POLICY)}")
 
-    for candidate_id, path in DRAFTS.items():
+    drafts = _discover_drafts()
+    if not drafts:
+        errors.append(f"no draft packets found under {_rel(DRAFT_DIR)}")
+
+    for candidate_id, path in drafts.items():
         if not path.is_file():
             errors.append(f"missing draft for {candidate_id}: {_rel(path)}")
             continue
@@ -74,12 +81,16 @@ def validate_drafts() -> list[str]:
             if marker in text:
                 errors.append(f"{_rel(path)}: forbidden marker {marker!r}")
 
-    by_candidate: dict[str, list[dict]] = {cid: [] for cid in DRAFTS}
-    for label, trace_path in TRACE_FILES.items():
-        expected_ids = BATCH2_IDS if label == "batch2" else BATCH3_IDS
+    by_candidate: dict[str, list[dict]] = {cid: [] for cid in drafts}
+    trace_files = _discover_trace_files()
+    if not trace_files:
+        errors.append(f"missing claim_traceability_batch*.jsonl under {_rel(WORK_DIR)}")
+
+    for batch_id, trace_path in trace_files.items():
         if not trace_path.is_file():
             errors.append(f"missing {_rel(trace_path)}")
             continue
+        batch_candidate_ids: set[str] = set()
         for line_no, line in enumerate(trace_path.read_text(encoding="utf-8").splitlines(), start=1):
             if not line.strip():
                 continue
@@ -92,15 +103,23 @@ def validate_drafts() -> list[str]:
                 errors.append(f"{_rel(trace_path)}:{line_no}: row must be object")
                 continue
             cid = row.get("candidate_id")
+            if not isinstance(cid, str):
+                errors.append(f"{_rel(trace_path)}:{line_no}: candidate_id required")
+                continue
+            batch_candidate_ids.add(cid)
             if cid in by_candidate:
                 by_candidate[cid].append(row)
-            if cid not in expected_ids:
-                errors.append(f"{_rel(trace_path)}:{line_no}: unexpected candidate {cid}")
+            if cid not in drafts:
+                errors.append(f"{_rel(trace_path)}:{line_no}: unknown candidate {cid}")
             if row.get("non_authorizing") is not True:
                 errors.append(f"claim row {row.get('claim_id')}: non_authorizing must be true")
             draft = row.get("draft_packet")
             if not isinstance(draft, str) or not draft.startswith(".ai/context/agent_work/T417/"):
                 errors.append(f"claim row {row.get('claim_id')}: draft_packet must stay under T417 work dir")
+
+        for cid in batch_candidate_ids:
+            if cid not in drafts:
+                errors.append(f"{batch_id}: trace references missing draft for {cid}")
 
     for cid, claim_rows in by_candidate.items():
         if not claim_rows:
@@ -117,7 +136,7 @@ def main() -> int:
         for err in errors:
             print(f"ERROR: {err}", file=sys.stderr)
         return 1
-    print("OK: T417 batch2/batch3 draft review packets")
+    print("OK: T417 draft review packets")
     return 0
 
 

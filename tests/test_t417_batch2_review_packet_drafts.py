@@ -1,18 +1,21 @@
-"""Tests for T417 batch2 draft review packet validator."""
+"""Tests for T417 draft review packet validator."""
 from __future__ import annotations
 
-from pathlib import Path
-
-from scripts.validate_t417_batch2_review_packet_drafts import DRAFTS, validate_drafts
-
-ROOT = Path(__file__).resolve().parent.parent
+from scripts.validate_t417_batch2_review_packet_drafts import _discover_drafts, validate_drafts
 
 
-def test_batch2_drafts_validate_clean() -> None:
+def test_drafts_validate_clean() -> None:
     assert validate_drafts() == []
 
 
-def test_all_six_draft_files_exist() -> None:
-    assert len(DRAFTS) == 6
-    for path in DRAFTS.values():
-        assert path.is_file()
+def test_core_batch_draft_files_exist() -> None:
+    drafts = _discover_drafts()
+    for candidate_id in (
+        "T402-LC-057",
+        "T402-LC-065",
+        "T402-LC-032",
+        "T402-LC-048",
+        "T402-LC-049",
+        "T402-LC-050",
+    ):
+        assert candidate_id in drafts

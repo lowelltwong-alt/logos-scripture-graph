@@ -12,7 +12,7 @@ canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
 review_ledger: .ai/control/agent_review_ledger.jsonl
 owner: Lowell Wong
 active_task_id: T417
-target_branch: codex/t417-autonomous-batch2-prep
+target_branch: codex/scratch-prep-sprint-batch4
 base_ref: origin/main
 session_stop_when:
   - all_work_units_complete
@@ -153,11 +153,43 @@ work_units:
       - python -m pytest -q
       - git diff --check
     commit_message: "Close T417 autonomous prep session for Codex daily review."
+  - unit_id: U-08
+    status: pending
+    title: Scratch sprint batch4 drafts (5 candidates, one commit)
+    candidates:
+      - T402-LC-051
+      - T402-LC-052
+      - T402-LC-053
+      - T402-LC-055
+      - T402-LC-056
+    deliverables:
+      - .ai/scratch/prep_sprint/scratch_prep_sprint_queue.yaml
+      - scripts/scratch_prep_sprint.py
+      - .ai/context/agent_work/T417/review_packet_drafts/col_closing_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/1thess_opening_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/2thess_opening_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/titus_opening_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/2tim_closing_draft.md
+      - .ai/context/agent_work/T417/claim_traceability_batch4.jsonl
+    validations:
+      - python scripts/validate_scratch_scope.py
+      - python scripts/scratch_prep_sprint.py --batch batch4 --validate-only
+      - python scripts/validate_t417_batch2_review_packet_drafts.py
+    commit_message: "scratch: batch4 review packet drafts (Col, 1Thess, 2Thess, Titus, 2Tim)."
+  - unit_id: U-09
+    status: pending
+    title: SUB-002 promotion packet for batch3 prep artifacts
+    deliverables:
+      - .ai/scratch/submissions/SUB-002/promotion_packet.yaml
+    validations:
+      - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-002/promotion_packet.yaml
+      - python scripts/validate_scratch_scope.py
+    commit_message: "scratch: SUB-002 batch3 promotion packet for Codex review."
 codex_daily_gate:
   canonical_prompt: .ai/prompts/codex_daily_prep_review_prompt.md
   review_ledger: .ai/control/agent_review_ledger.jsonl
   prompt_template: |
-    Review branch codex/t417-autonomous-batch2-prep since last daily review.
+    Review branch codex/scratch-prep-sprint-batch4 since last daily review.
     Verdict: APPROVE_PREP | HOLD_WITH_FINDINGS
     Check: task scope, draft non-authorizations, escalation handling, no output/gold/hold leakage.
     Recommend owner docket if drafts are ready. Do not authorize gold or output.
@@ -178,6 +210,6 @@ merge_policy:
   requires_owner_review_before_gold_or_output: true
 cursor_cloud_agent:
   recommended_model: composer-2.5-fast
-  branch: codex/t417-autonomous-batch2-prep
+  branch: codex/scratch-prep-sprint-batch4
   resume_strategy: "Read handoff last_completed_unit; continue next incomplete unit."
 validator: scripts/validate_autonomous_run_queue.py

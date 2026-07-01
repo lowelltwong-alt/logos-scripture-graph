@@ -1,0 +1,29 @@
+---
+object_type: scratch_prep_sprint_queue
+schema_version: scratch_prep_sprint_queue.v1
+sprint_id: prep_sprint_batch4
+branch_prefix: scratch/
+batch_size: 5
+stop_when: queue_empty_for_lane
+validation_per_commit:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/scratch_prep_sprint.py --validate-only
+batches:
+  - batch_id: batch4
+    lane: short_epistle_continued
+    candidates:
+      - T402-LC-051
+      - T402-LC-052
+      - T402-LC-053
+      - T402-LC-055
+      - T402-LC-056
+  - batch_id: batch5
+    lane: short_epistle_closings
+    status: queued
+    candidates:
+      - T402-LC-058
+      - T402-LC-060
+      - T402-LC-063
+promotion_packets:
+  - SUB-001
+  - SUB-002
