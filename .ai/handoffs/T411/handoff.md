@@ -5,7 +5,7 @@
 - task_id: T411
 - title: Cursor Readiness With Claude Final-Audit Gate
 - phase: phase_4
-- status: chunk_16_complete_pending_codex_review
+- status: t413_review_approved_queue_exhausted_pending_owner_selection
 
 ## Agent
 
@@ -161,3 +161,32 @@ Cursor may then write only `.ai/context/agent_work/T411/` and `.ai/handoffs/T411
 - candidates_added: 18
 - cumulative_claims: 176
 
+---
+
+## Handoff refresh: waves_17_20_complete
+
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T16:00:00Z
+- handoff_id: t411-waves-17-20-complete
+- waves: 17-20 (variant/source-tradition holds, theological-risk holds, owner/deferred holds)
+- candidates_added: 10
+- cumulative_candidates: 66
+- cumulative_claims: 206
+- cumulative_escalation_packets: 66
+- stop_reason: Full T402 low-complexity queue exhausted; await Codex T413 post-merge review and owner-selection docket.
+
+---
+
+## T413 Codex Review Verdict
+
+- verdict: APPROVE_T413_REVIEW
+- reviewer: Codex
+- reviewed_at: 2026-07-01T17:00:00Z
+- review_mode: post_merge_audit_only
+- coverage: 66/66 T402 queue candidates have T411 prep artifacts; 206/206 confidence claims are traceable in `claim_traceability_matrix.md`; 66/66 escalation packets are present.
+- findings: No open P0/P1/P2 findings after this review update. Status drift in this handoff was corrected from chunk 16 to queue-exhausted review-approved.
+- validation_note: `validate_parallel_execution_safety.py --task-id T411 --require-task-branch` fails on merged `main` because it is a Cursor-launch branch preflight; post-merge artifact validators and control-plane gates pass.
+- cursor_execution_allowed: false remains correct after queue exhaustion; any further Cursor work requires a new owner-gated task or wave.
+- next_action: Owner selects exact candidates for a T413 review-packet strengthening docket; no T414 reviewed-gold or output-changing work is authorized here.
+- explicit_non_authorizations_preserved: no target selection by Cursor, reviewed gold, child spans, chunk output, route/evaluator behavior changes, graph/retrieval/vector truth, embeddings/indexes, boundary imports, backend choice, profile promotion, source/manuscript rows, canon-scope change, source-tradition preference, Revelation processing beyond research hold, or theology authority.

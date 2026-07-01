@@ -1,0 +1,84 @@
+id: T413
+phase: phase_4
+title: "Codex Post-Merge Review Of T411 Cursor Work"
+mode: review_only_post_merge_audit
+status: complete
+owner: codex
+branch: main
+base_ref: origin/main
+summary: "Review merged T411 Cursor full-queue prep artifacts, record the Codex verdict, preserve non-authorizations, and prepare the owner-selection route for the first review-packet strengthening docket."
+scope:
+  allowed_paths:
+    - .ai/tasks/T413.task.yaml
+    - .ai/handoffs/T413/
+    - .ai/handoffs/T411/handoff.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: codex_review_only_post_merge_audit
+  records_review_verdict: true
+  records_owner_selection_docket_recommendation: true
+  cursor_execution_allowed: false
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  clears_variant_or_theology_holds: false
+  processes_revelation_beyond_research_hold: false
+review_scope:
+  reviewed_task: T411
+  reviewed_merge_ref: 3ac266b
+  expected_candidates: 66
+  expected_claims: 206
+  expected_escalation_packets: 66
+  verdict: APPROVE_T413_REVIEW
+  cursor_execution_allowed_after_review: false
+  next_route: owner_selection_for_review_packet_strengthening
+acceptance_criteria:
+  - "T411 merged artifacts are reviewed for queue coverage, claim traceability, escalation packet coverage, and authority leakage."
+  - "T411 handoff records APPROVE_T413_REVIEW or HOLD_WITH_FINDINGS."
+  - "T413 handoff records findings, recommended first owner-selection candidates, validation results, and preserved non-authorizations."
+  - "Status surfaces route to owner selection for review-packet strengthening, not reviewed gold or output-changing work."
+  - "No Revelation, variant-sensitive, theological-risk, or owner-decision hold is cleared."
+validations:
+  - python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current
+  - python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check
+  - python scripts/validate_t411_cursor_batch_artifacts.py --require-artifacts
+  - python -m pytest tests/test_t411_cursor_batch_artifacts.py -q
+  - python scripts/validate_task_scope.py --task-id T413
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+handoff_required: .ai/handoffs/T413/handoff.md
+created_at: "2026-07-01"
+updated_at: "2026-07-01"

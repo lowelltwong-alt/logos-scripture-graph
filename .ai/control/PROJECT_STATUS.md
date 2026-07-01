@@ -1,13 +1,21 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-05
-**Updated by:** T411 substrate-gate clearance recording (Codex)
-**Active task:** -> **T411 Cursor Readiness With Claude Final-Audit Gate** is ready pending
-owner launch. T412 merged @ `e90bc3d`; Claude post-merge audit recorded
-**APPROVE_T411_CURSOR** with no P0/P1 (`.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`).
-The Rust-first observation substrate is proved: 83 source files, 66 canonical books, 38,058 verses,
-and 1,402 chapter spans; generated-mode validation and the T411 compressed ledger pack check pass.
-Cursor has not run and must not run until owner launch plus a clean T411 branch/worktree preflight.
+**Last updated:** 2026-07-01
+**Updated by:** T413 Codex post-merge review of completed T411 Cursor prep
+**Active task:** -> **T413 Codex post-merge review of T411 Cursor work** is approved.
+T411 produced non-authorizing review-packet prep for all 66 T402 low-complexity queue candidates:
+206 traceable non-authorizing claims, 66 escalation packets, 20 completed waves/chunks, and the
+CHUNK 1 pilot Cursor observation pack. The next route is owner selection for a narrow T413
+review-packet strengthening docket; T414 reviewed gold promotion and any output-changing chunk work
+remain unauthorized.
+
+T412 merged @ `e90bc3d`; Claude post-merge audit recorded **APPROVE_T411_CURSOR** with no P0/P1
+(`.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`). The Rust-first observation
+substrate is proved: 83 source files, 66 canonical books, 38,058 verses, and 1,402 chapter spans;
+generated-mode validation and the T411 compressed ledger pack check pass. Routine `validate_all.py`
+contract checks do not rerun the full Rust scan unless scanner/raw/schema inputs change.
+T411 `cursor_execution_allowed: false` remains correct after queue exhaustion; any further Cursor
+work requires a new owner-gated task or wave.
 T412 adds
 `.ai/control/rust_first_observation_substrate.yaml`, `tools/usfm_observation_scanner/`,
 `scripts/validate_rust_observation_substrate.py`, `scripts/build_cursor_observation_pack.py`, and
