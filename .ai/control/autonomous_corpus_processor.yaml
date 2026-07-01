@@ -46,6 +46,17 @@ efficiency_policy:
       - python scripts/validate_all.py
       - python -m pytest -q
       - git diff --check
+  scratch_lane:
+    policy: .ai/control/scratch_lane_policy.yaml
+    branch_prefix: scratch/
+    after_each_commit:
+      - python scripts/validate_scratch_scope.py
+    promotion_to_main_requires:
+      - .ai/scratch/submissions/SUB-*/promotion_packet.yaml
+      - python scripts/validate_promotion_packet.py --packet <path>
+      - codex_promotion_packet_review_per_prompt
+    never_in_scratch:
+      - python scripts/validate_all.py
 
 daily_review_cadence:
   cursor_tier:

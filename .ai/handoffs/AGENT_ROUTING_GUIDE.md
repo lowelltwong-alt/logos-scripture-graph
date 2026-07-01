@@ -74,6 +74,27 @@ Operational role aliases: `config/agents/agent_roles.yaml` → `prep_agent`, `da
 
 ---
 
+## Step 2.7 — Scratch lane (fast prep worktree)
+
+For experimental prep without running full `validate_all` on every commit:
+
+| File | Purpose |
+|------|---------|
+| `.ai/control/scratch_lane_policy.yaml` | Allowed/forbidden paths, promotion packet contract |
+| `.ai/scratch/submissions/_template/promotion_packet.yaml` | Copy to `SUB-###/` before promotion PR |
+| `scripts/validate_scratch_scope.py` | Fast pre-commit check on `scratch/*` branches |
+| `.ai/prompts/codex_promotion_packet_review_prompt.md` | Higher-tier review when promoting to `main` |
+
+```bash
+git worktree add ../logos-scratch -b scratch/<lane-name> origin/main
+cd ../logos-scratch
+python scripts/validate_scratch_scope.py
+```
+
+Promotion PRs **must** include a filled `promotion_packet.yaml` with `risk_summary` and `decisions[]` premortem fields.
+
+---
+
 ## Step 3 — Work within guardrails
 
 **Never:**

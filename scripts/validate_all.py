@@ -373,6 +373,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t417_batch2_review_packet_drafts.py")],
         ),
         (
+            "validate_scratch_lane_policy.py",
+            [PY, str(ROOT / "scripts" / "validate_scratch_lane_policy.py")],
+        ),
+        (
+            "validate_scratch_scope.py",
+            [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
+        ),
+        (
             "validate_t402_low_complexity_chunking_runway.py",
             [PY, str(ROOT / "scripts" / "validate_t402_low_complexity_chunking_runway.py")],
         ),

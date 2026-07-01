@@ -53,6 +53,10 @@ Return exactly one:
 2. Update handoff `last_codex_daily_review` and `codex_daily_verdict`.
 3. If drafts are ready, record `recommended_owner_docket` only — do not authorize strengthening, gold, or output.
 
+## Scratch lane promotion PRs
+
+If the branch name starts with `scratch/` or the PR includes `.ai/scratch/submissions/SUB-*/promotion_packet.yaml`, switch to `.ai/prompts/codex_promotion_packet_review_prompt.md` and require `validate_promotion_packet.py` to pass.
+
 ## Non-authorizations
 
 This daily review does not authorize reviewed gold promotion, chunk output, child spans, route/evaluator changes, hold clearing, or theology authority.
