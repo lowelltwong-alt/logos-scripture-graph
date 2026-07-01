@@ -329,6 +329,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t416_batch1_post_pilot_review.py")],
         ),
         (
+            "validate_autonomous_run_queue.py",
+            [PY, str(ROOT / "scripts" / "validate_autonomous_run_queue.py")],
+        ),
+        (
             "validate_t402_low_complexity_chunking_runway.py",
             [PY, str(ROOT / "scripts" / "validate_t402_low_complexity_chunking_runway.py")],
         ),
