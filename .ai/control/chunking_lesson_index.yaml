@@ -1629,6 +1629,29 @@ lessons:
       - hold_clearing
     validators:
       - scripts/validate_t416_batch1_post_pilot_review.py
+  - lesson_id: LSN-041
+    title: Standing owner escalation policy decide-once ladder
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, owner_decision]
+    tags: [t421, standing-escalation-policy, decide-once, batch2, batch3]
+    use_when:
+      - "Owner is ready to approve APPROVE_STANDING_ESCALATION_POLICY for batch2+3 ladder."
+    preflight_stage: before_standing_ladder_strengthening_or_output
+    source_surfaces:
+      - .ai/control/standing_owner_escalation_policy.yaml
+      - scripts/validate_standing_owner_escalation_policy.py
+    related_decision_ids: [CD-086]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T421, T417]
+    downstream_risk: "Treating draft standing policy as active authorizes gold/output without owner phrase."
+    required_preflight_surfaces:
+      - .ai/control/standing_owner_escalation_policy.yaml
+    validators:
+      - scripts/validate_standing_owner_escalation_policy.py
+    non_authorizations:
+      - reviewed_gold_promotion
+      - chunk_output_change
   - lesson_id: LSN-040
     title: Scratch lane fast prep with promotion packet review
     lifecycle_status: active
@@ -2145,4 +2168,7 @@ lesson_graph:
   - from: LSN-040
     relation: audits
     to: LSN-010
+  - from: LSN-040
+    relation: constrains
+    to: LSN-041
 validator: scripts/validate_chunking_lesson_index.py

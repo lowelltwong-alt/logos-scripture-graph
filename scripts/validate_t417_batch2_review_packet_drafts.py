@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate T417 batch2 draft review packets stay non-authorizing prep artifacts."""
+"""Validate T417 batch2/batch3 draft review packets stay non-authorizing prep artifacts."""
 from __future__ import annotations
 
 import json
@@ -8,14 +8,24 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DRAFT_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417" / "review_packet_drafts"
-TRACE = ROOT / ".ai" / "context" / "agent_work" / "T417" / "claim_traceability_batch2.jsonl"
 STANDING_POLICY = ROOT / ".ai" / "control" / "standing_owner_escalation_policy.yaml"
 
 DRAFTS = {
     "T402-LC-057": DRAFT_DIR / "phlm_opening_draft.md",
     "T402-LC-065": DRAFT_DIR / "jude_opening_draft.md",
     "T402-LC-032": DRAFT_DIR / "jonah_opening_draft.md",
+    "T402-LC-048": DRAFT_DIR / "gal_opening_draft.md",
+    "T402-LC-049": DRAFT_DIR / "eph_closing_draft.md",
+    "T402-LC-050": DRAFT_DIR / "phil_opening_draft.md",
 }
+
+TRACE_FILES = {
+    "batch2": ROOT / ".ai" / "context" / "agent_work" / "T417" / "claim_traceability_batch2.jsonl",
+    "batch3": ROOT / ".ai" / "context" / "agent_work" / "T417" / "claim_traceability_batch3.jsonl",
+}
+
+BATCH2_IDS = {"T402-LC-057", "T402-LC-065", "T402-LC-032"}
+BATCH3_IDS = {"T402-LC-048", "T402-LC-049", "T402-LC-050"}
 
 REQUIRED_MARKERS = (
     "draft_pending_standing_policy",
@@ -64,39 +74,38 @@ def validate_drafts() -> list[str]:
             if marker in text:
                 errors.append(f"{_rel(path)}: forbidden marker {marker!r}")
 
-    if not TRACE.is_file():
-        errors.append(f"missing {_rel(TRACE)}")
-        return errors
-
-    rows: list[dict] = []
-    for line_no, line in enumerate(TRACE.read_text(encoding="utf-8").splitlines(), start=1):
-        if not line.strip():
-            continue
-        try:
-            row = json.loads(line)
-        except json.JSONDecodeError as exc:
-            errors.append(f"{_rel(TRACE)}:{line_no}: invalid JSON: {exc}")
-            continue
-        if not isinstance(row, dict):
-            errors.append(f"{_rel(TRACE)}:{line_no}: row must be object")
-            continue
-        rows.append(row)
-
     by_candidate: dict[str, list[dict]] = {cid: [] for cid in DRAFTS}
-    for row in rows:
-        cid = row.get("candidate_id")
-        if cid in by_candidate:
-            by_candidate[cid].append(row)
-        if row.get("non_authorizing") is not True:
-            errors.append(f"claim row {row.get('claim_id')}: non_authorizing must be true")
-        draft = row.get("draft_packet")
-        if not isinstance(draft, str) or not draft.startswith(".ai/context/agent_work/T417/"):
-            errors.append(f"claim row {row.get('claim_id')}: draft_packet must stay under T417 work dir")
+    for label, trace_path in TRACE_FILES.items():
+        expected_ids = BATCH2_IDS if label == "batch2" else BATCH3_IDS
+        if not trace_path.is_file():
+            errors.append(f"missing {_rel(trace_path)}")
+            continue
+        for line_no, line in enumerate(trace_path.read_text(encoding="utf-8").splitlines(), start=1):
+            if not line.strip():
+                continue
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                errors.append(f"{_rel(trace_path)}:{line_no}: invalid JSON: {exc}")
+                continue
+            if not isinstance(row, dict):
+                errors.append(f"{_rel(trace_path)}:{line_no}: row must be object")
+                continue
+            cid = row.get("candidate_id")
+            if cid in by_candidate:
+                by_candidate[cid].append(row)
+            if cid not in expected_ids:
+                errors.append(f"{_rel(trace_path)}:{line_no}: unexpected candidate {cid}")
+            if row.get("non_authorizing") is not True:
+                errors.append(f"claim row {row.get('claim_id')}: non_authorizing must be true")
+            draft = row.get("draft_packet")
+            if not isinstance(draft, str) or not draft.startswith(".ai/context/agent_work/T417/"):
+                errors.append(f"claim row {row.get('claim_id')}: draft_packet must stay under T417 work dir")
 
     for cid, claim_rows in by_candidate.items():
         if not claim_rows:
             errors.append(f"{cid}: no claim traceability rows")
-        if not any(r.get("theology_sensitive") for r in claim_rows):
+        elif not any(r.get("theology_sensitive") for r in claim_rows):
             errors.append(f"{cid}: expected at least one theology_sensitive escalation claim row")
 
     return errors
@@ -108,7 +117,7 @@ def main() -> int:
         for err in errors:
             print(f"ERROR: {err}", file=sys.stderr)
         return 1
-    print("OK: T417 batch2 draft review packets")
+    print("OK: T417 batch2/batch3 draft review packets")
     return 0
 
 
