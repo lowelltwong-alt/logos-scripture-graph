@@ -1,0 +1,38 @@
+---
+# Copy this directory to .ai/scratch/submissions/SUB-###/ before opening a promotion PR.
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-000-template
+source_branch: scratch/example-lane
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium: []
+  low: []
+decisions:
+  - decision_id: D-001
+    choice: "Describe the concrete choice made in scratch."
+    rationale: "Why this choice; what evidence supports it."
+    alternatives_rejected:
+      - "Option not taken and why."
+    might_be_wrong: "Honest premortem — what could fail review."
+    confidence: medium
+evidence_refs:
+  - build/observation_substrate/current/verse_observations.jsonl:Example.1.1
+validators_run_in_scratch:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-000-template/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing
+reviewer_notes_for_codex: |
+  Summarize what changed, what risks remain, and what the PR must NOT authorize.
+files_promoted:
+  - .ai/context/agent_work/T417/review_packet_drafts/example_draft.md
+vendor_imports: []

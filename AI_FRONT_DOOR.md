@@ -40,8 +40,10 @@ Read these files before making changes:
     T406 future multi-pass plan, T410 research-to-chunking Phase 1 prompt-pack conveyor at
     `.ai/control/parallel_chunking_research_program.yaml`, T411 Cursor readiness gate at
     `.ai/tasks/T411.task.yaml`, and T412 Rust-first observation substrate at
-    `.ai/control/rust_first_observation_substrate.yaml`, T420 multi-agent review cadence at
+    `.ai/control/rust_first_observation_substrate.yaml`,     T420 multi-agent review cadence at
     `.ai/control/multi_agent_review_cadence.yaml` and `.ai/control/agent_review_ledger.jsonl`,
+    T422 scratch lane at `.ai/control/scratch_lane_policy.yaml` and promotion packets under
+    `.ai/scratch/submissions/`,
     T389 Chunking Launch Readiness report,
     owner decision option presentation policy, T381 original-language phrase/context policy,
     T370 parent-only evidence packet, epistle argument reviewed-gold manifest,
@@ -1114,3 +1116,19 @@ Agents may challenge this architecture, but corrections must be explicit:
 4. Update `ROADMAP.md` and `ROADMAP_STATE.yaml` if the correction changes sequencing.
 5. Add a handoff explaining what changed and why.
 6. Human approves master context updates separately from code merges.
+
+<!-- BEGIN DIGITAL_ASSET_DIRECTORY_ENROLLMENT -->
+## Digital Asset Directory Enrollment
+
+- Contract: `.digital-asset/dad-integration.json`
+- Context map: `.digital-asset/context-map.json`
+- Mailbox: `.digital-asset/mail/`
+- Governance map: `.digital-asset/governance-map.yaml`
+- Data map: `.digital-asset/data-map.yaml`
+- Skill checkout: `.digital-asset/skills/checkout.json`
+- Coding asset pointer: `.ai-assets.json`
+
+Use these surfaces when work involves AI-assisted coding, repo governance,
+lessons, reusable assets, templates, agent skills, or cross-repo suggestions.
+DAD mail is candidate-only and local review controls adoption for `logos-scripture-graph`.
+<!-- END DIGITAL_ASSET_DIRECTORY_ENROLLMENT -->

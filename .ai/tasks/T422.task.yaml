@@ -1,0 +1,57 @@
+id: T422
+phase: phase_4
+title: "Scratch Lane And Promotion Packet Charter"
+mode: control_plane_process_charter
+status: complete
+owner: codex
+branch: main
+base_ref: origin/main
+summary: "Define scratch-lane git worktree workflow, fast scope validation, and promotion packet review before governed merges."
+scratch_lane_policy: .ai/control/scratch_lane_policy.yaml
+scope:
+  allowed_paths:
+    - .ai/tasks/T422.task.yaml
+    - .ai/handoffs/T422/
+    - .ai/control/scratch_lane_policy.yaml
+    - .ai/scratch/
+    - .ai/audits/reports/scratch/
+    - .ai/prompts/codex_promotion_packet_review_prompt.md
+    - .ai/prompts/codex_daily_prep_review_prompt.md
+    - .ai/handoffs/AGENT_ROUTING_GUIDE.md
+    - .ai/control/autonomous_corpus_processor.yaml
+    - .ai/control/multi_agent_review_cadence.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T422_SCRATCH_LANE.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - scripts/validate_scratch_lane_policy.py
+    - scripts/validate_scratch_scope.py
+    - scripts/validate_promotion_packet.py
+    - scripts/validate_all.py
+    - tests/test_scratch_lane_policy.py
+    - tests/test_scratch_scope.py
+    - tests/test_promotion_packet.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - eval/chunking_gold/
+    - pipelines/chunking/
+authorization:
+  task_kind: control_plane_process_charter
+  records_scratch_lane_policy: true
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+acceptance_criteria:
+  - "scratch_lane_policy.yaml defines scratch and promotion lanes."
+  - "validate_scratch_scope.py enforces branch prefix and allowed paths."
+  - "validate_promotion_packet.py enforces submission packet shape."
+  - "Codex promotion packet review prompt exists."
+validations:
+  - python scripts/validate_scratch_lane_policy.py
+  - python scripts/validate_scratch_scope.py --branch scratch/test --file .ai/scratch/vendor/.gitkeep
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/_template/promotion_packet.yaml --allow-template
+  - python scripts/validate_all.py

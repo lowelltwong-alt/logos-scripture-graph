@@ -1,0 +1,136 @@
+---
+object_type: scratch_lane_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-06-05 to separate fast non-authorizing scratch work from governed promotion into main."
+reason_for_inclusion: "Let agents iterate in an isolated git lane without validate_all or owner gates per step, then submit a structured promotion packet for higher-tier review before canon surfaces change."
+---
+schema_version: scratch_lane_policy.v1
+policy_id: logos_scratch_lane_policy
+task_id: T422
+status: active_non_authorizing_process_policy
+owner: Lowell Wong
+lanes:
+  scratch_lane:
+    purpose: "Fast experimentation, drafts, vendored tools, and decision logging without authority changes."
+    branch_name_prefix: scratch/
+    worktree_recommended: true
+    validation_tier: fast_scratch_scope_only
+    skip_in_scratch:
+      - scripts/validate_all.py
+      - owner_gates
+      - reviewed_gold_promotion
+      - chunk_output_change
+    required_in_scratch:
+      - decision_logging_in_promotion_packet_or_scratch_notes
+      - validate_scratch_scope.py_before_commit
+  promotion_lane:
+    purpose: "Governed integration into main via PR with promotion packet and tiered AI review."
+    base_branch: main
+    validation_tier: full_validate_all_and_pytest
+    required_artifacts:
+      - promotion_packet.yaml
+    review_tiers:
+      - codex_promotion_packet_review
+      - claude_weekly_rollup_when_program_active
+      - owner_when_standing_policy_or_gold_output_requires
+worktree_bootstrap:
+  commands:
+    create: |
+      git fetch origin main
+      git worktree add ../logos-scratch -b scratch/<lane-name> origin/main
+    daily_loop: |
+      cd ../logos-scratch
+      python scripts/validate_scratch_scope.py
+      git add -A && git commit -m "scratch: <summary>"
+    promote: |
+      # Copy or cherry-pick into promotion branch; add promotion_packet.yaml; open PR to main
+allowed_paths:
+  - .ai/scratch/
+  - .ai/context/agent_work/
+  - .ai/audits/reports/scratch/
+  - .ai/handoffs/scratch/
+  - .ai/tasks/T422.task.yaml
+  - .ai/control/scratch_lane_policy.yaml
+  - scripts/validate_scratch_scope.py
+  - scripts/validate_scratch_lane_policy.py
+  - scripts/validate_promotion_packet.py
+  - tests/test_scratch_scope.py
+  - tests/test_scratch_lane_policy.py
+  - tests/test_promotion_packet.py
+  - tools/scratch/
+  - .ai/scratch/vendor/
+hard_forbidden_paths:
+  - data/raw/
+  - data/canonical/
+  - data/processed/
+  - data/derived/
+  - data/candidate/chunks/
+  - pipelines/chunking/
+  - config/chunking/
+  - registry/chunking/
+  - eval/chunking_gold/
+  - eval/chunking_runs/
+  - eval/LEADERBOARD.md
+  - .ai/control/MASTER_CONTEXT.md
+  - .ai/control/MASTER_CONTEXT.lock.yaml
+  - .ai/control/chunking_theological_decision_register.yaml
+  - .github/workflows/
+promotion_packet:
+  template: .ai/scratch/submissions/_template/promotion_packet.yaml
+  required_submission_dir_pattern: .ai/scratch/submissions/SUB-*/
+  required_top_level_fields:
+    - submission_id
+    - source_branch
+    - source_worktree
+    - target_task_id
+    - risk_summary
+    - decisions
+    - evidence_refs
+    - validators_run_in_scratch
+    - requested_promotion
+    - non_authorizations
+    - reviewer_notes_for_codex
+  risk_summary_required_buckets:
+    - high
+    - medium
+    - low
+  decision_entry_required_fields:
+    - decision_id
+    - choice
+    - rationale
+    - alternatives_rejected
+    - might_be_wrong
+    - confidence
+  requested_promotion_allowed_values:
+    - none_documentation_only
+    - control_plane_only
+    - prep_artifacts_only
+    - strengthening_only
+    - reviewed_gold_promotion
+    - chunk_output_pilot
+  default_requested_promotion_for_scratch: prep_artifacts_only
+  codex_verdict_enums:
+    - APPROVE_PROMOTION_PACKET
+    - HOLD_WITH_FINDINGS
+    - ESCALATE_OWNER
+authority:
+  records_scratch_lane_policy: true
+  authorizes_scratch_lane_writes: false
+  authorizes_promotion_without_packet: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_theology_authority_change: false
+non_authorizations:
+  - scratch_lane_as_canon_truth
+  - promotion_without_promotion_packet
+  - skip_codex_promotion_review_on_authority_touching_pr
+  - vendor_tool_import_without_packet_disclosure
+validators:
+  - scripts/validate_scratch_lane_policy.py
+  - scripts/validate_scratch_scope.py
+  - scripts/validate_promotion_packet.py
+  - tests/test_scratch_lane_policy.py
+  - tests/test_scratch_scope.py
+  - tests/test_promotion_packet.py
+  - scripts/validate_all.py
