@@ -188,7 +188,12 @@ def validate_task_setup(
         raise T411CursorBatchArtifactError(f"{_rel(task_file)}: branch must be codex/t411-cursor-readiness-gate")
     if task.get("cursor_execution_allowed") is not False:
         raise T411CursorBatchArtifactError(f"{_rel(task_file)}: cursor_execution_allowed must be false before Cursor runs")
-    allowed_run_statuses = {"not_started", "chunk_1_in_progress", "chunk_1_complete", "chunk_2_in_progress", "chunk_2_complete"}
+    allowed_run_statuses = {
+        "not_started",
+        "chunk_1_in_progress", "chunk_1_complete",
+        "chunk_2_in_progress", "chunk_2_complete",
+        "chunk_12_complete",
+    }
     if task.get("cursor_run_status") not in allowed_run_statuses:
         raise T411CursorBatchArtifactError(
             f"{_rel(task_file)}: cursor_run_status must be one of {sorted(allowed_run_statuses)}"

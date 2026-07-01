@@ -88,6 +88,12 @@
 
 Owner authorized continuation. Processed **5 short-epistle candidates**: 3John, Jude, 2Cor greeting, 1Tim greeting, Jas single-verse greeting. Added claims T411-CLAIM-013 through T411-CLAIM-032 and 5 escalation packets. Cumulative **32 claims**, **8 escalation packets**. CHUNK 2 stopped for Codex review.
 
+## CHUNKS 3-12 Addendum (2026-07-01)
+
+Owner authorized **10 steps in a row**. Processed **30 additional candidates** across epistles (Gal–1Pet), genealogies/lists (Gen–Neh, Ps117, Hag), and gospel genealogy/openings (Matt, Mark, Luke). Added claims T411-CLAIM-033 through T411-CLAIM-122 (90 claims) with per-candidate theology-pressure escalation packets. **All 38 `ready_for_review_packet` queue entries now have Cursor prep artifacts** except none remaining in queue after chunk 12 set.
+
+Cumulative: **38 candidates**, **122 claims**, **38 escalation packets**. CHUNKS 1-12 complete.
+
 ## Validation Tier Used
 
 `research` tier per `cursor_to_codex_transparency_contract.yaml` (focused T411 validators; no full validate_all in worktree without canonical data).

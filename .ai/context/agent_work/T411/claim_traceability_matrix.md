@@ -51,3 +51,102 @@ All claims are **non-authorizing** evidence for Codex review. No reviewed gold, 
 | T411-CLAIM-032 | T402-LC-059 | Jas.1.1-Jas.1.1 | low | Faith/works escalation |
 
 All CHUNK 2 claims remain **non-authorizing**.
+
+---
+
+# T411 CHUNKS 3-12 Claim Traceability Matrix
+
+| claim_id | candidate | span | confidence | summary |
+| --- | --- | --- | --- | --- |
+| T411-CLAIM-033 | T402-LC-048 | Gal.1.1-Gal.1.5 | high | Substrate shows 5 verse rows in-span with markers ['f', 'fr' |
+| T411-CLAIM-034 | T402-LC-048 | Gal.1.1-Gal.1.5 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-035 | T402-LC-048 | Gal.1.1-Gal.1.5 | low | Queue theological pressure (law_gospel_framework_not_authori |
+| T411-CLAIM-036 | T402-LC-049 | Eph.6.21-Eph.6.24 | high | Substrate shows 4 verse rows in-span with markers ['p', 'v', |
+| T411-CLAIM-037 | T402-LC-049 | Eph.6.21-Eph.6.24 | medium | Feature flags in-span include ['genre_epistles', 'has_strong |
+| T411-CLAIM-038 | T402-LC-049 | Eph.6.21-Eph.6.24 | low | Queue theological pressure (epistle_argument_generalization_ |
+| T411-CLAIM-039 | T402-LC-050 | Phil.1.1-Phil.1.11 | high | Substrate shows 11 verse rows in-span with markers ['f', 'fr |
+| T411-CLAIM-040 | T402-LC-050 | Phil.1.1-Phil.1.11 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-041 | T402-LC-050 | Phil.1.1-Phil.1.11 | low | Queue theological pressure (epistle_argument_generalization_ |
+| T411-CLAIM-042 | T402-LC-051 | Col.4.7-Col.4.18 | high | Substrate shows 12 verse rows in-span with markers ['p', 'v' |
+| T411-CLAIM-043 | T402-LC-051 | Col.4.7-Col.4.18 | medium | Feature flags in-span include ['genre_epistles', 'has_strong |
+| T411-CLAIM-044 | T402-LC-051 | Col.4.7-Col.4.18 | low | Queue theological pressure (ecclesiology_not_authorized) req |
+| T411-CLAIM-045 | T402-LC-052 | 1Thess.1.1-1Thess.1.10 | high | Substrate shows 10 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-046 | T402-LC-052 | 1Thess.1.1-1Thess.1.10 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-047 | T402-LC-052 | 1Thess.1.1-1Thess.1.10 | low | Queue theological pressure (election_theology_not_authorized |
+| T411-CLAIM-048 | T402-LC-053 | 2Thess.1.1-2Thess.1.12 | high | Substrate shows 12 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-049 | T402-LC-053 | 2Thess.1.1-2Thess.1.12 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-050 | T402-LC-053 | 2Thess.1.1-2Thess.1.12 | low | Queue theological pressure (eschatological_system_not_author |
+| T411-CLAIM-051 | T402-LC-055 | 2Tim.4.19-2Tim.4.22 | high | Substrate shows 4 verse rows in-span with markers ['p', 'v', |
+| T411-CLAIM-052 | T402-LC-055 | 2Tim.4.19-2Tim.4.22 | medium | Feature flags in-span include ['genre_epistles', 'has_strong |
+| T411-CLAIM-053 | T402-LC-055 | 2Tim.4.19-2Tim.4.22 | low | Queue theological pressure (church_office_theology_not_autho |
+| T411-CLAIM-054 | T402-LC-056 | Titus.1.1-Titus.1.4 | high | Substrate shows 4 verse rows in-span with markers ['f', 'fr' |
+| T411-CLAIM-055 | T402-LC-056 | Titus.1.1-Titus.1.4 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-056 | T402-LC-056 | Titus.1.1-Titus.1.4 | low | Queue theological pressure (church_office_theology_not_autho |
+| T411-CLAIM-057 | T402-LC-058 | Heb.13.22-Heb.13.25 | high | Substrate shows 4 verse rows in-span with markers ['p', 'v', |
+| T411-CLAIM-058 | T402-LC-058 | Heb.13.22-Heb.13.25 | medium | Feature flags in-span include ['genre_epistles', 'has_strong |
+| T411-CLAIM-059 | T402-LC-058 | Heb.13.22-Heb.13.25 | low | Queue theological pressure (hebrews_priesthood_argument_not_ |
+| T411-CLAIM-060 | T402-LC-060 | 1Pet.5.12-1Pet.5.14 | high | Substrate shows 3 verse rows in-span with markers ['p', 'v', |
+| T411-CLAIM-061 | T402-LC-060 | 1Pet.5.12-1Pet.5.14 | medium | Feature flags in-span include ['genre_epistles', 'has_strong |
+| T411-CLAIM-062 | T402-LC-060 | 1Pet.5.12-1Pet.5.14 | low | Queue theological pressure (babylon_identity_not_authorized) |
+| T411-CLAIM-063 | T402-LC-045 | Rom.16.1-Rom.16.16 | high | Substrate shows 16 verse rows in-span with markers ['f', 'fr |
+| T411-CLAIM-064 | T402-LC-045 | Rom.16.1-Rom.16.16 | medium | Feature flags in-span include ['genre_epistles', 'has_footno |
+| T411-CLAIM-065 | T402-LC-045 | Rom.16.1-Rom.16.16 | low | Queue theological pressure (ecclesiology_not_authorized) req |
+| T411-CLAIM-066 | T402-LC-037 | Hag.1.1-Hag.1.15 | high | Substrate shows 15 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-067 | T402-LC-037 | Hag.1.1-Hag.1.15 | medium | Feature flags in-span include ['genre_prophets', 'has_footno |
+| T411-CLAIM-068 | T402-LC-037 | Hag.1.1-Hag.1.15 | low | Queue theological pressure (temple_theology_not_authorized)  |
+| T411-CLAIM-069 | T402-LC-001 | Gen.5.1-Gen.5.32 | high | Substrate shows 32 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-070 | T402-LC-001 | Gen.5.1-Gen.5.32 | medium | Feature flags in-span include ['genre_narrative', 'has_footn |
+| T411-CLAIM-071 | T402-LC-001 | Gen.5.1-Gen.5.32 | low | Queue theological pressure (genealogy_theology_not_authorize |
+| T411-CLAIM-072 | T402-LC-002 | Exod.35.4-Exod.35.29 | high | Substrate shows 26 verse rows in-span with markers ['p', 'v' |
+| T411-CLAIM-073 | T402-LC-002 | Exod.35.4-Exod.35.29 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-074 | T402-LC-002 | Exod.35.4-Exod.35.29 | low | Queue theological pressure (typology_not_authorized) require |
+| T411-CLAIM-075 | T402-LC-004 | Num.1.1-Num.1.46 | high | Substrate shows 46 verse rows in-span with markers ['f', 'fr |
+| T411-CLAIM-076 | T402-LC-004 | Num.1.1-Num.1.46 | medium | Feature flags in-span include ['genre_narrative', 'has_footn |
+| T411-CLAIM-077 | T402-LC-004 | Num.1.1-Num.1.46 | low | Queue theological pressure (tribal_theology_not_authorized)  |
+| T411-CLAIM-078 | T402-LC-006 | Josh.12.7-Josh.12.24 | high | Substrate shows 18 verse rows in-span with markers ['c', 'm' |
+| T411-CLAIM-079 | T402-LC-006 | Josh.12.7-Josh.12.24 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-080 | T402-LC-006 | Josh.12.7-Josh.12.24 | low | Queue theological pressure (conquest_theology_not_authorized |
+| T411-CLAIM-081 | T402-LC-007 | Judg.12.8-Judg.12.15 | high | Substrate shows 8 verse rows in-span with markers ['c', 'p', |
+| T411-CLAIM-082 | T402-LC-007 | Judg.12.8-Judg.12.15 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-083 | T402-LC-007 | Judg.12.8-Judg.12.15 | low | Queue theological pressure (covenant_cycle_theology_not_auth |
+| T411-CLAIM-084 | T402-LC-008 | Ruth.4.18-Ruth.4.22 | high | Substrate shows 5 verse rows in-span with markers ['v', 'w'] |
+| T411-CLAIM-085 | T402-LC-008 | Ruth.4.18-Ruth.4.22 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-086 | T402-LC-008 | Ruth.4.18-Ruth.4.22 | low | Queue theological pressure (messianic_genealogy_theology_not |
+| T411-CLAIM-087 | T402-LC-009 | 1Sam.30.26-1Sam.30.31 | high | Substrate shows 6 verse rows in-span with markers ['c', 'p', |
+| T411-CLAIM-088 | T402-LC-009 | 1Sam.30.26-1Sam.30.31 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-089 | T402-LC-009 | 1Sam.30.26-1Sam.30.31 | low | Queue theological pressure (royal_typology_not_authorized) r |
+| T411-CLAIM-090 | T402-LC-010 | 2Sam.23.8-2Sam.23.39 | high | Substrate shows 32 verse rows in-span with markers ['c', 'p' |
+| T411-CLAIM-091 | T402-LC-010 | 2Sam.23.8-2Sam.23.39 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-092 | T402-LC-010 | 2Sam.23.8-2Sam.23.39 | low | Queue theological pressure (royal_typology_not_authorized) r |
+| T411-CLAIM-093 | T402-LC-011 | 1Kgs.4.1-1Kgs.4.19 | high | Substrate shows 19 verse rows in-span with markers ['p', 'v' |
+| T411-CLAIM-094 | T402-LC-011 | 1Kgs.4.1-1Kgs.4.19 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-095 | T402-LC-011 | 1Kgs.4.1-1Kgs.4.19 | low | Queue theological pressure (kingdom_theology_not_authorized) |
+| T411-CLAIM-096 | T402-LC-012 | 2Kgs.15.32-2Kgs.15.38 | high | Substrate shows 7 verse rows in-span with markers ['c', 'p', |
+| T411-CLAIM-097 | T402-LC-012 | 2Kgs.15.32-2Kgs.15.38 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-098 | T402-LC-012 | 2Kgs.15.32-2Kgs.15.38 | low | Queue theological pressure (kingdom_theology_not_authorized) |
+| T411-CLAIM-099 | T402-LC-013 | 1Chr.1.1-1Chr.1.54 | high | Substrate shows 54 verse rows in-span with markers ['c', 'p' |
+| T411-CLAIM-100 | T402-LC-013 | 1Chr.1.1-1Chr.1.54 | medium | Feature flags in-span include ['genre_narrative', 'has_stron |
+| T411-CLAIM-101 | T402-LC-013 | 1Chr.1.1-1Chr.1.54 | low | Queue theological pressure (genealogy_theology_not_authorize |
+| T411-CLAIM-102 | T402-LC-014 | 2Chr.9.13-2Chr.9.28 | high | Substrate shows 16 verse rows in-span with markers ['f', 'fr |
+| T411-CLAIM-103 | T402-LC-014 | 2Chr.9.13-2Chr.9.28 | medium | Feature flags in-span include ['genre_narrative', 'has_footn |
+| T411-CLAIM-104 | T402-LC-014 | 2Chr.9.13-2Chr.9.28 | low | Queue theological pressure (kingdom_theology_not_authorized) |
+| T411-CLAIM-105 | T402-LC-015 | Ezra.2.1-Ezra.2.70 | high | Substrate shows 70 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-106 | T402-LC-015 | Ezra.2.1-Ezra.2.70 | medium | Feature flags in-span include ['genre_narrative', 'has_footn |
+| T411-CLAIM-107 | T402-LC-015 | Ezra.2.1-Ezra.2.70 | low | Queue theological pressure (restoration_theology_not_authori |
+| T411-CLAIM-108 | T402-LC-016 | Neh.7.6-Neh.7.73 | high | Substrate shows 68 verse rows in-span with markers ['b', 'c' |
+| T411-CLAIM-109 | T402-LC-016 | Neh.7.6-Neh.7.73 | medium | Feature flags in-span include ['genre_narrative', 'has_footn |
+| T411-CLAIM-110 | T402-LC-016 | Neh.7.6-Neh.7.73 | low | Queue theological pressure (restoration_theology_not_authori |
+| T411-CLAIM-111 | T402-LC-019 | Ps.117.1-Ps.117.2 | high | Substrate shows 2 verse rows in-span with markers ['c', 'q1' |
+| T411-CLAIM-112 | T402-LC-019 | Ps.117.1-Ps.117.2 | medium | Feature flags in-span include ['genre_psalms', 'has_poetry_o |
+| T411-CLAIM-113 | T402-LC-019 | Ps.117.1-Ps.117.2 | low | Queue theological pressure (liturgical_use_not_authorized) r |
+| T411-CLAIM-114 | T402-LC-040 | Matt.1.1-Matt.1.17 | high | Substrate shows 17 verse rows in-span with markers ['f', 'fr |
+| T411-CLAIM-115 | T402-LC-040 | Matt.1.1-Matt.1.17 | medium | Feature flags in-span include ['genre_gospels', 'has_footnot |
+| T411-CLAIM-116 | T402-LC-040 | Matt.1.1-Matt.1.17 | low | Queue theological pressure (messianic_genealogy_theology_not |
+| T411-CLAIM-117 | T402-LC-041 | Mark.1.1-Mark.1.8 | high | Substrate shows 8 verse rows in-span with markers ['f', 'fr' |
+| T411-CLAIM-118 | T402-LC-041 | Mark.1.1-Mark.1.8 | medium | Feature flags in-span include ['genre_gospels', 'has_crossre |
+| T411-CLAIM-119 | T402-LC-041 | Mark.1.1-Mark.1.8 | low | Queue theological pressure (christology_not_authorized) requ |
+| T411-CLAIM-120 | T402-LC-042 | Luke.3.23-Luke.3.38 | high | Substrate shows 16 verse rows in-span with markers ['c', 'f' |
+| T411-CLAIM-121 | T402-LC-042 | Luke.3.23-Luke.3.38 | medium | Feature flags in-span include ['genre_gospels', 'has_footnot |
+| T411-CLAIM-122 | T402-LC-042 | Luke.3.23-Luke.3.38 | low | Queue theological pressure (messianic_genealogy_theology_not |
+
+All CHUNKS 3-12 claims remain **non-authorizing**.
