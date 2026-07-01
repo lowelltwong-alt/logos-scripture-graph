@@ -150,3 +150,66 @@ All CHUNK 2 claims remain **non-authorizing**.
 | T411-CLAIM-122 | T402-LC-042 | Luke.3.23-Luke.3.38 | low | Queue theological pressure (messianic_genealogy_theology_not |
 
 All CHUNKS 3-12 claims remain **non-authorizing**.
+
+---
+
+# T411 WAVES 13-16 (CHUNKS 13-16) Traceability
+
+| claim_id | candidate | span | confidence | summary |
+| --- | --- | --- | --- | --- |
+| T411-CLAIM-123 | T402-LC-003 | Lev.11.1-Lev.11.47 | medium | Substrate shows 47 in-span verse rows; markers ['c', 'f', 'fr', 'ft',  |
+| T411-CLAIM-124 | T402-LC-003 | Lev.11.1-Lev.11.47 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-125 | T402-LC-003 | Lev.11.1-Lev.11.47 | low | Context-research wave legal_and_wisdom_context_research cannot resolve |
+| T411-CLAIM-126 | T402-LC-005 | Deut.27.11-Deut.27.26 | medium | Substrate shows 16 in-span verse rows; markers ['c', 'f', 'fr', 'ft',  |
+| T411-CLAIM-127 | T402-LC-005 | Deut.27.11-Deut.27.26 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-128 | T402-LC-005 | Deut.27.11-Deut.27.26 | low | Context-research wave legal_and_wisdom_context_research cannot resolve |
+| T411-CLAIM-129 | T402-LC-018 | Job.1.1-Job.1.5 | medium | Substrate shows 5 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-130 | T402-LC-018 | Job.1.1-Job.1.5 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-131 | T402-LC-018 | Job.1.1-Job.1.5 | low | Context-research wave legal_and_wisdom_context_research cannot resolve |
+| T411-CLAIM-132 | T402-LC-021 | Eccl.1.1-Eccl.1.11 | medium | Substrate shows 11 in-span verse rows; markers ['f', 'fr', 'ft', 'p',  |
+| T411-CLAIM-133 | T402-LC-021 | Eccl.1.1-Eccl.1.11 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-134 | T402-LC-021 | Eccl.1.1-Eccl.1.11 | low | Context-research wave legal_and_wisdom_context_research cannot resolve |
+| T411-CLAIM-135 | T402-LC-028 | Hos.1.1-Hos.1.11 | medium | Substrate shows 11 in-span verse rows; markers ['c', 'f', 'fr', 'ft',  |
+| T411-CLAIM-136 | T402-LC-028 | Hos.1.1-Hos.1.11 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-137 | T402-LC-028 | Hos.1.1-Hos.1.11 | low | Context-research wave short_prophets_context_a cannot resolve propheti |
+| T411-CLAIM-138 | T402-LC-029 | Joel.1.1-Joel.1.20 | medium | Substrate shows 20 in-span verse rows; markers ['b', 'c', 'f', 'fr', ' |
+| T411-CLAIM-139 | T402-LC-029 | Joel.1.1-Joel.1.20 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-140 | T402-LC-029 | Joel.1.1-Joel.1.20 | low | Context-research wave short_prophets_context_a cannot resolve propheti |
+| T411-CLAIM-141 | T402-LC-030 | Amos.1.1-Amos.1.2 | medium | Substrate shows 2 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-142 | T402-LC-030 | Amos.1.1-Amos.1.2 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-143 | T402-LC-030 | Amos.1.1-Amos.1.2 | low | Context-research wave short_prophets_context_a cannot resolve propheti |
+| T411-CLAIM-144 | T402-LC-031 | Obad.1.1-Obad.1.21 | medium | Substrate shows 21 in-span verse rows; markers ['f', 'fr', 'ft', 'p',  |
+| T411-CLAIM-145 | T402-LC-031 | Obad.1.1-Obad.1.21 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-146 | T402-LC-031 | Obad.1.1-Obad.1.21 | low | Context-research wave short_prophets_context_a cannot resolve propheti |
+| T411-CLAIM-147 | T402-LC-033 | Mic.1.1-Mic.1.16 | medium | Substrate shows 16 in-span verse rows; markers ['b', 'c', 'f', 'fr', ' |
+| T411-CLAIM-148 | T402-LC-033 | Mic.1.1-Mic.1.16 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-149 | T402-LC-033 | Mic.1.1-Mic.1.16 | low | Context-research wave short_prophets_context_b cannot resolve propheti |
+| T411-CLAIM-150 | T402-LC-034 | Nah.1.1-Nah.1.15 | medium | Substrate shows 15 in-span verse rows; markers ['c', 'f', 'fr', 'ft',  |
+| T411-CLAIM-151 | T402-LC-034 | Nah.1.1-Nah.1.15 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-152 | T402-LC-034 | Nah.1.1-Nah.1.15 | low | Context-research wave short_prophets_context_b cannot resolve propheti |
+| T411-CLAIM-153 | T402-LC-035 | Hab.1.1-Hab.1.4 | medium | Substrate shows 4 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-154 | T402-LC-035 | Hab.1.1-Hab.1.4 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-155 | T402-LC-035 | Hab.1.1-Hab.1.4 | low | Context-research wave short_prophets_context_b cannot resolve propheti |
+| T411-CLAIM-156 | T402-LC-036 | Zeph.1.1-Zeph.1.18 | medium | Substrate shows 18 in-span verse rows; markers ['c', 'f', 'fr', 'ft',  |
+| T411-CLAIM-157 | T402-LC-036 | Zeph.1.1-Zeph.1.18 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-158 | T402-LC-036 | Zeph.1.1-Zeph.1.18 | low | Context-research wave short_prophets_context_b cannot resolve propheti |
+| T411-CLAIM-159 | T402-LC-039 | Mal.1.1-Mal.1.5 | medium | Substrate shows 5 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-160 | T402-LC-039 | Mal.1.1-Mal.1.5 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-161 | T402-LC-039 | Mal.1.1-Mal.1.5 | low | Context-research wave short_prophets_context_b cannot resolve propheti |
+| T411-CLAIM-162 | T402-LC-023 | Isa.36.1-Isa.36.22 | medium | Substrate shows 22 in-span verse rows; markers ['c', 'p', 'v', 'w']. |
+| T411-CLAIM-163 | T402-LC-023 | Isa.36.1-Isa.36.22 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-164 | T402-LC-023 | Isa.36.1-Isa.36.22 | low | Context-research wave narrative_epistle_context_research cannot resolv |
+| T411-CLAIM-165 | T402-LC-044 | Acts.6.1-Acts.6.7 | medium | Substrate shows 7 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-166 | T402-LC-044 | Acts.6.1-Acts.6.7 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-167 | T402-LC-044 | Acts.6.1-Acts.6.7 | low | Context-research wave narrative_epistle_context_research cannot resolv |
+| T411-CLAIM-168 | T402-LC-046 | 1Cor.1.1-1Cor.1.9 | medium | Substrate shows 9 in-span verse rows; markers ['f', 'fr', 'ft', 'p', ' |
+| T411-CLAIM-169 | T402-LC-046 | 1Cor.1.1-1Cor.1.9 | medium | Queue status is needs_context_research; review eligibility is not outp |
+| T411-CLAIM-170 | T402-LC-046 | 1Cor.1.1-1Cor.1.9 | low | Context-research wave narrative_epistle_context_research cannot resolv |
+| T411-CLAIM-171 | T402-LC-020 | Prov.10.1-Prov.10.32 | medium | Substrate shows 32 in-span verse rows; markers ['c', 'q1', 'q2', 'v',  |
+| T411-CLAIM-172 | T402-LC-020 | Prov.10.1-Prov.10.32 | medium | Queue status is needs_original_language_review; review eligibility is  |
+| T411-CLAIM-173 | T402-LC-020 | Prov.10.1-Prov.10.32 | low | Context-research wave narrative_epistle_context_research cannot resolv |
+| T411-CLAIM-174 | T402-LC-061 | 2Pet.1.1-2Pet.1.2 | medium | Substrate shows 2 in-span verse rows; markers ['f', 'fr', 'ft', 'v', ' |
+| T411-CLAIM-175 | T402-LC-061 | 2Pet.1.1-2Pet.1.2 | medium | Queue status is needs_original_language_review; review eligibility is  |
+| T411-CLAIM-176 | T402-LC-061 | 2Pet.1.1-2Pet.1.2 | low | Context-research wave narrative_epistle_context_research cannot resolv |
+
+Context-research wave claims remain **non-authorizing**.

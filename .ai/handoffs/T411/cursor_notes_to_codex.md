@@ -94,6 +94,21 @@ Owner authorized **10 steps in a row**. Processed **30 additional candidates** a
 
 Cumulative: **38 candidates**, **122 claims**, **38 escalation packets**. CHUNKS 1-12 complete.
 
+## WAVES 13-16 Addendum (2026-07-01)
+
+Owner authorized **4 more waves** (context-research lane). Processed **18 candidates** with queue statuses `needs_context_research` or `needs_original_language_review`:
+
+| Wave | Lane | Candidates |
+|------|------|------------|
+| 13 | legal + wisdom context | Lev.11, Deut.27, Job.1, Eccl.1 |
+| 14 | short prophets A | Hos.1, Joel.1, Amos.1, Obad (whole book) |
+| 15 | short prophets B | Mic.1, Nah.1, Hab.1, Zeph.1, Mal.1 |
+| 16 | narrative/epistle context | Isa.36, Acts.6, 1Cor.1, Prov.10, 2Pet.1 |
+
+Added claims T411-CLAIM-123 through T411-CLAIM-176 (54 claims). Each candidate has a `context_research_hold` escalation packet. **Cumulative: 56 candidates, 176 claims.**
+
+**Not processed** (await separate owner gate): variant holds, theology holds, owner-decision John 21, `do_not_chunk_now` Rev.
+
 ## Validation Tier Used
 
 `research` tier per `cursor_to_codex_transparency_contract.yaml` (focused T411 validators; no full validate_all in worktree without canonical data).

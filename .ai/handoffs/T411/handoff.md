@@ -5,7 +5,7 @@
 - task_id: T411
 - title: Cursor Readiness With Claude Final-Audit Gate
 - phase: phase_4
-- status: chunk_12_complete_pending_codex_review
+- status: chunk_16_complete_pending_codex_review
 
 ## Agent
 
@@ -149,4 +149,15 @@ Cursor may then write only `.ai/context/agent_work/T411/` and `.ai/handoffs/T411
 - cumulative_claims: 122
 - cumulative_escalation_packets: 38
 - stop_reason: All planned chunks 1-12 complete; Codex review before further work
+
+---
+
+## Handoff refresh: waves_13_16_complete
+
+- agent_name: Cursor
+- updated_at: 2026-07-01T14:30:00Z
+- handoff_id: t411-waves-13-16-complete
+- waves: 13-16 (legal/wisdom context, prophets A/B, narrative-epistle context)
+- candidates_added: 18
+- cumulative_claims: 176
 
