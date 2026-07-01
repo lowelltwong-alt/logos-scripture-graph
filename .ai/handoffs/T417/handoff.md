@@ -1,14 +1,67 @@
 # T417 Autonomous Batch2 Prep Handoff
 
-## Status
+## Task
 
 - task_id: T417
+- title: Autonomous Batch2 Prep And Chunk-Audit Scaffold
+- phase: phase_4
+- status: complete_pending_codex_daily_review
 - mode: autonomous_prep_non_authorizing
-- status: in_progress
-- branch: codex/t417-autonomous-batch2-prep
-- processor: `.ai/control/autonomous_corpus_processor.yaml`
-- run_queue: `.ai/control/autonomous_run_queue.yaml`
-- cadence_control: `.ai/control/multi_agent_review_cadence.yaml`
+
+## Agent
+
+- agent_name: Cursor
+- mode: autonomous_prep_non_authorizing
+- stage: session_close
+- updated_at: 2026-06-05T00:00:00Z
+- handoff_id: t417-autonomous-batch2-prep-session-close
+
+## Files read
+
+- `.ai/control/autonomous_run_queue.yaml`
+- `.ai/control/autonomous_corpus_processor.yaml`
+- `.ai/context/agent_work/T411/confidence_register.jsonl`
+- `.ai/context/agent_work/T411/escalation_packets/`
+- `.ai/control/t416_batch1_post_pilot_review.yaml`
+- `.ai/control/chunking_phase_completion_plan.yaml`
+
+## Files changed
+
+- `.ai/control/standing_owner_escalation_policy.yaml`
+- `scripts/validate_standing_owner_escalation_policy.py`
+- `tests/test_standing_owner_escalation_policy.py`
+- `.ai/context/agent_work/T417/review_packet_drafts/phlm_opening_draft.md`
+- `.ai/context/agent_work/T417/review_packet_drafts/jude_opening_draft.md`
+- `.ai/context/agent_work/T417/review_packet_drafts/jonah_opening_draft.md`
+- `.ai/context/agent_work/T417/claim_traceability_batch2.jsonl`
+- `scripts/validate_t417_batch2_review_packet_drafts.py`
+- `tests/test_t417_batch2_review_packet_drafts.py`
+- `.ai/control/chunking_phase_completion_plan.yaml`
+- `.ai/control/autonomous_run_queue.yaml`
+- `.ai/control/current_focus.yaml`
+- `.ai/tasks/T417.task.yaml`
+- `scripts/validate_all.py`
+- `.ai/audits/reports/20260701-T417-phase-one-batch1-book-status.md`
+- `.ai/audits/reports/20260701-T417-autonomous-batch2-prep.md`
+
+## Decisions made
+
+- U-01 through U-04, U-06, U-07 marked complete; U-05 (Rust scaffold) skipped as optional.
+- Batch2 review packet drafts created as non-authorizing T417 prep artifacts only.
+- Standing owner escalation policy recorded as draft pending `APPROVE_STANDING_ESCALATION_POLICY`.
+- Phase 1 book statuses reconciled for five T415 batch1 epistle-opening books.
+
+## Findings
+
+- P0: none.
+- P1: none.
+- P2: owner must approve standing policy before strengthening/gold/output ladder.
+
+## Recommended next steps
+
+1. Codex daily review: `APPROVE_PREP` on prep branch.
+2. Owner once: `APPROVE_STANDING_ESCALATION_POLICY` to unlock batch2+3 ladder.
+3. After owner approval: T413-B-style strengthening for batch2, then T414/T415/T416 ladder.
 
 ## Efficiency rule
 
@@ -26,31 +79,17 @@ ledger_refs: []
 
 ## Progress
 
-| Unit | Status | Commit |
-|------|--------|--------|
-| U-01 | complete | f5d8256 |
-| U-02 | pending | |
-| U-03 | pending | |
-| U-04 | pending | |
-| U-05 | optional/skipped until needed | |
-| U-06 | pending | |
-| U-07 | pending | |
+| Unit | Status |
+|------|--------|
+| U-01 | complete |
+| U-02 | complete |
+| U-03 | complete |
+| U-04 | complete |
+| U-05 | skipped |
+| U-06 | complete |
+| U-07 | complete |
 
-candidates_completed: 0 / 3
-
-## Codex daily gate
-
-- prompt: `.ai/prompts/codex_daily_prep_review_prompt.md`
-- last_review: none
-- verdict: pending
-- next_review: after U-07 session_close or when prep branch has new commits
-
-## Claude weekly gate
-
-- prompt: `.ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md`
-- last_review: none
-- verdict: pending
-- next_review: weekly while T417 prep program is active
+candidates_completed: 3 / 3 (draft prep only)
 
 ## Hard stops honored
 
@@ -62,7 +101,14 @@ candidates_completed: 0 / 3
 
 ## Owner gates deferred
 
-- Batch2 owner docket confirmation
-- Review-packet strengthening authorization (T417-B)
-- Reviewed gold promotion (T418)
-- Output pilot (T419)
+- Standing policy activation (`APPROVE_STANDING_ESCALATION_POLICY`)
+- Review-packet strengthening authorization
+- Reviewed gold promotion
+- Output pilot
+
+## Validation run
+
+- `python scripts/validate_standing_owner_escalation_policy.py` -> passed
+- `python scripts/validate_t417_batch2_review_packet_drafts.py` -> passed
+- `python scripts/validate_autonomous_run_queue.py` -> passed
+- `python scripts/validate_task_scope.py --task-id T417` -> pending session close run

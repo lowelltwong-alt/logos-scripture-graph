@@ -72,14 +72,21 @@ work_units:
       - python scripts/validate_autonomous_run_queue.py
     commit_message: "Add outcome-based autonomous corpus processor and T417 queue."
   - unit_id: U-02
-    title: Batch2 recommended docket (pending owner)
+    status: complete
+    title: Standing owner escalation policy (pending owner)
     deliverables:
-      - .ai/control/t417_batch2_recommended_owner_docket.yaml
+      - .ai/control/standing_owner_escalation_policy.yaml
+      - scripts/validate_standing_owner_escalation_policy.py
+      - tests/test_standing_owner_escalation_policy.py
     validations:
+      - python scripts/validate_standing_owner_escalation_policy.py
+      - python -m pytest tests/test_standing_owner_escalation_policy.py -q
       - python scripts/validate_autonomous_run_queue.py --unit U-02
       - python scripts/validate_task_scope.py --task-id T417
-    commit_message: "Record T416-recommended batch2 docket as pending owner confirmation."
+    commit_message: "Add standing owner escalation policy for one-time batch 2+3 ladder approval."
+    notes: "Owner approves once with APPROVE_STANDING_ESCALATION_POLICY; replaces per-batch docket YAML."
   - unit_id: U-03
+    status: complete
     title: Draft review packets (3 candidates, one commit)
     candidates:
       - T402-LC-057
@@ -98,6 +105,7 @@ work_units:
       - python scripts/validate_task_scope.py --task-id T417
     commit_message: "Draft batch2 review packets for Phlm, Jude, Jonah (non-authorizing)."
   - unit_id: U-04
+    status: complete
     title: Draft packet validator (focused pytest only)
     deliverables:
       - scripts/validate_t417_batch2_review_packet_drafts.py
@@ -107,6 +115,7 @@ work_units:
       - python -m pytest tests/test_t417_batch2_review_packet_drafts.py -q
     commit_message: "Add validator for T417 batch2 draft review packets."
   - unit_id: U-05
+    status: skipped
     title: Rust chunk-audit substrate scaffold (optional; skip if session time-constrained)
     optional: true
     deliverables:
@@ -121,6 +130,7 @@ work_units:
       - python scripts/validate_rust_chunk_audit_substrate.py --contract-only
     commit_message: "Scaffold Rust-first chunk audit substrate (contract-only)."
   - unit_id: U-06
+    status: complete
     title: Phase 1 book status for batch1 outputs
     deliverables:
       - .ai/control/chunking_phase_completion_plan.yaml
@@ -129,6 +139,7 @@ work_units:
       - python scripts/validate_task_scope.py --task-id T417
     commit_message: "Reconcile Phase 1 book statuses for batch1 epistle openings."
   - unit_id: U-07
+    status: complete
     title: session_close
     deliverables:
       - .ai/handoffs/T417/handoff.md
