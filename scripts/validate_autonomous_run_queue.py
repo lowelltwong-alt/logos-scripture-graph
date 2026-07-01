@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate autonomous run queue and optional package completion markers."""
+"""Validate autonomous run queue and optional work-unit completion markers."""
 from __future__ import annotations
 
 import argparse
@@ -11,6 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 QUEUE = ROOT / ".ai" / "control" / "autonomous_run_queue.yaml"
+PROCESSOR = ROOT / ".ai" / "control" / "autonomous_corpus_processor.yaml"
 TASK = ROOT / ".ai" / "tasks" / "T417.task.yaml"
 
 
@@ -37,34 +38,55 @@ def _read_yaml(path: Path) -> dict[str, Any]:
     return data
 
 
+def _validate_processor() -> list[str]:
+    errors: list[str] = []
+    if not PROCESSOR.exists():
+        return [f"missing {_rel(PROCESSOR)}"]
+    data = _read_yaml(PROCESSOR)
+    policy = data.get("efficiency_policy")
+    if not isinstance(policy, dict):
+        errors.append("autonomous_corpus_processor: efficiency_policy required")
+    elif "work_unit_definition" not in policy:
+        errors.append("autonomous_corpus_processor: work_unit_definition required")
+    stop = data.get("efficiency_policy", {}).get("stop_conditions")
+    if not isinstance(stop, list) or "backlog_exhausted_for_current_lane" not in stop:
+        errors.append("processor must stop on backlog exhaustion")
+    return errors
+
+
 def _validate_queue(data: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     if data.get("active_task_id") != "T417":
         errors.append("active_task_id must be T417")
     if not data.get("kickoff_prompt"):
         errors.append("kickoff_prompt is required")
-    packages = data.get("work_packages")
-    if not isinstance(packages, list) or not packages:
-        errors.append("work_packages must be a non-empty list")
+    if not data.get("session_stop_when"):
+        errors.append("session_stop_when is required for outcome-based queues")
+    units = data.get("work_units")
+    legacy = data.get("work_packages")
+    if units is None and legacy is not None:
+        units = legacy
+    if not isinstance(units, list) or not units:
+        errors.append("work_units must be a non-empty list")
         return errors
     seen: set[str] = set()
-    for pkg in packages:
-        if not isinstance(pkg, dict):
-            errors.append("each work package must be a mapping")
+    for unit in units:
+        if not isinstance(unit, dict):
+            errors.append("each work unit must be a mapping")
             continue
-        pkg_id = pkg.get("package_id")
-        if not isinstance(pkg_id, str) or not pkg_id:
-            errors.append("work package missing package_id")
+        unit_id = unit.get("unit_id") or unit.get("package_id")
+        if not isinstance(unit_id, str) or not unit_id:
+            errors.append("work unit missing unit_id")
             continue
-        if pkg_id in seen:
-            errors.append(f"duplicate package_id: {pkg_id}")
-        seen.add(pkg_id)
-        for key in ("title", "estimated_minutes", "deliverables", "validations", "commit_message"):
-            if key not in pkg:
-                errors.append(f"{pkg_id}: missing {key}")
-        deliverables = pkg.get("deliverables")
+        if unit_id in seen:
+            errors.append(f"duplicate unit_id: {unit_id}")
+        seen.add(unit_id)
+        for key in ("title", "deliverables", "validations", "commit_message"):
+            if key not in unit:
+                errors.append(f"{unit_id}: missing {key}")
+        deliverables = unit.get("deliverables")
         if not isinstance(deliverables, list) or not deliverables:
-            errors.append(f"{pkg_id}: deliverables must be a non-empty list")
+            errors.append(f"{unit_id}: deliverables must be a non-empty list")
     authority = data.get("authority")
     if not isinstance(authority, dict):
         errors.append("authority mapping required")
@@ -73,22 +95,33 @@ def _validate_queue(data: dict[str, Any]) -> list[str]:
     return errors
 
 
-def _validate_package_deliverables(data: dict[str, Any], package_id: str) -> list[str]:
+def _validate_unit_deliverables(data: dict[str, Any], unit_id: str) -> list[str]:
     errors: list[str] = []
-    packages = data.get("work_packages", [])
-    pkg = next((p for p in packages if isinstance(p, dict) and p.get("package_id") == package_id), None)
-    if pkg is None:
-        return [f"unknown package_id: {package_id}"]
-    deliverables = pkg.get("deliverables", [])
+    units = data.get("work_units") or data.get("work_packages") or []
+    unit = next(
+        (
+            u
+            for u in units
+            if isinstance(u, dict) and (u.get("unit_id") == unit_id or u.get("package_id") == unit_id)
+        ),
+        None,
+    )
+    if unit is None:
+        return [f"unknown unit_id: {unit_id}"]
+    if unit.get("status") == "complete":
+        return []
+    if unit.get("optional") and unit.get("status") == "skipped":
+        return []
+    deliverables = unit.get("deliverables", [])
     if not isinstance(deliverables, list):
-        return [f"{package_id}: deliverables not a list"]
+        return [f"{unit_id}: deliverables not a list"]
     for rel in deliverables:
         if not isinstance(rel, str):
-            errors.append(f"{package_id}: invalid deliverable entry")
+            errors.append(f"{unit_id}: invalid deliverable entry")
             continue
         path = ROOT / rel
         if not path.exists():
-            errors.append(f"{package_id}: missing deliverable {_rel(path)}")
+            errors.append(f"{unit_id}: missing deliverable {_rel(path)}")
     return errors
 
 
@@ -99,23 +132,27 @@ def _validate_task_alignment() -> list[str]:
     task = _read_yaml(TASK)
     if task.get("id") != "T417":
         errors.append("T417.task.yaml id must be T417")
-    if task.get("autonomous_run_queue") != ".ai/control/autonomous_run_queue.yaml":
+    queue_ref = task.get("autonomous_run_queue")
+    if queue_ref not in (".ai/control/autonomous_run_queue.yaml", None):
         errors.append("T417.task.yaml must reference autonomous_run_queue.yaml")
     return errors
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--package", help="Validate deliverables exist for one work package id")
+    parser.add_argument("--unit", help="Validate deliverables exist for one work unit id")
+    parser.add_argument("--package", help="Deprecated alias for --unit")
     args = parser.parse_args()
+    unit_id = args.unit or args.package
     try:
         if not QUEUE.exists():
             raise AutonomousRunQueueError(f"missing {_rel(QUEUE)}")
         data = _read_yaml(QUEUE)
         errors = _validate_queue(data)
+        errors.extend(_validate_processor())
         errors.extend(_validate_task_alignment())
-        if args.package:
-            errors.extend(_validate_package_deliverables(data, args.package))
+        if unit_id:
+            errors.extend(_validate_unit_deliverables(data, unit_id))
         if errors:
             raise AutonomousRunQueueError("; ".join(errors))
         print("autonomous run queue: OK")
