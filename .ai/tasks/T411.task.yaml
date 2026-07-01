@@ -2,22 +2,27 @@ id: T411
 phase: phase_4
 title: "Cursor Readiness With Claude Final-Audit Gate"
 mode: research_only_review_packet_prep_setup
-status: setup_pending_claude_final_audit_no_cursor_run
+status: ready_pending_owner_launch
 owner: codex
 branch: codex/t411-cursor-readiness-gate
-base_ref: 3c2770f081c9179a7c848aa31d49931f7f1ede8c
-summary: "Prepare the first governed T411 Cursor short-book research/review-prep batch, gated by Claude's final T410 audit, emitted-artifact validation, and the T412 Rust-first observation substrate before Cursor may run."
+base_ref: e90bc3d0022f612fb3c80775699e85d4b9f3d672
+summary: "Prepare the first governed T411 Cursor short-book research/review-prep batch, gated by Claude's T412 post-merge substrate audit, emitted-artifact validation, and the proved Rust-first observation substrate before Cursor may run."
 cursor_execution_allowed: false
+owner_launch_required: true
 cursor_run_status: not_started
 claude_final_audit_gate:
-  source: "Claude final audit for main @ 3c2770f"
+  source: "Claude post-merge audit for T412 substrate on main @ e90bc3d"
+  audit_report: .ai/audits/reports/20260630-T412-post-merge-claude-audit.md
+  verdict: APPROVE_T411_CURSOR
   status: passed_no_p0_p1_forward_p2s_only
-  p0_p1_rule: "If Claude reports any P0/P1 against T410/T410-hardening, stop T411 and patch T410 first."
+  prior_t410_audit_ref: "Claude final audit for main @ 3c2770f (no new P0/P1 beyond T410)"
+  p0_p1_rule: "If Claude reports any P0/P1 against T410/T410-hardening or T412 substrate, stop T411 and patch upstream first."
   p2_rule: "Fold relevant P2 findings into T411 when they affect artifact verification, candidate prep, or Cursor safety."
-  cursor_start_rule: "Cursor must not run T411 until this task file, handoff, owner-supplied candidate docket, emitted-artifact validator, T412 Rust observation substrate validation, clean task branch, and parallel safety preflight are present and passing."
+  cursor_start_rule: "Cursor must not run T411 until owner launch, this task file, handoff, owner-supplied candidate docket, emitted-artifact validator, T412 Rust observation substrate validation, clean task branch, and parallel safety preflight are present and passing."
 rust_observation_substrate_gate:
   task_id: T412
-  status: required_before_cursor_run
+  merge_ref: e90bc3d0022f612fb3c80775699e85d4b9f3d672
+  status: validated_passed
   control: .ai/control/rust_first_observation_substrate.yaml
   validator: scripts/validate_rust_observation_substrate.py
   cursor_pack_builder: scripts/build_cursor_observation_pack.py
@@ -29,6 +34,8 @@ scope:
   allowed_paths:
     - .ai/tasks/T411.task.yaml
     - .ai/handoffs/T411/
+    - .ai/handoffs/T412/
+    - .ai/audits/reports/
     - .ai/context/agent_work/T411/
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
@@ -36,6 +43,8 @@ scope:
     - .ai/control/parallel_chunking_research_program.yaml
     - .ai/control/chunking_lesson_index.yaml
     - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/rust_first_observation_substrate.yaml
+    - tools/usfm_observation_scanner/
     - AI_FRONT_DOOR.md
     - AI_TABLE_OF_CONTENTS.md
     - ROADMAP_STATE.yaml
@@ -148,4 +157,4 @@ validations:
   - python -m pytest -q
 handoff_required: .ai/handoffs/T411/handoff.md
 created_at: "2026-06-30"
-updated_at: "2026-06-30"
+updated_at: "2026-06-05"

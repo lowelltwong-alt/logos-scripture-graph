@@ -5,7 +5,7 @@
 - task_id: T412
 - title: Rust-First Whole-Bible Observation Substrate
 - phase: phase_4
-- status: complete_pending_merge
+- status: complete_merged
 
 ## Agent
 
@@ -101,7 +101,7 @@ Generated but not committed:
 - result: 278,168 Strong occurrence rows; `has_strong_h` and `has_strong_g` absent from `risk_signal_index.jsonl`
 - failures: none
 - command: `python -m pytest tests/test_rust_observation_substrate.py tests/test_parallel_chunking_prompt_pack.py tests/test_t411_cursor_batch_artifacts.py -q`
-- result: 29 passed
+- result: 29 passed combined across the three files (`tests/test_rust_observation_substrate.py` alone has 9 tests)
 - failures: none
 - command: `python scripts/validate_parallel_execution_safety.py --task-id T412 --allow-current-task-dirty --require-task-branch`
 - result: passed
@@ -139,12 +139,11 @@ Generated but not committed:
 
 ## Open questions
 
-- Claude/frontier should review the proved substrate and the Strong/risk de-noising before Cursor runs long T411 work.
-- The reusable orchestration pattern may later move upstream to `logos-governance-architecture`, but this task keeps Scripture raw-source observation local.
+- None for substrate safety. T411 awaits owner launch after governance recording and clean T411 preflight.
 
 ## Next agent instruction
 
-After T412 is merged, ask Claude/frontier to review the proved substrate. If Claude has no blocking findings, start T411 only from a clean T411 branch/worktree with:
+T412 is merged @ `e90bc3d`. Claude post-merge audit recorded **APPROVE_T411_CURSOR** in `.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`. Start T411 only after owner launch from a clean T411 branch/worktree with:
 
 ```bash
 python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch
@@ -152,7 +151,23 @@ python scripts/validate_rust_observation_substrate.py --input build/observation_
 python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check
 ```
 
-Do not run Cursor, promote reviewed gold, create chunks, add child spans, change route/evaluator behavior, create graph/retrieval/vector truth, run embeddings/indexes, import boundaries, choose a backend, promote a profile, create source rows, change canon scope, or authorize theology authority without a later exact owner gate.
+Do not run Cursor, promote reviewed gold, create chunks, add child spans, change route/evaluator behavior, create graph/retrieval/vector truth, run embeddings/indexes, import boundaries, choose a backend, promote a profile, create source rows, change canon scope, or authorize theology authority without owner launch and the later exact owner gate.
+
+---
+
+## Claude post-merge audit (T411 substrate gate)
+
+- auditor: Claude (frontier architecture audit)
+- recorded_at: 2026-06-30
+- merge_ref: e90bc3d0022f612fb3c80775699e85d4b9f3d672
+- audit_report: .ai/audits/reports/20260630-T412-post-merge-claude-audit.md
+- verdict: APPROVE_T411_CURSOR
+- p0_p1: none
+- p2_forward_only:
+  - P2-1 Rust parser unit tests (addressed post-audit with `#[cfg(test)]` module in `main.rs`)
+  - P2-2 no-text key-name assumption documented in `rust_first_observation_substrate.yaml`
+  - P2-3 handoff pytest scope clarified above
+- t411_gate: substrate safety cleared; owner launch + clean T411 preflight still required before Cursor run
 
 ---
 

@@ -4,7 +4,7 @@ T411 prepares the first Cursor short-book research/review-prep batch after T410.
 
 ## Claude Gate
 
-Claude's final T410 audit against `main @ 3c2770f` found no P0/P1 blockers. T411 therefore may be prepared. Cursor still must not run until:
+Claude's final T410 audit against `main @ 3c2770f` found no P0/P1 blockers for T411 setup. Claude's **T412 post-merge audit** against `main @ e90bc3d` issued **APPROVE_T411_CURSOR** with no P0/P1 (`.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`). Cursor still must not run until **owner launch** and:
 
 - `.ai/tasks/T411.task.yaml` exists and declares the exact task branch.
 - `.ai/handoffs/T411/handoff.md` exists.
