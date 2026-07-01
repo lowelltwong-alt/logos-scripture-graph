@@ -309,6 +309,22 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t401_eph1_output_pilot.py")],
         ),
         (
+            "validate_t411_cursor_batch_artifacts.py",
+            [PY, str(ROOT / "scripts" / "validate_t411_cursor_batch_artifacts.py")],
+        ),
+        (
+            "validate_t413_batch1_review_packet_strengthening.py",
+            [PY, str(ROOT / "scripts" / "validate_t413_batch1_review_packet_strengthening.py")],
+        ),
+        (
+            "validate_t414_batch1_parent_only_reviewed_gold_promotion.py",
+            [PY, str(ROOT / "scripts" / "validate_t414_batch1_parent_only_reviewed_gold_promotion.py")],
+        ),
+        (
+            "validate_t415_batch1_output_pilot.py",
+            [PY, str(ROOT / "scripts" / "validate_t415_batch1_output_pilot.py")],
+        ),
+        (
             "validate_t402_low_complexity_chunking_runway.py",
             [PY, str(ROOT / "scripts" / "validate_t402_low_complexity_chunking_runway.py")],
         ),

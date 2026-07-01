@@ -1795,6 +1795,47 @@ phases:
         canon_scope_change_authorized: false
         source_or_manuscript_rows_authorized: false
         theology_authority_change_authorized: false
+      - id: T415
+        title: T411 Batch1 Pipeline (T413-T415)
+        status: complete_output_changed_batch1_parent_overlays
+        decision_register_entry: CD-082
+        lesson_index_entry: LSN-037
+        validator: scripts/validate_t415_batch1_output_pilot.py
+        roadmap_doc: docs/roadmap/T415_BATCH1_OUTPUT_PILOT.md
+        task_scope: .ai/tasks/T415.task.yaml
+        required_handoff: .ai/handoffs/T415/handoff.md
+        phases:
+          - T413_batch1_review_packet_strengthening
+          - T414_batch1_parent_only_reviewed_gold_promotion
+          - T415_batch1_output_pilot
+        next_task: post_pilot_review_before_broader_epistle_opening_behavior
+      - id: T414
+        title: T411 Batch1 Parent-Only Reviewed-Gold Promotion
+        status: complete_parent_only_reviewed_gold_promotion
+        lane: epistle_opening
+        promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+        promotion_decision_packet: .ai/control/t414_batch1_reviewed_gold_promotion_decision_packet.yaml
+        reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+        roadmap_doc: docs/roadmap/T414_BATCH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+        task_scope: .ai/tasks/T415.task.yaml
+        required_handoff: .ai/handoffs/T415/handoff.md
+        validator: scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+        decision_register_entry: CD-081
+        lesson_index_entry: LSN-036
+        reviewed_gold_promoted: true
+        child_spans_authorized: false
+        output_change_authorized: false
+        implementation_authorized: false
+        next_task: T415
+      - id: T413
+        title: Codex Post-Merge Review Of T411 Cursor Work
+        status: complete
+        required_handoff: .ai/handoffs/T413/handoff.md
+        decision_register_entry: CD-080
+        lesson_index_entry: LSN-035
+        strengthening_control: .ai/control/t413_batch1_review_packet_strengthening.yaml
+        validator: scripts/validate_t413_batch1_review_packet_strengthening.py
+        next_task: T414
       - id: T412
         title: Rust-First Whole-Bible Observation Substrate
         status: complete_merged

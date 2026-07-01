@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, or T401")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, T401, or T415")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -525,6 +525,21 @@ def _validate_links() -> None:
             "embedding_or_vector_work_allowed": False,
             "source_or_manuscript_rows_authorized": False,
             "exact_next_owner_action": "T402_post_pilot_review_before_child_spans_or_broader_behavior",
+        }
+    elif next_route.get("task_id") == "T415":
+        expected_next = {
+            "route_type": "epistle_opening_goal7_exact_output_pilot",
+            "completion_status": "complete_output_changed_batch1_parent_overlays",
+            "output_manifest": ".ai/control/t415_batch1_output_pilot_manifest.yaml",
+            "promotion_record": ".ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml",
+            "reviewed_gold_promoted": True,
+            "output_change_authorized": True,
+            "implementation_authorized": True,
+            "route_behavior_authorized": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
         }
     else:
         expected_next = {

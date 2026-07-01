@@ -1495,6 +1495,104 @@ lessons:
       - scripts/validate_governance_dependency_map_mirror.py
       - scripts/validate_repository_link_contract.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-035
+    title: Batch review-packet strengthening stays non-authorizing
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, owner_decision, auditability]
+    tags: [t413, t413-b, batch1, epistle-opening, review-packet-strengthening, non-authorizing]
+    use_when:
+      - "A future agent strengthens T411 batch1 epistle opening review packets and must not treat contextual reading fields as reviewed gold or output authority."
+      - "A future agent audits T413 batch1 strengthening artifacts before T414 promotion or T415 output pilot work."
+    preflight_stage: before_review_packet_strengthening_or_promotion
+    source_surfaces:
+      - .ai/control/t413_batch1_review_packet_strengthening.yaml
+      - eval/chunking_gold/review_packets/t411_batch1_3john_opening_review.md
+      - scripts/validate_t413_batch1_review_packet_strengthening.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids: [CD-080]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T413, T415]
+    downstream_risk: "Strengthened batch opening packets can look like owner-approved reviewed gold or implementation readiness unless pending_human_review and non_authorizations stay visible."
+    required_preflight_surfaces:
+      - .ai/control/t413_batch1_review_packet_strengthening.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - child_span_selection
+      - theology_authority_change
+    validators:
+      - scripts/validate_t413_batch1_review_packet_strengthening.py
+  - lesson_id: LSN-036
+    title: Batch reviewed-gold promotion without output
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, owner_decision, theological_risk]
+    tags: [t414, batch1, epistle-opening, parent-only-reviewed-gold, non-authorizing-output]
+    use_when:
+      - "A future agent sees epistle opening reviewed-gold entries in epistle_opening_gold_manifest.json and must not start chunk output without T415 authorization."
+      - "A future agent audits T414 batch1 parent-only promotion before any route harness or output pilot work."
+    preflight_stage: before_reviewed_gold_promotion_or_output
+    source_surfaces:
+      - .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+      - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+      - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids: [CD-081]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T414, T415]
+    downstream_risk: "Parent-only reviewed gold for five epistle openings can be mistaken for chunk boundary authority or broader epistle-opening generalization."
+    required_preflight_surfaces:
+      - .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+      - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - chunk_output_change
+      - child_span_selection
+      - route_behavior_change
+      - theology_authority_change
+    validators:
+      - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+  - lesson_id: LSN-037
+    title: Batch output pilot overlays are not generalization authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision]
+    tags: [t415, batch1, epistle-opening, additive-parent-overlay, route-isolation]
+    use_when:
+      - "A future agent audits the T415 batch1 output pilot or prepares later epistle-opening output work after five parent-only overlays were appended."
+      - "A future agent needs proof that five additive overlays preserve baseline prefix bytes and do not authorize child spans or broader epistle behavior."
+    preflight_stage: before_exact_output_pilot_or_post_pilot_review
+    source_surfaces:
+      - .ai/control/t415_batch1_output_pilot_manifest.yaml
+      - .ai/control/t415_batch1_route_isolation_harness.yaml
+      - docs/roadmap/T415_BATCH1_OUTPUT_PILOT.md
+      - scripts/validate_t415_batch1_output_pilot.py
+      - pipelines/chunking/orchestrator.py
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-082]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T415]
+    downstream_risk: "Five exact overlays can be mistaken as broader epistle-opening generalization, child-span hierarchy, or theology authority unless proof manifests and non_authorizations remain visible."
+    required_preflight_surfaces:
+      - .ai/control/t415_batch1_output_pilot_manifest.yaml
+      - .ai/control/t415_batch1_route_isolation_harness.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - child_span_selection
+      - broader_epistle_generalization
+      - theology_authority_change
+      - graph_edge_generation
+    validators:
+      - scripts/validate_t415_batch1_output_pilot.py
   - lesson_id: LSN-034
     title: Prompt-pack research must remain transparent until owner-gated chunking
     lifecycle_status: active

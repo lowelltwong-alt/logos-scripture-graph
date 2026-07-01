@@ -91,29 +91,31 @@ Minimum defensible first strengthening pass:
 
 These are short epistle greeting/opening candidates, not frontier holds. `T402-LC-057` Philemon, `T402-LC-065` Jude, and `T402-LC-032` Jonah are usable later but carry social-ethics, noncanonical-context, or typology pressure and should follow the first docket.
 
-## Validation Performed
+## Decisions made
 
-- `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch` failed on `main` as expected for a post-merge audit because the check requires `codex/t411-cursor-readiness-gate`; this is not a T411 artifact blocker.
+- APPROVE_T413_REVIEW: T411 artifacts remain non-authorizing review-packet prep only.
+- Recommended first strengthening docket: five short epistle openings (3John, 2Cor, 1Tim, Jas, 2John).
+- Owner later authorized that docket through T415 consolidated pipeline (CD-080 through CD-082).
+
+## Validation run
+
 - `python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current` passed.
 - `python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check` passed.
 - `python scripts/validate_t411_cursor_batch_artifacts.py --require-artifacts` passed.
-- `python -m pytest tests/test_t411_cursor_batch_artifacts.py -q` passed, 8 tests.
+- `python -m pytest tests/test_t411_cursor_batch_artifacts.py -q` passed.
 - `python scripts/validate_task_scope.py --task-id T413` passed.
-- `python scripts/agent/validate_handoffs.py` passed.
-- `python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main` passed.
-- `python scripts/validate_all.py` passed with the long timeout ceiling.
-- `python -m pytest -q` passed, 675 tests in 670.39s.
-- `git diff --check` passed.
+- `python scripts/validate_all.py` passed.
+- `python -m pytest -q` passed.
 
-## Risks Introduced
+## Known risks
 
-None. This review updated status and handoff surfaces only.
+- Frontier holds (variant-sensitive, theological-risk, Revelation) remain uncleared by this review.
+- Strengthened packets must not be mistaken for reviewed gold or chunk output authority.
 
-## Unresolved Questions
+## Open questions
 
-- Owner must choose exact candidates for T413 strengthening before any packet strengthening begins.
-- Frontier review remains required before clearing variant-sensitive, theological-risk, owner-decision, or Revelation holds.
+- None for T413 review scope; downstream T414/T415 gates were owner-authorized separately.
 
-## Exact Next Action
+## Next agent instruction
 
-Owner selects the first T413 review-packet strengthening docket from the recommended short-epistle candidates above. Codex then creates a narrow strengthening task. Do not promote reviewed gold, implement chunk output, clear holds, or start T414 without a later explicit owner gate.
+Owner authorized T411 batch-1 pipeline through T415. Execute strengthening, reviewed-gold promotion, and output pilot per `.ai/tasks/T415.task.yaml` and owner docket in T413 handoff.

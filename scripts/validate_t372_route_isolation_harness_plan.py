@@ -276,8 +276,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401"}:
-        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, T384, T385, T392, T393, T397, or T401 after T372")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, T384, T385, T392, T393, T397, T401, or T415 after T372")
     if next_route.get("task_id") == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T373 starts_only_if is stale")
     if next_route.get("task_id") == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":
@@ -467,6 +467,24 @@ def _validate_links() -> None:
         for required in ("CD-071", "CD-074", "CD-076"):
             if required not in next_route.get("prior_decision_register_entries", []):
                 raise T372HarnessPlanError(f"{_rel(READINESS)}: T401 must reference {required}")
+    if next_route.get("task_id") == "T415":
+        expected_t415 = {
+            "route_type": "epistle_opening_goal7_exact_output_pilot",
+            "completion_status": "complete_output_changed_batch1_parent_overlays",
+            "output_manifest": ".ai/control/t415_batch1_output_pilot_manifest.yaml",
+            "promotion_record": ".ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml",
+            "reviewed_gold_promoted": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+        }
+        for key, value in expected_t415.items():
+            if next_route.get(key) != value:
+                raise T372HarnessPlanError(f"{_rel(READINESS)}: T415 next_route.{key} must be {value!r}")
+        for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
+            if next_route.get(key) is not True:
+                raise T372HarnessPlanError(f"{_rel(READINESS)}: T415 next_route.{key} must be true")
 
     roadmap = _read_yaml(ROADMAP)
     future = roadmap.get("phases", {}).get("phase_4", {}).get("future_sequence", [])

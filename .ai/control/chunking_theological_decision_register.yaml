@@ -3599,6 +3599,89 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-080
+    title: T413 batch1 review-packet strengthening stays non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T413, T415]
+    owner_decision_ref: ".ai/control/t413_batch1_review_packet_strengthening.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [t411_batch1_epistle_opening_docket]
+      routes: [review_packet_strengthening_only]
+      surfaces:
+        - .ai/control/t413_batch1_review_packet_strengthening.yaml
+        - eval/chunking_gold/review_packets/t411_batch1_3john_opening_review.md
+        - scripts/validate_t413_batch1_review_packet_strengthening.py
+    decision: "T415 phase A strengthens five owner-authorized short epistle opening review packets only."
+    downstream_risk: "Future agents could treat strengthened packets as reviewed gold or output authority."
+    theological_assumptions_avoided:
+      - "No greeting packet becomes church-order or theology authority."
+    reviewed_gold_dependency: "None until T414 owner promotion."
+    non_authorizations:
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - child_span_selection
+      - theology_authority_change
+    validators:
+      - scripts/validate_t413_batch1_review_packet_strengthening.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-081
+    title: T414 batch1 parent-only reviewed-gold promotion without output
+    classification: interpretive_boundary
+    task_ids: [T414]
+    owner_decision_ref: ".ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [t411_batch1_epistle_opening_docket]
+      routes: [parent_only_reviewed_gold_promotion]
+      surfaces:
+        - .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+        - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+    decision: "T414 promotes five exact epistle opening spans as parent-only reviewed gold with no child spans and no chunk output authorization."
+    downstream_risk: "Parent-only gold labels could be mistaken for chunk boundary authority."
+    theological_assumptions_avoided:
+      - "No church-office or ecclesiology system encoded as chunk authority."
+    reviewed_gold_dependency: "T413-B strengthened packets."
+    non_authorizations:
+      - chunk_output_change
+      - child_span_selection
+      - route_behavior_change
+    validators:
+      - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-082
+    title: T415 batch1 exact additive parent overlay output pilot
+    classification: interpretive_boundary
+    task_ids: [T415]
+    owner_decision_ref: ".ai/control/t415_batch1_output_pilot_manifest.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [t411_batch1_epistle_opening_docket]
+      routes: [exact_additive_parent_overlay_pilot]
+      surfaces:
+        - .ai/control/t415_batch1_output_pilot_manifest.yaml
+        - pipelines/chunking/orchestrator.py
+    decision: "T415 adds five exact additive parent-only epistle opening overlays while preserving baseline prefix bytes."
+    downstream_risk: "Five overlays could be mistaken as broader epistle-opening generalization authority."
+    theological_assumptions_avoided:
+      - "No denominational church-order theology encoded through greeting overlays."
+    reviewed_gold_dependency: "T414 batch1 parent-only reviewed-gold promotion."
+    non_authorizations:
+      - child_span_selection
+      - broader_epistle_generalization
+      - theology_authority_change
+    validators:
+      - scripts/validate_t415_batch1_output_pilot.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3719,4 +3802,7 @@ backfill_coverage:
     - T410
     - T411
     - T412
+    - T413
+    - T414
+    - T415
 ...

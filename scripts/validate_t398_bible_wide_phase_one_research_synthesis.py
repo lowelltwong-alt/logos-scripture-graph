@@ -248,8 +248,8 @@ def _validate_links() -> None:
                 raise T398SynthesisError(f"{_rel(path)}: missing {phrase!r}")
 
     readiness = _read_yaml(READINESS)
-    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401"}:
-        raise T398SynthesisError(f"{_rel(READINESS)}: T398 must not change next_route outside the later T397/T401 path")
+    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401", "T415"}:
+        raise T398SynthesisError(f"{_rel(READINESS)}: T398 must not change next_route outside the later T397/T401/T415 path")
 
 
 def validate_t398_bible_wide_phase_one_research_synthesis(path: Path = SYNTHESIS) -> dict[str, Any]:

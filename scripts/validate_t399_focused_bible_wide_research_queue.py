@@ -454,8 +454,8 @@ def _validate_links() -> None:
                 raise T399QueueError(f"{_rel(path)}: missing {phrase!r}")
 
     readiness = _read_yaml(READINESS)
-    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401"}:
-        raise T399QueueError(f"{_rel(READINESS)}: T399 must not change next_route outside the later T397/T401 path")
+    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401", "T415"}:
+        raise T399QueueError(f"{_rel(READINESS)}: T399 must not change next_route outside the later T397/T401/T415 path")
     t399 = readiness.get("parallel_t399_focused_research_queue")
     if not isinstance(t399, dict):
         raise T399QueueError(f"{_rel(READINESS)}: parallel_t399_focused_research_queue must be a mapping")

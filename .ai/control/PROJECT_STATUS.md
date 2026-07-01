@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-01
-**Updated by:** T413 Codex post-merge review of completed T411 Cursor prep
-**Active task:** -> **T413 Codex post-merge review of T411 Cursor work** is approved.
+**Updated by:** T415 batch1 output pilot
+**Active task:** -> **T415 batch1 route harness and output pilot** is complete.
+
+> **T415 batch1 output pilot (2026-07-01):** Added five exact additive parent-only epistle opening overlays
+> (3John, 2Cor, 1Tim, Jas, 2John). Baseline 1138 → candidate 1143 chunks. Recorded `CD-082` plus `LSN-037`.
+>
+> **T414 batch1 parent-only reviewed-gold promotion (2026-07-01):** Promoted five opening spans as
+> parent-only reviewed gold without output change. Recorded `CD-081` plus `LSN-036`.
+>
+> **T413 batch1 review-packet strengthening (2026-07-01):** Strengthened five owner-authorized opening
+> review packets from the T413 docket. Recorded `CD-080` plus `LSN-035`.
+
 T411 produced non-authorizing review-packet prep for all 66 T402 low-complexity queue candidates:
 206 traceable non-authorizing claims, 66 escalation packets, 20 completed waves/chunks, and the
 CHUNK 1 pilot Cursor observation pack. The next route is owner selection for a narrow T413

@@ -133,6 +133,10 @@ T401_OVERLAY_ID = (
     "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
     "Eph.1.3--Eph.1.14--T401-EPH1-PILOT"
 )
+from pipelines.chunking.orchestrator import T415_BATCH1_OVERLAY_SPECS
+
+T415_OVERLAY_IDS = {spec["overlay_id"] for spec in T415_BATCH1_OVERLAY_SPECS}
+PARENT_OVERLAY_IDS = {T374_OVERLAY_ID, T401_OVERLAY_ID, *T415_OVERLAY_IDS}
 
 requires_data = pytest.mark.skipif(
     not (PASSAGES.exists() and WITNESSES.exists() and BOUNDARIES.exists()),
@@ -173,7 +177,7 @@ def _without_t374_overlay(records: list[dict]) -> list[dict]:
 
 
 def _without_parent_overlays(records: list[dict]) -> list[dict]:
-    return [record for record in records if record.get("id") not in {T374_OVERLAY_ID, T401_OVERLAY_ID}]
+    return [record for record in records if record.get("id") not in PARENT_OVERLAY_IDS]
 
 
 def _write_smoke_inputs(tmp_path: Path) -> tuple[Path, Path]:
@@ -369,6 +373,8 @@ def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(
     t401_overlay = [record for record in orchestrated_records if record.get("id") == T401_OVERLAY_ID]
     assert len(t374_overlay) == 1
     assert len(t401_overlay) == 1
+    t415_overlays = [record for record in orchestrated_records if record.get("id") in T415_OVERLAY_IDS]
+    assert len(t415_overlays) == 5
     overlay = t374_overlay[0]
     assert overlay["chunk_kind"] == "epistles_parent_overlay"
     assert overlay["osis_start"] == "1Cor.8.1"
@@ -385,7 +391,8 @@ def test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present(
     assert overlay["child_span_authorized"] is False
     assert len(overlay["included_text_span_ids"]) == 73
     eph_overlay = t401_overlay[0]
-    assert eph_overlay == orchestrated_records[-1]
+    last_overlay = orchestrated_records[-1]
+    assert last_overlay["id"].endswith("T415-BATCH1-2JOHN")
     assert eph_overlay["chunk_kind"] == "epistles_parent_overlay"
     assert eph_overlay["osis_start"] == "Eph.1.3"
     assert eph_overlay["osis_end"] == "Eph.1.14"
@@ -473,12 +480,16 @@ def test_route_ledger_emitted_jsonl(tmp_path: Path) -> None:
     assert record["t401_eph1_additive_overlay_enabled"] is True
     assert record["t401_eph1_additive_overlay_count"] == 0
     assert record["t401_eph1_additive_overlay_ids"] == []
+    assert record["t415_batch1_additive_overlay_enabled"] is True
+    assert record["t415_batch1_additive_overlay_count"] == 0
+    assert record["t415_batch1_additive_overlay_ids"] == []
     assert record["validation_status"] in {
         "byte_identical_pending",
         "byte_identical_passed",
         "same_baseline_ps89_only_pending",
         "t374_additive_parent_overlay_parent_only",
         "t401_eph1_additive_parent_overlay_parent_only",
+        "t415_batch1_additive_parent_overlay_parent_only",
     }
     assert any(json.loads(line)["type"] == "ChunkingRouteLedgerRoute" for line in raw_lines[1:])
 

@@ -1,0 +1,60 @@
+---
+object_type: reviewed_gold_promotion_owner_decision_packet
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-01 during T414 after T413-B strengthened the owner-authorized batch1 opening review packets."
+reason_for_inclusion: "Present exact batch reviewed-gold promotion options before owner promotion of five short epistle opening spans."
+---
+schema_version: t414_batch1_reviewed_gold_promotion_decision_packet.v1
+packet_id: t414_batch1_reviewed_gold_promotion_decision_packet
+task_id: T414
+status: resolved_by_t414_a
+owner: Lowell Wong
+authority:
+  records_owner_options: true
+  records_recommendation: true
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_child_spans: false
+scope:
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  lane: epistle_opening
+  strengthening_task: T413-B
+  strengthening_control: .ai/control/t413_batch1_review_packet_strengthening.yaml
+  evidence_scope: parent_only
+owner_selection:
+  owner_selection_status: selected
+  selected_option: T414-A
+  reviewed_gold_promoted: false
+  owner_response_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+owner_options:
+  - option_id: T414-A
+    label: Promote batch parent-only reviewed gold
+    if_selected_authorizes_parent_only_reviewed_gold: true
+    if_selected_authorizes_child_spans: false
+    if_selected_authorizes_output_change: false
+  - option_id: T414-B
+    label: Hold batch for more review
+    if_selected_authorizes_parent_only_reviewed_gold: false
+recommendation_for_owner_review:
+  recommended_option_id: T414-A
+owner_response:
+  response_status: selected
+  task_id: T414
+  selected_option: T414-A
+  owner_response_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+  parent_only_reviewed_gold_authorized_or_held: authorized_parent_only_reviewed_gold
+  decision_register_update: CD-081
+decision_register_entry: CD-081
+lesson_recorded:
+  lesson_id: LSN-036
+  title: Batch reviewed-gold promotion packets are not promotions
+validators:
+  - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+  - tests/test_t414_batch1_parent_only_reviewed_gold_promotion.py
+non_authorizations:
+  - chunk_output_change
+  - child_span_selection
+  - route_behavior_change
+  - theology_authority_change

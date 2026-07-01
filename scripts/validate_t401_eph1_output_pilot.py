@@ -277,7 +277,7 @@ def _validate_manifest_static(path: Path = MANIFEST) -> dict[str, Any]:
     return data
 
 
-def _run_orchestrator(out: Path, *, disable_t401: bool = False, ledger: Path | None = None) -> None:
+def _run_orchestrator(out: Path, *, disable_t401: bool = False, disable_t415: bool = False, ledger: Path | None = None) -> None:
     cmd = [
         sys.executable,
         str(ORCHESTRATOR),
@@ -298,6 +298,8 @@ def _run_orchestrator(out: Path, *, disable_t401: bool = False, ledger: Path | N
         cmd.extend(["--route-ledger", str(ledger)])
     if disable_t401:
         cmd.append("--disable-t401-eph1-overlay")
+    if disable_t415:
+        cmd.append("--disable-t415-batch1-overlay")
     result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     if result.returncode != 0:
         raise T401OutputPilotError(result.stdout + result.stderr)
@@ -328,8 +330,8 @@ def _validate_generated_outputs(manifest: dict[str, Any]) -> None:
         baseline = tmp_path / "baseline.jsonl"
         candidate = tmp_path / "candidate.jsonl"
         ledger = tmp_path / "candidate-ledger.jsonl"
-        _run_orchestrator(baseline, disable_t401=True)
-        _run_orchestrator(candidate, ledger=ledger)
+        _run_orchestrator(baseline, disable_t401=True, disable_t415=True)
+        _run_orchestrator(candidate, ledger=ledger, disable_t415=True)
 
         baseline_records = _read_jsonl(baseline)
         candidate_records = _read_jsonl(candidate)

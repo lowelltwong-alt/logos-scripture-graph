@@ -81,6 +81,19 @@ lessons_storage:
     - tests/test_t397_eph1_route_isolation_harness.py
     - tests/test_route_isolation_harness.py
     - .ai/control/t401_eph1_output_pilot_manifest.yaml
+    - .ai/control/t413_batch1_review_packet_strengthening.yaml
+    - .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+    - .ai/control/t415_batch1_route_isolation_harness.yaml
+    - .ai/control/t415_batch1_output_pilot_manifest.yaml
+    - scripts/validate_t413_batch1_review_packet_strengthening.py
+    - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+    - scripts/validate_t415_batch1_output_pilot.py
+    - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+    - docs/roadmap/T414_BATCH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
+    - docs/roadmap/T415_BATCH1_OUTPUT_PILOT.md
+    - .ai/tasks/T414.task.yaml
+    - .ai/tasks/T415.task.yaml
+    - .ai/handoffs/T415/handoff.md
     - docs/roadmap/T401_EPH1_OUTPUT_PILOT.md
     - .ai/tasks/T401.task.yaml
     - .ai/handoffs/T401/handoff.md
@@ -214,7 +227,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t401_eph1_output_pilot_complete_post_pilot_review_next
+    current_state: t415_batch1_output_pilot_complete_post_pilot_review_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -564,6 +577,34 @@ lane_sequence:
       sqlite_database_creation_authorized: false
       metadata_row_population_authorized: false
       source_or_manuscript_rows_authorized: false
+    batch1_review_packet_strengthening:
+      task_id: T413
+      path: .ai/control/t413_batch1_review_packet_strengthening.yaml
+      status: complete_review_packet_strengthening_only
+      decision_register_entry: CD-080
+      lesson_index_entry: LSN-035
+      validator: scripts/validate_t413_batch1_review_packet_strengthening.py
+    batch1_parent_only_reviewed_gold_promotion:
+      task_id: T414
+      path: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+      status: complete_parent_only_reviewed_gold_promotion
+      reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+      decision_register_entry: CD-081
+      lesson_index_entry: LSN-036
+      validator: scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+    batch1_output_pilot:
+      task_id: T415
+      path: .ai/control/t415_batch1_output_pilot_manifest.yaml
+      status: complete_output_changed_batch1_parent_overlays
+      route_isolation_harness: .ai/control/t415_batch1_route_isolation_harness.yaml
+      decision_register_entry: CD-082
+      lesson_index_entry: LSN-037
+      validator: scripts/validate_t415_batch1_output_pilot.py
+      baseline_chunk_count: 1138
+      candidate_chunk_count: 1143
+      added_overlay_count: 5
+      output_change_authorized: true
+      child_spans_authorized: false
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -718,6 +759,41 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
+  task_id: T415
+  title: T411 Batch1 Output Pilot
+  route_type: epistle_opening_goal7_exact_output_pilot
+  completion_status: complete_output_changed_batch1_parent_overlays
+  completion_surface: .ai/control/t415_batch1_output_pilot_manifest.yaml
+  output_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
+  validator: scripts/validate_t415_batch1_output_pilot.py
+  promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+  decision_register_entry: CD-082
+  lesson_index_entry: LSN-037
+  prior_strengthening:
+    task_id: T413
+    batch1_review_packet_strengthening: true
+    control: .ai/control/t413_batch1_review_packet_strengthening.yaml
+  prior_promotion:
+    task_id: T414
+    promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+  baseline_chunk_count: 1138
+  candidate_chunk_count: 1143
+  added_overlay_count: 5
+  output_change_authorized: true
+  implementation_authorized: true
+  route_behavior_authorized: true
+  child_spans_authorized: false
+  evaluator_change_authorized: false
+  graph_edge_generation_allowed: false
+  retrieval_truth_authorized: false
+  embedding_or_vector_work_allowed: false
+  boundary_import_allowed: false
+  preferred_reading_authorized: false
+  source_tradition_preference_authorized: false
+  canon_scope_change_authorized: false
+  theology_authority_change_authorized: false
+  reviewed_gold_promoted: true
+_legacy_next_route_t401:
   task_id: T401
   title: Eph.1.3-Eph.1.14 Exact Output Pilot
   route_type: epistle_argument_goal7_exact_output_pilot

@@ -63,6 +63,73 @@ T401_OVERLAY_BOUNDARY_BASIS = [
     "reviewed_gold_parent_only",
     "route_isolated_exact_pilot",
 ]
+T415_ROUTE_VALIDATION_STATUS = "t415_batch1_additive_parent_overlay_parent_only"
+T415_OVERLAY_OWNER_DECISION_REF = ".ai/control/t415_batch1_output_pilot_manifest.yaml"
+T415_OVERLAY_IMPLEMENTATION_MANIFEST = ".ai/control/t415_batch1_output_pilot_manifest.yaml"
+T415_OVERLAY_DECISION_REGISTER_ENTRY = "CD-082"
+T415_OVERLAY_BOUNDARY_BASIS = [
+    "additive_parent_overlay",
+    "owner_authorized_t415_batch1_exact_output_pilot",
+    "reviewed_gold_parent_only",
+    "route_isolated_exact_pilot",
+]
+T415_BATCH1_OVERLAY_SPECS: tuple[dict[str, str], ...] = (
+    {
+        "overlay_id": (
+            "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+            "3John.1.1--3John.1.4--T415-BATCH1-3JOHN"
+        ),
+        "book_id": "3John",
+        "start_osis": "3John.1.1",
+        "end_osis": "3John.1.4",
+        "reviewed_gold_case_id": "3john_1_1_4_parent_only_reviewed_gold",
+        "candidate_id": "T402-LC-064",
+    },
+    {
+        "overlay_id": (
+            "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+            "2Cor.1.1--2Cor.1.2--T415-BATCH1-2COR"
+        ),
+        "book_id": "2Cor",
+        "start_osis": "2Cor.1.1",
+        "end_osis": "2Cor.1.2",
+        "reviewed_gold_case_id": "2cor_1_1_2_parent_only_reviewed_gold",
+        "candidate_id": "T402-LC-047",
+    },
+    {
+        "overlay_id": (
+            "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+            "1Tim.1.1--1Tim.1.2--T415-BATCH1-1TIM"
+        ),
+        "book_id": "1Tim",
+        "start_osis": "1Tim.1.1",
+        "end_osis": "1Tim.1.2",
+        "reviewed_gold_case_id": "1tim_1_1_2_parent_only_reviewed_gold",
+        "candidate_id": "T402-LC-054",
+    },
+    {
+        "overlay_id": (
+            "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+            "Jas.1.1--Jas.1.1--T415-BATCH1-JAS"
+        ),
+        "book_id": "Jas",
+        "start_osis": "Jas.1.1",
+        "end_osis": "Jas.1.1",
+        "reviewed_gold_case_id": "jas_1_1_parent_only_reviewed_gold",
+        "candidate_id": "T402-LC-059",
+    },
+    {
+        "overlay_id": (
+            "chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--"
+            "2John.1.1--2John.1.3--T415-BATCH1-2JOHN"
+        ),
+        "book_id": "2John",
+        "start_osis": "2John.1.1",
+        "end_osis": "2John.1.3",
+        "reviewed_gold_case_id": "2john_1_1_3_parent_only_reviewed_gold",
+        "candidate_id": "T402-LC-063",
+    },
+)
 
 
 @dataclass(frozen=True)
@@ -202,6 +269,29 @@ def is_t401_overlay_unit(unit: dict[str, Any]) -> bool:
     return is_unit_in_span(unit, book_id="Eph", start_chapter=1, start_verse=3, end_chapter=1, end_verse=14)
 
 
+def _overlay_span_bounds(spec: dict[str, str]) -> tuple[str, int, int, int, int]:
+    book_start, start_chapter, start_verse = osis_parts(spec["start_osis"])
+    book_end, end_chapter, end_verse = osis_parts(spec["end_osis"])
+    if book_start != book_end or book_start != spec["book_id"]:
+        raise ValueError(
+            f"T415 overlay {spec['overlay_id']} requires a single-book span; "
+            f"observed {spec['start_osis']}-{spec['end_osis']}"
+        )
+    return book_start, start_chapter, start_verse, end_chapter, end_verse
+
+
+def is_t415_batch1_overlay_unit(unit: dict[str, Any], spec: dict[str, str]) -> bool:
+    book_id, start_chapter, start_verse, end_chapter, end_verse = _overlay_span_bounds(spec)
+    return is_unit_in_span(
+        unit,
+        book_id=book_id,
+        start_chapter=start_chapter,
+        start_verse=start_verse,
+        end_chapter=end_chapter,
+        end_verse=end_verse,
+    )
+
+
 def make_t374_parent_overlay(
     units: list[dict[str, Any]],
     policy_version: str,
@@ -336,6 +426,77 @@ def make_t401_eph1_parent_overlay(
     }
 
 
+def make_t415_batch1_parent_overlays(
+    units: list[dict[str, Any]],
+    policy_version: str,
+    footnotes_by_osis: dict[str, list],
+    crossrefs_by_osis: dict[str, list],
+) -> list[dict[str, Any]]:
+    overlays: list[dict[str, Any]] = []
+    for spec in T415_BATCH1_OVERLAY_SPECS:
+        selected = [unit for unit in units if is_t415_batch1_overlay_unit(unit, spec)]
+        if not selected:
+            continue
+        first = selected[0]["osis_ref"]
+        last = selected[-1]["osis_ref"]
+        if first != spec["start_osis"] or last != spec["end_osis"]:
+            raise ValueError(
+                f"T415 batch1 overlay requires the exact parent span "
+                f"{spec['start_osis']}-{spec['end_osis']}; observed {first}-{last}"
+            )
+
+        text = " ".join(unit["text"].strip() for unit in selected if unit["text"].strip()).strip()
+        footnote_refs: list[Any] = []
+        crossref_refs: list[Any] = []
+        for unit in selected:
+            osis = unit["osis_ref"]
+            footnote_refs.extend(footnotes_by_osis.get(osis, []))
+            crossref_refs.extend(crossrefs_by_osis.get(osis, []))
+
+        overlays.append({
+            "id": spec["overlay_id"],
+            "type": "RetrievalChunk",
+            "chunk_kind": "epistles_parent_overlay",
+            "genre": "epistles",
+            "source_text_id": DEFAULT_SOURCE_TEXT_ID,
+            "source_artifact_id": DEFAULT_SOURCE_CORPUS,
+            "osis_start": spec["start_osis"],
+            "osis_end": spec["end_osis"],
+            "text": text,
+            "included_text_span_ids": [unit["passage_id"] for unit in selected],
+            "boundary_basis": T415_OVERLAY_BOUNDARY_BASIS,
+            "footnote_refs": footnote_refs,
+            "editorial_crossref_refs": crossref_refs,
+            "has_lexeme_alignment": True,
+            "chunking_policy_version": policy_version,
+            "license": "public-domain",
+            "validation": {
+                "sentence_ended": chunker.sentence_ended(text),
+                "book_boundary_crossed": False,
+                "starts_on_heading_or_superscription": bool(
+                    selected[0]["has_heading"] or selected[0]["has_superscription"]
+                ),
+                "parent_only_overlay": True,
+                "selected_children_empty": True,
+            },
+            "status": "active",
+            "overlay_kind": "additive_parent_only",
+            "overlay_status": "owner_authorized_t415_batch1_pilot_implemented",
+            "reviewed_gold_case_id": spec["reviewed_gold_case_id"],
+            "owner_decision_ref": T415_OVERLAY_OWNER_DECISION_REF,
+            "implementation_manifest": T415_OVERLAY_IMPLEMENTATION_MANIFEST,
+            "decision_register_entry": T415_OVERLAY_DECISION_REGISTER_ENTRY,
+            "selected_children": [],
+            "baseline_chunks_preserved_byte_identical": True,
+            "non_truth_bearing_overlay": True,
+            "graph_retrieval_truth_authorized": False,
+            "child_span_authorized": False,
+            "broader_epistle_generalization_authorized": False,
+            "t402_candidate_id": spec["candidate_id"],
+        })
+    return overlays
+
+
 def chunk_routed_corpus(
     units_iter,
     genres: dict[str, str],
@@ -433,6 +594,7 @@ def run_monolith_pass2(
     source_text_id: str,
     enable_t374_overlay: bool = True,
     enable_t401_eph1_overlay: bool = True,
+    enable_t415_batch1_overlay: bool = True,
 ) -> OrchestratorResult:
     """Run the routed chunking path and optionally write a route ledger."""
     policy_version = chunker.read_policy_version(policy_path)
@@ -460,6 +622,8 @@ def run_monolith_pass2(
         overlay = make_t401_eph1_parent_overlay(units, policy_version, footnotes_by_osis, crossrefs_by_osis)
         if overlay:
             overlays.append(overlay)
+    if enable_t415_batch1_overlay:
+        overlays.extend(make_t415_batch1_parent_overlays(units, policy_version, footnotes_by_osis, crossrefs_by_osis))
     if overlays:
         chunks.extend(overlays)
 
@@ -471,7 +635,12 @@ def run_monolith_pass2(
     context_hash = sha256_file(context_out) if context_out and packets and context_out.exists() else None
 
     if route_ledger:
-        validation_status = T401_ROUTE_VALIDATION_STATUS if enable_t401_eph1_overlay else T374_ROUTE_VALIDATION_STATUS
+        if enable_t415_batch1_overlay:
+            validation_status = T415_ROUTE_VALIDATION_STATUS
+        elif enable_t401_eph1_overlay:
+            validation_status = T401_ROUTE_VALIDATION_STATUS
+        else:
+            validation_status = T374_ROUTE_VALIDATION_STATUS
         registry_hash = registry_surface_sha(registry_path)
         skill_versions = {
             skill: load_skill_version(registry_path, skill)
@@ -526,6 +695,15 @@ def run_monolith_pass2(
             "t401_eph1_additive_overlay_enabled": enable_t401_eph1_overlay,
             "t401_eph1_additive_overlay_count": len([overlay for overlay in overlays if overlay["id"] == T401_OVERLAY_ID]),
             "t401_eph1_additive_overlay_ids": [overlay["id"] for overlay in overlays if overlay["id"] == T401_OVERLAY_ID],
+            "t415_batch1_additive_overlay_enabled": enable_t415_batch1_overlay,
+            "t415_batch1_additive_overlay_count": len(
+                [overlay for overlay in overlays if overlay["id"] in {spec["overlay_id"] for spec in T415_BATCH1_OVERLAY_SPECS}]
+            ),
+            "t415_batch1_additive_overlay_ids": [
+                overlay["id"]
+                for overlay in overlays
+                if overlay["id"] in {spec["overlay_id"] for spec in T415_BATCH1_OVERLAY_SPECS}
+            ],
             **common,
         }]
         ledger.extend({
@@ -590,6 +768,11 @@ def main() -> int:
         action="store_true",
         help="Generate the pre-T401 baseline without the additive Eph.1.3-Eph.1.14 parent overlay.",
     )
+    parser.add_argument(
+        "--disable-t415-batch1-overlay",
+        action="store_true",
+        help="Generate the pre-T415 baseline without the additive T415 batch1 parent overlays.",
+    )
     args = parser.parse_args()
 
     result = run_monolith_pass2(
@@ -609,6 +792,7 @@ def main() -> int:
         source_text_id=args.source_text_id,
         enable_t374_overlay=not args.disable_t374_overlay,
         enable_t401_eph1_overlay=not args.disable_t401_eph1_overlay,
+        enable_t415_batch1_overlay=not args.disable_t415_batch1_overlay,
     )
     print(
         f"Wrote {result.chunk_count} chunks to {result.chunks_path} "

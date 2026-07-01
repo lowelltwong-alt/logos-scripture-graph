@@ -268,6 +268,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "epistle_argument_goal7_exact_output_pilot",
         "title": "Eph.1.3-Eph.1.14 Exact Output Pilot",
     },
+    "T415": {
+        "route_type": "epistle_opening_goal7_exact_output_pilot",
+        "title": "T411 Batch1 Output Pilot",
+    },
 }
 
 
@@ -959,6 +963,39 @@ def _validate_t401_next_route(next_route: dict[str, Any], path: Path) -> None:
             raise ReadinessMapError(f"{_rel(path)}: T401 next_route.{key} must be false")
 
 
+def _validate_t415_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "T411 Batch1 Output Pilot",
+        "route_type": "epistle_opening_goal7_exact_output_pilot",
+        "completion_status": "complete_output_changed_batch1_parent_overlays",
+        "completion_surface": ".ai/control/t415_batch1_output_pilot_manifest.yaml",
+        "output_manifest": ".ai/control/t415_batch1_output_pilot_manifest.yaml",
+        "validator": "scripts/validate_t415_batch1_output_pilot.py",
+        "decision_register_entry": "CD-082",
+        "lesson_index_entry": "LSN-037",
+        "baseline_chunk_count": 1138,
+        "candidate_chunk_count": 1143,
+        "added_overlay_count": 5,
+        "output_change_authorized": True,
+        "implementation_authorized": True,
+        "route_behavior_authorized": True,
+        "child_spans_authorized": False,
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T415 next_route.{key} must be {value!r}")
+    prior_strengthening = next_route.get("prior_strengthening")
+    if not isinstance(prior_strengthening, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T415 prior_strengthening must be a mapping")
+    if prior_strengthening.get("task_id") != "T413":
+        raise ReadinessMapError(f"{_rel(path)}: T415 prior_strengthening.task_id must be T413")
+    prior_promotion = next_route.get("prior_promotion")
+    if not isinstance(prior_promotion, dict):
+        raise ReadinessMapError(f"{_rel(path)}: T415 prior_promotion must be a mapping")
+    if prior_promotion.get("task_id") != "T414":
+        raise ReadinessMapError(f"{_rel(path)}: T415 prior_promotion.task_id must be T414")
+
+
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     data = _read_yaml(path)
     missing = sorted(REQUIRED_TOP_LEVEL - set(data))
@@ -1400,7 +1437,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         raise ReadinessMapError(
             f"{_rel(path)}: next_route.route_type must be {expected_route_type} for {task_id}"
         )
-    if task_id in {"T374", "T401"}:
+    if task_id in {"T374", "T401", "T415"}:
         if next_route.get("output_change_authorized") is not True:
             raise ReadinessMapError(f"{_rel(path)}: {task_id} next_route.output_change_authorized must be true")
         if next_route.get("implementation_authorized") is not True:
@@ -1420,6 +1457,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         _validate_t397_next_route(next_route, path)
     if task_id == "T401":
         _validate_t401_next_route(next_route, path)
+    if task_id == "T415":
+        _validate_t415_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",
