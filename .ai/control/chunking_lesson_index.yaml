@@ -1647,12 +1647,16 @@ lessons:
       - scripts/validate_promotion_packet.py
       - docs/roadmap/T422_SCRATCH_LANE.md
     related_decision_ids: [CD-085]
-    related_workflow_lesson_ids: [LSN-039]
+    related_workflow_lesson_ids: []
     related_task_ids: [T422, T417]
     downstream_risk: "Scratch merges without promotion packets can hide high-risk theology or authority leakage behind fast commits."
     required_preflight_surfaces:
       - .ai/control/scratch_lane_policy.yaml
       - .ai/handoffs/AGENT_ROUTING_GUIDE.md
+    validators:
+      - scripts/validate_scratch_lane_policy.py
+      - scripts/validate_scratch_scope.py
+      - scripts/validate_promotion_packet.py
     non_authorizations:
       - reviewed_gold_promotion
       - chunk_output_change
@@ -2133,6 +2137,12 @@ lesson_graph:
     relation: constrains
     to: LSN-039
   - from: LSN-039
+    relation: audits
+    to: LSN-010
+  - from: LSN-039
+    relation: constrains
+    to: LSN-040
+  - from: LSN-040
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
