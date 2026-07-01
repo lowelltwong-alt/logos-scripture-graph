@@ -3714,6 +3714,39 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-084
+    title: T420 multi-agent review cadence charter
+    classification: non_authorizing_review
+    task_ids: [T420]
+    owner_decision_ref: ".ai/control/multi_agent_review_cadence.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [whole_bible_prep_program]
+      routes: [autonomous_prep_daily_codex_weekly_claude]
+      surfaces:
+        - .ai/control/multi_agent_review_cadence.yaml
+        - .ai/control/agent_review_ledger.jsonl
+        - .ai/prompts/codex_daily_prep_review_prompt.md
+        - .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+        - docs/roadmap/T420_MULTI_AGENT_REVIEW_CADENCE.md
+        - scripts/validate_multi_agent_review_cadence.py
+    decision: "Cursor prep runs until backlog empty; Codex integrates prep branches daily; Claude Opus audits weekly for architecture and chunking errors including Cursor/Codex rollup; owner retains gold/output gates."
+    downstream_risk: "Agents may skip daily Codex or weekly Claude reviews and treat prep drafts as integration-ready without ledger verdicts."
+    theological_assumptions_avoided:
+      - "Cadence reviews do not become theology authority or chunk boundary authority."
+    reviewed_gold_dependency: "None; cadence is process-only."
+    non_authorizations:
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - child_span_selection
+      - hold_clearing
+      - theology_authority_change
+    validators:
+      - scripts/validate_multi_agent_review_cadence.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3837,4 +3870,5 @@ backfill_coverage:
     - T413
     - T414
     - T415
+    - T420
 ...

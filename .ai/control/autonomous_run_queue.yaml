@@ -1,0 +1,183 @@
+---
+object_type: autonomous_run_queue
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-01 after T416; refactored same day to outcome-based units (not hour targets)."
+reason_for_inclusion: "Active backlog slice for long Cursor runs. Stop when empty, not when a clock hits 8h."
+---
+schema_version: autonomous_run_queue.v2
+queue_id: t417_batch2_prep_backlog
+processor: .ai/control/autonomous_corpus_processor.yaml
+canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
+owner: Lowell Wong
+active_task_id: T417
+target_branch: codex/t417-autonomous-batch2-prep
+base_ref: origin/main
+session_stop_when:
+  - all_work_units_complete
+  - hard_stop_fired
+session_stop_never_when:
+  - elapsed_hours_reaches_target
+session_goal: "Complete the listed backlog units for batch2 prep. Finish early if done."
+authority:
+  records_autonomous_work_packages: true
+  authorizes_owner_decision: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_hold_clearing: false
+  authorizes_theology_authority_change: false
+hard_stops:
+  stop_immediately_if:
+    - task_scope_violation
+    - forbidden_path_touched
+    - owner_gate_encountered_without_recorded_owner_authorization
+    - reviewed_gold_promotion_attempted
+    - chunk_output_or_orchestrator_change_attempted
+    - hold_clearing_attempted
+  on_stop:
+    - record_stop_reason_in_handoff
+    - commit_completed_units_only
+    - do_not_merge_to_main_without_codex_daily_review
+kickoff_prompt: |
+  Execute this queue using .ai/control/autonomous_corpus_processor.yaml efficiency rules.
+
+  Branch: codex/t417-autonomous-batch2-prep
+  Task: T417 (.ai/tasks/T417.task.yaml)
+
+  Process work_units in order. Stop when all units are complete or a hard_stop fires.
+  Do NOT pad work to fill time. Batch up to 5 similar draft packets per commit.
+
+  Context: observation ledgers + T411 escalation packets only — no whole-Bible raw USFM.
+  Full validate_all + pytest only in the final session_close unit.
+
+  Drafts stay in .ai/context/agent_work/T417/. No eval/chunking_gold promotion without owner.
+required_session_start:
+  - git checkout codex/t417-autonomous-batch2-prep
+  - python scripts/validate_autonomous_run_queue.py
+work_units:
+  - unit_id: U-01
+    status: complete
+    title: Queue and processor contracts
+    deliverables:
+      - .ai/control/autonomous_run_queue.yaml
+      - .ai/control/autonomous_corpus_processor.yaml
+      - .ai/tasks/T417.task.yaml
+      - scripts/validate_autonomous_run_queue.py
+      - tests/test_autonomous_run_queue.py
+    validations:
+      - python scripts/validate_autonomous_run_queue.py
+    commit_message: "Add outcome-based autonomous corpus processor and T417 queue."
+  - unit_id: U-02
+    status: complete
+    title: Standing owner escalation policy (pending owner)
+    deliverables:
+      - .ai/control/standing_owner_escalation_policy.yaml
+      - scripts/validate_standing_owner_escalation_policy.py
+      - tests/test_standing_owner_escalation_policy.py
+    validations:
+      - python scripts/validate_standing_owner_escalation_policy.py
+      - python -m pytest tests/test_standing_owner_escalation_policy.py -q
+      - python scripts/validate_autonomous_run_queue.py --unit U-02
+      - python scripts/validate_task_scope.py --task-id T417
+    commit_message: "Add standing owner escalation policy for one-time batch 2+3 ladder approval."
+    notes: "Owner approves once with APPROVE_STANDING_ESCALATION_POLICY; replaces per-batch docket YAML."
+  - unit_id: U-03
+    status: complete
+    title: Draft review packets (3 candidates, one commit)
+    candidates:
+      - T402-LC-057
+      - T402-LC-065
+      - T402-LC-032
+    deliverables:
+      - .ai/context/agent_work/T417/review_packet_drafts/phlm_opening_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/jude_opening_draft.md
+      - .ai/context/agent_work/T417/review_packet_drafts/jonah_opening_draft.md
+      - .ai/context/agent_work/T417/claim_traceability_batch2.jsonl
+    source_artifacts:
+      - .ai/context/agent_work/T411/escalation_packets/
+      - build/observation_substrate/current/verse_observations.jsonl
+    validations:
+      - python scripts/validate_autonomous_run_queue.py --unit U-03
+      - python scripts/validate_task_scope.py --task-id T417
+    commit_message: "Draft batch2 review packets for Phlm, Jude, Jonah (non-authorizing)."
+  - unit_id: U-04
+    status: complete
+    title: Draft packet validator (focused pytest only)
+    deliverables:
+      - scripts/validate_t417_batch2_review_packet_drafts.py
+      - tests/test_t417_batch2_review_packet_drafts.py
+    validations:
+      - python scripts/validate_t417_batch2_review_packet_drafts.py
+      - python -m pytest tests/test_t417_batch2_review_packet_drafts.py -q
+    commit_message: "Add validator for T417 batch2 draft review packets."
+  - unit_id: U-05
+    status: skipped
+    title: Rust chunk-audit substrate scaffold (optional; skip if session time-constrained)
+    optional: true
+    deliverables:
+      - .ai/control/rust_first_chunk_audit_substrate.yaml
+      - tools/chunk_observation_scanner/Cargo.toml
+      - tools/chunk_observation_scanner/src/lib.rs
+      - tools/chunk_observation_scanner/src/main.rs
+      - scripts/validate_rust_chunk_audit_substrate.py
+      - tests/test_rust_chunk_audit_substrate.py
+    validations:
+      - cargo test --manifest-path tools/chunk_observation_scanner/Cargo.toml
+      - python scripts/validate_rust_chunk_audit_substrate.py --contract-only
+    commit_message: "Scaffold Rust-first chunk audit substrate (contract-only)."
+  - unit_id: U-06
+    status: complete
+    title: Phase 1 book status for batch1 outputs
+    deliverables:
+      - .ai/control/chunking_phase_completion_plan.yaml
+      - .ai/audits/reports/20260701-T417-phase-one-batch1-book-status.md
+    validations:
+      - python scripts/validate_task_scope.py --task-id T417
+    commit_message: "Reconcile Phase 1 book statuses for batch1 epistle openings."
+  - unit_id: U-07
+    status: complete
+    title: session_close
+    deliverables:
+      - .ai/handoffs/T417/handoff.md
+      - .ai/audits/reports/20260701-T417-autonomous-batch2-prep.md
+    session_close_actions:
+      - update_handoff_candidates_completed
+      - note_pending_codex_daily_review_in_handoff
+    validations:
+      - python scripts/validate_autonomous_run_queue.py
+      - python scripts/validate_all.py
+      - python -m pytest -q
+      - git diff --check
+    commit_message: "Close T417 autonomous prep session for Codex daily review."
+codex_daily_gate:
+  canonical_prompt: .ai/prompts/codex_daily_prep_review_prompt.md
+  review_ledger: .ai/control/agent_review_ledger.jsonl
+  prompt_template: |
+    Review branch codex/t417-autonomous-batch2-prep since last daily review.
+    Verdict: APPROVE_PREP | HOLD_WITH_FINDINGS
+    Check: task scope, draft non-authorizations, escalation handling, no output/gold/hold leakage.
+    Recommend owner docket if drafts are ready. Do not authorize gold or output.
+    Append one line to .ai/control/agent_review_ledger.jsonl.
+claude_weekly_gate:
+  canonical_prompt: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+  review_ledger: .ai/control/agent_review_ledger.jsonl
+  frequency: weekly_recommended
+  prompt_template: |
+    Review Cursor prep and Codex daily verdicts since last weekly audit.
+    Verdict: APPROVE_WEEKLY | HOLD_WITH_FINDINGS | ESCALATE_OWNER
+    Audit architecture P0-P2, chunking-error patterns, and open T411 escalations.
+    Write .ai/audits/reports/weekly/<DATE>-T420-weekly-architecture-chunking-audit.md
+    Append one line to .ai/control/agent_review_ledger.jsonl.
+merge_policy:
+  requires_codex_daily_review: true
+  requires_claude_weekly_review_before_main_merge: advisory_v1
+  requires_owner_review_before_gold_or_output: true
+cursor_cloud_agent:
+  recommended_model: composer-2.5-fast
+  branch: codex/t417-autonomous-batch2-prep
+  resume_strategy: "Read handoff last_completed_unit; continue next incomplete unit."
+validator: scripts/validate_autonomous_run_queue.py

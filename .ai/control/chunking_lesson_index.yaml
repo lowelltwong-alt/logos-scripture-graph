@@ -1629,6 +1629,38 @@ lessons:
       - hold_clearing
     validators:
       - scripts/validate_t416_batch1_post_pilot_review.py
+  - lesson_id: LSN-039
+    title: Outcome-based prep with daily Codex and weekly Claude gates
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t420, multi-agent-cadence, daily-codex, weekly-claude, autonomous-prep, backlog-empty-stop, review-ledger]
+    use_when:
+      - "A future agent runs long autonomous Cursor prep or needs to know when Codex and Claude must review the work."
+      - "A future agent integrates prep-branch work and must append a daily or weekly ledger verdict."
+    preflight_stage: before_autonomous_prep_or_prep_branch_integration
+    source_surfaces:
+      - .ai/control/multi_agent_review_cadence.yaml
+      - .ai/control/agent_review_ledger.jsonl
+      - .ai/control/autonomous_corpus_processor.yaml
+      - docs/roadmap/T420_MULTI_AGENT_REVIEW_CADENCE.md
+      - scripts/validate_multi_agent_review_cadence.py
+    related_decision_ids: [CD-084]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T420, T417]
+    downstream_risk: "Prep throughput without daily Codex or weekly Claude review can smuggle authority leakage or chunking errors into integrator merges."
+    required_preflight_surfaces:
+      - .ai/control/multi_agent_review_cadence.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/handoffs/AGENT_ROUTING_GUIDE.md
+    non_authorizations:
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - child_span_selection
+      - hold_clearing
+      - theology_authority_change
+    validators:
+      - scripts/validate_multi_agent_review_cadence.py
   - lesson_id: LSN-034
     title: Prompt-pack research must remain transparent until owner-gated chunking
     lifecycle_status: active
@@ -2070,6 +2102,9 @@ lesson_graph:
     relation: constrains
     to: LSN-038
   - from: LSN-038
+    relation: constrains
+    to: LSN-039
+  - from: LSN-039
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

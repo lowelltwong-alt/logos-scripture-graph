@@ -1,8 +1,14 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-01
-**Updated by:** T416 batch1 post-pilot review
-**Active task:** -> **T416 batch1 post-pilot review** is complete.
+**Last updated:** 2026-07-02
+**Updated by:** T420 multi-agent review cadence charter
+**Active task:** -> **T420 multi-agent review cadence** is complete; **T417 autonomous batch2 prep** is the active prep branch.
+
+> **T420 multi-agent review cadence (2026-07-02):** Recorded the canonical operating model:
+> Cursor prep until backlog empty; Codex daily integrator (`APPROVE_PREP` / `HOLD_WITH_FINDINGS`);
+> Claude Opus 4.8 weekly architecture and chunking-error audit (`APPROVE_WEEKLY` /
+> `HOLD_WITH_FINDINGS` / `ESCALATE_OWNER`); owner retains docket/gold/output gates only.
+> Recorded `CD-084` plus `LSN-039`. Review ledger: `.ai/control/agent_review_ledger.jsonl`.
 
 > **T416 batch1 post-pilot review (2026-07-01):** Accepted T415 same-baseline safety:
 > baseline 1138 chunks, candidate 1143 chunks, exactly five additive parent-only overlays,
@@ -25,8 +31,10 @@
 T411 produced non-authorizing review-packet prep for all 66 T402 low-complexity queue candidates:
 206 traceable non-authorizing claims, 66 escalation packets, 20 completed waves/chunks, and the
 CHUNK 1 pilot Cursor observation pack. The T413->T416 batch1 ladder is complete for five short
-epistle openings. The current next route is owner selection for a narrow batch2 review-packet
-strengthening docket only; reviewed-gold promotion, output-changing chunk work, child spans, and
+epistle openings. The current next route is **T417 autonomous batch2 prep** on
+`codex/t417-autonomous-batch2-prep` under the T420 cadence (daily Codex, weekly Claude);
+owner selection for batch2 review-packet strengthening remains the next authority gate;
+reviewed-gold promotion, output-changing chunk work, child spans, and
 hold clearing remain unauthorized unless a later owner-gated task explicitly authorizes them.
 
 T412 merged @ `e90bc3d`; Claude post-merge audit recorded **APPROVE_T411_CURSOR** with no P0/P1

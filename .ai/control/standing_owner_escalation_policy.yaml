@@ -1,0 +1,187 @@
+---
+object_type: standing_owner_escalation_policy
+trust_zone: canonical
+lifecycle_status: draft_pending_owner_approval
+provenance_note: "Created 2026-06-05 after owner asked for one-time decisions across all T411 escalation types instead of per-batch or per-candidate owner dockets."
+reason_for_inclusion: "Record standing owner dispositions for every escalation type and queue status so agents apply batch-1 parent-only ladder rules uniformly after a single owner approval."
+---
+schema_version: standing_owner_escalation_policy.v1
+policy_id: standing_owner_escalation_policy
+task_id: T421
+status: draft_pending_owner_approval
+owner: Lowell Wong
+based_on_precedent:
+  - .ai/control/t413_batch1_review_packet_strengthening.yaml
+  - .ai/control/t416_batch1_post_pilot_review.yaml
+  - .ai/control/owner_decision_projection_policy.yaml
+  - .ai/control/frontier_chunking_escalation_policy.yaml
+authority:
+  records_standing_escalation_dispositions: true
+  records_standing_ladder_scope: true
+  replaces_per_batch_owner_docket_when_active: true
+  authorizes_prep_and_draft_by_default: true
+  authorizes_review_packet_strengthening: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_child_spans: false
+  authorizes_hold_clearing: false
+  authorizes_theology_authority_change: false
+owner_one_time_approval:
+  summary: "Approve once to let agents run the full prep→strengthening→gold→output ladder for every in-scope candidate that matches a proceed disposition, without another per-batch docket."
+  approval_phrase: APPROVE_STANDING_ESCALATION_POLICY
+  on_approval:
+    status: active
+    lifecycle_status: active
+    decision_register_entry: CD-085
+    lesson_index_entry: LSN-040
+  until_approved:
+    allowed_without_approval:
+      - cursor_prep_and_draft_packets
+      - codex_daily_prep_review
+      - claude_weekly_audit
+    blocked_without_approval:
+      - standing_ladder_authorization
+      - review_packet_strengthening_under_standing_rules
+      - reviewed_gold_promotion_under_standing_rules
+      - chunk_output_under_standing_rules
+standing_ladder_authorization:
+  enabled_when_policy_active: true
+  model: t415_batch1_parent_only_additive_overlays
+  batch_size_recommended: 5
+  autonomous_order: best_efficiency_lane_batching
+  stop_when: backlog_empty_for_in_scope_candidates
+  in_scope_when_active:
+    queue_status_must_be: ready_for_review_packet
+    escalation_disposition_must_be:
+      - proceed_parent_only_through_ladder
+      - proceed_parent_only_with_frontier_note
+    initial_batches:
+      - batch_id: batch2
+        candidates:
+          - {candidate_id: T402-LC-057, span: Phlm.1.1-Phlm.1.7}
+          - {candidate_id: T402-LC-065, span: Jude.1.1-Jude.1.2}
+          - {candidate_id: T402-LC-032, span: Jonah.1.1-Jonah.1.3}
+      - batch_id: batch3
+        candidates:
+          - {candidate_id: T402-LC-048, span: Gal.1.1-Gal.1.5}
+          - {candidate_id: T402-LC-049, span: Eph.6.21-Eph.6.24}
+          - {candidate_id: T402-LC-050, span: Phil.1.1-Phil.1.11}
+    expands_to: all_ready_for_review_packet_candidates_matching_proceed_dispositions
+  required_guards_per_overlay:
+    - parent_only_no_child_spans
+    - theology_pressure_evidence_only_not_boundary_authority
+    - source_metadata_evidence_only
+    - non_target_byte_identity_proof
+    - route_isolation_harness
+    - codex_post_pilot_review_before_next_batch_output
+  non_authorizations:
+    - child_span_selection
+    - theology_authority_change
+    - preferred_reading_selection
+    - source_tradition_preference
+    - boundary_import
+    - whole_bible_output_pass
+disposition_definitions:
+  proceed_parent_only_through_ladder:
+    meaning: "Text-local parent-only span may run prep→strengthening→gold→output under batch-1 guards when policy is active."
+  proceed_parent_only_with_frontier_note:
+    meaning: "Same as proceed_parent_only_through_ladder; record frontier_review note in strengthening packet but do not use ethics/typology as boundary authority."
+  proceed_prep_and_draft_only:
+    meaning: "Cursor may research and draft; no strengthening/gold/output until queue status or disposition changes."
+  hold_no_strengthening:
+    meaning: "Remain on hold; no strengthening/gold/output even when policy is active."
+  defer_until_frontier_review:
+    meaning: "Triggered frontier review required before strengthening; prep/draft allowed."
+  stop_escalate_owner:
+    meaning: "Passage-specific; standing policy does not substitute for owner decision."
+  no_pipeline:
+    meaning: "Research/prep only; no chunk ladder."
+escalation_packet_issue_rules:
+  - issue_suffix: theology_pressure
+    disposition: proceed_parent_only_through_ladder
+    rule: "Theology flags are evidence-only; text-local structure governs the parent span."
+  - issue_suffix: apostolic_authority
+    disposition: proceed_parent_only_through_ladder
+    rule: "Apostolic-office language may inform review but does not authorize boundary theology."
+  - issue_suffix: church_authority
+    disposition: proceed_parent_only_through_ladder
+    rule: "Church-authority pressure stays non-authorizing; parent-only greeting/opening spans follow batch-1 model."
+  - issue_suffix: church_office
+    disposition: proceed_parent_only_through_ladder
+    rule: "Office/title language is evidence-only for short opening spans."
+  - issue_suffix: faith_works_theology
+    disposition: proceed_parent_only_through_ladder
+    rule: "Faith/works framing cannot justify span boundaries without text-local structure."
+  - issue_suffix: elect_lady_ecclesiology
+    disposition: proceed_parent_only_through_ladder
+    rule: "Recipient identity options stay non-authorizing for parent-only openings."
+  - issue_suffix: slavery_social_ethics
+    disposition: proceed_parent_only_with_frontier_note
+    rule: "Book-level social-ethics pressure must not inherit into greeting/thanksgiving structure; frontier note only."
+    frontier_note_required: true
+  - issue_suffix: noncanonical_context
+    disposition: proceed_parent_only_with_frontier_note
+    rule: "Noncanonical reference context is evidence-only; no source-tradition preference as boundary authority."
+    frontier_note_required: true
+  - issue_suffix: prophetic_typology
+    disposition: proceed_parent_only_with_frontier_note
+    rule: "Typology and prophetic theology are evidence-only for short narrative openings."
+    frontier_note_required: true
+  - issue_suffix: context_research_hold
+    disposition: proceed_prep_and_draft_only
+    rule: "Complete context research in prep; ladder only after queue status becomes ready_for_review_packet."
+  - issue_suffix: variant_sensitive_hold
+    disposition: hold_no_strengthening
+    rule: "Variant/source-tradition gates remain; standing policy does not clear variant holds."
+  - issue_suffix: theological_risk_hold
+    disposition: defer_until_frontier_review
+    rule: "High theological-risk holds need triggered frontier review before strengthening."
+  - issue_suffix: owner_decision_hold
+    disposition: stop_escalate_owner
+    rule: "Passage-specific narrator/speaker or ownership questions cannot be projected from batch-1."
+  - issue_suffix: do_not_chunk_hold
+    disposition: no_pipeline
+    rule: "Deferred books (e.g. Revelation) stay research-only under standing policy."
+queue_status_rules:
+  - queue_status: ready_for_review_packet
+    default_disposition: proceed_parent_only_through_ladder
+    requires_matching_packet_rule: true
+  - queue_status: needs_context_research
+    disposition: proceed_prep_and_draft_only
+  - queue_status: needs_original_language_review
+    disposition: proceed_prep_and_draft_only
+  - queue_status: variant_sensitive_hold
+    disposition: hold_no_strengthening
+  - queue_status: theological_risk_hold
+    disposition: defer_until_frontier_review
+  - queue_status: not_low_complexity
+    disposition: stop_escalate_owner
+  - queue_status: owner_decision_required
+    disposition: stop_escalate_owner
+  - queue_status: do_not_chunk_now
+    disposition: no_pipeline
+application_rules:
+  match_order:
+    - queue_status_rules
+    - escalation_packet_issue_rules
+  packet_suffix_resolution: "Use filename suffix after T402-LC-NNN_ in .ai/context/agent_work/T411/escalation_packets/."
+  when_rules_conflict: "More restrictive disposition wins (no_pipeline > stop_escalate_owner > hold_no_strengthening > defer_until_frontier_review > proceed_prep_and_draft_only > proceed_parent_only_with_frontier_note > proceed_parent_only_through_ladder)."
+  agents_must_record:
+    - matched_issue_suffix_or_queue_status
+    - applied_disposition
+    - policy_id_and_status
+    - frontier_note_when_required
+must_stop_even_when_policy_active:
+  - disposition_is_stop_escalate_owner
+  - disposition_is_hold_no_strengthening
+  - disposition_is_no_pipeline
+  - disposition_is_defer_until_frontier_review_and_frontier_review_missing
+  - child_span_would_be_created
+  - theology_would_become_boundary_authority
+  - variant_or_source_tradition_would_become_boundary_authority
+  - claude_weekly_verdict_is_ESCALATE_OWNER
+  - codex_daily_verdict_is_HOLD_WITH_FINDINGS_for_target_candidate
+validators:
+  - scripts/validate_standing_owner_escalation_policy.py
+  - tests/test_standing_owner_escalation_policy.py
+  - scripts/validate_all.py

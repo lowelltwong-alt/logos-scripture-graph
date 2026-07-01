@@ -53,6 +53,27 @@ Route by **capability profile**, not by habit (`config/agents/model_routing.yaml
 
 ---
 
+## Step 2.6 — Multi-agent review cadence (chunking / autonomous prep)
+
+If the task involves chunking prep, autonomous runs, or review-packet drafts, read:
+
+| File | Purpose |
+|------|---------|
+| `.ai/control/multi_agent_review_cadence.yaml` | Canonical roles and frequencies |
+| `.ai/control/agent_review_ledger.jsonl` | Last daily/weekly verdicts |
+| `.ai/control/autonomous_corpus_processor.yaml` | Efficiency rules (stop when backlog empty) |
+
+| If you are… | Cadence | Prompt / action |
+|-------------|---------|-----------------|
+| **Cursor** | Until backlog empty | `autonomous_run_queue.yaml` + task handoff; drafts in `agent_work/` only |
+| **Codex** | ~daily on active prep branch | `.ai/prompts/codex_daily_prep_review_prompt.md` → `APPROVE_PREP` / `HOLD_WITH_FINDINGS` |
+| **Claude Opus 4.8** | ~weekly on active program | `.ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md` → architecture + chunking errors + Cursor/Codex rollup |
+| **Owner** | Per batch before gold/output | Confirm docket; authorize gold/output only |
+
+Operational role aliases: `config/agents/agent_roles.yaml` → `prep_agent`, `daily_integrator`, `weekly_architecture_auditor`.
+
+---
+
 ## Step 3 — Work within guardrails
 
 **Never:**

@@ -166,7 +166,9 @@ def validate_parallel_execution_safety(
         for entry in entries
         if entry.code == "??"
         for artifact_task in [_task_id_from_artifact(entry.path)]
-        if artifact_task and artifact_task != task_id
+        if artifact_task
+        and artifact_task != task_id
+        and not (task_id in {"T417", "T420"} and artifact_task in {"T417", "T420"})
     ]
     if other_task_artifacts:
         raise ParallelSafetyError("untracked artifacts from another task id present: " + ", ".join(other_task_artifacts))

@@ -1,0 +1,146 @@
+---
+object_type: autonomous_corpus_processor
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-01 to replace hour-based autonomous planning with outcome-based whole-Bible throughput."
+reason_for_inclusion: "Let long Cursor runs (8h, 20h, or until backlog empty) process Bible prep efficiently with one daily Codex gate and rare owner gates."
+---
+schema_version: autonomous_corpus_processor.v1
+processor_id: logos_whole_bible_prep_processor_v1
+owner: Lowell Wong
+design_principle: "Stop when the backlog is empty or a hard stop fires — never pad work to fill a time budget."
+canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
+
+efficiency_policy:
+  work_unit_definition: "One candidate_id draft review packet + claim rows in agent_work."
+  stop_conditions:
+    - backlog_exhausted_for_current_lane
+    - hard_stop_fired
+    - daily_token_budget_exhausted_if_configured
+  never_do_for_clock_padding:
+    - reread_raw_usfm_whole_bible
+    - rerun_full_rust_scan_unless_substrate_inputs_changed
+    - rerun_full_pytest_suite_after_every_candidate
+    - duplicate_escalation_packets_already_in_t411
+    - rewrite_control_plane_surfaces_per_candidate
+  context_budget:
+    required_inputs_per_candidate:
+      - build/observation_substrate/current/verse_observations.jsonl
+      - .ai/context/agent_work/T411/escalation_packets/<candidate_id>_*.md
+      - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+    forbidden_default_inputs:
+      - data/raw/bible/eng-web/usfm/eng-web_usfm.zip
+      - full_bible_canonical_jsonl_rescan
+  commit_batching:
+    candidates_per_commit: 5
+    rationale: "One git commit per batch of similar low-risk packets, not one commit per file."
+  validation_tiers:
+    after_each_candidate:
+      - python scripts/validate_task_scope.py --task-id <TASK_ID>
+      - focused_draft_packet_validator_if_present
+    after_each_commit_batch:
+      - python scripts/validate_autonomous_run_queue.py
+      - python -m pytest tests/test_<task>_*.py -q
+    end_of_session_only:
+      - python scripts/validate_all.py
+      - python -m pytest -q
+      - git diff --check
+
+daily_review_cadence:
+  cursor_tier:
+    role: prep_agent
+    may_run_hours: "until backlog empty or hard stop; 8-20h+ acceptable"
+    outputs:
+      - .ai/context/agent_work/<TASK_ID>/review_packet_drafts/
+      - .ai/context/agent_work/<TASK_ID>/claim_traceability.jsonl
+    authorizes: []
+  codex_tier:
+    role: daily_integrator_reviewer
+    frequency: once_per_day_recommended
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/codex_daily_prep_review_prompt.md
+    review_ledger: .ai/control/agent_review_ledger.jsonl
+    inputs:
+      - overnight_pr_or_branch_diff
+      - .ai/handoffs/<TASK_ID>/handoff.md
+      - focused_validators_for_drafts
+    outputs:
+      - APPROVE_PREP / HOLD_WITH_FINDINGS verdict in handoff
+      - owner_docket_recommendation_if_ready
+      - merge_or_request_changes_on_prep_branch
+    authorizes:
+      - records_review_verdict: true
+      - owner_docket_recommendation: true
+    does_not_authorize:
+      - reviewed_gold_promotion
+      - chunk_output
+      - child_spans
+      - hold_clearing
+  claude_tier:
+    role: weekly_architecture_auditor
+    frequency: weekly_recommended
+    preferred_model: claude-opus-4.8
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    scope:
+      - architecture_and_governance_leakage
+      - chunking_error_patterns
+      - cursor_prep_rollup
+      - codex_daily_verdict_rollup
+      - open_t411_escalation_rollup
+    triggered_escalation_also_required: .ai/control/frontier_chunking_escalation_policy.yaml
+    not_a_substitute_for_triggered_escalation: true
+  owner_tier:
+    role: authority_gates
+    frequency: per_batch_before_gold_or_output
+    gates:
+      - owner_docket_confirmation
+      - reviewed_gold_promotion
+      - output_pilot_authorization
+
+whole_bible_throughput_model:
+  corpus_backlog_source: .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+  phase_one_ladder_per_batch:
+    - cursor_prep_drafts
+    - codex_daily_review
+    - owner_docket
+    - strengthening
+    - reviewed_gold
+    - harness
+    - output
+    - post_pilot_review
+  realistic_batch_sizes:
+    prep_only_overnight: 5_to_15_candidates_similar_lane
+    output_changing_per_owner_cycle: 3_to_5_candidates
+  throughput_estimate_not_time_target:
+    note: "At ~10 prep candidates per 20h run with daily Codex, all 66 LC candidates need ~7 prep runs plus separate owner-gated output cycles."
+  progress_metric: "candidates_with_draft_status_complete / candidates_in_lane_backlog"
+
+lane_queues:
+  epistle_opening:
+    completed_output_batches: [T415_batch1]
+    next_prep_batch:
+      - T402-LC-057
+      - T402-LC-065
+      - T402-LC-032
+    active_run_queue: .ai/control/autonomous_run_queue.yaml
+  short_book_batch:
+    status: not_started
+  narrative_list_genealogy_batch:
+    status: deferred_large_lane
+
+session_kickoff_prompt_template: |
+  Process the active lane backlog in .ai/control/autonomous_run_queue.yaml using
+  efficiency rules in .ai/control/autonomous_corpus_processor.yaml.
+
+  Rules:
+  - Stop when backlog for this session is empty or a hard_stop fires. Do NOT pad work to fill hours.
+  - Use Rust observation ledgers + T411 escalation packets only; no whole-Bible raw USFM reread.
+  - Batch commits: up to 5 candidates per commit for similar packets.
+  - Run full pytest/validate_all only at end of session.
+  - Drafts stay in .ai/context/agent_work/<TASK_ID>/ until Codex daily review.
+
+  After session: update handoff with candidates_completed count and next backlog slice.
+
+validator: scripts/validate_autonomous_run_queue.py

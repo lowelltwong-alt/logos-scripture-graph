@@ -1,0 +1,122 @@
+id: T417
+phase: phase_4
+title: "Autonomous Batch2 Prep And Chunk-Audit Scaffold"
+mode: autonomous_prep_non_authorizing
+status: complete_pending_codex_daily_review
+owner: cursor
+branch: codex/t417-autonomous-batch2-prep
+base_ref: origin/main
+summary: "Execute autonomous_run_queue.yaml work packages: batch2 draft review packets, Rust chunk-audit scaffold, and Phase 1 bookkeeping without owner gates."
+autonomous_run_queue: .ai/control/autonomous_run_queue.yaml
+autonomous_corpus_processor: .ai/control/autonomous_corpus_processor.yaml
+scope:
+  allowed_paths:
+    - .ai/tasks/T417.task.yaml
+    - .ai/tasks/T420.task.yaml
+    - .ai/handoffs/T417/
+    - .ai/handoffs/T420/
+    - .ai/context/agent_work/T417/
+    - .ai/control/autonomous_run_queue.yaml
+    - .ai/control/autonomous_corpus_processor.yaml
+    - .ai/control/multi_agent_review_cadence.yaml
+    - .ai/control/agent_review_ledger.jsonl
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/frontier_chunking_escalation_policy.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/MODEL_ROSTER.md
+    - .ai/prompts/codex_daily_prep_review_prompt.md
+    - .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    - .ai/handoffs/AGENT_ROUTING_GUIDE.md
+    - .ai/audits/reports/weekly/
+    - docs/roadmap/T420_MULTI_AGENT_REVIEW_CADENCE.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - config/agents/agent_roles.yaml
+    - scripts/validate_multi_agent_review_cadence.py
+    - scripts/validate_autonomous_run_queue.py
+    - scripts/validate_parallel_execution_safety.py
+    - scripts/validate_all.py
+    - tests/test_multi_agent_review_cadence.py
+    - tests/test_autonomous_run_queue.py
+    - .ai/control/standing_owner_escalation_policy.yaml
+    - scripts/validate_standing_owner_escalation_policy.py
+    - tests/test_standing_owner_escalation_policy.py
+    - .ai/control/rust_first_chunk_audit_substrate.yaml
+    - .ai/control/chunking_phase_completion_plan.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/audits/reports/
+    - tools/chunk_observation_scanner/
+    - scripts/validate_autonomous_run_queue.py
+    - scripts/validate_t417_batch2_review_packet_drafts.py
+    - scripts/validate_rust_chunk_audit_substrate.py
+    - scripts/validate_all.py
+    - tests/test_autonomous_run_queue.py
+    - tests/test_t417_batch2_review_packet_drafts.py
+    - tests/test_rust_chunk_audit_substrate.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: autonomous_prep_non_authorizing
+  executes_autonomous_run_queue: true
+  cursor_execution_allowed: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  clears_variant_or_theology_holds: false
+  owner_confirmation_required_before:
+    - moving_drafts_to_eval_chunking_gold
+    - t417_batch2_review_packet_strengthening
+    - t418_reviewed_gold_promotion
+    - t419_output_pilot
+upstream_gates:
+  t416_post_pilot_review:
+    control: .ai/control/t416_batch1_post_pilot_review.yaml
+    verdict_required: APPROVE_BATCH1_POST_PILOT
+recommended_batch2_candidates:
+  - candidate_id: T402-LC-057
+    span: Phlm.1.1-Phlm.1.7
+  - candidate_id: T402-LC-065
+    span: Jude.1.1-Jude.1.2
+  - candidate_id: T402-LC-032
+    span: Jonah.1.1-Jonah.1.3
+acceptance_criteria:
+  - "All completed work packages in autonomous_run_queue.yaml are committed with validations recorded."
+  - "Batch2 review packet drafts live only under .ai/context/agent_work/T417/ until owner promotes."
+  - "Rust chunk audit substrate validates in contract-only mode without authorizing output."
+  - "Handoff records stop reasons if any hard stop triggered."
+  - "No reviewed gold, output, child spans, hold clearing, or theology authority."
+validations:
+  - python scripts/validate_autonomous_run_queue.py
+  - python scripts/validate_parallel_execution_safety.py --task-id T417 --allow-current-task-dirty --require-task-branch
+  - python scripts/validate_task_scope.py --task-id T417
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
