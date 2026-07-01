@@ -849,3 +849,54 @@ fn usfm_to_osis(usfm: &str) -> Option<&'static str> {
         _ => return None,
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn markers_in_line_finds_standard_and_nested_markers() {
+        let line = r"\v 1 \wj Jesus \wj* said";
+        let markers = markers_in_line(line);
+        assert!(markers.contains(&"v".to_string()));
+        assert!(markers.contains(&"wj".to_string()));
+    }
+
+    #[test]
+    fn strong_ids_in_line_parses_greek_and_hebrew() {
+        let line = r#"\v 1 word <w strong="G2424"/> <w strong="H7225"/>"#;
+        let ids = strong_ids_in_line(line);
+        assert!(ids.contains(&"G2424".to_string()));
+        assert!(ids.contains(&"H7225".to_string()));
+    }
+
+    #[test]
+    fn parse_number_after_marker_reads_chapter_and_verse() {
+        assert_eq!(parse_number_after_marker(r"\c 1", "c"), Some(1));
+        assert_eq!(parse_number_after_marker(r"\v 16", "v"), Some(16));
+        assert_eq!(parse_number_after_marker(r"\p text", "p"), None);
+    }
+
+    #[test]
+    fn usfm_to_osis_maps_t411_candidate_books() {
+        assert_eq!(usfm_to_osis("2JN"), Some("2John"));
+        assert_eq!(usfm_to_osis("PHM"), Some("Phlm"));
+        assert_eq!(usfm_to_osis("JON"), Some("Jonah"));
+        assert_eq!(usfm_to_osis("XXX"), None);
+    }
+
+    #[test]
+    fn feature_flags_and_risk_separate_strong_from_interpretive() {
+        let markers = vec!["f".to_string(), "wj".to_string()];
+        let strong = vec!["G2424".to_string(), "H7225".to_string()];
+        let flags = feature_flags(&markers, &strong, None);
+        assert!(flags.contains("has_footnote"));
+        assert!(flags.contains("has_wj"));
+        assert!(flags.contains("has_strong_g"));
+        assert!(flags.contains("has_strong_h"));
+        assert!(is_risk_flag("has_footnote"));
+        assert!(is_risk_flag("has_wj"));
+        assert!(!is_risk_flag("has_strong_g"));
+        assert!(!is_risk_flag("has_strong_h"));
+    }
+}

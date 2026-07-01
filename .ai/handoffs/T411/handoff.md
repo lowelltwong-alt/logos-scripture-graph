@@ -5,7 +5,7 @@
 - task_id: T411
 - title: Cursor Readiness With Claude Final-Audit Gate
 - phase: phase_4
-- status: setup_pending_cursor_run
+- status: chunk_16_complete_pending_codex_review
 
 ## Agent
 
@@ -23,7 +23,7 @@
 - `.ai/control/parallel_chunking_research_program.yaml`
 - `.ai/control/cursor_to_codex_transparency_contract.yaml`
 - `.ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml`
-- Claude final audit attachment for T410 main @ `3c2770f`
+- Claude T412 post-merge audit @ `e90bc3d` — `.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`
 
 ## Files changed
 
@@ -43,9 +43,10 @@
 
 ## Decisions made
 
-- T411 may be prepared because Claude found no P0/P1 against T410.
-- Cursor must not run T411 until the emitted-artifact validator and clean task-branch preflight pass.
-- The first batch is limited to owner/Codex-supplied candidates `T402-LC-063`, `T402-LC-057`, and `T402-LC-032`.
+- T411 setup is complete; Claude T412 post-merge audit found no P0/P1 and issued **APPROVE_T411_CURSOR**.
+- `claude_final_audit_gate` now references T412 substrate proof @ `e90bc3d`, not only the earlier T410 audit @ `3c2770f`.
+- Cursor must not run T411 until owner launch plus clean task-branch preflight and substrate regeneration/validation.
+- The first batch remains limited to owner/Codex-supplied candidates `T402-LC-063`, `T402-LC-057`, and `T402-LC-032`.
 - Cursor artifacts are evidence-only and non-authorizing.
 
 ## Validation run
@@ -76,11 +77,29 @@
 
 ## Open questions
 
-- None for setup. Owner/frontier review is still required before any later output-changing task.
+- None for setup. Owner launch is required before any Cursor batch work.
 
 ## Next agent instruction
 
-After this setup merges, do not start Cursor until `python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch` passes on a clean T411 branch/worktree and `python scripts/validate_t411_cursor_batch_artifacts.py` passes in setup mode. Cursor may then write only `.ai/context/agent_work/T411/` and `.ai/handoffs/T411/`.
+Claude T412 post-merge audit cleared the substrate gate. Do not start Cursor until the owner launches the batch and the following pass on a clean `codex/t411-cursor-readiness-gate` branch/worktree:
+
+```bash
+python scripts/validate_parallel_execution_safety.py --task-id T411 --require-task-branch
+python scripts/validate_t411_cursor_batch_artifacts.py
+python scripts/validate_rust_observation_substrate.py --input build/observation_substrate/current
+python scripts/build_cursor_observation_pack.py --input build/observation_substrate/current --task-id T411 --check
+```
+
+Cursor may then write only `.ai/context/agent_work/T411/` and `.ai/handoffs/T411/`.
+
+---
+
+## Handoff refresh: substrate_gate_cleared
+
+- agent_name: Codex
+- mode: governance_recording
+- updated_at: 2026-06-05T00:00:00Z
+- handoff_id: t411-substrate-gate-cleared
 
 ---
 
@@ -93,9 +112,52 @@ After this setup merges, do not start Cursor until `python scripts/validate_para
 
 ---
 
-## Handoff refresh: final
+## Handoff refresh: chunk_1_cursor_complete
 
-- agent_name: Codex
-- mode: build
-- updated_at: 2026-06-30T19:30:22+00:00
-- handoff_id: 466464a905bc31a9
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T02:00:00Z
+- handoff_id: t411-chunk-1-complete
+- owner_launch: staged_chunks_option_1 CHUNK 1
+- candidates_completed: [T402-LC-063, T402-LC-057, T402-LC-032]
+- artifacts: source_size_manifest, confidence_register, audit_log, claim_traceability_matrix, escalation_packets (3), cursor_observation_pack, cursor_notes_to_codex
+- stop_reason: CHUNK 1 complete per Option 1; await Codex review before CHUNK 2
+
+---
+
+## Handoff refresh: chunk_2_cursor_complete
+
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T02:50:00Z
+- handoff_id: t411-chunk-2-complete
+- owner_continue: CHUNK 2 authorized by owner ("keep going")
+- candidates_completed: [T402-LC-064, T402-LC-065, T402-LC-047, T402-LC-054, T402-LC-059]
+- cumulative_claims: 32
+- stop_reason: CHUNK 2 complete; CHUNK 3 pending owner launch
+
+---
+
+## Handoff refresh: chunks_3_12_cursor_complete
+
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T13:00:00Z
+- handoff_id: t411-chunks-3-12-complete
+- owner_continue: CHUNKS 3-12 authorized (10 steps in a row)
+- candidates_added: 30
+- cumulative_claims: 122
+- cumulative_escalation_packets: 38
+- stop_reason: All planned chunks 1-12 complete; Codex review before further work
+
+---
+
+## Handoff refresh: waves_13_16_complete
+
+- agent_name: Cursor
+- updated_at: 2026-07-01T14:30:00Z
+- handoff_id: t411-waves-13-16-complete
+- waves: 13-16 (legal/wisdom context, prophets A/B, narrative-epistle context)
+- candidates_added: 18
+- cumulative_claims: 176
+

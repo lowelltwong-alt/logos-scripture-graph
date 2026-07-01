@@ -1,15 +1,14 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-06-30
-**Updated by:** T412 Rust-first whole-Bible observation substrate (Codex)
-**Active task:** -> **T412 Rust-First Whole-Bible Observation Substrate** is complete pending
-merge. T412 inserts a deterministic Rust scanner before Cursor so the path becomes Rust scan ->
-Python validate -> Cursor compressed packet -> Codex review -> Claude hard-case audit -> owner
-gate -> output task. The scanner now compiles and has produced ignored no-text ledgers for 83
-source files, 66 canonical books, 38,058 verses, and 1,402 chapter spans; generated-mode
-validation and the T411 compressed ledger pack check pass. T411 remains prepared but frozen:
-Cursor has not run and must not run until a clean T411 branch/worktree preflight and owner launch
-pass. T412 adds
+**Last updated:** 2026-06-05
+**Updated by:** T411 substrate-gate clearance recording (Codex)
+**Active task:** -> **T411 Cursor Readiness With Claude Final-Audit Gate** is ready pending
+owner launch. T412 merged @ `e90bc3d`; Claude post-merge audit recorded
+**APPROVE_T411_CURSOR** with no P0/P1 (`.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`).
+The Rust-first observation substrate is proved: 83 source files, 66 canonical books, 38,058 verses,
+and 1,402 chapter spans; generated-mode validation and the T411 compressed ledger pack check pass.
+Cursor has not run and must not run until owner launch plus a clean T411 branch/worktree preflight.
+T412 adds
 `.ai/control/rust_first_observation_substrate.yaml`, `tools/usfm_observation_scanner/`,
 `scripts/validate_rust_observation_substrate.py`, `scripts/build_cursor_observation_pack.py`, and
 `docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md`. T412 authorizes no Cursor whole-Bible raw

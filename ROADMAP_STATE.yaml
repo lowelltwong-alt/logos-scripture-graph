@@ -1797,7 +1797,9 @@ phases:
         theology_authority_change_authorized: false
       - id: T412
         title: Rust-First Whole-Bible Observation Substrate
-        status: complete_pending_merge
+        status: complete_merged
+        merge_ref: e90bc3d0022f612fb3c80775699e85d4b9f3d672
+        post_merge_claude_audit: .ai/audits/reports/20260630-T412-post-merge-claude-audit.md
         lane: whole_bible_research_to_chunking_phase_one
         control: .ai/control/rust_first_observation_substrate.yaml
         roadmap_doc: docs/roadmap/T412_RUST_FIRST_OBSERVATION_SUBSTRATE.md
@@ -1844,7 +1846,7 @@ phases:
         theology_authority_change_authorized: false
       - id: T411
         title: Cursor Readiness With Claude Final-Audit Gate
-        status: setup_frozen_pending_clean_task_branch_and_owner_launch
+        status: ready_pending_owner_launch
         lane: whole_bible_research_to_chunking_phase_one
         roadmap_doc: docs/roadmap/T411_CURSOR_READINESS_WITH_CLAUDE_GATE.md
         task_scope: .ai/tasks/T411.task.yaml
@@ -1854,7 +1856,7 @@ phases:
         tests:
           - tests/test_t411_cursor_batch_artifacts.py
           - tests/test_parallel_execution_safety.py
-        claude_gate: "T410 final audit reported no P0/P1 and forward P2s only; T412 Rust substrate validation and Cursor pack check have passed, but Cursor still must not run until a clean T411 branch/worktree preflight and owner launch pass."
+        claude_gate: "Claude T412 post-merge audit @ e90bc3d APPROVE_T411_CURSOR with no P0/P1; T412 Rust substrate validation and Cursor pack check pass. Cursor still must not run until owner launch and a clean T411 branch/worktree preflight pass."
         first_batch_candidates:
           - T402-LC-063: 2John.1.1-2John.1.3
           - T402-LC-057: Phlm.1.1-Phlm.1.7
