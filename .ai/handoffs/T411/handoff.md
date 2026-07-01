@@ -5,7 +5,7 @@
 - task_id: T411
 - title: Cursor Readiness With Claude Final-Audit Gate
 - phase: phase_4
-- status: ready_pending_owner_launch
+- status: chunk_2_complete_pending_codex_review
 
 ## Agent
 
@@ -112,9 +112,27 @@ Cursor may then write only `.ai/context/agent_work/T411/` and `.ai/handoffs/T411
 
 ---
 
-## Handoff refresh: final
+## Handoff refresh: chunk_1_cursor_complete
 
-- agent_name: Codex
-- mode: build
-- updated_at: 2026-06-30T19:30:22+00:00
-- handoff_id: 466464a905bc31a9
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T02:00:00Z
+- handoff_id: t411-chunk-1-complete
+- owner_launch: staged_chunks_option_1 CHUNK 1
+- candidates_completed: [T402-LC-063, T402-LC-057, T402-LC-032]
+- artifacts: source_size_manifest, confidence_register, audit_log, claim_traceability_matrix, escalation_packets (3), cursor_observation_pack, cursor_notes_to_codex
+- stop_reason: CHUNK 1 complete per Option 1; await Codex review before CHUNK 2
+
+---
+
+## Handoff refresh: chunk_2_cursor_complete
+
+- agent_name: Cursor
+- mode: research_only_review_packet_prep
+- updated_at: 2026-07-01T02:50:00Z
+- handoff_id: t411-chunk-2-complete
+- owner_continue: CHUNK 2 authorized by owner ("keep going")
+- candidates_completed: [T402-LC-064, T402-LC-065, T402-LC-047, T402-LC-054, T402-LC-059]
+- cumulative_claims: 32
+- stop_reason: CHUNK 2 complete; CHUNK 3 pending owner launch
+
