@@ -1,0 +1,98 @@
+id: T416
+phase: phase_4
+title: "Batch1 Post-Pilot Review"
+mode: review_only_post_pilot
+status: complete_approved_batch1_post_pilot
+owner: codex
+branch: main
+base_ref: "4502008"
+summary: "Review the T415 batch1 output pilot, prove the five additive epistle-opening overlays preserve non-target identity and reviewed-gold linkage, deny child spans/generalization/output authority, and recommend the next owner docket for review-packet strengthening only."
+scope:
+  allowed_paths:
+    - .ai/control/t416_batch1_post_pilot_review.yaml
+    - .ai/tasks/T416.task.yaml
+    - .ai/handoffs/T416/
+    - docs/roadmap/T416_BATCH1_POST_PILOT_REVIEW.md
+    - .ai/audits/reports/20260701-T416-batch1-post-pilot-review.md
+    - scripts/validate_t416_batch1_post_pilot_review.py
+    - tests/test_t416_batch1_post_pilot_review.py
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/bible_chunking_readiness_map.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/handoffs/T415/handoff.md
+    - ROADMAP_STATE.yaml
+    - scripts/validate_all.py
+    - scripts/validate_bible_chunking_readiness_map.py
+    - scripts/validate_owner_decision_projection_policy.py
+    - scripts/validate_1cor8_10_owner_review_docket.py
+    - scripts/validate_1cor8_10_parent_evidence_packet.py
+    - scripts/validate_owner_selection_implementation_gate.py
+    - scripts/validate_t372_route_isolation_harness_plan.py
+    - scripts/validate_t373_owner_implementation_authorization.py
+    - scripts/validate_t374_baseline_overlap_owner_decision_packet.py
+    - scripts/validate_t398_bible_wide_phase_one_research_synthesis.py
+    - scripts/validate_t399_focused_bible_wide_research_queue.py
+    - tests/test_bible_chunking_readiness_map.py
+    - tests/test_t342_revelation_candidate_selection.py
+    - tests/test_t343_revelation_review_packet.py
+    - tests/test_t344_revelation_owner_selection.py
+    - tests/test_t352_epistle_argument_review_packets.py
+    - eval/chunking_gold/review_packets/review_packet_index.json
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/orchestrator.py
+    - eval/chunking_gold/per_form/
+    - eval/chunking_gold/review_packets/t411_batch1_1tim_opening_review.md
+    - eval/chunking_gold/review_packets/t411_batch1_2cor_opening_review.md
+    - eval/chunking_gold/review_packets/t411_batch1_2john_opening_review.md
+    - eval/chunking_gold/review_packets/t411_batch1_3john_opening_review.md
+    - eval/chunking_gold/review_packets/t411_batch1_jas_opening_review.md
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  records_post_pilot_review: true
+  recommends_owner_docket: true
+  cursor_execution_allowed: false
+  authorizes_child_spans: false
+  authorizes_batch2_output: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_broader_epistle_generalization: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "T416 control records APPROVE_BATCH1_POST_PILOT or HOLD_WITH_FINDINGS."
+  - "Same-baseline review confirms baseline 1138, candidate 1143, five added overlays, no non-target diff, no changed/removed existing chunk IDs."
+  - "Each overlay matches exact T414 reviewed-gold case and T413 strengthened review packet."
+  - "Child spans are not necessary now and remain unauthorized."
+  - "No theology authority, evaluator change, leaderboard claim, hold clearing, Cursor execution, batch2 output, or whole-Bible output is authorized."
+  - "Next route recommends a batch2 owner docket for review-packet strengthening only."
+validations:
+  - python scripts/validate_t416_batch1_post_pilot_review.py
+  - python -m pytest tests/test_t416_batch1_post_pilot_review.py -q
+  - python scripts/validate_t415_batch1_output_pilot.py
+  - python scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+  - python scripts/validate_t413_batch1_review_packet_strengthening.py
+  - python scripts/validate_task_scope.py --task-id T416
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T416/handoff.md
+created_at: "2026-07-01"
+updated_at: "2026-07-01"

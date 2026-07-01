@@ -1467,7 +1467,7 @@ phases:
         goal2_prompt_ready: true
         relation_to_next_route: "Parallel research synthesis; does not supersede T401."
         next_task: Goal 2 focused Bible-wide research queue
-        next_chunking_route_remains: T401_post_pilot_review_gate_after_exact_output_pilot
+        next_chunking_route_remains: T416_batch1_post_pilot_review_gate_after_exact_output_pilot
         exact_target_selected: false
         output_change_authorized: false
         implementation_authorized: false
@@ -1505,7 +1505,7 @@ phases:
         recommendation_is_owner_selection: false
         relation_to_next_route: "Parallel focused research queue; does not supersede T401."
         next_task: Owner chooses one T399-HDM option before new review-packet strengthening
-        next_chunking_route_remains: T401_post_pilot_review_gate_after_exact_output_pilot
+        next_chunking_route_remains: T416_batch1_post_pilot_review_gate_after_exact_output_pilot
         exact_target_selected: false
         output_change_authorized: false
         implementation_authorized: false
@@ -1795,6 +1795,34 @@ phases:
         canon_scope_change_authorized: false
         source_or_manuscript_rows_authorized: false
         theology_authority_change_authorized: false
+      - id: T416
+        title: Batch1 Post-Pilot Review
+        status: APPROVE_BATCH1_POST_PILOT
+        lane: epistle_opening
+        control: .ai/control/t416_batch1_post_pilot_review.yaml
+        validator: scripts/validate_t416_batch1_post_pilot_review.py
+        roadmap_doc: docs/roadmap/T416_BATCH1_POST_PILOT_REVIEW.md
+        audit_report: .ai/audits/reports/20260701-T416-batch1-post-pilot-review.md
+        task_scope: .ai/tasks/T416.task.yaml
+        required_handoff: .ai/handoffs/T416/handoff.md
+        decision_register_entry: CD-083
+        lesson_index_entry: LSN-038
+        prior_task: T415
+        prior_output_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
+        prior_route_isolation_harness: .ai/control/t415_batch1_route_isolation_harness.yaml
+        reviewed_gold_promoted_previously: true
+        same_baseline_reviewed: true
+        baseline_chunk_count: 1138
+        candidate_chunk_count: 1143
+        added_overlay_count: 5
+        non_target_output_diff_detected: false
+        child_spans_authorized: false
+        batch2_output_authorized: false
+        whole_bible_output_authorized: false
+        reviewed_gold_promotion_authorized: false
+        broader_epistle_generalization_authorized: false
+        cursor_execution_allowed: false
+        next_task: owner_select_batch2_review_packet_strengthening_only
       - id: T415
         title: T411 Batch1 Pipeline (T413-T415)
         status: complete_output_changed_batch1_parent_overlays
@@ -1808,7 +1836,7 @@ phases:
           - T413_batch1_review_packet_strengthening
           - T414_batch1_parent_only_reviewed_gold_promotion
           - T415_batch1_output_pilot
-        next_task: post_pilot_review_before_broader_epistle_opening_behavior
+        next_task: T416
       - id: T414
         title: T411 Batch1 Parent-Only Reviewed-Gold Promotion
         status: complete_parent_only_reviewed_gold_promotion

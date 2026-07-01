@@ -3682,6 +3682,38 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-083
+    title: T416 batch1 post-pilot review denies generalization and child spans
+    classification: non_authorizing_review
+    task_ids: [T416]
+    owner_decision_ref: ".ai/control/t416_batch1_post_pilot_review.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [t411_batch1_epistle_opening_docket]
+      routes: [post_pilot_review_only]
+      surfaces:
+        - .ai/control/t416_batch1_post_pilot_review.yaml
+        - docs/roadmap/T416_BATCH1_POST_PILOT_REVIEW.md
+        - scripts/validate_t416_batch1_post_pilot_review.py
+    decision: "T416 approves the batch1 post-pilot review while denying child spans, batch2 output, whole-Bible output, evaluator changes, hold clearing, and broader epistle-opening generalization."
+    downstream_risk: "The successful five-overlay pilot could be mistaken as permission to automate epistle openings or start batch2 output without owner gates."
+    theological_assumptions_avoided:
+      - "No church-office, apostolic-authority, faith/works, elect-lady, or broader ecclesiology claim becomes chunk authority."
+      - "No Revelation, variant-sensitive, theological-risk, or owner-decision hold is cleared."
+    reviewed_gold_dependency: "Reviews T415 output that depends on T414 batch1 parent-only reviewed-gold promotion."
+    non_authorizations:
+      - child_span_selection
+      - batch2_output
+      - whole_bible_output_pass
+      - broader_epistle_generalization
+      - evaluator_change
+      - theology_authority_change
+    validators:
+      - scripts/validate_t416_batch1_post_pilot_review.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]

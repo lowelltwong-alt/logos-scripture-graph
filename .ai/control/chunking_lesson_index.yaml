@@ -1593,6 +1593,42 @@ lessons:
       - graph_edge_generation
     validators:
       - scripts/validate_t415_batch1_output_pilot.py
+  - lesson_id: LSN-038
+    title: T416 batch1 post-pilot review is the brake after a successful batch overlay
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, owner_decision, theological_risk]
+    tags: [t416, batch1, epistle-opening, post-pilot-review, child-span-review-gate, owner-gate, no-generalization]
+    use_when:
+      - "A future agent sees the T415 five-overlay output pilot and is tempted to generalize epistle-opening behavior, add child spans, or start batch2 output."
+      - "A future agent prepares the next epistle-opening batch and must keep it at owner-selected review-packet strengthening only."
+    preflight_stage: before_batch2_review_packet_strengthening_or_any_epistle_opening_output
+    source_surfaces:
+      - .ai/control/t416_batch1_post_pilot_review.yaml
+      - docs/roadmap/T416_BATCH1_POST_PILOT_REVIEW.md
+      - .ai/audits/reports/20260701-T416-batch1-post-pilot-review.md
+      - scripts/validate_t416_batch1_post_pilot_review.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    related_decision_ids: [CD-083]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T416]
+    downstream_risk: "A clean batch1 pilot can be overread as child-span, batch2-output, or whole-Bible epistle-opening authority unless post-pilot brakes and owner gates stay visible."
+    required_preflight_surfaces:
+      - .ai/control/t416_batch1_post_pilot_review.yaml
+      - .ai/control/t415_batch1_output_pilot_manifest.yaml
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/bible_chunking_readiness_map.yaml
+    non_authorizations:
+      - child_span_selection
+      - batch2_output
+      - whole_bible_output_pass
+      - broader_epistle_generalization
+      - theology_authority_change
+      - hold_clearing
+    validators:
+      - scripts/validate_t416_batch1_post_pilot_review.py
   - lesson_id: LSN-034
     title: Prompt-pack research must remain transparent until owner-gated chunking
     lifecycle_status: active
@@ -2028,6 +2064,12 @@ lesson_graph:
     relation: constrains
     to: LSN-031
   - from: LSN-034
+    relation: audits
+    to: LSN-010
+  - from: LSN-037
+    relation: constrains
+    to: LSN-038
+  - from: LSN-038
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

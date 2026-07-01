@@ -51,3 +51,14 @@
 ## Next agent instruction
 
 Run post-pilot review before child spans or broader epistle opening generalization.
+
+---
+
+## T416 post-pilot review
+
+- task_id: T416
+- verdict: APPROVE_BATCH1_POST_PILOT
+- surface: .ai/control/t416_batch1_post_pilot_review.yaml
+- decision_register_entry: CD-083
+- lesson_index_entry: LSN-038
+- next_route: owner selection for batch2 review-packet strengthening only; no child spans, batch2 output, whole-Bible output, reviewed-gold promotion, hold clearing, or broader epistle-opening generalization is authorized.

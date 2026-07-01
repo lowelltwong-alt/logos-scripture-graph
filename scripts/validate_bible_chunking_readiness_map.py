@@ -272,6 +272,10 @@ ALLOWED_NEXT_ROUTES = {
         "route_type": "epistle_opening_goal7_exact_output_pilot",
         "title": "T411 Batch1 Output Pilot",
     },
+    "T416": {
+        "route_type": "epistle_opening_post_pilot_review",
+        "title": "Batch1 Post-Pilot Review",
+    },
 }
 
 
@@ -996,6 +1000,58 @@ def _validate_t415_next_route(next_route: dict[str, Any], path: Path) -> None:
         raise ReadinessMapError(f"{_rel(path)}: T415 prior_promotion.task_id must be T414")
 
 
+def _validate_t416_next_route(next_route: dict[str, Any], path: Path) -> None:
+    expected = {
+        "title": "Batch1 Post-Pilot Review",
+        "route_type": "epistle_opening_post_pilot_review",
+        "completion_status": "APPROVE_BATCH1_POST_PILOT",
+        "completion_surface": ".ai/control/t416_batch1_post_pilot_review.yaml",
+        "validator": "scripts/validate_t416_batch1_post_pilot_review.py",
+        "decision_register_entry": "CD-083",
+        "lesson_index_entry": "LSN-038",
+        "prior_output_manifest": ".ai/control/t415_batch1_output_pilot_manifest.yaml",
+        "prior_route_isolation_harness": ".ai/control/t415_batch1_route_isolation_harness.yaml",
+        "prior_promotion_record": ".ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml",
+        "baseline_chunk_count": 1138,
+        "candidate_chunk_count": 1143,
+        "added_overlay_count": 5,
+        "non_target_output_diff_detected": False,
+        "output_change_authorized": False,
+        "implementation_authorized": False,
+        "route_behavior_authorized": False,
+        "child_spans_authorized": False,
+        "evaluator_change_authorized": False,
+        "graph_edge_generation_allowed": False,
+        "retrieval_truth_authorized": False,
+        "embedding_or_vector_work_allowed": False,
+        "boundary_import_allowed": False,
+        "preferred_reading_authorized": False,
+        "source_tradition_preference_authorized": False,
+        "canon_scope_change_authorized": False,
+        "theology_authority_change_authorized": False,
+        "reviewed_gold_promoted": False,
+        "reviewed_gold_already_promoted_by_t414": True,
+        "reviewed_gold_promotion_authorized": False,
+        "batch2_output_authorized": False,
+        "whole_bible_output_authorized": False,
+        "broader_epistle_generalization_authorized": False,
+        "cursor_execution_allowed": False,
+        "next_owner_action": "owner_select_batch2_review_packet_strengthening_only",
+    }
+    for key, value in expected.items():
+        if next_route.get(key) != value:
+            raise ReadinessMapError(f"{_rel(path)}: T416 next_route.{key} must be {value!r}")
+    if next_route.get("changed_existing_output_ids") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T416 changed_existing_output_ids must be []")
+    if next_route.get("removed_output_ids") != []:
+        raise ReadinessMapError(f"{_rel(path)}: T416 removed_output_ids must be []")
+    if set(next_route.get("recommended_batch2_owner_docket", [])) != {"T402-LC-057", "T402-LC-065", "T402-LC-032"}:
+        raise ReadinessMapError(f"{_rel(path)}: T416 recommended batch2 docket is stale")
+    for hold in ("variant_sensitive_hold", "theological_risk_hold", "owner_decision_required", "do_not_chunk_now", "Revelation"):
+        if hold not in next_route.get("must_stay_deferred", []):
+            raise ReadinessMapError(f"{_rel(path)}: T416 must_stay_deferred missing {hold}")
+
+
 def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
     data = _read_yaml(path)
     missing = sorted(REQUIRED_TOP_LEVEL - set(data))
@@ -1459,6 +1515,8 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         _validate_t401_next_route(next_route, path)
     if task_id == "T415":
         _validate_t415_next_route(next_route, path)
+    if task_id == "T416":
+        _validate_t416_next_route(next_route, path)
     if task_id == "T384":
         expected_t384 = {
             "title": "Bible-Wide Research Readiness Synthesis",
@@ -2181,7 +2239,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "path": ".ai/control/t398_bible_wide_phase_one_research_synthesis.yaml",
         "roadmap_doc": "docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md",
         "status": "complete_phase_one_whole_corpus_research_synthesis",
-        "relation_to_next_route": "Parallel phase-one research synthesis; does not supersede the T401 output pilot/post-pilot review gate or authorize output.",
+        "relation_to_next_route": "Parallel phase-one research synthesis; does not supersede the T416 batch1 post-pilot review gate or authorize output.",
         "corpus_scope": "canonical_66",
         "canonical_book_count": 66,
         "canonical_passage_count": 31103,
@@ -2224,7 +2282,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "path": ".ai/control/t399_focused_bible_wide_research_queue.yaml",
         "roadmap_doc": "docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md",
         "status": "complete_goal2_focused_research_queue",
-        "relation_to_next_route": "Parallel focused research queue; does not supersede the T401 output pilot/post-pilot review gate or authorize output.",
+        "relation_to_next_route": "Parallel focused research queue; does not supersede the T416 batch1 post-pilot review gate or authorize output.",
         "corpus_scope": "canonical_66",
         "candidate_count": 22,
         "owner_decision_prompt_count": 8,
@@ -2232,7 +2290,7 @@ def validate_readiness_map(path: Path = READINESS_MAP) -> dict[str, Any]:
         "decision_register_entry": "CD-073",
         "lesson_index_entry": "LSN-027",
         "next_owner_action": "choose_one_T399_HDM_option_before_new_review_packet_strengthening",
-        "next_chunking_route_remains": "T401_post_pilot_review_gate_after_exact_output_pilot",
+        "next_chunking_route_remains": "T416_batch1_post_pilot_review_gate_after_exact_output_pilot",
     }
     for key, value in expected_t399.items():
         if t399_queue.get(key) != value:

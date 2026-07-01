@@ -367,8 +367,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
-        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, T401, or T415")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415", "T416"}:
+        raise T373AuthorizationError(f"{_rel(READINESS)}: next_route.task_id must be T374, T375, T376, T384, T385, T392, T393, T397, T401, T415, or T416")
     if next_route.get("task_id") == "T374":
         expected_next = {
             "starts_only_if": "T373_A_authorizes_exact_parent_only_output_pilot",
@@ -536,6 +536,21 @@ def _validate_links() -> None:
             "output_change_authorized": True,
             "implementation_authorized": True,
             "route_behavior_authorized": True,
+            "child_spans_authorized": False,
+            "evaluator_change_authorized": False,
+            "graph_edge_generation_allowed": False,
+            "retrieval_truth_authorized": False,
+        }
+    elif next_route.get("task_id") == "T416":
+        expected_next = {
+            "route_type": "epistle_opening_post_pilot_review",
+            "completion_status": "APPROVE_BATCH1_POST_PILOT",
+            "completion_surface": ".ai/control/t416_batch1_post_pilot_review.yaml",
+            "reviewed_gold_promoted": False,
+            "reviewed_gold_already_promoted_by_t414": True,
+            "output_change_authorized": False,
+            "implementation_authorized": False,
+            "route_behavior_authorized": False,
             "child_spans_authorized": False,
             "evaluator_change_authorized": False,
             "graph_edge_generation_allowed": False,

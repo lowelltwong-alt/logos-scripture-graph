@@ -276,8 +276,8 @@ def _validate_links() -> None:
 
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route")
-    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
-        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, T384, T385, T392, T393, T397, T401, or T415 after T372")
+    if not isinstance(next_route, dict) or next_route.get("task_id") not in {"T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415", "T416"}:
+        raise T372HarnessPlanError(f"{_rel(READINESS)}: next_route.task_id must be T373, T374, T375, T376, T384, T385, T392, T393, T397, T401, T415, or T416 after T372")
     if next_route.get("task_id") == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
         raise T372HarnessPlanError(f"{_rel(READINESS)}: T373 starts_only_if is stale")
     if next_route.get("task_id") == "T374" and next_route.get("starts_only_if") != "T373_A_authorizes_exact_parent_only_output_pilot":

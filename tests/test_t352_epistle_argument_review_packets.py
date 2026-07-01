@@ -42,10 +42,11 @@ def test_t352_index_entries_are_pending_review_packets() -> None:
     index = load_json(INDEX)
     entries = {entry["entry_id"]: entry for entry in index["entries"]}
 
-    assert index["summary"]["total_entries"] == 68
+    assert index["summary"]["total_entries"] == 73
     assert index["summary"]["pending_human_review"] == 23
     assert index["summary"]["needs_review_packet"] == 19
-    assert index["summary"]["review_packet_files_indexed"] == 15
+    assert index["summary"]["not_authorized"] == 5
+    assert index["summary"]["review_packet_files_indexed"] == 20
     for spec in PACKETS.values():
         entry = entries[spec["entry_id"]]
         assert entry["entry_type"] == "review_packet"

@@ -435,8 +435,8 @@ def _validate_links() -> None:
         (REGISTER, ("CD-073", "T399 focused Bible-wide research queue separates score, safety, and authority", QUEUE_REL)),
         (LESSON_INDEX, ("LSN-027", "Focused Bible-wide research queues must separate score, safety, and authority", QUEUE_REL)),
         (PREFLIGHT, ("CD-073", "LSN-027", QUEUE_REL)),
-        (READINESS, ("parallel_t399_focused_research_queue", QUEUE_REL, "relation_to_next_route: \"Parallel focused research queue; does not supersede the T401 output pilot/post-pilot review gate or authorize output.\"")),
-        (ROADMAP, ("id: T399", "complete_goal2_focused_research_queue", "next_chunking_route_remains: T401_post_pilot_review_gate_after_exact_output_pilot")),
+        (READINESS, ("parallel_t399_focused_research_queue", QUEUE_REL, "relation_to_next_route: \"Parallel focused research queue; does not supersede the T416 batch1 post-pilot review gate or authorize output.\"")),
+        (ROADMAP, ("id: T399", "complete_goal2_focused_research_queue", "next_chunking_route_remains: T416_batch1_post_pilot_review_gate_after_exact_output_pilot")),
         (FRONT_DOOR, (QUEUE_REL, VALIDATOR_REL, "T399 focused Bible-wide research queue")),
         (MAIN_TOC, (QUEUE_REL, "goal2", "focused-research-queue")),
         (ROADMAP_TOC, ("T399 | Focused Bible-wide research queue", ROADMAP_DOC_REL, VALIDATOR_REL)),
@@ -454,8 +454,8 @@ def _validate_links() -> None:
                 raise T399QueueError(f"{_rel(path)}: missing {phrase!r}")
 
     readiness = _read_yaml(READINESS)
-    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401", "T415"}:
-        raise T399QueueError(f"{_rel(READINESS)}: T399 must not change next_route outside the later T397/T401/T415 path")
+    if readiness.get("next_route", {}).get("task_id") not in {"T397", "T401", "T415", "T416"}:
+        raise T399QueueError(f"{_rel(READINESS)}: T399 must not change next_route outside the later T397/T401/T415/T416 path")
     t399 = readiness.get("parallel_t399_focused_research_queue")
     if not isinstance(t399, dict):
         raise T399QueueError(f"{_rel(READINESS)}: parallel_t399_focused_research_queue must be a mapping")

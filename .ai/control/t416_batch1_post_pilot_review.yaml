@@ -1,0 +1,212 @@
+---
+object_type: t416_batch1_post_pilot_review
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-01 during T416 after the T415 batch1 parent-only output pilot."
+reason_for_inclusion: "Record the required post-pilot review before any child spans, batch-2 output, whole-Bible output pass, evaluator change, or broader epistle-opening generalization."
+---
+schema_version: t416_batch1_post_pilot_review.v1
+review_id: t416_batch1_post_pilot_review
+task_id: T416
+status: APPROVE_BATCH1_POST_PILOT
+verdict: APPROVE_BATCH1_POST_PILOT
+owner: Lowell Wong
+reviewer: Codex
+review_date: "2026-07-01"
+scope:
+  lane: epistle_opening
+  corpus_scope: canonical_66
+  translation_scope: eng-web
+  reviewed_batch: T415_batch1
+  prior_prep: .ai/context/agent_work/T411/
+  prior_codex_review: .ai/handoffs/T413/handoff.md
+  prior_strengthening: .ai/control/t413_batch1_review_packet_strengthening.yaml
+  prior_reviewed_gold_promotion: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+  prior_route_isolation_harness: .ai/control/t415_batch1_route_isolation_harness.yaml
+  prior_implementation_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
+  reviewed_gold_manifest: eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+  implementation_task: T415
+  post_pilot_decision_register_entry: CD-083
+  post_pilot_lesson_entry: LSN-038
+authority:
+  records_post_pilot_review: true
+  records_same_baseline_review: true
+  records_route_isolation_review: true
+  records_child_necessity_review: true
+  recommends_next_owner_docket: true
+  authorizes_child_spans: false
+  authorizes_child_span_reviewed_gold: false
+  authorizes_batch2_output: false
+  authorizes_whole_bible_output_pass: false
+  authorizes_broader_epistle_generalization: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_new_chunk_output: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_boundary_import: false
+same_baseline_review:
+  source_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
+  evaluator: pipelines/chunking/evaluate_chunks.py
+  evaluator_formula_changed: false
+  leaderboard_updated: false
+  improvement_claim_allowed: false
+  finding: no_safety_regression_no_improvement_claim
+  baseline_chunk_count: 1138
+  candidate_chunk_count: 1143
+  added_overlay_count: 5
+  baseline_prefix_matches_pre_t415_bytes: true
+  non_target_output_diff_detected: false
+  changed_existing_output_ids: []
+  removed_output_ids: []
+  changed_output_ids:
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--3John.1.1--3John.1.4--T415-BATCH1-3JOHN
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--2Cor.1.1--2Cor.1.2--T415-BATCH1-2COR
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--1Tim.1.1--1Tim.1.2--T415-BATCH1-1TIM
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--Jas.1.1--Jas.1.1--T415-BATCH1-JAS
+    - chunk--eng-web--chunk-policy-v0.1.0--epistles-parent-overlay--2John.1.1--2John.1.3--T415-BATCH1-2JOHN
+  baseline_chunk_sha256: 6b0f0210ac6a31090b5ceb42d104278e8d93fc53be098535f231b04b8fcab6f7
+  candidate_chunk_sha256: aefaedaf0f4066eb5fc1c578c1612b8877deecf627c0050c9d03aed7d1ed3b41
+  preserved_baseline_prefix_sha256: 6b0f0210ac6a31090b5ceb42d104278e8d93fc53be098535f231b04b8fcab6f7
+route_isolation_review:
+  source_harness: .ai/control/t415_batch1_route_isolation_harness.yaml
+  harness_script: scripts/chunking/route_isolation_harness.py
+  finding: exact_additive_parent_overlays_only
+  non_target_byte_identical: true
+  adjacent_spill_detected: false
+  replaced_existing_chunks: false
+  child_subspans_created: false
+  overlay_count: 5
+  exact_overlays:
+    - candidate_id: T402-LC-064
+      span: 3John.1.1-3John.1.4
+      reviewed_gold_case_id: 3john_1_1_4_parent_only_reviewed_gold
+      review_packet: eval/chunking_gold/review_packets/t411_batch1_3john_opening_review.md
+    - candidate_id: T402-LC-047
+      span: 2Cor.1.1-2Cor.1.2
+      reviewed_gold_case_id: 2cor_1_1_2_parent_only_reviewed_gold
+      review_packet: eval/chunking_gold/review_packets/t411_batch1_2cor_opening_review.md
+    - candidate_id: T402-LC-054
+      span: 1Tim.1.1-1Tim.1.2
+      reviewed_gold_case_id: 1tim_1_1_2_parent_only_reviewed_gold
+      review_packet: eval/chunking_gold/review_packets/t411_batch1_1tim_opening_review.md
+    - candidate_id: T402-LC-059
+      span: Jas.1.1-Jas.1.1
+      reviewed_gold_case_id: jas_1_1_parent_only_reviewed_gold
+      review_packet: eval/chunking_gold/review_packets/t411_batch1_jas_opening_review.md
+    - candidate_id: T402-LC-063
+      span: 2John.1.1-2John.1.3
+      reviewed_gold_case_id: 2john_1_1_3_parent_only_reviewed_gold
+      review_packet: eval/chunking_gold/review_packets/t411_batch1_2john_opening_review.md
+reviewed_gold_linkage_review:
+  finding: every_overlay_links_to_t414_gold_and_strengthened_packet
+  manifest: eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+  promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
+  strengthened_packet_record: .ai/control/t413_batch1_review_packet_strengthening.yaml
+child_necessity_review:
+  finding: child_spans_not_necessary_now_for_batch1
+  selected_children: []
+  current_child_span_authority: none
+  rationale:
+    - "Each pilot span is a short parent-only greeting/opening already narrow enough for this Phase 1 layer."
+    - "T415 proved the five parents as additive overlays with non-target byte identity and no replacement of existing chunks."
+    - "Adding child spans now would create new internal interpretive-boundary authority without exact reviewed evidence and owner promotion."
+  later_child_span_gate_required_if:
+    - future_retrieval_or_review_precision_needs_internal_greeting_units
+    - reviewer_finds_parent_only_overlay_hides_material_discourse_structure
+    - phase_two_child_span_refinement_is_owner_authorized
+  later_child_span_gate_must_include:
+    - exact_child_spans
+    - governed_child_evidence
+    - theology_and_context_review
+    - source_metadata_denial
+    - owner_promotion
+    - decision_register_update
+    - validators_and_tests
+    - non_target_identity_proof
+theology_authority_review:
+  finding: no_theology_authority_leakage_detected
+  checked_pressures:
+    - church_authority_claim_not_authorized
+    - church_office_theology_not_authorized
+    - apostolic_authority_theology_not_authorized
+    - faith_works_theology_not_authorized
+    - elect_lady_identity_not_authorized
+  overlay_metadata_guardrails:
+    - non_truth_bearing_overlay
+    - graph_retrieval_truth_authorized_false
+    - child_span_authorized_false
+    - broader_epistle_generalization_authorized_false
+t411_alignment:
+  finding: implemented_batch_matches_t413_owner_docket
+  implemented_candidates:
+    - T402-LC-064
+    - T402-LC-047
+    - T402-LC-054
+    - T402-LC-059
+    - T402-LC-063
+  not_implemented_from_prior_triage:
+    - T402-LC-057
+    - T402-LC-065
+    - T402-LC-032
+  cursor_selected_targets: false
+evaluator_and_leaderboard_review:
+  finding: evaluator_formula_unchanged_no_leaderboard_claim
+  evaluator_formula_changed: false
+  leaderboard_updated: false
+  improvement_claim_allowed: false
+  rationale: "The candidate has five additional overlays; count movement alone is not a quality improvement claim."
+next_route:
+  route_type: owner_selection_for_batch2_review_packet_strengthening_only
+  owner_decision_required: true
+  recommended_batch2_owner_docket:
+    - candidate_id: T402-LC-057
+      span: Phlm.1.1-Phlm.1.7
+      next_step: review_packet_strengthening_only
+      risk_note: social_ethics_application_not_authorized
+    - candidate_id: T402-LC-065
+      span: Jude.1.1-Jude.1.2
+      next_step: review_packet_strengthening_only
+      risk_note: noncanonical_source_authority_not_authorized
+    - candidate_id: T402-LC-032
+      span: Jonah.1.1-Jonah.1.3
+      next_step: review_packet_strengthening_only
+      risk_note: typology_and_prophetic_theology_not_authorized
+  must_stay_deferred:
+    - variant_sensitive_hold
+    - theological_risk_hold
+    - owner_decision_required
+    - do_not_chunk_now
+    - Revelation
+  batch2_output_authorized: false
+  reviewed_gold_promotion_authorized: false
+  cursor_execution_allowed: false
+non_authorizations:
+  - child_span_selection
+  - automatic_child_spans_after_parent_pilot
+  - batch2_output
+  - whole_bible_output_pass
+  - broader_epistle_opening_generalization
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - leaderboard_improvement_claim
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - preferred_reading_selection
+  - source_tradition_preference
+  - boundary_import
+  - theology_authority_change
+validators:
+  - scripts/validate_t416_batch1_post_pilot_review.py
+  - tests/test_t416_batch1_post_pilot_review.py
+  - scripts/validate_t415_batch1_output_pilot.py
+  - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
+  - scripts/validate_t413_batch1_review_packet_strengthening.py
+  - scripts/validate_all.py

@@ -1,8 +1,17 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-01
-**Updated by:** T415 batch1 output pilot
-**Active task:** -> **T415 batch1 route harness and output pilot** is complete.
+**Updated by:** T416 batch1 post-pilot review
+**Active task:** -> **T416 batch1 post-pilot review** is complete.
+
+> **T416 batch1 post-pilot review (2026-07-01):** Accepted T415 same-baseline safety:
+> baseline 1138 chunks, candidate 1143 chunks, exactly five additive parent-only overlays,
+> no non-target byte diff, no changed existing IDs, and no removed IDs. Recorded `CD-083`
+> plus `LSN-038`. Child spans are not necessary now for the five pilot parents. The next
+> route is owner selection for batch2 review-packet strengthening only, recommended docket
+> `T402-LC-057`, `T402-LC-065`, and `T402-LC-032`; no batch2 output, reviewed-gold
+> promotion, whole-Bible output, hold clearing, Cursor continuation, evaluator change,
+> leaderboard claim, or broader epistle-opening generalization is authorized.
 
 > **T415 batch1 output pilot (2026-07-01):** Added five exact additive parent-only epistle opening overlays
 > (3John, 2Cor, 1Tim, Jas, 2John). Baseline 1138 → candidate 1143 chunks. Recorded `CD-082` plus `LSN-037`.
@@ -15,9 +24,10 @@
 
 T411 produced non-authorizing review-packet prep for all 66 T402 low-complexity queue candidates:
 206 traceable non-authorizing claims, 66 escalation packets, 20 completed waves/chunks, and the
-CHUNK 1 pilot Cursor observation pack. The next route is owner selection for a narrow T413
-review-packet strengthening docket; T414 reviewed gold promotion and any output-changing chunk work
-remain unauthorized.
+CHUNK 1 pilot Cursor observation pack. The T413->T416 batch1 ladder is complete for five short
+epistle openings. The current next route is owner selection for a narrow batch2 review-packet
+strengthening docket only; reviewed-gold promotion, output-changing chunk work, child spans, and
+hold clearing remain unauthorized unless a later owner-gated task explicitly authorizes them.
 
 T412 merged @ `e90bc3d`; Claude post-merge audit recorded **APPROVE_T411_CURSOR** with no P0/P1
 (`.ai/audits/reports/20260630-T412-post-merge-claude-audit.md`). The Rust-first observation

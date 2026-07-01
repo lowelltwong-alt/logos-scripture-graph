@@ -2,7 +2,7 @@
 object_type: bible_chunking_readiness_map
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion and advance the next route to Goal 6 harness prep. Updated 2026-06-24 during T399 to record the parallel Goal 2 focused Bible-wide research queue without changing the T397 next route. Updated 2026-06-24 during T397 to record completed non-output-changing Eph.1.3-Eph.1.14 route-isolation harness prep and the future owner output-pilot gate. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 output pilot and the required post-pilot review gate. Updated 2026-06-25 during T402 to record the completed post-pilot review and whole-Bible low-complexity candidate runway as review eligibility only. Updated 2026-06-29 during T404 to record Cursor low-risk chunking delegation as compute prep only. Updated 2026-06-30 during T410 to record the research-to-chunking Phase 1 prompt-pack conveyor and deterministic completion tracker."
+provenance_note: "Created 2026-06-17 by Codex during T350 after the owner asked whether the rest of Bible chunking should proceed all at once or one part at a time. Updated 2026-06-23 during T385 to record the completed owner decision packet from T384/T386/T387/T388/T389/T390 readiness. Updated 2026-06-23 during T392 to record owner selection of T385-A and completed Eph.1.3-Eph.1.14 review-packet strengthening. Updated 2026-06-23 during T393 to record the Goal 5 reviewed-gold promotion decision packet as prepared and pending owner selection. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion and advance the next route to Goal 6 harness prep. Updated 2026-06-24 during T399 to record the parallel Goal 2 focused Bible-wide research queue without changing the T397 next route. Updated 2026-06-24 during T397 to record completed non-output-changing Eph.1.3-Eph.1.14 route-isolation harness prep and the future owner output-pilot gate. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 output pilot and the required post-pilot review gate. Updated 2026-06-25 during T402 to record the completed post-pilot review and whole-Bible low-complexity candidate runway as review eligibility only. Updated 2026-06-29 during T404 to record Cursor low-risk chunking delegation as compute prep only. Updated 2026-06-30 during T410 to record the research-to-chunking Phase 1 prompt-pack conveyor and deterministic completion tracker. Updated 2026-07-01 during T416 to record batch1 post-pilot review and the owner-gated batch2 review-packet route."
 reason_for_inclusion: "Keep the Bible-wide chunking destination visible while enforcing the faithful route: one reviewed, route-isolated lane at a time."
 ---
 schema_version: bible_chunking_readiness_map.v1
@@ -85,15 +85,21 @@ lessons_storage:
     - .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
     - .ai/control/t415_batch1_route_isolation_harness.yaml
     - .ai/control/t415_batch1_output_pilot_manifest.yaml
+    - .ai/control/t416_batch1_post_pilot_review.yaml
     - scripts/validate_t413_batch1_review_packet_strengthening.py
     - scripts/validate_t414_batch1_parent_only_reviewed_gold_promotion.py
     - scripts/validate_t415_batch1_output_pilot.py
+    - scripts/validate_t416_batch1_post_pilot_review.py
     - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
     - docs/roadmap/T414_BATCH1_PARENT_ONLY_REVIEWED_GOLD_PROMOTION.md
     - docs/roadmap/T415_BATCH1_OUTPUT_PILOT.md
+    - docs/roadmap/T416_BATCH1_POST_PILOT_REVIEW.md
+    - .ai/audits/reports/20260701-T416-batch1-post-pilot-review.md
     - .ai/tasks/T414.task.yaml
     - .ai/tasks/T415.task.yaml
+    - .ai/tasks/T416.task.yaml
     - .ai/handoffs/T415/handoff.md
+    - .ai/handoffs/T416/handoff.md
     - docs/roadmap/T401_EPH1_OUTPUT_PILOT.md
     - .ai/tasks/T401.task.yaml
     - .ai/handoffs/T401/handoff.md
@@ -227,7 +233,7 @@ lane_sequence:
   - lane_id: epistle_argument
     implementation_order: 2
     review_order: 2
-    current_state: t415_batch1_output_pilot_complete_post_pilot_review_next
+    current_state: t416_batch1_post_pilot_complete_owner_docket_next
     new_algorithm_work_ready: false
     candidate_cases:
       - Eph.1.3-Eph.1.14
@@ -605,6 +611,16 @@ lane_sequence:
       added_overlay_count: 5
       output_change_authorized: true
       child_spans_authorized: false
+    batch1_post_pilot_review:
+      task_id: T416
+      path: .ai/control/t416_batch1_post_pilot_review.yaml
+      status: APPROVE_BATCH1_POST_PILOT
+      decision_register_entry: CD-083
+      lesson_index_entry: LSN-038
+      validator: scripts/validate_t416_batch1_post_pilot_review.py
+      child_spans_authorized: false
+      batch2_output_authorized: false
+      broader_epistle_generalization_authorized: false
     theological_risk: "Argument boundaries can shift doctrinal or exhortation context."
   - lane_id: narrative_pericope
     implementation_order: 3
@@ -759,16 +775,17 @@ lane_sequence:
       - decision register current for every theological downstream decision
     theological_risk: "A global objective could overwrite book-specific guardrails and tune Scripture against non-Bible or non-reviewed examples."
 next_route:
-  task_id: T415
-  title: T411 Batch1 Output Pilot
-  route_type: epistle_opening_goal7_exact_output_pilot
-  completion_status: complete_output_changed_batch1_parent_overlays
-  completion_surface: .ai/control/t415_batch1_output_pilot_manifest.yaml
-  output_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
-  validator: scripts/validate_t415_batch1_output_pilot.py
-  promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
-  decision_register_entry: CD-082
-  lesson_index_entry: LSN-037
+  task_id: T416
+  title: Batch1 Post-Pilot Review
+  route_type: epistle_opening_post_pilot_review
+  completion_status: APPROVE_BATCH1_POST_PILOT
+  completion_surface: .ai/control/t416_batch1_post_pilot_review.yaml
+  validator: scripts/validate_t416_batch1_post_pilot_review.py
+  decision_register_entry: CD-083
+  lesson_index_entry: LSN-038
+  prior_output_manifest: .ai/control/t415_batch1_output_pilot_manifest.yaml
+  prior_route_isolation_harness: .ai/control/t415_batch1_route_isolation_harness.yaml
+  prior_promotion_record: .ai/control/t414_batch1_parent_only_reviewed_gold_promotion.yaml
   prior_strengthening:
     task_id: T413
     batch1_review_packet_strengthening: true
@@ -779,9 +796,12 @@ next_route:
   baseline_chunk_count: 1138
   candidate_chunk_count: 1143
   added_overlay_count: 5
-  output_change_authorized: true
-  implementation_authorized: true
-  route_behavior_authorized: true
+  non_target_output_diff_detected: false
+  changed_existing_output_ids: []
+  removed_output_ids: []
+  output_change_authorized: false
+  implementation_authorized: false
+  route_behavior_authorized: false
   child_spans_authorized: false
   evaluator_change_authorized: false
   graph_edge_generation_allowed: false
@@ -792,7 +812,24 @@ next_route:
   source_tradition_preference_authorized: false
   canon_scope_change_authorized: false
   theology_authority_change_authorized: false
-  reviewed_gold_promoted: true
+  reviewed_gold_promoted: false
+  reviewed_gold_already_promoted_by_t414: true
+  reviewed_gold_promotion_authorized: false
+  batch2_output_authorized: false
+  whole_bible_output_authorized: false
+  broader_epistle_generalization_authorized: false
+  cursor_execution_allowed: false
+  next_owner_action: owner_select_batch2_review_packet_strengthening_only
+  recommended_batch2_owner_docket:
+    - T402-LC-057
+    - T402-LC-065
+    - T402-LC-032
+  must_stay_deferred:
+    - variant_sensitive_hold
+    - theological_risk_hold
+    - owner_decision_required
+    - do_not_chunk_now
+    - Revelation
 _legacy_next_route_t401:
   task_id: T401
   title: Eph.1.3-Eph.1.14 Exact Output Pilot
@@ -929,7 +966,7 @@ parallel_t398_phase_one_research_synthesis:
   path: .ai/control/t398_bible_wide_phase_one_research_synthesis.yaml
   roadmap_doc: docs/roadmap/T398_BIBLE_WIDE_PHASE_ONE_RESEARCH_SYNTHESIS.md
   status: complete_phase_one_whole_corpus_research_synthesis
-  relation_to_next_route: "Parallel phase-one research synthesis; does not supersede the T401 output pilot/post-pilot review gate or authorize output."
+  relation_to_next_route: "Parallel phase-one research synthesis; does not supersede the T416 batch1 post-pilot review gate or authorize output."
   corpus_scope: canonical_66
   canonical_book_count: 66
   canonical_passage_count: 31103
@@ -962,7 +999,7 @@ parallel_t399_focused_research_queue:
   path: .ai/control/t399_focused_bible_wide_research_queue.yaml
   roadmap_doc: docs/roadmap/T399_FOCUSED_BIBLE_WIDE_RESEARCH_QUEUE.md
   status: complete_goal2_focused_research_queue
-  relation_to_next_route: "Parallel focused research queue; does not supersede the T401 output pilot/post-pilot review gate or authorize output."
+  relation_to_next_route: "Parallel focused research queue; does not supersede the T416 batch1 post-pilot review gate or authorize output."
   corpus_scope: canonical_66
   candidate_count: 22
   owner_decision_prompt_count: 8
@@ -970,7 +1007,7 @@ parallel_t399_focused_research_queue:
   decision_register_entry: CD-073
   lesson_index_entry: LSN-027
   next_owner_action: choose_one_T399_HDM_option_before_new_review_packet_strengthening
-  next_chunking_route_remains: T401_post_pilot_review_gate_after_exact_output_pilot
+  next_chunking_route_remains: T416_batch1_post_pilot_review_gate_after_exact_output_pilot
   output_change_authorized: false
   implementation_authorized: false
   exact_target_selected: false

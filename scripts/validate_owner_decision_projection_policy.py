@@ -246,8 +246,8 @@ def _validate_governed_links() -> None:
     readiness = _read_yaml(READINESS)
     next_route = readiness.get("next_route", {})
     next_task_id = next_route.get("task_id")
-    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
-        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must be T372, T373, T374, T375, T376, T384, T385, T392, T393, T397, T401, or T415 after T371-A promotion")
+    if next_task_id not in {"T372", "T373", "T374", "T375", "T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415", "T416"}:
+        raise ProjectionPolicyError(f"{_rel(READINESS)}: next_route must be T372, T373, T374, T375, T376, T384, T385, T392, T393, T397, T401, T415, or T416 after T371-A promotion")
     if next_task_id == "T372" and next_route.get("starts_only_if") != "T371_A_parent_only_reviewed_gold_promoted":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T372 starts_only_if is wrong")
     if next_task_id == "T373" and next_route.get("starts_only_if") != "T372_route_isolation_harness_plan_complete":
@@ -270,7 +270,7 @@ def _validate_governed_links() -> None:
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T397 starts_only_if is wrong")
     if next_task_id == "T401" and next_route.get("starts_only_if") != "T397_route_isolation_harness_complete_and_owner_authorized_exact_output_pilot":
         raise ProjectionPolicyError(f"{_rel(READINESS)}: T401 starts_only_if is wrong")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"}:
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415", "T416"}:
         if (
             next_route.get("evidence_packet")
             != "eval/chunking_gold/review_packets/1cor8_10_parent_only_evidence_packet.yaml"
@@ -458,7 +458,7 @@ def _validate_governed_links() -> None:
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
             if next_route.get(key) is not True:
                 raise ProjectionPolicyError(f"{_rel(READINESS)}: T415 {key} must be true")
-    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415"} and next_route.get("reviewed_gold_promoted") is not True:
+    if next_task_id not in {"T376", "T384", "T385", "T392", "T393", "T397", "T401", "T415", "T416"} and next_route.get("reviewed_gold_promoted") is not True:
         raise ProjectionPolicyError(f"{_rel(READINESS)}: {next_task_id} reviewed_gold_promoted must be true")
     if next_task_id in {"T374", "T401", "T415"}:
         for key in ("output_change_authorized", "implementation_authorized", "route_behavior_authorized"):
