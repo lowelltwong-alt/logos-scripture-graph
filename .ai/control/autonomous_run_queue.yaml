@@ -8,6 +8,8 @@ reason_for_inclusion: "Active backlog slice for long Cursor runs. Stop when empt
 schema_version: autonomous_run_queue.v2
 queue_id: t417_batch2_prep_backlog
 processor: .ai/control/autonomous_corpus_processor.yaml
+canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
 owner: Lowell Wong
 active_task_id: T417
 target_branch: codex/t417-autonomous-batch2-prep
@@ -131,6 +133,9 @@ work_units:
     deliverables:
       - .ai/handoffs/T417/handoff.md
       - .ai/audits/reports/20260701-T417-autonomous-batch2-prep.md
+    session_close_actions:
+      - update_handoff_candidates_completed
+      - note_pending_codex_daily_review_in_handoff
     validations:
       - python scripts/validate_autonomous_run_queue.py
       - python scripts/validate_all.py
@@ -138,13 +143,27 @@ work_units:
       - git diff --check
     commit_message: "Close T417 autonomous prep session for Codex daily review."
 codex_daily_gate:
+  canonical_prompt: .ai/prompts/codex_daily_prep_review_prompt.md
+  review_ledger: .ai/control/agent_review_ledger.jsonl
   prompt_template: |
     Review branch codex/t417-autonomous-batch2-prep since last daily review.
     Verdict: APPROVE_PREP | HOLD_WITH_FINDINGS
     Check: task scope, draft non-authorizations, escalation handling, no output/gold/hold leakage.
     Recommend owner docket if drafts are ready. Do not authorize gold or output.
+    Append one line to .ai/control/agent_review_ledger.jsonl.
+claude_weekly_gate:
+  canonical_prompt: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+  review_ledger: .ai/control/agent_review_ledger.jsonl
+  frequency: weekly_recommended
+  prompt_template: |
+    Review Cursor prep and Codex daily verdicts since last weekly audit.
+    Verdict: APPROVE_WEEKLY | HOLD_WITH_FINDINGS | ESCALATE_OWNER
+    Audit architecture P0-P2, chunking-error patterns, and open T411 escalations.
+    Write .ai/audits/reports/weekly/<DATE>-T420-weekly-architecture-chunking-audit.md
+    Append one line to .ai/control/agent_review_ledger.jsonl.
 merge_policy:
   requires_codex_daily_review: true
+  requires_claude_weekly_review_before_main_merge: advisory_v1
   requires_owner_review_before_gold_or_output: true
 cursor_cloud_agent:
   recommended_model: composer-2.5-fast

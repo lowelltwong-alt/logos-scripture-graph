@@ -76,6 +76,14 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
                 [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
             )
         ]
+    if task_ids:
+        return [
+            (
+                f"validate_task_scope.py --task-id {task_id}",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
+            )
+            for task_id in task_ids
+        ]
     return [("validate_task_scope.py", [PY, str(ROOT / "scripts" / "validate_task_scope.py")])]
 
 
@@ -94,6 +102,19 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
                     str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
                     "--task-id",
                     task_id,
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
+    if set(task_ids) <= {"T417", "T420"}:
+        return [
+            (
+                "validate_parallel_execution_safety.py --task-id T420",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    "T420",
                     "--allow-current-task-dirty",
                 ],
             )
@@ -331,6 +352,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_autonomous_run_queue.py",
             [PY, str(ROOT / "scripts" / "validate_autonomous_run_queue.py")],
+        ),
+        (
+            "validate_multi_agent_review_cadence.py",
+            [PY, str(ROOT / "scripts" / "validate_multi_agent_review_cadence.py")],
         ),
         (
             "validate_t402_low_complexity_chunking_runway.py",

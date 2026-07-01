@@ -9,6 +9,8 @@ schema_version: autonomous_corpus_processor.v1
 processor_id: logos_whole_bible_prep_processor_v1
 owner: Lowell Wong
 design_principle: "Stop when the backlog is empty or a hard stop fires — never pad work to fill a time budget."
+canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
 
 efficiency_policy:
   work_unit_definition: "One candidate_id draft review packet + claim rows in agent_work."
@@ -56,6 +58,9 @@ daily_review_cadence:
   codex_tier:
     role: daily_integrator_reviewer
     frequency: once_per_day_recommended
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/codex_daily_prep_review_prompt.md
+    review_ledger: .ai/control/agent_review_ledger.jsonl
     inputs:
       - overnight_pr_or_branch_diff
       - .ai/handoffs/<TASK_ID>/handoff.md
@@ -73,9 +78,19 @@ daily_review_cadence:
       - child_spans
       - hold_clearing
   claude_tier:
-    role: frontier_escalation_only
-    frequency: when_codex_or_validator_flags_escalation
-    not_daily_by_default: true
+    role: weekly_architecture_auditor
+    frequency: weekly_recommended
+    preferred_model: claude-opus-4.8
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    scope:
+      - architecture_and_governance_leakage
+      - chunking_error_patterns
+      - cursor_prep_rollup
+      - codex_daily_verdict_rollup
+      - open_t411_escalation_rollup
+    triggered_escalation_also_required: .ai/control/frontier_chunking_escalation_policy.yaml
+    not_a_substitute_for_triggered_escalation: true
   owner_tier:
     role: authority_gates
     frequency: per_batch_before_gold_or_output

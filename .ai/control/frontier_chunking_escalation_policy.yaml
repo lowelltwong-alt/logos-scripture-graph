@@ -12,6 +12,8 @@ status: active_non_authorizing_escalation_policy
 owner: Lowell Wong
 authority:
   records_frontier_escalation_policy: true
+  records_weekly_scheduled_claude_audit: true
+  records_triggered_frontier_escalation: true
   requires_frontier_review_for_hard_cases: true
   authorizes_exact_target_selection: false
   authorizes_reviewed_gold_promotion: false
@@ -24,7 +26,23 @@ authority:
   authorizes_theology_authority_change: false
 frontier_reviewers:
   preferred: Claude_Opus_or_equivalent_frontier_reasoning_model
+  weekly_scheduled_auditor_model: claude-opus-4.8
   fallback: Codex_high_reasoning_review_only_if_frontier_unavailable_and_no_authority_change
+review_modes:
+  weekly_scheduled_audit:
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    frequency: weekly_recommended
+    scope:
+      - architecture_and_governance_leakage
+      - chunking_error_patterns
+      - cursor_prep_rollup
+      - codex_daily_verdict_rollup
+      - open_escalation_rollup
+    does_not_replace_triggered_escalation: true
+  triggered_escalation:
+    frequency: on_mandatory_trigger_before_gold_or_output
+    scope: mandatory_escalation_triggers
 mandatory_escalation_triggers:
   - prophecy_or_oracle_boundary
   - apocalyptic_or_vision_cycle

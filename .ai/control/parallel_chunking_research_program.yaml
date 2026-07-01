@@ -68,6 +68,24 @@ pre_cursor_observation_substrate:
     - escalation_packet_exception
   validate_all_mode: contract_only_no_full_scan
   non_authorizing: true
+review_cadence:
+  canonical_control: .ai/control/multi_agent_review_cadence.yaml
+  review_ledger: .ai/control/agent_review_ledger.jsonl
+  task_id: T420
+  overlays_phase_ladder_between_steps:
+    - after: review_packet_prep
+      cadence_layers:
+        - actor: Codex
+          frequency: daily_recommended
+          step_kind: daily_integrator_review
+          prompt: .ai/prompts/codex_daily_prep_review_prompt.md
+        - actor: Claude_Opus_4_8
+          frequency: weekly_recommended
+          step_kind: weekly_architecture_and_chunking_audit
+          prompt: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    - before: codex_review
+      note: "Daily and weekly cadence reviews prep branches; formal codex_review step remains for owner-gated ladder batches."
+  efficiency_rule: "Prep runs until backlog empty; cadence reviews are outcome-triggered not hour-triggered."
 phase_ladder:
   - step_id: research
     order: 1

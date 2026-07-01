@@ -1,0 +1,94 @@
+id: T420
+phase: phase_4
+title: "Multi-Agent Review Cadence Charter"
+mode: control_plane_cadence_charter
+status: complete
+owner: codex
+branch: main
+base_ref: origin/main
+summary: "Codify daily Codex and weekly Claude Opus review cadence over autonomous corpus prep; wire routing docs, validators, and review ledger without authorizing gold or output."
+cadence_control: .ai/control/multi_agent_review_cadence.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
+scope:
+  allowed_paths:
+    - .ai/tasks/T420.task.yaml
+    - .ai/handoffs/T420/
+    - .ai/control/multi_agent_review_cadence.yaml
+    - .ai/control/agent_review_ledger.jsonl
+    - .ai/control/autonomous_corpus_processor.yaml
+    - .ai/control/autonomous_run_queue.yaml
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/frontier_chunking_escalation_policy.yaml
+    - .ai/prompts/codex_daily_prep_review_prompt.md
+    - .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    - .ai/handoffs/AGENT_ROUTING_GUIDE.md
+    - .ai/handoffs/T417/handoff.md
+    - .ai/tasks/T417.task.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/MODEL_ROSTER.md
+    - .ai/audits/reports/weekly/
+    - docs/roadmap/T420_MULTI_AGENT_REVIEW_CADENCE.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - config/agents/agent_roles.yaml
+    - scripts/validate_multi_agent_review_cadence.py
+    - scripts/validate_autonomous_run_queue.py
+    - scripts/validate_parallel_execution_safety.py
+    - scripts/validate_all.py
+    - tests/test_multi_agent_review_cadence.py
+    - tests/test_autonomous_run_queue.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: control_plane_cadence_charter
+  records_multi_agent_cadence: true
+  records_daily_codex_gate: true
+  records_weekly_claude_gate: true
+  cursor_execution_allowed: false
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  authorizes_theology_authority: false
+  clears_variant_or_theology_holds: false
+agent_roles:
+  cursor: prep_agent_until_backlog_empty
+  codex: daily_integrator_reviewer
+  claude: weekly_architecture_auditor
+  owner: per_batch_authority_gates
+acceptance_criteria:
+  - "multi_agent_review_cadence.yaml defines cursor, codex, claude, and owner tiers with frequencies and non-authorizations."
+  - "Daily and weekly prompt templates exist with required verdict enums."
+  - "agent_review_ledger.jsonl exists as append-only review contract."
+  - "Routing docs and TOCs index T420 and cadence surfaces."
+  - "Validator passes in validate_all.py."
+  - "CD-084 and LSN-039 recorded."
+validations:
+  - python scripts/validate_multi_agent_review_cadence.py
+  - python scripts/validate_task_scope.py --task-id T420
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest tests/test_multi_agent_review_cadence.py -q
+  - git diff --check

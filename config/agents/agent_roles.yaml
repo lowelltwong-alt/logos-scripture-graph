@@ -85,6 +85,57 @@ roles:
     required_outputs:
       - roadmap_event
       - handoff_validation
+  prep_agent:
+    purpose: "Cursor long-running autonomous prep: draft review packets and claim traceability until backlog empty."
+    operational_alias_for: cursor
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    allowed_paths:
+      - .ai/context/agent_work/
+      - .ai/handoffs/
+    forbidden_actions:
+      - "promote drafts to eval/chunking_gold without owner authorization"
+      - "implement chunk output or reviewed gold"
+      - "merge prep branch to main without codex daily review"
+    required_outputs:
+      - review_packet_drafts
+      - claim_traceability
+      - handoff_progress_update
+  daily_integrator:
+    purpose: "Codex daily integrator review of Cursor prep branches; APPROVE_PREP or HOLD_WITH_FINDINGS."
+    operational_alias_for: codex
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/codex_daily_prep_review_prompt.md
+    allowed_paths:
+      - .ai/handoffs/
+      - .ai/control/agent_review_ledger.jsonl
+      - .ai/audits/
+      - scripts/
+      - tests/
+    forbidden_actions:
+      - "authorize reviewed gold or chunk output"
+      - "clear variant or theology holds"
+    required_outputs:
+      - ledger_append
+      - daily_verdict
+      - handoff_update
+  weekly_architecture_auditor:
+    purpose: "Claude Opus weekly architecture and chunking-error audit; rollup of Cursor prep and Codex daily verdicts."
+    operational_alias_for: claude
+    canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
+    prompt_template: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+    preferred_model: claude-opus-4.8
+    allowed_paths:
+      - .ai/handoffs/
+      - .ai/control/agent_review_ledger.jsonl
+      - .ai/audits/reports/weekly/
+      - .ai/context/agent_work/
+    forbidden_actions:
+      - "authorize reviewed gold or chunk output"
+      - "make owner decisions"
+    required_outputs:
+      - weekly_audit_report
+      - ledger_append
+      - architecture_findings
   connection_discoverer:
     purpose: "Find NEW connections we have not curated (intertextual, lexical, thematic, extra-biblical) and emit them as CANDIDATE claims with evidence — never auto-promote. See .ai/handoffs/CONNECTION_DISCOVERY_AGENT.md."
     allowed_paths:

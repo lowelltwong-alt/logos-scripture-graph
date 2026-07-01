@@ -1,0 +1,165 @@
+---
+object_type: multi_agent_review_cadence
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-02 during T420 to codify daily Codex and weekly Claude Opus review cadence over autonomous corpus prep."
+reason_for_inclusion: "Give Cursor, Codex, Claude, and Owner explicit roles, frequencies, inputs, outputs, and non-authorizations for whole-Bible Phase 1 prep."
+---
+schema_version: multi_agent_review_cadence.v1
+cadence_id: logos_multi_agent_review_cadence_v1
+task_id: T420
+status: active_non_authorizing_cadence_charter
+owner: Lowell Wong
+processor: .ai/control/autonomous_corpus_processor.yaml
+conveyor: .ai/control/parallel_chunking_research_program.yaml
+review_ledger: .ai/control/agent_review_ledger.jsonl
+authority:
+  records_multi_agent_cadence: true
+  records_daily_codex_gate: true
+  records_weekly_claude_gate: true
+  records_review_ledger_contract: true
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_hold_clearing: false
+  authorizes_theology_authority_change: false
+cursor_tier:
+  agent_surface: cursor
+  operational_role: prep_agent
+  branch_pattern: "codex/t4xx-*-prep"
+  frequency: until_backlog_empty_or_hard_stop
+  may_run_hours: "8-20h+ acceptable; stop early when backlog empty"
+  primary_job: "Draft review packets, claim traceability, and lane backlog processing from Rust ledgers and T411 escalation packets."
+  required_reads:
+    - .ai/control/autonomous_run_queue.yaml
+    - .ai/control/autonomous_corpus_processor.yaml
+    - .ai/tasks/<TASK_ID>.task.yaml
+    - .ai/handoffs/<TASK_ID>/handoff.md
+  outputs:
+    - .ai/context/agent_work/<TASK_ID>/review_packet_drafts/
+    - .ai/context/agent_work/<TASK_ID>/claim_traceability.jsonl
+  does_not_authorize:
+    - reviewed_gold_promotion
+    - chunk_output_change
+    - child_spans
+    - exact_target_selection
+    - hold_clearing
+    - merge_to_main_without_codex_daily_review
+codex_tier:
+  agent_surface: codex
+  operational_role: daily_integrator_reviewer
+  model_profile: executor
+  frequency: daily_recommended
+  prompt_template: .ai/prompts/codex_daily_prep_review_prompt.md
+  verdict_enums:
+    - APPROVE_PREP
+    - HOLD_WITH_FINDINGS
+  primary_job: "Integrate overnight prep-branch diff, run focused validators, record daily verdict, recommend owner docket when ready."
+  inputs:
+    - active_prep_branch_diff_since_last_ledger_entry
+    - .ai/handoffs/<TASK_ID>/handoff.md
+    - focused_validators_for_drafts
+    - .ai/control/agent_review_ledger.jsonl
+  outputs:
+    - ledger_append_with_verdict
+    - handoff_update_last_codex_daily_review
+    - owner_docket_recommendation_if_ready
+  authorizes:
+    - records_review_verdict: true
+    - owner_docket_recommendation: true
+  does_not_authorize:
+    - reviewed_gold_promotion
+    - chunk_output_change
+    - child_spans
+    - hold_clearing
+    - merge_to_main_without_owner_review_for_gold_or_output
+claude_tier:
+  agent_surface: claude
+  operational_role: weekly_architecture_auditor
+  model_profile: reasoner
+  preferred_model: claude-opus-4.8
+  frequency: weekly_recommended
+  prompt_template: .ai/prompts/claude_weekly_architecture_chunking_audit_prompt.md
+  verdict_enums:
+    - APPROVE_WEEKLY
+    - HOLD_WITH_FINDINGS
+    - ESCALATE_OWNER
+  primary_job: "Weekly architecture deep dive, chunking-error pattern audit, and rollup of Cursor prep plus Codex daily verdicts."
+  scope:
+    - architecture_and_governance_leakage_p0_p2
+    - chunking_error_patterns
+    - cursor_prep_throughput_and_escalation_handling
+    - codex_daily_verdict_rollup_since_last_weekly
+    - open_t411_escalation_packet_rollup
+    - control_plane_drift
+  distinct_from_triggered_escalation: true
+  triggered_escalation_policy: .ai/control/frontier_chunking_escalation_policy.yaml
+  inputs:
+    - .ai/control/agent_review_ledger.jsonl
+    - all_codex_daily_entries_since_last_weekly
+    - .ai/context/agent_work/<TASK_ID>/
+    - .ai/context/agent_work/T411/escalation_packets/
+    - .ai/control/PROJECT_STATUS.md
+    - ROADMAP_STATE.yaml
+    - active_handoffs
+  outputs:
+    - .ai/audits/reports/weekly/<DATE>-T420-weekly-architecture-chunking-audit.md
+    - ledger_append_with_verdict
+    - handoff_update_last_claude_weekly_review
+  authorizes:
+    - records_architecture_findings: true
+    - records_chunking_error_findings: true
+  does_not_authorize:
+    - reviewed_gold_promotion
+    - chunk_output_change
+    - child_spans
+    - owner_decision
+    - hold_clearing
+owner_tier:
+  agent_surface: owner
+  operational_role: authority_gates
+  frequency: per_batch_before_gold_or_output
+  gates:
+    - owner_docket_confirmation
+    - reviewed_gold_promotion
+    - output_pilot_authorization
+staleness_policy:
+  mode: advisory_warn_only_v1
+  codex_daily_stale_after_hours: 24
+  claude_weekly_stale_after_days: 7
+  applies_when: active_prep_branch_has_commits_since_last_review
+  strict_ci_enforcement: false
+ledger_record_required_fields:
+  common:
+    - review_tier
+    - date
+    - branch
+    - task_id
+    - verdict
+    - reviewer
+    - subjects_reviewed
+    - finding_count_p0
+    - finding_count_p1
+    - finding_count_p2
+    - non_authorizing
+  codex_daily:
+    - prep_branch_head_sha_short
+  claude_weekly:
+    - audit_report_path
+    - codex_daily_entries_reviewed_count
+non_authorizations:
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - hold_clearing
+  - whole_bible_output_pass
+  - theology_authority_change
+  - cursor_target_selection
+validators:
+  - scripts/validate_multi_agent_review_cadence.py
+  - tests/test_multi_agent_review_cadence.py
+  - scripts/validate_all.py

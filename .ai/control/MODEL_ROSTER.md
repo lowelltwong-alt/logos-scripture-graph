@@ -21,12 +21,16 @@
 
 | Profile | Primary | Backup | Notes |
 |---------|---------|--------|-------|
-| **reasoner** | Claude Opus-class | GPT reasoning-class (o-series) | architecture, ADRs, schema design, canon/literary judgment |
-| **executor** | Codex-class / fast coding model | Claude Sonnet-class | bounded impl, tests, audits, fast iterate-on-failure |
+| **reasoner** | Claude Opus 4.8 (weekly architecture auditor) | GPT reasoning-class (o-series) | architecture, ADRs, schema design, canon/literary judgment, weekly chunking-error deep dives |
+| **executor** | Codex-class / fast coding model (daily integrator) | Claude Sonnet-class | bounded impl, tests, audits, daily prep-branch integration |
 | **orchestrator** | Claude Haiku-class / small fast model | any cheap model | triage, summarization, doc chores |
 
 Domain reviewers (human or reasoner-profile + human): biblical-literature, Hebrew,
 Greek reviewers per `config/agents/agent_roles.yaml` for canon / chunking policy / gold sets.
+
+**Multi-agent cadence (T420):** executor-profile Codex runs daily integrator review on prep branches;
+reasoner-profile Claude Opus 4.8 runs weekly architecture and chunking-error audits. See
+`.ai/control/multi_agent_review_cadence.yaml`.
 
 ---
 
