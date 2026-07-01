@@ -76,6 +76,13 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
                 [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
             )
         ]
+    if set(task_ids) <= {"T417", "T420"}:
+        return [
+            (
+                "validate_task_scope.py --task-id T417",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", "T417"],
+            )
+        ]
     if task_ids:
         return [
             (
