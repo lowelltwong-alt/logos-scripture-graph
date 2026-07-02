@@ -4,8 +4,10 @@ schema_version: scratch_phase_ladder_queue.v1
 ---
 object_type: scratch_phase_ladder_queue
 schema_version: scratch_phase_ladder_queue.v1
-sprint_id: phase_ladder_345_scratch
+sprint_id: phase_ladder_678_scratch
 branch_prefix: scratch/
+session_target_hours: 8
+stop_when: all_queued_ladder_steps_complete
 t410_ladder_steps:
 - step_id: review_packet_prep
   phase_label: phase_3_prep
@@ -21,6 +23,21 @@ t410_ladder_steps:
   status: complete
   artifact_root: .ai/context/agent_work/T417/owner_gate_prep/
   requires_owner_phrase_for_activation: APPROVE_STANDING_ESCALATION_POLICY
+- step_id: reviewed_gold_promotion_prep
+  phase_label: phase_6_gold_promotion_prep
+  status: complete
+  artifact_root: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/
+  skip_codex_review_in_scratch: true
+- step_id: route_isolation_harness_prep
+  phase_label: phase_7_harness_prep
+  status: complete
+  artifact_root: .ai/context/agent_work/T417/route_harness_prep/
+  skip_codex_review_in_scratch: true
+- step_id: output_pilot_prep
+  phase_label: phase_8_output_pilot_prep
+  status: complete
+  artifact_root: .ai/context/agent_work/T417/output_pilot_prep/
+  skip_codex_review_in_scratch: true
 skip_strengthening_candidate_ids:
 - T402-LC-064
 - T402-LC-047
@@ -40,7 +57,13 @@ batches:
 promotion_packets:
 - SUB-007
 - SUB-008
-agent_run: 'python .ai/scratch/prep_sprint/run_phase_ladder.py --all
+- SUB-009
+- SUB-010
+- SUB-011
+agent_run: 'python .ai/scratch/prep_sprint/run_phase_ladder.py --gold-prep --harness-prep
+  --output-prep
+
+  python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
 
   python scripts/validate_scratch_scope.py
 
