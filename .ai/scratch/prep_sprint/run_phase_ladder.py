@@ -261,15 +261,40 @@ def run_owner_gate_prep(skip_ids: set[str]) -> list[str]:
             "status": "owner_gate_prep_pending_standing_policy",
             "owner_unlock_phrase": "APPROVE_STANDING_ESCALATION_POLICY",
             "standing_policy": ".ai/control/standing_owner_escalation_policy.yaml",
-            "recommended_next_ladder_after_owner_unlock": [
-                "reviewed_gold_promotion_prep",
-                "route_isolation_harness_prep",
-                "output_pilot_prep",
+            "standing_policy_note": (
+                "APPROVE_STANDING_ESCALATION_POLICY records owner disposition toward the "
+                "standing escalation policy only. It does not by itself authorize reviewed "
+                "gold promotion, chunk output change, route isolation harness, or output pilot."
+            ),
+            "informational_follow_on_steps": [
+                {
+                    "step": "final_review_packet_strengthening",
+                    "requires": "per_batch_owner_docket_or_standing_disposition_plus_codex_review",
+                    "authorizes_in_this_prep": "nothing",
+                },
+                {
+                    "step": "reviewed_gold_promotion_prep",
+                    "requires": "explicit_owner_gate_per_batch_plus_codex_promotion_review",
+                    "authorizes_in_this_prep": "nothing",
+                },
+                {
+                    "step": "route_isolation_harness_prep",
+                    "requires": "explicit_owner_gate_per_batch_plus_codex_promotion_review",
+                    "authorizes_in_this_prep": "nothing",
+                },
+                {
+                    "step": "output_pilot_prep",
+                    "requires": "explicit_owner_gate_per_batch_plus_codex_promotion_review",
+                    "authorizes_in_this_prep": "nothing",
+                },
             ],
             "owner_options_not_authorizing": [
                 {
                     "option_id": f"{batch_key.upper()}-A",
-                    "label": "Proceed parent-only through ladder for this batch under standing policy",
+                    "label": (
+                        "Record intent to proceed parent-only per standing disposition "
+                        "(not gold/output authorization)"
+                    ),
                     "rationale": "Text-local spans with theology flags evidence-only",
                 },
                 {
@@ -290,9 +315,11 @@ def run_owner_gate_prep(skip_ids: set[str]) -> list[str]:
                 "child_span_selection",
                 "standing_policy_activation",
                 "codex_review_bypass",
+                "ladder_auto_unlock_from_standing_phrase",
             ],
             "reviewer_notes": (
-                "Scratch lane owner-gate PREP only. Owner phrase unlocks standing ladder; "
+                "Scratch lane owner-gate PREP only. Standing phrase records disposition; "
+                "each ladder step still needs separate owner and Codex gates. "
                 "Codex promotion review still required before canon surfaces change."
             ),
         }
@@ -339,8 +366,19 @@ def validate_owner_gate_prep() -> list[str]:
             continue
         if data.get("status") != "owner_gate_prep_pending_standing_policy":
             errors.append(f"{path.name}: wrong status")
+        if "recommended_next_ladder_after_owner_unlock" in data:
+            errors.append(
+                f"{path.name}: forbidden field recommended_next_ladder_after_owner_unlock"
+            )
+        if not data.get("standing_policy_note"):
+            errors.append(f"{path.name}: missing standing_policy_note")
+        follow_on = data.get("informational_follow_on_steps")
+        if not isinstance(follow_on, list) or not follow_on:
+            errors.append(f"{path.name}: missing informational_follow_on_steps")
         if "reviewed_gold_promotion" not in data.get("non_authorizations", []):
             errors.append(f"{path.name}: missing gold non-authorization")
+        if "ladder_auto_unlock_from_standing_phrase" not in data.get("non_authorizations", []):
+            errors.append(f"{path.name}: missing ladder auto-unlock non-authorization")
     return errors
 
 

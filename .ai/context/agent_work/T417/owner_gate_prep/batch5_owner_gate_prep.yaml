@@ -5,13 +5,26 @@ batch_id: batch5
 status: owner_gate_prep_pending_standing_policy
 owner_unlock_phrase: APPROVE_STANDING_ESCALATION_POLICY
 standing_policy: .ai/control/standing_owner_escalation_policy.yaml
-recommended_next_ladder_after_owner_unlock:
-- reviewed_gold_promotion_prep
-- route_isolation_harness_prep
-- output_pilot_prep
+standing_policy_note: APPROVE_STANDING_ESCALATION_POLICY records owner disposition
+  toward the standing escalation policy only. It does not by itself authorize reviewed
+  gold promotion, chunk output change, route isolation harness, or output pilot.
+informational_follow_on_steps:
+- step: final_review_packet_strengthening
+  requires: per_batch_owner_docket_or_standing_disposition_plus_codex_review
+  authorizes_in_this_prep: nothing
+- step: reviewed_gold_promotion_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
+- step: route_isolation_harness_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
+- step: output_pilot_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
 owner_options_not_authorizing:
 - option_id: BATCH5-A
-  label: Proceed parent-only through ladder for this batch under standing policy
+  label: Record intent to proceed parent-only per standing disposition (not gold/output
+    authorization)
   rationale: Text-local spans with theology flags evidence-only
 - option_id: BATCH5-B
   label: Hold batch pending frontier review on medium-risk theology framing
@@ -34,5 +47,7 @@ non_authorizations:
 - child_span_selection
 - standing_policy_activation
 - codex_review_bypass
-reviewer_notes: Scratch lane owner-gate PREP only. Owner phrase unlocks standing ladder;
-  Codex promotion review still required before canon surfaces change.
+- ladder_auto_unlock_from_standing_phrase
+reviewer_notes: Scratch lane owner-gate PREP only. Standing phrase records disposition;
+  each ladder step still needs separate owner and Codex gates. Codex promotion review
+  still required before canon surfaces change.
