@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DRAFT_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417" / "review_packet_drafts"
+STRENGTHEN_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417" / "review_packet_strengthening_prep"
 WORK_DIR = ROOT / ".ai" / "context" / "agent_work" / "T417"
 STANDING_POLICY = ROOT / ".ai" / "control" / "standing_owner_escalation_policy.yaml"
 
@@ -28,6 +29,12 @@ FORBIDDEN_MARKERS = (
     "reviewed_gold_promoted: true",
 )
 
+CONTRADICTORY_TRUE_MARKERS = (
+    "Implementation allowed: true",
+    "Output change authorized: true",
+    "Reviewed gold promoted: true",
+)
+
 
 class T417DraftPacketError(ValueError):
     """Raised when draft packets leak authority or miss traceability."""
@@ -40,6 +47,15 @@ def _rel(path: Path) -> str:
         return path.as_posix()
 
 
+def _check_non_authorizing_text(path: Path, text: str, errors: list[str]) -> None:
+    for marker in FORBIDDEN_MARKERS:
+        if marker in text:
+            errors.append(f"{_rel(path)}: forbidden marker {marker!r}")
+    for marker in CONTRADICTORY_TRUE_MARKERS:
+        if marker in text:
+            errors.append(f"{_rel(path)}: contradictory authority marker {marker!r}")
+
+
 def _discover_drafts() -> dict[str, Path]:
     drafts: dict[str, Path] = {}
     for path in sorted(DRAFT_DIR.glob("*_draft.md")):
@@ -48,6 +64,18 @@ def _discover_drafts() -> dict[str, Path]:
         if match:
             drafts[match.group(0)] = path
     return drafts
+
+
+def _discover_strengthening_prep() -> dict[str, Path]:
+    preps: dict[str, Path] = {}
+    if not STRENGTHEN_DIR.is_dir():
+        return preps
+    for path in sorted(STRENGTHEN_DIR.glob("*_strengthening_prep.md")):
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r"T402-LC-\d+", text)
+        if match:
+            preps[match.group(0)] = path
+    return preps
 
 
 def _discover_trace_files() -> dict[str, Path]:
@@ -77,9 +105,23 @@ def validate_drafts() -> list[str]:
         for marker in REQUIRED_MARKERS:
             if marker not in text:
                 errors.append(f"{_rel(path)}: missing marker {marker!r}")
-        for marker in FORBIDDEN_MARKERS:
-            if marker in text:
-                errors.append(f"{_rel(path)}: forbidden marker {marker!r}")
+        _check_non_authorizing_text(path, text, errors)
+
+    strengthening = _discover_strengthening_prep()
+    for candidate_id, path in strengthening.items():
+        text = path.read_text(encoding="utf-8")
+        if candidate_id not in text:
+            errors.append(f"{_rel(path)}: missing candidate id {candidate_id}")
+        for marker in (
+            "strengthening_prep_pending_codex",
+            "Strengthened packet: false",
+            "Reviewed gold promoted: false",
+            "Implementation allowed: false",
+            "No reviewed gold is promoted.",
+        ):
+            if marker not in text:
+                errors.append(f"{_rel(path)}: missing marker {marker!r}")
+        _check_non_authorizing_text(path, text, errors)
 
     by_candidate: dict[str, list[dict]] = {cid: [] for cid in drafts}
     trace_files = _discover_trace_files()

@@ -1,0 +1,87 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-007
+source_branch: scratch/phase-ladder-345
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - strengthening_prep_not_final_strengthened_packet
+    - theology_framing_may_need_codex_pass
+  low:
+    - batch1_output_candidates_skipped_by_design
+decisions:
+  - decision_id: D-001
+    choice: Promote phase 4 strengthening PREP artifacts only (not eval/chunking_gold)
+    rationale: Scratch lane defers Codex review; prep enriches drafts with contextual fields and premortem without authorizing gold or output
+    alternatives_rejected:
+      - Write directly to eval/chunking_gold review_packets
+      - Mark Strengthened packet true in scratch
+    might_be_wrong: Codex may HOLD if prep reads too close to final strengthening
+    confidence: medium
+  - decision_id: D-002
+    choice: Skip five batch1-output candidates in strengthening prep
+    rationale: 2Cor, 1Tim, Jas, 2John, 3John already completed T415 output ladder
+    alternatives_rejected:
+      - Regenerate strengthening prep for already-shipped books
+    might_be_wrong: None — intentional skip
+    confidence: high
+evidence_refs:
+  - .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
+  - python scripts/validate_scratch_scope.py
+requested_promotion: strengthening_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - standing_policy_activation
+  - codex_review_bypass
+reviewer_notes_for_codex: |
+  Phase 4 strengthening PREP for 33 candidates (batches 2-10 minus batch1-output skips).
+  All files keep Strengthened packet false and live under agent_work only.
+  Owner APPROVE_STANDING_ESCALATION_POLICY still required before governed ladder.
+files_promoted:
+  - .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+  - .ai/scratch/prep_sprint/run_phase_ladder.py
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/1chr_genealogy_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/1kgs_officials_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/1pet_closing_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/1sam_gift_list_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/1thess_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/2chr_inventory_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/2kgs_regnal_notice_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/2sam_mighty_men_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/2thess_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/2tim_closing_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/col_closing_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/eph_closing_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/exod_offering_list_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/ezra_returnee_list_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/gal_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/gen_genealogy_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/hag_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/heb_closing_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/jonah_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/josh_kings_list_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/jude_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/judg_minor_judges_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/luke_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/mark_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/matt_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/neh_returnee_list_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/num_census_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/phil_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/phlm_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/ps117_whole_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/rom_opening_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/ruth_genealogy_strengthening_prep.md
+  - .ai/context/agent_work/T417/review_packet_strengthening_prep/titus_opening_strengthening_prep.md
+vendor_imports: []

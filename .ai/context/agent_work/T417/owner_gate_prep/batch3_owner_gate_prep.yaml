@@ -1,0 +1,57 @@
+---
+object_type: owner_gate_prep_packet
+schema_version: owner_gate_prep_packet.v1
+batch_id: batch3
+status: owner_gate_prep_pending_standing_policy
+owner_unlock_phrase: APPROVE_STANDING_ESCALATION_POLICY
+standing_policy: .ai/control/standing_owner_escalation_policy.yaml
+standing_policy_note: APPROVE_STANDING_ESCALATION_POLICY records owner disposition
+  toward the standing escalation policy only. It does not by itself authorize reviewed
+  gold promotion, chunk output change, route isolation harness, or output pilot.
+informational_follow_on_steps:
+- step: final_review_packet_strengthening
+  requires: per_batch_owner_docket_or_standing_disposition_plus_codex_review
+  authorizes_in_this_prep: nothing
+- step: reviewed_gold_promotion_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
+- step: route_isolation_harness_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
+- step: output_pilot_prep
+  requires: explicit_owner_gate_per_batch_plus_codex_promotion_review
+  authorizes_in_this_prep: nothing
+owner_options_not_authorizing:
+- option_id: BATCH3-A
+  label: Record intent to proceed parent-only per standing disposition (not gold/output
+    authorization)
+  rationale: Text-local spans with theology flags evidence-only
+- option_id: BATCH3-B
+  label: Hold batch pending frontier review on medium-risk theology framing
+  rationale: Conservative hold if Codex flags strengthening gaps
+- option_id: BATCH3-C
+  label: Defer batch until explicit per-batch owner docket
+  rationale: Override standing policy for this batch only
+candidates:
+- candidate_id: T402-LC-048
+  book: Gal
+  span: Gal.1.1-Gal.1.5
+  strengthening_prep: .ai/context/agent_work/T417/review_packet_strengthening_prep/gal_opening_strengthening_prep.md
+- candidate_id: T402-LC-049
+  book: Eph
+  span: Eph.6.21-Eph.6.24
+  strengthening_prep: .ai/context/agent_work/T417/review_packet_strengthening_prep/eph_closing_strengthening_prep.md
+- candidate_id: T402-LC-050
+  book: Phil
+  span: Phil.1.1-Phil.1.11
+  strengthening_prep: .ai/context/agent_work/T417/review_packet_strengthening_prep/phil_opening_strengthening_prep.md
+non_authorizations:
+- reviewed_gold_promotion
+- chunk_output_change
+- child_span_selection
+- standing_policy_activation
+- codex_review_bypass
+- ladder_auto_unlock_from_standing_phrase
+reviewer_notes: Scratch lane owner-gate PREP only. Standing phrase records disposition;
+  each ladder step still needs separate owner and Codex gates. Codex promotion review
+  still required before canon surfaces change.
