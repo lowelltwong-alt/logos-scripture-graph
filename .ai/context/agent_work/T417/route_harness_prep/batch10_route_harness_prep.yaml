@@ -1,0 +1,29 @@
+---
+object_type: route_isolation_harness_prep_packet
+schema_version: route_isolation_harness_prep_packet.v1
+batch_id: batch10
+status: harness_prep_pending_codex
+harness_reference: scripts/chunking/route_isolation_harness.py
+precedent: .ai/control/t415_batch1_route_isolation_harness.yaml
+checks_prep_only:
+- non_target_byte_identity_comparison
+- exact_parent_target_change_allowance_only
+- child_span_denial_check
+target_spans:
+- Ezra.2.1-Ezra.2.70
+- Neh.7.6-Neh.7.73
+candidates:
+- candidate_id: T402-LC-015
+  span: Ezra.2.1-Ezra.2.70
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/ezra_returnee_list_gold_promotion_prep.yaml
+- candidate_id: T402-LC-016
+  span: Neh.7.6-Neh.7.73
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/neh_returnee_list_gold_promotion_prep.yaml
+non_authorizations:
+- chunk_output_change
+- child_span_selection
+- route_behavior_change
+- reviewed_gold_promotion
+- harness_execution_in_scratch
+reviewer_notes: Scratch lane route-isolation harness PREP only. Checklist references
+  T415 harness; no harness run or output change authorized in scratch.

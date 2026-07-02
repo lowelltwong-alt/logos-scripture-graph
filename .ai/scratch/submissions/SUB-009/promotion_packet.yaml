@@ -1,0 +1,83 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-009
+source_branch: scratch/phase-ladder-678
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+  - gold_prep_may_read_like_t414_without_owner_gate
+  low:
+  - batch1_output_candidates_skipped_by_design
+decisions:
+- decision_id: D-001
+  choice: Phase 6 reviewed gold promotion PREP (33 candidates)
+  rationale: Scratch lane pre-builds governed ladder prep under agent_work only; no
+    eval/chunking_gold or chunk output
+  alternatives_rejected:
+  - Write directly to eval/chunking_gold
+  - Run route isolation harness in scratch
+  - Regenerate chunk output for overlay hashes
+  might_be_wrong: Codex may HOLD if prep implies authority from standing phrase alone
+  confidence: medium
+evidence_refs:
+- .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/
+- .ai/control/t415_batch1_output_pilot_manifest.yaml
+validators_run_in_scratch:
+- python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
+- python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-009/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+- reviewed_gold_promotion
+- chunk_output_change
+- child_span_selection
+- standing_policy_activation
+- harness_execution_in_scratch
+- ladder_auto_unlock_from_standing_phrase
+reviewer_notes_for_codex: Phase 6 reviewed gold promotion PREP (33 candidates). All
+  artifacts keep explicit false authorizations and live under agent_work only. Owner
+  APPROVE_STANDING_ESCALATION_POLICY plus per-step Codex gates still required.
+files_promoted:
+- .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+- .ai/scratch/prep_sprint/run_phase_ladder.py
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1chr_genealogy_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1kgs_officials_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1pet_closing_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1sam_gift_list_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1thess_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2chr_inventory_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2kgs_regnal_notice_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2sam_mighty_men_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2thess_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2tim_closing_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/col_closing_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/eph_closing_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/exod_offering_list_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/ezra_returnee_list_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/gal_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/gen_genealogy_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/hag_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/heb_closing_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/jonah_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/josh_kings_list_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/jude_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/judg_minor_judges_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/luke_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/mark_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/matt_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/neh_returnee_list_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/num_census_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/phil_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/phlm_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/ps117_whole_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/rom_opening_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/ruth_genealogy_gold_promotion_prep.yaml
+- .ai/context/agent_work/T417/reviewed_gold_promotion_prep/titus_opening_gold_promotion_prep.yaml
+vendor_imports: []
