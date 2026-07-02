@@ -1,0 +1,49 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-008
+source_branch: scratch/phase-ladder-345
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - owner_gate_prep_is_not_owner_selection
+  low:
+    - batch_options_may_need_per-batch_customization
+decisions:
+  - decision_id: D-001
+    choice: Promote phase 5 owner-gate PREP packets for batches 2-10
+    rationale: Pre-builds owner option menus and candidate lists for standing policy unlock without recording owner decisions
+    alternatives_rejected:
+      - Auto-activate standing policy in scratch
+      - Skip owner gate prep until Codex reviews strengthening
+    might_be_wrong: Owner may prefer single batch docket instead of nine batch files
+    confidence: medium
+evidence_refs:
+  - .ai/context/agent_work/T417/owner_gate_prep/
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-008/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - standing_policy_activation
+  - owner_decision_recording
+reviewer_notes_for_codex: |
+  Phase 5 owner-gate PREP only. Nine batch YAML files with options A/B/C — recommendation not selection.
+  Owner must still say APPROVE_STANDING_ESCALATION_POLICY to unlock governed ladder.
+files_promoted:
+  - .ai/context/agent_work/T417/owner_gate_prep/batch2_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch3_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch4_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch5_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch6_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch7_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch8_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch9_owner_gate_prep.yaml
+  - .ai/context/agent_work/T417/owner_gate_prep/batch10_owner_gate_prep.yaml
+vendor_imports: []
