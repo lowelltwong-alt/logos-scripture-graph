@@ -6,20 +6,20 @@ provenance_note: "Created 2026-07-01 after T416; refactored same day to outcome-
 reason_for_inclusion: "Active backlog slice for long Cursor runs. Stop when empty, not when a clock hits 8h."
 ---
 schema_version: autonomous_run_queue.v2
-queue_id: t417_batch2_prep_backlog
+queue_id: t417_8h_scratch_marathon
 processor: .ai/control/autonomous_corpus_processor.yaml
 canonical_cadence: .ai/control/multi_agent_review_cadence.yaml
 review_ledger: .ai/control/agent_review_ledger.jsonl
 owner: Lowell Wong
 active_task_id: T417
-target_branch: codex/scratch-prep-sprint-batch4
+target_branch: codex/scratch-prep-marathon-8h
 base_ref: origin/main
 session_stop_when:
   - all_work_units_complete
   - hard_stop_fired
 session_stop_never_when:
   - elapsed_hours_reaches_target
-session_goal: "Complete the listed backlog units for batch2 prep. Finish early if done."
+session_goal: "Run scratch prep sprint batches 5-10 (27 candidates). Stop when queue empty, not at 8h."
 authority:
   records_autonomous_work_packages: true
   authorizes_owner_decision: false
@@ -154,7 +154,7 @@ work_units:
       - git diff --check
     commit_message: "Close T417 autonomous prep session for Codex daily review."
   - unit_id: U-08
-    status: pending
+    status: complete
     title: Scratch sprint batch4 drafts (5 candidates, one commit)
     candidates:
       - T402-LC-051
@@ -185,11 +185,68 @@ work_units:
       - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-002/promotion_packet.yaml
       - python scripts/validate_scratch_scope.py
     commit_message: "scratch: SUB-002 batch3 promotion packet for Codex review."
+  - unit_id: U-10
+    status: complete
+    title: 8h scratch marathon batches 5-10 (27 candidates)
+    candidates:
+      - T402-LC-058
+      - T402-LC-060
+      - T402-LC-063
+      - T402-LC-059
+      - T402-LC-064
+      - T402-LC-047
+      - T402-LC-054
+      - T402-LC-045
+      - T402-LC-040
+      - T402-LC-041
+      - T402-LC-042
+      - T402-LC-037
+      - T402-LC-019
+      - T402-LC-006
+      - T402-LC-007
+      - T402-LC-001
+      - T402-LC-002
+      - T402-LC-004
+      - T402-LC-008
+      - T402-LC-009
+      - T402-LC-010
+      - T402-LC-011
+      - T402-LC-012
+      - T402-LC-013
+      - T402-LC-014
+      - T402-LC-015
+      - T402-LC-016
+    deliverables:
+      - .ai/scratch/prep_sprint/scratch_prep_sprint_queue.yaml
+      - scripts/scratch_prep_sprint.py
+      - .ai/context/agent_work/T417/claim_traceability_batch5.jsonl
+      - .ai/context/agent_work/T417/claim_traceability_batch6.jsonl
+      - .ai/context/agent_work/T417/claim_traceability_batch7.jsonl
+      - .ai/context/agent_work/T417/claim_traceability_batch8.jsonl
+      - .ai/context/agent_work/T417/claim_traceability_batch9.jsonl
+      - .ai/context/agent_work/T417/claim_traceability_batch10.jsonl
+    validations:
+      - python scripts/scratch_prep_sprint.py --list
+      - python scripts/scratch_prep_sprint.py --validate-only
+      - python scripts/validate_t417_batch2_review_packet_drafts.py
+    commit_message: "scratch: 8h marathon batches 5-10 (all remaining ready candidates)."
+  - unit_id: U-11
+    status: pending
+    title: Promotion packets SUB-003 through SUB-006 (batch4-batch10 prep artifacts)
+    deliverables:
+      - .ai/scratch/submissions/SUB-003/promotion_packet.yaml
+      - .ai/scratch/submissions/SUB-004/promotion_packet.yaml
+      - .ai/scratch/submissions/SUB-005/promotion_packet.yaml
+      - .ai/scratch/submissions/SUB-006/promotion_packet.yaml
+    validations:
+      - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-003/promotion_packet.yaml
+      - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-004/promotion_packet.yaml
+    commit_message: "scratch: promotion packets for marathon batch prep artifacts."
 codex_daily_gate:
   canonical_prompt: .ai/prompts/codex_daily_prep_review_prompt.md
   review_ledger: .ai/control/agent_review_ledger.jsonl
   prompt_template: |
-    Review branch codex/scratch-prep-sprint-batch4 since last daily review.
+    Review branch codex/scratch-prep-marathon-8h since last daily review.
     Verdict: APPROVE_PREP | HOLD_WITH_FINDINGS
     Check: task scope, draft non-authorizations, escalation handling, no output/gold/hold leakage.
     Recommend owner docket if drafts are ready. Do not authorize gold or output.
@@ -210,6 +267,6 @@ merge_policy:
   requires_owner_review_before_gold_or_output: true
 cursor_cloud_agent:
   recommended_model: composer-2.5-fast
-  branch: codex/scratch-prep-sprint-batch4
-  resume_strategy: "Read handoff last_completed_unit; continue next incomplete unit."
+  branch: codex/scratch-prep-marathon-8h
+  resume_strategy: "Run python scripts/scratch_prep_sprint.py --list; continue U-11 promotion packets if batches complete."
 validator: scripts/validate_autonomous_run_queue.py
