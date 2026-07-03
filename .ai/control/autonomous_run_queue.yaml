@@ -19,7 +19,7 @@ session_stop_when:
   - hard_stop_fired
 session_stop_never_when:
   - elapsed_hours_reaches_target
-session_goal: "Run scratch prep sprint batches 5-10 (27 candidates). Stop when queue empty, not at 8h."
+session_goal: "Scratch prep backlog complete: 38 drafts, phase ladder 3-8 prep, SUB-001..SUB-011. Await owner standing policy before gold/output."
 authority:
   records_autonomous_work_packages: true
   authorizes_owner_decision: false
@@ -177,7 +177,7 @@ work_units:
       - python scripts/validate_t417_batch2_review_packet_drafts.py
     commit_message: "scratch: batch4 review packet drafts (Col, 1Thess, 2Thess, Titus, 2Tim)."
   - unit_id: U-09
-    status: pending
+    status: complete
     title: SUB-002 promotion packet for batch3 prep artifacts
     deliverables:
       - .ai/scratch/submissions/SUB-002/promotion_packet.yaml
@@ -244,6 +244,25 @@ work_units:
       - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-005/promotion_packet.yaml
       - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-006/promotion_packet.yaml
     commit_message: "scratch: promotion packets for marathon batch prep artifacts."
+  - unit_id: U-12
+    status: complete
+    title: session_close_scratch_marathon_and_phase_ladder
+    deliverables:
+      - .ai/handoffs/T417/handoff.md
+      - .ai/audits/reports/20260702-T417-scratch-marathon-session-close.md
+      - .ai/control/current_focus.yaml
+      - .ai/control/PROJECT_STATUS.md
+    session_close_actions:
+      - mark_autonomous_queue_complete
+      - record_sub_001_through_sub_011_codex_approvals
+      - defer_standing_policy_activation_to_owner
+    validations:
+      - python scripts/validate_autonomous_run_queue.py
+      - python scripts/validate_t417_batch2_review_packet_drafts.py
+      - python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
+      - python scripts/validate_task_scope.py --task-id T417
+      - git diff --check
+    commit_message: "Close T417 scratch marathon and phase ladder prep session."
 codex_daily_gate:
   canonical_prompt: .ai/prompts/codex_daily_prep_review_prompt.md
   review_ledger: .ai/control/agent_review_ledger.jsonl
@@ -270,5 +289,5 @@ merge_policy:
 cursor_cloud_agent:
   recommended_model: composer-2.5-fast
   branch: codex/scratch-prep-marathon-8h
-  resume_strategy: "Run python scripts/scratch_prep_sprint.py --list; continue U-11 promotion packets if batches complete."
+  resume_strategy: "Scratch prep backlog exhausted. Next: owner APPROVE_STANDING_ESCALATION_POLICY, then governed batch2 output ladder."
 validator: scripts/validate_autonomous_run_queue.py
