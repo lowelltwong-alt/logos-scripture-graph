@@ -29,8 +29,10 @@
 
 ### Agreement (easy chunks)
 
-Let `N` = number of **complete** models in this comparison run.
+Let `N` = number of **complete** models in this batch offline compare run.
 Let `majority = ceil(0.7 * N)` (e.g. N=5 → 4, N=10 → 7).
+
+Primary metric: **verse-coverage agreement rate** (`overall_verse_coverage_agreement_rate` in matrix).
 
 - **Full consensus:** exact same `span` across **all N** complete models
 - **Easy bucket:** exact same `span` across **≥ majority** models

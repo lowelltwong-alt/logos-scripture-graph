@@ -385,6 +385,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_multi_model_whole_bible_chunking_fork.py")],
         ),
         (
+            "validate_t423_pilot_gate.py",
+            [PY, str(ROOT / "scripts" / "validate_t423_pilot_gate.py")],
+        ),
+        (
+            "validate_t423_parallel_isolation.py",
+            [PY, str(ROOT / "scripts" / "validate_t423_parallel_isolation.py"), "--policy-only"],
+        ),
+        (
             "validate_scratch_scope.py",
             [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
         ),

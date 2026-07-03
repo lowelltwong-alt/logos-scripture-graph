@@ -14,20 +14,15 @@ import yaml
 
 from scripts.t423_chunk_map_utils import (
     SCRATCH_ROOT,
-    agreement_tier,
-    boundary_shift_verses,
     canonical_books,
+    compare_book_verse_coverage,
     completed_books,
     discover_model_folders,
-    is_near_miss,
     load_chunk_map,
     load_fork_policy,
     load_model_manifest,
-    load_marathon_progress,
     majority_required,
     model_is_complete,
-    normalize_span,
-    parse_span,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -59,6 +54,14 @@ def _load_stress_books() -> set[str]:
         if isinstance(book, str):
             books.add(book)
     return books
+
+
+def _load_t417_overlap_books(policy: dict[str, Any]) -> set[str]:
+    isolation = policy.get("parallel_path_isolation", {})
+    overlap = isolation.get("overlap_books_with_T417_batch2", [])
+    if isinstance(overlap, list):
+        return {str(b) for b in overlap}
+    return set()
 
 
 def select_models(
@@ -103,10 +106,12 @@ def compare_models(
     *,
     books: list[str],
     allow_easy_at_n3: bool,
+    t417_overlap_books: set[str] | None = None,
 ) -> dict[str, Any]:
     model_ids = [str(load_model_manifest(f).get("model_id", f.name)) for f in model_folders]
     n = len(model_folders)
     majority = majority_required(n)
+    overlap = t417_overlap_books or set()
     maps: dict[str, dict[str, list[dict[str, Any]]]] = {}
     for folder, model_id in zip(model_folders, model_ids, strict=True):
         by_book: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -124,113 +129,38 @@ def compare_models(
     stress_books = _load_stress_books()
 
     for book in books:
-        counts = {mid: len(maps[mid].get(book, [])) for mid in model_ids}
-        unique_counts = set(counts.values())
-        chunk_count_mismatch = len(unique_counts) > 1
-
-        if chunk_count_mismatch:
-            per_book_stats[book] = {
-                "agreement_rate_exact_span": 0.0,
-                "chunk_counts": counts,
-                "chunk_count_mismatch": True,
-            }
-            deltas.append(
-                {
-                    "delta_id": f"DELTA-{book}-COUNT",
-                    "book": book,
-                    "region": book,
-                    "models": {mid: f"chunks={counts[mid]}" for mid in model_ids},
-                    "delta_kind": "split_count_mismatch",
-                    "priority": "high",
-                    "theology_risk_note": "",
-                    "governed_work_recommended": True,
-                    "non_authorizing": True,
-                    "promotion_authority": "none",
-                }
-            )
-            continue
-
-        max_chunks = max(counts.values()) if counts else 0
-        agreed_chunks = 0
-        for idx in range(1, max_chunks + 1):
-            span_by_model: dict[str, str] = {}
-            lit_by_model: dict[str, str] = {}
-            for mid in model_ids:
-                chunks = maps[mid].get(book, [])
-                match = next((c for c in chunks if int(c["chunk_index_in_book"]) == idx), None)
-                if match:
-                    span_by_model[mid] = normalize_span(str(match["span"]))
-                    lit_by_model[mid] = str(match.get("literature_type_guess", ""))
-
-            if len(span_by_model) < 2:
-                continue
-
-            span_groups: dict[str, list[str]] = defaultdict(list)
-            for mid, span in span_by_model.items():
-                span_groups[span].append(mid)
-
-            best_span = max(span_groups, key=lambda s: len(span_groups[s]))
-            agreeing = span_groups[best_span]
-            tier = agreement_tier(len(agreeing), n)
-            if tier and (allow_easy_at_n3 or n >= 4 or tier == "full_consensus"):
-                agreed_chunks += 1
-                agreements.append(
-                    {
-                        "book": book,
-                        "span": best_span,
-                        "chunk_index_in_book": idx,
-                        "models_agreeing": sorted(agreeing),
-                        "complete_model_count": n,
-                        "agreement_tier": tier,
-                        "literature_type_guess": lit_by_model.get(agreeing[0], ""),
-                        "easy_chunk": True,
-                        "non_authorizing": True,
-                        "promotion_authority": "none",
-                    }
-                )
-            else:
-                region = best_span
-                delta_kind = "boundary_shift"
-                if len(set(lit_by_model.get(m, "") for m in span_by_model)) > 1:
-                    delta_kind = "literature_routing_disagreement"
-                near = False
-                parsed = {mid: parse_span(span) for mid, span in span_by_model.items()}
-                mids = list(parsed)
-                for i in range(len(mids)):
-                    for j in range(i + 1, len(mids)):
-                        if is_near_miss(parsed[mids[i]], parsed[mids[j]]):
-                            near = True
-                            delta_kind = "boundary_shift"
-                            break
-                deltas.append(
-                    {
-                        "delta_id": f"DELTA-{book}-{idx:03d}",
-                        "book": book,
-                        "region": region,
-                        "chunk_index_in_book": idx,
-                        "models": span_by_model,
-                        "delta_kind": delta_kind,
-                        "near_miss": near,
-                        "priority": "high" if book in stress_books else "medium",
-                        "theology_risk_note": "stress_atlas_book" if book in stress_books else "",
-                        "governed_work_recommended": True,
-                        "non_authorizing": True,
-                        "promotion_authority": "none",
-                    }
-                )
-
-        rate = (agreed_chunks / max_chunks) if max_chunks else 0.0
+        book_chunks = {mid: maps[mid].get(book, []) for mid in model_ids}
+        result = compare_book_verse_coverage(
+            book_chunks,
+            book,
+            model_ids,
+            allow_easy_at_n3=allow_easy_at_n3,
+            stress_book=book in stress_books,
+            overlap_t417=book in overlap,
+        )
+        agreements.extend(result.span_consensus_chunks)
+        deltas.extend(result.boundary_deltas)
         per_book_stats[book] = {
-            "agreement_rate_exact_span": round(rate, 4),
-            "chunk_counts": counts,
-            "chunk_count_mismatch": False,
-            "chunks_compared": max_chunks,
-            "chunks_agreed": agreed_chunks,
+            "verse_coverage_agreement_rate": result.verse_coverage_agreement_rate,
+            "verses_total": result.verses_total,
+            "verses_agreed": result.verses_agreed,
+            "agreement_rate_exact_span": result.agreement_rate_exact_span_legacy,
+            "chunk_counts": result.chunk_counts,
+            "chunk_count_mismatch": len(set(result.chunk_counts.values())) > 1,
         }
 
-    total_chunks = sum(s.get("chunks_compared", 0) for s in per_book_stats.values())
-    total_agreed = sum(s.get("chunks_agreed", 0) for s in per_book_stats.values())
-    overall_rate = (total_agreed / total_chunks) if total_chunks else 0.0
+    total_verses = sum(s.get("verses_total", 0) for s in per_book_stats.values())
+    total_agreed = sum(s.get("verses_agreed", 0) for s in per_book_stats.values())
+    overall_verse_rate = (total_agreed / total_verses) if total_verses else 0.0
+
+    total_chunks = sum(
+        max(s.get("chunk_counts", {}).values()) if s.get("chunk_counts") else 0
+        for s in per_book_stats.values()
+    )
+    legacy_agreed = sum(
+        1 for a in agreements if a.get("book") in per_book_stats
+    )
+    overall_legacy_rate = (legacy_agreed / total_chunks) if total_chunks else 0.0
 
     false_consensus: list[dict[str, str]] = []
     for row in agreements:
@@ -251,7 +181,8 @@ def compare_models(
         "agreements": agreements,
         "deltas": deltas,
         "per_book_stats": per_book_stats,
-        "overall_agreement_rate": round(overall_rate, 4),
+        "overall_verse_coverage_agreement_rate": round(overall_verse_rate, 4),
+        "overall_agreement_rate": round(overall_legacy_rate, 4),
         "false_consensus_warnings": false_consensus,
     }
 
@@ -268,7 +199,7 @@ def write_outputs(result: dict[str, Any], *, dry_run: bool) -> None:
 
     top_disagreement = sorted(
         result["per_book_stats"].items(),
-        key=lambda item: item[1].get("agreement_rate_exact_span", 0),
+        key=lambda item: item[1].get("verse_coverage_agreement_rate", 0),
     )[:10]
 
     matrix = {
@@ -279,8 +210,10 @@ def write_outputs(result: dict[str, Any], *, dry_run: bool) -> None:
         "majority_required": result["majority_required"],
         "models_compared": result["model_ids"],
         "books_compared": result["books_compared"],
-        "overall_agreement_rate": result["overall_agreement_rate"],
+        "overall_verse_coverage_agreement_rate": result["overall_verse_coverage_agreement_rate"],
+        "overall_agreement_rate_exact_span_legacy": result["overall_agreement_rate"],
         "per_book": result["per_book_stats"],
+        "false_consensus_warnings": result["false_consensus_warnings"],
         "non_authorizing": True,
         "promotion_authority": "none",
     }
@@ -296,7 +229,7 @@ def write_outputs(result: dict[str, Any], *, dry_run: bool) -> None:
         "strategy": "focus_governed_work_on_disagreement_only",
         "easy_chunks_from_agreement": "agreement_chunks.jsonl",
         "delta_source": "disagreement_delta.jsonl",
-        "overall_agreement_rate": result["overall_agreement_rate"],
+        "overall_verse_coverage_agreement_rate": result["overall_verse_coverage_agreement_rate"],
         "priority_books": [b for b, _ in top_disagreement],
         "candidates": [
             {
@@ -324,14 +257,15 @@ def write_outputs(result: dict[str, Any], *, dry_run: bool) -> None:
         f"- Books compared: {len(result['books_compared'])}",
         "",
         "## Headline metrics",
-        f"- Overall agreement rate: {result['overall_agreement_rate']:.2%}",
+        f"- Overall verse-coverage agreement rate: {result['overall_verse_coverage_agreement_rate']:.2%}",
+        f"- Legacy exact-span rate (audit only): {result['overall_agreement_rate']:.2%}",
         f"- Easy chunk count: {len(result['agreements'])}",
         f"- Delta span count: {len(result['deltas'])}",
         "",
         "## Highest-disagreement books (top 10)",
     ]
     for book, stats in top_disagreement:
-        lines.append(f"- {book}: {stats.get('agreement_rate_exact_span', 0):.2%}")
+        lines.append(f"- {book}: {stats.get('verse_coverage_agreement_rate', 0):.2%}")
     lines.extend(
         [
             "",
@@ -375,6 +309,7 @@ def main() -> int:
     initial_target = int(model_count.get("initial_target", 5))
     interim_default = bool(rules.get("interim_compare_default_requires_initial_target", True))
     allow_easy_at_n3 = bool(rules.get("allow_easy_majority_at_n3", False))
+    t417_overlap = _load_t417_overlap_books(policy)
 
     folders = discover_model_folders(args.scratch_root)
     if not folders:
@@ -413,11 +348,12 @@ def main() -> int:
         selected,
         books=books,
         allow_easy_at_n3=allow_easy_at_n3,
+        t417_overlap_books=t417_overlap,
     )
     write_outputs(result, dry_run=args.dry_run)
     if not args.dry_run:
         print(f"OK: compared {result['complete_model_count']} models, {len(books)} books")
-        print(f"  agreement_rate={result['overall_agreement_rate']:.2%}")
+        print(f"  verse_coverage_agreement_rate={result['overall_verse_coverage_agreement_rate']:.2%}")
     return 0
 
 

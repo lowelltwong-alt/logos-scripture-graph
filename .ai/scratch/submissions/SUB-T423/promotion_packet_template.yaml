@@ -1,0 +1,29 @@
+---
+object_type: scratch_promotion_packet_template
+schema_version: scratch_promotion_packet_template.v1
+submission_id: SUB-T423
+task_id: T423
+status: template_only_not_submitted
+promotion_authority: none
+purpose: |
+  Handoff template when a T423 scratch agreement span may enter governed T410 review.
+  Fork agreement does NOT auto-promote. Owner + Codex gates still required.
+source_fork: whole_bible_multi_model_chunking_v1
+required_before_governed_review:
+  - batch_compare_complete
+  - span_listed_in_agreement_chunks_or_delta_queue
+  - owner_explicit_promotion_request
+  - codex_review_per_T410
+non_authorizations:
+  - scratch_map_as_reviewed_gold
+  - skip_owner_gate
+  - skip_codex_review
+  - canon_chunk_output_from_agreement_alone
+candidate_fields:
+  book: null
+  span: null
+  agreement_tier: null
+  models_agreeing: []
+  model_summary_refs: []
+  layer_decision_log_refs: []
+  t417_overlap_note: null

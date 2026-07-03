@@ -12,13 +12,17 @@ model_count:
   active_slots: [M1_cursor, M2_codex, M3_claude, M4_gemini, M5_composer_alt]
   reserved_slots: [M6, M7, M8, M9, M10]
   add_slot_template: models/_TEMPLATE/
-execution_mode: continuous_marathon_days_ok
-marathon_goal: all_66_books_set_and_forget
+execution_mode: one_model_book_segments_batch_compare_last
+marathon_goal: all_66_books_one_model_at_a_time
+storage_layout: book_chunks/<Book>/chunks.jsonl per model folder
+compare_mode: batch_offline_after_all_models_complete
+pilot_gate:
+  status: pending
+  mirrors: .ai/control/multi_model_whole_bible_chunking_fork.yaml
 strategy: |
-  Each model runs straight through all 66 books in its own folder without stopping for owner
-  gates. When models complete (default compare at 5; interim at 3), agreement = easy chunks;
-  delta = focus for governed work. Use Rust observation substrate first; compare via
-  scripts/compare_multi_model_bible_chunk_maps.py.
+  Each model chunks the entire Bible alone in its own folder (M1_cursor, M2_codex, ...).
+  Save one book at a time under book_chunks/<Book>/chunks.jsonl. No real-time cross-model work.
+  After all models finish 66 books locally, owner runs batch verse-coverage compare.
 shared_research_baseline: shared_research_baseline/research_baseline_manifest.yaml
 models:
   M1_cursor:

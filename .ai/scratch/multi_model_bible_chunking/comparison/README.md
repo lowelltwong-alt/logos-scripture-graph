@@ -1,42 +1,45 @@
-# Comparison — Agreement vs Delta
+# Comparison — Batch Offline Agreement vs Delta
 
-Run comparison **after** models complete marathons (or owner requests interim compare on completed books).
+**Only after** each model has saved all 66 books locally under `book_chunks/<Book>/chunks.jsonl` and merged maps.
 
-## Set-and-forget flow
+**No real-time compare** during chunking — one model at a time.
 
-1. Each model runs M1–M5 (or M6–M10) marathons independently → `whole_bible_chunk_map.jsonl`
+## Batch flow
+
+1. Each model finishes alone → `book_chunks/` per book → `t423_merge_book_chunks.py` → `whole_bible_chunk_map.jsonl`
 2. Check readiness: `python scripts/t423_marathon_status.py`
-3. Compare: `python scripts/compare_multi_model_bible_chunk_maps.py`
-4. Governed T410 work reads `disagreement_delta.jsonl` only — not consensus spans
+3. Owner runs batch compare: `python scripts/compare_multi_model_bible_chunk_maps.py`
+4. Revert signal: `python scripts/evaluate_t423_revert_signal.py`
+5. Governed T410 work reads `disagreement_delta.jsonl` only
+
+## Headline metric
+
+**Verse-coverage agreement rate** (`overall_verse_coverage_agreement_rate`) — not chunk-index alignment.
 
 ## Outputs
 
 | File | Meaning |
 |------|---------|
-| `agreement_chunks.jsonl` | Spans where models agree → **easy/consensus chunks** (`promotion_authority: none`) |
-| `disagreement_delta.jsonl` | Spans where models split differently → **focus here** |
-| `delta_focus_queue.yaml` | Prioritized governed-work queue from disagreement |
-| `model_agreement_matrix.yaml` | Per-book agreement rates |
+| `agreement_chunks.jsonl` | Consensus spans (`promotion_authority: none`) |
+| `disagreement_delta.jsonl` | Boundary disagreements → **focus here** |
+| `delta_focus_queue.yaml` | Prioritized governed-work queue |
+| `model_agreement_matrix.yaml` | Per-book verse-coverage rates |
 | `delta_summary.md` | Human/AI audit summary |
 
 ## Rules
 
 - **Minimum compare:** 3 complete models (`--interim`)
-- **Default compare:** 5 complete models (initial target)
-- **Maximum:** 10 models — add via `models/_TEMPLATE/` → `M6_*` … `M10_*`
-- **Full consensus:** exact same span across **all** complete models (N)
-- **Easy bucket:** exact same span across **≥ ceil(0.7 × N)** models (N=10 → 7 agreeing)
-- **At N=3:** easy bucket requires 3/3 (same as full consensus)
-- **Delta:** any boundary mismatch, split count difference, or span overlap disagreement
-- **Governed work (T410):** targets `disagreement_delta.jsonl` only — not consensus spans
+- **Default compare:** 5 complete models
+- **Easy bucket:** ≥ ceil(0.7 × N) models exact same span
+- **Delta kinds:** `boundary_shift`, `literature_routing_disagreement`, `coverage_gap` — not whole-book `split_count_mismatch`
 
 ## Scripts
 
 ```bash
 python scripts/t423_marathon_status.py
 python scripts/compare_multi_model_bible_chunk_maps.py
-python scripts/compare_multi_model_bible_chunk_maps.py --interim   # before 5 models done
-python scripts/compare_multi_model_bible_chunk_maps.py --book Phlm --book Jude
+python scripts/evaluate_t423_revert_signal.py --pilot-only
+python scripts/compare_multi_model_bible_chunk_maps.py --book Phlm --book Jude --book Jonah
 ```
 
 ## Non-authorizations

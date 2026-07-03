@@ -2,52 +2,48 @@
 
 ## Why this fork exists
 
-Speed up chunking by running **3–10 AI models** in **separate scratch folders** (initial target **5**), each doing a **continuous whole-Bible marathon** (days acceptable) from the **same research baseline**. Then:
+Speed up chunking by running **3–10 AI models** in **separate scratch folders** (initial target **5**). Each model chunks the **entire Bible alone**, saving **one book at a time** to `book_chunks/<Book>/chunks.jsonl`. **No real-time cross-model compare.** After all models finish 66 books locally, owner runs **batch verse-coverage compare**:
 
 - **Agreement** → easy/consensus chunks (low governed effort)
 - **Delta** → disagreement focus queue (where T410 work concentrates)
 
-If the fork fails → **revert to** `.ai/control/parallel_chunking_research_program.yaml` (original batch ladder).
+If the fork fails → **revert to** `.ai/control/parallel_chunking_research_program.yaml`.
 
 ## Scratch layout
 
 ```
 .ai/scratch/multi_model_bible_chunking/
   manifest.yaml
-  shared_research_baseline/     # same starting research for all models
-  M1_cursor/                    # independent chunk map
-  M2_codex/
-  M3_claude/
-  M4_gemini/
-  M5_composer_alt/              # optional 5th
-  comparison/                   # agreement vs delta (after marathons)
-  redteam/                      # pre-mortem reports
+  shared_research_baseline/
+  M1_cursor/book_chunks/Gen/chunks.jsonl ...
+  M2_codex/book_chunks/...
+  comparison/                   # batch compare outputs only
+  redteam/
+  MARATHON_PLAYBOOK.md
 ```
 
-## Policy
+## Pilot gate
 
-`.ai/control/multi_model_whole_bible_chunking_fork.yaml`
+Five pilot books (Gen, Ps, Phlm, Jonah, Rev) before full 66 on all models. Owner sets `pilot_gate.status: go` after batch pilot compare passes.
 
-## Marathon prompt
+## Marathon flow (one model, book segments)
 
-`.ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md`
+See `MARATHON_PLAYBOOK.md` and `.ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md`.
 
-## Red-team before marathons
+```bash
+python scripts/t423_resume_book.py .ai/scratch/multi_model_bible_chunking/M1_cursor
+python scripts/t423_merge_book_chunks.py .ai/scratch/multi_model_bible_chunking/M1_cursor
+python scripts/compare_multi_model_bible_chunk_maps.py   # after ALL models complete
+python scripts/evaluate_t423_revert_signal.py
+```
 
-`.ai/prompts/multi_model_whole_bible_chunking_redteam_premortem_prompt.md`
+## Post-fix audit
 
-Red-team report: `.ai/scratch/multi_model_bible_chunking/redteam/REDTEAM_PREMORTEM_REPORT.md` (HOLD → fixes applied).
+`.ai/prompts/multi_model_whole_bible_chunking_postfix_audit_prompt.md`
 
-## Set-and-forget marathon flow
+## Rust acceleration (Phase 2 — deferred)
 
-1. Init progress: `python scripts/t423_init_marathon_progress.py M1_cursor`
-2. Run marathon prompt per model folder (all 66 books, substrate-first)
-3. Status: `python scripts/t423_marathon_status.py`
-4. Compare: `python scripts/compare_multi_model_bible_chunk_maps.py`
-
-## Rust substrate (required)
-
-Read `build/observation_substrate/current/` before chunking. Future Rust compare acceleration planned; Python compare is canonical for now.
+Boundary-candidate index + Rust compare with Python parity tests. Python verse-coverage compare is canonical for now.
 
 ## Parallel work
 

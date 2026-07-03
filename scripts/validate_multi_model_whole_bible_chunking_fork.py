@@ -19,6 +19,12 @@ MODEL_IDS_OPTIONAL = ("M5_composer_alt",)
 COMPARE_SCRIPT = ROOT / "scripts" / "compare_multi_model_bible_chunk_maps.py"
 CHUNK_MAP_VALIDATOR = ROOT / "scripts" / "validate_whole_bible_chunk_map.py"
 MARATHON_STATUS = ROOT / "scripts" / "t423_marathon_status.py"
+MERGE_SCRIPT = ROOT / "scripts" / "t423_merge_book_chunks.py"
+RESUME_SCRIPT = ROOT / "scripts" / "t423_resume_book.py"
+SUPERVISOR_SCRIPT = ROOT / "scripts" / "t423_marathon_supervisor.py"
+REVERT_SCRIPT = ROOT / "scripts" / "evaluate_t423_revert_signal.py"
+PILOT_GATE = ROOT / "scripts" / "validate_t423_pilot_gate.py"
+PARALLEL_ISO = ROOT / "scripts" / "validate_t423_parallel_isolation.py"
 TEMPLATE = SCRATCH_ROOT / "models" / "_TEMPLATE"
 
 
@@ -80,23 +86,38 @@ def validate() -> list[str]:
     redteam_prompt = ROOT / ".ai/prompts/multi_model_whole_bible_chunking_redteam_premortem_prompt.md"
     if not redteam_prompt.is_file():
         errors.append(f"missing {_rel(redteam_prompt)}")
-    for script in (COMPARE_SCRIPT, CHUNK_MAP_VALIDATOR, MARATHON_STATUS):
+    for script in (
+        COMPARE_SCRIPT,
+        CHUNK_MAP_VALIDATOR,
+        MARATHON_STATUS,
+        MERGE_SCRIPT,
+        RESUME_SCRIPT,
+        SUPERVISOR_SCRIPT,
+        REVERT_SCRIPT,
+        PILOT_GATE,
+        PARALLEL_ISO,
+        ROOT / "scripts" / "t423_pin_substrate.py",
+    ):
         if not script.is_file():
             errors.append(f"missing {_rel(script)}")
+    rust = policy.get("rust_observation_substrate", {})
+    if not rust.get("required_before_marathon"):
+        errors.append("rust_observation_substrate.required_before_marathon must be true")
     if not TEMPLATE.is_dir():
         errors.append(f"missing {_rel(TEMPLATE)}")
     rules = policy.get("comparison_rules", {})
     if rules.get("compare_when_at_least_models", 0) < 3:
         errors.append("comparison_rules.compare_when_at_least_models must be >= 3")
     revert = policy.get("revert_policy", {}).get("revert_threshold", {})
-    if not revert.get("pilot_agreement_rate_minimum"):
-        errors.append("revert_policy.revert_threshold.pilot_agreement_rate_minimum required")
-    rust = policy.get("rust_observation_substrate", {})
-    if not rust.get("required_before_marathon"):
-        errors.append("rust_observation_substrate.required_before_marathon must be true")
+    if not revert.get("pilot_verse_coverage_agreement_rate_minimum"):
+        errors.append("revert_policy.revert_threshold.pilot_verse_coverage_agreement_rate_minimum required")
+    if not policy.get("pilot_gate", {}).get("required_books"):
+        errors.append("pilot_gate.required_books required")
     isolation = policy.get("parallel_path_isolation", {})
     if not isolation.get("forbidden_reads"):
         errors.append("parallel_path_isolation.forbidden_reads required")
+    if not isolation.get("worktree_required"):
+        errors.append("parallel_path_isolation.worktree_required must be true")
     manifest_data = _read_yaml(SCRATCH_MANIFEST) if SCRATCH_MANIFEST.is_file() else {}
     active = manifest_data.get("model_count", {}).get("active_slots", [])
     for mid in MODEL_IDS_REQUIRED:

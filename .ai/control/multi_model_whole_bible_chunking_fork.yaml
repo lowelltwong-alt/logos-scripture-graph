@@ -23,21 +23,28 @@ revert_policy:
   revert_does_not_delete: scratch_artifacts_remain_for_audit
   revert_threshold:
     pilot_books: [Gen, Ps, Phlm, Jonah, Rev]
-    pilot_agreement_rate_minimum: 0.60
-    full_marathon_agreement_rate_minimum: 0.50
+    pilot_verse_coverage_agreement_rate_minimum: 0.60
+    full_marathon_verse_coverage_agreement_rate_minimum: 0.50
+    shared_error_gate:
+      rule: flag_books_where_all_models_agree_and_stress_atlas_high_risk
+      does_not_auto_revert: true
+    legacy_exact_span_rate: deprecated_do_not_use_for_revert
     note: |
-      Measured by scripts/compare_multi_model_bible_chunk_maps.py overall_agreement_rate
-      after pilot books complete (early signal) or all 66 books (full marathon).
+      Measured by scripts/compare_multi_model_bible_chunk_maps.py
+      overall_verse_coverage_agreement_rate after batch offline compare.
+      Evaluate with scripts/evaluate_t423_revert_signal.py.
 strategy_summary: |
-  Set-and-forget: run 3-10 independent models in separate scratch folders on one continuous
-  whole-Bible marathon (all 66 books; days acceptable). Initial target is 5 models; owner may
-  scale to 10. Each model chunks 100% of the WEB Bible from the same research baseline and
-  Rust observation substrate. Agreement = easy/consensus chunks. Delta = governed T410 focus.
+  Each model chunks the entire WEB Bible alone in its own folder, saving one book at a time
+  under book_chunks/<Book>/chunks.jsonl (context/memory safe). No real-time cross-model work.
+  After all models finish all 66 books locally, owner runs batch verse-coverage compare.
+  Agreement = easy chunks; delta = governed T410 focus.
 marathon_goal:
   scope: all_66_canonical_books
-  mode: set_and_forget_continuous_run
+  mode: one_model_at_a_time_book_segments
+  persist_per_book: book_chunks/<Book>/chunks.jsonl
+  no_realtime_cross_model_compare: true
+  batch_compare_when: all_target_models_marathon_complete_or_owner_pilot_compare
   stop_when: marathon_progress.yaml marathon_status complete for model folder
-  do_not_stop_between_books: true
 model_count:
   minimum_to_compare: 3
   initial_target: 5
@@ -45,11 +52,28 @@ model_count:
   owner_may_add_slots: M6_through_M10_without_policy_rewrite
 scratch_root: .ai/scratch/multi_model_bible_chunking/
 execution_mode:
-  style: continuous_marathon
-  acceptable_duration: days_straight
+  style: one_model_independent_marathon
+  persist_layout: book_chunks/<Book>/chunks.jsonl
+  one_book_per_session: true
+  acceptable_duration: days_with_resume
   stop_when: all_model_folders_complete_whole_bible_map
   do_not_stop_for: per_book_owner_gates_in_scratch
-  compare_when: all_models_complete_or_owner_requests_interim_compare
+  compare_when: all_models_complete_batch_offline_only
+  forbidden_during_marathon:
+    - read_other_model_chunk_maps
+    - read_comparison_folder
+    - realtime_two_model_same_verse_work
+pilot_gate:
+  status: pending
+  required_books: [Gen, Ps, Phlm, Jonah, Rev]
+  required_complete_models: 4
+  required_checks:
+    verse_coverage_agreement_rate_minimum: 0.60
+    batch2_span_surfaces:
+      - {book: Phlm, span: Phlm.1.1-Phlm.1.7}
+      - {book: Jude, span: Jude.1.1-Jude.1.2}
+      - {book: Jonah, span: Jonah.1.1-Jonah.1.3}
+  full_marathon_blocked_until: pilot_gate.status == go
 model_slots:
   - model_id: M1_cursor
     agent_surface: cursor
@@ -137,6 +161,9 @@ rust_observation_substrate:
     Rust compare module lands; keep schema compatible.
 parallel_path_isolation:
   rule: T423_marathons_must_not_read_T417_batch2_layer_outputs
+  worktree_required: true
+  branch_prefix: scratch/t423-
+  overlap_books_with_T417_batch2: [Phlm, Jonah, Jude]
   forbidden_reads:
     - .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/
     - .ai/context/agent_work/T417/model_layers/batch2/L2_codex/
@@ -145,23 +172,24 @@ parallel_path_isolation:
     - .ai/scratch/multi_model_bible_chunking/comparison/
   forbidden_until_own_marathon_complete:
     - other_model_whole_bible_chunk_map.jsonl
-  worktree_recommended: one_worktree_per_model_slot
-  note: T417 batch2 and T423 fork run in parallel; do not cross-contaminate rationales.
+  note: Each model runs alone in its own worktree/folder. Batch compare only after all save 66 books.
+per_model_outputs:
+  required:
+    - model_manifest.yaml
+    - book_chunks/
+    - marathon_progress.yaml
+    - layer_decision_log.jsonl
+    - model_summary.md
+  merged_after_complete:
+    - whole_bible_chunk_map.jsonl
+  optional:
+    - book_level_notes/
+    - disagreement_notes/
 frontier_flag_books:
   description: All 66 books in marathon scope; these require frontier_flag in chunk map
   books: [Dan, Rev]
   required_field_when_book_in_map: frontier_flag_considered
   does_not_exclude_from_marathon: true
-per_model_outputs:
-  required:
-    - model_manifest.yaml
-    - whole_bible_chunk_map.jsonl
-    - marathon_progress.yaml
-    - layer_decision_log.jsonl
-    - model_summary.md
-  optional:
-    - book_level_notes/
-    - disagreement_notes/
 chunk_map_record_schema:
   required_fields:
     - model_id
@@ -198,7 +226,12 @@ comparison_rules:
   allow_easy_majority_at_n3: false
   n3_easy_tier_note: at N=3 ceil(0.7*3)=3 so easy_majority equals full_consensus
   compare_script: scripts/compare_multi_model_bible_chunk_maps.py
+  merge_book_chunks_script: scripts/t423_merge_book_chunks.py
+  resume_book_script: scripts/t423_resume_book.py
+  marathon_supervisor_script: scripts/t423_marathon_supervisor.py
+  revert_signal_script: scripts/evaluate_t423_revert_signal.py
   marathon_status_script: scripts/t423_marathon_status.py
+  compare_mode: batch_offline_after_all_models_complete
   agreement_tiers:
     full_consensus:
       rule: same_span_exact_match_across_all_complete_models
@@ -228,6 +261,12 @@ validators:
   - scripts/validate_whole_bible_chunk_map.py
   - scripts/compare_multi_model_bible_chunk_maps.py
   - scripts/t423_marathon_status.py
-  - scripts/validate_whole_bible_chunk_map.py
+  - scripts/t423_merge_book_chunks.py
+  - scripts/t423_resume_book.py
+  - scripts/t423_marathon_supervisor.py
+  - scripts/t423_pin_substrate.py
+  - scripts/evaluate_t423_revert_signal.py
+  - scripts/validate_t423_pilot_gate.py
+  - scripts/validate_t423_parallel_isolation.py
   - scripts/validate_scratch_scope.py
   - scripts/validate_scratch_lane_policy.py
