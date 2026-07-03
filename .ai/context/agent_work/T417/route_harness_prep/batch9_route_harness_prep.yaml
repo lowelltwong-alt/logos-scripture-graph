@@ -1,0 +1,41 @@
+---
+object_type: route_isolation_harness_prep_packet
+schema_version: route_isolation_harness_prep_packet.v1
+batch_id: batch9
+status: harness_prep_pending_codex
+harness_reference: scripts/chunking/route_isolation_harness.py
+precedent: .ai/control/t415_batch1_route_isolation_harness.yaml
+checks_prep_only:
+- non_target_byte_identity_comparison
+- exact_parent_target_change_allowance_only
+- child_span_denial_check
+target_spans:
+- 2Sam.23.8-2Sam.23.39
+- 1Kgs.4.1-1Kgs.4.19
+- 2Kgs.15.32-2Kgs.15.38
+- 1Chr.1.1-1Chr.1.54
+- 2Chr.9.13-2Chr.9.28
+candidates:
+- candidate_id: T402-LC-010
+  span: 2Sam.23.8-2Sam.23.39
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2sam_mighty_men_gold_promotion_prep.yaml
+- candidate_id: T402-LC-011
+  span: 1Kgs.4.1-1Kgs.4.19
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1kgs_officials_gold_promotion_prep.yaml
+- candidate_id: T402-LC-012
+  span: 2Kgs.15.32-2Kgs.15.38
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2kgs_regnal_notice_gold_promotion_prep.yaml
+- candidate_id: T402-LC-013
+  span: 1Chr.1.1-1Chr.1.54
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/1chr_genealogy_gold_promotion_prep.yaml
+- candidate_id: T402-LC-014
+  span: 2Chr.9.13-2Chr.9.28
+  gold_promotion_prep: .ai/context/agent_work/T417/reviewed_gold_promotion_prep/2chr_inventory_gold_promotion_prep.yaml
+non_authorizations:
+- chunk_output_change
+- child_span_selection
+- route_behavior_change
+- reviewed_gold_promotion
+- harness_execution_in_scratch
+reviewer_notes: Scratch lane route-isolation harness PREP only. Checklist references
+  T415 harness; no harness run or output change authorized in scratch.

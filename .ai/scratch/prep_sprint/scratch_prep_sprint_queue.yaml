@@ -1,0 +1,93 @@
+---
+object_type: scratch_prep_sprint_queue
+schema_version: scratch_prep_sprint_queue.v1
+---
+object_type: scratch_prep_sprint_queue
+schema_version: scratch_prep_sprint_queue.v1
+sprint_id: prep_sprint_8h_marathon
+branch_prefix: scratch/
+batch_size: 5
+session_target_hours: 8
+stop_when: all_queued_batches_complete
+validation_per_commit:
+- python scripts/validate_scratch_scope.py
+- python scripts/scratch_prep_sprint.py --validate-only
+agent_run_loop: '# 8-hour scratch marathon — one batch per commit (~25 min/batch budget)
+
+  python scripts/scratch_prep_sprint.py --run-queued
+
+  python scripts/validate_scratch_scope.py
+
+  git add -A && git commit -m "scratch: batch<N> review packet drafts"
+
+  # Repeat until queue empty; then open promotion PRs SUB-003..SUB-006
+
+  '
+batches:
+- batch_id: batch4
+  lane: short_epistle_continued
+  status: complete
+  candidates:
+  - T402-LC-051
+  - T402-LC-052
+  - T402-LC-053
+  - T402-LC-055
+  - T402-LC-056
+- batch_id: batch5
+  lane: epistle_tail
+  status: complete
+  candidates:
+  - T402-LC-058
+  - T402-LC-060
+  - T402-LC-063
+  - T402-LC-059
+  - T402-LC-064
+- batch_id: batch6
+  lane: nt_letters_gospels
+  status: complete
+  candidates:
+  - T402-LC-047
+  - T402-LC-054
+  - T402-LC-045
+  - T402-LC-040
+  - T402-LC-041
+- batch_id: batch7
+  lane: gospels_prophets_psalms
+  status: complete
+  candidates:
+  - T402-LC-042
+  - T402-LC-037
+  - T402-LC-019
+  - T402-LC-006
+  - T402-LC-007
+- batch_id: batch8
+  lane: torah_historical_lists
+  status: complete
+  candidates:
+  - T402-LC-001
+  - T402-LC-002
+  - T402-LC-004
+  - T402-LC-008
+  - T402-LC-009
+- batch_id: batch9
+  lane: historical_chronicles
+  status: complete
+  candidates:
+  - T402-LC-010
+  - T402-LC-011
+  - T402-LC-012
+  - T402-LC-013
+  - T402-LC-014
+- batch_id: batch10
+  lane: restoration_lists
+  status: complete
+  candidates:
+  - T402-LC-015
+  - T402-LC-016
+promotion_packets:
+- SUB-001
+- SUB-002
+- SUB-003
+- SUB-004
+- SUB-005
+- SUB-006

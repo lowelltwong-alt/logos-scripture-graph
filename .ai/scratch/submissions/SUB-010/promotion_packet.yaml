@@ -1,0 +1,59 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-010
+source_branch: scratch/phase-ladder-678
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+  - harness_prep_references_executable_script_without_running_it
+  low:
+  - batch1_output_candidates_skipped_by_design
+decisions:
+- decision_id: D-001
+  choice: Phase 7 route isolation harness PREP (9 batches)
+  rationale: Scratch lane pre-builds governed ladder prep under agent_work only; no
+    eval/chunking_gold or chunk output
+  alternatives_rejected:
+  - Write directly to eval/chunking_gold
+  - Run route isolation harness in scratch
+  - Regenerate chunk output for overlay hashes
+  might_be_wrong: Codex may HOLD if prep implies authority from standing phrase alone
+  confidence: medium
+evidence_refs:
+- .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+- .ai/context/agent_work/T417/route_harness_prep/
+- .ai/control/t415_batch1_output_pilot_manifest.yaml
+validators_run_in_scratch:
+- python .ai/scratch/prep_sprint/run_phase_ladder.py --validate-only
+- python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-010/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+- reviewed_gold_promotion
+- chunk_output_change
+- child_span_selection
+- standing_policy_activation
+- harness_execution_in_scratch
+- ladder_auto_unlock_from_standing_phrase
+reviewer_notes_for_codex: Phase 7 route isolation harness PREP (9 batches). All artifacts
+  keep explicit false authorizations and live under agent_work only. Owner APPROVE_STANDING_ESCALATION_POLICY
+  plus per-step Codex gates still required.
+files_promoted:
+- .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
+- .ai/scratch/prep_sprint/run_phase_ladder.py
+- .ai/context/agent_work/T417/route_harness_prep/batch10_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch2_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch3_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch4_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch5_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch6_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch7_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch8_route_harness_prep.yaml
+- .ai/context/agent_work/T417/route_harness_prep/batch9_route_harness_prep.yaml
+vendor_imports: []

@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T411
+last_updated_by_task: T417
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1630,21 +1630,25 @@ lessons:
     validators:
       - scripts/validate_t416_batch1_post_pilot_review.py
   - lesson_id: LSN-041
-    title: Standing owner escalation policy decide-once ladder
+    title: Standing owner disposition is not step authorization
     lifecycle_status: active
     priority: mandatory_preflight
     categories: [workflow_governance, owner_decision]
-    tags: [t421, standing-escalation-policy, decide-once, batch2, batch3]
+    tags: [t421, standing-escalation-policy, standing-disposition, per-step-gates, batch2, batch3]
     use_when:
-      - "Owner is ready to approve APPROVE_STANDING_ESCALATION_POLICY for batch2+3 ladder."
+      - "Owner is ready to record APPROVE_STANDING_ESCALATION_POLICY as a standing disposition for batch2+3 and similar ready candidates."
+      - "A future agent could mistake a standing disposition for reviewed-gold, route-harness, output, child-span, or implementation authorization."
     preflight_stage: before_standing_ladder_strengthening_or_output
     source_surfaces:
       - .ai/control/standing_owner_escalation_policy.yaml
+      - .ai/scratch/submissions/SUB-009/promotion_packet.yaml
+      - .ai/scratch/submissions/SUB-010/promotion_packet.yaml
+      - .ai/scratch/submissions/SUB-011/promotion_packet.yaml
       - scripts/validate_standing_owner_escalation_policy.py
     related_decision_ids: [CD-086]
     related_workflow_lesson_ids: []
     related_task_ids: [T421, T417]
-    downstream_risk: "Treating draft standing policy as active authorizes gold/output without owner phrase."
+    downstream_risk: "Treating standing disposition as step authorization can skip per-step owner/Codex gates and smuggle reviewed-gold or output authority into prep work."
     required_preflight_surfaces:
       - .ai/control/standing_owner_escalation_policy.yaml
     validators:
@@ -1652,6 +1656,8 @@ lessons:
     non_authorizations:
       - reviewed_gold_promotion
       - chunk_output_change
+      - route_harness_execution
+      - step_authorization_from_standing_phrase
   - lesson_id: LSN-040
     title: Scratch lane fast prep with promotion packet review
     lifecycle_status: active
@@ -1664,6 +1670,11 @@ lessons:
     preflight_stage: before_scratch_lane_work_or_promotion_pr
     source_surfaces:
       - .ai/control/scratch_lane_policy.yaml
+      - .ai/audits/reports/scratch/20260605-T417-phase-ladder-345-scratch.md
+      - .ai/audits/reports/scratch/20260605-T417-phase-ladder-678-scratch.md
+      - .ai/audits/reports/20260702-T417-scratch-marathon-session-close.md
+      - .ai/scratch/prep_sprint/run_phase_ladder.py
+      - .ai/scratch/prep_sprint/scratch_phase_ladder_queue.yaml
       - .ai/scratch/submissions/_template/promotion_packet.yaml
       - .ai/prompts/codex_promotion_packet_review_prompt.md
       - scripts/validate_scratch_scope.py

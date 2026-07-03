@@ -18,7 +18,10 @@ based_on_precedent:
 authority:
   records_standing_escalation_dispositions: true
   records_standing_ladder_scope: true
-  replaces_per_batch_owner_docket_when_active: true
+  replaces_per_batch_owner_docket_when_active: false
+  records_batch_disposition_without_step_authority: true
+  requires_step_specific_owner_and_codex_gates: true
+  authorizes_step_execution_by_default: false
   authorizes_prep_and_draft_by_default: true
   authorizes_review_packet_strengthening: false
   authorizes_reviewed_gold_promotion: false
@@ -27,13 +30,20 @@ authority:
   authorizes_hold_clearing: false
   authorizes_theology_authority_change: false
 owner_one_time_approval:
-  summary: "Approve once to let agents run the full prep→strengthening→gold→output ladder for every in-scope candidate that matches a proceed disposition, without another per-batch docket."
+  summary: "Approve once to record standing owner dispositions and reusable scope rules for in-scope candidates. This does not authorize review-packet strengthening, reviewed-gold promotion, route-harness execution, chunk output, child spans, or implementation; each step still requires its own explicit owner gate plus Codex review."
   approval_phrase: APPROVE_STANDING_ESCALATION_POLICY
   on_approval:
     status: active
     lifecycle_status: active
     decision_register_entry: CD-086
     lesson_index_entry: LSN-041
+  after_approval_still_requires:
+    - explicit_owner_gate_for_review_packet_strengthening
+    - explicit_owner_gate_for_reviewed_gold_promotion
+    - explicit_owner_gate_for_route_harness_execution
+    - explicit_owner_gate_for_output_pilot
+    - codex_promotion_review_for_each_step
+    - validator_and_identity_proof_for_each_output_step
   until_approved:
     allowed_without_approval:
       - cursor_prep_and_draft_packets
@@ -46,6 +56,16 @@ owner_one_time_approval:
       - chunk_output_under_standing_rules
 standing_ladder_authorization:
   enabled_when_policy_active: true
+  records_scope_and_sequence_only: true
+  authorizes_review_packet_strengthening: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_harness_execution: false
+  authorizes_output_pilot: false
+  required_step_gates:
+    - explicit_owner_gate_for_step
+    - codex_promotion_review_for_step
+    - step_specific_validators
+    - non_target_identity_proof_before_output
   model: t415_batch1_parent_only_additive_overlays
   batch_size_recommended: 5
   autonomous_order: best_efficiency_lane_batching
@@ -83,9 +103,9 @@ standing_ladder_authorization:
     - whole_bible_output_pass
 disposition_definitions:
   proceed_parent_only_through_ladder:
-    meaning: "Text-local parent-only span may run prep→strengthening→gold→output under batch-1 guards when policy is active."
+    meaning: "Text-local parent-only span may enter the governed parent-only ladder sequence when policy is active; every strengthening, gold, harness, and output step still needs explicit owner and Codex gates."
   proceed_parent_only_with_frontier_note:
-    meaning: "Same as proceed_parent_only_through_ladder; record frontier_review note in strengthening packet but do not use ethics/typology as boundary authority."
+    meaning: "Same as proceed_parent_only_through_ladder, with required frontier note; ethics/typology remain evidence-only and every later step still needs explicit owner and Codex gates."
   proceed_prep_and_draft_only:
     meaning: "Cursor may research and draft; no strengthening/gold/output until queue status or disposition changes."
   hold_no_strengthening:

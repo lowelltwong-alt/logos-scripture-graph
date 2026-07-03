@@ -1,0 +1,74 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-006
+source_branch: codex/scratch-prep-marathon-8h
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - genealogy_theology_Gen_1Chr
+    - typology_law_covenant_Exod_offering_list
+    - kingdom_theology_historical_lists
+    - restoration_theology_Ezra_Neh
+    - harmonization_parallel_accounts_2Sam_2Kgs_2Chr
+  low:
+    - batch8_batch9_batch10_draft_wording_may_need_strengthening_pass
+decisions:
+  - decision_id: D-001
+    choice: Keep batch8, batch9, and batch10 spans parent-only per standing policy dispositions
+    rationale: List-shaped Torah/historical/restoration units from T411; tribal, royal, and restoration theology non-authorizing
+    alternatives_rejected:
+      - Split Gen genealogy at Shem/Ham/Japheth theology pivot
+      - Use Ezra-Neh parallel list harmonization as boundary evidence
+      - Use kingdom evaluation theology as 1Kgs officials list boundary
+    might_be_wrong: Long lists (1Chr, Ezra, Neh) may need explicit parent-only scope language in strengthening
+    confidence: medium
+  - decision_id: D-002
+    choice: Promote prep artifacts only (drafts + traceability), not gold or output
+    rationale: Standing policy remains draft_pending_owner_approval
+    alternatives_rejected:
+      - Merge OT list drafts without promotion packet
+    might_be_wrong: Codex may HOLD if harmonization flags not clearly non-boundary
+    confidence: high
+evidence_refs:
+  - .ai/context/agent_work/T417/claim_traceability_batch8.jsonl
+  - .ai/context/agent_work/T417/claim_traceability_batch9.jsonl
+  - .ai/context/agent_work/T417/claim_traceability_batch10.jsonl
+  - .ai/context/agent_work/T411/confidence_register.jsonl
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_t417_batch2_review_packet_drafts.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-006/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing
+  - standing_policy_activation
+reviewer_notes_for_codex: |
+  Batch8 (Gen, Exod, Num, Ruth, 1Sam) + batch9 (2Sam, 1Kgs, 2Kgs, 1Chr, 2Chr) + batch10 (Ezra, Neh).
+  OT list and restoration prep artifacts from marathon sprint. Exhausts ready_for_review_packet backlog.
+  No gold or output without owner standing policy approval.
+files_promoted:
+  - .ai/context/agent_work/T417/review_packet_drafts/gen_genealogy_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/exod_offering_list_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/num_census_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/ruth_genealogy_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/1sam_gift_list_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch8.jsonl
+  - .ai/context/agent_work/T417/review_packet_drafts/2sam_mighty_men_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/1kgs_officials_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/2kgs_regnal_notice_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/1chr_genealogy_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/2chr_inventory_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch9.jsonl
+  - .ai/context/agent_work/T417/review_packet_drafts/ezra_returnee_list_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/neh_returnee_list_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch10.jsonl
+vendor_imports: []

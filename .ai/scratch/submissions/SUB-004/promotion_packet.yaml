@@ -1,0 +1,61 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-004
+source_branch: codex/scratch-prep-marathon-8h
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - hebrews_priesthood_argument_Heb_closing
+    - babylon_identity_1Pet_closing
+    - faith_works_theology_Jas_opening
+    - identity_claim_2John_opening
+  low:
+    - batch5_draft_wording_may_need_strengthening_pass
+decisions:
+  - decision_id: D-001
+    choice: Keep batch5 spans parent-only per standing policy dispositions
+    rationale: Bounded epistle openings/closings from T411 claims; high-risk theology stays non-boundary
+    alternatives_rejected:
+      - Extend Heb closing into priesthood argument in ch1-10
+      - Use Jas faith/works discourse as greeting boundary
+      - Resolve elect-lady identity as chunk authority in 2John
+    might_be_wrong: Heb and Jas may need stronger frontier language in strengthening pass
+    confidence: medium
+  - decision_id: D-002
+    choice: Promote prep artifacts only (drafts + traceability), not gold or output
+    rationale: Standing policy remains draft_pending_owner_approval
+    alternatives_rejected:
+      - Merge batch5 drafts without promotion packet
+    might_be_wrong: Codex may HOLD if priesthood pressure not clearly non-authorizing in draft
+    confidence: high
+evidence_refs:
+  - .ai/context/agent_work/T417/claim_traceability_batch5.jsonl
+  - .ai/context/agent_work/T411/confidence_register.jsonl
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_t417_batch2_review_packet_drafts.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-004/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing
+  - standing_policy_activation
+reviewer_notes_for_codex: |
+  Batch5 drafts (Heb, 1Pet, 2John, Jas, 3John) — epistle tail from marathon sprint.
+  Prep artifacts only. Priesthood and faith/works pressures must remain escalation-only.
+files_promoted:
+  - .ai/context/agent_work/T417/review_packet_drafts/heb_closing_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/1pet_closing_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/2john_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/jas_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/3john_opening_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch5.jsonl
+vendor_imports: []

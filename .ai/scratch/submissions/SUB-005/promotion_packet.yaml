@@ -1,0 +1,68 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-005
+source_branch: codex/scratch-prep-marathon-8h
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - apostolic_authority_2Cor_opening
+    - gospel_genealogy_christology_Matt_Mark_Luke
+    - rom_theology_pressure_opening
+    - conquest_theology_Josh_list
+  low:
+    - batch6_batch7_draft_wording_may_need_strengthening_pass
+decisions:
+  - decision_id: D-001
+    choice: Keep batch6 and batch7 spans parent-only per standing policy dispositions
+    rationale: NT letter openings and gospel/prophet/psalm bounded units from T411; theology flags evidence-only
+    alternatives_rejected:
+      - Split Rom at doctrinal pivot before ch1 v18
+      - Use Matt genealogy christology as structural boundary
+      - Use Josh conquest theology as kings-list boundary
+    might_be_wrong: Gospel openings may need original-language review notes before strengthening
+    confidence: medium
+  - decision_id: D-002
+    choice: Promote prep artifacts only (drafts + traceability), not gold or output
+    rationale: Standing policy remains draft_pending_owner_approval
+    alternatives_rejected:
+      - Single PR without promotion packet for NT+gospel mix
+    might_be_wrong: Codex may HOLD if gospel christology pressure under-documented
+    confidence: high
+evidence_refs:
+  - .ai/context/agent_work/T417/claim_traceability_batch6.jsonl
+  - .ai/context/agent_work/T417/claim_traceability_batch7.jsonl
+  - .ai/context/agent_work/T411/confidence_register.jsonl
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_t417_batch2_review_packet_drafts.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-005/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing
+  - standing_policy_activation
+reviewer_notes_for_codex: |
+  Batch6 (2Cor, 1Tim, Rom, Matt, Mark) + batch7 (Luke, Hag, Ps117, Josh, Judg) from marathon sprint.
+  Combined SUB-005 for NT letters and gospels/prophets prep artifacts. No gold or output.
+files_promoted:
+  - .ai/context/agent_work/T417/review_packet_drafts/2cor_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/1tim_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/rom_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/matt_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/mark_opening_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch6.jsonl
+  - .ai/context/agent_work/T417/review_packet_drafts/luke_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/hag_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/ps117_whole_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/josh_kings_list_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/judg_minor_judges_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch7.jsonl
+vendor_imports: []

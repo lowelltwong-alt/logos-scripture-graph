@@ -1,0 +1,59 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-002
+source_branch: codex/scratch-prep-sprint-batch4
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high: []
+  medium:
+    - election_assurance_framing_1Thess_opening
+    - eschatological_system_2Thess_opening
+    - church_office_theology_Titus_opening
+  low:
+    - batch3_draft_wording_may_need_strengthening_pass
+decisions:
+  - decision_id: D-001
+    choice: Keep batch3 spans parent-only per standing policy dispositions
+    rationale: Text-local opening/closing structure from T411 claims; theology flags evidence-only
+    alternatives_rejected:
+      - Split Gal at theological pivot before ch2
+      - Use Eph ecclesiology as boundary evidence in closing
+      - Use Phil epistle argument as structural boundary
+    might_be_wrong: Frontier notes may need explicit strengthening language before owner activates standing policy
+    confidence: medium
+  - decision_id: D-002
+    choice: Promote prep artifacts only (drafts + traceability), not gold or output
+    rationale: Standing policy remains draft_pending_owner_approval
+    alternatives_rejected:
+      - Skip promotion packet and merge drafts directly
+    might_be_wrong: Codex may HOLD if traceability incomplete
+    confidence: high
+evidence_refs:
+  - .ai/context/agent_work/T417/claim_traceability_batch3.jsonl
+  - .ai/context/agent_work/T411/confidence_register.jsonl
+  - .ai/control/standing_owner_escalation_policy.yaml
+validators_run_in_scratch:
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_t417_batch2_review_packet_drafts.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-002/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing
+  - standing_policy_activation
+reviewer_notes_for_codex: |
+  Batch3 drafts (Gal/Eph/Phil) are ready for integrator review on scratch lane.
+  Batch4 drafts generated in same sprint branch; SUB-002 scope is batch3 prep artifacts only.
+  Owner must still say APPROVE_STANDING_ESCALATION_POLICY before strengthening/gold/output.
+files_promoted:
+  - .ai/context/agent_work/T417/review_packet_drafts/gal_opening_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/eph_closing_draft.md
+  - .ai/context/agent_work/T417/review_packet_drafts/phil_opening_draft.md
+  - .ai/context/agent_work/T417/claim_traceability_batch3.jsonl
+vendor_imports: []

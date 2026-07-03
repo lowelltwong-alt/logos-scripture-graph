@@ -1,8 +1,15 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-02
-**Updated by:** T420 multi-agent review cadence charter
-**Active task:** -> **T420 multi-agent review cadence** is complete; **T417 autonomous batch2 prep** is the active prep branch.
+**Updated by:** T417 scratch marathon session close
+**Active task:** -> **T417 scratch prep backlog is complete** on `codex/scratch-prep-marathon-8h` (PR #130). Next owner gate: `APPROVE_STANDING_ESCALATION_POLICY` (CD-086).
+
+> **T417 scratch marathon + phase ladder (2026-07-02):** Exhausted all 38 `ready_for_review_packet`
+> candidates with non-authorizing prep only: drafts, strengthening prep, owner-gate prep, gold/harness/output
+> prep under `.ai/context/agent_work/T417/`. Promotion packets SUB-001 through SUB-011 filed.
+> Codex approved prep promotion for SUB-001..006 and SUB-009..011; SUB-007/008 remediated after integrator HOLD.
+> Standing policy readiness `APPROVE_PREP` after per-step gate wording fix. No reviewed gold, chunk output,
+> child spans, harness execution, or standing activation occurred in scratch lane.
 
 > **T420 multi-agent review cadence (2026-07-02):** Recorded the canonical operating model:
 > Cursor prep until backlog empty; Codex daily integrator (`APPROVE_PREP` / `HOLD_WITH_FINDINGS`);
