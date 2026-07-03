@@ -409,6 +409,19 @@ but not safe to update in this PR: at least one candidate repo was on an unrelat
 candidate repos had untracked or modified local files. Cross-repo LawFirm/FMG updates should be a
 separate, repo-scoped PR after selecting the authoritative repo and confirming a clean worktree.
 
+## WORKFLOW-LESSON-004 - Experimental Forks Notify DAD And Reserve Lesson Slots
+
+When this repo tries an experimental strategy fork (e.g. T423 whole-Bible multi-model chunking),
+record it for the Digital Asset Directory hub before marathons start:
+
+- Append to `.digital-asset/mail/outbox.jsonl` (candidate-only, local adoption required).
+- Add or update `.digital-asset/context-map.json` entry.
+- Reserve `.digital-asset/lessons/<fork>.yaml` with `status: pending_experiment`.
+- On success or failure, append follow-up outbox message and fill lesson fields — do not treat
+  DAD mail as canon authority.
+
+DAD integration: `.digital-asset/dad-integration.json` | Hub: `dad://hub/Digital-Assett-Directory`
+
 ## T327 Application Notes
 
 - Generated canonical outputs were corrected by generator/config/CI validation, not by committing

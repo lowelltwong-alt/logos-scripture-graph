@@ -1,0 +1,134 @@
+---
+object_type: scratch_multi_model_ladder_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-03 after owner requested full scratch-ladder work by multiple models with transparent decisions for later AI comparison and audit."
+reason_for_inclusion: "Run the entire parent-only ladder in scratch with isolated per-model layers before any canon promotion; Codex/Claude/Gemini compare layers at the end."
+---
+schema_version: scratch_multi_model_ladder_policy.v1
+policy_id: scratch_multi_model_ladder_policy
+task_id: T417
+status: active_non_authorizing_process_policy
+owner: Lowell Wong
+based_on:
+  - .ai/control/scratch_lane_policy.yaml
+  - .ai/control/multi_agent_review_cadence.yaml
+  - .ai/control/standing_owner_escalation_policy.yaml
+workflow_model: scratch_full_ladder_then_multi_model_compare
+authority:
+  records_multi_model_scratch_ladder: true
+  authorizes_scratch_layer_writes: true
+  authorizes_canon_promotion: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_chunk_output_change: false
+  authorizes_per_step_owner_gate_bypass_in_scratch: true
+  requires_codex_bundle_review_before_canon: true
+scratch_root_pattern: .ai/context/agent_work/<TASK_ID>/model_layers/<batch_id>/
+layer_stack:
+  - layer_id: L1_cursor
+    agent_surface: cursor
+    model_profile: composer_fast_prep
+    operational_role: full_scratch_ladder_executor
+    must_complete_independently: true
+    outputs:
+      - strengthened_review_packets/
+      - gold_candidacy_assessment.yaml
+      - harness_scratch_assessment.yaml
+      - output_pilot_scratch_assessment.yaml
+      - layer_decision_log.jsonl
+      - layer_summary.md
+  - layer_id: L2_codex
+    agent_surface: codex
+    model_profile: executor_integrator
+    operational_role: independent_integrator_review
+    prompt: .ai/prompts/scratch_layer_codex_integrator_prompt.md
+    must_complete_independently: true
+    must_not_read_other_layer_decisions_before_own: true
+    outputs:
+      - gold_candidacy_assessment.yaml
+      - strengthening_gaps.md
+      - layer_decision_log.jsonl
+      - layer_summary.md
+      - codex_promotion_suggestion.yaml
+  - layer_id: L3_claude
+    agent_surface: claude
+    model_profile: reasoner_architecture_auditor
+    preferred_model: claude-opus-4.8
+    operational_role: theology_and_governance_audit
+    prompt: .ai/prompts/scratch_layer_claude_audit_prompt.md
+    must_complete_independently: true
+    outputs:
+      - architecture_audit.md
+      - gold_candidacy_assessment.yaml
+      - layer_decision_log.jsonl
+      - layer_summary.md
+  - layer_id: L4_gemini
+    agent_surface: gemini
+    model_profile: cross_model_checker
+    operational_role: disagreement_and_blind_spot_hunter
+    prompt: .ai/prompts/scratch_layer_gemini_crosscheck_prompt.md
+    must_complete_independently: true
+    outputs:
+      - crosscheck_findings.md
+      - gold_candidacy_assessment.yaml
+      - layer_decision_log.jsonl
+      - layer_summary.md
+  - layer_id: L5_hostile
+    agent_surface: any
+    model_profile: red_team_hostile
+    operational_role: smuggling_and_authority_leakage_audit
+    prompt: .ai/prompts/scratch_layer_hostile_redteam_prompt.md
+    must_complete_independently: true
+    outputs:
+      - hostile_findings.md
+      - layer_decision_log.jsonl
+ladder_steps_in_scratch:
+  - step_id: S1_draft
+    canon_equivalent: review_packet_draft
+  - step_id: S2_strengthen
+    canon_equivalent: eval/chunking_gold/review_packets
+    scratch_only: true
+  - step_id: S3_gold_candidacy
+    canon_equivalent: reviewed_gold_promotion
+    scratch_only: true
+  - step_id: S4_harness_plan
+    canon_equivalent: route_isolation_harness
+    scratch_only: true
+  - step_id: S5_output_pilot_plan
+    canon_equivalent: chunk_output_pilot
+    scratch_only: true
+decision_transparency:
+  required_per_decision:
+    - decision_id
+    - layer_id
+    - model_surface
+    - step_id
+    - candidate_id
+    - choice
+    - rationale
+    - evidence_refs
+    - alternatives_rejected
+    - might_be_wrong
+    - confidence
+    - gold_recommendation
+    - non_authorizations
+  unified_ledger: decision_transparency/batch_decision_ledger.jsonl
+  comparison_matrix: decision_transparency/batch_comparison_matrix.yaml
+  audit_bundle: decision_transparency/codex_audit_bundle.md
+promotion:
+  submission_pattern: .ai/scratch/submissions/SUB-*/
+  default_requested_promotion: prep_artifacts_only
+  codex_verdict_at_end:
+    - APPROVE_PROMOTION_PACKET
+    - HOLD_WITH_FINDINGS
+    - ESCALATE_OWNER
+non_authorizations:
+  - scratch_layer_as_reviewed_gold
+  - scratch_layer_as_chunk_output
+  - skip_layer_independence
+  - merge_layers_without_comparison_matrix
+  - canon_write_from_any_layer
+validators:
+  - scripts/validate_scratch_multi_model_ladder.py
+  - scripts/validate_scratch_scope.py
+  - scripts/validate_promotion_packet.py

@@ -39,11 +39,14 @@ def test_all_packet_suffixes_covered() -> None:
     assert len(suffixes) == 14
 
 
-def test_draft_status_blocks_ladder_until_approval() -> None:
+def test_active_status_records_approval_and_preserves_step_gates() -> None:
     data = _load_policy()
-    assert data["status"] == "draft_pending_owner_approval"
-    blocked = data["owner_one_time_approval"]["until_approved"]["blocked_without_approval"]
-    assert "standing_ladder_authorization" in blocked
+    assert data["status"] == "active"
+    assert data["lifecycle_status"] == "active"
+    assert data.get("owner_approval_record")
+    still_requires = data["owner_one_time_approval"]["after_approval_still_requires"]
+    assert "explicit_owner_gate_for_review_packet_strengthening" in still_requires
+    assert data["authority"]["authorizes_review_packet_strengthening"] is False
 
 
 def test_active_policy_requires_lifecycle_active() -> None:

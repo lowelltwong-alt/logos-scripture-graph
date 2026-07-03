@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+set -eu
+DAD_HUB="${DAD_HUB_PATH:-}"
+if [ -z "$DAD_HUB" ]; then
+  echo "DAD_HUB_PATH is required before this DAD hook can enforce postflight." >&2
+  exit 1
+fi
+python "$DAD_HUB/scripts/enforce_postflight.py" --hub "$DAD_HUB" --repo "$(pwd)"

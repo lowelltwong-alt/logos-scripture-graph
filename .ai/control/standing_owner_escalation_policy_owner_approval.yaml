@@ -1,0 +1,58 @@
+---
+object_type: standing_owner_escalation_policy_owner_approval
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Recorded 2026-07-03 after owner issued APPROVE_STANDING_ESCALATION_POLICY."
+reason_for_inclusion: "Record exact owner phrase activating standing escalation dispositions and batch2+3 ladder scope without authorizing per-step gold, harness, or output."
+---
+schema_version: standing_owner_escalation_policy_owner_approval.v1
+record_id: standing_owner_escalation_policy_owner_approval
+task_id: T421
+policy_id: standing_owner_escalation_policy
+owner: Lowell Wong
+owner_decision:
+  approval_phrase: APPROVE_STANDING_ESCALATION_POLICY
+  exact_owner_confirmation: "Owner approved standing escalation policy to record uniform dispositions and reusable batch2+3 ladder scope."
+  approved_at: "2026-07-03T13:02:00-04:00"
+  recorded_by: Cursor
+  policy_surface: .ai/control/standing_owner_escalation_policy.yaml
+  decision_register_update: CD-086
+  lesson_index_entry: LSN-041
+authority:
+  records_owner_approval: true
+  activates_standing_dispositions: true
+  activates_standing_ladder_scope: true
+  authorizes_review_packet_strengthening: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_route_harness_execution: false
+  authorizes_output_pilot: false
+  authorizes_chunk_output_change: false
+  authorizes_child_spans: false
+  authorizes_hold_clearing: false
+after_approval_still_requires:
+  - explicit_owner_gate_for_review_packet_strengthening
+  - explicit_owner_gate_for_reviewed_gold_promotion
+  - explicit_owner_gate_for_route_harness_execution
+  - explicit_owner_gate_for_output_pilot
+  - codex_promotion_review_for_each_step
+  - validator_and_identity_proof_for_each_output_step
+initial_batches_authorized_for_scope_only:
+  - batch_id: batch2
+    candidates:
+      - {candidate_id: T402-LC-057, span: Phlm.1.1-Phlm.1.7}
+      - {candidate_id: T402-LC-065, span: Jude.1.1-Jude.1.2}
+      - {candidate_id: T402-LC-032, span: Jonah.1.1-Jonah.1.3}
+  - batch_id: batch3
+    candidates:
+      - {candidate_id: T402-LC-048, span: Gal.1.1-Gal.1.5}
+      - {candidate_id: T402-LC-049, span: Eph.6.21-Eph.6.24}
+      - {candidate_id: T402-LC-050, span: Phil.1.1-Phil.1.11}
+non_authorizations:
+  - reviewed_gold_promotion_without_per_step_gate
+  - chunk_output_change_without_per_step_gate
+  - route_harness_execution_without_per_step_gate
+  - child_span_selection
+  - theology_authority_change
+  - hold_clearing_by_standing_phrase_alone
+validators:
+  - scripts/validate_standing_owner_escalation_policy.py

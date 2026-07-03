@@ -1,0 +1,33 @@
+---
+object_type: scratch_output_pilot_assessment
+schema_version: scratch_output_pilot_assessment.v1
+layer_id: L1_cursor
+model_surface: cursor
+batch_id: batch2
+status: scratch_plan_only
+precedent: .ai/control/t415_batch1_output_pilot_manifest.yaml
+output_pilot_authorized: false
+model: t415_batch1_parent_only_additive_overlays
+planned_overlays_if_full_ladder_approves:
+  - candidate_id: T402-LC-057
+    span: Phlm.1.1-Phlm.1.7
+    overlay_kind: additive_parent_only
+    prerequisite: reviewed_gold_plus_harness_pass
+  - candidate_id: T402-LC-065
+    span: Jude.1.1-Jude.1.2
+    overlay_kind: additive_parent_only
+    prerequisite: reviewed_gold_plus_harness_pass
+  - candidate_id: T402-LC-032
+    span: Jonah.1.1-Jonah.1.3
+    overlay_kind: defer
+    prerequisite: typology_clearance_plus_gold_plus_harness
+decisions:
+  - decision_id: L1-O-001
+    choice: Output pilot only after full multi-layer gold+harness convergence
+    rationale: Scratch layers must complete before any output suggestion to Codex
+    might_be_wrong: Delaying output pilot blocks throughput if layers agree quickly
+    confidence: high
+non_authorizations:
+  - chunk_output_change
+  - child_span_selection
+  - whole_bible_output_pass

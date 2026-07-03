@@ -6,6 +6,7 @@
 - title: Autonomous Batch2 Prep And Chunk-Audit Scaffold
 - phase: phase_4
 - status: complete_scratch_prep_backlog_exhausted
+- standing_policy: active
 - mode: autonomous_prep_non_authorizing
 
 ## Agent
@@ -13,8 +14,8 @@
 - agent_name: Cursor
 - mode: autonomous_prep_non_authorizing
 - stage: session_close
-- updated_at: 2026-07-02T00:00:00Z
-- handoff_id: t417-scratch-marathon-phase-ladder-session-close
+- updated_at: 2026-07-03T17:02:00Z
+- handoff_id: t417-standing-policy-activation
 
 ## Summary
 
@@ -55,13 +56,21 @@ claude_weekly_verdict: pending
 ledger_refs:
   - .ai/control/agent_review_ledger.jsonl
 standing_policy_readiness: APPROVE_PREP
+standing_policy_status: active
+standing_policy_activated_at: "2026-07-03T13:02:00-04:00"
+owner_approval_record: .ai/control/standing_owner_escalation_policy_owner_approval.yaml
 ```
 
 ## Recommended next steps
 
-1. Merge PR #130 to main (prep artifacts only).
-2. Owner: `APPROVE_STANDING_ESCALATION_POLICY` when ready — Codex must activate policy on control plane.
-3. Governed batch2 output ladder (T414/T415 model) per batch of ~5 candidates after standing policy active.
+1. Run **L4 Gemini** using `.ai/prompts/scratch_layer_gemini_crosscheck_prompt.md`.
+2. Run **L5 hostile** using `.ai/prompts/scratch_layer_hostile_redteam_prompt.md`.
+3. Update comparison matrix after each layer.
+4. Final Codex bundle review when L4–L5 complete.
+
+## Scratch multi-model ladder
+
+- L1: complete | L2: complete | L3: complete (`APPROVE_WEEKLY_LAYER`) | L4–L5: pending
 
 ## Hard stops honored
 
@@ -69,12 +78,11 @@ standing_policy_readiness: APPROVE_PREP
 - No chunk output changes
 - No child spans
 - No hold clearing
-- No standing policy activation
+- Standing policy activated with per-step gates preserved
 
 ## Owner gates deferred
 
-- Standing policy activation (`APPROVE_STANDING_ESCALATION_POLICY`)
-- Review-packet strengthening under standing rules
+- Batch2 review-packet strengthening
 - Reviewed gold promotion
 - Route harness execution
 - Output pilot

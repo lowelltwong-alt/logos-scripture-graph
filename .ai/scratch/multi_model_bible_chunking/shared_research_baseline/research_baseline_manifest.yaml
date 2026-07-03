@@ -1,0 +1,73 @@
+---
+object_type: shared_research_baseline_manifest
+schema_version: shared_research_baseline_manifest.v1
+fork_id: whole_bible_multi_model_chunking_v1
+purpose: |
+  Every model (M1–M10) starts from the same research baseline and discoveries already
+  recorded in this repo. Models may extend research in scratch notes but must not
+  treat scratch chunk maps as canon.
+mandatory_reads_before_chunking:
+  control_plane:
+    - .ai/control/multi_model_whole_bible_chunking_fork.yaml
+    - .ai/control/parallel_chunking_research_program.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - docs/chunking/CHUNKING_DESIGN.md
+    - docs/methodology/LOGOS_CHUNKING_WORKFLOW_RULES_REGISTRY.md
+  observation_and_raw:
+    - data/raw/bible/eng-web/source_manifest.yaml
+    - build/observation_substrate/current/verse_observations.jsonl
+    - build/observation_substrate/current/book_observations.jsonl
+    - .ai/control/rust_first_chunk_audit_substrate.yaml
+  literature_genre_grammar:
+    - .ai/control/bible_chunking_research_triage_map.yaml
+    - eval/chunking_stress_atlas/biblical_chunking_stress_atlas.json
+    - docs/roadmap/T316_BIBLICAL_CHUNKING_STRESS_ATLAS.md
+  markers_and_language:
+    - .ai/handoffs/T316c/handoff.md
+    - docs/chunking/CHUNKING_DESIGN.md
+    - rule: CHUNK-METADATA-001
+    - note: Strong's G/H numbers, footnotes, paragraph markers, wj/red-letter — evidence only
+  discoveries_and_lessons:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/context/agent_work/T411/escalation_packets/
+    - .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+    - .ai/control/standing_owner_escalation_policy.yaml
+  variants_and_deferral:
+    - config/ingest/usfm_marker_coverage.yaml
+    - note: variant readings fqa and footnotes are evidence only never boundary authority alone
+    - note: DSS and manuscript tradition rows are not populated in phase one; do not infer canon scope
+    - rule: Dan and Rev are in full 66-book marathon but require frontier_flag_considered on every chunk
+  rust_substrate:
+    - .ai/control/rust_first_observation_substrate.yaml
+    - build/observation_substrate/current/book_observations.jsonl
+    - build/observation_substrate/current/verse_observations.jsonl
+    - build/observation_substrate/current/span_observation_features.jsonl
+    - build/observation_substrate/current/risk_signal_index.jsonl
+    - rule: read substrate before chunking; raw USFM only on logged exception
+  parallel_path_ban:
+    - rule: do not read T417 batch2 layer outputs during T423 marathon
+research_baseline_manifest_sha256_required_in_model_manifest: true
+  batch_precedent:
+    - eval/chunking_gold/review_packets/t411_batch1_3john_opening_review.md
+    - note: batch1 parent-only openings are precedent not authority for whole-bible map
+research_topics_all_models_must_apply:
+  - narrative_scene_vs_episode
+  - epistle_greeting_thanksgiving_openings
+  - poetry_stanza_acrostic_refrain
+  - prophetic_oracle_vision_boundaries
+  - law_covenant_list_genealogy_inventory
+  - gospel_discourse_red_letter_speaker
+  - wisdom_dialogue_job_eccl
+  - apocalyptic_symbolic_literature
+  - source_metadata_non_authorizing
+  - theology_pressure_evidence_only
+may_extend_in_scratch:
+  - per_model book_level_notes
+  - additional_escalation_style_notes_in_model_folder
+  - layer_decision_log.jsonl entries
+forbidden:
+  - eval/chunking_gold_writes
+  - data/candidate/chunks_writes
+  - pipelines/chunking_changes
+  - treating_queue_status_as_chunk_boundary_authority

@@ -1,0 +1,74 @@
+---
+object_type: promotion_packet
+schema_version: promotion_packet.v1
+submission_id: SUB-012
+source_branch: scratch/batch2-multi-model-ladder
+source_worktree: ../logos-scratch
+target_task_id: T417
+status: draft_pending_codex_promotion_review
+risk_summary:
+  high:
+    - jonah_typology_smuggling_if_layers_disagree
+  medium:
+    - phlm_slavery_ethics_framing
+    - jude_noncanonical_context
+    - multi_layer_independence_not_yet_verified
+  low:
+    - L1_only_complete_L2_L5_pending
+decisions:
+  - decision_id: D-001
+    choice: Adopt scratch multi-model ladder policy; L1 complete full ladder in scratch
+    rationale: Owner requested all ladder work in scratch with transparent decisions for AI audit
+    alternatives_rejected:
+      - Per-step owner gates before any scratch work
+      - Single-model Cursor-only prep without comparison matrix
+    might_be_wrong: Layer independence may be violated if L2 reads L1 before assessing
+    confidence: high
+  - decision_id: D-002
+    choice: L1 suggests Jude+Phlm for gold after layers; defer Jonah
+    rationale: Risk-ranked candidacy for cross-model comparison
+    alternatives_rejected:
+      - Promote all three from L1 alone
+      - Reject all three pending owner
+    might_be_wrong: L3/L5 may overturn Jude high-confidence rating
+    confidence: medium
+evidence_refs:
+  - .ai/control/scratch_multi_model_ladder_policy.yaml
+  - .ai/context/agent_work/T417/model_layers/batch2/manifest.yaml
+  - .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/batch_comparison_matrix.yaml
+  - .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/codex_audit_bundle.md
+  - .ai/control/standing_owner_escalation_policy_owner_approval.yaml
+validators_run_in_scratch:
+  - python scripts/validate_scratch_multi_model_ladder.py
+  - python scripts/validate_scratch_scope.py
+  - python scripts/validate_promotion_packet.py --packet .ai/scratch/submissions/SUB-012/promotion_packet.yaml
+requested_promotion: prep_artifacts_only
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - eval_chunking_gold_writes
+  - child_span_selection
+  - harness_execution
+  - standing_policy_re_activation
+reviewer_notes_for_codex: |
+  SUB-012 introduces multi-model scratch ladder for batch2. L1 (Cursor) completed
+  full ladder: strengthened packets, gold/harness/output assessments, decision log.
+  L2 Codex, L3 Claude, L4 Gemini, L5 hostile are scaffolded with prompts — run independently
+  then update comparison matrix. Read codex_audit_bundle.md for gold suggest/defer summary.
+  Approve bundle for continued layer runs; do NOT authorize canon writes from L1 alone.
+files_promoted:
+  - .ai/control/scratch_multi_model_ladder_policy.yaml
+  - .ai/context/agent_work/T417/model_layers/batch2/manifest.yaml
+  - .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/
+  - .ai/context/agent_work/T417/model_layers/batch2/L2_codex/README.md
+  - .ai/context/agent_work/T417/model_layers/batch2/L3_claude/README.md
+  - .ai/context/agent_work/T417/model_layers/batch2/L4_gemini/README.md
+  - .ai/context/agent_work/T417/model_layers/batch2/L5_hostile/README.md
+  - .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/
+  - .ai/prompts/scratch_layer_codex_integrator_prompt.md
+  - .ai/prompts/scratch_layer_claude_audit_prompt.md
+  - .ai/prompts/scratch_layer_gemini_crosscheck_prompt.md
+  - .ai/prompts/scratch_layer_hostile_redteam_prompt.md
+  - scripts/validate_scratch_multi_model_ladder.py
+  - tests/test_scratch_multi_model_ladder.py
+vendor_imports: []

@@ -1,0 +1,64 @@
+---
+object_type: scratch_gold_candidacy_assessment
+schema_version: scratch_gold_candidacy_assessment.v1
+layer_id: L2_codex
+model_surface: codex
+batch_id: batch2
+status: scratch_suggestion_only
+promoted_as_reviewed_gold: false
+independence_note: Assessment formed from drafts, escalation packets, and claim traceability before reading L1 gold YAML.
+assessment_summary: |
+  L2 Codex independently ranks Jude strongest, Phlm acceptable with P1 strengthening gaps,
+  Jonah defer until L3 theology audit and L5 hostile typology clearance. Aligns with L1 on
+  direction; differs on Jonah defer confidence (L2 medium vs L1 low).
+candidates:
+  - candidate_id: T402-LC-065
+    span: Jude.1.1-Jude.1.2
+    gold_recommendation: suggest_promote_after_layers
+    confidence: high
+    rationale: High-confidence greeting markers; noncanonical pressure explicitly out-of-span; batch1 micro-opening precedent (2John, 3John, Jas.1.1).
+    might_be_wrong: Two-verse span may be criticized as trivial gold case.
+    alternatives_rejected:
+      - Extend to Jude.1.3 (no structural claim in traceability)
+      - Hold for book-level Enoch discourse (wrong scope)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: jude_1_1_2_parent_only_reviewed_gold_scratch_L2
+    source_draft: .ai/context/agent_work/T417/review_packet_drafts/jude_opening_draft.md
+  - candidate_id: T402-LC-057
+    span: Phlm.1.1-Phlm.1.7
+    gold_recommendation: suggest_promote_after_layers
+    confidence: medium
+    rationale: Greeting/thanksgiving through v7 is text-local; slavery ethics remain frontier-note only per standing disposition.
+    might_be_wrong: v7 thanksgiving may blur into v8 appeal for some readers; escalation requests frontier if ethics framing needed.
+    alternatives_rejected:
+      - Split at Phlm.1.8 now (child-span risk)
+      - Hold entire book for ethics (over-broad)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: phlm_1_1_7_parent_only_reviewed_gold_scratch_L2
+    source_draft: .ai/context/agent_work/T417/review_packet_drafts/phlm_opening_draft.md
+    remediation_before_canon: strengthening_gaps G-001 G-002 G-005
+  - candidate_id: T402-LC-032
+    span: Jonah.1.1-Jonah.1.3
+    gold_recommendation: suggest_defer_or_hold
+    confidence: medium
+    rationale: Narrative scene markers support text-local span, but escalation type biblical_literature_review and typology risk require L3/L5 before gold candidacy advances.
+    might_be_wrong: Defer may slow batch2 throughput if typology stays evidence-only in practice.
+    alternatives_rejected:
+      - suggest_promote_after_layers (skips literature-review escalation)
+      - reject_for_gold permanently (too strong without L3 input)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: jonah_1_1_3_parent_only_reviewed_gold_scratch_L2
+    source_draft: .ai/context/agent_work/T417/review_packet_drafts/jonah_opening_draft.md
+    remediation_before_canon: strengthening_gaps G-003 G-004 G-005 plus L3 L5 clearance
+not_for_gold_until_layers:
+  - candidate_id: T402-LC-032
+    until: [L3_claude_typology_audit, L5_hostile_no_P0]
+l1_alignment_after_review:
+  jude: agree
+  phlm: agree
+  jonah: agree_direction; L2_defer_confidence_higher
+non_authorizations:
+  - eval/chunking_gold_writes
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection

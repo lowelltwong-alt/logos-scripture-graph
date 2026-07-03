@@ -1,0 +1,56 @@
+---
+object_type: scratch_gold_candidacy_assessment
+schema_version: scratch_gold_candidacy_assessment.v1
+layer_id: L1_cursor
+model_surface: cursor
+batch_id: batch2
+status: scratch_suggestion_only
+promoted_as_reviewed_gold: false
+assessment_summary: |
+  L1 Cursor recommends Jude and Phlm as strongest parent-only gold candidates after
+  multi-layer agreement. Jonah is suggest-defer until typology firewall passes L3/L5.
+candidates:
+  - candidate_id: T402-LC-057
+    span: Phlm.1.1-Phlm.1.7
+    gold_recommendation: suggest_promote_after_layers
+    confidence: medium
+    rationale: Text-local greeting/thanksgiving structure; ethics pressure contained by frontier note.
+    might_be_wrong: Social-ethics readers may argue v7 thanksgiving bleeds into appeal logic.
+    alternatives_rejected:
+      - Split at Phlm.1.8 appeal boundary now (child-span smuggling risk)
+      - Hold entire Phlm book for ethics review (over-broad)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: phlm_1_1_7_parent_only_reviewed_gold_scratch
+    strengthened_packet: .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/strengthened_review_packets/t411_batch2_phlm_opening_review.md
+  - candidate_id: T402-LC-065
+    span: Jude.1.1-Jude.1.2
+    gold_recommendation: suggest_promote_after_layers
+    confidence: high
+    rationale: Clean two-verse greeting; noncanonical pressure explicitly out-of-span.
+    might_be_wrong: Very short span may look trivial; batch1 precedent supports micro-openings.
+    alternatives_rejected:
+      - Extend to Jude.1.3 (widens without structural claim)
+      - Hold for Enoch discourse (later-verse concern)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: jude_1_1_2_parent_only_reviewed_gold_scratch
+    strengthened_packet: .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/strengthened_review_packets/t411_batch2_jude_opening_review.md
+  - candidate_id: T402-LC-032
+    span: Jonah.1.1-Jonah.1.3
+    gold_recommendation: suggest_defer_or_hold
+    confidence: low
+    rationale: Narrative opening plausible but typology/prophetic theology is highest batch2 risk.
+    might_be_wrong: Text-local scene markers may be sufficient; defer may slow throughput.
+    alternatives_rejected:
+      - Promote now on standing disposition alone (skips typology firewall)
+      - Reject permanently (over-restrictive)
+    child_spans_authorized: false
+    proposed_reviewed_gold_case_id: jonah_1_1_3_parent_only_reviewed_gold_scratch
+    strengthened_packet: .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/strengthened_review_packets/t411_batch2_jonah_opening_review.md
+not_for_gold:
+  - candidate_id: T402-LC-032
+    unless: L3_claude and L5_hostile both APPROVE typology firewall
+non_authorizations:
+  - eval/chunking_gold_writes
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - child_span_selection

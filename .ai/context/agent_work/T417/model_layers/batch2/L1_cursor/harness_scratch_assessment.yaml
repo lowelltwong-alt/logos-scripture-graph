@@ -1,0 +1,34 @@
+---
+object_type: scratch_harness_assessment
+schema_version: scratch_harness_assessment.v1
+layer_id: L1_cursor
+model_surface: cursor
+batch_id: batch2
+status: scratch_plan_only
+harness_reference: scripts/chunking/route_isolation_harness.py
+precedent: .ai/control/t415_batch1_route_isolation_harness.yaml
+harness_execution_authorized: false
+planned_checks:
+  - non_target_byte_identity_comparison
+  - exact_parent_target_change_allowance_only
+  - child_span_denial_check
+target_spans_if_gold_promoted:
+  - candidate_id: T402-LC-057
+    span: Phlm.1.1-Phlm.1.7
+    run_after_gold: only_if_L2_L3_agree_suggest_promote
+  - candidate_id: T402-LC-065
+    span: Jude.1.1-Jude.1.2
+    run_after_gold: only_if_L2_L3_agree_suggest_promote
+  - candidate_id: T402-LC-032
+    span: Jonah.1.1-Jonah.1.3
+    run_after_gold: defer_until_typology_clearance
+decisions:
+  - decision_id: L1-H-001
+    choice: Plan harness for Jude and Phlm only if gold layers converge
+    rationale: Avoid harness cost on deferred Jonah
+    might_be_wrong: Partial batch harness may miss cross-span interactions
+    confidence: medium
+non_authorizations:
+  - harness_execution_in_scratch
+  - route_behavior_change
+  - chunk_output_change

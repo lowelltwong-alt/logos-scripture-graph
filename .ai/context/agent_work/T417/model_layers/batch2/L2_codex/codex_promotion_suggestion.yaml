@@ -1,0 +1,45 @@
+---
+object_type: codex_scratch_promotion_suggestion
+schema_version: codex_scratch_promotion_suggestion.v1
+layer_id: L2_codex
+model_surface: codex
+batch_id: batch2
+submission_id: SUB-012
+verdict: APPROVE_SCRATCH_BUNDLE_FOR_CODEX_REVIEW
+finding_count_p0: 0
+finding_count_p1: 5
+finding_count_p2: 2
+summary: |
+  L2 Codex approves continued scratch multi-model ladder work. Jude and Phlm are
+  suggest-promote-after-layers; Jonah remains defer. Do not copy strengthened packets
+  to eval/chunking_gold until P1 gaps remediated and L3/L4/L5 complete.
+canon_promotion_suggestions:
+  after_full_layer_stack:
+    suggest_strengthening_copy:
+      - candidate_id: T402-LC-065
+        target: eval/chunking_gold/review_packets/t411_batch2_jude_opening_review.md
+        prerequisite: L3_L5_clearance
+      - candidate_id: T402-LC-057
+        target: eval/chunking_gold/review_packets/t411_batch2_phlm_opening_review.md
+        prerequisite: remediate_G-001_G-002_G-005
+    suggest_reviewed_gold_after_owner_gate:
+      - candidate_id: T402-LC-065
+        when: layers_converge_promote
+      - candidate_id: T402-LC-057
+        when: layers_converge_promote_and_gaps_fixed
+    defer_canon_work:
+      - candidate_id: T402-LC-032
+        reason: biblical_literature_review escalation; typology firewall
+blocked_actions:
+  - eval_chunking_gold_writes_now
+  - harness_execution
+  - chunk_output_pilot
+  - treating_L1_or_L2_suggestions_as_reviewed_gold
+next_layers_required:
+  - L3_claude
+  - L4_gemini
+  - L5_hostile
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - owner_decision_substitution

@@ -2,7 +2,20 @@
 
 **Last updated:** 2026-07-02
 **Updated by:** T417 scratch marathon session close
-**Active task:** -> **T417 scratch prep backlog is complete** on `codex/scratch-prep-marathon-8h` (PR #130). Next owner gate: `APPROVE_STANDING_ESCALATION_POLICY` (CD-086).
+**Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
+
+> **T423 whole-Bible multi-model fork (2026-07-03):** Experimental speed path — 3–10 models
+> chunk entire Bible in separate scratch folders (continuous marathon, days OK), same research
+> baseline, then compare agreement vs delta. Revert to T410 if fork fails. **Red-team required
+> before marathons:** `.ai/prompts/multi_model_whole_bible_chunking_redteam_premortem_prompt.md`
+
+> decision logs. Codex, Claude, Gemini, and hostile red-team each complete independent layers.
+> Comparison matrix + audit bundle for Codex at end. No canon writes until bundle review.
+
+> **T421 standing escalation policy (2026-07-03):** Owner recorded `APPROVE_STANDING_ESCALATION_POLICY`.
+> Standing dispositions and batch2+3 ladder scope are active. Each strengthening, reviewed-gold, harness,
+> and output step still requires an explicit owner gate plus Codex review. Audit:
+> `.ai/audits/reports/20260703-T421-standing-escalation-policy-activation.md`.
 
 > **T417 scratch marathon + phase ladder (2026-07-02):** Exhausted all 38 `ready_for_review_packet`
 > candidates with non-authorizing prep only: drafts, strengthening prep, owner-gate prep, gold/harness/output

@@ -1,0 +1,233 @@
+---
+object_type: multi_model_whole_bible_chunking_fork
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-03 after owner fork: speed chunking via continuous multi-model whole-Bible scratch runs, then compare agreement vs delta."
+reason_for_inclusion: "Experimental fork parallel to T410 governed conveyor; if fork fails, revert to original batch-by-batch plan."
+---
+schema_version: multi_model_whole_bible_chunking_fork.v1
+fork_id: whole_bible_multi_model_chunking_v1
+task_id: T423
+status: active_experimental_fork
+owner: Lowell Wong
+baseline_plan:
+  primary: .ai/control/parallel_chunking_research_program.yaml
+  candidate_runway: .ai/control/whole_bible_low_complexity_chunking_candidate_queue.yaml
+  scratch_batch_ladder: .ai/control/scratch_multi_model_ladder_policy.yaml
+revert_policy:
+  revert_to_baseline_if:
+    - agreement_rate_below_threshold_after_pilot_books
+    - P0_theology_or_authority_leakage_in_any_model_output
+    - model_outputs_uncomparable_schema_drift
+    - owner_declares_fork_abandoned
+  revert_does_not_delete: scratch_artifacts_remain_for_audit
+  revert_threshold:
+    pilot_books: [Gen, Ps, Phlm, Jonah, Rev]
+    pilot_agreement_rate_minimum: 0.60
+    full_marathon_agreement_rate_minimum: 0.50
+    note: |
+      Measured by scripts/compare_multi_model_bible_chunk_maps.py overall_agreement_rate
+      after pilot books complete (early signal) or all 66 books (full marathon).
+strategy_summary: |
+  Set-and-forget: run 3-10 independent models in separate scratch folders on one continuous
+  whole-Bible marathon (all 66 books; days acceptable). Initial target is 5 models; owner may
+  scale to 10. Each model chunks 100% of the WEB Bible from the same research baseline and
+  Rust observation substrate. Agreement = easy/consensus chunks. Delta = governed T410 focus.
+marathon_goal:
+  scope: all_66_canonical_books
+  mode: set_and_forget_continuous_run
+  stop_when: marathon_progress.yaml marathon_status complete for model folder
+  do_not_stop_between_books: true
+model_count:
+  minimum_to_compare: 3
+  initial_target: 5
+  maximum_supported: 10
+  owner_may_add_slots: M6_through_M10_without_policy_rewrite
+scratch_root: .ai/scratch/multi_model_bible_chunking/
+execution_mode:
+  style: continuous_marathon
+  acceptable_duration: days_straight
+  stop_when: all_model_folders_complete_whole_bible_map
+  do_not_stop_for: per_book_owner_gates_in_scratch
+  compare_when: all_models_complete_or_owner_requests_interim_compare
+model_slots:
+  - model_id: M1_cursor
+    agent_surface: cursor
+    model_profile: composer_fast_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M1_cursor/
+    status: pending_marathon_start
+  - model_id: M2_codex
+    agent_surface: codex
+    model_profile: executor_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M2_codex/
+    status: pending_marathon_start
+  - model_id: M3_claude
+    agent_surface: claude
+    model_profile: claude-opus-4.8_reasoner_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M3_claude/
+    status: pending_marathon_start
+  - model_id: M4_gemini
+    agent_surface: gemini
+    model_profile: cross_model_chunker
+    folder: .ai/scratch/multi_model_bible_chunking/M4_gemini/
+    status: pending_marathon_start
+  - model_id: M5_composer_alt
+    agent_surface: cursor
+    model_profile: composer_second_pass_optional
+    folder: .ai/scratch/multi_model_bible_chunking/M5_composer_alt/
+    status: optional_pending
+    notes: Fifth slot for alternate model pass or hostile cross-check chunk map
+  - model_id: M6_reserved
+    folder_pattern: .ai/scratch/multi_model_bible_chunking/M6_*/
+    status: slot_reserved_add_when_needed
+    notes: Copy models/_TEMPLATE to M6_<surface> when enabling 6th comparison
+  - model_id: M7_reserved
+    folder_pattern: .ai/scratch/multi_model_bible_chunking/M7_*/
+    status: slot_reserved_add_when_needed
+  - model_id: M8_reserved
+    folder_pattern: .ai/scratch/multi_model_bible_chunking/M8_*/
+    status: slot_reserved_add_when_needed
+  - model_id: M9_reserved
+    folder_pattern: .ai/scratch/multi_model_bible_chunking/M9_*/
+    status: slot_reserved_add_when_needed
+  - model_id: M10_reserved
+    folder_pattern: .ai/scratch/multi_model_bible_chunking/M10_*/
+    status: slot_reserved_add_when_needed
+model_folder_template: .ai/scratch/multi_model_bible_chunking/models/_TEMPLATE/
+shared_research_baseline:
+  manifest: .ai/scratch/multi_model_bible_chunking/shared_research_baseline/research_baseline_manifest.yaml
+  rule: all_models_must_read_baseline_before_chunking
+  may_extend_research_in_scratch: true
+  may_not_write_canon: true
+required_research_topics:
+  - biblical_literature_types_and_genre_routing
+  - grammar_discourse_and_paragraph_markers
+  - strongs_greek_hebrew_number_tags_evidence_only
+  - words_of_jesus_red_letter_markers
+  - source_metadata_evidence_not_authority
+  - epistle_opening_greeting_patterns
+  - narrative_scene_boundaries
+  - poetry_stanza_and_acrostic_patterns
+  - prophetic_oracle_and_vision_boundaries
+  - law_covenant_list_genealogy_patterns
+raw_bible_input:
+  read_only_root: data/raw/bible/eng-web/usfm/
+  manifest: data/raw/bible/eng-web/source_manifest.yaml
+  observation_substrate_shortcut: build/observation_substrate/current/
+  rule: substrate_first_raw_usfm_only_on_logged_exception; outputs_go_to_scratch_only
+rust_observation_substrate:
+  required_before_marathon: true
+  control: .ai/control/rust_first_observation_substrate.yaml
+  default_input: build/observation_substrate/current/
+  required_artifacts:
+    - book_observations.jsonl
+    - verse_observations.jsonl
+    - span_observation_features.jsonl
+    - risk_signal_index.jsonl
+  raw_usfm_exception_requires:
+    - exception_id_in_layer_decision_log
+    - exact_span_logged
+    - non_authorizing_true
+  compare_uses_substrate_for:
+    - false_consensus_stress_atlas_crosscheck
+    - near_miss_boundary_shift_hints
+  future_acceleration: |
+    Rust span/feature indexes may accelerate compare_multi_model_bible_chunk_maps.py
+    (overlap and near-miss without re-parsing USFM). Python compare is canonical until
+    Rust compare module lands; keep schema compatible.
+parallel_path_isolation:
+  rule: T423_marathons_must_not_read_T417_batch2_layer_outputs
+  forbidden_reads:
+    - .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/
+    - .ai/context/agent_work/T417/model_layers/batch2/L2_codex/
+    - .ai/context/agent_work/T417/model_layers/batch2/L3_claude/
+    - .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/
+    - .ai/scratch/multi_model_bible_chunking/comparison/
+  forbidden_until_own_marathon_complete:
+    - other_model_whole_bible_chunk_map.jsonl
+  worktree_recommended: one_worktree_per_model_slot
+  note: T417 batch2 and T423 fork run in parallel; do not cross-contaminate rationales.
+frontier_flag_books:
+  description: All 66 books in marathon scope; these require frontier_flag in chunk map
+  books: [Dan, Rev]
+  required_field_when_book_in_map: frontier_flag_considered
+  does_not_exclude_from_marathon: true
+per_model_outputs:
+  required:
+    - model_manifest.yaml
+    - whole_bible_chunk_map.jsonl
+    - marathon_progress.yaml
+    - layer_decision_log.jsonl
+    - model_summary.md
+  optional:
+    - book_level_notes/
+    - disagreement_notes/
+chunk_map_record_schema:
+  required_fields:
+    - model_id
+    - book
+    - span
+    - chunk_index_in_book
+    - literature_type_guess
+    - boundary_evidence_refs
+    - strong_or_hebrew_tags_used
+    - wj_or_red_letter_considered
+    - confidence
+    - decision_id
+    - non_authorizing
+comparison_outputs:
+  root: .ai/scratch/multi_model_bible_chunking/comparison/
+  agreement_ledger: comparison/agreement_chunks.jsonl
+  disagreement_ledger: comparison/disagreement_delta.jsonl
+  focus_queue: comparison/delta_focus_queue.yaml
+  comparison_matrix: comparison/model_agreement_matrix.yaml
+  delta_summary: comparison/delta_summary.md
+  agreement_record_required_fields:
+    - promotion_authority
+  agreement_promotion_authority_value: none
+dad_integration:
+  hub: dad://hub/Digital-Assett-Directory
+  outbox: .digital-asset/mail/outbox.jsonl
+  context_map_entry: ctx-t423-whole-bible-multi-model-fork
+  lesson_learned_slot: .digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml
+  notify_on_outcomes: [success_lesson, failure_lesson, delta_summary]
+comparison_rules:
+  compare_when_at_least_models: 3
+  interim_compare_default_requires_initial_target: true
+  initial_target_for_default_compare: 5
+  allow_easy_majority_at_n3: false
+  n3_easy_tier_note: at N=3 ceil(0.7*3)=3 so easy_majority equals full_consensus
+  compare_script: scripts/compare_multi_model_bible_chunk_maps.py
+  marathon_status_script: scripts/t423_marathon_status.py
+  agreement_tiers:
+    full_consensus:
+      rule: same_span_exact_match_across_all_complete_models
+    easy_chunk_majority:
+      rule: same_span_exact_match_across_at_least_majority_of_complete_models
+      majority_formula: ceil(0.7 * complete_model_count)
+      examples:
+        - {complete_models: 5, required_agreeing: 4}
+        - {complete_models: 10, required_agreeing: 7}
+  delta_focus: any_span_mismatch_or_boundary_split_disagreement_among_compared_models
+  governed_work_targets: disagreement_delta.jsonl_only
+  record_complete_model_count_in_matrix: true
+authority:
+  records_experimental_fork: true
+  authorizes_scratch_whole_bible_chunk_maps: true
+  authorizes_canon_chunk_output: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_bypass_t410_when_fork_active: false
+  parallel_paths_allowed: true
+non_authorizations:
+  - scratch_chunk_map_as_canon_truth
+  - skip_shared_research_baseline
+  - merge_models_without_comparison
+  - whole_bible_output_to_data_candidate_without_governed_promotion
+validators:
+  - scripts/validate_multi_model_whole_bible_chunking_fork.py
+  - scripts/validate_whole_bible_chunk_map.py
+  - scripts/compare_multi_model_bible_chunk_maps.py
+  - scripts/t423_marathon_status.py
+  - scripts/validate_whole_bible_chunk_map.py
+  - scripts/validate_scratch_scope.py
+  - scripts/validate_scratch_lane_policy.py

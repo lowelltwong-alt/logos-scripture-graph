@@ -1131,4 +1131,6 @@ Agents may challenge this architecture, but corrections must be explicit:
 Use these surfaces when work involves AI-assisted coding, repo governance,
 lessons, reusable assets, templates, agent skills, or cross-repo suggestions.
 DAD mail is candidate-only and local review controls adoption for `logos-scripture-graph`.
+
+**T423 fork (2026-07-03):** Outbox `msg-20260703-t423-fork-announce` | Context `ctx-t423-whole-bible-multi-model-fork` | Lesson slot `.digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml`
 <!-- END DIGITAL_ASSET_DIRECTORY_ENROLLMENT -->

@@ -1,0 +1,58 @@
+---
+object_type: multi_model_bible_chunking_scratch_manifest
+schema_version: multi_model_bible_chunking_scratch_manifest.v1
+fork_id: whole_bible_multi_model_chunking_v1
+task_id: T423
+policy: .ai/control/multi_model_whole_bible_chunking_fork.yaml
+status: marathon_scaffold_ready
+model_count:
+  minimum_to_compare: 3
+  initial_target: 5
+  maximum_supported: 10
+  active_slots: [M1_cursor, M2_codex, M3_claude, M4_gemini, M5_composer_alt]
+  reserved_slots: [M6, M7, M8, M9, M10]
+  add_slot_template: models/_TEMPLATE/
+execution_mode: continuous_marathon_days_ok
+marathon_goal: all_66_books_set_and_forget
+strategy: |
+  Each model runs straight through all 66 books in its own folder without stopping for owner
+  gates. When models complete (default compare at 5; interim at 3), agreement = easy chunks;
+  delta = focus for governed work. Use Rust observation substrate first; compare via
+  scripts/compare_multi_model_bible_chunk_maps.py.
+shared_research_baseline: shared_research_baseline/research_baseline_manifest.yaml
+models:
+  M1_cursor:
+    folder: M1_cursor/
+    agent_surface: cursor
+    status: pending_marathon_start
+    books_completed: 0
+    books_total: 66
+  M2_codex:
+    folder: M2_codex/
+    agent_surface: codex
+    status: pending_marathon_start
+    books_completed: 0
+    books_total: 66
+  M3_claude:
+    folder: M3_claude/
+    agent_surface: claude
+    status: pending_marathon_start
+    books_completed: 0
+    books_total: 66
+  M4_gemini:
+    folder: M4_gemini/
+    agent_surface: gemini
+    status: pending_marathon_start
+    books_completed: 0
+    books_total: 66
+  M5_composer_alt:
+    folder: M5_composer_alt/
+    agent_surface: cursor
+    status: optional_pending
+    books_completed: 0
+    books_total: 66
+comparison:
+  folder: comparison/
+  run_after: all_models_complete_or_owner_interim_compare
+canon_promotion: forbidden_in_scratch
+revert_to_baseline: .ai/control/parallel_chunking_research_program.yaml

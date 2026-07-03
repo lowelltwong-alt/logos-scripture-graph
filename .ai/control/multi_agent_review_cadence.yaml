@@ -40,6 +40,7 @@ cursor_tier:
   outputs:
     - .ai/context/agent_work/<TASK_ID>/review_packet_drafts/
     - .ai/context/agent_work/<TASK_ID>/claim_traceability.jsonl
+    - .ai/context/agent_work/<TASK_ID>/model_layers/<batch_id>/
   does_not_authorize:
     - reviewed_gold_promotion
     - chunk_output_change
@@ -117,6 +118,14 @@ claude_tier:
     - child_spans
     - owner_decision
     - hold_clearing
+scratch_multi_model_ladder:
+  policy: .ai/control/scratch_multi_model_ladder_policy.yaml
+  workflow: full_ladder_in_scratch_then_layer_compare_then_codex_bundle
+  layer_independence: each_model_completes_before_reading_other_gold_assessments
+  audit_surfaces:
+    - decision_transparency/batch_comparison_matrix.yaml
+    - decision_transparency/batch_decision_ledger.jsonl
+    - decision_transparency/codex_audit_bundle.md
 owner_tier:
   agent_surface: owner
   operational_role: authority_gates

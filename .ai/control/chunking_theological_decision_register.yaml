@@ -3783,10 +3783,10 @@ decisions:
     supersedes: []
     deprecated_by: null
   - decision_id: CD-086
-    title: Standing owner escalation policy (pending owner approval)
+    title: Standing owner escalation policy (active)
     classification: non_authorizing_review
     task_ids: [T421]
-    owner_decision_ref: ".ai/control/standing_owner_escalation_policy.yaml"
+    owner_decision_ref: ".ai/control/standing_owner_escalation_policy_owner_approval.yaml"
     pr_refs: []
     affected_scope:
       books: [canonical_66]
@@ -3794,9 +3794,10 @@ decisions:
       routes: [standing_escalation_dispositions, batch2_batch3_parent_only_ladder]
       surfaces:
         - .ai/control/standing_owner_escalation_policy.yaml
+        - .ai/control/standing_owner_escalation_policy_owner_approval.yaml
         - scripts/validate_standing_owner_escalation_policy.py
-    decision: "Pending owner phrase APPROVE_STANDING_ESCALATION_POLICY to unlock batch2+3 strengthening→gold→output under uniform escalation dispositions."
-    downstream_risk: "Agents may treat draft standing policy as active before owner approval."
+    decision: "Owner recorded APPROVE_STANDING_ESCALATION_POLICY on 2026-07-03. Standing dispositions and batch2+3 ladder scope are active. Each strengthening, reviewed-gold, harness, and output step still requires an explicit owner gate plus Codex review."
+    downstream_risk: "Agents may treat standing disposition as per-step authorization and skip strengthening, gold, harness, or output gates."
     theological_assumptions_avoided:
       - "Standing dispositions do not pre-select theology or preferred readings."
     reviewed_gold_dependency: "Owner approval required before ladder authorization."

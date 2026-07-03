@@ -1,0 +1,54 @@
+---
+object_type: scratch_multi_model_layer_manifest
+schema_version: scratch_multi_model_layer_manifest.v1
+batch_id: batch2
+task_id: T417
+policy: .ai/control/scratch_multi_model_ladder_policy.yaml
+standing_policy: .ai/control/standing_owner_escalation_policy.yaml
+status: L1_L2_L3_complete_L4_L5_pending
+candidates:
+  - {candidate_id: T402-LC-057, book: Phlm, span: Phlm.1.1-Phlm.1.7, disposition: proceed_parent_only_with_frontier_note}
+  - {candidate_id: T402-LC-065, book: Jude, span: Jude.1.1-Jude.1.2, disposition: proceed_parent_only_with_frontier_note}
+  - {candidate_id: T402-LC-032, book: Jonah, span: Jonah.1.1-Jonah.1.3, disposition: proceed_parent_only_with_frontier_note}
+layers:
+  L1_cursor:
+    status: complete
+    model_surface: cursor
+    root: .ai/context/agent_work/T417/model_layers/batch2/L1_cursor/
+  L2_codex:
+    status: complete
+    model_surface: codex
+    completed_at: "2026-07-03T18:02:00Z"
+    verdict: APPROVE_SCRATCH_BUNDLE_FOR_CODEX_REVIEW
+    prompt: .ai/prompts/scratch_layer_codex_integrator_prompt.md
+    root: .ai/context/agent_work/T417/model_layers/batch2/L2_codex/
+  L3_claude:
+    status: complete
+    model_surface: claude
+    model_profile: claude-opus-4.8
+    completed_at: "2026-07-03T18:17:00Z"
+    verdict: APPROVE_WEEKLY_LAYER
+    finding_count_p0: 0
+    finding_count_p1: 4
+    prompt: .ai/prompts/scratch_layer_claude_audit_prompt.md
+    root: .ai/context/agent_work/T417/model_layers/batch2/L3_claude/
+  L4_gemini:
+    status: pending_independent_model_run
+    model_surface: gemini
+    prompt: .ai/prompts/scratch_layer_gemini_crosscheck_prompt.md
+    root: .ai/context/agent_work/T417/model_layers/batch2/L4_gemini/
+  L5_hostile:
+    status: pending_independent_model_run
+    model_surface: red_team
+    prompt: .ai/prompts/scratch_layer_hostile_redteam_prompt.md
+    root: .ai/context/agent_work/T417/model_layers/batch2/L5_hostile/
+decision_transparency:
+  ledger: .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/batch_decision_ledger.jsonl
+  comparison_matrix: .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/batch_comparison_matrix.yaml
+  codex_audit_bundle: .ai/context/agent_work/T417/model_layers/batch2/decision_transparency/codex_audit_bundle.md
+promotion_packet: .ai/scratch/submissions/SUB-012/promotion_packet.yaml
+non_authorizations:
+  - reviewed_gold_promotion
+  - chunk_output_change
+  - eval_chunking_gold_writes
+  - child_span_selection
