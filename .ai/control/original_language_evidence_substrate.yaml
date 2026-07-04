@@ -31,6 +31,47 @@ raw_intake:
   allowlist: .ai/control/original_language_source_allowlist.yaml
   raw_root: data/raw/original_language
   rule: "Raw files are immutable downloaded source packages with manifests and checksums; processed tokens, overlays, variants, and witness claims do not belong in raw."
+goal_options:
+  - option_id: option_1_alignment_bridge
+    short_name: Greek/Hebrew-to-English alignment bridge
+    recommended_sequence: 1
+    status: recommended_next_implementation_goal
+    first_pilot: "Philemon for Greek or Jonah for Hebrew"
+    primary_question: "How does the current English WEB wording relate to Hebrew, Aramaic, or Greek source-token evidence?"
+    first_output: "Candidate source-token and English-token alignment records with provenance, confidence, and non-authority fields."
+    authority_limit: "Alignment candidates are evidence only; they do not judge translation faithfulness or create lexical/theology authority."
+  - option_id: option_2_manuscript_custody_chain
+    short_name: Manuscript witness chain and confidence atlas
+    recommended_sequence: 2
+    status: parallel_catalog_only_research
+    first_pilot: "Philemon for NT witness mechanics or Jonah for Hebrew source-family mechanics"
+    primary_question: "What witnesses, fragments, editions, and catalogs support a passage, and where are the gaps?"
+    first_output: "Metadata-only passage witness coverage packet separating oldest-known evidence from highest-confidence evidence."
+    authority_limit: "Witness catalog rows are evidence only; oldest witness is not automatic authority and source-tradition preference is not authorized."
+  - option_id: option_3_variant_error_ledger
+    short_name: Variant and copying-error transparency ledger
+    recommended_sequence: 3
+    status: after_schema_and_license_gate
+    first_pilot: "Tiny variant-sensitive span after source/license review"
+    primary_question: "What known copying, spelling, omission/addition, punctuation, or editorial issues touch this span?"
+    first_output: "Candidate variant/copying-error rows with witness, edition, provenance, confidence, and downstream caution notes."
+    authority_limit: "Variant rows expose uncertainty; they do not select a preferred reading or silently normalize disputes."
+  - option_id: option_4_early_creed_lane
+    short_name: Early creed and tradition-formula research lane
+    recommended_sequence: 4
+    status: after_citation_and_frontier_review_gate
+    first_pilot: "1Cor.15.3-1Cor.15.8 as a non-authorizing research packet"
+    primary_question: "Which passages may preserve early creed, confession, hymn, or tradition-formula material, and why?"
+    first_output: "Research packet separating manuscript evidence, source-language/discourse evidence, scholarly historical argument, and downstream consequence."
+    authority_limit: "No doctrinal or dating claim becomes data authority; high-impact claims require citations, confidence limits, and frontier review."
+  - option_id: option_5_integrated_workbench
+    short_name: Integrated original-language evidence workbench
+    recommended_sequence: 5
+    status: later_after_smaller_lanes_validate
+    first_pilot: "Combined dashboard only after Options 1-4 prove their fields"
+    primary_question: "How do alignment, manuscript, variant, translation, and early-tradition evidence appear together for a passage?"
+    first_output: "Combined evidence dashboard that exposes uncertainty, provenance, and open disputes rather than collapsing them into one score."
+    authority_limit: "Workbench exports to KG or retrieval require later owner-gated promotion and cannot create graph/retrieval truth by itself."
 evidence_layers:
   - layer_id: source_text_archive
     destination: data/raw/original_language

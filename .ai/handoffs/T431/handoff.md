@@ -58,6 +58,7 @@ Codex
   - the raw original-language tree is now shape-locked to `source_manifest.yaml`, `raw/<declared archive>`, and `witness_catalogs/manuscript_libraries.yaml`, so overlay-like files cannot evade by avoiding magic filenames.
 - Rust was intentionally not added to this T431 slice after review, because the remaining risk was semantic source filtering rather than raw throughput. T435 remains the right lane for Rust-first large token/alignment ledgers after schemas settle.
 - Added five T430 goal options: alignment bridge, manuscript witness chain, variant/copying-error ledger, early creed/tradition-formula research lane, and integrated evidence workbench. The manuscript lane now separates oldest-known witnesses from highest-confidence witnesses and preserves minute copying/editorial issues as transparent evidence rather than authority.
+- Strengthened the T430 goal options into an owner-facing decision menu and added structured `goal_options` control-plane entries. `scripts/validate_t430_original_language_evidence_substrate.py` now fails unless all five options remain present with non-authorizing authority limits.
 - Added `CD-088` and `LSN-043` after GitHub CI correctly caught that roadmap/source-intake docs under `docs/roadmap/` require a chunking theological decision-register update. These entries record T431 as evidence-only and non-authorizing.
 - DAD candidate lesson/outbox records were sent from the central DAD checkout:
   - `dad:rust-rollout-lesson:829dc53e-1688-5290-ab33-3352634c010d`
@@ -72,6 +73,7 @@ Codex
 - `python scripts/build_original_language_canonical_source_views.py --check` - passed.
 - `python scripts/validate_original_language_raw_sources.py` - passed.
 - `python scripts/validate_t430_original_language_evidence_substrate.py` - passed.
+- `python -m pytest tests/test_t430_original_language_evidence_substrate.py -q` - 5 passed after adding goal-option validator coverage.
 - `python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main` - passed after CI remediation.
 - `python scripts/validate_chunking_lesson_index.py --base-ref origin/main` - passed after CI remediation.
 - `python scripts/scan_raw_sources.py --check` - passed after regenerating `.ai/control/RAW_SOURCE_INVENTORY.md`.

@@ -28,6 +28,20 @@ These are not mutually exclusive forever. They are owner-facing routes for decid
 
 Recommended order: Option 1 first, Option 2 in parallel as catalog-only research, then Options 3 and 4 as evidence packets, then Option 5 as the integrated product. This gives the repo useful source-token scaffolding quickly while still preserving the long-term custody-chain goal.
 
+## Owner Decision Menu
+
+| Option | Short name | Main question it answers | First defensible output | Best first pilot | Completion signal |
+|---|---|---|---|---|---|
+| 1 | Alignment bridge | How does the current English wording relate to the Hebrew, Aramaic, or Greek source-token evidence we have? | candidate source-token and English-token alignment records | Philemon or Jonah | every pilot token/alignment row has source view, checksum, confidence, and non-authority fields |
+| 2 | Manuscript custody chain | What witnesses, fragments, editions, and catalogs support this passage, and where are the gaps? | metadata-only passage witness coverage packet | Philemon or Jonah | oldest-known evidence, highest-confidence evidence, gaps, and rights limits are separated |
+| 3 | Variant/error ledger | What known copying, spelling, omission/addition, punctuation, or editorial issues touch this span? | candidate variant/copying-error transparency rows | one tiny variant-sensitive span | every issue traces to a witness, edition, or catalog source without choosing a preferred reading |
+| 4 | Early creed lane | Which passages may preserve early creed, confession, hymn, or tradition-formula material, and why? | non-authorizing research packet with cited pro/con views | `1Cor.15.3-1Cor.15.8` | claims about timing, formula language, and early tradition are cited, bounded, and frontier-reviewed |
+| 5 | Integrated workbench | How do alignment, manuscripts, variants, translation notes, and early-tradition evidence appear together? | combined evidence dashboard after pilots | after Options 1-4 prove fields | the dashboard exposes uncertainty instead of compressing it into one hidden score |
+
+Recommended owner choice from here: choose Option 1 as the next implementation goal, while allowing Option 2 to continue as catalog-only research in parallel. That gets the repo to useful Greek/Hebrew and English linking quickly, while laying the track for the richer chain-of-custody system.
+
+The long destination is the Option 5 workbench: a passage-level evidence view that can eventually show source tokens, English alignments, manuscript witnesses, variant/copying-error trails, translation-faithfulness notes, and early-creed research packets side by side. It should be assembled from validated smaller lanes rather than built as one giant trust-me artifact.
+
 ## Option 1: Greek/Hebrew To English Alignment Bridge
 
 Goal: build the first evidence bridge from Hebrew/Aramaic/Greek source tokens to the current English WEB layer.
@@ -69,6 +83,16 @@ Primary outputs:
 - confidence notes and reuse/license status;
 - gaps where only catalog metadata is allowed.
 
+Target custody-chain depth:
+
+1. book and passage coverage;
+2. verse or phrase coverage where catalog data supports it;
+3. witness or fragment identifier, date range, language, material, repository, and source URL;
+4. edition or catalog source used to map the witness to the passage;
+5. known variants, spelling differences, omission/addition evidence, punctuation/editorial differences, and confidence notes;
+6. whether the row is observed from source data, inferred from a catalog, or blocked by licensing/rights;
+7. downstream consequence notes for source-language alignment, translation comparison, KG, retrieval, and chunking.
+
 Best first pilot:
 
 - Philemon for NT manuscript-chain mechanics, or Jonah for Hebrew witness/source-family mechanics.
@@ -77,6 +101,7 @@ Why this matters:
 
 - It starts the "chain of custody" layer the user wants: how we know the text, where witnesses are, and where uncertainty remains.
 - It should eventually support a passage-by-passage custody trail down to spelling, omission/addition, punctuation/editorial, and other minute-error classes where the evidence permits.
+- It separates "oldest known evidence" from "highest confidence evidence" so future agents do not accidentally treat age alone as authority.
 
 Stop conditions:
 
@@ -126,6 +151,13 @@ Primary outputs:
 - confidence, unresolved questions, and downstream risks.
 - explicit separation between manuscript evidence, source-language discourse evidence, and scholarly historical argument.
 
+Required evidence separation:
+
+- manuscript or edition evidence: what witnesses show the passage is in the textual tradition;
+- source-language/discourse evidence: formula markers, parallel structures, quoted/delivered language, hymnic or confessional form;
+- historical argument: scholarly reasoning about pre-Pauline, early church, liturgical, or oral-tradition origin;
+- downstream consequence: what the claim would affect if later promoted into an atlas or KG.
+
 Best first candidates:
 
 - `1Cor.15.3-1Cor.15.8`;
@@ -138,6 +170,7 @@ Why this matters:
 - It supports the user's long-term goal of tracing how early Christian tradition material appears in the biblical text.
 - Claims such as "months after the resurrection" require a dedicated evidence packet, source citations, and frontier review. T430 does not assert that conclusion by itself.
 - The lane should preserve contrary scholarly views and confidence limits so apologetic or skeptical pressure cannot become hidden data.
+- The target is not to smuggle a conclusion into the data. The target is to make the evidence trail strong enough that a later human/frontier review can see exactly what is known, what is argued, and what remains disputed.
 
 Stop conditions:
 
