@@ -387,6 +387,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_original_language_phrase_context_policy.py")],
         ),
         (
+            "validate_t430_original_language_evidence_substrate.py",
+            [PY, str(ROOT / "scripts" / "validate_t430_original_language_evidence_substrate.py")],
+        ),
+        (
+            "validate_original_language_raw_sources.py",
+            [PY, str(ROOT / "scripts" / "validate_original_language_raw_sources.py")],
+        ),
+        (
             "validate_contextual_reading_policy.py",
             [PY, str(ROOT / "scripts" / "validate_contextual_reading_policy.py")],
         ),

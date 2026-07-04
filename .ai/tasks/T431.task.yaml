@@ -1,0 +1,80 @@
+id: T431
+phase: phase_4
+title: "Original-Language Raw Intake And Strong's Overlay Guardrails"
+mode: raw_source_intake_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t431-original-language-intake
+base_ref: origin/main
+summary: "Download allowlisted Hebrew/Greek source packages into data/raw/original_language with manifests, keep manuscript libraries catalog-only, and prevent Strong's overlays or source evidence from becoming authority."
+scope:
+  allowed_paths:
+    - .ai/tasks/T431.task.yaml
+    - .ai/handoffs/T431/
+    - .ai/context/agent_work/T431/
+    - .ai/control/original_language_source_allowlist.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/RAW_SOURCE_INVENTORY.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - data/raw/original_language/
+    - data/candidate/original_language_evidence/
+    - docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md
+    - docs/roadmap/T431_ORIGINAL_LANGUAGE_RAW_INTAKE.md
+    - scripts/download_original_language_sources.py
+    - scripts/build_original_language_canonical_source_views.py
+    - scripts/validate_original_language_raw_sources.py
+    - scripts/validate_t430_original_language_evidence_substrate.py
+    - scripts/validate_all.py
+    - tests/test_original_language_raw_sources.py
+    - tests/test_t430_original_language_evidence_substrate.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: raw_source_intake_non_authorizing
+  downloads_allowlisted_raw_sources: true
+  records_manifest_backed_raw_sources: true
+  creates_candidate_overlay_guardrails: true
+  imports_manuscript_transcriptions: false
+  downloads_manuscript_images: false
+  mutates_raw_source_text: false
+  writes_strongs_overlay_into_raw: false
+  creates_source_language_witness_rows: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "Allowlist exists and contains only license-approved first-wave source packages."
+  - "Each enabled source has a downloaded archive under data/raw/original_language and a matching source_manifest.yaml."
+  - "Each enabled source has a canonical-only candidate source view with inclusion and exclusion ledgers."
+  - "Manuscript libraries are catalog-only until bulk text/image reuse is explicitly cleared."
+  - "Validators fail if Strong's overlays are written into raw or if authority flags leak into T430/T431 artifacts."
+  - "DAD preflight is recorded without treating DAD as local authority."
+validations:
+  - python scripts/download_original_language_sources.py --check
+  - python scripts/build_original_language_canonical_source_views.py --check
+  - python scripts/validate_original_language_raw_sources.py
+  - python scripts/validate_t430_original_language_evidence_substrate.py
+  - python scripts/validate_task_scope.py --task-id T431
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest tests/test_original_language_raw_sources.py tests/test_t430_original_language_evidence_substrate.py -q
+  - git diff --check
