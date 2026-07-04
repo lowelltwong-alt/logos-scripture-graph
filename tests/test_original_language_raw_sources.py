@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import json
 from pathlib import Path
 import zipfile
 
@@ -161,7 +162,9 @@ def _minimal_root(tmp_path: Path) -> tuple[Path, Path]:
     (view_root / "included_files.jsonl").write_text(
         '{"book_id":"GreekNT","classification":"included_canonical_bible_text","sha256":"'
         + view_digest
-        + '","source_archive_path":"SR.tsv","view_path":"data/candidate/original_language_evidence/canonical_source_views/cntr_sr/files/GreekNT.tsv",'
+        + '","size_bytes":'
+        + str(view_file.stat().st_size)
+        + ',"source_archive_path":"SR.tsv","view_path":"data/candidate/original_language_evidence/canonical_source_views/cntr_sr/files/GreekNT.tsv",'
         + '"contains_source_provided_morphology":false,"contains_source_provided_lemmas":false,'
         + '"contains_source_provided_strongs":false}\n',
         encoding="utf-8",
@@ -199,12 +202,35 @@ def test_validator_rejects_duplicate_canonical_view_archive_paths(tmp_path: Path
         validator.validate_original_language_raw_sources(root, allowlist)
 
 
+def test_validator_rejects_mutated_source_view_even_if_ledger_is_updated(tmp_path: Path) -> None:
+    root, allowlist = _minimal_root(tmp_path)
+    view_file = root / "data/candidate/original_language_evidence/canonical_source_views/cntr_sr/files/GreekNT.tsv"
+    view_file.write_bytes(b"ref\ttext\nMatt.1.1\tMutated candidate view\n")
+    included = root / "data/candidate/original_language_evidence/canonical_source_views/cntr_sr/included_files.jsonl"
+    row = json.loads(included.read_text(encoding="utf-8"))
+    row["sha256"] = hashlib.sha256(view_file.read_bytes()).hexdigest()
+    row["size_bytes"] = view_file.stat().st_size
+    included.write_text(json.dumps(row, sort_keys=True) + "\n", encoding="utf-8")
+
+    with pytest.raises(validator.OriginalLanguageRawSourceError, match="archive member"):
+        validator.validate_original_language_raw_sources(root, allowlist)
+
+
 def test_validator_rejects_strongs_overlay_files_in_raw(tmp_path: Path) -> None:
     root, allowlist = _minimal_root(tmp_path)
     overlay = root / "data/raw/original_language/greek/cntr_sr/strongs_overlay.jsonl"
     overlay.write_text("{}", encoding="utf-8")
 
-    with pytest.raises(validator.OriginalLanguageRawSourceError, match="overlay files are forbidden"):
+    with pytest.raises(validator.OriginalLanguageRawSourceError, match="raw original-language tree"):
+        validator.validate_original_language_raw_sources(root, allowlist)
+
+
+def test_validator_rejects_unexpected_raw_tree_files_without_magic_filename(tmp_path: Path) -> None:
+    root, allowlist = _minimal_root(tmp_path)
+    overlay = root / "data/raw/original_language/greek/cntr_sr/source_tokens.jsonl"
+    overlay.write_text("{}", encoding="utf-8")
+
+    with pytest.raises(validator.OriginalLanguageRawSourceError, match="raw original-language tree"):
         validator.validate_original_language_raw_sources(root, allowlist)
 
 
