@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance. Updated 2026-07-04 during T431 to record original-language source intake as evidence-only and non-authorizing."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T417
+last_updated_by_task: T431
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1660,6 +1660,48 @@ lessons:
       - chunk_output_change
       - route_harness_execution
       - step_authorization_from_standing_phrase
+  - lesson_id: LSN-043
+    title: Original-language intake is evidence substrate, not source or chunk authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [original_language, source_metadata, theological_risk, workflow_governance]
+    tags: [t430, t431, original-language, raw-intake, source-view, strongs, morphology, lemma, witness, evidence-only, no-preferred-reading]
+    use_when:
+      - "A future agent consumes Hebrew/Greek source packages, canonical source views, Strong's metadata, morphology, lemmas, witness catalogs, or oldest-witness notes."
+      - "A future agent wants to use original-language source intake to make chunk, reviewed-gold, KG, retrieval, translation-faithfulness, or theology decisions."
+    preflight_stage: before_original_language_alignment_or_witness_work
+    source_surfaces:
+      - .ai/control/original_language_source_allowlist.yaml
+      - .ai/control/original_language_evidence_substrate.yaml
+      - data/raw/original_language/
+      - data/candidate/original_language_evidence/canonical_source_views/
+      - docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md
+      - docs/roadmap/T431_ORIGINAL_LANGUAGE_RAW_INTAKE.md
+      - scripts/validate_original_language_raw_sources.py
+      - scripts/validate_t430_original_language_evidence_substrate.py
+    related_decision_ids: [CD-088]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T431, T430]
+    downstream_risk: "Original-language evidence can look authoritative and quietly become preferred-reading, source-tradition, translation-faithfulness, chunk-boundary, KG, retrieval, or theology authority without an owner-gated promotion path."
+    required_preflight_surfaces:
+      - .ai/control/original_language_source_allowlist.yaml
+      - .ai/control/original_language_evidence_substrate.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md
+    non_authorizations:
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - source_language_truth_claim
+      - translation_faithfulness_judgment
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_original_language_raw_sources.py
+      - scripts/validate_t430_original_language_evidence_substrate.py
+      - scripts/validate_chunking_lesson_index.py
   - lesson_id: LSN-040
     title: Scratch lane fast prep with promotion packet review
     lifecycle_status: active

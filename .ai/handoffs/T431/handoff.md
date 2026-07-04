@@ -21,6 +21,8 @@ Codex
 
 - `.ai/control/original_language_source_allowlist.yaml`
 - `.ai/control/original_language_evidence_substrate.yaml`
+- `.ai/control/chunking_theological_decision_register.yaml`
+- `.ai/control/chunking_lesson_index.yaml`
 - `.ai/control/DATA_MAP.md`
 - `.ai/control/RAW_SOURCE_INVENTORY.md`
 - `.ai/context/agent_work/T431/dad_preflight.md`
@@ -53,6 +55,7 @@ Codex
   - Canonical source view check mode now validates inclusion/exclusion ledgers against the actual archive member set, rejects duplicate archive paths, enforces included row count equals expected canonical scope, and checks unique included `book_id`/`view_path`.
 - Rust was intentionally not added to this T431 slice after review, because the remaining risk was semantic source filtering rather than raw throughput. T435 remains the right lane for Rust-first large token/alignment ledgers after schemas settle.
 - Added five T430 goal options: alignment bridge, manuscript witness chain, variant/copying-error ledger, early creed/tradition-formula research lane, and integrated evidence workbench.
+- Added `CD-088` and `LSN-043` after GitHub CI correctly caught that roadmap/source-intake docs under `docs/roadmap/` require a chunking theological decision-register update. These entries record T431 as evidence-only and non-authorizing.
 - DAD candidate lesson/outbox records were sent from the central DAD checkout:
   - `dad:rust-rollout-lesson:829dc53e-1688-5290-ab33-3352634c010d`
   - `dad:mail:829dc53e-1688-5290-ab33-3352634c010d`
@@ -66,6 +69,8 @@ Codex
 - `python scripts/build_original_language_canonical_source_views.py --check` - passed.
 - `python scripts/validate_original_language_raw_sources.py` - passed.
 - `python scripts/validate_t430_original_language_evidence_substrate.py` - passed.
+- `python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main` - pending after CI remediation.
+- `python scripts/validate_chunking_lesson_index.py --base-ref origin/main` - pending after CI remediation.
 - `python scripts/scan_raw_sources.py --check` - passed after regenerating `.ai/control/RAW_SOURCE_INVENTORY.md`.
 - `python scripts/validate_raw_coverage.py` - passed.
 - `python -m pytest tests/test_original_language_raw_sources.py tests/test_t430_original_language_evidence_substrate.py -q` - 11 passed.
@@ -82,6 +87,7 @@ Codex
 
 - Original-language source archives include extra docs, code, PDFs, HTML/JSON app renderings, images, metadata, nested archives, duplicate text formats, and non-selected variants; use canonical source views only for future processing.
 - Some canonical source views retain source-provided metadata columns such as morphology, lemmas, or Strong's IDs. These are evidence-only and are explicitly flagged in manifests and included-file ledgers.
+- GitHub CI uses `--base-ref origin/main` semantics for watched-path gates; local final validation must include the base-ref variants when T431 touches `docs/roadmap/`.
 - Public-viewable manuscript libraries are not necessarily reusable as bulk raw data.
 - The committed raw archives are about 56 MB total; future larger sources may need Git LFS or external storage.
 
