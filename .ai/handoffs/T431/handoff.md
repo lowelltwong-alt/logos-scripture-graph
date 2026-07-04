@@ -69,8 +69,8 @@ Codex
 - `python scripts/build_original_language_canonical_source_views.py --check` - passed.
 - `python scripts/validate_original_language_raw_sources.py` - passed.
 - `python scripts/validate_t430_original_language_evidence_substrate.py` - passed.
-- `python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main` - pending after CI remediation.
-- `python scripts/validate_chunking_lesson_index.py --base-ref origin/main` - pending after CI remediation.
+- `python scripts/validate_chunking_theological_decision_register.py --base-ref origin/main` - passed after CI remediation.
+- `python scripts/validate_chunking_lesson_index.py --base-ref origin/main` - passed after CI remediation.
 - `python scripts/scan_raw_sources.py --check` - passed after regenerating `.ai/control/RAW_SOURCE_INVENTORY.md`.
 - `python scripts/validate_raw_coverage.py` - passed.
 - `python -m pytest tests/test_original_language_raw_sources.py tests/test_t430_original_language_evidence_substrate.py -q` - 11 passed.
@@ -82,6 +82,7 @@ Codex
 - `python scripts/validate_all.py` - passed after the canonical-66 filtered generated-data refresh.
 - `python -m pytest -q` - 728 passed.
 - `python scripts/generate_data_map.py --check` - passed after data map regeneration.
+- GitHub PR #134 `validate` - passed after CI remediation.
 
 ## Known risks
 
