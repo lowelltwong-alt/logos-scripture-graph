@@ -43,6 +43,13 @@ def _write_minimal_repo(tmp_path: Path, control: dict) -> Path:
         "Variants are never silently normalized. No preferred readings.\n",
         encoding="utf-8",
     )
+    (root / "docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md").write_text(
+        "Owner Decision Menu. Greek/Hebrew-to-English alignment bridge. "
+        "Manuscript witness chain. Variant and copying-error ledger. Early creed lane. "
+        "Integrated original-language evidence workbench. Chain-of-custody and minute-error "
+        "records. Claims about months after the resurrection require frontier review.\n",
+        encoding="utf-8",
+    )
     return root
 
 
@@ -61,4 +68,28 @@ def test_t430_validator_rejects_missing_strongs_non_authorization(tmp_path: Path
     root = _write_minimal_repo(tmp_path, data)
 
     with pytest.raises(validator.T430EvidenceSubstrateError, match="strongs_number_as_theology_authority"):
+        validator.validate_t430_original_language_evidence_substrate(root)
+
+
+def test_t430_validator_rejects_missing_goal_option(tmp_path: Path) -> None:
+    data = copy.deepcopy(yaml.safe_load(CONTROL.read_text(encoding="utf-8")))
+    data["goal_options"] = [
+        option
+        for option in data["goal_options"]
+        if option["option_id"] != "option_4_early_creed_lane"
+    ]
+    root = _write_minimal_repo(tmp_path, data)
+
+    with pytest.raises(validator.T430EvidenceSubstrateError, match="exactly five"):
+        validator.validate_t430_original_language_evidence_substrate(root)
+
+
+def test_t430_validator_rejects_goal_option_authority_drift(tmp_path: Path) -> None:
+    data = copy.deepcopy(yaml.safe_load(CONTROL.read_text(encoding="utf-8")))
+    for option in data["goal_options"]:
+        if option["option_id"] == "option_2_manuscript_custody_chain":
+            option["authority_limit"] = ""
+    root = _write_minimal_repo(tmp_path, data)
+
+    with pytest.raises(validator.T430EvidenceSubstrateError, match="authority_limit"):
         validator.validate_t430_original_language_evidence_substrate(root)

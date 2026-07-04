@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTROL = ROOT / ".ai" / "control" / "original_language_evidence_substrate.yaml"
 ALLOWLIST = ROOT / ".ai" / "control" / "original_language_source_allowlist.yaml"
 ROADMAP = ROOT / "docs" / "roadmap" / "T431_ORIGINAL_LANGUAGE_RAW_INTAKE.md"
+GOAL_OPTIONS_ROADMAP = ROOT / "docs" / "roadmap" / "T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md"
 DAD_PREFLIGHT = ROOT / ".ai" / "context" / "agent_work" / "T431" / "dad_preflight.md"
 
 FALSE_AUTHORITY = {
@@ -56,6 +57,29 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "chunk_output",
     "graph_edge",
     "retrieval_truth",
+}
+
+REQUIRED_GOAL_OPTIONS = {
+    "option_1_alignment_bridge": {
+        "required_text": "greek/hebrew-to-english alignment bridge",
+        "status": "recommended_next_implementation_goal",
+    },
+    "option_2_manuscript_custody_chain": {
+        "required_text": "manuscript witness chain",
+        "status": "parallel_catalog_only_research",
+    },
+    "option_3_variant_error_ledger": {
+        "required_text": "variant and copying-error",
+        "status": "after_schema_and_license_gate",
+    },
+    "option_4_early_creed_lane": {
+        "required_text": "early creed",
+        "status": "after_citation_and_frontier_review_gate",
+    },
+    "option_5_integrated_workbench": {
+        "required_text": "integrated original-language evidence workbench",
+        "status": "later_after_smaller_lanes_validate",
+    },
 }
 
 
@@ -111,6 +135,23 @@ def validate_t430_original_language_evidence_substrate(root: Path = ROOT) -> dic
     for required in ("source_text_archive", "canonical_source_view", "strongs_alignment", "textual_variants", "manuscript_witness_support", "editorial_layers"):
         if required not in layer_ids:
             raise T430EvidenceSubstrateError(f"missing evidence layer {required}")
+    goal_options = control.get("goal_options")
+    if not isinstance(goal_options, list) or len(goal_options) != 5:
+        raise T430EvidenceSubstrateError("goal_options must list exactly five owner-facing options")
+    goals_by_id = {
+        str(option.get("option_id")): option
+        for option in goal_options
+        if isinstance(option, dict)
+    }
+    for option_id, required in REQUIRED_GOAL_OPTIONS.items():
+        option = goals_by_id.get(option_id)
+        if not option:
+            raise T430EvidenceSubstrateError(f"goal_options missing {option_id}")
+        if option.get("status") != required["status"]:
+            raise T430EvidenceSubstrateError(f"{option_id}.status must be {required['status']}")
+        for field in ("primary_question", "first_output", "authority_limit"):
+            if not isinstance(option.get(field), str) or not option[field].strip():
+                raise T430EvidenceSubstrateError(f"{option_id}.{field} must be a non-empty string")
     allowlist = _read_yaml(root / ALLOWLIST.relative_to(ROOT))
     if allowlist.get("object_type") != "original_language_source_allowlist":
         raise T430EvidenceSubstrateError("allowlist object_type is wrong")
@@ -128,6 +169,22 @@ def validate_t430_original_language_evidence_substrate(root: Path = ROOT) -> dic
     ):
         if phrase not in text:
             raise T430EvidenceSubstrateError(f"{_rel(roadmap)} missing phrase {phrase!r}")
+    goal_options_path = root / GOAL_OPTIONS_ROADMAP.relative_to(ROOT)
+    goal_text = goal_options_path.read_text(encoding="utf-8").lower()
+    for required in REQUIRED_GOAL_OPTIONS.values():
+        if required["required_text"] not in goal_text:
+            raise T430EvidenceSubstrateError(
+                f"{_rel(goal_options_path)} missing goal option text {required['required_text']!r}"
+            )
+    for phrase in (
+        "owner decision menu",
+        "chain-of-custody",
+        "minute-error",
+        "months after the resurrection",
+        "frontier review",
+    ):
+        if phrase not in goal_text:
+            raise T430EvidenceSubstrateError(f"{_rel(goal_options_path)} missing phrase {phrase!r}")
     return control
 
 
