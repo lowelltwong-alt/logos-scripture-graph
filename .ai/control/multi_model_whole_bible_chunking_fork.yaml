@@ -49,6 +49,28 @@ model_count:
   minimum_to_compare: 3
   initial_target: 5
   maximum_supported: 10
+recommended_model_lineup:
+  rationale: |
+    Use one completed Cursor/Composer marathon, two independent Claude-family marathons,
+    one Codex GPT-5.5 structured marathon, and one optional outside-family comparison.
+    The two Claude passes should not read each other or M1; agreement is only measured
+    later by the batch compare harness.
+  order:
+    - model_id: M1_cursor
+      role: completed_cursor_composer_2_5_fast_marathon
+      purpose: fast first-pass whole-Bible chunk map and stress sidecars
+    - model_id: M2_claude_sonnet5
+      role: claude_sonnet_5_medium_or_high
+      purpose: efficient high-quality literary/discourse pass
+    - model_id: M3_claude_frontier
+      role: claude_opus_4_8_or_fable_5_high
+      purpose: slower frontier pass for theological/literary hard cases
+    - model_id: M4_codex_gpt55
+      role: codex_gpt_5_5_high
+      purpose: structured implementation-minded contrast after Claude-family runs
+    - model_id: M5_gemini_thinking
+      role: gemini_pro_or_thinking_optional
+      purpose: outside-family comparison if owner wants more variance
   owner_may_add_slots: M6_through_M10_without_policy_rewrite
 scratch_root: .ai/scratch/multi_model_bible_chunking/
 execution_mode:
@@ -80,27 +102,27 @@ model_slots:
     model_profile: composer_fast_marathon
     folder: .ai/scratch/multi_model_bible_chunking/M1_cursor/
     status: pending_marathon_start
-  - model_id: M2_codex
-    agent_surface: codex
-    model_profile: executor_marathon
-    folder: .ai/scratch/multi_model_bible_chunking/M2_codex/
-    status: pending_marathon_start
-  - model_id: M3_claude
+  - model_id: M2_claude_sonnet5
     agent_surface: claude
-    model_profile: claude-opus-4.8_reasoner_marathon
-    folder: .ai/scratch/multi_model_bible_chunking/M3_claude/
+    model_profile: claude-sonnet-5_medium_or_high_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M2_claude_sonnet5/
     status: pending_marathon_start
-  - model_id: M4_gemini
+  - model_id: M3_claude_frontier
+    agent_surface: claude
+    model_profile: claude-opus-4.8_or_fable-5_high_frontier_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M3_claude_frontier/
+    status: pending_marathon_start
+  - model_id: M4_codex_gpt55
+    agent_surface: codex
+    model_profile: gpt-5.5_high_structured_marathon
+    folder: .ai/scratch/multi_model_bible_chunking/M4_codex_gpt55/
+    status: pending_marathon_start
+  - model_id: M5_gemini_thinking
     agent_surface: gemini
-    model_profile: cross_model_chunker
-    folder: .ai/scratch/multi_model_bible_chunking/M4_gemini/
-    status: pending_marathon_start
-  - model_id: M5_composer_alt
-    agent_surface: cursor
-    model_profile: composer_second_pass_optional
-    folder: .ai/scratch/multi_model_bible_chunking/M5_composer_alt/
+    model_profile: gemini_pro_or_thinking_optional_comparison
+    folder: .ai/scratch/multi_model_bible_chunking/M5_gemini_thinking/
     status: optional_pending
-    notes: Fifth slot for alternate model pass or hostile cross-check chunk map
+    notes: Fifth slot for outside-family comparison; optional unless owner wants more variance
   - model_id: M6_reserved
     folder_pattern: .ai/scratch/multi_model_bible_chunking/M6_*/
     status: slot_reserved_add_when_needed
@@ -134,6 +156,25 @@ required_research_topics:
   - poetry_stanza_and_acrostic_patterns
   - prophetic_oracle_and_vision_boundaries
   - law_covenant_list_genealogy_patterns
+literary_marker_quality_protocol:
+  strategy_id: literary_marker_aware_v2
+  control: .ai/control/t423_literary_marker_quality_protocol.yaml
+  required_for_all_model_slots: true
+  mark_complete_gate: scripts/validate_t423_literary_quality_protocol.py
+  rule: |
+    Models must make literary-form judgments, not silent chapter-only maps. Chapter
+    fallback is allowed only when logged in book_strategy/<Book>.md and low-confidence
+    or marker-rich regions are surfaced to the low-confidence, frontier, and atlas
+    candidate sidecars. Atlas candidate rows are consideration-only and have no
+    promotion authority.
+  required_sidecars:
+    - book_strategy/<Book>.md
+    - low_confidence_register.jsonl
+    - frontier_escalation_queue.jsonl
+    - atlas_candidate_feed.jsonl
+    - model_quality_summary.md
+  sidecar_promotion_authority: none
+  chapter_only_fallback_must_not_be_silent: true
 raw_bible_input:
   read_only_root: data/raw/bible/eng-web/usfm/
   manifest: data/raw/bible/eng-web/source_manifest.yaml
@@ -179,6 +220,11 @@ per_model_outputs:
     - book_chunks/
     - marathon_progress.yaml
     - layer_decision_log.jsonl
+    - book_strategy/
+    - low_confidence_register.jsonl
+    - frontier_escalation_queue.jsonl
+    - atlas_candidate_feed.jsonl
+    - model_quality_summary.md
     - model_summary.md
   merged_after_complete:
     - whole_bible_chunk_map.jsonl
@@ -200,6 +246,7 @@ chunk_map_record_schema:
     - boundary_evidence_refs
     - strong_or_hebrew_tags_used
     - wj_or_red_letter_considered
+    - frontier_flag_considered
     - confidence
     - decision_id
     - non_authorizing
@@ -268,5 +315,6 @@ validators:
   - scripts/evaluate_t423_revert_signal.py
   - scripts/validate_t423_pilot_gate.py
   - scripts/validate_t423_parallel_isolation.py
+  - scripts/validate_t423_literary_quality_protocol.py
   - scripts/validate_scratch_scope.py
   - scripts/validate_scratch_lane_policy.py
