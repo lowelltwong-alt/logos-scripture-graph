@@ -4,6 +4,27 @@
 **Updated by:** T417 scratch marathon session close
 **Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
 
+> **T431 original-language raw intake (2026-07-04):** Added the T430/T431 original-language
+> evidence lane and allowlisted raw intake guardrails. Downloaded manifest-backed raw archives for
+> Tanach.us UXLC, Open Scriptures Hebrew Bible, SBLGNT, unfoldingWord UGNT, and CNTR Statistical
+> Restoration under `data/raw/original_language/`. Manuscript libraries remain catalog-only:
+> Leon Levy DSS, Codex Sinaiticus, Aleppo Codex, and NT papyri/major codices. Strong's, lemma,
+> morphology, variant, witness-support, and translation-faithfulness layers remain future
+> candidate evidence outside raw. T431 also builds canonical-only candidate source views with
+> inclusion/exclusion ledgers so docs, app renderings, metadata, nested archives, duplicate text
+> formats, images, and non-selected variants do not contaminate future Bible processing. Future
+> T432+ work must consume the filtered source view, not the raw archive directly. T431 authorizes no source text mutation, Strong's overlay in raw,
+> manuscript transcription/image import, preferred reading, source-tradition preference, canon
+> change, reviewed gold, chunks, KG edges, retrieval truth, embeddings/indexes, or theology
+> authority.
+> T431 guardrail hardening records source-provided metadata truthfully in canonical source views:
+> OSHB/UGNT/CNTR-style morphology, lemma, or Strong's columns remain evidence-only and are flagged
+> in manifests/ledgers. The canonical source-view checker now validates included/excluded ledgers
+> against actual archive members and rejects duplicate paths, duplicate included books, duplicate
+> view paths, stale checksums, and scope/count drift. `docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md`
+> adds five possible next goals: alignment bridge, manuscript witness chain, variant/copying-error
+> ledger, early creed/tradition-formula research lane, and integrated evidence workbench.
+
 > **T423 whole-Bible multi-model fork (2026-07-03):** Experimental speed path — 3–10 models
 > chunk entire Bible in separate scratch folders (continuous marathon, days OK), same research
 > baseline, then compare agreement vs delta. Revert to T410 if fork fails. **Red-team required

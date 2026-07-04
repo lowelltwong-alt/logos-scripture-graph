@@ -1,0 +1,115 @@
+object_type: original_language_evidence_substrate
+schema_version: original_language_evidence_substrate.v1
+task_id: T430
+owner: Lowell Wong
+status: active_planning_and_raw_intake_lane
+trust_zone: control
+provenance_note: "Created during T431 to define the non-authorizing original-language evidence lane before tokenization, alignment, variants, manuscript scoring, or KG work."
+summary: "T430 builds Hebrew, Aramaic, and Greek evidence from manifest-backed raw sources, then layers Strong's, lemma, morphology, variant, witness, and translation-faithfulness evidence as candidate records."
+authority:
+  records_original_language_evidence_lane: true
+  authorizes_allowlisted_raw_downloads_via_t431: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_source_text_mutation: false
+  authorizes_strongs_overlay_in_raw: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+raw_intake:
+  allowlist: .ai/control/original_language_source_allowlist.yaml
+  raw_root: data/raw/original_language
+  rule: "Raw files are immutable downloaded source packages with manifests and checksums; processed tokens, overlays, variants, and witness claims do not belong in raw."
+evidence_layers:
+  - layer_id: source_text_archive
+    destination: data/raw/original_language
+    status: T431_allowlisted_downloads_only
+    authority_limit: "Downloaded archives are evidence inputs; they do not select a preferred reading or source tradition."
+  - layer_id: canonical_source_view
+    destination: data/candidate/original_language_evidence/canonical_source_views
+    status: T431_filtered_candidate_view
+    authority_limit: "Filtered views include only recognized canonical Bible text files and exclusion ledgers; they do not mutate raw, select preferred readings, or become canon authority."
+  - layer_id: source_language_tokens
+    destination: data/candidate/original_language_evidence/source_tokens
+    status: future_T432_T435
+    authority_limit: "Token rows are candidate observations, not canonical Scripture replacement."
+  - layer_id: strongs_alignment
+    destination: data/candidate/original_language_evidence/strong_alignment
+    status: future_T432_T435
+    authority_limit: "Strong's numbers are lookup and alignment hints, not source text, lexical truth, or theology authority."
+  - layer_id: lemma_morphology
+    destination: data/candidate/original_language_evidence/lemma_morphology
+    status: future_T432_T435
+    authority_limit: "Lemma and morphology labels require phrase, clause, syntax, discourse, genre, and canonical context."
+  - layer_id: textual_variants
+    destination: data/candidate/original_language_evidence/textual_variants
+    status: future_T432_T436
+    authority_limit: "Variants must be transparent and cited, never silently normalized or converted into preferred readings."
+  - layer_id: manuscript_witness_support
+    destination: data/candidate/original_language_evidence/witness_support
+    status: future_T431_catalog_then_T432_T436
+    authority_limit: "Oldest witness is evidence, not automatic authority."
+  - layer_id: editorial_layers
+    destination: data/candidate/original_language_evidence/editorial_layers
+    status: future_T432_T437
+    authority_limit: "Modern punctuation, capitalization, verse/chaptering, paragraphing, headings, and red-letter/WJ formatting are editorial layers."
+required_downstream_packet_fields:
+  - source_id
+  - source_manifest
+  - source_sha256
+  - license
+  - retrieval_url
+  - retrieval_date
+  - version_or_commit
+  - osis_ref
+  - source_token_id
+  - lemma
+  - morphology
+  - strong_id
+  - alignment_basis
+  - confidence
+  - provenance
+  - inferred_vs_observed
+  - phrase_clause_context
+  - discourse_context
+  - textual_variant_dependency
+  - witness_support_summary
+  - non_authorizations
+non_authorizations:
+  - source_language_truth
+  - lexical_truth
+  - isolated_word_theology
+  - strongs_number_as_source_text
+  - strongs_number_as_theology_authority
+  - source_text_mutation
+  - preferred_reading
+  - source_tradition_preference
+  - oldest_witness_as_automatic_authority
+  - manuscript_catalog_as_transcription_authority
+  - punctuation_as_autograph_certainty
+  - red_letter_as_original_speaker_authority
+  - translation_judgment
+  - canon_scope_change
+  - boundary_import
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_edge
+  - retrieval_truth
+  - embedding_or_vector_work
+validators:
+  - scripts/validate_t430_original_language_evidence_substrate.py
+  - scripts/validate_original_language_raw_sources.py
+  - tests/test_t430_original_language_evidence_substrate.py
+  - tests/test_original_language_raw_sources.py
