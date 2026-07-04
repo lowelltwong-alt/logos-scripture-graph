@@ -16,6 +16,18 @@ Future work must consume the canonical source views by default, not raw archives
 
 Strong's numbers are lookup and alignment hints. They are not Greek/Hebrew source text, lexical authority, theology authority, or proof that a translation decision is correct.
 
+## Five Goal Options From Here
+
+These are not mutually exclusive forever. They are owner-facing routes for deciding what the next implementation lane should optimize for.
+
+1. Build the Greek/Hebrew-to-English alignment bridge first.
+2. Build the manuscript witness chain and confidence atlas first.
+3. Build the variant/copying-error transparency ledger first.
+4. Build the early-creed and tradition-formula research lane first.
+5. Build the integrated original-language evidence workbench after the smaller lanes prove themselves.
+
+Recommended order: Option 1 first, Option 2 in parallel as catalog-only research, then Options 3 and 4 as evidence packets, then Option 5 as the integrated product. This gives the repo useful source-token scaffolding quickly while still preserving the long-term custody-chain goal.
+
 ## Option 1: Greek/Hebrew To English Alignment Bridge
 
 Goal: build the first evidence bridge from Hebrew/Aramaic/Greek source tokens to the current English WEB layer.
@@ -53,6 +65,7 @@ Primary outputs:
 - passage coverage by witness;
 - approximate date ranges;
 - material type, language, and repository/source links;
+- oldest-known-witness notes and highest-confidence-witness notes, kept separate;
 - confidence notes and reuse/license status;
 - gaps where only catalog metadata is allowed.
 
@@ -63,11 +76,13 @@ Best first pilot:
 Why this matters:
 
 - It starts the "chain of custody" layer the user wants: how we know the text, where witnesses are, and where uncertainty remains.
+- It should eventually support a passage-by-passage custody trail down to spelling, omission/addition, punctuation/editorial, and other minute-error classes where the evidence permits.
 
 Stop conditions:
 
 - do not download manuscript images or transcriptions unless terms are cleared;
 - "oldest witness" is evidence, not automatic authority;
+- "highest confidence" must explain why, and must not hide minority evidence;
 - do not silently choose between Byzantine, Alexandrian, Masoretic, DSS, LXX, Samaritan, or other traditions.
 
 ## Option 3: Variant And Copying-Error Transparency Ledger
@@ -109,6 +124,7 @@ Primary outputs:
 - scholarly-source packet with agreement/disagreement;
 - manuscript and edition evidence links where relevant;
 - confidence, unresolved questions, and downstream risks.
+- explicit separation between manuscript evidence, source-language discourse evidence, and scholarly historical argument.
 
 Best first candidates:
 
@@ -121,6 +137,7 @@ Why this matters:
 
 - It supports the user's long-term goal of tracing how early Christian tradition material appears in the biblical text.
 - Claims such as "months after the resurrection" require a dedicated evidence packet, source citations, and frontier review. T430 does not assert that conclusion by itself.
+- The lane should preserve contrary scholarly views and confidence limits so apologetic or skeptical pressure cannot become hidden data.
 
 Stop conditions:
 

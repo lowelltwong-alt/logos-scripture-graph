@@ -209,19 +209,35 @@ def validate_catalog_only(root: Path = ROOT) -> dict[str, Any]:
     return data
 
 
-def validate_no_raw_overlay_files(root: Path = ROOT) -> None:
+def validate_raw_tree_shape(root: Path = ROOT, manifests: list[dict[str, Any]] | None = None) -> None:
     raw_root = root / "data" / "raw" / "original_language"
     if not raw_root.exists():
         raise OriginalLanguageRawSourceError(f"{_rel(raw_root)} is missing")
-    forbidden_terms = ("strong_overlay", "strongs_overlay", "alignment_overlay", "candidate_evidence")
-    offenders = [
-        path
-        for path in raw_root.rglob("*")
-        if path.is_file() and any(term in path.name.lower() for term in forbidden_terms)
-    ]
+    if manifests is None:
+        manifests = validate_manifests(root)
+    raw_root_resolved = raw_root.resolve()
+    allowed_files = {(raw_root / "witness_catalogs" / "manuscript_libraries.yaml").resolve()}
+    for manifest in manifests:
+        source_dir = raw_root / str(manifest["language"]) / str(manifest["id"])
+        allowed_files.add((source_dir / "source_manifest.yaml").resolve())
+        archive = (root / str(manifest["archive_path"])).resolve()
+        archive_dir = (source_dir / "raw").resolve()
+        try:
+            archive.relative_to(raw_root_resolved)
+        except ValueError as exc:
+            raise OriginalLanguageRawSourceError(
+                f"{manifest['id']}: declared raw archive must stay under data/raw/original_language"
+            ) from exc
+        if archive.parent != archive_dir:
+            raise OriginalLanguageRawSourceError(
+                f"{manifest['id']}: declared raw archive must be under {_rel(source_dir / 'raw')}"
+            )
+        allowed_files.add(archive)
+    offenders = [path for path in raw_root.rglob("*") if path.is_file() and path.resolve() not in allowed_files]
     if offenders:
         raise OriginalLanguageRawSourceError(
-            "Strong's/alignment candidate overlay files are forbidden in raw: "
+            "raw original-language tree may contain only source_manifest.yaml, raw/<declared archive>, "
+            "and witness_catalogs/manuscript_libraries.yaml; unexpected file(s): "
             + ", ".join(_rel(path) for path in offenders)
         )
 
@@ -229,7 +245,7 @@ def validate_no_raw_overlay_files(root: Path = ROOT) -> None:
 def validate_original_language_raw_sources(root: Path = ROOT, allowlist_path: Path = ALLOWLIST) -> dict[str, Any]:
     manifests = validate_manifests(root, allowlist_path)
     catalog = validate_catalog_only(root)
-    validate_no_raw_overlay_files(root)
+    validate_raw_tree_shape(root, manifests)
     try:
         views = build_views(
             allowlist_path=allowlist_path,

@@ -356,6 +356,11 @@ def _check_views(sources: list[dict[str, Any]], raw_root: Path, out_root: Path) 
             raise CanonicalSourceViewError(
                 f"{source_id}: view ledgers do not cover archive members missing={missing} extra={extra}"
             )
+        with zipfile.ZipFile(archive) as zf:
+            included_archive_bytes = {
+                str(row["source_archive_path"]): zf.read(str(row["source_archive_path"]))
+                for row in included
+            }
         books = {str(row["book_id"]) for row in included}
         if books != expected:
             raise CanonicalSourceViewError(f"{source_id}: included books do not match expected canonical scope")
@@ -396,7 +401,21 @@ def _check_views(sources: list[dict[str, Any]], raw_root: Path, out_root: Path) 
             target = repo_root / view_path
             if not target.exists():
                 raise CanonicalSourceViewError(f"{source_id}: missing included file {row['view_path']}")
-            if _sha256(target) != row["sha256"]:
+            source_archive_path = str(row.get("source_archive_path", ""))
+            archive_bytes = included_archive_bytes.get(source_archive_path)
+            if archive_bytes is None:
+                raise CanonicalSourceViewError(f"{source_id}: missing archive bytes for {source_archive_path}")
+            archive_sha = _sha256_bytes(archive_bytes)
+            if archive_sha != row["sha256"]:
+                raise CanonicalSourceViewError(f"{source_id}: included row sha does not match archive member {source_archive_path}")
+            if int(row.get("size_bytes", -1)) != len(archive_bytes):
+                raise CanonicalSourceViewError(f"{source_id}: included row size does not match archive member {source_archive_path}")
+            target_bytes = target.read_bytes()
+            if target_bytes != archive_bytes:
+                raise CanonicalSourceViewError(
+                    f"{source_id}: included view file does not match raw archive member {row['view_path']}"
+                )
+            if _sha256_bytes(target_bytes) != row["sha256"]:
                 raise CanonicalSourceViewError(f"{source_id}: included file sha mismatch {row['view_path']}")
             if row.get("classification") != expected_classification:
                 raise CanonicalSourceViewError(f"{source_id}: included file classification is wrong")

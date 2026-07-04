@@ -50,11 +50,14 @@ Codex
 - Catalog-only manuscript libraries: Leon Levy DSS, Codex Sinaiticus, Aleppo Codex, and NT papyri/major codices.
 - Built canonical-only candidate source views: UXLC 39 included / 11 excluded, OSHB 39 / 87, SBLGNT 27 / 87, UGNT 27 / 96, CNTR-SR 1 / 7.
 - Future source-language processing must consume the canonical source view, not raw archives directly, because the raw packages include docs, code, PDFs, HTML/JSON app renderings, images, metadata, nested archives, duplicate text formats, and non-selected variants.
-- A read-only subagent review found no P0/P1 issues and two P2s. Both were patched in T431:
+- The first read-only subagent review found no P0/P1 issues and two P2s. Both were patched in T431:
   - CNTR-SR now truthfully records source-provided morphology and lemma columns as evidence-only metadata.
   - Canonical source view check mode now validates inclusion/exclusion ledgers against the actual archive member set, rejects duplicate archive paths, enforces included row count equals expected canonical scope, and checks unique included `book_id`/`view_path`.
+- A second read-only subagent review found one P1 proof gap and one P2 raw-tree hardening gap. Both were patched in T431:
+  - canonical source view check mode now compares each included view file and ledger row back to the selected ZIP member bytes, sha256, and byte size;
+  - the raw original-language tree is now shape-locked to `source_manifest.yaml`, `raw/<declared archive>`, and `witness_catalogs/manuscript_libraries.yaml`, so overlay-like files cannot evade by avoiding magic filenames.
 - Rust was intentionally not added to this T431 slice after review, because the remaining risk was semantic source filtering rather than raw throughput. T435 remains the right lane for Rust-first large token/alignment ledgers after schemas settle.
-- Added five T430 goal options: alignment bridge, manuscript witness chain, variant/copying-error ledger, early creed/tradition-formula research lane, and integrated evidence workbench.
+- Added five T430 goal options: alignment bridge, manuscript witness chain, variant/copying-error ledger, early creed/tradition-formula research lane, and integrated evidence workbench. The manuscript lane now separates oldest-known witnesses from highest-confidence witnesses and preserves minute copying/editorial issues as transparent evidence rather than authority.
 - Added `CD-088` and `LSN-043` after GitHub CI correctly caught that roadmap/source-intake docs under `docs/roadmap/` require a chunking theological decision-register update. These entries record T431 as evidence-only and non-authorizing.
 - DAD candidate lesson/outbox records were sent from the central DAD checkout:
   - `dad:rust-rollout-lesson:829dc53e-1688-5290-ab33-3352634c010d`
@@ -73,7 +76,8 @@ Codex
 - `python scripts/validate_chunking_lesson_index.py --base-ref origin/main` - passed after CI remediation.
 - `python scripts/scan_raw_sources.py --check` - passed after regenerating `.ai/control/RAW_SOURCE_INVENTORY.md`.
 - `python scripts/validate_raw_coverage.py` - passed.
-- `python -m pytest tests/test_original_language_raw_sources.py tests/test_t430_original_language_evidence_substrate.py -q` - 11 passed.
+- `python -m pytest tests/test_original_language_raw_sources.py -q` - 10 passed after archive-member and raw-tree hardening.
+- `python -m pytest tests/test_original_language_raw_sources.py tests/test_t430_original_language_evidence_substrate.py -q` - 13 passed after the second hardening pass.
 - `python scripts/validate_task_scope.py --task-id T431` - passed.
 - `python scripts/agent/validate_handoffs.py` - passed.
 - `git diff --check` - passed.
@@ -82,7 +86,7 @@ Codex
 - `python scripts/validate_all.py` - passed after the canonical-66 filtered generated-data refresh.
 - `python -m pytest -q` - 728 passed.
 - `python scripts/generate_data_map.py --check` - passed after data map regeneration.
-- GitHub PR #134 `validate` - passed after CI remediation.
+- GitHub PR #134 `validate` - passed after CI remediation at `1d2750a`; rerun after second hardening push.
 
 ## Known risks
 
