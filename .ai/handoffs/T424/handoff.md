@@ -35,6 +35,8 @@
 - scripts/agent/validate_handoffs.py
 - ROADMAP_STATE.yaml
 - .ai/control/current_focus.yaml
+- .digital-asset/mail/outbox.jsonl
+- .ai-assets.json
 - C:/Users/lowel/OneDrive/Desktop/Git Projects/03_World_View/logos-governance-architecture/ (topology search for Rust deployment files)
 
 ## Files changed
@@ -47,15 +49,18 @@
 - .ai/tasks/T424.task.yaml
 - .ai/handoffs/T424/handoff.md
 - .ai/control/PROJECT_STATUS.md
+- .digital-asset/mail/outbox.jsonl
 - ROADMAP_STATE.yaml
 - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
 - tools/logos_fast_validators/Cargo.toml
 - tools/logos_fast_validators/Cargo.lock
 - tools/logos_fast_validators/src/main.rs
 - scripts/validate_coding_runtime_language_preflight.py
+- scripts/validate_dad_outbox.py
 - scripts/validate_fast_jsonl.py
 - scripts/validate_fast_canonical_scope.py
 - scripts/validate_all.py
+- tests/test_dad_outbox.py
 - tests/test_coding_runtime_language_preflight.py
 - tests/test_t424_rust_fast_validators.py
 
@@ -79,6 +84,9 @@ Generated but not committed:
 - Added `CD-087` to the chunking theological decision register to record that Rust runtime acceleration and Rust-first coding preflight are non-authorizing tooling, not theology, source-tradition, chunk-boundary, reviewed-gold, output, route/evaluator, graph/retrieval/vector, or canon authority.
 - Added `LSN-042` to the lesson index so future agents treat Rust-first high-resource coding as mandatory preflight and record language/runtime tradeoffs.
 - Checked the governance/DAD repo topology for existing Rust deployment conventions; no `Cargo.toml`, `Cargo.lock`, `rust-toolchain`, `Cross.toml`, or cargo/rust deployment scaffold was present, so T424 keeps the local isolated crate pattern.
+- Recorded T424 reusable lesson/assets for DAD as outbox message `msg-20260703-t424-rust-validation-layer` in `.digital-asset/mail/outbox.jsonl`.
+- Added `scripts/validate_dad_outbox.py` and tests so the repo checks DAD outbound messages, required T424 artifacts, asset candidates, candidate trust zone, local adoption requirement, and non-authorizations.
+- Kept DAD output candidate-only. The DAD message does not authorize DAD to override local governance, chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon scope, or theology authority.
 - Preserved Python/pytest as the governance orchestrator for task scope, handoffs, policy language, theology controls, route/evaluator surfaces, and orchestration.
 - Authorized no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
 
@@ -93,8 +101,14 @@ Generated but not committed:
 - command: `python scripts/validate_coding_runtime_language_preflight.py`
 - result: passed
 - failures: none
+- command: `python scripts/validate_dad_outbox.py`
+- result: passed
+- failures: none
 - command: `python -m pytest tests/test_coding_runtime_language_preflight.py -q`
 - result: passed; 4 tests passed
+- failures: none
+- command: `python -m pytest tests/test_dad_outbox.py -q`
+- result: passed; 3 tests passed
 - failures: none
 - command: `python scripts/validate_task_scope.py --task-id T424`
 - result: passed

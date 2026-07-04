@@ -46,6 +46,18 @@ The policy is Rust-first for high-resource deterministic code: new validators, s
 
 Python/pytest remain authoritative for governance orchestration, task scopes, handoffs, theology-policy language, wrappers, fixtures, and small semantic validators. The required decision record captures data size, expected runtime, Rust trigger, chosen language, wrapper/fallback plan, validation plan, and maintenance tradeoffs.
 
+## DAD Lesson And Asset Outbox
+
+T424 records reusable lessons and asset candidates for DAD in `.digital-asset/mail/outbox.jsonl` as `msg-20260703-t424-rust-validation-layer`.
+
+The DAD message is candidate-only and requires local adoption. It offers three reusable asset candidates:
+
+- Rust leaf-validator CLI pattern
+- Rust-first high-resource coding-runtime preflight
+- Python wrapper plus Rust fallback pattern
+
+`scripts/validate_dad_outbox.py` checks the outbox, required T424 artifacts, asset candidates, and non-authorizations. `validate_all.py` runs that validator so future agents keep sending useful lessons/assets to DAD without granting DAD authority over this repo.
+
 ## Non-Authorizations
 
 T424 does not authorize chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.

@@ -147,6 +147,7 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_governance_dependency_map_mirror.py",
             [PY, str(ROOT / "scripts" / "validate_governance_dependency_map_mirror.py")],
         ),
+        ("validate_dad_outbox.py", [PY, str(ROOT / "scripts" / "validate_dad_outbox.py")]),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
         *task_scope_gates(),
         *parallel_execution_safety_gates(),

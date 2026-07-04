@@ -11,6 +11,7 @@ scope:
   allowed_paths:
     - .gitignore
     - AI_FRONT_DOOR.md
+    - .digital-asset/mail/outbox.jsonl
     - .ai/tasks/T424.task.yaml
     - .ai/handoffs/T424/
     - .ai/control/coding_runtime_language_preflight.yaml
@@ -22,10 +23,12 @@ scope:
     - ROADMAP_STATE.yaml
     - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
     - tools/logos_fast_validators/
+    - scripts/validate_dad_outbox.py
     - scripts/validate_coding_runtime_language_preflight.py
     - scripts/validate_fast_jsonl.py
     - scripts/validate_fast_canonical_scope.py
     - scripts/validate_all.py
+    - tests/test_dad_outbox.py
     - tests/test_coding_runtime_language_preflight.py
     - tests/test_t424_rust_fast_validators.py
   forbidden_paths:
@@ -74,6 +77,8 @@ deliverables:
   coding_runtime_language_validator: scripts/validate_coding_runtime_language_preflight.py
   decision_register_entry: CD-087
   lesson_index_entry: LSN-042
+  dad_outbox: .digital-asset/mail/outbox.jsonl
+  dad_outbox_validator: scripts/validate_dad_outbox.py
   jsonl_wrapper: scripts/validate_fast_jsonl.py
   canonical_scope_wrapper: scripts/validate_fast_canonical_scope.py
   validate_all_integration: scripts/validate_all.py
@@ -81,19 +86,23 @@ deliverables:
   tests:
     - tests/test_t424_rust_fast_validators.py
     - tests/test_coding_runtime_language_preflight.py
+    - tests/test_dad_outbox.py
   handoff: .ai/handoffs/T424/handoff.md
 acceptance_criteria:
   - "Rust crate compiles and tests pass without touching the T412 USFM observation scanner."
   - "JSONL and canonical-scope wrappers preserve existing Python command ergonomics and support Python fallback."
   - "validate_all.py uses Rust only for proven deterministic data-heavy gates, with Python fallback."
   - "Coding preflight requires Rust consideration for high-resource deterministic code while preserving Python/pytest governance orchestration."
+  - "DAD outbox records T424 reusable lesson and asset candidates as candidate-only with local adoption required."
   - "Python/pytest remain authoritative for governance, task scopes, handoffs, theology-policy language, and orchestration."
   - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
 validations:
   - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
   - python scripts/validate_coding_runtime_language_preflight.py
+  - python scripts/validate_dad_outbox.py
   - python -m pytest tests/test_t424_rust_fast_validators.py -q
   - python -m pytest tests/test_coding_runtime_language_preflight.py -q
+  - python -m pytest tests/test_dad_outbox.py -q
   - python scripts/validate_task_scope.py --task-id T424
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py

@@ -12,7 +12,10 @@
 > route/evaluator policy, and corpus QA. The new
 > `.ai/control/coding_runtime_language_preflight.yaml` makes Rust-first consideration
 > mandatory before adding high-resource deterministic code, with explicit thresholds
-> and interop/maintenance tradeoff recording. No chunk output, reviewed gold, child spans,
+> and interop/maintenance tradeoff recording. T424 also sends DAD candidate-only lesson/assets
+> via `.digital-asset/mail/outbox.jsonl` as `msg-20260703-t424-rust-validation-layer`,
+> checked by `scripts/validate_dad_outbox.py`; local adoption remains required. No chunk output,
+> reviewed gold, child spans,
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
 
