@@ -65,6 +65,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    if (args.python_fallback or args.compare_python) and args.canon.resolve() != DEFAULT_CANON.resolve():
+        print(
+            "Custom --canon is not supported with Python fallback/compare because "
+            "scripts/validate_canonical_66_scope.py uses the repo default canon config.",
+            file=sys.stderr,
+        )
+        return 1
+
     if not args.manifest_path.exists():
         if args.require_rust:
             print(f"Missing Rust manifest: {args.manifest_path}", file=sys.stderr)

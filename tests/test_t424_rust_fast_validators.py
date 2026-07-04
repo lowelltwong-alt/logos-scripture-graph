@@ -83,6 +83,98 @@ def test_fast_jsonl_rejects_missing_id(tmp_path: Path) -> None:
     assert "missing id" in result.stdout
 
 
+def test_fast_jsonl_matches_python_on_empty_canon_profiles(tmp_path: Path) -> None:
+    fixture = tmp_path / "empty_canon_profiles.jsonl"
+    records = _valid_records()
+    records[0]["canon_profiles"] = []
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--compare-python",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "missing canon_profiles" in combined
+    assert "Rust/Python JSONL validator verdict parity passed" in combined
+
+
+def test_fast_jsonl_matches_python_on_null_canon_profiles(tmp_path: Path) -> None:
+    fixture = tmp_path / "null_canon_profiles.jsonl"
+    records = _valid_records()
+    records[0]["canon_profiles"] = None
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--compare-python",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "missing canon_profiles" in combined
+    assert "Rust/Python JSONL validator verdict parity passed" in combined
+
+
+def test_fast_jsonl_matches_python_on_missing_witness_passage_id(tmp_path: Path) -> None:
+    fixture = tmp_path / "missing_passage_id.jsonl"
+    records = _valid_records()
+    records[1].pop("passage_id")
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--compare-python",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "points to missing ScripturePassage" in combined
+    assert "Rust/Python JSONL validator verdict parity passed" in combined
+
+
+def test_fast_jsonl_matches_python_on_unknown_witness_passage_id(tmp_path: Path) -> None:
+    fixture = tmp_path / "unknown_passage_id.jsonl"
+    records = _valid_records()
+    records[1]["passage_id"] = "scripture:Gen.99.99"
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--compare-python",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "points to missing ScripturePassage" in combined
+    assert "Rust/Python JSONL validator verdict parity passed" in combined
+
+
 def test_fast_canonical_scope_rejects_noncanonical_book(tmp_path: Path) -> None:
     fixture = tmp_path / "tobit.jsonl"
     _write_jsonl(
@@ -114,6 +206,28 @@ def test_fast_canonical_scope_rejects_noncanonical_book(tmp_path: Path) -> None:
     assert "non-66" in result.stdout + result.stderr
 
 
+def test_fast_canonical_scope_rejects_custom_canon_with_python_compare(tmp_path: Path) -> None:
+    fixture = tmp_path / "valid.jsonl"
+    custom_canon = tmp_path / "custom_canon.yaml"
+    _write_jsonl(fixture, _valid_records())
+    custom_canon.write_text("canonical_66_books: []\nexcluded_books: []\n", encoding="utf-8")
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_canonical_scope.py",
+            "--require-rust",
+            "--compare-python",
+            "--canon",
+            str(custom_canon),
+            str(fixture),
+        ]
+    )
+
+    assert result.returncode != 0
+    assert "Custom --canon is not supported" in result.stderr
+
+
 def test_fast_jsonl_python_fallback_only_when_rust_unavailable(tmp_path: Path) -> None:
     fixture = tmp_path / "valid.jsonl"
     _write_jsonl(fixture, _valid_records())
@@ -135,8 +249,16 @@ def test_fast_jsonl_python_fallback_only_when_rust_unavailable(tmp_path: Path) -
 
 
 def test_validate_all_uses_fast_wrappers_for_heavy_canonical_scans() -> None:
-    text = (ROOT / "scripts" / "validate_all.py").read_text(encoding="utf-8")
+    from scripts import validate_all
 
-    assert "validate_fast_jsonl.py" in text
-    assert "validate_fast_canonical_scope.py" in text
-    assert "qa_canonical_corpus.py" in text
+    gates = validate_all.build_gates()
+    fast_gates = [(name, cmd) for name, cmd in gates if "validate_fast_" in name]
+    qa_gates = [(name, cmd) for name, cmd in gates if name == "qa_canonical_corpus.py"]
+
+    assert {name for name, _ in fast_gates} >= {
+        "validate_fast_canonical_scope.py (canonical)",
+        "validate_fast_jsonl.py (canonical)",
+    }
+    assert all("(canonical)" in name for name, _ in fast_gates)
+    assert qa_gates
+    assert all("validate_fast_" not in " ".join(cmd) for _, cmd in qa_gates)

@@ -88,6 +88,11 @@ Generated but not committed:
 - Added `scripts/validate_dad_outbox.py` and tests so the repo checks DAD outbound messages, required T424 artifacts, asset candidates, candidate trust zone, local adoption requirement, and non-authorizations.
 - Kept DAD output candidate-only. The DAD message does not authorize DAD to override local governance, chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon scope, or theology authority.
 - Preserved Python/pytest as the governance orchestrator for task scope, handoffs, policy language, theology controls, route/evaluator surfaces, and orchestration.
+- A read-only subagent review found one P1 Rust/Python parity gap and two P2 QA/fallback gaps. These were patched:
+  - Rust now treats missing, null, false, empty, or zero `canon_profiles` as failing `--require-canon`, matching Python truthiness.
+  - Rust now referentially checks every `TranslationWitness`, including missing or unknown `passage_id`, matching Python's witness behavior.
+  - `validate_fast_canonical_scope.py` now rejects custom `--canon` when Python fallback/compare is requested, because the Python canonical-scope validator only supports the repo default canon config.
+  - Focused tests now include empty/null canon profiles, missing/unknown witness passage IDs, custom-canon compare rejection, and a `validate_all.build_gates()` shape check.
 - Authorized no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
 
 ## Validation run
@@ -96,7 +101,7 @@ Generated but not committed:
 - result: passed; 4 Rust unit tests passed
 - failures: none
 - command: `python -m pytest tests/test_t424_rust_fast_validators.py -q`
-- result: passed; 5 tests passed
+- result: passed; 10 tests passed after Rust/Python parity hardening
 - failures: none
 - command: `python scripts/validate_coding_runtime_language_preflight.py`
 - result: passed
@@ -109,6 +114,9 @@ Generated but not committed:
 - failures: none
 - command: `python -m pytest tests/test_dad_outbox.py -q`
 - result: passed; 3 tests passed
+- failures: none
+- command: `python -m pytest tests/test_t424_rust_fast_validators.py tests/test_coding_runtime_language_preflight.py tests/test_dad_outbox.py -q`
+- result: passed; 17 tests passed after Rust/Python parity hardening
 - failures: none
 - command: `python scripts/validate_task_scope.py --task-id T424`
 - result: passed

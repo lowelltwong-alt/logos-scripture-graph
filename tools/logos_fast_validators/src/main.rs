@@ -10,8 +10,8 @@ use std::path::{Path, PathBuf};
 type AnyResult<T> = Result<T, Box<dyn Error>>;
 
 const REQUIRED_EXCLUDED: &[&str] = &[
-    "FRT", "GLO", "Tob", "Jdt", "AddEsth", "Wis", "Sir", "Bar", "1Macc", "2Macc", "1Esd",
-    "PrMan", "Ps151", "3Macc", "2Esd", "4Macc", "AddDan",
+    "FRT", "GLO", "Tob", "Jdt", "AddEsth", "Wis", "Sir", "Bar", "1Macc", "2Macc", "1Esd", "PrMan",
+    "Ps151", "3Macc", "2Esd", "4Macc", "AddDan",
 ];
 
 fn main() {
@@ -24,7 +24,10 @@ fn main() {
 fn run() -> AnyResult<()> {
     let mut args: Vec<String> = env::args().skip(1).collect();
     if args.is_empty() {
-        return Err("missing command: expected jsonl-scan, canonical-scope, canonical-qa, or chunk-map".into());
+        return Err(
+            "missing command: expected jsonl-scan, canonical-scope, canonical-qa, or chunk-map"
+                .into(),
+        );
     }
     let command = args.remove(0);
     match command.as_str() {
@@ -71,7 +74,9 @@ fn jsonl_scan(args: &[String]) -> AnyResult<()> {
                     args.get(index).ok_or("--summary-json requires a value")?,
                 ));
             }
-            value if value.starts_with('-') => return Err(format!("unknown jsonl-scan flag: {value}").into()),
+            value if value.starts_with('-') => {
+                return Err(format!("unknown jsonl-scan flag: {value}").into())
+            }
             value => paths.push(PathBuf::from(value)),
         }
         index += 1;
@@ -108,7 +113,10 @@ fn jsonl_scan(args: &[String]) -> AnyResult<()> {
                 }
             };
             let Some(record) = record.as_object() else {
-                failures.push(format!("{}:{line_no}: JSONL row is not an object", path.display()));
+                failures.push(format!(
+                    "{}:{line_no}: JSONL row is not an object",
+                    path.display()
+                ));
                 continue;
             };
             record_count += 1;
@@ -205,7 +213,7 @@ fn validate_jsonl_record(
         if let Some(id) = rid {
             passages.insert(id.to_string());
         }
-        if require_canon && record.get("canon_profiles").is_none() {
+        if require_canon && !json_truthy(record.get("canon_profiles")) {
             failures.push(format!(
                 "{}:{line_no}: ScripturePassage {} missing canon_profiles (CANON-1)",
                 path.display(),
@@ -228,9 +236,12 @@ fn validate_jsonl_record(
                 str_field(record, "translation_id").unwrap_or("null")
             ));
         }
-        if let (Some(id), Some(passage_id)) = (rid, str_field(record, "passage_id")) {
-            witnesses.push((id.to_string(), passage_id.to_string()));
-        }
+        witnesses.push((
+            rid.unwrap_or("null").to_string(),
+            str_field(record, "passage_id")
+                .unwrap_or("null")
+                .to_string(),
+        ));
     }
 
     if let Some(actual) = str_field(record, "translation_id") {
@@ -307,7 +318,10 @@ fn canonical_scope(args: &[String]) -> AnyResult<()> {
                 }
             };
             let Some(record) = record.as_object() else {
-                failures.push(format!("{}:{line_no}: JSONL row is not an object", path.display()));
+                failures.push(format!(
+                    "{}:{line_no}: JSONL row is not an object",
+                    path.display()
+                ));
                 continue;
             };
             records += 1;
@@ -318,7 +332,10 @@ fn canonical_scope(args: &[String]) -> AnyResult<()> {
                     "{}:{line_no}: {record_id} is missing canonical book identity",
                     path.display()
                 )),
-                Some(book) if excluded_set.contains(book.as_str()) || !canonical_set.contains(book.as_str()) => {
+                Some(book)
+                    if excluded_set.contains(book.as_str())
+                        || !canonical_set.contains(book.as_str()) =>
+                {
                     failures.push(format!(
                         "{}:{line_no}: {record_id} uses non-66 canonical-scope book {book}",
                         path.display()
@@ -374,8 +391,14 @@ fn canonical_qa(args: &[String]) -> AnyResult<()> {
                     args.get(index).ok_or("--summary-json requires a value")?,
                 ));
             }
-            value if value.starts_with('-') => return Err(format!("unknown canonical-qa flag: {value}").into()),
-            value => return Err(format!("canonical-qa does not accept positional path yet: {value}").into()),
+            value if value.starts_with('-') => {
+                return Err(format!("unknown canonical-qa flag: {value}").into())
+            }
+            value => {
+                return Err(
+                    format!("canonical-qa does not accept positional path yet: {value}").into(),
+                )
+            }
         }
         index += 1;
     }
@@ -571,6 +594,17 @@ fn str_field<'a>(record: &'a Map<String, JsonValue>, key: &str) -> Option<&'a st
     record.get(key).and_then(JsonValue::as_str)
 }
 
+fn json_truthy(value: Option<&JsonValue>) -> bool {
+    match value {
+        None | Some(JsonValue::Null) => false,
+        Some(JsonValue::Bool(value)) => *value,
+        Some(JsonValue::Number(value)) => value.as_f64().is_some_and(|number| number != 0.0),
+        Some(JsonValue::String(value)) => !value.is_empty(),
+        Some(JsonValue::Array(value)) => !value.is_empty(),
+        Some(JsonValue::Object(value)) => !value.is_empty(),
+    }
+}
+
 fn valid_osis_ref(value: &str) -> bool {
     let mut parts = value.split('-');
     let Some(start) = parts.next() else {
@@ -649,7 +683,10 @@ mod tests {
     #[test]
     fn parses_record_book_identity() {
         let mut record = Map::new();
-        record.insert("passage_id".to_string(), JsonValue::String("scripture:2JN.1.1".to_string()));
+        record.insert(
+            "passage_id".to_string(),
+            JsonValue::String("scripture:2JN.1.1".to_string()),
+        );
         assert_eq!(record_book_id(&record), Some("2John".to_string()));
     }
 
