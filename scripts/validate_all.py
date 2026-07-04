@@ -483,12 +483,23 @@ def build_gates() -> list[tuple[str, list[str]]]:
         gates.append(("validate_chunking_gold.py", [PY, str(ROOT / "scripts" / "validate_chunking_gold.py")]))
     scope_present = [p for p in CANON_SCOPE_FILES if p.exists()]
     if scope_present:
-        scope_cmd = [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py"), *[str(p) for p in scope_present]]
-        gates.append(("validate_canonical_66_scope.py (canonical)", scope_cmd))
+        scope_cmd = [
+            PY,
+            str(ROOT / "scripts" / "validate_fast_canonical_scope.py"),
+            "--python-fallback",
+            *[str(p) for p in scope_present],
+        ]
+        gates.append(("validate_fast_canonical_scope.py (canonical)", scope_cmd))
     present = [p for p in SMALL_CANON if p.exists()]
     if present:
-        cmd = [PY, str(ROOT / "scripts" / "validate_jsonl.py"), "--require-canon", *[str(p) for p in present]]
-        gates.append(("validate_jsonl.py (canonical)", cmd))
+        cmd = [
+            PY,
+            str(ROOT / "scripts" / "validate_fast_jsonl.py"),
+            "--python-fallback",
+            "--require-canon",
+            *[str(p) for p in present],
+        ]
+        gates.append(("validate_fast_jsonl.py (canonical)", cmd))
     if all(path.exists() for path in QA_REQUIRED):
         qa_cmd = [PY, str(ROOT / "scripts" / "qa_canonical_corpus.py")]
         if not (CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl").exists():

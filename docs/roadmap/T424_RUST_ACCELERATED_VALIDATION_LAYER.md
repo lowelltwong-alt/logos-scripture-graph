@@ -1,0 +1,42 @@
+# T424 Rust-Accelerated Validation Layer
+
+## Summary
+
+T424 keeps Python and pytest as the governance orchestrator, while adding Rust for deterministic, data-heavy validation passes. The first enabled fast paths are JSONL invariant scanning and canonical 66-book scope checks. Policy, theology, task-scope, handoff, route, evaluator, and control-plane validation remain Python-owned.
+
+## Implemented Slice
+
+- `tools/logos_fast_validators/` is an isolated Rust CLI for deterministic leaf validators.
+- `jsonl-scan` mirrors the existing generated JSONL invariants and can emit a JSON summary.
+- `canonical-scope` mirrors the canonical 66-book config and record-scope checks.
+- `canonical-qa` exists only as a scaffold; `scripts/qa_canonical_corpus.py` remains authoritative.
+- `chunk-map` is intentionally deferred until T424-D.
+
+## Python Boundary
+
+The wrappers preserve existing repo ergonomics:
+
+```bash
+python scripts/validate_fast_jsonl.py --python-fallback --require-canon <jsonl...>
+python scripts/validate_fast_canonical_scope.py --python-fallback <jsonl...>
+```
+
+`--python-fallback` is availability fallback only. If Rust runs and reports a validation failure, the wrapper fails closed instead of hiding the failure behind Python.
+
+## validate_all Integration
+
+`scripts/validate_all.py` uses the fast wrappers only for generated canonical data scans:
+
+- canonical 66 record scope
+- generated JSONL invariants
+
+It does not use Rust for governance YAML, task scopes, handoffs, theology-policy language, route isolation, evaluator policy, or corpus QA.
+
+## Non-Authorizations
+
+T424 does not authorize chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
+
+## Next Steps
+
+- T424-B/C can add benchmark summaries and parity runs on larger generated ledgers.
+- T424-D may add `chunk-map` validation only once multi-model chunk artifacts are large enough to justify it.
