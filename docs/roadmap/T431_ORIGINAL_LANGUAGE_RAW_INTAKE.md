@@ -14,7 +14,8 @@ T431 starts the T430 original-language evidence substrate by downloading only li
 - Future T432+ processing must consume the filtered source view, not the raw archive directly.
 - The filtered view keeps inclusion and exclusion ledgers so docs, PDFs, app files, nested archives, images, duplicate renderings, metadata, and non-selected variants cannot cross-contaminate canonical Bible processing.
 - Included canonical source view files explicitly flag whether they retain source-provided morphology, lemmas, or Strong's IDs.
-- Check mode validates inclusion and exclusion ledgers against the actual archive member set and rejects duplicate source paths, duplicate included books, duplicate view paths, stale checksums, and scope/count drift.
+- Check mode validates inclusion and exclusion ledgers against the actual archive member set and rejects duplicate source paths, duplicate included books, duplicate view paths, stale checksums, stale byte sizes, stale copied file bytes, and scope/count drift.
+- Each included canonical source-view file must match the selected raw ZIP member bytes exactly. The source view is a filtered evidence copy, not a normalization or reconstruction layer.
 
 ## What T431 Does Not Do
 
