@@ -9,7 +9,10 @@
 > JSONL and canonical-scope scans. `validate_all.py` uses these fast wrappers only
 > for generated canonical data gates with Python fallback. Python/pytest remain
 > authoritative for governance, task scopes, handoffs, theology-policy language,
-> route/evaluator policy, and corpus QA. No chunk output, reviewed gold, child spans,
+> route/evaluator policy, and corpus QA. The new
+> `.ai/control/coding_runtime_language_preflight.yaml` makes Rust-first consideration
+> mandatory before adding high-resource deterministic code, with explicit thresholds
+> and interop/maintenance tradeoff recording. No chunk output, reviewed gold, child spans,
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
 

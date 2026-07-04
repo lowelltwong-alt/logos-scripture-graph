@@ -20,6 +20,9 @@
 - AI_FRONT_DOOR.md
 - .ai/control/MASTER_CONTEXT.md
 - .ai/control/PROJECT_STATUS.md
+- .ai/control/chunking_theological_decision_register.yaml
+- .ai/control/chunking_lesson_index.yaml
+- .ai/control/coding_runtime_language_preflight.yaml
 - scripts/validate_jsonl.py
 - scripts/validate_canonical_66_scope.py
 - scripts/qa_canonical_corpus.py
@@ -37,6 +40,10 @@
 ## Files changed
 
 - .gitignore
+- AI_FRONT_DOOR.md
+- .ai/control/coding_runtime_language_preflight.yaml
+- .ai/control/chunking_theological_decision_register.yaml
+- .ai/control/chunking_lesson_index.yaml
 - .ai/tasks/T424.task.yaml
 - .ai/handoffs/T424/handoff.md
 - .ai/control/PROJECT_STATUS.md
@@ -45,9 +52,11 @@
 - tools/logos_fast_validators/Cargo.toml
 - tools/logos_fast_validators/Cargo.lock
 - tools/logos_fast_validators/src/main.rs
+- scripts/validate_coding_runtime_language_preflight.py
 - scripts/validate_fast_jsonl.py
 - scripts/validate_fast_canonical_scope.py
 - scripts/validate_all.py
+- tests/test_coding_runtime_language_preflight.py
 - tests/test_t424_rust_fast_validators.py
 
 Generated but not committed:
@@ -65,6 +74,10 @@ Generated but not committed:
 - Deferred `chunk-map` until T424-D, after multi-model chunk artifacts are large enough to justify it.
 - Added Python wrappers with `--python-fallback`, `--require-rust`, and `--compare-python` modes.
 - Wired `scripts/validate_all.py` to use the fast wrappers only for generated canonical data gates, with Python fallback.
+- Added `.ai/control/coding_runtime_language_preflight.yaml` as mandatory coding preflight for high-resource deterministic code. New long-running validators/scanners/importers/chunk-map comparisons/hot paths must consider Rust at the recorded thresholds and document runtime, data size, interop, fallback, validation, and maintenance tradeoffs.
+- Wired `scripts/validate_coding_runtime_language_preflight.py` into `validate_all.py` so the Rust-first preflight cannot silently drift out of the repo.
+- Added `CD-087` to the chunking theological decision register to record that Rust runtime acceleration and Rust-first coding preflight are non-authorizing tooling, not theology, source-tradition, chunk-boundary, reviewed-gold, output, route/evaluator, graph/retrieval/vector, or canon authority.
+- Added `LSN-042` to the lesson index so future agents treat Rust-first high-resource coding as mandatory preflight and record language/runtime tradeoffs.
 - Checked the governance/DAD repo topology for existing Rust deployment conventions; no `Cargo.toml`, `Cargo.lock`, `rust-toolchain`, `Cross.toml`, or cargo/rust deployment scaffold was present, so T424 keeps the local isolated crate pattern.
 - Preserved Python/pytest as the governance orchestrator for task scope, handoffs, policy language, theology controls, route/evaluator surfaces, and orchestration.
 - Authorized no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
@@ -76,6 +89,12 @@ Generated but not committed:
 - failures: none
 - command: `python -m pytest tests/test_t424_rust_fast_validators.py -q`
 - result: passed; 5 tests passed
+- failures: none
+- command: `python scripts/validate_coding_runtime_language_preflight.py`
+- result: passed
+- failures: none
+- command: `python -m pytest tests/test_coding_runtime_language_preflight.py -q`
+- result: passed; 4 tests passed
 - failures: none
 - command: `python scripts/validate_task_scope.py --task-id T424`
 - result: passed

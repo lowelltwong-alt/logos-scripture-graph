@@ -1729,6 +1729,38 @@ lessons:
       - theology_authority_change
     validators:
       - scripts/validate_multi_agent_review_cadence.py
+  - lesson_id: LSN-043
+    title: Rust-first preflight for high-resource deterministic code
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t424, rust-first, coding-preflight, high-resource-code, deterministic-validation, python-orchestration, runtime-thresholds]
+    use_when:
+      - "A future agent adds a validator, scanner, importer, chunk-map comparison, or validate_all/CI hot path that may run long or stream large generated data."
+      - "A future agent must decide whether Python-only code is acceptable or whether Rust should be used as a deterministic leaf worker behind a Python wrapper."
+    preflight_stage: before_high_resource_deterministic_code_changes
+    source_surfaces:
+      - .ai/control/coding_runtime_language_preflight.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+      - AI_FRONT_DOOR.md
+      - scripts/validate_coding_runtime_language_preflight.py
+      - tests/test_coding_runtime_language_preflight.py
+    related_decision_ids: [CD-088]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T424]
+    downstream_risk: "Agents can waste hours on Python scans that should be Rust leaf workers, or overcorrect and treat Rust implementation as permission to bypass Python governance or theology controls."
+    required_preflight_surfaces:
+      - .ai/control/coding_runtime_language_preflight.yaml
+      - AI_FRONT_DOOR.md
+    non_authorizations:
+      - rewrite_existing_python_by_default
+      - skip_python_governance_orchestration
+      - chunk_output_change
+      - theology_authority_change
+    validators:
+      - scripts/validate_coding_runtime_language_preflight.py
+      - scripts/validate_all.py
   - lesson_id: LSN-034
     title: Prompt-pack research must remain transparent until owner-gated chunking
     lifecycle_status: active
@@ -2233,5 +2265,11 @@ lesson_graph:
     to: LSN-042
   - from: LSN-042
     relation: constrains
+    to: LSN-010
+  - from: LSN-015
+    relation: constrains
+    to: LSN-043
+  - from: LSN-043
+    relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

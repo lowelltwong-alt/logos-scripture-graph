@@ -10,17 +10,23 @@ summary: "Add a Rust fast path for slow deterministic data validators while keep
 scope:
   allowed_paths:
     - .gitignore
+    - AI_FRONT_DOOR.md
     - .ai/tasks/T424.task.yaml
     - .ai/handoffs/T424/
+    - .ai/control/coding_runtime_language_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
     - .ai/control/DATA_MAP.md
     - ROADMAP_STATE.yaml
     - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
     - tools/logos_fast_validators/
+    - scripts/validate_coding_runtime_language_preflight.py
     - scripts/validate_fast_jsonl.py
     - scripts/validate_fast_canonical_scope.py
     - scripts/validate_all.py
+    - tests/test_coding_runtime_language_preflight.py
     - tests/test_t424_rust_fast_validators.py
   forbidden_paths:
     - data/raw/
@@ -42,6 +48,7 @@ authorization:
   task_kind: rust_accelerated_non_authorizing_validation_layer
   keeps_python_pytest_as_governance_orchestrator: true
   adds_rust_leaf_validators_for_deterministic_scans: true
+  adds_coding_runtime_language_preflight: true
   validates_jsonl_scan_fast_path: true
   validates_canonical_scope_fast_path: true
   canonical_qa_scaffold_only: true
@@ -63,22 +70,30 @@ authorization:
   authorizes_theology_authority: false
 deliverables:
   rust_fast_validator: tools/logos_fast_validators/
+  coding_runtime_language_preflight: .ai/control/coding_runtime_language_preflight.yaml
+  coding_runtime_language_validator: scripts/validate_coding_runtime_language_preflight.py
+  decision_register_entry: CD-087
+  lesson_index_entry: LSN-042
   jsonl_wrapper: scripts/validate_fast_jsonl.py
   canonical_scope_wrapper: scripts/validate_fast_canonical_scope.py
   validate_all_integration: scripts/validate_all.py
   roadmap_doc: docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
   tests:
     - tests/test_t424_rust_fast_validators.py
+    - tests/test_coding_runtime_language_preflight.py
   handoff: .ai/handoffs/T424/handoff.md
 acceptance_criteria:
   - "Rust crate compiles and tests pass without touching the T412 USFM observation scanner."
   - "JSONL and canonical-scope wrappers preserve existing Python command ergonomics and support Python fallback."
   - "validate_all.py uses Rust only for proven deterministic data-heavy gates, with Python fallback."
+  - "Coding preflight requires Rust consideration for high-resource deterministic code while preserving Python/pytest governance orchestration."
   - "Python/pytest remain authoritative for governance, task scopes, handoffs, theology-policy language, and orchestration."
   - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
 validations:
   - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python scripts/validate_coding_runtime_language_preflight.py
   - python -m pytest tests/test_t424_rust_fast_validators.py -q
+  - python -m pytest tests/test_coding_runtime_language_preflight.py -q
   - python scripts/validate_task_scope.py --task-id T424
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py

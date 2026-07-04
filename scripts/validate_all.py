@@ -169,6 +169,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_test_runtime_preflight.py")],
         ),
         (
+            "validate_coding_runtime_language_preflight.py",
+            [PY, str(ROOT / "scripts" / "validate_coding_runtime_language_preflight.py")],
+        ),
+        (
             "validate_governance_memory_durability.py",
             [PY, str(ROOT / "scripts" / "validate_governance_memory_durability.py")],
         ),

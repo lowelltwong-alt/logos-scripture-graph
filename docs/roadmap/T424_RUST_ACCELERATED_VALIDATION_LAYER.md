@@ -32,6 +32,20 @@ python scripts/validate_fast_canonical_scope.py --python-fallback <jsonl...>
 
 It does not use Rust for governance YAML, task scopes, handoffs, theology-policy language, route isolation, evaluator policy, or corpus QA.
 
+## Coding Preflight
+
+T424 also adds `.ai/control/coding_runtime_language_preflight.yaml`, validated by `scripts/validate_coding_runtime_language_preflight.py`.
+
+The policy is Rust-first for high-resource deterministic code: new validators, scanners, importers, chunk-map comparisons, or CI/`validate_all.py` hot paths must consider Rust when normal repo data is expected to hit one of these thresholds:
+
+- runtime at least 60 seconds
+- streamed input at least 100 MB
+- parsed records at least 100,000
+- resident memory pressure at least 512 MB
+- recurring validation/CI path where Rust likely saves at least 30 seconds or 25% runtime
+
+Python/pytest remain authoritative for governance orchestration, task scopes, handoffs, theology-policy language, wrappers, fixtures, and small semantic validators. The required decision record captures data size, expected runtime, Rust trigger, chosen language, wrapper/fallback plan, validation plan, and maintenance tradeoffs.
+
 ## Non-Authorizations
 
 T424 does not authorize chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
