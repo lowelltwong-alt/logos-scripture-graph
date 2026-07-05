@@ -90,9 +90,17 @@ Read these files before making changes:
     timing out after a requested `900000` ms and a 25-file batch spawning nested
     `pytest`/`validate_all.py` helpers; run `validate_all.py` separately, split local pytest by
     small domain or single file when needed, and record timeout evidence in the handoff.
-15. `config/agents/agent_roles.yaml`
-16. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
-17. The specific files in the task scope.
+15. Before adding new long-running or high-resource deterministic code:
+    `.ai/control/coding_runtime_language_preflight.yaml`. This is a Rust-first preflight for
+    high-resource deterministic code, not a rewrite mandate. Agents must consider Rust when a new
+    validator, scanner, importer, chunk-map comparison, or CI/`validate_all.py` hot path is
+    expected to stream at least 100 MB, parse at least 100,000 records, run at least 60 seconds,
+    use at least 512 MB resident memory, or likely save at least 30 seconds / 25% runtime by using
+    Rust. Python/pytest remain authoritative for governance orchestration, task scopes, handoffs,
+    theology-policy language, wrappers, and small semantic validators.
+16. `config/agents/agent_roles.yaml`
+17. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
+18. The specific files in the task scope.
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` for full step-by-step routing.
 
@@ -1133,4 +1141,5 @@ lessons, reusable assets, templates, agent skills, or cross-repo suggestions.
 DAD mail is candidate-only and local review controls adoption for `logos-scripture-graph`.
 
 **T423 fork (2026-07-03):** Outbox `msg-20260703-t423-fork-announce` | Context `ctx-t423-whole-bible-multi-model-fork` | Lesson slot `.digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml`
+**T424 Rust validation layer (2026-07-03):** Outbox `msg-20260703-t424-rust-validation-layer` | Context `ctx-t424-rust-validation-layer` | Lesson slot `.digital-asset/lessons/t424_rust_validation_layer.yaml` | Checked by `scripts/validate_dad_outbox.py`
 <!-- END DIGITAL_ASSET_DIRECTORY_ENROLLMENT -->

@@ -1,8 +1,23 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-02
-**Updated by:** T417 scratch marathon session close
-**Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
+**Last updated:** 2026-07-03
+**Updated by:** T424 Rust validation acceleration
+**Active task:** -> **T424 Rust-accelerated validation layer** (isolated tooling branch; no chunking authority). T417 remains the next chunking route after T424 review/merge.
+
+> **T424 Rust-accelerated validation layer (2026-07-03):** Adds an isolated
+> `tools/logos_fast_validators/` Rust CLI plus Python wrappers for deterministic
+> JSONL and canonical-scope scans. `validate_all.py` uses these fast wrappers only
+> for generated canonical data gates with Python fallback. Python/pytest remain
+> authoritative for governance, task scopes, handoffs, theology-policy language,
+> route/evaluator policy, and corpus QA. The new
+> `.ai/control/coding_runtime_language_preflight.yaml` makes Rust-first consideration
+> mandatory before adding high-resource deterministic code, with explicit thresholds
+> and interop/maintenance tradeoff recording. T424 also sends DAD candidate-only lesson/assets
+> via `.digital-asset/mail/outbox.jsonl` as `msg-20260703-t424-rust-validation-layer`,
+> checked by `scripts/validate_dad_outbox.py`; local adoption remains required. No chunk output,
+> reviewed gold, child spans,
+> graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
+> selection, or theology authority are authorized.
 
 > **T423 whole-Bible multi-model fork (2026-07-03):** Experimental speed path — 3–10 models
 > chunk entire Bible in separate scratch folders (continuous marathon, days OK), same research

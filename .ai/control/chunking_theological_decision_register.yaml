@@ -3845,6 +3845,43 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-088
+    title: T424 Rust-first high-resource coding preflight
+    classification: non_authorizing_review
+    task_ids: [T424]
+    owner_decision_ref: ".ai/control/coding_runtime_language_preflight.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [whole_bible_tooling_and_validation]
+      routes: [coding_preflight, validation_runtime_acceleration]
+      surfaces:
+        - .ai/control/coding_runtime_language_preflight.yaml
+        - tools/logos_fast_validators/
+        - scripts/validate_coding_runtime_language_preflight.py
+        - scripts/validate_all.py
+        - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+    decision: "High-resource deterministic coding tasks must consider Rust at the recorded runtime, data-volume, memory, recurrence, and time-saved thresholds. Python/pytest remain authoritative for governance orchestration, task scopes, handoffs, theology-policy language, wrappers, and small semantic validators."
+    downstream_risk: "Agents could mistake Rust speed or deterministic scans for theological, boundary, reviewed-gold, route/evaluator, graph/retrieval/vector, or canon authority."
+    theological_assumptions_avoided:
+      - "Runtime language choice does not decide theology, source tradition, or chunk boundaries."
+      - "Rust fast paths are deterministic tooling only, not interpretive authority."
+    reviewed_gold_dependency: "None; this preflight does not promote reviewed gold or authorize output-changing chunk work."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_selection
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_or_vector_truth
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_change
+    validators:
+      - scripts/validate_coding_runtime_language_preflight.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -3970,4 +4007,5 @@ backfill_coverage:
     - T415
     - T420
     - T450
+    - T424
 ...

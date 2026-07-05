@@ -1,0 +1,102 @@
+---
+object_type: coding_runtime_language_preflight
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created during T424 after Rust fast validators proved useful for deterministic generated-data scans. This is mandatory coding preflight memory, not an authorization surface."
+reason_for_inclusion: "Require agents to consider Rust before adding long-running or high-resource deterministic code, while preserving Python/pytest as the governance and orchestration layer."
+---
+schema_version: coding_runtime_language_preflight.v1
+preflight_id: repo_coding_runtime_language_preflight
+owner: Lowell Wong
+validator: scripts/validate_coding_runtime_language_preflight.py
+authority:
+  records_language_selection_policy: true
+  authorizes_rewriting_existing_python_by_default: false
+  authorizes_skipping_python_governance_orchestration: false
+  authorizes_output_change: false
+  authorizes_validation_bypass: false
+  authorizes_theology_authority: false
+policy:
+  python_pytest_remain_governance_orchestrator: true
+  rust_preferred_for_high_resource_deterministic_code: true
+  rust_required_to_be_considered_before_new_heavy_code: true
+  python_allowed_for_small_policy_and_orchestration_code: true
+  interop_and_maintenance_tradeoffs_required: true
+  fail_closed_on_rust_validation_failure: true
+rust_consideration_triggers:
+  - trigger_id: estimated_runtime_seconds_60
+    threshold: "estimated runtime >= 60 seconds on normal repo data"
+    rust_preflight_required: true
+  - trigger_id: input_bytes_100mb
+    threshold: "streamed or parsed input >= 100 MB"
+    rust_preflight_required: true
+  - trigger_id: records_100k
+    threshold: "streamed or parsed records >= 100000"
+    rust_preflight_required: true
+  - trigger_id: memory_512mb
+    threshold: "expected resident memory pressure >= 512 MB"
+    rust_preflight_required: true
+  - trigger_id: repeated_gate_or_ci_hot_path
+    threshold: "runs in validate_all.py, CI, full pytest, or recurring agent gates"
+    rust_preflight_required: true
+  - trigger_id: deterministic_streaming_parse_hash_or_compare
+    threshold: "large deterministic JSONL/CSV/YAML/text scan, hash, ref validation, or map comparison"
+    rust_preflight_required: true
+rust_preferred_cutoffs:
+  rust_preferred_when_estimated_savings_seconds_at_least: 30
+  rust_preferred_when_estimated_speedup_ratio_at_least: 1.25
+  rust_preferred_when_recurring_gate_runs_per_week_at_least: 5
+  python_default_allowed_when_estimated_runtime_seconds_below: 30
+  python_default_allowed_when_input_bytes_below: 10485760
+  python_default_allowed_when_records_below: 10000
+rust_default_domains:
+  - large_jsonl_or_ndjson_scans
+  - canonical_scope_or_reference_validation_over_generated_data
+  - whole_bible_or_corpus_observation_scans
+  - hash_checksum_or_manifest_walks_over_large_inputs
+  - large_chunk_map_or_model_output_comparison
+  - deterministic_token_marker_or_strong_occurrence_indexing
+python_default_domains:
+  - governance_yaml_policy_validation
+  - task_scope_and_handoff_orchestration
+  - theology_policy_language_checks
+  - small_control_plane_validators
+  - wrapper_commands_that_dispatch_to_rust_or_existing_python
+  - tests_and_fixture_generation
+decision_record_required_fields:
+  - task_id
+  - touched_paths
+  - expected_input_size_or_record_count
+  - expected_runtime_or_memory_pressure
+  - rust_trigger_match
+  - chosen_language
+  - expected_rust_time_saved_or_reason_not_applicable
+  - interop_boundary
+  - python_fallback_or_wrapper_plan
+  - validation_plan
+  - maintenance_tradeoffs
+task_contract_guidance:
+  required_when:
+    - adding_new_validator_or_data_pipeline
+    - changing_validate_all_or_ci_hot_path
+    - adding_large_corpus_or_chunk_map_processing
+    - adding_code_expected_to_run_for_many_minutes
+  recommended_field_name: runtime_language_preflight
+  allowed_decisions:
+    - rust_fast_path_with_python_wrapper
+    - python_orchestration_with_rust_leaf_worker
+    - python_only_below_threshold
+    - python_only_due_to_semantic_policy_complexity
+    - defer_rust_until_measurement
+  handoff_requirement: "Record the language choice, threshold trigger, estimated runtime/data size, Rust tradeoff, validation result, and whether generated outputs remain ignored."
+non_authorizations:
+  - rewrite_existing_python_by_default
+  - skip_python_governance_orchestration
+  - treat_rust_as_theology_authority
+  - chunk_output
+  - reviewed_gold
+  - child_spans
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - embeddings_or_indexes
+  - canon_scope_change
