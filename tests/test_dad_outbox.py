@@ -57,3 +57,61 @@ def test_dad_outbox_rejects_authority_leakage(tmp_path: Path) -> None:
 
     with pytest.raises(validator.DadOutboxError, match="non_authorizations"):
         validator.validate_dad_outbox(candidate)
+
+
+def test_dad_outbox_accepts_additional_lesson_candidate_rows(tmp_path: Path) -> None:
+    rows = copy.deepcopy(read_rows())
+    rows.append(
+        {
+            "message_id": "msg-20260705-t441-production-root-denylist-followup",
+            "direction": "outbound",
+            "from_repo": "logos-scripture-graph",
+            "to_hub": "dad://hub/Digital-Assett-Directory",
+            "message_type": "lesson_candidate",
+            "trust_zone": "candidate",
+            "requires_local_adoption": True,
+            "local_adoption_required": True,
+            "task_id": "T441",
+            "subject": "T441 follow-up lesson",
+            "summary": "Future owner-option roots must remain denied until selected.",
+            "artifacts": [
+                "scripts/validate_t441_rust_alignment_coverage_index.py",
+                "tests/test_t441_rust_alignment_coverage_index.py",
+            ],
+            "non_authorizations": [
+                "dad_override_local_authority",
+                "production_root_opening",
+                "theology_authority",
+            ],
+        }
+    )
+    candidate = tmp_path / "outbox.jsonl"
+    write_jsonl(candidate, rows)
+
+    validated = validator.validate_dad_outbox(candidate)
+
+    assert any(row["message_id"] == "msg-20260705-t441-production-root-denylist-followup" for row in validated)
+
+
+def test_dad_outbox_rejects_lesson_candidate_without_local_authority_denial(tmp_path: Path) -> None:
+    rows = copy.deepcopy(read_rows())
+    rows.append(
+        {
+            "message_id": "msg-bad-lesson",
+            "direction": "outbound",
+            "from_repo": "logos-scripture-graph",
+            "to_hub": "dad://hub/Digital-Assett-Directory",
+            "message_type": "lesson_candidate",
+            "trust_zone": "candidate",
+            "requires_local_adoption": True,
+            "task_id": "T999",
+            "subject": "Bad lesson",
+            "summary": "Missing DAD authority boundary.",
+            "non_authorizations": ["theology_authority"],
+        }
+    )
+    candidate = tmp_path / "outbox.jsonl"
+    write_jsonl(candidate, rows)
+
+    with pytest.raises(validator.DadOutboxError, match="dad_override_local_authority"):
+        validator.validate_dad_outbox(candidate)

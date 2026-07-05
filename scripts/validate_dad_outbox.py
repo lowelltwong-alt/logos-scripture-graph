@@ -41,6 +41,9 @@ class DadOutboxError(ValueError):
     """Raised when DAD outbox messages are invalid."""
 
 
+LESSON_MESSAGE_TYPES = {"lesson_candidate", "lesson_and_asset_candidate"}
+
+
 def _rel(path: Path) -> str:
     try:
         return path.relative_to(ROOT).as_posix()
@@ -108,7 +111,38 @@ def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
         _require_string(row, "message_type", label)
         _require_string(row, "subject", label)
         _require_string(row, "summary", label)
+        _validate_candidate_message(row, label)
 
+    _validate_t424_contract_message(path, by_id)
+
+    front_door = FRONT_DOOR.read_text(encoding="utf-8")
+    for needle in (".digital-asset/mail/", "lessons", "reusable assets", T424_MESSAGE_ID):
+        if needle not in front_door:
+            raise DadOutboxError(f"{_rel(FRONT_DOOR)}: missing DAD wiring string {needle!r}")
+
+    return rows
+
+
+def _validate_candidate_message(row: dict[str, Any], label: str) -> None:
+    """Validate generic DAD candidate-message safety without assuming a task id."""
+    if row.get("local_adoption_required") is not None and row.get("local_adoption_required") is not True:
+        raise DadOutboxError(f"{label}: local_adoption_required must be true when present")
+    message_type = row.get("message_type")
+    if message_type in LESSON_MESSAGE_TYPES:
+        _require_string(row, "task_id", label)
+        non_authorizations = _require_string_list(row, "non_authorizations", label)
+        if "dad_override_local_authority" not in set(non_authorizations):
+            raise DadOutboxError(f"{label}: lesson messages must deny dad_override_local_authority")
+    if "artifacts" in row:
+        _require_string_list(row, "artifacts", label)
+    if "asset_candidates" in row:
+        _require_string_list(row, "asset_candidates", label)
+    if "follow_up_messages_expected" in row:
+        _require_string_list(row, "follow_up_messages_expected", label)
+
+
+def _validate_t424_contract_message(path: Path, by_id: dict[str, dict[str, Any]]) -> None:
+    """Keep the T424 asset lesson contract explicit inside the broader outbox gate."""
     t424 = by_id.get(T424_MESSAGE_ID)
     if not t424:
         raise DadOutboxError(f"{_rel(path)}: missing required T424 DAD message {T424_MESSAGE_ID}")
@@ -134,13 +168,6 @@ def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
     missing_non_auth = sorted(REQUIRED_NON_AUTHORIZATIONS - set(_require_string_list(t424, "non_authorizations", label)))
     if missing_non_auth:
         raise DadOutboxError(f"{label}: missing non_authorizations {missing_non_auth}")
-
-    front_door = FRONT_DOOR.read_text(encoding="utf-8")
-    for needle in (".digital-asset/mail/", "lessons", "reusable assets", T424_MESSAGE_ID):
-        if needle not in front_door:
-            raise DadOutboxError(f"{_rel(FRONT_DOOR)}: missing DAD wiring string {needle!r}")
-
-    return rows
 
 
 def main() -> int:
