@@ -129,6 +129,16 @@ def test_t441_validate_all_uses_contract_mode_only() -> None:
     assert "t441_alignment_coverage" not in text
 
 
+def test_t441_rejects_alignment_records_production_root_before_owner_gate(tmp_path: Path) -> None:
+    root = tmp_path / "repo"
+    blocked = root / "data" / "candidate" / "original_language_evidence" / "alignment_records"
+    blocked.mkdir(parents=True)
+    (blocked / "row.jsonl").write_text("{}", encoding="utf-8")
+
+    with pytest.raises(validator.T441ValidationError, match="alignment_records"):
+        validator._validate_no_production_outputs(root)
+
+
 def _common() -> dict[str, object]:
     return {
         "schema_version": "t441_rust_alignment_coverage_index.v1",
