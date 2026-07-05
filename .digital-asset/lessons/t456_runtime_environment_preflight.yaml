@@ -1,0 +1,25 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T456-RUNTIME-ENVIRONMENT-PREFLIGHT
+source_repo: logos-scripture-graph
+task_id: T456
+source_outbox_message_id: msg-20260705-t456-runtime-environment-preflight
+context_map_entry: ctx-t456-runtime-environment-preflight
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "Sandboxed validator failures from temp directories or Cargo target locks should be classified separately from code failures and routed through writable repo-local temp paths before verdicts are reported."
+extra_context: "This came from repeated Windows/Codex desktop work where long pytest, validate_all, and Rust-backed validator runs can hit WinError 5 or permission-denied failures around AppData Local Temp, pytest temp/cache directories, Python TemporaryDirectory outputs, or Cargo target/build locks. Many repos are now deploying Rust validators and reporting DAD lessons in parallel, so DAD should provide a reusable runtime-environment preflight asset with minimum structured requirements plus an extra_context field for messy observations."
+candidate_assets:
+  - repo_local_pytest_basetemp_preflight
+  - cargo_target_dir_routing_preflight
+  - sandbox_noise_vs_code_failure_classifier
+  - dirty_parallel_rust_rollout_exception_pattern
+non_authorizations:
+  - dad_override_local_authority
+  - treat_sandbox_failure_as_green
+  - treat_sandbox_failure_as_code_failure_without_reproduction
+  - commit_temp_outputs
+  - commit_cargo_target_outputs
+  - clean_unrelated_dad_work
+  - theology_authority
