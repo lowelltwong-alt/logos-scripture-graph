@@ -52,6 +52,21 @@
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
 
+> **T436 Jonah Hebrew observation parity pilot (2026-07-04):** Adds a no-text
+> Hebrew Jonah pilot under
+> `data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/`.
+> T436 consumes only T431 canonical source views for Tanach.us UXLC and Open Scriptures OSHB,
+> emits source-view file observations, 96 verse rows, 1,376 token-shape rows,
+> editorial/metadata-shape rows, and a parity summary without Hebrew wording, morphology
+> values, lemma values, Strong's values, raw archive reads, or production candidate-root writes.
+> It records UXLC/OSHB verse and token-count parity for Jonah and explicitly flags OSHB
+> `w@lemma` metadata drift: the source view says `contains_source_provided_lemmas: false`
+> while the XML exposes lemma attributes on 688 words. T436 blocks Hebrew Rust expansion until
+> that drift is fixed or policy-covered. It authorizes no source-language truth, lexical truth,
+> Strong's/lemma/morphology population, preferred reading, source-tradition choice, manuscript
+> witness support, translation judgment, chunk boundary, reviewed gold, chunk output,
+> KG/retrieval truth, embeddings/indexes, or theology authority.
+
 > **T435 original-language Rust observation scanner (2026-07-04):** Added a narrow Rust
 > SBLGNT canonical-source-view scanner at `tools/original_language_observation_scanner/`.
 > It emits no-text generated ledgers under `build/original_language_observation/T435-A/sblgnt/`
