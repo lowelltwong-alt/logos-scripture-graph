@@ -16,6 +16,18 @@
 > choices, witness-support rows, translation judgments, KG/retrieval truth, chunks,
 > reviewed gold, or theology authority.
 
+> **T439 Philemon alignment bridge expansion (2026-07-05):** Expands T433's
+> `Phlm.1.1-Phlm.1.3` SBLGNT-to-WEB bridge to all 25 verses of Philemon as
+> no-text task-scoped candidate rows under
+> `data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/`.
+> T439 emits 334 source-token observation rows, 98 redacted editorial-layer rows,
+> 25 low-confidence verse-level alignment rows, and a manifest for future Rust parity.
+> It stores token hashes and IDs, not visible Greek source text or visible English text.
+> It opens no production evidence roots and authorizes no source-language truth,
+> alignment truth, Strong's/lemma/morphology population, translation judgment,
+> preferred reading, source-tradition choice, witness support, KG/retrieval truth,
+> chunks, reviewed gold, or theology authority.
+
 > **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
 > `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
 > Strong's rows, lexical truth, preferred readings, translation judgment, or theology
