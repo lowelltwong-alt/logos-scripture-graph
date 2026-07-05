@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EditorialLayer",
+  "description": "Candidate editorial or transmission-layer observation such as punctuation, capitalization, vowel points, accents, paragraphing, headings, versification, or red-letter/WJ formatting. Editorial layers are evidence and never autograph certainty by default.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "layer_kind",
+    "source_id",
+    "source_manifest",
+    "canonical_source_view_manifest",
+    "source_view_path",
+    "source_file_sha256",
+    "osis_ref",
+    "editorial_origin",
+    "evidence_mode",
+    "confidence",
+    "trust_zone",
+    "status",
+    "provenance",
+    "authority",
+    "non_authorizations"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "EditorialLayer" },
+    "schema_version": { "const": "editorial_layer.v1" },
+    "layer_kind": {
+      "type": "string",
+      "enum": [
+        "punctuation",
+        "capitalization",
+        "paragraphing",
+        "chaptering",
+        "versification",
+        "section_heading",
+        "red_letter_wj",
+        "vowel_pointing",
+        "accenting",
+        "breathing_marks",
+        "spacing",
+        "lineation"
+      ]
+    },
+    "source_id": { "type": "string", "minLength": 1 },
+    "source_manifest": { "type": "string", "minLength": 1 },
+    "canonical_source_view_manifest": { "type": "string", "minLength": 1 },
+    "source_view_path": { "type": "string", "minLength": 1 },
+    "source_file_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "osis_ref": { "type": "string", "minLength": 1 },
+    "applies_to_source_token_ids": { "type": "array", "items": { "type": "string" } },
+    "observed_value": { "type": "string" },
+    "source_marker_or_field": { "type": "string" },
+    "editorial_origin": { "type": "string", "enum": ["source_edition", "translation_formatting", "manuscript_feature", "inferred", "unknown"] },
+    "is_editorial_not_autograph_certainty": { "const": true },
+    "evidence_mode": { "type": "string", "enum": ["observed_source_view", "source_metadata", "catalog_metadata", "inferred", "blocked"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
+    "status": { "type": "string", "enum": ["candidate", "review_packet", "blocked", "deprecated"] },
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis"],
+      "properties": {
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "source_url": { "type": "string" },
+        "license": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_autograph_certainty",
+        "authorizes_speaker_resolution",
+        "authorizes_chunk_boundary",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_autograph_certainty": { "const": false },
+        "authorizes_speaker_resolution": { "const": false },
+        "authorizes_chunk_boundary": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "additionalProperties": true
+}

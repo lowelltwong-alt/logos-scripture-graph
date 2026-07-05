@@ -1,0 +1,121 @@
+object_type: original_language_schema_contracts
+schema_version: original_language_schema_contracts.v1
+task_id: T432
+owner: Lowell Wong
+status: active_schema_contract
+trust_zone: control
+provenance_note: "Created during T432 to harden candidate original-language evidence schemas before source-token, Strong's overlay, variant, witness, editorial-layer, or alignment row population."
+summary: "Defines non-authorizing schema requirements for future original-language evidence rows that consume T431 canonical source views."
+authority:
+  records_schema_contracts: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_source_text_mutation: false
+  authorizes_strongs_overlay_in_raw: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+schema_files:
+  source_language_tokens: schemas/source_language_token.schema.json
+  editorial_layers: schemas/editorial_layer.schema.json
+  lexemes: schemas/lexeme.schema.json
+  alignments: schemas/alignment_record.schema.json
+  textual_variants: schemas/textual_variant.schema.json
+  witnesses: schemas/witness.schema.json
+required_common_fields:
+  - id
+  - type
+  - schema_version
+  - osis_ref
+  - trust_zone
+  - status
+  - confidence
+  - provenance
+  - authority
+  - non_authorizations
+trust_zone_policy:
+  allowed_for_candidate_original_language_evidence:
+    - candidate
+    - context
+  forbidden_for_candidate_original_language_evidence:
+    - canonical
+    - asserted
+source_view_policy:
+  default_input: data/candidate/original_language_evidence/canonical_source_views
+  raw_archive_direct_consumption_allowed: false
+  required_lineage_fields:
+    - source_id
+    - source_manifest
+    - canonical_source_view_manifest
+    - source_archive_path
+    - source_view_path
+    - source_file_sha256
+    - license
+strongs_policy:
+  strongs_numbers_are_lookup_hints: true
+  strongs_numbers_are_source_text: false
+  strongs_numbers_are_lexical_truth: false
+  strongs_numbers_are_theology_authority: false
+variant_policy:
+  requires_multiple_readings: true
+  preferred_reading_assertion_allowed: false
+  source_tradition_preference_allowed: false
+  oldest_witness_is_automatic_authority: false
+editorial_layer_policy:
+  punctuation_as_autograph_certainty: false
+  capitalization_as_autograph_certainty: false
+  red_letter_as_original_speaker_authority: false
+  paragraphing_as_ancient_boundary_authority: false
+rust_policy:
+  rust_added_in_t432: false
+  rust_candidate_after_pilot: T435
+  reason: "T432 is semantic schema and authority contract work. Rust should enter for stable high-volume scanners/validators after T432/T433 prove row shapes and parity fixtures."
+forbidden_outputs:
+  - data/candidate/original_language_evidence/source_tokens/
+  - data/candidate/original_language_evidence/strong_alignment/
+  - data/candidate/original_language_evidence/lemma_morphology/
+  - data/candidate/original_language_evidence/textual_variants/
+  - data/candidate/original_language_evidence/witness_support/
+  - data/candidate/original_language_evidence/editorial_layers/
+  - data/raw/original_language/*/overlays/
+  - data/canonical/
+  - data/derived/
+non_authorizations:
+  - source_language_truth
+  - lexical_truth
+  - isolated_word_theology
+  - strongs_number_as_source_text
+  - strongs_number_as_lexical_authority
+  - strongs_number_as_theology_authority
+  - source_text_mutation
+  - preferred_reading
+  - source_tradition_preference
+  - textual_critical_decision
+  - oldest_witness_as_automatic_authority
+  - highest_confidence_as_hidden_preferred_reading
+  - manuscript_catalog_as_transcription_authority
+  - punctuation_as_autograph_certainty
+  - red_letter_as_original_speaker_authority
+  - translation_judgment
+  - canon_scope_change
+  - boundary_import
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_edge
+  - retrieval_truth
+  - embedding_or_vector_work
+validators:
+  - scripts/validate_t432_original_language_schema_contracts.py
+  - tests/test_t432_original_language_schema_contracts.py

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,8 +40,12 @@ QA_REQUIRED = [
 
 def changed_paths() -> list[str]:
     paths: list[str] = []
+    base_ref = "origin/main"
+    github_base = os.environ.get("GITHUB_BASE_REF")
+    if github_base:
+        base_ref = f"origin/{github_base}"
     for args in (
-        ["git", "diff", "--name-only", "origin/main...HEAD"],
+        ["git", "diff", "--name-only", f"{base_ref}...HEAD"],
         ["git", "diff", "--cached", "--name-only"],
         ["git", "diff", "--name-only"],
         ["git", "ls-files", "--others", "--exclude-standard"],
@@ -63,11 +68,30 @@ def changed_task_ids(paths: list[str]) -> list[str]:
     )
 
 
+def current_task_id() -> str:
+    focus = ROOT / ".ai" / "control" / "current_focus.yaml"
+    try:
+        for line in focus.read_text(encoding="utf-8").splitlines():
+            if line.startswith("current_task:"):
+                return line.split(":", 1)[1].strip().strip('"').strip("'")
+    except OSError:
+        return ""
+    return ""
+
+
+def active_task_ids(paths: list[str]) -> list[str]:
+    task_ids = changed_task_ids(paths)
+    current = current_task_id()
+    if current and current in task_ids:
+        return [current]
+    return task_ids
+
+
 def task_scope_gates() -> list[tuple[str, list[str]]]:
     """Use the changed task file when a PR clearly scopes to one task."""
 
     paths = changed_paths()
-    task_ids = changed_task_ids(paths)
+    task_ids = active_task_ids(paths)
     if len(task_ids) == 1:
         task_id = task_ids[0]
         return [
@@ -98,7 +122,7 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
     """Validate live git/worktree state without requiring a clean pre-commit tree."""
 
     paths = changed_paths()
-    task_ids = changed_task_ids(paths)
+    task_ids = active_task_ids(paths)
     if len(task_ids) == 1:
         task_id = task_ids[0]
         return [
@@ -231,6 +255,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_t430_original_language_evidence_substrate.py",
             [PY, str(ROOT / "scripts" / "validate_t430_original_language_evidence_substrate.py")],
+        ),
+        (
+            "validate_t432_original_language_schema_contracts.py",
+            [PY, str(ROOT / "scripts" / "validate_t432_original_language_schema_contracts.py")],
         ),
         (
             "validate_original_language_raw_sources.py",
