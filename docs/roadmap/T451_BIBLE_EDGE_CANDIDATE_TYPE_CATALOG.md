@@ -39,6 +39,12 @@ Candidate edge types remain vocabulary only. A later task must separately author
 - Apologetic and polemic pressure
 - Pastoral and doctrine-risk labels
 
+The historical/geographic lane intentionally separates observed facts from
+review-heavy identifications: place-name occurrence is deterministic evidence,
+while site identification, routes, map coordinates, person identity
+harmonization, kinship, people-group, and office-role claims remain
+candidate/review lanes with explicit non-authority guards.
+
 ## Conservative And Credal Guardrails
 
 The catalog is intentionally Scripture-centered and credal: it refuses hidden anti-supernatural, anti-canonical, heterodox, or liberal-critical defaults. It also refuses to let a model pick one denominational system where several orthodox readings remain possible.

@@ -59,6 +59,20 @@ def test_t451_requires_key_bible_edge_types() -> None:
     with pytest.raises(module.T451CatalogError, match="feast_calendar_worship_unit"):
         module.validate_catalog(data)
 
+    data = load_catalog()
+    data["candidate_edge_types"] = [
+        edge for edge in data["candidate_edge_types"] if edge["edge_type_id"] != "person_kinship_office_role_evidence"
+    ]
+    with pytest.raises(module.T451CatalogError, match="person_kinship_office_role_evidence"):
+        module.validate_catalog(data)
+
+    data = load_catalog()
+    data["candidate_edge_types"] = [
+        edge for edge in data["candidate_edge_types"] if edge["edge_type_id"] != "site_or_route_identification_candidate"
+    ]
+    with pytest.raises(module.T451CatalogError, match="site_or_route_identification_candidate"):
+        module.validate_catalog(data)
+
 
 def test_t451_rejects_high_risk_type_without_authority_denial() -> None:
     module = load_validator()

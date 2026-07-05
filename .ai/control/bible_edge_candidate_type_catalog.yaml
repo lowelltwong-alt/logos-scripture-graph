@@ -530,17 +530,29 @@ candidate_edge_types:
     escalation_triggers: [history_overrides_text, anti_supernatural_default, apologetic_claim]
     never_auto_create: [historical_context_as_Scripture_authority, theology_authority, retrieval_truth]
 
-  - edge_type_id: geographic_setting_evidence
+  - edge_type_id: place_name_occurrence_observed
     family_id: historical_geographic
-    label: "Geographic setting evidence"
+    label: "Place-name occurrence observed"
     candidate_status: candidate_type_only
     default_assertion_path: structural_deterministic
-    intended_future_predicate: locatedAt
-    description: "Land, city, region, route, exile/return location, tribal allotment, or geography evidence."
-    evidence_channels: [canonical_text, source_catalog, place_authority_future]
-    evidence_floor: [place_name, exact_ref, source_or_text_basis, uncertainty]
-    escalation_triggers: [site_identification_dispute, land_promise_theology]
-    never_auto_create: [land_promise_fulfillment, archaeology_proof_claim, theology_authority]
+    intended_future_predicate: hasPlaceName
+    description: "Observed land, city, region, tribal allotment, river, mountain, exile/return location, or place-name occurrence in governed source text."
+    evidence_channels: [canonical_text, source_marker, source_catalog]
+    evidence_floor: [place_name_surface, exact_ref, source_or_text_basis, evidence_only_label]
+    escalation_triggers: [site_identification_dispute, land_promise_theology, route_harmonization_pressure]
+    never_auto_create: [site_identification_truth, map_coordinate_truth, route_harmonization, land_promise_fulfillment, theology_authority]
+
+  - edge_type_id: site_or_route_identification_candidate
+    family_id: historical_geographic
+    label: "Site or route identification candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: locatedAtCandidate
+    description: "Candidate identification of a site, route, tribal allotment, exile/return geography, coordinate, or map relation requiring source and review."
+    evidence_channels: [canonical_text, atlas_or_place_authority_future, historical_source, model_disagreement_delta]
+    evidence_floor: [place_name_or_route, exact_ref, proposed_identification, source_basis, uncertainty]
+    escalation_triggers: [site_identification_dispute, map_coordinate_dispute, route_harmonization_pressure, archaeology_or_apologetic_claim]
+    never_auto_create: [site_identification_truth, map_coordinate_truth, route_harmonization, archaeology_proof_claim, theology_authority]
 
   - edge_type_id: regnal_or_genealogical_chronology_evidence
     family_id: historical_geographic
@@ -553,6 +565,18 @@ candidate_edge_types:
     evidence_floor: [time_expression, exact_ref, uncertainty, alternate_chronology_note]
     escalation_triggers: [chronology_harmonization, alleged_contradiction_resolution, prophecy_date_claim]
     never_auto_create: [chronology_system_truth, apologetic_resolution, canon_scope_change]
+
+  - edge_type_id: person_kinship_office_role_evidence
+    family_id: historical_geographic
+    label: "Person, kinship, or office role evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: hasRoleCandidate
+    description: "Person, people-group, tribe, house, father/son/kinship, king, priest, prophet, judge, apostle, elder, deacon, ruler, or office-role evidence."
+    evidence_channels: [canonical_text, genealogy_list_formula, office_title, narrative_context, epistle_context]
+    evidence_floor: [person_or_group_ref, role_or_relation, exact_ref, context_note, uncertainty]
+    escalation_triggers: [identity_harmonization, genealogy_theology_pressure, apostolic_authority_claim, church_office_system_pressure]
+    never_auto_create: [person_identity_harmonization_truth, genealogy_theology, office_authority_claim, denominational_system_selection]
 
   - edge_type_id: source_catalog_location_claim
     family_id: historical_geographic

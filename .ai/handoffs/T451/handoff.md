@@ -48,11 +48,13 @@
 - High-risk families require frontier review before any owner gate or future predicate proposal.
 - Post-review P2 hardening requires the catalog's registered-predicate snapshot to match `config/governance/predicate_registry.yaml`.
 - Post-review P2 hardening requires every candidate edge type to preserve at least one explicit authority/output/truth-denial in `never_auto_create`.
+- Domain-review P2 hardening splits observed place-name occurrence from site/route identification candidates.
+- Domain-review P2 hardening adds explicit person, kinship, people-group, and office-role evidence coverage.
 - Rust is deferred to a future deterministic edge-candidate JSONL hygiene validator; this task's small semantic policy validator remains Python.
 
 ## Validation Performed
 
-- `python scripts/validate_t451_bible_edge_candidate_type_catalog.py` - passed, 54 candidate edge types
+- `python scripts/validate_t451_bible_edge_candidate_type_catalog.py` - passed, 56 candidate edge types
 - `python -m pytest tests/test_t451_bible_edge_candidate_type_catalog.py -q` - 8 passed
 - `python scripts/validate_dad_outbox.py` - passed
 - `python scripts/validate_task_scope.py --task-id T451` - passed
@@ -65,7 +67,8 @@
 - Post-review sandboxed `python scripts/validate_all.py` attempt failed on temp/Cargo access-denied environment noise.
 - Unsandboxed post-review rerun `python scripts/validate_all.py` - all validation gates passed
 - Two sandboxed `python -m pytest -q` attempts failed on `WinError 5` pytest temp-directory access/cleanup; treated as environment noise.
-- Unsandboxed rerun `python -m pytest -q` - 762 passed in 618.41s
+- One unsandboxed `python -m pytest -q` attempt timed out at the 30-minute ceiling while `validate_all.py` was running in parallel; rerun with a longer ceiling.
+- Unsandboxed rerun `python -m pytest -q` - 762 passed in 1856.90s
 - `python scripts/generate_data_map.py --check` - current
 - `git diff --check` - passed
 

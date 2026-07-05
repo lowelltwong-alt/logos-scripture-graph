@@ -25,7 +25,10 @@ extra_context: >
   any catalog that includes a "registered X" snapshot must compare that
   snapshot against the real registry, and every candidate type needs an
   explicit local never-auto-create denial rather than relying only on global
-  policy text.
+  policy text. A later domain-review pass added another reusable pattern:
+  split deterministic observed occurrence facts, such as place-name occurrence,
+  from disputed identification or harmonization candidates, such as site,
+  route, coordinate, office, kinship, or people-group claims.
 candidate_assets:
   - bible_edge_candidate_type_catalog
   - edge_evidence_floor_pattern
@@ -33,6 +36,8 @@ candidate_assets:
   - never_auto_create_guardrail_list
   - registry_snapshot_drift_validator
   - per_candidate_authority_denial_validator
+  - observed_vs_identification_edge_split
+  - person_kinship_office_role_edge_lane
 use_when:
   - "A repo wants to build semantic graph edges over a sacred, legal, medical, financial, or otherwise high-authority corpus."
   - "Multiple AI models propose edge types before a registry or graph database exists."
