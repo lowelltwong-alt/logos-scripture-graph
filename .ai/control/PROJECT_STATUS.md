@@ -76,6 +76,16 @@
 > preferred reading, source-tradition choice, witness support, KG/retrieval truth,
 > chunks, reviewed gold, or theology authority.
 
+> **T440 Jonah Hebrew parser contract (2026-07-05):** Defines source-specific
+> UXLC and OSHB Jonah parser semantics before any Hebrew Rust expansion. It records
+> full-Jonah lineage, expected counts, XML shape, OSHB `w@lemma` as Strong lookup-hint
+> metadata, OSHB `w@morph` as source morphology metadata, and negative fixture
+> requirements for T441. T440 adds no Rust code, no new Hebrew token rows, no
+> production original-language evidence roots, no source-language truth, no
+> Strong's/lemma/morphology population, no preferred readings, no source-tradition
+> choice, no translation judgment, no KG/retrieval truth, no chunks, no reviewed
+> gold, and no theology authority.
+
 > **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
 > `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
 > Strong's rows, lexical truth, preferred readings, translation judgment, or theology
