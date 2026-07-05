@@ -21,12 +21,18 @@ extra_context: >
   literary form, and manuscript evidence. This source repo must keep Strong's,
   WJ/red-letter, editorial crossrefs, headings, manuscript age, source
   traditions, and model agreement as evidence only until later owner-gated
-  graph work.
+  graph work. Post-review hardening added a reusable validator lesson:
+  any catalog that includes a "registered X" snapshot must compare that
+  snapshot against the real registry, and every candidate type needs an
+  explicit local never-auto-create denial rather than relying only on global
+  policy text.
 candidate_assets:
   - bible_edge_candidate_type_catalog
   - edge_evidence_floor_pattern
   - frontier_escalation_before_predicate_registration
   - never_auto_create_guardrail_list
+  - registry_snapshot_drift_validator
+  - per_candidate_authority_denial_validator
 use_when:
   - "A repo wants to build semantic graph edges over a sacred, legal, medical, financial, or otherwise high-authority corpus."
   - "Multiple AI models propose edge types before a registry or graph database exists."

@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTROL = ROOT / ".ai" / "control" / "bible_edge_candidate_type_catalog.yaml"
+PREDICATE_REGISTRY = ROOT / "config" / "governance" / "predicate_registry.yaml"
 T450_CONTROL = ROOT / ".ai" / "control" / "bible_edge_taxonomy_research_program.yaml"
 ROADMAP = ROOT / "docs" / "roadmap" / "T451_BIBLE_EDGE_CANDIDATE_TYPE_CATALOG.md"
 MODEL_PROMPT = ROOT / ".ai" / "prompts" / "bible_edge_taxonomy_model_review_prompt.md"
@@ -120,6 +121,29 @@ FRONTIER_FAMILIES = {
     "apologetic_polemic",
 }
 
+AUTHORITY_DENIAL_TERMS = (
+    "authority",
+    "truth",
+    "claim",
+    "preference",
+    "conclusion",
+    "graph",
+    "retrieval",
+    "vector",
+    "chunk",
+    "reviewed",
+    "boundary",
+    "theology",
+    "doctrine",
+    "system_selection",
+    "preferred",
+    "source_tradition",
+    "canon",
+    "proof",
+    "caricature",
+    "refutation",
+)
+
 REQUIRED_PROMPT_PHRASES = {
     "Do not",
     "expand the predicate registry",
@@ -168,6 +192,25 @@ def validate_catalog(data: dict[str, Any]) -> dict[str, Any]:
         raise T451CatalogError("task_id must be T451")
     if data.get("planning_only") is not True or data.get("non_authorizing") is not True:
         raise T451CatalogError("catalog must be planning_only and non_authorizing")
+
+    registry_snapshot = data.get("current_registered_predicates")
+    if not isinstance(registry_snapshot, dict):
+        raise T451CatalogError("current_registered_predicates must be a mapping")
+    if registry_snapshot.get("registry_path") != _rel(PREDICATE_REGISTRY):
+        raise T451CatalogError("current_registered_predicates.registry_path must point to the predicate registry")
+    registry = _read_yaml(PREDICATE_REGISTRY)
+    registry_predicates = registry.get("predicates")
+    if not isinstance(registry_predicates, dict) or not registry_predicates:
+        raise T451CatalogError("predicate registry must define predicates")
+    registered_names = set(registry_predicates)
+    snapshot_names = set(_string_list(registry_snapshot.get("predicates"), "current_registered_predicates.predicates"))
+    missing_snapshot = sorted(registered_names - snapshot_names)
+    extra_snapshot = sorted(snapshot_names - registered_names)
+    if missing_snapshot or extra_snapshot:
+        raise T451CatalogError(
+            "current_registered_predicates.predicates must match "
+            f"{_rel(PREDICATE_REGISTRY)}; missing={missing_snapshot}, extra={extra_snapshot}"
+        )
 
     boundary = data.get("authority_boundary")
     if not isinstance(boundary, dict):
@@ -246,13 +289,12 @@ def validate_catalog(data: dict[str, Any]) -> dict[str, Any]:
         edge_never = set(_string_list(edge["never_auto_create"], f"{edge_id}.never_auto_create"))
         if not edge_never:
             raise T451CatalogError(f"{edge_id}.never_auto_create must not be empty")
-        authority_denial_terms = ("authority", "truth", "claim", "preference", "conclusion", "graph_edge_generation")
         denies_authority_leakage = any(
-            any(term in item for term in authority_denial_terms)
+            any(term in item for term in AUTHORITY_DENIAL_TERMS)
             for item in edge_never
         )
-        if edge["family_id"] in FRONTIER_FAMILIES and not denies_authority_leakage:
-            raise T451CatalogError(f"{edge_id} in high-risk family must explicitly deny authority leakage")
+        if not denies_authority_leakage:
+            raise T451CatalogError(f"{edge_id} must explicitly deny authority leakage")
 
     future = data.get("future_work_queue")
     if not isinstance(future, list) or not future:

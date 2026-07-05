@@ -78,3 +78,28 @@ def test_t451_requires_global_never_auto_create_for_apologetic_truth() -> None:
     data["global_evidence_floor"]["universal_never_auto_create"].remove("apologetic_conclusion_as_truth")
     with pytest.raises(module.T451CatalogError, match="apologetic_conclusion_as_truth"):
         module.validate_catalog(data)
+
+
+def test_t451_rejects_registered_predicate_snapshot_drift() -> None:
+    module = load_validator()
+    data = load_catalog()
+    data["current_registered_predicates"]["predicates"].append("fakeRegisteredPredicate")
+    with pytest.raises(module.T451CatalogError, match="fakeRegisteredPredicate"):
+        module.validate_catalog(data)
+
+    data = load_catalog()
+    data["current_registered_predicates"]["predicates"].remove("quotesFrom")
+    with pytest.raises(module.T451CatalogError, match="quotesFrom"):
+        module.validate_catalog(data)
+
+
+def test_t451_rejects_medium_risk_type_without_authority_denial() -> None:
+    module = load_validator()
+    data = load_catalog()
+    candidate = copy.deepcopy(data)
+    for edge in candidate["candidate_edge_types"]:
+        if edge["edge_type_id"] == "explicit_quotation_candidate":
+            edge["never_auto_create"] = ["automatic_quote"]
+            break
+    with pytest.raises(module.T451CatalogError, match="explicit_quotation_candidate"):
+        module.validate_catalog(candidate)
