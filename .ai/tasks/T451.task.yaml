@@ -1,0 +1,109 @@
+id: T451
+phase: phase_7
+title: "Bible Edge Candidate Type Catalog"
+mode: planning_control_plane_non_authorizing
+status: complete
+owner: codex
+branch: codex/t451-bible-edge-taxonomy-deepening
+base_ref: origin/main
+summary: "Deepen the T450 edge-family lanes into a non-authorizing candidate edge-type catalog, model review prompt pack, evidence floors, and escalation rules."
+control_file: .ai/control/bible_edge_candidate_type_catalog.yaml
+roadmap: docs/roadmap/T451_BIBLE_EDGE_CANDIDATE_TYPE_CATALOG.md
+scope:
+  allowed_paths:
+    - .ai/tasks/T451.task.yaml
+    - .ai/handoffs/T451/
+    - .ai/control/bible_edge_candidate_type_catalog.yaml
+    - .ai/context/agent_work/T451/
+    - .ai/prompts/bible_edge_taxonomy_model_review_prompt.md
+    - .ai/prompts/bible_edge_taxonomy_frontier_audit_prompt.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - docs/roadmap/T451_BIBLE_EDGE_CANDIDATE_TYPE_CATALOG.md
+    - scripts/validate_t451_bible_edge_candidate_type_catalog.py
+    - scripts/validate_all.py
+    - tests/test_t451_bible_edge_candidate_type_catalog.py
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t451_bible_edge_candidate_type_catalog.yaml
+    - .digital-asset/mail/outbox.jsonl
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - data/candidate/graph/
+    - data/candidate/connections/
+    - data/candidate/original_language_evidence/
+    - registry/
+    - config/governance/predicate_registry.yaml
+    - config/retrieval/
+    - eval/chunking_gold/
+    - pipelines/
+    - tools/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+runtime_language_preflight:
+  task_id: T451
+  touched_paths:
+    - scripts/validate_t451_bible_edge_candidate_type_catalog.py
+    - scripts/validate_all.py
+  expected_input_size_or_record_count: "Small control-plane YAML, Markdown, DAD JSONL, and task/handoff files only; no large generated edge ledgers."
+  expected_runtime_or_memory_pressure: "Low. Validator is semantic/control-plane policy checking, not a high-volume data scan."
+  rust_trigger_match:
+    - "Validator/scanner hot path touched, so Rust consideration is mandatory under T424/T425."
+    - "Input is small and semantic-policy heavy, so Python is preferred for governance readability."
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "Rust would not materially save runtime for this small YAML policy validator; future large edge-candidate JSONL hygiene is explicitly routed to a later Rust leaf-validator lane."
+  interop_boundary: "No Rust worker added. Python validator remains the governance orchestrator."
+  python_fallback_or_wrapper_plan: "No fallback needed because there is no Rust implementation in this task."
+  validation_plan:
+    - python scripts/validate_t451_bible_edge_candidate_type_catalog.py
+    - python -m pytest tests/test_t451_bible_edge_candidate_type_catalog.py -q
+    - python scripts/validate_task_scope.py --task-id T451
+    - python scripts/agent/validate_handoffs.py
+  maintenance_tradeoffs: "Keep this policy readable to reviewers now; defer Rust to deterministic high-volume edge JSONL hygiene after schemas settle."
+authorization:
+  task_kind: planning_control_plane_non_authorizing
+  planning_only: true
+  non_authorizing: true
+  expands_predicate_registry: false
+  generates_graph_edges: false
+  creates_candidate_edge_rows: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_theological_system: false
+  authorizes_theology_authority: false
+  authorizes_apologetic_conclusion: false
+  authorizes_preferred_reading_or_source_tradition: false
+  changes_chunk_output: false
+  changes_route_or_evaluator_behavior: false
+acceptance_criteria:
+  - ".ai/control/bible_edge_candidate_type_catalog.yaml defines a detailed candidate edge-type catalog across Bible edge families."
+  - "Every candidate type has evidence floors, escalation triggers, and explicit never-auto-create rules."
+  - "High-risk theological, prophecy, WJ, variant, apologetic, and original-language lanes require frontier review before any owner gate."
+  - "Prompt packs exist for multi-model candidate review and frontier audit."
+  - "DAD receives a candidate-only reusable lesson about edge-catalog staging before graph generation."
+  - "Focused validator and tests fail closed on authority leakage, missing required edge families, and missing high-risk guards."
+validations:
+  - python scripts/validate_t451_bible_edge_candidate_type_catalog.py
+  - python -m pytest tests/test_t451_bible_edge_candidate_type_catalog.py -q
+  - python scripts/validate_task_scope.py --task-id T451
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+non_authorizations:
+  - no predicate registry expansion
+  - no graph edge generation
+  - no candidate edge database population
+  - no embeddings or vector indexes
+  - no retrieval profile promotion
+  - no boundary corpus import
+  - no canon-scope or source-tradition selection
+  - no theology authority or denominational system selection
+  - no apologetic or polemic conclusion as graph truth
+  - no chunk output, reviewed gold, child spans, route behavior, or evaluator behavior

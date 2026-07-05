@@ -1,0 +1,923 @@
+schema_version: bible_edge_candidate_type_catalog.v1
+object_type: bible_edge_candidate_type_catalog
+task_id: T451
+status: planning_only
+planning_only: true
+non_authorizing: true
+trust_zone: canonical_control_plane
+owner: Lowell Wong
+relation_to_t450: >
+  T450 defines broad edge-family lanes. T451 deepens those lanes into specific
+  candidate edge-type vocabulary, evidence floors, escalation triggers, and
+  review prompts. T451 still does not register predicates or create graph rows.
+
+purpose: >
+  Give future Cursor, Codex, Claude/frontier, Gemini, and other model passes a
+  shared Bible-appropriate edge catalog to review, extend, and challenge before
+  any graph database buildout. The catalog is intentionally useful for
+  conservative, credal Christian, biblical-theological, linguistic, historical,
+  apologetic, and polemic research while blocking covert liberal-critical,
+  anti-supernatural, anti-canonical, heterodox, or one-denominational defaults.
+
+authority_boundary:
+  records_candidate_edge_type_catalog: true
+  may_surface_for_model_review: true
+  may_surface_for_owner_docket: true
+  expands_predicate_registry: false
+  registers_predicates: false
+  generates_graph_edges: false
+  creates_candidate_edge_rows: false
+  creates_reviewed_semantic_edges: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  changes_chunk_output: false
+  promotes_reviewed_gold: false
+  changes_route_or_evaluator_behavior: false
+  selects_preferred_reading_or_source_tradition: false
+  selects_canon_scope: false
+  selects_theological_system: false
+  authorizes_theology_authority: false
+  authorizes_apologetic_or_polemic_conclusion: false
+
+current_registered_predicates:
+  registry_path: config/governance/predicate_registry.yaml
+  note: "Read-only snapshot; T451 proposes no registry changes."
+  predicates:
+    - editorial_cross_reference
+    - quotesFrom
+    - alludesTo
+    - echoes
+    - fulfills
+    - typifies
+    - parallelTo
+    - thematicallyRelatedTo
+    - groundedIn
+    - renders
+    - occursIn
+
+assertion_path_definitions:
+  structural_deterministic:
+    use_for: "Observed structure, occurrence, metadata, or source/file relationships reproducible from governed inputs."
+    can_be_generated_later_only_if: "A later owner-gated task authorizes exact schema/path plus deterministic validators."
+    cannot_decide:
+      - semantic_truth
+      - theology
+      - fulfillment
+      - typology
+      - speaker_identity
+      - source_tradition_preference
+      - retrieval_truth
+  reviewed_semantic:
+    use_for: "Human-reviewed meaning-bearing links with exact scope, evidence, reviewer, limitations, and registry support."
+    required_before_use:
+      - owner_gate
+      - registered_predicate
+      - exact_evidence_refs
+      - scope_limitations
+      - confidence_and_uncertainty
+      - validator_coverage
+    cannot_decide:
+      - denomination_as_default
+      - source_tradition_preference_unless_explicitly_authorized
+      - automatic_reuse_outside_reviewed_scope
+  model_inferred_candidate:
+    use_for: "Disposable model proposals or disagreement/delta work queues."
+    required_before_use:
+      - model_id
+      - prompt_version
+      - run_id
+      - evidence_refs
+      - confidence
+      - unresolved_questions
+      - non_authority_status
+    cannot_decide:
+      - graph_truth
+      - reviewed_status
+      - retrieval_ranking
+      - theology_authority
+      - apologetic_conclusion
+
+global_evidence_floor:
+  required_for_any_future_edge_or_candidate:
+    - edge_type_id
+    - subject_ref
+    - object_ref
+    - assertion_path
+    - trust_zone
+    - status
+    - confidence
+    - provenance
+    - evidence_refs
+    - source_policy_version
+    - non_authority_status
+    - uncertainty_or_limitation_note
+  evidence_only_inputs:
+    - Strong's numbers
+    - lemma and morphology tags
+    - WJ/red-letter formatting
+    - editorial cross-references
+    - headings and paragraph markers
+    - footnotes and alternate reading notes
+    - manuscript date or witness metadata
+    - divine-title capitalization
+    - modern punctuation and verse/chapter numbers
+    - model agreement
+  universal_never_auto_create:
+    - graph_edge_generation
+    - predicate_registry_expansion
+    - theology_authority
+    - retrieval_truth
+    - vector_truth
+    - chunk_boundary
+    - reviewed_gold
+    - source_tradition_preference
+    - canon_scope_change
+    - apologetic_conclusion_as_truth
+
+frontier_escalation_required_for:
+  families:
+    - prophecy_apocalyptic_typology
+    - orthodox_creedal_doctrinal
+    - linguistic_original_language
+    - textual_criticism_manuscript
+    - apologetic_polemic
+  triggers:
+    - Daniel_or_Revelation
+    - Olivet_discourse
+    - WJ_or_speaker_boundary
+    - Christology_or_Trinity_pressure
+    - law_gospel_or_covenant_system_pressure
+    - textual_variant_or_source_tradition_pressure
+    - original_language_claim_controls_meaning
+    - alleged_contradiction_or_apologetic_resolution
+    - anti_Jewish_or_caricature_prone_polemic
+    - low_confidence_model_disagreement
+
+candidate_edge_families:
+  - family_id: structural_source_occurrence
+    risk_level: low_to_medium
+    description: "Structure and occurrence facts that can be checked deterministically."
+  - family_id: editorial_metadata
+    risk_level: medium
+    description: "Edition metadata and formatting evidence, never intertext or speaker authority."
+  - family_id: textual_intertextual
+    risk_level: medium_to_high
+    description: "Quotation, allusion, echo, parallel, and OT-in-NT relation candidates."
+  - family_id: covenant_law_sacrifice_calendar
+    risk_level: medium_to_high
+    description: "Covenant, legal, ritual, sacrifice, feast, Sabbath, lunar calendar, and worship evidence."
+  - family_id: prophecy_apocalyptic_typology
+    risk_level: high
+    description: "Oracle, fulfillment, typology, messianic, Day-of-Yahweh, Daniel/Revelation, and vision evidence."
+  - family_id: orthodox_creedal_doctrinal
+    risk_level: high
+    description: "Credal Christian, Christological, Trinitarian, soteriological, ecclesial, sacramental, and doctrinal-risk edges."
+  - family_id: historical_geographic
+    risk_level: medium_to_high
+    description: "History, geography, empires, offices, routes, dates, source locations, and discovery metadata."
+  - family_id: literary_discourse_genre
+    risk_level: medium_to_high
+    description: "Narrative scenes, discourse flow, poetry, laments, acrostics, speaker turns, epistle arguments, and genre forms."
+  - family_id: linguistic_original_language
+    risk_level: medium_to_high
+    description: "Hebrew, Aramaic, Greek, lemma, morphology, syntax, phrase, LXX/NT, and translation-divergence evidence."
+  - family_id: textual_criticism_manuscript
+    risk_level: high
+    description: "Variants, source traditions, witnesses, attestation, editorial layers, spelling, omissions, and manuscript support."
+  - family_id: apologetic_polemic
+    risk_level: high
+    description: "Defense, objection-response, false-worship/false-teaching polemic, reliability, and translation-polemics pressure."
+  - family_id: pastoral_doctrinal
+    risk_level: medium_to_high
+    description: "Pastoral themes and doctrine-facing risk labels that aid review without becoming doctrine authority."
+
+candidate_edge_types:
+  - edge_type_id: canonical_containment_observed
+    family_id: structural_source_occurrence
+    label: "Canonical containment observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: containsSpan
+    description: "Book, chapter, verse, span, chunk, or source-token containment derived from governed identifiers."
+    evidence_channels: [canonical_scope_config, generated_sidecar, deterministic_parser]
+    evidence_floor: [subject_ref, object_ref, derivation_rule, source_policy_version, provenance]
+    escalation_triggers: [canon_profile_ambiguity, textual_variant_changes_ref_identity]
+    never_auto_create: [semantic_truth, theology_authority, retrieval_truth, graph_edge_generation]
+
+  - edge_type_id: canonical_order_or_adjacency_observed
+    family_id: structural_source_occurrence
+    label: "Canonical order or adjacency observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: canonicallyPrecedes
+    description: "Canonical order, adjacency, previous/next span, or book sequence evidence."
+    evidence_channels: [canonical_66_book_order, osis_ref_order]
+    evidence_floor: [subject_ref, object_ref, canon_profile, derivation_rule]
+    escalation_triggers: [cross_canon_scope, versification_or_variant_pressure]
+    never_auto_create: [chronology_harmonization, theology_authority, retrieval_truth, chunk_boundary]
+
+  - edge_type_id: source_word_occurrence
+    family_id: structural_source_occurrence
+    label: "Source word occurrence"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: occursIn
+    description: "Token or word occurrence in a passage or source witness."
+    evidence_channels: [word_token_sidecar, original_language_token_source]
+    evidence_floor: [token_id, source_id, osis_ref, source_policy_version]
+    escalation_triggers: [word_used_for_doctrine, variant_dependent_token]
+    never_auto_create: [lexical_truth, theology_authority, semantic_domain_truth, translation_preference]
+
+  - edge_type_id: translation_rendering_alignment
+    family_id: structural_source_occurrence
+    label: "Translation rendering alignment"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: renders
+    description: "Translation witness rendering of an authorized source-language token or span."
+    evidence_channels: [alignment_record, source_language_witness, translation_witness]
+    evidence_floor: [source_token_or_span, translation_span, alignment_basis, confidence, provenance]
+    escalation_triggers: [translation_faithfulness_claim, contested_source_reading]
+    never_auto_create: [translation_preference, source_tradition_preference, theology_authority]
+
+  - edge_type_id: editorial_cross_reference_observed
+    family_id: editorial_metadata
+    label: "Editorial cross-reference observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: editorial_cross_reference
+    description: "Edition-provided cross-reference preserved as editorial metadata."
+    evidence_channels: [editorial_cross_reference_sidecar, raw_usfm_x_marker]
+    evidence_floor: [edition_id, subject_ref, object_ref, marker_ref, provenance]
+    escalation_triggers: [used_as_intertext_truth, used_as_fulfillment_claim]
+    never_auto_create: [quotesFrom, alludesTo, fulfills, typifies, graph_truth]
+
+  - edge_type_id: source_heading_or_section_marker_observed
+    family_id: editorial_metadata
+    label: "Source heading or section marker observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: hasHeading
+    description: "Heading, section, paragraph, poetry, or layout marker observed in a translation/source edition."
+    evidence_channels: [raw_usfm_marker, section_heading_sidecar, boundary_claim_sidecar]
+    evidence_floor: [marker_type, source_ref, exact_scope, evidence_only_label]
+    escalation_triggers: [used_as_boundary_authority, used_as_theology_label]
+    never_auto_create: [chunk_boundary, reviewed_gold, theology_authority, graph_edge_generation]
+
+  - edge_type_id: footnote_or_alternate_reading_observed
+    family_id: editorial_metadata
+    label: "Footnote or alternate reading observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: hasFootnote
+    description: "Footnote, alternate reading note, or edition note observed without deciding variant preference."
+    evidence_channels: [footnote_sidecar, raw_usfm_note_marker]
+    evidence_floor: [note_id, source_ref, note_type, edition_provenance]
+    escalation_triggers: [variant_sensitive_passage, preferred_reading_pressure]
+    never_auto_create: [preferred_reading, source_tradition_preference, canon_scope_change]
+
+  - edge_type_id: wj_red_letter_marker_observed
+    family_id: editorial_metadata
+    label: "WJ/red-letter marker observed"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: hasWjMarker
+    description: "Words-of-Jesus/red-letter formatting observed as edition metadata only."
+    evidence_channels: [wj_marker_inventory, word_token_sidecar]
+    evidence_floor: [token_or_span_ref, edition_id, marker_provenance, evidence_only_label]
+    escalation_triggers: [speaker_boundary, Jesus_speaker_attribution, Revelation_voice_identity]
+    never_auto_create: [speaker_attribution, discourse_boundary, Christology_claim, graph_truth]
+
+  - edge_type_id: explicit_quotation_candidate
+    family_id: textual_intertextual
+    label: "Explicit quotation candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: quotesFrom
+    description: "A passage appears to explicitly quote or cite another passage."
+    evidence_channels: [quotation_formula, shared_text, local_context, source_language_context]
+    evidence_floor: [source_context, target_context, quoted_words_or_formula, variant_check]
+    escalation_triggers: [variant_dependent_quote, OT_in_NT_LXX_MT_difference, doctrine_pressure]
+    never_auto_create: [fulfillment_claim, typology_claim, source_tradition_preference]
+
+  - edge_type_id: allusion_or_echo_candidate
+    family_id: textual_intertextual
+    label: "Allusion or echo candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: alludesTo_or_echoes
+    description: "Possible allusion, echo, motif, phrase, or symbolic resonance requiring review."
+    evidence_channels: [shared_phrase, shared_symbol, canonical_context, model_disagreement_delta]
+    evidence_floor: [subject_context, object_context, evidence_description, confidence, alternatives]
+    escalation_triggers: [low_confidence, Daniel_or_Revelation, prophecy_or_fulfillment_pressure]
+    never_auto_create: [intertext_truth, fulfillment_claim, retrieval_truth, theology_authority]
+
+  - edge_type_id: canonical_theme_parallel
+    family_id: textual_intertextual
+    label: "Canonical theme parallel"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: thematicallyRelatedTo
+    description: "Shared canonical theme, title, motif, symbol, or pattern that may help review."
+    evidence_channels: [theme_inventory, repeated_phrase, contextual_reading_policy]
+    evidence_floor: [theme_label, exact_refs, context_note, non_authority_status]
+    escalation_triggers: [theme_used_as_doctrine, theme_used_as_typology]
+    never_auto_create: [doctrine_claim, typology_claim, graph_truth, retrieval_truth]
+
+  - edge_type_id: synoptic_parallel_candidate
+    family_id: textual_intertextual
+    label: "Synoptic or canonical parallel candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: parallelTo
+    description: "Parallel event, discourse, saying, or structure across Gospels or repeated canonical accounts."
+    evidence_channels: [parallel_account_context, local_book_context, source_markers]
+    evidence_floor: [subject_ref, object_ref, local_contexts, harmonization_warning]
+    escalation_triggers: [gospel_harmonization_pressure, WJ_speaker_boundary]
+    never_auto_create: [harmonization_authority, speaker_identity, event_identity_truth]
+
+  - edge_type_id: ot_in_nt_usage_candidate
+    family_id: textual_intertextual
+    label: "OT-in-NT usage candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: quotesFrom_or_alludesTo
+    description: "New Testament use of Old Testament text, concept, LXX wording, paraphrase, or summary."
+    evidence_channels: [quotation_formula, LXX_relation, Hebrew_relation, NT_context]
+    evidence_floor: [source_text_basis, target_context, wording_relation, textual_variant_note]
+    escalation_triggers: [fulfillment_claim, LXX_MT_difference, covenant_system_pressure]
+    never_auto_create: [source_tradition_preference, fulfillment_truth, theology_authority]
+
+  - edge_type_id: covenant_formula_evidence
+    family_id: covenant_law_sacrifice_calendar
+    label: "Covenant formula evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: covenantPromiseDevelopsIn
+    description: "Covenant speech, oath, promise, sign, stipulation, blessing, curse, or mediator evidence."
+    evidence_channels: [legal_covenant_formula, speech_frame, canonical_context]
+    evidence_floor: [exact_covenant_text, local_context, role_of_promise_or_sign, preserved_options]
+    escalation_triggers: [Israel_church_relation, covenant_continuity_question, law_gospel_pressure]
+    never_auto_create: [covenant_system_selection, replacement_theology, dispensational_system]
+
+  - edge_type_id: law_code_unit_evidence
+    family_id: covenant_law_sacrifice_calendar
+    label: "Law-code unit evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: lawCodeUnitCandidate
+    description: "Legal sequence, Decalogue, case law, holiness code, purity rule, or command collection."
+    evidence_channels: [legal_formula, source_marker, immediate_context]
+    evidence_floor: [law_unit_scope, legal_form, surrounding_context, non_authority_status]
+    escalation_triggers: [law_gospel_pressure, moral_civil_ceremonial_taxonomy_pressure]
+    never_auto_create: [law_gospel_framework, covenant_system_selection, doctrine_authority]
+
+  - edge_type_id: sacrifice_offering_type_evidence
+    family_id: covenant_law_sacrifice_calendar
+    label: "Sacrifice or offering type evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: hasOfferingType
+    description: "Offering, sacrifice, purity, atonement, altar, priesthood, or ritual sequence evidence."
+    evidence_channels: [ritual_instruction_sequence, priesthood_context, Hebrews_context_if_used]
+    evidence_floor: [ritual_scope, participant_roles, object_roles, category_source, limitations]
+    escalation_triggers: [Jesus_fulfillment_claim, Hebrews_typology, sacramental_system_pressure]
+    never_auto_create: [typology_claim, fulfillment_claim, sacramental_system_selection]
+
+  - edge_type_id: feast_calendar_worship_unit
+    family_id: covenant_law_sacrifice_calendar
+    label: "Feast, calendar, or worship unit"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: associatedWithFeast
+    description: "Sabbath, new moon, lunar month, feast, appointed time, jubilee, omer, temple-calendar, or worship-cycle evidence."
+    evidence_channels: [calendar_text, ritual_context, chronology_context]
+    evidence_floor: [calendar_term, exact_ref, conversion_uncertainty, source_policy]
+    escalation_triggers: [lunar_solar_conversion, prophecy_date_claim, harmonization_pressure]
+    never_auto_create: [calendar_conversion_truth, chronology_system, prophecy_timeline]
+
+  - edge_type_id: priesthood_temple_sanctuary_role
+    family_id: covenant_law_sacrifice_calendar
+    label: "Priesthood, temple, or sanctuary role"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: priestlyRoleIn
+    description: "Priest, Levite, altar, veil, ark, holy place, temple, tabernacle, or sanctuary-object relation."
+    evidence_channels: [ritual_text, temple_vision_context, Hebrews_context_if_used]
+    evidence_floor: [role, object_or_place, text_ref, limitations]
+    escalation_triggers: [temple_theology, Hebrews_typology, Revelation_city_temple_link]
+    never_auto_create: [temple_fulfillment_system, typology_claim, theology_authority]
+
+  - edge_type_id: oracle_formula_evidence
+    family_id: prophecy_apocalyptic_typology
+    label: "Oracle formula evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: oracleUnitCandidate
+    description: "Word-of-Yahweh, burden, woe, indictment, lawsuit, comfort, or prophetic speech formula evidence."
+    evidence_channels: [oracle_formula, prophetic_speech_frame]
+    evidence_floor: [oracle_scope, formula_text_or_marker, addressee, local_context]
+    escalation_triggers: [fulfillment_claim, intertext_claim, oracle_boundary_controls_theology]
+    never_auto_create: [fulfillment_theology, graph_edge_generation, chunk_boundary]
+
+  - edge_type_id: vision_sequence_evidence
+    family_id: prophecy_apocalyptic_typology
+    label: "Vision sequence evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: visionParallels
+    description: "Vision, interpreted symbol, heavenly scene, beast, horn, seal, trumpet, bowl, temple, city, river, or tree sequence evidence."
+    evidence_channels: [vision_report, apocalyptic_symbol_context, canonical_intertext_context]
+    evidence_floor: [vision_scope, symbol_list, interpretation_within_text_if_any, preserved_options]
+    escalation_triggers: [Daniel_or_Revelation, eschatology_system, symbol_identity_pressure]
+    never_auto_create: [event_identification, eschatological_timeline, symbolic_identity_truth]
+
+  - edge_type_id: fulfillment_claim_candidate
+    family_id: prophecy_apocalyptic_typology
+    label: "Fulfillment claim candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: fulfills
+    description: "A candidate fulfillment relationship, especially where Scripture itself uses fulfillment language."
+    evidence_channels: [explicit_fulfillment_formula, canonical_context, source_language_context]
+    evidence_floor: [fulfillment_formula_or_reason, source_context, target_context, review_limitations]
+    escalation_triggers: [prophecy_system_pressure, messianic_identification, source_tradition_pressure]
+    never_auto_create: [automatic_fulfillment, apologetic_proof_claim, eschatology_system_selection]
+
+  - edge_type_id: typology_candidate
+    family_id: prophecy_apocalyptic_typology
+    label: "Typology candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: typifies
+    description: "A candidate type/antitype pattern requiring canonical, theological, and review controls."
+    evidence_channels: [canonical_pattern, explicit_NT_use_if_any, orthodox_firewall]
+    evidence_floor: [type_scope, antitype_scope, textual_basis, alternatives_preserved]
+    escalation_triggers: [motif_only_basis, covenant_or_sacrifice_pressure, apologetic_use]
+    never_auto_create: [typology_truth_from_motif, theology_authority, retrieval_truth]
+
+  - edge_type_id: messianic_sensitive_language
+    family_id: prophecy_apocalyptic_typology
+    label: "Messianic-sensitive language"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: messianicPressureCandidate
+    description: "Servant, Branch, king, shepherd, pierced, son, anointed, stone, seed, or other messianic-sensitive language."
+    evidence_channels: [prophetic_oracle_vision_queue, intertext_context, source_language_context]
+    evidence_floor: [term_or_phrase, exact_refs, local_context, non_claim_status]
+    escalation_triggers: [Christology_pressure, fulfillment_claim, anti_Jewish_polemic_risk]
+    never_auto_create: [messianic_identification, fulfillment_truth, polemic_claim]
+
+  - edge_type_id: divine_title_watchpoint
+    family_id: orthodox_creedal_doctrinal
+    label: "Divine title watchpoint"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: requiresTheologyReview
+    description: "God, Lord, LORD, Spirit/spirit, Father, Son, Word, Lamb, Alpha/Omega, First/Last, or title-capitalization watchpoint."
+    evidence_channels: [divine_capitalization_inventory, original_language_context, canonical_context]
+    evidence_floor: [title_form, exact_ref, translation_or_source_basis, limitations]
+    escalation_triggers: [Trinity_pressure, Christology_pressure, capitalization_controls_identity]
+    never_auto_create: [divine_identity_claim, Trinitarian_relation, theology_authority]
+
+  - edge_type_id: christological_pressure_passage
+    family_id: orthodox_creedal_doctrinal
+    label: "Christological pressure passage"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: supportsDoctrineCandidate
+    description: "Passage where Christology, incarnation, preexistence, deity, humanity, resurrection, or lordship may be implicated."
+    evidence_channels: [orthodox_firewall, original_language_policy, contextual_reading_policy]
+    evidence_floor: [exact_scope, doctrinal_pressure_label, orthodox_options, assumptions_refused]
+    escalation_triggers: [anti_Trinitarian_polemics, NWT_or_LDS_pressure, variant_pressure]
+    never_auto_create: [doctrine_authority, denominational_system_selection, prooftext_claim]
+
+  - edge_type_id: trinitarian_relation_pressure
+    family_id: orthodox_creedal_doctrinal
+    label: "Trinitarian relation pressure"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: requiresTheologyReview
+    description: "Passage where Father/Son/Spirit relations, divine names, or grammar may be used in Trinitarian argument."
+    evidence_channels: [orthodox_firewall, original_language_context, canonical_context]
+    evidence_floor: [exact_scope, grammar_or_phrase_evidence, orthodox_boundary, uncertainty]
+    escalation_triggers: [grammar_controls_doctrine, source_language_dispute, polemic_use]
+    never_auto_create: [Trinity_proof_edge, heterodox_rebuttal_as_truth, theology_authority]
+
+  - edge_type_id: creedal_boundary_guard
+    family_id: orthodox_creedal_doctrinal
+    label: "Credal boundary guard"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: preservesOrthodoxOption
+    description: "Nicene/Chalcedonian guardrail marker for review where edges could smuggle anti-orthodox defaults."
+    evidence_channels: [orthodox_hermeneutic_firewall, theological_decision_register]
+    evidence_floor: [risk_description, assumptions_refused, options_preserved]
+    escalation_triggers: [anti_supernatural_default, liberal_critical_default, heterodox_default]
+    never_auto_create: [theology_authority, denominational_system_selection, graph_truth]
+
+  - edge_type_id: historical_context_evidence
+    family_id: historical_geographic
+    label: "Historical context evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: historicalBackgroundFor
+    description: "Audience, date, empire, office, synagogue, temple, ANE, Greco-Roman, Jewish, or church-history background."
+    evidence_channels: [contextual_reading_policy, source_catalog, bibliography_anchor]
+    evidence_floor: [background_claim, source_ref, uncertainty, lower_than_Scripture_status]
+    escalation_triggers: [history_overrides_text, anti_supernatural_default, apologetic_claim]
+    never_auto_create: [historical_context_as_Scripture_authority, theology_authority, retrieval_truth]
+
+  - edge_type_id: geographic_setting_evidence
+    family_id: historical_geographic
+    label: "Geographic setting evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: locatedAt
+    description: "Land, city, region, route, exile/return location, tribal allotment, or geography evidence."
+    evidence_channels: [canonical_text, source_catalog, place_authority_future]
+    evidence_floor: [place_name, exact_ref, source_or_text_basis, uncertainty]
+    escalation_triggers: [site_identification_dispute, land_promise_theology]
+    never_auto_create: [land_promise_fulfillment, archaeology_proof_claim, theology_authority]
+
+  - edge_type_id: regnal_or_genealogical_chronology_evidence
+    family_id: historical_geographic
+    label: "Regnal or genealogical chronology evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: inRegnalYear
+    description: "Regnal year, genealogy, lineage, age, date, chronological sequence, or harmonization-sensitive time relation."
+    evidence_channels: [canonical_text, chronology_policy_future, genealogy_list_formula]
+    evidence_floor: [time_expression, exact_ref, uncertainty, alternate_chronology_note]
+    escalation_triggers: [chronology_harmonization, alleged_contradiction_resolution, prophecy_date_claim]
+    never_auto_create: [chronology_system_truth, apologetic_resolution, canon_scope_change]
+
+  - edge_type_id: source_catalog_location_claim
+    family_id: historical_geographic
+    label: "Source catalog location claim"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: heldByInstitution
+    description: "Holding institution, shelfmark, catalog id, provenance, discovery, or repository metadata for source witnesses."
+    evidence_channels: [manuscript_source_catalog, official_catalog_url]
+    evidence_floor: [witness_id, institution, catalog_url, access_rights, review_status]
+    escalation_triggers: [source_access_unclear, manuscript_claim_used_apologetically]
+    never_auto_create: [textual_reliability_conclusion, preferred_reading, apologetic_proof_claim]
+
+  - edge_type_id: narrative_scene_unit
+    family_id: literary_discourse_genre
+    label: "Narrative scene unit"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: containsLiteraryUnit
+    description: "Setting/action/conflict/resolution, travel, dialogue, blessing, curse, or scene evidence."
+    evidence_channels: [narrative_scene_markers, local_context, source_metadata]
+    evidence_floor: [scene_scope, scene_cues, previous_following_context, limitations]
+    escalation_triggers: [typology_pressure, harmonization_pressure, scene_boundary_used_for_output]
+    never_auto_create: [chunk_boundary, causal_theology, graph_truth]
+
+  - edge_type_id: speech_dialogue_frame
+    family_id: literary_discourse_genre
+    label: "Speech or dialogue frame"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: speakerTurnAfter
+    description: "Speaker turn, prayer, blessing, curse, prophetic speech, narrative quotation, or dialogue frame."
+    evidence_channels: [speaker_formula, narrative_frame, WJ_policy_if_relevant]
+    evidence_floor: [speaker_cue, addressee_if_known, scope, uncertainty]
+    escalation_triggers: [WJ_speaker_boundary, Song_or_Job_speaker_identity, Revelation_voice_shift]
+    never_auto_create: [speaker_attribution, discourse_boundary, theology_authority]
+
+  - edge_type_id: epistle_argument_flow
+    family_id: literary_discourse_genre
+    label: "Epistle argument flow"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: continuesArgument
+    description: "Connectors, catena, pronouns, participant flow, exhortation, warning, thanksgiving, or doxology relation."
+    evidence_channels: [argument_connector_flow, original_language_context, epistle_issue_queue]
+    evidence_floor: [argument_scope, connector_or_structure_evidence, context_note, options_preserved]
+    escalation_triggers: [law_gospel_pressure, election_pressure, sacramental_or_ecclesial_pressure]
+    never_auto_create: [argument_boundary_as_doctrine, chunk_boundary, retrieval_truth]
+
+  - edge_type_id: poetic_parallelism_unit
+    family_id: literary_discourse_genre
+    label: "Poetic parallelism unit"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: containsLiteraryUnit
+    description: "Line, couplet, stanza, acrostic, refrain, superscription, lament, praise, wisdom poem, or parallel unit evidence."
+    evidence_channels: [poetry_marker, wisdom_dialogue_poetry_queue, source_metadata]
+    evidence_floor: [poetic_scope, form_evidence, source_marker_note, non_boundary_status]
+    escalation_triggers: [Psalm_superscription_authority, acrostic_as_rule, lament_theology_pressure]
+    never_auto_create: [chunk_boundary, liturgical_use_authority, wisdom_theology]
+
+  - edge_type_id: wj_discourse_evidence
+    family_id: literary_discourse_genre
+    label: "WJ discourse evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: containsLiteraryUnit
+    description: "WJ/red-letter plus narrative/speaker/discourse evidence requiring review before discourse use."
+    evidence_channels: [wj_marker_inventory, speaker_formula, gospel_wj_discourse_queue]
+    evidence_floor: [exact_scope, WJ_observation, narrative_frame, uncertainty]
+    escalation_triggers: [John3, John13_17, Olivet_discourse, Revelation_voice_shift]
+    never_auto_create: [Jesus_speaker_attribution, discourse_boundary, graph_truth, chunk_boundary]
+
+  - edge_type_id: lemma_morphology_evidence
+    family_id: linguistic_original_language
+    label: "Lemma and morphology evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: hasMorphology
+    description: "Lemma, morphology, parsing, article, tense/aspect, construct, agreement, or Strong's overlay evidence."
+    evidence_channels: [source_language_witness, lexeme_schema, alignment_record]
+    evidence_floor: [source_token_id, lemma_source, morphology_source, confidence]
+    escalation_triggers: [doctrine_from_word, contested_parsing, variant_dependent_token]
+    never_auto_create: [lexical_theology, translation_preference, theology_authority]
+
+  - edge_type_id: phrase_clause_syntax_evidence
+    family_id: linguistic_original_language
+    label: "Phrase, clause, or syntax evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: hasPhraseConstruction
+    description: "Greek/Hebrew phrase, clause, syntax, discourse, article, conjunction, or grammar evidence."
+    evidence_channels: [original_language_phrase_context_policy, discourse_context, source_language_witness]
+    evidence_floor: [phrase_scope, syntax_claim, local_context, source_basis, limitations]
+    escalation_triggers: [grammar_controls_doctrine, Christology_pressure, translation_polemics]
+    never_auto_create: [doctrine_from_grammar, isolated_word_theology, graph_truth]
+
+  - edge_type_id: translation_divergence_pressure
+    family_id: linguistic_original_language
+    label: "Translation divergence pressure"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: translationDivergenceCandidate
+    description: "Translation witnesses diverge around a word, phrase, punctuation, capitalization, or textual basis."
+    evidence_channels: [translation_witnesses, source_language_alignment, textual_variant_policy]
+    evidence_floor: [translation_set, divergence_description, source_basis, confidence]
+    escalation_triggers: [translation_faithfulness_claim, NWT_or_polemical_translation, variant_dependency]
+    never_auto_create: [translation_preference, polemic_refutation, source_tradition_preference]
+
+  - edge_type_id: lxx_hebrew_nt_relation
+    family_id: linguistic_original_language
+    label: "LXX/Hebrew/NT relation"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: alignsToSourceToken
+    description: "Relation among Hebrew/Aramaic OT, LXX/Greek, and NT wording in quotation/allusion contexts."
+    evidence_channels: [source_language_witness, LXX_source_future, textual_variant_policy]
+    evidence_floor: [Hebrew_or_Aramaic_ref, Greek_ref, wording_relation, source_limitations]
+    escalation_triggers: [OT_in_NT_argument, source_tradition_preference, fulfillment_claim]
+    never_auto_create: [preferred_source_text, fulfillment_truth, theology_authority]
+
+  - edge_type_id: root_or_semantic_range_warning
+    family_id: linguistic_original_language
+    label: "Root or semantic-range warning"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: requiresLanguageReview
+    description: "Guard against root fallacy, totality transfer, one-gloss word studies, or semantic-domain overreach."
+    evidence_channels: [original_language_phrase_context_policy, lexeme_schema]
+    evidence_floor: [word_or_root, claim_at_risk, phrase_context, warning_reason]
+    escalation_triggers: [doctrine_from_root, apologetic_word_study, polemical_translation]
+    never_auto_create: [semantic_domain_truth, theology_authority, apologetic_conclusion]
+
+  - edge_type_id: variant_marker_evidence
+    family_id: textual_criticism_manuscript
+    label: "Variant marker evidence"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: hasVariantCase
+    description: "Alternate reading, omission, addition, empty witness, footnote, spelling, punctuation, or apparatus marker."
+    evidence_channels: [textual_variant_schema, footnote_sidecar, source_catalog]
+    evidence_floor: [variant_unit, affected_ref, source_note, confidence, non_preference_status]
+    escalation_triggers: [preferred_reading_pressure, doctrinally_significant_variant, canon_scope_pressure]
+    never_auto_create: [preferred_reading, source_tradition_preference, canon_scope_change]
+
+  - edge_type_id: source_tradition_difference
+    family_id: textual_criticism_manuscript
+    label: "Source tradition difference"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: sourceTraditionDiffersAt
+    description: "MT/LXX/DSS/Byzantine/Alexandrian/TR/CNTR/edition/source-family difference as evidence only."
+    evidence_channels: [source_catalog, textual_critical_policy, original_language_sources]
+    evidence_floor: [traditions_compared, affected_ref, difference_type, uncertainty]
+    escalation_triggers: [source_tradition_preference, apologetic_reliability_claim, doctrine_pressure]
+    never_auto_create: [preferred_source_tradition, reading_truth, theology_authority]
+
+  - edge_type_id: variant_sensitive_block
+    family_id: textual_criticism_manuscript
+    label: "Variant-sensitive block"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: variantSensitiveAt
+    description: "Known blocked/sensitive variant case requiring textual-critical policy before any use."
+    evidence_channels: [textual_variant_source_tradition_dossier_queue, textual_critical_policy]
+    evidence_floor: [case_id, exact_scope, status, policy_dependency, non_authority_status]
+    escalation_triggers: [Mark16, John7_53_8_11, Romans_doxology, Deut32, Jeremiah_MT_LXX, Jude, 1John5_7]
+    never_auto_create: [canonical_preference, edge_generation, chunk_boundary, retrieval_truth]
+
+  - edge_type_id: manuscript_witness_metadata
+    family_id: textual_criticism_manuscript
+    label: "Manuscript witness metadata"
+    candidate_status: candidate_type_only
+    default_assertion_path: structural_deterministic
+    intended_future_predicate: attestedByWitness
+    description: "Witness date, material, language, coverage, institution, catalog id, discovery, or source URL metadata."
+    evidence_channels: [manuscript_source_catalog, witness_schema, official_catalogs]
+    evidence_floor: [witness_id, metadata_field, source_url, rights_status, confidence]
+    escalation_triggers: [oldest_witness_used_as_authority, reliability_claim, image_or_transcription_license]
+    never_auto_create: [textual_reliability_conclusion, preferred_reading, apologetic_proof_claim]
+
+  - edge_type_id: attestation_candidate
+    family_id: textual_criticism_manuscript
+    label: "Attestation candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: supportsReadingCandidate
+    description: "Witness support for a reading or textual unit, candidate-only until variant policy and source license are cleared."
+    evidence_channels: [witness_metadata, variant_unit, source_license]
+    evidence_floor: [reading_id, witness_refs, support_type, confidence, limitations]
+    escalation_triggers: [preferred_reading_pressure, doctrinal_variant, manuscript_family_preference]
+    never_auto_create: [preferred_reading, source_tradition_preference, theology_authority]
+
+  - edge_type_id: apologetic_pressure_label
+    family_id: apologetic_polemic
+    label: "Apologetic pressure label"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: supportsApologeticArgumentCandidate
+    description: "Candidate evidence relevant to apologetic defense, objection-response, contradiction claim, or resurrection/creed argument."
+    evidence_channels: [canonical_context, historical_context, manuscript_evidence, frontier_review]
+    evidence_floor: [claim_statement, exact_refs, evidence_limits, counterarguments_or_uncertainty]
+    escalation_triggers: [resurrection_chronology, early_creed_claim, alleged_contradiction_resolution]
+    never_auto_create: [apologetic_conclusion_as_truth, hostile_caricature, retrieval_truth]
+
+  - edge_type_id: polemic_against_false_worship_candidate
+    family_id: apologetic_polemic
+    label: "Polemic against false worship candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: polemicAgainstCandidate
+    description: "Textual evidence of polemic against idolatry, false gods, false teachers, syncretism, or rival claims."
+    evidence_channels: [canonical_context, historical_context, theological_decision_register]
+    evidence_floor: [target_claim_or_practice, text_scope, tone_risk, limitations]
+    escalation_triggers: [anti_Jewish_risk, anti_denominational_caricature, modern_group_mapping]
+    never_auto_create: [hostile_caricature, apologetic_truth_claim, theology_authority]
+
+  - edge_type_id: reliability_claim_candidate
+    family_id: apologetic_polemic
+    label: "Reliability claim candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: reliabilityClaimCandidate
+    description: "Candidate evidence for manuscript reliability, textual preservation, eyewitness context, early creed, or copy-chain argument."
+    evidence_channels: [manuscript_catalog, historical_sources, source_license, frontier_review]
+    evidence_floor: [claim_scope, evidence_refs, uncertainty, what_not_proven]
+    escalation_triggers: [overclaiming_from_manuscript_count, oldest_witness_as_authority, apologetic_proof_pressure]
+    never_auto_create: [apologetic_conclusion_as_truth, textual_certainty_overclaim, theology_authority]
+
+  - edge_type_id: translation_polemics_watchpoint
+    family_id: apologetic_polemic
+    label: "Translation polemics watchpoint"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: translationPolemicsWatchpoint
+    description: "Translation divergence used in polemical, nonorthodox, anti-Trinitarian, LDS, NWT, or doctrinal debate."
+    evidence_channels: [translation_divergence, original_language_context, frontier_review]
+    evidence_floor: [translation_refs, source_language_basis, claim_at_risk, limitations]
+    escalation_triggers: [Christology_or_Trinity_pressure, translation_faithfulness_claim, source_text_dispute]
+    never_auto_create: [translation_refutation_as_truth, theology_authority, hostile_caricature]
+
+  - edge_type_id: early_creedal_pattern_candidate
+    family_id: apologetic_polemic
+    label: "Early creedal pattern candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: reviewed_semantic
+    intended_future_predicate: earlyCreedalPatternCandidate
+    description: "Possible early creed, formula, confession, hymn, kerygma, or received tradition pattern."
+    evidence_channels: [canonical_text, historical_context, original_language_context, frontier_review]
+    evidence_floor: [formula_scope, scholarly_or_textual_basis, dating_limits, what_not_proven]
+    escalation_triggers: [months_after_resurrection_claim, historical_apologetic_claim, source_critical_pressure]
+    never_auto_create: [dating_claim_as_truth, apologetic_proof, theology_authority]
+
+  - edge_type_id: pastoral_theme_candidate
+    family_id: pastoral_doctrinal
+    label: "Pastoral theme candidate"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: pastoralThemeCandidate
+    description: "Pastoral theme evidence such as conscience, suffering, wisdom, prayer, judgment, mercy, discipleship, assurance, or comfort."
+    evidence_channels: [canonical_context, contextual_reading_policy, theological_decision_register]
+    evidence_floor: [theme_label, exact_refs, context_note, limitations]
+    escalation_triggers: [theme_used_as_doctrine, counseling_or_pastoral_advice_claim]
+    never_auto_create: [doctrine_label_as_truth, retrieval_truth, theology_authority]
+
+  - edge_type_id: doctrinal_risk_tag
+    family_id: pastoral_doctrinal
+    label: "Doctrinal risk tag"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: requiresTheologyReview
+    description: "Risk tag for election, assurance, faith/works, baptism, sacrament, ecclesiology, perseverance, law/gospel, or covenant pressure."
+    evidence_channels: [theological_decision_register, orthodox_firewall, dossier_queues]
+    evidence_floor: [risk_label, exact_scope, why_risky, options_preserved]
+    escalation_triggers: [owner_gate_needed, frontier_review_needed, model_disagreement]
+    never_auto_create: [doctrine_authority, denominational_system_selection, graph_truth]
+
+  - edge_type_id: orthodox_options_preserved
+    family_id: pastoral_doctrinal
+    label: "Orthodox options preserved"
+    candidate_status: candidate_type_only
+    default_assertion_path: model_inferred_candidate
+    intended_future_predicate: preservesOrthodoxOption
+    description: "Record that multiple orthodox readings remain possible and no model may collapse them into one system."
+    evidence_channels: [orthodox_firewall, contextual_reading_policy, owner_decision_projection_policy]
+    evidence_floor: [options_list, exact_scope, avoided_assumptions, review_dependency]
+    escalation_triggers: [one_system_selected, liberal_critical_default, anti_supernatural_default]
+    never_auto_create: [theology_authority, denominational_system_selection, graph_truth]
+
+multi_model_use:
+  allowed_worker_output: "Scratch notes and candidate additions to this catalog only."
+  model_roles:
+    cursor_or_fast_worker: "Find omissions, source surfaces, and candidate edge examples; do not select predicates."
+    codex: "Integrate, validate, compare against repo governance, and prepare owner dockets."
+    claude_frontier: "Audit hard theology, prophecy, apocalyptic, WJ, variants, apologetic, and original-language claims."
+    gemini_or_other_model: "Independent breadth check for missing literary, historical, linguistic, calendar, and manuscript edge families."
+  must_stop_before:
+    - predicate_registry_expansion
+    - graph_edge_generation
+    - candidate_edge_row_population
+    - reviewed_semantic_edge_promotion
+    - theology_or_apologetic_conclusion
+    - source_tradition_preference
+    - retrieval_or_vector_work
+
+future_work_queue:
+  - task_id: T452
+    title: "Edge schema and predicate proposal packet"
+    purpose: "Owner-gated proposal for exact predicate registry expansions, inverse rules, evidence floors, and schema tightening."
+  - task_id: T453
+    title: "Rust edge-candidate hygiene validator"
+    purpose: "Fast deterministic JSONL validation for large candidate edge ledgers after schema paths exist."
+  - task_id: T454
+    title: "Multi-model edge-family research sprint"
+    purpose: "Several models independently review T451, propose omissions, and produce disagreement deltas."
+  - task_id: T455
+    title: "First candidate edge sandbox"
+    purpose: "Only after owner gate, create a tiny candidate-only edge fixture for one low-risk structural/editorial lane."
+
+source_and_policy_anchors:
+  repo_local:
+    - .ai/control/bible_edge_taxonomy_research_program.yaml
+    - config/governance/predicate_registry.yaml
+    - schemas/graph_edge_record.schema.json
+    - schemas/relationship_object.schema.json
+    - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+    - .ai/control/contextual_reading_policy.yaml
+    - .ai/control/source_metadata_research_atlas.yaml
+    - .ai/control/original_language_phrase_context_policy.yaml
+    - .ai/control/textual_variant_source_tradition_dossier_queue.yaml
+    - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+  external_research_anchors:
+    - id: nicene_creed_goarch
+      url: https://www.goarch.org/-/the-nicene-creed
+      role: "creedal Christian boundary reference"
+      authority_note: "Reference anchor only; local owner/governance controls adoption."
+    - id: chicago_statements
+      url: https://defendinginerrancy.com/chicago-statements/
+      role: "conservative inerrancy and hermeneutics guardrail reference"
+      authority_note: "Reference anchor only; not graph authority."
+    - id: intf_cbgm
+      url: https://www.uni-muenster.de/INTF/Genealogical_method.html
+      role: "textual witness relationship method reference"
+      authority_note: "Method reference only; no source-tradition preference."
+    - id: codex_sinaiticus_project
+      url: https://www.codexsinaiticus.org/
+      role: "major manuscript witness catalog reference"
+      authority_note: "Catalog/source reference only; no preferred reading."
+    - id: leon_levy_dss
+      url: https://www.deadseascrolls.org.il/?locale=en_US
+      role: "DSS witness metadata reference"
+      authority_note: "Catalog/source reference only; biblical/non-biblical contamination rules still apply."
+    - id: openscriptures_morphhb
+      url: https://github.com/openscriptures/morphhb
+      role: "Hebrew lemma/morphology/Strong's overlay reference"
+      authority_note: "Source metadata reference only; Strong's is not source text or theology authority."
+
+dad_coordination:
+  context_map_entry: ctx-t451-bible-edge-candidate-type-catalog
+  outbox_message_id: msg-20260705-t451-bible-edge-candidate-type-catalog
+  lesson_learned_slot: .digital-asset/lessons/t451_bible_edge_candidate_type_catalog.yaml
+  local_authority_note: "DAD receives a candidate lesson only. It cannot expand predicates, generate graph edges, or override Scripture Graph governance."
+
+validators:
+  - scripts/validate_t451_bible_edge_candidate_type_catalog.py
+  - tests/test_t451_bible_edge_candidate_type_catalog.py
+  - scripts/validate_dad_outbox.py
+  - scripts/validate_all.py

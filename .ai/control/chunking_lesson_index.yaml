@@ -1887,6 +1887,49 @@ lessons:
       - scripts/validate_t450_bible_edge_taxonomy.py
       - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-044
+    title: Candidate edge types are not predicates or graph truth
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, theological_risk, graph_retrieval_vector, original_language, auditability]
+    tags: [t451, graph, edge-catalog, predicate-registry, model-review, frontier-review, source-metadata, strongs, wj, textual-variants, apologetics, non-authorizing]
+    use_when:
+      - "A future agent uses the T451 catalog to propose Bible graph edge types, candidate predicates, review tags, apologetic or polemic links, prophecy/apocalyptic links, covenant/law/sacrifice/calendar links, manuscript/textual links, or original-language links."
+      - "A future agent could confuse candidate edge-type vocabulary with predicate registration, candidate edge rows, reviewed semantic graph edges, retrieval truth, or theology authority."
+    preflight_stage: before_edge_type_review_or_predicate_proposal
+    source_surfaces:
+      - .ai/control/bible_edge_candidate_type_catalog.yaml
+      - docs/roadmap/T451_BIBLE_EDGE_CANDIDATE_TYPE_CATALOG.md
+      - .ai/prompts/bible_edge_taxonomy_model_review_prompt.md
+      - .ai/prompts/bible_edge_taxonomy_frontier_audit_prompt.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - scripts/validate_t451_bible_edge_candidate_type_catalog.py
+    related_decision_ids: [CD-089]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T451]
+    downstream_risk: "Models can produce highly useful edge vocabulary that silently becomes graph truth, theology authority, source-tradition preference, or apologetic proof if future tasks skip evidence floors, frontier review, owner gates, and predicate/schema validation."
+    required_preflight_surfaces:
+      - .ai/control/bible_edge_candidate_type_catalog.yaml
+      - .ai/control/bible_edge_taxonomy_research_program.yaml
+      - .ai/control/orthodox_hermeneutic_firewall_docket.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    non_authorizations:
+      - candidate_edge_type_as_registered_predicate
+      - predicate_registry_expansion
+      - graph_edge_generation
+      - candidate_edge_population
+      - reviewed_semantic_edge_promotion
+      - retrieval_truth
+      - vector_truth
+      - theology_authority_change
+      - apologetic_conclusion_as_truth
+      - source_tradition_preference
+      - canon_scope_change
+      - chunk_output_change
+    validators:
+      - scripts/validate_t451_bible_edge_candidate_type_catalog.py
+      - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -2270,6 +2313,15 @@ lesson_graph:
     relation: constrains
     to: LSN-043
   - from: LSN-043
+    relation: audits
+    to: LSN-010
+  - from: LSN-042
+    relation: constrains
+    to: LSN-044
+  - from: LSN-044
+    relation: constrains
+    to: LSN-009
+  - from: LSN-044
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-05
-**Updated by:** T425 DAD lesson-slot/runtime-preflight hardening
-**Active task:** -> **T425 DAD lesson-slot integrity and runtime preflight enforcement** (isolated validation-hardening branch; no chunking authority). T417/T423 remain the next chunking routes after validation-hardening review/merge.
+**Updated by:** T451 Bible edge candidate type catalog
+**Active task:** -> **T451 Bible edge candidate type catalog** (planning-only graph-edge taxonomy deepening; no predicate registry expansion, graph edge generation, retrieval/vector truth, chunking authority, or theology authority). T423/T451 remain separate lanes: T423 is scratch chunking comparison; T451 prepares future graph-edge vocabulary and review gates.
+
+> **T451 Bible edge candidate type catalog (2026-07-05):** Deepens the T450 planning-only edge
+> taxonomy into concrete candidate edge-type vocabulary with evidence floors, escalation triggers,
+> never-auto-create rules, model-review prompts, frontier-audit prompts, and a DAD candidate lesson.
+> It covers structural/source occurrence, editorial metadata, textual/intertextual relations,
+> covenant/law/sacrifice/calendar, prophecy/apocalyptic/typology, orthodox creedal/doctrinal
+> review, historical/geographic context, literary/discourse/genre, linguistic/original-language,
+> textual criticism/manuscript witnesses, apologetic/polemic pressure, and pastoral/doctrinal risk
+> labels. T451 authorizes no predicate registry expansion, graph edge generation, candidate edge
+> rows, retrieval/vector truth, embeddings/indexes, boundary import, source-tradition preference,
+> canon change, chunk output, reviewed gold, route/evaluator behavior, apologetic conclusion, or
+> theology authority.
 
 > **T425 DAD lesson-slot integrity and runtime preflight enforcement (2026-07-05):** Hardens
 > the T424 Rust/DAD asset lane by requiring DAD outbox rows with `lesson_learned_slot` or

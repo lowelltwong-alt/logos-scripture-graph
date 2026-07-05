@@ -166,6 +166,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t450_bible_edge_taxonomy.py")],
         ),
         (
+            "validate_t451_bible_edge_candidate_type_catalog.py",
+            [PY, str(ROOT / "scripts" / "validate_t451_bible_edge_candidate_type_catalog.py")],
+        ),
+        (
             "validate_test_runtime_preflight.py",
             [PY, str(ROOT / "scripts" / "validate_test_runtime_preflight.py")],
         ),
