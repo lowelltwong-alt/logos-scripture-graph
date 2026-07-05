@@ -27,6 +27,7 @@ scope:
     - scripts/validate_coding_runtime_language_preflight.py
     - scripts/validate_fast_jsonl.py
     - scripts/validate_fast_canonical_scope.py
+    - scripts/validate_fast_chunk_map.py
     - scripts/validate_all.py
     - tests/test_dad_outbox.py
     - tests/test_coding_runtime_language_preflight.py
@@ -55,7 +56,8 @@ authorization:
   validates_jsonl_scan_fast_path: true
   validates_canonical_scope_fast_path: true
   canonical_qa_scaffold_only: true
-  chunk_map_validator_deferred: true
+  chunk_map_validator_deferred: false
+  validates_chunk_map_fast_path_shadow_only: true
   cursor_may_select_target: false
   promotes_reviewed_gold: false
   implements_chunk_output: false
@@ -81,6 +83,7 @@ deliverables:
   dad_outbox_validator: scripts/validate_dad_outbox.py
   jsonl_wrapper: scripts/validate_fast_jsonl.py
   canonical_scope_wrapper: scripts/validate_fast_canonical_scope.py
+  chunk_map_wrapper: scripts/validate_fast_chunk_map.py
   validate_all_integration: scripts/validate_all.py
   roadmap_doc: docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
   tests:
@@ -91,6 +94,7 @@ deliverables:
 acceptance_criteria:
   - "Rust crate compiles and tests pass without touching the T412 USFM observation scanner."
   - "JSONL and canonical-scope wrappers preserve existing Python command ergonomics and support Python fallback."
+  - "Chunk-map wrapper preserves Python command ergonomics and supports Python fallback without moving comparison or promotion policy into Rust."
   - "validate_all.py uses Rust only for proven deterministic data-heavy gates, with Python fallback."
   - "Coding preflight requires Rust consideration for high-resource deterministic code while preserving Python/pytest governance orchestration."
   - "DAD outbox records T424 reusable lesson and asset candidates as candidate-only with local adoption required."

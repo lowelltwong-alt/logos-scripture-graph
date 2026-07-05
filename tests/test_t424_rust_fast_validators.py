@@ -40,6 +40,29 @@ def _valid_records() -> list[dict]:
     ]
 
 
+def _chunk_record(
+    *,
+    book: str = "Phlm",
+    span: str = "Phlm.1.1-Phlm.1.3",
+    chunk_index: int = 1,
+    decision_id: str = "M6-Phlm-001",
+    model_id: str = "M6_fable5",
+) -> dict:
+    return {
+        "model_id": model_id,
+        "book": book,
+        "span": span,
+        "chunk_index_in_book": chunk_index,
+        "literature_type_guess": "epistle_greeting",
+        "boundary_evidence_refs": ["book_strategy:Phlm"],
+        "strong_or_hebrew_tags_used": False,
+        "wj_or_red_letter_considered": False,
+        "confidence": "medium",
+        "decision_id": decision_id,
+        "non_authorizing": True,
+    }
+
+
 def _run(args: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, cwd=ROOT, capture_output=True, text=True)
 
@@ -228,6 +251,152 @@ def test_fast_canonical_scope_rejects_custom_canon_with_python_compare(tmp_path:
     assert "Custom --canon is not supported" in result.stderr
 
 
+def test_fast_chunk_map_agrees_with_python_on_valid_fixture(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(
+        fixture,
+        [
+            _chunk_record(span="Phlm.1.1-Phlm.1.3", chunk_index=1, decision_id="M6-Phlm-001"),
+            _chunk_record(span="Phlm.1.4-Phlm.1.7", chunk_index=2, decision_id="M6-Phlm-002"),
+        ],
+    )
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            "--model-id",
+            "M6_fable5",
+            "--book",
+            "Phlm",
+            str(fixture),
+        ]
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Rust/Python chunk-map validator verdict parity passed" in result.stdout
+
+
+def test_fast_chunk_map_rejects_non_authorizing_false(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    record = _chunk_record()
+    record["non_authorizing"] = False
+    _write_jsonl(fixture, [record])
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "non_authorizing must be true" in combined
+    assert "Rust/Python chunk-map validator verdict parity passed" in combined
+
+
+def test_fast_chunk_map_rejects_duplicate_decision_id(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(
+        fixture,
+        [
+            _chunk_record(span="Phlm.1.1-Phlm.1.3", chunk_index=1, decision_id="dup"),
+            _chunk_record(span="Phlm.1.4-Phlm.1.7", chunk_index=2, decision_id="dup"),
+        ],
+    )
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "duplicate decision_id dup" in combined
+    assert "Rust/Python chunk-map validator verdict parity passed" in combined
+
+
+def test_fast_chunk_map_rejects_overlap_and_noncontiguous_indices(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(
+        fixture,
+        [
+            _chunk_record(span="Phlm.1.1-Phlm.1.5", chunk_index=1, decision_id="M6-Phlm-001"),
+            _chunk_record(span="Phlm.1.4-Phlm.1.7", chunk_index=3, decision_id="M6-Phlm-002"),
+        ],
+    )
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "chunk_index_in_book must be contiguous" in combined
+    assert "overlaps or inverts order" in combined
+    assert "Rust/Python chunk-map validator verdict parity passed" in combined
+
+
+def test_fast_chunk_map_rejects_allowed_book_scope_mismatch(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(fixture, [_chunk_record(book="Jonah", span="Jonah.1.1-Jonah.1.3")])
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            "--book",
+            "Phlm",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "not in allowed scope" in combined
+    assert "Rust/Python chunk-map validator verdict parity passed" in combined
+
+
+def test_fast_chunk_map_rejects_missing_full_bible_coverage(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(fixture, [_chunk_record()])
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            "--require-full-bible",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "missing books" in combined
+    assert "Rust/Python chunk-map validator verdict parity passed" in combined
+
+
 def test_fast_jsonl_python_fallback_only_when_rust_unavailable(tmp_path: Path) -> None:
     fixture = tmp_path / "valid.jsonl"
     _write_jsonl(fixture, _valid_records())
@@ -240,6 +409,25 @@ def test_fast_jsonl_python_fallback_only_when_rust_unavailable(tmp_path: Path) -
             "--cargo-bin",
             "definitely-not-cargo-for-t424",
             "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "using Python fallback" in result.stderr
+
+
+def test_fast_chunk_map_python_fallback_only_when_rust_unavailable(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(fixture, [_chunk_record()])
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_chunk_map.py",
+            "--python-fallback",
+            "--cargo-bin",
+            "definitely-not-cargo-for-t424",
             str(fixture),
         ]
     )

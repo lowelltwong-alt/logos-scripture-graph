@@ -10,7 +10,7 @@ T424 keeps Python and pytest as the governance orchestrator, while adding Rust f
 - `jsonl-scan` mirrors the existing generated JSONL invariants and can emit a JSON summary.
 - `canonical-scope` mirrors the canonical 66-book config and record-scope checks.
 - `canonical-qa` exists only as a scaffold; `scripts/qa_canonical_corpus.py` remains authoritative.
-- `chunk-map` is intentionally deferred until T424-D.
+- `chunk-map` is enabled as a T424-D shadow fast path for deterministic scratch chunk-map structure/span checks only.
 
 ## Python Boundary
 
@@ -19,6 +19,7 @@ The wrappers preserve existing repo ergonomics:
 ```bash
 python scripts/validate_fast_jsonl.py --python-fallback --require-canon <jsonl...>
 python scripts/validate_fast_canonical_scope.py --python-fallback <jsonl...>
+python scripts/validate_fast_chunk_map.py --python-fallback --compare-python <model-folder-or-whole_bible_chunk_map.jsonl>
 ```
 
 `--python-fallback` is availability fallback only. If Rust runs and reports a validation failure, the wrapper fails closed instead of hiding the failure behind Python.
@@ -31,6 +32,8 @@ python scripts/validate_fast_canonical_scope.py --python-fallback <jsonl...>
 - generated JSONL invariants
 
 It does not use Rust for governance YAML, task scopes, handoffs, theology-policy language, route isolation, evaluator policy, or corpus QA.
+
+The T424-D chunk-map fast path is not wired into routine `validate_all.py`. It is intended for explicit T423/multi-model scratch validation and parity checks. Rust validates required fields, `non_authorizing`, model id, allowed book scope, span shape, duplicate decision ids, contiguous per-book indices, overlap/order, and optional full-Bible book coverage. Python remains authoritative for model comparison, agreement/delta policy, stress-book handling, frontier escalation, owner gates, and promotion decisions.
 
 ## Coding Preflight
 
@@ -65,4 +68,4 @@ T424 does not authorize chunk output, reviewed gold, child spans, route/evaluato
 ## Next Steps
 
 - T424-B/C can add benchmark summaries and parity runs on larger generated ledgers.
-- T424-D may add `chunk-map` validation only once multi-model chunk artifacts are large enough to justify it.
+- Future T424 work may benchmark the `chunk-map` path on completed multi-model marathons and decide whether any focused CI gate is worthwhile. Do not add full scratch scans to routine `validate_all.py` without a separate policy decision.
