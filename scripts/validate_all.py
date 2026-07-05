@@ -285,6 +285,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t439_phlm_alignment_bridge_expansion.py")],
         ),
         (
+            "validate_t440_jonah_hebrew_parser_contract.py",
+            [PY, str(ROOT / "scripts" / "validate_t440_jonah_hebrew_parser_contract.py")],
+        ),
+        (
             "validate_original_language_raw_sources.py",
             [PY, str(ROOT / "scripts" / "validate_original_language_raw_sources.py")],
         ),

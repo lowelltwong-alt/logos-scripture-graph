@@ -83,6 +83,15 @@ pilot_lanes:
     source_view: sblgnt
     rule: "T439 expands the T433 bridge to full Philemon as no-text task-scoped candidate rows. It does not open production evidence roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology population, translation judgments, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
     rust_policy: "No Rust is added in T439. T439 creates the Python parity fixture for T441 Rust no-text alignment coverage/index scanning."
+  - task_id: T440
+    control: .ai/control/t440_jonah_hebrew_parser_contract.yaml
+    status: jonah_hebrew_source_specific_parser_contract
+    span: Jonah.1.1-Jonah.4.11
+    source_views:
+      - tanach_us_uxlc
+      - openscriptures_oshb
+    rule: "T440 defines UXLC and OSHB Jonah parser semantics, lineage, expected counts, metadata meanings, and negative fixtures before any Hebrew Rust expansion. It does not populate production roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology rows, preferred readings, translation judgments, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T440. T440 closes source-specific parser-contract prerequisites so T441 may separately design a no-text Rust scanner/checker against these semantics."
 goal_options:
   - option_id: option_1_alignment_bridge
     short_name: Greek/Hebrew-to-English alignment bridge
@@ -207,8 +216,14 @@ validators:
   - scripts/validate_t435_original_language_observation_scanner.py
   - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
   - scripts/validate_t437_oshb_lemma_attribute_policy.py
+  - scripts/validate_t438_alignment_bridge_goal.py
+  - scripts/validate_t439_phlm_alignment_bridge_expansion.py
+  - scripts/validate_t440_jonah_hebrew_parser_contract.py
   - scripts/validate_original_language_raw_sources.py
   - tests/test_t430_original_language_evidence_substrate.py
   - tests/test_t432_original_language_schema_contracts.py
   - tests/test_t435_original_language_observation_scanner.py
+  - tests/test_t438_alignment_bridge_goal.py
+  - tests/test_t439_phlm_alignment_bridge_expansion.py
+  - tests/test_t440_jonah_hebrew_parser_contract.py
   - tests/test_original_language_raw_sources.py

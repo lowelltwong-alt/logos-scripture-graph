@@ -1,0 +1,197 @@
+object_type: t440_jonah_hebrew_parser_contract
+schema_version: t440_jonah_hebrew_parser_contract.v1
+task_id: T440
+owner: Lowell Wong
+status: source_specific_parser_contract
+trust_zone: control
+summary: "Define source-specific UXLC and OSHB parser semantics for Jonah before any Hebrew Rust expansion or broader alignment bridge work."
+span:
+  book_id: Jonah
+  start_osis_ref: Jonah.1.1
+  end_osis_ref: Jonah.4.11
+  expected_chapters: 4
+  expected_verses_per_source: 48
+  expected_tokens_per_source: 688
+  spotlight_refs:
+    - Jonah.1.1
+    - Jonah.1.2
+    - Jonah.1.3
+inputs:
+  t436_control: .ai/control/t436_jonah_hebrew_metadata_pilot.yaml
+  t436_manifest: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/manifest.yaml
+  t436_parity_summary: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/parity_summary.json
+  t437_policy: .ai/control/t437_oshb_lemma_attribute_policy.yaml
+parser_contracts:
+  - source_id: tanach_us_uxlc
+    parser_profile: uxlc_tanach_xml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/tanach_us_uxlc/files/Jonah.xml
+    source_manifest: data/raw/original_language/hebrew/tanach_us_uxlc/source_manifest.yaml
+    source_archive_path: Books/Jonah.xml
+    license: unrestricted-copying-biblical-hebrew-text
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/tanach_us_uxlc/canonical_source_view_manifest.yaml
+    included_files_ledger: data/candidate/original_language_evidence/canonical_source_views/tanach_us_uxlc/included_files.jsonl
+    source_view_sha256: b4ee48ba7212aa6861ef1ea73b92f9dae4b71d1e4a206590f61385838a4baa34
+    consumes_raw_archives_directly: false
+    stores_visible_source_text: false
+    xml_shape:
+      chapter_element: c
+      verse_element: v
+      token_element: w
+      namespace_required: false
+    expected_counts:
+      chapters: 4
+      verses: 48
+      tokens: 688
+      morph_attr_count: 0
+      lemma_attr_count: 0
+      strong_attr_count: 0
+    token_attribute_semantics:
+      allowed_source_attribute_keys: []
+      contains_source_provided_morphology: false
+      contains_source_provided_lemmas: false
+      contains_source_provided_lemma_attributes: false
+      contains_source_provided_strong_lookup_hints: false
+      contains_source_provided_strongs: false
+      local_lemma_population_allowed: false
+      local_morphology_population_allowed: false
+      local_strongs_population_allowed: false
+    editorial_metadata_semantics:
+      observed_marker_kinds:
+        - chaptering
+        - correction
+        - nested_token_markup
+        - note
+        - pe
+        - samekh
+        - versification
+        - vowel_or_accent_presence
+        - vs
+      editorial_not_autograph_certainty: true
+    authority_note: "UXLC is the clean no-lemma/no-morph/no-Strong Jonah source-token baseline; token text hashes are evidence, not source-language truth."
+  - source_id: openscriptures_oshb
+    parser_profile: oshb_osis_xml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml
+    source_manifest: data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+    source_archive_path: morphhb-3d15126fb1ef74867fc1434be1942e837932691f/wlc/Jonah.xml
+    license: CC-BY-4.0
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/canonical_source_view_manifest.yaml
+    included_files_ledger: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/included_files.jsonl
+    source_view_sha256: 1e1afcc3aaba1399d5c884ee106894c6bfca87c8c81fa57783ab75a923eee17d
+    consumes_raw_archives_directly: false
+    stores_visible_source_text: false
+    xml_shape:
+      chapter_element: osis:chapter
+      verse_element: osis:verse
+      token_element: osis:w
+      namespace_required: true
+      namespace_uri: http://www.bibletechnologies.net/2003/OSIS/namespace
+    expected_counts:
+      chapters: 4
+      verses: 48
+      tokens: 688
+      morph_attr_count: 688
+      lemma_attr_count: 688
+      strong_attr_count: 0
+    token_attribute_semantics:
+      allowed_source_attribute_keys:
+        - id
+        - lemma
+        - morph
+      contains_source_provided_morphology: true
+      contains_source_provided_lemmas: false
+      contains_source_provided_lemma_attributes: true
+      contains_source_provided_strong_lookup_hints: true
+      contains_source_provided_strongs: false
+      lemma_attribute_interpretation: strong_lookup_hint
+      lemma_attribute_authority: metadata_only_not_local_lemma_or_strong_authority
+      morph_attribute_authority: source_morphology_metadata_not_local_morphology_row_authority
+      local_lemma_population_allowed: false
+      local_morphology_population_allowed: false
+      local_strongs_population_allowed: false
+    editorial_metadata_semantics:
+      observed_marker_kinds:
+        - chaptering
+        - lemma_attr_presence
+        - morph_attr_presence
+        - seg:x-maqqef
+        - seg:x-pe
+        - seg:x-paseq
+        - seg:x-reversednun
+        - seg:x-samekh
+        - seg:x-sof-pasuq
+        - strong_attr_presence
+        - versification
+        - vowel_or_accent_presence
+      editorial_not_autograph_certainty: true
+    authority_note: "OSHB is metadata-rich parity context; w@lemma is a Strong lookup hint and w@morph is source morphology metadata, not local lemma, Strong, morphology, lexical, translation, or theology authority."
+parity_requirements:
+  refs_match: true
+  per_verse_token_counts_match: true
+  exact_token_hashes_all_match: false
+  reason_exact_hashes_may_differ: "UXLC and OSHB are separate source views with matching Jonah refs/token counts but not identical token hash chains; count parity is not semantic authority."
+  t436_rust_expansion_allowed_must_remain: false
+negative_fixture_requirements:
+  - id: reject_raw_archive_direct_consumption
+    must_fail_if: "Any parser contract source_view_path starts with data/raw/ or consumes_raw_archives_directly is true."
+  - id: reject_visible_hebrew_text_storage
+    must_fail_if: "Any T440 contract or future T441 no-text Rust ledger stores visible Hebrew source text."
+  - id: reject_oshb_lemma_as_local_lemma
+    must_fail_if: "OSHB w@lemma is copied into local lemma, lexeme, source-language truth, or Strong authority rows."
+  - id: reject_oshb_morph_as_local_morphology_row
+    must_fail_if: "OSHB w@morph is copied into local morphology rows before an owner-gated morphology population task."
+  - id: reject_strong_population_from_oshb_lemma
+    must_fail_if: "OSHB lemma attributes populate strong_id or Strong overlay rows."
+  - id: reject_metadata_value_hash_as_value_authority
+    must_fail_if: "A parser stores lemma/morph/Strong metadata-value hashes that downstream agents could treat as recovered hidden values."
+  - id: reject_count_match_as_semantic_parity
+    must_fail_if: "Matching refs/token counts are treated as word-level alignment truth, source-tradition preference, translation judgment, or theology authority."
+  - id: reject_production_root_opening
+    must_fail_if: "T440 opens source_tokens, strong_alignment, lemma_morphology, textual_variants, witness_support, or editorial_layers production roots."
+  - id: reject_preferred_reading_or_source_tradition
+    must_fail_if: "UXLC or OSHB is selected as a preferred reading/source tradition."
+rust_policy:
+  rust_added_in_t440: false
+  source_specific_parser_contracts_defined: true
+  negative_fixture_expectations_defined: true
+  t441_may_design_no_text_rust_checker_after_t440: true
+  t441_requires_separate_task_and_pr: true
+  rust_scanner_allowed_inside_t440: false
+  rule: "T440 closes parser-semantics prerequisites only. T441 may separately implement a Rust no-text scanner/checker that matches these contracts; Rust still must not infer authority from key names, counts, or package metadata."
+authority:
+  records_source_specific_parser_contract: true
+  authorizes_t441_design: true
+  opens_production_candidate_roots: false
+  creates_source_token_rows: false
+  creates_alignment_rows: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_visible_source_text: false
+  stores_visible_translation_text: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+validators:
+  - scripts/validate_t440_jonah_hebrew_parser_contract.py
+  - tests/test_t440_jonah_hebrew_parser_contract.py

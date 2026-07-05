@@ -4177,6 +4177,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-096
+    title: T440 Jonah Hebrew parser contract is semantics guardrail only
+    classification: non_authorizing_review
+    task_ids: [T440]
+    owner_decision_ref: "docs/roadmap/T440_JONAH_HEBREW_PARSER_CONTRACT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Jonah]
+      passages: [Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t440_jonah_hebrew_parser_contract]
+      surfaces:
+        - .ai/control/t440_jonah_hebrew_parser_contract.yaml
+        - docs/roadmap/T440_JONAH_HEBREW_PARSER_CONTRACT.md
+        - scripts/validate_t440_jonah_hebrew_parser_contract.py
+    decision: "T440 may define source-specific UXLC and OSHB Jonah parser semantics, lineage, expected counts, metadata meanings, and negative fixtures before T441 Rust no-text checker work. UXLC remains the clean no-lemma/no-morph/no-Strong baseline. OSHB w@lemma remains Strong lookup-hint metadata only, and OSHB w@morph remains source morphology metadata only. T440 does not add Rust, create source-token rows, create alignments, open production original-language evidence roots, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents or Rust scanners could treat matching Jonah refs/token counts, OSHB field names, OSHB morphology metadata, or source-view checksums as source-language truth, lexical authority, word-level alignment truth, preferred reading, source-tradition preference, translation-faithfulness judgment, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No Hebrew source-view observation is treated as the autograph or as theology authority."
+      - "No OSHB w@lemma value is treated as local lemma, Strong's source text, lexical authority, or translation-faithfulness evidence."
+      - "No OSHB w@morph value is treated as local morphology-row population or doctrine."
+      - "No UXLC/OSHB count parity is treated as semantic parity."
+      - "No Rust scanner is authorized inside T440; T441 must be separate and no-text."
+    reviewed_gold_dependency: "None; T440 is a parser-contract guardrail only. Production source-token rows, production alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t440_jonah_hebrew_parser_contract.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4309,4 +4355,5 @@ backfill_coverage:
     - T437
     - T438
     - T439
+    - T440
 ...
