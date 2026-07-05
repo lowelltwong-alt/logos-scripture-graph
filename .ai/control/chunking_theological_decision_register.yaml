@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only. Updated 2026-07-06 during T423 to record six-model whole-Bible scratch marathon integration as non-authorizing comparison evidence only. Updated 2026-07-06 during T462 to record modular Rust validator bundling/reporting as non-authorizing validation tooling only. Updated 2026-07-06 during T431 integration to record original-language source intake as evidence-only and non-authorizing."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only. Updated 2026-07-06 during T423 to record six-model whole-Bible scratch marathon integration as non-authorizing comparison evidence only. Updated 2026-07-06 during T462 to record modular Rust validator bundling/reporting as non-authorizing validation tooling only. Updated 2026-07-06 during T431 integration to record original-language source intake as evidence-only and non-authorizing. Updated 2026-07-06 during T432 integration to record original-language schema contracts as evidence-only. Updated 2026-07-06 during T433 integration to record the Philemon original-language alignment pilot as task-scoped candidate evidence only."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -4010,7 +4010,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-089
+  - decision_id: CD-092
     title: T432 original-language schema contracts are evidence-only
     classification: non_authorizing_review
     task_ids: [T432]
@@ -4052,6 +4052,50 @@ decisions:
       - theology_authority_change
     validators:
       - scripts/validate_t432_original_language_schema_contracts.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-093
+    title: T433 Philemon original-language alignment pilot is candidate evidence only
+    classification: non_authorizing_review
+    task_ids: [T433]
+    owner_decision_ref: "docs/roadmap/T433_PHLM_ORIGINAL_LANGUAGE_EVIDENCE_PILOT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm]
+      passages: [Phlm.1.1-Phlm.1.3]
+      routes: [t430_alignment_bridge_pilot]
+      surfaces:
+        - .ai/control/t433_phlm_original_language_evidence_pilot.yaml
+        - data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/
+        - docs/roadmap/T433_PHLM_ORIGINAL_LANGUAGE_EVIDENCE_PILOT.md
+        - scripts/build_t433_phlm_alignment_pilot.py
+        - scripts/validate_t433_phlm_alignment_pilot.py
+    decision: "T433 may populate only task-scoped candidate pilot rows for SBLGNT source-token observations, SBLGNT editorial-layer observations, and low-confidence verse-level WEB alignment bridge records for Phlm.1.1-Phlm.1.3. WEB Strong's IDs remain translation-side hints only. The pilot does not open production original-language evidence roots or authorize source-language truth, lexical truth, preferred readings, source-tradition choices, canon changes, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could treat Greek source-token rows, WEB Strong's hints, SBLGNT editorial punctuation/sigla, or verse-level alignment records as lexical authority, translation-faithfulness judgment, chunk-boundary evidence, source-tradition preference, or theology authority."
+    theological_assumptions_avoided:
+      - "No Greek source token is treated as a theological conclusion."
+      - "No WEB Strong's sidecar value is treated as source text or lexical authority."
+      - "No SBLGNT editorial punctuation, siglum, paragraphing, or versification marker is treated as autograph certainty or chunk-boundary authority."
+      - "No source edition is preferred over another source tradition."
+    reviewed_gold_dependency: "None; T433 is a task-scoped candidate evidence pilot only. Reviewed gold, chunking, KG, retrieval, variant, witness-row, translation-faithfulness, source-language production population, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - strongs_number_as_source_text
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - canon_scope_change
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t433_phlm_alignment_pilot.py
       - scripts/validate_chunking_theological_decision_register.py
     lifecycle_status: active
     supersedes: []
@@ -4185,4 +4229,5 @@ backfill_coverage:
     - T462
     - T431
     - T432
+    - T433
 ...

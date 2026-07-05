@@ -1,0 +1,59 @@
+object_type: t433_phlm_original_language_evidence_pilot
+schema_version: t433_phlm_original_language_evidence_pilot.v1
+task_id: T433
+owner: Lowell Wong
+status: implementation
+trust_zone: control
+summary: "Tiny non-authorizing Phlm.1.1-Phlm.1.3 pilot proving SBLGNT source-token observation, WEB verse-level alignment records, and source-edition editorial-layer rows."
+pilot_root: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge
+span:
+  book_id: Phlm
+  start_osis_ref: Phlm.1.1
+  end_osis_ref: Phlm.1.3
+  exact_refs:
+    - Phlm.1.1
+    - Phlm.1.2
+    - Phlm.1.3
+sources:
+  primary_source_view:
+    source_id: sblgnt
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/sblgnt/canonical_source_view_manifest.yaml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/sblgnt/files/Phlm.xml
+    reason: "Clean XML word-token elements and no source-provided Strong's/morphology metadata to over-trust."
+  deferred_context_source:
+    source_id: ugnt
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/ugnt/canonical_source_view_manifest.yaml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/ugnt/files/Phlm.SFM
+    reason: "Package-level metadata flags are not span-local row evidence; this pilot does not merge UGNT rows."
+outputs:
+  manifest: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/manifest.yaml
+  source_language_tokens: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/source_language_tokens.jsonl
+  editorial_layers: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/editorial_layers.jsonl
+  alignment_records: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/alignment_records.jsonl
+authority:
+  records_candidate_evidence_pilot: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t433: false
+  future_rust_lane: T435
+  reason: "T433 proves row semantics over three verses; Rust belongs in later deterministic scanners and validators once row shape is stable."
+validators:
+  - scripts/build_t433_phlm_alignment_pilot.py --check
+  - scripts/validate_t433_phlm_alignment_pilot.py
+  - tests/test_t433_phlm_alignment_pilot.py
