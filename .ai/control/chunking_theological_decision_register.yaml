@@ -4270,6 +4270,51 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-098
+    title: T442 production candidate-root decision packet is not root opening
+    classification: non_authorizing_review
+    task_ids: [T442]
+    owner_decision_ref: "docs/roadmap/T442_PRODUCTION_CANDIDATE_ROOT_DECISION_PACKET.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm, Jonah]
+      passages: [Phlm.1.1-Phlm.1.25, Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t442_production_candidate_root_decision_packet]
+      surfaces:
+        - .ai/control/t442_production_candidate_root_decision_packet.yaml
+        - docs/roadmap/T442_PRODUCTION_CANDIDATE_ROOT_DECISION_PACKET.md
+        - scripts/validate_t442_production_candidate_root_decision_packet.py
+    decision: "T442 may present owner options for whether a later task may open narrow production candidate roots for original-language evidence after T439/T440/T441 proof. It does not open roots, create source-token rows, create alignment rows, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval/vector truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents could mistake T442-A recommendation for owner selection or treat production candidate roots as canonical Scripture, alignment truth, translation-faithfulness authority, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No owner recommendation is treated as owner selection."
+      - "No production candidate root is opened by this packet."
+      - "No source-token, alignment, Strong's, lemma, morphology, manuscript, translation, or Rust signal becomes theology authority."
+      - "No future Rust admission checker is treated as semantic or translation authority."
+    reviewed_gold_dependency: "None; T442 is a non-authorizing owner decision packet only. Any production-root opening requires explicit owner selection and a later implementation task."
+    non_authorizations:
+      - production_root_opening_now
+      - source_token_row_creation_now
+      - alignment_row_creation_now
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - preferred_reading_selection
+      - source_tradition_preference
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t442_production_candidate_root_decision_packet.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4404,4 +4449,5 @@ backfill_coverage:
     - T439
     - T440
     - T441
+    - T442
 ...

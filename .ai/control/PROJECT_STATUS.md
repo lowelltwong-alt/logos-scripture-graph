@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-05
-**Updated by:** T441 Rust no-text alignment coverage index
-**Active task:** T441 Rust no-text alignment coverage index over T439/T436/T440 fixtures.
+**Updated by:** T442 production candidate-root decision packet
+**Active task:** T442 original-language production candidate-root owner decision packet.
+
+> **T442 production candidate-root decision packet (2026-07-05):** Presents owner options for
+> whether a later task may open narrow original-language production candidate roots after
+> T439/T440/T441 proof. Recommended option T442-A would authorize only a future implementation
+> packet, not immediate root creation or row population. T442 adds no Rust; it records the next
+> sensible Rust slice as a future production-root admission checker if T442-A is selected. T442
+> authorizes no production roots, source-token rows, alignment rows, Strong's/lemma/morphology
+> population, preferred readings, source-tradition choice, manuscript witness support,
+> translation-faithfulness judgment, chunks, reviewed gold, KG/retrieval/vector truth, or
+> theology authority.
 
 > **T441 Rust no-text alignment coverage index (2026-07-05):** Adds a narrow Rust binary
 > inside the original-language observation scanner crate to emit generated no-text coverage

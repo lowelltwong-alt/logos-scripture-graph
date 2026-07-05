@@ -1,0 +1,173 @@
+object_type: t442_production_candidate_root_decision_packet
+schema_version: t442_production_candidate_root_decision_packet.v1
+task_id: T442
+owner: Lowell Wong
+status: pending_owner_decision
+trust_zone: control
+summary: "Owner-gated decision packet asking whether to open narrow production candidate roots for original-language alignment evidence after T439/T440/T441 proof."
+preconditions:
+  requires_pr_stack_merge_or_owner_override: true
+  required_stack_tasks:
+    - T431
+    - T432
+    - T433
+    - T435
+    - T436
+    - T437
+    - T438
+    - T439
+    - T440
+    - T441
+  required_evidence:
+    - T439 full-Philemon no-text SBLGNT-to-WEB candidate pilot
+    - T440 Jonah UXLC/OSHB parser contract
+    - T441 Rust no-text coverage ledger and Python generated-mode validation
+    - T441 DAD lesson candidate for no-text fixture to Rust coverage ladder
+  generated_evidence_reproducible_by:
+    - cargo test --manifest-path tools/original_language_observation_scanner/Cargo.toml --bins
+    - cargo run --manifest-path tools/original_language_observation_scanner/Cargo.toml --bin t441_alignment_coverage -- --t439-root data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion --t436-root data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity --t440-control .ai/control/t440_jonah_hebrew_parser_contract.yaml --out build/original_language_observation/T441/alignment_coverage --no-authority --no-text
+    - python scripts/validate_t441_rust_alignment_coverage_index.py --input build/original_language_observation/T441/alignment_coverage
+owner_question:
+  decision_id: T442_ORIGINAL_LANGUAGE_PRODUCTION_CANDIDATE_ROOT_OPENING
+  exact_question: "Should the repo prepare a later implementation task to open narrowly scoped production candidate roots for original-language evidence, limited to proven T439/T440/T441 shapes, while keeping all rows candidate-only, no-text unless separately licensed, and non-authorizing?"
+  owner_response_must_record:
+    - selected_option
+    - exact_allowed_roots
+    - exact_allowed_source_views
+    - exact_allowed_books_or_spans
+    - required_no_text_policy
+    - required_rust_admission_checker
+    - explicit_non_authorizations
+    - next_task_id
+  must_stop_if_owner_response_is_ambiguous: true
+owner_selection:
+  owner_selection_status: pending
+  selected_option: null
+  opens_production_candidate_roots: false
+  creates_rows: false
+  recommendation_is_owner_selection: false
+recommended_option_id: T442-A
+owner_options:
+  - option_id: T442-A
+    label: Open narrow roots later
+    owner_action: "Authorize a later T443 implementation packet to open only the exact original-language candidate roots needed for Philemon SBLGNT and Jonah UXLC/OSHB production-candidate evidence rows, guarded by Python validation and a Rust admission checker."
+    allowed_roots_if_selected:
+      - data/candidate/original_language_evidence/source_tokens/
+      - data/candidate/original_language_evidence/alignment_records/
+      - data/candidate/original_language_evidence/editorial_layers/
+    allowed_sources_if_selected:
+      - sblgnt
+      - tanach_us_uxlc
+      - openscriptures_oshb
+    allowed_scope_if_selected:
+      - Phlm.1.1-Phlm.1.25
+      - Jonah.1.1-Jonah.4.11
+    requires_future_rust_admission_checker: true
+    if_selected_authorizes_future_task_only: true
+    if_selected_authorizes_immediate_root_creation: false
+    if_selected_authorizes_row_population_now: false
+  - option_id: T442-B
+    label: Require one more no-text pilot
+    owner_action: "Hold production root opening until one more no-text pilot proves another source/literary shape before any production candidate roots are opened."
+    suggested_future_pilots:
+      - Greek Gospel short span with WJ/speaker pressure
+      - Hebrew poetry short span with poetic/editorial marker pressure
+    requires_future_rust_admission_checker: false
+    if_selected_authorizes_future_task_only: true
+    if_selected_authorizes_immediate_root_creation: false
+    if_selected_authorizes_row_population_now: false
+  - option_id: T442-C
+    label: Merge stack first only
+    owner_action: "Do not decide production root opening yet; first merge/readify T431 through T441, then revisit the decision packet on main."
+    requires_future_rust_admission_checker: false
+    if_selected_authorizes_future_task_only: true
+    if_selected_authorizes_immediate_root_creation: false
+    if_selected_authorizes_row_population_now: false
+  - option_id: T442-D
+    label: Do not open roots
+    owner_action: "Reject production candidate-root opening for now and keep original-language evidence in task-scoped pilot/generated surfaces only."
+    requires_future_rust_admission_checker: false
+    if_selected_authorizes_future_task_only: false
+    if_selected_authorizes_immediate_root_creation: false
+    if_selected_authorizes_row_population_now: false
+recommendation:
+  recommended_option_id: T442-A
+  why: "T439/T440/T441 prove enough for a narrow, owner-gated next implementation packet, but not for Bible-wide production alignment."
+  why_not_auto_select: "This recommendation is not owner selection and not an owner decision. No production candidate root may be opened until the owner explicitly selects an option and a later implementation task validates exact roots and rows."
+future_rust_slice_if_t442_a_selected:
+  task_shape: production_candidate_root_admission_checker
+  rust_fit: deterministic_jsonl_ref_id_checksum_no_text_scan
+  responsibilities:
+    - duplicate ID rejection
+    - canonical ref coverage checks
+    - source-view checksum drift checks
+    - no visible source or translation text leakage checks
+    - forbidden authority flag checks
+    - T439/T440/T441 coverage mismatch checks
+  python_retained_authority:
+    - schema and governance interpretation
+    - owner gate enforcement
+    - source/license policy
+    - theology and translation-faithfulness non-authority
+authority:
+  records_owner_options: true
+  records_recommendation: true
+  records_future_rust_admission_checker_option: true
+  opens_production_candidate_roots: false
+  creates_source_token_rows: false
+  creates_alignment_rows: false
+  creates_editorial_layer_rows: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_visible_source_text: false
+  stores_visible_translation_text: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+non_authorizations:
+  - production_root_opening_now
+  - source_token_row_creation_now
+  - alignment_row_creation_now
+  - editorial_layer_row_creation_now
+  - strongs_overlay_population
+  - lemma_or_morphology_population
+  - source_language_truth
+  - lexical_truth
+  - word_level_alignment_truth
+  - preferred_reading
+  - source_tradition_preference
+  - textual_critical_decision
+  - manuscript_witness_support
+  - translation_faithfulness_judgment
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_or_retrieval_truth
+  - retrieval_or_vector_index
+  - theology_authority
+validators:
+  - scripts/validate_t442_production_candidate_root_decision_packet.py
+  - tests/test_t442_production_candidate_root_decision_packet.py
+created_at: "2026-07-05"
