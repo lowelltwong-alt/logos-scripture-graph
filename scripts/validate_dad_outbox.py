@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import json
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
+
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+CONTEXT_MAP = ROOT / ".digital-asset" / "context-map.json"
 FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 T424_MESSAGE_ID = "msg-20260703-t424-rust-validation-layer"
 
@@ -35,6 +38,9 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "route_or_evaluator_behavior",
     "graph_retrieval_or_vector_truth",
 }
+
+LESSON_REQUIRED_NON_AUTHORIZATIONS = {"dad_override_local_authority"}
+CONTEXT_REQUIRED_NON_AUTHORIZATIONS = {"dad_override_local_authority"}
 
 
 class DadOutboxError(ValueError):
@@ -71,6 +77,30 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        raise DadOutboxError(f"{_rel(path)}: missing DAD context map")
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise DadOutboxError(f"{_rel(path)}: invalid JSON: {exc}") from exc
+    if not isinstance(data, dict):
+        raise DadOutboxError(f"{_rel(path)}: expected a JSON object")
+    return data
+
+
+def _read_yaml_mapping(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        raise DadOutboxError(f"{_rel(path)}: missing DAD lesson slot")
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        raise DadOutboxError(f"{_rel(path)}: YAML unreadable: {exc}") from exc
+    if not isinstance(data, dict):
+        raise DadOutboxError(f"{_rel(path)}: expected a YAML mapping")
+    return data
+
+
 def _require_string(row: dict[str, Any], key: str, label: str) -> str:
     value = row.get(key)
     if not isinstance(value, str) or not value.strip():
@@ -87,8 +117,21 @@ def _require_string_list(row: dict[str, Any], key: str, label: str) -> list[str]
     return [str(item) for item in value]
 
 
+def _resolve_dad_lesson_slot(value: str, label: str) -> Path:
+    normalized = value.replace("\\", "/").strip()
+    posix_path = PurePosixPath(normalized)
+    if posix_path.is_absolute() or ".." in posix_path.parts:
+        raise DadOutboxError(f"{label}: lesson_learned_slot must be a safe repo-relative path")
+    if not normalized.startswith(".digital-asset/lessons/"):
+        raise DadOutboxError(f"{label}: lesson_learned_slot must stay under .digital-asset/lessons/")
+    if posix_path.suffix not in {".yaml", ".yml"}:
+        raise DadOutboxError(f"{label}: lesson_learned_slot must be a YAML file")
+    return ROOT / Path(*posix_path.parts)
+
+
 def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
     rows = _read_jsonl(path)
+    context_map = _read_json(CONTEXT_MAP)
     seen: set[str] = set()
     by_id: dict[str, dict[str, Any]] = {}
     for row in rows:
@@ -112,6 +155,8 @@ def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
         _require_string(row, "subject", label)
         _require_string(row, "summary", label)
         _validate_candidate_message(row, label)
+        _validate_lesson_slot(row, label)
+        _validate_context_map_entry(row, label, context_map)
 
     _validate_t424_contract_message(path, by_id)
 
@@ -139,6 +184,80 @@ def _validate_candidate_message(row: dict[str, Any], label: str) -> None:
         _require_string_list(row, "asset_candidates", label)
     if "follow_up_messages_expected" in row:
         _require_string_list(row, "follow_up_messages_expected", label)
+
+
+def _validate_lesson_slot(row: dict[str, Any], label: str) -> None:
+    slot = row.get("lesson_learned_slot")
+    if slot is None:
+        return
+    if not isinstance(slot, str) or not slot.strip():
+        raise DadOutboxError(f"{label}: lesson_learned_slot must be a non-empty string when present")
+
+    slot_path = _resolve_dad_lesson_slot(slot, label)
+    data = _read_yaml_mapping(slot_path)
+    if data.get("object_type") != "dad_lesson_learned_slot":
+        raise DadOutboxError(f"{_rel(slot_path)}: object_type must be dad_lesson_learned_slot")
+    if data.get("schema_version") != "dad_lesson_learned_slot.v0.1":
+        raise DadOutboxError(f"{_rel(slot_path)}: schema_version must be dad_lesson_learned_slot.v0.1")
+    if data.get("source_repo") != "logos-scripture-graph":
+        raise DadOutboxError(f"{_rel(slot_path)}: source_repo must be logos-scripture-graph")
+    if data.get("trust_zone") != "candidate":
+        raise DadOutboxError(f"{_rel(slot_path)}: trust_zone must be candidate")
+    if data.get("local_adoption_required") is not True:
+        raise DadOutboxError(f"{_rel(slot_path)}: local_adoption_required must be true")
+    if data.get("task_id") != row.get("task_id"):
+        raise DadOutboxError(f"{_rel(slot_path)}: task_id must match outbox row")
+    if data.get("source_outbox_message_id") != row.get("message_id"):
+        raise DadOutboxError(f"{_rel(slot_path)}: source_outbox_message_id must match outbox row")
+    if row.get("context_map_entry") and data.get("context_map_entry") != row.get("context_map_entry"):
+        raise DadOutboxError(f"{_rel(slot_path)}: context_map_entry must match outbox row")
+    if not isinstance(data.get("extra_context"), str) or not data["extra_context"].strip():
+        raise DadOutboxError(f"{_rel(slot_path)}: extra_context must record why this lesson matters")
+
+    non_authorizations = set(_require_string_list(data, "non_authorizations", _rel(slot_path)))
+    missing_non_auth = sorted(LESSON_REQUIRED_NON_AUTHORIZATIONS - non_authorizations)
+    if missing_non_auth:
+        raise DadOutboxError(f"{_rel(slot_path)}: missing non_authorizations {missing_non_auth}")
+
+
+def _validate_context_map_entry(row: dict[str, Any], label: str, context_map: dict[str, Any]) -> None:
+    context_id = row.get("context_map_entry")
+    if context_id is None:
+        return
+    if not isinstance(context_id, str) or not context_id.strip():
+        raise DadOutboxError(f"{label}: context_map_entry must be a non-empty string when present")
+    if context_map.get("schema_version") != "dad_context_map.v0.1":
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}: schema_version must be dad_context_map.v0.1")
+    contexts = context_map.get("contexts")
+    if not isinstance(contexts, list) or not contexts:
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}: contexts must be a non-empty list")
+    by_context_id = {
+        context.get("context_id"): context
+        for context in contexts
+        if isinstance(context, dict) and isinstance(context.get("context_id"), str)
+    }
+    context = by_context_id.get(context_id)
+    if not isinstance(context, dict):
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}: missing context_map_entry {context_id}")
+    if context.get("task_id") != row.get("task_id"):
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: task_id must match outbox row")
+    if context.get("outbox_message_id") != row.get("message_id"):
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: outbox_message_id must match outbox row")
+    if row.get("lesson_learned_slot") and context.get("lesson_learned_slot") != row.get("lesson_learned_slot"):
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: lesson_learned_slot must match outbox row")
+    if context.get("trust_zone") != "candidate":
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: trust_zone must be candidate")
+    if context.get("local_adoption_required") is not True:
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: local_adoption_required must be true")
+    if not isinstance(context.get("extra_context"), str) or not context["extra_context"].strip():
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: extra_context must be non-empty")
+
+    non_authorizations = set(
+        _require_string_list(context, "non_authorizations", f"{_rel(CONTEXT_MAP)}:{context_id}")
+    )
+    missing_non_auth = sorted(CONTEXT_REQUIRED_NON_AUTHORIZATIONS - non_authorizations)
+    if missing_non_auth:
+        raise DadOutboxError(f"{_rel(CONTEXT_MAP)}:{context_id}: missing non_authorizations {missing_non_auth}")
 
 
 def _validate_t424_contract_message(path: Path, by_id: dict[str, dict[str, Any]]) -> None:

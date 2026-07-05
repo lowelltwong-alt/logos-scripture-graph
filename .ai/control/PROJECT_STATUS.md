@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-03
-**Updated by:** T424 Rust validation acceleration
-**Active task:** -> **T424 Rust-accelerated validation layer** (isolated tooling branch; no chunking authority). T417 remains the next chunking route after T424 review/merge.
+**Last updated:** 2026-07-05
+**Updated by:** T425 DAD lesson-slot/runtime-preflight hardening
+**Active task:** -> **T425 DAD lesson-slot integrity and runtime preflight enforcement** (isolated validation-hardening branch; no chunking authority). T417/T423 remain the next chunking routes after validation-hardening review/merge.
+
+> **T425 DAD lesson-slot integrity and runtime preflight enforcement (2026-07-05):** Hardens
+> the T424 Rust/DAD asset lane by requiring DAD outbox rows with `lesson_learned_slot` or
+> `context_map_entry` to point at tracked local slots that agree on task id, message id,
+> trust zone, local adoption, extra context, and non-authorizations. It also makes
+> `runtime_language_preflight` a forward task-scope requirement for post-T424 task contracts
+> that touch validators, scanners, pipelines, workflows, generated-data, Rust, or CI hot-path
+> surfaces. This closes the "policy but not gate" gap while keeping Python/pytest as the
+> governance orchestrator and Rust as deterministic leaf tooling. T425 authorizes no chunk
+> output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth,
+> embeddings/indexes, source rows, canon changes, source-tradition preference, target selection,
+> or theology authority.
 
 > **T424 Rust-accelerated validation layer (2026-07-03):** Adds an isolated
 > `tools/logos_fast_validators/` Rust CLI plus Python wrappers for deterministic
