@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-05
-**Updated by:** T438 alignment bridge goal gate
-**Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
+**Updated by:** T441 Rust no-text alignment coverage index
+**Active task:** T441 Rust no-text alignment coverage index over T439/T436/T440 fixtures.
+
+> **T441 Rust no-text alignment coverage index (2026-07-05):** Adds a narrow Rust binary
+> inside the original-language observation scanner crate to emit generated no-text coverage
+> ledgers for T439 Philemon and T436/T440 Jonah fixtures. The generated ledgers live under
+> `build/original_language_observation/T441/alignment_coverage/` and are not committed.
+> Python remains the authority validator; `validate_all.py` runs only the fast contract check,
+> not the generated Rust scan. T441 records source/ref coverage, alignment-coverage shape rows,
+> semantic guardrails, and T440 negative-fixture carry-forward only. It opens no production
+> evidence roots and authorizes no source-language truth, word-level alignment truth,
+> Strong's/lemma/morphology population, preferred readings, source-tradition preference,
+> manuscript witness support, translation-faithfulness judgment, chunks, reviewed gold,
+> KG/retrieval/vector truth, or theology authority.
 
 > **T438 alignment bridge goal gate (2026-07-05):** Records Option 1, the
 > Greek/Hebrew-to-English alignment bridge, as the next original-language implementation

@@ -92,6 +92,19 @@ pilot_lanes:
       - openscriptures_oshb
     rule: "T440 defines UXLC and OSHB Jonah parser semantics, lineage, expected counts, metadata meanings, and negative fixtures before any Hebrew Rust expansion. It does not populate production roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology rows, preferred readings, translation judgments, chunks, graph/retrieval truth, or theology authority."
     rust_policy: "No Rust is added in T440. T440 closes source-specific parser-contract prerequisites so T441 may separately design a no-text Rust scanner/checker against these semantics."
+  - task_id: T441
+    control: .ai/control/t441_rust_alignment_coverage_index.yaml
+    status: rust_no_text_alignment_coverage_index
+    spans:
+      - Phlm.1.1-Phlm.1.25
+      - Jonah.1.1-Jonah.4.11
+    generated_output_root: build/original_language_observation/T441/alignment_coverage
+    source_fixtures:
+      - data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion
+      - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+      - .ai/control/t440_jonah_hebrew_parser_contract.yaml
+    rule: "T441 emits generated no-text coverage ledgers and guardrail rows for the existing T439/T436/T440 fixtures. It does not open production evidence roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology rows, preferred readings, translation judgments, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "Rust is appropriate for the deterministic scan/count/no-text coverage-ledger leaf tool; Python remains the authority validator and validate_all runs contract mode only."
 goal_options:
   - option_id: option_1_alignment_bridge
     short_name: Greek/Hebrew-to-English alignment bridge
@@ -219,6 +232,7 @@ validators:
   - scripts/validate_t438_alignment_bridge_goal.py
   - scripts/validate_t439_phlm_alignment_bridge_expansion.py
   - scripts/validate_t440_jonah_hebrew_parser_contract.py
+  - scripts/validate_t441_rust_alignment_coverage_index.py
   - scripts/validate_original_language_raw_sources.py
   - tests/test_t430_original_language_evidence_substrate.py
   - tests/test_t432_original_language_schema_contracts.py
@@ -226,4 +240,5 @@ validators:
   - tests/test_t438_alignment_bridge_goal.py
   - tests/test_t439_phlm_alignment_bridge_expansion.py
   - tests/test_t440_jonah_hebrew_parser_contract.py
+  - tests/test_t441_rust_alignment_coverage_index.py
   - tests/test_original_language_raw_sources.py

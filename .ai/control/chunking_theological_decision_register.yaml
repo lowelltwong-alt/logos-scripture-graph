@@ -4223,6 +4223,53 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-097
+    title: T441 Rust alignment coverage index is generated no-text evidence only
+    classification: non_authorizing_review
+    task_ids: [T441]
+    owner_decision_ref: "docs/roadmap/T441_RUST_ALIGNMENT_COVERAGE_INDEX.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm, Jonah]
+      passages: [Phlm.1.1-Phlm.1.25, Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t441_rust_alignment_coverage_index]
+      surfaces:
+        - .ai/control/t441_rust_alignment_coverage_index.yaml
+        - docs/roadmap/T441_RUST_ALIGNMENT_COVERAGE_INDEX.md
+        - tools/original_language_observation_scanner/src/bin/t441_alignment_coverage.rs
+        - scripts/validate_t441_rust_alignment_coverage_index.py
+    decision: "T441 may emit generated no-text coverage ledgers and semantic guardrail rows over the existing T439 Philemon and T436/T440 Jonah fixtures. It records coverage shape, source/ref counts, low-confidence bridge scope, T440 negative-fixture carry-forward, and no-text guardrails only. It does not open production evidence roots, create source-token rows, create alignment rows, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval/vector truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents could mistake Rust speed, coverage indexes, matching Jonah counts, Philemon verse-level bridge rows, or OSHB lemma/morph metadata counts for source-language truth, word-level alignment truth, lexical authority, translation-faithfulness judgment, preferred reading, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No coverage row is treated as source-language truth or alignment truth."
+      - "No Strong's hint, OSHB w@lemma metadata, or OSHB w@morph metadata is treated as local lexical authority."
+      - "No count parity is treated as semantic parity."
+      - "No generated coverage index is treated as a retrieval or vector index."
+      - "No source edition or source tradition is preferred."
+    reviewed_gold_dependency: "None; T441 is generated no-text coverage evidence only. Production source-token rows, production alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t441_rust_alignment_coverage_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4356,4 +4403,5 @@ backfill_coverage:
     - T438
     - T439
     - T440
+    - T441
 ...
