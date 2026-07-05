@@ -32,6 +32,12 @@ TYPE_TO_SCHEMA = {
     "TextSpan": "text_span.schema.json",
     "ContextPacket": "context_packet.schema.json",
     "RelationshipObject": "relationship_object.schema.json",
+    "Lexeme": "lexeme.schema.json",
+    "AlignmentRecord": "alignment_record.schema.json",
+    "TextualVariant": "textual_variant.schema.json",
+    "Witness": "witness.schema.json",
+    "SourceLanguageToken": "source_language_token.schema.json",
+    "EditorialLayer": "editorial_layer.schema.json",
 }
 
 

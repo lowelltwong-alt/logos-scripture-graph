@@ -4010,6 +4010,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-089
+    title: T432 original-language schema contracts are evidence-only
+    classification: non_authorizing_review
+    task_ids: [T432]
+    owner_decision_ref: "docs/roadmap/T432_ORIGINAL_LANGUAGE_SCHEMA_CONTRACTS.md"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [original_language_schema_contract_program]
+      routes: [t430_original_language_evidence_substrate]
+      surfaces:
+        - .ai/control/original_language_schema_contracts.yaml
+        - .ai/control/original_language_evidence_substrate.yaml
+        - docs/roadmap/T432_ORIGINAL_LANGUAGE_SCHEMA_CONTRACTS.md
+        - schemas/source_language_token.schema.json
+        - schemas/editorial_layer.schema.json
+        - schemas/lexeme.schema.json
+        - schemas/alignment_record.schema.json
+        - schemas/textual_variant.schema.json
+        - schemas/witness.schema.json
+    decision: "T432 may define schema contracts for future original-language evidence rows, but those contracts are guardrails only. They do not populate source tokens, Strong's overlays, lexemes, morphology, variants, witness support, editorial layers, or alignments, and they do not authorize preferred readings, source-tradition choices, canon changes, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could overread schema names or fields as source-language truth, textual-critical decisions, translation-faithfulness judgments, chunking authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No Strong's, lemma, morphology, or source token becomes lexical or theological authority."
+      - "No variant or witness schema field becomes a preferred-reading or source-tradition decision."
+      - "No editorial layer becomes autograph certainty by default."
+    reviewed_gold_dependency: "None; T432 is schema/control only. Any reviewed-gold, chunking, KG, retrieval, variant, witness-row, translation-faithfulness, or source-language evidence population work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - canon_scope_change
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t432_original_language_schema_contracts.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4138,4 +4184,5 @@ backfill_coverage:
     - T424
     - T462
     - T431
+    - T432
 ...

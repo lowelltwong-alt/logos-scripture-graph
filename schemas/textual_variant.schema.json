@@ -1,46 +1,134 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "TextualVariant",
-  "description": "A variation unit in the text and the competing readings attested by witnesses — a critical-apparatus entry. Seeded today by WEB '\\fqa' alternate readings (519) + footnotes (1,855), and the growth path toward full DSS/LXX/papyri apparatus. Never asserts which reading is 'original' as bare fact; competing readings carry witness support + confidence (taxonomy-scaffold v0.2 Patch 4).",
+  "description": "Candidate variation unit and competing readings attested by witnesses or editions. This exposes uncertainty and never silently chooses a preferred reading or source tradition.",
   "type": "object",
-  "required": ["id", "type", "osis_ref", "readings", "provenance", "status"],
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "variant_unit_id",
+    "osis_ref",
+    "source_id",
+    "source_manifest",
+    "canonical_source_view_manifest",
+    "source_file_sha256",
+    "license",
+    "readings",
+    "variant_kind",
+    "significance",
+    "decision_status",
+    "preferred_reading_asserted",
+    "source_tradition_preference_asserted",
+    "textual_critical_decision_asserted",
+    "witness_support_summary",
+    "confidence",
+    "trust_zone",
+    "provenance",
+    "authority",
+    "non_authorizations",
+    "status"
+  ],
   "properties": {
-    "id": {"type": "string", "minLength": 1, "description": "e.g. variant:John.7.53-8.11:0001"},
-    "type": {"const": "TextualVariant"},
-    "osis_ref": {"type": "string", "description": "The variation-unit location."},
-    "unit_description": {"type": "string", "description": "What varies (word, phrase, whole pericope)."},
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "TextualVariant" },
+    "schema_version": { "const": "textual_variant.v2" },
+    "variant_unit_id": { "type": "string", "minLength": 1 },
+    "osis_ref": { "type": "string", "minLength": 1 },
+    "source_id": { "type": "string", "minLength": 1 },
+    "source_manifest": { "type": "string", "minLength": 1 },
+    "canonical_source_view_manifest": { "type": "string", "minLength": 1 },
+    "source_file_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "license": { "type": "string", "minLength": 1 },
+    "unit_description": { "type": "string" },
+    "affected_source_token_ids": { "type": "array", "items": { "type": "string" } },
     "readings": {
       "type": "array",
       "minItems": 2,
-      "description": "Competing readings. At least two (the variation itself).",
       "items": {
         "type": "object",
-        "required": ["reading_id", "text"],
+        "required": [
+          "reading_id",
+          "reading_label",
+          "language",
+          "supported_by",
+          "support_basis",
+          "editorial_status",
+          "confidence",
+          "is_preferred"
+        ],
         "properties": {
-          "reading_id": {"type": "string"},
-          "text": {"type": "string", "description": "The reading (source-language or rendered)."},
-          "language": {"type": "string"},
-          "supported_by": {"type": "array", "items": {"type": "string"}, "description": "Witness ids attesting this reading."},
-          "editorial_status": {"type": "string", "enum": ["printed_text", "alternate", "majority", "minority", "conjecture", "omission", "addition"]},
-          "note": {"type": "string"}
-        }
+          "reading_id": { "type": "string", "minLength": 1 },
+          "reading_label": { "type": "string", "minLength": 1 },
+          "text": { "type": "string" },
+          "language": { "type": "string", "minLength": 1 },
+          "supported_by": { "type": "array", "items": { "type": "string" } },
+          "support_basis": { "type": "string", "enum": ["witness", "critical_edition", "source_metadata", "catalog_metadata", "blocked"] },
+          "editorial_status": {
+            "type": "string",
+            "enum": ["printed_text", "alternate", "majority", "minority", "conjecture", "omission", "addition", "unknown"]
+          },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
+          "is_preferred": { "const": false },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": true
       }
     },
-    "variant_kind": {"type": "string", "enum": ["omission", "addition", "substitution", "transposition", "spelling", "harmonization", "gloss", "order"]},
-    "significance": {"type": "string", "enum": ["translatable", "non_translatable", "meaning_affecting", "doctrinally_discussed", "negligible"], "description": "How much the variant matters for meaning/translation."},
-    "source_marker": {"type": "string", "description": "Origin in the source data, e.g. '\\fqa' alternate reading, footnote id."},
-    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
-    "trust_zone": {"type": "string", "enum": ["asserted", "candidate", "context"]},
+    "variant_kind": {
+      "type": "string",
+      "enum": ["omission", "addition", "substitution", "transposition", "spelling", "harmonization", "gloss", "order", "punctuation_editorial", "unknown"]
+    },
+    "significance": {
+      "type": "string",
+      "enum": ["translatable", "non_translatable", "meaning_affecting", "doctrinally_discussed", "negligible", "unknown"]
+    },
+    "decision_status": { "type": "string", "enum": ["not_decided", "blocked", "review_packet", "owner_gate_required"] },
+    "preferred_reading_asserted": { "const": false },
+    "source_tradition_preference_asserted": { "const": false },
+    "textual_critical_decision_asserted": { "const": false },
+    "source_marker": { "type": "string" },
+    "witness_support_summary": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
     "provenance": {
       "type": "object",
-      "required": ["created_by", "created_at", "basis"],
+      "required": ["created_by", "created_at", "basis", "source_url"],
       "properties": {
-        "created_by": {"type": "string"},
-        "created_at": {"type": "string"},
-        "basis": {"type": "string"}
-      }
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "source_url": { "type": "string", "minLength": 1 },
+        "source_catalog": { "type": "string" }
+      },
+      "additionalProperties": true
     },
-    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_preferred_reading",
+        "authorizes_source_tradition_preference",
+        "authorizes_textual_critical_decision",
+        "authorizes_translation_judgment",
+        "authorizes_chunk_boundary",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_preferred_reading": { "const": false },
+        "authorizes_source_tradition_preference": { "const": false },
+        "authorizes_textual_critical_decision": { "const": false },
+        "authorizes_translation_judgment": { "const": false },
+        "authorizes_chunk_boundary": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "status": { "type": "string", "enum": ["candidate", "review_packet", "blocked", "deprecated"] }
   },
   "additionalProperties": true
 }

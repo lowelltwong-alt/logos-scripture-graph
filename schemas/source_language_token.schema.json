@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourceLanguageToken",
+  "description": "Candidate Hebrew, Aramaic, or Greek source-token observation from a T431 canonical source view. This is evidence only and never replaces canonical Scripture text or authorizes theology, preferred readings, chunks, graph, or retrieval truth.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "source_id",
+    "source_manifest",
+    "canonical_source_view_manifest",
+    "source_archive_path",
+    "source_view_path",
+    "source_file_sha256",
+    "license",
+    "language",
+    "book_id",
+    "osis_ref",
+    "source_token_id",
+    "token_index",
+    "evidence_mode",
+    "inferred_vs_observed",
+    "text_storage_policy",
+    "textual_variant_dependency",
+    "witness_support_summary",
+    "confidence",
+    "trust_zone",
+    "status",
+    "provenance",
+    "authority",
+    "non_authorizations"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "SourceLanguageToken" },
+    "schema_version": { "const": "source_language_token.v1" },
+    "source_id": { "type": "string", "minLength": 1 },
+    "source_manifest": { "type": "string", "minLength": 1 },
+    "canonical_source_view_manifest": { "type": "string", "minLength": 1 },
+    "source_archive_path": { "type": "string", "minLength": 1 },
+    "source_view_path": { "type": "string", "minLength": 1 },
+    "source_file_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "license": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "enum": ["hebrew", "aramaic", "greek"] },
+    "book_id": { "type": "string", "minLength": 1 },
+    "osis_ref": { "type": "string", "minLength": 1 },
+    "source_token_id": { "type": "string", "minLength": 1 },
+    "token_index": { "type": "integer", "minimum": 0 },
+    "surface_text": { "type": "string" },
+    "normalized_text": { "type": "string" },
+    "lemma": { "type": ["string", "null"] },
+    "morphology": { "type": ["string", "null"] },
+    "strong_id": { "type": ["string", "null"], "pattern": "^[HG][0-9A-Za-z]+$" },
+    "phrase_clause_context": { "type": "string" },
+    "discourse_context": { "type": "string" },
+    "evidence_mode": { "type": "string", "enum": ["observed_source_view", "source_metadata", "inferred_alignment", "blocked_by_license"] },
+    "inferred_vs_observed": { "type": "string", "enum": ["observed", "source_metadata", "inferred", "mixed", "blocked"] },
+    "text_storage_policy": {
+      "type": "object",
+      "required": ["stores_source_text", "license_authorized_for_storage"],
+      "properties": {
+        "stores_source_text": { "type": "boolean" },
+        "license_authorized_for_storage": { "type": "boolean" },
+        "storage_note": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "textual_variant_dependency": { "type": "string", "enum": ["none_known", "possible", "known", "blocked_pending_variant_review"] },
+    "witness_support_summary": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
+    "status": { "type": "string", "enum": ["candidate", "review_packet", "blocked", "deprecated"] },
+    "provenance": {
+      "type": "object",
+      "required": ["created_by", "created_at", "basis", "source_url", "source_sha256"],
+      "properties": {
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "source_url": { "type": "string", "minLength": 1 },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "version_or_commit": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_source_language_truth",
+        "authorizes_preferred_reading",
+        "authorizes_source_tradition_preference",
+        "authorizes_translation_judgment",
+        "authorizes_chunk_boundary",
+        "authorizes_graph_or_retrieval_truth",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_source_language_truth": { "const": false },
+        "authorizes_preferred_reading": { "const": false },
+        "authorizes_source_tradition_preference": { "const": false },
+        "authorizes_translation_judgment": { "const": false },
+        "authorizes_chunk_boundary": { "const": false },
+        "authorizes_graph_or_retrieval_truth": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "additionalProperties": true
+}

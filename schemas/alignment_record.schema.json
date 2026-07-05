@@ -1,35 +1,101 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AlignmentRecord",
-  "description": "Aligns an English (translation) token/span to a source-language token/lexeme. The bridge that lets the English WEB layer point at Hebrew/Greek without merging them (separate witnesses, per MASTER_CONTEXT multilingual path). Seeded by the 677,688 Strong's-tagged WordTokens; matures with WLC/SBLGNT word alignment (taxonomy-scaffold v0.2 Patch 5; ADR-0006).",
+  "description": "Candidate alignment from English WEB token/span evidence to Hebrew, Aramaic, or Greek source-token evidence. Alignments are evidence only and never translation-faithfulness judgment, lexical authority, chunk authority, graph truth, or theology authority.",
   "type": "object",
-  "required": ["id", "type", "osis_ref", "translation_id", "source", "provenance", "status"],
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "passage_id",
+    "osis_ref",
+    "translation_id",
+    "translation_token_ids",
+    "source",
+    "alignment_type",
+    "alignment_basis",
+    "method",
+    "evidence_mode",
+    "inferred_vs_observed",
+    "confidence",
+    "trust_zone",
+    "review_status",
+    "provenance",
+    "authority",
+    "non_authorizations",
+    "status"
+  ],
   "properties": {
-    "id": {"type": "string", "minLength": 1},
-    "type": {"const": "AlignmentRecord"},
-    "osis_ref": {"type": "string"},
-    "translation_id": {"type": "string", "description": "e.g. eng-web"},
-    "translation_token_ids": {"type": "array", "items": {"type": "string"}, "description": "WordToken ids on the translation side."},
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "AlignmentRecord" },
+    "schema_version": { "const": "alignment_record.v2" },
+    "passage_id": { "type": "string", "minLength": 1 },
+    "osis_ref": { "type": "string", "minLength": 1 },
+    "translation_id": { "type": "string", "minLength": 1 },
+    "translation_token_ids": { "type": "array", "items": { "type": "string" } },
     "source": {
       "type": "object",
-      "required": ["language"],
+      "required": ["language", "source_id", "canonical_source_view_manifest", "source_token_ids"],
       "properties": {
-        "language": {"type": "string", "enum": ["hebrew", "aramaic", "greek"]},
-        "lexeme_id": {"type": "string"},
-        "strong": {"type": "string", "description": "v0 bridge (present in current data)."},
-        "source_token_ids": {"type": "array", "items": {"type": "string"}, "description": "Source-language token ids (when WLC/SBLGNT land)."}
-      }
+        "language": { "type": "string", "enum": ["hebrew", "aramaic", "greek"] },
+        "source_id": { "type": "string", "minLength": 1 },
+        "canonical_source_view_manifest": { "type": "string", "minLength": 1 },
+        "lexeme_id": { "type": "string" },
+        "strong": { "type": ["string", "null"], "description": "Strong's number as lookup/alignment hint only." },
+        "source_token_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
     },
-    "alignment_type": {"type": "string", "enum": ["one_to_one", "one_to_many", "many_to_one", "many_to_many", "null_added", "null_omitted"], "description": "null_added = translator-added word with no source; important for fidelity."},
-    "method": {"type": "string", "enum": ["strong_bridge", "manual", "automatic_aligner", "macula"], "description": "Provenance of the alignment."},
-    "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]},
-    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "inferred"]},
+    "alignment_type": {
+      "type": "string",
+      "enum": ["one_to_one", "one_to_many", "many_to_one", "many_to_many", "null_added", "null_omitted", "unresolved"]
+    },
+    "null_alignment_reason": { "type": "string" },
+    "alignment_basis": { "type": "string", "enum": ["strong_bridge", "source_token_order", "manual_review", "automatic_aligner", "blocked"] },
+    "method": { "type": "string", "enum": ["strong_bridge", "manual", "automatic_aligner", "source_view_bridge", "blocked"] },
+    "evidence_mode": { "type": "string", "enum": ["observed", "inferred", "mixed", "blocked"] },
+    "inferred_vs_observed": { "type": "string", "enum": ["observed", "source_metadata", "inferred", "mixed", "blocked"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
+    "review_status": { "type": "string", "enum": ["unreviewed", "review_packet", "frontier_escalation", "blocked", "deprecated"] },
     "provenance": {
       "type": "object",
       "required": ["created_by", "created_at", "basis"],
-      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}}
+      "properties": {
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "source_manifest": { "type": "string" },
+        "license": { "type": "string" }
+      },
+      "additionalProperties": true
     },
-    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_translation_judgment",
+        "authorizes_source_language_truth",
+        "authorizes_lexical_truth",
+        "authorizes_chunk_boundary",
+        "authorizes_graph_or_retrieval_truth",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_translation_judgment": { "const": false },
+        "authorizes_source_language_truth": { "const": false },
+        "authorizes_lexical_truth": { "const": false },
+        "authorizes_chunk_boundary": { "const": false },
+        "authorizes_graph_or_retrieval_truth": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "status": { "type": "string", "enum": ["candidate", "review_packet", "blocked", "deprecated"] }
   },
   "additionalProperties": true
 }

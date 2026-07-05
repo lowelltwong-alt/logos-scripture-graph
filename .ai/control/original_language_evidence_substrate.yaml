@@ -31,6 +31,12 @@ raw_intake:
   allowlist: .ai/control/original_language_source_allowlist.yaml
   raw_root: data/raw/original_language
   rule: "Raw files are immutable downloaded source packages with manifests and checksums; processed tokens, overlays, variants, and witness claims do not belong in raw."
+schema_contracts:
+  task_id: T432
+  control: .ai/control/original_language_schema_contracts.yaml
+  status: active_schema_contract
+  rule: "Future source-token, Strong's alignment, lexeme, morphology, variant, witness, and editorial-layer rows must satisfy T432 schemas before any data population or pilot promotion."
+  rust_policy: "No Rust is added in T432; Rust belongs in later T435 scanners/validators after row shapes and parity fixtures stabilize."
 goal_options:
   - option_id: option_1_alignment_bridge
     short_name: Greek/Hebrew-to-English alignment bridge
@@ -83,27 +89,27 @@ evidence_layers:
     authority_limit: "Filtered views include only recognized canonical Bible text files and exclusion ledgers; they do not mutate raw, select preferred readings, or become canon authority."
   - layer_id: source_language_tokens
     destination: data/candidate/original_language_evidence/source_tokens
-    status: future_T432_T435
+    status: T432_schema_contract_only_future_T433_T435_population
     authority_limit: "Token rows are candidate observations, not canonical Scripture replacement."
   - layer_id: strongs_alignment
     destination: data/candidate/original_language_evidence/strong_alignment
-    status: future_T432_T435
+    status: T432_schema_contract_only_future_T433_T435_population
     authority_limit: "Strong's numbers are lookup and alignment hints, not source text, lexical truth, or theology authority."
   - layer_id: lemma_morphology
     destination: data/candidate/original_language_evidence/lemma_morphology
-    status: future_T432_T435
+    status: T432_schema_contract_only_future_T433_T435_population
     authority_limit: "Lemma and morphology labels require phrase, clause, syntax, discourse, genre, and canonical context."
   - layer_id: textual_variants
     destination: data/candidate/original_language_evidence/textual_variants
-    status: future_T432_T436
+    status: T432_schema_contract_only_future_T433_T436_population
     authority_limit: "Variants must be transparent and cited, never silently normalized or converted into preferred readings."
   - layer_id: manuscript_witness_support
     destination: data/candidate/original_language_evidence/witness_support
-    status: future_T431_catalog_then_T432_T436
+    status: T432_schema_contract_only_future_T433_T436_population
     authority_limit: "Oldest witness is evidence, not automatic authority."
   - layer_id: editorial_layers
     destination: data/candidate/original_language_evidence/editorial_layers
-    status: future_T432_T437
+    status: T432_schema_contract_only_future_T433_T437_population
     authority_limit: "Modern punctuation, capitalization, verse/chaptering, paragraphing, headings, and red-letter/WJ formatting are editorial layers."
 required_downstream_packet_fields:
   - source_id
@@ -151,6 +157,8 @@ non_authorizations:
   - embedding_or_vector_work
 validators:
   - scripts/validate_t430_original_language_evidence_substrate.py
+  - scripts/validate_t432_original_language_schema_contracts.py
   - scripts/validate_original_language_raw_sources.py
   - tests/test_t430_original_language_evidence_substrate.py
+  - tests/test_t432_original_language_schema_contracts.py
   - tests/test_original_language_raw_sources.py
