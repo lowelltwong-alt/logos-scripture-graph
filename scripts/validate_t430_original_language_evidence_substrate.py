@@ -62,7 +62,7 @@ REQUIRED_NON_AUTHORIZATIONS = {
 REQUIRED_GOAL_OPTIONS = {
     "option_1_alignment_bridge": {
         "required_text": "greek/hebrew-to-english alignment bridge",
-        "status": "recommended_next_implementation_goal",
+        "status": "selected_next_implementation_lane_by_t438",
     },
     "option_2_manuscript_custody_chain": {
         "required_text": "manuscript witness chain",

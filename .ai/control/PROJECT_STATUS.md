@@ -52,6 +52,18 @@
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
 
+> **T438 alignment bridge goal gate (2026-07-05):** Records Option 1, the
+> Greek/Hebrew-to-English alignment bridge, as the next original-language implementation
+> lane while keeping Option 2 manuscript custody-chain work catalog-only in parallel.
+> T438 defines the T439/T440/T441/T442 sequence: Greek Philemon bridge expansion
+> contract, Hebrew Jonah source-specific parser contract, Rust no-text alignment
+> coverage index, and an owner-gated production candidate-root opening packet. Rust is
+> reserved for deterministic scanner/checker slices after parser semantics and negative
+> parity fixtures are proved. T438 authorizes no production source-token rows, alignment
+> rows, Strong's overlays, lemma/morphology rows, preferred readings, source-tradition
+> choices, witness-support rows, translation judgments, KG/retrieval truth, chunks,
+> reviewed gold, or theology authority.
+
 > **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
 > `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
 > Strong's rows, lexical truth, preferred readings, translation judgment, or theology
@@ -82,7 +94,7 @@
 > Phlm.1.1-3 parity (41 source-token shapes and 7 editorial shapes). Python remains the
 > authority validator through `scripts/validate_t435_original_language_observation_scanner.py`;
 > `validate_all.py` runs only the fast contract check, not the full Rust scan. T435 records
-> `CD-091` and authorizes no source-language truth, lexical truth, Strong's/lemma/morphology
+> `CD-094` and authorizes no source-language truth, lexical truth, Strong's/lemma/morphology
 > population, preferred reading, source-tradition choice, manuscript witness support, translation
 > judgment, chunk boundary, reviewed gold, KG/retrieval truth, embeddings/indexes, or theology
 > authority. Hebrew scanning remains deferred until a separate Jonah pilot proves Hebrew
