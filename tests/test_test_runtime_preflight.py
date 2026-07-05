@@ -35,6 +35,9 @@ def test_test_runtime_preflight_validates_current_repo() -> None:
     assert profiles["validate_all"]["recommended_timeout_ms"] >= 900000
     assert "240000 ms" in profiles["validate_all"]["observed_result"]
     assert "477.5 seconds" in profiles["validate_all"]["observed_result"]
+    assert data["environment_routing"]["status"] == "active"
+    assert "CARGO_TARGET_DIR" in "\n".join(data["environment_routing"]["recommended_environment"])
+    assert "treat_sandbox_access_denied_as_green" in data["environment_routing"]["do_not"]
 
 
 def test_test_runtime_preflight_rejects_short_pytest_timeout(tmp_path: Path) -> None:
@@ -70,4 +73,40 @@ def test_test_runtime_preflight_rejects_timeout_as_green(tmp_path: Path) -> None
     write_yaml(candidate, data)
 
     with pytest.raises(validator.TestRuntimePreflightError, match="timeout as green"):
+        validator.validate_test_runtime_preflight(candidate)
+
+
+def test_test_runtime_preflight_requires_environment_routing(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_test_runtime_preflight(PREFLIGHT))
+    data.pop("environment_routing")
+    candidate = tmp_path / "test-runtime-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.TestRuntimePreflightError, match="environment_routing"):
+        validator.validate_test_runtime_preflight(candidate)
+
+
+def test_test_runtime_preflight_requires_cargo_target_guidance(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_test_runtime_preflight(PREFLIGHT))
+    data["environment_routing"]["recommended_environment"] = [
+        item.replace("CARGO_TARGET_DIR", "cargo target directory")
+        for item in data["environment_routing"]["recommended_environment"]
+    ]
+    candidate = tmp_path / "test-runtime-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.TestRuntimePreflightError, match="CARGO_TARGET_DIR"):
+        validator.validate_test_runtime_preflight(candidate)
+
+
+def test_test_runtime_preflight_rejects_sandbox_denial_as_green(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_test_runtime_preflight(PREFLIGHT))
+    data["environment_routing"]["do_not"] = [
+        item for item in data["environment_routing"]["do_not"]
+        if item != "treat_sandbox_access_denied_as_green"
+    ]
+    candidate = tmp_path / "test-runtime-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.TestRuntimePreflightError, match="treat_sandbox_access_denied_as_green"):
         validator.validate_test_runtime_preflight(candidate)

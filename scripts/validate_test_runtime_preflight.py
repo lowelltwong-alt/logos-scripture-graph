@@ -44,8 +44,27 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "skip_test_due_to_runtime",
     "ignore_timeout",
     "treat_timeout_as_green",
+    "treat_sandbox_access_denied_as_green",
+    "commit_temp_outputs",
+    "commit_cargo_target_outputs",
     "validation_bypass",
     "output_change",
+}
+
+REQUIRED_ENVIRONMENT_ROUTING_PHRASES = {
+    "WinError 5",
+    "TemporaryDirectory",
+    "CARGO_TARGET_DIR",
+    "--basetemp",
+    "sandbox_access_denied",
+    "unsandboxed",
+}
+
+REQUIRED_ENVIRONMENT_DO_NOT = {
+    "treat_sandbox_access_denied_as_green",
+    "treat_sandbox_access_denied_as_code_failure_without_reproduction",
+    "commit_temp_outputs",
+    "commit_cargo_target_outputs",
 }
 
 REQUIRED_WIRING = {
@@ -95,6 +114,48 @@ def _require_string_list(value: Any, label: str) -> list[str]:
     if not all(isinstance(item, str) and item.strip() for item in value):
         raise TestRuntimePreflightError(f"{label} must contain only non-empty strings")
     return [str(item) for item in value]
+
+
+def _validate_environment_routing(data: dict[str, Any], path: Path) -> None:
+    routing = data.get("environment_routing")
+    if not isinstance(routing, dict):
+        raise TestRuntimePreflightError(f"{_rel(path)}: environment_routing must be a mapping")
+    if routing.get("status") != "active":
+        raise TestRuntimePreflightError(f"{_rel(path)}: environment_routing.status must be active")
+    for key in ("observed_on", "observed_context", "observed_result", "dad_lesson"):
+        value = routing.get(key)
+        if not isinstance(value, str) or not value.strip():
+            raise TestRuntimePreflightError(f"{_rel(path)}: environment_routing.{key} must be non-empty text")
+    for key in ("required_when", "recommended_environment", "failure_classification", "do_not"):
+        _require_string_list(routing.get(key), f"{_rel(path)}.environment_routing.{key}")
+    combined_text = "\n".join(
+        str(routing.get(key, ""))
+        if isinstance(routing.get(key), str)
+        else "\n".join(str(item) for item in routing.get(key, []))
+        for key in (
+            "observed_context",
+            "observed_result",
+            "required_when",
+            "recommended_environment",
+            "failure_classification",
+            "do_not",
+        )
+    )
+    for phrase in REQUIRED_ENVIRONMENT_ROUTING_PHRASES:
+        if phrase not in combined_text:
+            raise TestRuntimePreflightError(
+                f"{_rel(path)}: environment_routing missing required phrase {phrase!r}"
+            )
+    do_not = set(_require_string_list(routing.get("do_not"), f"{_rel(path)}.environment_routing.do_not"))
+    missing_do_not = sorted(REQUIRED_ENVIRONMENT_DO_NOT - do_not)
+    if missing_do_not:
+        raise TestRuntimePreflightError(
+            f"{_rel(path)}: environment_routing.do_not missing {missing_do_not}"
+        )
+    if routing.get("dad_lesson") != ".digital-asset/lessons/t456_runtime_environment_preflight.yaml":
+        raise TestRuntimePreflightError(
+            f"{_rel(path)}: environment_routing.dad_lesson must point at T456 DAD lesson"
+        )
 
 
 def validate_test_runtime_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
@@ -149,6 +210,8 @@ def validate_test_runtime_preflight(path: Path = PREFLIGHT) -> dict[str, Any]:
         for phrase in requirements["required_phrases"]:
             if phrase not in observed_result and phrase not in str(profile.get("observed_context", "")):
                 raise TestRuntimePreflightError(f"{label}: missing observed phrase {phrase!r}")
+
+    _validate_environment_routing(data, path)
 
     update_policy = data.get("update_policy")
     if not isinstance(update_policy, dict) or update_policy.get("status") != "required":
