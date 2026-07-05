@@ -244,22 +244,42 @@ fn validate_jsonl_record(
         ));
     }
 
-    if let Some(actual) = str_field(record, "translation_id") {
-        if actual != expected_translation {
-            failures.push(format!(
+    if json_truthy(record.get("translation_id")) {
+        match str_field(record, "translation_id") {
+            Some(actual) if actual == expected_translation => {}
+            Some(actual) => failures.push(format!(
                 "{}:{line_no}: generated output translation_id {actual} != expected {expected_translation}",
                 path.display()
-            ));
+            )),
+            None => failures.push(format!(
+                "{}:{line_no}: generated output translation_id {} != expected {expected_translation}",
+                path.display(),
+                field_for_message(record, "translation_id")
+            )),
         }
     }
 
-    if let Some(relation_type) = str_field(record, "relation_type") {
-        if relation_type != "editorial_cross_reference" {
-            failures.push(format!(
+    if json_truthy(record.get("relation_type")) {
+        match str_field(record, "relation_type") {
+            Some("editorial_cross_reference") => {}
+            Some(relation_type) => failures.push(format!(
                 "{}:{line_no}: disallowed relation_type {relation_type}",
                 path.display()
-            ));
+            )),
+            None => failures.push(format!(
+                "{}:{line_no}: disallowed relation_type {}",
+                path.display(),
+                field_for_message(record, "relation_type")
+            )),
         }
+    }
+}
+
+fn field_for_message(record: &Map<String, JsonValue>, key: &str) -> String {
+    match record.get(key) {
+        None | Some(JsonValue::Null) => "null".to_string(),
+        Some(JsonValue::String(value)) => value.clone(),
+        Some(value) => value.to_string(),
     }
 }
 

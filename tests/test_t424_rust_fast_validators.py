@@ -198,6 +198,48 @@ def test_fast_jsonl_matches_python_on_unknown_witness_passage_id(tmp_path: Path)
     assert "Rust/Python JSONL validator verdict parity passed" in combined
 
 
+def test_fast_jsonl_rejects_truthy_non_string_translation_id_without_python_compare(tmp_path: Path) -> None:
+    fixture = tmp_path / "truthy_non_string_translation_id.jsonl"
+    records = _valid_records()
+    records[0]["translation_id"] = ["eng-web"]
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "generated output translation_id" in combined
+
+
+def test_fast_jsonl_rejects_truthy_non_string_relation_type_without_python_compare(tmp_path: Path) -> None:
+    fixture = tmp_path / "truthy_non_string_relation_type.jsonl"
+    records = _valid_records()
+    records[0]["relation_type"] = {"type": "editorial_cross_reference"}
+    _write_jsonl(fixture, records)
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_fast_jsonl.py",
+            "--require-rust",
+            "--require-canon",
+            str(fixture),
+        ]
+    )
+
+    combined = result.stdout + result.stderr
+    assert result.returncode != 0
+    assert "disallowed relation_type" in combined
+
+
 def test_fast_canonical_scope_rejects_noncanonical_book(tmp_path: Path) -> None:
     fixture = tmp_path / "tobit.jsonl"
     _write_jsonl(

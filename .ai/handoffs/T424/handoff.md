@@ -97,6 +97,7 @@ Generated but not committed:
   - Rust now referentially checks every `TranslationWitness`, including missing or unknown `passage_id`, matching Python's witness behavior.
   - `validate_fast_canonical_scope.py` now rejects custom `--canon` when Python fallback/compare is requested, because the Python canonical-scope validator only supports the repo default canon config.
   - Focused tests now include empty/null canon profiles, missing/unknown witness passage IDs, custom-canon compare rejection, and a `validate_all.build_gates()` shape check.
+- A final Rust/QA re-review found one additional P1 JSONL false-pass risk: Rust ignored truthy non-string `translation_id` and `relation_type` values that Python rejects. Rust now applies Python-equivalent truthiness before accepting those fields, and focused tests prove the Rust-only fast path fails closed without relying on `--compare-python`.
 - Authorized no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings, indexes, source rows, canon changes, source-tradition preference, target selection, or theology authority.
 
 ## Validation run
@@ -126,7 +127,7 @@ Generated but not committed:
 - result: passed; 3 tests passed
 - failures: none
 - command: `python -m pytest tests/test_t424_rust_fast_validators.py tests/test_coding_runtime_language_preflight.py tests/test_dad_outbox.py -q`
-- result: passed; 26 tests passed after T424-D chunk-map hardening
+- result: passed; 28 tests passed after final JSONL truthy non-string parity hardening
 - failures: none
 - command: `python scripts/validate_task_scope.py --task-id T424`
 - result: passed
@@ -138,7 +139,7 @@ Generated but not committed:
 - result: passed; fast canonical-scope and fast JSONL gates were exercised
 - failures: none
 - command: `python -m pytest -q`
-- result: passed; 743 tests passed in 667.07s
+- result: passed; 749 tests passed in 799.66s
 - failures: none
 - command: `python scripts/generate_data_map.py --check`
 - result: passed; DATA_MAP.md is current
