@@ -1,0 +1,21 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T425-DAD-LESSON-SLOT-INTEGRITY
+source_repo: logos-scripture-graph
+task_id: T425
+source_outbox_message_id: msg-20260705-t425-dad-lesson-slot-integrity
+context_map_entry: ctx-t425-dad-lesson-slot-integrity
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "DAD outbox rows that advertise reusable lessons or assets must not point at missing lesson slots or missing context-map entries."
+extra_context: "This closes a dirty-parallel-work failure mode: many repos can report Rust/tooling lessons to DAD while the central DAD checkout is dirty, but each source repo must still leave an auditable local slot and context entry so DAD can ingest later without guessing from chat."
+candidate_assets:
+  - dad_lesson_slot_existence_validator
+  - dad_context_map_entry_validator
+  - dirty_parallel_repo_intake_guardrail
+non_authorizations:
+  - dad_override_local_authority
+  - adopt_candidate_lessons_without_review
+  - clean_unrelated_dad_work
+  - theology_authority

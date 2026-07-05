@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PREFLIGHT = ROOT / ".ai" / "control" / "coding_runtime_language_preflight.yaml"
 FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 VALIDATE_ALL = ROOT / "scripts" / "validate_all.py"
+TASK_SCOPE = ROOT / "scripts" / "validate_task_scope.py"
 ROADMAP_DOC = ROOT / "docs" / "roadmap" / "T424_RUST_ACCELERATED_VALIDATION_LAYER.md"
 
 REQUIRED_TRIGGERS = {
@@ -75,6 +76,7 @@ REQUIRED_WIRING = {
         "high-resource deterministic code",
     ],
     VALIDATE_ALL: ["validate_coding_runtime_language_preflight.py"],
+    TASK_SCOPE: ["runtime_language_preflight", "RUNTIME_PREFLIGHT_SURFACES"],
     ROADMAP_DOC: [
         "coding_runtime_language_preflight.yaml",
         "Rust-first",

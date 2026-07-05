@@ -755,6 +755,74 @@ def test_scope_rejects_paths_outside_allowed_scope() -> None:
         )
 
 
+def test_post_t424_validator_task_requires_runtime_language_preflight(tmp_path: Path) -> None:
+    task_file = tmp_path / "T999.task.yaml"
+    task_file.write_text(
+        "\n".join(
+            [
+                "id: T999",
+                "scope:",
+                "  allowed_paths:",
+                "    - .ai/tasks/T999.task.yaml",
+                "    - scripts/validate_large_fixture.py",
+                "  forbidden_paths: []",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(validator.TaskScopeError, match="runtime_language_preflight"):
+        validator.validate_task_scope(
+            task_file=task_file,
+            changed_files=[
+                ".ai/tasks/T999.task.yaml",
+                "scripts/validate_large_fixture.py",
+            ],
+        )
+
+
+def test_post_t424_validator_task_accepts_runtime_language_preflight(tmp_path: Path) -> None:
+    task_file = tmp_path / "T999.task.yaml"
+    task_file.write_text(
+        "\n".join(
+            [
+                "id: T999",
+                "scope:",
+                "  allowed_paths:",
+                "    - .ai/tasks/T999.task.yaml",
+                "    - scripts/validate_large_fixture.py",
+                "  forbidden_paths: []",
+                "runtime_language_preflight:",
+                "  task_id: T999",
+                "  touched_paths:",
+                "    - scripts/validate_large_fixture.py",
+                "  expected_input_size_or_record_count: small fixture only",
+                "  expected_runtime_or_memory_pressure: below Rust threshold",
+                "  rust_trigger_match:",
+                "    - repeated_gate_or_ci_hot_path",
+                "  chosen_language: python_only_below_threshold",
+                "  expected_rust_time_saved_or_reason_not_applicable: no measurable Rust savings for this fixture validator",
+                "  interop_boundary: Python task-scope validator only",
+                "  python_fallback_or_wrapper_plan: not applicable",
+                "  validation_plan:",
+                "    - python -m pytest tests/test_task_scope_validator.py -q",
+                "  maintenance_tradeoffs: keep policy task validation in Python",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = validator.validate_task_scope(
+        task_file=task_file,
+        changed_files=[
+            ".ai/tasks/T999.task.yaml",
+            "scripts/validate_large_fixture.py",
+        ],
+    )
+
+    assert result["task_file"].endswith("T999.task.yaml")
+
+
 def test_scope_rejects_master_context_even_if_task_allows_it(tmp_path: Path) -> None:
     task_file = tmp_path / "T999.task.yaml"
     task_file.write_text(
