@@ -1,0 +1,65 @@
+object_type: t436_jonah_hebrew_metadata_pilot
+schema_version: t436_jonah_hebrew_metadata_pilot.v1
+task_id: T436
+owner: Lowell Wong
+status: implementation
+trust_zone: control
+summary: "Tiny non-authorizing Hebrew Jonah observation/parity pilot proving UXLC and OSHB source-view shape, metadata-flag drift, and no-text ledger semantics before any Hebrew Rust scanner expansion."
+pilot_root: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+span:
+  book_id: Jonah
+  start_osis_ref: Jonah.1.1
+  end_osis_ref: Jonah.4.11
+  exact_refs_policy: "All 48 Jonah refs must be observed in both UXLC and OSHB; Jonah.1.1-Jonah.1.3 remains the narrow alignment-bridge spotlight for later work."
+sources:
+  primary_source_view:
+    source_id: tanach_us_uxlc
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/tanach_us_uxlc/canonical_source_view_manifest.yaml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/tanach_us_uxlc/files/Jonah.xml
+    reason: "Clean Hebrew source-token baseline with no source-provided Strong's, morphology, or lemma authority."
+  metadata_context_source:
+    source_id: openscriptures_oshb
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/canonical_source_view_manifest.yaml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml
+    reason: "Metadata-rich morphology context and parity canary. OSHB lemma attributes are detected as metadata-flag drift because the T431 source view currently flags contains_source_provided_lemmas as false."
+outputs:
+  manifest: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/manifest.yaml
+  source_view_file_observations: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/source_view_file_observations.jsonl
+  verse_token_observations: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/verse_token_observations.jsonl
+  token_shape_index: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/token_shape_index.jsonl
+  editorial_metadata_shape_index: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/editorial_metadata_shape_index.jsonl
+  parity_summary: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/parity_summary.json
+authority:
+  records_candidate_evidence_pilot: true
+  records_no_text_observation_ledgers: true
+  detects_oshb_lemma_flag_drift: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_strongs_as_source_text: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t436: false
+  future_rust_lane: T437_or_T435_B
+  reason: "T436 proves Hebrew source-view and metadata semantics over the full Jonah book through no-text ledgers; Rust expansion belongs after UXLC/OSHB row shape, metadata-flag drift, and parity checks are reviewed."
+blockers_before_rust_expansion:
+  - "Fix or explicitly policy-cover OSHB lemma-attribute flag drift: the source view says contains_source_provided_lemmas false while the XML exposes lemma attributes."
+  - "Add source-specific parser expectations for UXLC and OSHB rather than reusing SBLGNT assumptions."
+validators:
+  - scripts/build_t436_jonah_hebrew_metadata_pilot.py --check
+  - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+  - tests/test_t436_jonah_hebrew_metadata_pilot.py

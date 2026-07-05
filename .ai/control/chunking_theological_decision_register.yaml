@@ -3988,6 +3988,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-092
+    title: T436 Jonah Hebrew observation parity pilot is no-text evidence only
+    classification: non_authorizing_review
+    task_ids: [T436]
+    owner_decision_ref: "docs/roadmap/T436_JONAH_HEBREW_METADATA_PILOT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Jonah]
+      passages: [Jonah]
+      routes: [t430_original_language_evidence_substrate, t436_hebrew_observation_parity]
+      surfaces:
+        - .ai/control/t436_jonah_hebrew_metadata_pilot.yaml
+        - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/
+        - docs/roadmap/T436_JONAH_HEBREW_METADATA_PILOT.md
+        - scripts/build_t436_jonah_hebrew_metadata_pilot.py
+        - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+    decision: "T436 may emit no-text UXLC/OSHB Jonah source-view file, verse, token-shape, editorial/metadata-shape, and parity-summary ledgers. It records OSHB lemma-attribute flag drift and blocks Hebrew Rust expansion until that drift is fixed or explicitly policy-covered. It does not populate production original-language evidence roots or authorize source-language truth, lexical truth, Strong's/lemma/morphology population, preferred readings, manuscript witness support, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could mistake OSHB morphology or w@lemma attributes, UXLC/OSHB token-count parity, token hashes, Hebrew editorial markers, or source-view manifests for Strong's authority, lexical authority, source-tradition preference, translation-faithfulness judgment, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No UXLC or OSHB source-view observation is treated as the Hebrew autograph."
+      - "No OSHB w@lemma attribute is copied into local Strong's, lemma, lexeme, or production morphology rows."
+      - "No morphology, token hash, maqqef, sof-pasuq, samekh, pe, vowel, accent, chapter, or verse signal is treated as doctrine or chunk-boundary authority."
+      - "No source edition is preferred over another source tradition."
+    reviewed_gold_dependency: "None; T436 is no-text observation/parity evidence only. Production source-token rows, Strong's overlays, alignments, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4116,4 +4162,5 @@ backfill_coverage:
     - T432
     - T433
     - T435
+    - T436
 ...

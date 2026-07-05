@@ -1,0 +1,52 @@
+object_type: t436_jonah_hebrew_observation_parity_manifest
+schema_version: t436_jonah_hebrew_observation_parity_manifest.v1
+task_id: T436
+status: candidate_pilot
+trust_zone: candidate
+book_id: Jonah
+source_ids:
+- tanach_us_uxlc
+- openscriptures_oshb
+pilot_root: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+no_text_ledgers: true
+consumes_raw_archives_directly: false
+counts:
+  source_view_file_observations: 2
+  verse_token_observations: 96
+  token_shape_index: 1376
+  editorial_metadata_shape_index: 20
+metadata_flag_drift:
+  source_id: openscriptures_oshb
+  manifest_contains_source_provided_lemmas: false
+  observed_lemma_attr_count: 688
+  requires_policy_before_rust_expansion: true
+  note: OSHB w@lemma is observed as a source XML attribute, but T436 does not copy
+    it into local lemma, strong_id, lexeme, or morphology production rows.
+rust_policy: No Rust expansion in T436; future Rust must wait for this Hebrew no-text
+  parity pilot and the OSHB lemma-attribute drift decision.
+authority:
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_or_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+outputs:
+  source_view_file_observations: source_view_file_observations.jsonl
+  verse_token_observations: verse_token_observations.jsonl
+  token_shape_index: token_shape_index.jsonl
+  editorial_metadata_shape_index: editorial_metadata_shape_index.jsonl
+  parity_summary: parity_summary.json
