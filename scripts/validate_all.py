@@ -161,6 +161,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_chunking_lesson_index.py")],
         ),
         (
+            "validate_t450_bible_edge_taxonomy.py",
+            [PY, str(ROOT / "scripts" / "validate_t450_bible_edge_taxonomy.py")],
+        ),
+        (
             "validate_test_runtime_preflight.py",
             [PY, str(ROOT / "scripts" / "validate_test_runtime_preflight.py")],
         ),
