@@ -111,6 +111,14 @@ def _manifest(source: dict[str, Any], archive: Path, *, download_url: str, commi
         "contains_source_provided_morphology": bool(source.get("contains_source_provided_morphology", False)),
         "contains_source_provided_lemmas": bool(source.get("contains_source_provided_lemmas", False)),
         "contains_source_provided_strongs": bool(source.get("contains_source_provided_strongs", False)),
+        "contains_source_provided_lemma_attributes": bool(
+            source.get("contains_source_provided_lemma_attributes", False)
+        ),
+        "contains_source_provided_strong_lookup_hints": bool(
+            source.get("contains_source_provided_strong_lookup_hints", False)
+        ),
+        "lemma_attribute_interpretation": str(source.get("lemma_attribute_interpretation", "none")),
+        "lemma_attribute_authority": str(source.get("lemma_attribute_authority", "not_applicable")),
         "strongs_overlay_in_raw_allowed": False,
         "authority": {
             "authorizes_source_language_truth": False,

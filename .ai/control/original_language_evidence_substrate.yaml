@@ -62,6 +62,12 @@ pilot_lanes:
     pilot_root: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
     rule: "T436 emits no-text Jonah source-view file, verse, token-shape, editorial/metadata-shape, and parity-summary ledgers. It records OSHB lemma-attribute flag drift and does not populate production candidate roots or authorize source-language truth, alignment truth, Strong's, lemma/morphology, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
     rust_policy: "No Rust is added in T436. Future Hebrew Rust expansion is blocked until UXLC/OSHB parser assumptions and OSHB lemma-attribute flag drift are reviewed."
+  - task_id: T437
+    control: .ai/control/t437_oshb_lemma_attribute_policy.yaml
+    status: oshb_lemma_attribute_policy_cover
+    source_view: openscriptures_oshb
+    rule: "T437 policy-covers OSHB w@lemma as Strong lookup-hint metadata while keeping local lemma population, Strong's overlay rows, lexical truth, preferred readings, source-tradition choice, chunks, graph/retrieval truth, and theology authority unauthorized."
+    rust_policy: "No Rust is added in T437. Hebrew Rust expansion remains blocked until source-specific UXLC/OSHB parser contracts and no-text parity proof exist."
 goal_options:
   - option_id: option_1_alignment_bridge
     short_name: Greek/Hebrew-to-English alignment bridge
@@ -185,6 +191,7 @@ validators:
   - scripts/validate_t432_original_language_schema_contracts.py
   - scripts/validate_t435_original_language_observation_scanner.py
   - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+  - scripts/validate_t437_oshb_lemma_attribute_policy.py
   - scripts/validate_original_language_raw_sources.py
   - tests/test_t430_original_language_evidence_substrate.py
   - tests/test_t432_original_language_schema_contracts.py

@@ -15,15 +15,23 @@ counts:
   verse_token_observations: 96
   token_shape_index: 1376
   editorial_metadata_shape_index: 20
-metadata_flag_drift:
+metadata_policy_coverage: &id001
   source_id: openscriptures_oshb
   manifest_contains_source_provided_lemmas: false
+  manifest_contains_source_provided_lemma_attributes: true
+  manifest_contains_source_provided_strong_lookup_hints: true
+  lemma_attribute_interpretation: strong_lookup_hint
+  lemma_attribute_authority: metadata_only_not_local_lemma_or_strong_authority
   observed_lemma_attr_count: 688
-  requires_policy_before_rust_expansion: true
-  note: OSHB w@lemma is observed as a source XML attribute, but T436 does not copy
-    it into local lemma, strong_id, lexeme, or morphology production rows.
-rust_policy: No Rust expansion in T436; future Rust must wait for this Hebrew no-text
-  parity pilot and the OSHB lemma-attribute drift decision.
+  policy_covers_observed_lemma_attribute: true
+  requires_policy_before_rust_expansion: false
+  requires_source_specific_parser_before_rust_expansion: true
+  note: OSHB w@lemma is observed as a source XML attribute mapped to Strong lookup
+    metadata, but T436 does not copy it into local lemma, strong_id, lexeme, or morphology
+    production rows.
+metadata_flag_drift: *id001
+rust_policy: No Rust expansion in T436; future Rust must wait for source-specific
+  UXLC/OSHB parser contracts even though the OSHB lemma-attribute policy is now covered.
 authority:
   authorizes_source_language_truth: false
   authorizes_lexical_truth: false

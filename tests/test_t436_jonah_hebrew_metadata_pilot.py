@@ -17,7 +17,8 @@ def test_t436_jonah_hebrew_metadata_pilot_validates_current_repo() -> None:
     manifest = validator.validate_t436_jonah_hebrew_metadata_pilot()
 
     assert manifest["no_text_ledgers"] is True
-    assert manifest["metadata_flag_drift"]["requires_policy_before_rust_expansion"] is True
+    assert manifest["metadata_policy_coverage"]["policy_covers_observed_lemma_attribute"] is True
+    assert manifest["metadata_policy_coverage"]["requires_policy_before_rust_expansion"] is False
 
 
 def test_t436_builder_check_passes() -> None:
@@ -46,17 +47,27 @@ def test_t436_rejects_per_verse_parity_drift() -> None:
         validator.validate_verse_rows(bad)
 
 
-def test_t436_rejects_oshb_lemma_copied_to_local_field() -> None:
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("strong_id", "H3068"),
+        ("lemma", "3068"),
+        ("lemma_value", "3068"),
+        ("morph", "HNp"),
+        ("morphology_value", "HNp"),
+    ],
+)
+def test_t436_rejects_oshb_metadata_copied_to_local_field(field: str, value: str) -> None:
     rows = validator._read_jsonl(
         ROOT / "data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/token_shape_index.jsonl"
     )
     bad = copy.deepcopy(rows)
     for row in bad:
         if row["source_id"] == "openscriptures_oshb":
-            row["strong_id"] = "H3068"
+            row[field] = value
             break
 
-    with pytest.raises(validator.T436PilotError, match="forbidden text/value key strong_id"):
+    with pytest.raises(validator.T436PilotError, match=f"forbidden text/value key {field}"):
         validator.validate_token_rows(bad)
 
 

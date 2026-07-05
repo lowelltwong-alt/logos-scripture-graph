@@ -192,6 +192,14 @@ def _file_observation(ctx: dict[str, Any], *, parser_profile: str) -> dict[str, 
             "contains_source_provided_morphology": bool(manifest.get("contains_source_provided_morphology")),
             "contains_source_provided_lemmas": bool(manifest.get("contains_source_provided_lemmas")),
             "contains_source_provided_strongs": bool(manifest.get("contains_source_provided_strongs")),
+            "contains_source_provided_lemma_attributes": bool(
+                manifest.get("contains_source_provided_lemma_attributes")
+            ),
+            "contains_source_provided_strong_lookup_hints": bool(
+                manifest.get("contains_source_provided_strong_lookup_hints")
+            ),
+            "lemma_attribute_interpretation": str(manifest.get("lemma_attribute_interpretation", "none")),
+            "lemma_attribute_authority": str(manifest.get("lemma_attribute_authority", "not_applicable")),
         },
         "stores_source_text": False,
         "consumes_raw_archive_directly": False,
@@ -425,6 +433,34 @@ def _parity_summary(
     ]
     observed_lemma_count = sum(1 for row in oshb_tokens if row["has_lemma_attr"])
     observed_morph_count = sum(1 for row in oshb_tokens if row["has_morph_attr"])
+    oshb_manifest = oshb_ctx["manifest"]
+    lemma_policy_covered = (
+        observed_lemma_count > 0
+        and bool(oshb_manifest.get("contains_source_provided_lemma_attributes")) is True
+        and bool(oshb_manifest.get("contains_source_provided_strong_lookup_hints")) is True
+        and str(oshb_manifest.get("lemma_attribute_interpretation")) == "strong_lookup_hint"
+        and str(oshb_manifest.get("lemma_attribute_authority"))
+        == "metadata_only_not_local_lemma_or_strong_authority"
+    )
+    metadata_policy_coverage = {
+        "source_id": "openscriptures_oshb",
+        "manifest_contains_source_provided_lemmas": bool(
+            oshb_manifest.get("contains_source_provided_lemmas")
+        ),
+        "manifest_contains_source_provided_lemma_attributes": bool(
+            oshb_manifest.get("contains_source_provided_lemma_attributes")
+        ),
+        "manifest_contains_source_provided_strong_lookup_hints": bool(
+            oshb_manifest.get("contains_source_provided_strong_lookup_hints")
+        ),
+        "lemma_attribute_interpretation": str(oshb_manifest.get("lemma_attribute_interpretation", "none")),
+        "lemma_attribute_authority": str(oshb_manifest.get("lemma_attribute_authority", "not_applicable")),
+        "observed_lemma_attr_count": observed_lemma_count,
+        "policy_covers_observed_lemma_attribute": lemma_policy_covered,
+        "requires_policy_before_rust_expansion": not lemma_policy_covered,
+        "requires_source_specific_parser_before_rust_expansion": True,
+        "note": "OSHB w@lemma is observed as a source XML attribute mapped to Strong lookup metadata, but T436 does not copy it into local lemma, strong_id, lexeme, or morphology production rows.",
+    }
     return {
         "object_type": "t436_jonah_hebrew_observation_parity_summary",
         "task_id": "T436",
@@ -449,16 +485,8 @@ def _parity_summary(
         "per_verse_token_counts_match": per_verse_token_counts_match,
         "exact_token_hashes_all_match": len(token_hashes_match) == len(uxlc_tokens) == len(oshb_tokens)
         and all(token_hashes_match),
-        "metadata_flag_drift": {
-            "source_id": "openscriptures_oshb",
-            "manifest_contains_source_provided_lemmas": bool(
-                oshb_ctx["manifest"].get("contains_source_provided_lemmas")
-            ),
-            "observed_lemma_attr_count": observed_lemma_count,
-            "requires_policy_before_rust_expansion": observed_lemma_count > 0
-            and not bool(oshb_ctx["manifest"].get("contains_source_provided_lemmas")),
-            "note": "OSHB w@lemma is observed as a source XML attribute, but T436 does not copy it into local lemma, strong_id, lexeme, or morphology production rows.",
-        },
+        "metadata_policy_coverage": metadata_policy_coverage,
+        "metadata_flag_drift": metadata_policy_coverage,
         "source_view_checksums": {
             "tanach_us_uxlc": uxlc_ctx["actual_sha"],
             "openscriptures_oshb": oshb_ctx["actual_sha"],
@@ -500,8 +528,9 @@ def build_outputs() -> dict[str, str]:
             "token_shape_index": len(token_rows),
             "editorial_metadata_shape_index": len(editorial_rows),
         },
+        "metadata_policy_coverage": parity["metadata_policy_coverage"],
         "metadata_flag_drift": parity["metadata_flag_drift"],
-        "rust_policy": "No Rust expansion in T436; future Rust must wait for this Hebrew no-text parity pilot and the OSHB lemma-attribute drift decision.",
+        "rust_policy": "No Rust expansion in T436; future Rust must wait for source-specific UXLC/OSHB parser contracts even though the OSHB lemma-attribute policy is now covered.",
         "authority": _authority(),
         "outputs": {
             "source_view_file_observations": "source_view_file_observations.jsonl",

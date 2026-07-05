@@ -198,19 +198,57 @@ def _expected_books(source_id: str) -> set[str]:
     raise CanonicalSourceViewError(f"no expected book set for {source_id}")
 
 
-def _source_metadata_flags(source: dict[str, Any]) -> dict[str, bool]:
+def _source_metadata_flags(source: dict[str, Any]) -> dict[str, Any]:
     return {
         "contains_source_provided_morphology": bool(source.get("contains_source_provided_morphology", False)),
         "contains_source_provided_lemmas": bool(source.get("contains_source_provided_lemmas", False)),
         "contains_source_provided_strongs": bool(source.get("contains_source_provided_strongs", False)),
+        "contains_source_provided_lemma_attributes": bool(
+            source.get("contains_source_provided_lemma_attributes", False)
+        ),
+        "contains_source_provided_strong_lookup_hints": bool(
+            source.get("contains_source_provided_strong_lookup_hints", False)
+        ),
+        "lemma_attribute_interpretation": str(source.get("lemma_attribute_interpretation", "none")),
+        "lemma_attribute_authority": str(source.get("lemma_attribute_authority", "not_applicable")),
     }
 
 
 def _included_classification(source: dict[str, Any]) -> str:
     flags = _source_metadata_flags(source)
-    if any(flags.values()):
+    if any(value is True for value in flags.values()):
         return "included_canonical_bible_text_with_source_metadata"
     return "included_canonical_bible_text"
+
+
+def _validate_source_specific_metadata_policy(
+    source_id: str,
+    view_manifest: dict[str, Any],
+    included: list[dict[str, Any]],
+    repo_root: Path,
+) -> None:
+    if source_id != "openscriptures_oshb":
+        return
+    required_policy = {
+        "contains_source_provided_lemma_attributes": True,
+        "contains_source_provided_strong_lookup_hints": True,
+        "lemma_attribute_interpretation": "strong_lookup_hint",
+        "lemma_attribute_authority": "metadata_only_not_local_lemma_or_strong_authority",
+    }
+    for key, expected in required_policy.items():
+        if view_manifest.get(key) != expected:
+            raise CanonicalSourceViewError(
+                f"{source_id}: {key} must be {expected!r} because OSHB maps //w/@lemma to Strong metadata"
+            )
+    for row in included:
+        for key, expected in required_policy.items():
+            if row.get(key) != expected:
+                raise CanonicalSourceViewError(f"{source_id}: included row {key} must be {expected!r}")
+        text = (repo_root / str(row["view_path"])).read_text(encoding="utf-8")
+        if 'path="//w/@lemma" osisWork="Strong"' not in text:
+            raise CanonicalSourceViewError(f"{source_id}: OSHB view file is missing w@lemma Strong workPrefix")
+        if " lemma=" not in text:
+            raise CanonicalSourceViewError(f"{source_id}: OSHB view file is missing observed w@lemma attributes")
 
 
 def build_views(
@@ -382,10 +420,16 @@ def _check_views(sources: list[dict[str, Any]], raw_root: Path, out_root: Path) 
         if not isinstance(authority, dict) or any(value is not False for value in authority.values()):
             raise CanonicalSourceViewError(f"{source_id}: all authority flags must be false")
         for key, value in _source_metadata_flags(source).items():
-            if view_manifest.get(key) is not value:
-                raise CanonicalSourceViewError(f"{source_id}: {key} mismatch")
-            if bool(raw_manifest.get(key, False)) is not value:
-                raise CanonicalSourceViewError(f"{source_id}: raw manifest {key} mismatch")
+            if isinstance(value, bool):
+                if view_manifest.get(key) is not value:
+                    raise CanonicalSourceViewError(f"{source_id}: {key} mismatch")
+                if bool(raw_manifest.get(key, False)) is not value:
+                    raise CanonicalSourceViewError(f"{source_id}: raw manifest {key} mismatch")
+            else:
+                if view_manifest.get(key) != value:
+                    raise CanonicalSourceViewError(f"{source_id}: {key} mismatch")
+                if str(raw_manifest.get(key, value)) != value:
+                    raise CanonicalSourceViewError(f"{source_id}: raw manifest {key} mismatch")
         seen_books: set[str] = set()
         seen_view_paths: set[str] = set()
         expected_classification = _included_classification(source)
@@ -421,7 +465,11 @@ def _check_views(sources: list[dict[str, Any]], raw_root: Path, out_root: Path) 
                 raise CanonicalSourceViewError(f"{source_id}: included file classification is wrong")
             for key, value in _source_metadata_flags(source).items():
                 if row.get(key) is not value:
-                    raise CanonicalSourceViewError(f"{source_id}: included row {key} mismatch")
+                    if isinstance(value, bool):
+                        raise CanonicalSourceViewError(f"{source_id}: included row {key} mismatch")
+                    if row.get(key) != value:
+                        raise CanonicalSourceViewError(f"{source_id}: included row {key} mismatch")
+        _validate_source_specific_metadata_policy(source_id, view_manifest, included, repo_root)
         if not excluded:
             raise CanonicalSourceViewError(f"{source_id}: expected an exclusion ledger")
         for row in excluded:

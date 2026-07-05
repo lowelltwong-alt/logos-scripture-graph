@@ -74,6 +74,10 @@ def _minimal_root(tmp_path: Path) -> tuple[Path, Path]:
                 "attribution": "Demo",
                 "source_text_storage_allowed": True,
                 "redistribution_allowed": True,
+                "contains_source_provided_lemma_attributes": False,
+                "contains_source_provided_strong_lookup_hints": False,
+                "lemma_attribute_interpretation": "none",
+                "lemma_attribute_authority": "not_applicable",
                 "strongs_overlay_in_raw_allowed": False,
             }
         ],
@@ -92,6 +96,10 @@ def _minimal_root(tmp_path: Path) -> tuple[Path, Path]:
         "strongs_overlay_in_raw_allowed": False,
         "contains_source_provided_morphology": False,
         "contains_source_provided_lemmas": False,
+        "contains_source_provided_lemma_attributes": False,
+        "contains_source_provided_strong_lookup_hints": False,
+        "lemma_attribute_interpretation": "none",
+        "lemma_attribute_authority": "not_applicable",
         "contains_source_provided_strongs": False,
         "authority": {key: False for key in validator.FALSE_AUTHORITY},
     }
@@ -141,6 +149,10 @@ def _minimal_root(tmp_path: Path) -> tuple[Path, Path]:
             "book_scope": ["GreekNT"],
             "contains_source_provided_morphology": False,
             "contains_source_provided_lemmas": False,
+            "contains_source_provided_lemma_attributes": False,
+            "contains_source_provided_strong_lookup_hints": False,
+            "lemma_attribute_interpretation": "none",
+            "lemma_attribute_authority": "not_applicable",
             "contains_source_provided_strongs": False,
             "status": "candidate_canonical_only_view",
             "noncanonical_or_extra_material_excluded": True,
@@ -166,6 +178,8 @@ def _minimal_root(tmp_path: Path) -> tuple[Path, Path]:
         + str(view_file.stat().st_size)
         + ',"source_archive_path":"SR.tsv","view_path":"data/candidate/original_language_evidence/canonical_source_views/cntr_sr/files/GreekNT.tsv",'
         + '"contains_source_provided_morphology":false,"contains_source_provided_lemmas":false,'
+        + '"contains_source_provided_lemma_attributes":false,"contains_source_provided_strong_lookup_hints":false,'
+        + '"lemma_attribute_interpretation":"none","lemma_attribute_authority":"not_applicable",'
         + '"contains_source_provided_strongs":false}\n',
         encoding="utf-8",
     )
@@ -264,3 +278,64 @@ def test_allowlist_rejects_raw_strongs_overlay_authority(tmp_path: Path) -> None
 
     with pytest.raises(validator.OriginalLanguageRawSourceError, match="strongs_overlay_in_raw_allowed"):
         validator.validate_allowlist(path)
+
+
+def test_oshb_policy_requires_lemma_attribute_cover_when_xml_maps_lemma_to_strong(tmp_path: Path) -> None:
+    from scripts import build_original_language_canonical_source_views as builder
+
+    root = tmp_path
+    view = root / "data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml"
+    view.parent.mkdir(parents=True)
+    view.write_text(
+        '<osis><header><workPrefix path="//w/@lemma" osisWork="Strong"/></header>'
+        '<w lemma="3068" morph="HNp">token</w></osis>',
+        encoding="utf-8",
+    )
+    manifest = {
+        "contains_source_provided_lemmas": False,
+        "contains_source_provided_lemma_attributes": False,
+        "contains_source_provided_strong_lookup_hints": False,
+        "lemma_attribute_interpretation": "none",
+        "lemma_attribute_authority": "not_applicable",
+    }
+    included = [
+        {
+            "view_path": "data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml",
+            "contains_source_provided_lemmas": False,
+            "contains_source_provided_lemma_attributes": False,
+            "contains_source_provided_strong_lookup_hints": False,
+            "lemma_attribute_interpretation": "none",
+            "lemma_attribute_authority": "not_applicable",
+        }
+    ]
+
+    with pytest.raises(builder.CanonicalSourceViewError, match="lemma_attributes"):
+        builder._validate_source_specific_metadata_policy("openscriptures_oshb", manifest, included, root)
+
+
+def test_oshb_policy_accepts_lemma_attribute_as_strong_lookup_hint_not_local_lemma(tmp_path: Path) -> None:
+    from scripts import build_original_language_canonical_source_views as builder
+
+    root = tmp_path
+    view = root / "data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml"
+    view.parent.mkdir(parents=True)
+    view.write_text(
+        '<osis><header><workPrefix path="//w/@lemma" osisWork="Strong"/></header>'
+        '<w lemma="3068" morph="HNp">token</w></osis>',
+        encoding="utf-8",
+    )
+    policy = {
+        "contains_source_provided_lemmas": False,
+        "contains_source_provided_lemma_attributes": True,
+        "contains_source_provided_strong_lookup_hints": True,
+        "lemma_attribute_interpretation": "strong_lookup_hint",
+        "lemma_attribute_authority": "metadata_only_not_local_lemma_or_strong_authority",
+    }
+    included = [
+        {
+            "view_path": "data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml",
+            **policy,
+        }
+    ]
+
+    builder._validate_source_specific_metadata_policy("openscriptures_oshb", policy, included, root)

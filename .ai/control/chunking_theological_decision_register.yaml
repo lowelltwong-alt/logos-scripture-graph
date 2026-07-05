@@ -4034,6 +4034,54 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-093
+    title: T437 OSHB lemma attribute is Strong lookup-hint metadata only
+    classification: non_authorizing_review
+    task_ids: [T437]
+    owner_decision_ref: "docs/roadmap/T437_OSHB_LEMMA_ATTRIBUTE_POLICY.md"
+    pr_refs: []
+    affected_scope:
+      books: [Hebrew_Bible]
+      passages: []
+      routes: [t430_original_language_evidence_substrate, t431_canonical_source_views, t437_oshb_lemma_attribute_policy]
+      surfaces:
+        - .ai/control/original_language_source_allowlist.yaml
+        - .ai/control/t437_oshb_lemma_attribute_policy.yaml
+        - data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+        - data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/
+        - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/
+        - scripts/validate_t437_oshb_lemma_attribute_policy.py
+    decision: "T437 records OSHB w@lemma as Strong lookup-hint metadata and keeps contains_source_provided_lemmas false because the repo has not authorized local lemma rows. The policy-cover closes the T436 metadata drift without creating Strong's overlay rows, lemma/morphology population, lexical authority, preferred readings, translation judgments, chunk boundaries, graph/retrieval truth, or theology claims."
+    downstream_risk: "Future agents could treat a field named lemma as local lemma authority, Strong's source text, lexical truth, or translation-faithfulness evidence. A future Rust scanner could scale that mistake across the Hebrew Bible if parser contracts are not source-specific and policy-covered first."
+    theological_assumptions_avoided:
+      - "No OSHB w@lemma value is treated as Hebrew lexical authority."
+      - "No Strong lookup hint is treated as source text, preferred reading, or theological claim."
+      - "No source edition is preferred over another source tradition."
+      - "No Rust scanner is authorized merely because the metadata policy is covered."
+    reviewed_gold_dependency: "None; T437 is metadata policy hardening only. Production source-token rows, Strong's overlays, alignments, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t437_oshb_lemma_attribute_policy.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4163,4 +4211,5 @@ backfill_coverage:
     - T433
     - T435
     - T436
+    - T437
 ...
