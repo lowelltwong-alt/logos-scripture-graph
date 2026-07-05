@@ -1,0 +1,126 @@
+id: T435
+phase: phase_4
+title: "SBLGNT Original-Language Observation Scanner"
+mode: rust_no_text_observation_scanner_non_authorizing
+status: validated_pending_merge
+owner: codex
+branch: codex/t435-original-language-observation
+base_ref: origin/codex/t433-phlm-alignment-pilot
+summary: "Add a narrow Rust scanner for deterministic no-text observation ledgers over the T431 SBLGNT canonical source view, validated by Python and shadow-parity checked against T433 Phlm.1.1-3."
+scope:
+  allowed_paths:
+    - .gitignore
+    - .ai/tasks/T435.task.yaml
+    - .ai/handoffs/T435/
+    - .ai/context/agent_work/T435/
+    - .ai/control/original_language_observation_scanner.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - docs/roadmap/T435_ORIGINAL_LANGUAGE_OBSERVATION_SCANNER.md
+    - tools/original_language_observation_scanner/
+    - scripts/validate_t435_original_language_observation_scanner.py
+    - scripts/validate_all.py
+    - tests/test_t435_original_language_observation_scanner.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: rust_no_text_observation_scanner_non_authorizing
+  records_rust_sblgnt_observation_scanner: true
+  records_python_validation_contract: true
+  records_t433_shadow_parity_gate: true
+  consumes_t431_canonical_source_views: true
+  consumes_raw_archives_directly: false
+  writes_generated_build_outputs_only: true
+  stores_source_wording_in_ledgers: false
+  populates_production_source_language_tokens: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_manuscript_transcriptions: false
+  stores_manuscript_images: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t435: true
+  rust_fit: deterministic XML source-view scanning, counting, hashing, and JSONL emission
+  python_remains_authority_validator: true
+  not_general_hebrew_scanner: true
+acceptance_criteria:
+  - "Rust scanner consumes only the T431 SBLGNT canonical source view and included-files ledger, not raw archives directly."
+  - "Generated ledgers stay ignored under build/original_language_observation/T435-A/sblgnt and emit no source wording."
+  - "Generated rows record observed source-view shape only and keep all authority flags false."
+  - "T433 Phlm.1.1-Phlm.1.3 shadow parity passes for 41 source-token shapes and 7 editorial shapes."
+  - "SBLGNT Strong's, lemma, and morphology fields remain null/false because the source view does not provide them."
+  - "Production candidate roots remain unopened until a later owner-gated population task."
+  - "validate_all.py runs only the fast T435 contract validator, not the full Rust scan."
+validations:
+  - cargo fmt --manifest-path tools/original_language_observation_scanner/Cargo.toml --check
+  - cargo test --manifest-path tools/original_language_observation_scanner/Cargo.toml
+  - cargo run --manifest-path tools/original_language_observation_scanner/Cargo.toml -- scan-sblgnt --source-view data/candidate/original_language_evidence/canonical_source_views/sblgnt --manifest data/candidate/original_language_evidence/canonical_source_views/sblgnt/canonical_source_view_manifest.yaml --included data/candidate/original_language_evidence/canonical_source_views/sblgnt/included_files.jsonl --out build/original_language_observation/T435-A/sblgnt --no-authority --no-text --shadow-t433 data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge
+  - python scripts/validate_t435_original_language_observation_scanner.py --input build/original_language_observation/T435-A/sblgnt
+  - python scripts/validate_t433_phlm_alignment_pilot.py
+  - python -m pytest tests/test_t435_original_language_observation_scanner.py -q
+  - python scripts/validate_task_scope.py --task-id T435 --base-ref origin/codex/t433-phlm-alignment-pilot
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+handoff_required: .ai/handoffs/T435/handoff.md
+runtime_proof:
+  rust_toolchain: cargo 1.96.1
+  rust_fmt_passed: true
+  rust_test_passed: true
+  rust_scan_passed: true
+  generated_validation_passed: true
+  generated_outputs_committed: false
+  generated_counts:
+    source_view_file_observations: 27
+    verse_token_observations: 7939
+    source_token_shape_index: 137741
+    editorial_layer_shape_index: 36991
+    t433_shadow_parity_status: pass
+created_at: "2026-07-04"
+updated_at: "2026-07-04"

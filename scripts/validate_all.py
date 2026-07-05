@@ -265,6 +265,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t433_phlm_alignment_pilot.py")],
         ),
         (
+            "validate_t435_original_language_observation_scanner.py",
+            [PY, str(ROOT / "scripts" / "validate_t435_original_language_observation_scanner.py")],
+        ),
+        (
             "validate_original_language_raw_sources.py",
             [PY, str(ROOT / "scripts" / "validate_original_language_raw_sources.py")],
         ),

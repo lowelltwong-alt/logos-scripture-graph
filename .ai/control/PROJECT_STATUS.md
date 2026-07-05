@@ -4,6 +4,19 @@
 **Updated by:** T417 scratch marathon session close
 **Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
 
+> **T435 original-language Rust observation scanner (2026-07-04):** Added a narrow Rust
+> SBLGNT canonical-source-view scanner at `tools/original_language_observation_scanner/`.
+> It emits no-text generated ledgers under `build/original_language_observation/T435-A/sblgnt/`
+> for source-view files, verses, token shapes, and editorial shapes, then checks T433
+> Phlm.1.1-3 parity (41 source-token shapes and 7 editorial shapes). Python remains the
+> authority validator through `scripts/validate_t435_original_language_observation_scanner.py`;
+> `validate_all.py` runs only the fast contract check, not the full Rust scan. T435 records
+> `CD-091` and authorizes no source-language truth, lexical truth, Strong's/lemma/morphology
+> population, preferred reading, source-tradition choice, manuscript witness support, translation
+> judgment, chunk boundary, reviewed gold, KG/retrieval truth, embeddings/indexes, or theology
+> authority. Hebrew scanning remains deferred until a separate Jonah pilot proves Hebrew
+> source-view and metadata assumptions.
+
 > **T431 original-language raw intake (2026-07-04):** Added the T430/T431 original-language
 > evidence lane and allowlisted raw intake guardrails. Downloaded manifest-backed raw archives for
 > Tanach.us UXLC, Open Scriptures Hebrew Bible, SBLGNT, unfoldingWord UGNT, and CNTR Statistical
