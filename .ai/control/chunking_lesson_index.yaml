@@ -1817,6 +1817,44 @@ lessons:
       - scripts/validate_rust_observation_substrate.py
       - tests/test_rust_observation_substrate.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-042
+    title: Bible edge taxonomy vocabulary is not graph authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, theological_risk, graph_retrieval_vector, auditability]
+    tags: [graph, authority-boundary, theological-risk, contextual-reading, workflow-governance, lessons-learned, preflight, lesson-index, ai-toc, non-authorizing]
+    use_when:
+      - "A future agent proposes Bible graph edge families, candidate predicates, apologetic or polemic links, prophecy/apocalyptic links, covenant links, sacrificial or temple links, manuscript/textual links, or original-language links."
+      - "A future agent could treat taxonomy vocabulary, model agreement, source metadata, Strong's, WJ formatting, or apologetic usefulness as graph truth or theology authority."
+    preflight_stage: before_edge_taxonomy_or_graph_candidate_work
+    source_surfaces:
+      - .ai/control/bible_edge_taxonomy_research_program.yaml
+      - docs/roadmap/T450_BIBLE_EDGE_TAXONOMY_RESEARCH_PROGRAM.md
+      - .ai/control/chunking_theological_decision_register.yaml
+      - scripts/validate_t450_bible_edge_taxonomy.py
+      - .digital-asset/mail/outbox.jsonl
+    related_decision_ids: [CD-087]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T450]
+    downstream_risk: "Agents may turn a broad and useful edge-family vocabulary into predicate registration, graph edge generation, retrieval truth, source-tradition preference, theology authority, or apologetic conclusion without frontier review and owner gates."
+    required_preflight_surfaces:
+      - .ai/control/bible_edge_taxonomy_research_program.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    non_authorizations:
+      - predicate_registry_expansion
+      - graph_edge_generation
+      - candidate_edge_population
+      - retrieval_truth
+      - vector_truth
+      - theology_authority_change
+      - apologetic_conclusion_as_truth
+      - source_tradition_preference
+      - chunk_output_change
+    validators:
+      - scripts/validate_t450_bible_edge_taxonomy.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_chunking_lesson_index.py
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -2184,4 +2222,16 @@ lesson_graph:
   - from: LSN-040
     relation: constrains
     to: LSN-041
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-042
+  - from: LSN-010
+    relation: audits
+    to: LSN-042
+  - from: LSN-034
+    relation: constrains
+    to: LSN-042
+  - from: LSN-042
+    relation: constrains
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
