@@ -6,7 +6,7 @@ Mode: no-text observation parity pilot, non-authorizing
 
 ## Summary
 
-T436 adds a full-Jonah Hebrew no-text observation/parity pilot. The pilot proves Hebrew source-view shape, token-count parity, editorial/metadata flags, and OSHB lemma-attribute flag drift before any Rust scanner expansion to UXLC or OSHB.
+T436 adds a full-Jonah Hebrew no-text observation/parity pilot. The pilot proves Hebrew source-view shape, token-count parity, editorial/metadata flags, and OSHB lemma-attribute policy coverage before any Rust scanner expansion to UXLC or OSHB.
 
 ## Files Read
 
@@ -48,8 +48,8 @@ T436 adds a full-Jonah Hebrew no-text observation/parity pilot. The pilot proves
 - Use UXLC Jonah XML as the clean source-token baseline.
 - Use OSHB Jonah XML as metadata context and parity canary.
 - Store hashes/counts/flags only; no Hebrew wording, morphology values, or lemma values in T436 ledgers.
-- Record OSHB `lemma` attributes as manifest/source-view flag drift.
-- Block Rust expansion until OSHB lemma-attribute drift is fixed or policy-covered.
+- Record OSHB `lemma` attributes as Strong lookup-hint metadata, not local lemma or Strong's authority.
+- Block Rust expansion until source-specific UXLC/OSHB parser contracts exist.
 - Do not add Rust in T436; Rust expansion should follow after the Hebrew row semantics are reviewed.
 
 ## Validation Performed
@@ -67,11 +67,10 @@ T436 adds a full-Jonah Hebrew no-text observation/parity pilot. The pilot proves
 ## Risks Introduced
 
 - UXLC and OSHB token counts are expected to match for Jonah, but exact token hashes can differ because source formatting/token text can differ.
-- OSHB lemma-attribute drift is now explicit audit debt before Rust expansion.
+- OSHB lemma-attribute policy is covered, but source-specific parser contracts remain audit debt before Rust expansion.
 
 ## Unresolved Questions
 
-- Whether T431 canonical source-view metadata should be corrected to flag OSHB lemma attributes as source-provided metadata.
 - Whether T437 should extend the Rust observation scanner to UXLC/OSHB no-text ledgers or add a separate Hebrew scanner.
 
 ## Exact Next Action

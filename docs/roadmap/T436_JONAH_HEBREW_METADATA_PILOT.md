@@ -19,7 +19,7 @@ T436 is the Hebrew counterpart to the T435 Rust observation scanner, but it stay
 - Metadata context: `openscriptures_oshb`
   - OSHB Jonah XML from the T431 canonical source view.
   - Provides source morphology attributes and lemma-like attributes.
-  - The OSHB `lemma` attribute is detected as metadata-flag drift because the current T431 source view flags `contains_source_provided_lemmas: false`.
+  - The OSHB `lemma` attribute is policy-covered as Strong lookup-hint metadata while local lemma population remains false.
   - T436 records only counts and hashes for OSHB metadata attributes, not morphology or lemma values.
 
 Future agents should not read the raw archives directly for this pilot. Consume the canonical source views and their included-file ledgers.
@@ -67,7 +67,7 @@ No Rust is added in T436. This is deliberate.
 
 The Rust-fit slice comes next: deterministic UXLC/OSHB scanning, counting, hashing, and no-text ledger emission after the no-text Hebrew semantics are reviewed. T436 prevents a fast Rust scanner from scaling the wrong Hebrew assumptions.
 
-Rust expansion is blocked until the OSHB lemma-attribute flag drift is fixed or explicitly policy-covered. The scanner must use source-specific UXLC and OSHB parser expectations rather than SBLGNT assumptions.
+Rust expansion remains blocked after the OSHB lemma-attribute policy cover until the scanner has source-specific UXLC and OSHB parser expectations rather than SBLGNT assumptions.
 
 ## Why This Pilot Matters
 

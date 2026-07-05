@@ -195,9 +195,17 @@ def validate_file_rows(rows: list[dict[str, Any]]) -> None:
             if flags.get("contains_source_provided_morphology") is not True:
                 raise T436PilotError(f"{label}: OSHB morphology flag must be true")
             if flags.get("contains_source_provided_lemmas") is not False:
-                raise T436PilotError(f"{label}: OSHB lemma manifest flag drift expects false before policy fix")
+                raise T436PilotError(f"{label}: OSHB local lemma population flag must remain false")
             if flags.get("contains_source_provided_strongs") is not False:
                 raise T436PilotError(f"{label}: OSHB Strong's flag must be false")
+            if flags.get("contains_source_provided_lemma_attributes") is not True:
+                raise T436PilotError(f"{label}: OSHB lemma-attribute policy flag must be true")
+            if flags.get("contains_source_provided_strong_lookup_hints") is not True:
+                raise T436PilotError(f"{label}: OSHB Strong lookup-hint policy flag must be true")
+            if flags.get("lemma_attribute_interpretation") != "strong_lookup_hint":
+                raise T436PilotError(f"{label}: OSHB lemma_attribute_interpretation must be strong_lookup_hint")
+            if flags.get("lemma_attribute_authority") != "metadata_only_not_local_lemma_or_strong_authority":
+                raise T436PilotError(f"{label}: OSHB lemma_attribute_authority is wrong")
         _validate_no_text_payload(row, label)
         _require_all_authority_false(row, label)
 
@@ -321,15 +329,27 @@ def validate_parity_summary(summary: dict[str, Any]) -> None:
     }
     if counts != expected:
         raise T436PilotError(f"parity summary observed_counts mismatch: {counts} != {expected}")
-    drift = summary.get("metadata_flag_drift")
-    if not isinstance(drift, dict):
-        raise T436PilotError("parity summary metadata_flag_drift missing")
-    if drift.get("manifest_contains_source_provided_lemmas") is not False:
+    coverage = summary.get("metadata_policy_coverage")
+    if not isinstance(coverage, dict):
+        raise T436PilotError("parity summary metadata_policy_coverage missing")
+    if coverage.get("manifest_contains_source_provided_lemmas") is not False:
         raise T436PilotError("OSHB lemma manifest flag must remain false until policy fix")
-    if drift.get("observed_lemma_attr_count") != 688:
+    if coverage.get("manifest_contains_source_provided_lemma_attributes") is not True:
+        raise T436PilotError("OSHB lemma-attribute policy flag must be true")
+    if coverage.get("manifest_contains_source_provided_strong_lookup_hints") is not True:
+        raise T436PilotError("OSHB Strong lookup-hint policy flag must be true")
+    if coverage.get("lemma_attribute_interpretation") != "strong_lookup_hint":
+        raise T436PilotError("OSHB lemma_attribute_interpretation must be strong_lookup_hint")
+    if coverage.get("lemma_attribute_authority") != "metadata_only_not_local_lemma_or_strong_authority":
+        raise T436PilotError("OSHB lemma_attribute_authority is wrong")
+    if coverage.get("observed_lemma_attr_count") != 688:
         raise T436PilotError("OSHB lemma attr count must be 688")
-    if drift.get("requires_policy_before_rust_expansion") is not True:
-        raise T436PilotError("OSHB lemma drift must block Rust expansion")
+    if coverage.get("policy_covers_observed_lemma_attribute") is not True:
+        raise T436PilotError("OSHB lemma attribute must be policy-covered")
+    if coverage.get("requires_policy_before_rust_expansion") is not False:
+        raise T436PilotError("OSHB lemma policy must be covered before Rust expansion")
+    if coverage.get("requires_source_specific_parser_before_rust_expansion") is not True:
+        raise T436PilotError("Hebrew Rust expansion still requires source-specific parser contracts")
     if summary.get("rust_expansion_allowed") is not False:
         raise T436PilotError("T436 must not allow Rust expansion")
     _validate_no_text_payload(summary, "parity_summary")
@@ -439,7 +459,7 @@ def validate_t436_jonah_hebrew_metadata_pilot(root: Path = ROOT) -> dict[str, An
             raise T436PilotError(f"{_rel(DAD_PREFLIGHT)} missing phrase {phrase!r}")
 
     roadmap_text = (root / ROADMAP.relative_to(ROOT)).read_text(encoding="utf-8").lower()
-    for phrase in ("no-text", "metadata-flag drift", "rust expansion is blocked", "strong"):
+    for phrase in ("no-text", "policy-covered", "rust expansion remains blocked", "strong"):
         if phrase not in roadmap_text:
             raise T436PilotError(f"{_rel(ROADMAP)} missing phrase {phrase!r}")
 

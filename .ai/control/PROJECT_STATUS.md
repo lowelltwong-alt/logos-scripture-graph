@@ -52,6 +52,14 @@
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
 
+> **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
+> `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
+> Strong's rows, lexical truth, preferred readings, translation judgment, or theology
+> authority. Updates the T431 allowlist, OSHB source manifest, canonical source-view
+> manifest, all 39 included OSHB rows, T436 parity output, and validators. Hebrew Rust
+> expansion remains unauthorized until a later source-specific UXLC/OSHB parser contract
+> and no-text parity proof exists.
+
 > **T436 Jonah Hebrew observation parity pilot (2026-07-04):** Adds a no-text
 > Hebrew Jonah pilot under
 > `data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/`.
@@ -59,10 +67,10 @@
 > emits source-view file observations, 96 verse rows, 1,376 token-shape rows,
 > editorial/metadata-shape rows, and a parity summary without Hebrew wording, morphology
 > values, lemma values, Strong's values, raw archive reads, or production candidate-root writes.
-> It records UXLC/OSHB verse and token-count parity for Jonah and explicitly flags OSHB
-> `w@lemma` metadata drift: the source view says `contains_source_provided_lemmas: false`
-> while the XML exposes lemma attributes on 688 words. T436 blocks Hebrew Rust expansion until
-> that drift is fixed or policy-covered. It authorizes no source-language truth, lexical truth,
+> It records UXLC/OSHB verse and token-count parity for Jonah and explicitly records OSHB
+> `w@lemma` metadata as policy-covered Strong lookup-hint metadata, not local lemma
+> or Strong's authority. T436 blocks Hebrew Rust expansion until source-specific parser
+> contracts exist. It authorizes no source-language truth, lexical truth,
 > Strong's/lemma/morphology population, preferred reading, source-tradition choice, manuscript
 > witness support, translation judgment, chunk boundary, reviewed gold, chunk output,
 > KG/retrieval truth, embeddings/indexes, or theology authority.

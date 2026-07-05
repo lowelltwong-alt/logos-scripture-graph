@@ -4,7 +4,7 @@ task_id: T436
 owner: Lowell Wong
 status: implementation
 trust_zone: control
-summary: "Tiny non-authorizing Hebrew Jonah observation/parity pilot proving UXLC and OSHB source-view shape, metadata-flag drift, and no-text ledger semantics before any Hebrew Rust scanner expansion."
+summary: "Tiny non-authorizing Hebrew Jonah observation/parity pilot proving UXLC and OSHB source-view shape, OSHB lemma-attribute policy coverage, and no-text ledger semantics before any Hebrew Rust scanner expansion."
 pilot_root: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
 span:
   book_id: Jonah
@@ -21,7 +21,7 @@ sources:
     source_id: openscriptures_oshb
     canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/canonical_source_view_manifest.yaml
     source_view_path: data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/files/Jonah.xml
-    reason: "Metadata-rich morphology context and parity canary. OSHB lemma attributes are detected as metadata-flag drift because the T431 source view currently flags contains_source_provided_lemmas as false."
+    reason: "Metadata-rich morphology context and parity canary. OSHB lemma attributes are policy-covered as Strong lookup-hint metadata, not local lemma or Strong's authority."
 outputs:
   manifest: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/manifest.yaml
   source_view_file_observations: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/source_view_file_observations.jsonl
@@ -33,6 +33,7 @@ authority:
   records_candidate_evidence_pilot: true
   records_no_text_observation_ledgers: true
   detects_oshb_lemma_flag_drift: true
+  records_oshb_lemma_attribute_policy_cover: true
   authorizes_source_language_truth: false
   authorizes_lexical_truth: false
   authorizes_word_level_alignment_truth: false
@@ -55,9 +56,8 @@ authority:
 rust_policy:
   rust_added_in_t436: false
   future_rust_lane: T437_or_T435_B
-  reason: "T436 proves Hebrew source-view and metadata semantics over the full Jonah book through no-text ledgers; Rust expansion belongs after UXLC/OSHB row shape, metadata-flag drift, and parity checks are reviewed."
+  reason: "T436 proves Hebrew source-view and metadata semantics over the full Jonah book through no-text ledgers; Rust expansion belongs after UXLC/OSHB source-specific parser contracts and parity checks are reviewed."
 blockers_before_rust_expansion:
-  - "Fix or explicitly policy-cover OSHB lemma-attribute flag drift: the source view says contains_source_provided_lemmas false while the XML exposes lemma attributes."
   - "Add source-specific parser expectations for UXLC and OSHB rather than reusing SBLGNT assumptions."
 validators:
   - scripts/build_t436_jonah_hebrew_metadata_pilot.py --check

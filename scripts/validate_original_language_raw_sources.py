@@ -155,8 +155,14 @@ def validate_manifests(root: Path = ROOT, allowlist_path: Path = ALLOWLIST) -> l
             "contains_source_provided_morphology",
             "contains_source_provided_lemmas",
             "contains_source_provided_strongs",
+            "contains_source_provided_lemma_attributes",
+            "contains_source_provided_strong_lookup_hints",
         ):
             if manifest.get(key, False) is not bool(source.get(key, False)):
+                raise OriginalLanguageRawSourceError(f"{_rel(manifest_path)}: {key} does not match allowlist")
+        for key in ("lemma_attribute_interpretation", "lemma_attribute_authority"):
+            expected = str(source.get(key, "none" if key == "lemma_attribute_interpretation" else "not_applicable"))
+            if str(manifest.get(key, expected)) != expected:
                 raise OriginalLanguageRawSourceError(f"{_rel(manifest_path)}: {key} does not match allowlist")
         authority = manifest.get("authority")
         if not isinstance(authority, dict):
