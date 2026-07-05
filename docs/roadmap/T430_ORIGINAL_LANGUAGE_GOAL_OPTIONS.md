@@ -38,7 +38,9 @@ Recommended order: Option 1 first, Option 2 in parallel as catalog-only research
 | 4 | Early creed lane | Which passages may preserve early creed, confession, hymn, or tradition-formula material, and why? | non-authorizing research packet with cited pro/con views | `1Cor.15.3-1Cor.15.8` | claims about timing, formula language, and early tradition are cited, bounded, and frontier-reviewed |
 | 5 | Integrated workbench | How do alignment, manuscripts, variants, translation notes, and early-tradition evidence appear together? | combined evidence dashboard after pilots | after Options 1-4 prove fields | the dashboard exposes uncertainty instead of compressing it into one hidden score |
 
-Recommended owner choice from here: choose Option 1 as the next implementation goal, while allowing Option 2 to continue as catalog-only research in parallel. That gets the repo to useful Greek/Hebrew and English linking quickly, while laying the track for the richer chain-of-custody system.
+T438 route update: Option 1 is now the selected next implementation lane as a planning/control gate, while Option 2 may continue as catalog-only research in parallel. This does not authorize production source-token rows, production alignment rows, source-language truth, translation-faithfulness judgments, preferred readings, source-tradition choices, witness-support rows, KG/retrieval truth, or theology authority.
+
+Recommended owner choice from here: implement the Option 1 lane through the T439/T440/T441/T442 sequence, while allowing Option 2 to continue as catalog-only research in parallel. That gets the repo to useful Greek/Hebrew and English linking quickly, while laying the track for the richer chain-of-custody system.
 
 The long destination is the Option 5 workbench: a passage-level evidence view that can eventually show source tokens, English alignments, manuscript witnesses, variant/copying-error trails, translation-faithfulness notes, and early-creed research packets side by side. It should be assembled from validated smaller lanes rather than built as one giant trust-me artifact.
 

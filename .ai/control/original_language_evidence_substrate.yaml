@@ -68,11 +68,18 @@ pilot_lanes:
     source_view: openscriptures_oshb
     rule: "T437 policy-covers OSHB w@lemma as Strong lookup-hint metadata while keeping local lemma population, Strong's overlay rows, lexical truth, preferred readings, source-tradition choice, chunks, graph/retrieval truth, and theology authority unauthorized."
     rust_policy: "No Rust is added in T437. Hebrew Rust expansion remains blocked until source-specific UXLC/OSHB parser contracts and no-text parity proof exist."
+  - task_id: T438
+    control: .ai/control/t438_alignment_bridge_goal.yaml
+    status: alignment_bridge_goal_gate
+    goal_option: option_1_alignment_bridge
+    parallel_goal_option: option_2_manuscript_custody_chain
+    rule: "T438 records the Greek/Hebrew-to-English alignment bridge as the next implementation lane and keeps manuscript custody-chain work catalog-only in parallel. It does not populate production evidence roots or authorize source-language truth, alignment truth, translation judgments, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T438. Future Rust should target deterministic no-text scanner/checker slices only after T439/T440 parser semantics and negative parity fixtures are reviewed."
 goal_options:
   - option_id: option_1_alignment_bridge
     short_name: Greek/Hebrew-to-English alignment bridge
     recommended_sequence: 1
-    status: recommended_next_implementation_goal
+    status: selected_next_implementation_lane_by_t438
     first_pilot: "Philemon for Greek or Jonah for Hebrew"
     primary_question: "How does the current English WEB wording relate to Hebrew, Aramaic, or Greek source-token evidence?"
     first_output: "Candidate source-token and English-token alignment records with provenance, confidence, and non-authority fields."

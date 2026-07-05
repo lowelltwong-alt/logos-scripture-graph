@@ -19,6 +19,8 @@ def test_t430_original_language_evidence_substrate_validates_current_repo() -> N
     assert data["authority"]["authorizes_source_language_truth"] is False
     assert data["authority"]["authorizes_allowlisted_raw_downloads_via_t431"] is True
     assert "strongs_number_as_theology_authority" in data["non_authorizations"]
+    option_1 = next(option for option in data["goal_options"] if option["option_id"] == "option_1_alignment_bridge")
+    assert option_1["status"] == "selected_next_implementation_lane_by_t438"
 
 
 def _write_minimal_repo(tmp_path: Path, control: dict) -> Path:

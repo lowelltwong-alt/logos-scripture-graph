@@ -1,8 +1,20 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-02
-**Updated by:** T417 scratch marathon session close
+**Last updated:** 2026-07-05
+**Updated by:** T438 alignment bridge goal gate
 **Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
+
+> **T438 alignment bridge goal gate (2026-07-05):** Records Option 1, the
+> Greek/Hebrew-to-English alignment bridge, as the next original-language implementation
+> lane while keeping Option 2 manuscript custody-chain work catalog-only in parallel.
+> T438 defines the T439/T440/T441/T442 sequence: Greek Philemon bridge expansion
+> contract, Hebrew Jonah source-specific parser contract, Rust no-text alignment
+> coverage index, and an owner-gated production candidate-root opening packet. Rust is
+> reserved for deterministic scanner/checker slices after parser semantics and negative
+> parity fixtures are proved. T438 authorizes no production source-token rows, alignment
+> rows, Strong's overlays, lemma/morphology rows, preferred readings, source-tradition
+> choices, witness-support rows, translation judgments, KG/retrieval truth, chunks,
+> reviewed gold, or theology authority.
 
 > **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
 > `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
