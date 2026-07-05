@@ -67,6 +67,7 @@ ALLOWED_AUTH_TRUE = {
 GREEK_HEBREW_RE = re.compile(r"[\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]")
 PRODUCTION_ROOTS = (
     ROOT / "data" / "candidate" / "original_language_evidence" / "source_tokens",
+    ROOT / "data" / "candidate" / "original_language_evidence" / "alignment_records",
     ROOT / "data" / "candidate" / "original_language_evidence" / "strong_alignment",
     ROOT / "data" / "candidate" / "original_language_evidence" / "lemma_morphology",
     ROOT / "data" / "candidate" / "original_language_evidence" / "textual_variants",
