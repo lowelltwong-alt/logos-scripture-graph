@@ -497,6 +497,54 @@ def test_fast_chunk_map_rejects_missing_full_bible_coverage(tmp_path: Path) -> N
     assert "Rust/Python chunk-map validator verdict parity passed" in combined
 
 
+def test_legacy_whole_bible_chunk_map_command_uses_rust_fast_path(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(
+        fixture,
+        [
+            _chunk_record(span="Phlm.1.1-Phlm.1.3", chunk_index=1, decision_id="M6-Phlm-001"),
+            _chunk_record(span="Phlm.1.4-Phlm.1.7", chunk_index=2, decision_id="M6-Phlm-002"),
+        ],
+    )
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_whole_bible_chunk_map.py",
+            "--require-rust",
+            "--compare-python",
+            "--model-id",
+            "M6_fable5",
+            "--book",
+            "Phlm",
+            str(fixture),
+        ]
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Fast chunk-map validation passed" in result.stdout
+    assert "Rust/Python chunk-map validator verdict parity passed" in result.stdout
+
+
+def test_legacy_whole_bible_chunk_map_python_only_bypasses_rust(tmp_path: Path) -> None:
+    fixture = tmp_path / "whole_bible_chunk_map.jsonl"
+    _write_jsonl(fixture, [_chunk_record()])
+
+    result = _run(
+        [
+            sys.executable,
+            "scripts/validate_whole_bible_chunk_map.py",
+            "--python-only",
+            "--cargo-bin",
+            "definitely-not-cargo-for-t424",
+            str(fixture),
+        ]
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "OK:" in result.stdout
+
+
 def test_fast_jsonl_python_fallback_only_when_rust_unavailable(tmp_path: Path) -> None:
     fixture = tmp_path / "valid.jsonl"
     _write_jsonl(fixture, _valid_records())

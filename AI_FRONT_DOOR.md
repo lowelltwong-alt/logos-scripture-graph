@@ -98,6 +98,11 @@ Read these files before making changes:
     use at least 512 MB resident memory, or likely save at least 30 seconds / 25% runtime by using
     Rust. Python/pytest remain authoritative for governance orchestration, task scopes, handoffs,
     theology-policy language, wrappers, and small semantic validators.
+15. Before leaving any AI-created draft branch, staged work, or PR unmerged:
+    `.ai/control/ai_pr_lifecycle_policy.yaml`. A draft branch must not quietly stall below PR
+    stage. It needs an owner-visible next action: open PR and request merge approval, merge only
+    when prior permission already exists and gates are green, hold with findings, close/supersede
+    with rationale, abandon as not value-add with rationale, or escalate to the owner/integrator.
 16. `config/agents/agent_roles.yaml`
 17. `.ai/handoffs/<active_task_id>/handoff.md` â€” see `PROJECT_STATUS.md` for active task
 18. The specific files in the task scope.

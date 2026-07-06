@@ -4474,6 +4474,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-102
+    title: T463 integration and Rust validator adoption are non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T463]
+    owner_decision_ref: ".ai/tasks/T463.task.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [workflow_validation, original_language_evidence_substrate]
+      routes: [t431_t442_original_language_integration, t424_rust_fast_validation, ai_pr_lifecycle_policy]
+      surfaces:
+        - .ai/control/ai_pr_lifecycle_policy.yaml
+        - .ai/control/coding_runtime_language_preflight.yaml
+        - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+        - scripts/validate_whole_bible_chunk_map.py
+        - scripts/validate_fast_chunk_map.py
+        - .digital-asset/mail/outbox.jsonl
+    decision: "T463 integrates the T431-T442 original-language evidence stack, records AI draft-to-PR lifecycle policy, and routes a deterministic chunk-map validator through a Rust-backed fast path. These are workflow and validation-hardening surfaces only; they do not authorize chunks, reviewed gold, source-language truth, preferred readings, graph/retrieval/vector truth, DAD authority, or theology claims."
+    downstream_risk: "Future agents could mistake faster validation, integrated original-language candidate evidence, DAD lessons, or PR lifecycle policy for Scripture authority, chunk-boundary authority, source-language truth, or merge permission."
+    theological_assumptions_avoided:
+      - "No Rust validator result is treated as theology authority."
+      - "No DAD candidate lesson overrides local Scripture Graph governance."
+      - "No original-language candidate/source-view artifact becomes preferred reading or source-tradition authority."
+      - "No PR lifecycle policy grants merge permission without owner authorization and green gates."
+    reviewed_gold_dependency: "None; T463 is non-output-changing integration and validation-hardening only."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_creation
+      - route_or_evaluator_behavior
+      - graph_or_retrieval_truth
+      - vector_or_embedding_truth
+      - source_language_truth_claim
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - dad_override_local_authority
+      - merge_without_owner_or_prior_permission
+      - theology_authority_change
+    validators:
+      - scripts/validate_ai_pr_lifecycle_policy.py
+      - scripts/validate_coding_runtime_language_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4612,4 +4658,5 @@ backfill_coverage:
     - T440
     - T441
     - T442
+    - T463
 ...

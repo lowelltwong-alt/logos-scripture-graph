@@ -61,6 +61,7 @@ def python_command(args: argparse.Namespace, original_path: Path) -> list[str]:
         sys.executable,
         "-m",
         "scripts.validate_whole_bible_chunk_map",
+        "--python-only",
         str(original_path),
     ]
     if args.model_id:

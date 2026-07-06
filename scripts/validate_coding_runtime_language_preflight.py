@@ -56,6 +56,31 @@ REQUIRED_PYTHON_DOMAINS = {
     "tests_and_fixture_generation",
 }
 
+REQUIRED_MIGRATION_BOOLEANS = {
+    "do_not_rewrite_all_pytest_in_rust": True,
+    "preserve_existing_python_command_entry_points": True,
+    "prefer_rust_fast_path_for_repeated_deterministic_validators": True,
+    "keep_python_only_escape_hatch_for_parity_and_debugging": True,
+    "require_modular_rust_check_report_boundaries": True,
+    "require_validation_lifecycle_record_before_retiring_python_gate": True,
+    "require_python_wrapper_to_fail_closed_on_rust_validation_failure": True,
+}
+
+REQUIRED_MIGRATION_PATTERNS = {
+    "legacy_python_command_delegates_to_rust_wrapper",
+    "python_wrapper_supports_require_rust_compare_python_python_fallback",
+    "rust_module_run_check_returns_check_report",
+    "combined_rust_command_preserves_per_check_failure_identity",
+}
+
+REQUIRED_MIGRATION_APPLIES_TO = {
+    "validators_always_run_in_succession",
+    "long_running_generated_data_checks",
+    "whole_bible_chunk_map_checks",
+    "canonical_sidecar_record_scans",
+    "word_token_or_original_language_evidence_scans",
+}
+
 REQUIRED_NON_AUTHORIZATIONS = {
     "rewrite_existing_python_by_default",
     "skip_python_governance_orchestration",
@@ -81,6 +106,7 @@ REQUIRED_WIRING = {
         "coding_runtime_language_preflight.yaml",
         "Rust-first",
         "Python/pytest remain authoritative",
+        "Legacy Command Adoption Pattern",
     ],
 }
 
@@ -210,6 +236,32 @@ def validate_coding_runtime_language_preflight(path: Path = PREFLIGHT) -> dict[s
     missing_python_domains = sorted(REQUIRED_PYTHON_DOMAINS - python_domains)
     if missing_python_domains:
         raise CodingRuntimeLanguagePreflightError(f"{_rel(path)}: missing python_default_domains {missing_python_domains}")
+
+    migration = data.get("python_test_and_validator_migration_strategy")
+    if not isinstance(migration, dict):
+        raise CodingRuntimeLanguagePreflightError(
+            f"{_rel(path)}: python_test_and_validator_migration_strategy must be a mapping"
+        )
+    for key, expected in REQUIRED_MIGRATION_BOOLEANS.items():
+        _require_bool(migration, key, expected, "python_test_and_validator_migration_strategy")
+    patterns = set(
+        _require_string_list(
+            migration.get("adopted_patterns"),
+            f"{_rel(path)}.python_test_and_validator_migration_strategy.adopted_patterns",
+        )
+    )
+    missing_patterns = sorted(REQUIRED_MIGRATION_PATTERNS - patterns)
+    if missing_patterns:
+        raise CodingRuntimeLanguagePreflightError(f"{_rel(path)}: missing migration patterns {missing_patterns}")
+    applies_to = set(
+        _require_string_list(
+            migration.get("applies_to"),
+            f"{_rel(path)}.python_test_and_validator_migration_strategy.applies_to",
+        )
+    )
+    missing_applies_to = sorted(REQUIRED_MIGRATION_APPLIES_TO - applies_to)
+    if missing_applies_to:
+        raise CodingRuntimeLanguagePreflightError(f"{_rel(path)}: missing migration applies_to {missing_applies_to}")
 
     decision_fields = set(
         _require_string_list(data.get("decision_record_required_fields"), f"{_rel(path)}.decision_record_required_fields")

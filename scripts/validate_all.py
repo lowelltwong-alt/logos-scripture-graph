@@ -310,6 +310,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_validation_gate_lifecycle.py",
             [PY, str(ROOT / "scripts" / "validate_validation_gate_lifecycle.py")],
         ),
+        (
+            "validate_ai_pr_lifecycle_policy.py",
+            [PY, str(ROOT / "scripts" / "validate_ai_pr_lifecycle_policy.py")],
+        ),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
         *task_scope_gates(),
         *parallel_execution_safety_gates(),

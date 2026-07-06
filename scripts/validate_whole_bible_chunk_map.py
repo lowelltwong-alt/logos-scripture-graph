@@ -119,7 +119,42 @@ def main() -> int:
     parser.add_argument("--model-id", help="Expected model_id in every record")
     parser.add_argument("--require-full-bible", action="store_true")
     parser.add_argument("--book", action="append", dest="books", help="Limit validation to book(s)")
+    parser.add_argument(
+        "--python-only",
+        action="store_true",
+        help="Run the original Python implementation directly. Used by Rust wrapper fallback/parity.",
+    )
+    parser.add_argument("--summary-json", type=Path, help="Forwarded to the Rust fast validator.")
+    parser.add_argument("--cargo-bin", default="cargo", help="Cargo binary for the Rust fast validator.")
+    parser.add_argument("--require-rust", action="store_true", help="Fail if the Rust fast validator is unavailable.")
+    parser.add_argument(
+        "--compare-python",
+        action="store_true",
+        help="Run Rust and Python validators and fail if their pass/fail verdicts diverge.",
+    )
     args = parser.parse_args()
+
+    if not args.python_only:
+        from scripts import validate_fast_chunk_map
+
+        forwarded = [str(args.path)]
+        if args.model_id:
+            forwarded.extend(["--model-id", args.model_id])
+        if args.require_full_bible:
+            forwarded.append("--require-full-bible")
+        for book in args.books or []:
+            forwarded.extend(["--book", book])
+        if args.summary_json:
+            forwarded.extend(["--summary-json", str(args.summary_json)])
+        if args.cargo_bin:
+            forwarded.extend(["--cargo-bin", args.cargo_bin])
+        if args.require_rust:
+            forwarded.append("--require-rust")
+        else:
+            forwarded.append("--python-fallback")
+        if args.compare_python:
+            forwarded.append("--compare-python")
+        return validate_fast_chunk_map.main(forwarded)
 
     path = args.path
     if path.is_dir():

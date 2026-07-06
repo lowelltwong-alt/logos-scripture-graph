@@ -9,15 +9,17 @@ trust_zone: candidate
 local_adoption_required: true
 status: candidate_sent
 summary: "When AI agents create staged work, branches, or PRs, the queue needs explicit next-action state and escalation before stale branches pile up."
-extra_context: "During T423 integration, many related PRs and scratch branches existed at once. The owner identified the reusable lesson: if staged work or a PR does not get merged, reviewed, held, or closed promptly, it should escalate to a human/integrator instead of silently becoming part of a large future cleanup. This is especially important for repos with multiple AI agents, Rust rollouts, generated artifacts, and long validation cycles."
+extra_context: "During T423/T463 integration, many related PRs and scratch branches existed at once. The owner sharpened the reusable lesson: every AI-created draft branch or staged work item must either become a PR with owner/integrator merge approval requested, merge only when permission already exists and gates are green, hold with findings, close as superseded, be abandoned as not value-add with rationale, or escalate. It should not silently remain below PR stage while dependent work accumulates. This is especially important for repos with multiple AI agents, Rust rollouts, generated artifacts, and long validation cycles."
 candidate_assets:
   - pr_queue_next_action_state
   - stale_pr_escalation_policy
   - integration_branch_dependency_ordering
   - abandoned_or_superseded_branch_cleanup_protocol
+  - ai_draft_to_pr_or_visible_exit_policy
 non_authorizations:
   - dad_override_local_authority
   - merge_without_green_checks
+  - merge_without_owner_or_prior_permission
   - delete_user_work_without_instruction
   - close_pr_without_review
   - treat_staged_work_as_complete

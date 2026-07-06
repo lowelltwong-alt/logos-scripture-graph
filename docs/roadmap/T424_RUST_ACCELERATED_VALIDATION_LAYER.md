@@ -69,6 +69,24 @@ It does not use Rust for governance YAML, task scopes, handoffs, theology-policy
 
 The T424-D chunk-map fast path is not wired into routine `validate_all.py`. It is intended for explicit T423/multi-model scratch validation and parity checks. Rust validates required fields, `non_authorizing`, model id, allowed book scope, span shape, duplicate decision ids, contiguous per-book indices, overlap/order, and optional full-Bible book coverage. Python remains authoritative for model comparison, agreement/delta policy, stress-book handling, frontier escalation, owner gates, and promotion decisions.
 
+## Legacy Command Adoption Pattern
+
+When a long-running Python validator becomes a deterministic hot path, keep the public Python
+command stable and move the expensive leaf work behind a Rust-backed wrapper. The preferred shape is:
+
+- the legacy command delegates to a `validate_fast_*` wrapper by default;
+- `--python-only` keeps the old implementation available for parity and debugging;
+- wrappers expose `--python-fallback`, `--require-rust`, and `--compare-python` where useful;
+- Rust failures fail closed rather than silently falling back to Python;
+- Rust internals use named modules with `run_check(input) -> CheckReport`;
+- retiring the Python implementation requires a validation lifecycle record, not an ad hoc delete.
+
+`scripts/validate_whole_bible_chunk_map.py` now follows this pattern for explicit multi-model
+scratch validation: the command name agents already use remains stable, while the deterministic
+chunk-map scan delegates to `scripts/validate_fast_chunk_map.py` unless `--python-only` is supplied.
+This pattern is also the default for future high-volume word-token, original-language evidence,
+canonical sidecar, and generated-data scans when the coding runtime preflight thresholds are met.
+
 ## Coding Preflight
 
 T424 also adds `.ai/control/coding_runtime_language_preflight.yaml`, validated by `scripts/validate_coding_runtime_language_preflight.py`.

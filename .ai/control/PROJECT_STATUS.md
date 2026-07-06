@@ -1,8 +1,23 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-06
-**Updated by:** T462 modular Rust fast-validator bundle
-**Active task:** -> **T462 modular Rust fast-validator bundle** on `codex/t424-modular-rust-validators`. This is deterministic validation architecture hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, or theology authority.
+**Updated by:** T463 original-language stack integration, AI PR lifecycle, and Rust validator adoption
+**Active task:** -> **T463 original-language stack integration** on `codex/t431-t442-original-language-integration`. This is non-authorizing integration and validation hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
+
+> **T463 integration hardening (2026-07-06):** Integrates the T431-T442
+> original-language evidence stack on current `main`, adds
+> `.ai/control/ai_pr_lifecycle_policy.yaml` so AI-created draft work must reach PR,
+> merge, hold, superseded, abandoned-with-rationale, or owner/integrator escalation
+> state, and adopts the Rust fast-path pattern for the legacy whole-Bible chunk-map
+> validator while preserving `--python-only` parity/debugging. T463 also strengthens
+> `.ai/control/coding_runtime_language_preflight.yaml` with the explicit Python-test
+> migration strategy: keep Python command names stable, use Rust for deterministic hot
+> paths when thresholds justify it, and require modular Rust `CheckReport` boundaries.
+> DAD candidate lesson:
+> `msg-20260706-t463-ai-draft-pr-and-rust-validator-strategy`. T463 authorizes no
+> chunk output, reviewed gold, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, source-tradition choice, canon change, DAD override,
+> or theology authority.
 
 > **T462 modular Rust validator bundle (2026-07-06):** `tools/logos_fast_validators`
 > now uses the preferred Rust shape for combined deterministic checks: short

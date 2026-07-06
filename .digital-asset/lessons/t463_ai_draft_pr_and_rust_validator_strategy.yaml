@@ -1,0 +1,31 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T463-AI-DRAFT-PR-AND-RUST-VALIDATOR-STRATEGY
+source_repo: logos-scripture-graph
+task_id: T463
+source_outbox_message_id: msg-20260706-t463-ai-draft-pr-and-rust-validator-strategy
+context_map_entry: ctx-t463-ai-draft-pr-and-rust-validator-strategy
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "AI-created drafts should reach PR or an owner-visible exit state, and deterministic validator hot paths should use stable Python commands backed by modular Rust leaf checks when the runtime preflight says Rust is worth it."
+extra_context: "This combines two recurring cleanup costs observed in logos-scripture-graph: AI agents leaving drafts/branches/PRs stranded below owner-visible decision state, and repeated long deterministic Python validation work that can be accelerated without moving governance into Rust. The source repo now records an AI PR lifecycle policy plus a Rust validator migration pattern: keep Python command names stable, delegate expensive scans to validate_fast_* wrappers, preserve --python-only for parity/debugging, fail closed on Rust validation failures, and require named Rust modules returning CheckReport so bundled checks remain troubleshootable."
+candidate_assets:
+  - ai_draft_to_pr_or_visible_exit_policy
+  - legacy_python_validator_to_rust_fast_path_wrapper
+  - python_only_escape_hatch_for_rust_parity_debugging
+  - modular_rust_check_report_validator_contract
+non_authorizations:
+  - dad_override_local_authority
+  - merge_without_owner_or_prior_permission
+  - merge_without_green_checks
+  - delete_user_work_without_instruction
+  - close_pr_without_review_or_rationale
+  - rust_validator_as_governance_authority
+  - validation_speed_as_correctness
+  - delete_python_governance_wrappers_without_lifecycle_gate
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority
