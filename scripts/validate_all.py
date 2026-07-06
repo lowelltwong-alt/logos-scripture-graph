@@ -506,10 +506,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ]
         gates.append(("validate_fast_jsonl.py (canonical)", cmd))
     if all(path.exists() for path in QA_REQUIRED):
-        qa_cmd = [PY, str(ROOT / "scripts" / "qa_canonical_corpus.py")]
+        qa_cmd = [PY, str(ROOT / "scripts" / "validate_fast_canonical_qa.py"), "--python-fallback"]
         if not (CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl").exists():
             qa_cmd.append("--skip-word-tokens")
-        gates.append(("qa_canonical_corpus.py", qa_cmd))
+        gates.append(("validate_fast_canonical_qa.py (canonical)", qa_cmd))
     return gates
 
 
