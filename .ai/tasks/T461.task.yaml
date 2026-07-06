@@ -1,0 +1,134 @@
+id: T461
+phase: phase_4
+title: "Scripture Front Door Decomposition"
+mode: control_plane_hardening
+status: validation_ready
+owner: codex
+branch: codex/scripture-front-door-pr7
+base_ref: origin/main
+summary: "Implement Fable PR-7 by moving task-history narrative out of AI_FRONT_DOOR.md into a deterministic task ledger while preserving front-door authority rules and validator coverage."
+scope:
+  allowed_paths:
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/fable-kernels/CODEX_HANDOFF.md
+    - .ai/tasks/T461.task.yaml
+    - .ai/handoffs/T461/
+    - .ai/audits/reports/20260706-T461-scripture-front-door-decomposition.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/governance_dependency_map_mirror.yaml
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t461_scripture_front_door_decomposition.yaml
+    - scripts/validate_all.py
+    - scripts/validate_control_plane.py
+    - scripts/validate_task_ledger.py
+    - scripts/validate_chunking_agent_preflight.py
+    - scripts/validate_chunking_lesson_index.py
+    - scripts/validate_governance_dependency_map_mirror.py
+    - scripts/validate_test_runtime_preflight.py
+    - scripts/validate_dad_outbox.py
+    - scripts/validate_*_policy.py
+    - scripts/validate_t*.py
+    - scripts/validate_*_queue.py
+    - scripts/validate_*_packet.py
+    - scripts/validate_*_map.py
+    - tests/test_control_plane.py
+    - tests/test_task_ledger.py
+    - tests/test_chunking_agent_preflight.py
+    - tests/test_chunking_lesson_index.py
+    - tests/test_governance_dependency_map_mirror.py
+    - tests/test_test_runtime_preflight.py
+    - tests/test_dad_outbox.py
+    - tests/test_*policy*.py
+    - tests/test_t*.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - data/candidate/original_language_evidence/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+authorization:
+  task_kind: control_plane_findability_hardening
+  implements_fable_pr7: true
+  content_preserving_task_history_move: true
+  shrinks_front_door_to_operating_rules: true
+  changes_scripture_data: false
+  changes_chunk_output: false
+  promotes_reviewed_gold: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T461
+  touched_paths:
+    - scripts/validate_task_ledger.py
+    - scripts/validate_control_plane.py
+    - scripts/validate_all.py
+    - scripts/validate_t*.py
+  expected_input_size_or_record_count: "Small Markdown/YAML control-plane files plus phrase-routing validators; no large JSONL or canonical corpus streaming."
+  expected_runtime_or_memory_pressure: "Low runtime pressure for new code; full repo validation remains slow because existing gates are broad."
+  rust_trigger_match:
+    - none_below_threshold
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust benefit expected for small semantic Markdown/YAML routing checks."
+  interop_boundary: "Python remains the governance validator language; no new Rust leaf worker or authority surface is introduced."
+  python_fallback_or_wrapper_plan: "Not applicable; the new validator is Python-only and deterministic."
+  validation_plan:
+    - python scripts/validate_task_ledger.py
+    - python scripts/validate_control_plane.py
+    - python scripts/validate_task_scope.py --task-id T461
+    - python scripts/agent/validate_handoffs.py
+    - python scripts/validate_all.py
+    - python -m pytest -q
+  maintenance_tradeoffs: "Redirecting task-history phrase checks to the task ledger preserves validator coverage while removing volatile task narrative from the front door."
+deliverables:
+  compact_front_door: AI_FRONT_DOOR.md
+  task_ledger: docs/roadmap/TASK_LEDGER.md
+  task_ledger_validator: scripts/validate_task_ledger.py
+  task_handoff: .ai/handoffs/T461/handoff.md
+acceptance_criteria:
+  - "AI_FRONT_DOOR.md keeps stable operating rules and no longer carries the long T3xx-T4xx task-history narrative."
+  - "Mandatory read-order numbering is corrected and points to the task ledger plus AI TOC tag index."
+  - "docs/roadmap/TASK_LEDGER.md preserves moved T3xx-T4xx task-history text and non-authorizations."
+  - "Validators check the task ledger instead of weakening task-history discovery."
+  - "No Scripture data, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - python scripts/validate_task_ledger.py
+  - python scripts/validate_control_plane.py
+  - python scripts/validate_task_scope.py --task-id T461
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T461/handoff.md
+created_at: "2026-07-06"
+updated_at: "2026-07-06"
