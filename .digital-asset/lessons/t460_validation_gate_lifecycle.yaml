@@ -1,0 +1,32 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T460-VALIDATION-GATE-LIFECYCLE
+source_repo: logos-scripture-graph
+task_id: T460
+source_outbox_message_id: msg-20260706-t460-validation-gate-lifecycle
+context_map_entry: ctx-t460-validation-gate-lifecycle
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "Repos need a lifecycle registry for validation gates and other operational contracts so slow, generated-data-dependent, superseded, or retired checks are cleaned up deliberately instead of skipped ad hoc."
+extra_context: "The issue surfaced when validate_all worked correctly but clean isolated worktrees lacked ignored generated canonical sidecars required by older semantic validators. Rust fast validators supersede some structural checks, but not semantic/theological inventory checks. The fix is a lifecycle registry with states such as active, active_generated_data, shadow, superseded, and retired; every retirement needs replacement/parity/owner evidence. External lifecycle patterns reviewed as analogies: Kubernetes deprecation policy and OpenTelemetry versioning/stability. DAD should export this beyond validators to generated artifacts, prompt packs, scratch outputs, Rust leaf tools, data sources/downloads, schemas/contracts, agent roles, KG predicates, retrieval/indexes, and DAD mail/lessons."
+candidate_assets:
+  - validation_gate_lifecycle_registry
+  - generated_data_gate_missing_input_policy
+  - validation_lifecycle_expansion_candidate_catalog
+  - superseded_retired_gate_cleanup_protocol
+external_research_references:
+  - https://kubernetes.io/docs/reference/using-api/deprecation-policy/
+  - https://opentelemetry.io/docs/specs/otel/versioning-and-stability/
+non_authorizations:
+  - dad_override_local_authority
+  - validation_speed_as_correctness
+  - rust_validator_as_governance_authority
+  - ad_hoc_skip_without_lifecycle_record
+  - delete_slow_gate_without_replacement_or_owner_gate
+  - lifecycle_state_as_content_authority
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority

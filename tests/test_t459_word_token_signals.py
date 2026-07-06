@@ -203,3 +203,22 @@ def test_validate_all_uses_stack_tip_task_id(monkeypatch) -> None:
 
     assert validate_all.stack_tip_task_ids(["T457", "T459"]) == ["T459"]
     assert validate_all.stack_tip_task_ids(["T457", "T459", "T999"]) == ["T459", "T999"]
+
+
+def test_validate_all_uses_explicit_integration_task(monkeypatch) -> None:
+    from scripts import validate_all
+
+    def fake_integrates(task_id: str) -> list[str]:
+        if task_id == "T460":
+            return ["T456", "T457", "T458", "T459"]
+        return []
+
+    monkeypatch.setattr(validate_all, "task_integrates_task_ids", fake_integrates)
+
+    assert validate_all.integration_task_scope_ids(["T456", "T457", "T458", "T459", "T460"]) == ["T460"]
+    assert validate_all.integration_task_scope_ids(["T456", "T457", "T460", "T999"]) == [
+        "T456",
+        "T457",
+        "T460",
+        "T999",
+    ]

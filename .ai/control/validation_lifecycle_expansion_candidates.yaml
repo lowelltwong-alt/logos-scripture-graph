@@ -1,0 +1,149 @@
+object_type: validation_lifecycle_expansion_candidates
+schema_version: validation_lifecycle_expansion_candidates.v1
+owner: codex
+trust_zone: governance_control
+lifecycle_status: active
+purpose: "Brainstorm and export reusable lifecycle-surface candidates for DAD and downstream repos."
+external_research_references:
+  - name: Kubernetes deprecation policy
+    url: https://kubernetes.io/docs/reference/using-api/deprecation-policy/
+    lesson_used: "Removal/deprecation needs a stated compatibility policy, replacement route, and enough runway that users are not surprised."
+  - name: OpenTelemetry versioning and stability
+    url: https://opentelemetry.io/docs/specs/otel/versioning-and-stability/
+    lesson_used: "Shared contracts benefit from explicit lifecycle states such as development, stable, deprecated, and removed."
+recommended_lifecycle_surfaces:
+  - surface_id: validation_gates
+    priority: immediate
+    why: "Slow or generated-data-dependent validators need active/shadow/superseded/retired states, replacement gates, missing-input behavior, and retirement criteria."
+    suggested_states:
+      - active
+      - active_generated_data
+      - shadow
+      - superseded
+      - retired
+    dad_asset_candidate: validation_gate_lifecycle_registry
+  - surface_id: generated_artifacts
+    priority: immediate
+    why: "Ignored build outputs such as data/canonical, observation substrates, cargo targets, and model scratch aggregates often decide whether validators can run."
+    suggested_states:
+      - not_required
+      - generated_required_for_release
+      - stale
+      - current
+      - retired
+    dad_asset_candidate: generated_artifact_lifecycle_registry
+  - surface_id: ai_prompt_packs
+    priority: high
+    why: "Long-running Cursor/Claude/Codex prompt packs evolve quickly; agents need to know which prompt is current, superseded, experimental, or forbidden."
+    suggested_states:
+      - draft
+      - active
+      - model_specific_variant
+      - superseded
+      - retired
+    dad_asset_candidate: prompt_pack_lifecycle_registry
+  - surface_id: scratch_outputs
+    priority: high
+    why: "Multi-model scratch chunk maps and marathon outputs are useful evidence but must not be confused with canonical output or reviewed gold."
+    suggested_states:
+      - running
+      - complete_unreviewed
+      - quarantined
+      - compared
+      - superseded
+      - retired
+    dad_asset_candidate: scratch_output_lifecycle_registry
+  - surface_id: rust_leaf_tools
+    priority: high
+    why: "Rust scanners can move from scaffold to shadow mode to required fast path; DAD should track parity, fallback, and replacement history."
+    suggested_states:
+      - scaffold
+      - shadow
+      - parity_proven
+      - required_fast_path
+      - superseded
+      - retired
+    dad_asset_candidate: rust_leaf_tool_lifecycle_registry
+  - surface_id: data_sources_and_downloads
+    priority: high
+    why: "Raw source packages need lifecycle metadata for license status, checksum freshness, canonical subset extraction, and contaminated/non-canonical extras."
+    suggested_states:
+      - catalog_only
+      - license_pending
+      - approved_raw
+      - extracted_canonical_view
+      - quarantined
+      - retired
+    dad_asset_candidate: source_intake_lifecycle_registry
+  - surface_id: schemas_and_contracts
+    priority: high
+    why: "Schemas drive validators, agents, and generated data; changes need compatibility, migration, and deprecation tracking."
+    suggested_states:
+      - draft
+      - active
+      - compatible_extension
+      - deprecated
+      - removed
+    dad_asset_candidate: schema_contract_lifecycle_registry
+  - surface_id: agent_roles_and_model_routes
+    priority: medium
+    why: "Agent roles and model routing decisions are operational contracts; they should show whether they are experimental, active, restricted, or retired."
+    suggested_states:
+      - proposed
+      - active
+      - restricted
+      - superseded
+      - retired
+    dad_asset_candidate: agent_role_lifecycle_registry
+  - surface_id: governance_decisions
+    priority: medium
+    why: "Owner/theology/governance decisions can be active, superseded by later owner gates, or kept as historical context."
+    suggested_states:
+      - proposed
+      - active
+      - amended
+      - superseded
+      - historical
+    dad_asset_candidate: governance_decision_lifecycle_registry
+  - surface_id: kg_edge_predicates
+    priority: medium
+    why: "Predicate lanes need lifecycle states before graph generation so candidate/reviewed/retired predicates cannot be mixed."
+    suggested_states:
+      - proposed
+      - candidate
+      - reviewed
+      - active
+      - deprecated
+      - retired
+    dad_asset_candidate: predicate_lifecycle_registry
+  - surface_id: retrieval_profiles_and_indexes
+    priority: medium
+    why: "Retrieval profiles, vector indexes, and embeddings need active/deprecated/retired states and proof of rebuild identity before promotion."
+    suggested_states:
+      - planning_only
+      - candidate
+      - shadow
+      - active
+      - deprecated
+      - retired
+    dad_asset_candidate: retrieval_profile_lifecycle_registry
+  - surface_id: dad_messages_and_lessons
+    priority: immediate
+    why: "DAD outbox rows and lessons need received, deduped, adopted, rejected, superseded, or archived states, especially during mail storms."
+    suggested_states:
+      - candidate_sent
+      - received
+      - deduped
+      - adopted
+      - rejected
+      - superseded
+      - archived
+    dad_asset_candidate: dad_mail_lifecycle_registry
+global_non_authorizations:
+  - lifecycle_state_as_content_authority
+  - dad_override_local_authority
+  - lifecycle_retirement_without_replacement_or_owner_gate
+  - scratch_output_as_canon
+  - rust_speed_as_correctness
+  - graph_retrieval_or_vector_truth
+  - theology_authority

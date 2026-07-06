@@ -1,0 +1,159 @@
+object_type: validation_gate_lifecycle
+schema_version: validation_gate_lifecycle.v1
+owner: codex
+trust_zone: governance_control
+lifecycle_status: active
+purpose: "Track when validation gates are active, generated-data-gated, shadowed, superseded, or retired so agents do not skip slow validators by vibes."
+authority:
+  records_validation_lifecycle_policy: true
+  may_classify_gate_runtime_dependency: true
+  may_authorize_ad_hoc_validator_skip: false
+  may_authorize_deleting_validator_without_replacement: false
+  may_override_task_scope: false
+  may_override_local_governance: false
+  may_authorize_chunk_output: false
+  may_authorize_reviewed_gold: false
+  may_authorize_graph_or_retrieval_truth: false
+  may_authorize_theology_authority: false
+policy:
+  default_gate_state: active
+  generated_data_inputs_are_ignored_build_artifacts: true
+  generated_data_missing_behavior: "skip lifecycle-declared generated-data gates in clean checkouts; generate canonical sidecars before release/full-data verification"
+  retirement_requires:
+    - replacement_gate_or_explicit_owner_retirement_decision
+    - parity_or_non_overlap_evidence
+    - dad_lesson_when_reusable
+    - removal_from_validate_all
+    - handoff_record
+  cleanup_rule: "A gate may be retired only through a task that records the replacement, why the old coverage is redundant or intentionally obsolete, and which downstream checks were preserved."
+global_non_authorizations:
+  - validation_speed_as_correctness
+  - rust_validator_as_governance_authority
+  - ad_hoc_skip_without_lifecycle_record
+  - delete_slow_gate_without_replacement_or_owner_gate
+  - dad_override_local_authority
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority
+tracked_gates:
+  - gate_id: validate_source_metadata_research_atlas
+    command: scripts/validate_source_metadata_research_atlas.py
+    status: active_generated_data
+    owner_task: T358
+    purpose: "Validate the source metadata atlas, non-authority language, observed surfaces, and record counts."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+      - data/canonical/translations/eng-web/footnotes.jsonl
+      - data/canonical/translations/eng-web/section_headings.jsonl
+      - data/canonical/translations/eng-web/boundary_claims.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Only retire if a replacement validates the same semantic atlas authority, surface, and record-count coverage."
+    non_authorizations:
+      - metadata_as_scripture_truth
+      - metadata_as_chunk_boundary
+      - metadata_as_graph_edge
+      - theology_authority
+  - gate_id: validate_apocalyptic_prophetic_intertext_dossier_queue
+    command: scripts/validate_apocalyptic_prophetic_intertext_dossier_queue.py
+    status: active_generated_data
+    owner_task: T399
+    purpose: "Validate apocalyptic/prophetic intertext research queue links against generated editorial cross-reference evidence."
+    required_inputs:
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Only retire if a replacement preserves the intertext queue semantics and non-authority boundaries."
+    non_authorizations:
+      - cross_reference_as_graph_truth
+      - prophecy_interpretation_authority
+      - theology_authority
+  - gate_id: validate_bible_verse_passage_coverage_inventory
+    command: scripts/validate_bible_verse_passage_coverage_inventory.py
+    status: active_generated_data
+    owner_task: T386
+    purpose: "Validate Bible-wide verse/passage coverage inventory against generated canonical passage records."
+    required_inputs:
+      - data/canonical/scripture/passages/passages.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: scripts/validate_fast_canonical_qa.py
+    retirement_criteria: "Rust canonical QA can shadow structural record counts, but this gate may retire only after parity proves all inventory-specific semantics are covered or explicitly obsolete."
+    non_authorizations:
+      - coverage_as_chunk_authority
+      - rust_validator_as_governance_authority
+      - canon_scope_change
+  - gate_id: validate_1cor8_10_parent_evidence_packet
+    command: scripts/validate_1cor8_10_parent_evidence_packet.py
+    status: active_generated_data
+    owner_task: T399
+    purpose: "Validate the 1Cor.8-10 parent evidence packet against generated translation witness evidence."
+    required_inputs:
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Only retire if a governed replacement preserves exact parent evidence, translation-witness checks, and owner-review semantics."
+    non_authorizations:
+      - evidence_packet_as_reviewed_gold
+      - evidence_packet_as_chunk_output
+      - theology_authority
+  - gate_id: validate_divine_capitalization_inventory
+    command: scripts/validate_divine_capitalization_inventory.py
+    status: active_generated_data
+    owner_task: T358
+    purpose: "Validate divine-name/title capitalization inventory currency and non-authority boundaries."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: scripts/validate_fast_word_token_signals.py
+    retirement_criteria: "Rust word-token counts may shadow part of this gate, but retirement requires preserving watch-term, phrase, register-link, and non-authority checks."
+    non_authorizations:
+      - capitalization_as_theological_truth
+      - capitalization_as_speaker_attribution
+      - rust_validator_as_governance_authority
+  - gate_id: validate_wj_marker_inventory
+    command: scripts/validate_wj_marker_inventory.py
+    status: active_generated_data
+    owner_task: T358
+    purpose: "Validate WJ/red-letter marker inventory currency, known review cases, and non-authority boundaries."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: scripts/validate_fast_word_token_signals.py
+    retirement_criteria: "Rust WJ counts may shadow part of this gate, but retirement requires preserving run-level known cases, register links, and non-authority checks."
+    non_authorizations:
+      - wj_marker_as_speaker_authority
+      - wj_marker_as_chunk_boundary
+      - rust_validator_as_governance_authority
+  - gate_id: validate_fast_canonical_qa
+    command: scripts/validate_fast_canonical_qa.py
+    status: active_generated_data
+    owner_task: T457
+    purpose: "Rust-backed structural QA for generated canonical corpus sidecars with Python fallback/compare wrapper."
+    required_inputs:
+      - data/canonical/scripture/passages/passages.jsonl
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep active as a Rust leaf validator; it does not replace semantic or theology-policy gates unless a later parity task proves coverage."
+    non_authorizations:
+      - rust_validator_as_governance_authority
+      - canon_scope_change
+      - graph_retrieval_or_vector_truth
+  - gate_id: validate_fast_word_token_signals
+    command: scripts/validate_fast_word_token_signals.py
+    status: active_generated_data
+    owner_task: T459
+    purpose: "Rust-backed no-text aggregate signal scan for generated word_tokens JSONL with Python fallback/compare wrapper."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep active as a Rust leaf validator; it does not replace WJ/capitalization semantic inventories until a later parity task proves all non-authority semantics are covered."
+    non_authorizations:
+      - scripture_text_export
+      - strong_number_as_lexical_truth
+      - wj_marker_as_speaker_authority
+      - rust_validator_as_governance_authority
