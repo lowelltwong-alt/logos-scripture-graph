@@ -478,17 +478,26 @@ def test_fast_chunk_map_python_fallback_only_when_rust_unavailable(tmp_path: Pat
     assert "using Python fallback" in result.stderr
 
 
-def test_validate_all_uses_fast_wrappers_for_heavy_canonical_scans() -> None:
+def test_validate_all_uses_fast_wrappers_for_heavy_canonical_scans(tmp_path: Path, monkeypatch) -> None:
     from scripts import validate_all
+
+    canonical_files = [tmp_path / f"canonical_{index}.jsonl" for index in range(8)]
+    for path in canonical_files:
+        _write_jsonl(path, _valid_records())
+    monkeypatch.setattr(validate_all, "SMALL_CANON", canonical_files[:6])
+    monkeypatch.setattr(validate_all, "CANON_SCOPE_FILES", canonical_files)
+    monkeypatch.setattr(validate_all, "QA_REQUIRED", canonical_files[:2])
 
     gates = validate_all.build_gates()
     fast_gates = [(name, cmd) for name, cmd in gates if "validate_fast_" in name]
-    qa_gates = [(name, cmd) for name, cmd in gates if name == "qa_canonical_corpus.py"]
+    qa_gates = [(name, cmd) for name, cmd in gates if name == "validate_fast_canonical_qa.py (canonical)"]
 
     assert {name for name, _ in fast_gates} >= {
         "validate_fast_canonical_scope.py (canonical)",
         "validate_fast_jsonl.py (canonical)",
+        "validate_fast_canonical_qa.py (canonical)",
     }
     assert all("(canonical)" in name for name, _ in fast_gates)
-    assert qa_gates
-    assert all("validate_fast_" not in " ".join(cmd) for _, cmd in qa_gates)
+    if qa_gates:
+        assert all("validate_fast_canonical_qa.py" in " ".join(cmd) for _, cmd in qa_gates)
+        assert all("--python-fallback" in cmd for _, cmd in qa_gates)
