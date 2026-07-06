@@ -374,6 +374,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_multi_agent_review_cadence.py")],
         ),
         (
+            "validate_ai_agnostic_rust_subagents.py",
+            [PY, str(ROOT / "scripts" / "validate_ai_agnostic_rust_subagents.py")],
+        ),
+        (
             "validate_standing_owner_escalation_policy.py",
             [PY, str(ROOT / "scripts" / "validate_standing_owner_escalation_policy.py")],
         ),
