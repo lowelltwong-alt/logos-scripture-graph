@@ -396,6 +396,30 @@ Required routing:
 - Never treat timeout as green, hide it from the handoff, or mark a goal complete from focused
   tests only when the task requires the full suite.
 
+## WORKFLOW-LESSON-011 - PR Queue Hygiene Requires Escalation Before Work Piles Up
+
+When agents create staged work, local branches, draft PRs, or ready PRs, that work must not sit
+quietly while new dependent work keeps building on top of it. A pile of unmerged branches turns
+ordinary integration into conflict archaeology, hides stale validation results, and makes it hard to
+know whether failures are real regressions or old branch drift.
+
+Required routing:
+
+- Before opening a PR, record the exact next action: keep building, request review, merge when green,
+  hold with findings, or close as superseded.
+- If a PR or staged branch is not merged promptly, escalate to the owner or integrator instead of
+  letting new branches stack silently on top of it.
+- When many related PRs exist, create an explicit integration branch/task that merges them in
+  dependency order and records which branches are still useful, superseded, or abandoned.
+- Do not keep starting new work from stale local state when the correct next step is to merge,
+  rebase, close, or ask the owner.
+- Report the reusable pattern to DAD as candidate-only cross-repo guidance; DAD may route the lesson,
+  but it cannot override local repo authority or merge anything by itself.
+
+This lesson applies especially when multiple AI agents are building in parallel, Rust validator
+rollouts are underway, or generated/scratch artifacts are large enough that repeated rework becomes
+expensive.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures

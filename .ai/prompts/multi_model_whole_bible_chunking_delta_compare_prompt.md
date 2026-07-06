@@ -20,7 +20,7 @@
 2. `.ai/scratch/multi_model_bible_chunking/manifest.yaml` — list all **active** model folders
 3. `.ai/scratch/multi_model_bible_chunking/comparison/README.md`
 4. Every model folder with `marathon_progress.yaml` status `complete` (or interim books):
-   - `M1_cursor/` … `M5_composer_alt/` (initial)
+   - `M1_cursor/`, `M2_claude_sonnet5/`, `M3_claude_frontier/`, `M4_codex_gpt55/`, `M5_gemini_thinking/` (initial)
    - `M6_*` … `M10_*` (if owner added slots)
 
 ---
@@ -75,7 +75,7 @@ Do not only compare exact strings. For each book, check:
 {
   "book": "Jude",
   "span": "Jude.1.1-Jude.1.2",
-  "models_agreeing": ["M1_cursor", "M2_codex", "M3_claude", "M4_gemini"],
+  "models_agreeing": ["M1_cursor", "M2_claude_sonnet5", "M3_claude_frontier", "M4_codex_gpt55"],
   "complete_model_count": 5,
   "agreement_tier": "full_consensus|easy_majority",
   "literature_type_guess": "epistle_greeting",
@@ -93,8 +93,8 @@ Do not only compare exact strings. For each book, check:
   "region": "Jonah.1.1-Jonah.1.5",
   "models": {
     "M1_cursor": "Jonah.1.1-Jonah.1.3",
-    "M2_codex": "Jonah.1.1-Jonah.1.4",
-    "M3_claude": "Jonah.1.1-Jonah.1.2"
+    "M2_claude_sonnet5": "Jonah.1.1-Jonah.1.4",
+    "M3_claude_frontier": "Jonah.1.1-Jonah.1.2"
   },
   "delta_kind": "boundary_shift|split_count_mismatch|literature_routing_disagreement",
   "priority": "high|medium|low",

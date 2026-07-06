@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only. Updated 2026-07-06 during T423 to record six-model whole-Bible scratch marathon integration as non-authorizing comparison evidence only."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -3878,6 +3878,55 @@ decisions:
       - theology_authority_change
     validators:
       - scripts/validate_coding_runtime_language_preflight.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-089
+    title: T423 six-model whole-Bible scratch marathon integration
+    classification: non_authorizing_review
+    task_ids: [T423]
+    owner_decision_ref: ".ai/control/multi_model_whole_bible_chunking_fork.yaml"
+    pr_refs: [PR-154]
+    affected_scope:
+      books: [canonical_66]
+      passages: [whole_bible_scratch_chunk_maps]
+      routes: [multi_model_scratch_marathon, future_batch_comparison_delta_analysis]
+      surfaces:
+        - docs/roadmap/T423_MULTI_MODEL_WHOLE_BIBLE_CHUNKING_FORK.md
+        - .ai/control/multi_model_whole_bible_chunking_fork.yaml
+        - .ai/scratch/multi_model_bible_chunking/
+        - scripts/validate_whole_bible_chunk_map.py
+        - scripts/validate_t423_literary_quality_protocol.py
+        - scripts/validate_t423_pilot_gate.py
+    decision: "T423 integrates six completed model-specific whole-Bible scratch chunk maps as non-authorizing comparison evidence. Agreement and disagreement analysis is the next task, but no scratch map, majority vote, frontier flag, low-confidence row, atlas candidate row, or model strategy note authorizes canon output, reviewed gold, child spans, route behavior, evaluator behavior, graph/retrieval/vector truth, or theology authority."
+    downstream_risk: "Agents could mistake multi-model agreement, model confidence, or the completed marathon state for owner-reviewed chunk boundary authority or theological consensus before the governed comparison and owner-gated promotion ladder."
+    theological_assumptions_avoided:
+      - "No model's chunk map becomes a doctrine, theology, or hermeneutic authority."
+      - "No agreement cluster becomes reviewed gold or canon output without owner-gated comparison review."
+      - "No low-confidence, frontier, atlas-candidate, WJ, Strong's, prophecy, apocalyptic, poetry, or genre signal is silently promoted."
+      - "No covert liberal-critical, anti-supernatural, or denominational systematic default is introduced by comparison mechanics."
+    reviewed_gold_dependency: "None. T423 scratch maps and future comparison outputs remain evidence only until a later owner-gated task promotes exact spans through the reviewed-gold and output ladders."
+    non_authorizations:
+      - comparison_run_in_this_pr
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_selection
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_or_vector_truth
+      - embedding_or_vector_work
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_change
+      - scratch_map_as_boundary_authority
+      - model_agreement_as_reviewed_gold
+    validators:
+      - scripts/validate_multi_model_whole_bible_chunking_fork.py
+      - scripts/validate_t423_pilot_gate.py
+      - scripts/validate_t423_parallel_isolation.py
+      - scripts/validate_t423_literary_quality_protocol.py
+      - scripts/validate_whole_bible_chunk_map.py
+      - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_all.py
     lifecycle_status: active
     supersedes: []

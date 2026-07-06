@@ -20,10 +20,10 @@ Later we **compare** outputs:
   shared_research_baseline/     ← same starting research for every model
   comparison/                   ← agreement vs disagreement (built after models run)
   M1_cursor/                    ← Cursor/Composer pass 1
-  M2_codex/                     ← Codex pass
-  M3_claude/                    ← Claude pass
-  M4_gemini/                    ← Gemini pass
-  M5_composer/                  ← optional 5th independent pass
+  M2_claude_sonnet5/            ← Claude Sonnet 5 medium/high pass
+  M3_claude_frontier/           ← Claude Opus 4.8 or Fable 5 high pass
+  M4_codex_gpt55/               ← Codex GPT-5.5 high structured pass
+  M5_gemini_thinking/           ← optional Gemini/outside-family pass
 ```
 
 ## Per-model outputs (required)

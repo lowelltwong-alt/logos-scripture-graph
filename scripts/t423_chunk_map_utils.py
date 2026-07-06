@@ -33,6 +33,7 @@ REQUIRED_CHUNK_FIELDS = (
     "boundary_evidence_refs",
     "strong_or_hebrew_tags_used",
     "wj_or_red_letter_considered",
+    "frontier_flag_considered",
     "confidence",
     "decision_id",
     "non_authorizing",

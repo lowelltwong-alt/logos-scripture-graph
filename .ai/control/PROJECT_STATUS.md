@@ -1,8 +1,19 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-05
-**Updated by:** T425 DAD lesson-slot/runtime-preflight hardening
-**Active task:** -> **T425 DAD lesson-slot integrity and runtime preflight enforcement** (isolated validation-hardening branch; no chunking authority). T417/T423 remain the next chunking routes after validation-hardening review/merge.
+**Last updated:** 2026-07-06
+**Updated by:** T423 six-model whole-Bible marathon integration
+**Active task:** -> **T423 comparison/delta analysis next** after the six-model scratch marathon artifacts merge. Do not run comparison until starting that next task from current `main`.
+
+> **T423 six-model whole-Bible marathon integration (2026-07-06):** M1_cursor,
+> M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, and
+> M6_fable5 each completed all 66 canonical books in isolated scratch folders.
+> The integration branch records the completed maps, per-book strategies, low-confidence
+> registers, frontier escalation queues, atlas candidate feeds, quality summaries, and
+> model summaries. The pilot gate is now `go` for completed scratch marathons, while
+> comparison remains not run. Next route is batch comparison/delta analysis from main.
+> These artifacts remain scratch/non-authorizing: no canon output, reviewed gold,
+> child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes,
+> or theology authority are created.
 
 > **T425 DAD lesson-slot integrity and runtime preflight enforcement (2026-07-05):** Hardens
 > the T424 Rust/DAD asset lane by requiring DAD outbox rows with `lesson_learned_slot` or

@@ -14,8 +14,8 @@ POLICY = ROOT / ".ai" / "control" / "multi_model_whole_bible_chunking_fork.yaml"
 SCRATCH_MANIFEST = ROOT / ".ai" / "scratch" / "multi_model_bible_chunking" / "manifest.yaml"
 SCRATCH_ROOT = ROOT / ".ai" / "scratch" / "multi_model_bible_chunking"
 BASELINE = SCRATCH_ROOT / "shared_research_baseline" / "research_baseline_manifest.yaml"
-MODEL_IDS_REQUIRED = ("M1_cursor", "M2_codex", "M3_claude", "M4_gemini")
-MODEL_IDS_OPTIONAL = ("M5_composer_alt",)
+MODEL_IDS_REQUIRED = ("M1_cursor", "M2_claude_sonnet5", "M3_claude_frontier", "M4_codex_gpt55")
+MODEL_IDS_OPTIONAL = ("M5_gemini_thinking",)
 COMPARE_SCRIPT = ROOT / "scripts" / "compare_multi_model_bible_chunk_maps.py"
 CHUNK_MAP_VALIDATOR = ROOT / "scripts" / "validate_whole_bible_chunk_map.py"
 MARATHON_STATUS = ROOT / "scripts" / "t423_marathon_status.py"
@@ -25,6 +25,8 @@ SUPERVISOR_SCRIPT = ROOT / "scripts" / "t423_marathon_supervisor.py"
 REVERT_SCRIPT = ROOT / "scripts" / "evaluate_t423_revert_signal.py"
 PILOT_GATE = ROOT / "scripts" / "validate_t423_pilot_gate.py"
 PARALLEL_ISO = ROOT / "scripts" / "validate_t423_parallel_isolation.py"
+QUALITY_PROTOCOL = ROOT / "scripts" / "validate_t423_literary_quality_protocol.py"
+QUALITY_CONTROL = ROOT / ".ai" / "control" / "t423_literary_marker_quality_protocol.yaml"
 TEMPLATE = SCRATCH_ROOT / "models" / "_TEMPLATE"
 
 
@@ -96,10 +98,20 @@ def validate() -> list[str]:
         REVERT_SCRIPT,
         PILOT_GATE,
         PARALLEL_ISO,
+        QUALITY_PROTOCOL,
         ROOT / "scripts" / "t423_pin_substrate.py",
     ):
         if not script.is_file():
             errors.append(f"missing {_rel(script)}")
+    quality = policy.get("literary_marker_quality_protocol", {})
+    if quality.get("strategy_id") != "literary_marker_aware_v2":
+        errors.append("literary_marker_quality_protocol.strategy_id must be literary_marker_aware_v2")
+    if quality.get("control") != ".ai/control/t423_literary_marker_quality_protocol.yaml":
+        errors.append("literary_marker_quality_protocol.control must point to t423_literary_marker_quality_protocol.yaml")
+    if quality.get("required_for_all_model_slots") is not True:
+        errors.append("literary marker quality protocol must be required for all model slots")
+    if not QUALITY_CONTROL.is_file():
+        errors.append(f"missing {_rel(QUALITY_CONTROL)}")
     rust = policy.get("rust_observation_substrate", {})
     if not rust.get("required_before_marathon"):
         errors.append("rust_observation_substrate.required_before_marathon must be true")
@@ -119,6 +131,10 @@ def validate() -> list[str]:
     if not isolation.get("worktree_required"):
         errors.append("parallel_path_isolation.worktree_required must be true")
     manifest_data = _read_yaml(SCRATCH_MANIFEST) if SCRATCH_MANIFEST.is_file() else {}
+    if manifest_data.get("quality_strategy_id") != "literary_marker_aware_v2":
+        errors.append("scratch manifest quality_strategy_id must be literary_marker_aware_v2")
+    if manifest_data.get("quality_protocol") != ".ai/control/t423_literary_marker_quality_protocol.yaml":
+        errors.append("scratch manifest quality_protocol must point to t423_literary_marker_quality_protocol.yaml")
     active = manifest_data.get("model_count", {}).get("active_slots", [])
     for mid in MODEL_IDS_REQUIRED:
         if mid not in active:
