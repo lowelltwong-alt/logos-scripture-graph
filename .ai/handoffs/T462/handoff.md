@@ -23,11 +23,13 @@ deterministic_validation_architecture_hardening
 - `tests/test_t424_rust_fast_validators.py`
 - `.digital-asset/context-map.json`
 - `.digital-asset/mail/outbox.jsonl`
+- `.ai/control/chunking_theological_decision_register.yaml`
 
 ## Files changed
 
 - `.ai/tasks/T462.task.yaml`
 - `.ai/handoffs/T462/handoff.md`
+- `.ai/control/chunking_theological_decision_register.yaml`
 - `.ai/control/PROJECT_STATUS.md`
 - `.digital-asset/context-map.json`
 - `.digital-asset/mail/outbox.jsonl`
@@ -55,6 +57,8 @@ deterministic_validation_architecture_hardening
 - Added `bundle` as the one-way-in/one-way-out command for agents that want a single Rust run while
   preserving per-check failure identity.
 - Reported the pattern to DAD as candidate-only reusable guidance.
+- Recorded T462 in the chunking theological decision register because the T424 roadmap is a watched
+  path and the modular Rust validator bundle must remain explicitly non-authorizing.
 
 ## Validation performed
 
@@ -71,6 +75,8 @@ deterministic_validation_architecture_hardening
 - `python scripts/generate_data_map.py --check` -> passed after ignored sidecar generation.
 - `python -m pytest -q` -> passed, 793 tests.
 - `git diff --check` -> passed.
+- GitHub Actions found the expected watched-roadmap register gate; added CD-090 for T462 and reran
+  focused gates before repushing.
 
 ## Risks introduced
 
