@@ -2,7 +2,7 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance. Updated 2026-07-06 during T458 to extend LSN-039 with AI-agnostic Rust subagent cadence and DAD scout-reporting controls. Updated 2026-07-06 during T423 to add six-model scratch marathon comparison-evidence controls as LSN-044 and PR queue hygiene escalation controls as LSN-045. Updated 2026-07-06 during T462 to add modular Rust validator bundle controls as LSN-046. Updated 2026-07-06 during T431 integration to add original-language source-intake scope hygiene controls as LSN-047. Updated 2026-07-06 during T463 to harden LSN-045 with the AI draft-to-PR lifecycle policy."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance. Updated 2026-07-06 during T458 to extend LSN-039 with AI-agnostic Rust subagent cadence and DAD scout-reporting controls. Updated 2026-07-06 during T423 to add six-model scratch marathon comparison-evidence controls as LSN-044 and PR queue hygiene escalation controls as LSN-045. Updated 2026-07-06 during T462 to add modular Rust validator bundle controls as LSN-046. Updated 2026-07-06 during T431 integration to add original-language source-intake scope hygiene controls as LSN-047. Updated 2026-07-06 during T463 to harden LSN-045 with the AI draft-to-PR lifecycle policy. Updated 2026-07-06 during T461 to add front-door/task-ledger use-when routing controls as LSN-047."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
@@ -1961,7 +1961,7 @@ lessons:
       - .digital-asset/context-map.json
       - .digital-asset/lessons/t423_pr_queue_hygiene.yaml
       - .digital-asset/lessons/t463_ai_draft_pr_and_rust_validator_strategy.yaml
-    related_decision_ids: [CD-102]
+    related_decision_ids: [CD-103]
     related_workflow_lesson_ids: [WORKFLOW-LESSON-011]
     related_task_ids: [T423, T463]
     downstream_risk: "Unmerged PRs and staged branches can accumulate until integration requires conflict archaeology, stale validation reruns, accidental dirty worktree reuse, and owner time to reconstruct which branches still matter."
@@ -2025,6 +2025,48 @@ lessons:
       - scripts/agent/validate_handoffs.py
       - tests/test_t424_rust_fast_validators.py
   - lesson_id: LSN-047
+    title: Front doors need use-when routing plus compact anchors
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t461, front-door, task-ledger, ai-toc, use-when-routing, no-context-review, validator-anchor, lessons-learned, preflight, non-authorizing]
+    use_when:
+      - "A future agent changes AI_FRONT_DOOR.md, AI_TABLE_OF_CONTENTS.md, roadmap TOCs, task ledgers, audit routing, or no-context review instructions."
+      - "A future agent needs to know why the front door stays compact while task history, lessons, and audit surfaces remain discoverable through tagged TOCs and deterministic anchors."
+    preflight_stage: before_front_door_toc_audit_or_task_history_routing_changes
+    source_surfaces:
+      - AI_FRONT_DOOR.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/roadmap/TASK_LEDGER.md
+      - scripts/validate_task_ledger.py
+      - tests/test_task_ledger.py
+      - .ai/control/chunking_theological_decision_register.yaml
+      - .ai/tasks/T461.task.yaml
+      - .ai/handoffs/T461/handoff.md
+    related_decision_ids: [CD-091]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T461]
+    downstream_risk: "A front door can become too large for agents to use, while an over-trimmed front door can hide audit, governance, task-history, and validator surfaces from no-context reviewers."
+    required_preflight_surfaces:
+      - AI_FRONT_DOOR.md
+      - AI_TABLE_OF_CONTENTS.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/roadmap/TASK_LEDGER.md
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_selection
+      - route_or_evaluator_behavior
+      - graph_retrieval_or_vector_truth
+      - boundary_import
+      - theology_authority_change
+    validators:
+      - scripts/validate_task_ledger.py
+      - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-048
     title: Original-language source intake must stay evidence-only and scope-filtered
     lifecycle_status: active
     priority: mandatory_preflight
@@ -2045,7 +2087,7 @@ lessons:
       - scripts/validate_original_language_raw_sources.py
       - .ai/tasks/T431.task.yaml
       - .ai/handoffs/T431/handoff.md
-    related_decision_ids: [CD-091]
+    related_decision_ids: [CD-092]
     related_workflow_lesson_ids: []
     related_task_ids: [T430, T431]
     downstream_risk: "Original-language source packages can carry noncanonical texts, editorial notes, morphology, variants, or source-family assumptions that future agents may silently treat as canonical Scripture, preferred readings, theology authority, or graph/retrieval truth."
@@ -2069,6 +2111,7 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_task_scope.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -2487,13 +2530,22 @@ lesson_graph:
   - from: LSN-002
     relation: governs_update_of
     to: LSN-047
-  - from: LSN-004
-    relation: constrains
+  - from: LSN-010
+    relation: audits
     to: LSN-047
   - from: LSN-047
+    relation: constrains
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-048
+  - from: LSN-004
+    relation: constrains
+    to: LSN-048
+  - from: LSN-048
     relation: audits
     to: LSN-010
-  - from: LSN-047
+  - from: LSN-048
     relation: constrains
     to: LSN-001
 validator: scripts/validate_chunking_lesson_index.py

@@ -3970,6 +3970,52 @@ decisions:
     supersedes: []
     deprecated_by: null
   - decision_id: CD-091
+    title: T461 front-door/task-ledger split is auditability only
+    classification: non_authorizing_review
+    task_ids: [T461]
+    owner_decision_ref: ".ai/tasks/T461.task.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [task_history_and_chunking_governance_surfaces]
+      routes: [agent_startup, no_context_audit_routing, task_history_discovery]
+      surfaces:
+        - AI_FRONT_DOOR.md
+        - AI_TABLE_OF_CONTENTS.md
+        - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+        - docs/roadmap/TASK_LEDGER.md
+        - .ai/control/chunking_lesson_index.yaml
+        - .ai/audits/reports/20260706-T461-scripture-front-door-decomposition.md
+        - scripts/validate_task_ledger.py
+    decision: "T461 keeps AI_FRONT_DOOR.md as a compact stable operating-rules surface, moves volatile T3xx/T4xx task-history narrative into docs/roadmap/TASK_LEDGER.md, and adds validator coverage so no-context reviewers can still discover protected task history, non-authorizations, audit surfaces, runtime preflight lessons, and register dependencies. This is an auditability/control-plane change only."
+    downstream_risk: "If this split were treated as authority, agents could mistake a documentation routing change for permission to alter chunks, reviewed gold, routes, evaluators, graph/retrieval/vector truth, source rows, canon scope, or theology authority. If it were omitted from the register, future agents could lose why the front door remains compact and where moved task-history controls live."
+    theological_assumptions_avoided:
+      - "No chunk boundary, child-span, reviewed-gold, route, evaluator, graph, retrieval, vector, source-tradition, canon-scope, or theology claim is inferred from front-door wording."
+      - "No legacy task narrative becomes doctrinal authority or hidden hermeneutic default."
+      - "No no-context audit route, AI TOC tag, or validator anchor authorizes theological interpretation."
+    reviewed_gold_dependency: "None; T461 does not create, promote, or depend on reviewed gold."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_selection
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_or_vector_truth
+      - embedding_or_index_work
+      - source_or_manuscript_row_population
+      - boundary_import
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_change
+    validators:
+      - scripts/validate_task_ledger.py
+      - tests/test_task_ledger.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-092
     title: T431 original-language source intake remains evidence-only
     classification: non_authorizing_review
     task_ids: [T431]
@@ -4010,7 +4056,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-092
+  - decision_id: CD-093
     title: T432 original-language schema contracts are evidence-only
     classification: non_authorizing_review
     task_ids: [T432]
@@ -4056,7 +4102,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-093
+  - decision_id: CD-094
     title: T433 Philemon original-language alignment pilot is candidate evidence only
     classification: non_authorizing_review
     task_ids: [T433]
@@ -4100,7 +4146,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-094
+  - decision_id: CD-095
     title: T435 SBLGNT Rust observation scanner is no-text shape evidence only
     classification: non_authorizing_review
     task_ids: [T435]
@@ -4147,7 +4193,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-095
+  - decision_id: CD-096
     title: T436 Jonah Hebrew observation parity pilot is no-text evidence only
     classification: non_authorizing_review
     task_ids: [T436]
@@ -4193,7 +4239,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-096
+  - decision_id: CD-097
     title: T437 OSHB lemma attribute is Strong lookup-hint metadata only
     classification: non_authorizing_review
     task_ids: [T437]
@@ -4241,7 +4287,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-097
+  - decision_id: CD-098
     title: T438 alignment bridge is the next original-language lane, not authority
     classification: non_authorizing_review
     task_ids: [T438]
@@ -4288,7 +4334,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-098
+  - decision_id: CD-099
     title: T439 Philemon alignment bridge expansion is no-text candidate evidence only
     classification: non_authorizing_review
     task_ids: [T439]
@@ -4336,7 +4382,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-099
+  - decision_id: CD-100
     title: T440 Jonah Hebrew parser contract is semantics guardrail only
     classification: non_authorizing_review
     task_ids: [T440]
@@ -4382,7 +4428,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-100
+  - decision_id: CD-101
     title: T441 Rust alignment coverage index is generated no-text evidence only
     classification: non_authorizing_review
     task_ids: [T441]
@@ -4429,7 +4475,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-101
+  - decision_id: CD-102
     title: T442 production candidate-root decision packet is not root opening
     classification: non_authorizing_review
     task_ids: [T442]
@@ -4474,7 +4520,7 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
-  - decision_id: CD-102
+  - decision_id: CD-103
     title: T463 integration and Rust validator adoption are non-authorizing
     classification: non_authorizing_review
     task_ids: [T463]
@@ -4647,6 +4693,7 @@ backfill_coverage:
     - T450
     - T424
     - T462
+    - T461
     - T431
     - T432
     - T433

@@ -40,6 +40,15 @@
 > child spans, route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes,
 > or theology authority are created.
 
+> **T461 Scripture front-door decomposition (2026-07-06):** Implements Fable PR-7 by
+> keeping `AI_FRONT_DOOR.md` as a compact stable operating-rules surface, moving volatile
+> T3xx/T4xx task-history narrative into `docs/roadmap/TASK_LEDGER.md`, adding tagged TOC
+> routing, recording `CD-091` plus `LSN-047`, and validating the split with `scripts/validate_task_ledger.py`.
+> This is a findability/auditability hardening PR only. It authorizes no Scripture data
+> mutation, chunk output, reviewed gold, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, embeddings/indexes, boundary import, source rows, preferred
+> readings, source-tradition preference, canon-scope change, or theology authority.
+
 > **T425 DAD lesson-slot integrity and runtime preflight enforcement (2026-07-05):** Hardens
 > the T424 Rust/DAD asset lane by requiring DAD outbox rows with `lesson_learned_slot` or
 > `context_map_entry` to point at tracked local slots that agree on task id, message id,
