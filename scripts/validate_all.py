@@ -4,14 +4,17 @@
 Always-run gates: repo, control plane, handoffs, source manifest.
 Conditional gates: JSONL referential integrity + canon presence run only when
 the generated canonical data is present (so clean checkouts stay green; CI
-regenerates the data first, then this gate is real). The 432 MB word_tokens
-file is intentionally excluded for runtime — validate it separately/nightly.
+regenerates the data first, then this gate is real). The large word_tokens file
+is checked through focused Rust fast-path wrappers when present; Python remains
+the orchestration and fallback surface.
 """
 from __future__ import annotations
 
 import subprocess
 import sys
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
@@ -26,10 +29,11 @@ SMALL_CANON = [
     CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
     CANON_DIR / "translations" / "eng-web" / "glossary_entries.jsonl",
 ]
+WORD_TOKENS = CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl"
 CANON_SCOPE_FILES = [
     *SMALL_CANON,
     CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl",
+    WORD_TOKENS,
 ]
 QA_REQUIRED = [
     CANON_DIR / "scripture" / "passages" / "passages.jsonl",
@@ -63,6 +67,36 @@ def changed_task_ids(paths: list[str]) -> list[str]:
     )
 
 
+def task_base_ref(task_id: str) -> str:
+    task_file = ROOT / ".ai" / "tasks" / f"{task_id}.task.yaml"
+    try:
+        data = yaml.safe_load(task_file.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return ""
+    if not isinstance(data, dict):
+        return ""
+    base_ref = data.get("base_ref")
+    return base_ref.strip() if isinstance(base_ref, str) else ""
+
+
+def stack_tip_task_ids(task_ids: list[str]) -> list[str]:
+    """For stacked PRs, validate only task tips that explicitly base on earlier task branches."""
+
+    if len(task_ids) <= 1:
+        return task_ids
+    normalized = {task_id: task_id.lower().replace("_", "-") for task_id in task_ids}
+    inherited: set[str] = set()
+    for task_id in task_ids:
+        base_ref = task_base_ref(task_id).lower().replace("_", "-")
+        if not base_ref:
+            continue
+        for other_task_id, other_needle in normalized.items():
+            if other_task_id != task_id and other_needle in base_ref:
+                inherited.add(other_task_id)
+    tips = [task_id for task_id in task_ids if task_id not in inherited]
+    return tips or task_ids
+
+
 def task_scope_gates() -> list[tuple[str, list[str]]]:
     """Use the changed task file when a PR clearly scopes to one task."""
 
@@ -81,6 +115,15 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
             (
                 "validate_task_scope.py --task-id T417",
                 [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", "T417"],
+            )
+        ]
+    task_ids = stack_tip_task_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_task_scope.py --task-id {task_id}",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
             )
         ]
     if task_ids:
@@ -122,6 +165,21 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
                     str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
                     "--task-id",
                     "T420",
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
+    task_ids = stack_tip_task_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_parallel_execution_safety.py --task-id {task_id}",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    task_id,
                     "--allow-current-task-dirty",
                 ],
             )
@@ -511,9 +569,21 @@ def build_gates() -> list[tuple[str, list[str]]]:
         gates.append(("validate_fast_jsonl.py (canonical)", cmd))
     if all(path.exists() for path in QA_REQUIRED):
         qa_cmd = [PY, str(ROOT / "scripts" / "validate_fast_canonical_qa.py"), "--python-fallback"]
-        if not (CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl").exists():
+        if not WORD_TOKENS.exists():
             qa_cmd.append("--skip-word-tokens")
         gates.append(("validate_fast_canonical_qa.py (canonical)", qa_cmd))
+    if WORD_TOKENS.exists():
+        gates.append(
+            (
+                "validate_fast_word_token_signals.py (canonical)",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_fast_word_token_signals.py"),
+                    "--python-fallback",
+                    str(WORD_TOKENS),
+                ],
+            )
+        )
     return gates
 
 

@@ -48,7 +48,7 @@ fn run() -> AnyResult<()> {
     let mut args: Vec<String> = env::args().skip(1).collect();
     if args.is_empty() {
         return Err(
-            "missing command: expected jsonl-scan, canonical-scope, canonical-qa, or chunk-map"
+            "missing command: expected jsonl-scan, canonical-scope, canonical-qa, word-token-signals, or chunk-map"
                 .into(),
         );
     }
@@ -57,6 +57,7 @@ fn run() -> AnyResult<()> {
         "jsonl-scan" => jsonl_scan(&args),
         "canonical-scope" => canonical_scope(&args),
         "canonical-qa" => canonical_qa(&args),
+        "word-token-signals" => word_token_signals(&args),
         "chunk-map" => chunk_map(&args),
         "-h" | "--help" | "help" => {
             print_help();
@@ -71,6 +72,7 @@ fn print_help() {
     println!("  jsonl-scan [--translation-id ID] [--require-canon] [--summary-json PATH] FILE...");
     println!("  canonical-scope [--canon PATH] [--summary-json PATH] [FILE...]");
     println!("  canonical-qa [--canon PATH] [--canonical-root PATH] [--skip-word-tokens] [--summary-json PATH]");
+    println!("  word-token-signals [--translation-id ID] [--summary-json PATH] FILE...");
     println!("  chunk-map [--model-id ID] [--require-full-bible] [--book BOOK] [--canon PATH] [--summary-json PATH] FILE");
 }
 
@@ -810,6 +812,209 @@ fn emit_canonical_qa_result(
     Ok(())
 }
 
+fn word_token_signals(args: &[String]) -> AnyResult<()> {
+    let mut translation_id = "eng-web".to_string();
+    let mut summary_json: Option<PathBuf> = None;
+    let mut paths: Vec<PathBuf> = Vec::new();
+    let mut index = 0;
+
+    while index < args.len() {
+        match args[index].as_str() {
+            "--translation-id" => {
+                index += 1;
+                translation_id = args
+                    .get(index)
+                    .ok_or("--translation-id requires a value")?
+                    .to_string();
+            }
+            "--summary-json" => {
+                index += 1;
+                summary_json = Some(PathBuf::from(
+                    args.get(index).ok_or("--summary-json requires a value")?,
+                ));
+            }
+            value if value.starts_with('-') => {
+                return Err(format!("unknown word-token-signals flag: {value}").into())
+            }
+            value => paths.push(PathBuf::from(value)),
+        }
+        index += 1;
+    }
+
+    if paths.is_empty() {
+        return Err("word-token-signals requires at least one word_tokens JSONL path".into());
+    }
+
+    let mut failures: Vec<String> = Vec::new();
+    let mut records = 0usize;
+    let mut source_files: BTreeSet<String> = BTreeSet::new();
+    let mut translation_ids: BTreeSet<String> = BTreeSet::new();
+    let mut book_token_counts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut book_wj_token_counts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut books_with_wj: BTreeSet<String> = BTreeSet::new();
+    let mut wj_word_tokens = 0usize;
+    let mut wj_token_runs = 0usize;
+    let mut in_wj_run = false;
+    let mut current_wj_book = String::new();
+    let mut strong_occurrences_total = 0usize;
+    let mut strong_h_occurrences = 0usize;
+    let mut strong_g_occurrences = 0usize;
+    let mut strong_other_occurrences = 0usize;
+    let mut tokens_with_strong = 0usize;
+    let mut tokens_with_surface_text = 0usize;
+    let mut tokens_with_nesting_context = 0usize;
+
+    for path in &paths {
+        if !path.is_file() {
+            failures.push(format!("Missing word-token JSONL file: {}", path.display()));
+            continue;
+        }
+        stream_jsonl_objects(path, &mut failures, |line_no, record, failures| {
+            records += 1;
+
+            let actual_translation = str_field(record, "translation_id").unwrap_or("");
+            if actual_translation.is_empty() {
+                push_limited(
+                    failures,
+                    format!("{}:{line_no}: missing translation_id", path.display()),
+                );
+            } else {
+                translation_ids.insert(actual_translation.to_string());
+                if actual_translation != translation_id {
+                    push_limited(
+                        failures,
+                        format!(
+                            "{}:{line_no}: translation_id {actual_translation} != expected {translation_id}",
+                            path.display()
+                        ),
+                    );
+                }
+            }
+
+            let book = str_field(record, "book")
+                .and_then(normalize_book_id)
+                .or_else(|| record_book_id(record))
+                .unwrap_or_default();
+            if book.is_empty() {
+                push_limited(
+                    failures,
+                    format!("{}:{line_no}: missing book identity", path.display()),
+                );
+            } else {
+                *book_token_counts.entry(book.clone()).or_default() += 1;
+            }
+
+            if str_field(record, "osis_ref").is_none_or(|value| !valid_osis_ref(value)) {
+                push_limited(
+                    failures,
+                    format!(
+                        "{}:{line_no}: missing or malformed osis_ref",
+                        path.display()
+                    ),
+                );
+            }
+
+            if let Some(source_file) = str_field(record, "source_file") {
+                if !source_file.is_empty() {
+                    source_files.insert(source_file.to_string());
+                }
+            }
+            if str_field(record, "surface_text").is_some_and(|value| !value.is_empty()) {
+                tokens_with_surface_text += 1;
+            }
+            if json_array_contains_str(record.get("nesting_context"), "wj") {
+                wj_word_tokens += 1;
+                if !book.is_empty() {
+                    books_with_wj.insert(book.clone());
+                    *book_wj_token_counts.entry(book.clone()).or_default() += 1;
+                }
+                if !in_wj_run || current_wj_book != book {
+                    wj_token_runs += 1;
+                    current_wj_book = book.clone();
+                }
+                in_wj_run = true;
+            } else {
+                in_wj_run = false;
+                current_wj_book.clear();
+            }
+            if record
+                .get("nesting_context")
+                .and_then(JsonValue::as_array)
+                .is_some_and(|items| !items.is_empty())
+            {
+                tokens_with_nesting_context += 1;
+            }
+
+            let mut strong_values: Vec<String> = Vec::new();
+            collect_strong_values(record.get("strong"), &mut strong_values);
+            collect_strong_values(record.get("strong_id"), &mut strong_values);
+            collect_strong_values(record.get("strong_ids"), &mut strong_values);
+            collect_strong_values(record.get("strongs"), &mut strong_values);
+            if !strong_values.is_empty() {
+                tokens_with_strong += 1;
+            }
+            for strong in strong_values {
+                strong_occurrences_total += 1;
+                if strong.starts_with('H') {
+                    strong_h_occurrences += 1;
+                } else if strong.starts_with('G') {
+                    strong_g_occurrences += 1;
+                } else {
+                    strong_other_occurrences += 1;
+                }
+            }
+        })?;
+    }
+
+    let summary = json!({
+        "validator": "logos_fast_validators word-token-signals",
+        "status": if failures.is_empty() { "passed" } else { "failed" },
+        "files": paths.len(),
+        "records": records,
+        "failures": failures.len(),
+        "translation_id": translation_id,
+        "translation_ids_observed": translation_ids,
+        "source_file_count": source_files.len(),
+        "book_count": book_token_counts.len(),
+        "book_token_counts": book_token_counts,
+        "wj_word_tokens": wj_word_tokens,
+        "wj_token_runs": wj_token_runs,
+        "books_with_wj": books_with_wj,
+        "book_wj_token_counts": book_wj_token_counts,
+        "tokens_with_nesting_context": tokens_with_nesting_context,
+        "tokens_with_surface_text": tokens_with_surface_text,
+        "tokens_with_strong": tokens_with_strong,
+        "strong_occurrences_total": strong_occurrences_total,
+        "strong_h_occurrences": strong_h_occurrences,
+        "strong_g_occurrences": strong_g_occurrences,
+        "strong_other_occurrences": strong_other_occurrences,
+        "non_authorizing": true,
+        "no_text": true,
+        "authority": "deterministic_word_token_signal_counts_only",
+    });
+    emit_summary(summary_json.as_deref(), &summary)?;
+
+    if !failures.is_empty() {
+        println!("FAST WORD-TOKEN SIGNAL SCAN FAILED");
+        for failure in failures.iter().take(200) {
+            println!("- {failure}");
+        }
+        if failures.len() > 200 {
+            println!("- ... {} additional failures", failures.len() - 200);
+        }
+        return Err(format!("{} word-token signal failure(s)", failures.len()).into());
+    }
+
+    println!("Fast word-token signal scan passed for {records} record(s).");
+    println!("- files: {}", paths.len());
+    println!("- source files: {}", source_files.len());
+    println!("- books: {}", summary["book_count"]);
+    println!("- WJ tokens: {wj_word_tokens}");
+    println!("- WJ token runs: {wj_token_runs}");
+    println!("- Strong occurrences: {strong_occurrences_total}");
+    Ok(())
+}
+
 fn stream_jsonl_objects<F>(path: &Path, failures: &mut Vec<String>, mut visit: F) -> AnyResult<()>
 where
     F: FnMut(usize, &Map<String, JsonValue>, &mut Vec<String>),
@@ -886,6 +1091,26 @@ fn json_text(value: Option<&JsonValue>) -> String {
         None | Some(JsonValue::Null) => String::new(),
         Some(JsonValue::String(value)) => value.clone(),
         Some(value) => value.to_string(),
+    }
+}
+
+fn json_array_contains_str(value: Option<&JsonValue>, needle: &str) -> bool {
+    value
+        .and_then(JsonValue::as_array)
+        .is_some_and(|items| items.iter().any(|item| item.as_str() == Some(needle)))
+}
+
+fn collect_strong_values(value: Option<&JsonValue>, out: &mut Vec<String>) {
+    match value {
+        Some(JsonValue::String(value)) if !value.trim().is_empty() => {
+            out.push(value.trim().to_string());
+        }
+        Some(JsonValue::Array(values)) => {
+            for value in values {
+                collect_strong_values(Some(value), out);
+            }
+        }
+        _ => {}
     }
 }
 
