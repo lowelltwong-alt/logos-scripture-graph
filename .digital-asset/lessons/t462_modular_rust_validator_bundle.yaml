@@ -1,0 +1,27 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T462-MODULAR-RUST-VALIDATOR-BUNDLE
+source_repo: logos-scripture-graph
+task_id: T462
+source_outbox_message_id: msg-20260706-t462-modular-rust-validator-bundle
+context_map_entry: ctx-t462-modular-rust-validator-bundle
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "Rust fast validators should use one CLI entry point, named modules, typed inputs, and per-check reports so bundled validation stays fast and troubleshootable."
+extra_context: "The owner asked whether many deterministic Python tests that always run in sequence can become a combined Rust validator without becoming harder to debug. T462 implements the preferred shape: main.rs only dispatches; modules such as jsonl_scan, canonical_scope, span_parse, chunk_map, and word_tokens expose run_check(input) -> CheckReport; bundle emits a single aggregate JSON summary with named per-check timing and failures. This gives agents one way in and one way out while preserving module-level troubleshooting."
+candidate_assets:
+  - modular_rust_validator_check_report_contract
+  - rust_bundle_with_named_per_check_failures
+  - python_wrapper_stable_cli_plus_rust_module_internals
+  - legacy_to_named_module_migration_pattern
+non_authorizations:
+  - dad_override_local_authority
+  - rust_validator_as_governance_authority
+  - validation_speed_as_correctness
+  - delete_python_governance_wrappers_without_lifecycle_gate
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority

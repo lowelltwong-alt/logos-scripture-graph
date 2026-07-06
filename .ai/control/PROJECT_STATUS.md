@@ -1,8 +1,18 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-06
-**Updated by:** T423 six-model whole-Bible marathon integration
-**Active task:** -> **T423 comparison/delta analysis next** after the six-model scratch marathon artifacts merge. Do not run comparison until starting that next task from current `main`.
+**Updated by:** T462 modular Rust fast-validator bundle
+**Active task:** -> **T462 modular Rust fast-validator bundle** on `codex/t424-modular-rust-validators`. This is deterministic validation architecture hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, or theology authority.
+
+> **T462 modular Rust validator bundle (2026-07-06):** `tools/logos_fast_validators`
+> now uses the preferred Rust shape for combined deterministic checks: short
+> `main.rs` dispatcher, named modules with `run_check(input) -> CheckReport`, and
+> a `bundle` command that emits one aggregate JSON summary while preserving
+> per-check names, timings, and failure messages. Python wrappers remain stable
+> governance ergonomics. DAD candidate lesson:
+> `msg-20260706-t462-modular-rust-validator-bundle`.
+
+> **T423 comparison/delta analysis next:** after the six-model scratch marathon artifacts merge. Do not run comparison until starting that next task from current `main`.
 
 > **T423 six-model whole-Bible marathon integration (2026-07-06):** M1_cursor,
 > M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, and

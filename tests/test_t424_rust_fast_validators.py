@@ -68,6 +68,63 @@ def _run(args: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(args, cwd=ROOT, capture_output=True, text=True)
 
 
+def _cargo_fast_validator_args() -> list[str]:
+    return [
+        "cargo",
+        "run",
+        "--quiet",
+        "--manifest-path",
+        "tools/logos_fast_validators/Cargo.toml",
+        "--",
+    ]
+
+
+def test_fast_validator_span_parse_module_reports_summary(tmp_path: Path) -> None:
+    summary = tmp_path / "span_summary.json"
+
+    result = _run(
+        _cargo_fast_validator_args()
+        + [
+            "span-parse",
+            "--summary-json",
+            str(summary),
+            "Gen.1.1",
+            "2John.1.1-2John.1.3",
+        ]
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    data = json.loads(summary.read_text(encoding="utf-8"))
+    assert data["validator"] == "logos_fast_validators span-parse"
+    assert data["status"] == "passed"
+    assert data["spans"] == 2
+    assert data["non_authorizing"] is True
+
+
+def test_fast_validator_bundle_reports_named_modular_failures(tmp_path: Path) -> None:
+    summary = tmp_path / "bundle_summary.json"
+    missing_canonical_root = tmp_path / "missing_canonical"
+
+    result = _run(
+        _cargo_fast_validator_args()
+        + [
+            "bundle",
+            "--canonical-root",
+            str(missing_canonical_root),
+            "--summary-json",
+            str(summary),
+        ]
+    )
+
+    assert result.returncode != 0
+    data = json.loads(summary.read_text(encoding="utf-8"))
+    check_ids = {check["check_id"] for check in data["checks"]}
+    assert data["validator"] == "logos_fast_validators bundle"
+    assert data["status"] == "failed"
+    assert {"canonical_qa", "canonical_scope", "word_token_signals"} <= check_ids
+    assert data["non_authorizing"] is True
+
+
 def test_fast_jsonl_agrees_with_python_on_valid_fixture(tmp_path: Path) -> None:
     fixture = tmp_path / "valid.jsonl"
     _write_jsonl(fixture, _valid_records())

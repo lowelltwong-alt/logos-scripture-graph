@@ -11,6 +11,40 @@ T424 keeps Python and pytest as the governance orchestrator, while adding Rust f
 - `canonical-scope` mirrors the canonical 66-book config and record-scope checks.
 - `canonical-qa` exists only as a scaffold; `scripts/qa_canonical_corpus.py` remains authoritative.
 - `chunk-map` is enabled as a T424-D shadow fast path for deterministic scratch chunk-map structure/span checks only.
+- `span-parse` exposes a small span-shape check for fixture/module troubleshooting.
+- `bundle` provides a single command entry point for agents that need one run/one summary while
+  preserving per-check `CheckReport` names, timings, and failure messages.
+
+## Modular Rust Shape
+
+Rust fast validators must stay modular, even when agents call one combined command:
+
+```text
+main.rs
+  -> parse command line and dispatch only
+reports.rs
+  -> CheckReport, status, elapsed time, JSON summary, aggregate failure handling
+jsonl_scan.rs
+canonical_scope.rs
+canonical_qa.rs
+span_parse.rs
+chunk_map.rs
+word_tokens.rs
+bundle.rs
+  -> each exposes run_check(input) -> CheckReport
+legacy.rs
+  -> temporary compatibility module for pre-split validator internals
+```
+
+The goal is Rust speed without a black-box mega-test. Each deterministic validator must have a named
+module, a small input type, and a `run_check(input) -> CheckReport` boundary. The combined command
+is allowed only when it preserves those per-check reports in machine-readable JSON. Python wrappers
+remain the stable repo ergonomics, but Rust internals should be easy to unit test and troubleshoot
+one module at a time.
+
+Future work should migrate logic out of `legacy.rs` into the named modules incrementally. Do not
+move theology policy, owner gates, route/evaluator decisions, reviewed-gold promotion, graph truth,
+or other governance semantics into Rust while doing that mechanical cleanup.
 
 ## Python Boundary
 
@@ -60,6 +94,10 @@ The DAD message is candidate-only and requires local adoption. It offers three r
 - Python wrapper plus Rust fallback pattern
 
 `scripts/validate_dad_outbox.py` checks the outbox, required T424 artifacts, asset candidates, and non-authorizations. `validate_all.py` runs that validator so future agents keep sending useful lessons/assets to DAD without granting DAD authority over this repo.
+
+The modular validator follow-up is also reported to DAD as
+`msg-20260706-t462-modular-rust-validator-bundle`. That DAD message is a candidate reusable asset
+for repos that want Rust speed while keeping failures pinpointable and non-authorizing.
 
 ## Non-Authorizations
 
