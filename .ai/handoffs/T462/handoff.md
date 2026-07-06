@@ -24,12 +24,14 @@ deterministic_validation_architecture_hardening
 - `.digital-asset/context-map.json`
 - `.digital-asset/mail/outbox.jsonl`
 - `.ai/control/chunking_theological_decision_register.yaml`
+- `.ai/control/chunking_lesson_index.yaml`
 
 ## Files changed
 
 - `.ai/tasks/T462.task.yaml`
 - `.ai/handoffs/T462/handoff.md`
 - `.ai/control/chunking_theological_decision_register.yaml`
+- `.ai/control/chunking_lesson_index.yaml`
 - `.ai/control/PROJECT_STATUS.md`
 - `.digital-asset/context-map.json`
 - `.digital-asset/mail/outbox.jsonl`
@@ -59,6 +61,8 @@ deterministic_validation_architecture_hardening
 - Reported the pattern to DAD as candidate-only reusable guidance.
 - Recorded T462 in the chunking theological decision register because the T424 roadmap is a watched
   path and the modular Rust validator bundle must remain explicitly non-authorizing.
+- Recorded LSN-046 in the chunking lesson index because the decision-register update is also a
+  watched lesson/preflight surface and the modular Rust validator pattern is reusable.
 
 ## Validation performed
 
@@ -77,6 +81,8 @@ deterministic_validation_architecture_hardening
 - `git diff --check` -> passed.
 - GitHub Actions found the expected watched-roadmap register gate; added CD-090 for T462 and reran
   focused gates before repushing.
+- Local `validate_all.py` then found the expected lesson-index gate for the register update; added
+  LSN-046 for T462 before the final push.
 
 ## Risks introduced
 
