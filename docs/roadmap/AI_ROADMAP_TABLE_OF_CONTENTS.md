@@ -27,7 +27,7 @@ Common tags in this file:
 - `current-route`, `next-route`, `owner-review`, `owner-decision`
 - `review-packet`, `reviewed-gold`, `gold-gate`, `non-authorizing`
 - `theology-risk`, `hermeneutic-neutrality`, `source-metadata`
-- `audit`, `handoff`, `task-scope`, `validator`, `harness`
+- `audit`, `handoff`, `task-scope`, `validator`, `harness`, `task-ledger`, `front-door`
 - `psalms`, `revelation`, `epistle`, `gospel-discourse-wj`, `john3`, `divine-capitalization`,
   `whole-bible-research`, `canonical-66`, `research-registry`, `source-metadata-atlas`,
   `apocalyptic-prophetic`, `intertext`, `hermeneutic-neutrality`, `argument-boundary`,
@@ -92,6 +92,7 @@ Common tags in this file:
 
 | Task | Purpose | Tags | Use when | Primary artifacts |
 | --- | --- | --- | --- | --- |
+| T461 | Scripture front-door decomposition | `task-ledger`, `front-door`, `task-history`, `validator-anchor`, `non-authorizing` | A future agent needs moved task-history narrative, front-door shrink rationale, or task-ledger validation after Fable PR-7. | `docs/roadmap/TASK_LEDGER.md`; `AI_FRONT_DOOR.md`; `scripts/validate_task_ledger.py`; `.ai/tasks/T461.task.yaml`; `.ai/handoffs/T461/handoff.md` |
 | T336 | Whole-Bible roadmap | `chunking`, `whole-bible`, `roadmap` | Planning or auditing the full Bible chunking destination. | `docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md` |
 | T337 | Psalm behavior-change selection | `psalms`, `selection`, `non-authorizing` | Checking why no Psalm behavior-change target was selected at that point. | `docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md` |
 | T337A | Psalm 89 human-review packet selection trail | `psalms`, `review-packet`, `handoff` | Reconstructing the Psalm 89 review trail. | `.ai/tasks/T337A.task.yaml`; `.ai/handoffs/T337A/handoff.md`; `eval/chunking_gold/review_packets/ps89_boundary_review.md` |
