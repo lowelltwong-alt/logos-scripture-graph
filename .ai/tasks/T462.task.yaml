@@ -1,0 +1,93 @@
+id: T462
+phase: phase_4
+title: "Modular Rust Fast Validator Bundle"
+mode: deterministic_validation_architecture_hardening
+status: in_progress
+owner: codex
+branch: codex/t424-modular-rust-validators
+base_ref: origin/main
+summary: "Refactor logos_fast_validators so main.rs dispatches to named modules with run_check(input) -> CheckReport, preserving Rust speed and pinpointable failures."
+scope:
+  allowed_paths:
+    - .ai/tasks/T462.task.yaml
+    - .ai/handoffs/T462/
+    - .ai/control/PROJECT_STATUS.md
+    - .digital-asset/context-map.json
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/lessons/t462_modular_rust_validator_bundle.yaml
+    - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+    - tools/logos_fast_validators/
+    - tests/test_t424_rust_fast_validators.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: rust_validator_modularity_non_authorizing
+  keeps_python_pytest_as_governance_orchestrator: true
+  adds_modular_rust_check_reports: true
+  adds_combined_bundle_command: true
+  preserves_existing_fast_validator_commands: true
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T462
+  touched_paths:
+    - tools/logos_fast_validators/
+  expected_input_size_or_record_count: "The target is the existing Rust fast-validator crate for large deterministic JSONL/corpus/chunk-map checks that can hit hundreds of thousands of rows in normal repo use."
+  expected_runtime_or_memory_pressure: "Combined deterministic validation should be fast without becoming opaque; the work is specifically to keep Rust hot-path checks modular and diagnosable."
+  rust_trigger_match:
+    - large_jsonl_scan
+    - repeated_gate_or_ci_hot_path
+    - deterministic_streaming_parse_hash_or_compare
+    - rust_validator_modularity_hardening
+  chosen_language: rust_fast_path_with_python_wrapper
+  expected_rust_time_saved_or_reason_not_applicable: "Rust is already the selected fast path for these deterministic validators; this task improves maintainability and failure locality without moving governance semantics into Rust."
+  interop_boundary: "Rust emits non-authorizing CheckReport and JSON summaries. Python wrappers remain stable repo entry points and preserve fallback/parity orchestration."
+  python_fallback_or_wrapper_plan: "Existing Python wrappers are preserved. The new bundle command is not wired into validate_all.py until a separate lifecycle/parity decision authorizes it."
+  validation_plan:
+    - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+    - python -m pytest tests/test_t424_rust_fast_validators.py -q
+    - python scripts/validate_dad_outbox.py
+    - python scripts/validate_task_scope.py --task-id T462
+    - python scripts/agent/validate_handoffs.py
+    - git diff --check
+  maintenance_tradeoffs: "The split keeps a temporary legacy.rs compatibility module; future tasks should migrate internals into named modules one validator at a time while preserving wrapper behavior."
+acceptance_criteria:
+  - "main.rs only parses command arguments and dispatches to modules."
+  - "Each Rust validator command has a named module exposing run_check(input) -> CheckReport."
+  - "The bundle command emits one aggregate summary while preserving per-check names, timings, and failure messages."
+  - "Existing Python wrapper ergonomics and command names remain stable."
+  - "DAD receives a candidate-only reusable lesson/asset report."
+  - "No output, reviewed gold, child spans, route/evaluator, graph/retrieval/vector, canon, source-tradition, or theology authority is created."
+validations:
+  - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python -m pytest tests/test_t424_rust_fast_validators.py -q
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_task_scope.py --task-id T462
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T462/handoff.md
+created_at: "2026-07-06"
+updated_at: "2026-07-06"
