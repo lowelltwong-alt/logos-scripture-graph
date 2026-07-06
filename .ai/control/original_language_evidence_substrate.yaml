@@ -1,0 +1,252 @@
+object_type: original_language_evidence_substrate
+schema_version: original_language_evidence_substrate.v1
+task_id: T430
+owner: Lowell Wong
+status: active_planning_and_raw_intake_lane
+trust_zone: control
+provenance_note: "Created during T431 to define the non-authorizing original-language evidence lane before tokenization, alignment, variants, manuscript scoring, or KG work."
+summary: "T430 builds Hebrew, Aramaic, and Greek evidence from manifest-backed raw sources, then layers Strong's, lemma, morphology, variant, witness, and translation-faithfulness evidence as candidate records."
+authority:
+  records_original_language_evidence_lane: true
+  authorizes_allowlisted_raw_downloads_via_t431: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_source_text_mutation: false
+  authorizes_strongs_overlay_in_raw: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_route_behavior: false
+  authorizes_evaluator_behavior: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_theology_authority: false
+raw_intake:
+  allowlist: .ai/control/original_language_source_allowlist.yaml
+  raw_root: data/raw/original_language
+  rule: "Raw files are immutable downloaded source packages with manifests and checksums; processed tokens, overlays, variants, and witness claims do not belong in raw."
+schema_contracts:
+  task_id: T432
+  control: .ai/control/original_language_schema_contracts.yaml
+  status: active_schema_contract
+  rule: "Future source-token, Strong's alignment, lexeme, morphology, variant, witness, and editorial-layer rows must satisfy T432 schemas before any data population or pilot promotion."
+  rust_policy: "No Rust is added in T432; Rust belongs in later T435 scanners/validators after row shapes and parity fixtures stabilize."
+pilot_lanes:
+  - task_id: T433
+    control: .ai/control/t433_phlm_original_language_evidence_pilot.yaml
+    status: tiny_candidate_pilot
+    span: Phlm.1.1-Phlm.1.3
+    pilot_root: data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge
+    primary_source_view: sblgnt
+    rule: "T433 may populate only task-scoped pilot rows proving SBLGNT source-token observations, editorial-layer observations, and low-confidence WEB alignment bridge records. It does not open production output roots or authorize source-language truth, translation judgments, preferred readings, KG/retrieval truth, chunks, or theology authority."
+    rust_policy: "No Rust is added in T433; Rust remains the preferred later fit for T435 high-volume deterministic scanners once pilot row shape is reviewed."
+  - task_id: T435
+    control: .ai/control/original_language_observation_scanner.yaml
+    status: rust_no_text_observation_scanner
+    source_view: sblgnt
+    generated_output_root: build/original_language_observation/T435-A/sblgnt
+    rule: "T435-A emits no-text SBLGNT source-view shape ledgers and T433 Phlm.1.1-3 parity only. It does not populate production candidate roots or authorize source-language truth, alignment truth, Strong's, lemma/morphology, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "Rust is appropriate for this deterministic XML scan/count/hash/JSONL leaf tool; Python remains the authority validator and orchestration layer."
+  - task_id: T436
+    control: .ai/control/t436_jonah_hebrew_metadata_pilot.yaml
+    status: no_text_hebrew_observation_parity_pilot
+    source_views:
+      - tanach_us_uxlc
+      - openscriptures_oshb
+    pilot_root: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+    rule: "T436 emits no-text Jonah source-view file, verse, token-shape, editorial/metadata-shape, and parity-summary ledgers. It records OSHB lemma-attribute flag drift and does not populate production candidate roots or authorize source-language truth, alignment truth, Strong's, lemma/morphology, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T436. Future Hebrew Rust expansion is blocked until UXLC/OSHB parser assumptions and OSHB lemma-attribute flag drift are reviewed."
+  - task_id: T437
+    control: .ai/control/t437_oshb_lemma_attribute_policy.yaml
+    status: oshb_lemma_attribute_policy_cover
+    source_view: openscriptures_oshb
+    rule: "T437 policy-covers OSHB w@lemma as Strong lookup-hint metadata while keeping local lemma population, Strong's overlay rows, lexical truth, preferred readings, source-tradition choice, chunks, graph/retrieval truth, and theology authority unauthorized."
+    rust_policy: "No Rust is added in T437. Hebrew Rust expansion remains blocked until source-specific UXLC/OSHB parser contracts and no-text parity proof exist."
+  - task_id: T438
+    control: .ai/control/t438_alignment_bridge_goal.yaml
+    status: alignment_bridge_goal_gate
+    goal_option: option_1_alignment_bridge
+    parallel_goal_option: option_2_manuscript_custody_chain
+    rule: "T438 records the Greek/Hebrew-to-English alignment bridge as the next implementation lane and keeps manuscript custody-chain work catalog-only in parallel. It does not populate production evidence roots or authorize source-language truth, alignment truth, translation judgments, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T438. Future Rust should target deterministic no-text scanner/checker slices only after T439/T440 parser semantics and negative parity fixtures are reviewed."
+  - task_id: T439
+    control: .ai/control/t439_phlm_alignment_bridge_expansion.yaml
+    status: full_philemon_no_text_candidate_pilot
+    span: Phlm.1.1-Phlm.1.25
+    pilot_root: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion
+    source_view: sblgnt
+    rule: "T439 expands the T433 bridge to full Philemon as no-text task-scoped candidate rows. It does not open production evidence roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology population, translation judgments, preferred readings, witness support, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T439. T439 creates the Python parity fixture for T441 Rust no-text alignment coverage/index scanning."
+  - task_id: T440
+    control: .ai/control/t440_jonah_hebrew_parser_contract.yaml
+    status: jonah_hebrew_source_specific_parser_contract
+    span: Jonah.1.1-Jonah.4.11
+    source_views:
+      - tanach_us_uxlc
+      - openscriptures_oshb
+    rule: "T440 defines UXLC and OSHB Jonah parser semantics, lineage, expected counts, metadata meanings, and negative fixtures before any Hebrew Rust expansion. It does not populate production roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology rows, preferred readings, translation judgments, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "No Rust is added in T440. T440 closes source-specific parser-contract prerequisites so T441 may separately design a no-text Rust scanner/checker against these semantics."
+  - task_id: T441
+    control: .ai/control/t441_rust_alignment_coverage_index.yaml
+    status: rust_no_text_alignment_coverage_index
+    spans:
+      - Phlm.1.1-Phlm.1.25
+      - Jonah.1.1-Jonah.4.11
+    generated_output_root: build/original_language_observation/T441/alignment_coverage
+    source_fixtures:
+      - data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion
+      - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+      - .ai/control/t440_jonah_hebrew_parser_contract.yaml
+    rule: "T441 emits generated no-text coverage ledgers and guardrail rows for the existing T439/T436/T440 fixtures. It does not open production evidence roots or authorize source-language truth, alignment truth, Strong's/lemma/morphology rows, preferred readings, translation judgments, chunks, graph/retrieval truth, or theology authority."
+    rust_policy: "Rust is appropriate for the deterministic scan/count/no-text coverage-ledger leaf tool; Python remains the authority validator and validate_all runs contract mode only."
+  - task_id: T442
+    control: .ai/control/t442_production_candidate_root_decision_packet.yaml
+    status: pending_owner_decision_packet
+    scope: original_language_production_candidate_root_opening
+    rule: "T442 presents owner options for whether a later task may open narrow original-language production candidate roots. It does not open roots, create rows, authorize source-language truth, alignment truth, translation judgment, graph/retrieval truth, chunks, reviewed gold, or theology authority."
+    rust_policy: "No new Rust is added in T442. If T442-A is later selected, the next Rust slice should be a deterministic production-root admission checker."
+goal_options:
+  - option_id: option_1_alignment_bridge
+    short_name: Greek/Hebrew-to-English alignment bridge
+    recommended_sequence: 1
+    status: selected_next_implementation_lane_by_t438
+    first_pilot: "Philemon for Greek or Jonah for Hebrew"
+    primary_question: "How does the current English WEB wording relate to Hebrew, Aramaic, or Greek source-token evidence?"
+    first_output: "Candidate source-token and English-token alignment records with provenance, confidence, and non-authority fields."
+    authority_limit: "Alignment candidates are evidence only; they do not judge translation faithfulness or create lexical/theology authority."
+  - option_id: option_2_manuscript_custody_chain
+    short_name: Manuscript witness chain and confidence atlas
+    recommended_sequence: 2
+    status: parallel_catalog_only_research
+    first_pilot: "Philemon for NT witness mechanics or Jonah for Hebrew source-family mechanics"
+    primary_question: "What witnesses, fragments, editions, and catalogs support a passage, and where are the gaps?"
+    first_output: "Metadata-only passage witness coverage packet separating oldest-known evidence from highest-confidence evidence."
+    authority_limit: "Witness catalog rows are evidence only; oldest witness is not automatic authority and source-tradition preference is not authorized."
+  - option_id: option_3_variant_error_ledger
+    short_name: Variant and copying-error transparency ledger
+    recommended_sequence: 3
+    status: after_schema_and_license_gate
+    first_pilot: "Tiny variant-sensitive span after source/license review"
+    primary_question: "What known copying, spelling, omission/addition, punctuation, or editorial issues touch this span?"
+    first_output: "Candidate variant/copying-error rows with witness, edition, provenance, confidence, and downstream caution notes."
+    authority_limit: "Variant rows expose uncertainty; they do not select a preferred reading or silently normalize disputes."
+  - option_id: option_4_early_creed_lane
+    short_name: Early creed and tradition-formula research lane
+    recommended_sequence: 4
+    status: after_citation_and_frontier_review_gate
+    first_pilot: "1Cor.15.3-1Cor.15.8 as a non-authorizing research packet"
+    primary_question: "Which passages may preserve early creed, confession, hymn, or tradition-formula material, and why?"
+    first_output: "Research packet separating manuscript evidence, source-language/discourse evidence, scholarly historical argument, and downstream consequence."
+    authority_limit: "No doctrinal or dating claim becomes data authority; high-impact claims require citations, confidence limits, and frontier review."
+  - option_id: option_5_integrated_workbench
+    short_name: Integrated original-language evidence workbench
+    recommended_sequence: 5
+    status: later_after_smaller_lanes_validate
+    first_pilot: "Combined dashboard only after Options 1-4 prove their fields"
+    primary_question: "How do alignment, manuscript, variant, translation, and early-tradition evidence appear together for a passage?"
+    first_output: "Combined evidence dashboard that exposes uncertainty, provenance, and open disputes rather than collapsing them into one score."
+    authority_limit: "Workbench exports to KG or retrieval require later owner-gated promotion and cannot create graph/retrieval truth by itself."
+evidence_layers:
+  - layer_id: source_text_archive
+    destination: data/raw/original_language
+    status: T431_allowlisted_downloads_only
+    authority_limit: "Downloaded archives are evidence inputs; they do not select a preferred reading or source tradition."
+  - layer_id: canonical_source_view
+    destination: data/candidate/original_language_evidence/canonical_source_views
+    status: T431_filtered_candidate_view
+    authority_limit: "Filtered views include only recognized canonical Bible text files and exclusion ledgers; they do not mutate raw, select preferred readings, or become canon authority."
+  - layer_id: source_language_tokens
+    destination: data/candidate/original_language_evidence/source_tokens
+    status: T432_schema_contract_only_future_T433_T435_population
+    authority_limit: "Token rows are candidate observations, not canonical Scripture replacement."
+  - layer_id: strongs_alignment
+    destination: data/candidate/original_language_evidence/strong_alignment
+    status: T432_schema_contract_only_future_T433_T435_population
+    authority_limit: "Strong's numbers are lookup and alignment hints, not source text, lexical truth, or theology authority."
+  - layer_id: lemma_morphology
+    destination: data/candidate/original_language_evidence/lemma_morphology
+    status: T432_schema_contract_only_future_T433_T435_population
+    authority_limit: "Lemma and morphology labels require phrase, clause, syntax, discourse, genre, and canonical context."
+  - layer_id: textual_variants
+    destination: data/candidate/original_language_evidence/textual_variants
+    status: T432_schema_contract_only_future_T433_T436_population
+    authority_limit: "Variants must be transparent and cited, never silently normalized or converted into preferred readings."
+  - layer_id: manuscript_witness_support
+    destination: data/candidate/original_language_evidence/witness_support
+    status: T432_schema_contract_only_future_T433_T436_population
+    authority_limit: "Oldest witness is evidence, not automatic authority."
+  - layer_id: editorial_layers
+    destination: data/candidate/original_language_evidence/editorial_layers
+    status: T432_schema_contract_only_future_T433_T437_population
+    authority_limit: "Modern punctuation, capitalization, verse/chaptering, paragraphing, headings, and red-letter/WJ formatting are editorial layers."
+required_downstream_packet_fields:
+  - source_id
+  - source_manifest
+  - source_sha256
+  - license
+  - retrieval_url
+  - retrieval_date
+  - version_or_commit
+  - osis_ref
+  - source_token_id
+  - lemma
+  - morphology
+  - strong_id
+  - alignment_basis
+  - confidence
+  - provenance
+  - inferred_vs_observed
+  - phrase_clause_context
+  - discourse_context
+  - textual_variant_dependency
+  - witness_support_summary
+  - non_authorizations
+non_authorizations:
+  - source_language_truth
+  - lexical_truth
+  - isolated_word_theology
+  - strongs_number_as_source_text
+  - strongs_number_as_theology_authority
+  - source_text_mutation
+  - preferred_reading
+  - source_tradition_preference
+  - oldest_witness_as_automatic_authority
+  - manuscript_catalog_as_transcription_authority
+  - punctuation_as_autograph_certainty
+  - red_letter_as_original_speaker_authority
+  - translation_judgment
+  - canon_scope_change
+  - boundary_import
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_edge
+  - retrieval_truth
+  - embedding_or_vector_work
+validators:
+  - scripts/validate_t430_original_language_evidence_substrate.py
+  - scripts/validate_t432_original_language_schema_contracts.py
+  - scripts/validate_t435_original_language_observation_scanner.py
+  - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+  - scripts/validate_t437_oshb_lemma_attribute_policy.py
+  - scripts/validate_t438_alignment_bridge_goal.py
+  - scripts/validate_t439_phlm_alignment_bridge_expansion.py
+  - scripts/validate_t440_jonah_hebrew_parser_contract.py
+  - scripts/validate_t441_rust_alignment_coverage_index.py
+  - scripts/validate_t442_production_candidate_root_decision_packet.py
+  - scripts/validate_original_language_raw_sources.py
+  - tests/test_t430_original_language_evidence_substrate.py
+  - tests/test_t432_original_language_schema_contracts.py
+  - tests/test_t435_original_language_observation_scanner.py
+  - tests/test_t438_alignment_bridge_goal.py
+  - tests/test_t439_phlm_alignment_bridge_expansion.py
+  - tests/test_t440_jonah_hebrew_parser_contract.py
+  - tests/test_t441_rust_alignment_coverage_index.py
+  - tests/test_t442_production_candidate_root_decision_packet.py
+  - tests/test_original_language_raw_sources.py

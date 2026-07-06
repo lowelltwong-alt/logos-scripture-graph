@@ -1,0 +1,64 @@
+object_type: t439_phlm_alignment_bridge_expansion
+schema_version: t439_phlm_alignment_bridge_expansion.v1
+task_id: T439
+owner: Lowell Wong
+status: implementation
+trust_zone: control
+summary: "Expand the T433 Phlm.1.1-3 SBLGNT-to-WEB bridge to full Philemon as task-scoped no-text candidate evidence rows."
+pilot_root: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion
+span:
+  book_id: Phlm
+  start_osis_ref: Phlm.1.1
+  end_osis_ref: Phlm.1.25
+  scope: full_book_philemon
+sources:
+  primary_source_view:
+    source_id: sblgnt
+    canonical_source_view_manifest: data/candidate/original_language_evidence/canonical_source_views/sblgnt/canonical_source_view_manifest.yaml
+    source_view_path: data/candidate/original_language_evidence/canonical_source_views/sblgnt/files/Phlm.xml
+    source_local_metadata_policy: "SBLGNT Philemon source view exposes clean XML word tokens without source-provided Strong's, lemma, or morphology fields."
+  english_translation_side:
+    translation_id: eng-web
+    word_tokens: data/canonical/translations/eng-web/word_tokens.jsonl
+    strongs_policy: "WEB Strong's values are translation-side lookup hints only; they are not copied into SBLGNT source tokens and are not source text, lexical truth, or theology authority."
+outputs:
+  manifest: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/manifest.yaml
+  source_language_tokens: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/source_language_tokens.jsonl
+  editorial_layers: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/editorial_layers.jsonl
+  alignment_records: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/alignment_records.jsonl
+no_text_policy:
+  stores_source_text: false
+  stores_translation_text: false
+  stores_token_text_hashes: true
+  stores_punctuation_values: false
+  reason: "T439 expands bridge coverage while preserving no-text scanner/checker discipline for future Rust parity."
+authority:
+  records_candidate_pilot: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t439: false
+  future_rust_fit: T441
+  reason: "T439 proves no-text full-book candidate row semantics in Python. Rust should enter after this as a deterministic no-text coverage/index scanner with parity against T439."
+validators:
+  - scripts/build_t439_phlm_alignment_bridge_expansion.py --check
+  - scripts/validate_t439_phlm_alignment_bridge_expansion.py
+  - tests/test_t439_phlm_alignment_bridge_expansion.py
+created_at: "2026-07-05"

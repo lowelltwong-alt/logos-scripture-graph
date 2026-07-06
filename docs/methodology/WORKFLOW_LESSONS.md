@@ -403,8 +403,15 @@ quietly while new dependent work keeps building on top of it. A pile of unmerged
 ordinary integration into conflict archaeology, hides stale validation results, and makes it hard to
 know whether failures are real regressions or old branch drift.
 
+Machine-readable policy: `.ai/control/ai_pr_lifecycle_policy.yaml`.
+
 Required routing:
 
+- Any AI-created draft branch or staged work must reach one of these owner-visible states before
+  the agent walks away: `pr_open_owner_approval_requested`,
+  `pr_open_green_merge_permission_already_granted`, `merged_with_recorded_permission`,
+  `hold_with_findings_owner_visible`, `closed_superseded_with_rationale`,
+  `abandoned_not_value_add_with_rationale`, or `escalated_to_owner_or_integrator`.
 - Before opening a PR, record the exact next action: keep building, request review, merge when green,
   hold with findings, or close as superseded.
 - If a PR or staged branch is not merged promptly, escalate to the owner or integrator instead of

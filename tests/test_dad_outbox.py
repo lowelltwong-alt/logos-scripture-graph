@@ -126,7 +126,7 @@ def test_dad_outbox_accepts_additional_lesson_candidate_rows(tmp_path: Path) -> 
     rows = copy.deepcopy(read_rows())
     rows.append(
         {
-            "message_id": "msg-20260705-t441-production-root-denylist-followup",
+            "message_id": "msg-test-additional-lesson-candidate",
             "direction": "outbound",
             "from_repo": "logos-scripture-graph",
             "to_hub": "dad://hub/Digital-Assett-Directory",
@@ -153,7 +153,7 @@ def test_dad_outbox_accepts_additional_lesson_candidate_rows(tmp_path: Path) -> 
 
     validated = validator.validate_dad_outbox(candidate)
 
-    assert any(row["message_id"] == "msg-20260705-t441-production-root-denylist-followup" for row in validated)
+    assert any(row["message_id"] == "msg-test-additional-lesson-candidate" for row in validated)
 
 
 def test_dad_outbox_rejects_lesson_candidate_without_local_authority_denial(tmp_path: Path) -> None:

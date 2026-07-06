@@ -1,8 +1,23 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-06
-**Updated by:** T462 modular Rust fast-validator bundle
-**Active task:** -> **T462 modular Rust fast-validator bundle** on `codex/t424-modular-rust-validators`. This is deterministic validation architecture hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, or theology authority.
+**Updated by:** T463 original-language stack integration, AI PR lifecycle, and Rust validator adoption
+**Active task:** -> **T463 original-language stack integration** on `codex/t431-t442-original-language-integration`. This is non-authorizing integration and validation hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
+
+> **T463 integration hardening (2026-07-06):** Integrates the T431-T442
+> original-language evidence stack on current `main`, adds
+> `.ai/control/ai_pr_lifecycle_policy.yaml` so AI-created draft work must reach PR,
+> merge, hold, superseded, abandoned-with-rationale, or owner/integrator escalation
+> state, and adopts the Rust fast-path pattern for the legacy whole-Bible chunk-map
+> validator while preserving `--python-only` parity/debugging. T463 also strengthens
+> `.ai/control/coding_runtime_language_preflight.yaml` with the explicit Python-test
+> migration strategy: keep Python command names stable, use Rust for deterministic hot
+> paths when thresholds justify it, and require modular Rust `CheckReport` boundaries.
+> DAD candidate lesson:
+> `msg-20260706-t463-ai-draft-pr-and-rust-validator-strategy`. T463 authorizes no
+> chunk output, reviewed gold, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, source-tradition choice, canon change, DAD override,
+> or theology authority.
 
 > **T462 modular Rust validator bundle (2026-07-06):** `tools/logos_fast_validators`
 > now uses the preferred Rust shape for combined deterministic checks: short
@@ -60,6 +75,119 @@
 > reviewed gold, child spans,
 > graph/retrieval/vector truth, embeddings/indexes, source rows, canon changes, target
 > selection, or theology authority are authorized.
+
+> **T442 production candidate-root decision packet (2026-07-05):** Presents owner options for
+> whether a later task may open narrow original-language production candidate roots after
+> T439/T440/T441 proof. Recommended option T442-A would authorize only a future implementation
+> packet, not immediate root creation or row population. T442 adds no Rust; it records the next
+> sensible Rust slice as a future production-root admission checker if T442-A is selected. T442
+> authorizes no production roots, source-token rows, alignment rows, Strong's/lemma/morphology
+> population, preferred readings, source-tradition choice, manuscript witness support,
+> translation-faithfulness judgment, chunks, reviewed gold, KG/retrieval/vector truth, or
+> theology authority.
+
+> **T441 Rust no-text alignment coverage index (2026-07-05):** Adds a narrow Rust binary
+> inside the original-language observation scanner crate to emit generated no-text coverage
+> ledgers for T439 Philemon and T436/T440 Jonah fixtures. The generated ledgers live under
+> `build/original_language_observation/T441/alignment_coverage/` and are not committed.
+> Python remains the authority validator; `validate_all.py` runs only the fast contract check,
+> not the generated Rust scan. T441 records source/ref coverage, alignment-coverage shape rows,
+> semantic guardrails, and T440 negative-fixture carry-forward only. It opens no production
+> evidence roots and authorizes no source-language truth, word-level alignment truth,
+> Strong's/lemma/morphology population, preferred readings, source-tradition preference,
+> manuscript witness support, translation-faithfulness judgment, chunks, reviewed gold,
+> KG/retrieval/vector truth, or theology authority.
+
+> **T438 alignment bridge goal gate (2026-07-05):** Records Option 1, the
+> Greek/Hebrew-to-English alignment bridge, as the next original-language implementation
+> lane while keeping Option 2 manuscript custody-chain work catalog-only in parallel.
+> T438 defines the T439/T440/T441/T442 sequence: Greek Philemon bridge expansion
+> contract, Hebrew Jonah source-specific parser contract, Rust no-text alignment
+> coverage index, and an owner-gated production candidate-root opening packet. Rust is
+> reserved for deterministic scanner/checker slices after parser semantics and negative
+> parity fixtures are proved. T438 authorizes no production source-token rows, alignment
+> rows, Strong's overlays, lemma/morphology rows, preferred readings, source-tradition
+> choices, witness-support rows, translation judgments, KG/retrieval truth, chunks,
+> reviewed gold, or theology authority.
+
+> **T439 Philemon alignment bridge expansion (2026-07-05):** Expands T433's
+> `Phlm.1.1-Phlm.1.3` SBLGNT-to-WEB bridge to all 25 verses of Philemon as
+> no-text task-scoped candidate rows under
+> `data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/`.
+> T439 emits 334 source-token observation rows, 98 redacted editorial-layer rows,
+> 25 low-confidence verse-level alignment rows, and a manifest for future Rust parity.
+> It stores token hashes and IDs, not visible Greek source text or visible English text.
+> It opens no production evidence roots and authorizes no source-language truth,
+> alignment truth, Strong's/lemma/morphology population, translation judgment,
+> preferred reading, source-tradition choice, witness support, KG/retrieval truth,
+> chunks, reviewed gold, or theology authority.
+
+> **T440 Jonah Hebrew parser contract (2026-07-05):** Defines source-specific
+> UXLC and OSHB Jonah parser semantics before any Hebrew Rust expansion. It records
+> full-Jonah lineage, expected counts, XML shape, OSHB `w@lemma` as Strong lookup-hint
+> metadata, OSHB `w@morph` as source morphology metadata, and negative fixture
+> requirements for T441. T440 adds no Rust code, no new Hebrew token rows, no
+> production original-language evidence roots, no source-language truth, no
+> Strong's/lemma/morphology population, no preferred readings, no source-tradition
+> choice, no translation judgment, no KG/retrieval truth, no chunks, no reviewed
+> gold, and no theology authority.
+
+> **T437 OSHB lemma-attribute policy cover (2026-07-05):** Policy-covers OSHB
+> `w@lemma` as Strong lookup-hint metadata without treating it as local lemma rows,
+> Strong's rows, lexical truth, preferred readings, translation judgment, or theology
+> authority. Updates the T431 allowlist, OSHB source manifest, canonical source-view
+> manifest, all 39 included OSHB rows, T436 parity output, and validators. Hebrew Rust
+> expansion remains unauthorized until a later source-specific UXLC/OSHB parser contract
+> and no-text parity proof exists.
+
+> **T436 Jonah Hebrew observation parity pilot (2026-07-04):** Adds a no-text
+> Hebrew Jonah pilot under
+> `data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/`.
+> T436 consumes only T431 canonical source views for Tanach.us UXLC and Open Scriptures OSHB,
+> emits source-view file observations, 96 verse rows, 1,376 token-shape rows,
+> editorial/metadata-shape rows, and a parity summary without Hebrew wording, morphology
+> values, lemma values, Strong's values, raw archive reads, or production candidate-root writes.
+> It records UXLC/OSHB verse and token-count parity for Jonah and explicitly records OSHB
+> `w@lemma` metadata as policy-covered Strong lookup-hint metadata, not local lemma
+> or Strong's authority. T436 blocks Hebrew Rust expansion until source-specific parser
+> contracts exist. It authorizes no source-language truth, lexical truth,
+> Strong's/lemma/morphology population, preferred reading, source-tradition choice, manuscript
+> witness support, translation judgment, chunk boundary, reviewed gold, chunk output,
+> KG/retrieval truth, embeddings/indexes, or theology authority.
+
+> **T435 original-language Rust observation scanner (2026-07-04):** Added a narrow Rust
+> SBLGNT canonical-source-view scanner at `tools/original_language_observation_scanner/`.
+> It emits no-text generated ledgers under `build/original_language_observation/T435-A/sblgnt/`
+> for source-view files, verses, token shapes, and editorial shapes, then checks T433
+> Phlm.1.1-3 parity (41 source-token shapes and 7 editorial shapes). Python remains the
+> authority validator through `scripts/validate_t435_original_language_observation_scanner.py`;
+> `validate_all.py` runs only the fast contract check, not the full Rust scan. T435 records
+> `CD-094` and authorizes no source-language truth, lexical truth, Strong's/lemma/morphology
+> population, preferred reading, source-tradition choice, manuscript witness support, translation
+> judgment, chunk boundary, reviewed gold, KG/retrieval truth, embeddings/indexes, or theology
+> authority. Hebrew scanning remains deferred until a separate Jonah pilot proves Hebrew
+> source-view and metadata assumptions.
+
+> **T431 original-language raw intake (2026-07-04):** Added the T430/T431 original-language
+> evidence lane and allowlisted raw intake guardrails. Downloaded manifest-backed raw archives for
+> Tanach.us UXLC, Open Scriptures Hebrew Bible, SBLGNT, unfoldingWord UGNT, and CNTR Statistical
+> Restoration under `data/raw/original_language/`. Manuscript libraries remain catalog-only:
+> Leon Levy DSS, Codex Sinaiticus, Aleppo Codex, and NT papyri/major codices. Strong's, lemma,
+> morphology, variant, witness-support, and translation-faithfulness layers remain future
+> candidate evidence outside raw. T431 also builds canonical-only candidate source views with
+> inclusion/exclusion ledgers so docs, app renderings, metadata, nested archives, duplicate text
+> formats, images, and non-selected variants do not contaminate future Bible processing. Future
+> T432+ work must consume the filtered source view, not the raw archive directly. T431 authorizes no source text mutation, Strong's overlay in raw,
+> manuscript transcription/image import, preferred reading, source-tradition preference, canon
+> change, reviewed gold, chunks, KG edges, retrieval truth, embeddings/indexes, or theology
+> authority.
+> T431 guardrail hardening records source-provided metadata truthfully in canonical source views:
+> OSHB/UGNT/CNTR-style morphology, lemma, or Strong's columns remain evidence-only and are flagged
+> in manifests/ledgers. The canonical source-view checker now validates included/excluded ledgers
+> against actual archive members and rejects duplicate paths, duplicate included books, duplicate
+> view paths, stale checksums, and scope/count drift. `docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md`
+> adds five possible next goals: alignment bridge, manuscript witness chain, variant/copying-error
+> ledger, early creed/tradition-formula research lane, and integrated evidence workbench.
 
 > **T423 whole-Bible multi-model fork (2026-07-03):** Experimental speed path — 3–10 models
 > chunk entire Bible in separate scratch folders (continuous marathon, days OK), same research

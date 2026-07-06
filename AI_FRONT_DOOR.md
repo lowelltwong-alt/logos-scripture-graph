@@ -25,9 +25,10 @@ Read these before making changes:
 16. `.ai/control/chunking_lesson_index.yaml` before reusable lesson discovery or lesson/preflight/methodology/TOC/register/audit changes
 17. `.ai/control/test_runtime_preflight.yaml` before repo-wide validation, `python scripts/validate_all.py`, `python -m pytest -q`, Rust-backed validators, or after timeout/temp/Cargo access failures
 18. `.ai/control/coding_runtime_language_preflight.yaml` before adding validators, scanners, importers, build scripts, CI hot paths, high-resource deterministic code, or Rust-first runtime decisions
-19. `config/agents/agent_roles.yaml`
-20. `.ai/handoffs/<active_task_id>/handoff.md` - see `.ai/control/PROJECT_STATUS.md`
-21. The specific files in the task scope
+19. `.ai/control/ai_pr_lifecycle_policy.yaml` before leaving any AI-created draft branch, staged work, or PR unmerged
+20. `config/agents/agent_roles.yaml`
+21. `.ai/handoffs/<active_task_id>/handoff.md` - see `.ai/control/PROJECT_STATUS.md`
+22. The specific files in the task scope
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` after this front door.
 

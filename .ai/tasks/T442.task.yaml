@@ -1,0 +1,88 @@
+id: T442
+phase: phase_4
+title: "Original-Language Production Candidate Root Decision Packet"
+mode: owner_decision_packet_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t442-production-root-decision-packet
+base_ref: origin/codex/t441-rust-alignment-coverage-index
+summary: "Create a non-authorizing owner decision packet for whether a later task may open narrow original-language production candidate roots."
+scope:
+  allowed_paths:
+    - .ai/tasks/T442.task.yaml
+    - .ai/handoffs/T442/
+    - .ai/context/agent_work/T442/
+    - .ai/control/t442_production_candidate_root_decision_packet.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .digital-asset/mail/outbox.jsonl
+    - docs/roadmap/T442_PRODUCTION_CANDIDATE_ROOT_DECISION_PACKET.md
+    - scripts/validate_t442_production_candidate_root_decision_packet.py
+    - scripts/validate_all.py
+    - tests/test_t442_production_candidate_root_decision_packet.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/alignment_records/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: owner_decision_packet_non_authorizing
+  records_owner_options: true
+  records_recommendation: true
+  opens_production_candidate_roots: false
+  creates_source_token_rows: false
+  creates_alignment_rows: false
+  creates_editorial_layer_rows: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_visible_source_text: false
+  stores_visible_translation_text: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t442: false
+  reason: "T441 already added the sensible Rust coverage leaf. T442 pauses new Rust until owner decides which production candidate roots may open."
+  next_rust_candidate_if_authorized: production_candidate_root_admission_checker
+validations:
+  - python scripts/validate_t442_production_candidate_root_decision_packet.py
+  - python -m pytest tests/test_t442_production_candidate_root_decision_packet.py -q
+  - python scripts/validate_task_scope.py --task-id T442 --base-ref origin/codex/t441-rust-alignment-coverage-index
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+handoff_required: .ai/handoffs/T442/handoff.md
+created_at: "2026-07-05"

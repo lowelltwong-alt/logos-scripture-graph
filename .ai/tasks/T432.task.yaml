@@ -1,0 +1,93 @@
+id: T432
+phase: phase_4
+title: "Original-Language Schema Contracts"
+mode: schema_control_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t432-original-language-schema-contracts
+base_ref: origin/codex/t431-original-language-intake
+summary: "Harden source-language token, alignment, lexeme, variant, witness, and editorial-layer schemas before any original-language evidence data population."
+scope:
+  allowed_paths:
+    - .ai/tasks/T432.task.yaml
+    - .ai/handoffs/T432/
+    - .ai/context/agent_work/T432/
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/original_language_schema_contracts.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - docs/roadmap/T432_ORIGINAL_LANGUAGE_SCHEMA_CONTRACTS.md
+    - schemas/source_language_token.schema.json
+    - schemas/editorial_layer.schema.json
+    - schemas/lexeme.schema.json
+    - schemas/alignment_record.schema.json
+    - schemas/textual_variant.schema.json
+    - schemas/witness.schema.json
+    - scripts/validate_t432_original_language_schema_contracts.py
+    - scripts/validate_schemas.py
+    - scripts/validate_all.py
+    - tests/test_t432_original_language_schema_contracts.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: schema_control_non_authorizing
+  creates_schema_contracts: true
+  consumes_t431_canonical_source_views: false
+  populates_source_language_tokens: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_manuscript_transcriptions: false
+  stores_manuscript_images: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t432: false
+  reason: "T432 defines semantic schema and authority contracts; Rust belongs in later T435 deterministic token/alignment scanners after schemas and parity fixtures stabilize."
+  future_rust_candidate: tools/original_language_evidence_scanner
+acceptance_criteria:
+  - "SourceLanguageToken and EditorialLayer schemas exist."
+  - "Lexeme, AlignmentRecord, TextualVariant, and Witness schemas require provenance, confidence or rights/context as applicable, authority limits, and non-authorizations."
+  - "Schemas do not allow canonical/source-truth trust zones for candidate original-language evidence."
+  - "Strong's numbers are preserved only as lookup/alignment hints, not source text, lexical truth, or theology authority."
+  - "Variant and witness contracts separate oldest-known, highest-confidence, and preferred-reading concepts."
+  - "No source-language evidence rows, Strong's overlays, witness rows, manuscript transcriptions/images, chunks, KG edges, retrieval truth, or theology authority are created."
+  - "DAD preflight records relevant Rust lessons and why T432 stays Python/control-plane."
+validations:
+  - python scripts/validate_t432_original_language_schema_contracts.py
+  - python -m pytest tests/test_t432_original_language_schema_contracts.py -q
+  - python scripts/validate_t430_original_language_evidence_substrate.py
+  - python scripts/validate_task_scope.py --task-id T432 --base-ref origin/codex/t431-original-language-intake
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check

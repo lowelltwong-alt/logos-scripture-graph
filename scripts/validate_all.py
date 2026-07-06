@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 import yaml
@@ -52,8 +53,12 @@ GENERATED_CANONICAL_REQUIRED = [
 
 def changed_paths() -> list[str]:
     paths: list[str] = []
+    base_ref = "origin/main"
+    github_base = os.environ.get("GITHUB_BASE_REF")
+    if github_base:
+        base_ref = f"origin/{github_base}"
     for args in (
-        ["git", "diff", "--name-only", "origin/main...HEAD"],
+        ["git", "diff", "--name-only", f"{base_ref}...HEAD"],
         ["git", "diff", "--cached", "--name-only"],
         ["git", "diff", "--name-only"],
         ["git", "ls-files", "--others", "--exclude-standard"],
@@ -306,6 +311,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_validation_gate_lifecycle.py",
             [PY, str(ROOT / "scripts" / "validate_validation_gate_lifecycle.py")],
         ),
+        (
+            "validate_ai_pr_lifecycle_policy.py",
+            [PY, str(ROOT / "scripts" / "validate_ai_pr_lifecycle_policy.py")],
+        ),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
         *task_scope_gates(),
         *parallel_execution_safety_gates(),
@@ -386,6 +395,54 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_original_language_phrase_context_policy.py",
             [PY, str(ROOT / "scripts" / "validate_original_language_phrase_context_policy.py")],
+        ),
+        (
+            "validate_t430_original_language_evidence_substrate.py",
+            [PY, str(ROOT / "scripts" / "validate_t430_original_language_evidence_substrate.py")],
+        ),
+        (
+            "validate_t432_original_language_schema_contracts.py",
+            [PY, str(ROOT / "scripts" / "validate_t432_original_language_schema_contracts.py")],
+        ),
+        (
+            "validate_t433_phlm_alignment_pilot.py",
+            [PY, str(ROOT / "scripts" / "validate_t433_phlm_alignment_pilot.py")],
+        ),
+        (
+            "validate_t435_original_language_observation_scanner.py",
+            [PY, str(ROOT / "scripts" / "validate_t435_original_language_observation_scanner.py")],
+        ),
+        (
+            "validate_t436_jonah_hebrew_metadata_pilot.py",
+            [PY, str(ROOT / "scripts" / "validate_t436_jonah_hebrew_metadata_pilot.py")],
+        ),
+        (
+            "validate_t437_oshb_lemma_attribute_policy.py",
+            [PY, str(ROOT / "scripts" / "validate_t437_oshb_lemma_attribute_policy.py")],
+        ),
+        (
+            "validate_t438_alignment_bridge_goal.py",
+            [PY, str(ROOT / "scripts" / "validate_t438_alignment_bridge_goal.py")],
+        ),
+        (
+            "validate_t439_phlm_alignment_bridge_expansion.py",
+            [PY, str(ROOT / "scripts" / "validate_t439_phlm_alignment_bridge_expansion.py")],
+        ),
+        (
+            "validate_t440_jonah_hebrew_parser_contract.py",
+            [PY, str(ROOT / "scripts" / "validate_t440_jonah_hebrew_parser_contract.py")],
+        ),
+        (
+            "validate_t441_rust_alignment_coverage_index.py",
+            [PY, str(ROOT / "scripts" / "validate_t441_rust_alignment_coverage_index.py")],
+        ),
+        (
+            "validate_t442_production_candidate_root_decision_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_t442_production_candidate_root_decision_packet.py")],
+        ),
+        (
+            "validate_original_language_raw_sources.py",
+            [PY, str(ROOT / "scripts" / "validate_original_language_raw_sources.py")],
         ),
         (
             "validate_contextual_reading_policy.py",

@@ -24,6 +24,13 @@ def test_coding_runtime_language_preflight_validates_current_repo() -> None:
     assert data["policy"]["rust_preferred_for_high_resource_deterministic_code"] is True
     assert data["policy"]["python_pytest_remain_governance_orchestrator"] is True
     assert data["rust_preferred_cutoffs"]["rust_preferred_when_estimated_savings_seconds_at_least"] >= 30
+    assert data["python_test_and_validator_migration_strategy"][
+        "preserve_existing_python_command_entry_points"
+    ] is True
+    assert (
+        "legacy_python_command_delegates_to_rust_wrapper"
+        in data["python_test_and_validator_migration_strategy"]["adopted_patterns"]
+    )
 
 
 def test_coding_runtime_language_preflight_rejects_disabling_rust_preference(tmp_path: Path) -> None:
@@ -53,4 +60,26 @@ def test_coding_runtime_language_preflight_requires_decision_traceability(tmp_pa
     write_yaml(candidate, data)
 
     with pytest.raises(validator.CodingRuntimeLanguagePreflightError, match="maintenance_tradeoffs"):
+        validator.validate_coding_runtime_language_preflight(candidate)
+
+
+def test_coding_runtime_language_preflight_requires_python_entrypoint_preservation(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_coding_runtime_language_preflight(PREFLIGHT))
+    data["python_test_and_validator_migration_strategy"]["preserve_existing_python_command_entry_points"] = False
+    candidate = tmp_path / "coding-runtime-language-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.CodingRuntimeLanguagePreflightError, match="preserve_existing"):
+        validator.validate_coding_runtime_language_preflight(candidate)
+
+
+def test_coding_runtime_language_preflight_requires_modular_rust_pattern(tmp_path: Path) -> None:
+    data = copy.deepcopy(validator.validate_coding_runtime_language_preflight(PREFLIGHT))
+    data["python_test_and_validator_migration_strategy"]["adopted_patterns"].remove(
+        "rust_module_run_check_returns_check_report"
+    )
+    candidate = tmp_path / "coding-runtime-language-preflight.yaml"
+    write_yaml(candidate, data)
+
+    with pytest.raises(validator.CodingRuntimeLanguagePreflightError, match="rust_module"):
         validator.validate_coding_runtime_language_preflight(candidate)

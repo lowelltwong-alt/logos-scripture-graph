@@ -63,6 +63,25 @@ python_default_domains:
   - small_control_plane_validators
   - wrapper_commands_that_dispatch_to_rust_or_existing_python
   - tests_and_fixture_generation
+python_test_and_validator_migration_strategy:
+  do_not_rewrite_all_pytest_in_rust: true
+  preserve_existing_python_command_entry_points: true
+  prefer_rust_fast_path_for_repeated_deterministic_validators: true
+  keep_python_only_escape_hatch_for_parity_and_debugging: true
+  require_modular_rust_check_report_boundaries: true
+  require_validation_lifecycle_record_before_retiring_python_gate: true
+  require_python_wrapper_to_fail_closed_on_rust_validation_failure: true
+  adopted_patterns:
+    - legacy_python_command_delegates_to_rust_wrapper
+    - python_wrapper_supports_require_rust_compare_python_python_fallback
+    - rust_module_run_check_returns_check_report
+    - combined_rust_command_preserves_per_check_failure_identity
+  applies_to:
+    - validators_always_run_in_succession
+    - long_running_generated_data_checks
+    - whole_bible_chunk_map_checks
+    - canonical_sidecar_record_scans
+    - word_token_or_original_language_evidence_scans
 decision_record_required_fields:
   - task_id
   - touched_paths

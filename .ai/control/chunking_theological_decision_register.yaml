@@ -2,7 +2,7 @@
 object_type: chunking_theological_decision_register
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only. Updated 2026-07-06 during T423 to record six-model whole-Bible scratch marathon integration as non-authorizing comparison evidence only. Updated 2026-07-06 during T462 to record modular Rust validator bundling/reporting as non-authorizing validation tooling only."
+provenance_note: "Created 2026-06-17 by owner request after T348 merged, to make chunking decisions with possible theological downstream effects first-class and deterministic. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory and owner-review docket decision. Updated 2026-06-22 during T387 to record manuscript witness reliability scaffold non-authorizations. Updated 2026-06-22 during T389 to record launch-readiness report non-authorizations. Updated 2026-06-22 during T390 to record manuscript source catalog metadata plan non-authorizations. Updated 2026-06-23 during T385 to record the owner decision packet recommendation as non-authorizing and not owner selection. Updated 2026-06-23 during T392 to record owner-selected Eph.1.3-Eph.1.14 review-packet strengthening as non-output-changing and non-promoting. Updated 2026-06-23 during T393 to record the Eph.1.3-Eph.1.14 reviewed-gold promotion decision packet as non-promoting and pending owner decision. Updated 2026-06-23 during T394 to record owner-selected T393-A parent-only reviewed-gold promotion for Eph.1.3-Eph.1.14. Updated 2026-06-24 during T397 to record route-isolation harness prep as a proof gate, not output authority. Updated 2026-06-25 during T401 to record the exact Eph.1.3-Eph.1.14 parent-only output pilot. Updated 2026-06-30 during T412 to record the T410/T411/T412 research-to-chunking conveyor and Rust-first observation substrate as non-authorizing. Updated 2026-07-01 during T411 to record full 66-candidate Cursor review-prep completion (waves 1-20) as non-authorizing ledger and escalation artifacts only. Updated 2026-07-06 during T423 to record six-model whole-Bible scratch marathon integration as non-authorizing comparison evidence only. Updated 2026-07-06 during T462 to record modular Rust validator bundling/reporting as non-authorizing validation tooling only. Updated 2026-07-06 during T431 integration to record original-language source intake as evidence-only and non-authorizing. Updated 2026-07-06 during T432 integration to record original-language schema contracts as evidence-only. Updated 2026-07-06 during T433 integration to record the Philemon original-language alignment pilot as task-scoped candidate evidence only. Updated 2026-07-06 during T435 integration to record the SBLGNT no-text Rust observation scanner as evidence-only tooling. Updated 2026-07-06 during T436 integration to record the Jonah Hebrew no-text parity pilot as evidence only. Updated 2026-07-06 during T437 integration to record OSHB lemma attributes as Strong lookup-hint metadata only. Updated 2026-07-06 during T438 integration to record the alignment bridge as the next planning lane, not authority. Updated 2026-07-06 during T439 integration to record the Philemon alignment bridge expansion as no-text candidate evidence only. Updated 2026-07-06 during T440 integration to record the Jonah Hebrew parser contract as a semantics guardrail only. Updated 2026-07-06 during T441 integration to record the Rust no-text alignment coverage index as generated evidence only. Updated 2026-07-06 during T442 integration to record the production candidate-root decision packet as non-authorizing owner-option prep only."
 reason_for_inclusion: "Give future maintainers a machine-readable ledger of chunking, evaluator, gold, route, and default-behavior decisions before additional Bible chunking algorithm work resumes."
 ---
 schema_version: chunking_theological_decision_register.v1
@@ -4015,6 +4015,557 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-092
+    title: T431 original-language source intake remains evidence-only
+    classification: non_authorizing_review
+    task_ids: [T431]
+    owner_decision_ref: ".ai/control/original_language_source_allowlist.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [original_language_source_intake]
+      routes: [source_intake, canonical_source_view_build]
+      surfaces:
+        - .ai/control/original_language_source_allowlist.yaml
+        - .ai/control/original_language_evidence_substrate.yaml
+        - data/raw/original_language/
+        - data/candidate/original_language_evidence/canonical_source_views/
+        - docs/roadmap/T431_ORIGINAL_LANGUAGE_RAW_INTAKE.md
+        - scripts/validate_original_language_raw_sources.py
+    decision: "T431 imports license-approved original-language source packages and builds canonical-source candidate views as evidence layers only. It does not choose preferred readings, create theology authority, alter canon scope, or replace canonical Scripture."
+    downstream_risk: "Raw Greek/Hebrew source intake, canonical-source views, Strong's-related metadata, or oldest-witness language could be mistaken for source-tradition preference, canon change, translation judgment, or downstream chunk/graph authority."
+    theological_assumptions_avoided:
+      - "Strong's identifiers remain lookup/alignment hints, not source text or theology authority."
+      - "Oldest witness evidence does not automatically choose a preferred reading."
+      - "Canonical-source views filter source packages for scope hygiene but do not become canonical Scripture replacement."
+    reviewed_gold_dependency: "None; T431 creates source/evidence substrate files only and does not promote reviewed gold or authorize output-changing chunk work."
+    non_authorizations:
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - theology_authority_change
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - graph_retrieval_or_vector_truth
+      - translation_judgment
+    validators:
+      - scripts/validate_original_language_raw_sources.py
+      - scripts/validate_t430_original_language_evidence_substrate.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-093
+    title: T432 original-language schema contracts are evidence-only
+    classification: non_authorizing_review
+    task_ids: [T432]
+    owner_decision_ref: "docs/roadmap/T432_ORIGINAL_LANGUAGE_SCHEMA_CONTRACTS.md"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [original_language_schema_contract_program]
+      routes: [t430_original_language_evidence_substrate]
+      surfaces:
+        - .ai/control/original_language_schema_contracts.yaml
+        - .ai/control/original_language_evidence_substrate.yaml
+        - docs/roadmap/T432_ORIGINAL_LANGUAGE_SCHEMA_CONTRACTS.md
+        - schemas/source_language_token.schema.json
+        - schemas/editorial_layer.schema.json
+        - schemas/lexeme.schema.json
+        - schemas/alignment_record.schema.json
+        - schemas/textual_variant.schema.json
+        - schemas/witness.schema.json
+    decision: "T432 may define schema contracts for future original-language evidence rows, but those contracts are guardrails only. They do not populate source tokens, Strong's overlays, lexemes, morphology, variants, witness support, editorial layers, or alignments, and they do not authorize preferred readings, source-tradition choices, canon changes, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could overread schema names or fields as source-language truth, textual-critical decisions, translation-faithfulness judgments, chunking authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No Strong's, lemma, morphology, or source token becomes lexical or theological authority."
+      - "No variant or witness schema field becomes a preferred-reading or source-tradition decision."
+      - "No editorial layer becomes autograph certainty by default."
+    reviewed_gold_dependency: "None; T432 is schema/control only. Any reviewed-gold, chunking, KG, retrieval, variant, witness-row, translation-faithfulness, or source-language evidence population work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - canon_scope_change
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t432_original_language_schema_contracts.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-094
+    title: T433 Philemon original-language alignment pilot is candidate evidence only
+    classification: non_authorizing_review
+    task_ids: [T433]
+    owner_decision_ref: "docs/roadmap/T433_PHLM_ORIGINAL_LANGUAGE_EVIDENCE_PILOT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm]
+      passages: [Phlm.1.1-Phlm.1.3]
+      routes: [t430_alignment_bridge_pilot]
+      surfaces:
+        - .ai/control/t433_phlm_original_language_evidence_pilot.yaml
+        - data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/
+        - docs/roadmap/T433_PHLM_ORIGINAL_LANGUAGE_EVIDENCE_PILOT.md
+        - scripts/build_t433_phlm_alignment_pilot.py
+        - scripts/validate_t433_phlm_alignment_pilot.py
+    decision: "T433 may populate only task-scoped candidate pilot rows for SBLGNT source-token observations, SBLGNT editorial-layer observations, and low-confidence verse-level WEB alignment bridge records for Phlm.1.1-Phlm.1.3. WEB Strong's IDs remain translation-side hints only. The pilot does not open production original-language evidence roots or authorize source-language truth, lexical truth, preferred readings, source-tradition choices, canon changes, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could treat Greek source-token rows, WEB Strong's hints, SBLGNT editorial punctuation/sigla, or verse-level alignment records as lexical authority, translation-faithfulness judgment, chunk-boundary evidence, source-tradition preference, or theology authority."
+    theological_assumptions_avoided:
+      - "No Greek source token is treated as a theological conclusion."
+      - "No WEB Strong's sidecar value is treated as source text or lexical authority."
+      - "No SBLGNT editorial punctuation, siglum, paragraphing, or versification marker is treated as autograph certainty or chunk-boundary authority."
+      - "No source edition is preferred over another source tradition."
+    reviewed_gold_dependency: "None; T433 is a task-scoped candidate evidence pilot only. Reviewed gold, chunking, KG, retrieval, variant, witness-row, translation-faithfulness, source-language production population, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - strongs_number_as_source_text
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - canon_scope_change
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t433_phlm_alignment_pilot.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-095
+    title: T435 SBLGNT Rust observation scanner is no-text shape evidence only
+    classification: non_authorizing_review
+    task_ids: [T435]
+    owner_decision_ref: "docs/roadmap/T435_ORIGINAL_LANGUAGE_OBSERVATION_SCANNER.md"
+    pr_refs: []
+    affected_scope:
+      books: [NT]
+      passages: []
+      routes: [t430_original_language_evidence_substrate, t435_sblgnt_observation_scanner]
+      surfaces:
+        - .ai/control/original_language_observation_scanner.yaml
+        - build/original_language_observation/T435-A/sblgnt/
+        - docs/roadmap/T435_ORIGINAL_LANGUAGE_OBSERVATION_SCANNER.md
+        - tools/original_language_observation_scanner/
+        - scripts/validate_t435_original_language_observation_scanner.py
+    decision: "T435-A may add a Rust no-text scanner that observes SBLGNT canonical source-view file, verse, token-shape, and editorial-shape counts/hashes and validates Phlm.1.1-Phlm.1.3 parity against T433. The generated ledgers remain ignored build artifacts and do not populate production original-language evidence roots or authorize source-language truth, lexical truth, Strong's/lemma/morphology population, preferred readings, manuscript witness support, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could treat Rust speed, SBLGNT token order, token hashes, source-edition paragraphing, punctuation/sigla, or T433 parity as proof of the original Greek text, word-level alignment truth, source-tradition preference, chunk-boundary authority, translation-faithfulness judgment, or theology authority."
+    theological_assumptions_avoided:
+      - "No SBLGNT source-view observation is treated as the original Greek autograph."
+      - "No token order, token hash, or editorial punctuation/paragraphing signal is treated as a theological conclusion or chunk-boundary authority."
+      - "No Strong's, lemma, or morphology fields are populated for SBLGNT because the canonical source view does not provide them."
+      - "No source edition is preferred over another source tradition."
+    reviewed_gold_dependency: "None; T435-A is generated no-text observation evidence only. Production source-token rows, alignments, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - canon_scope_change
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t435_original_language_observation_scanner.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-096
+    title: T436 Jonah Hebrew observation parity pilot is no-text evidence only
+    classification: non_authorizing_review
+    task_ids: [T436]
+    owner_decision_ref: "docs/roadmap/T436_JONAH_HEBREW_METADATA_PILOT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Jonah]
+      passages: [Jonah]
+      routes: [t430_original_language_evidence_substrate, t436_hebrew_observation_parity]
+      surfaces:
+        - .ai/control/t436_jonah_hebrew_metadata_pilot.yaml
+        - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/
+        - docs/roadmap/T436_JONAH_HEBREW_METADATA_PILOT.md
+        - scripts/build_t436_jonah_hebrew_metadata_pilot.py
+        - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+    decision: "T436 may emit no-text UXLC/OSHB Jonah source-view file, verse, token-shape, editorial/metadata-shape, and parity-summary ledgers. It records OSHB lemma-attribute flag drift and blocks Hebrew Rust expansion until that drift is fixed or explicitly policy-covered. It does not populate production original-language evidence roots or authorize source-language truth, lexical truth, Strong's/lemma/morphology population, preferred readings, manuscript witness support, translation judgments, chunk boundaries, reviewed gold, KG edges, retrieval truth, or theology claims."
+    downstream_risk: "Future agents could mistake OSHB morphology or w@lemma attributes, UXLC/OSHB token-count parity, token hashes, Hebrew editorial markers, or source-view manifests for Strong's authority, lexical authority, source-tradition preference, translation-faithfulness judgment, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No UXLC or OSHB source-view observation is treated as the Hebrew autograph."
+      - "No OSHB w@lemma attribute is copied into local Strong's, lemma, lexeme, or production morphology rows."
+      - "No morphology, token hash, maqqef, sof-pasuq, samekh, pe, vowel, accent, chapter, or verse signal is treated as doctrine or chunk-boundary authority."
+      - "No source edition is preferred over another source tradition."
+    reviewed_gold_dependency: "None; T436 is no-text observation/parity evidence only. Production source-token rows, Strong's overlays, alignments, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-097
+    title: T437 OSHB lemma attribute is Strong lookup-hint metadata only
+    classification: non_authorizing_review
+    task_ids: [T437]
+    owner_decision_ref: "docs/roadmap/T437_OSHB_LEMMA_ATTRIBUTE_POLICY.md"
+    pr_refs: []
+    affected_scope:
+      books: [Hebrew_Bible]
+      passages: []
+      routes: [t430_original_language_evidence_substrate, t431_canonical_source_views, t437_oshb_lemma_attribute_policy]
+      surfaces:
+        - .ai/control/original_language_source_allowlist.yaml
+        - .ai/control/t437_oshb_lemma_attribute_policy.yaml
+        - data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+        - data/candidate/original_language_evidence/canonical_source_views/openscriptures_oshb/
+        - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/
+        - scripts/validate_t437_oshb_lemma_attribute_policy.py
+    decision: "T437 records OSHB w@lemma as Strong lookup-hint metadata and keeps contains_source_provided_lemmas false because the repo has not authorized local lemma rows. The policy-cover closes the T436 metadata drift without creating Strong's overlay rows, lemma/morphology population, lexical authority, preferred readings, translation judgments, chunk boundaries, graph/retrieval truth, or theology claims."
+    downstream_risk: "Future agents could treat a field named lemma as local lemma authority, Strong's source text, lexical truth, or translation-faithfulness evidence. A future Rust scanner could scale that mistake across the Hebrew Bible if parser contracts are not source-specific and policy-covered first."
+    theological_assumptions_avoided:
+      - "No OSHB w@lemma value is treated as Hebrew lexical authority."
+      - "No Strong lookup hint is treated as source text, preferred reading, or theological claim."
+      - "No source edition is preferred over another source tradition."
+      - "No Rust scanner is authorized merely because the metadata policy is covered."
+    reviewed_gold_dependency: "None; T437 is metadata policy hardening only. Production source-token rows, Strong's overlays, alignments, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t437_oshb_lemma_attribute_policy.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-098
+    title: T438 alignment bridge is the next original-language lane, not authority
+    classification: non_authorizing_review
+    task_ids: [T438]
+    owner_decision_ref: "docs/roadmap/T438_ALIGNMENT_BRIDGE_GOAL.md"
+    pr_refs: []
+    affected_scope:
+      books: [Canonical_66]
+      passages: []
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal]
+      surfaces:
+        - .ai/control/t438_alignment_bridge_goal.yaml
+        - .ai/control/original_language_evidence_substrate.yaml
+        - docs/roadmap/T438_ALIGNMENT_BRIDGE_GOAL.md
+        - docs/roadmap/T430_ORIGINAL_LANGUAGE_GOAL_OPTIONS.md
+        - scripts/validate_t438_alignment_bridge_goal.py
+    decision: "T438 records Option 1, the Greek/Hebrew-to-English alignment bridge, as the next original-language implementation lane and keeps Option 2 manuscript custody-chain work catalog-only in parallel. It is a planning/control gate only and does not populate production source-token rows, alignment rows, Strong's overlays, lemma/morphology rows, variant rows, witness-support rows, translation-faithfulness judgments, graph/retrieval truth, chunks, reviewed gold, or theology claims."
+    downstream_risk: "Future agents could mistake a route choice for authority to judge translations, import manuscript transcriptions, choose preferred readings, populate production candidate roots, or let Rust scanners infer semantic authority from field names, count parity, or package-level metadata."
+    theological_assumptions_avoided:
+      - "No Greek, Hebrew, Strong's, lemma, morphology, manuscript, or alignment signal is treated as theology authority."
+      - "No source edition or source tradition is preferred."
+      - "No translation-faithfulness score or judgment is created."
+      - "No Rust scanner is allowed to infer meaning from field names or count parity."
+    reviewed_gold_dependency: "None; T438 is a planning/control gate only. Production source-token rows, alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t438_alignment_bridge_goal.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-099
+    title: T439 Philemon alignment bridge expansion is no-text candidate evidence only
+    classification: non_authorizing_review
+    task_ids: [T439]
+    owner_decision_ref: "docs/roadmap/T439_PHLM_ALIGNMENT_BRIDGE_EXPANSION.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm]
+      passages: [Phlm.1.1-Phlm.1.25]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t439_phlm_alignment_bridge_expansion]
+      surfaces:
+        - .ai/control/t439_phlm_alignment_bridge_expansion.yaml
+        - data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion/
+        - docs/roadmap/T439_PHLM_ALIGNMENT_BRIDGE_EXPANSION.md
+        - scripts/build_t439_phlm_alignment_bridge_expansion.py
+        - scripts/validate_t439_phlm_alignment_bridge_expansion.py
+    decision: "T439 may expand the T433 SBLGNT-to-WEB bridge to all 25 Philemon verses as no-text, task-scoped candidate evidence rows. It stores token IDs, hashes, counts, references, lineage, WEB token IDs, and translation-side Strong's hints only. It does not store visible Greek source text or visible English translation text, open production original-language evidence roots, or authorize source-language truth, lexical truth, word-level alignment truth, Strong's-as-source-text, lemma/morphology population, translation-faithfulness judgments, preferred readings, source-tradition choices, witness support, graph/retrieval truth, chunks, reviewed gold, or theology claims."
+    downstream_risk: "Future agents could mistake full-book pilot coverage, token hashes, verse-level many-to-many bridge rows, or WEB Strong's hints for translation faithfulness, word-level alignment truth, source-language authority, lexical authority, source-tradition preference, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No SBLGNT token row is treated as the Greek autograph or as lexical/theological authority."
+      - "No WEB Strong's hint is copied into SBLGNT source tokens or treated as source text."
+      - "No verse-level bridge row is treated as word-level alignment truth or translation-faithfulness judgment."
+      - "No source edition or source tradition is preferred."
+      - "No Rust scanner is authorized by T439; T439 is a Python parity fixture for later no-text Rust checks."
+    reviewed_gold_dependency: "None; T439 is task-scoped candidate evidence only. Production source-token rows, production alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t439_phlm_alignment_bridge_expansion.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-100
+    title: T440 Jonah Hebrew parser contract is semantics guardrail only
+    classification: non_authorizing_review
+    task_ids: [T440]
+    owner_decision_ref: "docs/roadmap/T440_JONAH_HEBREW_PARSER_CONTRACT.md"
+    pr_refs: []
+    affected_scope:
+      books: [Jonah]
+      passages: [Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t440_jonah_hebrew_parser_contract]
+      surfaces:
+        - .ai/control/t440_jonah_hebrew_parser_contract.yaml
+        - docs/roadmap/T440_JONAH_HEBREW_PARSER_CONTRACT.md
+        - scripts/validate_t440_jonah_hebrew_parser_contract.py
+    decision: "T440 may define source-specific UXLC and OSHB Jonah parser semantics, lineage, expected counts, metadata meanings, and negative fixtures before T441 Rust no-text checker work. UXLC remains the clean no-lemma/no-morph/no-Strong baseline. OSHB w@lemma remains Strong lookup-hint metadata only, and OSHB w@morph remains source morphology metadata only. T440 does not add Rust, create source-token rows, create alignments, open production original-language evidence roots, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents or Rust scanners could treat matching Jonah refs/token counts, OSHB field names, OSHB morphology metadata, or source-view checksums as source-language truth, lexical authority, word-level alignment truth, preferred reading, source-tradition preference, translation-faithfulness judgment, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No Hebrew source-view observation is treated as the autograph or as theology authority."
+      - "No OSHB w@lemma value is treated as local lemma, Strong's source text, lexical authority, or translation-faithfulness evidence."
+      - "No OSHB w@morph value is treated as local morphology-row population or doctrine."
+      - "No UXLC/OSHB count parity is treated as semantic parity."
+      - "No Rust scanner is authorized inside T440; T441 must be separate and no-text."
+    reviewed_gold_dependency: "None; T440 is a parser-contract guardrail only. Production source-token rows, production alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t440_jonah_hebrew_parser_contract.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-101
+    title: T441 Rust alignment coverage index is generated no-text evidence only
+    classification: non_authorizing_review
+    task_ids: [T441]
+    owner_decision_ref: "docs/roadmap/T441_RUST_ALIGNMENT_COVERAGE_INDEX.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm, Jonah]
+      passages: [Phlm.1.1-Phlm.1.25, Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t441_rust_alignment_coverage_index]
+      surfaces:
+        - .ai/control/t441_rust_alignment_coverage_index.yaml
+        - docs/roadmap/T441_RUST_ALIGNMENT_COVERAGE_INDEX.md
+        - tools/original_language_observation_scanner/src/bin/t441_alignment_coverage.rs
+        - scripts/validate_t441_rust_alignment_coverage_index.py
+    decision: "T441 may emit generated no-text coverage ledgers and semantic guardrail rows over the existing T439 Philemon and T436/T440 Jonah fixtures. It records coverage shape, source/ref counts, low-confidence bridge scope, T440 negative-fixture carry-forward, and no-text guardrails only. It does not open production evidence roots, create source-token rows, create alignment rows, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval/vector truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents could mistake Rust speed, coverage indexes, matching Jonah counts, Philemon verse-level bridge rows, or OSHB lemma/morph metadata counts for source-language truth, word-level alignment truth, lexical authority, translation-faithfulness judgment, preferred reading, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No coverage row is treated as source-language truth or alignment truth."
+      - "No Strong's hint, OSHB w@lemma metadata, or OSHB w@morph metadata is treated as local lexical authority."
+      - "No count parity is treated as semantic parity."
+      - "No generated coverage index is treated as a retrieval or vector index."
+      - "No source edition or source tradition is preferred."
+    reviewed_gold_dependency: "None; T441 is generated no-text coverage evidence only. Production source-token rows, production alignments, Strong's overlays, variant/witness records, reviewed gold, chunking, KG, retrieval, translation-faithfulness, or theology-authority work requires later owner-gated tasks."
+    non_authorizations:
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - strongs_number_as_source_text
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - preferred_reading_selection
+      - source_tradition_preference
+      - textual_critical_decision
+      - manuscript_witness_support
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t441_rust_alignment_coverage_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-102
+    title: T442 production candidate-root decision packet is not root opening
+    classification: non_authorizing_review
+    task_ids: [T442]
+    owner_decision_ref: "docs/roadmap/T442_PRODUCTION_CANDIDATE_ROOT_DECISION_PACKET.md"
+    pr_refs: []
+    affected_scope:
+      books: [Phlm, Jonah]
+      passages: [Phlm.1.1-Phlm.1.25, Jonah.1.1-Jonah.4.11]
+      routes: [t430_original_language_evidence_substrate, t438_alignment_bridge_goal, t442_production_candidate_root_decision_packet]
+      surfaces:
+        - .ai/control/t442_production_candidate_root_decision_packet.yaml
+        - docs/roadmap/T442_PRODUCTION_CANDIDATE_ROOT_DECISION_PACKET.md
+        - scripts/validate_t442_production_candidate_root_decision_packet.py
+    decision: "T442 may present owner options for whether a later task may open narrow production candidate roots for original-language evidence after T439/T440/T441 proof. It does not open roots, create source-token rows, create alignment rows, populate Strong's/lemma/morphology rows, select preferred readings/source traditions, judge translations, create graph/retrieval/vector truth, change chunks, promote reviewed gold, or make theology claims."
+    downstream_risk: "Future agents could mistake T442-A recommendation for owner selection or treat production candidate roots as canonical Scripture, alignment truth, translation-faithfulness authority, graph/retrieval truth, chunk-boundary authority, or theology authority."
+    theological_assumptions_avoided:
+      - "No owner recommendation is treated as owner selection."
+      - "No production candidate root is opened by this packet."
+      - "No source-token, alignment, Strong's, lemma, morphology, manuscript, translation, or Rust signal becomes theology authority."
+      - "No future Rust admission checker is treated as semantic or translation authority."
+    reviewed_gold_dependency: "None; T442 is a non-authorizing owner decision packet only. Any production-root opening requires explicit owner selection and a later implementation task."
+    non_authorizations:
+      - production_root_opening_now
+      - source_token_row_creation_now
+      - alignment_row_creation_now
+      - strongs_overlay_population
+      - lemma_or_morphology_population
+      - source_language_truth_claim
+      - lexical_truth_claim
+      - word_level_alignment_truth
+      - preferred_reading_selection
+      - source_tradition_preference
+      - translation_faithfulness_judgment
+      - chunk_boundary_authority
+      - reviewed_gold_promotion
+      - chunk_output_change
+      - graph_or_retrieval_truth
+      - theology_authority_change
+    validators:
+      - scripts/validate_t442_production_candidate_root_decision_packet.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
+  - decision_id: CD-103
+    title: T463 integration and Rust validator adoption are non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T463]
+    owner_decision_ref: ".ai/tasks/T463.task.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: [workflow_validation, original_language_evidence_substrate]
+      routes: [t431_t442_original_language_integration, t424_rust_fast_validation, ai_pr_lifecycle_policy]
+      surfaces:
+        - .ai/control/ai_pr_lifecycle_policy.yaml
+        - .ai/control/coding_runtime_language_preflight.yaml
+        - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+        - scripts/validate_whole_bible_chunk_map.py
+        - scripts/validate_fast_chunk_map.py
+        - .digital-asset/mail/outbox.jsonl
+    decision: "T463 integrates the T431-T442 original-language evidence stack, records AI draft-to-PR lifecycle policy, and routes a deterministic chunk-map validator through a Rust-backed fast path. These are workflow and validation-hardening surfaces only; they do not authorize chunks, reviewed gold, source-language truth, preferred readings, graph/retrieval/vector truth, DAD authority, or theology claims."
+    downstream_risk: "Future agents could mistake faster validation, integrated original-language candidate evidence, DAD lessons, or PR lifecycle policy for Scripture authority, chunk-boundary authority, source-language truth, or merge permission."
+    theological_assumptions_avoided:
+      - "No Rust validator result is treated as theology authority."
+      - "No DAD candidate lesson overrides local Scripture Graph governance."
+      - "No original-language candidate/source-view artifact becomes preferred reading or source-tradition authority."
+      - "No PR lifecycle policy grants merge permission without owner authorization and green gates."
+    reviewed_gold_dependency: "None; T463 is non-output-changing integration and validation-hardening only."
+    non_authorizations:
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_creation
+      - route_or_evaluator_behavior
+      - graph_or_retrieval_truth
+      - vector_or_embedding_truth
+      - source_language_truth_claim
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - dad_override_local_authority
+      - merge_without_owner_or_prior_permission
+      - theology_authority_change
+    validators:
+      - scripts/validate_ai_pr_lifecycle_policy.py
+      - scripts/validate_coding_runtime_language_preflight.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4143,4 +4694,16 @@ backfill_coverage:
     - T424
     - T462
     - T461
+    - T431
+    - T432
+    - T433
+    - T435
+    - T436
+    - T437
+    - T438
+    - T439
+    - T440
+    - T441
+    - T442
+    - T463
 ...

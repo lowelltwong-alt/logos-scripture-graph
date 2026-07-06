@@ -1,26 +1,77 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Lexeme",
-  "description": "A dictionary/lemma-level source-language unit (Hebrew/Aramaic/Greek). Today's data has Strong's numbers only (no morphology/lemma) — this schema is the bridge from that v0 to real lexical data (lemma, gloss, semantic domain). Strong's is explicitly a bridge, NOT scholarly morphology (taxonomy-scaffold v0.2 Patch 5; ADR-0006).",
+  "description": "Candidate dictionary/lemma-level source-language unit. Strong's is a lookup bridge and never source text, lexical truth, isolated-word theology, or translation judgment authority.",
   "type": "object",
-  "required": ["id", "type", "language", "provenance", "status"],
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "language",
+    "lexical_source",
+    "trust_zone",
+    "confidence",
+    "provenance",
+    "authority",
+    "non_authorizations",
+    "status"
+  ],
   "properties": {
-    "id": {"type": "string", "minLength": 1, "description": "e.g. lexeme:heb:H2617 (hesed), lexeme:grk:G26 (agape)"},
-    "type": {"const": "Lexeme"},
-    "language": {"type": "string", "enum": ["hebrew", "aramaic", "greek"]},
-    "strong": {"type": "string", "description": "Strong's number (v0 bridge), e.g. H2617, G26."},
-    "lemma": {"type": "string", "description": "Dictionary form in source script (populated when real lexical data lands)."},
-    "transliteration": {"type": "string"},
-    "glosses": {"type": "array", "items": {"type": "string"}, "description": "Short English glosses; NOT a definition."},
-    "semantic_domains": {"type": "array", "items": {"type": "string"}, "description": "SemanticDomain ids (Louw-Nida / SDBH)."},
-    "lexical_source": {"type": "string", "description": "BDB, HALOT, BDAG, LSJ, Louw-Nida, SDBH, Strong's, ..."},
-    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "context"]},
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "Lexeme" },
+    "schema_version": { "const": "lexeme.v2" },
+    "language": { "type": "string", "enum": ["hebrew", "aramaic", "greek"] },
+    "strong": { "type": ["string", "null"], "description": "Strong's number as lookup/alignment hint only." },
+    "lemma": { "type": ["string", "null"], "description": "Dictionary form when licensed lexical evidence is available." },
+    "transliteration": { "type": "string" },
+    "glosses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Short English glosses, not a full definition or theology claim."
+    },
+    "semantic_domains": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "lexical_source": { "type": "string", "minLength": 1 },
+    "phrase_clause_context_required": { "const": true },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] },
     "provenance": {
       "type": "object",
-      "required": ["created_by", "created_at", "basis"],
-      "properties": {"created_by": {"type": "string"}, "created_at": {"type": "string"}, "basis": {"type": "string"}, "license": {"type": "string"}}
+      "required": ["created_by", "created_at", "basis", "license"],
+      "properties": {
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "license": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string" },
+        "source_url": { "type": "string" }
+      },
+      "additionalProperties": true
     },
-    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_lexical_truth",
+        "authorizes_isolated_word_theology",
+        "authorizes_translation_judgment",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_lexical_truth": { "const": false },
+        "authorizes_isolated_word_theology": { "const": false },
+        "authorizes_translation_judgment": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "status": { "type": "string", "enum": ["candidate", "review_packet", "blocked", "deprecated"] }
   },
   "additionalProperties": true
 }
