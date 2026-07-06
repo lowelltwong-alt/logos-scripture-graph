@@ -4,14 +4,17 @@
 Always-run gates: repo, control plane, handoffs, source manifest.
 Conditional gates: JSONL referential integrity + canon presence run only when
 the generated canonical data is present (so clean checkouts stay green; CI
-regenerates the data first, then this gate is real). The 432 MB word_tokens
-file is intentionally excluded for runtime — validate it separately/nightly.
+regenerates the data first, then this gate is real). The large word_tokens file
+is checked through focused Rust fast-path wrappers when present; Python remains
+the orchestration and fallback surface.
 """
 from __future__ import annotations
 
 import subprocess
 import sys
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
@@ -26,14 +29,24 @@ SMALL_CANON = [
     CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
     CANON_DIR / "translations" / "eng-web" / "glossary_entries.jsonl",
 ]
+WORD_TOKENS = CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl"
 CANON_SCOPE_FILES = [
     *SMALL_CANON,
     CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl",
+    WORD_TOKENS,
 ]
 QA_REQUIRED = [
     CANON_DIR / "scripture" / "passages" / "passages.jsonl",
     CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
+]
+GENERATED_CANONICAL_REQUIRED = [
+    CANON_DIR / "scripture" / "passages" / "passages.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "footnotes.jsonl",
+    CANON_DIR / "translations" / "eng-web" / "section_headings.jsonl",
+    WORD_TOKENS,
 ]
 
 
@@ -63,6 +76,63 @@ def changed_task_ids(paths: list[str]) -> list[str]:
     )
 
 
+def task_base_ref(task_id: str) -> str:
+    task_file = ROOT / ".ai" / "tasks" / f"{task_id}.task.yaml"
+    try:
+        data = yaml.safe_load(task_file.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return ""
+    if not isinstance(data, dict):
+        return ""
+    base_ref = data.get("base_ref")
+    return base_ref.strip() if isinstance(base_ref, str) else ""
+
+
+def task_integrates_task_ids(task_id: str) -> list[str]:
+    task_file = ROOT / ".ai" / "tasks" / f"{task_id}.task.yaml"
+    try:
+        data = yaml.safe_load(task_file.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    integrated = data.get("integrates_task_ids")
+    if not isinstance(integrated, list):
+        return []
+    return sorted(item.strip() for item in integrated if isinstance(item, str) and item.strip())
+
+
+def integration_task_scope_ids(task_ids: list[str]) -> list[str]:
+    """Use an explicit integration task when it covers every changed task."""
+
+    if len(task_ids) <= 1:
+        return task_ids
+    task_id_set = set(task_ids)
+    for task_id in task_ids:
+        integrated = set(task_integrates_task_ids(task_id))
+        if integrated and task_id_set <= integrated | {task_id}:
+            return [task_id]
+    return task_ids
+
+
+def stack_tip_task_ids(task_ids: list[str]) -> list[str]:
+    """For stacked PRs, validate only task tips that explicitly base on earlier task branches."""
+
+    if len(task_ids) <= 1:
+        return task_ids
+    normalized = {task_id: task_id.lower().replace("_", "-") for task_id in task_ids}
+    inherited: set[str] = set()
+    for task_id in task_ids:
+        base_ref = task_base_ref(task_id).lower().replace("_", "-")
+        if not base_ref:
+            continue
+        for other_task_id, other_needle in normalized.items():
+            if other_task_id != task_id and other_needle in base_ref:
+                inherited.add(other_task_id)
+    tips = [task_id for task_id in task_ids if task_id not in inherited]
+    return tips or task_ids
+
+
 def task_scope_gates() -> list[tuple[str, list[str]]]:
     """Use the changed task file when a PR clearly scopes to one task."""
 
@@ -81,6 +151,24 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
             (
                 "validate_task_scope.py --task-id T417",
                 [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", "T417"],
+            )
+        ]
+    task_ids = integration_task_scope_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_task_scope.py --task-id {task_id}",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
+            )
+        ]
+    task_ids = stack_tip_task_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_task_scope.py --task-id {task_id}",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
             )
         ]
     if task_ids:
@@ -126,6 +214,36 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
                 ],
             )
         ]
+    task_ids = integration_task_scope_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_parallel_execution_safety.py --task-id {task_id}",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    task_id,
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
+    task_ids = stack_tip_task_ids(task_ids)
+    if len(task_ids) == 1:
+        task_id = task_ids[0]
+        return [
+            (
+                f"validate_parallel_execution_safety.py --task-id {task_id}",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    task_id,
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
     return [
         (
             "validate_parallel_execution_safety.py",
@@ -135,6 +253,41 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
                 "--allow-current-task-dirty",
             ],
         )
+    ]
+
+
+def generated_canonical_missing() -> list[Path]:
+    return [path for path in GENERATED_CANONICAL_REQUIRED if not path.exists()]
+
+
+def generated_data_gates() -> list[tuple[str, list[str]]]:
+    if generated_canonical_missing():
+        return []
+    return [
+        (
+            "validate_source_metadata_research_atlas.py",
+            [PY, str(ROOT / "scripts" / "validate_source_metadata_research_atlas.py")],
+        ),
+        (
+            "validate_apocalyptic_prophetic_intertext_dossier_queue.py",
+            [PY, str(ROOT / "scripts" / "validate_apocalyptic_prophetic_intertext_dossier_queue.py")],
+        ),
+        (
+            "validate_bible_verse_passage_coverage_inventory.py",
+            [PY, str(ROOT / "scripts" / "validate_bible_verse_passage_coverage_inventory.py")],
+        ),
+        (
+            "validate_1cor8_10_parent_evidence_packet.py",
+            [PY, str(ROOT / "scripts" / "validate_1cor8_10_parent_evidence_packet.py")],
+        ),
+        (
+            "validate_divine_capitalization_inventory.py",
+            [PY, str(ROOT / "scripts" / "validate_divine_capitalization_inventory.py")],
+        ),
+        (
+            "validate_wj_marker_inventory.py",
+            [PY, str(ROOT / "scripts" / "validate_wj_marker_inventory.py")],
+        ),
     ]
 
 
@@ -148,6 +301,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_governance_dependency_map_mirror.py")],
         ),
         ("validate_dad_outbox.py", [PY, str(ROOT / "scripts" / "validate_dad_outbox.py")]),
+        (
+            "validate_validation_gate_lifecycle.py",
+            [PY, str(ROOT / "scripts" / "validate_validation_gate_lifecycle.py")],
+        ),
         ("validate_handoffs.py", [PY, str(ROOT / "scripts" / "agent" / "validate_handoffs.py")]),
         *task_scope_gates(),
         *parallel_execution_safety_gates(),
@@ -196,14 +353,6 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_bible_wide_chunking_research_registry.py",
             [PY, str(ROOT / "scripts" / "validate_bible_wide_chunking_research_registry.py")],
-        ),
-        (
-            "validate_source_metadata_research_atlas.py",
-            [PY, str(ROOT / "scripts" / "validate_source_metadata_research_atlas.py")],
-        ),
-        (
-            "validate_apocalyptic_prophetic_intertext_dossier_queue.py",
-            [PY, str(ROOT / "scripts" / "validate_apocalyptic_prophetic_intertext_dossier_queue.py")],
         ),
         (
             "validate_epistle_argument_theological_issue_dossier_queue.py",
@@ -298,10 +447,6 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t384_bible_wide_research_readiness.py")],
         ),
         (
-            "validate_bible_verse_passage_coverage_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_bible_verse_passage_coverage_inventory.py")],
-        ),
-        (
             "validate_manuscript_witness_reliability_scaffold.py",
             [PY, str(ROOT / "scripts" / "validate_manuscript_witness_reliability_scaffold.py")],
         ),
@@ -374,6 +519,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_multi_agent_review_cadence.py")],
         ),
         (
+            "validate_ai_agnostic_rust_subagents.py",
+            [PY, str(ROOT / "scripts" / "validate_ai_agnostic_rust_subagents.py")],
+        ),
+        (
             "validate_standing_owner_escalation_policy.py",
             [PY, str(ROOT / "scripts" / "validate_standing_owner_escalation_policy.py")],
         ),
@@ -442,10 +591,6 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_1cor8_10_owner_review_docket.py")],
         ),
         (
-            "validate_1cor8_10_parent_evidence_packet.py",
-            [PY, str(ROOT / "scripts" / "validate_1cor8_10_parent_evidence_packet.py")],
-        ),
-        (
             "validate_chunking_human_decision_forecast.py",
             [PY, str(ROOT / "scripts" / "validate_chunking_human_decision_forecast.py")],
         ),
@@ -459,14 +604,6 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_source_metadata_authority.py")],
         ),
         (
-            "validate_divine_capitalization_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_divine_capitalization_inventory.py")],
-        ),
-        (
-            "validate_wj_marker_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_wj_marker_inventory.py")],
-        ),
-        (
             "validate_wj_speaker_discourse_policy.py",
             [PY, str(ROOT / "scripts" / "validate_wj_speaker_discourse_policy.py")],
         ),
@@ -475,6 +612,7 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_john3_owner_review_docket.py")],
         ),
     ]
+    gates.extend(generated_data_gates())
     # Raw-source gates (the committed raw archives are the real pipeline input).
     if (ROOT / "data" / "raw").exists():
         gates.append(("validate_raw_coverage.py", [PY, str(ROOT / "scripts" / "validate_raw_coverage.py")]))
@@ -506,15 +644,35 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ]
         gates.append(("validate_fast_jsonl.py (canonical)", cmd))
     if all(path.exists() for path in QA_REQUIRED):
-        qa_cmd = [PY, str(ROOT / "scripts" / "qa_canonical_corpus.py")]
-        if not (CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl").exists():
+        qa_cmd = [PY, str(ROOT / "scripts" / "validate_fast_canonical_qa.py"), "--python-fallback"]
+        if not WORD_TOKENS.exists():
             qa_cmd.append("--skip-word-tokens")
-        gates.append(("qa_canonical_corpus.py", qa_cmd))
+        gates.append(("validate_fast_canonical_qa.py (canonical)", qa_cmd))
+    if WORD_TOKENS.exists():
+        gates.append(
+            (
+                "validate_fast_word_token_signals.py (canonical)",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_fast_word_token_signals.py"),
+                    "--python-fallback",
+                    str(WORD_TOKENS),
+                ],
+            )
+        )
     return gates
 
 
 def main() -> int:
     failures = []
+    missing_generated = generated_canonical_missing()
+    if missing_generated:
+        missing = ", ".join(path.relative_to(ROOT).as_posix() for path in missing_generated)
+        print(
+            "Generated canonical sidecars are absent; skipping lifecycle-declared generated-data gates. "
+            "Run `python pipelines/ingest/usfm_importer.py --canonical-66-filter` before release/full-data "
+            f"verification to enable them. Missing: {missing}"
+        )
     for name, cmd in build_gates():
         result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
         if result.returncode != 0:

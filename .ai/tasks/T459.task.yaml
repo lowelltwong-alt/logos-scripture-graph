@@ -1,0 +1,113 @@
+id: T459
+phase: phase_4
+title: "Rust Fast Word-Token Evidence Signal Scanner"
+mode: validation_hardening
+status: in_progress
+owner: codex
+branch: codex/t459-word-token-signal-scanner
+base_ref: codex/t457-fast-canonical-qa
+summary: "Add a deterministic Rust fast-path scanner for large canonical word_tokens JSONL evidence signals, with Python wrapper/fallback/compare behavior and candidate-only DAD reporting."
+scope:
+  allowed_paths:
+    - .ai/tasks/T459.task.yaml
+    - .ai/handoffs/T459/
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t459_word_token_signal_scanner.yaml
+    - tools/logos_fast_validators/
+    - scripts/validate_fast_word_token_signals.py
+    - scripts/validate_all.py
+    - tests/test_t459_word_token_signals.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - .ai/scratch/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_rust_leaf_validator
+  implements_deterministic_rust_leaf_validation: true
+  keeps_python_pytest_as_governance_orchestrator: true
+  reports_dad_candidate_lesson: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T459
+  touched_paths:
+    - tools/logos_fast_validators/
+    - scripts/validate_fast_word_token_signals.py
+    - scripts/validate_all.py
+    - tests/test_t459_word_token_signals.py
+  expected_input_size_or_record_count: "Generated WEB word_tokens JSONL has hundreds of thousands of rows and is repeatedly useful for WJ/red-letter, Strong's, source-file, and nesting-context evidence-signal checks."
+  expected_runtime_or_memory_pressure: "Large deterministic JSONL streaming is a CI and local-validation hot path; Rust avoids making Python reread the largest canonical sidecar for simple counts."
+  rust_trigger_match:
+    - large_jsonl_scan
+    - repeated_gate_or_ci_hot_path
+    - expected_record_count_at_least_100000
+    - deterministic_streaming_parse_hash_or_compare
+  chosen_language: rust_fast_path_with_python_wrapper
+  expected_rust_time_saved_or_reason_not_applicable: "Rust is expected to save time by streaming word-token evidence-signal counts once without loading the corpus or emitting text; Python remains available for fallback and parity checks."
+  interop_boundary: "Rust emits no-text, non-authorizing counts only. Python dispatches, handles fallback/compare mode, and validate_all remains the orchestration surface."
+  python_fallback_or_wrapper_plan: "scripts/validate_fast_word_token_signals.py supports --python-fallback, --require-rust, and --compare-python. It may fall back only when Rust is unavailable, not after a Rust validation failure."
+  validation_plan:
+    - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+    - python scripts/validate_fast_word_token_signals.py --require-rust --compare-python <fixture-or-generated-word_tokens>
+    - python -m pytest tests/test_t459_word_token_signals.py -q
+    - python scripts/validate_dad_outbox.py
+    - python scripts/validate_task_scope.py --task-id T459
+    - python scripts/agent/validate_handoffs.py
+    - python scripts/validate_all.py
+  maintenance_tradeoffs: "Rust and Python now duplicate a narrow deterministic word-token signal count; fixture parity and fail-closed tests must keep the behavior aligned."
+deliverables:
+  rust_cli: tools/logos_fast_validators/src/main.rs
+  python_wrapper: scripts/validate_fast_word_token_signals.py
+  validate_all_wiring: scripts/validate_all.py
+  tests:
+    - tests/test_t459_word_token_signals.py
+  dad_lesson_slot: .digital-asset/lessons/t459_word_token_signal_scanner.yaml
+  handoff: .ai/handoffs/T459/handoff.md
+acceptance_criteria:
+  - "Rust word-token scanner emits deterministic no-text counts for WJ/red-letter, Strong's H/G, source-file, book, surface-text-presence, and nesting-context evidence signals."
+  - "Python wrapper supports Rust-required, Python-fallback, and Rust/Python compare modes."
+  - "Rust validation failures do not silently fall back to Python."
+  - "validate_all uses the fast word-token signal wrapper when generated word_tokens exists."
+  - "DAD receives candidate-only scout-guided Rust lesson with extra context."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python scripts/validate_fast_word_token_signals.py --require-rust --compare-python <fixture-or-generated-word_tokens>
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_task_scope.py --task-id T459
+  - python scripts/agent/validate_handoffs.py
+  - python -m pytest tests/test_t459_word_token_signals.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T459/handoff.md
+created_at: "2026-07-06"
+updated_at: "2026-07-06"

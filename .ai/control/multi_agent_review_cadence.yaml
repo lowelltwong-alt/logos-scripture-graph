@@ -118,6 +118,41 @@ claude_tier:
     - child_spans
     - owner_decision
     - hold_clearing
+rust_subagent_cadence:
+  control: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+  routing: capability_profile_not_model_name
+  applies_when:
+    - new_high_resource_deterministic_validator_or_scanner
+    - hard_rust_problem_requires_outside_research
+    - rust_python_parity_or_no_text_contract_needs_review
+    - reusable_rust_or_tooling_lesson_should_be_reported_to_dad
+  roles:
+    - rust_architecture_reviewer
+    - outside_rust_research_scout
+    - rust_engineer
+    - rust_qa_tester
+    - dad_lesson_reporter
+  cadence:
+    architecture_review: before_bounded_rust_implementation_when_thresholds_match
+    outside_research: on_hard_rust_problem_or_unfamiliar_crate
+    engineering: bounded_task_contract_only
+    qa: after_rust_leaf_change_before_merge
+    dad_reporting: after_reusable_lesson_or_tool_failure_is_known
+  does_not_authorize:
+    - reviewed_gold_promotion
+    - child_span_selection
+    - chunk_output_change
+    - route_behavior_change
+    - evaluator_change
+    - graph_retrieval_or_vector_truth
+    - embeddings_or_indexes
+    - boundary_import
+    - backend_or_profile_promotion
+    - preferred_reading_or_source_tradition
+    - canon_scope_change
+    - source_or_manuscript_row_population
+    - theology_authority_change
+    - dad_override_local_authority
 scratch_multi_model_ladder:
   policy: .ai/control/scratch_multi_model_ladder_policy.yaml
   workflow: full_ladder_in_scratch_then_layer_compare_then_codex_bundle
@@ -170,5 +205,6 @@ non_authorizations:
   - cursor_target_selection
 validators:
   - scripts/validate_multi_agent_review_cadence.py
+  - scripts/validate_ai_agnostic_rust_subagents.py
   - tests/test_multi_agent_review_cadence.py
   - scripts/validate_all.py

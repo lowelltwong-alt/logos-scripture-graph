@@ -1,0 +1,114 @@
+id: T457
+phase: phase_4
+title: "Rust Fast Canonical Corpus QA"
+mode: validation_hardening
+status: in_progress
+owner: codex
+branch: codex/t457-fast-canonical-qa
+base_ref: origin/main
+summary: "Turn the T424 Rust canonical-qa scaffold into a real deterministic canonical corpus QA leaf validator with a Python wrapper, fallback, compare mode, and DAD scout lesson."
+scope:
+  allowed_paths:
+    - .ai/tasks/T457.task.yaml
+    - .ai/handoffs/T457/
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t457_rust_scouted_canonical_qa.yaml
+    - tools/logos_fast_validators/
+    - scripts/validate_fast_canonical_qa.py
+    - scripts/validate_all.py
+    - tests/test_t457_fast_canonical_qa.py
+    - tests/test_t424_rust_fast_validators.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - .ai/scratch/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_rust_leaf_validator
+  implements_deterministic_rust_leaf_validation: true
+  keeps_python_pytest_as_governance_orchestrator: true
+  reports_dad_candidate_lesson: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T457
+  touched_paths:
+    - tools/logos_fast_validators/
+    - scripts/validate_fast_canonical_qa.py
+    - scripts/validate_all.py
+    - tests/test_t457_fast_canonical_qa.py
+    - tests/test_t424_rust_fast_validators.py
+  expected_input_size_or_record_count: "Generated canonical sidecars include more than 600k word-token records and other canonical JSONL records."
+  expected_runtime_or_memory_pressure: "High-volume deterministic streaming validation; Rust can reduce repeated Python JSONL scan cost and avoid long validate_all hot paths."
+  rust_trigger_match:
+    - large_jsonl_scan
+    - repeated_gate_or_ci_hot_path
+    - expected_record_count_at_least_100000
+  chosen_language: rust_fast_path_with_python_wrapper
+  expected_rust_time_saved_or_reason_not_applicable: "Rust is expected to help because canonical corpus QA streams the largest generated sidecars; Python remains available for fallback and compare mode."
+  interop_boundary: "Rust performs deterministic structural QA only; Python wrapper dispatches, falls back, compares verdicts, and validate_all remains the orchestration surface."
+  python_fallback_or_wrapper_plan: "scripts/validate_fast_canonical_qa.py dispatches to cargo, supports --python-fallback, --require-rust, and --compare-python, and rejects custom canon compare mode that Python cannot mirror."
+  validation_plan:
+    - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+    - python scripts/validate_fast_canonical_qa.py --require-rust --compare-python --canonical-root <fixture>
+    - python -m pytest tests/test_t457_fast_canonical_qa.py tests/test_t424_rust_fast_validators.py -q
+    - python scripts/validate_task_scope.py --task-id T457
+    - python scripts/agent/validate_handoffs.py
+    - python scripts/validate_all.py
+  maintenance_tradeoffs: "Rust duplicates deterministic structural QA checks from Python; tests and compare mode must keep verdict parity during rollout."
+deliverables:
+  rust_cli: tools/logos_fast_validators/src/main.rs
+  python_wrapper: scripts/validate_fast_canonical_qa.py
+  validate_all_wiring: scripts/validate_all.py
+  tests:
+    - tests/test_t457_fast_canonical_qa.py
+    - tests/test_t424_rust_fast_validators.py
+  dad_lesson_slot: .digital-asset/lessons/t457_rust_scouted_canonical_qa.yaml
+  handoff: .ai/handoffs/T457/handoff.md
+acceptance_criteria:
+  - "Rust canonical-qa performs real structural canonical corpus QA rather than only a scaffold response."
+  - "Python wrapper supports Rust-required, Python-fallback, and Rust/Python compare modes."
+  - "validate_all uses the fast canonical QA wrapper when generated canonical QA inputs exist."
+  - "Tests prove Rust/Python verdict parity on valid and invalid canonical QA fixtures."
+  - "DAD receives candidate-only scout-guided Rust lesson with extra context."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python scripts/validate_fast_canonical_qa.py --require-rust --compare-python --canonical-root <fixture>
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_task_scope.py --task-id T457
+  - python scripts/agent/validate_handoffs.py
+  - python -m pytest tests/test_t457_fast_canonical_qa.py tests/test_t424_rust_fast_validators.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T457/handoff.md
+created_at: "2026-07-05"
+updated_at: "2026-07-05"

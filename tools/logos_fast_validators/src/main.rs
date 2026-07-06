@@ -13,6 +13,29 @@ const REQUIRED_EXCLUDED: &[&str] = &[
     "FRT", "GLO", "Tob", "Jdt", "AddEsth", "Wis", "Sir", "Bar", "1Macc", "2Macc", "1Esd", "PrMan",
     "Ps151", "3Macc", "2Esd", "4Macc", "AddDan",
 ];
+const PASSAGES_REL: &str = "scripture/passages/passages.jsonl";
+const WITNESSES_REL: &str = "translations/eng-web/translation_witnesses.jsonl";
+const GLOSSARY_REL: &str = "translations/eng-web/glossary_entries.jsonl";
+const WORD_TOKENS_REL: &str = "translations/eng-web/word_tokens.jsonl";
+const SIDECAR_RELS: &[&str] = &[
+    "translations/eng-web/boundary_claims.jsonl",
+    "translations/eng-web/footnotes.jsonl",
+    "translations/eng-web/editorial_cross_references.jsonl",
+    "translations/eng-web/section_headings.jsonl",
+];
+const KNOWN_EMPTY_WITNESS_REFS: &[&str] = &[
+    "Luke.17.36",
+    "Acts.8.37",
+    "Acts.15.34",
+    "Acts.24.7",
+    "Rom.16.25",
+];
+const NON_SCRIPTURE_GLOSSARY_SCOPES: &[&str] = &[
+    "non_scripture",
+    "non_scripture_support",
+    "supporting_reference",
+    "source_metadata",
+];
 
 fn main() {
     if let Err(err) = run() {
@@ -25,7 +48,7 @@ fn run() -> AnyResult<()> {
     let mut args: Vec<String> = env::args().skip(1).collect();
     if args.is_empty() {
         return Err(
-            "missing command: expected jsonl-scan, canonical-scope, canonical-qa, or chunk-map"
+            "missing command: expected jsonl-scan, canonical-scope, canonical-qa, word-token-signals, or chunk-map"
                 .into(),
         );
     }
@@ -34,6 +57,7 @@ fn run() -> AnyResult<()> {
         "jsonl-scan" => jsonl_scan(&args),
         "canonical-scope" => canonical_scope(&args),
         "canonical-qa" => canonical_qa(&args),
+        "word-token-signals" => word_token_signals(&args),
         "chunk-map" => chunk_map(&args),
         "-h" | "--help" | "help" => {
             print_help();
@@ -47,7 +71,8 @@ fn print_help() {
     println!("logos_fast_validators commands:");
     println!("  jsonl-scan [--translation-id ID] [--require-canon] [--summary-json PATH] FILE...");
     println!("  canonical-scope [--canon PATH] [--summary-json PATH] [FILE...]");
-    println!("  canonical-qa [--summary-json PATH]");
+    println!("  canonical-qa [--canon PATH] [--canonical-root PATH] [--skip-word-tokens] [--summary-json PATH]");
+    println!("  word-token-signals [--translation-id ID] [--summary-json PATH] FILE...");
     println!("  chunk-map [--model-id ID] [--require-full-bible] [--book BOOK] [--canon PATH] [--summary-json PATH] FILE");
 }
 
@@ -401,10 +426,23 @@ fn canonical_scope(args: &[String]) -> AnyResult<()> {
 }
 
 fn canonical_qa(args: &[String]) -> AnyResult<()> {
+    let mut canon = PathBuf::from("config/canon/canonical_66_books.yaml");
+    let mut canonical_root = PathBuf::from("data/canonical");
+    let mut include_word_tokens = true;
     let mut summary_json: Option<PathBuf> = None;
     let mut index = 0;
     while index < args.len() {
         match args[index].as_str() {
+            "--canon" => {
+                index += 1;
+                canon = PathBuf::from(args.get(index).ok_or("--canon requires a value")?);
+            }
+            "--canonical-root" => {
+                index += 1;
+                canonical_root =
+                    PathBuf::from(args.get(index).ok_or("--canonical-root requires a value")?);
+            }
+            "--skip-word-tokens" => include_word_tokens = false,
             "--summary-json" => {
                 index += 1;
                 summary_json = Some(PathBuf::from(
@@ -422,15 +460,677 @@ fn canonical_qa(args: &[String]) -> AnyResult<()> {
         }
         index += 1;
     }
+
+    let (canonical_books, excluded_books) = load_canon_config(&canon)?;
+    validate_canon_config(&canonical_books, &excluded_books)?;
+    let canonical_set: HashSet<&str> = canonical_books.iter().map(String::as_str).collect();
+    let excluded_set: HashSet<&str> = excluded_books.iter().map(String::as_str).collect();
+
+    let mut failures: Vec<String> = Vec::new();
+    let mut required = vec![
+        canonical_root.join(PASSAGES_REL),
+        canonical_root.join(WITNESSES_REL),
+        canonical_root.join(GLOSSARY_REL),
+    ];
+    required.extend(SIDECAR_RELS.iter().map(|rel| canonical_root.join(rel)));
+    if include_word_tokens {
+        required.push(canonical_root.join(WORD_TOKENS_REL));
+    }
+    for path in required {
+        if !path.is_file() {
+            failures.push(format!(
+                "missing required canonical output: {}",
+                path.display()
+            ));
+        }
+    }
+    if !failures.is_empty() {
+        return emit_canonical_qa_result(
+            summary_json.as_deref(),
+            &canonical_root,
+            &canonical_books,
+            0,
+            0,
+            &BTreeMap::new(),
+            None,
+            &BTreeSet::new(),
+            failures,
+        );
+    }
+
+    let passages_path = canonical_root.join(PASSAGES_REL);
+    let witnesses_path = canonical_root.join(WITNESSES_REL);
+    let glossary_path = canonical_root.join(GLOSSARY_REL);
+
+    let mut passage_ids: BTreeSet<String> = BTreeSet::new();
+    let mut books_in_order: Vec<String> = Vec::new();
+    let mut seen_books: HashSet<String> = HashSet::new();
+    let mut passage_count = 0usize;
+    stream_jsonl_objects(
+        &passages_path,
+        &mut failures,
+        |line_no, record, failures| {
+            let book = validate_qa_book_identity(
+                record,
+                &passages_path,
+                line_no,
+                &canonical_set,
+                &excluded_set,
+                failures,
+            );
+            if let Some(book) = book {
+                if seen_books.insert(book.clone()) {
+                    books_in_order.push(book);
+                }
+            }
+            match str_field(record, "id") {
+                Some(id) if !id.is_empty() => {
+                    if !passage_ids.insert(id.to_string()) {
+                        push_limited(
+                            failures,
+                            format!(
+                                "{}:{line_no}: duplicate passage id {id}",
+                                passages_path.display()
+                            ),
+                        );
+                    }
+                }
+                _ => push_limited(
+                    failures,
+                    format!(
+                        "{}:{line_no}: passage record is missing id",
+                        passages_path.display()
+                    ),
+                ),
+            }
+            if record.contains_key("text") && json_text(record.get("text")).trim().is_empty() {
+                push_limited(
+                    failures,
+                    format!(
+                        "{}:{line_no}: passage text field is empty",
+                        passages_path.display()
+                    ),
+                );
+            }
+            passage_count += 1;
+        },
+    )?;
+
+    if books_in_order != canonical_books {
+        failures.push(format!(
+            "passage book order/set mismatch: expected {:?}, observed {:?}",
+            canonical_books, books_in_order
+        ));
+    }
+
+    let mut witness_passage_ids: BTreeSet<String> = BTreeSet::new();
+    let mut allowed_empty_witness_refs: BTreeSet<String> = BTreeSet::new();
+    let mut witness_count = 0usize;
+    stream_jsonl_objects(
+        &witnesses_path,
+        &mut failures,
+        |line_no, record, failures| {
+            validate_qa_book_identity(
+                record,
+                &witnesses_path,
+                line_no,
+                &canonical_set,
+                &excluded_set,
+                failures,
+            );
+            match str_field(record, "passage_id") {
+                Some(passage_id) if !passage_id.is_empty() => {
+                    if !witness_passage_ids.insert(passage_id.to_string()) {
+                        push_limited(
+                            failures,
+                            format!(
+                                "{}:{line_no}: duplicate witness passage_id {passage_id}",
+                                witnesses_path.display()
+                            ),
+                        );
+                    }
+                }
+                _ => push_limited(
+                    failures,
+                    format!(
+                        "{}:{line_no}: witness is missing passage_id",
+                        witnesses_path.display()
+                    ),
+                ),
+            }
+            if json_text(record.get("text")).trim().is_empty() {
+                let osis_ref = str_field(record, "osis_ref").unwrap_or("");
+                if KNOWN_EMPTY_WITNESS_REFS.contains(&osis_ref) {
+                    allowed_empty_witness_refs.insert(osis_ref.to_string());
+                } else {
+                    push_limited(
+                        failures,
+                        format!(
+                            "{}:{line_no}: witness text is empty",
+                            witnesses_path.display()
+                        ),
+                    );
+                }
+            }
+            witness_count += 1;
+        },
+    )?;
+
+    if witness_count != passage_count {
+        failures.push(format!(
+            "translation_witnesses count {witness_count} != passages count {passage_count}"
+        ));
+    }
+    let missing_witnesses: Vec<String> = passage_ids
+        .difference(&witness_passage_ids)
+        .take(10)
+        .cloned()
+        .collect();
+    if !missing_witnesses.is_empty() {
+        failures.push(format!(
+            "translation_witnesses missing passage ids: {:?}",
+            missing_witnesses
+        ));
+    }
+    let extra_witnesses: Vec<String> = witness_passage_ids
+        .difference(&passage_ids)
+        .take(10)
+        .cloned()
+        .collect();
+    if !extra_witnesses.is_empty() {
+        failures.push(format!(
+            "translation_witnesses contain unknown passage ids: {:?}",
+            extra_witnesses
+        ));
+    }
+
+    let mut sidecar_counts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut footnote_passage_ids: BTreeSet<String> = BTreeSet::new();
+    for rel in SIDECAR_RELS {
+        let path = canonical_root.join(rel);
+        let mut count = 0usize;
+        stream_jsonl_objects(&path, &mut failures, |line_no, record, failures| {
+            validate_qa_book_identity(
+                record,
+                &path,
+                line_no,
+                &canonical_set,
+                &excluded_set,
+                failures,
+            );
+            if let Some(passage_id) = str_field(record, "passage_id") {
+                if !passage_ids.contains(passage_id) {
+                    push_limited(
+                        failures,
+                        format!(
+                            "{}:{line_no}: unknown passage_id {passage_id}",
+                            path.display()
+                        ),
+                    );
+                }
+                if *rel == "translations/eng-web/footnotes.jsonl"
+                    && !json_text(record.get("text")).trim().is_empty()
+                {
+                    footnote_passage_ids.insert(passage_id.to_string());
+                }
+            }
+            count += 1;
+        })?;
+        sidecar_counts.insert((*rel).to_string(), count);
+    }
+
+    for osis_ref in &allowed_empty_witness_refs {
+        let passage_id = format!("scripture:{osis_ref}");
+        if !footnote_passage_ids.contains(&passage_id) {
+            failures.push(format!(
+                "{passage_id} has allowed empty witness text but no explanatory footnote"
+            ));
+        }
+    }
+
+    let mut glossary_count = 0usize;
+    stream_jsonl_objects(
+        &glossary_path,
+        &mut failures,
+        |line_no, record, failures| {
+            if !is_non_scripture_glossary_record(record) {
+                failures.push(format!(
+                    "{}:{line_no}: glossary entry is not explicitly marked non-Scripture",
+                    glossary_path.display()
+                ));
+            }
+            glossary_count += 1;
+        },
+    )?;
+    sidecar_counts.insert(GLOSSARY_REL.to_string(), glossary_count);
+
+    let word_token_count = if include_word_tokens {
+        let word_token_path = canonical_root.join(WORD_TOKENS_REL);
+        let mut count = 0usize;
+        stream_jsonl_objects(
+            &word_token_path,
+            &mut failures,
+            |line_no, record, failures| {
+                validate_qa_book_identity(
+                    record,
+                    &word_token_path,
+                    line_no,
+                    &canonical_set,
+                    &excluded_set,
+                    failures,
+                );
+                if let Some(passage_id) = str_field(record, "passage_id") {
+                    if !passage_ids.contains(passage_id) {
+                        push_limited(
+                            failures,
+                            format!(
+                                "{}:{line_no}: unknown passage_id {passage_id}",
+                                word_token_path.display()
+                            ),
+                        );
+                    }
+                }
+                count += 1;
+            },
+        )?;
+        Some(count)
+    } else {
+        None
+    };
+
+    emit_canonical_qa_result(
+        summary_json.as_deref(),
+        &canonical_root,
+        &canonical_books,
+        passage_count,
+        witness_count,
+        &sidecar_counts,
+        word_token_count,
+        &allowed_empty_witness_refs,
+        failures,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_canonical_qa_result(
+    summary_json: Option<&Path>,
+    canonical_root: &Path,
+    canonical_books: &[String],
+    passage_count: usize,
+    witness_count: usize,
+    sidecar_counts: &BTreeMap<String, usize>,
+    word_token_count: Option<usize>,
+    allowed_empty_witness_refs: &BTreeSet<String>,
+    failures: Vec<String>,
+) -> AnyResult<()> {
     let summary = json!({
         "validator": "logos_fast_validators canonical-qa",
-        "status": "scaffold",
+        "status": if failures.is_empty() { "passed" } else { "failed" },
+        "canonical_root": canonical_root,
         "authoritative_validator": "scripts/qa_canonical_corpus.py",
+        "authority": "deterministic_structural_check_only",
         "non_authorizing": true,
+        "canonical_books": canonical_books.len(),
+        "passage_records": passage_count,
+        "translation_witness_records": witness_count,
+        "sidecar_counts": sidecar_counts,
+        "word_token_records": word_token_count,
+        "allowed_empty_witness_refs": allowed_empty_witness_refs,
+        "failures": failures.len(),
+    });
+    emit_summary(summary_json, &summary)?;
+    if !failures.is_empty() {
+        println!("FAST CANONICAL CORPUS QA FAILED");
+        for failure in failures.iter().take(200) {
+            println!("- {failure}");
+        }
+        if failures.len() > 200 {
+            println!("- ... {} additional failures", failures.len() - 200);
+        }
+        return Err(format!("{} canonical corpus QA failure(s)", failures.len()).into());
+    }
+    println!("Fast canonical corpus QA passed.");
+    println!("- canonical root: {}", canonical_root.display());
+    println!("- canonical books: {}", canonical_books.len());
+    println!("- passage records: {passage_count}");
+    println!("- translation witness records: {witness_count}");
+    if !allowed_empty_witness_refs.is_empty() {
+        println!(
+            "- allowed empty textual-variant witnesses: {}",
+            allowed_empty_witness_refs.len()
+        );
+        for osis_ref in allowed_empty_witness_refs {
+            println!("  - {osis_ref}");
+        }
+    }
+    for (rel, count) in sidecar_counts {
+        println!("- {rel}: {count}");
+    }
+    if let Some(count) = word_token_count {
+        println!("- {WORD_TOKENS_REL}: {count}");
+    }
+    Ok(())
+}
+
+fn word_token_signals(args: &[String]) -> AnyResult<()> {
+    let mut translation_id = "eng-web".to_string();
+    let mut summary_json: Option<PathBuf> = None;
+    let mut paths: Vec<PathBuf> = Vec::new();
+    let mut index = 0;
+
+    while index < args.len() {
+        match args[index].as_str() {
+            "--translation-id" => {
+                index += 1;
+                translation_id = args
+                    .get(index)
+                    .ok_or("--translation-id requires a value")?
+                    .to_string();
+            }
+            "--summary-json" => {
+                index += 1;
+                summary_json = Some(PathBuf::from(
+                    args.get(index).ok_or("--summary-json requires a value")?,
+                ));
+            }
+            value if value.starts_with('-') => {
+                return Err(format!("unknown word-token-signals flag: {value}").into())
+            }
+            value => paths.push(PathBuf::from(value)),
+        }
+        index += 1;
+    }
+
+    if paths.is_empty() {
+        return Err("word-token-signals requires at least one word_tokens JSONL path".into());
+    }
+
+    let mut failures: Vec<String> = Vec::new();
+    let mut records = 0usize;
+    let mut source_files: BTreeSet<String> = BTreeSet::new();
+    let mut translation_ids: BTreeSet<String> = BTreeSet::new();
+    let mut book_token_counts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut book_wj_token_counts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut books_with_wj: BTreeSet<String> = BTreeSet::new();
+    let mut wj_word_tokens = 0usize;
+    let mut wj_token_runs = 0usize;
+    let mut in_wj_run = false;
+    let mut current_wj_book = String::new();
+    let mut strong_occurrences_total = 0usize;
+    let mut strong_h_occurrences = 0usize;
+    let mut strong_g_occurrences = 0usize;
+    let mut strong_other_occurrences = 0usize;
+    let mut tokens_with_strong = 0usize;
+    let mut tokens_with_surface_text = 0usize;
+    let mut tokens_with_nesting_context = 0usize;
+
+    for path in &paths {
+        if !path.is_file() {
+            failures.push(format!("Missing word-token JSONL file: {}", path.display()));
+            continue;
+        }
+        stream_jsonl_objects(path, &mut failures, |line_no, record, failures| {
+            records += 1;
+
+            let actual_translation = str_field(record, "translation_id").unwrap_or("");
+            if actual_translation.is_empty() {
+                push_limited(
+                    failures,
+                    format!("{}:{line_no}: missing translation_id", path.display()),
+                );
+            } else {
+                translation_ids.insert(actual_translation.to_string());
+                if actual_translation != translation_id {
+                    push_limited(
+                        failures,
+                        format!(
+                            "{}:{line_no}: translation_id {actual_translation} != expected {translation_id}",
+                            path.display()
+                        ),
+                    );
+                }
+            }
+
+            let book = str_field(record, "book")
+                .and_then(normalize_book_id)
+                .or_else(|| record_book_id(record))
+                .unwrap_or_default();
+            if book.is_empty() {
+                push_limited(
+                    failures,
+                    format!("{}:{line_no}: missing book identity", path.display()),
+                );
+            } else {
+                *book_token_counts.entry(book.clone()).or_default() += 1;
+            }
+
+            if str_field(record, "osis_ref").is_none_or(|value| !valid_osis_ref(value)) {
+                push_limited(
+                    failures,
+                    format!(
+                        "{}:{line_no}: missing or malformed osis_ref",
+                        path.display()
+                    ),
+                );
+            }
+
+            if let Some(source_file) = str_field(record, "source_file") {
+                if !source_file.is_empty() {
+                    source_files.insert(source_file.to_string());
+                }
+            }
+            if str_field(record, "surface_text").is_some_and(|value| !value.is_empty()) {
+                tokens_with_surface_text += 1;
+            }
+            if json_array_contains_str(record.get("nesting_context"), "wj") {
+                wj_word_tokens += 1;
+                if !book.is_empty() {
+                    books_with_wj.insert(book.clone());
+                    *book_wj_token_counts.entry(book.clone()).or_default() += 1;
+                }
+                if !in_wj_run || current_wj_book != book {
+                    wj_token_runs += 1;
+                    current_wj_book = book.clone();
+                }
+                in_wj_run = true;
+            } else {
+                in_wj_run = false;
+                current_wj_book.clear();
+            }
+            if record
+                .get("nesting_context")
+                .and_then(JsonValue::as_array)
+                .is_some_and(|items| !items.is_empty())
+            {
+                tokens_with_nesting_context += 1;
+            }
+
+            let mut strong_values: Vec<String> = Vec::new();
+            collect_strong_values(record.get("strong"), &mut strong_values);
+            collect_strong_values(record.get("strong_id"), &mut strong_values);
+            collect_strong_values(record.get("strong_ids"), &mut strong_values);
+            collect_strong_values(record.get("strongs"), &mut strong_values);
+            if !strong_values.is_empty() {
+                tokens_with_strong += 1;
+            }
+            for strong in strong_values {
+                strong_occurrences_total += 1;
+                if strong.starts_with('H') {
+                    strong_h_occurrences += 1;
+                } else if strong.starts_with('G') {
+                    strong_g_occurrences += 1;
+                } else {
+                    strong_other_occurrences += 1;
+                }
+            }
+        })?;
+    }
+
+    let summary = json!({
+        "validator": "logos_fast_validators word-token-signals",
+        "status": if failures.is_empty() { "passed" } else { "failed" },
+        "files": paths.len(),
+        "records": records,
+        "failures": failures.len(),
+        "translation_id": translation_id,
+        "translation_ids_observed": translation_ids,
+        "source_file_count": source_files.len(),
+        "book_count": book_token_counts.len(),
+        "book_token_counts": book_token_counts,
+        "wj_word_tokens": wj_word_tokens,
+        "wj_token_runs": wj_token_runs,
+        "books_with_wj": books_with_wj,
+        "book_wj_token_counts": book_wj_token_counts,
+        "tokens_with_nesting_context": tokens_with_nesting_context,
+        "tokens_with_surface_text": tokens_with_surface_text,
+        "tokens_with_strong": tokens_with_strong,
+        "strong_occurrences_total": strong_occurrences_total,
+        "strong_h_occurrences": strong_h_occurrences,
+        "strong_g_occurrences": strong_g_occurrences,
+        "strong_other_occurrences": strong_other_occurrences,
+        "non_authorizing": true,
+        "no_text": true,
+        "authority": "deterministic_word_token_signal_counts_only",
     });
     emit_summary(summary_json.as_deref(), &summary)?;
-    println!("canonical-qa scaffold present; Python qa_canonical_corpus.py remains authoritative.");
+
+    if !failures.is_empty() {
+        println!("FAST WORD-TOKEN SIGNAL SCAN FAILED");
+        for failure in failures.iter().take(200) {
+            println!("- {failure}");
+        }
+        if failures.len() > 200 {
+            println!("- ... {} additional failures", failures.len() - 200);
+        }
+        return Err(format!("{} word-token signal failure(s)", failures.len()).into());
+    }
+
+    println!("Fast word-token signal scan passed for {records} record(s).");
+    println!("- files: {}", paths.len());
+    println!("- source files: {}", source_files.len());
+    println!("- books: {}", summary["book_count"]);
+    println!("- WJ tokens: {wj_word_tokens}");
+    println!("- WJ token runs: {wj_token_runs}");
+    println!("- Strong occurrences: {strong_occurrences_total}");
     Ok(())
+}
+
+fn stream_jsonl_objects<F>(path: &Path, failures: &mut Vec<String>, mut visit: F) -> AnyResult<()>
+where
+    F: FnMut(usize, &Map<String, JsonValue>, &mut Vec<String>),
+{
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    for (line_no, line_result) in reader.lines().enumerate() {
+        let line_no = line_no + 1;
+        let line = line_result?;
+        if line.trim().is_empty() {
+            continue;
+        }
+        let record: JsonValue = match serde_json::from_str(&line) {
+            Ok(value) => value,
+            Err(err) => {
+                failures.push(format!("{}:{line_no}: invalid JSON: {err}", path.display()));
+                continue;
+            }
+        };
+        let Some(record) = record.as_object() else {
+            failures.push(format!(
+                "{}:{line_no}: JSONL row is not an object",
+                path.display()
+            ));
+            continue;
+        };
+        visit(line_no, record, failures);
+    }
+    Ok(())
+}
+
+fn validate_qa_book_identity(
+    record: &Map<String, JsonValue>,
+    source: &Path,
+    line_no: usize,
+    expected_books: &HashSet<&str>,
+    blocked_books: &HashSet<&str>,
+    failures: &mut Vec<String>,
+) -> Option<String> {
+    let record_id = str_field(record, "id").unwrap_or("<missing-id>");
+    let book = record_book_id(record);
+    match book {
+        None => {
+            failures.push(format!(
+                "{}:{line_no}: {record_id} is missing canonical book identity",
+                source.display()
+            ));
+            None
+        }
+        Some(book)
+            if blocked_books.contains(book.as_str()) || !expected_books.contains(book.as_str()) =>
+        {
+            failures.push(format!(
+                "{}:{line_no}: {record_id} uses non-66 book {book}",
+                source.display()
+            ));
+            Some(book)
+        }
+        Some(book) => Some(book),
+    }
+}
+
+fn push_limited(failures: &mut Vec<String>, message: String) {
+    const LIMIT: usize = 50;
+    if failures.len() < LIMIT {
+        failures.push(message);
+    } else if failures.len() == LIMIT {
+        failures.push("additional QA failures suppressed".to_string());
+    }
+}
+
+fn json_text(value: Option<&JsonValue>) -> String {
+    match value {
+        None | Some(JsonValue::Null) => String::new(),
+        Some(JsonValue::String(value)) => value.clone(),
+        Some(value) => value.to_string(),
+    }
+}
+
+fn json_array_contains_str(value: Option<&JsonValue>, needle: &str) -> bool {
+    value
+        .and_then(JsonValue::as_array)
+        .is_some_and(|items| items.iter().any(|item| item.as_str() == Some(needle)))
+}
+
+fn collect_strong_values(value: Option<&JsonValue>, out: &mut Vec<String>) {
+    match value {
+        Some(JsonValue::String(value)) if !value.trim().is_empty() => {
+            out.push(value.trim().to_string());
+        }
+        Some(JsonValue::Array(values)) => {
+            for value in values {
+                collect_strong_values(Some(value), out);
+            }
+        }
+        _ => {}
+    }
+}
+
+fn json_false(value: Option<&JsonValue>) -> bool {
+    matches!(value, Some(JsonValue::Bool(false)))
+}
+
+fn is_non_scripture_glossary_record(record: &Map<String, JsonValue>) -> bool {
+    if json_false(record.get("scripture_content")) || json_false(record.get("canonical_scripture"))
+    {
+        return true;
+    }
+    for key in ["scope", "content_scope", "record_scope"] {
+        if let Some(value) = str_field(record, key) {
+            if NON_SCRIPTURE_GLOSSARY_SCOPES.contains(&value) {
+                return true;
+            }
+        }
+    }
+    false
 }
 
 fn chunk_map(args: &[String]) -> AnyResult<()> {

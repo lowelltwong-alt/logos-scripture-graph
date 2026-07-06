@@ -1,0 +1,98 @@
+id: T456
+phase: phase_4
+title: "Runtime Environment Preflight And DAD Sandbox Lesson"
+mode: validation_hardening
+status: in_progress
+owner: codex
+branch: codex/t456-runtime-env-dad-lesson
+base_ref: origin/main
+summary: "Harden test runtime preflight for sandbox temp/Cargo access-denied failures and report the reusable lesson to DAD as candidate-only context."
+scope:
+  allowed_paths:
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t456_runtime_environment_preflight.yaml
+    - .ai/tasks/T456.task.yaml
+    - .ai/handoffs/T456/
+    - .ai/control/test_runtime_preflight.yaml
+    - scripts/validate_test_runtime_preflight.py
+    - tests/test_test_runtime_preflight.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_runtime_preflight_hardening
+  hardens_test_runtime_preflight: true
+  reports_dad_candidate_lesson: true
+  adds_rust_validator_behavior: false
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T456
+  touched_paths:
+    - scripts/validate_test_runtime_preflight.py
+    - tests/test_test_runtime_preflight.py
+  expected_input_size_or_record_count: "Small YAML/JSONL control-plane files and focused tests; no large corpus scan."
+  expected_runtime_or_memory_pressure: "Below Rust thresholds; this hardens policy wording and DAD reporting, not a streaming data pass."
+  rust_trigger_match:
+    - repeated_gate_or_ci_hot_path
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No meaningful Rust speedup expected because the task validates semantic preflight policy and DAD lesson metadata."
+  interop_boundary: "Rust validators remain leaf tools; Python keeps governance, task-scope, test-runtime, and DAD policy validation."
+  python_fallback_or_wrapper_plan: "Not applicable; no Rust worker is added in T456."
+  validation_plan:
+    - python scripts/validate_test_runtime_preflight.py
+    - python scripts/validate_dad_outbox.py
+    - python scripts/validate_task_scope.py --task-id T456
+    - python scripts/agent/validate_handoffs.py
+    - python -m pytest tests/test_test_runtime_preflight.py tests/test_dad_outbox.py -q
+  maintenance_tradeoffs: "A Python policy validator is easier to keep aligned with YAML/DAD semantics; the improvement helps future Rust-backed gates by requiring CARGO_TARGET_DIR routing when sandboxed."
+deliverables:
+  runtime_preflight: .ai/control/test_runtime_preflight.yaml
+  validator: scripts/validate_test_runtime_preflight.py
+  tests: tests/test_test_runtime_preflight.py
+  dad_lesson_slot: .digital-asset/lessons/t456_runtime_environment_preflight.yaml
+  dad_context_map: .digital-asset/context-map.json
+  dad_outbox: .digital-asset/mail/outbox.jsonl
+  handoff: .ai/handoffs/T456/handoff.md
+acceptance_criteria:
+  - "Sandbox/temp/Cargo access-denied failures are classified separately from code failures and test passes."
+  - "The runtime preflight requires repo-local pytest basetemp/TMP/TEMP and CARGO_TARGET_DIR guidance."
+  - "DAD receives candidate-only lesson/context with extra context for dirty parallel Rust rollout scenarios."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - python scripts/validate_test_runtime_preflight.py
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_task_scope.py --task-id T456
+  - python scripts/agent/validate_handoffs.py
+  - python -m pytest tests/test_test_runtime_preflight.py tests/test_dad_outbox.py -q
+  - git diff --check
+handoff_required: .ai/handoffs/T456/handoff.md
+created_at: "2026-07-05"
+updated_at: "2026-07-05"

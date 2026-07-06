@@ -2,8 +2,8 @@
 object_type: test_runtime_preflight
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window. Updated 2026-06-29 after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling."
-reason_for_inclusion: "Give future agents deterministic runtime guidance before running long validation or pytest commands, so slow gates are run with enough timeout or split intentionally instead of failing from tool timeout."
+provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window. Updated 2026-06-29 after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling. Updated 2026-07-05 during T456 after sandboxed Windows validation hit access-denied temp/Cargo failures that passed when rerun in the correct environment."
+reason_for_inclusion: "Give future agents deterministic runtime guidance before running long validation or pytest commands, so slow gates are run with enough timeout, split intentionally, or routed to writable temp/Cargo locations instead of failing from tool timeout or sandbox environment noise."
 ---
 schema_version: test_runtime_preflight.v1
 preflight_id: repo_test_runtime_preflight
@@ -17,7 +17,9 @@ authority:
 applies_when:
   - before_running_repo_wide_validation
   - before_running_pytest
+  - before_running_rust_backed_validators
   - after_a_command_times_out
+  - after_a_command_fails_from_sandbox_or_temp_access
   - when_choosing_between_focused_tests_and_full_suite
 runtime_profiles:
   - command_id: pytest_full_suite
@@ -101,6 +103,32 @@ runtime_profiles:
       - treat_timeout_as_test_failure_without_assertion_output
       - hide_timeout_from_handoff
       - stop_unidentified_or_unrelated_parallel_agent_processes
+environment_routing:
+  status: active
+  observed_on: "2026-07-05"
+  observed_context: "T451/T456 Codex desktop Windows worktrees while running sandboxed validators, pytest, and Rust-backed checks after the T424 Rust validation layer landed."
+  observed_result: "Sandboxed runs can fail from WinError 5 access denied around pytest temp/cache paths, Python TemporaryDirectory outputs under AppData Local Temp, or Cargo target/build locks. The same gate may pass when rerun with a repo-local writable temp route or unsandboxed approval, so agents must classify this as environment noise unless assertion output or validator diagnostics prove a code failure."
+  required_when:
+    - running_pytest_under_codex_sandbox
+    - running_validate_all_when_nested_tests_create_temp_outputs
+    - running_cargo_or_rust_backed_validators
+    - after_winerror_5_or_access_denied_from_temp_or_target_paths
+  recommended_environment:
+    - "Set pytest --basetemp or TMP/TEMP to a repo-local writable scratch directory when sandboxed."
+    - "Set CARGO_TARGET_DIR to a repo-local or task-local ignored writable directory before Rust validators or cargo test."
+    - "Keep generated temp, pytest cache, Cargo target, and observation build outputs ignored and out of commits."
+    - "If sandbox still denies temp/Cargo writes, rerun the same gate unsandboxed with approval and record sandbox_access_denied as environment noise, not as green."
+  failure_classification:
+    - "WinError 5, permission denied, temp directory denial, Cargo lock denial, or target directory denial is sandbox_access_denied until reproduced outside the sandbox."
+    - "Assertion failures, schema diagnostics, explicit validator messages, and deterministic nonzero exits after writable routing are code_or_data_failures."
+    - "Timeouts without a verdict remain runtime/tool timeouts and must not be treated as green."
+  do_not:
+    - treat_sandbox_access_denied_as_green
+    - treat_sandbox_access_denied_as_code_failure_without_reproduction
+    - commit_temp_outputs
+    - commit_cargo_target_outputs
+    - delete_unknown_temp_or_target_dirs_without_path_verification
+  dad_lesson: ".digital-asset/lessons/t456_runtime_environment_preflight.yaml"
 update_policy:
   status: required
   update_required_when:
@@ -108,6 +136,8 @@ update_policy:
     - a_validation_or_test_command_reliably_exceeds_default_timeout
     - a_split_strategy_is_needed_to_make_failures_actionable
     - a_new_slow_gate_is_added_to_validate_all_or_pytest
+    - sandbox_temp_or_cargo_access_denied_noise_is_observed
+    - repo_local_temp_or_cargo_target_routing_is_required
   required_fields_for_new_profile:
     - command_id
     - command
@@ -122,6 +152,9 @@ non_authorizations:
   - skip_test_due_to_runtime
   - ignore_timeout
   - treat_timeout_as_green
+  - treat_sandbox_access_denied_as_green
+  - commit_temp_outputs
+  - commit_cargo_target_outputs
   - validation_bypass
   - output_change
 validator: scripts/validate_test_runtime_preflight.py

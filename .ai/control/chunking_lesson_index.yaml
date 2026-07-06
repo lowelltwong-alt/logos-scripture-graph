@@ -2,14 +2,14 @@
 object_type: chunking_lesson_index
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance."
+provenance_note: "Created 2026-06-20 during T382 after the maintainer asked whether lessons learned are always saved into the appropriate preflight and whether there should be a tagged lesson table-of-contents/graph. Updated 2026-06-22 during T386 to add the Bible-wide verse/passage coverage inventory lesson and test-runtime preflight lesson. Updated 2026-06-22 during T387 to add manuscript witness reliability anti-guessing controls. Updated 2026-06-22 during T388 to add stale-branch rediscovery controls. Updated 2026-06-22 during T389 to add clean-trunk launch-readiness reporting controls. Updated 2026-06-22 during T390 to add manuscript source-catalog metadata anti-guessing controls. Updated 2026-06-23 during T385 to add owner-packet recommendation versus owner-selection controls. Updated 2026-06-23 during T392 to add review-packet strengthening premortem/red-team controls. Updated 2026-06-23 during T393 to add reviewed-gold promotion decision packet non-promotion controls. Updated 2026-06-23 during T395 to add SQLite source-catalog shell seed-row controls. Updated 2026-06-23 during T394 to add parent-only reviewed-gold promotion without implementation authority controls. Updated 2026-06-24 during T397 to add route-isolation harness proof-gate controls. Updated 2026-06-24 during T396 conflict resolution to add scoped DSS biblical witness row-population anti-overclaiming controls as LSN-029 after T397/T398/T399 claimed LSN-026 through LSN-028. Updated 2026-06-25 during T401 to add exact output-pilot proof-manifest and post-pilot review controls. Updated 2026-06-29 during T402/T404 to add low-complexity candidate runway and Cursor low-risk delegation controls. Updated 2026-06-29 during PR #123 conflict resolution to retain T405 child-repo governance dependency-map mirror controls as LSN-033 after T402/T404 claimed LSN-031/LSN-032. Updated 2026-06-30 during T410 to add research-to-chunking prompt-pack transparency and Phase 1 completion controls as LSN-034. Updated 2026-06-30 during T412 to extend LSN-034 with Rust-first observation substrate and Cursor ledger-first controls. Updated 2026-06-05 during T411 to record Claude T412 post-merge substrate audit clearance. Updated 2026-07-06 during T458 to extend LSN-039 with AI-agnostic Rust subagent cadence and DAD scout-reporting controls."
 reason_for_inclusion: "Give future chunking agents a deterministic lesson discovery graph with tags, use-when routing, related surfaces, dependencies, context discipline, and non-authorizations instead of relying on chat memory or a prose-only lesson collector."
 ---
 schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T417
+last_updated_by_task: T458
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -1702,23 +1702,29 @@ lessons:
     lifecycle_status: active
     priority: mandatory_preflight
     categories: [workflow_governance, auditability]
-    tags: [t420, multi-agent-cadence, daily-codex, weekly-claude, autonomous-prep, backlog-empty-stop, review-ledger]
+    tags: [t420, t458, multi-agent-cadence, daily-codex, weekly-claude, autonomous-prep, backlog-empty-stop, review-ledger, rust-subagents, ai-agnostic, capability-profile-routing, dad-lessons]
     use_when:
       - "A future agent runs long autonomous Cursor prep or needs to know when Codex and Claude must review the work."
       - "A future agent integrates prep-branch work and must append a daily or weekly ledger verdict."
+      - "A future agent adds Rust architecture, outside research, bounded engineering, parity QA, or DAD lesson-reporting subagents and must keep routing capability-profile based."
     preflight_stage: before_autonomous_prep_or_prep_branch_integration
     source_surfaces:
       - .ai/control/multi_agent_review_cadence.yaml
       - .ai/control/agent_review_ledger.jsonl
       - .ai/control/autonomous_corpus_processor.yaml
+      - .ai/control/ai_agnostic_rust_subagent_charter.yaml
+      - config/agents/agent_roles.yaml
+      - config/agents/model_routing.yaml
       - docs/roadmap/T420_MULTI_AGENT_REVIEW_CADENCE.md
       - scripts/validate_multi_agent_review_cadence.py
+      - scripts/validate_ai_agnostic_rust_subagents.py
     related_decision_ids: [CD-084]
     related_workflow_lesson_ids: []
-    related_task_ids: [T420, T417]
-    downstream_risk: "Prep throughput without daily Codex or weekly Claude review can smuggle authority leakage or chunking errors into integrator merges."
+    related_task_ids: [T458, T420, T417]
+    downstream_risk: "Prep throughput or Rust validator acceleration without daily Codex, weekly Claude, capability-profile routing, and DAD candidate-only reporting can smuggle authority leakage, model/vendor lock-in, or chunking errors into integrator merges."
     required_preflight_surfaces:
       - .ai/control/multi_agent_review_cadence.yaml
+      - .ai/control/ai_agnostic_rust_subagent_charter.yaml
       - .ai/control/chunking_agent_preflight.yaml
       - .ai/handoffs/AGENT_ROUTING_GUIDE.md
     non_authorizations:
@@ -1727,8 +1733,12 @@ lessons:
       - child_span_selection
       - hold_clearing
       - theology_authority_change
+      - model_vendor_lock_in
+      - rust_validator_as_governance_authority
+      - dad_override_local_authority
     validators:
       - scripts/validate_multi_agent_review_cadence.py
+      - scripts/validate_ai_agnostic_rust_subagents.py
   - lesson_id: LSN-043
     title: Rust-first preflight for high-resource deterministic code
     lifecycle_status: active
