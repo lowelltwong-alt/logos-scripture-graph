@@ -1,0 +1,27 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T459-WORD-TOKEN-SIGNAL-SCANNER
+source_repo: logos-scripture-graph
+task_id: T459
+source_outbox_message_id: msg-20260706-t459-word-token-signal-scanner
+context_map_entry: ctx-t459-word-token-signal-scanner
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "Use Rust for no-text aggregate scans over very large word-token JSONL sidecars while Python remains the governance wrapper and parity surface."
+extra_context: "After T458 established AI-agnostic Rust subagent roles, Codex used two read-only scouts to pick the next high-value Rust task. The Rust architecture/outside research scout identified canonical word_tokens.jsonl as the best next slice because it is large, deterministic, and repeatedly useful for WJ/red-letter, Strong's H/G, source-file, book, and nesting-context evidence checks. The QA/DAD scout recommended fail-closed behavior, no-text summaries, parity fixtures, and candidate-only DAD reporting. T459 turns that into a Rust leaf scanner plus Python wrapper; it emits counts only and does not expose Scripture text or authorize interpretation."
+candidate_assets:
+  - rust_word_token_signal_scanner
+  - no_text_large_jsonl_signal_summary
+  - fail_closed_rust_wrapper_policy
+  - scout_selected_rust_slice_reporting_pattern
+non_authorizations:
+  - dad_override_local_authority
+  - rust_validator_as_governance_authority
+  - scripture_text_export
+  - canon_scope_change
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority
