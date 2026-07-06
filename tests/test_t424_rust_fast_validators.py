@@ -57,6 +57,7 @@ def _chunk_record(
         "boundary_evidence_refs": ["book_strategy:Phlm"],
         "strong_or_hebrew_tags_used": False,
         "wj_or_red_letter_considered": False,
+        "frontier_flag_considered": False,
         "confidence": "medium",
         "decision_id": decision_id,
         "non_authorizing": True,

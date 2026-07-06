@@ -27,6 +27,7 @@ def _chunk(model_id: str, book: str, idx: int, span: str, **extra: object) -> di
         "boundary_evidence_refs": ["observation_substrate"],
         "strong_or_hebrew_tags_used": False,
         "wj_or_red_letter_considered": False,
+        "frontier_flag_considered": False,
         "confidence": "medium",
         "decision_id": f"{model_id}-{book}-{idx:03d}",
         "non_authorizing": True,
@@ -109,18 +110,18 @@ def test_validate_chunk_map_overlap_error(tmp_path: Path) -> None:
 
 def test_compare_agreement_and_delta(tmp_path: Path) -> None:
     m1 = tmp_path / "M1_cursor"
-    m2 = tmp_path / "M2_codex"
+    m2 = tmp_path / "M2_claude_sonnet5"
     _write_manifest(m1, "M1_cursor")
-    _write_manifest(m2, "M2_codex")
+    _write_manifest(m2, "M2_claude_sonnet5")
     rows_m1 = [
         _chunk("M1_cursor", "Phlm", 1, "Phlm.1.1-Phlm.1.7"),
         _chunk("M1_cursor", "Phlm", 2, "Phlm.1.8-Phlm.1.25"),
         _chunk("M1_cursor", "Jude", 1, "Jude.1.1-Jude.1.2"),
     ]
     rows_m2 = [
-        _chunk("M2_codex", "Phlm", 1, "Phlm.1.1-Phlm.1.3"),
-        _chunk("M2_codex", "Phlm", 2, "Phlm.1.2-Phlm.1.25"),
-        _chunk("M2_codex", "Jude", 1, "Jude.1.1-Jude.1.2"),
+        _chunk("M2_claude_sonnet5", "Phlm", 1, "Phlm.1.1-Phlm.1.3"),
+        _chunk("M2_claude_sonnet5", "Phlm", 2, "Phlm.1.2-Phlm.1.25"),
+        _chunk("M2_claude_sonnet5", "Jude", 1, "Jude.1.1-Jude.1.2"),
     ]
     _write_map(m1 / "whole_bible_chunk_map.jsonl", rows_m1)
     _write_map(m2 / "whole_bible_chunk_map.jsonl", rows_m2)
@@ -177,11 +178,11 @@ def test_compare_false_consensus_stress_book(tmp_path: Path, monkeypatch: pytest
     monkeypatch.setattr(cmp, "_load_stress_books", lambda: {"Rev"})
 
     m1 = tmp_path / "M1_cursor"
-    m2 = tmp_path / "M2_codex"
+    m2 = tmp_path / "M2_claude_sonnet5"
     _write_manifest(m1, "M1_cursor", books=["Rev"])
-    _write_manifest(m2, "M2_codex", books=["Rev"])
+    _write_manifest(m2, "M2_claude_sonnet5", books=["Rev"])
     rows = [_chunk("M1_cursor", "Rev", 1, "Rev.1.1-Rev.1.8"), _chunk("M1_cursor", "Rev", 2, "Rev.1.9-Rev.1.20")]
-    rows2 = [_chunk("M2_codex", "Rev", 1, "Rev.1.1-Rev.1.8"), _chunk("M2_codex", "Rev", 2, "Rev.1.9-Rev.1.20")]
+    rows2 = [_chunk("M2_claude_sonnet5", "Rev", 1, "Rev.1.1-Rev.1.8"), _chunk("M2_claude_sonnet5", "Rev", 2, "Rev.1.9-Rev.1.20")]
     _write_map(m1 / "whole_bible_chunk_map.jsonl", rows)
     _write_map(m2 / "whole_bible_chunk_map.jsonl", rows2)
 

@@ -27,6 +27,14 @@ def _setup_model(folder: Path, model_id: str) -> None:
                 "model_id": model_id,
                 "research_baseline_read": True,
                 "observation_substrate_scan_sha256": "test-fixture",
+                "quality_protocol": {
+                    "strategy_id": "literary_marker_aware_v2",
+                    "control": ".ai/control/t423_literary_marker_quality_protocol.yaml",
+                    "low_confidence_register_required": True,
+                    "frontier_escalation_queue_required": True,
+                    "atlas_candidate_feed_required": True,
+                    "book_strategy_required": True,
+                },
             }
         ),
         encoding="utf-8",
@@ -43,14 +51,22 @@ def _setup_model(folder: Path, model_id: str) -> None:
         ),
         encoding="utf-8",
     )
+    strategy_dir = folder / "book_strategy"
+    strategy_dir.mkdir(parents=True, exist_ok=True)
+    for book in ("Phlm", "Jude"):
+        (strategy_dir / f"{book}.md").write_text(
+            "strategy: literary marker aware fixture. Strong's metadata considered evidence-only. "
+            "Substrate evidence reviewed.",
+            encoding="utf-8",
+        )
 
 
 def test_pilot_e2e_book_chunks_merge_compare_revert(tmp_path: Path) -> None:
     """Synthetic 2-model pilot over Phlm + Jude through full toolchain."""
     m1 = tmp_path / "M1_cursor"
-    m2 = tmp_path / "M2_codex"
+    m2 = tmp_path / "M2_claude_sonnet5"
     _setup_model(m1, "M1_cursor")
-    _setup_model(m2, "M2_codex")
+    _setup_model(m2, "M2_claude_sonnet5")
 
     _write_book_chunks(
         m1,
@@ -63,11 +79,11 @@ def test_pilot_e2e_book_chunks_merge_compare_revert(tmp_path: Path) -> None:
     )
     _write_book_chunks(
         m2,
-        "M2_codex",
+        "M2_claude_sonnet5",
         "Phlm",
         [
-            _chunk("M2_codex", "Phlm", 1, "Phlm.1.1-Phlm.1.3"),
-            _chunk("M2_codex", "Phlm", 2, "Phlm.1.4-Phlm.1.25"),
+            _chunk("M2_claude_sonnet5", "Phlm", 1, "Phlm.1.1-Phlm.1.3"),
+            _chunk("M2_claude_sonnet5", "Phlm", 2, "Phlm.1.4-Phlm.1.25"),
         ],
     )
     _write_book_chunks(
@@ -78,9 +94,9 @@ def test_pilot_e2e_book_chunks_merge_compare_revert(tmp_path: Path) -> None:
     )
     _write_book_chunks(
         m2,
-        "M2_codex",
+        "M2_claude_sonnet5",
         "Jude",
-        [_chunk("M2_codex", "Jude", 1, "Jude.1.1-Jude.1.2")],
+        [_chunk("M2_claude_sonnet5", "Jude", 1, "Jude.1.1-Jude.1.2")],
     )
 
     for folder, book in [(m1, "Phlm"), (m1, "Jude"), (m2, "Phlm"), (m2, "Jude")]:

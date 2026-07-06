@@ -79,6 +79,7 @@ def validate_pilot_gate(*, policy: dict[str, Any] | None = None, scratch_root: P
             ]
         agreements = _read_jsonl_spans(AGREEMENT)
         deltas = _read_jsonl_spans(DELTAS)
+        comparison_ledgers_present = bool(agreements or deltas)
         surfaced: set[tuple[str, str]] = set()
         for row in agreements + deltas:
             book = str(row.get("book", ""))
@@ -106,7 +107,7 @@ def validate_pilot_gate(*, policy: dict[str, Any] | None = None, scratch_root: P
                 key = (book, normalize_span(span))
             except ValueError:
                 key = (book, span)
-            if key not in surfaced and (COMPARISON / "model_agreement_matrix.yaml").is_file():
+            if key not in surfaced and comparison_ledgers_present:
                 errors.append(f"batch2 span not in agreement or delta ledgers: {book} {span}")
 
     if not gate:

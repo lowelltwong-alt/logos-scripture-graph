@@ -1,0 +1,23 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T423-PR-QUEUE-HYGIENE
+source_repo: logos-scripture-graph
+task_id: T423
+source_outbox_message_id: msg-20260706-t423-pr-queue-hygiene
+context_map_entry: ctx-t423-pr-queue-hygiene
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "When AI agents create staged work, branches, or PRs, the queue needs explicit next-action state and escalation before stale branches pile up."
+extra_context: "During T423 integration, many related PRs and scratch branches existed at once. The owner identified the reusable lesson: if staged work or a PR does not get merged, reviewed, held, or closed promptly, it should escalate to a human/integrator instead of silently becoming part of a large future cleanup. This is especially important for repos with multiple AI agents, Rust rollouts, generated artifacts, and long validation cycles."
+candidate_assets:
+  - pr_queue_next_action_state
+  - stale_pr_escalation_policy
+  - integration_branch_dependency_ordering
+  - abandoned_or_superseded_branch_cleanup_protocol
+non_authorizations:
+  - dad_override_local_authority
+  - merge_without_green_checks
+  - delete_user_work_without_instruction
+  - close_pr_without_review
+  - treat_staged_work_as_complete

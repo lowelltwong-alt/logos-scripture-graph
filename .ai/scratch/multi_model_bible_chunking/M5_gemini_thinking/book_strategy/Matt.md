@@ -1,0 +1,29 @@
+# Matt — book strategy (literary_marker_aware_v2)
+
+## selected_strategy
+Matt: gospels/acts. 449 chunks from paragraph (`p`), chapter, and literary markers in observation substrate.
+
+## literature_type_or_mixed_genre
+Config genre: gospels/acts. narrative, gospel_discourse.
+
+## substrate_markers_considered
+p, wj, sp, f
+
+## strongs_metadata_considered_evidence_only
+Strong's Greek (G) and Hebrew (H) IDs from substrate `strong_ids` and wh/wg marker counts inform `strong_or_hebrew_tags_used` as evidence only. They do not set chunk boundaries.
+
+## independent_boundary_rationale
+Boundaries for Matt chosen from substrate paragraph, chapter, stanza, and discourse markers. No copied template spans or other-model maps.
+
+## chapter_only_fallback_reason_if_used
+No silent chapter-only fallback where finer units are visible.
+
+## expected_low_confidence_regions
+WJ/red-letter spans, speaker transitions, parable blocks, textual-variant/footnote pressure.
+
+## frontier_or_atlas_candidate_expectations
+Low/medium_low and marker-rich chunks append to all three sidecars.
+
+
+## non_authorizing
+Scratch compare input only. Not canon, reviewed gold, atlas promotion, or theology authority.

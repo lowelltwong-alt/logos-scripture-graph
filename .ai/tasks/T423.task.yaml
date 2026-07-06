@@ -1,0 +1,90 @@
+id: T423
+phase: phase_4
+title: "T423 Parallel Isolation And Literary Quality Hardening"
+mode: validator_and_protocol_hardening_non_authorizing
+status: complete
+owner: codex
+branch: main
+base_ref: origin/main
+summary: "Close the remaining T423 parallel-isolation bypass and require every T423 model to use literary_marker_aware_v2 with low-confidence, frontier, and atlas-candidate sidecars."
+scope:
+  allowed_paths:
+    - .ai/tasks/T423.task.yaml
+    - .ai/handoffs/T423/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/multi_model_whole_bible_chunking_fork.yaml
+    - .ai/control/t423_literary_marker_quality_protocol.yaml
+    - .ai/prompts/multi_model_whole_bible_chunking_delta_compare_prompt.md
+    - .ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md
+    - .ai/scratch/multi_model_bible_chunking/
+    - docs/roadmap/T423_MULTI_MODEL_WHOLE_BIBLE_CHUNKING_FORK.md
+    - docs/methodology/WORKFLOW_LESSONS.md
+    - .digital-asset/context-map.json
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/lessons/t423_pr_queue_hygiene.yaml
+    - scripts/t423_chunk_map_utils.py
+    - scripts/t423_resume_book.py
+    - scripts/validate_all.py
+    - scripts/validate_multi_model_whole_bible_chunking_fork.py
+    - scripts/validate_t423_pilot_gate.py
+    - scripts/validate_whole_bible_chunk_map.py
+    - scripts/validate_t423_parallel_isolation.py
+    - scripts/validate_t423_literary_quality_protocol.py
+    - tests/test_t423_chunk_map_compare.py
+    - tests/test_t423_parallel_isolation.py
+    - tests/test_t423_literary_quality_protocol.py
+    - tests/test_t423_pilot_e2e.py
+    - tests/test_t424_rust_fast_validators.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: validator_and_protocol_hardening_non_authorizing
+  fixes_parallel_isolation_validator: true
+  records_literary_marker_quality_protocol: true
+  requires_low_confidence_escalation_sidecars: true
+  starts_marathon: false
+  cursor_execution_allowed: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "Main-branch marathon validator invocation fails closed."
+  - "Future/root .ai/context/agent_work/T417/model_layers/batch2 paths fail closed on scratch/t423 branches."
+  - "Policy-listed forbidden paths still fail closed."
+  - "All model slots are governed by literary_marker_aware_v2 before book completion."
+  - "Low-confidence and marker-sensitive chunks must be surfaced to low-confidence, frontier, and atlas candidate sidecars."
+  - "No output, reviewed gold, child spans, route/evaluator, graph/retrieval/vector, or theology authority is created."
+validations:
+  - python -m pytest tests/test_t423_parallel_isolation.py tests/test_t423_literary_quality_protocol.py tests/test_t423_chunk_map_compare.py tests/test_t423_pilot_e2e.py -q
+  - python scripts/validate_t423_parallel_isolation.py --policy-only
+  - python scripts/validate_t423_literary_quality_protocol.py --policy-only
+  - python scripts/validate_multi_model_whole_bible_chunking_fork.py
+  - python scripts/validate_t423_pilot_gate.py
+  - python scripts/validate_task_scope.py --task-id T423
+  - python scripts/validate_parallel_execution_safety.py --task-id T423 --allow-current-task-dirty
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check

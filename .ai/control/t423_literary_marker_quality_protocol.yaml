@@ -1,0 +1,212 @@
+---
+object_type: t423_literary_marker_quality_protocol
+trust_zone: scratch_control
+lifecycle_status: active
+provenance_note: "Created for T423 after M1_cursor quality audit showed valid JSONL can still hide weak chapter-only chunking."
+reason_for_inclusion: "Make every T423 model expose literary-form judgment, low confidence, frontier escalation, and stress-atlas candidate context."
+---
+schema_version: t423_literary_marker_quality_protocol.v1
+task_id: T423
+strategy_id: literary_marker_aware_v2
+mode: scratch_non_authorizing
+applies_to:
+  fork_id: whole_bible_multi_model_chunking_v1
+  model_slots: all
+  model_folder_template: .ai/scratch/multi_model_bible_chunking/models/_TEMPLATE/
+purpose: |
+  T423 compares independent scratch chunk maps. Agreement is useful only if models are
+  making literary-form judgments rather than silently copying chapter boundaries. This
+  protocol requires each model to expose the evidence, uncertainty, and escalation
+  context behind its boundaries.
+model_independence:
+  rule: same_contract_different_judgments
+  description: |
+    The shared template standardizes required fields, evidence classes, sidecars,
+    and non-authorizations. It must not standardize chunk boundaries. Each model must
+    independently decide boundaries after considering the book strategy, substrate
+    markers, genre/literary form, Strong's metadata as evidence-only, and known
+    stress/low-confidence triggers.
+  examples_are_schema_only: true
+  forbidden:
+    - copying_example_boundaries_as_recommendations
+    - copying_another_model_chunk_map_before_own_completion
+    - treating_template_order_as_boundary_authority
+  required_in_book_strategy: independent_boundary_rationale
+non_authorizations:
+  - atlas_candidate_feed_is_not_stress_atlas_promotion
+  - frontier_escalation_queue_is_not_frontier_verdict
+  - scratch_chunk_map_is_not_canon_output
+  - confidence_score_is_not_reviewed_gold
+  - source_metadata_is_evidence_not_boundary_authority
+  - no_theology_authority
+required_manifest_fields:
+  quality_protocol:
+    strategy_id: literary_marker_aware_v2
+    low_confidence_register_required: true
+    frontier_escalation_queue_required: true
+    atlas_candidate_feed_required: true
+    book_strategy_required: true
+required_per_model_outputs:
+  book_strategy_dir: book_strategy/
+  low_confidence_register: low_confidence_register.jsonl
+  frontier_escalation_queue: frontier_escalation_queue.jsonl
+  atlas_candidate_feed: atlas_candidate_feed.jsonl
+  model_quality_summary: model_quality_summary.md
+required_per_book_output:
+  book_strategy_note: book_strategy/<Book>.md
+chunk_record_required_fields:
+  - model_id
+  - book
+  - span
+  - chunk_index_in_book
+  - literature_type_guess
+  - boundary_evidence_refs
+  - strong_or_hebrew_tags_used
+  - wj_or_red_letter_considered
+  - frontier_flag_considered
+  - confidence
+  - decision_id
+  - non_authorizing
+allowed_confidence_values: [high, medium, medium_low, low]
+low_confidence_values: [medium_low, low]
+chapter_only_fallback:
+  allowed: true
+  only_when: "No finer literary, paragraph, stanza, list, legal, speech, oracle, or discourse signal is available from the observation substrate or required research baseline."
+  must_not_be_silent: true
+  if_marker_rich_or_stress_or_frontier:
+    confidence_must_be_one_of: [medium_low, low]
+    sidecar_rows_required: [low_confidence_register, frontier_escalation_queue, atlas_candidate_feed]
+trigger_signals_requiring_low_confidence_or_escalation:
+  substrate_markers:
+    poetry_or_liturgy: [q, q1, q2, q3, qr, qc, qs, d, b]
+    paragraph_or_discourse: [p, m, nb, s, s1, s2]
+    speaker_or_words_of_jesus: [wj, sp]
+    notes_or_variants: [f, fe, fr, ft, fq, fl, x]
+  substrate_risk_flags:
+    - has_poetry_or_liturgy_marker
+    - has_wj
+    - has_crossref
+    - has_footnote
+  literary_forms:
+    - psalm
+    - doxology
+    - superscription
+    - acrostic
+    - stanza
+    - hymn
+    - song
+    - blessing
+    - legal_code
+    - covenant_code
+    - ritual_procedure
+    - list
+    - genealogy
+    - oracle
+    - vision
+    - apocalyptic_scene
+    - speaker_shift
+    - epistle_greeting
+    - epistle_thanksgiving
+    - epistle_body
+    - epistle_closing
+  books_requiring_book_strategy_before_chunks:
+    - Gen
+    - Exod
+    - Lev
+    - Num
+    - Deut
+    - Josh
+    - Judg
+    - Ruth
+    - 1Sam
+    - 2Sam
+    - Job
+    - Ps
+    - Prov
+    - Eccl
+    - Song
+    - Jonah
+    - Dan
+    - Phlm
+    - Rev
+frontier_books:
+  books: [Dan, Rev]
+  every_chunk_requires_frontier_flag_considered: true
+  at_least_one_frontier_queue_row_per_book: true
+pilot_and_known_fragile_books:
+  books: [Gen, Ps, Phlm, Jonah, Dan, Rev]
+  note: "Pilot books must not use silent chapter-only fallback."
+sidecar_row_contracts:
+  low_confidence_register:
+    required_fields:
+      - model_id
+      - book
+      - span
+      - chunk_decision_id
+      - confidence
+      - why_low_confidence
+      - observed_substrate_signals
+      - non_authorizing
+  frontier_escalation_queue:
+    required_fields:
+      - model_id
+      - book
+      - span
+      - chunk_decision_id
+      - concern_type
+      - observed_substrate_signals
+      - why_frontier_review_needed
+      - suggested_reviewer
+      - non_authorizing
+      - promotion_authority
+  atlas_candidate_feed:
+    required_fields:
+      - model_id
+      - book
+      - span
+      - chunk_decision_id
+      - confidence
+      - concern_type
+      - observed_substrate_signals
+      - why_low_confidence
+      - possible_downstream_risk
+      - suggested_reviewer
+      - proposed_atlas_action
+      - non_authorizing
+      - atlas_promotion_authority
+  required_values:
+    non_authorizing: true
+    promotion_authority: none
+    atlas_promotion_authority: none
+    proposed_atlas_action: consider_only
+book_strategy_note_must_cover:
+  - selected_strategy
+  - literature_type_or_mixed_genre
+  - substrate_markers_considered
+  - strongs_metadata_considered_evidence_only
+  - chapter_only_fallback_reason_if_used
+  - expected_low_confidence_regions
+  - frontier_or_atlas_candidate_expectations
+book_specific_hints:
+  Torah:
+    books: [Gen, Exod, Lev, Num, Deut]
+    risks: [genealogy, law_code, ritual_procedure, embedded_poetry, covenant_context, source_tradition_pressure]
+  FormerProphetsNarrative:
+    books: [Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs, 2Kgs]
+    risks: [scene_boundary, speech_boundary, land_allotment, royal_list, embedded_poetry, variant_transition]
+  PoetryWisdom:
+    books: [Job, Ps, Prov, Eccl, Song, Lam]
+    risks: [stanza, acrostic, superscription, doxology, dialogue_speaker_shift, proverb_cluster]
+  Prophets:
+    books: [Isa, Jer, Ezek, Hos, Joel, Amos, Obad, Jonah, Mic, Nah, Hab, Zeph, Hag, Zech, Mal]
+    risks: [oracle_boundary, vision_unit, lament, judgment_or_salvation_sequence, theology_pressure]
+  Apocalyptic:
+    books: [Dan, Rev]
+    risks: [vision_cycle, symbolic_scene, angelic_speech, hymnic_interruption, frontier_review_required]
+  Epistles:
+    books: [Rom, 1Cor, 2Cor, Gal, Eph, Phil, Col, 1Thess, 2Thess, 1Tim, 2Tim, Titus, Phlm, Heb, Jas, 1Pet, 2Pet, 1John, 2John, 3John, Jude]
+    risks: [greeting, thanksgiving, argument_unit, doxology, household_or_church_order, social_ethics_pressure]
+validator:
+  script: scripts/validate_t423_literary_quality_protocol.py
+  policy_gate: python scripts/validate_t423_literary_quality_protocol.py --policy-only
+  model_gate: python scripts/validate_t423_literary_quality_protocol.py --model-folder <MODEL_FOLDER> --book <BOOK> --require-artifacts
