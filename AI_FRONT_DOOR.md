@@ -1133,4 +1133,5 @@ lessons, reusable assets, templates, agent skills, or cross-repo suggestions.
 DAD mail is candidate-only and local review controls adoption for `logos-scripture-graph`.
 
 **T423 fork (2026-07-03):** Outbox `msg-20260703-t423-fork-announce` | Context `ctx-t423-whole-bible-multi-model-fork` | Lesson slot `.digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml`
+**T423 scratch delta isolation lesson (2026-07-04):** Outbox `msg-20260704-t423-scratch-delta-isolation-lesson` | Context `ctx-t423-scratch-delta-isolation-pattern` | Lesson slot `.digital-asset/lessons/t423_scratch_delta_isolation_pattern.yaml`
 <!-- END DIGITAL_ASSET_DIRECTORY_ENROLLMENT -->

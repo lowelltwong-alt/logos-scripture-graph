@@ -20,7 +20,7 @@
 2. `.ai/scratch/multi_model_bible_chunking/manifest.yaml` — list all **active** model folders
 3. `.ai/scratch/multi_model_bible_chunking/comparison/README.md`
 4. Every model folder with `marathon_progress.yaml` status `complete` (or interim books):
-   - `M1_cursor/` … `M5_composer_alt/` (initial)
+   - `M1_cursor/`, `M2_claude_sonnet5/`, `M3_claude_frontier/`, `M4_codex_gpt55/`, `M5_gemini_thinking/` (initial)
    - `M6_*` … `M10_*` (if owner added slots)
 
 ---
@@ -75,7 +75,7 @@ Do not only compare exact strings. For each book, check:
 {
   "book": "Jude",
   "span": "Jude.1.1-Jude.1.2",
-  "models_agreeing": ["M1_cursor", "M2_codex", "M3_claude", "M4_gemini"],
+  "models_agreeing": ["M1_cursor", "M2_claude_sonnet5", "M3_claude_frontier", "M4_codex_gpt55"],
   "complete_model_count": 5,
   "agreement_tier": "full_consensus|easy_majority",
   "literature_type_guess": "epistle_greeting",
@@ -93,8 +93,8 @@ Do not only compare exact strings. For each book, check:
   "region": "Jonah.1.1-Jonah.1.5",
   "models": {
     "M1_cursor": "Jonah.1.1-Jonah.1.3",
-    "M2_codex": "Jonah.1.1-Jonah.1.4",
-    "M3_claude": "Jonah.1.1-Jonah.1.2"
+    "M2_claude_sonnet5": "Jonah.1.1-Jonah.1.4",
+    "M3_claude_frontier": "Jonah.1.1-Jonah.1.2"
   },
   "delta_kind": "boundary_shift|split_count_mismatch|literature_routing_disagreement",
   "priority": "high|medium|low",
@@ -156,3 +156,19 @@ Update `.digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml` 
 - No `data/candidate/chunks/` writes
 - Agreement does not auto-promote reviewed gold
 - Do not delete or edit model source maps — compare read-only
+
+---
+
+## T464 decision docket addendum
+
+When T464 runs after all six model marathons complete, produce these additional non-authorizing artifacts:
+
+- `comparison/owner_decision_docket.yaml`
+- `comparison/frontier_review_queue.jsonl`
+- `comparison/harness_improvement_queue.md`
+
+Use `M4_codex_gpt55` and `M6_fable5` as the preferred disagreement lens. If both agree on a disputed span, mark `recommended_candidate_basis: codex_fable_alignment`, but never treat that as owner selection or reviewed-gold authority.
+
+Variant/source-tradition hot zones must never remain easy consensus, even when all models agree. Route them to frontier review or owner decision. Current hot zones include Mark 16:9-20, John 7:53-8:11, Acts omitted-verse witnesses, Romans 16 doxology placement, Deut 32:8-9, Jeremiah MT/LXX order/length, Jude 5-15, Daniel/Esther additions routing, and 1 John 5:6-8.
+
+For Mark 16 longer-ending rows, add expert review lanes for Codex Vaticanus layout/blank-space review, Codex Sinaiticus ending review, major codex witness review, and scribal-layout/transmission-history review. Do not decide inspiration, preferred reading, source-tradition preference, or reviewed-gold/output authority in the comparison pass.

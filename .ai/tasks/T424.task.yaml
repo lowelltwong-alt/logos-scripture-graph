@@ -1,0 +1,88 @@
+id: T424
+phase: phase_4
+title: "Rust-Accelerated Validation Layer"
+mode: validation_tooling
+status: complete_pending_review
+owner: codex
+branch: codex/t424-rust-fast-validators
+base_ref: origin/main
+summary: "Add an isolated Rust fast-validator crate for deterministic JSONL and canonical-scope scans, with Python wrappers, fallback, parity tests, and narrow validate_all.py integration."
+scope:
+  allowed_paths:
+    - .gitignore
+    - .ai/tasks/T424.task.yaml
+    - .ai/handoffs/T424/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/DATA_MAP.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+    - tools/logos_fast_validators/
+    - scripts/validate_fast_jsonl.py
+    - scripts/validate_fast_canonical_scope.py
+    - scripts/validate_all.py
+    - tests/test_t424_rust_fast_validators.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - data/candidate/connections/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: rust_accelerated_validation_layer
+  python_remains_governance_orchestrator: true
+  rust_is_deterministic_leaf_tooling: true
+  validates_jsonl_streams: true
+  validates_canonical_scope_streams: true
+  canonical_qa_python_authority_preserved: true
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+deliverables:
+  rust_cli: tools/logos_fast_validators/
+  jsonl_wrapper: scripts/validate_fast_jsonl.py
+  canonical_scope_wrapper: scripts/validate_fast_canonical_scope.py
+  validate_all_integration: scripts/validate_all.py
+  roadmap_doc: docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
+  tests:
+    - tests/test_t424_rust_fast_validators.py
+  handoff: .ai/handoffs/T424/handoff.md
+acceptance_criteria:
+  - "Rust `jsonl-scan` matches the existing validate_jsonl.py contract on focused fixtures."
+  - "Rust `canonical-scope` matches validate_canonical_66_scope.py verdicts on focused fixtures."
+  - "Python wrappers expose explicit Rust requirement, Python fallback, and parity-check modes."
+  - "validate_all.py uses the wrappers only for proven deterministic data scans; semantic canonical QA remains Python."
+  - "No reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon-scope change, or theology authority are authorized."
+validations:
+  - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python scripts/validate_fast_jsonl.py --require-rust --compare-python --require-canon <fixture>
+  - python scripts/validate_fast_canonical_scope.py --require-rust --compare-python <fixture>
+  - python -m pytest tests/test_t424_rust_fast_validators.py -q
+  - python scripts/validate_task_scope.py --task-id T424
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T424/handoff.md
+created_at: "2026-07-03"
+updated_at: "2026-07-03"

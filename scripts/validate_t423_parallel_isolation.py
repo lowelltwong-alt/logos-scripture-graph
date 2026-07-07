@@ -29,7 +29,10 @@ def _rel(path: Path) -> str:
 
 
 def _normalize(path: str) -> str:
-    return path.replace("\\", "/").strip().lstrip("./")
+    normalized = path.replace("\\", "/").strip()
+    while normalized.startswith("./"):
+        normalized = normalized[2:]
+    return normalized
 
 
 def _git_branch() -> str:

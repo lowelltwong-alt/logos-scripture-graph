@@ -22,6 +22,7 @@ from scripts.t423_chunk_map_utils import (
     load_marathon_progress,
     load_model_manifest,
 )
+from scripts.validate_t423_literary_quality_protocol import validate_model_folder
 from scripts.validate_whole_bible_chunk_map import validate_chunk_map
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -69,6 +70,13 @@ def mark_book_complete(model_folder: Path, book: str, *, skip_validate: bool = F
         )
         if errors:
             return errors
+        quality_errors = validate_model_folder(
+            model_folder,
+            books={book},
+            require_artifacts=True,
+        )
+        if quality_errors:
+            return quality_errors
 
     path = model_folder / "marathon_progress.yaml"
     progress = load_marathon_progress(model_folder)

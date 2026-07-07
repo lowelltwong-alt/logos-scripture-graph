@@ -4,59 +4,81 @@ schema_version: multi_model_bible_chunking_scratch_manifest.v1
 fork_id: whole_bible_multi_model_chunking_v1
 task_id: T423
 policy: .ai/control/multi_model_whole_bible_chunking_fork.yaml
-status: marathon_scaffold_ready
+quality_protocol: .ai/control/t423_literary_marker_quality_protocol.yaml
+quality_strategy_id: literary_marker_aware_v2
+status: marathon_complete_compared_non_authorizing
 model_count:
   minimum_to_compare: 3
-  initial_target: 5
+  initial_target: 6
   maximum_supported: 10
-  active_slots: [M1_cursor, M2_codex, M3_claude, M4_gemini, M5_composer_alt]
-  reserved_slots: [M6, M7, M8, M9, M10]
+  active_slots: [M1_cursor, M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, M6_fable5]
+  reserved_slots: [M7, M8, M9, M10]
   add_slot_template: models/_TEMPLATE/
 execution_mode: one_model_book_segments_batch_compare_last
 marathon_goal: all_66_books_one_model_at_a_time
 storage_layout: book_chunks/<Book>/chunks.jsonl per model folder
 compare_mode: batch_offline_after_all_models_complete
 pilot_gate:
-  status: pending
+  status: go
   mirrors: .ai/control/multi_model_whole_bible_chunking_fork.yaml
+  gate_scope: scratch_marathon_and_batch_compare_only
+  non_authorization: "Does not authorize reviewed gold, governed chunk output, child spans, route/evaluator changes, graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority."
 strategy: |
-  Each model chunks the entire Bible alone in its own folder (M1_cursor, M2_codex, ...).
+  Each model chunks the entire Bible alone in its own folder (M1_cursor, M2_claude_sonnet5, ...).
   Save one book at a time under book_chunks/<Book>/chunks.jsonl. No real-time cross-model work.
   After all models finish 66 books locally, owner runs batch verse-coverage compare.
 shared_research_baseline: shared_research_baseline/research_baseline_manifest.yaml
+required_sidecars:
+  - book_strategy/<Book>.md
+  - low_confidence_register.jsonl
+  - frontier_escalation_queue.jsonl
+  - atlas_candidate_feed.jsonl
+  - model_quality_summary.md
 models:
   M1_cursor:
     folder: M1_cursor/
     agent_surface: cursor
-    status: pending_marathon_start
-    books_completed: 0
+    status: complete
+    books_completed: 66
     books_total: 66
-  M2_codex:
-    folder: M2_codex/
-    agent_surface: codex
-    status: pending_marathon_start
-    books_completed: 0
-    books_total: 66
-  M3_claude:
-    folder: M3_claude/
+  M2_claude_sonnet5:
+    folder: M2_claude_sonnet5/
     agent_surface: claude
-    status: pending_marathon_start
-    books_completed: 0
+    model_profile: claude-sonnet-5_medium_or_high
+    status: complete
+    books_completed: 66
     books_total: 66
-  M4_gemini:
-    folder: M4_gemini/
+  M3_claude_frontier:
+    folder: M3_claude_frontier/
+    agent_surface: claude
+    model_profile: claude-opus-4.8_or_fable-5_high
+    status: complete
+    books_completed: 66
+    books_total: 66
+  M4_codex_gpt55:
+    folder: M4_codex_gpt55/
+    agent_surface: codex
+    model_profile: gpt-5.5_high
+    status: complete
+    books_completed: 66
+    books_total: 66
+  M5_gemini_thinking:
+    folder: M5_gemini_thinking/
     agent_surface: gemini
-    status: pending_marathon_start
-    books_completed: 0
+    model_profile: gemini_pro_or_thinking_optional
+    status: complete
+    books_completed: 66
     books_total: 66
-  M5_composer_alt:
-    folder: M5_composer_alt/
-    agent_surface: cursor
-    status: optional_pending
-    books_completed: 0
+  M6_fable5:
+    folder: M6_fable5/
+    agent_surface: fable
+    model_profile: fable-5_whole_bible_marathon
+    status: complete
+    books_completed: 66
     books_total: 66
 comparison:
   folder: comparison/
   run_after: all_models_complete_or_owner_interim_compare
+  status: complete
 canon_promotion: forbidden_in_scratch
 revert_to_baseline: .ai/control/parallel_chunking_research_program.yaml

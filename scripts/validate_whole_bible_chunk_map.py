@@ -8,6 +8,10 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from scripts.t423_chunk_map_utils import (
     REQUIRED_CHUNK_FIELDS,
     canonical_books,
@@ -16,8 +20,6 @@ from scripts.t423_chunk_map_utils import (
     normalize_span,
     parse_span,
 )
-
-ROOT = Path(__file__).resolve().parent.parent
 
 
 def _rel(path: Path) -> str:

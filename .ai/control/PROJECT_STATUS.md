@@ -1,6 +1,25 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-02
+
+> **T464 multi-model chunking comparison docket (2026-07-07):** Six whole-Bible scratch
+> model lanes (`M1_cursor`, `M2_claude_sonnet5`, `M3_claude_frontier`, `M4_codex_gpt55`,
+> `M5_gemini_thinking`, `M6_fable5`) are frozen as non-authorizing evidence and compared.
+> Generated comparison artifacts live under
+> `.ai/scratch/multi_model_bible_chunking/comparison/`: `agreement_chunks.jsonl`,
+> `disagreement_delta.jsonl`, `owner_decision_docket.yaml`, `frontier_review_queue.jsonl`,
+> `harness_improvement_queue.md`, `model_agreement_matrix.yaml`, and `delta_summary.md`.
+> The fork signal is **FULL_FAIL** for direct promotion: verse-coverage agreement is 6.17%
+> against a 50.00% full-run threshold, with 144 agreement candidates and 1048 deltas.
+> Use the docket for reconciliation, frontier review, and harness improvement only. Agreement,
+> including `M4_codex_gpt55` plus `M6_fable5` alignment, is evidence and not authority.
+> Textual-variant/source-tradition hot zones route to frontier review even under model
+> agreement. Mark 16 explicitly requires major codex witness review, Codex Vaticanus
+> layout/blank-space review, Codex Sinaiticus ending review, scribal letters-per-column and
+> column-space analysis, manuscript transmission history, and longer-ending specialist review.
+> T464 authorizes no reviewed gold, chunk output, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority.
+
 **Updated by:** T417 scratch marathon session close
 **Active task:** -> **Batch2 multi-model scratch ladder** (SUB-012). L1 complete; L2–L5 pending independent model runs.
 
@@ -8,6 +27,16 @@
 > chunk entire Bible in separate scratch folders (continuous marathon, days OK), same research
 > baseline, then compare agreement vs delta. Revert to T410 if fork fails. **Red-team required
 > before marathons:** `.ai/prompts/multi_model_whole_bible_chunking_redteam_premortem_prompt.md`
+> Follow-up hardening: `scripts/validate_t423_parallel_isolation.py` now preserves `.ai/`
+> path roots and fails closed for any root or future-layer
+> `.ai/context/agent_work/T417/model_layers/batch2/` edits during T423 scratch work.
+> `literary_marker_aware_v2` at `.ai/control/t423_literary_marker_quality_protocol.yaml`
+> is now required for all T423 model slots: book strategies, low-confidence registers,
+> frontier escalation queues, and atlas candidate feeds are checked before book completion.
+> The active model-lane lineup is now explicit: completed `M1_cursor`, then
+> `M2_claude_sonnet5`, `M3_claude_frontier`, `M4_codex_gpt55`, and optional
+> `M5_gemini_thinking`. This remains scratch validator/protocol hardening only and
+> authorizes no governed chunk promotion.
 
 > decision logs. Codex, Claude, Gemini, and hostile red-team each complete independent layers.
 > Comparison matrix + audit bundle for Codex at end. No canon writes until bundle review.

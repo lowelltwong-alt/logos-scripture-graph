@@ -16,15 +16,30 @@ If the fork fails → **revert to** `.ai/control/parallel_chunking_research_prog
   manifest.yaml
   shared_research_baseline/
   M1_cursor/book_chunks/Gen/chunks.jsonl ...
-  M2_codex/book_chunks/...
+  M2_claude_sonnet5/book_chunks/...
+  M3_claude_frontier/book_chunks/...
+  M4_codex_gpt55/book_chunks/...
+  M5_gemini_thinking/book_chunks/...   # optional outside-family pass
   comparison/                   # batch compare outputs only
   redteam/
   MARATHON_PLAYBOOK.md
 ```
 
+## Recommended model lineup
+
+1. `M1_cursor` — completed Cursor/Composer fast marathon.
+2. `M2_claude_sonnet5` — Claude Sonnet 5 medium/high effort for the next efficient whole-Bible pass.
+3. `M3_claude_frontier` — Claude Opus 4.8 or Fable 5 high effort for hard literary/theological cases.
+4. `M4_codex_gpt55` — Codex GPT-5.5 high effort for structured contrast after the Claude-family passes.
+5. `M5_gemini_thinking` — optional outside-family comparison if owner wants more variance before compare.
+
 ## Pilot gate
 
-Five pilot books (Gen, Ps, Phlm, Jonah, Rev) before full 66 on all models. Owner sets `pilot_gate.status: go` after batch pilot compare passes.
+The original pilot gate covered five pilot books (Gen, Ps, Phlm, Jonah, Rev) before full 66 on all
+models. The owner later authorized full scratch marathons; `pilot_gate.status: go` now means
+scratch-marathon and batch-compare permission only. It does not authorize reviewed gold, governed
+chunk output, child spans, route/evaluator changes, graph/retrieval/vector truth,
+source-tradition preference, canon change, or theology authority.
 
 ## Marathon flow (one model, book segments)
 

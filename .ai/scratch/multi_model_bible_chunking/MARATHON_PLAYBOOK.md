@@ -4,7 +4,7 @@
 
 1. **T412 gate:** `python scripts/validate_rust_observation_substrate.py`
 2. **Pin substrate** (same build for all models): `python scripts/t423_pin_substrate.py M1_cursor`
-3. **One model at a time** — each model gets its own git worktree branch (`scratch/t423-M1-cursor`, etc.)
+3. **One model at a time** — each model gets its own git worktree branch (`scratch/t423-M1-cursor`, `scratch/t423-M2-claude-sonnet5`, etc.)
 4. Model chunks **all 66 books alone**, saving each to `book_chunks/<Book>/chunks.jsonl`
 5. **No real-time cross-model work** — never pair two models on the same book live
 6. After **all** target models finish 66 books and merge maps, owner runs **batch** compare
@@ -36,13 +36,14 @@ python scripts/t423_merge_book_chunks.py "$MODEL"
 
 Pilot books: **Gen, Ps, Phlm, Jonah, Rev**
 
-1. Run M1–M4 through pilot books only (validator blocks books outside pilot until `pilot_gate.status: go`)
+1. Run M1-M4 through pilot books only (validator blocks books outside pilot until `pilot_gate.status: go`)
 2. Merge + batch compare pilot:
    ```bash
    python scripts/compare_multi_model_bible_chunk_maps.py --book Gen --book Ps --book Phlm --book Jonah --book Rev
    python scripts/evaluate_t423_revert_signal.py --pilot-only
    ```
-3. Owner reviews `comparison/delta_summary.md`; sets `pilot_gate.status: go` in fork YAML if passing
+3. Owner reviews `comparison/delta_summary.md`; sets `pilot_gate.status: go` in fork YAML if authorizing full scratch marathons
+4. `pilot_gate.status: go` authorizes scratch marathon and batch compare only; it does not authorize reviewed gold, governed chunk output, route/evaluator behavior, graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority
 4. Release full 66-book marathons
 
 ## Batch compare (after all models complete)
@@ -62,9 +63,17 @@ Compare uses **verse-coverage** offline — not live pairing during chunking.
 ```
 .ai/scratch/multi_model_bible_chunking/
   M1_cursor/book_chunks/Gen/chunks.jsonl ...
-  M2_codex/book_chunks/...
+  M2_claude_sonnet5/book_chunks/...
   comparison/          # written only by batch compare script
 ```
+
+## Recommended model order
+
+1. `M1_cursor` — completed Cursor/Composer 2.5 fast marathon.
+2. `M2_claude_sonnet5` — Claude Sonnet 5 at medium/high effort for the next efficient high-quality pass.
+3. `M3_claude_frontier` — Claude Opus 4.8 or Fable 5 at high effort for hard literary/theological cases.
+4. `M4_codex_gpt55` — Codex GPT-5.5 high effort for structured contrast after the Claude-family passes.
+5. `M5_gemini_thinking` — optional outside-family comparison if owner wants more variance before compare.
 
 ## Non-authorizations
 

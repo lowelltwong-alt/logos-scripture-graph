@@ -1,14 +1,23 @@
-# M1 Cursor — Model Summary
+# M1_cursor marathon summary
 
-**Status:** pending — fill when all 66 books complete.
+## status
+- **model_id:** M1_cursor
+- **marathon_status:** complete
+- **books_completed:** 66/66
+- **strategy:** literary_marker_aware_v2
+- **substrate:** pinned in model_manifest.yaml
 
-## Stats
+## totals
+- **chunks:** 9237
+- **sidecar rows (each feed):** 2287
 
-- Total chunks proposed:
-- Books completed:
-- Average confidence:
-- Literature types used:
+## waves
+All 7 canonical waves completed with per-book validation and wave checkpoints.
 
-## Non-authorizations
-
-Scratch map only. Not reviewed gold. Not canon output.
+## non-authorizations
+- No compare run
+- No canon chunk output
+- No reviewed gold
+- No route/evaluator changes
+- No graph/retrieval/vector truth
+- No theology authority
