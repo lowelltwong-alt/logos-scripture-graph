@@ -203,3 +203,4 @@ def test_mark_16_consensus_is_frontier_not_easy(tmp_path) -> None:
     assert "codex_vaticanus_layout_review" in row["expert_review_lanes"]
     assert "codex_sinaiticus_ending_review" in row["expert_review_lanes"]
     assert "scribal_layout_and_blank_space_review" in row["expert_review_lanes"]
+    assert "scribal_letters_per_column_capacity_review" in row["expert_review_lanes"]

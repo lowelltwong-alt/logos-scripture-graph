@@ -1,0 +1,125 @@
+object_type: t441_rust_alignment_coverage_index
+schema_version: t441_rust_alignment_coverage_index.v1
+task_id: T441
+owner: Lowell Wong
+status: rust_no_text_coverage_index
+trust_zone: control
+summary: "Add a deterministic Rust no-text coverage/index ledger over the T439 Philemon bridge and T436/T440 Jonah parser-contract fixtures."
+scanner_scope:
+  crate: tools/original_language_observation_scanner
+  rust_binary: tools/original_language_observation_scanner/src/bin/t441_alignment_coverage.rs
+  generated_output_root: build/original_language_observation/T441/alignment_coverage
+  writes_generated_build_outputs_only: true
+  generated_outputs_committed: false
+  no_text_ledgers: true
+  no_authority_ledgers: true
+  consumes_raw_archives_directly: false
+  opens_production_candidate_roots: false
+  not_a_retrieval_index: true
+  not_a_vector_index: true
+inputs:
+  t439_philemon_pilot: data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion
+  t436_jonah_pilot: data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity
+  t440_parser_contract: .ai/control/t440_jonah_hebrew_parser_contract.yaml
+coverage_contract:
+  philemon:
+    source_id: sblgnt
+    translation_id: eng-web
+    refs: 25
+    source_tokens: 334
+    alignment_records: 25
+    editorial_layers: 98
+    alignment_truth_authorized: false
+  jonah:
+    source_ids:
+      - openscriptures_oshb
+      - tanach_us_uxlc
+    refs_per_source: 48
+    tokens_per_source: 688
+    count_parity_is_semantic_authority: false
+    hebrew_to_english_alignment_authorized: false
+semantic_guardrails:
+  - no_visible_biblical_text
+  - generated_build_outputs_only
+  - python_authority_validator
+  - t439_bridge_low_confidence
+  - count_parity_not_semantic_parity
+  - oshb_lemma_lookup_hint_only
+  - oshb_morph_metadata_only
+  - no_production_roots_opened
+  - t440_negative_fixtures_carried_forward
+rust_policy:
+  rust_added_in_t441: true
+  fit: deterministic_no_text_coverage_index_leaf_tool
+  reason: "The slice is stable JSONL/YAML counting, grouping, no-text checking, and coverage-ledger emission over already-reviewed fixtures. Python remains the authority validator."
+  extends_existing_crate: true
+  new_dependencies_added: false
+  not_a_full_port: true
+  validate_all_contract_mode_only: true
+  generated_mode_for_changed_inputs: true
+authority:
+  records_rust_alignment_coverage_index: true
+  records_python_validation_contract: true
+  records_t439_t440_shadow_coverage_gate: true
+  opens_production_candidate_roots: false
+  creates_source_token_rows: false
+  creates_alignment_rows: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_visible_source_text: false
+  stores_visible_translation_text: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+validation:
+  contract_mode_fast: python scripts/validate_t441_rust_alignment_coverage_index.py
+  generated_mode: python scripts/validate_t441_rust_alignment_coverage_index.py --input build/original_language_observation/T441/alignment_coverage
+  rust_tests: cargo test --manifest-path tools/original_language_observation_scanner/Cargo.toml --bins
+  rust_scan: "cargo run --manifest-path tools/original_language_observation_scanner/Cargo.toml --bin t441_alignment_coverage -- --t439-root data/candidate/original_language_evidence/pilots/T439_phlm_alignment_bridge_expansion --t436-root data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity --t440-control .ai/control/t440_jonah_hebrew_parser_contract.yaml --out build/original_language_observation/T441/alignment_coverage --no-authority --no-text"
+runtime_proof:
+  rust_toolchain: cargo 1.96.1
+  generated_output_root: build/original_language_observation/T441/alignment_coverage
+  generated_outputs_committed: false
+  source_ref_coverage_rows: 3
+  alignment_coverage_index_rows: 121
+  semantic_guardrail_rows: 9
+  negative_fixture_count: 9
+non_authorizations:
+  - source_language_truth
+  - lexical_truth
+  - word_level_alignment_truth
+  - strongs_number_as_source_text
+  - strongs_overlay_population
+  - lemma_or_morphology_population
+  - preferred_reading
+  - source_tradition_preference
+  - textual_critical_decision
+  - manuscript_witness_support
+  - translation_faithfulness_judgment
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_or_retrieval_truth
+  - theology_authority

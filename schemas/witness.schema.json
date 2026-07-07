@@ -1,44 +1,111 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Witness",
-  "description": "A textual witness to a passage: manuscript, version, fragment, church-father citation, or critical edition. The growth path toward Dead Sea Scrolls, LXX witnesses, papyri, codices, and variants (taxonomy-scaffold v0.2 Patch 4 / Patch 8). Carries siglum, type, date, provenance, and confidence so the apparatus can scale.",
+  "description": "Candidate textual witness metadata for manuscripts, fragments, versions, catalog entries, or editions. Witnesses are evidence only; oldest-known and highest-confidence notes must not become automatic preferred readings.",
   "type": "object",
-  "required": ["id", "type", "siglum", "witness_type", "language", "trust_zone", "provenance", "status"],
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "siglum",
+    "witness_type",
+    "language",
+    "source_catalog",
+    "source_url",
+    "license_or_rights_status",
+    "storage_mode",
+    "bulk_download_authorized",
+    "transcription_storage_allowed",
+    "image_storage_allowed",
+    "coverage",
+    "coverage_basis",
+    "date_range",
+    "repository",
+    "oldest_known_evidence_note",
+    "highest_confidence_evidence_note",
+    "source_tradition_preference_asserted",
+    "trust_zone",
+    "provenance",
+    "authority",
+    "non_authorizations",
+    "status"
+  ],
   "properties": {
-    "id": {"type": "string", "minLength": 1, "description": "e.g. witness:dss:1QIsaa, witness:ms:P46, witness:version:LXX-Vaticanus"},
-    "type": {"const": "Witness"},
-    "siglum": {"type": "string", "minLength": 1, "description": "Standard critical siglum (e.g. 1QIsaa, P46, B, A, NA28)."},
+    "id": { "type": "string", "minLength": 1 },
+    "type": { "const": "Witness" },
+    "schema_version": { "const": "witness.v2" },
+    "siglum": { "type": "string", "minLength": 1 },
     "witness_type": {
       "type": "string",
-      "enum": ["manuscript", "fragment", "papyrus", "codex", "scroll", "version", "lectionary", "father_citation", "critical_edition", "printed_edition"]
+      "enum": ["manuscript", "fragment", "papyrus", "codex", "scroll", "version", "lectionary", "citation", "critical_edition", "printed_edition", "catalog_only"]
     },
-    "language": {"type": "string", "description": "Hebrew | Aramaic | Greek | Latin | Syriac | Coptic | ..."},
-    "script": {"type": "string"},
+    "language": { "type": "string", "minLength": 1 },
+    "script": { "type": "string" },
+    "source_catalog": { "type": "string", "minLength": 1 },
+    "source_url": { "type": "string", "minLength": 1 },
+    "license_or_rights_status": { "type": "string", "enum": ["open_reusable", "public_view_only", "permission_required", "unknown", "blocked"] },
+    "storage_mode": { "type": "string", "enum": ["metadata_only", "source_text_allowed", "image_allowed", "blocked"] },
+    "bulk_download_authorized": { "type": "boolean" },
+    "transcription_storage_allowed": { "type": "boolean" },
+    "image_storage_allowed": { "type": "boolean" },
+    "identifiers": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
     "date_range": {
       "type": "object",
-      "description": "Estimated date; ranges only — never assert a precise date the evidence cannot support.",
+      "required": ["label", "confidence"],
       "properties": {
-        "earliest": {"type": "integer", "description": "Year; negative = BCE."},
-        "latest": {"type": "integer"},
-        "label": {"type": "string", "description": "e.g. '2nd c. BCE', 'c. 200 CE'"},
-        "confidence": {"type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"]}
-      }
+        "earliest": { "type": "integer" },
+        "latest": { "type": "integer" },
+        "label": { "type": "string", "minLength": 1 },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low", "disputed", "unknown"] }
+      },
+      "additionalProperties": true
     },
-    "repository": {"type": "string", "description": "Holding institution / collection."},
-    "coverage": {"type": "array", "items": {"type": "string"}, "description": "OSIS ranges this witness attests."},
-    "tradition_text_type": {"type": "string", "description": "e.g. Masoretic, Septuagintal, Byzantine, Alexandrian, Western, Proto-MT."},
-    "trust_zone": {"type": "string", "enum": ["canonical", "asserted", "candidate", "context"], "description": "Witnesses are source evidence, not the canonical English layer; default asserted/context."},
+    "repository": { "type": "string", "minLength": 1 },
+    "coverage": { "type": "array", "items": { "type": "string" } },
+    "coverage_basis": { "type": "string", "enum": ["catalog_metadata", "edition_apparatus", "direct_transcription", "secondary_source", "unknown"] },
+    "tradition_text_type": { "type": "string" },
+    "oldest_known_evidence_note": { "type": "string", "minLength": 1 },
+    "highest_confidence_evidence_note": { "type": "string", "minLength": 1 },
+    "source_tradition_preference_asserted": { "const": false },
+    "trust_zone": { "type": "string", "enum": ["candidate", "context"] },
     "provenance": {
       "type": "object",
-      "required": ["created_by", "created_at", "basis"],
+      "required": ["created_by", "created_at", "basis", "source_catalog"],
       "properties": {
-        "created_by": {"type": "string"},
-        "created_at": {"type": "string"},
-        "basis": {"type": "string"},
-        "source_catalog": {"type": "string", "description": "e.g. Leon Levy DSS, INTF, Rahlfs number."}
-      }
+        "created_by": { "type": "string", "minLength": 1 },
+        "created_at": { "type": "string", "minLength": 1 },
+        "basis": { "type": "string", "minLength": 1 },
+        "source_catalog": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
     },
-    "status": {"type": "string", "enum": ["candidate", "active", "deprecated"]}
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorizes_manuscript_transcription_storage",
+        "authorizes_manuscript_image_storage",
+        "authorizes_preferred_reading",
+        "authorizes_source_tradition_preference",
+        "authorizes_theology_authority"
+      ],
+      "properties": {
+        "authorizes_manuscript_transcription_storage": { "const": false },
+        "authorizes_manuscript_image_storage": { "const": false },
+        "authorizes_preferred_reading": { "const": false },
+        "authorizes_source_tradition_preference": { "const": false },
+        "authorizes_theology_authority": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "non_authorizations": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "status": { "type": "string", "enum": ["candidate", "catalog_only", "review_packet", "blocked", "deprecated"] }
   },
   "additionalProperties": true
 }

@@ -1,0 +1,154 @@
+id: T460
+phase: phase_4
+title: "Rust And DAD Stack Integration"
+mode: integration_hardening
+status: complete_pending_merge
+owner: codex
+branch: codex/t460-rust-dad-stack-integration
+base_ref: origin/main
+integrates_task_ids:
+  - T456
+  - T457
+  - T458
+  - T459
+summary: "Integrate the T456-T459 Rust/DAD validation stack in dependency order, preserving all candidate-only DAD lessons and explicit non-authority boundaries."
+scope:
+  allowed_paths:
+    - .ai/tasks/T456.task.yaml
+    - .ai/tasks/T457.task.yaml
+    - .ai/tasks/T458.task.yaml
+    - .ai/tasks/T459.task.yaml
+    - .ai/tasks/T460.task.yaml
+    - .ai/handoffs/T456/
+    - .ai/handoffs/T457/
+    - .ai/handoffs/T458/
+    - .ai/handoffs/T459/
+    - .ai/handoffs/T460/
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    - .ai/control/multi_agent_review_cadence.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/validation_gate_lifecycle.yaml
+    - .ai/control/validation_lifecycle_expansion_candidates.yaml
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t456_runtime_environment_preflight.yaml
+    - .digital-asset/lessons/t457_rust_scouted_canonical_qa.yaml
+    - .digital-asset/lessons/t458_ai_agnostic_rust_subagent_charter.yaml
+    - .digital-asset/lessons/t459_word_token_signal_scanner.yaml
+    - .digital-asset/lessons/t460_rust_dad_stack_integration.yaml
+    - .digital-asset/lessons/t460_validation_gate_lifecycle.yaml
+    - config/agents/agent_roles.yaml
+    - config/agents/model_routing.yaml
+    - tools/logos_fast_validators/
+    - scripts/validate_test_runtime_preflight.py
+    - scripts/validate_fast_canonical_qa.py
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_fast_word_token_signals.py
+    - scripts/validate_validation_gate_lifecycle.py
+    - scripts/validate_all.py
+    - tests/test_test_runtime_preflight.py
+    - tests/test_t457_fast_canonical_qa.py
+    - tests/test_ai_agnostic_rust_subagents.py
+    - tests/test_t459_word_token_signals.py
+    - tests/test_t424_rust_fast_validators.py
+    - tests/test_validation_gate_lifecycle.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - data/candidate/original_language_evidence/
+    - pipelines/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/scratch/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_stack_integration
+  integrates_prior_task_contracts: true
+  preserves_dad_candidate_lessons: true
+  preserves_python_pytest_as_governance_orchestrator: true
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  authorizes_dad_override_local_authority: false
+runtime_language_preflight:
+  task_id: T460
+  touched_paths:
+    - tools/logos_fast_validators/
+    - scripts/validate_test_runtime_preflight.py
+    - scripts/validate_fast_canonical_qa.py
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_fast_word_token_signals.py
+    - scripts/validate_validation_gate_lifecycle.py
+    - scripts/validate_all.py
+  expected_input_size_or_record_count: "Mixed stack: small control-plane policy files plus Rust leaf validators for large canonical QA and word-token evidence-signal scans."
+  expected_runtime_or_memory_pressure: "The stack adds two deterministic Rust-backed hot-path validators while keeping semantic governance checks in Python."
+  rust_trigger_match:
+    - large_jsonl_scan
+    - repeated_gate_or_ci_hot_path
+    - deterministic_streaming_parse_hash_or_compare
+    - python_rust_parity_or_shadow_mode
+  chosen_language: python_orchestration_with_rust_leaf_worker
+  expected_rust_time_saved_or_reason_not_applicable: "Rust handles high-volume canonical and word-token scans; Python remains the integration, DAD, task-scope, and governance orchestrator."
+  interop_boundary: "T460 does not add a new Rust authority layer. It integrates prior Rust leaf validators and routes validate_all to the explicit integration task scope."
+  python_fallback_or_wrapper_plan: "Existing wrappers keep --python-fallback, --require-rust, and compare modes. Rust validation failures do not silently fall back to Python."
+  validation_plan:
+    - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+    - python scripts/validate_dad_outbox.py
+    - python scripts/validate_test_runtime_preflight.py
+    - python scripts/validate_ai_agnostic_rust_subagents.py
+    - python scripts/validate_validation_gate_lifecycle.py
+    - python scripts/validate_fast_canonical_qa.py --python-fallback
+    - python scripts/validate_fast_word_token_signals.py --python-fallback <word_tokens-if-present>
+    - python scripts/validate_task_scope.py --task-id T460
+    - python scripts/agent/validate_handoffs.py
+    - python scripts/validate_all.py
+  maintenance_tradeoffs: "The integration task adds one validate_all routing helper for explicit stacked-task integration branches. Individual task scopes remain strict."
+deliverables:
+  integration_task: .ai/tasks/T460.task.yaml
+  integration_handoff: .ai/handoffs/T460/handoff.md
+  validate_all_integration_routing: scripts/validate_all.py
+  dad_lesson_slot: .digital-asset/lessons/t460_rust_dad_stack_integration.yaml
+  validation_lifecycle: .ai/control/validation_gate_lifecycle.yaml
+  validation_lifecycle_expansion_candidates: .ai/control/validation_lifecycle_expansion_candidates.yaml
+acceptance_criteria:
+  - "T456, T457, T458, and T459 are integrated in dependency order."
+  - "DAD outbox and context-map rows are union-preserved with no conflict markers or dangling lesson slots."
+  - "validate_all recognizes the explicit T460 integration task for combined stack scope."
+  - "Rust leaf validators and Python governance validators all pass."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_validation_gate_lifecycle.py
+  - python scripts/validate_task_scope.py --task-id T460
+  - python scripts/agent/validate_handoffs.py
+  - python -m pytest tests/test_test_runtime_preflight.py tests/test_t457_fast_canonical_qa.py tests/test_ai_agnostic_rust_subagents.py tests/test_t459_word_token_signals.py tests/test_t424_rust_fast_validators.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T460/handoff.md
+created_at: "2026-07-06"
+updated_at: "2026-07-06"

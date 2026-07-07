@@ -1,26 +1,36 @@
 id: T424
 phase: phase_4
 title: "Rust-Accelerated Validation Layer"
-mode: validation_tooling
+mode: deterministic_validation_acceleration
 status: complete_pending_review
 owner: codex
 branch: codex/t424-rust-fast-validators
 base_ref: origin/main
-summary: "Add an isolated Rust fast-validator crate for deterministic JSONL and canonical-scope scans, with Python wrappers, fallback, parity tests, and narrow validate_all.py integration."
+summary: "Add a Rust fast path for slow deterministic data validators while keeping Python/pytest as the governance orchestrator."
 scope:
   allowed_paths:
     - .gitignore
+    - AI_FRONT_DOOR.md
+    - .digital-asset/mail/outbox.jsonl
     - .ai/tasks/T424.task.yaml
     - .ai/handoffs/T424/
+    - .ai/control/coding_runtime_language_preflight.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
     - .ai/control/DATA_MAP.md
     - ROADMAP_STATE.yaml
     - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
     - tools/logos_fast_validators/
+    - scripts/validate_dad_outbox.py
+    - scripts/validate_coding_runtime_language_preflight.py
     - scripts/validate_fast_jsonl.py
     - scripts/validate_fast_canonical_scope.py
+    - scripts/validate_fast_chunk_map.py
     - scripts/validate_all.py
+    - tests/test_dad_outbox.py
+    - tests/test_coding_runtime_language_preflight.py
     - tests/test_t424_rust_fast_validators.py
   forbidden_paths:
     - data/raw/
@@ -39,12 +49,16 @@ scope:
     - .ai/control/MASTER_CONTEXT.md
     - .ai/control/MASTER_CONTEXT.lock.yaml
 authorization:
-  task_kind: rust_accelerated_validation_layer
-  python_remains_governance_orchestrator: true
-  rust_is_deterministic_leaf_tooling: true
-  validates_jsonl_streams: true
-  validates_canonical_scope_streams: true
-  canonical_qa_python_authority_preserved: true
+  task_kind: rust_accelerated_non_authorizing_validation_layer
+  keeps_python_pytest_as_governance_orchestrator: true
+  adds_rust_leaf_validators_for_deterministic_scans: true
+  adds_coding_runtime_language_preflight: true
+  validates_jsonl_scan_fast_path: true
+  validates_canonical_scope_fast_path: true
+  canonical_qa_scaffold_only: true
+  chunk_map_validator_deferred: false
+  validates_chunk_map_fast_path_shadow_only: true
+  cursor_may_select_target: false
   promotes_reviewed_gold: false
   implements_chunk_output: false
   adds_child_spans: false
@@ -60,29 +74,45 @@ authorization:
   authorizes_source_or_manuscript_rows: false
   authorizes_theology_authority: false
 deliverables:
-  rust_cli: tools/logos_fast_validators/
+  rust_fast_validator: tools/logos_fast_validators/
+  coding_runtime_language_preflight: .ai/control/coding_runtime_language_preflight.yaml
+  coding_runtime_language_validator: scripts/validate_coding_runtime_language_preflight.py
+  decision_register_entry: CD-088
+  lesson_index_entry: LSN-043
+  dad_outbox: .digital-asset/mail/outbox.jsonl
+  dad_outbox_validator: scripts/validate_dad_outbox.py
   jsonl_wrapper: scripts/validate_fast_jsonl.py
   canonical_scope_wrapper: scripts/validate_fast_canonical_scope.py
+  chunk_map_wrapper: scripts/validate_fast_chunk_map.py
   validate_all_integration: scripts/validate_all.py
   roadmap_doc: docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
   tests:
     - tests/test_t424_rust_fast_validators.py
+    - tests/test_coding_runtime_language_preflight.py
+    - tests/test_dad_outbox.py
   handoff: .ai/handoffs/T424/handoff.md
 acceptance_criteria:
-  - "Rust `jsonl-scan` matches the existing validate_jsonl.py contract on focused fixtures."
-  - "Rust `canonical-scope` matches validate_canonical_66_scope.py verdicts on focused fixtures."
-  - "Python wrappers expose explicit Rust requirement, Python fallback, and parity-check modes."
-  - "validate_all.py uses the wrappers only for proven deterministic data scans; semantic canonical QA remains Python."
-  - "No reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon-scope change, or theology authority are authorized."
+  - "Rust crate compiles and tests pass without touching the T412 USFM observation scanner."
+  - "JSONL and canonical-scope wrappers preserve existing Python command ergonomics and support Python fallback."
+  - "Chunk-map wrapper preserves Python command ergonomics and supports Python fallback without moving comparison or promotion policy into Rust."
+  - "validate_all.py uses Rust only for proven deterministic data-heavy gates, with Python fallback."
+  - "Coding preflight requires Rust consideration for high-resource deterministic code while preserving Python/pytest governance orchestration."
+  - "DAD outbox records T424 reusable lesson and asset candidates as candidate-only with local adoption required."
+  - "Python/pytest remain authoritative for governance, task scopes, handoffs, theology-policy language, and orchestration."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
 validations:
   - cargo test --manifest-path tools/logos_fast_validators/Cargo.toml
-  - python scripts/validate_fast_jsonl.py --require-rust --compare-python --require-canon <fixture>
-  - python scripts/validate_fast_canonical_scope.py --require-rust --compare-python <fixture>
+  - python scripts/validate_coding_runtime_language_preflight.py
+  - python scripts/validate_dad_outbox.py
   - python -m pytest tests/test_t424_rust_fast_validators.py -q
+  - python -m pytest tests/test_coding_runtime_language_preflight.py -q
+  - python -m pytest tests/test_dad_outbox.py -q
   - python scripts/validate_task_scope.py --task-id T424
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py
   - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
 handoff_required: .ai/handoffs/T424/handoff.md
 created_at: "2026-07-03"
 updated_at: "2026-07-03"

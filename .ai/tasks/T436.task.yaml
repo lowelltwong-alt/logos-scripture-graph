@@ -1,0 +1,110 @@
+id: T436
+phase: phase_4
+title: "Jonah Hebrew Observation Parity Pilot"
+mode: no_text_observation_parity_pilot_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t436-jonah-hebrew-pilot
+base_ref: origin/codex/t435-original-language-observation
+summary: "Add a narrow full-Jonah Hebrew no-text observation/parity pilot that proves UXLC and OSHB source-view shape, token-count parity, metadata-flag drift, and forbidden authority checks before any Hebrew Rust scanner expansion."
+scope:
+  allowed_paths:
+    - .ai/tasks/T436.task.yaml
+    - .ai/handoffs/T436/
+    - .ai/context/agent_work/T436/
+    - .ai/control/t436_jonah_hebrew_metadata_pilot.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - docs/roadmap/T436_JONAH_HEBREW_METADATA_PILOT.md
+    - scripts/build_t436_jonah_hebrew_metadata_pilot.py
+    - scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+    - scripts/validate_all.py
+    - tests/test_t436_jonah_hebrew_metadata_pilot.py
+    - data/candidate/original_language_evidence/pilots/T436_jonah_hebrew_observation_parity/
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: hebrew_no_text_observation_parity_pilot_non_authorizing
+  records_uxlc_source_view_shape: true
+  records_oshb_source_view_shape: true
+  records_no_text_token_shape_hashes: true
+  records_oshb_morphology_attribute_presence: true
+  records_oshb_lemma_flag_drift: true
+  consumes_t431_canonical_source_views: true
+  consumes_raw_archives_directly: false
+  opens_production_candidate_roots: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_production_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_manuscript_transcriptions: false
+  stores_manuscript_images: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t436: false
+  rust_fit_later: deterministic UXLC/OSHB scanning, counting, hashing, and no-text ledger emission
+  python_remains_authority_validator: true
+  reason: "This is a semantic pilot over three verses; Rust should follow after the Hebrew row contract is proven."
+acceptance_criteria:
+  - "UXLC and OSHB Jonah source-view observations cover 48 verses each and 688 token-shape rows each without storing Hebrew wording."
+  - "UXLC/OSHB per-verse refs and token counts match while exact token hashes may differ by source formatting."
+  - "OSHB morphology and lemma attributes are counted by presence/hash only; values are not stored and do not authorize Strong's, lexical truth, or production lemma rows."
+  - "The OSHB lemma-attribute flag drift is recorded and blocks Rust expansion until fixed or explicitly policy-covered."
+  - "Editorial/metadata rows label chaptering, versification, maqqef, sof-pasuq, vowel/accent presence, notes, and nested-token edge cases as source-view/editorial evidence, not autograph certainty."
+  - "Production candidate roots remain unopened until a later owner-gated population task."
+  - "No Rust scanner expansion occurs until T436 semantics and metadata-flag drift are reviewed."
+validations:
+  - python scripts/build_t436_jonah_hebrew_metadata_pilot.py --check
+  - python scripts/validate_t436_jonah_hebrew_metadata_pilot.py
+  - python -m pytest tests/test_t436_jonah_hebrew_metadata_pilot.py -q
+  - python scripts/validate_task_scope.py --task-id T436 --base-ref origin/codex/t435-original-language-observation
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+handoff_required: .ai/handoffs/T436/handoff.md
+created_at: "2026-07-04"
+updated_at: "2026-07-04"

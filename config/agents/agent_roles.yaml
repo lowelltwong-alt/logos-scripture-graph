@@ -136,6 +136,151 @@ roles:
       - weekly_audit_report
       - ledger_append
       - architecture_findings
+  rust_architecture_reviewer:
+    purpose: "Review Rust architecture, Python/Rust boundaries, parity contracts, no-text guarantees, and governance leakage risk before implementation."
+    ai_agnostic: true
+    capability_profile: reasoner
+    canonical_cadence: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    allowed_paths:
+      - .ai/audits/
+      - .ai/context/agent_work/
+      - .ai/handoffs/
+      - docs/architecture/
+      - docs/roadmap/
+      - .ai/control/*rust*.yaml
+      - tools/*/Cargo.toml
+      - scripts/validate_*rust*.py
+      - tests/test_*rust*.py
+    forbidden_actions:
+      - "implement production Rust code"
+      - "approve semantic authority from Rust output"
+      - "weaken Python governance orchestration"
+      - "choose a vendor or model name"
+    required_outputs:
+      - architecture_review_report
+      - rust_fit_decision
+      - parity_contract_findings
+      - handoff
+    non_authorizations:
+      - rust_validator_as_governance_authority
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+  outside_rust_research_scout:
+    purpose: "Gather official Rust documentation and established aligned GitHub examples for hard Rust problems as candidate research only."
+    ai_agnostic: true
+    capability_profile: reasoner
+    canonical_cadence: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    allowed_paths:
+      - .ai/context/agent_work/
+      - .ai/handoffs/
+      - .digital-asset/mail/
+    forbidden_actions:
+      - "edit tools/"
+      - "edit scripts/"
+      - "edit .ai/control/"
+      - "recommend unpinned or unreviewed dependencies as adopted"
+      - "copy large external code"
+      - "choose a vendor or model name"
+    required_outputs:
+      - research_brief
+      - source_refs
+      - applicability_limits
+      - license_or_copy_risk_notes
+      - handoff
+    non_authorizations:
+      - dependency_adoption
+      - architecture_decision_authority
+      - dad_override_local_authority
+  rust_engineer:
+    purpose: "Implement narrowly scoped Rust CLIs or libraries behind Python wrappers, fixtures, parity gates, and fail-closed contracts."
+    ai_agnostic: true
+    capability_profile: executor
+    canonical_cadence: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    allowed_paths:
+      - tools/usfm_observation_scanner/
+      - tools/logos_fast_validators/
+      - tools/chunk_observation_scanner/
+      - scripts/validate_fast_*.py
+      - scripts/validate_*rust*.py
+      - tests/test_*rust*.py
+      - docs/roadmap/
+      - .ai/handoffs/
+    forbidden_actions:
+      - "write data/raw/"
+      - "write data/canonical/"
+      - "write eval/chunking_gold/"
+      - "create chunk output"
+      - "make Rust the sole governance authority"
+      - "choose a vendor or model name"
+    required_outputs:
+      - rust_code
+      - python_wrapper_or_contract
+      - focused_tests
+      - parity_report
+      - handoff
+    non_authorizations:
+      - rust_validator_as_governance_authority
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+  rust_qa_tester:
+    purpose: "Verify Rust/Python parity, fallback behavior, generated-output no-text constraints, fail-closed exits, and performance claims."
+    ai_agnostic: true
+    capability_profile: executor
+    canonical_cadence: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    allowed_paths:
+      - tests/
+      - scripts/validate_*rust*.py
+      - scripts/validate_fast_*.py
+      - .ai/audits/
+      - .ai/context/agent_work/
+      - .ai/handoffs/
+    forbidden_actions:
+      - "fix implementation while claiming independent QA"
+      - "bless mismatches without owner or Codex review"
+      - "promote benchmark speed as semantic correctness"
+      - "choose a vendor or model name"
+    required_outputs:
+      - qa_report
+      - parity_result
+      - mismatch_ledger_if_any
+      - validation_commands
+      - handoff
+    non_authorizations:
+      - semantic_correctness_from_speed
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+  dad_lesson_reporter:
+    purpose: "Report reusable Rust workflow, tool-failure, scout, and coordination lessons to DAD as candidate-only mail and lesson slots."
+    ai_agnostic: true
+    capability_profile: orchestrator
+    canonical_cadence: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    allowed_paths:
+      - .digital-asset/mail/
+      - .digital-asset/context-map.json
+      - .digital-asset/lessons/
+      - .ai/handoffs/
+    forbidden_actions:
+      - "treat DAD response as local authority"
+      - "edit canon/chunking/control truth from DAD mail"
+      - "clean unrelated DAD work"
+      - "publish private/internal details without human release"
+      - "choose a vendor or model name"
+    required_outputs:
+      - outbox_jsonl_line
+      - context_map_entry
+      - lesson_slot_update_or_no_change_rationale
+      - handoff
+    non_authorizations:
+      - dad_override_local_authority
+      - adopt_candidate_lessons_without_review
+      - clean_unrelated_dad_work
+      - theology_authority
   connection_discoverer:
     purpose: "Find NEW connections we have not curated (intertextual, lexical, thematic, extra-biblical) and emit them as CANDIDATE claims with evidence — never auto-promote. See .ai/handoffs/CONNECTION_DISCOVERY_AGENT.md."
     allowed_paths:

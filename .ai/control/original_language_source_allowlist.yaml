@@ -1,0 +1,184 @@
+object_type: original_language_source_allowlist
+schema_version: original_language_source_allowlist.v1
+task_id: T431
+owner: Lowell Wong
+status: active_raw_intake_allowlist
+trust_zone: control
+provenance_note: "Created during T431 to permit only manifest-backed, license-approved original-language raw source downloads."
+authority:
+  records_original_language_source_allowlist: true
+  authorizes_allowlisted_raw_downloads: true
+  authorizes_source_text_mutation: false
+  authorizes_strongs_overlay_in_raw: false
+  authorizes_source_language_witness_rows: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_canon_scope_change: false
+  authorizes_chunk_boundaries: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_theology_authority: false
+download_policy:
+  raw_root: data/raw/original_language
+  manifest_name: source_manifest.yaml
+  archive_subdir: raw
+  only_enabled_sources: true
+  require_license_url: true
+  require_sha256: true
+  require_version_or_commit: true
+  strongs_overlay_destination: data/candidate/original_language_evidence
+  canonical_source_view_destination: data/candidate/original_language_evidence/canonical_source_views
+  downstream_consumes_canonical_source_view_not_raw_archive: true
+  strongs_overlay_in_raw_allowed: false
+  manuscript_bulk_download_allowed: false
+  public_viewable_without_bulk_terms: catalog_only
+sources:
+  - id: tanach_us_uxlc
+    enabled: true
+    language: hebrew
+    corpus_scope: hebrew_bible
+    source_kind: source_text_archive
+    download_kind: direct_archive
+    title: "Unicode/XML Leningrad Codex"
+    abbreviation: UXLC
+    format: XML
+    source_url: https://tanach.us/Books/Tanach.xml.zip
+    landing_page: https://tanach.us/
+    license_url: https://tanach.us/License.html
+    license: unrestricted-copying-biblical-hebrew-text
+    attribution: "Unicode/XML Leningrad Codex: UXLC 2.5 (27.6), Tanach.us Inc., West Redding, CT, USA, Apr 2026."
+    expected_version: "UXLC 2.5"
+    expected_build: "27.6"
+    expected_size_bytes: 2365002
+    expected_sha256: 1bc6e006f43d3b18f2f718cefa3aa4774cac2c54092c28d173dd61996c43a050
+    source_text_storage_allowed: true
+    redistribution_allowed: true
+    contains_source_provided_morphology: false
+    contains_source_provided_strongs: false
+    strongs_overlay_in_raw_allowed: false
+  - id: openscriptures_oshb
+    enabled: true
+    language: hebrew
+    corpus_scope: hebrew_bible
+    source_kind: source_text_morphology_archive
+    download_kind: github_archive
+    title: "Open Scriptures Hebrew Bible"
+    abbreviation: OSHB
+    format: repository_zip
+    repository: openscriptures/morphhb
+    ref: master
+    source_url: https://github.com/openscriptures/morphhb
+    license_url: https://github.com/openscriptures/morphhb/blob/master/LICENSE.md
+    license: CC-BY-4.0
+    attribution: "Open Scriptures Hebrew Bible Project; text based on the Westminster Leningrad Codex."
+    source_text_storage_allowed: true
+    redistribution_allowed: true
+    contains_source_provided_morphology: true
+    contains_source_provided_lemmas: false
+    contains_source_provided_lemma_attributes: true
+    contains_source_provided_strong_lookup_hints: true
+    lemma_attribute_interpretation: strong_lookup_hint
+    lemma_attribute_authority: metadata_only_not_local_lemma_or_strong_authority
+    contains_source_provided_strongs: false
+    strongs_overlay_in_raw_allowed: false
+  - id: sblgnt
+    enabled: true
+    language: greek
+    corpus_scope: greek_new_testament
+    source_kind: source_text_archive
+    download_kind: github_archive
+    title: "SBL Greek New Testament"
+    abbreviation: SBLGNT
+    format: repository_zip
+    repository: LogosBible/SBLGNT
+    ref: master
+    source_url: https://github.com/LogosBible/SBLGNT
+    license_url: https://www.sblgnt.com/license/
+    license: CC-BY-4.0
+    attribution: "SBL Greek New Testament, Society of Biblical Literature and Logos Bible Software."
+    source_text_storage_allowed: true
+    redistribution_allowed: true
+    contains_source_provided_morphology: false
+    contains_source_provided_strongs: false
+    strongs_overlay_in_raw_allowed: false
+  - id: ugnt
+    enabled: true
+    language: greek
+    corpus_scope: greek_new_testament
+    source_kind: source_text_morphology_archive
+    download_kind: github_archive
+    title: "unfoldingWord Greek New Testament"
+    abbreviation: UGNT
+    format: repository_zip
+    repository: unfoldingWord/Unlocked-Greek-New-Testament
+    ref: master
+    source_url: https://github.com/unfoldingWord/Unlocked-Greek-New-Testament
+    license_url: https://github.com/unfoldingWord/Unlocked-Greek-New-Testament
+    license: CC0-1.0
+    attribution: "unfoldingWord Greek New Testament."
+    source_text_storage_allowed: true
+    redistribution_allowed: true
+    contains_source_provided_morphology: true
+    contains_source_provided_strongs: true
+    strongs_overlay_in_raw_allowed: false
+  - id: cntr_sr
+    enabled: true
+    language: greek
+    corpus_scope: greek_new_testament
+    source_kind: source_text_archive
+    download_kind: github_archive
+    title: "Statistical Restoration Greek New Testament"
+    abbreviation: CNTR-SR
+    format: repository_zip
+    repository: Center-for-New-Testament-Restoration/SR
+    ref: main
+    source_url: https://github.com/Center-for-New-Testament-Restoration/SR
+    license_url: https://github.com/Center-for-New-Testament-Restoration/SR
+    license: CC-BY-4.0
+    attribution: "Alan Bunning and the Center for New Testament Restoration, Statistical Restoration Greek New Testament."
+    source_text_storage_allowed: true
+    redistribution_allowed: true
+    contains_source_provided_morphology: true
+    contains_source_provided_lemmas: true
+    contains_source_provided_strongs: false
+    strongs_overlay_in_raw_allowed: false
+manuscript_catalogs:
+  - id: leon_levy_dead_sea_scrolls
+    title: "Leon Levy Dead Sea Scrolls Digital Library"
+    source_url: https://www.deadseascrolls.org.il/
+    evidence_scope: DSS biblical witnesses and fragment metadata
+    storage_mode: catalog_only
+    license_status: public_viewable_bulk_reuse_not_cleared
+    bulk_download_authorized: false
+    transcription_storage_allowed: false
+    image_storage_allowed: false
+  - id: codex_sinaiticus
+    title: "Codex Sinaiticus"
+    source_url: https://www.codexsinaiticus.org/
+    evidence_scope: manuscript metadata and passage coverage references
+    storage_mode: catalog_only
+    license_status: public_viewable_bulk_reuse_not_cleared
+    bulk_download_authorized: false
+    transcription_storage_allowed: false
+    image_storage_allowed: false
+  - id: aleppo_codex
+    title: "Aleppo Codex"
+    source_url: https://www.aleppocodex.org/
+    evidence_scope: manuscript metadata and passage coverage references
+    storage_mode: catalog_only
+    license_status: public_viewable_bulk_reuse_not_cleared
+    bulk_download_authorized: false
+    transcription_storage_allowed: false
+    image_storage_allowed: false
+  - id: nt_papyri_and_major_codices
+    title: "New Testament papyri and major codices"
+    source_url: https://ntvmr.uni-muenster.de/
+    evidence_scope: catalog identifiers, dates, holdings, and coverage metadata
+    storage_mode: catalog_only
+    license_status: public_viewable_bulk_reuse_not_cleared
+    bulk_download_authorized: false
+    transcription_storage_allowed: false
+    image_storage_allowed: false

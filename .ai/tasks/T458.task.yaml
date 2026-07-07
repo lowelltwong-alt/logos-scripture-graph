@@ -1,0 +1,120 @@
+id: T458
+phase: phase_4
+title: "AI-Agnostic Rust Subagent Charter"
+mode: control_plane_validation_hardening
+status: in_progress
+owner: codex
+branch: codex/t458-rust-subagent-charter
+base_ref: origin/main
+summary: "Make Rust-support subagents explicit, capability-profile based, validator-backed, and reportable to DAD without vendor/model lock-in or authority leakage."
+control_file: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+scope:
+  allowed_paths:
+    - .ai/tasks/T458.task.yaml
+    - .ai/handoffs/T458/
+    - .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    - .ai/control/multi_agent_review_cadence.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - config/agents/agent_roles.yaml
+    - config/agents/model_routing.yaml
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t458_ai_agnostic_rust_subagent_charter.yaml
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_all.py
+    - tests/test_ai_agnostic_rust_subagents.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - data/candidate/connections/
+    - data/candidate/original_language_evidence/
+    - pipelines/
+    - registry/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - tools/
+    - .github/workflows/
+    - .ai/scratch/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: non_authorizing_control_plane_hardening
+  records_rust_subagent_charter: true
+  records_capability_profile_routing: true
+  records_dad_candidate_lesson: true
+  adds_rust_validator_behavior: false
+  cursor_may_select_target: false
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  chooses_backend: false
+  promotes_retrieval_profile: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  authorizes_dad_override_local_authority: false
+runtime_language_preflight:
+  task_id: T458
+  touched_paths:
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_all.py
+  expected_input_size_or_record_count: "Small YAML/JSON control-plane files, role registry entries, DAD outbox rows, and task metadata; no large corpus scan."
+  expected_runtime_or_memory_pressure: "Below Rust thresholds; focused validators should run in seconds."
+  rust_trigger_match:
+    - repeated_gate_or_ci_hot_path
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No meaningful Rust speedup expected because T458 validates semantic governance policy, DAD references, and model-agnostic role routing rather than streaming large data."
+  interop_boundary: "Python validates the charter and validate_all wiring; future Rust subagents remain bounded leaf-worker support under this control-plane contract."
+  python_fallback_or_wrapper_plan: "Not applicable for T458 because no Rust leaf worker is added."
+  validation_plan:
+    - python scripts/validate_ai_agnostic_rust_subagents.py
+    - python scripts/validate_dad_outbox.py
+    - python scripts/validate_task_scope.py --task-id T458
+    - python scripts/agent/validate_handoffs.py
+    - python -m pytest tests/test_ai_agnostic_rust_subagents.py -q
+    - python scripts/validate_all.py
+  maintenance_tradeoffs: "The validator keeps the model-agnostic Rust subagent charter fail-closed while avoiding a Rust rewrite of policy-heavy YAML semantics."
+deliverables:
+  charter: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+  lesson_index_update: .ai/control/chunking_lesson_index.yaml
+  role_registry: config/agents/agent_roles.yaml
+  model_routing: config/agents/model_routing.yaml
+  cadence_link: .ai/control/multi_agent_review_cadence.yaml
+  dad_outbox: .digital-asset/mail/outbox.jsonl
+  dad_context_map: .digital-asset/context-map.json
+  dad_lesson_slot: .digital-asset/lessons/t458_ai_agnostic_rust_subagent_charter.yaml
+  validator: scripts/validate_ai_agnostic_rust_subagents.py
+  tests:
+    - tests/test_ai_agnostic_rust_subagents.py
+  handoff: .ai/handoffs/T458/handoff.md
+acceptance_criteria:
+  - "Five Rust-support subagent roles exist: architecture reviewer, outside research scout, engineer, QA tester, and DAD lesson reporter."
+  - "The roles route by capability profile, not by vendor or model name."
+  - "The charter requires Python wrappers/parity or contract validation for Rust work and preserves Python/pytest governance orchestration."
+  - "DAD receives a candidate-only lesson with extra context about scouts used, what they found, and why DAD should care."
+  - "Focused validator and tests fail closed on missing roles, vendor/model lock-in, missing DAD slots, and authority leakage."
+  - "No chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority are authorized."
+validations:
+  - python scripts/validate_ai_agnostic_rust_subagents.py
+  - python scripts/validate_dad_outbox.py
+  - python scripts/validate_task_scope.py --task-id T458
+  - python scripts/agent/validate_handoffs.py
+  - python -m pytest tests/test_ai_agnostic_rust_subagents.py -q
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T458/handoff.md
+created_at: "2026-07-06"
+updated_at: "2026-07-06"

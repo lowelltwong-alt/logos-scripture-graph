@@ -287,6 +287,7 @@ def _expert_review_lanes(flags: list[str], variant_matches: list[str]) -> list[s
                 "textual_variant_source_tradition",
                 "major_codex_witness_review",
                 "scribal_layout_and_blank_space_review",
+                "scribal_letters_per_column_capacity_review",
                 "manuscript_transmission_history",
             }
         )

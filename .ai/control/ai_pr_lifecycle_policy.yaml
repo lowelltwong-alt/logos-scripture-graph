@@ -1,0 +1,58 @@
+---
+object_type: ai_pr_lifecycle_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created during T463 after cleanup of stacked AI branches showed that drafts left below PR stage waste integration compute."
+reason_for_inclusion: "Require every AI-created draft branch or staged work item to reach a visible PR, merge, hold, superseded, or owner-escalation state instead of silently piling up."
+---
+schema_version: ai_pr_lifecycle_policy.v1
+policy_id: repo_ai_pr_lifecycle_policy
+owner: Lowell Wong
+validator: scripts/validate_ai_pr_lifecycle_policy.py
+authority:
+  records_workflow_policy: true
+  authorizes_merge_without_permission: false
+  authorizes_delete_user_work: false
+  authorizes_close_pr_without_review: false
+  authorizes_skip_validation: false
+  authorizes_dad_override_local_authority: false
+policy:
+  ai_created_drafts_must_not_stall_below_pr_stage: true
+  owner_visible_next_action_required: true
+  merge_allowed_only_when_permission_already_given_or_owner_approves: true
+  stale_branch_cleanup_requires_superseded_or_not_value_add_rationale: true
+  integration_branch_required_for_stacked_or_dependent_prs: true
+required_terminal_or_visible_states:
+  - pr_open_owner_approval_requested
+  - pr_open_green_merge_permission_already_granted
+  - merged_with_recorded_permission
+  - hold_with_findings_owner_visible
+  - closed_superseded_with_rationale
+  - abandoned_not_value_add_with_rationale
+  - escalated_to_owner_or_integrator
+draft_exit_requirements:
+  - branch_name
+  - task_id
+  - pr_url_or_reason_no_pr
+  - validation_status
+  - merge_permission_status
+  - next_action_state
+  - owner_or_integrator_alert
+  - superseded_or_not_value_add_rationale_when_applicable
+agent_obligations:
+  - "If an AI agent creates a draft branch or staged work, it must either open a PR and alert the owner/integrator, merge when permission is already granted and gates are green, or record a hold/superseded/not-value-add rationale."
+  - "If several related PRs exist, create an integration task/branch that records dependency order and supersession decisions."
+  - "Do not start more dependent work on top of unmerged drafts without making the prior PR state owner-visible."
+non_authorizations:
+  - merge_without_green_checks
+  - merge_without_owner_or_prior_permission
+  - delete_user_work_without_instruction
+  - close_pr_without_review_or_rationale
+  - skip_owner_or_integrator_escalation
+  - treat_staged_work_as_complete
+  - dad_override_local_authority
+validation_surfaces:
+  - scripts/validate_ai_pr_lifecycle_policy.py
+  - docs/methodology/WORKFLOW_LESSONS.md
+  - .ai/control/chunking_lesson_index.yaml
+  - .digital-asset/mail/outbox.jsonl

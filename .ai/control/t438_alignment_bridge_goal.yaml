@@ -1,0 +1,173 @@
+object_type: t438_alignment_bridge_goal
+schema_version: t438_alignment_bridge_goal.v1
+task_id: T438
+owner: Lowell Wong
+status: planning_control_gate
+trust_zone: control
+summary: "Select the Greek/Hebrew-to-English alignment bridge as the next original-language implementation lane, while keeping manuscript custody-chain work parallel and catalog-only."
+preconditions:
+  stacked_after:
+    - T431
+    - T432
+    - T433
+    - T435
+    - T436
+    - T437
+  requires_t437_policy_cover: true
+  requires_canonical_source_views: true
+  requires_no_raw_archive_direct_consumption: true
+goal_selection:
+  primary_goal_option_id: option_1_alignment_bridge
+  primary_goal_name: Greek/Hebrew-to-English alignment bridge
+  status: recommended_next_implementation_lane
+  reason: "The alignment bridge creates the practical evidence substrate for later translation-faithfulness, KG, retrieval, manuscript, and early-creed work while staying smaller than whole-manuscript reconstruction."
+  first_defensible_pilots:
+    - pilot_id: greek_philemon_bridge_expansion
+      candidate_task_id: T439
+      source_views:
+        - sblgnt
+        - ugnt
+      span_policy: "Start from the existing T433 Phlm.1.1-Phlm.1.3 pilot, then expand only after source-view-local metadata proof."
+      output_policy: "candidate pilot rows only; no production root opening unless a later task explicitly authorizes it."
+    - pilot_id: hebrew_jonah_bridge_expansion
+      candidate_task_id: T440
+      source_views:
+        - tanach_us_uxlc
+        - openscriptures_oshb
+      span_policy: "Start from T436 Jonah no-text parity and T437 OSHB lemma-attribute policy cover; source-specific parser contracts are mandatory before Rust expansion."
+      output_policy: "no-text parity or task-scoped candidate pilot rows only; no production root opening unless a later task explicitly authorizes it."
+parallel_goal_option:
+  option_id: option_2_manuscript_custody_chain
+  status: catalog_only_parallel_research
+  rule: "Manuscript witness custody-chain research may proceed as metadata/catalog-only packets, but it must not import bulk images/transcriptions, choose oldest-as-authority, or feed alignment rows without a later source/license gate."
+deferred_goal_options:
+  - option_id: option_3_variant_error_ledger
+    required_before_start:
+      - source/license gate
+      - textual-critical policy packet
+      - witness/provenance schema hardening
+  - option_id: option_4_early_creed_lane
+    required_before_start:
+      - citation packet template
+      - frontier review requirement
+      - separation of manuscript evidence, discourse evidence, and historical argument
+  - option_id: option_5_integrated_workbench
+    required_before_start:
+      - validated option_1 pilot
+      - validated option_2 catalog packet
+      - validated option_3 variant packet
+      - validated option_4 early-creed packet
+alignment_bridge_contract:
+  input_policy:
+    default_inputs:
+      - data/candidate/original_language_evidence/canonical_source_views/
+      - data/canonical/translations/eng-web/
+    raw_archive_direct_consumption_allowed: false
+    strongs_numbers_are_lookup_hints: true
+    strongs_numbers_are_source_text: false
+    source_metadata_is_authority: false
+  candidate_row_policy:
+    source_token_rows_are_candidate_observations: true
+    web_alignment_rows_are_candidate_observations: true
+    alignment_truth_authorized: false
+    translation_faithfulness_judgment_authorized: false
+    local_lemma_or_morphology_population_requires_span_local_proof: true
+    strong_lookup_hint_population_requires_source_specific_policy: true
+    every_row_requires:
+      - source_id
+      - canonical_source_view_manifest
+      - source_view_path
+      - source_file_sha256
+      - osis_ref
+      - confidence
+      - provenance
+      - inferred_vs_observed
+      - authority
+      - non_authorizations
+rust_fit_matrix:
+  good_rust_candidates:
+    - slice: canonical_source_view_token_shape_scan
+      why: "Deterministic XML/USFM/TSV scan, counts, hashes, offsets, and JSONL ledgers."
+      gate: "Only after Python fixtures prove source-specific parser semantics."
+    - slice: source_to_web_ref_coverage_join
+      why: "Large deterministic ref/ID coverage checks and mismatch indexes."
+      gate: "Python remains authority for schema and theology/translation policy."
+    - slice: jsonl_schema_shape_fast_scan
+      why: "High-volume key/type/count/duplicate checks after Python semantic parity."
+      gate: "Negative-case parity fixtures before validate_all relies on Rust."
+    - slice: no_text_alignment_candidate_index
+      why: "Performance-sensitive no-text token/reference index generation."
+      gate: "No alignment truth, source-language truth, or translation judgment in Rust output."
+  keep_python_governed:
+    - YAML/control-plane authority checks
+    - source/license and attribution decisions
+    - preferred-reading and source-tradition policy
+    - theology/translation-faithfulness rubrics
+    - owner gates and reviewed promotions
+    - handoff and roadmap integration
+next_task_sequence:
+  - task_id: T439
+    title: Greek Philemon alignment bridge expansion contract
+    mode: candidate_pilot_contract
+    rust_policy: "No new Rust unless only scanner/checker shadow parity is added; SBLGNT scanner already exists from T435."
+  - task_id: T440
+    title: Hebrew Jonah source-specific parser contract
+    mode: parser_contract_and_no_text_parity
+    rust_policy: "Rust is appropriate after UXLC/OSHB parser assumptions are fixture-covered."
+  - task_id: T441
+    title: Rust no-text alignment coverage index
+    mode: rust_leaf_tool_shadow_parity
+    rust_policy: "Rust scans stable source views and WEB canonical sidecars; Python validates authority and semantics."
+  - task_id: T442
+    title: Owner-gated production candidate-root opening decision packet
+    mode: owner_decision_packet
+    rust_policy: "No new scanner authority; uses previous Rust/Python parity results as evidence."
+authority:
+  records_goal_selection: true
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+non_authorizations:
+  - source_language_truth
+  - lexical_truth
+  - word_level_alignment_truth
+  - strongs_number_as_source_text
+  - strongs_number_as_lexical_authority
+  - strongs_number_as_theology_authority
+  - local_lemma_population_without_span_local_proof
+  - morphology_population_without_span_local_proof
+  - preferred_reading
+  - source_tradition_preference
+  - textual_critical_decision
+  - manuscript_witness_support
+  - oldest_witness_as_automatic_authority
+  - translation_judgment
+  - translation_faithfulness_score
+  - canon_scope_change
+  - chunk_boundary
+  - reviewed_gold
+  - chunk_output
+  - graph_edge
+  - retrieval_truth
+  - embedding_or_vector_work
+  - theology_authority
+validators:
+  - scripts/validate_t438_alignment_bridge_goal.py
+  - tests/test_t438_alignment_bridge_goal.py
+created_at: "2026-07-05"

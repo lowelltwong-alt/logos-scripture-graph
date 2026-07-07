@@ -1,0 +1,195 @@
+---
+object_type: ai_agnostic_rust_subagent_charter
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created 2026-07-06 during T458 to make Rust subagent use capability-profile based, validator-backed, and DAD-reportable."
+reason_for_inclusion: "Record when and how coding agents should use Rust architecture, research, engineering, QA, and DAD-reporting subagents without locking the workflow to a vendor or granting Rust/DAD authority."
+---
+schema_version: ai_agnostic_rust_subagent_charter.v1
+charter_id: logos_ai_agnostic_rust_subagents_v1
+task_id: T458
+status: active_non_authorizing_subagent_charter
+owner: Lowell Wong
+model_routing_policy: config/agents/model_routing.yaml
+role_registry: config/agents/agent_roles.yaml
+review_cadence: .ai/control/multi_agent_review_cadence.yaml
+dad_context_map_entry: ctx-t458-ai-agnostic-rust-subagent-charter
+dad_outbox_message_id: msg-20260706-t458-ai-agnostic-rust-subagent-charter
+dad_lesson_slot: .digital-asset/lessons/t458_ai_agnostic_rust_subagent_charter.yaml
+principles:
+  route_by_capability_profile_not_vendor_or_model_name: true
+  rust_is_for_deterministic_leaf_work_when_worth_it: true
+  python_pytest_remain_governance_orchestrator: true
+  outside_research_is_candidate_input_only: true
+  dad_reports_are_candidate_lessons_only: true
+authority:
+  records_rust_subagent_roles: true
+  records_rust_subagent_cadence: true
+  records_dad_candidate_lesson: true
+  authorizes_rust_observation_or_validation_work: false
+  authorizes_reviewed_gold_promotion: false
+  authorizes_child_spans: false
+  authorizes_chunk_output_change: false
+  authorizes_route_behavior_change: false
+  authorizes_evaluator_change: false
+  authorizes_graph_retrieval_vector_truth: false
+  authorizes_embeddings_or_indexes: false
+  authorizes_boundary_import: false
+  authorizes_backend_or_profile_promotion: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_preferred_reading_or_source_tradition: false
+  authorizes_canon_scope_change: false
+  authorizes_theology_authority_change: false
+  authorizes_dad_override_local_authority: false
+roles:
+  rust_architecture_reviewer:
+    capability_profile: reasoner
+    role_registry_key: rust_architecture_reviewer
+    may_spawn_as: explorer
+    purpose: "Review Rust architecture, Python/Rust boundaries, parity contracts, no-text guarantees, governance leakage risk, and whether Rust is actually warranted."
+    required_inputs:
+      - coding_runtime_language_preflight
+      - active_task_contract
+      - touched_rust_or_validator_paths
+      - relevant_dad_lessons
+    required_outputs:
+      - architecture_review_report
+      - rust_fit_decision
+      - parity_contract_findings
+      - handoff_notes
+    stop_conditions:
+      - rust_fit_cannot_be_justified_against_thresholds
+      - parity_contract_is_missing
+      - authority_leakage_risk_found
+      - hard_rust_problem_requires_outside_research
+    must_not:
+      - implement_production_rust_code
+      - approve_semantic_authority_from_rust_output
+      - weaken_python_governance_orchestration
+      - choose_vendor_or_model_name
+  outside_rust_research_scout:
+    capability_profile: reasoner
+    role_registry_key: outside_rust_research_scout
+    may_spawn_as: explorer
+    purpose: "For hard Rust problems, gather official crate documentation and established aligned GitHub examples as candidate research before local implementation choices."
+    required_inputs:
+      - hard_rust_problem_statement
+      - local_constraints_and_non_authorizations
+      - dependency_policy
+    required_outputs:
+      - research_brief
+      - source_refs
+      - applicability_limits
+      - license_or_copy_risk_notes
+      - smallest_local_recommendation
+      - handoff_notes
+    stop_conditions:
+      - no_official_or_established_reference_found
+      - reference_license_or_copying_risk_unclear
+      - proposed_dependency_is_unpinned_or_unreviewed
+    must_not:
+      - edit_tools_or_scripts_or_control_plane
+      - copy_large_external_code
+      - recommend_dependency_adoption_as_final
+      - bypass_local_validators
+      - choose_vendor_or_model_name
+  rust_engineer:
+    capability_profile: executor
+    role_registry_key: rust_engineer
+    may_spawn_as: worker
+    purpose: "Implement narrowly scoped Rust CLIs or libraries behind Python wrappers, fixtures, parity gates, and fail-closed contracts."
+    required_inputs:
+      - approved_rust_fit_decision
+      - task_contract
+      - python_wrapper_or_contract_boundary
+      - focused_test_plan
+    required_outputs:
+      - rust_code
+      - python_wrapper_or_contract
+      - focused_tests
+      - parity_report
+      - handoff_notes
+    stop_conditions:
+      - implementation_requires_forbidden_data_or_authority_surface
+      - parity_or_no_text_contract_fails
+      - dependency_requires_unreviewed_adoption
+      - scope_expands_beyond_task_contract
+    must_not:
+      - write_data_raw
+      - write_data_canonical
+      - write_eval_chunking_gold
+      - create_chunk_output
+      - make_rust_the_sole_governance_authority
+      - choose_vendor_or_model_name
+  rust_qa_tester:
+    capability_profile: executor
+    role_registry_key: rust_qa_tester
+    may_spawn_as: explorer
+    purpose: "Verify Rust/Python parity, fallback behavior, generated-output no-text constraints, fail-closed exits, and performance claims without becoming the implementer of record."
+    required_inputs:
+      - rust_cli_or_wrapper_under_test
+      - parity_fixture_or_real_data_scope
+      - expected_non_authorizations
+    required_outputs:
+      - qa_report
+      - parity_result
+      - mismatch_ledger_if_any
+      - validation_commands
+      - handoff_notes
+    stop_conditions:
+      - python_and_rust_verdicts_disagree
+      - generated_output_contains_text_when_no_text_required
+      - performance_claim_not_reproducible
+      - validator_can_pass_open
+    must_not:
+      - fix_implementation_while_claiming_independent_qa
+      - bless_mismatches_without_owner_or_codex_review
+      - promote_benchmark_speed_as_semantic_correctness
+      - choose_vendor_or_model_name
+  dad_lesson_reporter:
+    capability_profile: orchestrator
+    role_registry_key: dad_lesson_reporter
+    may_spawn_as: explorer
+    purpose: "Package reusable Rust workflow, tool-failure, scout, and coordination lessons for DAD as candidate-only mail, context entries, and local lesson slots."
+    required_inputs:
+      - local_handoff
+      - scout_reports
+      - validation_results
+      - dad_integration_contract
+    required_outputs:
+      - outbox_jsonl_line
+      - context_map_entry
+      - lesson_slot_update_or_no_change_rationale
+      - handoff_notes
+    stop_conditions:
+      - dad_message_cannot_be_candidate_only
+      - local_context_or_lesson_slot_missing
+      - private_or_unreleased_details_cannot_be_safely_summarized
+    must_not:
+      - treat_dad_response_as_local_authority
+      - edit_canon_chunking_or_control_truth_from_dad_mail
+      - clean_unrelated_dad_work
+      - publish_private_internal_details_without_human_release
+      - choose_vendor_or_model_name
+required_non_authorizations:
+  - model_vendor_lock_in
+  - rust_for_rust_sake
+  - rust_validator_as_governance_authority
+  - dad_override_local_authority
+  - reviewed_gold_promotion
+  - child_span_selection
+  - chunk_output_change
+  - route_behavior_change
+  - evaluator_change
+  - graph_retrieval_or_vector_truth
+  - embeddings_or_indexes
+  - boundary_import
+  - backend_or_profile_promotion
+  - preferred_reading_or_source_tradition
+  - canon_scope_change
+  - source_or_manuscript_row_population
+  - theology_authority
+validators:
+  - scripts/validate_ai_agnostic_rust_subagents.py
+  - tests/test_ai_agnostic_rust_subagents.py
+  - scripts/validate_all.py

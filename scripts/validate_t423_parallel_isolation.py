@@ -84,8 +84,14 @@ def validate_parallel_isolation(
         errors.append("parallel_path_isolation.worktree_required must be true")
 
     branch = branch or _git_branch()
-    if branch and not branch.startswith("scratch/t423-"):
-        errors.append(f"branch {branch!r} should start with scratch/t423- for model marathon work")
+    allowed_branch = branch.startswith("scratch/t423-") or (
+        model_folder is None and branch.startswith("codex/t423-")
+    )
+    if branch and not allowed_branch:
+        errors.append(
+            f"branch {branch!r} should start with scratch/t423- for model marathon work "
+            "or codex/t423- for integration review"
+        )
 
     files = [_normalize(p) for p in (changed_files if changed_files is not None else _git_changed_files())]
     for path in files:
@@ -113,9 +119,13 @@ def validate_parallel_isolation(
                 if isolation.get("worktree_required") and not iso.get("worktree_path"):
                     errors.append(f"{_rel(manifest_path)}: isolation.worktree_path required")
 
-        allowed_prefix = _normalize(str(model_folder.relative_to(ROOT))) + "/"
+        try:
+            allowed_prefix = _normalize(str(model_folder.relative_to(ROOT))) + "/"
+        except ValueError:
+            allowed_prefix = ""
+            errors.append(f"model_folder outside repository: {_rel(model_folder)}")
         for path in files:
-            if path.startswith(".ai/scratch/multi_model_bible_chunking/") and not path.startswith(allowed_prefix):
+            if allowed_prefix and path.startswith(".ai/scratch/multi_model_bible_chunking/") and not path.startswith(allowed_prefix):
                 if not path.startswith(".ai/scratch/multi_model_bible_chunking/comparison/"):
                     errors.append(f"change outside model folder: {path}")
 

@@ -203,3 +203,123 @@ Do not run comparison yet. First reconcile the T423 pilot gate/status with the o
 - mode: build
 - updated_at: 2026-07-04T19:05:15+00:00
 - handoff_id: 6e70f8c540cace59
+
+---
+
+## Six-Model Marathon Integration Addendum - 2026-07-06
+
+## Task
+
+- task_id: T423
+- title: Six-model whole-Bible scratch marathon integration
+- mode: integration_review_and_merge_prep
+- status: complete_pending_merge
+
+## Agent
+
+- agent_name: Codex
+- branch: codex/t423-six-model-marathon-complete
+
+## Files changed
+
+- .ai/control/multi_model_whole_bible_chunking_fork.yaml
+- .ai/control/t423_literary_marker_quality_protocol.yaml
+- .ai/handoffs/T423/handoff.md
+- .ai/prompts/multi_model_whole_bible_chunking_delta_compare_prompt.md
+- .ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md
+- .ai/scratch/multi_model_bible_chunking/
+- .ai/tasks/T423.task.yaml
+- docs/roadmap/T423_MULTI_MODEL_WHOLE_BIBLE_CHUNKING_FORK.md
+- scripts/t423_chunk_map_utils.py
+- scripts/t423_resume_book.py
+- scripts/validate_multi_model_whole_bible_chunking_fork.py
+- scripts/validate_t423_literary_quality_protocol.py
+- scripts/validate_t423_parallel_isolation.py
+- scripts/validate_t423_pilot_gate.py
+- scripts/validate_whole_bible_chunk_map.py
+- tests/test_t423_chunk_map_compare.py
+- tests/test_t423_literary_quality_protocol.py
+- tests/test_t423_parallel_isolation.py
+- tests/test_t423_pilot_e2e.py
+- tests/test_t424_rust_fast_validators.py
+
+## Decisions made
+
+- Integrated all six completed scratch marathon lanes:
+  M1_cursor, M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55,
+  M5_gemini_thinking, and M6_fable5.
+- Replaced earlier placeholder model folders M2_codex, M3_claude, M4_gemini,
+  and M5_composer_alt with the completed named model lanes.
+- Marked the T423 pilot gate `go` because all six full-Bible scratch marathons
+  are complete and validated.
+- Kept comparison offline and not yet run. The pilot gate validator now requires
+  batch2 span surfaces only when actual agreement/delta ledgers exist, not merely
+  when the comparison scaffold exists.
+- Allowed `codex/t423-*` integration branches in the parallel-isolation validator
+  while preserving `scratch/t423-*` for active single-model marathon work.
+- Updated the T424 fast chunk-map fixture to include the T423-required
+  `frontier_flag_considered` field so Rust/Python parity tests match the current
+  scratch chunk-map schema.
+
+## Integrated model counts
+
+- M1_cursor: 66 books, 9,237 chunks.
+- M2_claude_sonnet5: 66 books, 1,135 chunks.
+- M3_claude_frontier: 66 books, 1,242 chunks.
+- M4_codex_gpt55: 66 books, 1,319 chunks.
+- M5_gemini_thinking: 66 books, 15,119 chunks.
+- M6_fable5: 66 books, 1,456 chunks.
+
+## Validation run
+
+- `python scripts\validate_multi_model_whole_bible_chunking_fork.py` -> passed.
+- `python scripts\validate_t423_parallel_isolation.py` -> passed.
+- `python scripts\validate_t423_pilot_gate.py` -> passed.
+- `python scripts\validate_task_scope.py --task-id T423` -> passed.
+- `python scripts\agent\validate_handoffs.py` -> passed.
+- `python scripts\validate_whole_bible_chunk_map.py <M1-M6> --require-full-bible` -> passed for all six model folders.
+- `python scripts\validate_t423_literary_quality_protocol.py --require-artifacts --model-folder <M1-M6>` -> passed for all six model folders.
+- `python -m pytest tests\test_t423_chunk_map_compare.py tests\test_t423_pilot_e2e.py tests\test_t423_literary_quality_protocol.py tests\test_t423_parallel_isolation.py -q` -> passed, 24 tests.
+- `python scripts\validate_all.py` -> passed in full-data mode after regenerating ignored canonical sidecars locally.
+- `python -m pytest -q` -> passed, 791 tests.
+- `python scripts\generate_data_map.py --check` -> passed.
+- `git diff --check` -> passed with CRLF normalization warnings only.
+
+## Non-authorizations preserved
+
+- No comparison run.
+- No canon chunk output.
+- No reviewed gold promotion.
+- No child spans.
+- No route/evaluator behavior changes.
+- No graph/retrieval/vector truth.
+- No embeddings or indexes.
+- No theology authority.
+
+## Next agent instruction
+
+After this branch is merged, start the T423 comparison/delta phase from main. Do not
+treat any scratch model map as canon or reviewed gold. Run the batch comparison only
+after confirming main contains all six model folders and the owner still wants compare.
+
+## PR Queue Hygiene Lesson Addendum - 2026-07-06
+
+The owner identified a reusable coordination lesson while this integration was in
+progress: staged work, task branches, and PRs must not sit unmerged while new
+dependent work quietly piles up. The durable lesson is now recorded in:
+
+- `docs/methodology/WORKFLOW_LESSONS.md` as `WORKFLOW-LESSON-011`.
+- `.ai/control/chunking_lesson_index.yaml` as `LSN-045`.
+- `.digital-asset/mail/outbox.jsonl` as
+  `msg-20260706-t423-pr-queue-hygiene`.
+- `.digital-asset/context-map.json` as `ctx-t423-pr-queue-hygiene`.
+- `.digital-asset/lessons/t423_pr_queue_hygiene.yaml`.
+
+This DAD report is candidate-only. It does not authorize DAD to merge, close,
+clean, or override local repo state.
+
+Rust/pytest runtime note: the 10-minute full pytest run should be shortened over
+time by moving deterministic heavy JSONL/corpus scans into Rust leaf validators,
+but not by rewriting governance tests wholesale. Python/pytest remains the
+orchestrator for policy, task scope, wrappers, authority boundaries, and parity;
+Rust is the fast path for data-heavy structural checks.

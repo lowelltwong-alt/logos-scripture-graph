@@ -1,0 +1,94 @@
+id: T440
+phase: phase_4
+title: "Jonah Hebrew Source-Specific Parser Contract"
+mode: source_specific_parser_contract_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t440-jonah-hebrew-parser-contract
+base_ref: origin/codex/t439-phlm-alignment-bridge
+summary: "Define UXLC and OSHB Jonah parser semantics, negative fixtures, and Rust handoff constraints before T441 no-text Rust alignment coverage/index work."
+scope:
+  allowed_paths:
+    - .ai/tasks/T440.task.yaml
+    - .ai/handoffs/T440/
+    - .ai/context/agent_work/T440/
+    - .ai/control/t440_jonah_hebrew_parser_contract.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - docs/roadmap/T440_JONAH_HEBREW_PARSER_CONTRACT.md
+    - scripts/validate_t440_jonah_hebrew_parser_contract.py
+    - scripts/validate_all.py
+    - tests/test_t440_jonah_hebrew_parser_contract.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: source_specific_parser_contract_non_authorizing
+  records_source_specific_parser_contract: true
+  authorizes_t441_design: true
+  opens_production_candidate_roots: false
+  creates_source_token_rows: false
+  creates_alignment_rows: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_visible_source_text: false
+  stores_visible_translation_text: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  authorizes_source_language_truth: false
+  authorizes_lexical_truth: false
+  authorizes_word_level_alignment_truth: false
+  authorizes_strongs_as_source_text: false
+  authorizes_lemma_or_morphology_population: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_textual_critical_decision: false
+  authorizes_manuscript_witness_support: false
+  authorizes_canon_scope_change: false
+  authorizes_translation_judgment: false
+  authorizes_chunk_boundary: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t440: false
+  rust_preferred_for_future_leaf_tools: true
+  next_rust_fit: "T441 no-text Hebrew/Greek alignment coverage index after T440 parser contracts validate."
+validations:
+  - python scripts/validate_t440_jonah_hebrew_parser_contract.py
+  - python -m pytest tests/test_t440_jonah_hebrew_parser_contract.py -q
+  - python scripts/validate_task_scope.py --task-id T440 --base-ref origin/codex/t439-phlm-alignment-bridge
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check
+handoff_required: .ai/handoffs/T440/handoff.md
+created_at: "2026-07-05"

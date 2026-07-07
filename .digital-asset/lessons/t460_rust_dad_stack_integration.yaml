@@ -1,0 +1,27 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T460-RUST-DAD-STACK-INTEGRATION
+source_repo: logos-scripture-graph
+task_id: T460
+source_outbox_message_id: msg-20260706-t460-rust-dad-stack-integration
+context_map_entry: ctx-t460-rust-dad-stack-integration
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "When several Rust/DAD PRs append to shared DAD outbox and context-map files, integrate them in dependency order and resolve conflicts as a validated union of all candidate lessons."
+extra_context: "T460 integrated T456 runtime preflight, T457 canonical QA, T458 Rust subagent charter, and T459 word-token signal scanning. Each branch was valid alone, but the shared DAD append files conflicted when stacked. The reusable DAD lesson is that source repos should keep local outbox/context rows append-only, validate every referenced lesson slot, and use an explicit integration task rather than cleaning central DAD or weakening per-task scopes. This also preserves the owner's requirement that many repos can report messy Rust/tooling lessons in parallel without losing context."
+candidate_assets:
+  - ordered_rust_dad_stack_merge_pattern
+  - append_only_dad_union_conflict_resolution
+  - explicit_integration_task_scope_for_stacked_prs
+  - validate_all_integration_task_routing
+non_authorizations:
+  - dad_override_local_authority
+  - clean_unrelated_dad_work
+  - weaken_individual_task_scopes
+  - rust_validator_as_governance_authority
+  - chunk_output
+  - reviewed_gold
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - theology_authority

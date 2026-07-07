@@ -1,0 +1,92 @@
+id: T433
+phase: phase_4
+title: "Philemon Original-Language Alignment Bridge Pilot"
+mode: candidate_evidence_pilot_non_authorizing
+status: implementation
+owner: codex
+branch: codex/t433-phlm-alignment-pilot
+base_ref: origin/codex/t432-original-language-schema-contracts
+summary: "Produce a tiny SBLGNT-to-WEB Phlm.1.1-Phlm.1.3 candidate alignment pilot under a task-scoped pilot path, proving T431/T432 source-view and schema contracts without creating authority."
+scope:
+  allowed_paths:
+    - .ai/tasks/T433.task.yaml
+    - .ai/handoffs/T433/
+    - .ai/context/agent_work/T433/
+    - .ai/control/t433_phlm_original_language_evidence_pilot.yaml
+    - .ai/control/original_language_evidence_substrate.yaml
+    - .ai/control/current_focus.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/DATA_MAP.md
+    - data/candidate/original_language_evidence/pilots/
+    - data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/
+    - docs/roadmap/T433_PHLM_ORIGINAL_LANGUAGE_EVIDENCE_PILOT.md
+    - scripts/build_t433_phlm_alignment_pilot.py
+    - scripts/validate_t433_phlm_alignment_pilot.py
+    - scripts/validate_all.py
+    - tests/test_t433_phlm_alignment_pilot.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/original_language_evidence/source_tokens/
+    - data/candidate/original_language_evidence/strong_alignment/
+    - data/candidate/original_language_evidence/lemma_morphology/
+    - data/candidate/original_language_evidence/textual_variants/
+    - data/candidate/original_language_evidence/witness_support/
+    - data/candidate/original_language_evidence/editorial_layers/
+    - data/candidate/chunks/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/retrieval/
+authorization:
+  task_kind: candidate_evidence_pilot_non_authorizing
+  consumes_t431_canonical_source_views: true
+  populates_task_scoped_pilot_rows: true
+  uses_sblgnt_as_pilot_source_view: true
+  uses_translation_strongs_as_hints: true
+  mutates_raw_source_text: false
+  populates_production_source_language_tokens: false
+  creates_strongs_overlay_rows: false
+  creates_lexeme_or_morphology_rows: false
+  creates_textual_variant_rows: false
+  creates_witness_support_rows: false
+  stores_manuscript_transcriptions: false
+  stores_manuscript_images: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  creates_translation_faithfulness_judgment: false
+  creates_reviewed_gold: false
+  creates_chunk_output: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+rust_policy:
+  rust_added_in_t433: false
+  reason: "T433 is a tiny semantic/schema pilot over three verses; Python keeps the evidence shape inspectable. Rust remains the preferred fit for T435 high-volume deterministic token/alignment scanners after this row shape is proven."
+  future_rust_candidate: tools/original_language_evidence_scanner
+acceptance_criteria:
+  - "Pilot outputs are limited to data/candidate/original_language_evidence/pilots/T433_phlm_alignment_bridge/."
+  - "Source-language token rows consume only the SBLGNT canonical source view for Phlm.1.1-Phlm.1.3."
+  - "UGNT is not merged into the pilot rows because the selected Phlm.SFM view does not expose per-token Strong's or morphology fields."
+  - "WEB Strong's IDs appear only as translation-side alignment hints, not source-language token fields or lexical/theology authority."
+  - "Editorial-layer rows label paragraphing, versification, and punctuation/sigla as source-edition editorial evidence, not autograph certainty."
+  - "Validators fail on authority leakage, preferred-reading language, production output roots, or stale generated pilot rows."
+validations:
+  - python scripts/build_t433_phlm_alignment_pilot.py --check
+  - python scripts/validate_t433_phlm_alignment_pilot.py
+  - python -m pytest tests/test_t433_phlm_alignment_pilot.py -q
+  - python scripts/validate_t432_original_language_schema_contracts.py
+  - python scripts/validate_task_scope.py --task-id T433 --base-ref origin/codex/t432-original-language-schema-contracts
+  - python scripts/validate_chunking_theological_decision_register.py --base-ref origin/codex/t432-original-language-schema-contracts
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check

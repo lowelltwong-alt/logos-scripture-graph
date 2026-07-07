@@ -19,7 +19,7 @@ Agreement is useful evidence, not authority. M4 Codex GPT-5.5 and M6 Fable 5 ali
 
 Known textual-variant/source-tradition hot zones cannot stay in the easy bucket even under full model consensus. Current hot zones include Mark 16:9-20, John 7:53-8:11, Acts omitted-verse witnesses, Romans 16 doxology placement, Deut 32:8-9, Jeremiah MT/LXX order/length, Jude 5-15, Daniel/Esther additions routing, and 1 John 5:6-8.
 
-Mark 16 longer-ending rows also require manuscript-witness expert review lanes: Codex Vaticanus layout/blank-space review, Codex Sinaiticus ending review, major codex witness review, and scribal-layout/transmission-history review. T464 records those lanes only as escalation metadata; it does not decide whether the longer ending is inspired Scripture, preferred text, canon output, or reviewed-gold boundary.
+Mark 16 longer-ending rows also require manuscript-witness expert review lanes: Codex Vaticanus layout/blank-space review, Codex Sinaiticus ending review, major codex witness review, scribal-layout/transmission-history review, and scribal letters-per-column/column-space capacity analysis. That physical-layout analysis must consider things like letters per line, lines per column, blank column size, quire/page layout, section marks, scribal hand/spacing patterns, and whether a proposed reconstruction could fit the available space. T464 records those lanes only as escalation metadata; it does not decide whether the longer ending is inspired Scripture, preferred text, canon output, or reviewed-gold boundary.
 
 ## Non-Authorizations
 

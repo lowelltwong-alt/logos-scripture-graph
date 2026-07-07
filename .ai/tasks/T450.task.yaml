@@ -1,0 +1,83 @@
+id: T450
+phase: phase_5
+title: "Bible Edge Taxonomy Research Program"
+mode: planning_control_plane_non_authorizing
+status: complete
+owner: codex
+branch: codex/t450-bible-edge-taxonomy
+base_ref: origin/main
+summary: "Define a planning-only taxonomy for future Bible graph edge families, evidence requirements, model-review lanes, and authority boundaries."
+control_file: .ai/control/bible_edge_taxonomy_research_program.yaml
+roadmap: docs/roadmap/T450_BIBLE_EDGE_TAXONOMY_RESEARCH_PROGRAM.md
+scope:
+  allowed_paths:
+    - .ai/tasks/T450.task.yaml
+    - .ai/handoffs/T450/
+    - .ai/context/agent_work/T450/
+    - .ai/control/bible_edge_taxonomy_research_program.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - docs/roadmap/T450_BIBLE_EDGE_TAXONOMY_RESEARCH_PROGRAM.md
+    - scripts/validate_t450_bible_edge_taxonomy.py
+    - scripts/validate_all.py
+    - tests/test_t450_bible_edge_taxonomy.py
+    - .digital-asset/mail/outbox.jsonl
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/derived/
+    - data/candidate/graph/
+    - data/candidate/connections/
+    - data/candidate/original_language_evidence/
+    - registry/
+    - config/retrieval/
+    - eval/chunking_gold/
+    - pipelines/
+    - tools/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: planning_control_plane_non_authorizing
+  planning_only: true
+  non_authorizing: true
+  expands_predicate_registry: false
+  generates_graph_edges: false
+  creates_candidate_edge_rows: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_theological_system: false
+  authorizes_theology_authority: false
+  authorizes_apologetic_conclusion: false
+  authorizes_preferred_reading_or_source_tradition: false
+  changes_chunk_output: false
+  changes_route_or_evaluator_behavior: false
+acceptance_criteria:
+  - ".ai/control/bible_edge_taxonomy_research_program.yaml defines planning-only edge-family lanes and evidence requirements."
+  - "The taxonomy distinguishes deterministic/source metadata edges from reviewed semantic, theological, and apologetic-polemic claims."
+  - "The roadmap explains how Cursor/model workers, Codex, frontier review, and owner gates will evaluate future edge proposals."
+  - "DAD receives candidate-only lessons for T450 and for the dirty central-DAD parallel Rust rollout coordination problem."
+  - "Focused validator and tests fail closed on authority leakage and missing high-risk lanes."
+validations:
+  - python scripts/validate_t450_bible_edge_taxonomy.py
+  - python -m pytest tests/test_t450_bible_edge_taxonomy.py -q
+  - python scripts/validate_task_scope.py --task-id T450
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+non_authorizations:
+  - no predicate registry expansion
+  - no graph edge generation
+  - no candidate edge database population
+  - no embeddings or vector indexes
+  - no retrieval profile promotion
+  - no boundary corpus import
+  - no canon-scope or source-tradition selection
+  - no theology authority or denominational system selection
+  - no apologetic or polemic conclusion as graph truth
+  - no chunk output, reviewed gold, child spans, route behavior, or evaluator behavior

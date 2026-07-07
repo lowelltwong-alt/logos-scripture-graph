@@ -17,6 +17,21 @@ def test_main_branch_fails_closed_for_marathon_work() -> None:
     assert any("should start with scratch/t423-" in error for error in errors)
 
 
+def test_codex_t423_branch_allows_integration_review() -> None:
+    assert validate_parallel_isolation(branch="codex/t423-six-model-marathon-complete", changed_files=[]) == []
+
+
+def test_codex_t423_branch_does_not_allow_single_model_marathon_mode(tmp_path) -> None:
+    model_folder = tmp_path / "M1_cursor"
+    model_folder.mkdir()
+    errors = validate_parallel_isolation(
+        branch="codex/t423-six-model-marathon-complete",
+        changed_files=[],
+        model_folder=model_folder,
+    )
+    assert any("should start with scratch/t423-" in error for error in errors)
+
+
 def test_scratch_t423_branch_allows_empty_change_set() -> None:
     assert validate_parallel_isolation(branch="scratch/t423-M1-cursor", changed_files=[]) == []
 

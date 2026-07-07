@@ -38,6 +38,40 @@ PROTECTED_PREFIXES = (
     ".ai/control/owner_decision_projection_policy.yaml",
 )
 
+RUNTIME_PREFLIGHT_SURFACES = (
+    "scripts/validate_",
+    "scripts/build_",
+    "scripts/scan_",
+    "scripts/download_",
+    "scripts/generate_",
+    "scripts/qa_",
+    "tools/",
+    "pipelines/",
+    ".github/workflows/",
+)
+
+RUNTIME_PREFLIGHT_DECISIONS = {
+    "rust_fast_path_with_python_wrapper",
+    "python_orchestration_with_rust_leaf_worker",
+    "python_only_below_threshold",
+    "python_only_due_to_semantic_policy_complexity",
+    "defer_rust_until_measurement",
+}
+
+RUNTIME_PREFLIGHT_REQUIRED_FIELDS = {
+    "task_id",
+    "touched_paths",
+    "expected_input_size_or_record_count",
+    "expected_runtime_or_memory_pressure",
+    "rust_trigger_match",
+    "chosen_language",
+    "expected_rust_time_saved_or_reason_not_applicable",
+    "interop_boundary",
+    "python_fallback_or_wrapper_plan",
+    "validation_plan",
+    "maintenance_tradeoffs",
+}
+
 
 class TaskScopeError(ValueError):
     """Raised when a changed path violates task scope."""
@@ -198,12 +232,89 @@ def _matches_any(path: str, rules: list[str] | tuple[str, ...] | set[str]) -> bo
     return any(_matches_rule(path, rule) for rule in rules)
 
 
+def _task_number(task: dict[str, Any]) -> int | None:
+    task_id = str(task.get("id", ""))
+    match = re.match(r"^T(\d+)", task_id)
+    return int(match.group(1)) if match else None
+
+
+def _is_runtime_preflight_surface(path: str) -> bool:
+    normalized = _normalize_path(path)
+    return any(normalized.startswith(prefix) for prefix in RUNTIME_PREFLIGHT_SURFACES)
+
+
+def _requires_runtime_language_preflight(task: dict[str, Any], task_file: Path, changed_files: list[str]) -> bool:
+    task_no = _task_number(task)
+    if task_no is None or task_no < 425:
+        return False
+    task_file_rel = _rel(task_file)
+    task_id = str(task.get("id", ""))
+    task_contract_changed = (
+        task_file_rel in changed_files
+        or f".ai/tasks/{task_id}.task.yaml" in changed_files
+        or any(Path(path).name == f"{task_id}.task.yaml" for path in changed_files)
+    )
+    if not task_contract_changed:
+        return False
+    return any(_is_runtime_preflight_surface(path) for path in changed_files)
+
+
+def _validate_runtime_language_preflight(task: dict[str, Any], changed_files: list[str], task_file: Path) -> None:
+    block = task.get("runtime_language_preflight")
+    if not isinstance(block, dict):
+        raise TaskScopeError(
+            f"{_rel(task_file)}: runtime_language_preflight is required when post-T424 tasks touch "
+            "validator, scanner, pipeline, workflow, generated-data, Rust, or CI hot-path surfaces"
+        )
+    missing = sorted(RUNTIME_PREFLIGHT_REQUIRED_FIELDS - set(block))
+    if missing:
+        raise TaskScopeError(f"{_rel(task_file)}: runtime_language_preflight missing field(s) {missing}")
+    if block.get("task_id") != task.get("id"):
+        raise TaskScopeError(f"{_rel(task_file)}: runtime_language_preflight.task_id must match task id")
+    touched = _string_list(block.get("touched_paths"), f"{_rel(task_file)}: runtime_language_preflight.touched_paths")
+    runtime_paths = [path for path in changed_files if _is_runtime_preflight_surface(path)]
+    missing_runtime_paths = [path for path in runtime_paths if not _matches_any(path, touched)]
+    if missing_runtime_paths:
+        raise TaskScopeError(
+            f"{_rel(task_file)}: runtime_language_preflight.touched_paths missing runtime-sensitive path(s): "
+            + ", ".join(missing_runtime_paths)
+        )
+    triggers = _string_list(
+        block.get("rust_trigger_match"),
+        f"{_rel(task_file)}: runtime_language_preflight.rust_trigger_match",
+    )
+    if not triggers:
+        raise TaskScopeError(f"{_rel(task_file)}: runtime_language_preflight.rust_trigger_match must not be empty")
+    chosen = block.get("chosen_language")
+    if chosen not in RUNTIME_PREFLIGHT_DECISIONS:
+        raise TaskScopeError(
+            f"{_rel(task_file)}: runtime_language_preflight.chosen_language must be one of "
+            + ", ".join(sorted(RUNTIME_PREFLIGHT_DECISIONS))
+        )
+    for key in (
+        "expected_input_size_or_record_count",
+        "expected_runtime_or_memory_pressure",
+        "expected_rust_time_saved_or_reason_not_applicable",
+        "interop_boundary",
+        "python_fallback_or_wrapper_plan",
+        "validation_plan",
+        "maintenance_tradeoffs",
+    ):
+        value = block.get(key)
+        if isinstance(value, str) and value.strip():
+            continue
+        if isinstance(value, list) and all(isinstance(item, str) and item.strip() for item in value) and value:
+            continue
+        raise TaskScopeError(f"{_rel(task_file)}: runtime_language_preflight.{key} must be non-empty text or string list")
+
+
 def validate_task_scope(
     *,
     task_file: Path,
     changed_files: list[str],
 ) -> dict[str, Any]:
     scope = load_task_scope(task_file)
+    task = scope["task"]
     normalized = _dedupe(changed_files)
     allowed = scope["allowed_paths"]
     forbidden = scope["forbidden_paths"]
@@ -236,6 +347,9 @@ def validate_task_scope(
             "protected changed path(s) lack explicit task scope: "
             + ", ".join(protected_without_explicit_scope)
         )
+
+    if _requires_runtime_language_preflight(task, task_file, normalized):
+        _validate_runtime_language_preflight(task, normalized, task_file)
 
     return {
         "task_file": _rel(task_file),
