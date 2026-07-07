@@ -11,6 +11,7 @@ Implemented requirements:
 - Source metadata guard: Strong's, lemma, morphology, WJ/red-letter, headings, notes, and cross-references are evidence only.
 - Sidecar specificity rule: low-confidence/frontier/atlas rows must name concrete uncertainty.
 - Validator coverage for the T467 overlay and T423 prompt/protocol/template wiring.
+- PR #160 review hardening: `validate_t423_literary_quality_protocol.py --model-folder --require-artifacts` now rejects model folders whose `book_strategy/<Book>.md` files omit the required T467 section names. This closes the gap where policy listed sections but artifact validation accepted minimal old-style notes.
 
 DAD reporting: deferred_due_to_interface_drift. T467 does not write `.digital-asset/` because the owner said DAD reporting is not working well and should not block the roadmap.
 

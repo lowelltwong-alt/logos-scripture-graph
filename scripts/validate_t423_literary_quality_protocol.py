@@ -31,6 +31,15 @@ REQUIRED_PROTOCOL_SIDEcars = (
     "atlas_candidate_feed.jsonl",
     "model_quality_summary.md",
 )
+REQUIRED_T467_STRATEGY_SECTIONS = {
+    "literary_form_decision_matrix",
+    "larger_unit_preservation_check",
+    "list_register_function_check",
+    "epistle_unit_check_if_applicable",
+    "source_metadata_evidence_only_check",
+    "over_split_risk_check",
+    "sidecar_specificity_plan",
+}
 
 SPAN_RE = re.compile(
     r"^([1-4]?[A-Za-z][A-Za-z0-9]*)\.(\d+)\.(\d+)"
@@ -235,18 +244,9 @@ def validate_policy() -> list[str]:
     ):
         if unit not in t467_overlay.get("epistle_unit_checklist", []):
             errors.append(f"quality protocol T467 overlay missing epistle unit {unit}")
-    required_strategy_sections = {
-        "literary_form_decision_matrix",
-        "larger_unit_preservation_check",
-        "list_register_function_check",
-        "epistle_unit_check_if_applicable",
-        "source_metadata_evidence_only_check",
-        "over_split_risk_check",
-        "sidecar_specificity_plan",
-    }
-    if not required_strategy_sections.issubset(set(t467_overlay.get("required_book_strategy_sections", []))):
+    if not REQUIRED_T467_STRATEGY_SECTIONS.issubset(set(t467_overlay.get("required_book_strategy_sections", []))):
         errors.append("quality protocol T467 overlay missing required book strategy sections")
-    if not required_strategy_sections.issubset(set(protocol.get("book_strategy_note_must_cover", []))):
+    if not REQUIRED_T467_STRATEGY_SECTIONS.issubset(set(protocol.get("book_strategy_note_must_cover", []))):
         errors.append("quality protocol book_strategy_note_must_cover missing T467 sections")
 
     manifest_quality = template.get("quality_protocol", {})
@@ -345,6 +345,14 @@ def validate_model_folder(model_folder: Path, *, books: set[str] | None = None, 
             for needle in ("strong", "evidence", "strategy"):
                 if needle not in strategy_text:
                     errors.append(f"{_rel(strategy_path)} must mention {needle}")
+            if require_artifacts:
+                missing_sections = sorted(
+                    section for section in REQUIRED_T467_STRATEGY_SECTIONS if section not in strategy_text
+                )
+                if missing_sections:
+                    errors.append(
+                        f"{_rel(strategy_path)} missing T467 required section(s): {', '.join(missing_sections)}"
+                    )
 
         rows = _iter_jsonl(book_chunks_root / book / "chunks.jsonl")
         if not rows:

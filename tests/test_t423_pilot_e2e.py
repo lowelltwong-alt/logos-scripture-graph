@@ -56,7 +56,14 @@ def _setup_model(folder: Path, model_id: str) -> None:
     for book in ("Phlm", "Jude"):
         (strategy_dir / f"{book}.md").write_text(
             "strategy: literary marker aware fixture. Strong's metadata considered evidence-only. "
-            "Substrate evidence reviewed.",
+            "Substrate evidence reviewed.\n"
+            "literary_form_decision_matrix: fixture.\n"
+            "larger_unit_preservation_check: fixture.\n"
+            "list_register_function_check: fixture.\n"
+            "epistle_unit_check_if_applicable: fixture.\n"
+            "source_metadata_evidence_only_check: fixture.\n"
+            "over_split_risk_check: fixture.\n"
+            "sidecar_specificity_plan: fixture.\n",
             encoding="utf-8",
         )
 

@@ -64,7 +64,14 @@ def _strategy(folder: Path, book: str = "Phlm") -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
         "strategy: literary marker aware. Strong's metadata considered evidence-only. "
-        "Substrate evidence reviewed before fallback.",
+        "Substrate evidence reviewed before fallback.\n"
+        "literary_form_decision_matrix: recorded.\n"
+        "larger_unit_preservation_check: recorded.\n"
+        "list_register_function_check: recorded.\n"
+        "epistle_unit_check_if_applicable: recorded.\n"
+        "source_metadata_evidence_only_check: recorded.\n"
+        "over_split_risk_check: recorded.\n"
+        "sidecar_specificity_plan: recorded.\n",
         encoding="utf-8",
     )
 
@@ -114,6 +121,26 @@ def test_low_confidence_fallback_requires_and_accepts_sidecars(tmp_path: Path) -
     _write_jsonl(folder / "atlas_candidate_feed.jsonl", [row])
 
     assert validate_model_folder(folder, books={"Phlm"}, require_artifacts=True) == []
+
+
+def test_require_artifacts_enforces_t467_book_strategy_sections(tmp_path: Path) -> None:
+    folder = tmp_path / "M_TEST"
+    _manifest(folder)
+    strategy_path = folder / "book_strategy" / "Phlm.md"
+    strategy_path.parent.mkdir(parents=True, exist_ok=True)
+    strategy_path.write_text(
+        "strategy: literary marker aware. Strong's metadata considered evidence-only.",
+        encoding="utf-8",
+    )
+    _write_jsonl(folder / "book_chunks" / "Phlm" / "chunks.jsonl", [_chunk(confidence="low")])
+    row = _sidecar_row()
+    _write_jsonl(folder / "low_confidence_register.jsonl", [row])
+    _write_jsonl(folder / "frontier_escalation_queue.jsonl", [row])
+    _write_jsonl(folder / "atlas_candidate_feed.jsonl", [row])
+
+    errors = validate_model_folder(folder, books={"Phlm"}, require_artifacts=True)
+    assert any("missing T467 required section(s)" in error for error in errors)
+    assert any("larger_unit_preservation_check" in error for error in errors)
 
 
 def test_frontier_books_require_frontier_flag(tmp_path: Path) -> None:
