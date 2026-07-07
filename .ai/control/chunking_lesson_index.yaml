@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T465
+last_updated_by_task: T467
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2198,6 +2198,48 @@ lessons:
       - scripts/validate_t465_multi_model_reconciliation_gate.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
+  - lesson_id: LSN-051
+    title: Harden chunking harnesses after model disagreement before reruns
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, auditability, workflow_governance, source_metadata]
+    tags: [t467, harness-hardening, over-splitting, list-register, epistle-units, strongs-evidence-only, future-rerun, non-authorizing]
+    use_when:
+      - "A future agent reruns a model lane, adds M7-M10, or edits the multi-model chunking marathon prompt."
+      - "A future agent sees disagreement caused by over-splitting lists, registers, legal material, allotments, battle reports, or epistle endings."
+      - "A future agent is tempted to use Strong's, lemma, morphology, WJ/red-letter, headings, footnotes, or cross-references as boundary authority."
+    preflight_stage: before_model_rerun_or_chunking_harness_edit
+    source_surfaces:
+      - .ai/control/t467_chunking_harness_hardening.yaml
+      - .ai/control/t423_literary_marker_quality_protocol.yaml
+      - .ai/control/multi_model_whole_bible_chunking_fork.yaml
+      - .ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md
+      - .ai/context/agent_work/T467/harness_hardening_notes.md
+      - scripts/validate_t467_chunking_harness_hardening.py
+      - scripts/validate_t423_literary_quality_protocol.py
+    related_decision_ids: [CD-106]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T465, T467]
+    downstream_risk: "A stricter harness can accidentally become an answer key or can hide theological/source-metadata assumptions unless it stays evidence-only and non-authorizing."
+    required_preflight_surfaces:
+      - .ai/control/t467_chunking_harness_hardening.yaml
+      - .ai/control/t423_literary_marker_quality_protocol.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - harness_as_chunk_answer_key
+      - larger_unit_preference_as_reviewed_gold
+      - source_metadata_as_boundary_authority
+      - model_rerun_authority
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - canon_scope_change
+      - theology_authority
+      - dad_reporting_as_success_gate
+    validators:
+      - scripts/validate_t467_chunking_harness_hardening.py
+      - scripts/validate_t423_literary_quality_protocol.py
+      - scripts/validate_chunking_lesson_index.py
 
 lesson_graph:
   - from: LSN-002
@@ -2659,4 +2701,16 @@ lesson_graph:
   - from: LSN-050
     relation: constrains
     to: LSN-048
+  - from: LSN-050
+    relation: governs_update_of
+    to: LSN-051
+  - from: LSN-002
+    relation: constrains
+    to: LSN-051
+  - from: LSN-051
+    relation: constrains
+    to: LSN-034
+  - from: LSN-051
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

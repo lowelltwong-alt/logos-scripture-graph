@@ -9,6 +9,12 @@ schema_version: t423_literary_marker_quality_protocol.v1
 task_id: T423
 strategy_id: literary_marker_aware_v2
 mode: scratch_non_authorizing
+policy_overlays:
+  - overlay_id: T467_literary_coherence_v1
+    applies_to: future_model_reruns_and_new_model_slots
+    control: .ai/control/t467_chunking_harness_hardening.yaml
+    source_triage: .ai/context/agent_work/T465/harness_triage.md
+    does_not_retroactively_invalidate_completed_models: true
 applies_to:
   fork_id: whole_bible_multi_model_chunking_v1
   model_slots: all
@@ -32,6 +38,43 @@ model_independence:
     - copying_another_model_chunk_map_before_own_completion
     - treating_template_order_as_boundary_authority
   required_in_book_strategy: independent_boundary_rationale
+t467_literary_coherence_overlay:
+  status: required_for_future_reruns
+  larger_unit_preservation_rule: |
+    Prefer coherent literary, legal, list, register, allotment, census,
+    worship-service, administrative, battle-report, and covenant-renewal units over
+    smaller local splits unless the unit changes function. If a model splits one of
+    these units, the book strategy or sidecar row must say what function changed.
+  do_not_over_split_forms:
+    - genealogy
+    - census
+    - tribal_allotment
+    - legal_list
+    - ritual_procedure
+    - temple_service_register
+    - royal_or_administrative_register
+    - battle_report
+    - covenant_renewal
+  epistle_unit_checklist:
+    - greeting
+    - thanksgiving_or_prayer
+    - body_argument
+    - exhortation_or_paraenesis
+    - household_or_church_order
+    - travel_or_mission_notes
+    - final_greetings
+    - doxology
+    - benediction
+  source_metadata_guard: "Strong's, lemma, morphology, WJ/red-letter, headings, notes, and cross-references are evidence only. They must not become boundary authority, theology authority, source-language truth, or a risk flag without a concrete literary/textual reason."
+  sidecar_specificity_rule: "Low-confidence, frontier, and atlas rows must name concrete uncertainty, not merely a model name or generic low confidence."
+  required_book_strategy_sections:
+    - literary_form_decision_matrix
+    - larger_unit_preservation_check
+    - list_register_function_check
+    - epistle_unit_check_if_applicable
+    - source_metadata_evidence_only_check
+    - over_split_risk_check
+    - sidecar_specificity_plan
 non_authorizations:
   - atlas_candidate_feed_is_not_stress_atlas_promotion
   - frontier_escalation_queue_is_not_frontier_verdict
@@ -182,18 +225,25 @@ sidecar_row_contracts:
 book_strategy_note_must_cover:
   - selected_strategy
   - literature_type_or_mixed_genre
+  - literary_form_decision_matrix
   - substrate_markers_considered
   - strongs_metadata_considered_evidence_only
+  - source_metadata_evidence_only_check
+  - larger_unit_preservation_check
+  - list_register_function_check
+  - epistle_unit_check_if_applicable
+  - over_split_risk_check
+  - sidecar_specificity_plan
   - chapter_only_fallback_reason_if_used
   - expected_low_confidence_regions
   - frontier_or_atlas_candidate_expectations
 book_specific_hints:
   Torah:
     books: [Gen, Exod, Lev, Num, Deut]
-    risks: [genealogy, law_code, ritual_procedure, embedded_poetry, covenant_context, source_tradition_pressure]
+    risks: [genealogy, law_code, ritual_procedure, census, covenant_renewal, embedded_poetry, covenant_context, source_tradition_pressure]
   FormerProphetsNarrative:
     books: [Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs, 2Kgs]
-    risks: [scene_boundary, speech_boundary, land_allotment, royal_list, embedded_poetry, variant_transition]
+    risks: [scene_boundary, speech_boundary, land_allotment, royal_list, administrative_register, battle_report, embedded_poetry, variant_transition]
   PoetryWisdom:
     books: [Job, Ps, Prov, Eccl, Song, Lam]
     risks: [stanza, acrostic, superscription, doxology, dialogue_speaker_shift, proverb_cluster]
@@ -205,7 +255,7 @@ book_specific_hints:
     risks: [vision_cycle, symbolic_scene, angelic_speech, hymnic_interruption, frontier_review_required]
   Epistles:
     books: [Rom, 1Cor, 2Cor, Gal, Eph, Phil, Col, 1Thess, 2Thess, 1Tim, 2Tim, Titus, Phlm, Heb, Jas, 1Pet, 2Pet, 1John, 2John, 3John, Jude]
-    risks: [greeting, thanksgiving, argument_unit, doxology, household_or_church_order, social_ethics_pressure]
+    risks: [greeting, thanksgiving, argument_unit, exhortation_or_paraenesis, travel_or_mission_notes, final_greetings, doxology, benediction, household_or_church_order, social_ethics_pressure]
 validator:
   script: scripts/validate_t423_literary_quality_protocol.py
   policy_gate: python scripts/validate_t423_literary_quality_protocol.py --policy-only

@@ -176,6 +176,9 @@ literary_marker_quality_protocol:
   strategy_id: literary_marker_aware_v2
   control: .ai/control/t423_literary_marker_quality_protocol.yaml
   required_for_all_model_slots: true
+  active_policy_overlay: T467_literary_coherence_v1
+  hardening_control: .ai/control/t467_chunking_harness_hardening.yaml
+  hardening_applies_to: future_model_reruns_and_new_model_slots
   mark_complete_gate: scripts/validate_t423_literary_quality_protocol.py
   rule: |
     Models must make literary-form judgments, not silent chapter-only maps. Chapter
@@ -183,6 +186,11 @@ literary_marker_quality_protocol:
     or marker-rich regions are surfaced to the low-confidence, frontier, and atlas
     candidate sidecars. Atlas candidate rows are consideration-only and have no
     promotion authority.
+  t467_hardening_rule: |
+    Future reruns must preserve larger coherent list, register, legal, allotment,
+    census, worship-service, administrative, battle-report, covenant-renewal, and
+    epistle units unless a function change is logged. Strong's, lemma, morphology,
+    WJ/red-letter, headings, notes, and cross-references remain evidence only.
   required_sidecars:
     - book_strategy/<Book>.md
     - low_confidence_register.jsonl

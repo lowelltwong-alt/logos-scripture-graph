@@ -641,6 +641,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t465_multi_model_reconciliation_gate.py")],
         ),
         (
+            "validate_t467_chunking_harness_hardening.py",
+            [PY, str(ROOT / "scripts" / "validate_t467_chunking_harness_hardening.py")],
+        ),
+        (
             "validate_scratch_scope.py",
             [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
         ),
