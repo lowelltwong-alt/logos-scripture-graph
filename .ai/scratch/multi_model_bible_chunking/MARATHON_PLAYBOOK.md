@@ -36,13 +36,14 @@ python scripts/t423_merge_book_chunks.py "$MODEL"
 
 Pilot books: **Gen, Ps, Phlm, Jonah, Rev**
 
-1. Run M1–M4 through pilot books only (validator blocks books outside pilot until `pilot_gate.status: go`)
+1. Run M1-M4 through pilot books only (validator blocks books outside pilot until `pilot_gate.status: go`)
 2. Merge + batch compare pilot:
    ```bash
    python scripts/compare_multi_model_bible_chunk_maps.py --book Gen --book Ps --book Phlm --book Jonah --book Rev
    python scripts/evaluate_t423_revert_signal.py --pilot-only
    ```
-3. Owner reviews `comparison/delta_summary.md`; sets `pilot_gate.status: go` in fork YAML if passing
+3. Owner reviews `comparison/delta_summary.md`; sets `pilot_gate.status: go` in fork YAML if authorizing full scratch marathons
+4. `pilot_gate.status: go` authorizes scratch marathon and batch compare only; it does not authorize reviewed gold, governed chunk output, route/evaluator behavior, graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority
 4. Release full 66-book marathons
 
 ## Batch compare (after all models complete)

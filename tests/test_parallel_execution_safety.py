@@ -62,6 +62,35 @@ def test_parallel_safety_rejects_cross_task_untracked_artifacts(monkeypatch: pyt
         validator.validate_parallel_execution_safety(task_id="T410", allow_current_task_dirty=True)
 
 
+def test_parallel_safety_allows_declared_t464_integration_artifacts(monkeypatch: pytest.MonkeyPatch) -> None:
+    _patch_common_git(
+        monkeypatch,
+        branch="scratch/t423-M4-codex-gpt55",
+        status=(
+            "?? .ai/tasks/T423.task.yaml\n"
+            "?? .ai/tasks/T424.task.yaml\n"
+            "?? .ai/handoffs/T423/handoff.md\n"
+            "?? .ai/handoffs/T464/handoff.md\n"
+        ),
+    )
+
+    result = validator.validate_parallel_execution_safety(task_id="T464", allow_current_task_dirty=True)
+
+    assert ".ai/tasks/T423.task.yaml" in result["dirty_paths"]
+    assert ".ai/tasks/T424.task.yaml" in result["dirty_paths"]
+
+
+def test_parallel_safety_t464_still_rejects_unrelated_task_artifacts(monkeypatch: pytest.MonkeyPatch) -> None:
+    _patch_common_git(
+        monkeypatch,
+        branch="scratch/t423-M4-codex-gpt55",
+        status="?? .ai/tasks/T999.task.yaml\n",
+    )
+
+    with pytest.raises(validator.ParallelSafetyError, match="another task id"):
+        validator.validate_parallel_execution_safety(task_id="T464", allow_current_task_dirty=True)
+
+
 def test_parallel_safety_rejects_merge_state(monkeypatch: pytest.MonkeyPatch) -> None:
     _patch_common_git(monkeypatch)
     monkeypatch.setattr(validator, "active_merge_states", lambda: ["MERGE_HEAD"])

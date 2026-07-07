@@ -416,6 +416,50 @@ class BookCompareResult:
     agreement_rate_exact_span_legacy: float = 0.0
 
 
+@dataclass(frozen=True)
+class ChunkSpanInfo:
+    record: dict[str, Any]
+    span: SpanRange
+    normalized_span: str
+    literature_type: str
+
+
+def build_chunk_span_index(chunks: list[dict[str, Any]], book: str) -> list[ChunkSpanInfo]:
+    index: list[ChunkSpanInfo] = []
+    for chunk in chunks:
+        if str(chunk.get("book", "")) != book:
+            continue
+        span_raw = chunk.get("span")
+        if not isinstance(span_raw, str):
+            continue
+        try:
+            span = parse_span(span_raw)
+        except ValueError:
+            continue
+        index.append(
+            ChunkSpanInfo(
+                record=chunk,
+                span=span,
+                normalized_span=span.normalized_span(),
+                literature_type=str(chunk.get("literature_type_guess", "")),
+            )
+        )
+    index.sort(key=lambda info: info.span.start.key())
+    return index
+
+
+def build_verse_chunk_lookup(
+    verse_keys: list[VerseRef],
+    chunk_index: list[ChunkSpanInfo],
+) -> dict[tuple[str, int, int], ChunkSpanInfo]:
+    lookup: dict[tuple[str, int, int], ChunkSpanInfo] = {}
+    for info in chunk_index:
+        for ref in verse_keys:
+            if verse_in_span(ref, info.span):
+                lookup.setdefault(ref.key(), info)
+    return lookup
+
+
 def compare_book_verse_coverage(
     chunks_by_model: dict[str, list[dict[str, Any]]],
     book: str,
@@ -441,6 +485,15 @@ def compare_book_verse_coverage(
             chunk_counts=counts,
         )
 
+    chunk_indexes = {
+        mid: build_chunk_span_index(book_chunks[mid], book)
+        for mid in model_ids
+    }
+    verse_chunk_by_model = {
+        mid: build_verse_chunk_lookup(verse_keys, chunk_indexes[mid])
+        for mid in model_ids
+    }
+
     majority = majority_required(n)
     verses_agreed = 0
     verse_span_by_model: dict[tuple[str, int, int], dict[str, str | None]] = {}
@@ -449,7 +502,8 @@ def compare_book_verse_coverage(
         vkey = ref.key()
         spans_for_verse: dict[str, str | None] = {}
         for mid in model_ids:
-            spans_for_verse[mid] = span_for_verse(book_chunks[mid], ref)
+            info = verse_chunk_by_model[mid].get(vkey)
+            spans_for_verse[mid] = info.normalized_span if info else None
         verse_span_by_model[vkey] = spans_for_verse
 
         present = {mid: s for mid, s in spans_for_verse.items() if s is not None}
@@ -468,13 +522,9 @@ def compare_book_verse_coverage(
     span_model_sets: dict[str, set[str]] = defaultdict(set)
     lit_by_span: dict[str, str] = {}
     for mid in model_ids:
-        for chunk in book_chunks[mid]:
-            try:
-                norm = normalize_span(str(chunk["span"]))
-            except (ValueError, KeyError):
-                continue
-            span_model_sets[norm].add(mid)
-            lit_by_span.setdefault(norm, str(chunk.get("literature_type_guess", "")))
+        for info in chunk_indexes[mid]:
+            span_model_sets[info.normalized_span].add(mid)
+            lit_by_span.setdefault(info.normalized_span, info.literature_type)
 
     span_consensus: list[dict[str, Any]] = []
     for span, models in sorted(span_model_sets.items()):
@@ -504,14 +554,12 @@ def compare_book_verse_coverage(
 
     uncovered: dict[str, list[str]] = {}
     for mid in model_ids:
-        covered: set[tuple[str, int, int]] = set()
-        for chunk in book_chunks[mid]:
-            try:
-                for ref in iter_verses_in_span(parse_span(str(chunk["span"]))):
-                    covered.add(ref.key())
-            except ValueError:
-                continue
-        missing = [f"{book}.{c}.{v}" for b, c, v in [k for k in (vk.key() for vk in verse_keys) if k not in covered]]
+        covered = set(verse_chunk_by_model[mid])
+        missing = [
+            f"{book}.{ref.chapter}.{ref.verse}"
+            for ref in verse_keys
+            if ref.key() not in covered
+        ]
         if missing:
             uncovered[mid] = missing[:5]
 
@@ -550,22 +598,15 @@ def compare_book_verse_coverage(
     if disagreeing_verses:
         runs = contiguous_verse_runs(verse_keys, disagreeing_verses)
         for run in runs:
-            region_start = run[0]
-            region_end = run[-1]
             span_by_model: dict[str, str] = {}
             lit_by_model: dict[str, str] = {}
             for ref in run:
+                vkey = ref.key()
                 for mid in model_ids:
-                    s = verse_span_by_model[ref.key()].get(mid)
-                    if s:
-                        span_by_model[mid] = s
-                for mid in model_ids:
-                    for chunk in book_chunks[mid]:
-                        try:
-                            if span_for_verse([chunk], ref) is not None:
-                                lit_by_model[mid] = str(chunk.get("literature_type_guess", ""))
-                        except ValueError:
-                            pass
+                    info = verse_chunk_by_model[mid].get(vkey)
+                    if info:
+                        span_by_model[mid] = info.normalized_span
+                        lit_by_model[mid] = info.literature_type
 
             region = region_span_for_verses(run)
 

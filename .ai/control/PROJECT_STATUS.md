@@ -4,6 +4,24 @@
 **Updated by:** T463 original-language stack integration, AI PR lifecycle, and Rust validator adoption
 **Active task:** -> **T463 original-language stack integration** on `codex/t431-t442-original-language-integration`. This is non-authorizing integration and validation hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
 
+> **T464 multi-model chunking comparison docket (2026-07-07):** Six whole-Bible scratch
+> model lanes (`M1_cursor`, `M2_claude_sonnet5`, `M3_claude_frontier`, `M4_codex_gpt55`,
+> `M5_gemini_thinking`, `M6_fable5`) are frozen as non-authorizing evidence and compared.
+> Generated comparison artifacts live under
+> `.ai/scratch/multi_model_bible_chunking/comparison/`: `agreement_chunks.jsonl`,
+> `disagreement_delta.jsonl`, `owner_decision_docket.yaml`, `frontier_review_queue.jsonl`,
+> `harness_improvement_queue.md`, `model_agreement_matrix.yaml`, and `delta_summary.md`.
+> The fork signal is **FULL_FAIL** for direct promotion: verse-coverage agreement is 6.17%
+> against a 50.00% full-run threshold, with 144 agreement candidates and 1048 deltas.
+> Use the docket for reconciliation, frontier review, and harness improvement only. Agreement,
+> including `M4_codex_gpt55` plus `M6_fable5` alignment, is evidence and not authority.
+> Textual-variant/source-tradition hot zones route to frontier review even under model
+> agreement. Mark 16 explicitly requires major codex witness review, Codex Vaticanus
+> layout/blank-space review, Codex Sinaiticus ending review, scribal letters-per-column and
+> column-space analysis, manuscript transmission history, and longer-ending specialist review.
+> T464 authorizes no reviewed gold, chunk output, child spans, route/evaluator behavior,
+> graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority.
+
 > **T463 integration hardening (2026-07-06):** Integrates the T431-T442
 > original-language evidence stack on current `main`, adds
 > `.ai/control/ai_pr_lifecycle_policy.yaml` so AI-created draft work must reach PR,
@@ -27,7 +45,10 @@
 > governance ergonomics. DAD candidate lesson:
 > `msg-20260706-t462-modular-rust-validator-bundle`.
 
-> **T423 comparison/delta analysis next:** after the six-model scratch marathon artifacts merge. Do not run comparison until starting that next task from current `main`.
+> **T465 recommended next route:** do not rerun the whole comparison unless artifacts change. Start
+> from T464's `owner_decision_docket.yaml`, `frontier_review_queue.jsonl`, and
+> `harness_improvement_queue.md`; first reconcile harness weaknesses and open a Mark 16 specialist
+> packet before any reviewed-gold or output-changing task.
 
 > **T423 six-model whole-Bible marathon integration (2026-07-06):** M1_cursor,
 > M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, and

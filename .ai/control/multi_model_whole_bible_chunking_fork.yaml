@@ -90,6 +90,17 @@ execution_mode:
     - realtime_two_model_same_verse_work
 pilot_gate:
   status: go
+  status_reason: "Owner authorized full scratch marathons after the pilot; T464 comparison is complete and non-authorizing."
+  gate_scope: scratch_marathon_and_batch_compare_only
+  does_not_authorize:
+    - reviewed_gold
+    - chunk_output
+    - child_spans
+    - route_or_evaluator_behavior
+    - graph_retrieval_or_vector_truth
+    - source_tradition_preference
+    - canon_change
+    - theology_authority
   required_books: [Gen, Ps, Phlm, Jonah, Rev]
   required_complete_models: 4
   required_checks:
@@ -98,7 +109,7 @@ pilot_gate:
       - {book: Phlm, span: Phlm.1.1-Phlm.1.7}
       - {book: Jude, span: Jude.1.1-Jude.1.2}
       - {book: Jonah, span: Jonah.1.1-Jonah.1.3}
-  full_marathon_blocked_until: pilot_gate.status == go
+  full_marathon_blocked_until: satisfied_by_owner_full_scratch_marathon_authorization
 model_slots:
   - model_id: M1_cursor
     agent_surface: cursor
@@ -262,8 +273,16 @@ comparison_outputs:
   focus_queue: comparison/delta_focus_queue.yaml
   comparison_matrix: comparison/model_agreement_matrix.yaml
   delta_summary: comparison/delta_summary.md
+  owner_decision_docket: comparison/owner_decision_docket.yaml
+  frontier_review_queue: comparison/frontier_review_queue.jsonl
+  harness_improvement_queue: comparison/harness_improvement_queue.md
   agreement_record_required_fields:
     - promotion_authority
+    - agreement_id
+    - docket_status
+    - confidence_rollup
+    - risk_flags
+    - sidecar_refs
   agreement_promotion_authority_value: none
 dad_integration:
   hub: dad://hub/Digital-Assett-Directory
@@ -321,5 +340,6 @@ validators:
   - scripts/validate_t423_pilot_gate.py
   - scripts/validate_t423_parallel_isolation.py
   - scripts/validate_t423_literary_quality_protocol.py
+  - scripts/validate_t464_multi_model_decision_docket.py
   - scripts/validate_scratch_scope.py
   - scripts/validate_scratch_lane_policy.py

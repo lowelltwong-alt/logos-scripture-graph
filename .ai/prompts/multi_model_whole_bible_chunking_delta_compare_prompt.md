@@ -156,3 +156,19 @@ Update `.digital-asset/lessons/t423_multi_model_whole_bible_chunking_fork.yaml` 
 - No `data/candidate/chunks/` writes
 - Agreement does not auto-promote reviewed gold
 - Do not delete or edit model source maps — compare read-only
+
+---
+
+## T464 decision docket addendum
+
+When T464 runs after all six model marathons complete, produce these additional non-authorizing artifacts:
+
+- `comparison/owner_decision_docket.yaml`
+- `comparison/frontier_review_queue.jsonl`
+- `comparison/harness_improvement_queue.md`
+
+Use `M4_codex_gpt55` and `M6_fable5` as the preferred disagreement lens. If both agree on a disputed span, mark `recommended_candidate_basis: codex_fable_alignment`, but never treat that as owner selection or reviewed-gold authority.
+
+Variant/source-tradition hot zones must never remain easy consensus, even when all models agree. Route them to frontier review or owner decision. Current hot zones include Mark 16:9-20, John 7:53-8:11, Acts omitted-verse witnesses, Romans 16 doxology placement, Deut 32:8-9, Jeremiah MT/LXX order/length, Jude 5-15, Daniel/Esther additions routing, and 1 John 5:6-8.
+
+For Mark 16 longer-ending rows, add expert review lanes for Codex Vaticanus layout/blank-space review, Codex Sinaiticus ending review, major codex witness review, scribal-layout/transmission-history review, and scribal letters-per-column/column-space capacity analysis. That physical-layout analysis must consider letters per line, lines per column, blank column size, quire/page layout, section marks, scribal hand/spacing patterns, and whether a proposed reconstruction could fit the available space. Do not decide inspiration, preferred reading, source-tradition preference, or reviewed-gold/output authority in the comparison pass.

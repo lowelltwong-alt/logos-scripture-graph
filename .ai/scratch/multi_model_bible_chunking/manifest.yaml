@@ -6,7 +6,7 @@ task_id: T423
 policy: .ai/control/multi_model_whole_bible_chunking_fork.yaml
 quality_protocol: .ai/control/t423_literary_marker_quality_protocol.yaml
 quality_strategy_id: literary_marker_aware_v2
-status: marathon_complete_pending_compare
+status: marathon_complete_compared_non_authorizing
 model_count:
   minimum_to_compare: 3
   initial_target: 6
@@ -21,6 +21,8 @@ compare_mode: batch_offline_after_all_models_complete
 pilot_gate:
   status: go
   mirrors: .ai/control/multi_model_whole_bible_chunking_fork.yaml
+  gate_scope: scratch_marathon_and_batch_compare_only
+  non_authorization: "Does not authorize reviewed gold, governed chunk output, child spans, route/evaluator changes, graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority."
 strategy: |
   Each model chunks the entire Bible alone in its own folder (M1_cursor, M2_claude_sonnet5, ...).
   Save one book at a time under book_chunks/<Book>/chunks.jsonl. No real-time cross-model work.
@@ -77,5 +79,6 @@ models:
 comparison:
   folder: comparison/
   run_after: all_models_complete_or_owner_interim_compare
+  status: complete
 canon_promotion: forbidden_in_scratch
 revert_to_baseline: .ai/control/parallel_chunking_research_program.yaml

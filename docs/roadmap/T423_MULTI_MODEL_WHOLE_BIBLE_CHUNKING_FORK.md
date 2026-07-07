@@ -35,7 +35,11 @@ If the fork fails → **revert to** `.ai/control/parallel_chunking_research_prog
 
 ## Pilot gate
 
-Five pilot books (Gen, Ps, Phlm, Jonah, Rev) before full 66 on all models. Owner sets `pilot_gate.status: go` after batch pilot compare passes.
+The original pilot gate covered five pilot books (Gen, Ps, Phlm, Jonah, Rev) before full 66 on all
+models. The owner later authorized full scratch marathons; `pilot_gate.status: go` now means
+scratch-marathon and batch-compare permission only. It does not authorize reviewed gold, governed
+chunk output, child spans, route/evaluator changes, graph/retrieval/vector truth,
+source-tradition preference, canon change, or theology authority.
 
 ## Marathon flow (one model, book segments)
 

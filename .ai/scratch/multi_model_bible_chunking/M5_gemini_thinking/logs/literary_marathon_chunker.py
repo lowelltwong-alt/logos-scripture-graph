@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 import json
 import sys
 from pathlib import Path
@@ -79,7 +79,7 @@ def write_book_strategy(book: str, chunk_count: int):
         markers = "p, f"
         low_conf = "General boundaries."
 
-    content = f"""# {book} — book strategy (literary_marker_aware_v2)
+    content = f"""# {book} â€” book strategy (literary_marker_aware_v2)
 
 ## selected_strategy
 {book}: {family}. {chunk_count} chunks from paragraph (`p`), chapter, and literary markers in observation substrate.

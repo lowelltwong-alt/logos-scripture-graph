@@ -20,6 +20,8 @@ from scripts.t423_chunk_map_utils import (
     discover_model_folders,
     load_fork_policy,
     normalize_span,
+    parse_span,
+    spans_overlap,
 )
 
 COMPARISON = SCRATCH_ROOT / "comparison"
@@ -44,6 +46,33 @@ def _read_jsonl_spans(path: Path) -> list[dict[str, Any]]:
             if line:
                 rows.append(json.loads(line))
     return rows
+
+
+def _row_surfaces_span(row: dict[str, Any], *, book: str, span: str) -> bool:
+    if str(row.get("book", "")) != book:
+        return False
+    try:
+        required = parse_span(span)
+    except ValueError:
+        return False
+
+    candidates: list[str] = []
+    top_span = row.get("span") or row.get("region")
+    if isinstance(top_span, str):
+        candidates.append(top_span)
+    models = row.get("models", {})
+    if isinstance(models, dict):
+        candidates.extend(str(value) for value in models.values() if isinstance(value, str))
+
+    for candidate in candidates:
+        if "." not in candidate:
+            continue
+        try:
+            if spans_overlap(required, parse_span(candidate)):
+                return True
+        except ValueError:
+            continue
+    return False
 
 
 def validate_pilot_gate(*, policy: dict[str, Any] | None = None, scratch_root: Path | None = None) -> list[str]:
@@ -79,24 +108,6 @@ def validate_pilot_gate(*, policy: dict[str, Any] | None = None, scratch_root: P
             ]
         agreements = _read_jsonl_spans(AGREEMENT)
         deltas = _read_jsonl_spans(DELTAS)
-        comparison_ledgers_present = bool(agreements or deltas)
-        surfaced: set[tuple[str, str]] = set()
-        for row in agreements + deltas:
-            book = str(row.get("book", ""))
-            span = row.get("span") or row.get("region", "")
-            if isinstance(span, str) and book:
-                try:
-                    surfaced.add((book, normalize_span(span)))
-                except ValueError:
-                    surfaced.add((book, span))
-            models = row.get("models", {})
-            if isinstance(models, dict):
-                for span_val in models.values():
-                    if isinstance(span_val, str) and "." in span_val:
-                        try:
-                            surfaced.add((book, normalize_span(span_val)))
-                        except ValueError:
-                            surfaced.add((book, span_val))
 
         for entry in batch2_spans:
             if not isinstance(entry, dict):
@@ -104,10 +115,11 @@ def validate_pilot_gate(*, policy: dict[str, Any] | None = None, scratch_root: P
             book = str(entry.get("book", ""))
             span = str(entry.get("span", ""))
             try:
-                key = (book, normalize_span(span))
+                normalized = normalize_span(span)
             except ValueError:
-                key = (book, span)
-            if key not in surfaced and comparison_ledgers_present:
+                normalized = span
+            surfaced = any(_row_surfaces_span(row, book=book, span=normalized) for row in agreements + deltas)
+            if not surfaced and (COMPARISON / "model_agreement_matrix.yaml").is_file():
                 errors.append(f"batch2 span not in agreement or delta ledgers: {book} {span}")
 
     if not gate:

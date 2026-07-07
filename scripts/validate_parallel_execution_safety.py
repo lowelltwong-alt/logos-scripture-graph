@@ -135,6 +135,17 @@ def _branch_matches_task(*, branch: str, task_id: str, expected_branch: str | No
     return task_id.lower().replace("_", "-") in branch.lower().replace("_", "-")
 
 
+def _artifact_task_allowed_for_current_task(*, task_id: str, artifact_task: str) -> bool:
+    """Allow only declared integration tasks to carry related task artifacts."""
+    if artifact_task == task_id:
+        return True
+    related_task_sets = [
+        {"T417", "T420"},
+        {"T423", "T424", "T464"},
+    ]
+    return any(task_id in task_set and artifact_task in task_set for task_set in related_task_sets)
+
+
 def validate_parallel_execution_safety(
     *,
     task_id: str,
@@ -167,8 +178,7 @@ def validate_parallel_execution_safety(
         if entry.code == "??"
         for artifact_task in [_task_id_from_artifact(entry.path)]
         if artifact_task
-        and artifact_task != task_id
-        and not (task_id in {"T417", "T420"} and artifact_task in {"T417", "T420"})
+        and not _artifact_task_allowed_for_current_task(task_id=task_id, artifact_task=artifact_task)
     ]
     if other_task_artifacts:
         raise ParallelSafetyError("untracked artifacts from another task id present: " + ", ".join(other_task_artifacts))

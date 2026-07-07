@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 import json
 import shutil
 import subprocess
@@ -131,7 +131,7 @@ def write_checkpoint(wave_id: int, books: list[str], sidecar_before: int, wj_boo
         next_books = next(bs for w, bs in WAVES if w == next_wave)
         lines.append(f"- Wave {next_wave}: {', '.join(next_books)}")
     else:
-        lines.append("- Marathon complete — merge and final validation.")
+        lines.append("- Marathon complete â€” merge and final validation.")
     lines.extend([
         "", "## non-authorizations",
         "- No compare, no canon output, no reviewed gold, no route/evaluator changes, no graph/retrieval/vector truth, no theology authority."

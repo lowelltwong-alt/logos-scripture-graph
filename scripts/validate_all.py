@@ -151,6 +151,13 @@ def task_scope_gates() -> list[tuple[str, list[str]]]:
                 [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", task_id],
             )
         ]
+    if "T464" in task_ids and set(task_ids) <= {"T423", "T424", "T464"}:
+        return [
+            (
+                "validate_task_scope.py --task-id T464",
+                [PY, str(ROOT / "scripts" / "validate_task_scope.py"), "--task-id", "T464"],
+            )
+        ]
     if set(task_ids) <= {"T417", "T420"}:
         return [
             (
@@ -202,6 +209,19 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
                     str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
                     "--task-id",
                     task_id,
+                    "--allow-current-task-dirty",
+                ],
+            )
+        ]
+    if "T464" in task_ids and set(task_ids) <= {"T423", "T424", "T464"}:
+        return [
+            (
+                "validate_parallel_execution_safety.py --task-id T464",
+                [
+                    PY,
+                    str(ROOT / "scripts" / "validate_parallel_execution_safety.py"),
+                    "--task-id",
+                    "T464",
                     "--allow-current-task-dirty",
                 ],
             )
@@ -607,6 +627,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
         (
             "validate_t423_parallel_isolation.py",
             [PY, str(ROOT / "scripts" / "validate_t423_parallel_isolation.py"), "--policy-only"],
+        ),
+        (
+            "validate_t423_literary_quality_protocol.py",
+            [PY, str(ROOT / "scripts" / "validate_t423_literary_quality_protocol.py"), "--policy-only"],
+        ),
+        (
+            "validate_t464_multi_model_decision_docket.py",
+            [PY, str(ROOT / "scripts" / "validate_t464_multi_model_decision_docket.py")],
         ),
         (
             "validate_scratch_scope.py",

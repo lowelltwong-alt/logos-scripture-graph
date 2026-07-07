@@ -1,4 +1,4 @@
-# M1_cursor — model quality summary (pilot books)
+﻿# M1_cursor â€” model quality summary (pilot books)
 
 **Model:** M1_cursor
 **Strategy:** literary_marker_aware_v2
