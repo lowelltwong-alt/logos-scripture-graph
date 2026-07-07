@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T463
+last_updated_by_task: T465
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2155,6 +2155,49 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_t464_multi_model_decision_docket.py
+  - lesson_id: LSN-050
+    title: Reconcile scratch chunking before owner gates
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, auditability, workflow_governance, original_language]
+    tags: [t465, reconciliation, mark16, specialist-packet, owner-docket, m4-m6, manuscript-layout, letters-per-column, non-authorizing]
+    use_when:
+      - "A future agent turns multi-model scratch chunk maps into owner candidates, frontier prompts, or harness fixes."
+      - "A future agent touches Mark 16 or another textual-variant/source-tradition hot zone after model comparison."
+      - "A future agent is tempted to treat M4/M6 alignment, manuscript-layout questions, or owner docket rows as reviewed gold or output."
+    preflight_stage: before_reconciliation_owner_docket_or_specialist_packet_work
+    source_surfaces:
+      - docs/roadmap/T465_MULTI_MODEL_CHUNKING_RECONCILIATION_GATE.md
+      - .ai/tasks/T465.task.yaml
+      - .ai/control/t465_multi_model_reconciliation_gate.yaml
+      - .ai/context/agent_work/T465/harness_triage.md
+      - .ai/context/agent_work/T465/mark16_specialist_packet.md
+      - .ai/context/agent_work/T465/owner_candidate_docket.yaml
+      - .ai/prompts/t465_mark16_frontier_specialist_review_prompt.md
+      - scripts/validate_t465_multi_model_reconciliation_gate.py
+    related_decision_ids: [CD-105]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T464, T465]
+    downstream_risk: "A reconciliation packet can feel like a decision if it is not explicitly non-authorizing; Mark 16 manuscript-layout research can be mistaken for inspiration, canon, source-tradition, or chunk-output authority."
+    required_preflight_surfaces:
+      - .ai/control/t465_multi_model_reconciliation_gate.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - scripts/validate_t465_multi_model_reconciliation_gate.py
+    non_authorizations:
+      - m4_m6_alignment_as_owner_selection
+      - owner_docket_as_reviewed_gold
+      - specialist_packet_as_preferred_reading
+      - mark16_inspiration_decision
+      - source_tradition_preference
+      - canon_scope_change
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+    validators:
+      - scripts/validate_t465_multi_model_reconciliation_gate.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
 
 lesson_graph:
   - from: LSN-002
@@ -2602,6 +2645,18 @@ lesson_graph:
     relation: constrains
     to: LSN-034
   - from: LSN-049
+    relation: constrains
+    to: LSN-048
+  - from: LSN-049
+    relation: governs_update_of
+    to: LSN-050
+  - from: LSN-010
+    relation: audits
+    to: LSN-050
+  - from: LSN-050
+    relation: constrains
+    to: LSN-034
+  - from: LSN-050
     relation: constrains
     to: LSN-048
 validator: scripts/validate_chunking_lesson_index.py

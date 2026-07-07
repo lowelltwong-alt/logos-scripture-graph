@@ -1,8 +1,21 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-06
-**Updated by:** T463 original-language stack integration, AI PR lifecycle, and Rust validator adoption
-**Active task:** -> **T463 original-language stack integration** on `codex/t431-t442-original-language-integration`. This is non-authorizing integration and validation hardening only: no chunk output, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
+**Last updated:** 2026-07-07
+**Updated by:** T465 multi-model reconciliation gate and Mark 16 specialist packet
+**Active task:** -> **T465 multi-model chunking reconciliation gate** on `codex/t465-multi-model-reconciliation-gate`. This is non-authorizing packet, triage, and owner-docket work only: no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
+
+> **T465 reconciliation gate (2026-07-07):** T465 turns T464's comparison outputs into
+> governed next-action artifacts without promoting any chunk output. It adds
+> `.ai/control/t465_multi_model_reconciliation_gate.yaml`, a harness triage for the
+> 78 `harness_fix_or_rerun_required` rows, a Mark 16 frontier/specialist packet, a
+> 19-row owner candidate docket from `M4_codex_gpt55` plus `M6_fable5` alignments,
+> and a Claude/frontier Mark 16 review prompt. The Mark 16 packet names Vaticanus
+> blank-space/layout, Sinaiticus ending, letters-per-line/column capacity, other
+> witnesses, patristic evidence, and downstream chunking implications as research
+> questions only. T465 authorizes no reviewed gold, chunk output, child spans,
+> route/evaluator behavior, graph/retrieval/vector truth, preferred reading,
+> source-tradition preference, canon change, Mark 16 inspiration decision, or
+> theology authority.
 
 > **T464 multi-model chunking comparison docket (2026-07-07):** Six whole-Bible scratch
 > model lanes (`M1_cursor`, `M2_claude_sonnet5`, `M3_claude_frontier`, `M4_codex_gpt55`,
@@ -45,10 +58,9 @@
 > governance ergonomics. DAD candidate lesson:
 > `msg-20260706-t462-modular-rust-validator-bundle`.
 
-> **T465 recommended next route:** do not rerun the whole comparison unless artifacts change. Start
-> from T464's `owner_decision_docket.yaml`, `frontier_review_queue.jsonl`, and
-> `harness_improvement_queue.md`; first reconcile harness weaknesses and open a Mark 16 specialist
-> packet before any reviewed-gold or output-changing task.
+> **T466 likely next route:** do not rerun the whole comparison unless artifacts change. Use
+> T465's owner docket for one exact owner-selected review-packet strengthening lane, or send
+> `mark16_specialist_packet.md` to Claude/frontier before any Mark 16 owner decision.
 
 > **T423 six-model whole-Bible marathon integration (2026-07-06):** M1_cursor,
 > M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, and

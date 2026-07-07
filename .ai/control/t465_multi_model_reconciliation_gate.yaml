@@ -1,0 +1,69 @@
+---
+object_type: t465_multi_model_reconciliation_gate
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created during T465 to turn T464 comparison outputs into non-authorizing reconciliation packets, a Mark 16 specialist/frontier packet, and an owner candidate docket."
+---
+schema_version: t465_multi_model_reconciliation_gate.v1
+task_id: T465
+source_task_id: T464
+source_artifacts:
+  comparison_root: .ai/scratch/multi_model_bible_chunking/comparison
+  owner_decision_docket: .ai/scratch/multi_model_bible_chunking/comparison/owner_decision_docket.yaml
+  frontier_review_queue: .ai/scratch/multi_model_bible_chunking/comparison/frontier_review_queue.jsonl
+  harness_improvement_queue: .ai/scratch/multi_model_bible_chunking/comparison/harness_improvement_queue.md
+  delta_summary: .ai/scratch/multi_model_bible_chunking/comparison/delta_summary.md
+outputs:
+  harness_triage: .ai/context/agent_work/T465/harness_triage.md
+  mark16_specialist_packet: .ai/context/agent_work/T465/mark16_specialist_packet.md
+  owner_candidate_docket: .ai/context/agent_work/T465/owner_candidate_docket.yaml
+  frontier_prompt: .ai/prompts/t465_mark16_frontier_specialist_review_prompt.md
+preferred_evidence_lens:
+  model_pair: [M4_codex_gpt55, M6_fable5]
+  authority: evidence_only
+  never_bypasses:
+    - owner_gate
+    - frontier_review_for_high_risk_or_low_confidence
+    - reviewed_gold_promotion_gate
+    - output_change_gate
+mark16_gate:
+  source_id: DELTA-Mark-016
+  scope:
+    - Mark.16.1-Mark.16.20
+    - Mark.16.9-Mark.16.20
+  packet_status: frontier_specialist_review_needed
+  specialist_lanes:
+    - codex_vaticanus_layout_blank_space_review
+    - codex_sinaiticus_ending_review
+    - major_codex_witness_review
+    - scribal_letters_per_line_and_column_capacity_review
+    - patristic_evidence_review
+    - manuscript_transmission_history
+    - textual_variant_source_tradition_review
+    - wj_speaker_discourse_review
+  research_needed_fields_required: true
+authorization:
+  records_reconciliation_next_actions: true
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  authorizes_target_selection: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_truth: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  decides_mark16_inspiration_status: false
+  authorizes_theology_authority: false
+dad_reporting:
+  status: best_effort_candidate_only
+  required_for_t465_success: false
+  candidate_message_id: msg-20260707-t465-multi-model-reconciliation-gate
+validation:
+  validator: scripts/validate_t465_multi_model_reconciliation_gate.py
+  full_compare_rerun_required: false
+  expected_m4_m6_candidate_count: 19
+  expected_harness_fix_rows: 78

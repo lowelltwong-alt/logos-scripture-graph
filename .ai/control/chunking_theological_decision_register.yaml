@@ -4622,6 +4622,57 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-105
+    title: T465 reconciliation and Mark 16 specialist packet are non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T465]
+    owner_decision_ref: ".ai/tasks/T465.task.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66, Mark]
+      passages:
+        - owner_candidate_docket_19_codex_fable_rows
+        - Mark.16.1-Mark.16.20
+        - Mark.16.9-Mark.16.20
+      routes:
+        - t465_harness_triage
+        - t465_mark16_specialist_packet
+        - t465_owner_candidate_docket
+        - frontier_specialist_review_prompt
+      surfaces:
+        - .ai/control/t465_multi_model_reconciliation_gate.yaml
+        - .ai/context/agent_work/T465/harness_triage.md
+        - .ai/context/agent_work/T465/mark16_specialist_packet.md
+        - .ai/context/agent_work/T465/owner_candidate_docket.yaml
+        - .ai/prompts/t465_mark16_frontier_specialist_review_prompt.md
+        - docs/roadmap/T465_MULTI_MODEL_CHUNKING_RECONCILIATION_GATE.md
+    decision: "T465 may classify T464 harness failures, packetize Mark 16 for frontier textual-critical/codex-layout review, and surface the 19 M4/M6-aligned owner candidates as review inputs only. It does not select a target, promote reviewed gold, create output, or decide Mark 16 inspiration, canon status, preferred reading, or source-tradition authority."
+    downstream_risk: "Future agents could mistake the T465 owner docket, M4/M6 alignment, Mark 16 specialist packet, or manuscript-layout research questions for output authority, preferred textual tradition, canon-scope decision, or theology authority."
+    theological_assumptions_avoided:
+      - "No M4/M6 agreement becomes reviewed gold or owner selection."
+      - "No Mark 16 longer-ending packet decides inspiration, canon status, preferred reading, or source-tradition authority."
+      - "No Codex Vaticanus/Sinaiticus layout claim becomes a chunk boundary without later specialist review and owner gate."
+      - "No Strong's metadata is treated as source-language or theology authority."
+    reviewed_gold_dependency: "None; T465 creates reconciliation packets only. Any reviewed-gold or output change requires a later exact owner-gated task."
+    non_authorizations:
+      - target_selection
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_creation
+      - route_or_evaluator_behavior
+      - graph_or_retrieval_truth
+      - vector_or_embedding_truth
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - mark16_inspiration_decision
+      - theology_authority_change
+    validators:
+      - scripts/validate_t465_multi_model_reconciliation_gate.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4763,4 +4814,5 @@ backfill_coverage:
     - T442
     - T463
     - T464
+    - T465
 ...
