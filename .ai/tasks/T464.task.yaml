@@ -17,6 +17,7 @@ scope:
     - .ai/handoffs/T423/
     - .ai/handoffs/T424/
     - .ai/handoffs/T464/
+    - .ai/control/chunking_theological_decision_register.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/handoff_ledger.jsonl
     - .ai/control/multi_model_whole_bible_chunking_fork.yaml
@@ -24,6 +25,8 @@ scope:
     - .ai/prompts/multi_model_whole_bible_chunking_delta_compare_prompt.md
     - .ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md
     - .ai/scratch/multi_model_bible_chunking/
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t423_scratch_delta_isolation_pattern.yaml
     - .digital-asset/mail/outbox.jsonl
     - docs/roadmap/T423_MULTI_MODEL_WHOLE_BIBLE_CHUNKING_FORK.md
     - docs/roadmap/T424_RUST_ACCELERATED_VALIDATION_LAYER.md
@@ -86,6 +89,25 @@ authorization:
   selects_preferred_reading_or_source_tradition: false
   changes_canon_scope: false
   authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T464
+  touched_paths:
+    - scripts/validate_all.py
+    - scripts/validate_parallel_execution_safety.py
+    - scripts/validate_t423_pilot_gate.py
+    - scripts/validate_t464_multi_model_decision_docket.py
+  expected_input_size_or_record_count: "Six whole-Bible scratch model folders, 66 canonical books per model, generated comparison ledgers, and validator wiring over large JSONL/YAML artifacts."
+  expected_runtime_or_memory_pressure: "The full comparison is a long offline Python orchestration pass; routine validation should check generated artifacts and focused invariants rather than rerun every expensive compare."
+  rust_trigger_match:
+    - deterministic large JSONL scanning
+    - canonical span/ref shape checks
+    - generated chunk-map structural checks
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "T464 routing depends on semantic governance policy, non-authority checks, M4/M6 evidence posture, frontier escalation, and owner docket grouping. Existing Rust leaf validators remain available for structural scans, but the decision docket stays in Python."
+  interop_boundary: "Python reads the scratch/model artifacts, applies governance routing, and emits non-authorizing ledgers. Rust is not a source of chunk, theology, source-tradition, reviewed-gold, or owner-decision authority."
+  python_fallback_or_wrapper_plan: "No new Rust wrapper is introduced for T464; existing Python commands remain the stable agent interface and existing Rust validators are exercised through their current wrappers."
+  validation_plan: "Run validate_t464_multi_model_decision_docket.py, focused pytest, validate_task_scope.py --task-id T464, validate_all.py, full pytest, generate_data_map.py --check, and git diff --check."
+  maintenance_tradeoffs: "Keeping T464 in Python avoids hiding governance routing in a fast binary; later Rust acceleration should target deterministic leaf checks only after parity and lifecycle records exist."
 acceptance_criteria:
   - "All six active model folders are present, complete, and auditable."
   - "Both compare entrypoints work."
