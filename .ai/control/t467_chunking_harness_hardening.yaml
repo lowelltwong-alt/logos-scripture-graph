@@ -1,0 +1,83 @@
+---
+object_type: t467_chunking_harness_hardening
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created after T465 harness triage found over-splitting/list-register/epistle-closing failures in multi-model scratch chunking."
+---
+schema_version: t467_chunking_harness_hardening.v1
+task_id: T467
+source_task_id: T465
+source_triage: .ai/context/agent_work/T465/harness_triage.md
+applies_to: future_t423_model_reruns_and_new_model_slots
+does_not_retroactively_invalidate_completed_models: true
+policy_revision: T467_literary_coherence_v1
+hardening_rules:
+  larger_unit_preservation:
+    status: required
+    rule: "Prefer coherent literary, legal, list, register, allotment, census, worship-service, administrative, battle-report, and covenant-renewal units over smaller local splits unless the unit changes function."
+    split_allowed_when_logged:
+      - function_change
+      - speaker_or_scene_change
+      - oracle_or_vision_shift
+      - paragraph_or_stanza_boundary_with_discourse_support
+      - textual_variant_or_frontier_pressure_requires_deferral
+  list_register_guard:
+    status: required
+    affected_forms:
+      - genealogy
+      - census
+      - tribal_allotment
+      - legal_list
+      - ritual_procedure
+      - temple_service_register
+      - royal_or_administrative_register
+      - battle_report
+      - covenant_renewal
+    requirement: "Book strategies must name the list/register function before splitting."
+  epistle_closing_guard:
+    status: required
+    required_strategy_checks:
+      - greeting
+      - thanksgiving_or_prayer
+      - body_argument
+      - exhortation_or_paraenesis
+      - household_or_church_order
+      - travel_or_mission_notes
+      - final_greetings
+      - doxology
+      - benediction
+  source_metadata_guard:
+    status: required
+    rule: "Strong's, lemma, morphology, WJ/red-letter, headings, notes, and cross-references are evidence only. They must not become boundary authority, theology authority, source-language truth, or a risk flag without a concrete literary/textual reason."
+  sidecar_specificity:
+    status: required
+    rule: "Low-confidence, frontier, and atlas rows must name the concrete issue: over-split risk, larger-unit preservation conflict, list/register function uncertainty, epistle-unit uncertainty, speaker/variant pressure, or source-metadata-only limitation."
+book_strategy_required_sections_for_future_reruns:
+  - literary_form_decision_matrix
+  - larger_unit_preservation_check
+  - list_register_function_check
+  - epistle_unit_check_if_applicable
+  - source_metadata_evidence_only_check
+  - over_split_risk_check
+  - sidecar_specificity_plan
+authorization:
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  authorizes_target_selection: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_truth: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  reports_to_dad: false
+dad_reporting:
+  status: deferred_due_to_interface_drift
+  required_for_t467_success: false
+validation:
+  validator: scripts/validate_t467_chunking_harness_hardening.py
+  policy_overlay_validator: scripts/validate_t423_literary_quality_protocol.py --policy-only

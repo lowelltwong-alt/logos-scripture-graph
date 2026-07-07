@@ -1,0 +1,100 @@
+id: T467
+phase: phase_4
+title: "Chunking Harness Hardening After T465 Triage"
+mode: harness_policy_hardening_non_authorizing
+status: in_progress
+owner: codex
+branch: codex/t467-harness-hardening
+base_ref: origin/main
+summary: "Patch the T423 multi-model chunking harness so future reruns preserve larger literary units, handle lists/registers and epistle closings better, and keep Strong's metadata evidence-only."
+scope:
+  allowed_paths:
+    - .ai/tasks/T467.task.yaml
+    - .ai/control/t467_chunking_harness_hardening.yaml
+    - .ai/control/t423_literary_marker_quality_protocol.yaml
+    - .ai/control/multi_model_whole_bible_chunking_fork.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/context/agent_work/T467/
+    - .ai/handoffs/T467/
+    - .ai/prompts/multi_model_whole_bible_chunking_marathon_prompt.md
+    - .ai/scratch/multi_model_bible_chunking/models/_TEMPLATE/model_manifest.yaml
+    - docs/roadmap/T467_CHUNKING_HARNESS_HARDENING.md
+    - scripts/validate_all.py
+    - scripts/validate_t423_literary_quality_protocol.py
+    - scripts/validate_t467_chunking_harness_hardening.py
+    - tests/test_t423_literary_quality_protocol.py
+    - tests/test_t467_chunking_harness_hardening.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: harness_policy_hardening_non_authorizing
+  updates_scratch_harness_for_future_reruns: true
+  reruns_model_marathons: false
+  reruns_full_six_model_comparison: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  writes_dad_reports: false
+runtime_language_preflight:
+  task_id: T467
+  touched_paths:
+    - scripts/validate_all.py
+    - scripts/validate_t423_literary_quality_protocol.py
+    - scripts/validate_t467_chunking_harness_hardening.py
+    - tests/test_t423_literary_quality_protocol.py
+    - tests/test_t467_chunking_harness_hardening.py
+  expected_input_size_or_record_count: "Small YAML/Markdown policy surfaces and focused tests; no scratch model rerun or large JSONL scan."
+  expected_runtime_or_memory_pressure: "Low. T467 is semantic harness policy validation, not deterministic high-volume scanning."
+  rust_trigger_match:
+    - none_semantic_harness_policy_validator
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust fast path is selected because this validates policy language, prompt contract, non-authority posture, and future-rerun requirements rather than large deterministic data."
+  interop_boundary: "Python validates YAML/Markdown policy. Rust remains reserved for deterministic scan/coverage workloads."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping T467 in Python avoids moving literary/theological harness semantics into a binary. Future Rust work should stay limited to deterministic corpus scans or chunk-map structural checks with Python governance wrappers."
+  validation_plan: "Run validate_t467_chunking_harness_hardening.py, validate_t423_literary_quality_protocol.py --policy-only, focused pytest, task scope, handoffs, decision/lesson validators, validate_all.py, full pytest, data-map check, and diff checks."
+acceptance_criteria:
+  - "Future model reruns must preserve larger coherent list/register/legal/allotment/admin units unless a function change is logged."
+  - "Future epistle strategies must identify greeting, thanksgiving, body argument, exhortation, travel notes, final greetings, doxology, and benediction where present."
+  - "Strong's, lemma, and morphology metadata remain evidence-only and cannot create risk or boundary authority by themselves."
+  - "Book strategy notes must contain a literary-form decision matrix and over-split risk check for future reruns."
+  - "No existing M1-M6 scratch output is mutated or re-promoted."
+validations:
+  - python scripts/validate_t467_chunking_harness_hardening.py
+  - python scripts/validate_t423_literary_quality_protocol.py --policy-only
+  - python -m pytest tests/test_t467_chunking_harness_hardening.py tests/test_t423_literary_quality_protocol.py -q
+  - python scripts/validate_task_scope.py --task-id T467
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T467/handoff.md
+created_at: "2026-07-07"
+updated_at: "2026-07-07"

@@ -17,6 +17,7 @@ POLICY = ROOT / ".ai" / "control" / "multi_model_whole_bible_chunking_fork.yaml"
 PROTOCOL = ROOT / ".ai" / "control" / "t423_literary_marker_quality_protocol.yaml"
 PROMPT = ROOT / ".ai" / "prompts" / "multi_model_whole_bible_chunking_marathon_prompt.md"
 TEMPLATE_MANIFEST = ROOT / ".ai" / "scratch" / "multi_model_bible_chunking" / "models" / "_TEMPLATE" / "model_manifest.yaml"
+T467_CONTROL = ROOT / ".ai" / "control" / "t467_chunking_harness_hardening.yaml"
 SPAN_FEATURES = ROOT / "build" / "observation_substrate" / "current" / "span_observation_features.jsonl"
 
 LOW_CONFIDENCE = {"low", "medium_low"}
@@ -167,7 +168,7 @@ def _validate_sidecar_rows(
 
 def validate_policy() -> list[str]:
     errors: list[str] = []
-    for path in (POLICY, PROTOCOL, PROMPT, TEMPLATE_MANIFEST):
+    for path in (POLICY, PROTOCOL, PROMPT, TEMPLATE_MANIFEST, T467_CONTROL):
         if not path.is_file():
             errors.append(f"missing {_rel(path)}")
     if errors:
@@ -184,6 +185,10 @@ def validate_policy() -> list[str]:
         errors.append("multi_model policy must point to t423_literary_marker_quality_protocol.yaml")
     if quality.get("required_for_all_model_slots") is not True:
         errors.append("literary quality protocol must be required for all model slots")
+    if quality.get("active_policy_overlay") != "T467_literary_coherence_v1":
+        errors.append("multi_model policy must declare active_policy_overlay T467_literary_coherence_v1")
+    if quality.get("hardening_control") != ".ai/control/t467_chunking_harness_hardening.yaml":
+        errors.append("multi_model policy must point to t467_chunking_harness_hardening.yaml")
     for sidecar in REQUIRED_PROTOCOL_SIDEcars:
         if sidecar not in quality.get("required_sidecars", []):
             errors.append(f"multi_model policy missing required sidecar {sidecar}")
@@ -199,10 +204,62 @@ def validate_policy() -> list[str]:
         errors.append("quality protocol must require same_contract_different_judgments")
     if independence.get("examples_are_schema_only") is not True:
         errors.append("quality protocol must say examples_are_schema_only")
+    overlays = protocol.get("policy_overlays", [])
+    if not any(isinstance(item, dict) and item.get("overlay_id") == "T467_literary_coherence_v1" for item in overlays):
+        errors.append("quality protocol must declare T467_literary_coherence_v1 policy overlay")
+    t467_overlay = protocol.get("t467_literary_coherence_overlay", {})
+    if t467_overlay.get("status") != "required_for_future_reruns":
+        errors.append("quality protocol T467 overlay must be required_for_future_reruns")
+    for form in (
+        "genealogy",
+        "census",
+        "tribal_allotment",
+        "legal_list",
+        "ritual_procedure",
+        "temple_service_register",
+        "royal_or_administrative_register",
+        "battle_report",
+        "covenant_renewal",
+    ):
+        if form not in t467_overlay.get("do_not_over_split_forms", []):
+            errors.append(f"quality protocol T467 overlay missing do_not_over_split form {form}")
+    for unit in (
+        "greeting",
+        "thanksgiving_or_prayer",
+        "body_argument",
+        "exhortation_or_paraenesis",
+        "travel_or_mission_notes",
+        "final_greetings",
+        "doxology",
+        "benediction",
+    ):
+        if unit not in t467_overlay.get("epistle_unit_checklist", []):
+            errors.append(f"quality protocol T467 overlay missing epistle unit {unit}")
+    required_strategy_sections = {
+        "literary_form_decision_matrix",
+        "larger_unit_preservation_check",
+        "list_register_function_check",
+        "epistle_unit_check_if_applicable",
+        "source_metadata_evidence_only_check",
+        "over_split_risk_check",
+        "sidecar_specificity_plan",
+    }
+    if not required_strategy_sections.issubset(set(t467_overlay.get("required_book_strategy_sections", []))):
+        errors.append("quality protocol T467 overlay missing required book strategy sections")
+    if not required_strategy_sections.issubset(set(protocol.get("book_strategy_note_must_cover", []))):
+        errors.append("quality protocol book_strategy_note_must_cover missing T467 sections")
 
     manifest_quality = template.get("quality_protocol", {})
     if manifest_quality.get("strategy_id") != "literary_marker_aware_v2":
         errors.append("template model_manifest.yaml must include quality_protocol.strategy_id literary_marker_aware_v2")
+    if manifest_quality.get("hardening_overlay") != "T467_literary_coherence_v1":
+        errors.append("template model_manifest.yaml must include quality_protocol.hardening_overlay T467_literary_coherence_v1")
+    if manifest_quality.get("source_metadata_boundary_authority") is not False:
+        errors.append("template model_manifest.yaml quality_protocol.source_metadata_boundary_authority must be false")
+    if manifest_quality.get("larger_unit_preservation_required") is not True:
+        errors.append("template model_manifest.yaml quality_protocol.larger_unit_preservation_required must be true")
+    if manifest_quality.get("sidecar_specificity_required") is not True:
+        errors.append("template model_manifest.yaml quality_protocol.sidecar_specificity_required must be true")
     for key in (
         "low_confidence_register_required",
         "frontier_escalation_queue_required",
@@ -223,6 +280,14 @@ def validate_policy() -> list[str]:
         "not an answer key",
         "schema example only",
         "independent boundary rationale",
+        "T467_literary_coherence_v1",
+        "larger coherent units",
+        "list_register_function_check",
+        "epistle_unit_check_if_applicable",
+        "source_metadata_evidence_only_check",
+        "over_split_risk_check",
+        "sidecar_specificity_plan",
+        "Strong's, lemma, morphology",
     ):
         if required not in prompt_text:
             errors.append(f"marathon prompt missing {required}")

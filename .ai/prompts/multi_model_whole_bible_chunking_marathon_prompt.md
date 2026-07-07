@@ -35,6 +35,7 @@ Use the assigned folder exactly. Current planned lanes are:
 - `M3_claude_frontier` — Claude Opus 4.8 or Fable 5 high.
 - `M4_codex_gpt55` — Codex GPT-5.5 high.
 - `M5_gemini_thinking` — optional Gemini/outside-family pass.
+- `M6_fable5` — Fable 5 comparison pass and harness critique.
 
 ## Workflow (one book per session)
 
@@ -48,6 +49,7 @@ Use the assigned folder exactly. Current planned lanes are:
    ```
 6. Write `book_strategy/<Book>.md` before chunking that book. Name the literary strategy, markers considered, Strong's metadata considered evidence-only, expected low-confidence regions, and any chapter-only fallback reason.
    Include an independent boundary rationale. Do not copy example spans or template order as boundary authority.
+   For future reruns, include these T467 sections: `literary_form_decision_matrix`, `larger_unit_preservation_check`, `list_register_function_check`, `epistle_unit_check_if_applicable`, `source_metadata_evidence_only_check`, `over_split_risk_check`, and `sidecar_specificity_plan`.
 7. Chunk **that book only**; write all chunks to `book_chunks/<Book>/chunks.jsonl`. Use `literary_marker_aware_v2`: prefer scene, legal unit, stanza/acrostic, oracle/vision, discourse, greeting/thanksgiving/body/closing, list/genealogy, or paragraph/stanza evidence where the substrate supports it. Chapter-only is allowed only as a logged fallback, never as a silent default.
 8. For every low-confidence or marker-sensitive chunk, append rows to all three sidecars:
    - `low_confidence_register.jsonl`
@@ -132,6 +134,17 @@ Each `atlas_candidate_feed.jsonl` row must explain why the chunk might belong in
 Each `frontier_escalation_queue.jsonl` row must explain why Codex/Claude/frontier review should scrutinize the chunk.
 
 For Psalms, Job, Proverbs, Ecclesiastes, Song, Lamentations, Daniel, Revelation, Philemon, and Jonah, write a more careful book strategy before chunking. For Ps 119, do not use one chapter chunk; use acrostic/stanza evidence.
+
+## T467 harness hardening for future reruns
+
+T465 found a recurring over-splitting pattern: some lanes split smaller local units where other lanes preserved larger literary units. Future model reruns and new model slots must apply `T467_literary_coherence_v1`:
+
+- Preserve larger coherent units for genealogy, census, tribal allotment, legal list, ritual procedure, temple-service register, royal/administrative register, battle report, and covenant renewal unless the unit changes function.
+- Before splitting a list/register/legal/allotment/admin/battle unit, name its function and the exact function change that justifies the split.
+- For epistles, check greeting, thanksgiving/prayer, body argument, exhortation or paraenesis, household/church order, travel or mission notes, final greetings, doxology, and benediction where present.
+- Strong's, lemma, morphology, WJ/red-letter, headings, footnotes, and cross-references are evidence only. They do not become boundary authority, source-language truth, or theology authority.
+- Low-confidence, frontier, and atlas sidecars must name the concrete issue: over-split risk, larger-unit conflict, list/register uncertainty, epistle-unit uncertainty, speaker/variant pressure, or source-metadata-only limitation.
+- If your model chooses a smaller split where a larger coherent unit is plausible, log the reason in `book_strategy/<Book>.md` and the relevant sidecar row.
 
 ## Non-authorizations
 

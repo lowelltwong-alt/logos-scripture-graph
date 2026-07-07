@@ -1,8 +1,22 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-07
-**Updated by:** T465 multi-model reconciliation gate and Mark 16 specialist packet
-**Active task:** -> **T465 multi-model chunking reconciliation gate** on `codex/t465-multi-model-reconciliation-gate`. This is non-authorizing packet, triage, and owner-docket work only: no chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD override, or theology authority.
+**Updated by:** T467 chunking harness hardening after T465 triage
+**Active task:** -> **T467 chunking harness hardening** on `codex/t467-harness-hardening`. This is future-rerun scratch harness policy only: no model rerun, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD reporting success gate, or theology authority.
+
+> **T467 harness hardening (2026-07-07):** T467 patches the T423 multi-model
+> scratch chunking harness after T465 found 78 harness-fix rows. The new
+> `T467_literary_coherence_v1` overlay requires future reruns/new model slots to
+> preserve larger coherent list/register/legal/allotment/census/worship/admin/battle/
+> covenant units unless a function change is logged, check epistle units such as
+> greetings, thanksgiving/prayer, body argument, exhortation, travel notes, final
+> greetings, doxology, and benediction, and keep Strong's/lemma/morphology/WJ/headings/
+> footnotes/cross-references evidence-only. It updates the marathon prompt, T423
+> quality protocol, model template, validator coverage, CD-106, and LSN-051. DAD
+> reporting is explicitly deferred due to interface drift and is not a success gate.
+> T467 authorizes no model rerun, reviewed gold, chunk output, child spans,
+> route/evaluator behavior, graph/retrieval/vector truth, preferred reading,
+> source-tradition preference, canon change, or theology authority.
 
 > **T465 reconciliation gate (2026-07-07):** T465 turns T464's comparison outputs into
 > governed next-action artifacts without promoting any chunk output. It adds
