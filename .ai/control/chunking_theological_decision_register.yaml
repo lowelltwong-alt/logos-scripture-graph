@@ -4777,6 +4777,58 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-108
+    title: T470 transparent research evidence rubric records support and debate only
+    classification: non_authorizing_review
+    task_ids: [T470]
+    owner_decision_ref: ".ai/tasks/T470.task.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages:
+        - future_owner_candidate_review_packets
+        - future_frontier_specialist_packets
+        - T465_19_row_M4_M6_owner_docket
+        - T468_candidate_evidence_rows
+      routes:
+        - t470_transparent_chunking_research_evidence_rubric
+        - t468_owner_faithful_chunking_policy
+        - t465_multi_model_reconciliation_gate
+      surfaces:
+        - .ai/control/t470_transparent_chunking_research_evidence_rubric.yaml
+        - docs/roadmap/T470_TRANSPARENT_CHUNKING_RESEARCH_EVIDENCE_RUBRIC.md
+        - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    decision: "T470 records a transparent support/debate rubric for future chunking review packets: claims must say whether they are well-supported, project-scoped, contextual, debated, or not authorized, and must record how concluded, source refs, downstream chunking implications, and limits. It does not authorize reviewed gold, output, targets, source traditions, variants, or theology conclusions."
+    downstream_risk: "Future agents could treat research transparency, model agreement, editorial metadata, oldest-witness language, or a well-supported method claim as reviewed gold, target selection, source-tradition preference, variant decision, or theology authority."
+    theological_assumptions_avoided:
+      - "No research-support label promotes reviewed gold or chunk output."
+      - "No well-supported method claim settles a debated textual-critical case."
+      - "No chapter, verse, punctuation, heading, WJ/red-letter, Strong's, lemma, morphology, footnote, cross-reference, or manuscript metadata becomes boundary or theology authority by itself."
+      - "No oldest-witness, majority-text, or model-preferred reading is selected."
+      - "No project faithfulness principle is smuggled as hidden theology."
+    reviewed_gold_dependency: "None; T470 is a research-transparency record only. Any reviewed-gold or output change requires a later exact owner-gated task."
+    non_authorizations:
+      - target_selection
+      - model_rerun
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - child_span_creation
+      - route_or_evaluator_behavior
+      - graph_or_retrieval_truth
+      - vector_or_embedding_truth
+      - source_language_truth_claim
+      - preferred_reading_selection
+      - source_tradition_preference
+      - canon_scope_change
+      - variant_or_inspiration_decision
+      - theology_authority_change
+      - dad_reporting_as_success_gate
+    validators:
+      - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -4921,4 +4973,5 @@ backfill_coverage:
     - T465
     - T467
     - T468
+    - T470
 ...

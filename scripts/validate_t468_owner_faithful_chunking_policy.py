@@ -142,7 +142,11 @@ def validate_t468_package(root: Path = ROOT) -> list[str]:
     _require(task.get("id") == "T468", "task id must be T468", errors)
     _require(control.get("object_type") == "t468_owner_faithful_chunking_policy", "control object_type mismatch", errors)
     _require(control.get("schema_version") == "t468_owner_faithful_chunking_policy.v1", "control schema_version mismatch", errors)
-    _require(focus.get("current_task") == "T468", "current_focus current_task must be T468", errors)
+    _require(
+        focus.get("current_task") == "T468" or focus.get("t468_task") == ".ai/tasks/T468.task.yaml",
+        "current_focus must retain T468 task surface after later tasks advance current_task",
+        errors,
+    )
 
     _validate_false_flags(task.get("authorization", {}), TASK_FORBIDDEN_AUTH_FIELDS, "task.authorization", errors)
     _validate_false_flags(control.get("authorization", {}), FORBIDDEN_AUTH_FIELDS, "control.authorization", errors)
