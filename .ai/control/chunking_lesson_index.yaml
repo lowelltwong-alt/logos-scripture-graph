@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T468
+last_updated_by_task: T470
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2283,6 +2283,50 @@ lessons:
       - scripts/validate_t468_owner_faithful_chunking_policy.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
+  - lesson_id: LSN-053
+    title: Transparent research support and debate levels must precede chunking decisions
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, source_metadata]
+    tags: [t470, research-transparency, well-supported, debated, source-basis, windowdiff, near-boundary, non-authorizing]
+    use_when:
+      - "A future agent prepares an owner docket, frontier packet, or reviewed-gold proposal from T464/T465/T468 evidence."
+      - "A future agent wants to treat model agreement, editorial metadata, ancient witness evidence, or a discourse-analysis claim as enough to downgrade risk."
+      - "A future agent is documenting why a chunk boundary is well-supported, project-scoped, contextual, debated, or not authorized."
+    preflight_stage: before_owner_candidate_review_packet_or_frontier_packet
+    source_surfaces:
+      - .ai/control/t470_transparent_chunking_research_evidence_rubric.yaml
+      - docs/roadmap/T470_TRANSPARENT_CHUNKING_RESEARCH_EVIDENCE_RUBRIC.md
+      - .ai/context/agent_work/T470/research_source_notes.md
+      - .ai/tasks/T470.task.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    related_decision_ids: [CD-108]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T464, T465, T467, T468, T470]
+    downstream_risk: "A future agent can collapse well-supported method claims, debated textual-critical issues, and model agreement into one confidence label unless the claim basis, conclusion method, implications, and limits are explicit."
+    required_preflight_surfaces:
+      - .ai/control/t470_transparent_chunking_research_evidence_rubric.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/roadmap/T470_TRANSPARENT_CHUNKING_RESEARCH_EVIDENCE_RUBRIC.md
+    non_authorizations:
+      - research_transparency_as_reviewed_gold
+      - well_supported_claim_as_chunk_output
+      - debated_claim_as_source_tradition_choice
+      - model_agreement_as_output_authority
+      - editorial_metadata_as_boundary_authority
+      - oldest_witness_as_automatic_authority
+      - source_tradition_preference
+      - canon_scope_change
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+      - dad_reporting_as_success_gate
+    validators:
+      - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
 
 lesson_graph:
   - from: LSN-002
@@ -2766,6 +2810,15 @@ lesson_graph:
     relation: constrains
     to: LSN-034
   - from: LSN-052
+    relation: audits
+    to: LSN-010
+  - from: LSN-052
+    relation: governs_update_of
+    to: LSN-053
+  - from: LSN-053
+    relation: constrains
+    to: LSN-034
+  - from: LSN-053
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

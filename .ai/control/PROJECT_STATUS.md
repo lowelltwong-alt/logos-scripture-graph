@@ -1,8 +1,24 @@
 # Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-07
-**Updated by:** T468 owner faithful-route chunking policy
-**Active task:** -> **T468 owner faithful-route chunking policy** on `codex/t468-owner-chunking-decisions`. This records owner-approved decision principles only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+**Last updated:** 2026-07-08
+**Updated by:** T470 transparent chunking research evidence rubric
+**Active task:** -> **T470 transparent chunking research evidence rubric** on `codex/t470-transparent-chunking-research`. This records what is well-supported, how conclusions were reached, what remains debated, and downstream chunking implications only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+
+> **T470 transparent chunking research evidence rubric (2026-07-08):** T470 adds
+> `.ai/control/t470_transparent_chunking_research_evidence_rubric.yaml`, source
+> notes, a roadmap, and validator coverage so future owner dockets must separate
+> well-supported claims from debated claims and record how each conclusion was
+> reached, source refs, downstream chunking implications, and limits. The rubric
+> records that discourse/literary units, unit-delimitation transparency,
+> evidence-only editorial layers, candidate-only model agreement, variant/source
+> specialist packets, and near-boundary/WindowDiff-style comparison are supported
+> review practices. It also keeps Mark 16:9-20, John 7:53-8:11, Romans 16
+> doxology, Deut 32:8-9, ancient delimitation/layout inferences, exact Gospel
+> pericope seams, and model-agreement downgrade strength as debated. T470 is
+> non-authorizing and grants no target selection, reviewed gold, chunk output,
+> child spans, route/evaluator behavior, graph/retrieval/vector truth, source-
+> tradition choice, canon change, variant/inspiration decision, or theology
+> authority.
 
 > **T468 owner faithful-route chunking policy (2026-07-07):** T468 records the
 > owner-approved faithful route for decisions 1-7 after the T464 comparison, T465

@@ -1,0 +1,193 @@
+---
+object_type: t470_transparent_chunking_research_evidence_rubric
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created during T470 to make the T468 chunking research basis transparent: what is well supported, how it was concluded, what remains debated, and what downstream chunking implication follows."
+---
+schema_version: t470_transparent_chunking_research_evidence_rubric.v1
+task_id: T470
+source_tasks: [T464, T465, T467, T468]
+mode: research_transparency_non_authorizing
+purpose: "Give future chunking review packets a transparent evidence rubric so agents do not flatten well-supported observations, debated textual-critical issues, model agreement, and owner faithfulness principles into one confidence bucket."
+support_levels:
+  - well_supported
+  - well_supported_with_project_scope
+  - supported_but_contextual
+  - debated
+  - not_authorized
+rubric_rules:
+  - "Every future review packet should label major claims as well_supported, well_supported_with_project_scope, supported_but_contextual, debated, or not_authorized."
+  - "Every claim should include how_concluded, source_refs, downstream_chunking_rule or downstream_chunking_implication, and limits."
+  - "Debated issues must not be silently downgraded by model agreement, majority agreement, oldest-witness language, red-letter/WJ formatting, Strong's metadata, punctuation, headings, or chapter/verse divisions."
+  - "Agreement is evidence for owner review triage, not reviewed gold, chunk output, target selection, source-tradition selection, or theology authority."
+well_supported_claims:
+  - claim_id: T470-WS-001
+    claim: "Parent chunks should prefer discourse and literary units over fixed verse counts when the text gives coherent unit signals."
+    support_level: well_supported
+    how_concluded: "Bible translation discourse-analysis sources converge on discourse units, cohesion, prominence, topic shifts, participant tracking, speech events, and genre as meaningful translation/exegesis signals."
+    source_refs:
+      - {label: "SIL Narrative Discourse Analysis and Bible Translation", url: "https://www.sil.org/resources/archives/69386"}
+      - {label: "Bible Translation Competencies: Discourse", url: "https://bibletranslationcompetencies.org/discourse/"}
+      - {label: "Dallas International University NT discourse analysis", url: "https://www.diu.edu/diu-today/program-spotlights/current-state-new-testament-discourse-analysis/"}
+      - {label: "Koine-Greek note on Discourse Analysis and Bible Translation", url: "https://koine-greek.com/2024/01/21/now-available-discourse-analysis-and-bible-translation/"}
+    downstream_chunking_rule: "Use literary/discourse signals as primary parent-boundary evidence before convenience-size splitting, especially for narrative scenes, poems, oracles, epistle argument units, and legal/list units."
+    limits: "Discourse signals can be ambiguous, and no source here authorizes a specific repo chunk boundary without later packet review."
+  - claim_id: T470-WS-002
+    claim: "Unit delimitation affects interpretation and should be documented when a chunk boundary could shape exegesis."
+    support_level: well_supported
+    how_concluded: "Biblical unit-delimitation scholarship treats pericope and segment boundaries as exegetically significant, and case studies show boundary decisions can be debated from literary and narrative clues."
+    source_refs:
+      - {label: "Brill Pericope series", url: "https://brill.com/display/serial/PERI"}
+      - {label: "The Impact of Unit Delimitation on Exegesis", url: "https://books.google.com/books/about/The_Impact_of_Unit_Delimitation_on_Exege.html?id=_Q2wCQAAQBAJ"}
+      - {label: "JIBS John 1:19-4:54 segment-boundary study", url: "https://place.asburyseminary.edu/jibs/vol1/iss1/6/"}
+    downstream_chunking_rule: "When a proposed parent span changes who or what a unit is about, or how a discourse turn functions, record competing segmentation options rather than presenting the boundary as mechanical."
+    limits: "The sources justify transparency about boundaries; they do not by themselves settle every boundary."
+  - claim_id: T470-WS-003
+    claim: "Chapter numbers, verse numbers, punctuation, headings, paragraphing, and red-letter/WJ formatting are editorial or reference layers, not automatic boundary authority."
+    support_level: well_supported
+    how_concluded: "Chapter/verse histories and Greek NT punctuation-apparatus documentation show that these layers are later/reference/editorial aids rather than original autographic boundary guarantees."
+    source_refs:
+      - {label: "Tyndale House chapters article", url: "https://tyndalehouse.com/2023/11/22/where-did-the-bible-s-chapters-come-from/"}
+      - {label: "St Paul Center chapter and verse article", url: "https://stpaulcenter.com/posts/when-was-the-bible-divided-into-chapter-and-verse"}
+      - {label: "UBS Greek NT punctuation apparatus intro", url: "https://www.katapi.org.uk/UBSGrNT/Intro3.htm"}
+    downstream_chunking_rule: "Use chapter/verse/punctuation/headings/WJ as evidence-only cues. A boundary can follow them when literary and discourse evidence agrees, but the packet must say why."
+    limits: "Editorial layers can preserve useful tradition and reader guidance; evidence-only does not mean ignore."
+  - claim_id: T470-WS-004
+    claim: "Model agreement is useful triage evidence but not authority for reviewed gold or chunk output."
+    support_level: well_supported_with_project_scope
+    how_concluded: "T464/T465/T468 governance separates model consensus, M4/M6 alignment, and frontier-triad agreement from owner gates. External segmentation research supports transparent evaluation; repo policy supplies the authority boundary."
+    source_refs:
+      - {label: "T464 multi-model comparison artifacts", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "Pevzner and Hearst WindowDiff", url: "https://aclanthology.org/J02-1002/"}
+    downstream_chunking_rule: "Consensus rows may enter owner dockets as candidate evidence, while disagreements or hard zones require reconciliation or frontier review."
+    limits: "The support level is project-scoped because repo authority comes from owner-approved governance, not from external segmentation research."
+  - claim_id: T470-WS-005
+    claim: "Exact-boundary agreement should be supplemented by near-boundary or WindowDiff-style comparison before classifying all mismatches as equally hard."
+    support_level: well_supported
+    how_concluded: "Text segmentation evaluation literature criticizes exact-only boundary metrics and supports distance-aware penalties for near misses."
+    source_refs:
+      - {label: "Hearst TextTiling", url: "https://aclanthology.org/J97-1003.pdf"}
+      - {label: "Pevzner and Hearst WindowDiff", url: "https://aclanthology.org/J02-1002/"}
+    downstream_chunking_rule: "Add near-boundary diagnostics so a one-verse boundary offset is not treated the same as a different discourse-unit decision."
+    limits: "A metric can prioritize review; it cannot decide theological, textual-critical, or literary adequacy."
+  - claim_id: T470-WS-006
+    claim: "Variant and source-tradition hot zones need separate transparent packets before chunking decisions."
+    support_level: well_supported
+    how_concluded: "Mark 16 research shows that manuscript evidence, internal evidence, patristic reception, layout claims, and ecclesial reception can point in different directions, requiring a distinct textual-critical packet before downstream chunking."
+    source_refs:
+      - {label: "Text and Canon case against Mark longer ending", url: "https://textandcanon.org/a-case-against-the-longer-ending-of-mark/"}
+      - {label: "Text and Canon case for Mark longer ending", url: "https://textandcanon.org/a-case-for-the-longer-ending-of-mark/"}
+      - {label: "BiblicalTraining Daniel Wallace Mark 16", url: "https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-34-some-famous-textual-problems-mark-16-9-20"}
+      - {label: "Desiring God Where Does Mark End", url: "https://www.desiringgod.org/articles/where-does-mark-end"}
+      - {label: "Grace to You The Fitting End to Mark's Gospel", url: "https://www.gty.org/sermons/print/41-85/the-fitting-end-to-marks-gospel"}
+      - {label: "The Gospel Coalition longer ending article", url: "https://www.thegospelcoalition.org/article/preachers-toolkit-should-i-preach-the-longer-ending-of-mark/"}
+    downstream_chunking_rule: "Mark 16, John 7:53-8:11, Romans 16 doxology, Deut 32:8-9, and similar hot zones should carry explicit variant/source-tradition context before any owner gate."
+    limits: "T470 does not decide the original ending, inspiration status, or canon status of Mark 16 or any other debated passage."
+  - claim_id: T470-WS-007
+    claim: "The let-the-Bible-interpret-the-Bible principle is a well-supported project faithfulness rule within confessional Protestant hermeneutics, not a neutral external research conclusion."
+    support_level: well_supported_with_project_scope
+    how_concluded: "The Westminster tradition frames Scripture as its own interpreter, and the owner approved that principle for this repo's faithful-route chunking decisions in T468."
+    source_refs:
+      - {label: "Westminster Divines on the Interpretation of Holy Scripture", url: "https://www.cckpca.org/blog/post/the-westminster-divines-on-the-interpretation-of-holy-scripture"}
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+    downstream_chunking_rule: "When a passage can plausibly be chunked by Bible-internal literary, discourse, canonical, and contextual signals, those signals should outrank retrieval convenience or model preference."
+    limits: "This is explicitly labeled as the owner's project faithfulness posture and does not authorize hidden theology, denomination-specific conclusions, or unmarked interpretive decisions."
+debated_claims:
+  - claim_id: T470-DB-001
+    claim: "Mark 16:9-20 has debated textual-critical status and downstream chunking implications."
+    support_level: debated
+    how_concluded: "Conservative and textual-critical sources disagree or nuance the longer ending differently, including evidence from Vaticanus, Sinaiticus, manuscript majority, internal style, patristic use, and reception."
+    source_refs:
+      - {label: "Text and Canon case against Mark longer ending", url: "https://textandcanon.org/a-case-against-the-longer-ending-of-mark/"}
+      - {label: "Text and Canon case for Mark longer ending", url: "https://textandcanon.org/a-case-for-the-longer-ending-of-mark/"}
+      - {label: "BiblicalTraining Daniel Wallace Mark 16", url: "https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-34-some-famous-textual-problems-mark-16-9-20"}
+      - {label: "Desiring God Where Does Mark End", url: "https://www.desiringgod.org/articles/where-does-mark-end"}
+      - {label: "Grace to You The Fitting End to Mark's Gospel", url: "https://www.gty.org/sermons/print/41-85/the-fitting-end-to-marks-gospel"}
+    downstream_chunking_implication: "Keep Mark 16 as a frontier/specialist packet. Chunking should represent Mark 16:1-8 and 16:9-20 transparently without silently deciding inspiration or textual basis."
+    limits: "No preferred reading, source tradition, canon status, inspiration status, or preaching judgment is selected here."
+  - claim_id: T470-DB-002
+    claim: "John 7:53-8:11 remains a disputed textual unit that cannot be downgraded by model agreement alone."
+    support_level: debated
+    how_concluded: "The T468 hard-exception list already keeps this passage out of automatic downgrade; the same textual-critical transparency rule as Mark 16 applies."
+    source_refs:
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "UBS Greek NT punctuation apparatus intro", url: "https://www.katapi.org.uk/UBSGrNT/Intro3.htm"}
+    downstream_chunking_implication: "Route to variant/source-tradition review before any parent span is promoted."
+    limits: "T470 records the risk class only; it does not make a textual-critical decision."
+  - claim_id: T470-DB-003
+    claim: "Romans 16 doxology placement is debated enough to require transparent handling in chunking packets."
+    support_level: debated
+    how_concluded: "T468 preserved Romans 16 doxology as a hard exception because placement/source-tradition issues can affect whether a doxology is chunked as local close, letter close, or apparatus-sensitive unit."
+    source_refs:
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "Brill Pericope series", url: "https://brill.com/display/serial/PERI"}
+    downstream_chunking_implication: "Do not treat model consensus on Romans closing material as sufficient for reviewed-gold promotion."
+    limits: "No tradition is selected and no doxology placement is decided."
+  - claim_id: T470-DB-004
+    claim: "Deuteronomy 32:8-9 textual reading and divine-council interpretation pressure remain high-risk for chunking."
+    support_level: debated
+    how_concluded: "T468 preserved Deut 32:8-9 as a hard exception because source-language witness evidence, translation choices, and theological interpretation pressure can interact."
+    source_refs:
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "T430 original-language evidence substrate roadmap", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+    downstream_chunking_implication: "Require original-language and witness-evidence packet before any chunking downgrade or output gate."
+    limits: "No reading, theological conclusion, or source-language truth claim is selected."
+  - claim_id: T470-DB-005
+    claim: "Ancient delimitation markers and manuscript layout can be important evidence, but whether they reflect authorial, scribal, liturgical, or later reader segmentation is debated."
+    support_level: debated
+    how_concluded: "Unit-delimitation and Mark 16 layout discussions show manuscript layout can matter, but the inference from layout to original boundary requires specialist review."
+    source_refs:
+      - {label: "Brill Pericope series", url: "https://brill.com/display/serial/PERI"}
+      - {label: "Text and Canon case for Mark longer ending", url: "https://textandcanon.org/a-case-for-the-longer-ending-of-mark/"}
+      - {label: "BiblicalTraining Daniel Wallace Mark 16", url: "https://www.biblicaltraining.org/learn/institute/nt605-textual-criticism/nt605-34-some-famous-textual-problems-mark-16-9-20"}
+    downstream_chunking_implication: "Use codex layout, blank space, paragraphing, and punctuation as traceable evidence, not direct boundary authority."
+    limits: "T470 does not reconstruct codex capacity or adjudicate scribal intent."
+  - claim_id: T470-DB-006
+    claim: "Exact Gospel pericope boundaries can be debated even when the broad scene is clear."
+    support_level: debated
+    how_concluded: "The John 1:19-4:54 boundary study illustrates that literary/narrative clues can support different segment boundaries within a Gospel discourse sequence."
+    source_refs:
+      - {label: "JIBS John 1:19-4:54 segment-boundary study", url: "https://place.asburyseminary.edu/jibs/vol1/iss1/6/"}
+      - {label: "Dallas International University NT discourse analysis", url: "https://www.diu.edu/diu-today/program-spotlights/current-state-new-testament-discourse-analysis/"}
+    downstream_chunking_implication: "A Gospel packet should distinguish scene agreement, discourse-turn agreement, speaker/WJ sensitivity, and exact-boundary uncertainty."
+    limits: "This does not mean every Gospel boundary is high risk."
+  - claim_id: T470-DB-007
+    claim: "How far model agreement should lower review risk is debated and must stay calibrated by genre, textual-critical pressure, and theology pressure."
+    support_level: debated
+    how_concluded: "T464 found useful agreement candidates and many deltas, while T468 accepted some agreement only as candidate evidence after preserving hard exceptions."
+    source_refs:
+      - {label: "T464 multi-model comparison artifacts", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+      - {label: "Pevzner and Hearst WindowDiff", url: "https://aclanthology.org/J02-1002/"}
+      - {label: "T468 owner faithful-route chunking policy", url: "https://github.com/lowelltwong-alt/logos-scripture-graph"}
+    downstream_chunking_implication: "Use agreement to sort queues, not to bypass owner, Codex, frontier, or reviewed-gold gates."
+    limits: "The model agreement threshold remains a governance parameter, not a theological fact."
+transparent_conclusion_rules:
+  - "Every future review packet must state which claims are well-supported and which are debated."
+  - "Every conclusion needs source basis, how_concluded, downstream implication, and limits."
+  - "Debated issues must not be silently downgraded."
+  - "If a packet uses model agreement, it must say whether the agreement is exact, near-boundary, majority, M4/M6, or frontier-triad."
+  - "If a packet uses editorial/source metadata, it must label the metadata as evidence-only unless a later owner gate grants a narrower role."
+t470_recommendations:
+  - {recommendation_id: T470-R1, recommendation: "Add near-boundary or WindowDiff-style comparison before over-escalating every exact-boundary mismatch.", status: future_task_candidate}
+  - {recommendation_id: T470-R2, recommendation: "Keep the first implementation-facing review work on the T465 19-row M4/M6 owner docket while hard exceptions remain frontier-gated.", status: active_guidance}
+  - {recommendation_id: T470-R3, recommendation: "Require future owner dockets to include a transparent support/debate table for each selected candidate.", status: active_guidance}
+authorization:
+  records_research_transparency: true
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_truth: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+  writes_dad_reports: false

@@ -649,6 +649,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t468_owner_faithful_chunking_policy.py")],
         ),
         (
+            "validate_t470_transparent_chunking_research_evidence_rubric.py",
+            [PY, str(ROOT / "scripts" / "validate_t470_transparent_chunking_research_evidence_rubric.py")],
+        ),
+        (
             "validate_scratch_scope.py",
             [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
         ),

@@ -1,0 +1,94 @@
+id: T470
+phase: phase_4
+title: "Transparent Chunking Research Evidence Rubric"
+mode: research_transparency_non_authorizing
+status: in_progress
+owner: codex
+branch: codex/t470-transparent-chunking-research
+base_ref: origin/main
+summary: "Make the research basis behind chunking decisions transparent by separating well-supported claims from debated claims, recording how each conclusion was reached, and preserving downstream chunking implications without authorizing output."
+scope:
+  allowed_paths:
+    - .ai/tasks/T470.task.yaml
+    - .ai/control/t470_transparent_chunking_research_evidence_rubric.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T470/
+    - .ai/context/agent_work/T470/
+    - docs/roadmap/T470_TRANSPARENT_CHUNKING_RESEARCH_EVIDENCE_RUBRIC.md
+    - scripts/validate_all.py
+    - scripts/validate_t468_owner_faithful_chunking_policy.py
+    - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    - tests/test_t470_transparent_chunking_research_evidence_rubric.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: research_transparency_record_non_authorizing
+  records_research_transparency: true
+  records_support_and_debate_levels: true
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+  writes_dad_reports: false
+runtime_language_preflight:
+  task_id: T470
+  touched_paths:
+    - scripts/validate_all.py
+    - scripts/validate_t468_owner_faithful_chunking_policy.py
+    - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    - tests/test_t470_transparent_chunking_research_evidence_rubric.py
+  expected_input_size_or_record_count: "Small YAML/Markdown research-transparency surfaces; no full six-model compare rerun and no large corpus scan."
+  expected_runtime_or_memory_pressure: "Low. T470 validates source-backed claim metadata, support levels, and explicit non-authority flags."
+  rust_trigger_match:
+    - none_semantic_research_transparency_validator
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust fast path is selected because this validator checks source basis, conclusion wording, and authority boundaries rather than large deterministic record streams."
+  interop_boundary: "Python validates YAML/Markdown governance surfaces. Rust remains reserved for deterministic corpus scans, chunk-map coverage, JSONL streaming, and large alignment ledgers."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping this in Python keeps theological, textual-critical, and research-transparency guardrails readable to future agents."
+  validation_plan: "Run validate_t470_transparent_chunking_research_evidence_rubric.py, focused pytest, task scope, handoffs, decision register, lesson index, validate_all.py, full pytest, data-map check, and git diff --check."
+acceptance_criteria:
+  - "Well-supported and debated chunking research claims are separated in a machine-validated rubric."
+  - "Every recorded claim names how the conclusion was reached, source references, downstream chunking implications, and limits."
+  - "Model agreement, discourse analysis, editorial markers, textual variants, and faithfulness principles are all labeled with their proper support level."
+  - "WindowDiff or near-boundary comparison is recorded as a recommended improvement before over-escalating every exact-boundary mismatch."
+  - "No T470 artifact authorizes target selection, reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition preference, variant/inspiration decision, DAD reporting success gate, or theology authority."
+validations:
+  - python scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+  - python -m pytest tests/test_t470_transparent_chunking_research_evidence_rubric.py -q
+  - python scripts/validate_task_scope.py --task-id T470
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T470/handoff.md
+created_at: "2026-07-08"
+updated_at: "2026-07-08"
