@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T467
+last_updated_by_task: T468
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2240,6 +2240,49 @@ lessons:
       - scripts/validate_t467_chunking_harness_hardening.py
       - scripts/validate_t423_literary_quality_protocol.py
       - scripts/validate_chunking_lesson_index.py
+  - lesson_id: LSN-052
+    title: Owner faithful-route decisions guide review packets without promoting output
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, source_metadata]
+    tags: [t468, faithful-route, let-bible-interpret-bible, owner-decision, model-agreement, variant-hot-zone, hard-exceptions, non-authorizing]
+    use_when:
+      - "A future agent prepares owner candidate review packets from T464/T465 multi-model comparison evidence."
+      - "A future agent wants to downgrade agreement rows, strict frontier-triad agreement, or M4/M6 alignment into low-risk chunking work."
+      - "A future agent is deciding how to chunk poetry, prophecy, Gospel discourse, epistle argument, lists, genealogies, ritual procedures, or variant/source-tradition hot zones."
+    preflight_stage: before_owner_candidate_review_packet_or_reviewed_gold_gate
+    source_surfaces:
+      - .ai/control/t468_owner_faithful_chunking_policy.yaml
+      - docs/roadmap/T468_OWNER_FAITHFUL_CHUNKING_POLICY.md
+      - .ai/tasks/T468.task.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - scripts/validate_t468_owner_faithful_chunking_policy.py
+    related_decision_ids: [CD-107]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T464, T465, T467, T468]
+    downstream_risk: "Owner-approved faithful-route policy can be mistaken for reviewed gold, chunk output, target selection, preferred source tradition, or theology authority if later agents skip the owner/review/output gates."
+    required_preflight_surfaces:
+      - .ai/control/t468_owner_faithful_chunking_policy.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+      - docs/roadmap/T468_OWNER_FAITHFUL_CHUNKING_POLICY.md
+    non_authorizations:
+      - faithful_route_policy_as_reviewed_gold
+      - model_agreement_as_output_authority
+      - owner_candidate_lane_as_target_selection
+      - m4_m6_alignment_as_owner_selection
+      - strict_frontier_triad_agreement_as_promotion
+      - variant_hot_zone_downgrade
+      - source_tradition_preference
+      - canon_scope_change
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+      - dad_reporting_as_success_gate
+    validators:
+      - scripts/validate_t468_owner_faithful_chunking_policy.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
 
 lesson_graph:
   - from: LSN-002
@@ -2711,6 +2754,18 @@ lesson_graph:
     relation: constrains
     to: LSN-034
   - from: LSN-051
+    relation: audits
+    to: LSN-010
+  - from: LSN-051
+    relation: constrains
+    to: LSN-052
+  - from: LSN-050
+    relation: governs_update_of
+    to: LSN-052
+  - from: LSN-052
+    relation: constrains
+    to: LSN-034
+  - from: LSN-052
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

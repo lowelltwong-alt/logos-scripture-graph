@@ -1,8 +1,25 @@
 # Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-07
-**Updated by:** T467 chunking harness hardening after T465 triage
-**Active task:** -> **T467 chunking harness hardening** on `codex/t467-harness-hardening`. This is future-rerun scratch harness policy only: no model rerun, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD reporting success gate, or theology authority.
+**Updated by:** T468 owner faithful-route chunking policy
+**Active task:** -> **T468 owner faithful-route chunking policy** on `codex/t468-owner-chunking-decisions`. This records owner-approved decision principles only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+
+> **T468 owner faithful-route chunking policy (2026-07-07):** T468 records the
+> owner-approved faithful route for decisions 1-7 after the T464 comparison, T465
+> reconciliation gate, and T467 harness hardening. The governing principle is to
+> let the Bible interpret the Bible wherever reasonably possible: future review
+> packets should prefer Bible-internal literary form, discourse movement, speaker/
+> scene context, canonical cross-textual signals, and textual-transmission
+> evidence over retrieval convenience or model preference. T468 keeps 143
+> easy-majority rows and 50 strict frontier-triad delta agreements as candidate
+> evidence after hard exceptions, while the first governed review batch remains
+> the T465 19-row M4/M6 docket. Mark 16, John 7:53-8:11, Romans 16 doxology,
+> Deut 32:8-9, Jeremiah source-tradition structure, Daniel/Esther additions,
+> 1 John 5:6-8, dense epistle arguments, WJ/speaker-heavy Gospel spans, and
+> Revelation/Daniel vision cycles are not downgraded. T468 authorizes no reviewed
+> gold, chunk output, child spans, target selection, route/evaluator behavior,
+> graph/retrieval/vector truth, source-tradition choice, canon change,
+> variant/inspiration decision, or theology authority.
 
 > **T467 harness hardening (2026-07-07):** T467 patches the T423 multi-model
 > scratch chunking harness after T465 found 78 harness-fix rows. The new
