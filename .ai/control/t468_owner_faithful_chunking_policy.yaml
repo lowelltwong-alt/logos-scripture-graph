@@ -1,0 +1,188 @@
+---
+object_type: t468_owner_faithful_chunking_policy
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Created during T468 after the owner approved the faithful-route decisions for T464/T465 chunking reconciliation."
+---
+schema_version: t468_owner_faithful_chunking_policy.v1
+task_id: T468
+source_tasks:
+  - T464
+  - T465
+  - T467
+owner_decision_source: "Owner chat approval on 2026-07-07: decisions 1, 2, and 6 approved first; decisions 3, 4, 5, and 7 then approved as the faithful route."
+mode: owner_policy_non_authorizing
+summary: "Use Bible-internal literary, discourse, canonical, and textual signals as the first governing principle for future chunking review packets. Agreement between models is evidence; it is never output authority."
+first_principle:
+  id: let_the_bible_interpret_the_bible
+  label: "Let the Bible interpret the Bible"
+  rule: "When a chunking decision is unclear, prefer the Bible's own literary form, discourse movement, speaker/scenario context, canonical cross-textual signals, and textual-transmission evidence over retrieval convenience or model preference."
+  guardrail: "This principle is a chunking-policy guardrail only. It does not authorize theology claims, preferred readings, source-tradition preference, canon changes, reviewed gold, or output."
+candidate_acceptance:
+  evidence_status: owner_candidate_evidence_only
+  easy_majority_rows_total: 144
+  easy_majority_rows_accepted_after_hard_exceptions: 143
+  strict_frontier_triad_delta_agreement_total: 60
+  strict_frontier_triad_delta_agreement_accepted_after_hard_exceptions: 50
+  first_governed_review_batch_recommendation: 19
+  first_governed_review_batch_basis: "Use the T465 owner candidate docket's 19 M4_codex_gpt55 plus M6_fable5 aligned rows as the first small review-packet lane."
+  promotion_authority: none
+approved_decisions:
+  - decision_id: T468-D1
+    title: "Default unit size"
+    selected_route: faithful_route
+    rule: "Default to the larger coherent biblical unit rather than fragmenting merely for retrieval convenience."
+    preserve:
+      - scenes
+      - speeches
+      - poems
+      - lists
+      - arguments
+      - oracles
+    split_only_when:
+      - speaker_change
+      - scene_change
+      - oracle_or_vision_shift
+      - stanza_acrostic_or_refrain
+      - list_sub_unit
+      - argument_movement
+      - doxology_or_benediction
+      - variant_gate
+    downstream_instruction: "If retrieval wants smaller material, later child spans may refine the approved parent without replacing the faithful parent unit."
+  - decision_id: T468-D2
+    title: "Lists, genealogies, ritual procedures, and allotments"
+    selected_route: faithful_route
+    rule: "Keep the whole functional list, register, procedure, allotment, or census unit together unless the text itself marks internal sub-units."
+    split_only_when:
+      - tribe
+      - day
+      - clan
+      - offering
+      - location
+      - speaker
+      - function
+    downstream_instruction: "Avoid chapter-only or verse-count splitting of lists when the Bible's own list structure gives the unit."
+  - decision_id: T468-D3
+    title: "Poetry, Psalms, laments, and songs"
+    selected_route: faithful_route
+    rule: "Preserve the poem, psalm, lament, song, or clear stanza movement as the parent unit."
+    split_only_when:
+      - acrostic_stanza
+      - refrain
+      - speaker_turn
+      - doxology
+      - oracle_shift
+      - lament_to_praise_movement
+    downstream_instruction: "Do not split poetry merely for retrieval; use later child spans for long retrieval pressure after the parent is approved."
+  - decision_id: T468-D4
+    title: "Prophecy, oracle, and vision material"
+    selected_route: faithful_route
+    rule: "Chunk by oracle, vision, symbolic-scene, audience shift, or fulfillment unit rather than by artificial chapter or model-convenience boundaries."
+    split_signals:
+      - speech_formula
+      - audience_shift
+      - imagery_or_vision_scene
+      - judgment_restoration_movement
+      - fulfillment_unit
+    escalation_required_for:
+      - Daniel
+      - Revelation
+      - major_vision_cycles
+      - unclear_oracle_seams
+    downstream_instruction: "Frontier review is required where symbolic vision cycles, apocalyptic structure, or unclear seams create interpretive pressure."
+  - decision_id: T468-D5
+    title: "Gospels, Jesus' words, and speaker-sensitive discourse"
+    selected_route: faithful_route
+    rule: "Preserve scene and discourse units. Speaker changes matter, but WJ/red-letter metadata is evidence only and does not by itself authorize a parent boundary."
+    preserve_when_same_unit:
+      - controversy_scene
+      - parable_set
+      - miracle_narrative
+      - prayer
+      - teaching_discourse
+    downstream_instruction: "Use later child spans for sayings, parables, sub-arguments, and speaker turns after the parent scene/discourse has been reviewed."
+  - decision_id: T468-D6
+    title: "Epistle argument movement"
+    selected_route: faithful_route
+    rule: "Chunk epistles by argument movement and epistolary function rather than by uniform verse counts."
+    units:
+      - greeting
+      - thanksgiving_or_prayer
+      - thesis
+      - argument_step
+      - scripture_proof
+      - exhortation
+      - travel_note
+      - doxology
+      - benediction
+    escalation_required_for:
+      - Romans
+      - Corinthians
+      - Hebrews
+      - dense_epistle_arguments
+    downstream_instruction: "Dense argument units require Codex/frontier review before owner promotion."
+  - decision_id: T468-D7
+    title: "Variant and source-tradition hot zones"
+    selected_route: faithful_route
+    rule: "Defer output and require a transparent variant/source-tradition packet before any chunking promotion in disputed textual zones."
+    never_silently_normalize:
+      - Mark_16_longer_ending
+      - John_7_53_8_11
+      - Romans_16_doxology
+      - Deut_32_8_9
+      - Jeremiah_MT_LXX_structure
+      - Daniel_and_Esther_additions_routing
+      - First_John_5_6_8
+    downstream_instruction: "No later task may treat oldest witness, majority agreement, model agreement, or Strong's/original-language metadata as automatic authority."
+hard_exceptions_not_downgraded:
+  - mark_16_longer_ending
+  - john_7_53_8_11
+  - romans_16_doxology
+  - deut_32_8_9
+  - jeremiah_source_tradition_structure
+  - daniel_esther_additions_routing
+  - first_john_5_6_8
+  - dense_epistle_arguments_romans_corinthians_hebrews
+  - wj_speaker_heavy_gospel_spans
+  - revelation_and_daniel_vision_cycles
+decision_effects:
+  accepted_for_next_owner_candidate_lane:
+    - "143 easy-majority agreement rows after hard exceptions are kept as low-friction candidate evidence."
+    - "50 strict frontier-triad delta agreements after hard exceptions are kept as candidate evidence."
+    - "The first defensible governed batch remains the T465 19-row M4/M6 owner docket."
+  still_requires:
+    - exact_owner_target_selection
+    - reviewed_gold_gate
+    - route_isolation_gate
+    - non_target_identity_proof
+    - output_changing_task_if_promoted_later
+authorization:
+  records_owner_policy: true
+  accepts_candidate_evidence: true
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_truth: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  decides_variant_or_inspiration_status: false
+  authorizes_theology_authority: false
+dad_reporting:
+  status: deferred_due_to_interface_drift
+  required_for_t468_success: false
+validation:
+  validator: scripts/validate_t468_owner_faithful_chunking_policy.py
+  expected_decision_count: 7
+  expected_easy_majority_rows_total: 144
+  expected_easy_majority_rows_accepted_after_hard_exceptions: 143
+  expected_strict_frontier_triad_delta_agreement_total: 60
+  expected_strict_frontier_triad_delta_agreement_accepted_after_hard_exceptions: 50
+  expected_first_governed_review_batch_recommendation: 19

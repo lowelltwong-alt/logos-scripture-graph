@@ -1,0 +1,92 @@
+id: T468
+phase: phase_4
+title: "Owner Faithful-Route Chunking Decision Policy"
+mode: owner_policy_non_authorizing
+status: in_progress
+owner: codex
+branch: codex/t468-owner-chunking-decisions
+base_ref: origin/main
+summary: "Record the owner's approved faithful-route chunking decisions after T464/T465/T467, preserving Bible-internal literary/discourse signals as the governing decision principle while keeping all output changes behind later gates."
+scope:
+  allowed_paths:
+    - .ai/tasks/T468.task.yaml
+    - .ai/control/t468_owner_faithful_chunking_policy.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T468/
+    - docs/roadmap/T468_OWNER_FAITHFUL_CHUNKING_POLICY.md
+    - scripts/validate_all.py
+    - scripts/validate_t468_owner_faithful_chunking_policy.py
+    - tests/test_t468_owner_faithful_chunking_policy.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: owner_policy_record_non_authorizing
+  records_owner_faithful_route_decisions: true
+  accepts_easy_majority_as_candidate_evidence_only: true
+  accepts_frontier_model_alignment_as_candidate_evidence_only: true
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+  writes_dad_reports: false
+runtime_language_preflight:
+  task_id: T468
+  touched_paths:
+    - scripts/validate_all.py
+    - scripts/validate_t468_owner_faithful_chunking_policy.py
+    - tests/test_t468_owner_faithful_chunking_policy.py
+  expected_input_size_or_record_count: "Small YAML/Markdown owner-policy surfaces plus focused tests; no full comparison rerun or large scratch scan."
+  expected_runtime_or_memory_pressure: "Low. T468 validates semantic governance language and explicit non-authority flags."
+  rust_trigger_match:
+    - none_semantic_owner_policy_validator
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust fast path is selected because this validator checks owner-decision semantics, hard-exception language, and authority boundaries rather than large deterministic data."
+  interop_boundary: "Python validates YAML/Markdown governance surfaces. Rust remains reserved for deterministic corpus scans, chunk-map coverage, and large JSONL checks."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping owner-policy validation in Python makes the theological and governance guardrails readable to future agents."
+  validation_plan: "Run validate_t468_owner_faithful_chunking_policy.py, focused pytest, task scope, handoffs, decision register, validate_all.py, full pytest, data-map check, and git diff --check."
+acceptance_criteria:
+  - "Owner approvals for decisions 1-7 are recorded as faithful-route policy."
+  - "The first principle is explicit: let the Bible interpret the Bible wherever reasonably possible."
+  - "Agreement/easy-majority rows are accepted only as owner-candidate evidence, not reviewed gold or output."
+  - "Hard variant/source-tradition and dense theological/literary zones remain not downgraded and require frontier or owner-gated review."
+  - "No T468 artifact authorizes chunk output, reviewed gold, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition preference, or theology authority."
+validations:
+  - python scripts/validate_t468_owner_faithful_chunking_policy.py
+  - python -m pytest tests/test_t468_owner_faithful_chunking_policy.py -q
+  - python scripts/validate_task_scope.py --task-id T468
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T468/handoff.md
+created_at: "2026-07-07"
+updated_at: "2026-07-07"
