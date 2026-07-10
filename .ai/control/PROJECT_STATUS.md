@@ -92,6 +92,21 @@
 > graph/retrieval/vector truth, source-tradition choice, canon change,
 > variant/inspiration decision, or theology authority.
 
+> **T469 primary witness acquisition waves (2026-07-08):** Adds a planning-only
+> Cursor execution plan for cataloging and later acquiring primary/early Bible
+> witnesses in rights-reviewed waves. The plan starts with metadata-only source
+> rows and separates acquire-now/open text, public-domain or open image sets,
+> public-view-only/permission-needed manuscripts, and restricted linguistic
+> datasets. Storage estimates: metadata-only <50 MB; text-first 100 MB-1 GB;
+> public/open image originals about 11 GB, or about 23 GB with Internet Archive
+> derivatives; broader reviewed image candidates about 14 GB originals, or about
+> 28 GB with derivatives; later permissioned image expansion may need 100-250 GB.
+> T469 authorizes no raw downloads, image storage, transcription storage, source
+> text import, canonical Bible text change, canonical passage change, textual-
+> critical decision, preferred reading, source-tradition preference, canon change,
+> graph/retrieval/vector truth, apologetic conclusion as authority, or theology
+> authority.
+
 > **T467 harness hardening (2026-07-07):** T467 patches the T423 multi-model
 > scratch chunking harness after T465 found 78 harness-fix rows. The new
 > `T467_literary_coherence_v1` overlay requires future reruns/new model slots to
