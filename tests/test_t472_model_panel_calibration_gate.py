@@ -97,3 +97,13 @@ def test_rejects_frozen_manifest_authorization() -> None:
         data["artifacts"][0]["mutation_allowed_by_T472"] = True
         _write_yaml(path, data)
         assert any("mutation must be forbidden" in error for error in validate_t472(root, verify_frozen_sources=False))
+
+def test_rejects_later_focus_that_drops_t472_correction_surface() -> None:
+    with _copy_package() as root:
+        path = root / ".ai/control/current_focus.yaml"
+        data = _yaml(path)
+        data["current_task"] = "T473"
+        data.pop("t472_correction_overlay", None)
+        _write_yaml(path, data)
+        errors = validate_t472(root, verify_frozen_sources=False)
+        assert any("must retain T472 task, control, and correction overlay" in error for error in errors)

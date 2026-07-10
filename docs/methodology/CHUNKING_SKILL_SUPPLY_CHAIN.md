@@ -611,6 +611,25 @@ Rules:
 - T406 is the future multi-pass batch step, limited to at most three exact owner-or-Codex supplied
   ready candidates and Codex review before merge.
 
+## 10q. Source-marker anchor and gold-integrity rule
+
+T473 proves that reviewed gold and tests can institutionalize an upstream importer defect.
+
+Rules:
+
+- Classify marker ownership explicitly as current content, next-content start, between units,
+  chapter context, book context, or unresolved.
+- Do not infer marker ownership from the parser's currently open verse.
+- Do not append heading or speaker-label text to canonical Scripture witnesses or canonical
+  Scripture WordTokens.
+- Validate raw source order independently of gold before treating marker-driven output as correct.
+- When raw source, generated sidecars, gold, and tests disagree, stop output work and repair
+  provenance first. Gold is a governed expectation, not an override of demonstrably wrong source
+  mapping.
+- Use shadow regeneration and exact delta inventories before owner-gated canonical regeneration.
+- Re-review affected gold after canonical repair; do not hand-edit generated rows as a substitute
+  for fixing the importer.
+
 ## 11. Staleness rules
 
 Re-evaluate affected skills and update this methodology when any of these change:
@@ -768,3 +787,4 @@ canon-scope enforcement rules, boundary-governance stop rules, and LawFirm trans
   compute prep after exact owner-or-Codex target supply, but may not select targets, change output,
   promote gold, run embeddings/indexes, generate graph/retrieval truth, choose backends/profiles,
   import boundary material, add source rows, or authorize theology. T406 is the future batch pass.
+- 2026-07-10: Added the T473 source-marker anchor and gold-integrity rule after a prior-verse binding defect contaminated canonical witness text, WordTokens, sidecars, and reviewed Psalm evidence.

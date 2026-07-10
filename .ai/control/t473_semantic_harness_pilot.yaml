@@ -1,0 +1,236 @@
+---
+object_type: t473_semantic_harness_pilot
+trust_zone: canonical
+lifecycle_status: active_blocking_gate
+provenance_note: "T473 defines a non-authorizing four-scope semantic pilot contract and records the source-marker anchor defect discovered before model execution."
+---
+schema_version: t473_semantic_harness_pilot.v1
+task_id: T473
+source_tasks: [T467, T468, T470, T472]
+mode: semantic_harness_and_source_anchor_integrity_non_authorizing
+purpose: "Calibrate whether a proposer and an independently sealed critic recognize Bible-internal literary structure without converting comparison envelopes, chapter coincidence, source metadata, or model agreement into boundary authority."
+execution_state:
+  contract_complete: true
+  proposer_executed: false
+  critic_executed: false
+  reconciliation_executed: false
+  pilot_execution_allowed: false
+  t474_allowed: false
+  blocking_reasons:
+    - ps119_reviewed_gold_conflicts_with_raw_acrostic_heading_sequence
+    - source_marker_binding_contract_not_repaired_or_parity_validated
+    - owner_ps119_correction_choice_pending
+semantic_types:
+  calibration_scope: "The fixed passage window used to test recognition. It is not a proposed chunk."
+  literary_parent: "A textually argued enclosing unit, which may be broader than one output object."
+  internal_structure: "Nested literary movements or stanzas recorded for review without authorizing child output."
+  model_span: "An exact span explicitly emitted by one model decision."
+  disagreement_region: "A diagnostic envelope covering verses where partitions differ; never a candidate span."
+  candidate_span: "An exact observed model span or exact owner-supplied span with typed provenance and overlap admission; still non-authorizing."
+  gold_output_overlap: "A deterministic relation to existing reviewed gold and applied output that blocks silent replacement or subsumption."
+pilot_scopes:
+  - scope_id: T473-SCOPE-2KGS
+    calibration_span: 2Kgs.18.1-2Kgs.19.37
+    literature_family: narrative_regnal_prophetic_scene_complex
+    literary_parent_question: "Does the proposal preserve the cross-chapter threat-to-deliverance chain while distinguishing annal, speech, prayer, oracle, and fulfillment movements?"
+    required_internal_structure:
+      - 2Kgs.18.1-2Kgs.18.8
+      - 2Kgs.18.9-2Kgs.18.12
+      - 2Kgs.18.13-2Kgs.18.16
+      - 2Kgs.18.17-2Kgs.18.37
+      - 2Kgs.19.1-2Kgs.19.7
+      - 2Kgs.19.8-2Kgs.19.13
+      - 2Kgs.19.14-2Kgs.19.19
+      - 2Kgs.19.20-2Kgs.19.34
+      - 2Kgs.19.35-2Kgs.19.37
+    required_guardrails:
+      - no_chapter_per_unit_shortcut
+      - no_parallel_account_harmonization_as_boundary_authority
+      - keep_speeches_in_scene_function
+    current_overlap_admission: no_reviewed_gold_or_applied_output_overlap
+    current_status: contract_ready_execution_blocked_globally
+  - scope_id: T473-SCOPE-1CHR
+    calibration_span: 1Chr.23.1-1Chr.27.34
+    literature_family: functional_register_administrative_complex
+    literary_parent_question: "Can the proposal retain the coordinated Davidic administrative complex while naming each genuine function change?"
+    required_internal_structure:
+      - Levite duties
+      - priestly and remaining Levitical divisions
+      - musicians
+      - gatekeepers treasuries and external officers
+      - military tribal property and counselor registers
+    required_guardrails:
+      - chapter_identity_is_not_literary_identity
+      - preserve_functional_list_integrity
+      - require_named_function_change_for_split
+      - no_ecclesiology_from_register_boundaries
+    current_overlap_admission: no_reviewed_gold_or_applied_output_overlap
+    current_status: contract_ready_execution_blocked_globally
+  - scope_id: T473-SCOPE-2JOHN
+    calibration_span: 2John.1.1-2John.1.13
+    literature_family: short_epistle_rhetorical_structure
+    literary_parent_question: "Can the proposal recognize whole-letter coherence and the opening, exhortation, warning, and closing movements without inflating the disagreement region into a chunk?"
+    required_internal_structure:
+      - 2John.1.1-2John.1.3
+      - 2John.1.4-2John.1.6
+      - 2John.1.7-2John.1.11
+      - 2John.1.12-2John.1.13
+    required_guardrails:
+      - whole_letter_scope_is_not_candidate_span
+      - preserve_existing_opening_gold_and_output
+      - recipient_identity_and_christology_are_not_boundary_authority
+    current_overlap_admission: blocked_by_2John.1.1-2John.1.3_reviewed_gold_and_output
+    current_status: research_only_overlap_blocked
+  - scope_id: T473-SCOPE-PS119
+    calibration_span: Ps.119.1-Ps.119.176
+    literature_family: alphabetic_acrostic_torah_psalm
+    literary_parent_question: "Can the proposal preserve one whole-psalm parent and recognize 22 eight-verse alphabetic stanzas from verses 1-8 through 169-176?"
+    required_internal_structure:
+      - one_whole_psalm_parent
+      - twenty_two_alphabetic_stanzas
+      - eight_verses_per_stanza
+      - stanza_starts_1_9_17_through_169
+    required_guardrails:
+      - raw_d_headings_are_evidence_not_global_boundary_authority
+      - no_token_pressure_splits
+      - no_strongs_based_acrostic_inference
+      - do_not_use_shifted_gold_as_oracle
+    current_overlap_admission: exact_reviewed_gold_scope_overlap_but_gold_endpoints_quarantined
+    current_status: stop_line_pending_owner_correction_and_marker_binding_repair
+typed_provenance_rules:
+  schema: schemas/t473_semantic_harness_pilot.schema.json
+  disagreement_region_candidate_eligible: false
+  candidate_origin_kinds:
+    - exact_observed_model_span
+    - exact_owner_supplied_span
+  prohibited_candidate_derivations:
+    - disagreement_region
+    - union
+    - envelope
+    - majority_vote
+    - preferred_pair
+    - confidence_rollup
+  exact_source_requirements:
+    - model_id_or_owner_id
+    - source_decision_id
+    - exact_observed_source_span
+    - literary_evidence_ids
+    - gold_output_overlap_admission
+  all_model_artifacts_non_authorizing: true
+independence_and_sealing:
+  proposer_role: strong_proposer
+  critic_role: independent_strong_critic
+  critic_may_read_proposer_before_seal: false
+  proposer_may_read_critic_before_seal: false
+  reconciliation_may_begin_before_both_seals: false
+  run_lock_required_before_execution: true
+  run_lock_fields:
+    - run_id
+    - scope_inventory_hash
+    - substrate_hashes
+    - prompt_hashes
+    - strategy_hashes
+    - allowed_input_hashes
+    - participant_roles
+    - t472_source_hashes
+  completion_state_derived_from_receipts: true
+chapter_anchor_gate:
+  complete_chapter_span_rate_required: true
+  boundary_at_chapter_edge_rate_required: true
+  unjustified_anchor_count_required: true
+  maximum_unjustified_anchor_count: 0
+  one_chapter_2john_excluded_from_rate_aggregation: true
+  one_chapter_2john_structural_rationale_still_required: true
+  chapter_coincidence_confidence_credit: 0
+larger_unit_gate:
+  strict_larger_dissent_auto_selects_winner: false
+  required_routes:
+    - codex_reconciliation
+    - frontier_review
+  keep_lists_intact_means: "Preserve functional integrity; it does not require one giant span."
+source_marker_anchor_integrity:
+  defect_id: T473-SOURCE-ANCHOR-001
+  status: blocked_pending_owner_correction
+  demonstrated_case: Ps.119.1-Ps.119.176
+  root_cause: "record_usfm_event reads state.current, so a forward-declaring line marker between verses is attached to the verse just completed; chunker opening-boundary logic then splits before that prior verse."
+  root_cause_not: inclusive_or_half_open_endpoint_arithmetic
+  raw_observation: "The WEB USFM has d headings before verses 1, 9, 17, ..., 169."
+  current_generated_observation: "The first heading is unscoped; later d headings are associated with prior verses 8, 16, ..., 168; structural marker body text can also enter the prior canonical witness and its inline word-token stream."
+  current_gold_observation: "The reviewed case and candidate guardrail use shifted spans 1-7, 8-15, ..., 168-176."
+  faithful_expected_structure: "Twenty-two eight-verse stanzas: 1-8, 9-16, ..., 169-176, under one whole-psalm parent."
+  demonstrated_wrong_output_scope:
+    - canonical_translation_witness_text
+    - canonical_word_tokens_from_heading_text
+    - canonical_boundary_claim_anchor_refs
+    - canonical_section_heading_anchor_refs
+    - ps119_acrostic_sections_reviewed_gold
+    - ps119_candidate_skill_guardrail
+    - ps119_gold_tests
+    - song_speaker_labels_appended_to_witnesses
+    - ps78_terminal_b_marker_evidence
+  measured_characterization:
+    total_boundary_claims: 28165
+    classified_next_bound: 15303
+    currently_backward_bound: 13977
+    currently_null: 1326
+    song_sp_labels_appended: 29
+    song_witnesses_affected: 27
+  potential_blast_radius_not_yet_adjudicated:
+    - paragraph_markers
+    - poetry_line_markers
+    - stanza_break_markers
+    - section_and_descriptive_headings
+    - speaker_labels
+    - list_markers
+  no_claim_that_every_marker_record_is_wrong: true
+  evidence_packet: .ai/context/agent_work/T473/source_marker_anchor_audit.json
+  owner_packet: .ai/context/agent_work/T473/ps119_correction_owner_packet.yaml
+  canonical_repair_owner_packet: .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
+  blocks_pilot_until:
+    - marker_binding_semantics_are_classified_by_marker_family
+    - importer_fix_has_fixture_and_corpus_shadow_parity
+    - owner_reviews_exact_canonical_witness_sidecar_and_token_delta
+    - canonical_regeneration_and_baseline_reset_are_owner_authorized
+    - ps119_and_ps78_gold_are_re_reviewed_after_canonical_repair
+    - affected_gold_skill_tests_and_hashes_are_updated_only_under_separate_owner_authorization
+    - non_target_diffs_are_measured_and_routed
+overlap_admission:
+  report: .ai/context/agent_work/T473/reviewed_gold_output_overlap_report.json
+  reviewed_gold_sources:
+    - eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+    - eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+    - eval/chunking_gold/per_form/psalms_gold_manifest.json
+  applied_output_sources:
+    - .ai/control/t374_additive_parent_overlay_manifest.yaml
+    - .ai/control/t401_eph1_output_pilot_manifest.yaml
+    - .ai/control/t415_batch1_output_pilot_manifest.yaml
+  overlap_never_authorizes_promotion: true
+route_after_t473:
+  T474: "Implement explicit marker-anchor semantics and focused importer fixtures only; no canonical regeneration."
+  T475: "Run ignored dry-run canonical regeneration and produce exact witness/token/sidecar/chunk delta and hash inventory."
+  T476: "Present an exact owner packet for canonical WEB witness, sidecar, token, and baseline repair."
+  T477: "Perform owner-approved canonical regeneration and baseline reset only."
+  T478: "Re-review Psalm 119 and Psalm 78 reviewed-gold evidence after the canonical repair; no gold edits."
+  T479: "Apply only owner-approved gold/guardrail corrections; no chunk output."
+  T480: "Repair chunker/form consumers with route-isolated candidate proof; no promoted output."
+  T481_plus: "Resume the sealed four-scope proposer/critic semantic pilot after source integrity is green."
+authorization:
+  records_semantic_contract: true
+  records_source_anchor_defect: true
+  records_owner_options: true
+  executes_models: false
+  fixes_importer: false
+  changes_reviewed_gold: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false

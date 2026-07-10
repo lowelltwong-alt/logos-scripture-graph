@@ -1,0 +1,204 @@
+{
+  "schema_version": "t473_source_marker_anchor_audit.v1",
+  "task_id": "T473",
+  "audit_id": "T473-SOURCE-ANCHOR-001",
+  "status": "confirmed_blocking_defect",
+  "non_authorizing": true,
+  "source_hashes": {
+    "data/raw/bible/eng-web/usfm/eng-web_usfm.zip": "a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e",
+    "pipelines/ingest/usfm_importer.py": "a165b42a25b6c484e1a1fe93038afa8ba3478f992dcc346cfb7f4891cd45276b",
+    "eval/chunking_gold/per_form/psalms_gold_manifest.json": "76d2c6477fd45b8624a07aa73f3455ac6a4a95f9315bc1038d4300afccac5b41",
+    "pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/algorithm.py": "ecae66c20012905eaeb226337d9483ea452793a327a07fdbe3f42513f3ecb818"
+  },
+  "raw_entry": "20-PSAeng-web.usfm",
+  "raw_ps119_heading_count": 22,
+  "raw_heading_next_verses": [
+    1,
+    9,
+    17,
+    25,
+    33,
+    41,
+    49,
+    57,
+    65,
+    73,
+    81,
+    89,
+    97,
+    105,
+    113,
+    121,
+    129,
+    137,
+    145,
+    153,
+    161,
+    169
+  ],
+  "sample_raw_evidence": [
+    {
+      "source_line": 6668,
+      "marker": "d",
+      "label": "ALEPH",
+      "next_verse": 1
+    },
+    {
+      "source_line": 6693,
+      "marker": "d",
+      "label": "BETH",
+      "previous_verse": 8,
+      "next_verse": 9
+    },
+    {
+      "source_line": 6718,
+      "marker": "d",
+      "label": "GIMEL",
+      "previous_verse": 16,
+      "next_verse": 17
+    },
+    {
+      "source_line": 7192,
+      "marker": "d",
+      "label": "TAV",
+      "previous_verse": 168,
+      "next_verse": 169
+    }
+  ],
+  "observed_generated_binding": {
+    "ALEPH": null,
+    "BETH": "Ps.119.8",
+    "GIMEL": "Ps.119.16",
+    "TAV": "Ps.119.168"
+  },
+  "root_cause": {
+    "class": "forward_declaration_attached_to_prior_verse",
+    "not_class": "inclusive_or_half_open_endpoint_conversion",
+    "importer_behavior": "record_usfm_event uses state.current before the next verse starts",
+    "chunker_behavior": "a d marker on a verse is interpreted as an opening boundary before that verse",
+    "result": "stanza starts are shifted backward by one verse"
+  },
+  "faithful_expected_spans": [
+    "Ps.119.1-Ps.119.8",
+    "Ps.119.9-Ps.119.16",
+    "Ps.119.17-Ps.119.24",
+    "Ps.119.25-Ps.119.32",
+    "Ps.119.33-Ps.119.40",
+    "Ps.119.41-Ps.119.48",
+    "Ps.119.49-Ps.119.56",
+    "Ps.119.57-Ps.119.64",
+    "Ps.119.65-Ps.119.72",
+    "Ps.119.73-Ps.119.80",
+    "Ps.119.81-Ps.119.88",
+    "Ps.119.89-Ps.119.96",
+    "Ps.119.97-Ps.119.104",
+    "Ps.119.105-Ps.119.112",
+    "Ps.119.113-Ps.119.120",
+    "Ps.119.121-Ps.119.128",
+    "Ps.119.129-Ps.119.136",
+    "Ps.119.137-Ps.119.144",
+    "Ps.119.145-Ps.119.152",
+    "Ps.119.153-Ps.119.160",
+    "Ps.119.161-Ps.119.168",
+    "Ps.119.169-Ps.119.176"
+  ],
+  "institutionalized_in": [
+    "eval/chunking_gold/per_form/psalms_gold_manifest.json",
+    "pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/algorithm.py",
+    "tests/test_chunker_gold.py",
+    "tests/test_psalm_candidate_skill.py",
+    "tests/test_chunker_gold.py::BASELINE_D_SHA256"
+  ],
+  "potential_marker_families_requiring_binding_classification": [
+    "paragraph",
+    "poetry_line",
+    "stanza_break",
+    "descriptive_or_section_heading",
+    "speaker_label",
+    "list",
+    "continuation_or_no_break"
+  ],
+  "blast_radius_statement": "Canonical text, tokens, and boundary sidecars are demonstrably affected beyond Psalm 119. Exact output impact outside the cited cases remains unadjudicated until a marker-family shadow audit compares source order, generated binding, and consumer behavior.",
+  "pilot_blocked": true,
+  "reviewed_gold_change_authorized": false,
+  "chunk_output_change_authorized": false,
+  "severity": "P0_canonical_text_and_token_integrity",
+  "canonical_contamination": {
+    "translation_witness_examples": [
+      {
+        "osis_ref": "Ps.119.8",
+        "unexpected_suffix": "BETH",
+        "source_marker_line": 6693
+      },
+      {
+        "osis_ref": "Song.1.1",
+        "unexpected_suffix": "Beloved",
+        "source_marker": "sp"
+      }
+    ],
+    "bogus_word_token_examples": [
+      {
+        "osis_ref": "Ps.119.32",
+        "surface_text": "HE",
+        "strong": "H3588",
+        "source_line": 6767
+      },
+      {
+        "osis_ref": "Ps.119.160",
+        "surface_text": "AND",
+        "strong": "H4941",
+        "source_line": 7167
+      }
+    ],
+    "song_characterization": {
+      "speaker_labels_appended": 29,
+      "witnesses_affected": 27
+    },
+    "not_shown_wrong_by_this_audit": [
+      "passage_identity",
+      "passage_count",
+      "footnotes",
+      "cross_references"
+    ]
+  },
+  "boundary_claim_characterization": {
+    "total": 28165,
+    "classified_next_bound": 15303,
+    "currently_backward_bound": 13977,
+    "currently_null": 1326,
+    "backward_by_marker": {
+      "p": 6460,
+      "q1": 6446,
+      "b": 672,
+      "q2": 199,
+      "li1": 68,
+      "m": 53,
+      "pi1": 31,
+      "sp": 24,
+      "d": 21,
+      "mi": 3
+    },
+    "example": {
+      "source_file": "02-GENeng-web.usfm",
+      "source_line": 14,
+      "marker": "p",
+      "raw_precedes": "Gen.1.3",
+      "current_osis_ref": "Gen.1.2"
+    }
+  },
+  "additional_demonstrated_issues": [
+    "heading_and_speaker_labels_in_canonical_translation_witness_text",
+    "heading_inline_word_tags_in_canonical_word_tokens",
+    "Genesis_1_paragraph_claim_bound_to_previous_verse",
+    "Psalm_78_terminal_b_marker_misrepresented_as_start_evidence",
+    "inline_qs_marker_boundary_extraction_gap"
+  ],
+  "required_anchor_kinds": [
+    "current_content",
+    "next_content_start",
+    "between_units",
+    "chapter_context",
+    "book_context",
+    "unresolved"
+  ]
+}

@@ -2019,6 +2019,53 @@ phases:
         canon_scope_change_authorized: false
         source_or_manuscript_rows_authorized: false
         theology_authority_change_authorized: false
+      - id: T473
+        title: Semantic Harness And Source-Marker Anchor Integrity Gate
+        status: complete_non_authorizing_integrity_gate
+        lane: canonical_source_integrity
+        owner: codex
+        required_handoff: .ai/handoffs/T473/handoff.md
+        control: .ai/control/t473_semantic_harness_pilot.yaml
+        roadmap_doc: docs/roadmap/T473_SEMANTIC_HARNESS_AND_SOURCE_MARKER_INTEGRITY.md
+        validator: scripts/validate_t473_semantic_harness_pilot.py
+        model_execution_authorized: false
+        canonical_regeneration_authorized: false
+        reviewed_gold_change_authorized: false
+        chunk_output_authorized: false
+      - id: T474
+        title: Explicit Marker-Anchor Importer Repair
+        status: blocked_pending_owner_selection_T473_ANCHOR_A
+        lane: canonical_source_integrity
+        canonical_regeneration_authorized: false
+      - id: T475
+        title: Source-Anchor Shadow Regeneration And Delta Inventory
+        status: blocked_by_T474
+        lane: canonical_source_integrity
+        committed_canonical_change_authorized: false
+      - id: T476
+        title: Canonical WEB Repair Owner Packet
+        status: blocked_by_T475
+        lane: canonical_source_integrity
+        canonical_regeneration_authorized: false
+      - id: T477
+        title: Owner-Approved Canonical Regeneration And Baseline Reset
+        status: blocked_by_T476_owner_gate
+        lane: canonical_source_integrity
+      - id: T478
+        title: Psalm 119 And Psalm 78 Reviewed-Gold Re-Review
+        status: blocked_by_T477
+        lane: chunking_gold_integrity
+        reviewed_gold_change_authorized: false
+      - id: T479
+        title: Owner-Approved Gold And Guardrail Correction
+        status: blocked_by_T478_owner_gate
+        lane: chunking_gold_integrity
+        chunk_output_authorized: false
+      - id: T480
+        title: Marker-Consumer Route-Isolated Candidate Repair
+        status: blocked_by_T479
+        lane: chunking_consumer_integrity
+        promoted_output_authorized: false
       - id: T357
         title: Record John 3 Owner Selection And Gold Gate
         status: planned

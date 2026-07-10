@@ -121,8 +121,24 @@ def validate_t472(root: Path = ROOT, *, verify_frozen_sources: bool = True) -> l
         return [f"T472 artifact parse failure: {exc}"]
 
     _require(task.get("id") == "T472", "task id must be T472", errors)
-    _require(focus.get("current_task") == "T472", "current focus must remain T472", errors)
-    _require("calibration" in str(focus.get("focus", "")).lower(), "current focus must describe calibration correction", errors)
+    t472_is_current = focus.get("current_task") == "T472"
+    t472_is_retained = (
+        focus.get("t472_task") == ".ai/tasks/T472.task.yaml"
+        and focus.get("t472_control") == ".ai/control/t472_model_panel_calibration_gate.yaml"
+        and focus.get("t472_correction_overlay")
+        == ".ai/context/agent_work/T472/corrected_routing_overlay.jsonl"
+    )
+    _require(
+        t472_is_current or t472_is_retained,
+        "current focus must retain T472 task, control, and correction overlay after later tasks advance",
+        errors,
+    )
+    if t472_is_current:
+        _require(
+            "calibration" in str(focus.get("focus", "")).lower(),
+            "current focus must describe calibration correction while T472 is current",
+            errors,
+        )
     _require(control.get("object_type") == "t472_model_panel_calibration_gate", "control object_type mismatch", errors)
     _require(control.get("supersedes_routing_only") is True, "T472 must supersede routing only", errors)
     authorization = control.get("authorization", {})

@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T472
+last_updated_by_task: T473
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2418,6 +2418,45 @@ lessons:
       - scripts/validate_t472_model_panel_calibration_gate.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
+  - lesson_id: LSN-056
+    title: Source order must outrank gold when ingestion provenance is defective
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [source_metadata, auditability, workflow_governance]
+    tags: [t473, usfm, marker-anchor, canonical-integrity, gold-integrity, previous-next, fail-closed]
+    use_when:
+      - "An importer binds structural markers, headings, speaker labels, or list/poetry controls to Scripture verses."
+      - "Reviewed gold or baseline hashes agree with generated output but disagree with raw source order."
+      - "A generated-data correction could affect canonical witnesses, tokens, sidecars, or chunk consumers."
+    preflight_stage: before_any_usfm_ingest_gold_or_marker_driven_chunking_change
+    source_surfaces:
+      - .ai/control/t473_semantic_harness_pilot.yaml
+      - .ai/context/agent_work/T473/source_marker_anchor_audit.json
+      - .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
+      - scripts/validate_t473_semantic_harness_pilot.py
+    related_decision_ids: [CD-111]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T473]
+    downstream_risk: "An upstream importer defect can become institutionalized in canonical text, word tokens, reviewed gold, tests, and baseline hashes; shape-only validation then protects the defect."
+    required_preflight_surfaces:
+      - .ai/control/RAW_SOURCE_INVENTORY.md
+      - config/ingest/usfm_marker_coverage.yaml
+      - .ai/control/t473_semantic_harness_pilot.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - raw_marker_as_boundary_authority
+      - reviewed_gold_as_provenance_override
+      - manual_generated_row_patch_as_root_cause_fix
+      - canonical_regeneration_without_owner_gate
+      - reviewed_gold_change_without_owner_gate
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+    validators:
+      - scripts/validate_t473_semantic_harness_pilot.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -2926,4 +2965,13 @@ lesson_graph:
   - from: LSN-055
     relation: audits
     to: LSN-010
+  - from: LSN-055
+    relation: constrains
+    to: LSN-056
+  - from: LSN-056
+    relation: audits
+    to: LSN-010
+  - from: LSN-056
+    relation: constrains
+    to: LSN-034
 validator: scripts/validate_chunking_lesson_index.py

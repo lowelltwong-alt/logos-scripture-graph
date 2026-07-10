@@ -1,0 +1,95 @@
+schema_version: t473_ps119_correction_owner_packet.v1
+task_id: T473
+packet_id: T473-PS119-OWNER-001
+status: ready_for_owner_decision
+owner_selection: pending
+subject:
+  parent_span: Ps.119.1-Ps.119.176
+  issue: Current reviewed-gold and candidate-skill stanza endpoints are shifted one verse backward because forward-declaring
+    d headings were attached to the prior verse.
+evidence:
+  raw_source:
+    archive: data/raw/bible/eng-web/usfm/eng-web_usfm.zip
+    entry: 20-PSAeng-web.usfm
+    sha256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+    observation: Twenty-two alphabetic d headings occur before verses 1, 9, 17, ..., 169.
+  current_gold:
+    path: eval/chunking_gold/per_form/psalms_gold_manifest.json
+    sha256: 76d2c6477fd45b8624a07aa73f3455ac6a4a95f9315bc1038d4300afccac5b41
+    observed_first_spans:
+    - Ps.119.1-Ps.119.7
+    - Ps.119.8-Ps.119.15
+    - Ps.119.16-Ps.119.23
+    observed_last_spans:
+    - Ps.119.160-Ps.119.167
+    - Ps.119.168-Ps.119.176
+faithful_structure:
+  parent: Ps.119.1-Ps.119.176
+  stanza_count: 22
+  verses_per_stanza: 8
+  expected_spans:
+  - Ps.119.1-Ps.119.8
+  - Ps.119.9-Ps.119.16
+  - Ps.119.17-Ps.119.24
+  - Ps.119.25-Ps.119.32
+  - Ps.119.33-Ps.119.40
+  - Ps.119.41-Ps.119.48
+  - Ps.119.49-Ps.119.56
+  - Ps.119.57-Ps.119.64
+  - Ps.119.65-Ps.119.72
+  - Ps.119.73-Ps.119.80
+  - Ps.119.81-Ps.119.88
+  - Ps.119.89-Ps.119.96
+  - Ps.119.97-Ps.119.104
+  - Ps.119.105-Ps.119.112
+  - Ps.119.113-Ps.119.120
+  - Ps.119.121-Ps.119.128
+  - Ps.119.129-Ps.119.136
+  - Ps.119.137-Ps.119.144
+  - Ps.119.145-Ps.119.152
+  - Ps.119.153-Ps.119.160
+  - Ps.119.161-Ps.119.168
+  - Ps.119.169-Ps.119.176
+options:
+- option_id: T473-PS119-A
+  label: faithful_source_anchor_correction
+  recommendation: recommended
+  decision: After canonical source repair, re-review and correct Psalm 119 to 22 exact eight-verse stanzas while
+    retaining one whole-psalm parent.
+  benefits:
+  - follows_the_Bibles_own_acrostic_structure
+  - corrects_source_to_evidence_provenance
+  risks:
+  - canonical_repair_may_reveal_other_diffs
+  - baseline_hashes_need_reproof
+- option_id: T473-PS119-B
+  label: quarantine_and_defer
+  recommendation: acceptable_temporary_hold
+  decision: Keep Psalm 119 out of the semantic pilot and declare current stanza gold unusable.
+  benefits:
+  - prevents_compounding_the_error
+  risks:
+  - known_wrong_gold_remains
+- option_id: T473-PS119-C
+  label: retain_shifted_gold
+  recommendation: reject
+  decision: Keep the existing shifted spans.
+  benefits:
+  - preserves_current_hashes
+  risks:
+  - contradicts_raw_heading_order
+  - preserves_importer_error_as_gold
+recommended_owner_choice: T473-PS119-A
+owner_gate_effect:
+  selection_alone_authorizes_output: false
+  selection_alone_authorizes_reviewed_gold_change: false
+  selection_allows_later_exact_gated_correction: true
+non_authorizations:
+- reviewed_gold_change
+- chunk_output_change
+- child_span_output
+- route_or_evaluator_change
+- graph_retrieval_vector_truth
+- source_tradition_preference
+- canon_change
+- theology_authority

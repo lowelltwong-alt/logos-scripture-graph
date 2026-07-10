@@ -24,6 +24,7 @@ audit, or validation context and needs to know which numbered task artifacts mat
 
 Common tags in this file:
 
+  T473, source-marker-anchor, canonical-integrity, gold-integrity, previous-next, semantic-pilot-blocked,
 - `current-route`, `next-route`, `owner-review`, `owner-decision`
 - `review-packet`, `reviewed-gold`, `gold-gate`, `non-authorizing`
 - `theology-risk`, `hermeneutic-neutrality`, `source-metadata`
@@ -399,3 +400,5 @@ graph/retrieval truth, chunk boundaries, route/evaluator changes, implementation
 changes. T371 now asks the narrower owner question: whether the parent-only boundary and
 reviewed-gold claim are variant-non-dependent for `1Cor.9.20` and `1Cor.10.9`, and whether
 parent-only promotion is authorized.
+
+| docs/roadmap/T473_SEMANTIC_HARNESS_AND_SOURCE_MARKER_INTEGRITY.md | t473, source-marker-anchor, canonical-integrity, gold-integrity, semantic-pilot-blocked, owner-gate | A future agent is about to use marker sidecars, Psalm 119 gold, Song speaker labels, or resume the multi-model semantic pilot. | P0 stop gate; records previous-versus-next binding, canonical witness/token contamination, staged T474-T480 repair, and T481+ pilot deferral. |

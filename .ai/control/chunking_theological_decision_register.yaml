@@ -4928,6 +4928,52 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-111
+    title: T473 source-marker anchor integrity stop gate
+    classification: non_authorizing_review
+    task_ids: [T473]
+    owner_decision_ref: ".ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml"
+    pr_refs: []
+    affected_scope:
+      books: [Gen, Ps, Song]
+      passages: [Gen.1.2-Gen.1.3, Ps.78.1-Ps.78.72, Ps.119.1-Ps.119.176, Song.1.1]
+      routes:
+        - source_marker_anchor_repair
+        - canonical_shadow_regeneration
+        - reviewed_gold_re_review
+        - semantic_pilot_deferred_to_T481_plus
+      surfaces:
+        - .ai/control/t473_semantic_harness_pilot.yaml
+        - .ai/context/agent_work/T473/source_marker_anchor_audit.json
+        - .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
+        - scripts/validate_t473_semantic_harness_pilot.py
+    decision: "T473 stops model execution after proving that forward-declaring USFM markers are bound to the prior verse and can contaminate canonical witness text, canonical WordTokens, boundary sidecars, and reviewed-gold evidence. T474-T480 are re-routed through staged repair and separate owner gates; the semantic pilot moves to T481+."
+    downstream_risk: "Wrong generated text and marker anchors can become reviewed gold, tests, baseline hashes, and model-evaluation oracles, causing the repository to defend an importer defect as faithful structure."
+    theological_assumptions_avoided:
+      - "Editorial heading and speaker labels are not canonical Scripture text."
+      - "Strong's tags embedded in headings are not canonical lexical evidence."
+      - "Reviewed gold is not allowed to overrule the Bible's own raw literary structure when provenance is defective."
+      - "No theological system, model agreement, or chapter division repairs source provenance."
+    reviewed_gold_dependency: "Psalm 119 and Psalm 78 reviewed-gold evidence must be re-reviewed after canonical source repair. T473 changes no gold."
+    non_authorizations:
+      - canonical_data_regeneration
+      - reviewed_gold_change
+      - chunk_output_change
+      - child_spans
+      - route_behavior_change
+      - evaluator_behavior_change
+      - graph_retrieval_vector_truth
+      - preferred_reading_or_source_tradition
+      - canon_change
+      - theology_authority
+      - embeddings_or_indexes
+      - semantic_model_execution
+    validators:
+      - scripts/validate_t473_semantic_harness_pilot.py
+      - scripts/validate_chunking_theological_decision_register.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -5075,4 +5121,5 @@ backfill_coverage:
     - T470
     - T471
     - T472
+    - T473
 ...
