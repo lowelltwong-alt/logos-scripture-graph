@@ -187,7 +187,11 @@ def validate_t471_package(root: Path = ROOT) -> list[str]:
     _require(task.get("id") == "T471", "task id must be T471", errors)
     _require(control.get("object_type") == "t471_near_boundary_docket_refinement", "control object_type mismatch", errors)
     _require(control.get("schema_version") == "t471_near_boundary_docket_refinement.v1", "control schema_version mismatch", errors)
-    _require(focus.get("current_task") == "T471", "current_focus current_task must be T471", errors)
+    _require(
+        focus.get("current_task") == "T471" or focus.get("t471_task") == ".ai/tasks/T471.task.yaml",
+        "current_focus must retain the T471 task surface after later tasks advance current_task",
+        errors,
+    )
     _validate_false_flags(task.get("authorization", {}), TASK_FORBIDDEN_AUTH_FIELDS, "task.authorization", errors)
     _validate_false_flags(control.get("authorization", {}), FORBIDDEN_AUTH_FIELDS, "control.authorization", errors)
 
@@ -245,7 +249,11 @@ def validate_t471_package(root: Path = ROOT) -> list[str]:
         _require("CD-109" in lesson.get("related_decision_ids", []), "LSN-054 must reference CD-109", errors)
         _require("near-boundary" in " ".join(lesson.get("tags", [])), "LSN-054 tags must include near-boundary", errors)
         _require("near_boundary_refinement_as_reviewed_gold" in lesson.get("non_authorizations", []), "LSN-054 must forbid refinement as reviewed gold", errors)
-    _require(lesson_index.get("last_updated_by_task") == "T471", "lesson index last_updated_by_task must be T471", errors)
+    _require(
+        lesson_index.get("last_updated_by_task") == "T471" or lesson is not None,
+        "lesson index must retain LSN-054 after later tasks advance last_updated_by_task",
+        errors,
+    )
 
     joined = status_text + roadmap_text + handoff_text + summary_text
     for needle in ("T471", "near-boundary", "support/debate", "non-authorizing", "T472", "2John"):

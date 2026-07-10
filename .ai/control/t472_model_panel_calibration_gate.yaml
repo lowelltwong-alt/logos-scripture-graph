@@ -1,0 +1,145 @@
+---
+object_type: t472_model_panel_calibration_gate
+trust_zone: canonical
+lifecycle_status: active
+provenance_note: "Corrective overlay created after independent frontier review proved that T465/T471 inflated a disagreement region into a candidate span and that pair-based routing rewarded chapter-anchor correlation."
+---
+schema_version: t472_model_panel_calibration_gate.v1
+task_id: T472
+mode: model_panel_calibration_and_provenance_correction_non_authorizing
+supersedes_routing_only: true
+historical_artifacts_frozen:
+  - .ai/scratch/multi_model_bible_chunking/comparison/disagreement_delta.jsonl
+  - .ai/scratch/multi_model_bible_chunking/comparison/agreement_chunks.jsonl
+  - .ai/context/agent_work/T465/owner_candidate_docket.yaml
+  - .ai/context/agent_work/T471/owner_candidate_support_debate_docket.yaml
+  - .ai/context/agent_work/T471/near_boundary_delta_refinement.jsonl
+  - .ai/context/agent_work/T471/refinement_summary.md
+historical_artifact_policy:
+  mutate_frozen_files: false
+  preserve_for_audit: true
+  historical_routes_remain_authoritative: false
+  effective_routing_source: .ai/context/agent_work/T472/corrected_routing_overlay.jsonl
+provenance_defect:
+  source_id: DELTA-2John-001
+  disagreement_region: 2John.1.1-2John.1.13
+  actual_m4_span: 2John.1.12-2John.1.13
+  actual_m6_span: 2John.1.12-2John.1.13
+  actual_m3_span: 2John.1.12-2John.1.13
+  legacy_t465_t471_span: 2John.1.1-2John.1.13
+  effective_route: provenance_mismatch_and_literary_reconciliation_required
+  whole_letter_owner_packet_status: withdrawn
+  t473_eligibility: false
+  additional_blocker: "A whole-letter proposal overlaps the already reviewed-gold/output-applied 2John.1.1-2John.1.3 parent and needs an explicit overlap compatibility decision."
+model_panel:
+  M1_cursor:
+    observed_chunk_count: 9237
+    single_verse_chunks: 3795
+    cross_chapter_chunks: 0
+    evidence_role: audit_only_pending_fixed_harness_pilot
+    eligible_for_confidence_or_majority: false
+    delete_or_discard: false
+    reason: "Mechanical over-splitting and no cross-chapter units indicate harness/output calibration failure, not a final model-quality judgment."
+  M2_claude_sonnet5:
+    observed_chunk_count: 1135
+    evidence_role: review_evidence_only
+    eligible_for_confidence_or_majority: false
+    delete_or_discard: false
+  M3_claude_frontier:
+    observed_chunk_count: 1242
+    evidence_role: frontier_review_evidence_only
+    eligible_for_confidence_or_majority: false
+    delete_or_discard: false
+  M4_codex_gpt55:
+    observed_chunk_count: 1319
+    evidence_role: proposer_evidence_only
+    eligible_for_confidence_or_majority: false
+    preferred_pair_authority: false
+    delete_or_discard: false
+  M5_gemini_thinking:
+    observed_chunk_count: 15119
+    single_verse_chunks: 9916
+    cross_chapter_chunks: 0
+    evidence_role: audit_only_pending_fixed_harness_pilot
+    eligible_for_confidence_or_majority: false
+    delete_or_discard: false
+    reason: "Near-verse output and manifest/progress inconsistency require harness and provenance repair before reuse."
+  M6_fable5:
+    observed_chunk_count: 1456
+    evidence_role: critic_or_proposer_evidence_only
+    eligible_for_confidence_or_majority: false
+    preferred_pair_authority: false
+    delete_or_discard: false
+comparison_policy:
+  model_agreement_role: queue_sorting_evidence_only
+  model_agreement_raises_boundary_confidence: false
+  pair_alignment_creates_owner_candidate: false
+  m4_m6_preferred_lens_retired: true
+  self_reported_confidence_role: archival_only
+  disagreement_region_is_candidate_span: false
+  candidate_span_requires:
+    - explicit_candidate_span
+    - candidate_span_origin
+    - exact_source_model_span_or_owner_supplied_span
+    - literary_evidence_ref
+    - overlap_check_against_existing_reviewed_gold_and_output
+  chapter_coincidence:
+    default_status: suspect_editorial_anchor
+    requires_literary_identity_evidence: true
+    may_not_raise_confidence_by_itself: true
+  strict_larger_calibrated_dissent:
+    route: real_literary_disagreement
+    blocks_owner_ready_status: true
+  factual_claims:
+    require_exact_delta_id: true
+    require_model_decision_ids_and_spans: true
+    generic_template_support_claims_forbidden: true
+correction_outputs:
+  all_delta_classification: .ai/context/agent_work/T472/all_delta_mechanical_classification.jsonl
+  larger_unit_dissent: .ai/context/agent_work/T472/larger_unit_dissent.jsonl
+  corrected_routing_overlay: .ai/context/agent_work/T472/corrected_routing_overlay.jsonl
+  corrected_legacy_19_docket: .ai/context/agent_work/T472/corrected_legacy_19_docket.yaml
+  agreement_recalibration: .ai/context/agent_work/T472/agreement_recalibration.yaml
+  model_calibration: .ai/context/agent_work/T472/model_panel_calibration.yaml
+  findings: .ai/context/agent_work/T472/frontier_and_subagent_findings.md
+  builder: scripts/build_t472_model_panel_calibration_gate.py
+  validator: scripts/validate_t472_model_panel_calibration_gate.py
+rerun_policy:
+  full_66_book_rerun_now: false
+  next_step: fixed_harness_four_book_pilot
+  pilot_books_and_scopes:
+    - "2Kgs.18.1-2Kgs.19.37 narrative scene"
+    - "1Chr.23.1-1Chr.27.34 register complex"
+    - "2John.1.1-2John.1.13 epistle structure, research only because existing gold overlaps"
+    - "Ps.119 acrostic parent-and-stanza structure"
+  workflow:
+    - strong_proposer
+    - independent_strong_critic
+    - codex_reconciliation
+    - frontier_for_hard_cases
+    - explicit_owner_gate
+  proceed_to_full_rerun_only_if:
+    - chapter_anchor_rate_reduced
+    - larger_units_preserved
+    - per_model_span_provenance_valid
+    - low_confidence_escalations_complete
+    - model_manifest_and_progress_consistent
+authorization:
+  records_calibration_and_correction: true
+  preserves_model_evidence: true
+  authorizes_model_deletion: false
+  authorizes_model_rerun: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_truth: false
+  creates_retrieval_truth: false
+  creates_vector_truth: false
+  selects_preferred_reading: false
+  selects_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false

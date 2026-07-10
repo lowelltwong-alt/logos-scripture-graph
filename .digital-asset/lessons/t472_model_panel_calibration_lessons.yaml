@@ -1,0 +1,73 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T472-MODEL-PANEL-CALIBRATION-LESSONS
+source_repo: logos-scripture-graph
+task_id: T472
+source_outbox_message_id: msg-20260710-t472-model-panel-calibration-lessons
+context_map_entry: ctx-t472-model-panel-calibration-lessons
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: "Multi-model agreement is useful for queue sorting only after provenance, harness calibration, chapter-anchor correlation, overlap, and semantic checks pass."
+extra_context: "The failure likely began when a disagreement region and a model-proposed span were represented through an ambiguous downstream span field. Count and ID validators then made the bad route look structurally valid. A preferred-model-pair rule contradicted evidence-only wording, shared chapter defaults looked like independent agreement, M1/M5 mechanical splitting distortion was not removed from voting, and manifest/progress drift was not fail-closed. DELTA-2John-001 exposed the chain: region 2John.1.1-13 was mistaken for M4/M6 agreement even though their actual span was 2John.1.12-13 and existing governed output already covered 2John.1.1-3. T472 preserves the historical runs as audit evidence, withdraws the route, classifies every delta, and makes correction-system quality a first-class design concern."
+supersedes_or_corrects:
+  - lesson: LL-T465-MULTI-MODEL-RECONCILIATION-GATE
+    correction: "Keep freeze/reconciliation/specialist-packet guidance, but do not convert preferred-model alignment directly into owner candidates. Pair equality is evidence only."
+root_causes:
+  - category: provenance
+    observed_failure: "A disagreement region was copied into a candidate span."
+    likely_mechanism: "One ambiguous span field crossed comparison, docket, and owner-packet schemas without candidate_span_origin."
+    prevention: "Use distinct disagreement_region, observed_spans_by_model, explicit_candidate_span, and candidate_span_origin fields; fail if a region is promoted without lineage."
+  - category: validator_semantics
+    observed_failure: "Row-count and ID checks passed while the substantive span claim was false."
+    likely_mechanism: "Validators checked shape and cardinality, not source-field lineage, overlap, or literary identity."
+    prevention: "Add semantic invariants, frozen-source hashes, exact per-model decision IDs/spans, overlap checks, and mutation tests for plausible authority leakage."
+  - category: chapter_anchor
+    observed_failure: "Shared chapter boundaries were interpreted as independent literary agreement."
+    likely_mechanism: "Models inherited the same editorial chapter scaffold, so votes were correlated."
+    prevention: "Detect full-chapter envelopes and require independent literary evidence before confidence can rise."
+  - category: harness_integrity
+    observed_failure: "M1 over-split and M5 approached verse-level output, yet both influenced agreement."
+    likely_mechanism: "Mechanical split rules and strategies written after output made harness behavior look like model judgment."
+    prevention: "Calibrate on representative passages, enforce semantic harness invariants before a full run, and exclude failed calibrations from voting while preserving them as negative controls."
+  - category: manifest_progress
+    observed_failure: "Model completion metadata contradicted marathon progress."
+    likely_mechanism: "Separate status files had no cross-file consistency gate."
+    prevention: "Fail closed when model id, status, completed-book count, or totals disagree."
+  - category: workflow
+    observed_failure: "A preferred pair became a routing shortcut despite evidence-only prose."
+    likely_mechanism: "Control flow gave pair equality authority that narrative policy denied."
+    prevention: "Use a strong proposer, independent critic, Codex reconciliation, frontier review for hard cases, explicit owner gate, and route-isolated output proof."
+checking_system_principle:
+  statement: "Do not demand impossible perfect first-pass chunking. Build a correction system that makes mistakes visible, bounded, reproducible, and unable to promote themselves."
+  required_controls:
+    - immutable_run_evidence
+    - typed_provenance
+    - semantic_and_overlap_validation
+    - negative_controls
+    - calibrated_model_roles
+    - proposer_critic_independence
+    - frontier_escalation
+    - owner_gate
+    - route_isolation_and_non_target_identity
+  caveat: "A correction loop is not permission for careless first passes; harness preflight and representative pilots still prevent avoidable compute waste."
+candidate_assets:
+  - typed_disagreement_region_candidate_span_contract
+  - semantic_model_comparison_validator
+  - chapter_anchor_correlation_detector
+  - negative_control_run_registry
+  - model_manifest_progress_consistency_gate
+  - reviewed_output_overlap_admission_check
+  - proposer_critic_frontier_owner_workflow
+non_authorizations:
+  - dad_override_local_authority
+  - model_agreement_as_boundary_authority
+  - pair_alignment_as_owner_selection
+  - reviewed_gold
+  - chunk_output
+  - child_spans
+  - route_or_evaluator_behavior
+  - graph_retrieval_or_vector_truth
+  - source_tradition_preference
+  - canon_change
+  - theology_authority

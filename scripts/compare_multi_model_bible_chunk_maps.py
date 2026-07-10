@@ -7,6 +7,7 @@ import json
 import sys
 from collections import defaultdict
 from datetime import UTC, datetime
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -26,6 +27,8 @@ from scripts.t423_chunk_map_utils import (
     load_chunk_map,
     load_fork_policy,
     load_model_manifest,
+    load_yaml,
+    manifest_progress_inconsistencies,
     majority_required,
     model_is_complete,
     normalize_span,
@@ -35,15 +38,18 @@ from scripts.t423_chunk_map_utils import (
 
 COMPARISON_ROOT = SCRATCH_ROOT / "comparison"
 STRESS_ATLAS = ROOT / "eval" / "chunking_stress_atlas" / "biblical_chunking_stress_atlas.json"
+CANONICAL_COVERAGE_INVENTORY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_inventory.jsonl"
+MODEL_PANEL_CALIBRATION_GATE = ROOT / ".ai" / "control" / "t472_model_panel_calibration_gate.yaml"
 
 CODEX_MODEL_ID = "M4_codex_gpt55"
 FABLE_MODEL_ID = "M6_fable5"
 STALE_MODEL_IDS = {"M2_codex", "M3_claude", "M4_gemini", "M5_composer_alt"}
 CONFIDENCE_ORDER = {"low": 0, "medium_low": 1, "medium": 2, "high": 3}
+ARCHIVAL_ONLY_MODEL_IDS = {"M1_cursor", "M5_gemini_thinking"}
 DECISION_STATUSES = {
     "consensus_low_risk_candidate",
-    "codex_fable_recommended_candidate",
     "frontier_review_required",
+    "real_literary_disagreement",
     "owner_decision_required",
     "harness_fix_or_rerun_required",
     "phase2_deferred",
@@ -173,6 +179,49 @@ def _confidence_rollup(confidences: list[str]) -> str:
     return min(confidences, key=lambda value: CONFIDENCE_ORDER.get(value, 1))
 
 
+def _confidence_eligible_models(model_ids: list[str]) -> list[str]:
+    """Read the optional T472 calibration gate; confidence remains evidence-only."""
+    excluded = set(ARCHIVAL_ONLY_MODEL_IDS)
+    if MODEL_PANEL_CALIBRATION_GATE.is_file():
+        data = load_yaml(MODEL_PANEL_CALIBRATION_GATE)
+        models = data.get("models", {}) if isinstance(data, dict) else {}
+        if isinstance(models, dict):
+            for model_id in model_ids:
+                policy = models.get(model_id)
+                if isinstance(policy, dict) and policy.get("eligible_for_confidence_or_majority") is False:
+                    excluded.add(model_id)
+    return [model_id for model_id in model_ids if model_id not in excluded]
+
+
+@lru_cache(maxsize=1)
+def _canonical_chapter_bounds() -> dict[tuple[str, int], tuple[int, int]]:
+    """Load canonical chapter bounds from the coverage inventory when available."""
+    bounds: dict[tuple[str, int], tuple[int, int]] = {}
+    if not CANONICAL_COVERAGE_INVENTORY.is_file():
+        return bounds
+    for row in _iter_jsonl(CANONICAL_COVERAGE_INVENTORY):
+        book, chapter = row.get("book"), row.get("chapter")
+        start, end = row.get("verse_start"), row.get("verse_end")
+        if not isinstance(book, str) or not all(isinstance(value, int) for value in (chapter, start, end)):
+            continue
+        key = (book, chapter)
+        current = bounds.get(key)
+        bounds[key] = (start, end) if current is None else (min(current[0], start), max(current[1], end))
+    return bounds
+
+
+def _chapter_coincidence(span: SpanRange) -> bool:
+    bounds = _canonical_chapter_bounds()
+    start_bounds = bounds.get((span.book, span.start.chapter))
+    end_bounds = bounds.get((span.book, span.end.chapter))
+    return bool(
+        start_bounds
+        and end_bounds
+        and span.start.verse == start_bounds[0]
+        and span.end.verse == end_bounds[1]
+    )
+
+
 def _load_sidecar_refs(folder: Path, model_id: str) -> dict[str, list[str]]:
     refs: dict[str, list[str]] = defaultdict(list)
     for filename in SIDECAR_FILES:
@@ -210,9 +259,6 @@ def _risk_flags_for_records(book: str, records: list[dict[str, Any]], sidecar_re
         flags.add("sidecar_low_confidence_or_frontier")
 
     for record in records:
-        confidence = str(record.get("confidence", ""))
-        if confidence in {"low", "medium_low"}:
-            flags.add("low_confidence")
         if record.get("wj_or_red_letter_considered") is True:
             flags.add("wj_or_red_letter")
         if record.get("frontier_flag_considered") is True:
@@ -372,7 +418,11 @@ def _enrich_agreements(
                     for model_id, record in records_by_model.items()
                 },
                 "confidence_by_model": confidences,
-                "confidence_rollup": _confidence_rollup(list(confidences.values())),
+                "confidence_role": "archival_only",
+                "confidence_eligible_models": _confidence_eligible_models(agreeing),
+                "candidate_qualifying_models": _confidence_eligible_models(agreeing),
+                "confidence_rollup": "archival_only",
+                "majority_candidate_qualification": False,
                 "risk_flags": risk_flags,
                 "variant_hot_zone_matches": variant_matches,
                 "expert_review_lanes": _expert_review_lanes(risk_flags, variant_matches),
@@ -392,6 +442,28 @@ def _enrich_deltas(
 ) -> None:
     for row in deltas:
         book = str(row.get("book", ""))
+        observations_raw = row.get("span_observations_by_model")
+        if isinstance(observations_raw, dict):
+            observations_by_model = {
+                str(model_id): [str(span) for span in spans if isinstance(span, str)]
+                for model_id, spans in observations_raw.items()
+                if isinstance(spans, list)
+            }
+        else:
+            observations_by_model = {
+                str(model_id): [str(span)]
+                for model_id, span in (row.get("models") or {}).items()
+                if isinstance(span, str)
+            }
+        for relations in (row.get("span_relations_to_disagreement_region_by_model") or {}).values():
+            if not isinstance(relations, list):
+                continue
+            for relation in relations:
+                if isinstance(relation, dict) and isinstance(relation.get("span"), str):
+                    relation["chapter_coincidence_from_canonical_coverage"] = _chapter_coincidence(parse_span(relation["span"]))
+        region = row.get("disagreement_region")
+        if isinstance(region, str):
+            row["chapter_coincidence_from_canonical_coverage"] = _chapter_coincidence(parse_span(region))
         model_spans = {
             str(model_id): str(span)
             for model_id, span in (row.get("models") or {}).items()
@@ -410,26 +482,23 @@ def _enrich_deltas(
         m4_span = model_spans.get(CODEX_MODEL_ID)
         m6_span = model_spans.get(FABLE_MODEL_ID)
         codex_fable_alignment = bool(m4_span and m6_span and m4_span == m6_span)
-        span_vote_count = list(model_spans.values()).count(m4_span) if m4_span else 0
-        majority = majority_required(int(row.get("complete_model_count", 6) or 6))
-        trusted_minority = codex_fable_alignment and span_vote_count < majority
         delta_kind = str(row.get("delta_kind", ""))
         if requires_frontier:
             status = "frontier_review_required"
         elif row.get("delta_kind") == "coverage_gap":
             status = "harness_fix_or_rerun_required"
-        elif codex_fable_alignment:
-            status = "codex_fable_recommended_candidate"
         elif delta_kind == "literature_routing_disagreement":
-            status = "harness_fix_or_rerun_required"
+            status = "real_literary_disagreement"
         else:
             status = "owner_decision_required"
+        eligible_models = _confidence_eligible_models(list(observations_by_model))
         row.update(
             {
                 "codex_fable_alignment": codex_fable_alignment,
                 "codex_fable_span": m4_span if codex_fable_alignment else None,
-                "trusted_minority_candidate": trusted_minority,
-                "recommended_candidate_basis": "codex_fable_alignment" if codex_fable_alignment else "none",
+                "pair_equality_observation": codex_fable_alignment,
+                "trusted_minority_candidate": False,
+                "recommended_candidate_basis": "none",
                 "model_decision_ids": {
                     model_id: _record_decision_id(record)
                     for model_id, record in records_by_model.items()
@@ -438,9 +507,10 @@ def _enrich_deltas(
                     model_id: str(record.get("confidence", "medium"))
                     for model_id, record in records_by_model.items()
                 },
-                "confidence_rollup": _confidence_rollup(
-                    [str(record.get("confidence", "medium")) for record in records_by_model.values()]
-                ),
+                "confidence_role": "archival_only",
+                "confidence_eligible_models": eligible_models,
+                "confidence_rollup": "archival_only",
+                "majority_candidate_qualification": False,
                 "risk_flags": risk_flags,
                 "variant_hot_zone_matches": variant_matches,
                 "expert_review_lanes": _expert_review_lanes(risk_flags, variant_matches),
@@ -448,7 +518,7 @@ def _enrich_deltas(
                 "requires_frontier_review": requires_frontier,
                 "decision_route": status,
                 "docket_status": status,
-                "next_gate": "claude_frontier_review" if status == "frontier_review_required" else "owner_or_codex_reconciliation",
+                "next_gate": ("claude_frontier_review" if status == "frontier_review_required" else "literary_review_before_pair_signals" if status == "real_literary_disagreement" else "owner_or_codex_reconciliation"),
             }
         )
 
@@ -462,6 +532,9 @@ def select_models(
     interim: bool,
 ) -> tuple[list[Path], list[str]]:
     errors: list[str] = []
+    for folder in folders:
+        for inconsistency in manifest_progress_inconsistencies(folder):
+            errors.append(f"{_rel(folder)}: manifest/progress inconsistency: {inconsistency}")
     complete = [f for f in folders if model_is_complete(f)]
     if require_all_initial_target and not interim:
         if len(complete) < initial_target:
@@ -497,6 +570,13 @@ def compare_models(
     allow_easy_at_n3: bool,
     t417_overlap_books: set[str] | None = None,
 ) -> dict[str, Any]:
+    inconsistencies = [
+        f"{_rel(folder)}: {message}"
+        for folder in model_folders
+        for message in manifest_progress_inconsistencies(folder)
+    ]
+    if inconsistencies:
+        raise ValueError("manifest/progress inconsistency: " + "; ".join(inconsistencies))
     model_ids = [str(load_model_manifest(f).get("model_id", f.name)) for f in model_folders]
     n = len(model_folders)
     majority = majority_required(n)

@@ -136,6 +136,30 @@ def spans_overlap(a: SpanRange, b: SpanRange) -> bool:
         return False
     return not verse_before(a.end, b.start) and not verse_before(b.end, a.start)
 
+def strictly_contains(container: SpanRange, contained: SpanRange) -> bool:
+    """Return whether ``container`` contains, but is not equal to, ``contained``."""
+    if container.book != contained.book:
+        return False
+    return (
+        not verse_before(contained.start, container.start)
+        and not verse_before(container.end, contained.end)
+        and container.normalized_span() != contained.normalized_span()
+    )
+
+
+def span_relation(a: SpanRange, b: SpanRange) -> str:
+    """Describe ``a`` relative to ``b`` without promoting either span."""
+    if a.book != b.book or not spans_overlap(a, b):
+        return "disjoint"
+    if a.normalized_span() == b.normalized_span():
+        return "equal"
+    if strictly_contains(a, b):
+        return "strictly_contains"
+    if strictly_contains(b, a):
+        return "strictly_within"
+    return "overlap"
+
+
 
 def boundary_shift_verses(a: SpanRange, b: SpanRange) -> int:
     if a.book != b.book:
@@ -253,7 +277,40 @@ def load_marathon_progress(folder: Path) -> dict[str, Any]:
     return load_yaml(path)
 
 
+def manifest_progress_inconsistencies(folder: Path) -> list[str]:
+    """Return cross-file provenance conflicts that make a model result unusable."""
+    manifest_path = folder / "model_manifest.yaml"
+    progress_path = folder / "marathon_progress.yaml"
+    if not manifest_path.is_file() or not progress_path.is_file():
+        return []
+
+    manifest = load_model_manifest(folder)
+    progress = load_marathon_progress(folder)
+    errors: list[str] = []
+    manifest_id = manifest.get("model_id")
+    progress_id = progress.get("model_id")
+    if isinstance(manifest_id, str) and isinstance(progress_id, str) and manifest_id != progress_id:
+        errors.append(f"model_id differs ({manifest_id!r} != {progress_id!r})")
+
+    manifest_status = manifest.get("status")
+    progress_status = progress.get("marathon_status")
+    if isinstance(manifest_status, str) and isinstance(progress_status, str):
+        normalized_manifest_status = manifest_status.strip().lower().removeprefix("marathon_")
+        normalized_progress_status = progress_status.strip().lower().removeprefix("marathon_")
+        if normalized_manifest_status != normalized_progress_status:
+            errors.append(f"status differs ({manifest_status!r} != {progress_status!r})")
+
+    for field in ("books_completed", "books_total"):
+        manifest_value = manifest.get(field)
+        progress_value = progress.get(field)
+        if isinstance(manifest_value, int) and isinstance(progress_value, int) and manifest_value != progress_value:
+            errors.append(f"{field} differs ({manifest_value} != {progress_value})")
+    return errors
+
+
 def model_is_complete(folder: Path) -> bool:
+    if manifest_progress_inconsistencies(folder):
+        return False
     progress = load_marathon_progress(folder)
     status = str(progress.get("marathon_status", "")).lower()
     if status == "complete":
@@ -264,6 +321,8 @@ def model_is_complete(folder: Path) -> bool:
 
 
 def completed_books(folder: Path) -> set[str]:
+    if manifest_progress_inconsistencies(folder):
+        return set()
     progress = load_marathon_progress(folder)
     completion = progress.get("book_completion", {})
     if not isinstance(completion, dict):
@@ -609,6 +668,36 @@ def compare_book_verse_coverage(
                         lit_by_model[mid] = info.literature_type
 
             region = region_span_for_verses(run)
+            region_range = parse_span(region)
+            observations_by_model: dict[str, list[str]] = {}
+            for mid in model_ids:
+                observed = {
+                    spans_for_verse[mid]
+                    for ref in run
+                    for spans_for_verse in [verse_span_by_model[ref.key()]]
+                    if isinstance(spans_for_verse.get(mid), str)
+                }
+                observations_by_model[mid] = sorted(observed)
+            span_relations_by_model: dict[str, list[dict[str, str]]] = {}
+            for mid, spans in observations_by_model.items():
+                span_relations_by_model[mid] = [
+                    {
+                        "span": observed_span,
+                        "relation_to_disagreement_region": span_relation(parse_span(observed_span), region_range),
+                    }
+                    for observed_span in spans
+                ]
+            parsed_observations = [
+                parse_span(span)
+                for spans in observations_by_model.values()
+                for span in spans
+            ]
+            strict_larger_dissent = any(
+                strictly_contains(left, right)
+                for left in parsed_observations
+                for right in parsed_observations
+                if left != right
+            )
 
             delta_kind = "boundary_shift"
             if len(set(lit_by_model.get(m, "") for m in span_by_model)) > 1:
@@ -634,7 +723,12 @@ def compare_book_verse_coverage(
                     "delta_id": f"DELTA-{book}-{delta_idx:03d}",
                     "book": book,
                     "region": region,
+                    "disagreement_region": region,
                     "models": span_by_model,
+                    "span_observations_by_model": observations_by_model,
+                    "span_relations_to_disagreement_region_by_model": span_relations_by_model,
+                    "disagreement_region_is_candidate_span": False,
+                    "strict_larger_calibrated_dissent": strict_larger_dissent,
                     "delta_kind": delta_kind,
                     "near_miss": near,
                     "verses_disagreeing": len(run),
