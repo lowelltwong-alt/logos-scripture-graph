@@ -7,6 +7,7 @@ import pytest
 import yaml
 
 from scripts import generate_data_map
+import conftest
 from scripts.run_t475_shadow_delta import jsonl_stats
 from scripts.validate_t475_generated_transition_state import (
     T475TransitionError,
@@ -125,3 +126,30 @@ def test_data_map_transition_requires_candidate_semantic_proof(monkeypatch) -> N
     have = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.values())
     want = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.keys())
     assert not generate_data_map._matches_exact_t475_transition(have, want)
+
+
+class _FakeItem:
+    def __init__(self, nodeid: str) -> None:
+        self.nodeid = nodeid
+        self.markers = []
+
+    def add_marker(self, marker) -> None:
+        self.markers.append(marker)
+
+
+def test_pytest_transition_skips_only_declared_nodes(monkeypatch) -> None:
+    target = next(iter(conftest.DEFERRED_PYTEST_NODES))
+    items = [_FakeItem(target), _FakeItem("tests/test_unrelated.py::test_unrelated")]
+    monkeypatch.setattr(conftest, "detect_generated_state", lambda _root: "candidate")
+    monkeypatch.setattr(conftest, "validate_transition", lambda _root: {"state": "candidate"})
+    assert conftest.apply_t475_transition_skips(items) == 1
+    assert len(items[0].markers) == 1
+    assert items[1].markers == []
+
+
+def test_pytest_transition_skips_nothing_on_baseline(monkeypatch) -> None:
+    target = next(iter(conftest.DEFERRED_PYTEST_NODES))
+    item = _FakeItem(target)
+    monkeypatch.setattr(conftest, "detect_generated_state", lambda _root: "baseline")
+    assert conftest.apply_t475_transition_skips([item]) == 0
+    assert item.markers == []

@@ -15,6 +15,11 @@ from typing import Any
 import yaml
 
 try:
+    from scripts.validate_t475_generated_transition_state import DEFERRED_PYTEST_NODES
+except ModuleNotFoundError:
+    from validate_t475_generated_transition_state import DEFERRED_PYTEST_NODES
+
+try:
     from scripts.validate_task_execution_overlay import ExecutionOverlayError, validate_execution_overlay
 except ModuleNotFoundError:
     from validate_task_execution_overlay import ExecutionOverlayError, validate_execution_overlay
@@ -295,6 +300,8 @@ def validate_t475(
     )
     if set(transition.get("deferred_legacy_generated_validators", [])) != REQUIRED_DEFERRED_GENERATED_VALIDATORS:
         raise T475ValidationError("T475 deferred generated-validator set changed")
+    if set(transition.get("deferred_pytest_nodes", [])) != DEFERRED_PYTEST_NODES:
+        raise T475ValidationError("T475 deferred pytest node set changed")
     if transition.get("active_task_required") != "T475":
         raise T475ValidationError("T475 transition policy must require active task T475")
     if transition.get("detected_candidate_counts") != {

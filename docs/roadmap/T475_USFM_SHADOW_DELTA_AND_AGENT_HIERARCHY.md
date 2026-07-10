@@ -79,3 +79,9 @@ The post-ingest DATA_MAP check follows the same rule: it may accept only the
 exact five-row count delta proven by the frozen candidate manifest. The
 committed DATA_MAP remains on the baseline until the repair and owner gate
 authorize a real generated-baseline migration.
+
+Pytest has a parallel finite transition list because several tests invoke the
+same stale validators and Psalm-gold consumers directly. Exactly 25 named test
+nodes may be skipped only after the frozen candidate semantic proof succeeds.
+Baseline or unknown states skip nothing, and the list expires with the
+T477-T479 baseline and gold migration.

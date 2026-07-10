@@ -32,6 +32,33 @@ REQUIRED_DEFERRED = {
     "validate_divine_capitalization_inventory.py",
     "validate_wj_marker_inventory.py",
 }
+DEFERRED_PYTEST_NODES = {
+    "tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_validates_current_repo",
+    "tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_preserves_metadata_as_evidence_only",
+    "tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_requires_conflict_stop_rule",
+    "tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_rejects_reviewed_gold_promotion",
+    "tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_rejects_missing_conflict_stop",
+    "tests/test_chunker_gold.py::test_current_chunk_output_sha_matches_corrected_baseline",
+    "tests/test_chunker_gold.py::test_psalm_119_has_22_sections_and_is_not_penalized",
+    "tests/test_chunker_gold.py::test_psalm_78_reviewed_parent_child_structural_split",
+    "tests/test_chunker_gold.py::test_non_target_poetry_books_remain_on_monolith_fallback",
+    "tests/test_chunker_gold.py::test_psalm_89_reviewed_owner_option_c_routed_output",
+    "tests/test_chunking_orchestrator.py::test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present",
+    "tests/test_divine_capitalization_inventory.py::test_divine_capitalization_inventory_passes_current_repo",
+    "tests/test_source_metadata_research_atlas.py::test_source_metadata_research_atlas_passes_current_repo",
+    "tests/test_source_metadata_research_atlas.py::test_atlas_rejects_missing_family_non_authorization",
+    "tests/test_t374_additive_parent_overlay.py::test_t374_additive_parent_overlay_validates_current_repo",
+    "tests/test_t374_additive_parent_overlay.py::test_t374_manifest_records_only_one_additive_overlay",
+    "tests/test_t374_additive_parent_overlay.py::test_t374_manifest_rejects_child_span_authority",
+    "tests/test_t374_additive_parent_overlay.py::test_t374_manifest_rejects_extra_changed_output",
+    "tests/test_t401_eph1_output_pilot.py::test_t401_eph1_output_pilot_validates_current_repo",
+    "tests/test_t401_eph1_output_pilot.py::test_t401_manifest_records_only_one_eph1_overlay",
+    "tests/test_t401_eph1_output_pilot.py::test_t401_manifest_records_route_isolation_proof",
+    "tests/test_t401_eph1_output_pilot.py::test_t401_manifest_rejects_child_span_authority",
+    "tests/test_t401_eph1_output_pilot.py::test_t401_manifest_rejects_extra_changed_output",
+    "tests/test_t415_batch1_output_pilot.py::test_t415_batch1_output_pilot_validates",
+    "tests/test_wj_marker_inventory.py::test_wj_marker_inventory_passes_current_repo",
+}
 
 
 class T475TransitionError(ValueError):
@@ -149,6 +176,8 @@ def validate_transition(root: Path = ROOT) -> dict[str, Any]:
         raise T475TransitionError("transition policy candidate counts differ from the frozen state")
     if set(policy.get("deferred_legacy_generated_validators", [])) != REQUIRED_DEFERRED:
         raise T475TransitionError("deferred validator set differs from the reviewed T475 set")
+    if set(policy.get("deferred_pytest_nodes", [])) != DEFERRED_PYTEST_NODES:
+        raise T475TransitionError("deferred pytest node set differs from the reviewed T475 set")
     for key in (
         "authorizes_baseline_update",
         "authorizes_gold_or_output_change",

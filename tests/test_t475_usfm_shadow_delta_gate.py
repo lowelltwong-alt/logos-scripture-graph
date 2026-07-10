@@ -111,3 +111,15 @@ def test_data_map_transition_delta_cannot_expand(tmp_path: Path) -> None:
     )
     with pytest.raises(T475ValidationError, match="DATA_MAP delta changed"):
         validate_t475(root)
+
+
+def test_pytest_transition_deferral_cannot_expand(tmp_path: Path) -> None:
+    root = _copy_tree(tmp_path)
+    _mutate_control(
+        root,
+        lambda data: data["ci_generated_transition_policy"]["deferred_pytest_nodes"].append(
+            "tests/test_unrelated.py::test_unrelated"
+        ),
+    )
+    with pytest.raises(T475ValidationError, match="deferred pytest node set changed"):
+        validate_t475(root)

@@ -112,9 +112,14 @@ source-tradition preference, canon change, or theology authority.
 - The verified candidate comprises 844,104 rows across those ten surfaces.
 - Unknown, partial, or extra drift fails closed and runs the old validators.
 - The deferral does not authorize baseline, gold, output, or canonical migration.
-- Focused transition/hierarchy/evidence suite: 22 passed.
+- Focused transition/hierarchy/evidence suite: 25 passed.
 - GitHub CI rerun is required before merge.
 - The first rerun passed the main gates and exposed only the post-ingest
   DATA_MAP five-row transition. Its freshness check now accepts that exact
   semantic candidate while preserving the committed baseline map; any extra
   drift still fails closed.
+- The next rerun proved validate_all and DATA_MAP green, then exposed 25 exact
+  pytest nodes whose assertions still encode pre-T474 generated baselines.
+  Root conftest now skips only those named nodes after the same frozen semantic
+  candidate proof; baseline and unknown states skip nothing. The temporary set
+  expires with the T477-T479 baseline/gold migration.
