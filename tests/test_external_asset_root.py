@@ -20,8 +20,10 @@ def test_unsafe_path_inside_repo_fails(tmp_path: Path) -> None:
     assert not result["ok"]
 
 
-def test_guard_download_blocked_in_wave0() -> None:
-    os.environ["LOGOS_EXTERNAL_ASSET_ROOT"] = str(Path("C:/LogosExternal"))
+def test_guard_download_blocked_in_wave0(tmp_path: Path, monkeypatch) -> None:
+    external_root = tmp_path / "logos-external"
+    external_root.mkdir()
+    monkeypatch.setenv("LOGOS_EXTERNAL_ASSET_ROOT", str(external_root))
     result = guard.guard_download(
         source_id="codex_sinaiticus_xml",
         planned_bytes=1000,

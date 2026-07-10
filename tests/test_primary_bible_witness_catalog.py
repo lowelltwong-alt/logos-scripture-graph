@@ -5,7 +5,8 @@ from pathlib import Path
 from scripts import validate_primary_bible_witness_catalog as validator
 
 
-def test_primary_bible_witness_catalog_passes() -> None:
+def test_primary_bible_witness_catalog_passes(monkeypatch) -> None:
+    monkeypatch.delenv("LOGOS_EXTERNAL_ASSET_ROOT", raising=False)
     result = validator.validate_primary_bible_witness_catalog(check_wiring=True)
     assert result["ok"], result["errors"]
 
@@ -25,6 +26,7 @@ def test_duplicate_source_id_fails(tmp_path: Path, monkeypatch) -> None:
         rows_path.write_text(original, encoding="utf-8")
 
 
-def test_reuse_sources_reference_manifests() -> None:
+def test_reuse_sources_reference_manifests(monkeypatch) -> None:
+    monkeypatch.delenv("LOGOS_EXTERNAL_ASSET_ROOT", raising=False)
     result = validator.validate_primary_bible_witness_catalog(check_wiring=False)
     assert result["ok"], result["errors"]

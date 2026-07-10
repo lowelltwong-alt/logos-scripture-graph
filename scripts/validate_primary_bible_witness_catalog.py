@@ -146,7 +146,7 @@ def _validate_external_root_policy(ledger: dict[str, Any]) -> list[str]:
 
     env_root = os.environ.get("LOGOS_EXTERNAL_ASSET_ROOT")
     if env_root:
-        root_path = Path(env_root).expanduser()
+        root_path = Path(env_root).expanduser().resolve()
         if not root_path.is_absolute():
             errors.append("LOGOS_EXTERNAL_ASSET_ROOT must resolve to an absolute path")
         elif _is_inside_git(root_path):
