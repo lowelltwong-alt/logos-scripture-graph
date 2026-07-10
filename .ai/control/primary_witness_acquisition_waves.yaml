@@ -1,0 +1,176 @@
+object_type: primary_witness_acquisition_waves
+schema_version: primary_witness_acquisition_waves.v1
+task_id: T469
+status: planning_only_no_downloads
+trust_zone: candidate
+created_at: "2026-07-08"
+owner: Lowell Wong
+purpose: "Give Cursor an executable wave plan for bringing primary and early Bible witnesses into the knowledge base as metadata/text/image candidates where rights allow."
+authority:
+  records_acquisition_plan: true
+  records_storage_estimates: true
+  authorizes_source_metadata_rows: false
+  authorizes_raw_downloads: false
+  authorizes_image_storage: false
+  authorizes_transcription_storage: false
+  authorizes_source_text_import: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_theology_authority: false
+rules:
+  - "Metadata first: record source URL, rights, source family, scope, confidence, and review status before any download."
+  - "Download only if image/text rights permit local storage and the manifest records the exact license or rights statement."
+  - "Public-view-only images are cataloged by URL and not stored locally."
+  - "Manuscript age, fame, or apologetic usefulness cannot select a preferred reading or source tradition."
+  - "Official holding-institution or project pages outrank mirrors, but mirrors may be used only when rights are clearer and provenance is preserved."
+  - "Keep Scripture Graph limited to biblical witness metadata and source-language evidence; boundary/reception material routes elsewhere."
+target_layout_for_future_execution:
+  metadata_root: data/candidate/source_catalog/primary_bible_witnesses/
+  raw_root_if_later_authorized: data/raw/primary_witnesses/
+  recommended_files:
+    - data/candidate/source_catalog/primary_bible_witnesses/source_catalog_rows.jsonl
+    - data/candidate/source_catalog/primary_bible_witnesses/image_rights_review.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/text_acquisition_review.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/acquisition_manifest.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/storage_ledger.yaml
+storage_estimates:
+  wave_0_metadata_only:
+    expected_local_size: "< 50 MB"
+    note: "Source rows, rights reviews, manifests, and review queues only."
+  wave_1_text_and_transcriptions:
+    expected_new_local_size: "100 MB to 1 GB"
+    note: "Most machine text/transcription sources are small; allow headroom for XML, OCR, manifests, and checksums."
+  wave_2_public_domain_or_open_image_originals:
+    expected_new_local_size_without_aleppo_or_cairensis: "~10.9 GB originals, ~22.9 GB with Internet Archive derivatives"
+    expected_new_local_size_with_aleppo_and_cairensis_after_rights_review: "~14.3 GB originals, ~27.6 GB with Internet Archive derivatives"
+    recommended_free_space: "30 GB minimum; 50 GB comfortable"
+  wave_3_public_view_or_permission_needed_images:
+    expected_new_local_size_now: "0 GB local image storage; catalog URLs only"
+    if_permissions_later: "Budget 100 GB to 250 GB for high-resolution codex/papyrus image expansion."
+internet_archive_probe_2026_07_08:
+  - source_id: leningrad_codex_color_images
+    url: https://archive.org/details/Leningrad_Codex_Color_Images
+    license_observed: Public Domain Mark 1.0
+    total_gb_including_derivatives: 5.57
+    original_gb: 2.94
+  - source_id: aleppo_codex_full_scan
+    url: https://archive.org/details/aleppo-codex-tanakh-full-scan-images
+    license_observed: CC BY-NC 4.0 on IA item; source-rights review still required
+    total_gb_including_derivatives: 4.10
+    original_gb: 2.72
+  - source_id: codex_sassoon_1053_color_images
+    url: https://archive.org/details/tanakh-ms-sassoon-1053-color-images
+    license_observed: Public Domain Mark 1.0
+    total_gb_including_derivatives: 9.20
+    original_gb: 5.22
+  - source_id: bl_or_4445_torah
+    url: https://archive.org/details/BL_Or4445_Torah
+    license_observed: Public Domain Mark 1.0 / CC0 source terms noted by IA item
+    total_gb_including_derivatives: 3.20
+    original_gb: 1.33
+  - source_id: codex_cairensis
+    url: https://archive.org/details/CodexCairensis
+    license_observed: missing_on_probe_rights_review_required
+    total_gb_including_derivatives: 0.68
+    original_gb: 0.02
+  - source_id: swete_septuagint_ia
+    url: https://archive.org/details/theoldtestamenti03swetuoft_202003
+    license_observed: Public Domain Mark 1.0
+    total_gb_including_derivatives: 2.39
+    original_gb: 0.14
+  - source_id: codex_amiatinus_ia
+    url: https://archive.org/details/codexamiatinus00jero
+    license_observed: missing_on_probe_rights_review_required
+    total_gb_including_derivatives: 0.77
+    original_gb: 0.38
+  - source_id: biblia_sacra_vulgatae_1592
+    url: https://archive.org/details/bub_gb_sIwgf1mnU0UC
+    license_observed: Public Domain Mark 1.0
+    total_gb_including_derivatives: 1.73
+    original_gb: 0.84
+waves:
+  - wave_id: W0
+    title: "Catalog and rights scaffold"
+    cursor_action: "Create metadata-only rows and rights review files; no downloads."
+    priority: highest
+    target_sources:
+      - all_sources_in_this_plan
+    expected_size: "< 50 MB"
+    success_gate: "Every source has source_id, URL, witness family, biblical scope, image_access, text_access, license, storage decision, confidence, and review_status."
+  - wave_id: W1
+    title: "Text/transcription first where already open or already in repo"
+    cursor_action: "Prepare text acquisition manifests for open machine-readable texts and mark already-present repo sources."
+    priority: high
+    expected_size: "100 MB to 1 GB new local data"
+    target_sources:
+      - sblgnt
+      - oshb_wlc
+      - tanach_us_uxlc
+      - ugnt
+      - cntr_sr
+      - codex_sinaiticus_xml_noncommercial
+      - clementine_vulgate_public_domain
+      - swete_lxx_public_domain_ocr
+    success_gate: "Machine text is either already present, manifest-ready, or blocked with a license reason."
+  - wave_id: W2
+    title: "Open/public-domain image sets with cleanest storage path"
+    cursor_action: "After W0 rights review, download only approved original image sets or archive files, not every derivative."
+    priority: high
+    expected_size: "30 GB minimum free space; 50 GB comfortable"
+    target_sources:
+      - leningrad_codex_color_images
+      - codex_sassoon_1053_color_images
+      - bl_or_4445_torah
+      - swete_septuagint_ia
+      - biblia_sacra_vulgatae_1592
+      - codex_amiatinus_after_rights_review
+      - aleppo_codex_after_noncommercial_owner_review
+      - codex_cairensis_after_rights_review
+    success_gate: "Each downloaded file has checksum, manifest row, source URL, license, and no image is treated as preferred text."
+  - wave_id: W3
+    title: "Public-view-only major witnesses"
+    cursor_action: "Catalog URLs and metadata only; do not store images unless permission is obtained."
+    priority: high
+    expected_size: "0 GB local images now"
+    target_sources:
+      - great_isaiah_scroll_official
+      - leon_levy_dss_biblical_witnesses
+      - codex_vaticanus_digivatlib
+      - codex_alexandrinus_british_library
+      - p52_manchester
+      - p45_csntm
+      - p46_csntm
+      - p66_bodmer_csntm
+      - p75_vatican_csntm
+    success_gate: "Every public-view source has official URL, rights note, no-local-storage decision, and optional permission-contact next action."
+  - wave_id: W4
+    title: "Advanced linguistic/restricted datasets"
+    cursor_action: "Catalog only until license and repo-use profile are approved."
+    priority: medium
+    expected_size: "Unknown; keep out of raw until reviewed."
+    target_sources:
+      - bhsa_text_fabric_cc_by_nc
+      - catss_lxx_restricted
+      - peshitta_leiden
+      - samaritan_pentateuch_manuscripts
+      - coptic_and_syriac_early_versions
+    success_gate: "Each source has a license decision and routing decision before any local storage."
+non_authorizations:
+  - raw_downloads_by_this_plan
+  - image_storage_by_this_plan
+  - source_text_import_by_this_plan
+  - transcription_storage_by_this_plan
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
