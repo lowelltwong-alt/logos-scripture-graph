@@ -14,6 +14,7 @@ Use this file when you need task-specific T3xx/T4xx history, downstream non-auth
 
 ## Current Newest-First Pointers
 
+- T475: Task-local Sol/Terra/Luna hierarchy and exact pre/post-T474 shadow inventory. HOLD: three editorial-heading footnotes need typed-sidecar preservation before Claude audit or T476.
 - T474: Explicit USFM marker-anchor importer repair. Code and synthetic fixtures only; no committed regeneration, gold, or chunk output.
 - T473: Source-marker anchor integrity stop gate. P0 canonical witness/token/sidecar defect; T474-T480 staged repair; semantic pilot moves to T481+.
 - T461: Scripture front-door decomposition. Non-output-changing control-plane/findability hardening only. No Scripture data, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority.

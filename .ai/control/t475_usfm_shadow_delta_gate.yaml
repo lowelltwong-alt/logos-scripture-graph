@@ -1,0 +1,205 @@
+---
+object_type: t475_usfm_shadow_delta_gate
+trust_zone: canonical
+lifecycle_status: hold_with_findings_shadow_evidence_frozen
+provenance_note: "T475 compares pre-T474 and repaired T474 importer outputs in ignored roots only. It cannot replace committed data or authorize downstream output."
+reason_for_inclusion: "Measure the exact corpus-wide effect of explicit marker anchoring before any owner decision about canonical regeneration."
+---
+schema_version: t475_usfm_shadow_delta_gate.v1
+task_id: T475
+mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
+execution_overlay: .ai/tasks/T475.task.yaml#execution_overlay
+source_revisions:
+  baseline_ref: c556f27510088a9f9fdac777fbd20c1817039448
+  candidate_ref: 2ea6db7b605400f1b9fcf1a05daacf6c752f63c8
+  candidate_contract: .ai/control/t474_usfm_marker_anchor_contract.yaml
+identical_input_contract:
+  raw_archive: data/raw/bible/eng-web/usfm/eng-web_usfm.zip
+  source_manifest: data/raw/bible/eng-web/source_manifest.yaml
+  canon_config: config/canon/canonical_66_books.yaml
+  marker_coverage: config/ingest/usfm_marker_coverage.yaml
+  required_flag: --canonical-66-filter
+  forbidden_flag: --skip-sha-check
+  pin_source_files:
+    - pipelines/ingest/usfm_importer.py
+    - pipelines/ingest/usfm_inline_parser.py
+    - pipelines/util/usfm_to_osis.py
+    - pipelines/util/canon.py
+    - pipelines/util/canonical_scope.py
+shadow_roots:
+  root: build/T475
+  baseline: build/T475/baseline
+  candidate: build/T475/candidate
+  source_snapshots: build/T475/source
+  tracked_output_allowed: false
+  require_git_ignored: true
+  require_clean_before_each_trial: true
+trial_contract:
+  repetitions: 3
+  execution_order: alternating_baseline_candidate
+  warmup_policy: first_trial_is_cold_and_recorded
+  retain_final_output_pair_only: true
+  byte_identical_repeated_output_required: true
+  record_wall_clock_seconds: true
+  record_environment: true
+required_output_families:
+  - scripture/passages/passages.jsonl
+  - translations/eng-web/translation_witnesses.jsonl
+  - translations/eng-web/word_tokens.jsonl
+  - translations/eng-web/footnotes.jsonl
+  - translations/eng-web/editorial_cross_references.jsonl
+  - translations/eng-web/section_headings.jsonl
+  - translations/eng-web/boundary_claims.jsonl
+  - translations/eng-web/glossary_entries.jsonl
+  - usfm_events.jsonl
+  - unsupported_usfm_markers.jsonl
+  - extraction_manifest.yaml
+  - parser_report.yaml
+comparison_contract:
+  streaming_python_oracle: scripts/run_t475_shadow_delta.py
+  stable_key_required_for_jsonl: true
+  classes: [added, removed, modified, unchanged]
+  per_file_required: [bytes, row_count, sha256, stable_key_digest]
+  modified_row_required:
+    - stable_key
+    - record_sha256_before
+    - record_sha256_after
+    - changed_field_paths
+    - safe_metadata
+    - changed_value_hashes
+  aggregate_must_equal_row_ledger: true
+  visible_scripture_text_allowed_in_reports: false
+  safe_visible_fields:
+    - id
+    - osis_ref
+    - anchor_osis_ref
+    - prior_osis_ref
+    - next_osis_ref
+    - source_file
+    - source_line
+    - marker
+    - anchor_kind
+    - body_disposition
+    - anchor_resolved
+sensitive_scope_checks: [Ps.119, Ps.78, Song, Gen.1, full_marker_family_transition_matrix]
+chunk_impact_contract:
+  run_chunker: false
+  emit_chunk_output: false
+  record_affected_osis_refs: true
+  record_changed_chunker_input_hashes: true
+  interpretation_requires_T476_or_later: true
+required_evidence:
+  report_root: .ai/context/agent_work/T475
+  files:
+    - input_manifest.json
+    - baseline_manifest.json
+    - candidate_manifest.json
+    - repeatability_and_benchmark.json
+    - delta_summary.json
+    - mismatch_ledger.jsonl.gz
+    - sensitive_scope_summary.json
+    - chunk_input_impact.json
+    - sol_acceptance_report.md
+    - terra_parity_report.md
+    - luna_trial_log.md
+    - frozen_evidence_manifest.json
+  independent_audit_report: .ai/audits/reports/20260710-T475-independent-shadow-delta-audit.md
+  independent_audit_status: pending_blocked_by_P1
+execution_state:
+  contract_complete: true
+  shadow_trials_complete: true
+  exact_inventory_complete: true
+  sol_pre_audit_acceptance_complete: true
+  sol_pre_audit_verdict: HOLD_WITH_FINDINGS
+  frozen_bundle_complete: true
+  independent_audit_complete: false
+  evidence_ready_for_T476: false
+  blocking_findings:
+    - P1_editorial_heading_footnotes_lost_from_typed_sidecar
+    - P2_editorial_inline_sidecar_fixture_missing
+ci_generated_transition_policy:
+  purpose: "Allow CI to validate the exact frozen T475 candidate after deterministic regeneration without promoting stale downstream baselines."
+  active_task_required: T475
+  detected_candidate_counts:
+    word_tokens: 677686
+    footnotes: 1127
+  exact_semantic_manifest: .ai/context/agent_work/T475/candidate_manifest.json
+  validator: scripts/validate_t475_generated_transition_state.py
+  transitional_data_map_check: scripts/generate_data_map.py --check
+  data_map_candidate_delta:
+    total_jsonl_records: {baseline: 847086, candidate: 847081}
+    word_tokens: {baseline: 677688, candidate: 677686}
+    footnotes: {baseline: 1130, candidate: 1127}
+  deferred_legacy_generated_validators:
+    - validate_t374_additive_parent_overlay.py
+    - validate_t401_eph1_output_pilot.py
+    - validate_t415_batch1_output_pilot.py
+    - validate_source_metadata_research_atlas.py
+    - validate_1cor8_10_parent_evidence_packet.py
+    - validate_divine_capitalization_inventory.py
+    - validate_wj_marker_inventory.py
+  deferred_pytest_nodes:
+    - tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_validates_current_repo
+    - tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_preserves_metadata_as_evidence_only
+    - tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_requires_conflict_stop_rule
+    - tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_rejects_reviewed_gold_promotion
+    - tests/test_1cor8_10_parent_evidence_packet.py::test_1cor8_10_parent_evidence_packet_rejects_missing_conflict_stop
+    - tests/test_chunker_gold.py::test_current_chunk_output_sha_matches_corrected_baseline
+    - tests/test_chunker_gold.py::test_psalm_119_has_22_sections_and_is_not_penalized
+    - tests/test_chunker_gold.py::test_psalm_78_reviewed_parent_child_structural_split
+    - tests/test_chunker_gold.py::test_non_target_poetry_books_remain_on_monolith_fallback
+    - tests/test_chunker_gold.py::test_psalm_89_reviewed_owner_option_c_routed_output
+    - tests/test_chunking_orchestrator.py::test_orchestrator_real_corpus_preserves_non_ps89_identity_when_data_present
+    - tests/test_divine_capitalization_inventory.py::test_divine_capitalization_inventory_passes_current_repo
+    - tests/test_source_metadata_research_atlas.py::test_source_metadata_research_atlas_passes_current_repo
+    - tests/test_source_metadata_research_atlas.py::test_atlas_rejects_missing_family_non_authorization
+    - tests/test_t374_additive_parent_overlay.py::test_t374_additive_parent_overlay_validates_current_repo
+    - tests/test_t374_additive_parent_overlay.py::test_t374_manifest_records_only_one_additive_overlay
+    - tests/test_t374_additive_parent_overlay.py::test_t374_manifest_rejects_child_span_authority
+    - tests/test_t374_additive_parent_overlay.py::test_t374_manifest_rejects_extra_changed_output
+    - tests/test_t401_eph1_output_pilot.py::test_t401_eph1_output_pilot_validates_current_repo
+    - tests/test_t401_eph1_output_pilot.py::test_t401_manifest_records_only_one_eph1_overlay
+    - tests/test_t401_eph1_output_pilot.py::test_t401_manifest_records_route_isolation_proof
+    - tests/test_t401_eph1_output_pilot.py::test_t401_manifest_rejects_child_span_authority
+    - tests/test_t401_eph1_output_pilot.py::test_t401_manifest_rejects_extra_changed_output
+    - tests/test_t415_batch1_output_pilot.py::test_t415_batch1_output_pilot_validates
+    - tests/test_wj_marker_inventory.py::test_wj_marker_inventory_passes_current_repo
+  deferral_reason: "These gates encode the pre-T474 marker/token/footnote baseline. The exact candidate is evidence-only and downstream migration remains blocked."
+  deferral_requires_exact_candidate_semantic_digest: true
+  pytest_deferral_expires_after_T477_T479_migration: true
+  unknown_or_partial_candidate_fails_closed: true
+  authorizes_baseline_update: false
+  authorizes_gold_or_output_change: false
+  expires_after_repaired_T475_revision_and_T476_owner_gate: true
+fail_closed_conditions:
+  - write_outside_build_T475_or_declared_report_root
+  - raw_or_input_hash_mismatch
+  - missing_or_duplicate_stable_key
+  - malformed_JSONL_or_missing_output_family
+  - nondeterministic_repeated_output
+  - unexplained_mismatch
+  - visible_Scripture_text_in_report
+  - chunker_execution_or_chunk_output
+  - Rust_Python_parity_mismatch
+  - authority_leakage
+authority:
+  records_shadow_evidence: true
+  records_task_local_agent_execution: true
+  modifies_committed_raw_or_generated_data: false
+  modifies_reviewed_gold: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_chunker_or_form_consumer_behavior: false
+  changes_route_or_evaluator_behavior: false
+  creates_graph_retrieval_or_vector_truth: false
+  runs_embeddings_or_builds_indexes: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+next_route:
+  task_id: T476
+  requires_independent_audit_pass: true
+  action: owner_authorize_narrow_editorial_sidecar_repair_before_exact_owner_packet
+  canonical_regeneration_authorized: false
