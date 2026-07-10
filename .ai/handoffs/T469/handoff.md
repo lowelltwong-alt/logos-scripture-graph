@@ -37,6 +37,8 @@
 - .ai/tasks/T469.task.yaml
 - .ai/control/handoff_ledger.jsonl
 - .ai/control/primary_witness_acquisition_waves.yaml
+- .ai/control/chunking_theological_decision_register.yaml
+- .ai/control/chunking_lesson_index.yaml
 - docs/roadmap/T469_PRIMARY_WITNESS_ACQUISITION_WAVES_FOR_CURSOR.md
 - .ai/control/PROJECT_STATUS.md
 - .ai/handoffs/T469/handoff.md
@@ -48,6 +50,15 @@
 - Structured Cursor execution in waves: W0 metadata/rights scaffold, W1 text/transcription review, W2 public-domain/open image sets, W3 public-view/permission-needed source cataloging, and W4 restricted/advanced dataset review.
 - Recorded disk estimates from Internet Archive metadata probes where available: public/open image originals are about 11 GB without Aleppo/Cairensis and about 14 GB with those candidates after rights review; full IA derivatives are about 23 GB and about 28 GB respectively.
 - Recommended 50 GB free space for near-term acquisition and 100-250 GB if later permissioned high-resolution image expansion is authorized.
+- Recorded CD-114 so the watched T469 roadmap is explicitly non-authorizing and cannot be mistaken for preferred-reading, source-tradition, canon, chunk, graph, or theology authority.
+
+## PR #168 CI repair
+
+- Merged current `origin/main` into the isolated T469 branch without touching the dirty T468/W2-2 root worktree.
+- Added T469 to the theological decision register as `non_authorizing_review` under CD-114.
+- Added LSN-059 so future witness-acquisition work loads the evidence-logistics/non-authority rule before acquisition or use.
+- Expanded task scope only for the required decision-register surface.
+- Preserved the metadata-first acquisition plan and every original non-authorization.
 
 ## Validation run
 
