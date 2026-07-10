@@ -1,8 +1,15 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-10
-**Updated by:** T475 task-local hierarchy and exact shadow delta hold
-**Active task:** -> **T475 HOLD_WITH_FINDINGS** on codex/t475-usfm-shadow-delta. Sol/Terra/Luna execution and exact no-text shadow evidence are deployed; three Psalm editorial-heading footnotes are lost from the typed sidecar, so Claude audit, T476, committed data, reviewed gold, chunk output, and semantic model execution remain blocked.
+**Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
+**Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
+
+> **T481 SRC-PILOT-A Wave 0 (2026-07-10):**
+> Owner authorization SRC-PILOT-A is active after governance PR #103 and scripture-graph PR #168.
+> Cursor created the Wave 0 catalog scaffold, deduplication inventory, storage/removal plans,
+> permission-request queue (draft only), and non-authorizing Isaiah 53:10-12 / Mark 16:8-20
+> showcase shells. Restricted witnesses remain locator/metadata only. Sinaiticus XML is queued
+> for source-specific rights review in Wave 1; images remain blocked.
 
 > **T475 task-local hierarchy and exact shadow inventory (2026-07-10):**
 > Sol owned architecture, Terra owned parity measurement, Luna owned bounded

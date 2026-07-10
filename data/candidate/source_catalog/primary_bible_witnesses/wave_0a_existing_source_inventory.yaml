@@ -1,0 +1,77 @@
+object_type: wave_0a_existing_source_inventory
+task_id: T481
+authorization_id: SRC-PILOT-A
+observed_at: "2026-07-10"
+purpose: "Deduplicate and reference governed raw sources before any new acquisition."
+inventory_status: complete_wave0a_no_duplication
+sources:
+  - source_id: eng-web
+    title: World English Bible Classic
+    existing_canonical_location: data/raw/bible/eng-web/usfm/eng-web_usfm.zip
+    source_manifest: data/raw/bible/eng-web/source_manifest.yaml
+    edition_identity: ENGWEB USFM via eBible.org
+    license_record: public_domain_with_trademark_caveat
+    sha256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+    size_bytes: 3250586
+    passage_coverage: full_bible_usfm
+    completeness: complete_verified_in_repo
+    duplication_status: do_not_copy
+    staleness: verified_2026-05-28
+    ambiguity: none
+    action: reuse_manifest_reference_only
+  - source_id: sblgnt
+    title: SBL Greek New Testament
+    existing_canonical_location: data/raw/original_language/greek/sblgnt/raw/sblgnt-c4d241a9c1c4.zip
+    source_manifest: data/raw/original_language/greek/sblgnt/source_manifest.yaml
+    edition_identity: c4d241a9c1c479a55b989ba35a4976c1d0b8052c
+    license_record: CC-BY-4.0
+    sha256: 4fc2659ce10ec6f57552f22e039de927ed3e417c7b5a757f34f05dae530e4c0f
+    size_bytes: 1414688
+    passage_coverage: full_greek_new_testament
+    completeness: complete_verified_in_repo
+    duplication_status: do_not_copy
+    staleness: verified_2026-07-04
+    ambiguity: none
+    action: reuse_manifest_reference_only
+  - source_id: oshb_wlc
+    title: Open Scriptures Hebrew Bible / WLC
+    existing_canonical_location: data/raw/original_language/hebrew/openscriptures_oshb/raw/openscriptures_oshb-3d15126fb1ef.zip
+    source_manifest: data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+    edition_identity: 3d15126fb1ef74867fc1434be1942e837932691f
+    license_record: WLC_public_domain_morphology_CC-BY-4.0_component_scoped
+    sha256: f56c150708b5d74719ecb709c712c31eae9855bca7b111fd82ec91b5d177b4c7
+    size_bytes: 20870584
+    passage_coverage: full_hebrew_bible_with_morphology
+    completeness: complete_verified_in_repo
+    duplication_status: do_not_copy
+    staleness: verified_2026-07-04
+    ambiguity: keep_wlc_and_morphology_rights_separate
+    action: reuse_manifest_reference_only
+  - source_id: tanach_us_uxlc
+    title: Tanach.us UXLC
+    existing_canonical_location: data/raw/original_language/hebrew/tanach_us_uxlc/raw/Tanach.xml.zip
+    source_manifest: data/raw/original_language/hebrew/tanach_us_uxlc/source_manifest.yaml
+    edition_identity: Tanach.xml.zip
+    license_record: governed_manifest
+    passage_coverage: full_hebrew_bible
+    completeness: present_in_repo
+    duplication_status: do_not_copy
+    action: reuse_manifest_reference_only
+  - source_id: ugnt
+    title: Unified Greek New Testament
+    existing_canonical_location: data/raw/original_language/greek/ugnt/raw/ugnt-6377ea89a718.zip
+    source_manifest: data/raw/original_language/greek/ugnt/source_manifest.yaml
+    completeness: present_in_repo
+    duplication_status: do_not_copy
+    action: reuse_manifest_reference_only
+  - source_id: cntr_sr
+    title: CNTR Greek New Testament
+    existing_canonical_location: data/raw/original_language/greek/cntr_sr/raw/cntr_sr-4be18e67c687.zip
+    source_manifest: data/raw/original_language/greek/cntr_sr/source_manifest.yaml
+    completeness: present_in_repo
+    duplication_status: do_not_copy
+    action: reuse_manifest_reference_only
+deduplication_rules:
+  - "Never copy SBLGNT, OSHB/WLC, or WEB into primary_bible_witnesses or external storage when governed raw manifests already verify the artifact."
+  - "Catalog rows reference existing manifests by path and checksum; acquisition ledger remains empty for reused sources in Wave 0."
+non_authorizing_scope_label: inventory_report_not_scripture_authority

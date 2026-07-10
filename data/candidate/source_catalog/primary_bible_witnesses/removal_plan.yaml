@@ -1,0 +1,29 @@
+object_type: primary_bible_witness_removal_plan
+task_id: T481
+authorization_id: SRC-PILOT-A
+updated_at: "2026-07-10"
+principles:
+  - "Every external asset must be removable by asset_id without orphan ledger rows."
+  - "Reuse references point at governed raw manifests; removing catalog metadata does not delete governed raw."
+  - "Restricted-image locators have no binary removal path in Wave 0."
+removal_procedures:
+  - scope: catalog_metadata_only
+    steps:
+      - "Delete rows from source_catalog_rows.jsonl and related YAML by source_id."
+      - "Remove witness_passage_coverage rows referencing the source_id."
+      - "Run validate_primary_bible_witness_catalog.py"
+  - scope: external_asset_future
+    steps:
+      - "Set LOGOS_EXTERNAL_ASSET_ROOT and locate asset_id in storage_ledger.yaml."
+      - "Delete local relative path under external root."
+      - "Recompute directory size; update remaining_budget_bytes."
+      - "Set lifecycle_status to removed and append run journal entry."
+  - scope: codex_sinaiticus_xml_future
+    steps:
+      - "Remove sinaiticus/xml/ under external root if acquired."
+      - "Delete checksum row and set acquisition unit to removed."
+      - "Do not remove governed SBLGNT/WEB/OSHB raw when removing Sinaiticus XML."
+simulation_wave0:
+  catalog_only_removal: deterministic
+  external_binary_removal: not_applicable_no_assets
+non_authorizing_scope_label: removal_plan_not_data_deletion_authorization

@@ -1,0 +1,67 @@
+object_type: primary_bible_witness_catalog
+schema_version: primary_bible_witness_catalog.v1
+task_id: T481
+authorization_id: SRC-PILOT-A
+status: wave0_metadata_rights_active
+trust_zone: candidate
+created_at: "2026-07-10"
+owner: Lowell Wong
+purpose: "Governed metadata, rights, provenance, storage, and non-authorizing showcase scaffolding for primary biblical witness comparison under SRC-PILOT-A."
+catalog_root: data/candidate/source_catalog/primary_bible_witnesses/
+authorization:
+  records_source_catalog_rows: true
+  records_rights_review: true
+  records_storage_ledger: true
+  authorizes_raw_downloads: false
+  authorizes_image_storage: false
+  authorizes_transcription_storage: false
+  authorizes_source_text_import: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_theology_authority: false
+external_storage:
+  env_var: LOGOS_EXTERNAL_ASSET_ROOT
+  max_budget_bytes: 53687091200
+  required_outside_git: true
+  required_outside_onedrive: true
+  wave0_binary_acquisition: false
+required_files:
+  - data/candidate/source_catalog/primary_bible_witnesses/manifest.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/source_catalog_rows.jsonl
+  - data/candidate/source_catalog/primary_bible_witnesses/image_rights_review.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/text_acquisition_review.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/blocked_or_permission_needed.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/acquisition_manifest.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/storage_ledger.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/witness_passage_coverage.jsonl
+  - data/candidate/source_catalog/primary_bible_witnesses/permission_request_queue.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/removal_plan.yaml
+  - data/candidate/source_catalog/primary_bible_witnesses/wave_0a_existing_source_inventory.yaml
+showcase_packets:
+  - showcase_id: SHOWCASE-A
+    passage: Isa.53.10-Isa.53.12
+    scaffold: data/candidate/source_catalog/primary_bible_witnesses/showcases/isaiah_53_10_12/scaffold.yaml
+  - showcase_id: SHOWCASE-B
+    passage: Mark.16.8-Mark.16.20
+    scaffold: data/candidate/source_catalog/primary_bible_witnesses/showcases/mark_16_8_20/scaffold.yaml
+reuse_sources:
+  - source_id: eng-web
+    governed_manifest: data/raw/bible/eng-web/source_manifest.yaml
+  - source_id: sblgnt
+    governed_manifest: data/raw/original_language/greek/sblgnt/source_manifest.yaml
+  - source_id: oshb_wlc
+    governed_manifest: data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+validators:
+  - scripts/validate_primary_bible_witness_catalog.py
+  - tests/test_primary_bible_witness_catalog.py
+non_authorizations:
+  - raw_downloads_in_wave0
+  - restricted_image_local_storage
+  - preferred_reading_selection
+  - direct_ancestry_assertion_without_evidence
+  - canonical_or_chunk_output_change
+  - graph_retrieval_vector_truth
