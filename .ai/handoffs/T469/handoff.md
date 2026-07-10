@@ -59,6 +59,10 @@
 - Added LSN-059 so future witness-acquisition work loads the evidence-logistics/non-authority rule before acquisition or use.
 - Expanded task scope only for the required decision-register surface.
 - Preserved the metadata-first acquisition plan and every original non-authorization.
+- Focused decision-register, lesson-index, task-scope, handoff, and whitespace checks pass.
+- Generated ignored canonical sidecars locally with `python pipelines/ingest/usfm_importer.py --canonical-66-filter` only to enable complete verification; no generated data is committed.
+- `python scripts/validate_all.py` passes all gates, including T439, the 31,103-passage canonical corpus, and 677,686 word-token checks.
+- `python -m pytest -q` passes with 949 passed and 25 lifecycle-declared skips in 528.32 seconds.
 
 ## Validation run
 
