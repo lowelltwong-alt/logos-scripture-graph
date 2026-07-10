@@ -1,8 +1,21 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-10
-**Updated by:** T472 model-panel calibration and provenance correction
-**Active task:** -> **T472 corrective gate** on `codex/t472-2john-owner-packet-v2`. T472 withdraws the false whole-letter 2 John agreement route, freezes T464-T471 evidence, classifies all 1,048 deltas, preserves M1/M5 as negative controls, retires preferred-pair routing, and blocks T473. It authorizes no reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, source-tradition choice, canon change, variant/inspiration decision, or theology authority.
+**Updated by:** T473 source-marker anchor integrity gate
+**Active task:** -> **T473 source-integrity stop gate** on `codex/t473-semantic-harness-pilot`. A P0 previous-versus-next marker-anchor defect affects canonical witness text, WordTokens, boundary sidecars, Psalm 119 gold, Song speaker labels, and Psalm 78 evidence. Model execution is blocked; T474-T480 now form a staged repair ladder with separate owner gates.
+
+> **T473 source-marker anchor integrity gate (2026-07-10):**
+> T473 preflight proved that the importer binds forward-declaring line markers
+> to the verse just completed. Marker body text can enter canonical witnesses
+> and inline token extraction: Ps.119.8 ends with the BETH heading, two Psalm
+> headings created bogus HE/H3588 and AND/H4941 WordTokens, and 29 Song speaker
+> labels entered 27 witnesses. A read-only characterization found 15,303
+> next-bound claims, of which 13,977 point backward and 1,326 are null. Psalm
+> 119 reviewed gold/guardrails are shifted; Psalm 78 terminal-marker evidence
+> requires re-review. T473 executes no model and changes no data, gold, route,
+> evaluator, or output. T474-T480 are re-routed through importer repair, shadow
+> regeneration, owner-gated canonical repair, gold re-review/correction, and
+> consumer proof. The semantic pilot moves to T481+.
 
 > **T472 model-panel calibration and provenance correction (2026-07-10):**
 > `DELTA-2John-001` exposed a region-as-span defect. The disagreement region is

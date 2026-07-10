@@ -1,0 +1,88 @@
+schema_version: t473_source_anchor_repair_owner_packet.v1
+task_id: T473
+packet_id: T473-SOURCE-ANCHOR-OWNER-001
+status: ready_for_owner_decision
+owner_selection: pending
+severity: P0_canonical_text_and_token_integrity
+decision_question: "Should T474-T480 execute the staged marker-anchor, canonical regeneration, reviewed-gold re-review, and consumer repair program?"
+confirmed_findings:
+  - finding_id: T473-P0-001
+    statement: "Forward-declaring structural markers are associated with the prior verse because record_usfm_event reads state.current before the next verse starts."
+    not_an_endpoint_arithmetic_bug: true
+  - finding_id: T473-P0-002
+    statement: "Marker labels have entered canonical translation witness text, including BETH on Ps.119.8 and Beloved on Song.1.1."
+  - finding_id: T473-P0-003
+    statement: "Inline word tags inside two Psalm 119 heading labels created bogus HE/H3588 and AND/H4941 canonical WordTokens."
+  - finding_id: T473-P0-004
+    statement: "Psalm 119 reviewed gold, the candidate guardrail, and tests preserve shifted stanza spans."
+  - finding_id: T473-P1-001
+    statement: "A read-only characterization found 15,303 next-bound claims; 13,977 currently point backward and 1,326 are null."
+  - finding_id: T473-P1-002
+    statement: "Psalm 78 terminal b evidence and 27 Song witnesses require re-review; passage identities/counts, footnotes, and cross-references were not shown wrong."
+repair_principles:
+  - "Bind markers contextually, not with one universal previous-or-next rule."
+  - "Use explicit anchor_kind: current_content, next_content_start, between_units, chapter_context, book_context, or unresolved."
+  - "Record prior_osis_ref and next_osis_ref where applicable."
+  - "Never append descriptive headings, section headings, or speaker labels to canonical Bible witness text."
+  - "Do not emit inline word tags from heading or speaker labels as canonical Scripture WordTokens."
+  - "Fail unresolved rather than guess marker ownership."
+  - "Measure exact generated-data and chunk effects before committing canonical regeneration."
+options:
+  - option_id: T473-ANCHOR-A
+    label: staged_source_integrity_repair
+    recommendation: recommended
+    decision: "Authorize the staged T474-T480 repair sequence. T474 may change importer code and fixtures but may not regenerate committed canonical data; each later mutation retains its own exact owner gate."
+    phase_sequence:
+      - {task: T474, action: explicit_anchor_contract_and_importer_fixtures, canonical_regeneration: false}
+      - {task: T475, action: ignored_shadow_regeneration_and_exact_delta_inventory, canonical_regeneration: dry_run_only}
+      - {task: T476, action: exact_owner_canonical_repair_packet, canonical_regeneration: false}
+      - {task: T477, action: owner_approved_canonical_regeneration_and_baseline_reset, canonical_regeneration: owner_gated}
+      - {task: T478, action: ps119_and_ps78_gold_re_review, reviewed_gold_change: false}
+      - {task: T479, action: owner_approved_gold_and_guardrail_correction, reviewed_gold_change: owner_gated}
+      - {task: T480, action: chunker_consumer_repair_candidate_proof, promoted_output: false}
+    benefits:
+      - repairs_canonical_text_and_token_integrity_at_source
+      - makes_every_generated_delta_auditable
+      - prevents_wrong_gold_from_masking_importer_defects
+      - preserves_separate_owner_gates_for_canonical_and_gold_mutation
+    risks:
+      - broad_generated_diffs_are_likely
+      - current_baseline_hashes_and_score_characterizations_will_become_stale
+      - prose_consumers_that_accidentally_relied_on_backward_markers_need_explicit_repair
+  - option_id: T473-ANCHOR-B
+    label: quarantine_without_repair
+    recommendation: temporary_hold_only
+    decision: "Block chunking, original-language alignment against WEB tokens, and semantic model pilots that depend on affected surfaces; retain the evidence packet but do not change importer code."
+    benefits:
+      - avoids_immediate_broad_change
+    risks:
+      - known_canonical_witness_and_token_contamination_remains
+      - downstream_work_stays_blocked
+      - future_agents_may_accidentally_use_known_bad_gold_or_sidecars
+  - option_id: T473-ANCHOR-C
+    label: patch_only_known_psalm_and_song_rows
+    recommendation: reject
+    decision: "Manually patch known generated rows or gold without repairing importer anchoring."
+    benefits:
+      - small_visible_diff
+    risks:
+      - regeneration_reintroduces_the_defect
+      - leaves_thousands_of_backward_or_null_claims_unclassified
+      - hides_root_cause_behind_hand_edited_outputs
+recommended_owner_choice: T473-ANCHOR-A
+owner_gate_effect:
+  T473-ANCHOR-A_authorizes_T474_code_and_fixture_work_only: true
+  authorizes_canonical_regeneration_now: false
+  authorizes_reviewed_gold_change_now: false
+  authorizes_chunk_output_now: false
+  later_exact_owner_gates_required: true
+non_authorizations:
+  - canonical_data_regeneration
+  - reviewed_gold_change
+  - chunk_output_change
+  - child_span_output
+  - route_or_evaluator_change
+  - graph_retrieval_vector_truth
+  - source_tradition_preference
+  - canon_change
+  - theology_authority

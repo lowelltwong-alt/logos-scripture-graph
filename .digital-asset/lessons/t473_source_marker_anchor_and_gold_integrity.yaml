@@ -1,0 +1,63 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T473-SOURCE-MARKER-ANCHOR-AND-GOLD-INTEGRITY
+source_repo: logos-scripture-graph
+task_id: T473
+source_outbox_message_id: msg-20260710-t473-source-marker-anchor-integrity
+context_map_entry: ctx-t473-source-marker-anchor-integrity
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+summary: Implicit parser-current-state anchoring can shift forward-declaring structural metadata backward, contaminate canonical
+  text/tokens, and then become institutionalized in reviewed gold, tests, and baseline hashes.
+extra_context: T473 began as a semantic multi-model pilot. Raw-source preflight found that a Psalm 119 d heading before verse
+  9 was attached to verse 8 because the importer read state.current before the next verse started. Marker body text was appended
+  to the previous canonical witness, speaker labels entered Song witnesses, and two heading word tags became bogus canonical
+  WordTokens. A read-only scan characterized 15,303 next-bound claims; 13,977 point backward and 1,326 are null. The defect
+  escaped because tests asserted marker presence but not anchor ownership, canonical-text exclusion, or source-order parity;
+  reviewed gold and a baseline hash then protected the same generated error.
+root_causes:
+- category: implicit_state
+  observed_failure: Between-verse markers inherited the previously open verse.
+  likely_mechanism: record_usfm_event derived ownership from state.current rather than an explicit resolved anchor.
+  prevention: Require anchor_kind plus prior_osis_ref and next_osis_ref; queue start-bound markers until lookahead resolves
+    ownership.
+- category: layer_contamination
+  observed_failure: Heading and speaker-label text entered canonical witnesses and word tokens.
+  likely_mechanism: Structural marker bodies were appended and parsed as verse content.
+  prevention: Separate editorial labels from canonical text and token streams; add forbidden-label leakage validators.
+- category: gold_feedback_loop
+  observed_failure: Wrong generated boundaries became reviewed gold, fail-closed guardrails, tests, and baseline hashes.
+  likely_mechanism: Gold was reviewed against output from the same flawed importer without an independent raw-order oracle.
+  prevention: Validate raw source order independently before gold promotion; require provenance diversity and contradiction
+    stops.
+- category: test_semantics
+  observed_failure: Fixtures checked that a marker existed but not which side of a boundary it owned.
+  likely_mechanism: Shape and count assertions omitted semantic anchor direction and canonical-text exclusion.
+  prevention: Add opening/interior/terminal/body-bearing/empty/ambiguous fixture matrices and mutation tests.
+candidate_assets:
+- asset-candidate:explicit-structural-marker-anchor-contract
+- asset-candidate:raw-order-versus-generated-anchor-validator
+- asset-candidate:editorial-label-canonical-text-leakage-gate
+- asset-candidate:gold-provenance-independence-check
+- asset-candidate:shadow-regeneration-exact-delta-inventory
+- asset-candidate:source-integrity-stop-before-model-evaluation
+checking_system_principle:
+  statement: Consistency among generated output, tests, gold, and hashes is not independent correctness when every surface
+    descends from the same parser assumption.
+  required_controls:
+  - explicit_anchor_semantics
+  - independent_raw_order_oracle
+  - canonical_text_layer_exclusion
+  - shadow_regeneration
+  - owner_gated_canonical_mutation
+  - post_repair_gold_re_review
+non_authorizations:
+- dad_override_local_authority
+- automatic_canonical_regeneration
+- automatic_reviewed_gold_change
+- manual_generated_row_patch
+- raw_marker_as_boundary_authority
+- chunk_output
+- graph_retrieval_or_vector_truth
+- theology_authority
