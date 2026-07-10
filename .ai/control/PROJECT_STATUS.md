@@ -1,8 +1,20 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-10
-**Updated by:** T473 source-marker anchor integrity gate
-**Active task:** -> **T473 source-integrity stop gate** on `codex/t473-semantic-harness-pilot`. A P0 previous-versus-next marker-anchor defect affects canonical witness text, WordTokens, boundary sidecars, Psalm 119 gold, Song speaker labels, and Psalm 78 evidence. Model execution is blocked; T474-T480 now form a staged repair ladder with separate owner gates.
+**Updated by:** T474 explicit USFM marker-anchor importer repair
+**Active task:** -> **T474 complete code-and-fixture gate** on codex/t474-usfm-marker-anchor-repair. All focused and full tests pass. T475 is next as ignored shadow delta inventory only; committed data, reviewed gold, chunk output, and semantic model execution remain blocked.
+
+> **T474 explicit USFM marker-anchor importer repair (2026-07-10):**
+> The importer now resolves marker ownership and body disposition before any
+> event, sidecar, witness, or token mutation. Empty paragraph/poetry/list
+> markers bind forward; body-bearing content lines remain on the active verse;
+> headings and speaker labels are editorial-only; b/nb preserve neighboring
+> refs; inline qs is not a line boundary; unresolved ownership receives no
+> guessed anchor or text/token mutation. Synthetic Psalm 119, Song, poetry,
+> paragraph, cross-chapter no-break, and malformed-marker fixtures pass. T474
+> regenerates no committed data and changes no gold, chunker/form consumer,
+> route/evaluator behavior, graph/retrieval/vector truth, canon, source
+> tradition, or theology authority. T475 is shadow-delta inventory only.
 
 > **T473 source-marker anchor integrity gate (2026-07-10):**
 > T473 preflight proved that the importer binds forward-declaring line markers

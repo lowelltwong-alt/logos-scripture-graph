@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter, defaultdict
+from dataclasses import dataclass
 import hashlib
 import json
 import re
@@ -50,7 +51,6 @@ STRUCTURAL_MARKERS = {
     "q2",
     "q3",
     "d",
-    "qs",
     "b",
     "sp",
     "s1",
@@ -89,6 +89,136 @@ KNOWN_LINE_MARKERS = STRUCTURAL_MARKERS | HEADING_MARKERS | {
 }
 
 
+ANCHOR_KINDS = {
+    "current_content",
+    "next_content_start",
+    "between_units",
+    "chapter_context",
+    "book_context",
+    "unresolved",
+}
+BODY_DISPOSITIONS = {"append_current", "editorial_only", "none", "unresolved"}
+CURRENT_OR_NEXT_CONTENT_MARKERS = {
+    "p",
+    "m",
+    "mi",
+    "pi1",
+    "q1",
+    "q2",
+    "q3",
+    "pc",
+    "li1",
+    "li2",
+    "ili",
+}
+NEXT_CONTENT_HEADING_MARKERS = {"s", "s1", "s2", "s3", "ms", "ms1", "ms2", "d", "sp"}
+BETWEEN_UNIT_MARKERS = {"b", "nb"}
+CHAPTER_CONTEXT_MARKERS = {"c", "cl", "cp"}
+BOOK_CONTEXT_MARKERS = {
+    "id",
+    "ide",
+    "h",
+    "toc1",
+    "toc2",
+    "toc3",
+    "mt",
+    "mt1",
+    "mt2",
+    "mt3",
+    "ip",
+    "imt",
+    "imt1",
+    "imt2",
+    "is",
+    "is1",
+    "is2",
+    "iot",
+    "io1",
+    "io2",
+    "io3",
+    "ili1",
+    "ili2",
+}
+
+
+@dataclass(frozen=True)
+class MarkerResolution:
+    """Explicitly separate marker ownership from the parser's current verse."""
+
+    anchor_kind: str
+    anchor_osis_ref: str | None
+    prior_osis_ref: str | None
+    next_osis_ref: str | None
+    body_disposition: str
+
+    def __post_init__(self) -> None:
+        if self.anchor_kind not in ANCHOR_KINDS:
+            raise ValueError(f"Unknown marker anchor kind: {self.anchor_kind}")
+        if self.body_disposition not in BODY_DISPOSITIONS:
+            raise ValueError(f"Unknown marker body disposition: {self.body_disposition}")
+
+    @property
+    def anchor_resolved(self) -> bool:
+        return self.anchor_kind != "unresolved" and (
+            self.anchor_osis_ref is not None
+            or self.anchor_kind in {"chapter_context", "book_context", "between_units"}
+        )
+
+    def fields(self) -> dict[str, Any]:
+        return {
+            "anchor_kind": self.anchor_kind,
+            "anchor_osis_ref": self.anchor_osis_ref,
+            "prior_osis_ref": self.prior_osis_ref,
+            "next_osis_ref": self.next_osis_ref,
+            "body_disposition": self.body_disposition,
+            "anchor_resolved": self.anchor_resolved,
+        }
+
+
+def resolve_line_marker(
+    marker: str,
+    body: str,
+    *,
+    current_osis_ref: str | None,
+    prior_osis_ref: str | None,
+    next_osis_ref: str | None,
+    book: str | None,
+) -> MarkerResolution:
+    """Resolve a line marker before emitting any canonical or processed record."""
+
+    has_body = bool(body.strip())
+    if marker in CHAPTER_CONTEXT_MARKERS:
+        disposition = "editorial_only" if has_body else "none"
+        return MarkerResolution("chapter_context", None, prior_osis_ref, next_osis_ref, disposition)
+    if marker in BOOK_CONTEXT_MARKERS or (
+        book in CONTENT_EXCLUDE and marker in {"ili", "li1", "li2"}
+    ):
+        disposition = "editorial_only" if has_body else "none"
+        return MarkerResolution("book_context", None, prior_osis_ref, next_osis_ref, disposition)
+    if marker in BETWEEN_UNIT_MARKERS:
+        if has_body:
+            return MarkerResolution("unresolved", None, prior_osis_ref, next_osis_ref, "unresolved")
+        return MarkerResolution("between_units", next_osis_ref, prior_osis_ref, next_osis_ref, "none")
+    if marker in NEXT_CONTENT_HEADING_MARKERS:
+        if next_osis_ref is None:
+            return MarkerResolution("unresolved", None, prior_osis_ref, None, "editorial_only")
+        return MarkerResolution(
+            "next_content_start", next_osis_ref, prior_osis_ref, next_osis_ref, "editorial_only"
+        )
+    if marker in CURRENT_OR_NEXT_CONTENT_MARKERS:
+        if has_body and current_osis_ref is not None:
+            return MarkerResolution(
+                "current_content", current_osis_ref, current_osis_ref, next_osis_ref, "append_current"
+            )
+        if not has_body and next_osis_ref is not None:
+            return MarkerResolution(
+                "next_content_start", next_osis_ref, prior_osis_ref, next_osis_ref, "none"
+            )
+        return MarkerResolution("unresolved", None, prior_osis_ref, next_osis_ref, "unresolved")
+    disposition = "unresolved" if has_body else "none"
+    return MarkerResolution("unresolved", None, prior_osis_ref, next_osis_ref, disposition)
+
+
 class JsonlWriter:
     def __init__(self, path: Path):
         self.path = path
@@ -111,6 +241,7 @@ class ImportState:
         self.book: str | None = None
         self.chapter: int | None = None
         self.current: dict[str, Any] | None = None
+        self.last_osis_ref: str | None = None
         self.ids: set[str] = set()
         self.counts: Counter[str] = Counter()
         self.marker_counts: Counter[str] = Counter()
@@ -232,19 +363,23 @@ def record_usfm_event(
     raw_line: str,
     source_file: str,
     source_line: int,
+    resolution: MarkerResolution,
     text: str = "",
 ) -> None:
     event_id = f"usfm-event:{source_file}:{source_line}:{marker}".replace("\\", "/")
+    anchor_ref = resolution.anchor_osis_ref
+    passage_id = f"scripture:{anchor_ref}" if anchor_ref else None
     record = {
         **state.common(),
+        **resolution.fields(),
         "id": event_id,
         "type": "USFMEvent",
         "marker": marker,
         "book": state.book,
         "osis_book": osis_book(state.book) if state.book else None,
         "chapter": state.chapter,
-        "passage_id": state.current["passage_id"] if state.current else None,
-        "osis_ref": state.current["osis_ref"] if state.current else None,
+        "passage_id": passage_id,
+        "osis_ref": anchor_ref,
         "text": strip_inline_usfm(text) if text else "",
         "raw_marker": raw_line,
         "source_file": source_file,
@@ -259,15 +394,17 @@ def record_usfm_event(
         boundary = {
             **state.common(),
             **canonical_book_identity(state),
+            **resolution.fields(),
             "id": f"boundary-claim:{source_file}:{source_line}:{marker}".replace("\\", "/"),
             "type": "BoundaryClaim",
-            "passage_id": record["passage_id"],
-            "osis_ref": record["osis_ref"],
+            "passage_id": passage_id,
+            "osis_ref": anchor_ref,
             "translation_id": TRANSLATION_ID,
             "boundary_kind": "usfm_structural_marker",
             "marker": marker,
             "claim_scope": "future_chunking_evidence",
             "is_canonical_ancient_boundary": False,
+            "source_event_id": event_id,
             "raw_marker": raw_line,
             "source_file": source_file,
             "source_line": source_line,
@@ -279,13 +416,15 @@ def record_usfm_event(
         heading = {
             **state.common(),
             **canonical_book_identity(state),
+            **resolution.fields(),
             "id": f"section-heading:{source_file}:{source_line}:{marker}".replace("\\", "/"),
             "type": "SectionHeading",
-            "passage_id": record["passage_id"],
-            "osis_ref": record["osis_ref"],
+            "passage_id": passage_id,
+            "osis_ref": anchor_ref,
             "translation_id": TRANSLATION_ID,
             "marker": marker,
             "text": strip_inline_usfm(text),
+            "source_event_id": event_id,
             "raw_marker": raw_line,
             "source_file": source_file,
             "source_line": source_line,
@@ -336,26 +475,6 @@ def write_inline_sidecars(
         samples = state.unsupported_samples[unsupported["marker"]]
         if len(samples) < 5:
             samples.append(unsupported["raw_marker"])
-
-
-def extract_nonverse_inline_sidecars(
-    state: ImportState,
-    writers: dict[str, JsonlWriter],
-    text: str,
-    source_file: str,
-    source_line: int,
-) -> None:
-    if not text or not re.search(r"\\(?:\+?w|f|x)\b", text):
-        return
-    ctx = InlineContext(
-        passage_id=None,
-        osis_ref=None,
-        source_file=source_file,
-        source_line=source_line,
-        source_sha256=state.source_sha256,
-    )
-    result = state.parser.parse(text, ctx)
-    write_inline_sidecars(state, writers, result)
 
 
 def append_verse_text(
@@ -430,6 +549,7 @@ def flush_verse(state: ImportState, writers: dict[str, JsonlWriter]) -> None:
     writers["translation_witnesses"].write(witness)
     state.counts["passages"] += 1
     state.counts["translation_witnesses"] += 1
+    state.last_osis_ref = state.current["osis_ref"]
     state.current = None
 
 
@@ -483,15 +603,61 @@ def parse_glossary_line(
     state.counts["glossary_entries"] += 1
 
 
+def prepare_line_contexts(text: str) -> tuple[list[tuple[int, str, str]], list[str | None]]:
+    """Return source lines and the next verse ref at or after each line in O(n)."""
+
+    lines = [
+        (source_line, raw_line, raw_line.strip())
+        for source_line, raw_line in enumerate(text.splitlines(), start=1)
+    ]
+    book: str | None = None
+    chapter: int | None = None
+    verse_at_line: list[str | None] = [None] * len(lines)
+    for index, (_source_line, _raw_line, line) in enumerate(lines):
+        id_match = BOOK_RE.match(line)
+        if id_match:
+            book = id_match.group("book")
+            chapter = None
+            continue
+        marker_match = MARKER_RE.match(line)
+        if not marker_match:
+            continue
+        marker = marker_match.group("marker")
+        body = marker_match.group("body")
+        if marker == "c":
+            try:
+                chapter = int(body.split()[0])
+            except (IndexError, ValueError):
+                chapter = None
+            continue
+        if marker != "v" or book is None or chapter is None:
+            continue
+        verse_match = VERSE_BODY_RE.match(body)
+        if verse_match:
+            verse_at_line[index] = osis_ref(book, chapter, int(verse_match.group("verse")))
+
+    next_verse_refs: list[str | None] = [None] * len(lines)
+    next_ref: str | None = None
+    for index in range(len(lines) - 1, -1, -1):
+        if verse_at_line[index] is not None:
+            next_ref = verse_at_line[index]
+        next_verse_refs[index] = next_ref
+    return lines, next_verse_refs
+
+
 def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_file: str, text: str) -> None:
     state.book = None
     state.chapter = None
     state.current = None
+    state.last_osis_ref = None
     local_markers = Counter()
-    for source_line, raw_line in enumerate(text.splitlines(), start=1):
-        line = raw_line.strip()
+    lines, next_verse_refs = prepare_line_contexts(text)
+    for index, (source_line, raw_line, line) in enumerate(lines):
         if not line:
             continue
+        next_ref = next_verse_refs[index]
+        current_ref = state.current["osis_ref"] if state.current else None
+        prior_ref = current_ref or state.last_osis_ref
         state.marker_counts.update(inline_marker_counts(line))
         local_markers.update(inline_marker_counts(line))
         id_match = BOOK_RE.match(line)
@@ -499,7 +665,24 @@ def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_
             flush_verse(state, writers)
             state.book = id_match.group("book")
             state.chapter = None
-            record_usfm_event(state, writers, "id", raw_line, source_file, source_line, line)
+            resolution = resolve_line_marker(
+                "id",
+                line,
+                current_osis_ref=current_ref,
+                prior_osis_ref=prior_ref,
+                next_osis_ref=next_ref,
+                book=state.book,
+            )
+            record_usfm_event(
+                state,
+                writers,
+                "id",
+                raw_line,
+                source_file,
+                source_line,
+                resolution,
+                line,
+            )
             continue
         marker_match = MARKER_RE.match(line)
         if not marker_match:
@@ -515,7 +698,24 @@ def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_
         if marker == "c":
             flush_verse(state, writers)
             state.chapter = int(body.split()[0])
-            record_usfm_event(state, writers, marker, raw_line, source_file, source_line, body)
+            resolution = resolve_line_marker(
+                marker,
+                body,
+                current_osis_ref=current_ref,
+                prior_osis_ref=prior_ref,
+                next_osis_ref=next_ref,
+                book=state.book,
+            )
+            record_usfm_event(
+                state,
+                writers,
+                marker,
+                raw_line,
+                source_file,
+                source_line,
+                resolution,
+                body,
+            )
             state.counts["chapter_markers"] += 1
             continue
         if marker == "v":
@@ -533,17 +733,49 @@ def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_
             ):
                 start_verse(state, verse, source_file, source_line)
                 append_verse_text(state, writers, verse_match.group("text"), source_file, source_line)
-            record_usfm_event(state, writers, marker, raw_line, source_file, source_line, verse_match.group("text"))
+            anchor_ref = state.current["osis_ref"] if state.current else next_ref
+            resolution = MarkerResolution(
+                "current_content",
+                anchor_ref,
+                prior_ref,
+                anchor_ref,
+                "append_current" if verse_match.group("text").strip() else "none",
+            )
+            record_usfm_event(
+                state,
+                writers,
+                marker,
+                raw_line,
+                source_file,
+                source_line,
+                resolution,
+                verse_match.group("text"),
+            )
             continue
-        record_usfm_event(state, writers, marker, raw_line, source_file, source_line, body)
+        resolution = resolve_line_marker(
+            marker,
+            body,
+            current_osis_ref=current_ref,
+            prior_osis_ref=prior_ref,
+            next_osis_ref=next_ref,
+            book=state.book,
+        )
+        record_usfm_event(
+            state,
+            writers,
+            marker,
+            raw_line,
+            source_file,
+            source_line,
+            resolution,
+            body,
+        )
         if state.canonical_66_filter_enabled and not is_canonical_66_book(state.book):
             continue
         if marker == "ili" and state.book == "GLO":
             parse_glossary_line(state, writers, raw_line, source_file, source_line, body)
-        will_append_to_verse = marker in STRUCTURAL_MARKERS and body and state.current
-        if not will_append_to_verse:
-            extract_nonverse_inline_sidecars(state, writers, body, source_file, source_line)
-        if will_append_to_verse:
+            continue
+        if resolution.body_disposition == "append_current":
             append_verse_text(state, writers, body, source_file, source_line)
     flush_verse(state, writers)
     state.files.append(

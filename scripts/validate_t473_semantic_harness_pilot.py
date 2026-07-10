@@ -287,7 +287,18 @@ def validate_t473_package(root: Path = ROOT) -> list[str]:
 
     execution = control.get("execution_state", {})
     _require(execution.get("pilot_execution_allowed") is False, "pilot execution must remain false", errors)
-    _require(execution.get("t474_allowed") is False, "T474 must remain owner-blocked", errors)
+    anchor_selected = anchor_owner.get("owner_selection") == "T473-ANCHOR-A"
+    if anchor_selected:
+        _require(execution.get("t474_allowed") is True, "selected T473-ANCHOR-A must allow T474", errors)
+        _require((root / ".ai/tasks/T474.task.yaml").exists(), "selected T473-ANCHOR-A requires T474 task", errors)
+        _require(
+            (root / ".ai/control/t474_usfm_marker_anchor_contract.yaml").exists(),
+            "selected T473-ANCHOR-A requires T474 control",
+            errors,
+        )
+    else:
+        _require(anchor_owner.get("owner_selection") == "pending", "source repair owner choice invalid", errors)
+        _require(execution.get("t474_allowed") is False, "unselected T474 must remain owner-blocked", errors)
     _require(scope_manifest.get("execution_allowed") is False, "scope manifest must block execution", errors)
     _require(scope_manifest.get("run_lock_status") == "not_created_execution_forbidden", "run lock must be absent", errors)
 
@@ -311,7 +322,11 @@ def validate_t473_package(root: Path = ROOT) -> list[str]:
 
     anchor_gate = control.get("source_marker_anchor_integrity", {})
     _require(anchor_gate.get("root_cause_not") == "inclusive_or_half_open_endpoint_arithmetic", "root cause must reject endpoint arithmetic diagnosis", errors)
-    _require(anchor_gate.get("status") == "blocked_pending_owner_correction", "source anchor gate must remain blocked", errors)
+    allowed_anchor_statuses = {
+        "blocked_pending_owner_correction",
+        "blocked_pending_shadow_regeneration_and_owner_migration",
+    }
+    _require(anchor_gate.get("status") in allowed_anchor_statuses, "source anchor gate must remain blocked", errors)
     _require(anchor_gate.get("measured_characterization", {}).get("currently_backward_bound") == 13977, "backward-bound characterization mismatch", errors)
 
     headings = _ps119_raw_headings(paths["raw"])
@@ -322,8 +337,8 @@ def validate_t473_package(root: Path = ROOT) -> list[str]:
     skill_spans = _skill_ps119_spans(paths["skill"])
     live_shifted_defect = gold_spans != EXPECTED_PS119_SPANS or skill_spans != EXPECTED_PS119_SPANS
     if live_shifted_defect:
-        _require(anchor_gate.get("status") == "blocked_pending_owner_correction", "live shifted spans require blocked gate", errors)
-        _require(ps119_owner.get("owner_selection") == "pending", "live shifted spans require pending owner packet", errors)
+        _require(anchor_gate.get("status") in allowed_anchor_statuses, "live shifted spans require blocked gate", errors)
+        _require(ps119_owner.get("owner_selection") == "pending", "live shifted spans require pending Psalm 119 packet", errors)
 
     _require(audit.get("severity") == "P0_canonical_text_and_token_integrity", "audit must record P0 integrity severity", errors)
     _require(audit.get("raw_heading_next_verses") == EXPECTED_PS119_STARTS, "audit raw heading starts mismatch", errors)
@@ -333,7 +348,7 @@ def validate_t473_package(root: Path = ROOT) -> list[str]:
 
     expected_hashes = audit.get("source_hashes", {})
     for rel in ("data/raw/bible/eng-web/usfm/eng-web_usfm.zip", "eval/chunking_gold/per_form/psalms_gold_manifest.json", "pipelines/chunking/skills/candidate/psalm-whole-then-stanza-v1/algorithm.py"):
-        if anchor_gate.get("status") == "blocked_pending_owner_correction":
+        if anchor_gate.get("status") in allowed_anchor_statuses:
             _require(expected_hashes.get(rel) == _sha256(root / rel), f"audit source hash drift for {rel}", errors)
 
     rows = {row.get("scope_id"): row for row in overlap.get("rows", []) if isinstance(row, dict)}
@@ -344,7 +359,11 @@ def validate_t473_package(root: Path = ROOT) -> list[str]:
 
     _require(ps119_owner.get("owner_selection") == "pending", "Psalm 119 owner choice must be pending", errors)
     _require(ps119_owner.get("recommended_owner_choice") == "T473-PS119-A", "Psalm 119 faithful correction must be recommended", errors)
-    _require(anchor_owner.get("owner_selection") == "pending", "source repair owner choice must be pending", errors)
+    _require(
+        anchor_owner.get("owner_selection") in {"pending", "T473-ANCHOR-A"},
+        "source repair owner choice must be pending or T473-ANCHOR-A",
+        errors,
+    )
     _require(anchor_owner.get("recommended_owner_choice") == "T473-ANCHOR-A", "staged source repair must be recommended", errors)
     owner_effect = anchor_owner.get("owner_gate_effect", {})
     for field in ("authorizes_canonical_regeneration_now", "authorizes_reviewed_gold_change_now", "authorizes_chunk_output_now"):

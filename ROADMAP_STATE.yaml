@@ -2034,12 +2034,23 @@ phases:
         chunk_output_authorized: false
       - id: T474
         title: Explicit Marker-Anchor Importer Repair
-        status: blocked_pending_owner_selection_T473_ANCHOR_A
+        status: complete_code_and_fixture_gate
         lane: canonical_source_integrity
+        owner: codex
+        required_handoff: .ai/handoffs/T474/handoff.md
+        control: .ai/control/t474_usfm_marker_anchor_contract.yaml
+        roadmap_doc: docs/roadmap/T474_EXPLICIT_USFM_MARKER_ANCHOR_REPAIR.md
+        validator: scripts/validate_t474_usfm_marker_anchor_contract.py
+        owner_selection: T473-ANCHOR-A
+        importer_code_change_authorized: true
+        synthetic_fixture_change_authorized: true
         canonical_regeneration_authorized: false
+        processed_regeneration_authorized: false
+        reviewed_gold_change_authorized: false
+        chunk_output_authorized: false
       - id: T475
         title: Source-Anchor Shadow Regeneration And Delta Inventory
-        status: blocked_by_T474
+        status: ready_after_T474_merge
         lane: canonical_source_integrity
         committed_canonical_change_authorized: false
       - id: T476

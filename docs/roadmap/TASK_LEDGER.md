@@ -14,6 +14,7 @@ Use this file when you need task-specific T3xx/T4xx history, downstream non-auth
 
 ## Current Newest-First Pointers
 
+- T474: Explicit USFM marker-anchor importer repair. Code and synthetic fixtures only; no committed regeneration, gold, or chunk output.
 - T473: Source-marker anchor integrity stop gate. P0 canonical witness/token/sidecar defect; T474-T480 staged repair; semantic pilot moves to T481+.
 - T461: Scripture front-door decomposition. Non-output-changing control-plane/findability hardening only. No Scripture data, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, source rows, canon changes, or theology authority.
 - T460: Rust and DAD stack integration. Candidate-only DAD lessons and Rust leaf validators; no local authority transfer.

@@ -34,6 +34,15 @@ def _copy_package(tmp_path: Path) -> Path:
         dst = tmp_path / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
+    for rel in (
+        ".ai/tasks/T474.task.yaml",
+        ".ai/control/t474_usfm_marker_anchor_contract.yaml",
+    ):
+        src = ROOT / rel
+        if src.exists():
+            dst = tmp_path / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
     return tmp_path
 
 
