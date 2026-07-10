@@ -302,6 +302,14 @@ def validate_t475(
         "footnotes": 1127,
     }:
         raise T475ValidationError("T475 transition candidate counts changed")
+    if transition.get("transitional_data_map_check") != "scripts/generate_data_map.py --check":
+        raise T475ValidationError("T475 transition DATA_MAP check changed")
+    if transition.get("data_map_candidate_delta") != {
+        "total_jsonl_records": {"baseline": 847086, "candidate": 847081},
+        "word_tokens": {"baseline": 677688, "candidate": 677686},
+        "footnotes": {"baseline": 1130, "candidate": 1127},
+    }:
+        raise T475ValidationError("T475 transition DATA_MAP delta changed")
     for key in ("authorizes_baseline_update", "authorizes_gold_or_output_change"):
         if transition.get(key) is not False:
             raise T475ValidationError(f"ci_generated_transition_policy.{key} must be false")

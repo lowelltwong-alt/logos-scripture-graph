@@ -74,3 +74,8 @@ validators. T475 does not update those baselines. Instead, CI may defer exactly
 those seven gates only after all ten generated JSONL surfaces match the frozen
 candidate semantic digests. Any unknown or partial state fails closed. The
 deferral expires with the repaired T475 revision and does not authorize T476.
+
+The post-ingest DATA_MAP check follows the same rule: it may accept only the
+exact five-row count delta proven by the frozen candidate manifest. The
+committed DATA_MAP remains on the baseline until the repair and owner gate
+authorize a real generated-baseline migration.

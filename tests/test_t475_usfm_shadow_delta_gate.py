@@ -99,3 +99,15 @@ def test_broad_generated_validator_deferral_fails(tmp_path: Path) -> None:
     )
     with pytest.raises(T475ValidationError, match="deferred generated-validator set"):
         validate_t475(root)
+
+
+def test_data_map_transition_delta_cannot_expand(tmp_path: Path) -> None:
+    root = _copy_tree(tmp_path)
+    _mutate_control(
+        root,
+        lambda data: data["ci_generated_transition_policy"]["data_map_candidate_delta"].update(
+            {"unrelated_rows": {"baseline": 1, "candidate": 0}}
+        ),
+    )
+    with pytest.raises(T475ValidationError, match="DATA_MAP delta changed"):
+        validate_t475(root)

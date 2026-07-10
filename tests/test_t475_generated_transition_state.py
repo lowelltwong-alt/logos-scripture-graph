@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 import yaml
 
+from scripts import generate_data_map
 from scripts.run_t475_shadow_delta import jsonl_stats
 from scripts.validate_t475_generated_transition_state import (
     T475TransitionError,
@@ -98,3 +99,29 @@ def test_validate_all_defers_only_declared_legacy_gates(monkeypatch) -> None:
     assert "validate_t475_generated_transition_state.py" in names
     assert not (validate_all.T475_DEFERRED_GENERATED_GATES & set(names))
     assert "validate_t475_usfm_shadow_delta_gate.py --require-artifacts" in names
+
+
+def test_data_map_accepts_only_exact_candidate_count_delta(monkeypatch) -> None:
+    monkeypatch.setattr(
+        generate_data_map,
+        "validate_t475_transition",
+        lambda _root: {"state": "candidate"},
+    )
+    have = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.values())
+    want = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.keys())
+    assert generate_data_map._matches_exact_t475_transition(have, want)
+    assert not generate_data_map._matches_exact_t475_transition(
+        have + "\nextra baseline drift",
+        want,
+    )
+
+
+def test_data_map_transition_requires_candidate_semantic_proof(monkeypatch) -> None:
+    monkeypatch.setattr(
+        generate_data_map,
+        "validate_t475_transition",
+        lambda _root: {"state": "baseline"},
+    )
+    have = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.values())
+    want = "\n".join(generate_data_map.T475_DATA_MAP_TRANSITION_REPLACEMENTS.keys())
+    assert not generate_data_map._matches_exact_t475_transition(have, want)
