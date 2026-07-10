@@ -665,6 +665,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t473_semantic_harness_pilot.py")],
         ),
         (
+            "validate_t474_usfm_marker_anchor_contract.py",
+            [PY, str(ROOT / "scripts" / "validate_t474_usfm_marker_anchor_contract.py")],
+        ),
+        (
             "validate_scratch_scope.py",
             [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
         ),

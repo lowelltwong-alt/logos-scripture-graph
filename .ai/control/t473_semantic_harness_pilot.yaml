@@ -15,11 +15,11 @@ execution_state:
   critic_executed: false
   reconciliation_executed: false
   pilot_execution_allowed: false
-  t474_allowed: false
+  t474_allowed: true
   blocking_reasons:
     - ps119_reviewed_gold_conflicts_with_raw_acrostic_heading_sequence
-    - source_marker_binding_contract_not_repaired_or_parity_validated
-    - owner_ps119_correction_choice_pending
+    - source_marker_binding_contract_repaired_but_committed_shadow_parity_not_validated
+    - T474_code_and_fixture_repair_does_not_authorize_generated_data_or_gold_migration
 semantic_types:
   calibration_scope: "The fixed passage window used to test recognition. It is not a proposed chunk."
   literary_parent: "A textually argued enclosing unit, which may be broader than one output object."
@@ -150,7 +150,7 @@ larger_unit_gate:
   keep_lists_intact_means: "Preserve functional integrity; it does not require one giant span."
 source_marker_anchor_integrity:
   defect_id: T473-SOURCE-ANCHOR-001
-  status: blocked_pending_owner_correction
+  status: blocked_pending_shadow_regeneration_and_owner_migration
   demonstrated_case: Ps.119.1-Ps.119.176
   root_cause: "record_usfm_event reads state.current, so a forward-declaring line marker between verses is attached to the verse just completed; chunker opening-boundary logic then splits before that prior verse."
   root_cause_not: inclusive_or_half_open_endpoint_arithmetic
@@ -187,7 +187,7 @@ source_marker_anchor_integrity:
   owner_packet: .ai/context/agent_work/T473/ps119_correction_owner_packet.yaml
   canonical_repair_owner_packet: .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
   blocks_pilot_until:
-    - marker_binding_semantics_are_classified_by_marker_family
+    - T474_marker_binding_semantics_must_remain_valid_and_T475_shadow_parity_must_pass
     - importer_fix_has_fixture_and_corpus_shadow_parity
     - owner_reviews_exact_canonical_witness_sidecar_and_token_delta
     - canonical_regeneration_and_baseline_reset_are_owner_authorized

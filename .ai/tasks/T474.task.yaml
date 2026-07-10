@@ -1,0 +1,123 @@
+id: T474
+phase: phase_4
+title: "Explicit USFM Marker-Anchor Importer Repair"
+mode: importer_code_and_fixture_repair_only
+status: complete
+owner: codex
+branch: codex/t474-usfm-marker-anchor-repair
+base_ref: origin/main
+summary: "Implement explicit line-marker ownership and body disposition before any importer mutation, with synthetic fixtures only and no committed canonical regeneration."
+scope:
+  allowed_paths:
+    - .ai/tasks/T474.task.yaml
+    - .ai/control/t474_usfm_marker_anchor_contract.yaml
+    - .ai/control/t473_semantic_harness_pilot.yaml
+    - .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T474/
+    - docs/roadmap/T474_EXPLICIT_USFM_MARKER_ANCHOR_REPAIR.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - pipelines/ingest/usfm_importer.py
+    - schemas/usfm_event.schema.json
+    - schemas/boundary_claim.schema.json
+    - schemas/section_heading.schema.json
+    - scripts/validate_t473_semantic_harness_pilot.py
+    - tests/test_t473_semantic_harness_pilot.py
+    - scripts/validate_t474_usfm_marker_anchor_contract.py
+    - scripts/validate_all.py
+    - tests/test_t474_usfm_marker_anchor_contract.py
+    - tests/test_t474_usfm_marker_anchor_validator.py
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .ai/scratch/multi_model_bible_chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+owner_gate:
+  source_packet: .ai/context/agent_work/T473/source_anchor_repair_owner_packet.yaml
+  selected_option: T473-ANCHOR-A
+  selection_basis: "Owner instructed Codex to continue after the exact T473-ANCHOR-A gate was presented; interpreted transparently as approval of the recommended code-and-fixture-only step."
+  authorizes_this_task_only: true
+authorization:
+  task_kind: importer_code_and_fixture_repair_only
+  changes_importer_code: true
+  adds_synthetic_fixtures: true
+  adds_optional_schema_fields: true
+  regenerates_committed_canonical_data: false
+  regenerates_committed_processed_data: false
+  modifies_raw_sources: false
+  modifies_reviewed_gold: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_chunker_or_form_consumer_behavior: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+runtime_language_preflight:
+  task_id: T474
+  touched_paths:
+    - pipelines/ingest/usfm_importer.py
+    - schemas/usfm_event.schema.json
+    - schemas/boundary_claim.schema.json
+    - schemas/section_heading.schema.json
+    - scripts/validate_t473_semantic_harness_pilot.py
+    - scripts/validate_t474_usfm_marker_anchor_contract.py
+    - scripts/validate_all.py
+    - tests/test_t474_usfm_marker_anchor_contract.py
+    - tests/test_t474_usfm_marker_anchor_validator.py
+  expected_input_size_or_record_count: "Small synthetic USFM archives in tests; no whole-corpus regeneration."
+  expected_runtime_or_memory_pressure: "Low. Marker lookahead is precomputed in O(n) time per source file and fixture validation is bounded."
+  rust_trigger_match:
+    - no_large_data_scan_in_T474
+    - semantic_state_machine_and_python_importer_integration_dominate
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "Negligible for T474. T475 may use the existing Rust observation/fast-validation layer for whole-corpus delta counting after the contract stabilizes."
+  interop_boundary: "The Python importer emits additive anchor metadata; schemas remain language-neutral and fields remain optional until owner-approved regeneration."
+  python_fallback_or_wrapper_plan: "Not applicable for the bounded importer fixtures."
+  maintenance_tradeoffs: "A pure resolver and O(n) lookahead keep behavior testable without introducing a second parser implementation."
+  validation_plan: "Run focused importer and T474 validator tests, task scope, handoffs, validate_all with at least 900000 ms, full pytest with the recorded long ceiling, data-map check, and diff check."
+acceptance_criteria:
+  - "Every emitted line-marker event receives an explicit anchor kind, anchor ref, neighboring refs, body disposition, and resolved flag."
+  - "Empty paragraph/poetry/list starts bind to the following verse while body-bearing content lines remain on the active verse."
+  - "Descriptive/section headings and speaker labels are editorial-only and cannot enter TranslationWitness text or canonical WordTokens."
+  - "Blank-line and no-break markers preserve prior/next relations; terminal blank lines retain a null next ref without guessing."
+  - "Inline qs/Selah remains inline content and never becomes a line-level BoundaryClaim."
+  - "Unknown or malformed marker ownership emits unresolved/null anchor evidence and performs no canonical text/token mutation."
+  - "Schema additions remain optional until owner-approved generated-data migration."
+  - "No committed raw, canonical, processed, derived, gold, chunk, route, evaluator, graph, retrieval, vector, canon, source-tradition, or theology surface changes."
+validations:
+  - python scripts/validate_t474_usfm_marker_anchor_contract.py
+  - python -m pytest tests/test_t474_usfm_marker_anchor_contract.py tests/test_t474_usfm_marker_anchor_validator.py -q
+  - python -m pytest tests/test_web_usfm_feature_extraction.py tests/test_t327b_canonical_66_ingest_filter.py tests/test_usfm_inline_parser.py -q
+  - python scripts/validate_task_scope.py --task-id T474
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T474/handoff.md
+created_at: "2026-07-10"
+updated_at: "2026-07-10"

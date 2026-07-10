@@ -2457,6 +2457,48 @@ lessons:
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
 
+  - lesson_id: LSN-057
+    title: Resolve marker ownership before any canonical mutation
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [source_metadata, workflow_governance, auditability]
+    tags: [t474, usfm, marker-resolution, body-disposition, neighbor-refs, fail-closed]
+    use_when:
+      - "A line-oriented source marker can either carry current content or introduce following content."
+      - "Editorial labels contain inline lexical tags that must not become canonical tokens."
+      - "A relational break or no-break marker must preserve both neighboring units."
+    preflight_stage: before_event_sidecar_witness_or_token_emission
+    source_surfaces:
+      - .ai/control/t474_usfm_marker_anchor_contract.yaml
+      - pipelines/ingest/usfm_importer.py
+      - tests/test_t474_usfm_marker_anchor_contract.py
+    related_decision_ids: [CD-112]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T474]
+    downstream_risk: "If parser state doubles as semantic ownership, previous/current/next ambiguity can contaminate text, tokens, sidecars, hashes, gold, and every consumer that joins on osis_ref."
+    required_preflight_surfaces:
+      - .ai/control/RAW_SOURCE_INVENTORY.md
+      - config/ingest/usfm_marker_coverage.yaml
+      - .ai/control/t474_usfm_marker_anchor_contract.yaml
+    required_pattern:
+      - pure_resolution_before_mutation
+      - explicit_anchor_kind
+      - explicit_neighbor_refs
+      - separate_body_disposition
+      - O_n_lookahead_or_equivalent
+      - unresolved_null_anchor_and_no_text_token_mutation
+    non_authorizations:
+      - source_marker_as_boundary_authority
+      - canonical_regeneration_without_owner_gate
+      - reviewed_gold_change_without_owner_gate
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - source_tradition_preference
+      - theology_authority
+    validators:
+      - scripts/validate_t474_usfm_marker_anchor_contract.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -2972,6 +3014,15 @@ lesson_graph:
     relation: audits
     to: LSN-010
   - from: LSN-056
+    relation: constrains
+    to: LSN-034
+  - from: LSN-056
+    relation: constrains
+    to: LSN-057
+  - from: LSN-057
+    relation: audits
+    to: LSN-010
+  - from: LSN-057
     relation: constrains
     to: LSN-034
 validator: scripts/validate_chunking_lesson_index.py
