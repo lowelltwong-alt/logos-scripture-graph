@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T470
+last_updated_by_task: T471
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2327,6 +2327,50 @@ lessons:
       - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
       - scripts/validate_chunking_lesson_index.py
       - scripts/validate_chunking_theological_decision_register.py
+  - lesson_id: LSN-054
+    title: Near-boundary refinement is triage evidence, not owner selection
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, owner_decision, auditability, workflow_governance, contextual_reading, source_metadata]
+    tags: [t471, near-boundary, windowdiff, owner-docket, codex-fable, support-debate, non-authorizing]
+    use_when:
+      - "A future agent prepares T472 or later owner packets from T464/T465/T471 comparison evidence."
+      - "A future agent wants to treat M4/M6 alignment, near-boundary offsets, or the T471 first-candidate recommendation as owner approval."
+      - "A future agent is deciding whether a delta is a minor offset, real literary disagreement, frontier row, or harness/rerun row."
+    preflight_stage: before_T472_owner_packet_or_any_reviewed_gold_gate
+    source_surfaces:
+      - .ai/control/t471_near_boundary_docket_refinement.yaml
+      - .ai/context/agent_work/T471/near_boundary_delta_refinement.jsonl
+      - .ai/context/agent_work/T471/owner_candidate_support_debate_docket.yaml
+      - .ai/context/agent_work/T471/refinement_summary.md
+      - docs/roadmap/T471_NEAR_BOUNDARY_DOCKET_REFINEMENT.md
+      - .ai/tasks/T471.task.yaml
+      - scripts/validate_t471_near_boundary_docket_refinement.py
+    related_decision_ids: [CD-109]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T464, T465, T468, T470, T471]
+    downstream_risk: "Near-boundary refinement and the T471 recommended first T472 candidate can look like owner selection unless every packet preserves the non-authorizing support/debate framing."
+    required_preflight_surfaces:
+      - .ai/control/t471_near_boundary_docket_refinement.yaml
+      - .ai/control/t470_transparent_chunking_research_evidence_rubric.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/control/chunking_theological_decision_register.yaml
+    non_authorizations:
+      - near_boundary_refinement_as_reviewed_gold
+      - first_t472_candidate_as_target_selection
+      - codex_fable_alignment_as_output_authority
+      - support_debate_table_as_owner_approval
+      - model_agreement_as_theology_authority
+      - source_tradition_preference
+      - canon_scope_change
+      - chunk_output_change
+      - graph_retrieval_or_vector_truth
+      - theology_authority
+      - dad_reporting_as_success_gate
+    validators:
+      - scripts/validate_t471_near_boundary_docket_refinement.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_chunking_theological_decision_register.py
 
 lesson_graph:
   - from: LSN-002
@@ -2819,6 +2863,15 @@ lesson_graph:
     relation: constrains
     to: LSN-034
   - from: LSN-053
+    relation: audits
+    to: LSN-010
+  - from: LSN-053
+    relation: governs_update_of
+    to: LSN-054
+  - from: LSN-054
+    relation: constrains
+    to: LSN-052
+  - from: LSN-054
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

@@ -1,0 +1,105 @@
+﻿id: T471
+phase: phase_4
+title: "Near-Boundary Chunking Delta And Owner Docket Refinement"
+mode: near_boundary_docket_refinement_non_authorizing
+status: in_progress
+owner: codex
+branch: codex/t471-near-boundary-docket-refinement-v2
+base_ref: origin/main
+summary: "Refine T464/T465 multi-model chunking deltas with T470 transparency rules: distinguish minor near-boundary offsets from real literary disagreements and produce a support/debate table for the first owner-facing M4/M6 candidate docket."
+scope:
+  allowed_paths:
+    - .ai/tasks/T471.task.yaml
+    - .ai/control/t471_near_boundary_docket_refinement.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T471/
+    - .ai/context/agent_work/T471/
+    - docs/roadmap/T471_NEAR_BOUNDARY_DOCKET_REFINEMENT.md
+    - scripts/build_t471_near_boundary_docket_refinement.py
+    - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    - scripts/validate_t471_near_boundary_docket_refinement.py
+    - scripts/validate_all.py
+    - tests/test_t471_near_boundary_docket_refinement.py
+  forbidden_paths:
+    - .ai/scratch/multi_model_bible_chunking/M1_cursor/
+    - .ai/scratch/multi_model_bible_chunking/M2_claude_sonnet5/
+    - .ai/scratch/multi_model_bible_chunking/M3_claude_frontier/
+    - .ai/scratch/multi_model_bible_chunking/M4_codex_gpt55/
+    - .ai/scratch/multi_model_bible_chunking/M5_gemini_thinking/
+    - .ai/scratch/multi_model_bible_chunking/M6_fable5/
+    - .ai/scratch/multi_model_bible_chunking/comparison/
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: comparison_refinement_record_non_authorizing
+  records_near_boundary_refinement: true
+  records_owner_candidate_support_debate_docket: true
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+  writes_dad_reports: false
+runtime_language_preflight:
+  task_id: T471
+  touched_paths:
+    - scripts/build_t471_near_boundary_docket_refinement.py
+    - scripts/validate_t470_transparent_chunking_research_evidence_rubric.py
+    - scripts/validate_t471_near_boundary_docket_refinement.py
+    - scripts/validate_all.py
+    - tests/test_t471_near_boundary_docket_refinement.py
+  expected_input_size_or_record_count: "About 1,048 T464 delta rows plus a 19-row T465 owner docket; deterministic JSONL/YAML scan is modest."
+  expected_runtime_or_memory_pressure: "Low to medium. Python is acceptable because the pass is governance-heavy and uses existing Python span utilities."
+  rust_trigger_match:
+    - no_large_corpus_hot_path
+    - no_repeated_full_bible_scan
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "Rust is not selected for T471 because the refinement scans existing comparison ledgers once and writes governance-rich support/debate records."
+  interop_boundary: "Python reads frozen T464/T465/T470 artifacts and emits T471-owned agent_work outputs. Rust remains reserved for larger repeated chunk-map or corpus hot paths."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping the support/debate and non-authority checks in Python makes future owner-docket governance easier to inspect."
+  validation_plan: "Run build_t471_near_boundary_docket_refinement.py, validate_t471_near_boundary_docket_refinement.py, focused pytest, task scope, handoffs, decision register, lesson index, validate_all.py, full pytest, data-map check, and diff checks."
+acceptance_criteria:
+  - "Every T464 disagreement delta receives a T471 refined class and recommended next gate without mutating T464 comparison artifacts."
+  - "The T465 19-row M4/M6 owner docket receives T470 support/debate tables."
+  - "The recommended first T472 owner-packet candidate is explicit and non-authorizing."
+  - "Near-boundary or WindowDiff-style refinement is recorded as triage evidence only."
+  - "No T471 artifact authorizes target selection, reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition preference, variant/inspiration decision, DAD reporting success gate, or theology authority."
+validations:
+  - python scripts/build_t471_near_boundary_docket_refinement.py --check
+  - python scripts/validate_t471_near_boundary_docket_refinement.py
+  - python -m pytest tests/test_t471_near_boundary_docket_refinement.py -q
+  - python scripts/validate_task_scope.py --task-id T471
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T471/handoff.md
+created_at: "2026-07-09"
+updated_at: "2026-07-09"
