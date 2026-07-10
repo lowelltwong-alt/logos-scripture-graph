@@ -669,6 +669,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t474_usfm_marker_anchor_contract.py")],
         ),
         (
+            "validate_task_execution_overlay.py --task-id T475",
+            [PY, str(ROOT / "scripts" / "validate_task_execution_overlay.py"), "--task-id", "T475"],
+        ),
+        (
+            "validate_t475_usfm_shadow_delta_gate.py --require-artifacts",
+            [PY, str(ROOT / "scripts" / "validate_t475_usfm_shadow_delta_gate.py"), "--require-artifacts"],
+        ),
+        (
             "validate_scratch_scope.py",
             [PY, str(ROOT / "scripts" / "validate_scratch_scope.py"), "--branch", "scratch/ci-smoke", "--file", ".ai/scratch/vendor/.gitkeep"],
         ),

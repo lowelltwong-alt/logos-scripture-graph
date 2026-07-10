@@ -2049,9 +2049,20 @@ phases:
         reviewed_gold_change_authorized: false
         chunk_output_authorized: false
       - id: T475
-        title: Source-Anchor Shadow Regeneration And Delta Inventory
-        status: ready_after_T474_merge
+        title: Source-Anchor Shadow Regeneration, Delta Inventory, And Task-Local Agent Hierarchy
+        status: hold_with_findings
         lane: canonical_source_integrity
+        owner: codex
+        required_handoff: .ai/handoffs/T475/handoff.md
+        control: .ai/control/t475_usfm_shadow_delta_gate.yaml
+        roadmap_doc: docs/roadmap/T475_USFM_SHADOW_DELTA_AND_AGENT_HIERARCHY.md
+        validators:
+          - scripts/validate_task_execution_overlay.py
+          - scripts/validate_t475_usfm_shadow_delta_gate.py
+        shadow_trials_deterministic: true
+        frozen_evidence_complete: true
+        independent_audit_complete: false
+        blocking_finding: P1_editorial_heading_footnotes_lost_from_typed_sidecar
         committed_canonical_change_authorized: false
       - id: T476
         title: Canonical WEB Repair Owner Packet

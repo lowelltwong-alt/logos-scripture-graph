@@ -1,8 +1,23 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-10
-**Updated by:** T474 explicit USFM marker-anchor importer repair
-**Active task:** -> **T474 complete code-and-fixture gate** on codex/t474-usfm-marker-anchor-repair. All focused and full tests pass. T475 is next as ignored shadow delta inventory only; committed data, reviewed gold, chunk output, and semantic model execution remain blocked.
+**Updated by:** T475 task-local hierarchy and exact shadow delta hold
+**Active task:** -> **T475 HOLD_WITH_FINDINGS** on codex/t475-usfm-shadow-delta. Sol/Terra/Luna execution and exact no-text shadow evidence are deployed; three Psalm editorial-heading footnotes are lost from the typed sidecar, so Claude audit, T476, committed data, reviewed gold, chunk output, and semantic model execution remain blocked.
+
+> **T475 task-local hierarchy and exact shadow inventory (2026-07-10):**
+> Sol owned architecture, Terra owned parity measurement, Luna owned bounded
+> trials, and Claude is reserved for an independent frozen-artifact audit. Three
+> alternating pre-T474/T474 runs were byte-deterministic. The no-text ledger has
+> 741,399 unchanged rows, 102,793 modified rows, five removals, and one modified
+> report. Passages and cross-references are unchanged; 48 known heading/speaker
+> witness contaminations and two bogus Psalm 119 tokens are removed. T475 is
+> HOLD_WITH_FINDINGS because three footnotes embedded in Psalm descriptive
+> headings also disappear from the typed sidecar. Terra initially considered
+> that expected; Sol ruled typed editorial metadata must remain recoverable.
+> A separate narrow repair and fresh Claude audit are required before T476.
+> No committed data, gold, chunks, route/evaluator behavior, graph/retrieval/
+> vector truth, source-tradition preference, canon change, or theology authority
+> was created.
 
 > **T474 explicit USFM marker-anchor importer repair (2026-07-10):**
 > The importer now resolves marker ownership and body disposition before any

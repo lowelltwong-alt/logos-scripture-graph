@@ -24,6 +24,7 @@ audit, or validation context and needs to know which numbered task artifacts mat
 
 Common tags in this file:
 
+  T475, sol-terra-luna, task-local-hierarchy, shadow-delta, independent-audit, editorial-sidecar,
   T474, marker-resolution, body-disposition, importer-repair, shadow-regeneration,
   T473, source-marker-anchor, canonical-integrity, gold-integrity, previous-next, semantic-pilot-blocked,
 - `current-route`, `next-route`, `owner-review`, `owner-decision`
@@ -404,3 +405,4 @@ parent-only promotion is authorized.
 
 | docs/roadmap/T473_SEMANTIC_HARNESS_AND_SOURCE_MARKER_INTEGRITY.md | t473, source-marker-anchor, canonical-integrity, gold-integrity, semantic-pilot-blocked, owner-gate | A future agent is about to use marker sidecars, Psalm 119 gold, Song speaker labels, or resume the multi-model semantic pilot. | P0 stop gate; records previous-versus-next binding, canonical witness/token contamination, staged T474-T480 repair, and T481+ pilot deferral. |
 | docs/roadmap/T474_EXPLICIT_USFM_MARKER_ANCHOR_REPAIR.md | t474, marker-resolution, body-disposition, importer, source-integrity | An agent is changing USFM marker ownership, headings/speakers, or preparing T475 shadow regeneration. | Owner-approved code/fixture repair only; generated-data, gold, chunk output, and semantic pilot remain gated. |
+| docs/roadmap/T475_USFM_SHADOW_DELTA_AND_AGENT_HIERARCHY.md | t475, sol-terra-luna, task-local-roster, shadow-delta, no-text-ledger, independent-audit, editorial-sidecar | An agent is assigning task-local model roles, measuring T474 corpus effects, or preparing the repair/audit before T476. | HOLD_WITH_FINDINGS; deterministic evidence is frozen, but three editorial-heading footnotes require typed-sidecar preservation and a fresh independent audit. |
