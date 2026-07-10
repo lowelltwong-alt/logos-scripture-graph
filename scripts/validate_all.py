@@ -40,6 +40,19 @@ QA_REQUIRED = [
     CANON_DIR / "scripture" / "passages" / "passages.jsonl",
     CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
 ]
+T475_TRANSITION_WORD_TOKENS = CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl"
+T475_TRANSITION_FOOTNOTES = CANON_DIR / "translations" / "eng-web" / "footnotes.jsonl"
+T475_DEFERRED_GENERATED_GATES = {
+    "validate_t374_additive_parent_overlay.py",
+    "validate_t401_eph1_output_pilot.py",
+    "validate_t415_batch1_output_pilot.py",
+    "validate_source_metadata_research_atlas.py",
+    "validate_1cor8_10_parent_evidence_packet.py",
+    "validate_divine_capitalization_inventory.py",
+    "validate_wj_marker_inventory.py",
+}
+
+
 GENERATED_CANONICAL_REQUIRED = [
     CANON_DIR / "scripture" / "passages" / "passages.jsonl",
     CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
@@ -49,6 +62,28 @@ GENERATED_CANONICAL_REQUIRED = [
     CANON_DIR / "translations" / "eng-web" / "section_headings.jsonl",
     WORD_TOKENS,
 ]
+
+
+def _count_nonempty_lines(path: Path) -> int:
+    if not path.is_file():
+        return -1
+    with path.open("rb") as handle:
+        return sum(1 for line in handle if line.strip())
+
+
+def t475_candidate_transition_active() -> bool:
+    focus = ROOT / ".ai" / "control" / "current_focus.yaml"
+    try:
+        current = yaml.safe_load(focus.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return False
+    if not isinstance(current, dict) or current.get("current_task") != "T475":
+        return False
+    counts = (
+        _count_nonempty_lines(T475_TRANSITION_WORD_TOKENS),
+        _count_nonempty_lines(T475_TRANSITION_FOOTNOTES),
+    )
+    return counts == (677686, 1127)
 
 
 def changed_paths() -> list[str]:
@@ -739,6 +774,18 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ),
     ]
     gates.extend(generated_data_gates())
+    if t475_candidate_transition_active():
+        gates = [
+            (name, cmd)
+            for name, cmd in gates
+            if name not in T475_DEFERRED_GENERATED_GATES
+        ]
+        gates.append(
+            (
+                "validate_t475_generated_transition_state.py",
+                [PY, str(ROOT / "scripts" / "validate_t475_generated_transition_state.py")],
+            )
+        )
     # Raw-source gates (the committed raw archives are the real pipeline input).
     if (ROOT / "data" / "raw").exists():
         gates.append(("validate_raw_coverage.py", [PY, str(ROOT / "scripts" / "validate_raw_coverage.py")]))

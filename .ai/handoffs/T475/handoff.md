@@ -99,3 +99,18 @@ source-tradition preference, canon change, or theology authority.
 - mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
 - updated_at: 2026-07-10T16:22:05+00:00
 - handoff_id: ab1d5cddc66bbd9f
+
+## CI Transition Follow-Up
+
+- PR #167 initial CI regenerated the T474 candidate and correctly exposed nine
+  old-baseline failures.
+- CD-113 and LSN-058 record the staged generated-data validator lifecycle.
+- The decision and lesson registers were updated for the new roadmap surfaces.
+- Seven generated-data validators are deferred only when the active task is
+  T475, sentinel counts are exact, and all ten generated JSONL surfaces match
+  the frozen candidate stable-key semantic digests.
+- The verified candidate comprises 844,104 rows across those ten surfaces.
+- Unknown, partial, or extra drift fails closed and runs the old validators.
+- The deferral does not authorize baseline, gold, output, or canonical migration.
+- Focused transition/hierarchy/evidence suite: 17 passed.
+- GitHub CI rerun is required before merge.

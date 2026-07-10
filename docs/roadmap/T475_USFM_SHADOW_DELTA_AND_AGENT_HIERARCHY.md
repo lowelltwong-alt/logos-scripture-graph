@@ -65,3 +65,12 @@ that as expected editorial cleanup; Sol ruled that editorial-only content must
 stay out of Scripture text and tokens while typed editorial metadata remains
 recoverable. A separate narrow repair and new frozen run are required before
 the independent audit and T476.
+
+## CI Transition
+
+The workflow deterministically regenerates candidate data before validate_all.
+That state intentionally disagrees with seven pre-T474 generated-baseline
+validators. T475 does not update those baselines. Instead, CI may defer exactly
+those seven gates only after all ten generated JSONL surfaces match the frozen
+candidate semantic digests. Any unknown or partial state fails closed. The
+deferral expires with the repaired T475 revision and does not authorize T476.

@@ -15,6 +15,7 @@
 > headings also disappear from the typed sidecar. Terra initially considered
 > that expected; Sol ruled typed editorial metadata must remain recoverable.
 > A separate narrow repair and fresh Claude audit are required before T476.
+> CI uses an exact frozen-candidate semantic transition gate; seven named pre-T474 generated-baseline validators may be deferred only in that exact state, without baseline promotion.
 > No committed data, gold, chunks, route/evaluator behavior, graph/retrieval/
 > vector truth, source-tradition preference, canon change, or theology authority
 > was created.

@@ -12,6 +12,8 @@ scope:
   allowed_paths:
     - .ai/tasks/T475.task.yaml
     - .ai/control/t475_usfm_shadow_delta_gate.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
     - .ai/control/t473_semantic_harness_pilot.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
@@ -27,9 +29,11 @@ scope:
     - scripts/run_t475_shadow_delta.py
     - scripts/validate_task_execution_overlay.py
     - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t475_generated_transition_state.py
     - scripts/validate_all.py
     - tests/test_task_execution_overlay.py
     - tests/test_t475_usfm_shadow_delta_gate.py
+    - tests/test_t475_generated_transition_state.py
     - ROADMAP_STATE.yaml
   forbidden_paths:
     - data/raw/
@@ -160,6 +164,7 @@ runtime_language_preflight:
     - scripts/run_t475_shadow_delta.py
     - scripts/validate_task_execution_overlay.py
     - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t475_generated_transition_state.py
     - scripts/validate_all.py
   expected_input_size_or_record_count: "Two importer revisions over the canonical 66 WEB corpus; approximately 847,000 JSONL rows and 700 MB per shadow output family."
   expected_runtime_or_memory_pressure: "High sequential I/O with bounded per-file streaming; repeated trials require a long ceiling but must not retain all trial roots."
@@ -180,10 +185,12 @@ acceptance_criteria:
   - "No chunker is run and no chunk output is emitted; only affected refs and input-hash impact are reported."
   - "No committed data, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon, source tradition, or theology authority changes."
   - "Independent audit is required before T475 can claim evidence ready for T476."
+  - "CI candidate regeneration must match all frozen stable-key semantic digests before exactly seven pre-T474 generated-baseline validators may be deferred."
 validations:
   - python scripts/validate_task_execution_overlay.py --task-id T475
   - python scripts/validate_t475_usfm_shadow_delta_gate.py
-  - python -m pytest tests/test_task_execution_overlay.py tests/test_t475_usfm_shadow_delta_gate.py -q
+  - python scripts/validate_t475_generated_transition_state.py
+  - python -m pytest tests/test_task_execution_overlay.py tests/test_t475_usfm_shadow_delta_gate.py tests/test_t475_generated_transition_state.py -q
   - python scripts/validate_task_scope.py --task-id T475
   - python scripts/agent/validate_handoffs.py
   - python scripts/validate_all.py

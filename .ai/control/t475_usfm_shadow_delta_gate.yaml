@@ -117,6 +117,28 @@ execution_state:
   blocking_findings:
     - P1_editorial_heading_footnotes_lost_from_typed_sidecar
     - P2_editorial_inline_sidecar_fixture_missing
+ci_generated_transition_policy:
+  purpose: "Allow CI to validate the exact frozen T475 candidate after deterministic regeneration without promoting stale downstream baselines."
+  active_task_required: T475
+  detected_candidate_counts:
+    word_tokens: 677686
+    footnotes: 1127
+  exact_semantic_manifest: .ai/context/agent_work/T475/candidate_manifest.json
+  validator: scripts/validate_t475_generated_transition_state.py
+  deferred_legacy_generated_validators:
+    - validate_t374_additive_parent_overlay.py
+    - validate_t401_eph1_output_pilot.py
+    - validate_t415_batch1_output_pilot.py
+    - validate_source_metadata_research_atlas.py
+    - validate_1cor8_10_parent_evidence_packet.py
+    - validate_divine_capitalization_inventory.py
+    - validate_wj_marker_inventory.py
+  deferral_reason: "These gates encode the pre-T474 marker/token/footnote baseline. The exact candidate is evidence-only and downstream migration remains blocked."
+  deferral_requires_exact_candidate_semantic_digest: true
+  unknown_or_partial_candidate_fails_closed: true
+  authorizes_baseline_update: false
+  authorizes_gold_or_output_change: false
+  expires_after_repaired_T475_revision_and_T476_owner_gate: true
 fail_closed_conditions:
   - write_outside_build_T475_or_declared_report_root
   - raw_or_input_hash_mismatch

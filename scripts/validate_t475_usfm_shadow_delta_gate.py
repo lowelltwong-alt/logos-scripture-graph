@@ -52,6 +52,16 @@ REQUIRED_EVIDENCE = {
     "luna_trial_log.md",
     "frozen_evidence_manifest.json",
 }
+REQUIRED_DEFERRED_GENERATED_VALIDATORS = {
+    "validate_t374_additive_parent_overlay.py",
+    "validate_t401_eph1_output_pilot.py",
+    "validate_t415_batch1_output_pilot.py",
+    "validate_source_metadata_research_atlas.py",
+    "validate_1cor8_10_parent_evidence_packet.py",
+    "validate_divine_capitalization_inventory.py",
+    "validate_wj_marker_inventory.py",
+}
+
 FALSE_AUTHORITY = {
     "modifies_committed_raw_or_generated_data",
     "modifies_reviewed_gold",
@@ -278,6 +288,26 @@ def validate_t475(
     chunk = _mapping(control.get("chunk_impact_contract"), "chunk_impact_contract")
     if chunk.get("run_chunker") is not False or chunk.get("emit_chunk_output") is not False:
         raise T475ValidationError("T475 may not run the chunker or emit chunk output")
+
+    transition = _mapping(
+        control.get("ci_generated_transition_policy"),
+        "ci_generated_transition_policy",
+    )
+    if set(transition.get("deferred_legacy_generated_validators", [])) != REQUIRED_DEFERRED_GENERATED_VALIDATORS:
+        raise T475ValidationError("T475 deferred generated-validator set changed")
+    if transition.get("active_task_required") != "T475":
+        raise T475ValidationError("T475 transition policy must require active task T475")
+    if transition.get("detected_candidate_counts") != {
+        "word_tokens": 677686,
+        "footnotes": 1127,
+    }:
+        raise T475ValidationError("T475 transition candidate counts changed")
+    for key in ("authorizes_baseline_update", "authorizes_gold_or_output_change"):
+        if transition.get(key) is not False:
+            raise T475ValidationError(f"ci_generated_transition_policy.{key} must be false")
+    transition_validator = root / str(transition.get("validator", ""))
+    if not transition_validator.is_file():
+        raise T475ValidationError("T475 generated-transition validator is missing")
 
     evidence = _mapping(control.get("required_evidence"), "required_evidence")
     if set(evidence.get("files", [])) != REQUIRED_EVIDENCE:

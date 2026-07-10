@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T473
+last_updated_by_task: T475
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -43,7 +43,7 @@ update_policy:
     - .ai/audits/reports/
     - AI_TABLE_OF_CONTENTS.md
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
-  validator: scripts/validate_chunking_lesson_index.py
+validator: scripts/validate_chunking_lesson_index.py
 category_taxonomy:
   - category_id: source_metadata
     use_when: "Source formatting, internal cross-references, Strong's-style tags, red-letter/WJ markers, headings, footnotes, or capitalization appear relevant."
@@ -2499,6 +2499,50 @@ lessons:
       - scripts/validate_t474_usfm_marker_anchor_contract.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-058
+    title: Staged generated-data repairs need exact transition gates, not silent baseline refreshes
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, source_metadata]
+    tags: [t475, generated-transition, validator-lifecycle, shadow-evidence, fail-closed, independent-audit]
+    use_when:
+      - "Importer code intentionally changes ignored generated outputs before committed migration is authorized."
+      - "CI regeneration causes old gold, inventories, or output-pilot hashes to fail."
+      - "An agent proposes skipping validators or refreshing baselines to make a staged repair green."
+    preflight_stage: before_CI_deferral_or_generated_baseline_refresh
+    source_surfaces:
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+      - .ai/context/agent_work/T475/frozen_evidence_manifest.json
+      - scripts/validate_t475_generated_transition_state.py
+      - scripts/validate_all.py
+    related_decision_ids: [CD-113]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T475]
+    downstream_risk: "A stale generated-data validator can either block safe staged work forever or pressure agents into promoting unreviewed candidate output. A broad skip can hide unrelated drift."
+    required_preflight_surfaces:
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+      - .ai/context/agent_work/T475/candidate_manifest.json
+      - .ai/control/chunking_theological_decision_register.yaml
+    required_pattern:
+      - exact_candidate_semantic_digest
+      - explicit_finite_deferred_validator_set
+      - unknown_state_fails_closed
+      - no_baseline_gold_or_output_authority
+      - owner_and_independent_audit_gates_remain_blocked
+    non_authorizations:
+      - broad_validator_skip
+      - generated_candidate_as_canonical_authority
+      - baseline_refresh_without_owner_gate
+      - reviewed_gold_change
+      - chunk_output_change
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_vector_truth
+      - source_tradition_preference
+      - theology_authority
+    validators:
+      - scripts/validate_t475_generated_transition_state.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3023,6 +3067,15 @@ lesson_graph:
     relation: audits
     to: LSN-010
   - from: LSN-057
+    relation: constrains
+    to: LSN-034
+  - from: LSN-057
+    relation: governs_update_of
+    to: LSN-058
+  - from: LSN-058
+    relation: audits
+    to: LSN-010
+  - from: LSN-058
     relation: constrains
     to: LSN-034
 validator: scripts/validate_chunking_lesson_index.py

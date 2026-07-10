@@ -25,6 +25,7 @@ def _copy_tree(tmp_path: Path) -> Path:
         "data/raw/bible/eng-web/usfm/eng-web_usfm.zip",
         "data/raw/bible/eng-web/source_manifest.yaml",
         "scripts/run_t475_shadow_delta.py",
+        "scripts/validate_t475_generated_transition_state.py",
     ):
         target = tmp_path / rel
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -83,3 +84,18 @@ def test_t475_frozen_evidence_passes() -> None:
 def test_independent_audit_gate_fails_while_pending() -> None:
     with pytest.raises(T475ValidationError, match="independent audit"):
         validate_t475(ROOT, require_independent_audit=True)
+
+
+def test_broad_generated_validator_deferral_fails(tmp_path: Path) -> None:
+    root = _copy_tree(tmp_path)
+    transition_validator = root / "scripts/validate_t475_generated_transition_state.py"
+    transition_validator.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / "scripts/validate_t475_generated_transition_state.py", transition_validator)
+    _mutate_control(
+        root,
+        lambda data: data["ci_generated_transition_policy"][
+            "deferred_legacy_generated_validators"
+        ].append("validate_unrelated_gate.py"),
+    )
+    with pytest.raises(T475ValidationError, match="deferred generated-validator set"):
+        validate_t475(root)
