@@ -1,0 +1,206 @@
+id: T475
+phase: phase_4
+title: "USFM Shadow Regeneration, Exact Delta Inventory, And Task-Local Agent Hierarchy"
+mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
+status: hold_with_findings
+owner: codex
+branch: codex/t475-usfm-shadow-delta
+base_ref: 2ea6db7b605400f1b9fcf1a05daacf6c752f63c8
+integrates_task_ids: [T474]
+summary: "Deploy the owner-selected Sol/Terra/Luna hierarchy with an independent Claude audit gate, then compare pre-T474 and T474 importer output only in ignored shadow roots."
+scope:
+  allowed_paths:
+    - .ai/tasks/T475.task.yaml
+    - .ai/control/t475_usfm_shadow_delta_gate.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/t473_semantic_harness_pilot.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/context/agent_work/T475/
+    - .ai/handoffs/T475/
+    - .ai/prompts/t475_independent_audit_prompt.md
+    - docs/roadmap/T475_USFM_SHADOW_DELTA_AND_AGENT_HIERARCHY.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/run_t475_shadow_delta.py
+    - scripts/validate_task_execution_overlay.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t475_generated_transition_state.py
+    - scripts/validate_all.py
+    - scripts/generate_data_map.py
+    - conftest.py
+    - tests/test_task_execution_overlay.py
+    - tests/test_t475_usfm_shadow_delta_gate.py
+    - tests/test_t475_generated_transition_state.py
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/ingest/
+    - pipelines/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/agents/
+    - config/retrieval/
+    - .ai/scratch/multi_model_bible_chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+predecessor:
+  task_id: T474
+  commit: 2ea6db7b605400f1b9fcf1a05daacf6c752f63c8
+  required_state: complete_code_and_fixture_gate
+execution_overlay:
+  schema_version: task_execution_overlay.v1
+  task_id: T475
+  mode: ignored_shadow_regeneration_and_exact_delta_inventory
+  policy_refs:
+    routing: config/agents/model_routing.yaml
+    roles: config/agents/agent_roles.yaml
+    rust: .ai/control/ai_agnostic_rust_subagent_charter.yaml
+    source_contract: .ai/control/t474_usfm_marker_anchor_contract.yaml
+  task_local_roster_binding:
+    Sol:
+      role: architecture_owner
+      profile: reasoner
+      model_id: gpt-5.6-sol
+      effort: high
+    Terra:
+      role: shadow_regenerator_and_parity_specialist
+      profile: executor
+      model_id: gpt-5.6-terra
+      effort: medium
+    Luna:
+      role: bounded_delta_verifier
+      profile: executor
+      model_id: gpt-5.6-luna
+      effort: low
+    Claude:
+      role: independent_auditor
+      profile: reasoner
+      model_id: claude-opus-4.8
+      effort: high
+  authority:
+    architecture_owner: [freeze_inputs, define_acceptance, reconcile_or_hold, recommend_T476]
+    shadow_regenerator_and_parity_specialist: [write_ignored_shadow_roots, emit_run_and_parity_manifests, record_performance_and_deployment_evidence]
+    bounded_delta_verifier: [read_frozen_roots, emit_exact_inventory, challenge_manifest, escalate_ambiguity]
+    independent_auditor: [read_frozen_bundle, recompute_assertions, pass_hold_or_escalate]
+    reserved_to_owner: [committed_regeneration, baseline_reset, reviewed_gold_change, chunk_output_promotion]
+    universally_forbidden: [raw_mutation, semantic_model_execution, authority_promotion]
+  roots:
+    baseline: build/T475/baseline
+    candidate: build/T475/candidate
+    reports: .ai/context/agent_work/T475
+    require_ignored_and_distinct: true
+    forbid_symlink_escape: true
+  stages:
+    - {id: preflight_and_contract, owner: architecture_owner, needs: []}
+    - {id: shadow_pair, owner: shadow_regenerator_and_parity_specialist, needs: [preflight_and_contract]}
+    - {id: exact_inventory, owner: bounded_delta_verifier, needs: [shadow_pair]}
+    - {id: reconcile_and_freeze, owner: architecture_owner, needs: [exact_inventory]}
+    - {id: blind_audit, owner: independent_auditor, needs: [reconcile_and_freeze]}
+    - {id: evidence_ready_for_T476, owner: architecture_owner, needs: [blind_audit]}
+  rust_continuation_gate:
+    default: python_only
+    outcomes: [python_only, reuse_existing_rust_leaf, hold_and_defer_rust]
+    new_rust_or_dependency_in_T475: forbidden
+    correctness_required: [explicit_python_oracle, full_parity_green, fail_closed_exit, deterministic_repeated_runs, no_authority_leakage]
+    balanced_value_requires_one:
+      - reproducible_wall_clock_or_memory_improvement
+      - simpler_or_safer_deployment
+      - stronger_fail_closed_correctness
+      - better_failure_isolation_and_diagnostics
+      - materially_lower_repeated_compute_cost
+    benchmark:
+      pinned_inputs: true
+      repetitions_minimum: 3
+      median_reported: true
+      environment_recorded: true
+      warmup_policy_recorded: true
+    performance_alone_may_advance: false
+    independent_audit_required: true
+  quality_first_context_policy:
+    priority: [correctness, completeness, independence, reproducibility, latency, token_cost]
+    minimum_sufficient_context_per_role: true
+    silent_sampling_or_truncation: forbidden
+    summaries_do_not_replace_machine_readable_ledgers: true
+    context_pressure_action: checkpoint_artifacts_then_resume_or_hold
+    token_exhaustion_may_produce_pass: false
+  independent_audit:
+    roster_alias: Claude
+    prompt: .ai/prompts/t475_independent_audit_prompt.md
+    separate_invocation_and_context: true
+    frozen_inputs_only: true
+    blind_until_first_verdict: [working_notes, prior_verdicts, reconciliation_commentary]
+    may_edit_or_regenerate: false
+    findings_require_new_revision_and_new_audit: true
+    verdicts: [PASS, HOLD_WITH_FINDINGS, ESCALATE_OWNER]
+authorization:
+  task_kind: ignored_shadow_regeneration_and_exact_delta_inventory_only
+  writes_ignored_build_roots: true
+  writes_non_authorizing_hash_and_delta_evidence: true
+  modifies_committed_raw_or_generated_data: false
+  modifies_reviewed_gold: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_chunker_or_form_consumer_behavior: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T475
+  touched_paths:
+    - scripts/run_t475_shadow_delta.py
+    - scripts/validate_task_execution_overlay.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t475_generated_transition_state.py
+    - scripts/validate_all.py
+    - scripts/generate_data_map.py
+    - conftest.py
+  expected_input_size_or_record_count: "Two importer revisions over the canonical 66 WEB corpus; approximately 847,000 JSONL rows and 700 MB per shadow output family."
+  expected_runtime_or_memory_pressure: "High sequential I/O with bounded per-file streaming; repeated trials require a long ceiling but must not retain all trial roots."
+  rust_trigger_match: [high_resource_deterministic_jsonl_scan, parity_measurement_before_any_new_rust_buildout]
+  chosen_language: defer_rust_until_measurement
+  expected_rust_time_saved_or_reason_not_applicable: "Unknown until T475 measures exact file families and comparison cost. Existing Rust validators may be reused, but no new Rust or dependency is allowed in this evidence task."
+  interop_boundary: "Python owns source snapshot orchestration and semantic delta evidence; existing Rust validators remain optional leaf checks behind Python wrappers."
+  python_fallback_or_wrapper_plan: "The T475 comparison is a streaming Python oracle. Any later Rust accelerator must reproduce its manifests and verdicts exactly."
+  maintenance_tradeoffs: "A one-task Python oracle avoids building a premature Rust keyed-delta engine while producing the measurements needed for a balanced continuation decision."
+  validation_plan: "Run overlay and T475 validators, focused tests, three pinned shadow trials, task scope, handoffs, validate_all with at least 900000 ms, full pytest with the recorded long ceiling, data-map check, and diff check."
+acceptance_criteria:
+  - "Sol, Terra, Luna, and Claude are task-local aliases only; durable model routing remains vendor- and model-agnostic."
+  - "Terra and Luna cannot resolve architecture or semantic ambiguity; Sol cannot self-certify the independent audit."
+  - "Pre-T474 and T474 importer revisions run against identical pinned raw/config inputs in distinct ignored roots."
+  - "At least three measured trials record deterministic output manifests, medians, environment, and warmup policy."
+  - "Every importer output has byte, row-count, whole-file hash, and stable-key delta evidence without exposing Scripture text."
+  - "Witness, token, USFM-event, boundary-claim, section-heading, and downstream input-impact deltas are separately visible."
+  - "No chunker is run and no chunk output is emitted; only affected refs and input-hash impact are reported."
+  - "No committed data, reviewed gold, route/evaluator behavior, graph/retrieval/vector truth, canon, source tradition, or theology authority changes."
+  - "Independent audit is required before T475 can claim evidence ready for T476."
+  - "CI candidate regeneration must match all frozen stable-key semantic digests before exactly seven pre-T474 generated-baseline validators may be deferred."
+validations:
+  - python scripts/validate_task_execution_overlay.py --task-id T475
+  - python scripts/validate_t475_usfm_shadow_delta_gate.py
+  - python scripts/validate_t475_generated_transition_state.py
+  - python -m pytest tests/test_task_execution_overlay.py tests/test_t475_usfm_shadow_delta_gate.py tests/test_t475_generated_transition_state.py -q
+  - python scripts/validate_task_scope.py --task-id T475
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+handoff_required: .ai/handoffs/T475/handoff.md
+created_at: "2026-07-10"
+updated_at: "2026-07-10"
