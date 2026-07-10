@@ -1,0 +1,133 @@
+id: T472
+phase: phase_4
+title: "Multi-Model Panel Calibration And Provenance Correction"
+mode: model_panel_calibration_and_provenance_correction_non_authorizing
+status: complete
+owner: codex
+branch: codex/t472-2john-owner-packet-v2
+base_ref: origin/main
+summary: "Correct the T465/T471 region-as-span defect, classify all 1,048 frozen deltas for chapter-anchor and larger-unit disagreement, quarantine M1/M5 from confidence routing without deleting evidence, and replace pair-preference voting with proposer/critic review gates."
+scope:
+  allowed_paths:
+    - .ai/tasks/T472.task.yaml
+    - .ai/control/t472_model_panel_calibration_gate.yaml
+    - .ai/control/t472_2john_owner_packet.yaml
+    - .ai/control/t465_multi_model_reconciliation_gate.yaml
+    - .ai/control/t471_near_boundary_docket_refinement.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T472/
+    - .ai/context/agent_work/T472/
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/context-map.json
+    - .digital-asset/lessons/t472_model_panel_calibration_lessons.yaml
+    - docs/roadmap/T472_MODEL_PANEL_CALIBRATION_AND_PROVENANCE_CORRECTION.md
+    - docs/roadmap/T472_2JOHN_OWNER_PACKET.md
+    - scripts/compare_multi_model_bible_chunk_maps.py
+    - scripts/t423_chunk_map_utils.py
+    - scripts/build_t472_model_panel_calibration_gate.py
+    - scripts/validate_t464_multi_model_decision_docket.py
+    - scripts/validate_t465_multi_model_reconciliation_gate.py
+    - scripts/validate_t471_near_boundary_docket_refinement.py
+    - scripts/validate_t472_2john_owner_packet.py
+    - scripts/validate_t472_model_panel_calibration_gate.py
+    - scripts/validate_all.py
+    - tests/test_t464_multi_model_decision_docket.py
+    - tests/test_t465_multi_model_reconciliation_gate.py
+    - tests/test_t471_near_boundary_docket_refinement.py
+    - tests/test_t472_2john_owner_packet.py
+    - tests/test_t472_model_panel_calibration_gate.py
+  forbidden_paths:
+    - .ai/scratch/multi_model_bible_chunking/M1_cursor/
+    - .ai/scratch/multi_model_bible_chunking/M2_claude_sonnet5/
+    - .ai/scratch/multi_model_bible_chunking/M3_claude_frontier/
+    - .ai/scratch/multi_model_bible_chunking/M4_codex_gpt55/
+    - .ai/scratch/multi_model_bible_chunking/M5_gemini_thinking/
+    - .ai/scratch/multi_model_bible_chunking/M6_fable5/
+    - .ai/scratch/multi_model_bible_chunking/comparison/
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: model_panel_calibration_and_provenance_correction_non_authorizing
+  records_panel_calibration: true
+  records_provenance_corrections: true
+  records_harness_rerun_requirements: true
+  deletes_model_evidence: false
+  reruns_models: false
+  authorizes_target_selection: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output: false
+  authorizes_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  authorizes_theology_authority: false
+  decides_variant_or_inspiration_status: false
+runtime_language_preflight:
+  task_id: T472
+  touched_paths:
+    - scripts/compare_multi_model_bible_chunk_maps.py
+    - scripts/build_t472_model_panel_calibration_gate.py
+    - scripts/validate_t464_multi_model_decision_docket.py
+    - scripts/validate_t465_multi_model_reconciliation_gate.py
+    - scripts/validate_t471_near_boundary_docket_refinement.py
+    - scripts/validate_t472_2john_owner_packet.py
+    - scripts/validate_t472_model_panel_calibration_gate.py
+    - scripts/validate_all.py
+    - tests/test_t464_multi_model_decision_docket.py
+    - tests/test_t465_multi_model_reconciliation_gate.py
+    - tests/test_t471_near_boundary_docket_refinement.py
+    - tests/test_t472_model_panel_calibration_gate.py
+  expected_input_size_or_record_count: "1,048 frozen disagreement rows, 144 easy-agreement rows, six whole-Bible model maps, and 19 legacy owner-docket rows."
+  expected_runtime_or_memory_pressure: "Medium. The corrective builder streams compact ledgers once; the full six-model compare is not rerun in this task."
+  rust_trigger_match: [modest_one_pass_jsonl_scan, semantic_policy_dominates_runtime]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "The 1,048-row pass is too small for Rust startup and integration work to repay itself; future repeated whole-map comparison remains a Rust candidate."
+  interop_boundary: "Python reads frozen T464-T471 evidence and emits T472-owned correction ledgers. It does not mutate model folders or frozen comparison outputs."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping classification policy in Python makes chapter-anchor, larger-unit dissent, and provenance rules inspectable."
+  validation_plan: "Run T472 builder check, T464-T472 focused validators/tests, scope/handoff/register/lesson gates, then full merge gates."
+acceptance_criteria:
+  - "Every one of the 1,048 frozen deltas receives a deterministic T472 mechanical class and reason."
+  - "Every strict-larger calibrated dissent is extracted with all per-model spans and literary review routing."
+  - "The 19 legacy owner rows show legacy region, actual M4/M6 span, per-model spans, chapter coincidence, and corrected disposition."
+  - "DELTA-2John-001 is explicitly withdrawn as a whole-book M4/M6 agreement; actual agreement is 2John.1.12-2John.1.13."
+  - "M1_cursor and M5_gemini_thinking remain preserved as audit evidence but are ineligible for confidence/majority routing until a fixed-harness pilot passes."
+  - "M4/M6 pair agreement is evidence-only and cannot produce owner-ready status by itself."
+  - "Chapter-coincident boundaries trigger literary justification rather than confidence."
+  - "No T472 artifact authorizes reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, source-tradition preference, canon change, or theology authority."
+validations:
+  - python scripts/build_t472_model_panel_calibration_gate.py --check
+  - python scripts/validate_t472_model_panel_calibration_gate.py
+  - python -m pytest tests/test_t472_model_panel_calibration_gate.py -q
+  - python scripts/validate_t464_multi_model_decision_docket.py
+  - python scripts/validate_t465_multi_model_reconciliation_gate.py
+  - python scripts/validate_t471_near_boundary_docket_refinement.py
+  - python scripts/validate_task_scope.py --task-id T472
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_chunking_theological_decision_register.py
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T472/handoff.md
+created_at: "2026-07-09"
+updated_at: "2026-07-10"

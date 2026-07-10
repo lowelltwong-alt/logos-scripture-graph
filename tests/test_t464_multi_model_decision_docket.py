@@ -8,6 +8,7 @@ import yaml
 
 from scripts import validate_t464_multi_model_decision_docket as validator
 from scripts.compare_multi_model_bible_chunk_maps import compare_models
+from scripts.t423_chunk_map_utils import parse_span, span_relation, strictly_contains
 
 
 ACTIVE_MODELS = [
@@ -204,3 +205,119 @@ def test_mark_16_consensus_is_frontier_not_easy(tmp_path) -> None:
     assert "codex_sinaiticus_ending_review" in row["expert_review_lanes"]
     assert "scribal_layout_and_blank_space_review" in row["expert_review_lanes"]
     assert "scribal_letters_per_column_capacity_review" in row["expert_review_lanes"]
+
+
+def test_span_relation_and_strict_containment_are_directional() -> None:
+    whole = parse_span("2John.1.1-2John.1.13")
+    closing = parse_span("2John.1.12-2John.1.13")
+    overlapping = parse_span("2John.1.10-2John.1.13")
+
+    assert strictly_contains(whole, closing) is True
+    assert strictly_contains(closing, whole) is False
+    assert span_relation(whole, closing) == "strictly_contains"
+    assert span_relation(closing, whole) == "strictly_within"
+    assert span_relation(closing, overlapping) == "strictly_within"
+
+
+def test_2john_disagreement_retains_all_span_observations_without_whole_letter_candidate(tmp_path) -> None:
+    spans_by_model = {
+        "M1_cursor": ["2John.1.1-2John.1.13"],
+        "M2_claude_sonnet5": ["2John.1.1-2John.1.13"],
+        "M3_claude_frontier": ["2John.1.1-2John.1.13"],
+        "M4_codex_gpt55": ["2John.1.1-2John.1.3", "2John.1.4-2John.1.11", "2John.1.12-2John.1.13"],
+        "M5_gemini_thinking": ["2John.1.1-2John.1.10", "2John.1.11-2John.1.13"],
+        "M6_fable5": ["2John.1.1-2John.1.3", "2John.1.4-2John.1.11", "2John.1.12-2John.1.13"],
+    }
+    folders = []
+    for model_id, spans in spans_by_model.items():
+        folder = tmp_path / model_id
+        _write_manifest(folder, model_id, books=["2John"])
+        literature = "epistle_whole_letter" if model_id in {"M1_cursor", "M2_claude_sonnet5", "M3_claude_frontier"} else "epistle_closing"
+        _write_map(
+            folder / "whole_bible_chunk_map.jsonl",
+            [
+                _chunk(
+                    model_id,
+                    "2John",
+                    index,
+                    span,
+                    literature_type_guess=literature,
+                    boundary_evidence_refs=["observation_substrate"],
+                    confidence="high",
+                )
+                for index, span in enumerate(spans, start=1)
+            ],
+        )
+        folders.append(folder)
+
+    result = compare_models(folders, books=["2John"], allow_easy_at_n3=False)
+    delta = result["deltas"][0]
+
+    assert delta["disagreement_region"] == "2John.1.1-2John.1.13"
+    assert delta["disagreement_region_is_candidate_span"] is False
+    assert delta["span_observations_by_model"]["M4_codex_gpt55"] == [
+        "2John.1.1-2John.1.3",
+        "2John.1.12-2John.1.13",
+        "2John.1.4-2John.1.11",
+    ]
+    assert delta["span_observations_by_model"]["M6_fable5"][-1] == "2John.1.4-2John.1.11"
+    assert "2John.1.1-2John.1.13" not in delta["span_observations_by_model"]["M4_codex_gpt55"]
+    assert "2John.1.1-2John.1.13" not in delta["span_observations_by_model"]["M6_fable5"]
+    assert delta["models"]["M4_codex_gpt55"] == "2John.1.12-2John.1.13"
+    assert delta["models"]["M6_fable5"] == "2John.1.12-2John.1.13"
+    assert delta["codex_fable_span"] == "2John.1.12-2John.1.13"
+    assert delta["pair_equality_observation"] is True
+    assert delta["recommended_candidate_basis"] == "none"
+    assert delta["docket_status"] == "real_literary_disagreement"
+    assert delta["next_gate"] == "literary_review_before_pair_signals"
+    assert delta["strict_larger_calibrated_dissent"] is True
+    assert delta["chapter_coincidence_from_canonical_coverage"] is True
+    assert delta["confidence_role"] == "archival_only"
+    assert "M1_cursor" in delta["confidence_by_model"]
+    assert "M5_gemini_thinking" in delta["confidence_by_model"]
+    assert "M1_cursor" not in delta["confidence_eligible_models"]
+    assert "M5_gemini_thinking" not in delta["confidence_eligible_models"]
+
+
+def test_compare_rejects_manifest_progress_inconsistency(tmp_path) -> None:
+    folder = tmp_path / "M4_codex_gpt55"
+    _write_manifest(folder, "M4_codex_gpt55", books=["Phlm"])
+    manifest_path = folder / "model_manifest.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest.update({"status": "in_progress", "books_completed": 0, "books_total": 66})
+    manifest_path.write_text(yaml.safe_dump(manifest), encoding="utf-8")
+
+    try:
+        compare_models([folder], books=["Phlm"], allow_easy_at_n3=False)
+    except ValueError as exc:
+        assert "manifest/progress inconsistency" in str(exc)
+    else:
+        raise AssertionError("inconsistent manifest/progress metadata must fail closed")
+
+def test_self_reported_confidence_is_archival_not_a_routing_signal(tmp_path) -> None:
+    folders = []
+    for model_id in ACTIVE_MODELS:
+        folder = tmp_path / model_id
+        _write_manifest(folder, model_id, books=["Phlm"])
+        _write_map(
+            folder / "whole_bible_chunk_map.jsonl",
+            [
+                _chunk(
+                    model_id,
+                    "Phlm",
+                    1,
+                    "Phlm.1.1-Phlm.1.25",
+                    boundary_evidence_refs=["observation_substrate"],
+                    confidence="low",
+                )
+            ],
+        )
+        folders.append(folder)
+
+    result = compare_models(folders, books=["Phlm"], allow_easy_at_n3=False)
+    agreement = result["agreements"][0]
+
+    assert agreement["confidence_role"] == "archival_only"
+    assert agreement["confidence_rollup"] == "archival_only"
+    assert "low_confidence" not in agreement["risk_flags"]
+    assert agreement["docket_status"] == "consensus_low_risk_candidate"

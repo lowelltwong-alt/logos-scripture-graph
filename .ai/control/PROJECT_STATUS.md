@@ -1,8 +1,23 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-09
-**Updated by:** T471 near-boundary docket refinement
-**Active task:** -> **T471 near-boundary docket refinement** on `codex/t471-near-boundary-docket-refinement-v2`. This refines T464/T465 comparison evidence into non-authorizing near-boundary classes and T470 support/debate owner-candidate tables only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+**Last updated:** 2026-07-10
+**Updated by:** T472 model-panel calibration and provenance correction
+**Active task:** -> **T472 corrective gate** on `codex/t472-2john-owner-packet-v2`. T472 withdraws the false whole-letter 2 John agreement route, freezes T464-T471 evidence, classifies all 1,048 deltas, preserves M1/M5 as negative controls, retires preferred-pair routing, and blocks T473. It authorizes no reviewed gold, chunk output, child spans, route/evaluator behavior, graph/retrieval/vector truth, source-tradition choice, canon change, variant/inspiration decision, or theology authority.
+
+> **T472 model-panel calibration and provenance correction (2026-07-10):**
+> `DELTA-2John-001` exposed a region-as-span defect. The disagreement region is
+> `2John.1.1-2John.1.13`, while the actual M4/M6 span is
+> `2John.1.12-2John.1.13`; a whole-letter route also overlaps existing
+> reviewed gold/output at `2John.1.1-2John.1.3`. Independent Sol, Terra, and
+> Luna audits found 130 region/model-span mismatches, 76 chapter-coincident pair
+> spans, 33 strict-larger calibrated dissents, 951 frontier-pressure rows, and
+> zero owner-ready rows among the legacy 19 after correction. All 143 retained
+> easy-agreement rows are chapter envelopes requiring literary and overlap
+> review. M1/M5 are preserved as negative controls, not deleted. Future work
+> uses a fixed-harness pilot, strong proposer, independent critic, Codex
+> reconciliation, frontier review, owner gate, and route isolation. DAD receives
+> a candidate-only lesson on root causes, prevention, and correction systems.
+
 
 > **T471 near-boundary docket refinement (2026-07-09):** T471 reads the frozen
 > T464 disagreement ledger and the T465 19-row M4/M6 owner docket without
