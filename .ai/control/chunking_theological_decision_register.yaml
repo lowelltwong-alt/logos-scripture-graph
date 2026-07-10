@@ -5072,6 +5072,50 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-114
+    title: T469 primary-witness acquisition planning remains non-authorizing
+    classification: non_authorizing_review
+    task_ids: [T469]
+    owner_decision_ref: ".ai/control/primary_witness_acquisition_waves.yaml"
+    pr_refs: ["PR-168"]
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes:
+        - primary_witness_metadata_and_rights_planning
+        - future_owner_gated_acquisition_waves
+      surfaces:
+        - .ai/control/primary_witness_acquisition_waves.yaml
+        - docs/roadmap/T469_PRIMARY_WITNESS_ACQUISITION_WAVES_FOR_CURSOR.md
+        - .ai/tasks/T469.task.yaml
+        - .ai/handoffs/T469/handoff.md
+    decision: "T469 records a rights-reviewed, metadata-first acquisition plan and storage estimates for primary and early Bible witnesses. It does not acquire, rank, promote, or interpret a witness and does not authorize any chunking or canonical output change."
+    downstream_risk: "Without an explicit non-authorizing record, future agents could mistake witness age, availability, catalog inclusion, image access, or acquisition order for preferred-reading, source-tradition, canon, boundary, or chunk authority."
+    theological_assumptions_avoided:
+      - "An older or more accessible manuscript is not automatically the preferred reading or source tradition."
+      - "Catalog inclusion, image availability, and acquisition priority do not establish canonical or theological authority."
+      - "Primary-witness metadata and textual-critical evidence do not authorize chunk boundaries by themselves."
+    reviewed_gold_dependency: "None. T469 creates no reviewed gold and cannot promote or alter reviewed gold."
+    non_authorizations:
+      - raw_source_or_image_download
+      - transcription_or_source_text_import
+      - canonical_bible_text_or_passage_change
+      - textual_critical_or_preferred_reading_decision
+      - source_tradition_preference
+      - canon_scope_change
+      - reviewed_gold_change
+      - chunk_output_or_child_span_change
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_vector_truth
+      - boundary_import
+      - theology_authority
+      - embeddings_or_indexes
+    validators:
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]
@@ -5216,6 +5260,7 @@ backfill_coverage:
     - T465
     - T467
     - T468
+    - T469
     - T470
     - T471
     - T472

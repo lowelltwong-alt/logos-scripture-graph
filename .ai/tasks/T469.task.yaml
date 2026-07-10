@@ -1,0 +1,65 @@
+id: T469
+phase: phase_5
+title: "Primary Bible Witness Acquisition Waves For Cursor"
+mode: planning_non_authorizing
+status: complete_non_authorizing_plan
+owner: codex
+branch: current_worktree
+base_ref: origin/main
+summary: "Create a Cursor-executable wave plan for bringing primary and early Bible witnesses into the knowledge base as metadata/text/image candidates where rights allow, with disk-use estimates and strict non-authorizing boundaries."
+scope:
+  allowed_paths:
+    - .ai/tasks/T469.task.yaml
+    - .ai/handoffs/T469/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/primary_witness_acquisition_waves.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - docs/roadmap/T469_PRIMARY_WITNESS_ACQUISITION_WAVES_FOR_CURSOR.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: primary_witness_acquisition_planning_only
+  records_source_acquisition_waves: true
+  records_storage_estimates: true
+  creates_source_metadata_rows: false
+  downloads_raw_sources: false
+  stores_manuscript_images: false
+  stores_manuscript_transcriptions: false
+  imports_source_text: false
+  changes_canonical_bible_text: false
+  changes_canonical_passage_records: false
+  authorizes_textual_critical_decision: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "Cursor has a concrete wave plan that starts with metadata-only rows and rights review before any image/text download."
+  - "Acquire-now sources are separated from public-view-only or permission-needed sources."
+  - "Disk-use estimates distinguish metadata, text/transcription, original image files, and full derivative downloads."
+  - "Plan preserves non-authorizing source-catalog posture and does not create raw, canonical, graph, retrieval, vector, preferred-reading, source-tradition, or theology truth."
+validations:
+  - python scripts/validate_task_scope.py --task-id T469 --changed-file .ai/tasks/T469.task.yaml --changed-file .ai/handoffs/T469/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/primary_witness_acquisition_waves.yaml --changed-file .ai/control/chunking_theological_decision_register.yaml --changed-file .ai/control/chunking_lesson_index.yaml --changed-file .ai/control/PROJECT_STATUS.md --changed-file docs/roadmap/T469_PRIMARY_WITNESS_ACQUISITION_WAVES_FOR_CURSOR.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T469/handoff.md
+created_at: "2026-07-08"
+updated_at: "2026-07-10"
