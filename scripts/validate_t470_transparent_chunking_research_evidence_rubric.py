@@ -195,7 +195,11 @@ def validate_t470_package(root: Path = ROOT) -> list[str]:
     _require(task.get("id") == "T470", "task id must be T470", errors)
     _require(control.get("object_type") == "t470_transparent_chunking_research_evidence_rubric", "control object_type mismatch", errors)
     _require(control.get("schema_version") == "t470_transparent_chunking_research_evidence_rubric.v1", "control schema_version mismatch", errors)
-    _require(focus.get("current_task") == "T470", "current_focus current_task must be T470", errors)
+    _require(
+        focus.get("current_task") == "T470" or focus.get("t470_task") == ".ai/tasks/T470.task.yaml",
+        "current_focus must retain T470 task surface after later tasks advance current_task",
+        errors,
+    )
 
     _validate_false_flags(task.get("authorization", {}), TASK_FORBIDDEN_AUTH_FIELDS, "task.authorization", errors)
     _validate_false_flags(control.get("authorization", {}), FORBIDDEN_AUTH_FIELDS, "control.authorization", errors)
@@ -262,7 +266,11 @@ def validate_t470_package(root: Path = ROOT) -> list[str]:
             if tag not in tag_text:
                 errors.append(f"LSN-053 tags missing {tag}")
         _require("research_transparency_as_reviewed_gold" in lesson.get("non_authorizations", []), "LSN-053 must forbid research transparency as reviewed gold", errors)
-    _require(lesson_index.get("last_updated_by_task") == "T470", "lesson index last_updated_by_task must be T470", errors)
+    _require(
+        lesson_index.get("last_updated_by_task") == "T470" or lesson is not None,
+        "lesson index must retain LSN-053 after later tasks advance last_updated_by_task",
+        errors,
+    )
 
     return errors
 

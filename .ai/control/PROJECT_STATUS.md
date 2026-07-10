@@ -1,8 +1,23 @@
-# Project Status — Single Source of Truth
+﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-08
-**Updated by:** T470 transparent chunking research evidence rubric
-**Active task:** -> **T470 transparent chunking research evidence rubric** on `codex/t470-transparent-chunking-research`. This records what is well-supported, how conclusions were reached, what remains debated, and downstream chunking implications only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+**Last updated:** 2026-07-09
+**Updated by:** T471 near-boundary docket refinement
+**Active task:** -> **T471 near-boundary docket refinement** on `codex/t471-near-boundary-docket-refinement-v2`. This refines T464/T465 comparison evidence into non-authorizing near-boundary classes and T470 support/debate owner-candidate tables only: no reviewed gold, chunk output, child spans, target selection, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, variant/inspiration decision, DAD reporting success gate, or theology authority.
+
+> **T471 near-boundary docket refinement (2026-07-09):** T471 reads the frozen
+> T464 disagreement ledger and the T465 19-row M4/M6 owner docket without
+> mutating either source. It writes T471-owned artifacts under
+> `.ai/context/agent_work/T471/`: `near_boundary_delta_refinement.jsonl`,
+> `owner_candidate_support_debate_docket.yaml`, and `refinement_summary.md`.
+> The first generated refinement classifies 19 rows as
+> `codex_fable_owner_ready_candidate`, 951 rows as `frontier_review_required`,
+> and 78 rows as `harness_fix_or_rerun_required`; no low-risk minor offset rows
+> remain after T468/T470 hard-risk filters. T471 recommends `DELTA-2John-001`
+> (`2John.1.1-2John.1.13`) as the first T472 owner-packet candidate evidence,
+> not as owner selection, reviewed gold, or chunk output. T471 authorizes no
+> target selection, reviewed gold, chunk output, child spans, route/evaluator
+> behavior, graph/retrieval/vector truth, source-tradition choice, canon change,
+> variant/inspiration decision, or theology authority.
 
 > **T470 transparent chunking research evidence rubric (2026-07-08):** T470 adds
 > `.ai/control/t470_transparent_chunking_research_evidence_rubric.yaml`, source
