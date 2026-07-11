@@ -10,7 +10,7 @@ from scripts import validate_dad_outbox as validator
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+OUTBOX = ROOT / "tests" / "fixtures" / "dad" / "candidate_messages.jsonl"
 
 
 def read_rows() -> list[dict]:
@@ -35,6 +35,40 @@ def test_dad_outbox_validates_current_repo() -> None:
     assert row["message_type"] == "lesson_and_asset_candidate"
     assert row["requires_local_adoption"] is True
     assert "asset-candidate:rust-first-coding-runtime-preflight" in row["asset_candidates"]
+
+
+def test_new_runtime_candidate_does_not_require_historical_t424(tmp_path: Path) -> None:
+    candidate = tmp_path / "outbox.jsonl"
+    write_jsonl(
+        candidate,
+        [
+            {
+                "message_id": "msg-runtime-synthetic",
+                "direction": "outbound",
+                "from_repo": "logos-scripture-graph",
+                "to_hub": "dad://hub/Digital-Assett-Directory",
+                "message_type": "workflow_suggestion",
+                "trust_zone": "candidate",
+                "requires_local_adoption": True,
+                "subject": "Synthetic runtime envelope",
+                "summary": "Proves runtime mail remains independent from historical fixtures.",
+            }
+        ],
+    )
+
+    rows = validator.validate_dad_outbox(
+        candidate,
+        require_historical_contract=False,
+    )
+
+    assert rows[0]["message_id"] == "msg-runtime-synthetic"
+
+
+def test_empty_runtime_outbox_is_a_valid_initialized_cache(tmp_path: Path) -> None:
+    candidate = tmp_path / "outbox.jsonl"
+    candidate.write_text("\n", encoding="utf-8")
+
+    assert validator.validate_runtime_outbox_if_present(candidate) == []
 
 
 def test_dad_outbox_requires_t424_asset_candidates(tmp_path: Path) -> None:

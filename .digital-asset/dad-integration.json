@@ -1,0 +1,95 @@
+{
+  "schema_version": "0.1.0",
+  "repo_id": "logos-scripture-graph",
+  "repo_alias": "logos-scripture-graph",
+  "repo_ref": "dad://repo/logos-scripture-graph",
+  "visibility": "public",
+  "public_facing": true,
+  "dad_hub": {
+    "hub_id": "dad",
+    "hub_ref": "dad://hub/Digital-Assett-Directory",
+    "local_paths_included": false
+  },
+  "enrollment": {
+    "version": "0.1.0",
+    "status": "enrolled",
+    "wave": "logos-read-only-transport-v1",
+    "approval_id": "USER-2026-07-11-LOGOS-LLOS-READONLY-ROLLOUT",
+    "installed_at": "2026-07-11T21:30:00Z",
+    "last_operation": "enroll",
+    "normal_write_boundary": ".digital-asset/mail/**",
+    "one_time_full_governance_install": true
+  },
+  "transport": {
+    "surface_version": "1.0.0",
+    "implementation_version": "1.0.0-m0m1m2",
+    "mode": "local_pull",
+    "journal_fallback": true
+  },
+  "graph": {
+    "surface_version": "1.0.0",
+    "mode": "central_read_only_generated_surfaces",
+    "registry_ref": "dad://hub/Digital-Assett-Directory/registry/graph-surface-registry.json",
+    "freshness_policy": {
+      "fresh": "hashes_match",
+      "stale": "warn_only",
+      "inconsistent": "block"
+    },
+    "authority_boundary": "Generated DAD graph surfaces are candidate metadata and cannot change Scripture authority, canon, data, or governance."
+  },
+  "mcp": {
+    "surface_version": "1.0.0",
+    "mode": "local_stdio_read_only",
+    "remote_mcp_enabled": false,
+    "vendor_sdk_required": false,
+    "write_tools_enabled": false,
+    "adapter_authority": "optional_wrapper_only",
+    "authority_boundary": "MCP access is read-only and cannot authorize or perform a Logos repository write."
+  },
+  "journal": {
+    "surface_version": "1.0.0",
+    "mode": "plan_only_until_human_gate",
+    "checkpoint_scope": "DAD_DATA_ROOT data plane only",
+    "checkpoint_threshold": ">=200 new records or >=24h",
+    "source_repo_writes": false,
+    "authority_boundary": "Journal fallback stores central candidate transport evidence and never writes this repository."
+  },
+  "events": {
+    "surface_version": "1.0.0",
+    "mode": "append_only_candidate_metadata",
+    "local_outbox": ".digital-asset/events/outbox.jsonl",
+    "central_log": "processed/events/event_log.jsonl",
+    "write_boundary": "Logos-local tools may emit candidate metadata; DAD reads but does not write this repository.",
+    "authority_boundary": "Events are candidate operational evidence only and carry no Scripture or governance authority."
+  },
+  "cadence": {
+    "mail": {
+      "frequency": "daily",
+      "preflight_behavior": "warn_only_when_stale",
+      "stale_after_hours": 24
+    },
+    "weekly_checks": {
+      "frequency": "weekly",
+      "checks": [
+        "transport_version",
+        "asset_update_available",
+        "governance_map_drift",
+        "learning_postflight_loops"
+      ],
+      "preflight_behavior": "warn_only_when_stale"
+    }
+  },
+  "enabled_control_planes": [
+    "mail_center",
+    "reusable_assets",
+    "governance_maps",
+    "learning_postflight_loops"
+  ],
+  "local_validation_commands": [
+    "python scripts/validate_dad_transport_contract.py",
+    "python scripts/validate_dad_outbox.py"
+  ],
+  "approved_dad_managed_paths": [],
+  "return_address": "dad://repo/logos-scripture-graph/.digital-asset/mail/outbox.jsonl",
+  "authority_boundary": "This one-time reviewed installation grants no standing DAD write permission. Logos-local tools may write their own outbox and read central DAD candidates; DAD may read approved metadata and write only its central data root."
+}

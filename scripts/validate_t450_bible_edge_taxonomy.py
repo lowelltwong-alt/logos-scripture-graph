@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTROL = ROOT / ".ai" / "control" / "bible_edge_taxonomy_research_program.yaml"
 ROADMAP = ROOT / "docs" / "roadmap" / "T450_BIBLE_EDGE_TAXONOMY_RESEARCH_PROGRAM.md"
 HANDOFF = ROOT / ".ai" / "handoffs" / "T450" / "handoff.md"
-DAD_OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+DAD_OUTBOX = ROOT / "tests" / "fixtures" / "dad" / "candidate_messages.jsonl"
 
 REQUIRED_LANES = {
     "structural_source_occurrence",

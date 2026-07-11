@@ -82,7 +82,7 @@ def test_rejects_classification_loss() -> None:
 
 def test_rejects_dad_authority_leak() -> None:
     with _copy_package() as root:
-        path = root / ".digital-asset/mail/outbox.jsonl"
+        path = root / "tests/fixtures/dad/candidate_messages.jsonl"
         rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
         row = next(item for item in rows if item["message_id"] == "msg-20260710-t472-model-panel-calibration-lessons")
         row["trust_zone"] = "canonical"

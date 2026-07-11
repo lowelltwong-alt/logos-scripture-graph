@@ -1,0 +1,71 @@
+id: T487
+phase: phase_4
+title: "DAD transport 1.0.0 read-only spool cutover"
+mode: build
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/transport-spool-cutover
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T487.task.yaml
+    - .ai/handoffs/T487/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/chunking_lesson_index.yaml
+    - .digital-asset/dad-integration.json
+    - .digital-asset/mail/.gitignore
+    - .digital-asset/mail/README.md
+    - .digital-asset/mail/outbox.jsonl
+    - .digital-asset/mail/
+    - .gitignore
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_all.py
+    - scripts/validate_dad_outbox.py
+    - scripts/validate_dad_transport_contract.py
+    - scripts/validate_t442_production_candidate_root_decision_packet.py
+    - scripts/validate_t450_bible_edge_taxonomy.py
+    - scripts/validate_t472_model_panel_calibration_gate.py
+    - tests/fixtures/dad/
+    - tests/test_ai_agnostic_rust_subagents.py
+    - tests/test_dad_outbox.py
+    - tests/test_dad_transport_contract.py
+    - tests/test_t472_model_panel_calibration_gate.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - .ai/control/MASTER_CONTEXT.md
+authorization:
+  owner_approval_id: USER-2026-07-11-LOGOS-LLOS-READONLY-ROLLOUT
+  installs_transport_contract_once: true
+  untracks_legacy_runtime_spool: true
+  preserves_historical_candidate_evidence_as_test_fixture: true
+  authorizes_dad_write_to_logos: false
+  authorizes_standing_write_approval: false
+  authorizes_scripture_data_change: false
+  authorizes_theology_or_canon_change: false
+runtime_language_preflight:
+  task_id: T487
+  touched_paths:
+    - scripts/validate_dad_transport_contract.py
+    - scripts/validate_dad_outbox.py
+    - scripts/validate_ai_agnostic_rust_subagents.py
+    - scripts/validate_all.py
+    - scripts/validate_t442_production_candidate_root_decision_packet.py
+    - scripts/validate_t450_bible_edge_taxonomy.py
+    - scripts/validate_t472_model_panel_calibration_gate.py
+  expected_input_size_or_record_count: "One small JSON contract, one deny-write marker, and 24 historical candidate-envelope fixture rows."
+  expected_runtime_or_memory_pressure: "Under one second for the new validator; existing semantic validators remain small-file checks."
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "The work is semantic policy and Git-index orchestration over tiny inputs; Rust would add interop cost without measurable savings."
+  interop_boundary: "None. Existing Rust validators remain unchanged deterministic leaf workers."
+  python_fallback_or_wrapper_plan: "Python remains the governance orchestrator and invokes Git only for read-only index/ignore checks."
+  validation_plan: "Run contract schema validation, focused validators and pytest, task-scope and handoff gates, validate_all, full pytest, CI, and DAD transport audit."
+  maintenance_tradeoffs: "A tracked hash-manifest fixture preserves evidence without confusing runtime transport; a local validator prevents regression."
+handoff_required: .ai/handoffs/T487/handoff.md
+created_at: "2026-07-11"
+updated_at: "2026-07-11"

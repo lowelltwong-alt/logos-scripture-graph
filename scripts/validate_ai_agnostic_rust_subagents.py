@@ -14,7 +14,7 @@ CHARTER = ROOT / ".ai" / "control" / "ai_agnostic_rust_subagent_charter.yaml"
 AGENT_ROLES = ROOT / "config" / "agents" / "agent_roles.yaml"
 MODEL_ROUTING = ROOT / "config" / "agents" / "model_routing.yaml"
 CADENCE = ROOT / ".ai" / "control" / "multi_agent_review_cadence.yaml"
-OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+OUTBOX = ROOT / "tests" / "fixtures" / "dad" / "candidate_messages.jsonl"
 CONTEXT_MAP = ROOT / ".digital-asset" / "context-map.json"
 VALIDATE_ALL = ROOT / "scripts" / "validate_all.py"
 

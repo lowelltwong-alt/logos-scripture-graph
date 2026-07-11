@@ -19,7 +19,7 @@ PROJECT_STATUS = ROOT / ".ai" / "control" / "PROJECT_STATUS.md"
 CURRENT_FOCUS = ROOT / ".ai" / "control" / "current_focus.yaml"
 DECISION_REGISTER = ROOT / ".ai" / "control" / "chunking_theological_decision_register.yaml"
 VALIDATE_ALL = ROOT / "scripts" / "validate_all.py"
-OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+OUTBOX = ROOT / "tests" / "fixtures" / "dad" / "candidate_messages.jsonl"
 
 EXPECTED_OPTION_IDS = {"T442-A", "T442-B", "T442-C", "T442-D"}
 EXPECTED_REQUIRED_TASKS = {"T431", "T432", "T433", "T435", "T436", "T437", "T438", "T439", "T440", "T441"}
