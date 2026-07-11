@@ -78,7 +78,7 @@ runtime_language_preflight:
     - tests/test_primary_bible_witness_catalog.py
     - tests/test_external_asset_root.py
   expected_input_size_or_record_count: "Small YAML/JSONL source-catalog surfaces; 24 catalog rows and 10 coverage rows."
-  expected_runtime_or_memory_pressure: "Low. Validator checks rights metadata, reuse manifests, and prohibited authority fields."
+  expected_runtime_or_memory_pressure: "Low. Validator checks rights metadata, reuse manifests, hard admission boundaries, and prohibited text/graph payloads."
   rust_trigger_match:
     - none_source_catalog_metadata_validator
   chosen_language: python_only_due_to_semantic_policy_complexity
@@ -86,7 +86,7 @@ runtime_language_preflight:
   interop_boundary: "Python validates candidate source-catalog metadata only."
   python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
   maintenance_tradeoffs: "Rights and non-authorizing boundaries remain readable in Python."
-  validation_plan: "Run validate_primary_bible_witness_catalog.py, focused pytest, task scope, handoffs, lesson index, validate_all.py where canonical data exists, and git diff --check."
+  validation_plan: "Run validate_primary_bible_witness_catalog.py, focused pytest with leakage fixtures, task scope, handoffs, lesson index, validate_all.py where canonical data exists, and git diff --check."
 external_storage:
   env_var: LOGOS_EXTERNAL_ASSET_ROOT
   max_budget_gb: 50
@@ -97,6 +97,7 @@ acceptance_criteria:
   - "Restricted witnesses remain metadata, locator, IIIF, or link records only."
   - "Isaiah 53:10-12 and Mark 16:8-20 showcase scaffolds exist as non-authorizing evidence packet shells."
   - "Focused validator and tests pass; validate_all wiring present."
+  - "Primary-witness metadata is mechanically barred from graph, retrieval, embedding, canonical, and source-text admission paths."
 validations:
   - python scripts/validate_primary_bible_witness_catalog.py
   - python -m pytest tests/test_primary_bible_witness_catalog.py -q

@@ -39,12 +39,14 @@ def validate_external_asset_root(
     require_env: bool = True,
     min_budget_bytes: int = DEFAULT_BUDGET_BYTES,
     repo_root: Path = ROOT,
+    workspace_root: Path | None = None,
 ) -> dict[str, Any]:
     errors: list[str] = []
     warnings: list[str] = []
     env_value = os.environ.get(ENV_VAR)
     resolved: Path | None = None
     free_bytes = 0
+    workspace_root = (workspace_root or repo_root.parent).resolve()
 
     if root is not None:
         resolved = root.expanduser().resolve()
@@ -61,6 +63,7 @@ def validate_external_asset_root(
         "exists": None,
         "writable": None,
         "outside_git": None,
+        "outside_workspace": None,
         "outside_onedrive": None,
         "outside_workspace_repo": None,
         "not_temp_directory": None,
@@ -80,10 +83,13 @@ def validate_external_asset_root(
         checks["outside_git"] = not _is_inside(resolved, repo_root)
         if _is_inside(resolved, repo_root):
             errors.append("external asset root must not be inside the Git repository")
+        checks["outside_workspace"] = not _is_inside(resolved, workspace_root)
+        if _is_inside(resolved, workspace_root):
+            errors.append("external asset root must not be inside the shared workspace")
         checks["outside_onedrive"] = "onedrive" not in str(resolved).lower()
         if "onedrive" in str(resolved).lower():
             errors.append("external asset root must not be inside OneDrive")
-        checks["outside_workspace_repo"] = checks["outside_git"]
+        checks["outside_workspace_repo"] = checks["outside_workspace"]
         checks["not_temp_directory"] = not _is_temp_path(resolved)
         if _is_temp_path(resolved):
             errors.append("external asset root must not be a temporary directory")
