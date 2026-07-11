@@ -102,6 +102,7 @@ ALLOWED_PRIMARY_WITNESS_REFERENCES = {
     ROOT / "scripts" / "validate_primary_bible_witness_catalog.py",
     ROOT / "scripts" / "validate_external_asset_root.py",
     ROOT / "scripts" / "guard_primary_witness_acquisition.py",
+    ROOT / "scripts" / "validate_pre_download_readiness.py",
     ROOT / "scripts" / "validate_all.py",
 }
 

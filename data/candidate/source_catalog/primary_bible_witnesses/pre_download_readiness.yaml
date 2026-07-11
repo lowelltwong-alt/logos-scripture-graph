@@ -1,0 +1,56 @@
+object_type: primary_witness_pre_download_readiness
+task_id: T484
+status: ready_for_storage_and_rights_gates_only
+binary_acquisition_authorized: false
+global_prerequisites:
+  - LOGOS_EXTERNAL_ASSET_ROOT exists outside Git, OneDrive, workspace, and temp paths
+  - external root has at least 50 GB free
+  - validate_external_asset_root.py passes
+  - per-source license snapshot, URL, expected size, and SHA-256 are recorded before download
+  - guard_primary_witness_acquisition.py passes for each unit
+  - every artifact remains outside Git and all canonical/graph/retrieval/vector paths
+quarantine_layout:
+  root: LOGOS_EXTERNAL_ASSET_ROOT/primary_witnesses/
+  metadata_journal: acquisition_journal.jsonl
+  per_asset_required: [asset_id, source_id, original_url, retrieval_timestamp, byte_size, sha256, rights_status, license_snapshot, removal_owner]
+waves:
+  W1:
+    readiness: storage_blocked_only
+    units:
+      - source_id: codex_sinaiticus_xml
+        class: conditioned_transcription
+        expected_size_mb: 29
+        target: codex_sinaiticus/xml/
+        gate: owner_noncommercial_quarantine_profile_and_external_root
+        rights_status_on_admission: approved_noncommercial_pilot
+      - source_id: clementine_vulgate
+        class: public_domain_text
+        target: latin/clementine_vulgate/
+        gate: source_url_and_checksum_capture
+      - source_id: swete_lxx
+        class: public_domain_printed_text
+        target: lxx/swete/
+        gate: item_level_license_snapshot_and_checksum_capture
+  W2:
+    readiness: storage_blocked_only
+    units:
+      - {source_id: leningrad_codex_color_images, target: hebrew_masoretic/leningrad_codex/, gate: public_domain_item_snapshot_and_original_file_selection}
+      - {source_id: codex_sassoon_1053_color_images, target: hebrew_masoretic/codex_sassoon_1053/, gate: public_domain_item_snapshot_and_original_file_selection}
+      - {source_id: bl_or_4445_torah, target: hebrew_masoretic/bl_or_4445/, gate: item_license_snapshot_and_original_file_selection}
+      - {source_id: biblia_sacra_vulgatae_1592, target: latin/vulgate_1592/, gate: public_domain_item_snapshot_and_original_file_selection}
+    excluded_until_new_review: [aleppo_codex, codex_cairensis, codex_amiatinus]
+  W3:
+    readiness: permission_pending
+    units:
+      - {source_id: codex_sinaiticus_images, gate: written_terms_from_all_relevant_holding_partners}
+      - {source_id: codex_vaticanus, gate: verified_vatican_permissions_route_and_written_terms}
+      - {source_id: great_isaiah_scroll_1qisa, gate: Israel_Museum_manual_CAPTCHA_form_and_written_terms}
+      - {source_id: codex_alexandrinus, gate: British_Library_written_terms}
+      - {source_id: csntm_papyri, gate: CSNTM_written_terms_covering_P45_P46_P66_P75}
+  W4:
+    readiness: catalog_disposition_complete
+    units:
+      - {source_id: leiden_peshitta_electronic, gate: subscription_or_permission_terms}
+      - {source_id: samaritan_pentateuch_manchester, gate: noncommercial_quarantine_profile}
+      - {source_id: sahidic_coptic_old_testament, gate: share_alike_and_boundary_route_profile}
+non_authorizations: [download_now, source_text_import, OCR_now, embeddings, vector_indexes, graph_truth, preferred_readings, theology_authority]
