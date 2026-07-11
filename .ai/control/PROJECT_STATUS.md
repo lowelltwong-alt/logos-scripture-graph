@@ -1800,6 +1800,8 @@ Full review: `.ai/handoffs/T302/handoff.md`
 
 ## Current phase
 
+**T486 Scripture LLOS v1 adapter (2026-07-11):** Metadata/control-plane work only. The local adapter is conceptually pinned to `logos-governance-architecture/governance/LOGOS_LEARNING_LOOP_OPERATING_STANDARD.yaml` surface `1.0.0`, preserving upstream source authority. Communication is two-way with asymmetric writes: Logos-local tooling may write its own outbox and pull DAD candidates; DAD may read approved Logos outboxes and write central DAD records, but has no current, standing, environment, daemon, or scheduled permission to push or write any Logos file. A future write requires a separately implemented foreground, scoped, single-use owner grant. The adapter validator, focused tests, task/control gates, and all other aggregate gates passed. Local full-data testing recorded 942 passes and 17 skips; the remaining 22 failures and 10 errors require absent generated canonical sidecars such as `word_tokens.jsonl` and are not adapter regressions. This task does not regenerate or modify canonical data. No outbox, raw, canonical, source, generated, runtime, or retrieval data changes occur in this task.
+
 | Field | Value |
 |-------|-------|
 | Phase | **phase_7** — Cross-reference and intertextual graph (T308 run 1 active alongside phase_3 chunking work) |

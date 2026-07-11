@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T481
+last_updated_by_task: T486
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2624,6 +2624,39 @@ lessons:
       - scripts/validate_primary_bible_witness_catalog.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-061
+    title: Cross-repository learning loops need asymmetric transport and an immutable no-push boundary
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t486, llos, learning-loop, dad, asymmetric-writes, outbox, no-push, metadata-only]
+    use_when:
+      - "A task references a cross-repository learning-loop standard, DAD candidate exchange, or a local outbox/inbox boundary."
+      - "An agent proposes sending DAD material into Logos, treating central candidates as authority, or changing a local outbox without a task-specific authorization."
+    preflight_stage: before_cross_repository_learning_loop_or_dad_transport_work
+    source_surfaces:
+      - .ai/control/llos_v1_adapter.yaml
+      - AI_FRONT_DOOR.md
+      - AI_TABLE_OF_CONTENTS.md
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T486]
+    downstream_risk: "A symmetric-looking communication path can silently permit DAD to write into Logos, collapse candidate evidence into authority, or blur the difference between Logos-local outbox writes and central DAD records."
+    required_preflight_surfaces:
+      - .ai/control/llos_v1_adapter.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - AI_FRONT_DOOR.md
+    non_authorizations:
+      - dad_push_or_write_of_any_file_into_logos
+      - dad_write_to_logos_inbox
+      - central_candidate_as_local_authority
+      - local_outbox_change_without_task_scope
+      - upstream_governance_change
+      - canonical_or_source_data_change
+    validators:
+      - scripts/validate_llos_v1_adapter.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3172,6 +3205,12 @@ lesson_graph:
     relation: governs_update_of
     to: LSN-059
   - from: LSN-059
+    relation: audits
+    to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-061
+  - from: LSN-061
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

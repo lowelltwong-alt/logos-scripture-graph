@@ -1,0 +1,64 @@
+---
+object_type: scripture_llos_v1_adapter
+trust_zone: governance
+lifecycle_status: active
+schema_version: scripture_llos_v1_adapter.v1
+adapter_id: scripture_llos_v1_metadata_only
+owner: Lowell Wong
+purpose: >
+  Record the local, metadata-only reference to the Logos Learning Loop Operating
+  Standard without importing, interpreting, or changing upstream governance.
+upstream_governance:
+  repository: logos-governance-architecture
+  path: governance/LOGOS_LEARNING_LOOP_OPERATING_STANDARD.yaml
+  surface_version: "1.0.0"
+  pin_type: conceptual_surface_version
+  consumption_mode: reference_only
+  source_of_truth_remains_upstream: true
+adapter_scope:
+  mode: metadata_only
+  reads_scripture_or_canonical_data: false
+  writes_scripture_or_canonical_data: false
+  imports_upstream_governance_content: false
+  changes_upstream_governance: false
+  emits_runtime_or_retrieval_output: false
+asymmetric_transport_boundary:
+  logos_local_tooling:
+    may_write_own_outbox: true
+    may_read_or_pull_dad_central_candidates: true
+    may_accept_dad_push_into_logos: false
+  dad_central:
+    may_read_approved_logos_outboxes: true
+    approved_outbox_read_required: true
+    may_write_central_dad_records: true
+    may_push_or_write_any_file_into_logos: false
+    may_write_logos_inbox: false
+    current_rollout_or_static_approval_cannot_authorize_dad_write_into_logos: true
+    future_foreground_scoped_single_use_owner_grant_required: true
+authority:
+  records_adapter_metadata: true
+  records_asymmetric_dad_transport_boundary: true
+  authorizes_dad_write_to_logos: false
+  authorizes_dad_push_into_logos: false
+  authorizes_dad_write_to_logos_inbox: false
+  authorizes_local_outbox_change_by_this_adapter: false
+  authorizes_upstream_governance_change: false
+  authorizes_scripture_data_change: false
+  authorizes_canonical_or_source_data_change: false
+  authorizes_candidate_promotion: false
+  authorizes_runtime_or_retrieval_change: false
+stop_conditions:
+  - missing_or_ambiguous_upstream_surface_version
+  - dad_read_of_unapproved_logos_outbox
+  - request_for_dad_push_or_write_of_any_file_into_logos
+  - request_to_change_upstream_governance_from_this_repository
+  - request_to_modify_scripture_or_canonical_source_data
+non_authorizations:
+  - dad_push_or_write_of_any_file_into_logos
+  - dad_write_to_logos_inbox
+  - local_outbox_change_by_this_adapter
+  - upstream_governance_change
+  - canonical_or_source_data_change
+  - candidate_promotion
+  - runtime_or_retrieval_output_change
+validator: scripts/validate_llos_v1_adapter.py
