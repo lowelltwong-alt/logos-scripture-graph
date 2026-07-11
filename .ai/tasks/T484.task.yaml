@@ -7,13 +7,27 @@ owner: Lowell Wong
 branch: codex/t484-predownload-readiness
 base_ref: origin/main
 scope:
-  allowed_paths: [.ai/tasks/T484.task.yaml, .ai/handoffs/T484/, .ai/control/handoff_ledger.jsonl, .ai/control/DATA_MAP.md, data/candidate/source_catalog/primary_bible_witnesses/pre_download_readiness.yaml]
+  allowed_paths: [.ai/tasks/T484.task.yaml, .ai/handoffs/T484/, .ai/control/handoff_ledger.jsonl, .ai/control/DATA_MAP.md, data/candidate/source_catalog/primary_bible_witnesses/pre_download_readiness.yaml, scripts/validate_primary_bible_witness_catalog.py, scripts/validate_pre_download_readiness.py, tests/test_pre_download_readiness.py]
   forbidden_paths: [data/raw/, data/canonical/, data/processed/, data/derived/, .ai/control/MASTER_CONTEXT.md]
 authorization:
   records_pre_download_readiness: true
   authorizes_binary_acquisition: false
   authorizes_source_import_or_graph_use: false
-acceptance_criteria: ["Every W1-W4 source class has a disposition, prerequisite, expected storage location, and exact admission evidence."]
+acceptance_criteria:
+  - "Every W1-W4 source class has a disposition, prerequisite, expected storage location, and exact admission evidence."
+  - "A focused validator fails closed if the readiness packet loses its storage, rights, or no-acquisition gates."
+runtime_language_preflight:
+  task_id: T484
+  touched_paths: [scripts/validate_primary_bible_witness_catalog.py, scripts/validate_pre_download_readiness.py, tests/test_pre_download_readiness.py]
+  expected_input_size_or_record_count: "one small YAML readiness packet with 15 source units"
+  expected_runtime_or_memory_pressure: "under one second and negligible memory"
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "Python matches the existing YAML governance validators; Rust startup and interop would add maintenance without material runtime savings."
+  interop_boundary: "None; this validator only reads YAML and returns a pass/fail report."
+  python_fallback_or_wrapper_plan: "Direct Python validator remains the supported entry point."
+  validation_plan: "Run the focused validator, focused pytest, catalog validator, task-scope validation, and handoff validation."
+  maintenance_tradeoffs: "Explicit allow-list change preserves the no-admission scan while enabling a narrowly scoped readiness validator."
 handoff_required: .ai/handoffs/T484/handoff.md
 created_at: "2026-07-11"
 updated_at: "2026-07-11"
