@@ -110,3 +110,75 @@
 ## Next agent instruction
 
 Open PR 1 from `cursor/src-pilot-a-t469-wave0` with Wave 0 catalog only. Then PR 2: populate showcase packet structures referencing reuse manifests; PR 3: Sinaiticus XML rights decision; PR 4: authorized evidence population; PR 5: permission packet and audit. Resume from acquisition_manifest and external run journal before any download. Never store restricted images locally without explicit permission.
+
+## Boundary-Hardening Refresh
+
+- task_id: T481
+- agent_name: Codex
+- mode: execution_boundary_hardening
+- updated_at: 2026-07-10T21:30:00+00:00
+
+### Files read
+
+- `.ai/control/primary_bible_witness_catalog.yaml`
+- `data/candidate/source_catalog/primary_bible_witnesses/manifest.yaml`
+- `scripts/validate_primary_bible_witness_catalog.py`
+- `scripts/validate_external_asset_root.py`
+- `scripts/guard_primary_witness_acquisition.py`
+- focused T481 tests and candidate/graph pipeline references
+
+### Files changed
+
+- `.ai/control/primary_bible_witness_catalog.yaml`
+- `.ai/control/PROJECT_STATUS.md`
+- `.ai/tasks/T481.task.yaml`
+- `data/candidate/source_catalog/primary_bible_witnesses/manifest.yaml`
+- `scripts/validate_primary_bible_witness_catalog.py`
+- `scripts/validate_external_asset_root.py`
+- `tests/test_primary_bible_witness_catalog.py`
+- `tests/test_external_asset_root.py`
+- `.ai/handoffs/T481/handoff.md`
+
+### Decisions and protections
+
+- The primary-witness catalog is mechanically non-admissible to graph, retrieval, embedding, canonical-promotion, source-text, and manuscript-reading paths.
+- The validator rejects prohibited text, reading, graph, retrieval, and vector fields; it also rejects Greek/Hebrew-script text in catalog metadata.
+- Pipeline and script references to this catalog fail unless they are part of the narrow guarded validation/acquisition surface.
+- `LOGOS_EXTERNAL_ASSET_ROOT` must be outside Git, OneDrive, and the shared workspace.
+
+### Validation
+
+- `python scripts/validate_primary_bible_witness_catalog.py`: pass.
+- `python -m pytest tests/test_primary_bible_witness_catalog.py tests/test_external_asset_root.py -q`: pass, 10 passed.
+- `python scripts/validate_task_scope.py --task-id T481`: pass.
+- `python scripts/agent/validate_handoffs.py`: pass.
+- `git diff --check`: pass.
+- `python scripts/validate_all.py`: timed out after 124 seconds without emitted failure output.
+- `python -m pytest -q`: timed out after 184 seconds without emitted failure output.
+
+### Risks and unresolved questions
+
+- Full-repository gates require a longer CI/data-complete environment; their timeout is not evidence of a T481 boundary failure.
+- Any future owner-authorized importer must be explicitly added to the guarded admission surface and independently reviewed.
+
+### Exact next action
+
+Run full validation in CI or a data-complete worktree, then update PR #169 with this boundary-hardening commit and request a fresh review.
+
+---
+
+## Handoff refresh: start
+
+- agent_name: Codex
+- mode: execution_boundary_hardening
+- updated_at: 2026-07-10T21:15:55+00:00
+- handoff_id: b24dc8f2ce06a4de
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: execution_boundary_hardening
+- updated_at: 2026-07-10T21:24:49+00:00
+- handoff_id: e548ea0a20fdf310

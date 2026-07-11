@@ -64,6 +64,45 @@ PROHIBITED_FIELD_NAMES = {
     "direct_ancestry_assertion",
     "canonical_reading",
     "theological_conclusion",
+    "passage_text",
+    "verse_text",
+    "source_text",
+    "token_text",
+    "transcription",
+    "transcription_text",
+    "lemma",
+    "morphology",
+    "reading",
+    "variant_reading",
+    "attestation",
+    "omission",
+    "graph_edge",
+    "graph_edges",
+    "embedding",
+    "embeddings",
+    "vector",
+    "vector_index",
+    "retrieval_document",
+    "retrieval_payload",
+}
+
+REQUIRED_ADMISSION_BOUNDARY = {
+    "graph_admission": "prohibited",
+    "retrieval_admission": "prohibited",
+    "embedding_admission": "prohibited",
+    "canonical_promotion": "prohibited",
+    "source_text_storage": "prohibited",
+    "manuscript_reading_assertion": "prohibited",
+    "generic_candidate_discovery": "prohibited",
+}
+
+ORIGINAL_LANGUAGE_TEXT_RE = re.compile(r"[\u0370-\u03ff\u1f00-\u1fff\u0590-\u05ff]")
+PIPELINE_DIRS = (ROOT / "pipelines",)
+ALLOWED_PRIMARY_WITNESS_REFERENCES = {
+    ROOT / "scripts" / "validate_primary_bible_witness_catalog.py",
+    ROOT / "scripts" / "validate_external_asset_root.py",
+    ROOT / "scripts" / "guard_primary_witness_acquisition.py",
+    ROOT / "scripts" / "validate_all.py",
 }
 
 PROHIBITED_PATH_FRAGMENTS = (
@@ -127,6 +166,13 @@ def _is_onedrive_path(path: Path) -> bool:
     return "onedrive" in str(path.resolve()).lower()
 
 
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def _validate_external_root_policy(ledger: dict[str, Any]) -> list[str]:
     errors: list[str] = []
     ext = ledger.get("external_storage", {})
@@ -151,6 +197,8 @@ def _validate_external_root_policy(ledger: dict[str, Any]) -> list[str]:
             errors.append("LOGOS_EXTERNAL_ASSET_ROOT must resolve to an absolute path")
         elif _is_inside_git(root_path):
             errors.append("LOGOS_EXTERNAL_ASSET_ROOT must not be inside the Git repository")
+        elif _is_inside(root_path, ROOT.parent):
+            errors.append("LOGOS_EXTERNAL_ASSET_ROOT must not be inside the shared workspace")
         elif _is_onedrive_path(root_path):
             errors.append("LOGOS_EXTERNAL_ASSET_ROOT must not be inside OneDrive")
         elif not root_path.exists() or not os.access(root_path, os.W_OK):
@@ -206,6 +254,44 @@ def _scan_prohibited_fields(obj: Any, path: str = "") -> list[str]:
     elif isinstance(obj, list):
         for idx, item in enumerate(obj):
             errors.extend(_scan_prohibited_fields(item, f"{path}[{idx}]"))
+    elif isinstance(obj, str) and ORIGINAL_LANGUAGE_TEXT_RE.search(obj):
+        errors.append(f"original-language text is prohibited in catalog metadata at {path}")
+    return errors
+
+
+def _validate_admission_boundary(control: dict[str, Any], manifest: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    for label, record in (("control", control), ("manifest", manifest)):
+        boundary = record.get("admission_boundary")
+        if not isinstance(boundary, dict):
+            errors.append(f"{label}.admission_boundary must be a mapping")
+            continue
+        for key, expected in REQUIRED_ADMISSION_BOUNDARY.items():
+            if boundary.get(key) != expected:
+                errors.append(f"{label}.admission_boundary.{key} must be {expected!r}")
+    return errors
+
+
+def _validate_no_pipeline_admission_path() -> list[str]:
+    errors: list[str] = []
+    needle = "primary_bible_witnesses"
+    for directory in PIPELINE_DIRS:
+        if not directory.exists():
+            continue
+        for path in directory.rglob("*.py"):
+            if needle in path.read_text(encoding="utf-8"):
+                errors.append(
+                    f"pipeline code must not reference primary-witness catalog without an owner-authorized admission path: "
+                    f"{_display_path(path)}"
+                )
+    for path in (ROOT / "scripts").glob("*.py"):
+        if path in ALLOWED_PRIMARY_WITNESS_REFERENCES:
+            continue
+        if needle in path.read_text(encoding="utf-8"):
+            errors.append(
+                    f"script must not reference primary-witness catalog outside the guarded validator/acquisition surface: "
+                    f"{_display_path(path)}"
+            )
     return errors
 
 
@@ -232,6 +318,10 @@ def validate_primary_bible_witness_catalog(*, check_wiring: bool = True) -> dict
     for key in REQUIRED_FALSE_AUTHORITY:
         if control.get("authorization", {}).get(key) is not False:
             errors.append(f"primary_bible_witness_catalog.authorization.{key} must be false")
+
+    manifest = _load_yaml(CATALOG_ROOT / "manifest.yaml")
+    errors.extend(_validate_admission_boundary(control, manifest))
+    errors.extend(_validate_no_pipeline_admission_path())
 
     rows = _load_jsonl(CATALOG_ROOT / "source_catalog_rows.jsonl")
     source_ids = [row.get("source_id") for row in rows]

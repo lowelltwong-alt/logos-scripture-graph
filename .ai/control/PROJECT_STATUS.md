@@ -10,6 +10,7 @@
 > permission-request queue (draft only), and non-authorizing Isaiah 53:10-12 / Mark 16:8-20
 > showcase shells. Restricted witnesses remain locator/metadata only. Sinaiticus XML is queued
 > for source-specific rights review in Wave 1; images remain blocked.
+> **T481 boundary hardening (2026-07-10):** The primary-witness catalog now has an executable no-admission policy: no graph, retrieval, embedding, canonical-promotion, source-text, or manuscript-reading payload is allowed. Its validator rejects Greek/Hebrew text and prohibited payload fields, and fails if pipeline code references the catalog outside the guarded metadata/acquisition surface. External asset roots must also be outside the shared workspace.
 
 > **T475 task-local hierarchy and exact shadow inventory (2026-07-10):**
 > Sol owned architecture, Terra owned parity measurement, Luna owned bounded

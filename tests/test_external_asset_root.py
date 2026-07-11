@@ -20,6 +20,19 @@ def test_unsafe_path_inside_repo_fails(tmp_path: Path) -> None:
     assert not result["ok"]
 
 
+def test_unsafe_path_inside_shared_workspace_fails(tmp_path: Path) -> None:
+    external_root = tmp_path / "primary-assets"
+    external_root.mkdir()
+    result = root_validator.validate_external_asset_root(
+        root=external_root,
+        require_env=False,
+        min_budget_bytes=0,
+        workspace_root=tmp_path,
+    )
+    assert not result["ok"]
+    assert any("shared workspace" in err for err in result["errors"])
+
+
 def test_guard_download_blocked_in_wave0(tmp_path: Path, monkeypatch) -> None:
     external_root = tmp_path / "logos-external"
     external_root.mkdir()
