@@ -1,0 +1,44 @@
+id: T486
+phase: phase_4
+title: "Scripture LLOS v1 metadata-only adapter"
+mode: build
+status: hold_with_findings_owner_visible
+owner: Lowell Wong
+branch: codex/llos-v1-scripture-adapter
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T486.task.yaml
+    - .ai/handoffs/T486/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/llos_v1_adapter.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_llos_v1_adapter.py
+    - scripts/validate_all.py
+    - tests/test_llos_v1_adapter.py
+  forbidden_paths: [data/raw/, data/canonical/, data/processed/, data/derived/, .ai/control/MASTER_CONTEXT.md, .digital-asset/mail/outbox.jsonl]
+authorization:
+  records_metadata_only_llos_adapter: true
+  records_asymmetric_dad_transport_boundary: true
+  authorizes_upstream_governance_change: false
+  authorizes_scripture_data_change: false
+  authorizes_dad_write_to_logos: false
+  authorizes_outbox_change: false
+runtime_language_preflight:
+  task_id: T486
+  touched_paths: [scripts/validate_llos_v1_adapter.py, scripts/validate_all.py]
+  expected_input_size_or_record_count: "One small local YAML control file and two local documentation surfaces."
+  expected_runtime_or_memory_pressure: "Under one second with negligible memory; no Scripture or DAD data is scanned."
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "Python matches existing small YAML policy validators; Rust startup and interop would not yield a material saving."
+  interop_boundary: "None; the validator reads only local control-plane YAML and documentation text."
+  python_fallback_or_wrapper_plan: "The direct Python validator remains the sole supported entry point."
+  validation_plan: "Run the focused validator, focused pytest, task-scope validation, handoff validation, and validate_all."
+  maintenance_tradeoffs: "A concise deterministic contract prevents authority drift while keeping the upstream standard external and unmodified."
+handoff_required: .ai/handoffs/T486/handoff.md
+created_at: "2026-07-11"
+updated_at: "2026-07-11"

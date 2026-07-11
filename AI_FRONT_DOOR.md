@@ -27,8 +27,9 @@ Read these before making changes:
 18. `.ai/control/coding_runtime_language_preflight.yaml` before adding validators, scanners, importers, build scripts, CI hot paths, high-resource deterministic code, or Rust-first runtime decisions
 19. `.ai/control/ai_pr_lifecycle_policy.yaml` before leaving any AI-created draft branch, staged work, or PR unmerged
 20. `config/agents/agent_roles.yaml`
-21. `.ai/handoffs/<active_task_id>/handoff.md` - see `.ai/control/PROJECT_STATUS.md`
-22. The specific files in the task scope
+21. `.ai/control/llos_v1_adapter.yaml` before any Logos Learning Loop Operating Standard (LLOS) reference, DAD coordination, or proposed delivery into Logos
+22. `.ai/handoffs/<active_task_id>/handoff.md` - see `.ai/control/PROJECT_STATUS.md`
+23. The specific files in the task scope
 
 New or lower-capability agents: read `.ai/handoffs/AGENT_ROUTING_GUIDE.md` after this front door.
 
@@ -51,6 +52,8 @@ logos-governance-architecture
 ```
 
 Agents must read `config/governance/repository_link_contract.yaml` and `config/agents/agent_hostile_policy.yaml` when work touches cross-repo structure, authority, trust zones, release contracts, or GitHub coordination. GitHub issues, project fields, generated model output, and DAD mail are coordination or candidate surfaces, not canonical governance truth.
+
+The Scripture LLOS v1 adapter at `.ai/control/llos_v1_adapter.yaml` is metadata-only. It conceptually pins `logos-governance-architecture/governance/LOGOS_LEARNING_LOOP_OPERATING_STANDARD.yaml` surface `1.0.0`; upstream remains the source of truth. Communication is two-way with asymmetric writes: Logos-local tooling may write its own outbox and read or pull DAD central candidates; DAD may read approved Logos outboxes and write central DAD records. DAD may never push or write any file, including an inbox, into Logos; fresh approval cannot relax that boundary. The adapter does not authorize Scripture/canonical data changes, runtime output, or upstream governance changes.
 
 ## Canonical Scripture entry point
 
