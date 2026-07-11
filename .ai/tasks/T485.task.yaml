@@ -1,0 +1,22 @@
+id: T485
+phase: phase_5
+title: "Post-merge coupled readiness task-scope repair"
+mode: build
+status: in_progress
+owner: Lowell Wong
+branch: codex/t485-postmerge-scope-repair
+base_ref: origin/main
+integrates_task_ids: [T483, T484]
+scope:
+  allowed_paths: [.ai/tasks/T483.task.yaml, .ai/tasks/T484.task.yaml, .ai/tasks/T485.task.yaml, .ai/handoffs/T485/, .ai/control/handoff_ledger.jsonl]
+  forbidden_paths: [data/raw/, data/canonical/, data/processed/, data/derived/, .ai/control/MASTER_CONTEXT.md]
+authorization:
+  repairs_task_scope_metadata_only: true
+  authorizes_binary_acquisition: false
+  authorizes_source_import_or_graph_use: false
+acceptance_criteria:
+  - "T483 and T484 explicitly permit only their known coupled files when merged together."
+  - "validate_task_scope passes for T483, T484, and T485 on the merged tree."
+handoff_required: .ai/handoffs/T485/handoff.md
+created_at: "2026-07-11"
+updated_at: "2026-07-11"
