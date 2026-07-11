@@ -10,7 +10,8 @@ from typing import Any
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
+CANDIDATE_FIXTURE = ROOT / "tests" / "fixtures" / "dad" / "candidate_messages.jsonl"
+RUNTIME_OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
 CONTEXT_MAP = ROOT / ".digital-asset" / "context-map.json"
 FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 T424_MESSAGE_ID = "msg-20260703-t424-rust-validation-layer"
@@ -129,7 +130,11 @@ def _resolve_dad_lesson_slot(value: str, label: str) -> Path:
     return ROOT / Path(*posix_path.parts)
 
 
-def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
+def validate_dad_outbox(
+    path: Path = CANDIDATE_FIXTURE,
+    *,
+    require_historical_contract: bool = True,
+) -> list[dict[str, Any]]:
     rows = _read_jsonl(path)
     context_map = _read_json(CONTEXT_MAP)
     seen: set[str] = set()
@@ -158,14 +163,21 @@ def validate_dad_outbox(path: Path = OUTBOX) -> list[dict[str, Any]]:
         _validate_lesson_slot(row, label)
         _validate_context_map_entry(row, label, context_map)
 
-    _validate_t424_contract_message(path, by_id)
+    if require_historical_contract:
+        _validate_t424_contract_message(path, by_id)
 
-    front_door = FRONT_DOOR.read_text(encoding="utf-8")
-    for needle in (".digital-asset/mail/", "lessons", "reusable assets", T424_MESSAGE_ID):
-        if needle not in front_door:
-            raise DadOutboxError(f"{_rel(FRONT_DOOR)}: missing DAD wiring string {needle!r}")
+        front_door = FRONT_DOOR.read_text(encoding="utf-8")
+        for needle in (".digital-asset/mail/", "lessons", "reusable assets", T424_MESSAGE_ID):
+            if needle not in front_door:
+                raise DadOutboxError(f"{_rel(FRONT_DOOR)}: missing DAD wiring string {needle!r}")
 
     return rows
+
+
+def validate_runtime_outbox_if_present(path: Path = RUNTIME_OUTBOX) -> list[dict[str, Any]]:
+    if not path.exists() or not path.read_text(encoding="utf-8").strip():
+        return []
+    return validate_dad_outbox(path, require_historical_contract=False)
 
 
 def _validate_candidate_message(row: dict[str, Any], label: str) -> None:
@@ -291,7 +303,8 @@ def _validate_t424_contract_message(path: Path, by_id: dict[str, dict[str, Any]]
 
 def main() -> int:
     try:
-        validate_dad_outbox()
+        validate_dad_outbox(CANDIDATE_FIXTURE)
+        validate_runtime_outbox_if_present()
     except DadOutboxError as exc:
         print(f"DAD outbox validation failed: {exc}", file=sys.stderr)
         return 1

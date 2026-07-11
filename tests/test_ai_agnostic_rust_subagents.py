@@ -21,7 +21,7 @@ FILES_TO_COPY = [
     ".ai/control/multi_agent_review_cadence.yaml",
     "config/agents/agent_roles.yaml",
     "config/agents/model_routing.yaml",
-    ".digital-asset/mail/outbox.jsonl",
+    "tests/fixtures/dad/candidate_messages.jsonl",
     ".digital-asset/context-map.json",
     ".digital-asset/lessons/t458_ai_agnostic_rust_subagent_charter.yaml",
     "scripts/validate_all.py",
@@ -81,7 +81,7 @@ def test_validator_rejects_vendor_specific_role_binding(tmp_path: Path) -> None:
 
 def test_validator_rejects_missing_dad_outbox_row(tmp_path: Path) -> None:
     root = _copy_fixture_root(tmp_path)
-    path = root / ".digital-asset/mail/outbox.jsonl"
+    path = root / "tests/fixtures/dad/candidate_messages.jsonl"
     rows = [
         json.loads(line)
         for line in path.read_text(encoding="utf-8").splitlines()

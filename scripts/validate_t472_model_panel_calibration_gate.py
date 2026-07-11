@@ -36,7 +36,7 @@ REQUIRED_FILES = {
     "status": ".ai/control/PROJECT_STATUS.md",
     "register": ".ai/control/chunking_theological_decision_register.yaml",
     "lessons": ".ai/control/chunking_lesson_index.yaml",
-    "dad_outbox": ".digital-asset/mail/outbox.jsonl",
+    "dad_outbox": "tests/fixtures/dad/candidate_messages.jsonl",
     "dad_context": ".digital-asset/context-map.json",
     "dad_lesson": ".digital-asset/lessons/t472_model_panel_calibration_lessons.yaml",
 }

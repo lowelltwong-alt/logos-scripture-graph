@@ -365,6 +365,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_llos_v1_adapter.py",
             [PY, str(ROOT / "scripts" / "validate_llos_v1_adapter.py")],
         ),
+        (
+            "validate_dad_transport_contract.py",
+            [PY, str(ROOT / "scripts" / "validate_dad_transport_contract.py")],
+        ),
         ("validate_dad_outbox.py", [PY, str(ROOT / "scripts" / "validate_dad_outbox.py")]),
         (
             "validate_validation_gate_lifecycle.py",
