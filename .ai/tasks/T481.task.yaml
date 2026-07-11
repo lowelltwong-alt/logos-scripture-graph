@@ -1,0 +1,109 @@
+id: T481
+phase: phase_5
+title: "SRC-PILOT-A Primary Witness Wave 0 Catalog"
+mode: execution_metadata_non_authorizing
+status: in_progress
+owner: cursor
+branch: cursor/src-pilot-a-t469-wave0
+base_ref: origin/main
+summary: "Execute T469 Wave 0 metadata and rights catalog for primary Bible witnesses under owner authorization SRC-PILOT-A; no downloads, no restricted-image storage, no source text import."
+scope:
+  allowed_paths:
+    - .ai/tasks/T481.task.yaml
+    - .ai/handoffs/T481/
+    - .ai/control/primary_bible_witness_catalog.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/roadmap_events.jsonl
+    - data/candidate/source_catalog/primary_bible_witnesses/
+    - data/candidate/source_catalog/primary_bible_witnesses/wave1/
+    - docs/roadmap/T481_SRC_PILOT_A_WAVE0.md
+    - docs/roadmap/T481_WAVE1_CODEX_SINAITICUS_XML_RIGHTS_REVIEW.md
+    - scripts/validate_primary_bible_witness_catalog.py
+    - scripts/validate_external_asset_root.py
+    - scripts/guard_primary_witness_acquisition.py
+    - scripts/validate_all.py
+    - tests/test_primary_bible_witness_catalog.py
+    - tests/test_external_asset_root.py
+    - AI_TABLE_OF_CONTENTS.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  authorization_id: SRC-PILOT-A
+  owner_authorization_refs:
+    - logos-governance-architecture PR #103 merged (OD-C-OPEN-A)
+    - logos-scripture-graph PR #168 merged (T469 planning)
+  task_kind: primary_witness_wave0_metadata_rights
+  records_source_catalog_rows: true
+  records_rights_review: true
+  records_storage_ledger: true
+  authorizes_sinaiticus_xml_rights_review: true
+  downloads_raw_sources: false
+  stores_manuscript_images: false
+  stores_manuscript_transcriptions: false
+  imports_source_text: false
+  changes_canonical_bible_text: false
+  changes_canonical_passage_records: false
+  authorizes_textual_critical_decision: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  authorizes_theology_authority: false
+runtime_language_preflight:
+  task_id: T481
+  touched_paths:
+    - scripts/validate_all.py
+    - scripts/validate_primary_bible_witness_catalog.py
+    - scripts/validate_external_asset_root.py
+    - scripts/guard_primary_witness_acquisition.py
+    - tests/test_primary_bible_witness_catalog.py
+    - tests/test_external_asset_root.py
+  expected_input_size_or_record_count: "Small YAML/JSONL source-catalog surfaces; 24 catalog rows and 10 coverage rows."
+  expected_runtime_or_memory_pressure: "Low. Validator checks rights metadata, reuse manifests, and prohibited authority fields."
+  rust_trigger_match:
+    - none_source_catalog_metadata_validator
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust path; validator enforces rights boundaries and reuse references rather than streaming large corpora."
+  interop_boundary: "Python validates candidate source-catalog metadata only."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Rights and non-authorizing boundaries remain readable in Python."
+  validation_plan: "Run validate_primary_bible_witness_catalog.py, focused pytest, task scope, handoffs, lesson index, validate_all.py where canonical data exists, and git diff --check."
+external_storage:
+  env_var: LOGOS_EXTERNAL_ASSET_ROOT
+  max_budget_gb: 50
+  wave0_local_binary_storage: false
+acceptance_criteria:
+  - "Wave 0 scaffold exists under data/candidate/source_catalog/primary_bible_witnesses/ with all required governed files."
+  - "SBLGNT, OSHB/WLC, and WEB are cataloged as reuse references without duplication."
+  - "Restricted witnesses remain metadata, locator, IIIF, or link records only."
+  - "Isaiah 53:10-12 and Mark 16:8-20 showcase scaffolds exist as non-authorizing evidence packet shells."
+  - "Focused validator and tests pass; validate_all wiring present."
+validations:
+  - python scripts/validate_primary_bible_witness_catalog.py
+  - python -m pytest tests/test_primary_bible_witness_catalog.py -q
+  - python scripts/validate_task_scope.py --task-id T481
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+handoff_required: .ai/handoffs/T481/handoff.md
+created_at: "2026-07-10"
+updated_at: "2026-07-10"

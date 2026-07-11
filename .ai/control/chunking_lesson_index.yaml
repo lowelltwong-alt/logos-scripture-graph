@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T469
+last_updated_by_task: T481
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2584,6 +2584,46 @@ lessons:
       - scripts/validate_chunking_theological_decision_register.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-060
+    title: Primary-witness Wave 0 catalogs rights and reuse without importing witness binaries
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [source_metadata, workflow_governance, auditability]
+    tags: [t481, SRC-PILOT-A, primary-witnesses, source-rights, external-assets, reuse, metadata-only, non-authorizing]
+    use_when:
+      - "A task builds primary-witness source catalogs, storage ledgers, rights reviews, or showcase scaffolds under SRC-PILOT-A."
+      - "An agent could duplicate SBLGNT/OSHB/WEB, store restricted manuscript images locally, or treat catalog rows as preferred readings."
+    preflight_stage: before_primary_witness_acquisition_or_use
+    source_surfaces:
+      - .ai/control/primary_bible_witness_catalog.yaml
+      - data/candidate/source_catalog/primary_bible_witnesses/manifest.yaml
+      - docs/roadmap/T481_SRC_PILOT_A_WAVE0.md
+      - AI_TABLE_OF_CONTENTS.md
+      - .ai/control/chunking_theological_decision_register.yaml
+    related_decision_ids: [CD-114]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T481, T469]
+    downstream_risk: "Rights metadata can be mistaken for download permission; reuse manifests can be duplicated; restricted IIIF or viewer access can be treated as local storage rights."
+    required_preflight_surfaces:
+      - .ai/control/primary_bible_witness_catalog.yaml
+      - .ai/control/primary_witness_acquisition_waves.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    required_pattern:
+      - wave0_metadata_before_download
+      - reuse_existing_governed_raw_without_duplication
+      - restricted_witness_locator_only
+      - external_root_gate_before_binary_acquisition
+    non_authorizations:
+      - raw_download_or_import
+      - restricted_image_local_storage
+      - preferred_reading_or_source_tradition
+      - direct_ancestry_assertion_without_evidence
+      - graph_retrieval_vector_truth
+      - theology_authority
+    validators:
+      - scripts/validate_primary_bible_witness_catalog.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3119,6 +3159,12 @@ lesson_graph:
   - from: LSN-058
     relation: constrains
     to: LSN-034
+  - from: LSN-059
+    relation: governs_update_of
+    to: LSN-060
+  - from: LSN-060
+    relation: audits
+    to: LSN-010
   - from: LSN-001
     relation: constrains
     to: LSN-059

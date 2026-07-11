@@ -576,6 +576,14 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_manuscript_source_catalog_sqlite_shell.py")],
         ),
         (
+            "validate_primary_bible_witness_catalog.py",
+            [PY, str(ROOT / "scripts" / "validate_primary_bible_witness_catalog.py")],
+        ),
+        (
+            "validate_external_asset_root.py",
+            [PY, str(ROOT / "scripts" / "validate_external_asset_root.py"), "--allow-missing-env"],
+        ),
+        (
             "validate_dss_biblical_witness_source_rows.py",
             [PY, str(ROOT / "scripts" / "validate_dss_biblical_witness_source_rows.py")],
         ),

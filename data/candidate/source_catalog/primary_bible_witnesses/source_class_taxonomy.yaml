@@ -1,0 +1,48 @@
+object_type: source_class_taxonomy
+task_id: T481
+authorization_id: SRC-PILOT-A
+updated_at: "2026-07-10"
+purpose: "Keep manuscript, surrogate, transcription, edition, translation, and reference dataset classes distinct and non-interchangeable."
+classes:
+  - class_id: manuscript_witness
+    label: Physical manuscript witness
+    examples: [great_isaiah_scroll_1qisa, codex_vaticanus, codex_alexandrinus]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: []
+  - class_id: facsimile_image
+    label: Digital facsimile or image surrogate
+    examples: [codex_sinaiticus_images, leningrad_codex_color_images]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: [manuscript_witness]
+    note: "Image surrogate is not the manuscript and not a diplomatic transcription."
+  - class_id: diplomatic_transcription
+    label: Diplomatic or project transcription of a manuscript
+    examples: [codex_sinaiticus_xml]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: [manuscript_witness, facsimile_image, critical_edition]
+    note: "Transcription is a derived scholarly object with separate rights from images."
+  - class_id: critical_edition
+    label: Critical or scholarly edition text
+    examples: [sblgnt, oshb_wlc]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: [manuscript_witness, diplomatic_transcription]
+    note: "Edition text is not manuscript evidence."
+  - class_id: modern_translation
+    label: Modern translation
+    examples: [eng-web]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: [critical_edition, manuscript_witness]
+    note: "Translation wording is not original-language evidence."
+  - class_id: reference_dataset
+    label: Reference or linguistic dataset
+    examples: [bhsa_text_fabric, catss_lxx_restricted]
+    may_assert_reading: false
+    may_enter_git_text: false
+    interchange_with: [critical_edition]
+catalog_rule: "Every source_catalog_rows.jsonl row must map to exactly one class_id before evidence packets are populated."
+non_authorizing_scope_label: taxonomy_not_evidence_or_reading_authority

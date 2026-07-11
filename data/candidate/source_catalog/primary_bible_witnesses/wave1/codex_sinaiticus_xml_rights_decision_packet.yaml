@@ -1,0 +1,81 @@
+object_type: codex_sinaiticus_xml_rights_decision_packet
+task_id: T481
+authorization_id: SRC-PILOT-A
+wave: W1
+status: rights_review_and_quarantine_design_only
+download_authorized: false
+ingest_authorized: false
+observed_at: "2026-07-10"
+source_id: codex_sinaiticus_xml
+source_class: diplomatic_transcription
+artifact:
+  title: Codex Sinaiticus electronic XML transcription
+  official_download_page: https://www.codexsinaiticus.org/en/project/transcription_download.aspx
+  official_project_site: https://www.codexsinaiticus.org/
+  backup_repository: https://epapers.bham.ac.uk/id/eprint/3306/
+  observed_zip_size_bytes: 4613734
+  observed_expanded_size_bytes: 30198988
+  observed_version_on_download_page: "1.04 (2014-03-25)"
+  observed_backup_version: "1.05 (2020-09-07)"
+  format: customised_xml_tei_influenced
+license_snapshot:
+  observed_license: CC-BY-NC-SA-3.0
+  official_license_url: https://creativecommons.org/licenses/by-nc-sa/3.0/
+  attribution_required: true
+  attribution_text: "Codex Sinaiticus Project, www.codexsinaiticus.org"
+  commercial_use: prohibited
+  redistribution: allowed_noncommercial_with_share_alike
+  modification: allowed_with_share_alike
+  derivative_licensing: same_license_required
+  embedding_rights: not_explicitly_granted
+  vector_index_rights: not_explicitly_granted
+  ai_processing_rights: not_explicitly_granted
+  image_rights_separate: true
+  image_rights_note: "Copyright page states electronic copy and metadata rights are owned by holding institutions; images are not covered by XML CC terms."
+component_separation:
+  xml_transcription: CC-BY-NC-SA-3.0 observed on official download page
+  manuscript_images: institution_permission_required
+  website_viewer_text: not_equivalent_to_download_grant
+rights_questions_for_owner:
+  - "Does SRC-PILOT-A noncommercial research qualify under NC for local storage outside Git?"
+  - "May XML-derived alignment tables or passage extracts be stored in candidate metadata if no full text enters Git?"
+  - "Are embeddings or vector indexes over transcription text permitted under NC-SA?"
+  - "Must all derivatives, including quarantine copies, remain outside public release artifacts?"
+  - "Which release profile may ever include Sinaiticus-derived material: private external root only, or none?"
+quarantine_design:
+  storage_zone: LOGOS_EXTERNAL_ASSET_ROOT only
+  git_policy: no_xml_in_git
+  onedrive_policy: prohibited
+  public_build_policy: exclude_from_public_artifacts
+  derived_artifact_policy:
+    - no_chunk_output
+    - no_embedding_or_vector_index_in_open_release
+    - no_reconstruction_of_restricted_images_from_xml_plus_viewer
+    - metadata_locators_and_rights_fields_may_remain_in_git
+  directory_layout: primary_witnesses/codex_sinaiticus/xml/
+  ledger_requirements:
+    - asset_id
+    - source_id
+    - edition_revision
+    - original_url
+    - retrieval_timestamp
+    - byte_size
+    - sha256
+    - media_type
+    - license_snapshot
+    - rights_status
+    - local_relative_path
+    - removal_owner
+  removal_owner: project_owner
+  verification_steps:
+    - sha256_after_download
+    - license_snapshot_file_colocated
+    - manifest_row_before_use
+    - guard_primary_witness_acquisition.py must pass
+blocked_until_owner_approves:
+  - local_xml_download
+  - transcription_ingest
+  - passage_text_in_showcases
+  - mixing_with_unrestricted_release_artifacts
+recommended_next_action_if_approved: "Download smallest coherent package to external root only after owner signs NC-SA release profile and quarantine tests pass."
+non_authorizing_scope_label: rights_packet_not_download_or_reading_authorization

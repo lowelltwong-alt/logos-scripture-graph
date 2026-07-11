@@ -1,0 +1,37 @@
+object_type: primary_bible_witness_storage_ledger
+task_id: T481
+authorization_id: SRC-PILOT-A
+updated_at: "2026-07-10"
+external_storage:
+  env_var: LOGOS_EXTERNAL_ASSET_ROOT
+  required_before_download: true
+  max_budget_bytes: 53687091200
+  bytes_recorded: 0
+  remaining_budget_bytes: 53687091200
+  path_policy:
+    must_be_outside_git: true
+    must_be_outside_onedrive: true
+    must_be_outside_workspace: true
+    must_not_be_temp_directory: true
+    must_be_writable: true
+assets: []
+reuse_references_only:
+  - asset_id: reuse-eng-web
+    source_id: eng-web
+    storage_mode: governed_raw_manifest_reference
+    governed_manifest: data/raw/bible/eng-web/source_manifest.yaml
+    sha256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+    lifecycle_status: verified_in_repo
+  - asset_id: reuse-sblgnt
+    source_id: sblgnt
+    storage_mode: governed_raw_manifest_reference
+    governed_manifest: data/raw/original_language/greek/sblgnt/source_manifest.yaml
+    sha256: 4fc2659ce10ec6f57552f22e039de927ed3e417c7b5a757f34f05dae530e4c0f
+    lifecycle_status: verified_in_repo
+  - asset_id: reuse-oshb-wlc
+    source_id: oshb_wlc
+    storage_mode: governed_raw_manifest_reference
+    governed_manifest: data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+    sha256: f56c150708b5d74719ecb709c712c31eae9855bca7b111fd82ec91b5d177b4c7
+    lifecycle_status: verified_in_repo
+non_authorizing_scope_label: storage_ledger_not_canonical_truth
