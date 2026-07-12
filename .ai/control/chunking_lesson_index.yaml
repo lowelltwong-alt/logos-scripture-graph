@@ -2741,6 +2741,24 @@ lessons:
     non_authorizations: [predicate_change, edge_creation, doctrine_claim, graph_retrieval_vector_truth, preferred_reading]
     validators: [scripts/validate_t494_theological_edge_taxonomy_research.py, scripts/validate_chunking_lesson_index.py]
 
+  - lesson_id: LSN-065
+    title: Doctrine genealogy requires upstream registration before records or edges
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, workflow_governance, auditability]
+    tags: [t495, doctrine-genealogy, repository-registration, influence, provenance, non-authorizing]
+    use_when: ["A task proposes theologian influence, doctrine development, denominational history, or reception genealogy.", "Chronology, similarity, or model synthesis could be mistaken for influence or historical truth."]
+    preflight_stage: before_doctrine_genealogy_planning
+    source_surfaces: [.ai/control/t495_doctrine_genealogy_governance_handoff.yaml, docs/roadmap/T495_DOCTRINE_GENEALOGY_GOVERNANCE_HANDOFF.md]
+    related_decision_ids: [CD-119]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T495]
+    downstream_risk: "Unregistered genealogy work can create unsupported influence edges, unscoped denominational claims, or a write path into Scripture authority."
+    required_preflight_surfaces: [.ai/control/t495_doctrine_genealogy_governance_handoff.yaml, config/governance/repository_link_contract.yaml, .ai/control/chunking_lesson_index.yaml]
+    required_pattern: [upstream_registration_before_repository, evidence_not_chronology_for_influence, no_write_path_to_scripture]
+    non_authorizations: [repository_creation, genealogy_records_or_edges, doctrine_truth, graph_retrieval_vector_truth]
+    validators: [scripts/validate_t495_doctrine_genealogy_governance_handoff.py, scripts/validate_chunking_lesson_index.py]
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3316,6 +3334,12 @@ lesson_graph:
     relation: governs_update_of
     to: LSN-064
   - from: LSN-064
+    relation: audits
+    to: LSN-010
+  - from: LSN-062
+    relation: governs_update_of
+    to: LSN-065
+  - from: LSN-065
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

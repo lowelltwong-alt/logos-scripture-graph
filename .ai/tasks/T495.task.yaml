@@ -1,0 +1,29 @@
+id: T495
+phase: phase_4
+title: Doctrine genealogy governance handoff
+mode: research
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/t495-doctrine-genealogy-governance-handoff
+base_ref: origin/main
+scope:
+  allowed_paths: [.ai/tasks/T495.task.yaml, .ai/handoffs/T495/, .ai/control/handoff_ledger.jsonl, .ai/control/t495_doctrine_genealogy_governance_handoff.yaml, .ai/control/chunking_lesson_index.yaml, .ai/control/chunking_theological_decision_register.yaml, .ai/control/PROJECT_STATUS.md, ROADMAP_STATE.yaml, docs/roadmap/T495_DOCTRINE_GENEALOGY_GOVERNANCE_HANDOFF.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, scripts/validate_t495_doctrine_genealogy_governance_handoff.py, scripts/validate_all.py, tests/test_t495_doctrine_genealogy_governance_handoff.py]
+  forbidden_paths: [data/, config/governance/, .ai/control/MASTER_CONTEXT.md]
+authorization:
+  records_upstream_handoff_only: true
+  authorizes_repository_schema_records_edges_or_indexes: false
+runtime_language_preflight:
+  task_id: T495
+  touched_paths: [scripts/validate_t495_doctrine_genealogy_governance_handoff.py, scripts/validate_all.py]
+  expected_input_size_or_record_count: One small governance YAML and roadmap.
+  expected_runtime_or_memory_pressure: Under one second.
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: Tiny policy checks.
+  interop_boundary: None.
+  python_fallback_or_wrapper_plan: Direct Python validator.
+  validation_plan: Focused and full repository gates plus CI.
+  maintenance_tradeoffs: Explicit cross-repo stop rules.
+handoff_required: .ai/handoffs/T495/handoff.md
+created_at: '2026-07-12'
+updated_at: '2026-07-12'
