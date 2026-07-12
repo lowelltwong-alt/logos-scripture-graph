@@ -2696,6 +2696,33 @@ lessons:
       - scripts/validate_t492_theological_research_foundation.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-063
+    title: Patristic classification is not acquisition or Scripture authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, source_metadata, workflow_governance]
+    tags: [t493, patristics, boundary-literature, attribution, license, contamination, non-authorizing]
+    use_when:
+      - "A task plans patristic, conciliar, creedal, reception-history, or disputed-attribution material."
+      - "A source-family classification or metadata row could be mistaken for permission to acquire, interpret, or import material."
+    preflight_stage: before_patristic_or_reception_history_planning
+    source_surfaces:
+      - .ai/control/t493_patristics_boundary_intake_plan.yaml
+      - docs/roadmap/T493_PATRISTICS_BOUNDARY_INTAKE_PLAN.md
+    related_decision_ids: [CD-117]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T493]
+    downstream_risk: "Source-family planning can silently become edition selection, acquisition authority, unscoped reception claims, or canonical contamination."
+    required_preflight_surfaces:
+      - .ai/control/t493_patristics_boundary_intake_plan.yaml
+      - .ai/control/boundary_material_routing.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    required_pattern: [classification_not_acquisition, metadata_before_source_selection, strict_boundary_repo_routing, default_scripture_retrieval_exclusion]
+    non_authorizations: [download_or_import, boundary_record_creation, canonical_scripture_mutation, doctrine_or_reception_claim_authority, graph_retrieval_vector_truth]
+    validators:
+      - scripts/validate_t493_patristics_boundary_intake_plan.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3261,4 +3288,10 @@ lesson_graph:
   - from: LSN-062
     relation: constrains
     to: LSN-034
+  - from: LSN-062
+    relation: governs_update_of
+    to: LSN-063
+  - from: LSN-063
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

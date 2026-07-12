@@ -1,0 +1,70 @@
+---
+object_type: patristics_boundary_intake_plan
+schema_version: patristics_boundary_intake_plan.v1
+task_id: T493
+lifecycle_status: active_planning_only
+owner: Lowell Wong
+planning_only: true
+non_authorizing: true
+authority:
+  canonical_scripture_research_owner: logos-scripture-graph
+  future_patristics_owner: logos-boundary-literature
+  cross_repo_policy_owner: logos-governance-architecture
+  imports_or_downloads_authorized: false
+  canonical_records_or_default_retrieval_authorized: false
+  doctrine_or_reception_claims_authorized: false
+source_family_classes:
+  - {family: apostolic_fathers, boundary_role: early_christian_reception, readiness: metadata_class_only}
+  - {family: ante_nicene_writers, boundary_role: reception_and_polemical_history, readiness: metadata_class_only}
+  - {family: nicene_and_post_nicene_writers, boundary_role: reception_and_doctrinal_history, readiness: metadata_class_only}
+  - {family: councils_and_synodal_records, boundary_role: conciliar_history, readiness: metadata_class_only}
+  - {family: creeds_and_confessions, boundary_role: reception_and_formula_history, readiness: metadata_class_only}
+  - {family: disputed_pseudonymous_or_fragmentary_material, boundary_role: attribution_scoped_boundary_evidence, readiness: blocked_pending_attribution_policy}
+required_future_metadata:
+  - author_or_attribution
+  - work_title
+  - stable_citation_scheme
+  - source_language
+  - edition_and_editor
+  - translation_and_translator
+  - license_and_redistribution_status
+  - provenance_url_and_checksum
+  - tradition_scope
+  - attribution_confidence
+  - claim_scope
+  - review_status
+intake_gates:
+  - governance_registration_confirmed
+  - boundary_repo_source_policy_active
+  - owner_selects_one_source_family_and_edition
+  - license_and_provenance_review_complete
+  - attribution_and_stable_citation_review_complete
+  - contamination_tests_defined
+  - default_retrieval_excludes_boundary_material
+  - separate_boundary_repo_branch_and_pr
+contamination_controls:
+  - no_canonical_scripture_passages_chunks_or_witnesses
+  - no_scripture_gold_evaluator_or_scorecard_inputs
+  - no_default_scripture_retrieval
+  - no_unscoped_patristic_claim_as_scripture_meaning
+  - no_graph_edge_or_doctrine_claim_promotion
+  - no_patristic_source_as_canonical_authority
+handoff_packet:
+  destination: logos-boundary-literature
+  status: future_owner_gated
+  includes: [source_family_classes, required_future_metadata, intake_gates, contamination_controls, unresolved_questions]
+  creates_boundary_records: false
+unresolved_questions:
+  - {question: "Which single source family should receive the first boundary-repo metadata pilot?", owner_needed: true, conclusion: unresolved}
+  - {question: "Which edition and translation license is suitable for that family?", owner_needed: true, conclusion: unresolved}
+  - {question: "What attribution taxonomy should govern disputed and pseudonymous works?", owner_needed: true, conclusion: unresolved}
+future_exact_step: owner_review_then_boundary_repo_governance_registration_check
+non_authorizations:
+  - text_or_image_download
+  - source_or_translation_import
+  - boundary_corpus_row_creation
+  - canonical_scripture_mutation
+  - preferred_reading_or_source_tradition
+  - doctrine_selection_or_theology_authority
+  - graph_retrieval_vector_index_or_embeddings
+validator: scripts/validate_t493_patristics_boundary_intake_plan.py

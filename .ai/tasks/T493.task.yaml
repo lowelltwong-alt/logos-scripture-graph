@@ -1,0 +1,44 @@
+id: T493
+phase: phase_4
+title: Patristics boundary intake plan
+mode: research
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/t493-patristics-boundary-intake-plan
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T493.task.yaml
+    - .ai/handoffs/T493/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/t493_patristics_boundary_intake_plan.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/T493_PATRISTICS_BOUNDARY_INTAKE_PLAN.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/validate_t493_patristics_boundary_intake_plan.py
+    - scripts/validate_all.py
+    - tests/test_t493_patristics_boundary_intake_plan.py
+  forbidden_paths: [data/raw/, data/canonical/, data/processed/, data/derived/, .ai/control/MASTER_CONTEXT.md]
+authorization:
+  records_boundary_handoff_plan_only: true
+  authorizes_source_selection_download_or_import: false
+  authorizes_boundary_records_or_claims: false
+  authorizes_scripture_doctrine_graph_retrieval_or_vector_truth: false
+runtime_language_preflight:
+  task_id: T493
+  touched_paths: [scripts/validate_t493_patristics_boundary_intake_plan.py, scripts/validate_all.py]
+  expected_input_size_or_record_count: One small governance YAML and roadmap document.
+  expected_runtime_or_memory_pressure: Under one second with negligible memory.
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: Tiny policy checks do not justify Rust interop.
+  interop_boundary: None.
+  python_fallback_or_wrapper_plan: Direct Python governance validator.
+  validation_plan: Focused validator/tests, task scope, handoffs, validate_all, full pytest, and GitHub CI.
+  maintenance_tradeoffs: Explicit assertions keep boundary authority fail-closed.
+handoff_required: .ai/handoffs/T493/handoff.md
+created_at: '2026-07-12'
+updated_at: '2026-07-12'
