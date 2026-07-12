@@ -47,6 +47,8 @@
 - result: passed with copied, ignored, hash-matched validation sidecars; no generated sidecar is tracked or committed
 - command: `python -m pytest -q`
 - result: 1002 passed in 749.82 seconds
+- command: GitHub Actions validate on PR #177
+- result: first run failed because CI correctly required a T492 theological decision-register entry; CD-116 was added as the focused non-authorizing fix
 - failures: none after owner-authorized validation-only sidecar preparation
 
 ## Known risks
@@ -81,4 +83,13 @@ Commit only the governed T492 files, push and merge after GitHub checks pass, th
 - agent_name: Codex
 - mode: research
 - updated_at: 2026-07-12T06:39:49+00:00
+- handoff_id: 428eee1ecde4b906
+
+---
+
+## Handoff refresh: final
+
+- agent_name: Codex
+- mode: research
+- updated_at: 2026-07-12T06:44:50+00:00
 - handoff_id: 428eee1ecde4b906
