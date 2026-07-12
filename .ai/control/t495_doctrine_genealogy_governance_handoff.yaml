@@ -1,0 +1,52 @@
+---
+object_type: doctrine_genealogy_governance_handoff
+schema_version: doctrine_genealogy_governance_handoff.v1
+task_id: T495
+lifecycle_status: active_planning_only
+owner: Lowell Wong
+planning_only: true
+non_authorizing: true
+proposed_repository: logos-doctrine-genealogy
+authority:
+  governance_registration_owner: logos-governance-architecture
+  canonical_scripture_owner: logos-scripture-graph
+  boundary_source_owner: logos-boundary-literature
+  repository_creation_authorized: false
+  records_edges_indexes_or_runtime_authorized: false
+registration_prerequisites:
+  - upstream_repo_registry_entry
+  - governance_dependency_map_entry
+  - explicit_repository_link_contracts
+  - authority_and_trust_zone_policy
+  - source_and_claim_provenance_policy
+  - tradition_and_denominational_scope_policy
+  - disputed_attribution_and_uncertainty_policy
+  - contamination_and_default_retrieval_exclusion_tests
+  - owner_approved_initial_claim_family
+future_claim_classes:
+  - {claim_class: person_influenced_person, status: future_candidate_only, requires: [exact_source, provenance, scope, confidence, review_status]}
+  - {claim_class: work_cites_or_responds_to_work, status: future_candidate_only, requires: [exact_citation, edition, provenance, confidence, review_status]}
+  - {claim_class: doctrine_development_event, status: future_candidate_only, requires: [date_scope, tradition_scope, evidence_refs, competing_accounts, review_status]}
+  - {claim_class: denominational_adoption_or_rejection, status: future_candidate_only, requires: [body, document, date, jurisdiction, provenance, review_status]}
+  - {claim_class: reception_of_scripture_passage, status: future_candidate_only, requires: [scripture_ref, receiving_source, claim_scope, provenance, review_status]}
+trust_zones: [candidate_unreviewed, source_attested, reviewed_tradition_scoped, disputed]
+forbidden_claims:
+  - canonical_doctrine_truth
+  - global_denominational_truth_without_scope
+  - influence_claim_from_chronology_alone
+  - scripture_meaning_controlled_by_reception
+  - unreviewed_model_output_as_history
+cross_repo_flows:
+  scripture_graph_to_genealogy: canonical_refs_and_published_identifiers_only
+  boundary_literature_to_genealogy: source_identifiers_and_scoped_claim_evidence_only
+  genealogy_to_scripture_graph: no_write_or_promotion_path
+  genealogy_to_default_scripture_retrieval: prohibited
+owner_gates_before: [repository_creation, schema_adoption, first_claim_family, source_intake, record_population, graph_or_index_build, public_release]
+unresolved_questions:
+  - {question: "Should doctrine genealogy be a separate repository or remain governance-only planning?", status: unresolved, owner_needed: true}
+  - {question: "Which single future claim class is safe enough for a fixture-only pilot?", status: unresolved, owner_needed: true}
+  - {question: "What evidence threshold distinguishes influence from similarity or chronology?", status: unresolved, owner_needed: true}
+handoff_destination: logos-governance-architecture
+future_step: upstream_registration_owner_packet
+non_authorizations: [repository_creation, doctrine_or_genealogy_records, person_or_work_edges, denomination_timeline, source_import, canonical_scripture_change, graph_retrieval_vector_index_or_embeddings, theology_authority]
+validator: scripts/validate_t495_doctrine_genealogy_governance_handoff.py
