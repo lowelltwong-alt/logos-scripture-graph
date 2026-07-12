@@ -4,6 +4,14 @@
 **Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
 **Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
 
+> **T492 theological research foundation (2026-07-12):** Planning-only work maps the seven
+> existing Scripture dossier lanes, strict repository routing, research phases A-E, positive
+> biblical-name review roles, and a hard-unsolved-question register. Canonical Scripture research
+> stays here; patristics/reception routes to future `logos-boundary-literature`; doctrine lineage
+> routes only to a future governance-registered `logos-doctrine-genealogy`. No doctrine, canon,
+> reading, graph edge, retrieval/vector index, Scripture text, boundary import, or theology
+> authority is selected or created. Owner review precedes any T493-T496 branch.
+
 > **T482 Sinaiticus rights decision (2026-07-11):** Owner intent is to pursue XML and images. Four institution-specific image-rights requests were sent; no XML/image download, scraping, OCR, ingestion, embedding, graph/retrieval use, or public release is authorized pending written terms and quarantine preflight.
 
 > **T481 SRC-PILOT-A Wave 0 (2026-07-10):**

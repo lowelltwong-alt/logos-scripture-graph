@@ -384,6 +384,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ("validate_canonical_66_scope.py", [PY, str(ROOT / "scripts" / "validate_canonical_66_scope.py")]),
         ("validate_vectorization_plan.py", [PY, str(ROOT / "scripts" / "validate_vectorization_plan.py")]),
         (
+            "validate_t492_theological_research_foundation.py",
+            [PY, str(ROOT / "scripts" / "validate_t492_theological_research_foundation.py")],
+        ),
+        (
             "validate_chunking_theological_decision_register.py",
             [PY, str(ROOT / "scripts" / "validate_chunking_theological_decision_register.py")],
         ),

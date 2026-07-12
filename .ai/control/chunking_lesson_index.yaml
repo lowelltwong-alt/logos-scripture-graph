@@ -2657,6 +2657,45 @@ lessons:
       - scripts/validate_llos_v1_adapter.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-062
+    title: Theological research readiness is not target selection or authority
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, workflow_governance]
+    tags: [t492, dossier-lanes, authority-routing, owner-gate, unresolved-questions, non-authorizing]
+    use_when:
+      - "A task begins theological, contextual, original-language, intertext, or doctrine-adjacent Scripture research."
+      - "A research-ready dossier, model synthesis, or candidate taxonomy could be mistaken for doctrine, target, reading, or graph authority."
+    preflight_stage: before_theological_or_doctrine_adjacent_research
+    source_surfaces:
+      - .ai/control/t492_theological_research_foundation.yaml
+      - docs/roadmap/T492_THEOLOGICAL_RESEARCH_FOUNDATION.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T492]
+    downstream_risk: "Research readiness can silently become target selection, unresolved questions can become conclusions, or boundary/doctrine material can contaminate canonical Scripture records."
+    required_preflight_surfaces:
+      - .ai/control/t492_theological_research_foundation.yaml
+      - .ai/control/contextual_reading_policy.yaml
+      - .ai/control/original_language_phrase_context_policy.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    required_pattern:
+      - research_readiness_not_target_selection
+      - unresolved_questions_remain_questions
+      - owner_packet_before_authority_change
+      - strict_cross_repository_routing
+    non_authorizations:
+      - doctrinal_system_or_canonical_theology_selection
+      - preferred_reading_or_source_tradition
+      - graph_edge_or_predicate_promotion
+      - retrieval_vector_index_or_embedding
+      - boundary_patristic_or_doctrine_genealogy_import
+      - scripture_text_or_canon_change
+    validators:
+      - scripts/validate_t492_theological_research_foundation.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3213,4 +3252,13 @@ lesson_graph:
   - from: LSN-061
     relation: audits
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-062
+  - from: LSN-062
+    relation: audits
+    to: LSN-010
+  - from: LSN-062
+    relation: constrains
+    to: LSN-034
 validator: scripts/validate_chunking_lesson_index.py
