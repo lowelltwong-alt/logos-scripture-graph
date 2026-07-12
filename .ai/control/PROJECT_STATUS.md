@@ -4,6 +4,13 @@
 **Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
 **Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
 
+> **T493 patristics boundary intake plan (2026-07-12):** Planning-only Scripture-side handoff
+> classifies patristic, conciliar, creedal, and disputed-attribution source families for future
+> `logos-boundary-literature`, with metadata, license, provenance, attribution, retrieval-exclusion,
+> and contamination gates. No source or edition is selected; no download, import, boundary record,
+> reception claim, doctrine claim, Scripture mutation, graph edge, retrieval/vector index, or
+> theology authority is created.
+
 > **T492 theological research foundation (2026-07-12):** Planning-only work maps the seven
 > existing Scripture dossier lanes, strict repository routing, research phases A-E, positive
 > biblical-name review roles, and a hard-unsolved-question register. Canonical Scripture research
