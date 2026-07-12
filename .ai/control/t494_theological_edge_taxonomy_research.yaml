@@ -1,0 +1,54 @@
+---
+object_type: theological_edge_taxonomy_research
+schema_version: theological_edge_taxonomy_research.v1
+task_id: T494
+lifecycle_status: active_research_only
+owner: Lowell Wong
+research_only: true
+non_authorizing: true
+authority:
+  expands_predicate_registry: false
+  creates_candidate_or_canonical_edges: false
+  creates_graph_retrieval_vector_or_index_truth: false
+  selects_doctrine_reading_tradition_or_canon: false
+research_record_contract:
+  required_fields: [research_family_id, subject_scope, object_scope, evidence_refs, provenance, confidence, review_status, competing_options, limitations, non_authority_status]
+  allowed_review_statuses: [research_candidate, needs_independent_review, owner_packet_required, rejected]
+  allowed_confidence: [low, medium, high]
+  explicitly_not_predicate_schema: true
+research_families:
+  - {research_family_id: canonical_argument_grounding, risk: medium, owner_trigger: disputed_argument_or_doctrinal_conclusion}
+  - {research_family_id: christological_motif_correspondence, risk: high, owner_trigger: messianic_identity_fulfillment_or_creedal_claim}
+  - {research_family_id: covenant_development_correspondence, risk: high, owner_trigger: covenant_system_or_israel_church_relation}
+  - {research_family_id: pneumatological_motif_correspondence, risk: high, owner_trigger: person_work_gifts_or_procession_claim}
+  - {research_family_id: ecclesial_and_sacramental_pressure, risk: high, owner_trigger: church_polity_sacrament_or_office_claim}
+  - {research_family_id: soteriological_argument_pressure, risk: high, owner_trigger: election_justification_law_gospel_faith_works_or_assurance_claim}
+  - {research_family_id: eschatological_and_apocalyptic_correspondence, risk: high, owner_trigger: system_event_identity_israel_church_or_fulfillment_claim}
+  - {research_family_id: lexical_phrase_context_correspondence, risk: medium_to_high, owner_trigger: isolated_word_theology_or_preferred_reading}
+evidence_floor:
+  - exact_canonical_scope
+  - immediate_book_and_canonical_context
+  - evidence_refs_and_source_policy_version
+  - provenance_and_confidence
+  - competing_options_and_limitations
+  - independent_review_status
+forbidden_shortcuts:
+  - model_agreement_as_truth
+  - editorial_cross_reference_as_theological_edge
+  - strongs_or_lemma_as_doctrine
+  - wj_formatting_as_speaker_truth
+  - oldest_witness_as_preferred_reading
+  - creedal_or_patristic_material_as_canonical_record
+review_ladder:
+  - {stage: research_candidate, actor: Ezra, output: evidence_inventory_only}
+  - {stage: synthesis, actor: Priscilla, output: competing_options_and_limits}
+  - {stage: independent_check, actor: Luke, output: evidence_and_provenance_verdict}
+  - {stage: red_team, actor: Nathan, output: authority_leakage_findings}
+  - {stage: owner_packet, actor: Lowell_Wong, output: decision_or_deferral}
+owner_gate_before: [predicate_proposal, edge_row_creation, fulfillment_or_typology_assertion, doctrinal_claim, preferred_reading, graph_or_retrieval_use]
+unresolved_questions:
+  - {question: "Which research family may first advance to an owner packet?", status: unresolved, owner_needed: true}
+  - {question: "Should any family later map to an existing predicate or remain dossier-only?", status: unresolved, owner_needed: true}
+future_step: T496_owner_decision_packets_after_T495_governance_handoff
+non_authorizations: [predicate_registry_change, edge_creation_or_promotion, doctrine_selection, canonical_claim, boundary_import, graph_retrieval_vector_index_or_embeddings]
+validator: scripts/validate_t494_theological_edge_taxonomy_research.py
