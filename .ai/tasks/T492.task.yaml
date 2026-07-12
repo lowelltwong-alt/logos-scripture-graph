@@ -1,0 +1,45 @@
+id: T492
+phase: phase_4
+title: Theological research foundation
+mode: research
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/t492-theological-research-foundation
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T492.task.yaml
+    - .ai/handoffs/T492/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/t492_theological_research_foundation.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/PROJECT_STATUS.md
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/T492_THEOLOGICAL_RESEARCH_FOUNDATION.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - scripts/validate_t492_theological_research_foundation.py
+    - scripts/validate_all.py
+    - tests/test_t492_theological_research_foundation.py
+  forbidden_paths: [data/raw/, data/canonical/, data/processed/, data/derived/, .ai/control/MASTER_CONTEXT.md]
+authorization:
+  records_research_architecture_only: true
+  authorizes_theology_or_doctrine_truth: false
+  authorizes_scripture_or_canon_change: false
+  authorizes_graph_retrieval_vector_or_index_work: false
+  authorizes_boundary_or_patristic_import: false
+runtime_language_preflight:
+  task_id: T492
+  touched_paths: [scripts/validate_t492_theological_research_foundation.py, scripts/validate_all.py]
+  expected_input_size_or_record_count: One small YAML control, roadmap document, and existing queue filenames.
+  expected_runtime_or_memory_pressure: Under one second with negligible memory.
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: Small governance YAML checks do not justify Rust interop.
+  interop_boundary: None; Python reads local control and documentation files only.
+  python_fallback_or_wrapper_plan: Direct Python validator remains the governance entry point.
+  validation_plan: Focused validator/tests, task scope, handoffs, validate_all, and full pytest.
+  maintenance_tradeoffs: Explicit semantic assertions favor readability and fail-closed governance over a generic schema.
+handoff_required: .ai/handoffs/T492/handoff.md
+created_at: '2026-07-12'
+updated_at: '2026-07-12'
