@@ -2723,6 +2723,24 @@ lessons:
       - scripts/validate_t493_patristics_boundary_intake_plan.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-064
+    title: Theological research families are not predicates or graph edges
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [theological_risk, workflow_governance]
+    tags: [t494, research-taxonomy, predicates, graph-edges, evidence, owner-gate]
+    use_when: ["A task classifies theological relationships or proposes graph-adjacent research vocabulary.", "A research family could be mistaken for a registered predicate, edge row, doctrine claim, or retrieval feature."]
+    preflight_stage: before_theological_relationship_taxonomy_research
+    source_surfaces: [.ai/control/t494_theological_edge_taxonomy_research.yaml, docs/roadmap/T494_THEOLOGICAL_EDGE_TAXONOMY_RESEARCH.md]
+    related_decision_ids: [CD-118]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T494]
+    downstream_risk: "Graph-adjacent vocabulary can silently become schema, edge, ranking, or doctrine authority."
+    required_preflight_surfaces: [.ai/control/t494_theological_edge_taxonomy_research.yaml, config/governance/predicate_registry.yaml, .ai/control/chunking_lesson_index.yaml]
+    required_pattern: [research_family_not_predicate, evidence_confidence_provenance_review_status, owner_gate_before_graph_use]
+    non_authorizations: [predicate_change, edge_creation, doctrine_claim, graph_retrieval_vector_truth, preferred_reading]
+    validators: [scripts/validate_t494_theological_edge_taxonomy_research.py, scripts/validate_chunking_lesson_index.py]
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3292,6 +3310,12 @@ lesson_graph:
     relation: governs_update_of
     to: LSN-063
   - from: LSN-063
+    relation: audits
+    to: LSN-010
+  - from: LSN-062
+    relation: governs_update_of
+    to: LSN-064
+  - from: LSN-064
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
