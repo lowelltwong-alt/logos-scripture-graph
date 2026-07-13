@@ -41,6 +41,7 @@
 - command: `python -m pytest -q`
 - result: 1046 passed on final source in 658.69 seconds.
 - failures: Initial shallow test proved plain fetch populated only FETCH_HEAD; fixed with an explicit remote-tracking refspec. An initial aggregate run exposed a missing directory-prefix scope declaration. A full-suite nested aggregate first exited -1, then exposed content-identical validator line-ending/stat noise in two unrelated catalog files; both blobs matched HEAD, were refreshed without staged deltas, the isolated nested test passed, and the final full run passed cleanly.
+- GitHub CI failure: the new output schema made generated `.ai/control/DATA_MAP.md` stale (schema count 33 to 34 and one schema row). Added only that generated map to task scope, preserved the CI-proven two-line semantic delta, reran the workflow's canonical ingest, and confirmed `python scripts/generate_data_map.py --check`, task scope, and parallel safety all pass.
 
 ## Known risks
 

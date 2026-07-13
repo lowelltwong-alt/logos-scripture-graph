@@ -36,7 +36,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 - Data files mapped: **222**
 - Total data size: **725.5MB**
 - Total JSONL records: **847,115**
-- Schema contracts: **33**
+- Schema contracts: **34**
 
 > Files >100MB are flagged ⚠️ — gitignored + regenerated in CI (commit policy: PROJECT_STATUS.md).
 
@@ -278,6 +278,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 | `schemas/alignment_record.schema.json` | AlignmentRecord |
 | `schemas/boundary_claim.schema.json` | BoundaryClaim |
 | `schemas/canon_profile.schema.json` | CanonProfile |
+| `schemas/changed-paths-output.schema.json` | Logos changed-path engine output |
 | `schemas/chunk.schema.json` | RetrievalChunk |
 | `schemas/classification_assignment.schema.json` | ClassificationAssignment |
 | `schemas/context_packet.schema.json` | ContextPacket |
