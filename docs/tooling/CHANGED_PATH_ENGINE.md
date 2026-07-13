@@ -33,7 +33,9 @@ union only after a successful resolution. A failure emits JSON with non-null
 By default the engine fetches the base and resolves a fresh merge-base. Offline
 or fixture use must state both `--no-fetch --allow-stale`; the result then records
 the stale-base warning. Shallow repositories deepen in bounded 200-commit rounds
-and fail with `CP-NO-MERGE-BASE` when ancestry remains unresolved.
+by requesting both the base ref and the exact validated `HEAD` object, and fail
+with `CP-NO-MERGE-BASE` when ancestry remains unresolved. The exact-object request
+does not create a temporary local ref.
 
 `parity_log_line(consumer, legacy_paths, result)` returns one deterministic
 JSONL record for later LSG-O2B shadow comparisons. It performs no file write and

@@ -14,3 +14,18 @@
   loop, pattern discovery, and prompt-value minimization at postflight
 
 DAD is candidate guidance only and does not override OD-K or repository authority.
+
+## CI correction session
+
+- session: `dad:session:f10623ee-e43e-41d5-aaa0-1688d2434186`
+- trace: `dad:trace:4027f9eb-36d8-5f25-b31a-c39b882dab1d`
+- scope: approved Git 2.54 shallow-deepen portability correction, focused tests,
+  documentation, and T498 lifecycle evidence only
+- asset decisions: performance and Rust offerings were not adopted because the
+  failure is one Git refspec portability defect with no measured parser hotspot
+- stop conditions: consumer migration, unbounded fetch, temporary ref creation,
+  Scripture data access, or authority-bearing change
+- review mode: explicit local checklists; subagents are not authorized for this task
+
+DAD daemon and mail freshness warnings do not affect local source authority or
+the approved narrow CI correction.

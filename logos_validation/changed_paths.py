@@ -181,7 +181,13 @@ def _remote_and_branch(repo: Path, base: str) -> tuple[str, str] | None:
     return remote, branch
 
 
-def _fetch_base(repo: Path, base: str, *, deepen_by: int | None = None) -> None:
+def _fetch_base(
+    repo: Path,
+    base: str,
+    *,
+    deepen_by: int | None = None,
+    head_sha: str | None = None,
+) -> None:
     remote_branch = _remote_and_branch(repo, base)
     if remote_branch is None:
         remote_branch = ("origin", "main")
@@ -191,6 +197,12 @@ def _fetch_base(repo: Path, base: str, *, deepen_by: int | None = None) -> None:
         args.append(f"--deepen={deepen_by}")
     refspec = f"+refs/heads/{branch}:refs/remotes/{remote}/{branch}"
     args.extend([remote, refspec])
+    if head_sha is not None:
+        # An explicit base refspec fetches only that ref. Request the exact,
+        # already-validated HEAD object too so newer Git versions deepen both
+        # sides of a prospective merge base without guessing a branch name or
+        # creating a temporary local ref.
+        args.append(head_sha)
     _git(repo, args)
 
 
@@ -323,7 +335,12 @@ def get_changed_paths(
             if shallow and fetch:
                 for _ in range(deepen_rounds):
                     try:
-                        _fetch_base(repo_path, requested_base, deepen_by=deepen_by)
+                        _fetch_base(
+                            repo_path,
+                            requested_base,
+                            deepen_by=deepen_by,
+                            head_sha=head_sha,
+                        )
                     except GitCommandError:
                         break
                     merge_base = _merge_base(repo_path, requested_base)

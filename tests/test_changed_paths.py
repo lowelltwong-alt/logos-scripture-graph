@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from logos_validation import changed_paths as changed_paths_module
 from logos_validation.changed_paths import PROFILE_LAYERS, get_changed_paths, parity_log_line
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -318,14 +319,31 @@ def shallow_remote(tmp_path_factory: pytest.TempPathFactory) -> Path:
     return _build_shallow_remote(tmp_path_factory.mktemp("changed-paths-shallow-remote"))
 
 
-def test_shallow_clone_deepens_until_merge_base(tmp_path: Path, shallow_remote: Path):
+def test_shallow_clone_deepens_until_merge_base(
+    tmp_path: Path,
+    shallow_remote: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
     shallow = tmp_path / "shallow"
     url = shallow_remote.resolve().as_uri()
     git(tmp_path, "clone", "--depth", "1", "--branch", "feature", url, str(shallow))
+    fetches: list[dict[str, object]] = []
+    real_fetch_base = changed_paths_module._fetch_base
+
+    def record_fetch(*args, **kwargs):
+        fetches.append(dict(kwargs))
+        return real_fetch_base(*args, **kwargs)
+
+    monkeypatch.setattr(changed_paths_module, "_fetch_base", record_fetch)
     result = get_changed_paths("ci", repo=shallow, deepen_by=10, deepen_rounds=2)
     assert result.ok, result.to_dict()
     assert result.base["method"] == "deepened"
     assert result.union == ["feature.txt"]
+    assert git(shallow, "cat-file", "-e", "HEAD^") == ""
+    assert any(
+        call.get("deepen_by") == 10 and call.get("head_sha") == result.head_sha
+        for call in fetches
+    )
 
 
 def test_shallow_clone_exhaustion_fails_closed(tmp_path: Path, shallow_remote: Path):
