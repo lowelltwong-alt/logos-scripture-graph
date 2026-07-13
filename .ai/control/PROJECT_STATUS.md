@@ -4,6 +4,13 @@
 **Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
 **Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
 
+> **T497 Fable architecture owner decisions (2026-07-13):** Records Lowell's approval of the
+> six Fable-recommended options: frozen/unregistered doctrine-genealogy scaffold; strict influence
+> evidence threshold; dossier-only research families; O2/O3/O1 operational kernel order; seven-day
+> no-batch authority-packet rule; and owner-reviewed path policy. Registration, Scripture content,
+> doctrine, preferred readings, canon, graph/retrieval/vector/index work, and theology authority
+> remain unauthorized. LSG-O2A is the next separate tooling PR.
+
 > **T495 doctrine-genealogy governance handoff (2026-07-12):** Planning-only upstream packet
 > defines registration prerequisites, future candidate claim classes, trust zones, cross-repo flows,
 > and owner gates for a possible `logos-doctrine-genealogy`. It creates no repository, schema,

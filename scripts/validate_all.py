@@ -393,6 +393,7 @@ def build_gates() -> list[tuple[str, list[str]]]:
         ),
         ("validate_t494_theological_edge_taxonomy_research.py", [PY, str(ROOT / "scripts" / "validate_t494_theological_edge_taxonomy_research.py")]),
         ("validate_t495_doctrine_genealogy_governance_handoff.py", [PY, str(ROOT / "scripts" / "validate_t495_doctrine_genealogy_governance_handoff.py")]),
+        ("validate_t497_fable_architecture_owner_decisions.py", [PY, str(ROOT / "scripts" / "validate_t497_fable_architecture_owner_decisions.py")]),
         (
             "validate_chunking_theological_decision_register.py",
             [PY, str(ROOT / "scripts" / "validate_chunking_theological_decision_register.py")],

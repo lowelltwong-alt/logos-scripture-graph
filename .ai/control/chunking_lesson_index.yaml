@@ -2759,6 +2759,24 @@ lessons:
     non_authorizations: [repository_creation, genealogy_records_or_edges, doctrine_truth, graph_retrieval_vector_truth]
     validators: [scripts/validate_t495_doctrine_genealogy_governance_handoff.py, scripts/validate_chunking_lesson_index.py]
 
+  - lesson_id: LSN-066
+    title: Advisory architecture becomes executable only through explicit owner decisions
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, theological_risk, auditability]
+    tags: [t497, fable, advisory, owner-decision, kernel-order, authority-firewall]
+    use_when: ["An external model, DAD, review panel, or architecture packet recommends operational or authority-bearing changes.", "A future task uses OD-A1, OD-A2, OD-A3, OD-K, OD-Q, or OD-M as its authorization basis."]
+    preflight_stage: before_executing_advisory_architecture
+    source_surfaces: [.ai/control/t497_fable_architecture_owner_decisions.yaml, docs/roadmap/T497_FABLE_ARCHITECTURE_OWNER_DECISIONS.md]
+    related_decision_ids: [CD-120]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T497]
+    downstream_risk: "A strong advisory packet can be mistaken for owner authority, silently registering a repository, weakening evidence standards, or expanding tooling approval into theology, graph, retrieval, or canon authority."
+    required_preflight_surfaces: [.ai/control/t497_fable_architecture_owner_decisions.yaml, .ai/control/chunking_lesson_index.yaml]
+    required_pattern: [advisory_not_authority, explicit_dated_owner_decision, preserve_rejected_and_unresolved_options, execute_kernel_in_approved_dependency_order]
+    non_authorizations: [repository_registration, doctrine_or_denominational_selection, preferred_reading_or_source_tradition, canon_change, predicate_or_graph_edge, retrieval_vector_embedding_or_index, theology_authority]
+    validators: [scripts/validate_t497_fable_architecture_owner_decisions.py, scripts/validate_chunking_lesson_index.py]
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3340,6 +3358,12 @@ lesson_graph:
     relation: governs_update_of
     to: LSN-065
   - from: LSN-065
+    relation: audits
+    to: LSN-010
+  - from: LSN-065
+    relation: governs_update_of
+    to: LSN-066
+  - from: LSN-066
     relation: audits
     to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py
