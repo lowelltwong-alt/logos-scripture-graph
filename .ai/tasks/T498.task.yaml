@@ -1,0 +1,34 @@
+id: T498
+phase: phase_9
+title: Canonical changed-path engine core
+mode: tooling
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/t498-changed-path-engine
+base_ref: origin/main
+scope:
+  allowed_paths: [.ai/tasks/T498.task.yaml, .ai/handoffs/T498/, .ai/control/handoff_ledger.jsonl, .ai/control/PROJECT_STATUS.md, .ai/context/agent_work/T498/, ROADMAP_STATE.yaml, logos_validation/, schemas/changed-paths-output.schema.json, docs/tooling/, tests/test_changed_paths.py, tests/fixtures/changed_paths/]
+  forbidden_paths: [data/, pipelines/, ontology/, config/governance/, .github/, .githooks/, scripts/validate_task_scope.py, scripts/validate_all.py, .ai/control/MASTER_CONTEXT.md]
+authorization:
+  owner_decision: OD-K
+  implementation_item: LSG-O2A
+  additive_engine_only: true
+  consumer_migration_authorized: false
+  legacy_diff_deletion_authorized: false
+  ci_or_hook_behavior_change_authorized: false
+  scripture_doctrine_graph_retrieval_or_index_change_authorized: false
+runtime_language_preflight:
+  task_id: T498
+  touched_paths: [logos_validation/, tests/test_changed_paths.py]
+  expected_input_size_or_record_count: Git path metadata for one repository invocation.
+  expected_runtime_or_memory_pressure: Sub-second normal invocation; fixture integration suite measured 64.65 seconds before immutable shallow-remote reuse and 45.58 seconds after.
+  rust_trigger_match: [repeated_gate_or_ci_hot_path, deterministic_path_scan]
+  chosen_language: defer_rust_until_measurement
+  expected_rust_time_saved_or_reason_not_applicable: Git subprocess and filesystem latency dominate; Python keeps orchestration and JSON contracts explicit. Reassess only after consumer profiling.
+  interop_boundary: Git CLI returns NUL-delimited name-status and path streams; Python emits the versioned JSON contract.
+  python_fallback_or_wrapper_plan: Python is the initial reference implementation and future parity oracle.
+  validation_plan: Fixture-repository matrix, schema validation, focused tests, task scope, aggregate validation, full pytest, and GitHub CI.
+  maintenance_tradeoffs: One dependency-free module avoids 140 divergent callers; later consumers require shadow parity before cutover.
+handoff_required: .ai/handoffs/T498/handoff.md
+created_at: '2026-07-13'
+updated_at: '2026-07-13'

@@ -4,6 +4,12 @@
 **Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
 **Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
 
+> **T498 canonical changed-path engine core (2026-07-13):** Implements approved LSG-O2A as an
+> additive `logos_validation.changed_paths` Python reference, four Git-state layers, named profiles,
+> bounded shallow deepening, rename reporting, and a versioned fail-closed JSON contract. No existing
+> validator, hook, CI job, or task-scope consumer uses it yet; no legacy diff logic, Scripture data,
+> doctrine, graph, retrieval, vector, index, or authority surface changes.
+
 > **T497 Fable architecture owner decisions (2026-07-13):** Records Lowell's approval of the
 > six Fable-recommended options: frozen/unregistered doctrine-genealogy scaffold; strict influence
 > evidence threshold; dossier-only research families; O2/O3/O1 operational kernel order; seven-day
