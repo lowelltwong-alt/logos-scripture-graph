@@ -1,0 +1,31 @@
+id: T497
+phase: phase_4
+title: Fable architecture owner decisions
+mode: governance
+status: complete_pending_merge
+owner: Lowell Wong
+branch: codex/t497-fable-architecture-owner-decisions
+base_ref: origin/main
+scope:
+  allowed_paths: [.ai/tasks/T497.task.yaml, .ai/handoffs/T497/, .ai/control/handoff_ledger.jsonl, .ai/control/t497_fable_architecture_owner_decisions.yaml, .ai/control/chunking_theological_decision_register.yaml, .ai/control/chunking_lesson_index.yaml, .ai/control/PROJECT_STATUS.md, ROADMAP_STATE.yaml, docs/roadmap/T497_FABLE_ARCHITECTURE_OWNER_DECISIONS.md, docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md, scripts/validate_t497_fable_architecture_owner_decisions.py, scripts/validate_all.py, tests/test_t497_fable_architecture_owner_decisions.py]
+  forbidden_paths: [data/, ontology/, config/governance/, .ai/control/MASTER_CONTEXT.md, .github/CODEOWNERS]
+authorization:
+  records_owner_decisions_only: true
+  authorizes_lsg_o2a_next: true
+  authorizes_repository_registration: false
+  authorizes_scripture_doctrine_graph_retrieval_or_index_change: false
+runtime_language_preflight:
+  task_id: T497
+  touched_paths: [scripts/validate_t497_fable_architecture_owner_decisions.py, scripts/validate_all.py]
+  expected_input_size_or_record_count: One small owner-decision YAML and roadmap document.
+  expected_runtime_or_memory_pressure: Under one second.
+  rust_trigger_match: [repeated_gate_or_ci_hot_path]
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: Tiny semantic governance checks; Rust would add overhead.
+  interop_boundary: None.
+  python_fallback_or_wrapper_plan: Direct Python validator.
+  validation_plan: Focused tests, task scope, control plane, aggregate validation, full pytest, and GitHub CI.
+  maintenance_tradeoffs: Explicit policy assertions are easier to audit than a generalized engine for this one decision record.
+handoff_required: .ai/handoffs/T497/handoff.md
+created_at: '2026-07-13'
+updated_at: '2026-07-13'
