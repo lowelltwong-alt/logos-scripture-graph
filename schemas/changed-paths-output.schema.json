@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/changed-paths-output.schema.json",
+  "title": "Logos changed-path engine output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["engine_version", "profile", "base", "head_sha", "fetched", "layers", "renames", "union", "out_of_scope_dirty", "warnings", "fail"],
+  "properties": {
+    "engine_version": {"const": 1},
+    "profile": {"enum": ["ci", "pre-commit", "task-scope", "local-full"]},
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requested", "resolved_sha", "method"],
+      "properties": {
+        "requested": {"type": "string", "minLength": 1},
+        "resolved_sha": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+        "method": {"enum": ["merge-base", "deepened", "override", null]}
+      }
+    },
+    "head_sha": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+    "fetched": {"type": "boolean"},
+    "layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["committed", "staged", "unstaged", "untracked"],
+      "properties": {
+        "committed": {"$ref": "#/$defs/paths"},
+        "staged": {"$ref": "#/$defs/paths"},
+        "unstaged": {"$ref": "#/$defs/paths"},
+        "untracked": {"$ref": "#/$defs/paths"}
+      }
+    },
+    "renames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to"],
+        "properties": {"from": {"type": "string"}, "to": {"type": "string"}}
+      }
+    },
+    "union": {"$ref": "#/$defs/paths"},
+    "out_of_scope_dirty": {"$ref": "#/$defs/paths"},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "fail": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["code", "message"],
+          "properties": {"code": {"type": "string", "pattern": "^CP-[A-Z0-9-]+$"}, "message": {"type": "string", "minLength": 1}}
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "paths": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  }
+}
