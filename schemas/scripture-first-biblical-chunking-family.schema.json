@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/scripture-first-biblical-chunking-family.schema.json",
+  "title": "Scripture-first biblical chunking family contract v1",
+  "description": "Candidate-only control contract for the canonical-66 Scripture-first biblical chunking expert family. This contract cannot authorize chunk output, doctrine, preferred readings, or promotion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "family_id",
+    "family_version",
+    "lifecycle_status",
+    "trust_zone",
+    "authority",
+    "constitution",
+    "execution_limits",
+    "campaign_foundation",
+    "constituents",
+    "lifecycle"
+  ],
+  "properties": {
+    "schema_version": {"const": "scripture_first_biblical_chunking_family.v1"},
+    "family_id": {"const": "scripture-first-biblical-chunking"},
+    "family_version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "lifecycle_status": {
+      "enum": ["candidate", "shadow", "hold_with_findings", "reviewed_candidate"]
+    },
+    "trust_zone": {"const": "candidate"},
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "authority_sources", "canonical_scope", "local_source_of_truth", "portable_adaptation"],
+      "properties": {
+        "owner": {"const": "Lowell Wong"},
+        "authority_sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "canonical_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["profile_id", "source_path", "book_count", "fail_closed_on_noncanonical"],
+          "properties": {
+            "profile_id": {"const": "canonical_66_book_scope"},
+            "source_path": {"const": "config/canon/canonical_66_books.yaml"},
+            "book_count": {"const": 66},
+            "fail_closed_on_noncanonical": {"const": true}
+          }
+        },
+        "local_source_of_truth": {"const": "Logos"},
+        "portable_adaptation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["owner", "metadata_only", "hash_linked", "may_override_logos"],
+          "properties": {
+            "owner": {"const": "DAD"},
+            "metadata_only": {"const": true},
+            "hash_linked": {"const": true},
+            "may_override_logos": {"const": false}
+          }
+        }
+      }
+    },
+    "constitution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_principle", "evidence_precedence", "first_pass_prohibited_inputs", "external_context_lane", "non_authorizations"],
+      "properties": {
+        "first_principle": {"const": "Scripture interprets Scripture"},
+        "evidence_precedence": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "prefixItems": [
+            {"$ref": "#/$defs/evidenceRank1"},
+            {"$ref": "#/$defs/evidenceRank2"},
+            {"$ref": "#/$defs/evidenceRank3"},
+            {"$ref": "#/$defs/evidenceRank4"},
+            {"$ref": "#/$defs/evidenceRank5"}
+          ],
+          "items": false
+        },
+        "first_pass_prohibited_inputs": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "commentary",
+              "creed",
+              "systematic_theology",
+              "denominational_outline",
+              "modern_heading",
+              "historical_reconstruction"
+            ]
+          },
+          "allOf": [
+            {"contains": {"const": "commentary"}},
+            {"contains": {"const": "creed"}},
+            {"contains": {"const": "systematic_theology"}},
+            {"contains": {"const": "denominational_outline"}},
+            {"contains": {"const": "modern_heading"}},
+            {"contains": {"const": "historical_reconstruction"}}
+          ]
+        },
+        "external_context_lane": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["separate_packet_required", "verified_only", "may_authorize_boundary"],
+          "properties": {
+            "separate_packet_required": {"const": true},
+            "verified_only": {"const": true},
+            "may_authorize_boundary": {"const": false}
+          }
+        },
+        "non_authorizations": {"$ref": "#/$defs/nonAuthorizations"}
+      }
+    },
+    "execution_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["delegation_depth", "max_active_domain_specialists", "one_writer", "distinct_checker", "self_approval_allowed"],
+      "properties": {
+        "delegation_depth": {"const": 1},
+        "max_active_domain_specialists": {"type": "integer", "minimum": 1, "maximum": 3},
+        "one_writer": {"const": true},
+        "distinct_checker": {"const": true},
+        "self_approval_allowed": {"const": false}
+      }
+    },
+    "campaign_foundation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_units_first",
+        "child_boundary_default",
+        "child_boundary_requires_existing_parent",
+        "children_must_remain_within_parent_and_lane",
+        "model_majority_is_truth",
+        "historical_model_maps",
+        "cross_packet_runtime_validation_owner",
+        "reviewed_gold_role",
+        "display_identity_authority"
+      ],
+      "properties": {
+        "parent_units_first": {"const": true},
+        "child_boundary_default": {"const": "no_children"},
+        "child_boundary_requires_existing_parent": {"const": true},
+        "children_must_remain_within_parent_and_lane": {"const": true},
+        "model_majority_is_truth": {"const": false},
+        "historical_model_maps": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["authority", "mechanical_outliers"],
+          "properties": {
+            "authority": {"const": "evidence_only_no_vote"},
+            "mechanical_outliers": {
+              "type": "array",
+              "prefixItems": [{"const": "M1"}, {"const": "M5"}],
+              "items": false
+            }
+          }
+        },
+        "cross_packet_runtime_validation_owner": {"const": "T512"},
+        "reviewed_gold_role": {"const": "comparison_and_conflict_hold_only"},
+        "display_identity_authority": {"const": "none"}
+      }
+    },
+    "constituents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["roles", "knowledge_manifest", "routing_policy", "pilot_suite", "release"],
+      "properties": {
+        "roles": {"type": "string", "minLength": 1},
+        "knowledge_manifest": {"type": "string", "minLength": 1},
+        "routing_policy": {"type": "string", "minLength": 1},
+        "pilot_suite": {"type": "string", "minLength": 1},
+        "release": {"type": "string", "minLength": 1}
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["foundational_behavior_change", "pilot_mode", "shadow_mode", "activation_requires_separate_owner_task", "dad_publication_gate"],
+      "properties": {
+        "foundational_behavior_change": {"const": false},
+        "pilot_mode": {"const": "candidate_only"},
+        "shadow_mode": {"const": "candidate_only"},
+        "activation_requires_separate_owner_task": {"const": true},
+        "dad_publication_gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["framework_merged", "portfolio_drift_reconciled", "publication_authorized"],
+          "properties": {
+            "framework_merged": {"type": "boolean"},
+            "portfolio_drift_reconciled": {"type": "boolean"},
+            "publication_authorized": {"const": false}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "evidenceBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rank", "evidence_class", "boundary_use"],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 1, "maximum": 5},
+        "evidence_class": {"type": "string"},
+        "boundary_use": {"enum": ["primary", "contextual", "corroborating", "supporting_only", "candidate_only"]}
+      }
+    },
+    "evidenceRank1": {
+      "allOf": [
+        {"$ref": "#/$defs/evidenceBase"},
+        {"properties": {"rank": {"const": 1}, "evidence_class": {"const": "exact_canonical_text_and_structural_markers"}, "boundary_use": {"const": "primary"}}}
+      ]
+    },
+    "evidenceRank2": {
+      "allOf": [
+        {"$ref": "#/$defs/evidenceBase"},
+        {"properties": {"rank": {"const": 2}, "evidence_class": {"const": "immediate_discourse_paragraph_chapter_and_whole_book_context"}, "boundary_use": {"const": "contextual"}}}
+      ]
+    },
+    "evidenceRank3": {
+      "allOf": [
+        {"$ref": "#/$defs/evidenceBase"},
+        {"properties": {"rank": {"const": 3}, "evidence_class": {"const": "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks"}, "boundary_use": {"const": "corroborating"}}}
+      ]
+    },
+    "evidenceRank4": {
+      "allOf": [
+        {"$ref": "#/$defs/evidenceBase"},
+        {"properties": {"rank": {"const": 4}, "evidence_class": {"const": "strong_repeated_formulations_or_lexical_syntactic_echoes"}, "boundary_use": {"const": "supporting_only"}}}
+      ]
+    },
+    "evidenceRank5": {
+      "allOf": [
+        {"$ref": "#/$defs/evidenceBase"},
+        {"properties": {"rank": {"const": 5}, "evidence_class": {"const": "thematic_similarity"}, "boundary_use": {"const": "candidate_only"}}}
+      ]
+    },
+    "nonAuthorizations": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "chunk_output",
+          "reviewed_gold_promotion",
+          "graph_truth",
+          "retrieval_truth",
+          "preferred_reading",
+          "source_tradition_preference",
+          "canon_scope_change",
+          "doctrine_selection",
+          "theology_authority"
+        ]
+      },
+      "allOf": [
+        {"contains": {"const": "chunk_output"}},
+        {"contains": {"const": "reviewed_gold_promotion"}},
+        {"contains": {"const": "graph_truth"}},
+        {"contains": {"const": "retrieval_truth"}},
+        {"contains": {"const": "preferred_reading"}},
+        {"contains": {"const": "source_tradition_preference"}},
+        {"contains": {"const": "canon_scope_change"}},
+        {"contains": {"const": "doctrine_selection"}},
+        {"contains": {"const": "theology_authority"}}
+      ]
+    }
+  }
+}

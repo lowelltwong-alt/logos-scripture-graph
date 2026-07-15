@@ -2777,6 +2777,53 @@ lessons:
     non_authorizations: [repository_registration, doctrine_or_denominational_selection, preferred_reading_or_source_tradition, canon_change, predicate_or_graph_edge, retrieval_vector_embedding_or_index, theology_authority]
     validators: [scripts/validate_t497_fable_architecture_owner_decisions.py, scripts/validate_chunking_lesson_index.py]
 
+  - lesson_id: LSN-067
+    title: Example fixtures do not prove cross-field authority invariants
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, theological_risk, auditability]
+    tags: [t500, adversarial-review, cross-field-invariants, negative-fixtures, property-testing, anti-imputation, fail-closed]
+    use_when:
+      - "A candidate agent family, packet schema, router, release manifest, or knowledge graph claims fail-closed authority boundaries."
+      - "Focused positive and mutation fixtures pass but sibling identity, evidence-class consistency, dependency closure, route isolation, or release readiness depends on relationships across fields."
+    preflight_stage: before_candidate_family_or_authority_contract_release
+    source_surfaces:
+      - docs/roadmap/T500_SCRIPTURE_FIRST_BIBLICAL_CHUNKING_FAMILY.md
+      - .ai/context/agent_work/T500/independent_scripture_review.md
+      - schemas/biblical-chunking-packet.schema.json
+      - schemas/biblical-chunking-family-release.schema.json
+      - scripts/validate_scripture_first_biblical_chunking_family.py
+      - tests/test_scripture_first_biblical_chunking_family.py
+    related_decision_ids: [CD-107]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T500]
+    downstream_risk: "A contract can look strict while allowing evidence laundering, self-authored independent review, hidden specialist overflow, unclosed dependency references, route leakage, or false release readiness. In Scripture-facing systems those gaps can convert model inference into apparent textual or theological authority."
+    required_preflight_surfaces:
+      - .ai/control/chunking_agent_preflight.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - config/agents/families/scripture-first-biblical-chunking/family.v1.yaml
+      - scripts/validate_scripture_first_biblical_chunking_family.py
+    required_pattern:
+      - cross_field_invariant_matrix
+      - schema_valid_adversarial_mutations
+      - distinct_writer_checker_creator_identity
+      - evidence_class_source_kind_rank_consistency
+      - dependency_and_role_closure
+      - route_ownership_uniqueness
+      - release_claim_evidence_consistency
+    non_authorizations:
+      - focused_green_tests_as_release_authority
+      - model_inference_as_scripture_evidence
+      - self_approval
+      - chunk_output_change
+      - reviewed_gold_promotion
+      - preferred_reading_or_source_tradition
+      - doctrine_or_theology_authority
+    validators:
+      - scripts/validate_scripture_first_biblical_chunking_family.py
+      - tests/test_scripture_first_biblical_chunking_family.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3366,4 +3413,13 @@ lesson_graph:
   - from: LSN-066
     relation: audits
     to: LSN-010
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-067
+  - from: LSN-067
+    relation: audits
+    to: LSN-010
+  - from: LSN-067
+    relation: constrains
+    to: LSN-052
 validator: scripts/validate_chunking_lesson_index.py

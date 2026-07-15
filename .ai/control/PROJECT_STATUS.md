@@ -1,8 +1,19 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-10
-**Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
-**Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
+**Last updated:** 2026-07-15
+**Updated by:** T500 Scripture-first biblical chunking expert family
+**Active task:** -> **T500 COMPLETE_FOUNDATION / PILOTS_HELD** on `codex/t500-scripture-first-biblical-chunking-family`. The additive candidate control plane passed independent review and focused validation. Exegetical pilots, boundary shadow execution, DAD publication, and activation remain held. No chunk, gold, route, evaluator, graph, retrieval, reading, canon, or theology authority changes.
+
+> **T500 Scripture-first biblical chunking family (2026-07-15):** Adds four strict contracts,
+> seven control roles, eight named campaign roles, three observers, fourteen specialist packs, deterministic routing for all
+> nineteen canonical literary forms, twenty-nine hash-linked knowledge pointers, compatibility
+> aliases, fifty contract fixtures, and payload-free generated catalogs. The no-text shadow
+> accounts for all 31,103 canonical passage records and admits no noncanonical row. Exegetical
+> pilots and boundary proposals remain held pending T475 source-marker integrity and run-level
+> parent-assignment resolution. Independent Scripture-first review accepted the candidate foundation.
+> DAD publication and candidate activation remain explicitly unauthorized.
+> Parent units are proposed before child review, child review defaults to no children, textual-witness
+> and speaker ambiguity routes are explicit, and historical model maps are non-voting evidence.
 
 > **T498 canonical changed-path engine core (2026-07-13):** Implements approved LSG-O2A as an
 > additive `logos_validation.changed_paths` Python reference, four Git-state layers, named profiles,

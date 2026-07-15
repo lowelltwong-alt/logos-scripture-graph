@@ -95,6 +95,7 @@ Common tags in this file:
 
 | Task | Purpose | Tags | Use when | Primary artifacts |
 | --- | --- | --- | --- | --- |
+| T500 | Scripture-first biblical chunking expert family | `scripture-first`, `agent-family`, `anti-imputation`, `knowledge-manifest`, `canonical-66`, `candidate-only` | Building or auditing role routing, packet contracts, evidence precedence, controlled-pilot holds, whole-Bible shadow coverage, or the gated DAD adaptation. | `docs/roadmap/T500_SCRIPTURE_FIRST_BIBLICAL_CHUNKING_FAMILY.md`; `config/agents/families/scripture-first-biblical-chunking/`; `schemas/biblical-chunking-packet.schema.json`; `scripts/validate_scripture_first_biblical_chunking_family.py`; `.ai/tasks/T500.task.yaml`; `.ai/handoffs/T500/handoff.md` |
 | T461 | Scripture front-door decomposition | `task-ledger`, `front-door`, `task-history`, `validator-anchor`, `non-authorizing` | A future agent needs moved task-history narrative, front-door shrink rationale, or task-ledger validation after Fable PR-7. | `docs/roadmap/TASK_LEDGER.md`; `AI_FRONT_DOOR.md`; `scripts/validate_task_ledger.py`; `.ai/tasks/T461.task.yaml`; `.ai/handoffs/T461/handoff.md` |
 | T336 | Whole-Bible roadmap | `chunking`, `whole-bible`, `roadmap` | Planning or auditing the full Bible chunking destination. | `docs/roadmap/T336_OPTIMIZED_WHOLE_BIBLE_CHUNKING_ROADMAP.md` |
 | T337 | Psalm behavior-change selection | `psalms`, `selection`, `non-authorizing` | Checking why no Psalm behavior-change target was selected at that point. | `docs/roadmap/T337_SELECT_ONE_PSALM_BEHAVIOR_CHANGE.md` |
