@@ -28,6 +28,7 @@
 
 - T500 task, handoff, status, roadmap, TOC, ledger, Data Map, lesson-index, and roadmap-event records
 - `.ai/context/agent_work/T500/` mesh, DAD-readiness, and independent-review evidence
+- `.ai/control/chunking_theological_decision_register.yaml` CD-121 non-authorizing T500 record
 - `config/agents/families/scripture-first-biblical-chunking/` family, named campaign roles, knowledge, routing,
   pilot, release, and deterministic generated artifacts
 - `config/agents/agent_roles.yaml` compatibility aliases
