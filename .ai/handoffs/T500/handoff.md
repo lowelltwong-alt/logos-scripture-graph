@@ -65,7 +65,7 @@ No file under `data/raw/`, `data/canonical/`, `eval/chunking_gold/`, `pipelines/
 - `python scripts/build_scripture_first_biblical_chunking_catalog.py --check` — passed.
 - `python scripts/validate_scripture_first_biblical_chunking_family.py` — passed: 7 controls,
   14 packs, 19 routes, 15 pilot cases, 31,103 passages, 50 fixtures; DAD held.
-- `python -m pytest -q tests/test_scripture_first_biblical_chunking_family.py` — 63 passed.
+- `python -m pytest -q tests/test_scripture_first_biblical_chunking_family.py` — 64 passed.
 - Task-scope, parallel-execution-safety, chunking-lesson-index, mesh-manifest, and diff checks — passed
   (diff check reported line-ending warnings only).
 - Distinct read-only Scripture-first checker — `ACCEPT_CANDIDATE_FOUNDATION_ONLY` after adversarial repair.

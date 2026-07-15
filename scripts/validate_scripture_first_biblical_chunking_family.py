@@ -472,7 +472,14 @@ def validate_packet_semantics(instance: dict[str, Any]) -> None:
         )
     if packet_type == "candidate_set":
         for candidate in payload.get("candidates", []):
-            supporting = [evidence_by_id.get(item) for item in candidate.get("supporting_evidence_ids", [])]
+            supporting_ids = candidate.get("supporting_evidence_ids", [])
+            unresolved_ids = [item for item in supporting_ids if item not in evidence_by_id]
+            _raise(
+                "BCF-PACKET-EVIDENCE-REF",
+                bool(unresolved_ids),
+                f"{candidate.get('candidate_id')}: unresolved supporting evidence IDs: {unresolved_ids}",
+            )
+            supporting = [evidence_by_id[item] for item in supporting_ids]
             eligible = [
                 evidence
                 for evidence in supporting
