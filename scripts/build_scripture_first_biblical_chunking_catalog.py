@@ -325,6 +325,10 @@ def build_dad_adaptation(
     pilot: dict[str, Any],
     shadow: dict[str, Any],
 ) -> dict[str, Any]:
+    family = _load_yaml(FAMILY_DIR / "family.v1.yaml")
+    family_version = family.get("family_version")
+    if not isinstance(family_version, str) or not family_version:
+        raise BuildError("family.v1.yaml must declare a non-empty family_version")
     constituent_hashes = []
     for name in CONSTITUENT_NAMES:
         path = FAMILY_DIR / name
@@ -340,7 +344,7 @@ def build_dad_adaptation(
     adaptation: dict[str, Any] = {
         "schema_version": "dad.scripture_first_biblical_chunking_adaptation_candidate.v1",
         "family_id": "scripture-first-biblical-chunking",
-        "family_version": "0.1.0-candidate",
+        "family_version": family_version,
         "source_authority": "Logos",
         "portable_catalog_owner": "DAD",
         "status": "ineligible_hold",

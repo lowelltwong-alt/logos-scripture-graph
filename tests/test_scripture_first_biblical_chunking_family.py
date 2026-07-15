@@ -95,7 +95,9 @@ def test_controlled_pilot_preflight_retains_ambiguity_holds() -> None:
 
 def test_dad_adaptation_is_hash_linked_metadata_only_and_ineligible() -> None:
     adaptation = json.loads(builder.DAD_ADAPTATION.read_text(encoding="utf-8"))
+    family = validator._load_yaml(validator.FAMILY_DIR / "family.v1.yaml")
 
+    assert adaptation["family_version"] == family["family_version"]
     assert adaptation["eligible_for_dad_publication"] is False
     assert adaptation["contains_scripture_text"] is False
     assert adaptation["contains_source_rows"] is False
