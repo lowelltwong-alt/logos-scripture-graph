@@ -1,8 +1,15 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-10
-**Updated by:** T481 SRC-PILOT-A Wave 0 primary witness catalog scaffold
-**Active task:** -> **T481 IN_PROGRESS** on `cursor/src-pilot-a-t469-wave0`. Wave 0 metadata/rights catalog for primary Bible witnesses is scaffolded under `data/candidate/source_catalog/primary_bible_witnesses/` with reuse references for WEB, SBLGNT, and OSHB/WLC; no downloads, no restricted-image local storage, no source text import.
+**Last updated:** 2026-07-15
+**Updated by:** T511 generated sidecar lifecycle convergence
+**Active task:** -> **T511 COMPLETE_PENDING_MERGE** on `codex/t511-generated-sidecar-lifecycle`. Generated canonical validators are scheduled from the governed lifecycle registry; clean checkouts explicitly skip only unavailable generated-data gates, while `--require-generated-data` fails closed for release/full-data verification. No generated data was copied, linked, regenerated, or mutated.
+
+> **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
+> generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
+> dependencies under `generated_data(...)`, and separates static T433/T439 contracts from hydrated
+> parity checks. Clean-checkout aggregate validation passes; release mode rejects missing declared
+> inputs before executing gates. No validator, Scripture data, chunk output, doctrine, canon, graph,
+> retrieval, vector, index, or theology authority changed.
 
 > **T498 canonical changed-path engine core (2026-07-13):** Implements approved LSG-O2A as an
 > additive `logos_validation.changed_paths` Python reference, four Git-state layers, named profiles,

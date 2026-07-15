@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import copy
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -17,6 +19,18 @@ def test_t439_phlm_alignment_bridge_expansion_validates_current_repo() -> None:
     assert manifest["counts"]["source_language_tokens"] == 334
     assert manifest["counts"]["alignment_records"] == 25
     assert manifest["no_text_policy"]["stores_source_text"] is False
+
+
+@pytest.mark.generated_data("data/canonical/translations/eng-web/word_tokens.jsonl")
+def test_t439_generated_parity_builder_check_passes() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/build_t439_phlm_alignment_bridge_expansion.py", "--check"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 def test_t439_rejects_source_token_text_leak() -> None:
