@@ -409,11 +409,16 @@ def validate_packet_semantics(instance: dict[str, Any]) -> None:
             or instance.get("status") != "hold_for_owner",
             "theological ambiguity must hold in payload and top-level status",
         )
-    evidence_by_id = {
-        evidence.get("evidence_id"): evidence
-        for evidence in instance.get("evidence_refs", [])
-        if isinstance(evidence, dict)
-    }
+    evidence_refs = [
+        evidence for evidence in instance.get("evidence_refs", []) if isinstance(evidence, dict)
+    ]
+    evidence_ids = [evidence.get("evidence_id") for evidence in evidence_refs]
+    _raise(
+        "BCF-PACKET-DUPLICATE-EVIDENCE-ID",
+        len(evidence_ids) != len(set(evidence_ids)),
+        "packet evidence_id values must be unique",
+    )
+    evidence_by_id = {evidence["evidence_id"]: evidence for evidence in evidence_refs}
     expected_evidence = {
         "canonical_text": ("exact_canonical_text_and_structural_markers", 1, "not_applicable"),
         "structural_marker": ("exact_canonical_text_and_structural_markers", 1, "not_applicable"),
@@ -469,6 +474,38 @@ def validate_packet_semantics(instance: dict[str, Any]) -> None:
             "BCF-PACKET-LANE-SEPARATION",
             packet_type not in {"observation", "challenge", "independent_review"} or not historical_evidence,
             "external-context lane is review-only and must contain verified historical evidence",
+        )
+    referenced_evidence: list[tuple[str, list[str]]] = []
+    if packet_type == "observation":
+        observations = payload.get("observations", [])
+        observation_ids = [item.get("observation_id") for item in observations]
+        _raise(
+            "BCF-PACKET-DUPLICATE-OBSERVATION-ID",
+            len(observation_ids) != len(set(observation_ids)),
+            "observation_id values must be unique",
+        )
+        for observation in observations:
+            referenced_evidence.append((str(observation.get("observation_id")), observation.get("evidence_ids", [])))
+        known_observations = set(observation_ids)
+        for inference in payload.get("inferences", []):
+            unresolved = [item for item in inference.get("derived_from_observation_ids", []) if item not in known_observations]
+            _raise(
+                "BCF-PACKET-OBSERVATION-REF",
+                bool(unresolved),
+                f"{inference.get('inference_id')}: unresolved observation IDs: {unresolved}",
+            )
+    elif packet_type == "challenge":
+        for finding in payload.get("findings", []):
+            referenced_evidence.append((str(finding.get("finding_id")), finding.get("evidence_ids", [])))
+    elif packet_type == "independent_review":
+        for finding in payload.get("anti_imputation_findings", []):
+            referenced_evidence.append((str(finding.get("finding_id")), finding.get("evidence_ids", [])))
+    for reference_owner, reference_ids in referenced_evidence:
+        unresolved = [item for item in reference_ids if item not in evidence_by_id]
+        _raise(
+            "BCF-PACKET-EVIDENCE-REF",
+            bool(unresolved),
+            f"{reference_owner}: unresolved evidence IDs: {unresolved}",
         )
     if packet_type == "candidate_set":
         for candidate in payload.get("candidates", []):
