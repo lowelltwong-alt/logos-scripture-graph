@@ -1,0 +1,141 @@
+---
+object_type: scripture_first_biblical_chunking_routing_policy
+schema_version: scripture_first_biblical_chunking_routing_policy.v1
+policy_id: scripture-first-biblical-chunking-router-v1
+family_id: scripture-first-biblical-chunking
+lifecycle_status: candidate
+trust_zone: candidate
+
+input_contract:
+  required:
+    - book_id
+    - canon_profile
+    - observed_form_ids
+    - marker_evidence
+    - risk_flags
+    - language_evidence_requests
+    - ambiguity_status
+  form_registry_ref: config/chunking/form_registry.yaml
+  canonical_scope_ref: config/canon/canonical_66_books.yaml
+  book_genre_role: prior_only_never_sole_route_evidence
+
+scope_gate:
+  required_canon_profile: canonical_66
+  book_not_in_allowlist_action: reject_excluded_noncanonical_or_metadata_scope
+  front_matter_ids: [major_title_block, intro_block]
+  front_matter_action: exclude_from_boundary_candidates_metadata_only
+  early_church_tier_action: reject_excluded_noncanonical_or_boundary_material
+  missing_or_stale_authority_ref_action: fail_closed
+
+primary_form_routes:
+  prose_paragraph: scripture_first_prose_discourse_specialist
+  prose_section_heading: scripture_first_prose_discourse_specialist
+  narrative_scene: scripture_first_narrative_scene_specialist
+  genealogy_or_list: scripture_first_genealogy_list_specialist
+  law_statute: scripture_first_law_covenant_specialist
+  poetry_line_or_colon: scripture_first_psalms_poetry_specialist
+  poetry_stanza: scripture_first_psalms_poetry_specialist
+  poetry_acrostic_section: scripture_first_psalms_poetry_specialist
+  psalm_whole: scripture_first_psalms_poetry_specialist
+  wisdom_saying_cluster: scripture_first_wisdom_dialogue_specialist
+  speaker_dialogue: scripture_first_wisdom_dialogue_specialist
+  prophetic_oracle: scripture_first_prophetic_specialist
+  vision_report: scripture_first_prophetic_specialist
+  apocalyptic_cycle: scripture_first_apocalyptic_specialist
+  gospel_pericope: scripture_first_gospel_specialist
+  parable_or_discourse: scripture_first_gospel_specialist
+  acts_speech_or_episode: scripture_first_acts_specialist
+  epistle_argument: scripture_first_epistle_specialist
+  epistle_opening_closing: scripture_first_epistle_specialist
+
+augmentation_routes:
+  - when: variant_or_source_tradition_dependency
+    add_campaign_role: scripture_first_textual_witness_specialist
+    evidence_only: true
+    required_outcome: observation_plus_hold_for_owner
+  - when: unresolved_speaker_identity_or_boundary
+    add_campaign_role: scripture_first_speaker_specialist
+    evidence_only: true
+    required_outcome: alternatives_plus_hold_for_owner
+  - when: approved_hebrew_structural_observation_requested
+    add_specialist: scripture_first_hebrew_structure_specialist
+    evidence_only: true
+  - when: approved_greek_structural_observation_requested
+    add_specialist: scripture_first_greek_structure_specialist
+    evidence_only: true
+  - when: explicit_quotation_parallel_or_clear_authorial_callback
+    add_specialist: scripture_first_canonical_intertext_specialist
+    evidence_only: true
+  - when: strong_lexical_syntactic_echo_without_explicit_witness
+    add_specialist: scripture_first_canonical_intertext_specialist
+    evidence_class: supporting_only
+  - when: thematic_similarity_only
+    add_specialist: scripture_first_canonical_intertext_specialist
+    evidence_class: candidate_only_cannot_drive_boundary
+
+selection_algorithm:
+  steps:
+    - enforce_scope_gate
+    - require_marker_evidenced_primary_form
+    - select_one_primary_form_pack
+    - add_only_evidence_triggered_augmentation_packs
+    - deduplicate_specialists
+    - select_smallest_sufficient_combination
+    - if_specialist_count_exceeds_three_emit_hold_for_owner
+    - assign_one_writer_and_distinct_checker
+    - assign_parent_unit_worker_before_child_reviewer
+    - default_child_review_to_no_children
+    - emit_candidate_only_assignment
+  deterministic_tie_break: hold_for_owner_not_model_preference
+  maximum_active_domain_specialists: 3
+  delegation_depth: 1
+
+campaign_assignment_contract:
+  parent_worker: scripture_first_parent_unit_worker
+  child_reviewer: scripture_first_child_necessity_reviewer
+  checker: scripture_first_anti_imputation_checker
+  evidence_dispute_boss: scripture_first_evidence_dispute_boss
+  human_docket_steward: scripture_first_human_docket_steward
+  ordinary_primary_specialists: 1
+  ordinary_evidence_specialists_maximum: 2
+  child_requires_existing_parent: true
+  child_same_lane_and_contained: true
+  cross_packet_enforcement_deferred_to: T512
+  historical_model_maps: evidence_only_no_vote
+
+mandatory_holds:
+  - trigger: unresolved_theological_ambiguity
+    outcome: alternatives_plus_hold_for_owner
+  - trigger: unresolved_speaker_identity_or_boundary
+    outcome: alternatives_plus_hold_for_owner
+  - trigger: variant_or_source_tradition_dependency
+    outcome: textual_critical_case_packet_plus_hold_for_owner
+  - trigger: competing_marker_evidenced_forms_without_deterministic_primary
+    outcome: alternatives_plus_hold_for_owner
+  - trigger: original_language_evidence_would_select_reading_translation_or_doctrine
+    outcome: reject_selection_plus_hold_for_owner
+  - trigger: writer_checker_identity_collision
+    outcome: fail_closed
+  - trigger: more_than_three_active_domain_specialists
+    outcome: fail_closed
+
+metadata_overlays:
+  words_of_jesus:
+    source_ref: .ai/control/wj_speaker_discourse_policy.yaml
+    role: evidence_metadata_only
+    automatic_boundary: false
+    automatic_speaker_or_graph_truth: false
+  editorial_cross_references:
+    source_ref: .ai/control/source_metadata_research_atlas.yaml
+    role: evidence_metadata_only
+    automatic_intertext_or_graph_truth: false
+  modern_headings:
+    role: evidence_metadata_only
+    automatic_boundary: false
+
+output_contract:
+  allowed_packet_statuses: [candidate, challenged, hold_for_owner]
+  automatic_selection_or_promotion: false
+  incumbent_fallback: pipelines/chunking/skills/approved/monolith-pass2-v1/SKILL_METADATA.json
+  fallback_changes_existing_behavior: false
+  packet_schema_ref: schemas/biblical-chunking-packet.schema.json

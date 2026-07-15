@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/biblical-chunking-family-release.schema.json",
+  "title": "Biblical chunking family release contract v1",
+  "description": "Hash-linked candidate release record for the Logos-owned Scripture-first family. V1 cannot activate chunk behavior and permits only a separately gated metadata-only DAD adaptation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "family_id",
+    "family_version",
+    "release_status",
+    "candidate_only",
+    "constituent_hashes",
+    "validation_evidence",
+    "pilot_status",
+    "shadow_status",
+    "dad_adaptation",
+    "activation",
+    "non_authorizations"
+  ],
+  "properties": {
+    "schema_version": {"const": "biblical_chunking_family_release.v1"},
+    "release_id": {"type": "string", "pattern": "^bcf-release:1\\.[0-9]+\\.[0-9]+$"},
+    "family_id": {"const": "scripture-first-biblical-chunking"},
+    "family_version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "release_status": {
+      "enum": ["draft", "validation_failed", "pilot_hold", "shadow_candidate", "dad_adaptation_eligible", "owner_decision_ready"]
+    },
+    "candidate_only": {"const": true},
+    "constituent_hashes": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["constituent_id", "source_path", "sha256"],
+        "properties": {
+          "constituent_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+          "source_path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "validation_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "status", "evidence_ref", "evidence_sha256"],
+        "properties": {
+          "check_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["passed", "failed", "hold_with_findings", "not_run"]},
+          "evidence_ref": {"type": "string", "minLength": 1},
+          "evidence_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "pilot_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewed_behavior_preserved", "ambiguities_retained", "chunk_outputs_changed", "evidence_ref", "evidence_sha256"],
+      "properties": {
+        "status": {"enum": ["not_run", "passed", "hold_with_findings"]},
+        "reviewed_behavior_preserved": {"type": "boolean"},
+        "ambiguities_retained": {"type": "boolean"},
+        "chunk_outputs_changed": {"const": false},
+        "evidence_ref": {"type": "string", "minLength": 1},
+        "evidence_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "shadow_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "canonical_books_accounted", "noncanonical_records_admitted", "candidate_auto_activation", "chunk_outputs_changed", "evidence_ref", "evidence_sha256"],
+      "properties": {
+        "status": {"enum": ["not_run", "passed", "hold_with_findings"]},
+        "canonical_books_accounted": {"type": "integer", "minimum": 0, "maximum": 66},
+        "noncanonical_records_admitted": {"const": 0},
+        "candidate_auto_activation": {"const": false},
+        "chunk_outputs_changed": {"const": false},
+        "evidence_ref": {"type": "string", "minLength": 1},
+        "evidence_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "dad_adaptation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eligible",
+        "framework_status",
+        "portfolio_drift_reconciled",
+        "logos_dad_hash_match",
+        "payload_policy",
+        "contains_scripture_payload",
+        "contains_source_payload",
+        "contains_private_payload",
+        "may_override_logos",
+        "publication_authorized"
+      ],
+      "properties": {
+        "eligible": {"type": "boolean"},
+        "framework_status": {"enum": ["candidate_unmerged", "merged_reviewed"]},
+        "portfolio_drift_reconciled": {"type": "boolean"},
+        "logos_dad_hash_match": {"type": "boolean"},
+        "payload_policy": {"const": "metadata_and_hashes_only"},
+        "contains_scripture_payload": {"const": false},
+        "contains_source_payload": {"const": false},
+        "contains_private_payload": {"const": false},
+        "may_override_logos": {"const": false},
+        "publication_authorized": {"const": false}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"eligible": {"const": true}}},
+          "then": {
+            "properties": {
+              "framework_status": {"const": "merged_reviewed"},
+              "portfolio_drift_reconciled": {"const": true},
+              "logos_dad_hash_match": {"const": true}
+            }
+          }
+        }
+      ]
+    },
+    "activation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligible", "approved", "requires_separate_owner_task"],
+      "properties": {
+        "eligible": {"const": false},
+        "approved": {"const": false},
+        "requires_separate_owner_task": {"const": true}
+      }
+    },
+    "non_authorizations": {"$ref": "#/$defs/nonAuthorizations"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "pilot_status": {
+            "properties": {"status": {"const": "passed"}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "pilot_status": {
+            "properties": {
+              "reviewed_behavior_preserved": {"const": true},
+              "ambiguities_retained": {"const": true},
+              "chunk_outputs_changed": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "shadow_status": {
+            "properties": {"status": {"const": "passed"}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "shadow_status": {
+            "properties": {
+              "canonical_books_accounted": {"const": 66},
+              "noncanonical_records_admitted": {"const": 0},
+              "candidate_auto_activation": {"const": false},
+              "chunk_outputs_changed": {"const": false}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"release_status": {"const": "shadow_candidate"}}},
+      "then": {
+        "properties": {
+          "pilot_status": {"properties": {"status": {"const": "passed"}}},
+          "shadow_status": {"properties": {"status": {"const": "passed"}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"release_status": {"const": "dad_adaptation_eligible"}}},
+      "then": {
+        "properties": {
+          "pilot_status": {"properties": {"status": {"const": "passed"}}},
+          "shadow_status": {"properties": {"status": {"const": "passed"}}},
+          "dad_adaptation": {"properties": {"eligible": {"const": true}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"release_status": {"const": "owner_decision_ready"}}},
+      "then": {
+        "properties": {
+          "pilot_status": {"properties": {"status": {"const": "passed"}}},
+          "shadow_status": {"properties": {"status": {"const": "passed"}}},
+          "validation_evidence": {
+            "minItems": 1,
+            "items": {
+              "properties": {"status": {"const": "passed"}}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonAuthorizations": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "chunk_output",
+          "boundary_promotion",
+          "reviewed_gold_promotion",
+          "graph_truth",
+          "retrieval_truth",
+          "preferred_reading",
+          "source_tradition_preference",
+          "canon_scope_change",
+          "doctrine_selection",
+          "theology_authority",
+          "dad_write_into_logos"
+        ]
+      },
+      "allOf": [
+        {"contains": {"const": "chunk_output"}},
+        {"contains": {"const": "boundary_promotion"}},
+        {"contains": {"const": "reviewed_gold_promotion"}},
+        {"contains": {"const": "preferred_reading"}},
+        {"contains": {"const": "source_tradition_preference"}},
+        {"contains": {"const": "canon_scope_change"}},
+        {"contains": {"const": "doctrine_selection"}},
+        {"contains": {"const": "theology_authority"}},
+        {"contains": {"const": "dad_write_into_logos"}}
+      ]
+    }
+  }
+}

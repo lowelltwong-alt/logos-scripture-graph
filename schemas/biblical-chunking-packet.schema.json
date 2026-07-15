@@ -1,0 +1,529 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/biblical-chunking-packet.schema.json",
+  "title": "Biblical chunking packet v1",
+  "description": "Discriminated candidate-only packets for assignments, observations, candidate sets, challenges, independent reviews, and human decisions. Packet fields carry references and observations, never Scripture/source payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "packet_type",
+    "family_id",
+    "family_version",
+    "passage_scope",
+    "created_by",
+    "lane",
+    "parent_assignment_packet_id",
+    "trust_zone",
+    "status",
+    "evidence_refs",
+    "non_authorizations",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {"const": "biblical_chunking_packet.v1"},
+    "packet_id": {"type": "string", "pattern": "^bcf-packet:[a-z0-9._:-]+$"},
+    "packet_type": {
+      "enum": ["assignment", "observation", "candidate_set", "challenge", "independent_review", "human_decision"]
+    },
+    "family_id": {"const": "scripture-first-biblical-chunking"},
+    "family_version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "passage_scope": {"$ref": "#/$defs/passageScope"},
+    "created_by": {"$ref": "#/$defs/actor"},
+    "lane": {"enum": ["scripture_only_first_pass", "external_context_review"]},
+    "parent_assignment_packet_id": {
+      "type": ["string", "null"],
+      "pattern": "^bcf-packet:[a-z0-9._:-]+$"
+    },
+    "trust_zone": {"const": "candidate"},
+    "status": {"enum": ["candidate", "hold_for_owner", "challenged", "reviewed_candidate", "rejected"]},
+    "evidence_refs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidenceRef"}
+    },
+    "non_authorizations": {"$ref": "#/$defs/nonAuthorizations"},
+    "payload": {"type": "object"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"packet_type": {"const": "assignment"}}},
+      "then": {
+        "properties": {
+          "parent_assignment_packet_id": {"const": null},
+          "payload": {"$ref": "#/$defs/assignmentPayload"}
+        }
+      },
+      "else": {
+        "properties": {
+          "parent_assignment_packet_id": {"type": "string"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"packet_type": {"const": "observation"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/observationPayload"}}}
+    },
+    {
+      "if": {"properties": {"packet_type": {"const": "candidate_set"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/candidateSetPayload"}}}
+    },
+    {
+      "if": {"properties": {"packet_type": {"const": "challenge"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/challengePayload"}}}
+    },
+    {
+      "if": {"properties": {"packet_type": {"const": "independent_review"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/independentReviewPayload"}}}
+    },
+    {
+      "if": {"properties": {"packet_type": {"const": "human_decision"}}},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/humanDecisionPayload"}}}
+    },
+    {
+      "if": {"properties": {"lane": {"const": "scripture_only_first_pass"}}},
+      "then": {
+        "properties": {
+          "evidence_refs": {
+            "items": {
+              "not": {
+                "properties": {"source_kind": {"const": "verified_historical_context"}},
+                "required": ["source_kind"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"lane": {"const": "external_context_review"}}},
+      "then": {
+        "properties": {
+          "packet_type": {"enum": ["observation", "challenge", "independent_review"]},
+          "evidence_refs": {
+            "minItems": 1,
+            "contains": {
+              "properties": {"source_kind": {"const": "verified_historical_context"}},
+              "required": ["source_kind"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "packet_type": {"const": "assignment"},
+          "lane": {"const": "scripture_only_first_pass"}
+        }
+      },
+      "then": {"properties": {"payload": {"properties": {"lane": {"const": "scripture_only_first_pass"}}}}}
+    },
+    {
+      "if": {
+        "properties": {
+          "packet_type": {"const": "assignment"},
+          "lane": {"const": "external_context_review"}
+        }
+      },
+      "then": {"properties": {"payload": {"properties": {"lane": {"const": "external_context_review"}}}}}
+    }
+  ],
+  "$defs": {
+    "canonicalBook": {
+      "enum": [
+        "Gen", "Exod", "Lev", "Num", "Deut", "Josh", "Judg", "Ruth", "1Sam", "2Sam", "1Kgs", "2Kgs", "1Chr", "2Chr", "Ezra", "Neh", "Esth", "Job", "Ps", "Prov", "Eccl", "Song", "Isa", "Jer", "Lam", "Ezek", "Dan", "Hos", "Joel", "Amos", "Obad", "Jonah", "Mic", "Nah", "Hab", "Zeph", "Hag", "Zech", "Mal", "Matt", "Mark", "Luke", "John", "Acts", "Rom", "1Cor", "2Cor", "Gal", "Eph", "Phil", "Col", "1Thess", "2Thess", "1Tim", "2Tim", "Titus", "Phlm", "Heb", "Jas", "1Pet", "2Pet", "1John", "2John", "3John", "Jude", "Rev"
+      ]
+    },
+    "passageScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canon_profile_id", "book_id", "osis_start", "osis_end"],
+      "properties": {
+        "canon_profile_id": {"const": "canonical_66_book_scope"},
+        "book_id": {"$ref": "#/$defs/canonicalBook"},
+        "osis_start": {"type": "string", "minLength": 1},
+        "osis_end": {"type": "string", "minLength": 1}
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role_id", "agent_instance_id"],
+      "properties": {
+        "role_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+        "agent_instance_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "evidence_class", "precedence_rank", "source_kind", "source_ref", "assertion_mode", "relationship_basis", "may_drive_boundary"],
+      "properties": {
+        "evidence_id": {"type": "string", "pattern": "^bcf-evidence:[a-z0-9._:-]+$"},
+        "evidence_class": {
+          "enum": [
+            "exact_canonical_text_and_structural_markers",
+            "immediate_discourse_paragraph_chapter_and_whole_book_context",
+            "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks",
+            "strong_repeated_formulations_or_lexical_syntactic_echoes",
+            "thematic_similarity",
+            "verified_historical_context_non_authorizing"
+          ]
+        },
+        "precedence_rank": {"type": ["integer", "null"], "minimum": 1, "maximum": 5},
+        "source_kind": {
+          "enum": [
+            "canonical_text",
+            "structural_marker",
+            "immediate_context",
+            "explicit_canonical_quotation",
+            "canonical_parallel_account",
+            "clear_authorial_callback",
+            "repeated_formulation",
+            "lexical_syntactic_echo",
+            "thematic_similarity",
+            "original_language_structural_observation",
+            "verified_historical_context"
+          ]
+        },
+        "source_ref": {"type": "string", "minLength": 1},
+        "assertion_mode": {"enum": ["observation", "inference", "candidate"]},
+        "relationship_basis": {
+          "enum": [
+            "not_applicable",
+            "explicit_quotation",
+            "parallel_account",
+            "clear_authorial_callback",
+            "repeated_formulation",
+            "lexical_syntactic_echo",
+            "thematic_similarity"
+          ]
+        },
+        "may_drive_boundary": {"type": "boolean"},
+        "original_language_layer": {
+          "enum": ["hebrew_structural", "greek_structural"]
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"evidence_class": {"const": "thematic_similarity"}}},
+          "then": {
+            "properties": {
+              "precedence_rank": {"const": 5},
+              "assertion_mode": {"const": "candidate"},
+              "relationship_basis": {"const": "thematic_similarity"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"evidence_class": {"const": "strong_repeated_formulations_or_lexical_syntactic_echoes"}}},
+          "then": {"properties": {"precedence_rank": {"const": 4}, "may_drive_boundary": {"const": false}}}
+        },
+        {
+          "if": {"properties": {"evidence_class": {"const": "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks"}}},
+          "then": {"properties": {"precedence_rank": {"const": 3}}}
+        },
+        {
+          "if": {"properties": {"evidence_class": {"const": "immediate_discourse_paragraph_chapter_and_whole_book_context"}}},
+          "then": {"properties": {"precedence_rank": {"const": 2}}}
+        },
+        {
+          "if": {"properties": {"evidence_class": {"const": "exact_canonical_text_and_structural_markers"}}},
+          "then": {"properties": {"precedence_rank": {"const": 1}}}
+        },
+        {
+          "if": {"properties": {"evidence_class": {"const": "verified_historical_context_non_authorizing"}}},
+          "then": {"properties": {"precedence_rank": {"const": null}, "assertion_mode": {"const": "candidate"}, "may_drive_boundary": {"const": false}}}
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "original_language_structural_observation"}}},
+          "then": {
+            "required": ["original_language_layer"],
+            "properties": {
+              "evidence_class": {"const": "exact_canonical_text_and_structural_markers"},
+              "precedence_rank": {"const": 1},
+              "relationship_basis": {"const": "not_applicable"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"enum": ["canonical_text", "structural_marker"]}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "exact_canonical_text_and_structural_markers"},
+              "precedence_rank": {"const": 1},
+              "relationship_basis": {"const": "not_applicable"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "immediate_context"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "immediate_discourse_paragraph_chapter_and_whole_book_context"},
+              "precedence_rank": {"const": 2},
+              "relationship_basis": {"const": "not_applicable"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "explicit_canonical_quotation"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks"},
+              "precedence_rank": {"const": 3},
+              "relationship_basis": {"const": "explicit_quotation"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "canonical_parallel_account"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks"},
+              "precedence_rank": {"const": 3},
+              "relationship_basis": {"const": "parallel_account"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "clear_authorial_callback"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks"},
+              "precedence_rank": {"const": 3},
+              "relationship_basis": {"const": "clear_authorial_callback"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "repeated_formulation"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "strong_repeated_formulations_or_lexical_syntactic_echoes"},
+              "precedence_rank": {"const": 4},
+              "relationship_basis": {"const": "repeated_formulation"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "lexical_syntactic_echo"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "strong_repeated_formulations_or_lexical_syntactic_echoes"},
+              "precedence_rank": {"const": 4},
+              "relationship_basis": {"const": "lexical_syntactic_echo"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "thematic_similarity"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "thematic_similarity"},
+              "precedence_rank": {"const": 5},
+              "assertion_mode": {"const": "candidate"},
+              "relationship_basis": {"const": "thematic_similarity"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"source_kind": {"const": "verified_historical_context"}}},
+          "then": {
+            "properties": {
+              "evidence_class": {"const": "verified_historical_context_non_authorizing"},
+              "precedence_rank": {"const": null},
+              "assertion_mode": {"const": "candidate"},
+              "relationship_basis": {"const": "not_applicable"},
+              "may_drive_boundary": {"const": false}
+            }
+          }
+        }
+      ]
+    },
+    "nonAuthorizations": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "chunk_output",
+          "boundary_promotion",
+          "reviewed_gold_promotion",
+          "graph_truth",
+          "retrieval_truth",
+          "translation_preference",
+          "preferred_reading",
+          "source_tradition_preference",
+          "doctrine_selection",
+          "theology_authority",
+          "canon_scope_change"
+        ]
+      },
+      "allOf": [
+        {"contains": {"const": "chunk_output"}},
+        {"contains": {"const": "boundary_promotion"}},
+        {"contains": {"const": "translation_preference"}},
+        {"contains": {"const": "preferred_reading"}},
+        {"contains": {"const": "source_tradition_preference"}},
+        {"contains": {"const": "doctrine_selection"}},
+        {"contains": {"const": "theology_authority"}},
+        {"contains": {"const": "canon_scope_change"}}
+      ]
+    },
+    "assignmentPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lane", "writer", "checker", "specialist_role_ids", "delegation_depth", "max_active_specialists", "assignments"],
+      "properties": {
+        "lane": {"enum": ["scripture_only_first_pass", "external_context_review"]},
+        "writer": {"$ref": "#/$defs/actor"},
+        "checker": {"$ref": "#/$defs/actor"},
+        "specialist_role_ids": {
+          "type": "array",
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"}
+        },
+        "delegation_depth": {"const": 1},
+        "max_active_specialists": {"type": "integer", "maximum": 3},
+        "assignments": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["assignment_id", "role_id", "mission", "output_packet_type"],
+            "properties": {
+              "assignment_id": {"type": "string", "minLength": 1},
+              "role_id": {"type": "string", "minLength": 1},
+              "mission": {"type": "string", "minLength": 1},
+              "output_packet_type": {"enum": ["observation", "candidate_set", "challenge", "independent_review"]}
+            }
+          }
+        }
+      }
+    },
+    "observationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observation_id", "kind", "claim", "evidence_ids"],
+      "properties": {
+        "observation_id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["text_structure", "discourse", "literary_form", "speaker_scene", "canonical_cross_witness", "original_language_structure"]},
+        "claim": {"type": "string", "minLength": 1},
+        "evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}}
+      }
+    },
+    "inferenceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inference_id", "claim", "derived_from_observation_ids", "confidence", "candidate_only"],
+      "properties": {
+        "inference_id": {"type": "string", "minLength": 1},
+        "claim": {"type": "string", "minLength": 1},
+        "derived_from_observation_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "confidence": {"enum": ["high", "medium", "low", "disputed", "unknown"]},
+        "candidate_only": {"const": true}
+      }
+    },
+    "observationPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observations", "inferences", "boundary_candidates"],
+      "properties": {
+        "observations": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/observationRecord"}},
+        "inferences": {"type": "array", "items": {"$ref": "#/$defs/inferenceRecord"}},
+        "boundary_candidates": {"type": "array", "maxItems": 0}
+      }
+    },
+    "candidateBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "osis_start", "osis_end", "supporting_observation_ids", "supporting_evidence_ids", "confidence", "selected"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "osis_start": {"type": "string", "minLength": 1},
+        "osis_end": {"type": "string", "minLength": 1},
+        "supporting_observation_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "supporting_evidence_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "confidence": {"enum": ["high", "medium", "low", "disputed", "unknown"]},
+        "selected": {"const": false}
+      }
+    },
+    "candidateSetPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidates", "decision_state", "theological_ambiguity", "hold_for_owner", "selection_authorized"],
+      "properties": {
+        "candidates": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/candidateBoundary"}},
+        "decision_state": {"enum": ["alternatives_retained", "hold_for_owner"]},
+        "theological_ambiguity": {"type": "boolean"},
+        "hold_for_owner": {"type": "boolean"},
+        "selection_authorized": {"const": false}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"theological_ambiguity": {"const": true}}},
+          "then": {"properties": {"hold_for_owner": {"const": true}, "decision_state": {"const": "hold_for_owner"}}}
+        }
+      ]
+    },
+    "challengeFinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_id", "finding_type", "severity", "target_ref", "evidence_ids", "disposition"],
+      "properties": {
+        "finding_id": {"type": "string", "minLength": 1},
+        "finding_type": {"enum": ["proof_texting", "imported_theology", "denominational_outline", "preferred_reading", "source_tradition_preference", "theme_as_boundary", "context_omission", "self_approval", "route_leakage", "authority_reference_failure"]},
+        "severity": {"enum": ["info", "warning", "error", "blocker"]},
+        "target_ref": {"type": "string", "minLength": 1},
+        "evidence_ids": {"type": "array", "items": {"type": "string"}},
+        "disposition": {"enum": ["clear", "revise", "hold_for_owner", "reject"]}
+      }
+    },
+    "challengePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["challenged_packet_id", "findings", "self_approval_attempted", "recommendation"],
+      "properties": {
+        "challenged_packet_id": {"type": "string", "minLength": 1},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/challengeFinding"}},
+        "self_approval_attempted": {"const": false},
+        "recommendation": {"enum": ["clear_for_independent_review", "revise", "hold_for_owner", "reject"]}
+      }
+    },
+    "independentReviewPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewed_packet_ids", "writer_agent_instance_id", "checker_agent_instance_id", "identity_separation_attested", "anti_imputation_findings", "decision"],
+      "properties": {
+        "reviewed_packet_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "writer_agent_instance_id": {"type": "string", "minLength": 1},
+        "checker_agent_instance_id": {"type": "string", "minLength": 1},
+        "identity_separation_attested": {"const": true},
+        "anti_imputation_findings": {"type": "array", "items": {"$ref": "#/$defs/challengeFinding"}},
+        "decision": {"enum": ["reviewed_candidate", "revise", "hold_for_owner", "reject"]}
+      }
+    },
+    "humanDecisionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "reviewed_packet_ids", "decision", "activates_chunk_output", "requires_separate_promotion_task"],
+      "properties": {
+        "owner": {"const": "Lowell Wong"},
+        "reviewed_packet_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+        "decision": {"enum": ["retain_candidates", "hold", "reject", "request_research", "approve_for_separate_promotion_task"]},
+        "rationale": {"type": "string"},
+        "activates_chunk_output": {"const": false},
+        "requires_separate_promotion_task": {"const": true}
+      }
+    }
+  }
+}

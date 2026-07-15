@@ -1,0 +1,74 @@
+---
+schema_version: biblical_chunking_family_release.v1
+release_id: bcf-release:1.0.0
+family_id: scripture-first-biblical-chunking
+family_version: 1.0.0
+release_status: pilot_hold
+candidate_only: true
+constituent_hashes:
+  - constituent_id: family_contract
+    source_path: config/agents/families/scripture-first-biblical-chunking/family.v1.yaml
+    sha256: sha256:eabe9cc6560740ad1b2105b229c38204592b523b03da00af43dd51024aa8d3ed
+  - constituent_id: role_profiles
+    source_path: config/agents/families/scripture-first-biblical-chunking/role_profiles.v1.yaml
+    sha256: sha256:0318b945b2bd462f3f71d3a18ad7ad382d7237d70cd43e71106b91b8ab477b2f
+  - constituent_id: knowledge_manifest
+    source_path: config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    sha256: sha256:6c8aabdc46b2b53d6d9877d31c583ff71e2f8e8f289e81c3588166c72ede4707
+  - constituent_id: routing_policy
+    source_path: config/agents/families/scripture-first-biblical-chunking/routing_policy.v1.yaml
+    sha256: sha256:3f0309f97b0254060e1e9f0e64ff85641e13a3b60fccee887219212a7c6262a4
+  - constituent_id: pilot_suite
+    source_path: config/agents/families/scripture-first-biblical-chunking/pilot_suite.v1.yaml
+    sha256: sha256:a4ddd5eb3130dcf606fb209adcf7565476ffba14d8f3af48b2e5aa8347dacc83
+validation_evidence:
+  - check_id: t500_family_validator
+    status: passed
+    evidence_ref: scripts/validate_scripture_first_biblical_chunking_family.py
+    evidence_sha256: sha256:92d719ffb87ff12589e8103a1233fd4adcfd504217b1601d3d87e483867ff5c2
+  - check_id: t500_focused_pytest
+    status: passed
+    evidence_ref: tests/test_scripture_first_biblical_chunking_family.py
+    evidence_sha256: sha256:4bdda0a553c039165a0463be42ee73eb8e516a72e4220d6dcccf70da3d44c5bf
+pilot_status:
+  status: hold_with_findings
+  reviewed_behavior_preserved: false
+  ambiguities_retained: true
+  chunk_outputs_changed: false
+  evidence_ref: config/agents/families/scripture-first-biblical-chunking/generated/controlled_pilot_routing_report.v1.json
+  evidence_sha256: sha256:eef265250db3973c85a4d37a8d13f420069c509e5d96229062273f446ab5f679
+shadow_status:
+  status: hold_with_findings
+  canonical_books_accounted: 66
+  noncanonical_records_admitted: 0
+  candidate_auto_activation: false
+  chunk_outputs_changed: false
+  evidence_ref: config/agents/families/scripture-first-biblical-chunking/generated/whole_bible_shadow_report.v1.json
+  evidence_sha256: sha256:38e846a53467c3e0d7c0732dfb0971a5b6cb5f5f7176222c5681e583730c107d
+dad_adaptation:
+  eligible: false
+  framework_status: candidate_unmerged
+  portfolio_drift_reconciled: false
+  logos_dad_hash_match: false
+  payload_policy: metadata_and_hashes_only
+  contains_scripture_payload: false
+  contains_source_payload: false
+  contains_private_payload: false
+  may_override_logos: false
+  publication_authorized: false
+activation:
+  eligible: false
+  approved: false
+  requires_separate_owner_task: true
+non_authorizations:
+  - chunk_output
+  - boundary_promotion
+  - reviewed_gold_promotion
+  - graph_truth
+  - retrieval_truth
+  - preferred_reading
+  - source_tradition_preference
+  - canon_scope_change
+  - doctrine_selection
+  - theology_authority
+  - dad_write_into_logos

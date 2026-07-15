@@ -1,0 +1,81 @@
+---
+object_type: scripture_first_biblical_chunking_pilot_suite
+schema_version: scripture_first_biblical_chunking_pilot_suite.v1
+pilot_suite_id: scripture-first-biblical-chunking-controlled-pilots-v1
+family_id: scripture-first-biblical-chunking
+lifecycle_status: candidate
+trust_zone: candidate
+execution_status: not_run
+mode: candidate_packets_only
+changes_chunk_output: false
+changes_reviewed_gold: false
+
+reviewed_invariants:
+  - case_id: psalm_78
+    passage: Ps.78
+    expected_outcome: preserve_reviewed_behavior_candidate_identity
+    evidence_ref: eval/chunking_gold/per_form/psalms_gold_manifest.json
+  - case_id: psalm_105
+    passage: Ps.105
+    expected_outcome: preserve_reviewed_behavior_candidate_identity
+    evidence_ref: eval/chunking_gold/per_form/psalms_gold_manifest.json
+  - case_id: psalm_106
+    passage: Ps.106
+    expected_outcome: preserve_reviewed_behavior_candidate_identity
+    evidence_ref: eval/chunking_gold/per_form/psalms_gold_manifest.json
+  - case_id: psalm_119
+    passage: Ps.119
+    expected_outcome: preserve_reviewed_acrostic_behavior_candidate_identity
+    evidence_ref: eval/chunking_gold/per_form/psalms_gold_manifest.json
+  - case_id: ephesians_1_3_14
+    passage: Eph.1.3-Eph.1.14
+    expected_outcome: preserve_reviewed_parent_behavior_candidate_identity
+    evidence_ref: eval/chunking_gold/per_form/epistle_opening_gold_manifest.json
+
+ambiguity_holds:
+  - case_id: john_3
+    passage: John.3
+    expected_outcome: alternatives_plus_hold_for_owner
+    required_risks: [speaker_boundary, wj_metadata, theological_ambiguity]
+    evidence_ref: .ai/control/wj_speaker_discourse_policy.yaml
+  - case_id: first_corinthians_8_10
+    passage: 1Cor.8.1-1Cor.10.33
+    expected_outcome: preserve_governed_parent_evidence_and_hold_unresolved_alternatives
+    required_risks: [dense_epistle_argument, textual_variant, theological_ambiguity]
+    evidence_ref: eval/chunking_gold/per_form/epistle_argument_gold_manifest.json
+
+breadth_cases:
+  - {case_id: genesis_5, passage: Gen.5, expected_primary_pack: scripture_first_genealogy_list_specialist}
+  - {case_id: leviticus_19, passage: Lev.19, expected_primary_pack: scripture_first_law_covenant_specialist}
+  - {case_id: jonah_1, passage: Jonah.1, expected_primary_pack: scripture_first_narrative_scene_specialist}
+  - {case_id: job_dialogue, passage: Job.3-Job.31, expected_primary_pack: scripture_first_wisdom_dialogue_specialist}
+  - {case_id: isaiah_6, passage: Isa.6, expected_primary_pack: scripture_first_prophetic_specialist}
+  - {case_id: matthew_13, passage: Matt.13, expected_primary_pack: scripture_first_gospel_specialist}
+  - {case_id: acts_2, passage: Acts.2, expected_primary_pack: scripture_first_acts_specialist}
+  - {case_id: revelation_1, passage: Rev.1, expected_primary_pack: scripture_first_apocalyptic_specialist}
+
+whole_bible_shadow_trial:
+  scope_ref: config/canon/canonical_66_books.yaml
+  status: not_run
+  candidate_only: true
+  required_metrics:
+    - passage_coverage
+    - specialist_activation_counts
+    - hold_counts_and_reasons
+    - writer_checker_disagreements
+    - evidence_class_usage
+    - cross_form_rule_leakage
+    - regression_risk
+  acceptance_conditions:
+    - every_in_scope_passage_accounted_for
+    - no_noncanonical_record_in_default_scope
+    - no_candidate_activated_automatically
+    - no_chunk_output_changed
+
+pilot_gate:
+  passing_reviewed_cases_must_preserve_approved_behavior: true
+  unresolved_cases_must_retain_alternatives: true
+  theological_ambiguity_must_hold: true
+  non_target_identity_required: true
+  release_eligibility_before_run: false
+

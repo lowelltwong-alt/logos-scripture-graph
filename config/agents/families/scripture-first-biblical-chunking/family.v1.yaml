@@ -1,0 +1,97 @@
+---
+schema_version: scripture_first_biblical_chunking_family.v1
+family_id: scripture-first-biblical-chunking
+family_version: 1.0.0
+lifecycle_status: candidate
+trust_zone: candidate
+authority:
+  owner: Lowell Wong
+  authority_sources:
+    - .ai/control/t468_owner_faithful_chunking_policy.yaml
+    - .ai/control/contextual_reading_policy.yaml
+    - .ai/control/chunking_agent_preflight.yaml
+    - config/governance/repository_link_contract.yaml
+  canonical_scope:
+    profile_id: canonical_66_book_scope
+    source_path: config/canon/canonical_66_books.yaml
+    book_count: 66
+    fail_closed_on_noncanonical: true
+  local_source_of_truth: Logos
+  portable_adaptation:
+    owner: DAD
+    metadata_only: true
+    hash_linked: true
+    may_override_logos: false
+constitution:
+  first_principle: Scripture interprets Scripture
+  evidence_precedence:
+    - rank: 1
+      evidence_class: exact_canonical_text_and_structural_markers
+      boundary_use: primary
+    - rank: 2
+      evidence_class: immediate_discourse_paragraph_chapter_and_whole_book_context
+      boundary_use: contextual
+    - rank: 3
+      evidence_class: explicit_quotations_parallel_accounts_and_clear_authorial_callbacks
+      boundary_use: corroborating
+    - rank: 4
+      evidence_class: strong_repeated_formulations_or_lexical_syntactic_echoes
+      boundary_use: supporting_only
+    - rank: 5
+      evidence_class: thematic_similarity
+      boundary_use: candidate_only
+  first_pass_prohibited_inputs:
+    - commentary
+    - creed
+    - systematic_theology
+    - denominational_outline
+    - modern_heading
+    - historical_reconstruction
+  external_context_lane:
+    separate_packet_required: true
+    verified_only: true
+    may_authorize_boundary: false
+  non_authorizations:
+    - chunk_output
+    - reviewed_gold_promotion
+    - graph_truth
+    - retrieval_truth
+    - preferred_reading
+    - source_tradition_preference
+    - canon_scope_change
+    - doctrine_selection
+    - theology_authority
+execution_limits:
+  delegation_depth: 1
+  max_active_domain_specialists: 3
+  one_writer: true
+  distinct_checker: true
+  self_approval_allowed: false
+
+campaign_foundation:
+  parent_units_first: true
+  child_boundary_default: no_children
+  child_boundary_requires_existing_parent: true
+  children_must_remain_within_parent_and_lane: true
+  model_majority_is_truth: false
+  historical_model_maps:
+    authority: evidence_only_no_vote
+    mechanical_outliers: [M1, M5]
+  cross_packet_runtime_validation_owner: T512
+  reviewed_gold_role: comparison_and_conflict_hold_only
+  display_identity_authority: none
+constituents:
+  roles: config/agents/families/scripture-first-biblical-chunking/role_profiles.v1.yaml
+  knowledge_manifest: config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+  routing_policy: config/agents/families/scripture-first-biblical-chunking/routing_policy.v1.yaml
+  pilot_suite: config/agents/families/scripture-first-biblical-chunking/pilot_suite.v1.yaml
+  release: config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+lifecycle:
+  foundational_behavior_change: false
+  pilot_mode: candidate_only
+  shadow_mode: candidate_only
+  activation_requires_separate_owner_task: true
+  dad_publication_gate:
+    framework_merged: false
+    portfolio_drift_reconciled: false
+    publication_authorized: false

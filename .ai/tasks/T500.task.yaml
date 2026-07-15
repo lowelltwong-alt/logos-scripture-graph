@@ -1,0 +1,92 @@
+id: T500
+phase: phase_4
+title: Scripture-first biblical chunking expert family
+mode: architecture_and_tooling
+status: complete_foundation_pilots_held
+owner: Lowell Wong
+branch: codex/t500-scripture-first-biblical-chunking-family
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T500.task.yaml
+    - .ai/handoffs/T500/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/context/agent_work/T500/
+    - ROADMAP_STATE.yaml
+    - .ai/control/roadmap_events.jsonl
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/T500_SCRIPTURE_FIRST_BIBLICAL_CHUNKING_FAMILY.md
+    - config/agents/agent_roles.yaml
+    - config/agents/families/
+    - schemas/scripture-first-biblical-chunking-family.schema.json
+    - schemas/biblical-chunking-knowledge-manifest.schema.json
+    - schemas/biblical-chunking-packet.schema.json
+    - schemas/biblical-chunking-family-release.schema.json
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
+    - scripts/validate_scripture_first_biblical_chunking_family.py
+    - scripts/validate_all.py
+    - tests/test_scripture_first_biblical_chunking_family.py
+    - tests/fixtures/scripture_first_biblical_chunking_family/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - eval/chunking_gold/
+    - pipelines/chunking/
+    - config/chunking/
+    - config/governance/
+    - .ai/control/MASTER_CONTEXT.md
+    - .github/
+authorization:
+  owner_decision: T468 / CD-107
+  governing_principle: Let the Bible interpret the Bible wherever reasonably possible while preserving coherent literary and discourse units and deferring hot zones to transparent specialist packets.
+  additive_candidate_family_only: true
+  chunk_output_change_authorized: false
+  gold_promotion_authorized: false
+  graph_retrieval_or_index_truth_change_authorized: false
+  preferred_reading_or_theology_authority_change_authorized: false
+  canonical_scope_change_authorized: false
+  dad_publication_authorized: false
+reserved_workstream_block:
+  collision_check_date: '2026-07-15'
+  range_start: T500
+  range_end: T510
+  reservation_policy: stable_ids_reserved_here; create a standalone task record only when its separately gated execution lane opens
+  mappings:
+    BCF-01: T500
+    BCF-02: T501
+    BCF-03: T502
+    BCF-04: T503
+    BCF-05: T504
+    BCF-06: T505
+    BCF-07: T506
+    BCF-08: T507
+    BCF-09: T508
+    BCF-10: T509
+    BCF-11: T510
+runtime_language_preflight:
+  task_id: T500
+  touched_paths:
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
+    - scripts/validate_scripture_first_biblical_chunking_family.py
+    - scripts/validate_all.py
+    - tests/test_scripture_first_biblical_chunking_family.py
+  expected_input_size_or_record_count: Versioned YAML and JSON control-plane records plus deterministic canonical-book and literary-form fixtures.
+  expected_runtime_or_memory_pressure: Small bounded metadata scans expected to complete in seconds; no Scripture corpus payload processing or model inference.
+  rust_trigger_match:
+    - deterministic_metadata_scan
+    - whole_corpus_record_scan
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: No repeated high-volume loop, native dependency pressure, or hot-path runtime is introduced; Python matches existing validators.
+  interop_boundary: Python reads repository YAML and JSON metadata and emits deterministic JSON catalogs and validation reports.
+  python_fallback_or_wrapper_plan: Python is the authoritative reference implementation for this candidate-only control plane.
+  validation_plan: Schema negative fixtures, deterministic catalog checks, focused pytest, task-scope validation, aggregate validation, full pytest, and forced handoff validation.
+  maintenance_tradeoffs: Dependency-light scripts preserve repository conventions and make authority failures inspectable; runtime optimization is deferred until measured.
+handoff_required: .ai/handoffs/T500/handoff.md
+created_at: '2026-07-15'
+updated_at: '2026-07-15'
