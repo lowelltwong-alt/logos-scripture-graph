@@ -1,0 +1,49 @@
+{
+  "schema": "portable_ocr_config.v1",
+  "policy": {
+    "third_engine_mode": "on_critical_or_threshold",
+    "third_engine_disagreement_threshold": 0.08,
+    "review_agreements": true
+  },
+  "engines": [
+    {
+      "engine_id": "windows-media-ocr@pinned-build",
+      "engine_family": "windows-media-ocr",
+      "model_id": "approved-language-pack@pinned-build",
+      "model_evidence_path": "C:/absolute/path/model-evidence.json",
+      "model_sha256": "REPLACE_WITH_64_HEX",
+      "runtime_id": "windows-powershell@pinned-hash",
+      "adapter": "windows_media",
+      "enabled": false,
+      "executable": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "executable_sha256": "REPLACE_WITH_64_HEX",
+      "helper_sha256": "RECOMPUTE_AFTER_INSTALL",
+      "language": "en-US"
+    },
+    {
+      "engine_id": "tesseract@pinned-version",
+      "engine_family": "tesseract",
+      "model_id": "approved-traineddata@pinned-hash",
+      "model_path": "C:/absolute/path/approved.traineddata",
+      "model_sha256": "REPLACE_WITH_64_HEX",
+      "runtime_id": "tesseract-cli@pinned-hash",
+      "adapter": "tesseract_cli",
+      "enabled": false,
+      "executable": "C:/absolute/path/tesseract.exe",
+      "executable_sha256": "REPLACE_WITH_64_HEX",
+      "language": "eng+grc+heb"
+    },
+    {
+      "engine_id": "engine-c@pinned-version",
+      "engine_family": "REQUIRED_DISTINCT_FAMILY",
+      "model_id": "REQUIRED_PINNED_MODEL",
+      "model_path": "C:/absolute/path/model.bin",
+      "model_sha256": "REPLACE_WITH_64_HEX",
+      "runtime_id": "command-json@pinned-hash",
+      "adapter": "command_json",
+      "enabled": false,
+      "command": ["C:/absolute/path/engine-c.exe", "--json", "{input}"],
+      "executable_sha256": "REPLACE_WITH_64_HEX"
+    }
+  ]
+}

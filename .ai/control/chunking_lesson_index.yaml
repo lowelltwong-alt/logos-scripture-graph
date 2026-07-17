@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T486
+last_updated_by_task: T513
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2824,7 +2824,59 @@ lessons:
       - tests/test_scripture_first_biblical_chunking_family.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-068
+    title: Portable OCR requires revalidated evidence chains, script-aware critical deltas, and dormant-gate tests
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, original_language, source_metadata]
+    tags: [t513, portable-ocr, hash-chain, unicode, diacritics, punctuation, dormant-controls, fail-closed, independent-check]
+    use_when:
+      - "A task builds, ports, reviews, or activates OCR evidence, human-review artifacts, an OCR benchmark, or an OCR-to-Scripture admission boundary."
+      - "A policy is currently disabled but could later grant payload, execution, source, graph, retrieval, or promotion access when feature flags change."
+    preflight_stage: before_ocr_tool_or_admission_change
+    source_surfaces:
+      - docs/roadmap/T513_PORTABLE_OCR_RESEARCH_ADOPTION.md
+      - .ai/control/t513_portable_ocr_adoption.yaml
+      - tools/portable_ocr/src/portable_ocr/contracts.py
+      - tools/portable_ocr/src/portable_ocr/comparison.py
+      - pipelines/ingest/portable_ocr_adapter.py
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T513]
+    downstream_risk: "Mutable OCR snapshots or candidate text can bypass review integrity; document-wide mark counting can miss accents or niqqud moved to another base; disabled booleans can hide incomplete rights, hash, revision, engine-diversity, and execution-boundary controls until activation."
+    required_preflight_surfaces:
+      - .ai/control/t513_portable_ocr_adoption.yaml
+      - docs/roadmap/T513_PORTABLE_OCR_RESEARCH_ADOPTION.md
+      - .ai/control/chunking_lesson_index.yaml
+    required_pattern:
+      - recompute_source_candidate_and_comparison_hash_chain_before_review_and_handoff
+      - preserve_unicode_base_to_combining_mark_association
+      - route_high_consequence_punctuation_and_diacritic_disagreements_independent_of_document_average
+      - test_disabled_controls_under_simulated_future_activation
+      - keep_preliminary_metadata_plan_payload_and_execution_authority_false
+      - require_structured_rights_revision_hash_and_independent_engine_evidence_at_execution_boundary
+    non_authorizations:
+      - ocr_agreement_as_source_truth
+      - benchmark_pass_as_biblical_manuscript_fitness
+      - feature_flag_as_rights_or_execution_authority
+      - ocr_text_as_scripture_graph_truth
+      - training_from_benchmark_or_review_corrections
+    validators:
+      - scripts/validate_t513_portable_ocr_adoption.py
+      - tests/test_t513_portable_ocr_adoption.py
+      - tools/portable_ocr/tests/test_portable_ocr.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-068
+  - from: LSN-004
+    relation: constrains
+    to: LSN-068
+  - from: LSN-068
+    relation: audits
+    to: LSN-010
   - from: LSN-002
     relation: governs_update_of
     to: LSN-001

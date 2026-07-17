@@ -1,8 +1,15 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-15
-**Updated by:** T500 Scripture-first biblical chunking expert family
+**Last updated:** 2026-07-16
+**Updated by:** T513 portable OCR research adoption (candidate-only; does not displace current focus)
 **Active task:** -> **T500 COMPLETE_FOUNDATION / PILOTS_HELD** on `codex/t500-scripture-first-biblical-chunking-family`. The additive candidate control plane passed independent review and focused validation. Exegetical pilots, boundary shadow execution, DAD publication, and activation remain held. No chunk, gold, route, evaluator, graph, retrieval, reading, canon, or theology authority changes.
+
+> **T513 portable OCR research adoption (2026-07-16):** Adds a candidate-only,
+> domain-neutral OCR comparison/review tool and a metadata-only Logos admission planner. InduOCR is
+> registered only as a disabled, externally provisioned generic stress benchmark because its data
+> license is unresolved and it does not establish Greek/Hebrew/Aramaic/Latin or biblical-manuscript
+> fitness. No benchmark/manuscript payload, OCR execution, training, graph/retrieval/vector write,
+> preferred reading, or theology authority is authorized. T475 remains the current focus.
 
 > **T500 Scripture-first biblical chunking family (2026-07-15):** Adds four strict contracts,
 > seven control roles, eight named campaign roles, three observers, fourteen specialist packs, deterministic routing for all

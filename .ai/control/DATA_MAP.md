@@ -318,6 +318,17 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 
 ## Pipeline + validation endpoints (inputs -> outputs)
 
+### `pipelines/ingest/portable_ocr_adapter.py`
+
+- **Role:** T513 metadata-only admission planner for candidate portable OCR; no payload reads or Scripture writes
+- **Inputs:**
+  - `rights/provenance/hash admission metadata`
+  - `LOGOS_EXTERNAL_ASSET_ROOT outside Git and OneDrive`
+  - `.ai/control/t513_portable_ocr_adoption.yaml`
+- **Outputs:**
+  - `in-memory OcrExecutionPlan for an independently authorized external run`
+  - `no Scripture, graph, retrieval, vector, or tracked payload output`
+
 ### `pipelines/ingest/usfm_importer.py`
 
 - **Role:** USFM ingest (raw zip -> canonical + processed); emits canon_profiles

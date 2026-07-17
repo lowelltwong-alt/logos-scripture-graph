@@ -1,0 +1,102 @@
+version: 1
+task_id: T513
+status: complete_candidate_foundation_only
+purpose: Adopt a domain-neutral OCR comparison and human-review tool without granting it Scripture authority.
+
+authority:
+  portable_tool_activation_authorized: false
+  synthetic_fixture_validation_authorized: true
+  induocr_download_authorized: false
+  induocr_execution_authorized: false
+  induocr_training_authorized: false
+  manuscript_ocr_execution_authorized: false
+  scripture_truth_promotion_authorized: false
+  graph_retrieval_or_vector_truth_change_authorized: false
+  human_review_required_before_any_future_promotion: true
+
+storage:
+  environment_variable: LOGOS_EXTERNAL_ASSET_ROOT
+  payload_must_be_outside_repo: true
+  payload_must_be_outside_onedrive: true
+  tracked_payloads_prohibited: true
+  results_import: metadata_and_aggregate_scores_only
+
+portable_core:
+  path: tools/portable_ocr
+  import_name: portable_ocr
+  provider_neutral: true
+  engine_policy: capability_and_revision_pinned
+  minimum_independent_engines: 2
+  optional_tiebreaker_engine: true
+  candidate_source:
+    project: Albert modular OCR system
+    branch: codex/modular-ocr-system
+    path: ocr_system
+    commit_pinned: false
+    provenance_rule: content_hash_manifest_required
+
+logos_adapter:
+  path: pipelines/ingest/portable_ocr_adapter.py
+  role: metadata_only_admission_and_execution_plan
+  reads_payload: false
+  writes_scripture_graph: false
+  permitted_use_classes:
+    - synthetic_fixture
+    - external_benchmark
+    - authorized_public_research_source
+
+benchmarks:
+  induocr:
+    enabled: false
+    role: generic_distribution_shift_stress_benchmark_only
+    official_repository: https://github.com/Qihoo360/InduOCRBench
+    paper: https://aclanthology.org/2026.acl-industry.60/
+    dataset: https://huggingface.co/datasets/qihoo360/InduOCRBench
+    pinned_huggingface_revision: 7eddc1dfff5802cd8c087ea39a70500831604f81
+    evaluator_repository: https://github.com/opendatalab/OmniDocBench
+    license_status: unresolved_no_repository_license_file
+    download_mode: never_automatic
+    payload_location: external_only
+    full_rag_track_enabled: false
+    training_use: prohibited
+    scripture_truth_use: prohibited
+    content_import: prohibited
+    expected_compressed_size_bytes_approx: 811000000
+    limitations:
+      - no_demonstrated_greek_hebrew_aramaic_or_latin_coverage
+      - no_demonstrated_diacritic_ligature_marginalia_or_critical_apparatus_fitness
+      - no_verse_alignment_or_scripture_graph_evaluation
+      - no_per_document_rights_metadata_confirmed
+      - no_stable_release_or_official_induocr_evaluator_code_confirmed
+    staged_gate:
+      - rights_and_license_decision
+      - externally_provisioned_hash_verified_dataset
+      - category_stratified_tiny_smoke
+      - independent_score_review
+      - separately_authorized_full_battery
+
+domain_evaluation:
+  authorized_public_domain_or_licensed_gold_required: true
+  benchmark_must_be_separate_from_training_and_tuning: true
+  required_future_features:
+    - greek_hebrew_aramaic_and_latin_scripts
+    - accents_vowels_cantillation_and_diacritics
+    - ligatures_abbreviations_and_nomina_sacra
+    - marginalia_footnotes_and_critical_apparatus
+    - verse_line_and_page_anchor_preservation
+    - columns_reading_order_and_cross_page_continuity
+  deterministic_metrics:
+    - exact_span_preservation
+    - punctuation_and_diacritic_error_rate
+    - character_and_word_error_rate_by_script
+    - reading_order_and_layout_preservation
+    - verse_and_graph_anchor_resolution
+    - retrieval_recall_at_k_mrr_and_ndcg
+
+release_gate:
+  require_content_hash_provenance: true
+  require_synthetic_contract_tests: true
+  require_independent_checker: true
+  require_revision_bound_engine_evidence: true
+  require_separate_source_rights_decision: true
+  fail_closed_on_missing_or_changed_hash: true
