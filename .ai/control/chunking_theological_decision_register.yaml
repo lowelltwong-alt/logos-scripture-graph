@@ -5335,6 +5335,50 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-122
+    title: T513 portable OCR remains a non-authorizing research tool boundary
+    classification: non_authorizing_review
+    task_ids: [T513]
+    owner_decision_ref: ".ai/control/t513_portable_ocr_adoption.yaml"
+    pr_refs: ["PR-185"]
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [portable_ocr_research_candidate, metadata_only_admission_planning]
+      surfaces:
+        - .ai/control/t513_portable_ocr_adoption.yaml
+        - docs/roadmap/T513_PORTABLE_OCR_RESEARCH_ADOPTION.md
+        - tools/portable_ocr/
+        - pipelines/ingest/portable_ocr_adapter.py
+    decision: "T513 adds a disabled, candidate-only portable OCR comparison and human-review tool plus a metadata-only Logos admission planner. It does not authorize benchmark or manuscript acquisition, OCR execution against Scripture sources, source-text admission, training, or promotion into canonical Scripture, chunks, reviewed gold, graph, retrieval, vectors, preferred readings, or theology."
+    downstream_risk: "A portable OCR engine, two-engine agreement, benchmark score, review artifact, or future feature flag could be mistaken for accurate Scripture text, manuscript fitness, source rights, or permission to alter downstream truth-bearing products."
+    theological_assumptions_avoided:
+      - "OCR agreement and benchmark performance do not establish a preferred reading, source tradition, or canonical text."
+      - "OCR output does not establish Scripture interpretation, chunk boundaries, graph edges, retrieval truth, or theology."
+      - "Research tooling and metadata planning do not override source rights or human review gates."
+    reviewed_gold_dependency: "None. T513 creates no reviewed gold, Scripture text, chunk, route, evaluator, graph, retrieval, vector, or output change. Any future use requires a separate rights-cleared, owner-authorized task and domain-gold evaluation."
+    non_authorizations:
+      - manuscript_or_benchmark_download
+      - ocr_execution_against_scripture_sources
+      - ocr_training_or_model_promotion
+      - canonical_scripture_or_source_text_change
+      - preferred_reading_or_source_tradition
+      - reviewed_gold_change_or_promotion
+      - chunk_output_or_child_span_change
+      - route_or_evaluator_behavior_change
+      - graph_retrieval_vector_truth
+      - canon_scope_change
+      - doctrine_or_theology_authority
+      - embeddings_or_indexes
+    validators:
+      - scripts/validate_t513_portable_ocr_adoption.py
+      - tests/test_t513_portable_ocr_adoption.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330]

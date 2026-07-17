@@ -120,6 +120,26 @@ externally provisioned category-stratified smoke. In parallel, design the
 rights-cleared biblical-manuscript domain-gold set; passing InduOCR alone is
 never sufficient.
 
+## PR #185 CI dependency repair
+
+- Added decision-register record `CD-122`, which records T513 as a
+  non-authorizing OCR research-tool boundary and expressly denies Scripture,
+  chunk, reviewed-gold, graph, retrieval, vector, preferred-reading, and
+  theology authority.
+- Linked `LSN-068` to `CD-122` and refreshed only the T500 knowledge-manifest,
+  release hash, and three deterministic payload-free generated artifacts whose
+  declared hashes depend on the changed lesson or decision registers.
+- Expanded T513 scope only for those exact declared dependency surfaces. The
+  canonical builder reported five outputs written, but the pilot and whole-
+  Bible shadow reports remained byte-identical; only the knowledge catalog,
+  reverse dependencies, and DAD adaptation candidate changed.
+- Focused validation passed: theological decision register (with the complete
+  uncommitted changed-path list supplied explicitly), Scripture-first family,
+  T513 adoption, T513 task scope, lesson index, generated-catalog check, and
+  `git diff --check`.
+- No Scripture data, source/manuscript payload, chunk output, graph, retrieval,
+  vector, preferred reading, canon scope, or theology authority changed.
+
 ---
 
 ## Handoff refresh: start
