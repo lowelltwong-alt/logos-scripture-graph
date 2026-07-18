@@ -1,0 +1,78 @@
+id: T514
+phase: phase_5
+title: "Record and preflight approved private external asset root"
+mode: governance
+status: complete_local_unpublished
+owner: Lowell Wong
+branch: codex/t514-external-root-approval
+base_ref: origin/main
+summary: "Record Lowell's exact private quarantine root C:\\LogosExternal and run the existing storage-only preflight without authorizing or performing acquisition or downstream processing."
+scope:
+  allowed_paths:
+    - .ai/tasks/T514.task.yaml
+    - .ai/handoffs/T514/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - data/candidate/source_catalog/primary_bible_witnesses/external_asset_root_owner_authorization.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/external_asset_root_validation_report.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/pre_download_readiness.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/storage_ledger.yaml
+    - data/candidate/source_catalog/primary_bible_witnesses/wave1/codex_sinaiticus_xml_rights_decision_packet.yaml
+    - scripts/validate_external_asset_root.py
+    - scripts/validate_pre_download_readiness.py
+    - tests/test_external_asset_root.py
+    - tests/test_pre_download_readiness.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/
+    - config/retrieval/
+    - registry/
+    - eval/
+    - .github/workflows/
+authorization:
+  owner_approval_id: LOGOS-EXTERNAL-ROOT-2026-07-18
+  exact_private_quarantine_root: 'C:\LogosExternal'
+  records_path: true
+  preflights_path: true
+  persists_environment_variable: false
+  creates_or_changes_root_contents: false
+  downloads_sources: false
+  runs_ocr: false
+  ingests_sources: false
+  creates_embeddings_or_indexes: false
+  publishes_or_releases: false
+  sends_email: false
+  changes_canon_source_tradition_or_theology_authority: false
+runtime_language_preflight:
+  task_id: T514
+  touched_paths:
+    - scripts/validate_external_asset_root.py
+    - scripts/validate_pre_download_readiness.py
+    - tests/test_external_asset_root.py
+    - tests/test_pre_download_readiness.py
+  expected_input_size_or_record_count: "Two small governance YAML records and one local directory metadata preflight."
+  expected_runtime_or_memory_pressure: "Under one second and negligible memory."
+  rust_trigger_match:
+    - none_small_semantic_governance_validator
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "The existing Python validators perform a handful of YAML, path, and disk-usage checks; a Rust path would add maintenance without measurable benefit."
+  interop_boundary: "Python reads governance YAML and local filesystem metadata only."
+  python_fallback_or_wrapper_plan: "Retain the existing direct Python CLIs and APIs."
+  validation_plan: "Run the storage preflight with --path and --write-report, focused tests, task-scope and handoff checks, validate_all, and full pytest."
+  maintenance_tradeoffs: "A separate authorization record keeps human authority durable while the generated report remains refreshable."
+acceptance_criteria:
+  - "The exact approved root C:\\LogosExternal is recorded with Lowell as authority and the approval date."
+  - "The root passes existence, writability, placement, non-temp, and 50 GiB free-space checks without changing root contents."
+  - "The report and readiness controls explicitly keep downloads, OCR, ingest, embeddings, publication, email, release, canon/source-tradition selection, and theology authority unauthorized."
+  - "The environment variable is not persisted by this task."
+  - "Focused and required repository validation results are recorded in the T514 handoff."
+required_handoff: .ai/handoffs/T514/handoff.md
+created_at: "2026-07-18"
+updated_at: "2026-07-18"

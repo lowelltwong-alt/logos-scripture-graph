@@ -1,7 +1,14 @@
 object_type: primary_witness_pre_download_readiness
 task_id: T484
-status: ready_for_storage_and_rights_gates_only
+status: external_root_approved_preflight_pending_or_passed_acquisition_still_blocked
 binary_acquisition_authorized: false
+external_root_gate:
+  owner_approval_id: LOGOS-EXTERNAL-ROOT-2026-07-18
+  exact_private_quarantine_root: 'C:\LogosExternal'
+  authorized_actions: [record_exact_path, preflight_exact_path]
+  environment_variable_persisted: false
+  preflight_report: external_asset_root_validation_report.yaml
+  download_authorized: false
 global_prerequisites:
   - LOGOS_EXTERNAL_ASSET_ROOT exists outside Git, OneDrive, workspace, and temp paths
   - external root has at least 50 GB free
@@ -53,4 +60,4 @@ waves:
       - {source_id: leiden_peshitta_electronic, gate: subscription_or_permission_terms}
       - {source_id: samaritan_pentateuch_manchester, gate: noncommercial_quarantine_profile}
       - {source_id: sahidic_coptic_old_testament, gate: share_alike_and_boundary_route_profile}
-non_authorizations: [download_now, source_text_import, OCR_now, embeddings, vector_indexes, graph_truth, preferred_readings, theology_authority]
+non_authorizations: [download_now, source_text_import, OCR_now, embeddings, vector_indexes, graph_truth, preferred_readings, theology_authority, publication, email, release]

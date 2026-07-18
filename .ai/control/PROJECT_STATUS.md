@@ -1,7 +1,7 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-15
-**Updated by:** T500 Scripture-first biblical chunking expert family
+**Last updated:** 2026-07-18
+**Updated by:** T514 approved external asset root record and preflight
 **Active task:** -> **T500 COMPLETE_FOUNDATION / PILOTS_HELD** on `codex/t500-scripture-first-biblical-chunking-family`. The additive candidate control plane passed independent review and focused validation. Exegetical pilots, boundary shadow execution, DAD publication, and activation remain held. No chunk, gold, route, evaluator, graph, retrieval, reading, canon, or theology authority changes.
 
 > **T500 Scripture-first biblical chunking family (2026-07-15):** Adds four strict contracts,
@@ -1940,3 +1940,9 @@ manifest ✓ | JSONL 864,904 ✓ | pytest 5/5 ✓ | chunker ✗
 ## Update rules
 
 When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml → current_focus.yaml → roadmap_events.jsonl
+
+---
+
+## T514 approved external asset root (2026-07-18)
+
+Lowell's exact private quarantine root `C:\LogosExternal` is recorded and passed the storage-only preflight with more than 50 GiB free. The environment variable was not persisted and the root contents were not changed. Downloads, OCR, ingest, embeddings/vector indexes, publication, email, release, canon/source-tradition decisions, and theology/interpretation authority remain unauthorized. The local T514 branch is unpublished and unmerged.
