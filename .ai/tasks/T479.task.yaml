@@ -1,0 +1,53 @@
+id: T479
+phase: phase_5
+title: "Leipzig Codex Sinaiticus NAS IIIF Acquisition And Witness Metadata Catalog"
+mode: build
+status: complete_verified
+owner: cursor
+branch: codex/t479-leipzig-sinaiticus-acquisition
+base_ref: e8c5c1646963de168cee232f23104353466013b3
+summary: "Governed resumable acquisition of Leipzig-held Codex Sinaiticus full-resolution IIIF images to NAS Z:, plus rights-gated metadata catalog for tracked manuscript witnesses."
+scope:
+  allowed_paths:
+    - .ai/tasks/T479.task.yaml
+    - .ai/handoffs/T479/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/T479_rights_ledger_mirror.yaml
+    - scripts/acquisition/
+    - scripts/acquisition/config/
+    - tests/test_iiif_acquisition.py
+    - .ai/control/chunking_theological_decision_register.yaml
+    - docs/roadmap/T479_LEIPZIG_SINAITICUS_NAS_ACQUISITION.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  approved_by: Lowell Wong
+  approved_instruction: "Execute T478 Cursor prompt for Leipzig IIIF acquisition and witness metadata catalog into Z: NAS."
+  leipzig_image_acquisition: true
+  other_image_acquisition_requires_rights_gate: true
+  ocr_or_transcription_authorized: false
+  embeddings_or_vectorization_authorized: false
+  release_or_publication_authorized: false
+nas_storage:
+  root: "Z:/01-Projects/Logos"
+  task_staging: "Z:/01-Projects/Logos/staging/T479"
+  source_originals: "Z:/01-Projects/Logos/source-originals/manuscript-witnesses/greek_codices/codex_sinaiticus/leipzig/0000061851"
+acceptance_criteria:
+  - "Z: maps to \\\\UNAS-Pro\\AI.Workspace with 500 GiB reserve after transfer."
+  - "All 172 Leipzig capture variants acquired or accounted for in residual_report."
+  - "rights_ledger.yaml and codex_catalog.jsonl exist for tracked witnesses."
+  - "No image binaries under Git worktree or local data/raw."
+validations:
+  - python scripts/validate_task_scope.py --task-id T479
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q tests/test_iiif_acquisition.py
+handoff_required: .ai/handoffs/T479/handoff.md
+created_at: "2026-07-18"
+updated_at: "2026-07-18"
