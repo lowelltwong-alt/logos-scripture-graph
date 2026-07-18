@@ -92,3 +92,35 @@ Review and publish T514 only under separate authorization. Do not persist `LOGOS
 - mode: governance
 - updated_at: 2026-07-18T04:58:42+00:00
 - handoff_id: 9f29020b369b7715
+
+---
+
+## CI repair refresh
+
+- The first PR #186 validation run failed only at `DATA_MAP freshness (post-ingest)` because the new `external_asset_root_owner_authorization.yaml` was not mapped; the generated map reported 223 files versus the committed 222.
+- Added `.ai/control/DATA_MAP.md` to T514's declared scope and regenerated it deterministically. `python scripts/generate_data_map.py --check` now passes.
+- No source, canonical, processed, or external-root content was changed. The existing storage-only and acquisition-blocking boundaries remain unchanged.
+- Exact next action: commit this CI repair, push the new head, and re-read PR #186 checks/review state before any merge attempt.
+
+---
+
+## Handoff refresh: update
+
+- agent_name: Codex
+- mode: governance
+- updated_at: 2026-07-18T05:15:18+00:00
+- handoff_id: 13d351ac61955a1e
+
+## CI repair final note
+
+- The committed DATA_MAP repair intentionally preserves the generated canonical/processed rows and changes only the mapped-file total from 222 to 223 plus the new authorization row, matching the CI failure diff.
+- A fresh-worktree `generate_data_map.py --check` cannot independently verify those generated rows because this worktree lacks the ignored canonical sidecars; CI regenerates them before its freshness check. No sidecars were generated locally.
+
+---
+
+## Handoff refresh: update
+
+- agent_name: Codex
+- mode: governance
+- updated_at: 2026-07-18T05:18:55+00:00
+- handoff_id: 13d351ac61955a1e
