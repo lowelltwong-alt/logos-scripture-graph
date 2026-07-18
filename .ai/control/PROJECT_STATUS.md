@@ -1947,3 +1947,9 @@ manifest ✓ | JSONL 864,904 ✓ | pytest 5/5 ✓ | chunker ✗
 ## Update rules
 
 When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml → current_focus.yaml → roadmap_events.jsonl
+
+---
+
+## T514 approved external asset root (2026-07-18)
+
+Lowell's exact private quarantine root `C:\LogosExternal` is recorded and passed the storage-only preflight with more than 50 GiB free. The environment variable was not persisted and the root contents were not changed. Downloads, OCR, ingest, embeddings/vector indexes, publication, email, release, canon/source-tradition decisions, and theology/interpretation authority remain unauthorized. The T514 PR remains subject to normal review and branch protection.
