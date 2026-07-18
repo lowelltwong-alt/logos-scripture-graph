@@ -43,6 +43,8 @@ class AcquisitionConfig:
     request_delay_seconds: float = 0.5
     max_retries: int = 8
     user_agent: str = "LogosScriptureGraph-Acquisition/1.0"
+    required_nas_root_suffix: str = "01-Projects/Logos"
+    minimum_free_reserve_bytes: int = 500 * 1024**3
 
     @property
     def staging_root(self) -> Path:
@@ -69,12 +71,16 @@ class AcquisitionConfig:
         )
 
     @property
+    def workspace_root(self) -> Path:
+        return self.nas_root.parent.parent
+
+    @property
     def ops_manifest_root(self) -> Path:
-        return Path(f"Z:/08-AI-Operations/manifests/{self.task_id}")
+        return self.workspace_root / "08-AI-Operations" / "manifests" / self.task_id
 
     @property
     def ops_handoff_root(self) -> Path:
-        return Path(f"Z:/08-AI-Operations/handoffs/{self.task_id}")
+        return self.workspace_root / "08-AI-Operations" / "handoffs" / self.task_id
 
     @property
     def provenance_root(self) -> Path:
@@ -149,9 +155,19 @@ def load_yaml(path: Path) -> dict[str, Any]:
 
 def load_config(config_path: Path, task_id: str, nas_root: Path) -> AcquisitionConfig:
     raw = load_yaml(config_path)
+    nas_root = Path(nas_root)
+    required_suffix = str(raw.get("required_nas_root_suffix", "01-Projects/Logos"))
+    expected_parts = tuple(part.casefold() for part in Path(required_suffix).parts)
+    actual_parts = tuple(part.casefold() for part in nas_root.parts)
+    if len(actual_parts) < len(expected_parts) or actual_parts[-len(expected_parts) :] != expected_parts:
+        raise ValueError(
+            f"NAS root must end with {required_suffix!r}; received {str(nas_root)!r}"
+        )
+    if not nas_root.is_dir():
+        raise ValueError(f"NAS root does not exist or is not a directory: {nas_root}")
     return AcquisitionConfig(
         task_id=task_id,
-        nas_root=Path(nas_root),
+        nas_root=nas_root,
         source_id=str(raw["source_id"]),
         object_id=str(raw["object_id"]),
         manifest_url=str(raw["manifest_url"]),
@@ -164,6 +180,8 @@ def load_config(config_path: Path, task_id: str, nas_root: Path) -> AcquisitionC
         request_delay_seconds=float(raw.get("request_delay_seconds", 0.5)),
         max_retries=int(raw.get("max_retries", 8)),
         user_agent=str(raw.get("user_agent", "LogosScriptureGraph-Acquisition/1.0")),
+        required_nas_root_suffix=required_suffix,
+        minimum_free_reserve_bytes=int(raw.get("minimum_free_reserve_bytes", 500 * 1024**3)),
     )
 
 
@@ -177,6 +195,15 @@ def disk_free_bytes(path: Path) -> int:
     import shutil
 
     return int(shutil.disk_usage(str(path)).free)
+
+
+def ensure_storage_reserve(cfg: AcquisitionConfig) -> int:
+    free_bytes = disk_free_bytes(cfg.nas_root)
+    if free_bytes < cfg.minimum_free_reserve_bytes:
+        raise RuntimeError(
+            f"NAS free-space reserve breached: {free_bytes} < {cfg.minimum_free_reserve_bytes}"
+        )
+    return free_bytes
 
 
 def _label_value(label: Any) -> str:
@@ -513,6 +540,7 @@ class AcquisitionRunner:
             )
 
     def inventory(self) -> dict[str, Any]:
+        ensure_storage_reserve(self.cfg)
         ensure_dirs(
             self.cfg.staging_root,
             self.cfg.catalog_root,

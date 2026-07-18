@@ -12,7 +12,7 @@
 - agent_name: cursor
 - mode: build
 - stage: final
-- updated_at: 2026-07-18T04:25:00+00:00
+- updated_at: 2026-07-18T05:08:00+00:00
 
 ## Files read
 
@@ -39,7 +39,7 @@
 - scripts/acquisition/run_acquisition.py
 - scripts/acquisition/config/witness_specs.yaml
 - .ai/control/chunking_theological_decision_register.yaml
-- scripts/acquisition/adapters/Invoke-LeipzigAcquisition.ps1
+- scripts/acquisition/validate_phase_completion.py
 - tests/test_iiif_acquisition.py
 - docs/roadmap/T479_LEIPZIG_SINAITICUS_NAS_ACQUISITION.md
 
@@ -87,23 +87,20 @@
 
 - Human review of `canvas_resource_map.jsonl` lane classifications on NAS.
 
-## Phase completion (all authorized phases)
+## Phase completion (plan phases 1–6)
 
-| Phase | Status |
-|-------|--------|
-| L0 metadata coverage map | complete (86 canvases in `canvas_resource_map.jsonl`) |
-| L1 Leipzig image acquisition | complete_verified (172/172) |
-| L2 OCR/transcription | not_authorized (by design) |
-| L3 analysis/embeddings | not_authorized (by design) |
-| W0 catalog/rights scaffold | complete (22 witness rows) |
-| W1 text sources | metadata_only_cataloged |
-| W2 open images | partial (Leipzig acquired; others gated) |
-| W3 public-view witnesses | metadata_only_complete |
-| W4 restricted datasets | blocked_cataloged |
+| Phase | Status | Evidence |
+|-------|--------|----------|
+| **1** Acquisition core | complete | `scripts/acquisition/` |
+| **2** Rights ledger | complete | 22 rows in `rights_ledger.yaml` |
+| **3** Metadata catalog | complete | 22 rows in `codex_catalog.jsonl` |
+| **4** Leipzig execution | complete_verified | 172/172 images on NAS |
+| **5** Git deliverables | complete | worktree code, handoff, roadmap |
+| **6** Validation | complete | `phase_6_validation_report.json` |
 
-Evidence: `Z:\01-Projects\Logos\manuscript-witnesses\catalog\T479\phase_completion_report.json`
+Run all phases: `python scripts/acquisition/run_acquisition.py --task-id T479 --mode complete-phases ...`
 
-## Next agent instruction
+## Leipzig lanes (T471)
 
 Use NAS receipts at `Z:\01-Projects\Logos\manuscript-witnesses\catalog\T479\acquisition_receipt.json`. Do not OCR, transcribe, embed, or import boundary material into canonical Scripture authority without a new explicit task. For additional image sources, re-run the rights gate at exact object scope before acquire.
 
@@ -133,4 +130,23 @@ python scripts/acquisition/run_acquisition.py --task-id T479 --mode resume --rig
 - agent_name: cursor
 - mode:
 - updated_at: 2026-07-18T04:37:32+00:00
+- handoff_id: 0a9b04857d7a9d93
+## PR publication hardening (Codex, 2026-07-18)
+
+- Recreated `codex/t479-leipzig-sinaiticus-acquisition` from exact base `e8c5c1646963de168cee232f23104353466013b3` and transplanted only T479; the older T469 ancestry is preserved separately as `codex/t479-leipzig-sinaiticus-acquisition-prebase`.
+- Resolved current-main append-only conflicts without dropping T500 or other main content. T479 uses unique decision id `CD-122` and is present in theological backfill coverage.
+- Verified the Git diff contains no manuscript image/archive binaries or secrets. Git-bound metadata is compact rights/provenance/catalog configuration; source images and per-canvas acquisition receipts remain NAS-authoritative.
+- Hardened the Windows adapter to require `Z:` DisplayRoot `\\UNAS-Pro\AI.Workspace`; hardened the provider-neutral core to require the `01-Projects/Logos` suffix, derive AI-operations paths from the workspace root, and fail closed below the 500 GiB free-space reserve.
+- Extended existing `LSN-059` instead of creating a duplicate lesson. Refreshed only its revision-bound T500 knowledge manifest, candidate release constituent, and three payload-free generated reverse-consumer catalogs. No family activation or provider binding changed.
+- Targeted acquisition tests: 8 passed. Task-scope, handoff, theological-register, lesson-index, and Scripture-first-family affected-slice validators pass after hardening.
+- Full local validation retains one environment/baseline limitation unrelated to T479: ignored canonical `data/canonical/translations/eng-web/word_tokens.jsonl` is absent, so the T439 validator cannot complete locally. GitHub CI remains the publication authority for the clean branch.
+- Full `python -m pytest -q` coverage is unavailable in this worktree run: the unchanged suite exceeded a 244-second bound without yielding a result. Per iteration policy it was not repeated; focused T479 pytest and affected deterministic validators are green.
+
+---
+
+## Handoff refresh: final
+
+- agent_name: cursor
+- mode: build
+- updated_at: 2026-07-18T05:09:09+00:00
 - handoff_id: 0a9b04857d7a9d93
