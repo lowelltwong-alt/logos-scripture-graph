@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
 import sys
 from pathlib import Path
@@ -26,6 +27,14 @@ from scripts.acquisition.rights_catalog import (
     write_rights_ledger,
     write_storage_ledger,
 )
+
+
+def refresh_storage_ledger_free_after(path: Path, free_after: int) -> None:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"storage ledger must be a JSON object: {path}")
+    data["free_bytes_after"] = free_after
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -87,7 +96,7 @@ def main() -> int:
         ensure_collision_report(cfg.catalog_root)
         # Phase 4: verify acquisition state (no re-download if complete)
         status = runner.status()
-        if status.get("remaining", 0) > 0:
+        if status.get("remaining", 0) > 0 or status.get("failed", 0) > 0:
             runner.resume()
             status = runner.status()
         verify = runner.verify()
@@ -151,11 +160,7 @@ def main() -> int:
         result = runner.verify()
         ledger = cfg.catalog_root / "storage_ledger.json"
         if ledger.exists():
-            import yaml
-
-            data = yaml.safe_load(ledger.read_text(encoding="utf-8"))
-            data["free_bytes_after"] = disk_free_bytes(cfg.nas_root)
-            ledger.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
+            refresh_storage_ledger_free_after(ledger, disk_free_bytes(cfg.nas_root))
     else:
         raise SystemExit(f"unsupported mode {args.mode}")
 

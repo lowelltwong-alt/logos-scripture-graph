@@ -66,7 +66,7 @@
 - result: pass; DisplayRoot `\\UNAS-Pro\AI.Workspace`, ~7.4 TB free
 
 - command: python -m pytest -q tests/test_iiif_acquisition.py
-- result: pass (4 tests)
+- result: pass (13 tests)
 
 - command: python scripts/acquisition/run_acquisition.py --mode inventory
 - result: pass; 86 canvases, 172 resources
@@ -138,7 +138,9 @@ python scripts/acquisition/run_acquisition.py --task-id T479 --mode resume --rig
 - Verified the Git diff contains no manuscript image/archive binaries or secrets. Git-bound metadata is compact rights/provenance/catalog configuration; source images and per-canvas acquisition receipts remain NAS-authoritative.
 - Hardened the Windows adapter to require `Z:` DisplayRoot `\\UNAS-Pro\AI.Workspace`; hardened the provider-neutral core to require the `01-Projects/Logos` suffix, derive AI-operations paths from the workspace root, and fail closed below the 500 GiB free-space reserve.
 - Extended existing `LSN-059` instead of creating a duplicate lesson. Refreshed only its revision-bound T500 knowledge manifest, candidate release constituent, and three payload-free generated reverse-consumer catalogs. No family activation or provider binding changed.
-- Targeted acquisition tests: 8 passed. Task-scope, handoff, theological-register, lesson-index, and Scripture-first-family affected-slice validators pass after hardening.
+- Targeted acquisition tests: 13 passed. Task-scope, handoff, theological-register, lesson-index, and Scripture-first-family affected-slice validators pass after hardening.
+- Addressed all four automated review findings: verification now rehashes every recorded payload, failed resources remain retryable, successful retries clear stale failure records, and the PowerShell adapter resolves the repository root correctly. Actual NAS re-verification at 2026-07-18T05:39:54+00:00 passed 172/172 with zero integrity failures.
+- Corrected verify-mode storage-ledger refresh to preserve strict JSON instead of rewriting the `.json` artifact as YAML; added a regression test and routed the NAS repair through the existing governed ledger writer. The refreshed independent phase report passed all phases with zero errors and `complete_verified`.
 - Full local validation retains one environment/baseline limitation unrelated to T479: ignored canonical `data/canonical/translations/eng-web/word_tokens.jsonl` is absent, so the T439 validator cannot complete locally. GitHub CI remains the publication authority for the clean branch.
 - Full `python -m pytest -q` coverage is unavailable in this worktree run: the unchanged suite exceeded a 244-second bound without yielding a result. Per iteration policy it was not repeated; focused T479 pytest and affected deterministic validators are green.
 
@@ -150,3 +152,12 @@ python scripts/acquisition/run_acquisition.py --task-id T479 --mode resume --rig
 - mode: build
 - updated_at: 2026-07-18T05:09:09+00:00
 - handoff_id: 0a9b04857d7a9d93
+
+---
+
+## Handoff refresh: final
+
+- agent_name: codex
+- mode: build
+- updated_at: 2026-07-18T05:33:39+00:00
+- handoff_id: 69273a249d3447ba

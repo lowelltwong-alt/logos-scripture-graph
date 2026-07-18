@@ -12,7 +12,7 @@ if (-not (Test-Path -LiteralPath 'Z:/01-Projects/Logos' -PathType Container)) {
     throw 'Approved Logos NAS root is unavailable: Z:/01-Projects/Logos'
 }
 
-$Root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
+$Root = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '../../..')).Path
 Set-Location $Root
 
 python scripts/acquisition/run_acquisition.py `

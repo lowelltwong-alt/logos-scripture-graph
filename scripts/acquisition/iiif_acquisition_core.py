@@ -518,7 +518,11 @@ class AcquisitionRunner:
     def _load_progress(self) -> ProgressState:
         if self.progress_path.exists():
             raw = json.loads(self.progress_path.read_text(encoding="utf-8"))
-            return ProgressState(**raw)
+            state = ProgressState(**raw)
+            successful = set(state.completed) | set(state.skipped_identical)
+            for resource_id in successful:
+                state.failed.pop(resource_id, None)
+            return state
         return ProgressState(run_id=f"{self.cfg.task_id}-{int(time.time())}", started_at=utc_now(), updated_at=utc_now(), manifest_sha256="")
 
     def _save_progress(self, state: ProgressState) -> None:
@@ -649,6 +653,7 @@ class AcquisitionRunner:
                         "sha256": digest,
                         "result": "already_present_identical",
                     }
+                    state.failed.pop(resource.resource_id, None)
                     self._save_progress(state)
                 append_jsonl(
                     self.cfg.catalog_root / "transfer_events.jsonl",
@@ -699,6 +704,7 @@ class AcquisitionRunner:
         append_jsonl(self.cfg.catalog_root / "transfer_events.jsonl", event)
         with self._progress_lock:
             state.completed[resource.resource_id] = event
+            state.failed.pop(resource.resource_id, None)
             self._save_progress(state)
 
     def acquire(self) -> dict[str, Any]:
@@ -742,10 +748,45 @@ class AcquisitionRunner:
             "completed": len(state.completed),
             "skipped_identical": len(state.skipped_identical),
             "failed": len(state.failed),
-            "remaining": max(0, total - len(state.completed) - len(state.skipped_identical) - len(state.failed)),
+            "remaining": max(0, total - len(state.completed) - len(state.skipped_identical)),
         }
 
+    def _verify_recorded_resources(self, state: ProgressState) -> list[dict[str, str]]:
+        failures: list[dict[str, str]] = []
+        records = {**state.completed, **state.skipped_identical}
+        allowed_root = self.cfg.source_originals_root.resolve()
+        for resource_id, record in sorted(records.items()):
+            relative_path = record.get("local_relative_path")
+            local_path = record.get("local_path")
+            path = self.cfg.nas_root / str(relative_path) if relative_path else Path(str(local_path))
+            try:
+                resolved = path.resolve()
+                resolved.relative_to(allowed_root)
+            except (OSError, ValueError):
+                failures.append({"resource_id": resource_id, "reason": "path_outside_source_root"})
+                continue
+            if not resolved.is_file():
+                failures.append({"resource_id": resource_id, "reason": "missing_file"})
+                continue
+            expected_sha256 = str(record.get("sha256", ""))
+            if not expected_sha256:
+                failures.append({"resource_id": resource_id, "reason": "missing_recorded_sha256"})
+                continue
+            actual_sha256 = sha256_file(resolved)
+            if actual_sha256 != expected_sha256:
+                failures.append(
+                    {
+                        "resource_id": resource_id,
+                        "reason": "sha256_mismatch",
+                        "expected_sha256": expected_sha256,
+                        "actual_sha256": actual_sha256,
+                    }
+                )
+        return failures
+
     def verify(self) -> dict[str, Any]:
+        state = self._load_progress()
+        integrity_failures = self._verify_recorded_resources(state)
         sums_path = self.cfg.catalog_root / "SHA256SUMS"
         lines: list[str] = []
         for path in sorted(self.cfg.source_originals_root.rglob("*")):
@@ -754,6 +795,7 @@ class AcquisitionRunner:
                 lines.append(f"{sha256_file(path)}  {rel}")
         sums_path.write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
         st = self.status()
+        complete = st["remaining"] == 0 and st["failed"] == 0 and not integrity_failures
         residual = {
             "timestamp": utc_now(),
             "total_resources": st["total_resources"],
@@ -761,7 +803,9 @@ class AcquisitionRunner:
             "skipped_identical": st["skipped_identical"],
             "failed": st["failed"],
             "remaining": st["remaining"],
-            "completion_state": "complete_verified" if st["remaining"] == 0 and st["failed"] == 0 else "incomplete_resumable",
+            "integrity_failure_count": len(integrity_failures),
+            "integrity_failures": integrity_failures,
+            "completion_state": "complete_verified" if complete else "incomplete_resumable",
         }
         write_json(self.cfg.catalog_root / "residual_report.json", residual)
         free_after = disk_free_bytes(self.cfg.nas_root)
