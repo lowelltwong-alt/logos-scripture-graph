@@ -1,0 +1,61 @@
+id: T518
+phase: phase_5
+title: Biblical codex digital-pointer registry
+mode: build
+status: complete
+owner: Lowell Wong
+branch: codex/t518-codex-pointer-registry
+base_ref: origin/main
+summary: Create separate metadata-only canonical and boundary digital-pointer registries without downloading sources or claiming static item completeness.
+authority:
+  human_authorization: Lowell Wong explicitly authorized writing the canonical and non-canonical pointer registries on 2026-07-19.
+  canonical_owner_repo: logos-scripture-graph
+  boundary_owner_repo: logos-boundary-literature
+scope:
+  allowed_paths:
+    - .ai/control/t518_codex_pointer_agent_mesh.v*.json
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/handoffs/T518/
+    - .ai/tasks/T518.task.yaml
+    - data/candidate/source_catalog/biblical_codex_pointers/
+    - schemas/biblical_codex_pointer.schema.json
+    - scripts/validate_biblical_codex_pointer_registry.py
+    - tests/test_biblical_codex_pointer_registry.py
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/
+    - config/retrieval/
+    - registry/
+    - eval/
+    - .github/workflows/
+runtime_language_preflight:
+  task_id: T518
+  touched_paths:
+    - scripts/validate_biblical_codex_pointer_registry.py
+    - tests/test_biblical_codex_pointer_registry.py
+  expected_input_size_or_record_count: Seventy small JSONL pointer records across two repositories.
+  expected_runtime_or_memory_pressure: Under one second and negligible memory for each local registry.
+  rust_trigger_match:
+    - none_small_metadata_validator
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: Python validates fewer than one hundred JSON records in under one second; Rust would add integration cost without measurable benefit.
+  interop_boundary: Python reads local JSON, JSONL, and SHA-256 fingerprints only; it performs no network calls or writes.
+  python_fallback_or_wrapper_plan: Retain the direct Python CLI and pytest wrapper.
+  validation_plan: Run focused registry checks, task scope, handoff validation, Boundary full pytest, Scripture validate_all, Scripture full pytest, and independent cross-repository review.
+  maintenance_tradeoffs: Identical small validators keep each repository independently checkable while governance adoption remains pending.
+acceptance_criteria:
+  - Canonical-66 pointers are owned only by logos-scripture-graph.
+  - Mixed physical codices are split by content lane and may reference boundary companion IDs.
+  - Every pointer remains metadata-only and denies download authority.
+  - Catalog-root coverage and direct-item coverage are reported separately.
+  - Focused validation and independent review pass; any baseline full-suite failure is recorded without expanding task scope.
+required_handoff: .ai/handoffs/T518/handoff.md
+created_at: 2026-07-19
+updated_at: 2026-07-19

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/biblical-codex-pointer-v1.json",
+  "title": "Biblical codex digital pointer",
+  "description": "Metadata-only pointer to an external catalog or digital witness. It grants no download, reuse, canon, or textual authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "pointer_id", "record_type", "repository_owner", "lane",
+    "title", "url", "maintainer", "authority_class", "coverage_role",
+    "resource_kind", "content_scope", "scope_filter", "tradition_scope",
+    "languages", "access_status", "completeness_statement", "item_level_complete",
+    "confidence", "review_status", "last_checked_date", "rights_status",
+    "download_authorized", "source_refs", "notes"
+  ],
+  "properties": {
+    "schema_version": {"const": "biblical_codex_pointer.v1"},
+    "pointer_id": {"type": "string", "pattern": "^(canonical|boundary):[a-z0-9][a-z0-9._:-]*$"},
+    "record_type": {"enum": ["catalog_root_pointer", "direct_digital_copy_pointer"]},
+    "repository_owner": {"enum": ["logos-scripture-graph", "logos-boundary-literature"]},
+    "lane": {"enum": ["canonical_66", "boundary_noncanonical"]},
+    "title": {"type": "string", "minLength": 1},
+    "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "maintainer": {"type": "string", "minLength": 1},
+    "authority_class": {
+      "enum": [
+        "scholarly_enumerating_catalog", "official_digital_collection",
+        "official_holding_institution_portal", "academic_aggregator",
+        "scholarly_discovery_aid", "public_mirror"
+      ]
+    },
+    "coverage_role": {"enum": ["enumerating_root", "collection_root", "direct_witness", "public_mirror"]},
+    "resource_kind": {"enum": ["catalog", "digital_collection", "digital_facsimile", "iiif_manifest", "institutional_record", "public_mirror"]},
+    "content_scope": {"enum": ["canonical_66_only", "boundary_only", "mixed_physical_witness_split", "catalog_filter_required"]},
+    "scope_filter": {"type": "string", "minLength": 1},
+    "tradition_scope": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"enum": [
+        "default_66_book", "jewish_tanakh", "roman_catholic", "eastern_orthodox",
+        "oriental_orthodox", "ethiopian_orthodox", "syriac_traditions",
+        "historical_only", "multiple_traditions"
+      ]}
+    },
+    "languages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 2}},
+    "access_status": {"enum": ["catalog_only", "catalog_and_images", "digital_images", "mixed_or_item_dependent"]},
+    "completeness_statement": {"type": "string", "minLength": 1},
+    "item_level_complete": {"const": false},
+    "confidence": {"enum": ["high", "medium"]},
+    "review_status": {"enum": ["verified_current", "verified_from_repository_evidence", "provisional_needs_recheck"]},
+    "last_checked_date": {"type": "string", "format": "date"},
+    "rights_status": {"const": "not_reviewed_pointer_only"},
+    "download_authorized": {"const": false},
+    "physical_witness_id": {"type": "string", "pattern": "^witness:[a-z0-9][a-z0-9._:-]*$"},
+    "shelfmark": {"type": ["string", "null"]},
+    "sigla": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "content_components": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "companion_pointer_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^(canonical|boundary):"}},
+    "source_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "trust_level": {"enum": ["canonical_scripture_reference_only", "deuterocanonical_tradition_scoped", "high_trust_noncanonical_background", "historical_context_source", "patristic_reception", "heterodox_or_gnostic", "disputed_attribution", "known_forgery_or_fake", "quarantine_unreviewed"]},
+    "profile_scope": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "provenance": {"type": "string", "minLength": 1},
+    "canonical_claim": {"const": false},
+    "can_override_scripture": {"const": false},
+    "notes": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"record_type": {"const": "direct_digital_copy_pointer"}}},
+      "then": {"required": ["physical_witness_id", "shelfmark", "sigla", "content_components"]}
+    },
+    {
+      "if": {"properties": {"lane": {"const": "canonical_66"}}},
+      "then": {
+        "properties": {
+          "repository_owner": {"const": "logos-scripture-graph"},
+          "pointer_id": {"pattern": "^canonical:"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"lane": {"const": "boundary_noncanonical"}}},
+      "then": {
+        "required": ["trust_level", "profile_scope", "provenance", "canonical_claim", "can_override_scripture"],
+        "properties": {
+          "repository_owner": {"const": "logos-boundary-literature"},
+          "pointer_id": {"pattern": "^boundary:"}
+        }
+      }
+    }
+  ]
+}

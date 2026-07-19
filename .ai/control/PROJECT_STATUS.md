@@ -1953,3 +1953,19 @@ When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml �
 ## T514 approved external asset root (2026-07-18)
 
 Lowell's exact private quarantine root `C:\LogosExternal` is recorded and passed the storage-only preflight with more than 50 GiB free. The environment variable was not persisted and the root contents were not changed. Downloads, OCR, ingest, embeddings/vector indexes, publication, email, release, canon/source-tradition decisions, and theology/interpretation authority remain unauthorized. The T514 PR remains subject to normal review and branch protection.
+
+---
+
+## T518 biblical codex digital-pointer registry (2026-07-19)
+
+T518 created the candidate, metadata-only canonical-66 pointer registry at
+`data/candidate/source_catalog/biblical_codex_pointers/`: 26 scholarly or
+institutional catalog roots plus 24 direct digital-copy pointers. Mixed physical
+codices use cross-repository companion IDs; no boundary rows, source text, images,
+downloads, preferred readings, or rights authority were added here.
+
+The paired Boundary T003 registry contains 12 boundary catalog roots and 8 direct
+mixed-codex component pointers. Both focused validators pass, the task-local mesh
+v1/v2 validates, and the independent checker returned PASS (A- decomposition).
+The fresh-worktree full suite remains baseline-red because generated canonical
+sidecars are absent: 1,085 tests passed, 22 failed, 17 skipped, and 10 errored.

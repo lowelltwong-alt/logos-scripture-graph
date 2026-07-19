@@ -1,0 +1,90 @@
+{
+  "schema_version": "dad.task_local_agent_mesh_manifest.v1",
+  "mesh_id": "dad:agent-mesh:biblical-codex-pointer-registry",
+  "task_id": "T518:T003",
+  "revision_id": "dad:agent-mesh-revision:biblical-codex-pointer-registry:v1",
+  "phase": "execution",
+  "status": "active",
+  "source_snapshot_digest": "sha256:4c7e99d688e906e9a7d8309e85481e81990a7478be31c94602a0b8890438d2b3",
+  "authority": {
+    "source_authority": "logos-scripture-graph owns canonical-66 pointers; logos-boundary-literature owns boundary pointers; Lowell Wong authorized both metadata-only writes on 2026-07-19.",
+    "execution_authority": false,
+    "human_gate_required": true
+  },
+  "max_delegation_depth": 1,
+  "writer_role_id": "bounded-writer",
+  "checker_role_id": "independent-checker",
+  "non_overlap_statement": "Only bounded-writer may mutate T518/T003 worktrees; independent-checker receives read-only paths and may not edit either repository.",
+  "roles": [
+    {
+      "role_id": "bounded-writer",
+      "why_needed": "One writer must keep cross-repository identity, schema, fingerprints, and content-lane routing coherent.",
+      "mission": "Create metadata-only canonical and boundary pointer registries with deterministic validation and no source ingestion.",
+      "inputs": ["owner authorization", "repository authority policies", "official and scholarly source URLs", "T479 repository evidence"],
+      "dependencies": [],
+      "authority": "May write only the T518 and T003 allowed paths in their isolated worktrees; cannot download sources, change canon scope, or modify governance.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "writer",
+      "acceptance_conditions": ["Both focused validators pass.", "Schema snapshots and fingerprints match.", "No boundary rows exist in Scripture Graph and no canonical rows exist in Boundary Literature."],
+      "stop_conditions": ["A source text or image would be copied.", "Governance policy must change.", "A second writer appears."],
+      "handoff": {
+        "recipient_role_ids": ["independent-checker"],
+        "deliverables": ["both repository diffs", "focused and full validation evidence", "authority map"],
+        "readiness_conditions": ["Writer focused validators pass."]
+      }
+    },
+    {
+      "role_id": "independent-checker",
+      "why_needed": "The manifest skill requires an independent review of false authority, coverage claims, and cross-repository contamination.",
+      "mission": "Read both diffs and replay focused checks; report correctness, scope, false-authority risks, and release gate without editing.",
+      "inputs": ["T518 worktree", "T003 worktree", "task-local mesh", "validation commands"],
+      "dependencies": ["bounded-writer"],
+      "authority": "Read-only review; cannot mutate files, approve governance adoption, or grant rights.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "checker",
+      "acceptance_conditions": ["Independent findings cite concrete files or validation output.", "Any material disagreement blocks completion."],
+      "stop_conditions": ["Checker is asked to edit.", "Required raw evidence is unavailable.", "Private payload would be exposed."],
+      "handoff": {
+        "recipient_role_ids": [],
+        "deliverables": ["independent findings", "decomposition grade", "release gate"],
+        "readiness_conditions": ["Both worktrees are readable and focused validators can be replayed."]
+      }
+    }
+  ],
+  "proof_obligations": [
+    {
+      "obligation_id": "lane-separation",
+      "description": "Prove canonical and boundary records are stored only in their owning repositories and mixed codices use companion pointers.",
+      "evidence_required": ["JSONL rows", "schema validation", "independent diff review"],
+      "owner_role_id": "bounded-writer",
+      "checker_role_id": "independent-checker",
+      "status": "pending"
+    },
+    {
+      "obligation_id": "no-false-completeness",
+      "description": "Prove the registry does not claim static item-level completeness and distinguishes roots from curated direct witnesses.",
+      "evidence_required": ["manifests", "README files", "validator output"],
+      "owner_role_id": "bounded-writer",
+      "checker_role_id": "independent-checker",
+      "status": "pending"
+    },
+    {
+      "obligation_id": "no-rights-authority",
+      "description": "Prove every row denies download authority and keeps rights unreviewed.",
+      "evidence_required": ["schema constants", "all-row validation"],
+      "owner_role_id": "bounded-writer",
+      "checker_role_id": "independent-checker",
+      "status": "pending"
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "decision_id": "governance-adoption",
+      "summary": "Adoption of the shared pointer schema in logos-governance-architecture is deferred because its active checkout is conflicted and no governance mutation is required for candidate local registries.",
+      "owner_role_id": "bounded-writer",
+      "blocking": false,
+      "status": "deferred"
+    }
+  ],
+  "manifest_digest": "sha256:9ef34bdae157bafe319c3a9eca8d8b4a6f0d4321be3f1aa900fb8d5491fc6d85"
+}
