@@ -1,0 +1,110 @@
+id: T519
+phase: phase_4
+title: "Preserve typed footnotes inside editorial heading bodies"
+mode: build
+status: in_progress
+owner: Lowell Wong
+branch: codex/t475-editorial-footnote-repair
+base_ref: origin/main
+summary: >
+  Owner-authorized narrow importer/fixture repair for the T475 HOLD finding:
+  emit typed footnote (and crossref) sidecars from editorial_only heading bodies
+  without appending heading prose to TranslationWitness text or creating
+  heading-derived WordTokens. Then re-freeze T475 shadow evidence with zero
+  footnote removals before any T476 canonical repair packet.
+authority:
+  human_authorization: >
+    Lowell Wong authorized the narrow T475 editorial-heading typed-sidecar
+    preservation repair on 2026-07-20. Canonical regeneration, reviewed-gold
+    change, chunk output, and T476 remain separately gated.
+predecessor:
+  task_id: T475
+  required_state: hold_with_findings
+scope:
+  allowed_paths:
+    - .ai/tasks/T519.task.yaml
+    - .ai/handoffs/T519/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/t474_usfm_marker_anchor_contract.yaml
+    - .ai/control/t475_usfm_shadow_delta_gate.yaml
+    - .ai/context/agent_work/T519/
+    - .ai/context/agent_work/T475/candidate_manifest_t519.json
+    - .ai/handoffs/T475/
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/T519_EDITORIAL_HEADING_FOOTNOTE_PRESERVATION.md
+    - ROADMAP_STATE.yaml
+    - config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/generated/knowledge_catalog.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/reverse_dependencies.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/dad_portable_adaptation.candidate.v1.json
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
+    - pipelines/ingest/usfm_importer.py
+    - pipelines/ingest/usfm_inline_parser.py
+    - scripts/validate_all.py
+    - scripts/generate_data_map.py
+    - scripts/run_t475_shadow_delta.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t475_generated_transition_state.py
+    - tests/test_t474_usfm_marker_anchor_contract.py
+    - tests/test_t474_usfm_marker_anchor_validator.py
+    - tests/test_usfm_inline_parser.py
+    - tests/test_t475_usfm_shadow_delta_gate.py
+    - tests/test_t475_generated_transition_state.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+non_authorizations:
+  - canonical_regeneration
+  - reviewed_gold_change
+  - chunk_output_change
+  - child_spans
+  - route_or_evaluator_behavior_change
+  - graph_retrieval_vector_truth
+  - preferred_reading_or_source_tradition
+  - canon_scope_change
+  - theology_authority
+  - t476_canonical_repair_packet
+acceptance_criteria:
+  - Editorial heading bodies with embedded \\f emit typed footnotes.jsonl rows.
+  - Heading prose is not appended to TranslationWitness.text.
+  - Heading-embedded \\w tokens are not emitted as WordTokens.
+  - Fixture coverage exists for editorial inline sidecar preservation.
+  - Focused T474/T519 tests pass; T475 may be re-run for zero footnote removals.
+runtime_language_preflight:
+  task_id: T519
+  touched_paths:
+    - pipelines/ingest/usfm_importer.py
+    - tests/test_t474_usfm_marker_anchor_contract.py
+    - scripts/generate_data_map.py
+    - scripts/validate_all.py
+    - scripts/validate_t475_generated_transition_state.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+  expected_input_size_or_record_count: Full WEB USFM archive; fixture cases are tiny. Full-archive verify wrote about 1130 footnotes.
+  expected_runtime_or_memory_pressure: Fixture tests under two seconds; one full-archive import about one minute.
+  rust_trigger_match:
+    - none_importer_sidecar_emission_is_small_and_already_python
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: The change is a narrow editorial-only branch in the existing Python importer; no new hot path.
+  interop_boundary: Python importer reads local USFM only and writes JSONL sidecars; no network calls.
+  python_fallback_or_wrapper_plan: Retain the direct Python importer and pytest fixtures.
+  validation_plan: Focused T474 fixture tests, T474 contract validator, lesson/decision register validators, and optional T475 shadow re-freeze.
+  maintenance_tradeoffs: Keeping the repair inside the Python importer preserves parity with T474 fixtures and avoids a split runtime for a handful of heading footnotes.
+required_handoff: .ai/handoffs/T519/handoff.md
+created_at: "2026-07-20"
+updated_at: "2026-07-20"

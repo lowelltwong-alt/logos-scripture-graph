@@ -35,7 +35,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 
 - Data files mapped: **227**
 - Total data size: **725.6MB**
-- Total JSONL records: **847,165**
+- Total JSONL records: **847,168**
 - Schema contracts: **39**
 
 > Files >100MB are flagged ⚠️ — gitignored + regenerated in CI (commit policy: PROJECT_STATUS.md).
@@ -67,7 +67,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 | `data/canonical/scripture/passages/passages.jsonl` | canonical | 18.3MB | 31,103 |
 | `data/canonical/translations/eng-web/boundary_claims.jsonl` | canonical | 27.7MB | 28,165 |
 | `data/canonical/translations/eng-web/editorial_cross_references.jsonl` | canonical | 274.2KB | 340 |
-| `data/canonical/translations/eng-web/footnotes.jsonl` | canonical | 1.0MB | 1,127 |
+| `data/canonical/translations/eng-web/footnotes.jsonl` | canonical | 1.0MB | 1,130 |
 | `data/canonical/translations/eng-web/glossary_entries.jsonl` | canonical | 0B | 0 |
 | `data/canonical/translations/eng-web/section_headings.jsonl` | canonical | 241.0KB | 283 |
 | `data/canonical/translations/eng-web/translation_witnesses.jsonl` | canonical | 21.7MB | 31,103 |

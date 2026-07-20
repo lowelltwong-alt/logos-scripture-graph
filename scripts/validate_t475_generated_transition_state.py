@@ -17,12 +17,12 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTROL = ROOT / ".ai" / "control" / "t475_usfm_shadow_delta_gate.yaml"
-CANDIDATE_MANIFEST = ROOT / ".ai" / "context" / "agent_work" / "T475" / "candidate_manifest.json"
+CANDIDATE_MANIFEST = ROOT / ".ai" / "context" / "agent_work" / "T475" / "candidate_manifest_t519.json"
 WORD_TOKENS = ROOT / "data" / "canonical" / "translations" / "eng-web" / "word_tokens.jsonl"
 FOOTNOTES = ROOT / "data" / "canonical" / "translations" / "eng-web" / "footnotes.jsonl"
 
 BASELINE_COUNTS = (677688, 1130)
-CANDIDATE_COUNTS = (677686, 1127)
+CANDIDATE_COUNTS = (677686, 1130)
 REQUIRED_DEFERRED = {
     "validate_t374_additive_parent_overlay.py",
     "validate_t401_eph1_output_pilot.py",

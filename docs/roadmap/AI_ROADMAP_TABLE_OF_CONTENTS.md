@@ -24,6 +24,7 @@ audit, or validation context and needs to know which numbered task artifacts mat
 
 Common tags in this file:
 
+  T519, editorial-heading, typed-sidecar, footnote-preservation, usfm-importer,
   T513, portable-ocr, induocr, manuscript-research, external-assets, candidate-only,
   T511, generated-sidecar, clean-checkout, release-gate, lifecycle-registry, pytest-marker,
   T475, sol-terra-luna, task-local-hierarchy, shadow-delta, independent-audit, editorial-sidecar,
@@ -97,6 +98,7 @@ Common tags in this file:
 
 | Task | Purpose | Tags | Use when | Primary artifacts |
 | --- | --- | --- | --- | --- |
+| T519 | Editorial heading footnote preservation | `t519`, `editorial-heading`, `typed-sidecar`, `footnote-preservation`, `usfm-importer` | Repairing or auditing footnotes embedded in editorial_only heading bodies without witness/token promotion, or preparing T475 shadow re-freeze after T474. | `docs/roadmap/T519_EDITORIAL_HEADING_FOOTNOTE_PRESERVATION.md`; `pipelines/ingest/usfm_importer.py`; `.ai/control/t474_usfm_marker_anchor_contract.yaml`; `.ai/tasks/T519.task.yaml`; `.ai/handoffs/T519/handoff.md` |
 | T513 | Portable OCR research adoption | `portable-ocr`, `induocr`, `manuscript-research`, `external-assets`, `candidate-only` | Building or auditing the domain-neutral OCR core, Logos admission gate, disabled benchmark profile, domain-gold requirement, or future source-rights decision. | `docs/roadmap/T513_PORTABLE_OCR_RESEARCH_ADOPTION.md`; `.ai/control/t513_portable_ocr_adoption.yaml`; `tools/portable_ocr/`; `pipelines/ingest/portable_ocr_adapter.py`; `.ai/tasks/T513.task.yaml`; `.ai/handoffs/T513/handoff.md` |
 | T500 | Scripture-first biblical chunking expert family | `scripture-first`, `agent-family`, `anti-imputation`, `knowledge-manifest`, `canonical-66`, `candidate-only` | Building or auditing role routing, packet contracts, evidence precedence, controlled-pilot holds, whole-Bible shadow coverage, or the gated DAD adaptation. | `docs/roadmap/T500_SCRIPTURE_FIRST_BIBLICAL_CHUNKING_FAMILY.md`; `config/agents/families/scripture-first-biblical-chunking/`; `schemas/biblical-chunking-packet.schema.json`; `scripts/validate_scripture_first_biblical_chunking_family.py`; `.ai/tasks/T500.task.yaml`; `.ai/handoffs/T500/handoff.md` |
 | T461 | Scripture front-door decomposition | `task-ledger`, `front-door`, `task-history`, `validator-anchor`, `non-authorizing` | A future agent needs moved task-history narrative, front-door shrink rationale, or task-ledger validation after Fable PR-7. | `docs/roadmap/TASK_LEDGER.md`; `AI_FRONT_DOOR.md`; `scripts/validate_task_ledger.py`; `.ai/tasks/T461.task.yaml`; `.ai/handoffs/T461/handoff.md` |

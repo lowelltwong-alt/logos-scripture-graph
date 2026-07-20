@@ -104,7 +104,7 @@ required_evidence:
     - luna_trial_log.md
     - frozen_evidence_manifest.json
   independent_audit_report: .ai/audits/reports/20260710-T475-independent-shadow-delta-audit.md
-  independent_audit_status: pending_blocked_by_P1
+  independent_audit_status: pending_after_T519_shadow_refreeze
 execution_state:
   contract_complete: true
   shadow_trials_complete: true
@@ -114,22 +114,25 @@ execution_state:
   frozen_bundle_complete: true
   independent_audit_complete: false
   evidence_ready_for_T476: false
+  t519_code_and_fixture_repair_complete: true
+  t519_full_archive_footnote_count_restored: 1130
   blocking_findings:
-    - P1_editorial_heading_footnotes_lost_from_typed_sidecar
+    - P1_editorial_heading_footnotes_code_fixed_pending_shadow_refreeze
+  resolved_findings:
     - P2_editorial_inline_sidecar_fixture_missing
 ci_generated_transition_policy:
   purpose: "Allow CI to validate the exact frozen T475 candidate after deterministic regeneration without promoting stale downstream baselines."
   active_task_required: T475
   detected_candidate_counts:
     word_tokens: 677686
-    footnotes: 1127
-  exact_semantic_manifest: .ai/context/agent_work/T475/candidate_manifest.json
+    footnotes: 1130
+  exact_semantic_manifest: .ai/context/agent_work/T475/candidate_manifest_t519.json
   validator: scripts/validate_t475_generated_transition_state.py
   transitional_data_map_check: scripts/generate_data_map.py --check
   data_map_candidate_delta:
-    total_jsonl_records: {baseline: 847086, candidate: 847081}
+    total_jsonl_records: {baseline: 847086, candidate: 847084}
     word_tokens: {baseline: 677688, candidate: 677686}
-    footnotes: {baseline: 1130, candidate: 1127}
+    footnotes: {baseline: 1130, candidate: 1130}
   deferred_legacy_generated_validators:
     - validate_t374_additive_parent_overlay.py
     - validate_t401_eph1_output_pilot.py
