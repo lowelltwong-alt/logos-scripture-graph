@@ -687,6 +687,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_t474_usfm_marker_anchor_contract.py")],
         ),
         (
+            "validate_scripture_first_biblical_chunking_family.py",
+            [PY, str(ROOT / "scripts" / "validate_scripture_first_biblical_chunking_family.py")],
+        ),
+        (
             "validate_task_execution_overlay.py --task-id T475",
             [PY, str(ROOT / "scripts" / "validate_task_execution_overlay.py"), "--task-id", "T475"],
         ),

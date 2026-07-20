@@ -1,0 +1,282 @@
+---
+object_type: scripture_first_biblical_chunking_role_profiles
+schema_version: scripture_first_biblical_chunking_role_profiles.v1
+family_id: scripture-first-biblical-chunking
+family_version: 1.0.0
+lifecycle_status: candidate
+trust_zone: candidate
+
+profile_defaults:
+  display_identity_note: Biblical names are display identities only and confer no spiritual, textual, theological, or decision authority.
+  output_authority: candidate_review_packet_only
+  must_label: [observation, inference, candidate_boundary, unresolved_question]
+  cannot_originate_doctrine: true
+  cannot_select_preferred_reading_or_translation: true
+  cannot_promote_gold_or_output: true
+  cannot_self_approve: true
+  evidence_precedence_ref: config/agents/families/scripture-first-biblical-chunking/family.v1.yaml
+  mandatory_preflight_ref: .ai/control/chunking_agent_preflight.yaml
+
+control_roles:
+  - profile_id: scripture_first_router
+    display_name: Bezalel
+    role_kind: router
+    mission: Select the smallest marker-evidenced specialist combination and preserve deterministic holds.
+    reads: [assignment_packet, routing_policy]
+    emits: [assignment_packet]
+    may_write_candidate_packet: false
+    guardrails: [maximum_three_domain_specialists, delegation_depth_one, never_route_by_book_prior_alone]
+  - profile_id: scripture_first_authority_guardian
+    display_name: Esther
+    role_kind: authority_guardian
+    mission: Enforce canonical scope, evidence precedence, trust zones, non-authorizations, and owner gates.
+    reads: [assignment_packet, observation_packet, candidate_set_packet]
+    emits: [challenge_packet, hold_for_owner]
+    may_select_boundary: false
+    fail_closed_on: [missing_authority_ref, stale_authority_ref, noncanonical_default_scope, trust_zone_mixing]
+  - profile_id: scripture_first_family_architect
+    display_name: Gamaliel
+    role_kind: architect
+    mission: Maintain evidence, packet, validation, and release contracts without changing domain authority.
+    reads: [family_contract, knowledge_manifest, schemas]
+    emits: [contract_change_candidate, validation_plan]
+    may_change_chunk_behavior: false
+  - profile_id: scripture_first_foreman
+    display_name: Nehemiah
+    role_kind: foreman
+    mission: Create non-overlapping assignments with one accountable writer and a distinct checker.
+    reads: [assignment_packet, active_role_roster]
+    emits: [bounded_assignments]
+    invariants: [one_writer, distinct_checker, non_overlapping_writes, delegation_depth_one]
+  - profile_id: scripture_first_boundary_synthesizer
+    display_name: Ezra
+    role_kind: boundary_synthesizer
+    mission: Combine cited observations into serious candidate alternatives without approving any alternative.
+    reads: [observation_packet, challenge_packet]
+    emits: [candidate_set_packet]
+    may_select_or_promote: false
+    unresolved_theological_ambiguity_action: hold_for_owner
+  - profile_id: scripture_first_anti_imputation_checker
+    display_name: Nathan
+    role_kind: independent_checker
+    mission: Detect proof-texting, hidden theology, unsupported themes, evidence-lane collapse, and authority leakage.
+    reads: [candidate_set_packet, writer_identity]
+    emits: [independent_review_packet, challenge_packet, hold_for_owner]
+    identity_must_differ_from_writer: true
+    may_edit_writer_packet: false
+    may_promote_or_activate: false
+  - profile_id: scripture_first_freshness_sentinel
+    display_name: Haggai
+    role_kind: freshness_sentinel
+    mission: Report missing, stale, circular, or hash-drifted knowledge and skill references.
+    reads: [knowledge_manifest, release_manifest]
+    emits: [freshness_report, hold_for_owner]
+    may_modify_sources_or_manifest: false
+    stale_reference_action: fail_closed
+
+campaign_roles:
+  - profile_id: scripture_first_parent_unit_worker
+    display_name: Ezra
+    duty_anchor: Ezra is associated with careful reading and ordering of the text; the role orders parent units before child review.
+    role_kind: parent_literary_unit_worker
+    mission: Propose candidate parent literary units before any child-boundary review.
+    emits: [candidate_set_packet]
+    planned_runtime_emits: [proposal_packet]
+    child_boundary_authority: false
+  - profile_id: scripture_first_child_necessity_reviewer
+    display_name: Jethro
+    duty_anchor: Jethro is associated with wise delegation; the role tests whether a parent should be subdivided.
+    role_kind: child_necessity_reviewer
+    mission: Test whether an existing parent needs child boundaries; default to no children.
+    emits: [independent_review_packet, candidate_set_packet]
+    planned_runtime_emits: [review_packet, proposal_packet]
+    default_decision: no_children
+    requires_existing_parent: true
+  - profile_id: scripture_first_textual_witness_specialist
+    display_name: Jeremiah
+    duty_anchor: Jeremiah has materially different textual ordering across major witness traditions; the role records witness dependency without choosing a reading.
+    role_kind: textual_witness_specialist
+    mission: Record source-tradition and textual-variant dependency without selecting a preferred reading.
+    emits: [observation_packet, hold_for_owner]
+    may_select_preferred_reading: false
+  - profile_id: scripture_first_speaker_specialist
+    display_name: John
+    duty_anchor: John contains prominent discourse and speaker-boundary ambiguities; the role preserves alternatives and holds.
+    role_kind: speaker_and_discourse_specialist
+    mission: Record speaker and discourse alternatives and hold unresolved speaker-dependent boundaries.
+    emits: [observation_packet, hold_for_owner]
+    unresolved_speaker_action: hold_for_owner
+  - profile_id: scripture_first_reviewed_gold_custodian
+    display_name: Joshua
+    duty_anchor: Joshua is associated with faithful custody of an inherited charge; the role guards reviewed evidence without editing it.
+    role_kind: reviewed_gold_custodian
+    mission: Compare candidates with reviewed gold and route conflicts without editing or promoting gold.
+    emits: [challenge_packet, hold_for_owner]
+    may_edit_or_promote_gold: false
+  - profile_id: scripture_first_model_map_calibrator
+    display_name: Caleb
+    duty_anchor: Caleb is associated with an independent evidence report; the role calibrates model maps without prestige or majority authority.
+    role_kind: historical_model_map_calibrator
+    mission: Normalize historical model maps as evidence without votes, authority, or majority selection.
+    emits: [observation_packet]
+    historical_map_authority: evidence_only_no_vote
+    mechanical_outlier_maps: [M1, M5]
+  - profile_id: scripture_first_evidence_dispute_boss
+    display_name: Gamaliel
+    duty_anchor: Gamaliel is associated with measured counsel; the role gives one bounded candidate ruling without human authority.
+    role_kind: evidence_dispute_boss
+    mission: Issue one candidate-only ruling after bounded lane debate fails to resolve an evidence dispute.
+    emits: [challenge_packet, hold_for_owner]
+    planned_runtime_emits: [ruling_packet, appeal_packet]
+    may_create_human_decision: false
+  - profile_id: scripture_first_human_docket_steward
+    display_name: Esther
+    duty_anchor: Esther is associated with bringing a consequential matter to the accountable human authority; the role projects the docket only.
+    role_kind: human_docket_steward
+    mission: Project mandatory human-review cases without exercising decision authority.
+    emits: [human_docket_entry]
+    decision_authority: none
+
+observational_roles:
+  - profile_id: scripture_first_text_structure_observer
+    display_name: Bezalel
+    mission: Record exact text scope, markers, paragraphs, poetry, lists, headings, and structural seams.
+    emits: [observation_packet]
+    inference_allowed: false
+    modern_heading_boundary_authority: false
+  - profile_id: scripture_first_discourse_analyst
+    display_name: John
+    mission: Record immediate discourse, argument, scene, speaker, chapter, and whole-book movement.
+    emits: [observation_packet]
+    required_context_ref: .ai/control/contextual_reading_policy.yaml
+    speaker_ambiguity_action: hold_for_owner
+  - profile_id: scripture_first_canonical_cross_witness_scout
+    display_name: Priscilla
+    mission: Distinguish explicit quotations, parallel accounts, and clear authorial callbacks from echoes and themes.
+    emits: [observation_packet]
+    editorial_cross_reference_as_truth: false
+    model_inferred_theme_boundary_authority: false
+
+specialist_packs:
+  - profile_id: scripture_first_prose_discourse_specialist
+    display_name: Samuel
+    pack_id: prose_paragraph_and_discourse
+    form_ids: [prose_paragraph, prose_section_heading]
+    activation_evidence: [paragraph_or_section_marker, discourse_continuity]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/contextual_reading_policy.yaml]
+  - profile_id: scripture_first_narrative_scene_specialist
+    display_name: Samuel
+    pack_id: narrative_scene
+    form_ids: [narrative_scene]
+    activation_evidence: [scene_change, location_change, participant_or_speaker_change, episode_completion]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/narrative_legal_covenant_dossier_queue.yaml]
+  - profile_id: scripture_first_genealogy_list_specialist
+    display_name: Zerubbabel
+    pack_id: genealogy_and_list
+    form_ids: [genealogy_or_list]
+    activation_evidence: [list_marker, genealogy_formula, text_marked_subunit]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/narrative_legal_covenant_dossier_queue.yaml]
+  - profile_id: scripture_first_law_covenant_specialist
+    display_name: Moses
+    pack_id: law_statute_and_covenant
+    form_ids: [law_statute]
+    activation_evidence: [legal_formula, covenant_formula, procedure_or_statute_unit]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/narrative_legal_covenant_dossier_queue.yaml]
+  - profile_id: scripture_first_psalms_poetry_specialist
+    display_name: Asaph
+    pack_id: psalms_poetry_stanza_acrostic
+    form_ids: [poetry_line_or_colon, poetry_stanza, poetry_acrostic_section, psalm_whole]
+    activation_evidence: [poetry_marker, stanza_break, refrain, acrostic_structure, psalm_scope]
+    scope_refs: [config/chunking/form_registry.yaml, eval/chunking_gold/per_form/psalms_gold_manifest.json]
+  - profile_id: scripture_first_wisdom_dialogue_specialist
+    display_name: Job
+    pack_id: wisdom_saying_cluster_and_speaker_dialogue
+    form_ids: [wisdom_saying_cluster, speaker_dialogue]
+    activation_evidence: [saying_cluster, speaker_marker, dialogue_turn, parallelism]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/wisdom_dialogue_poetry_dossier_queue.yaml]
+  - profile_id: scripture_first_prophetic_specialist
+    display_name: Isaiah
+    pack_id: prophetic_oracle_and_vision
+    form_ids: [prophetic_oracle, vision_report]
+    activation_evidence: [speech_formula, audience_shift, oracle_movement, vision_scene]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/prophetic_oracle_vision_dossier_queue.yaml]
+  - profile_id: scripture_first_gospel_specialist
+    display_name: Matthew
+    pack_id: gospel_pericope_parable_discourse
+    form_ids: [gospel_pericope, parable_or_discourse]
+    activation_evidence: [scene_or_pericope_evidence, parable_and_interpretation, discourse_continuity]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/gospel_wj_discourse_dossier_queue.yaml]
+    wj_markers_are_metadata_only: true
+  - profile_id: scripture_first_acts_specialist
+    display_name: Barnabas
+    pack_id: acts_speech_and_episode
+    form_ids: [acts_speech_or_episode]
+    activation_evidence: [speech_frame, narrative_episode, participant_or_location_shift]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/contextual_reading_policy.yaml]
+  - profile_id: scripture_first_epistle_specialist
+    display_name: Paul
+    pack_id: epistle_argument_opening_closing
+    form_ids: [epistle_argument, epistle_opening_closing]
+    activation_evidence: [argument_movement, epistolary_function, doxology_or_benediction]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/epistle_argument_theological_issue_dossier_queue.yaml]
+  - profile_id: scripture_first_apocalyptic_specialist
+    display_name: Daniel
+    pack_id: apocalyptic_cycle
+    form_ids: [apocalyptic_cycle]
+    activation_evidence: [vision_cycle, oracle_shift, symbolic_scene, voice_shift]
+    scope_refs: [config/chunking/form_registry.yaml, .ai/control/apocalyptic_prophetic_intertext_dossier_queue.yaml]
+    unresolved_system_or_voice_identity_action: hold_for_owner
+  - profile_id: scripture_first_hebrew_structure_specialist
+    display_name: Huldah
+    pack_id: hebrew_structural_evidence
+    form_ids: []
+    activation_evidence: [approved_hebrew_structural_observation_requested]
+    scope_refs: [.ai/control/original_language_phrase_context_policy.yaml, .ai/control/original_language_evidence_substrate.yaml]
+    cannot_select: [doctrine, translation, preferred_reading, source_tradition, boundary]
+  - profile_id: scripture_first_greek_structure_specialist
+    display_name: Apollos
+    pack_id: greek_structural_evidence
+    form_ids: []
+    activation_evidence: [approved_greek_structural_observation_requested]
+    scope_refs: [.ai/control/original_language_phrase_context_policy.yaml, .ai/control/original_language_evidence_substrate.yaml]
+    cannot_select: [doctrine, translation, preferred_reading, source_tradition, boundary]
+  - profile_id: scripture_first_canonical_intertext_specialist
+    display_name: Priscilla
+    pack_id: canonical_quotation_parallel_and_intertext
+    form_ids: []
+    activation_evidence: [explicit_quotation, parallel_account, clear_authorial_callback]
+    scope_refs: [.ai/control/contextual_reading_policy.yaml, .ai/control/source_metadata_research_atlas.yaml]
+    candidate_only_evidence: [strong_lexical_echo, syntactic_echo, thematic_similarity]
+    cannot_promote_editorial_cross_reference: true
+
+campaign_specialist_identities:
+  primary:
+    Torah_and_law: Moses
+    narrative: Samuel
+    lists_and_genealogies: Zerubbabel
+    psalms_and_poetry: Asaph
+    wisdom: Solomon
+    dialogue: Job
+    prophecy: Isaiah
+    apocalyptic: Daniel
+    gospel_narrative: Matthew
+    discourse_and_speaker_ambiguity: John
+    acts: Barnabas
+    epistle_argument: Paul
+    epistle_openings_and_closings: Phoebe
+  evidence_only:
+    Hebrew_phrase_and_clause: Huldah
+    Greek_syntax_and_discourse: Apollos
+    quotations_and_parallels: Priscilla
+    verified_historical_context: Luke
+    textual_variants: Jeremiah
+  ordinary_packet_limit:
+    primary_specialists: 1
+    evidence_specialists_maximum: 2
+
+coverage_contract:
+  canonical_form_registry_ref: config/chunking/form_registry.yaml
+  every_canonical_form_must_route_to_exactly_one_primary_pack_or_explicit_exclusion: true
+  excluded_metadata_forms: [major_title_block, intro_block]
+  rejected_noncanonical_form_tier: early_church
+  pack_rule_leakage_allowed: false

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/biblical-chunking-knowledge-manifest.schema.json",
+  "title": "Biblical chunking knowledge manifest v1",
+  "description": "Pointer-only inventory of Logos-owned authority, evidence, review, lesson, and freshness sources used by the Scripture-first family. The manifest never duplicates Scripture or source payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "manifest_id", "manifest_version", "family_id", "generation_policy", "resolution_status", "entries"],
+  "properties": {
+    "schema_version": {"const": "biblical_chunking_knowledge_manifest.v1"},
+    "manifest_id": {"const": "biblical-chunking-knowledge-manifest"},
+    "manifest_version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "family_id": {"const": "scripture-first-biblical-chunking"},
+    "generation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pointer_only", "deterministic", "fail_closed", "embed_scripture_payloads", "embed_source_payloads"],
+      "properties": {
+        "pointer_only": {"const": true},
+        "deterministic": {"const": true},
+        "fail_closed": {"const": true},
+        "embed_scripture_payloads": {"const": false},
+        "embed_source_payloads": {"const": false}
+      }
+    },
+    "resolution_status": {"enum": ["resolved_current", "failed_closed"]},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/knowledgeEntry"}
+    }
+  },
+  "$defs": {
+    "knowledgeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledge_id",
+        "library",
+        "source_path",
+        "source_sha256",
+        "authority",
+        "trust_zone",
+        "applicable_roles",
+        "evidence_class",
+        "non_authorizations",
+        "freshness_triggers",
+        "freshness"
+      ],
+      "properties": {
+        "knowledge_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+        "library": {
+          "enum": [
+            "canonical_text_structure",
+            "scripture_interprets_scripture_evidence",
+            "biblical_literary_form",
+            "hebrew_structural_evidence",
+            "greek_structural_evidence",
+            "reviewed_gold_hard_case_and_counterexample",
+            "anti_imputation_and_theological_risk",
+            "owner_decisions_lessons_and_freshness"
+          ]
+        },
+        "source_path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?![A-Za-z][A-Za-z0-9+.-]*:)(?![/\\\\])(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+        },
+        "source_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "authority": {
+          "enum": [
+            "owner_approved_local_governance",
+            "logos_governed_policy",
+            "logos_reviewed_evidence",
+            "logos_operational_registry",
+            "candidate_reference"
+          ]
+        },
+        "trust_zone": {
+          "enum": ["authority", "asserted", "reviewed", "derived_metadata", "candidate"]
+        },
+        "applicable_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"}
+        },
+        "evidence_class": {
+          "enum": [
+            "governance_only",
+            "exact_canonical_text_and_structural_markers",
+            "immediate_discourse_paragraph_chapter_and_whole_book_context",
+            "explicit_quotations_parallel_accounts_and_clear_authorial_callbacks",
+            "strong_repeated_formulations_or_lexical_syntactic_echoes",
+            "thematic_similarity_candidate_only",
+            "reviewed_gold",
+            "hard_case_or_counterexample",
+            "anti_imputation_control",
+            "owner_decision_or_lesson",
+            "routing_metadata"
+          ]
+        },
+        "non_authorizations": {"$ref": "#/$defs/nonAuthorizations"},
+        "freshness_triggers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "source_hash_change",
+              "source_path_missing",
+              "upstream_authority_version_change",
+              "role_contract_change",
+              "routing_contract_change",
+              "reviewed_gold_change",
+              "owner_decision_change",
+              "lesson_superseded"
+            ]
+          }
+        },
+        "freshness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "verified_sha256", "checked_at", "sentinel_may_modify"],
+          "properties": {
+            "status": {"enum": ["current", "stale", "missing", "unauthorized"]},
+            "verified_sha256": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+            "checked_at": {"type": "string", "format": "date-time"},
+            "sentinel_may_modify": {"const": false}
+          }
+        },
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+          "default": []
+        }
+      }
+    },
+    "nonAuthorizations": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "chunk_output",
+          "boundary_promotion",
+          "reviewed_gold_promotion",
+          "graph_truth",
+          "retrieval_truth",
+          "preferred_reading",
+          "translation_preference",
+          "source_tradition_preference",
+          "doctrine_selection",
+          "theology_authority",
+          "canon_scope_change"
+        ]
+      },
+      "allOf": [
+        {"contains": {"const": "boundary_promotion"}},
+        {"contains": {"const": "preferred_reading"}},
+        {"contains": {"const": "source_tradition_preference"}},
+        {"contains": {"const": "doctrine_selection"}},
+        {"contains": {"const": "theology_authority"}}
+      ]
+    }
+  }
+}

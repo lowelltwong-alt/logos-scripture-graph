@@ -1,0 +1,138 @@
+{
+  "schema_version": "dad.task_local_agent_mesh_manifest.v1",
+  "mesh_id": "dad:agent-mesh:t500-scripture-first-family",
+  "task_id": "T500",
+  "revision_id": "dad:agent-mesh-revision:t500-scripture-first-family:v1",
+  "phase": "postflight",
+  "status": "complete",
+  "source_snapshot_digest": "sha256:41bbed0fe76415f112e487688b1d102ea811f51c59847e9f9547979253fbb097",
+  "authority": {
+    "source_authority": "Logos retains Scripture-domain and local governance authority; DAD receives metadata only after an explicit later gate.",
+    "execution_authority": false,
+    "human_gate_required": true
+  },
+  "max_delegation_depth": 1,
+  "writer_role_id": "integration-foreman",
+  "checker_role_id": "independent-scripture-checker",
+  "non_overlap_statement": "The integration foreman owns the final write set; bounded specialists may write only their assigned non-overlapping component paths, and the independent checker is read-only.",
+  "roles": [
+    {
+      "role_id": "integration-foreman",
+      "why_needed": "The family spans authority, contracts, catalogs, routing, tests, and release gates that require one accountable integrator.",
+      "mission": "Integrate the additive candidate family without changing chunk output, gold, canon, graph truth, preferred readings, or theology authority.",
+      "inputs": ["T500 task contract", "T468 owner decision", "existing Logos chunking governance and registries"],
+      "dependencies": [],
+      "authority": "May write only the T500 allowed paths and must stop at every owner-gated promotion or DAD-publication boundary.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "writer",
+      "acceptance_conditions": ["All constituent contracts and validators pass.", "No forbidden output or authority surface changes."],
+      "stop_conditions": ["A change requires new Scripture, canon, theology, chunk-output, gold, or DAD execution authority."],
+      "handoff": {
+        "recipient_role_ids": ["independent-scripture-checker"],
+        "deliverables": ["integrated candidate family", "deterministic validation evidence", "pilot and shadow reports"],
+        "readiness_conditions": ["Specialist component checks pass and the final diff is bounded."]
+      }
+    },
+    {
+      "role_id": "family-contract-specialist",
+      "why_needed": "The constitution, role packs, aliases, and routing policy require focused domain-governance modeling.",
+      "mission": "Implement family configuration and compatibility contracts under the existing owner-authorized Scripture-first principle.",
+      "inputs": ["T500 task contract", "existing agent roles", "form registry", "contextual-reading and original-language controls"],
+      "dependencies": [],
+      "authority": "May write only config/agents/families/scripture-first-biblical-chunking and the bounded compatibility-alias section in config/agents/agent_roles.yaml.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "specialist",
+      "acceptance_conditions": ["All requested control roles and specialist packs are represented.", "Profiles remain candidate-only and route-isolated."],
+      "stop_conditions": ["The work would duplicate source authority or alter an existing chunking skill lifecycle."],
+      "handoff": {
+        "recipient_role_ids": ["integration-foreman"],
+        "deliverables": ["family configuration", "role compatibility aliases", "self-review notes"],
+        "readiness_conditions": ["YAML parses and no unrelated role definitions change."]
+      }
+    },
+    {
+      "role_id": "schema-validation-specialist",
+      "why_needed": "Four versioned contracts and fail-closed negative cases require a separate contract-focused implementation lane.",
+      "mission": "Implement the four JSON Schemas and representative positive and negative fixtures without defining domain authority beyond T500.",
+      "inputs": ["T500 architecture and interface contract", "existing schema conventions"],
+      "dependencies": [],
+      "authority": "May write only the four T500 schema files and tests/fixtures/scripture_first_biblical_chunking_family.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "specialist",
+      "acceptance_conditions": ["Schemas express identity separation, canonical-66 scope, specialist limits, evidence lanes, and hold behavior.", "Negative fixtures fail for the intended reason."],
+      "stop_conditions": ["A schema would authorize output promotion or embed Scripture/source payloads."],
+      "handoff": {
+        "recipient_role_ids": ["integration-foreman"],
+        "deliverables": ["four schemas", "positive and negative fixtures", "fixture expectation map"],
+        "readiness_conditions": ["Files parse as JSON and references are local and resolvable."]
+      }
+    },
+    {
+      "role_id": "independent-scripture-checker",
+      "why_needed": "A distinct reviewer must challenge theological imputation, self-approval, authority leakage, and regression risk.",
+      "mission": "Independently verify the completed family, evidence precedence, hold behavior, route isolation, privacy boundary, and non-output-changing status.",
+      "inputs": ["final T500 diff", "raw validator output", "pilot and whole-Bible shadow reports"],
+      "dependencies": ["integration-foreman", "family-contract-specialist", "schema-validation-specialist"],
+      "authority": "Read-only review; cannot edit, approve its own work, activate candidates, promote gold, or publish to DAD.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "checker",
+      "acceptance_conditions": ["Independent findings name evidence and severity.", "Release gate is explicit and preserves owner decisions."],
+      "stop_conditions": ["Checker identity collides with a writer or required raw evidence is unavailable."],
+      "handoff": {
+        "recipient_role_ids": [],
+        "deliverables": ["independent findings", "anti-imputation assessment", "release recommendation"],
+        "readiness_conditions": ["Integration is frozen for review and all permitted evidence is available."]
+      }
+    }
+  ],
+  "proof_obligations": [
+    {
+      "obligation_id": "bounded-non-output-change",
+      "description": "Prove T500 adds only candidate control-plane artifacts and changes no chunk, gold, canon, graph, retrieval, preferred-reading, or theology truth.",
+      "evidence_required": ["final diff", "task-scope validation", "non-target identity assertions"],
+      "owner_role_id": "integration-foreman",
+      "checker_role_id": "independent-scripture-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "scripture-first-fail-closed",
+      "description": "Prove prohibited first-pass evidence, unresolved authority references, writer/checker collisions, and over-delegation fail closed.",
+      "evidence_required": ["negative fixtures", "focused tests", "independent review"],
+      "owner_role_id": "integration-foreman",
+      "checker_role_id": "independent-scripture-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "portable-metadata-only",
+      "description": "Prove any DAD adaptation remains gated and can contain hashes and capability metadata but no Scripture or private source payloads.",
+      "evidence_required": ["release contract", "payload-denial tests", "DAD readiness finding"],
+      "owner_role_id": "integration-foreman",
+      "checker_role_id": "independent-scripture-checker",
+      "status": "satisfied"
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "decision_id": "dad-publication-readiness",
+      "summary": "DAD publication remains deferred until its candidate family framework is merged and portfolio registry/documentation drift is reconciled.",
+      "owner_role_id": "integration-foreman",
+      "blocking": false,
+      "status": "deferred"
+    },
+    {
+      "decision_id": "run-level-parent-assignment-resolution",
+      "summary": "Before pilots, orchestration must resolve each parent assignment packet and verify lane equality across the packet collection.",
+      "owner_role_id": "integration-foreman",
+      "blocking": false,
+      "status": "deferred"
+    },
+    {
+      "decision_id": "candidate-activation",
+      "summary": "Any activation or replacement of the incumbent requires Lowell's explicit approval in a separate task.",
+      "owner_role_id": "integration-foreman",
+      "blocking": false,
+      "status": "deferred"
+    }
+  ],
+  "manifest_digest": "sha256:6c0374c3ccfb9acd12fd61cf02ec7ba6d25bd9000ee127663e029a96abae13db"
+}

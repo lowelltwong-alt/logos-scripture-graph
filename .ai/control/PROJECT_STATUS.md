@@ -1,7 +1,7 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-15
-**Updated by:** T511 generated sidecar lifecycle convergence
+**Last updated:** 2026-07-18
+**Updated by:** T511 generated sidecar lifecycle convergence (merge with main)
 **Active task:** -> **T511 COMPLETE_PENDING_MERGE** on `codex/t511-generated-sidecar-lifecycle`. Generated canonical validators are scheduled from the governed lifecycle registry; clean checkouts explicitly skip only unavailable generated-data gates, while `--require-generated-data` fails closed for release/full-data verification. No generated data was copied, linked, regenerated, or mutated.
 
 > **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
@@ -10,6 +10,24 @@
 > parity checks. Clean-checkout aggregate validation passes; release mode rejects missing declared
 > inputs before executing gates. No validator, Scripture data, chunk output, doctrine, canon, graph,
 > retrieval, vector, index, or theology authority changed.
+
+> **T479 Leipzig Sinaiticus NAS IIIF acquisition (2026-07-18):** Acquired all 172 authorized
+> Leipzig IIIF capture variants (86 canvases with reproduction and raking-light captures) to
+> governed NAS `source-originals`. Adds provider-neutral acquisition tooling, a compact rights
+> ledger mirror, witness metadata specifications, and NAS verification receipts. T472 showcase
+> remains unchanged; no OCR, transcription, embeddings, canon change, boundary import,
+> publication, or redistribution was authorized.
+
+> **T500 Scripture-first biblical chunking family (2026-07-15):** Adds four strict contracts,
+> seven control roles, eight named campaign roles, three observers, fourteen specialist packs, deterministic routing for all
+> nineteen canonical literary forms, twenty-nine hash-linked knowledge pointers, compatibility
+> aliases, fifty contract fixtures, and payload-free generated catalogs. The no-text shadow
+> accounts for all 31,103 canonical passage records and admits no noncanonical row. Exegetical
+> pilots and boundary proposals remain held pending T475 source-marker integrity and run-level
+> parent-assignment resolution. Independent Scripture-first review accepted the candidate foundation.
+> DAD publication and candidate activation remain explicitly unauthorized.
+> Parent units are proposed before child review, child review defaults to no children, textual-witness
+> and speaker ambiguity routes are explicit, and historical model maps are non-voting evidence.
 
 > **T498 canonical changed-path engine core (2026-07-13):** Implements approved LSG-O2A as an
 > additive `logos_validation.changed_paths` Python reference, four Git-state layers, named profiles,
@@ -1936,3 +1954,9 @@ manifest ✓ | JSONL 864,904 ✓ | pytest 5/5 ✓ | chunker ✗
 ## Update rules
 
 When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml → current_focus.yaml → roadmap_events.jsonl
+
+---
+
+## T514 approved external asset root (2026-07-18)
+
+Lowell's exact private quarantine root `C:\LogosExternal` is recorded and passed the storage-only preflight with more than 50 GiB free. The environment variable was not persisted and the root contents were not changed. Downloads, OCR, ingest, embeddings/vector indexes, publication, email, release, canon/source-tradition decisions, and theology/interpretation authority remain unauthorized. The T514 PR remains subject to normal review and branch protection.
