@@ -1,8 +1,15 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-18
-**Updated by:** T479 Leipzig Sinaiticus NAS acquisition; active task remains T500
-**Active task:** -> **T500 COMPLETE_FOUNDATION / PILOTS_HELD** on `codex/t500-scripture-first-biblical-chunking-family`. The additive candidate control plane passed independent review and focused validation. Exegetical pilots, boundary shadow execution, DAD publication, and activation remain held. No chunk, gold, route, evaluator, graph, retrieval, reading, canon, or theology authority changes.
+**Updated by:** T511 generated sidecar lifecycle convergence (merge with main)
+**Active task:** -> **T511 COMPLETE_PENDING_MERGE** on `codex/t511-generated-sidecar-lifecycle`. Generated canonical validators are scheduled from the governed lifecycle registry; clean checkouts explicitly skip only unavailable generated-data gates, while `--require-generated-data` fails closed for release/full-data verification. No generated data was copied, linked, regenerated, or mutated.
+
+> **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
+> generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
+> dependencies under `generated_data(...)`, and separates static T433/T439 contracts from hydrated
+> parity checks. Clean-checkout aggregate validation passes; release mode rejects missing declared
+> inputs before executing gates. No validator, Scripture data, chunk output, doctrine, canon, graph,
+> retrieval, vector, index, or theology authority changed.
 
 > **T479 Leipzig Sinaiticus NAS IIIF acquisition (2026-07-18):** Acquired all 172 authorized
 > Leipzig IIIF capture variants (86 canvases with reproduction and raking-light captures) to

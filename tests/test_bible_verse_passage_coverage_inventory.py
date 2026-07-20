@@ -10,6 +10,7 @@ from scripts import validate_bible_verse_passage_coverage_inventory as validator
 
 ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = ROOT / ".ai" / "control" / "bible_verse_passage_coverage_inventory.jsonl"
+pytestmark = pytest.mark.generated_data("data/canonical/scripture/passages/passages.jsonl")
 
 
 def test_t386_bible_verse_passage_coverage_inventory_validates_current_repo() -> None:

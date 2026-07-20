@@ -8,6 +8,10 @@ import yaml
 
 from scripts import validate_1cor8_10_parent_evidence_packet as validator
 
+pytestmark = pytest.mark.generated_data(
+    "data/canonical/translations/eng-web/translation_witnesses.jsonl"
+)
+
 
 def write_yaml(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")

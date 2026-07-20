@@ -10,6 +10,9 @@ from scripts import validate_apocalyptic_prophetic_intertext_dossier_queue as va
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = ROOT / ".ai" / "control" / "apocalyptic_prophetic_intertext_dossier_queue.yaml"
+pytestmark = pytest.mark.generated_data(
+    "data/canonical/translations/eng-web/editorial_cross_references.jsonl"
+)
 
 
 def load_queue() -> dict:

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml
@@ -37,6 +37,10 @@ REQUIRED_GENERATED_DATA_GATES = {
     "validate_wj_marker_inventory",
     "validate_fast_canonical_qa",
     "validate_fast_word_token_signals",
+    "validate_fast_canonical_scope",
+    "validate_fast_jsonl_canonical",
+    "build_t433_phlm_alignment_pilot_currentness",
+    "build_t439_phlm_alignment_bridge_expansion_currentness",
 }
 REQUIRED_GLOBAL_NON_AUTHS = {
     "validation_speed_as_correctness",
@@ -104,6 +108,16 @@ def _require_string_list(value: Any, label: str) -> list[str]:
     return [str(item).strip() for item in value]
 
 
+def _canonical_relative_path(value: str) -> bool:
+    path = PurePosixPath(value)
+    return (
+        not path.is_absolute()
+        and path.parts[:2] == ("data", "canonical")
+        and ".." not in path.parts
+        and "\\" not in value
+    )
+
+
 def _validate_authority(data: dict[str, Any], path: Path) -> None:
     authority = data.get("authority")
     if not isinstance(authority, dict):
@@ -123,10 +137,16 @@ def _validate_gate(gate: dict[str, Any], seen_ids: set[str], path: Path) -> str:
         raise ValidationGateLifecycleError(f"{_rel(path)}: duplicate gate_id {gate_id}")
     seen_ids.add(gate_id)
     command = _require_string(gate.get("command"), f"{gate_id}.command")
-    if not command.startswith("scripts/"):
+    command_path = (ROOT / command).resolve()
+    if not command_path.is_relative_to((ROOT / "scripts").resolve()):
         raise ValidationGateLifecycleError(f"{gate_id}.command must be under scripts/")
-    if not (ROOT / command).exists():
+    if not command_path.is_file():
         raise ValidationGateLifecycleError(f"{gate_id}.command target does not exist: {command}")
+    args = gate.get("args", [])
+    if not isinstance(args, list) or not all(isinstance(item, str) and item.strip() for item in args):
+        raise ValidationGateLifecycleError(f"{gate_id}.args must contain only non-empty strings")
+    if any("\n" in item or "\r" in item for item in args):
+        raise ValidationGateLifecycleError(f"{gate_id}.args must not contain line breaks")
     status = _require_string(gate.get("status"), f"{gate_id}.status")
     if status not in ALLOWED_STATUSES:
         raise ValidationGateLifecycleError(f"{gate_id}.status must be one of {sorted(ALLOWED_STATUSES)}")
@@ -142,8 +162,10 @@ def _validate_gate(gate: dict[str, Any], seen_ids: set[str], path: Path) -> str:
     required_inputs = gate.get("required_inputs")
     if status == "active_generated_data":
         paths = _require_string_list(required_inputs, f"{gate_id}.required_inputs")
-        if not any(item.startswith("data/canonical/") for item in paths):
-            raise ValidationGateLifecycleError(f"{gate_id}.required_inputs must include generated canonical data")
+        if not all(_canonical_relative_path(item) for item in paths):
+            raise ValidationGateLifecycleError(
+                f"{gate_id}.required_inputs must contain only repository-relative generated canonical data"
+            )
         missing_behavior = _require_string(gate.get("missing_input_behavior"), f"{gate_id}.missing_input_behavior")
         if missing_behavior not in ALLOWED_MISSING_INPUT_BEHAVIOR:
             raise ValidationGateLifecycleError(

@@ -584,26 +584,18 @@ def test_fast_chunk_map_python_fallback_only_when_rust_unavailable(tmp_path: Pat
     assert "using Python fallback" in result.stderr
 
 
-def test_validate_all_uses_fast_wrappers_for_heavy_canonical_scans(tmp_path: Path, monkeypatch) -> None:
+def test_validate_all_uses_registry_fast_wrappers_for_heavy_canonical_scans() -> None:
     from scripts import validate_all
+    from scripts.generated_data_lifecycle import load_generated_data_gates
 
-    canonical_files = [tmp_path / f"canonical_{index}.jsonl" for index in range(8)]
-    for path in canonical_files:
-        _write_jsonl(path, _valid_records())
-    monkeypatch.setattr(validate_all, "SMALL_CANON", canonical_files[:6])
-    monkeypatch.setattr(validate_all, "CANON_SCOPE_FILES", canonical_files)
-    monkeypatch.setattr(validate_all, "QA_REQUIRED", canonical_files[:2])
-
-    gates = validate_all.build_gates()
-    fast_gates = [(name, cmd) for name, cmd in gates if "validate_fast_" in name]
-    qa_gates = [(name, cmd) for name, cmd in gates if name == "validate_fast_canonical_qa.py (canonical)"]
-
-    assert {name for name, _ in fast_gates} >= {
-        "validate_fast_canonical_scope.py (canonical)",
-        "validate_fast_jsonl.py (canonical)",
-        "validate_fast_canonical_qa.py (canonical)",
+    gates = {gate.gate_id: gate for gate in load_generated_data_gates(validate_all.ROOT)}
+    expected = {
+        "validate_fast_canonical_scope": "scripts/validate_fast_canonical_scope.py",
+        "validate_fast_jsonl_canonical": "scripts/validate_fast_jsonl.py",
+        "validate_fast_canonical_qa": "scripts/validate_fast_canonical_qa.py",
     }
-    assert all("(canonical)" in name for name, _ in fast_gates)
-    if qa_gates:
-        assert all("validate_fast_canonical_qa.py" in " ".join(cmd) for _, cmd in qa_gates)
-        assert all("--python-fallback" in cmd for _, cmd in qa_gates)
+    assert gates.keys() >= expected.keys()
+    for gate_id, command in expected.items():
+        assert gates[gate_id].command == command
+        assert "--python-fallback" in gates[gate_id].args
+        assert gates[gate_id].required_inputs

@@ -173,22 +173,15 @@ def test_fast_word_token_signals_python_fallback_only_when_rust_unavailable(tmp_
     assert "using Python fallback" in result.stderr
 
 
-def test_validate_all_adds_word_token_signal_gate_when_tokens_exist(tmp_path: Path, monkeypatch) -> None:
+def test_validate_all_registers_word_token_signal_gate() -> None:
     from scripts import validate_all
+    from scripts.generated_data_lifecycle import load_generated_data_gates
 
-    word_tokens = tmp_path / "word_tokens.jsonl"
-    _write_jsonl(word_tokens, _word_tokens())
-    monkeypatch.setattr(validate_all, "WORD_TOKENS", word_tokens)
-    monkeypatch.setattr(validate_all, "CANON_SCOPE_FILES", [])
-    monkeypatch.setattr(validate_all, "SMALL_CANON", [])
-    monkeypatch.setattr(validate_all, "QA_REQUIRED", [])
-
-    gates = validate_all.build_gates()
-    matching = [cmd for name, cmd in gates if name == "validate_fast_word_token_signals.py (canonical)"]
-
-    assert matching
-    assert "validate_fast_word_token_signals.py" in " ".join(matching[0])
-    assert "--python-fallback" in matching[0]
+    gates = {gate.gate_id: gate for gate in load_generated_data_gates(validate_all.ROOT)}
+    gate = gates["validate_fast_word_token_signals"]
+    assert gate.command == "scripts/validate_fast_word_token_signals.py"
+    assert "--python-fallback" in gate.args
+    assert gate.required_inputs == ("data/canonical/translations/eng-web/word_tokens.jsonl",)
 
 
 def test_validate_all_uses_stack_tip_task_id(monkeypatch) -> None:

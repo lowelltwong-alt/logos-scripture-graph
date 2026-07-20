@@ -129,12 +129,15 @@ tracked_gates:
       - rust_validator_as_governance_authority
   - gate_id: validate_fast_canonical_qa
     command: scripts/validate_fast_canonical_qa.py
+    args:
+      - --python-fallback
     status: active_generated_data
     owner_task: T457
     purpose: "Rust-backed structural QA for generated canonical corpus sidecars with Python fallback/compare wrapper."
     required_inputs:
       - data/canonical/scripture/passages/passages.jsonl
       - data/canonical/translations/eng-web/translation_witnesses.jsonl
+      - data/canonical/translations/eng-web/word_tokens.jsonl
     missing_input_behavior: skip_when_ignored_generated_data_absent
     replacement_gate: null
     retirement_criteria: "Keep active as a Rust leaf validator; it does not replace semantic or theology-policy gates unless a later parity task proves coverage."
@@ -144,6 +147,9 @@ tracked_gates:
       - graph_retrieval_or_vector_truth
   - gate_id: validate_fast_word_token_signals
     command: scripts/validate_fast_word_token_signals.py
+    args:
+      - --python-fallback
+      - data/canonical/translations/eng-web/word_tokens.jsonl
     status: active_generated_data
     owner_task: T459
     purpose: "Rust-backed no-text aggregate signal scan for generated word_tokens JSONL with Python fallback/compare wrapper."
@@ -157,3 +163,94 @@ tracked_gates:
       - strong_number_as_lexical_truth
       - wj_marker_as_speaker_authority
       - rust_validator_as_governance_authority
+  - gate_id: validate_fast_canonical_scope
+    command: scripts/validate_fast_canonical_scope.py
+    args:
+      - --python-fallback
+      - data/canonical/scripture/passages/passages.jsonl
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+      - data/canonical/translations/eng-web/section_headings.jsonl
+      - data/canonical/translations/eng-web/footnotes.jsonl
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+      - data/canonical/translations/eng-web/glossary_entries.jsonl
+      - data/canonical/translations/eng-web/boundary_claims.jsonl
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    status: active_generated_data
+    owner_task: T511
+    purpose: "Validate canonical scope across every generated canonical sidecar when the complete declared set is available."
+    required_inputs:
+      - data/canonical/scripture/passages/passages.jsonl
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+      - data/canonical/translations/eng-web/section_headings.jsonl
+      - data/canonical/translations/eng-web/footnotes.jsonl
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+      - data/canonical/translations/eng-web/glossary_entries.jsonl
+      - data/canonical/translations/eng-web/boundary_claims.jsonl
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep active unless a replacement preserves fail-closed canonical identity checks for every declared sidecar and an owner-approved lifecycle task retires it."
+    non_authorizations:
+      - canon_scope_change
+      - generated_data_as_source_authority
+      - rust_validator_as_governance_authority
+  - gate_id: validate_fast_jsonl_canonical
+    command: scripts/validate_fast_jsonl.py
+    args:
+      - --python-fallback
+      - --require-canon
+      - data/canonical/scripture/passages/passages.jsonl
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+      - data/canonical/translations/eng-web/section_headings.jsonl
+      - data/canonical/translations/eng-web/footnotes.jsonl
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+      - data/canonical/translations/eng-web/glossary_entries.jsonl
+    status: active_generated_data
+    owner_task: T511
+    purpose: "Validate JSONL shape and canonical identity for the generated canonical sidecars previously scheduled by a hardcoded present-file list."
+    required_inputs:
+      - data/canonical/scripture/passages/passages.jsonl
+      - data/canonical/translations/eng-web/translation_witnesses.jsonl
+      - data/canonical/translations/eng-web/section_headings.jsonl
+      - data/canonical/translations/eng-web/footnotes.jsonl
+      - data/canonical/translations/eng-web/editorial_cross_references.jsonl
+      - data/canonical/translations/eng-web/glossary_entries.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep active unless a replacement preserves JSONL and canonical-field coverage and an owner-approved lifecycle task retires it."
+    non_authorizations:
+      - generated_data_as_source_authority
+      - canon_scope_change
+      - rust_validator_as_governance_authority
+  - gate_id: build_t433_phlm_alignment_pilot_currentness
+    command: scripts/build_t433_phlm_alignment_pilot.py
+    args:
+      - --check
+    status: active_generated_data
+    owner_task: T433
+    purpose: "Rebuild T433 in memory from generated WEB tokens and fail if the committed no-text pilot fixture is stale."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep the parity check unless a replacement independently binds the T433 fixture to the generated WEB token sidecar and an owner-approved lifecycle task retires it."
+    non_authorizations:
+      - generated_data_as_source_authority
+      - word_level_alignment_truth
+      - theology_authority
+  - gate_id: build_t439_phlm_alignment_bridge_expansion_currentness
+    command: scripts/build_t439_phlm_alignment_bridge_expansion.py
+    args:
+      - --check
+    status: active_generated_data
+    owner_task: T439
+    purpose: "Rebuild T439 in memory from generated WEB tokens and fail if the committed no-text full-Philemon fixture is stale."
+    required_inputs:
+      - data/canonical/translations/eng-web/word_tokens.jsonl
+    missing_input_behavior: skip_when_ignored_generated_data_absent
+    replacement_gate: null
+    retirement_criteria: "Keep the parity check unless a replacement independently binds the T439 fixture to the generated WEB token sidecar and an owner-approved lifecycle task retires it."
+    non_authorizations:
+      - generated_data_as_source_authority
+      - word_level_alignment_truth
+      - theology_authority
