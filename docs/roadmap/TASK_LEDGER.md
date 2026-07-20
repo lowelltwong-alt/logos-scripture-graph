@@ -14,6 +14,7 @@ Use this file when you need task-specific T3xx/T4xx history, downstream non-auth
 
 ## Current Newest-First Pointers
 
+- T513: Candidate-only portable OCR research adoption. Adds a domain-neutral A/B[/C] comparison and human-review tool boundary, a fail-closed Logos admission planner, and a disabled external InduOCR stress-benchmark profile. No benchmark or manuscript download/run, OCR payload import, Scripture/graph/retrieval/vector truth, preferred reading, or theology authority is authorized.
 - T511: Generated sidecar lifecycle convergence. Registry-driven clean-checkout skips, fail-closed release mode, centralized pytest dependency markers, and separate static-versus-parity validation; no generated data mutation or validator retirement.
 - T500: Scripture-first biblical chunking expert family foundation complete and independently accepted. Four strict contracts, 7 controls, 3 observers, 14 packs, 19 form routes, 29 hash-linked knowledge pointers, 50 contract fixtures, and a 31,103-passage no-text shadow. Exegetical pilots, boundary execution, DAD publication, and activation remain held.
 - T475: Task-local Sol/Terra/Luna hierarchy and exact pre/post-T474 shadow inventory. HOLD: three editorial-heading footnotes need typed-sidecar preservation before Claude audit or T476.

@@ -60,6 +60,19 @@ T475_DATA_MAP_TRANSITION_REPLACEMENTS = {
 # Declared pipeline endpoints: (script, role, inputs, outputs)
 PIPELINE_ENDPOINTS = [
     {
+        "script": "pipelines/ingest/portable_ocr_adapter.py",
+        "role": "T513 metadata-only admission planner for candidate portable OCR; no payload reads or Scripture writes",
+        "inputs": [
+            "rights/provenance/hash admission metadata",
+            "LOGOS_EXTERNAL_ASSET_ROOT outside Git and OneDrive",
+            ".ai/control/t513_portable_ocr_adoption.yaml",
+        ],
+        "outputs": [
+            "in-memory OcrExecutionPlan for an independently authorized external run",
+            "no Scripture, graph, retrieval, vector, or tracked payload output",
+        ],
+    },
+    {
         "script": "pipelines/ingest/usfm_importer.py",
         "role": "USFM ingest (raw zip -> canonical + processed); emits canon_profiles",
         "inputs": [
