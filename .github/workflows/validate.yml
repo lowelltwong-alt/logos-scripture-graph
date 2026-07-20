@@ -17,7 +17,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install validation + test deps
-        run: pip install -e ".[validate,test]"
+        run: |
+          pip install -e ".[validate,test]"
+          pip install -e tools/portable_ocr
 
       - name: Source manifest checksum gate
         run: python pipelines/validate/validate_manifest.py data/raw/bible/eng-web/source_manifest.yaml

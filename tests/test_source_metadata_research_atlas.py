@@ -10,6 +10,13 @@ from scripts import validate_source_metadata_research_atlas as validator
 
 ROOT = Path(__file__).resolve().parents[1]
 ATLAS = ROOT / ".ai" / "control" / "source_metadata_research_atlas.yaml"
+pytestmark = pytest.mark.generated_data(
+    "data/canonical/translations/eng-web/word_tokens.jsonl",
+    "data/canonical/translations/eng-web/editorial_cross_references.jsonl",
+    "data/canonical/translations/eng-web/footnotes.jsonl",
+    "data/canonical/translations/eng-web/section_headings.jsonl",
+    "data/canonical/translations/eng-web/boundary_claims.jsonl",
+)
 
 
 def load_atlas() -> dict:

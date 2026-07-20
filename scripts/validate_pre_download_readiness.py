@@ -36,6 +36,9 @@ REQUIRED_NON_AUTHORIZATIONS = {
     "graph_truth",
     "preferred_readings",
     "theology_authority",
+    "publication",
+    "email",
+    "release",
 }
 
 
@@ -54,6 +57,17 @@ def validate_pre_download_readiness() -> dict[str, Any]:
         errors.append("object_type must be primary_witness_pre_download_readiness")
     if packet.get("binary_acquisition_authorized") is not False:
         errors.append("binary_acquisition_authorized must remain false")
+    root_gate = packet.get("external_root_gate", {})
+    if root_gate.get("owner_approval_id") != "LOGOS-EXTERNAL-ROOT-2026-07-18":
+        errors.append("external_root_gate must cite the recorded owner approval")
+    if root_gate.get("exact_private_quarantine_root") != r"C:\LogosExternal":
+        errors.append("external_root_gate must record C:\\LogosExternal exactly")
+    if set(root_gate.get("authorized_actions", [])) != {"record_exact_path", "preflight_exact_path"}:
+        errors.append("external_root_gate authorized_actions must remain record-and-preflight only")
+    if root_gate.get("environment_variable_persisted") is not False:
+        errors.append("external_root_gate must not claim environment-variable persistence")
+    if root_gate.get("download_authorized") is not False:
+        errors.append("external_root_gate must not authorize downloads")
     if set(packet.get("global_prerequisites", [])) != REQUIRED_PREREQUISITES:
         errors.append("global_prerequisites must match the required storage and rights gates")
     if set(packet.get("non_authorizations", [])) != REQUIRED_NON_AUTHORIZATIONS:

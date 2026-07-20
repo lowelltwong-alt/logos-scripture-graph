@@ -33,7 +33,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 
 ## Totals
 
-- Data files mapped: **222**
+- Data files mapped: **223**
 - Total data size: **725.5MB**
 - Total JSONL records: **847,115**
 - Schema contracts: **38**
@@ -251,6 +251,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 | `data/candidate/source_catalog/manuscript_reliability/sqlite/seed_rows.jsonl` | candidate | 46.1KB | 37 |
 | `data/candidate/source_catalog/primary_bible_witnesses/acquisition_manifest.yaml` | candidate | 1.2KB |  |
 | `data/candidate/source_catalog/primary_bible_witnesses/blocked_or_permission_needed.yaml` | candidate | 2.6KB |  |
+| `data/candidate/source_catalog/primary_bible_witnesses/external_asset_root_owner_authorization.yaml` | candidate | SIZE |  |
 | `data/candidate/source_catalog/primary_bible_witnesses/external_asset_root_validation_report.yaml` | candidate | 745B |  |
 | `data/candidate/source_catalog/primary_bible_witnesses/image_rights_review.yaml` | candidate | 3.8KB |  |
 | `data/candidate/source_catalog/primary_bible_witnesses/manifest.yaml` | candidate | 1.4KB |  |

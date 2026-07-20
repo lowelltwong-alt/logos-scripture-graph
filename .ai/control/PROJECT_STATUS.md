@@ -1,8 +1,22 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-16
-**Updated by:** T513 portable OCR research adoption (candidate-only; does not displace current focus)
-**Active task:** -> **T500 COMPLETE_FOUNDATION / PILOTS_HELD** on `codex/t500-scripture-first-biblical-chunking-family`. The additive candidate control plane passed independent review and focused validation. Exegetical pilots, boundary shadow execution, DAD publication, and activation remain held. No chunk, gold, route, evaluator, graph, retrieval, reading, canon, or theology authority changes.
+**Last updated:** 2026-07-18
+**Updated by:** T513 portable OCR research adoption merged with T511/main
+**Active task:** -> **T513 COMPLETE_PENDING_MERGE** on `codex/t513-portable-ocr-research`. Candidate-only portable OCR comparison/review tool and metadata-only admission planner; no OCR execution or Scripture authority.
+
+> **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
+> generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
+> dependencies under `generated_data(...)`, and separates static T433/T439 contracts from hydrated
+> parity checks. Clean-checkout aggregate validation passes; release mode rejects missing declared
+> inputs before executing gates. No validator, Scripture data, chunk output, doctrine, canon, graph,
+> retrieval, vector, index, or theology authority changed.
+
+> **T479 Leipzig Sinaiticus NAS IIIF acquisition (2026-07-18):** Acquired all 172 authorized
+> Leipzig IIIF capture variants (86 canvases with reproduction and raking-light captures) to
+> governed NAS `source-originals`. Adds provider-neutral acquisition tooling, a compact rights
+> ledger mirror, witness metadata specifications, and NAS verification receipts. T472 showcase
+> remains unchanged; no OCR, transcription, embeddings, canon change, boundary import,
+> publication, or redistribution was authorized.
 
 > **T513 portable OCR research adoption (2026-07-16):** Adds a candidate-only,
 > domain-neutral OCR comparison/review tool and a metadata-only Logos admission planner. InduOCR is
@@ -1947,3 +1961,9 @@ manifest ✓ | JSONL 864,904 ✓ | pytest 5/5 ✓ | chunker ✗
 ## Update rules
 
 When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml → current_focus.yaml → roadmap_events.jsonl
+
+---
+
+## T514 approved external asset root (2026-07-18)
+
+Lowell's exact private quarantine root `C:\LogosExternal` is recorded and passed the storage-only preflight with more than 50 GiB free. The environment variable was not persisted and the root contents were not changed. Downloads, OCR, ingest, embeddings/vector indexes, publication, email, release, canon/source-tradition decisions, and theology/interpretation authority remain unauthorized. The T514 PR remains subject to normal review and branch protection.

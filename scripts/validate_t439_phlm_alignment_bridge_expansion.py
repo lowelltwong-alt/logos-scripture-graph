@@ -128,6 +128,10 @@ def _validate_schema_records(paths: list[Path]) -> None:
 
 
 def _web_token_ids() -> set[str]:
+    if not WEB_WORD_TOKENS.is_file():
+        raise T439PilotError(
+            f"{_rel(WEB_WORD_TOKENS)} is missing; generated parity requires canonical sidecar hydration"
+        )
     ids: set[str] = set()
     with WEB_WORD_TOKENS.open("r", encoding="utf-8") as handle:
         for line in handle:
@@ -220,7 +224,12 @@ def validate_editorial_layers(rows: list[dict[str, Any]], source_token_ids: set[
         raise T439PilotError(f"unexpected editorial layer kind counts: {kinds}")
 
 
-def validate_alignments(rows: list[dict[str, Any]], by_ref: dict[str, list[str]]) -> None:
+def validate_alignments(
+    rows: list[dict[str, Any]],
+    by_ref: dict[str, list[str]],
+    *,
+    expected_web_ids: set[str] | None = None,
+) -> None:
     if len(rows) != EXPECTED_COUNTS["alignment_records"]:
         raise T439PilotError(f"expected 25 alignment rows, got {len(rows)}")
     refs = [str(row.get("osis_ref")) for row in rows]
@@ -261,14 +270,17 @@ def validate_alignments(rows: list[dict[str, Any]], by_ref: dict[str, list[str]]
         if not isinstance(authority, dict):
             raise T439PilotError(f"{label}: authority must be a mapping")
         _require_all_authority_false(authority, f"{label}.authority")
-    expected_web = _web_token_ids()
-    if seen_web_ids != expected_web:
-        missing = sorted(expected_web - seen_web_ids)[:10]
-        extra = sorted(seen_web_ids - expected_web)[:10]
+    if expected_web_ids is not None and seen_web_ids != expected_web_ids:
+        missing = sorted(expected_web_ids - seen_web_ids)[:10]
+        extra = sorted(seen_web_ids - expected_web_ids)[:10]
         raise T439PilotError(f"WEB token coverage mismatch: missing={missing}, extra={extra}")
 
 
-def validate_t439_phlm_alignment_bridge_expansion(root: Path = ROOT) -> dict[str, Any]:
+def validate_t439_phlm_alignment_bridge_expansion(
+    root: Path = ROOT,
+    *,
+    generated_parity: bool = False,
+) -> dict[str, Any]:
     manifest_path = root / PILOT_ROOT.relative_to(ROOT) / "manifest.yaml"
     tokens_path = root / PILOT_ROOT.relative_to(ROOT) / "source_language_tokens.jsonl"
     editorial_path = root / PILOT_ROOT.relative_to(ROOT) / "editorial_layers.jsonl"
@@ -320,7 +332,8 @@ def validate_t439_phlm_alignment_bridge_expansion(root: Path = ROOT) -> dict[str
     by_ref = validate_source_tokens(tokens)
     source_token_ids = {token_id for token_ids in by_ref.values() for token_id in token_ids}
     validate_editorial_layers(editorial, source_token_ids)
-    validate_alignments(alignments, by_ref)
+    expected_web_ids = _web_token_ids() if generated_parity else None
+    validate_alignments(alignments, by_ref, expected_web_ids=expected_web_ids)
     _validate_schema_records([tokens_path, editorial_path, alignments_path])
     _validate_no_production_outputs(root)
 
@@ -342,13 +355,22 @@ def validate_t439_phlm_alignment_bridge_expansion(root: Path = ROOT) -> dict[str
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument(
+        "--generated-parity",
+        action="store_true",
+        help="Also compare committed T439 translation-token IDs with generated WEB word tokens.",
+    )
     args = parser.parse_args(argv)
     try:
-        validate_t439_phlm_alignment_bridge_expansion(args.root.resolve())
+        validate_t439_phlm_alignment_bridge_expansion(
+            args.root.resolve(),
+            generated_parity=args.generated_parity,
+        )
     except T439PilotError as exc:
         print(f"T439 Philemon alignment bridge expansion validation failed: {exc}", file=sys.stderr)
         return 1
-    print("T439 Philemon alignment bridge expansion validation passed.")
+    mode = "contract + generated parity" if args.generated_parity else "contract"
+    print(f"T439 Philemon alignment bridge expansion {mode} validation passed.")
     return 0
 
 

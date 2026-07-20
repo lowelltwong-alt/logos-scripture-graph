@@ -20,6 +20,7 @@ def test_t433_phlm_alignment_pilot_validates_current_repo() -> None:
     assert manifest["authority"]["authorizes_translation_judgment"] is False
 
 
+@pytest.mark.generated_data("data/canonical/translations/eng-web/word_tokens.jsonl")
 def test_t433_builder_check_passes() -> None:
     result = subprocess.run(
         [sys.executable, "scripts/build_t433_phlm_alignment_pilot.py", "--check"],
