@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T513
+last_updated_by_task: T519
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2890,7 +2890,53 @@ lessons:
       - tools/portable_ocr/tests/test_portable_ocr.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-070
+    title: Editorial-only heading bodies must preserve typed inline sidecars without witness or token promotion
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, source_metadata]
+    tags: [t519, t475, editorial-heading, footnote, typed-sidecar, usfm-importer, fail-closed]
+    use_when:
+      - "A USFM importer marks heading or speaker bodies as editorial_only."
+      - "Inline footnotes or cross-references appear inside \\d, \\sp, or similar non-witness bodies."
+      - "A shadow delta reports typed-sidecar footnote removals after an anchor repair."
+    preflight_stage: before_usfm_editorial_body_or_shadow_delta_change
+    source_surfaces:
+      - pipelines/ingest/usfm_importer.py
+      - .ai/control/t474_usfm_marker_anchor_contract.yaml
+      - docs/roadmap/T519_EDITORIAL_HEADING_FOOTNOTE_PRESERVATION.md
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+    related_decision_ids: [CD-124]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T519, T475, T474]
+    downstream_risk: "Dropping typed footnotes from editorial headings silently erases recoverable metadata while leaving raw markers in events, creating false cleanup claims and blocking trustworthy shadow-to-canonical migration."
+    required_preflight_surfaces:
+      - .ai/control/t474_usfm_marker_anchor_contract.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - tests/test_t474_usfm_marker_anchor_contract.py
+    required_pattern:
+      - emit_typed_footnotes_and_crossrefs_from_editorial_only_bodies
+      - never_append_editorial_heading_prose_to_translation_witness
+      - never_emit_heading_embedded_word_tokens_as_canonical_word_tokens
+      - keep_unscoped_file_line_footnote_identity_when_no_verse_scope
+      - fixture_cover_editorial_inline_sidecar_preservation_before_shadow_refreeze
+    non_authorizations:
+      - committed_canonical_regeneration
+      - reviewed_gold_change
+      - chunk_output_change
+      - preferred_reading_or_source_tradition
+      - theology_authority
+    validators:
+      - tests/test_t474_usfm_marker_anchor_contract.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-070
+  - from: LSN-070
+    relation: audits
+    to: LSN-010
   - from: LSN-002
     relation: governs_update_of
     to: LSN-069

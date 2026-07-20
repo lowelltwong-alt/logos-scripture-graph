@@ -505,6 +505,52 @@ def append_verse_text(
     write_inline_sidecars(state, writers, result)
 
 
+def emit_editorial_inline_sidecars(
+    state: ImportState,
+    writers: dict[str, JsonlWriter],
+    text: str,
+    source_file: str,
+    source_line: int,
+) -> None:
+    """Emit typed footnotes/crossrefs from editorial-only bodies.
+
+    Heading prose must not enter TranslationWitness text. Heading-embedded
+    word tokens (e.g. Strong's in ``\\d`` / ``\\sp``) must not become
+    WordTokens. Footnote IDs stay file:line-scoped via ``osis_ref=None``.
+    """
+    if not text.strip():
+        return
+    ctx = InlineContext(
+        passage_id=None,
+        osis_ref=None,
+        source_file=source_file,
+        source_line=source_line,
+        word_index=0,
+        footnote_index=0,
+        crossref_index=0,
+        source_sha256=state.source_sha256,
+    )
+    result = state.parser.parse(text, ctx)
+    for footnote in result.footnotes:
+        footnote = attach_book_identity(state, footnote)
+        state.unique(footnote)
+        writers["footnotes"].write(footnote)
+        state.counts["footnotes"] += 1
+    for crossref in result.crossrefs:
+        crossref = attach_book_identity(state, crossref)
+        state.unique(crossref)
+        writers["editorial_crossrefs"].write(crossref)
+        state.counts["editorial_crossrefs"] += 1
+    for unsupported in result.unsupported_markers:
+        state.unique(unsupported)
+        writers["unsupported_markers"].write(unsupported)
+        state.counts["unsupported_markers"] += 1
+        state.unsupported_marker_counts[unsupported["marker"]] += 1
+        samples = state.unsupported_samples[unsupported["marker"]]
+        if len(samples) < 5:
+            samples.append(unsupported["raw_marker"])
+
+
 def flush_verse(state: ImportState, writers: dict[str, JsonlWriter]) -> None:
     if not state.current:
         return
@@ -777,6 +823,8 @@ def parse_usfm_file(state: ImportState, writers: dict[str, JsonlWriter], source_
             continue
         if resolution.body_disposition == "append_current":
             append_verse_text(state, writers, body, source_file, source_line)
+        elif resolution.body_disposition == "editorial_only":
+            emit_editorial_inline_sidecars(state, writers, body, source_file, source_line)
     flush_verse(state, writers)
     state.files.append(
         {

@@ -37,6 +37,7 @@ def _run_fixture(tmp_path: Path, filename: str, usfm: str) -> dict[str, list[dic
     return {
         "witnesses": _read_jsonl(translation / "translation_witnesses.jsonl"),
         "tokens": _read_jsonl(translation / "word_tokens.jsonl"),
+        "footnotes": _read_jsonl(translation / "footnotes.jsonl"),
         "boundaries": _read_jsonl(translation / "boundary_claims.jsonl"),
         "headings": _read_jsonl(translation / "section_headings.jsonl"),
         "events": _read_jsonl(processed / "usfm_events.jsonl"),
@@ -158,6 +159,55 @@ def test_psalm_headings_anchor_forward_without_entering_scripture_text_or_tokens
     assert breaks[1]["prior_osis_ref"] == "Ps.119.10"
     assert breaks[1]["next_osis_ref"] is None
     assert breaks[1]["osis_ref"] is None
+
+
+def test_editorial_heading_footnotes_are_typed_sidecars_without_witness_or_tokens(
+    tmp_path: Path,
+) -> None:
+    """T519: \\f inside \\d must survive in footnotes.jsonl (T475 P1/P2)."""
+    rows = _run_fixture(
+        tmp_path,
+        "20-PSAeng-web.usfm",
+        "\n".join(
+            [
+                r"\id PSA Test",
+                r"\c 46",
+                r"\d For the Chief Musician. According to Alamoth."
+                r"\f + \fr 46:0 \ft Alamoth is a musical term.\f*",
+                r"\q1",
+                r"\v 1 God is our refuge.",
+                r"\c 90",
+                r"\d A Prayer by Moses, the man of God."
+                r'\f + \fr 90:0 \ft The Hebrew word rendered “God” is “\+wh אֱלֹהִ֑ים\+wh*” (Elohim).\f*',
+                r"\q1",
+                r"\v 1 Lord, you have been our dwelling place.",
+            ]
+        ),
+    )
+    witnesses = _by_ref(rows["witnesses"])
+    assert witnesses["Ps.46.1"]["text"] == "God is our refuge."
+    assert "Alamoth" not in witnesses["Ps.46.1"]["text"]
+    assert "musical term" not in witnesses["Ps.46.1"]["text"]
+    assert witnesses["Ps.90.1"]["text"] == "Lord, you have been our dwelling place."
+    assert "Elohim" not in witnesses["Ps.90.1"]["text"]
+    assert not any(row.get("strong") for row in rows["tokens"])
+
+    headings = [row for row in rows["headings"] if row["marker"] == "d"]
+    assert [row["osis_ref"] for row in headings] == ["Ps.46.1", "Ps.90.1"]
+    assert all(row["body_disposition"] == "editorial_only" for row in headings)
+    assert "Alamoth is a musical term" not in headings[0]["text"]
+    assert "Alamoth" in headings[0]["text"]
+
+    footnotes = rows["footnotes"]
+    assert len(footnotes) == 2
+    assert all(row["osis_ref"] is None for row in footnotes)
+    assert all(row["passage_id"] is None for row in footnotes)
+    by_ref = {row["reference"]: row for row in footnotes}
+    assert by_ref["46:0"]["text"] == "Alamoth is a musical term."
+    assert "Elohim" in by_ref["90:0"]["text"]
+    assert by_ref["90:0"]["hebrew_word_spans"] == ["אֱלֹהִ֑ים"]
+    assert by_ref["46:0"]["id"].startswith("footnote:eng-web:20-PSAeng-web.usfm:")
+    assert by_ref["90:0"]["id"].startswith("footnote:eng-web:20-PSAeng-web.usfm:")
 
 
 def test_speaker_labels_are_editorial_and_anchor_the_following_content(tmp_path: Path) -> None:

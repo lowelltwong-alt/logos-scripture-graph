@@ -2109,8 +2109,32 @@ phases:
         shadow_trials_deterministic: true
         frozen_evidence_complete: true
         independent_audit_complete: false
-        blocking_finding: P1_editorial_heading_footnotes_lost_from_typed_sidecar
+        blocking_finding: P1_editorial_heading_footnotes_code_fixed_pending_shadow_refreeze
+        t519_repair_task: T519
         committed_canonical_change_authorized: false
+      - id: T519
+        title: Preserve Typed Footnotes Inside Editorial Heading Bodies
+        status: in_progress_code_and_fixture_proof
+        lane: canonical_source_integrity
+        owner: cursor
+        required_handoff: .ai/handoffs/T519/handoff.md
+        roadmap_doc: docs/roadmap/T519_EDITORIAL_HEADING_FOOTNOTE_PRESERVATION.md
+        task_scope: .ai/tasks/T519.task.yaml
+        decision_register_entry: CD-124
+        lesson_index_entry: LSN-070
+        predecessor: T475
+        importer_path: pipelines/ingest/usfm_importer.py
+        fixture: tests/test_t474_usfm_marker_anchor_contract.py
+        restores_heading_footnotes:
+          - Ps.46.heading_fr_46_0
+          - Ps.90.heading_fr_90_0
+          - Ps.145.heading_fr_145_0
+        full_archive_footnote_count_after_repair: 1130
+        committed_canonical_regeneration_authorized: false
+        reviewed_gold_change_authorized: false
+        chunk_output_authorized: false
+        t476_authorized: false
+        next_task: t475_shadow_refreeze_then_independent_audit
       - id: T476
         title: Canonical WEB Repair Owner Packet
         status: blocked_by_T475

@@ -1,8 +1,16 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-18
-**Updated by:** T513 portable OCR research adoption merged with T511/main
-**Active task:** -> **T513 COMPLETE_PENDING_MERGE** on `codex/t513-portable-ocr-research`. Candidate-only portable OCR comparison/review tool and metadata-only admission planner; no OCR execution or Scripture authority.
+**Last updated:** 2026-07-20
+**Updated by:** T519 editorial heading footnote preservation (owner-authorized)
+**Active task:** -> **T519 IN_PROGRESS** on `codex/t475-editorial-footnote-repair`. Emits typed footnotes from editorial_only heading bodies without witness/token promotion. Restores WEB Ps.46/90/145 heading footnotes. T476 canonical repair remains separately gated pending T475 shadow re-freeze and independent audit.
+
+> **T519 editorial heading typed-sidecar preservation (2026-07-20):** Owner-authorized
+> narrow importer repair for the T475 HOLD. `emit_editorial_inline_sidecars` writes
+> footnotes/crossrefs from editorial_only bodies with file:line scope, does not append
+> heading prose to TranslationWitness text, and does not emit heading-derived WordTokens.
+> Fixture proof and full-archive verify restore footnotes count 1130 with exact baseline
+> IDs for Ps.46/90/145. No committed canonical regeneration, gold, chunk output, or T476
+> packet is authorized.
 
 > **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
 > generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
