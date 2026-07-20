@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "portable-ocr"
+version = "0.1.0"
+description = "Local-first, domain-neutral multi-engine OCR evidence and review"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+portable-ocr = "portable_ocr.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+portable_ocr = ["web/*.html", "adapters/*.ps1"]

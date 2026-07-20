@@ -1,0 +1,88 @@
+id: T513
+phase: phase_4
+title: Portable OCR research adoption for Logos
+mode: architecture_and_tooling
+status: complete_candidate_foundation_only
+owner: Lowell Wong
+branch: codex/t513-portable-ocr-research
+base_ref: origin/main
+scope:
+  allowed_paths:
+    - .ai/tasks/T513.task.yaml
+    - .ai/handoffs/T513/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/t513_portable_ocr_adoption.yaml
+    - .ai/context/agent_work/T513/
+    - ROADMAP_STATE.yaml
+    - .ai/control/roadmap_events.jsonl
+    - AI_TABLE_OF_CONTENTS.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/T513_PORTABLE_OCR_RESEARCH_ADOPTION.md
+    - config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/generated/knowledge_catalog.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/reverse_dependencies.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/dad_portable_adaptation.candidate.v1.json
+    - tools/portable_ocr/
+    - pipelines/ingest/portable_ocr_adapter.py
+    - scripts/validate_t513_portable_ocr_adoption.py
+    - scripts/generate_data_map.py
+    - scripts/validate_all.py
+    - tests/test_t513_portable_ocr_adoption.py
+    - tests/fixtures/portable_ocr/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - eval/chunking_gold/
+    - pipelines/chunking/
+    - registry/chunking/
+    - config/governance/
+    - .ai/control/MASTER_CONTEXT.md
+    - .github/
+authorization:
+  portable_tool_candidate_only: true
+  benchmark_plan_only: true
+  induocr_download_authorized: false
+  induocr_redistribution_authorized: false
+  induocr_training_authorized: false
+  manuscript_download_authorized: false
+  manuscript_ocr_execution_authorized: false
+  scripture_truth_promotion_authorized: false
+  graph_retrieval_or_vector_truth_change_authorized: false
+  preferred_reading_or_theology_authority_change_authorized: false
+  tracked_ocr_payload_authorized: false
+runtime_language_preflight:
+  task_id: T513
+  touched_paths:
+    - .ai/control/chunking_lesson_index.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/generated/
+    - tools/portable_ocr/
+    - pipelines/ingest/portable_ocr_adapter.py
+    - scripts/validate_t513_portable_ocr_adoption.py
+    - scripts/generate_data_map.py
+    - scripts/validate_all.py
+    - tests/test_t513_portable_ocr_adoption.py
+  expected_input_size_or_record_count: Small synthetic fixtures and metadata-only benchmark or source manifests; no manuscript or benchmark payload processing is authorized.
+  expected_runtime_or_memory_pressure: Candidate validation should complete in seconds. A future full InduOCR run would exceed 800 MB compressed and must receive a separate measured execution design.
+  rust_trigger_match:
+    - future_large_benchmark_scan
+    - future_high_volume_character_comparison
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: Python matches the bounded orchestration and validation work. A streaming or Rust worker must be evaluated before any authorized full battery if profiling shows a material hot path.
+  interop_boundary: Provider-neutral Python contracts emit deterministic JSON manifests and review artifacts; OCR engines and benchmark evaluators remain replaceable runtime adapters.
+  python_fallback_or_wrapper_plan: Python is the reference control plane. Expensive benchmark execution may be delegated to Cursor, local scripts, or a lower-cost worker without changing authority contracts.
+  validation_plan: Synthetic Unicode and routing fixtures, negative authority tests, focused pytest, aggregate validation, and independent read-only review.
+  maintenance_tradeoffs: A small dependency-light package is portable and inspectable; engine binaries, models, datasets, and source images remain external and separately governed.
+handoff_required: .ai/handoffs/T513/handoff.md
+created_at: '2026-07-16'
+updated_at: '2026-07-16'

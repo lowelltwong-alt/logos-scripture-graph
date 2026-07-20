@@ -1,8 +1,8 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-18
-**Updated by:** T511 generated sidecar lifecycle convergence (merge with main)
-**Active task:** -> **T511 COMPLETE_PENDING_MERGE** on `codex/t511-generated-sidecar-lifecycle`. Generated canonical validators are scheduled from the governed lifecycle registry; clean checkouts explicitly skip only unavailable generated-data gates, while `--require-generated-data` fails closed for release/full-data verification. No generated data was copied, linked, regenerated, or mutated.
+**Updated by:** T513 portable OCR research adoption merged with T511/main
+**Active task:** -> **T513 COMPLETE_PENDING_MERGE** on `codex/t513-portable-ocr-research`. Candidate-only portable OCR comparison/review tool and metadata-only admission planner; no OCR execution or Scripture authority.
 
 > **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
 > generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
@@ -17,6 +17,13 @@
 > ledger mirror, witness metadata specifications, and NAS verification receipts. T472 showcase
 > remains unchanged; no OCR, transcription, embeddings, canon change, boundary import,
 > publication, or redistribution was authorized.
+
+> **T513 portable OCR research adoption (2026-07-16):** Adds a candidate-only,
+> domain-neutral OCR comparison/review tool and a metadata-only Logos admission planner. InduOCR is
+> registered only as a disabled, externally provisioned generic stress benchmark because its data
+> license is unresolved and it does not establish Greek/Hebrew/Aramaic/Latin or biblical-manuscript
+> fitness. No benchmark/manuscript payload, OCR execution, training, graph/retrieval/vector write,
+> preferred reading, or theology authority is authorized. T475 remains the current focus.
 
 > **T500 Scripture-first biblical chunking family (2026-07-15):** Adds four strict contracts,
 > seven control roles, eight named campaign roles, three observers, fourteen specialist packs, deterministic routing for all
