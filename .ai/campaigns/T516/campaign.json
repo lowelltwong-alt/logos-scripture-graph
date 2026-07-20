@@ -1,0 +1,423 @@
+{
+  "schema_version": "long_run_campaign.v2",
+  "campaign_id": "logos-csntm-1908-rights-gated-r1",
+  "revision": "1",
+  "title": "CSNTM 1,908-record rights-gated NAS acquisition",
+  "objective": "Produce a verified private NAS collection of every CSNTM catalog record and manuscript image explicitly authorized for the requested effects, plus a complete holder-grouped permission queue for every residual object.",
+  "completion_evidence": [
+    "checks/final-verification.json",
+    "checks/residual-accounting.json",
+    "checks/rights-ledger-coverage.json"
+  ],
+  "scope": {
+    "included": [
+      ".ai/campaigns/T516/",
+      ".ai/tasks/T516.task.yaml",
+      "docs/roadmap/T516_CSNTM_RIGHTS_GATED_ACQUISITION.md",
+      "staging/T516/",
+      "manuscript-witnesses/catalog/T516/",
+      "provenance/logos-scripture-graph/csntm/T516/",
+      "source-originals/manuscript-witnesses/csntm/",
+      "evaluations/T516/"
+    ],
+    "excluded": [
+      "viewer-safeguard circumvention",
+      "inferred or blanket rights",
+      "OCR or transcription",
+      "embeddings or vector indexes",
+      "public release, redistribution, or publication",
+      "Git or OneDrive storage of source artifacts",
+      "destructive replacement or deletion"
+    ]
+  },
+  "source_authority": [
+    {
+      "path": ".ai/tasks/T516.task.yaml",
+      "digest": "sha256:bind-exact-task-digest-before-launch"
+    },
+    {
+      "path": ".ai/campaigns/T516/campaign.md",
+      "digest": "sha256:bind-exact-campaign-digest-before-launch"
+    },
+    {
+      "path": "docs/roadmap/T516_CSNTM_RIGHTS_GATED_ACQUISITION.md",
+      "digest": "sha256:bind-exact-roadmap-digest-before-launch"
+    }
+  ],
+  "authority": {
+    "allowed_effects": [
+      "perform bounded read-only permission and endpoint checks",
+      "after exact authorization, write new T516 staging, catalog, provenance, and source-original objects",
+      "hash and verify acquired files",
+      "checkpoint and resume within declared budgets"
+    ],
+    "prohibited_effects": [
+      "scrape or copy CSNTM content before permission",
+      "bypass download safeguards or authentication",
+      "infer image, metadata, OCR, AI, redistribution, or commercial rights",
+      "overwrite or delete any NAS object",
+      "publish, release, send email, or access secrets",
+      "write source artifacts to Git, OneDrive, or data/raw"
+    ],
+    "human_gates": [
+      "accept CSNTM bulk metadata/API permission",
+      "accept holder or upstream license evidence",
+      "approve exact unattended campaign revision",
+      "approve any budget or scope expansion",
+      "approve publication, redistribution, or deletion"
+    ]
+  },
+  "execution": {
+    "mode": "specification_only",
+    "controller_role": "rights-gated-acquisition-controller",
+    "state_root": "staging/T516/campaign-state/",
+    "receipt_log": "staging/T516/campaign-state/receipts.jsonl",
+    "authorized_paths": [
+      "staging/T516/campaign-state/"
+    ],
+    "durability_command": "python checks/verify_receipt_durability.py --task-id T516",
+    "adapter": {
+      "name": "csntm-and-upstream-rights-gated-adapter",
+      "revision": "unimplemented-r1"
+    },
+    "launch_command": "not-authorized",
+    "shutdown_command": "not-authorized",
+    "qualification_evidence": "not-authorized",
+    "dry_run_evidence": "not-authorized",
+    "authorization_receipt": "not-authorized",
+    "independent_launch_review": "not-authorized"
+  },
+  "specialist_mesh": {
+    "synthetic_world_artifacts": false,
+    "truth_authority": "not-applicable",
+    "capability_matrix_evidence": "not-applicable",
+    "whole_case_audit_gate": "not-applicable",
+    "voice_representation_audit_gate": "not-applicable"
+  },
+  "budgets": {
+    "wall_clock_hours": 720,
+    "cost_units": 100,
+    "max_attempts_total": 8,
+    "max_parallel_jobs": 2,
+    "max_storage_mb": 5242880,
+    "max_context_tokens_per_job": 24000,
+    "max_job_minutes": 1440,
+    "max_output_mb_per_job": 1048576
+  },
+  "gold_standards": [
+    {
+      "id": "GS-RIGHTS",
+      "statement": "No record or image is copied unless the exact requested effect is affirmatively authorized by bound evidence.",
+      "gate_type": "deterministic",
+      "evidence": "checks/rights-ledger-coverage.json"
+    },
+    {
+      "id": "GS-NO-BYPASS",
+      "statement": "No job bypasses CSNTM viewer safeguards, authentication, rate limits, or holder controls.",
+      "gate_type": "independent",
+      "evidence": "checks/no-bypass-review.json"
+    },
+    {
+      "id": "GS-NO-OVERWRITE",
+      "statement": "Existing NAS objects are never overwritten or deleted; source originals are write-once and checksum-addressed.",
+      "gate_type": "deterministic",
+      "evidence": "checks/no-overwrite.json"
+    },
+    {
+      "id": "GS-COMPLETE-ACCOUNTING",
+      "statement": "Every discovered CSNTM ID is acquired, metadata-only, permission-required, or blocked with a reason and evidence reference.",
+      "gate_type": "deterministic",
+      "evidence": "checks/residual-accounting.json"
+    }
+  ],
+  "phases": [
+    {
+      "id": "P1",
+      "title": "Permission, inventory, rights classification, acquisition, and verification",
+      "depends_on": [],
+      "waves": [
+        {
+          "id": "P1-W1",
+          "title": "Rights-gated execution chain",
+          "depends_on": [],
+          "subwaves": [
+            {
+              "id": "P1-W1-S1",
+              "title": "Sequential bounded jobs",
+              "depends_on": [],
+              "jobs": [
+                {
+                  "id": "J-001",
+                  "title": "Bind CSNTM bulk catalog and supported-download permission",
+                  "objective": "Record written CSNTM permission for bulk metadata/API access and any supported image-delivery method, including exact use conditions.",
+                  "non_goals": ["send email automatically", "copy catalog records", "download images"],
+                  "depends_on": [],
+                  "dependency_digests": {},
+                  "inputs": [".ai/campaigns/T516/campaign.json", "docs/roadmap/T516_CSNTM_RIGHTS_GATED_ACQUISITION.md"],
+                  "input_digests": {
+                    ".ai/campaigns/T516/campaign.json": "sha256:bind-before-launch",
+                    "docs/roadmap/T516_CSNTM_RIGHTS_GATED_ACQUISITION.md": "sha256:bind-before-launch"
+                  },
+                  "outputs": ["manuscript-witnesses/catalog/T516/csntm_permission_decision.yaml", "provenance/logos-scripture-graph/csntm/T516/terms_evidence.json"],
+                  "allowed_paths": ["manuscript-witnesses/catalog/T516/", "provenance/logos-scripture-graph/csntm/T516/"],
+                  "prohibited_actions": ["send mail", "infer permission", "copy site content", "edit controller state"],
+                  "owner_role": "permission-evidence-binder",
+                  "checker_role": "independent-rights-checker",
+                  "required_capabilities": ["rights-scope normalization", "evidence hashing", "fail-closed decisioning"],
+                  "qualification_evidence": ["checks/qualifications/permission-evidence-binder.json"],
+                  "idempotency_key": "logos-csntm-1908:J-001:r1",
+                  "lease_minutes": 120,
+                  "heartbeat_minutes": 15,
+                  "max_attempts": 2,
+                  "repair_limit": 1,
+                  "max_transient_retries": 0,
+                  "cost_ceiling": 10,
+                  "time_ceiling_minutes": 240,
+                  "context_ceiling_tokens": 24000,
+                  "output_ceiling_mb": 20,
+                  "checkpoint": "staging/T516/campaign-state/J-001.json",
+                  "receipt": "staging/T516/campaign-state/J-001.receipts.jsonl",
+                  "durability_check": "python checks/verify_receipt_durability.py J-001",
+                  "retry_policy": {
+                    "classes": ["transient", "repairable_output", "stale_dependency", "authority_or_human", "security_privacy", "terminal_spec"],
+                    "backoff_seconds": [900],
+                    "same_state_deterministic_retry": false
+                  },
+                  "escalation": {
+                    "owner": "Lowell Wong",
+                    "conditions": ["permission is ambiguous", "requested effect is omitted", "evidence conflicts with published terms"]
+                  },
+                  "handoff_states": ["complete", "failed", "blocked", "resumable"],
+                  "auto_advance": false,
+                  "acceptance": [
+                    {
+                      "id": "G-J001-HUMAN",
+                      "revision": "1",
+                      "type": "human",
+                      "checker_role": "independent-rights-checker",
+                      "inputs": ["manuscript-witnesses/catalog/T516/csntm_permission_decision.yaml"],
+                      "command": "not-applicable",
+                      "rubric": "Lowell accepts an evidence-bound decision that separately covers metadata export, automated access, local storage, analysis, attribution, redistribution, and commercial use.",
+                      "evidence": "checks/J-001-human-acceptance.json",
+                      "result_semantics": {
+                        "pass": "exact written permission is bound and accepted",
+                        "fail_repairable": "decision record is incomplete but evidence can be rebound",
+                        "fail_terminal": "CSNTM denies the requested effect",
+                        "blocked_human": "written permission or Lowell acceptance is pending",
+                        "inconclusive": "evidence is ambiguous"
+                      },
+                      "affects": ["J-001", "J-002", "J-003", "J-004"],
+                      "revalidation_triggers": ["permission revision", "terms revision", "campaign scope revision"]
+                    }
+                  ]
+                },
+                {
+                  "id": "J-002",
+                  "title": "Inventory and classify all authorized catalog records",
+                  "objective": "Use the expressly authorized export or API to create a normalized 1,908-ID inventory and holder-grouped rights queue without retrieving images.",
+                  "non_goals": ["image download", "OCR", "embeddings", "public catalog publication"],
+                  "depends_on": ["J-001"],
+                  "dependency_digests": {"J-001": "sha256:bind-passing-J-001-receipt"},
+                  "inputs": ["manuscript-witnesses/catalog/T516/csntm_permission_decision.yaml"],
+                  "input_digests": {"manuscript-witnesses/catalog/T516/csntm_permission_decision.yaml": "sha256:bind-before-launch"},
+                  "outputs": ["manuscript-witnesses/catalog/T516/csntm_catalog.jsonl", "manuscript-witnesses/catalog/T516/rights_ledger.jsonl", "manuscript-witnesses/catalog/T516/permission_queue.jsonl"],
+                  "allowed_paths": ["staging/T516/catalog/", "manuscript-witnesses/catalog/T516/", "provenance/logos-scripture-graph/csntm/T516/"],
+                  "prohibited_actions": ["use an unapproved endpoint", "retrieve image bytes", "infer licenses", "edit controller state"],
+                  "owner_role": "catalog-inventory-worker",
+                  "checker_role": "catalog-coverage-checker",
+                  "required_capabilities": ["authorized API pagination", "schema normalization", "streaming checksum manifests"],
+                  "qualification_evidence": ["checks/qualifications/catalog-adapter.json", "checks/dry-runs/catalog-ten-records.json"],
+                  "idempotency_key": "logos-csntm-1908:J-002:r1",
+                  "lease_minutes": 180,
+                  "heartbeat_minutes": 15,
+                  "max_attempts": 2,
+                  "repair_limit": 1,
+                  "max_transient_retries": 0,
+                  "cost_ceiling": 20,
+                  "time_ceiling_minutes": 720,
+                  "context_ceiling_tokens": 16000,
+                  "output_ceiling_mb": 2048,
+                  "checkpoint": "staging/T516/campaign-state/J-002.json",
+                  "receipt": "staging/T516/campaign-state/J-002.receipts.jsonl",
+                  "durability_check": "python checks/verify_receipt_durability.py J-002",
+                  "retry_policy": {
+                    "classes": ["transient", "repairable_output", "stale_dependency", "authority_or_human", "security_privacy", "terminal_spec"],
+                    "backoff_seconds": [900],
+                    "same_state_deterministic_retry": false
+                  },
+                  "escalation": {
+                    "owner": "campaign-owner",
+                    "conditions": ["record count differs from authorized snapshot", "endpoint or schema changes", "rate-limit response"]
+                  },
+                  "handoff_states": ["complete", "failed", "blocked", "resumable"],
+                  "auto_advance": true,
+                  "acceptance": [
+                    {
+                      "id": "G-J002-COVERAGE",
+                      "revision": "1",
+                      "type": "deterministic",
+                      "checker_role": "catalog-coverage-checker",
+                      "inputs": ["manuscript-witnesses/catalog/T516/csntm_catalog.jsonl", "manuscript-witnesses/catalog/T516/rights_ledger.jsonl"],
+                      "command": "python checks/validate_catalog_inventory.py --expected-count 1908",
+                      "rubric": "not-applicable",
+                      "evidence": "checks/J-002-catalog-coverage.json",
+                      "result_semantics": {
+                        "pass": "all authorized records are unique, schema-valid, and rights-classified",
+                        "fail_repairable": "bounded pagination or normalization defect",
+                        "fail_terminal": "authorized interface cannot supply the contracted inventory",
+                        "blocked_human": "count or scope change requires approval",
+                        "inconclusive": "source snapshot is unstable"
+                      },
+                      "affects": ["J-002", "J-003", "J-004"],
+                      "revalidation_triggers": ["catalog snapshot digest change", "adapter revision", "expected count revision"]
+                    }
+                  ]
+                },
+                {
+                  "id": "J-003",
+                  "title": "Acquire authorized image objects",
+                  "objective": "Retrieve only image resources whose exact CSNTM-and-holder permission or official upstream license authorizes private local storage, using write-once paths and resumable checksums.",
+                  "non_goals": ["acquire permission-required records", "bypass the CSNTM viewer", "OCR", "publication"],
+                  "depends_on": ["J-002"],
+                  "dependency_digests": {"J-002": "sha256:bind-passing-J-002-receipt"},
+                  "inputs": ["manuscript-witnesses/catalog/T516/rights_ledger.jsonl"],
+                  "input_digests": {"manuscript-witnesses/catalog/T516/rights_ledger.jsonl": "sha256:bind-before-launch"},
+                  "outputs": ["source-originals/manuscript-witnesses/csntm/", "provenance/logos-scripture-graph/csntm/T516/acquisition_receipts.jsonl"],
+                  "allowed_paths": ["staging/T516/images/", "source-originals/manuscript-witnesses/csntm/", "provenance/logos-scripture-graph/csntm/T516/"],
+                  "prohibited_actions": ["overwrite an existing object", "follow an unapproved image URL", "circumvent access controls", "edit controller state"],
+                  "owner_role": "rights-gated-image-worker",
+                  "checker_role": "image-acquisition-checker",
+                  "required_capabilities": ["rights-ledger enforcement", "resumable HTTP or IIIF acquisition", "streaming SHA-256", "write-once promotion"],
+                  "qualification_evidence": ["checks/qualifications/image-adapter.json", "checks/dry-runs/one-small-image-set.json"],
+                  "idempotency_key": "logos-csntm-1908:J-003:r1",
+                  "lease_minutes": 1440,
+                  "heartbeat_minutes": 15,
+                  "max_attempts": 2,
+                  "repair_limit": 1,
+                  "max_transient_retries": 0,
+                  "cost_ceiling": 40,
+                  "time_ceiling_minutes": 1440,
+                  "context_ceiling_tokens": 12000,
+                  "output_ceiling_mb": 1048576,
+                  "checkpoint": "staging/T516/campaign-state/J-003.json",
+                  "receipt": "staging/T516/campaign-state/J-003.receipts.jsonl",
+                  "durability_check": "python checks/verify_receipt_durability.py J-003",
+                  "retry_policy": {
+                    "classes": ["transient", "repairable_output", "stale_dependency", "authority_or_human", "security_privacy", "terminal_spec"],
+                    "backoff_seconds": [1800],
+                    "same_state_deterministic_retry": false
+                  },
+                  "escalation": {
+                    "owner": "campaign-owner",
+                    "conditions": ["rights mismatch", "storage reserve threshold", "unexpected authentication", "rate limit or holder objection"]
+                  },
+                  "handoff_states": ["complete", "failed", "blocked", "resumable"],
+                  "auto_advance": true,
+                  "acceptance": [
+                    {
+                      "id": "G-J003-VERIFY",
+                      "revision": "1",
+                      "type": "deterministic",
+                      "checker_role": "image-acquisition-checker",
+                      "inputs": ["source-originals/manuscript-witnesses/csntm/", "provenance/logos-scripture-graph/csntm/T516/acquisition_receipts.jsonl"],
+                      "command": "python checks/verify_acquired_images.py --task-id T516 --no-overwrite --reserve-gib 500",
+                      "rubric": "not-applicable",
+                      "evidence": "checks/J-003-image-verification.json",
+                      "result_semantics": {
+                        "pass": "each acquired byte has authorized scope, checksum, provenance, and a write-once path",
+                        "fail_repairable": "bounded missing or corrupt transfer",
+                        "fail_terminal": "unauthorized or overwritten object detected",
+                        "blocked_human": "rights or storage budget requires a decision",
+                        "inconclusive": "verification evidence is incomplete"
+                      },
+                      "affects": ["J-003", "J-004"],
+                      "revalidation_triggers": ["rights ledger digest change", "adapter revision", "source response change", "storage path change"]
+                    }
+                  ]
+                },
+                {
+                  "id": "J-004",
+                  "title": "Final accounting and permission queue",
+                  "objective": "Verify that every discovered CSNTM ID and authorized resource is accounted for and emit holder-grouped residual permission work without publishing source data.",
+                  "non_goals": ["send permission requests", "publish catalog or images", "delete staging"],
+                  "depends_on": ["J-003"],
+                  "dependency_digests": {"J-003": "sha256:bind-passing-J-003-receipt"},
+                  "inputs": ["manuscript-witnesses/catalog/T516/csntm_catalog.jsonl", "manuscript-witnesses/catalog/T516/rights_ledger.jsonl", "provenance/logos-scripture-graph/csntm/T516/acquisition_receipts.jsonl"],
+                  "input_digests": {
+                    "manuscript-witnesses/catalog/T516/csntm_catalog.jsonl": "sha256:bind-before-launch",
+                    "manuscript-witnesses/catalog/T516/rights_ledger.jsonl": "sha256:bind-before-launch",
+                    "provenance/logos-scripture-graph/csntm/T516/acquisition_receipts.jsonl": "sha256:bind-before-launch"
+                  },
+                  "outputs": ["manuscript-witnesses/catalog/T516/final_accounting.json", "manuscript-witnesses/catalog/T516/holder_permission_queue.jsonl", "evaluations/T516/final_verification.json"],
+                  "allowed_paths": ["manuscript-witnesses/catalog/T516/", "evaluations/T516/", "provenance/logos-scripture-graph/csntm/T516/"],
+                  "prohibited_actions": ["send email", "change rights decisions", "publish", "delete or overwrite", "edit controller state"],
+                  "owner_role": "final-accounting-worker",
+                  "checker_role": "independent-final-checker",
+                  "required_capabilities": ["residual accounting", "checksum reconciliation", "holder-grouped queue generation"],
+                  "qualification_evidence": ["checks/qualifications/final-accounting-worker.json"],
+                  "idempotency_key": "logos-csntm-1908:J-004:r1",
+                  "lease_minutes": 240,
+                  "heartbeat_minutes": 15,
+                  "max_attempts": 2,
+                  "repair_limit": 1,
+                  "max_transient_retries": 0,
+                  "cost_ceiling": 20,
+                  "time_ceiling_minutes": 480,
+                  "context_ceiling_tokens": 16000,
+                  "output_ceiling_mb": 2048,
+                  "checkpoint": "staging/T516/campaign-state/J-004.json",
+                  "receipt": "staging/T516/campaign-state/J-004.receipts.jsonl",
+                  "durability_check": "python checks/verify_receipt_durability.py J-004",
+                  "retry_policy": {
+                    "classes": ["transient", "repairable_output", "stale_dependency", "authority_or_human", "security_privacy", "terminal_spec"],
+                    "backoff_seconds": [900],
+                    "same_state_deterministic_retry": false
+                  },
+                  "escalation": {
+                    "owner": "campaign-owner",
+                    "conditions": ["unaccounted IDs", "inconsistent rights states", "checksum mismatch", "independent review disagreement"]
+                  },
+                  "handoff_states": ["complete", "failed", "blocked", "resumable"],
+                  "auto_advance": true,
+                  "acceptance": [
+                    {
+                      "id": "G-J004-FINAL",
+                      "revision": "1",
+                      "type": "independent",
+                      "checker_role": "independent-final-checker",
+                      "inputs": ["manuscript-witnesses/catalog/T516/final_accounting.json", "manuscript-witnesses/catalog/T516/holder_permission_queue.jsonl", "evaluations/T516/final_verification.json"],
+                      "command": "not-applicable",
+                      "rubric": "Confirm exact ID accounting, rights-to-effect binding, no-overwrite evidence, checksum completeness, residual holder grouping, and absence of publication or unauthorized source retrieval.",
+                      "evidence": "checks/J-004-independent-final-review.json",
+                      "result_semantics": {
+                        "pass": "complete evidence-backed accounting with no protected invariant failure",
+                        "fail_repairable": "bounded accounting or report defect",
+                        "fail_terminal": "unauthorized retrieval, overwrite, or unresolvable integrity failure",
+                        "blocked_human": "scope or rights decision remains pending",
+                        "inconclusive": "independent evidence is insufficient"
+                      },
+                      "affects": ["J-004"],
+                      "revalidation_triggers": ["any input digest change", "validator revision", "rights decision revision"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stop_conditions": [
+    {"code": "user_interrupt", "detection": "controller observes user interrupt", "evidence": "state/stop.json", "shutdown": "checkpoint and stop before the next effect", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["affirmative resume"]},
+    {"code": "budget_exhausted", "detection": "any hard time, cost, storage, context, or output budget reaches its ceiling", "evidence": "state/budget.json", "shutdown": "stop before the next effect", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["approved campaign revision"]},
+    {"code": "authority_boundary", "detection": "requested metadata, image, endpoint, holder, or effect lacks bound authorization", "evidence": "state/authority-stop.json", "shutdown": "block the effect and add a permission residual", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["affirmative scoped permission"]},
+    {"code": "human_gate_required", "detection": "written permission, Lowell approval, or independent launch review is pending", "evidence": "state/human-gate.json", "shutdown": "block dependent jobs", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["signed decision receipt"]},
+    {"code": "repeated_failure", "detection": "attempt or repair limit is reached", "evidence": "state/failure.json", "shutdown": "preserve evidence and stop affected job", "release_leases": true, "recovery_owner": "campaign-controller", "resume_preconditions": ["approved campaign or adapter revision"]},
+    {"code": "gold_standard_failure", "detection": "rights, no-bypass, no-overwrite, or complete-accounting standard fails", "evidence": "state/gold-standard.json", "shutdown": "stop the campaign", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["protected standard passes on revised state"]},
+    {"code": "security_or_privacy", "detection": "credential, authentication, secret, privacy, malicious-content, or data-rights signal", "evidence": "state/security-stop.json", "shutdown": "fail closed", "release_leases": true, "recovery_owner": "security-owner", "resume_preconditions": ["human-reviewed clearance"]},
+    {"code": "dependency_stale", "detection": "permission, terms, catalog, code, adapter, or input digest mismatch", "evidence": "state/dependency.json", "shutdown": "block affected jobs", "release_leases": true, "recovery_owner": "campaign-controller", "resume_preconditions": ["approved digest refresh"]},
+    {"code": "write_conflict", "detection": "overlapping write lease, existing source-original path, or user-change conflict", "evidence": "state/write-conflict.json", "shutdown": "stop conflicting effects without overwrite", "release_leases": true, "recovery_owner": "campaign-controller", "resume_preconditions": ["reconciled paths and uncontested lease"]},
+    {"code": "validation_inconclusive", "detection": "required deterministic, independent, human, or external-state gate is inconclusive", "evidence": "state/inconclusive.json", "shutdown": "do not auto-advance", "release_leases": true, "recovery_owner": "campaign-owner", "resume_preconditions": ["independent disposition or new evidence"]}
+  ]
+}

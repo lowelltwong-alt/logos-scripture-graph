@@ -1,0 +1,84 @@
+id: T516
+phase: phase_5
+title: "CSNTM 1,908-record rights-gated NAS acquisition campaign specification"
+mode: plan
+status: authorized_subset_complete_blanket_campaign_blocked
+owner: Codex
+branch: codex/t516-csntm-rights-gated-campaign
+base_ref: origin/main
+summary: "The blanket 1,908-record campaign remains blocked; the separately authorized P45, P46, Dublin P66 fragment 2, and Cologne P66 fragment 1 subset is complete and verified on NAS."
+scope:
+  allowed_paths:
+    - .ai/tasks/T516.task.yaml
+    - .ai/handoffs/T516/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/campaigns/T516/
+    - docs/roadmap/T516_CSNTM_RIGHTS_GATED_ACQUISITION.md
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - releases/
+    - publications/
+authorization:
+  requested_by: Lowell Wong
+  requested_instruction: "Download the 1,908 CSNTM manuscript records, images, and metadata into organized NAS storage."
+  campaign_specification: true
+  read_only_public_terms_check: true
+  nas_staging_creation: false
+  bulk_csntm_metadata_copy: false
+  csntm_image_download: false
+  upstream_image_download: false
+  ocr_or_transcription: false
+  embeddings_or_vectorization: false
+  redistribution_or_publication: false
+  reason_effects_blocked: "CSNTM requires individual permission and permission from each holding institution; bulk metadata/API copying is not expressly authorized by its published terms."
+authorized_subset_execution:
+  status: complete_verified
+  permission_reply_date: "2026-07-16"
+  acquired_on: "2026-07-18"
+  witnesses:
+    - P45_chester_beatty_dublin
+    - P46_chester_beatty_dublin
+    - P66_fragment_2_chester_beatty_dublin
+    - P66_fragment_1_cologne
+  object_records: 77
+  image_count: 156
+  unique_image_hashes: 156
+  image_bytes: 310855141
+  metadata_exports: 1
+  nas_conflicts: 0
+  excluded:
+    - P75
+    - all_other_csntm_records
+    - ocr_transcription_ai_embeddings_vectors
+    - redistribution_publication
+  authoritative_catalog: '\\UNAS-Pro\AI.Workspace\01-Projects\Logos\manuscript-witnesses\catalog\T516'
+
+runtime_language_preflight:
+  task_id: T516
+  touched_paths: []
+  expected_input_size_or_record_count: "1,908 manuscript records and an unknown multi-terabyte image population."
+  expected_runtime_or_memory_pressure: "Potentially days of network transfer; deterministic streaming and hashing will exceed the 60-second and 100-MB triggers when implemented."
+  rust_trigger_match:
+    - estimated_runtime_seconds_60
+    - input_bytes_100mb
+    - deterministic_streaming_parse_hash_or_compare
+  chosen_language: python_orchestration_with_rust_leaf_worker
+  expected_rust_time_saved_or_reason_not_applicable: "Rust should own high-volume streaming verification and checksum walks; Python remains the governance/controller layer. No worker is added in this specification-only revision."
+  interop_boundary: "A future Python controller invokes a revision-bound Rust checksum/manifest worker through JSONL receipts."
+  python_fallback_or_wrapper_plan: "A slow Python verifier may exist for parity and debugging, but unattended activation must qualify the Rust worker."
+  validation_plan: "Validate the static campaign manifest, repository task scope, and handoff only; later revisions require adapter tests, dry run, and independent launch review."
+  maintenance_tradeoffs: "Two-language implementation adds packaging cost but keeps governance readable while making multi-terabyte verification practical."
+acceptance_criteria:
+  - "The live collection count and governing CSNTM rights boundary are recorded with source URLs and observation date."
+  - "The campaign separates catalog permission, CSNTM permission, holding-institution permission, upstream-license evidence, acquisition, and verification into bounded jobs."
+  - "No CSNTM metadata, image, or source artifact is downloaded or copied by this specification revision."
+  - "NAS paths are organized under T516 staging, manuscript catalog, provenance, and immutable source-original lanes without overwriting existing material."
+  - "Unattended launch remains fail-closed until exact permission evidence, adapter qualification, a dry run, and independent launch review exist."
+required_handoff: .ai/handoffs/T516/handoff.md
+created_at: "2026-07-18"
+updated_at: "2026-07-18"
