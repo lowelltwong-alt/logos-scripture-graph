@@ -14,17 +14,17 @@ Suggested attribution: Codex Sinaiticus, Leipzig University Library, digital ima
 
 ## Starter Images
 
-These are web-sized representative JPEG derivatives from the IIIF service, stored with checksums in the raw-source showcase folder.
+Web-sized IIIF derivatives from Leipzig (Public Domain Mark 1.0). Full-resolution acquisition stays outside this public doc surface.
 
-![Codex Sinaiticus Leipzig canvas 1](../../data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000001_web.jpg)
+![Codex Sinaiticus Leipzig canvas 1](https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0618/0000061851/00000001.jpx/full/800,/0/default.jpg)
 
 Canvas 1: `1r (Q35-f. 1r)`
 
-![Codex Sinaiticus Leipzig canvas 43](../../data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000043_web.jpg)
+![Codex Sinaiticus Leipzig canvas 43](https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0618/0000061851/00000043.jpx/full/800,/0/default.jpg)
 
 Canvas 43: `22r (Q47-f. 3r)`
 
-![Codex Sinaiticus Leipzig canvas 86](../../data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000086_web.jpg)
+![Codex Sinaiticus Leipzig canvas 86](https://iiif.ub.uni-leipzig.de/iiif/j2k/0000/0618/0000061851/00000086.jpx/full/800,/0/default.jpg)
 
 Canvas 86: `43v (Q49-f. 8v)`
 
