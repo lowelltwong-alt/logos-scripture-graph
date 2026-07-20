@@ -9,6 +9,10 @@ import yaml
 from scripts import build_divine_capitalization_inventory as builder
 from scripts import validate_divine_capitalization_inventory as validator
 
+pytestmark = pytest.mark.generated_data(
+    "data/canonical/translations/eng-web/word_tokens.jsonl"
+)
+
 
 @pytest.fixture(scope="module")
 def built_inventory() -> dict:

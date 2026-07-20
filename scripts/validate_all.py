@@ -10,6 +10,7 @@ the orchestration and fallback surface.
 """
 from __future__ import annotations
 
+import argparse
 import subprocess
 import sys
 import os
@@ -17,29 +18,24 @@ from pathlib import Path
 
 import yaml
 
+try:
+    from scripts.generated_data_lifecycle import (
+        missing_declared_inputs,
+        runnable_generated_data_gates,
+        skipped_generated_data_gates,
+    )
+except ModuleNotFoundError:  # pragma: no cover - direct script execution
+    from generated_data_lifecycle import (
+        missing_declared_inputs,
+        runnable_generated_data_gates,
+        skipped_generated_data_gates,
+    )
+
 ROOT = Path(__file__).resolve().parent.parent
 PY = sys.executable
 
 MANIFEST = ROOT / "data" / "raw" / "bible" / "eng-web" / "source_manifest.yaml"
 CANON_DIR = ROOT / "data" / "canonical"
-SMALL_CANON = [
-    CANON_DIR / "scripture" / "passages" / "passages.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "section_headings.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "footnotes.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "glossary_entries.jsonl",
-]
-WORD_TOKENS = CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl"
-CANON_SCOPE_FILES = [
-    *SMALL_CANON,
-    CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
-    WORD_TOKENS,
-]
-QA_REQUIRED = [
-    CANON_DIR / "scripture" / "passages" / "passages.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
-]
 T475_TRANSITION_WORD_TOKENS = CANON_DIR / "translations" / "eng-web" / "word_tokens.jsonl"
 T475_TRANSITION_FOOTNOTES = CANON_DIR / "translations" / "eng-web" / "footnotes.jsonl"
 T475_DEFERRED_GENERATED_GATES = {
@@ -51,19 +47,6 @@ T475_DEFERRED_GENERATED_GATES = {
     "validate_divine_capitalization_inventory.py",
     "validate_wj_marker_inventory.py",
 }
-
-
-GENERATED_CANONICAL_REQUIRED = [
-    CANON_DIR / "scripture" / "passages" / "passages.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "translation_witnesses.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "boundary_claims.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "editorial_cross_references.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "footnotes.jsonl",
-    CANON_DIR / "translations" / "eng-web" / "section_headings.jsonl",
-    WORD_TOKENS,
-]
-
-
 def _count_nonempty_lines(path: Path) -> int:
     if not path.is_file():
         return -1
@@ -317,38 +300,11 @@ def parallel_execution_safety_gates() -> list[tuple[str, list[str]]]:
 
 
 def generated_canonical_missing() -> list[Path]:
-    return [path for path in GENERATED_CANONICAL_REQUIRED if not path.exists()]
+    return list(missing_declared_inputs(ROOT))
 
 
 def generated_data_gates() -> list[tuple[str, list[str]]]:
-    if generated_canonical_missing():
-        return []
-    return [
-        (
-            "validate_source_metadata_research_atlas.py",
-            [PY, str(ROOT / "scripts" / "validate_source_metadata_research_atlas.py")],
-        ),
-        (
-            "validate_apocalyptic_prophetic_intertext_dossier_queue.py",
-            [PY, str(ROOT / "scripts" / "validate_apocalyptic_prophetic_intertext_dossier_queue.py")],
-        ),
-        (
-            "validate_bible_verse_passage_coverage_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_bible_verse_passage_coverage_inventory.py")],
-        ),
-        (
-            "validate_1cor8_10_parent_evidence_packet.py",
-            [PY, str(ROOT / "scripts" / "validate_1cor8_10_parent_evidence_packet.py")],
-        ),
-        (
-            "validate_divine_capitalization_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_divine_capitalization_inventory.py")],
-        ),
-        (
-            "validate_wj_marker_inventory.py",
-            [PY, str(ROOT / "scripts" / "validate_wj_marker_inventory.py")],
-        ),
-    ]
+    return runnable_generated_data_gates(PY, ROOT)
 
 
 def build_gates() -> list[tuple[str, list[str]]]:
@@ -828,54 +784,34 @@ def build_gates() -> list[tuple[str, list[str]]]:
     gold_dir = ROOT / "eval" / "chunking_gold" / "per_form"
     if gold_dir.exists():
         gates.append(("validate_chunking_gold.py", [PY, str(ROOT / "scripts" / "validate_chunking_gold.py")]))
-    scope_present = [p for p in CANON_SCOPE_FILES if p.exists()]
-    if scope_present:
-        scope_cmd = [
-            PY,
-            str(ROOT / "scripts" / "validate_fast_canonical_scope.py"),
-            "--python-fallback",
-            *[str(p) for p in scope_present],
-        ]
-        gates.append(("validate_fast_canonical_scope.py (canonical)", scope_cmd))
-    present = [p for p in SMALL_CANON if p.exists()]
-    if present:
-        cmd = [
-            PY,
-            str(ROOT / "scripts" / "validate_fast_jsonl.py"),
-            "--python-fallback",
-            "--require-canon",
-            *[str(p) for p in present],
-        ]
-        gates.append(("validate_fast_jsonl.py (canonical)", cmd))
-    if all(path.exists() for path in QA_REQUIRED):
-        qa_cmd = [PY, str(ROOT / "scripts" / "validate_fast_canonical_qa.py"), "--python-fallback"]
-        if not WORD_TOKENS.exists():
-            qa_cmd.append("--skip-word-tokens")
-        gates.append(("validate_fast_canonical_qa.py (canonical)", qa_cmd))
-    if WORD_TOKENS.exists():
-        gates.append(
-            (
-                "validate_fast_word_token_signals.py (canonical)",
-                [
-                    PY,
-                    str(ROOT / "scripts" / "validate_fast_word_token_signals.py"),
-                    "--python-fallback",
-                    str(WORD_TOKENS),
-                ],
-            )
-        )
     return gates
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--require-generated-data",
+        action="store_true",
+        help="Fail before validation when any lifecycle-declared generated canonical input is absent.",
+    )
+    args = parser.parse_args(argv)
     failures = []
     missing_generated = generated_canonical_missing()
     if missing_generated:
         missing = ", ".join(path.relative_to(ROOT).as_posix() for path in missing_generated)
+        if args.require_generated_data:
+            print(
+                "Release/full-data validation requires every lifecycle-declared generated canonical input. "
+                "Run `python pipelines/ingest/usfm_importer.py --canonical-66-filter` first. "
+                f"Missing: {missing}",
+                file=sys.stderr,
+            )
+            return 1
+        skipped = skipped_generated_data_gates(ROOT)
         print(
             "Generated canonical sidecars are absent; skipping lifecycle-declared generated-data gates. "
             "Run `python pipelines/ingest/usfm_importer.py --canonical-66-filter` before release/full-data "
-            f"verification to enable them. Missing: {missing}"
+            f"verification to enable them. Missing: {missing}. Skipped gates: {', '.join(sorted(skipped))}"
         )
     for name, cmd in build_gates():
         result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)

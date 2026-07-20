@@ -1,0 +1,82 @@
+{
+  "schema_version": "dad.task_local_agent_mesh_manifest.v1",
+  "mesh_id": "dad:agent-mesh:t511-sidecar-lifecycle",
+  "task_id": "T511",
+  "revision_id": "dad:agent-mesh-revision:t511-sidecar-lifecycle:v1",
+  "phase": "postflight",
+  "status": "complete",
+  "source_snapshot_digest": "sha256:d1ccb3b97250b9dd87352cf1fb9553cc3fea29ba6af4e7b5a6d709fc658d3183",
+  "authority": {
+    "source_authority": "Logos lifecycle policy remains authoritative; T511 changes validation scheduling only and cannot mutate generated or canonical Scripture data.",
+    "execution_authority": false,
+    "human_gate_required": true
+  },
+  "max_delegation_depth": 1,
+  "writer_role_id": "lifecycle-writer",
+  "checker_role_id": "regression-checker",
+  "non_overlap_statement": "The lifecycle writer owns the bounded T511 write set; the regression checker is a deterministic replay phase and cannot edit writer outputs.",
+  "roles": [
+    {
+      "role_id": "lifecycle-writer",
+      "why_needed": "One integrator must align registry metadata, aggregate scheduling, leaf validator modes, and pytest behavior.",
+      "mission": "Implement registry-driven clean and release validation without deleting coverage or touching generated data.",
+      "inputs": ["T511 task contract", "validation gate lifecycle policy", "clean-worktree failure evidence"],
+      "dependencies": [],
+      "authority": "May write only T511 allowed paths and may not generate, copy, link, or mutate canonical sidecars.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "writer",
+      "acceptance_conditions": ["Clean mode passes with explicit skips.", "Release mode fails when declared inputs are absent.", "Present parity data still runs existing validators."],
+      "stop_conditions": ["A fix requires Scripture data mutation, validator retirement, CI policy expansion, or mutable cross-worktree data sharing."],
+      "handoff": {
+        "recipient_role_ids": ["regression-checker"],
+        "deliverables": ["registry scheduler", "contract/parity modes", "pytest marker", "validation evidence"],
+        "readiness_conditions": ["Focused writer checks pass and the diff stays in T511 scope."]
+      }
+    },
+    {
+      "role_id": "regression-checker",
+      "why_needed": "The failure recurred because consumers bypassed policy; independent replay must test missing, present, and release states.",
+      "mission": "Replay clean and simulated-present lifecycle cases and verify no coverage was retired or data mutated.",
+      "inputs": ["final T511 diff", "focused test output", "aggregate validation output", "Git status"],
+      "dependencies": ["lifecycle-writer"],
+      "authority": "Read-only deterministic checker; cannot edit code, registry, tests, or data.",
+      "model_effort_class": "deterministic",
+      "writer_checker_relation": "checker",
+      "acceptance_conditions": ["All lifecycle state transitions are evidenced.", "No generated or canonical path changed."],
+      "stop_conditions": ["Evidence is missing, a test is skipped without registry support, or the checker would need to edit the result."],
+      "handoff": {
+        "recipient_role_ids": [],
+        "deliverables": ["independent regression verdict", "residual risks"],
+        "readiness_conditions": ["Raw command results and final diff are available."]
+      }
+    }
+  ],
+  "proof_obligations": [
+    {
+      "obligation_id": "clean-checkout-convergence",
+      "description": "Prove absent ignored sidecars cause only lifecycle-declared skips and no aggregate or full-pytest failure.",
+      "evidence_required": ["clean validate_all", "clean full pytest", "skip reasons"],
+      "owner_role_id": "lifecycle-writer",
+      "checker_role_id": "regression-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "release-fails-closed",
+      "description": "Prove release mode fails before claiming success when any declared generated input is absent.",
+      "evidence_required": ["negative unit test", "CLI exit and message"],
+      "owner_role_id": "lifecycle-writer",
+      "checker_role_id": "regression-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "coverage-preserved",
+      "description": "Prove existing validators remain active and present generated inputs still schedule parity checks.",
+      "evidence_required": ["registry validation", "simulated-present scheduling tests", "focused parity tests"],
+      "owner_role_id": "lifecycle-writer",
+      "checker_role_id": "regression-checker",
+      "status": "satisfied"
+    }
+  ],
+  "unresolved_decisions": [],
+  "manifest_digest": "sha256:7adb9140ec60a7800ce3e2ccad7daff452052dddc93a4471544a146d9075a2b3"
+}

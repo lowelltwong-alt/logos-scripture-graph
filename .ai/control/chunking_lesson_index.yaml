@@ -9,7 +9,7 @@ schema_version: chunking_lesson_index.v1
 index_id: scripture_chunking_lesson_index
 owner: Lowell Wong
 prepared_by_task: T382
-last_updated_by_task: T479
+last_updated_by_task: T511
 authority:
   records_lessons: true
   authorizes_chunk_output_change: false
@@ -2829,6 +2829,24 @@ lessons:
       - tests/test_scripture_first_biblical_chunking_family.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-068
+    title: Generated fixtures require explicit lifecycle and cannot substitute for upstream parity
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t511, generated-sidecar, clean-checkout, release-gate, fixture-lineage, parity]
+    use_when: ["A clean checkout lacks ignored generated canonical data.", "A validator or pytest module consumes data/canonical sidecars or a committed fixture derived from them."]
+    preflight_stage: before_adding_or_changing_generated_data_consumers
+    source_surfaces: [.ai/control/validation_gate_lifecycle.yaml, scripts/generated_data_lifecycle.py, docs/roadmap/T511_GENERATED_SIDECAR_LIFECYCLE_CONVERGENCE.md]
+    related_decision_ids: []
+    related_workflow_lesson_ids: []
+    related_task_ids: [T511]
+    downstream_risk: "Unconditional generated-data consumers make clean worktrees fail, while copying fixtures or silently skipping checks can falsely claim currentness and hide stale parity."
+    required_preflight_surfaces: [.ai/control/validation_gate_lifecycle.yaml, .ai/control/chunking_lesson_index.yaml]
+    required_pattern: [registry_declares_generated_inputs, clean_mode_reports_explicit_skips, release_mode_fails_closed, static_contract_separate_from_generated_parity, fixture_copy_is_lineage_not_independent_evidence]
+    non_authorizations: [generated_data_as_source_authority, validator_retirement, scripture_or_chunk_output_change, graph_retrieval_vector_or_index_truth, theology_authority]
+    validators: [scripts/validate_validation_gate_lifecycle.py, tests/test_validation_gate_lifecycle.py, scripts/validate_chunking_lesson_index.py]
+
 lesson_graph:
   - from: LSN-002
     relation: governs_update_of
@@ -3427,4 +3445,10 @@ lesson_graph:
   - from: LSN-067
     relation: constrains
     to: LSN-052
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-068
+  - from: LSN-068
+    relation: audits
+    to: LSN-010
 validator: scripts/validate_chunking_lesson_index.py

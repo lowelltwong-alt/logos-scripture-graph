@@ -1,7 +1,7 @@
 """Repository-wide pytest lifecycle hooks."""
 from __future__ import annotations
 
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import pytest
 
@@ -17,6 +17,7 @@ T475_SKIP_REASON = (
     "exact T475 regenerated candidate: pre-T474 generated-baseline assertion "
     "is deferred until the T477-T479 migration"
 )
+GENERATED_DATA_MARKER = "generated_data"
 
 
 def apply_t475_transition_skips(items: list[pytest.Item], root: Path = ROOT) -> int:
@@ -38,3 +39,43 @@ def apply_t475_transition_skips(items: list[pytest.Item], root: Path = ROOT) -> 
 
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     apply_t475_transition_skips(items)
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    config.addinivalue_line(
+        "markers",
+        "generated_data(*paths): skip this test in a clean checkout when one or more "
+        "declared data/canonical inputs are absent",
+    )
+
+
+def pytest_runtest_setup(item: pytest.Item) -> None:
+    """Enforce explicit generated-sidecar dependencies at the test boundary."""
+    marker = item.get_closest_marker(GENERATED_DATA_MARKER)
+    if marker is None:
+        return
+    if not marker.args:
+        raise pytest.UsageError("generated_data marker requires at least one repository-relative path")
+
+    missing: list[str] = []
+    for raw_path in marker.args:
+        marker_path = PurePosixPath(raw_path) if isinstance(raw_path, str) else None
+        if (
+            marker_path is None
+            or marker_path.is_absolute()
+            or marker_path.parts[:2] != ("data", "canonical")
+            or ".." in marker_path.parts
+            or "\\" in raw_path
+        ):
+            raise pytest.UsageError(
+                "generated_data marker paths must be repository-relative under data/canonical/"
+            )
+        path = ROOT / raw_path
+        if not path.is_file():
+            missing.append(raw_path)
+    if missing:
+        pytest.skip(
+            "generated canonical sidecar(s) absent in clean checkout: "
+            f"{', '.join(missing)}; run `python pipelines/ingest/usfm_importer.py "
+            "--canonical-66-filter` before full-data verification"
+        )
