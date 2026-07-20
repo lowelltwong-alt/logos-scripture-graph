@@ -1,7 +1,7 @@
 object_type: governance_dependency_map_mirror
 trust_zone: governance
 lifecycle_status: active
-provenance_note: "Created 2026-06-29 to mirror the upstream Logos governance dependency-map update gate inside logos-scripture-graph."
+provenance_note: "Created 2026-06-29 to mirror the upstream Logos governance dependency-map update gate inside logos-scripture-graph. Updated 2026-07-07 for W2-2 mirror freshness and governance gate-trigger path checks."
 reason_for_inclusion: "Force scripture-local governance changes to check the upstream governance dependency map and local mirror surfaces instead of relying on chat memory."
 schema_version: governance_dependency_map_mirror.v1
 mirror_id: logos_scripture_graph_governance_dependency_map_mirror
@@ -12,15 +12,29 @@ upstream_dependency_map:
   artifact_id: GD-014
   rule: governance_map_update_gate
   source_of_truth: true
+mirror_freshness:
+  freshness_standard_ref: logos-governance-architecture:governance/MIRROR_FRESHNESS_STANDARD.yaml
+  cross_repo_reference_manifest_ref: logos-governance-architecture:governance/CROSS_REPO_REFERENCE_MANIFEST.yaml
+  upstream_governance_commit: ad338b5c2dc2c8d979843707aaaabb834cf64785
+  verified_against_upstream_commit_at: "2026-07-07T00:00:00Z"
+  staleness_budget_days: 14
+  local_source_repo_root_candidates:
+    - ../logos-governance-architecture
+  local_source_repo_unavailable_policy: report_when_unavailable
+  missing_or_drifted_upstream_control_policy: fail_closed_when_source_repo_available
+  local_gate_trigger_target_policy: fail_closed_when_scripture_control_path_missing
 local_enforcement:
   validator: scripts/validate_governance_dependency_map_mirror.py
   test: tests/test_governance_dependency_map_mirror.py
+  mirror_freshness_validator: scripts/validate_mirror_freshness.py
+  mirror_freshness_test: tests/test_mirror_freshness.py
   aggregate_validator: scripts/validate_all.py
   repository_link_contract: config/governance/repository_link_contract.yaml
   front_door: AI_FRONT_DOOR.md
   table_of_contents: AI_TABLE_OF_CONTENTS.md
   readme: README.md
 authority:
+  authorizes_child_repo_override: false
   local_repo_may_override_upstream_dependency_map: false
   local_repo_may_weaken_upstream_governance: false
   local_repo_may_treat_scripture_data_need_as_governance_authority: false
@@ -33,11 +47,15 @@ watched_local_governance_surfaces:
   - .ai/control/boundary_material_routing.yaml
   - .ai/control/governance_dependency_map_mirror.yaml
   - scripts/validate_governance_dependency_map_mirror.py
+  - scripts/validate_mirror_freshness.py
   - scripts/validate_repository_link_contract.py
   - scripts/validate_all.py
   - tests/test_governance_dependency_map_mirror.py
+  - tests/test_mirror_freshness.py
 required_behavior:
   - check_upstream_governance_dependency_map_when_governance_files_change
   - update_local_mirror_surfaces_when_upstream_governance_affects_scripture_graph
   - keep_scripture_graph_under_upstream_governance_authority
   - fail_closed_when_dependency_map_mirror_is_missing_or_weakened
+  - fail_closed_when_local_upstream_mirror_controls_are_missing_or_drifted
+  - fail_closed_when_governance_referenced_gate_trigger_paths_are_missing

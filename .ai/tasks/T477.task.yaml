@@ -1,0 +1,69 @@
+id: T477
+phase: phase_5
+title: "UNAS AI Workspace Architecture And AI Operations Home"
+mode: owner_authorized_architecture
+status: complete
+owner: codex
+branch: current_worktree
+base_ref: current_head
+summary: "Redesign the UNAS AI.Workspace around a provider-neutral AI operations home, document the existing private and computer-backup shares, and revise front-door governance with preserved lineage."
+scope:
+  allowed_paths:
+    - .ai/tasks/T477.task.yaml
+    - .ai/handoffs/T477/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/context/agent_work/T477/
+    - docs/roadmap/T477_UNAS_AI_WORKSPACE_ARCHITECTURE.md
+    - \\\\UNAS-Pro\\AI.Workspace\\AI_FRONT_DOOR.md
+    - \\\\UNAS-Pro\\AI.Workspace\\AI_TABLE_OF_CONTENTS.md
+    - \\\\UNAS-Pro\\AI.Workspace\\00-Governance\\WORKSPACE_MANIFEST.yml
+    - \\\\UNAS-Pro\\AI.Workspace\\00-Governance\\STORAGE_POLICY.md
+    - \\\\UNAS-Pro\\AI.Workspace\\00-Governance\\AI_WORKSPACE_ARCHITECTURE.md
+    - \\\\UNAS-Pro\\AI.Workspace\\00-Governance\\PRIVATE_AND_BACKUP_BOUNDARY.md
+    - \\\\UNAS-Pro\\AI.Workspace\\00-Governance\\history\\2026-07-16-pre-t477/
+    - \\\\UNAS-Pro\\AI.Workspace\\08-AI-Operations/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - \\\\UNAS-Pro\\Personal-Drive/
+    - \\\\UNAS-Pro\\ComputerBackups/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\LawFirm-OS\\source-originals/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\source-originals/
+    - \\\\UNAS-Pro\\AI.Workspace\\05-Releases-and-Exports/
+authorization:
+  approved_by: Lowell Wong
+  approved_instruction: "Make your own space in there and redesign the architecture around it; let the AI TOC and front door know this drive was bought mostly for AI as a project."
+  governance_revision_authorized: true
+  ai_operations_home_authorized: true
+  private_share_content_access: false
+  computer_backup_share_content_access: false
+  creates_or_changes_smb_share: false
+  deletes_or_moves_existing_content: false
+  copies_private_or_client_data: false
+  changes_scripture_authority: false
+  creates_release_or_publication: false
+portable_capability:
+  classification: portable_core
+  runtime_adapter: 08-AI-Operations/runtime-adapters/codex
+  provider_neutral_core: 08-AI-Operations
+  promotion_status: human_authorized_workspace_governance
+acceptance_criteria:
+  - "The root front door and TOC explain that the NAS is primarily an AI project workspace while local Git repositories remain code authority."
+  - "A provider-neutral 08-AI-Operations home exists with a Codex runtime adapter and no model/provider lock-in in the core policy."
+  - "Existing Personal-Drive and ComputerBackups shares are documented as external, restricted, and out of AI scope by default."
+  - "Prior governance revisions are preserved before replacement; no existing project/source content is moved, deleted, or overwritten."
+  - "The revised architecture records vertical authority, horizontal project/shared-resource interfaces, evidence/data layers, and temporal revision/retention behavior."
+validations:
+  - python scripts/validate_task_scope.py --task-id T477 --changed-file .ai/tasks/T477.task.yaml --changed-file .ai/handoffs/T477/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file docs/roadmap/T477_UNAS_AI_WORKSPACE_ARCHITECTURE.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T477/handoff.md
+created_at: "2026-07-16"
+updated_at: "2026-07-16"

@@ -1,0 +1,86 @@
+id: T468
+phase: phase_4
+title: "W2-2 Scripture Mirror Freshness Guardrail"
+mode: governance_readiness_non_output_changing
+status: in_progress
+owner: codex
+branch: codex/w2-2-scripture-mirror-freshness
+base_ref: origin/main
+summary: "Add a Scripture-local W2-2 mirror freshness validator so upstream governance mirror drift and governance-referenced gate-trigger path drift fail deterministically when local source repos are available."
+scope:
+  allowed_paths:
+    - .ai/tasks/T468.task.yaml
+    - .ai/control/governance_dependency_map_mirror.yaml
+    - .ai/control/test_runtime_preflight.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_all.py
+    - scripts/validate_governance_dependency_map_mirror.py
+    - scripts/validate_mirror_freshness.py
+    - tests/test_mirror_freshness.py
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - eval/LEADERBOARD.md
+    - config/retrieval/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: governance_readiness_non_output_changing
+  records_mirror_freshness: true
+  validates_governance_referenced_scripture_control_paths: true
+  promotes_reviewed_gold: false
+  implements_chunk_output: false
+  adds_child_spans: false
+  changes_route_behavior: false
+  changes_evaluator_behavior: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  imports_boundary_material: false
+  authorizes_source_or_manuscript_rows: false
+  authorizes_theology_authority: false
+  clears_variant_or_theology_holds: false
+runtime_language_preflight:
+  task_id: T468
+  touched_paths:
+    - .ai/control/governance_dependency_map_mirror.yaml
+    - .ai/control/test_runtime_preflight.yaml
+    - AI_TABLE_OF_CONTENTS.md
+    - scripts/validate_all.py
+    - scripts/validate_governance_dependency_map_mirror.py
+    - scripts/validate_mirror_freshness.py
+    - tests/test_mirror_freshness.py
+    - .ai/control/test_runtime_preflight.yaml
+  expected_input_size_or_record_count: "Small YAML/Markdown governance surfaces and focused tests; no canonical JSONL or chunk-map scan."
+  expected_runtime_or_memory_pressure: "Low. The validator checks a few local paths, metadata tokens, and optional upstream governance files when the sibling repo exists."
+  rust_trigger_match:
+    - none_small_governance_manifest_check
+  chosen_language: python_only_due_to_semantic_policy_complexity
+  expected_rust_time_saved_or_reason_not_applicable: "No Rust fast path is selected because this validates governance metadata and cross-repo path existence, not large deterministic data."
+  interop_boundary: "Python remains the stable governance wrapper. Rust remains reserved for deterministic corpus scans, JSONL passes, and large chunk-map comparisons."
+  python_fallback_or_wrapper_plan: "No Rust wrapper is introduced."
+  maintenance_tradeoffs: "Keeping W2-2 mirror freshness in Python keeps the fail-closed policy readable to agents and avoids turning governance metadata into a compiled authority surface."
+  validation_plan: "Run validate_mirror_freshness.py, validate_governance_dependency_map_mirror.py, focused pytest, task scope, parallel safety, lesson index, validate_all.py, full pytest, and diff checks."
+acceptance_criteria:
+  - "Mirror freshness metadata records upstream W2-1 governance controls without transferring authority."
+  - "Validator passes when upstream governance controls and local gate-trigger target paths are present."
+  - "Validator fails when governance-referenced gate-trigger target paths are missing."
+  - "No Scripture data, chunk output, route/evaluator behavior, reviewed gold, graph/retrieval/vector truth, source rows, or theology authority changes."
+validations:
+  - python scripts/validate_mirror_freshness.py
+  - python scripts/validate_governance_dependency_map_mirror.py
+  - python -m pytest -q tests/test_mirror_freshness.py tests/test_governance_dependency_map_mirror.py
+  - python scripts/validate_task_scope.py --task-id T468
+  - python scripts/validate_parallel_execution_safety.py --task-id T468 --allow-current-task-dirty
+  - python scripts/validate_chunking_lesson_index.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - git diff --check

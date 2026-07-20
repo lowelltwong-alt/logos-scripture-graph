@@ -1,0 +1,57 @@
+id: T478
+phase: phase_5
+title: "Cursor Rights-Gated Codex Image And Metadata Acquisition Prompt"
+mode: governed_prompt_authoring
+status: complete
+owner: codex
+branch: current_worktree
+base_ref: current_head
+summary: "Create a copy-paste Cursor prompt for a resumable, up-to-20-hour acquisition of every explicitly authorized codex image and governed codex metadata into the approved Z: NAS workspace."
+scope:
+  allowed_paths:
+    - .ai/tasks/T478.task.yaml
+    - .ai/handoffs/T478/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/prompts/cursor_leipzig_codex_full_image_and_metadata_acquisition_prompt.md
+    - docs/roadmap/T478_CURSOR_RIGHTS_GATED_CODEX_IMAGE_ACQUISITION_PROMPT.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - \\UNAS-Pro\AI.Workspace\01-Projects\Logos\source-originals/
+    - Z:\01-Projects\Logos\source-originals/
+    - \\UNAS-Pro\AI.Workspace\05-Releases-and-Exports/
+authorization:
+  approved_by: Lowell Wong
+  approved_instruction: "Give me a Cursor prompt that can work for up to 20 hours if necessary to download everything we have permission for, with codex metadata, into the correct place on Z:."
+  prompt_creation_authorized: true
+  acquisition_execution_in_this_task: false
+  cursor_execution_authorized_for_leipzig_sinaiticus: true
+  other_image_sources_require_exact_rights_evidence: true
+  metadata_only_cataloging_for_other_codices: true
+  ocr_or_transcription_authorized: false
+  embeddings_or_vectorization_authorized: false
+  release_or_publication_authorized: false
+portable_capability:
+  classification: runtime_adapter
+  runtime_adapter: Cursor
+  provider_neutral_core: "rights gate, provenance contract, resumable transfer contract, storage layout, verification gates, and stop conditions in the prompt"
+  promotion_status: owner_authorized_prompt_only
+acceptance_criteria:
+  - 'The prompt verifies Z: maps to \\UNAS-Pro\AI.Workspace before any write.'
+  - "The prompt authorizes full acquisition only for the Leipzig-held/digitized Codex Sinaiticus image set already covered by the library permission, plus any additional source with exact affirmative rights evidence."
+  - "The prompt is resumable, collision-safe, checksum-verified, time-bounded at 20 hours, and stores large source artifacts only on the NAS."
+  - "The prompt creates normalized codex metadata without OCR, transcription, preferred readings, canon decisions, embeddings, publication, or rights inference from mere public visibility."
+validations:
+  - python scripts/validate_task_scope.py --task-id T478 --changed-file .ai/tasks/T478.task.yaml --changed-file .ai/handoffs/T478/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file .ai/prompts/cursor_leipzig_codex_full_image_and_metadata_acquisition_prompt.md --changed-file docs/roadmap/T478_CURSOR_RIGHTS_GATED_CODEX_IMAGE_ACQUISITION_PROMPT.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T478/handoff.md
+created_at: "2026-07-17"
+updated_at: "2026-07-17"

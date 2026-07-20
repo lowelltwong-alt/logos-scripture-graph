@@ -1,0 +1,203 @@
+object_type: subagent_family_knowledge_base_plan
+schema_version: subagent_family_knowledge_base_plan.v1
+task_id: T473
+status: active_scaffold_non_authorizing
+trust_zone: candidate
+created_at: "2026-07-15"
+owner: Lowell Wong
+purpose: "Give Logos Scripture Graph a bounded subagent family and library knowledge base for primary witnesses, biblical scholarship, archaeology, OCR, rights, and unknown-unknown discovery."
+authority:
+  may_discover_sources: true
+  may_catalog_metadata: true
+  may_prepare_owner_decision_packets: true
+  may_recommend_experts: true
+  may_recommend_acquisition_or_ocr_tasks: true
+  may_download_or_store_sources_without_later_task: false
+  may_run_ocr_without_later_task: false
+  may_create_embeddings_without_later_task: false
+  may_select_preferred_readings: false
+  may_change_canon_scope: false
+  may_create_graph_or_retrieval_truth: false
+  may_authorize_theology: false
+subagent_family:
+  - id: rights_provenance_scout
+    capability_tier: luna_or_terra_low_to_medium
+    purpose: "Find rights, licenses, holding institutions, permission contacts, attribution language, storage limits, OCR/AI/redistribution/commercial terms."
+    allowed_outputs:
+      - rights_matrix_row
+      - permission_question_list
+      - blocked_source_reason
+      - attribution_candidate
+    forbidden_outputs:
+      - source_download
+      - legal_conclusion_beyond_source_terms
+      - assumed_AI_rights
+  - id: source_cataloger
+    capability_tier: terra_medium
+    purpose: "Turn manuscripts and corpora into source rows: holder, shelfmark, date, material, language, folio/canvas, work/book/passage coverage, canon lane, provenance."
+    allowed_outputs:
+      - source_catalog_row
+      - canvas_coverage_candidate
+      - holding_institution_record
+      - review_queue_item
+    forbidden_outputs:
+      - canonical_passage_record
+      - source_text_import
+      - preferred_reading
+  - id: ocr_paleography_pipeline_scout
+    capability_tier: terra_medium_to_high
+    purpose: "Evaluate OCR/HTR/transcription approaches for Greek majuscule, Hebrew, papyri, parchment, raking-light images, and damaged manuscripts."
+    local_candidate_ip_sources:
+      - path: "C:/Users/lowel/OneDrive/Desktop/Git Projects/02_Other_Git_Projects/Mock Trial4.26"
+        status: owner_approved_candidate_reuse
+        reusable_patterns:
+          - OCR confidence review gates
+          - material anchor gates
+          - exception learning lake
+          - A/B context assist contract
+          - subagent decision flow
+        rule: "Do not copy code until a later provenance/adaptation task confirms file ownership, license posture, dependencies, and Scripture-specific safety changes."
+    allowed_outputs:
+      - ocr_benchmark_plan
+      - material_anchor_gate_design
+      - confidence_review_packet
+      - engine_candidate_matrix
+    forbidden_outputs:
+      - manuscript_transcription_truth
+      - training_dataset_creation
+      - OCR_promotion_without_review
+  - id: biblical_scholarship_librarian
+    capability_tier: terra_high
+    purpose: "Maintain the knowledge-base taxonomy of scholarship families, expert types, journals, projects, institutions, and blind spots."
+    allowed_outputs:
+      - scholarship_family_row
+      - expert_type_row
+      - institution_project_anchor
+      - reading_queue_item
+    forbidden_outputs:
+      - one_scholar_as_authority
+      - hidden_school_default
+      - theology_conclusion
+  - id: archaeology_material_culture_scout
+    capability_tier: terra_medium
+    purpose: "Track archaeology, epigraphy, material culture, provenance, dating, inscriptional evidence, and ancient Near Eastern context relevant to biblical witnesses."
+    allowed_outputs:
+      - archaeology_context_row
+      - material_culture_question
+      - inscription_or_site_relevance_candidate
+    forbidden_outputs:
+      - apologetic_claim_as_truth
+      - canonical_interpretation_change
+  - id: unknown_unknowns_radar
+    capability_tier: sol_high_for_periodic_synthesis
+    purpose: "Regularly ask what the project does not know it needs to know; convert blind spots into owner-visible decision packets."
+    allowed_outputs:
+      - known_known
+      - known_unknown
+      - suspected_unknown_unknown
+      - trigger_recommendation
+      - escalation_packet
+    forbidden_outputs:
+      - automatic_task_authorization
+      - automatic_source_import
+      - automatic_canon_or_graph_change
+  - id: governance_evidence_reviewer
+    capability_tier: terra_high_or_sol_high_when_disputed
+    purpose: "Check that subagent outputs do not cross authority boundaries and that evidence is traceable."
+    allowed_outputs:
+      - scope_violation_report
+      - provenance_gap_report
+      - validation_recommendation
+    forbidden_outputs:
+      - rubber_stamp
+      - unchecked_scholarship_claim
+knowledge_base_families:
+  - id: nt_textual_criticism
+    anchor_projects:
+      - name: INTF databases and NTVMR/CBGM
+        url: https://www.uni-muenster.de/INTF/en/datenbanken/index.html
+      - name: Editio Critica Maior
+        url: https://www.die-bibel.de/en/the-editio-critica-maior-ecm
+      - name: CSNTM
+        url: https://www.csntm.org/
+    expert_types:
+      - NT textual critic
+      - Greek manuscript cataloger
+      - CBGM/ECM specialist
+  - id: hebrew_bible_and_dss
+    anchor_projects:
+      - name: Leon Levy Dead Sea Scrolls Digital Library
+        url: https://www.deadseascrolls.org.il/?locale=en_US
+    expert_types:
+      - Hebrew Bible textual critic
+      - Dead Sea Scrolls specialist
+      - Qumran material culture specialist
+  - id: septuagint_and_greek_ot
+    anchor_projects:
+      - name: Society of Biblical Literature digital resources
+        url: https://www.sbl-site.org/resources/
+      - name: Leipzig Codex Sinaiticus IIIF manifest
+        url: https://iiif.ub.uni-leipzig.de/0000061851/manifest.json
+    expert_types:
+      - Septuagint scholar
+      - Greek Old Testament textual critic
+      - codex transmission specialist
+  - id: patristics_and_reception_history
+    anchor_projects:
+      - name: BiblIndex
+        url: https://biblindex.org/
+      - name: Open Greek and Latin
+        url: https://www.opengreekandlatin.org/
+    expert_types:
+      - patristics scholar
+      - early Christian literature scholar
+      - reception-history scholar
+  - id: archaeology_epigraphy_material_culture
+    anchor_projects:
+      - name: American Society of Overseas Research
+        url: https://www.asor.org/about-asor
+      - name: EpiDoc Guidelines
+        url: https://epidoc.stoa.org/gl/latest/
+    expert_types:
+      - biblical archaeologist
+      - epigrapher
+      - ancient Near Eastern historian
+      - material culture specialist
+  - id: digital_humanities_and_manuscript_technology
+    anchor_projects:
+      - name: IIIF Consortium
+        url: https://iiif.io/
+      - name: IIIF Image API
+        url: https://iiif.io/api/image/3.0/
+      - name: Text Encoding Initiative
+        url: https://tei-c.org/
+      - name: TEI Guidelines
+        url: https://guidelines.tei-c.de/en/html/
+    expert_types:
+      - digital humanities architect
+      - TEI/EpiDoc encoder
+      - IIIF engineer
+      - OCR/HTR researcher
+      - data librarian
+review_model_policy:
+  default_scouts: "Luna/low or Luna/medium for bounded extraction; Terra/medium for synthesis."
+  integration_reviews: "Terra/high for cross-family synthesis or governance review."
+  frontier_escalation: "Sol/high for unresolved architecture, methodology, or unknown-unknown disagreements."
+  ultra_effort: "Human approval required per attempt; not authorized by this scaffold."
+cadence:
+  source_rights_scout: "on new source candidate, new reply, or license change"
+  scholarship_librarian: "weekly during acquisition campaign; monthly after stabilization"
+  unknown_unknowns_radar: "weekly while project scope is expanding; on every new corpus family; before public claims or major acquisition"
+  governance_reviewer: "before any download, OCR, embedding, graph, retrieval, or public release"
+non_authorizations:
+  - source_downloads
+  - OCR_or_transcription_storage
+  - source_text_import
+  - canonical_text_change
+  - canon_scope_change
+  - preferred_reading
+  - source_tradition_preference
+  - graph_truth
+  - retrieval_truth
+  - embeddings_or_vector_indexes
+  - theology_authority

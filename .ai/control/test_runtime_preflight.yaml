@@ -2,7 +2,7 @@
 object_type: test_runtime_preflight
 trust_zone: canonical
 lifecycle_status: active
-provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window. Updated 2026-06-29 after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling. Updated 2026-07-05 during T456 after sandboxed Windows validation hit access-denied temp/Cargo failures that passed when rerun in the correct environment."
+provenance_note: "Created 2026-06-22 during T386 after the full pytest suite exceeded the default 5-minute tool timeout and then completed with a longer timeout. Updated 2026-06-23 during T396 after the full suite exceeded 600000 ms and 900000 ms tool timeouts and required split-suite validation plus a longer retry window. Updated 2026-06-29 after validate_all exceeded a 240000 ms tool timeout and then passed with a 900000 ms ceiling. Updated 2026-07-05 during T456 after sandboxed Windows validation hit access-denied temp/Cargo failures that passed when rerun in the correct environment. Updated 2026-07-07 during T468 after a bad whole-repo-copy pytest fixture and guarded pytest split exhausted local temp disk."
 reason_for_inclusion: "Give future agents deterministic runtime guidance before running long validation or pytest commands, so slow gates are run with enough timeout, split intentionally, or routed to writable temp/Cargo locations instead of failing from tool timeout or sandbox environment noise."
 ---
 schema_version: test_runtime_preflight.v1
@@ -103,6 +103,26 @@ runtime_profiles:
       - treat_timeout_as_test_failure_without_assertion_output
       - hide_timeout_from_handoff
       - stop_unidentified_or_unrelated_parallel_agent_processes
+  - command_id: pytest_guarded_local_desktop_t468
+    command: "python scripts/run_pytest_guarded.py --timeout-seconds 180 --collect-timeout-seconds 120 --max-segment-size 20 -- tests -k \"not test_validate_all_suite\""
+    observed_on: "2026-07-07"
+    observed_context: "T468 branch after adding W2-2 mirror freshness tests. An initial focused fixture copied the whole Scripture repo into pytest temp, including generated canonical data and Rust target artifacts, and filled local temp disk. After the fixture was fixed to use a tiny synthetic repo, direct validate_all passed, but a guarded broad pytest split failed from Errno 28 no space left on device because the temp root had already been exhausted."
+    observed_result: "Treat Errno 28 from pytest tmp_path/cache or guarded-pytest state writes as local temp/disk exhaustion unless assertion output proves a code failure. Clear only verified pytest temp roots under the OS temp directory, avoid whole-repo copy fixtures, prefer synthetic minimal fixtures for validator tests, then rerun focused changed tests plus validate_all before relying on CI for the fresh full-suite run."
+    recommended_timeout_ms: 1800000
+    recommended_strategy:
+      - run_focused_changed_tests_first
+      - avoid_copying_the_entire_scripture_repo_into_tmp_path
+      - use_synthetic_minimal_fixtures_for_validator_mutants
+      - clear_verified_pytest_temp_roots_after_err_no_28_disk_full
+      - run_python_scripts_validate_all_separately_before_guarded_pytest
+      - rerun_guarded_pytest_only_after_temp_space_is_recovered
+      - record_temp_disk_exhaustion_in_handoff
+    do_not:
+      - treat_timeout_as_test_pass
+      - treat_err_no_28_as_code_failure_without_reproduction_after_cleanup
+      - hide_timeout_from_handoff
+      - delete_unknown_temp_or_target_dirs_without_path_verification
+      - commit_temp_outputs
 environment_routing:
   status: active
   observed_on: "2026-07-05"

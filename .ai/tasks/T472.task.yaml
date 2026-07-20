@@ -1,0 +1,68 @@
+id: T472
+phase: phase_5
+title: "Leipzig Sinaiticus Public Showcase Starter Pack"
+mode: build
+status: complete_limited_showcase
+owner: codex
+branch: current_worktree
+base_ref: origin/main
+summary: "Create a tiny public-facing starter pack from Leipzig University Library's rights-cleared Codex Sinaiticus IIIF images so contributors can see the project direction without bulk acquisition or authority leakage."
+scope:
+  allowed_paths:
+    - .ai/tasks/T472.task.yaml
+    - .ai/handoffs/T472/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/DATA_MAP.md
+    - .ai/control/RAW_SOURCE_INVENTORY.md
+    - docs/public/
+    - data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/
+  forbidden_paths:
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: limited_public_showcase_image_acquisition
+  downloads_limited_web_images: true
+  max_image_count: 3
+  source: codex_sinaiticus_leipzig_iiif
+  source_rights_basis: "Leipzig University Library 2026-07-15 email: Public Domain Mark 1.0 and free to use in any way for Leipzig-held/digitized Codex Sinaiticus images."
+  stores_source_manifest: true
+  stores_checksums: true
+  creates_public_explainer: true
+  downloads_bulk_images: false
+  downloads_full_resolution_archive: false
+  stores_manuscript_transcriptions: false
+  imports_source_text: false
+  changes_canonical_bible_text: false
+  changes_canonical_passage_records: false
+  authorizes_textual_critical_decision: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  imports_boundary_material: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "Exactly three or fewer Leipzig IIIF web-sized image derivatives are stored under data/raw with checksum/provenance metadata."
+  - "A contributor-facing public explainer connects images, source provenance, corpus lanes, graph/retrieval possibilities, and non-authorizations."
+  - "The explainer makes clear that this is a starter showcase, not a full acquisition or canonical authority change."
+  - "No transcription, OCR, embeddings, vector indexes, canonical records, or graph truth are created."
+validations:
+  - python scripts/validate_task_scope.py --task-id T472 --changed-file .ai/tasks/T472.task.yaml --changed-file .ai/handoffs/T472/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file .ai/control/DATA_MAP.md --changed-file .ai/control/RAW_SOURCE_INVENTORY.md --changed-file docs/public/LOGOS_SCRIPTURE_GRAPH_PUBLIC_SHOWCASE.md --changed-file data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/source_manifest.yaml --changed-file data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000001_web.jpg --changed-file data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000043_web.jpg --changed-file data/raw/primary_witnesses/greek_codices/codex_sinaiticus/leipzig/showcase/web/codex_sinaiticus_leipzig_canvas_00000086_web.jpg
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T472/handoff.md
+created_at: "2026-07-15"
+updated_at: "2026-07-15"

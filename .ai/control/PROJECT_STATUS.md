@@ -4,6 +4,63 @@
 **Updated by:** T469 primary witness acquisition planning; active task remains T467
 **Active task:** -> **T467 chunking harness hardening** on `codex/t467-harness-hardening`. This is future-rerun scratch harness policy only: no model rerun, chunk output, reviewed gold, child spans, route/evaluator behavior, graph/retrieval/vector truth, canon change, source-tradition choice, DAD reporting success gate, or theology authority.
 
+> **T474 Scripture research subagent role briefs (2026-07-15):** Converts the
+> T473 subagent-family scaffold into reusable invocation material under
+> `.ai/subagents/scripture_research_family/`, with role briefs for rights and
+> provenance, source cataloging, OCR/paleography, biblical scholarship,
+> archaeology/material culture, unknown-unknowns radar, and governance/evidence
+> review. Adds `docs/runbooks/UNKNOWN_UNKNOWNS_RADAR_RUNBOOK.md` so the
+> known-known / known-unknown / suspected-unknown-unknown workflow can be run
+> consistently without becoming automatic authority. T474 creates no recurring
+> automation and authorizes no source downloads, OCR/transcription storage,
+> source-text import, canonical Bible text change, canonical passage change,
+> textual-critical decision, preferred reading, source-tradition preference,
+> canon-scope change, boundary import into default Scripture authority,
+> graph/retrieval/vector truth, embeddings, indexes, copied Mock Trial/Albert
+> OCR code, or theology authority.
+
+> **T473 subagent family and scholarship knowledge-base scaffold (2026-07-15):**
+> Adds a non-authorizing subagent-family plan and library knowledge-base taxonomy
+> for source rights/provenance, manuscript cataloging, OCR/paleography, biblical
+> scholarship, archaeology/material culture, unknown-unknown discovery, and
+> governance review. T473 records the Mock Trial / Albert OCR work as
+> owner-approved candidate IP for later adaptation, with provenance review
+> required before copying code. It also adds an unknown-unknowns radar based on
+> known-known / known-unknown / suspected-unknown-unknown categories and a public
+> contributor research map. T473 creates no persistent automation and authorizes
+> no source downloads, OCR/transcription storage, source-text import, canonical
+> Bible text change, canonical passage change, textual-critical decision,
+> preferred reading, source-tradition preference, canon-scope change, boundary
+> import into default Scripture authority, graph/retrieval/vector truth,
+> embeddings, indexes, or theology authority.
+
+> **T472 Leipzig Sinaiticus public showcase starter pack (2026-07-15):** Adds a
+> tiny public-facing starter pack from the rights-cleared Leipzig University
+> Library Codex Sinaiticus IIIF source: three web-sized JPEG derivatives, a raw
+> source manifest with checksums/provenance/rights basis, and
+> `docs/public/LOGOS_SCRIPTURE_GRAPH_PUBLIC_SHOWCASE.md` explaining what the
+> Logos Scripture Graph project is trying to make visible for contributors.
+> T472 is limited to public orientation and contributor recruitment. It
+> authorizes no bulk manuscript download, full-resolution archive acquisition,
+> OCR/transcription storage, source text import, canonical Bible text change,
+> canonical passage change, textual-critical decision, preferred reading,
+> source-tradition preference, canon-scope change, boundary import into default
+> Scripture authority, graph/retrieval/vector truth, embeddings, indexes, or
+> theology authority.
+
+> **T471 Leipzig Codex Sinaiticus split-corpus start plan (2026-07-15):** Records
+> a planning-only start route for the rights-cleared Leipzig University Library
+> Codex Sinaiticus IIIF manifest. T471 separates one legally permitted source
+> into two research lanes: canonical 66-book biblical witness evidence for
+> `logos-scripture-graph`, and deuterocanonical/apocrypha or other non-66
+> material as boundary/supporting material outside default Scripture authority.
+> The first execution step is metadata-only canvas coverage classification before
+> any image acquisition. T471 authorizes no raw downloads, image storage,
+> transcription storage, source text import, canonical Bible text change,
+> canonical passage change, textual-critical decision, preferred reading,
+> source-tradition preference, canon-scope change, boundary import into default
+> Scripture Graph authority, graph/retrieval/vector truth, or theology authority.
+
 > **T469 primary witness acquisition waves (2026-07-08):** Adds a planning-only
 > Cursor execution plan for cataloging and later acquiring primary/early Bible
 > witnesses in rights-reviewed waves. The plan starts with metadata-only source
@@ -1774,3 +1831,32 @@ manifest ✓ | JSONL 864,904 ✓ | pytest 5/5 ✓ | chunker ✗
 ## Update rules
 
 When finishing work, update: this file → task handoff → ROADMAP_STATE.yaml → current_focus.yaml → roadmap_events.jsonl
+
+---
+
+## T475 — Logos NAS Phase 1 discovery (2026-07-16)
+
+- Completed the owner-requested metadata-only discovery of the local Logos repository family and `\\UNAS-Pro\AI.Workspace\01-Projects\Logos`.
+- The NAS has the requested 20-folder skeleton and no files; no NAS write, copy, mirror, scheduling, or DAD enrollment occurred.
+- The Scripture Graph common Git store is ~163 MiB while the primary checkout is ~7.37 GiB and has linked worktrees; Git mirrors/bundles alone cannot preserve ignored assets, untracked changes, or detached heads.
+- Full report and the owner approval gate: `docs/roadmap/T475_LOGOS_NAS_PHASE1_DISCOVERY.md`.
+
+## T476 — Logos NAS Phase 2A approved execution (2026-07-16)
+
+- Lowell approved non-destructive NAS Git captures, two sanitized snapshots, and named raw-source preservation with manifests/checksums.
+- Execution stopped before any artifact copy because the mapped NAS volume has only 9.3 MB free of 7.5 GB; every mirror/bundle creation failed with `No space left on device`, and no partial destination files were found afterward.
+- No overwrite, delete, source copy, snapshot copy, checksum receipt, OCR, import, graph/vector action, release, or publication occurred. Resume requires a larger NAS quota or a different owner-approved destination.
+
+## T477 — UNAS AI workspace architecture and AI operations home (2026-07-16)
+
+- Owner-authorized architecture revision installed at `\\UNAS-Pro\AI.Workspace`: updated root front door/TOC, workspace manifest v2, storage policy v2, four-dimensional architecture, and explicit private/computer-backup boundary.
+- Added provider-neutral `08-AI-Operations` with task-authorized staging/derived/evaluation/rejected lanes, compact manifests/handoffs, and an isolated Codex runtime adapter.
+- Confirmed `\\UNAS-Pro\Personal-Drive` already serves as the private share and `\\UNAS-Pro\ComputerBackups` already serves as the machine-backup share; their contents remain out of AI scope and were not accessed.
+- Preserved the prior governance revision under `00-Governance/history/2026-07-16-pre-t477/`; all promoted files matched draft SHA-256 hashes and both YAML manifests parsed successfully.
+
+## T478 ? Cursor rights-gated codex acquisition prompt (2026-07-17)
+
+- Added a copy-paste Cursor Agent prompt for a resumable, monitored acquisition run of up to 20 elapsed hours into the mapped `Z:` / `\\UNAS-Pro\AI.Workspace` Logos storage lanes.
+- Immediate image scope is the Leipzig University Library-held/digitized Codex Sinaiticus set covered by its 2026-07-15 PDM 1.0 permission reply. Other image sources require an exact source-level affirmative rights ledger; otherwise they remain metadata-only.
+- The prompt requires immutable manifest capture, highest-resolution distinct captures rather than derivative-size duplication, SHA-256 verification, collision quarantine, progress checkpoints, residual accounting, 500 GiB free-space reserve, and exact resume commands.
+- T478 creates no downloader and performs no acquisition. OCR, transcription, embeddings, textual decisions, canon/authority changes, publication, redistribution, and acquired binaries in Git/OneDrive remain unauthorized.

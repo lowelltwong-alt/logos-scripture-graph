@@ -1,0 +1,64 @@
+id: T471
+phase: phase_5
+title: "Leipzig Codex Sinaiticus Split-Corpus Start Plan"
+mode: planning_non_authorizing
+status: complete_non_authorizing_plan
+owner: codex
+branch: current_worktree
+base_ref: origin/main
+summary: "Plan the first rights-cleared Codex Sinaiticus acquisition around Leipzig University Library's IIIF manifest while separating canonical 66-book witness material from deuterocanonical/apocrypha and other boundary material."
+scope:
+  allowed_paths:
+    - .ai/tasks/T471.task.yaml
+    - .ai/handoffs/T471/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/leipzig_sinaiticus_split_corpus_plan.yaml
+    - docs/roadmap/T471_LEIPZIG_SINAITICUS_SPLIT_CORPUS_START_PLAN.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/chunking/
+    - config/chunking/
+    - registry/chunking/
+    - eval/chunking_gold/
+    - eval/chunking_runs/
+    - config/retrieval/
+    - .github/workflows/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+authorization:
+  task_kind: leipzig_sinaiticus_split_corpus_planning_only
+  records_rights_cleared_start_source: true
+  records_corpus_lane_split: true
+  records_future_acquisition_steps: true
+  creates_source_metadata_rows: false
+  downloads_raw_sources: false
+  stores_manuscript_images: false
+  stores_manuscript_transcriptions: false
+  imports_source_text: false
+  changes_canonical_bible_text: false
+  changes_canonical_passage_records: false
+  authorizes_textual_critical_decision: false
+  selects_preferred_reading_or_source_tradition: false
+  changes_canon_scope: false
+  imports_boundary_material: false
+  creates_graph_or_retrieval_truth: false
+  runs_embeddings_or_builds_indexes: false
+  authorizes_theology_authority: false
+acceptance_criteria:
+  - "Plan starts with Leipzig University Library's rights-cleared IIIF manifest only."
+  - "Canonical 66-book biblical witness material is separated from deuterocanonical/apocrypha and other boundary material."
+  - "Boundary material is preserved as desired research scope but kept out of default Scripture Graph authority and default retrieval."
+  - "No raw images, text, transcription, embeddings, vectors, canonical records, or graph truth are created."
+validations:
+  - python scripts/validate_task_scope.py --task-id T471 --changed-file .ai/tasks/T471.task.yaml --changed-file .ai/handoffs/T471/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file .ai/control/leipzig_sinaiticus_split_corpus_plan.yaml --changed-file docs/roadmap/T471_LEIPZIG_SINAITICUS_SPLIT_CORPUS_START_PLAN.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T471/handoff.md
+created_at: "2026-07-15"
+updated_at: "2026-07-15"

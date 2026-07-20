@@ -1,0 +1,102 @@
+object_type: unknown_unknowns_radar
+schema_version: unknown_unknowns_radar.v1
+task_id: T473
+status: active_scaffold_non_authorizing
+trust_zone: candidate
+purpose: "Repeatedly discover what Logos Scripture Graph knows, knows it does not know, and does not yet know it needs to know."
+rumsefeld_grid:
+  known_known:
+    definition: "Established, source-backed facts or project decisions with provenance and scope."
+    example_outputs:
+      - "Leipzig has granted broad use of its digitized Codex Sinaiticus images."
+      - "Boundary material cannot enter default Scripture authority."
+  known_unknown:
+    definition: "Named question with recognized missing evidence, owner decision, rights answer, or expert review."
+    example_outputs:
+      - "Which exact Leipzig canvases correspond to which biblical or non-66 works?"
+      - "What OCR/HTR method is reliable for fourth-century Greek majuscule parchment?"
+  suspected_unknown_unknown:
+    definition: "A plausible blind spot inferred from field structure, adjacent disciplines, anomalous evidence, or missing expert family."
+    example_outputs:
+      - "A digitization-rights grant may not cover raking-light variants, derivative thumbnails, or redistribution contexts unless recorded."
+      - "Archaeological dating or material-culture assumptions may leak into textual claims without an epigrapher/material specialist review."
+      - "A model may overfit to modern printed Greek and fail on nomina sacra, column geometry, marginalia, lacunae, or corrections."
+triggers:
+  - id: new_source_family_added
+    run_when: "A new manuscript, corpus, edition, library, or tradition family is proposed."
+    required_agents:
+      - rights_provenance_scout
+      - biblical_scholarship_librarian
+      - unknown_unknowns_radar
+  - id: permission_reply_received
+    run_when: "A rights holder replies with permission, denial, conditions, or ambiguity."
+    required_agents:
+      - rights_provenance_scout
+      - governance_evidence_reviewer
+      - unknown_unknowns_radar
+  - id: before_download_or_storage
+    run_when: "Any source artifact would be downloaded, mirrored, OCRed, or stored."
+    required_agents:
+      - rights_provenance_scout
+      - source_cataloger
+      - governance_evidence_reviewer
+  - id: before_ocr_or_transcription
+    run_when: "Any image-derived text or manual transcription would be created."
+    required_agents:
+      - ocr_paleography_pipeline_scout
+      - source_cataloger
+      - governance_evidence_reviewer
+  - id: before_public_claim
+    run_when: "A public page, outreach message, contributor guide, or apologetics-oriented claim is written."
+    required_agents:
+      - biblical_scholarship_librarian
+      - archaeology_material_culture_scout
+      - governance_evidence_reviewer
+  - id: cadence_weekly_scope_expansion
+    run_when: "Weekly while manuscript/patristics/archaeology source acquisition is expanding."
+    required_agents:
+      - unknown_unknowns_radar
+      - biblical_scholarship_librarian
+  - id: evidence_anomaly
+    run_when: "A source has mixed canon status, uncertain dating, unexpected book order, corrections, lacunae, marginalia, conflicting metadata, or OCR failure."
+    required_agents:
+      - unknown_unknowns_radar
+      - source_cataloger
+      - governance_evidence_reviewer
+output_schema:
+  fields:
+    - radar_item_id
+    - classification
+    - domain_family
+    - claim_or_question
+    - why_it_matters
+    - evidence_anchor
+    - confidence
+    - consequence_if_wrong
+    - recommended_next_action
+    - required_expert_family
+    - authority_boundary
+    - owner_decision_required
+promotion_rules:
+  known_known_to_project_fact: "Requires source URL, date observed, scope label, and no conflict with governance."
+  known_unknown_to_task: "Requires clear owner action or research target; no automatic implementation."
+  suspected_unknown_unknown_to_known_unknown: "Requires a named plausible failure mode and at least one evidence anchor or expert-family rationale."
+  anything_to_authority: "Never automatic; requires separate owner/governance route."
+checker_workflow:
+  - "Worker produces radar rows."
+  - "Independent reviewer checks evidence URLs, scope boundaries, and non-authorizations."
+  - "Rows with public/contributor impact require concise owner-facing decision packet."
+  - "Rows involving canon, theology, textual criticism, graph, retrieval, or source import remain candidate until later explicit authorization."
+model_effort_policy:
+  routine_scan: "Luna/medium or Terra/medium."
+  cross_domain_synthesis: "Terra/high."
+  unresolved_architecture_or_methodology_disagreement: "Sol/high."
+  ultra: "Not authorized without explicit per-attempt Lowell approval."
+non_authorizations:
+  - automatic_download
+  - automatic_ocr
+  - automatic_email_send
+  - automatic_publication
+  - automatic_embedding_or_vector_index
+  - automatic_graph_or_retrieval_truth
+  - automatic_canon_or_theology_change

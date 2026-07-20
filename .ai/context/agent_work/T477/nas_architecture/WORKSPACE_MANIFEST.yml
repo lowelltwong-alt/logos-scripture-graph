@@ -1,0 +1,41 @@
+workspace_id: unas-ai-workspace
+version: 2
+root: \\UNAS-Pro\AI.Workspace
+mission: governed_ai_project_corpus_artifact_evaluation_and_recovery_workspace
+human_owner: Lowell Wong
+read_order:
+  - AI_FRONT_DOOR.md
+  - AI_TABLE_OF_CONTENTS.md
+  - 00-Governance/WORKSPACE_MANIFEST.yml
+  - 00-Governance/AI_WORKSPACE_ARCHITECTURE.md
+  - 00-Governance/PRIVATE_AND_BACKUP_BOUNDARY.md
+write_boundaries:
+  ai_writable_within_authorized_task: [staging, derived-data, evaluations, rejected-outputs]
+  immutable: [source-originals]
+  exact_human_authorization_required: [governance, provenance, rights-records, human-review, archive, repos]
+  human_promotion_required: [releases, publications]
+  prohibited: [secrets, credentials, authentication-material, api-keys, private-client-data, full-computer-images]
+projects:
+  lawfirm_os:
+    front_door: 01-Projects/LawFirm-OS/AI_FRONT_DOOR.md
+    data_root: \\UNAS-Pro\AI.Workspace\01-Projects\LawFirm-OS
+  logos:
+    front_door: 01-Projects/Logos/AI_FRONT_DOOR.md
+    data_root: \\UNAS-Pro\AI.Workspace\01-Projects\Logos
+ai_operations:
+  classification: portable_core
+  front_door: 08-AI-Operations/AI_FRONT_DOOR.md
+  data_root: \\UNAS-Pro\AI.Workspace\08-AI-Operations
+  runtime_adapters:
+    codex: 08-AI-Operations/runtime-adapters/codex
+external_restricted_shares:
+  personal_drive:
+    path: \\UNAS-Pro\Personal-Drive
+    ai_access: prohibited_by_default
+  computer_backups:
+    path: \\UNAS-Pro\ComputerBackups
+    ai_access: prohibited_by_default
+temporal_policy:
+  preserve_revision_lineage: true
+  never_silently_replace: true
+  no_automated_deletion: true

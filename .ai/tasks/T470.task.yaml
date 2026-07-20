@@ -1,0 +1,40 @@
+id: T470
+phase: phase_5
+title: "Master Manuscript And Patristic Rights Outreach Package"
+mode: planning_and_draft_authoring
+status: complete_non_sending
+owner: codex
+summary: "Prepare consolidated, holder-specific, send-ready rights-request drafts for planned biblical manuscript and patristic/reception research; no email is sent and no source material is acquired."
+scope:
+  allowed_paths:
+    - .ai/tasks/T470.task.yaml
+    - .ai/handoffs/T470/
+    - .ai/control/handoff_ledger.jsonl
+    - docs/roadmap/T470_MASTER_MANUSCRIPT_AND_PATRISTIC_RIGHTS_OUTREACH.md
+    - docs/roadmap/T470_COPY_PASTE_RIGHTS_EMAIL_PACKET.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - .ai/control/MASTER_CONTEXT.md
+authorization:
+  drafts_outreach_messages: true
+  verifies_public_contact_routes: true
+  sends_email: false
+  creates_gmail_drafts: false
+  downloads_source_artifacts: false
+  stores_source_artifacts: false
+  imports_source_text: false
+  creates_graph_or_retrieval_truth: false
+  creates_embedding_or_vector_work: false
+acceptance_criteria:
+  - "Every email draft is consolidated by rights holder and identifies its requested materials."
+  - "Every draft asks separately about local storage, OCR/transcription, computational/AI use, attribution, redistribution, and commercial use."
+  - "No unverified email address is represented as ready to automate."
+  - "No email is sent or drafted in Gmail."
+validations:
+  - python scripts/validate_task_scope.py --task-id T470 --changed-file .ai/tasks/T470.task.yaml --changed-file .ai/handoffs/T470/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file docs/roadmap/T470_MASTER_MANUSCRIPT_AND_PATRISTIC_RIGHTS_OUTREACH.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check

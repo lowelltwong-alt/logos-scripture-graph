@@ -326,6 +326,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             "validate_governance_dependency_map_mirror.py",
             [PY, str(ROOT / "scripts" / "validate_governance_dependency_map_mirror.py")],
         ),
+        (
+            "validate_mirror_freshness.py",
+            [PY, str(ROOT / "scripts" / "validate_mirror_freshness.py")],
+        ),
         ("validate_dad_outbox.py", [PY, str(ROOT / "scripts" / "validate_dad_outbox.py")]),
         (
             "validate_validation_gate_lifecycle.py",

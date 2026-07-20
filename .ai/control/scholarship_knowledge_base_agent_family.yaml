@@ -1,0 +1,136 @@
+object_type: scholarship_knowledge_base_agent_family
+trust_zone: canonical
+lifecycle_status: active
+schema_version: scholarship_knowledge_base_agent_family.v1
+task_id: T473
+owner: Lowell Wong
+status: active_planning_only
+reason_for_inclusion: "Record the first governed scholarship knowledge-base taxonomy, subagent-family roles, and known/unknown review loop for manuscript, patristic, archaeology, rights, and digital-humanities work."
+authority:
+  records_knowledge_base_taxonomy: true
+  records_subagent_family_roles: true
+  records_unknown_unknown_sentinel_triggers: true
+  may_guide_future_research_tasks: true
+  authorizes_subagent_autonomy_without_task_scope: false
+  authorizes_source_text_import: false
+  authorizes_transcription_storage: false
+  authorizes_additional_image_download: false
+  authorizes_ocr_or_htr_output_storage: false
+  authorizes_metadata_row_population: false
+  authorizes_canonical_bible_text_change: false
+  authorizes_canonical_passage_record_change: false
+  authorizes_textual_critical_decision: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_canon_scope_change: false
+  authorizes_boundary_import: false
+  authorizes_graph_edges: false
+  authorizes_retrieval_truth: false
+  authorizes_embedding_or_vector_work: false
+  authorizes_apologetic_conclusion_as_truth: false
+  authorizes_email_sending_or_mailbox_mutation: false
+roles:
+  rights_provenance_scout:
+    capability_profile: reasoner
+    cadence: before_any_acquisition_or_reuse
+    required_outputs: [rights_summary, attribution_terms, storage_ocr_ai_vector_terms, redistribution_and_commercial_terms, blocker_queue]
+  scholarship_domain_mapper:
+    capability_profile: reasoner
+    cadence: when_new_corpus_domain_or_public_claim_appears
+    required_outputs: [domain_map, expert_family_list, source_anchor_list, scholarship_gap_docket]
+  source_cataloger:
+    capability_profile: executor
+    cadence: before_metadata_row_population
+    required_outputs: [source_catalog_candidates, conflict_preservation_notes, rights_status_fields, provenance_refs]
+  acquisition_pipeline_builder:
+    capability_profile: executor
+    cadence: only_after_rights_approval_and_owner_scope
+    required_outputs: [source_manifest, checksum_manifest, acquisition_log, no_text_or_no_ocr_confirmation_when_applicable]
+  evidence_boundary_reviewer:
+    capability_profile: reasoner
+    cadence: before_public_claims_graph_retrieval_or_canon_sensitive_use
+    required_outputs: [boundary_review, canon_lane_routing, confidence_and_dissent_notes, escalation_recommendation]
+  unknown_unknown_sentinel:
+    capability_profile: reasoner
+    cadence: recurring_and_triggered
+    required_outputs: [known_knowns, known_unknowns, unknown_unknown_candidates, assumptions_under_test, escalation_triggers, next_research_questions]
+  archaeology_material_context_scout:
+    capability_profile: reasoner
+    cadence: when_historical_material_or_site_claim_enters_scope
+    required_outputs: [archaeology_source_map, material_context_limits, chronology_conflict_notes, relevance_to_scripture_claim_scope]
+  public_contributor_explainer:
+    capability_profile: communicator
+    cadence: before_public_showcase_updates
+    required_outputs: [public_explainer, scope_warnings, contributor_onramps, rights_and_attribution_snippet]
+knowledge_families:
+  - textual_criticism
+  - manuscript_studies
+  - paleography_codicology_papyrology
+  - hebrew_bible_dss
+  - septuagint_and_versions
+  - nt_papyri_codices
+  - patristics_reception
+  - early_christian_literature
+  - archaeology_material_culture
+  - digital_humanities
+  - rights_provenance_library_science
+  - governance_theological_boundary
+known_unknown_matrix:
+  buckets:
+    - known_known
+    - known_unknown
+    - unknown_unknown_candidate
+    - assumption_under_test
+    - escalation_trigger
+triggers:
+  recurring:
+    active_acquisition_weekly: true
+    new_rights_reply: true
+    public_showcase_update: true
+  event_based:
+    - new_source_family_added
+    - manuscript_contains_canonical_and_boundary_material
+    - claim_uses_oldest_earliest_complete_unchanged_original_reconstruct_proves_or_reliable
+    - source_moves_from_metadata_to_image_or_text_acquisition
+    - ocr_transcription_alignment_embedding_vector_or_graph_work_proposed
+    - specialist_domain_missing_from_current_kb
+    - source_catalog_conflict_detected
+    - archaeology_claim_tied_to_scripture_interpretation
+expert_family_minimum:
+  - greek_nt_textual_critic
+  - hebrew_bible_dss_specialist
+  - septuagint_versions_specialist
+  - patristics_specialist
+  - paleographer_codicologist_papyrologist
+  - biblical_archaeologist_material_culture_specialist
+  - digital_humanities_engineer
+  - rights_provenance_library_science_reviewer
+  - governance_theological_boundary_reviewer
+next_recommended_pass:
+  role: unknown_unknown_sentinel
+  target: "Leipzig Codex Sinaiticus public showcase plus split-corpus plan."
+  output: "Blind-spot docket before additional images, OCR, transcription, embeddings, vector indexes, or public claims."
+non_authorizations:
+  - source_text_import
+  - transcription_storage
+  - additional_raw_image_download
+  - ocr_or_htr_output_storage
+  - metadata_row_population_without_future_task_scope
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_import
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
+  - automated_email_sending_or_mailbox_mutation
+references:
+  - docs/roadmap/T473_SCHOLARSHIP_KB_AND_AGENT_FAMILY_PLAN.md
+  - .ai/control/manuscript_witness_reliability_scaffold.yaml
+  - .ai/control/manuscript_source_catalog_metadata_plan.yaml
+  - .ai/control/manuscript_source_catalog_research_packet.yaml
+  - .ai/control/ai_agnostic_rust_subagent_charter.yaml

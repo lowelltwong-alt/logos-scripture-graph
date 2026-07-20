@@ -1,0 +1,63 @@
+id: T476
+phase: phase_5
+title: "Logos NAS Phase 2A Approved Backup And Source Preservation"
+mode: approved_execution
+status: blocked_external_nas_capacity
+owner: codex
+branch: current_worktree
+base_ref: current_head
+summary: "Execute Lowell's approved non-destructive NAS backup: four Git mirror/bundle captures, two sanitized working-tree snapshots, and named raw source families with manifests, SHA-256, and provenance receipt."
+scope:
+  allowed_paths:
+    - .ai/tasks/T476.task.yaml
+    - .ai/handoffs/T476/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - docs/roadmap/T476_LOGOS_NAS_PHASE2A_EXECUTION_PLAN.md
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\repos/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\archive\\worktree-snapshots\\2026-07-16/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\source-originals\\biblical-texts\\eng-web/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\source-originals\\original-languages/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\source-originals\\manuscript-witnesses\\greek_codices\\codex_sinaiticus\\leipzig\\showcase\\web/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\manifests\\logos-scripture-graph\\phase2a\\2026-07-16/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\provenance\\logos-scripture-graph\\phase2a\\2026-07-16/
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\releases/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\publications/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\knowledge-graph/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\vector-indexes/
+authorization:
+  approved_by: Lowell Wong
+  approved_instructions: "Approve Phase 2A: create the approved NAS paths; make non-destructive Git mirrors and bundles for the four Logos repos; snapshot the current Scripture Graph and Governance worktrees; copy the listed raw source families with manifests and SHA-256 checksums. Skip conflicts, never overwrite/delete, and report every result. Do not copy any other worktree, generated data, patristic corpus, or release/publication material."
+  nas_writes: true
+  git_mirrors_and_bundles: true
+  snapshots_limited_to_named_repos: true
+  source_copy_limited_to_named_files: true
+  conflict_behavior: skip_and_report
+  overwrite_or_delete: false
+  creates_release_or_publication: false
+  creates_graph_or_vector_index: false
+  runs_ocr_or_transcription: false
+  imports_source_text: false
+  changes_canon_scope: false
+acceptance_criteria:
+  - "Each of the four named repositories has a new NAS bare mirror and bundle, or a recorded skipped conflict/failure."
+  - "Only the named Scripture Graph and Governance worktrees are copied as sanitized snapshots; no other worktree or generated/cached/private material is copied."
+  - "Only the WEB archive, five original-language archives, three Leipzig showcase images, and their source manifests are copied."
+  - "Every copied raw artifact has matching source/destination SHA-256 evidence and a provenance receipt."
+  - "No overwrite, destination deletion, release/publication, OCR, source import, graph/vector action, or unrelated corpus copy occurs."
+validations:
+  - python scripts/validate_task_scope.py --task-id T476 --changed-file .ai/tasks/T476.task.yaml --changed-file .ai/handoffs/T476/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file docs/roadmap/T476_LOGOS_NAS_PHASE2A_EXECUTION_PLAN.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T476/handoff.md
+created_at: "2026-07-16"
+updated_at: "2026-07-16"

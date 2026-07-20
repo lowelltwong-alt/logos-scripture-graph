@@ -1,0 +1,38 @@
+capability_id: unas-ai-operations
+classification: portable_core
+version: 1
+human_owner: Lowell Wong
+root: \\UNAS-Pro\AI.Workspace\08-AI-Operations
+inputs:
+  - task_authorization
+  - project_front_door
+  - source_and_artifact_manifests
+outputs:
+  - compact_handoffs
+  - run_manifests
+  - derived_artifacts
+  - evaluations
+errors:
+  - missing_authority
+  - private_boundary_violation
+  - source_custody_conflict
+  - destination_collision
+  - validation_failure
+authority:
+  may_coordinate_and_record: true
+  may_override_project_authority: false
+  may_access_external_private_shares: false
+  may_promote_release_without_human: false
+privacy:
+  prohibit_private_payloads: true
+  prohibit_credentials_and_secrets: true
+effects:
+  collision_check_required: true
+  no_silent_overwrite: true
+  no_automated_deletion: true
+runtime_adapters:
+  codex: runtime-adapters/codex
+freshness:
+  review_on_policy_runtime_tool_or_authority_change: true
+rollback:
+  preserve_prior_revision: true

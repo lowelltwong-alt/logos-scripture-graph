@@ -1,0 +1,54 @@
+id: T475
+phase: phase_5
+title: "Logos NAS Phase 1 Read-Only Discovery"
+mode: investigation
+status: complete_pending_owner_phase_2_approval
+owner: codex
+branch: current_worktree
+base_ref: current_head
+summary: "Perform the user-requested metadata-only discovery of the local Logos repository family and the Logos NAS project area, then publish a non-authorizing inventory and proposed workstream assignments."
+scope:
+  allowed_paths:
+    - .ai/tasks/T475.task.yaml
+    - .ai/handoffs/T475/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - docs/roadmap/T475_LOGOS_NAS_PHASE1_DISCOVERY.md
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - .digital-asset/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\source-originals/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\repos/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\releases/
+    - \\\\UNAS-Pro\\AI.Workspace\\01-Projects\\Logos\\publications/
+authorization:
+  task_kind: read_only_discovery_and_routing_proposal
+  nas_writes: false
+  source_copying: false
+  git_mirroring: false
+  bulk_downloads: false
+  source_text_exposure: false
+  agent_writes: false
+  creates_navigation_files_on_nas: false
+  creates_recurring_automation: false
+  changes_canonical_bible_text: false
+  changes_canon_scope: false
+  creates_graph_or_retrieval_truth: false
+acceptance_criteria:
+  - "Inventory is metadata-only and records local repository identity, Git topology, approximate size, source family, sensitivity/provenance signal, and proposed NAS destination."
+  - "Existing NAS Logos folder state and potential destination conflicts are recorded without writing to the NAS."
+  - "The report identifies exclusions, duplicated linked worktrees/shared Git objects, projected Phase 2 storage method, and unresolved provenance or license gaps."
+  - "The report includes bounded read-only scout/workstream assignments and an independent routing review."
+  - "The task requests explicit owner approval before Phase 2 copying, Git mirroring, scheduling, DAD enrollment, or release promotion."
+validations:
+  - python scripts/validate_task_scope.py --task-id T475 --changed-file .ai/tasks/T475.task.yaml --changed-file .ai/handoffs/T475/handoff.md --changed-file .ai/control/handoff_ledger.jsonl --changed-file .ai/control/PROJECT_STATUS.md --changed-file docs/roadmap/T475_LOGOS_NAS_PHASE1_DISCOVERY.md
+  - python scripts/agent/validate_handoffs.py
+  - git diff --check
+handoff_required: .ai/handoffs/T475/handoff.md
+created_at: "2026-07-16"
+updated_at: "2026-07-16"

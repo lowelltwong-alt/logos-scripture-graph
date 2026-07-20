@@ -1,0 +1,132 @@
+object_type: leipzig_sinaiticus_split_corpus_plan
+schema_version: leipzig_sinaiticus_split_corpus_plan.v1
+task_id: T471
+status: planning_only_no_downloads
+trust_zone: candidate
+created_at: "2026-07-15"
+owner: Lowell Wong
+purpose: "Start the project with Leipzig University Library's rights-cleared Codex Sinaiticus IIIF images while keeping biblical and non-66 boundary material separated."
+source:
+  source_id: codex_sinaiticus_leipzig_iiif
+  title: "Codex Sinaiticus, Leipzig University Library, Cod. gr. 1"
+  holder: Leipzig University Library
+  physical_object_owner: Leipzig University Library, Leipzig, Germany
+  digital_copy_owner: Leipzig University Library
+  manifest_url: https://iiif.ub.uni-leipzig.de/0000061851/manifest.json
+  viewer_url: https://digital.ub.uni-leipzig.de/object/viewid/0000061851
+  rights_basis: "Email reply from Leipzig University Library on 2026-07-15 states all digital images of Leipzig-held Codex Sinaiticus parts digitized by Leipzig University Library are under Public Domain Mark 1.0 and free to use in any way."
+  rights_scope_limit: "Only Leipzig-held/digitized images covered by the reply; does not cover British Library, Vatican, St Catherine's, Russian National Library, or the shared Codex Sinaiticus project assets unless separately permitted."
+  manifest_metadata_observed:
+    medium: Handschrift
+    material: Pergament
+    extent: "43 leaves"
+    dimensions: "about 38 x 35.5 cm"
+    date_of_origin: "4th century"
+    language: Greek
+    object_title: "'Codex Sinaiticus' (Biblia graeca, Vetus Testamentum)"
+authority:
+  authorizes_metadata_planning: true
+  authorizes_future_download_after_explicit_acquisition_task: true
+  authorizes_canonical_scope_change: false
+  authorizes_boundary_import_into_scripture_graph: false
+  authorizes_preferred_reading: false
+  authorizes_source_tradition_preference: false
+  authorizes_graph_retrieval_vector_truth: false
+lanes:
+  - lane_id: canonical_66_witness_lane
+    destination: logos-scripture-graph
+    purpose: "Use pages containing canonical 66-book biblical text as manuscript witness evidence."
+    allowed_future_records:
+      - source_catalog_row
+      - folio_canvas_metadata
+      - rights_and_provenance_record
+      - canonical_66_passage_coverage_candidate
+      - image_storage_ledger_after_authorization
+      - transcription_or_ocr_candidate_after_authorization
+    forbidden_uses:
+      - change_canonical_text
+      - choose_preferred_reading
+      - create_reviewed_gold
+      - create_graph_truth
+      - default_retrieval_truth
+      - canon_scope_change
+    first_step: "Map every IIIF canvas to work/book/passage coverage, then classify each canvas as canonical_66, boundary_non_66, mixed_or_uncertain, or non_text_artifact before any image acquisition."
+  - lane_id: boundary_non_66_lane
+    destination: logos-boundary-literature_or_separate_boundary_profile
+    purpose: "Preserve non-66 materials because Lowell wants them, but keep them separate from canonical Scripture authority."
+    includes_when_present:
+      - deuterocanonical_or_apocrypha
+      - epistle_of_barnabas
+      - shepherd_of_hermas
+      - other_noncanonical_or_uncertain_material
+    allowed_future_records:
+      - boundary_source_catalog_row
+      - folio_canvas_metadata
+      - rights_and_provenance_record
+      - tradition_scope
+      - support_or_background_link_to_scripture
+    forbidden_uses:
+      - canonical_passage_record
+      - canonical_chunk
+      - leaderboard_input
+      - default_scripture_retrieval
+      - canonical_truth_claim
+      - canon_scope_change
+    first_step: "Record boundary material coverage separately and route it under boundary/source-reception controls, not canonical Scripture Graph defaults."
+classification_policy:
+  canonical_66:
+    meaning: "Canvas contains material from the Protestant 66-book canon as currently governed in this repo."
+    route: canonical_66_witness_lane
+  boundary_non_66:
+    meaning: "Canvas contains deuterocanonical/apocrypha, Barnabas, Hermas, or other material outside this repo's default canonical 66 scope."
+    route: boundary_non_66_lane
+  mixed_or_uncertain:
+    meaning: "Canvas transition, uncertain identification, lacuna, supplement, or metadata mismatch."
+    route: quarantine_until_human_review
+  non_text_artifact:
+    meaning: "Binding, blank, guard, color target, label, raking-light detail, or other non-transcription content."
+    route: provenance_or_imaging_metadata_only
+recommended_execution_waves:
+  - wave_id: L0
+    title: "Metadata-only coverage map"
+    actions:
+      - "Fetch and parse IIIF manifest metadata only."
+      - "Record canvas IDs, labels, image-service IDs, dimensions, rights/provenance, and preliminary coverage classification."
+      - "Do not download image binaries."
+    success_gate: "Every canvas has a provisional lane classification and review status."
+  - wave_id: L1
+    title: "Quarantined image acquisition"
+    actions:
+      - "After explicit owner authorization, download Leipzig image files to a non-Git, non-cloud-synced quarantine path."
+      - "Record checksums, source URLs, capture time, and rights statement."
+      - "Keep canonical and boundary folders separated."
+    success_gate: "Storage ledger distinguishes canonical_66 and boundary_non_66 image files."
+  - wave_id: L2
+    title: "Transcription and OCR candidates"
+    actions:
+      - "Run OCR/transcription experiments separately per lane."
+      - "Mark all results candidate until reviewed."
+      - "Do not merge boundary text into canonical Scripture records."
+    success_gate: "OCR/transcription output has provenance, lane, confidence, and no canonical promotion."
+  - wave_id: L3
+    title: "Analysis and embeddings"
+    actions:
+      - "Build separate experimental indexes for canonical witness analysis and boundary/reception analysis only after owner authorization."
+      - "Use distinct namespace/profile labels."
+    success_gate: "No default Scripture retrieval profile includes boundary material."
+non_authorizations:
+  - raw_downloads_by_this_plan
+  - image_storage_by_this_plan
+  - source_text_import_by_this_plan
+  - transcription_storage_by_this_plan
+  - canonical_bible_text_change
+  - canonical_passage_record_change
+  - textual_critical_decision
+  - preferred_reading_selection
+  - source_tradition_preference
+  - canon_scope_change
+  - boundary_material_in_default_scripture_retrieval
+  - graph_edge_generation
+  - retrieval_truth
+  - embedding_or_vector_work
+  - apologetic_conclusion_as_truth
