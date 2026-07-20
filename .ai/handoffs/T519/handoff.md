@@ -49,6 +49,7 @@
 - Added `emit_editorial_inline_sidecars` for `editorial_only` bodies: footnotes/crossrefs only; no witness append; no WordTokens.
 - Restored exact baseline footnote IDs for Ps.46/90/145 (`…:2347:0001`, `…:4961:0001`, `…:8067:0001`); full-archive footnote count 1130.
 - Recorded CD-124 and LSN-070.
+- CI transition state updated for post-T519 candidate counts `(word_tokens=677686, footnotes=1130)` with sibling semantic manifest `candidate_manifest_t519.json` (frozen T475 HOLD `candidate_manifest.json` unchanged).
 - T476 remains blocked until formal T475 shadow re-freeze and independent audit.
 
 ## Validation run
@@ -59,6 +60,10 @@
 
 - command: full-archive `usfm_importer.py --canonical-66-filter` into `build/T519_verify`
 - result: pass — footnotes.jsonl count 1130; three heading footnotes present with baseline IDs
+- failures: none
+
+- command: python -m pytest tests/test_t475_generated_transition_state.py tests/test_t475_usfm_shadow_delta_gate.py -q
+- result: pass (20 tests)
 - failures: none
 
 ## Known risks
@@ -73,7 +78,7 @@
 
 ## Next agent instruction
 
-1. Commit and open PR for T519.
+1. Wait for PR #189 CI green after transition-count fix; merge.
 2. Update `.ai/control/t475_usfm_shadow_delta_gate.yaml` `candidate_ref` to the merged/repair tip and re-run `scripts/run_t475_shadow_delta.py`.
 3. Require zero footnote removals; freeze evidence; run independent Claude audit via `.ai/prompts/t475_independent_audit_prompt.md`.
 4. Only then open T476 owner packet. Do not regenerate committed canonical data in this task.

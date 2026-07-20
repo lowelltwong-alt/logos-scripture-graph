@@ -66,7 +66,7 @@ def t475_candidate_transition_active() -> bool:
         _count_nonempty_lines(T475_TRANSITION_WORD_TOKENS),
         _count_nonempty_lines(T475_TRANSITION_FOOTNOTES),
     )
-    return counts == (677686, 1127)
+    return counts == (677686, 1130)
 
 
 def changed_paths() -> list[str]:

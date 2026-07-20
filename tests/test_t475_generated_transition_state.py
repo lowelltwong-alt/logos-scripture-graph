@@ -28,8 +28,8 @@ def _write_jsonl(path: Path, records: list[dict]) -> tuple[int, str]:
 
 def test_classify_generated_transition_counts() -> None:
     assert classify_counts(677688, 1130) == "baseline"
-    assert classify_counts(677686, 1127) == "candidate"
-    assert classify_counts(677686, 1130) == "unknown"
+    assert classify_counts(677686, 1130) == "candidate"
+    assert classify_counts(677686, 1127) == "unknown"
 
 
 def test_allowed_state_accepts_baseline_without_deferral(tmp_path: Path) -> None:
@@ -51,7 +51,7 @@ def test_allowed_state_rejects_partial_transition(tmp_path: Path) -> None:
     footnotes = tmp_path / "data/canonical/translations/eng-web/footnotes.jsonl"
     word_tokens.parent.mkdir(parents=True)
     word_tokens.write_bytes(b"{}\n" * 677686)
-    footnotes.write_bytes(b"{}\n" * 1130)
+    footnotes.write_bytes(b"{}\n" * 1127)
     with pytest.raises(T475TransitionError, match="neither the baseline nor the exact candidate"):
         validate_allowed_state(tmp_path)
 

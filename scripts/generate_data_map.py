@@ -50,9 +50,8 @@ SKIP_SUBSTRINGS = ("extracted", "__pycache__", ".pytest_cache", "derived/chunks"
 LFS_THRESHOLD_BYTES = 100 * 1024 * 1024  # flag files >100MB
 
 T475_DATA_MAP_TRANSITION_REPLACEMENTS = {
-    "- Total JSONL records: **847,081**": "- Total JSONL records: **847,086**",
-    "| `data/canonical/translations/eng-web/footnotes.jsonl` | canonical | SIZE | 1,127 |":
-        "| `data/canonical/translations/eng-web/footnotes.jsonl` | canonical | SIZE | 1,130 |",
+    # Post-T519 candidate: T474 token cleanup retained; heading footnotes restored to baseline count.
+    "- Total JSONL records: **847,084**": "- Total JSONL records: **847,086**",
     "| `data/canonical/translations/eng-web/word_tokens.jsonl` | canonical | SIZE | 677,686 |":
         "| `data/canonical/translations/eng-web/word_tokens.jsonl` | canonical | SIZE | 677,688 |",
 }
