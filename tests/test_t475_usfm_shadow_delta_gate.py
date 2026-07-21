@@ -81,9 +81,21 @@ def test_t475_frozen_evidence_passes() -> None:
     assert result["require_independent_audit"] is False
 
 
-def test_independent_audit_gate_fails_while_pending() -> None:
+def test_independent_audit_gate_passes_after_pass_status() -> None:
+    result = validate_t475(ROOT, require_artifacts=True, require_independent_audit=True)
+    assert result["require_independent_audit"] is True
+
+
+def test_independent_audit_gate_fails_while_pending(tmp_path: Path) -> None:
+    root = _copy_tree(tmp_path)
+    _mutate_control(
+        root,
+        lambda data: data["required_evidence"].update(
+            {"independent_audit_status": "pending_claude_audit"}
+        ),
+    )
     with pytest.raises(T475ValidationError, match="independent audit"):
-        validate_t475(ROOT, require_independent_audit=True)
+        validate_t475(root, require_independent_audit=True)
 
 
 def test_broad_generated_validator_deferral_fails(tmp_path: Path) -> None:
