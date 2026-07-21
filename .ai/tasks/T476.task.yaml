@@ -1,0 +1,57 @@
+id: T476
+phase: phase_4
+title: "Canonical WEB Repair Owner Packet"
+mode: plan
+status: awaiting_owner_decision
+owner: Lowell Wong
+branch: codex/t475-shadow-refreeze-t519
+base_ref: origin/main
+summary: >
+  Owner decision packet after T475 post-T519 audit PASS. Presents options to
+  authorize or hold T477 committed WEB canonical regeneration. Does not regenerate
+  data or change gold/chunk output.
+authority:
+  human_authorization: >
+    Packet opened after T475 independent audit PASS. Regeneration remains false
+    until Lowell explicitly authorizes T477.
+predecessor:
+  task_id: T475
+  required_state: independent_audit_pass
+scope:
+  allowed_paths:
+    - .ai/tasks/T476.task.yaml
+    - .ai/handoffs/T476/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/current_focus.yaml
+    - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - data/candidate/chunks/
+    - pipelines/
+    - eval/chunking_gold/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+non_authorizations:
+  - canonical_regeneration
+  - reviewed_gold_change
+  - chunk_output_change
+  - route_or_evaluator_behavior_change
+  - graph_retrieval_vector_truth
+  - preferred_reading_or_source_tradition
+  - canon_scope_change
+  - theology_authority
+acceptance_criteria:
+  - Owner packet documents Options A/B/C with evidence summary from T475 audit.
+  - authorize_T477 remains false until owner decision recorded.
+  - No data/canonical or gold files change in this task.
+required_handoff: .ai/handoffs/T476/handoff.md
+created_at: "2026-07-21"
+updated_at: "2026-07-21"

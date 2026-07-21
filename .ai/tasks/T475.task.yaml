@@ -2,18 +2,24 @@ id: T475
 phase: phase_4
 title: "USFM Shadow Regeneration, Exact Delta Inventory, And Task-Local Agent Hierarchy"
 mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
-status: hold_with_findings
-owner: codex
-branch: codex/t475-usfm-shadow-delta
-base_ref: 2ea6db7b605400f1b9fcf1a05daacf6c752f63c8
-integrates_task_ids: [T474]
-summary: "Deploy the owner-selected Sol/Terra/Luna hierarchy with an independent Claude audit gate, then compare pre-T474 and T474 importer output only in ignored shadow roots."
+status: ready_for_independent_audit
+owner: cursor
+branch: codex/t475-shadow-refreeze-t519
+base_ref: origin/main
+integrates_task_ids: [T474, T519, T476]
+summary: "Re-freeze T475 shadow evidence after T519, record independent audit PASS, and open the T476 owner packet without regenerating committed data."
 scope:
   allowed_paths:
     - .ai/tasks/T475.task.yaml
     - .ai/control/t475_usfm_shadow_delta_gate.yaml
     - .ai/control/chunking_theological_decision_register.yaml
     - .ai/control/chunking_lesson_index.yaml
+    - config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/generated/knowledge_catalog.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/reverse_dependencies.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/dad_portable_adaptation.candidate.v1.json
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
     - .ai/control/t473_semantic_harness_pilot.yaml
     - .ai/control/PROJECT_STATUS.md
     - .ai/control/current_focus.yaml
@@ -23,9 +29,13 @@ scope:
     - .ai/context/agent_work/T475/
     - .ai/handoffs/T475/
     - .ai/prompts/t475_independent_audit_prompt.md
+    - .ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md
     - docs/roadmap/T475_USFM_SHADOW_DELTA_AND_AGENT_HIERARCHY.md
+    - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
     - docs/roadmap/TASK_LEDGER.md
     - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - .ai/tasks/T476.task.yaml
+    - .ai/handoffs/T476/
     - scripts/run_t475_shadow_delta.py
     - scripts/validate_task_execution_overlay.py
     - scripts/validate_t475_usfm_shadow_delta_gate.py
@@ -47,7 +57,8 @@ scope:
     - pipelines/chunking/
     - eval/chunking_gold/
     - eval/chunking_runs/
-    - config/agents/
+    - config/agents/agent_roles.yaml
+    - config/agents/model_routing.yaml
     - config/retrieval/
     - .ai/scratch/multi_model_bible_chunking/
     - .ai/control/MASTER_CONTEXT.md

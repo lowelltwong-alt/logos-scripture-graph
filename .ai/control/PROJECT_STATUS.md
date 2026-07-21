@@ -1,16 +1,25 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-20
-**Updated by:** T519 editorial heading footnote preservation (owner-authorized)
-**Active task:** -> **T519 IN_PROGRESS** on `codex/t475-editorial-footnote-repair`. Emits typed footnotes from editorial_only heading bodies without witness/token promotion. Restores WEB Ps.46/90/145 heading footnotes. T476 canonical repair remains separately gated pending T475 shadow re-freeze and independent audit.
+**Last updated:** 2026-07-21
+**Updated by:** T475 audit PASS + T476 owner packet
+**Active task:** -> **T476 AWAITING_OWNER_DECISION**. T475 post-T519 shadow re-freeze audited **PASS** (zero footnote removals). Owner packet recommends Option A: authorize **T477** canonical WEB regeneration to unblock T500 Bible-chunking pilots. No committed regeneration until Lowell explicitly authorizes T477.
+
+> **T476 Canonical WEB Repair Owner Packet (2026-07-21):** Decision-only packet after
+> T475 independent audit PASS. Options A/B/C in
+> `docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md`. Recommended: authorize T477.
+> Does not regenerate data, gold, or chunk output.
+
+> **T475 post-T519 shadow re-freeze + audit (2026-07-21):** Candidate ref
+> `0ca57466` (PR #189). Footnotes removed=0 / unchanged=1130. Independent audit
+> PASS. Evidence ready for T476. T477 regeneration still owner-gated.
 
 > **T519 editorial heading typed-sidecar preservation (2026-07-20):** Owner-authorized
 > narrow importer repair for the T475 HOLD. `emit_editorial_inline_sidecars` writes
 > footnotes/crossrefs from editorial_only bodies with file:line scope, does not append
 > heading prose to TranslationWitness text, and does not emit heading-derived WordTokens.
 > Fixture proof and full-archive verify restore footnotes count 1130 with exact baseline
-> IDs for Ps.46/90/145. No committed canonical regeneration, gold, chunk output, or T476
-> packet is authorized.
+> IDs for Ps.46/90/145. Merged via PR #189. No committed canonical regeneration, gold,
+> chunk output, or T476 packet is authorized.
 
 > **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
 > generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest
