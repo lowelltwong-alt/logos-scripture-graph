@@ -14,8 +14,9 @@ Use this file when you need task-specific T3xx/T4xx history, downstream non-auth
 
 ## Current Newest-First Pointers
 
+- T477: Owner-authorized eng-web canonical/processed regeneration and baseline reset after T476 Option A. Gold/chunk still gated to T478–T480.
+- T476: Owner decided Option A (authorize T477) on 2026-07-21.
 - T519: Owner-authorized narrow importer repair preserving typed footnotes inside editorial heading bodies (Ps.46/90/145). Merged PR #189. No committed regeneration or gold/chunk output.
-- T476: Canonical WEB repair owner packet after T475 audit PASS. Awaiting Lowell Option A/B/C; recommended authorize T477. No regeneration in-packet.
 - T475: Post-T519 shadow re-freeze complete; independent audit PASS; evidence ready for T476. Footnote removals=0.
 - T513: Candidate-only portable OCR research adoption. Adds a domain-neutral A/B[/C] comparison and human-review tool boundary, a fail-closed Logos admission planner, and a disabled external InduOCR stress-benchmark profile. No benchmark or manuscript download/run, OCR payload import, Scripture/graph/retrieval/vector truth, preferred reading, or theology authority is authorized.
 - T511: Generated sidecar lifecycle convergence. Registry-driven clean-checkout skips, fail-closed release mode, centralized pytest dependency markers, and separate static-versus-parity validation; no generated data mutation or validator retirement.

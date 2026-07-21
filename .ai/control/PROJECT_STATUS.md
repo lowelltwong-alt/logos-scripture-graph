@@ -1,13 +1,17 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-21
-**Updated by:** T475 audit PASS + T476 owner packet
-**Active task:** -> **T476 AWAITING_OWNER_DECISION**. T475 post-T519 shadow re-freeze audited **PASS** (zero footnote removals). Owner packet recommends Option A: authorize **T477** canonical WEB regeneration to unblock T500 Bible-chunking pilots. No committed regeneration until Lowell explicitly authorizes T477.
+**Updated by:** T476 Option A + T477 canonical baseline reset
+**Active task:** -> **T477 COMPLETE (baseline reset)**. Next: **T478** Psalm 119/78 reviewed-gold re-review (no gold edits yet). Regenerated eng-web to post-T519 baseline (`word_tokens=677686`, `footnotes=1130`). Gold/chunk output still gated.
 
-> **T476 Canonical WEB Repair Owner Packet (2026-07-21):** Decision-only packet after
-> T475 independent audit PASS. Options A/B/C in
-> `docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md`. Recommended: authorize T477.
-> Does not regenerate data, gold, or chunk output.
+> **T477 Canonical regeneration and baseline reset (2026-07-21):** Owner-authorized
+> `--canonical-66-filter` regen after T476 Option A. DATA_MAP refreshed; T475 transition
+> superseded by T477; gold/pilot gates remain deferred through T478–T479. No gold or
+> chunk output changed.
+
+> **T476 Canonical WEB Repair Owner Packet (2026-07-21):** Owner decided **Option A** —
+> authorize T477. Decision recorded in
+> `docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md`.
 
 > **T475 post-T519 shadow re-freeze + audit (2026-07-21):** Candidate ref
 > `0ca57466` (PR #189). Footnotes removed=0 / unchanged=1130. Independent audit

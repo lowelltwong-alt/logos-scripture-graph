@@ -11,11 +11,20 @@ from scripts.validate_t475_generated_transition_state import (
     detect_generated_state,
     validate_transition,
 )
+from scripts.validate_t477_baseline_reset import (
+    T477BaselineError,
+    current_task,
+    validate_baseline_reset,
+)
 
 ROOT = Path(__file__).resolve().parent
 T475_SKIP_REASON = (
     "exact T475 regenerated candidate: pre-T474 generated-baseline assertion "
     "is deferred until the T477-T479 migration"
+)
+T477_SKIP_REASON = (
+    "post-T477 baseline reset: gold/chunker/pilot assertions remain deferred "
+    "until the T478-T479 migration"
 )
 GENERATED_DATA_MARKER = "generated_data"
 
@@ -24,15 +33,24 @@ def apply_t475_transition_skips(items: list[pytest.Item], root: Path = ROOT) -> 
     """Skip only declared stale-baseline nodes after exact candidate proof."""
     if detect_generated_state(root) != "candidate":
         return 0
+
+    task = current_task(root)
     try:
-        validate_transition(root)
-    except (OSError, T475TransitionError, ValueError) as exc:
-        raise pytest.UsageError(f"T475 candidate transition is not exact: {exc}") from exc
+        if task in {"T477", "T478"}:
+            validate_baseline_reset(root)
+            reason = T477_SKIP_REASON
+        elif task == "T475":
+            validate_transition(root)
+            reason = T475_SKIP_REASON
+        else:
+            return 0
+    except (OSError, T475TransitionError, T477BaselineError, ValueError) as exc:
+        raise pytest.UsageError(f"generated-baseline migration is not exact: {exc}") from exc
 
     skipped = 0
     for item in items:
         if item.nodeid in DEFERRED_PYTEST_NODES:
-            item.add_marker(pytest.mark.skip(reason=T475_SKIP_REASON))
+            item.add_marker(pytest.mark.skip(reason=reason))
             skipped += 1
     return skipped
 

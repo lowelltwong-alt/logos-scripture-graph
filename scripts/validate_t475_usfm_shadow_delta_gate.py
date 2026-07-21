@@ -317,9 +317,18 @@ def validate_t475(
         "footnotes": {"baseline": 1130, "candidate": 1130},
     }:
         raise T475ValidationError("T475 transition DATA_MAP delta changed")
-    for key in ("authorizes_baseline_update", "authorizes_gold_or_output_change"):
-        if transition.get(key) is not False:
-            raise T475ValidationError(f"ci_generated_transition_policy.{key} must be false")
+    if transition.get("authorizes_gold_or_output_change") is not False:
+        raise T475ValidationError("ci_generated_transition_policy.authorizes_gold_or_output_change must be false")
+    superseded_by = transition.get("superseded_by")
+    if superseded_by is None:
+        if transition.get("authorizes_baseline_update") is not False:
+            raise T475ValidationError("ci_generated_transition_policy.authorizes_baseline_update must be false")
+    elif superseded_by != "T477":
+        raise T475ValidationError("ci_generated_transition_policy.superseded_by must be T477 when set")
+    elif transition.get("authorizes_baseline_update") is not True:
+        raise T475ValidationError(
+            "ci_generated_transition_policy.authorizes_baseline_update must be true after T477 supersession"
+        )
     transition_validator = root / str(transition.get("validator", ""))
     if not transition_validator.is_file():
         raise T475ValidationError("T475 generated-transition validator is missing")

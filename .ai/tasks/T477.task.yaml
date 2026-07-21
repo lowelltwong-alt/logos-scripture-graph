@@ -1,0 +1,105 @@
+id: T477
+phase: phase_4
+title: "Owner-Approved Canonical Regeneration And Baseline Reset"
+mode: build
+status: complete_baseline_reset_ready_for_T478
+owner: cursor
+branch: cursor/t477-canonical-regen-baseline-reset
+base_ref: origin/main
+integrates_task_ids: [T475, T476, T519]
+summary: >
+  Owner-authorized regeneration of eng-web canonical/processed surfaces after
+  T476 Option A. Resets DATA_MAP and T475 transitional baseline holds. Does not
+  change reviewed gold or emit chunk output.
+authority:
+  human_authorization: >
+    Lowell Wong authorized T477 via T476 Option A on 2026-07-21
+    (authorize_T477_canonical_regeneration: true).
+predecessor:
+  task_id: T476
+  required_state: owner_decision_A_authorize_T477
+scope:
+  allowed_paths:
+    - .ai/tasks/T477.task.yaml
+    - .ai/tasks/T476.task.yaml
+    - .ai/handoffs/T477/
+    - .ai/handoffs/T476/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/DATA_MAP.md
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/t475_usfm_shadow_delta_gate.yaml
+    - .ai/control/chunking_theological_decision_register.yaml
+    - .ai/control/chunking_lesson_index.yaml
+    - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+    - docs/roadmap/T477_CANONICAL_REGENERATION_AND_BASELINE_RESET.md
+    - docs/roadmap/TASK_LEDGER.md
+    - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - scripts/validate_all.py
+    - scripts/generate_data_map.py
+    - scripts/validate_t475_generated_transition_state.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_t477_baseline_reset.py
+    - conftest.py
+    - tests/test_t475_generated_transition_state.py
+    - tests/test_t477_baseline_reset.py
+    - pipelines/ingest/usfm_importer.py
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
+    - config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/release.v1.yaml
+    - config/agents/families/scripture-first-biblical-chunking/generated/knowledge_catalog.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/reverse_dependencies.v1.json
+    - config/agents/families/scripture-first-biblical-chunking/generated/dad_portable_adaptation.candidate.v1.json
+  forbidden_paths:
+    - data/raw/
+    - eval/chunking_gold/
+    - data/derived/chunks/
+    - data/candidate/chunks/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+non_authorizations:
+  - reviewed_gold_change
+  - chunk_output_change
+  - child_span_change
+  - route_or_evaluator_behavior_change
+  - graph_retrieval_vector_truth
+  - preferred_reading_or_source_tradition
+  - canon_scope_change
+  - theology_authority
+  - t500_pilot_activation
+runtime_language_preflight:
+  task_id: T477
+  touched_paths:
+    - pipelines/ingest/usfm_importer.py
+    - scripts/validate_t477_baseline_reset.py
+    - scripts/validate_t475_usfm_shadow_delta_gate.py
+    - scripts/validate_all.py
+    - scripts/generate_data_map.py
+    - conftest.py
+  expected_input_size_or_record_count: "Full WEB USFM archive regenerating ~847k JSONL rows and ~464MB word_tokens."
+  expected_runtime_or_memory_pressure: "One-shot sequential importer I/O; semantic digest check streams JSONL without retaining all rows."
+  rust_trigger_match: [high_resource_deterministic_jsonl_scan]
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "T477 is a one-time owner-authorized baseline reset using the existing Python importer oracle; no new Rust leaf is warranted."
+  interop_boundary: "Python owns importer orchestration and baseline-reset validation; no new Rust or dependency is added."
+  python_fallback_or_wrapper_plan: "Reuse pipelines/ingest/usfm_importer.py and the T475 frozen semantic manifest as the acceptance oracle."
+  maintenance_tradeoffs: "Avoids building a second regen engine while proving the audited candidate became the live baseline."
+  validation_plan: "validate_t477_baseline_reset, task scope, validate_all, pytest, DATA_MAP --check."
+acceptance_criteria:
+  - Owner T476 Option A is recorded with authorize_T477_canonical_regeneration true.
+  - eng-web canonical/processed surfaces regenerated with --canonical-66-filter.
+  - word_tokens=677686 and footnotes=1130 on regenerated surfaces.
+  - DATA_MAP refreshed to the new baseline without T475 candidate/baseline swap hacks.
+  - Gold and chunk output remain unauthorized; T478 is the next gold gate.
+  - validate_all and pytest pass under the T477 baseline-reset policy.
+validations:
+  - python scripts/validate_task_scope.py --task-id T477
+  - python scripts/validate_all.py
+  - python -m pytest -q
+  - python scripts/generate_data_map.py --check
+  - git diff --check
+required_handoff: .ai/handoffs/T477/handoff.md
+created_at: "2026-07-21"
+updated_at: "2026-07-21"
