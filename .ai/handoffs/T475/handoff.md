@@ -99,3 +99,12 @@ authority, or T476 packet.
 - mode: 
 - updated_at: 2026-07-21T00:38:05+00:00
 - handoff_id: c49cdfd7654e867a
+
+---
+
+## Handoff refresh: final
+
+- agent_name: cursor
+- mode: 
+- updated_at: 2026-07-21T13:46:56+00:00
+- handoff_id: c49cdfd7654e867a

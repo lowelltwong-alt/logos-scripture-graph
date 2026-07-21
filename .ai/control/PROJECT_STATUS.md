@@ -1,15 +1,17 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-20
-**Updated by:** T475 post-T519 shadow re-freeze
-**Active task:** -> **T475 READY_FOR_INDEPENDENT_AUDIT**. Candidate ref pinned to merged T519 tip `0ca57466` (PR #189). Three alternating shadow trials deterministic; footnote removals = 0 (1130 unchanged); two known bogus Psalm 119 tokens still removed. Frozen bundle awaits Claude Opus audit before any T476 owner packet. No committed canonical regeneration authorized.
+**Last updated:** 2026-07-21
+**Updated by:** T475 audit PASS + T476 owner packet
+**Active task:** -> **T476 AWAITING_OWNER_DECISION**. T475 post-T519 shadow re-freeze audited **PASS** (zero footnote removals). Owner packet recommends Option A: authorize **T477** canonical WEB regeneration to unblock T500 Bible-chunking pilots. No committed regeneration until Lowell explicitly authorizes T477.
 
-> **T475 post-T519 shadow re-freeze (2026-07-20):** Re-ran ignored alternating
-> baseline/candidate shadow inventory with `candidate_ref` =
-> `0ca574668be2fe7e2df8f2f3e7f26bb91a669355`. Proof: footnotes removed=0 /
-> unchanged=1130 including Ps.46/90/145 heading IDs; word_tokens removed=2
-> (intended T474 cleanup). Sol verdict READY_FOR_INDEPENDENT_AUDIT. Independent
-> Claude audit still required; T476 remains blocked; committed data unchanged.
+> **T476 Canonical WEB Repair Owner Packet (2026-07-21):** Decision-only packet after
+> T475 independent audit PASS. Options A/B/C in
+> `docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md`. Recommended: authorize T477.
+> Does not regenerate data, gold, or chunk output.
+
+> **T475 post-T519 shadow re-freeze + audit (2026-07-21):** Candidate ref
+> `0ca57466` (PR #189). Footnotes removed=0 / unchanged=1130. Independent audit
+> PASS. Evidence ready for T476. T477 regeneration still owner-gated.
 
 > **T519 editorial heading typed-sidecar preservation (2026-07-20):** Owner-authorized
 > narrow importer repair for the T475 HOLD. `emit_editorial_inline_sidecars` writes
