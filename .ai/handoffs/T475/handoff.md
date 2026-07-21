@@ -6,7 +6,7 @@ T475
 
 ## Agent Name
 
-Codex, with task-local Sol/Terra/Luna execution roles.
+cursor (post-T519 shadow re-freeze); task-local Sol/Terra/Luna roles retained in evidence.
 
 ## Mode
 
@@ -14,112 +14,88 @@ Ignored shadow regeneration and exact delta inventory only.
 
 ## Status
 
-HOLD_WITH_FINDINGS
+READY_FOR_INDEPENDENT_AUDIT
 
 ## Files read
 
 - AI_FRONT_DOOR.md
 - .ai/control/MASTER_CONTEXT.md
 - .ai/control/PROJECT_STATUS.md
-- T473/T474 task, control, evidence, importer, schemas, agent routing, Rust charter, and validation surfaces
-- pre-T474 and T474 Git snapshots
-- all frozen T475 manifests, summaries, and compressed mismatch evidence
+- .ai/control/t475_usfm_shadow_delta_gate.yaml
+- .ai/handoffs/T519/handoff.md
+- .ai/prompts/t475_independent_audit_prompt.md
+- frozen T475 evidence regenerated under `.ai/context/agent_work/T475/`
 
 ## Files changed
 
-- T475 task, control, roadmap, audit prompt, handoff, and governance routing/status files
-- generic task-local execution-overlay validator and tests
-- T475 shadow runner, evidence validator, and tests
-- non-authorizing frozen evidence under .ai/context/agent_work/T475/
-- validate_all integration
+- `.ai/control/t475_usfm_shadow_delta_gate.yaml` (candidate_ref → merged T519 tip; Sol verdict READY_FOR_INDEPENDENT_AUDIT)
+- `.ai/context/agent_work/T475/` (full shadow re-freeze + frozen_evidence_manifest)
+- `.ai/tasks/T475.task.yaml`
+- `.ai/control/PROJECT_STATUS.md`
+- `ROADMAP_STATE.yaml`
+- `.ai/handoffs/T475/handoff.md`
+- `.ai/control/handoff_ledger.jsonl` / `roadmap_events.jsonl` as required by handoff tooling
 
 No raw, canonical, processed, derived, gold, chunker, route, evaluator, graph,
 retrieval, vector, source-tradition, canon, or theology surface changed.
 
 ## Decisions made
 
-- Sol/Terra/Luna are T475-only aliases; durable routing stays model-agnostic.
-- Sol owns architecture, Terra owns parity, Luna owns bounded trials, and Claude
-  must independently audit frozen artifacts.
-- Correctness/parity is mandatory; Rust also needs measurable operational value.
-- The chunker was not run. T475 records changed inputs/refs only.
-- Terra and Sol disagreed on three unscoped Psalm heading footnotes. Sol's P1
-  preservation ruling controls: editorial-only excludes witness text/tokens but
-  does not erase typed editorial metadata.
-- T475 and T476 are held pending a separate owner-authorized narrow repair and a
-  fresh frozen run/audit.
+- Pinned `candidate_ref` to `0ca574668be2fe7e2df8f2f3e7f26bb91a669355` (PR #189 merge).
+- Re-ran three alternating shadow trials; deterministic.
+- Proof: footnotes removed=0 / unchanged=1130; heading footnote IDs restored;
+  word_tokens removed=2 (intended T474 bogus-token cleanup only).
+- Sol verdict READY_FOR_INDEPENDENT_AUDIT; P1/P2 resolved in gate execution_state.
+- T476 remains blocked until independent Claude audit passes.
 
 ## Validation run
 
-- Task execution overlay validator passed.
-- T475 contract validator passed.
-- Focused negative tests passed: 10 tests.
-- Three baseline and three candidate imports were byte-deterministic.
-- Bounded resumed comparator passed after the initial full-row SQLite strategy
-  exhausted scratch disk.
-- Evidence arithmetic: 741,399 unchanged; 102,793 modified; five removed; one
-  modified file; zero additions.
-- validate_all.py passed every gate in 782.2 seconds after the task-stack scope fix.
-- Full pytest passed: 961 tests in 1280.89 seconds (21:20).
-- DATA_MAP freshness and git diff checks passed.
+- command: `python scripts/run_t475_shadow_delta.py --trials 3`
+- result: pass — totals unchanged=741402, removed=2, modified=102793, added=0; footnotes removed=0
+- command: `python scripts/validate_t475_usfm_shadow_delta_gate.py --require-artifacts`
+- result: pass
+- command: `python -m pytest -q tests/test_t475_usfm_shadow_delta_gate.py tests/test_t475_generated_transition_state.py`
+- result: pending_in_commit_loop
 
 ## Known risks
 
-- None to committed Scripture data; all generated shadows remain ignored.
-- The frozen evidence contains a blocking importer regression: three typed
-  editorial-heading footnotes disappear.
-- The independent Claude audit has not run and is not represented as complete.
-- One ignored ACL-failure quarantine directory remains under build/ and is not
-  part of tracked output.
+- Independent Claude audit not yet run.
+- Committed `data/canonical` still pre-T519 until a later owner-gated regeneration.
 
 ## Open questions
 
-- Owner authorization for the narrow editorial inline-sidecar preservation repair.
-- Independent Claude verdict after the repaired shadow bundle is frozen.
-- T476 canonical repair packet remains blocked.
+- None for the re-freeze itself.
 
 ## Next agent instruction
 
-Owner authorizes a separate narrow importer/fixture repair preserving footnotes
-inside editorial heading bodies without appending heading prose or creating
-heading-derived tokens. Rerun T475, require zero footnote removals, freeze a new
-bundle, and run the independent audit before T476.
+1. Run independent Claude audit using `.ai/prompts/t475_independent_audit_prompt.md`
+   against every file in `frozen_evidence_manifest.json`.
+2. Write report to
+   `.ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md`.
+3. If PASS (or APPROVE_WITH_NONBLOCKING_FINDINGS), set
+   `independent_audit_status` accordingly and only then open the T476 owner packet.
+4. Do not regenerate committed canonical data.
 
 ## Non-Authorizations Preserved
 
-No committed regeneration, reviewed gold, chunk output, child spans,
-route/evaluator behavior, graph/retrieval/vector truth, embeddings/indexes,
-source-tradition preference, canon change, or theology authority.
+No committed regeneration, reviewed gold, chunk output, child spans, route/evaluator
+behavior, graph/retrieval/vector truth, preferred reading, canon change, theology
+authority, or T476 packet.
 
 ---
 
 ## Handoff refresh: final
 
-- agent_name: Codex
-- mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
-- updated_at: 2026-07-10T16:22:05+00:00
-- handoff_id: ab1d5cddc66bbd9f
+- agent_name: cursor
+- mode: 
+- updated_at: 2026-07-21T00:37:02+00:00
+- handoff_id: c49cdfd7654e867a
 
-## CI Transition Follow-Up
+---
 
-- PR #167 initial CI regenerated the T474 candidate and correctly exposed nine
-  old-baseline failures.
-- CD-113 and LSN-058 record the staged generated-data validator lifecycle.
-- The decision and lesson registers were updated for the new roadmap surfaces.
-- Seven generated-data validators are deferred only when the active task is
-  T475, sentinel counts are exact, and all ten generated JSONL surfaces match
-  the frozen candidate stable-key semantic digests.
-- The verified candidate comprises 844,104 rows across those ten surfaces.
-- Unknown, partial, or extra drift fails closed and runs the old validators.
-- The deferral does not authorize baseline, gold, output, or canonical migration.
-- Focused transition/hierarchy/evidence suite: 25 passed.
-- GitHub CI rerun is required before merge.
-- The first rerun passed the main gates and exposed only the post-ingest
-  DATA_MAP five-row transition. Its freshness check now accepts that exact
-  semantic candidate while preserving the committed baseline map; any extra
-  drift still fails closed.
-- The next rerun proved validate_all and DATA_MAP green, then exposed 25 exact
-  pytest nodes whose assertions still encode pre-T474 generated baselines.
-  Root conftest now skips only those named nodes after the same frozen semantic
-  candidate proof; baseline and unknown states skip nothing. The temporary set
-  expires with the T477-T479 baseline/gold migration.
+## Handoff refresh: final
+
+- agent_name: cursor
+- mode: 
+- updated_at: 2026-07-21T00:38:05+00:00
+- handoff_id: c49cdfd7654e867a

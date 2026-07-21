@@ -1,16 +1,23 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-07-20
-**Updated by:** T519 editorial heading footnote preservation (owner-authorized)
-**Active task:** -> **T519 IN_PROGRESS** on `codex/t475-editorial-footnote-repair`. Emits typed footnotes from editorial_only heading bodies without witness/token promotion. Restores WEB Ps.46/90/145 heading footnotes. T476 canonical repair remains separately gated pending T475 shadow re-freeze and independent audit.
+**Updated by:** T475 post-T519 shadow re-freeze
+**Active task:** -> **T475 READY_FOR_INDEPENDENT_AUDIT**. Candidate ref pinned to merged T519 tip `0ca57466` (PR #189). Three alternating shadow trials deterministic; footnote removals = 0 (1130 unchanged); two known bogus Psalm 119 tokens still removed. Frozen bundle awaits Claude Opus audit before any T476 owner packet. No committed canonical regeneration authorized.
+
+> **T475 post-T519 shadow re-freeze (2026-07-20):** Re-ran ignored alternating
+> baseline/candidate shadow inventory with `candidate_ref` =
+> `0ca574668be2fe7e2df8f2f3e7f26bb91a669355`. Proof: footnotes removed=0 /
+> unchanged=1130 including Ps.46/90/145 heading IDs; word_tokens removed=2
+> (intended T474 cleanup). Sol verdict READY_FOR_INDEPENDENT_AUDIT. Independent
+> Claude audit still required; T476 remains blocked; committed data unchanged.
 
 > **T519 editorial heading typed-sidecar preservation (2026-07-20):** Owner-authorized
 > narrow importer repair for the T475 HOLD. `emit_editorial_inline_sidecars` writes
 > footnotes/crossrefs from editorial_only bodies with file:line scope, does not append
 > heading prose to TranslationWitness text, and does not emit heading-derived WordTokens.
 > Fixture proof and full-archive verify restore footnotes count 1130 with exact baseline
-> IDs for Ps.46/90/145. No committed canonical regeneration, gold, chunk output, or T476
-> packet is authorized.
+> IDs for Ps.46/90/145. Merged via PR #189. No committed canonical regeneration, gold,
+> chunk output, or T476 packet is authorized.
 
 > **T511 generated sidecar lifecycle convergence (2026-07-15):** Replaces duplicated hardcoded
 > generated-sidecar presence lists with a governed registry scheduler, centralizes direct pytest

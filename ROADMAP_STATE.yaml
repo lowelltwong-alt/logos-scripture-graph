@@ -2097,7 +2097,7 @@ phases:
         chunk_output_authorized: false
       - id: T475
         title: Source-Anchor Shadow Regeneration, Delta Inventory, And Task-Local Agent Hierarchy
-        status: hold_with_findings
+        status: ready_for_independent_audit
         lane: canonical_source_integrity
         owner: codex
         required_handoff: .ai/handoffs/T475/handoff.md
@@ -2109,12 +2109,15 @@ phases:
         shadow_trials_deterministic: true
         frozen_evidence_complete: true
         independent_audit_complete: false
-        blocking_finding: P1_editorial_heading_footnotes_code_fixed_pending_shadow_refreeze
+        blocking_finding: null
         t519_repair_task: T519
+        t519_shadow_refreeze_complete: true
+        footnote_removals_after_refreeze: 0
+        candidate_ref: 0ca574668be2fe7e2df8f2f3e7f26bb91a669355
         committed_canonical_change_authorized: false
       - id: T519
         title: Preserve Typed Footnotes Inside Editorial Heading Bodies
-        status: in_progress_code_and_fixture_proof
+        status: complete_merged_awaiting_T475_audit
         lane: canonical_source_integrity
         owner: cursor
         required_handoff: .ai/handoffs/T519/handoff.md
@@ -2130,11 +2133,12 @@ phases:
           - Ps.90.heading_fr_90_0
           - Ps.145.heading_fr_145_0
         full_archive_footnote_count_after_repair: 1130
+        merged_pr: 189
         committed_canonical_regeneration_authorized: false
         reviewed_gold_change_authorized: false
         chunk_output_authorized: false
         t476_authorized: false
-        next_task: t475_shadow_refreeze_then_independent_audit
+        next_task: independent_claude_audit_then_T476_owner_gate
       - id: T476
         title: Canonical WEB Repair Owner Packet
         status: blocked_by_T475

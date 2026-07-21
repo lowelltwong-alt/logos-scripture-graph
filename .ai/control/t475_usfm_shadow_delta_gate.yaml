@@ -1,7 +1,7 @@
 ---
 object_type: t475_usfm_shadow_delta_gate
 trust_zone: canonical
-lifecycle_status: hold_with_findings_shadow_evidence_frozen
+lifecycle_status: ready_for_independent_audit_shadow_evidence_frozen
 provenance_note: "T475 compares pre-T474 and repaired T474 importer outputs in ignored roots only. It cannot replace committed data or authorize downstream output."
 reason_for_inclusion: "Measure the exact corpus-wide effect of explicit marker anchoring before any owner decision about canonical regeneration."
 ---
@@ -11,7 +11,8 @@ mode: ignored_shadow_regeneration_and_exact_delta_inventory_only
 execution_overlay: .ai/tasks/T475.task.yaml#execution_overlay
 source_revisions:
   baseline_ref: c556f27510088a9f9fdac777fbd20c1817039448
-  candidate_ref: 2ea6db7b605400f1b9fcf1a05daacf6c752f63c8
+  # Post-T519 merged repair tip (PR #189): heading footnotes restored before T476.
+  candidate_ref: 0ca574668be2fe7e2df8f2f3e7f26bb91a669355
   candidate_contract: .ai/control/t474_usfm_marker_anchor_contract.yaml
 identical_input_contract:
   raw_archive: data/raw/bible/eng-web/usfm/eng-web_usfm.zip
@@ -103,22 +104,25 @@ required_evidence:
     - terra_parity_report.md
     - luna_trial_log.md
     - frozen_evidence_manifest.json
-  independent_audit_report: .ai/audits/reports/20260710-T475-independent-shadow-delta-audit.md
-  independent_audit_status: pending_after_T519_shadow_refreeze
+  independent_audit_report: .ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md
+  independent_audit_status: pending_claude_audit
 execution_state:
   contract_complete: true
   shadow_trials_complete: true
   exact_inventory_complete: true
   sol_pre_audit_acceptance_complete: true
-  sol_pre_audit_verdict: HOLD_WITH_FINDINGS
+  sol_pre_audit_verdict: READY_FOR_INDEPENDENT_AUDIT
   frozen_bundle_complete: true
   independent_audit_complete: false
   evidence_ready_for_T476: false
   t519_code_and_fixture_repair_complete: true
   t519_full_archive_footnote_count_restored: 1130
-  blocking_findings:
-    - P1_editorial_heading_footnotes_code_fixed_pending_shadow_refreeze
+  t519_merged_candidate_ref: 0ca574668be2fe7e2df8f2f3e7f26bb91a669355
+  t519_shadow_refreeze_complete: true
+  footnote_removals_after_refreeze: 0
+  blocking_findings: []
   resolved_findings:
+    - P1_editorial_heading_footnotes_restored_by_T519
     - P2_editorial_inline_sidecar_fixture_missing
 ci_generated_transition_policy:
   purpose: "Allow CI to validate the exact frozen T475 candidate after deterministic regeneration without promoting stale downstream baselines."
