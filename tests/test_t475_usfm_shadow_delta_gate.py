@@ -88,13 +88,18 @@ def test_independent_audit_gate_passes_after_pass_status() -> None:
 
 def test_independent_audit_gate_fails_while_pending(tmp_path: Path) -> None:
     root = _copy_tree(tmp_path)
+    shutil.copytree(ROOT / ".ai/context/agent_work/T475", root / ".ai/context/agent_work/T475")
+    audit_rel = Path(".ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md")
+    audit_target = root / audit_rel
+    audit_target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / audit_rel, audit_target)
     _mutate_control(
         root,
         lambda data: data["required_evidence"].update(
             {"independent_audit_status": "pending_claude_audit"}
         ),
     )
-    with pytest.raises(T475ValidationError, match="independent audit"):
+    with pytest.raises(T475ValidationError, match="independent audit status does not permit"):
         validate_t475(root, require_independent_audit=True)
 
 
