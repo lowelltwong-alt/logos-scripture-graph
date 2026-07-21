@@ -11,8 +11,8 @@ model_count:
   minimum_to_compare: 3
   initial_target: 6
   maximum_supported: 10
-  active_slots: [M1_cursor, M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, M6_fable5]
-  reserved_slots: [M7, M8, M9, M10]
+  active_slots: [M1_cursor, M2_claude_sonnet5, M3_claude_frontier, M4_codex_gpt55, M5_gemini_thinking, M6_fable5, M7_sol]
+  reserved_slots: [M8, M9, M10]
   add_slot_template: models/_TEMPLATE/
 execution_mode: one_model_book_segments_batch_compare_last
 marathon_goal: all_66_books_one_model_at_a_time
@@ -76,6 +76,14 @@ models:
     status: complete
     books_completed: 66
     books_total: 66
+  M7_sol:
+    folder: M7_sol/
+    agent_surface: sol
+    model_profile: sol_xhigh_frontier_marathon
+    status: pending_marathon_start
+    books_completed: 0
+    books_total: 66
+    owner_authorization: "Lowell Wong 2026-07-21; T521 cross-environment convergence sol environment"
 comparison:
   folder: comparison/
   run_after: all_models_complete_or_owner_interim_compare
