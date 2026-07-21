@@ -1,14 +1,14 @@
 # T476 — Canonical WEB Repair Owner Packet
 
-**Status:** awaiting_owner_decision  
+**Status:** owner_decision_recorded (Option A)  
 **Depends on:** T475 independent audit PASS (post-T519)  
-**Does not authorize:** T477 regeneration until you explicitly say yes
+**Owner decision:** Authorize T477 canonical regeneration
 
 ## Why this packet exists
 
 T474/T519 repaired the importer. T475 measured the exact corpus delta in ignored
 shadows and passed independent audit with **zero footnote removals**. Committed
-`data/canonical` is still on the pre-repair baseline. T476 is the owner decision
+`data/canonical` was still on the pre-repair baseline. T476 is the owner decision
 whether to authorize the next task (**T477**) to regenerate committed WEB
 canonical surfaces and reset downstream baselines.
 
@@ -61,15 +61,15 @@ by itself:
 
 ```yaml
 t476_owner_decision:
-  decision: null  # A | B | C
-  authorize_T477_canonical_regeneration: false
-  decided_by: null
-  decided_at: null
-  notes: ""
+  decision: A
+  authorize_T477_canonical_regeneration: true
+  decided_by: Lowell Wong
+  decided_at: "2026-07-21"
+  notes: "Owner replied yes in chat; authorize T477 Option A."
 ```
 
 ## Exact next step after A
 
-1. Set `authorize_T477_canonical_regeneration: true` in the decision block (or reply "authorize T477").  
+1. ~~Set `authorize_T477_canonical_regeneration: true`~~ **done**  
 2. Open T477 with allowed regeneration paths and a full validate_all + pytest gate.  
 3. Then T478–T480 / T500 pilots for finishing Bible chunking.

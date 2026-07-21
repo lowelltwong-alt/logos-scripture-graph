@@ -69,6 +69,21 @@ def t475_candidate_transition_active() -> bool:
     return counts == (677686, 1130)
 
 
+def t477_baseline_reset_active() -> bool:
+    focus = ROOT / ".ai" / "control" / "current_focus.yaml"
+    try:
+        current = yaml.safe_load(focus.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError):
+        return False
+    if not isinstance(current, dict) or current.get("current_task") not in {"T477", "T478"}:
+        return False
+    counts = (
+        _count_nonempty_lines(T475_TRANSITION_WORD_TOKENS),
+        _count_nonempty_lines(T475_TRANSITION_FOOTNOTES),
+    )
+    return counts == (677686, 1130)
+
+
 def changed_paths() -> list[str]:
     paths: list[str] = []
     base_ref = "origin/main"
@@ -775,6 +790,18 @@ def build_gates() -> list[tuple[str, list[str]]]:
             (
                 "validate_t475_generated_transition_state.py",
                 [PY, str(ROOT / "scripts" / "validate_t475_generated_transition_state.py")],
+            )
+        )
+    elif t477_baseline_reset_active():
+        gates = [
+            (name, cmd)
+            for name, cmd in gates
+            if name not in T475_DEFERRED_GENERATED_GATES
+        ]
+        gates.append(
+            (
+                "validate_t477_baseline_reset.py",
+                [PY, str(ROOT / "scripts" / "validate_t477_baseline_reset.py")],
             )
         )
     # Raw-source gates (the committed raw archives are the real pipeline input).

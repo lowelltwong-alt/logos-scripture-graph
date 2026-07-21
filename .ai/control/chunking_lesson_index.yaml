@@ -2970,7 +2970,56 @@ lessons:
       - scripts/validate_t475_usfm_shadow_delta_gate.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-072
+    title: T476 Option A unlocks T477 baseline reset; gold and chunk output stay gated
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, source_metadata]
+    tags: [t476, t477, baseline-reset, owner-authorization, fail-closed]
+    use_when:
+      - "Executing or reviewing T477 canonical regeneration after T476 Option A."
+      - "Updating current_focus away from T475 after owner regeneration authorization."
+      - "Checking whether gold or chunk tests may run against the post-T519 baseline."
+    preflight_stage: before_or_during_t477_canonical_baseline_reset
+    source_surfaces:
+      - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+      - docs/roadmap/T477_CANONICAL_REGENERATION_AND_BASELINE_RESET.md
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+      - scripts/validate_t477_baseline_reset.py
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/roadmap/TASK_LEDGER.md
+    related_decision_ids: [CD-126, CD-125]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T476, T477, T475, T519]
+    downstream_risk: "Confusing T477 baseline reset with gold promotion or chunker improvement, or clearing gold deferrals before T478-T479."
+    required_preflight_surfaces:
+      - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+      - .ai/control/chunking_lesson_index.yaml
+      - scripts/validate_t477_baseline_reset.py
+    required_pattern:
+      - require_t476_option_a_before_t477
+      - regenerate_with_canonical_66_filter_only
+      - match_audited_candidate_semantic_digests
+      - keep_gold_and_chunk_deferred_until_t478_t479
+    non_authorizations:
+      - reviewed_gold_change
+      - chunk_output_change
+      - preferred_reading_or_source_tradition
+      - theology_authority
+    validators:
+      - scripts/validate_t477_baseline_reset.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-072
+  - from: LSN-072
+    relation: audits
+    to: LSN-010
+  - from: LSN-071
+    relation: constrains
+    to: LSN-072
   - from: LSN-002
     relation: governs_update_of
     to: LSN-071

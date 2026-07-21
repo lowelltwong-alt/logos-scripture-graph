@@ -5505,6 +5505,44 @@ decisions:
     lifecycle_status: active
     supersedes: []
     deprecated_by: null
+  - decision_id: CD-126
+    title: T476 Option A authorizes T477 canonical baseline reset without gold or chunk output
+    classification: non_authorizing_review
+    task_ids: [T476, T477, T475, T519]
+    owner_decision_ref: "docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md"
+    pr_refs: []
+    affected_scope:
+      books: [canonical_66]
+      passages: []
+      routes: [t476_owner_option_a, t477_canonical_baseline_reset]
+      surfaces:
+        - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+        - docs/roadmap/T477_CANONICAL_REGENERATION_AND_BASELINE_RESET.md
+        - .ai/control/t475_usfm_shadow_delta_gate.yaml
+        - scripts/validate_t477_baseline_reset.py
+    decision: "Lowell authorized T476 Option A on 2026-07-21. T477 may regenerate eng-web canonical/processed surfaces to the audited post-T519 candidate baseline (word_tokens=677686, footnotes=1130) and retire the T475 transitional DATA_MAP hold. Reviewed gold, chunk output, routes/evaluators, graph/retrieval/vector truth, preferred reading, canon scope, and theology authority remain unauthorized until later owner-gated tasks."
+    downstream_risk: "Treating T477 baseline reset as gold or chunk authorization, or as a chunking-quality improvement rather than source-integrity correction."
+    theological_assumptions_avoided:
+      - "Canonical regeneration is not reviewed-gold promotion."
+      - "Baseline count changes are not chunker improvements."
+      - "Deferred pilot/gold tests are not silently green."
+    reviewed_gold_dependency: "None. T478/T479 remain required before gold edits."
+    non_authorizations:
+      - reviewed_gold_change_or_promotion
+      - chunk_output_or_child_span_change
+      - route_or_evaluator_behavior_change
+      - preferred_reading_or_source_tradition
+      - canon_scope_change
+      - graph_retrieval_vector_truth
+      - theology_authority
+    validators:
+      - scripts/validate_t477_baseline_reset.py
+      - scripts/validate_chunking_theological_decision_register.py
+      - scripts/validate_chunking_lesson_index.py
+      - scripts/validate_all.py
+    lifecycle_status: active
+    supersedes: []
+    deprecated_by: null
 no_impact_markers:
   - marker_id: NI-001
     task_ids: [T000, T100, T300, T301, T306, T307, T308, T309, T316, T316b, T318, T328, T328_MIRROR_PREP, T328B, T330, T511, T518]
@@ -5668,4 +5706,4 @@ backfill_coverage:
     - T518
     - T519
     - T476
-...
+    - T477
