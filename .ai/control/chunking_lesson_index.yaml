@@ -2930,7 +2930,56 @@ lessons:
       - tests/test_t474_usfm_marker_anchor_contract.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-071
+    title: Post-T519 shadow re-freeze and independent audit must precede any T477 regeneration ask
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability, source_metadata]
+    tags: [t475, t476, t519, shadow-refreeze, independent-audit, owner-packet, fail-closed]
+    use_when:
+      - "Opening or auditing a T476 canonical repair owner packet."
+      - "Claiming T475 evidence is ready for T477 regeneration."
+      - "Updating public roadmap pointers after a shadow re-freeze or independent audit."
+    preflight_stage: before_canonical_regeneration_owner_packet_or_t477
+    source_surfaces:
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+      - .ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md
+      - docs/roadmap/T476_CANONICAL_WEB_REPAIR_OWNER_PACKET.md
+      - docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md
+      - docs/roadmap/TASK_LEDGER.md
+    related_decision_ids: [CD-125, CD-124]
+    related_workflow_lesson_ids: []
+    related_task_ids: [T475, T476, T519]
+    downstream_risk: "Skipping audit or treating an owner packet as regeneration authority can mutate committed WEB baselines and unlock gold/chunk work on unverified importer output."
+    required_preflight_surfaces:
+      - .ai/control/t475_usfm_shadow_delta_gate.yaml
+      - .ai/control/chunking_lesson_index.yaml
+      - .ai/audits/reports/20260720-T475-independent-shadow-delta-audit-post-t519.md
+    required_pattern:
+      - require_zero_footnote_removals_before_t476
+      - require_independent_audit_pass_before_t476
+      - keep_t477_regeneration_owner_gated
+      - do_not_change_current_focus_away_from_t475_until_regen_deferral_expires
+    non_authorizations:
+      - committed_canonical_regeneration
+      - reviewed_gold_change
+      - chunk_output_change
+      - preferred_reading_or_source_tradition
+      - theology_authority
+    validators:
+      - scripts/validate_t475_usfm_shadow_delta_gate.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-071
+  - from: LSN-071
+    relation: audits
+    to: LSN-010
+  - from: LSN-070
+    relation: constrains
+    to: LSN-071
   - from: LSN-002
     relation: governs_update_of
     to: LSN-070
