@@ -1,8 +1,12 @@
 # M7_sol 22-book corrective-review checkpoint
 
+## Transfer status
+
+**Not yet backed up or merged.** The intended corpus is frozen locally as Git tree `1dfc563b62e1efea89cfe39d9378fa19ddf74b94`: 1,007 changed files, 163,969,083 bytes, largest file 3,897,024 bytes. The remote branch currently contains only this scope declaration and the T564 handoff because the execution runtime blocks terminal Git transport through `127.0.0.1:9`; the GitHub connector cannot ingest a local Git pack or local file references. Do not merge this scope-only branch.
+
 ## Purpose and authority boundary
 
-This is a backup-only, candidate-only checkpoint of the 22 books whose corrective rereview is recorded as complete in `model_manifest.yaml` on 2026-07-30:
+This is the declared scope for a backup-only, candidate-only checkpoint of the 22 books whose corrective rereview is recorded as complete in `model_manifest.yaml` on 2026-07-30:
 
 `Gen, Exod, Lev, Ps, Prov, Isa, Jer, Ezek, Dan, Hos, Joel, Amos, Obad, Jonah, Mic, Nah, Hab, Zeph, Hag, Zech, Mal, Job`.
 
@@ -34,6 +38,14 @@ Exclude Ecclesiastes and all books outside the list; `whole_bible_chunk_map.json
 
 The checkpoint contains derived observations and limited source quotations, not raw source archives.
 
-## Publication verification
+## Validation and known exceptions
 
-Before push, the isolated staged path set must be compared with this allowlist, contain no mandatory exclusion, contain no ordinary-Git file over 100 MB, and pass secret/privacy checks. The PR must repeat the candidate-only, 22-book, incomplete-campaign, license, and omitted-aggregate disclosures. Merge is permitted only for the exact checked head.
+- Exact isolated path gate: PASS; zero mandatory-exclusion paths.
+- Ordinary Git size gate: PASS; zero files at or above 50 MiB.
+- `git diff-tree --check`: PASS after mechanical trailing-whitespace normalization in 17 handoffs.
+- High-confidence secret scan: PASS; zero path hits.
+- Applicable book-local checks: 82 PASS/reused PASS out of 85 probes.
+- Hosea and Job literary-quality failures are only the intentionally omitted stale global sidecars, which Lowell ruled non-gating.
+- Hosea's corrective-depth command reports three known repeated lane/provenance constructor fingerprints. Independent review found decision-local evidence remains distinct and passed Hosea for candidate-backup inclusion under the owner literary-completion receipt, but the command itself is not green. Do not claim otherwise.
+
+Before any future push, the uploaded GitHub tree must exactly equal `1dfc563b62e1efea89cfe39d9378fa19ddf74b94`. The PR must repeat the candidate-only, 22-book, incomplete-campaign, license, omitted-aggregate, and Hosea-exception disclosures. Merge is permitted only for the exact checked head after the corpus is present.
