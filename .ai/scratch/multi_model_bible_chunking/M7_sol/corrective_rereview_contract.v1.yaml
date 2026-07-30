@@ -1,0 +1,137 @@
+schema_version: m7_corrective_rereview_contract.v1
+contract_revision: m7-thin-rereview-r1
+status: candidate_in_use
+provider_neutral: candidate
+portability_status: provider_neutral_candidate_core_single_runtime_evidence
+runtime_evidence_count: 1
+candidate_only: true
+non_authorizing: true
+promotion_authority: none
+scope:
+  model_id: M7_sol
+  excluded_completed_books: [Gen, Exod, Lev]
+  forbidden_inputs: [M1-M6, comparison, T417]
+  book_order:
+    - [Ps, Prov, Isa, Jer, Ezek, Job]
+    - [Matt, Mark, Luke, John]
+    - [Rom, 1Cor, 2Cor, Gal, Eph, Phil, Col, 1Thess, 2Thess, 1Tim, 2Tim, Titus, Phlm, Heb, Jas, 1Pet, 2Pet, 1John, 2John, 3John, Jude]
+    - [Rev]
+    - remaining_canonical_order
+ownership:
+  one_book_at_a_time: true
+  one_write_owner_per_book: true
+  shared_sidecar_owner: root_integrator_only
+  reviewers_read_only: true
+  overlapping_writes_forbidden: true
+roles:
+  book_writer:
+    instruction: Preserve defensible boundaries, revise only at real literary seams, and author passage-specific evidence.
+  original_language_primary:
+    instruction: Evaluate Hebrew, Aramaic, or Koine Greek form and translation pressure as evidence only.
+  literary_form_primary:
+    instruction: Identify the actual genre, child function, seam, and strongest rejected alternative.
+  canonical_relation_premortem:
+    instruction: Test parent loss and internal cross-reference relations without making theology or canon decisions.
+  peer_crosschecker:
+    instruction: Challenge or support decision-local claims; never assign a verdict merely from the role.
+  boss:
+    instruction: Answer every challenge, preserve counterevidence, rule per decision, and force no consensus.
+  post_resolution_checker:
+    instruction: Re-read current hash-bound artifacts and report defects without editing them.
+review_rules:
+  two_blind_primaries_minimum: true
+  each_primary_attests_blind_to_other_primary_reviews: true
+  each_primary_attests_evidence_only: true
+  independence_scope_disclosure_required: true
+  peer_role_and_identity_required: true
+  primary_peer_author_boss_postchecker_identity_separation_required: true
+  shared_model_mesh_cannot_claim_cross_model_votes: true
+  decision_or_passage_cluster_attempt_ids: true
+  max_decisions_per_attempt_id: 8
+  author_response_for_every_challenge: true
+  decision_local_boss_ruling: true
+  append_only_appeals: true
+  unresolved_disagreement_survives_boss: true
+  shared_model_mesh_weight: one_correlated_model_voice
+  cross_model_or_human_receipt_required_for_convergence: true
+evidence_rules:
+  approved_source_ids: [eng-web, WEB, OSHB, UXLC, SBLGNT, UGNT, CNTR, USFM]
+  original_language_primary_requires_language_appropriate_exact_span_source: true
+  old_testament_source_families: [OSHB, UXLC]
+  new_testament_source_families: [SBLGNT, UGNT, CNTR]
+  english_translation_alone_cannot_satisfy_original_language_primary: true
+  psalms_web_mt_crosswalk_required_before_original_language_boundary_claim: true
+  unverified_crosswalk_requires_structured_source_gap_and_insufficient_evidence_verdict: true
+  documented_source_gap_uniformity_is_not_synthetic_verdict_determinism: true
+  greek_lxx_numbering_claim_requires_scoped_pinned_source_or_gap_record: true
+  source_metadata_is_boundary_authority: false
+  roots_are_meaning: false
+  superscriptions_selah_accents_are_evidence_only: true
+  later_canonical_reuse_is_boundary_authority: false
+  fabricated_ancient_context_claims_forbidden: true
+  absent_context_corpus_requires_gap_record: true
+chunk_rules:
+  exact_verse_coverage: true
+  integer_contiguous_indices: true
+  prefer_larger_coherent_unit: true
+  child_local_literary_form_required: true
+  parent_form_stored_separately_when_needed: true
+  bespoke_boundary_rationale_required: true
+  actual_deciding_marker_or_seam_required: true
+  strongest_real_rejected_alternative_required: true
+  no_specific_alternative_must_be_stated_honestly: true
+hold_rules:
+  hold_only_genuinely_contested_decisions: true
+  answerable_human_question_required: true
+  two_argued_options_required: true
+  routed_reviewer_required: true
+  report_held_rows_and_deduplicated_issue_clusters: true
+anti_batch_gates:
+  forbidden_template_shells:
+    - prefer_the_complete_unit
+    - retained_as_candidate_because_substitution_shell
+    - counterevidence_is_explicit_shell
+    - source_governance_boilerplate_close
+  reject_arithmetic_midpoint_alternative_signature: true
+  reject_pervasive_parent_form_copy_to_children: true
+  reject_role_deterministic_verdicts: true
+  reject_bookwide_reviewer_attempt_id: true
+  reject_zero_accept_all_hold_default: true
+  reject_uniform_low_confidence_default: true
+  reject_lossy_unicode_or_question_mark_opening_punctuation: true
+  reject_repeated_rationale_and_review_prose_shells: true
+  reject_seven_word_prose_ngrams_reused_across_ten_or_more_decisions: true
+  structured_shared_facts_must_not_be_repeated_as_decision_prose: true
+  reject_clipped_source_quotations_and_doubled_quote_terminals: true
+hash_and_lineage:
+  packet_schema: m7_corrective_review_packet.v2
+  packet_binds_canonical_chunk_json_sha256: true
+  postcheck_binds_packet_file_sha256: true
+  checker_cluster_inventory_exact_set_equality: true
+  receipt_written_last: true
+  historical_appeals_preserved: true
+shared_sidecars:
+  files: [low_confidence_register.jsonl, frontier_escalation_queue.jsonl, atlas_candidate_feed.jsonl]
+  expected_partition: exact_active_low_or_medium_low_decision_set
+  update_method: exclusive_lock_atomic_replace
+  preserve_other_books_byte_semantics: true
+validators:
+  - python scripts/validate_whole_bible_chunk_map.py <chunks> --model-id M7_sol --book <Book>
+  - python scripts/validate_t423_literary_quality_protocol.py --model-folder <model_root> --book <Book> --require-artifacts
+  - python <model_root>/checks/validate_exact_book_coverage.py --book <Book>
+  - python <model_root>/checks/validate_book_review_coverage.py --book <Book>
+  - python scripts/validate_m7_corrective_review_depth.py --book <Book> --json
+completion:
+  book_complete_only_when_all_validators_green: true
+  independent_adversarial_postcheck_required: true
+  final_manifest_appeal_count_is_derived: true
+  publication_forbidden: true
+revision_invalidators:
+  - packet_schema
+  - evidence_source
+  - reviewer_roles
+  - attempt_reuse_policy
+  - confidence_or_hold_policy
+  - validator_logic
+  - runtime_provider_or_model
+  - authority_scope

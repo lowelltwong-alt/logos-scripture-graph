@@ -1,0 +1,367 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-M7-CHUNKING-REPLAY-AUDIT
+source_repo: logos-scripture-graph
+task_id: T521
+source_outbox_message_id: msg-20260722-t521-m7-chunking-replay-audit
+latest_followup_outbox_message_id: msg-20260724-t544-m7-thin-review-smells
+context_map_entry: ctx-t521-m7-chunking-replay-audit
+trust_zone: candidate
+local_adoption_required: true
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  A whole-corpus literary campaign needs official schema validation, final-state
+  synchronization, explicit independence dimensions, provisional-before-premortem
+  adjudication, cross-form calibration, and receipt-last hashing in addition to
+  exact coverage and extensive same-model review.
+extra_context: >
+  A privacy-safe red-team audit of the candidate-only M7 Genesis, Exodus, and
+  Leviticus campaign found that exact verse tiling and strong literary review did
+  not prevent Genesis and Exodus from using non-integer, non-contiguous indices
+  rejected by the official convergence validator. Completion receipts omitted
+  that gate, live chunk statuses lagged final packets, and role-separated subagents
+  were described too broadly as independent despite sharing one model substrate.
+  The audit also showed that a premortem can choreograph a later boss ruling unless
+  provisional adjudication is frozen first, and that prose/law success does not
+  qualify poetry, Aramaic, Koine Greek, or synoptic/epistle handling. No Scripture
+  text, source row, raw prompt, conversation, or hidden reasoning is exported.
+prior_lessons_considered:
+  - lesson_id: LL-T423-WHOLE-BIBLE-MULTI-MODEL-FORK
+    disposition: extend_not_duplicate
+    reason: "The reserved fork slot covers isolation and later comparison; this lesson covers within-run replay and checking failures."
+  - lesson_id: LL-T472-MODEL-PANEL-CALIBRATION-LESSONS
+    disposition: reuse_and_extend
+    reason: "T472 already teaches semantic validation and correlated agreement; T521 adds book-level completion and subagent-independence controls."
+  - asset_id: scripture-first-biblical-chunking
+    disposition: revise_existing_family
+    reason: "The existing T500 family is the correct reusable home; no duplicate family or skill was created."
+dad_graph_preflight:
+  lesson_graph_freshness: stale
+  matching_nodes_returned: 0
+  conclusion: "No match was visible, but stale graph state prevents a definitive no-duplicate claim."
+failure_modes:
+  - failure_class: exact_coverage_without_official_schema_validity
+    observed_result: "Perfect verse tiling coexisted with invalid float and gapped book indices."
+    prevention: "Require validate_whole_bible_chunk_map.py in every book completion receipt."
+  - failure_class: completion_receipt_gate_omission
+    observed_result: "Receipts listed only the validators that passed and omitted the rejecting convergence gate."
+    prevention: "Define a fixed, non-optional gate registry and write receipts last from executed evidence."
+  - failure_class: final_state_desynchronization
+    observed_result: "Chunk review_status and candidate_hold_state disagreed with packet and receipt outcomes."
+    prevention: "Run a deterministic chunk-packet-receipt status parity gate before completion."
+  - failure_class: correlated_review_overclaimed_as_independent
+    observed_result: "Artifact-blind roles shared one model substrate but looked like multiple independent reviews."
+    prevention: "Track artifact blindness, role separation, sibling-map isolation, and model/provider independence as separate booleans; weight the mesh as one model voice."
+  - failure_class: premortem_choreographs_adjudication
+    observed_result: "A premortem could pre-script the later boss remedy."
+    prevention: "Freeze a provisional boss ruling before exposing peer/premortem output and record any evidence-driven change."
+  - failure_class: prose_law_success_overgeneralized
+    observed_result: "Hebrew prose and law did not test poetry at scale, Aramaic, Koine Greek, synoptic parallels, or epistle argument."
+    prevention: "Run a parallel cross-form calibration lane and treat it as protocol calibration, not genre-wide proof."
+  - failure_class: relation_and_hash_packaging_drift
+    observed_result: "Internal relation coverage and current-hash claims could lag the active map."
+    prevention: "Require typed relation sidecars or explicit no-relation receipts and reject stale current-hash claims."
+  - failure_class: generic_hold_mislabeled_as_appeal
+    observed_result: "Six Exodus review holds had no appeal, but a single held status name would have implied eight appeals instead of two."
+    prevention: "Separate appeal-backed holds from review-only holds and derive appeal counts only from preserved appeal records."
+  - failure_class: stale_global_sidecar_partition
+    observed_result: "Genesis uncertainty sidecars retained four retired decision IDs and pending states after the active map changed."
+    prevention: "Replace each book partition from the exact active low-confidence set and validate no missing, orphaned, duplicate, or stale-state rows."
+  - failure_class: shell_chain_masks_first_validator_failure
+    observed_result: "Sixty-six campaign commands joined the official and literary validators with a semicolon, allowing a later pass to mask an earlier failure."
+    prevention: "Use one shell-free subprocess bundle that stops on the first nonzero gate and validate every live job command."
+  - failure_class: evidence_path_exists_but_is_not_hash_bound
+    observed_result: "A new checker ID could still point at an older postcheck path because existence alone was treated as evidence."
+    prevention: "Version postcheck artifacts and hash-close chunks, packets, relations, postcheck, and completion receipt."
+  - failure_class: duplicated_contract_literal_can_drift
+    observed_result: "An attempted independence-scope edit created undefined references and a duplicated Leviticus field before red-team interception."
+    prevention: "Define shared contract constants once, import them in builders and validators, compile before rebuilding, and preserve a negative test."
+  - failure_class: non_atomic_metadata_migration
+    observed_result: "Index repair also changed statuses and tags, so calling it index-only would have falsified lineage and an interruption could stale packet hashes."
+    prevention: "Enumerate every authorized changed field, prove semantic projections and exact coverage, record before/after hashes, then rebuild dependent artifacts in one fail-closed migration bundle."
+  - failure_class: concurrent_book_writes_to_shared_sidecars
+    observed_result: "Three book normalizers were launched in parallel against the same JSONL files; readers observed partial writes and the resulting files contained interleaved truncated objects."
+    prevention: "Forbid concurrent book writes to shared sidecars, take one exclusive campaign lock, write and fsync a same-directory temporary file, atomically replace, and prefer per-book files plus deterministic merge."
+  - failure_class: self_attested_checker_verdict
+    observed_result: "A materializer accepted a free-form verdict flag and wrote that an independent verdict had been received without validating a checker artifact or model provenance."
+    prevention: "Require a hash-bound role-separated checker-verdict artifact, disclose shared substrate, set independent-model evidence false, and never equate role separation with model independence."
+  - failure_class: existence_only_postcheck_evidence
+    observed_result: "Every packet could cite one postcheck path whose existence was checked without proving the file covered that decision or the current packet hash."
+    prevention: "Require the final postcheck to hash the entire packet file, enumerate every active decision, bind one exact checker attempt, and validate the edge after materialization."
+  - failure_class: uncertainty_sidecars_omitted_from_hash_closure
+    observed_result: "Signal, rationale, reviewer, and appeal semantics could drift while chunk, packet, relation, and receipt hashes remained green."
+    prevention: "Hash canonical book-filtered rows from all three sidecars in the checker verdict, postcheck, and completion receipt."
+  - failure_class: receipt_gate_records_under_validated
+    observed_result: "A receipt could pass when gate IDs had status strings but wrong commands, duplicate IDs, missing exit codes, or ignored failed records."
+    prevention: "Validate the exact gate set, command, exit code, status, nonempty output, uniqueness, postcheck status, checker ID, completion state, and receipt-last marker."
+  - failure_class: declarative_roles_without_executable_replay
+    observed_result: "The first replay pack named B00-B10 roles but reused one idempotency key, pinned placeholder hashes, omitted role outputs and stage receipts, and had no deterministic original-language routing."
+    prevention: "Give every book a unique key, real external file hashes, B00 campaign-self receipt, explicit B00-B10 prompt bindings and receipts, full output paths, and pinned Hebrew/Aramaic/Greek manifests."
+  - failure_class: unavailable_ancient_context_simulated_as_expertise
+    observed_result: "The requested rabbinic and ancient Jewish expertise cannot be reproduced from an absent or unqualified corpus."
+    prevention: "Activate the bounded context role only with a pinned reviewed corpus and qualification receipt; otherwise emit a corpus-gap record and no substantive claim."
+  - failure_class: unqualified_campaign_auto_advance_fail_open
+    observed_result: "Specification-only jobs still declared auto_advance true even though qualification evidence and launch authorization were absent."
+    prevention: "Set every book and merge job auto_advance false while unqualified, require an explicit qualification receipt before changing it, and enforce the state in the workflow validator."
+  - failure_class: packet_checker_lineage_not_bound_before_verdict
+    observed_result: "Packets retained an older checker attempt ID, so a fresh postcheck could not prove decision-level lineage without changing the packet hash."
+    prevention: "Bind every packet to the intended final checker and evidence path before freezing the packet hash, then obtain a fresh verdict against that exact revision."
+  - failure_class: cyclic_completion_receipt_hash_closure
+    observed_result: "A proposed extended manifest included stage receipts while B10 and the terminal receipt also tried to hash the manifest, creating a closure that could not be written honestly."
+    prevention: "Use the fixed DAG B00-B09 -> precompletion manifest -> B10 -> terminal completion -> external qualification; forbid completion-receipt self-hashes."
+  - failure_class: fixed_stage_path_conflicts_with_immutable_retries
+    observed_result: "One receipt path per stage made a corrected attempt either overwrite evidence or make repair impossible."
+    prevention: "Store immutable attempts under runs/<run_id>/stages/<stage>/<attempt_id>.json, keep append-only logs, and treat run_index.json as a derived selection only."
+  - failure_class: specification_pass_mistaken_for_replay_qualification
+    observed_result: "A complete declarative B00-B10 plan could look executable even though no stage attempt, terminal receipt, or dry replay existed."
+    prevention: "Keep the static specification validator separate from the materialized chain validator; both terminal schema and validator must report replay_qualified=false until a separate external qualification receipt exists."
+  - failure_class: candidate_path_allowlist_without_resolved_confinement
+    observed_result: "Checking outputs as a subset of an allowed list did not prove that either list stayed inside the M7 candidate root or avoided sibling-model contamination."
+    prevention: "Resolve every output, allowed, manifest, and qualification path; reject absolute, traversal, sibling-model, and non-candidate output paths."
+  - failure_class: boss_ordering_self_attested_by_timestamps
+    observed_result: "A single B06 receipt could claim provisional-before-premortem chronology after the fact."
+    prevention: "Controller-write immutable B06a before peer exposure, then B06b bound to B06a and the peer/premortem manifest; validate causal hashes and chronology."
+  - failure_class: dual_runtime_adapter_authority
+    observed_result: "The portable family adapter and a local M7 runtime file could both appear authoritative."
+    prevention: "Keep one authoritative portable runtime adapter; classify the M7 file as subordinate runtime_capability_evidence that cannot override it."
+  - failure_class: one_book_replay_inflates_language_or_form_scope
+    observed_result: "A successful prose/law run could be mislabeled as proof for Greek, Aramaic, poetry, synoptic parallel, epistle argument, or all 66 books."
+    prevention: "Qualification is dimensional and receipt-scoped; a Numbers run can qualify only its tested plumbing, never launch, cross-form, cross-language, or whole-Bible competence."
+  - failure_class: audit_workflow_not_durably_tasked
+    observed_result: "The T521 campaign existed in scratch artifacts and handoffs without a standalone .ai/tasks/T521.task.yaml state record."
+    prevention: "Create a governed task record with scope, runtime decision, non-authorizations, evidence gates, and the exact next replay action."
+  - failure_class: derived_digest_stale_after_core_harness_edit
+    observed_result: "The second red-team boss correctly rejected Numbers B00 when a core replay script changed after the campaign pinned input digest was generated."
+    prevention: "Treat every core harness edit as invalidating derived campaign evidence; rerun the deterministic migration and static validator before any boss authorization or stage dispatch."
+  - failure_class: narrow_authorization_could_be_misread_as_auto_advance
+    observed_result: "Reviewers authorized only one deterministic Numbers B00 materialization while every later stage remained unreviewed."
+    prevention: "Record the exact authorized stage and fresh run/attempt IDs, validate immediately through that stage, stop at the first missing stage, and require a new boss decision before dispatching the next stage."
+  - failure_class: output_hashing_without_semantic_artifact_validation
+    observed_result: "Attempt artifacts could be immutable and hash-bound while identity-only JSON masqueraded as substantive role reports, strategy, or source analysis."
+    prevention: "Schema and semantically validate every receipt-bound artifact, require nonempty role-specific content, and retain exploit fixtures for minimal and malformed payloads."
+  - failure_class: upstream_source_hash_self_reported_inside_output
+    observed_result: "A source-gap output could repeat source hashes that were never pinned by the stage input manifest."
+    prevention: "Create the governed-input manifest first and require exact artifact-ID, path, and digest closure from every role and synthesis output."
+  - failure_class: receipt_immutability_without_evidence_attempt_immutability
+    observed_result: "A receipt path could be immutable while global B01 evidence or manifests remained mutable and reusable across attempts."
+    prevention: "Scope evidence, manifests, draft, prepared candidate, and receipt to run/stage/attempt and require a fresh run after replacing a successful B00 or B01."
+  - failure_class: static_prompt_binding_without_execution_evidence
+    observed_result: "Four prompt names in a plan could be mistaken for four actual subagent executions."
+    prevention: "Require distinct controller-observed assignment/result receipts, agent instances, execution records, and nonduplicate role-report digests before synthesis."
+  - failure_class: aggregate_blindness_overclaimed_after_root_synthesis
+    observed_result: "A synthesized result was labeled artifact-blind even though the root necessarily read contributor artifacts."
+    prevention: "Track per-scout blindness separately, force aggregate blindness false after synthesis, and disclose one shared-model voice."
+  - failure_class: exact_form_inventory_partition_is_boundary_map_leakage
+    observed_result: "An exhaustive ordered form inventory and macro frame tiled a book before the boundary-authoring stage."
+    prevention: "Permit sparse overlapping form observations only; scan scope, range, span, start/end, chapter, camel-case, string, and nested representations for complete partitions."
+  - failure_class: identical_or_self_attested_attempt_timestamps
+    observed_result: "Role files could invent runtime-attested timestamps or reuse identical start and finish values without controller evidence."
+    prevention: "Bind controller assignment/result events, require strict parsed chronology after selected B00, and keep boss and synthesis identities and timing distinct."
+  - failure_class: version_fork_required_to_preserve_historical_receipts
+    observed_result: "Changing the validator or core contract in place would invalidate a previously valid revision-6 B00 receipt."
+    prevention: "Fork material receipt semantics to a new campaign/contract revision, preserve historical validators, and rerun an explicit non-regression check."
+  - failure_class: prepare_commit_toctou_without_locked_revalidation
+    observed_result: "A governed input or predecessor could change between prepared-candidate validation and selection."
+    prevention: "Rebuild and compare the exact candidate again under the state lock, validate predecessor and canonical paths, and test mutation in the commit window."
+  - failure_class: path_only_cache_hides_mutable_source_drift
+    observed_result: "A path-keyed cache could return pre-mutation canonical rows after file bytes changed."
+    prevention: "Key caches by exact content digest and test mutate-between-validations behavior."
+  - failure_class: direction_agnostic_manifest_allowlist_alias
+    observed_result: "An input could be authorized through an output path and one physical file could appear under multiple artifact IDs."
+    prevention: "Use direction-specific allowlists, reject duplicate resolved paths within or across manifests, and validate exact canonical attempt roots."
+  - failure_class: untyped_boss_authorization_can_masquerade_as_review
+    observed_result: "A root-authored seven-field JSON hash label could impersonate a distinct boss decision."
+    prevention: "Require a strict boss execution schema binding distinct controller identity, exact input manifest, frozen packet, red-team report, chronology, findings, rationale, rejected alternatives, dissent, appeals, and a B01-only verdict."
+  - failure_class: campaign_top_level_and_job_level_adapter_split
+    observed_result: "Book jobs referenced revision-7 contracts while the campaign top level still referenced revision-6 workflow, adapter, logs, and commands."
+    prevention: "Validate top-level and per-job version authority, paths, digests, commands, logs, and qualification labels as one closed projection."
+  - failure_class: declared_all_book_stage_support_with_single_book_implementation
+    observed_result: "All 66 jobs advertised B01 although the builder and semantic checks supported only Numbers and hard-coded Numbers holds."
+    prevention: "Advertise B01 only for books with implemented language/form semantics; mark all others B00-only until their route and fixtures pass."
+  - failure_class: payload_and_authority_scan_not_normalized
+    observed_result: "Case, spelling, zero-width, renamed-key, XML-case, and Hebrew/Greek payload variants could bypass literal forbidden-key checks."
+    prevention: "Unicode-normalize keys and strings, remove format controls, use case-insensitive signatures, scan concatenated strings, and reject authority flags globally."
+  - failure_class: selected_receipt_logs_not_transactionally_recoverable
+    observed_result: "A failure after receipt or index write could leave missing logs and make a retry stop at an already-selected stage."
+    prevention: "Support idempotent exact-candidate recovery, reject conflicting rows, and validate canonical receipt path plus per-run/global log parity."
+  - failure_class: unwritable_test_sandbox_makes_replay_evidence_nonportable
+    observed_result: "Focused tests passed in part but failed or could not tear down when their OneDrive-local scratch root was not safely writable."
+    prevention: "Use an explicitly writable isolated temp root, validate cleanup behavior, and document one canonical module entrypoint."
+  - failure_class: test_fixture_syntax_or_generation_failure_can_fake_missing_coverage
+    observed_result: "A newly inserted cache-mutation fixture contained malformed newline literals and could not prove the intended control."
+    prevention: "Compile the test module before execution, retain exact fixture-generation tests, and never count an uncollected test as evidence."
+  - failure_class: shape_valid_semantically_thin_book_review
+    observed_result: "Exact coverage, packet parity, distinct IDs, and green structural validators coexisted with batch-generated rationales and review outcomes."
+    prevention: "Run an opt-in semantic-depth exploit gate plus an independent passage-sampled postcheck before calling a corrected book complete."
+  - failure_class: substituted_quotes_hide_fill_in_the_blank_rationale
+    observed_result: "All 283 Psalms rationales reused the same retained-candidate, explicit-counterevidence, and source-governance shell while substituting spans, forms, and quotations."
+    prevention: "Reject recurring rationale shells deterministically and require the actual deciding seam, form marker, and strongest rejected alternative in locally authored prose."
+  - failure_class: arithmetic_midpoint_masquerades_as_rejected_literary_seam
+    observed_result: "Every audited ordinary whole-Psalm rejected seam selected the exact mathematical midpoint rather than a textually plausible transition."
+    prevention: "Detect book-wide midpoint signatures, invalidate those negative claims, and require real competing seams or an explicit no-specific-seam-audited record."
+  - failure_class: reviewer_role_predetermines_verdict
+    observed_result: "One role supported every decision, another challenged every decision, and a third reproduced the final accepted-versus-held partition."
+    prevention: "Report verdict distributions per role and fail materially large role-uniform patterns; verdicts must follow decision-local evidence, not role templates."
+  - failure_class: parent_form_copied_to_every_segmented_child
+    observed_result: "Every segmented Psalm repeated one parent-level form label across all children, obscuring child functions such as oracle, petition, refrain, and coda."
+    prevention: "Store parent form separately, require child-local forms, and fail pervasive uniform-form patterns across segmented units while allowing explicitly justified repeated stanzas."
+  - failure_class: hold_row_count_overstates_independent_disagreement
+    observed_result: "Twenty held Psalm rows represented only seven substantive retrieval-policy clusters."
+    prevention: "Report both held decision rows and deduplicated issue clusters, preserving each appeal without treating row count as independent dissent weight."
+  - failure_class: whole_psalm_misclassified_as_chapter_fallback
+    observed_result: "A mechanical chapter-fallback rule forced canonical whole-Psalm units to low confidence because Psalm number and chapter coordinate coincide."
+    prevention: "Exempt only canonical whole-Psalm outer units from the fallback penalty while retaining semantic form, seam, rationale, and review gates."
+  - failure_class: bookwide_checker_scalar_conflicts_with_passage_cluster_reviews
+    observed_result: "One validator required a single final checker ID while the corrective contract rejected any reviewer/checker ID reused across a whole book."
+    prevention: "Support an exact hash-bound checker-attempt cluster inventory, require set equality with packet checker IDs, and retain the legacy scalar path for older artifacts."
+  - failure_class: lossy_unicode_punctuation_survives_semantic_review
+    observed_result: "All 283 corrected Psalm chunks and packets passed substantive anti-batch checks while thousands of quotation and transition marks had silently degraded to literal question marks."
+    prevention: "Scan every candidate and review string for impossible question-mark opening punctuation or replacement characters before hashing; regenerate from a UTF-8-safe path and rerun all dependent hashes, sidecars, postchecks, and receipts."
+  - failure_class: normalized_uniqueness_hides_substitution_generated_prose
+    observed_result: "All 283 Psalm rationales were normalized-unique while 101 whole-Psalm rows, 182 segmented rows, and seven packet fields still reused recognizable fill-in-the-blank prose shells."
+    prevention: "Measure recurring sentence-level shells across chunk and review fields, reject pervasive substitutions, and require decision-local arguments in each primary, peer, author response, and boss ruling."
+  - failure_class: clipped_source_quote_looks_specific_but_is_not_faithful_evidence
+    observed_result: "Thirty-four Psalm chunks quoted fixed-width WEB snippets that ended mid-phrase, making generic generated evidence look passage-specific."
+    prevention: "Reject quoted evidence ending on stopwords or malformed quote terminals; use a complete resolved clause or a clearly labeled paraphrase with an exact-span source reference."
+  - failure_class: identical_psalm_locator_hides_web_mt_superscription_offset
+    observed_result: "Copied WEB and OSHB/UXLC Psalm spans looked exact while Hebrew witnesses count superscriptions, so the same coordinate could cite a title or omit content by one or more verses."
+    prevention: "Require a validated WEB-to-MT crosswalk record before original-language boundary claims; otherwise cite a structured unverified-mapping gap and return insufficient_evidence."
+  - failure_class: honest_uniform_source_gap_misclassified_as_role_determinism
+    observed_result: "A role-distribution smell gate would force artificial Hebrew support/challenge diversity even though no Psalm decision had a verified WEB-to-MT crosswalk."
+    prevention: "Exempt only a uniformly documented insufficient_evidence verdict with exact structured gap records; keep uniform substantive verdicts and undocumented gaps blocking."
+
+adopted_assets:
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v1.yaml
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v1.yaml
+  - config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v1.yaml
+  - scripts/validate_whole_bible_candidate_workflow.py
+  - scripts/whole_bible_replay_evidence.py
+  - scripts/build_whole_bible_b00_preflight.py
+  - scripts/run_whole_bible_completion_gates.py
+  - scripts/write_whole_bible_stage_receipt.py
+  - scripts/write_whole_bible_boss_phase_receipt.py
+  - scripts/build_whole_bible_extended_evidence_manifest.py
+  - scripts/validate_whole_bible_stage_receipts.py
+  - scripts/write_whole_bible_terminal_completion_receipt.py
+  - tests/test_whole_bible_replay_evidence.py
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_stage_receipt.schema.v1.json
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_boss_phase_receipt.schema.v1.json
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_extended_evidence_manifest.schema.v1.json
+  - config/agents/families/scripture-first-biblical-chunking/whole_bible_terminal_completion_receipt.schema.v1.json
+  - .ai/scratch/multi_model_bible_chunking/M7_sol/checks/normalize_book_uncertainty_sidecars.py
+  - .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_completion_bundle.py
+  - .ai/scratch/multi_model_bible_chunking/M7_sol/checks/materialize_postcheck_v2.py
+candidate_assets:
+  - whole_bible_candidate_chunking_replay_workflow
+  - role_separated_review_independence_disclosure_contract
+  - provisional_before_premortem_adjudication_protocol
+  - book_completion_gate_registry_and_receipt_last_pattern
+  - biblical_chunking_subagent_prompt_pack
+  - exclusive_atomic_shared_sidecar_writer
+  - hash_bound_role_separated_checker_verdict
+  - executable_B00_B10_stage_receipt_contract
+  - whole_bible_B01_evidence_mesh_replay_runbook
+  - revision_7_attempt_scoped_B00_B01_reference_harness
+  - controller_observed_subagent_execution_receipt_contract
+  - typed_boss_challenge_and_appeal_evidence_contract
+  - semantic_depth_corrective_review_gate
+  - role_and_batch_smell_exploit_suite
+observable_validation_required:
+  - provider_neutral_workflow_validator_passes
+  - generated_family_catalog_hashes_include_replay_constituents
+  - dad_outbox_and_transport_validators_pass
+  - current_genesis_and_exodus_official_chunk_map_gates_change_from_fail_to_pass
+  - leviticus_completion_receipt_matches_current_final_hash
+local_validation_evidence:
+  genesis_official_gate: pass_after_repair
+  exodus_official_gate: pass_after_repair
+  leviticus_completion_bundle: pass_with_one_preserved_appeal_hold
+  live_campaign_book_jobs_using_shell_free_bundle: 66
+  live_campaign_book_jobs_with_unique_idempotency_and_B00_B10_receipts: 66
+  unqualified_campaign_jobs_with_auto_advance_disabled: 67
+  genesis_retired_sidecar_ids_removed: 4
+  shared_sidecar_race_recovered_with_backups: true
+  shared_sidecar_writer_exclusive_lock_and_atomic_replace: true
+  role_separated_checker_verdict_hash_binding: enforced
+  replay_contract_revision: 6
+  replay_exploit_fixtures_passed: 22
+  static_specification_valid: true
+  materialized_numbers_B00_present: true
+  materialized_numbers_B00_run_id: num-native-r6-20260722a
+  materialized_numbers_B00_attempt_id: b00-preflight-1
+  materialized_numbers_selected_stages: [B00]
+  materialized_numbers_first_missing_stage: B01
+  materialized_numbers_B00_B10_run_present: false
+  replay_qualified: false
+  launch_qualified: false
+  dad_central_ingestion_confirmed: false
+  dad_local_outbox_validated: true
+  t544_corrective_depth_focused_tests: 13_passed_current_depth_and_contract_suite
+  t544_old_psalms_corrective_gate: failed_as_expected
+  t544_detected_templated_rationales: 283
+  t544_detected_exact_midpoint_alternatives: 91_of_91_initial_root_scan
+  t544_independent_postcheck_exact_midpoint_alternatives: 92_of_92
+  t544_segmented_parent_form_copy: 49_of_49
+  t544_role_deterministic_review_detected: true
+  t544_psalms_correction_status: encoding_repair_in_progress_not_complete
+  t544_detected_question_mark_opening_punctuation_chunks: 283_of_283
+  t544_detected_question_mark_opening_punctuation_packets: 283_of_283
+  t544_detected_whole_psalm_rationale_shells: 101_of_283
+  t544_detected_segmented_rationale_shells: 182_of_283
+  t544_detected_packet_review_shells: 7_patterns_each_283_of_283
+  t544_detected_clipped_source_quotes: 34_chunks
+revision_7_candidate_validation_evidence:
+  contract_scope: B00_only
+  B01_materialization_enabled: false
+  B01_through_B10_status: blocked_pending_typed_evidence_and_attempt_scoped_migration
+  provider_neutral_runbook: docs/governance/WHOLE_BIBLE_B01_REPLAY_RUNBOOK.md
+  provider_neutral_runbook_sha256: sha256:96ccddcdcc7b2b32e3adf246894950a21013d87f850614e433a0f90ba4672095
+  static_specification_valid: true
+  static_registry_sha256: sha256:f9009f0e4a7122bffe292ea3f776e54aecd37487e9ad2d8b309a44e4e7dfe4c9
+  focused_v2_tests: 22_passed
+  focused_v2_test_runtime_seconds: 61.39
+  test_sandbox: C:/tmp/logos-scripture-v2-tests
+  prepared_numbers_B00_run_id: num-native-r7-20260722c
+  prepared_numbers_B00_attempt_id: b00-preflight-1
+  prepared_commit_sha256: sha256:94e1b0d5c7a1ab447a5d71404b3f551153f13537a01ffc96bbb05550117785ec
+  selected_receipt_present: true
+  selected_receipt_path: .ai/scratch/multi_model_bible_chunking/M7_sol/state/books/Num/runs/num-native-r7-20260722c/stages/B00/b00-preflight-1.json
+  selected_receipt_sha256: sha256:eeed01bbb57b3a273339816085ffc9a55beec1e9ad47d75ff9504e4fd74c6ff6
+  run_index_present: true
+  per_run_log_present: true
+  global_log_entry_present: true
+  chain_validation: passed_B00_first_missing_B01_unmigrated
+  independent_B00_boss_gate: GO_B00_COMMIT_ONLY
+  rejected_stale_attempts: [num-native-r7-20260722a, num-native-r7-20260722b]
+  preserved_boss_dissent: broader_direction_alias_and_partial_commit_failure_injection_tests_required_before_qualification
+  replay_qualified: false
+  launch_qualified: false
+  dad_central_ingestion_confirmed: false
+candidate_asset_paths_revision_7:
+  portable_core_candidate: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v2.yaml
+  prompt_pack_candidate: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v2.yaml
+  runtime_adapter_candidate: config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v2.yaml
+  replay_runbook_candidate: docs/governance/WHOLE_BIBLE_B01_REPLAY_RUNBOOK.md
+  reference_harness_candidate: scripts/whole_bible_replay_evidence_v2.py
+  target_projection: .ai/scratch/multi_model_bible_chunking/M7_sol/campaign.rev7.json
+  promotion_status: blocked_pending_full_evidence_and_family_catalog_migration
+unresolved_risks:
+  - "DAD lesson graph is stale, so central deduplication and adoption are not yet verified."
+  - "The Codex adapter remains launch-blocked; Numbers has only B00, while B01-B10 and a bounded one-book dry replay remain unmaterialized and unqualified."
+  - "Existing Genesis, Exodus, and Leviticus artifacts predate complete B00-B10 stage receipts and remain candidate snapshots, not replay-qualified runs."
+  - "Ancient Jewish, Second Temple, and rabbinic context remains a recorded corpus gap until a pinned reviewed corpus and qualification receipt exist."
+  - "Cross-model and human convergence remain required; same-model subagents cannot supply them."
+  - "The T544 Psalms corrective pass remains incomplete until bespoke rationales, real alternatives, child-local forms, and evidence-sensitive role verdicts pass independent postcheck."
+non_authorizations:
+  - dad_override_local_authority
+  - lesson_as_scripture_or_chunk_authority
+  - model_agreement_as_boundary_authority
+  - reviewed_gold
+  - chunk_output
+  - child_spans
+  - graph_retrieval_or_vector_truth
+  - preferred_translation_or_source_tradition
+  - canon_change
+  - theology_authority

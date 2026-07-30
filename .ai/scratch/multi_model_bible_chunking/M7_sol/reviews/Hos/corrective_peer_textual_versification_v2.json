@@ -1,0 +1,631 @@
+{
+  "schema_version": "corrective_peer_review.v2",
+  "task_id": "T423-HOS-CORRECTIVE-PEER-TEXTUAL-VERSIFICATION-V2",
+  "book": "Hos",
+  "agent_role": "adversarial_textual_versification_peer",
+  "attempt_id": "M7_sol_peer_textual_versification_v2",
+  "candidate_status": "peer_recommendation_with_scoped_holds",
+  "input_hashes": {
+    "corrective_specialist_hebrew_textual_v2.json": "86c132070f4262ebebaf9b30497443b1ffc77210041cc9f8a6461945a69e548c",
+    "corrective_specialist_literary_v2.json": "43d9dedc0a7c1fa1e7112930a141b5b72550264de6d03706a4e921ae6e856d96",
+    "corrective_specialist_canonical_premortem_v2.json": "2540c75bd3f682508a2206cc1c8714b792bd073994778cee094f90a1b06f36f7",
+    "baseline_chunks.jsonl": "dd0d6d90b39704b01de3d4d9aba7cd62715fbed46b64cc509380b0e6ecbbb0ab"
+  },
+  "input_route_counts": {
+    "baseline": 30,
+    "hebrew_textual_primary": 36,
+    "literary_primary": 42,
+    "canonical_premortem_primary": 48,
+    "peer_recommendation": 39
+  },
+  "independence_scope": {
+    "mode": "peer_phase_over_frozen_inputs",
+    "read_scope": [
+      "the four hash-bound inputs listed above",
+      "direct Hosea sources already permitted for this review"
+    ],
+    "excluded_scope": [
+      "M1-M6 outputs",
+      "comparison artifacts",
+      "T417 artifacts"
+    ],
+    "same_model_limit": "The peer and Hebrew-textual primary were produced by the same model family. This is adversarial self-critique, not independent-model corroboration.",
+    "authority_limit": "This artifact is advisory evidence. It does not authorize promotion, protected release, resolution of held exegesis, or replacement of the frozen primaries.",
+    "scope_limit": "Claims of absence mean absence from the approved, pinned source scope only; they are not claims of global textual absence."
+  },
+  "source_scope": {
+    "local_coordinate_authority": "the pinned local WEB-style Hosea inventory used by the project",
+    "mt_coordinate_authority": "the explicit local-to-MT crosswalk checked against the pinned OSHB and UXLC Hosea inventories",
+    "hebrew_text_family": "Westminster Leningrad Codex tradition as exposed by OSHB and UXLC",
+    "crosswalk_result": {
+      "local_reference_count": 197,
+      "oshb_mapped_reference_count": 197,
+      "uxlc_mapped_reference_count": 197,
+      "missing_references": [],
+      "duplicate_references": [],
+      "order_mismatches": [],
+      "status": "exact_ordered_coverage"
+    },
+    "section_marker_result": {
+      "local_marker_reference_count": 20,
+      "oshb_uxlc_agreement": "exact at the checked reference level",
+      "weighting": "one correlated WLC-family observation per marker, never two independent witnesses"
+    },
+    "qere_ketiv_result": {
+      "reference_count": 4,
+      "pair_count": 5,
+      "local_references": [
+        "Hos.6.10",
+        "Hos.8.12",
+        "Hos.9.16",
+        "Hos.10.10"
+      ],
+      "weighting": "wording evidence only; no qere/ketiv pair is treated as self-sufficient seam evidence"
+    }
+  },
+  "source_gaps": [
+    {
+      "source": "Septuagint",
+      "status": "not_pinned_or_consulted",
+      "effect": "No Greek order, plus/minus, or discourse evidence may be claimed."
+    },
+    {
+      "source": "Dead Sea Hosea witnesses",
+      "status": "no_pinned_transcription_or_fragment_alignment",
+      "effect": "No DSS corroboration or contradiction may be claimed."
+    },
+    {
+      "source": "Targum, Peshitta, and Vulgate",
+      "status": "not_pinned_or_consulted",
+      "effect": "No versional convergence may be claimed."
+    },
+    {
+      "source": "rabbinic and medieval commentary",
+      "status": "not_pinned_or_consulted",
+      "effect": "Traditional parsing and speaker-identification claims remain untested."
+    },
+    {
+      "source": "independent Hebrew manuscript collation",
+      "status": "not_available_in_scope",
+      "effect": "OSHB/UXLC agreement cannot be promoted to independent-manuscript support."
+    }
+  ],
+  "crosswalk_audit": {
+    "coordinate_rule": "Every local span is exported through the explicit local-reference-to-MT-reference mapping. Local English-style coordinates may never be copied into mt_span when the numbering diverges.",
+    "known_numbering_offsets": [
+      {
+        "local_span": "Hos.1.10-Hos.2.23",
+        "mt_span": "Hos.2.1-Hos.2.25",
+        "description": "The local first/second chapter boundary differs from MT."
+      },
+      {
+        "local_span": "Hos.11.12-Hos.12.14",
+        "mt_span": "Hos.12.1-Hos.12.15",
+        "description": "The local eleventh/twelfth chapter boundary differs from MT."
+      },
+      {
+        "local_span": "Hos.13.12-Hos.14.9",
+        "mt_span": "Hos.13.12-Hos.14.10",
+        "description": "Local Hos.13.16 corresponds to MT Hos.14.1, and local chapter 14 is shifted by one."
+      }
+    ],
+    "coordinate_spoof_findings": [
+      {
+        "finding_id": "HOS-XWALK-SPOOF-001",
+        "severity": "material",
+        "input": "corrective_specialist_literary_v2.json",
+        "local_span": "Hos.11.12-Hos.12.1",
+        "claimed_mt_span": "Hos.11.12-Hos.12.1",
+        "correct_mt_span": "Hos.12.1-Hos.12.2",
+        "diagnosis": "Local coordinates were copied into the MT field across a known versification offset."
+      },
+      {
+        "finding_id": "HOS-XWALK-SPOOF-002",
+        "severity": "material",
+        "input": "corrective_specialist_literary_v2.json",
+        "local_span": "Hos.12.2-Hos.12.6",
+        "claimed_mt_span": "Hos.12.2-Hos.12.6",
+        "correct_mt_span": "Hos.12.3-Hos.12.7",
+        "diagnosis": "Local coordinates were copied into the MT field across a known versification offset."
+      },
+      {
+        "finding_id": "HOS-XWALK-SPOOF-003",
+        "severity": "material",
+        "input": "corrective_specialist_literary_v2.json",
+        "local_span": "Hos.12.7-Hos.12.11",
+        "claimed_mt_span": "Hos.12.7-Hos.12.11",
+        "correct_mt_span": "Hos.12.8-Hos.12.12",
+        "diagnosis": "Local coordinates were copied into the MT field across a known versification offset."
+      },
+      {
+        "finding_id": "HOS-XWALK-SPOOF-004",
+        "severity": "material",
+        "input": "corrective_specialist_literary_v2.json",
+        "local_span": "Hos.12.12-Hos.12.14",
+        "claimed_mt_span": "Hos.12.12-Hos.12.14",
+        "correct_mt_span": "Hos.12.13-Hos.12.15",
+        "diagnosis": "Local coordinates were copied into the MT field across a known versification offset."
+      }
+    ],
+    "input_assessment": {
+      "hebrew_textual_primary": "All 36 proposed local spans carry valid crosswalked MT spans.",
+      "literary_primary": "Four mt_span values are coordinate spoofs. Its local seam arguments remain eligible for review only after remapping.",
+      "canonical_premortem_primary": "Local-only route avoids false MT assertions but is not portable until exact alternate-numbering spans are bound.",
+      "baseline": "Local-only JSONL route is valid as a baseline but supplies no alternate-numbering export contract."
+    },
+    "remedy": "Reject copied-coordinate MT exports, correct the four literary mt_span values, add the omitted 11/12 offset to its global guard, and require exact unit-level local and MT spans before downstream activation.",
+    "peer_recommendation_validation": "All 39 recommended local spans map exactly and contiguously to the stated MT spans."
+  },
+  "correlated_source_weighting_audit": {
+    "finding": "OSHB and UXLC expose the same WLC/Leningrad textual family and are not independent textual witnesses.",
+    "permitted_use": [
+      "detect transcription or extraction disagreement between two encodings",
+      "confirm that a section marker or qere/ketiv representation was carried consistently",
+      "anchor the project's MT coordinate mapping"
+    ],
+    "prohibited_inference": [
+      "counting identical OSHB and UXLC markers as two votes",
+      "claiming manuscript convergence from their agreement",
+      "using qere/ketiv presence as automatic evidence for a discourse seam"
+    ],
+    "marker_weighting_examples": [
+      {
+        "local_seam": "Hos.1.9|Hos.1.10",
+        "mt_seam": "Hos.1.9|Hos.2.1",
+        "marker": "samekh after MT Hos.1.9",
+        "effect": "supports but does not independently prove the seam"
+      },
+      {
+        "local_seam": "Hos.6.11|Hos.7.1",
+        "mt_seam": "Hos.6.11|Hos.7.1",
+        "marker": "pe after Hos.6.11",
+        "effect": "strong correlated textual evidence against merging across the seam"
+      },
+      {
+        "local_seam": "Hos.7.12|Hos.7.13",
+        "mt_seam": "Hos.7.12|Hos.7.13",
+        "marker": "samekh after Hos.7.12",
+        "effect": "supports the woe/reset split"
+      },
+      {
+        "local_span": "Hos.9.7-Hos.9.9",
+        "mt_span": "Hos.9.7-Hos.9.9",
+        "marker": "samekh after Hos.9.9",
+        "effect": "supports closure of the reckoning/watchman/Gibeah unit"
+      },
+      {
+        "local_seam": "Hos.13.11|Hos.13.12",
+        "mt_seam": "Hos.13.11|Hos.13.12",
+        "marker": "samekh after Hos.13.11",
+        "effect": "supports the seam"
+      },
+      {
+        "local_seam": "Hos.13.16|Hos.14.1",
+        "mt_seam": "Hos.14.1|Hos.14.2",
+        "marker": "pe after MT Hos.14.1",
+        "effect": "supports separating judgment from the return appeal"
+      },
+      {
+        "local_position": "after Hos.14.7",
+        "mt_position": "after Hos.14.8",
+        "marker": "samekh",
+        "effect": "makes Hos.14.8 a possible capstone child but does not justify a one-verse unit in this route"
+      }
+    ],
+    "qere_ketiv_assessment": [
+      {
+        "local_reference": "Hos.6.10",
+        "pair_count": 1,
+        "seam_effect": "none; the reading issue lies inside the proposed Hos.6.4-Hos.6.11 unit"
+      },
+      {
+        "local_reference": "Hos.8.12",
+        "pair_count": 2,
+        "seam_effect": "none; it affects wording inside Hos.8.11-Hos.8.14, not the Hos.8.10|Hos.8.11 seam"
+      },
+      {
+        "local_reference": "Hos.9.16",
+        "pair_count": 1,
+        "seam_effect": "none; it affects wording inside Hos.9.15-Hos.9.17"
+      },
+      {
+        "local_reference": "Hos.10.10",
+        "pair_count": 1,
+        "seam_effect": "none; it cannot create the canonical-only Hos.10.10|Hos.10.11 seam"
+      }
+    ]
+  },
+  "material_seam_challenges": [
+    {
+      "challenge_id": "HOS-PTV-001",
+      "seam_local": "Hos.1.5|Hos.1.6",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The second child-name oracle should begin a new top-level chunk.",
+      "counterevidence": "Hos.1.2-Hos.1.9 is a serial marriage-and-child naming sequence; no pinned Hebrew marker occurs at this seam.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.1.2-Hos.1.9 intact and express the child episodes as internal structure."
+    },
+    {
+      "challenge_id": "HOS-PTV-002",
+      "seam_local": "Hos.1.7|Hos.1.8",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The third child-name oracle warrants a new top-level chunk.",
+      "counterevidence": "The sequence remains syntactically and narratively continuous, and no pinned section marker occurs at the seam.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.1.2-Hos.1.9 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-003",
+      "seam_local": "Hos.1.9|Hos.1.10",
+      "seam_mt": "Hos.1.9|Hos.2.1",
+      "route_votes": {"baseline": true, "hebrew_textual": true, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The judgment names and their reversal should remain one top-level unit.",
+      "counterevidence": "A WLC-family samekh follows MT Hos.1.9, and local Hos.1.10 begins a marked reversal from repudiation to innumerable restoration.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.1.2-Hos.1.9 and Hos.1.10-Hos.2.1 as separate chunks; a macro parent may join them."
+    },
+    {
+      "challenge_id": "HOS-PTV-004",
+      "seam_local": "Hos.2.5|Hos.2.6",
+      "seam_mt": "Hos.2.7|Hos.2.8",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The pursuit of lovers should be split from the enclosing accusation and judgment speech.",
+      "counterevidence": "The obstruction and pursuit language is causal continuation within the same direct-address complex, without pinned marker support.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.2.2-Hos.2.13 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-005",
+      "seam_local": "Hos.2.17|Hos.2.18",
+      "seam_mt": "Hos.2.19|Hos.2.20",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The removal of Baal names should be split from the covenant-restoration sequence.",
+      "counterevidence": "No pinned marker occurs at the seam, and the following covenant and betrothal promises continue the same restoration movement.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.2.14-Hos.2.23 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-006",
+      "seam_local": "Hos.6.7|Hos.6.8",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The disputed Adam/covenant line should form a boundary before the place accusations.",
+      "counterevidence": "Lexical or referential uncertainty at Hos.6.7 is a meaning problem, not positive seam evidence; the accusation catalogue proceeds without marker support.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.6.4-Hos.6.11 intact and retain the Adam question as a meaning-only hold."
+    },
+    {
+      "challenge_id": "HOS-PTV-007",
+      "seam_local": "Hos.6.10|Hos.6.11",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "Hos.6.11 begins a bridge unit that should merge across Hos.7.1.",
+      "counterevidence": "The WLC-family pe is after Hos.6.11, not before it. The qere/ketiv at Hos.6.10 affects wording and provides no seam vote.",
+      "verdict": "reject_seam",
+      "remedy": "Include Hos.6.11 with Hos.6.4-Hos.6.10."
+    },
+    {
+      "challenge_id": "HOS-PTV-008",
+      "seam_local": "Hos.6.11|Hos.7.1",
+      "route_votes": {"baseline": true, "hebrew_textual": true, "literary": false, "canonical_premortem": false},
+      "challenged_claim": "The restoration language requires a cross-chapter unit Hos.6.11-Hos.7.2.",
+      "counterevidence": "A WLC-family pe after Hos.6.11 is strong correlated textual evidence for closure. The syntax and temporal relation can cross the boundary without erasing it.",
+      "verdict": "accept_seam_with_cross_hydration",
+      "remedy": "Use Hos.6.4-Hos.6.11 and Hos.7.1-Hos.7.7; hydrate both sides for interpretation and hold the temporal-syntax question."
+    },
+    {
+      "challenge_id": "HOS-PTV-009",
+      "seam_local": "Hos.7.2|Hos.7.3",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "Hos.7.1-Hos.7.2 is a discrete bridge before the court accusation.",
+      "counterevidence": "No pinned marker supports the seam, and the exposure of evil continues naturally into the king-and-princes accusation.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.7.1-Hos.7.7 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-010",
+      "seam_local": "Hos.7.10|Hos.7.11",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The dove simile begins a new top-level unit.",
+      "counterevidence": "The unrepentant pride and foreign-policy imagery form a continuous accusation, without marker support at the seam.",
+      "verdict": "reject_seam",
+      "remedy": "Do not split at Hos.7.10|Hos.7.11."
+    },
+    {
+      "challenge_id": "HOS-PTV-011",
+      "seam_local": "Hos.7.12|Hos.7.13",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": false, "canonical_premortem": false},
+      "challenged_claim": "Hos.7.8-Hos.7.16 should remain one undifferentiated chunk.",
+      "counterevidence": "A WLC-family samekh follows Hos.7.12, and Hos.7.13 opens with a woe and renewed direct accusation.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.7.8-Hos.7.12 and Hos.7.13-Hos.7.16."
+    },
+    {
+      "challenge_id": "HOS-PTV-012",
+      "seam_local": "Hos.8.7|Hos.8.8",
+      "route_votes": {"baseline": true, "hebrew_textual": false, "literary": false, "canonical_premortem": false},
+      "challenged_claim": "The baseline split after sowing/reaping should be retained.",
+      "counterevidence": "Hos.8.7-Hos.8.10 continues the swallow/foreign-dependence consequence chain; the three corrective primaries converge against the baseline seam.",
+      "verdict": "reject_seam",
+      "remedy": "Use Hos.8.7-Hos.8.10."
+    },
+    {
+      "challenge_id": "HOS-PTV-013",
+      "seam_local": "Hos.8.10|Hos.8.11",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The foreign-dependence and cult/law accusations should remain one top-level unit.",
+      "counterevidence": "Hos.8.11 resets from foreign hiring and swallowing to multiplied altars, written law, and sacrifice. The qere/ketiv at Hos.8.12 is internal to the latter unit and is not seam authority.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.8.7-Hos.8.10 and Hos.8.11-Hos.8.14."
+    },
+    {
+      "challenge_id": "HOS-PTV-014",
+      "seam_local": "Hos.9.14|Hos.9.15",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The anguished fertility petition and Gilgal expulsion should remain one chunk.",
+      "counterevidence": "Hos.9.15 resets location, accusation, and expulsion language after the petition.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.9.10-Hos.9.14 and Hos.9.15-Hos.9.17."
+    },
+    {
+      "challenge_id": "HOS-PTV-015",
+      "seam_local": "Hos.10.10|Hos.10.11",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The qere/ketiv-bearing judgment line should close a unit before the trained-heifer image.",
+      "counterevidence": "A qere/ketiv pair is a reading issue, not a boundary marker; the judgment and agricultural images continue one accusation-exhortation movement.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.10.9-Hos.10.15 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-016",
+      "seam_local": "Hos.11.4|Hos.11.5",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": false, "canonical_premortem": true},
+      "challenged_claim": "The recollection of divine care should be separated from the consequence statement.",
+      "counterevidence": "The consequence is rhetorically dependent on the rejected care and return; no pinned marker supports the seam.",
+      "verdict": "reject_seam",
+      "remedy": "Keep Hos.11.1-Hos.11.7 intact."
+    },
+    {
+      "challenge_id": "HOS-PTV-017",
+      "seam_local": "Hos.12.1|Hos.12.2",
+      "seam_mt": "Hos.12.2|Hos.12.3",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The local Hos.11.12-Hos.12.6 material should remain one chunk.",
+      "counterevidence": "Local Hos.12.2 opens an explicit rib formula. All corrective primaries support the local seam, but the literary MT coordinate is off by one.",
+      "verdict": "accept_seam_after_crosswalk_correction",
+      "remedy": "Use local Hos.11.12-Hos.12.1 = MT Hos.12.1-Hos.12.2 and local Hos.12.2-Hos.12.6 = MT Hos.12.3-Hos.12.7."
+    },
+    {
+      "challenge_id": "HOS-PTV-018",
+      "seam_local": "Hos.13.14|Hos.13.15",
+      "route_votes": {"baseline": false, "hebrew_textual": false, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The ransom/death taunt should be split from the east-wind and conquest judgment.",
+      "counterevidence": "No pinned marker occurs at this seam, and the interpretation and punctuation of Hos.13.14 are contested within the approved evidence.",
+      "verdict": "reject_seam_and_hold_internal_relation",
+      "remedy": "Keep Hos.13.12-Hos.13.16 as one lower-confidence chunk pending broader textual and syntactic evidence."
+    },
+    {
+      "challenge_id": "HOS-PTV-019",
+      "seam_local": "Hos.4.14|Hos.4.15",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline Hos.4.11-Hos.4.19 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries identify a reset from cultic accusation to a direct warning addressed to Judah.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.4.11-Hos.4.14 and Hos.4.15-Hos.4.19."
+    },
+    {
+      "challenge_id": "HOS-PTV-020",
+      "seam_local": "Hos.8.6|Hos.8.7",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline Hos.8.1-Hos.8.7 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries identify a reset from the calf rebuttal to the sow/reap consequence sequence.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.8.1-Hos.8.6 and Hos.8.7-Hos.8.10."
+    },
+    {
+      "challenge_id": "HOS-PTV-021",
+      "seam_local": "Hos.9.6|Hos.9.7",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline Hos.9.1-Hos.9.9 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries identify a reset from festival/exile loss to days-of-reckoning and watchman discourse; a samekh after Hos.9.9 closes the latter.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.9.1-Hos.9.6 and Hos.9.7-Hos.9.9."
+    },
+    {
+      "challenge_id": "HOS-PTV-022",
+      "seam_local": "Hos.12.11|Hos.12.12",
+      "seam_mt": "Hos.12.12|Hos.12.13",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline local Hos.12.7-Hos.12.14 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries identify a reset from prophets/altars to the Jacob-wife and prophet-deliverance parallel.",
+      "verdict": "accept_seam_after_crosswalk_binding",
+      "remedy": "Use local Hos.12.7-Hos.12.11 = MT Hos.12.8-Hos.12.12 and local Hos.12.12-Hos.12.14 = MT Hos.12.13-Hos.12.15."
+    },
+    {
+      "challenge_id": "HOS-PTV-023",
+      "seam_local": "Hos.13.3|Hos.13.4",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline Hos.13.1-Hos.13.8 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries distinguish the vanishing simile sequence from the renewed exodus-knowledge and wilderness-care accusation.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.13.1-Hos.13.3 and Hos.13.4-Hos.13.8."
+    },
+    {
+      "challenge_id": "HOS-PTV-024",
+      "seam_local": "Hos.13.11|Hos.13.12",
+      "route_votes": {"baseline": false, "hebrew_textual": true, "literary": true, "canonical_premortem": true},
+      "challenged_claim": "The baseline Hos.13.9-Hos.13.16 unit should remain unsplit.",
+      "counterevidence": "All corrective primaries support the seam, and a WLC-family samekh follows Hos.13.11.",
+      "verdict": "accept_seam",
+      "remedy": "Use Hos.13.9-Hos.13.11 and a held Hos.13.12-Hos.13.16."
+    }
+  ],
+  "required_focus_audit": [
+    {
+      "focus_id": "HOS-FOCUS-001",
+      "local_span": "Hos.1.8-Hos.2.1",
+      "mt_span": "Hos.1.8-Hos.2.3",
+      "finding": "Hos.1.8-Hos.1.9 completes the third birth/name episode inside Hos.1.2-Hos.1.9. A samekh after MT Hos.1.9 and the judgment-to-restoration reversal support a seam before local Hos.1.10.",
+      "recommendation": "Keep Hos.1.2-Hos.1.9 and Hos.1.10-Hos.2.1 separate; optionally hydrate them under a shared macro parent."
+    },
+    {
+      "focus_id": "HOS-FOCUS-002",
+      "local_span": "Hos.5.15-Hos.6.4",
+      "mt_span": "Hos.5.15-Hos.6.4",
+      "finding": "The divine withdrawal, human return speech, and divine critique reset voice and form at Hos.6.1 and Hos.6.4.",
+      "recommendation": "Retain Hos.5.8-Hos.5.15, Hos.6.1-Hos.6.3, and Hos.6.4-Hos.6.11. Hold the sincerity or adequacy of Hos.6.1-Hos.6.3 as meaning, not boundary."
+    },
+    {
+      "focus_id": "HOS-FOCUS-003",
+      "local_span": "Hos.6.11-Hos.7.2",
+      "mt_span": "Hos.6.11-Hos.7.2",
+      "finding": "A pe follows Hos.6.11 in the correlated WLC witnesses. It outweighs the proposed cross-chapter merge as boundary evidence, though syntax and temporal relations cross the seam.",
+      "recommendation": "Use Hos.6.4-Hos.6.11 and Hos.7.1-Hos.7.7 with mandatory cross-boundary hydration; retain a syntax/meaning hold."
+    },
+    {
+      "focus_id": "HOS-FOCUS-004",
+      "local_span": "Hos.9.7-Hos.9.9",
+      "mt_span": "Hos.9.7-Hos.9.9",
+      "finding": "The reckoning, watchman, and Gibeah material forms a compact unit closed by a samekh after Hos.9.9.",
+      "recommendation": "Keep Hos.9.7-Hos.9.9 intact; hold speaker/watchman identification as meaning-only."
+    },
+    {
+      "focus_id": "HOS-FOCUS-005",
+      "local_span": "Hos.11.12-Hos.12.6",
+      "mt_span": "Hos.12.1-Hos.12.7",
+      "finding": "The explicit rib formula at local Hos.12.2 supports a seam after local Hos.12.1. The literary primary's copied local MT spans are invalid.",
+      "recommendation": "Use local Hos.11.12-Hos.12.1 = MT Hos.12.1-Hos.12.2 and local Hos.12.2-Hos.12.6 = MT Hos.12.3-Hos.12.7."
+    },
+    {
+      "focus_id": "HOS-FOCUS-006",
+      "local_span": "Hos.13.12-Hos.14.1",
+      "mt_span": "Hos.13.12-Hos.14.2",
+      "finding": "Local Hos.13.16 is MT Hos.14.1 and remains inside the judgment sequence; a pe after that MT verse supports the seam before local Hos.14.1 = MT Hos.14.2. No pinned marker supports local Hos.13.14|Hos.13.15.",
+      "recommendation": "Keep local Hos.13.12-Hos.13.16 = MT Hos.13.12-Hos.14.1 as one lower-confidence held chunk, followed by local Hos.14.1-Hos.14.3 = MT Hos.14.2-Hos.14.4."
+    },
+    {
+      "focus_id": "HOS-FOCUS-007",
+      "local_span": "Hos.14.8-Hos.14.9",
+      "mt_span": "Hos.14.9-Hos.14.10",
+      "finding": "Local Hos.14.9 is a wisdom colophon and should be separate. The samekh after local Hos.14.7 makes local Hos.14.8 a possible capstone child, but the present evidence does not justify a one-verse orphan unit.",
+      "recommendation": "Use Hos.14.4-Hos.14.8 and Hos.14.9; retain the speaker and verbal-force question in Hos.14.8 as meaning-only."
+    }
+  ],
+  "recommended_route": [
+    {"ordinal": 1, "local_span": "Hos.1.1", "mt_span": "Hos.1.1", "confidence": "high", "status": "adopt"},
+    {"ordinal": 2, "local_span": "Hos.1.2-Hos.1.9", "mt_span": "Hos.1.2-Hos.1.9", "confidence": "high", "status": "adopt"},
+    {"ordinal": 3, "local_span": "Hos.1.10-Hos.2.1", "mt_span": "Hos.2.1-Hos.2.3", "confidence": "high", "status": "adopt"},
+    {"ordinal": 4, "local_span": "Hos.2.2-Hos.2.13", "mt_span": "Hos.2.4-Hos.2.15", "confidence": "high", "status": "adopt"},
+    {"ordinal": 5, "local_span": "Hos.2.14-Hos.2.23", "mt_span": "Hos.2.16-Hos.2.25", "confidence": "high", "status": "adopt"},
+    {"ordinal": 6, "local_span": "Hos.3.1-Hos.3.5", "mt_span": "Hos.3.1-Hos.3.5", "confidence": "high", "status": "adopt"},
+    {"ordinal": 7, "local_span": "Hos.4.1-Hos.4.3", "mt_span": "Hos.4.1-Hos.4.3", "confidence": "high", "status": "adopt"},
+    {"ordinal": 8, "local_span": "Hos.4.4-Hos.4.10", "mt_span": "Hos.4.4-Hos.4.10", "confidence": "high", "status": "adopt"},
+    {"ordinal": 9, "local_span": "Hos.4.11-Hos.4.14", "mt_span": "Hos.4.11-Hos.4.14", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 10, "local_span": "Hos.4.15-Hos.4.19", "mt_span": "Hos.4.15-Hos.4.19", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 11, "local_span": "Hos.5.1-Hos.5.7", "mt_span": "Hos.5.1-Hos.5.7", "confidence": "high", "status": "adopt"},
+    {"ordinal": 12, "local_span": "Hos.5.8-Hos.5.15", "mt_span": "Hos.5.8-Hos.5.15", "confidence": "high", "status": "adopt"},
+    {"ordinal": 13, "local_span": "Hos.6.1-Hos.6.3", "mt_span": "Hos.6.1-Hos.6.3", "confidence": "high", "status": "adopt"},
+    {"ordinal": 14, "local_span": "Hos.6.4-Hos.6.11", "mt_span": "Hos.6.4-Hos.6.11", "confidence": "medium", "status": "adopt_with_cross_boundary_hydration"},
+    {"ordinal": 15, "local_span": "Hos.7.1-Hos.7.7", "mt_span": "Hos.7.1-Hos.7.7", "confidence": "medium", "status": "adopt_with_cross_boundary_hydration"},
+    {"ordinal": 16, "local_span": "Hos.7.8-Hos.7.12", "mt_span": "Hos.7.8-Hos.7.12", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 17, "local_span": "Hos.7.13-Hos.7.16", "mt_span": "Hos.7.13-Hos.7.16", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 18, "local_span": "Hos.8.1-Hos.8.6", "mt_span": "Hos.8.1-Hos.8.6", "confidence": "high", "status": "adopt"},
+    {"ordinal": 19, "local_span": "Hos.8.7-Hos.8.10", "mt_span": "Hos.8.7-Hos.8.10", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 20, "local_span": "Hos.8.11-Hos.8.14", "mt_span": "Hos.8.11-Hos.8.14", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 21, "local_span": "Hos.9.1-Hos.9.6", "mt_span": "Hos.9.1-Hos.9.6", "confidence": "high", "status": "adopt"},
+    {"ordinal": 22, "local_span": "Hos.9.7-Hos.9.9", "mt_span": "Hos.9.7-Hos.9.9", "confidence": "medium", "status": "adopt_with_meaning_hold"},
+    {"ordinal": 23, "local_span": "Hos.9.10-Hos.9.14", "mt_span": "Hos.9.10-Hos.9.14", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 24, "local_span": "Hos.9.15-Hos.9.17", "mt_span": "Hos.9.15-Hos.9.17", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 25, "local_span": "Hos.10.1-Hos.10.8", "mt_span": "Hos.10.1-Hos.10.8", "confidence": "high", "status": "adopt"},
+    {"ordinal": 26, "local_span": "Hos.10.9-Hos.10.15", "mt_span": "Hos.10.9-Hos.10.15", "confidence": "high", "status": "adopt"},
+    {"ordinal": 27, "local_span": "Hos.11.1-Hos.11.7", "mt_span": "Hos.11.1-Hos.11.7", "confidence": "high", "status": "adopt"},
+    {"ordinal": 28, "local_span": "Hos.11.8-Hos.11.11", "mt_span": "Hos.11.8-Hos.11.11", "confidence": "high", "status": "adopt"},
+    {"ordinal": 29, "local_span": "Hos.11.12-Hos.12.1", "mt_span": "Hos.12.1-Hos.12.2", "confidence": "medium", "status": "adopt_with_meaning_hold"},
+    {"ordinal": 30, "local_span": "Hos.12.2-Hos.12.6", "mt_span": "Hos.12.3-Hos.12.7", "confidence": "high", "status": "adopt"},
+    {"ordinal": 31, "local_span": "Hos.12.7-Hos.12.11", "mt_span": "Hos.12.8-Hos.12.12", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 32, "local_span": "Hos.12.12-Hos.12.14", "mt_span": "Hos.12.13-Hos.12.15", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 33, "local_span": "Hos.13.1-Hos.13.3", "mt_span": "Hos.13.1-Hos.13.3", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 34, "local_span": "Hos.13.4-Hos.13.8", "mt_span": "Hos.13.4-Hos.13.8", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 35, "local_span": "Hos.13.9-Hos.13.11", "mt_span": "Hos.13.9-Hos.13.11", "confidence": "medium", "status": "adopt"},
+    {"ordinal": 36, "local_span": "Hos.13.12-Hos.13.16", "mt_span": "Hos.13.12-Hos.14.1", "confidence": "low", "status": "adopt_larger_unit_with_internal_relation_hold"},
+    {"ordinal": 37, "local_span": "Hos.14.1-Hos.14.3", "mt_span": "Hos.14.2-Hos.14.4", "confidence": "high", "status": "adopt"},
+    {"ordinal": 38, "local_span": "Hos.14.4-Hos.14.8", "mt_span": "Hos.14.5-Hos.14.9", "confidence": "medium", "status": "adopt_with_capstone_hydration"},
+    {"ordinal": 39, "local_span": "Hos.14.9", "mt_span": "Hos.14.10", "confidence": "high", "status": "adopt"}
+  ],
+  "recommended_final_hold_questions": [
+    {
+      "hold_id": "HOS-HOLD-001",
+      "type": "boundary_and_presentation",
+      "span": "Hos.13.12-Hos.13.16",
+      "question": "Does the ransom/death taunt at Hos.13.14 close an internal movement before Hos.13.15, or does the judgment sequence remain continuous?",
+      "current_route_effect": "Keep the larger Hos.13.12-Hos.13.16 unit; do not activate the Hos.13.14|Hos.13.15 seam.",
+      "needed_evidence": "Pinned broader textual, syntactic, and punctuation comparison."
+    },
+    {
+      "hold_id": "HOS-HOLD-002",
+      "type": "syntax_and_relation",
+      "span": "Hos.6.11-Hos.7.2",
+      "question": "How should the restoration clauses and temporal syntax be related across the pe after Hos.6.11?",
+      "current_route_effect": "The Hos.6.11|Hos.7.1 boundary stands, with mandatory cross-boundary hydration and no final meaning ruling.",
+      "needed_evidence": "Pinned syntax-oriented analysis and, if authorized, independent textual/versional evidence."
+    },
+    {
+      "hold_id": "HOS-HOLD-003",
+      "type": "meaning_only",
+      "span": "Hos.9.7-Hos.9.9",
+      "question": "Who is identified as the watchman or prophet, and how do the accusation voices relate?",
+      "current_route_effect": "No boundary change; Hos.9.7-Hos.9.9 remains intact.",
+      "needed_evidence": "Speaker and syntax analysis."
+    },
+    {
+      "hold_id": "HOS-HOLD-004",
+      "type": "meaning_only",
+      "span": "Hos.14.8",
+      "question": "Who speaks in Hos.14.8, and what is the force of its disputed verbal forms?",
+      "current_route_effect": "No boundary change; Hos.14.8 remains the capstone of Hos.14.4-Hos.14.8, hydrated at the internal samekh after Hos.14.7.",
+      "needed_evidence": "Pinned textual and syntactic comparison."
+    },
+    {
+      "hold_id": "HOS-HOLD-005",
+      "type": "export_integrity",
+      "span": "whole_book",
+      "question": "Will every downstream route preserve exact local and MT coordinates at all three Hosea numbering offsets?",
+      "current_route_effect": "Block portable alternate-numbering activation unless the unit-level crosswalk is bound and validated.",
+      "needed_evidence": "Deterministic local-to-MT export validation over all 197 references."
+    },
+    {
+      "hold_id": "HOS-HOLD-006",
+      "type": "meaning_only",
+      "span": "Hos.11.12-Hos.12.1",
+      "question": "How should the Judah clause in local Hos.11.12 be construed relative to Hos.12.1?",
+      "current_route_effect": "No change to the accepted local Hos.12.1|Hos.12.2 rib-formula seam.",
+      "needed_evidence": "Pinned lexical and syntactic analysis."
+    }
+  ],
+  "peer_conclusion": {
+    "route": "recommend_39_unit_route",
+    "baseline_assessment": "The baseline is serviceable but too coarse at nine accepted corrective seams and uniquely over-splits Hos.8.7|Hos.8.8.",
+    "primary_assessment": "The Hebrew-textual primary supplies the most reliable coordinate discipline. Literary and canonical arguments materially improve several discourse seams, but literary MT export is invalid at four spans and canonical export remains local-only.",
+    "final_route_holds": [
+      "Hos.13.12-Hos.13.16 internal relation and possible Hos.13.14|Hos.13.15 child seam",
+      "Hos.6.11-Hos.7.2 cross-boundary syntax and temporal relation"
+    ],
+    "meaning_only_holds": [
+      "Hos.9.7-Hos.9.9 speaker/watchman identity",
+      "Hos.14.8 speaker and verbal force",
+      "Hos.11.12 Judah-clause construal",
+      "Hos.6.7 Adam/covenant construal",
+      "Hos.14.2 lips/bulls construal"
+    ],
+    "activation_blocker": "Do not activate a portable route until the exact 197-reference local-to-MT crosswalk and all unit mt_span values pass deterministic validation."
+  },
+  "validation": {
+    "json_parse": "pass",
+    "input_hash_recheck": "pass_all_four_frozen_inputs",
+    "challenge_id_uniqueness": "pass_24_of_24_unique",
+    "focus_and_hold_id_uniqueness": "pass_7_focus_and_6_hold_ids_unique",
+    "recommended_route_ordinals": "pass_exact_1_through_39",
+    "recommended_local_coverage": "pass_exact_ordered_197_of_197_with_zero_gaps_and_zero_duplicates",
+    "recommended_mt_coverage": "pass_exact_ordered_197_of_197_with_zero_gaps_and_zero_duplicates",
+    "recommended_mt_crosswalk": "pass_all_39_units_and_all_197_references",
+    "output_sha256": "reported_out_of_band_after_final_write_to_avoid_self_referential_hash"
+  }
+}

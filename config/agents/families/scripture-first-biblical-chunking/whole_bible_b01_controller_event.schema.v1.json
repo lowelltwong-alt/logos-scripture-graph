@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "whole_bible_b01_controller_event.v1",
+  "title": "Controller-observed B01 event",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "event_id", "event_kind", "execution_id", "assignment_id", "observed_at", "controller_instance_id", "input_manifest_sha256", "result_digest", "candidate_only", "non_authorizing"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_b01_controller_event.v1"},
+    "event_id": {"type": "string", "minLength": 8},
+    "event_kind": {"enum": ["assignment_issued", "execution_started", "execution_finished", "result_received", "challenge_recorded", "appeal_recorded", "boss_reviewed"]},
+    "execution_id": {"type": "string", "minLength": 8}, "assignment_id": {"type": "string", "minLength": 8},
+    "observed_at": {"type": "string", "format": "date-time"}, "controller_instance_id": {"type": "string", "minLength": 8},
+    "input_manifest_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}, "result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "candidate_only": {"const": true}, "non_authorizing": {"const": true}
+  }
+}

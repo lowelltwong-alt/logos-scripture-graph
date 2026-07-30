@@ -1,0 +1,163 @@
+{
+  "schema_version": "m7_hosea_v8_handle_replacement_architecture_ruling.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "role": "fresh_independent_read_only_architecture_adjudicator",
+  "artifact_status": "complete_conditional_architecture_ruling",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "promotion_qualified": false,
+  "publication_authorized": false,
+  "global_sidecar_install_authorized": false,
+  "binary_recommendation": {
+    "conditional_environment_bound_architecture": "PASS",
+    "unconditional_or_portable_architecture": "FAIL",
+    "current_implementation_publication_readiness": "FAIL",
+    "summary": "The proposed V8 primitive is sufficiently defensible only for one scoped 13-target Hosea book-local operation under an explicit, expiring, human-reviewed Windows and OneDrive environment exception. It is not a generally race-free or portable replacement primitive, and this ruling authorizes no publication."
+  },
+  "known_runtime_evidence": {
+    "win32_set_file_information_by_handle": {
+      "module_sha256": "94bf0ac8030232bd5144d3b4767dc8f334adb847cdb95eed8dec02024ab1c55a",
+      "operation": "SetFileInformationByHandle with FileRenameInfo and non-null RootDirectory",
+      "status": "FAIL",
+      "error_decimal": 87,
+      "error_name": "ERROR_INVALID_PARAMETER"
+    },
+    "nt_set_information_file_without_target_delete_sharing": {
+      "operation": "NtSetInformationFile FileRenameInformationEx class 65 with flags 0x3, held destination root, and old destination target opened without FILE_SHARE_DELETE",
+      "status": "FAIL",
+      "ntstatus_hex": "0xC0000043",
+      "ntstatus_name": "STATUS_SHARING_VIOLATION",
+      "winerror_decimal": 32,
+      "winerror_name": "ERROR_SHARING_VIOLATION"
+    },
+    "nt_set_information_file_with_delete_sharing": {
+      "operation": "NT root-relative replace using a verified source handle opened with FILE_SHARE_DELETE",
+      "status": "TECHNICALLY_VIABLE_WITH_RESIDUAL_DESTINATION_ENTRY_RACE",
+      "observation": "Allowing FILE_SHARE_DELETE permits the handle-relative rename but no longer denies destination-entry substitution."
+    },
+    "global_sentinel_handle_guard": {
+      "status": "VIABLE",
+      "scope": "Deny write, delete, rename, and replacement of the exact held global sentinel files for the lifetime of the guard."
+    }
+  },
+  "required_v8_design": [
+    "Hold and verify a non-reparse destination-root identity, and retain the handle throughout each replacement.",
+    "Accept only an exact allowlisted leaf name with no separator, parent traversal, alternate-data-stream syntax, or path normalization ambiguity.",
+    "Create and verify the source temporary as a regular non-reparse file object; hash and size must be read from the held handle, write sharing must be denied, and the handle must remain open through rename and readback.",
+    "Use NtSetInformationFile FileRenameInformationEx class 65 with root-relative naming and the exact reviewed flags.",
+    "Immediately before rename, reopen the destination leaf relative to the held root and verify the expected preimage identity, size, hash, regular-file status, and non-reparse status.",
+    "After rename, verify bytes through the original source handle and separately reopen the destination leaf relative to the held root; require matching file identity, size, hash, and non-reparse status.",
+    "Apply the same primitive and safety classification to rollback replacements.",
+    "Hold the shared Hosea permitted-writer lock through transaction completion and mechanically exclude every patched legacy writer.",
+    "Hold verified global sentinel handles through the final completed-state transition.",
+    "Fail closed unless the pre-patch resident-writer gate and non-cooperating-writer quiescence gate both pass.",
+    "Classify every recovery target as exact_preimage, exact_stage, or unknown; rollback may replace only exact_stage with the exact archived preimage, while unknown must remain recovery_required for human handling.",
+    "Bind the exact runtime adapter, tests, operating-system and filesystem evidence, parent identities, target allowlist, and exception receipt by immutable hashes before use."
+  ],
+  "residual_races": [
+    {
+      "race_id": "V8-DEST-PRECHECK-TO-RENAME",
+      "window": "After the destination preimage recheck and before NtSetInformationFile commits the rename.",
+      "possible_effect": "A non-cooperating writer can delete, rename, or replace the old destination entry. V8 can then overwrite a concurrent newer entry, producing an irreversible lost update whose bytes were not in the archive.",
+      "can_divert_destination_directory_or_leaf": false,
+      "can_substitute_staged_source_bytes": false,
+      "can_overwrite_concurrent_destination_bytes": true,
+      "reason": "The held root and exact leaf bind where the rename lands, and the held source object binds what lands there; FILE_SHARE_DELETE leaves the old destination entry replaceable."
+    },
+    {
+      "race_id": "V8-POSTRENAME-TO-READBACK",
+      "window": "After the rename and before handle/path readback.",
+      "possible_effect": "A non-cooperating writer can replace the published destination entry. File-identity plus hash readback detects the change if it occurs before readback completes.",
+      "can_divert_original_rename": false,
+      "can_substitute_original_source_object": false,
+      "can_change_current_destination_path": true
+    },
+    {
+      "race_id": "V8-READBACK-TO-COMPLETED",
+      "window": "After the final destination readback and before or after the completed journal transition.",
+      "possible_effect": "A non-cooperating writer can change the destination after the last check, so completed state can become stale. Rechecking narrows but cannot eliminate this race.",
+      "deterministically_closed": false,
+      "required_treatment": "Environment-bound quiescence assumption plus postpublication verification; any detected unknown state remains recovery_required."
+    },
+    {
+      "race_id": "V8-PREPATCH-RESIDENT-WRITER",
+      "window": "A Python process that loaded the legacy writer before the shared-lock patch can write without honoring the new lock.",
+      "possible_effect": "Concurrent canonical overwrite or partial materialization.",
+      "deterministically_closed_by_patched_source": false,
+      "required_treatment": "Fresh-host or exhaustive fail-closed process-inventory attestation. Access-denied, incomplete inventory, an unallowlisted older Python process, or an uncertain resident module blocks use."
+    },
+    {
+      "race_id": "V8-NONPYTHON-OR-SYNC-WRITER",
+      "window": "OneDrive or another process writes a canonical destination without honoring the Hosea lock.",
+      "possible_effect": "The same destination-entry lost-update or stale-completion races.",
+      "required_treatment": "Quiesce the sync or writer for the bounded operation, or explicitly include the risk in the human environment exception."
+    }
+  ],
+  "risk_classification": {
+    "destination_diversion_outside_held_root": "BLOCKED_IF_THE_ROOT_HANDLE_AND_STRICT_LEAF_CONTRACT_HOLD",
+    "staged_byte_substitution": "BLOCKED_IF_THE_VERIFIED_SOURCE_HANDLE_DENIES_WRITE_SHARING_AND_REMAINS_OPEN",
+    "concurrent_destination_lost_update": "RESIDUAL_AND_NOT_DETERMINISTICALLY_CLOSED",
+    "set_level_atomicity_across_13_targets": "NOT_PROVIDED",
+    "power_loss_durability": "NOT_PROVIDED",
+    "process_crash_recovery": "REQUIRED_SCOPE_ONLY_AND_SUBJECT_TO_EXACT_JOURNAL_TESTS",
+    "portable_cross_runtime_claim": "FORBIDDEN"
+  },
+  "human_question": {
+    "question": "Should the owner require deterministic exclusion of every destination-entry substitution race, or accept the residual lost-update window for this one bounded Hosea publication under a fresh-host and quiescent-filesystem exception?",
+    "options": [
+      {
+        "option_id": "STRICT_BLOCK",
+        "decision": "Do not implement or use V8 for publication until a primitive or offline execution environment deterministically excludes non-cooperating destination-entry replacement from preimage check through completed state.",
+        "benefit": "Fully upholds the strict reading of boss requirement V4-09.",
+        "cost": "May require a different filesystem, offline copy-and-swap workflow, or stronger operating-system coordination not currently demonstrated."
+      },
+      {
+        "option_id": "SCOPED_ENVIRONMENT_EXCEPTION",
+        "decision": "Permit only the exact 13 Hosea book-local targets after a fresh-host or exhaustive resident-process gate, OneDrive and other writer quiescence, shared Hosea locking, held global sentinels, exact handle-bound pre/post checks, and fresh independent exact-hash tests.",
+        "benefit": "The held root and source handles prevent destination diversion and staged-byte substitution while limiting the accepted risk to non-cooperating concurrent destination overwrites.",
+        "cost": "A residual lost-update and stale-completion race remains; there is no power-loss or 13-file set atomicity."
+      }
+    ],
+    "recommended_option": "SCOPED_ENVIRONMENT_EXCEPTION",
+    "recommendation_limit": "The recommendation is architecture advice, not owner authorization. The exception must be explicit, scoped, expiring, hash-bound, and independently checked."
+  },
+  "preserved_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Because FILE_SHARE_DELETE is necessary for replacement, the old destination entry cannot remain exclusively guarded. An immediate recheck plus post-readback does not eliminate the check-to-replace or final-check-to-completed races, and a concurrent newer destination can be overwritten before detection. A strict reading therefore keeps V4-09 open.",
+    "status": "PRESERVED_FOR_HUMAN_OR_EXTERNAL_AI_REVIEW",
+    "forced_consensus": false
+  },
+  "portable_capability_governance": {
+    "classification": "runtime_adapter_with_environment_bound_exception",
+    "portable_core_status": "NOT_ESTABLISHED",
+    "reviewed_portable_promotion": false,
+    "required_exception_bindings": [
+      "exact V8 adapter and test hashes",
+      "exact Windows build and filesystem volume",
+      "exact held parent identities and 13-target allowlist",
+      "fresh-host or exhaustive process inventory evidence",
+      "OneDrive and other non-cooperating-writer quiescence",
+      "process-crash-only recovery scope",
+      "expiration and named human owner"
+    ]
+  },
+  "authority_limits": {
+    "v8_implementation_authorized": false,
+    "v8_prepare_authorized": false,
+    "v8_publish_authorized": false,
+    "v8_recover_authorized": false,
+    "canonical_or_global_write_authorized": false,
+    "global_sidecar_install_authorized": false,
+    "book_completion_authorized": false,
+    "comparison_authorized": false,
+    "promotion_authorized": false,
+    "commit_authorized": false,
+    "push_authorized": false,
+    "merge_authorized": false,
+    "external_review_receipt_created": false
+  },
+  "next_action": "If the owner selects the scoped exception, implement V8 under a new immutable generation, freeze exact hashes, test every residual-race boundary and rollback path on the exact Windows and OneDrive runtime, obtain fresh transaction and premortem checks plus a separate boss ruling, and return to the owner gate. Do not publish from this architecture ruling."
+}

@@ -1,0 +1,140 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T560",
+    "model_id":  "M7_sol",
+    "book":  "Zech",
+    "completed_at_utc":  "2026-07-29T21:47:24.2668510Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  37,
+                            "canonical_verse_count":  211,
+                            "covered_verse_count":  211,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  35,
+                            "held_decision_count":  2,
+                            "held_decision_ids":  [
+                                                      "M7_sol-Zech-006",
+                                                      "M7_sol-Zech-030"
+                                                  ],
+                            "confidence":  {
+                                               "high":  23,
+                                               "medium":  14
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  111,
+                            "unique_primary_reviewer_attempt_ids":  111,
+                            "all_workflow_attempt_ids":  185,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  108,
+                                                     "challenge":  3
+                                                 },
+                            "scoped_challenge_claims":  3,
+                            "answered_challenges":  3,
+                            "active_specialist_post_ruling_appeals":  2,
+                            "open_linked_boundary_appeals":  2,
+                            "mandatory_parent_relations":  13,
+                            "preserved_dissent_and_appeal_relations":  11,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Zech.md":  "7d03f6f6bacf6f5ff08460259f38542f6ed6353cd7cbbca115cec596cec79b8a",
+                                   "book_chunks/Zech/chunks.jsonl":  "88387255c5c888e3bd4d5ee9bc788683ed21c2816f9bfa49f6f1f26de18d18a4",
+                                   "reviews/Zech/review_packets.jsonl":  "46937945c47d4b05c7ba20763cc8a53a92baf7130ceef8d33c2f8d005ce301ef",
+                                   "reviews/Zech/decision_evidence_v2.jsonl":  "1babd411343241776c9d06e38b4e911b52e8eea322462803365825e2668b220e",
+                                   "reviews/Zech/decision_relations.jsonl":  "63ee919887631e9169ff603c618a03da99bcaab480efe2e2f9fdf1cf338e9e23",
+                                   "reviews/Zech/adjudicated_route_draft_v2.json":  "fd604430b7e643c601c5bb20f66e50fe7795195b83134bfcf033e63c5877ab30",
+                                   "reviews/Zech/fresh_boss_adjudication_v2.json":  "12647a03c1428d038ecf7ecc3225bc338843b236608746dcdc0af0a181ba9248",
+                                   "reviews/Zech/boss_ruling_v2.json":  "60f57022e505aa90f866aa6fa51c5612a3898f58ba694cc3102628a04577e773",
+                                   "reviews/Zech/mesh_instruction_and_dissent_v2.json":  "63055d28d697715941d42a87c2d937513cccd09fa8636fefff4e72064feddad0",
+                                   "reviews/Zech/post_ruling_appeal_opportunities_v2.json":  "ba85eb50b422204a1b91add2b80f0558bde9a592802a3d5d8eaf6e3e04e8a693",
+                                   "reviews/Zech/independent_source_postcheck_pre_binding_v2.json":  "878c8b57051265bb11c99ecce81f6fa9c8adb53667ed1e15b5c29a63857219f0",
+                                   "reviews/Zech/independent_literary_postcheck_pre_binding_v2.json":  "9d1936b49e07f92e278cc84194e80024bf58a9140c33c136b2ead2d7da3c4cbd",
+                                   "reviews/Zech/independent_literary_postcheck_v2.json":  "344e56029d6e87f0c7c2cc682a5b69d622e30e3df745afb4dc4dd7c859853217",
+                                   "reviews/Zech/post_resolution_check_v2.json":  "e6dc123f4cf70ab46809e558c9ece7d0e59a351c753022871630e4edba852aae",
+                                   "reviews/Zech/appeal_ledger.jsonl":  "45745cd53277cc9d74e198441680d5e8f4a6deefbed8ca5a2986a89c939af1a7"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Zech/chunks.jsonl --model-id M7_sol --book Zech",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 37 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Zech --json",
+                           "status":  "pass",
+                           "output":  "35 accepted, 2 held; zero template, generic-form, encoding, quotation, prose-shell, semantic-constructor, or review-batch failures."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Zech",
+                           "status":  "pass",
+                           "output":  "OK: Zech chunks=37 exact ordered coverage=211/211."
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Zech --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Zech",
+                           "status":  "non_gating_owner_ruling_stale_pass1_only",
+                           "output":  "Literary, structured-hold, and postcheck state green; only 28 stale pass-one Zechariah rows remain in each global uncertainty sidecar."
+                       }
+                   ],
+    "independent_checks":  {
+                               "source_pre_binding_verdict":  "pass_with_holds",
+                               "literary_pre_binding_verdict":  "pass_with_holds",
+                               "final_bound_verdict":  "pass_with_holds",
+                               "final_bound_report_sha256":  "344e56029d6e87f0c7c2cc682a5b69d622e30e3df745afb4dc4dd7c859853217",
+                               "structured_web_quotes_checked":  74,
+                               "structured_web_quote_failures":  0,
+                               "oshb_coordinates":  211,
+                               "uxlc_coordinates":  211,
+                               "post_resolution_pass_packets":  35,
+                               "post_resolution_hold_packets":  2,
+                               "chain_state_hash_defects":  0
+                           },
+    "pass1_archive":  {
+                          "archived_before_rework":  true,
+                          "artifact_count":  15,
+                          "archived_review_file_count":  14,
+                          "archived_chunks_sha256":  "514c16d019d7818e6b3bbaa9b265d2b85d477450ea5ba11be59904aafed46f60",
+                          "appeal_ledger_bytes":  993279,
+                          "appeal_ledger_sha256":  "ec959bdfd8d1db4335db3b2fd789dd0eeaed15cfb6fd614472481f90523335fc",
+                          "appeal_ledger_prefix_preserved":  true,
+                          "appended_active_appeal_count":  2
+                      },
+    "sidecar_disposition":  {
+                                "status":  "non_gating_untouched_pass1_partitions",
+                                "orphan_rows_per_sidecar":  28,
+                                "sidecars":  [
+                                                 "low_confidence_register.jsonl",
+                                                 "frontier_escalation_queue.jsonl",
+                                                 "atlas_candidate_feed.jsonl"
+                                             ]
+                            },
+    "isolation":  {
+                      "m1_m6_read":  false,
+                      "comparison_read":  false,
+                      "t417_read":  false,
+                      "commit_push_merge":  false,
+                      "external_receipt_fabricated":  false
+                  },
+    "authority":  {
+                      "candidate_only":  true,
+                      "non_authorizing":  true,
+                      "counts_as_cross_model_convergence":  false,
+                      "promotion_authority":  false,
+                      "canon_route_graph_theology_authority":  false
+                  }
+}

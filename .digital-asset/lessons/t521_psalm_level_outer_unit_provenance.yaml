@@ -1,0 +1,24 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-PSALM-LEVEL-OUTER-UNIT-PROVENANCE
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Psalm candidates are one whole Psalm per outer unit, not arbitrary chapter
+  scaffolds. Provenance now records that natural unit while preserving
+  superscription, stanza, refrain, acrostic, collection, and Psalm 42–43
+  continuity questions as internal review holds.
+evidence:
+  script: scripts/normalize_psalm_outer_unit_provenance.py
+  wave: psalm_level_outer_unit_provenance.v1
+  rows_changed: 150
+  spans_unchanged: true
+  map_sha256: sha256:9f3d4dc44eaa8b72673c1e615a792697b4a4f7b511d97fcf1fc5c174ee0008d5
+constraints:
+  - Psalm-level natural units do not prove every internal stanza boundary
+  - Hebrew superscriptions and poetic structure still require review
+  - candidate_only and non_authorizing remain mandatory

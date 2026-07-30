@@ -1,0 +1,238 @@
+{
+  "schema_version": "m7_hosea_semantic_prose_rematerialization_transaction_check.v5",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "checker_attempt_id": "T550-HOS-SEMANTIC-PROSE-V5-TRANSACTION-CHECK-001",
+  "checker_agent": "hos_v5_transaction_checker",
+  "checker_role": "independent_transaction_and_render_checker",
+  "checker_model_family": "gpt-5.6-sol",
+  "same_model_family_disclosure": "same_model_family_correlated_review_not_cross_model_independence",
+  "artifact_status": "complete_blocking_review",
+  "verdict": "FAIL",
+  "materialization_readiness": "FAIL",
+  "publish_authorized": false,
+  "recover_invoked": false,
+  "publish_invoked": false,
+  "global_sidecars_modified": false,
+  "canonical_targets_modified": false,
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "checked_artifact_hashes": {
+    "reviews/Hos/rematerialize_semantic_prose_v5.py": "642adb401a525cf1b98c528f928e1d8198cda4fc7e1499d6c03967be1f8940c8",
+    "checks/journaled_recoverable_publish_v2.py": "050d6b9eb4c89442233057fb09e04e2e2a69d6a248cbb9c4fcb64cdabe382396",
+    "prepare_receipt_v5.json": "fbaba33f8b93b6914143352d5ee541155bb559adc4b4f9bcd0cf85a5a7a18fa1",
+    "prepare_manifest_v5.json": "98860bb9457feb8f81243db2ac84adb5d80165476f6d36779e979cf1cbfe70d7",
+    "preimage_manifest_v5.json": "61c133895528b77160f7c5cc7792f7aaa4516a2e96dc3489dd1ce915975850f6",
+    "archive_manifest_v5.json": "9b7054ac0f99ccb25c9cd2a19e2d615035f4e9577f4bd91a08d5289edd325b7b",
+    "staged_manifest_v5.json": "f8b1f2a61716ad5e72ae8b2f4f3f1144f794f9c6902d604646ae19ebe5ed633f",
+    "expanded_typed_diff_manifest_v5.json": "2d36477b5c10143a49aedc16317233f349440f48fe408f63ca6c95596b559af6",
+    "prepare_journal_v5.json": "6f69efa523b1b107ea90662c2b071066b06e34008e823df1f862fc261c8a080d",
+    "reviews/Hos/semantic_prose_rematerialization_failure_evidence_v5.json": "a7eb0dee5592e48f9f6fd063553634b10e2f10e0fe38e8e38d42845d6c7bc7c1",
+    "reviews/Hos/semantic_prose_rematerialization_implementation_boss_ruling_v1.json": "fdc5c2ba69e2cd65978314554900a37a5b8ddfb01cf3b76e2bfadc4ef4bc78d3",
+    "reviews/Hos/semantic_prose_rematerialization_plan_v3.json": "a490a5977cad58613203b163a07faf8e90d9ad3809b67b38af050619f832358d",
+    "reviews/Hos/semantic_prose_rematerialization_plan_check_v3.json": "12c3bafa0f18273dc852fb6fed4076421e9f6a7ecbe726b1079e5b84375d4f4a"
+  },
+  "checked_contract": {
+    "application_id": "T550-HOS-SEMANTIC-PROSE-REMATERIALIZATION-V5-ONE-SHOT",
+    "target_count": 13,
+    "target_tuple_sha256": "b8d7c702792d406c89f3dd0d741b664032d513c2d88665db3570c899b0adf7ec",
+    "prepare_phase_ledger_sha256": "162673aa85bb63b57d1e4f8e69e827bfc9b5e529b9376df6bdd841d9fb9db4cd",
+    "route_change_count": 114,
+    "derived_sidecar_change_count": 4,
+    "held_decision_ids": [
+      "M7_sol-Hos-029",
+      "M7_sol-Hos-035"
+    ],
+    "global_sidecar_sha256": {
+      "low_confidence_register.jsonl": "ca548ec6b205ec030df6cebffe3a657e46aba01be97600382a55cb50f648c5b6",
+      "frontier_escalation_queue.jsonl": "8d101775088cba9a7ddde6e506db981d1fd1d866958caa57e8243df3a24268b1",
+      "atlas_candidate_feed.jsonl": "7bdbfc263fbd8d3fe0083fdfec978f3714ec84ad5f703cc9c428de616a608ca0"
+    },
+    "durability_scope": "process_crash_recovery_not_power_loss",
+    "environment_exception_status": "pending_explicit_human_acceptance",
+    "postpublish_checker_required_before_global_install": true
+  },
+  "read_only_validation": [
+    {
+      "check_id": "V5-PREPARED-CONTRACT",
+      "result": "PASS",
+      "evidence": "validate_prepared_v5 returned the exact prepare receipt, manifest, tuple, phase-ledger, and prepare-journal hashes; all 13 canonical targets remained valid preimages."
+    },
+    {
+      "check_id": "V5-FAILURE-EVIDENCE-SCHEMA",
+      "result": "PASS_WITH_SCOPE_LIMIT",
+      "evidence": "validate_failure_evidence accepted the closed 61-case schema and exact implementation/kernel hashes, but schema conformance does not prove the cases satisfy the boss requirement for wrapper-level, individually reported tests."
+    },
+    {
+      "check_id": "V5-RUNTIME-ADVERSARIAL-PROBE",
+      "result": "COVERAGE_UNAVAILABLE",
+      "evidence": "Two new local concurrency probes exceeded their bounded 20/30 second windows under the restricted runtime and were terminated. No PASS is inferred from those attempts; the blocking race findings are established directly by the inspected control flow."
+    }
+  ],
+  "closure_mapping": [
+    {
+      "closure_id": "V4-01",
+      "status": "PASS",
+      "basis": "V5 uses a new immutable application/attempt ID and hash-pins both the complete V3 attempt and the failed V4 generation; prepare validation verified those preservation pins."
+    },
+    {
+      "closure_id": "V4-02",
+      "status": "FAIL",
+      "basis": "The expected receipt digest is bound into the journal and normal receipt-written replay is checked, but not every mismatch durably enters recovery_required. A different journal core or corrupt journal only raises; receipt-pending readback/invariant failures can escape without marking; and a before_completed sentinel failure is retained as receipt_written_verified rather than recovery_required."
+    },
+    {
+      "closure_id": "V4-03",
+      "status": "PASS",
+      "basis": "The exact prepare receipt binds the exact manifest and ordered 13-member tuple projection, including ordinals, IDs, relative paths, hashes, and sizes; prepare replay revalidates every archive, stage, subsidiary manifest, and canonical member."
+    },
+    {
+      "closure_id": "V4-04",
+      "status": "PASS_WITH_V4_02_DEPENDENCY",
+      "basis": "The public recover entry point delegates only to recover_to_preimages and cannot resume publication. The generic kernel evidence covers BaseException interruption after each of 13 publication and rollback replacements, but durable mismatch-state defects remain under V4-02."
+    },
+    {
+      "closure_id": "V4-05",
+      "status": "PASS",
+      "basis": "Application receipt construction is deterministic, has no receipt-hash cycle, binds the transaction core, exact prepared manifests and tuples, staged validation, frozen route/source/review evidence, implementation/checker/boss/environment artifacts, and all global sentinels. The actual-published manifest is a distinct embedded object written only after full readback."
+    },
+    {
+      "closure_id": "V4-06",
+      "status": "FAIL",
+      "basis": "The claimed 61-case report is largely generic-kernel evidence, not a complete actual-wrapper matrix. The four receipt interruption phases are exercised only by one parametrized test and are not individually named in case_results. The second-publisher and concurrent-legacy cases do not exercise the dangerous interleavings described in findings V5-TX-002 and V5-TX-003."
+    },
+    {
+      "closure_id": "V4-07",
+      "status": "PASS",
+      "basis": "The prepared stage records all five required validators in exact order, exact 197/197 coverage, corrective-depth/literary/review-chain validation, protected route projection, 114 typed prose changes, four typed sidecar changes, and exactly 13 physical projections."
+    },
+    {
+      "closure_id": "V4-08",
+      "status": "PENDING_EXTERNAL_GATE",
+      "basis": "Claims are honestly narrowed to process-crash recovery, and replace/readback probes passed in each of the three canonical parent directories. The required explicit human environment exception is not yet present and must remain a hard pre-use gate."
+    },
+    {
+      "closure_id": "V4-09",
+      "status": "FAIL",
+      "basis": "Containment checks are substantial, but there is no mutation lock actually shared by the unchanged legacy adapter. The source-file sharing guard cannot stop an already-loaded legacy process. The kernel reads the journal before acquiring its lock, permitting a stale no-journal observer to acquire after a first publisher completes. Computed temporary paths are also not explicitly checked at the immediately-before-replace boundary."
+    },
+    {
+      "closure_id": "V4-10",
+      "status": "PASS",
+      "basis": "Prepare has an append-only six-phase ledger and exact hash-verified resume; focused tests cover interruption after each phase plus unexpected/drifted members, and kernel tests cover completed matching-lock cleanup and mismatching-lock fail-closed behavior."
+    },
+    {
+      "closure_id": "V4-11",
+      "status": "FAIL",
+      "basis": "This fresh role-separated checker returns FAIL. Therefore no PASS checker hash may be frozen into a boss invocation receipt and publication cannot unlock."
+    },
+    {
+      "closure_id": "V4-12",
+      "status": "PASS_AS_A_DOWNSTREAM_GATE",
+      "basis": "V5 never installs global sidecars, leaves completion_state not_completed, and its receipt contract preserves the requirement for a distinct actual-byte postpublish check before global installation and final completion."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "HOS-V5-TX-001",
+      "severity": "blocking",
+      "closure_ids": [
+        "V4-02",
+        "V4-06"
+      ],
+      "title": "Mismatch paths do not consistently persist recovery_required",
+      "evidence": [
+        "journaled_recoverable_publish_v2.py:337-343 raises immediately for a different journal core without a durable recovery marker",
+        "journaled_recoverable_publish_v2.py:387-388 performs receipt-pending readback and invariants outside the block that marks recovery_required",
+        "journaled_recoverable_publish_v2.py:529-539 retains receipt_written_verified after a before_completed sentinel failure",
+        "test_corrupt_journal_fails_closed checks only an exception and does not prove a durable recovery marker"
+      ],
+      "risk": "An operator can receive RecoveryRequired while the persisted journal still advertises an earlier non-recovery phase, weakening deterministic restart and violating the boss's explicit any-mismatch rule.",
+      "required_resolution": "Under a new immutable generation, provide a separate durable mismatch/recovery marker that can safely record corrupt or foreign-core journals, and route every receipt, target, input, lock, sentinel, and receipt-pending invariant mismatch to a durable recovery_required state while retaining the mutation lock."
+    },
+    {
+      "finding_id": "HOS-V5-TX-002",
+      "severity": "blocking",
+      "closure_ids": [
+        "V4-06",
+        "V4-09"
+      ],
+      "title": "Journal-before-lock ordering leaves a second-publisher stale-observation race",
+      "evidence": [
+        "journaled_recoverable_publish_v2.py:335 loads the journal before any lock acquisition",
+        "journaled_recoverable_publish_v2.py:456-463 acquires the lock only after the no-journal branch is chosen",
+        "journaled_recoverable_publish_v2.py:540-544 can overwrite the journal with failed_before_publish after that stale branch later observes staged canonical bytes",
+        "test_second_publisher_is_rejected_by_existing_lock only pre-creates a lock; it does not interleave two publishers that both observed no journal"
+      ],
+      "risk": "A delayed second publisher can observe no journal, wait while the first publisher completes and removes the lock, then acquire the lock and overwrite the first publisher's completed journal during its expected preflight failure.",
+      "required_resolution": "Acquire one stable Hosea mutation lock before reading or selecting any journal branch, retain it through journal/receipt completion or rollback, then add a deterministic two-publisher interleaving test that proves the completed journal and receipt cannot be overwritten."
+    },
+    {
+      "finding_id": "HOS-V5-TX-003",
+      "severity": "blocking",
+      "closure_ids": [
+        "V4-06",
+        "V4-09"
+      ],
+      "title": "LegacyExecutionGuard does not mechanically exclude an already-loaded legacy writer",
+      "evidence": [
+        "LegacyExecutionGuard holds the corrective_re_review_v2.py source file with share mode zero only after entering the V5 transaction",
+        "corrective_re_review_v2.py contains no shared Hosea mutation lock and writes the canonical targets sequentially",
+        "test_legacy_writer_guard_denies_concurrent_open proves only that a new read_bytes open fails while the handle is held"
+      ],
+      "risk": "A legacy Python process can load and close its source file before V5 acquires the source handle, then execute its already-loaded materialize path concurrently and write the same Hosea targets.",
+      "required_resolution": "Under a new generation, make every permitted Hosea writer acquire the same mutation lock or mechanically retire/disable the legacy mutation entry point. Add a subprocess test in which the legacy process loads before lock acquisition and is still prevented from reaching replacement one."
+    },
+    {
+      "finding_id": "HOS-V5-TX-004",
+      "severity": "blocking",
+      "closure_ids": [
+        "V4-06",
+        "V4-09"
+      ],
+      "title": "The failure matrix overstates wrapper-level and immediately-before-replace coverage",
+      "evidence": [
+        "Most case_results point to test_journaled_recoverable_publish_v2.py or its generic recovery suite rather than the exact V5 wrapper transaction_context, invariant set, 13 paths, guards, and authorization bindings",
+        "The four receipt interruption points are aggregated under a parametrized generic test and absent as individual case names",
+        "ensure_regular_contained checks configured paths at wrapper invariant phases, but the kernel's computed sibling temporary path is not explicitly checked immediately before os.replace",
+        "The symlink test monkeypatches one direct target classification; it does not substitute a real temporary, parent reparse point, or between-check replacement"
+      ],
+      "risk": "The evidence report can pass closed-schema validation while important exact-wrapper races and path substitutions remain untested.",
+      "required_resolution": "Publish a new exact wrapper-level matrix with one result per semantic, input/code, replacement, rollback, receipt, sentinel, allowlist, link/reparse/temp-path, publisher, and legacy interleaving case. Bind each case to a test that actually enters the new wrapper path."
+    },
+    {
+      "finding_id": "HOS-V5-TX-005",
+      "severity": "external_gate",
+      "closure_ids": [
+        "V4-08",
+        "V4-11"
+      ],
+      "title": "Human environment exception and boss invocation are intentionally absent",
+      "evidence": [
+        "prepare_manifest_v5 records environment_bound_exception_status pending_explicit_human_acceptance",
+        "No V5 application receipt, publish journal, lock, boss authorization, boss invocation receipt, or environment exception was observed"
+      ],
+      "risk": "Treating this implementation review as authorization would bypass the intentionally separate human durability decision and boss actuator gate.",
+      "required_resolution": "After all implementation blockers are repaired and a fresh checker passes, obtain a separately hash-bound boss ruling/invocation and the explicit human exception for process-crash-not-power-loss, 13-target-only publication."
+    }
+  ],
+  "appeal_preservation": {
+    "held_decision_ids": [
+      "M7_sol-Hos-029",
+      "M7_sol-Hos-035"
+    ],
+    "unresolved_appeals_preserved": true,
+    "forced_consensus": false,
+    "literary_or_source_ruling_changed": false,
+    "later_human_or_external_ai_review_preserved": true
+  },
+  "binary_conclusion": {
+    "prepared_literary_and_source_content_remains_valid": true,
+    "v5_transaction_ready": false,
+    "v5_publish_forbidden": true,
+    "global_sidecar_install_forbidden": true,
+    "hosea_complete": false,
+    "next_action": "Preserve V5 append-only, supersede it with a new immutable application generation that closes HOS-V5-TX-001 through HOS-V5-TX-004, rerun a true wrapper-level matrix, and obtain a fresh checker. Do not publish or recover from V5."
+  }
+}

@@ -1,0 +1,54 @@
+schema_version: m7_corrective_rereview_codex_adapter.v1
+contract_ref: ../corrective_rereview_contract.v1.yaml
+contract_revision: m7-thin-rereview-r1
+status: candidate_in_use
+runtime: codex_desktop
+provider_neutral_candidate_core_preserved: true
+portability_claim: single_runtime_evidence_only
+capability_tiers_are_mutable_labels: true
+mesh:
+  root_integrator:
+    capability_tier: frontier_high
+    effort: xhigh
+    owns: [contract, shared_sidecars, validators, boss_integration, handoff]
+  book_writer:
+    capability_tier: frontier_high
+    effort: xhigh
+    max_active: 1
+    write_scope: current_book_only
+  reference_auditor:
+    capability_tier: balanced_high
+    effort: high
+    read_only: true
+  adversarial_specialist:
+    capability_tier: balanced_high
+    effort: high
+    read_only: true
+  repair_rounds:
+    max_per_finding_set: 2
+  concurrency:
+    total_slots: 4
+    max_subagents: 3
+tool_mapping:
+  delegate: collaboration.spawn_agent
+  repair: collaboration.followup_task
+  message: collaboration.send_message
+  deterministic_execution: shell_command
+  file_patch: apply_patch
+runtime_exceptions:
+  apply_patch_windows_wrapper:
+    status: observed_environment_bound_exception
+    fallback: exact_anchored_write_then_diff_compile_and_tests
+    expires_when: apply_patch_can_prepare_the_windows_writable_root_wrapper
+non_authorizations:
+  - read_sibling_model_maps
+  - publication
+  - force_consensus
+  - external_review_receipt_fabrication
+  - theology_or_canon_authority
+evidence:
+  task_id: T544
+  corrective_gate: scripts/validate_m7_corrective_review_depth.py
+  exploit_tests: tests/test_m7_corrective_review_depth.py
+  adversarial_docket: .ai/handoffs/T544/psalms_adversarial_postcheck.md
+  activation_state: active_for_local_candidate_repair_only

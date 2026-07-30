@@ -105,7 +105,23 @@ def test_dad_adaptation_is_hash_linked_metadata_only_and_ineligible() -> None:
     assert adaptation["contains_logos_authority"] is False
     assert adaptation["dad_may_override_logos_governance"] is False
     assert adaptation["dad_may_write_or_push_into_logos"] is False
-    assert len(adaptation["constituent_hashes"]) == 6
+    assert {
+        row["path"] for row in adaptation["constituent_hashes"]
+    } == {
+        "config/agents/families/scripture-first-biblical-chunking/family.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/role_profiles.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/knowledge_manifest.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/routing_policy.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/pilot_suite.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/release.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v1.yaml",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_stage_receipt.schema.v1.json",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_boss_phase_receipt.schema.v1.json",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_extended_evidence_manifest.schema.v1.json",
+        "config/agents/families/scripture-first-biblical-chunking/whole_bible_terminal_completion_receipt.schema.v1.json",
+    }
     assert adaptation["blockers"]
 
 

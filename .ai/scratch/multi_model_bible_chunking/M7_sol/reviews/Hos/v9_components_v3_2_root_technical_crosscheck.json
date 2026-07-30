@@ -1,0 +1,85 @@
+{
+  "schema_version": "t550.v9_components_v3_2_root_technical_crosscheck.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "root_technical_crosscheck",
+  "review_mode": "read_only_exact_frozen_draft_design_to_machine_trace",
+  "reviewed_freeze_sha256": "21c2afb94fafd157a1fbec8e7f91812f36c1978a8bb959571df1c38f4c67ecb6",
+  "verdict": "HOLD_V3_2_PRODUCTION_GRAPH_AND_ROOTED_RELATIONS_NOT_CLOSED",
+  "draft_test_evidence_preserved": true,
+  "component_qualified": false,
+  "production_launcher_warranted": false,
+  "canonical_execution_authorized": false,
+  "findings": [
+    {
+      "finding_id": "T550-V9-V3-2-ROOT-001",
+      "severity": "critical_component_blocker",
+      "title": "The validated component graph still describes V3.1 and does not bind the V3.2 policy or sidecar code",
+      "evidence": [
+        "V3.2 delegates base validation to the frozen V3.1 policy and accepts the V3.1 exact artifact graph.",
+        "That graph contains policy_v3_1 and its tests but no policy_v3_2, V3.2 sidecar schema, or V3.2 tests.",
+        "The V3.2 result decorates the base result but does not require a component-lock node or loaded-byte hash for the running V3.2 module.",
+        "The external draft-review freeze binds V3.2 file hashes, but it is explicitly not a component lock or reviewed release."
+      ],
+      "counterevidence": "The frozen review envelope prevents silent mutation during this draft review and every result remains machine-only and canonical-execution-blocked.",
+      "adjudication": "V3.2 may be reviewed as a deterministic draft wrapper, but it cannot qualify a component generation or production loader until a new exact acyclic graph includes and verifies the V3.2 artifacts themselves.",
+      "required_repair": "Create a newly named exact V3.2 component-graph schema whose nodes include the V3.2 policy, tests, sidecar contract, collector, checker, wrapper, kernel, primitive, loader, and launcher. Bind loaded bytes through a separately reviewed sealed loader without a self-hash cycle.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-2-ROOT-002",
+      "severity": "high_relational_blocker",
+      "title": "Parent chains are same-volume identity lists, not closed handle-rooted parent-child relations",
+      "evidence": [
+        "Each nonroot parent chain contains only identities_from_model plus the logical path-token depth.",
+        "The policy checks the terminal identity, depth, volume, and global uniqueness but has no per-hop leaf name, parent identity, child identity, retained-handle relation, or collector attestation bound to the chain.",
+        "An internally consistent list of unrelated same-volume directory identities with the right length and terminal identity can satisfy the pure relation."
+      ],
+      "counterevidence": "The V3.2 policy closes cross-volume and identity-alias attacks that V3.1 accepted, and the test-only native helper retains real handle-rooted directories in its disposable fixture.",
+      "adjudication": "The policy improvement is real but does not yet encode the native handle-root evidence required for a production component.",
+      "required_repair": "Represent every hop as a closed parent_identity plus exact leaf_component plus child_identity relation with retained-handle/root-relative-open evidence and one observation digest; require the ordered chain to start at model_identity and terminate at the frozen parent identity.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-2-ROOT-003",
+      "severity": "production_integration_hold",
+      "title": "Lease origin and observation attestations remain caller-described until a separate sealed collector and wrapper exist",
+      "evidence": [
+        "The policy validates lease ID syntax, same-ID continuity, boot, deadlines, and dual-clock skew.",
+        "It cannot verify that the lease ID came from an opaque nonserializable wrapper object or that observation attestations came from retained production handles.",
+        "The frozen draft correctly reports no production collector, wrapper, reviewed release, execution freeze, or external owner capability."
+      ],
+      "counterevidence": "All supplied relations are closed and hash-bound, and authority fields remain false.",
+      "adjudication": "Expected for a pure-policy draft; keep as a mandatory later integration gate, not a reason to claim current fraud.",
+      "required_repair": "Only a separately named, independently reviewed collector/wrapper/loader generation can close origin and loaded-byte provenance.",
+      "appeal_preserved": true
+    }
+  ],
+  "positive_closure_observed": [
+    "full system rows are supplied and bounded candidates are derived inside policy",
+    "enumeration API terminal status count and digests are checked",
+    "all digest subjects receive checker-interval attestations",
+    "same lease ID boot whole-lease duration interphase order and dual-clock skew are enforced",
+    "strict numeric recursion rejects floats booleans negatives and overflow in numeric fields",
+    "canonical continuity SHA-256 equality is enforced across prepare and publish",
+    "native lease registration and arbitrary retention are no longer exposed",
+    "exact root sentinels use the retained model handle in disposable tests",
+    "fixed validator file entry point has no caller path parameters",
+    "all outputs remain candidate-only and non-authorizing"
+  ],
+  "preserved_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Complete bounded enumeration and relational identity checks still cannot exclude hidden, renamed, pre-opened, future, kernel, sync, or noncooperating writers.",
+    "status": "PRESERVED_FOR_HUMAN_OR_EXTERNAL_AI",
+    "forced_consensus": false
+  },
+  "actions_not_taken": [
+    "did_not_edit_any_frozen_v3_2_artifact",
+    "did_not_rerun_unchanged_tests",
+    "did_not_open_or_measure_canonical_hosea_or_global_targets",
+    "did_not_delete_any_retained_fixture",
+    "did_not_restart_windows_or_touch_onedrive",
+    "did_not_prepare_publish_or_recover"
+  ],
+  "next_action": "Collect both fresh blind V3.2 peer reports, then obtain a separate boss ruling over those reports and this root challenge. Preserve V3.2 append-only if either critical finding is sustained."
+}

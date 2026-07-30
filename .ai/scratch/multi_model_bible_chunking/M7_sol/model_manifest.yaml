@@ -1,15 +1,21 @@
----
 model_id: M7_sol
 agent_surface: sol
 model_profile: sol_xhigh_frontier_marathon
 fork_id: whole_bible_multi_model_chunking_v1
-status: pending_marathon_start
-books_completed: 0
+status: corrective_rereview_in_progress
+books_completed: 22
 books_total: 66
-research_baseline_read: false
-observation_substrate_scan_sha256: null
-observation_substrate_source_sha256_short: null
-observation_substrate_pinned_at: null
+corrective_rereview_target_book_count: 63
+corrective_rereview_completed_books: [Gen, Exod, Lev, Ps, Prov, Isa, Jer, Ezek, Dan, Hos, Joel, Amos, Obad, Jonah, Mic, Nah, Hab, Zeph, Hag, Zech, Mal, Job]
+corrective_rereview_contract: .ai/scratch/multi_model_bible_chunking/M7_sol/corrective_rereview_contract.v1.yaml
+research_baseline_read: true
+research_baseline_read_mode: text_with_recorded_shared_manifest_drift
+research_baseline_manifest_sha256: 40482814f970029262851fbe735840adaaaef7d1421571ecee302aae091f06df
+observation_substrate_scan_sha256: 9cfc4d0d0f1a2a215463ace6cb2ff179e4d94c835b7f81119a01a7dc890ae797
+observation_substrate_source_sha256_short: a745365f53ab9557
+observation_substrate_pinned_at: '2026-07-21T21:00:00Z'
+canonical_passage_inventory_sha256: 3b3b3ee2ea05dcfcea534264f8686b341a34e925aec491d699a92591d9f49bcc
+eng_web_translation_witnesses_sha256: 9b5b5d416f36d106bd8185251261282dca185da3a93389e7917a3671f21da5c5
 quality_protocol:
   strategy_id: literary_marker_aware_v2
   control: .ai/control/t423_literary_marker_quality_protocol.yaml
@@ -22,8 +28,23 @@ quality_protocol:
   atlas_candidate_feed_required: true
   book_strategy_required: true
 isolation:
-  worktree_path: scratch/t423-m7-sol
+  worktree_path: C:/Users/lowel/OneDrive/Desktop/Git Projects/03_World_View/logos-scripture-graph-repo
+  branch: scratch/t423-m7-sol
   forbidden_reads_ack: true
-non_authorizations: [canon_chunk_output, read_other_model_maps_before_complete, realtime_cross_model_compare]
-owner_authorization: "Lowell Wong, 2026-07-21: run Sol at xhigh for the whole-Bible marathon feeding T521 cross-environment convergence (sol environment)."
-prompt_ref: .ai/context/agent_work/T521/whole_bible_convergence/sol_marathon_prompt.md
+non_authorizations:
+- canon_chunk_output
+- read_other_model_maps_before_complete
+- realtime_cross_model_compare
+owner_authorization: 'Lowell Wong, 2026-07-21: run Sol at xhigh for the whole-Bible
+  marathon feeding T521 cross-environment convergence (sol environment).'
+prompt_ref: .ai/scratch/multi_model_bible_chunking/M7_sol/campaign_prompt.md
+campaign_contract: .ai/scratch/multi_model_bible_chunking/M7_sol/campaign.json
+review_contract: .ai/scratch/multi_model_bible_chunking/M7_sol/review_contract.yaml
+authoritative_runtime_adapter: config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v1.yaml
+runtime_capability_evidence: .ai/scratch/multi_model_bible_chunking/M7_sol/runtime/codex_adapter.yaml
+baseline_drift_receipt: .ai/scratch/multi_model_bible_chunking/M7_sol/receipts/preflight.json
+current_book: Eccl
+latest_completed_book: Job
+latest_book_completion_receipt: .ai/scratch/multi_model_bible_chunking/M7_sol/receipts/Job_literary_completion_owner_ruling_v1.json
+unresolved_appeal_count: 1426
+unresolved_appeal_count_basis: unique_active_review_packet_appeal_ids_across_66_books

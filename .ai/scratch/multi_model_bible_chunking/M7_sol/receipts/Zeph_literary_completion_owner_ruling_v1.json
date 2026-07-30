@@ -1,0 +1,134 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T558",
+    "model_id":  "M7_sol",
+    "book":  "Zeph",
+    "completed_at_utc":  "2026-07-29T19:21:12.7108277Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  18,
+                            "canonical_verse_count":  53,
+                            "covered_verse_count":  53,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  18,
+                            "held_decision_count":  0,
+                            "held_decision_ids":  [
+
+                                                  ],
+                            "confidence":  {
+                                               "high":  12,
+                                               "medium":  6
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  54,
+                            "unique_primary_reviewer_attempt_ids":  54,
+                            "all_workflow_attempt_ids":  90,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  34,
+                                                     "challenge":  20
+                                                 },
+                            "scoped_challenge_claims":  20,
+                            "answered_challenges":  20,
+                            "active_specialist_post_ruling_appeals":  0,
+                            "open_linked_boundary_appeals":  0,
+                            "mandatory_parent_relations":  8,
+                            "preserved_dissent_relations":  6,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Zeph.md":  "dde3c5029c04def66b4c06b756cc91533a2397a20747afe498a79b1bf33e0905",
+                                   "book_chunks/Zeph/chunks.jsonl":  "d080cd3816f687ad133dcbe26580382ad812d0f43dac3f57416ce95bc936197e",
+                                   "reviews/Zeph/review_packets.jsonl":  "623ff869749c0585e8c56dec8f384c33eb7e44466f5503dc54760956f1313e2b",
+                                   "reviews/Zeph/decision_evidence_v2.jsonl":  "1538bc4db56420e0ad66b098c07a051b210d67669341d0a4a6a8cbaf0aedd0c1",
+                                   "reviews/Zeph/decision_relations.jsonl":  "26540bf5fba3a10b55c9375a8f56c0a775948fb791d5fa3f7da6da6ec017c808",
+                                   "reviews/Zeph/adjudicated_route_draft_v2.json":  "4c1629d677777ae7d3272c48780b6dfa8f38b3aa050796045e33e8dcf5d54b5a",
+                                   "reviews/Zeph/fresh_boss_adjudication_v2.json":  "5b527681ead545053e1ca30f00228d775c9381f3d42acd481dcbad5a57b91bf9",
+                                   "reviews/Zeph/boss_ruling_v2.json":  "07fac4bd0bc263e7c00a5825e16586e4d8b1add012532840f1df1743a46bbae5",
+                                   "reviews/Zeph/mesh_instruction_and_dissent_v2.json":  "04f0c445caa73fc2a3c9e1b1667801ffbeca66a3e26073b86d6dac8a757d01c3",
+                                   "reviews/Zeph/post_ruling_appeal_opportunities_v2.json":  "1103a6065e21429b75869482831a6db8e122c4fc4cfdcf02aee64af0efc6ab45",
+                                   "reviews/Zeph/independent_literary_postcheck_pre_binding_v2.json":  "60917613c8b070afc9f9075d3037ca22760def6534ed30f2de11f834e44da222",
+                                   "reviews/Zeph/independent_literary_postcheck_v2.json":  "9bb0be2d323472f34bb298cd49b1ccf9245a643149f0963086247830f46cafac",
+                                   "reviews/Zeph/post_resolution_check_v2.json":  "7b30f38fdb41db20bb6ae40bc600d9a8668ee143ce3b5db12a6372255c715822"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Zeph/chunks.jsonl --model-id M7_sol --book Zeph",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 18 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Zeph --json",
+                           "status":  "pass",
+                           "output":  "18 accepted, 0 held; zero template, generic-form, encoding, quote, prose-shell, semantic-constructor, or review-batch failures."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Zeph",
+                           "status":  "pass",
+                           "output":  "OK: Zeph chunks=18 exact ordered coverage=53/53."
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Zeph --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Zeph",
+                           "status":  "non_gating_owner_ruling_stale_pass1_only",
+                           "output":  "Literary and postcheck state green; only ten stale pass-one Zeph rows remain in each global uncertainty sidecar."
+                       }
+                   ],
+    "independent_checks":  {
+                               "pre_binding_verdict":  "pass",
+                               "final_bound_verdict":  "pass",
+                               "final_bound_report_sha256":  "9bb0be2d323472f34bb298cd49b1ccf9245a643149f0963086247830f46cafac",
+                               "structured_web_quotes_checked":  33,
+                               "structured_web_quote_failures":  0,
+                               "oshb_coordinates":  53,
+                               "uxlc_coordinates":  53,
+                               "structured_original_language_refs_checked":  144,
+                               "missing_original_language_coordinate_endpoints":  0
+                           },
+    "pass1_archive":  {
+                          "archived_before_rework":  true,
+                          "artifact_count":  15,
+                          "archived_review_file_count":  14,
+                          "archived_chunks_sha256":  "c137099b0e890774a26172c257d9cc3c93ca1bb85c3247eb7db36f20e7ce2341",
+                          "appeal_ledger_bytes":  284395,
+                          "appeal_ledger_sha256":  "97fc47138613b3c81f3304b97be8f0cc067232317e9332747316f8712fe433d8",
+                          "appeal_ledger_matches_archive":  true
+                      },
+    "sidecar_disposition":  {
+                                "status":  "non_gating_untouched_pass1_partitions",
+                                "orphan_rows_per_sidecar":  10,
+                                "sidecars":  [
+                                                 "low_confidence_register.jsonl",
+                                                 "frontier_escalation_queue.jsonl",
+                                                 "atlas_candidate_feed.jsonl"
+                                             ]
+                            },
+    "isolation":  {
+                      "m1_m6_read":  false,
+                      "comparison_read":  false,
+                      "t417_read":  false,
+                      "commit_push_merge":  false,
+                      "external_receipt_fabricated":  false
+                  },
+    "authority":  {
+                      "candidate_only":  true,
+                      "non_authorizing":  true,
+                      "counts_as_cross_model_convergence":  false,
+                      "promotion_authority":  false,
+                      "canon_route_graph_theology_authority":  false
+                  }
+}

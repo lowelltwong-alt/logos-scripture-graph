@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/whole_bible_prepared_stage_commit.schema.v1.json",
+  "title": "Prepared Immutable Stage Commit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "book", "run_id", "stage_id", "attempt_id", "campaign_path", "campaign_sha256", "draft_path", "draft_sha256", "input_manifest_path", "input_manifest_sha256", "output_manifest_path", "output_manifest_sha256", "prior_stage_receipt_path", "prior_stage_receipt_sha256", "candidate_receipt", "candidate_receipt_sha256", "prepared_at", "non_authorizing"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_prepared_stage_commit.v1"},
+    "book": {"type": "string", "minLength": 1},
+    "run_id": {"$ref": "#/$defs/safe_id"},
+    "stage_id": {"enum": ["B00", "B01"]},
+    "attempt_id": {"$ref": "#/$defs/safe_id"},
+    "campaign_path": {"$ref": "#/$defs/path"},
+    "campaign_sha256": {"$ref": "#/$defs/digest"},
+    "draft_path": {"$ref": "#/$defs/path"},
+    "draft_sha256": {"$ref": "#/$defs/digest"},
+    "input_manifest_path": {"$ref": "#/$defs/path"},
+    "input_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "output_manifest_path": {"$ref": "#/$defs/path"},
+    "output_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "prior_stage_receipt_path": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/path"}]},
+    "prior_stage_receipt_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/digest"}]},
+    "candidate_receipt": {"type": "object"},
+    "candidate_receipt_sha256": {"$ref": "#/$defs/digest"},
+    "prepared_at": {"type": "string", "format": "date-time"},
+    "non_authorizing": {"const": true}
+  },
+  "$defs": {
+    "safe_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1}
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "schema_version": "t550.v9_components_v3_policy_peer_crosscheck.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "reviewer_role": "independent_provider_neutral_policy_peer_crosschecker",
+  "review_mode": "read_only_exact_hash_adversarial_semantic_crosscheck",
+  "artifact_status": "complete_closed_peer_crosscheck",
+  "verdict": "FAIL_DRAFT_COMPONENT_NOT_QUALIFIED",
+  "implementation_success_claimed": false,
+  "test_success_claimed": false,
+  "canonical_readiness": false,
+  "candidate_only": true,
+  "non_authorizing": true,
+  "forced_consensus": false,
+  "reviewer_independence": {
+    "reviewed_only_artifacts_not_authored_by_this_reviewer": true,
+    "reviewed_own_native_helper": false,
+    "inspected_root_challenge_docket": false,
+    "sibling_model_maps_or_comparison_read": false
+  },
+  "immutable_inputs": {
+    "provider_neutral_policy": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v3.py",
+      "expected_sha256": "05f295c362743e65a0499c77cab857f17fbaa6e7e40572a4d2ee322afc30e8c5",
+      "observed_sha256": "05f295c362743e65a0499c77cab857f17fbaa6e7e40572a4d2ee322afc30e8c5",
+      "exact_hash_match": true
+    },
+    "provider_neutral_policy_tests": {
+      "path": "tests/test_rematerialization_live_gate_policy_v3.py",
+      "expected_sha256": "4c141e4b079472ccebb9d64e8d88888c847677441b350f2a70a4e72b09ddd347",
+      "observed_sha256": "4c141e4b079472ccebb9d64e8d88888c847677441b350f2a70a4e72b09ddd347",
+      "exact_hash_match": true
+    },
+    "static_allowlist": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_static_allowlist_v3.json",
+      "expected_sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed",
+      "observed_sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed",
+      "exact_hash_match": true
+    },
+    "corrected_design_and_boss_draft_freeze": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_draft_freeze.json",
+      "expected_sha256": "8b29f89e6d51a3927c9222d26300eafdf106e1f8c597c5cfb852d96bbad93c25",
+      "observed_sha256": "8b29f89e6d51a3927c9222d26300eafdf106e1f8c597c5cfb852d96bbad93c25",
+      "exact_hash_match": true,
+      "corrected_design_resolution_sha256": "e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85",
+      "corrected_design_boss_check_sha256": "9963403f8e639c1765ca28151df2e06c34d07b26a51b83e9ca19b5507425f7f8"
+    },
+    "v2_rejection_receipt_sha256": "24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f"
+  },
+  "executive_summary": "The policy is materially stronger than V2: it enforces exact canonical JSON bytes and detached hashes, rejects duplicate keys, closes nested schemas, checks target-parent-leaf relations within a supplied execution freeze, requires NTFS link_count one, derives blockers from one supplied process table, recomputes prepare evidence, compares broad prepare/publish continuity, separates read-only evidence from synthetic receipts, and never claims human identity or effect authority. It nevertheless fails the corrected implementation boundary. It never binds or validates the frozen static allowlist, accepts a wholly different 13+3 target set, lacks frozen permitted controller/current executable identities and hashes, treats an asserted hash-topology object as proof of acyclicity, and omits intra-check and cross-phase chronology ordering. The real static allowlist is also structurally incompatible with the policy: root sentinels and the receipts parent are one-component/root-relative forms rejected by _token, while five listed targets have staged bytes equal to preimage and are rejected by _freeze_files. These are reproducible implementation failures. They cannot authorize a canonical write because every result remains machine-only and explicitly blocked, but they prevent code-lock, reviewed-release, execution-freeze, or component qualification.",
+  "bounded_semantic_probes": [
+    {
+      "probe_id": "POL-V3-X-001",
+      "challenge": "Can a freeze whose paths and roles do not match the frozen Hosea static allowlist receive the machine-pass label?",
+      "expected": "REJECT_STATIC_ALLOWLIST_DRIFT",
+      "observed": "MACHINE_PRECONDITIONS_PASS_HUMAN_GATE_UNVERIFIED",
+      "evidence": "The policy test fixture uses area-1/parent/target-01.json and other synthetic roles rather than any ceb51bb9... allowlist row; validate_prepare returned the success label.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-002",
+      "challenge": "Are current and permitted-controller executable file identities and hashes bound to stable freeze expectations?",
+      "expected": "REJECT_UNFROZEN_OR_UNCLASSIFIED_EXECUTABLE",
+      "observed": "MACHINE_PRECONDITIONS_PASS_HUMAN_GATE_UNVERIFIED",
+      "evidence": "Changing the current normalized name to evil.exe and changing current and Codex-parent executable_identity strings to unfrozen attacker values still passed after observer consistency was updated.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-003",
+      "challenge": "Does the policy calculate an acyclic dependency graph rather than trust declarative booleans?",
+      "expected": "REJECT_UNMODELED_POST_COMPONENT_DEPENDENCY_OR_REQUIRE_EXPLICIT_DAG",
+      "observed": "PASS_COMPONENT_VALIDATION",
+      "evidence": "An extra zz_post_component_review dependency was accepted while component_lock_contains_post_component_review_hashes remained false. Dependencies are a required subset, not an exact typed DAG, and no edge-cycle computation exists.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-004",
+      "challenge": "Must the live checker start before it ends on both clocks?",
+      "expected": "REJECT_REVERSED_CHECKER_INTERVAL",
+      "observed": "MACHINE_PRECONDITIONS_PASS_HUMAN_GATE_UNVERIFIED",
+      "evidence": "Checker wall and monotonic start values were set after their end values while both remained inside capture; validation passed.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-005",
+      "challenge": "Must prepare evidence chronologically precede publish evidence?",
+      "expected": "REJECT_PUBLISH_CAPTURE_PRECEDING_PREPARE_CAPTURE",
+      "observed": "MACHINE_PRECONDITIONS_PASS_HUMAN_GATE_UNVERIFIED",
+      "evidence": "A prepare capture at offsets 10-13 and a publish capture at offsets 0-3 passed publish validation because continuity omits cross-phase clock ordering.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-006",
+      "challenge": "Can the policy represent the exact root sentinels and one-level receipts parent in the static allowlist?",
+      "expected": "ACCEPT_EXPLICIT_MODEL_ROOT_PARENT_WITHOUT_ALLOWING_DOTDOT_OR_ESCAPE",
+      "observed": "REJECTED_AS_NOT_CANONICAL",
+      "evidence": "_token rejects both low_confidence_register.jsonl and receipts because it requires at least two path components; the static allowlist uses parent_token '.' for sentinels and parent_token 'receipts' for target 13.",
+      "verdict": "FAIL"
+    },
+    {
+      "probe_id": "POL-V3-X-007",
+      "challenge": "Can the exact 13-row static allowlist be frozen when some governed files are intentionally byte-identical?",
+      "expected": "DEFINED_NOOP_OR_EXPLICIT_NONREPLACEMENT_TREATMENT",
+      "observed": "REJECTED_TARGET_STAGED_BYTES_EQUAL_PREIMAGE",
+      "evidence": "The policy rejects equality unconditionally. Static allowlist targets 4, 6, 9, 11, and 13 have identical preimage and staged SHA-256 values.",
+      "verdict": "FAIL"
+    }
+  ],
+  "requirement_matrix": [
+    {
+      "requirement": "closed_byte_parsing_and_detached_hashes",
+      "verdict": "PASS",
+      "basis": "Bytes-only input, lowercase detached SHA-256 verification, duplicate-key rejection, UTF-8 parsing, exact canonical reserialization, and closed nested schemas are enforced."
+    },
+    {
+      "requirement": "acyclic_topology",
+      "verdict": "FAIL",
+      "basis": "Topology is caller-authored booleans; dependency IDs are only a required subset; no explicit nodes, edges, exact-set rule, or direct/transitive cycle calculation exists."
+    },
+    {
+      "requirement": "stable_ephemeral_identity_split",
+      "verdict": "HOLD",
+      "basis": "PID/start/ancestry are correctly absent from the freeze schema and continuity-bound live, but corrected-design stable permitted executable identities and hashes are absent."
+    },
+    {
+      "requirement": "target_parent_leaf_identity",
+      "verdict": "FAIL",
+      "basis": "Relations are strongly checked inside the supplied freeze, but the freeze is not bound to the exact static allowlist and cannot encode its root/one-level cases."
+    },
+    {
+      "requirement": "hardlink_exactly_one",
+      "verdict": "PASS",
+      "basis": "Freeze and raw target/sentinel rows require supported link_count exactly one and continuity retains it."
+    },
+    {
+      "requirement": "chronology",
+      "verdict": "FAIL",
+      "basis": "Restart-after-freeze and per-capture dual-clock bounds pass review, but checker start/end ordering and prepare-before-publish ordering are missing."
+    },
+    {
+      "requirement": "process_ancestry_shapes_extra_writers_and_access_uncertainty",
+      "verdict": "HOLD",
+      "basis": "Supplied inaccessible, non-running, unclassified, OneDrive, and extra bounded rows fail; exact shell-to-Codex shapes are checked. The supplied inventory may omit a writer, inventory_exhaustive is required false, and arbitrary current executable names/identities can pass."
+    },
+    {
+      "requirement": "human_capability_nonclaim",
+      "verdict": "PASS",
+      "basis": "Result always records human_identity_verified false, effect_authorized false, external capability unverified, local JSON insufficient, and canonical execution blocked."
+    },
+    {
+      "requirement": "prepare_publish_independent_digests_and_full_continuity",
+      "verdict": "HOLD",
+      "basis": "Detached prepare raw/result hashes, exact result recomputation, and broad value continuity are enforced, but the policy cannot prove hash independence or same lease and omits cross-phase temporal ordering."
+    },
+    {
+      "requirement": "receipt_class_separation",
+      "verdict": "PASS",
+      "basis": "Only read_only_collector_zero_delta is accepted and synthetic transaction evidence is explicitly rejected."
+    },
+    {
+      "requirement": "final_completed_ordering",
+      "verdict": "PASS_AS_NONAUTHORIZING_POLICY_DECLARATION_ONLY",
+      "basis": "The result requires final checks before one completed transition, treats post-completed drift as diagnostic unknown, and never authorizes transaction completion. Enforcement remains future wrapper/kernel work."
+    }
+  ],
+  "blocking_findings": [
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-001",
+      "severity": "critical_implementation_blocker",
+      "title": "The policy does not bind the exact frozen static allowlist",
+      "challenge": "Neither the static allowlist SHA nor its exact rows are inputs to validation, constants, or required dependencies. Any trusted freeze with 13 structurally valid targets and three sentinels can pass.",
+      "counterevidence": "An externally trusted execution-freeze digest would prevent later mutation of whatever rows were frozen.",
+      "adjudication": "Counterevidence does not close the issue because the corrected design requires the freeze rows to be allowlist-derived. Trusting a freeze digest cannot prove that its initial content matched ceb51bb9....",
+      "required_resolution": "Bind exact canonical static-allowlist bytes and detached ceb51bb9... hash, define a deterministic exact projection into freeze rows, require its dependency in the component lock/reviewed release, and add wrong-role, wrong-path, missing-row, extra-row, reordered-row, and wrong-source-render negatives.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-002",
+      "severity": "critical_implementation_blocker",
+      "title": "The policy cannot represent the real allowlist without reinterpretation",
+      "challenge": "One-component/root sentinel paths and a one-component canonical parent are forbidden, while five of the fixed 13 target rows are rejected because staged equals preimage.",
+      "counterevidence": "A future freeze builder could prefix root-relative paths or omit no-op replacements.",
+      "adjudication": "That transformation is neither specified nor hash-bound, and target count is fixed at 13. Prefixing or omission would silently alter the exact allowlist contract.",
+      "required_resolution": "Define an explicit non-escaping model-root parent representation and deterministic normalization. Separately choose and freeze one no-op policy: retain byte-identical governed rows as checked nonreplacement members, or remove them from the replacement set with exact changed/unchanged counts and roles.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-003",
+      "severity": "high_implementation_blocker",
+      "title": "Acyclic topology is asserted rather than verified",
+      "challenge": "The component supplies topology booleans, required dependencies are a subset, and extra post-component or back-edge-like entries are accepted.",
+      "counterevidence": "The future external trust root and reviewed release are outside this pure policy.",
+      "adjudication": "External trust does not calculate or validate the corrected design's directed acyclic artifact graph.",
+      "required_resolution": "Use an exact typed node/edge graph, exact dependency set, predecessor-stage constraints, and deterministic direct/transitive cycle rejection. Do not allow a boolean to stand in for graph proof.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-004",
+      "severity": "critical_implementation_blocker",
+      "title": "Stable permitted executable identities and hashes are absent",
+      "challenge": "Raw executable_identity is arbitrary non-empty text, no executable hash exists, and no current/controller executable identity is frozen. An evil.exe current process with attacker identity strings under a Codex-named parent passed.",
+      "counterevidence": "PID/start/executable strings must remain identical prepare-to-publish and extra named bounded processes are blocked.",
+      "adjudication": "Continuity preserves an attacker-controlled identity; it does not establish that the executable is the pre-reviewed collector/controller binary required by the corrected design.",
+      "required_resolution": "Freeze structured permitted current/controller executable file identities and hashes, compare handle-derived live identity/hash exactly, require the current process class explicitly, and reject renamed or unlisted executable images.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-005",
+      "severity": "high_implementation_blocker",
+      "title": "Chronology is incomplete inside the lease and across phases",
+      "challenge": "Individual timestamps need only fall inside capture; checker start may follow checker end. Publish capture may precede prepare capture and validation still succeeds.",
+      "counterevidence": "Each capture independently satisfies dual-clock age/duration bounds, and full material continuity is checked.",
+      "adjudication": "Freshness is not causal order. Reversed phase evidence defeats the stated prepare-then-publish protocol.",
+      "required_resolution": "Enforce checker start <= end on both clocks, ordered observations where required, prepare capture/validation before publish capture/validation, monotonic nondecrease, same post-restart boot, and wrapper-proven same-lease continuity.",
+      "appeal_preserved": true
+    },
+    {
+      "finding_id": "T550-V9-V3-POLICY-X-006",
+      "severity": "high_hold",
+      "title": "Process uncertainty fails only for rows the caller supplies",
+      "challenge": "The policy cannot detect omitted bounded writers or prove complete enumeration, yet returns a machine-pass label while inventory_exhaustive is false.",
+      "counterevidence": "The result explicitly preserves future/preopened-writer limitations and blocks canonical execution; supplied access-denied or extra bounded rows fail.",
+      "adjudication": "The nonclaim prevents authority escalation, but corrected-design partial-enumeration semantics are not implemented. This remains a hold even after the executable-identity fix.",
+      "required_resolution": "Require collector-signed enumeration completeness/coverage metadata, retain inaccessible bounded rows as blocking evidence rather than omission, and keep strict writer-race dissent unresolved.",
+      "appeal_preserved": true
+    }
+  ],
+  "v2_counterexample_adjudication": [
+    {
+      "v2_counterexample": "valid_parent_id_swap",
+      "status": "CLOSED_WITHIN_SUPPLIED_FREEZE",
+      "basis": "Raw parent_id must equal frozen row and parent identity must equal frozen canonical parent."
+    },
+    {
+      "v2_counterexample": "frozen_logical_token_bound_to_different_same_parent_file",
+      "status": "CLOSED_WITHIN_SUPPLIED_FREEZE",
+      "basis": "Token, leaf, file identity, size, and hashes are jointly compared."
+    },
+    {
+      "v2_counterexample": "noncurrent_bounded_writer_hidden_by_inconsistent_redundant_lists",
+      "status": "PARTIALLY_CLOSED",
+      "basis": "Derived sets now come from one supplied process array, but omission or incomplete enumeration remains possible."
+    },
+    {
+      "v2_counterexample": "boot_time_after_capture_end",
+      "status": "CLOSED",
+      "basis": "Boot must follow frozen_at and be no later than capture start."
+    },
+    {
+      "v2_counterexample": "unlinked_onedrive_match",
+      "status": "PARTIALLY_CLOSED",
+      "basis": "A supplied onedrive.exe row blocks, but omitted rows are not detectable by pure policy."
+    },
+    {
+      "v2_counterexample": "canonical_parent_identity_alias",
+      "status": "CLOSED_WITHIN_SUPPLIED_FREEZE",
+      "basis": "Parent file identity keys must be unique."
+    },
+    {
+      "v2_counterexample": "prepare_publish_current_process_id_drift",
+      "status": "CLOSED",
+      "basis": "Current and parent process fields plus all supplied process rows are continuity-bound."
+    },
+    {
+      "v2_counterexample": "provider_injection_and_lossy_raw_bridge",
+      "status": "CLOSED_IN_POLICY_SURFACE",
+      "basis": "Pure bytes-only parsing and production provenance fields reject provider/test backend injection and retain the complete closed raw record."
+    },
+    {
+      "v2_counterexample": "local_json_impersonates_owner_authority",
+      "status": "CLOSED_BY_PERMANENT_NONCLAIM",
+      "basis": "Local projection is descriptive only and every result says human and capability verification are external and absent."
+    }
+  ],
+  "preserved_appeals": [
+    {
+      "position": "Because every result blocks canonical execution, machine-pass overbreadth is harmless.",
+      "response": "It is materially safer than V2 and prevents present effects, but the reviewed task is component qualification against the corrected design. A knowingly overbroad machine-pass cannot be frozen into a future production component.",
+      "status": "REJECTED_FOR_COMPONENT_QUALIFICATION_PRESERVED_FOR_REVIEW"
+    },
+    {
+      "position": "An independently trusted execution-freeze digest can replace static-allowlist validation.",
+      "response": "A digest authenticates bytes, not the correctness of the initial projection. The exact static allowlist is a normative predecessor and must be deterministically bound.",
+      "status": "REJECTED_PRESERVED_FOR_REVIEW"
+    },
+    {
+      "position": "The production collector will guarantee process completeness and executable identity outside pure policy.",
+      "response": "That may close part of the gap only after the collector schema carries structured, frozen, independently checked evidence and the policy refuses missing or inconsistent fields.",
+      "status": "HELD_PENDING_IMPLEMENTATION"
+    }
+  ],
+  "preserved_strict_writer_race_dissent": {
+    "position": "STRICT_BLOCK",
+    "status": "UNRESOLVED_NOT_OVERRIDDEN",
+    "reason": "Even corrected process and handle checks do not exclude every preopened, future, renamed, hidden, kernel, sync, ancestor-thread, or noncooperating writer in replacement-compatible windows.",
+    "forced_consensus": false
+  },
+  "dad_learning_loop": {
+    "preflight_search": "No applicable DAD lesson nodes were returned; lesson graph was stale and candidate-only.",
+    "candidate_exception": "A synthetic policy fixture can pass while being structurally incompatible with the exact production allowlist. Future component reviews require an exact production-row projection test before fixture-only semantic PASS can qualify a component.",
+    "postflight_transport": "not_sent_scope_limited_to_this_repo_review_artifact",
+    "authority": "candidate_only"
+  },
+  "authority_limits": {
+    "policy_component_qualified": false,
+    "draft_freeze_qualified": false,
+    "code_lock_authorized": false,
+    "reviewed_release_authorized": false,
+    "execution_freeze_authorized": false,
+    "external_owner_capability_available": false,
+    "live_measurement_authorized": false,
+    "restart_or_onedrive_authorized": false,
+    "prepare_publish_or_recover_authorized": false,
+    "canonical_or_global_write_authorized": false,
+    "comparison_promotion_commit_push_or_merge_authorized": false
+  },
+  "actions_not_taken": [
+    "did_not_review_own_native_helper_or_tests",
+    "did_not_edit_policy_tests_allowlist_design_or_frozen_artifacts",
+    "did_not_run_formal_pytest_or_other_costly_suite",
+    "did_not_run_native_or_live_measurement",
+    "did_not_open_or_modify_canonical_or_global_targets",
+    "did_not_restart_windows_or_touch_onedrive",
+    "did_not_prepare_publish_recover_commit_push_or_merge",
+    "did_not_force_consensus"
+  ],
+  "next_action": "Keep the V3 policy component unfrozen. Repair exact static-allowlist binding and representability, implement a deterministically checked acyclic artifact DAG, bind stable executable file identities and hashes, enforce process coverage uncertainty and complete chronology, and add exact counterexample tests. Then freeze new hashes and obtain a fresh independent checker, premortem, and boss ruling. Canonical execution remains separately blocked by the absent external owner capability and strict writer-race dissent."
+}

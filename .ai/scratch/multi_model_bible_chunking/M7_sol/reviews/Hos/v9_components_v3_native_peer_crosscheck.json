@@ -1,0 +1,297 @@
+{
+  "schema_version": "t550.v9_components_v3_native_peer_crosscheck.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "independent_native_helper_and_static_allowlist_peer_crosscheck",
+  "review_mode": "read_only_static_adversarial_review_no_live_or_canonical_actions",
+  "artifact_status": "complete_closed_peer_crosscheck",
+  "verdict": "HOLD_FOR_NATIVE_AND_ALLOWLIST_REPAIR_BEFORE_COMPONENT_QUALIFICATION",
+  "verdict_scope": "The frozen draft remains useful as non-authorizing implementation evidence, but the reviewed native helper, tests, allowlist, validator, and validator tests do not yet qualify a production component or justify a sealed launcher.",
+  "authorship_isolation": {
+    "reviewed_only_artifacts_not_authored_by_this_reviewer": true,
+    "provider_neutral_policy_reviewed": false,
+    "frozen_artifacts_edited": false,
+    "root_challenge_docket_inspected": false
+  },
+  "immutable_inputs": [
+    {
+      "artifact_id": "v3_draft_freeze",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_draft_freeze.json",
+      "expected_sha256": "8b29f89e6d51a3927c9222d26300eafdf106e1f8c597c5cfb852d96bbad93c25",
+      "observed_sha256": "8b29f89e6d51a3927c9222d26300eafdf106e1f8c597c5cfb852d96bbad93c25",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "windows_native_test_only_helper_v3",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py",
+      "expected_sha256": "1610621d968ab1a7dd562e4f46c441f0165f189d8c586aa65b3ad9698044afba",
+      "observed_sha256": "1610621d968ab1a7dd562e4f46c441f0165f189d8c586aa65b3ad9698044afba",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "windows_native_test_only_helper_v3_tests",
+      "path": "tests/test_windows_nt_native_measurement_v3.py",
+      "expected_sha256": "6afccc6ef4db311faddb4833a9acd6c0490837cf096c85c3c50ca0f9267b76a2",
+      "observed_sha256": "6afccc6ef4db311faddb4833a9acd6c0490837cf096c85c3c50ca0f9267b76a2",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "static_allowlist_v3",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_static_allowlist_v3.json",
+      "expected_sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed",
+      "observed_sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "static_allowlist_validator_v3",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_v9_static_allowlist_v3.py",
+      "expected_sha256": "ae916bb543ab9e0c81741392ae69294a86e28a7586780db4e1d40a3560a2449d",
+      "observed_sha256": "ae916bb543ab9e0c81741392ae69294a86e28a7586780db4e1d40a3560a2449d",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "static_allowlist_validator_v3_tests",
+      "path": "tests/test_validate_v9_static_allowlist_v3.py",
+      "expected_sha256": "b82ea2e5134b6c58e3a7bd2cc46a601af0f8bd0dc88d357c29068cb75bad30ae",
+      "observed_sha256": "b82ea2e5134b6c58e3a7bd2cc46a601af0f8bd0dc88d357c29068cb75bad30ae",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "corrected_design_resolution",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_design_resolution_v2.json",
+      "expected_sha256": "e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85",
+      "observed_sha256": "e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85",
+      "exact_hash_match": true
+    },
+    {
+      "artifact_id": "corrected_design_boss_check",
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_design_resolution_v2_boss_check.json",
+      "expected_sha256": "9963403f8e639c1765ca28151df2e06c34d07b26a51b83e9ca19b5507425f7f8",
+      "observed_sha256": "9963403f8e639c1765ca28151df2e06c34d07b26a51b83e9ca19b5507425f7f8",
+      "exact_hash_match": true
+    }
+  ],
+  "positive_counterevidence": [
+    {
+      "area": "test_and_production_provenance_isolation",
+      "evidence": "The helper exposes only a test-only schema/backend, marks production_eligible and effect_authorized false, returns a nonserializable process-local lease, and has no collect_production entry point.",
+      "assessment": "SUPPORT_DRAFT_ONLY_NOT_PRODUCTION"
+    },
+    {
+      "area": "windows_liveness_semantics",
+      "evidence": "require_process_running correctly treats WaitForSingleObject(handle, 0) == WAIT_TIMEOUT as running, rejects other results, and rechecks the Windows process creation token.",
+      "assessment": "SUPPORT_PARTIAL"
+    },
+    {
+      "area": "hardlink_reparse_and_file_identity",
+      "evidence": "Target and sentinel leaves are opened relative to retained parent handles, FileIdInfo and FileStandardInfo are recorded, reparse leaves are rejected, link_count must equal one, duplicate file identities fail, and file identity/hash are rechecked before record sealing.",
+      "assessment": "SUPPORT_PARTIAL"
+    },
+    {
+      "area": "zero_delta_disclosure",
+      "evidence": "The record limits its positive claim to governed-byte and directory-member delta and explicitly reports metadata/cloud-hydration proof unavailable, process inventory non-exhaustive, writer exclusion false, and production readiness false.",
+      "assessment": "SUPPORT_LIMITED"
+    },
+    {
+      "area": "static_allowlist_byte_identity",
+      "evidence": "validate_files pins both the current allowlist bytes and the source V6 manifest bytes to exact SHA-256 values before object validation, checks exact 13/3 counts and order, and protects the current path/hash/size tuple against file drift.",
+      "assessment": "SUPPORT_CURRENT_BYTES_ONLY"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-001",
+      "severity": "critical",
+      "status": "OPEN_HOLD",
+      "challenge": "The exported competing_open_denied(path) primitive has no safe-root check and accepts any caller-supplied filesystem path. It requests GENERIC_WRITE or DELETE access before proving that the path is inside the disposable nonce root. A caller can therefore direct this test-only module at canonical or global files, contradicting the claimed canonical/global nonaccess boundary even if no bytes are ultimately written.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:1192",
+        "tests/test_windows_nt_native_measurement_v3.py:161"
+      ],
+      "counterevidence": "The frozen tests call this function only on a generated sentinel below a UUID-named C:\\tmp fixture, and the function performs only an open/close contention probe.",
+      "required_resolution": "Make the primitive incapable of accepting an unverified path: bind it to a verified retained test-root/parent handle and exact allowed leaf, or keep it private behind a closure that already possesses the verified fixture lease. Add an adversarial canonical/outside-root rejection test before any open.",
+      "appeal": "A test caller may promise to pass only fixture paths, but caller discipline is not the corrected design's fail-closed safety boundary."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-002",
+      "severity": "high",
+      "status": "OPEN_HOLD",
+      "challenge": "Safe-root, workspace, parent-membership, and cleanup continuity are not fully handle-rooted. verify_safe_test_root resolves a pathname but retains no root handle; workspace is later opened by full pathname; directory membership is enumerated again by model/path strings; final validation rechecks only target/sentinel and process handles; and cleanup revalidates only the pathname pattern before shutil.rmtree. A rename/substitution can separate the retained objects from the path later enumerated or deleted.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:99",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:649",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:868",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:959",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:1070",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:1247",
+        "tests/test_windows_nt_native_measurement_v3.py:87"
+      ],
+      "counterevidence": "Model, nested parent, and file leaves are initially opened with NT RootDirectory semantics, their handles are retained, and reparse/identity alias checks reduce substitution risk.",
+      "required_resolution": "Retain and freeze the exact test-root handle identity; open workspace relative to it; enumerate memberships through retained directory handles; revalidate volume/root/workspace/model/all parent identities plus exact handle leaf-parent relations immediately before sealing; and require cleanup to compare the retained root identity to the current cleanup target before deletion.",
+      "appeal": "UUID naming makes accidental collision unlikely, but likelihood is not identity continuity and does not close a fail-closed cleanup race."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-003",
+      "severity": "high",
+      "status": "OPEN_HOLD",
+      "challenge": "Process evidence is an ancestry sample, not the corrected design's bounded relational closure. The Toolhelp snapshot supplies name and parent_pid; a later OpenProcess validates only that the newly opened PID is live and has a stable creation token. The code does not bind the snapshot name/parent relation to that opened instance, does not hash the executable, stops after a default depth of three, does not enumerate/classify the complete bounded writer set, and cannot reject hidden OneDrive/other writer rows. PID reuse between snapshot and handle acquisition remains ambiguous.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:779",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:788",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:838",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:842",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:1175"
+      ],
+      "counterevidence": "Every sampled ancestor is opened with PROCESS_QUERY_LIMITED_INFORMATION plus SYNCHRONIZE, its executable is opened and identified, WAIT_TIMEOUT is correctly required, and its creation token is checked twice.",
+      "required_resolution": "Implement exact bounded enumeration and code-fixed classification; bind snapshot rows to opened instances using PID plus creation time plus executable identity/hash and revalidated parent relation; fail on inaccessible/partial rows; and add access-denied, exit-during-capture, PID-reuse, ancestry contradiction, and hidden-writer negatives.",
+      "appeal": "The helper honestly labels process_inventory_exhaustive false, so this is not evidence fraud; it is nevertheless insufficient for component qualification."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-004",
+      "severity": "medium",
+      "status": "OPEN_HOLD",
+      "challenge": "native_architecture is read from the mutable PROCESSOR_ARCHITECTURE environment variable rather than a native Windows architecture API. The record can therefore misdescribe host architecture while presenting it as an operating-system fact.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:752"
+      ],
+      "counterevidence": "The helper is explicitly test-only and also records Python pointer width.",
+      "required_resolution": "Use GetNativeSystemInfo and/or IsWow64Process2 with exact API error handling, record native and process architecture separately, and test environment-variable spoofing cannot affect the fact.",
+      "appeal": "Environment architecture is useful diagnostic metadata but cannot satisfy the corrected design's exact OS/build/architecture gate."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-005",
+      "severity": "high",
+      "status": "OPEN_HOLD",
+      "challenge": "The effects record states canonical_or_global_path_opened=false although collection opens the volume-root GUID and current/ancestor executable image paths outside the disposable fixture. This conflates 'no canonical target opened' with 'no global/system path opened' and makes the nonaccess claim broader than the observed behavior.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:807",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:949",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_native_measurement_v3.py:1162"
+      ],
+      "counterevidence": "No canonical Hosea target or global sidecar is derived or opened by collect_test_only_temp_root, and all reported mutation flags remain false.",
+      "required_resolution": "Split the claim into exact categories: canonical governed target opened, disposable fixture opened, volume metadata/root opened, and process executable opened. Mark the latter two true and keep zero-delta evidence scoped only to the fixture bytes and enumerated memberships.",
+      "appeal": "If 'global' was intended to mean only the three global sidecars, rename the field; the current wording remains materially ambiguous."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-006",
+      "severity": "high",
+      "status": "OPEN_HOLD",
+      "challenge": "The native tests do not exercise the production primitive required by the Windows design because no production entry point exists. They also omit integrated collector rejection for reparse components, parent/root rename substitution, cleanup identity substitution, target write/delete contention, process access uncertainty, process exit, PID reuse, partial inventory, and executable-identity ambiguity. The reparse test observes a link directly rather than proving collect_test_only_temp_root rejects one in an allowed token chain.",
+      "evidence_locations": [
+        "tests/test_windows_nt_native_measurement_v3.py:103",
+        "tests/test_windows_nt_native_measurement_v3.py:161",
+        "tests/test_windows_nt_native_measurement_v3.py:175",
+        "tests/test_windows_nt_native_measurement_v3.py:207",
+        "tests/test_windows_nt_native_measurement_v3.py:222",
+        "tests/test_windows_nt_native_measurement_v3.py:249"
+      ],
+      "counterevidence": "The frozen suite does cover actual NTFS collection, fixture byte/member equality, sentinel sharing denial, distinct identities, explicit reparse coverage_unavailable, unsafe-root rejection, exact pinned hashes, and extra-hardlink rejection. The draft freeze reports seven direct Windows functions passing while explicitly refusing to call formal pytest coverage a pass.",
+      "required_resolution": "Add the missing deterministic and safe real-Windows adversarial cases against the same primitive intended for production, then obtain fresh formal harness evidence or retain coverage_unavailable.",
+      "appeal": "Direct-function success remains useful draft evidence but is lower-grade than isolated formal tests and does not cover the missing failure paths."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-007",
+      "severity": "medium",
+      "status": "OPEN_HOLD",
+      "challenge": "The allowlist validator pins the current file bytes but does not independently validate several semantic fields it presents as governed: exact application_family; normalization booleans; source_render generation and independent-content-pass hash; exact target IDs and roles; exact sentinel IDs and roles; trailing-dot/space rejection; and case-insensitive Windows path uniqueness. validate_objects therefore does not defend the declared semantic contract if reused with newly pinned bytes.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_v9_static_allowlist_v3.py:121",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_v9_static_allowlist_v3.py:135",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_v9_static_allowlist_v3.py:178",
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_v9_static_allowlist_v3.py:245",
+        "tests/test_validate_v9_static_allowlist_v3.py:37"
+      ],
+      "counterevidence": "For this exact frozen generation, validate_files rejects any byte change to the allowlist or V6 source manifest before semantic parsing, and path/hash/size/order/count relations for the current rows are checked.",
+      "required_resolution": "Close and validate every declared semantic subobject and exact role/ID tuple; enforce Windows casefold uniqueness and all claimed normalization rules; reject duplicate JSON keys; and add one negative per protected semantic field.",
+      "appeal": "A whole-file hash is strong identity evidence, but it proves that reviewed bytes are unchanged—not that every claim inside those bytes is semantically valid."
+    },
+    {
+      "finding_id": "T550-V9-V3-NATIVE-PEER-008",
+      "severity": "medium",
+      "status": "OPEN_HUMAN_OR_BOSS_DECISION",
+      "challenge": "Five of the 13 allowlisted transaction targets have identical preimage and staged hashes/sizes: ordinals 4, 6, 9, 11, and 13. Treating unchanged objects as forward-replacement targets adds replacement exposure without a byte-state transition and blurs the distinction between mutation targets and immutable guarded members.",
+      "evidence_locations": [
+        ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_static_allowlist_v3.json"
+      ],
+      "counterevidence": "The V3 contract currently freezes an exact 13-target tuple inherited from the V6 content manifest, so retaining all 13 may be intentional for set-level completeness and validation.",
+      "required_resolution": "Before any launcher draft, explicitly rule whether unchanged rows are guarded non-replacement members or intentional no-op targets. If retained as targets, the kernel must skip replacement when preimage equals staged and prove that no rename/write occurred while still validating the row.",
+      "appeal": "Changing the 13-target tuple would itself require a new reviewed static allowlist and design-bound freeze; this review does not authorize that change."
+    }
+  ],
+  "evidence_grade": {
+    "grade": "LIMITED_DRAFT_EVIDENCE_NOT_COMPONENT_QUALIFICATION",
+    "deterministic_static_hash_verification": "PASS_ALL_EIGHT_REVIEW_INPUTS",
+    "native_semantic_review": "HOLD_MATERIAL_GAPS",
+    "formal_pytest": "coverage_unavailable_per_frozen_receipt_not_rerun",
+    "actual_windows_direct_functions": "reported_pass_by_frozen_receipt_not_independently_replayed",
+    "production_primitive_tested": false,
+    "canonical_nonaccess_proven": false,
+    "zero_delta_scope": "fixture_bytes_and_selected_directory_members_only",
+    "portable_capability_classification": {
+      "native_helper": "environment_bound_exception_test_only",
+      "static_allowlist_validator": "portable_core_candidate_with_incomplete_semantic_harness"
+    }
+  },
+  "dad_preflight": {
+    "lesson_graph_status": "stale_candidate_surface",
+    "lesson_matches": 0,
+    "subagent_capability_graph_status": "fresh_candidate_surface",
+    "capability_matches": 0,
+    "dad_authority_used": false,
+    "local_repository_authority_preserved": true
+  },
+  "preserved_appeals": [
+    {
+      "appeal_id": "T550-V9-V3-NATIVE-APPEAL-001",
+      "position": "The test-only helper can remain useful without satisfying production closure.",
+      "treatment": "ACCEPTED. Repairing test-scope safety and claim precision is still required, but a separate sealed production adapter remains the later qualification gate."
+    },
+    {
+      "appeal_id": "T550-V9-V3-NATIVE-APPEAL-002",
+      "position": "Exact frozen whole-file hashes make semantic field checks redundant.",
+      "treatment": "REJECTED FOR REUSABLE_VALIDATOR_CLAIMS. Hashes prove identity; semantic validation independently proves the meaning required before a new freeze."
+    },
+    {
+      "appeal_id": "T550-V9-V3-NATIVE-APPEAL-003",
+      "position": "Compatible retained handles and current tests sufficiently exclude writers.",
+      "treatment": "REJECTED. The corrected design's strict writer-race dissent remains unresolved, and the current process inventory is explicitly non-exhaustive."
+    },
+    {
+      "appeal_id": "T550-V9-V3-NATIVE-APPEAL-004",
+      "position": "The exact 13-target tuple must remain unchanged even where staged bytes equal preimage bytes.",
+      "treatment": "UNRESOLVED_FOR_BOSS_OR_HUMAN. Preserve the tuple until a new reviewed design decides guard-only versus explicit no-op treatment."
+    }
+  ],
+  "required_next_gate": [
+    "Repair the unsafe exported path probe and make all fixture cleanup/root continuity identity-bound.",
+    "Implement complete fail-closed process relational closure and native architecture measurement.",
+    "Correct zero-delta/nonaccess receipt categories.",
+    "Strengthen allowlist semantic validation and negative tests.",
+    "Resolve unchanged target treatment without silently changing the frozen tuple.",
+    "Freeze a new acyclic draft and obtain fresh independent checker, premortem, and boss review."
+  ],
+  "authority_limits": {
+    "implementation_qualified": false,
+    "test_evidence_qualified": false,
+    "component_generation_qualified": false,
+    "sealed_launcher_warranted": false,
+    "external_owner_capability_available": false,
+    "live_measurement_authorized": false,
+    "restart_or_onedrive_action_authorized": false,
+    "prepare_publish_or_recover_authorized": false,
+    "canonical_or_global_write_authorized": false,
+    "candidate_only": true,
+    "non_authorizing": true,
+    "forced_consensus": false
+  },
+  "actions_not_taken": [
+    "did_not_edit_any_frozen_component_or_test",
+    "did_not_review_the_reviewers_own_policy",
+    "did_not_inspect_the_root_challenge_docket",
+    "did_not_run_formal_pytest",
+    "did_not_run_native_or_live_measurement",
+    "did_not_open_canonical_or_global_targets",
+    "did_not_restart_windows_or_touch_onedrive",
+    "did_not_prepare_publish_recover_or_write_canonical_state"
+  ]
+}

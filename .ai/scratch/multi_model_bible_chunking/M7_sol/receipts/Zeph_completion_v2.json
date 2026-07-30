@@ -1,0 +1,104 @@
+{
+  "schema_version": "m7_book_completion_receipt.v2",
+  "model_id": "M7_sol",
+  "book": "Zeph",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "chunk_count": 10,
+  "review_packet_count": 10,
+  "canonical_verse_count": 53,
+  "covered_verse_count": 53,
+  "exact_ordered_coverage": true,
+  "accepted_decision_count": 0,
+  "accepted_decision_ids": [],
+  "held_decision_count": 10,
+  "held_decision_ids": [
+    "M7_sol-Zeph-001",
+    "M7_sol-Zeph-002",
+    "M7_sol-Zeph-003",
+    "M7_sol-Zeph-004",
+    "M7_sol-Zeph-005",
+    "M7_sol-Zeph-006",
+    "M7_sol-Zeph-007",
+    "M7_sol-Zeph-008",
+    "M7_sol-Zeph-009",
+    "M7_sol-Zeph-010"
+  ],
+  "unresolved_appeal_count": 10,
+  "unresolved_appeal_ids": [
+    "ZEPH-APPEAL-001",
+    "ZEPH-APPEAL-002",
+    "ZEPH-APPEAL-003",
+    "ZEPH-APPEAL-004",
+    "ZEPH-APPEAL-005",
+    "ZEPH-APPEAL-006",
+    "ZEPH-APPEAL-007",
+    "ZEPH-APPEAL-008",
+    "ZEPH-APPEAL-009",
+    "ZEPH-APPEAL-010"
+  ],
+  "chunks_sha256": "c137099b0e890774a26172c257d9cc3c93ca1bb85c3247eb7db36f20e7ce2341",
+  "review_packets_sha256": "8040da622c6649a158ebf6472eca5474e6be1853a1b55936550c3fd52daf512d",
+  "decision_relations_sha256": "97bfb3bee7fb65890435c51ce669f0a326fbef6f08ca55133057dddde124e08e",
+  "uncertainty_sidecar_sha256": {
+    "low_confidence_register.jsonl": "e40aef7e70997251143f05b4ca61ef11e338283c086b3fc6f957602fc6c49350",
+    "frontier_escalation_queue.jsonl": "8cce74c44628a136d8964dc1ee3f744da17ebf436efbbee8d338225fc4be268d",
+    "atlas_candidate_feed.jsonl": "82758cc1a085423f42bc8b91d45e9b9b78f0f8608b83556f82ef8fa9be84a860"
+  },
+  "postcheck_sha256": "b14c66b848a3b65e2d3c65c3ae6f76ec79ea4b1c53cc0dda03a4b3f2a7c4bf78",
+  "checker_verdict_path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Zeph/role_separated_checker_verdict_v1.json",
+  "checker_verdict_sha256": "8948d7b4931d01f17c241716cf22ecc9ac22327b7f5db6493792ad8434b68456",
+  "postchecker_attempt_id": "zeph-role-separated-postchecker-20260723-f",
+  "postcheck_status": "pass_with_holds",
+  "independence_scope": {
+    "independent_from_sibling_model_maps": true,
+    "primaries_blind_to_each_other_artifacts": true,
+    "roles_separated": true,
+    "shared_model_substrate": true,
+    "counts_as_cross_model_independent_votes": false,
+    "independent_model_or_human_evidence_required_at_convergence": true,
+    "reviewer_count_is_not_authority": true,
+    "correlated_mesh_weight_at_convergence": "one_model_voice"
+  },
+  "pre_receipt_gates": [
+    {
+      "gate_id": "exact_ordered_coverage",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_exact_book_coverage.py --book Zeph",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Zeph chunks=10 exact ordered coverage=53/53"
+    },
+    {
+      "gate_id": "official_chunk_map",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_chunk_map.py C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\book_chunks\\Zeph\\chunks.jsonl --model-id M7_sol --book Zeph --python-only",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Zeph/chunks.jsonl"
+    },
+    {
+      "gate_id": "review_status_sidecar_independence_parity",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_book_review_coverage.py --book Zeph --require-final-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Zeph exact verse coverage and review parity"
+    },
+    {
+      "gate_id": "literary_quality_protocol",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_t423_literary_quality_protocol.py --model-folder C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol --book Zeph --require-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "T423 literary quality protocol: OK"
+    },
+    {
+      "gate_id": "workflow_replay_contract",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_candidate_workflow.py",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "Whole-Bible candidate workflow validation passed."
+    }
+  ],
+  "receipt_written_after_final_hash_and_gates": true,
+  "validation_bundle_command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_completion_bundle.py --book Zeph",
+  "post_receipt_validation_required": true,
+  "forced_consensus": false,
+  "non_authorizing": true
+}

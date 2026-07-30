@@ -1,0 +1,61 @@
+{
+  "schema_version": "m7_job_4_27_redteam_review.v1",
+  "model_id": "M7_sol",
+  "book": "Job",
+  "scope": "Job.4.1-Job.27.23",
+  "review_mode": "read_only_red_team",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "verdict": "retain_chapter_scaffolds_with_holds",
+  "summary": "Chapter-sized candidates are a defensible temporary coverage scaffold, but chapter edges are editorial coordinates rather than proof of speaker turns. Keep low confidence and do not promote the generic dialogue_speech_cycle labels as speaker or theology metadata.",
+  "safe_labels": [
+    {"range":"Job.4.1-Job.5.27","label":"Eliphaz_first_speech_sequence","qualification":"speaker attribution follows conventional discourse layout only; retain candidate hold"},
+    {"range":"Job.6.1-Job.7.21","label":"Job_first_response_sequence","qualification":"one response sequence across two chapter coordinates; do not infer a modern genre label"},
+    {"range":"Job.8.1-Job.8.22","label":"Bildad_first_speech","qualification":"short poetic disputation; chapter coordinate is not independent boundary evidence"},
+    {"range":"Job.9.1-Job.10.22","label":"Job_second_response_sequence","qualification":"legal/court imagery is an internal motif, not a claim that a court scene occurred"},
+    {"range":"Job.11.1-Job.11.20","label":"Zophar_first_speech","qualification":"rhetorical wisdom disputation; avoid labeling claims as narrator-approved"},
+    {"range":"Job.12.1-Job.14.22","label":"Job_third_response_sequence","qualification":"includes wisdom reflection, legal pleading, and mortality lament; these are internal seam cues only"},
+    {"range":"Job.15.1-Job.15.35","label":"Eliphaz_second_speech","qualification":"poetic rebuke/wisdom disputation; accusations remain a character's speech"},
+    {"range":"Job.16.1-Job.17.16","label":"Job_fourth_response_sequence","qualification":"lament and witness/court imagery are literary observations, not theological conclusions"},
+    {"range":"Job.18.1-Job.18.21","label":"Bildad_second_speech","qualification":"fate imagery and parallelism; do not equate poetic generalizations with narrator statements"},
+    {"range":"Job.19.1-Job.19.29","label":"Job_fifth_response","qualification":"lament, alienation, and witness/redeemer language; key lexical variants require hold"},
+    {"range":"Job.20.1-Job.20.29","label":"Zophar_second_speech","qualification":"wisdom disputation with vivid imagery; no endorsement inference"},
+    {"range":"Job.21.1-Job.21.34","label":"Job_sixth_response","qualification":"counter-observation about the wicked and direct address to friends"},
+    {"range":"Job.22.1-Job.22.30","label":"Eliphaz_third_speech","qualification":"accusatory disputation; allegations must not be stored as historical facts"},
+    {"range":"Job.23.1-Job.24.25","label":"Job_seventh_response_sequence","qualification":"search-for-justice meditation followed by social-injustice catalogue; chapter 24 has internal rhetorical shifts"},
+    {"range":"Job.25.1-Job.25.6","label":"Bildad_third_short_speech","qualification":"very short hymn-like disputation; speaker attribution convention remains held"},
+    {"range":"Job.26.1-Job.27.23","label":"Job_eighth_response_and_oath_sequence","qualification":"Job 27:13-23 has major speaker/compositional uncertainty; retain one parent candidate with internal alternatives"}
+  ],
+  "high_risk_translation_holds": [
+    {"range":"Job.4.12-Job.4.21","risk":"vision report, ruach/nishmah vocabulary, and rhetorical questions permit materially different English segmentation"},
+    {"range":"Job.5.7-Job.5.16","risk":"bene-resheph (‘sparks’/‘sons of flame’) and quotation-like wisdom formulas; 5:13 has a canonical cross-reference to 1Cor.3.19 but that does not establish a chunk boundary"},
+    {"range":"Job.6.14-Job.7.21","risk":"hesed toward the despairing, taunt/abandonment terms, and tsaba (‘hard service/appointed time’) are translation-sensitive"},
+    {"range":"Job.9.30-Job.9.35","risk":"mokhiach (‘arbiter/mediator’) and court vocabulary can be overread as doctrinal terminology"},
+    {"range":"Job.11.5-Job.11.12","risk":"Zophar’s compressed rhetoric and ‘double’ language are ambiguous; do not normalize into a moral formula"},
+    {"range":"Job.12.13-Job.12.25","risk":"wisdom hymn-like catalogue may be quotation, poetic assertion, or disputation; preserve alternatives"},
+    {"range":"Job.15.14-Job.15.16","risk":"‘holy ones’ and purity language have multiple possible referents and should not be mapped to a fixed supernatural taxonomy"},
+    {"range":"Job.16.7-Job.16.21","risk":"pronoun/agent ambiguity in ‘he tears’ and witness/advocate terminology; Hebrew discourse review required"},
+    {"range":"Job.18.13-Job.18.21","risk":"‘firstborn of death’ and disease/terror imagery are idiomatic; avoid medical or demonological labels"},
+    {"range":"Job.19.23-Job.19.29","risk":"go’el (‘redeemer/kinsman’) and 19:26 body/skin wording have major textual/translation variants; must remain an appeal item"},
+    {"range":"Job.20.12-Job.20.29","risk":"poison/serpent and swallowed-riches imagery is figurative and lexically unstable"},
+    {"range":"Job.22.6-Job.22.11","risk":"Eliphaz’s alleged charges use rare terms and are character claims, not verified biography"},
+    {"range":"Job.23.8-Job.23.17","risk":"‘my way’ and darkness/terror clauses support several rhetorical readings; do not force a conversion or verdict narrative"},
+    {"range":"Job.24.1-Job.24.25","risk":"social-injustice catalogue has disputed segmentation and rare vocabulary; preserve as one parent with internal case map"},
+    {"range":"Job.26.5-Job.26.14","risk":"Sheol/Rahab/cosmic imagery and sarcasm are translation-sensitive; labels must stay descriptive"},
+    {"range":"Job.27.7-Job.27.23","risk":"oath, enemy formula, and wicked-person fate resemble earlier friend speeches; speaker/compositional attribution is unresolved"}
+  ],
+  "red_team_findings": [
+    {"id":"JOB-R27-001","severity":"high","finding":"The current per-chapter generic label hides known speaker sequence and could be misread as a chapter-authoritative speaker assignment.","recommendation":"Keep generic labels or add qualified sequence labels only in candidate sidecars; require external/human review before speaker metadata is promoted."},
+    {"id":"JOB-R27-002","severity":"high","finding":"Job 27:13-23 is not safely treated as an uncontested Job continuation.","recommendation":"Retain parent Job.26.1-Job.27.23 and record alternatives (Job speech versus residual friend-speech/compositional seam) without selecting one."},
+    {"id":"JOB-R27-003","severity":"medium","finding":"Chapter boundaries at 5/7/10/14/17/19/21/24/27 do not necessarily coincide with speech closure; conversely internal seams can occur within chapters.","recommendation":"Use chapter spans for coverage only; add internal seam candidates and do not split solely by chapter."},
+    {"id":"JOB-R27-004","severity":"medium","finding":"Terms such as ‘mediator’, ‘redeemer’, ‘divine speech’, and ‘holy ones’ can smuggle theological conclusions.","recommendation":"Use neutral lexical descriptions (‘witness/court imagery’, ‘agent attribution held’, ‘poetic question sequence’) until original-language and cross-environment review."},
+    {"id":"JOB-R27-005","severity":"medium","finding":"Cross-references (e.g., Job 5:13/1 Cor 3:19; Job 19:25 and later biblical reuse) can improperly force boundaries or harmonize voices.","recommendation":"Record cross-reference pointers as evidence-only relations; never use them as automatic chunk or interpretation authority."}
+  ],
+  "required_next_checks": [
+    "controller-observed Hebrew/Aramaic lexical review with verse-numbering crosswalk",
+    "independent literary-form review distinguishing speech, hymn, lament, and catalogue without theological inference",
+    "cross-reference review that records relations but cannot move candidate boundaries by itself",
+    "speaker/composition appeal ledger for Job 27:13-23 and any disputed quotation-like units",
+    "external-provider and human review before any promotion"
+  ]
+}

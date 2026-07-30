@@ -1,0 +1,72 @@
+{
+  "schema_version": "m7_book_literary_completion_owner_ruling.v1",
+  "task_id": "T550",
+  "model_id": "M7_sol",
+  "book": "Hos",
+  "completed_at_utc": "2026-07-29T13:48:56.6744925Z",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "completion_basis": "owner_corrected_literary_only_completion_rule",
+  "owner": "Lowell Wong",
+  "owner_ruling": {
+    "t550_rematerialization_live_gate_work": "parked_out_of_scope",
+    "v3_3_authorized": false,
+    "artifact_installation_is_completion_gate": false,
+    "ordinary_candidate_scratch_writes_are_sufficient": true,
+    "hosea_must_not_be_blocked_on_t550": true
+  },
+  "literary_result": {
+    "chunk_count": 38,
+    "canonical_verse_count": 197,
+    "covered_verse_count": 197,
+    "exact_ordered_coverage": true,
+    "positive_contiguous_integer_indices": true,
+    "accepted_decision_count": 36,
+    "held_decision_count": 2,
+    "held_decision_ids": ["M7_sol-Hos-029", "M7_sol-Hos-035"],
+    "confidence": {"high": 18, "medium": 18, "medium_low": 1, "low": 1},
+    "templated_thin_rationale_failures": 0,
+    "generic_form_bucket_failures": 0,
+    "primary_review_rows": 114,
+    "unique_primary_reviewer_attempt_ids": 114,
+    "active_appeal_count": 2,
+    "forced_consensus": false
+  },
+  "active_artifact_sha256": {
+    "book_chunks/Hos/chunks.jsonl": "e7b413bbe3130f61444230d4c3ff0f34cb9e052cd194a2dee5a9b9a867e3dcfc",
+    "reviews/Hos/review_packets.jsonl": "e206ec147a635e0ef19482b804a1d3af2dfe4543e48d36a17fa1303429fa13eb",
+    "reviews/Hos/decision_relations.jsonl": "f0263a9f7d14ab76c13005596b59abf6fed65b285a0436df773f570054eef52b",
+    "reviews/Hos/adjudicated_route_draft_v2.json": "be371dc52a45091ee9c3a5342d87c15dd9a9b024a687c00d26496d423bcc0124"
+  },
+  "literary_evidence": [
+    {
+      "artifact": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/preinstall_final_checker_v3.json",
+      "verdict": "PASS",
+      "scope": "38 units, exact coverage, forms, markers, rejected alternatives, reviews, challenge closure, appeals, relations, and authority guards"
+    },
+    {
+      "artifact": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/post_prose_amendment_checker_v4.json",
+      "verdict": "PASS_FOR_PROTECTED_LITERARY_PROJECTION",
+      "scope": "boundaries, forms, titles, markers, rejected alternatives, boss rationales, confidence, dispositions, holds, source positions, reviews, dissents, relations, and appeals"
+    },
+    {
+      "command": "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Hos/chunks.jsonl --model-id M7_sol --book Hos --python-only",
+      "status": "pass"
+    },
+    {
+      "command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Hos",
+      "status": "pass",
+      "output": "OK: Hos chunks=38 exact ordered coverage=197/197"
+    }
+  ],
+  "superseded_nonliterary_blockers": {
+    "shared_global_sidecar_partition_parity": "not_a_book_completion_gate_by_owner_ruling",
+    "semantic_prose_rematerialization_and_live_filesystem_gate": "parked_out_of_scope",
+    "effect_on_literary_boundaries_forms_reviews_holds_or_appeals": "none"
+  },
+  "independence_limit": "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion and held decisions.",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "reviewed_gold_promoted": false,
+  "external_review_receipt_created": false,
+  "commit_push_merge_performed": false
+}

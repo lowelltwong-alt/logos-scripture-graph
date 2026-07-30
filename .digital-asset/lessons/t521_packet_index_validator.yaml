@@ -1,0 +1,23 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-PACKET-INDEX-VALIDATOR
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Added a fail-closed packet-index validator that checks exact map, handoff
+  prompt, reviewer prompt, and scaffold-queue digests, candidate/non-authorizing
+  flags, row counts, and sibling-input exclusion before external handoff.
+evidence:
+  validator: scripts/validate_t521_external_review_packet_index.py
+  status: OK
+  books: 66
+  chunks: 1178
+  scaffold_rows: 359
+constraints:
+  - packet-index validity is process evidence, not independent literary review
+  - external receipt remains required
+  - candidate_only and non_authorizing remain mandatory

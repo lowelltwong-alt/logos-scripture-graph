@@ -1,0 +1,464 @@
+---
+object_type: scripture_first_whole_bible_candidate_workflow
+schema_version: scripture_first_whole_bible_candidate_workflow.v2
+workflow_id: scripture-first-whole-bible-candidate-workflow
+workflow_version: 2.0.0
+family_id: scripture-first-biblical-chunking
+artifact_class: portable_core
+lifecycle_status: candidate
+trust_zone: candidate
+source_task: T521
+
+objective: >
+  Produce a resumable candidate-only literary and structural chunk map for all
+  66 canonical books, one book at a time, with exact verse coverage, bounded
+  role-separated challenge, explicit independence disclosure, append-only
+  dissent, and validator-bound completion receipts.
+
+authority:
+  local_source_of_truth: Logos
+  canonical_scope_ref: config/canon/canonical_66_books.yaml
+  owner_policy_ref: .ai/control/t468_owner_faithful_chunking_policy.yaml
+  contextual_policy_ref: .ai/control/contextual_reading_policy.yaml
+  original_language_policy_ref: .ai/control/original_language_phrase_context_policy.yaml
+  allowed_effects:
+    - candidate_artifacts_inside_one_isolated_model_folder
+    - read_only_subagent_reviews
+    - deterministic_validation_and_receipts
+    - privacy_safe_dad_candidate_metadata
+  prohibited_effects:
+    - canonical_or_raw_scripture_mutation
+    - reviewed_gold_or_chunk_output_promotion
+    - sibling_model_map_reads_before_author_map_completion
+    - theology_canon_authorship_or_inspiration_decisions
+    - preferred_translation_reading_or_source_tradition_selection
+    - graph_retrieval_vector_or_runtime_truth
+    - publication_or_activation
+
+independence_contract:
+  required_dimensions:
+    authoring_independent_from_sibling_maps: true
+    primary_reviews_blind_to_each_other_artifacts: true
+    reviewer_roles_separated: true
+    writer_and_checker_attempt_ids_distinct: true
+    shared_model_substrate_disclosed: true
+    independent_model_or_provider_evidence_required_for_convergence: true
+    reviewer_count_is_not_authority: true
+  forbidden_claims_without_external_evidence:
+    - independent_model_consensus
+    - cross_provider_agreement
+    - multiple_independent_votes
+    - diversity_of_reasoning_substrate
+  correlated_mesh_weight_at_convergence: one_model_voice
+
+campaign_topology:
+  write_owners: one_root_author
+  subagents: read_only
+  delegation_depth: 1
+  maximum_parallel_reviewers: 3
+  book_order: canonical
+  ordinary_rewrite_limit: 1
+  hard_case_rewrite_limit: 2
+  no_third_automatic_rewrite: true
+  boss_may_force_consensus: false
+
+book_lifecycle:
+  - stage_id: B00
+    name: preflight_and_replay_guard
+    required_actions:
+      - pin_source_policy_validator_and_workflow_digests
+      - verify_sibling_model_paths_are_excluded
+      - verify_official_chunk_map_validator_is_available
+      - retrieve_applicable_dad_lessons_without_granting_dad_authority
+    stop_on:
+      - stale_or_missing_authority
+      - source_digest_drift
+      - sibling_map_contamination
+  - stage_id: B01
+    name: book_strategy_mesh
+    subagents:
+      - original_language_translation_scout
+      - literary_form_scout
+      - canonical_relations_and_premortem_scout
+      - second_temple_rabbinic_context_scout_always_executes_and_returns_gap_when_unqualified
+    outputs:
+      - book_strategy
+      - form_inventory
+      - hardest_passage_forecast
+      - source_and_corpus_gap_register
+    rules:
+      - no_chunk_map_authorship_by_scouts
+      - four_distinct_controller_attested_role_executions_and_reports
+      - root_synthesis_is_separate_and_aggregate_artifact_blindness_is_false
+      - receipt_bound_outputs_are_attempt_scoped_structured_json
+      - exact_gapless_exclusive_book_partitions_are_rejected_as_boundary_leakage
+      - boss_authorization_binds_exact_evidence_packet_for_B01_receipt_only
+      - prepare_and_commit_are_separate_and_revalidated
+      - no_simulated_ancient_jewish_or_rabbinic_corpus
+      - no_root_or_lemma_as_boundary_authority
+  - stage_id: B02
+    name: author_candidate_map
+    owner: root_author
+    rules:
+      - prefer_larger_coherent_unit
+      - split_only_on_text_grounded_literary_or_discourse_function
+      - use_positive_contiguous_integer_indices_in_physical_canonical_order
+      - keep_stable_decision_ids_separate_from_indices
+      - use_controlled_literature_type_vocabulary
+    outputs:
+      - book_chunks
+      - initial_decision_relations
+  - stage_id: B03
+    name: freeze_revision
+    required_receipt_fields:
+      - source_digests
+      - chunks_file_sha256
+      - per_chunk_sha256
+      - chunk_count
+      - canonical_verse_count
+      - workflow_version
+      - runtime_adapter_revision
+  - stage_id: B04
+    name: blind_primary_reviews
+    subagents:
+      - original_language_translation_reviewer
+      - literary_form_reviewer
+    isolation:
+      - each_primary_reads_frozen_chunks_and_source_evidence
+      - neither_primary_reads_other_primary_output
+      - neither_primary_reads_boss_peer_or_premortem_output
+    outputs:
+      - two_revision_bound_primary_reviews
+  - stage_id: B05
+    name: peer_crosscheck_and_premortem
+    subagents:
+      - peer_crosschecker
+      - premortem_reviewer
+    rules:
+      - identify_shared_blind_spots
+      - preserve_conflicting_remedies
+      - premortem_may_define_failure_tests_but_must_not_prescript_boss_ruling
+  - stage_id: B06
+    name: boss_provisional_adjudication
+    subagent: evidence_dispute_boss
+    sequencing:
+      - boss_reads_frozen_map_and_primary_challenges
+      - boss_records_provisional_ruling_and_digest
+      - only_then_boss_reads_peer_and_premortem
+      - any_changed_ruling_records_what_new_evidence_changed_it
+    rules:
+      - cite_counterevidence_and_uncertainty
+      - record_rejected_alternatives
+      - preserve_human_or_external_ai_route
+      - never_force_consensus
+  - stage_id: B07
+    name: appeal_round
+    subagents:
+      - every_primary_reviewer
+      - peer_crosschecker
+    rules:
+      - appeals_are_append_only
+      - accepted_boss_ruling_is_recorded_explicitly
+      - unresolved_reasoned_appeal_survives_with_full_context
+  - stage_id: B08
+    name: bounded_revision_and_fresh_review
+    owner: root_author
+    rules:
+      - only_sustained_boundary_changes_rewrite_chunks
+      - new_children_get_new_decision_ids
+      - retired_parents_leave_active_map_and_enter_lineage
+      - all_changed_chunk_hashes_invalidate_affected_reviews
+      - new_children_require_fresh_revision_bound_primaries
+      - no_review_inheritance_from_retired_parent
+  - stage_id: B09
+    name: final_role_separated_postcheck
+    subagent: post_resolution_checker
+    required_checks:
+      - exact_ordered_coverage
+      - integer_contiguous_indices
+      - review_packet_digest_parity
+      - final_status_and_hold_state_parity
+      - relation_sidecar_presence_and_scope
+      - low_confidence_sidecar_exact_set_parity
+      - appeal_context_and_human_route
+      - independence_scope_disclosure
+      - no_simulated_external_corpus
+    output_statuses:
+      - pass
+      - pass_with_holds
+      - fail_repairable
+      - blocked_human
+  - stage_id: B10
+    name: package_and_complete
+    ordering:
+      - finalize_chunks_and_statuses
+      - rebuild_review_packets_and_sidecars
+      - run_all_required_validators
+      - run_postcheck_against_exact_final_hash
+      - build_precompletion_extended_evidence_manifest_covering_B00_B09
+      - write_B10_precompletion_stage_receipt
+      - write_terminal_completion_receipt_last
+      - rerun_receipt_and_manifest_consistency_gate
+    completion_rule: >
+      A book is incomplete if any required validator is absent or failing, any
+      receipt hash is stale, any active review status says pending, or a held
+      packet lacks a matching candidate_hold_state and route.
+
+required_book_artifacts:
+  - book_strategy
+  - chunks_jsonl
+  - freeze_and_revision_lineage
+  - two_primary_reviews_per_active_revision
+  - peer_crosscheck
+  - premortem
+  - boss_rulings
+  - appeal_rounds
+  - decision_relations_jsonl_or_explicit_no_relation_receipt
+  - hardest_passages
+  - review_packets_jsonl
+  - low_confidence_sidecars
+  - final_post_resolution_check
+  - precompletion_extended_evidence_manifest
+  - immutable_B00_B10_attempt_receipts
+  - terminal_completion_receipt
+
+required_completion_gates:
+  - gate_id: exact_coverage
+    command_template: python .ai/scratch/multi_model_bible_chunking/<model>/checks/validate_exact_book_coverage.py --book <Book>
+  - gate_id: official_chunk_map_schema
+    command_template: python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/<model>/book_chunks/<Book>/chunks.jsonl --book <Book> --python-only
+  - gate_id: review_packet_parity
+    command_template: python .ai/scratch/multi_model_bible_chunking/<model>/checks/validate_book_review_coverage.py --book <Book>
+  - gate_id: literary_quality
+    command_template: python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/<model> --book <Book> --require-artifacts
+  - gate_id: workflow_replay_contract
+    command_template: python -m scripts.validate_whole_bible_candidate_workflow_v2
+  - gate_id: materialized_stage_chain_precompletion
+    command_template: python -m scripts.validate_whole_bible_stage_receipts --book <Book> --run-id <RunId> --require-through B09
+
+format_contract:
+  chunk_index_in_book: positive_contiguous_integer_separate_from_decision_id
+  review_status_values:
+    accepted: candidate_review_complete
+    held_with_preserved_appeal: final_deferred_appeal
+    held_without_appeal: final_deferred_review
+  held_chunk_required_field: candidate_hold_state
+  held_chunk_required_value: deferred_human_or_external_ai
+  held_chunk_required_basis:
+    preserved_appeal: preserved_appeal
+    specialist_or_external_review: specialist_or_external_review
+  appeal_count_rule: count_only_preserved_appeal_records_never_generic_holds
+  confidence_values: [high, medium, medium_low, low]
+  decision_relations:
+    typed_and_non_authorizing: true
+    direct_literary_or_discourse_dependency_only: true
+    relation_symmetry_does_not_require_boundary_symmetry: true
+    empty_set_requires_explicit_reviewed_no_relation_receipt: true
+    never_invent_relation_to_satisfy_a_nonempty_gate: true
+  generated_receipts:
+    current_hash_only_for_current_claims: true
+    hash_closure_fields: [chunks, review_packets, decision_relations, uncertainty_sidecars, checker_verdict, postcheck, B10_precompletion_receipt]
+    extended_hash_closure_fields: [freeze_receipts, primary_reviews, peer_crosscheck, premortem, provisional_boss_ruling, final_boss_ruling, appeal_ledger, lineage, source_gap_register, precompletion_stage_receipts_B00_B09]
+    terminal_completion_receipt_is_acyclic_root: true
+    completion_receipt_self_hash_forbidden: true
+    shell_free_fail_fast_completion_bundle_required: true
+    historical_hashes_must_be_labeled_historical: true
+    receipt_written_last: true
+
+source_routing_contract:
+  manifests_are_pinned_not_assumed: true
+  old_testament_hebrew_and_aramaic:
+    - data/raw/original_language/hebrew/openscriptures_oshb/source_manifest.yaml
+    - data/raw/original_language/hebrew/tanach_us_uxlc/source_manifest.yaml
+  old_testament_aramaic_span_routes:
+    - Ezra.4.8-Ezra.6.18
+    - Ezra.7.12-Ezra.7.26
+    - Dan.2.4-Dan.7.28
+    - Jer.10.11-Jer.10.11
+  new_testament_koine_greek:
+    - data/raw/original_language/greek/sblgnt/source_manifest.yaml
+    - data/raw/original_language/greek/cntr_sr/source_manifest.yaml
+    - data/raw/original_language/greek/ugnt/source_manifest.yaml
+  translation_witness:
+    - data/canonical/translations/eng-web/translation_witnesses.jsonl
+  second_temple_rabbinic_and_ancient_context:
+    activation: only_with_pinned_locally_available_reviewed_corpus_and_qualified_attempt_receipt
+    current_default: corpus_gap_record_required
+    simulation_forbidden: true
+    absence_never_authorizes_a_boundary_claim: true
+
+replay_evidence_implementation:
+  contract_generation: 2
+  campaign_revision: 7
+  supported_stage_ceiling: B00
+  B01_through_B10_status: blocked_pending_typed_evidence_and_attempt_scoped_migration
+  B01_candidate_design_only: true
+  B01_materialization_enabled: false
+  replay_runbook: docs/governance/WHOLE_BIBLE_B01_REPLAY_RUNBOOK.md
+  campaign_registry: config/agents/families/scripture-first-biblical-chunking/whole_bible_campaign_registry.v1.json
+  artifact_manifest_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_artifact_manifest.schema.v2.json
+  prepared_commit_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_prepared_stage_commit.schema.v1.json
+  b01_execution_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_b01_prompt_execution.schema.v1.json
+  b01_execution_ledger_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_b01_execution_ledger.schema.v1.json
+  stage_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_stage_receipt.schema.v2.json
+  boss_phase_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_boss_phase_receipt.schema.v1.json
+  extended_manifest_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_extended_evidence_manifest.schema.v1.json
+  terminal_completion_schema: config/agents/families/scripture-first-biblical-chunking/whole_bible_terminal_completion_receipt.schema.v1.json
+  b00_preflight_builder: scripts/build_whole_bible_b00_preflight_v2.py
+  stage_writer: scripts/write_whole_bible_stage_receipt_v2.py
+  boss_phase_writer: scripts/write_whole_bible_boss_phase_receipt.py
+  extended_manifest_builder: scripts/build_whole_bible_extended_evidence_manifest.py
+  materialized_chain_validator: scripts/validate_whole_bible_stage_receipts_v2.py
+  completion_gate_runner: scripts/run_whole_bible_completion_gates.py
+  terminal_completion_writer: scripts/write_whole_bible_terminal_completion_receipt.py
+  specification_validator: scripts/validate_whole_bible_candidate_workflow_v2.py
+  spec_valid_is_not_replay_qualified: true
+
+stage_receipt_contract:
+  immutable_attempt_path_template: .ai/scratch/multi_model_bible_chunking/<model>/state/books/<Book>/runs/<RunId>/attempts/<Stage>/<AttemptId>/prepared_commit.json
+  derived_selection_index_template: .ai/scratch/multi_model_bible_chunking/<model>/state/books/<Book>/runs/<RunId>/run_index.json
+  per_run_append_only_log_template: .ai/scratch/multi_model_bible_chunking/<model>/state/books/<Book>/runs/<RunId>/receipts.v2.jsonl
+  selected_index_is_evidence: false
+  attempts_are_immutable: true
+  replacement_attempt_truncates_downstream_selections_not_history: false
+  successful_B00_or_B01_replacement_requires_fresh_run: true
+  global_append_only_log: .ai/scratch/multi_model_bible_chunking/<model>/state/receipts.v2.jsonl
+  required_fields:
+    - schema_version
+    - campaign_revision
+    - book
+    - run_id
+    - stage_id
+    - attempt_id
+    - attempt_kind
+    - role_or_deterministic_gate
+    - prompt_template_id_or_deterministic
+    - prompt_pack_sha256
+    - workflow_sha256
+    - runtime_adapter_sha256
+    - input_manifest_path
+    - input_manifest_sha256
+    - output_manifest_path
+    - output_manifest_sha256
+    - input_artifact_sha256
+    - output_artifact_sha256
+    - prior_stage_receipt_sha256
+    - started_at
+    - finished_at
+    - outcome
+    - unresolved_holds
+    - shared_model_substrate
+    - counts_as_cross_model_independent_vote
+    - independence_scope
+    - state_fingerprint
+    - non_authorizing
+  stage_specific_required_fields:
+    B01: [form_inventory_sha256, hardest_passage_forecast_sha256, source_gap_register_sha256, ancient_context_gap_or_qualified_receipt_sha256]
+    B03: [frozen_chunks_sha256, per_chunk_sha256, frozen_revision]
+    B04: [primary_role_ids, controller_assignment_ids, frozen_chunks_sha256, prompt_template_sha256, review_revision]
+    B06: [provisional_commit_receipt_sha256, peer_premortem_input_sha256, final_commit_receipt_sha256]
+    B07: [appeal_count, unresolved_appeal_count, appeal_ids, unresolved_appeal_ids, appeal_disposition_sha256]
+    B09: [checker_verdict_sha256, checked_decision_ids, checked_uncertainty_sidecar_sha256, unresolved_hold_ids, unresolved_appeal_ids, hold_disposition_sha256]
+    B10: [extended_evidence_manifest_sha256, precompletion_stage_receipts_B00_B09, completion_gate_bundle_sha256, terminal_completion_receipt_path_intent]
+  boss_stage_required_fields:
+    - provisional_commit_receipt_sha256
+    - provisional_committed_before_peer_premortem_exposure
+    - peer_premortem_input_sha256
+    - final_commit_receipt_sha256
+    - changes_after_peer_or_premortem
+  resume_rule: first_missing_or_hash_invalid_selected_stage_receipt
+  fresh_attempt_required_after_changed_input_hash: true
+  same_state_failed_attempt_retry_forbidden: true
+  acyclic_receipt_dag: B00_to_B09_then_precompletion_manifest_then_B10_then_terminal_completion_then_external_qualification
+
+executable_stage_bindings:
+  B00: {executor: deterministic_preflight, prompt_templates: [], receipt_kind: preflight}
+  B01: {executor: read_only_mesh, prompt_templates: [original_language_translation_scout, literary_form_scout, canonical_relations_and_premortem_scout, second_temple_rabbinic_context_scout], receipt_kind: strategy_mesh}
+  B02: {executor: root_writer, prompt_templates: [root_author_candidate_map], receipt_kind: candidate_map}
+  B03: {executor: deterministic_freezer, prompt_templates: [], receipt_kind: frozen_revision}
+  B04: {executor: two_blind_read_only_attempts, prompt_templates: [original_language_primary_review, literary_primary_review], receipt_kind: primary_reviews}
+  B05: {executor: read_only_mesh, prompt_templates: [peer_crosscheck, premortem_review], receipt_kind: crosscheck_and_premortem}
+  B06: {executor: two_step_boss_attempt, prompt_templates: [evidence_dispute_boss], receipt_kind: provisional_and_final_ruling}
+  B07: {executor: original_reviewers_or_fresh_role_equivalent, prompt_templates: [appeal_response], receipt_kind: append_only_appeal_round}
+  B08: {executor: root_writer_then_fresh_primaries, prompt_templates: [root_author_candidate_map, original_language_primary_review, literary_primary_review], receipt_kind: bounded_revision}
+  B09: {executor: fresh_read_only_attempt, prompt_templates: [final_post_resolution_check], receipt_kind: role_separated_checker_verdict}
+  B10: {executor: deterministic_packager, prompt_templates: [], receipt_kind: hash_closed_completion}
+
+completion_semantics:
+  book_candidate_snapshot_may_pass_with_holds: true
+  unresolved_reasoned_appeal:
+    record_append_only: true
+    route_to_human_or_external_ai_queue: true
+    blocks_promotion_and_cross_model_convergence: true
+    does_not_block_starting_the_next_canonical_book: true
+  campaign_stop_required_for:
+    - authority_or_theology_decision
+    - unsafe_or_out_of_scope_effect
+    - source_authority_or_digest_failure
+    - sibling_map_contamination
+    - repeated_same_state_failure
+    - user_interrupt
+
+replay_qualification_blockers:
+  - actual_B00_B10_stage_receipts_absent_or_invalid
+  - one_book_dry_replay_absent_or_failed
+  - form_inventory_artifact_or_B01_receipt_absent
+  - primary_role_identity_or_revision_freshness_unproved
+  - provisional_boss_ordering_unproved
+  - extended_evidence_manifest_or_hash_closure_unproved
+  - independent_launch_review_absent
+  - qualification_receipt_absent
+replay_qualification_effect: block_launch_activation_and_portability_claims
+existing_precontract_books: candidate_snapshots_not_replay_qualified
+
+shared_sidecar_write_contract:
+  concurrent_book_writes_forbidden: true
+  exclusive_campaign_lock_required: true
+  write_to_same_directory_temporary_file: true
+  flush_and_fsync_before_replace: true
+  atomic_replace_required: true
+  backup_and_recovery_receipt_required_after_detected_corruption: true
+  preferred_future_shape: per_book_sidecars_then_deterministic_merge
+
+cross_form_calibration_lane:
+  runs_in_parallel_after_format_repair: true
+  blocks_campaign_only_on_protocol_failure: true
+  cases:
+    - {case_id: psalm_acrostic_and_stanza, passages: [Ps.78, Ps.119], capabilities: [poetry, refrain, acrostic]}
+    - {case_id: daniel_language_transition, passages: [Dan.2.1-Dan.7.28], capabilities: [hebrew, aramaic, apocalyptic]}
+    - {case_id: gospel_parallel_and_discourse, passages: [Matt.13, Mark.4, Luke.8], capabilities: [koine_greek, parable, synoptic_parallel]}
+    - {case_id: epistle_argument, passages: [Eph.1.3-Eph.1.14, 1Cor.8.1-1Cor.10.33], capabilities: [koine_greek, argument, doxology]}
+  interpretation: protocol_calibration_not_genre_wide_proof
+
+replay_and_resume:
+  specification_only: true
+  immutable_inputs_required: true
+  append_only_attempt_receipts: true
+  resume_from_first_invalid_or_incomplete_stage: true
+  same_state_deterministic_failure_retry_forbidden: true
+  default_attempts: one_original_plus_one_bounded_repair
+  stop_conditions:
+    - user_interrupt
+    - authority_boundary
+    - human_gate_required
+    - source_or_dependency_stale
+    - sibling_map_contamination
+    - repeated_failure
+    - validation_inconclusive
+    - write_conflict
+    - privacy_or_security
+
+dad_reporting:
+  candidate_metadata_only: true
+  allowed:
+    - workflow_and_validator_identifiers
+    - hashes
+    - normalized_failure_classes
+    - privacy_safe_lessons
+  prohibited:
+    - scripture_text_or_source_rows
+    - raw_conversations_or_hidden_reasoning
+    - secrets_or_private_payloads
+    - authority_or_promotion_claims
+
+non_authorizing: true

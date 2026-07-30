@@ -1,0 +1,96 @@
+{
+    "schema_version":  "m7_hosea_v9_live_gate_contract.v2",
+    "task_id":  "T550",
+    "book":  "Hos",
+    "purpose":  "Closed adapter-to-policy contract for measured post-freeze live evidence with no lossy bridge.",
+    "predecessor_rejection_sha256":  "8cc0ea76a7ac0181f54617c5c7e6d82af4aff970aeb0ef9babb8f1a0467380cd",
+    "principles":  [
+                       "raw adapter measurement remains embedded and hash-bound in the policy record",
+                       "policy consumes every security-relevant identity field or rejects the schema",
+                       "external human authorization is required but explicitly not cryptographic identity proof",
+                       "prepare and publish each require fresh measurement; publish revalidates exact prepare record and PASS result",
+                       "strict writer-race dissent remains unresolved"
+                   ],
+    "freeze_contract":  {
+                            "requires":  [
+                                             "freeze_id",
+                                             "frozen_at_utc",
+                                             "pre_freeze_boot_identity",
+                                             "implementation_and_test_hashes",
+                                             "evidence_hashes",
+                                             "exact_13_target_roles_paths_preimages_staged_hashes",
+                                             "exact_3_sentinel_roles_paths_hashes",
+                                             "exact_bounded_process_name_policy"
+                                         ],
+                            "restart_rule":  "current_boot_identity_must_differ_from_pre_freeze_and_current_boot_time_must_be_after_frozen_at_utc"
+                        },
+    "raw_measurement_required":  [
+                                     "capture_start_wall_utc",
+                                     "capture_end_wall_utc",
+                                     "capture_start_monotonic_ns",
+                                     "capture_end_monotonic_ns",
+                                     "boot_identity_and_boot_time",
+                                     "windows_build_and_architecture",
+                                     "volume_guid_serial_filesystem_flags",
+                                     "workspace_and_model_handle_identities",
+                                     "distinct_canonical_parent_handle_identities",
+                                     "parent_process_pid_start_token_executable_identity",
+                                     "exact_13_target_role_path_parent_file_identity_size_expected_and_observed_hash",
+                                     "exact_3_sentinel_role_path_parent_file_identity_size_expected_and_observed_hash",
+                                     "closed_bounded_process_name_policy_and_digest",
+                                     "bounded_process_snapshot_with_onedrive_and_other_in_scope_matches",
+                                     "point_in_time_open_results",
+                                     "read_only_no_delete_replace_attempt_claims"
+                                 ],
+    "policy_requirements":  [
+                                "closed schema and canonical digest",
+                                "dual clock lease at most 120 seconds",
+                                "restart-after-freeze proof",
+                                "exact role path order count and hash allowlists",
+                                "no reparse alias or duplicate file identity",
+                                "NTFS and frozen volume root parent identity continuity",
+                                "no OneDrive or other in-scope writer matches except explicitly bound current process",
+                                "all 13 target opens and 3 sentinel opens pass within lease",
+                                "full raw measurement hash returned in PASS",
+                                "candidate-only non-authorizing and residual-race acknowledgments"
+                            ],
+    "publish_continuity":  [
+                               "exact prepare record supplied",
+                               "prepare record revalidated under original recorded clocks and expectations",
+                               "exact prepare PASS result recomputed and digest matched",
+                               "freeze authorization target sentinel process policy boot OS volume workspace model and parent identities unchanged",
+                               "fresh publish measurement and short lease",
+                               "sentinel checks compared across phases",
+                               "changed target preimage or unknown bytes fail closed"
+                           ],
+    "adapter_effect_scope":  {
+                                 "allowed":  [
+                                                 "read metadata",
+                                                 "read bytes for hash",
+                                                 "open read-only handles",
+                                                 "enumerate bounded process names and PIDs"
+                                             ],
+                                 "forbidden":  [
+                                                   "create probe file",
+                                                   "delete",
+                                                   "replace",
+                                                   "create attempt",
+                                                   "restart",
+                                                   "exit or pause OneDrive",
+                                                   "prepare",
+                                                   "publish",
+                                                   "recover",
+                                                   "canonical write",
+                                                   "global sidecar write"
+                                               ]
+                             },
+    "human_gate":  {
+                       "machine_verifiable":  false,
+                       "identity_assurance":  "external_evidence_not_cryptographic_identity_proof",
+                       "must_be_observed_by":  "human owner plus checker plus boss",
+                       "local_json_alone_sufficient":  false
+                   },
+    "current_status":  "component_v2_implementation_authorized_static_only",
+    "candidate_only":  true,
+    "non_authorizing":  true
+}

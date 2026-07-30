@@ -1,0 +1,121 @@
+{
+    "schema_version":  "t562_job_blind_primary_job41_crosswalk_correction_overlay_v1",
+    "task_id":  "T562",
+    "book":  "Job",
+    "model_id":  "M7_sol",
+    "candidate_only":  true,
+    "non_authorizing":  true,
+    "repair_class":  "append_only_source_coordinate_correction_overlay",
+    "reason":  "Preserve frozen blind proposals byte-for-byte while correcting the Job 41 WEB-to-MT localization defect found by the independent integrity checker.",
+    "base_inputs":  {
+                        "hebrew_primary_sha256":  "55b922a794e4c466c997df2d8bc49feacfd30a49d2d4eed6264c2ab97e1c59cf",
+                        "literary_primary_sha256":  "cf62ca04fa38d297baae03197a432e36c8f81bd23f0822aebf92057c3599bd75",
+                        "canonical_primary_sha256":  "70b438523348eb9cc40babbcb78a5fc33df8a2f15e5424dca9566a06f0a3e64f",
+                        "integrity_fail_sha256":  "4cec0d97e16116fff5074e8a4ecfe54fb741bab9cb7cd8856479a2d05f235ba8",
+                        "route_start_matrix_sha256":  "97931f7a2e0485c83fbe09fefcf52a61fde51ec1e7a3148e2bd314b8269bdafa"
+                    },
+    "authoritative_effective_crosswalk_for_localization_only":  {
+                                                                    "web_Job_41_1_to_8":  "MT Job.40.25-Job.40.32",
+                                                                    "web_Job_41_9_to_34":  "MT Job.41.1-Job.41.26",
+                                                                    "status":  "translation_versification_metadata_not_boundary_authority",
+                                                                    "evidence_source":  "Hebrew blind primary verified crosswalk plus pinned OSHB and UXLC coordinates"
+                                                                },
+    "corrections":  [
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-001",
+                            "lane":  "wisdom_literary",
+                            "location":  "source_pins",
+                            "operation":  "add_disclosure",
+                            "effective_value":  "WEB Job 41:1-8 maps MT 40:25-32 and WEB Job 41:9-34 maps MT 41:1-26; OSHB/UXLC are correlated WLC-family views and this is translation/versification metadata only."
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-002",
+                            "lane":  "wisdom_literary",
+                            "location":  "T562-JOB-LIT-D088 evidence_refs",
+                            "operation":  "replace_exact",
+                            "actual":  [
+                                           "OSHB Job.40.15-Job.41.1",
+                                           "UXLC Job.40.15-Job.41.1"
+                                       ],
+                            "effective":  [
+                                              "OSHB Job.40.15-Job.40.25",
+                                              "UXLC Job.40.15-Job.40.25"
+                                          ]
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-003",
+                            "lane":  "wisdom_literary",
+                            "location":  "T562-JOB-LIT-D089 evidence_refs",
+                            "operation":  "replace_exact",
+                            "actual":  [
+                                           "OSHB Job.41.1-Job.41.12",
+                                           "UXLC Job.41.1-Job.41.12"
+                                       ],
+                            "effective":  [
+                                              "OSHB Job.40.25-Job.41.4",
+                                              "UXLC Job.40.25-Job.41.4"
+                                          ]
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-004",
+                            "lane":  "wisdom_literary",
+                            "location":  "T562-JOB-LIT-D090 evidence_refs",
+                            "operation":  "replace_exact",
+                            "actual":  [
+                                           "UXLC Job.41.12-Job.42.1"
+                                       ],
+                            "effective":  [
+                                              "UXLC Job.41.4-Job.42.1"
+                                          ]
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-005",
+                            "lane":  "canonical_retrieval",
+                            "location":  "source_pins.crosswalk.coordinate_rule",
+                            "operation":  "replace_exact",
+                            "actual":  "WEB Job and the pinned WLC-family views use the same 42 chapter and 1,070 verse coordinates; no divergent Job-specific crosswalk was pinned.",
+                            "effective":  "WEB Job 41:1-8 maps MT 40:25-32 and WEB Job 41:9-34 maps MT 41:1-26; this is translation/versification metadata only."
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-006",
+                            "lane":  "canonical_retrieval",
+                            "location":  "Job-CAN-083 evidence_refs",
+                            "operation":  "replace_exact",
+                            "actual":  [
+                                           "OSHB:Job.41.1-Job.41.11",
+                                           "UXLC:Job.41.1-Job.41.11"
+                                       ],
+                            "effective":  [
+                                              "OSHB:Job.40.25-Job.41.3",
+                                              "UXLC:Job.40.25-Job.41.3"
+                                          ]
+                        },
+                        {
+                            "defect_id":  "T562-JOB-PRIMARY-INTEGRITY-007",
+                            "lane":  "canonical_retrieval",
+                            "location":  "Job-CAN-084 evidence_refs",
+                            "operation":  "replace_exact",
+                            "actual":  [
+                                           "OSHB:Job.41.12-Job.41.34",
+                                           "UXLC:Job.41.12-Job.41.34"
+                                       ],
+                            "effective":  [
+                                              "OSHB:Job.41.4-Job.41.26",
+                                              "UXLC:Job.41.4-Job.41.26"
+                                          ]
+                        }
+                    ],
+    "defect_instance_count":  11,
+    "root_cause_count":  1,
+    "unchanged_claims":  [
+                             "All three frozen proposal files remain byte-identical.",
+                             "No route start, route end, decision ID, attempt ID, form, rationale, confidence, verdict, hold, appeal, or coverage claim changes.",
+                             "The blind_route_start_matrix remains valid because no start coordinate or input proposal byte is changed."
+                         ],
+    "boss_use_rule":  "The boss may use literary/canonical Job 41 evidence only through this overlay; the defective base strings have no effective evidentiary force.",
+    "authority_guard":  [
+                            "Crosswalk metadata is evidence only.",
+                            "No preferred witness, reading, translation, speaker, theology, authorship, canon, or boundary is selected.",
+                            "Repair agreement is not promotion authority."
+                        ]
+}

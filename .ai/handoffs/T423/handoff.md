@@ -323,3 +323,120 @@ time by moving deterministic heavy JSONL/corpus scans into Rust leaf validators,
 but not by rewriting governance tests wholesale. Python/pytest remains the
 orchestrator for policy, task scope, wrappers, authority boundaries, and parity;
 Rust is the fast path for data-heavy structural checks.
+
+---
+
+## Handoff refresh: start
+
+- agent_name: zech_literary_primary
+- mode: 
+- updated_at: 2026-07-24T11:11:57+00:00
+- handoff_id: 43886d8ebafc965a
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_1Tim_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T11:14:46+00:00
+- handoff_id: 6a0dd572ef0a870b
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_1Tim_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T11:14:46+00:00
+- handoff_id: 5fa60ae480ab1d07
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_2Tim_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T11:48:09+00:00
+- handoff_id: 63349d50e05cd208
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_2Tim_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T11:48:09+00:00
+- handoff_id: 1b919ed9532d4c6f
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_Titus_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T12:03:17+00:00
+- handoff_id: 0da0b78e03561bae
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_Titus_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T12:03:18+00:00
+- handoff_id: 465abd0c16d140b1
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_Phlm_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T12:59:15+00:00
+- handoff_id: 650986504d115276
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_Phlm_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T12:59:15+00:00
+- handoff_id: 80783fd99cd61c47
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_Heb_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T13:14:49+00:00
+- handoff_id: 560f9a84587b7bc2
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_Heb_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T13:14:49+00:00
+- handoff_id: 0db3f58c44efde66
+
+---
+
+## Handoff refresh: start
+
+- agent_name: M7_sol_Jas_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T13:36:16+00:00
+- handoff_id: 29ff203c8becd69d
+
+---
+
+## Handoff refresh: final
+
+- agent_name: M7_sol_Jas_blind_primary_C
+- mode: 
+- updated_at: 2026-07-24T13:36:17+00:00
+- handoff_id: f5882f80b8e25369

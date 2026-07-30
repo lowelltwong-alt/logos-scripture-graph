@@ -1,0 +1,24 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-EXTERNAL-RECEIPT-FAIL-CLOSED
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  External agreement must never be self-attested. A receipt validator must fail
+  closed until it can verify provider identity, blind review, exact current map
+  and prompt hashes, all 66 book rows, preserved appeals, and non-authority.
+evidence:
+  schema: config/agents/families/scripture-first-biblical-chunking/t521_external_review_receipt.schema.v1.json
+  validator: scripts/validate_t521_external_review_receipt.py
+  missing_receipt_test: failed closed as expected
+  current_status: awaiting_external_provider_or_human_receipt
+constraints:
+  - never synthesize an external receipt
+  - independent_model_or_provider_evidence must be explicitly true and evidenced
+  - candidate_only and promotion_authorized=false are mandatory
+candidate_only: true
+non_authorizing: true

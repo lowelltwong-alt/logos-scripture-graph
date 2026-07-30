@@ -1,0 +1,21 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-PACKET-INDEX-SCAFFOLD-QUEUE-BINDING
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  The external packet index now includes the 359-row scaffold-hold queue as a
+  hash-bound derived input. Reviewers can inspect unresolved spans and holds
+  without receiving sibling maps, hidden role reports, or raw source payloads.
+evidence:
+  builder: scripts/build_t521_external_review_packet_index.py
+  packet_index: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/external_review_packet_index.json
+  queue_rows: 359
+  queue_sha256: sha256:681465086d52798242d5047930ad208d925651f4e891673472af52129676222b
+constraints:
+  - queue remains derived triage evidence, not independent validation
+  - candidate_only and non_authorizing remain mandatory

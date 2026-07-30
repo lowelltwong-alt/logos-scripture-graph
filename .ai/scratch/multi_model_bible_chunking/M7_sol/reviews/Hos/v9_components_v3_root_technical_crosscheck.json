@@ -1,0 +1,85 @@
+{
+  "schema_version": "t550.v9_components_v3_root_technical_crosscheck.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "root_technical_crosscheck",
+  "review_mode": "read_only_exact_frozen_draft_design_to_code_trace",
+  "reviewed_freeze_sha256": "8b29f89e6d51a3927c9222d26300eafdf106e1f8c597c5cfb852d96bbad93c25",
+  "normative_design_sha256": "e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85",
+  "normative_boss_check_sha256": "9963403f8e639c1765ca28151df2e06c34d07b26a51b83e9ca19b5507425f7f8",
+  "verdict": "FAIL_REPAIR_REQUIRED_IN_NEW_GENERATION",
+  "component_qualification": false,
+  "production_launcher_warranted": false,
+  "canonical_execution_authorized": false,
+  "findings": [
+    {
+      "finding_id": "T550-V9-V3-ROOT-001",
+      "severity": "blocker",
+      "component": "provider_neutral_policy_v3",
+      "title": "Permitted executable hashes are absent from the stable execution freeze and live continuity comparison",
+      "evidence": [
+        "The corrected design lists permitted controller executable file identities and hashes as stable pre-restart fields.",
+        "The frozen policy execution-freeze schema has no permitted executable identity-and-hash allowlist.",
+        "Each raw process row and observer identity contains executable_identity but no executable_sha256.",
+        "The prepare-to-publish continuity projection therefore cannot bind or compare executable SHA-256."
+      ],
+      "adversarial_consequence": "A same-name or same-identity executable whose bytes differ from the reviewed pre-restart executable can satisfy the current pure-policy relation if the caller supplies otherwise internally consistent raw rows.",
+      "required_repair": "In a new frozen generation, bind a sorted closed permitted-executable table containing normalized name, executable file identity, and SHA-256; include executable SHA-256 in raw process and observer identities; require exact direct-chain membership; and compare it across prepare and publish."
+    },
+    {
+      "finding_id": "T550-V9-V3-ROOT-002",
+      "severity": "blocker",
+      "component": "provider_neutral_policy_v3",
+      "title": "The model-root parent token is not related to the frozen model-root identity",
+      "evidence": [
+        "The policy requires canonical parent rows to be pairwise distinct.",
+        "A target or sentinel whose parent_token is the logical model-root token may reference a separate canonical-parent identity.",
+        "No invariant requires that logical model-root parent identity to equal volume_allowlist.model_identity."
+      ],
+      "adversarial_consequence": "A self-consistent raw and frozen tuple may place logical model-root children under a distinct same-volume directory while still passing token and parent-ID checks.",
+      "required_repair": "Represent the model root as an explicit root identity relation and require every model-root parent token to resolve to the exact frozen model_identity. Require every other canonical parent to be derived beneath that retained model handle and prevent inappropriate root aliases."
+    },
+    {
+      "finding_id": "T550-V9-V3-ROOT-003",
+      "severity": "blocker_for_production_reuse_not_for_test_only_helper",
+      "component": "windows_native_test_only_helper_v3",
+      "title": "The native helper observes direct ancestry but does not produce an exhaustive bounded-process inventory",
+      "evidence": [
+        "The helper labels process_inventory_exhaustive false.",
+        "Its process snapshot is used to walk ancestry, not to open, classify, and retain every bounded-name process row.",
+        "The frozen draft accurately labels this helper test-only and gives it no production provenance."
+      ],
+      "adversarial_consequence": "Reusing this helper as a production collector would allow an unrelated bounded writer to remain absent from the policy input.",
+      "required_repair": "Keep the current helper test-only. Any later production collector must enumerate the full process snapshot, classify every code-fixed bounded-name row, open and retain each required handle, and hard-stop on partial enumeration or access uncertainty."
+    },
+    {
+      "finding_id": "T550-V9-V3-ROOT-004",
+      "severity": "hardening_required_before_production_loader",
+      "component": "static_allowlist_validator_v3",
+      "title": "Nested static source metadata is not fully schema-closed",
+      "evidence": [
+        "The static allowlist file itself is authenticated by an exact detached SHA-256 in the frozen draft.",
+        "The validator closes primary target and sentinel objects but does not fully close nested source_render and normalization objects.",
+        "Sentinel ID uniqueness is not independently asserted."
+      ],
+      "adversarial_consequence": "The exact frozen file is protected today, but a future regenerated allowlist could admit unreviewed nested metadata or ambiguous sentinel identifiers if the production loader relies on this validator alone.",
+      "required_repair": "Close every nested object, require exact sentinel ID and path-token uniqueness, and retain detached file-hash authentication."
+    }
+  ],
+  "preserved_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Even after these deterministic repairs, the precheck-to-rename and post-readback writer races remain unresolved.",
+    "status": "PRESERVED_FOR_HUMAN_OR_EXTERNAL_AI",
+    "forced_consensus": false
+  },
+  "actions_not_taken": [
+    "did_not_edit_any_frozen_v3_artifact",
+    "did_not_run_live_canonical_measurement",
+    "did_not_open_canonical_or_global_targets_for_v3",
+    "did_not_restart_windows",
+    "did_not_touch_onedrive",
+    "did_not_prepare_publish_or_recover",
+    "did_not_modify_hosea_content_or_global_sidecars"
+  ],
+  "next_action": "Wait for both independent peer crosschecks, then obtain a fresh boss adjudication over all three reports. Preserve the frozen V3 draft as rejected evidence if any blocker is sustained, and implement repairs only in a newly named generation."
+}

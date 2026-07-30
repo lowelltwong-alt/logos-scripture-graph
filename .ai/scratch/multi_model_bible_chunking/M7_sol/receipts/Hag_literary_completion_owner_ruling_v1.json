@@ -1,0 +1,133 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T559",
+    "model_id":  "M7_sol",
+    "book":  "Hag",
+    "completed_at_utc":  "2026-07-29T20:03:17.6376865Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  10,
+                            "canonical_verse_count":  38,
+                            "covered_verse_count":  38,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  10,
+                            "held_decision_count":  0,
+                            "held_decision_ids":  [
+
+                                                  ],
+                            "confidence":  {
+                                               "high":  7,
+                                               "medium":  3
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  30,
+                            "unique_primary_reviewer_attempt_ids":  30,
+                            "all_workflow_attempt_ids":  50,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  16,
+                                                     "challenge":  14
+                                                 },
+                            "scoped_challenge_claims":  14,
+                            "answered_challenges":  14,
+                            "active_specialist_post_ruling_appeals":  0,
+                            "open_linked_boundary_appeals":  0,
+                            "mandatory_parent_relations":  8,
+                            "preserved_dissent_relations":  6,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Hag.md":  "88f669698d0d29eae0406be76706cbededc665da0cba0405a45f593af0217911",
+                                   "book_chunks/Hag/chunks.jsonl":  "cdd0cba78e9a10c15379f266c13d9741b86e0a0649692475ce8c4ed5b3110f5a",
+                                   "reviews/Hag/review_packets.jsonl":  "b05bbc0c748d927429f440f6c63546a637a8d161b38b882fe87a92cfe487fb7b",
+                                   "reviews/Hag/decision_evidence_v2.jsonl":  "17ae7f9a4119b7d49d64763e90c6933c83c7a554ed6075577165aaff30f4be7e",
+                                   "reviews/Hag/decision_relations.jsonl":  "008ec2d3b6a72ead0ba52dc5b61e4cf97453865bc38e3f7d55c1c9dc1e057074",
+                                   "reviews/Hag/adjudicated_route_draft_v2.json":  "3db59ae45e7661f0789b260706ef31d8a08e44ae0e626661d90c3a2c9d8a972c",
+                                   "reviews/Hag/fresh_boss_adjudication_v2.json":  "248dc9fc8dd8095b599a5421a9d460bd76c91704dc49a9b96c4ed5eb01639b10",
+                                   "reviews/Hag/boss_ruling_v2.json":  "b63bd0085b1ee8cbdd2d1666071af37a8572efbe3212e99f1f48e5803c6fcfac",
+                                   "reviews/Hag/mesh_instruction_and_dissent_v2.json":  "732508652ab16c71106cf3a312dde035cd7e32076c60ade8b044a364c602731f",
+                                   "reviews/Hag/post_ruling_appeal_opportunities_v2.json":  "8222340846bea65f9aa7efef3597748ad3922bd9776e7216d5d3163e890285c2",
+                                   "reviews/Hag/independent_literary_postcheck_pre_binding_v2.json":  "822fdf8227673d436d3e309cd088bab29f3686cfe84fb40751fdf5516fb1914a",
+                                   "reviews/Hag/independent_literary_postcheck_v2.json":  "d1ccfa31705c2524dd789b96582b35843f4d85779ad9b9efb9d9950217a5e657",
+                                   "reviews/Hag/post_resolution_check_v2.json":  "6b58e4721a16e7d34d2f9af6cd8859a792b7db4c85b894621d90b214c8db4c40"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Hag/chunks.jsonl --model-id M7_sol --book Hag",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 10 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Hag --json",
+                           "status":  "pass",
+                           "output":  "10 accepted, 0 held; zero template, generic-form, encoding, quotation, prose-shell, semantic-constructor, or review-batch failures."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Hag",
+                           "status":  "pass",
+                           "output":  "OK: Hag chunks=10 exact ordered coverage=38/38."
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Hag --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK."
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Hag",
+                           "status":  "non_gating_owner_ruling_stale_pass1_only",
+                           "output":  "Literary and postcheck state green; only five stale pass-one Haggai rows remain in each global uncertainty sidecar."
+                       }
+                   ],
+    "independent_checks":  {
+                               "pre_binding_verdict":  "pass",
+                               "final_bound_verdict":  "pass",
+                               "final_bound_report_sha256":  "d1ccfa31705c2524dd789b96582b35843f4d85779ad9b9efb9d9950217a5e657",
+                               "structured_web_quotes_checked":  40,
+                               "structured_web_quote_failures":  0,
+                               "oshb_coordinates":  38,
+                               "uxlc_coordinates":  38,
+                               "post_resolution_pass_packets":  10
+                           },
+    "pass1_archive":  {
+                          "archived_before_rework":  true,
+                          "artifact_count":  15,
+                          "archived_review_file_count":  14,
+                          "archived_chunks_sha256":  "51cffd8262768895d2172e7200cbad1ab2107315f11641de86f04c4bc3ad05ce",
+                          "appeal_ledger_bytes":  132416,
+                          "appeal_ledger_sha256":  "b82026b88d31a8a06e19c9a1c8a9fa2b2061519ee7e82207c9b680da284353a0",
+                          "appeal_ledger_matches_archive":  true
+                      },
+    "sidecar_disposition":  {
+                                "status":  "non_gating_untouched_pass1_partitions",
+                                "orphan_rows_per_sidecar":  5,
+                                "sidecars":  [
+                                                 "low_confidence_register.jsonl",
+                                                 "frontier_escalation_queue.jsonl",
+                                                 "atlas_candidate_feed.jsonl"
+                                             ]
+                            },
+    "isolation":  {
+                      "m1_m6_read":  false,
+                      "comparison_read":  false,
+                      "t417_read":  false,
+                      "commit_push_merge":  false,
+                      "external_receipt_fabricated":  false
+                  },
+    "authority":  {
+                      "candidate_only":  true,
+                      "non_authorizing":  true,
+                      "counts_as_cross_model_convergence":  false,
+                      "promotion_authority":  false,
+                      "canon_route_graph_theology_authority":  false
+                  }
+}

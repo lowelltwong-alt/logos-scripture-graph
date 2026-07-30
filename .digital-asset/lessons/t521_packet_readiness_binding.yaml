@@ -1,0 +1,23 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-PACKET-READINESS-BINDING
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  The external packet should include a hash-bound readiness report that exposes
+  scaffold/refinement coverage and limitations, while labeling it as process
+  evidence rather than independent literary validation.
+evidence:
+  script: scripts/refresh_t521_packet_index_with_readiness_report.py
+  packet_index: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/external_review_packet_index.json
+  readiness_report_sha256: sha256:022e73268da0d649ac7db3d4a4d6cef6308069d63fc2a83fdf743f4fe0a41cbc
+  books: 66
+  chunks: 1178
+constraints:
+  - readiness report is not independent evidence
+  - sibling maps remain withheld until review freeze
+  - candidate_only and promotion_authorized=false remain mandatory

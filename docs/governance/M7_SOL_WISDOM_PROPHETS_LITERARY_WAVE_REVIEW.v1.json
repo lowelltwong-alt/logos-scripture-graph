@@ -1,0 +1,35 @@
+{
+  "schema_version": "m7_sol_literary_wave_review.v1",
+  "model_id": "M7_sol",
+  "scope": ["Job", "Ps", "Prov", "Eccl", "Song", "Isa", "Jer", "Lam"],
+  "candidate_only": true,
+  "non_authorizing": true,
+  "coverage_policy": "Existing chapter/psalm spans remain conservative outer boundaries; proposed seams are metadata for B01 challenge, not promoted boundaries.",
+  "method": {
+    "literary": "Track prose/poetry shifts, speaker turns, headings, refrains, acrostics, collection seams, and embedded poems.",
+    "original_language": "Flag Hebrew morphology, rare lexemes, parallelism, meter, acrostic letters, and superscription/heading scope; no lexical decision is asserted.",
+    "cross_reference": "Record likely structural parallels only (e.g., Isa 36-39//2 Kgs; Jer 52//2 Kgs 24-25); defer semantic harmonization.",
+    "red_team": "Challenge chapter-as-unit assumptions wherever speech, poem, refrain, acrostic, or narrative seams cross chapter boundaries."
+  },
+  "book_holds": {
+    "Job": ["3-31 speech cycles may cross chapter seams", "28 is a bounded wisdom poem but rare Hebrew terms are disputed", "38-42 poetry-to-prose and speaker/epilogue seams require challenge"],
+    "Ps": ["Psalm-level units retained; superscriptions and internal stanzas are not silently normalized", "alphabetic/acrostic and refrain structures require Hebrew evidence", "collection seams (e.g., 72, 89, 106, 150) are candidate signals only"],
+    "Prov": ["1-9 extended instructions differ from aphoristic collections 10-29", "22:17-24:22 and 24:23 headings have scope ambiguity", "30-31 speaker headings, numerical sayings, and acrostic poem require lexical review"],
+    "Eccl": ["3 time poem and 12 closing poem are embedded literary units", "voice/frame and epilogue boundaries remain contested", "refrain translations can hide structural recurrence"],
+    "Song": ["speaker attribution, chorus/refrain, and scene shifts are unresolved", "Hebrew imagery and compact lyric syntax make English segmentation unstable", "chapter boundaries are intentionally conservative"],
+    "Isa": ["1-35 oracle cycles contain songs/woes/visions crossing chapters", "36-39 is a narrative interlude with parallels in Kings", "40-55 consolation and servant-song seams require challenge; 56-66 shifts to disputation/restoration"],
+    "Jer": ["poetic oracles and prose narratives alternate irregularly", "26-29, 30-33, 34-45, and 46-51 have collection/heading and chronology holds", "52 is an appendix with a Kings parallel"],
+    "Lam": ["1-4 alphabetic acrostic/meter structures are evidence for stanza boundaries", "5 intentionally preserves the acrostic-to-non-acrostic contrast", "Hebrew meter and rare terms remain unresolved"]
+  },
+  "red_team_required_challenges": [
+    "Reject any proposed seam justified only by English punctuation or chapter number.",
+    "Require an explicit speaker/heading/refrain/acrostic or discourse marker for a promoted internal seam.",
+    "Keep unresolved Hebrew ambiguity as a hold and preserve competing ranges in an appeal ledger.",
+    "Cross-reference only as a structural comparison; do not import chronology, authorship, or theology.",
+    "Verify exact coverage and no overlap after any future split or merge."
+  ],
+  "source_artifacts": {
+    "candidate_chunk_files": [".ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/<Book>/chunks.jsonl"],
+    "refinement_script": "scripts/refine_m7_sol_literary_wave.py"
+  }
+}

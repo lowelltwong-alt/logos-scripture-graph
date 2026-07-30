@@ -1,0 +1,257 @@
+{
+  "schema_version": "t550.v9_components_v2_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "fresh_independent_specification_and_integration_checker",
+  "review_mode": "read_only_exact_hash_static_and_pure_fixture_adversarial_review",
+  "reviewed_at_utc": "2026-07-28T20:40:00Z",
+  "frozen_inputs": {
+    "freeze": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_freeze.json",
+      "expected_sha256": "99f54b8cc6985dfc715065467adb608b209674ccb5ea47a10276a1f5c423ba70",
+      "observed_sha256": "99f54b8cc6985dfc715065467adb608b209674ccb5ea47a10276a1f5c423ba70",
+      "exact_hash_match": true
+    },
+    "contract": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_live_gate_contract_v2.json",
+      "expected_sha256": "beea267ec9685fa59d4b5bcadd02ed1f238b626703dde56974971d779fdcd82d",
+      "observed_sha256": "beea267ec9685fa59d4b5bcadd02ed1f238b626703dde56974971d779fdcd82d",
+      "exact_hash_match": true
+    },
+    "policy": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+      "expected_sha256": "8c80506ff9d5ec1c9f9f7a7fb5b821b61ef54e4f4a871147d9f71c9f44908fa7",
+      "observed_sha256": "8c80506ff9d5ec1c9f9f7a7fb5b821b61ef54e4f4a871147d9f71c9f44908fa7",
+      "exact_hash_match": true
+    },
+    "policy_tests": {
+      "path": "tests/test_rematerialization_live_gate_policy_v2.py",
+      "expected_sha256": "3a327c5f34cb171ae73027b04e621c427a333ea7ad2c0c93501496ec36d2c839",
+      "observed_sha256": "3a327c5f34cb171ae73027b04e621c427a333ea7ad2c0c93501496ec36d2c839",
+      "exact_hash_match": true
+    },
+    "adapter": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+      "expected_sha256": "ae5e0a0e21e0422d54eeb695f30b3ef8e9673e09355b61deb4444bd95b17ad68",
+      "observed_sha256": "ae5e0a0e21e0422d54eeb695f30b3ef8e9673e09355b61deb4444bd95b17ad68",
+      "exact_hash_match": true
+    },
+    "adapter_tests": {
+      "path": "tests/test_windows_live_environment_measurement_v2.py",
+      "expected_sha256": "814f5587d196b3d7d4a3955f60552658d30ee547191d787c5b73d3d753789338",
+      "observed_sha256": "814f5587d196b3d7d4a3955f60552658d30ee547191d787c5b73d3d753789338",
+      "exact_hash_match": true
+    }
+  },
+  "predecessor_rejection_sha256": "8cc0ea76a7ac0181f54617c5c7e6d82af4aff970aeb0ef9babb8f1a0467380cd",
+  "freeze_validation_evidence_reviewed_not_repeated": [
+    {
+      "command_id": "policy_prepare_general_partition",
+      "result": "PASS",
+      "passed": 21,
+      "deselected": 4,
+      "elapsed_seconds": 50.7
+    },
+    {
+      "command_id": "policy_publish_partition",
+      "result": "PASS",
+      "passed": 4,
+      "deselected": 21,
+      "elapsed_seconds": 53.16
+    },
+    {
+      "command_id": "adapter_direct_integration_suite",
+      "result": "PASS",
+      "passed": 7,
+      "elapsed_seconds": 56.32
+    }
+  ],
+  "independent_execution": {
+    "live_measurement_executed": false,
+    "restart_attempted": false,
+    "onedrive_touched": false,
+    "attempt_prepare_publish_or_recover_invoked": false,
+    "canonical_or_global_files_mutated": false,
+    "frozen_long_test_partitions_repeated": false,
+    "pure_fixture_adversarial_probe_count": 4,
+    "pure_fixture_adversarial_probes": [
+      {
+        "probe_id": "boot_time_after_capture_end",
+        "mutation": "Set measurement.boot.boot_time_utc 1000 seconds after the capture while retaining a changed post-freeze boot identity.",
+        "expected": "FAIL",
+        "observed": "PASS_UNEXPECTED"
+      },
+      {
+        "probe_id": "unlinked_onedrive_match",
+        "mutation": "Append a non-current onedrive.exe row to matched_processes while leaving onedrive_matches and in_scope_writer_matches empty.",
+        "expected": "FAIL",
+        "observed": "PASS_UNEXPECTED"
+      },
+      {
+        "probe_id": "canonical_parent_identity_alias",
+        "mutation": "Make two differently named canonical parents carry the same volume_serial and file_id identity.",
+        "expected": "FAIL",
+        "observed": "PASS_UNEXPECTED"
+      },
+      {
+        "probe_id": "prepare_publish_current_process_drift",
+        "mutation": "Change publish process_snapshot.current_process_id from 99 to 777 while retaining the prepare PASS and every projected field.",
+        "expected": "FAIL",
+        "observed": "PASS_UNEXPECTED"
+      }
+    ]
+  },
+  "contract_checks": [
+    {
+      "check_id": "C01_exact_component_and_contract_hashes",
+      "status": "PASS",
+      "evidence": "All six supplied frozen hashes match byte-for-byte; policy constants also pin the contract and predecessor rejection hashes."
+    },
+    {
+      "check_id": "C02_provider_neutral_policy_runtime_adapter_separation",
+      "status": "PASS",
+      "evidence": "The policy imports only pure data/time/hash/JSON/type helpers and makes no filesystem, process, Windows, clock-read, or publication call. Host effects are isolated in the Windows adapter."
+    },
+    {
+      "check_id": "C03_raw_measurement_retention_closed_schema_and_hash",
+      "status": "PASS",
+      "evidence": "The policy closes the V2 measurement schema, validates its fields, and returns SHA-256 over the full canonical raw measurement. Unknown top-level fields fail."
+    },
+    {
+      "check_id": "C04_restart_after_freeze",
+      "status": "FAIL",
+      "evidence": "Policy lines 606-612 require changed boot identity and boot_time > frozen_at, but never require boot_time <= capture start/end. A boot time after the measurement capture passed the independent pure probe.",
+      "impact": "The required restart chronology is not proven by the accepted record."
+    },
+    {
+      "check_id": "C05_os_build_arch_volume_and_volume_root_identity",
+      "status": "FAIL",
+      "evidence": "OS/build/architecture and volume GUID/serial/filesystem/flags are present and publish-bound, and NTFS is required. However no frozen or measured volume-root-parent identity exists in _VOLUME_KEYS or _FREEZE_KEYS, despite the contract requiring frozen volume root parent identity continuity. The policy also accepts any nonempty OS name rather than the required Windows environment.",
+      "impact": "A contract-mandated root identity is absent rather than merely unchecked."
+    },
+    {
+      "check_id": "C06_workspace_model_canonical_parent_file_identity_and_size",
+      "status": "FAIL",
+      "evidence": "Workspace/model roots, canonical parents, all target/sentinel file identities, and sizes are structurally validated and publish-projected. But _parents enforces unique sorted parent_id only, not distinct directory identities. Two parent IDs sharing one volume_serial/file_id passed the independent probe.",
+      "impact": "Directory alias/substitution is not rejected as the contract requires."
+    },
+    {
+      "check_id": "C07_exact_13_target_and_3_sentinel_allowlists",
+      "status": "PASS",
+      "evidence": "Counts, ordinal order, IDs, roles, path tokens, target preimage/staged hashes, sentinel hashes, current bytes, regular-file status, reparse rejection, unique target/sentinel file identities, and in-capture opens are checked. Adapter rows feed this schema directly."
+    },
+    {
+      "check_id": "C08_noncaller_omittable_process_name_policy",
+      "status": "PASS",
+      "evidence": "The exact eleven-name tuple is code-defined in the policy; both freeze and measurement must carry the exact tuple and canonical digest."
+    },
+    {
+      "check_id": "C09_bounded_process_snapshot_and_current_process_binding",
+      "status": "FAIL",
+      "evidence": "The policy separately requires onedrive_matches == [] and in_scope_writer_matches == [], but does not derive or cross-check those lists from matched_processes. A non-current onedrive.exe matched row with both derived lists empty passed. current_process_id is only range-checked; matched is_current_process rows need not equal it, and no current-process start token or executable identity is recorded.",
+      "impact": "Zero writer matches and the explicitly bound current-process exception are caller-asserted, not relationally validated."
+    },
+    {
+      "check_id": "C10_dual_clocks_and_short_lease",
+      "status": "PASS",
+      "evidence": "Capture duration and validation age are checked on wall and monotonic clocks, clock disagreement is bounded, opens must occur within capture, and the maximum is 120 seconds."
+    },
+    {
+      "check_id": "C11_external_human_authorization_scope",
+      "status": "FAIL",
+      "evidence": "The record correctly says external evidence, noncryptographic identity assurance, local JSON alone insufficient, and non-authorizing. But the authorization schema contains no task, book, application_id, freeze_id, target/sentinel tuple digest, phase/window, or expiry binding. The same authorization object can therefore be replayed with a different otherwise self-consistent expectations.application_id.",
+      "impact": "Presence and prose-digest evidence are not scoped to this exact one-shot candidate action."
+    },
+    {
+      "check_id": "C12_parent_and_current_process_identity_continuity",
+      "status": "FAIL",
+      "evidence": "Parent PID/start token/executable identity are validated and publish-projected. Current process has only a PID and is omitted from _continuity_projection. Changing current_process_id between prepare and publish passed the independent probe.",
+      "impact": "The explicit parent/current-process continuity requirement is only half implemented."
+    },
+    {
+      "check_id": "C13_prepare_pass_revalidation_and_publish_continuity",
+      "status": "FAIL",
+      "evidence": "Publish does fully revalidate the supplied prepare measurement under the PASS result's recorded clocks and compares the supplied result exactly to its recomputation before material projection comparison. However no prior externally fixed prepare measurement/result hash is an input or publish-record binding; the function only returns those hashes after accepting caller-supplied prior objects. In addition, its material projection omits current-process identity and process snapshot state.",
+      "impact": "Self-consistency is proven, but prior issuance and all required continuity are not."
+    },
+    {
+      "check_id": "C14_adapter_read_only_and_dependency_freeze",
+      "status": "FAIL",
+      "evidence": "The V2 adapter itself contains only reads and delegates handle collection to windows_live_environment_measurement_v1.py, validating its closed output/digest/claims. But that dynamically loaded V1 collector is neither hash-pinned in the adapter nor listed in the V2 component freeze supplied to this review.",
+      "impact": "A security-critical runtime dependency may drift without invalidating the frozen V2 component set."
+    },
+    {
+      "check_id": "C15_candidate_only_and_residual_race_honesty",
+      "status": "PASS",
+      "evidence": "Both layers preserve candidate-only/non-authorizing status, bounded non-exhaustive inventory, future/pre-opened writer risk, lost-update and post-readback overwrite risk, process-crash-only recovery, and no power-loss or 13-file-set atomicity claim."
+    }
+  ],
+  "blocking_findings": [
+    {
+      "finding_id": "V2-BLOCK-001",
+      "severity": "critical",
+      "title": "Process evidence is not relationally closed or identity-bound",
+      "covers_checks": ["C09_bounded_process_snapshot_and_current_process_binding", "C12_parent_and_current_process_identity_continuity"],
+      "required_resolution": "Represent current process with PID plus start token plus executable identity; derive or exactly cross-check matched, OneDrive, other-writer, and current-process subsets; bind the exact current-process identity across prepare and publish; add mutation tests for every relation."
+    },
+    {
+      "finding_id": "V2-BLOCK-002",
+      "severity": "critical",
+      "title": "Required root/parent and restart chronology proofs are incomplete",
+      "covers_checks": ["C04_restart_after_freeze", "C05_os_build_arch_volume_and_volume_root_identity", "C06_workspace_model_canonical_parent_file_identity_and_size"],
+      "required_resolution": "Require frozen/measured volume-root-parent identity, enforce Windows and boot_time <= capture start, reject duplicate canonical-parent identities, and directly mutate these conditions in tests."
+    },
+    {
+      "finding_id": "V2-BLOCK-003",
+      "severity": "critical",
+      "title": "Human authorization and prepare PASS are not externally scoped/fixed",
+      "covers_checks": ["C11_external_human_authorization_scope", "C13_prepare_pass_revalidation_and_publish_continuity"],
+      "required_resolution": "Bind the external authorization reference/text digest to task, book, application, freeze, exact target/sentinel tuple, phases and lease; require an independently supplied expected prepare measurement/result digest before publish; retain the explicit statement that this is evidence, not cryptographic human identity proof."
+    },
+    {
+      "finding_id": "V2-BLOCK-004",
+      "severity": "high",
+      "title": "Dynamically loaded V1 collector is outside the component freeze",
+      "covers_checks": ["C14_adapter_read_only_and_dependency_freeze"],
+      "required_resolution": "Hash-pin the exact V1 collector and its relevant independent evidence before loading, or remove the runtime dependency by moving the required read-only implementation into the frozen V2 adapter."
+    }
+  ],
+  "counterevidence_and_limits": [
+    "The frozen suites are meaningful component evidence: they cover many direct protected-field mutations, exact hashes/counts/order, stale dual clocks, basic process blocking, forged prepare result content, and several publish identity drifts.",
+    "The adapter's normal code path constructs matched_processes, onedrive_matches, and in_scope_writer_matches consistently; the failed relational probe demonstrates that the policy does not independently validate the raw contract it claims to close.",
+    "The prepare result is deterministically recomputed, so arbitrary edits to a supplied result fail. The unresolved issue is absence of an independently fixed prior digest and incomplete continuity projection.",
+    "No finding asserts that bounded process enumeration can become exhaustive or that residual writer races can be eliminated. Those limitations are honestly preserved."
+  ],
+  "disagreements_and_appeal": [
+    {
+      "position": "The pinned V2 adapter always constructs the three process lists together, so policy-level relational validation is redundant.",
+      "checker_response": "Rejected for integration. The contract explicitly requires a closed raw adapter-to-policy surface and full policy consumption; furthermore the adapter has a dynamic unpinned V1 dependency. Defense-in-depth is material at the publication boundary.",
+      "appeal_status": "preserved_for_boss_and_human_review"
+    },
+    {
+      "position": "A current PID is adequate because collection is point-in-time and the parent process has a full identity.",
+      "checker_response": "Rejected. The current-process exception determines which matched writer is ignored, and publish continuity explicitly calls for parent/current identity. PID alone and omission from continuity permit the demonstrated drift.",
+      "appeal_status": "preserved_for_boss_and_human_review"
+    },
+    {
+      "position": "A future wrapper can externally pin the prepare PASS and human authorization, so the component pair can pass now.",
+      "checker_response": "Not accepted as present evidence. Such a wrapper may resolve these findings, but it is absent from this frozen pair and the current direct adapter-to-policy path cannot claim those bindings.",
+      "appeal_status": "preserved_for_boss_and_human_review"
+    }
+  ],
+  "verdict": "FAIL_COMPONENT_PAIR_FOR_INTEGRATION",
+  "current_restart_readiness": "FAIL",
+  "current_prepare_readiness": "FAIL",
+  "current_publication_readiness": "FAIL",
+  "may_run_live_measurement_based_on_this_check": false,
+  "may_restart_or_touch_onedrive_based_on_this_check": false,
+  "may_prepare_publish_or_recover_based_on_this_check": false,
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "canonical_targets_modified": false,
+  "global_sidecars_modified": false,
+  "forced_consensus": false,
+  "candidate_only": true,
+  "non_authorizing": true,
+  "completion_state": "not_completed"
+}

@@ -706,6 +706,10 @@ def build_gates() -> list[tuple[str, list[str]]]:
             [PY, str(ROOT / "scripts" / "validate_scripture_first_biblical_chunking_family.py")],
         ),
         (
+            "validate_whole_bible_candidate_workflow.py",
+            [PY, str(ROOT / "scripts" / "validate_whole_bible_candidate_workflow.py")],
+        ),
+        (
             "validate_t513_portable_ocr_adoption.py",
             [PY, str(ROOT / "scripts" / "validate_t513_portable_ocr_adoption.py")],
         ),

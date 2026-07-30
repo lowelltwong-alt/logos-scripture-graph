@@ -1,0 +1,157 @@
+id: T521
+phase: phase_4
+title: "M7 candidate-only whole-Bible chunking campaign and replay qualification"
+mode: whole_bible_candidate_chunking
+status: in_progress_revision7_B00_validated_B01_migration_blocked
+owner: Lowell Wong
+branch: scratch/t423-m7-sol
+base_ref: inherited_scratch_campaign
+summary: >
+  Produce Sol's independent-from-sibling-maps candidate chunk map for all 66
+  canonical books using Scripture-first literary, original-language, translation,
+  canonical-intertext, premortem, peer-check, boss-adjudication, and appeal lanes.
+  Genesis, Exodus, and Leviticus are precontract candidate snapshots. Numbers
+  B00 was materialized and validated under the role-separated implementation
+  gate; B01-B10 remain pending and no output promotion is authorized.
+authority:
+  human_authorization: >
+    Lowell requested the whole-Bible M7 campaign, extensive red-team subagents,
+    original-language and literary expertise, high-level dispute resolution,
+    preserved dissent, DAD lesson capture, and a reproducible workflow.
+  local_source_of_truth: logos-scripture-graph
+  dad_role: metadata_only_candidate_learning_transport
+scope:
+  allowed_paths:
+    - .ai/tasks/T521.task.yaml
+    - .ai/handoffs/T521/
+    - .ai/control/handoff_ledger.jsonl
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/roadmap_events.jsonl
+    - ROADMAP_STATE.yaml
+    - docs/roadmap/TASK_LEDGER.md
+    - .ai/scratch/multi_model_bible_chunking/M7_sol/
+    - config/agents/families/scripture-first-biblical-chunking/
+    - schemas/scripture-first-biblical-chunking-family.schema.json
+    - scripts/whole_bible_replay_evidence.py
+    - scripts/build_whole_bible_b00_preflight.py
+    - scripts/run_whole_bible_completion_gates.py
+    - scripts/write_whole_bible_stage_receipt.py
+    - scripts/write_whole_bible_boss_phase_receipt.py
+    - scripts/build_whole_bible_extended_evidence_manifest.py
+    - scripts/validate_whole_bible_stage_receipts.py
+    - scripts/write_whole_bible_terminal_completion_receipt.py
+    - scripts/validate_whole_bible_candidate_workflow.py
+    - scripts/whole_bible_replay_evidence_v2.py
+    - scripts/build_whole_bible_b00_preflight_v2.py
+    - scripts/build_whole_bible_b01_evidence_v2.py
+    - scripts/write_whole_bible_stage_receipt_v2.py
+    - scripts/validate_whole_bible_stage_receipts_v2.py
+    - scripts/validate_whole_bible_candidate_workflow_v2.py
+    - scripts/upgrade_whole_bible_campaign_rev7.py
+    - tests/test_whole_bible_replay_evidence_v2.py
+    - docs/governance/WHOLE_BIBLE_B01_REPLAY_RUNBOOK.md
+    - scripts/build_scripture_first_biblical_chunking_catalog.py
+    - scripts/validate_scripture_first_biblical_chunking_family.py
+    - scripts/validate_dad_outbox.py
+    - scripts/validate_all.py
+    - tests/test_whole_bible_replay_evidence.py
+    - tests/test_scripture_first_biblical_chunking_family.py
+    - .digital-asset/lessons/t521_m7_chunking_replay_audit_lessons.yaml
+    - .digital-asset/context-map.json
+    - .digital-asset/mail/outbox.jsonl
+  forbidden_paths:
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - eval/chunking_gold/
+    - pipelines/chunking/
+    - registry/chunking/
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - .ai/scratch/multi_model_bible_chunking/M1_cursor/
+    - .ai/scratch/multi_model_bible_chunking/M2_claude/
+    - .ai/scratch/multi_model_bible_chunking/M3_gemini/
+    - .ai/scratch/multi_model_bible_chunking/M4_grok/
+    - .ai/scratch/multi_model_bible_chunking/M5_codex/
+    - .ai/scratch/multi_model_bible_chunking/M6_other/
+non_authorizations:
+  - reviewed_gold_or_candidate_promotion
+  - canonical_chunk_output_change
+  - sibling_model_map_read_before_completion
+  - model_agreement_as_boundary_authority
+  - cross_model_independence_claim_from_same_model_subagents
+  - preferred_translation_or_source_tradition
+  - ancient_context_simulation_without_qualified_corpus
+  - graph_retrieval_vector_or_index_truth
+  - canon_scope_change
+  - doctrine_or_theology_authority
+  - unattended_launch
+  - dad_override_of_local_authority
+runtime_language_preflight:
+  task_id: T521
+  expected_input_size_or_record_count: "Control-plane JSON/YAML receipts and manifests under 10 MB and 10,000 records per command; Scripture artifacts are referenced, not copied into the evidence harness."
+  expected_runtime_or_memory_pressure: "Individual harness commands should complete in under 30 seconds; the slower aggregate pytest startup is environment/plugin overhead rather than a deterministic parsing hotspot."
+  rust_trigger_match: []
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "The work is filesystem orchestration, JSON/YAML validation, hashing, subprocess evidence, and governance checks; Python is the portable reference control plane and no CPU-bound stable hotspot was measured."
+  interop_boundary: "Schemas and canonical JSON receipts are provider-neutral; Codex-specific subagent dispatch is isolated in the runtime adapter."
+  python_fallback_or_wrapper_plan: "Python remains the deterministic reference. A future measured hashing or large-record scan may gain a parity-tested Rust leaf without changing receipt semantics."
+  validation_plan: "Schema compile, static campaign validator, stable exploit fixtures, materialized Numbers B00-B10 dry replay, terminal receipt check, role-separated red-team review, DAD transport validation, and repository gates."
+subagent_mesh_contract:
+  portable_prompt_pack: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v1.yaml
+  portable_workflow: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v1.yaml
+  revision_7_candidate_workflow: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v2.yaml
+  revision_7_candidate_prompt_pack: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v2.yaml
+  revision_7_candidate_runtime_adapter: config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v2.yaml
+  revision_7_replay_runbook: docs/governance/WHOLE_BIBLE_B01_REPLAY_RUNBOOK.md
+  revision_7_promotion_status: candidate_B00_only_not_family_promoted
+  runtime_adapter: config/agents/families/scripture-first-biblical-chunking/codex_desktop_campaign_adapter.v1.yaml
+  roles:
+    - root_author
+    - strategy_scout
+    - bounded_ancient_jewish_context_specialist
+    - original_language_translation_specialist
+    - literary_form_specialist
+    - canonical_intertext_specialist
+    - primary_reviewer
+    - peer_crosschecker
+    - premortem_reviewer
+    - evidence_dispute_boss
+    - appeal_reviewer
+    - post_resolution_checker
+  same_model_mesh_weight: one_correlated_model_voice
+  boss_sequence: immutable_B06a_before_peer_premortem_exposure_then_hash_bound_B06b
+  disagreement_policy: preserve_reasoned_appeals_append_only_for_human_or_external_ai_review
+  writes: root_only_serialized_and_atomic
+replay_evidence_contract:
+  revision: 7
+  dag: B00_then_B01_through_B10_blocked_pending_typed_evidence_migration
+  static_specification_valid: true
+  supported_stage_ceiling: B00
+  B01_materialization_enabled: false
+  materialized_numbers_replay_present: false
+  materialized_numbers_B00_present: true
+  numbers_run_id: num-native-r7-20260722c
+  numbers_selected_stages: [B00]
+  numbers_first_missing_stage: B01_unmigrated
+  numbers_B00_receipt_sha256: sha256:eeed01bbb57b3a273339816085ffc9a55beec1e9ad47d75ff9504e4fd74c6ff6
+  rejected_stale_revision_7_runs: [num-native-r7-20260722a, num-native-r7-20260722b]
+  focused_registry_bound_tests: 22_passed
+  replay_qualified: false
+  launch_qualified: false
+  whole_bible_form_language_qualified: false
+  existing_precontract_books: [Gen, Exod, Lev]
+  historical_revision_6_numbers_run: num-native-r6-20260722a
+  first_native_replay_book: Num
+acceptance_criteria:
+  - "Every canonical book receives a candidate-only whole-book map with exact coverage and official schema validation."
+  - "Every native run has immutable B00-B10 attempt receipts, a precompletion evidence manifest, exact gate bundle, terminal candidate receipt, lineage, disagreement, and appeal preservation."
+  - "Hebrew/Aramaic and Koine Greek routing uses pinned manifests; absent ancient-context corpora create explicit gaps, never simulated expertise."
+  - "Role separation and blindness are disclosed separately from model/provider independence."
+  - "Dimensional calibration covers poetry, Aramaic, Koine Greek, synoptic parallel, and epistle argument before any broader competence claim."
+  - "DAD receives only privacy-safe candidate metadata and central learning is never claimed without an ingestion receipt."
+required_handoff: .ai/handoffs/T521/handoff.md
+exact_next_action: "Implement and exploit-test typed B01 controller, role-report, synthesis, boss, challenge, and appeal evidence under a new hash-bound revision; obtain a new boss gate before enabling B01. Do not auto-advance or claim replay qualification."
+created_at: "2026-07-22"
+updated_at: "2026-07-22"

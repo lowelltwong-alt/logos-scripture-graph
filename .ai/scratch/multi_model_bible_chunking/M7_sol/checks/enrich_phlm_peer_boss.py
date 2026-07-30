@@ -1,0 +1,24 @@
+from __future__ import annotations
+import json
+from pathlib import Path
+M=Path(__file__).resolve().parents[1];R=M/'reviews'/'Phlm'
+def load(n):return json.loads((R/n).read_text(encoding='utf-8-sig'))
+def dump(n,o):(R/n).write_text(json.dumps(o,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def readj(n):return [json.loads(x) for x in (R/n).read_text(encoding='utf-8-sig').splitlines() if x.strip()]
+def writej(n,rs):(R/n).write_text(''.join(json.dumps(x,ensure_ascii=False,separators=(',',':'))+'\n' for x in rs),encoding='utf-8',newline='\n')
+def ids(a,b):return [f'M7_sol-Phlm-{i:03d}' for i in range(a,b+1)]
+specs=[
+('F01',ids(1,2),'Prescript and thanksgiving are marked but retain epistolary and prayer-ground routes.',['1:1|1:2|1:3','1:1-2|1:3','1:4-5|1:6-7','1:4-6|1:7'],['1:1-7','1:4-12','1:1-25'],['co-sender/addressee syntax','love/faith objects','koinonia','splanchna/refresh','no authorship/history inference'],'RN-PHLM-001'),
+('F02',ids(3,4),'Command/love, sending, retention, consent, and reception dependencies resist social-policy verse isolation.',['1:8-9|1:10-12','1:8-10|1:11-12','1:13-14|1:15-16'],['1:4-12','1:8-16','1:13-21','1:8-22','1:1-25'],['presbytes translation','kinship/wordplay','sending/heart','consent syntax','slave/beyond-slave wording','no legal/slavery policy'],'RN-PHLM-002'),
+('F03',ids(5,5),'Selected 1:17-22 is a cumulative appeal close, while lodging has a strong personal-request seam.',['1:17-21|1:22','1:17-20|1:21|1:22','1:17|1:18-20|1:21-22','1:17|1:18-19|1:20-21|1:22'],['1:13-21','1:17-22','1:8-22','1:8-25','1:1-25'],['partnership/welcome','debt/account/autograph','onaimen/refresh','confidence','lodging/prayer-return','no legal reconstruction/chronology'],'RN-PHLM-003'),
+('F04',ids(6,6),'Greeting names and grace cohere, while the benediction has a finer seam.',['1:23-24|1:25','1:23|1:24|1:25'],['1:22-25','1:8-25','1:1-25'],['co-worker register','name/textual forms','plural address','grace','no biography/witness selection'],'RN-PHLM-004')]
+f=[]
+for code,dids,claim,fine,large,holds,rn in specs:f.append({'challenge_id':f'PHLM-PEER-{code}','decision_ids':dids,'claim':claim,'exact_finer_routes':fine,'exact_larger_routes':large,'unresolved_holds':holds,'evidence_refs':['book_chunks/Phlm/chunks.jsonl','reviews/Phlm/blind_proposal_greek_textual_v1.json','reviews/Phlm/blind_proposal_literary_v1.json','reviews/Phlm/blind_proposal_canonical_premortem_v1.json',f'decision_relations.jsonl#{rn}'],'proposed_remedy':'retain current unit(s) LOW and preserve all routes append-only for human or external-AI adjudication','verdict':'material_challenge','status':'deferred_human_or_external_ai','forced_consensus':False,'non_authorizing':True})
+peer=load('peer_crosscheck_v1.json');peer.update(attempt_id='phlm-peer-crosscheck-20260724-d',reviewer_role='independent_peer_red_team_sol_high',status='pass_with_material_holds',macro_material_challenge_families=f,current_boundary_verdict='all_six_defensible_only_as_LOW_deferred_candidates',highest_seam_pressure=['M7_sol-Phlm-005'],mandatory_parents=['Phlm.1.8-Phlm.1.22','Phlm.1.1-Phlm.1.25'],promotion_verdict='blocked_pending_external_or_human_cross_model_review',forced_consensus=False,shared_model_substrate=True,counts_as_cross_model_independent_vote=False,non_authorizing=True);peer['disputed_claim_ids']=list(dict.fromkeys(peer.get('disputed_claim_ids',[])+[x['challenge_id'] for x in f]));dump('peer_crosscheck_v1.json',peer)
+boss=load('boss_ruling_v1.json')
+for x in f:boss['challenge_responses'].append({'challenge_id':x['challenge_id'],'decision_ids':x['decision_ids'],'author_response':'Accept challenge. Retain current larger unit LOW; preserve all routes and guards append-only; defer selection.','disposition':'hold_larger_unit_deferred_human_or_external_ai','appeal_preserved':True,'authority':'candidate_author_only'})
+boss['unresolved_claim_ids']=list(dict.fromkeys(boss.get('unresolved_claim_ids',[])+[x['challenge_id'] for x in f]));boss.update(peer_ruling='all four macro challenges and mandatory appeal/letter parents preserved; no legal status, slavery/social policy, witness, authorship, biography, chronology, doctrine, canon, or theology selection',external_or_human_review_still_required=True,forced_consensus=False,non_authorizing=True);dump('boss_ruling_v1.json',boss)
+by={d:x for x in f for d in x['decision_ids']};ps=readj('review_packets.jsonl')
+for p in ps:
+ x=by[p['decision_id']];p['span_specific_peer_challenge']={'challenge_id':x['challenge_id'],'claim':x['claim'],'exact_finer_routes':x['exact_finer_routes'],'exact_larger_routes':x['exact_larger_routes'],'unresolved_holds':x['unresolved_holds'],'status':'deferred_human_or_external_ai','non_authorizing':True}
+writej('review_packets.jsonl',ps);print(json.dumps({'families':len(f),'boss_responses':len(boss['challenge_responses']),'packets':len(ps)}))

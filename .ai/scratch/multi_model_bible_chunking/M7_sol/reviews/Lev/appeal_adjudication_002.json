@@ -1,0 +1,42 @@
+{
+  "schema_version":"m7_appeal_adjudication.v1",
+  "appeal_id":"APL-P-LEV-002",
+  "book":"Lev",
+  "ruling":"SUSTAIN_APPEAL_USE_SUFFIXED_CHILD_IDS_AND_CONTIGUOUS_CANONICAL_REINDEX",
+  "exact_ids":[
+    {"decision_id":"M7_sol-Lev-050a","span":"Lev.23.1-Lev.23.3","chunk_index_in_book":50,"replaces":"M7_sol-Lev-050","review_revision":1},
+    {"decision_id":"M7_sol-Lev-050b","span":"Lev.23.4-Lev.23.8","chunk_index_in_book":51,"replaces":"M7_sol-Lev-050","review_revision":1},
+    {"decision_id":"M7_sol-Lev-052a","span":"Lev.23.23-Lev.23.25","chunk_index_in_book":53,"replaces":"M7_sol-Lev-052","review_revision":1},
+    {"decision_id":"M7_sol-Lev-052b","span":"Lev.23.26-Lev.23.32","chunk_index_in_book":54,"replaces":"M7_sol-Lev-052","review_revision":1}
+  ],
+  "canonical_index_remap":{"M7_sol-Lev-051":52,"M7_sol-Lev-053":55,"M7_sol-Lev-054_through_M7_sol-Lev-068":"shift each former index by +2, producing indices 56-70","physical_jsonl_order_required":["M7_sol-Lev-050a","M7_sol-Lev-050b","M7_sol-Lev-051","M7_sol-Lev-052a","M7_sol-Lev-052b","M7_sol-Lev-053"]},
+  "required_lineage":{
+    "retire_revision_0_parents_from_active_chunks":[
+      {"decision_id":"M7_sol-Lev-050","original_span":"Lev.23.1-Lev.23.8","replaced_by":["M7_sol-Lev-050a","M7_sol-Lev-050b"]},
+      {"decision_id":"M7_sol-Lev-052","original_span":"Lev.23.23-Lev.23.32","replaced_by":["M7_sol-Lev-052a","M7_sol-Lev-052b"]}
+    ],
+    "record_location":"append-only revision log or lineage/tombstone sidecar; retired parents must not remain active chunks",
+    "child_semantics":"Each child records its revision-0 parent through replaces or lineage.revision_0_parent_ids.",
+    "unchanged_decisions":"Rows whose decision_id and span are unchanged may retain revision-0 substantive reviews; index shifts are mechanical and must be recorded as index_only_change.",
+    "calendar_relations":["M7_sol-Lev-050a","M7_sol-Lev-050b","M7_sol-Lev-051","M7_sol-Lev-052a","M7_sol-Lev-052b","M7_sol-Lev-053"]
+  },
+  "review_revision_semantics":{
+    "new_children":"All four children require review_revision=1, revision_1_pending_fresh_reviews, current child hashes, and fresh revision-bound Hebrew and literary primary reviews.",
+    "forbidden_inheritance":"Revision-0 support for M7_sol-Lev-050 or M7_sol-Lev-052 may appear only as explicitly historical parent evidence; it must not populate the children’s primary_reviews or count toward their two-primary minimum.",
+    "retired_parent_packets":"No active review packet may retain decision_id M7_sol-Lev-050 or M7_sol-Lev-052.",
+    "packet_requirements":"Each child packet must match its child ID, span, review_revision, and chunk_sha256 and identify its parent lineage."
+  },
+  "validator_risks":[
+    {"risk":"The exact-book validator derives canonical coverage from physical JSONL row order, not chunk_index_in_book.","mitigation":"Insert children physically at their canonical locations and validate ordered 859/859 coverage."},
+    {"risk":"The whole-Bible validator requires positive contiguous integer indices; fractional indices are not production-valid.","mitigation":"Reindex the 70 active Leviticus rows contiguously from 1 through 70 and record later index changes as mechanical."},
+    {"risk":"The review validator checks current hashes but does not compare packet review_revision to chunk review_revision or prove reviewer attempts are fresh.","mitigation":"Add build-time assertions for revision equality, revision-1 reviewer attempt IDs, parent lineage, and exclusion of revision-0 parent reviews from primary_reviews."},
+    {"risk":"Reusing M7_sol-Lev-050 and M7_sol-Lev-052 for narrowed spans can permit semantic review inheritance even if a builder recomputes hashes.","mitigation":"Use new suffix IDs for every split child."},
+    {"risk":"Using M7_sol-Lev-069 and M7_sol-Lev-070 makes decision-ID ordering diverge from canonical passage order and invites incorrect ID-based sorting.","mitigation":"Use 050a/050b and 052a/052b; canonical order remains independently authoritative through contiguous indices and physical row order."}
+  ],
+  "strongest_counterevidence":"Retaining the base parent ID for the first child minimizes reference churn, IDs are not formally defined as ordering keys, and current chunk hashes can detect some stale packets. Nevertheless, Genesis and Exodus split precedent gives every child a suffix ID, while current validation does not prove fresh review lineage after same-ID span mutation.",
+  "confidence":"high",
+  "residual_dissent":{"preserved":true,"position":"The boss’s stable-first-child ID convention remains mechanically workable if explicit lineage and fresh-review safeguards are perfectly enforced.","effect":"Recorded but does not justify retaining the riskier convention."},
+  "human_external_ai_hold":{"required":false,"reason":"This adjudication changes identifiers and lineage controls, not the already-adjudicated literary boundaries."},
+  "forced_consensus":false,
+  "non_authorizing":true
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": "m7_hosea_v9_live_gate_contract.v3",
+  "task_id": "T550",
+  "book": "Hos",
+  "purpose": "Sealed machine-precondition architecture for a future one-shot candidate-only Hosea rematerialization; it cannot authenticate the owner or authorize an effect.",
+  "predecessor_rejection_sha256": "24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f",
+  "component_boundaries": {
+    "provider_neutral_policy": "Pure closed-schema validation and deterministic relationship derivation; no host, filesystem, clock-read, process, authorization, or publication effects.",
+    "windows_production_adapter": "No injectable provider, clock, physical path, role, path token, parent ID, process classification, or authorization input; exact task allowlists are resolved under retained Windows handles.",
+    "test_adapter": "Separate entry point and provenance that can never satisfy the production policy.",
+    "future_wrapper": "Must pin the final component-freeze hash, obtain external owner capability outside local JSON, retain the in-process lease, and bind prepare/publish/recovery receipts.",
+    "human_gate": "Outside the machine policy. Local files can describe an observed user message but cannot prove identity or independently satisfy authorization."
+  },
+  "production_provenance": {
+    "required_mode": "actual_windows_ntfs_sealed_v3",
+    "test_or_injected_modes_rejected": true,
+    "live_canonical_execution_before_static_review_and_external_owner_gate": false
+  },
+  "fixed_allowlists": {
+    "targets": "Exactly 13 code-fixed target IDs, roles, model-relative normalized path tokens, parent tokens, leaf names, preimage hashes, and staged hashes.",
+    "sentinels": "Exactly three code-fixed global-sidecar IDs, roles, model-relative normalized path tokens, parent tokens, leaf names, and expected hashes.",
+    "process_names": "One exact code-defined normalized bounded-name tuple; callers cannot add, remove, classify, or exempt rows."
+  },
+  "rooted_identity_requirements": [
+    "actual Windows OS build and architecture",
+    "NTFS volume GUID serial flags mount-root handle identity",
+    "workspace and model retained non-reparse directory-handle identities",
+    "distinct canonical parent retained non-reparse directory-handle identities",
+    "each logical token derived from its exact normalized model-relative allowlist path",
+    "each parent token and leaf derived from that path rather than accepted from a caller",
+    "each file identity size and hash bound to the exact parent identity plus leaf",
+    "duplicate root parent target or sentinel identities rejected where their kinds require distinct objects",
+    "complete raw collector record and canonical digest embedded and validated"
+  ],
+  "chronology": {
+    "required_order": "frozen_at < boot_time <= capture_start <= every_observation <= capture_end <= validation_time",
+    "dual_clocks": true,
+    "maximum_lease_seconds": 120,
+    "parent_and_current_process_measurement_inside_capture": true
+  },
+  "process_relations": {
+    "raw_row_fields": [
+      "pid",
+      "parent_pid",
+      "normalized_measured_name",
+      "start_token",
+      "executable_file_identity"
+    ],
+    "policy_derived_sets": [
+      "current_process",
+      "permitted_controller_ancestry",
+      "onedrive_matches",
+      "other_in_scope_writer_matches"
+    ],
+    "rules": [
+      "PIDs and process identities are unique",
+      "current PID start token and executable identity are exact",
+      "only the exact measured ancestor chain needed to host the collector may be exempted",
+      "unrelated Codex PowerShell Python Git sync or copy processes remain blocking",
+      "all derived sets are recomputed by policy and cannot be caller supplied",
+      "current and parent process identities are continuous from prepare through publish"
+    ]
+  },
+  "machine_result": {
+    "success_label": "MACHINE_PRECONDITIONS_PASS_HUMAN_GATE_UNVERIFIED",
+    "human_identity_verified": false,
+    "effect_authorized": false,
+    "raw_measurement_hash_required": true,
+    "component_freeze_hash_must_be_pinned_by_future_wrapper": true
+  },
+  "publish_continuity": [
+    "future wrapper supplies independently fixed exact prepare measurement and machine-result digests",
+    "policy revalidates the original prepare bytes under their original clocks",
+    "fresh publish measurement is required",
+    "boot OS volume root workspace model parent target sentinel current parent and process policy identities remain continuous",
+    "complete process relationship state remains safe at both phases",
+    "target bytes must be exact preimages before publication and exact staged hashes after each replacement",
+    "global sentinels remain exact and are never publication targets"
+  ],
+  "in_process_lease": [
+    "a JSON record alone is insufficient for publication",
+    "future production adapter returns a nonserializable lease object tied to the measured retained root parent and sentinel handles",
+    "test provenance cannot create a production lease",
+    "target state is revalidated immediately before each rooted replacement and after completed-state transition",
+    "drift becomes hard block or recovery_required",
+    "compatible retained handles do not eliminate preopened future hidden kernel or noncooperating writer races"
+  ],
+  "real_windows_test_gate": {
+    "scope": "new disposable NTFS temporary root only",
+    "required": [
+      "sealed production primitive path with actual Windows handles",
+      "sharing denial and delete or rename contention",
+      "reparse rejection",
+      "volume root workspace model and parent identities",
+      "current and controller process coherence",
+      "logical-token alternate-file and parent-alias rejection",
+      "exact zero governed-byte and directory-member delta"
+    ],
+    "canonical_or_global_paths_forbidden": true
+  },
+  "external_owner_gate": {
+    "machine_verifiable_by_local_policy": false,
+    "local_json_alone_sufficient": false,
+    "must_be_observed_in_product_or_human_channel": true,
+    "required_scope": [
+      "Lowell Wong",
+      "T550",
+      "Hos",
+      "exact final component and wrapper freeze hashes",
+      "exact 13 target and 3 sentinel tuple",
+      "one-shot prepare publish and rollback-only recovery",
+      "issuance and expiry",
+      "residual lost-update and post-readback writer races",
+      "process-crash-only recovery",
+      "no power-loss or 13-file-set atomicity",
+      "explicit denial of global sidecars comparison promotion commit push and merge"
+    ]
+  },
+  "preserved_strict_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Compatible Windows replacement and bounded inventory cannot prove absence of every preopened hidden future kernel sync or noncooperating writer.",
+    "status": "UNRESOLVED_FOR_HUMAN_OR_EXTERNAL_AI",
+    "forced_consensus": false
+  },
+  "authority_limits": {
+    "restart_authorized": false,
+    "onedrive_action_authorized": false,
+    "live_canonical_measurement_authorized": false,
+    "prepare_publish_or_recover_authorized": false,
+    "canonical_or_global_write_authorized": false,
+    "comparison_promotion_commit_push_or_merge_authorized": false
+  },
+  "candidate_only": true,
+  "non_authorizing": true,
+  "completion_state": "static_contract_only"
+}

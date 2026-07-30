@@ -1,0 +1,26 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-EXTERNAL-REVIEW-PACKET-INDEX
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  External convergence is safer and reproducible when a blind packet index
+  freezes exact map/prompt hashes, permitted inputs, withheld sibling material,
+  source limitations, and required reviewer receipts.
+evidence:
+  script: scripts/build_t521_external_review_packet_index.py
+  packet_index: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/external_review_packet_index.json
+  map_sha256: sha256:83d978fa06baa42fb6b50488b4955b7670fe63e9afb2de4008216a270314ff33
+  books: 66
+  chunks: 1178
+  independence_status: awaiting_external_provider_or_human_receipt
+controls:
+  - sibling_maps_read_before_review=false
+  - no promotion authorization
+  - provider/model identity and hash-bound receipt required
+candidate_only: true
+non_authorizing: true

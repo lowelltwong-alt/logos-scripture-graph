@@ -130,6 +130,36 @@ def test_pilot_e2e_book_chunks_merge_compare_revert(tmp_path: Path) -> None:
     assert "verdict" in pilot_eval
 
 
+def test_mark_complete_repairs_progress_manifest_and_preserves_metadata(tmp_path: Path) -> None:
+    folder = tmp_path / "M7_sol"
+    _setup_model(folder, "M7_sol")
+    progress_path = folder / "marathon_progress.yaml"
+    progress = yaml.safe_load(progress_path.read_text(encoding="utf-8"))
+    progress["books_completed"] = 1
+    progress["book_completion"] = {
+        "Gen": {"status": "complete", "chunks": 82, "held_decisions": 1},
+        "Exod": {"status": "candidate_complete_with_explicit_holds", "chunks": 67},
+    }
+    progress_path.write_text(yaml.safe_dump(progress, sort_keys=False), encoding="utf-8")
+    manifest_path = folder / "model_manifest.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest.update({"status": "marathon_in_progress_leviticus_complete_with_hold", "books_completed": 1})
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    assert mark_book_complete(folder, "Exod", skip_validate=True) == []
+
+    repaired_progress = yaml.safe_load(progress_path.read_text(encoding="utf-8"))
+    repaired_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    assert repaired_progress["books_completed"] == 2
+    assert repaired_progress["book_completion"]["Gen"]["chunks"] == 82
+    assert repaired_progress["book_completion"]["Gen"]["held_decisions"] == 1
+    assert repaired_progress["book_completion"]["Exod"]["chunks"] == 67
+    assert repaired_progress["book_completion"]["Exod"]["status"] == "complete"
+    assert repaired_manifest["status"] == "marathon_in_progress"
+    assert repaired_manifest["books_completed"] == 2
+    assert repaired_manifest["current_book"] == "Lev"
+
+
 def test_segmented_disagreement_regions() -> None:
     """Two disagreement pockets in one book produce two deltas, not one over-wide region."""
     from scripts.t423_chunk_map_utils import VerseRef, compare_book_verse_coverage

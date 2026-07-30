@@ -1,0 +1,56 @@
+{
+    "schema_version":  "m7_hosea_v8_environment_gate_premortem.v1",
+    "task_id":  "T550",
+    "book":  "Hos",
+    "source_role":  "independent_environment_quiescence_premortem",
+    "source_agent":  "hos_v8_environment_gate_premortem",
+    "materialized_by":  "root_integrator_from_subagent_finalized_direction_messages",
+    "artifact_status":  "complete_from_recorded_subagent_conclusion_after_agent_write_stall",
+    "verdict":  "CONDITIONAL_PASS_GATE_DESIGN_CURRENT_READINESS_FAIL",
+    "deterministic_writer_exclusion_verdict":  "FAIL_NOT_EXHAUSTIVELY_PROVABLE",
+    "publication_authorized":  false,
+    "required_runtime_gate":  {
+                                  "windows_restart_after_frozen_v8_hashes":  true,
+                                  "onedrive_fully_exited":  true,
+                                  "onedrive_pause_is_sufficient":  false,
+                                  "bounded_zero_other_python_sync_writer_snapshot":  true,
+                                  "snapshot_claims_exhaustive_inventory":  false,
+                                  "point_in_time_exclusive_open_checks":  true,
+                                  "exact_book_local_target_count":  13,
+                                  "global_sentinel_handle_count":  3,
+                                  "global_sidecar_install_forbidden":  true,
+                                  "one_shot_only":  true
+                              },
+    "codex_can_verify":  [
+                             "frozen implementation and evidence hashes",
+                             "post-restart boot identity and point-in-time process snapshot",
+                             "OneDrive process absent at the bounded snapshot",
+                             "exclusive-open probes at the bounded snapshot",
+                             "exact 13-target allowlist and three sentinel handles",
+                             "exact preimage, archive, stage, manifest, and receipt hashes"
+                         ],
+    "codex_cannot_truthfully_verify":  [
+                                           "cryptographic identity of the human who authored local JSON",
+                                           "exhaustive absence of every pre-opened or hidden writer handle",
+                                           "absence of a writer that starts after the bounded snapshot",
+                                           "power-loss durability",
+                                           "atomicity of the 13-file set"
+                                       ],
+    "residual_risks_requiring_human_acceptance":  [
+                                                      "a non-cooperating writer can replace or mutate the old destination entry between preimage verification and rooted rename, causing a lost update",
+                                                      "a non-cooperating writer can replace or mutate the published entry after rooted rename or after readback",
+                                                      "sentinel guards block prospective opens but cannot revoke a writer handle opened before guard acquisition",
+                                                      "process-crash recovery does not imply power-loss durability or 13-file set atomicity"
+                                                  ],
+    "exact_lowell_acknowledgment_text":  "I, Lowell Wong, authorize one V8 Hosea candidate publication of exactly the 13 book-local targets after a Windows restart performed after the frozen V8 hashes, with OneDrive fully exited and all bounded writer and exclusive-open checks passing. I acknowledge that process and handle inventory is not exhaustive; an uncooperative or pre-opened writer can still race the destination entry, causing a lost update before rename or an overwrite after readback. I accept process-crash recovery only, not power-loss durability or atomicity of the 13-file set. I do not authorize global-sidecar installation, comparison, promotion, commit, push, or merge.",
+    "exception_expiration_triggers":  [
+                                          "any V8 implementation, kernel, primitive, test, evidence, prepare, checker, boss, or source hash changes",
+                                          "OneDrive or any excluded Python/sync/writer process starts",
+                                          "any target, archive, stage, lock, journal, marker, sentinel, or receipt state changes",
+                                          "OS, filesystem, workspace root, target allowlist, authority, or scope changes",
+                                          "the single publication attempt completes, fails, or is interrupted"
+                                      ],
+    "preserved_strict_block_dissent":  "Any unguarded destination-entry lost-update race leaves strict writer exclusion incomplete and can reasonably block publication despite the scoped exception option.",
+    "candidate_only":  true,
+    "non_authorizing":  true
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "m7_book_completion_receipt.v2",
+  "model_id": "M7_sol",
+  "book": "Mal",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "chunk_count": 8,
+  "review_packet_count": 8,
+  "canonical_verse_count": 55,
+  "covered_verse_count": 55,
+  "exact_ordered_coverage": true,
+  "accepted_decision_count": 0,
+  "accepted_decision_ids": [],
+  "held_decision_count": 8,
+  "held_decision_ids": [
+    "M7_sol-Mal-001",
+    "M7_sol-Mal-002",
+    "M7_sol-Mal-003",
+    "M7_sol-Mal-004",
+    "M7_sol-Mal-005",
+    "M7_sol-Mal-006",
+    "M7_sol-Mal-007",
+    "M7_sol-Mal-008"
+  ],
+  "unresolved_appeal_count": 8,
+  "unresolved_appeal_ids": [
+    "MAL-APPEAL-001",
+    "MAL-APPEAL-002",
+    "MAL-APPEAL-003",
+    "MAL-APPEAL-004",
+    "MAL-APPEAL-005",
+    "MAL-APPEAL-006",
+    "MAL-APPEAL-007",
+    "MAL-APPEAL-008"
+  ],
+  "chunks_sha256": "a8783046a5b870c38c71edf0240ce64288b07ff43ae3f785183a34f68f8aa5d8",
+  "review_packets_sha256": "91c083202a358c657e5acc3362e7e37b35cc4380ca7f5fbcd5c58abe3ab8d43b",
+  "decision_relations_sha256": "0e327bedb37090b5aa345464259f2fe801ef66620d9a40762f99a1f30feaf4da",
+  "uncertainty_sidecar_sha256": {
+    "low_confidence_register.jsonl": "9cc9a242a0a2741870b762c4388fabefd44f70a1751e14a38a93266aa30b350d",
+    "frontier_escalation_queue.jsonl": "64a6f66ddf22cd946021d41a3882ca4d5bda746403e597ee6ecac11c2280fa20",
+    "atlas_candidate_feed.jsonl": "2974b709eed5fc614a8b829d4bff50d2276ffc5b9ef9905c510c4e83daa7486e"
+  },
+  "postcheck_sha256": "0f50cb9a8709e3aead272e2c644c1b5052cc8bbf4f8cd520690dd345399c0605",
+  "checker_verdict_path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Mal/role_separated_checker_verdict_v1.json",
+  "checker_verdict_sha256": "381847cf86dfec316e72b5ffa28790c1bfec7d8c7d206e7b241a96cfc1f95a29",
+  "postchecker_attempt_id": "mal-role-separated-postchecker-20260723-f",
+  "postcheck_status": "pass_with_holds",
+  "independence_scope": {
+    "independent_from_sibling_model_maps": true,
+    "primaries_blind_to_each_other_artifacts": true,
+    "roles_separated": true,
+    "shared_model_substrate": true,
+    "counts_as_cross_model_independent_votes": false,
+    "independent_model_or_human_evidence_required_at_convergence": true,
+    "reviewer_count_is_not_authority": true,
+    "correlated_mesh_weight_at_convergence": "one_model_voice"
+  },
+  "pre_receipt_gates": [
+    {
+      "gate_id": "exact_ordered_coverage",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_exact_book_coverage.py --book Mal",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Mal chunks=8 exact ordered coverage=55/55"
+    },
+    {
+      "gate_id": "official_chunk_map",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_chunk_map.py C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\book_chunks\\Mal\\chunks.jsonl --model-id M7_sol --book Mal --python-only",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Mal/chunks.jsonl"
+    },
+    {
+      "gate_id": "review_status_sidecar_independence_parity",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_book_review_coverage.py --book Mal --require-final-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Mal exact verse coverage and review parity"
+    },
+    {
+      "gate_id": "literary_quality_protocol",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_t423_literary_quality_protocol.py --model-folder C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol --book Mal --require-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "T423 literary quality protocol: OK"
+    },
+    {
+      "gate_id": "workflow_replay_contract",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_candidate_workflow.py",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "Whole-Bible candidate workflow validation passed."
+    }
+  ],
+  "receipt_written_after_final_hash_and_gates": true,
+  "validation_bundle_command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_completion_bundle.py --book Mal",
+  "post_receipt_validation_required": true,
+  "forced_consensus": false,
+  "non_authorizing": true
+}

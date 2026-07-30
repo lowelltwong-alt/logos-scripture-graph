@@ -1,0 +1,25 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-SOURCE-ROUTING-MANIFEST-SCHEMA
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Source-routing validation initially assumed literal OSHB/UXLC/SBLGNT labels in
+  the manifest. B01 input manifests instead store normalized absolute source
+  paths in source_ids. Validators must normalize those IDs and require the full
+  expected family before declaring replayability.
+evidence:
+  validator: scripts/validate_m7_sol_source_routing.py
+  manifest_schema: whole_bible_b01_input_manifest.v1
+  ot_required_substrings: [oshb, uxlc]
+  nt_required_substrings: [cntr, sblgnt, ugnt]
+  books_checked: 66
+  final_status: OK
+constraints:
+  - source-path presence proves routing coverage, not source-content correctness
+  - candidate_only and non_authorizing remain mandatory
+  - same-model role reports do not establish independent external agreement

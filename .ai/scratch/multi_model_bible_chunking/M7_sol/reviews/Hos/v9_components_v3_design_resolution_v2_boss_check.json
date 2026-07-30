@@ -1,0 +1,191 @@
+{
+  "schema_version": "t550.v9_components_v3_design_resolution_v2_boss_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "reviewer_role": "fresh_independent_design_consistency_boss",
+  "review_mode": "read_only_exact_hash_errata_closure_review",
+  "artifact_status": "complete_closed_boss_check",
+  "verdict": "PASS_FOR_DRAFT_IMPLEMENTATION_ONLY",
+  "design_errata_closure": "PASS_ALL_EIGHT",
+  "design_closed_enough_for_draft_implementation": true,
+  "implementation_success_claimed": false,
+  "implementation_qualified": false,
+  "test_success_claimed": false,
+  "runtime_readiness": "FAIL_BLOCKED_EXTERNAL_CAPABILITY_AND_UNIMPLEMENTED_GATES",
+  "live_measurement_authorized": false,
+  "restart_or_onedrive_action_authorized": false,
+  "prepare_authorized": false,
+  "publish_authorized": false,
+  "recover_authorized": false,
+  "canonical_or_global_write_authorized": false,
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "forced_consensus": false,
+  "immutable_inputs": {
+    "corrected_design_resolution": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_design_resolution_v2.json",
+      "sha256": "e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85",
+      "exact_hash_match": true
+    },
+    "prior_design_boss_ruling": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_design_boss_ruling.json",
+      "sha256": "67af1a7766947172c0197b58a161d3a6af669010d1ff9c68dac59b9b8e4fa6ee",
+      "verdict": "HOLD_FOR_V3_DESIGN_ERRATA"
+    },
+    "policy_design_docket": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_policy_design_docket.json",
+      "sha256": "142b322c9d647da9290743d2676244008f7694e2375f45073318285ca7943a46"
+    },
+    "windows_design_docket": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v3_windows_design_docket.json",
+      "sha256": "a2f7944cb33161457d7f092631046c1608ed7c6be8422c04800ec9c56dc781bd"
+    },
+    "v3_contract": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_live_gate_contract_v3.json",
+      "sha256": "28b503b96b6790d65c72685caa4d6c63ea68a6cfb4473dddb5612d0c60d71b22"
+    },
+    "static_allowlist": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_static_allowlist_v3.json",
+      "sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed"
+    }
+  },
+  "boss_summary": "The corrected resolution closes all eight design errata from the prior HOLD sufficiently to guide new draft implementation and adversarial tests. It defines an acyclic artifact graph with an external trust root; separates stable pre-restart expectations from ephemeral post-restart lease state; puts every authority-bearing final check before one terminal completed transition and treats post-completed drift as unknown; specifies correct WAIT_TIMEOUT process-liveness semantics and fail-closed access uncertainty; requires NTFS link_count exactly one; separates read-only zero-delta evidence from synthetic transaction evidence; places every discretionary review before restart and permits only pre-frozen synchronous checks inside the lease; and makes the absent external owner capability a permanent execution stop with no local fallback. This is a design pass only. No implementation, test, component freeze, execution freeze, live host state, human identity, owner capability, transaction, or publication result was inspected or qualified.",
+  "errata_closure": [
+    {
+      "finding_id": "T550-V9-V3-DESIGN-001",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "The corrected graph orders code_lock, detached digest, independent reviews, reviewed_release_record, execution_freeze, and external capability without direct or transitive self-hashing. The external capability API is named as the first trust anchor and its current absence remains blocking."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-002",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "Stable code, file, root, volume, executable, allowlist and pre-freeze boot fields are explicitly separated from live PID, process token, ancestry, handle, clock, nonce and registry state. Ephemeral identity is bound only prepare-to-publish in one lease."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-003",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION_WITH_IMPLEMENTATION_INVARIANT",
+      "basis": "All authority-bearing checks now precede one terminal completed transition. Post-completed drift is diagnostic unknown state and cannot authorize automatic forward writes, rollback, or rewriting completed as recovery_required.",
+      "implementation_invariant": "The state label transaction_started may establish lock, journal and ownership only. It grants no canonical forward-write authority; validated_publish and all required live checks must precede the first forward replacement."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-004",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "Running means WaitForSingleObject(process_handle, 0) equals WAIT_TIMEOUT with unchanged PID, creation token and executable identity. Access denial, partial enumeration, exit, PID ambiguity, inaccessible bounded rows and unclassified ancestry are explicit hard blocks; unavailable test coverage is never PASS."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-005",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "The rule is categorical and exception-free: every target and sentinel requires a supported NTFS link-count observation equal to one at freeze and each live transition; an extra or unmeasurable link blocks."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-006",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "Read-only collection has its own zero-byte/member-delta receipt and metadata/hydration disclosures. Synthetic disposable-fixture transactions have separate exact intended-delta and zero-out-of-scope-change receipts and cannot be called canonical execution."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-007",
+      "verdict": "CLOSED_FOR_DRAFT_IMPLEMENTATION",
+      "basis": "Every discretionary design, implementation, test, kernel, primitive, wrapper, checker, premortem and boss review is pre-restart. Only pre-frozen deterministic same-process functions may execute during the lease, and expiry closes the lease without publication."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-008",
+      "verdict": "CLOSED_AS_AN_EXPLICIT_EXTERNAL_STOP_NOT_AS_A_SATISFIED_GATE",
+      "basis": "The missing product/runtime owner capability is permanently recorded as absent and blocks execution-freeze issuance, canonical measurement, restart request, OneDrive action, prepare, publish and recovery. Local JSON, CLI, workspace files, environment variables, model tokens and asserted booleans are forbidden substitutes."
+    }
+  ],
+  "normative_precedence": {
+    "rule": "For drafting V3 implementation, the corrected resolution SHA e5a727f849ff242079151722dd93fd214a34bf0e40de6be6c01b6c811c301e85 and this boss check are normative errata over inconsistent language in the immutable policy docket, Windows docket, V3 contract, static allowlist commentary, and superseded design resolution. The source artifacts remain append-only evidence and are not rewritten.",
+    "examples": [
+      "The detached acyclic trust graph replaces any launcher-constant wording that would authenticate an object containing the launcher hash.",
+      "Only stable identities belong in the pre-restart execution freeze; live PID, start token, handle, ancestry and nonce fields do not.",
+      "Authority-bearing final validation occurs before completed; post-completed observation is diagnostic only.",
+      "WAIT_TIMEOUT, not signaled-as-running, is the liveness condition.",
+      "Hardlink count must be exactly one with no exceptions.",
+      "Read-only zero-delta and synthetic transaction-delta receipts remain separate."
+    ]
+  },
+  "draft_implementation_boundary": {
+    "permitted": [
+      "draft new provider-neutral pure policy code and focused deterministic adversarial tests",
+      "draft new sealed Windows native helper and safe disposable-NTFS temporary-root tests",
+      "draft static allowlist validation and non-circular artifact-graph tooling",
+      "draft wrapper and lease state-machine code against the corrected design",
+      "run only separately authorized safe static and disposable-fixture tests after the code is ready"
+    ],
+    "not_permitted_by_this_artifact": [
+      "claim implementation or test PASS",
+      "freeze or promote in-progress code as qualified",
+      "construct a canonical execution freeze",
+      "run live canonical measurement",
+      "request or perform Windows restart or OneDrive action",
+      "prepare, publish or recover canonical Hosea files",
+      "modify canonical targets or global sidecars",
+      "substitute a local owner-authorization artifact",
+      "claim external human or cross-model convergence"
+    ],
+    "next_review_sequence": [
+      "implement only against the corrected normative boundary",
+      "run deterministic negative suites and safe real-Windows disposable-NTFS tests",
+      "freeze an acyclic code lock and detached digest",
+      "obtain fresh independent implementation checker, adversarial premortem and boss ruling",
+      "keep canonical execution blocked until the external product/runtime owner capability is independently established"
+    ]
+  },
+  "remaining_non_design_blockers": [
+    {
+      "blocker": "No implementation or test evidence has been reviewed by this check.",
+      "effect": "Component qualification remains false."
+    },
+    {
+      "blocker": "The product/runtime one-shot owner capability does not exist.",
+      "effect": "Canonical execution readiness remains permanently false until independently established."
+    },
+    {
+      "blocker": "The strict writer-race dissent remains unresolved.",
+      "effect": "Even a later deterministic implementation PASS cannot itself authorize publication."
+    }
+  ],
+  "preserved_strict_writer_race_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "A correctly implemented V3 still cannot exclude every pre-opened, future, hidden, kernel, sync, ancestor-thread or noncooperating writer during replacement-compatible windows, and it cannot eliminate the precheck-to-rename lost-update or post-readback stale-state races under delete sharing.",
+    "boss_treatment": "UNRESOLVED_NOT_OVERRIDDEN",
+    "human_question": "Only after implementation, deterministic negatives, safe real-Windows tests, independent checker, premortem, boss review and the external owner capability are all green: should Lowell require offline deterministic writer exclusion, or knowingly accept the exact residual races for one candidate-only 13-target Hosea publication?",
+    "status": "PRESERVED_FOR_HUMAN_OR_EXTERNAL_AI_REVIEW",
+    "forced_consensus": false
+  },
+  "authority_limits": {
+    "design_closed_for_draft_implementation": true,
+    "implementation_qualified": false,
+    "component_generation_qualified": false,
+    "test_evidence_qualified": false,
+    "external_owner_capability_available": false,
+    "execution_freeze_authorized": false,
+    "live_measurement_authorized": false,
+    "restart_authorized": false,
+    "onedrive_action_authorized": false,
+    "prepare_authorized": false,
+    "publish_authorized": false,
+    "recover_authorized": false,
+    "canonical_write_authorized": false,
+    "global_sidecar_install_authorized": false,
+    "book_completion_authorized": false,
+    "comparison_authorized": false,
+    "promotion_authorized": false,
+    "commit_authorized": false,
+    "push_authorized": false,
+    "merge_authorized": false
+  },
+  "actions_not_taken": [
+    "did_not_inspect_or_bless_in_progress_code",
+    "did_not_run_tests",
+    "did_not_run_live_measurement",
+    "did_not_restart_windows",
+    "did_not_touch_onedrive",
+    "did_not_run_prepare_publish_or_recover",
+    "did_not_modify_canonical_or_global_files",
+    "did_not_force_consensus"
+  ],
+  "next_action": "Use the corrected resolution as the normative boundary for draft V3 implementation and adversarial tests. After implementation and safe tests, create the acyclic code lock and obtain fresh independent checker, premortem and boss review. Keep every canonical execution action blocked until the external product/runtime owner capability is independently established and the preserved strict writer-race decision is returned to Lowell."
+}

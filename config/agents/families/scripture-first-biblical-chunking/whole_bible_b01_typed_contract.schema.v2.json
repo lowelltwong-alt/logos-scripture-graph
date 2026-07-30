@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "whole_bible_b01_typed_contract.schema.v2",
+  "title": "B01 controller-observed candidate evidence packet (revision 8)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "book", "run_id", "stage_attempt_id", "candidate_only", "non_authorizing", "identity", "controller_event_ids", "input_manifest_sha256", "payload"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_b01_typed_contract.v2"},
+    "kind": {"enum": ["controller_assignment", "controller_result", "role_report", "input_manifest", "synthesis_lineage", "challenge", "appeal", "redteam_report", "boss_authorization"]},
+    "book": {"type": "string", "pattern": "^[A-Za-z0-9-]{2,12}$"},
+    "run_id": {"type": "string", "minLength": 3, "pattern": "^[A-Za-z0-9._-]+$"},
+    "stage_attempt_id": {"type": "string", "minLength": 3, "pattern": "^[A-Za-z0-9._-]+$"},
+    "candidate_only": {"const": true},
+    "non_authorizing": {"const": true},
+    "identity": {"$ref": "#/$defs/identity"},
+    "controller_event_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 8, "pattern": "^[A-Za-z0-9._:-]+$"}},
+    "input_manifest_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "payload": {"type": "object", "minProperties": 1}
+  },
+  "$defs": {
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["execution_id", "assignment_id", "agent_instance_id", "role_id", "provider_family"],
+      "properties": {
+        "execution_id": {"type": "string", "minLength": 8, "pattern": "^[A-Za-z0-9._:-]+$"},
+        "assignment_id": {"type": "string", "minLength": 8, "pattern": "^[A-Za-z0-9._:-]+$"},
+        "agent_instance_id": {"type": "string", "minLength": 8, "pattern": "^[A-Za-z0-9._:-]+$"},
+        "role_id": {"type": "string", "minLength": 3, "pattern": "^[a-z0-9_:-]+$"},
+        "provider_family": {"type": "string", "minLength": 2, "pattern": "^[A-Za-z0-9._:-]+$"}
+      }
+    },
+    "controller_event": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "event_id", "event_kind", "execution_id", "assignment_id", "observed_at", "controller_instance_id", "input_manifest_sha256", "result_digest", "candidate_only", "non_authorizing"],
+      "properties": {
+        "schema_version": {"const": "whole_bible_b01_controller_event.v1"},
+        "event_id": {"type": "string", "minLength": 8},
+        "event_kind": {"enum": ["assignment_issued", "execution_started", "execution_finished", "result_received", "challenge_recorded", "appeal_recorded", "boss_reviewed"]},
+        "execution_id": {"type": "string", "minLength": 8},
+        "assignment_id": {"type": "string", "minLength": 8},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "controller_instance_id": {"type": "string", "minLength": 8},
+        "input_manifest_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "result_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "candidate_only": {"const": true}, "non_authorizing": {"const": true}
+      }
+    }
+  }
+}

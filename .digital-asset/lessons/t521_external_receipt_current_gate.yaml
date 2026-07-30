@@ -1,0 +1,24 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-EXTERNAL-RECEIPT-CURRENT-GATE
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  The external receipt template was regenerated against the current Sol map and
+  correctly fails closed because independent_model_or_provider_evidence is not
+  true. This prevents local packet completeness from being mistaken for external
+  convergence.
+evidence:
+  template_builder: scripts/build_t521_external_receipt_template.py
+  validator: scripts/validate_t521_external_review_receipt.py
+  map_sha256: sha256:9f3d4dc44eaa8b72673c1e615a792697b4a4f7b511d97fcf1fc5c174ee0008d5
+  expected_failure: independent_model_or_provider_evidence must equal True
+  review_status: review_incomplete
+constraints:
+  - template is deliberately incomplete and not a review receipt
+  - no external receipt may be synthesized locally
+  - candidate_only and non_authorizing remain mandatory

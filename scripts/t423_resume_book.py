@@ -39,6 +39,57 @@ def _write_progress(path: Path, data: dict) -> None:
     path.write_text(yaml.safe_dump(data, sort_keys=False, allow_unicode=True), encoding="utf-8")
 
 
+def _write_manifest(path: Path, data: dict) -> None:
+    path.write_text(yaml.safe_dump(data, sort_keys=False, allow_unicode=True), encoding="utf-8")
+
+
+def _completed_from_ledger(completion: dict) -> set[str]:
+    """Read literal completion facts without the cross-file fail-closed guard."""
+    return {
+        str(book)
+        for book, info in completion.items()
+        if isinstance(info, dict) and info.get("status") == "complete"
+    }
+
+
+def _hydrate_completion_info(model_folder: Path, book: str, info: dict) -> dict:
+    """Restore receipt-backed progress metadata without replacing existing facts."""
+    receipt_path = model_folder / "receipts" / f"{book}_completion_v2.json"
+    if not receipt_path.is_file():
+        return info
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return info
+    fields = {
+        "completion_state": "completion_state",
+        "chunks": "chunk_count",
+        "canonical_verses": "canonical_verse_count",
+        "exact_ordered_coverage": "exact_ordered_coverage",
+        "review_packets": "review_packet_count",
+        "passed_decisions": "accepted_decision_count",
+        "held_decisions": "held_decision_count",
+        "unresolved_appeals": "unresolved_appeal_count",
+    }
+    for progress_key, receipt_key in fields.items():
+        if receipt_key in receipt:
+            info.setdefault(progress_key, receipt[receipt_key])
+    info.setdefault("receipt", _rel(receipt_path))
+    return info
+
+
+def _sync_manifest_with_progress(model_folder: Path, progress: dict, done: set[str]) -> None:
+    manifest_path = model_folder / "model_manifest.yaml"
+    manifest = load_model_manifest(model_folder)
+    books_total = int(progress.get("books_total", 66))
+    complete = len(done) >= books_total
+    manifest["status"] = "marathon_complete" if complete else "marathon_in_progress"
+    manifest["books_completed"] = len(done)
+    manifest["books_total"] = books_total
+    manifest["current_book"] = next((book for book in canonical_books() if book not in done), None)
+    _write_manifest(manifest_path, manifest)
+
+
 def next_book(model_folder: Path) -> str | None:
     progress = load_marathon_progress(model_folder)
     done = completed_books(model_folder)
@@ -83,16 +134,21 @@ def mark_book_complete(model_folder: Path, book: str, *, skip_validate: bool = F
     completion = progress.get("book_completion", {})
     if not isinstance(completion, dict):
         completion = {}
-    completion[book] = {"status": "complete"}
+    existing = completion.get(book, {})
+    info = dict(existing) if isinstance(existing, dict) else {}
+    info["status"] = "complete"
+    completion[book] = _hydrate_completion_info(model_folder, book, info)
     progress["book_completion"] = completion
-    done = completed_books(model_folder) | {book}
+    done = _completed_from_ledger(completion)
     progress["books_completed"] = len(done)
     progress["books_total"] = progress.get("books_total", 66)
     if len(done) >= int(progress["books_total"]):
         progress["marathon_status"] = "complete"
     else:
         progress["marathon_status"] = "in_progress"
+    progress["current_book"] = next((candidate for candidate in canonical_books() if candidate not in done), None)
     _write_progress(path, progress)
+    _sync_manifest_with_progress(model_folder, progress, done)
     return []
 
 

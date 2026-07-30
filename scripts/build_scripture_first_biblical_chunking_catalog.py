@@ -39,6 +39,13 @@ CONSTITUENT_NAMES = (
     "routing_policy.v1.yaml",
     "pilot_suite.v1.yaml",
     "release.v1.yaml",
+    "whole_bible_candidate_workflow.v1.yaml",
+    "whole_bible_candidate_prompt_pack.v1.yaml",
+    "codex_desktop_campaign_adapter.v1.yaml",
+    "whole_bible_stage_receipt.schema.v1.json",
+    "whole_bible_boss_phase_receipt.schema.v1.json",
+    "whole_bible_extended_evidence_manifest.schema.v1.json",
+    "whole_bible_terminal_completion_receipt.schema.v1.json",
 )
 
 
@@ -357,6 +364,11 @@ def build_dad_adaptation(
             "candidate_boundary_alternatives",
             "anti_imputation_independent_review",
             "canonical_66_scope_guard",
+            "resumable_whole_bible_candidate_campaign",
+            "role_separated_review_with_independence_disclosure",
+            "append_only_disagreement_and_appeal_docket",
+            "validator_bound_book_completion_receipts",
+            "provider_neutral_subagent_prompt_pack",
         ],
         "contains_scripture_text": False,
         "contains_source_rows": False,

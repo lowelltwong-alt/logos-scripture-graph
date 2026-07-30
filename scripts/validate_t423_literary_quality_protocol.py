@@ -140,6 +140,20 @@ def _is_chapter_rollup(record: dict[str, Any], feature: dict[str, Any] | None) -
     return span == f"{feature.get('osis_start')}-{feature.get('osis_end')}"
 
 
+def _is_canonical_psalm_unit(book: str, record: dict[str, Any]) -> bool:
+    """Distinguish a whole Psalm from an editorial chapter fallback.
+
+    In the canonical Psalter, the chapter coordinate is also the poem's outer
+    unit. Treating every whole Psalm as a chapter fallback forces honest,
+    well-supported Psalm units to LOW confidence. This exception only removes
+    that mechanical penalty; corrective semantic review still has to establish
+    the form, seam, rationale, rejected alternative, and verdict.
+    """
+    if book != "Ps":
+        return False
+    parsed = _parse_span(str(record.get("span", "")))
+    return bool(parsed and parsed[1] == parsed[3])
+
 def _row_key(row: dict[str, Any]) -> str:
     return str(row.get("chunk_decision_id") or row.get("decision_id") or "")
 
@@ -384,7 +398,11 @@ def validate_model_folder(model_folder: Path, *, books: set[str] | None = None, 
                     chapter_only = _is_chapter_rollup(row, feature)
                     marker_rich = _is_marker_rich(feature)
 
-            fragile_chapter_fallback = chapter_only and (marker_rich or book in PILOT_FRAGILE_BOOKS)
+            fragile_chapter_fallback = (
+                chapter_only
+                and not _is_canonical_psalm_unit(book, row)
+                and (marker_rich or book in PILOT_FRAGILE_BOOKS)
+            )
             low_confidence = row.get("confidence") in LOW_CONFIDENCE
             if fragile_chapter_fallback and not low_confidence:
                 errors.append(

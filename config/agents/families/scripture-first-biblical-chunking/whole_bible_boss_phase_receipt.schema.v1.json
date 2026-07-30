@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/whole_bible_boss_phase_receipt.schema.v1.json",
+  "title": "Whole-Bible Boss Phase Commit Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "phase_receipt_id", "campaign_id", "campaign_revision", "book", "run_id", "phase", "attempt_id", "controller_assignment_manifest_path", "controller_assignment_manifest_sha256", "allowed_input_artifact_sha256", "output_ruling_path", "output_ruling_sha256", "prior_boss_phase_receipt_path", "prior_boss_phase_receipt_sha256", "peer_premortem_exposure_artifact_sha256", "committed_at", "shared_model_substrate", "counts_as_cross_model_independent_vote", "non_authorizing"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_boss_phase_receipt.v1"},
+    "phase_receipt_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "campaign_revision": {"type": "integer", "minimum": 1},
+    "book": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "phase": {"enum": ["provisional_B06a", "final_B06b"]},
+    "attempt_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "controller_assignment_manifest_path": {"$ref": "#/$defs/path"},
+    "controller_assignment_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "allowed_input_artifact_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/digest"}},
+    "output_ruling_path": {"$ref": "#/$defs/path"},
+    "output_ruling_sha256": {"$ref": "#/$defs/digest"},
+    "prior_boss_phase_receipt_path": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/path"}]},
+    "prior_boss_phase_receipt_sha256": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/digest"}]},
+    "peer_premortem_exposure_artifact_sha256": {"type": "object", "additionalProperties": {"$ref": "#/$defs/digest"}},
+    "committed_at": {"type": "string", "format": "date-time"},
+    "shared_model_substrate": {"const": true},
+    "counts_as_cross_model_independent_vote": {"const": false},
+    "non_authorizing": {"const": true}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "path": {"type": "string", "minLength": 1, "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"}
+  }
+}

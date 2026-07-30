@@ -1,0 +1,495 @@
+{
+  "schema_version": "t550.v9_components_v3_windows_design_docket.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "docket_role": "bounded_windows_ntfs_collector_and_test_design",
+  "design_only": true,
+  "implementation_authorized": false,
+  "live_measurement_authorized": false,
+  "restart_or_onedrive_action_authorized": false,
+  "prepare_publish_or_recover_authorized": false,
+  "canonical_or_global_write_authorized": false,
+  "inputs": {
+    "v2_rejection_receipt": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_rejection_receipt.json",
+      "sha256": "24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f"
+    },
+    "v2_boss_ruling": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_boss_ruling.json",
+      "sha256": "963f52abf425c266447892fd7c1a16efab499e6fb4c0ff32a0154f6c9ffb9d09"
+    }
+  },
+  "design_verdict": "READY_FOR_NEW_IMPLEMENTATION_GENERATION_NOT_READY_FOR_EXECUTION",
+  "governed_next_gates": [
+    "V9-NEXT-01-PRODUCTION_ENTRYPOINT",
+    "V9-NEXT-02-DEPENDENCY_AND_RAW_BINDING",
+    "V9-NEXT-04-HANDLE_ROOTED_TARGET_AUTHENTICATION",
+    "V9-NEXT-05-BOOT_OS_VOLUME_AND_CAPTURE",
+    "V9-NEXT-06-PROCESS_RELATIONAL_CLOSURE",
+    "V9-NEXT-09-IN_PROCESS_LEASE_AND_REVALIDATION",
+    "V9-NEXT-10-ADVERSARIAL_AND_REAL_WINDOWS_TESTS"
+  ],
+  "production_surface": {
+    "artifact_class": "environment_bound_windows_ntfs_adapter",
+    "entrypoints": [
+      {
+        "name": "collect_prepare_production",
+        "arguments": [],
+        "result": "ValidatedLiveLeaseV3 plus immutable prepare raw record and PASS result"
+      },
+      {
+        "name": "collect_publish_production",
+        "arguments": [
+          "ValidatedLiveLeaseV3 from the same in-process prepare lifecycle"
+        ],
+        "result": "refreshed ValidatedLiveLeaseV3 plus immutable publish raw record and PASS result"
+      }
+    ],
+    "forbidden_production_parameters": [
+      "backend",
+      "clock",
+      "parent_process_provider",
+      "workspace_or_model_path",
+      "physical_target_or_sentinel_path",
+      "role",
+      "path_token",
+      "parent_id",
+      "process_name_policy",
+      "process_classification",
+      "authorization_object",
+      "freeze_or_expectations_object"
+    ],
+    "configuration_source": "One exact V3 freeze receipt loaded from a code-fixed repo-relative location and verified against a constant SHA-256 before any security-relevant module is imported or any path is opened.",
+    "production_provenance": {
+      "required_fields": [
+        "collector_generation",
+        "collector_sha256",
+        "sealed_launcher_sha256",
+        "policy_sha256",
+        "native_windows_helper_sha256",
+        "freeze_sha256",
+        "contract_sha256",
+        "test_manifest_sha256",
+        "actual_backend_id=windows_nt_native_v3",
+        "injection_enabled=false"
+      ],
+      "failure_rule": "Any missing, mismatching, dynamically substituted, or test-only dependency fails before collection."
+    },
+    "test_seam_isolation": {
+      "production_module_imports_testkit": false,
+      "production_wrapper_can_reference_testkit": false,
+      "test-only collectors_have_distinct_module_and_schema": true,
+      "test-only_receipts_can_never_satisfy_production_policy": true,
+      "deterministic_check": "AST/import-graph and source-hash tests reject provider parameters, environment overrides, monkeypatch hooks, testkit imports, and alternate freeze paths in the production closure."
+    }
+  },
+  "dependency_and_raw_binding": {
+    "sealed_loader_order": [
+      "Read the expected V3 freeze SHA from the sealed launcher constant.",
+      "Read and canonical-hash the freeze receipt; reject before importing collector helpers on mismatch.",
+      "Verify every dependency hash listed in the freeze, including launcher, collector, policy, native helper, contract, tests, prior V2 rejection, independent checker, premortem, and boss artifacts.",
+      "Import only the verified production closure from exact paths.",
+      "Re-hash already loaded Python source files and native module image identities immediately before issuing the in-process lease."
+    ],
+    "raw_record_rule": "The complete native collector record is embedded byte-for-byte as canonical JSON under raw_windows_measurement, accompanied by raw_windows_measurement_sha256. Policy consumes and validates every field; no security-relevant projection may replace it.",
+    "raw_required_sections": [
+      "dependency_provenance",
+      "capture_clocks",
+      "boot",
+      "windows_build_and_architecture",
+      "volume_and_volume_root",
+      "workspace_model_and_all_component_handles",
+      "canonical_parents",
+      "target_and_sentinel_handle_relations",
+      "current_process_and_exact_ancestry",
+      "bounded_process_rows",
+      "held_handle_inventory",
+      "directory_membership_and_byte_snapshots",
+      "effects_and_explicit_limitations"
+    ],
+    "hash_binding": "Freeze, raw prepare, prepare PASS, external owner capability reference, raw publish, publish PASS, lease identity, target tuple, and sentinel tuple digests must all enter the application identity and transaction journal core."
+  },
+  "handle_rooted_path_authentication": {
+    "allowlist_authority": "The exact 13 target and three sentinel role/token/leaf/hash rows come only from the verified V3 freeze. The production caller supplies none of them.",
+    "resolution_algorithm": [
+      "Obtain the workspace volume GUID through Windows volume APIs and open the volume root as a non-reparse directory handle.",
+      "Resolve every workspace and model component relative to the retained preceding directory handle with NT native RootDirectory semantics and FILE_OPEN_REPARSE_POINT; reject any reparse component or case/normalization ambiguity.",
+      "Resolve each distinct canonical parent from the retained model handle, retain its handle, and reject duplicate or aliased volume-serial plus FileId identities.",
+      "Derive parent_id from the frozen logical parent token plus the observed parent handle identity; never accept a parent ID from a caller or file record.",
+      "Open each exact frozen leaf relative to its retained parent handle. Record the exact leaf name returned by the handle, parent handle identity, file identity, size, attributes, expected hash, observed hash, and open/share mode as one inseparable relation.",
+      "Reject a different same-parent leaf, alternate hardlink unless its exact file identity and frozen link policy permit it, duplicate file identity, reparse leaf, stream suffix, short-name alias, trailing-dot/space normalization, case-only ambiguity, or path outside the exact parent handle."
+    ],
+    "identity_representation": {
+      "directory_and_file_identity": [
+        "volume_guid",
+        "volume_serial",
+        "128-bit FileIdInfo file_id",
+        "file_attributes",
+        "reparse_tag",
+        "is_directory",
+        "link_count where available"
+      ],
+      "leaf_binding": [
+        "frozen role",
+        "frozen logical token",
+        "derived parent_id",
+        "exact frozen leaf UTF-16 bytes",
+        "FileNameInfo observed leaf",
+        "parent handle identity",
+        "file handle identity",
+        "size",
+        "SHA-256"
+      ]
+    },
+    "retained_handles": {
+      "volume_root": "retained through transaction completed or recovery_required",
+      "workspace_model_and_canonical_parents": "retained through transaction completed or recovery_required with compatible sharing",
+      "three_global_sentinels": "retained with read-only access and share-read only, denying prospective write/delete/rename opens through completed or recovery_required",
+      "targets": "exclusive measurement handles may be used during capture, but replacement-compatible target observation handles cannot prove writer exclusion; each target is re-opened relative to its retained parent and fully revalidated immediately before its replacement",
+      "staged_sources": "retained read-only with write/delete denial and identity/hash revalidation through each forward replacement"
+    }
+  },
+  "boot_os_volume_and_clock_contract": {
+    "ordering": "frozen_at_utc < boot_time_utc <= capture_start_wall <= every filesystem/process/open observation wall time <= capture_end_wall <= policy_validation_wall",
+    "monotonic_ordering": "capture_start_monotonic <= every in-process observation monotonic <= capture_end_monotonic <= policy_validation_monotonic",
+    "maximum_capture_and_validation_age_seconds": 120,
+    "required_boot_fields": [
+      "boot Windows FILETIME",
+      "derived boot identity SHA-256",
+      "boot_time_utc"
+    ],
+    "required_os_fields": [
+      "RtlGetVersion major/minor/build",
+      "native machine architecture",
+      "collector process architecture"
+    ],
+    "required_volume_fields": [
+      "volume GUID",
+      "volume serial",
+      "NTFS filesystem name",
+      "raw filesystem flags integer",
+      "decoded code-fixed security-relevant flags",
+      "maximum component length",
+      "volume-root handle identity"
+    ],
+    "clock_source": "Production uses only datetime.now(timezone.utc) and time.monotonic_ns from the sealed module; no caller or environment clock provider exists.",
+    "observation_scope": "Current process, every permitted ancestor, complete bounded process enumeration, every root/parent/file handle open, and final before/after snapshots occur inside both capture clocks.",
+    "hard_failures": [
+      "boot time after capture start or end",
+      "pre-freeze boot identity reused",
+      "wall/monotonic duration disagreement beyond one second",
+      "any observation missing an in-range pair",
+      "non-Windows provenance",
+      "non-NTFS volume",
+      "volume/root/workspace/model/parent identity disagreement"
+    ]
+  },
+  "process_relational_closure": {
+    "raw_process_row": [
+      "pid",
+      "creation_time_windows_filetime",
+      "normalized measured executable name",
+      "retained process handle identity",
+      "retained executable file handle identity",
+      "executable SHA-256",
+      "reported parent_pid",
+      "parent_creation_time_windows_filetime",
+      "is_current",
+      "ancestry_depth"
+    ],
+    "uniqueness": "PID plus creation time is unique; duplicate rows, PID reuse, impossible parent time, missing executable handle identity, or contradictory current/parent flags fail.",
+    "code_fixed_name_policy": "The sealed policy defines exact normalized names plus explicit OneDrive-family matching rules. The caller cannot narrow or extend it, and policy derives matched, OneDrive, writer, current, and permitted-ancestor sets from the single raw row set.",
+    "current_python_rule": {
+      "allowed_count": 1,
+      "identity": "Exactly the collector process PID/start token and retained sys.executable handle identity.",
+      "continuity": "Exact PID, creation time, executable identity, and process handle remain live and unchanged from prepare through publish."
+    },
+    "legitimate_ancestry_rule": {
+      "allowed_shapes": [
+        "python.exe <- codex.exe",
+        "python.exe <- powershell.exe <- codex.exe",
+        "python.exe <- pwsh.exe <- codex.exe"
+      ],
+      "maximum_non_python_ancestor_count": 2,
+      "conditions": [
+        "Every allowed ancestor must be on the direct kernel-reported ancestry chain of the current collector; a same-name sibling or unrelated process is never allowed.",
+        "Each ancestor executable identity and SHA-256 must match the exact executable allowlist frozen before restart; a product update or alternate executable fails.",
+        "Creation times must strictly precede the child and the process handles must remain signaled-as-running throughout prepare and publish.",
+        "The exact prepare ancestry PID/start/image tuple is required at publish; a restarted shell, PID reuse, added intermediary, or changed image fails.",
+        "Only the direct chain needed to host the synchronous child is exempted. Every other Codex, PowerShell, pwsh, Python, Git, copy, or sync process remains an in-scope blocker."
+      ],
+      "why_not_broad_allow": "Executable name, vendor, command line, or being a descendant of Codex alone is insufficient; those properties would exempt unrelated writers."
+    },
+    "derived_blockers": [
+      "all OneDrive-family rows",
+      "all bounded writer/sync/copy rows except the exact current process and exact permitted direct ancestry",
+      "all additional Python processes",
+      "all duplicate or contradictory process identities",
+      "any permitted ancestor that exits, changes identity, or gains an unrecognized intermediary before publish"
+    ],
+    "realistic_limit": "Direct ancestry and executable identity can be proven point-in-time. The collector cannot prove that an allowed multithreaded Codex or shell ancestor will never write, nor can a bounded process scan prove absence of renamed, hidden, kernel, future, or pre-opened writers."
+  },
+  "in_process_lease": {
+    "form": "ValidatedLiveLeaseV3 is an opaque non-serializable object containing live Windows HANDLE values, a random 256-bit nonce, the exact raw/PASS digests, lifecycle state, and a private registry token created only by the sealed production collector.",
+    "json_is_insufficient": true,
+    "serialization_behavior": "Serializing a receipt preserves evidence but never recreates a valid lease. Publish and recover require the same live object identity and private registry membership in the original process.",
+    "states": [
+      "collecting",
+      "validated_prepare",
+      "transaction_started",
+      "validated_publish",
+      "completed",
+      "recovery_required",
+      "closed"
+    ],
+    "transition_rules": [
+      "No attempt member is created before validated_prepare.",
+      "Publish requires the same unexpired prepare lease, exact independently supplied prepare raw/PASS digests, and a fresh publish measurement.",
+      "Before each rooted replacement, re-open the exact target leaf relative to the retained parent, require the preimage identity/hash/size expected for that step, and recheck all three sentinel handles and process/clock state.",
+      "After each replacement, root-relative readback must match the staged identity/hash. Any mismatch sets recovery_required before another forward step.",
+      "Root, workspace, model, parent, staged-source, process, and global-sentinel handles remain retained until the journal reaches completed or recovery_required.",
+      "After completed, perform a final exact 13 readback and sentinel/process/identity check before closing the lease.",
+      "Lease expiry, process death, handle closure, identity drift, or registry-token mismatch is a hard failure; JSON replay cannot renew it."
+    ],
+    "python_assurance_boundary": "The lease is resistant to accidental or file-based replay, not cryptographically unforgeable against arbitrary code already executing inside the same trusted Python process. Exact source/dependency hashes and process isolation remain required."
+  },
+  "safe_real_windows_ntfs_test_matrix": {
+    "root_rule": "Every effects test creates a new unpredictable directory under a verified writable temporary NTFS root outside the repository's canonical/model/global paths. The test resolves and records the absolute temp root before any create/delete action and refuses a workspace/model/canonical ancestor or descendant.",
+    "cleanup_rule": "Cleanup targets only the exact resolved test nonce directory after verifying its temp-root containment. A failed safety check leaves the fixture for human inspection rather than broad deletion.",
+    "production_sealing_test_strategy": {
+      "problem": "A zero-argument production entry point must resolve the frozen Hosea allowlist and therefore cannot safely be redirected to a temp root.",
+      "honest_solution": [
+        "Exercise the exact native handle collector and policy code on the temp root through a separately hashed test-only launcher whose schema and capability are rejected by production.",
+        "Prove the zero-argument production launcher closure separately with AST/import-graph/signature/hash tests showing no redirect or provider seam.",
+        "Do not claim the temp-root run executed the exact production freeze or grants live readiness; require both evidence classes."
+      ]
+    },
+    "cases": [
+      {
+        "case_id": "WIN-V3-001-real-identity-baseline",
+        "setup": "Create mirrored workspace/model/parent layout with 13 target and three sentinel fixtures.",
+        "assertions": [
+          "actual Windows and NTFS provenance",
+          "distinct volume/root/workspace/model/parent/file handle identities",
+          "root-relative exact leaf bindings",
+          "all observations inside dual clocks",
+          "zero target/sentinel byte delta and zero directory-member delta"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-002-sentinel-sharing-denial",
+        "setup": "While the three sentinel guards are retained, use an independent process to request write, delete, rename, and replace access.",
+        "assertions": [
+          "all prospective operations fail with sharing violation",
+          "read-only sharing remains allowed",
+          "sentinel bytes, identity, and membership remain exact"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-003-target-measurement-exclusivity",
+        "setup": "During the initial exclusive target-open phase, independently attempt write/delete/rename.",
+        "assertions": [
+          "contention is denied while exclusive measurement handles are live",
+          "handles are released only at the documented transition to replacement-compatible observation",
+          "the test does not claim denial after that transition"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-004-intended-rooted-replacement",
+        "setup": "Use the same root-relative replacement primitive on test fixtures with retained compatible parent and staged-source handles.",
+        "assertions": [
+          "exact intended leaf changes to staged bytes",
+          "all other 12 targets and three sentinels remain exact",
+          "root/parent identities do not change",
+          "journal step and readback are bound"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-005-delete-rename-race-disclosure",
+        "setup": "Attempt a competing target rename after exclusive measurement handles are released but before the synthetic replacement.",
+        "assertions": [
+          "if Windows permits the race, the lease detects identity/hash drift and blocks or enters recovery_required",
+          "the result records that writer exclusion was not proven",
+          "no false PASS is possible"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-006-reparse-and-alias-rejection",
+        "setup": "Create safe temp file symlink, directory junction/reparse point, hardlink alias, same-parent alternate file, case/normalization ambiguity where supported.",
+        "assertions": [
+          "every disallowed form is rejected before PASS",
+          "unsupported symlink privilege is reported as coverage_unavailable, never PASS",
+          "hardlink/file-ID alias and parent identity alias are deterministic failures"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-007-process-ancestry-positive",
+        "setup": "Launch the test collector synchronously through the allowed Python-to-PowerShell-to-test-host ancestry using frozen test executable identities.",
+        "assertions": [
+          "only current Python and exact direct ancestors are permitted",
+          "PID/start/image and parent relations are internally derived and continuous"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-008-process-negative-matrix",
+        "setup": "Spawn sibling Python, unrelated PowerShell/Codex-named fixture where safely possible, Git/copy writer, simulated PID-reuse row at policy layer, and OneDrive-name fixture process without touching real OneDrive.",
+        "assertions": [
+          "all unrelated bounded rows block",
+          "duplicate PID/start and contradictory current/parent rows block",
+          "same executable name outside direct ancestry never gains exemption"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-009-clock-boot-volume-negative-matrix",
+        "setup": "Policy-level immutable fixtures mutate boot/capture order, wall/monotonic age, Windows provenance, volume GUID/serial/flags/root identity, and observation timestamps.",
+        "assertions": [
+          "every mutation fails closed",
+          "no live restart or volume mutation is performed"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-010-lease-and-replay",
+        "setup": "Serialize receipts, close or expire handles, substitute nonce/object identity, change a dependency, and replay prepare evidence in a new process.",
+        "assertions": [
+          "JSON-only replay cannot publish",
+          "closed/expired/foreign lease fails",
+          "dependency drift fails before effects",
+          "same-process valid lease reaches only the temp-root synthetic transaction"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-011-zero-delta-metadata-honesty",
+        "setup": "Capture bytes, members, identities, sizes, creation/write timestamps, attributes, and allocation state before and after read-only collection on local non-cloud NTFS.",
+        "assertions": [
+          "exact bytes and member names are unchanged",
+          "creation/write identity fields are unchanged",
+          "last-access changes or filesystem bookkeeping are reported separately and do not support a zero-filesystem-effect claim",
+          "cloud hydration behavior is not inferred from a local temp test"
+        ]
+      },
+      {
+        "case_id": "WIN-V3-012-production-closure",
+        "setup": "Static and subprocess probes inspect the exact sealed launcher signature, imports, constants, and environment handling.",
+        "assertions": [
+          "no backend/clock/provider/path/label/process/auth injection",
+          "no environment-variable or command-line redirect",
+          "no testkit import",
+          "exact dependency hashes required before import",
+          "test-only receipt rejected by production policy"
+        ]
+      }
+    ],
+    "suite_acceptance": [
+      "No skip, xfail, fake-backend pass, or coverage_unavailable result counts as real-Windows coverage.",
+      "Reparse subcases requiring unavailable privileges are itemized; the overall reparse gate remains unresolved until exercised in a suitable safe environment.",
+      "Tests verify exact temp-root targets before every mutation and never accept a repository workspace, model root, Hosea path, or global sidecar path.",
+      "The final receipt binds OS build, filesystem, implementation/test hashes, exact case results, and before/after digests."
+    ]
+  },
+  "proof_boundary": {
+    "can_prove_with_sealed_collector_and_tests": [
+      "the exact verified production code and dependency closure was loaded",
+      "the frozen allowlist resolved to exact parent-relative leaves and handle identities at observation time",
+      "no reparse or alias condition covered by the implementation was admitted",
+      "the current process and exact direct ancestry matched the code-fixed policy during the lease",
+      "no bounded disallowed process name/PID row was present in the point-in-time snapshot",
+      "global sentinel guards denied prospective write/delete/rename opens while retained",
+      "target and staged bytes/identities matched immediately before and after each synthetic or authorized replacement",
+      "dual clocks, boot, OS, NTFS volume, roots, parents, files, and process observations were internally ordered and bound",
+      "no explicit probe, delete, replace, attempt, restart, OneDrive, canonical, or global effect occurred during collection"
+    ],
+    "cannot_prove": [
+      "cryptographic identity of Lowell from local files",
+      "absence of every hidden, renamed, kernel, future, or pre-opened writer",
+      "that an allowed Codex or shell ancestor will never write from another thread",
+      "elimination of the FILE_SHARE_DELETE lost-update window on targets",
+      "prevention of overwrite after final readback",
+      "power-loss durability",
+      "atomicity of the 13-file set",
+      "zero filesystem metadata or cloud-hydration effects from reading",
+      "behavior of the exact production freeze from a redirected temp-root test"
+    ],
+    "strict_race_dissent": {
+      "position": "STRICT_BLOCK_REMAINS_REASONABLE",
+      "reason": "Handle-rooted identity and an in-process lease detect many races but do not exclude a noncooperating target writer during the replacement-compatible window or after readback.",
+      "status": "UNRESOLVED_FOR_HUMAN_OR_EXTERNAL_AI",
+      "forced_consensus": false
+    }
+  },
+  "gate_satisfaction_map": [
+    {
+      "gate_id": "V9-NEXT-01-PRODUCTION_ENTRYPOINT",
+      "design_elements": [
+        "zero-argument phase-specific production entrypoints",
+        "no provider/path/label/process/auth parameters",
+        "separate non-production test schema and import closure"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-02-DEPENDENCY_AND_RAW_BINDING",
+      "design_elements": [
+        "verify-before-import dependency closure",
+        "complete embedded raw record plus canonical digest",
+        "transaction binding of raw, PASS, freeze, owner capability, and lease digests"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-04-HANDLE_ROOTED_TARGET_AUTHENTICATION",
+      "design_elements": [
+        "volume-root-to-parent retained handle chain",
+        "code-fixed role/token/leaf allowlist",
+        "parent plus leaf plus file identity relation",
+        "alias/reparse/normalization rejection"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-05-BOOT_OS_VOLUME_AND_CAPTURE",
+      "design_elements": [
+        "actual Windows and NTFS provenance",
+        "volume-root identity and decoded flags",
+        "all observations inside ordered dual clocks"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-06-PROCESS_RELATIONAL_CLOSURE",
+      "design_elements": [
+        "PID/start/executable-handle rows",
+        "exact direct ancestry exemption only",
+        "policy-derived blocker sets",
+        "prepare/publish process-handle continuity"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-09-IN_PROCESS_LEASE_AND_REVALIDATION",
+      "design_elements": [
+        "opaque live handle lease not recreatable from JSON",
+        "retained root/parent/sentinel/staged-source/process handles",
+        "immediate pre-step and final revalidation",
+        "hard recovery_required transition"
+      ]
+    },
+    {
+      "gate_id": "V9-NEXT-10-ADVERSARIAL_AND_REAL_WINDOWS_TESTS",
+      "design_elements": [
+        "12-case safe NTFS temp-root/static matrix",
+        "real sharing/delete/rename/reparse/ancestry tests",
+        "zero-byte/member-delta evidence",
+        "honest separation of production closure proof from temp-root native-helper proof"
+      ]
+    }
+  ],
+  "implementation_stop_conditions": [
+    "A production API accepts any test/provider/path/label/process/auth injection.",
+    "The exact freeze and dependency closure cannot be verified before import.",
+    "Any target relation is derived from caller labels rather than retained handles.",
+    "Current and ancestor process evidence is outside capture clocks or not handle-bound.",
+    "An unrelated same-name process can inherit the ancestry exemption.",
+    "The wrapper can proceed from JSON without the same live lease object.",
+    "A real-Windows test targets any repository canonical, Hosea, model-global, or OneDrive-managed production path.",
+    "A skipped or fake test is described as real-Windows PASS.",
+    "Residual writer races are described as eliminated."
+  ],
+  "next_action": "Implement this as a new immutable V3 component generation, freeze exact code/test/dependency hashes, run only the safe temporary-root and static suites, then obtain a fresh independent checker, adversarial premortem, and boss ruling. Do not perform a live canonical measurement or restart from this design docket.",
+  "candidate_only": true,
+  "non_authorizing": true
+}

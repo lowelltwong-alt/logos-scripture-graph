@@ -1,0 +1,93 @@
+---
+schema_version: m7_chunk_review_contract.v1
+contract_id: M7_sol_chunk_level_challenge_mesh
+contract_revision: 2
+artifact_class: portable_core
+write_owner: M7_sol_author
+reviewers_are_read_only: true
+provider_neutral_roles:
+  - literary_form_specialist
+  - original_language_translation_specialist
+  - canonical_intertext_specialist
+  - historically_stratified_jewish_context_specialist
+  - peer_crosschecker
+  - boss_adjudicator
+  - post_resolution_checker
+required_per_decision:
+  - frozen_chunk_sha256
+  - two_artifact_blind_role_separated_primary_reviews
+  - peer_crosscheck
+  - author_response_to_every_challenge
+  - role_separated_post_resolution_check
+  - explicit_independence_scope
+independence_scope:
+  independent_from_sibling_model_maps: true
+  primaries_blind_to_each_other_artifacts: true
+  roles_separated: true
+  shared_model_substrate: true
+  counts_as_cross_model_independent_votes: false
+  independent_model_or_human_evidence_required_at_convergence: true
+  reviewer_count_is_not_authority: true
+review_domains:
+  - literary_form_and_larger_unit_integrity
+  - hebrew_aramaic_or_koine_greek_translation_difficulty
+  - phrase_clause_syntax_discourse_context
+  - canonical_internal_cross_reference
+  - second_temple_vs_later_rabbinic_chronology
+  - variant_and_versification_dependency
+  - theology_and_authority_smuggling
+primary_review_verdicts: [supports, challenge, insufficient_evidence, frontier_defer]
+author_dispositions: [accept, revise, hold]
+final_states:
+  - accepted_candidate
+  - held_lower_confidence
+  - deferred_human_or_external_ai
+appeals:
+  append_only: true
+  forced_consensus_forbidden: true
+  required_fields:
+    - appeal_id
+    - appellant_attempt_id
+    - disagreement_with
+    - disputed_claim_id
+    - passage_context
+    - evidence_refs
+    - rationale
+    - uncertainty
+    - requested_next_reviewer
+  unresolved_action: keep_larger_unit_lower_confidence_and_queue
+historical_context_classes:
+  - second_temple_primary
+  - second_temple_modern_scholarship
+  - early_rabbinic
+  - medieval_rabbinic
+  - modern
+historical_relationships: [earlier, contemporaneous, reception_only]
+evidence_only_guards:
+  roots_or_etymology_are_not_meaning: true
+  semantic_range_is_not_totality: true
+  strongs_or_lemma_is_not_lexical_authority: true
+  original_language_is_not_boundary_authority: true
+  editorial_cross_reference_is_not_intertext_truth: true
+  later_rabbinic_reception_is_not_second_temple_context: true
+  variants_do_not_select_preferred_reading: true
+  reviewer_agreement_is_not_promotion_authority: true
+invalidation:
+  chunk_digest_change_invalidates_all_reviews: true
+  source_or_policy_digest_change_invalidates_affected_reviews: true
+  model_runtime_or_role_change_requires_new_attempt_receipt: true
+completion_gates:
+  positive_contiguous_integer_indices: true
+  official_whole_bible_chunk_map_validator_required: true
+  final_review_status_and_hold_state_parity_required: true
+  completion_receipt_written_after_final_hash_and_all_gates: true
+  relation_sidecar_or_explicit_no_relation_receipt_required: true
+  stale_current_hash_claim_forbidden: true
+non_authorizations:
+  - reviewed_gold
+  - chunk_output_promotion
+  - theology
+  - canon_or_authorship
+  - preferred_translation_or_reading
+  - source_tradition_choice
+  - graph_retrieval_or_vector_truth

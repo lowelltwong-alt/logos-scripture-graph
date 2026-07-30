@@ -1,0 +1,85 @@
+---
+object_type: scripture_first_whole_bible_runtime_adapter
+schema_version: scripture_first_whole_bible_runtime_adapter.v2
+adapter_id: codex-desktop-whole-bible-candidate-adapter
+adapter_version: 2.0.0
+artifact_class: runtime_adapter
+lifecycle_status: candidate
+trust_zone: candidate
+portable_core_ref: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_workflow.v2.yaml
+prompt_pack_ref: config/agents/families/scripture-first-biblical-chunking/whole_bible_candidate_prompt_pack.v2.yaml
+
+runtime:
+  host: codex_desktop
+  collaboration_primitive: bounded_read_only_subagents
+  root_writer_only: true
+  maximum_concurrency_including_root: 4
+  delegation_depth: 1
+  subagent_write_access: none_by_workflow_contract
+
+capability_bindings:
+  root_author: {tier: sol, default_effort: xhigh}
+  strategy_scout: {tier: terra, default_effort: high}
+  bounded_ancient_jewish_context_specialist: {tier: terra, default_effort: high, activation: qualified_corpus_only}
+  primary_reviewer: {tier: terra, default_effort: high}
+  peer_crosschecker: {tier: terra, default_effort: high}
+  premortem_reviewer: {tier: terra, default_effort: high}
+  evidence_dispute_boss: {tier: sol, default_effort: high}
+  post_resolution_checker: {tier: terra, default_effort: high}
+  mechanical_validator: {tier: deterministic, default_effort: none}
+
+identity_disclosure:
+  runtime_attested_model_identity_available: false
+  shared_model_substrate_default: true
+  role_separation_is_not_model_independence: true
+  cross_model_evidence_source: later_governed_convergence_or_human_external_review
+
+task_mapping:
+  spawn_strategy_scouts: use_distinct_read_only_agent_instances_with_controller_attested_start_and_commit_events
+  B01_parallelism: at_most_three_scouts_parallel_then_fourth_distinct_scout_sequentially
+  B01_synthesis: root_reads_four_immutable_role_reports_and_records_nonblind_synthesis_lineage
+  B01_boss_gate: separate_boss_binds_exact_packet_and_authorizes_B01_receipt_only
+  B01_commit: generic_prepare_then_separate_commit_with_full_revalidation
+  primary_review_isolation: fork_only_required_context_and_forbid_other_review_paths
+  boss_sequence: controller_commits_immutable_B06a_before_peer_exposure_then_B06b
+  appeals: resume_original_attempt_or_spawn_fresh_role_equivalent_with_full_prior_context_and_new_attempt_id
+  postcheck: fresh_read_only_attempt_with_exact_hash_in_assignment
+  root_writes: apply_patch_or_deterministic_builder_only_with_exclusive_lock_and_atomic_replace_for_shared_files
+
+write_scope:
+  allowed_root_pattern: .ai/scratch/multi_model_bible_chunking/<model_id>/
+  forbidden:
+    - sibling_model_folders
+    - data/raw
+    - data/canonical
+    - eval/chunking_gold
+    - data/candidate/chunks
+    - pipelines/chunking
+
+qualification:
+  status: unverified_without_replay_harness
+  replay_launch_blocked: true
+  reason: stage-receipt harness and one-book dry replay have not yet been independently qualified
+  required_before_reuse:
+    - validate_portable_core_and_prompt_pack
+    - run_format_regression_fixture
+    - run_blindness_and_independence_disclosure_fixture
+    - run_one_book_dry_replay_without_output_promotion
+    - validate_form_inventory_artifact_and_B01_receipt
+    - validate_primary_role_identity_and_revision_freshness
+    - validate_provisional_boss_ordering_receipt
+    - validate_extended_evidence_manifest_and_hash_closure
+    - validate_B00_B10_receipt_schema_and_chain
+    - validate_authoritative_B00_campaign_source_and_dependency_projection
+    - validate_exact_completion_gate_runner_argv_and_stdout
+    - derive_terminal_holds_and_appeals_from_B07_B09
+    - reject_alternate_campaign_or_model_roots
+    - validate_run_attempt_immutability_and_selection_index
+    - validate_resolved_path_confinement
+    - validate_acyclic_terminal_completion_receipt_root
+    - validate_dimension_scoped_qualification_without_scope_inflation
+    - independent_checker_receipt
+    - independent_launch_review_receipt
+  unattended_execution_authorized: false
+
+non_authorizing: true
