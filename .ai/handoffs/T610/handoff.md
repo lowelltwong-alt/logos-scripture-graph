@@ -97,6 +97,24 @@
 - A remote MCP implementation repository and hosting/authentication design are not yet
   selected.
 
+## Workspace lifecycle disposition
+
+- worktree path: `C:\wt\logos-t610-public-ai-entry`
+- newly created for this task: yes, from
+  `origin/main@b71b291aaabe20717b5fec8d2eb01209167aaec2`
+- owner: Codex-root
+- final tracked/untracked counts: 0/0 after commit and push
+- unique-commit state: three T610 commits are pushed to
+  `origin/codex/t610-public-ai-entry` and durably referenced by PR 195; the first two are
+  `de7c4d6eb73b3cdcf2470700855b0104767a2395` and
+  `63c60a50495c625383c91f9dc203931072e8d3cd`, followed by this final lifecycle-record
+  commit
+- retained temporary paths: none
+- final disposition: `published`
+- retention reason: keep the clean worktree and branch intact until an independent
+  CODEOWNER approves PR 195, the unchanged head is reverified, and normal protected merge
+  completes; cleanup remains unauthorized
+
 ## Next agent instruction
 
 Publish the exact T610 head, wait for required GitHub checks and review, re-read the head
