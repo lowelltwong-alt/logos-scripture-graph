@@ -11,7 +11,15 @@ designs. It does not mean M7/M8 content convergence.
 - PR 194 head: `5c6c36106c49e2ac5795cb98956129cb4fab0620`
 - M7 local head: `eaf31a940d3166b49c38ca26eb279392e0a3b25b`
 - Task id: `T610`
-- Frozen A/B brief SHA-256: `9ee36d08a68b3df0909f3565253ac60636a8d165a3a64d41ded9b821bc322dc4`
+- Committed frozen brief core:
+  [`20260818-T610-public-entry-frozen-brief.md`](20260818-T610-public-entry-frozen-brief.md)
+- Committed core SHA-256: `42bea86a4125f75942486da94bcc52fd35e7eed0ff0339be2081d83fda48aafc`
+
+The first publication commit carried only a report-level pre-dispatch digest
+`9ee36d08a68b3df0909f3565253ac60636a8d165a3a64d41ded9b821bc322dc4`.
+Because its pre-wrapper byte stream was not durably stored, that historical digest is not
+used as standalone audit proof. Both completed lane contexts independently returned the
+same shared core now committed above; lane-specific A/B wrapper sentences were excluded.
 
 ## Converged Decision
 

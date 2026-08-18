@@ -32,7 +32,7 @@
 - Release/governance status: `ROADMAP.md`, `ROADMAP_STATE.yaml`,
   `.ai/control/PROJECT_STATUS.md`, `.ai/control/current_focus.yaml`, and event ledgers.
 - Review evidence: two blind T610 design reports, their architecture-convergence report,
-  and the audit index.
+  their committed frozen shared brief, and the audit index.
 - Transparency and method: `docs/architecture/M7_SOL_AGENT_SYSTEM.md`, the new workflow
   lesson, and the refreshed portable-family manifest/catalog hashes.
 - Task/handoff/security/test isolation: `.ai/tasks/T610.task.yaml`, this handoff,
@@ -69,6 +69,10 @@
   packs, campaign roles, evidence identities, expected book strategies, and actual
   per-decision execution. The checker then returned publication PASS conditional only on
   this final validation/handoff refresh.
+- GitHub automated review: identified that the A/B brief digest could not be recalculated
+  without the brief. Both lane contexts independently returned the same shared input;
+  that exact core is now committed and hash-linked from both reports. The earlier
+  report-only pre-dispatch digest is retained as history but is not used as audit proof.
 
 ## Known risks
 
