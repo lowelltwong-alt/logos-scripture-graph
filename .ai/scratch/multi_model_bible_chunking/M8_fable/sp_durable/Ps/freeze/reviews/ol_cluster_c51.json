@@ -1,0 +1,157 @@
+{
+ "cluster": "c51",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c51_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-336",
+   "row_sha256": "7216ed08bd90dcf618b6c11e95383f07b4579190bbc279479e40bdbf911f88c3",
+   "span": "Ps.105.1-Ps.105.6",
+   "verdict": "challenge",
+   "reasoning": "Re-derived from the staged bytes rather than from the row. web_mt_offset_map.json gives Ps 105 as rule=identity, 45 WEB / 45 MT verses, web_title false, so the refs-array pairings web:Ps.105.V = oshb:Ps.105.V are arithmetically exact and no title pseudo-ref arises anywhere in this psalm. The tier-1 opener is real: psalm_device_inventory.json carries the key hodu_openings and Ps.105.1 is in it, and the psalm has no superscription to compete with it. Both Hebrew runs in this row (rationale and observed_substrate_signals[0]) collate at byte tier against oshb:Ps.105.1 (collate.py). All six curly-quoted WEB strings are verbatim (check_web_quotes verified them; its only flag here is a missing in-field ref, below). The imperative series is byte-checkable across 105:1-5 and the mode shift at 105:7 is a verbless identification clause with a fronted independent pronoun, so the closing seam is tier-1 and confidence high is calibrated. check_refs_mirror, check_marks, check_language_zones, citation_sweep and check_tiling are all GREEN on this row; pmarks_Ps.json records no selah in Ps 105 and one paseq at Ps.105.3, which the row correctly does not lean on. The defect is confined to the rejected_alternative's stated syntax. Observation, not filed: check_web_quotes flags the curly-quoted WEB string in rejected_alternative as carrying no web: ref in that same field, one of 11 such flags across this cluster.",
+   "challenges": [
+    {
+     "challenge_id": "OL-336-1",
+     "severity": "medium",
+     "claim": "The rejected_alternative's sole warrant misidentifies 105:6 as the grammatical object of the imperative in 105:5, a relation the row's own rationale and observed_substrate_signals contradict by calling 105:6 the vocative addressee.",
+     "evidence": "The imperative at MT 105:5 already carries its object in the word immediately following it, spliced from oshb:Ps.105.5 and byte tier per collate.py: נִפְלְאוֹתָ֥יו — WEB renders that clause “Remember his marvelous works that he has done” (web:Ps.105.5). MT 105:6 then opens with a bare construct phrase carrying no object marker, spliced from oshb:Ps.105.6, byte tier: זֶ֭רַע אַבְרָהָ֣ם, and WEB marks it as address with an explicit vocative pronoun twice: “you offspring of Abraham, his servant, you children of Jacob, his chosen ones.” (web:Ps.105.6). The row states both readings at once: rationale says 105:6 is 'naming the addressees', observed_substrate_signals[1] says the unit closes 'on the vocative addressee it governs', and rejected_alternative says 105:6 'is the grammatical object of 105:5's remember'. Both witnesses support the vocative reading and nothing supports the object reading. The warrant's conclusion (105:6 is not an independent clause and cannot stand as its own row) survives, but the grammatical relation it rests on does not, so the warrant needs re-authoring rather than the span."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-337",
+   "row_sha256": "e67d5c2d89d9fca2a59a35f07d5ada22cc1fa33d9e3980085e98b8eb6dea264c",
+   "span": "Ps.105.7-Ps.105.11",
+   "verdict": "challenge",
+   "reasoning": "Span re-derived and sound. MT 105:7 opens with a fronted independent pronoun in a verbless identification clause, a clean class shift out of the imperative series that ends at 105:6; all three Hebrew runs in the row collate at byte tier against the refs they are attached to (oshb:Ps.105.7 twice, oshb:Ps.105.9 once, plus the unpointed skeleton spelling at skeleton tier, which is the correct tier for a spelling mention). Every curly-quoted WEB string is verbatim. The covenant chain 105:8-10 and the quoted land grant at 105:11 are byte-true, and 105:12's temporal clause gives the closing seam an independent tier-1 warrant, so confidence medium is calibrated rather than under-claimed. Ps 105 is identity, so the refs-array arithmetic is exact. The substantive Isaac observation is correct in its conclusion and I re-derived it independently: both tzade spellings, bare and lamed-prefixed, sweep to 0 verses book-wide, so 105:9 is the psalm-book's only occurrence of the patriarch's name and it carries the sin spelling. What fails is the binding of the digit to the object named. Observations, not separately filed: check_web_quotes reports 2 flags on device_notes for curly quotes with no web: ref in that field.",
+   "challenges": [
+    {
+     "challenge_id": "OL-337-1",
+     "severity": "medium",
+     "claim": "The device_notes attaches the count '4 verses book-wide' to the lamed-prefixed spelling it quotes, but a skeleton sweep of that exact string returns 1 verse; the figure 4 belongs to the bare unprefixed spelling.",
+     "evidence": "Both queries were spliced from oshb:Ps.105.9 (never typed) and run through sweep.py --skel --tokens. The 5-consonant string the row quotes, לישחק: skeleton 1 verse, 1 token occurrence book-wide, the only hit being web:Ps.105.9 = oshb:Ps.105.9. The 4-consonant bare string, ישחק: skeleton 4 verses, 4 token occurrences book-wide, at web:Ps.2.4 = oshb:Ps.2.4, web:Ps.37.13 = oshb:Ps.37.13, web:Ps.52.6 = oshb:Ps.52.8 (Ps 52 is a shift+2 psalm), and web:Ps.105.9 = oshb:Ps.105.9. So the sentence as written names one object and reports another object's count, which is the blended-sweep failure the count-object rule exists to stop; the fix is to name the bare spelling as the swept object, or to restate the count as 1 verse. The conclusion the row draws is independently confirmed: the tzade spelling returns 0 verses book-wide at skeleton tier both bare and lamed-prefixed."
+    },
+    {
+     "challenge_id": "OL-337-2",
+     "severity": "low",
+     "claim": "The device_notes puts a model-authored gloss in curly double quotes, which the book-wide convention reserves for WEB text, and the gloss is not WEB text anywhere in the psalm-book.",
+     "evidence": "sweep.py --web on the glossed string 'he will laugh' returns 0 verses book-wide; the WEB wording at the three non-Isaac hits is 'will laugh' at web:Ps.2.4 and web:Ps.37.13 and 'laugh at him' at web:Ps.52.6. Under the quote convention a gloss of the Hebrew takes straight quotes so the quote checker can tell witness text from authored text; as filed the string reads as a WEB quotation that cannot be verified against any verse. The same field also curly-quotes a genuine WEB string from 105:9 with no web: ref in that field (check_web_quotes: 2 flags on this row's device_notes)."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-338",
+   "row_sha256": "2a81f253b0e1ff98969aa9fd2af8facd867015f35707bb61cd5bf5b1d1bfd27d",
+   "span": "Ps.105.12-Ps.105.15",
+   "verdict": "support",
+   "reasoning": "The cleanest of the narrative rows on the evidence. Both seams are tier-1 and byte-checkable: MT 105:12 opens with a preposition plus infinitive construct plus 3mp suffix, a temporal frame that WEB matches with “when they were but a few men in number” (web:Ps.105.12), and the unit closes on quoted divine speech at 105:15 whose opening negative particle plus prohibitive I collated at byte tier against oshb:Ps.105.15. The rejected_alternative's reason for stopping short of 105:16 is byte-true: the 105:16 opener is waw-initial (wayyiqtol) where 105:12 is not, and WEB agrees clause-for-clause. All four Hebrew runs collate at byte tier, every curly-quoted WEB string is verbatim, check_refs_mirror is GREEN including the out-of-span pair at 105:11 and 105:16, and pmarks_Ps.json records no selah, paseq, ketiv/qere, inverted nun or suspended letter anywhere in 105:12-15, so there is nothing to disclose and no absence claim to police. Two observations that do not reach the challenge threshold. First, quote and gloss are not span-synchronous at 105:15: the curly WEB quote spans both cola of the verse while the Hebrew offered as rendering it covers only the first colon, so a strict reading of the same-span rule would want either the second colon spliced in or the English cut back. Second, observed_substrate_signals[1] curly-quotes two WEB strings from 105:15 with no web: ref in that field (2 of the cluster's 11 check_web_quotes flags). Neither touches the span, the warrant or any factual claim, so the decision stands as filed.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-339",
+   "row_sha256": "cc4ffd957f739a17c9ecca139105dae3aac1fbf7c9260f82eb9726c12243957a",
+   "span": "Ps.105.16-Ps.105.22",
+   "verdict": "challenge",
+   "reasoning": "The span itself is well warranted at both ends and I would not move it: 105:16 opens waw-initial where 105:12-15 did not, and 105:23 opens waw-initial with an explicit new nominal subject, both byte-checked. All three Hebrew runs collate at byte tier and every curly-quoted WEB string is verbatim. The device_notes ketiv/qere disclosure is exactly right and worth recording as good practice: pmarks_Ps.json kq carries 1 note at Ps.105.18, and the MT verse is 7 words of which word 3 carries 0 combining marks while word 4 is fully pointed, i.e. the inline unpointed ketiv sitting before the pointed qere that OL-c20 warns can corrupt slicing and double-count skeleton sweeps; the row discloses it although it does not quote the verse. What fails is the discourse-subject claim, which is load-bearing because the rejected_alternative uses it to refuse a split at exactly the seam where it breaks down. Observation, not separately filed beyond the item below: 2 check_web_quotes flags on device_notes.",
+   "challenges": [
+    {
+     "challenge_id": "OL-339-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[1] claims one named subject governs the whole unit and the rejected_alternative refuses a 105:19|105:20 split on the ground that no named-subject change occurs there, but MT 105:20 introduces an explicit new nominal subject at that very seam.",
+     "evidence": "MT 105:20 opens with a verse-initial verb followed by its explicit nominal subject, spliced from oshb:Ps.105.20 and byte tier per collate.py: שָׁ֣לַח מֶ֭לֶךְ. WEB renders the clause “The king sent and freed him, even the ruler of peoples, and let him go free.” (web:Ps.105.20), and that subject carries straight into the next verse, “He made him lord of his house, and ruler of all of his possessions,” (web:Ps.105.21), where the patriarch is the object of the verbs in 105:20-21 rather than their subject. Across the row the verbal subjects run: unexpressed 3ms (the deity) at 105:16, 105:17a and 105:19; the patriarch as subject of a passive at 105:17b; then the explicit noun at 105:20-21. On either reading of 'named subject' the claim fails. Taken as proper name: the patriarch is named once inside the span, at 105:17, and governs no verb after it — a skeleton sweep of the name spliced from oshb:Ps.105.17 returns 1 verse inside 105:16-22 and 4 verses with 4 token occurrences book-wide, at web:Ps.77.15 = oshb:Ps.77.16, web:Ps.78.67 = oshb:Ps.78.67, web:Ps.80.1 = oshb:Ps.80.2 and web:Ps.105.17 = oshb:Ps.105.17 (the divine name at 105:19 is the span's other proper name and is likewise not the subject at 105:20-21). Taken as explicitly expressed subject: the change from unexpressed to expressed falls precisely at 105:20. The span can be defended on the reversal-of-fortune arc and on the wayyiqtol restart at 105:23, but not on the stated subject continuity, so the warrant must be re-authored to survive the test that this seam applies to it."
+    },
+    {
+     "challenge_id": "OL-339-2",
+     "severity": "low",
+     "claim": "The device_notes curly-quotes a ketiv/qere gloss that is not WEB text at the verse in question, blurring authored gloss and witness text.",
+     "evidence": "sweep.py --web on the second glossed string 'his foot' returns 2 verses book-wide, web:Ps.99.5 and web:Ps.132.7, and neither is the verse under discussion; WEB at web:Ps.105.18 reads “They bruised his feet with shackles.” The pair as filed is a rendering of the two ketiv/qere readings, so it takes straight quotes under the convention that curly double quotes are WEB text only. Both strings in that field also lack an in-field web: ref (check_web_quotes: 2 flags). The substance of the disclosure is correct and should be preserved in the repair."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-340",
+   "row_sha256": "b26977c089299512d25a6c571e74a7f3118a56f2abdde7ba4e154f6fdbc4b6b1",
+   "span": "Ps.105.23-Ps.105.27",
+   "verdict": "challenge",
+   "reasoning": "The opening seam is the strongest in the cluster and I re-derived it: MT 105:23 opens waw-initial with an explicit named subject immediately after it, byte tier against oshb:Ps.105.23, and WEB matches with “Israel also came into Egypt.” (web:Ps.105.23). The closing seam at 105:27|105:28 is also sound, but on the general-to-specific shift the rationale names, not on the verb form the rejected_alternative names: the verse-initial form the rejected_alternative treats as marking 105:28 also opens 105:26 inside this very row, and occurs verse-initially in Ps 105 at MT 105:17, 105:20, 105:26 and 105:28 (4 verses; 8 verses book-wide by the same verse-initial derivation from verse_map_oshb.json). That is an observation on warrant strength rather than a defect, since the seam survives on the summary-then-catalogue shift that both witnesses show. Both Hebrew runs in rationale collate at byte tier, all WEB strings are verbatim, check_refs_mirror is GREEN, and the row correctly refrains from any selah, pe/samekh, or cross-tradition claim. Two defects follow. Observation, not separately filed: 1 check_web_quotes flag for a curly quote with no in-field web: ref in rejected_alternative.",
+   "challenges": [
+    {
+     "challenge_id": "OL-340-1",
+     "severity": "medium",
+     "claim": "The device_notes blends two incompatible count objects: the figure 7 counts the psalm's items with two distinct plague nouns merged into one, while 'omits the livestock-pestilence and boils' counts by the traditional enumeration in which those two nouns are separate, so the arithmetic sums to 9 rather than 10, and the sentence also asserts that the omitted material is present in the catalogue.",
+     "evidence": "MT 105:31 is six words and carries two distinct plague nouns, spliced from oshb:Ps.105.31 and byte tier per collate.py: עָרֹ֑ב and כִּ֝נִּ֗ים. WEB keeps them separate as well: “He spoke, and swarms of flies came, and lice in all their borders.” (web:Ps.105.31). Under the same enumeration that treats pestilence and boils as two separate omissions, these are two separate inclusions, so this psalm's catalogue covers 8 items and omits 2; under the row's merged 'insects' object the omissions cannot be counted as 2 either. No digit-bearing derivation is offered for the figure 7 at all. Separately, the clause 'omits the livestock-pestilence and boils material present in this psalm's own catalogue by their absence' asserts presence and absence of the same material in one sentence and cannot be read as written. The cross-book relation itself is correctly marked as texture rather than boundary authority and needs no change."
+    },
+    {
+     "challenge_id": "OL-340-2",
+     "severity": "low",
+     "claim": "The rejected_alternative quotes pointed Hebrew from a ketiv/qere verse with no ketiv/qere disclosure in the row.",
+     "evidence": "pmarks_Ps.json kq records 1 note at Ps.105.28, and the MT verse is 8 words of which word 7 carries 0 combining marks while word 8 is fully pointed, the inline unpointed ketiv shape. citation_sweep.py on this row reports, in straight quotes as the tool prints it: 'M8-Ps-340: Hebrew quote in row.rejected_alternative binds to K/Q verse oshb:Ps.105.28 with no ketiv/qere disclosure in-field'. The disclosure is asymmetric within one psalm: the ketiv/qere at 105:18 is disclosed by the row that merely spans it, while the one at 105:28 is quoted from and not disclosed. Because the 105:27|105:28 seam is shared, this repair and the corresponding one at that seam's other side are one edit installed on both rows."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-341",
+   "row_sha256": "6a637efbc7324b0f901497753503d268ca3476280d74b1c6f7e63dfaafc7c233",
+   "span": "Ps.105.28-Ps.105.31",
+   "verdict": "challenge",
+   "reasoning": "The row is honest that this is a content grouping inside one catalogue rather than a grammatical break, and I agree with that reading of the material; the problem is that the substrate signals filed alongside it assert a grammatical break that the bytes contradict, and the row's only quoted verse is an undisclosed ketiv/qere verse. Both Hebrew runs collate at byte tier against oshb:Ps.105.28 and all curly-quoted WEB strings are verbatim; refs mirror and tiling are GREEN and the psalm is identity so the pairings are exact. I re-derived the whole verse-opening series of the catalogue from verse_map_oshb.json rather than trusting either side. Observation, not separately filed: 2 check_web_quotes flags for curly quotes with no in-field web: ref.",
+   "challenges": [
+    {
+     "challenge_id": "OL-341-1",
+     "severity": "medium",
+     "claim": "The parenthetical 'sweep: 4 plagues, 4 verses, 105:28-31' reports a plague count that the span does not contain, and the universal it backs, that every plague in the group is introduced by its own verb, fails at 105:31 where the second plague noun has no verb.",
+     "evidence": "The verse count is right and the plague count is not: 105:28-31 is 4 verses but names 5 plague items, because MT 105:31 carries two nouns under a single verb. Spliced from oshb:Ps.105.31 and byte tier per collate.py, the verb and the two nouns it governs: וַיָּבֹ֣א עָרֹ֑ב כִּ֝נִּ֗ים — the second noun follows asyndetically with no verb of its own. WEB shows the same gapping: “He spoke, and swarms of flies came, and lice in all their borders.” (web:Ps.105.31), where 'came' serves both. sweep.py cannot count plague items at all, so the token 'sweep:' is attached to an object no staged tool produces; check_universals.py passes this row only because a digit stands adjacent to the universal, and that digit is the wrong one. Name the object (verses, or plague nouns) and the count follows: 4 verses, 5 plague nouns, 4 verbs."
+    },
+    {
+     "challenge_id": "OL-341-2",
+     "severity": "medium",
+     "claim": "The closing-seam warrant, that a new verb pattern opens at 105:32, is contradicted by the verse-opening bytes; the catalogue's actual verb-pattern break falls one verse later, at 105:32|105:33, which is a rival seam with a byte-true warrant.",
+     "evidence": "Verse-initial words spliced from verse_map_oshb.json, each byte tier against its own ref: oshb:Ps.105.28 שָׁ֣לַֽח, oshb:Ps.105.29 הָפַ֣ךְ, oshb:Ps.105.30 שָׁרַ֣ץ, oshb:Ps.105.31 אָ֭מַר, oshb:Ps.105.32 נָתַ֣ן — five consecutive verses opening with a waw-less 3ms qatal, so 105:32 continues the series rather than starting a new pattern. The first waw-initial opener in the catalogue is oshb:Ps.105.33 וַיַּ֣ךְ. WEB agrees clause-for-clause: “He sent darkness, and made it dark.” (web:Ps.105.28), “He gave them hail for rain, with lightning in their land.” (web:Ps.105.32), “He struck their vines and also their fig trees” (web:Ps.105.33). Since verse_map_oshb.json carries no morphology layer, this is argued from the pointed bytes plus both witnesses' renderings and is re-derivable the same way. The row's own rejected_alternative concedes the split is not a strong grammatical break, which is right, but observed_substrate_signals[1] files the opposite; one of the two must go, and the byte evidence says the substrate signal is the one that is wrong."
+    },
+    {
+     "challenge_id": "OL-341-3",
+     "severity": "medium",
+     "claim": "The row quotes pointed Hebrew from its own span-opening verse twice without the ketiv/qere disclosure that verse requires, and its device_notes is empty.",
+     "evidence": "pmarks_Ps.json kq records 1 note at Ps.105.28, the row's first verse; the MT verse is 8 words of which word 7 carries 0 combining marks while word 8 is fully pointed, the inline unpointed ketiv that OL-c20 flags as a slicing and double-count hazard. citation_sweep.py reports two warnings on this row, printed as: 'M8-Ps-341: Hebrew quote in row.rationale binds to K/Q verse oshb:Ps.105.28 with no ketiv/qere disclosure in-field' and 'M8-Ps-341: Hebrew quote in row.observed_substrate_signals[0] binds to K/Q verse oshb:Ps.105.28 with no ketiv/qere disclosure in-field'. The quoted words themselves are the first two of the verse and are unaffected by the inline ketiv, so this is a disclosure defect rather than a quotation defect, but the obligation attaches wherever the verse is quoted and the same psalm's other ketiv/qere note at 105:18 is disclosed by a row that only spans it."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-342",
+   "row_sha256": "b2950c2376ac3e9af516e2e613e0d5477cd12fed4891175c05fa573818d71301",
+   "span": "Ps.105.32-Ps.105.36",
+   "verdict": "challenge",
+   "reasoning": "All three Hebrew runs collate at byte tier against the refs attached to them, all curly-quoted WEB strings are verbatim, refs mirror and tiling are GREEN, and the quoted stretch is maqaf-free as the staged extract requires, with no maqaf asserted anywhere. The closing seam at 105:36|105:37 is sound on referential grounds. The opening seam is where the row is weakest, and the row itself signals this with the lowest confidence value in the cluster; my independent derivation of the catalogue's verse-opening forms says the stated warrant is not merely weak but wrong, and that a byte-true device straddles the seam undisclosed. Observation, not separately filed beyond the item below: 1 check_web_quotes flag on rejected_alternative.",
+   "challenges": [
+    {
+     "challenge_id": "OL-342-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[0] claims the unit opens with a new verb pattern relative to the preceding group, but the 105:32 opener is the same waw-less 3ms qatal as the four verse-openers before it.",
+     "evidence": "Verse-initial words spliced from verse_map_oshb.json, each byte tier against its own ref: oshb:Ps.105.28 שָׁ֣לַֽח, oshb:Ps.105.29 הָפַ֣ךְ, oshb:Ps.105.30 שָׁרַ֣ץ, oshb:Ps.105.31 אָ֭מַר, and this row's opener oshb:Ps.105.32 נָתַ֣ן — all five waw-less. The first waw-initial opener anywhere in the catalogue is oshb:Ps.105.33 וַיַּ֣ךְ, one verse inside this row. WEB carries the same shape: “He sent darkness, and made it dark.” (web:Ps.105.28) and “He gave them hail for rain, with lightning in their land.” (web:Ps.105.32) are the same construction. With no morphology layer in the staged extract this is argued from pointed bytes plus both witnesses and is re-derivable the same way. The consequence is that the sole grammatical warrant for the 105:31|105:32 seam does not exist, and a rival seam one verse away at 105:32|105:33 does have one; the content grouping may still be defensible, but it must be argued as a content grouping, which is what the paired rejected_alternative already concedes."
+    },
+    {
+     "challenge_id": "OL-342-2",
+     "severity": "medium",
+     "claim": "A byte-identical two-word verse-opening formula straddles this row's opening seam and is disclosed by neither side of it, so the cross-seam cohesion rule leaves it arguing continuity against the row.",
+     "evidence": "The first two words of MT 105:31 and of MT 105:34 are byte-identical: oshb:Ps.105.31 אָ֭מַר וַיָּבֹ֣א and oshb:Ps.105.34 אָ֭מַר וַיָּבֹ֣א, both byte tier per collate.py against their own refs. A skeleton sweep of that two-word string returns 2 verses and 2 token occurrences book-wide, at web:Ps.105.31 = oshb:Ps.105.31 and web:Ps.105.34 = oshb:Ps.105.34 (sweep.py --skel --tokens), so it is a formula unique to this psalm and it occurs exactly once on each side of the 105:31|105:32 boundary. WEB reproduces it as “He spoke, and swarms of flies came” (web:Ps.105.31) and “He spoke, and the locusts came with the grasshoppers” (web:Ps.105.34). Either side of the seam should disclose it; as filed, the strongest repeated device in the plague catalogue is a continuity signal across the boundary the row draws."
+    },
+    {
+     "challenge_id": "OL-342-3",
+     "severity": "low",
+     "claim": "The rejected_alternative curly-quotes an authored gloss of the Hebrew, which the convention reserves for WEB text, and the string is not WEB text at that verse.",
+     "evidence": "The gloss 'and he struck,' is offered in curly double quotes for the 105:36 opener, but WEB at web:Ps.105.36 reads “He struck also all the firstborn in their land” with no coordinating conjunction, so the string is a rendering of the waw-consecutive form and not a quotation of the witness. Under the convention curly double quotes are WEB text only and glosses take straight quotes, which the same row does correctly for its Hebrew. check_web_quotes reports 1 flag on this field."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-343",
+   "row_sha256": "6babaea1284a12ee329373eafce3dd1197ee55ffb5b9ec1ae0cbe47eb42f5622",
+   "span": "Ps.105.37-Ps.105.41",
+   "verdict": "support",
+   "reasoning": "The strongest row in the cluster on the evidence and the only one with no check_web_quotes flags at all. All four Hebrew runs collate at byte tier against the refs attached to them, every curly-quoted WEB string is verbatim, and check_refs_mirror is GREEN including the out-of-span pair at 105:8 and 105:9 that the rejected_alternative argues from. That rejected_alternative is byte-true in both halves: the 105:42 opener is the causal particle it says it is, byte tier against oshb:Ps.105.42, and the verb it says returns to the covenant memory is the same verb that opens MT 105:8, with the patriarch named at 105:9 reappearing at 105:42 — so the register shift the row uses to stop at 105:41 is real and is argued from the right verses. pmarks_Ps.json records no selah, ketiv/qere, paseq, inverted nun or suspended letter in 105:37-41, so there is nothing to disclose; the psalm is identity, so the pairings are exact; check_marks, check_universals, check_language_zones, citation_sweep and check_tiling are GREEN. One observation that does not reach the challenge threshold: the label 'new wayyiqtol verb' for the 105:37 opener is accurate as a description but carries no discontinuity, since 105:33, 105:35 and 105:36 are waw-initial as well and the chain runs unbroken across the 105:36|105:37 seam. The seam rests on the referential shift from the Egypt-directed strikes to the people in transit, which both witnesses show and which the row states in the same signal, so the decision stands; the form label should simply not be read as the boundary driver.",
+   "challenges": []
+  }
+ ]
+}

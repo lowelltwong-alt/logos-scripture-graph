@@ -1,0 +1,94 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "Josh",
+ "completed_at": "2026-07-31T19:53:36.411335+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 158,
+ "verse_coverage": "658/658 exact ordered tiling, Josh.1.1-Josh.24.33",
+ "final_states": {
+  "accepted_candidate": 158
+ },
+ "superseded_decisions": [
+  "M8-Josh-027",
+  "M8-Josh-124"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 24,
+ "chunks_sha256": "f56ca30c61679dd53220f03cf303de9ac5b834fb64b4133cc19ed6a4e5404ea4",
+ "review_packets_sha256": "6f097c087fcaccfdfba45328a62d44af2ebc4758c0bf9a1e101f13f5c5caca18",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book Josh <chunks.jsonl> (158 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --book Josh --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book Josh (658/658)",
+  "checks/validate_book_review_coverage.py --book Josh --require-final-artifacts",
+  "checks/anti_batch_scan.py --book Josh (0 errors, 0 warnings against final bound state)",
+  "freeze/citation_sweep.py (deterministic consonantal sweep, 0 problems: 376 oshb refs, ellipsis- and ketiv/qere-aware)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass",
+  "sampled_chunks": 84,
+  "notes": "rationales decision-specific; confidence evidence-coupled; alternatives engaged (avg 383 chars); no mirroring; chapter-uniform stretches verified content-legitimate. Gate also fired mid-cycle on one primary and on orchestrator boilerplate; both de-templated before bind."
+ },
+ "post_resolution_check": {
+  "file": "reviews/Josh/post_resolution_check_v2.json",
+  "result": "158/158 pass, 0 defects; checker independently re-verified sweep, tiling, and both boss overrules"
+ },
+ "challenge_volume": {
+  "round1": "76 challenge objects over 55 decisions (9 challenged blind by both sides); 0 insufficient_evidence, 0 frontier_defer",
+  "revision": "12 (two-sided blind pair) + 1 peer-caught (PC-155) across micro rounds r2/r3",
+  "total_ruled": 89,
+  "author_dispositions": "round 1: 74 accept / 3 dispute (all peer-aligned, boss-sustained); revision: all accepted"
+ },
+ "notable": [
+  "two fabricated citations caught by programmatic quote-slicing (6:22 invented formula under a high row; 6:7 vocalized unpointed ketiv); the sonnet primary had reproduced the 6:22 fabrication uncritically - decorrelation earned its keep",
+  "pre-freeze calibration correction: writer draft at 81% high re-priced to the both-edges standard (16.7%) before any review",
+  "087/111 contradiction resolved by dividing Benjamin at its own deictic closures; the formula class now 3x attested across two tribes",
+  "31-king register kept whole on the accent-position ground (verse-pair binding, no per-entry closure) vs ch 10 six differentiated notices - REL-001",
+  "21:3/21:8 nine-word Wiederaufnahme folds the clan-totals insert into one 21:1-8 unit - REL-002",
+  "explicit-subject speech-formula reset principle unifies 3:10 / 4:21 / 24:19-22 - REL-003",
+  "21:36-37 text-critical variance disclosed with the Reuben-donor internal control; not resolved (candidate-level disclosure)",
+  "anti-batch gate fired on the boss layer itself (sibling-ruling boilerplate) - varied per row; the gate audits every role including the orchestrator"
+ ],
+ "routing_used": [
+  {
+   "role": "book_writer + calibration pass + author phases (2 halves + r2/r3) + sidecar author",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "OL primaries (4)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "LF primaries (4) + peers (4) + rev_lf + rev_peer + postchecker",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "revision primary opus side (rev_opus_j01..j07)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "anti_batch_auditor",
+   "model": "claude-haiku-4-5"
+  },
+  {
+   "role": "boss_adjudicator",
+   "model": "claude-fable-5",
+   "effort": "xhigh",
+   "attempts": "boss_fable_j01..j21_r1"
+  },
+  {
+   "role": "tier0_deterministic",
+   "model": "none"
+  }
+ ],
+ "escalations_to_fable": "boss rulings only (89 rulings: 87 upheld_as_amendment, 2 overruled); no decision escalated beyond boss",
+ "ultra_requests": 0,
+ "owner_addendum_applied": "m8-mesh-r2 (Prophets weighting active: parashah weak corroboration)"
+}

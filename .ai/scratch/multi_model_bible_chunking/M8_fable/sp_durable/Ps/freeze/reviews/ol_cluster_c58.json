@@ -1,0 +1,109 @@
+{
+ "cluster": "c58",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c58_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-382",
+   "row_sha256": "254fef34f0d91eed0645a1650f1ed8a492e769abcea2618d84c471aaeeb23bd6",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.115.1-Ps.115.3 is defensible and the seam at 3|4 is the right one: web:Ps.115.4 opens the idol catalogue with a new nominal subject and a new referent, and every Hebrew string in the row collates at byte tier (collate.py on oshb:Ps.115.2, oshb:Ps.115.3, oshb:Ps.115.4 -- all byte). Ps 115 is an IDENTITY psalm in web_mt_offset_map.json (web_to_mt(115,1)=(115,1), web_to_mt(115,18)=(115,18)), so no dual-cite arithmetic is owed here and citation_sweep.py returns GREEN on the cluster. The row's untitled-psalm claim re-derives: Ps.115.0 is absent from verse_map_web.json and both witnesses carry 18 verses for this psalm, so the opening row does begin at the psalm's first Hebrew content. What fails is the stated seam WARRANT. The row grounds the 3|4 seam on a shift out of second-person address to Yahweh in vv1 and 3, but oshb:Ps.115.3 carries no second-person morphology at all -- it is third-person narration about God, like v4ff. The person shift the row describes falls at 1|2, not at 3|4. A second, smaller defect: the Hebrew slice cited at oshb:Ps.115.3 overruns its gloss by one word. The span survives; the warrant and that one quote/gloss pairing do not.",
+   "challenges": [
+    {
+     "challenge_id": "OL-382-1",
+     "severity": "medium",
+     "claim": "The seam warrant asserts second-person address to Yahweh in web:Ps.115.3, but MT 115:3 contains no second-person form at all, so the person shift used to justify the 3|4 seam is located a verse and a half too late.",
+     "evidence": "oshb:Ps.115.1 does carry the second-person address: לְ֭שִׁמְךָ תֵּ֣ן כָּב֑וֹד עַל חַ֝סְדְּךָ֗ עַל אֲמִתֶּֽךָ (byte tier, collate.py) -- a 2ms suffix on the noun before the imperative, the 2ms imperative itself, and 2ms suffixes on the two following nouns; WEB matches, “but to your name give glory, for your loving kindness, and for your truth’s sake.” (web:Ps.115.1). oshb:Ps.115.3 in full is וֵֽאלֹהֵ֥ינוּ בַשָּׁמָ֑יִם כֹּ֭ל אֲשֶׁר חָפֵ֣ץ עָשָֽׂה (byte tier, collate.py): a 1cp suffix on the divine name, then a relative clause closing in a 3ms perfect -- zero 2ms/2mp forms anywhere in the verse. WEB agrees, “But our God is in the heavens. He does whatever he pleases.” (web:Ps.115.3), third person throughout. The row's clause 'unlike the second-person address to Yahweh in vv1 and 3' is therefore false for v3, and check_universals.py independently flags the same clause ([0].rationale, 'with no addressee, unlike the second-person add'). The genuine second-to-third person transition is at 1|2: oshb:Ps.115.2 opens לָ֭מָּה יֹאמְר֣וּ הַגּוֹיִ֑ם (byte tier, collate.py), third person already. The 3|4 seam needs a different tier-1 warrant -- the new subject and referent opening oshb:Ps.115.4 is available and the row already cites it."
+    },
+    {
+     "challenge_id": "OL-382-2",
+     "severity": "low",
+     "claim": "Quote/gloss span desync in observed_substrate_signals: the Hebrew slice cited at oshb:Ps.115.3 runs one word past the clause its gloss covers.",
+     "evidence": "The row quotes וֵֽאלֹהֵ֥ינוּ בַשָּׁמָ֑יִם כֹּ֭ל (oshb:Ps.115.3, byte tier, collate.py) and glosses it as covering only the assertion 'that God is in the heavens'. The trailing word begins the next clause: כֹּ֭ל אֲשֶׁר חָפֵ֣ץ עָשָֽׂה (oshb:Ps.115.3, byte tier, collate.py) is what WEB renders “He does whatever he pleases.” (web:Ps.115.3). Under the standing rule that quote spans and their glosses cover the same span, the cure is to re-cut the slice to וֵֽאלֹהֵ֥ינוּ בַשָּׁמָ֑יִם (oshb:Ps.115.3, byte tier, collate.py) or to widen the gloss over the whole quoted run -- re-cut, not truncate-to-dodge."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-383",
+   "row_sha256": "335a4e79c7ee7fc053f5612f49a70cea347fb9830369302fc345685ef06aaa2d",
+   "verdict": "challenge",
+   "reasoning": "The span Ps.115.4-Ps.115.8 is correct and I would move neither seam: oshb:Ps.115.4 opens the idol description and oshb:Ps.115.8 closes it with the maker/truster indictment, and the catchword the row identifies across 8|9 does hold at byte tier -- the participle in oshb:Ps.115.8 and the imperative opening oshb:Ps.115.9 share the consonantal root, which is a legitimate cross-seam cohesion disclosure rather than an argument against the seam. All seven Hebrew strings in the row collate at byte tier; citation_sweep.py GREEN; check_web_quotes.py GREEN over the row's WEB quotations; Ps 115 is identity, so no dual-cite is owed. Two defects sit squarely in the OL lens. First, the substrate claim that the catalogue's cola share one syntax across web:Ps.115.5-7 (noun, then a negated verb) making the whole run unbroken is falsified by the last colon of oshb:Ps.115.7, which inverts that order and puts the body-part inside a prepositional phrase; and the count-object is blended, naming cola but counting verses. Second, two Hebrew slices are glossed with less than they contain, one of them under a form label the staged extract cannot support. Note also that the list is not strictly anaphoric -- each colon opens with a different noun -- but that is an observation, not a defect I am filing.",
+   "challenges": [
+    {
+     "challenge_id": "OL-383-1",
+     "severity": "medium",
+     "claim": "The row's syntactic universal for web:Ps.115.5-7 (noun then negated verb, the whole run one unbroken unit) is contradicted by the third colon of MT 115:7, and the count-object '3 sense-organ cola' does not match the six conforming cola those three verses contain.",
+     "evidence": "Conforming pattern, e.g. the opening of oshb:Ps.115.7: יְדֵיהֶ֤ם וְלֹ֬א יְמִישׁ֗וּן (byte tier, collate.py) -- body-part noun, then waw + negation + verb. The same verse's third colon breaks it: לֹֽא יֶ֝הְגּ֗וּ בִּגְרוֹנָֽם (oshb:Ps.115.7, byte tier, collate.py) -- bare negation and verb FIRST, no waw, and the body-part appearing only inside the following prepositional phrase. WEB records the same asymmetry: “They have hands, but they don’t feel. They have feet, but they don’t walk, neither do they speak through their throat.” (web:Ps.115.7). Counting the object the row names: noun + negated-verb cola = 2 in web:Ps.115.5, 2 in web:Ps.115.6, 2 in web:Ps.115.7 = 6 cola over 3 verses, plus 1 non-conforming colon (7 cola total). The row's '3 sense-organ cola ... (sweep: 3 verses)' names cola and counts verses, which the campaign's count-object discipline forbids. The seam and the unit survive; the universal has to be re-cut to what the bytes support, e.g. six of the seven cola across 3 verses."
+    },
+    {
+     "challenge_id": "OL-383-2",
+     "severity": "low",
+     "claim": "Two quote/gloss span desyncs: a three-word slice at oshb:Ps.115.8 is labelled 'the closing verb' and glossed with one English verb, and a two-word slice at oshb:Ps.115.9 that includes the vocative is glossed as the imperative alone.",
+     "evidence": "The row quotes אֲשֶׁר בֹּטֵ֣חַ בָּהֶֽם (oshb:Ps.115.8, byte tier, collate.py) and glosses it 'trusts'; the slice opens with a relative pronoun and closes with a prepositional phrase, and WEB renders the corresponding stretch “yes, everyone who trusts in them.” (web:Ps.115.8) -- the quantifier that governs it, giving כֹּ֭ל אֲשֶׁר בֹּטֵ֣חַ בָּהֶֽם (oshb:Ps.115.8, byte tier, collate.py), is cut away. Likewise יִ֭שְׂרָאֵל בְּטַ֣ח (oshb:Ps.115.9, byte tier, collate.py) is glossed 'trust!' though its first word is the vocative WEB carries in “Israel, trust in Yahweh!” (web:Ps.115.9); the imperative alone is בְּטַ֣ח (oshb:Ps.115.9, byte tier, collate.py). Re-cut both slices to their glossed spans or widen the glosses. Calling a relative-pronoun-initial three-word run 'the closing verb' is additionally a form label the staged extract cannot verify, since verse_map_oshb.json carries text/language/web only and no morphology layer."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-384",
+   "row_sha256": "1361a9b622f9ac46ab204303ecb86c1c0c4f313cc259c6cf25ce6d27f507aa5a",
+   "verdict": "challenge",
+   "reasoning": "This is the best-evidenced row in the cluster; its span, unit_type and parent are right and my challenge is deliberately narrow -- both items are low. Everything countable re-derives to the digit. The closing refrain עֶזְרָ֖ם וּמָגִנָּ֣ם הֽוּא is byte-present in oshb:Ps.115.9, oshb:Ps.115.10 and oshb:Ps.115.11 and nowhere else in the book (byte sweep: 3 verses; skeleton sweep: the same 3 verses), so 'byte-identical across all 3 verses' is exact and correctly tiered. Skeleton sweep of the Aaron collocation = 4 verses book-wide (oshb:Ps.115.10, oshb:Ps.115.12, oshb:Ps.118.3, oshb:Ps.135.19), matching the row's 4. Skeleton sweep of the fearers collocation = 6 verses book-wide (oshb:Ps.15.4, oshb:Ps.22.24, oshb:Ps.115.11, oshb:Ps.115.13, oshb:Ps.118.4, oshb:Ps.135.20), matching the row's 6; two of those six (oshb:Ps.15.4 = web:Ps.15.4 and oshb:Ps.22.24 = web:Ps.22.23) sit outside the triad, so 'concentrated' is the right hedge and not an exclusivity claim. The Ps 118 and Ps 135 characterisations hold at byte level, and 115, 118, 135 are all identity psalms so the numbering is trivial. Two defects remain: an untiered identity claim that the Hebrew contradicts for the first member of the formula, and one authoring-partition phrase the register purge bans from row prose.",
+   "challenges": [
+    {
+     "challenge_id": "OL-384-1",
+     "severity": "low",
+     "claim": "The row calls the two-part formula 'identical' across all three vocatives without naming a tier; at byte tier only the second member is identical -- the imperative member is byte-divergent and number-divergent between web:Ps.115.9 and web:Ps.115.10-11.",
+     "evidence": "oshb:Ps.115.9 has בְּטַ֣ח בַּיהוָ֑ה (byte tier, collate.py); oshb:Ps.115.10 and oshb:Ps.115.11 both have בִּטְח֣וּ בַיהוָ֑ה (byte tier, collate.py). The imperative differs (singular to Israel, plural to the house of Aaron and to the fearers) and the prefixed divine name differs in pointing as well. Byte sweeps split the two forms cleanly: the singular form occurs in 2 verses book-wide (oshb:Ps.37.3, oshb:Ps.115.9), the plural form in 2 verses book-wide (oshb:Ps.115.10, oshb:Ps.115.11). Only עֶזְרָ֖ם וּמָגִנָּ֣ם הֽוּא repeats identically (byte sweep: 3 verses, oshb:Ps.115.9, oshb:Ps.115.10, oshb:Ps.115.11) -- which the row does tier correctly in its other two mentions. The elision is structural rather than incidental, because the parallel triad the row itself cites repeats the same number pattern: יֹֽאמַר נָ֥א (oshb:Ps.118.2, byte tier, singular) against יֹֽאמְרוּ נָ֥א (oshb:Ps.118.3, byte tier, plural), matching “Let Israel now say” (web:Ps.118.2) beside “Let the house of Aaron now say” (web:Ps.118.3). Restrict 'identical' to the closing refrain, or say explicitly that the identity is a WEB-rendering fact."
+    },
+    {
+     "challenge_id": "OL-384-2",
+     "severity": "low",
+     "claim": "Register violation: the rationale locates a cited psalm relative to the authoring partition rather than to the text.",
+     "evidence": "The rationale reads, in the row's own words, '(Ps 135:19-Ps 135:20, outside this part, inserts a fourth member, house of Levi, before repeating the fearers clause)'. The qualifier 'outside this part' is authoring/file-order talk, which the standing register purge bans from row prose without exception; read as text-internal it is vacuous, since Ps 135 is self-evidently outside Psalm 115. The substance is correct and byte-checkable -- oshb:Ps.135.20 opens בֵּ֣ית הַ֭לֵּוִי (byte tier, collate.py) and later repeats יִֽרְאֵ֥י יְ֝הוָ֗ה (byte tier, collate.py), i.e. “House of Levi, praise Yahweh! You who fear Yahweh, praise Yahweh!” (web:Ps.135.20) -- so the cure is to delete the three-word qualifier only and keep the verse-anchored claim."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-385",
+   "row_sha256": "23051a07783988626da8619cfc05a27c3d353bfba25156320234d8e7323f4eaa",
+   "verdict": "challenge",
+   "reasoning": "The span Ps.115.12-Ps.115.15 is defensible and 'medium' confidence is honestly calibrated for it. The row's one hard count re-derives exactly: the yiqtol bless-form occurs 3 times in oshb:Ps.115.12 and once opening oshb:Ps.115.13 = 4 across web:Ps.115.12-13 (token count over the source bytes; 0 in oshb:Ps.115.14 and oshb:Ps.115.15), and the row correctly scopes the count to those two verses rather than to the whole span, where oshb:Ps.115.15 opens with a non-finite form of the same root. All four Hebrew strings collate at byte tier, including the full-verse splice of oshb:Ps.115.12; citation_sweep.py GREEN; check_refs_mirror.py clean on this row; Ps 115 is identity. The device_notes claim that the bless-triad answers the trust-triad member for member also holds in both witnesses (Israel, house of Aaron, fearers of Yahweh, in that order). The defect is in rejected_alternative, which rejects the 13|14 split on a factual claim the bytes contradict and which contradicts the row's own rationale in the same breath. That does not by itself move the seam -- the bless-vocabulary continuity argument remains available -- but a replacement warrant has to pass the test that kills this one.",
+   "challenges": [
+    {
+     "challenge_id": "OL-385-1",
+     "severity": "medium",
+     "claim": "rejected_alternative rejects the vv12-13 | vv14-15 split on the ground that v14 continues 'without a marked speaker or addressee change', but MT 115:14-15 switch to direct 2mp address while 115:12-13 are 1cp/third-person narration -- and the row's own rationale concedes the shift.",
+     "evidence": "oshb:Ps.115.12 opens יְהוָה֮ זְכָרָ֪נוּ (byte tier, collate.py) -- a 1cp object suffix -- and the remainder of vv12-13 is third-person narration about three named beneficiaries; WEB agrees, “He will bless the house of Israel.” (web:Ps.115.12) and “He will bless those who fear Yahweh, both small and great.” (web:Ps.115.13). oshb:Ps.115.14 then carries עֲלֵיכֶ֑ם עֲ֝לֵיכֶ֗ם וְעַל בְּנֵיכֶֽם (byte tier, collate.py) -- 2mp twice on the preposition and once on the noun -- and oshb:Ps.115.15 opens בְּרוּכִ֣ים אַ֭תֶּם (byte tier, collate.py) with the 2mp independent pronoun. WEB renders both as direct address: “May Yahweh increase you more and more, you and your children.” (web:Ps.115.14) and “Blessed are you by Yahweh, who made heaven and earth.” (web:Ps.115.15). An addressee change at 13|14 is therefore marked in both witnesses, and the row's own rationale states that the strophe 'widens into a direct blessing on the congregation' at exactly that point. The rival split at 13|14 has a live tier-1 warrant which this rejected_alternative denies rather than answers."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-386",
+   "row_sha256": "00f50db123cd0f8e04e5f57382ad7d32b6ebcba0ebe9834af55ef4fa5c6cd620",
+   "verdict": "challenge",
+   "reasoning": "The span Ps.115.16-Ps.115.18 is right and the row's central textual observation is exactly correct and properly tiered: הַֽלְלוּ יָֽהּ (oshb:Ps.115.18, byte tier, collate.py) closes the psalm verse-finally and is byte-distinct from יְהַֽלְלוּ יָ֑הּ (oshb:Ps.115.17, byte tier, collate.py), and psalm_device_inventory.json independently lists Ps.115.18 under verse_final and Ps.115.17 under 'other'. All five Hebrew strings collate at byte tier, Ps 115 is identity, and check_marks.py is GREEN (no selah in Ps 115, no K/Q notes in Ps 115 per pmarks_Ps.json, no pe/samekh claim anywhere). The living/dead antithesis reading holds in both witnesses. Three defects, all in the corroborating apparatus rather than the span: the hallelu-Yah sweep arithmetic subtracts only one of the two documented skeleton collisions, so its residue is neither the formula count nor the inventory's set; the paseq citation attributes positional information to an inventory that records a bare per-verse count and to verse bytes that carry no paseq codepoint at all; and two verses argued in prose outside the span are missing from boundary_evidence_refs.",
+   "challenges": [
+    {
+     "challenge_id": "OL-386-1",
+     "severity": "medium",
+     "claim": "The hallelu-Yah sweep arithmetic removes only one of the two documented skeleton collisions: the 26-verse skeleton sweep minus web:Ps.115.17 still contains MT 22:27, which is not a hallelu-Yah instance and is not in the disclosure inventory, so the formula figure is 24 verses, not 25, and the residue does not match the inventory's set.",
+     "evidence": "Skeleton sweep of the collocation spliced from oshb:Ps.115.18 returns 26 verses book-wide (sweep.py --skel; unit = verses): oshb:Ps.22.27, 104.35, 105.45, 106.1, 106.48, 111.1, 112.1, 113.1, 113.9, 115.17, 115.18, 116.19, 117.2, 135.1, 135.3, 135.21, 146.1, 146.10, 147.1, 147.20, 148.1, 148.14, 149.1, 149.9, 150.1, 150.6. Two of those are the collisions the toolkit names. One is web:Ps.115.17. The other is web:Ps.22.26 = oshb:Ps.22.27, whose colliding string is יְהַֽלְל֣וּ יְ֭הוָה (byte tier, collate.py) -- a prefixed yiqtol followed by the FULL divine name, not the short form; WEB renders it “They shall praise Yahweh who seek after him.” (web:Ps.22.26). psalm_device_inventory.json records verse_initial 11 + verse_final 13 = 24 formula verses, plus an 'other' list whose sole member is Ps.115.17 (25 entries in total). The row's 26 - 1 = 25 residue and the inventory's 25 entries are therefore different sets of equal size: the residue drops Ps.115.17 and keeps Ps.22.27, which the inventory never counted. The supportable statement is 24 hallelu-Yah formula verses book-wide (11 verse-initial, 13 verse-final), with 2 skeleton collisions excluded."
+    },
+    {
+     "challenge_id": "OL-386-2",
+     "severity": "medium",
+     "claim": "The paseq citation attributes a position ('at the seam before' the closing formula) to the marks inventory, but pmarks_Ps.json records only a per-verse count for Ps.115.18 and carries no placement data, and the staged verse bytes contain no paseq codepoint from which placement could be re-derived.",
+     "evidence": "pmarks_Ps.json paseq['Ps.115.18'] = 1 -- a bare integer, the same shape as every other entry in the 481-verse paseq map (e.g. Ps.1.1 = 1, Ps.115.7 = 1); the entry has no offset, word index or position field, and paseq_note states the layer is 'Seg layer, NOT quotable verse bytes; citable from this inventory only.' Byte check of the staged extract: U+05C0 occurs 0 times in oshb:Ps.115.18 and 0 times across all 2527 MT verses, so no source available in this campaign locates the seg within the verse. The row's existence and tier handling is correct (single-witness, corroborating texture, not a driver); only the positional clause is unsupported, and it should be cut back to what the inventory carries -- 1 paseq seg at oshb:Ps.115.18 (single-witness)."
+    },
+    {
+     "challenge_id": "OL-386-3",
+     "severity": "low",
+     "claim": "Two verses argued in prose outside the row's own span are missing from boundary_evidence_refs; check_refs_mirror.py flags this row and no other in the cluster.",
+     "evidence": "check_refs_mirror.py over the five cluster rows returns flag_count 1, decision_id M8-Ps-386, argued_but_unmirrored = ['Ps.115.1', 'Ps.115.14']. The two prose mentions are rejected_alternative's appeal to 'the second-person blessing of v14-15' (web:Ps.115.15 is in the refs array, web:Ps.115.14 is not) and device_notes' 'closes the psalm's argument begun at v1' (the refs array runs web:Ps.115.15 through web:Ps.115.18 only). Both are the bare verse-N form the mirror rule explicitly covers; the cure is to add web:Ps.115.1 and web:Ps.115.14 to boundary_evidence_refs. Both verses are correctly argued on the merits -- oshb:Ps.115.14 is 2mp direct address and oshb:Ps.115.1 is the psalm's opening petition -- so this is an evidence-completeness gap, not a content error."
+    }
+   ]
+  }
+ ]
+}

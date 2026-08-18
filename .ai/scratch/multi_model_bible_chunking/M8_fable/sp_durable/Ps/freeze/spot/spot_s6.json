@@ -1,0 +1,289 @@
+{
+  "attempt_id": "spot_ps_s6_r1",
+  "sampled": {
+    "method": "Deterministic 10% sample: union of edited_rows[].decision_id from author/author_p13.json..author_p16.json (M8-Ps-401..492 range, clusters c61-c74), sorted ascending by numeric decision_id suffix, every 10th taken at indices 0,10,20,... of the 68-row union (batches are disjoint, no dedup needed).",
+    "union_size": 68,
+    "deterministic_sample": [
+      "M8-Ps-402",
+      "M8-Ps-423",
+      "M8-Ps-438",
+      "M8-Ps-449",
+      "M8-Ps-461",
+      "M8-Ps-471",
+      "M8-Ps-482"
+    ],
+    "additional_mandatory_target": "M8-Ps-344",
+    "note": "M8-Ps-344 (sweep-7 halleluyah recut under B-9) verified in addition per task instruction, not part of the 10% draw."
+  },
+  "results": [
+    {
+      "decision_id": "M8-Ps-344",
+      "span": "Ps.105.42-Ps.105.45",
+      "verdict": "DEFECT",
+      "checks": {
+        "central_warrant": "coherent; causal ki-clause (105:42) grounds the closing purpose-clause movement through 105:45's hallelu-Yah close; span/unit_type(strophe)/confidence(high) consistent with cited evidence.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.105.42",
+            "quote_field": "rationale",
+            "tier": "byte"
+          },
+          {
+            "ref": "oshb:Ps.105.45",
+            "quote_field": "rationale",
+            "tier": "byte"
+          },
+          {
+            "ref": "oshb:Ps.105.42",
+            "quote_field": "observed_substrate_signals",
+            "tier": "byte"
+          },
+          {
+            "ref": "oshb:Ps.105.45",
+            "quote_field": "device_notes",
+            "tier": "byte"
+          }
+        ],
+        "digit_bearing_count_24_frame": {
+          "claim": "24 imperative-frame verses (11 verse-initial + 13 verse-final)",
+          "method": "In-process skeleton sweep (ps_lib.skeleton, same function sweep.py imports) for the query pulled byte-exact from the row's own device_notes quote; matched against all 2527 MT verses; each hit classified initial/final/interior by skeleton-substring offset.",
+          "independent_result": "26 total skeleton hits; 11 verse-initial, 13 verse-final, 2 interior (collisions). 11+13=24 CONFIRMED exact.",
+          "cross_check": "psalm_device_inventory.json (halleluyah.counts, Phase-0 build) independently lists the identical 11 verse_initial + 13 verse_final ref lists byte-for-byte.",
+          "status": "CONFIRMED"
+        },
+        "collision_1_115_17": {
+          "claim": "web:Ps.115.17 = oshb:Ps.115.17, verbal collocation",
+          "dual_cite_arithmetic": "Ps 115 is an identity psalm (ps_lib.PSALM_RULES[115]: rule=identity) -> web115.17=mt115.17 arithmetically correct.",
+          "content_check": "oshb Ps.115.17 text = 'לֹ֣א הַ֭מֵּתִים יְהַֽלְלוּ יָ֑הּ וְ֝לֹ֗א כָּל יֹרְדֵ֥י דוּמָֽה' -- contains the skeleton-matching 3mp imperfect construction 'yehalelu Yah' inside the negated clause 'the dead do not praise Yah', classified 'interior' by the sweep (not verse-initial/final) -- matches the row's 'verbal collocation' label exactly.",
+          "status": "CONFIRMED byte-accurate"
+        },
+        "collision_2_22_27": {
+          "claim": "web:Ps.22.27 = oshb:Ps.22.28, full-divine-name collision",
+          "dual_cite_arithmetic": "Ps 22 is shift+1 (k=1); web22.27 -> mt22.28 is arithmetically self-consistent with the shift rule in isolation.",
+          "content_check": "oshb Ps.22.28 text = 'יִזְכְּר֤וּ וְיָשֻׁ֣בוּ אֶל יְ֭הוָה כָּל אַפְסֵי אָ֑רֶץ וְיִֽשְׁתַּחֲו֥וּ לְ֝פָנֶ֗יךָ כָּֽל מִשְׁפְּח֥וֹת גּוֹיִֽם' -- contains NO 'halelu/yah'-pattern skeleton match at all (independently swept: 0 hits). The actual skeleton-matching full-divine-name collision ('yehalelu YHWH' = 'they shall praise Yahweh') is one verse EARLIER, at oshb Ps.22.27 (= web Ps.22.26): text = 'יֹאכְל֬וּ עֲנָוִ֨ים וְיִשְׂבָּ֗עוּ יְהַֽלְל֣וּ יְ֭הוָה דֹּ֣רְשָׁ֑יו יְחִ֖י לְבַבְכֶ֣ם לָעַֽד'. Triple-confirmed: (1) oshb Hebrew bytes at Ps.22.27 contain the skeleton hit, Ps.22.28 does not; (2) verse_map_web.json's own 'mt' back-reference field maps web:Ps.22.26 -> mt:Ps.22.27 and web:Ps.22.27 -> mt:Ps.22.28; (3) the WEB English rendering at Ps.22.26 reads 'They shall praise Yahweh who seek after him' (matching the collision) while Ps.22.27 reads 'All the ends of the earth shall remember and turn to Yahweh' (no praise language).",
+          "status": "DEFECT -- off-by-one verse citation"
+        }
+      },
+      "defects": [
+        {
+          "field": "device_notes",
+          "severity": "medium",
+          "description": "The second Halleluyah-frame collision disclosure cites the wrong verse pair. Row states \"web:Ps.22.27 = oshb:Ps.22.28, a full-divine-name collision\" -- the dual-cite is arithmetically well-formed (Ps 22 shift+1) but points one verse past the actual collision. The genuine skeleton-tier 'yehalelu YHWH' collision (byte-verified) sits at oshb:Ps.22.27 = web:Ps.22.26, not oshb:Ps.22.28 = web:Ps.22.27. oshb:Ps.22.28 contains no Halleluyah-pattern text at all (0 hits on an independent skeleton sweep).",
+          "correct_citation": "web:Ps.22.26 = oshb:Ps.22.27",
+          "byte_evidence": "oshb Ps.22.27 and Ps.22.28 full texts captured above; verse_map_web.json back-references for Ps.22.26/Ps.22.27 captured above."
+        }
+      ],
+      "notes": "This is the task's mandatory additional target (sweep-7 halleluyah recut under B-9). The 24-frame figure and the 115:17 collision are byte-confirmed correct. The 22:27/22:28 collision citation is confirmed WRONG by one verse against oshb bytes, the WEB back-reference map, and the WEB English text -- three independent lines of evidence agree. This is a content-semantic error (wrong verse cited for a real claim) that the corpus's mechanical validators (citation_sweep.py, check_refs_mirror.py) do not catch, because they verify ref syntax and WEB/MT shift arithmetic, not whether the cited verse's actual text matches the semantic collision being disclosed."
+    },
+    {
+      "decision_id": "M8-Ps-402",
+      "span": "Ps.119.9-Ps.119.16",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; BETH-stanza acrostic seam claim.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.119.9",
+            "tier": "byte"
+          },
+          {
+            "ref": "oshb:Ps.119.17",
+            "tier": "byte"
+          }
+        ],
+        "digit_bearing_count": {
+          "claim": "every one of the BETH stanza's 8 verses (119:9-119:16) opens on bet; 119:17 opens the GIMEL stanza on a fresh consonant",
+          "method": "direct byte check of first skeleton word of oshb Ps.119.9-119.17",
+          "result": "CONFIRMED: Ps.119.9-119.16 (8 verses) all open with consonant bet (first words: במה, בכל, בלבי, ברוך, בשפתי, בדרך, בפקדיך, בחקתיך); Ps.119.17 opens גמל (gimel) -- different letter, exact seam confirmed.",
+          "status": "CONFIRMED"
+        },
+        "dual_cites": "Ps 119 is an identity psalm; no shift needed; all refs bare/web/oshb use matching verse numbers.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch.",
+        "check_universals_flag": "1 flag on rejected_alternative's word 'continuous' -- already on the S1 wholly_unswept_25.json checklist (row_index 401); the flagged text describes a REJECTED alternative reading, not an assertion needing a sweep count -- assessed as heuristic overreach, not a defect."
+      },
+      "defects": [],
+      "notes": "All checks pass. The check_universals WARN is a known/tracked item (S1's checklist), not a fresh finding, and reads as tool noise on a rejected-alternative sentence."
+    },
+    {
+      "decision_id": "M8-Ps-423",
+      "span": "Ps.120.1-Ps.120.7",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; whole-psalm unity argument via peace/war frame.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.120.1",
+            "tier": "byte",
+            "note": "title, via web:Ps.120.0 = oshb:Ps.120.1"
+          },
+          {
+            "ref": "oshb:Ps.120.6",
+            "tier": "byte"
+          },
+          {
+            "ref": "oshb:Ps.120.7",
+            "tier": "byte"
+          }
+        ],
+        "digit_bearing_count": {
+          "claim": "no selah falls anywhere in the psalm's seven verses (sweep: 0 of 7 verses)",
+          "method": "direct lookup against pmarks_Ps.json selah inventory (71 total corpus entries)",
+          "result": "CONFIRMED: 0 of the 71 corpus selah entries fall in Ps.120.*",
+          "status": "CONFIRMED"
+        },
+        "positional_claim": {
+          "claim": "'peace' (שלום) is verse-final in 120:6 but not in 120:7, which itself closes on 'war'",
+          "result": "CONFIRMED: oshb Ps.120.6 skeleton last word = שלום; oshb Ps.120.7 skeleton last word = למלחמה (to war), with שלום appearing as word 2 of 6, non-final."
+        },
+        "dual_cites": "Ps 120 identity psalm (ascents-range, confirmed via ps_lib.PSALM_RULES); web:Ps.120.0 = oshb:Ps.120.1 confirmed via web_to_mt(120,0)=(120,1); 7 WEB verses confirmed.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch."
+      },
+      "defects": [],
+      "notes": "All checks pass, including two independently re-derived structural claims (selah absence, peace/war verse-position contrast)."
+    },
+    {
+      "decision_id": "M8-Ps-438",
+      "span": "Ps.132.6-Ps.132.10",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; groups recollection + processional vow + petition as one movement bounded by report clauses at 132:6 and 132:11.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.132.8",
+            "tier": "byte",
+            "note": "full phrase"
+          },
+          {
+            "ref": "oshb:Ps.132.7",
+            "tier": "byte"
+          },
+          {
+            "ref": "web:Ps.132.8 (=oshb:Ps.132.8)",
+            "tier": "byte",
+            "note": "shorter repeated fragment"
+          }
+        ],
+        "digit_bearing_count": "no corpus-wide digit count asserted; span-scoped selah-absence claim (132:6-132:10) accepted GREEN by check_marks.py.",
+        "dual_cites": "Ps 132 identity psalm; no shift; oshb refs match web verse numbers directly.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch."
+      },
+      "defects": [],
+      "notes": "All checks pass."
+    },
+    {
+      "decision_id": "M8-Ps-449",
+      "span": "Ps.136.4-Ps.136.9",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; refrain_unit grouping creation recital by shared closing refrain.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.136.5",
+            "tier": "byte"
+          }
+        ],
+        "digit_bearing_count": {
+          "claim": "4 of 6 verses (136:4,5,6,7) keep the participial 'to him who...' construction; 136:8 and 136:9 open with the object marker instead",
+          "method": "direct byte check of first skeleton word of oshb Ps.136.4-136.9",
+          "result": "CONFIRMED: 136:4,5,7 open לעשה (le-'oseh); 136:6 opens לרקע (le-roqa', same ל+participle pattern) = 4 verses; 136:8,9 both open את (object marker) = 2 verses. All 6 verses end כי לעולם חסדו (the refrain), confirming refrain_unit.",
+          "status": "CONFIRMED"
+        },
+        "dual_cites": "Ps 136 identity psalm; no shift.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch.",
+        "check_universals_flag": "1 flag on observed_substrate_signals's phrase 'one continuous chain' -- already on the S1 wholly_unswept_25.json checklist (row_index 448); claim is locally-scoped to the row's own already-cited span (136:4-9) and independently confirmed TRUE by the digit-bearing-count re-derivation above -- assessed as heuristic overreach on a locally-scoped true claim (same class as the campaign's prior LF-310-1/LF-315-1 refutes), not a defect."
+      },
+      "defects": [],
+      "notes": "All checks pass, including full byte re-derivation of the 4-vs-2 verb-construction split."
+    },
+    {
+      "decision_id": "M8-Ps-461",
+      "span": "Ps.140.1-Ps.140.5",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; doubled petition panel framed by two selah closes.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.140.2",
+            "tier": "byte",
+            "note": "tail phrase, rationale"
+          },
+          {
+            "ref": "web:Ps.140.4 (=oshb:Ps.140.5)",
+            "tier": "byte",
+            "note": "tail phrase, rationale"
+          },
+          {
+            "ref": "oshb:Ps.140.2",
+            "tier": "byte",
+            "note": "tail phrase, observed_substrate_signals"
+          },
+          {
+            "ref": "oshb:Ps.140.5",
+            "tier": "byte",
+            "note": "tail phrase, observed_substrate_signals"
+          }
+        ],
+        "tier_precision_claim": {
+          "claim": "the 140:2 and 140:5 tail phrases share consonants (skeleton tier) but differ by one meteg mark on the final verb (accent_stripped tier)",
+          "method": "ps_lib.skeleton() / ps_lib.strip_accents() applied to full oshb Ps.140.2 and Ps.140.5 texts, diffed",
+          "result": "CONFIRMED: skeleton tails identical (...מאיש חמסים תנצרני); accent_stripped tails differ by exactly one meteg (U+05BD) present before the final letters in 140:2's tail and absent in 140:5's (140:5 instead carries a cantillation mark there, stripped at this tier).",
+          "status": "CONFIRMED exactly as stated"
+        },
+        "dual_cites": {
+          "claim": "web:Ps.140.0=oshb:Ps.140.1; web:Ps.140.1=oshb:Ps.140.2; web:Ps.140.4=oshb:Ps.140.5; selah dual-cites 140:3=140:4(MT), 140:5=140:6(MT)",
+          "result": "CONFIRMED: Ps 140 is shift+1 (k=1) per ps_lib.PSALM_RULES; every cited pair matches web_to_mt() exactly."
+        },
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch.",
+        "citation_sweep_warn": "2 prose_dual_warns (oshb:Ps.140.2 and oshb:Ps.140.5 beside Hebrew in observed_substrate_signals lack in-field WEB arithmetic) -- explicitly WARN-level per B-10/TOOLKIT scope note (dual pairing IS present in boundary_evidence_refs; in-field pairing is an enhancement, not a requirement). Not a defect."
+      },
+      "defects": [],
+      "notes": "All checks pass, including a precise tier-level (skeleton vs accent_stripped) re-derivation of the meteg-difference claim."
+    },
+    {
+      "decision_id": "M8-Ps-471",
+      "span": "Ps.143.11-Ps.143.12",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; closing unit opens on a distinct petition-basis formula not present in the preceding unit.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.143.11",
+            "tier": "byte"
+          }
+        ],
+        "digit_bearing_count": {
+          "claim": "'for your name's sake' formula opens 143:11, not present in vv7-10",
+          "method": "skeleton substring search of the query across oshb Ps.143.7-143.11",
+          "result": "CONFIRMED: absent from 143:7,8,9,10; present in 143:11.",
+          "status": "CONFIRMED"
+        },
+        "dual_cites": "Ps 143 identity psalm; no shift.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch."
+      },
+      "defects": [],
+      "notes": "All checks pass."
+    },
+    {
+      "decision_id": "M8-Ps-482",
+      "span": "Ps.146.3-Ps.146.4",
+      "verdict": "CLEAN",
+      "checks": {
+        "central_warrant": "coherent; imperative admonition (146:3) grounded in mortality clause (146:4), turning 146:1's plural-imperative form to a fresh object/polarity.",
+        "hebrew_quotes_collate": [
+          {
+            "ref": "oshb:Ps.146.3",
+            "tier": "byte"
+          }
+        ],
+        "grammatical_claim": {
+          "claim": "146:3's negative imperative continues the same plural verb form and addressee that opened 146:1",
+          "result": "CONFIRMED: oshb Ps.146.1 opens הללו (2mp imperative, praise!); oshb Ps.146.3 opens אל תבטחו (2mp, do not trust); both carry the -ו 2mp verb ending addressing a plural audience."
+        },
+        "dual_cites": "Ps 146 identity psalm; no shift.",
+        "mechanical_validators": "citation_sweep.py / check_refs_mirror.py / check_marks.py / check_web_quotes.py / check_language_zones.py / ngram7.py all GREEN (0 flags) when run over the 8-row spot sample as a batch."
+      },
+      "defects": [],
+      "notes": "All checks pass."
+    }
+  ]
+}

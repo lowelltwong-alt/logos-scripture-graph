@@ -1,0 +1,93 @@
+{
+ "cluster": "c24",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c24_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-163",
+   "span": "Ps.59.1-Ps.59.5",
+   "verdict": "challenge",
+   "reasoning": "Re-derived against verse_map_web.json/verse_map_oshb.json: Ps 59 is a shift+1 psalm (web_mt_offset_map.json), so web:Ps.59.0 = oshb:Ps.59.1 and web:Ps.59.5 = oshb:Ps.59.6 are correct dual-cites; the title quote and the v1/v5 English quotes are verbatim WEB matches, and Selah at v5 is the first of the psalm's two selahs (pmarks_Ps.json, confirmed against verse_map_web.json's web_selah flags). The rejected_alternative (extending into v6) is well-grounded: v6 opens the dog-imagery refrain, an independently-returning tier-1 unit verified byte-true in row M8-Ps-164/M8-Ps-166's collated quotes. The four title labels (miktam, lamnatseach, le-David, al-tashcheth) were checked against psalm_device_inventory.json's genre_label_membership: all four lists include 59, matching the claimed Psalms 57-58 title pattern. citation_sweep.py, check_marks.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN for this row. One defect found: device_notes' closing clause names the writer's production unit rather than the text.",
+   "challenges": [
+    {
+     "challenge_id": "LF-163-1",
+     "severity": "medium",
+     "claim": "device_notes references internal pipeline structure (\"this part's four rows\") instead of a verse-anchored description, violating the register-purge ban on file-order/positional-row talk in row prose.",
+     "evidence": "Row M8-Ps-163 device_notes ends: \"...the psalm runs a double refrain (dog imagery, strength/high-tower), both returning once, tracked across this part's four rows.\" book_strategy Ps.md §10 and TOOLKIT.md's standing rules both state: \"NO decision-ids, strategy-file/§ citations, erratum narration..., positional row references (‘the row before this one’), file-order talk... in row prose EVER; cross-row references are verse-anchored (‘the seam at 41:13|42:1’).\" \"this part\" names writer_part p11 (this row's own writer_part field) — a production-pipeline unit with no literary referent — and \"four rows\" counts file artifacts rather than naming verses. A compliant version would anchor the refrain claim to its actual verses (web:Ps.59.6 and web:Ps.59.14, both already disclosed elsewhere in this row and in M8-Ps-164/M8-Ps-166)."
+    }
+   ],
+   "row_sha256": "11d588e0752261e3ff9726f8bd75c6b374a360de31e64a7a2b959e9d19cb01e9"
+  },
+  {
+   "decision_id": "M8-Ps-164",
+   "span": "Ps.59.6-Ps.59.9",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: the span tiles exactly against M8-Ps-163/165/166 (check_tiling.py: 17/17 MT-mapped WEB verses across Ps 59's four rows, no gaps or overlaps). Both Hebrew quotes collate at BYTE tier against oshb:Ps.59.7 and oshb:Ps.59.10 (collate.py --json, quotation-grade). The claim that יָשׁ֣וּבוּ לָ֭עֶרֶב יֶהֱמ֥וּ כַכָּ֗לֶב וִיס֥וֹבְבוּ עִֽיר opens the dog refrain \"without the prefix carried at its later occurrence\" is independently confirmed: its later form at oshb:Ps.59.15 (collated separately for M8-Ps-166) is identical except for one prefixed vav, exactly as claimed. The contrastive turn at v8 (\"But you, Yahweh, laugh at them\") is a genuine addressee/mode-shift signal bounding the strophe; unit_type strophe and confidence high are supported. citation_sweep.py, check_marks.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN. One defect: check_web_quotes.py flags observed_substrate_signals[2] for a curly-quoted English gloss with no web: ref in the same field.",
+   "challenges": [
+    {
+     "challenge_id": "LF-164-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[2] curly-quotes an English gloss (\"I watch\") without a web: ref in the same field, violating the mandatory curly-quote-plus-web:-ref co-occurrence rule.",
+     "evidence": "Row M8-Ps-164 observed_substrate_signals[2]: \"עֻ֭זּוֹ אֵלֶ֣יךָ אֶשְׁמֹ֑רָה כִּֽי אֱ֝לֹהִ֗ים מִשְׂגַּבִּֽי (oshb:Ps.59.10) “I watch” closes the strophe on the strength refrain's opening form\" — only an oshb: ref is present. Running check_web_quotes.py against this cluster's 7 rows flags exactly this field: \"curly quote with NO web: ref in its field.\" TOOLKIT.md: \"CURLY QUOTES + an inline web: ref in the SAME field are MANDATORY at every layer.\" The missing verse is web:Ps.59.9, already present in this row's own boundary_evidence_refs."
+    }
+   ],
+   "row_sha256": "99f6fb8747264c37ed1b71c6075f075def3ffb05fa277e1f85ab0c9337486b22"
+  },
+  {
+   "decision_id": "M8-Ps-165",
+   "span": "Ps.59.10-Ps.59.13",
+   "verdict": "support",
+   "reasoning": "Re-derived: span Ps.59.10-13 tiles exactly against the adjoining rows (check_tiling.py GREEN). No Hebrew quotes to collate. rejected_alternative correctly notes v9 closes the prior strophe's strength refrain (web:Ps.59.9, matching M8-Ps-164's own claimed close at v9 — no seam conflict between the two rows). The confidence-report opening (v10) and the imprecation-with-Selah close (v13 = oshb:Ps.59.14, the second of the psalm's two selahs per pmarks_Ps.json) are genuine content-driven boundaries: the imprecation builds to its own climax (\"Consume them...they will be no more\") and a universalizing declaration (\"God rules in Jacob, to the ends of the earth\") independent of the Selah, which functions correctly as corroboration rather than sole driver. citation_sweep.py, check_marks.py, check_web_quotes.py, check_refs_mirror.py and check_universals.py all ran GREEN for this row; no register-purge violations found. unit_type strophe and confidence high are supported.",
+   "challenges": [],
+   "row_sha256": "99e9e67152e30042173bf11a52f8976b069af0f54085e19f8a037aecb6635d63"
+  },
+  {
+   "decision_id": "M8-Ps-166",
+   "span": "Ps.59.14-Ps.59.17",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: span Ps.59.14-17 closes the psalm exactly (v17 is the last WEB verse of Ps 59; check_tiling.py confirms 17/17 across the four rows). All Hebrew quotes collate at BYTE tier (oshb:Ps.59.15 and oshb:Ps.59.18, both in rationale and observed_substrate_signals). The near-repeat claim is confirmed byte-for-byte: וְיָשׁ֣וּבוּ לָ֭עֶרֶב יֶהֱמ֥וּ כַכָּ֗לֶב וִיס֥וֹבְבוּ עִֽיר carries a prefixed vav that יָשׁ֣וּבוּ לָ֭עֶרֶב יֶהֱמ֥וּ כַכָּ֗לֶב וִיס֥וֹבְבוּ עִֽיר lacks, and אֲזַמֵּ֑רָה replaces עֻ֭זּוֹ אֵלֶ֣יךָ אֶשְׁמֹ֑רָה כִּֽי אֱ֝לֹהִ֗ים מִשְׂגַּבִּֽי with an added closing clause; cross-checked directly against the WEB ground truth, v17 does add \"the God of my mercy\" beyond v9's wording, exactly as claimed. The front-seam Selah (v13) is disclosed as continuity context rather than re-claimed as this row's own driver — correct cross-seam handling. citation_sweep.py, check_marks.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN. One defect: observed_substrate_signals[2] curly-quotes an English gloss with no web: ref in the same field, the same violation class as M8-Ps-164.",
+   "challenges": [
+    {
+     "challenge_id": "LF-166-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[2] curly-quotes an English gloss (\"the God of my mercy\") without a web: ref in the same field, violating the mandatory curly-quote-plus-web:-ref co-occurrence rule.",
+     "evidence": "Row M8-Ps-166 observed_substrate_signals[2]: \"אֲזַמֵּ֑רָה (oshb:Ps.59.18) replaces עֻ֭זּוֹ אֵלֶ֣יךָ אֶשְׁמֹ֑רָה כִּֽי אֱ֝לֹהִ֗ים מִשְׂגַּבִּֽי (oshb:Ps.59.10) and the verse adds “the God of my mercy”, absent from the earlier form\" — only oshb: refs are present. check_web_quotes.py flags exactly this field: \"curly quote with NO web: ref in its field.\" TOOLKIT.md: \"CURLY QUOTES + an inline web: ref in the SAME field are MANDATORY at every layer.\" The missing verse is web:Ps.59.17, already present in this row's own boundary_evidence_refs."
+    }
+   ],
+   "row_sha256": "6315f9309ef56a5c26691f25b68b8bcf0ac152b82d80ca872f92b84b74a65bbf"
+  },
+  {
+   "decision_id": "M8-Ps-167",
+   "span": "Ps.60.1-Ps.60.5",
+   "verdict": "support",
+   "reasoning": "Re-derived: Ps 60 is one of the book's 4 shift+2 psalms (51, 52, 54, 60; web_mt_offset_map.json), so the two-verse title dual-cite (oshb:Ps.60.1, oshb:Ps.60.2) and the v1-5 chain (web:Ps.60.1-5 = oshb:Ps.60.3-7) match the offset map exactly, verse by verse, against the ground-truth WEB/MT crosswalk. All five Hebrew quotes (the second-person perfect verb chain plus the purpose clause) collate at BYTE tier against their cited MT verses. The central argument — that the Selah at v4/oshb:60.6 does not close the strophe because v5's purpose clause (oshb:60.7, a le-ma'an construction) grammatically completes the banner-display of v4 rather than opening new material — is a genuine tier-1 syntactic-continuity driver, and the row explicitly treats Selah as corroboration only, matching the book's binding Selah policy (TOOLKIT.md §2d: 'never a boundary driver alone'). This is the one genuinely rival seam in the cluster (close at the Selah in v4 vs. the syntax-extended close at v5), and the row's resolution is well-argued and correctly hedged at confidence medium rather than high. The ketiv/qere disclosure at oshb:Ps.60.7 matches pmarks_Ps.json's kq inventory (Ps.60.7: 1 note) — Ps 60's only K/Q entry, as claimed; the qere form collates byte-true against the running verse text, and the ketiv (not present in the running MT text by definition) is disclosed rather than quotation-claimed, which is correct practice given the staged extract carries no separate ketiv layer. citation_sweep.py, check_marks.py, check_web_quotes.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN. No register-purge violations found in this row.",
+   "challenges": [],
+   "row_sha256": "542aaa033400e0f6eb933798b43fce5256d8be91de2c9bdd031016251a321a1c"
+  },
+  {
+   "decision_id": "M8-Ps-168",
+   "span": "Ps.60.6-Ps.60.8",
+   "verdict": "support",
+   "reasoning": "Re-derived: span Ps.60.6-8 dual-cites correctly (web:Ps.60.6-9 = oshb:Ps.60.8-11, confirmed against the ground-truth verse map). The WEB curly-quote frame is confirmed directly from verse_map_web.json bytes: the opening curly quote falls partway through v6 (after \"God has spoken from his sanctuary:\"), and the closing curly quote falls at the very end of v8, with v9 resuming unquoted interrogative address — exactly as the row and its rejected_alternative claim (the oracle's recurrence in Ps 108 does not pull the WEB quotation through v9). The Hebrew opener collates byte-true at oshb:Ps.60.8. The doublet note (Ps 57:7-11 + 60:5-12 = 108, per book_strategy §11's erratum) is disclosed as a typed relation, not a merge proposal or boundary driver, consistent with policy. citation_sweep.py, check_marks.py, check_web_quotes.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN. Observation only, not a challenge: \"opens...at the start of web:Ps.60.6\" simplifies a quotation mark that actually falls mid-verse rather than at its first character; the row's own quoted text and Hebrew citation make the true location unambiguous, so this does not rise to a material defect.",
+   "challenges": [],
+   "row_sha256": "07847f6dece8db332d16843f7bca22ed97fbbec69f567df7e8bc355d4ca3139f"
+  },
+  {
+   "decision_id": "M8-Ps-169",
+   "span": "Ps.60.9-Ps.60.12",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: span Ps.60.9-12 closes the psalm exactly at its last WEB verse (check_tiling.py: 12/12 across the three Ps 60 rows). All five boundary_evidence_refs dual-cite correctly (web:Ps.60.8-12 = oshb:Ps.60.10-14, matching the offset map). The Hebrew quote collates byte-true at oshb:Ps.60.11. The rejected_alternative's handling of the addressee pivot (singular \"me\" at v9 to communal \"us\" at v10) is well-judged: it correctly declines to treat a bare pronoun shift as a strophe boundary absent an independent tier-1 driver, consistent with the book's policy on addressee-pivot placement. citation_sweep.py, check_marks.py, check_web_quotes.py, check_refs_mirror.py, check_universals.py and check_tiling.py all ran GREEN. One defect: device_notes names the adjoining row by file position rather than by verse.",
+   "challenges": [
+    {
+     "challenge_id": "LF-169-1",
+     "severity": "medium",
+     "claim": "device_notes references \"the preceding row\" by file position instead of a verse-anchored seam, violating the register-purge ban on positional row references.",
+     "evidence": "Row M8-Ps-169 device_notes: \"This span continues the material shared with Psalm 108 noted at the seam of the preceding row; disclosed here as a typed relation, not a boundary driver.\" book_strategy Ps.md §10 and TOOLKIT.md give the identical banned pattern verbatim: \"...positional row references (‘the row before this one’)... EVER; cross-row references are verse-anchored (‘the seam at 41:13|42:1’).\" The intended referent is the oracle's WEB quotation close at web:Ps.60.8 (M8-Ps-168's span); a compliant version would read \"...noted at the seam at web:Ps.60.8|Ps.60.9\" instead of \"the preceding row.\""
+    }
+   ],
+   "row_sha256": "651a36931828f032e890cd934fd6843947eb9476e8546f64f112f9907d817970"
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "schema_version": "m8_post_resolution_check.v2",
+ "book": "Ruth",
+ "checked_review_packets_sha256": "64345911cb3c41de6d6193e3dce7c25d43f5353ce68e0909f44450d62b97e2f9",
+ "checked_decision_ids": [
+  "M8-Ruth-001",
+  "M8-Ruth-002",
+  "M8-Ruth-003",
+  "M8-Ruth-004",
+  "M8-Ruth-005",
+  "M8-Ruth-006",
+  "M8-Ruth-007",
+  "M8-Ruth-008",
+  "M8-Ruth-009",
+  "M8-Ruth-010",
+  "M8-Ruth-011",
+  "M8-Ruth-012",
+  "M8-Ruth-013",
+  "M8-Ruth-014",
+  "M8-Ruth-015",
+  "M8-Ruth-016",
+  "M8-Ruth-017",
+  "M8-Ruth-018",
+  "M8-Ruth-019"
+ ],
+ "checker_attempt_ids": [
+  "postcheck_sonnet_rt01_r1",
+  "postcheck_sonnet_rt02_r1",
+  "postcheck_sonnet_rt03_r1"
+ ],
+ "role_separated_checker_verdict_received": true,
+ "independent_model_verdict_received": false,
+ "checker_model_id": "claude-sonnet-5",
+ "checker_effort": "high",
+ "defects_found": [
+  {
+   "severity": "info",
+   "area": "sidecar_content_final.json",
+   "description": "File absent from W\\freeze\\ at check time (confirmed via directory listing). Per task instruction this is noted for the orchestrator rather than treated as a failure, since it may still be in progress by a parallel agent. Its stated scope (exactly the two medium_low rows, 005 and 017) matches freeze_summary.json's confidence_spread (medium_low: 2) and the two medium_low rows actually present in frozen_rows_final.jsonl (M8-Ruth-005, M8-Ruth-017), so the target set is verifiable even though the sidecar content itself could not be inspected.",
+   "blocking": false
+  },
+  {
+   "severity": "info",
+   "area": "challenge_digest.json / author_responses.json cardinality",
+   "description": "Challenge OL-M8-Ruth-005-1 is filed once (home decision M8-Ruth-005) and receives exactly one boss ruling (under M8-Ruth-005 in boss_rulings.json), but its author-response ripple is recorded under three decisions (M8-Ruth-001, M8-Ruth-005, M8-Ruth-015) because the underlying defect - an unstated qualifier for a disjunctive-clause construction shared by all three verses - required a single principle to be stated identically in all three rationales. This is documented and intentional: boss_rulings.json._meta.decision_relations note M8-Ruth-REL-002 explicitly links 005 and 015 on this basis, and the M8-Ruth-001/005/015 rationales now state the identical two-part test verbatim. Flagged only so the orchestrator is aware a strict 1-challenge-to-1-response count undercounts this row; it is not a process violation and required no correction.",
+   "blocking": false
+  },
+  {
+   "severity": "info",
+   "area": "draft_decisions.json baseline",
+   "description": "Confirmed non-empty (19 decisions, pre-revision plain-accent baseline) and consistent with frozen_rows_final.jsonl as the pre-image the challenge/response cycle improved on (e.g. M8-Ruth-001's draft lacks the 005/015 cross-reference and carries the uncorrected לָתֶת typo later fixed). Included only as a corroborating provenance note, not a defect."
+  }
+ ],
+ "non_authorizing": true
+}

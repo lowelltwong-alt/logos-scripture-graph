@@ -1,0 +1,122 @@
+{
+ "cluster": "c32",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c32_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-215",
+   "verdict": "challenge",
+   "reasoning": "Numbering re-derived from the offset map rather than the row: Ps 73 is an identity psalm — web_to_mt(73,1) returns (73,1), verse_map_web Ps.73.0 records its mt field as 'inside Ps.73.1', and psalm_device_inventory superscriptions['73'] gives mt_title_verses 'prefix_of_v1' with labels ['mizmor','le_asaph']. The row's title pairing web:Ps.73.0 = oshb:Ps.73.1 is therefore exact, and no offset dual-cite arithmetic is owed anywhere in this psalm. Both witnesses carry 28 verses in Ps 73, and the 6 rows of this cluster tile Ps.73.1-Ps.73.28 exactly (28 of 28 verses, 0 gaps, 0 overlaps, in order). Quote tiers: אַ֤ךְ collates byte against oshb:Ps.73.1 and the fronted pronoun of 73:2 collates byte against oshb:Ps.73.2. The ketiv/qere disclosure at 73:2 is inventory-correct — pmarks kq records 2 notes at Ps.73.2 — and the row's ketiv-before-qere ordering matches the source, where the unpointed ketiv token stands inline before the pointed qere at both loci. The device figures are inventory-exact: yhwh_elohim_per_psalm['73'] is 1 yhwh / 3 elohim, and Book III (73-89) sums to 44 yhwh / 46 elohim over 17 psalms. The 73:3|73:4 seam holds on person rather than particle: verse-initial ki occurs in 4 verses of this psalm (73:3, 73:4, 73:21, 73:27), so the particle does not discriminate, but 73:1-3 is first-person envy and 73:4 opens the third-person description of the wicked — which is what the row argues, via the fronted pronoun at 73:2 and the causal clause at 73:3. One pointed quote fails quotation grade, filed below. Observation, not filed: the parenthetical 'the Asaph collection (73-83, 12 psalms book-wide)' sets an 11-psalm range beside a 12-member count; genre_label_membership.le_asaph is [50, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83], so the 12th member is Ps 50, outside the named range. The words 'book-wide' do carry the scope, so this is a legibility risk rather than a false count.",
+   "challenges": [
+    {
+     "challenge_id": "OL-215-1",
+     "severity": "medium",
+     "claim": "The pointed qere token quoted for oshb:Ps.73.2 in the rationale is not byte-true — it reaches nfd tier, 1 grade below the byte tier required for pointed text.",
+     "evidence": "collate_hebrew on that run against the oshb:Ps.73.2 source text returns tier nfd; the other 4 Hebrew runs in the same field reach byte. Codepoint sequences, source vs row: SOURCE = U+05E9 U+05C1 U+05BB U+05E4 U+05BC U+05B0 U+05DB U+05A5 U+05D5 U+05BC; ROW = U+05E9 U+05BB U+05C1 U+05E4 U+05B0 U+05BC U+05DB U+05A5 U+05D5 U+05BC. Two combining pairs are transposed: U+05BB with U+05C1, and U+05B0 with U+05BC. The byte-true form, spliced from verse_map_oshb.json Ps.73.2 token 7, is שֻׁפְּכ֥וּ. The sibling unpointed ketiv token quoted beside it in the same parenthetical does reach byte, so the defect is isolated to the pointed member. This is the OL-c26 copy-degradation class; the cure is a re-splice via normalize_hebrew_in_json.py --write, not a retype. Note that citation_sweep.py returns GREEN on this row: its Hebrew-quote binding arm accepts tier in (byte, nfd) for pointed runs, which contradicts its own docstring line stating that pointed quotes must reach byte tier."
+    }
+   ],
+   "row_sha256": "c5ce6d9ee66d7ab79b15ad5abf45990b94bb894963a7ff0a97d2a8af7b1fd22d"
+  },
+  {
+   "decision_id": "M8-Ps-216",
+   "verdict": "challenge",
+   "reasoning": "Quote tiers clear on 3 of 3 pointed runs: the opening 2-token run of 73:4 collates byte against oshb:Ps.73.4, the 2-token run at 73:9 collates byte against oshb:Ps.73.9, and the consequence particle collates byte against oshb:Ps.73.10. The heaven/earth merism the row leans on to close the strophe is byte-present inside a single verse (oshb:Ps.73.9 carries both terms), and WEB agrees: “They have set their mouth in the heavens. Their tongue walks through the earth.” (web:Ps.73.9). The akh count in the device note is right — 3 token occurrences over 3 verses of this psalm (73:1, 73:13, 73:18) — and the claim that none falls in 73:4-9 is correct. What does not survive re-derivation is the seam warrant itself: the consequence particle the row makes the 73:9|73:10 boundary carry is verse-initial in 2 verses of this psalm, and the other one, 73:6, sits inside this row's own span without being treated as a seam. Three further citation-hygiene defects are filed below; on confidence, medium is the right calibration here and the row uses it.",
+   "challenges": [
+    {
+     "challenge_id": "OL-216-1",
+     "severity": "medium",
+     "claim": "The 73:9|73:10 seam warrant rests on a consequence particle that also opens a verse inside this row's own span, and the row neither discloses nor distinguishes that instance.",
+     "evidence": "Skeleton census over all 28 verses of Ps 73: the particle lachen is verse-initial in 2 verses, 73:6 and 73:10, with 2 token occurrences and no other verse carrying the token. Source first tokens spliced from verse_map_oshb.json: oshb:Ps.73.6 = לָ֭כֵן; oshb:Ps.73.10 = לָכֵ֤ן. WEB renders both with the same consequence adverb: “Therefore pride is like a chain around their neck.” (web:Ps.73.6) and “Therefore their people return to them,” (web:Ps.73.10). The rejected_alternative rejects extending the strophe through 73:12 on the ground that, in its words, 'verse 10's own consequence particle opens its own clause distinct from the preceding description' — but 73:6's particle opens its own clause inside 73:4-9 and is not a seam, so the particle is not a strophe-boundary marker in this psalm and the stated warrant does not select 73:10 over 73:6. Under Esth lesson d the undisclosed intra-span instance argues continuity against the row. The rival left standing is 73:4-12 as one description block closed by the summary particle at 73:12 (oshb:Ps.73.12 first token = הִנֵּה), with the restart at 73:13. Seam-shared: the same warrant is installed on the row opening at 73:10, so the cure is one edit authored once and installed on both."
+    },
+    {
+     "challenge_id": "OL-216-2",
+     "severity": "low",
+     "claim": "The device parenthetical states that the particle akh opens three verses of the psalm, but in the only witness that carries the particle it is verse-initial in 2 of the 3.",
+     "evidence": "Skeleton census over all 28 verses of Ps 73: akh occurs as a token in 3 verses (73:1, 73:13, 73:18), 3 token occurrences — the count the row gives is correct — but it is verse-initial in only 2 of them (73:13, 73:18). In oshb:Ps.73.1 it stands at token index 2, after the 2-token superscription: source tokens 0-2 spliced from verse_map_oshb.json Ps.73.1 are מִזְמ֗וֹר לְאָ֫סָ֥ף אַ֤ךְ. Verse-initial forms at the other 2: oshb:Ps.73.13 = אַךְ; oshb:Ps.73.18 = אַ֣ךְ. This is the identity-psalm hazard that the opening row of this psalm states correctly (web:Ps.73.0 = oshb:Ps.73.1; superscriptions mt_title_verses 'prefix_of_v1'): no Hebrew verse in Ps 73 begins with this particle at 1. The bare ref convention resolves 73:1 to the WEB verse, but the WEB verse's Hebrew counterpart is the whole of MT 73:1 including the superscription, so the convention does not rescue 'opens'. One-edit cure: the identical parenthetical is installed on the rows opening at 73:10 and at 73:18, so the repair is authored once and installed on all 3 carriers; it is not double-filed against them."
+    },
+    {
+     "challenge_id": "OL-216-3",
+     "severity": "low",
+     "claim": "A curly-quoted WEB fragment in rejected_alternative carries no in-field web: ref and is not verbatim against the WEB text it quotes.",
+     "evidence": "check_web_quotes.py flags this field: 'curly quote with NO web: ref in its field'. Curly doubles are reserved book-wide for WEB text, and the fragment is also case-altered — WEB 73:12 reads “Behold, these are the wicked. Being always at ease, they increase in riches.” (web:Ps.73.12). Substring tests against verse_map_web Ps.73.12 (both text and clean): the row's lowercase form returns False, the capitalized form returns True. The field needs the inline ref and the source casing, or straight quotes if the fragment is meant as the row's own paraphrase."
+    },
+    {
+     "challenge_id": "OL-216-4",
+     "severity": "low",
+     "claim": "The row quotes pointed Hebrew bound to a ketiv/qere verse with no K/Q disclosure at any level of the row, while the seam-partner row discloses the same verse.",
+     "evidence": "pmarks kq records 1 note at Ps.73.10, with the unpointed ketiv inline before the pointed qere in the source (oshb:Ps.73.10 skeleton carries both consecutively after the opening particle). This row quotes לָכֵ֤ן against oshb:Ps.73.10 in 2 fields (rationale and observed_substrate_signals) and its boundary_evidence_refs entry is the bare 'oshb:Ps.73.10' with no mark-cite parenthetical; citation_sweep.py raises the disclosure warn on both fields. The row opening at 73:10 discloses the same verse in prose and carries 'oshb:Ps.73.10 (ketiv/qere)' in its refs, so the pair is asymmetric on a shared verse — the disclosure is one edit installed on both sides."
+    }
+   ],
+   "row_sha256": "bb4d521d80b8cc100adda09a65f8d1088dff6eb3a0dec7b968f70d0c424deb16"
+  },
+  {
+   "decision_id": "M8-Ps-217",
+   "verdict": "challenge",
+   "reasoning": "The consequence particle collates byte against oshb:Ps.73.10, and this row's K/Q handling is correct in all 3 places it matters: pmarks kq gives 1 note at Ps.73.10, the row names ketiv before qere in the source order, both members collate byte against oshb:Ps.73.10, and the refs array carries the prescribed mark-cite parenthetical. The 1 WEB fragment quoted for 73:10 tests verbatim against verse_map_web Ps.73.10. The device note's lexeme distinction is sound — the consequence particle and akh are different tokens, and the second akh is verse-initial at oshb:Ps.73.13 (אַךְ), 1 verse after this span. The akh parenthetical recurs here verbatim from the row closing at 73:9 and carries the same verse-initial precision defect; it is filed once against that row as a one-edit cure and is not double-filed here. What I contest is the seam warrant this row shares with that row, and 2 fields of WEB quote hygiene.",
+   "challenges": [
+    {
+     "challenge_id": "OL-217-1",
+     "severity": "medium",
+     "claim": "This row's opening warrant is the same consequence particle that also opens 73:6 inside the preceding strophe, so the particle does not select 73:10 as a unit head.",
+     "evidence": "Skeleton census over all 28 verses of Ps 73: lachen is verse-initial in 2 verses, 73:6 and 73:10, 2 token occurrences, no other verse carrying the token. Source first tokens spliced from verse_map_oshb.json: oshb:Ps.73.6 = לָ֭כֵן; oshb:Ps.73.10 = לָכֵ֤ן. WEB gives both the same adverb: “Therefore pride is like a chain around their neck.” (web:Ps.73.6) and “Therefore their people return to them, and they drink up waters of abundance.” (web:Ps.73.10). The row's observed_substrate_signals entry, in its words, 'lachen opens a consequence clause at oshb:Ps.73.10', is true but not discriminating: 73:6 does the same inside the preceding unit. A repair either disclosed the 73:6 instance and argued the distinction, or re-warranted the head of this strophe on the content shift from the wicked's speech to its consequence. Per Job lesson b the replacement warrant has to pass the same test; per the seam-pair rule it is authored once and installed on the row closing at 73:9 as well."
+    },
+    {
+     "challenge_id": "OL-217-2",
+     "severity": "low",
+     "claim": "Two fields carry curly-quoted WEB fragments with no in-field web: ref, and one of them is not verbatim.",
+     "evidence": "check_web_quotes.py flags both: observed_substrate_signals and rejected_alternative, each 'curly quote with NO web: ref in its field'. The summary fragment is additionally case-altered — WEB 73:12 reads “Behold, these are the wicked. Being always at ease, they increase in riches.” (web:Ps.73.12), and a substring test of the row's lowercase form against verse_map_web Ps.73.12 text and clean returns False in both, while the capitalized form returns True. Because curly doubles are reserved for WEB text book-wide, both fields need an inline web: ref, and the summary fragment needs the source casing."
+    }
+   ],
+   "row_sha256": "0bbb45d915822fb0a5ea41d0b4005538bb7a31a567cc8156912a3351f0cba2ec"
+  },
+  {
+   "decision_id": "M8-Ps-218",
+   "verdict": "challenge",
+   "reasoning": "Both pointed runs are byte: the 2-token run at 73:13 collates byte against oshb:Ps.73.13, and the 2-token run at 73:17 collates byte against oshb:Ps.73.17. The closing seam is sound — akh is verse-initial at oshb:Ps.73.18 (אַ֣ךְ) — and the row's structural reading that 73:16 and 73:17 form one sentence is right in both witnesses: WEB 73:16 ends “it was too painful for me—” and 73:17 opens “until I entered God’s sanctuary, and considered their latter end.” (web:Ps.73.17). Holding 73:13-17 together rather than splitting 13-16 from 17 is defensible on that ground. But the row locates the subordinating particle in the wrong verse, twice, once inside the warrant itself, and the device note misdescribes the span it summarises. Note for any repair: 73:16 is a ketiv/qere verse (pmarks kq Ps.73.16 = 1 note, the unpointed ketiv inline before the pointed qere); no Hebrew is quoted from it here so no disclosure is owed, but a repair that quotes its bytes will owe one.",
+   "challenges": [
+    {
+     "challenge_id": "OL-218-1",
+     "severity": "medium",
+     "claim": "The row attributes the 'until' clause to verse 16 in both its substrate signal and its rejected_alternative warrant, but the particle occurs exactly 1 time in Ps 73, as the first token of 73:17.",
+     "evidence": "Skeleton census over all 28 verses of Ps 73: the particle ad occurs as a token in exactly 1 verse, 73:17, where it is verse-initial — 1 token occurrence book-section-wide within this psalm. The MT 73:16 skeleton is 'ואחשבה לדעת זאת עמל היא הוא בעיני', which carries no ad at any tier; collating the spliced particle against the oshb:Ps.73.16 source text returns tier none. The 73:17 source first token, spliced from verse_map_oshb.json, is עַד. Both witnesses agree on the placement: WEB 73:16 ends on an em dash after “it was too painful for me—” and the English 'until' stands at the head of 73:17 (web:Ps.73.17). The row's rejected_alternative rests the no-split ruling on, in its words, 'verse 16's own ‘until’-clause', and its observed_substrate_signals entry says the clause was 'begun at verse 16'; both are contradicted by the bytes. Per Job lesson b the replacement warrant must relocate the particle to 73:17 and still defeat the 13-16 | 17 split, and per the dependent-field rule the substrate signal is repaired in the same edit."
+    },
+    {
+     "challenge_id": "OL-218-2",
+     "severity": "low",
+     "claim": "The device note labels 73:4-16 the description of the wicked's prosperity, but 73:13-16 is first-person speech about the speaker, as this row's own rationale says.",
+     "evidence": "MT 73:13-16 are first-person throughout, 4 verses: זִכִּ֣יתִי at 73:13, וָאֱהִ֣י at 73:14, אָ֭מַרְתִּי at 73:15, וָֽ֭אֲחַשְּׁבָה at 73:16, all spliced from verse_map_oshb.json. WEB agrees: “Surely I have cleansed my heart in vain, and washed my hands in innocence,” (web:Ps.73.13) and “For all day long I have been plagued, and punished every morning.” (web:Ps.73.14). The row's own rationale calls 73:13 the opening of the speaker's crisis, so the note contradicts the row it sits on. The wicked-description block ends at 73:12, making the note's range 4 verses too long."
+    }
+   ],
+   "row_sha256": "1f11ecf2e2d17753c4ed7eb3c07dd4e49daa4da4aa8bf206996bda2e2058f95e"
+  },
+  {
+   "decision_id": "M8-Ps-219",
+   "verdict": "support",
+   "reasoning": "Support on the merits. The opening particle collates byte against oshb:Ps.73.18 and is verse-initial there (אַ֣ךְ); the particle cited for the close collates byte against oshb:Ps.73.21 and is verse-initial there. Both out-of-span verses argued in prose are carried in boundary_evidence_refs (73:21 for the close, 73:26 for the rejected alternative), and check_refs_mirror returns 0 flags on this row. The 2 WEB fragments test verbatim against verse_map_web Ps.73.18 and Ps.73.20, and the ellipsis in the 73:20 quote elides only the vocative clause, which carries a divine-name rendering the row makes no claim about. The 73:20|73:21 close is not a particle argument, which is the right call: verse-initial ki occurs in 4 verses of this psalm (73:3, 73:4, 73:21, 73:27), 2 of which are not seams in this cluster, so the driver has to be, and is, the shift from third-person verdict on the wicked to the speaker's own inward state — both witnesses carry it. The ordinal 'third and final' is correct over the byte-settled 3-member akh series (73:1, 73:13, 73:18). No selah, paseq, inverted-nun or suspended-letter claim is made; the paseq inventory does record 1 seg at Ps.73.20 inside this span and the row correctly does not lean on it, and Ps 73 carries 0 selah in the inventory so no symmetry obligation arises. Observation, not filed: the akh parenthetical recurring here shares the verse-initial precision defect filed once against the row closing at 73:9 — in oshb:Ps.73.1 the particle stands at token index 2 after the 2-token superscription — and the cure is one edit installed on all 3 carriers, so it is not double-filed here. Medium confidence is well calibrated for a 3-verse strophe whose head is a strong tier-1 lexical restart and whose tail is a person shift.",
+   "challenges": [],
+   "row_sha256": "992ef1622911bef02dcea07fbae08765d802b447fd9df4cc13b4608f323e1229"
+  },
+  {
+   "decision_id": "M8-Ps-220",
+   "verdict": "challenge",
+   "reasoning": "The 3 pointed runs are byte: the particle at 73:21 against oshb:Ps.73.21, and the fronted pronouns at 73:23 and 73:28 against oshb:Ps.73.23 and oshb:Ps.73.28 respectively — the 2 pronoun runs differ in accent and each collates byte only against its own verse, so the pairing is exact. The device count is right and I re-derived it independently: the fronted pronoun is verse-initial in 4 verses of this psalm (73:2, 73:22, 73:23, 73:28), 4 token occurrences, with no other verse in the psalm carrying the token. That makes the cross-seam cohesion argument against splitting 73:21-22 from 73:23-28 byte-solid, since the construction straddles the proposed 22|23 seam — a correct application of Esth lesson d in the row's favour. The span's close is correct: both witnesses end Ps 73 at verse 28, and check_tiling confirms the cluster covers 28 of 28 verses. All 3 WEB fragments test verbatim against verse_map_web. 73:28 carries 2 paseq segs in the inventory and holds the psalm's only yhwh token plus 1 of its 3 elohim tokens; the row leans on neither, correctly. Two precision defects follow.",
+   "challenges": [
+    {
+     "challenge_id": "OL-220-1",
+     "severity": "low",
+     "claim": "The rationale calls the fronted pronoun at 73:28 a third pivot while the row's own device note byte-settles the series at four members, which makes 73:28 the fourth.",
+     "evidence": "Verse-initial occurrences of the fronted pronoun in Ps 73 are 4 verses — 73:2, 73:22, 73:23, 73:28 — with 4 token occurrences and no other verse in the psalm carrying the token; the row's device note states the same 4. The rationale enumerates only 73:2 and 73:23 before calling 73:28 'a third such pivot', and it quotes “I was so senseless and ignorant. I was a brute beast before you.” (web:Ps.73.22) without noting that this verse opens with the same construction — source first token spliced from verse_map_oshb.json Ps.73.22 = וַאֲנִי. Job lesson g: series ordinals byte-settle first, so either the ordinal moves to fourth or the rationale states the narrower series it is counting."
+    },
+    {
+     "challenge_id": "OL-220-2",
+     "severity": "low",
+     "claim": "The closing universal claim in the rationale carries no digit-bearing count.",
+     "evidence": "check_universals.py flags the rationale claim 'No further verse follows' as a universal with no adjacent digit-bearing sweep count. The underlying fact is true and countable: Ps 73 has 28 verses in both witnesses (28 keys Ps.73.1-Ps.73.28 in verse_map_web and 28 in verse_map_oshb), and this span ends on verse 28, the psalm's last. The claim needs the digit and its unit stated."
+    }
+   ],
+   "row_sha256": "f601c284cdd08913a2173b41462b49eb5a0f878428e760d7c495688f3ce29da1"
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "cluster": "c48",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c48_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-318",
+   "row_sha256": "11ccdbbf7645a50e497b26cf34dec595535d87da8e7743c6204e31274fccfce4",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.102.1-Ps.102.3 covers the WEB-titled opening of a shift+1 psalm (Ps 102 title = MT v1 per web_mt_offset_map.json). Re-derived the numbering myself: web:Ps.102.0 = oshb:Ps.102.1 through web:Ps.102.3 = oshb:Ps.102.4 checks out arithmetically (citation_sweep.py: 0 problems on this row). The tefillah title (a genre label, not a person's name) plus the doubled imperative plea and the waw-consecutive reason-clause form a coherent tier-1 opening unit; check_web_quotes.py confirms every curly-quoted WEB span in the cluster is verbatim with its inline ref (26 quotes checked, 0 flags). Two independent-verification defects found. First, check_refs_mirror.py flags this row: both the rationale and rejected_alternative name web:Ps.102.4 as the seam where the next unit opens, but web:Ps.102.4 is not in boundary_evidence_refs (only 0-3 are). Second, observed_substrate_signals asserts the title 'carries no name attribution, unlike the historical-note titles elsewhere in the book' — check_universals.py flags this as an unswept comparative claim (no digit-bearing sweep in the adjacent window naming how many or which titles carry name-attribution); TOOLKIT.md's own genre-label counts (tefillah 5, le-David 73, le-Asaph 12, etc.) were available but not cited. The core boundary and warrant otherwise stand.",
+   "challenges": [
+    {
+     "challenge_id": "LF-318-1",
+     "severity": "low",
+     "claim": "web:Ps.102.4 is argued in this row's prose (rationale and rejected_alternative) as the seam where the next unit opens but is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py rows_c48.jsonl reports decision_id M8-Ps-318, argued_but_unmirrored: [\"Ps.102.4\"]; the row's rationale reads \"closes the invocation just before the grass-bracketed complaint body opens at web:Ps.102.4\" and rejected_alternative reads \"the grass inclusio marks a tighter unit that begins at web:Ps.102.4\" — both name the verse but boundary_evidence_refs only spans web:Ps.102.0 through web:Ps.102.3."
+    },
+    {
+     "challenge_id": "LF-318-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals makes an unswept comparative claim about title conventions elsewhere in the book.",
+     "evidence": "check_universals.py rows_c48.json flags path [0].observed_substrate_signals[0], claim \"carries no name attribution, unlike the historical\" with no adjacent digit-bearing sweep (flag_count: 1). The full sentence is: \"title tefillah label ... carries no name attribution, unlike the historical-note titles elsewhere in the book\" — no count of how many, or which, titles were swept for name-attribution to support the comparison; TOOLKIT.md's own §-swept genre-label counts (tefillah 5; le-David 73; le-Asaph 12; bene-Qorach 11) were on hand but not cited."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-319",
+   "row_sha256": "5453a1e3535fed8a592567d8c9075ebcc1d62430ed4c4fc7bdf7eec430753e08",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.102.4-Ps.102.11, argued as a grass-inclusio-bracketed complaint body. citation_sweep.py returns 0 problems for this row's refs/dual-cite arithmetic (9 WEB<->MT pairs, all correct); check_web_quotes.py confirms all curly-quoted WEB spans verbatim; check_refs_mirror.py raises no flag on this row (the web:Ps.102.3/web:Ps.102.9 boundary mentions are both in refs or in-span). Spliced MT Ps.102.5 and Ps.102.12 directly from verse_map_oshb.json to independently test the inclusio claim: the shared skeleton token occurs at exactly 2 verses book-wide, oshb:Ps.102.5 and oshb:Ps.102.12, nowhere else in the chapter — the root-sharing/bracketing argument for the strophe boundary (4-11) is correct and independent of the row's own wording. But the row's positional description overstates the device: MT Ps.102.5's actual first word is not the cited token (it is a different, prior word), and MT Ps.102.12's actual final word is not the cited token either (a different word follows it) — see evidence. This is a factual/positional overstatement inside the row's primary tier-1 rationale, not a peripheral note, so I file it as a challenge rather than an observation; the strophe boundary itself remains well supported on re-derivation.",
+   "challenges": [
+    {
+     "challenge_id": "LF-319-1",
+     "severity": "medium",
+     "claim": "The rationale's word-position claims ('opens with' at oshb:Ps.102.5, 'closes with' at oshb:Ps.102.12) misdescribe MT word order at both edges of the cited inclusio.",
+     "evidence": "Spliced byte-true from verse_map_oshb.json (never hand-typed): MT Ps.102.5 splits into 8 words; word 1 is הוּכָּֽה ('he has struck/smitten'), word 2 is כָ֭עֵשֶׂב ('like grass') — the row's cited token is the verse's SECOND word, not its opening word. MT Ps.102.12 splits into 6 words; word 5 is כָּעֵ֥שֶׂב ('like grass'), word 6 (the actual final word) is אִיבָֽשׁ ('I wither') — the row's cited token is the second-to-last word, not the verse's close. Root-sharing claim independently re-swept (in-process skeleton match, not sweep.py's book default): the shared skeleton of כָ֭עֵשֶׂב occurs at exactly 2 verses book-wide, oshb:Ps.102.5 and oshb:Ps.102.12, confirmed nowhere else in Ps.102 or the book outside a single unrelated third hit elsewhere in Psalms — so the inclusio-brackets-the-body argument survives, but 'opens with'/'closes with' overstates each token's position by one word on both edges."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-320",
+   "row_sha256": "7f9d0ae33cc1426a6b3d47f99da63d72ff67e1c925fc1e6756477a59ce02f3b3",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.102.12-Ps.102.16 opens the Zion-restoration movement at the addressee pivot — this is one of the brief's named adversarial-pressure targets (addressee-pivot placement at 102:12), so I tested it directly rather than accepting the row's framing. Spliced MT Ps.102.13 from verse_map_oshb.json independently: its first two words are the conjunctive-vav form of the pronoun 'you' immediately followed by the divine name, confirming the row's claim that the verse opens on a vav+אתה adversative addressing Yahweh directly. That is a strong, position-accurate tier-1 pivot marker, and 'high' confidence here is warranted, matching my independent read. citation_sweep.py and check_web_quotes.py return clean for this row. One defect: check_refs_mirror.py flags web:Ps.102.17, named in rejected_alternative as the verse where 'a new causal chain' opens — i.e. used as the actual evidence that this row's close at v16 (not v22) is correct — with no matching boundary_evidence_refs entry, even though the adjacent v22 is cited.",
+   "challenges": [
+    {
+     "challenge_id": "LF-320-1",
+     "severity": "low",
+     "claim": "web:Ps.102.17 is the specific verse cited as evidence for closing this row at v16, but it is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py rows_c48.jsonl reports decision_id M8-Ps-320, argued_but_unmirrored: [\"Ps.102.17\"]; rejected_alternative reads \"web:Ps.102.16's completed-action report closes the arise-and-rebuild movement before web:Ps.102.17 opens a new causal chain\" — boundary_evidence_refs runs ...web:Ps.102.16 = oshb:Ps.102.17, web:Ps.102.22 = oshb:Ps.102.23] and skips a web:Ps.102.17 entry entirely."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-321",
+   "row_sha256": "071d8d6c6e14d638c1b8d2a9e7ebc69567290cdfba3af11b605921ef6c4738ab",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.102.17-Ps.102.22 completes the Zion-oracle movement on a forward-looking purpose clause. citation_sweep.py, check_web_quotes.py and check_marks.py are all clean for this row; check_tiling.py confirms the cluster's five spans exactly tile WEB Ps.102.1-28 (28/28 verses, 0 gaps/overlaps/out-of-range). The purpose-clause register shift at v18 as the row's internal driver, and the resumed first-person voice at v23 as the following row's own open, are both independently legible reading the WEB/MT text directly. One defect: check_refs_mirror.py flags web:Ps.102.23, named in device_notes ('before web:Ps.102.23 returns to the psalmist's own voice') outside this row's own span, with no matching boundary_evidence_refs entry.",
+   "challenges": [
+    {
+     "challenge_id": "LF-321-1",
+     "severity": "low",
+     "claim": "web:Ps.102.23 is argued in device_notes as the point where the following unit resumes the psalmist's voice but is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py rows_c48.jsonl reports decision_id M8-Ps-321, argued_but_unmirrored: [\"Ps.102.23\"]; device_notes reads \"closing on the nations gathered to serve Yahweh before web:Ps.102.23 returns to the psalmist's own voice\" — boundary_evidence_refs's last entry is web:Ps.102.22 = oshb:Ps.102.23, with no separate web:Ps.102.23 entry."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-322",
+   "row_sha256": "f39ffd4b96f14a5569741d67c5a6eb70f6f4e6245cdc65b9b52419aa386147a3",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.102.23-Ps.102.28 closes the psalm on the resumed first-person voice. Independently verified the ketiv/qere disclosure against pmarks_Ps.json: the kq inventory carries an entry at Ps.102.24, and the spliced MT text (read directly from verse_map_oshb.json) shows the unpointed ketiv token sitting immediately before its pointed qere counterpart — an inline-ketiv case matching the class TOOLKIT.md's INLINE-KETIV HAZARD note warns about, and the row discloses it correctly. check_web_quotes and citation_sweep are clean for this row. The claim that first-person voice was 'set aside' across vv.12-22 also holds on inspection: no first-person psalmist pronoun appears in that block's WEB text. One defect: check_refs_mirror.py flags web:Ps.102.12 — named as the start of 'the intervening Zion oracle (web:Ps.102.12-web:Ps.102.22)', used as evidentiary support for the voice-return claim — with no matching boundary_evidence_refs entry (only the MT-mapped neighbor covering WEB 102.11 is present).",
+   "challenges": [
+    {
+     "challenge_id": "LF-322-1",
+     "severity": "low",
+     "claim": "web:Ps.102.12, the start point of the 'intervening Zion oracle' range cited as evidence for the voice-return boundary, is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py rows_c48.jsonl reports decision_id M8-Ps-322, argued_but_unmirrored: [\"Ps.102.12\"]; rationale reads \"reopening the first-person complaint ... that the intervening Zion oracle (web:Ps.102.12-web:Ps.102.22) had set aside\" — boundary_evidence_refs's entry web:Ps.102.11 = oshb:Ps.102.12 covers WEB verse 11 only (per web_to_mt/mt_to_web arithmetic), not WEB verse 12, and no bare web:Ps.102.12 entry is present."
+    }
+   ]
+  }
+ ]
+}

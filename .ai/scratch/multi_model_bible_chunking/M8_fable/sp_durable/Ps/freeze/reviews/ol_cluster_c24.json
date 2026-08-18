@@ -1,0 +1,130 @@
+{
+ "cluster": "c24",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c24_r1",
+ "routing_used": "opus",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-163",
+   "verdict": "support",
+   "reasoning": "Re-derived independently. Ps 59 is a shift+1 psalm (web_mt_offset_map.json: rule shift, k=1, web_verses 17, mt_verses 18, mt_title_verses [1]), so the row's title pairing web:Ps.59.0 = oshb:Ps.59.1 is arithmetically correct (ps_lib.web_to_mt(59,0) -> (59,1)); title-as-evidence on an opening row is owner-ruled in form. check_web_quotes.py checked this row's 3 curly-quoted WEB spans against verse_map_web.json and returned 0 flags. The selah pairing web:Ps.59.5 = oshb:Ps.59.6 matches pmarks_Ps.json, and the psalm-scoped figure the row asserts is exact: the selah inventory holds 2 verses in Ps 59 (oshb:Ps.59.6, oshb:Ps.59.14), 1 occurrence each. The closing seam 59:5|59:6 is driven by tier-1 material on both sides -- the imperative petition ending oshb:Ps.59.6 and the dog-refrain line opening oshb:Ps.59.7 -- so selah corroborates here rather than driving, which is its permitted role. The device_notes title-label claim checks out against the bytes: the lamnatseach / al-tashcheth / le-David / miktam label set appears in 3 of the 3 titles swept (oshb:Ps.57.1, oshb:Ps.58.1, oshb:Ps.59.1). check_marks.py, check_refs_mirror.py, check_universals.py and citation_sweep.py return 0 flags on this row across those 4 checkers. Observation, not a defect: the selah figure is written as a word rather than a digit; check_universals.py does not flag it and the figure is right.",
+   "challenges": [],
+   "row_sha256": "11d588e0752261e3ff9726f8bd75c6b374a360de31e64a7a2b959e9d19cb01e9"
+  },
+  {
+   "decision_id": "M8-Ps-164",
+   "verdict": "challenge",
+   "reasoning": "The span and both seams hold. Ps 59 is shift+1, so oshb:Ps.59.7 = web:Ps.59.6 and oshb:Ps.59.10 = web:Ps.59.9 (ps_lib); both Hebrew quotes bind byte-true to their cited refs (citation_sweep.py collate arm, 0 problems). The row's dog-refrain claim is byte-exact and I confirm it: a codepoint diff of oshb:Ps.59.7 against oshb:Ps.59.15 yields exactly 1 change site, an insertion of 2 codepoints (U+05D5 VAV, U+05B0 SHEVA) at the head, with the remaining 57 codepoints matching at byte tier. The prose dual-cite warnings citation_sweep.py emits are the logged author-wave enhancement (pairing lives in refs) and are not defects. What fails is the handling of the strength refrain's head word: the row quotes oshb:Ps.59.10 with a 3ms suffix and glosses it with a WEB line reading a 1cs suffix, without disclosing the divergence, and its device_notes enumerates the refrain's return-differences in a way that omits that same word. A seam-pair cure is one edit -- the same omission sits in the device_notes here and in the comparative claim on the 59:14-17 row, and both need the same repair in one pass. Separately, 1 field carries a curly-quoted English fragment lacking a web: ref of its own, which the toolkit requires in the same field.",
+   "challenges": [
+    {
+     "challenge_id": "OL-164-1",
+     "severity": "medium",
+     "claim": "The row pairs the byte-true Hebrew of oshb:Ps.59.10, whose head word carries a 3ms suffix, with a WEB gloss that renders a 1cs suffix, and its device_notes accounts for the strength refrain's return as a verb change plus an added clause, leaving that head-word difference undisclosed.",
+     "evidence": "Head word spliced from verse_map_oshb.json: oshb:Ps.59.10 word 1 = עֻ֭זּוֹ (codepoints U+05E2 U+05BB U+05AD U+05D6 U+05BC U+05D5 VAV U+05B9 HOLAM -- 3ms suffix), against oshb:Ps.59.18 word 1 = עֻ֭זִּי (U+05E2 U+05BB U+05AD U+05D6 U+05BC U+05B4 HIRIQ U+05D9 YOD -- 1cs suffix). The difference is consonantal (VAV -> YOD), not accentual. The row's own gloss for that verse is the WEB line “Oh, my Strength, I watch for you, for God is my high tower.” (web:Ps.59.9 = oshb:Ps.59.10), which renders the 1cs sense, while the later occurrence it is being paired against is “To you, my strength, I will sing praises. For God is my high tower, the God of my mercy.” (web:Ps.59.17 = oshb:Ps.59.18). The 2 WEB lines therefore agree at the head word where the 2 MT lines do not, so the row's refrain pairing is tighter in English than in the bytes it quotes. This is a disclosure defect, not a reading selection: no emendation is proposed and the MT bytes stand as they are."
+    },
+    {
+     "challenge_id": "OL-164-2",
+     "severity": "low",
+     "claim": "A curly-quoted English fragment in observed_substrate_signals[2] lacks a web: ref in the same field, as the toolkit requires.",
+     "evidence": "check_web_quotes.py over the cluster rows returns status FLAGS, flag_count 2, 1 of them at [1].observed_substrate_signals[2], reporting 1 curly quote whose field holds 0 web: refs (refs_nearby []). The quoted English is drawn from web:Ps.59.9, whose WEB text is “Oh, my Strength, I watch for you, for God is my high tower.”; that field cites oshb:Ps.59.10 alone, with 0 web: refs present. 1 flagged field on this row."
+    }
+   ],
+   "row_sha256": "99f6fb8747264c37ed1b71c6075f075def3ffb05fa277e1f85ab0c9337486b22"
+  },
+  {
+   "decision_id": "M8-Ps-165",
+   "verdict": "challenge",
+   "reasoning": "Span, seams and selah handling are sound. ps_lib gives web:Ps.59.13 = oshb:Ps.59.14, and pmarks_Ps.json carries selah at oshb:Ps.59.14, so the row's second-selah description is exact against an inventory holding 2 selah verses in Ps 59 (oshb:Ps.59.6, oshb:Ps.59.14). The front seam 59:9|59:10 is well warranted: the strength-refrain line closes oshb:Ps.59.10 and a fresh confidence report opens oshb:Ps.59.11, so the rejected_alternative is right to decline pulling web:Ps.59.9 in. check_web_quotes.py returned 0 flags on this row. The defect is a disclosure one: the row's opening evidence quotes the 1 clause in its span that the ketiv/qere apparatus governs, and does not disclose it. The toolkit rule is that K/Q verses are disclosed when quoted, and the writer applies that rule correctly elsewhere in this cluster (the Ps 60 note is disclosed in full), so the omission is asymmetric rather than a house style. I note that check_marks.py is GREEN here because it validates asserted K/Q claims against the inventory and does not detect an undisclosed K/Q in a quoted verse -- the miss is not caught by the staged tools.",
+   "challenges": [
+    {
+     "challenge_id": "OL-165-1",
+     "severity": "medium",
+     "claim": "The row quotes the WEB clause at web:Ps.59.10 that the ketiv/qere note at oshb:Ps.59.11 governs, without disclosing the note.",
+     "evidence": "pmarks_Ps.json kq inventory, Ps 59 entries: {\"Ps.59.11\": 1, \"Ps.59.16\": 1} -- 2 notes over 2 verses in this psalm, of which oshb:Ps.59.11 falls inside this row's span (ps_lib.mt_to_web(59,11) -> (59,10)). The verse text spliced from verse_map_oshb.json is: אֱלֹהֵ֣י חסדו חַסְדִּ֣י יְקַדְּמֵ֑נִי אֱ֝לֹהִ֗ים יַרְאֵ֥נִי בְשֹׁרְרָֽי -- the unpointed ketiv חסדו (word 2) stands beside the pointed qere חַסְדִּ֣י (word 3). The row's opening evidence quotes the WEB line “My God will go before me with his loving kindness. God will let me look at my enemies in triumph.” (web:Ps.59.10), whose rendering of that clause follows the ketiv's 3ms suffix; the row carries 0 K/Q disclosures in any field. The row's own cluster-mate at Ps.60.1-Ps.60.5 discloses the 1 Ps 60 note at oshb:Ps.60.7 in full, so the discipline is available and simply not applied here. No reading is being selected: the defect is the missing disclosure."
+    }
+   ],
+   "row_sha256": "99e9e67152e30042173bf11a52f8976b069af0f54085e19f8a037aecb6635d63"
+  },
+  {
+   "decision_id": "M8-Ps-166",
+   "verdict": "challenge",
+   "reasoning": "The span is right and the closing-seam analysis is largely well built. The front-seam selah pairing web:Ps.59.13 = oshb:Ps.59.14 is correct against ps_lib and pmarks_Ps.json, and the dog-refrain claim is byte-exact: the codepoint diff of oshb:Ps.59.7 against oshb:Ps.59.15 has exactly 1 change site, an inserted waw of 2 codepoints (U+05D5, U+05B0), with the remaining 57 codepoints matching at byte tier -- so the one-letter-difference statement survives re-derivation, and the row deserves credit for not assuming the refrain repeats. The strength-refrain half of the same argument does not survive. The row quotes oshb:Ps.59.18 in full but just the verb from oshb:Ps.59.10, then enumerates the difference as a verb swap plus an added clause; the head word of the refrain also changes, consonantally, and because the row does not quote that word from the earlier occurrence the omission is invisible to anyone reading the row. This matters more here than it would elsewhere because the row's device_notes explicitly claims to be disclosing what the WEB translation's near-symmetry would otherwise hide. Separately, 1 field carries a curly-quoted English fragment lacking a web: ref of its own.",
+   "challenges": [
+    {
+     "challenge_id": "OL-166-1",
+     "severity": "medium",
+     "claim": "The row's enumeration of how the strength refrain differs at its return names the verb swap and the added clause but omits the consonantal suffix change at the refrain's head word, which the row does not quote from the earlier occurrence.",
+     "evidence": "difflib codepoint diff of oshb:Ps.59.10 (len 59) against oshb:Ps.59.18 (len 78), both spliced from verse_map_oshb.json, yields 7 change sites. By word: of the 6 shared words, 4 differ and 2 words are appended. The 4 differing words are head עֻ֭זּוֹ -> עֻ֭זִּי (U+05D5 VAV U+05B9 HOLAM -> U+05B4 HIRIQ U+05D9 YOD; consonantal, 3ms -> 1cs suffix), verb אֶשְׁמֹ֑רָה -> אֲזַמֵּ֑רָה, plus 2 differences confined to accents at אֱ֝לֹהִ֗ים -> אֱלֹהִ֥ים and מִשְׂגַּבִּֽי -> מִ֝שְׂגַּבִּ֗י; the appended words are אֱלֹהֵ֥י חַסְדִּֽי. The row names 2 of these -- the verb and the appended clause -- and quotes just אֶשְׁמֹ֑רָה from oshb:Ps.59.10, so עֻ֭זּוֹ does not appear in the row for comparison against the עֻ֭זִּי it does print. The row's conclusion (near-refrains, not repeats) is correct and is in fact strengthened by the omitted difference; the defect is the incomplete evidence enumeration, and per seam-pair discipline the cure must also land on the device_notes of the 59:6-9 row, which carries the same wording."
+    },
+    {
+     "challenge_id": "OL-166-2",
+     "severity": "low",
+     "claim": "A curly-quoted English fragment in observed_substrate_signals[2] lacks a web: ref in the same field, as the toolkit requires.",
+     "evidence": "check_web_quotes.py over the cluster rows returns status FLAGS, flag_count 2, 1 of them at [3].observed_substrate_signals[2], reporting 1 curly quote whose field holds 0 web: refs (refs_nearby []). The quoted English is drawn from web:Ps.59.17, whose WEB text is “To you, my strength, I will sing praises. For God is my high tower, the God of my mercy.”; that field cites oshb:Ps.59.18 and oshb:Ps.59.10, with 0 web: refs present. 1 flagged field on this row."
+    }
+   ],
+   "row_sha256": "6315f9309ef56a5c26691f25b68b8bcf0ac152b82d80ca872f92b84b74a65bbf"
+  },
+  {
+   "decision_id": "M8-Ps-167",
+   "verdict": "challenge",
+   "reasoning": "The seam judgement here is good and the confidence of medium is honestly calibrated: running the unit 1 verse past the selah at web:Ps.60.4 is defensible because oshb:Ps.60.7 opens with a purpose clause that completes the banner clause rather than starting new material, and the row is right that selah corroborates rather than drives. The K/Q handling is exactly what the toolkit asks for -- the note at oshb:Ps.60.7 is quoted with the unpointed ketiv beside the pointed qere, and the figure is verified: the kq inventory holds 1 entry in Ps 60. The selah pairing web:Ps.60.4 = oshb:Ps.60.6 is correct. Two things fail. The prose dual-cites the title to the wrong MT verses -- off by 2, and disagreeing with the row's own boundary_evidence_refs, which carry the correct pairing. Ps 60 is 1 of the 4 shift+2 psalms, so this is precisely the arithmetic the campaign flags as the book-central hazard. Then the substrate signal that carries the strophe's main structural argument names a noun as the opening member of a verb chain and states a per-verse figure that does not match either witness. Note that citation_sweep.py returns GREEN on this row: it arithmetic-checks dual-cite pairs in boundary_evidence_refs but not pairs written in prose fields, so the error passes the gate.",
+   "challenges": [
+    {
+     "challenge_id": "OL-167-1",
+     "severity": "high",
+     "claim": "The rationale dual-cites the title of Ps 60 to oshb:Ps.60.3 and oshb:Ps.60.4, but the title is oshb:Ps.60.1-2; the cited verses are the psalm's opening 2 body verses, and the row's own refs carry the correct pairing.",
+     "evidence": "Authority, web_mt_offset_map.json Ps 60: {\"web_verses\": 12, \"mt_verses\": 14, \"web_title\": true, \"rule\": \"shift\", \"k\": 2, \"mt_title_verses\": [1, 2]}. ps_lib.web_to_mt(60,0) -> (60,1); ps_lib.mt_to_web(60,1) -> (60,0) and ps_lib.mt_to_web(60,2) -> (60,0); ps_lib.mt_to_web(60,3) -> (60,1) and ps_lib.mt_to_web(60,4) -> (60,2). verse_map_oshb.json sets is_counted_title true for exactly 2 verses, oshb:Ps.60.1 and oshb:Ps.60.2. Those 2 title verses are oshb:Ps.60.1 = לַ֭מְנַצֵּחַ עַל שׁוּשַׁ֣ן עֵד֑וּת מִכְתָּ֖ם לְדָוִ֣ד לְלַמֵּֽד and oshb:Ps.60.2 = בְּהַצּוֹת֨וֹ אֶ֥ת אֲרַ֣ם נַהֲרַיִם֮ וְאֶת אֲרַ֪ם צ֫וֹבָ֥ה וַיָּ֤שָׁב יוֹאָ֗ב וַיַּ֣ךְ אֶת אֱד֣וֹם בְּגֵיא מֶ֑לַח שְׁנֵ֖ים עָשָׂ֣ר אָֽלֶף -- the tune note and the historical note the rationale is describing, so the content mapping is right and the numbers alone are wrong. The verses actually cited are oshb:Ps.60.3 = אֱ֭לֹהִים זְנַחְתָּ֣נוּ פְרַצְתָּ֑נוּ אָ֝נַ֗פְתָּ תְּשׁ֣וֹבֵ֥ב לָֽנוּ and oshb:Ps.60.4 = הִרְעַ֣שְׁתָּה אֶ֣רֶץ פְּצַמְתָּ֑הּ רְפָ֖ה שְׁבָרֶ֣יהָ כִי מָֽטָה, i.e. web:Ps.60.1 and web:Ps.60.2, which the same rationale separately and correctly cites as body verses. The row's boundary_evidence_refs carry web:Ps.60.0 = oshb:Ps.60.1 and web:Ps.60.0 = oshb:Ps.60.2, so prose and refs disagree. 2 wrong pairings in 1 field."
+    },
+    {
+     "challenge_id": "OL-167-2",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[0] names a noun as the opening member of the second-person perfect verb chain and states a figure of 1 such verb per verse, where both witnesses show 8 such forms across the 4 verses.",
+     "evidence": "The signal cites אֱ֭לֹהִים (oshb:Ps.60.3) as the chain's opening member. Spliced from verse_map_oshb.json, oshb:Ps.60.3 = אֱ֭לֹהִים זְנַחְתָּ֣נוּ פְרַצְתָּ֑נוּ אָ֝נַ֗פְתָּ תְּשׁ֣וֹבֵ֥ב לָֽנוּ: word 1 אֱ֭לֹהִים is the vocative noun and the 2ms perfect is word 2, זְנַחְתָּ֣נוּ, as the row's own rationale shows by printing the pair together. There is no morphology layer in the staged extract, so the forms are argued from the pointed bytes and checked against both witnesses. Counting 2ms perfect tokens (unit: tokens, not verses) across the 4 verses: oshb:Ps.60.3 has 3 (זְנַחְתָּ֣נוּ, פְרַצְתָּ֑נוּ, אָ֝נַ֗פְתָּ), oshb:Ps.60.4 has 2 (הִרְעַ֣שְׁתָּה, פְּצַמְתָּ֑הּ), oshb:Ps.60.5 has 2 (הִרְאִ֣יתָה, הִ֝שְׁקִיתָ֗נוּ), oshb:Ps.60.6 has 1 (נָ֘תַ֤תָּה) -- 8 tokens over 4 verses, not 4. WEB corroborates at the same 8: “God, you have rejected us. You have broken us down. You have been angry. Restore us, again.” (web:Ps.60.1) carries 3 second-person perfect clauses, “You have made the land tremble. You have torn it. Mend its fractures, for it quakes.” (web:Ps.60.2) carries 2, “You have shown your people hard things. You have made us drink the wine that makes us stagger.” (web:Ps.60.3) carries 2, and “You have given a banner to those who fear you, that it may be displayed because of the truth. Selah.” (web:Ps.60.4) carries 1. The 2 excluded forms are correctly excluded (תְּשׁ֣וֹבֵ֥ב and רְפָ֖ה are not 2ms perfects), so the chain itself is real -- the exemplar and the figure are what fail."
+    }
+   ],
+   "row_sha256": "542aaa033400e0f6eb933798b43fce5256d8be91de2c9bdd031016251a321a1c"
+  },
+  {
+   "decision_id": "M8-Ps-168",
+   "verdict": "challenge",
+   "reasoning": "The span is correct and the 4 dual-cites in boundary_evidence_refs check out at k=+2 (ps_lib: web:Ps.60.6 -> oshb:Ps.60.8, web:Ps.60.7 -> oshb:Ps.60.9, web:Ps.60.8 -> oshb:Ps.60.10, web:Ps.60.9 -> oshb:Ps.60.11). The front seam has a genuine tier-1 warrant in the Hebrew: oshb:Ps.60.8 opens with an explicit speech frame, which is a discourse frame and drives properly, and the rejected_alternative's second leg -- that oshb:Ps.60.11 resumes interrogative address -- is byte-true. Treating the Ps 108 material as a typed relation rather than a merge is correct per policy. 3 evidence defects sit on top of that sound structure. The substrate signal misidentifies the opening token's person and part of speech, disagreeing with the row's own rationale. The device_notes asserts a collation range whose top end does not exist in the bytes, without naming a tier, where the toolkit permits a full-match claim per collate truth with the tier named. And the quotation-mark position the row attributes to the WEB text bytes is not where those bytes put it.",
+   "challenges": [
+    {
+     "challenge_id": "OL-168-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[1] calls the opening token of oshb:Ps.60.8 a first-person divine verb; it is a noun, and the verb it governs is third-person, as the row's own rationale renders it.",
+     "evidence": "oshb:Ps.60.8 spliced from verse_map_oshb.json = אֱלֹהִ֤ים דִּבֶּ֥ר בְּקָדְשׁ֗וֹ אֶ֫עְלֹ֥זָה אֲחַלְּקָ֥ה שְׁכֶ֑ם וְעֵ֖מֶק סֻכּ֣וֹת אֲמַדֵּֽד. The cited token is word 1, אֱלֹהִ֤ים -- a plural noun in form, functioning as subject; the verb is word 2, דִּבֶּ֥ר, a 3ms perfect, with word 3 בְּקָדְשׁ֗וֹ completing the frame. Both witnesses read it as third person: the row's own rationale glosses the clause as God having spoken, and WEB at web:Ps.60.6 = oshb:Ps.60.8 reads “God has spoken from his sanctuary: “I will triumph. I will divide Shechem, and measure out the valley of Succoth.”, where the third-person frame precedes the first-person speech and the speech begins after the frame closes. Neither the person nor the part of speech asserted for the cited token holds. There is no morphology layer in the staged extract, so this is argued from the pointed bytes and both witnesses' renderings, as the toolkit directs."
+    },
+    {
+     "challenge_id": "OL-168-2",
+     "severity": "medium",
+     "claim": "device_notes claims the collation against Psalm 108 runs from a full match down to no shared tier, but 0 of the 3 oracle verse pairs is a full match, and no tier is named.",
+     "evidence": "Collating the oracle verse by verse against Psalm 108 (oshb:Ps.60.8-10 aligns to oshb:Ps.108.8-10; Ps 108 is a shift+1 psalm, so those MT verses are web:Ps.108.7-9). Tiers, computed from verse_map_oshb.json and consonantal_index.json: oshb:Ps.60.8 vs oshb:Ps.108.8 -- byte False, nfd False, accent_stripped True, skeleton True; oshb:Ps.60.9 vs oshb:Ps.108.9 -- False at 4 of 4 tiers; oshb:Ps.60.10 vs oshb:Ps.108.10 -- False at 4 of 4 tiers. So across 3 verse pairs the highest tier reached is accent_stripped, on 1 pair, and the toolkit is explicit that byte is the sole quotation-grade tier for pointed text. The skeletons show why the lower 2 fail: oshb:Ps.60.9 has וְלִ֬י where oshb:Ps.108.9 has לִ֤י, and oshb:Ps.60.10 ends עָ֝לַ֗י פְּלֶ֣שֶׁת הִתְרֹעָֽעִֽי where oshb:Ps.108.10 ends עֲלֵֽי פְ֝לֶ֗שֶׁת אֶתְרוֹעָֽע. The no-shared-tier end of the range is therefore right and the full-match end is not; tier/ordinal discipline requires the tier be named."
+    },
+    {
+     "challenge_id": "OL-168-3",
+     "severity": "low",
+     "claim": "The row places the WEB opening curly quote at the head of web:Ps.60.6 and attributes the claim to the WEB text bytes, but that mark stands mid-verse, after the speech frame.",
+     "evidence": "verse_map_web.json web:Ps.60.6 = “God has spoken from his sanctuary: “I will triumph. I will divide Shechem, and measure out the valley of Succoth.”. Scanning that string for U+201C/U+201D: exactly 1 mark, U+201C at offset 35 of 113 characters -- i.e. after the speech-frame clause, not at offset 0. The closing mark is described correctly: web:Ps.60.8 = “Moab is my wash basin. I will throw my sandal on Edom. I shout in triumph over Philistia.”” carries exactly 1 mark, U+201D at offset 89 of 90 characters, at the tail. web:Ps.60.5, web:Ps.60.7 and web:Ps.60.9 carry 0 such marks. The consequence is narrow but real: the WEB punctuation does not bound the unit at the 60:5|60:6 seam, so the front-seam warrant rests on the Hebrew speech frame at oshb:Ps.60.8, which the row does quote -- the punctuation claim as written overstates what the cited bytes show."
+    }
+   ],
+   "row_sha256": "07847f6dece8db332d16843f7bca22ed97fbbec69f567df7e8bc355d4ca3139f"
+  },
+  {
+   "decision_id": "M8-Ps-169",
+   "verdict": "challenge",
+   "reasoning": "The span closes the psalm correctly and the row largely re-derives clean. The 5 pairings in boundary_evidence_refs are right at k=+2, the interrogative opening at oshb:Ps.60.11 is byte-true, and the 2 closing figures check out against web_mt_offset_map.json: Ps 60 has web_verses 12 and mt_verses 14, so the twelfth-WEB-verse description and web:Ps.60.12 = oshb:Ps.60.14 as the final MT verse are both exact. The rejected_alternative is sound on the merits -- the singular-to-communal pronoun shift really is not a tier-1 driver, and declining to split there is the right call. The defect is an arithmetic one: the rationale's opening dual-cite attaches the wrong MT verse to web:Ps.60.8, disagreeing with the row's own refs. As with the 60:1-5 row, citation_sweep.py does not catch it because it arithmetic-checks refs pairings but not pairings written in prose.",
+   "challenges": [
+    {
+     "challenge_id": "OL-169-1",
+     "severity": "high",
+     "claim": "The rationale dual-cites web:Ps.60.8 to oshb:Ps.60.12, but web:Ps.60.8 is oshb:Ps.60.10; oshb:Ps.60.12 is web:Ps.60.10, and the row's own refs carry the correct pairing.",
+     "evidence": "Authority, web_mt_offset_map.json Ps 60: rule shift, k=2, mt_title_verses [1, 2]. ps_lib.web_to_mt(60,8) -> (60,10); ps_lib.mt_to_web(60,12) -> (60,10). Content confirms the arithmetic: the oracle's closing line, which the rationale is pointing at, is web:Ps.60.8 = “Moab is my wash basin. I will throw my sandal on Edom. I shout in triumph over Philistia.”” = oshb:Ps.60.10 = מוֹאָ֤ב סִ֬יר רַחְצִ֗י עַל אֱ֭דוֹם אַשְׁלִ֣יךְ נַעֲלִ֑י עָ֝לַ֗י פְּלֶ֣שֶׁת הִתְרֹעָֽעִֽי. The verse the row actually cites is oshb:Ps.60.12 = הֲלֹֽא אַתָּ֣ה אֱלֹהִ֣ים זְנַחְתָּ֑נוּ וְֽלֹא תֵצֵ֥א אֱ֝לֹהִ֗ים בְּצִבְאוֹתֵֽינוּ = web:Ps.60.10 = “Haven’t you, God, rejected us? You don’t go out with our armies, God.” -- the renewed complaint, which the same rationale separately and correctly cites as web:Ps.60.10 two clauses later. The row's boundary_evidence_refs carry web:Ps.60.8 = oshb:Ps.60.10, so prose and refs disagree. 1 wrong pairing; the adjacent cite in the same sentence, oshb:Ps.60.11 for web:Ps.60.9, is correct."
+    }
+   ],
+   "row_sha256": "651a36931828f032e890cd934fd6843947eb9476e8546f64f112f9907d817970"
+  }
+ ]
+}

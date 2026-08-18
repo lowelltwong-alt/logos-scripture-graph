@@ -1,0 +1,44 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "1Kgs",
+ "completed_at": "2026-08-03T18:37:44.975949+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 105,
+ "verse_coverage": "816/816 exact ordered tiling, 1Kgs.1.1-1Kgs.22.53 (WEB numbering; WEB 4:21-34 = MT 5:1-14, WEB 5:1-18 = MT 5:15-32, WEB 22:43 = MT 22:43+44, WEB 22:44-53 = MT 22:45-54, all dual-cited)",
+ "final_states": {
+  "accepted_candidate": 105
+ },
+ "superseded_decisions": [],
+ "appeals": 0,
+ "sidecar_rows_per_file": 0,
+ "chunks_sha256": "790c568d0c713dfdc763c3ebbae5f4840cb16c078e6713345287e569c44dfa11",
+ "review_packets_sha256": "f3814fa25bd1ded083688dc1ccd371a42a1a16e731cb93cb8b621410233ce8ec",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book 1Kgs <chunks.jsonl> (105 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --model-folder M8_fable --book 1Kgs --require-artifacts",
+  "checks/validate_exact_book_coverage.py 1Kgs (816/816 exact ordered)",
+  "checks/validate_book_review_coverage.py --book 1Kgs --require-final-artifacts (coverage + parity)",
+  "checks/anti_batch_scan.py --book 1Kgs (0 errors, 0 warnings on first pass; no de-templating needed)",
+  "freeze/citation_sweep.py (web/oshb ranges, MT offset zones ch4/5/22 + arithmetic, 22:43 split handling, mark types vs pmarks, single-witness disclosures; 0 problems)",
+  "freeze/postcheck.json (105/105 pass, 0 holds; 2 low aggregate defect classes left as recorded per precedent)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass_after_boss_adjudication",
+  "sampled_chunks": 49,
+  "notes": [
+   "Attempt r1 rejected (incomplete artifact: 5/49 per-row entries; set aside as anti_batch_audit_incomplete_r1.json).",
+   "Attempt r2 structurally complete (49/49 per-row verdicts, every-3rd + all 18 medium-confidence rows) but raised 9 semantic flags; boss adjudication rejected all 9 on deterministic evidence (claimed hedge-words absent from the flagged row; claimed anchor-less rationales carry 2-6 inline citations each; claimed decorative refs all referenced in prose) - see freeze/anti_batch_audit_adjudication.json. No row amended."
+  ]
+ },
+ "review_rounds": {
+  "primaries": "lf_sonnet + ol_opus, clusters 01-14, blind (LF 91 supports/14 challenge-rows, 15 items; OL 86/19, 20 items; 197 Hebrew quotes machine-collated, 196 matched)",
+  "peer": "sonnet, all 105 decisions; 35/35 challenges supported, 0 rejected; 3 cross-cutting rulings (quotation fidelity, exclusivity-claim verification, count verification); meta-finding on OL's own 050 supports-rationale",
+  "author": "sonnet halves a/b (35 responses: 34 accept, 1 partial_accept) + 2 orchestrator Tier-0 sweep repairs (103/105 MT qualifiers) + micro r2 attributions",
+  "boss": "fable xhigh, 48 rulings (35 initial + 13 rev), 6 decision_relations (all non_authorizing), 0 protocol amendments (no chapter-shaped rows)",
+  "revision": "26-row material set; rev LF 23/3 + rev OL 16/10 blind (13 items, incl. two spurious-aleph repair regressions); rev peer 12 supported + 1 supported_with_correction; finalize_rev_round 16 remedy ops, all guards passed",
+  "postcheck": "sonnet role-separated, 105/105 pass, 0 holds"
+ }
+}

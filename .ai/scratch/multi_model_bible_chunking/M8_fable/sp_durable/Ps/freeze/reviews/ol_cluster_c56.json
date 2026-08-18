@@ -1,0 +1,149 @@
+{
+ "cluster": "c56",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c56_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-366",
+   "verdict": "challenge",
+   "reasoning": "Span WEB 108:1-5 = MT 108:2-6. The offset map is the authority and it reads psalms['108'] = rule 'shift', k 1, web_verses 13, mt_verses 14, mt_title_verses [1]; all 6 in-field pairings the row ships, web:Ps.108.0 = oshb:Ps.108.1 through web:Ps.108.5 = oshb:Ps.108.6, reproduce exactly under ps_lib.web_to_mt. Both Hebrew runs collate at BYTE tier at their stated refs (collate.py): the title שִׁ֖יר מִזְמ֣וֹר לְדָוִֽד at oshb:Ps.108.1 and the doxology line at oshb:Ps.108.6. The Elohistic tally is exactly right on re-derivation: re-swept over the skeleton index for unsuffixed divine-name nouns including inseparable-prefixed tokens, Ps 108 carries 1 yhwh token (oshb:Ps.108.4) and 6 elohim tokens (oshb:Ps.108.2, 108.6, 108.8, 108.12 twice, and the prefixed form at 108.14) -- 1/6 as the row states, against Book V's 236/10. The divine-name substitution is byte-true in both witnesses: oshb:Ps.57.10 reads אֲדֹנָ֑י where oshb:Ps.108.4 reads יְהוָ֑ה in the same slot, and WEB keeps the distinction (“I will give thanks to you, Lord, among the peoples.” web:Ps.57.9 against “I will give thanks to you, Yahweh, among the nations.” web:Ps.108.3). The seam at 108:5|108:6 also holds: the source of the parallel does switch at MT 108:7. What fails is the row's flagship evidence claim, plus two citation-integrity defects and one arithmetic slip.",
+   "challenges": [
+    {
+     "challenge_id": "OL-366-1",
+     "severity": "high",
+     "claim": "The row's anchor claim -- that the closing line aligns with Psalm 57's doxology line 'word for word', asserted in observed_substrate_signals as holding 'at byte tier' -- is false at all 3 collation tiers.",
+     "evidence": "Spliced from verse_map_oshb.json: web:Ps.108.5 = oshb:Ps.108.6 = ר֣וּמָה עַל שָׁמַ֣יִם אֱלֹהִ֑ים וְעַ֖ל כָּל הָאָ֣רֶץ כְּבוֹדֶֽךָ ; web:Ps.57.11 = oshb:Ps.57.12 = ר֣וּמָה עַל שָׁמַ֣יִם אֱלֹהִ֑ים עַ֖ל כָּל הָאָ֣רֶץ כְּבוֹדֶֽךָ . Compared as source bytes: byte_equal False, accent_stripped equal False, skeleton equal False. Both lines are 8 words; the sole differing slot is index 4, where 108:6 has וְעַ֖ל and 57:12 has עַ֖ל -- a conjunction present in one line and absent from the other, which is precisely what 'word for word' excludes. WEB reproduces the pair with only a punctuation difference (“Be exalted, God, above the heavens! Let your glory be over all the earth.” web:Ps.108.5 against “Be exalted, God, above the heavens. Let your glory be over all the earth.” web:Ps.57.11), so the English cannot be doing the work either. A byte-exact run does exist inside this panel, but at a different verse: web:Ps.108.2 = oshb:Ps.108.3 is byte-identical to the final 5 words of web:Ps.57.8 = oshb:Ps.57.9 -- ע֭וּרָֽה הַנֵּ֥בֶל וְכִנּ֗וֹר אָעִ֥ירָה שָּֽׁחַר -- substring test True. The verbatim label is attached to the one line of the panel where it fails and withheld from the line where it holds."
+    },
+    {
+     "challenge_id": "OL-366-2",
+     "severity": "medium",
+     "claim": "The cross-psalm original-language citation oshb:Ps.57.12 ships with no WEB arithmetic in-field and no matching dual pairing in boundary_evidence_refs, so a shift+1 citation goes out unpaired.",
+     "evidence": "citation_sweep.py on this row reports: 'M8-Ps-366: oshb:Ps.57.12 beside Hebrew content in row.rationale (non-identity psalm) has no WEB arithmetic in-field (NO matching dual in refs either -- REAL dual-cite gap)'. Ps 57 is a shift psalm with k 1 in the offset map, so the required pairing is web:Ps.57.11 = oshb:Ps.57.12 ; boundary_evidence_refs holds only the bare oshb:Ps.57.12. The row's other Ps 57 verse does have both halves present -- web:Ps.57.9 and oshb:Ps.57.10, which is the correct arithmetic (web:Ps.57.9 = oshb:Ps.57.10) -- but they sit as two separate entries rather than as the pairing. The 108-side cites are refs-array-satisfied and are not contested here."
+    },
+    {
+     "challenge_id": "OL-366-3",
+     "severity": "medium",
+     "claim": "The rejected_alternative argues an out-of-span WEB verse that never reaches boundary_evidence_refs, while the refs array carries a same-numbered oshb ref that is a different verse.",
+     "evidence": "check_refs_mirror.py flags this row: argued_but_unmirrored ['Ps.108.6']. The rejected_alternative reads '108:6 (oshb:Ps.108.7) is the verse whose wording turns to match Psalm 60'; a bare verse mention resolves in WEB numbering, and ps_lib.web_to_mt(108,6) = (108,7), i.e. the next row's opening verse, outside this row's span of web:Ps.108.1-Ps.108.5. boundary_evidence_refs lists web:Ps.108.0 through web:Ps.108.5 plus oshb:Ps.108.1 and oshb:Ps.108.6 -- and oshb:Ps.108.6 is NOT the argued verse; it is web:Ps.108.5 = oshb:Ps.108.6, in-span. The unmirrored verse is masked by a numerically similar ref, which is the specific hazard shift+1 psalms create."
+    },
+    {
+     "challenge_id": "OL-366-4",
+     "severity": "low",
+     "claim": "'three verses earlier' is off by one: the divine-name line stands two verses before the doxology line in both numberings.",
+     "evidence": "The doxology line the sentence measures back from is web:Ps.108.5 = oshb:Ps.108.6 and the divine-name line is web:Ps.108.3 = oshb:Ps.108.4: 6 minus 4 = 2 verses in MT. In WEB the same pair is web:Ps.108.5 and web:Ps.108.3 (ps_lib.mt_to_web(108,6) = (108,5); ps_lib.mt_to_web(108,4) = (108,3)): 5 minus 3 = 2 verses. The Ps 57 side gives the same answer, oshb:Ps.57.12 back to oshb:Ps.57.10 = 2 verses. No reading of the sentence yields 3."
+    }
+   ],
+   "row_sha256": "62deb220d86c2b35fb5ed82ac158d0570b9ead565001f6cfb9be47c9eb403309"
+  },
+  {
+   "decision_id": "M8-Ps-367",
+   "verdict": "challenge",
+   "reasoning": "Span WEB 108:6-9 = MT 108:7-10; all four in-field pairings reproduce under ps_lib. The Hebrew of oshb:Ps.108.7 collates at BYTE tier at its stated ref. The speech-frame warrant is checkable in both witnesses and it holds: the oracle's quotation opens inside web:Ps.108.7 and its closing quotation mark falls at the end of web:Ps.108.9 (“Moab is my wash pot. I will toss my sandal on Edom. I will shout over Philistia.\"”), while MT 108:11 resumes the psalmist's own voice with מִ֣י יֹ֭בִלֵנִי -- so the 108:9|108:10 seam is a real tier-1 discourse boundary and does not need the Psalm-60 source line to stand. The source-switch claim is right in substance and materially understated in degree; the defects are citation-side. For the record the Ps 108 cites in this row are refs-array-satisfied per citation_sweep.py and are not contested.",
+   "challenges": [
+    {
+     "challenge_id": "OL-367-1",
+     "severity": "medium",
+     "claim": "oshb:Ps.60.7 is cited as the comparison base with no WEB arithmetic anywhere in the row, and Ps 60 is one of the book's 4 shift+2 psalms, where MT and WEB numbering diverge by 2.",
+     "evidence": "citation_sweep.py reports: 'M8-Ps-367: oshb:Ps.60.7 beside Hebrew content in row.rationale (non-identity psalm) has no WEB arithmetic in-field (NO matching dual in refs either -- REAL dual-cite gap)'. The offset map gives Ps 60 rule 'shift' with k 2 and mt_title_verses [1, 2]; ps_lib.mt_to_web(60,7) = (60,5), so the owed pairing is web:Ps.60.5 = oshb:Ps.60.7. boundary_evidence_refs carries only the bare oshb:Ps.60.7, and the rationale gives it no WEB counterpart, so nothing in the row lets a reader land on “So that your beloved may be delivered, save with your right hand, and answer us.” (web:Ps.60.5), the verse actually being compared."
+    },
+    {
+     "challenge_id": "OL-367-2",
+     "severity": "medium",
+     "claim": "MT 60:7 is the only ketiv/qere verse in this row's entire comparison set and the row leans on its wording with no K/Q disclosure -- while the single token where 108:7 and 60:7 differ IS that ketiv/qere.",
+     "evidence": "pmarks_Ps.json kq covers 65 verses; filtered to Psalms 57, 60, 108 and 109 there is exactly 1 hit, Ps.60.7. Source bytes: web:Ps.60.5 = oshb:Ps.60.7 = לְ֭מַעַן יֵחָלְצ֣וּן יְדִידֶ֑יךָ הוֹשִׁ֖יעָה יְמִֽינְךָ֣ ועננו וַעֲנֵֽנִי -- the unpointed ketiv token ועננו stands inline before the pointed qere וַעֲנֵֽנִי ; web:Ps.108.6 = oshb:Ps.108.7 = לְ֭מַעַן יֵחָלְצ֣וּן יְדִידֶ֑יךָ הוֹשִׁ֖יעָה יְמִֽינְךָ֣ וַעֲנֵֽנִי . Dropping the unpointed token from 60:7 makes the two verses byte-identical (equality test True, 6 words each). So 'is close to oshb:Ps.60.7's own wording' both understates a byte-exact match and suppresses its one point of divergence. The divergence is live in the English the row quotes: WEB renders a plural object at both places (“save with your right hand, and answer us.” web:Ps.108.6; “save with your right hand, and answer us.” web:Ps.60.5) against a 1cs qere, which is exactly what a K/Q disclosure would have carried."
+    }
+   ],
+   "row_sha256": "ddaf61b91018ecc0f82a261df6821face5920ff92f8d9537828017812d488851"
+  },
+  {
+   "decision_id": "M8-Ps-368",
+   "verdict": "support",
+   "reasoning": "Span WEB 108:10-13 = MT 108:11-14; all four in-field pairings reproduce under ps_lib.web_to_mt ((108,11), (108,12), (108,13), (108,14)). The right edge is forced -- the psalm ends at web:Ps.108.13 and rows do not cross psalm boundaries -- and the three Ps 108 rows tile the psalm exactly (check_tiling.py: 13 verses expected, 13 covered, 0 problems). The left edge is byte-visible independently of the row's English argument: oshb:Ps.108.10 closes the 1cs divine speech on אֶתְרוֹעָֽע and oshb:Ps.108.11 opens the psalmist's own question with מִ֣י יֹ֭בִלֵנִי, matching the closing quotation mark WEB places at the end of web:Ps.108.9. Every curly-quoted WEB string verifies verbatim (check_web_quotes.py GREEN across the cluster's 38 quotes), check_refs_mirror.py is clean for this row, and confidence high is calibrated for a span with one forced edge and one discourse-marked edge. Two observations, neither rising to a defect. First, check_universals.py flags two absence phrases here, 'carries no discourse marker separating it from the' and 'with no intervening topic marker'; both are reading claims rather than countable objects, no sweep could settle them, and nothing in the bytes contradicts either. Second, this row is the only 1 of the cluster's 8 rows with no original-language evidence at all -- and a byte-tier anchor was available: web:Ps.108.13 = oshb:Ps.108.14 is byte-identical to web:Ps.60.12 = oshb:Ps.60.14 (equality test True), the only byte-equal pair in the entire 108/60 tail (108:8 and 108:13 match only at skeleton tier; 108:9, 108:10, 108:11 and 108:12 differ in consonants). Recording it would have grounded the row's closing-panel claim in the source rather than the translation.",
+   "challenges": [],
+   "row_sha256": "1f7d58ce300c21865ffb0a0a2c31c77d8b5bc474eb4ea8c550328dc2d6753dea"
+  },
+  {
+   "decision_id": "M8-Ps-369",
+   "verdict": "challenge",
+   "reasoning": "Ps 109 is an identity psalm and the row handles it correctly: the offset map reads psalms['109'] = rule 'identity', web_verses 31, mt_verses 31, mt_title_verses [], note 'identity_confirmed_by_kjv_note_on_v1', and verse_map_web gives Ps.109.0 the mt value 'inside Ps.109.1'. So web:Ps.109.0 = oshb:Ps.109.1 alongside web:Ps.109.1 = oshb:Ps.109.1 is the right form, the title is legitimate tier-1 opener evidence under the owner addendum, and no dual-cite is owed in this psalm. All 10 Hebrew runs in the row collate at BYTE tier at their stated refs: the title לַ֭מְנַצֵּחַ לְדָוִ֣ד מִזְמ֑וֹר and the vocative אֱלֹהֵ֥י תְ֝הִלָּתִ֗י אַֽל inside oshb:Ps.109.1, and the four plural forms פָּתָ֑חוּ and דִּבְּר֥וּ (oshb:Ps.109.2), סְבָב֑וּנִי (oshb:Ps.109.3), יִשְׂטְנ֗וּנִי (oshb:Ps.109.4). The closing seam is byte-supported: oshb:Ps.109.6 turns to the 3ms singular עָלָ֣יו, and the row's absence claim -- flagged by check_universals.py as 'with no reported-speech verb introducing it' -- verifies true on inspection of the seam bytes: neither oshb:Ps.109.5 nor oshb:Ps.109.6 carries any amar or lemor token. Confidence high is calibrated. One defect: 1 of the row's 3 Hebrew-and-WEB pairings, the one at 109:2, does not cover the same span.",
+   "challenges": [
+    {
+     "challenge_id": "OL-369-1",
+     "severity": "medium",
+     "claim": "The Hebrew quoted at web:Ps.109.2 = oshb:Ps.109.2 is glossed with a WEB string that runs two Hebrew words past it, so the quoted bytes contain none of the plural verb the row adduces them for.",
+     "evidence": "Quote as shipped: כִּ֤י פִ֪י רָשָׁ֡ע וּֽפִי מִ֭רְמָה -- 5 words, byte tier at oshb:Ps.109.2 (collate.py), ending at מִ֭רְמָה . The WEB gloss paired with it, “they have opened the mouth of the wicked and the mouth of deceit against me” (web:Ps.109.2), reaches two further source words, עָלַ֣י פָּתָ֑חוּ, and drops the quote's opening כִּ֤י . The plural verb the row names as its frame evidence is פָּתָ֑חוּ, which lies outside the quote; the quoted run is a nominal string with no verb in it. The row's own observed_substrate_signals cites that verb correctly, so the fix is to re-cut one side to the other's span, not to drop the claim. Contrast the row's clean pairing at oshb:Ps.109.1, where אֱלֹהֵ֥י תְ֝הִלָּתִ֗י אַֽל and “God of my praise, don't remain silent,” (web:Ps.109.1) cover the same words."
+    }
+   ],
+   "row_sha256": "617511e44231f963d30a943e489c3b269ef130be6c30cb5ef2b0291a55597608"
+  },
+  {
+   "decision_id": "M8-Ps-370",
+   "verdict": "challenge",
+   "reasoning": "Span WEB 109:6-13 = MT 109:6-13 (identity psalm, no dual-cite owed). All five Hebrew runs collate at BYTE tier at their stated refs: הַפְקֵ֣ד עָלָ֣יו רָשָׁ֑ע at oshb:Ps.109.6, יִֽהְיֽוּ at oshb:Ps.109.8, בָנָ֥יו יְתוֹמִ֑ים at oshb:Ps.109.9, ח֝וֹנֵ֗ן לִיתוֹמָֽיו at oshb:Ps.109.12, and יְהִֽי אַחֲרִית֥וֹ לְהַכְרִ֑ית at oshb:Ps.109.13. The opening seam is byte-supported by the referent narrowing to the singular עָלָ֣יו against the plural chain of 109:2-4, and the closing seam by the generational reversal at oshb:Ps.109.14. The row's handling of the contested quoted-curse rival is honest and byte-checkable in both directions: it discloses that the Hebrew supplies no quotation-opening verb at the seam, and the bytes agree -- oshb:Ps.109.4 through oshb:Ps.109.7 carry no amar or lemor token, so neither reading is excluded by the frame. Confidence medium is well calibrated for a seam carrying the live rival reading the row itself discloses, and the jussive labels, though unverifiable against the staged extract (no morphology layer), are consistent with the pointed bytes and with both witnesses' renderings. The defect is the inclusio's count evidence.",
+   "challenges": [
+    {
+     "challenge_id": "OL-370-1",
+     "severity": "medium",
+     "claim": "The 'fatherless-root spelling' sweep names one object but its digits belong to a truncated consonantal substring that is not a spelling; neither attested spelling in the span yields 2-of-4, and the figure silently omits half the lexeme's book-wide attestation.",
+     "evidence": "The two forms the row quotes are different spellings: יְתוֹמִ֑ים at oshb:Ps.109.9 and לִיתוֹמָֽיו at oshb:Ps.109.12 (both byte tier). Re-swept per spelling with sweep.py semantics, counts in VERSES: the 109:9 skeleton spelling = 3 verses book-wide (web:Ps.68.5 = oshb:Ps.68.6, oshb:Ps.94.6, oshb:Ps.109.9), of which 1 is in this span; the 109:12 skeleton spelling = 1 verse (oshb:Ps.109.12), 1 in this span. Neither supports '2 of 4 ... both inside this span'. The 4 is reproducible only from the 4-consonant medial-mem substring shared by the two forms = 4 verses (web:Ps.68.5 = oshb:Ps.68.6, oshb:Ps.94.6, oshb:Ps.109.9, oshb:Ps.109.12) -- a substring, not a spelling, and the campaign rule is to name the swept object first and sweep each attested spelling for a root-level claim. Read as the root count the sentence advertises, it is short by half: because final-letter allography is preserved exactly in this extract, the final-mem spelling of the same lexeme sweeps to 4 further verses (oshb:Ps.10.14, oshb:Ps.10.18, oshb:Ps.82.3, oshb:Ps.146.9), putting the fatherless lexeme in 8 verses book-wide, not 4. The inclusio itself is not contested -- only the digits offered for it."
+    }
+   ],
+   "row_sha256": "c39853257b32eaa02e5b008273db3ab05d26eedeeef9cff4335c18e907f06ee8"
+  },
+  {
+   "decision_id": "M8-Ps-371",
+   "verdict": "support",
+   "reasoning": "Span WEB 109:14-20 = MT 109:14-20 (identity). All 12 Hebrew runs (6 distinct) collate at BYTE tier at their stated refs, including the 2 encoding-sensitive ones: יִזָּכֵ֤ר עֲוֺ֣ן אֲ֭בֹתָיו at oshb:Ps.109.14, which carries the holam-haser-for-vav form and would have failed byte tier had it been re-keyed, and זֹ֤את פְּעֻלַּ֣ת שֹׂ֭טְנַי מֵאֵ֣ת at oshb:Ps.109.20. The remembrance chain is byte-true across three consecutive verses (יִזָּכֵ֤ר / מֵאֶ֣רֶץ / יַ֗עַן אֲשֶׁ֤ר לֹ֥א). The exclusivity sweep is the one count in this cluster that reproduces exactly: the cursing-noun spelling shared by oshb:Ps.109.17 and oshb:Ps.109.18 sweeps to 2 verses / 2 tokens book-wide, both of them here -- 'sweep: 2 of 2 skeleton hits book-wide' is correct and the object is named before the count. The closing seam holds on evidence the row states only in English: the nominal שֹׂ֭טְנַי at oshb:Ps.109.20 recovers the root of the verb יִשְׂטְנ֗וּנִי at oshb:Ps.109.4, which is what makes “This is the reward of my adversaries from Yahweh” (web:Ps.109.20) a genuine reversion rather than a restatement, and the direct petition opens at oshb:Ps.109.21. Confidence medium is calibrated. Two observations short of defects. First, device_notes delimits the clothing image as web:Ps.109.17-Ps.109.19, but the clothing verb of oshb:Ps.109.18 recurs outside that range at oshb:Ps.109.29 (יִלְבְּשׁ֣וּ; that skeleton = 2 verses inside Ps 109, oshb:Ps.109.18 and oshb:Ps.109.29), alongside וְיַעֲט֖וּ answering יַעְטֶ֑ה at oshb:Ps.109.19 -- the delimitation survives only on a narrow reading of clothing-as-curse against 109:29's clothing-as-shame, which the note does not say. Second, 'not shared with the other five psalms of this span' is an exclusivity claim with no sweep behind it, anchored to a part scope rather than to verses. Neither touches the span, the warrant, or the row's own counts.",
+   "challenges": [],
+   "row_sha256": "c9fa803abf0ae2cabc795c935bf90ba7ba51bb76fabcf048b8944479f94d52a2"
+  },
+  {
+   "decision_id": "M8-Ps-372",
+   "verdict": "challenge",
+   "reasoning": "Span WEB 109:21-27 = MT 109:21-27 (identity). All four Hebrew runs collate at BYTE tier at their stated refs, including the divine-name sequence וְאַתָּ֤ה יְה֘וִ֤ה אֲדֹנָ֗י עֲֽשֵׂה at oshb:Ps.109.21, and pmarks_Ps.json records no ketiv/qere anywhere in Ps 109, so no disclosure is owed on it. The 20|21 seam is in fact well warranted -- on grounds the row states in passing rather than the one it names: the fronted וְאַתָּ֤ה against the demonstrative verdict-label opening oshb:Ps.109.20, and the switch from a 3ms curse-object to a 1cs petitioner. But the row's named driver is an absence claim, and the absence does not hold; and the row's affliction quote does not cover its gloss. The orchestrator flag cross_part_phrasing_variation on the rejected_alternative's opening is logged normalization and is not contested.",
+   "challenges": [
+    {
+     "challenge_id": "OL-372-1",
+     "severity": "high",
+     "claim": "The row's stated driver -- that direct second-person address to God is absent from oshb:Ps.109.1-Ps.109.20 -- is falsified by the psalm's own first verse.",
+     "evidence": "oshb:Ps.109.1 = לַ֭מְנַצֵּחַ לְדָוִ֣ד מִזְמ֑וֹר אֱלֹהֵ֥י תְ֝הִלָּתִ֗י אַֽל תֶּחֱרַֽשׁ . After the title it runs אֱלֹהֵ֥י תְ֝הִלָּתִ֗י אַֽל -- a divine vocative followed by a negated 2ms form -- and WEB carries it as direct address: “God of my praise, don't remain silent,” (web:Ps.109.1). That verse sits inside the very range the claim excludes. A second instance stands inside the stretch the row calls a third-person curse register: oshb:Ps.109.6 opens on הַפְקֵ֣ד, a 2ms imperative under the non-quoted reading of 109:6-19 that this psalm's rows take as the main line, rendered “Set a wicked man over him.” (web:Ps.109.6). The claim is made twice: hedged in rationale as 'absent from web:Ps.109.1-Ps.109.20's third-person report/curse register', and unhedged in observed_substrate_signals as 'a direct second-person address to God absent from oshb:Ps.109.1-Ps.109.20'. observed_substrate_signals is the field a downstream reader treats as the substrate fact, and as written it is false. What the bytes do support is that oshb:Ps.109.21 opens the first SUSTAINED stretch of second-person address -- 7 consecutive verses of it, oshb:Ps.109.21 to oshb:Ps.109.27 -- which is a different and defensible warrant."
+    },
+    {
+     "challenge_id": "OL-372-2",
+     "severity": "medium",
+     "claim": "The affliction quote at oshb:Ps.109.24 is cut short of its gloss and so omits the only first-person element it is cited to exhibit.",
+     "evidence": "Quote as shipped: כָּשְׁל֣וּ מִצּ֑וֹם -- byte tier at oshb:Ps.109.24 (collate.py) -- a 3cp verb plus a prepositional phrase, carrying no first-person marker at all. The WEB gloss paired with it, “My knees are weak through fasting” (web:Ps.109.24), includes the subject, which in the source is the immediately preceding word בִּ֭רְכַּי, outside the quote. The row files the pair under 'first-person affliction vocabulary', and the first person is carried entirely by the 1cs suffix on the word that was cut. The row's other pairing in the same field is the correct model: כִּֽי עָנִ֣י וְאֶבְי֣וֹן אָנֹ֑כִי with “for I am poor and needy” (web:Ps.109.22) covers the same span on both sides."
+    }
+   ],
+   "row_sha256": "327bde9d80ad5f08a60c7dcc9684ddf4087c64a97ef3e84815f3988b2f4d0d89"
+  },
+  {
+   "decision_id": "M8-Ps-373",
+   "verdict": "challenge",
+   "reasoning": "Span WEB 109:28-31 = MT 109:28-31 (identity); the row closes the psalm, and the five Ps 109 rows tile it exactly (check_tiling.py: 31 verses expected, 31 covered, 0 problems). All 9 Hebrew runs collate at BYTE tier at their stated refs. The 27|28 seam is byte-supported by the fronted pronoun pair הֵמָּה֮ and וְאַתָּ֪ה at oshb:Ps.109.28. The inclusio's substance is correct and I re-derived it: the verb at oshb:Ps.109.6 recurs at oshb:Ps.109.31 (that skeleton = 10 verses book-wide, 2 of them in this psalm), and the right-hand root sits in both, reassigned from the adversary's post to God's. What fails is the parenthetical sweep offered as proof of it, on both figures, plus one unsupportable form label.",
+   "challenges": [
+    {
+     "challenge_id": "OL-373-1",
+     "severity": "medium",
+     "claim": "The '9 verses book-wide' figure is not a count of the form used at web:Ps.109.31 -- that form occurs in exactly 1 verse; the 9 belongs to a shorter substring the sentence never names.",
+     "evidence": "The token at oshb:Ps.109.31 is לִימִ֣ין ; swept book-wide on its skeleton it returns 1 verse, oshb:Ps.109.31 itself. The 9 is reproducible only from the bare noun skeleton without the prefixed preposition = 9 verses / 10 tokens book-wide (web:Ps.77.10 = oshb:Ps.77.11, web:Ps.89.12 = oshb:Ps.89.13, web:Ps.89.42 = oshb:Ps.89.43, oshb:Ps.109.31, oshb:Ps.118.15, oshb:Ps.118.16, web:Ps.142.4 = oshb:Ps.142.5, oshb:Ps.144.8, oshb:Ps.144.11), a different object from the one the sentence names. That object also cannot pair with the 109:6 side of the inclusio: its final-nun spelling cannot match the medial-nun spelling at oshb:Ps.109.6, so the two figures in the parenthetical are counting incommensurable objects and neither is named."
+    },
+    {
+     "challenge_id": "OL-373-2",
+     "severity": "low",
+     "claim": "The '8 verses book-wide' figure for the 109:6 form is arithmetically right for the skeleton but 3 of its 8 verses are a homograph meaning 'our days', so as right-hand evidence it doubles the true attestation.",
+     "evidence": "The 109:6 token skeleton sweeps to 8 verses (web:Ps.20.6 = oshb:Ps.20.7, oshb:Ps.78.54, web:Ps.89.25 = oshb:Ps.89.26, oshb:Ps.90.9, oshb:Ps.90.12, oshb:Ps.90.14, oshb:Ps.98.1, oshb:Ps.109.6), which is where the 8 comes from. The pointed bytes separate them: an accent-stripped sweep of the actual 109:6 token יְמִינֽוֹ returns 4 verses (web:Ps.20.6 = oshb:Ps.20.7, oshb:Ps.78.54, web:Ps.89.25 = oshb:Ps.89.26, oshb:Ps.109.6). The other three read יָ֭מֵינוּ at oshb:Ps.90.9, יָ֭מֵינוּ at oshb:Ps.90.12, and יָמֵֽינוּ at oshb:Ps.90.14 -- 'our days', a different lexeme with an identical skeleton. This is the short-token homography the toolkit records for the two-letter divine-name case: skeleton parity, pointing differs, so a naive skeleton count is not evidence. Offered for the right-hand root, the 8 should be 4 verses."
+    },
+    {
+     "challenge_id": "OL-373-3",
+     "severity": "low",
+     "claim": "'cohortative' at oshb:Ps.109.30 is a form label the staged evidence cannot carry, because the verb's class has no distinguishing cohortative morpheme.",
+     "evidence": "The opening token is א֘וֹדֶ֤ה at oshb:Ps.109.30 (byte tier). The staged extract has no morphology layer, so the label must be argued from the pointed bytes plus both witnesses. The bytes give a III-he 1cs form, a class in which the cohortative carries no distinguishing final morpheme, so the token is formally identical to a plain 1cs imperfect; the skeleton sweeps to 8 verses book-wide (web:Ps.7.17 = oshb:Ps.7.18, web:Ps.9.1 = oshb:Ps.9.2, oshb:Ps.32.5, web:Ps.54.6 = oshb:Ps.54.8, oshb:Ps.109.30, oshb:Ps.111.1, oshb:Ps.118.19, oshb:Ps.138.2) with no formal variant among them to contrast against. WEB reads a plain future, “I will give great thanks to Yahweh with my mouth.” (web:Ps.109.30). The volitive sense may well be right; the morphological label is not derivable from what is staged, and the neighbouring signal in the same field states a form claim the source can support (the fronted independent pronouns at oshb:Ps.109.28)."
+    }
+   ],
+   "row_sha256": "516b4717425d228bf55c94f9c69292d5c23a785af84a8a7e0fb325058adc4ccd"
+  }
+ ]
+}

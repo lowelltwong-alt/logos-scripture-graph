@@ -1,0 +1,764 @@
+{
+ "attempt_id": "revround_tools_ps_r1",
+ "generated": "2026-08-18",
+ "rows_file": "SP/Ps/freeze/rows_v1.jsonl (492 rows)",
+ "tools_dir": "SP/Ps/tools/ (pre-upgrade copies preserved verbatim in SP/Ps/tools/prev/)",
+ "governance": {
+  "scratchpad_only": true,
+  "worktree_writes": "none",
+  "continuation_receipt": "not written"
+ },
+ "upgrades_applied": [
+  {
+   "tool": "citation_sweep.py",
+   "item": "1a pointed-run BYTE floor",
+   "change": "tier gate at the collate arm changed from tier in ('byte','nfd') to tier == 'byte' for POINTED runs; a pointed run whose best tier is nfd is reported in the new WARN class nfd_degraded (not a pass, not a hard problem)",
+   "evidence": "CYCLE_STATE L530 + 4 independent re-confirmations (L614, L965, L997, L1046)"
+  },
+  {
+   "tool": "citation_sweep.py",
+   "item": "1b prose-pair WEB/oshb RANGE forms",
+   "change": "new PROSE_PAIR regex + web_start_ok(): 'web:Ps.C.V1-V2 = oshb:...' validated per ENDPOINT via web_to_mt; title (v=0) forms preserved",
+   "evidence": "CYCLE_STATE L564 (M8-Ps-262 class; orchestrator range-aware scan bounded it at 1 live member)"
+  },
+  {
+   "tool": "citation_sweep.py",
+   "item": "1c prose-dual window widen",
+   "change": "context window +-80 -> +-120 chars",
+   "evidence": "CYCLE_STATE L960 bug (2): a 77-char gap left 9 chars of a compliant pairing outside the window"
+  },
+  {
+   "tool": "citation_sweep.py",
+   "item": "1d input contract",
+   "change": "rows_from() added (sibling suffix-sniff): .jsonl OR pretty-printed JSON array / {'decisions': [...]}",
+   "evidence": "CYCLE_STATE L831, independently re-found L864"
+  },
+  {
+   "tool": "citation_sweep.py",
+   "item": "1e kq_web_quote_warn (WARN only)",
+   "change": "curly-quoted English span bound to web: refs in its own field (+-200 chars, verbatim-verified against verse_map_web); if a covered verse is a K/Q verse and the ROW carries no ketiv/qere keyword anywhere -> WARN",
+   "evidence": "CYCLE_STATE L519 (OL-c30 gate hole, OL-208-2 sits in it); graded WARN per boss ruling B-10 (L1144)"
+  },
+  {
+   "tool": "check_refs_mirror.py",
+   "item": "2a VERSE_WORD conjunction/comma lists",
+   "change": "the keyword now governs a numeral EXPRESSION; dash = RANGE, comma/'and' = LIST; guards added: a continuation numeral must ASCEND, and a numeral followed by a count-unit noun is dropped",
+   "evidence": "CYCLE_STATE L1057 ('vv1, 3' comma over-capture deducted by peer p15) + L960; the guards were added after the first cut charged M8-Ps-022 ('2 at verse 13, 3 at verse 14' -> verse 3) and M8-Ps-030 ('verses 10-11, 2 verses' -> verse 2)"
+  },
+  {
+   "tool": "check_refs_mirror.py",
+   "item": "2b MT_COLON ranges",
+   "change": "chapter-qualified range ends accepted ('MT 88:11-88:13'); expansion clamped in MT space",
+   "evidence": "CYCLE_STATE L1189 (author worked around it by comma-separation)"
+  },
+  {
+   "tool": "check_refs_mirror.py",
+   "item": "2c no-space fix retained",
+   "change": "'vv.6-7' / 'v.7' still visible (optional period, optional space)",
+   "evidence": "CYCLE_STATE L678"
+  },
+  {
+   "tool": "check_refs_mirror.py",
+   "item": "2d orphan-refs arm (WARN only)",
+   "change": "a refs entry whose verses are argued nowhere in prose, sit outside the span AND are not the span's seam verses -> orphan_ref_warns; never a flag, never a status change",
+   "evidence": "CYCLE_STATE L1014 (M8-Ps-404 class). Seam exclusion added on measurement: 81 raw hits, 69 of them structural front/rear seam refs"
+  },
+  {
+   "tool": "check_refs_mirror.py",
+   "item": "2e witness-prefix-aware coverage",
+   "change": "entry_pairs() scans a refs entry left-to-right; an unprefixed Ps.C.V token inherits the entry's last explicit witness prefix instead of defaulting to WEB (OL-c18 per-token detection retained)",
+   "evidence": "CYCLE_STATE L804 (refs-array oshb:Ps.108.6 mirroring an argued web:Ps.108.6 'lexically, not semantically')"
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3a alternation boundary fix",
+   "change": "every plain alternative is now \\b-terminated",
+   "evidence": "CYCLE_STATE L888 bug (1): 'never' fired inside 'nevertheless'"
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3b sentence-scoped sweeps",
+   "change": "the +-160-char window is replaced by sentence spans split on [.;], with citation/abbreviation periods (Ps.C.V, 'vv.', 'cf.', 'e.g.') masked so a ref never severs a sentence",
+   "evidence": "CYCLE_STATE L888 bug (2): window laundering, a '2 verses' 150 chars away cleared an unrelated unswept claim"
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3c lexicon adds",
+   "change": "absent(+from); without any comparable/other/further/new/parallel; no parallel; unbroken|uninterrupted|continuous; rare(ly)|isolated. SWEEP additionally accepts spelled numerals one..ten and the 'N of the M' article form",
+   "evidence": "CYCLE_STATE L588 (continuity adjectives), L888 bug (3) (parallel arm), L1014 (rarity class)"
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3d EST_ALLOW 'best-' removed",
+   "change": "dampener entry deleted",
+   "evidence": "CYCLE_STATE L1021",
+   "measured_effect": "NO-OP on this corpus, and unreachable in principle: UNIV's superlative alternative is \\w{3,}est\\b, which cannot match a 4-letter 'best' (only one word char precedes 'est'), so the 'best-' dampener never fired for 'best' itself. Making reception superlatives flaggable requires a LEXICON entry, not a dampener edit - logged as a residual gap, not silently widened here."
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3e domain-size digits rejected",
+   "change": "a SWEEP hit lying wholly inside 'remaining N verses' / 'of the N verses' / 'the other N verses' no longer satisfies the gate",
+   "evidence": "CYCLE_STATE L1021 ('remaining 7 verses' cleared the gate with zero sweep)"
+  },
+  {
+   "tool": "check_universals.py",
+   "item": "3f tier-vocabulary dampener",
+   "change": "a claim whose sentence names a collate tier (byte|nfd|accent_stripped|skeleton) beside a specific ref is treated as grounded; counted in tier_vocabulary_dampened, not flagged",
+   "evidence": "CYCLE_STATE L1209/L1224 (42 of 47 residual flags were the mandated tier words tripping the heuristic)"
+  },
+  {
+   "tool": "check_marks.py",
+   "item": "4a Rule 2 unconditional",
+   "change": "the selah-symmetry arm was moved OUT of the 'if words:' guard (it was nested at line ~183 under the guard at line 160)",
+   "evidence": "CYCLE_STATE L960 bug (1): S2d gate gap, the M8-Ps-470 case"
+  },
+  {
+   "tool": "check_marks.py",
+   "item": "4b paseq-position arm (WARN only)",
+   "change": "prose asserting WHERE INSIDE A VERSE a paseq stands -> paseq_position_warn in a separate warns list (flag_count/status untouched); count-only disclaimers and verse-level locations are exempt",
+   "evidence": "CYCLE_STATE L757 (OL-386-2 inventory-position fabrication), L976 (472-2, 2nd instance), L1021"
+  },
+  {
+   "tool": "check_marks.py",
+   "item": "4c absence-idiom alignment",
+   "change": "ABSENCE widened to check_universals' absence lexicon (absent from / lacks / lacking / free of / zero)",
+   "evidence": "CYCLE_STATE L711 (the two tools pulled in opposite directions on absence phrasing)"
+  },
+  {
+   "tool": "ngram7.py",
+   "item": "5 ref-token stripping",
+   "change": "REF_TOKENS (web:/oshb: refs, bare Ps.C.V, MT/WEB c:v qualifiers) stripped before gram extraction",
+   "evidence": "CYCLE_STATE L1225 ngram7 RED DISPOSITION"
+  },
+  {
+   "tool": "check_web_quotes.py",
+   "item": "6 neighbor-only arm (WARN only)",
+   "change": "two-pass matching: PASS 1 tests the exact verses of EVERY nearby ref, PASS 2 the widened sets; a match that needs the +-1 slack in a NON-IDENTITY psalm -> neighbor_only_warns",
+   "evidence": "CYCLE_STATE L632 (OL-267-1; the +-1 slack exactly cancels the MT-number-under-web hazard in 62 non-identity psalms)"
+  }
+ ],
+ "probe_results": {
+  "universals_nevertheless": {
+   "input": "The seam is nevertheless defensible; firstly the address shifts, and lastly the register changes; a firstborn motif follows.",
+   "flags": 0,
+   "pass": true
+  },
+  "universals_window_laundering": {
+   "input": "claim in sentence 1, the '2 verses' digit in sentence 2",
+   "result": "'unbroken' FLAGGED - the distant digit no longer launders the claim",
+   "pass": true
+  },
+  "universals_domain_size": {
+   "input": "The vocative is the only one of its kind in the remaining 7 verses.",
+   "result": "'only' FLAGGED - domain-size digit rejected",
+   "pass": true
+  },
+  "universals_tier_dampener": {
+   "input": "The closing formula at web:Ps.148.1 is identical to Ps.149.1 at byte tier.",
+   "result": "not flagged; tier_vocabulary_dampened=1",
+   "pass": true
+  },
+  "universals_spelled_numerals": {
+   "input": "The root is rare here: three of eight verses carry it.",
+   "result": "not flagged - spelled numerals satisfy SWEEP",
+   "pass": true
+  },
+  "universals_new_lexicon": {
+   "input": "The pairing has no parallel and stands without any comparable formulation.",
+   "result": "FLAGGED",
+   "pass": true
+  },
+  "refs_mirror_verse_forms": {
+   "vv.6-7": [
+    6,
+    7
+   ],
+   "vv7 and 9": [
+    7,
+    9
+   ],
+   "vv1, 3": [
+    1,
+    3
+   ],
+   "v.7": [
+    7
+   ],
+   "vv. 1-3, 5 and 8": [
+    1,
+    2,
+    3,
+    5,
+    8
+   ],
+   "verses 10-11, 2 verses": [
+    10,
+    11
+   ],
+   "2 at verse 13, 3 at verse 14": [
+    13,
+    14
+   ],
+   "pass": true
+  },
+  "refs_mirror_mt_colon": {
+   "MT 88:11-88:13": "WEB Ps.88.10 / 88.11 / 88.12",
+   "MT 88:11-13": "WEB Ps.88.10 / 88.11 / 88.12 (identical, as required)",
+   "pass": true
+  },
+  "citation_sweep_json_array_input": {
+   "file": "probe_citation.json - pretty-printed JSON ARRAY",
+   "rows_parsed": 5,
+   "pass": true
+  },
+  "citation_sweep_range_pair": {
+   "web:Ps.83.17-18 = oshb:Ps.83.19": "FLAGGED (expected oshb:Ps.83.18-19)",
+   "web:Ps.83.17-18 = oshb:Ps.83.18-19": "clean",
+   "web:Ps.83.17 = oshb:Ps.83.17": "FLAGGED (single-single arm unchanged)",
+   "pass": true
+  },
+  "citation_sweep_window": {
+   "gap_100_chars": "no prose_dual warn (inside the new +-120 window)",
+   "gap_200_chars": "warn raised",
+   "pass": true
+  },
+  "citation_sweep_pointed_nfd": {
+   "corpus_probe": "M8-Ps-005's two pointed runs now report nfd_degraded instead of passing silently",
+   "codepoint_evidence": "quote U+05D0 05B7 059D 05E9 05B0 05C1 05E8 05B5 0597 05D9 vs source U+05D0 05B7 059D 05E9 05C1 05B0 05E8 05B5 0597 05D9 - sheva and shin-dot transposed; NFD-equal, byte-unequal",
+   "pass": true
+  },
+  "marks_paseq_position": {
+   "A paseq stands after the second word of Ps.119.128": "paseq_position_warn",
+   "bare count disclosure, not a positional claim ... records no offset/word-index": "silent (negation guard)",
+   "A paseq mark sits inside this stanza at its own Ps.119.52": "silent (verse-level location is legitimate)",
+   "pass": true
+  },
+  "marks_rule2_unconditional": {
+   "probe_row": "span Ps.47.5-Ps.47.9, prose never says selah",
+   "result": "selah_symmetry_gap raised with row_cites_selah=false",
+   "pass": true
+  },
+  "marks_absence_idiom": {
+   "probe": "'Selah is absent from this span entirely.' over a span with a front-seam selah",
+   "result": "false_selah_absence_claim raised (the pre-upgrade idiom list did not match 'absent from')",
+   "pass": true
+  },
+  "ngram7_green": {
+   "rows": 492,
+   "offending_7grams": 0,
+   "worst_lexical_reuse_rows": 7,
+   "status": "GREEN",
+   "pass": true
+  }
+ },
+ "suite_before": {
+  "citation_sweep": {
+   "status": "GREEN",
+   "problems": 0,
+   "prose_dual_warns": 233,
+   "prose_pair_problems": 0
+  },
+  "check_web_quotes": {
+   "status": "GREEN",
+   "flag_count": 0,
+   "quotes_checked": 1879
+  },
+  "check_refs_mirror": {
+   "status": "GREEN",
+   "flag_count": 0
+  },
+  "check_marks": {
+   "status": "FLAGS",
+   "flag_count": 1,
+   "flags": [
+    {
+     "decision_id": "M8-Ps-356",
+     "rule": "kq_claim"
+    }
+   ]
+  },
+  "check_language_zones": {
+   "status": "GREEN",
+   "flag_count": 0
+  },
+  "check_universals": {
+   "status": "FLAGS",
+   "claims_seen": 546,
+   "flag_count": 225
+  },
+  "ngram7": {
+   "status": "RED",
+   "offending_7grams": [
+    {
+     "gram": "web ps oshb ps web ps oshb",
+     "rows": 10
+    },
+    {
+     "gram": "ps oshb ps web ps oshb ps",
+     "rows": 10
+    }
+   ]
+  }
+ },
+ "suite_after": {
+  "citation_sweep": {
+   "status": "GREEN",
+   "problems": 0,
+   "prose_dual_warns": 195,
+   "prose_pair_problems": 0,
+   "nfd_degraded_count": 2,
+   "kq_web_quote_warn_count": 12
+  },
+  "check_web_quotes": {
+   "status": "GREEN",
+   "flag_count": 0,
+   "quotes_checked": 1879,
+   "neighbor_only_warn_count": 16
+  },
+  "check_refs_mirror": {
+   "status": "GREEN",
+   "flag_count": 0,
+   "orphan_ref_warn_count": 11,
+   "orphan_ref_warn_rows": 10
+  },
+  "check_marks": {
+   "status": "FLAGS",
+   "flag_count": 9,
+   "warn_count": 0,
+   "flags": [
+    {
+     "decision_id": "M8-Ps-013",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.7.6",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-020",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.9.21",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-062",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.24.10",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-111",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.39.12",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-134",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.47.5",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-164",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.59.6",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-261",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.83.9",
+     "verse": null
+    },
+    {
+     "decision_id": "M8-Ps-356",
+     "rule": "kq_claim",
+     "undisclosed": null,
+     "verse": "Ps.106.44"
+    },
+    {
+     "decision_id": "M8-Ps-463",
+     "rule": "selah_symmetry_gap",
+     "undisclosed": "Ps.140.9",
+     "verse": null
+    }
+   ]
+  },
+  "check_language_zones": {
+   "status": "GREEN",
+   "flag_count": 0,
+   "note": "tool not in scope; unchanged"
+  },
+  "check_universals": {
+   "status": "FLAGS",
+   "claims_seen": 696,
+   "flag_count": 294,
+   "tier_vocabulary_dampened": 57
+  },
+  "ngram7": {
+   "status": "GREEN",
+   "offending_7grams": [],
+   "worst_reuse": [
+    {
+     "rows": 7,
+     "gram": "web s acrostic header typography not a"
+    },
+    {
+     "rows": 7,
+     "gram": "web json s own stanza header field"
+    },
+    {
+     "rows": 7,
+     "gram": "verse map web json s own stanza"
+    }
+   ]
+  },
+  "run_validator_suite": {
+   "hard_status": "GREEN",
+   "triage_flags": 303,
+   "note": "hard status was RED pre-upgrade via ngram7; hebrew_normalize_dryrun reports ok=1590 fixed=2 defect_count=0"
+  }
+ },
+ "per_tool_delta": {
+  "citation_sweep": "GREEN 0 -> GREEN 0 problems (unchanged). prose_dual_warns 233 -> 195 (-38, from the +-120 window). NEW WARN classes: nfd_degraded 2, kq_web_quote_warns 12. prose_pair_problems 0 -> 0: the range arm finds no live range error because its one known member (M8-Ps-262) was repaired in the author wave, and its corrected form 'web:Ps.83.17-Ps.83.18 = oshb:Ps.83.18-Ps.83.19' now validates endpoint-by-endpoint instead of being skipped.",
+  "check_web_quotes": "GREEN 0 -> GREEN 0 (unchanged). NEW: neighbor_only_warns 16 (15 unique row+ref pairs).",
+  "check_refs_mirror": "GREEN 0 -> GREEN 0 (unchanged). NEW: orphan_ref_warns 11 across 10 rows. The witness-prefix arm changes 0 of 2973 refs entries on this corpus (preventive; no live masking present).",
+  "check_marks": "1 flag -> 9 flags (+8). The pre-existing flag (M8-Ps-356 kq_claim, the known 106:44 +-1 proximity artifact) persists; all 8 new are selah_symmetry_gap raised by the now-unconditional Rule 2. NEW: warns list, 0 paseq-position hits on this corpus.",
+  "check_universals": "225 -> 294 flags (+69 net: 129 new, 60 cleared). claims_seen 546 -> 696. 107 of the 129 new come from the new lexicon, 22 from sentence scoping. 60 cleared via the tier-vocabulary dampener (57 counted) and the widened sweep forms. 37 of the 294 would clear if a semicolon did not end a sentence.",
+  "ngram7": "RED -> GREEN. Both gate-crossing grams ('web ps oshb ps web ps oshb', 'ps oshb ps web ps oshb ps', 10 rows each) were pure citation apparatus and are gone; worst residual LEXICAL reuse is 7 rows, below the gate of 10.",
+  "check_language_zones": "GREEN 0 -> GREEN 0 (tool not in scope, unchanged)."
+ },
+ "new_findings": [
+  {
+   "class": "copy_degradation_nfd",
+   "severity": "real (mechanical)",
+   "decision_id": "M8-Ps-005",
+   "finding": "Two POINTED Hebrew runs in row.device_notes collate against their cited verses only at NFD tier, not byte tier - canonical-order copy degradation that the pre-upgrade gate accepted as a pass.",
+   "evidence": [
+    "run 1 (bound to oshb:Ps.2.12): quote U+05D0 05B7 059D 05E9 05B0 05C1 05E8 05B5 0597 05D9 vs source U+05D0 05B7 059D 05E9 05C1 05B0 05E8 05B5 0597 05D9 - sheva (05B0) and shin-dot (05C1) transposed; NFD-equal, byte-unequal",
+    "run 2 (bound to oshb:Ps.1.1): quote ...05E9 05B0 05BD 05C1... vs source ...05E9 05C1 05B0 05BD... - same transposition class",
+    "independent corroboration: normalize_hebrew_in_json.py dry-run over rows_v1 reports ok=1590, fixed=2, defect_count=0 - exactly these two strings",
+    "full-corpus pointed-run tier census (best tier across ALL oshb refs in the field): byte 1509, nfd 2, none 0 - the four historically listed re-splice members (M8-Ps-215/223/490/491) now collate byte-true, so M8-Ps-005 is the only surviving member"
+   ],
+   "cure": "normalize_hebrew_in_json.py --write on the two device_notes strings (the recorded nfd re-splice cure); no prose change"
+  },
+  {
+   "class": "selah_symmetry_front_seam",
+   "severity": "disclosure gap (S2d convention)",
+   "decision_ids": [
+    "M8-Ps-013",
+    "M8-Ps-020",
+    "M8-Ps-062",
+    "M8-Ps-111",
+    "M8-Ps-134",
+    "M8-Ps-164",
+    "M8-Ps-261",
+    "M8-Ps-463"
+   ],
+   "finding": "Eight rows whose span-relevant selah set is non-empty carry no selah word anywhere in prose or refs. Invisible pre-upgrade because Rule 2 sat inside the 'row mentions selah' guard. Every one is a FRONT-SEAM case: the verse immediately preceding the row's span carries a selah in the inventory.",
+   "evidence": [
+    {
+     "decision_id": "M8-Ps-013",
+     "span": "Ps.7.6-Ps.7.11",
+     "undisclosed_selah_mt": "Ps.7.6",
+     "web": "Ps.7.5",
+     "position": "front seam"
+    },
+    {
+     "decision_id": "M8-Ps-020",
+     "span": "Ps.10.1-Ps.10.4",
+     "undisclosed_selah_mt": "Ps.9.21",
+     "web": "Ps.9.20",
+     "position": "front seam (cross-psalm)"
+    },
+    {
+     "decision_id": "M8-Ps-062",
+     "span": "Ps.25.1-Ps.25.14",
+     "undisclosed_selah_mt": "Ps.24.10",
+     "web": "Ps.24.10",
+     "position": "front seam (cross-psalm)"
+    },
+    {
+     "decision_id": "M8-Ps-111",
+     "span": "Ps.39.12-Ps.39.13",
+     "undisclosed_selah_mt": "Ps.39.12",
+     "web": "Ps.39.11",
+     "position": "front seam"
+    },
+    {
+     "decision_id": "M8-Ps-134",
+     "span": "Ps.47.5-Ps.47.9",
+     "undisclosed_selah_mt": "Ps.47.5",
+     "web": "Ps.47.4",
+     "position": "front seam"
+    },
+    {
+     "decision_id": "M8-Ps-164",
+     "span": "Ps.59.6-Ps.59.9",
+     "undisclosed_selah_mt": "Ps.59.6",
+     "web": "Ps.59.5",
+     "position": "front seam"
+    },
+    {
+     "decision_id": "M8-Ps-261",
+     "span": "Ps.83.9-Ps.83.12",
+     "undisclosed_selah_mt": "Ps.83.9",
+     "web": "Ps.83.8",
+     "position": "front seam"
+    },
+    {
+     "decision_id": "M8-Ps-463",
+     "span": "Ps.140.9-Ps.140.13",
+     "undisclosed_selah_mt": "Ps.140.9",
+     "web": "Ps.140.8",
+     "position": "front seam"
+    }
+   ],
+   "note": "No IN-SPAN undisclosed selah exists anywhere in rows_v1 - the class is exclusively front-seam, the weaker end of the S2d duty. Owner call whether a front-seam selah must be disclosed by a row that never argues from selah.",
+   "cure": "one-line disclosure per row, or an owner ruling scoping Rule 2 to in-span selah"
+  },
+  {
+   "class": "orphan_refs",
+   "severity": "WARN (author triage)",
+   "count": 11,
+   "rows": [
+    {
+     "decision_id": "M8-Ps-087",
+     "refs": [
+      "web:Ps.34.11 = oshb:Ps.34.12"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-166",
+     "refs": [
+      "web:Ps.59.7",
+      "web:Ps.59.10"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-243",
+     "refs": [
+      "web:Ps.78.56"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-325",
+     "refs": [
+      "web:Ps.103.6"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-352",
+     "refs": [
+      "web:Ps.106.30 = oshb:Ps.106.30"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-357",
+     "refs": [
+      "web:Ps.106.5 = oshb:Ps.106.5"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-397",
+     "refs": [
+      "web:Ps.118.27"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-426",
+     "refs": [
+      "oshb:Ps.122.1"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-430",
+     "refs": [
+      "web:Ps.127.4"
+     ]
+    },
+    {
+     "decision_id": "M8-Ps-447",
+     "refs": [
+      "web:Ps.115.18"
+     ]
+    }
+   ],
+   "finding": "Refs entries outside the row's span and seams whose verses are argued nowhere in the row's prose - the class invisible to every other Tier-0 gate.",
+   "note": "M8-Ps-426's oshb:Ps.122.1 is carried by a NAMED-psalm mention ('unlike Psalm 122's ...') with no verse cite, i.e. the named-psalm gap the rev-round list records separately; the rest are cross-psalm or in-psalm comparanda."
+  },
+  {
+   "class": "kq_web_quote_warn",
+   "severity": "WARN (author enhancement per boss ruling B-10)",
+   "count": 12,
+   "decision_ids": [
+    "M8-Ps-010",
+    "M8-Ps-018",
+    "M8-Ps-019",
+    "M8-Ps-022",
+    "M8-Ps-034",
+    "M8-Ps-064",
+    "M8-Ps-073",
+    "M8-Ps-206",
+    "M8-Ps-211",
+    "M8-Ps-218",
+    "M8-Ps-249",
+    "M8-Ps-457"
+   ],
+   "finding": "Rows whose curly-quoted WEB English verbatim covers a K/Q verse with no ketiv/qere keyword anywhere in the row. B-10 ratified 'disclosed when QUOTED' as binding for HEBREW quotes only, so WEB-only quotes are enhancement, not defects.",
+   "details": [
+    "M8-Ps-010: WEB quote covers K/Q verse oshb:Ps.6.4 with no ketiv/qere disclosure anywhere in the row (row.rejected_alternative 'how long?' via web:Ps.6.3)",
+    "M8-Ps-018: WEB quote covers K/Q verse oshb:Ps.9.13 with no ketiv/qere disclosure anywhere in the row (row.rationale 'the cry of the afflicted' via web:Ps.9.12)",
+    "M8-Ps-019: WEB quote covers K/Q verse oshb:Ps.9.19 with no ketiv/qere disclosure anywhere in the row (row.rationale 'shall not always be forgotten' via web:Ps.9.18)",
+    "M8-Ps-022: WEB quote covers K/Q verse oshb:Ps.10.12 with no ketiv/qere disclosure anywhere in the row (row.rationale 'Arise, Yahweh! God, lift up your hand!' via web:Ps.10.12)",
+    "M8-Ps-034: WEB quote covers K/Q verse oshb:Ps.17.14 with no ketiv/qere disclosure anywhere in the row (row.rationale 'men of the world, whose portion is in this life' via web:Ps.17.14)",
+    "M8-Ps-064: WEB quote covers K/Q verse oshb:Ps.26.2 with no ketiv/qere disclosure anywhere in the row (row.rationale 'Examine me, Yahweh, and prove me. Try my heart and my mind.' via web:Ps.26.2)",
+    "M8-Ps-073: WEB quote covers K/Q verse oshb:Ps.30.4 with no ketiv/qere disclosure anywhere in the row (row.rationale 'Yahweh, you have brought up my soul from Sheol. You have kep' via web:Ps.30.3)",
+    "M8-Ps-206: WEB quote covers K/Q verse oshb:Ps.71.12 with no ketiv/qere disclosure anywhere in the row (row.rationale \"God, don't be far from me. My God, hurry to help me\" via web:Ps.71.12)",
+    "M8-Ps-211: WEB quote covers K/Q verse oshb:Ps.72.17 with no ketiv/qere disclosure anywhere in the row (row.device_notes 'All nations will call him blessed.' via web:Ps.72.17)",
+    "M8-Ps-218: WEB quote covers K/Q verse oshb:Ps.73.16 with no ketiv/qere disclosure anywhere in the row (row.rationale 'it was too painful for me' via web:Ps.73.16)",
+    "M8-Ps-249: WEB quote covers K/Q verse oshb:Ps.79.10 with no ketiv/qere disclosure anywhere in the row (row.rationale 'Why should the nations say…' via web:Ps.79.10)",
+    "M8-Ps-457: WEB quote covers K/Q verse oshb:Ps.139.6 with no ketiv/qere disclosure anywhere in the row (row.rationale 'This knowledge is beyond me' via web:Ps.139.6)"
+   ]
+  },
+  {
+   "class": "neighbor_only_web_quote",
+   "severity": "WARN (triage; no defect confirmed)",
+   "count": 16,
+   "items": [
+    {
+     "decision_id": "M8-Ps-016",
+     "path": "[15].observed_substrate_signals[0]",
+     "ref": "Ps.9.1",
+     "quote": "I will give thanks…I will tell…I will be glad…I will sing praise"
+    },
+    {
+     "decision_id": "M8-Ps-036",
+     "path": "[35].observed_substrate_signals[1]",
+     "ref": "Ps.18.9",
+     "quote": "rode on a cherub... wings of the wind"
+    },
+    {
+     "decision_id": "M8-Ps-056",
+     "path": "[55].rationale",
+     "ref": "Ps.22.26",
+     "quote": "in the great assembly"
+    },
+    {
+     "decision_id": "M8-Ps-124",
+     "path": "[123].rationale",
+     "ref": "Ps.44.16",
+     "quote": "All this"
+    },
+    {
+     "decision_id": "M8-Ps-135",
+     "path": "[134].rejected_alternative",
+     "ref": "Ps.48.3",
+     "quote": "For, behold"
+    },
+    {
+     "decision_id": "M8-Ps-138",
+     "path": "[137].rejected_alternative",
+     "ref": "Ps.48.14",
+     "quote": "tell it to the next generation"
+    },
+    {
+     "decision_id": "M8-Ps-140",
+     "path": "[139].rationale",
+     "ref": "Ps.49.11",
+     "quote": "Their inward thought is that their houses will endure forever, and the"
+    },
+    {
+     "decision_id": "M8-Ps-141",
+     "path": "[140].rationale",
+     "ref": "Ps.49.19",
+     "quote": "he shall go to the generation of his fathers. They shall never see the"
+    },
+    {
+     "decision_id": "M8-Ps-175",
+     "path": "[174].rationale",
+     "ref": "Ps.63.8",
+     "quote": "my soul"
+    },
+    {
+     "decision_id": "M8-Ps-189",
+     "path": "[188].rejected_alternative",
+     "ref": "Ps.67.4",
+     "quote": "let the peoples praise"
+    },
+    {
+     "decision_id": "M8-Ps-205",
+     "path": "[204].rationale",
+     "ref": "Ps.22.9",
+     "quote": "you brought me out of the womb…I was thrown on you from my mother's wo"
+    },
+    {
+     "decision_id": "M8-Ps-262",
+     "path": "[261].observed_substrate_signals[0]",
+     "ref": "Ps.83.12",
+     "quote": "My God"
+    },
+    {
+     "decision_id": "M8-Ps-267",
+     "path": "[266].rationale",
+     "ref": "Ps.85.10",
+     "quote": "our land"
+    },
+    {
+     "decision_id": "M8-Ps-267",
+     "path": "[266].observed_substrate_signals[1]",
+     "ref": "Ps.85.10-Ps.85.11",
+     "quote": "our land"
+    },
+    {
+     "decision_id": "M8-Ps-284",
+     "path": "[283].rationale",
+     "ref": "Ps.89.46",
+     "quote": "You have…"
+    },
+    {
+     "decision_id": "M8-Ps-284",
+     "path": "[283].rejected_alternative",
+     "ref": "Ps.89.46",
+     "quote": "You have…"
+    }
+   ],
+   "finding": "16 warns / 15 unique row+ref pairs. 11 are sweep6 carry-overs the author wave triaged and correctly left; 4 are new since sweep6 and were hand-triaged here as TOOL ARTIFACTS, not row defects.",
+   "triage_of_the_4_new": [
+    {
+     "decision_id": "M8-Ps-140",
+     "ref": "Ps.49.11",
+     "verdict": "artifact - the quote legitimately spans WEB 49:11+49:12 and the row cites '(web:Ps.49.11, web:Ps.49.12)'; the checker tests comma-listed refs one at a time and never unions adjacent ones"
+    },
+    {
+     "decision_id": "M8-Ps-262",
+     "ref": "Ps.83.12",
+     "verdict": "artifact - the 2-word quote 'My God' glosses the Hebrew bound to oshb:Ps.83.14; the only web: ref within 200 chars is web:Ps.83.12 (proximity binding). The row's own rationale cites web:Ps.83.13 = oshb:Ps.83.14 correctly"
+    },
+    {
+     "decision_id": "M8-Ps-267",
+     "ref": "Ps.85.10 and Ps.85.10-Ps.85.11",
+     "verdict": "artifact x2 - 'our land' is quoted for web:Ps.85.12 ('Our land will yield its increase'), cited correctly in the same clause; the exact-window match fails only on CASE (norm_english does not fold case - correct by design) and the nearest ref token is 85.10 / 85.10-11"
+    }
+   ],
+   "residual_tool_note": "arm precision is bounded by (i) 2-word quotes, (ii) nearest-ref proximity binding, (iii) case-sensitive matching, (iv) no union of comma-listed adjacent refs - all four pre-existing checker properties, not rev-round regressions"
+  },
+  {
+   "class": "universals_new_flags",
+   "severity": "triage queue (WARN class)",
+   "count": 129,
+   "finding": "129 flags newly raised: 107 from the new lexicon (unbroken 35, continuous 32 + continuously 10, absent/absent-from 19, uninterrupted 6, plus no-parallel / without-comparable / rare / isolated) and 22 from sentence scoping. 60 previously-flagged claims cleared (identical 16, only 11, matches 4, first 4 leading) via the tier-vocabulary dampener and the widened sweep forms.",
+   "sub_class_wholly_unswept": {
+    "count": 25,
+    "rows": 25,
+    "character": "new-lexicon continuity claims with no digit anywhere in their context window (e.g. M8-Ps-021 'one continuous unit', M8-Ps-090 'the acrostic continues unbroken here', M8-Ps-143 'one unbroken first-person speech'); most read as span-local descriptions rather than corpus universals. Per-flag triage is author-wave work; none is falsified here."
+   },
+   "measurement_note": "37 of the 294 post-upgrade flags would clear if a semicolon did not end a sentence (the corpus convention writes 'claim; sweep: N'). The [.;] split is what the rev-round item specifies, so it is implemented as specified and the figure is reported for the owner's tuning decision."
+  }
+ ],
+ "not_verified": [
+  "Per-flag correctness of the 294 check_universals flags (WARN class; triage is author-wave work).",
+  "Whether a FRONT-SEAM selah carries a disclosure duty when the row never argues from selah - a convention question for the owner, not a byte question.",
+  "The witness-prefix-aware coverage arm changes no result on rows_v1 (0 of 2973 refs entries parse differently), so it is verified by construction and unit probe only, not by a live corpus case.",
+  "check_marks' paseq-position arm fires on probes but has 0 corpus hits, so its false-positive rate against real positional prose is untested beyond the 15 live paseq mentions (all count-only or verse-level; all correctly silent).",
+  "No row was edited: rows_v1.jsonl is untouched and every finding above is reported, not cured."
+ ]
+}

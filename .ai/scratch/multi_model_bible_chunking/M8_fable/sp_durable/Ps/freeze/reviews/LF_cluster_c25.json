@@ -1,0 +1,147 @@
+{
+ "cluster": "c25",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c25_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-170",
+   "span": "Ps.61.1-Ps.61.4",
+   "verdict": "challenge",
+   "reasoning": "Re-derived from verse_map_web.json/verse_map_oshb.json: the quotes (שִׁמְעָ֣ה אֱ֭לֹהִים = 'Hear my cry, God'; the refuge/tower material; the closing wings image) and the span's one selah (web:Ps.61.4 web_selah=true; pmarks_Ps.json selah dict has 'Ps.61.5':1, no other Ps 61 entry) are all byte-accurate. The strophe grammar (imperative vocative opening, refuge image, wings-image close before the vow material begins) is a defensible tier-1-supported seam. Two defects found on verification: (1) the rationale's title dual-cite is wrong in prose though right in the refs array; (2) rejected_alternative argues a verse outside the span that isn't mirrored into boundary_evidence_refs, confirmed by running check_refs_mirror.py against the cluster.",
+   "challenges": [
+    {
+     "challenge_id": "LF-170-1",
+     "severity": "medium",
+     "claim": "The rationale's title dual-cite is wrong: it states 'web:Ps.61.0 = oshb:Ps.61.2' but Ps 61's title occupies only MT v1.",
+     "evidence": "web_mt_offset_map.json psalms['61'] = {'mt_title_verses': [1], 'rule': 'shift', 'k': 1}, i.e. the title is oshb:Ps.61.1. The row's own boundary_evidence_refs[0] correctly reads 'web:Ps.61.0 = oshb:Ps.61.1' — the rationale prose contradicts the row's own filed ref."
+    },
+    {
+     "challenge_id": "LF-170-2",
+     "severity": "low",
+     "claim": "rejected_alternative argues bare 'Ps.61.5' (WEB numbering by book convention, outside this row's Ps.61.1-Ps.61.4 span) but that verse is not mirrored into boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py run against the cluster flags decision_id M8-Ps-170 with argued_but_unmirrored: ['Ps.61.5']. boundary_evidence_refs contains no 'web:Ps.61.5 = oshb:Ps.61.6' entry."
+    }
+   ],
+   "row_sha256": "76d154c14a63c14aa6eb6f848b30776710dac644d54ccf617b87566b37b7f2ab"
+  },
+  {
+   "decision_id": "M8-Ps-171",
+   "span": "Ps.61.5-Ps.61.8",
+   "verdict": "support",
+   "reasoning": "Re-derived every claim from source. Quotes (כִּֽי אַתָּ֣ה אֱ֭לֹהִים שָׁמַ֣עְתָּ = 'For you, God, have heard my vows'; יָמִ֣ים עַל יְמֵי מֶ֣לֶךְ = 'You will prolong the king's life') match verse_map_web.json/verse_map_oshb.json exactly. The נדר ('vow') lexical bracket is accurate: oshb:Ps.61.6 has לִנְדָרָ֑י, oshb:Ps.61.9 has נְדָרַ֗י within לְֽשַׁלְּמִ֥י נְדָרַ֗י — a genuine internal inclusio that legitimately closes the strophe at the psalm's end, distinct from and complementary to the register shift (vow/heritage -> dynastic intercession -> vow of praise). boundary_evidence_refs are arithmetically correct (shift+1 psalm, verified against web_mt_offset_map.json). The device_notes' Elohistic-Psalter count ('no Yahweh and 3 Elohim occurrences') is exactly right per psalm_device_inventory.json yhwh_elohim_per_psalm['61'] = {'yhwh': 0, 'elohim': 3}; check_universals.py flags the phrase only because 'no Yahweh' lacks an explicit digit next to '3 Elohim', which is a style nit, not a factual defect — the underlying claim is true, so I am not filing it as a challenge. unit_type/confidence/parent grouping are all correctly formed.",
+   "challenges": [],
+   "row_sha256": "20c44db56cd8872e0249fdb29818691e9d9503cc2b39fcc7b9b386b6358d40d2"
+  },
+  {
+   "decision_id": "M8-Ps-172",
+   "span": "Ps.62.1-Ps.62.6",
+   "verdict": "challenge",
+   "reasoning": "The chosen span (ending exactly after the second occurrence of the byte/skeleton-close 'rock and salvation' line at MT 62:7) is structurally defensible as an envelope strophe closing before the register shift to public exhortation at 62:8 — collate.py confirms oshb:Ps.62.3's first three words are byte-identical to oshb:Ps.62.7's, and oshb:Ps.62.7's full text collates into oshb:Ps.62.3 at skeleton tier (62.3 carries one extra closing word, רַבָּֽה, that 62.7 lacks), matching the row's own claim there. But the row's stated WARRANT for the envelope is built on a misquoted translation, and several other claims in the row fail re-derivation. This is the most defect-dense row in the cluster; verdict is challenge on the accumulation of independently-verified, material defects below.",
+   "challenges": [
+    {
+     "challenge_id": "LF-172-1",
+     "severity": "medium",
+     "claim": "The rationale's title dual-cite is wrong: 'web:Ps.62.0 = oshb:Ps.62.2' should be oshb:Ps.62.1 (same off-by-one pattern as M8-Ps-170/M8-Ps-174 in this cluster).",
+     "evidence": "web_mt_offset_map.json psalms['62'] = {'mt_title_verses': [1], 'rule': 'shift', 'k': 1}. The row's own boundary_evidence_refs[0] correctly reads 'web:Ps.62.0 = oshb:Ps.62.1'."
+    },
+    {
+     "challenge_id": "LF-172-2",
+     "severity": "high",
+     "claim": "Quote/gloss desync on the row's central envelope warrant: the Hebrew quoted at oshb:Ps.62.6 is glossed with English that belongs to a different verse, misdescribing which idiom actually 'returns'.",
+     "evidence": "verse_map_oshb.json['Ps.62.6']['text'] = 'אַ֣ךְ לֵ֭אלֹהִים דּ֣וֹמִּי נַפְשִׁ֑י כִּי מִ֝מֶּ֗נּוּ תִּקְוָתִֽי', matched by verse_map_web.json['Ps.62.5']['clean'] = 'My soul, wait in silence for God alone, for my expectation is from him.' (the same 'wait in silence' idiom as web:Ps.62.1/oshb:Ps.62.2). The row instead glosses oshb:Ps.62.6 as \"He alone is my rock and my salvation\" — that English is verse_map_web.json['Ps.62.2']['clean'] / ['Ps.62.6']['clean'] (oshb:Ps.62.3/Ps.62.7's 'rock and fortress' idiom), a different recurring formula. The row's own next sentence then correctly collates oshb:Ps.62.2 vs oshb:Ps.62.6 as the (different-wording) silence idiom, silently abandoning the false 'rock and salvation' gloss it just gave for the same verse one clause earlier — the two idioms (silence at 62:2/62:6; rock-and-salvation at 62:3/62:7, which do collate near-verbatim) are conflated into a single 'same confidence idiom' claim."
+    },
+    {
+     "challenge_id": "LF-172-3",
+     "severity": "medium",
+     "claim": "Selah MT-ref error: 'Selah closes web:Ps.62.4 (oshb:Ps.62.6)' misidentifies the MT verse; the selah is at oshb:Ps.62.5.",
+     "evidence": "pmarks_Ps.json selah dict has 'Ps.62.5': 1 (MT-keyed), no 'Ps.62.6' entry. verse_map_oshb.json['Ps.62.5']['text'] ends 'וּ֝בְקִרְבָּ֗ם יְקַלְלוּ סֶֽלָה' (ends in Selah); ['Ps.62.6']['text'] ends 'כִּי מִ֝מֶּ֗נּוּ תִּקְוָתִֽי' (no Selah). verse_map_web.json confirms web_selah=true only at Ps.62.4. The row's own boundary_evidence_refs correctly pairs 'web:Ps.62.4 = oshb:Ps.62.5' — the observed_substrate_signals parenthetical contradicts the row's own ref array."
+    },
+    {
+     "challenge_id": "LF-172-4",
+     "severity": "high",
+     "claim": "Stale genre-label count: the row calls Ps 62 'one of two Ps psalms so labeled, with Ps 39' for the Yeduthun title, but the current inventory has three.",
+     "evidence": "psalm_device_inventory.json genre_label_membership['al_yeduthun'] = [39, 62, 77]. This matches the book strategy's own installed erratum (§11, p08): 'membership {39, 62, 77}... THREE yeduthun titles, two spelling classes.' The row omits Ps 77 and undercounts by one."
+    },
+    {
+     "challenge_id": "LF-172-5",
+     "severity": "medium",
+     "claim": "Count-object error: 'sweep: 6 of Ps 62's 11 MT body verses' names the wrong denominator; Ps 62 has 12 MT body verses.",
+     "evidence": "web_mt_offset_map.json psalms['62'] = {'mt_verses': 13, ...}; 13 total MT verses minus 1 title verse = 12 body verses (oshb entries Ps.62.1 (title) through Ps.62.13 confirm 13 total). sweep.py --skel 'אך' independently confirms the numerator: counts.skeleton=34 book-wide, with 6 Ps-62 hits (MT 62.2,62.3,62.5,62.6,62.7,62.10) — the numerator is right, only the '11' denominator is wrong."
+    },
+    {
+     "challenge_id": "LF-172-6",
+     "severity": "medium",
+     "claim": "Register-purge violation: row prose embeds tool-invocation syntax and a decision-id-style token, both explicitly banned from row prose.",
+     "evidence": "observed_substrate_signals[0] ends '...34 book-wide via sweep.py --skel).' — a literal tool filename+flag. observed_substrate_signals[1] contains '(oshb:Ps.62.7, this part's D07)' and '...collate.py finds the two collate at skeleton tier...' — a decision-id-style reference plus a second tool filename, in the same sentence."
+    }
+   ],
+   "row_sha256": "b0997df882ab40ed251f97388a99b38d484a35d00e3650bcdd69ab483f42d58c"
+  },
+  {
+   "decision_id": "M8-Ps-173",
+   "span": "Ps.62.7-Ps.62.12",
+   "verdict": "challenge",
+   "reasoning": "The span and its quotes re-derive cleanly: the plural-imperative register shift at oshb:Ps.62.9 (בִּטְח֘וּ) opening web:Ps.62.8 is real and well-chosen as the strophe's tier-1 driver; the wisdom-reflection and revelatory-formula quotes at web:Ps.62.9/62.11 (oshb:Ps.62.10/62.12) match source exactly; boundary_evidence_refs correctly mirror the bare 'Ps.62.1'/'Ps 65' cross-references made in prose. Two defects survive re-derivation: a hard register-purge violation, and a selah-ref error of the identical off-by-one type found in M8-Ps-172 (same writer_attempt_id/part, s1 sub-attempt) — both psalm 62 rows misstate a selah's MT verse by +1 relative to their own correct refs array.",
+   "challenges": [
+    {
+     "challenge_id": "LF-173-1",
+     "severity": "high",
+     "claim": "Register-purge violation: device_notes uses a positional row reference ('in the preceding row') and a decision-id-style token ('this part's D13'), both explicitly and unconditionally banned from row prose.",
+     "evidence": "device_notes: '...opening (oshb:Ps.62.2) דּֽוּמִיָּ֣ה in the preceding row recurs, from the same root, at the opening of Ps 65 (this part's D13) — shared vocabulary texture...' Standing rule: 'positional row references (\"the row before this one\")... or review-actor names in row prose EVER; cross-row references are verse-anchored... never id-anchored.' Contrast M8-Ps-176 in this same cluster, which makes an equivalent cross-row note correctly, verse-anchored as 'the row at Ps.63.5-63.8' with no positional or id language."
+    },
+    {
+     "challenge_id": "LF-173-2",
+     "severity": "medium",
+     "claim": "Selah MT-ref error: 'Selah closes web:Ps.62.8 (oshb:Ps.62.10)' misidentifies the MT verse; the selah is at oshb:Ps.62.9.",
+     "evidence": "pmarks_Ps.json selah dict has 'Ps.62.9': 1 (MT-keyed), no 'Ps.62.10' entry. verse_map_oshb.json['Ps.62.9']['text'] ends '...מַחֲסֶה לָּ֣נוּ סֶֽלָה' (ends in Selah); ['Ps.62.10']['text'] is the 'men of low degree' verse with no Selah. The row's own boundary_evidence_refs correctly pairs 'web:Ps.62.8 = oshb:Ps.62.9' — the observed_substrate_signals parenthetical again contradicts the row's own ref array."
+    }
+   ],
+   "row_sha256": "cc505785191cbc07a65cf7ee781f63548b0275368422958889cbd2640bc255c7"
+  },
+  {
+   "decision_id": "M8-Ps-174",
+   "span": "Ps.63.1-Ps.63.4",
+   "verdict": "challenge",
+   "reasoning": "The thematic seam (sanctuary-vision material closing before the sensory-satisfaction material of the next strophe) and the נפשי-opens-the-part claim re-derive correctly (oshb:Ps.63.2 opens with both the vocative and נַפְשִׁ֗י). But the row's title citation repeats the same off-by-one pattern found twice in M8-Ps-170/M8-Ps-172, and its rejected_alternative's own textual evidence for the seam is misplaced onto the wrong row, which weakens rather than supports the boundary argument as stated.",
+   "challenges": [
+    {
+     "challenge_id": "LF-174-1",
+     "severity": "medium",
+     "claim": "The rationale's title dual-cite is wrong: 'web:Ps.63.0 = oshb:Ps.63.2' should be oshb:Ps.63.1.",
+     "evidence": "web_mt_offset_map.json psalms['63'] = {'mt_title_verses': [1], 'rule': 'shift', 'k': 1}. The row's own boundary_evidence_refs[0] correctly reads 'web:Ps.63.0 = oshb:Ps.63.1'. This is the third instance in this 7-row cluster of the identical title-citation error (also M8-Ps-170, M8-Ps-172), all three from writer_attempt_id writer_sonnet_ps_p12_r1_s1."
+    },
+    {
+     "challenge_id": "LF-174-2",
+     "severity": "high",
+     "claim": "Seam-connective mislocation: the row twice claims the second כן occurrence sits at 'the opening verse of the next row'/'Ps.63.5', but it actually falls inside this row's own span, undermining the cross-seam claim used to justify the boundary.",
+     "evidence": "verse_map_oshb.json: oshb:Ps.63.5 ('כֵּ֣ן אֲבָרֶכְךָ֣ בְחַיָּ֑י...') opens with כן and is web:Ps.63.4 — the LAST verse of this row's own span (Ps.63.1-Ps.63.4), per the row's own boundary_evidence_refs ('web:Ps.63.4 = oshb:Ps.63.5'). The next row's actual opening verse, oshb:Ps.63.6 (=web:Ps.63.5, 'כְּמ֤וֹ חֵ֣לֶב וָ֭דֶשֶׁן...'), does not open with כן at all. observed_substrate_signals[0] ('כן opens both oshb:Ps.63.3... and the opening verse of the next row') and rejected_alternative ('a second particle echoes Ps.63.3... Ps.63.5 begins the psalm's sensory-satisfaction imagery') both place the second כן one verse later than it actually occurs, describing an intra-row inclusio (both כן's are inside 63.1-63.4) as if it were a cross-seam connective."
+    },
+    {
+     "challenge_id": "LF-174-3",
+     "severity": "low",
+     "claim": "rejected_alternative argues bare 'Ps.63.5' (WEB numbering, outside this row's span) but it is not mirrored into boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py run against the cluster flags decision_id M8-Ps-174 with argued_but_unmirrored: ['Ps.63.5']. boundary_evidence_refs has 'web:Ps.63.4 = oshb:Ps.63.5' but no 'web:Ps.63.5 = oshb:Ps.63.6' entry."
+    }
+   ],
+   "row_sha256": "fe9d544938f4772bf06aedcf25ee90c0e08d2650ac036b83c74aa6d619a701d5"
+  },
+  {
+   "decision_id": "M8-Ps-175",
+   "span": "Ps.63.5-Ps.63.8",
+   "verdict": "support",
+   "reasoning": "Every claim re-derives cleanly against source. The נפשי inclusio is byte-accurate: oshb:Ps.63.6 opens 'תִּשְׂבַּ֣ע נַפְשִׁ֑י' (web:Ps.63.5, 'My soul shall be satisfied...') and oshb:Ps.63.9 closes 'דָּבְקָ֣ה נַפְשִׁ֣י' (web:Ps.63.8, 'My soul stays close to you'), a genuine internal lexical bracket distinct from the preceding and following rows' devices. boundary_evidence_refs are arithmetically correct for this shift+1 psalm. No register-purge language, no tool/decision-id leakage, no selah in this span to mis-cite. unit_type/confidence/parent grouping are properly formed. No defect found.",
+   "challenges": [],
+   "row_sha256": "574bf6882eef53248b05c9f68123a5064cd843df632af80c515c2fab424fc0d9"
+  },
+  {
+   "decision_id": "M8-Ps-176",
+   "span": "Ps.63.9-Ps.63.11",
+   "verdict": "support",
+   "reasoning": "Re-derived cleanly. Both adversative openings quoted are byte-accurate: oshb:Ps.63.10 'וְהֵ֗מָּה' (web:Ps.63.9) and oshb:Ps.63.12 'וְהַמֶּלֶךְ֮' (web:Ps.63.11). The נפשי count is exact on independent tally: oshb:Ps.63.2, 63.6, 63.9, 63.10 = 4 occurrences in Ps 63, matching the row's '4th instance' claim (the enemies-seeking-the-soul reversal at 63.10 is the 4th). The cross-row citation to the preceding row is done correctly, verse-anchored ('the row at Ps.63.5-63.8', not positional/id-anchored) and is properly mirrored into boundary_evidence_refs (web:Ps.63.5-Ps.63.8 all present) alongside this row's own span. No register-purge violations, no arithmetic errors, no quote/gloss desync found.",
+   "challenges": [],
+   "row_sha256": "6362737de5c110b171197ffbb83ab794e91f1d64e6d583839dcb10dc95ce6411"
+  }
+ ]
+}

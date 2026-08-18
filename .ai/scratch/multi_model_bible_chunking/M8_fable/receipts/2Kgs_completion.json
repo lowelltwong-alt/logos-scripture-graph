@@ -1,0 +1,46 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "2Kgs",
+ "completed_at": "2026-08-04T03:23:14.800441+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 97,
+ "verse_coverage": "719/719 exact ordered tiling, 2Kgs.1.1-2Kgs.25.30 (WEB numbering; WEB 11:21-12:21 = MT 12:1-12:22, all offset-zone citations dual-numbered; WEB 12:21 Jozacar/MT ויוזבד name variant disclosed)",
+ "final_states": {
+  "accepted_candidate": 97
+ },
+ "superseded_decisions": [],
+ "appeals": 0,
+ "sidecar_rows_per_file": 8,
+ "chunks_sha256": "cd4715dd88f1b6cb02dcd3b50aa5778d1319a415dc8ca712f07790e82194048e",
+ "review_packets_sha256": "a5431636aa2a8d2567ebf5267c2022d96a359140f49fa8c8a25efbc36ec172ed",
+ "validators_passed": [
+  "checks/validate_exact_book_coverage.py --book 2Kgs (97 chunks 719/719)",
+  "checks/validate_book_review_coverage.py --book 2Kgs --require-final-artifacts",
+  "checks/anti_batch_scan.py --book 2Kgs (GREEN first pass, 0 errors 0 warnings)",
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book 2Kgs <chunks.jsonl> (97 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --model-folder <M8_fable> --book 2Kgs --require-artifacts",
+  "freeze/citation_sweep.py on frozen_rows_final.jsonl (GREEN, 0 problems)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass_after_boss_adjudication",
+  "sampled_chunks": 60,
+  "notes": [
+   "Attempt r1 rejected (all 60 notes empty strings; also written to wrong scratchpad path; set aside as freeze/anti_batch_audit_incomplete_r1.json)",
+   "Attempt r2 complete (60/60 evidenced notes) but flagged 30 rows on a bare refs-count heuristic naming no missing verse plus 3 unevidenced non-specificity claims; all 30 flags REJECTED on deterministic evidence (edge-coverage check, citation_sweep GREEN, mechanical gate 0 warnings, peer+postcheck row verification) — freeze/anti_batch_audit_adjudication.json",
+   "Third and fourth defective haiku attempts across two books; haiku-audit reliability remains an OPEN OWNER ITEM"
+  ]
+ },
+ "review_rounds": {
+  "writer": "sonnet part writers p01-p11 (routing change from 1Kgs's fable writer per owner token-routing instruction 2026-08-03); orchestrator combine+renumber; Hebrew byte-normalization 341 runs",
+  "primaries": "lf_sonnet (71 supports/26 challenge) + ol_opus (14 supports/83 challenge), clusters 01-13, blind; 144 items (72 low/65 medium/7 high); all collation tallies 100%",
+  "peer": "13 peer files, 144/144 ruled: 126 supported + 18 with-correction, 0 disputed; 6 cross-cutting rulings; ZERO boundary changes",
+  "author": "6 parts + normalize: 129 accept/15 partial/0 dispute; confidence recalibrations 051 high→medium, 087 medium→high, 090 high→medium",
+  "boss": "97 entries, 231 challenge rulings upheld_as_amendment, 83 bespoke reasonings, 7 decision_relations non_authorizing",
+  "rev_round": "22 rev files (rev LF 71 sup/12 chal; rev OL 26 sup/57 chal), 87-item docket (62 low/23 medium/2 high convergent on 093/094); split rev peer 87/87 ruled 0 not_supported; 58 rows micro-edited (micro_r2_a/b); spans+confidence frozen throughout",
+  "postcheck": "97/97 pass, 0 holds, 8 aggregate low classes left as recorded; tier-0 fixes r3 (offset dual-cites) + r4 (096 cross-ref)",
+  "sidecar": "haiku_2kgs_sidecar_r1, 8 register entries, 2 concern_type labels boss-adjudicated"
+ }
+}

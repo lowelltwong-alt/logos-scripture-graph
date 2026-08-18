@@ -1,0 +1,103 @@
+{
+ "cluster": "c26",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c26_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-177",
+   "verdict": "challenge",
+   "reasoning": "Ps 64 is a shift+1 psalm (ps_lib.PSALM_RULES[64]: mt_title_verses=[1]; web_to_mt(64,1)=(64,2)), so the row's own boundary_evidence_refs chain (web:Ps.64.0=oshb:Ps.64.1, then web:Ps.64.V=oshb:Ps.64.V+1 through web:Ps.64.6=oshb:Ps.64.7) is arithmetically correct and tiles Ps 64's WEB verses 1-6 with zero gap against the companion row's 64.7-64.10 (check_tiling: 10/10 verses, 0 problems). The seam itself is sound: MT 64:4 opens with the relative pronoun אֲשֶׁ֤ר (verse-initial, per verse_map_oshb.json), grammatically subordinating the plotters' description to the 'evildoers' named at the end of MT 64:3, which is the correct tier-1 warrant for keeping 64:3-64:6 (WEB 64:2-64:5) inside this unit rather than splitting at 64:2/64:3. unit_type=strophe, parent_psalm=64, and the mandated parent sentence are all in order; confidence=high matches the strength of the grammatical-continuation warrant. Two independent defects nonetheless stand: (1) a self-contradicting title dual-cite in the rationale prose (see challenge 1) and (2) an overstated verb-person claim in observed_substrate_signals (see challenge 2). Neither touches the span or the warrant that actually drives the seam.",
+   "challenges": [
+    {
+     "challenge_id": "LF-177-1",
+     "severity": "medium",
+     "claim": "The rationale's title dual-cite \"web:Ps.64.0 = oshb:Ps.64.2\" is arithmetically wrong and self-contradicts the row's own boundary_evidence_refs.",
+     "evidence": "ps_lib.title_mt_verses(64) = [1] (Ps 64 is shift+1: the title is the single MT verse 1). The row's own boundary_evidence_refs[0] correctly states \"web:Ps.64.0 = oshb:Ps.64.1\", but the rationale's opening sentence reads \"The title is one counted MT verse (web:Ps.64.0 = oshb:Ps.64.2)\" — oshb:Ps.64.2 is MT 64's second verse (שְׁמַע אֱלֹהִ֣ים...), not the title verse. The correct dual-cite is web:Ps.64.0 = oshb:Ps.64.1."
+    },
+    {
+     "challenge_id": "LF-177-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals overstates verb-person continuity: \"Third-person plural verbs for 'they/their' run continuously from oshb:Ps.64.4 through the end of this span\" glosses over an embedded first-person-plural quotation in the span's own final verse.",
+     "evidence": "MT 64:7 (= web:Ps.64.6, the span's last verse; verse_map_oshb.json Ps.64.7): \"...תַּ֭מְנוּ חֵ֣פֶשׂ מְחֻפָּ֑שׂ...\" — תַּ֭מְנוּ is Qal perfect 1cp (\"we have completed/perfected\"), not third person. WEB's own rendering of the same verse (verse_map_web.json Ps.64.6, web:Ps.64.6) confirms the person shift: \"They plot injustice, saying, “We have made a perfect plan!” Surely man’s mind and heart are cunning.\" — a first-person-plural quotation is embedded inside the third-person narration at the very verse the claim says the third-person-plural texture runs through."
+    }
+   ],
+   "row_sha256": "934a525f2030b9d5d469e7bc9b8aa8f55b447575582835c965fc2bb027780b39"
+  },
+  {
+   "decision_id": "M8-Ps-178",
+   "verdict": "challenge",
+   "reasoning": "The seam at MT 64:8 (web:Ps.64.7) is well-driven: the row correctly identifies the wayyiqtol וַיֹּרֵ֗ם אֱלֹ֫הִ֥ים (verse_map_oshb.json Ps.64.8) as a subject-and-register reversal, God replacing the plotters as grammatical subject after six verses of third-person-plural 'they' material — a legitimate tier-1 seam driver (owner addendum: speaker/subject shifts). The span (web:Ps.64.7-Ps.64.10 = oshb:Ps.64.8-Ps.64.11) tiles exactly against the companion row with zero gap or overlap (check_tiling: 10/10 verses for Ps 64 combined). The yhwh/elohim texture claim re-derives correctly: psalm_device_inventory.json yhwh_elohim_per_psalm gives Ps 64 {yhwh:1, elohim:3}, and summing psalms 60-65 gives yhwh 0+0+0+0+1+0=1 against elohim 5+3+7+2+3+2=22, exactly matching the row's \"1 yhwh against 22 elohim\" claim. The WEB quotes (\"But God will shoot at them\", \"Their own tongues shall ruin them\", \"All mankind shall be afraid\", \"The righteous shall be glad in Yahweh\") all check verbatim with adjacent web: refs (check_web_quotes: 0 flags on this row). rejected_alternative correctly argues Ps.64.9 is in-span, requiring no separate boundary_evidence_refs entry (check_refs_mirror: 0 flags on this row). confidence=high is warranted by the strength of the reversal signal. The only defect is a register-purge violation carried in the supporting prose, not in the span or its warrant.",
+   "challenges": [
+    {
+     "challenge_id": "LF-178-1",
+     "severity": "medium",
+     "claim": "Rationale and observed_substrate_signals twice use the internal writer-batch scoping phrase \"this part's one Yahweh occurrence\" and cite the inventory file by name (\"psalm_device_inventory.json\"), both banned from row prose under the register-purge rule.",
+     "evidence": "TOOLKIT.md standing rules: \"REGISTER PURGE ... NO decision-ids, strategy-file/§ citations, ... positional row references ..., file-order talk, or review-actor names in row prose EVER.\" The row's rationale reads \"...this part's one Yahweh occurrence (psalm_device_inventory.json: Ps 64 yhwh=1, elohim=3; ...)\" and observed_substrate_signals[1] repeats \"...is this row's and this part's one Yahweh occurrence (device inventory count: 1).\" \"This part\" refers to writer_part p12 (Ps 60-65, per the book strategy §9 tiling table) — an internal writer-wave batching unit invisible to a reader of the finished chunk, i.e. file-order talk; the correct scope is simply Psalms 60-65, nameable without invoking the writer-part construct or the inventory filename."
+    }
+   ],
+   "row_sha256": "1e6135342b0a61d1de872c3d13da3a377bdd11c9a0596de67dc2179af8429df3"
+  },
+  {
+   "decision_id": "M8-Ps-179",
+   "verdict": "challenge",
+   "reasoning": "Ps 65 is also shift+1 (ps_lib.title_mt_verses(65)=[1]); the row's boundary_evidence_refs chain from web:Ps.65.0=oshb:Ps.65.1 through web:Ps.65.4=oshb:Ps.65.5 is arithmetically correct and (with the companion rows) tiles Ps 65's 13 WEB verses exactly (check_tiling: 13/13, 0 problems). The seam is sound: the span covers the Zion/temple-praise material and correctly closes at the temple-dweller beatitude (MT 65:5, web:Ps.65.4), before the register shift to cosmic/awesome-deeds material that opens the next row at MT 65:6 (web:Ps.65.5, נ֤וֹרָא֨וֹת בְּצֶ֣דֶק). That register shift is a legitimate tier-1 driver (topic/addressee-register pivot), so rejecting an extension through web:Ps.65.5 is well-founded. unit_type/parent/confidence are all in order. Four independent defects were found, none of which touch the span or its core warrant: (1) the same title-dual-cite arithmetic bug found in the companion Ps 64 opening row (M8-Ps-177), confirming it is a systematic pattern from this writer attempt rather than an isolated typo; (2) two curly-quoted English glosses in observed_substrate_signals with no inline web: ref; (3) an out-of-span verse mention (Ps.65.5) argued in rejected_alternative without a mirroring boundary_evidence_refs entry.",
+   "challenges": [
+    {
+     "challenge_id": "LF-179-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals cites another decision by an internal writer-decision-id shorthand, \"(this part's D06)\" — a banned positional/decision-id reference in row prose.",
+     "evidence": "TOOLKIT.md standing rules ban \"decision-ids ... positional row references ... file-order talk ... in row prose EVER.\" The row's full sentence: \"...opens the psalm, from the same root quoted twice in Ps 62 (this part's D06) — shared vocabulary, not a boundary signal.\" \"D06\" matches the writer_decision_id numbering scheme visible on this cluster's own rows (p12-D11 through p12-D15), i.e. it points at writer_decision_id p12-D06 (a different row, covering Ps 62) by internal id rather than by verse reference. The correct form is a verse-anchored cross-reference (e.g. citing the MT/WEB verse in Ps 62 where the root recurs), not a decision-id."
+    },
+    {
+     "challenge_id": "LF-179-2",
+     "severity": "low",
+     "claim": "The same observed_substrate_signals field carries two curly-quoted English glosses, \"silence to-you\" and \"praise waits\", with no web: ref in that field.",
+     "evidence": "check_web_quotes.py flags both: {\"path\": \"[2].observed_substrate_signals[0]\", \"quote\": \"silence to-you\", \"refs_nearby\": [], \"issue\": \"curly quote with NO web: ref in its field\"} and the same for \"praise waits\". TOOLKIT.md: \"CURLY QUOTES + an inline web: ref in the SAME field are MANDATORY at every layer.\" \"praise waits\" duplicates a correctly-cited WEB quote (\"Praise waits for you, God, in Zion\", web:Ps.65.1) that appears earlier in the row's rationale field, but that citation does not satisfy the requirement for this separate field."
+    },
+    {
+     "challenge_id": "LF-179-3",
+     "severity": "low",
+     "claim": "rejected_alternative argues Ps.65.5 (outside this row's own span of Ps.65.1-Ps.65.4) without a corresponding boundary_evidence_refs entry.",
+     "evidence": "check_refs_mirror.py flags this row: {\"decision_id\": \"M8-Ps-179\", \"argued_but_unmirrored\": [\"Ps.65.5\"]}. rejected_alternative reads \"Extending this opening unit through Ps.65.5 was rejected...\" — Ps.65.5 (WEB) is one verse past the row's own span (Ps.65.1-Ps.65.4) and has no matching boundary_evidence_refs entry (the array's last entry is web:Ps.65.4 = oshb:Ps.65.5)."
+    },
+    {
+     "challenge_id": "LF-179-4",
+     "severity": "medium",
+     "claim": "The rationale's title dual-cite \"web:Ps.65.0 = oshb:Ps.65.2\" is arithmetically wrong and self-contradicts the row's own boundary_evidence_refs, the same defect pattern found in the companion Ps 64 opening row of this same writer attempt.",
+     "evidence": "ps_lib.title_mt_verses(65) = [1] (Ps 65 is shift+1). The row's own boundary_evidence_refs[0] correctly states \"web:Ps.65.0 = oshb:Ps.65.1\", but the rationale's opening sentence reads \"The title is one counted MT verse (web:Ps.65.0 = oshb:Ps.65.2)\" — oshb:Ps.65.2 is MT 65's second verse (לְךָ֤ דֻֽמִיָּ֬ה...), not the title verse. This is the identical error (title verse mis-cited as the psalm's second MT verse rather than its first) as M8-Ps-177's title sentence, from the same writer_attempt_id (writer_sonnet_ps_p12_r1_s2), indicating a systematic template mistake rather than an isolated slip."
+    }
+   ],
+   "row_sha256": "71ae7af0c84a7cac9d80acebce9ae79e5717ffdfdf46cef212da702900c7dc2a"
+  },
+  {
+   "decision_id": "M8-Ps-180",
+   "verdict": "challenge",
+   "reasoning": "The span (web:Ps.65.5-Ps.65.8 = oshb:Ps.65.6-Ps.65.9) tiles exactly against its neighbors (check_tiling: 13/13 for Ps 65 combined, 0 problems). The internal claim about matched participle morphology is verified from the pointed bytes: verse_map_oshb.json Ps.65.7 opens מֵכִ֣ין (Hiphil ms participle, 'establishing/forming') and Ps.65.8 opens מַשְׁבִּ֤יחַ (Hiphil ms participle, 'stilling/calming') — both are verse-initial Hiphil participles, a genuine matched-form signal supporting the strophe's internal cohesion, correctly counted as '2 verses'. All four WEB quotes check verbatim with adjacent web: refs (check_web_quotes: 0 flags on this row). The rejected_alternative's warrant (Ps.65.8's report of the nations' awe still describes the effect of the cosmic acts opened at 65:6-65:7, rather than opening the harvest material that begins at 65:9) is a defensible reading with no independent tier-1 driver favoring an earlier cut, and confidence=high is proportionate to the participle-parallelism evidence actually offered. The one defect is mechanical: an out-of-span verse cited in prose without its refs-mirror entry.",
+   "challenges": [
+    {
+     "challenge_id": "LF-180-1",
+     "severity": "low",
+     "claim": "rejected_alternative argues Ps.65.9 (outside this row's own span of Ps.65.5-Ps.65.8) without a corresponding boundary_evidence_refs entry.",
+     "evidence": "check_refs_mirror.py flags this row: {\"decision_id\": \"M8-Ps-180\", \"argued_but_unmirrored\": [\"Ps.65.9\"]}. rejected_alternative reads \"...before the harvest material begins at Ps.65.9\" — Ps.65.9 (WEB) is one verse past the row's own span (Ps.65.5-Ps.65.8) and has no matching boundary_evidence_refs entry (the array's last entry is web:Ps.65.8 = oshb:Ps.65.9)."
+    }
+   ],
+   "row_sha256": "fd5561ac9edec12f64a22e292c0be6491900f4a070c3dcd52d3d22a793e2731a"
+  },
+  {
+   "decision_id": "M8-Ps-181",
+   "verdict": "challenge",
+   "reasoning": "The span (web:Ps.65.9-Ps.65.13 = oshb:Ps.65.10-Ps.65.14) closes Ps 65 and, combined with the other two rows, tiles the psalm's 13 WEB verses exactly with zero gap or overlap (check_tiling: 13/13). The claimed grammatical pivot re-derives correctly from the pointed bytes: verse_map_oshb.json Ps.65.10 opens with the 2ms Qal perfect פָּקַ֥דְתָּ ('you have visited/attended to' — God as addressee-subject), while the closing verse Ps.65.14 opens לָבְשׁ֬וּ, a 3cp Qal perfect ('they have clothed themselves', subject = the meadows/flocks of the preceding clause) — a genuine subject shift from divine 2ms address to third-person nature imagery, supporting the row's internal cohesion claim. Both cited WEB quotes check verbatim with adjacent web: refs. rejected_alternative's warrant (no independent tier-1 driver separates the divine-action verses 65:9-65:11 from the personified-nature verses 65:12-65:13) is sound and consistent with §6 policy against splitting on texture alone. confidence=high matches the strength of the pivot evidence. The one defect is a direct citation of the internal strategy document inside the row's own prose.",
+   "challenges": [
+    {
+     "challenge_id": "LF-181-1",
+     "severity": "medium",
+     "claim": "The rationale directly cites the book strategy document by name (\"the book strategy places...\") inside row prose, a banned strategy-file citation.",
+     "evidence": "TOOLKIT.md standing rules: \"REGISTER PURGE ... NO decision-ids, strategy-file/§ citations, ... in row prose EVER.\" The row's rationale reads: \"...closing the psalm — and the Davidic run the book strategy places from Ps 51 through Ps 65 in Book II — on personified nature: ...\" This explicitly names and relies on \"the book strategy\" as its own citation source inside the permanent row prose, rather than stating the underlying literary fact (a Davidic run spanning Ps 51-65 within Book II) without pointing at the internal document that supplied it."
+    }
+   ],
+   "row_sha256": "5b811cb109158698e0a1926c2dd71d54596470b7f96bba4f336cb796c22727a3"
+  }
+ ]
+}

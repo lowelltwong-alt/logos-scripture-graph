@@ -1,0 +1,93 @@
+{
+ "cluster": "c57",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c57_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-374",
+   "verdict": "challenge",
+   "reasoning": "Span and seam are sound. Ps 110 is an identity psalm (title inside MT v1; not in the shift+1/shift+2 rosters), so the title dual-cite web:Ps.110.0 = oshb:Ps.110.1 is arithmetically correct, and the oracle formula נְאֻ֤ם יְהוָ֨ה opening oshb:Ps.110.1 (spliced from verse_map_oshb.json) collates byte-true against the row's own quote. Verses 2-3 continue second-person address to the king with no further speech-introducing verb before v4's oath formula, so the v3|v4 boundary is the psalm's cleanest tier-1 seam and unit_type=strophe is correct; citation_sweep.py, check_web_quotes.py, check_refs_mirror.py and check_tiling.py are all GREEN for this row. But device_notes closes with \"this row anchors to the earlier one, the next row to the later\" -- a positional cross-row reference, not a verse-anchored one. Book strategy section 10 (verbatim into every brief) bans positional row references (\"the row before this one\") absolutely and requires verse-anchored cross-references instead (e.g. \"the seam at 41:13|42:1\"); \"the next row\" is the same banned category. The span/warrant is not contested, only this prose defect.",
+   "challenges": [
+    {
+     "challenge_id": "LF-374-1",
+     "severity": "low",
+     "claim": "device_notes uses a banned positional cross-row reference (\"the next row\") instead of a verse-anchored one.",
+     "evidence": "device_notes reads: \"...this row anchors to the earlier one, the next row to the later.\" Book strategy section 10 (verbatim into every brief) bans positional row references (\"the row before this one\") EVER and requires cross-row references to be verse-anchored (e.g. \"the seam at 41:13|42:1\"); this instance names neither a verse nor a seam, only relative row position."
+    }
+   ],
+   "row_sha256": "6ca8c57a0c297340e52e4d47cd8e5d36af6c3b388eb7c49d467504613ec222fe"
+  },
+  {
+   "decision_id": "M8-Ps-375",
+   "verdict": "challenge",
+   "reasoning": "The second-oracle seam at v4 (oath formula, distinct from v1's oracle formula) is well attested, and vv5-7 continue third-person description with no further speech-introducing verb or addressee shift (verified against oshb Ps.110.5-7); unit_type=strophe and the v3|v4 boundary are correct, and this row tiles exactly with M8-Ps-374 (check_tiling GREEN, 44/44 verses covered for the cluster). The מַלְכִּי צֶֽדֶק space claim is independently byte-verified: collate.py against the tail two words of oshb:Ps.110.4, spliced straight from verse_map_oshb.json, returns tier byte, and the codepoint between the two words is U+0020 (plain space), not U+05BE (maqaf) -- matching the book-wide '0 maqaf codepoints' fact and correctly scoped, per book strategy section 11's own p27 erratum, as a byte-tier/source-view claim rather than a WLC-print-tradition claim. But device_notes again breaks register: \"is the seam the part brief flags for byte-settlement before any ordinal claim\" narrates the production pipeline (\"the part brief\") inside row prose, which section 10's ban on file-order talk in row prose EVER covers. ngram7.py run over this cluster independently flags the 7-gram \"web ps is the seam the part\" as reused across exactly 2 rows (this one and M8-Ps-381), corroborating that the phrase is boilerplate referencing the brief rather than row-specific derivation.",
+   "challenges": [
+    {
+     "challenge_id": "LF-375-1",
+     "severity": "low",
+     "claim": "device_notes narrates the production pipeline (\"the part brief flags...\") instead of describing textual evidence, violating the register-purge ban on file-order talk.",
+     "evidence": "device_notes reads: \"...is the seam the part brief flags for byte-settlement before any ordinal claim...\" Book strategy section 10 bans file-order talk in row prose EVER. ngram7.py flags the 7-gram \"web ps is the seam the part\" as reused across 2 rows in this cluster (this row and M8-Ps-381), confirming templated brief-reference language rather than derived argument."
+    }
+   ],
+   "row_sha256": "d70314496e568f97a383c126864da2475cf06a76a7410c47c4430ea922741e3c"
+  },
+  {
+   "decision_id": "M8-Ps-376",
+   "verdict": "challenge",
+   "reasoning": "unit_type=whole_psalm is correct: Ps 111's acrostic is genuinely colon-level (22 cola over 10 verses), matching psalm_device_inventory.json's acrostics/111 entry (\"colon-level acrostic: 22 cola over 10 verses; verse-granularity letters are NOT the scheme\"), so no verse boundary aligns with a full letter-boundary. The Hallelu-Yah opener at v1 (11 verse-initial occurrences book-wide per the inventory) and the shared clause at oshb Ps.111.3/112.3/112.9 (3 skeleton hits) are both accurate. But the row's own explanatory math for the verse-initial letter sequence is wrong: it names the letters correctly (אגהזטכמספר, matching the inventory's acrostics/111 first_letters_mt exactly) but glosses them as \"the odd-position letters... (positions 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 of 22)\". Re-deriving the per-verse colon count directly from oshb bytes: verses 1-8 hold 2 cola each (positions 1-16), but verse 9 holds THREE cola -- פְּד֤וּת (pe=17), צִוָּֽה (tsade=18), קָד֖וֹשׁ (qof=19; WEB's own rendering of web:Ps.111.9 likewise breaks into three sentences) -- which pushes v10's opening colon to position 20 (רֵ֘אשִׁ֤ית, resh), not 19. Position 19 is qof, the closing (third) colon of verse 9, not the opening colon of verse 10. The correct sequence is 1,3,5,7,9,11,13,15,17,20; the row's terminal '19' is arithmetically wrong. This is a digit-bearing tier-1-device claim central to the row's own justification for whole_psalm treatment, so it is a material evidence defect even though the verdict itself is unaffected (whole_psalm remains correct on the corrected math too, since verses 1-8 still hold complete letter pairs and 9-10 still hold complete letter triples, so no verse-aligned split point emerges either way).",
+   "challenges": [
+    {
+     "challenge_id": "LF-376-1",
+     "severity": "medium",
+     "claim": "The row's positional gloss for the acrostic's verse-initial letters (\"positions 1,3,5,7,9,11,13,15,17,19 of 22\") is arithmetically wrong at the last term; it should be 20, not 19.",
+     "evidence": "oshb:Ps.111.9 (spliced from verse_map_oshb.json, byte tier) opens three cola -- פְּד֤וּת (pe=17), צִוָּֽה (tsade=18), קָד֖וֹשׁ (qof=19) -- confirmed by web:Ps.111.9's own three-sentence rendering (\"He has sent redemption to his people. He has ordained his covenant forever. His name is holy and awesome!\"); this pushes oshb:Ps.111.10's opening colon רֵ֘אשִׁ֤ית (resh) to position 20, not 19. psalm_device_inventory.json's acrostics/111 first_letters_mt field (\"אגהזטכמספר\") independently confirms the tenth verse-initial letter is resh (20th of 22), not qof (19th, which never opens a verse in this psalm). The same wrong-position framing would carry over to Ps 112, whose acrostic M8-Ps-377 states shares 'the same verse-initial letter sequence' as this psalm."
+    }
+   ],
+   "row_sha256": "ad5be2d935964ddaa2ae08d296e6e8a7188ea87ced24cceb62251407f660c533"
+  },
+  {
+   "decision_id": "M8-Ps-377",
+   "verdict": "support",
+   "reasoning": "unit_type=whole_psalm is correct on the same colon-level-acrostic grounds as Ps 111 (psalm_device_inventory.json's acrostics/112 entry matches acrostics/111 verbatim: \"colon-level acrostic: 22 cola over 10 verses\"). Unlike M8-Ps-376, this row does not restate a wrong alphabet-position formula itself -- it correctly defers to the inventory for the letter sequence and states only that it 'matches Psalm 111's sequence exactly,' which I independently re-derived from oshb bytes and confirmed accurate (אגהזטכמספר, verse-initial positions 1,3,5,7,9,11,13,15,17,20). The shared-clause citation at oshb Ps.112.3/112.9 versus Ps.111.3 is correctly disclosed as two distinct byte strings (112.3 identical to 111.3's tail; 112.9 the same lexemes with different cantillation/conjunction), not overclaimed as byte-identical across all three. citation_sweep.py, check_web_quotes.py, check_refs_mirror.py and check_tiling.py are all GREEN; cross-references are verse-anchored (e.g. 'web:Ps.111.1-Ps.111.10'), so no register-purge violation. Parent grouping (112) and unit_type are correct; rejected_alternative is a single, properly-formed sentence carrying the mandated rival (the merge-with-111 alternative). No material defect found.",
+   "challenges": [],
+   "row_sha256": "fb32e33db6b26d77891487c204de76d1849bbb7de408f9d5384159ed6301b857"
+  },
+  {
+   "decision_id": "M8-Ps-378",
+   "verdict": "support",
+   "reasoning": "The verse-initial Hallelu-Yah triple imperative at v1 and the register shift to a rhetorical question at v5 are both byte-confirmed, and psalm_device_inventory.json's halleluyah.verse_initial list includes Ps.113.1 (one of 11 book-wide), matching the row's count exactly. The v4|v5 strophe boundary is a genuine tier-1 register shift (imperative/declarative summons versus interrogative doxology). confidence=medium is well calibrated rather than a defect: Ps 113 is short (9 verses, just past the book strategy section 6 'roughly <=8 vv' whole-psalm threshold) and carries a complete Hallelu-Yah inclusio bracketing the whole psalm, so a rival whole-psalm reading is genuinely available; medium confidence appropriately hedges that tension instead of overclaiming, and it contrasts sensibly with the psalm 114 split (also short, but a much sharper 3rd/2nd-person seam) being rated high. citation_sweep.py, check_web_quotes.py, check_refs_mirror.py, check_tiling.py and check_language_zones.py are all GREEN; no register-purge violations found. No material defect found.",
+   "challenges": [],
+   "row_sha256": "7c99714e39bdcdf4df0419524dfd09a5eebfb3a55802246eb3b78f61ef7cf8bd"
+  },
+  {
+   "decision_id": "M8-Ps-379",
+   "verdict": "support",
+   "reasoning": "The interrogative opener at v5 and the verse-final Hallelu-Yah closer at v9 (one of 13 book-wide verse-final occurrences per the inventory, closing the frame opened at v1) are both byte-confirmed, and the v4|v5 boundary this row shares with M8-Ps-378 is consistent on both sides. observed_substrate_signals cites the participial chain at הַֽמַּשְׁפִּילִ֥י (oshb:Ps.113.6) and מְקִֽימִ֣י (oshb:Ps.113.7); both collate byte-true, though the chain in fact begins one participle earlier, at oshb:Ps.113.5's own הַֽמַּגְבִּיהִ֥י ('who is enthroned on high'), which the row's enumeration omits. This is a minor completeness gap in a supporting signal, not a wrong claim, and it does not affect the boundary evidence itself (the interrogative opener and the closing Hallelu-Yah, both correctly cited) -- noted as an observation, not filed as a challenge. unit_type=strophe, parent=113, and confidence=medium are appropriately calibrated for the reasons given under M8-Ps-378. All validator tools GREEN; no register-purge violations found.",
+   "challenges": [],
+   "row_sha256": "1ba443c09439e9a5f8fb9e60dffa88b12a2ef2277e2017d83a96401653611c6e"
+  },
+  {
+   "decision_id": "M8-Ps-380",
+   "verdict": "support",
+   "reasoning": "Ps 114 is confirmed untitled (no Ps.114.0 entry in verse_map_web.json), so the row's 'no WEB title pseudo-verse' claim is correct and the row properly carries no title dual-cite. The third-person exodus-narrative report (vv1-4, byte-confirmed against oshb) versus the second-person apostrophe opening at v5 is one of the cleanest addressee-shift seams in the book -- a two-panel report/apostrophe structure -- so confidence=high and unit_type=strophe are well supported; the tiling with M8-Ps-381 covers all 8 verses of the psalm exactly (check_tiling GREEN, 44/44 for the cluster). The cross_part_phrasing_variation flag is an orchestrator bookkeeping normalization, not a challengeable defect per the brief. device_notes uses a verse-anchored cross-reference ('the seam at web:Ps.114.4|Ps.114.5') in the compliant form, unlike the sibling rows in this cluster that name 'the part brief' or 'the next row' instead. No material defect found.",
+   "challenges": [],
+   "row_sha256": "a6ab5813c239f983bdb2d5e420d537ede1ecb41e455b42f082275a2de0411c55"
+  },
+  {
+   "decision_id": "M8-Ps-381",
+   "verdict": "challenge",
+   "reasoning": "The second-person apostrophe to the sea (v5) and mountains (v6) and earth (v7) are all byte-confirmed, including the root echo between v4's third-person הֶֽ֭הָרִים רָקְד֣וּ ('the mountains skipped') and v6's second-person address הֶֽ֭הָרִים תִּרְקְד֣וּ ('you mountains, [why do] you skip') -- the same root repeated with only person/aspect changing, exactly the kind of apostrophe-echoing-report structure the row claims. The closing relative clause at v8 correctly reverts to third person. unit_type=strophe and confidence=high are well supported, and check_tiling confirms vv5-8 closes the psalm exactly with no gap or overlap against M8-Ps-380. But device_notes repeats the register-purge violation found in M8-Ps-375: \"is the seam the part brief flags as this psalm's structural hinge\" narrates the production pipeline (\"the part brief\") rather than the text. ngram7.py independently flags this exact phrasing as a 2-row reused 7-gram ('web ps is the seam the part') shared with M8-Ps-375, confirming it is boilerplate rather than row-specific derivation. The span/warrant is not contested, only this prose defect.",
+   "challenges": [
+    {
+     "challenge_id": "LF-381-1",
+     "severity": "low",
+     "claim": "device_notes narrates the production pipeline (\"the part brief flags...\") instead of describing textual evidence, violating the register-purge ban on file-order talk; the identical pattern recurs from M8-Ps-375.",
+     "evidence": "device_notes reads: \"...is the seam the part brief flags as this psalm's structural hinge.\" Book strategy section 10 bans file-order talk in row prose EVER. ngram7.py flags the 7-gram \"web ps is the seam the part\" as reused across 2 rows in this cluster (this row and M8-Ps-375), which is independent corroboration that this is templated brief-reference language, not span-specific argument."
+    }
+   ],
+   "row_sha256": "140bbfc55087fcc863f6934790723a65afe741cb1f0275d94d166b92956566de"
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+  "attempt_id": "spot_ps_s3_r1",
+  "sampled": [
+    "M8-Ps-005",
+    "M8-Ps-020",
+    "M8-Ps-033",
+    "M8-Ps-045",
+    "M8-Ps-057",
+    "M8-Ps-070",
+    "M8-Ps-085",
+    "M8-Ps-098",
+    "M8-Ps-113",
+    "M8-Ps-124",
+    "M8-Ps-139"
+  ],
+  "results": [
+    {
+      "decision_id": "M8-Ps-005",
+      "verdict": "DEFECT",
+      "evidence": "Central warrant (Ps.2.10-12 imperative-address strophe closing on an ashrei inclusio with Ps.1.1) is sound and its digit-bearing claims re-derive true from verse_map_oshb.json: Ps.2.12 has exactly 14 words, אַ֖שְׁרֵ֗י is word 11, and exactly 3 words follow it (כָּל ח֥וֹסֵי בֽוֹ) -- matches the row's 'word 11 of 14 ... three words following' claim. Dual-cites (web:Ps.2.11=oshb:Ps.2.11, web:Ps.2.12=oshb:Ps.2.12, web:Ps.1.1=oshb:Ps.1.1) all validate under citation_sweep.py (status GREEN, 0 problems; Ps.2 and Ps.1 are identity psalms so 1:1 numbering is correct). BUT: citation_sweep.py flags 2 nfd_degraded hits in device_notes, and manual codepoint comparison against verse_map_oshb.json confirms both are real byte-level corruptions, not tool noise: (1) the quoted אַ֖שְׁרֵ֗י (claimed oshb:Ps.2.12) has its shin-dot (U+05C1) and sheva (U+05B0) combining marks TRANSPOSED versus source order (source: ...05e9,05c1,05b0... ; row: ...05e9,05b0,05c1...); (2) the quoted אַ֖שְֽׁרֵ֗י (claimed oshb:Ps.1.1) has shin-dot/sheva/meteg (U+05C1/U+05B0/U+05BD) permuted versus source order (source: shin-dot,sheva,meteg ; row: sheva,meteg,shin-dot). Both quotes are visually identical to source and collate at NFD tier only, not BYTE tier, which the book's own rule set requires for any pointed Hebrew quotation ('a pointed run whose best tier is nfd is NOT a pass' -- TOOLKIT.md citation_sweep.py spec, confirmed live in this run's JSON output: nfd_degraded_count=2 for M8-Ps-005). This is exactly the copy-degradation hazard the toolkit warns never hand-type/copy-through pointed Hebrew. Cure: re-splice both tokens programmatically from verse_map_oshb.json via normalize_hebrew_in_json.py --write and re-collate. Everything else in the row (meteg-difference claim, 1-of-4-tiers skeleton-match claim, rejected_alternative, boundary_evidence_refs) checks out."
+    },
+    {
+      "decision_id": "M8-Ps-020",
+      "verdict": "DEFECT",
+      "evidence": "Central warrant (Ps.10.1-4 opening vocative-lament strophe, third-person wicked-portrait) and its digit-bearing claims all re-derive true: exactly 1 of the 8 psalms in the Ps.9-16 span (Ps.9,11,12,13,14,15,16 all carry a WEB title verse; only Ps.10 has none) confirmed directly against verse_map_web.json; the acrostic surface-letter sequence 'lamed, bet, kaph, resh across verses 1-4' matches the actual first words of Ps.10.1-4 MT exactly (לָמָ֣ה, בְגַ֣אֲוַת, כִּׁ֥י, רָשָׁח). Dual-cite/citation checks GREEN (0 problems), check_web_quotes GREEN, check_refs_mirror GREEN. BUT check_marks.py flags rule selah_symmetry_gap (undisclosed=Ps.9.21, row_cites_selah=false), independently confirmed: MT Ps.9.21 (=WEB Ps.9.20, the front-seam verse immediately preceding this row's own span opening at web:Ps.10.1) IS present in the selah inventory (pmarks_Ps.json) and its verse text literally ends '... סֶּֽלָה' (Selah). The row's device_notes discusses the Psalm 9/10 acrostic continuity in detail but never mentions this front-seam Selah, which per the book's own standing rule (CROSS-SEAM COHESION: 'a byte-true device straddling the row's own seam argues continuity against the row unless disclosed') is boundary-relevant evidence the row's own logic requires it to address. This is an undisclosed cross-seam device, not a false claim, but a required disclosure gap."
+    },
+    {
+      "decision_id": "M8-Ps-033",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.17.10-12 third-person indictment of enemies, framed by second-person address on both sides) verified. The claim 'Ps.17.12's lion description is a verbless clause in the MT (its is is WEB-supplied)' is confirmed true against verse_map_oshb.json: MT Ps.17.12 = דִּמְיֹנח כְּ֣אַרְיֵה יִכס֣וֹף לִטְ֡רוֹף ו֤כְכְפִיֽר יֹשׁ֥ב בְמִסְֽתָרִים, a noun (his likeness) followed directly by a comparison, with no finite copula anywhere. Dual-cite/citation checks GREEN (Ps.17 is an identity psalm, no shift), check_web_quotes GREEN, check_refs_mirror GREEN, no universals/marks flags on this row."
+    },
+    {
+      "decision_id": "M8-Ps-045",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.19.1-6 'El' heavens-panel vs. the psalm's Yahweh panel starting 19.7) verified against verse_map_oshb.json by scanning every verse of Psalm 19: the sole El token (אֵ֡ל) occurs at MT 19.2 = web:19.1, matching the claimed 'sweep: 1 occurrence across 6 verses'; Yahweh (יְהוָה) occurs 0 times in MT 19.2-19.7 (=web:19.1-6) and its first 5 occurrences in the whole psalm are all in MT 19.8-19.10 (=web:19.7-9), confirming both the '0 occurrences across 6 verses' claim and the 'all fall from web:Ps.19.7 onward' universal claim flagged by check_universals.py as unsupported -- it is in fact true. The El/'not' (אַֽל at MT 19.14) homograph distinction is handled correctly per the book's own short-token-homography hazard rule. citation_sweep.py: GREEN, 0 problems; the one prose_dual_warn on this row (oshb:Ps.19.14 beside Hebrew content with no in-field WEB arithmetic) is the explicitly-designated non-defect 'author-wave enhancement' class per TOOLKIT.md scope note, since the web:Ps.19.13=oshb:Ps.19.14 pairing is present in boundary_evidence_refs."
+    },
+    {
+      "decision_id": "M8-Ps-057",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.22.27-31 closing strophe widening scope from assembly to 'all the ends of the earth') is a plain WEB-text-based scope-shift argument with no Hebrew quotation requiring dual-cite. Dual-cite web:Ps.22.26=oshb:Ps.22.27 correct (Ps.22 is a shift+1 psalm, title=MT v1, confirmed in citation_sweep.py's per-psalm table); citation_sweep.py GREEN 0 problems, check_web_quotes.py GREEN 0 flags (verbatim WEB quotes match), check_refs_mirror GREEN, no check_marks/check_universals flags on this row."
+    },
+    {
+      "decision_id": "M8-Ps-070",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.29.1-2 heavenly summons isolated from the storm theophany by addressee) and its digit claims re-derive true from verse_map_oshb.json: the imperative הָב lemma occurs at exactly 3 word positions (Ps.29.1 words 3 and 7, Ps.29.2 word 1) as claimed; the pointed spelling הָ֣בוּ matches byte-for-byte at word3/29.1 and word1/29.2 while word7/29.1 (הָ֥בוּ) carries a different accent mark -- confirming the '2 of 3 identical, 1 pointed differently' claim; בְּנֵ֣י אֵלִ֡ים is confirmed at words 5-6 of 29.1. Scanning MT 29.3-29.9 by hand finds zero 2nd-person verb forms or vocatives (all 3rd-person: הִרעִים, וישַבֵּר, יָחִיל, etc.), confirming the '0 vocative/second-person forms recur across 29.3-29.9' claim. citation_sweep GREEN, check_web_quotes GREEN, check_refs_mirror GREEN, check_marks GREEN. The check_universals.py hits on 'unbroken' (rejected_alternative, describing the alternative reading) and 'only' (the addressee claim, independently verified above) are heuristic false positives, not defects."
+    },
+    {
+      "decision_id": "M8-Ps-085",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.33.12-19 beatitude-formula strophe echoing Ps.32's opener) verified: MT Ps.33.12 opens אַשְׁרֵ֣י הַ֣גּוֹי and MT Ps.33.18 opens הִנֵּ֤ה עֵ֣ין יְ֣הוָה exactly as quoted; MT Ps.32.1 and 32.2 both open with ashrei forms (אַשְׁרֵ֥י / אַ֥שְֽׁרֵי), confirming the cross-psalm echo claim. Ps.33 is an identity psalm (not in the shift lists), matching its same-number dual-cites. citation_sweep.py GREEN 0 problems, no nfd_degraded hit for this row, check_web_quotes GREEN, check_refs_mirror GREEN, check_marks GREEN."
+    },
+    {
+      "decision_id": "M8-Ps-098",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.37.5-8 acrostic gimel/dalet/he cluster) and its full digit claim set independently re-derived from scratch by reading every first-word of Ps.37.1-40 MT out of verse_map_oshb.json and reconstructing the letter-block boundaries: aleph-yod run 2-verse blocks as expected, then dalet stands alone at v.7 (1 verse) before he opens v.8 -- matching the row's own span claim; kaf stands alone at v.20 (1 verse); samekh opens a 3-verse block at v.27-29 before pe opens v.30; qof stands alone at v.34 before resh opens v.35; shin opens a 4-verse block at v.37-40 running to the end of the psalm (tav is missing). This exactly matches the row's claim 'dalet, kaf, and qof each span one verse; samekh spans three; shin spans four' and the '20 realized letters' total (22 - ayin,tav missing = 20), independently cross-checked against psalm_device_inventory.json's acrostics entry for Ps.37 (alphabet_letters_in_order minus letters_missing='עת' = 20). citation_sweep GREEN, check_web_quotes GREEN, check_refs_mirror GREEN, check_marks GREEN. check_universals.py flags 'isolated' in the rationale, but the immediately preceding clause in the same sentence already names the digit-bearing support (1/1/1/3/4-verse spans) -- a heuristic false positive from the tool's narrow context window, not a genuine unsupported-universal defect."
+    },
+    {
+      "decision_id": "M8-Ps-113",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.40.6-10 obedience-declaration-plus-proclamation unit) verified against verse_map_oshb.json: Ps.40 is a shift+1 psalm so web:40.6-10 = MT 40.7-11, and each quoted WEB phrase lines up with its MT counterpart at the stated ref (checked 40.7/8/9/10/11 in sequence). The 'no address break between them' claim covering the proposed 40.6-8/40.9-10 split point is a reasonable reading of the text -- both halves are a continuous, self-voiced first-person declaration addressed to God (2ms verb forms throughout, no intervening vocative or imperative) -- not a numeric claim the tool's digit-sweep rule actually governs. citation_sweep GREEN 0 problems, check_web_quotes GREEN, check_refs_mirror GREEN, check_marks GREEN."
+    },
+    {
+      "decision_id": "M8-Ps-124",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.44.9-16 second-person accusation strophe shifting to first-person lament) verified against verse_map_oshb.json: unlike M8-Ps-020, this row correctly discloses its own front-seam Selah (device_notes: 'the front-seam Selah closing the preceding strophe, web:Ps.44.8=oshb:Ps.44.9') -- confirmed, MT 44.9 ends נוֹדֶ֣ה סֶֽלָה. Scanning MT 44.10-44.15 finds a continuous chain of 2nd-person perfect verbs (זָ֣נַחְתָּ, וַתַּכְלִימֵ֡נוּ, תְּשִׁיבֵ֣נוּ, תִּתְּנֵ֣נוּ, תִּמְכֹּ֣ר, תְּשִׁימֵ֣נוּ) with no vocative/imperative interruption and no new particle at the proposed 44.12/44.13 split, confirming the 'unbroken ... without any new particle or address' claim; the shift to first-person description of shame genuinely begins at MT 44.16 (=web:44.15), matching device_notes' 'vv.15-16' boundary. The 'All this' phrase the rationale points to as opening the next strophe is confirmed to sit at web:Ps.44.17, outside this row's own span, exactly as the row frames it (check_web_quotes.py's neighbor_only_warn on this quote is a soft heuristic note, not a flag -- the row never claims 'All this' as its own in-span evidence). citation_sweep GREEN; its prose_dual_warn (oshb:Ps.44.10 beside Hebrew content, no in-field WEB arithmetic) is again the accepted author-wave-enhancement class since web:Ps.44.9=oshb:Ps.44.10 is present in boundary_evidence_refs. check_universals.py's 'unbroken'/'without any new' hits are the already-verified true claims above, not defects."
+    },
+    {
+      "decision_id": "M8-Ps-139",
+      "verdict": "CLEAN",
+      "evidence": "Central warrant (Ps.49.1-4 universal-audience summons paired with the wisdom-instruction performative of v.4) verified against verse_map_oshb.json: MT Ps.49.5 = אַטֶּ֣ה לְמָשָׁ֣ל אָזְנִֽי אֶפְּתַּ֥ח בְּ֤כִנּוֹר חִידָתִֽי -- לְמָשָׁל (proverb) is word 2 and חִידָתִי (riddle) is word 6, with בְּכִנּוֹר (harp) at word 5, i.e. positioned between the proverb/riddle pair exactly as claimed. Ps.49 is a shift+1 psalm (44-49 range), and all six dual-cites in the row (49.0/1/4/5/12/20) resolve correctly under that offset; citation_sweep.py GREEN 0 problems. Its one prose_dual_warn (oshb:Ps.49.5 beside Hebrew content, no in-field WEB arithmetic) is again the accepted author-wave-enhancement class since web:Ps.49.4=oshb:Ps.49.5 is present in boundary_evidence_refs. check_web_quotes GREEN, check_refs_mirror GREEN, check_marks GREEN, no check_universals hits on this row."
+    }
+  ]
+}

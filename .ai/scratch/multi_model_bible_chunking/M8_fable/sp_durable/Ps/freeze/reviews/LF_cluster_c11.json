@@ -1,0 +1,79 @@
+{
+ "cluster": "c11",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c11_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-073",
+   "row_sha256": "192b3b6ac05c8da14ea47b53155e54db2b9b2579c721afa9d4f79d4c7e0f554b",
+   "verdict": "support",
+   "reasoning": "Ps 30 is a shift+1 psalm (web_mt_offset_map.json: rule=shift, k=1, mt_title_verses=[1]), confirming the row's dual-cites web:Ps.30.0=oshb:Ps.30.1 (title) and web:Ps.30.4=oshb:Ps.30.5 (arithmetic 4+1=5). Both quoted WEB sentences (web:Ps.30.1, web:Ps.30.3) match verse_map_web.json verbatim with curly quotes. The Hebrew imperative זַמְּר֣וּ collates at byte tier (collate.py) against oshb:Ps.30.5. Title labels mizmor/shir match psalm_device_inventory.json (30: mizmor, shir, le_david); the row's 'dedication note' mention is descriptive, not a quote, so carries no misquote risk. No selah/K-Q/paseq claim is asserted; pmarks_Ps.json shows zero selah in Ps 30 and one unclaimed K/Q note at MT 30:4 (=web 30:3, a minor plene/defective spelling variant of the same word with no translation impact) that the row does not quote in Hebrew or assert anything about, consistent with check_marks.py and citation_sweep.py both returning GREEN on this row. The v.3|v.4 seam (Sheol/pit testimony vs. a new imperative+addressee) is a genuine tier-1 mood/addressee shift; rejected_alternative (one sentence) properly discloses the one-verse-away rival. unit_type/parent_psalm correct; the cluster's three Ps 30 rows (1-3|4-5|6-12) tile exactly to Ps 30's 12 WEB verses (check_tiling.py GREEN, 0 gaps/overlaps).",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-074",
+   "row_sha256": "179b7f64e4c6c4654b68ff7c4b85f682150269fd5806f3c6f62f77a9e4665841",
+   "verdict": "support",
+   "reasoning": "Quotes of web:Ps.30.4 and web:Ps.30.5 match verse_map_web.json verbatim. Dual-cite web:Ps.30.4=oshb:Ps.30.5 confirmed under the k=1 shift. The Hebrew imperative זַמְּר֣וּ collates at byte tier against oshb:Ps.30.5. The seam-pair language mirroring M8-Ps-073's v.3|v.4 seam description (both rows independently cite the same imperative+vocative shift) is the TOOLKIT's expected one-edit seam-pair convention, not undisclosed templating — ngram7.py shows only 2-row reuse of any 7-gram here, far under the 10-row RED gate. The v.5|v.6 seam (maxim vs. the psalmist's first-person return with a new temporal marker) is genuine and is disclosed via the forward boundary_evidence_refs entry web:Ps.30.6. rejected_alternative (one sentence) properly discloses folding this strophe back into the preceding testimony. No marks-layer claim is made. unit_type/parent correct, span tiles cleanly with its neighbors.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-075",
+   "row_sha256": "8f5e448cc28fb646e4f9633081c686df5b9747b0257d05a72f20edc25bb93d44",
+   "verdict": "challenge",
+   "reasoning": "The v.5|v.6 first-person restart (וַ֭אֲנִי אָמַ֣רְתִּי, byte-collated against oshb:Ps.30.7) and the v.10|v.11 reversal hinge (הָפַ֣כְתָּ, byte-collated against oshb:Ps.30.12) are accurate and well-evidenced; the embedded quotation spanning vv.9-10 (introduced by v.8's colon, closed by v.10's closing curly quote in verse_map_web.json) is verified. The span itself (6-12, closing the psalm) is sound, and the one-sentence rejected_alternative properly discloses a genuine nearby 3-way-split rival. However, device_notes makes a specific, false lexical claim: 'the psalm's closing thanksgiving (v. 12) echoes the extolling verb that opened it at v. 1.' Byte-checked against verse_map_oshb.json, the two verses do not share a verb root (see challenge LF-075-1 below). This claim is cited as supporting evidence — boundary_evidence_refs includes the bare ref web:Ps.30.1 specifically to back it — though it does not change the row's span, which the psalm's own final verse fixes independently of any inclusio argument. unit_type/parent/tiling are otherwise correct; no selah/K-Q/marks-layer claim is made.",
+   "challenges": [
+    {
+     "challenge_id": "LF-075-1",
+     "severity": "medium",
+     "claim": "device_notes asserts Ps 30 v.12 'echoes the extolling verb' that opened the psalm at v.1 — a false lexical-repetition/inclusio claim; the two verses use different Hebrew roots.",
+     "evidence": "verse_map_oshb.json oshb:Ps.30.2 (=web:Ps.30.1), full verse: “אֲרוֹמִמְךָ֣ יְ֭הוָה כִּ֣י דִלִּיתָ֑נִי וְלֹא שִׂמַּ֖חְתָּ אֹיְבַ֣י לִֽי” — opens with the root רום ('extol/exalt'), 'I will extol you'. oshb:Ps.30.13 (=web:Ps.30.12), full verse: “לְמַ֤עַן יְזַמֶּרְךָ֣ כָ֭בוֹד וְלֹ֣א יִדֹּ֑ם יְהוָ֥ה אֱ֝לֹהַ֗י לְעוֹלָ֥ם אוֹדֶֽךָּ” — uses the roots זמר ('sing praise') and ידה ('give thanks'); neither verse shares a root with oshb:Ps.30.2's opening verb. collate.py --json confirms the row's own Hebrew quotes at oshb:Ps.30.5/30.7/30.12 are byte tier, so this is a claim error, not a transcription artifact. The root actually repeated across the psalm is זמר, matching v.4's imperative at oshb:Ps.30.5, not v.1's opening verb."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-076",
+   "row_sha256": "6cea0089f928f89d1f63f686a48a4853aae1eb47877182a73e2e5bfe12852685",
+   "verdict": "challenge",
+   "reasoning": "Title dual-cite web:Ps.31.0=oshb:Ps.31.1 confirmed (Ps 31 is shift+1, web_mt_offset_map.json k=1); title labels mizmor/lamnatseach/le_david match psalm_device_inventory.json exactly. All Hebrew quotes in this row (oshb:Ps.31.2, 31.3, 31.6) collate at byte tier. Three of the four Hebrew-quote+English-gloss pairings correctly cite a single WEB verse matching the literal quoted English (web:Ps.31.1=oshb:Ps.31.2 vocative-fusion opener; web:Ps.31.5=oshb:Ps.31.6 self-consecration hinge; the closing testimony quotes at web:Ps.31.7-8). The second pairing has a quote/gloss span defect detailed in the filed challenge below. It does not affect the row's own span decision (1-8), which remains well-supported by the title, the vocative-fused opening, the self-consecration hinge, and the mood shift to testimony at vv.7-8 — all independently verified against verse_map_web.json/verse_map_oshb.json. unit_type/parent/tiling correct; 'high' confidence is reasonable given convergence of the other three correctly-cited tier-1 signals. No selah/K-Q claim is made (pmarks_Ps.json: none in this span).",
+   "challenges": [
+    {
+     "challenge_id": "LF-076-1",
+     "severity": "medium",
+     "claim": "The row cites an English WEB quotation as spanning '(web:Ps.31.2-3)' when the quoted text is verbatim and exclusively WEB 31:2, while the paired Hebrew is cited to the single MT verse oshb:Ps.31.3 (=web:Ps.31.2 only under the psalm's k=1 shift) — a quote/gloss span mismatch.",
+     "evidence": "verse_map_web.json Ps.31.2 = “Bow down your ear to me. Deliver me speedily. Be to me a strong rock, a house of defense to save me.” — an exact, full match to the row's quoted English, with nothing left over. verse_map_web.json Ps.31.3 = “For you are my rock and my fortress, therefore for your name’s sake lead me and guide me.” — none of this text appears anywhere in the row's quotation. web_mt_offset_map.json confirms Ps 31 rule=shift k=1, so oshb:Ps.31.3 (the ref the row cites for its Hebrew quote, byte-collated correct at that single verse) maps to web:Ps.31.2 alone, not to a 2-3 span. The ref should read '(web:Ps.31.2)' to match what is actually quoted."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-077",
+   "row_sha256": "07dc9b36bf9610a92c6580ddbbb250820a5760cdedb6f35b1730cf50746e95f4",
+   "verdict": "support",
+   "reasoning": "Dual-cites web:Ps.31.9=oshb:Ps.31.10 and web:Ps.31.12=oshb:Ps.31.13 confirmed (k=1). Both Hebrew quotes (חָנֵּ֥נִי יְהוָה֮; נִ֭שְׁכַּחְתִּי כְּמֵ֣ת מִלֵּ֑ב) collate at byte tier against their cited MT verses. The imperative-plus-vocative restart at v.9, mirroring the psalm's own opener (בְּךָ֖ יְהוָ֣ה חָ֭סִיתִי at oshb:Ps.31.2), is an accurate and well-evidenced tier-1 signal for the strophe boundary; the mood contrast with the declarative testimony of vv.7-8 (both remain 2nd-person address to Yahweh, correctly characterized by this row and by M8-Ps-076 as a shift from petition-imperative to testimony-declarative rather than an addressee change) is symmetrically cited in both rows' boundary_evidence_refs per the seam-pair convention. rejected_alternative properly discloses and rejects folding into the prior strophe. No marks-layer claims; check_marks.py/citation_sweep.py GREEN on this row. unit_type/parent/tiling correct; 'high' confidence is reasonable given the direct self-echo of the psalm's own opening petition form.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-078",
+   "row_sha256": "418cd5d120dbbbe04cdb83a1a356347fbaa6c0e3f16aaa6381b4805be04c5879",
+   "verdict": "support",
+   "reasoning": "Dual-cites web:Ps.31.14=oshb:Ps.31.15 and web:Ps.31.18=oshb:Ps.31.19 confirmed. Hebrew quotes וַאֲנִ֤י עָלֶ֣יךָ בָטַ֣חְתִּי יְהוָ֑ה and שִׂפְתֵ֫י שָׁ֥קֶר collate at byte tier. The pronoun-fronted adversative pivot (וַאֲנִי) is a genuine, verifiable syntactic marker distinct from the surrounding petition/testimony material. The row's explicit 'No selah, acrostic, or doxology' disclosure is accurate and properly span-scoped: pmarks_Ps.json shows zero selah in all of Ps 31, and psalm_device_inventory.json shows no acrostic or doxology touching this psalm at all — check_marks.py counted the mention and returned no flag. 'against the righteous insolently' is confirmed to sit inside the same verse (web:Ps.31.18) as 'the lying lips' in verse_map_web.json, so unlike M8-Ps-076 there is no quote/gloss span issue here. rejected_alternative properly discloses and rejects extending the prior strophe through v.14. unit_type/parent/tiling correct; 'medium' confidence is a defensible calibration for a syntactic (non-lexical, non-vocative) pivot rather than a vocative/imperative restart.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-079",
+   "row_sha256": "51282088a008bd3ddfdfbb8a427f1e0bdd52cfddcd40d8e0f9b616c8d1b7f269",
+   "verdict": "support",
+   "reasoning": "Dual-cites web:Ps.31.19=oshb:Ps.31.20 and web:Ps.31.21=oshb:Ps.31.22 confirmed; the forward-pointing refs to the next seam (web:Ps.31.23=oshb:Ps.31.24, web:Ps.31.24=oshb:Ps.31.25) correctly mirror the following row. Hebrew quotes מָ֤ה רַֽב טוּבְךָ֮ and בָּר֥וּךְ יְהוָ֑ה collate at byte tier. The exclamatory-particle opening and the berakhah-formula close are genuine tier-1 register markers. device_notes correctly and conservatively distinguishes this psalm-internal berakhah from the book's four true book-boundary doxologies (41:13, 72:18-20, 89:52, 106:48 per psalm_device_inventory.json/TOOLKIT.md) and correctly withholds the 'coda' unit_type, which §6 reserves for those seams — Ps 31 sits well inside Book I. rejected_alternative properly discloses and rejects extending through v.24 on the same addressee-shift ground the next row uses as its own driver. unit_type/parent/tiling correct.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-080",
+   "row_sha256": "3acf5d3456ff23faa570d7838f61921b641c76fad61ccf1cc838fa8c40f126ce",
+   "verdict": "support",
+   "reasoning": "Dual-cites web:Ps.31.23=oshb:Ps.31.24 and web:Ps.31.24=oshb:Ps.31.25 confirmed; the backward-pointing refs correctly mirror the preceding row's seam. Hebrew quotes אֶֽהֱב֥וּ אֶת יְהוָ֗ה כָּֽל חֲסִ֫ידָ֥יו and חִ֭זְקוּ וְיַאֲמֵ֣ץ collate at byte tier, and both English glosses match verse_map_web.json verbatim as clean single-verse quotations (no quote/gloss span mismatch, unlike M8-Ps-076). The addressee shift from Yahweh (2nd person throughout vv.19-22) to 'his saints'/'you who hope in Yahweh' (2nd-person address to the congregation) is a genuine, clean tier-1 closing signal, and the psalm's final couplet is correctly kept as unit_type strophe rather than coda since Ps 31 is not one of the four book-boundary doxology seams — device_notes explicitly and correctly makes this distinction. unit_type/parent/tiling correct; 'high' confidence is justified by the clean addressee-shift driver plus the row's position as the psalm's terminal couplet.",
+   "challenges": []
+  }
+ ]
+}

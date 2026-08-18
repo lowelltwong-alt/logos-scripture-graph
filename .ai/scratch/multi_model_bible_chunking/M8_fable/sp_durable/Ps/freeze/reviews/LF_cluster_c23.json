@@ -1,0 +1,86 @@
+{
+ "cluster": "c23",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c23_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-157",
+   "verdict": "challenge",
+   "reasoning": "Re-derived Psalm 56's numbering against web_mt_offset_map.json/verse_map_web.json: 56 is a shift+1 psalm (web:Ps.56.0 is_title=true, mt_title_verses=['Ps.56.1']), so the title dual-cite web:Ps.56.0 = oshb:Ps.56.1 on this opening row is correctly formed per the owner rule. Both English quotes (v1's 'Be merciful to me, God, for man wants to swallow me up' and v4's 'In God, I praise his word...What can flesh do to me?') verified verbatim against verse_map_web.json, including the web:Ps.56.4 = oshb:Ps.56.5 arithmetic (4+1=5). The rejected_alternative's core move -- declining to isolate v4 as its own row because its later return (vv10-11) is a split, reworded near-refrain rather than a symmetric repeat -- is a genuine tier-1 argument about refrain-edge strength, not taste; I traced the counter-reading (a v4|v5 strophe break, since v4-v5's trust declaration reads as a classic interruption of the surrounding complaint) and found the surrounding verses (v3's 'When I am afraid, I will put my trust in you' bleeding directly into v4, then v5 resuming the enemies' words) make v1-v7 a coherent envelope, so I did not find a stronger rival seam one verse away. Psalm 56 carries no selah (confirmed against pmarks_Ps.json / verse_map_web.json: no web_selah=true entry anywhere in Ps.56), so no disclosure gap exists. Span/tiling with M8-Ps-158 is exact (13/13 WEB verses, check_tiling GREEN); check_marks, check_refs_mirror, and citation_sweep all ran GREEN on this row. The defect is a citation-hygiene one: device_notes quotes the WEB title in curly quotes ('Silent Dove in Distant Lands') with zero inline web: ref in that field (check_web_quotes.py flags it directly), even though the correctly-dual-cited title ref sits in boundary_evidence_refs. Content is accurate; the binding is missing.",
+   "challenges": [
+    {
+     "challenge_id": "LF-157-1",
+     "severity": "low",
+     "claim": "device_notes carries the curly-quoted WEB tune name “Silent Dove in Distant Lands” with no inline web: ref in that same field, violating the mandatory curly-quote-plus-inline-ref rule for English quotations.",
+     "evidence": "check_web_quotes.py flag: path .M8-Ps-157.device_notes, quote \"Silent Dove in Distant Lands\", refs_nearby: [] (\"curly quote with NO web: ref in its field\"). verse_map_web.json Ps.56.0 text confirms the phrase is verbatim WEB (“For the Chief Musician. To the tune of ‘Silent Dove in Distant Lands.’ A poem by David, when the Philistines seized him in Gath.”), so the quote itself is accurate; only the in-field web: binding is absent (boundary_evidence_refs carries web:Ps.56.0 = oshb:Ps.56.1, but that is a different field)."
+    }
+   ],
+   "row_sha256": "899263ee21863631b63b416b4ca534e56863f796b593b29d468cdcd006e25d56"
+  },
+  {
+   "decision_id": "M8-Ps-158",
+   "verdict": "challenge",
+   "reasoning": "All four Hebrew quotes in this row collate at byte tier against verse_map_oshb.json via collate.py (oshb:Ps.56.11, oshb:Ps.56.12 x2, oshb:Ps.56.5 x2 -- batch run, status GREEN, all 'byte'). I independently verified the literary claim underneath via collate.py (byte tier) and direct verse_map_oshb.json lookup: MT 56:5 (oshb, = web:56.4) holds both the ‘praise his word’ clause and the ‘trust/not fear/what can X do’ clause in one verse; the return splits these across oshb:56.11 (doubling ‘praise word’ with Elohim//Yahweh parallelism, confirmed) and oshb:56.12 (the trust clause alone, with אָדָ֣ם ‘man’ replacing בָשָׂ֣ר ‘flesh’ -- confirmed byte-for-byte, sourced by whitespace-token slice from verse_map_oshb.json, never hand-typed). Dual-cite arithmetic (web.10=oshb.11, web.11=oshb.12, shift+1) is correct. Span/tiling with M8-Ps-157 is exact (13/13 WEB verses, GREEN); check_marks/check_refs_mirror/citation_sweep all GREEN. The row's underlying factual point -- that Psalm 56 belongs in the refrain roster -- is independently confirmed correct (the book strategy's own Ps 56 erratum entry states exactly this, byte-verified). The defect is registerial, not factual: device_notes narrates the review/production process ('the book strategy's refrain roster...does not list for Psalm 56 -- reported as an erratum candidate, not a merged row') instead of stating the literary observation in self-contained prose. This is the same class of pipeline-scaffolding leak the campaign bans 'EVER' in row prose (naming the planning document plus narrating the erratum-reporting workflow), regardless of the finding's own correctness.",
+   "challenges": [
+    {
+     "challenge_id": "LF-158-1",
+     "severity": "low",
+     "claim": "device_notes narrates the production/erratum-reporting process instead of stating a self-contained literary observation, naming an internal planning artifact ('the book strategy's refrain roster') and the review workflow ('reported as an erratum candidate').",
+     "evidence": "device_notes verbatim: \"...that the book strategy's refrain roster (42-43, 46, 57, 59, 62, 67, 80, 99, 107) does not list for Psalm 56 -- reported as an erratum candidate, not a merged row.\" This names an internal document by role (\"the book strategy['s]...roster\") and narrates review-process status (\"reported as an erratum candidate\"), both forbidden under the campaign's register-purge rule (TOOLKIT.md / book-strategy §10: no strategy-file citations, no erratum narration, in row prose EVER). The underlying literary claim is independently correct -- it matches the book strategy's own installed §11 erratum for Ps 56 -- so only the register, not the substance, is at fault."
+    }
+   ],
+   "row_sha256": "53e71d81e7b21dcbb2acfca2654a70a5820bc1de340ca375554f281bfa291746"
+  },
+  {
+   "decision_id": "M8-Ps-159",
+   "verdict": "challenge",
+   "reasoning": "Psalm 57 is confirmed shift+1 (web:Ps.57.0 is_title=true, mt_title_verses=['Ps.57.1']), so the opening-row title dual-cite is correct. The v1 quote verified verbatim. The interior-Selah claim at web:Ps.57.3 = oshb:Ps.57.4 is confirmed from the raw verse bytes: \"Selah.\" sits mid-verse, followed by a further clause on divine loving kindness and truth -- matching the WEB rendering exactly ('...he rebukes the one who is pursuing me. Selah. God will send out...'). This row explicitly declines to use that Selah as the boundary driver and instead closes on the refrain, which is correct application of the campaign's 'selah is at most corroboration, never a driver alone' policy. The refrain quote and its web:Ps.57.5 = oshb:Ps.57.6 dual-cite (5+1=6) collate at byte tier. Span/tiling with M8-Ps-160 is exact (11/11 WEB verses, GREEN); check_marks/check_refs_mirror/citation_sweep GREEN; the orchestrator_mechanical_fix flag is an exempt bookkeeping field, not challenged. The defect is device_notes' clause 'in a later Davidic psalm outside this part's scope,' which is file-order/production-pipeline talk (referencing the writer's own assigned book-range) rather than a literary fact about the text -- the same register-purge category (file-order talk) banned 'EVER' from row prose, distinct from and milder than the M8-Ps-160 sibling instance since no internal document is named here, only the part-boundary itself.",
+   "challenges": [
+    {
+     "challenge_id": "LF-159-1",
+     "severity": "low",
+     "claim": "device_notes' phrase 'outside this part's scope' is file-order/pipeline-structure talk referencing the writer's own assigned book range, banned from row prose under the register-purge rule.",
+     "evidence": "device_notes verbatim: \"...recurs, with wording variants, in a later Davidic psalm outside this part's scope -- a typed cross-psalm relation, not a merged row.\" 'This part' has no referent in the text of Psalm 57 itself; it refers to the production plan's writer-part boundary (book strategy §9: P11 covers Psalms 54-59), which is exactly the 'file-order talk' the campaign bans 'EVER' in row prose (TOOLKIT.md / book-strategy §10)."
+    }
+   ],
+   "row_sha256": "289561543315de3e8b866b8b57026095e414f82b5580c936ace5180ee864c113"
+  },
+  {
+   "decision_id": "M8-Ps-160",
+   "verdict": "challenge",
+   "reasoning": "Opening quote (v6) verified verbatim. The Selah at web:Ps.57.6 = oshb:Ps.57.7 is verse-final in the Hebrew (\"Selah.\" is literally the last word of the verse), unlike the true mid-verse Selah at 57:4 covered by M8-Ps-159; the row calls it 'interior' meaning interior-to-the-strophe (the strophe continues five more verses to its real close at v11), which I checked is not misleading in context since the row never asserts a specific in-verse position, only that this Selah does not drive the boundary -- correct policy application. The refrain-drop-of-article claim is independently byte-confirmed by whitespace-token slice from verse_map_oshb.json (never hand-typed): oshb:Ps.57.6's refrain carries הַשָּׁמַ֣יִם with the article, oshb:Ps.57.12's carries שָׁמַ֣יִם without it -- both collate at byte tier and the one-word delta is exactly as claimed (a correctly-labeled near-refrain, not an overclaimed verbatim match, satisfying the tier-naming discipline). Dual-cite arithmetic (web.11=oshb.12) is correct. Span/tiling with M8-Ps-159 is exact (11/11, GREEN); check_marks/check_refs_mirror/citation_sweep GREEN. The Ps 108 doublet-boundary claim (WEB 57:7-11 as the shared portion) is independently confirmed against the book strategy's own §11 erratum (p26: Ps 108 = Ps 57:7-11 + Ps 60:5-12). The defect, again, is registerial: device_notes names 'the toolkit's 57+60=108 doublet' (an internal-artifact citation) and repeats 'falls outside this part' (file-order talk) -- both banned 'EVER' from row prose, even though the underlying doublet fact stated is accurate.",
+   "challenges": [
+    {
+     "challenge_id": "LF-160-1",
+     "severity": "low",
+     "claim": "device_notes names an internal pipeline artifact ('the toolkit's 57+60=108 doublet') and repeats file-order talk ('falls outside this part'), both banned from row prose under the register-purge rule, though the underlying Ps 108 doublet fact is accurate.",
+     "evidence": "device_notes verbatim: \"...as the shared material behind Psalm 108 (the toolkit's 57+60=108 doublet); the relation is recorded here as texture, with no verse-level citation into Psalm 108 since it falls outside this part.\" 'The toolkit's...doublet' cites an internal reference artifact by name; 'falls outside this part' is file-order talk about the writer's assigned range -- both forms are on the explicit ban list (TOOLKIT.md / book-strategy §10: no strategy-file/§ citations, no file-order talk, in row prose EVER). check_universals.py independently flags the same sentence's 'with no verse-level citation into Psalm 108' clause as an unsupported near-universal, corroborating that this sentence is process narration rather than textual evidence."
+    }
+   ],
+   "row_sha256": "ce2aac87ba0881e85a26b6d5178355a2b86689ca73cc4b91c15aab54cf47f63d"
+  },
+  {
+   "decision_id": "M8-Ps-161",
+   "verdict": "challenge",
+   "reasoning": "Psalm 58 confirmed shift+1 (web:Ps.58.0 is_title=true, mt_title_verses=['Ps.58.1']); opening-row title dual-cite correct. The v1 and v6 English quotes verified verbatim ('Do you indeed speak righteousness, silent ones?' / 'Break their teeth, God, in their mouth.'). The crux word אֵ֣לֶם at oshb:Ps.58.2 collates at byte tier, and the row's refusal to resolve the vocative to one settled sense (divine vs. human judges) is sound practice, consistent with the campaign's general caution against selecting a reading where the text itself is disputed. Span/tiling with M8-Ps-162 is exact (11/11 WEB verses, GREEN); check_marks/check_refs_mirror/citation_sweep GREEN. Independently pulled the MT/WEB titles of Psalms 57 and 59 to test device_notes' claim that Psalm 58's four genre labels 'match the Psalms 57 and 59 title pattern with no historical note': the four-label match (miktam, lamnatseach, le-David, al-tashcheth) is confirmed byte-true across all three titles, but on its natural reading the clause also implies 57 and 59 share the 'no historical note' feature, which is false -- Ps.57.0's WEB title carries '...when he fled from Saul, in the cave' and Ps.59.0's carries '...when Saul sent, and they watched the house to kill him' (both confirmed from verse_map_web.json and the oshb:Ps.57.1/oshb:Ps.59.1 title-verse text). Psalm 58 is in fact the outlier among the three for lacking a historical note, which the sentence as written obscures rather than states. check_universals.py independently flags this exact clause as an unsupported near-universal.",
+   "challenges": [
+    {
+     "challenge_id": "LF-161-1",
+     "severity": "low",
+     "claim": "device_notes' claim that the title pattern 'match[es] the Psalms 57 and 59 title pattern with no historical note' is ambiguous and, on its natural reading, factually wrong: Psalms 57 and 59 both carry historical notes; only Psalm 58 lacks one.",
+     "evidence": "verse_map_web.json Ps.57.0 text: “...A poem by David, when he fled from Saul, in the cave.” Ps.59.0 text: “...A poem by David, when Saul sent, and they watched the house to kill him.” Both are confirmed present in the MT title verses oshb:Ps.57.1 and oshb:Ps.59.1 as well (verse_map_oshb.json), which is where the WEB clauses translate from. Only oshb:Ps.58.1's title lacks any historical clause. check_universals.py flags the same device_notes clause ('with no historical note') as an unsupported near-universal, independently corroborating the imprecision."
+    }
+   ],
+   "row_sha256": "4bea91000c9e74cfbf3e9eadbe5bef6855f0934572094c606f4f3257d2773c16"
+  },
+  {
+   "decision_id": "M8-Ps-162",
+   "verdict": "support",
+   "reasoning": "Both quotes verified verbatim against verse_map_web.json, including the embedded reported-speech quote at v11 ('so that men shall say, \"Most certainly there is a reward for the righteous. Most certainly there is a God who judges the earth.\"'). Checked the rejected_alternative's textual claim directly against the WEB source: v10 ends on a comma ('...He shall wash his feet in the blood of the wicked,'), not a period, so v10 is grammatically incomplete without v11's 'so that men shall say' clause -- this independently confirms the row's reasoning that closing the psalm's final unit at v10 would sever an interpretive clause from the content it introduces, a genuine tier-1 (discourse-continuity) warrant rather than an arbitrary preference. Span/tiling with M8-Ps-161 is exact (11/11 WEB verses, GREEN). Psalm 58 carries no selah (confirmed against verse_map_web.json: no web_selah=true entry in Ps.58), so no disclosure obligation applies. device_notes is empty, carrying no register risk. check_marks/check_refs_mirror/citation_sweep/check_web_quotes/check_universals all run clean on this row, and ngram7.py's cross-cluster 7-gram scan shows no offending template reuse (gate 10, worst reuse 2 rows). No defect found; confidence high is earned.",
+   "challenges": [],
+   "row_sha256": "54629e4a5e7bbe3c2ddd39b706cd6b8eee1814ec46dc1348495893ac6d193df8"
+  }
+ ]
+}

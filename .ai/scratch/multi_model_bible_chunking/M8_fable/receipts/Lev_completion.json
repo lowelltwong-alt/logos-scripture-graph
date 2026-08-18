@@ -1,0 +1,83 @@
+{
+ "schema_version": "m8_book_completion_receipt.v1",
+ "model_id": "M8_fable",
+ "book": "Lev",
+ "completed_at": "2026-07-31",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 185,
+ "verse_coverage": "859/859 exact ordered",
+ "final_states": {
+  "accepted_candidate": 185,
+  "held_lower_confidence": 0
+ },
+ "superseded_decisions": [
+  "M8-Lev-010",
+  "M8-Lev-063",
+  "M8-Lev-075",
+  "M8-Lev-094"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 8,
+ "chunks_sha256": "aeddefca91032b4a92359521dbaf46bfa2604a1a59b7dd64de888ac01addc1b2",
+ "review_packets_sha256": "cd10139dd504e7f7fffa2319e080e0497dcb3a446529e09867265689bb97e927",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book Lev",
+  "scripts/validate_t423_literary_quality_protocol.py --book Lev --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book Lev",
+  "checks/validate_book_review_coverage.py --book Lev --require-final-artifacts",
+  "checks/anti_batch_scan.py --book Lev (0 errors after reviewer-prose de-templating round)"
+ ],
+ "anti_batch_audit": {
+  "auditor": "claude-haiku-4-5",
+  "findings": 0,
+  "note": "Scanner caught reviewer-prose template shells in two round-1 primaries; both reviewers de-templated their own rationale prose (verdicts/hashes untouched) before final assembly."
+ },
+ "post_resolution_check": {
+  "checker_model": "claude-sonnet-5",
+  "result": "185 pass / 0 hold; three minor non-blocking notes recorded (stale strategy count since corrected, blank superseded peer-history slots, sibling-packet ruling pointers)",
+  "bound_file": "reviews/Lev/post_resolution_check_v2.json"
+ },
+ "challenge_volume": {
+  "round1": 31,
+  "revision": 2,
+  "total_ruled": 33,
+  "author_dispositions": "20 accept / 4 revise / 7 hold (all holds sustained)",
+  "boss_positions_overruled_by_mesh": 1
+ },
+ "notable": "Ch. 21 became five-way (1-4|5-7|8|9|10-15) after the revision peer overruled the boss differentiator on verified grammar; the DoA 16:6-14 Wiederaufnahme merge; the coda-genre and transmission-notice consistency systems; zero chapter-shaped chunks; zero human holds.",
+ "routing_used": [
+  {
+   "role": "book_writer + author phases",
+   "model": "claude-sonnet-5",
+   "effort": "high (Tier B)"
+  },
+  {
+   "role": "OL primaries (3 rounds)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "LF primaries (3 rounds) + peers (5 instances) + postchecker",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "anti_batch_auditor",
+   "model": "claude-haiku-4-5"
+  },
+  {
+   "role": "boss_adjudicator",
+   "model": "claude-fable-5",
+   "effort": "xhigh",
+   "attempts": "boss_fable_v01..v24_r1"
+  },
+  {
+   "role": "tier0_deterministic",
+   "model": "none"
+  }
+ ],
+ "escalations_to_fable": "boss adjudication of all 33 challenges; one boss differentiator overruled by peer review and honestly recorded",
+ "ultra_requests": 0,
+ "owner_addendum_applied": "m8-mesh-r2 from the writer prompt onward"
+}

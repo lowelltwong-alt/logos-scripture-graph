@@ -1,0 +1,131 @@
+{
+ "cluster": "c38",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c38_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-248",
+   "span": "Ps.79.1-Ps.79.4",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently: Psalm 79 is a content-verified identity psalm (web_mt_offset_map.json: rule=identity, mt_title_verses=[]), so web:Ps.79.1-4 = oshb:Ps.79.1-4 with no arithmetic; the row's dual pairing of web:Ps.79.0 AND web:Ps.79.1 both to oshb:Ps.79.1 is the owner-ruled title form for an identity psalm and is correct, not an error. oshb:Ps.79.1 opens on the vocative אֱֽלֹהִ֡ים before the report of the temple's desecration; oshb:Ps.79.5 opens a fresh vocative-interrogative, עַד מָ֣ה יְ֭הוָה, outside this span. Both spans collate at byte tier (collate.py). Psalm 79 is confirmed mizmor + le_asaph in psalm_device_inventory.json (79 is in the le_asaph=[50,73-83] membership list), so the genre label is accurate, and the cluster's three Psalm-79 rows (79:1-4/79:5-9/79:10-13) exactly tile MT/WEB 1-13 with check_tiling.py (13/13 verses, 0 problems) -- the span itself, its warrant (report register closing at v4 vs. the renewed vocative at v5), and unit_type 'strophe' are all sound and are SUPPORTED. Two independent defects nonetheless warrant a challenge verdict: a register-purge violation in device_notes, and a citation-convention gap confirmed by check_web_quotes.py.",
+   "challenges": [
+    {
+     "challenge_id": "LF-248-1",
+     "severity": "medium",
+     "claim": "device_notes leaks writer-pipeline structure ('this part carries through to...') into row prose, violating the unconditional file-order-talk ban.",
+     "evidence": "device_notes reads (row's own prose, straight quotes): 'Psalm 79 is one of the five Asaph psalms (Ps.73-83, mizmor le-asaph) that this part carries through to the collection's final psalm at Psalm 83; the title sits inside MT v1 for this identity psalm...'. 'this part' names the writer's production part (P18, per the book strategy's tiling plan: 'P18 79-83'), not a textual feature of Psalm 79 -- exactly the class the toolkit's Standing rules forbid: 'file-order talk... in row prose EVER' (book strategy has the identical wording, 'verbatim into every brief'). The underlying count is not in dispute (le_asaph membership in psalm_device_inventory.json = [50,73,74,75,76,77,78,79,80,81,82,83]; the 5 Asaph psalms 79-83 the sentence is pointing at are real) -- the defect is the leaked pipeline reference itself, which does not belong in a public-facing row."
+    },
+    {
+     "challenge_id": "LF-248-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals[2] curly-quotes WEB-style English with no inline web: ref in the same field, failing the mandatory curly-quote convention.",
+     "evidence": "check_web_quotes.py FLAGS this field: quote 'How long, Yahweh?', issue 'curly quote with NO web: ref in its field' -- the field cites only 'oshb:Ps.79.5', never 'web:Ps.79.5'. The quote itself is verbatim-accurate (verse_map_web.json Ps.79.5 = 'How long, Yahweh? Will you be angry forever?...', so the English is not wrong), but the toolkit's tool table is explicit that curly quotes plus an inline web: ref in the same field are mandatory at every layer, and the numbering SCOPE settlement that relaxes in-field pairing applies only to the Hebrew original-language dual-cite MUST (citation_sweep.py's WARN-only prose_dual_warns), not to this separate English-quote convention."
+    }
+   ],
+   "row_sha256": "56157d5fb0791ad83e97e3077fe865d784ce134b2663c59e73a7bd08b320625c"
+  },
+  {
+   "decision_id": "M8-Ps-249",
+   "span": "Ps.79.5-Ps.79.9",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: oshb:Ps.79.5 opens with the vocative-interrogative עַד מָ֣ה יְ֭הוָה (collate.py: byte tier), and verse_map_web.json confirms an unbroken imperative chain across vv6-9 (Pour out.../Don't hold.../Help us.../Deliver us...), with v9 closing on first-person-plural petition for the community's own sin ('forgive our sins, for your name's sake'). v10's 'Why should the nations say' is a genuinely fresh rhetorical turn (third-person about the nations, distinct grounds from vv6-9's direct imperatives); calling it 'vocative-adjacent' is a defensible characterization of a petition-motivation formula, not a factual overstatement, since the whole verse still argues to God. The span, warrant, and 'strophe' unit_type are SUPPORTED. One citation-convention defect, identical in kind to the one on the preceding row, keeps this a challenge.",
+   "challenges": [
+    {
+     "challenge_id": "LF-249-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[0] curly-quotes WEB-style English with no inline web: ref in the same field.",
+     "evidence": "check_web_quotes.py FLAGS this field: quote 'How long, Yahweh', issue 'curly quote with NO web: ref in its field' -- the field cites only 'oshb:Ps.79.5'. Content is verbatim-accurate against verse_map_web.json Ps.79.5; the defect is the missing mandatory inline web: ref, per the toolkit's check_web_quotes.py entry ('MANDATORY at every layer')."
+    }
+   ],
+   "row_sha256": "35c97f6a20abeaa54b56bb7afd779b4189f79e74786e17ab3c769c8be886f700"
+  },
+  {
+   "decision_id": "M8-Ps-250",
+   "span": "Ps.79.10-Ps.79.13",
+   "verdict": "support",
+   "reasoning": "Re-derived: oshb:Ps.79.10 (לָ֤מָּה יֹאמְר֣וּ הַגּוֹיִם֮ אַיֵּ֪ה אֱֽלֹהֵ֫יהֶ֥ם...) collates at byte tier and correctly reopens the argument with a fresh rhetorical question, distinct from v5's 'How long' opening. The row's K/Q claim is byte-verified against verse_map_oshb.json's Ps.79.10 text, which literally carries the inline unpointed ketiv בגיים immediately before the pointed qere בַּגּוֹיִ֣ם -- exactly the INLINE-KETIV pattern the toolkit warns about, and pmarks_Ps.json confirms exactly one kq note at Ps.79.10 in this book (no others in the 79/80 range), so the disclosure is both accurate and complete. v12's imprecation and v13's declarative vow ('will give you thanks forever... to all generations') are correctly bounded; device_notes correctly distinguishes this psalm-closing vow from the Book III doxology, which psalm_device_inventory.json places later at 89:53(MT)=89:52(WEB), not here -- a precise, non-trivial disambiguation. boundary_evidence_refs correctly mirrors web:Ps.79.5 (argued in rationale/observed_substrate_signals as the contrast point) per check_refs_mirror.py (no flag on this row). check_web_quotes.py, check_universals.py, check_marks.py, and citation_sweep.py all pass clean on this row (no flags). Span, warrant, unit_type, and confidence (medium, appropriately conservative for a register-shift-only close) are all sound. No defect found.",
+   "challenges": [],
+   "row_sha256": "488ceb42098b36f637a73c7611a8afa5e4c73c0ad950c5d126955c894d675795"
+  },
+  {
+   "decision_id": "M8-Ps-251",
+   "span": "Ps.80.1-Ps.80.3",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: Psalm 80 is content-verified shift+1 (web_mt_offset_map.json: rule=shift, k=1, mt_title_verses=[1]), so the row's web:Ps.80.0 = oshb:Ps.80.1 and web:Ps.80.1 = oshb:Ps.80.2 pairings are correct MT-title-verse arithmetic. The epithet at oshb:Ps.80.2, רֹ֘עֵ֤ה יִשְׂרָאֵ֨ל, and the refrain formula at oshb:Ps.80.4, אֱלֹהִ֥ים הֲשִׁיבֵ֑נוּ וְהָאֵ֥ר פָּ֝נֶ֗יךָ וְנִוָּשֵֽׁעָה, both collate at byte tier. Psalm 80's presence in the book strategy's refrain roster ('42-43; 46; 57; 59; 62; 67; 80; 99;...') supports 'refrain_unit' as the correct controlled-vocabulary unit_type, distinct from the plain 'strophe' the same cluster uses for the non-refrain vine narration -- a deliberate and correct distinction. The device_notes' claim that the refrain 'returns 3 times' at 80:3/80:7/80:19 is a properly digit-bearing, verified claim (all three collate at byte tier; see M8-Ps-254's reasoning for the divine-name word-count check). Span, warrant, and unit_type are SUPPORTED. One citation-convention defect remains.",
+   "challenges": [
+    {
+     "challenge_id": "LF-251-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[0] curly-quotes WEB-style English with no inline web: ref in the same field.",
+     "evidence": "check_web_quotes.py FLAGS this field: quote 'Shepherd of Israel', issue 'curly quote with NO web: ref in its field' -- the field cites only 'oshb:Ps.80.2'. Content is verbatim-accurate (verse_map_web.json Ps.80.1 opens 'Hear us, Shepherd of Israel...'); the defect is the missing mandatory inline web: ref."
+    }
+   ],
+   "row_sha256": "6c969834cfa7f0824945f29247856740f21f5eaf3e6d9b7122326c02d228baa2"
+  },
+  {
+   "decision_id": "M8-Ps-252",
+   "span": "Ps.80.4-Ps.80.7",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: oshb:Ps.80.5 opens on the expanded divine name יְהוָ֣ה אֱלֹהִ֣ים צְבָא֑וֹת and oshb:Ps.80.8 closes on the refrain's second return אֱלֹהִ֣ים צְבָא֣וֹת הֲשִׁיבֵ֑נוּ וְהָאֵ֥ר פָּ֝נֶ֗יךָ וְנִוָּשֵֽׁעָה, both confirmed at byte tier -- an accurate, well-anchored refrain-return seam. Span, warrant, and unit_type ('refrain_unit', correct given the refrain return closes this row) are SUPPORTED. Two evidence defects remain, one about the row's own boundary argument.",
+   "challenges": [
+    {
+     "challenge_id": "LF-252-1",
+     "severity": "medium",
+     "claim": "rejected_alternative argues the row's own closing boundary against web:Ps.80.8, but that exact seam-verse is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py FLAGS this row: 'argued_but_unmirrored': ['Ps.80.8']. rejected_alternative reads: '...the vine narration beginning web:Ps.80.8 opens a distinct historical unit' -- web:Ps.80.8 is the very verse that justifies why this strophe stops at 80:7, yet boundary_evidence_refs = [web:Ps.80.3=oshb:Ps.80.4, web:Ps.80.4=oshb:Ps.80.5, web:Ps.80.5=oshb:Ps.80.6, web:Ps.80.7=oshb:Ps.80.8] never lists web:Ps.80.8 itself (the oshb:Ps.80.8 that appears is the MT pairing for WEB verse 7, not WEB verse 8). Every other verse argued in this row's prose outside its own span is correctly mirrored; this one is not."
+    },
+    {
+     "challenge_id": "LF-252-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals[1] curly-quotes WEB-style English with no inline web: ref in the same field.",
+     "evidence": "check_web_quotes.py FLAGS this field: quote 'God of Armies', issue 'curly quote with NO web: ref in its field' -- the field cites only 'oshb:Ps.80.8'. Content is verbatim-accurate (verse_map_web.json Ps.80.7 = 'Turn us again, God of Armies...'); the defect is the missing mandatory inline web: ref."
+    }
+   ],
+   "row_sha256": "f9606bde850dbec09519bf506c6b46a5c05c7fd3a634180f6a4085b5c087623a"
+  },
+  {
+   "decision_id": "M8-Ps-253",
+   "span": "Ps.80.8-Ps.80.13",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: vv8-11 (WEB) narrate the vine's spread in indicative/narrative mode addressed to God (2ms 'you brought/drove out/cleared'), v12 pivots to an accusatory question ('Why have you broken down its walls...'), and v13 closes on the boar/wild-animal ruin image, which carries the suspended ayin at oshb:Ps.80.14 -- pmarks_Ps.json's suspended dict has exactly one entry, {'Ps.80.14': ['עַ']}, confirming this is the book's sole suspended-letter mark and that it is on the ayin, correctly disclosed single-witness. The chosen seam at 80:13|14 rests on a genuine discourse-frame shift (indicative narration vs. a renewed imperative petition using שֽׁ֫וּב נָ֥א, Qal, at oshb:Ps.80.15, byte-collated) which is a tier-1 signal class per the device matrix ('speech/discourse frames'), independently distinct from the refrain's own Hiphil הֲשִׁיבֵ֑נוּ at oshb:Ps.80.4 -- this is a real, verified grammatical distinction, not an asserted one. v12's 'why have you broken down' is a rhetorical pivot worth noting as texture (it parallels the interrogative-opening pattern used elsewhere in this cluster), but it does not reopen the addressee the way the cluster's other seams do (still 2ms address to God throughout vv8-13), so it is not a stronger rival seam and I do not challenge the span choice. Medium confidence is well-calibrated given the acknowledged close call against extending to the third refrain return. Two evidence defects remain.",
+   "challenges": [
+    {
+     "challenge_id": "LF-253-1",
+     "severity": "medium",
+     "claim": "device_notes curly-quotes 'from the forest' as if it were WEB's own wording for the last word of oshb:Ps.80.14, but WEB never uses 'forest' at this verse -- it says 'wood.'",
+     "evidence": "verse_map_web.json Ps.80.13 = 'The boar out of the wood ravages it. The wild animals of the field feed on it.' -- 'wood,' never 'forest.' The same row's own rationale field quotes this correctly in curly WEB style ('The boar out of the wood ravages it'), so the row demonstrably knows the right wording; device_notes nonetheless glosses the bare Hebrew word 'מִיָּ֑עַר' as 'from the forest' in curly quotes (row's own wording, straight-quoted here per the packet quote convention). Per the book-wide convention that curly double quotes are reserved for WEB text only, and prose/gloss wording takes straight quotes, this is either a mislabeled author-gloss dressed as a WEB quotation or an inaccurate WEB quotation; either way it is quote-content that does not match the source and (per check_web_quotes.py) also carries no inline web: ref in-field."
+    },
+    {
+     "challenge_id": "LF-253-2",
+     "severity": "medium",
+     "claim": "rejected_alternative argues the row's own closing boundary against web:Ps.80.14, but that exact seam-verse is absent from boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py FLAGS this row: 'argued_but_unmirrored': ['Ps.80.14']. rejected_alternative reads: '...the renewed imperative plea at web:Ps.80.14 (\"Turn again, we beg you\") uses a different verb form from the refrain proper and opens a fresh petition register that argues for a seam at web:Ps.80.13|80.14' -- web:Ps.80.14 is the exact verse whose grammar justifies this row's own closing seam, yet boundary_evidence_refs = [web:Ps.80.8=oshb:Ps.80.9, web:Ps.80.13=oshb:Ps.80.14 (suspended ayin, single-witness), web:Ps.80.19=oshb:Ps.80.20] never lists web:Ps.80.14 itself."
+    }
+   ],
+   "row_sha256": "c173e5b4170131bc75e1ec3ffe1085232692b3215bd9d438f0d031e9da0a1579"
+  },
+  {
+   "decision_id": "M8-Ps-254",
+   "span": "Ps.80.14-Ps.80.19",
+   "verdict": "challenge",
+   "reasoning": "Re-derived: oshb:Ps.80.15 opens with שֽׁ֫וּב נָ֥א (Qal 'turn, please'), distinct from the refrain's Hiphil הֲשִׁיבֵ֑נוּ at oshb:Ps.80.4 -- byte-collated and confirmed, a genuine grammatical basis for reopening petition register at this seam. The man-of-your-right-hand plea (vv17-18 WEB) continues the same imperative petition with no renewed vocative between it and v14, matching the row's rejected_alternative claim. The divine-name word-count progression across the refrain's three returns is independently re-derived and confirmed by word-slicing verse_map_oshb.json directly (not the row's prose): oshb:Ps.80.4 opens its refrain clause on a 1-word divine name (אֱלֹהִ֥ים); oshb:Ps.80.8 opens on a 2-word divine name (אֱלֹהִ֣ים צְבָא֣וֹת); oshb:Ps.80.20 opens on a 3-word divine name (יְה֘וָ֤ה אֱלֹהִ֣ים צְבָא֣וֹת) -- the row's 1/2/3-word claim is exactly right, and the closing refrain itself collates at byte tier. Span, warrant, and unit_type ('refrain_unit', correct for the row closing on the third refrain return) are SUPPORTED. Two evidence defects remain, one a genuine self-contradiction in the row's own corroborating claim.",
+   "challenges": [
+    {
+     "challenge_id": "LF-254-1",
+     "severity": "medium",
+     "claim": "device_notes glosses the vav-less oshb:Ps.80.20 clause as 'and cause...to shine' (row's own wording), which reintroduces the very conjunctive 'and' the same sentence says this form lacks -- the gloss contradicts its own point.",
+     "evidence": "Word-sliced directly from verse_map_oshb.json: oshb:Ps.80.20's clause is 'הָאֵ֥ר' (no vav prefix), while oshb:Ps.80.4 and oshb:Ps.80.8 both read 'וְהָאֵ֥ר' / 'וְהָאֵ֥ר' (vav-prefixed) -- confirmed at byte tier via collate.py, so the row's underlying grammatical observation (vav present at the first two refrain returns, absent at the third) is correct. But device_notes then glosses the vav-LESS oshb:Ps.80.20 form as 'and cause...to shine' (row's own wording, straight-quoted here per the packet quote convention) -- the very word 'and' the sentence says this instance lacks. If anything, 'and cause...to shine' belongs to the two vav-bearing comparanda, not the one being singled out as different. As written, the curly-quoted gloss undercuts the very byte-level contrast device_notes is trying to establish, and (per check_web_quotes.py) it also carries no inline web: ref in-field."
+    },
+    {
+     "challenge_id": "LF-254-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals[2] curly-quotes WEB-style English ('God of Armies', 'Yahweh God of Armies') with no inline web: ref in the same field.",
+     "evidence": "check_web_quotes.py FLAGS this field twice: quotes 'God of Armies' and 'Yahweh God of Armies', issue 'curly quote with NO web: ref in its field' -- the field cites only 'oshb:Ps.80.4' / 'oshb:Ps.80.8' / 'oshb:Ps.80.20'. Both phrases are verbatim-accurate against verse_map_web.json (Ps.80.7 'God of Armies'; Ps.80.19 'Yahweh God of Armies'); the defect is the missing mandatory inline web: refs."
+    }
+   ],
+   "row_sha256": "7edda1f4377be0f4fb05e8a1bee5cc943a04e6479f2552913a621d7665612a29"
+  }
+ ]
+}

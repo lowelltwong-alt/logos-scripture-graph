@@ -1,0 +1,125 @@
+{
+ "cluster": "c29",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c29_r1",
+ "routing_used": "opus",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-196",
+   "verdict": "support",
+   "reasoning": "Independently re-derived; support. The span tiles the psalm head without gap or overlap (check_tiling over the seven Ps 69 rows: 36 of 36 WEB verses covered, 0 problems). The opening Hebrew הוֹשִׁיעֵ֥נִי אֱלֹהִ֑ים collates at byte tier against oshb:Ps.69.2 and is verse-initial there, so the row's opening-imperative signal survives re-derivation; since the staged extract lacks a morphology layer I argued the Hiphil imperative plus 1cs suffix from the pointed bytes and both witnesses' renderings, and WEB agrees at “Save me, God, for the waters have come up to my neck!” (web:Ps.69.1). Per-psalm arithmetic: Ps 69 is a shift+1 psalm, so web:Ps.69.0 = oshb:Ps.69.1 is the owner-ruled title pseudo-ref form and web:Ps.69.1-Ps.69.4 = oshb:Ps.69.2-Ps.69.5; all 8 pairings in boundary_evidence_refs re-derive through ps_lib and citation_sweep.py returns 0 problems on this cluster. The title labels are byte-present at oshb:Ps.69.1 (לַמְנַצֵּ֬חַ עַֽל שׁוֹשַׁנִּ֬ים לְדָוִֽד): lamnatseach verse-initial, le-David verse-final. The device_notes selah-absence statement is true rather than merely unflagged - pmarks_Ps.json records 71 selah verses book-wide and 0 selah verses in Psalm 69, and check_marks returns 0 flags on this file. One strengthener the row leaves on the table: the seam at web:Ps.69.4|web:Ps.69.5 has a signal it does not cite, since oshb:Ps.69.6 opens with the vocative אֱֽלֹהִ֗ים; the row instead names the next two words as the opener, which is the defect I file against M8-Ps-197 and M8-Ps-199. Observation, not filed: observed_substrate_signals[1] spells the WEB contraction with a straight apostrophe inside a curly-quoted WEB span where .rationale uses the source form for the same clause; check_web_quotes is punctuation-normalized by design and passes the cluster at 0 of 36 quoted spans flagged, so the campaign gate tolerates it. Nothing here contests span or warrant.",
+   "challenges": [],
+   "row_sha256": "caff772cffb57a788eb45917ec87b6de519a8257a6befaee0f5e6acf0a5aa0d4"
+  },
+  {
+   "decision_id": "M8-Ps-197",
+   "verdict": "challenge",
+   "reasoning": "Challenge on the stated text signal; the span itself is sound and I would keep it. web:Ps.69.5-Ps.69.12 is bounded at its head by a genuine tier-1 address shift - oshb:Ps.69.6 opens with the vocative אֱֽלֹהִ֗ים - and at its foot by the verse-initial adversative וַאֲנִ֤י at oshb:Ps.69.14, both collated at byte tier; the eight-verse count re-derives (WEB 5, 6, 7, 8, 9, 10, 11, 12 = 8 verses). Dual-cite arithmetic is correct throughout under shift+1, refs mirror clean for this row, WEB quoted spans clean at 0 of 36 flagged, ngram7 GREEN. What fails is the opener claim: the row names אַתָּ֣ה יָ֭דַעְתָּ as the strophe's opening formula in both .rationale and observed_substrate_signals[0], but those are words 2-3 of oshb:Ps.69.6, and the row's own WEB evidence exposes the miss because the quoted verse begins “God, you know my foolishness.” (web:Ps.69.5), whose opening word renders exactly the token the Hebrew span skips. The consequence is structural rather than cosmetic: the cross-row formula lattice device_notes builds toward web:Ps.69.19 is asymmetric, since at oshb:Ps.69.20 the same two words ARE verse-initial. A second, smaller defect is the untiered sameness claim. Confidence high is defensible for the seam but not for the warrant as written.",
+   "challenges": [
+    {
+     "challenge_id": "OL-197-1",
+     "severity": "medium",
+     "claim": "The row's stated opening signal is positionally false: it names אַתָּ֣ה יָ֭דַעְתָּ as the strophe's opening formula, but oshb:Ps.69.6 opens with the vocative אֱֽלֹהִ֗ים, so the quoted span is words 2-3 of the verse, not its head.",
+     "evidence": "Byte-true splice from verse_map_oshb: oshb:Ps.69.6 = אֱֽלֹהִ֗ים אַתָּ֣ה יָ֭דַעְתָּ לְאִוַּלְתִּ֑י וְ֝אַשְׁמוֹתַ֗י מִמְּךָ֥ לֹא נִכְחָֽדוּ. Word 1 is אֱֽלֹהִ֗ים; words 2-3 are אַתָּ֣ה יָ֭דַעְתָּ. collate.py returns tier byte for the row's quote against oshb:Ps.69.6 - the quote is genuine, its POSITION is not - while a verse-initial test on the same bytes returns False for the quoted span and True for אֱֽלֹהִ֗ים. Contrast the member the row builds its lattice on: oshb:Ps.69.20 = אַתָּ֤ה יָדַ֗עְתָּ חֶרְפָּתִ֣י וּ֭בָשְׁתִּי וּכְלִמָּתִ֑י נֶ֝גְדְּךָ֗ כָּל צוֹרְרָֽי, where אַתָּ֤ה יָדַ֗עְתָּ IS verse-initial (test True). Of the 2 members of the claimed opener pair, 1 is verse-initial and 1 is not. The row's own WEB citation confirms the miss: web:Ps.69.5 reads “God, you know my foolishness.”, and that leading vocative renders אֱֽלֹהִ֗ים, the word omitted from the span the row calls the opener. Dual-cite web:Ps.69.5 = oshb:Ps.69.6 verified through ps_lib (Ps 69 = shift+1). The cure is available in the same bytes: the vocative is itself a stronger verse-initial tier-1 opener than the formula the row named."
+    },
+    {
+     "challenge_id": "OL-197-2",
+     "severity": "low",
+     "claim": "device_notes calls the two instances 'the same two-word formula' without naming a tier, but they are not byte-equal: 2 of 3 collate tiers hold and the byte tier does not.",
+     "evidence": "Byte splices: oshb:Ps.69.6 words 2-3 = אַתָּ֣ה יָ֭דַעְתָּ; oshb:Ps.69.20 words 1-2 = אַתָּ֤ה יָדַ֗עְתָּ. ps_lib comparison over those bytes: byte-equal False, accent_stripped-equal True, skeleton-equal True - 1 of 3 tiers fails. Under TIER/ORDINAL DISCIPLINE a sameness claim states the tier per collate truth. The seam-pair partner M8-Ps-199 states it correctly and its bytes bear that out, so the two rows disagree in rigor about 1 shared fact; SEAM-PAIR CURES ARE ONE EDIT, and the disclosure belongs on both rows in the same pass."
+    }
+   ],
+   "row_sha256": "3f69267e9bd02aa24473010c1da99b942ce7d1dc7d2b7f906f5ae5f24d7d91d9"
+  },
+  {
+   "decision_id": "M8-Ps-198",
+   "verdict": "challenge",
+   "reasoning": "Challenge on two evidence defects; the span holds. וַאֲנִ֤י collates at byte tier against oshb:Ps.69.14 and is verse-initial there, so the adversative pivot at web:Ps.69.13 is a real tier-1 seam, and the closing seam is equally real with אַתָּ֤ה יָדַ֗עְתָּ verse-initial at oshb:Ps.69.20. The accent-stripped pairing with web:Ps.69.29 in device_notes is stated correctly and re-derives against וַ֭אֲנִי at oshb:Ps.69.30: byte-equal False, accent_stripped-equal True - this row gets the tier discipline right where its own sibling does not. The imperative-cluster description also re-derives from the pointed bytes across oshb:Ps.69.15-Ps.69.19, and the row's WEB quoted spans check clean at 0 of 36 flagged. Two defects remain. One: the parenthetical attached to the Hebrew opener glosses nothing and sits in the delimiter the campaign reserves for source-exact WEB English. Two: a machine-confirmed refs-mirror gap on the drowning-imagery cross-reference.",
+   "challenges": [
+    {
+     "challenge_id": "OL-198-1",
+     "severity": "medium",
+     "claim": "The parenthetical gloss on the Hebrew opener renders neither וַאֲנִ֤י nor any WEB string, and it is delimited by the curly double quotes reserved for source-exact WEB text, beside web: refs.",
+     "evidence": "Codepoints read from the row bytes: U+0077 U+0061 U+0073 U+2013 U+0061 U+006E U+0064 U+2013 U+0049 - that is 'was', EN DASH, 'and', EN DASH, 'I'. A substring test of that string against WEB web:Ps.69.13 returns False. The correct rendering of וַאֲנִ֤י is the row's very next quote: web:Ps.69.13 reads “But as for me, my prayer is to you, Yahweh, in an acceptable time.”. check_web_quotes.py cannot catch it - its scanner extracts spans delimited by U+201C and U+201D and skips spans under 2 words, so this 1-token span passes silently inside a 0 of 36 flagged result. The same slot is handled properly in the sibling rows, where the parenthetical does gloss the Hebrew it follows: M8-Ps-200 on יְהִֽי and M8-Ps-202 on יְֽ֭הַלְלוּהוּ. Fix is one edit: a real gloss, or straight quotes."
+    },
+    {
+     "challenge_id": "OL-198-2",
+     "severity": "low",
+     "claim": "Refs-mirror gap: the row argues web:Ps.69.1-Ps.69.2 in .rationale and in observed_substrate_signals[1], both outside its span, but boundary_evidence_refs mirrors 1 of 2 argued verses, leaving Ps.69.2 unmirrored.",
+     "evidence": "check_refs_mirror.py on this cluster returns flag_count 2, one of them decision_id M8-Ps-198 with argued_but_unmirrored ['Ps.69.2'] - 1 verse. The argued verse carries real weight rather than filler: oshb:Ps.69.3 = טָבַ֤עְתִּי בִּיוֵ֣ן מְ֭צוּלָה וְאֵ֣ין מָעֳמָ֑ד בָּ֥אתִי בְמַעֲמַקֵּי מַ֝֗יִם וְשִׁבֹּ֥לֶת שְׁטָפָֽתְנִי is where the mire-and-floods vocabulary the row invokes actually sits, and its dual-cite is web:Ps.69.2 = oshb:Ps.69.3 under the shift+1 rule. The cure is one ref token; citation_sweep.py is otherwise clean on the row."
+    }
+   ],
+   "row_sha256": "c41b8d2ac32a843e4f65db72de6b646d1a3faacc7f5370d23eeb4c8c3d8071da"
+  },
+  {
+   "decision_id": "M8-Ps-199",
+   "verdict": "challenge",
+   "reasoning": "Challenge at low severity; the analytic core of this row is sound and its tier discipline is correct where its seam partner's is not. The accent-stripped claim is exactly right and re-derives: אַתָּ֤ה יָדַ֗עְתָּ at oshb:Ps.69.20 against אַתָּ֣ה יָ֭דַעְתָּ at oshb:Ps.69.6 gives byte-equal False and accent_stripped-equal True, which is precisely what the row's parenthetical about cantillation differing while points agree asserts. The 3-verse span sits under the strategy's roughly 4-8 verse strophe norm, but it is the product of two byte-true verse-initial tier-1 openers on either side - אַתָּ֤ה יָדַ֗עְתָּ at oshb:Ps.69.20 and יְהִֽי at oshb:Ps.69.23 - the device_notes says as much, and confidence medium is calibrated to that. I looked for a rival seam one verse away in both directions and found no rival on the bytes: oshb:Ps.69.21 and oshb:Ps.69.22 open with nouns continuing the grief catalogue, and I would not merge the span into web:Ps.69.13-Ps.69.18. The jussive reading of web:Ps.69.22 is sound and the refs mirror is clean here. The one defect is the positional error this row shares with its seam partner.",
+   "challenges": [
+    {
+     "challenge_id": "OL-199-1",
+     "severity": "low",
+     "claim": "The row twice calls אַתָּ֣ה יָ֭דַעְתָּ the opener of web:Ps.69.5 - in .rationale and in observed_substrate_signals[0] - but oshb:Ps.69.6 opens with the vocative אֱֽלֹהִ֗ים, so 1 of 2 members of the claimed pair is verse-initial.",
+     "evidence": "oshb:Ps.69.6 = אֱֽלֹהִ֗ים אַתָּ֣ה יָ֭דַעְתָּ לְאִוַּלְתִּ֑י וְ֝אַשְׁמוֹתַ֗י מִמְּךָ֥ לֹא נִכְחָֽדוּ: word 1 = אֱֽלֹהִ֗ים, words 2-3 = אַתָּ֣ה יָ֭דַעְתָּ, verse-initial test False for the quoted span. oshb:Ps.69.20 = אַתָּ֤ה יָדַ֗עְתָּ חֶרְפָּתִ֣י וּ֭בָשְׁתִּי וּכְלִמָּתִ֑י נֶ֝גְדְּךָ֗ כָּל צוֹרְרָֽי: words 1-2 = אַתָּ֤ה יָדַ֗עְתָּ, verse-initial test True. So 1 of 2 members is verse-initial. Dual-cites web:Ps.69.5 = oshb:Ps.69.6 and web:Ps.69.19 = oshb:Ps.69.20 verified through ps_lib (both shift+1). This is the same defect carried by M8-Ps-197, and under SEAM-PAIR CURES ARE ONE EDIT it is authored once and installed on both rows. The echo claim survives the correction intact - the two-word formula does recur at accent-stripped tier, and this row already says so correctly; the 'opener' framing is what has to go, so the replacement warrant passes the test that kills the original."
+    }
+   ],
+   "row_sha256": "0c065ce99e20c9e0fdf61bfd83d56337ad9d622f6314dfc4406928c2c066bdbf"
+  },
+  {
+   "decision_id": "M8-Ps-200",
+   "verdict": "challenge",
+   "reasoning": "Challenge on the warrant; the span is upheld. Both seams are byte-true and verse-initial: יְהִֽי at oshb:Ps.69.23 opens it, וַ֭אֲנִי at oshb:Ps.69.30 closes it, and the adversative is not a loose signal - a skeleton sweep of it over Psalm 69 returns 2 verses (oshb:Ps.69.14 and oshb:Ps.69.30), both verse-initial. The jussive reading of יְהִֽי is consistent with both witnesses, WEB giving “Let their table before them become a snare.” at web:Ps.69.22, and I argued the form from the pointed bytes because the staged extract lacks a morphology layer. What the row says runs BETWEEN those seams is contradicted by bytes it did not quote: petition to God resumes inside the span, twice, in the imperative, and with 2ms suffixes. This is no technicality here, because the rejected_alternative rests its refusal of an internal break precisely on there being no addressee shift through web:Ps.69.28 - the replacement warrant has to pass the test the original fails. Confidence high is not calibrated to a warrant this porous. Dual-cites, tiling and the refs mirror are clean on the row.",
+   "challenges": [
+    {
+     "challenge_id": "OL-200-1",
+     "severity": "medium",
+     "claim": "The row asserts a third-person imprecation 'sustained through web:Ps.69.28' with no addressee shift, but 3 of the 7 MT verses in the span carry direct 2ms address to God, two of them as verse-initial imperatives - so neither the person, the addressee, nor the jussive mood is sustained.",
+     "evidence": "Byte-true splices across oshb:Ps.69.23-Ps.69.29 (= web:Ps.69.22-Ps.69.28, shift+1). oshb:Ps.69.25 = שְׁפָךְ עֲלֵיהֶ֥ם זַעְמֶ֑ךָ וַחֲר֥וֹן אַ֝פְּךָ֗ יַשִּׂיגֵֽם - verse-initial imperative שְׁפָךְ with the 2ms suffixed זַעְמֶ֑ךָ and אַ֝פְּךָ֗. oshb:Ps.69.27 = כִּֽי אַתָּ֣ה אֲשֶׁר הִכִּ֣יתָ רָדָ֑פוּ וְאֶל מַכְא֖וֹב חֲלָלֶ֣יךָ יְסַפֵּֽרוּ - explicit 2ms pronoun אַתָּ֣ה, 2ms perfect הִכִּ֣יתָ, 2ms suffixed חֲלָלֶ֣יךָ. oshb:Ps.69.28 = תְּֽנָה עָ֭וֺן עַל עֲוֺנָ֑ם וְאַל יָ֝בֹ֗אוּ בְּצִדְקָתֶֽךָ - verse-initial imperative תְּֽנָה with 2ms suffixed בְּצִדְקָתֶֽךָ. Count with its unit named: 3 of 7 verses in the span carry a 2ms addressed-to-God token (oshb:Ps.69.25, oshb:Ps.69.27, oshb:Ps.69.28); 4 of 7 do not. WEB corroborates at the same three verses: “Pour out your indignation on them.” (web:Ps.69.24), “For they persecute him whom you have wounded.” (web:Ps.69.26), “Charge them with crime upon crime.” (web:Ps.69.27). The mood claim fails on the same bytes, since שְׁפָךְ and תְּֽנָה are imperatives rather than jussives. observed_substrate_signals is a dependent field of this warrant and is re-cut with it; the seam at web:Ps.69.21|web:Ps.69.22 needs no change, because the verse-initial יְהִֽי carries it without the overstated span description."
+    }
+   ],
+   "row_sha256": "a356547a1ee373bc9a79c2eea759ef46ce324777234f1aa600eb9250b9667a10"
+  },
+  {
+   "decision_id": "M8-Ps-201",
+   "verdict": "support",
+   "reasoning": "Support, re-derived rather than accepted. וַ֭אֲנִי collates at byte tier against oshb:Ps.69.30 and is verse-initial there. The paired-opening claim is not merely true but exhaustive on a sweep I ran instead of taking on trust: a skeleton sweep of the adversative over Psalm 69 returns 2 verses, oshb:Ps.69.14 and oshb:Ps.69.30, both verse-initial, so the row's count of two matching adversative openings is exact with its object named. The tier disclosure is correct too - byte-equal is False and accent_stripped-equal True between the two instances, which is what the row claims and what M8-Ps-197 fails to state for its own pair. The closing seam re-derives: יְֽ֭הַלְלוּהוּ is verse-initial at oshb:Ps.69.35 and shifts the addressee class away from the human worshippers of web:Ps.69.32-Ps.69.33. The 7 dual-cites are correct under shift+1, the refs mirror is clean for this row, WEB quoted spans check clean at 0 of 36 flagged, and there is no selah or K/Q object in range to disclose (pmarks_Ps.json: 0 selah verses and 0 K/Q verses in Psalm 69). One observation, not filed: observed_substrate_signals[1] calls web:Ps.69.32's verbs the span's closing verbs while the span closes at web:Ps.69.33 - the cited verse is correct and in-span, and the addressee contrast it draws still holds because oshb:Ps.69.34 stays with the needy rather than turning cosmic, so the imprecision touches neither the warrant nor the seam. Confidence high is calibrated.",
+   "challenges": [],
+   "row_sha256": "24a8aa76de03618efabc7cad9378a4d3f3d9a9db14ca655128371779c0eaa3f5"
+  },
+  {
+   "decision_id": "M8-Ps-202",
+   "verdict": "challenge",
+   "reasoning": "Challenge on evidence hygiene; span and warrant hold. יְֽ֭הַלְלוּהוּ collates at byte tier against oshb:Ps.69.35 and is verse-initial there - I collated this run separately because it is 1 of 20 Hebrew runs in the cluster and the lone span whose own field holds no ref token within reach, and it returns tier byte. The jussive let-them-praise reading is consistent with both witnesses, WEB giving “Let heaven and earth praise him; the seas, and everything that moves therein!” at web:Ps.69.34, and since the staged extract lacks a morphology layer I argued it from the pointed bytes and the renderings as the toolkit requires. The addressee contrast against the preceding row is real, and the 3-verse span closes the psalm at its final WEB verse (web:Ps.69.36 = oshb:Ps.69.37), so the seven Ps 69 rows tile 36 of 36 verses with 0 problems. Dual-cites correct under shift+1, WEB quoted spans clean at 0 of 36 flagged. The defect is a refs-mirror gap inside a range the row states twice.",
+   "challenges": [
+    {
+     "challenge_id": "OL-202-1",
+     "severity": "low",
+     "claim": "Refs-mirror gap: the row argues the range web:Ps.69.29-Ps.69.33 in both .rationale and .rejected_alternative, outside its span, but boundary_evidence_refs mirrors 4 of 5 verses in that range, leaving Ps.69.30 unmirrored.",
+     "evidence": "check_refs_mirror.py returns decision_id M8-Ps-202 with argued_but_unmirrored ['Ps.69.30'] - 1 verse, inside a range the row asserts twice. The missing verse is substantive to the contrast being drawn rather than incidental: oshb:Ps.69.31 = אֲהַֽלְלָ֣ה שֵׁם אֱלֹהִ֣ים בְּשִׁ֑יר וַאֲגַדְּלֶ֥נּוּ בְתוֹדָֽה is the vow of praise that the cosmic call of יְֽ֭הַלְלוּהוּ at oshb:Ps.69.35 is set against, and its dual-cite is web:Ps.69.30 = oshb:Ps.69.31 under shift+1. citation_sweep.py is clean on the row otherwise, so the cure is one ref token."
+    }
+   ],
+   "row_sha256": "9d52cd51b051e1f522bad7c2e6d0d3aa251bdfa7d0587979b17516dc0b21b57d"
+  },
+  {
+   "decision_id": "M8-Ps-203",
+   "verdict": "challenge",
+   "reasoning": "Challenge on two evidence defects in device_notes; the whole_psalm decision is correct and the hard parts of this row are right. Policy: 5 WEB verses is inside the strategy's short-psalm threshold of roughly 8 verses or fewer, unit_type is in the controlled vocabulary, web:Ps.70.1-Ps.70.5 tiles 5 of 5 verses with 0 problems, and the title pseudo-ref web:Ps.70.0 = oshb:Ps.70.1 takes the owner-ruled form. I swept the lehazkir claim rather than trusting it: a skeleton sweep of the label returns 2 verses book-wide, oshb:Ps.38.1 and oshb:Ps.70.1, so sharing it with Psalm 38 is exact - though that Psalm 38 title verse is argued with no ref of its own, which I note without filing since it is not a verse-numbered mention. The doublet is handled correctly and stays in scope: the row states the relation in both numbering spaces as web:Ps.40.13-Ps.40.17 = oshb:Ps.40.14-Ps.40.18, which is the corrected WEB form, selects no reading, and disclaims priority; Ps 40 and Ps 70 are both shift+1 so the dual-cites in the passage re-derive, and all 4 Hebrew runs collate at byte tier against their cited refs. The Elohistic texture is correctly declared non-driving. Two defects: WEB English placed under a delimiter that removes it from the quote gate and altered in the process, and a false positional claim. Two observations I do not file. One: 'substituting Elohim for the earlier of Psalm 40's two Yahweh tokens' understates the opening difference - oshb:Ps.40.14 has 6 words and oshb:Ps.70.2 has 5, and the absent one is the imperative רְצֵ֣ה, so אֱלֹהִ֥ים stands where רְצֵ֣ה יְ֭הוָה stood, not merely where a divine name stood; the row's ellipsis does signal truncation, so I leave it. Two: 'an otherwise matching clause' is true under the row's own two-word definition of the clause, though at verse level 4 of 11 word slots differ at byte tier between oshb:Ps.40.17 and oshb:Ps.70.5, one of them a non-divine-name lexical difference in the final word.",
+   "challenges": [
+    {
+     "challenge_id": "OL-203-1",
+     "severity": "medium",
+     "claim": "The 2 WEB renderings in device_notes sit in U+2018/U+2019 delimiters rather than the mandated curly double quotes, which removes them from check_web_quotes' scan, and 2 of 2 depart from the source bytes: both are lowercased and stripped of the terminal exclamation the WEB text carries.",
+     "evidence": "Row bytes, spans delimited by U+2018 and U+2019: 'let Yahweh be exalted' cited to web:Ps.40.16, and 'let God be exalted' cited to web:Ps.70.4 - 2 spans. WEB source bytes from verse_map_web: web:Ps.40.16 ends “Let Yahweh be exalted!” and web:Ps.70.4 ends “Let God be exalted!”; both carry an initial capital and a terminal U+0021 that the row drops, so 2 of 2 fail a source-byte comparison. check_web_quotes.py structurally cannot see them, because its scanner extracts spans delimited by U+201C and U+201D; the cluster result is 0 of 36 quoted spans flagged, and these 2 spans are not among the 36 scanned. The toolkit requires curly quotes plus an inline web: ref for WEB English at every layer, and 2 of 2 miss it here, so this is gate-evasion rather than a style choice. The Hebrew spans in the same field may keep those delimiters, since the checker skips Hebrew-majority spans by design; the 2 English spans move to curly doubles and are re-cut against source bytes."
+    },
+    {
+     "challenge_id": "OL-203-2",
+     "severity": "low",
+     "claim": "device_notes calls יִגְדַּ֣ל אֱלֹהִ֑ים 'Psalm 70's own closing clause', but it is neither verse-final nor psalm-final - it occupies words 8-9 of 11 in oshb:Ps.70.5, and the psalm runs one verse further.",
+     "evidence": "oshb:Ps.70.5 = יָ֘שִׂ֤ישׂוּ וְיִשְׂמְח֨וּ בְּךָ֗ כָּֽל מְבַ֫קְשֶׁ֥יךָ וְיֹאמְר֣וּ תָ֭מִיד יִגְדַּ֣ל אֱלֹהִ֑ים אֹ֝הֲבֵ֗י יְשׁוּעָתֶֽךָ - 11 words, of which יִגְדַּ֣ל אֱלֹהִ֑ים is words 8-9, followed by אֹ֝הֲבֵ֗י יְשׁוּעָתֶֽךָ; verse-initial test False and verse-final test False. The psalm runs on to oshb:Ps.70.6 = וַאֲנִ֤י עָנִ֣י וְאֶבְיוֹן֮ אֱלֹהִ֪ים חֽוּשָׁ֫ה לִּ֥י עֶזְרִ֣י וּמְפַלְטִ֣י אַ֑תָּה יְ֝הוָ֗ה אַל תְּאַחַֽר, closing on אַ֑תָּה יְ֝הוָ֗ה אַל - which the row's own .rationale correctly identifies as the close, quoting WEB “Yahweh, don’t delay.” at web:Ps.70.5, so the row contradicts itself across fields. The descriptor is loose on the Ps 40 side too: יִגְדַּ֣ל יְהוָ֑ה is words 8-9 of 11 in oshb:Ps.40.17, followed by אֹֽ֝הֲבֵ֗י תְּשׁוּעָתֶֽךָ, with the doublet body running on to oshb:Ps.40.18. Positional and ordinal descriptors byte-settle before they are asserted under TIER/ORDINAL DISCIPLINE; calling it the parallel clause, which the same sentence already does on the Ps 40 side, is accurate and costs nothing."
+    }
+   ],
+   "row_sha256": "13cf1dbcbd594474edffde28bc7d62a2d6dcf180d63ed9c404370b9717964be3"
+  }
+ ]
+}

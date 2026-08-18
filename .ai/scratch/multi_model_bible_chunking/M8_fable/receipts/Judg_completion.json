@@ -1,0 +1,96 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "Judg",
+ "completed_at": "2026-08-01T03:06:53.186135+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 173,
+ "verse_coverage": "618/618 exact ordered tiling, Judg.1.1-Judg.21.25",
+ "final_states": {
+  "accepted_candidate": 172,
+  "held_lower_confidence": 1
+ },
+ "superseded_decisions": [
+  "M8-Judg-144",
+  "M8-Judg-167",
+  "M8-Judg-176"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 8,
+ "chunks_sha256": "15ed6691da8a2a73f1703590681a2cf5e7fde5b06fd22b3ce746a66684e78337",
+ "review_packets_sha256": "cafc94e74f8d211fe919c1c338565ecc82469bc5e59d48058c118e2240ff1a17",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book Judg <chunks.jsonl> (173 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --book Judg --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book Judg (618/618)",
+  "checks/validate_book_review_coverage.py --book Judg --require-final-artifacts",
+  "checks/anti_batch_scan.py --book Judg (0 errors, 0 warnings against final bound state)",
+  "freeze/citation_sweep.py (consonantal + two-witness + versification, 0 problems; em-dash annotation convention added)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass",
+  "sampled_chunks": 56,
+  "notes": "no stamping, no paraphrase rationales, registers verified legitimate; gate fired mid-cycle on the writer-origin ALT template (25 rows de-templated) before final pass"
+ },
+ "post_resolution_check": {
+  "file": "reviews/Judg/post_resolution_check_v2.json",
+  "result": "172 pass + 1 hold, 0 fail; full-precision scan caught 4 accent-level citation slips, fixed before bind"
+ },
+ "challenge_volume": {
+  "round1": "76 digest rows (73 challenge objects + 2 frontier_defer + 1 insufficient_evidence) over 61 decisions; 12 blind two-side convergences",
+  "revision": "25 (two-sided blind pair over 46 rows) + 5 sweep + 4 postcheck-level fixes across micro rounds r2-r4",
+  "total_ruled": 106,
+  "author_dispositions": "round 1: 70 accept-family / 3 peer-aligned disputes; revision: all 25 accepted (boss admissibility directives applied)"
+ },
+ "notable": [
+  "first FABRICATED marker citation of the campaign (pe claimed after 15:17, in neither witness) caught by the mesh, triple-verified, removed",
+  "four rows whose conceded round-1 remedies never landed were caught by the revision pair via v0 diff - undelivered-remedy checking is now a standing verification step",
+  "cycle-close family unified under one rule (REL-001: isolate only undiluted rest/tenure notices; 3:11 fused, 5:31 poem-grafted, 3:30 standalone)",
+  "no-king refrain system mapped by form and position; 17:6/21:25 byte-identical bracket (REL-002)",
+  "register criterion sharpened: content-vs-tag distinction (REL-003; ch 1 register whole vs minor judges split)",
+  "three resumption-cut seams healed on verbatim Wiederaufnahme brackets (18:14-20, 20:42-48 merges; 21:4|5 re-cut with the warrant traveling)",
+  "Jephthah restructure consolidated across rounds: 11:14-28 brief | 11:29-31 vow unit (Spirit-formula folds into its triggered unit per 3:10/15:14)",
+  "inadmissible confidence lifts reverted (marks and WEB paragraphing can never lift a grade) - now stated as standing rule"
+ ],
+ "routing_used": [
+  {
+   "role": "book_writer (self-calibrated) + author phases (2 halves + micro r2-r4) + sidecar author",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "OL primaries (4)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "LF primaries (4) + peers (4) + rev_lf + rev_peer + postchecker",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "revision primary opus side (rev_opus_u01..u06)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "anti_batch_auditor",
+   "model": "claude-haiku-4-5"
+  },
+  {
+   "role": "boss_adjudicator",
+   "model": "claude-fable-5",
+   "effort": "xhigh",
+   "attempts": "boss_fable_u01..u23_r1"
+  },
+  {
+   "role": "tier0_deterministic",
+   "model": "none"
+  }
+ ],
+ "escalations_to_fable": "boss rulings only (106 rulings; 3 overruled; frontier-defer flags resolved at candidate level)",
+ "ultra_requests": 0,
+ "owner_addendum_applied": "m8-mesh-r2 (Prophets weighting active)"
+}

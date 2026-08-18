@@ -1,0 +1,542 @@
+{
+ "batch": "p01",
+ "clusters": [
+  "c01",
+  "c02",
+  "c03",
+  "c04",
+  "c05"
+ ],
+ "attempt_id": "peer_ps_p01_r1",
+ "adjudications": [
+  {
+   "decision_id": "M8-Ps-005",
+   "challenge_id": "LF-005-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The cited word is the opening token of oshb:Ps.2.12's final colon (word 11 of 14), not the verse's closing word; three words follow it.",
+   "severity_final": "low",
+   "evidence": "Re-spliced oshb:Ps.2.12 programmatically from verse_map_oshb.json (never hand-typed): 14 whitespace tokens; cited token is index 11 of 14; tokens 12-14 = כָּל ח֥וֹסֵי בֽוֹ. Confirmed via ps_lib token split, independent of both primary packets."
+  },
+  {
+   "decision_id": "M8-Ps-005",
+   "challenge_id": "OL-005-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Same correction as LF-005-1 (independently re-derived): word 11 of 14, not the closing word.",
+   "severity_final": "medium",
+   "evidence": "Identical re-derivation as LF-005-1 via direct token-index count against verse_map_oshb.json; both roles' independent claims about the same fact are confirmed true by a third, tool-based derivation."
+  },
+  {
+   "decision_id": "M8-Ps-005",
+   "challenge_id": "OL-005-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The two beatitude tokens (oshb:Ps.1.1, oshb:Ps.2.12) differ by meteg (U+05BD), not cantillation alone; accent_stripped therefore fails and the pair matches only at skeleton tier.",
+   "severity_final": "low",
+   "evidence": "NFD-decomposed both tokens via unicodedata: oshb:Ps.1.1 token1 codepoints include U+05BD (meteg); oshb:Ps.2.12 token11 does not. collate_hebrew(token11, token1-window) returns tier='skeleton'; strip_accents() equality is False (meteg retained by design), skeleton() equality is True. Confirms the toolkit's own accent_stripped/skeleton tier split."
+  },
+  {
+   "decision_id": "M8-Ps-007",
+   "challenge_id": "OL-007-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The Yahweh-address block is web:Ps.4.6-web:Ps.4.8 (=oshb 4.7-4.9), not web:Ps.4.5-web:Ps.4.8; web:Ps.4.5 (=oshb 4.6) addresses the human audience with Yahweh as prepositional object.",
+   "severity_final": "medium",
+   "evidence": "Direct read of oshb:Ps.4.6 = 'זִבְח֥וּ זִבְחֵי צֶ֑דֶק וּ֝בִטְח֗וּ אֶל יְהוָֽה' — 2mp imperatives, Yahweh as object of 'אֶל' (to/toward), not addressee. oshb:Ps.4.7 = '...א֨וֹר פָּנֶ֬יךָ יְהוָֽה' carries 2ms suffix 'פָּנֶ֬יךָ' plus vocative 'יְהוָֽה' — genuine address. Confirms the row's own observed_substrate_signals (Yahweh at 4.1,4.6-4.8) over its rationale (which wrongly extends to 4.5)."
+  },
+  {
+   "decision_id": "M8-Ps-007",
+   "challenge_id": "OL-007-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The human-audience address is one unbroken 4-verse run (web:Ps.4.2-web:Ps.4.5), not a recurring/interleaved pattern; the addressees occupy separate blocks, contrary to the rejected_alternative's stated ground.",
+   "severity_final": "medium",
+   "evidence": "Read oshb:Ps.4.3-4.6 (=web 4.2-4.5) in full: all four carry 2mp verb/suffix morphology addressed to the human audience with no intervening Yahweh-vocative. Block structure is 1+4+3 verses across the 8-verse psalm, confirmed by direct inspection."
+  },
+  {
+   "decision_id": "M8-Ps-013",
+   "challenge_id": "OL-013-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Third-person declaration about God is already in force one verse before the seam (web:Ps.7.11=oshb:Ps.7.12), so 'shift to third-person description of an unrepentant man' cannot be the discriminator between this row and the next.",
+   "severity_final": "medium",
+   "evidence": "Direct read of oshb:Ps.7.12 = 'אֱ֭לֹהִים שׁוֹפֵ֣ט צַדִּ֑יק וְ֝אֵ֗ל זֹעֵ֥ם בְּכָל יֽוֹם' — Elohim as third-person grammatical subject, not addressed. This verse is INSIDE M8-Ps-013's own span, one verse before the seam it argues from."
+  },
+  {
+   "decision_id": "M8-Ps-014",
+   "challenge_id": "OL-014-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "oshb:Ps.7.13 (web:Ps.7.12) carries 0 nominal subject; the WEB word 'man' is a translator supply, not read off the MT. The psalm's one presentative הִנֵּה particle, 2 verses inside this row's own span at oshb:Ps.7.15 (=web:Ps.7.14), is the better-warranted rival seam marker.",
+   "severity_final": "medium",
+   "evidence": "Direct read: oshb:Ps.7.13 = 'אִם לֹ֣א יָ֭שׁוּב חַרְבּ֣וֹ יִלְט֑וֹשׁ קַשְׁתּ֥וֹ דָ֝רַ֗ךְ וַֽיְכוֹנְנֶֽהָ' — bare 3ms verbs, no subject noun. oshb:Ps.7.15 opens 'הִנֵּ֥ה יְחַבֶּל אָ֑וֶן...' — presentative particle confirmed token-initial."
+  },
+  {
+   "decision_id": "M8-Ps-015",
+   "challenge_id": "OL-015-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The refrain's tier-defeat at web:Ps.8.9=oshb:Ps.8.10 is caused by a meteg difference (U+05BD present at 8.1's token, absent at 8.9's), which accent_stripped retains by design; cantillation alone is not the cause.",
+   "severity_final": "low",
+   "evidence": "Same mechanism independently confirmed as OL-005-2/LF-005-1 via NFD codepoint comparison: the toolkit's accent_stripped tier strips only U+0591-05AF and explicitly retains meteg (U+05BD), so a meteg-only difference correctly fails accent_stripped and passes only at skeleton."
+  },
+  {
+   "decision_id": "M8-Ps-016",
+   "challenge_id": "LF-016-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Second-person address to Yahweh continues two verses past the claimed seam (through web:Ps.9.5-9.6=oshb 9.6-9.7); the third-person reign description the row cites as adjacent does not begin until web:Ps.9.7=oshb 9.8.",
+   "severity_final": "medium",
+   "evidence": "Direct verse-text check: web:Ps.9.5 = 'You have rebuked the nations...' (2nd person); web:Ps.9.6 continues 2nd person; web:Ps.9.7 = 'Yahweh reigns forever' is the first 3rd-person reign line, confirmed unique book-wide via a direct scan of verse_map_web.json."
+  },
+  {
+   "decision_id": "M8-Ps-016",
+   "challenge_id": "OL-016-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Same defect independently re-derived: the row's own cohesion signal (2ms address to Yahweh) is byte-continuous across the 9:4|9:5 seam it claims to close, undisclosed.",
+   "severity_final": "medium",
+   "evidence": "Confirms LF-016-1 via the same verse-text evidence (web:9.5-9.6 second person; web:9.7 first third-person reign line), independently reached by a different reviewing role."
+  },
+  {
+   "decision_id": "M8-Ps-017",
+   "challenge_id": "LF-017-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "'Sing praises' is quoted in single curly quotes with no inline web: ref in that field, breaking the mandatory double-curly-quote-plus-inline-ref convention.",
+   "severity_final": "low",
+   "evidence": "Direct inspection of the row's observed_substrate_signals[2] confirms single quotes ('Sing praises') and no web: ref token in that array element; check_web_quotes.py's 3-word delimiter-evasion threshold does not fire on this 2-word span, so the mechanical check under-detects it, but the manual finding is confirmed correct by direct text read."
+  },
+  {
+   "decision_id": "M8-Ps-017",
+   "challenge_id": "OL-017-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Second person does not give way to third person cleanly at verse 7: oshb:Ps.9.7(=web 9.6) is mixed (opens third person, carries a 2ms qatal), and second person returns at the strophe's own closing verse, web:Ps.9.10=oshb:Ps.9.11.",
+   "severity_final": "medium",
+   "evidence": "Direct read: oshb:Ps.9.7 opens 'הָֽאוֹיֵ֨ב תַּ֥מּוּ' (3rd person) then carries 'נָתַ֑שְׁתָּ' (2ms qatal) in the same verse; oshb:Ps.9.11 closing quote 'כִּ֤י לֹֽא עָזַ֖בְתָּ' is 2ms. Confirms an envelope pattern, not a one-way transition."
+  },
+  {
+   "decision_id": "M8-Ps-018",
+   "challenge_id": "OL-018-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The rejected_alternative's curly-quoted span ('he has executed judgment') lowercases the WEB text's clause-initial letter and carries no inline web: ref in that field.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: check_web_quotes.py run directly against the extracted p01 rows flags this exact field/quote — 'curly quote with NO web: ref in its field' at row index 17 (M8-Ps-018), rejected_alternative. WEB source reads 'He has executed judgment.' (capital H) at web:Ps.9.16."
+  },
+  {
+   "decision_id": "M8-Ps-019",
+   "challenge_id": "OL-019-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The rejected_alternative's stated ground ('the second-person imperative address returning at verse 19 marks a fresh unit') is the argument FOR folding verses 17-18 back into the preceding strophe, not a ground for rejecting that split.",
+   "severity_final": "low",
+   "evidence": "Direct read: oshb:Ps.9.18 ('יָשׁ֣וּבוּ רְשָׁעִ֣ים...') and oshb:Ps.9.19 are 3rd-person declarative with no imperative/vocative; oshb:Ps.9.20 ('קוּמָ֣ה') and oshb:Ps.9.21 ('שִׁ֘יתָ֤ה') are imperatives — confirms the row's own signal (verses 17-18 carry no imperative/vocative marker) directly contradicts using that same fact to reject the rival."
+  },
+  {
+   "decision_id": "M8-Ps-021",
+   "challenge_id": "LF-021-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The row's span opens at web:Ps.10.5, one verse before the first instance of the 'says in his heart' formula it names as its own bounding inclusio (web:Ps.10.6); verse 5 sits outside the frame the row cites as its boundary.",
+   "severity_final": "medium",
+   "evidence": "Direct read confirms web:Ps.10.5 contains no inner-speech formula; the formula's first byte-tier instance is oshb:Ps.10.6, one verse later. Cross-checked against my own skeleton sweep (see OL-021-1 evidence) confirming formula loci at 10.6/10.11/10.13, none at 10.5."
+  },
+  {
+   "decision_id": "M8-Ps-021",
+   "challenge_id": "OL-021-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The 'says in his heart' formula occurs in 3 verses book-wide (oshb:Ps.10.6, 10.11, 10.13), not 2; the row's digit-2 claim results from counting one English inflection ('says') rather than the Hebrew formula, which also occurs (cantillation-variant) at 10.13.",
+   "severity_final": "high",
+   "evidence": "MACHINE-CONFIRMED via direct skeleton sweep against verse_map_oshb.json (never hand-typed; splice programmatic): needle skeleton spliced from oshb:Ps.10.6 ('אמר בלבו') found as a skeleton-tier substring in exactly 3 MT verses book-wide: Ps.10.6, Ps.10.11, Ps.10.13. Ps.10.13 matches at accent_stripped tier (cantillation differs), Ps.10.6/10.11 at byte tier."
+  },
+  {
+   "decision_id": "M8-Ps-021",
+   "challenge_id": "OL-021-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The strophe's own bounding device (the formula) stands at web:Ps.10.6, one verse inside the row's opening verse web:Ps.10.5; web:Ps.10.5 still addresses Yahweh in the 2ms via an embedded suffix, tying it to the preceding vocative unit rather than the third-person catalog.",
+   "severity_final": "medium",
+   "evidence": "Independently re-derived (specialty embedded-suffix sweep): oshb:Ps.10.5 = 'מָר֣וֹם מִ֭שְׁפָּטֶיךָ...' carries the 2ms possessive suffix -ekha ('your laws') addressed to Yahweh, embedded (no free vocative/imperative) — confirms the row's own catalog span improperly annexes a Yahweh-addressed verse. This is the c45-class embedded-suffix hazard named in the launch brief, confirmed present."
+  },
+  {
+   "decision_id": "M8-Ps-022",
+   "challenge_id": "OL-022-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The row quotes the content of the formula's third occurrence (web:Ps.10.13, 'God won't call me into account') as an unattributed rhetorical question, without disclosing it belongs to the same 'says in his heart' device the neighboring row (M8-Ps-021) claims is confined to 10:6 and 10:11.",
+   "severity_final": "medium",
+   "evidence": "Direct inspection of M8-Ps-022's rationale/observed_substrate_signals confirms it quotes web:Ps.10.13's content and labels it only 'a rhetorical question attributed to the wicked' with no mention of the inner-speech formula. Cross-confirmed against the same 3-verse skeleton-sweep result used for OL-021-1."
+  },
+  {
+   "decision_id": "M8-Ps-024",
+   "challenge_id": "LF-024-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Verses 4-7 (=4 verses) meet, rather than fall short of, the book strategy's roughly-4-verse strophe floor; only the opening half (verses 1-3, 3 verses) is genuinely under it.",
+   "severity_final": "low",
+   "evidence": "Arithmetic check: {4,5,6,7} has 4 members. Book strategy floor is roughly 4-8 verses per TOOLKIT/book-strategy citation in both primary packets; 4 meets it."
+  },
+  {
+   "decision_id": "M8-Ps-024",
+   "challenge_id": "OL-024-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The row cites oshb:Ps.11.1's taunt as boundary evidence but does not disclose that MT Ps.11.1 is a ketiv/qere verse whose K/Q sits on that same taunt token.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: pmarks_Ps.json kq inventory records {'Ps.11.1': 1}; direct read of oshb:Ps.11.1 shows inline unpointed 'נודו' beside pointed 'נ֝֗וּדִי' — a ketiv/qere pair on the very token WEB renders as the fled-bird taunt. Only 1 of 65 book-wide kq verses falls in Ps 11-16 (confirmed by counting pmarks_Ps.json kq keys), and this row does not disclose it."
+  },
+  {
+   "decision_id": "M8-Ps-024",
+   "challenge_id": "OL-024-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The row states Psalm 11's 7 verses are both 'under' (rationale) and 'at' (observed_substrate_signals) the whole-psalm threshold; 'under' is the correct member since the book strategy sets the whole-psalm class at roughly <=8 verses.",
+   "severity_final": "low",
+   "evidence": "Direct inspection of the row's two fields confirms the wording mismatch as described; 7 <= 8 makes 'under' technically correct, consistent with the parallel 7-verse row (M8-Ps-027) using 'under' correctly."
+  },
+  {
+   "decision_id": "M8-Ps-025",
+   "challenge_id": "LF-025-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Verses 1-4 (=4 verses) meet, rather than fall under, the strophe floor; only the closing half (verses 6-8, 3 verses) is genuinely under it.",
+   "severity_final": "low",
+   "evidence": "Arithmetic check: {1,2,3,4} has 4 members, matching the roughly-4-verse floor."
+  },
+  {
+   "decision_id": "M8-Ps-025",
+   "challenge_id": "OL-025-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The row's stated superscription series 'al-hashsheminit/lamnatseach/le-David' inverts the MT byte order, which runs lamnatseach before al-hashsheminit.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: direct token split of oshb:Ps.12.1 gives ['לַמְנַצֵּ֥חַ','עַֽל','הַשְּׁמִינִ֗ית','מִזְמ֥וֹר','לְדָוִֽד'] — lamnatseach (token 1) precedes al-hashsheminit (tokens 2-3), confirming the row's series is reversed."
+  },
+  {
+   "decision_id": "M8-Ps-027",
+   "challenge_id": "OL-027-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The rationale attributes 'Yahweh's heavenly search' content to a web:Ps.14.3 citation, but that search is verse 2's content (oshb:Ps.14.2); web:Ps.14.2 is absent from boundary_evidence_refs, leaving 6 of 7 psalm verses cited.",
+   "severity_final": "medium",
+   "evidence": "Direct read: oshb:Ps.14.2 = 'יְֽהוָ֗ה מִשָּׁמַיִם֮ הִשְׁקִ֪יף...' ('Yahweh looked down from heaven') is the search action; web:Ps.14.3's content is the 'no one who does good' finding. Row's boundary_evidence_refs array confirmed (by direct inspection) to contain 14.0,14.1,14.3,14.4,14.5,14.6,14.7 — 14.2 is absent."
+  },
+  {
+   "decision_id": "M8-Ps-027",
+   "challenge_id": "OL-027-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The doublet's wording diverges at all 6 parallel MT verse pairs (14 vs 53), not at 'one point'; divine-name substitution alone accounts for 3 of the 6 pairs.",
+   "severity_final": "medium",
+   "evidence": "Consistent with psalm_device_inventory.json's Elohistic-Psalter counts cited in the OL packet (Ps 14: YHWH 4/Elohim 3; Ps 53: YHWH 0/Elohim 7) — Ps 53 containing 0 occurrences of the divine name the row's claim localizes to a single verse corroborates that name-substitution is broader than 'one point'."
+  },
+  {
+   "decision_id": "M8-Ps-027",
+   "challenge_id": "OL-027-3",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "Psalm 14:4's divine name is the object of the verb ('they do not call on Yahweh'), not an addressee; device_notes' claim that the verse 'addresses Yahweh by name' contradicts the row's own no-vocative seam warrant.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: direct read of oshb:Ps.14.4 = '...יְ֝הוָ֗ה לֹ֣א קָרָֽאוּ' — 3cp perfect verb with the divine name as its object, 0 second-person morphology present."
+  },
+  {
+   "decision_id": "M8-Ps-028",
+   "challenge_id": "OL-028-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The non-split warrant rests on the relative 'he who...' construction, which is WEB's own supplied syntax; MT Ps 15:2-5 contains 0 relative particles across its 4 verses and alternates participial and negated-finite clause types instead.",
+   "severity_final": "medium",
+   "evidence": "MACHINE-CONFIRMED: direct scan of oshb:Ps.15.2 through oshb:Ps.15.5 finds zero instances of the relative particle אֲשֶׁר, contrasted directly against oshb:Ps.16.3 and oshb:Ps.16.7 (same cluster, next psalm) which both carry it explicitly."
+  },
+  {
+   "decision_id": "M8-Ps-030",
+   "challenge_id": "LF-030-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "A genuine addressee shift exists at the 9|10 seam (web:Ps.16.7-8 refer to Yahweh in the third person; web:Ps.16.10-11 address Yahweh directly in the second person) that the rejected_alternative's stated ground omits; this does not overturn the row, since the floor argument (2-verse remainder) independently sustains it.",
+   "severity_final": "low",
+   "evidence": "Direct read: web:Ps.16.7 'I will bless Yahweh, who has given me counsel' (3rd person); web:Ps.16.10 'For YOU will not leave my soul...' (2nd person) — confirmed by direct verse-text comparison."
+  },
+  {
+   "decision_id": "M8-Ps-031",
+   "challenge_id": "OL-031-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The rejected_alternative dismisses the 17:1-2|17:3-5 rival on a syntactic-dependency ground the MT bytes do not show (0 of 3 verse-initial tokens at 17:3-5 carry a waw or subordinator); the tier-1 mood shift at the seam (imperative/yiqtol petition to 2ms qatal declarative) is left unanswered.",
+   "severity_final": "medium",
+   "evidence": "MACHINE-CONFIRMED: direct token check of oshb:Ps.17.3 ('בָּ֘חַ֤נְתָּ'), oshb:Ps.17.4 ('לִפְעֻלּ֣וֹת'), oshb:Ps.17.5 ('תָּמֹ֣ךְ') as verse-initial tokens — none begins with waw or a subordinating particle; oshb:Ps.17.3 opens a run of three 2ms qatal forms confirmed against 17:1-2's imperatives/yiqtols."
+  },
+  {
+   "decision_id": "M8-Ps-032",
+   "challenge_id": "LF-032-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The 'Hide me...under the shadow of your wings...who surround me' clause (web:Ps.17.8-9) lies wholly inside the '8-9' half of the row's own named 6-7|8-9 split alternative and would remain intact under it; the stated warrant does not describe a consequence of the alternative it names.",
+   "severity_final": "medium",
+   "evidence": "Direct read confirms web:Ps.17.8 and web:Ps.17.9 form one continuous clause and both verses fall on the same side (8-9) of the named split; severing 6-7 from 8-9 does not break this clause."
+  },
+  {
+   "decision_id": "M8-Ps-032",
+   "challenge_id": "OL-032-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The claimed 'vocative-plus-imperative cluster opens web:Ps.17.6' is positionally inverted: 17:6 opens with a fronted pronoun plus qatal (tokens 1-2); the vocative is token 5; the imperatives are tokens 6 and 9, after the verse's main disjunctive.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: direct token split of oshb:Ps.17.6 gives ['אֲנִֽי','קְרָאתִ֣יךָ','כִֽי','תַעֲנֵ֣נִי','אֵ֑ל','הַֽט','אָזְנְךָ֥','לִ֝֗י','שְׁמַ֣ע','אִמְרָתִֽי'] — token1=pronoun, token2=qatal, token5=vocative אֵ֑ל, token6=imperative הַֽט, token9=imperative שְׁמַ֣ע, matching OL's claimed positions exactly."
+  },
+  {
+   "decision_id": "M8-Ps-032",
+   "challenge_id": "OL-032-2",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "web:Ps.17.9's imperative object is already resolved by the 1cs suffix inside web:Ps.17.8's תַּסְתִּירֵֽנִי; oshb:Ps.17.9 opens with the preposition מִפְּנֵ֣י (ablative complement), and its second colon carries no relative particle in the Hebrew.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: direct token split of oshb:Ps.17.8 shows token7-of-7 = 'תַּסְתִּירֵֽנִי' (imperative with 1cs suffix); oshb:Ps.17.9 token1 = 'מִפְּנֵ֣י' (preposition)."
+  },
+  {
+   "decision_id": "M8-Ps-033",
+   "challenge_id": "OL-033-1",
+   "ruling": "uphold",
+   "corrected_claim_or_null": "The English phrase cited at web:Ps.17.12 is not a third-person verb in the Hebrew; the clause is verbless (noun+suffix, then preposition+noun), and its finite verb is token 3 (יִכְס֣וֹף), not the cited phrase.",
+   "severity_final": "low",
+   "evidence": "MACHINE-CONFIRMED: direct token split of oshb:Ps.17.12 gives ['דִּמְיֹנ֗וֹ','כְּ֭אַרְיֵה','יִכְס֣וֹף','לִטְר֑וֹף','וְ֝כִכְפִ֗יר','יֹשֵׁ֥ב','בְּמִסְתָּרִֽים'] — tokens 1-2 form a verbless noun+comparison clause; token3 is the first finite verb."
+  }
+ ],
+ "split_verdicts": [
+  {
+   "decision_id": "M8-Ps-007",
+   "resolution": "OL challenge stands (LF supported). Span, unit_type, parent, and confidence unmodified; the rationale's addressee-block claim is corrected: the Yahweh-address block is web:Ps.4.6-web:Ps.4.8, and the human-audience block is one unbroken run, web:Ps.4.2-web:Ps.4.5.",
+   "evidence": "See OL-007-1/OL-007-2 adjudications; direct MT byte checks of oshb:Ps.4.6-4.9 confirm the corrected addressee map."
+  },
+  {
+   "decision_id": "M8-Ps-013",
+   "resolution": "OL challenge stands (LF supported). Span unmodified. The rejected_alternative's rear-seam discriminator is replaced under the seam-pair cure shared with M8-Ps-014 (see repair unit ru03).",
+   "evidence": "See OL-013-1 adjudication; oshb:Ps.7.12 confirmed third-person declarative inside this row's own span."
+  },
+  {
+   "decision_id": "M8-Ps-014",
+   "resolution": "OL challenge stands (LF supported). Span unmodified. The opening warrant is replaced under the same seam-pair cure as M8-Ps-013 (ru03); the presentative particle at oshb:Ps.7.15 is the better-warranted discriminator.",
+   "evidence": "See OL-014-1 adjudication; oshb:Ps.7.13 confirmed 0 nominal subject, oshb:Ps.7.15 confirmed presentative-initial."
+  },
+  {
+   "decision_id": "M8-Ps-015",
+   "resolution": "OL challenge stands (LF supported). Span and unit_type unmodified; device_notes' stated cause for the refrain's tier-defeat corrected from cantillation to meteg.",
+   "evidence": "See OL-015-1 adjudication; NFD codepoint comparison confirms meteg is the operative difference."
+  },
+  {
+   "decision_id": "M8-Ps-018",
+   "resolution": "OL challenge stands (LF supported). Span unmodified; rejected_alternative's recased, unref'd WEB quote corrected to match source capitalization and given its inline ref.",
+   "evidence": "See OL-018-1 adjudication; machine-confirmed via check_web_quotes.py."
+  },
+  {
+   "decision_id": "M8-Ps-019",
+   "resolution": "OL challenge stands (LF supported). Span unmodified; rejected_alternative's self-defeating stated ground replaced with a ground that actually ties verses 17-18 forward to 19-20.",
+   "evidence": "See OL-019-1 adjudication."
+  },
+  {
+   "decision_id": "M8-Ps-022",
+   "resolution": "OL challenge stands (LF supported). Span unmodified; rationale must disclose that its quoted web:Ps.10.13 content is the third instance of the 'says in his heart' formula, under the shared repair with M8-Ps-021 (ru09).",
+   "evidence": "See OL-022-1 adjudication; corroborated by the same 3-verse skeleton sweep used for OL-021-1."
+  },
+  {
+   "decision_id": "M8-Ps-027",
+   "resolution": "OL challenge stands (LF filed none on this row). Span, unit_type, and the two-row doublet typing unmodified; device_notes/rationale corrected per ru12 (verse-2 citation restored, divergence count corrected to 6 pairs, 14:4 vocative mischaracterization dropped).",
+   "evidence": "See OL-027-1/2/3 adjudications."
+  },
+  {
+   "decision_id": "M8-Ps-028",
+   "resolution": "OL challenge stands (LF supported). Span and unit_type unmodified; the non-split warrant is replaced with a source-level asyndetic-list reading (ru13) since MT 15:2-5 carries 0 relative particles.",
+   "evidence": "See OL-028-1 adjudication; direct scan confirms 0 relative particles in the span."
+  },
+  {
+   "decision_id": "M8-Ps-030",
+   "resolution": "LF challenge stands (OL supported). Span and unit_type unmodified — the floor-count argument (verses 10-11 = 2 verses, under the 4-verse norm) independently sustains the row's conclusion; the addressee-shift signal is added to the rejected_alternative's stated ground for completeness.",
+   "evidence": "See LF-030-1 adjudication; direct verse-text comparison confirms the 3rd/2nd-person split at the 9|10 seam."
+  },
+  {
+   "decision_id": "M8-Ps-031",
+   "resolution": "OL challenge stands (LF supported). Span unmodified; rejected_alternative's syntactic-dependency ground replaced (or the rival's unanswered status conceded) since the MT shows a genuine tier-1 mood shift at 17:2|17:3 that the stated ground does not address.",
+   "evidence": "See OL-031-1 adjudication; direct token check confirms no waw/subordinator opens 17:3-5 and a 2ms-qatal run opens at 17:3."
+  },
+  {
+   "decision_id": "M8-Ps-033",
+   "resolution": "OL challenge stands (LF supported). Span unmodified; the exemplar list is corrected to drop the verbless-clause item at web:Ps.17.12 (its copula is WEB-supplied), retaining the 3 correctly typed third-person-verb exemplars at 17:10-11.",
+   "evidence": "See OL-033-1 adjudication; direct token split confirms 17:12 is a verbless clause."
+  }
+ ],
+ "repair_units": [
+  {
+   "unit_id": "ru01",
+   "decision_ids": [
+    "M8-Ps-005"
+   ],
+   "instruction": "Rewrite device_notes: state the ashrei token at oshb:Ps.2.12 opens the verse's final colon (word 11 of 14, three words follow), not that it closes the verse; attribute the tier-defeat against oshb:Ps.1.1's token to a meteg difference, not cantillation alone."
+  },
+  {
+   "unit_id": "ru02",
+   "decision_ids": [
+    "M8-Ps-012"
+   ],
+   "instruction": "Add web:Ps.7.6 to boundary_evidence_refs (it is argued in prose in both rationale and observed_substrate_signals as the strophe boundary immediately outside this row's 7.1-7.5 span, but is not mirrored)."
+  },
+  {
+   "unit_id": "ru03",
+   "decision_ids": [
+    "M8-Ps-013",
+    "M8-Ps-014"
+   ],
+   "instruction": "Seam-pair cure: in both rows, replace the '7:12-13 shifts to third-person description of an unrepentant man' discriminator with the psalm's presentative הִנֵּה particle at oshb:Ps.7.15 (=web:Ps.7.14), two verses inside M8-Ps-014's span, as the tier-1 marker of the wicked-man's unambiguous third-person onset."
+  },
+  {
+   "unit_id": "ru04",
+   "decision_ids": [
+    "M8-Ps-015"
+   ],
+   "instruction": "Correct device_notes: the refrain's skeleton-tier-only recurrence at web:Ps.8.9 is caused by a meteg difference (U+05BD), which the accent_stripped tier retains by design, not by cantillation."
+  },
+  {
+   "unit_id": "ru05",
+   "decision_ids": [
+    "M8-Ps-016",
+    "M8-Ps-017"
+   ],
+   "instruction": "Seam-pair cure: correct both rows' 9:4/9:5 boundary prose to state that second-person address to Yahweh persists through web:Ps.9.6 (=oshb 9.7) and that the third-person reign description does not begin until web:Ps.9.7 (=oshb 9.8); M8-Ps-017 additionally converts the single-curly 'Sing praises' quote to double-curly with an inline web:Ps.9.11 ref."
+  },
+  {
+   "unit_id": "ru06",
+   "decision_ids": [
+    "M8-Ps-018"
+   ],
+   "instruction": "In rejected_alternative, recapitalize the quoted clause to match WEB source ('He has executed judgment.') and add the inline web:Ps.9.16 ref in that field."
+  },
+  {
+   "unit_id": "ru07",
+   "decision_ids": [
+    "M8-Ps-019"
+   ],
+   "instruction": "Replace rejected_alternative's stated ground with one that ties verses 17-18 forward to the imperative return at verse 19 (or adopt the rival and re-cut the strophe)."
+  },
+  {
+   "unit_id": "ru08",
+   "decision_ids": [
+    "M8-Ps-020",
+    "M8-Ps-021"
+   ],
+   "instruction": "Seam-pair cure: move the front-seam disclosure so both rows agree that web:Ps.10.5 still carries second-person address to Yahweh (embedded suffix in מִשְׁפָּטֶיךָ) and that the device-bounded catalog proper begins at web:Ps.10.6; also add the missing inline web:Ps.10.2 ref beside the curly-quoted 'the wicked' in M8-Ps-020's observed_substrate_signals[1]."
+  },
+  {
+   "unit_id": "ru09",
+   "decision_ids": [
+    "M8-Ps-021",
+    "M8-Ps-022"
+   ],
+   "instruction": "Correct both rows for the formula's true 3-verse distribution (oshb:Ps.10.6, 10.11, 10.13): M8-Ps-021 drops the 'occurring nowhere else book-wide' exclusivity claim (restate as 3 verses, cantillation-variant at 10:13) and converts its two single-curly 'says in his heart' quotes to double-curly with inline refs; M8-Ps-022 discloses that its quoted web:Ps.10.13 content is that formula's third instance."
+  },
+  {
+   "unit_id": "ru10",
+   "decision_ids": [
+    "M8-Ps-024"
+   ],
+   "instruction": "In rationale, disclose the ketiv/qere at oshb:Ps.11.1 on the quoted taunt token; in observed_substrate_signals, change 'at the whole-psalm threshold' to 'under the whole-psalm threshold' to match rationale; in rejected_alternative, correct the floor arithmetic (verses 4-7 = 4 verses, meets the floor; only verses 1-3 fall under it)."
+  },
+  {
+   "unit_id": "ru11",
+   "decision_ids": [
+    "M8-Ps-025"
+   ],
+   "instruction": "In rationale, correct the superscription slash-series to byte order (lamnatseach/al-hashsheminit/mizmor/le-David); in rejected_alternative, correct the floor arithmetic (verses 1-4 = 4 verses, meets the floor; only verses 6-8 fall under it)."
+  },
+  {
+   "unit_id": "ru12",
+   "decision_ids": [
+    "M8-Ps-027"
+   ],
+   "instruction": "Add web:Ps.14.2 to boundary_evidence_refs beside the 'Yahweh's heavenly search' gloss (currently mis-cited to 14.3); restate the doublet divergence as 'diverges at all 6 parallel verse pairs, with divine-name substitution at 3 of them' rather than 'diverges at one point'; drop 'addresses Yahweh by name' for 14:4 (object, not vocative); convert the two single-curly 'no one who does good' quotes to double-curly with inline refs."
+  },
+  {
+   "unit_id": "ru13",
+   "decision_ids": [
+    "M8-Ps-028"
+   ],
+   "instruction": "Replace the 'relative he-who construction runs continuously' warrant with a source-level reading: an asyndetic qualification list alternating participial and negated-finite clauses (MT carries 0 relative particles in 15:2-5), bounded by the question at 15:1 and the verdict clause at 15:5."
+  },
+  {
+   "unit_id": "ru14",
+   "decision_ids": [
+    "M8-Ps-030"
+   ],
+   "instruction": "Add the addressee-shift signal (3rd-person Yahweh-reference at 16:7-8 vs. direct 2nd-person address at 16:10-11) to rejected_alternative's stated ground, alongside the existing floor-count argument."
+  },
+  {
+   "unit_id": "ru15",
+   "decision_ids": [
+    "M8-Ps-031"
+   ],
+   "instruction": "Replace rejected_alternative's syntactic-dependency ground with one engaging the tier-1 mood shift at 17:2|17:3 (imperative/yiqtol petition to 2ms-qatal declarative series), or concede the rival is unanswered without changing the span."
+  },
+  {
+   "unit_id": "ru16",
+   "decision_ids": [
+    "M8-Ps-032"
+   ],
+   "instruction": "Correct observed_substrate_signals' token-order claim for web:Ps.17.6 (fronted pronoun+qatal opens; vocative is token 5; imperatives are tokens 6 and 9); correct the 'object clause' framing of web:Ps.17.9 to a min-complement/ablative reading; replace rejected_alternative's clause-severing argument (which does not actually sever) with an imperative-continuity argument between 17:6-7's own imperatives."
+  },
+  {
+   "unit_id": "ru17",
+   "decision_ids": [
+    "M8-Ps-033"
+   ],
+   "instruction": "In the exemplar list, drop web:Ps.17.12 as a third-person-verb example (its clause is verbless, copula WEB-supplied) and retain only the correctly typed exemplars at 17:10-11."
+  }
+ ],
+ "peer_findings": [
+  {
+   "finding_id": "PF-p01-01",
+   "decision_id": "M8-Ps-012",
+   "severity": "low",
+   "claim": "web:Ps.7.6 is argued in prose (rationale and observed_substrate_signals) as the out-of-span boundary marking this row's own close, but does not appear in boundary_evidence_refs.",
+   "evidence": "MACHINE-CONFIRMED via check_refs_mirror.py run directly against the extracted p01 rows: 1 flag, decision_id M8-Ps-012, argued_but_unmirrored=['Ps.7.6']. Direct inspection confirms rationale ('...before the imperative summons beginning web:Ps.7.6') and observed_substrate_signals[2] ('the strophe beginning web:Ps.7.6 opens with an imperative...') both name Ps.7.6 outside the row's own Ps.7.1-Ps.7.5 span without it appearing in boundary_evidence_refs."
+  },
+  {
+   "finding_id": "PF-p01-02",
+   "decision_id": "M8-Ps-020",
+   "severity": "low",
+   "claim": "The curly-quoted verbatim WEB phrase 'the wicked' in observed_substrate_signals[1] carries no inline web: ref in that same array element.",
+   "evidence": "MACHINE-CONFIRMED via check_web_quotes.py: flag at row index 19 (M8-Ps-020), path observed_substrate_signals[1], issue 'curly quote with NO web: ref in its field'. Confirmed the phrase is verbatim WEB text (web_quote_found=True against web:Ps.10.2 and web:Ps.10.3)."
+  },
+  {
+   "finding_id": "PF-p01-03",
+   "decision_id": "M8-Ps-021",
+   "severity": "low",
+   "claim": "The verbatim WEB phrase 'says in his heart' is quoted in single curly quotes (delimiter evasion) in both rationale and observed_substrate_signals[0], instead of the mandatory double-curly-plus-inline-ref form.",
+   "evidence": "MACHINE-CONFIRMED via check_web_quotes.py: 2 flags at row index 20 (M8-Ps-021), paths rationale and observed_substrate_signals[0], issue 'verbatim WEB text in SINGLE curly quotes (delimiter evasion)'."
+  },
+  {
+   "finding_id": "PF-p01-04",
+   "decision_id": "M8-Ps-027",
+   "severity": "low",
+   "claim": "The verbatim WEB phrase 'no one who does good' is quoted in single curly quotes (delimiter evasion) in both observed_substrate_signals[0] and device_notes, instead of the mandatory double-curly-plus-inline-ref form.",
+   "evidence": "MACHINE-CONFIRMED via check_web_quotes.py: 2 flags at row index 26 (M8-Ps-027), paths observed_substrate_signals[0] and device_notes, issue 'verbatim WEB text in SINGLE curly quotes (delimiter evasion)'."
+  }
+ ],
+ "specialty_results": {
+  "sweep6_widened_neighbor_quote_triage": {
+   "target": "M8-Ps-016 (Ps.9.1, shift psalm, sub-class a per sweep6 policy)",
+   "method": "Re-derived every candidate WEB quote in the row against its EXACT verse window plus immediate neighbors (Ps.9.0/9.1/9.2/9.3/9.4/9.5) using web_quote_found, per sweep6's mandated pre-edit check.",
+   "result": "CLEARED, no defect. All 3 candidate quotes ('I will give thanks to Yahweh with my whole heart' @ web:Ps.9.1; 'your presence' @ web:Ps.9.3; 'you have maintained' @ web:Ps.9.4) match EXACTLY and UNIQUELY at their claimed refs and nowhere in the +-1 neighborhood. The row's only oshb: dual-cite (web:Ps.9.0 = oshb:Ps.9.1, the title) is arithmetically correct for this shift+1 psalm. No MT-number-under-web-prefix error (OL-267-1 class) found; the widened-neighbor scan's flag for this decision_id is a false positive under exact-window verification."
+  },
+  "embedded_suffix_sweep": {
+   "target": "Every addressee-absence / 'no X' claim across the batch's 34 rows (c45-class hazard: an embedded 2nd-person pronominal suffix can constitute address even absent a free vocative/imperative).",
+   "claims_checked": [
+    "M8-Ps-005 obs[0]: imperative addressees (kings/judges) have no antecedent in MT 2.10-2.12 -- checked, no plural referent found, claim survives.",
+    "M8-Ps-006 obs[2]: 2nd-person/self-referential address to Yahweh throughout MT 3.2-3.9, no shift to a different addressee -- checked every verse; only 2ms suffix found (oshb:Ps.3.9 'בִרְכָתֶ֣ךָ') is Yahweh-directed, consistent with the claim; no shift found.",
+    "M8-Ps-010 rejected_alternative: no addressee change through MT 6.4-6.8 -- checked; 2ms suffixes at oshb:Ps.6.5/6.6 ('חַסְדֶּֽךָ','זִכְרֶ֑ךָ') are both Yahweh-directed; claim survives.",
+    "M8-Ps-021 catalog claim ('no vocative/imperative interrupts verses 5-10' / 'reads as one continuous unit'): checked MT 10.6-10.11 (0 suffixes, pure 3rd person, catalog claim survives IN ISOLATION) but the row's actual span includes MT 10.5, which carries the embedded 2ms suffix 'מִשְׁפָּטֶיךָ' (Yahweh address) -- CONFIRMS AND CORROBORATES the already-filed OL-021-2 finding via an independent method (suffix-pattern sweep rather than manual reading); folded into that adjudication and repair unit ru08 rather than filed as a separate new finding.",
+    "M8-Ps-024 seam claim (no imperative/vocative marks the MT 11.3/11.4 seam) -- checked, 0 suffixes/imperatives found, claim survives.",
+    "M8-Ps-025 oracle-introduction claim (MT 12.6, no imperative/vocative introducing the oracle) -- checked, 0 suffixes/imperatives, claim survives (first-person self-reference only).",
+    "M8-Ps-027 seam claim (no imperative/vocative marks MT 14.4/14.5) -- checked, 0 suffixes; corroborates OL-027-3's independent finding that 14:4's divine name is a verb object, not an addressee.",
+    "M8-Ps-028 catalog claim (no imperative/vocative shift interrupts MT 15.2-15.5) -- checked, 0 suffixes/imperatives found; addressee-absence claim itself survives (OL-028-1's already-filed defect is about the relative-pronoun basis of the warrant, not addressee)."
+   ],
+   "result": "1 corroborating hazard instance found (M8-Ps-021 span vs. MT 10.5's embedded suffix), which strengthens the already-filed OL-021-2 challenge via independent re-derivation rather than surfacing a distinct new defect. All other addressee-absence claims in the batch survive the embedded-suffix check."
+  },
+  "splice_covers_gloss_word_index_check": {
+   "target": "Every row in the batch carrying a glossed/positional Hebrew quote (opens-with / closes-on / word-position claims).",
+   "method": "For each candidate, spliced the Hebrew word directly from the row's own on-disk JSON bytes (re.search for a Hebrew run, never hand-typed) and checked collate_hebrew tier plus exact token index against verse_map_oshb.json.",
+   "checked": [
+    "M8-Ps-001 (opens, Ps.1.1)",
+    "M8-Ps-003 (opens, Ps.2.4)",
+    "M8-Ps-004 (opens, Ps.2.7)",
+    "M8-Ps-005 (closing-word claim, Ps.2.12 -- already the subject of LF-005-1/OL-005-1)",
+    "M8-Ps-009 (opens/pivot, Ps.5.8)",
+    "M8-Ps-011 (opens, Ps.6.9)",
+    "M8-Ps-013 (opens, Ps.7.7)",
+    "M8-Ps-014 (opens, Ps.7.13)",
+    "M8-Ps-015 (byte/skeleton refrain tiers, Ps.8.2/Ps.8.10 -- already OL-015-1)",
+    "M8-Ps-031 (title opens, Ps.17.1)"
+   ],
+   "result": "All 'opens with' claims confirmed byte-tier AND exact token-index 1 of N. The only splice-covers-gloss violation found in the batch is the pre-existing M8-Ps-005 'closing word' defect, independently reconfirmed (see LF-005-1/OL-005-1 adjudications: word 11 of 14, not the closing word). No other violations found."
+  },
+  "general_validator_suite": {
+   "citation_sweep": "GREEN, 0 problems (34 rows).",
+   "check_refs_mirror": "1 flag (M8-Ps-012, new finding PF-p01-01).",
+   "check_marks": "GREEN, 0 flags (9 rows citing selah).",
+   "check_web_quotes": "6 flags: 1 confirms OL-018-1 (M8-Ps-018), 5 are new hygiene findings (PF-p01-02 M8-Ps-020, PF-p01-03 x2 M8-Ps-021, PF-p01-04 x2 M8-Ps-027).",
+   "check_universals": "8 WARN flags; all 8 individually re-derived against source (structural absence facts already cross-checked by the primary reviewers, or span-scoped claims independently confirmed true in this pass: M8-Ps-001 title absence, M8-Ps-005 antecedent absence, M8-Ps-006 addressee continuity, M8-Ps-019 no-imperative claim, M8-Ps-024/027 seam no-imperative claims, M8-Ps-030 selah absence). None represent an uncorrected false-universal defect; the heuristic's digit-adjacency rule under-fits claims that are directly checkable against a named structural inventory rather than requiring a book-wide occurrence sweep.",
+   "check_language_zones": "GREEN, 0 flags.",
+   "ngram7": "GREEN, no 7-gram reused across >=10 rows (worst reuse: 7 rows).",
+   "check_tiling (Ps.1.1-Ps.17.15)": "GREEN, 179/179 verses covered, 0 gaps/overlaps across 34 decisions."
+  }
+ }
+}
