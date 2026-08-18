@@ -4,6 +4,11 @@ This repository is the governed semantic substrate for a Bible knowledge graph, 
 
 It is intentionally **not** the agent runtime. The future agent/orchestration harness should live in a separate runtime repo and call this repository through explicit contracts, generated artifacts, and validated releases.
 
+For a ministry- and employer-facing explanation of the entire project family, present
+capabilities, technical depth, M7/M8 research lanes, release maturity, and the path from
+local read-only MCP to a future remote server, start with
+[`docs/architecture/PUBLIC_PROJECT_OVERVIEW.md`](docs/architecture/PUBLIC_PROJECT_OVERVIEW.md).
+
 > **Project context:** this repo is the **data-plane substrate** of the
 > [logos-governance-architecture](https://github.com/lowelltwong-alt/logos-governance-architecture)
 > project — the deterministic, machine-readable implementation of its scripture /
@@ -33,15 +38,16 @@ Every human or AI contributor must follow this read order:
 | # | File | Purpose |
 |---|------|---------|
 | 1 | [`AI_FRONT_DOOR.md`](AI_FRONT_DOOR.md) | Entry point, modes, validation gates |
-| 2 | [`AI_TABLE_OF_CONTENTS.md`](AI_TABLE_OF_CONTENTS.md) | Repo map, project-family hierarchy, and validation surfaces |
-| 3 | [`.ai/control/MASTER_CONTEXT.md`](.ai/control/MASTER_CONTEXT.md) | **Human-gated** architecture theory & decisions (AI read-only) |
-| 4 | [`.ai/control/PROJECT_CONTEXT.md`](.ai/control/PROJECT_CONTEXT.md) | Cross-repo role, link type, and upstream/downstream boundary |
-| 5 | [`.ai/control/PROJECT_STATUS.md`](.ai/control/PROJECT_STATUS.md) | Current phase, blockers, active handoffs |
-| 5b | [`.ai/control/RAW_SOURCE_INVENTORY.md`](.ai/control/RAW_SOURCE_INVENTORY.md) | **The actual raw documents to be processed** (generated). Mandatory before ingest/chunking work. |
-| 6 | [`ROADMAP.md`](ROADMAP.md) | Phase plan |
-| 7 | [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml) | Machine-readable task state |
-| 8 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |
-| 9 | [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md) | Chunking architecture |
+| 2 | [`docs/architecture/PUBLIC_PROJECT_OVERVIEW.md`](docs/architecture/PUBLIC_PROJECT_OVERVIEW.md) | Public mission, capability, maturity, branch, and MCP overview |
+| 3 | [`AI_TABLE_OF_CONTENTS.md`](AI_TABLE_OF_CONTENTS.md) | Repo map, project-family hierarchy, and validation surfaces |
+| 4 | [`.ai/control/MASTER_CONTEXT.md`](.ai/control/MASTER_CONTEXT.md) | **Human-gated** architecture theory & decisions (AI read-only) |
+| 5 | [`.ai/control/PROJECT_CONTEXT.md`](.ai/control/PROJECT_CONTEXT.md) | Cross-repo role, link type, and upstream/downstream boundary |
+| 6 | [`.ai/control/PROJECT_STATUS.md`](.ai/control/PROJECT_STATUS.md) | Current phase, blockers, active handoffs |
+| 6b | [`.ai/control/RAW_SOURCE_INVENTORY.md`](.ai/control/RAW_SOURCE_INVENTORY.md) | **The actual raw documents to be processed** (generated). Mandatory before ingest/chunking work. |
+| 7 | [`ROADMAP.md`](ROADMAP.md) | Phase plan |
+| 8 | [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml) | Machine-readable task state |
+| 9 | [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) | Deterministic agent handoffs |
+| 10 | [`docs/chunking/CHUNKING_DESIGN.md`](docs/chunking/CHUNKING_DESIGN.md) | Chunking architecture |
 
 **Validation (CI green/red):**
 

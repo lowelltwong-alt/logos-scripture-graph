@@ -1,8 +1,28 @@
 ﻿# Project Status — Single Source of Truth
 
-**Last updated:** 2026-07-21
-**Updated by:** T476 Option A + T477 canonical baseline reset
-**Active task:** -> **T477 COMPLETE (baseline reset)**. Next: **T478** Psalm 119/78 reviewed-gold re-review (no gold edits yet). Regenerated eng-web to post-T519 baseline (`word_tokens=677686`, `footnotes=1130`). Gold/chunk output still gated.
+**Last updated:** 2026-08-18
+**Updated by:** T610 public AI/MCP entry and PR 194 publication routing
+**Active publication task:** -> **T610 COMPLETE, PENDING MERGE** on clean `origin/main`. The generated-data baseline focus remains T477 so its transition gates stay valid. The public entry passed aggregate validation, 1,110 tests, exact-patch privacy review, and independent review. Publish and gate this exact head, then open a separate scrubbed, manifest-first M7 publication task while Fable continues M8. M7/M8 content convergence waits for M8 completion. Do not merge PR 194 as one flattened tree.
+
+> **T610 public entry and publication routing (2026-08-18):** A blind same-tier Sol/high
+> A/B architecture review converged on a small clean-main orientation PR, a separate M7
+> candidate publication, continued owner-bound M8 checkpoints, and M7/M8 comparison only
+> after M8 is complete. No M7/M8 content convergence has started. PR 194 remains
+> open, review-required, and conflict-reported at M8 head
+> `5c6c36106c49e2ac5795cb98956129cb4fab0620`; it contains 5,923 files and more than
+> 1.2 million added lines. M7 local head
+> `eaf31a940d3166b49c38ca26eb279392e0a3b25b` has a 66/66 aggregate versus 22/66
+> corrective-review contradiction and must be reconciled before release use. M8 remains
+> an active owner checkpoint at 19/66 through Psalms with Proverbs staged. Current MCP is
+> local stdio read-only; remote MCP and write tools are disabled. No Scripture data,
+> reviewed-gold, chunk output, graph/retrieval/vector truth, canon scope, or theology
+> authority changed.
+>
+> The M7 GitHub branch currently trails the local immutable head by eight commits. The
+> newer 5,449-file snapshot is not being pushed directly because its committed tree
+> includes pytest scratch material and personal local-path strings. That lane remains
+> preserved for a separate scrubbed publication; this finding does not authorize editing
+> or cleaning its dirty recovery-held worktree.
 
 > **T477 Canonical regeneration and baseline reset (2026-07-21):** Owner-authorized
 > `--canonical-66-filter` regen after T476 Option A. DATA_MAP refreshed; T475 transition
