@@ -1,0 +1,191 @@
+{
+  "schema_version": "dad.task_local_agent_mesh_manifest.v1",
+  "mesh_id": "dad:agent-mesh:t611-m7-publication",
+  "task_id": "T611",
+  "revision_id": "dad:agent-mesh-revision:t611-m7-publication:v3",
+  "phase": "execution",
+  "status": "active",
+  "source_snapshot_digest": "sha256:71cde3e273e3c84baabf79ce5e2b491e6ac9159751346d1f8aa33c4c71c297e0",
+  "authority": {
+    "source_authority": "GitHub Actions run 32209361623 is authoritative for the post-ingest DATA_MAP delta; current main supplies repository policy; Lowell authorized completion of this CI repair. This manifest is candidate coordination evidence only, and Lowell retains merge and final-release authority.",
+    "execution_authority": false,
+    "human_gate_required": true
+  },
+  "max_delegation_depth": 1,
+  "writer_role_id": "root-ci-repair-writer",
+  "checker_role_id": "independent-release-checker",
+  "non_overlap_statement": "Only root-ci-repair-writer may edit the T611 worktree. The independent-release-checker remains read-only, and neither role may access or modify M8 content.",
+  "roles": [
+    {
+      "role_id": "root-ci-repair-writer",
+      "why_needed": "The published draft needs one accountable writer to apply the exact post-ingest DATA_MAP delta and refresh its task, mesh, ledger, and handoff evidence.",
+      "mission": "Repair PR 196's DATA_MAP freshness failure without changing publication meaning, payload boundaries, M7 evidence, or M8 state.",
+      "inputs": [
+        "PR 196 head c4b29758daded1d7c4ee0e6772fdaa4de47d583e",
+        "GitHub Actions run 32209361623 failure diff",
+        "WORKFLOW-LESSON-001",
+        "Lowell authorization to complete the CI repair"
+      ],
+      "dependencies": [],
+      "authority": "May edit only .ai/control/DATA_MAP.md, .ai/control/handoff_ledger.jsonl, .ai/tasks/T611.task.yaml, .ai/context/agent_work/T611/agent_mesh_manifest.v3.json, and .ai/handoffs/T611/handoff.md, then commit and push the repair to the existing draft PR. May not merge, publish a final release, access M8 content, or begin convergence.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "writer",
+      "acceptance_conditions": [
+        "The DATA_MAP diff exactly matches GitHub's post-ingest schema-count and schema-row delta.",
+        "No sparse-worktree inventory deltas are committed.",
+        "Required local gates and the replacement GitHub Actions check pass.",
+        "M8 remains protected and unmodified."
+      ],
+      "stop_conditions": [
+        "The generated diff includes any data inventory change beyond GitHub's post-ingest evidence.",
+        "Any repair would require M8 access, publication payload changes, merge authority, or a final release."
+      ],
+      "handoff": {
+        "recipient_role_ids": [
+          "independent-release-checker"
+        ],
+        "deliverables": [
+          "exact DATA_MAP repair",
+          "T611 task-scope refresh",
+          "T611 mesh v3",
+          "handoff-ledger refresh",
+          "T611 handoff and validation evidence"
+        ],
+        "readiness_conditions": [
+          "The final diff is frozen and local gates pass."
+        ]
+      }
+    },
+    {
+      "role_id": "independent-release-checker",
+      "why_needed": "The author cannot independently approve a public-facing, hash-bound release surface or its post-publication CI repair.",
+      "mission": "Inspect the frozen repair diff and validation evidence, verify scope and M8 isolation, and confirm or block the draft-publication gate.",
+      "inputs": [
+        "frozen PR 196 repair diff",
+        "GitHub Actions run 32209361623",
+        "current T611 handoff and validation results"
+      ],
+      "dependencies": [
+        "root-ci-repair-writer"
+      ],
+      "authority": "Read-only independent review; cannot edit, push, merge, publish a final release, inspect M8 content, or self-author evidence.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "checker",
+      "acceptance_conditions": [
+        "The repair matches the observed CI failure and introduces no unrelated or authority-expanding change.",
+        "The exact replacement remote head is green before completion."
+      ],
+      "stop_conditions": [
+        "The repair changes publication claims, payload, source pins, or M8/convergence boundaries.",
+        "Required evidence is missing or the diff changes after review."
+      ],
+      "handoff": {
+        "recipient_role_ids": [],
+        "deliverables": [
+          "independent CI-repair findings",
+          "draft-publication gate"
+        ],
+        "readiness_conditions": [
+          "Writer validation passes and the repair diff is frozen."
+        ]
+      }
+    }
+  ],
+  "proof_obligations": [
+    {
+      "obligation_id": "post-ingest-data-map-freshness",
+      "description": "Bind the committed DATA_MAP to the post-ingest CI environment rather than the sparse publication worktree.",
+      "evidence_required": [
+        "GitHub failure diff",
+        "exact local diff",
+        "replacement GitHub Actions pass"
+      ],
+      "owner_role_id": "root-ci-repair-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "pending"
+    },
+    {
+      "obligation_id": "publication-boundary-preserved",
+      "description": "Keep the publication metadata-only and all merge, final-release, payload, and convergence gates unchanged.",
+      "evidence_required": [
+        "changed-path inventory",
+        "task-scope validation",
+        "independent checker verdict"
+      ],
+      "owner_role_id": "root-ci-repair-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "pending"
+    },
+    {
+      "obligation_id": "m8-isolation",
+      "description": "Verify that the CI repair does not read or mutate protected M8 content and does not start comparison or convergence.",
+      "evidence_required": [
+        "workspace-policy validator result",
+        "changed-path inventory",
+        "handoff statement"
+      ],
+      "owner_role_id": "root-ci-repair-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "satisfied"
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "decision_id": "merge-and-final-release",
+      "summary": "PR merge and final GitHub release remain separately Lowell-owned after this CI repair.",
+      "owner_role_id": "root-ci-repair-writer",
+      "blocking": false,
+      "status": "deferred"
+    }
+  ],
+  "supersedes_revision_id": "dad:agent-mesh-revision:t611-m7-publication:v2",
+  "reconciliations": [
+    {
+      "prior_role_id": "root-publication-writer",
+      "disposition": "replaced",
+      "current_role_ids": [
+        "root-ci-repair-writer"
+      ],
+      "reason": "The original publication build is complete; the remaining bounded mission is CI freshness repair.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v2.json",
+        "https://github.com/lowelltwong-alt/logos-scripture-graph/actions/runs/32209361623"
+      ],
+      "material_drift": true
+    },
+    {
+      "prior_role_id": "immutable-inventory-worker",
+      "disposition": "removed",
+      "current_role_ids": [],
+      "reason": "The immutable inventory is unchanged and the CI repair does not inspect M7 payload objects.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v2.json"
+      ],
+      "material_drift": true
+    },
+    {
+      "prior_role_id": "privacy-license-specialist",
+      "disposition": "removed",
+      "current_role_ids": [],
+      "reason": "The privacy/license boundary and release archive are unchanged; the repair adds only generated control-plane metadata and task evidence.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v2.json"
+      ],
+      "material_drift": true
+    },
+    {
+      "prior_role_id": "independent-release-checker",
+      "disposition": "reused",
+      "current_role_ids": [
+        "independent-release-checker"
+      ],
+      "reason": "The existing non-author checker remains the appropriate reviewer; its dependency changes from the completed publication writer to the bounded CI-repair writer.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v2.json",
+        ".ai/handoffs/T611/handoff.md"
+      ],
+      "material_drift": true
+    }
+  ],
+  "manifest_digest": "sha256:7cac44c8ea06db76dfe11b36a771fbfe0d0af12f97971205c3f7ae21a84d7fb9"
+}

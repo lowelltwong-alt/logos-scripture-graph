@@ -36,7 +36,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 - Data files mapped: **227**
 - Total data size: **725.6MB**
 - Total JSONL records: **847,168**
-- Schema contracts: **39**
+- Schema contracts: **40**
 
 > Files >100MB are flagged ⚠️ — gitignored + regenerated in CI (commit policy: PROJECT_STATUS.md).
 
@@ -300,6 +300,7 @@ Downstream data-plane artifacts consume upstream governance meaning; they do not
 | `schemas/graph_edge_record.schema.json` | GraphEdgeRecord |
 | `schemas/handoff.schema.json` | HandoffMetadata |
 | `schemas/lexeme.schema.json` | Lexeme |
+| `schemas/multi-model-candidate-publication.schema.json` | Multi-model candidate publication contract v1 |
 | `schemas/relationship_object.schema.json` | RelationshipObject |
 | `schemas/retrieval_profile.schema.json` | RetrievalProfile |
 | `schemas/roadmap_state.schema.json` | RoadmapState |
