@@ -1,16 +1,26 @@
 ﻿# Project Status — Single Source of Truth
 
 **Last updated:** 2026-08-18
-**Updated by:** T610 public AI/MCP entry and PR 194 publication routing
-**Active publication task:** -> **T610 COMPLETE, PENDING MERGE** on clean `origin/main`. The generated-data baseline focus remains T477 so its transition gates stay valid. The public entry passed aggregate validation, 1,110 tests, exact-patch privacy review, and independent review. Publish and gate this exact head, then open a separate scrubbed, manifest-first M7 publication task while Fable continues M8. M7/M8 content convergence waits for M8 completion. Do not merge PR 194 as one flattened tree.
+**Updated by:** T611 sanitized immutable M7 candidate publication
+**Active publication task:** -> **T611 COMPLETE, PENDING MERGE** in the registered worktree `C:\wt\logos-t611-m7-publication`. T610 merged through PR 195 at `c6982050a0a8f1b9508e1d2c5b767513bc92d2fa`, and PR 194 was closed without merge. T611 uses only immutable M7 commit `eaf31a940d3166b49c38ca26eb279392e0a3b25b`; it publishes documentation, exact hashes, and a metadata-only package while holding the bulky payload for file-level privacy and license review. Independent review passed the candidate for draft PR and metadata-only draft release; merge and final release remain owner-gated. The primary generated-data focus remains T477. M8 is untouched, and M7/M8 comparison or convergence has not started.
+
+> **T611 M7 candidate publication (2026-08-18):** The controlled snapshot reports
+> 66/66 book strategies, 66 books and 1,178 candidate-map rows, and 22/66 books with
+> corrective rereview at the freeze. Replay-qualified and release-qualified are both
+> false. The public documentation explains the Sol control/campaign roles, formal
+> specialist packs, aliases, case-by-case evidence routing, appeals, dissent, holds,
+> learning-loop failures, and the Job and Psalm examples. The generated archive embeds
+> zero selected M7 payload bytes. Its source pointers are bound to immutable Git blobs
+> and SHA-256 values; public payload authority remains withheld because the source tree
+> includes personal paths, duplicates, and mixed-rights source material.
 
 > **T610 public entry and publication routing (2026-08-18):** A blind same-tier Sol/high
 > A/B architecture review converged on a small clean-main orientation PR, a separate M7
 > candidate publication, continued owner-bound M8 checkpoints, and M7/M8 comparison only
-> after M8 is complete. No M7/M8 content convergence has started. PR 194 remains
-> open, review-required, and conflict-reported at M8 head
+> after M8 is complete. No M7/M8 content convergence has started. PR 194 was
+> closed without merge at M8 head
 > `5c6c36106c49e2ac5795cb98956129cb4fab0620`; it contains 5,923 files and more than
-> 1.2 million added lines. M7 local head
+> 1.2 million added lines before closure. M7 local head
 > `eaf31a940d3166b49c38ca26eb279392e0a3b25b` has a 66/66 aggregate versus 22/66
 > corrective-review contradiction and must be reconciled before release use. M8 remains
 > an active owner checkpoint at 19/66 through Psalms with Proverbs staged. Current MCP is

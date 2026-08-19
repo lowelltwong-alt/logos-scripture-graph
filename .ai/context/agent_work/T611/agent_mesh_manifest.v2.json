@@ -1,0 +1,284 @@
+{
+  "schema_version": "dad.task_local_agent_mesh_manifest.v1",
+  "mesh_id": "dad:agent-mesh:t611-m7-publication",
+  "task_id": "T611",
+  "revision_id": "dad:agent-mesh-revision:t611-m7-publication:v2",
+  "phase": "postflight",
+  "status": "complete",
+  "source_snapshot_digest": "sha256:99cbe150d8ce2d156b12d32287cae02d5c3dc0bc8c3cc39b2c7cb32b53c5aec3",
+  "authority": {
+    "source_authority": "Current main supplies repository policy; immutable commit eaf31a940d3166b49c38ca26eb279392e0a3b25b is the sole M7 publication source. Lowell retains release and merge authority.",
+    "execution_authority": false,
+    "human_gate_required": true
+  },
+  "max_delegation_depth": 1,
+  "writer_role_id": "root-publication-writer",
+  "checker_role_id": "independent-release-checker",
+  "non_overlap_statement": "Only root-publication-writer may edit T611; all worker and checker roles are read-only, may not delegate, and may not access M8.",
+  "roles": [
+    {
+      "role_id": "root-publication-writer",
+      "why_needed": "One accountable writer must integrate the publication contract, deterministic builder, documentation, tests, and handoff without touching protected lanes.",
+      "mission": "Build the smallest honest public M7 candidate publication surface and reproducible content-addressed package from the immutable source commit.",
+      "inputs": [
+        "current main at c6982050a0a8f1b9508e1d2c5b767513bc92d2fa",
+        "immutable M7 source commit eaf31a940d3166b49c38ca26eb279392e0a3b25b",
+        "Lowell's T611 publication and M8-isolation instructions"
+      ],
+      "dependencies": [
+        "immutable-inventory-worker",
+        "privacy-license-specialist"
+      ],
+      "authority": "May write only C:/wt/logos-t611-m7-publication and may publish a draft PR/release; may not merge or publish a final release without Lowell's separate gate.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "writer",
+      "acceptance_conditions": [
+        "Progress measures separate 66/66 strategy/map coverage from 22/66 corrective rereview.",
+        "The package is built only from allowlisted Git objects at the pinned source commit and has a reproducible SHA-256.",
+        "M8 is neither accessed nor modified and convergence remains deferred.",
+        "Repository, handoff, privacy, schema, package, and focused tests pass."
+      ],
+      "stop_conditions": [
+        "An intended artifact is absent from the immutable source commit.",
+        "License or privacy authority is insufficient for an included object.",
+        "The task would require M8 access, dirty-M7 access, merge authority, or final release approval."
+      ],
+      "handoff": {
+        "recipient_role_ids": [
+          "independent-release-checker"
+        ],
+        "deliverables": [
+          "publication manifest and schema",
+          "deterministic package builder and tests",
+          "candidate publication documentation",
+          "validation and privacy evidence"
+        ],
+        "readiness_conditions": [
+          "Writer validations pass on the frozen diff and built package."
+        ]
+      }
+    },
+    {
+      "role_id": "immutable-inventory-worker",
+      "why_needed": "The source commit contains thousands of mixed-quality M7 objects and its coverage claims require independent deterministic reconstruction.",
+      "mission": "Inventory immutable M7 Git objects, derive counts and hashes, and distinguish observed evidence from plans, aliases, superseded evidence, and unqualified claims.",
+      "inputs": [
+        "Git tree and blobs at eaf31a940d3166b49c38ca26eb279392e0a3b25b"
+      ],
+      "dependencies": [],
+      "authority": "Read-only Git-object inspection; no filesystem writes, dirty-lane reads, M8 access, publication approval, or delegation.",
+      "model_effort_class": "medium",
+      "writer_checker_relation": "specialist",
+      "acceptance_conditions": [
+        "Counts, paths, and limitations are supported by exact Git-object evidence.",
+        "The report identifies suitable PR metadata and release-package evidence."
+      ],
+      "stop_conditions": [
+        "A requested fact requires working-tree-only or M8 evidence.",
+        "The source commit is unavailable or changes identity."
+      ],
+      "handoff": {
+        "recipient_role_ids": [
+          "root-publication-writer"
+        ],
+        "deliverables": [
+          "immutable source inventory",
+          "coverage and qualification evidence",
+          "candidate allowlist"
+        ],
+        "readiness_conditions": [
+          "All reported claims cite immutable paths and commands."
+        ]
+      }
+    },
+    {
+      "role_id": "privacy-license-specialist",
+      "why_needed": "A public artifact can expose paths, runtime debris, source text, or unclear-license material even when it is already present in Git history.",
+      "mission": "Classify immutable M7 objects under a default-deny public release boundary and identify privacy, provenance, license, duplication, and absent-module hazards.",
+      "inputs": [
+        "Git tree and blobs at eaf31a940d3166b49c38ca26eb279392e0a3b25b",
+        "repository license and source-policy metadata"
+      ],
+      "dependencies": [],
+      "authority": "Read-only classification; cannot authorize publication, infer rights, edit files, access M8, or delegate.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "specialist",
+      "acceptance_conditions": [
+        "Every proposed artifact class is public, dual, hold, or exclude with evidence.",
+        "Blocking and residual risks are explicit."
+      ],
+      "stop_conditions": [
+        "Publication authority or provenance is ambiguous for a proposed payload.",
+        "Review would require private, dirty-working-tree, or M8 content."
+      ],
+      "handoff": {
+        "recipient_role_ids": [
+          "root-publication-writer",
+          "independent-release-checker"
+        ],
+        "deliverables": [
+          "classification matrix",
+          "privacy and license findings",
+          "default-deny allowlist recommendations"
+        ],
+        "readiness_conditions": [
+          "Evidence pointers and unresolved holds are recorded."
+        ]
+      }
+    },
+    {
+      "role_id": "independent-release-checker",
+      "why_needed": "The author cannot independently approve a public-facing, hash-bound release surface.",
+      "mission": "Rebuild and inspect the frozen candidate, replay deterministic checks, red-team false authority and privacy leakage, and issue a merge/release gate.",
+      "inputs": [
+        "frozen T611 diff",
+        "immutable source commit",
+        "built content-addressed package",
+        "worker evidence and deterministic validation logs"
+      ],
+      "dependencies": [
+        "root-publication-writer",
+        "privacy-license-specialist"
+      ],
+      "authority": "Read-only independent review; cannot edit, push, merge, publish a final release, inspect M8, or self-author evidence.",
+      "model_effort_class": "high",
+      "writer_checker_relation": "checker",
+      "acceptance_conditions": [
+        "Source pin, allowlist, hashes, counts, privacy, licensing, qualifications, and M8 isolation are independently verified.",
+        "The checker reports PASS or exact blocking findings with replay commands."
+      ],
+      "stop_conditions": [
+        "The candidate changes after its review snapshot.",
+        "Required evidence is missing or the checker would need prohibited data."
+      ],
+      "handoff": {
+        "recipient_role_ids": [],
+        "deliverables": [
+          "independent findings",
+          "decomposition grade",
+          "PR merge gate",
+          "final-release gate"
+        ],
+        "readiness_conditions": [
+          "Writer checks pass and the candidate diff/package are frozen."
+        ]
+      }
+    }
+  ],
+  "proof_obligations": [
+    {
+      "obligation_id": "immutable-source",
+      "description": "Prove every release-package payload is an allowlisted blob from the pinned M7 commit.",
+      "evidence_required": [
+        "source commit pin",
+        "per-file Git blob IDs and SHA-256 values",
+        "negative test for absent or unallowlisted paths"
+      ],
+      "owner_role_id": "root-publication-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "truthful-progress",
+      "description": "Keep strategy coverage, candidate-map coverage, corrective depth, replay qualification, and release qualification separate.",
+      "evidence_required": [
+        "deterministic counts from immutable objects",
+        "machine-readable progress fields",
+        "known-defect disclosure"
+      ],
+      "owner_role_id": "root-publication-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "public-boundary",
+      "description": "Exclude runtime debris, private paths, copied corpora, unclear-license material, defective untracked artifacts, and unusable tests.",
+      "evidence_required": [
+        "default-deny allowlist",
+        "privacy and secret scan",
+        "license/provenance classification",
+        "package inventory"
+      ],
+      "owner_role_id": "root-publication-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "satisfied"
+    },
+    {
+      "obligation_id": "m8-isolation",
+      "description": "Prove T611 neither reads nor mutates M8 and defers comparison until a separately frozen M8 publication exists.",
+      "evidence_required": [
+        "workspace registry and validator result",
+        "source and builder forbidden-path checks",
+        "convergence gate with missing M8 freeze"
+      ],
+      "owner_role_id": "root-publication-writer",
+      "checker_role_id": "independent-release-checker",
+      "status": "satisfied"
+    }
+  ],
+  "unresolved_decisions": [
+    {
+      "decision_id": "final-release-approval",
+      "summary": "Final GitHub release publication and PR merge remain Lowell-owned gates after independent review.",
+      "owner_role_id": "root-publication-writer",
+      "blocking": false,
+      "status": "deferred"
+    }
+  ],
+  "manifest_digest": "sha256:308a2daef02bce6357e58efd639ab61ad1b9ee4fd6d41d31b69ddc37a0678820",
+  "supersedes_revision_id": "dad:agent-mesh-revision:t611-m7-publication:v1",
+  "reconciliations": [
+    {
+      "prior_role_id": "root-publication-writer",
+      "disposition": "reused",
+      "current_role_ids": [
+        "root-publication-writer"
+      ],
+      "reason": "The writer retained sole edit authority and narrowed publication to metadata and hashes in response to privacy/license evidence without changing its mission or authority.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v1.json",
+        ".ai/handoffs/T611/handoff.md"
+      ],
+      "material_drift": false
+    },
+    {
+      "prior_role_id": "immutable-inventory-worker",
+      "disposition": "reused",
+      "current_role_ids": [
+        "immutable-inventory-worker"
+      ],
+      "reason": "The specialist completed the planned read-only mission and supplied evidence used by the writer and checker.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v1.json",
+        ".ai/handoffs/T611/handoff.md"
+      ],
+      "material_drift": false
+    },
+    {
+      "prior_role_id": "privacy-license-specialist",
+      "disposition": "reused",
+      "current_role_ids": [
+        "privacy-license-specialist"
+      ],
+      "reason": "The specialist completed the planned read-only mission and supplied evidence used by the writer and checker.",
+      "evidence_refs": [
+        ".ai/context/agent_work/T611/agent_mesh_manifest.v1.json",
+        ".ai/handoffs/T611/handoff.md"
+      ],
+      "material_drift": false
+    },
+    {
+      "prior_role_id": "independent-release-checker",
+      "disposition": "reused",
+      "current_role_ids": [
+        "independent-release-checker"
+      ],
+      "reason": "The checker independently reconstructed the frozen artifact, found and replayed blocking wording and validator-contract defects, and issued separate draft, merge, and final-release gates.",
+      "evidence_refs": [
+        ".ai/handoffs/T611/handoff.md",
+        "tests/test_candidate_publication.py"
+      ],
+      "material_drift": false
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+id: T611
+phase: phase_0
+title: Sanitized immutable M7 Sol candidate publication
+mode: build
+status: complete_pending_merge
+owner: Codex-root
+branch: codex/t611-m7-publication
+base_ref: origin/main
+source_commit: eaf31a940d3166b49c38ca26eb279392e0a3b25b
+summary: >-
+  Publish a small, honest, metadata-only M7 candidate surface from immutable Git
+  objects. Preserve the Sol role architecture, book strategies, evidence graph,
+  learning-loop failures, holds, appeals, dissent, and exact content hashes while
+  withholding bulky payloads that lack file-level privacy and license clearance.
+scope:
+  allowed_paths:
+    - AI_FRONT_DOOR.md
+    - AI_TABLE_OF_CONTENTS.md
+    - ROADMAP_STATE.yaml
+    - docs/architecture/PUBLIC_PROJECT_OVERVIEW.md
+    - docs/publications/
+    - schemas/multi-model-candidate-publication.schema.json
+    - config/publications/
+    - scripts/build_candidate_publication.py
+    - scripts/validate_candidate_publication.py
+    - scripts/validate_all.py
+    - tests/test_candidate_publication.py
+    - tests/fixtures/scripture_first_biblical_chunking_family/negative/release.owner_ready_fake_validation.json
+    - .ai/context/agent_work/T611/
+    - .ai/tasks/T611.task.yaml
+    - .ai/handoffs/T611/
+    - .ai/control/PROJECT_STATUS.md
+    - .ai/control/current_focus.yaml
+    - .ai/control/roadmap_events.jsonl
+    - .ai/control/handoff_ledger.jsonl
+  forbidden_paths:
+    - .ai/control/MASTER_CONTEXT.md
+    - .ai/control/MASTER_CONTEXT.lock.yaml
+    - .ai/scratch/multi_model_bible_chunking/M7_sol/
+    - .ai/scratch/multi_model_bible_chunking/M8_fable/
+    - data/raw/
+    - data/canonical/
+    - data/processed/
+    - data/derived/
+    - pipelines/
+    - eval/
+    - .github/workflows/
+authorization:
+  task_kind: immutable_metadata_only_candidate_publication
+  authorizes_reading_immutable_m7_git_objects: true
+  authorizes_metadata_only_draft_pr: true
+  authorizes_metadata_only_draft_release: true
+  authorizes_m7_worktree_mutation: false
+  authorizes_m8_access_or_mutation: false
+  authorizes_m7_m8_comparison_or_convergence: false
+  authorizes_m7_payload_publication: false
+  authorizes_final_release: false
+  authorizes_merge: false
+  authorizes_replay_qualification: false
+  authorizes_release_qualification: false
+  authorizes_reviewed_gold: false
+  authorizes_chunk_output_change: false
+  authorizes_graph_or_retrieval_truth: false
+  authorizes_theology_or_canon_decision: false
+runtime_language_preflight:
+  task_id: T611
+  touched_paths:
+    - scripts/build_candidate_publication.py
+    - scripts/validate_candidate_publication.py
+    - scripts/validate_all.py
+    - tests/test_candidate_publication.py
+    - tests/fixtures/scripture_first_biblical_chunking_family/negative/release.owner_ready_fake_validation.json
+  expected_input_size_or_record_count: "279 immutable metadata pointers plus a 1,178-row candidate-map count check."
+  expected_runtime_or_memory_pressure: "Low for focused checks; repository-wide gates retain their recorded long timeout."
+  rust_trigger_match:
+    - none_bounded_metadata_and_hashing
+  chosen_language: python_only_below_threshold
+  expected_rust_time_saved_or_reason_not_applicable: "No meaningful Rust saving is expected at this bounded size; a second implementation would add more verification and maintenance cost than runtime benefit."
+  interop_boundary: "Python reads immutable Git objects and validates JSON. No source payload is copied into the package."
+  python_fallback_or_wrapper_plan: "Python is the primary deterministic implementation; no Rust worker or fallback is required."
+  maintenance_tradeoffs: "The small Python implementation keeps the publication contract auditable while binding all mutable state to commit, tree, blob, and SHA-256 identifiers."
+  validation_plan:
+    - python scripts/validate_candidate_publication.py
+    - python -m pytest -q tests/test_candidate_publication.py
+    - python scripts/validate_task_scope.py --task-id T611
+    - python scripts/validate_all.py
+    - python -m pytest -q
+acceptance_criteria:
+  - The publication is reconstructed only from immutable M7 commit eaf31a940d3166b49c38ca26eb279392e0a3b25b.
+  - Book-strategy coverage, candidate-map coverage, corrective rereview, replay qualification, and release qualification are reported separately.
+  - The public surface documents Sol roles, formal specialist packs, campaign roles and aliases without overstating model independence.
+  - Job is a detailed held example and Psalm defects, repairs, appeals, and active holds remain visible.
+  - The generated package contains metadata, hashes, and documentation only, with zero selected M7 payload bytes.
+  - M8 is not accessed or modified and M7/M8 comparison remains blocked on a separately frozen M8 publication.
+  - Focused, aggregate, handoff, task-scope, privacy, and independent-review gates pass before GitHub publication.
+validation:
+  - python scripts/validate_candidate_publication.py
+  - python -m pytest -q tests/test_candidate_publication.py
+  - python scripts/validate_task_scope.py --task-id T611
+  - python scripts/agent/validate_handoffs.py
+  - python scripts/validate_all.py
+  - python -m pytest -q
+required_handoff: .ai/handoffs/T611/handoff.md
+created_at: "2026-08-18"
+updated_at: "2026-08-18"

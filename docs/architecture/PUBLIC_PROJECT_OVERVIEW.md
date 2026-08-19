@@ -105,9 +105,9 @@ The two whole-Bible lanes are valuable research evidence, not merge-ready produc
 
 | Item | Hash-bound state on 2026-08-18 | Meaning |
 |---|---|---|
-| M7 Sol | local branch `scratch/t423-m7-sol` at `eaf31a940d3166b49c38ca26eb279392e0a3b25b` | The aggregate progress file says 66/66 candidate coverage, while the model manifest says 22/66 corrective re-review and 1,426 unresolved appeals. It requires a reconciled freeze before release use. |
-| M8 Fable | published branch `scratch/t423-m8-fable` at `5c6c36106c49e2ac5795cb98956129cb4fab0620` | Clean owner checkpoint: 19/66 books closed through Psalms; Proverbs staged; candidate-only and still active. |
-| PR 194 | open at the M8 hash above; 5,923 files and more than 1.2 million added lines; GitHub reports `CONFLICTING` / `DIRTY` | It combines inherited M7 material and active M8 research. It must not be conflict-flattened into `main`. |
+| M7 Sol | immutable source commit `eaf31a940d3166b49c38ca26eb279392e0a3b25b` | The candidate publication records 66/66 strategies, a 66-book/1,178-row candidate map, and 22/66 corrective rereview. Replay and release qualification remain false; underlying payload publication is held for file-level provenance review. |
+| M8 Fable | durable branch checkpoint `scratch/t423-m8-fable` at `5c6c36106c49e2ac5795cb98956129cb4fab0620` | Owner-protected, candidate-only, and still active. The checkpoint recorded 19/66 books; later working progress must be reported by Fable's own freeze, not inferred here. |
+| PR 194 | closed without merge on 2026-08-18 | The 5,923-file combined M7/M8 research container was superseded by the clean public-entry PR 195 plus separate research publications. |
 
 No M7/M8 content comparison or convergence has started. M8 is still being produced by
 Fable and its subagents; the owner has directed that convergence begin only after M8 is
@@ -116,19 +116,19 @@ reviewers agreed on this publication architecture.
 
 The safe publication sequence is:
 
-1. Land this small clean-main orientation and audit PR.
-2. Reconcile M7's status surfaces and publish its current work as a hash-bound,
-   candidate-only unit with a manifest, limitations, and review receipts. The recorded
-   role/subagent system is described in
-   [`M7_SOL_AGENT_SYSTEM.md`](M7_SOL_AGENT_SYSTEM.md).
+1. Keep the merged clean-main orientation from PR 195 as the public front door.
+2. Publish M7 as the separate hash-bound, metadata-only candidate unit at
+   [`../publications/m7-sol-candidate-v1/README.md`](../publications/m7-sol-candidate-v1/README.md).
+   Its manifest indexes limitations, receipts, appeals, the Job example, and the Psalm
+   failure/repair record without copying uncleared payload bytes. The recorded role and
+   subagent system remains in [`M7_SOL_AGENT_SYSTEM.md`](M7_SOL_AGENT_SYSTEM.md).
 3. Let Fable and its subagents finish M8. Preserve only owner-authorized checkpoints;
    do not use T610 to rewrite, compare, or converge the active lane.
 4. After M8 is complete, freeze both heads and begin the first independent M7/M8
    comparison and convergence work.
 5. Only then create a small convergence/index PR that links the candidates and records
    decisions; do not copy their entire scratch trees into the index.
-6. Close PR 194 as superseded only after every valuable commit has a durable GitHub ref,
-   the replacement links are visible, and the post-M8 disposition is recorded.
+6. Keep closed PR 194 as historical supersession evidence; do not reopen or merge it.
 
 This preserves the work and its failed attempts while keeping `main` reviewable.
 
@@ -160,12 +160,13 @@ readings, canon changes, and theological rulings are outside the default MCP aut
 
 ## Near-term plan
 
-1. Complete the clean public entry and merge-gate it independently.
-2. Freeze, reconcile, validate, and publish M7 without the known defective local files,
-   including transparent documentation of its Sol role mesh and per-book strategies.
+1. Maintain the clean public entry merged through PR 195.
+2. Review and merge the separate M7 metadata publication without copying the dirty or
+   uncleared payload, including transparent documentation of its Sol role mesh,
+   per-book strategies, known failures, and remaining holds.
 3. Let Fable and its subagents complete M8; publish only owner-authorized checkpoints.
-4. After M8 completes, run the first M7/M8 comparison and convergence and decide the
-   final PR 194 replacement/index shape.
+4. After M8 completes, run the first M7/M8 comparison and convergence as a small new
+   index PR; PR 194 remains closed historical evidence.
 5. Declare Bronze only after a reproducible release packet and local read-only query
    contract exist.
 6. Build Silver retrieval/graph evaluation and authenticated staging MCP.

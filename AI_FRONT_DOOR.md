@@ -24,16 +24,19 @@ for the repository family, current/planned capability matrix, engineering portfo
 release Bronze/Silver/Gold ladder, M7/M8 state, and PR 194 publication plan. Release
 Gold is not the same as the repo's narrow **reviewed-gold** chunk-evidence label.
 
-**Research merge warning (2026-08-18):** PR 194 is a 5,923-file conflicting container
-for inherited M7 material and active M8 research. Do not flatten it into `main`. The
-reviewed route is a clean entry PR, an M7 candidate publication, continued owner-bound
-M8 checkpoints, and M7/M8 comparison or convergence only after M8 is complete.
+**Research publication state (2026-08-18):** PR 194's 5,923-file conflicting research
+container was closed without merge after the clean public-entry PR 195 merged. Do not
+recreate that combined diff. Use the separate M7 candidate publication, continued
+owner-bound M8 checkpoints, and M7/M8 comparison only after M8 is complete.
 
 **M7 transparency:** read
 [`docs/architecture/M7_SOL_AGENT_SYSTEM.md`](docs/architecture/M7_SOL_AGENT_SYSTEM.md)
 for the Sol role mesh, control/campaign agents, literary-form specialists, all-66-book
 strategy routing, per-decision review flow, provenance graph, validation, and honest
-independence limits.
+independence limits. Then read the hash-bound
+[`M7 Sol candidate publication`](docs/publications/m7-sol-candidate-v1/README.md) for
+separate coverage measures, immutable evidence pointers, Psalm failure/repair history,
+the Job worked example, and the gate that keeps M8 and convergence out of this task.
 
 ## Mandatory Read Order
 

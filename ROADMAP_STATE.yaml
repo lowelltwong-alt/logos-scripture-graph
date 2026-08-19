@@ -33,14 +33,27 @@ phases:
         required_handoff: .ai/handoffs/T300/handoff.md
       - id: T610
         title: Public AI front door and PR 194 publication routing
-        status: complete_pending_merge
+        status: complete_merged
         owner: Codex-root
         required_handoff: .ai/handoffs/T610/handoff.md
         public_overview: docs/architecture/PUBLIC_PROJECT_OVERVIEW.md
         convergence_audit: .ai/audits/reports/20260818-T610-public-entry-convergence.md
         merge_pr_194_as_is: false
         remote_mcp_enabled: false
-        exact_next_step: publish_and_merge_the_exact_clean_entry_head_after_required_checks_and_review_then_open_a_separate_scrubbed_M7_publication_task
+        merge_commit: c6982050a0a8f1b9508e1d2c5b767513bc92d2fa
+        exact_next_step: complete_T611_metadata_only_M7_candidate_publication_without_accessing_M8
+      - id: T611
+        title: Sanitized immutable M7 Sol candidate publication
+        status: complete_pending_merge
+        owner: Codex-root
+        required_handoff: .ai/handoffs/T611/handoff.md
+        source_commit: eaf31a940d3166b49c38ca26eb279392e0a3b25b
+        publication_contract: config/publications/m7_sol_candidate_v1.json
+        artifact_manifest: docs/publications/m7-sol-candidate-v1/ARTIFACT_MANIFEST.json
+        payload_embedded: false
+        m8_accessed_or_modified: false
+        m7_m8_comparison_started: false
+        exact_next_step: publish_the_exact_reviewed_head_as_a_draft_PR_and_metadata_only_draft_release_then_wait_for_owner_merge_approval
   phase_1:
     title: Raw source vault and manifests
     status: complete

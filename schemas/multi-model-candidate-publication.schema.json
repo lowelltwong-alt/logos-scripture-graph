@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/multi-model-candidate-publication.schema.json",
+  "title": "Multi-model candidate publication contract v1",
+  "description": "Provider-neutral, default-deny contract for a hash-bound candidate evidence package. It cannot authorize promotion, convergence, reviewed gold, or release.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "publication_id",
+    "publication_revision",
+    "artifact_class",
+    "source",
+    "status",
+    "authority",
+    "coverage",
+    "independence",
+    "licensing",
+    "selection",
+    "known_limitations",
+    "convergence_gate",
+    "artifact"
+  ],
+  "properties": {
+    "schema_version": {"const": "multi_model_candidate_publication.v1"},
+    "publication_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+    "publication_revision": {"type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+\\.[0-9]+$"},
+    "artifact_class": {"const": "portable_core"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "lane_id", "commit_sha", "tree_sha", "source_root"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "lane_id": {"type": "string", "minLength": 1},
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "tree_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "source_root": {"type": "string", "minLength": 1, "not": {"pattern": "^[A-Za-z]:[\\\\/]"}}
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lifecycle", "candidate_only", "replay_qualified", "release_qualified", "promotion_authorized"],
+      "properties": {
+        "lifecycle": {"enum": ["draft", "validated_candidate", "hold_with_findings"]},
+        "candidate_only": {"const": true},
+        "replay_qualified": {"const": false},
+        "release_qualified": {"const": false},
+        "promotion_authorized": {"const": false}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_release_approval_required", "human_merge_approval_required", "may_change_chunk_output", "may_promote_reviewed_gold", "may_assert_graph_truth", "may_select_theology"],
+      "properties": {
+        "human_release_approval_required": {"const": true},
+        "human_merge_approval_required": {"const": true},
+        "may_change_chunk_output": {"const": false},
+        "may_promote_reviewed_gold": {"const": false},
+        "may_assert_graph_truth": {"const": false},
+        "may_select_theology": {"const": false}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["book_strategy", "candidate_map", "corrective_review"],
+      "properties": {
+        "book_strategy": {"$ref": "#/$defs/countEvidence"},
+        "candidate_map": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["book_count", "chunk_count", "evidence_path", "sha256"],
+          "properties": {
+            "book_count": {"type": "integer", "minimum": 0, "maximum": 66},
+            "chunk_count": {"type": "integer", "minimum": 0},
+            "evidence_path": {"type": "string", "minLength": 1},
+            "sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "corrective_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["completed", "canonical_total", "campaign_target", "status", "evidence_path"],
+          "properties": {
+            "completed": {"type": "integer", "minimum": 0, "maximum": 66},
+            "canonical_total": {"const": 66},
+            "campaign_target": {"type": "integer", "minimum": 0, "maximum": 66},
+            "status": {"const": "in_progress"},
+            "evidence_path": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "independence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["same_model_mesh_is_correlated", "external_receipt_present", "independent_convergence_proven"],
+      "properties": {
+        "same_model_mesh_is_correlated": {"const": true},
+        "external_receipt_present": {"const": false},
+        "independent_convergence_proven": {"const": false}
+      }
+    },
+    "licensing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_license_path", "source_policy_path", "rights_not_expanded", "payload_policy", "selected_payloads_embedded", "content_release_authorized", "raw_source_corpora_included", "unknown_rights_action"],
+      "properties": {
+        "repository_license_path": {"type": "string", "minLength": 1},
+        "source_policy_path": {"type": "string", "minLength": 1},
+        "rights_not_expanded": {"const": true},
+        "payload_policy": {"const": "metadata_and_hashes_only"},
+        "selected_payloads_embedded": {"const": false},
+        "content_release_authorized": {"const": false},
+        "raw_source_corpora_included": {"const": false},
+        "unknown_rights_action": {"const": "exclude"}
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_paths", "canonical_book_strategies", "tree_groups", "forbidden_path_patterns", "forbidden_content_patterns"],
+      "properties": {
+        "exact_paths": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "canonical_book_strategies": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["book_list_path", "path_template", "expected_count"],
+          "properties": {
+            "book_list_path": {"type": "string", "minLength": 1},
+            "path_template": {"type": "string", "pattern": "\\{book\\}"},
+            "expected_count": {"const": 66}
+          }
+        },
+        "tree_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["group_id", "prefix", "basename_regex", "expected_count"],
+            "properties": {
+              "group_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+              "prefix": {"type": "string", "minLength": 1},
+              "basename_regex": {"type": "string", "minLength": 1},
+              "expected_count": {"type": "integer", "minimum": 1}
+            }
+          }
+        },
+        "forbidden_path_patterns": {"$ref": "#/$defs/nonEmptyUniqueStrings"},
+        "forbidden_content_patterns": {"$ref": "#/$defs/nonEmptyUniqueStrings"}
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["limitation_id", "state", "summary", "evidence_paths"],
+        "properties": {
+          "limitation_id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
+          "state": {"enum": ["historical_repaired", "active_hold", "metadata_conflict", "unproven"]},
+          "summary": {"type": "string", "minLength": 1},
+          "evidence_paths": {"$ref": "#/$defs/nonEmptyUniqueStrings"}
+        }
+      }
+    },
+    "convergence_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["m7_frozen_manifest_required", "m8_frozen_manifest_required", "m8_present", "comparison_authorized", "automatic_gold_promotion"],
+      "properties": {
+        "m7_frozen_manifest_required": {"const": true},
+        "m8_frozen_manifest_required": {"const": true},
+        "m8_present": {"const": false},
+        "comparison_authorized": {"const": false},
+        "automatic_gold_promotion": {"const": false}
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_name", "output_basename", "format", "internal_manifest_path", "payload_policy", "selected_payloads_embedded"],
+      "properties": {
+        "root_name": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+        "output_basename": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]+$"},
+        "format": {"const": "tar.gz"},
+        "internal_manifest_path": {"const": "ARTIFACT_MANIFEST.json"},
+        "payload_policy": {"const": "metadata_and_hashes_only"},
+        "selected_payloads_embedded": {"const": false}
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "nonEmptyUniqueStrings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "countEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observed", "expected", "evidence_path"],
+      "properties": {
+        "observed": {"type": "integer", "minimum": 0, "maximum": 66},
+        "expected": {"const": 66},
+        "evidence_path": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
