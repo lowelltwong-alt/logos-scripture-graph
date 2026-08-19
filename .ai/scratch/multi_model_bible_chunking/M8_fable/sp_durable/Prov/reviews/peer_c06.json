@@ -1,0 +1,108 @@
+{
+ "attempt_id": "peer_c06_r1",
+ "role": "peer",
+ "clusters": [
+  "c06"
+ ],
+ "rulings": [
+  {
+   "cluster": "c06",
+   "row_id": "P04-005",
+   "source": "LF",
+   "challenge_claim": "The row's WEB quote spanning Prov.8.35 supplies no ketiv/qere disclosure, though 8:35 is a K/Q verse carrying the ketiv token inline before the qere.",
+   "ruling": "uphold",
+   "grounds": "Confirmed at byte tier. pmarks_Prov.json kq inventory lists Prov.8.35:1 (single-witness, MT-keyed). verse_map_oshb.json Prov.8.35 reads the qere מֹ֭צְאִי immediately followed by the inline unpointed ketiv מצאי before the verb מָצָ֣א -- the exact inline-ketiv pattern TOOLKIT.md flags book-wide. The row's own span (Prov.8.32-Prov.8.36) includes 8:35 in boundary_evidence_refs and its rationale quotes web:Prov.8.35 (“whoever finds me finds life”) with no K/Q disclosure anywhere in the row. The span-relevant K/Q disclosure rule is unconditional (TOOLKIT.md / check_marks.py). CONVERGENCE: OL independently raised the identical defect on this row (see the OL/K-Q ruling below) -- same defect, not distinct.",
+   "remedy": "Add a single-witness K/Q disclosure for Prov.8.35 to observed_substrate_signals or boundary_evidence_refs (e.g. \"oshb:Prov.8.35 (ketiv/qere, single-witness)\") alongside the existing web:Prov.8.35 quote. Test: check_marks.py's K/Q arm must return clean on the revised row.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P04-005",
+   "source": "OL",
+   "challenge_claim": "The row frames the 8:32 four-word summons as reproducing 7:24's opening specifically (“almost word for word”, a two-way frame) without disclosing that the identical opening also occurs at 5:7.",
+   "ruling": "uphold",
+   "grounds": "Independently re-swept (sweep.py --skel on the row's own quoted opening): 3 verses book-wide, not 2 -- Prov.5.7, Prov.7.24, Prov.8.32. verse_map_oshb.json confirms all three verses open with the byte-identical 4-word string וְעַתָּ֣ה בָ֭נִים שִׁמְעוּ לִ֑י (spliced from source, all three match). The row's boundary_evidence_refs cite oshb:Prov.7.24 only; oshb:Prov.5.7 is absent from the row entirely -- the TOOLKIT's own same-count-different-set hazard. The row's 'almost word for word' framing functions as an undisclosed distinctiveness claim without the adjacent DIGIT-BEARING sweep citation book_strategy/Prov.md §8 requires for universal/uniqueness claims. The span's independent boundary evidence (petuchah at 8:31, beatitude form 8:32-34, life/death antithesis closing at 8:35-36 with petuchah at 8:36) does not rely on the echo's exclusivity, so the Prov.8.32-8.36 boundary call itself is unaffected; only the literary-device claim needs correction.",
+   "remedy": "Disclose all three occurrences (Prov.5.7, Prov.7.24, Prov.8.32) with the sweep digit, and reframe from a unique two-way 7:24/8:32 frame to a recurring lecture-transition formula (or explicitly argue why 8:32 is still the deliberate close of a frame despite the formula recurring elsewhere) -- writer's choice, but the sweep count must be disclosed either way. Test: sweep.py --skel re-run on the row's quoted phrase must match the row's stated count exactly.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P04-005",
+   "source": "OL",
+   "challenge_claim": "The row's own closing antithesis quotes web:Prov.8.35 but never discloses the in-span ketiv/qere note at oshb:Prov.8.35.",
+   "ruling": "uphold",
+   "grounds": "Same defect as the LF ruling on this row above -- both primaries independently flagged the identical Prov.8.35 disclosure gap from the same pmarks_Prov.json kq entry and the same inline-ketiv byte pattern. CONVERGENCE: SAME defect, not distinct; adjudicated once in substance, listed separately here because it arrived as a discrete claim bundled inside the OL packet's single P04-005 entry.",
+   "remedy": "Same remedy as the LF K/Q ruling above -- one K/Q disclosure fix on Prov.8.35 satisfies both primaries' citations of this defect.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P05-001",
+   "source": "LF",
+   "challenge_claim": "The verbatim WEB quote for Prov.9.6 is delimited with straight quotes rather than the mandatory curly quotes paired with its inline web: ref.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct inspection of the row's raw bytes: the rationale's closing clause quotes web:Prov.9.6 with ASCII straight double quotes (U+0022), not curly quotes (U+201C/U+201D). TOOLKIT.md and book_strategy/Prov.md §8 both require curly quotes for WEB text with the inline web: ref in the same field; check_web_quotes.py only pattern-matches curly-quoted spans, so this instance would silently evade automated GREEN status. The quoted wording is otherwise a verbatim substring of verse_map_web.json Prov.9.6 -- content is not in question.",
+   "remedy": "Replace the straight-quote delimiters with curly quotes around the WEB quotation, keeping the inline web:Prov.9.6 ref in the same field. Test: check_web_quotes.py must pass on the revised row.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P05-002",
+   "source": "LF",
+   "challenge_claim": "Both verbatim WEB quotes near Prov.9.8 and Prov.9.9 use straight double quotes, and the Prov.9.8 quote substitutes a straight apostrophe for the WEB source's own curly apostrophe.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct inspection: both quotations in the row are ASCII straight-double-quote delimited, and the row's 'Don't' uses a straight apostrophe (U+0027). verse_map_web.json's own Prov.9.8 source text reads 'Don’t reprove a scoffer, lest he hate you. Reprove a wise person, and he will love you.' -- WEB's own apostrophe is curly (U+2019) -- so the row's straight apostrophe is not byte-identical to the text it claims to reproduce, layered on top of the same curly-vs-straight double-quote delimiter defect as the cluster's other ch.9 rows.",
+   "remedy": "Replace both quotation delimiters with curly quotes and correct the apostrophe in 'Don't' to match the WEB source's curly apostrophe. Test: check_web_quotes.py pass; byte-level re-collate of the quoted span against verse_map_web.json Prov.9.8 confirming full character match including the apostrophe.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P05-003",
+   "source": "LF",
+   "challenge_claim": "The verbatim WEB quote for Prov.9.11 is delimited with straight quotes rather than the mandatory curly quotes.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct inspection: the row's quotation of web:Prov.9.11 uses ASCII straight double quotes, not curly. Same defect class as the cluster's other ch.9 rows; content is a verbatim substring of verse_map_web.json Prov.9.11 apart from the accepted mid-sentence lower-casing of the sentence-initial word, which is not itself a defect.",
+   "remedy": "Replace with curly quotes; keep the inline web:Prov.9.11 ref in the same field. Test: check_web_quotes.py pass.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P05-004",
+   "source": "LF",
+   "challenge_claim": "The verbatim WEB quote for Prov.9.16 is delimited with straight quotes rather than the mandatory curly quotes.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct inspection: the row's quotation of web:Prov.9.16 uses ASCII straight double quotes. Same defect class and same cluster-wide pattern as P05-001/002/003 (4 of this cluster's 8 rows, all writer_attempt_id writer_prov_p05_r1). The row's underlying mirror-invitation claim (9:16 opens on the same four consonantal words as 9:4) is independently confirmed byte-identical at the pointed tier and is unaffected by the delimiter defect.",
+   "remedy": "Replace with curly quotes; keep the inline web:Prov.9.16 ref in the same field. Test: check_web_quotes.py pass. NEW FINDING: this is the fourth of four rows in cluster c06 alone carrying the identical straight-quote defect (P05-001 through P05-004). Given the orchestrator's cross-part context (the same defect class reported elsewhere in the p03/p04/p05 material), the recommended author-wave cure is a single corpus-level convention sweep (run check_web_quotes.py book-wide and batch-correct every non-curly WEB quotation) rather than four-plus independent per-row patches.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c06",
+   "row_id": "P05-010",
+   "source": "LF",
+   "challenge_claim": "The row's rejected_alternative overstates Prov.10.6's isolation from Prov.10.7, asserting they share 'nothing beyond the general righteous/wicked frame,' when a rare shared root links the two adjacent verses undisclosed.",
+   "ruling": "uphold",
+   "grounds": "Independently re-swept (sweep.py --skel on the blessing root): exactly 8 verses book-wide -- Prov.10.6, 10.7, 10.22, 11.11, 11.25, 11.26, 24.25, 28.20 -- reproducing LF's digit exactly. verse_map_oshb.json confirms the object: Prov.10.6's A-line opens בְּ֭רָכוֹת ('blessings', plural absolute) and Prov.10.7's B-line closes on לִבְרָכָ֑ה ('for a blessing', prefixed singular) -- two different inflections of the same root, 2 of only 8 book-wide hits, immediately adjacent verses. The row's rejected_alternative denies any link beyond 'the general righteous/wicked frame,' which this shared root contradicts. Per the campaign's standing CROSS-SEAM COHESION rule (TOOLKIT.md), a byte-true device straddling the row's own seam argues continuity against the row unless disclosed -- this device was undisclosed. OL's review of this row verified a different, narrower claim (the word-for-word B-line repeat at 10:6/10:11, and the absence of head/mouth vocabulary at 10:7) and did not independently sweep for other shared roots, so OL's 'support' verdict does not contradict this finding -- it simply did not test for this object.",
+   "remedy": "Add explicit disclosure to rejected_alternative or observed_substrate_signals naming the shared root and refuting it as insufficient for clustering (distinct inflected forms, not a repeated formula like the byte-identical 10:6/10:11 B-line) rather than asserting no connection beyond the general frame. Re-examine the 'high' confidence rating given the sweep was incomplete at draft time. This finding generalizes identically to P05-011 (10:7's own row), deferred from this attempt under the 8-item cap -- the same disclosure-and-refute remedy applies there. A boundary/unit_type change (e.g. proposing a 10:6-10:7 proverb_cluster) is NOT part of this remedy and would require a separate, explicit boss-adopted proposal per governance; the disclosure fix alone cures the defect as ruled.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P05-005",
+   "claim_checked": "prov_device_inventory.json's mishle_verse_initial count of exactly 2 (Prov.1.1, Prov.10.1), with Prov.25.1 excluded as non-verse-initial mishle",
+   "result": "verified",
+   "notes": "Independent sweep.py --skel of משלי book-wide returns exactly 3 hits: Prov.1.1, Prov.10.1, Prov.25.1. pmarks_Prov.json's own header text confirms Prov.25.1 opens גם אלה משלי... (mishle is the 3rd word, not verse-initial), while Prov.10.1 opens משלי directly -- reproducing the inventory's verse-initial-vs-anywhere distinction exactly. No defect found; the row's claim and its underlying petuchah bracketing (Prov.9.18, Prov.10.1, both single-witness) match the pmarks_Prov.json marks entries."
+  }
+ ],
+ "deferred_row_ids": [
+  "P05-011"
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 8,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 1
+ }
+}

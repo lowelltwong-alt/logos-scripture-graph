@@ -1,0 +1,89 @@
+{
+ "attempt_id": "peer_c07_r1",
+ "role": "peer",
+ "clusters": [
+  "c07"
+ ],
+ "rulings": [
+  {
+   "cluster": "c07",
+   "row_id": "P05-013",
+   "source": "OL",
+   "challenge_claim": "The row's own quote for the verse's second colon (bare מעקש דרכיו) silently drops the vav-conjunctive prefix carried by the actual pointed word.",
+   "ruling": "uphold",
+   "grounds": "Byte tier oshb:Prov.10.9 reads \"הוֹלֵ֣ךְ בַּ֭תֹּם יֵ֣לֶךְ בֶּ֑טַח וּמְעַקֵּ֥שׁ דְּ֝רָכָ֗יו יִוָּדֵֽעַ\"; consonantal_index.json skeleton is \"הולך בתם ילך בטח ומעקש דרכיו יודע\" -- the second-colon word is vav-prefixed, not bare as the row's observed_substrate_signals quotes it against the same cited ref. Unpointed, tier-undisclosed quote; confirmed defect at both byte and skeleton tier. Boundary call unaffected: word-bound skeleton comparison of Prov.10.8|10.9 and Prov.10.9|10.10 (against \"חֲכַם לֵ֭ב יִקַּ֣ח מִצְוֺ֑ת וֶאֱוִ֥יל שְׂ֝פָתַ֗יִם יִלָּבֵֽט\" and \"קֹ֣רֵֽץ עַ֭יִן יִתֵּ֣ן עַצָּ֑בֶת וֶאֱוִ֥יל שְׂ֝פָתַ֗יִם יִלָּבֵֽט\") shows zero shared content tokens on both sides, so the single_proverb verdict stands.",
+   "remedy": "Replace the observed_substrate_signals quote with the byte- or skeleton-spliced form (vav retained), spliced programmatically from verse_map_oshb.json/consonantal_index.json -- never hand-retyped -- and disclose the tier used. Cure passes when a fresh collate.py --ref oshb:Prov.10.9 --quote check on the revised phrase clears byte or skeleton grade rather than a masked substring match.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c07",
+   "row_id": "P05-020",
+   "source": "both",
+   "challenge_claim": "device_notes states both cola of the 10:16-17 cluster lack an adversative \"but,\" but WEB's own rendering of Prov.10.17 contains \"but.\"",
+   "ruling": "uphold",
+   "grounds": "verse_map_web.json clean text for Prov.10.17: \"He is in the way of life who heeds correction, but he who forsakes reproof leads others astray.\" -- contains \"but\", directly contradicting the device_notes parenthetical. The underlying MT vav (oshb:Prov.10.17 \"אֹ֣רַח לְ֭חַיִּים שׁוֹמֵ֣ר מוּסָ֑ר וְעוֹזֵ֖ב תּוֹכַ֣חַת מַתְעֶֽה\") is a plain conjunctive/disjunctive vav with no distinct adversative marker, so neither witness supports an unqualified 'no adversative' claim either way. The cluster's underlying catchword-rarity claim is independently re-confirmed here: word-bound skeleton sweep of the prefixed noun against consonantal_index.json returns exactly 4 verses book-wide (Prov.10.16, Prov.10.17, Prov.11.19, Prov.19.23), with 10:16-10:17 the only adjacent pair -- matching both primaries' independent re-sweeps and unaffected by this defect. LF and OL raised the identical defect independently from the identical bytes -- one defect, not two.",
+   "remedy": "Drop or rewrite the device_notes parenthetical; state accurately that WEB's translation of 10:17 supplies an adversative 'but' while the MT vav itself is unmarked/ambiguous. Cure passes when device_notes no longer asserts a claim contradicted by an already-cited witness.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c07",
+   "row_id": "P05-021",
+   "source": "OL",
+   "challenge_claim": "The row's quote for the verse's second speech-sin (bare form) drops the vav-conjunctive prefix on the actual pointed word.",
+   "ruling": "uphold",
+   "grounds": "Byte tier oshb:Prov.10.18 reads \"מְכַסֶּ֣ה שִׂ֭נְאָה שִׂפְתֵי שָׁ֑קֶר וּמוֹצִ֥א דִ֝בָּ֗ה ה֣וּא כְסִֽיל\"; skeleton \"מכסה שנאה שפתי שקר ומוצא דבה הוא כסיל\" confirms the vav-prefixed form, not the bare form the row quotes. Same defect class and same A/B quoted-pair construction as P05-013 (this is the second confirmed instance in this cluster). Boundary call unaffected: skeleton word-bound check on Prov.10.17|10.18 and Prov.10.18|10.19 both return zero shared content tokens.",
+   "remedy": "Same cure as P05-013: splice the vav-prefixed form programmatically from source, disclose tier. Test: collate.py byte/skeleton check against oshb:Prov.10.18 including the vav.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c07",
+   "row_id": "P05-023",
+   "source": "OL",
+   "challenge_claim": "rejected_alternative's absolute claim that the verse \"finds no lexical echo in either neighbor's own imagery\" is contradicted by shared lev/tsadiq tokens with Prov.10.21.",
+   "ruling": "uphold",
+   "grounds": "Word-bound skeleton comparison (consonantal_index.json) of Prov.10.20 and Prov.10.21 shows shared tokens: לב, צדיק. Independent re-derivation (word-bound split on consonantal_index.json skeletons, NOT sweep.py --skel, which over-counts via substring contamination -- e.g. lev returns 120 and tsadiq 66 under contiguous-substring search) confirms OL's exact digits: lev = 47/915 verses, tsadiq = 34/915 verses book-wide -- both chapter-generic, far from the 4/915 catchword-grade bar set by the 10:16-17 cluster in this same span. The rejected_alternative's absolute claim is true for the Prov.10.19 side (zero shared tokens, confirmed) but false for the Prov.10.21 side. The single_proverb call itself is not threatened -- neither shared term is distinguishing -- but the unqualified 'no lexical echo... in either neighbor' wording is factually wrong and needs correction.",
+   "remedy": "Rewrite rejected_alternative to scope the claim per neighbor: true zero-overlap with 10:19; with 10:21, only chapter-generic terms (lev, tsadiq) recur, both below catchword-grade frequency and not a distinguishing image, so no cluster forms. Cure passes when no unqualified absolute-negation claim remains uncontradicted by a word-bound skeleton check.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c07",
+   "row_id": "P05-027",
+   "source": "OL",
+   "challenge_claim": "rejected_alternative's claim that Prov.10.25's storm imagery \"has nothing in common\" with this verse is contradicted by a shared rasha token; separately, the row's own quote drops the vav-conjunctive prefix on the source word.",
+   "ruling": "uphold",
+   "grounds": "(a) Byte/skeleton tier: Prov.10.24 (\"מְגוֹרַ֣ת רָ֭שָׁע הִ֣יא תְבוֹאֶ֑נּוּ וְתַאֲוַ֖ת צַדִּיקִ֣ים יִתֵּֽן\") and Prov.10.25 (\"כַּעֲב֣וֹר ס֭וּפָה וְאֵ֣ין רָשָׁ֑ע וְ֝צַדִּ֗יק יְס֣וֹד עוֹלָֽם\") share the word-bound token rasha. Independent word-bound re-sweep against consonantal_index.json returns 36/915 verses book-wide, matching OL's digit exactly -- chapter-generic, not catchword-grade, so the single_proverb call is unaffected. This is the SAME 10:24/10:25 boundary that P05-028 also mischaracterizes from the other side using the identical token -- a seam-pair, not two independent defects. (b) Byte tier confirms the row's second quoted phrase should carry a vav prefix: skeleton \"מגורת רשע היא תבואנו ותאות צדיקים יתן\" shows the vav-prefixed form, while the row's observed_substrate_signals quotes the bare form against the same cited ref -- the same S-3 quote-fidelity class as P05-013/P05-021, now the third confirmed instance in this cluster, every one at the second slot of an A/B quoted-pair gloss while other prefix types (lamed, bet, kaf) are correctly retained elsewhere in the same rows. This pattern is narrow and systemic enough within c07 (3 of 8 rows) to warrant a part-wide sweep of p05's A/B quoted-pair fields for the same vav-drop, rather than spot fixes.",
+   "remedy": "(a) SEAM-PAIR CURE, one edit covers both P05-027 and P05-028: rewrite both rows' rejected_alternative/rationale to disclose the shared chapter-generic rasha token without an absolute zero-overlap claim, preserving the atomic verdict on both sides. (b) Same quote-fidelity cure as P05-013/P05-021: splice the vav-prefixed form programmatically, disclose tier; recommend the author wave run a part-wide grep of p05 observed_substrate_signals fields for bare forms of vav-initial source words.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c07",
+   "row_id": "P05-028",
+   "source": "OL",
+   "challenge_claim": "The rationale's claim that Prov.10.25 is \"unconnected in wording\" to Prov.10.24's fear/desire topic is contradicted by the same shared rasha token, argued from the other side of the same boundary as P05-027.",
+   "ruling": "uphold",
+   "grounds": "Same byte evidence as P05-027(a): rasha is shared word-bound between Prov.10.24 and Prov.10.25 (36/915 verses book-wide, independently confirmed), chapter-generic and not catchword-grade -- the single_proverb call for 10:25 is unaffected. This is the SAME underlying seam defect as P05-027's rejected_alternative, not a distinct issue: the 10:24/10:25 boundary is described as fully disconnected from both sides when in fact both sides share a (non-diagnostic) token.",
+   "remedy": "SEAM-PAIR CURE -- same single edit as P05-027(a): rewrite this rationale clause alongside P05-027's rejected_alternative in one pass so both sides of the 10:24/10:25 seam disclose the generic rasha overlap without an absolute 'unconnected'/'nothing in common' claim.",
+   "severity_final": "low"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P05-024",
+   "claim_checked": "rejected_alternative's claim that Prov.10.21 shares no wording with Prov.10.22.",
+   "result": "verified",
+   "notes": "Word-bound skeleton sets from consonantal_index.json: Prov.10.21 = {בחסר, ואוילים, ימותו, ירעו, לב, צדיק, רבים, שפתי}; Prov.10.22 = {ברכת, היא, ולא, יהוה, יוסף, עמה, עצב, תעשיר}; intersection = empty set -- claim confirmed byte-true."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 6,
+  "uphold": 6,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 2
+ },
+ "notes_new_findings": [
+  "S-3 vav-conjunctive-drop quote defect confirmed 3/3 for OL's charge in this cluster (P05-013, P05-021, P05-027) -- narrow, nameable pattern (second slot of an A/B quoted-pair gloss; other prefix types retained correctly) that should join the p05 systemic list for a part-wide author sweep rather than per-row spot fixes.",
+  "P05-027 and P05-028 are a seam-pair: the same 10:24/10:25 boundary is misdescribed as fully disconnected from each side using the same shared token (rasha); the remedy is one coordinated edit across both rows, not two independent fixes."
+ ]
+}

@@ -48,7 +48,14 @@ from prov_lib import (LAST_VERSE, MT_LAST_VERSE, PSALM_RULES, expand_ref_token,
                     mt_to_web)
 
 SKIP_KEYS = {"boundary_evidence_refs", "span", "osis_start", "osis_end",
-             "decision_id", "chunk_id", "attempt_id"}
+             "decision_id", "chunk_id", "attempt_id",
+             # Prov schema (patch prov_tools_p1, 2026-08-18, P04 ablation
+             # finding): parent_collection's MANDATED value is a range-shaped
+             # string ("C1 Prov.1.1-Prov.9.18") — structural metadata, not an
+             # argued citation; without this skip every row flags ~all of its
+             # collection's verses as unmirrored.
+             "parent_collection", "writer_part", "writer_decision_id",
+             "writer_attempt_id"}
 RANGE = re.compile(r"(oshb:)?Prov\.\d+\.\d+(?:-(?:Prov\.)?\d+(?:\.\d+)?)?")
 # rev-round (e): witness prefixes with optional whitespace, so a token can be
 # attributed to the witness that governs it even when written "oshb: Prov.x.y"

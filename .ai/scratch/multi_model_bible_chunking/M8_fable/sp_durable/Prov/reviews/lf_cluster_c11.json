@@ -1,0 +1,123 @@
+{
+ "attempt_id": "lf_cluster_c11_r1",
+ "role": "primary_LF",
+ "cluster": "c11",
+ "rows_reviewed": [
+  "P06-018",
+  "P06-019",
+  "P06-020",
+  "P06-025",
+  "P06-026",
+  "P06-030",
+  "P06-031",
+  "P06-034"
+ ],
+ "items": [
+  {
+   "row_id": "P06-018",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The cluster's only disclosed catchword (tongue) omits a cross-seam root-tie linking 12:19 back to 12:17, and the rationale's \"close on\" wording overstates the tongue-noun's position in both verses.",
+   "evidence": "Skeleton sweep of לשון confirms the exact tongue-token sits only at Prov.12.18 and Prov.12.19 in this range, so the disclosed catchword itself is real. But skeleton sweep of שקר also returns Prov.12.17 (שְׁקָרִ֣ים) alongside Prov.12.19 (שָֽׁקֶר) -- a same-root tie straddling the row's own start-seam that the rationale and device_notes never test, even though it sits directly against the cluster's chosen boundary. Word-level byte splice of the full verses shows the tongue noun is not verse-final in either: Prov.12.18 reads in full יֵ֣שׁ בּ֭וֹטֶה כְּמַדְקְר֣וֹת חָ֑רֶב וּלְשׁ֖וֹן חֲכָמִ֣ים מַרְפֵּֽא (last word \"מַרְפֵּֽא\", healing) and Prov.12.19 reads in full שְֽׂפַת אֱ֭מֶת תִּכּ֣וֹן לָעַ֑ד וְעַד אַ֝רְגִּ֗יעָה לְשׁ֣וֹן שָֽׁקֶר (last word \"שָֽׁקֶר\", falsehood) -- \"close on\" overstates a word-order position the bytes do not support, though the shared token itself is byte-true.",
+   "tier_citations": [
+    "byte-oshb:Prov.12.17",
+    "byte-oshb:Prov.12.18",
+    "byte-oshb:Prov.12.19",
+    "skeleton-sweep:sweep.py --skel",
+    "tool:consonantal_index.json"
+   ]
+  },
+  {
+   "row_id": "P06-019",
+   "verdict": "support",
+   "claim": "The deceit-noun tie to 12:17 is byte-real and correctly weighed as non-adjacent shared vocabulary rather than a construction run, and the atomic call is the strongest available reading.",
+   "evidence": "Skeleton sweep of מרמה returns Prov.12.17 and Prov.12.20 among only 8 book-wide hits, confirming the disclosed exact-noun echo; the two occurrences sit in different grammatical roles (predicate nominative at 12:17b vs. clause-subject at 12:20a) exactly as described. No stronger undisclosed tie to an adjacent verse displaces this reading -- 12:19's tongue-vocabulary does not recur in 12:20's own clause, and the row's rejected_alternative correctly tests the nearest real rival (12:19) rather than a strawman.",
+   "tier_citations": [
+    "byte-oshb:Prov.12.17",
+    "byte-oshb:Prov.12.20",
+    "skeleton-sweep:sweep.py --skel"
+   ]
+  },
+  {
+   "row_id": "P06-020",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "The claim that both cola pivot on \"the same evil-root noun\" is false: the A-colon's אָ֑וֶן and the B-colon's רָֽע are two distinct Hebrew roots, not one noun in two grammatical roles.",
+   "evidence": "Word-level byte splice of Prov.12.21 gives אָ֑וֶן as the fifth word (object of the negated verb, A-colon) and רָֽע as the eighth/final word (predicate after \"filled,\" B-colon) -- two different lexemes, not one. Skeleton sweep of און returns 12 book-wide hits with Prov.12.21 as the ONLY ch-12 hit; skeleton sweep of רע returns a disjoint set (Prov.12.12, 12.13, 12.20, 12.21, 12.26). The two tokens never co-occur as the same object, so \"same evil-root noun ... in opposite grammatical roles\" misdescribes the verse's actual vocabulary -- this claim underwrites both observed_substrate_signals and device_notes. Secondarily, the רע sweep also shows the exact token closing 12:20's A-colon (רָ֑ע, \"plotters of evil\") as well as 12:21's B-colon -- an undisclosed cross-seam catchword that the row's rejected_alternative (which only weighs 12:20's deceit-noun, a different word) does not test.",
+   "tier_citations": [
+    "byte-oshb:Prov.12.20",
+    "byte-oshb:Prov.12.21",
+    "skeleton-sweep:sweep.py --skel"
+   ]
+  },
+  {
+   "row_id": "P06-025",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's parenthetical naming of the WEB rendering reproduces its exact wording without the mandated curly quotes and inline web: ref, though the underlying textual-crux disclosure is otherwise sound.",
+   "evidence": "WEB Prov.12.26 (web:Prov.12.26) reads in full: “A righteous person is cautious in friendship, but the way of the wicked leads them astray.” The row's rationale lifts the phrase \"cautious in friendship\" verbatim from that text but presents it in bare parentheses with no curly quotes and no verse-specific web: ref beside it -- boundary_evidence_refs carries only the collection-level web:Prov.10.1-Prov.22.16. The crux argument itself (the A-colon verb read as surpass/excel on the bare consonants versus WEB's cautious-in-friendship construal) is accurately disclosed and the antithetic-frame conclusion is unaffected by it.",
+   "tier_citations": [
+    "source:verse_map_web.json:Prov.12.26",
+    "tool:check_web_quotes.py"
+   ]
+  },
+  {
+   "row_id": "P06-026",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "rejected_alternative tests the wrong neighbor: 12:25 is two verses before 12:27, not the immediately preceding verse (12:26), which the row never addresses, and 12:25 is missing from boundary_evidence_refs.",
+   "evidence": "The row's rejected_alternative names Prov.12.25 as \"the heart-anxiety verse before it,\" but 12:27's actual immediate predecessor in both witnesses is Prov.12.26 (the יתר/righteous-neighbor crux verse); 12:25 sits one verse further back. No vocabulary tie between 12:26 and 12:27 is tested anywhere in the row, and word-level comparison shows no shared exact token between them (12:26's subject vocabulary is righteous/wicked/way; 12:27's is the hunting/wealth pair), so the atomic conclusion may still be right, but the rival actually tested is not the strongest -- or even the nearest -- one available. Separately, Prov.12.25 is argued by verse number in prose but is absent from boundary_evidence_refs (only the collection-level web:Prov.10.1-Prov.22.16 is cited), a refs-mirror gap.",
+   "tier_citations": [
+    "byte-oshb:Prov.12.25",
+    "byte-oshb:Prov.12.26",
+    "byte-oshb:Prov.12.27",
+    "tool:check_refs_mirror.py"
+   ]
+  },
+  {
+   "row_id": "P06-030",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "Both chapter-12 comparators cited for the asyndeton claim are mishandled -- 12:24 is not asyndetic, and neither 12:5 nor 12:24 appears in boundary_evidence_refs -- and the row omits the exact-token catchword tying 13:3 to its true previous verse, 13:2.",
+   "evidence": "Word-level byte splice confirms Prov.12.5 (מַחְשְׁב֣וֹת צַדִּיקִ֣ים מִשְׁפָּ֑ט תַּחְבֻּל֖וֹת רְשָׁעִ֣ים מִרְמָֽה) has no waw anywhere and is a genuine asyndetic parallel to 13:3. But Prov.12.24's B-colon opens ו֝רְמִיָּ֗ה -- a waw-prefixed word -- so 12:24 is NOT asyndetic; citing it as part of the chapter's asyndetic pattern is byte-false. Neither Prov.12.5 nor Prov.12.24 appears in boundary_evidence_refs even though both are argued by verse number in prose (a check_refs_mirror.py gap). Separately, skeleton sweep of נפש shows the exact token at Prov.13.2 (וְנֶ֖פֶשׁ) immediately before 13:3's own נַפְשׁ֑וֹ (Prov.13.3) -- an undisclosed cross-seam catchword with the row's true immediate predecessor that the rationale never tests, in contrast to how the same noun's recurrence forward into 13:4 is disclosed there.",
+   "tier_citations": [
+    "byte-oshb:Prov.12.5",
+    "byte-oshb:Prov.12.24",
+    "byte-oshb:Prov.13.2",
+    "byte-oshb:Prov.13.3",
+    "skeleton-sweep:sweep.py --skel",
+    "tool:check_refs_mirror.py"
+   ]
+  },
+  {
+   "row_id": "P06-031",
+   "verdict": "support",
+   "claim": "The soul/appetite catchword tie to 13:3 is correctly identified, byte-verified, and properly weighed as ordinary shared vocabulary rather than a construction run.",
+   "evidence": "Skeleton sweep of נפש confirms the exact token at both Prov.13.3 (נַפְשׁ֑וֹ) and Prov.13.4 among 55 book-wide hits; the row discloses this in observed_substrate_signals and device_notes and correctly notes that 13:3's own construction (asyndeton) is not shared by 13:4 (which is waw-linked), so both the atomic call and the rejection of clustering hold against the byte evidence.",
+   "tier_citations": [
+    "byte-oshb:Prov.13.3",
+    "byte-oshb:Prov.13.4",
+    "skeleton-sweep:sweep.py --skel"
+   ]
+  },
+  {
+   "row_id": "P06-034",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The claim that \"the waw alone carries the sentence into its mirror-image half\" misdescribes the verse's syntax: the actual pivot from the first yesh-clause to the second is asyndetic, and the verse's one internal waw sits elsewhere.",
+   "evidence": "Word-level byte splice of Prov.13.7 gives, in order: יֵ֣שׁ / מִ֭תְעַשֵּׁר / וְאֵ֣ין / כֹּ֑ל / מִ֝תְרוֹשֵׁ֗שׁ / וְה֣וֹן / רָֽב. The word opening the second half, מִ֝תְרוֹשֵׁ֗שׁ, carries no waw prefix -- it follows the preceding word asyndetically, the same construction 13:3's own bicolon uses. The verse's one waw (וְה֣וֹן) sits internal to the second half, parallel to the internal waw of the first half, not at the inter-clause seam the row describes. The doubled-yesh/ellipsis observation itself is accurate and the unit_type call is unaffected, but the specific \"carried by the waw alone\" mechanism is not what the bytes show.",
+   "tier_citations": [
+    "byte-oshb:Prov.13.7"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 2,
+  "challenges": 6,
+  "by_severity": {
+   "high": 3,
+   "medium": 2,
+   "low": 1
+  }
+ }
+}

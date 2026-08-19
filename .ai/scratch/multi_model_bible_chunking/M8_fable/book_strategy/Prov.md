@@ -56,9 +56,11 @@ NOTE: אשת חיל occurs TWICE in the book (12:4 AND 31:10) — sweep digit 2;
 "unique" claim at 31:10 is byte-false.
 
 ### §2d Address formula + density textures
-bni ("my son") 17 verses: 12 in chs 1-7 (1:8, 1:10, 1:15, 2:1, 3:1, 3:21,
-4:10, 4:20, 5:1, 6:1, 6:20, 7:1 — the lecture-frame spine) + 19:27, 23:15,
-23:26, 24:13, 27:11. YHWH exact-token density peaks: ch 3 (9), ch 15 (9),
+bni vocative ("my son", בְּנִי) — E-1 corrected at wave close (P10 erratum,
+byte-verified): 22 verses word-bound at ANY position, 15 in chs 1-7 (1:8,
+1:10, 1:15, 2:1, 3:1, 3:11, 3:21, 4:10, 4:20, 5:1, 5:20, 6:1, 6:3, 6:20,
+7:1 — the lecture-frame spine) + 19:27, 23:15, 23:19, 23:26, 24:13, 24:21,
+27:11; construct בְּנֵי ("sons of") is a distinct 8-verse object. YHWH exact-token density peaks: ch 3 (9), ch 15 (9),
 ch 16 (6) — the 15:33-16:9 center cluster is byte-visible; texture, never
 alone a driver. tov openers: 16 verses. Antithetic ", but" texture cliff:
 chs 10-15 run 24/21/25/22/25/20, ch 16 drops to 7 — English-side heuristic,
@@ -174,3 +176,16 @@ literary_form_decision_matrix: §2a+§6. larger_unit_preservation_check: §5
 tiers). over_split_risk_check: §6 (atomic default is the genre's own unit;
 cluster bar prevents both over-split of coherent runs and fake clusters).
 sidecar_specificity_plan: §7 (bespoke text, three-sidecar mirroring).
+
+## S6 CLARIFYING AMENDMENT (boss B-8, ratified at book close 2026-08-18)
+
+Each collection line in S6 names the collection's OPERATIVE unit_type category,
+not an exclusive grant. Any value of the closed 8-value vocabulary may be
+applied inside any collection where the row's own bytes carry that form,
+accompanied by a one-sentence deviation disclosure in device_notes.
+Ruled precedents (decision-local, boss ledger): a bare vetitive governs its
+verse as admonition_unit even inside sentence collections (B-8, Prov.22.28);
+a syntactically-continuous single sentence spanning two verses is ONE
+proverb-unit typed single_proverb regardless of verse count (B-10,
+Prov.26.18-19); the C5 admonition outlier at Prov.27.23-27-adjacent material
+stands per-bytes with disclosure (B-9).

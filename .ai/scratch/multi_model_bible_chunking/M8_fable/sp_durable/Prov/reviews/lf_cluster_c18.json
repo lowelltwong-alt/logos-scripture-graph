@@ -1,0 +1,131 @@
+{
+ "attempt_id": "lf_cluster_c18_r1",
+ "role": "primary_LF",
+ "cluster": "c18",
+ "rows_reviewed": [
+  "P08-037",
+  "P08-044",
+  "P08-045",
+  "P08-050",
+  "P08-051",
+  "P08-054",
+  "P08-055",
+  "P08-061"
+ ],
+ "items": [
+  {
+   "row_id": "P08-037",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The cluster's seam warrant is sound, but the rationale quotes WEB's own wording as if it were an independent gloss, in straight quotes with no inline web: ref, rather than the mandated curly-quote-plus-web:ref treatment for verbatim WEB text.",
+   "evidence": "Re-derived directly from oshb text: the strength-root עֹ֭ז/עֻזּ֑וֹ and the safety-root וְנִשְׂגָּֽב/נִ֝שְׂגָּבָ֗ה both occur, word-bound, in Prov.18.10 AND Prov.18.11, and neither root occurs in the flanking verses 18:9 (gam mitrappeh...) or 18:12 (lifne shever...) -- front and back boundaries hold and no undisclosed cross-seam catchword exists. The single defect is register: the row's English gloss \"in his own imagination\" is byte-identical to WEB Prov.18.11's own rendering, yet it is presented in straight quotes with only a trailing oshb: citation at the end of the field, not the curly-quote + inline web: ref the toolkit mandates for verbatim WEB wording.",
+   "tier_citations": [
+    "oshb:Prov.18.10",
+    "oshb:Prov.18.11",
+    "oshb:Prov.18.9 (boundary check, no shared root)",
+    "oshb:Prov.18.12 (boundary check, no shared root)",
+    "web:Prov.18.11"
+   ]
+  },
+  {
+   "row_id": "P08-044",
+   "verdict": "support",
+   "claim": "The midyanim catchword genuinely recurs at 18:18 and at 18:19's qere, both flanking boundaries are clean, and the ketiv/qere disclosure is byte-confirmed against the pmarks inventory.",
+   "evidence": "18:18 opens on the bare plural מִ֭דְיָנִים; 18:19 carries the inline ketiv/qere pair ומדונים וּ֝מִדְיָנִ֗ים (unpointed ketiv immediately followed by the pointed qere, matching the book's documented inline-ketiv pattern), and the qere repeats the same noun form. pmarks_Prov.json was checked directly and confirms kq=1 at Prov.18.19, matching the row's single-witness ketiv/qere disclosure. Neighbors 18:17 (tsaddiq harishon...) and 18:20 (mipperi phi ish...) share no root with the catchword, so the seam holds on both sides. Confidence \"medium\" is proportionate given the reading depends on adopting the qere over the defective ketiv.",
+   "tier_citations": [
+    "oshb:Prov.18.18",
+    "oshb:Prov.18.19 (ketiv/qere, single-witness; pmarks kq=1 confirmed)",
+    "oshb:Prov.18.17 (boundary check)",
+    "oshb:Prov.18.20 (boundary check)"
+   ]
+  },
+  {
+   "row_id": "P08-045",
+   "verdict": "support",
+   "claim": "The row is correctly atomic: skeleton-tier isolation from both neighbors is machine-confirmed, and the row itself discloses and defeats the one live rival -- the shared peri root with 18:21 -- as different word-forms carrying a different body-part image, not a repeated construction.",
+   "evidence": "check_atomic_isolation.py (skeleton-tier, stoplist-filtered neighbor overlap) verdicts P08-045 machine_clean: zero shared content tokens with Prov.18.19 or Prov.18.21. Direct re-derivation confirms 18:20's mipperi (\"from the fruit of\") and 18:21's piryah (\"its fruit\") share the triliteral root but are different inflected word-forms (prefixed vs. suffixed), and the row discloses this itself rather than hiding it, matching the owner ruling that a shared root/theme alone, without a repeated construction, is not cluster grounds.",
+   "tier_citations": [
+    "oshb:Prov.18.20",
+    "oshb:Prov.18.21 (disclosed root overlap, non-cohesive)",
+    "oshb:Prov.18.19 (boundary check)",
+    "tool:check_atomic_isolation.py (machine_clean)"
+   ]
+  },
+  {
+   "row_id": "P08-050",
+   "verdict": "support",
+   "claim": "The row correctly stays single_proverb despite a live shared token (tov) with 19:2, defeating the cluster rival on a genuine syntactic-role distinction, and correctly discounts the non-adjacent tov-opener echoes at 17:1 and 19:22 as texture only.",
+   "evidence": "check_atomic_isolation.py flags P08-050 cohesion_live (shared_next=[tov]) against Prov.19.2, confirming a real live rival existed. The row discloses it and argues 19:1's tov functions as the verse-opening comparative topic-marker (\"better X than Y\") while 19:2's sits inside a mid-verse \"not good\" predicate -- a different syntactic role, re-derivable directly from oshb:Prov.19.1 and oshb:Prov.19.2. The 17:1/19:22 tov-opener parallels are non-adjacent and correctly held as texture, consistent with the book-wide tov-opener count never being treated as boundary evidence.",
+   "tier_citations": [
+    "oshb:Prov.19.1",
+    "oshb:Prov.19.2 (disclosed live rival, defeated)",
+    "oshb:Prov.17.1 (non-adjacent texture, disclosed)",
+    "oshb:Prov.19.22 (non-adjacent texture, disclosed)",
+    "tool:check_atomic_isolation.py (cohesion_live, shared_next=tov)"
+   ]
+  },
+  {
+   "row_id": "P08-051",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The atomic call itself is correct, but the rejected_alternative discharges its argument by pointing to another row (\"see that row's disclosure\") instead of restating the verse-anchored reasoning -- a positional cross-row reference the register rule forbids.",
+   "evidence": "check_atomic_isolation.py confirms cohesion_live (shared_prev=[tov]) against Prov.19.1, so a rival genuinely exists and independence is the right call, matching 19:1's own disclosure of the same tov overlap and its distinct syntactic role (oshb:Prov.19.1; oshb:Prov.19.2). But rejected_alternative reads \"No cluster adopted with 19:1 (see that row's disclosure)\" -- \"that row's disclosure\" is a positional reference to another JSON row object rather than a self-contained, verse-anchored restatement, which the register rule (no positional row references in row prose) forbids; contrast P08-050's own rejected_alternative, which re-derives the same argument from the text itself without pointing elsewhere.",
+   "tier_citations": [
+    "oshb:Prov.19.1 (boundary check)",
+    "oshb:Prov.19.2",
+    "tool:check_atomic_isolation.py (cohesion_live, shared_prev=tov)"
+   ]
+  },
+  {
+   "row_id": "P08-054",
+   "verdict": "support",
+   "claim": "The row is correctly machine-clean-isolated from both neighbors, and it goes further to disclose the striking near-verbatim first-colon duplication with the non-adjacent Prov.19.9, correctly holding it as texture rather than a boundary driver since the two verses are not adjacent.",
+   "evidence": "check_atomic_isolation.py verdicts P08-054 machine_clean (zero shared tokens with 19:4 or 19:6). Direct comparison confirms 19:5's first colon is byte-identical to 19:9's first colon (oshb:Prov.19.5; oshb:Prov.19.9), and 19:9 is correctly listed in boundary_evidence_refs (satisfying the mirror rule for prose mentions outside the row's own span) even though it cannot license a cluster because 19:6-19:8 intervene.",
+   "tier_citations": [
+    "oshb:Prov.19.5",
+    "oshb:Prov.19.4 (boundary check)",
+    "oshb:Prov.19.6 (boundary check)",
+    "oshb:Prov.19.9 (disclosed non-adjacent duplication, texture only)",
+    "tool:check_atomic_isolation.py (machine_clean)"
+   ]
+  },
+  {
+   "row_id": "P08-055",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The re-root cluster is honestly argued at medium_low confidence with byte-confirmed K/Q and paseq disclosure at 19:7, but the rationale and rejected_alternative each lift a near-full WEB colon verbatim in straight quotes with no inline web: ref -- a repeated register violation.",
+   "evidence": "19:6 closes on וְכָל הָ֝רֵ֗עַ לְאִ֣ישׁ מַתָּֽן and 19:7 carries מְ֭רֵעֵהוּ -- the same re root at the friend/companion sense in both cola (oshb:Prov.19.6; oshb:Prov.19.7). pmarks_Prov.json confirms kq=1 and paseq=1 at Prov.19.7, matching the row's two separately-disclosed single-witness citations. Boundaries are clean (19:5, 19:8 share no root). But the rationale's \"everyone is a friend to a man who gives gifts\" reproduces WEB Prov.19.6 verbatim apart from the leading \"and,\" and the rejected_alternative's \"all the relatives of the poor shun him\" reproduces WEB Prov.19.7's first colon verbatim apart from capitalization -- both are straight-quoted with no inline web: ref, violating the mandatory curly-quote+web:ref rule for verbatim WEB text; check_web_quotes.py does not catch this because it only audits spans already marked with curly quotes.",
+   "tier_citations": [
+    "oshb:Prov.19.6",
+    "oshb:Prov.19.7 (ketiv/qere, single-witness; pmarks kq=1 confirmed)",
+    "oshb:Prov.19.7 (paseq, single-witness; pmarks paseq=1 confirmed)",
+    "oshb:Prov.19.5 (boundary check)",
+    "oshb:Prov.19.8 (boundary check)",
+    "web:Prov.19.6",
+    "web:Prov.19.7"
+   ]
+  },
+  {
+   "row_id": "P08-061",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The isha antithesis between 19:13 and 19:14 is a genuine, well-grounded catchword pairing with clean boundaries, but the rationale's claim that the noun 'closes the second colon of both verses' is not byte-true for 19:14, where isha is followed by a third word rather than being verse-final.",
+   "evidence": "Re-derivation confirms 19:13's second colon (וְדֶ֥לֶף טֹ֝רֵ֗ד מִדְיְנֵ֥י אִשָּֽׁה) does end on אִשָּֽׁה, but 19:14's second colon (וּ֝מֵיְהוָ֗ה אִשָּׁ֥ה מַשְׂכָּֽלֶת) ends on מַשְׂכָּֽלֶת, with אִשָּׁ֥ה in the penultimate slot, not verse-final -- oshb:Prov.19.13; oshb:Prov.19.14. The antithetic pairing itself is real (the noun does recur at the same predicate-complement syntactic role introducing \"wife\" in both verses, and the inheritance/wife two-part frame does run in both), and boundaries are clean (19:12, 19:15 share no root -- oshb:Prov.19.12; oshb:Prov.19.15), so the cluster call stands; but the rejected_alternative repeats the same overclaim (\"the deliberate repetition of the line-final noun\"), and a campaign that requires byte-identical/verbatim precision for positional claims should not carry an inaccurate closes/line-final assertion for one of its two anchor verses.",
+   "tier_citations": [
+    "oshb:Prov.19.13",
+    "oshb:Prov.19.14",
+    "oshb:Prov.19.12 (boundary check)",
+    "oshb:Prov.19.15 (boundary check)"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 4,
+  "challenges": 4,
+  "by_severity": {
+   "high": 0,
+   "medium": 2,
+   "low": 2
+  }
+ }
+}

@@ -1,0 +1,326 @@
+{
+  "checker": "census",
+  "corpus": {
+    "file": "SP/Prov/rows_v1.jsonl",
+    "total_rows": 559
+  },
+  "strategy_ref": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\book_strategy\\Prov.md",
+  "unit_type_by_collection": {
+    "C1 Prov.1.1-Prov.9.18": {
+      "instruction_lecture": 24,
+      "wisdom_poem": 8,
+      "admonition_unit": 3,
+      "proverb_cluster": 1,
+      "numerical_saying": 1
+    },
+    "C2 Prov.10.1-Prov.22.16": {
+      "single_proverb": 327,
+      "proverb_cluster": 22
+    },
+    "C3 Prov.22.17-Prov.24.22": {
+      "admonition_unit": 25,
+      "single_proverb": 3,
+      "proverb_cluster": 4,
+      "wisdom_poem": 1
+    },
+    "C4 Prov.24.23-Prov.24.34": {
+      "proverb_cluster": 1,
+      "single_proverb": 4,
+      "wisdom_poem": 1
+    },
+    "C5 Prov.25.1-Prov.29.27": {
+      "single_proverb": 111,
+      "proverb_cluster": 9,
+      "admonition_unit": 1
+    },
+    "C6 Prov.30.1-Prov.30.33": {
+      "wisdom_poem": 1,
+      "numerical_saying": 6,
+      "single_proverb": 2,
+      "proverb_cluster": 1,
+      "admonition_unit": 1
+    },
+    "C7 Prov.31.1-Prov.31.9": {
+      "royal_instruction": 1
+    },
+    "C8 Prov.31.10-Prov.31.31": {
+      "acrostic_poem": 1
+    }
+  },
+  "unit_type_totals": {
+    "single_proverb": 447,
+    "proverb_cluster": 38,
+    "admonition_unit": 30,
+    "instruction_lecture": 24,
+    "wisdom_poem": 11,
+    "numerical_saying": 7,
+    "royal_instruction": 1,
+    "acrostic_poem": 1
+  },
+  "confidence_totals": {
+    "high": 455,
+    "medium": 84,
+    "medium_low": 19,
+    "low": 1
+  },
+  "cluster_count": 38,
+  "cluster_count_expected": "~36 (per spot-checker task framing, respan target)",
+  "cluster_count_note": "Actual 38 vs ~36 expected; +2 over the approximate target. All 38 individually carry cohesion-evidence-keyword hits; 3 have citation-placement gaps (see cluster_evidence_gaps). Recommend orchestrator confirm whether 38 is the correct post-respan figure or whether 2 rows should be reconsidered.",
+  "outliers": [
+    {
+      "id": "P03-005",
+      "span": "Prov.6.1-Prov.6.5",
+      "collection": "C1",
+      "unit_type": "admonition_unit",
+      "collection_law": "C1 lecture types (instruction_lecture, wisdom_poem)",
+      "confidence": "high",
+      "finding": "Grounded in triple-imperative/topic-cohesion bytes, but the row never states it is departing from C1's lecture-type default (contrast the explicit self-referential disclosure pattern used throughout C3, e.g. P10-006/019/021/023-027, and at P11-066 for C5)."
+    },
+    {
+      "id": "P03-006",
+      "span": "Prov.6.6-Prov.6.11",
+      "collection": "C1",
+      "unit_type": "admonition_unit",
+      "collection_law": "C1 lecture types (instruction_lecture, wisdom_poem)",
+      "confidence": "high",
+      "finding": "Same pattern as P03-005: imperative/topic grounding present, no explicit C1-default deviation statement."
+    },
+    {
+      "id": "P03-007",
+      "span": "Prov.6.12-Prov.6.15",
+      "collection": "C1",
+      "unit_type": "proverb_cluster",
+      "collection_law": "C1 lecture types (instruction_lecture, wisdom_poem)",
+      "confidence": "high",
+      "finding": "rejected_alternative argues proverb_cluster vs. admonition_unit (grammar: 3rd-person participles vs. imperative) but never addresses the C1 instruction_lecture/wisdom_poem default."
+    },
+    {
+      "id": "P03-008",
+      "span": "Prov.6.16-Prov.6.19",
+      "collection": "C1",
+      "unit_type": "numerical_saying",
+      "collection_law": "C1 lecture types (instruction_lecture, wisdom_poem)",
+      "confidence": "high",
+      "finding": "Grounded in the x-of-y formula per the §6 list_register_function_check, but no acknowledgment this is atypical for C1."
+    },
+    {
+      "id": "P05-002",
+      "span": "Prov.9.7-Prov.9.9",
+      "collection": "C1",
+      "unit_type": "admonition_unit",
+      "collection_law": "C1 lecture types (instruction_lecture, wisdom_poem)",
+      "confidence": "medium",
+      "finding": "Mood-shift argument (imperative core) grounds the type choice; no explicit C1-default deviation statement."
+    },
+    {
+      "id": "P13-003",
+      "span": "Prov.30.10-Prov.30.10",
+      "collection": "C6",
+      "unit_type": "single_proverb",
+      "collection_law": "C6 numericals (numerical_saying per x-of-y unit)",
+      "confidence": "high",
+      "finding": "Rationale explains why the verse is NOT joined to the adjacent numerical 'generation' run (no numeral opener), but never frames single_proverb as a departure from C6's numerical_saying default the way C5's P11-066 explicitly does for its own collection."
+    },
+    {
+      "id": "P13-004",
+      "span": "Prov.30.11-Prov.30.14",
+      "collection": "C6",
+      "unit_type": "proverb_cluster",
+      "collection_law": "C6 numericals (numerical_saying per x-of-y unit)",
+      "confidence": "high",
+      "finding": "Strong anaphoric cohesion evidence for proverb_cluster itself (4/4 shared opening token), but no statement that this is a deviation from C6's numerical-saying convention."
+    },
+    {
+      "id": "P13-006",
+      "span": "Prov.30.17-Prov.30.17",
+      "collection": "C6",
+      "unit_type": "single_proverb",
+      "collection_law": "C6 numericals (numerical_saying per x-of-y unit)",
+      "confidence": "high",
+      "finding": "Explains absence of numeral opener/anaphoric link to neighbors, but does not name this as a departure from the collection's numerical default."
+    },
+    {
+      "id": "P13-011",
+      "span": "Prov.30.32-Prov.30.33",
+      "collection": "C6",
+      "unit_type": "admonition_unit",
+      "collection_law": "C6 numericals (numerical_saying per x-of-y unit)",
+      "confidence": "high",
+      "finding": "Register-shift (2nd-person imperative) argument grounds admonition_unit; no explicit C6-default deviation statement."
+    }
+  ],
+  "outliers_methodology": "A row is listed here only if (a) its unit_type differs from its collection's stated default/law per book_strategy Prov.md §6, AND (b) its own prose (rationale/device_notes/rejected_alternative) contains no explicit self-referential statement naming the departure from that collection default, AND (c) it does not fall inside a strategy-pre-licensed exception zone (e.g. Agur 30:1-9). Rows meeting (a) but not (b)/(c) are listed separately under disclosed_deviations for full evidence preservation. C1's own strategy rule (§6 first bullet) is non-exclusive (no explicit 'default + evidenced exception' structure like C2/C3/C5/C6 carry), so its 5 listed rows are a softer finding than the C6 rows.",
+  "disclosed_deviations": [
+    {
+      "id": "P10-006",
+      "span": "Prov.22.29-Prov.22.29",
+      "collection": "C3",
+      "unit_type": "single_proverb",
+      "disclosure": "device_notes: 'stands outside C3's operative admonition_unit category by the span's own grammar, not by exception.'"
+    },
+    {
+      "id": "P10-019",
+      "span": "Prov.23.24-Prov.23.25",
+      "collection": "C3",
+      "unit_type": "proverb_cluster",
+      "disclosure": "device_notes: explicit 'stands outside C3's operative admonition_unit category by its own grammar.'"
+    },
+    {
+      "id": "P10-021",
+      "span": "Prov.23.29-Prov.23.35",
+      "collection": "C3",
+      "unit_type": "wisdom_poem",
+      "disclosure": "device_notes: explicit 'stands outside C3's operative admonition_unit category by its own grammar despite carrying a vetitive.'"
+    },
+    {
+      "id": "P10-023",
+      "span": "Prov.24.3-Prov.24.4",
+      "collection": "C3",
+      "unit_type": "proverb_cluster",
+      "disclosure": "device_notes: explicit 'stands outside C3's operative admonition_unit category by its own grammar.'"
+    },
+    {
+      "id": "P10-024",
+      "span": "Prov.24.5-Prov.24.6",
+      "collection": "C3",
+      "unit_type": "proverb_cluster",
+      "disclosure": "device_notes: explicit same C3-deviation formula."
+    },
+    {
+      "id": "P10-025",
+      "span": "Prov.24.7-Prov.24.7",
+      "collection": "C3",
+      "unit_type": "single_proverb",
+      "disclosure": "device_notes: explicit same C3-deviation formula."
+    },
+    {
+      "id": "P10-026",
+      "span": "Prov.24.8-Prov.24.9",
+      "collection": "C3",
+      "unit_type": "proverb_cluster",
+      "disclosure": "device_notes: explicit same C3-deviation formula."
+    },
+    {
+      "id": "P10-027",
+      "span": "Prov.24.10-Prov.24.10",
+      "collection": "C3",
+      "unit_type": "single_proverb",
+      "disclosure": "device_notes: explicit same C3-deviation formula."
+    },
+    {
+      "id": "P11-066",
+      "span": "Prov.27.23-Prov.27.27",
+      "collection": "C5",
+      "unit_type": "admonition_unit",
+      "disclosure": "device_notes: explicit 'admonition_unit is the byte-grounded deviation from C5's single-proverb default.'"
+    },
+    {
+      "id": "P13-001",
+      "span": "Prov.30.1-Prov.30.6",
+      "collection": "C6",
+      "unit_type": "wisdom_poem",
+      "disclosure": "Falls inside the strategy-pre-licensed 30:1-9 zone (book_strategy Prov.md §6: 'Agur's opening 30:1-9 argued from bytes ... expect low confidence'); row carries medium_low confidence consistent with that licensing. Not counted as an outlier."
+    }
+  ],
+  "confidence_undisclosed": [
+    {
+      "id": "P10-034",
+      "span": "Prov.24.23-Prov.24.25",
+      "confidence": "medium_low",
+      "unit_type": "proverb_cluster",
+      "finding": "No hedge/uncertainty language found in rationale or device_notes; the row argues cluster cohesion (heading + illustration + resolution) with no stated reason for holding confidence below high."
+    },
+    {
+      "id": "P13-002",
+      "span": "Prov.30.7-Prov.30.9",
+      "confidence": "medium_low",
+      "unit_type": "numerical_saying",
+      "finding": "No hedge/uncertainty language found. Sits adjacent to the licensed low-confidence Agur zone (30:1-6) but the row itself names no textual crux, K/Q note, or evidentiary weakness to justify medium_low (contrast P13-001's neighbor row, which is inside the explicitly licensed 30:1-9 zone but still lacks its own disclosed basis here)."
+    }
+  ],
+  "confidence_weakly_disclosed": [
+    {
+      "id": "P01-002",
+      "span": "Prov.1.8-Prov.1.9",
+      "confidence": "medium_low",
+      "note": "Implicit only: device_notes states the span is 'shorter than the four-to-eight-verse span typical for instruction_lecture units elsewhere,' without using confidence/uncertainty vocabulary."
+    },
+    {
+      "id": "P02-008",
+      "span": "Prov.4.5-Prov.4.9",
+      "confidence": "medium_low",
+      "note": "Implicit only: rationale notes 'No disclosure object falls inside this span,' mirroring neighbor P02-007's EXPLICIT 'held at lower confidence' statement, but without repeating the explicit confidence language itself."
+    },
+    {
+      "id": "P10-012",
+      "span": "Prov.23.12-Prov.23.12",
+      "confidence": "medium_low",
+      "note": "Implicit only: rationale/rejected_alternative disclose a genuine competing-reading tension (shared root with 23:13 'could argue for reading the two together') without using explicit confidence vocabulary."
+    }
+  ],
+  "cluster_evidence_gaps": [
+    {
+      "id": "P06-018",
+      "span": "Prov.12.18-Prov.12.19",
+      "severity": "moderate",
+      "finding": "rationale asserts the cohesion claim ('the exact same noun for tongue') but names no oshb: byte anchor there; the anchor (oshb:Prov.12.19/12.17) appears only in device_notes. Rationale itself self-discloses 'the cohesion evidence is thin.'"
+    },
+    {
+      "id": "P06-046",
+      "span": "Prov.13.19-Prov.13.20",
+      "severity": "moderate",
+      "finding": "Same pattern as P06-018: rationale names the shared-noun claim ('the exact same plural noun for fools') with no oshb: anchor in rationale; only device_notes carries an oshb: ref (for an unrelated K/Q note, not for the fools-noun claim itself). Rationale self-discloses 'the evidence is thin.'"
+    },
+    {
+      "id": "P06-063",
+      "span": "Prov.14.12-Prov.14.13",
+      "severity": "high",
+      "finding": "No oshb: byte citation anywhere in the row (rationale, device_notes, or boundary_evidence_refs, which contain only web: refs) for the row's central claim of a shared Hebrew 'hinge-word.' The Hebrew word itself is never named or byte-anchored."
+    }
+  ],
+  "format_problems": [],
+  "id_check": {
+    "total_rows": 559,
+    "duplicate_ids": [],
+    "non_standard_pattern_ids_confirmed": [
+      "P05-B2",
+      "P06-B6a",
+      "P06-B6b",
+      "P09-B7"
+    ],
+    "note": "Exactly 4 non-P\\d\\d-\\d\\d\\d ids found, matching the expected 'four new B-ids.' No duplicates anywhere in the corpus."
+  },
+  "parent_collection_check": {
+    "status": "PASS",
+    "distinct_values_found": 8,
+    "detail": {
+      "C1 Prov.1.1-Prov.9.18": 37,
+      "C2 Prov.10.1-Prov.22.16": 349,
+      "C3 Prov.22.17-Prov.24.22": 33,
+      "C4 Prov.24.23-Prov.24.34": 6,
+      "C5 Prov.25.1-Prov.29.27": 121,
+      "C6 Prov.30.1-Prov.30.33": 11,
+      "C7 Prov.31.1-Prov.31.9": 1,
+      "C8 Prov.31.10-Prov.31.31": 1
+    },
+    "note": "Exactly one canonical parent_collection string per collection, each matching book_strategy Prov.md §5's spans (converted to Prov.C.V form) exactly. Sum = 559. No formatting drift found."
+  },
+  "tiling_check": {
+    "tool": "SP/Prov/tools/check_tiling.py --range Prov.1.1-Prov.31.31",
+    "verses_expected": 915,
+    "verses_covered": 915,
+    "decisions": 559,
+    "status": "GREEN",
+    "problems": []
+  },
+  "validator_suite_context": {
+    "source": "SP/Prov/rows_v1.jsonl.validator_report.json (pre-existing orchestrator run)",
+    "hard_status": "GREEN",
+    "citation_sweep_status": "GREEN (0 problems)",
+    "refs_mirror_status": "GREEN (0 flags; 25 orphan-ref warns, non-blocking)",
+    "mark_symmetry_status": "GREEN (0 flags; 1 paseq-position warn)",
+    "web_quotes_status": "GREEN (0 flags)",
+    "universals_status": "FLAGS (272 flags, mostly weak lexicon e.g. bare 'each'; 56 already tier-dampened)",
+    "note": "Consulted as corroborating context; not a substitute for this census's own duty-scoped checks, which surface gaps (rationale-vs-device_notes citation placement, collection-law deviation framing) the Tier-0 suite does not check."
+  }
+}

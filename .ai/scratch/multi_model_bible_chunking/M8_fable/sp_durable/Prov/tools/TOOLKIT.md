@@ -84,9 +84,15 @@ re-derive; heuristic, never row evidence)
 - **Catchword adjacency** (skeleton-tier shared-content-token pairs): weak
   everywhere in 10-29 (max 11/32 pairs at ch 16, ~0-7 elsewhere) — the
   sentence-literature problem is real, not folklore.
-- **bni ("my son")**: 12 of 17 occurrences in chs 1-7 (the lecture frame:
-  1:8, 1:10, 1:15, 2:1, 3:1, 3:21, 4:10, 4:20, 5:1, 6:1, 6:20, 7:1);
-  isolated at 19:27, 23:15, 23:26, 24:13, 27:11.
+- **bni vocative ("my son", בְּנִי chirik) — E-1 CORRECTED (P10 erratum,
+  byte-verified)**: 22 verses word-bound at ANY position (the old
+  first-two-tokens figure of 17 was an undercount). Chs 1-7 carry 15 (1:8,
+  1:10, 1:15, 2:1, 3:1, 3:11, 3:21, 4:10, 4:20, 5:1, 5:20, 6:1, 6:3, 6:20,
+  7:1); isolated at 19:27, 23:15, 23:19, 23:26, 24:13, 24:21, 27:11.
+  DISTINCT OBJECT: construct בְּנֵי ("sons of", tsere) occurs in 8 verses
+  (inventory bene_construct) — never blend the two. A naive substring sweep
+  of בני returns 41 verses incl. ובנית/אבניו false hits — word-bound +
+  pointed checks only.
 - **YHWH density**: peaks in chs 3 (9), 15 (9), 16 (6), 22 (5) — the
   15:33-16:9 "YHWH cluster" at the book's center is byte-visible.
 - **tov openers**: 16 verses open with טוב (the better-than class spine).

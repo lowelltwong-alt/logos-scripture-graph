@@ -1,0 +1,75 @@
+{
+ "attempt_id": "peer_c20_r1",
+ "role": "peer",
+ "clusters": [
+  "c20"
+ ],
+ "rulings": [
+  {
+   "cluster": "c20",
+   "row_id": "P09-023",
+   "source": "LF",
+   "challenge_claim": "The rejected_alternative for Prov.20.23 dismisses the forward rival without disclosing that the shared divine name is part of a three-verse Yahweh run, and never weighs the backward neighbor at all.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, re-derived independently. oshb:Prov.20.22 closes on אַל תֹּאמַ֥ר אֲשַׁלְּמָה רָ֑ע קַוֵּ֥ה לַֽ֝יהוָ֗ה וְיֹ֣שַֽׁע לָֽךְ (prefixed divine name לַֽ֝יהוָ֗ה); oshb:Prov.20.23 reads תּוֹעֲבַ֣ת יְ֭הוָה אֶ֣בֶן וָאָ֑בֶן וּמֹאזְנֵ֖י מִרְמָ֣ה לֹא טֽוֹב (unprefixed יְ֭הוָה, the exact token counted in prov_device_inventory.json yhwh_density.by_chapter.20=4); oshb:Prov.20.24 opens מֵיהוָ֥ה מִצְעֲדֵי גָ֑בֶר וְ֝אָדָ֗ם מַה יָּבִ֥ין דַּרְכּֽוֹ (prefixed מֵיהוָ֥ה). sweep.py --skel of the bare consonants (contiguous-substring, book-wide) returns 87 verses including all three; the inventory's 70-verse tally is unprefixed-exact only (its own count_object note excludes prefixed forms) -- both digits confirm the run at every tier the toolkit distinguishes. The row's rejected_alternative sentence names only the forward neighbor's topic ('the next verse's topic of a man's path') without stating that oshb:Prov.20.24 itself carries the divine name, and never mentions oshb:Prov.20.22 at all. The standing cross-seam-cohesion rule (TOOLKIT.md; book_strategy/Prov.md S8) requires a shared device to be named-and-dismissed, not passed over in silence. The atomic call is undisturbed: no content token beyond the divine name links any pair in the 20:22-24 run, and the name recurs far too densely (4 of ch.20's verses unprefixed; 70 of 915 book-wide unprefixed, 87 substring-inclusive) to argue cohesion from it alone -- so this is a disclosure defect, not a boundary defect.",
+   "remedy": "Single-row disclosure cure (20:22 and 20:24 are not rows in this cluster, so no coordinated seam-pair edit applies here, unlike P09-031/P09-032 below). Extend rejected_alternative with one clause naming both neighbors and a digit, in substance: 'the divine name also closes the preceding verse (Prov.20.22) and opens the following one (Prov.20.24), but Yahweh is named too densely through the collection (4 of ch.20's verses; 70 of 915 book-wide, unprefixed token) to serve as a boundary driver on its own.' Test (the test that killed the original): check_refs_mirror.py / check_universals.py must show every adjacent-verse shared device named in the row's own prose (no silent cross-seam device); citation_sweep.py GREEN with the digit-bearing citation present.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c20",
+   "row_id": "P09-031",
+   "source": "LF",
+   "challenge_claim": "The rejected_alternative for Prov.21.1 names the shared divine name with 21:2 but omits the stronger, more specific shared root and cites no digit for its frequency dismissal.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, re-derived independently. oshb:Prov.21.1 reads פַּלְגֵי מַ֣יִם לֶב מֶ֭לֶךְ בְּיַד יְהוָ֑ה עַֽל כָּל אֲשֶׁ֖ר יַחְפֹּ֣ץ יַטֶּֽנּוּ (carries לֶב מֶ֭לֶךְ at words 3-4 and unprefixed יְהוָ֑ה at word 6); oshb:Prov.21.2 reads כָּֽל דֶּרֶךְ אִ֭ישׁ יָשָׁ֣ר בְּעֵינָ֑יו וְתֹכֵ֖ן לִבּ֣וֹת יְהוָֽה, closing on לִבּ֣וֹת יְהוָֽה (unprefixed divine name plus a plural-construct heart noun). prov_device_inventory.json catchword_adjacency.shared_pairs_by_chapter.21=1 names this seam the SOLE machine-flagged adjacent pair for ch.21; that automated flag is driven by the exact skeleton-token match of the divine name (word-bound, len 4) -- the row's own digit citation is correct as far as it goes. The heart link is a SEPARATE, non-exact-token observation: לֶב (21:1, singular absolute) and לִבּ֣וֹת (21:2, plural construct) are different inflected skeleton strings sharing the root lamed-bet-bet, not a word-bound exact match, so it is not itself captured by the '1' digit -- but it is real and undisclosed. The row's rejected_alternative names neither a digit for the divine name's frequency ('recurs so often through this stretch of the collection' has no citation) nor the heart-root link at all. yhwh_density.by_chapter confirms ch.20=4, ch.21=3 (unprefixed token), book total 70 -- dense enough that the frequency dismissal is correct in substance but currently unsupported in the row's own prose. Applying the boss-ratified carriage standard (boss_prov_r1.json B-2): limb (i), a rare/marked shared object, is satisfied only by the divine name via its sole-adjacent-pair flag -- the heart terms are not rare (the root recurs throughout the book) and are not an exact-token match; limb (ii), a second byte-visible binding signal, fails -- the heart-of-king phrase is subject-complement opening 21:1's clause while the hearts-of-Yahweh phrase is object+subject closing 21:2's clause, no shared construction. The omission is real (uphold) but the underlying atomic call is correctly protected; no cluster is warranted under the wave's own standard -- this is a disclosure cure, not a boundary proposal.",
+   "remedy": "SEAM-PAIR CURE, ONE coordinated edit across P09-031 and P09-032 (not two independent patches -- both rows deny the identical 21:1/21:2 pairing). Revise both rows' rejected_alternative to state, in substance: both verses name Yahweh (the sole catchword_adjacency-flagged pair for ch.21; prov_device_inventory.json) and both use the heart root (singular in 21:1, plural construct in 21:2), but the divine name is too dense through the collection (3 of ch.21's verses, 70 of 915 book-wide) to serve as a driver, and the heart terms sit in different syntactic slots with no shared clause template, so the pairing is thematic wisdom-lit texture rather than a deliberate catchword. Test (the test that killed the original): re-run the catchword_adjacency and yhwh_density lookups against the revised prose to confirm both digits (1 and 3/70) appear with their objects named; citation_sweep.py and check_universals.py GREEN on both revised rows.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c20",
+   "row_id": "P09-032",
+   "source": "LF",
+   "challenge_claim": "The rejected_alternative for Prov.21.2 names the shared divine name with 21:1 but, like the sibling row, omits the shared heart-root token and cites no digit for its frequency dismissal.",
+   "ruling": "uphold",
+   "grounds": "Same seam, re-derived independently: oshb:Prov.21.2 closes on לִבּ֣וֹת יְהוָֽה; oshb:Prov.21.1 carries לֶב מֶ֭לֶךְ at words 3-4 -- confirmed at byte tier as in the P09-031 ruling above, same catchword_adjacency.shared_pairs_by_chapter.21=1 flag and same root-vs-token distinction. This row's OWN device_notes calls 21:2 an antithetic couplet contrasting 'self-assessment' with 'Yahweh's assessment of hearts' -- the rationale already uses the word 'hearts' to describe the verse's own closing image, yet the rejected_alternative two sentences later never connects that same term to 21:1's heart-of-king phrase, an internal-consistency gap layered on top of the missing digit. CONVERGENCE: this is the SAME defect as P09-031 above (the identical 21:1/21:2 seam-pair denial), reached independently on the sibling row, not a distinct finding -- both primaries and this peer converge on one seam-pair cure, not two.",
+   "remedy": "Covered by the single coordinated seam-pair cure specified under P09-031 above -- do not author a second, separate fix for this row; the same revised rejected_alternative content (mirrored, verse-order-appropriate wording) installs on both rows in one author-wave edit. Test: identical to P09-031's test, run once and confirmed GREEN on both rows.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c20",
+   "row_id": "P09-023",
+   "source": "OL",
+   "challenge_claim": "device_notes labels Prov.20.23 a synthetic couplet, but the row's own rationale describes the second colon as restating the same commerce concern from a different angle, which is a synonymous relationship, not a synthetic one, and the Hebrew colon structure supports the restatement reading over progression.",
+   "ruling": "uphold",
+   "grounds": "Re-derived at byte tier. oshb:Prov.20.23 colon A: תּוֹעֲבַ֣ת יְ֭הוָה אֶ֣בֶן וָאָ֑בֶן; colon B: וּמֹאזְנֵ֖י מִרְמָ֣ה לֹא טֽוֹב. Both cola predicate the SAME evaluative judgment (moral disapproval -- 'abomination', 'not good') of two related instruments of the same wrong (dishonest weights, dishonest scales), joined by a plain vav with no adversative particle and no consequential/temporal connective; WEB likewise joins with a bare 'and' (web:Prov.20.23), so neither witness supplies a synthetic (progressive/additive) or antithetic (contrastive) signal -- the structure is a textbook restatement pattern, synonymous parallelism, not synthetic. This is the same class of parallelism-class defect already established in this campaign (cf. row P02-010 in cluster c03, where a device_notes/rejected_alternative parallelism-class mismatch was upheld as real at medium severity despite being a texture-only field): the label error does not touch span or unit_type (book_strategy/Prov.md S6: parallelism class is texture, never alone a boundary driver), so the row's single_proverb call is unaffected and no boundary change is proposed.",
+   "remedy": "Replace device_notes 'synthetic couplet.' with 'synonymous couplet.' for P09-023 -- both cola restate the same commerce-fraud judgment via parallel weighing-instrument imagery, with no adversative or progressive marker in either witness. Test: re-inspect both cola against verse_map_oshb.json and web:Prov.20.23 for an adversative/progressive marker before shipping any parallelism-class label -- no tool machine-validates parallelism class (it is texture, not a citation_sweep.py object), so this targeted re-read is the cure standard for the class.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c20",
+   "row_id": "P09-030",
+   "source": "OL",
+   "challenge_claim": "The row calls the qere the 'verb for that cleansing', but the pointed byte is a noun functioning as predicate of a verbless clause, and WEB's verb rendering looks like the source of the mislabel rather than the Hebrew part of speech.",
+   "ruling": "uphold",
+   "grounds": "Re-derived at byte tier. oshb:Prov.20.30 reads חַבֻּר֣וֹת פֶּ֭צַע תמריק תַּמְר֣וּק בְּרָ֑ע וּ֝מַכּ֗וֹת חַדְרֵי בָֽטֶן: a verbless nominal clause -- the wound-stripes phrase as subject, תַּמְר֣וּק as predicate, 'against evil' as complement -- with no finite verb anywhere in the first half of the verse. תַּמְר֣וּק is the segholate noun pattern (tamruq, root mem-resh-qof, 'a scouring/polishing'), attested in the standard lexicon as a noun (Strong's/BDB tamruq), not a verb form; the staged extract carries no morphology layer (TOOLKIT.md), so this is argued from the pointed byte shape and clause structure alone, per the toolkit's own required method for form claims -- a noun-pattern word standing as predicate of a verbless clause cannot be 'the verb for that cleansing'. The row's ketiv/qere disclosure itself is independently confirmed correct (pmarks_Prov.json kq['Prov.20.30']=1, single witness, as both packets already note) and is not in question -- only the part-of-speech label attached to the qere. WEB's rendering supplies the English verb 'cleanse away' (web:Prov.20.30), which both the challenging packet and this re-derivation agree is the likely source of the slip -- an English translation verb standing in for a Hebrew predicate noun.",
+   "remedy": "Replace 'the verb for that cleansing' in P09-030's rationale with a part-of-speech-correct phrase, e.g. 'the noun naming that cleansing' or 'the predicate noun for that cleansing' -- keep the existing ketiv/qere disclosure and pmarks citation unchanged; no change to span, unit_type, or the synonymous-couplet device_notes label (independently correct: two clauses restating one claim about painful correction). Test (the test that killed the original): re-check the pointed byte clause structure (no verb morphology present, segholate noun pattern) before any Hebrew word is called a verb in row prose; collate.py --ref oshb:Prov.20.30 --quote against the corrected quotation must return tier=byte.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P09-039",
+   "claim_checked": "OL's supported claim that Prov.21.9 is listed among the 16 tov-opener verses in prov_device_inventory.json (tov_openers.refs), and that oshb:Prov.21.9 opens with the token tov at byte tier.",
+   "result": "verified",
+   "notes": "Independently re-opened prov_device_inventory.json directly (not re-derived via sweep) and confirmed 'Prov.21.9' is present in tov_openers.refs (16-verse list, count_object 'verses whose first skeleton token is exactly tov'). Cross-checked against verse_map_oshb.json: oshb:Prov.21.9 opens ט֗וֹב, matching both the row's own opening-word claim and OL's support verdict. No defect found; both primaries' support verdict stands."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 5,
+  "uphold": 5,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

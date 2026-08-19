@@ -1,0 +1,105 @@
+{
+ "attempt_id": "lf_cluster_c13_r1",
+ "role": "primary_LF",
+ "cluster": "c13",
+ "rows_reviewed": [
+  "P06-064",
+  "P06-067",
+  "P06-068",
+  "P06-069",
+  "P06-070",
+  "P06-075",
+  "P06-077",
+  "P06-081"
+ ],
+ "items": [
+  {
+   "row_id": "P06-064",
+   "verdict": "support",
+   "claim": "The ellipsis reading of 14:14 is byte-accurate (the sole finite verb sits in colon A and is not repeated in colon B), and no undisclosed catchword at either neighboring seam competes with the single_proverb call.",
+   "evidence": "Prov.14.14 (מִדְּרָכָ֣יו יִ֭שְׂבַּע ס֣וּג לֵ֑ב וּ֝מֵעָלָ֗יו אִ֣ישׁ טֽוֹב) carries the finite verb יִ֭שְׂבַּע only in colon A; colon B (וּ֝מֵעָלָ֗יו אִ֣ישׁ טֽוֹב) supplies no verb of its own, confirming the claimed ellipsis. Neighbors checked: 14:13 (שִׂמְחָ֣ה תוּגָֽה, laughter/sorrow) and 14:15 (לַאֲשֻׁרֽוֹ, root אשר \"step\") share no lexeme with 14:14's מִדְּרָכָ֣יו/וּ֝מֵעָלָ֗יו, so nothing straddles the seam undisclosed. The 13:1-13:2 ellipsis aside in the rationale is non-evidentiary texture, not cited as boundary evidence; check_refs_mirror.py returns GREEN on this row (the cited web:Prov.10.1-Prov.22.16 parent-collection ref already covers those verse numbers).",
+   "tier_citations": [
+    "tier-1 byte (Prov_oshb.txt Prov.14.13-15)",
+    "tool: check_refs_mirror.py (GREEN, 0 flags)"
+   ]
+  },
+  {
+   "row_id": "P06-067",
+   "verdict": "support",
+   "claim": "The single_proverb call is correct: the shared phrase with 12:2 is real but non-adjacent, so per the adjacency-gated cluster policy it stays book vocabulary rather than a driver.",
+   "evidence": "sweep.py --heb \"איש מזמות\" returns skeleton count 2 with refs exactly [Prov.12.2, Prov.14.17], matching the row's cited \"sweep: 2\" digit and object. The two verses sit five verses and a chapter boundary apart, so under the adjacency-gated cluster policy the phrase is correctly treated as recurring vocabulary, not cluster evidence, and the row's own rejected_alternative reaches the same conclusion. No shared lexeme found between 14:17 (קְֽצַר אַ֭פַּיִם יַעֲשֶׂ֣ה אִוֶּ֑לֶת וְאִ֥ישׁ מְ֝זִמּ֗וֹת יִשָּׂנֵֽא) and 14:18 (נָחֲל֣וּ פְתָאיִ֣ם אִוֶּ֑לֶת וַֽ֝עֲרוּמִ֗ים יַכְתִּ֥רוּ דָֽעַת) that would argue a different single-verse boundary beyond the common noun addressed separately below.",
+   "tier_citations": [
+    "tier-1 byte (sweep.py --heb איש מזמות, skeleton tier, digit 2, refs Prov.12.2+Prov.14.17)"
+   ]
+  },
+  {
+   "row_id": "P06-068",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The rejected_alternative's statement that \"no bridge exists\" between 14:17 and 14:18 is byte-false: both verses share the exact lexeme אִוֶּ֑לֶת (\"folly\") as the outcome-word for their negative actor, an undisclosed cross-seam catchword the row denies rather than weighs.",
+   "evidence": "sweep.py --skel \"אולת\" returns 22 verses book-wide, including consecutive Prov.14.17 (colon A ends יַעֲשֶׂ֣ה אִוֶּ֑לֶת, \"will do folly\") and Prov.14.18 (colon A ends אִוֶּ֑לֶת, \"folly\" as the thing inherited) -- a real shared token at the seam, not a strawman-free rival. The word is common (6 of its 22 book-wide hits fall in ch14 alone: 14:1, 14:8, 14:17, 14:18, 14:24, 14:29), so on its own it does not meet the construction-run bar for reclassifying either verse as proverb_cluster -- but the row's stated reason for dropping the pairing misstates the bytes. The accurate ground for keeping single_proverb is that the shared noun is generic, book-wide wisdom-vocabulary too weak to bridge the two units, not that no lexical link exists.",
+   "tier_citations": [
+    "tier-1 byte (sweep.py --skel אִוֶּ֑לֶת, digit 22 book-wide / 6 in ch14, refs incl. Prov.14.17+Prov.14.18)"
+   ]
+  },
+  {
+   "row_id": "P06-069",
+   "verdict": "support",
+   "claim": "The synonymous (not antithetic) reading of 14:19 is byte-accurate: both cola stage the same wicked-subordinate-to-righteous scene with synonym pairs rather than two contrasting fates, and the parallelism class is correctly parked in device_notes rather than unit_type.",
+   "evidence": "Prov.14.19 (שַׁח֣וּ רָ֭עִים לִפְנֵ֣י טוֹבִ֑ים וּ֝רְשָׁעִ֗ים עַֽל שַׁעֲרֵ֥י צַדִּֽיק) -- both cola name the wicked party's subordinate position relative to the good/righteous party, with no verb of contrasting fate in colon B, unlike the chapter's typical waw-adversative antithesis. Checked for a false catchword at the 14:20 seam: 14:20's רָ֑שׁ (\"poor\", root ריש) shares only surface letters with 14:19's וּ֝רְשָׁעִ֗ים (root רשע), a different root correctly not exploited by the row as cohesion.",
+   "tier_citations": [
+    "tier-1 byte (Prov_oshb.txt Prov.14.18-20)"
+   ]
+  },
+  {
+   "row_id": "P06-070",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The span touches a Ketiv/Qere verse (14:21) that the row never discloses, and the second boundary_evidence_refs entry (11:12) is never named by verse number anywhere in the row's own prose.",
+   "evidence": "pmarks_Prov.json kq inventory carries Prov.14.21: 1 -- the ketiv עניים / qere עֲנָוִ֣ים pair visible inline in the staged oshb bytes (וּמְחוֹנֵ֖ן עניים עֲנָוִ֣ים אַשְׁרָֽיו) -- which the book's K/Q disclosure requirement mandates be disclosed whenever a span touches one; this row's span (Prov.14.20-Prov.14.21) includes that verse and neither the rationale nor device_notes mentions it. Separately, check_refs_mirror.py flags the web:Prov.11.12 ref as an orphan (WARN): the row states the shared phrase \"occurs at only one further point, non-adjacent to this pair\" without ever writing 11:12's verse number, so that citation is not textually anchored. The underlying catchword claim is itself byte-accurate -- sweep.py --heb \"לרעהו\" returns skeleton count 3 over exactly [Prov.11.12, Prov.14.20, Prov.14.21], confirming 14:20-14:21 is the phrase's one adjacent pairing and supporting the proverb_cluster granularity call -- the defect here is disclosure discipline, not the boundary judgment itself.",
+   "tier_citations": [
+    "pmarks_Prov.json kq inventory (Prov.14.21)",
+    "tool: check_refs_mirror.py (orphan_ref_warn on web:Prov.11.12)",
+    "tier-1 byte (sweep.py --heb לרעהו, digit 3, refs Prov.11.12+Prov.14.20+Prov.14.21)"
+   ]
+  },
+  {
+   "row_id": "P06-075",
+   "verdict": "support",
+   "claim": "The proverb_cluster call for 14:26-14:27 meets the construction-run bar the granularity policy sets: a verbatim two-word construct phrase (יִרְאַ֣ת יְ֭הוָה) opens both verses, and Prov.14.26-27 is the only place in the book where that phrase opens two consecutive verses.",
+   "evidence": "sweep.py --skel \"יראת יהוה\" returns skeleton count 15 book-wide (Prov.1.7, 1.29, 2.5, 8.13, 9.10, 10.27, 14.26, 14.27, 15.16, 15.33, 16.6, 19.23, 22.4, 23.17, 31.30); scanning that full ref list, Prov.14.26/Prov.14.27 is the sole adjacent pair -- every other hit sits at least one verse away from its nearest neighbor in the list. Prov_oshb.txt confirms both verses open with the phrase (14:26 בְּיִרְאַ֣ת יְ֭הוָה..., 14:27 יִרְאַ֣ת יְ֭הוָה...) and both are synthetic benefit-clauses with no waw-adversative, matching the device_notes' synthetic call rather than unit_type. This is a genuine construction run, not a shared-theme-only cluster.",
+   "tier_citations": [
+    "tier-1 byte (sweep.py --skel יראת יהוה, digit 15 book-wide, unique adjacency at Prov.14.26-27; Prov_oshb.txt)"
+   ]
+  },
+  {
+   "row_id": "P06-077",
+   "verdict": "support",
+   "claim": "The temperament-idiom antithesis (long of nostril / short of spirit) is correctly kept single_proverb, and the rejected pairing with 14:28 is a real rival correctly dismissed because the two verses share no vocabulary.",
+   "evidence": "Prov.14.28 (עָ֥ם/מֶ֑לֶךְ/לְ֝אֹ֗ם/רָזֽוֹן -- population/king/nation/prince vocabulary) shares no root with 14:29's אֶ֣רֶךְ אַ֭פַּיִם / וּקְצַר ר֝֗וּחַ / תְּבוּנָ֑ה / אִוֶּֽלֶת (temperament vocabulary) -- confirmed no lexical bridge, in contrast to the undisclosed link found at the 14:17/14:18 seam elsewhere in this cluster. pmarks_Prov.json confirms no K/Q, paseq, or parashah mark touches Prov.14.29, consistent with the row citing none.",
+   "tier_citations": [
+    "tier-1 byte (Prov_oshb.txt Prov.14.28-29)",
+    "pmarks_Prov.json (absence confirmed for Prov.14.29)"
+   ]
+  },
+  {
+   "row_id": "P06-081",
+   "verdict": "support",
+   "claim": "The row's disclosure of the missing negative particle in 14:33b is byte-accurate and honestly held as a crux rather than silently emended, matching both staged witnesses.",
+   "evidence": "Prov.14.33 (בְּלֵ֣ב נָ֭בוֹן תָּנ֣וּחַ חָכְמָ֑ה וּבְקֶ֥רֶב כְּ֝סִילִ֗ים תִּוָּדֵֽעַ) carries no לא/אל before תִּוָּדֵֽעַ; the WEB text likewise reads “Wisdom rests in the heart of one who has understanding, and is even made known in the inward part of fools.” (web:Prov.14.33), with no negation supplied -- the row's disclosure matches both staged witnesses rather than importing a conjecture. pmarks_Prov.json confirms no K/Q, paseq, or parashah entry at Prov.14.33 bears on the reading either way, consistent with the row citing none.",
+   "tier_citations": [
+    "tier-1 byte (Prov_oshb.txt + verse_map_web.json Prov.14.33)",
+    "pmarks_Prov.json (absence confirmed for Prov.14.33)"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 6,
+  "challenges": 2,
+  "by_severity": {
+   "high": 0,
+   "medium": 1,
+   "low": 1
+  }
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "attempt_id": "ol_cluster_c15_r1",
+ "role": "primary_OL",
+ "cluster": "c15",
+ "rows_reviewed": [
+  "P07-024",
+  "P07-029",
+  "P07-031",
+  "P07-032",
+  "P07-033",
+  "P07-034",
+  "P07-035",
+  "P07-036"
+ ],
+ "items": [
+  {
+   "row_id": "P07-024",
+   "verdict": "support",
+   "claim": "15:26's tocevat-YHWH echo of 15:8-9 is correctly disclosed as non-adjacent texture, not a cluster driver, and the single_proverb call holds.",
+   "evidence": "Splice-verified from verse_map_oshb.json: oshb:Prov.15.26 opens תּוֹעֲבַ֣ת יְ֭הוָה, matching the construct phrase at oshb:Prov.15.8 (תּוֹעֲבַ֣ת יְהוָ֑ה) and oshb:Prov.15.9 (תּוֹעֲבַ֣ת יְ֭הוָה); sweep.py --skel \"tocevat yhwh\" (skeleton) returns 11 book-wide, with only 15:8/15:9/15:26/16:5 clustered in this stretch, confirming no adjacency and no over-claim. The true neighbors 15:25 and 15:27 share this construct with neither this row nor each other (skeleton comparison), so the non-adjacency the row argues from is accurate.",
+   "tier_citations": [
+    "byte:oshb:Prov.15.26,oshb:Prov.15.8,oshb:Prov.15.9",
+    "sweep:skeleton tocevat-yhwh=11 book-wide"
+   ]
+  },
+  {
+   "row_id": "P07-029",
+   "verdict": "support",
+   "claim": "The 15:31-33 proverb_cluster is byte-verified: the tokhachat (31-32) and musar (32-33) catchword chain is exact and consecutive, and the parallelism classes match the Hebrew colon structure.",
+   "evidence": "collate.py --json reaches BYTE tier on all four quoted forms (תּוֹכַ֣חַת oshb:15.31, תּ֝וֹכַ֗חַת oshb:15.32, מ֭וּסָר oshb:15.32, מוּסַ֣ר oshb:15.33). sweep.py --skel tokhachat = 14 book-wide, with the only consecutive pair in the book at 15:31-32 (next-nearest hits 15:5/15:10, non-adjacent); sweep.py --skel musar = 30 book-wide, only consecutive pair at 15:32(absolute)/15:33(construct), next occurrence not until 16:22. Neither catchword recurs in the flanking verses 15:30 or 16:1, so the cluster boundary is clean on both seams. Colon-level check against the pointed bytes confirms 15:32's contrastive פּוֹרֵ֣עַ...מוֹאֵ֣ס vs וְשׁוֹמֵ֥עַ...ק֣וֹנֶה is genuinely antithetic while 15:31 and 15:33 read synthetic, matching device_notes. This meets the owner's C2 catchword-chain bar for proverb_cluster (book_strategy Prov.md section 6).",
+   "tier_citations": [
+    "byte:oshb:Prov.15.31,oshb:Prov.15.32,oshb:Prov.15.33 collate=byte(4/4)",
+    "sweep:skeleton tokhachat=14 book-wide/2 consecutive; musar=30 book-wide/2 consecutive"
+   ]
+  },
+  {
+   "row_id": "P07-031",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The decision to keep 16:2 separate from 16:1 rests on a Hebrew no-shared-token claim given only in transliteration, with no quoted Hebrew run in the row for collate.py to check.",
+   "evidence": "The row states 16:1/16:2 'share no repeated token' beyond the divine name using only transliterated forms (kol darkhe ish, ve-tokhen ruchot YHWH); no Hebrew script is quoted anywhere in the row, contrary to the OL bar that a Hebrew claim with no quoted form is insufficient engagement. Independently re-verified byte-accurate by splicing oshb:Prov.16.1 (לְאָדָ֥ם מַֽעַרְכֵי לֵ֑ב וּ֝מֵיְהוָ֗ה מַעֲנֵ֥ה לָשֽׁוֹן) and oshb:Prov.16.2 (כָּֽל דַּרְכֵי אִ֭ישׁ זַ֣ךְ בְּעֵינָ֑יו וְתֹכֵ֖ן רוּח֣וֹת יְהוָֽה): the two verses share only יְהוָֽה at the skeleton tier. The decision itself stands, but the row's own evidentiary presentation does not meet the required tier.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.1,oshb:Prov.16.2 (reviewer-spliced; no writer quote present)",
+    "skeleton token-set comparison: shared={yhwh} only"
+   ]
+  },
+  {
+   "row_id": "P07-032",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The 16:3 rejected_alternative's 'no other token is shared' claim against 16:2 is asserted in transliteration only, with no quoted Hebrew and no sweep citation (flagged by check_universals.py).",
+   "evidence": "check_universals.py flags this row's 'no other token is shared' clause as an unswept universal/absence claim; no Hebrew script appears anywhere in the row. Reviewer-spliced comparison of oshb:Prov.16.2 and oshb:Prov.16.3 (גֹּ֣ל אֶל יְהוָ֣ה מַעֲשֶׂ֑יךָ וְ֝יִכֹּ֗נוּ מַחְשְׁבֹתֶֽיךָ) confirms only יְהוָ֣ה is shared at skeleton tier (16.2's divine name is יְהוָֽה) -- decision stands, but the row fails the campaign's digit-bearing-sweep requirement (book_strategy Prov.md section 8) for the claim as written.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.2,oshb:Prov.16.3 (reviewer-spliced)",
+    "check_universals.py: flagged, unswept 'no other token' claim"
+   ]
+  },
+  {
+   "row_id": "P07-033",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The 16:4 rejected_alternative's claim that it 'shares no other token with 16:3' is given only in transliteration, unswept (flagged by check_universals.py).",
+   "evidence": "check_universals.py flags this clause. Reviewer-spliced comparison of oshb:Prov.16.3 and oshb:Prov.16.4 (כֹּ֤ל פָּעַ֣ל יְ֭הוָה לַֽמַּעֲנֵ֑הוּ וְגַם רָ֝שָׁ֗ע לְי֣וֹם רָעָֽה) confirms only יְ֭הוָה is shared at skeleton tier -- decision stands, but no quoted Hebrew or sweep digit backs the claim in the row itself.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.3,oshb:Prov.16.4 (reviewer-spliced)",
+    "check_universals.py: flagged, unswept 'no other token' claim"
+   ]
+  },
+  {
+   "row_id": "P07-034",
+   "verdict": "support",
+   "claim": "16:5's exclusion from a proposed 15:33-16:9 gap-free YHWH run is correctly grounded in 16:8's confirmed absence of any YHWH token, and the tocevat-YHWH texture is accurately scoped.",
+   "evidence": "Splice-verified oshb:Prov.16.8 (טוֹב מְ֭עַט בִּצְדָקָ֑ה מֵרֹ֥ב תְּ֝בוּא֗וֹת בְּלֹ֣א מִשְׁפָּֽט) contains no יְ֭הוָה token, confirming the row's rejected_alternative that 16:8 breaks the proposed 15:33-16:9 divine-name run. The tocevat-YHWH construct-phrase claim matches sweep.py --skel tocevat-yhwh = 11 book-wide (3:32, 11:1, 11:20, 12:22, 15:8, 15:9, 15:26, 16:5, 17:15, 20:10, 20:23), so the 15:8/9, 15:26, 16:5 citations are accurate and not over-claimed. The parallelism call (synthetic-intensifying, no conjunction before the second colon) matches the pointed bytes.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.8 (reviewer-spliced, confirms no yhwh token)",
+    "sweep:skeleton tocevat-yhwh=11 book-wide"
+   ]
+  },
+  {
+   "row_id": "P07-035",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The 16:6 rejected_alternative's 'no other token repeats' claim against 16:5 is given only in transliteration, unswept (flagged by check_universals.py).",
+   "evidence": "check_universals.py flags this clause. Reviewer-spliced comparison of oshb:Prov.16.5 and oshb:Prov.16.6 (בְּחֶ֣סֶד וֶ֭אֱמֶת יְכֻפַּ֣ר עָוֺ֑ן וּבְיִרְאַ֥ת יְ֝הוָ֗ה ס֣וּר מֵרָֽע) confirms only יְ֝הוָ֗ה is shared at skeleton tier -- decision stands, but the row supplies no Hebrew quote or sweep digit for the claim.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.5,oshb:Prov.16.6 (reviewer-spliced)",
+    "check_universals.py: flagged, unswept 'no other token' claim"
+   ]
+  },
+  {
+   "row_id": "P07-036",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The 16:7 rejected_alternative's claim that it and 16:6 'share no token' beyond YHWH is given only in transliteration with no sweep citation -- a check_universals.py lexicon miss, but the same defect class as the 16:2/16:3/16:4/16:6 rows.",
+   "evidence": "check_universals.py's 'no other'/'no X' lexicon does not match this row's phrasing ('otherwise share no token'), but it is the identical unswept-absence-claim defect flagged at 16:2/16:3/16:4/16:6. Reviewer-spliced comparison of oshb:Prov.16.6 and oshb:Prov.16.7 (בִּרְצ֣וֹת יְ֭הוָה דַּרְכֵי אִ֑ישׁ גַּם א֝וֹיְבָ֗יו יַשְׁלִ֥ם אִתּֽוֹ) confirms only יְ֭הוָה is shared at skeleton tier; the separate darkhe-ish cross-cite to 16:2's דַּרְכֵי אִ֭ישׁ is independently confirmed accurate (דַּרְכֵי אִ֑ישׁ at 16:7 vs דַּרְכֵי אִ֭ישׁ at 16:2). Decision stands, but no Hebrew quote or digit-bearing sweep backs the negative claim itself.",
+   "tier_citations": [
+    "byte:oshb:Prov.16.6,oshb:Prov.16.7 (reviewer-spliced)",
+    "byte:oshb:Prov.16.2,oshb:Prov.16.7 darkhe-ish echo confirmed"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 3,
+  "challenges": 5,
+  "by_severity": {
+   "low": 5
+  }
+ }
+}

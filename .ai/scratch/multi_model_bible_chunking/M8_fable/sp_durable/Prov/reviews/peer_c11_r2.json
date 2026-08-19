@@ -1,0 +1,28 @@
+{
+ "attempt_id": "peer_c11_r2",
+ "role": "peer",
+ "clusters": [
+  "c11"
+ ],
+ "rulings": [
+  {
+   "cluster": "c11",
+   "row_id": "P06-034",
+   "source": "LF",
+   "challenge_claim": "The claim that \"the waw alone carries the sentence into its mirror-image half\" misdescribes the verse's syntax: the actual pivot from the first yesh-clause to the second is asyndetic, and the verse's one internal waw sits elsewhere.",
+   "ruling": "uphold",
+   "grounds": "Independent word-level byte re-derivation of oshb:Prov.13.7 from verse_map_oshb.json (GREEN tier, matches Prov_oshb.txt) confirms LF's challenge exactly. Full verse, 7 words in order: יֵ֣שׁ / מִ֭תְעַשֵּׁר / וְאֵ֣ין / כֹּ֑ל / מִ֝תְרוֹשֵׁ֗שׁ / וְה֣וֹן / רָֽב. The word opening the second (mirror-image) half, מִ֝תְרוֹשֵׁ֗שׁ, carries NO vav-prefix (programmatic check: first codepoint != vav) -- the pivot from the first yesh-clause to the second is asyndetic, not vav-linked. The verse's only two vav-prefixed words are וְאֵ֣ין (idx 2, internal to the FIRST half, following מִ֭תְעַשֵּׁר) and וְה֣וֹן (idx 5, internal to the SECOND half, following מִ֝תְרוֹשֵׁ֗שׁ) -- structurally parallel positions within each colon, not the inter-colon seam (between idx 3 kol and idx 4 מִ֝תְרוֹשֵׁ֗שׁ) that the row's rationale and observed_substrate_signals credit with 'carrying' the sentence into its mirror half. Row P06-034's rationale states \"The second there-is is not written; the waw alone carries the sentence into its mirror-image half\" and observed_substrate_signals repeats this as \"second occurrence of the opening particle elided, carried by the waw alone\" -- both misdescribe the mechanism: ellipsis of the second yesh is real, but nothing carries it except asyndeton (zero conjunction) at the colon boundary; the verse's actual vav tokens sit elsewhere and play a different (intra-colon) structural role, matching the vav in the first colon rather than bridging the two cola. Independently confirms LF's re-derivation; not a translation-dependent or framing-only issue -- the claimed mechanism does not exist in the bytes. Non-conflicting with OL's item on this same row: OL's P06-034 entry supports a different claim (the doubled-yesh/ellipsis reading and the synthetic/paradoxical parallelism CLASS label), which is independently accurate and untouched by this defect -- OL did not test the 'waw alone carries' mechanism sentence, so there is no primary-vs-primary conflict, only an uncontested gap OL's support verdict happened not to probe. Per book_strategy/Prov.md Section 6, parallelism class belongs in device_notes as texture and is never a boundary driver -- confirmed unaffected; device_notes' 'Synthetic/paradoxical parallelism' label and unit_type=single_proverb (C2 default) both stand untouched by this defect, which is confined to the mechanism-description clause in rationale and the parallel clause in observed_substrate_signals.",
+   "remedy": "Row P06-034, two fields: (1) rationale -- replace the clause \"the waw alone carries the sentence into its mirror-image half\" with an accurate mechanism statement, e.g. \"the second colon opens asyndetically (מִ֝תְרוֹשֵׁ֗שׁ carries no vav) and is understood by ellipsis from the first colon's yesh; the verse's one internal vav sits within the second colon itself, paired with the first colon's own internal vav.\" (2) observed_substrate_signals -- replace \"second occurrence of the opening particle elided, carried by the waw alone\" with \"second occurrence of the opening particle elided; the two cola are joined asyndetically (no conjunction at the seam); the verse's sole other vav (וְה֣וֹן) is intra-colon, paired with the first colon's own vav (וְאֵ֣ין), not the inter-colon connector.\" Test the cure must pass: re-run the word-level byte splice of oshb:Prov.13.7 against verse_map_oshb.json and confirm (a) the word immediately after כֹּ֑ל -- מִ֝תְרוֹשֵׁ֗שׁ -- has no vav-prefix (startswith codepoint U+05D5 = false), and (b) the verse's only two vav-prefixed words occupy idx 2 and idx 5 (each second word within its own colon), never idx 4 (the inter-colon seam word). This is the exact byte check that falsifies the original claim, so it is the check the corrected text must be re-verified against.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [],
+ "summary": {
+  "challenges_adjudicated": 1,
+  "uphold": 1,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "attempt_id": "peer_c14_r1",
+ "role": "peer",
+ "clusters": [
+  "c14"
+ ],
+ "rulings": [
+  {
+   "cluster": "c14",
+   "row_id": "P06-082",
+   "source": "both",
+   "challenge_claim": "LF: the B-colon homograph claim (rare reproach sense vs covenant-kindness) is never anchored to a verse-specific citation, only the parent-collection span. OL: the rationale never quotes the Hebrew or cites oshb:Prov.14.34, though the underlying sense is independently plausible.",
+   "ruling": "refine",
+   "grounds": "Byte tier, oshb:Prov.14.34 (verse_map_oshb.json): \"...וְחֶ֖סֶד...\" is the B-colon noun; boundary_evidence_refs on the row is exactly [\"web:Prov.10.1-Prov.22.16\"] -- confirmed by direct read of draft_rows_combined.jsonl -- no web:Prov.14.34 or oshb:Prov.14.34 ref anywhere, and no Hebrew is quoted in rationale/observed_substrate_signals. Both primaries are right that the citation is missing, a direct violation of the standing rule 'quote the original language for every boundary-relevant original-language claim.' LF's medium severity frames this as undermining 'the row's central philological claim'; OL's independent check (WEB's own 'sin is a disgrace to any people' rendering does track the rarer sense, and the same-spelling pejorative use is independently attested at Lev.20.17) shows the underlying lexical claim is not actually contested by the bytes -- only the citation is absent. Corrected finding: uphold the citation defect, refine the framing toward OL's reading (citation-completeness gap, not a substantive/semantic error) -- but keep it at medium because the missing citation is exactly what the row's own medium_low confidence is resting on, and citation_sweep.py/check_web_quotes.py are built to gate precisely this class.",
+   "remedy": "Add oshb:Prov.14.34 (byte tier) to boundary_evidence_refs and splice the pointed noun וְחֶ֖סֶד (programmatically from verse_map_oshb.json, never hand-typed) into rationale or observed_substrate_signals so the homograph claim is textually anchored to the word it depends on. Cure test: citation_sweep.py shows a verse-specific oshb: ref present; collate.py --ref oshb:Prov.14.34 --quote \"וְחֶ֖סֶד\" returns tier=byte.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-011",
+   "source": "LF",
+   "challenge_claim": "The disclosed rival is not the strongest one: 15:7 and 15:14 could never form a valid contiguous cluster span with 15:12, while the true adjacent neighbors (15:11, 15:13) go untested in prose.",
+   "ruling": "uphold",
+   "grounds": "Skeleton tier, consonantal_index.json: Prov.15.11 = \"שאול ואבדון נגד יהוה אף כי לבות בני אדם\", Prov.15.12 = \"לא יאהב לץ הוכח לו אל חכמים לא ילך\", Prov.15.13 = \"לב שמח ייטב פנים ובעצבת לב רוח נכאה\" -- re-derived independently: zero shared word-bound tokens between 15.12 and either true adjacent neighbor. The row's own rejected_alternative field (\"A pairing with 15:7 or 15:14 ... was considered; both are non-adjacent to this verse\") only tests non-adjacent verses, which by definition could never be absorbed into a contiguous cluster span with 15:12 without swallowing unrelated intervening verses -- not a live granularity test. single_proverb is unaffected (the true adjacent rivals independently confirm no cohesion), so this is a rationale-completeness gap, not a boundary error.",
+   "remedy": "Rewrite rejected_alternative to test the genuine adjacent rivals 15:11 and 15:13 (word-bound skeleton check, consonantal_index.json, showing zero shared tokens with either), and move the 15:7/15:14 wise-fool-axis echo into device_notes as non-adjacent texture rather than a rejected_alternative rival. Cure test: re-run the adjacent-neighbor check against consonantal_index.json and confirm rejected_alternative now names 15:11/15:13 specifically.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-012",
+   "source": "LF",
+   "challenge_claim": "observed_substrate_signals overstates lev's grammatical role: it is not the subject of both cola.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, oshb:Prov.15.13: A-colon \"לֵ֣ב שָׂ֭מֵחַ\" is the subject phrase (a glad heart) of \"yeitiv panim\"; B-colon \"וּבְעַצְּבַת לֵ֝ב\" (\"by grief of heart\") is a construct/adverbial phrase, and the clause's actual grammatical subject is \"ר֣וּחַ נְכֵאָֽה\" (\"a crushed spirit\"). Re-derivation confirms the row's observed_substrate_signal (\"lev appears in both cola ... as the constant subject of two different fates\") is syntactically wrong for the B-colon: lev recurs as a lexeme, but is not the subject there. The antithetic verdict and unit_type are unaffected -- this is a precision correction to the signal text, not a boundary error.",
+   "remedy": "Correct observed_substrate_signals to state lev is the grammatical subject in the A-colon only, and in the B-colon sits inside the construct/adverbial phrase modifying the true subject ruach nekhe'ah (spirit crushed); keep the antithetic device_notes classification unchanged. Cure test: manual re-check of the corrected sentence against oshb:Prov.15.13 byte text confirms accurate subject assignment in both cola.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-012",
+   "source": "OL",
+   "challenge_claim": "The observed signal that face/spirit imagery is not repeated in the surrounding verses is byte-false: the immediately following verse carries an undisclosed inline occurrence of the same root at the row's own seam.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, oshb:Prov.15.13 carries פָּנִ֑ים (\"face\"); oshb:Prov.15.14, re-derived directly from verse_map_oshb.json, reads \"לֵ֣ב נָ֭בוֹן ... דָּ֑עַת ופני וּפִ֥י ...\" -- the unpointed inline token ופני immediately follows דָּ֑עַת and is spelled with the same consonants as the construct form of panim (face). This is a genuine byte-level recurrence of the face root at the row's own forward seam, undisclosed in the row's observed_substrate_signals as written (\"face/spirit imagery ... is not repeated in the surrounding verses\"), which is therefore false as stated. Per the toolkit's CROSS-SEAM COHESION rule, a byte-true device straddling the row's own seam argues continuity unless disclosed. This does not overturn the antithetic reading of 15:13 on its own terms, since the governing qere at 15:14 is וּפִ֥י (\"mouth\"), not \"face\" -- OL's own caveat is confirmed correct.",
+   "remedy": "Correct or qualify the observed_substrate_signal: disclose that the unpointed inline ketiv token ופני at the immediately following verse (Prov.15.14) shares the face-root consonants with פָּנִ֑ים here, while noting the qere sense governing 15:14 is 'mouth,' so it does not change the antithetic reading of this verse. Cure test: word-bound/skeleton re-check of the face-root token across Prov.15.13-Prov.15.14 confirms the recurrence and that the row's prose now discloses it.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-013",
+   "source": "both",
+   "challenge_claim": "LF and OL both: the row's ketiv/qere identification at Prov.15.14 is inverted -- it names the pointed word da'at as 'the inline ketiv token' and names the actual unpointed ketiv as 'the qere,' and never names the true qere word.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, oshb:Prov.15.14 (verse_map_oshb.json, re-derived independently): the raw sequence is \"...דָּ֑עַת ופני וּפִ֥י...\". דָּ֑עַת carries full niqqud and cantillation -- an ordinary pointed word, the direct object of 'seeks' in the A-colon, and no part of the K/Q pair at all. ופני is wholly unpointed (zero codepoints in the niqqud/accent range, confirmed by character-class scan) -- that is the actual ketiv, matching the toolkit's own INLINE-KETIV HAZARD pattern (an unpointed ketiv token inline before its pointed qere). וּפִ֥י is fully pointed and immediately follows -- that is the actual qere ('mouth'), never named by the row at all. pmarks_Prov.json kq confirms exactly one note at Prov.15.14 (count=1, count-only -- word identity is not sourceable from the inventory itself, only from the verse bytes, so this ruling rests on the re-derived bytes, not the inventory digit). LF and OL are adjudicated as the SAME defect: both independently re-derive the identical byte sequence and reach the identical correction (labels inverted in both directions, true qere word never named). This is exactly the K/Q identity-error class the campaign's inventories exist to kill -- high severity confirmed. The verse's own wise-heart/fool-mouth antithetic reading is unaffected by the correction.",
+   "remedy": "Pmarks-validated relabeling: correct the rationale/observed_substrate_signals to state that ופני (unpointed, inline) is the ketiv and וּפִ֥י (pointed, 'mouth') is the qere; drop דָּ֑עַת from the K/Q framing entirely -- it is an ordinary pointed word unrelated to the note. Cite pmarks_Prov.json (kq: Prov.15.14 = 1, count-only) plus the re-collated byte-tier oshb:Prov.15.14 text as the anchor for word identity. Cure test: check_marks.py's K/Q validation arm must pass against the corrected labels (word identity re-verified from the verse bytes, since the inventory itself is count-only) -- the test that killed the original mislabeling.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-013",
+   "source": "LF",
+   "challenge_claim": "The row discloses the cross-seam 'lev' catchword with neither neighbor, unlike its 15:13 sibling which discloses and dismisses the same tie.",
+   "ruling": "uphold",
+   "grounds": "Skeleton tier, consonantal_index.json, re-derived directly: Prov.15.13 opens \"לֵ֣ב שָׂ֭מֵחַ\", Prov.15.14 opens \"לֵ֣ב נָ֭בוֹן\", and Prov.15.15 closes \"וְטֽוֹב לֵ֝֗ב\" -- the word-bound token lev genuinely runs across all three consecutive verses 15:13/14/15. Cross-checking the sibling rows directly against draft_rows_combined.jsonl: P07-012 (span 15:13) DOES disclose+dismiss the tie forward (\"extending forward into 15:14 was also tried and dropped ... the 15:14 heart-token turned out too generic to carry a cluster on its own\"); P07-013 (span 15:14, this row) discloses no lev tie in either direction (its rejected_alternative only discusses a non-adjacent echo with 15:2); P07-014 (span 15:15) discloses no lev tie backward to 15:14 (its rejected_alternative only discusses the forward 15:16-17 pairing). Confirmed: exactly one row in the three-verse span discloses+dismisses, two do not -- the sibling-row inconsistency LF reports is byte-true. Per the toolkit's CROSS-SEAM COHESION and SYMMETRY-completion-is-a-sweep rules, this asymmetry is a real disclosure-completeness defect. It does not change single_proverb for either verse (P07-012 already tested and rejected the tie as too generic).",
+   "remedy": "ONE cross-row edit for the affected set (P07-013 and P07-014, see also P07-014's ruling below): add a disclosure sentence to this row's rejected_alternative or observed_substrate_signals naming the shared lev token at both the backward (15:13) and forward (15:15) seams and dismissing it as too generic/thin to carry a cluster, consistent with the standard P07-012 already sets -- worded as a distinct formulation, not a copy of P07-012's or P07-014's sentence (variation-order rule, 4+ formulations pooled). Cure test: a symmetry sweep across P07-012/P07-013/P07-014 confirming every row touching the shared lev token now discloses it once.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c14",
+   "row_id": "P07-014",
+   "source": "LF",
+   "challenge_claim": "The forward boundary against 15:16-17 is tested and correctly disclosed, but the backward cross-seam catchword with 15:14 is never mentioned.",
+   "ruling": "uphold",
+   "grounds": "Skeleton tier, re-derived directly: Prov.15.15 closes \"וְטֽוֹב לֵ֝֗ב\" and Prov.15.14 opens \"לֵ֣ב נָ֭בוֹן\" -- the same word-bound token lev, confirmed shared. Direct read of P07-014 in draft_rows_combined.jsonl confirms rejected_alternative and device_notes discuss only the forward pairing with 15:16-17 (correctly rejected: this verse's tov is a bare adjective, not the tov-min comparative); the backward tie to 15:14 is absent from the row entirely. This is the same class of defect as P07-013's ruling above (same three-verse lev catchword run, 15:13-15:14-15:15), not a distinct problem -- P07-012 is the only sibling that discloses+dismisses it.",
+   "remedy": "Part of the SAME cross-row edit as P07-013's ruling: add a disclosure sentence to this row's rejected_alternative naming the shared lev token with 15:14 and dismissing it as too generic to carry a cluster, alongside the row's already-correct forward test against the 15:16-17 tov-min construction -- worded as a distinct variation from P07-012's and P07-013's sentences. Cure test: same symmetry sweep as P07-013's ruling -- after both edits, confirm all three sibling rows disclose the shared token consistently.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P07-023",
+   "claim_checked": "The disclosed paseq mark at Prov.15.25 matches pmarks_Prov.json exactly (count=1) and Prov.15.26 carries none, so the paseq disclosure is accurate corroboration-only, never a boundary driver.",
+   "result": "verified",
+   "notes": "Independent re-check of pmarks_Prov.json['paseq']: Prov.15.25 = 1, Prov.15.26 = None (absent/None). Matches the row's claim exactly; the row correctly tiers this as single-witness corroboration, not a driver, consistent with paseq_note ('Seg layer, NOT quotable verse bytes; citable from this inventory only')."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 7,
+  "uphold": 6,
+  "refine": 1,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

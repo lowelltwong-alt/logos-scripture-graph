@@ -1,0 +1,94 @@
+{
+ "attempt_id": "peer_c08_r1",
+ "role": "peer",
+ "clusters": [
+  "c08"
+ ],
+ "rulings": [
+  {
+   "cluster": "c08",
+   "row_id": "P05-034",
+   "source": "LF",
+   "challenge_claim": "boundary_evidence_refs discloses only the cluster's back boundary (web:Prov.10.30) and leaves the forward boundary against 11:1 uncited.",
+   "ruling": "uphold",
+   "grounds": "byte check of the row (draft_rows_combined.jsonl) confirms boundary_evidence_refs = [\"web:Prov.10.30\"] only; the cluster's own forward-boundary neighbor, 11:1, is never cited. Re-derived a suppressed-cohesion risk check for that uncited seam anyway: 10:32's bare רָצ֑וֹן (word 4/7, skeleton sweep רצון = 8 verses book-wide, excludes 11:1) and 11:1's suffixed רְצוֹנֽוֹ (word 7/7, skeleton sweep רצונו = 6 verses book-wide, includes 11:1) are different skeleton strings (final nun vs. medial-nun+vav allography), totalling 8+6=14 verses with no shared construction -- so no undisclosed catchword risk was suppressed, but the citation gap itself is a real completeness defect (check_refs_mirror.py boundary-disclosure symmetry: every argued/adjacent boundary must be disclosed).",
+   "remedy": "Add \"web:Prov.11.1\" to P05-034's boundary_evidence_refs array. Cure test: check_refs_mirror.py / citation_sweep.py boundary-disclosure-symmetry check must pass clean -- the same check that surfaces this gap.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c08",
+   "row_id": "P05-034",
+   "source": "OL",
+   "challenge_claim": "The row's assertion that \"10:31 and 10:32 both end on\" תהפכות is byte-false for 10:31: its actual final word is תכרת, with תהפכות as the construct-chain noun before it.",
+   "ruling": "uphold",
+   "grounds": "Word-split of oshb bytes for 10:31 (7 words) gives final word תִּכָּרֵֽת (\"will be cut off\"), with תַּ֝הְפֻּכ֗וֹת sitting at word 6 of 7, construct-medial before that closing verb. 10:32 (7 words) genuinely ends on תַּהְפֻּכֽוֹת (word 7 of 7). Re-ran the skeleton sweep of תהפכות: 9 verses book-wide (Prov.2.12, 2.14, 6.14, 8.13, 10.31, 10.32, 16.28, 16.30, 23.33), with 10:31-10:32 the sweep's only adjacent pair, and the verse-initial opener parallel פי צדיק / שפתי צדיק confirmed at word-initial position -- so the cluster's headline cohesion argument survives untouched; only the 'both end on' phrasing overstates the parallel for 10:31. Distinct from this row's other (LF) item: that one is a citation-completeness gap, this one is a word-position accuracy error in the rationale itself -- two different defect objects on the same row, not a duplicate.",
+   "remedy": "Rewrite the rationale/observed_substrate_signals sentence to state that תהפכות is 10:32's final word and 10:31's construct-medial noun (word 6 of 7), not 10:31's own closing word. Cure test: a word-index byte check (collate.py byte tier + explicit split) against both verses' final tokens must pass -- the same check that surfaces this defect.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c08",
+   "row_id": "P05-039",
+   "source": "both",
+   "challenge_claim": "The row's claim that 11:5 and 11:6 share a verb construction with a third-person-plural (3mp) object suffix, run consecutively across both verses, is byte-false for 11:5, which is grammatically singular throughout.",
+   "ruling": "uphold",
+   "grounds": "Word-level check of oshb bytes: 11:5's guidance verb תְּיַשֵּׁ֣ר carries NO pronominal suffix at all; its object is the separate noun דַּרְכּ֑וֹ (\"his way\"), which carries a 3ms suffix agreeing with the singular referent (\"the blameless one\"); the parallel verb יִפֹּ֥ל (\"he falls\") is likewise 3ms. Only 11:6 is genuinely plural: תַּצִּילֵ֑ם (\"delivers THEM\") carries a real 3mp object suffix, and יִלָּכֵֽדוּ (\"they are trapped\") is 3mp, both agreeing with the plural referents. LF and OL independently converge on this SAME defect (LF via the דרכו/יפל forms, OL via the more precise point that תישר itself takes no suffix at all) -- merged into one ruling, source 'both'. The headline cluster evidence is untouched: re-ran the skeleton sweep of צדקת and reconfirmed exactly 2 verses book-wide, both this adjacent pair -- the exclusive construct-opener grounds stand on their own without the suffix claim.",
+   "remedy": "Replace the 'shared...3mp-suffix...run consecutively' clause in rationale and observed_substrate_signals with an accurate description: 11:5 is singular (bare verb + 3ms-suffixed object, 3ms parallel verb); 11:6 is plural (3mp-suffixed verb, 3mp parallel verb). The shared ground is the exclusive construct-opener (צדקת, 2 verses book-wide) plus a vice-triggered-downfall template, not person/number uniformity. Cure test: a targeted morphological byte-check of the four cited verb/suffix forms must pass before the row ships.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c08",
+   "row_id": "P05-040",
+   "source": "LF",
+   "challenge_claim": "rejected_alternative repeats the same inaccurate '3mp-suffix' characterization of 11:5-11:6 used to justify 11:7's exclusion.",
+   "ruling": "uphold",
+   "grounds": "Byte check of P05-040's own rejected_alternative field (draft_rows_combined.jsonl, quoted verbatim): \"this verse drops the צדקת-opening (oshb:Prov.11.6) construction and the 3mp-suffix verb pattern that binds 11:5-11:6 together\" -- this repeats the same false premise ruled defective at P05-039 (11:5 is not 3mp; see that ruling). The row's OPERATIVE boundary call (11:7 excluded because it lacks the צדקת-opening) is independently sound and does not depend on the suffix claim. OL reviewed and supported this row (verdict: support) without flagging the repetition -- OL's own note addresses an unrelated point (the אונים paraphrase) and explicitly clears it as not translation-drift; this is incomplete OL coverage, not a primaries' disagreement on substance.",
+   "remedy": "SEAM-PAIR CURE with the P05-039 fix (Job lesson a): author the corrected wording once and install in both rows. Replace '3mp-suffix verb pattern that binds 11:5-11:6 together' with 'the shared צדקת-opening construction that groups 11:5-11:6.' Cure test: same targeted morphological byte-check as P05-039's remedy, applied to this row's rejected_alternative clause.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c08",
+   "row_id": "P05-041",
+   "source": "both",
+   "challenge_claim": "11:8 and 11:9 share the book's sole occurrence of the root חלץ (Niphal, \"delivered\"), applied to the righteous in both verses; the row's rejected_alternative wrongly states 11:9 'finds nothing to match' 11:8.",
+   "ruling": "uphold",
+   "grounds": "RE-DERIVED independently per the adjudication note, not trusted from the packets. Object swept: root occurrences of חלץ, allography-aware (final-tsade and medial-tsade spellings, since the root's only allographic letter is its final צ/ץ). sweep.py --skel חלץ (final-tsade, word-final position) = exactly 1 hit, Prov.11.8 (נֶחֱלָ֑ץ). sweep.py --skel חלצ (medial-tsade, required because 11:9's form is not word-final) = exactly 1 hit, Prov.11.9 (יֵחָלֵֽצוּ). Combined allography-aware total: the root occurs in exactly 2 verses book-wide, both halves of this row's own seam, both Niphal, both predicated of the righteous (צדיק/צדיקים). This matches and upholds LF's and OL's claim exactly. P05-041's own rejected_alternative (quoted verbatim from draft_rows_combined.jsonl): \"No pairing is drawn with 11:9: this verse's trouble/substitution pair finds nothing to match it in that verse's mouth/knowledge contrast\" -- byte-false given the shared-root finding. This exclusivity (1+1=2 total) is rarer than the sweep grounds this same writer wave treated as decisive for the 10:31-10:32 (תהפכות=9 verses) and 11:5-11:6 (צדקת=2 verses) cluster calls in this same part, yet it is undisclosed and actively denied here. LF and OL raise the SAME defect (same object, same 1+1 sweep) -- merged, source 'both'.",
+   "remedy": "SEAM-PAIR CURE (Job lesson a): author the fix once, install identically on P05-041 and P05-042. For P05-041: rewrite rejected_alternative to disclose and correctly characterize the חלץ link rather than deny it -- e.g., state that 11:9 shares the book's only other occurrence of the root (Niphal, applied to the righteous) with this verse, while still arguing image divergence (substitution vs. mouth/knowledge) if the row maintains separate rows. Cure test: observed_substrate_signals must carry the digit-bearing, allography-aware root-sweep citation (1+1=2) per the book's universal-claim-needs-a-sweep-digit discipline -- the same check that exposed this gap. GRANULARITY FLAG (boss-adoption proposal only, NOT a peer ruling): whether this root-exclusivity meets the §6 cluster bar (re-classifying 11:8-11:9 as proverb_cluster) is a genuinely closer call than the accepted 10:31-32/11:5-6 clusters, since 11:8 and 11:9's own images remain distinct (substitution vs. mouth/knowledge) unlike those pairs' shared construction runs. Flagged for the boss round; not decided here.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c08",
+   "row_id": "P05-042",
+   "source": "both",
+   "challenge_claim": "11:9's separation from 11:8 omits the same book-unique חלץ root link; the row's rejected_alternative addresses only the weaker forward neighbor 11:10, never engaging the row's own cited 11:8.",
+   "ruling": "uphold",
+   "grounds": "Same re-derived allography-aware root sweep as P05-041 (1+1=2 verses total, exclusive to 11:8/11:9). P05-042's own boundary_evidence_refs (quoted verbatim) = [\"web:Prov.11.8\", \"web:Prov.11.10\"] -- 11:8 IS cited as a neighbor. But rejected_alternative (quoted verbatim) reads: \"No cluster is drawn with 11:10: its city/shouting imagery draws on a different vocabulary than this verse's mouth/knowledge pair\" -- engaging ONLY 11:10, never 11:8 at all. Re-verified the comparison sweep implicit in the 11:10 rival: skeleton sweep of צדיקים (the plural shared with 11:10) = 23 verses book-wide -- a common, non-diagnostic plural, confirming 11:10 is genuinely the weaker rival while 11:8 (via the exclusive root) is the real one and goes undiscussed. LF and OL raise the SAME underlying fact (undisclosed root exclusivity across the 11:8|11:9 seam) as at P05-041, but it is a MIRROR defect, not a duplicate: 041's rejected_alternative wrongly DENIES the link while discussing the correct neighbor (11:9); 042's rejected_alternative never DISCUSSES the correct neighbor (11:8) at all, defending only against the weaker 11:10 rival instead.",
+   "remedy": "SEAM-PAIR CURE, same authored fix as P05-041's remedy, installed here: rewrite rejected_alternative to engage the row's own cited 11:8 neighbor directly -- disclose the root exclusivity (1+1=2, allography-aware) and explain the continued image-based split (mouth/knowledge vs. substitution) if maintained, rather than defending solely against 11:10. Cure test: same digit-bearing sweep citation requirement as P05-041, PLUS explicit engagement with every neighbor already named in the row's own boundary_evidence_refs (check_refs_mirror.py argued-boundary disclosure symmetry). GRANULARITY FLAG: same boss-adoption-only note as P05-041 -- cluster candidacy at 11:8-11:9 is not decided here.",
+   "severity_final": "high"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P05-031",
+   "claim_checked": "LF/OL's shared-token dismissal rests on רשעים (\"the wicked\") sweeping to 42 verses book-wide (skeleton tier), too common to carry diagnostic cohesion weight against 10:27.",
+   "result": "verified",
+   "notes": "Independently re-ran sweep.py --skel רשעים: 42 verses book-wide, exact match to both packets' cited digit."
+  },
+  {
+   "row_id": "P05-035",
+   "claim_checked": "10:32's bare רצון (word 4/7, non-final) and 11:1's suffixed רצונו (word 7/7, final) are not the same skeleton token, and the two spellings total 8 (bare, excl. 11:1) + 6 (suffixed, incl. 11:1) = 14 verses book-wide with no shared construction, so no undisclosed cohesion crosses the 10:32|11:1 seam.",
+   "result": "verified",
+   "notes": "Re-ran both sweeps independently: skel רצון = 8 verses (list excludes Prov.11.1); skel רצונו = 6 verses (list includes Prov.11.1 as the only occurrence in this chapter). Word-split confirmed 10:32's form (רָצ֑וֹן) and 11:1's form (רְצוֹנֽוֹ) are byte-distinct (final-nun vs. medial-nun+vav allography)."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 6,
+  "uphold": 6,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0,
+  "raw_challenge_items_covered": 9,
+  "convergence_merges": 3,
+  "convergence_note": "9 raw challenge items across the two packets (LF:5, OL:4) resolve to 6 ruling entries: P05-039, P05-041, and P05-042 each carry the SAME defect independently raised by both LF and OL and are merged into one entry (source 'both') per brief instruction 4; P05-034 carries two DISTINCT defects (one per primary) and remains two entries; P05-040 was raised only by LF (OL supported). All 9 raw items were individually re-derived and adjudicated; none were skipped. Output entry count (6) is within the <=8 cap without needing to defer any row."
+ }
+}

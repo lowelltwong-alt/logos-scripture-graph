@@ -1,0 +1,108 @@
+{
+ "attempt_id": "peer_c10_r1",
+ "role": "peer",
+ "clusters": [
+  "c10"
+ ],
+ "rulings": [
+  {
+   "cluster": "c10",
+   "row_id": "P05-063",
+   "source": "OL",
+   "challenge_claim": "The rejected_alternative's claim that 11:30 shares no wording with 11:31 is byte-false, and the row's only Hebrew quotation is unpointed/unlabeled as skeleton tier.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation (verse_map_oshb.json, spliced not retyped): Prov.11.30 and Prov.11.31 share the byte-identical accented token צַ֭דִּיק (righteous) -- exact match down to the cantillation mark, confirmed by direct token-set intersection between the two verses. The row's rejected_alternative sentence ('shares no wording with this verse's a-fortiori repayment argument') is therefore byte-false, not merely undisclosed. LF's own support review independently names this same token ('the only token 11:31 shares with 11:30 is the ubiquitous tsaddiq') yet filed 'support' without flagging that the row's own text asserts zero shared wording -- LF's cited evidence corroborates OL's challenge rather than contradicting it. Re-collated the row's own quote via collate.py --json (byte tier is the only quotation-grade tier for pointed text): result tier=skeleton, status GREEN but not byte -- the quote is unpointed, matching OL's claim. OBJECT-not-DIGIT check on OL's own supporting count: independently reswept book-wide occurrences of this exact word-form at four tiers (never through a shell, to avoid the accent-loss hazard) -- byte-identical accented token (this exact cantillation): 12 verses; accent-stripped word-bound (any cantillation, same vowels): 31; skeleton word-bound (singular form only): 34; skeleton contiguous substring (root, any inflection): 66. OL's cited '~66' (skeleton) matches exactly; OL's cited '17' does not match any of these four tiers and appears to be an inexact supporting digit -- this does not change the core finding, which rests on the exact-token intersection, not the book-wide count.",
+   "remedy": "Rewrite rejected_alternative to disclose and downweight the shared tsadiq token as ordinary collection-wide vocabulary -- the same move already used successfully in this cluster's own P06-005/P06-007 rows for their shared resha'im term -- rather than asserting zero shared wording. Separately, replace the unpointed quote with the fully pointed bytes spliced from verse_map_oshb.json (oshb:Prov.11.31) or explicitly label the existing quote 'skeleton tier.' Test: re-run collate.py on the corrected quote and confirm tier=byte; confirm the corrected rejected_alternative no longer claims zero shared wording where a token-intersection check is positive.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-003",
+   "source": "LF",
+   "challenge_claim": "The row's rejected_alternative misdescribes which neighboring verse carries which content and in which direction (crown/rot vs counsel).",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation (verse_map_oshb.json): oshb:Prov.12.2 (the verse actually BEFORE 12:3) reads 'tov yafiq ratson me-YHWH ve-ish mezimmot yarshia' -- favor-from-Yahweh and a wicked man's mezimmot (schemes/plans), no 'counsel' (etsah) content. oshb:Prov.12.4 (the verse actually AFTER 12:3) carries the crown/rot imagery (eshet chayil ateret ba'alah / u-kh'raqav be-atsmotav). The row's rejected_alternative calls the crown/rot imagery 'the verse before it' (it is the verse after) and posits an unidentified 'counsel verse after it' that does not exist -- no verse adjacent to 12:3 in either direction carries counsel/etsah content. Both clauses of the rejected_alternative are confirmed wrong on both direction and content. This is a convergence row with OL (below); the two challenges are DISTINCT defects -- LF's is a content/direction-accuracy error in the row's own auxiliary field, OL's is a citation-engagement gap -- not the same defect.",
+   "remedy": "Rewrite rejected_alternative to correctly name 12:4 as the verse AFTER 12:3 (crown/rot imagery) and either drop the fabricated 'counsel verse after it' clause entirely or correctly attribute 12:2 (favor/wicked-mezimmot content, not counsel) as the verse BEFORE. Test: before shipping, confirm both named neighbor refs resolve to the correct oshb content and correct before/after position relative to the row's own span.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-003",
+   "source": "OL",
+   "challenge_claim": "The two-negator/adversative-waw construction claim is byte-accurate, but the row quotes no Hebrew for a boundary-relevant original-language claim.",
+   "ruling": "uphold",
+   "grounds": "Programmatic sweep of every string field in the row (Hebrew Unicode block U+0590-05FF) finds zero Hebrew characters anywhere in P06-003 -- confirmed defect, not a citation-tier mislabel. The underlying claim is independently byte-true when checked directly against oshb:Prov.12.3: A-colon opens לֹא (the ordinary negator); B-colon closes with בַּל before the verb (the rarer poetic negator). Book_strategy Section 8 requires quoting the original language for every boundary-relevant original-language claim; none is quoted here. This is the same engagement-class defect found across five rows in this cluster (see P06-005, P06-007, P06-015 below, and the deferred P06-016) -- convergent with c01's transliteration-only pattern and c09's unlabeled-skeleton pattern per the assignment note.",
+   "remedy": "CLASS-LEVEL CURE, not a per-row patch: fold into a single p05-p07 sentence-core Hebrew-engagement sweep across every row lacking a quoted Hebrew boundary claim -- splice the relevant pointed colon-openers from verse_map_oshb.json into observed_substrate_signals with the tier (byte) labeled, then re-collate every touched row with collate.py. For this row specifically the sweep would splice the A-colon and B-colon opening tokens shown above.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-005",
+   "source": "OL",
+   "challenge_claim": "The asyndeton claim is byte-confirmed and the shared-vocabulary disclosure is honest, but the row supplies no Hebrew quotation.",
+   "ruling": "uphold",
+   "grounds": "Zero Hebrew characters found anywhere in P06-005 (programmatic sweep). Underlying claim independently re-verified against oshb:Prov.12.4-12.7: the B-colon opener at 12:5 carries no waw prefix, while the B-colon openers at the immediately adjacent verses 12:4, 12:6, and 12:7 are all waw-initial -- the asyndeton and 'unlike the surrounding verses' framing both hold. Same engagement-class defect as P06-003.",
+   "remedy": "CLASS-LEVEL CURE (see P06-003 remedy) -- not a per-row patch.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-006",
+   "source": "OL",
+   "challenge_claim": "The divrei header-vs-construct argument is well-grounded, but the row fails to disclose that its own headword resha'im recurs in both immediate neighbors, breaking cross-seam disclosure symmetry.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation confirms the pointed token רְשָׁעִ֣ים opening the A-colon of 12:6 is byte-identical (cantillation included) to the tokens in 12:5 (רְשָׁעִ֣ים) and 12:7 (רְשָׁעִ֣ים) -- 16 book-wide occurrences of this exact accented form, including this consecutive 12:5-12:6-12:7 run. Sibling rows P06-005 and P06-007 both name and downweight this exact chain as ordinary collection-wide vocabulary; P06-006's own rationale and rejected_alternative never mention that its own opening-colon noun participates in the identical chain -- a real asymmetric-disclosure gap under the TOOLKIT's CROSS-SEAM COHESION rule ('a byte-true device straddling the row's own seam argues continuity against the row unless disclosed') and the campaign's SYMMETRY-completion rule ('a SWEEP, not a spot fix'). Independently reconfirmed the divrei argument itself is sound and unaffected: prov_device_inventory.json collection_seams.divrei_verse_initial lists exactly 5 refs (12:6, 18:8, 26:22, 30:1, 31:1), of which only 30:1 and 31:1 appear among the true collection headers; contiguous-substring sweep of the divrei root returns 19 book-wide occurrences, matching both the row's own count and book_strategy Section 2a. Zero Hebrew characters found in the row (secondary, class-level defect, folded into the class cure).",
+   "remedy": "Add one disclosure sentence to rejected_alternative or device_notes naming resha'im as the row's own opening-colon noun, recurring identically (byte-exact accented form, 16 book-wide) in the immediately adjacent 12:5 and 12:7, downweighted as ordinary collection-wide vocabulary -- mirroring the language sibling rows P06-005/P06-007 already use. Fold the missing Hebrew quotation into the class-level cure (see P06-003). Test: a symmetry sweep across 12:5/12:6/12:7 confirming all three rows now disclose the shared token identically (same object, same downweighting language).",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-007",
+   "source": "OL",
+   "challenge_claim": "The two-predicate-vs-one-verb colon asymmetry is byte-accurate and the shared resha'im vocabulary is properly disclosed, but the row quotes no Hebrew.",
+   "ruling": "uphold",
+   "grounds": "Zero Hebrew characters found anywhere in P06-007. Underlying claim independently re-verified against oshb:Prov.12.7: A-colon carries two predicative elements (hafokh ... ve-einam) before the B-colon's single finite verb (ya'amod) following the waw. Same engagement-class defect as P06-003/P06-005.",
+   "remedy": "CLASS-LEVEL CURE (see P06-003 remedy) -- not a per-row patch.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-013",
+   "source": "OL",
+   "challenge_claim": "The B-colon's opening waw at 12:13 is mislabeled -- a vav-consecutive (wayyiqtol) verb form, not the simple conjunctive waw the row's own device_notes equates it with across the cluster -- and the claim that 12:14 'lacks an adversative waw altogether' is byte-false.",
+   "ruling": "refine",
+   "grounds": "Independently re-derived the waw morphology from the pointed bytes before ruling (per assignment instruction), rather than trusting either packet's grammar claim. The 12:13 B-colon opener וַיֵּצֵ֖א is vav + patach + dagesh-forte-in-the-next-consonant + tsere -- the diagnostic wayyiqtol/vav-consecutive shape on a finite prefix-conjugation verb. By contrast the B-colon openers cited across this cluster's sibling rows are all simple conjunctive waw on a NON-finite head, with no possible consecution: 12:3 וְשֹׁ֥רֶשׁ (vav+shva on the noun 'root'), 12:6 וּפִ֥י (vav+shuruq, the regular pointing before a labial, on the noun 'mouth-of'), 12:7 וּבֵ֖ית (vav+shuruq before a labial, on the noun 'house-of'), 12:15 וְשֹׁמֵ֖עַ (vav+shva on the participle 'hearing'), 12:16 וְכֹסֶ֖ה (vav+shva on the participle 'concealing'). P06-013's own observed_substrate_signals text ('the B-colon's opening waw carries the adversative turn') applies the identical 'adversative waw' framing to this genuinely different construction -- UPHELD: this is a real, well-grounded grammatical conflation, structurally significant because the same unexamined label recurs across five-plus rows in this cluster. On the second sub-claim: 12:14's B-colon opener וּגְמ֥וּל is confirmed waw-prefixed -- a waw IS present, so a literal 'has no waw at all' reading is byte-false as OL states. But the row's actual phrase is 'lacks an adversative waw altogether,' which most naturally parses as 'lacks the adversative FORCE of a waw' (the whole phrase 'an adversative waw' as the missing object), not 'lacks any waw whatsoever' -- and under that reading the claim holds: the waw is present but non-adversative/continuative, since 12:14 is a synonymous rather than antithetic couplet (LF's own review reaches the identical grammatical conclusion: 'its own waw (u-gmul) is non-adversative since 12:14 is synthetic rather than antithetic'). REFINED: this sub-claim is a real but narrower defect -- ambiguous phrasing that risks a false reading -- not the clean byte-falsehood OL frames it as; it should not carry the same weight as the morphology-conflation finding.",
+   "remedy": "(1) Split the 'adversative waw' label at 12:13 into an explicit vav-consecutive/wayyiqtol tag, distinct from the simple-conjunctive tag correctly used at 12:3/12:6/12:7/12:15/12:16 -- do not fold both under one gloss in device_notes or observed_substrate_signals. (2) Reword the 12:14 rejected_alternative clause from the ambiguous 'lacks an adversative waw altogether' to an unambiguous statement, e.g.: a waw is present but its force is continuative rather than adversative, because 12:14 is a synonymous, not antithetic, couplet. Test (the test that must be passed): re-derive every B-colon opener's pointed bytes in this construction-run and confirm the vav-consecutive tag is applied ONLY where a patach-vocalized, dagesh-forte-bearing waw precedes a finite prefix-conjugation verb; confirm the reworded 12:14 sentence affirms waw-presence rather than negating it.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c10",
+   "row_id": "P06-015",
+   "source": "OL",
+   "challenge_claim": "The self-assessment-vs-hearing antithesis is byte-accurate and the shared fool-noun with 12:16 is properly disclosed, but the row quotes no Hebrew.",
+   "ruling": "uphold",
+   "grounds": "Zero Hebrew characters found anywhere in P06-015. Underlying claim independently re-verified against oshb:Prov.12.15: the A-colon (derekh evil yashar be-eynav) contains no token from the sh-m-a (hearing) root; the B-colon's opening word וְשֹׁמֵ֖עַ is the sole hearing-related lexeme in the verse, confined to the B-colon exactly as the row claims. (This row also served as the cluster's supported-row sample -- see supported_sample.) Same engagement-class defect as P06-003/P06-005/P06-007.",
+   "remedy": "CLASS-LEVEL CURE (see P06-003 remedy) -- not a per-row patch.",
+   "severity_final": "low"
+  }
+ ],
+ "deferred_row_ids": [
+  "P06-016"
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P06-015",
+   "claim_checked": "The B-colon alone supplies a hearing-verb/participle (ve-shomea) while the A-colon carries no hearing-root token.",
+   "result": "verified",
+   "notes": "Re-derived directly from oshb:Prov.12.15 tokens (spliced from verse_map_oshb.json, never retyped): A-colon 'derekh evil yashar be-eynav' contains zero sh-m-a-root tokens; the B-colon's opening word is the sole sh-m-a-root form in the verse. CLUSTER CAVEAT: OL's packet challenged all 8 rows in c10 (0 challenges resolved to a clean OL support), so no row in this cluster satisfies a literal 'both primaries supported' reading. P06-015 is the closest available proxy: LF supported it outright, and OL's own challenge text explicitly affirms this exact substantive claim as byte-accurate ('the hearing-participle is confined to the B-colon exactly as claimed') while objecting only to the citation-engagement gap (no Hebrew quoted), which is adjudicated separately above."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 7,
+  "refine": 1,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

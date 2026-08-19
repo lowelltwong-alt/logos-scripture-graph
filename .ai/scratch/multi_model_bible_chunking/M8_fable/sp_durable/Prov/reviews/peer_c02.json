@@ -1,0 +1,65 @@
+{
+ "attempt_id": "peer_c02_r1",
+ "role": "peer",
+ "clusters": [
+  "c02"
+ ],
+ "rulings": [
+  {
+   "cluster": "c02",
+   "row_id": "P01-005",
+   "source": "OL",
+   "challenge_claim": "the row's claim that Wisdom's first-person reproach “beginning web:Prov.1.22” outruns the Hebrew grammar: 1:22's verbs are 2nd/3rd person, and the first genuine 1st-person verbs sit one verse later at 1:23.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, re-spliced from verse_map_oshb.json (LF's own support verdict did not catch this). oshb:Prov.1.22's three finite verbs are תְּֽאֵהֲב֫וּ (2mp, \"you(pl) will love\"), חָמְד֣וּ (3cp, \"they desired\"), and יִשְׂנְאוּ (3cp, \"they hate\") -- none first person. The first self-reference verbs are אַבִּ֣יעָה (\"I will pour out\") and אוֹדִ֖יעָה (\"I will make known\"), both 1cs cohortative, at oshb:Prov.1.23, one verse later. WEB opens its quotation mark at 1:22 (a translation/editorial signal), but the Hebrew person-shift is confirmed at 1:23, not 1:22.",
+   "remedy": "In rationale and observed_substrate_signals, change the first-person-reproach onset from web:Prov.1.22 to web:Prov.1.23, and describe 1:22 as the still-2nd/3rd-person indictment that precedes the grammatical person-shift, distinguishing WEB's curly-quote placement (Tier-4-adjacent editorial signal) from the Hebrew seam. Test the cure must pass: byte-level verb-person read at 1:22 vs 1:23 (as run here). The poem's outer boundary (Prov.1.20-Prov.1.33, petuchah-bounded at both ends) is unaffected -- this is an internal-texture remedy, not a boundary change.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c02",
+   "row_id": "P01-006",
+   "source": "LF",
+   "challenge_claim": "the row's “fourfold protasis running through Prov.2.4” overstates the count: WEB glosses 2:2 as a purpose clause, not a fourth \"if\", so the byte-grounded structure is three protases plus one dependent infinitive clause.",
+   "ruling": "uphold",
+   "grounds": "Byte tier, re-spliced from verse_map_oshb.json (OL's own support verdict did not catch this). oshb:Prov.2.1 opens אִם (\"if\"); oshb:Prov.2.2 opens with the bare infinitive לְהַקְשִׁ֣יב (\"to turn attentively\") -- no conditional particle; oshb:Prov.2.3 opens כִּ֤י אִ֣ם (\"yes, if\"); oshb:Prov.2.4 opens אִם (\"if\"). WEB's own gloss at web:Prov.2.2 (\"so as to turn your ear...\") carries no \"if\" either. Three protases (2:1, 2:3, 2:4) plus one purpose-infinitive clause (2:2), not four parallel conditionals.",
+   "remedy": "Correct “fourfold protasis running Prov.2.1-Prov.2.4” to “three protases (2.1, 2.3, 2.4) plus one purpose-infinitive clause (2.2)” in rationale and observed_substrate_signals. Test the cure must pass: byte check of each verse's opening token (as run here). The row's outer boundary (Prov.2.1-Prov.2.22 as one row, on the single vocative firing once and the chapter's one-long-sentence grammar) is unaffected -- this is an internal-texture remedy, not a boundary change.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c02",
+   "row_id": "P02-001",
+   "source": "both",
+   "challenge_claim": "LF and OL both charge: (a) the row's “bni_address inventory: 17 tokens book-wide” cites the stale pre-E-1 figure; (b) the row's boundary-driving claim that couplets from 3:5 “each name אֶל directly” is byte-false. LF additionally and independently charges (c) Prov.4.10 is wrongly counted among the part's verse-initial address slots -- its first word is the imperative שְׁמַ֣ע, with בְּ֭נִי only the second token.",
+   "ruling": "uphold",
+   "grounds": "All three defects independently re-derived from bytes; LF and OL converge on (a) and (b), LF alone raises (c) (OL does not mention Prov.4.10 at all) -- a distinct, additional defect within the same row, not a duplicate. (a) prov_device_inventory.json's bni_address object gives count=22 (E-1 corrected); the row's cited “17” is the stale pre-correction figure. (b) A word-bound accent_stripped sweep of the exact token אֶל (spliced from oshb:Prov.3.5) across all 915 verses returns 16 verses word-bound (17 at sweep.py's own byte-substring tier, which also catches one contained-substring false positive at Prov.19.18 that is not word-bound -- exactly the hazard-catalog short-token trap). Restricted to the row's own Prov.3.1-Prov.3.12 span, אֶל occurs ONLY at oshb:Prov.3.5 (['Prov.3.5']); it is never claimed to recur at 3.7/3.9/3.11/3.12 by the row's own byte citations (each anchored to oshb:Prov.3.5), but the prose does claim the couplets from 3.5 “each name” it, which is false for oshb:Prov.3.7 (opens אַל, the negative particle, then אֶת יְ֝הוָ֗ה, object-marker plus the divine name), oshb:Prov.3.9 (אֶת יְ֭הוָה, object marker plus the divine name), oshb:Prov.3.11 (מוּסַ֣ר יְ֭הוָה, bare construct chain, no particle at all, then אַל/וְאַל, the negative particle twice), and oshb:Prov.3.12 (אֶ֥ת ... יְהוָ֣ה ... אֶת, object marker occurring twice, not adjacent to the divine name in its first instance). A parallel word-bound accent_stripped sweep of יְ֭הוָה restricted to the same span hits exactly ['Prov.3.5', 'Prov.3.7', 'Prov.3.9', 'Prov.3.11', 'Prov.3.12'] -- the word genuinely present once in each of 3.5/3.7/3.9/3.11/3.12 is the divine name, absent from Prov.3.1-Prov.3.4 (which instead carries the distinct title אֱלֹהִ֣ים once, at oshb:Prov.3.4) -- the contrast the row wants IS real, just misnamed. (c) oshb:Prov.4.10 opens שְׁמַ֣ע (imperative) THEN בְּ֭נִי (vocative, second token) -- byte-identical construction to oshb:Prov.1.8 (שְׁמַ֣ע בְּ֭נִי) -- not a verse-initial vocative like oshb:Prov.3.1 (בְּ֭נִי...), oshb:Prov.3.21 (בְּ֭נִי...), and oshb:Prov.4.20 (בְּ֭נִי...), each of which opens directly on the vocative.",
+   "remedy": "(1) Replace the naming claim throughout rationale, boundary_evidence_refs, rejected_alternative, and observed_substrate_signals: Prov.3.1-Prov.3.4 never carries the divine name (it carries אֱלֹהִ֣ים once, at 3.4), while the couplets from 3.5 each carry the divine name once (cite oshb:Prov.3.5's own divine-name token, not the אֶל token). (2) Correct “bni_address inventory: 17 tokens book-wide” to 22 (cite prov_device_inventory.json bni_address.count, E-1 corrected). (3) Remove Prov.4.10 from “the four verse-initial address slots” or reframe the claim's object as “bni_address occurrences within the part” rather than “verse-initial slots” -- 4.10's vocative is not verse-initial. Test the cure must pass: byte read of the opening token at each cited verse (as run here) plus the word-bound accent_stripped divine-name sweep restricted to Prov.3.1-Prov.3.12. The row's own boundary (3.1-3.4, ending before the petuchah at 3.4) is NOT disturbed by any of the three fixes -- it is, if anything, better supported on the corrected evidence than on the false one -- so this is a citation remedy, not a boundary-change proposal.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c02",
+   "row_id": "P02-002",
+   "source": "both",
+   "challenge_claim": "the row's “five אֶל tokens across the row's eight verses” at 3.5/3.7/3.9/3.11/3.12 is byte-false and conflates three distinct Hebrew words; the word that genuinely recurs at exactly those five verses is the divine name.",
+   "ruling": "uphold",
+   "grounds": "Same core defect as P02-001, same finding by both primaries -- OL's account is marginally more precise about oshb:Prov.3.11's construct-state syntax (no particle at all directly before the divine name there), confirmed independently. Re-spliced Prov.3.5/3.7/3.9/3.11/3.12 from verse_map_oshb.json: 3.5 carries אֶל twice (אֶל, וְאֶל) plus אַל once at the verse's end; 3.7 opens אַל (negative particle) then later אֶת יְ֝הוָ֗ה (object marker plus divine name); 3.9 has אֶת יְ֭הוָה (object marker plus divine name); 3.11 opens מוּסַ֣ר יְ֭הוָה (construct chain, no particle) then אַל/וְאַל (negative particle x2); 3.12 has אֶ֥ת ... יְהוָ֣ה ... אֶת (object marker twice, not adjacent to the divine name in its first instance). A word-bound accent_stripped sweep of אֶל restricted to Prov.3.1-Prov.3.12 hits ONLY oshb:Prov.3.5. A parallel sweep of יְ֭הוָה restricted to the same span hits exactly ['Prov.3.5', 'Prov.3.7', 'Prov.3.9', 'Prov.3.11', 'Prov.3.12'] and no other verse in the range -- one token each, confirming the row's central naming-density claim is real but names the wrong word. The row's internal-petuchah argument (the 3.10 mark falls mid-unit because ‘both’ flanking couplets ‘name אֶל’) is re-checked on the corrected token: the couplet before the mark (3.9-3.10) carries the divine name in 3.9, and the couplet after (3.11-3.12) carries it in BOTH 3.11 and 3.12 -- the corrected naming pattern still spans the internal petuchah on both sides, so the row's ‘mid-unit, not an edge’ conclusion SURVIVES on the corrected evidence, even though it does not survive on the false אֶל citation the row actually gives.",
+   "remedy": "Replace “אֶל (oshb:Prov.3.5) named in 3.5, 3.7, 3.9, 3.11, 3.12 (5 tokens across the row's 8 verses)” with the byte-true claim: the divine name is named once each in 3.5, 3.7, 3.9, 3.11, 3.12 (5 tokens across the row's 8 verses; word-bound accent_stripped sweep restricted to the row's own span), absent from 3.6, 3.8, 3.10. Correct the internal-petuchah sentence to read that the honor couplet (3.9-3.10) and discipline couplet (3.11-3.12) both carry the divine name rather than אֶל, so the 3.10 mark still falls inside one continuous naming unit, not at its edge. Test the cure must pass: byte read of the divine-name token at each of the five cited verses, restricted to the row's own Prov.3.5-Prov.3.12 span (as run here). The row's own boundary decision (keep 3.5-3.12 as one row; treat the 3.10 petuchah as internal) is NOT disturbed -- it survives on corrected evidence -- so this is a citation remedy, not a boundary-change proposal requiring boss adoption.",
+   "severity_final": "high"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P01-001",
+   "claim_checked": "the skeleton word pair closing the motto (web:Prov.1.7) repeats the purpose clause's own object skeleton from oshb:Prov.1.2, bracketing the title-plus-motto unit; OL's evidence digitizes this as a 3-verse book-wide skeleton recurrence (1.2, 1.7, plus one unrelated hit at 23.23).",
+   "result": "verified",
+   "notes": "Independently spliced the two-word skeleton phrase (חכמה ומוסר) directly from oshb:Prov.1.7's own bytes (words at index 4-5) and swept it against every verse in verse_map_oshb.json; got exactly ['Prov.1.2', 'Prov.1.7', 'Prov.23.23'] -- matches OL's cited digit (3) and refs exactly. LF's parallel claim (undigitized in LF's own evidence field) is consistent with this independent re-derivation."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 4,
+  "uphold": 4,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

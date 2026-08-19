@@ -1,0 +1,98 @@
+{
+ "attempt_id": "peer_c11_r1",
+ "role": "peer",
+ "clusters": [
+  "c11"
+ ],
+ "rulings": [
+  {
+   "cluster": "c11",
+   "row_id": "P06-018",
+   "source": "LF",
+   "challenge_claim": "The disclosed tongue-noun catchword omits a cross-seam root-tie linking 12:19 back to 12:17 via the falsehood/deceit root (shared with sheqer), and the rationale's \"close on\" wording overstates the tongue-noun's position in both verses.",
+   "ruling": "uphold",
+   "grounds": "Byte word-split of oshb:Prov.12.19 (8 words) and oshb:Prov.12.18 (7 words) confirms the tongue-noun (וּלְשׁ֖וֹן / לְשׁ֣וֹן) is the PENULTIMATE word in both verses, not the final one -- 12:18 closes on מַרְפֵּֽא (healing) and 12:19 closes on שָֽׁקֶר (falsehood); the row's rationale phrase \"close on\" overstates a verse-final position the bytes do not support (skeleton tier: tongue-token confirmed via consonantal_index.json). Separately, sweep.py --skel on the falsehood root returns Prov.12.17 (שְׁקָרִ֣ים, plural) and Prov.12.19 (שָֽׁקֶר, singular) as two of its 20 book-wide hits, both inside chapter 12 -- a genuine same-root tie between 12:19 and 12:17, the verse immediately preceding this row's own span (Prov.12.18-Prov.12.19). Per the campaign's cross-seam-cohesion rule, a byte-true device straddling the row's own start-seam argues continuity against the row unless disclosed; neither device_notes nor observed_substrate_signals discloses it.",
+   "remedy": "Field device_notes/observed_substrate_signals: (1) correct \"close on\" to state the tongue-noun's actual position (second-to-last word in both cola, not verse-final); (2) add disclosure of the falsehood-root tie between 12:19's שָֽׁקֶר and 12:17's שְׁקָרִ֣ים (sweep.py --skel, root shared, 12:17 immediately precedes the row's span) and state explicitly why the row's atomic-cluster boundary still holds despite it (e.g., 12:17 is itself a complete antithetic sentence with its own subject, distinct from 12:18-12:19's tongue-pair). Test the cure must pass: sweep.py --skel on the falsehood root reproduces both refs, and a fresh word-split of both verses confirms the tongue-noun's index position matches the corrected wording.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-018",
+   "source": "OL",
+   "challenge_claim": "device_notes misreports the sword-root sweep as the chapter's five sword-class occurrences of the sword-noun -- wrong on both scope (book vs. chapter) and count (sword-class vs. the dry-morsel homograph).",
+   "ruling": "uphold",
+   "grounds": "Re-run of sweep.py --skel on the sword root returns exactly 5 verses BOOK-WIDE: Prov.5.4, Prov.12.18, Prov.17.1, Prov.25.18, Prov.30.14 -- chapter 12 alone contains only ONE occurrence (this verse, 12:18). Of those 5 book-wide hits, word-level byte splice confirms only 4 are sword-class (Prov.5.4, Prov.12.18, Prov.25.18, Prov.30.14, per the TOOLKIT sword/dry-morsel hazard entry); Prov.17.1's occurrence is the pointed dry-morsel homograph, a distinct object. The count object in the row's device_notes is therefore wrong twice over: the digit 5 is a BOOK-WIDE sword-root count, not a chapter-12 count (which is 1), and of the 5 book-wide hits only 4 are sword-CLASS -- the row's own text (\"five sword-class occurrences ... distinct from the dry-morsel homograph\") both misplaces the scope and, by excluding the homograph yet still claiming five, over-counts the sword class by one.",
+   "remedy": "Field device_notes: replace \"the chapter's five sword-class occurrences\" with the correctly named count object: the sword root occurs in 5 verses BOOK-WIDE (Prov.5.4, 12.18, 17.1, 25.18, 30.14); of these, 4 are SWORD-CLASS (5.4, 12.18, 25.18, 30.14) and 1 (17.1) is the dry-morsel homograph -- this verse's simile is one of the 4 book-wide sword-class occurrences, not one of a chapter-wide five. Test the cure must pass: sweep.py --skel on the sword root reproduces exactly these 5 refs, and chapter-12-only filtering of that output returns exactly 1 (this verse).",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-020",
+   "source": "both",
+   "challenge_claim": "observed_substrate_signals/rationale claim that 12:21's A- and B-cola \"pivot on the same evil-root noun ... in opposite grammatical roles\" is false -- the A-colon noun and the B-colon noun are unrelated Hebrew roots, not one lexeme in two roles (LF and OL independently derive the same underlying byte facts and both further identify that the row's rejected_alternative mislabels the verse's genuine catchword with 12:20).",
+   "ruling": "uphold",
+   "grounds": "SAME DEFECT, independently derived by both primaries. Byte word-split of oshb:Prov.12.21 (8 words) gives the A-colon noun as אָ֑וֶן (word 5, object of the negated verb) and the B-colon noun as רָֽע (word 8, verse-final, predicate after מָ֣לְאוּ \"are filled\") -- two distinct triliteral roots (aleph-vav-nun vs. resh-ayin), confirmed disjoint by sweep.py --skel: the first root returns 12 book-wide hits with Prov.12.21 as the only ch-12 hit; the second returns a much larger, non-overlapping set including Prov.12.12, 12.13, 12.20, 12.21, 12.26 in chapter 12. \"Same evil-root noun ... opposite grammatical roles\" does not survive a byte check and holds only under the shared English gloss \"evil\" (translation-dependent, per the adjudication brief). RE-DERIVED, CORRECTED byte fact (both packets converge on this, OL states it, LF's evidence independently reproduces the same word): oshb:Prov.12.20's A-colon closes at the etnahta caesura on חֹ֣רְשֵׁי רָ֑ע (\"רָ֑ע\" carrying the ETNAHTA accent, U+0591 -- the A-colon's end, NOT the verse's own final word, which is שִׂמְחָֽה); oshb:Prov.12.21's B-colon closes the WHOLE VERSE on the identical pointed noun רָֽע. This is a genuinely repeated exact noun (same consonants and vowel-pointing, qamats-resh-ayin) at a structurally parallel colon-final position in two adjacent verses -- a real cross-seam catchword between 12:20 and 12:21 that the row's rejected_alternative mislabels: it dismisses a pairing with 12:20 by citing \"the noun for deceit and evil-devising, a different sense-slot,\" which mischaracterizes the actual shared word (identical רָ֑ע/רָֽע, not the deceit-noun) and its sense (both occurrences mean \"evil\", not different sense-slots).",
+   "remedy": "Field observed_substrate_signals: remove/replace the bullet \"same evil-root noun in both cola, different grammatical roles\" -- no such intra-verse device exists (the two nouns are unrelated roots). Field rejected_alternative/device_notes: substitute the CORRECT byte evidence -- disclose that the exact pointed noun רָ֑ע/רָֽע (evil) recurs identically between 12:20's A-colon (חֹ֣רְשֵׁי רָ֑ע, \"devisers of evil\") and 12:21's B-colon/verse-end (מָ֣לְאוּ רָֽע, \"are filled with evil\"), a cross-seam catchword with the immediately preceding verse (outside this row's own single-verse span), and state explicitly why the atomic call still holds despite it (e.g., each verse remains an independently complete antithetic sentence with its own distinct subject). Test the cure must pass: collate.py byte tier on oshb:Prov.12.20 and oshb:Prov.12.21 must confirm identical pointed spelling of the recurring noun, and sweep.py --skel on the two original roots (aleph-vav-nun and resh-ayin) must reproduce disjoint hit sets, killing any restated \"same root\" claim.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-025",
+   "source": "LF",
+   "challenge_claim": "The row's parenthetical naming of the WEB rendering (\"cautious in friendship\") reproduces WEB wording verbatim without the mandated curly quotes and inline web: ref, though the underlying textual-crux disclosure is otherwise sound.",
+   "ruling": "uphold",
+   "grounds": "verse_map_web.json confirms Prov.12.26's WEB text in full: \"A righteous person is cautious in friendship, but the way of the wicked leads them astray.\" The row's rationale lifts the phrase \"cautious in friendship\" verbatim from that text but presents it in bare parentheses -- no curly quotes, no verse-specific web: ref beside it -- while boundary_evidence_refs carries only the collection-level web:Prov.10.1-Prov.22.16, not web:Prov.12.26. This is a register/hygiene defect (TOOLKIT: curly quotes for WEB text ONLY + inline web: ref in the SAME field) that check_web_quotes.py is built to catch; it does not affect the crux argument itself (the A-colon verb read as surpass/excel on the bare consonants vs. WEB's cautious-in-friendship construal), which remains accurately and honestly hedged.",
+   "remedy": "Field rationale: rewrite the parenthetical with curly quotes and an inline verse-specific ref in the same field, e.g. render as WEB “cautious in friendship” (web:Prov.12.26) reflects a different construal. Field boundary_evidence_refs: add \"web:Prov.12.26\" (verse-specific) alongside the existing collection-level citation. Test the cure must pass: check_web_quotes.py on the revised row reports no verbatim-without-curly-quotes flags for this field.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-026",
+   "source": "LF",
+   "challenge_claim": "rejected_alternative tests the wrong neighbor: it names 12:25 as \"the heart-anxiety verse before it\" for 12:27, but 12:27's actual immediate predecessor in both witnesses is 12:26, not 12:25; no vocabulary tie between 12:26 and 12:27 is tested anywhere in the row, and 12:25 is argued by verse number in prose but missing from boundary_evidence_refs.",
+   "ruling": "uphold",
+   "grounds": "Numbering discipline (identity book) places Prov.12.26 immediately before Prov.12.27; Prov.12.25 sits two verses back, not one. Word-level byte comparison confirms no shared content token between oshb:Prov.12.26 (subject vocabulary: righteous/wicked/way) and oshb:Prov.12.27 (subject vocabulary: לֹא-negated hunting verb, game, wealth) -- 12:26 was never named or tested in the row despite being the true nearest rival. boundary_evidence_refs for this row is [\"web:Prov.10.1-Prov.22.16\"] only; Prov.12.25 is argued by verse number in the rejected_alternative prose but does not appear there, a check_refs_mirror.py lesson-j gap. The heart-anxiety content description of 12:25 itself is accurate; only its positional label (\"before it\") and its refs-mirror disclosure are wrong. The atomic conclusion for 12:27 is not disturbed by this correction, since the actual nearest rival (12:26) also shares no vocabulary with it, but the row never performed that (correct) comparison.",
+   "remedy": "Field rejected_alternative: correct the positional claim -- name Prov.12.26 as the verse immediately before 12:27 and test it (no shared token: righteous/wicked/way vs. hunting/wealth vocabulary); if 12:25 is retained as a secondary observation, relabel it accurately (e.g., \"two verses before\") rather than \"the verse before it.\" Field boundary_evidence_refs: add web:Prov.12.26 (the true adjacent rival) and, if 12:25 remains in prose, add web:Prov.12.25 to close the refs-mirror gap. Test the cure must pass: check_refs_mirror.py reports no unlisted verse-number mentions for this row, and the adjacency claim matches straightforward verse-number arithmetic.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-030",
+   "source": "LF",
+   "challenge_claim": "Both chapter-12 comparators cited for the asyndeton claim are mishandled -- 12:24 is not asyndetic and neither 12:5 nor 12:24 appears in boundary_evidence_refs -- and the row omits the exact-token catchword tying 13:3 to its true previous verse, 13:2 (three components: a false 12:24 citation, a refs-mirror gap, and an undisclosed cross-seam catchword).",
+   "ruling": "uphold",
+   "grounds": "Word-level byte splice of oshb:Prov.12.5 (6 words: thoughts/righteous/justice/plans/wicked/deceit) confirms no word carries a waw prefix -- genuinely asyndetic, matching 13:3's construction. But oshb:Prov.12.24's B-colon opens ו֝רְמִיָּ֗ה -- a waw-prefixed word -- so 12:24 is SYNDETIC, not asyndetic; citing it as a chapter-12 asyndetic parallel is byte-false. Neither Prov.12.5 nor Prov.12.24 appears in this row's boundary_evidence_refs (only web:Prov.10.1-Prov.22.16 is listed) though both are argued by verse number in prose -- a check_refs_mirror.py gap. Separately, sweep.py --skel on the soul/appetite root (55 book-wide hits) shows the exact token at Prov.13.2 (וְנֶ֖פֶשׁ) immediately before this row's own Prov.13.3 (נַפְשׁ֑וֹ) -- an undisclosed cross-seam catchword with the row's TRUE immediate predecessor, left undisclosed here even though the same root's recurrence FORWARD into 13:4 is disclosed at that row (P06-031), creating a disclosure asymmetry the TOOLKIT's symmetry-completion rule flags.",
+   "remedy": "Field rationale/device_notes: drop or correct the 12:24 citation (it is syndetic, disqualified from the asyndeton comparison); retain only Prov.12.5 as the valid chapter-12 asyndetic parallel. Field boundary_evidence_refs: add web:Prov.12.5 (and web:Prov.12.24 if retained for contrast) to close the refs-mirror gap. Field observed_substrate_signals: disclose the soul/appetite catchword tying 13:3 back to 13:2 (וְנֶ֖פֶשׁ / נַפְשׁ֑וֹ), matching the disclosure standard already applied forward at 13:4 (P06-031), and state why the atomic call still holds. Test the cure must pass: a fresh word-split of oshb:Prov.12.24 shows the waw-prefixed opening word, disqualifying the asyndeton citation; check_refs_mirror.py reports no gap; sweep.py --skel on the soul/appetite root reproduces Prov.13.2 in the hit list.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c11",
+   "row_id": "P06-030",
+   "source": "OL",
+   "challenge_claim": "13:3's own asyndeton is byte-accurate, but the row cites 12:24 as a matching chapter-12 asyndetic verse when 12:24 is in fact syndetic -- only the 12:24 half of the citation is wrong, 12:5 is correct.",
+   "ruling": "uphold",
+   "grounds": "SAME CORE DEFECT as the LF finding on this row (the 12:24 mischaracterization); OL's item is the narrower of the two -- it does not raise the refs-mirror gap or the 13:2 catchword omission that LF separately identifies. Confirmed independently: oshb:Prov.13.3 (guarding mouth/soul, opening lips) carries no waw at any word boundary, genuinely asyndetic. oshb:Prov.12.24's B-colon opens ו֝רְמִיָּ֗ה, waw-prefixed -- syndetic, disqualifying it as an asyndeton parallel. oshb:Prov.12.5 has no waw anywhere and is the verse that actually matches 13:3's construction, correctly retained.",
+   "remedy": "Same remedy as the LF item on this row applies to this sub-claim: drop/correct the 12:24 citation, keep 12:5 as the valid parallel. No separate remedy needed beyond the LF item's field-level fix, since this is the same underlying defect narrowly scoped. Test: identical to the LF item -- word-split of 12:24 confirms the waw prefix.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P06-019",
+   "claim_checked": "The deceit-noun (mirmah) tie between 12:17 (predicate, verse-final) and 12:20 (clause-subject, verse-initial) is byte-real and non-adjacent (three verses apart), and no closer undisclosed tie displaces it.",
+   "result": "verified",
+   "notes": "Independent re-derivation: sweep.py --skel on the deceit root returns exactly 8 book-wide hits including Prov.12.17 and Prov.12.20 (Prov.11.1, 12.5, 12.17, 12.20, 14.8, 14.25, 20.23, 26.24). Word-split confirms oshb:Prov.12.17 ends on מִרְמָֽה (B-colon predicate, verse-final) and oshb:Prov.12.20 opens on מִ֭רְמָה (A-colon subject, verse-initial) -- identical pointed lexeme, different grammatical role, three verses apart (12:18, 12:19 intervene), exactly as both primaries state. 12:19's own tongue/falsehood vocabulary (לְשׁ֣וֹן / שָֽׁקֶר) does not recur in 12:20, confirming the row's rejected_alternative tested the correct (non-)rival. Row's supported verdict CONFIRMED, no defect found."
+  }
+ ],
+ "deferred_row_ids": [
+  "P06-034"
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 8,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

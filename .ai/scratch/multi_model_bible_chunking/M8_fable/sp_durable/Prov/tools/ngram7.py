@@ -57,9 +57,16 @@ def prose(row) -> str:
                 # (writer_*/attempt/routing tokenize into shared frames — the
                 # Neh lesson-d class; Tier-0 correction logged 2026-08-10,
                 # Prov v0 run: 43-row false RED from combine-added provenance)
+                # patch prov_tools_p2 (2026-08-18, corpus-run finding, same
+                # class as p1): unit_type + parent_collection are mandated
+                # structural enums/range-strings, not authored prose — their
+                # fixed values ("single_proverb", "C2 Prov.10.1-...") tokenize
+                # into shared frames across hundreds of rows. confidence is a
+                # 1-token enum, excluded for the same reason.
                 if k not in ("boundary_evidence_refs", "span", "decision_id",
                              "chunk_id", "writer_part", "writer_decision_id",
-                             "writer_attempt_id", "attempt_id", "routing_used"):
+                             "writer_attempt_id", "attempt_id", "routing_used",
+                             "unit_type", "parent_collection", "confidence"):
                     walk(v)
         elif isinstance(o, list):
             for v in o:

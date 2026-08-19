@@ -1,0 +1,66 @@
+{
+ "attempt_id": "peer_c28_r1",
+ "role": "peer",
+ "clusters": [
+  "c28"
+ ],
+ "rulings": [
+  {
+   "cluster": "c28",
+   "row_id": "P11-062",
+   "source": "LF",
+   "challenge_claim": "The generic-term rejection of the shared adam token is well-reasoned, but the parenthetical English gloss is set in curly quotes with no web: ref in the same field.",
+   "ruling": "refute",
+   "grounds": "Codepoint inspection of the row's own rationale field (draft_rows_combined.jsonl, P11-062) shows the parenthetical gloss (\"the man\") is delimited by U+0022 straight double quotes at both edges, not U+201C/U+201D curly quotes. check_web_quotes.py run over the full c28 packet (8 rows) returns quotes_checked:0, flag_count:0, status GREEN -- zero curly-quoted spans exist anywhere in this cluster's rows. A sanity run of the identical tool against P01-001 (a row with genuine curly-quote+web:ref usage) returns quotes_checked:2, status GREEN, confirming the tool correctly detects curly quotes when they are present, so the null result on c28 is not a tool blind spot. Per the TOOLKIT quote convention (curly quotes for WEB text ONLY, straight quotes for everything else), straight quotes are the CORRECT mark for a non-verbatim English gloss of a Hebrew word and carry no web:-ref obligation. The challenge's factual premise -- that curly quotes were used -- is false; there is no quote-convention defect in this row. tier: byte (direct codepoint check) + tool (check_web_quotes.py).",
+   "remedy": null,
+   "severity_final": "n/a"
+  },
+  {
+   "cluster": "c28",
+   "row_id": "P11-066",
+   "source": "LF",
+   "challenge_claim": "The internal instruction-chain argument for 27:23-27 is byte-accurate, but the row never establishes its own back seam at 28:1, and two English glosses are curly-quoted without the mandatory inline web: ref.",
+   "ruling": "refine",
+   "grounds": "Three-part claim; parts diverge sharply on re-derivation. (1) BACK-SEAM GAP CONFIRMED REAL: boundary_evidence_refs lists only 27.22-27.27; oshb:Prov.28.1 is never cited or argued anywhere in the row. Independent skeleton comparison of oshb:Prov.27.27 ('וְדֵ֤י חֲלֵ֬ב עִזִּ֗ים לְֽ֭לַחְמְךָ לְלֶ֣חֶם בֵּיתֶ֑ךָ וְ֝חַיִּ֗ים לְנַעֲרוֹתֶֽיךָ') against oshb:Prov.28.1 ('נָ֣סוּ וְאֵין רֹדֵ֣ף רָשָׁ֑ע וְ֝צַדִּיקִ֗ים כִּכְפִ֥יר יִבְטָֽח') confirms zero shared content token; 28:1 is an unsuffixed third-person wicked/righteous sentence carrying no 2ms suffix at all, breaking the 2ms addressee (-cha suffixes) that frames 27:23/26/27 throughout. The seam IS clean -- re-derivation supports the row's existing boundary -- but the row omits the disclosure entirely, unlike the front seam (27:22, disclosed in boundary_evidence_refs and device_notes) and unlike sibling row P11-065 in this same cluster, which explicitly discloses its relation to its following verse. This is a real symmetry-completion gap under the standing cross-seam-cohesion rule, not a boundary error. (2)+(3) QUOTE CLAIMS REFUTED: direct codepoint inspection of the row's rationale field shows both spans -- 'know well the state of your flocks, set your heart on the herds' and 'for riches are not forever' -- are delimited by U+0022 straight quotes throughout, not curly quotes (same check as P11-062; check_web_quotes.py confirms 0 curly-quoted spans in this row). Per the straight-quotes-for-everything-else convention, neither span carries a verbatim-WEB or inline-ref obligation. The first span is the writer's own paraphrase of v23's sense (compare web:Prov.27.23 clean text: 'Know well the state of your flocks, and pay attention to your herds,') presented correctly under the straight-quote convention, not a mismatched direct quotation; the second span happens to match web:Prov.27.24 verbatim but likewise carries no ref obligation since it is not curly-quoted. Neither is a defect. tier: byte (codepoint check) + tool (check_web_quotes.py) + skeleton (28:1 vs 27:27).",
+   "remedy": "For the surviving defect only: add oshb:Prov.28.1 to boundary_evidence_refs and one disclosure sentence (device_notes or rejected_alternative) stating the back-seam check -- 28:1 shares no skeleton token with 27:27 and drops the 2ms addressee for a third-person wicked/righteous saying, so the instruction unit properly closes at 27:27. Test the cure must pass: independent skeleton comparison of oshb:Prov.27.27 against oshb:Prov.28.1 must show zero shared tokens (already true here) and the revised row must carry both a front-seam AND a back-seam disclosure, matching the symmetry standard P11-065 already meets. SEPARATELY (boss proposal / granularity consequence, NOT adopted by this ruling -- see the OL/P11-066 ruling below for the full evidence): re-deriving this span also surfaced a controlled-vocabulary concern with the row's unit_type itself, independent of either primary's challenge.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c28",
+   "row_id": "P11-066",
+   "source": "OL",
+   "challenge_claim": "The row's central form claim, that 27:23 opens with the 2ms imperative pair, overstates the verse's morphology: only the second verb is a true imperative.",
+   "ruling": "uphold",
+   "grounds": "Independent word-split parse of the byte-verified source (oshb:Prov.27.23 = 'יָדֹ֣עַ תֵּ֭דַע פְּנֵ֣י צֹאנֶ֑ךָ שִׁ֥ית לִ֝בְּךָ֗ לַעֲדָרִֽים', spliced from verse_map_oshb.json) confirms: יָדֹ֣עַ is the Qal infinitive absolute of y-d-ʿ; תֵּ֭דַע is the Qal imperfect 2ms of the same root -- together the classic infinitive-absolute-plus-cognate-imperfect emphatic construction ('you shall surely know'), morphologically an imperfect, not an imperative; שִׁ֥ית alone is the true Qal imperative 2ms (hollow root sh-y-t, imperative ms identical in form to its infinitive construct, functioning imperatively here as the clause's lone verb-initial command with a following 2ms-suffixed object). OL's claim is byte- and grammar-accurate: the row's '2ms imperative pair' and the device_notes' 'imperative frame' justification both overstate the construction -- one true imperative, one emphatic-assertion construction, not two imperatives. tier: byte (pointed word-split parse); NOTE per TOOLKIT, no staged morphology layer exists for this book, so this claim is argued from the pointed bytes plus both witnesses' renderings, as the brief requires, not machine-validated.",
+   "remedy": "Re-cut the P11-066 rationale/device_notes wording from '2ms imperative pair' to a grammatically accurate description, e.g. 'an infinitive-absolute-plus-imperfect emphatic assertion (יָדֹ֣עַ תֵּ֭דַע, you shall surely know) paired with one true Qal 2ms imperative (שִׁ֥ית, set)'. Test the cure must pass: independent pointed-byte word-split of oshb:Prov.27.23's first two words against Qal infinitive-absolute + imperfect-2ms morphology, re-run against the revised wording (the same manual parse that surfaced OL's finding, since no staged morphology layer exists to automate it). ADDITIONAL FINDING (new, beyond OL's literal claim -- flagged as a boss proposal per assignment instruction, NOT adopted here): re-deriving the unit_type justification exposed a deeper controlled-vocabulary concern. P11-066 is parent_collection C5 (Prov.25.1-Prov.29.27) and is typed admonition_unit. Book strategy Section 6 grants admonition_unit to C3 as its operative category (and admonition_unit/single_proverb per bytes to C4 only); boss_prov_r3's own ruling on P10-005/peer_c21 reasons that the C2+C5 line is explicitly MODAL-BINDING, unlike C3's descriptive framing ('the C2+C5 line carries SINGLE_PROVERB DEFAULT and proverb_cluster ONLY ... while the C3 and C4 lines name categories with descriptive parentheticals') -- so C5 carries no admonition_unit grant anywhere, under the boss's own already-established reading. A census of the full combined-corpus C5 rows (121 rows) confirms P11-066 is a true outlier, not a class pattern: 110 single_proverb, 10 proverb_cluster (the only multi-verse-cluster label C5 rows carry: P11-002, P11-003, P11-004, P11-008, P11-017, P11-027, P11-029, P11-033, P11-035, P11-036), and exactly ONE admonition_unit row in all of C5 -- P11-066 itself. The row's own cohesion evidence (command-motive-support-result chain, consistent 2ms addressee across 27:23/26/27, v25's ecological-premise bridge) reads as exactly the byte-grounded cohesion evidence Section 6 requires for proverb_cluster in C5 (catchword chains, construction runs). Proposed cure for boss adoption: unit_type relabel admonition_unit -> proverb_cluster, span and parent_collection unchanged, with rejected_alternative/observed_substrate_signals/confidence re-opened per the standing driver-swap rule and the imperative-pair wording corrected per this ruling's own remedy. This is a boundary/type-affecting change and requires explicit boss adoption, not a peer-level fix. Test for boss adoption: re-run the C5 unit_type census after any relabel to confirm P11-066 is no longer the sole outlier against its own collection's established two-value (single_proverb / proverb_cluster) pattern.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c28",
+   "row_id": "P12-007",
+   "source": "LF",
+   "challenge_claim": "The single-proverb boundary is sound, but the torah-thread's positional claim is arithmetically wrong: the nearest other occurrence is two verses later, not three.",
+   "ruling": "uphold",
+   "grounds": "Row P12-007's rationale states the torah-token at 28:7 'does not connect grammatically to its non-adjacent occurrence three verses later.' Independent re-derivation confirms the torah thread in ch.28 is exactly {28:4, 28:7, 28:9} (sweep.py --skel torah scoped to ch.28, cross-checked against direct inspection of 28:10-28:13 turning up no further occurrence -- matching both primaries' independently stated counts). The ordinal distance from 28:7 to its nearer neighbor 28:9 is two verses (28:8, 28:9), not three; three verses is the distance for the OTHER pair, 28:4 to 28:7 (28:5, 28:6, 28:7). The row's digit describes the wrong gap -- the object (torah-thread adjacency from 28:7) is correctly named, the digit attached to it is wrong. The underlying single_proverb call is unaffected: independent skeleton comparison confirms 28:6 and 28:8 each share no token with 28:7, so the row's boundary stands; this is a count-accuracy defect in supporting prose, not a boundary error. tier: skeleton (sweep.py --skel torah) + direct ordinal count.",
+   "remedy": "Correct 'three verses later' to 'two verses later' in P12-007's rationale (or restate unambiguously, e.g. its nearer non-adjacent occurrence at 28:9, two verses later; the 28:4-28:7 gap is the three-verse one), and add the explicit torah-thread verse list {28:4, 28:7, 28:9} to observed_substrate_signals to prevent the two gaps (3 and 2) being conflated again. Test the cure must pass: re-run sweep.py --skel torah scoped to ch.28 (already returns exactly 3 verses) and manually re-count the ordinal gap from 28:7 to 28:9 = 2, and from 28:4 to 28:7 = 3, confirming the corrected sentence matches both gaps precisely.",
+   "severity_final": "medium"
+  }
+ ],
+ "convergence_note": "P11-066 is a convergence row -- both primaries challenged it, but on DISTINCT defects, not the same one. LF's surviving defect (after refinement) is a structural/disclosure gap: the row never establishes its back seam at 28:1. OL's defect is a morphological/terminological mischaracterization of v23's verb pair, which in turn exposed a separate controlled-vocabulary (unit_type) concern for the row's C5 classification. These three findings (seam disclosure, verb-form wording, unit_type) are independent of one another and are adjudicated separately above; none subsumes another.",
+ "supported_sample": [
+  {
+   "row_id": "P11-063",
+   "claim_checked": "The inventory lists exactly one ketiv/qere note at 27:20 (both primaries' shared load-bearing claim).",
+   "result": "verified",
+   "notes": "Direct lookup in pmarks_Prov.json['kq'] confirms Prov.27.20 -> 1 (exactly one note), matching the row and both packets. Cross-checked the same inventory for adjacent claims used elsewhere in this cluster: kq['Prov.27.24'] -> 1 (confirms the P11-066 ketiv/qere claim on v24) and marks['Prov.27.22'] -> ['PE'] (confirms P11-065's single petuchah claim). All three independently verified against the inventory JSON, not re-derived from the primaries' say-so."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 4,
+  "uphold": 2,
+  "refine": 1,
+  "refute": 1,
+  "escalate": 0,
+  "new_findings": 1
+ }
+}

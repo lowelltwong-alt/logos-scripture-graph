@@ -1,0 +1,124 @@
+{
+ "attempt_id": "ol_cluster_c04_r1",
+ "role": "primary_OL",
+ "cluster": "c04",
+ "rows_reviewed": [
+  "P02-011",
+  "P03-001",
+  "P03-002",
+  "P03-003",
+  "P03-004",
+  "P03-005",
+  "P03-006",
+  "P03-007"
+ ],
+ "items": [
+  {
+   "row_id": "P02-011",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The device_notes/rationale phrase \"the part's fourth and final bni-opening\" counts against the writer's own mechanical part-tiling rather than a textual unit, which is file-order/production talk barred from row prose.",
+   "evidence": "\"The part\" cannot resolve to parent_collection C1 (Prov.1.1-Prov.9.18, which runs well past 4.27); it only resolves to writer_part p02 (Prov.3.1-Prov.4.27, per SP/Prov/writer/p02_rows.jsonl), a campaign scratch-tiling artifact, not a literary unit. book_strategy Prov.md Sec.8 REGISTER PURGE / TOOLKIT.md Standing rules bar \"file-order talk...in row prose EVER\" and \"positional row references\"; using the writer_part boundary as the counting frame for an ordinal claim in row prose is exactly that. (The underlying digit is not itself false: of p02's 11 rows, exactly four open on a bni_address vocative -- Prov.3.1, Prov.3.21, Prov.4.10, Prov.4.20, verified against prov_device_inventory.json bni_address -- so 4.20 is genuinely the fourth and last such row-opening in that file-tiling; only the file-order frame used to state it is out of register.)",
+   "tier_citations": [
+    "prov_device_inventory.json:bni_address (22 refs; Prov.3.1/3.21/4.10/4.20 subset)",
+    "writer/p02_rows.jsonl:11 rows Prov.3.1-Prov.4.27",
+    "Prov.md Sec.8 REGISTER PURGE / TOOLKIT.md Standing rules"
+   ]
+  },
+  {
+   "row_id": "P03-001",
+   "verdict": "support",
+   "claim": "5.1-5.6 is a clean instruction_lecture bounded by the singular beni vocative at 5.1 and the plural banim vocative reopening at 5.7, correctly disqualifying the 5.4 \"two-edged sword\" as a WEB-only numeral rather than a Hebrew count.",
+   "evidence": "collate.py returns byte tier for all three quoted Hebrew runs (oshb:Prov.5.1, oshb:Prov.5.4, oshb:Prov.5.6). prov_device_inventory.json bni_address confirms Prov.5.1 is one of the 22 word-bound vocative verses, while Prov.5.7's banim form appears in neither bni_address nor bene_construct, so the singular/plural contrast the row argues is byte-real. The row pre-empts the TOOLKIT's own \"two-edged sword\" hazard by naming kherev piyyot (sword of edges) as the Hebrew and labeling the WEB \"two\" a rendering choice. pmarks_Prov.json shows the only span-adjacent mark is the Prov.5.6 petuchah, correctly disclosed as the span's own close; no paseq or K/Q note falls inside Prov.5.1-Prov.5.6.",
+   "tier_citations": [
+    "collate:byte:oshb:Prov.5.1",
+    "collate:byte:oshb:Prov.5.4",
+    "collate:byte:oshb:Prov.5.6",
+    "pmarks_Prov.json:marks:Prov.5.6=PE",
+    "prov_device_inventory.json:bni_address"
+   ]
+  },
+  {
+   "row_id": "P03-002",
+   "verdict": "support",
+   "claim": "5.7-5.14 is correctly bounded by the plural-vocative discourse restart at 5.7 and the quoted confession closing at 5.14, with the sole nearby mark (the 5.6 petuchah) correctly disclosed as external rather than internal.",
+   "evidence": "collate.py returns byte tier for the quoted oshb:Prov.5.7 run. pmarks_Prov.json shows zero petuchah/setumah/paseq/K-Q entries inside Prov.5.7-Prov.5.14. The WEB quotes (\"Now therefore, my sons, listen to me\"; \"among the gathered assembly\") match verse_map_web.json verbatim at Prov.5.7 and Prov.5.14. No undisclosed catchword was found at either immediate seam (5.6/5.7 front, 5.14/5.15 back): the vocabulary changes completely at both boundaries.",
+   "tier_citations": [
+    "collate:byte:oshb:Prov.5.7",
+    "pmarks_Prov.json: no marks/paseq/kq in Prov.5.7-Prov.5.14",
+    "verse_map_web.json:Prov.5.7,Prov.5.14 verbatim"
+   ]
+  },
+  {
+   "row_id": "P03-003",
+   "verdict": "support",
+   "claim": "5.15-5.19 is correctly bounded by the imperative-blessing register (5.15-5.18) closing on the doe/deer figure at 5.19, with no petuchah, paseq, or K/Q note inside the span left undisclosed.",
+   "evidence": "collate.py returns byte tier for the quoted oshb:Prov.5.15 run. pmarks_Prov.json confirms zero marks/paseq/kq entries across Prov.5.15-Prov.5.19, matching the row's own claim that the span carries no internal disclosure object. The WEB quotes (\"Drink water out of your own cistern...\"; \"Rejoice in the wife of your youth\") match verse_map_web.json verbatim at Prov.5.15 and Prov.5.18.",
+   "tier_citations": [
+    "collate:byte:oshb:Prov.5.15",
+    "pmarks_Prov.json: no marks/paseq/kq in Prov.5.15-Prov.5.19",
+    "verse_map_web.json:Prov.5.15,Prov.5.18 verbatim"
+   ]
+  },
+  {
+   "row_id": "P03-004",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "The 5.20-5.23 boundary argument omits a paseq inside its own span and does not disclose a root-level wordplay tying its opening verb back across the very seam it calls a \"reopening.\"",
+   "evidence": "pmarks_Prov.json paseq inventory shows Prov.5.21=1, a paseq inside the row's own Prov.5.20-Prov.5.23 span that is nowhere disclosed, though the row does disclose the adjoining Prov.5.23 petuchah -- a mark-disclosure-symmetry gap (TOOLKIT.md: \"UNCONDITIONAL span-relevant mark-disclosure symmetry\" applies to every disclosure object, not only petuchah). Separately, byte inspection of verse_map_oshb.json shows the root shagah (\"be captivated/go astray\") recurring three times across the row's own front seam and span: תִּשְׁגֶּ֥ה closes Prov.5.19 (the immediately preceding, non-assigned verse; WEB \"Be captivated always with her love\"), תִשְׁגֶּ֣ה opens the row's own Prov.5.20 third word (WEB \"why should you...be captivated\"), and יִשְׁגֶּֽה closes the row's own Prov.5.23. The WEB rendering itself preserves the pun (\"captivated\"/\"captivated\"), so this is not a translation-only artifact. The row's \"reopens direct address\" framing treats Prov.5.20 as a clean restart and does not disclose or argue around this byte-true device straddling its own seam, which TOOLKIT.md's cross-seam-cohesion rule requires (\"a byte-true device straddling the row's own seam argues continuity against the row unless disclosed\").",
+   "tier_citations": [
+    "pmarks_Prov.json:paseq:Prov.5.21=1",
+    "byte:oshb:Prov.5.19=תִּשְׁגֶּ֥ה",
+    "byte:oshb:Prov.5.20=תִשְׁגֶּ֣ה",
+    "byte:oshb:Prov.5.23=יִשְׁגֶּֽה",
+    "verse_map_web.json:Prov.5.19,Prov.5.20 \"captivated\" verbatim in both"
+   ]
+  },
+  {
+   "row_id": "P03-005",
+   "verdict": "support",
+   "claim": "6.1-6.5 is a clean admonition_unit on suretyship, opening on the verse-initial beni vocative and closing on the gazelle/bird simile pair, with its own paseq and both bracketing petuchahs correctly disclosed.",
+   "evidence": "collate.py returns byte tier for both quoted Hebrew runs (oshb:Prov.6.1, oshb:Prov.6.5). pmarks_Prov.json confirms paseq=1 at Prov.6.3 (disclosed) and petuchah at Prov.6.5 (the row's own close, disclosed) and at Prov.5.23 (the adjoining mark, correctly labeled as not evidence for the 6.1 opening). No stale bni figure is asserted anywhere in the row.",
+   "tier_citations": [
+    "collate:byte:oshb:Prov.6.1",
+    "collate:byte:oshb:Prov.6.5",
+    "pmarks_Prov.json:paseq:Prov.6.3=1",
+    "pmarks_Prov.json:marks:Prov.5.23=PE,Prov.6.5=PE"
+   ]
+  },
+  {
+   "row_id": "P03-006",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The 6.6-6.11 rationale does not disclose that its own closing participle shares the root halak with the participle opening the following unit at 6.12, a byte-true device invisible in the WEB rendering the row's argument leans on.",
+   "evidence": "Byte inspection of verse_map_oshb.json: Prov.6.11 closes \"...u-va כִמְהַלֵּ֥ךְ...\" -- the word כִמְהַלֵּ֥ךְ (WEB \"as a robber\") -- and Prov.6.12 opens \"...ה֝וֹלֵ֗ךְ...\" (WEB \"is he who walks\") right after its nominal subject. Both are participial forms of the same root halak, straddling the row's own back seam. WEB's \"robber\" for 6.11 obscures the root the row's own contrast (\"second-person imperative...distinct from the third-person participial portrait that opens at 6.12\") does not address. TOOLKIT.md's cross-seam-cohesion rule requires this be disclosed or argued around; it is neither. The mark layer itself is handled correctly (petuchah at Prov.6.11 own-close and Prov.6.5 adjoining; paseq at Prov.6.9 and Prov.6.10 both disclosed) -- the gap is specifically this undisclosed root recurrence.",
+   "tier_citations": [
+    "byte:oshb:Prov.6.11=כִמְהַלֵּ֥ךְ",
+    "byte:oshb:Prov.6.12=ה֝וֹלֵ֗ךְ",
+    "verse_map_web.json:Prov.6.11=\"as a robber\" (root obscured in translation)",
+    "pmarks_Prov.json:marks/paseq confirmed disclosed for Prov.6.6-Prov.6.11"
+   ]
+  },
+  {
+   "row_id": "P03-007",
+   "verdict": "support",
+   "claim": "6.12-6.15 is a clean proverb_cluster on the shared-subject participial portrait, correctly disclosing the 6.14 K/Q pair's specific spelling, its own paseq, and both bracketing petuchahs.",
+   "evidence": "collate.py returns byte tier for both quoted Hebrew runs (oshb:Prov.6.12, oshb:Prov.6.15). verse_map_oshb.json Prov.6.14 literally reads the inline ketiv מדנים immediately followed by the pointed qere מִדְיָנִ֥ים -- byte-confirming the row's specific ketiv/qere spelling claim, not merely its presence (pmarks_Prov.json kq:Prov.6.14=1). pmarks_Prov.json paseq:Prov.6.14=1 is disclosed, and the petuchahs at Prov.6.15 (own close) and Prov.6.11 (adjoining) are both correctly labeled.",
+   "tier_citations": [
+    "collate:byte:oshb:Prov.6.12",
+    "collate:byte:oshb:Prov.6.15",
+    "byte:oshb:Prov.6.14 inline ketiv=מדנים qere=מִדְיָנִ֥ים",
+    "pmarks_Prov.json:kq:Prov.6.14=1,paseq:Prov.6.14=1",
+    "pmarks_Prov.json:marks:Prov.6.11=PE,Prov.6.15=PE"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 5,
+  "challenges": 3,
+  "by_severity": {
+   "medium": 2,
+   "high": 1
+  }
+ }
+}

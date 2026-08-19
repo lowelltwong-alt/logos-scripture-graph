@@ -69,8 +69,26 @@ def main() -> int:
                       "first_word_skeleton": first, "ok": first[0] == alefbet[i]})
     assert all(row["ok"] for row in table), "acrostic derivation failed"
 
-    # --- bni address ---
-    bni = [r for r, t in toks.items() if "בני" in t[:2]]
+    # --- bni address (E-1 corrected derivation, 2026-08-18: pointed tier,
+    # word-bound, ANY position, dagesh/meteg-tolerant, accents stripped;
+    # vocative beni (chirik) split from construct bene (tsere) at the vowel.
+    # The original first-two-tokens heuristic undercounted 17 vs 22 — P10
+    # erratum, orchestrator byte-verified.) ---
+    import unicodedata as _ud
+    import re as _re
+    def _norm_tok(tok):
+        t = _ud.normalize("NFD", tok)
+        t = _re.sub(r"[֑-֯]", "", t)
+        return t.replace("ֽ", "").replace("ּ", "")
+    _voc = "בְנִי"     # beni "my son"
+    _con = "בְנֵי"     # bene "sons of"
+    bni, bene = [], []
+    for r, t in oshb.items():
+        ntoks = [_norm_tok(x) for x in t.split()]
+        if _voc in ntoks:
+            bni.append(r)
+        if _con in ntoks:
+            bene.append(r)
     bni_by_ch = collections.Counter(int(r.split(".")[1]) for r in bni)
 
     # --- yhwh density ---
@@ -120,8 +138,13 @@ def main() -> int:
         },
         "bni_address": {
             "refs": sorted(bni, key=lambda x: (int(x.split(".")[1]), int(x.split(".")[2]))),
-            "count_object": "verses with token בני among the first two skeleton tokens",
+            "count_object": "verses containing the word-bound VOCATIVE token beni (my son; chirik), any position, pointed tier (E-1 corrected)",
             "count": len(bni), "by_chapter": dict(sorted(bni_by_ch.items())),
+        },
+        "bene_construct": {
+            "refs": sorted(bene, key=lambda x: (int(x.split(".")[1]), int(x.split(".")[2]))),
+            "count_object": "verses containing the word-bound CONSTRUCT token bene (sons of; tsere), any position, pointed tier — a DIFFERENT object from the vocative, never blended",
+            "count": len(bene),
         },
         "yhwh_density": {
             "count_object": "verses containing skeleton token יהוה (exact token, unprefixed)",

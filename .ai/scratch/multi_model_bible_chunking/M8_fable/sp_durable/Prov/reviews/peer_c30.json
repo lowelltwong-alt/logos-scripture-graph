@@ -1,0 +1,78 @@
+{
+ "attempt_id": "peer_c30_r1",
+ "role": "peer",
+ "clusters": [
+  "c30"
+ ],
+ "rulings": [
+  {
+   "cluster": "c30",
+   "row_id": "P12-054",
+   "source": "LF",
+   "challenge_claim": "The row discloses/rejects the ish-tie to Prov.29.27 but not a parallel yhwh-token tie to Prov.29.25 (\"one of only three\" consecutive-verse pairs in Prov.25-29, digit '133' as the chapter-range denominator); separately, \"in this part\" in observed_substrate_signals ambiguously scopes between the C5 collection and the writer's own P12 tiling span.",
+   "ruling": "refine",
+   "grounds": "Byte re-derivation confirms the register-purge sub-claim but not the challenge's own supporting arithmetic on the yhwh sub-claim. (1) REGISTER: observed_substrate_signals[0] literally reads 'in this part' -- this is a positional/file-order reference (the writer's own P12 tiling span, Prov.28.1-29.27, an artifact of the writer-part plan, not a textual unit) and is barred by Prov.md §8/TOOLKIT.md standing rules: 'NO ... positional row references, file-order talk ... in row prose EVER.' Confirmed real defect. (2) YHWH DIGIT: sweep.py --skel skeleton-of-yhwh across the book returns 87 verses total; filtered to Prov.25-29 that is exactly 6 refs (Prov.25.22, 28.5, 28.25, 29.13, 29.25, 29.26) -- the numerator '6' is correct -- but Prov.25-29 contains 138 verses by direct count (28+28+27+28+27), not the challenge's own '133'; and among the 6 matches only ONE pair is verse-adjacent (29.25/29.26 itself), not 'three' as stated -- the challenge's own byte support is internally wrong on both counts. The underlying observation (asymmetric neighbor-disclosure) is a plausible completeness note but not established as a required disclosure: 29.25's token is prefixed בַּיהוָ֣ה (object of trust) vs 29.26's prefixed וּ֝מֵיְהוָ֗ה (source of justice) -- different constructions, not a shared catchword run, and LF itself concedes single_proverb remains the defensible call. Separately, independent byte re-verification of the row's own moshel claim (unrelated to the challenge but checked for context): oshb:Prov.29.26 word 4 is the PLENE spelling מוֹשֵׁ֑ל (mem-vav-shin-lamed with vav), confirmed distinct from oshb:Prov.29.4/29.14's melekh (king) root, and a defective-spelling-only sweep.py --skel of the defective root would in fact MISS 29.26 (plene) while a naive contained-substring sweep would falsely include oshb:Prov.29.15's מְ֝שֻׁלָּ֗ח (send-away root, unrelated) -- the row correctly avoided both traps; this part of the row is sound and not in dispute.",
+   "remedy": "Replace 'in this part' in observed_substrate_signals[0] with a textually-scoped phrase (e.g. 'within Prov.28-29' or a C5-collection reference) -- digit stays 4 (28:15, 29:2, 29:12, 29:26) either way since no chapter 25-27 hits exist for this root. Test: literal string search of the row's own prose for 'this part'/'the part'/writer-part labels must return zero hits -- the check that exposed the defect. No remedy mandated on the yhwh sub-claim: the challenge's own digits (133; 'three' pairs) do not survive re-derivation (correct: 138; one pair), so it stands only as an optional stylistic note, not a required cure.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c30",
+   "row_id": "P13-001",
+   "source": "LF",
+   "challenge_claim": "The row's headline digit ('the term for \"words of\"' occurs in 19 verses book-wide) blends the construct state דִּבְרֵ֤י with unrelated suffixed and absolute-plural forms of the same root; the downstream 5-of-19 (verse-initial) and 2-of-5 (header) sub-fractions still hold.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation of all 19 sweep.py --skel דִּבְרֵ֤י hits (Prov.1.6, 1.23, 4.4, 4.20, 10.19, 12.6, 18.4, 18.8, 22.12, 22.17, 23.8, 24.26, 26.6, 26.22, 29.19, 29.20, 30.1, 30.6, 31.1), read directly from verse_map_oshb.json, confirms the LF partition EXACTLY: genuine construct-state 'words of X' at Prov.1.6, 12.6, 18.4, 18.8, 22.12, 22.17, 26.22, 30.1, 31.1 (9 of 19); 1cs/2ms/3ms pronominal-suffix forms ('my/your/his words') at Prov.1.23, 4.4, 4.20, 23.8, 29.20, and this row's own cited Prov.30.6 (6 of 19, oshb:Prov.30.6 word 4 is the 3ms-suffixed form, not construct); absolute-plural forms ('words', indefinite) at Prov.10.19, 24.26, 26.6, 29.19 (4 of 19). 9+6+4=19, matching the challenge's partition digit-for-digit. This is a confirmed violation of the toolkit's semantic-class-count-discipline rule (name the swept object FIRST, then count; blended sweeps forbidden) -- the row's prose glosses a blended 19-verse skeleton count as if it were all construct-state 'words of X'. The downstream figures are unaffected: prov_device_inventory.json's divrei_verse_initial list (Prov.12.6, 18.8, 26.22, 30.1, 31.1 -- 5 refs) is independently correct and all 5 are genuine construct forms per the partition above, and the header subset (30.1, 31.1 -- pairing with an oracle-word, per pmarks headers) is likewise unaffected.",
+   "remedy": "Rewrite the rationale's headline sentence to name the object before the count, e.g.: the skeleton דִּבְרֵ֤י occurs in 19 verses book-wide, of which 9 are genuine construct-state 'words of X' (1.6, 12.6, 18.4, 18.8, 22.12, 22.17, 26.22, 30.1, 31.1); the remaining 10 are pronominal-suffixed ('my/your/his words': 1.23, 4.4, 4.20, 23.8, 29.20, 30.6) or absolute-plural ('words': 10.19, 24.26, 26.6, 29.19) forms of the same root. The already-correct 5-of-19 verse-initial and 2-of-5 header sub-fractions need no change. Test: re-audit every digit in the rationale against a class-named sweep (construct vs suffixed vs absolute) rather than a raw skeleton count -- the same class-discipline check that exposed this defect.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c30",
+   "row_id": "P13-001",
+   "source": "OL",
+   "challenge_claim": "device_notes states 'Agur's sayings move to sit beside the \"words of the wise\" appendix ... and Lemuel's oracle moves beside them too' -- misstating the documented LXX crosswalk, since Lemuel's oracle (31:1-9) actually relocates beside the LATTER half of Agur's material (30:15-33), not beside this row's own 30:1-6/30:1-14 block.",
+   "ruling": "uphold",
+   "grounds": "TOOLKIT.md's own crosswalk (§ cross-tradition hazard) states LXX places 30:1-14 after 24:22, THEN 30:15-33 + 31:1-9 after 24:34, with 31:10-31 at the end -- i.e. Agur's material splits into two non-adjacent Greek locations and Lemuel's oracle joins only the second (30:15-33), never the first (30:1-14, this row's own span). The row's device_notes sentence names 'Agur's sayings' as an undifferentiated whole and says Lemuel 'moves beside them too,' which reads as beside this row's own block -- contradicted by the documented order. Confirmed by direct re-read of TOOLKIT.md's crosswalk paragraph against the row's own prose; non-boundary-affecting (prose-only cross-tradition texture, never entered in boundary_evidence_refs, does not change the row's own span/unit_type). CONSTRAINT CHECK (per assignment): this fix touches only the device_notes crosswalk sentence -- the Ithiel/Ucal crux disclosure ('reading not resolved here', observed_substrate_signals) is a separate sentence, untouched by this correction, so the disclosed-not-resolved hold on the 30:1-6/30:1-9 crux zone is preserved.",
+   "remedy": "Rewrite the device_notes crosswalk sentence to state precisely: Agur's opening block (30:1-14, including this row's own span) relocates after 24:22 in Greek order; Agur's numerical sayings (30:15-33) relocate TOGETHER WITH Lemuel's oracle (31:1-9) after 24:34; the eshet-chayil acrostic (31:10-31) remains at the book's end. Test: compare the corrected sentence against TOOLKIT.md's crosswalk paragraph clause-for-clause, and re-run citation_sweep.py's LXX guard to confirm the corrected sentence still never appears as a boundary_evidence_refs entry (prose-only, per campaign rule) -- the guard that should flag any regression.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c30",
+   "row_id": "P13-002",
+   "source": "LF",
+   "challenge_claim": "rejected_alternative addresses a tangential clause-count dispute (how many things 30:8-9 unpacks) rather than the strongest real rival: merging Prov.30.7-9 into the preceding 30.1-6 Agur unit, since both are first-person Agur material separated only by a non-driver petuchah.",
+   "ruling": "uphold",
+   "grounds": "Byte read of oshb:Prov.30.6-Prov.30.7 confirms a genuine register shift at the row's own front boundary: 30.6 closes with a 2nd-person imperative warning addressed to a human listener ('do not add to his words'), while 30.7 opens addressing God directly in 2nd person ('two things I have asked of YOU ... deny me not'). This is a stronger, byte-grounded rival to the row's own boundary than the clause-counting dispute the row currently states (confirmed present verbatim in the row's rejected_alternative field). Neither this row nor its neighbor P13-001 discloses a 'merge across 30:6/30:7' rival anywhere in the packet -- the cross-seam cohesion standing rule (a byte-true device straddling the row's own seam argues continuity unless disclosed) places this disclosure obligation on whichever row's boundary the continuity threatens, which is P13-002's own front seam. pmarks_Prov.json confirms the petuchah at Prov.30.6 (single-witness, tier-3, correctly disclosed as non-driver) brackets exactly this seam, consistent with both packets.",
+   "remedy": "Revise rejected_alternative to name the register-shift rival as the primary disclosed alternative: merging 30.7-9 into the preceding Agur unit was considered, since both are first-person material separated only by a non-driver petuchah at 30.6, but 30.7 shifts to a direct 2nd-person petition addressed to God, distinct from 30.1-6's 3rd-person narration (30.1) and 1st-person confession before God (30.2-5) plus 2nd-person warning to a human audience (30.6) -- the register shift, not the petuchah, is the seam's real warrant. The existing clause-count sentence may be kept only if the mandated-rival cap (one sentence + one optional) is respected; otherwise the register-shift rival replaces it. Test: confirm the revised sentence names the actually-strongest rival via direct person/register comparison across the 30.6/30.7 seam -- the same comparison that exposed the gap.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c30",
+   "row_id": "P13-007",
+   "source": "LF",
+   "challenge_claim": "The rationale's English gloss of oshb:Prov.30.20 ('so is the way of an adulterous woman') is WEB-verbatim but is rendered in straight quotes tagged only oshb:Prov.30.20, not the curly quotes + inline web: ref the toolkit mandates for verbatim WEB text; check_web_quotes.py silently passes it.",
+   "ruling": "uphold",
+   "grounds": "Direct character-level inspection of the row's own rationale field confirms the quote marks bracketing 'so is the way of an adulterous woman' are literal ASCII straight quotes (U+0022 x2), immediately preceded by 'oshb:Prov.30.20' -- not a web: ref -- while web:Prov.30.20's clean text opens with the same wording (capital S) verbatim aside from case. This violates the toolkit's book-wide quote convention ('curly double quotes are for WEB text ONLY' + 'CURLY QUOTES + an inline web: ref in the SAME field are MANDATORY'). Re-running check_web_quotes.py on the full draft_rows_combined.jsonl confirms the tool reports quotes_checked=52, flag_count=0, status=GREEN -- it never surfaces this span, because it only scans curly-quoted text adjacent to web: refs and this instance is neither. This is a genuine, confirmed defect AND exposes a validator coverage gap (flagged separately as a new finding, not scored against this row). The underlying derekh catchword-chain argument (30.19-20) and the Prov.30.18 ketiv/qere disclosure are independently byte-sound and not in dispute.",
+   "remedy": "In the rationale field, change the citation tag adjacent to the English gloss from oshb:Prov.30.20 to web:Prov.30.20, and convert the straight quotes to curly quotes matching web:Prov.30.20's exact case ('So is the way of an adulterous woman'); retain a separate oshb:Prov.30.20 tag wherever the Hebrew is itself quoted, since that is a distinct Hebrew-tier citation. Test: re-run check_web_quotes.py on the corrected row and confirm quotes_checked increments with a GREEN match against web:Prov.30.20 -- the same automated gate that silently passed the original defect must now actually exercise it.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P13-004",
+   "claim_checked": "All four verses Prov.30.11-Prov.30.14 open verse-initially with the identical token דּ֭וֹר (anaphora, 4 of 4); Prov.30.14's חֲרָב֣וֹת is the sword-sense homograph, distinct from Prov.17.1's dry-morsel חֲ֭רֵבָה; the petuchah closes the run at exactly Prov.30.14 (none at 30.11-30.13).",
+   "result": "verified",
+   "notes": "Direct word-split of verse_map_oshb.json text confirms דּ֭וֹר as split()[0] at Prov.30.11, Prov.30.12, Prov.30.13, and Prov.30.14 -- byte-exact, 4 of 4, and Prov.30.10 (the preceding verse) does not open with this token, so the front boundary correctly rests on the anaphora alone. pmarks_Prov.json marks{} dict confirms PE present ONLY at Prov.30.14 across the whole Prov.29.25-Prov.30.23 span checked for this cluster (29.25:[], 29.26:[], 29.27:[PE], 30.1-30.5:[], 30.6:[PE], 30.7-30.8:[], 30.9:[PE], 30.10-30.13:[], 30.14:[PE], 30.15-30.16:[], 30.17:[PE], 30.18-30.19:[], 30.20:[PE], 30.21-30.22:[], 30.23:[PE]) -- every mark cited by every row in this packet (P12-055, P13-001, P13-002, P13-004, P13-005, P13-007, P13-008) matches this direct extraction exactly, a full symmetry sweep across the cluster's span, not a spot check. Prov.30.14 word[1] is חֲרָב֣וֹת (sword sense, teeth-as-swords); Prov.17.1 word[2] is the differently-pointed חֲ֭רֵבָה (dry, modifying 'morsel') -- confirmed distinct homographs by direct byte comparison."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 5,
+  "uphold": 4,
+  "refine": 1,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 1
+ },
+ "new_findings_detail": [
+  "Validator gap: check_web_quotes.py scopes its verbatim check to curly-quoted spans adjacent to web: refs only; a straight-quoted WEB-verbatim gloss tagged with an oshb: ref (P13-007's Prov.30.20 gloss) passes silently (quotes_checked=52, flag_count=0, GREEN) even though it violates the book-wide quote convention. Re-run: PYTHONIOENCODING=utf-8 python check_web_quotes.py ../draft_rows_combined.jsonl from SP/Prov/tools reproduces this. Recommend the checker also scan straight-quoted spans adjacent to an oshb:/web: ref pair for verbatim WEB-text matches, not only curly-quoted spans."
+ ]
+}

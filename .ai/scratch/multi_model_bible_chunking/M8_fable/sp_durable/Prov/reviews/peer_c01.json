@@ -1,0 +1,85 @@
+{
+ "attempt_id": "peer_c01_r1",
+ "role": "peer",
+ "clusters": [
+  "c01"
+ ],
+ "rulings": [
+  {
+   "cluster": "c01",
+   "row_id": "P07-002",
+   "source": "OL",
+   "challenge_claim": "The Prov.15.2 antithesis argued in the row is substantively correct but is built entirely on transliteration, never a quoted Hebrew run (OL brief item 1: a Hebrew claim with no quoted form is insufficient engagement).",
+   "ruling": "uphold",
+   "grounds": "Re-derived independently: consonantal_index.json skeleton check confirms Prov.15.2 shares zero tokens with Prov.15.1 and Prov.15.3, so the row's boundary claim itself is byte-correct. But observed_substrate_signals states the antithesis only via transliterated forms (lashon chakhamim/pi kesilim; teitiv/yabbia) with no Hebrew-script quote of oshb:Prov.15.2 anywhere in the row, violating the TOOLKIT standing rule (quote the original language for every boundary-relevant original-language claim) and the OL brief's own item 1. Evidentiary-hygiene gap, not a boundary error.",
+   "remedy": "Splice a byte-tier Hebrew quote of the antithesis pair from verse_map_oshb.json into observed_substrate_signals/device_notes, re-collated via collate.py to byte tier before resubmission. Cure test: collate.py --ref oshb:Prov.15.2 --quote <spliced text> returns tier=byte.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c01",
+   "row_id": "P07-003",
+   "source": "OL",
+   "challenge_claim": "The synthetic-parallelism and first-of-nine-YHWH-verses claims for Prov.15.3 check out on re-sweep, but are argued only in transliteration, not a quoted Hebrew run.",
+   "ruling": "uphold",
+   "grounds": "Independently re-confirmed: oshb:Prov.15.4 carries no עֵינֵ֣י token (direct byte read of the verse), and prov_device_inventory.json yhwh_density.by_chapter['15'] = 9 matches the row's citation exactly (object named: exact unprefixed skeleton token, verse-count unit). Both underlying facts hold. But the row argues the colon structure and YHWH-density claim only via transliteration (bekhol maqom, tsofot, ra'im/tovim) with zero Hebrew-script quotation, the same standing-rule gap as P07-002.",
+   "remedy": "Same cure as P07-002: splice the relevant oshb bytes into the substrate-signal/device_notes text, re-collate to byte tier.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c01",
+   "row_id": "P07-005",
+   "source": "OL",
+   "challenge_claim": "The antithesis and Prov.15.32 cross-reference for Prov.15.5 are correct, but the row's transliteration 'evil' for the verse's actual subject is a homograph collision with the English word for wickedness that a quoted Hebrew run would have prevented.",
+   "ruling": "uphold",
+   "grounds": "Independently confirmed from bytes: oshb:Prov.15.5 opens אֱוִ֗יל (\"fool\"), and web:Prov.15.5 renders \"A fool despises his father's correction...\". The row's own rationale field correctly says \"fool,\" but observed_substrate_signals contains the inconsistent gloss \"evil\" (\"subject pair evil / shomer tokhachat\"), which risks the moral-wickedness sense rather than the actual subject. This compounds the same missing-Hebrew-quote hygiene gap as P07-002/003/007 -- OL's own diagnosis (a quoted Hebrew run would have prevented the collision) is correct. The eleven-verse gap to Prov.15.32 and the ch.15 catchword-adjacency figure (7/32, prov_device_inventory.json) both independently check out, so the single_proverb boundary call itself is unaffected.",
+   "remedy": "Correct \"evil\" to \"fool\" in observed_substrate_signals; quote אֱוִ֗יל (spliced from oshb bytes) inline, byte-collated. Cure test: re-collate the corrected quote+gloss at byte tier and confirm the gloss reads \"fool\", not \"evil\".",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c01",
+   "row_id": "P07-007",
+   "source": "OL",
+   "challenge_claim": "Prov.15.7's antithesis and its disclaimed links to Prov.15.2 and Prov.15.8 are correct, but again argued only in transliteration with no quoted Hebrew run.",
+   "ruling": "uphold",
+   "grounds": "Independently re-confirmed via consonantal_index.json: Prov.15.7 shares zero skeleton tokens with Prov.15.8 and carries no eynei/YHWH token itself, correctly pre-empting a forward chain into the P07-008 cluster. The only defect is the same standing-rule gap as P07-002/003/005: the row's subject-pair and closing-negation claims are stated only in transliteration (sifte chakhamim/lev kesilim; lo khen), with no Hebrew-script quote in the row.",
+   "remedy": "Same cure as P07-002/003: splice byte-tier Hebrew quotes from verse_map_oshb.json into the substrate-signal text.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c01",
+   "row_id": "P07-008",
+   "source": "both",
+   "challenge_claim": "LF: the rationale's colon-position description of the shared 'abomination to YHWH' construct phrase is byte-false -- it does not 'open the second colon' in either verse. OL independently raised the identical accent-based finding within its own P07-008 item.",
+   "ruling": "uphold",
+   "grounds": "Independently re-derived a third time from oshb bytes plus Unicode codepoint check (U+0591 ETNAHTA): in oshb:Prov.15.8 (זֶ֣בַח רְ֭שָׁעִים תּוֹעֲבַ֣ת יְהוָ֑ה וּתְפִלַּ֖ת יְשָׁרִ֣ים רְצוֹנֽוֹ), ETNAHTA falls on the word for YHWH (word 4 of 7) -- the shared phrase תּוֹעֲבַ֣ת יְהוָ֑ה is the CLOSE of the pre-atnach first colon (זֶ֣בַח רְ֭שָׁעִים תּוֹעֲבַ֣ת יְהוָ֑ה), not the opening of a second colon (colon 2 = וּתְפִלַּ֖ת יְשָׁרִ֣ים רְצוֹנֽוֹ, which does not contain the phrase at all). In oshb:Prov.15.9 (תּוֹעֲבַ֣ת יְ֭הוָה דֶּ֣רֶךְ רָשָׁ֑ע וּמְרַדֵּ֖ף צְדָקָ֣ה יֶאֱהָֽב), ETNAHTA falls on the word for 'wicked' (word 4 of 7) -- the phrase תּוֹעֲבַ֣ת יְ֭הוָה OPENS the pre-atnach first colon / the verse itself (תּוֹעֲבַ֣ת יְ֭הוָה דֶּ֣רֶךְ רָשָׁ֑ע), again not a second colon. The row's 'both open their second colon' claim is therefore byte-false at the accent tier. LF and OL reached this identical conclusion independently via the identical accent-based method -- this is the SAME defect in both packets, not two distinct findings. It is a structural-description defect in the stated warrant; independently re-confirmed it does not by itself unseat the underlying sweep digit (sweep.py --skel returns 11 verses book-wide: Prov.3.32, Prov.11.1, Prov.11.20, Prov.12.22, Prov.15.8, Prov.15.9, Prov.15.26, Prov.16.5, Prov.17.15, Prov.20.10, Prov.20.23, and Prov.15.8-Prov.15.9 is the ONLY adjacent pair among them).",
+   "remedy": "Rewrite the rationale's structural claim to state the accent-verified positions accurately: תּוֹעֲבַ֣ת יְהוָ֑ה is colon-1-final in 15:8; תּוֹעֲבַ֣ת יְ֭הוָה is colon-1/verse-initial in 15:9 -- a hook-word straddling the verse boundary, not a uniform 'opens the second colon' pattern. Cure test: re-derive the U+0591 ETNAHTA codepoint position in both spliced oshb strings and confirm the corrected wording matches; re-collate both quoted Hebrew runs to byte tier via collate.py.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c01",
+   "row_id": "P07-008",
+   "source": "OL",
+   "challenge_claim": "The proverb_cluster call for Prov.15.8-15.9 rests on a construct phrase that is an 11-verse book-wide macro-genre formula rather than a two-verse-only local catchword; recommend re-arguing as two single_proverb rows, or naming the formula-class explicitly and grounding cohesion in a genuinely local feature instead.",
+   "ruling": "escalate",
+   "grounds": "Re-derived independently from bytes on both sides of this disagreement. (1) sweep.py --skel confirms the phrase sweeps to 11 verses book-wide (Prov.3.32, Prov.11.1, Prov.11.20, Prov.12.22, Prov.15.8, Prov.15.9, Prov.15.26, Prov.16.5, Prov.17.15, Prov.20.10, Prov.20.23), of which Prov.15.8-Prov.15.9 is the ONLY adjacent consecutive pair -- no other pair among the 11 sites is adjacent. This uniqueness is itself byte-grounded evidence and is structurally comparable to the owner's own worked example of valid C2 cluster evidence, the 26:4-5 answer/answer-not pair (LF's reading). (2) Independently checked the closing word of each occurrence: oshb:Prov.11.1, oshb:Prov.12.22, and oshb:Prov.15.8 all close their construct-phrase clause on the same word (רְצוֹנֽוֹ, 'his delight'), confirming OL's point that the phrase belongs to a recurring antithetic sub-template independently deployed by the redactor at 3+ non-adjacent sites in the book, not a bespoke two-verse coinage (OL's reading). Both facts are simultaneously true. The owner's Section 6 text lists 'catchword chains' and 'pair grouping' as valid cluster evidence in the same breath as warning that a cluster whose only glue is a shared THEME is over-clustering -- and this case (an exact repeated 2-word construct phrase, book-wide-attested, uniquely adjacent at one site) does not map cleanly onto either the 26:4-5 hapax-pairing paradigm or the vague-shared-theme paradigm the rule was written against. This is a genuine owner-level contested reading of where the C2 cluster-evidence bar sits, not a defect resolvable by further byte-checking -- both primaries' underlying byte claims are independently confirmed correct and mutually compatible; they diverge only on the policy weight to give them. Escalating per the launch brief's explicit guidance for exactly this class of disagreement.",
+   "remedy": null,
+   "severity_final": "high"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P07-001",
+   "claim_checked": "Prov.15.1 shares zero skeleton tokens with Prov.15.2, sustaining the single_proverb seam on the side both primaries checked (LF also cross-checked against Prov.14.35).",
+   "result": "verified",
+   "notes": "Independently re-swept via consonantal_index.json (skeleton tier, word-bound set difference): set(Prov.15.1 skeleton tokens) & set(Prov.15.2 skeleton tokens) = empty set. Confirms both LF's and OL's independent byte-checks of this row's load-bearing boundary claim."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 6,
+  "uphold": 5,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 1,
+  "new_findings": 0
+ }
+}

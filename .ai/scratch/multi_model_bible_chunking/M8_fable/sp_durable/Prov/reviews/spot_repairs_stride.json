@@ -1,0 +1,25 @@
+{
+ "checker": "repairs_stride",
+ "rows_checked": [
+  "P03-003",
+  "P05-010",
+  "P05-044",
+  "P06-013",
+  "P06-048",
+  "P07-008",
+  "P07-037",
+  "P08-045",
+  "P09-059",
+  "P10-019",
+  "P11-013",
+  "P12-042"
+ ],
+ "defects": [
+  {
+   "row": "P05-044",
+   "what": "Work order (peer_c09.json, uphold, class HEB_engagement) for P05-044 is explicitly PART-WIDE: it names three P05 rows outside c09 carrying an unlabeled unpointed Hebrew quote -- P05-002 (oshb:Prov.9.8/9.9), P05-011 (oshb:Prov.10.7), P05-038 (oshb:Prov.11.4) -- and sets the cure test as 'collate.py --json over every P05 row's quoted spans must report either tier=byte, or tier=skeleton/accent_stripped WITH an explicit tier label present in the same prose field.' P05-044 itself, P05-002, and P05-011 were correctly repaired (unpointed quotes now carry an explicit '(oshb:..., skeleton tier)' label). P05-038 was NOT touched at all -- its rows_v1.jsonl content is byte-identical to draft_rows_combined.jsonl -- so its observed_substrate_signals still carries the quote 'וצדקה תציל ממות (oshb:Prov.11.4, \"but righteousness delivers from death\")' with no tier label. The named cure test fails for this row: it does not pass as specified over 'every P05 row'.",
+   "evidence": "draft_rows_combined.jsonl and rows_v1.jsonl: P05-038 field-for-field identical (diff shows zero changed fields). collate.py --json against {\"ref\":\"oshb:Prov.11.4\",\"quote\":\"וצדקה תציל ממות\"} (quote sliced programmatically from the row's own observed_substrate_signals[0], never hand-typed) returns tier=skeleton, status=GREEN for the match itself, but the surrounding prose contains no 'skeleton tier'/'accent-stripped' label token -- the exact defect class SP/Prov/author/work_orders.json's P05-044 entry (source peer_c09.json) was opened to close. Compare P05-002 and P05-011 in rows_v1.jsonl, both of which now read '..., oshb:Prov.X.Y, skeleton tier)' in the same field."
+  }
+ ],
+ "clean": 11
+}

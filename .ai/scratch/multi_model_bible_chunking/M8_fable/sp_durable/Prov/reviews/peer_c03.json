@@ -1,0 +1,110 @@
+{
+ "attempt_id": "peer_c03_r1",
+ "role": "peer",
+ "clusters": [
+  "c03"
+ ],
+ "rulings": [
+  {
+   "cluster": "c03",
+   "row_id": "P02-003",
+   "source": "LF",
+   "challenge_claim": "The row's cited device \"אֶל (oshb:Prov.3.5)\" for 3:19's earth-founding clause is byte-false, and the row's own inclusio word for 3:18 is a blank span.",
+   "ruling": "uphold",
+   "grounds": "byte tier, re-spliced from verse_map_oshb.json independently of both packets. oshb:Prov.3.19 opens יְֽהוָ֗ה — the subject of both founding/establishing verbs — and אֶל does not occur anywhere in 3.19; אֶל exists only at oshb:Prov.3.5 as the preposition governing trust/leaning, a different verse outside the row's own 3.13-3.20 span. Separately, oshb:Prov.3.18 ends מְאֻשָּֽׁר, sharing the same triliteral root as אַשְׁרֵ֣י opening oshb:Prov.3.13 — the inclusio CLAIM itself re-derives true — but the row's rationale prints \"which closes with  (oshb:Prov.3.18)\" and observed_substrate_signals prints \" (oshb:Prov.3.18) closing 3.18\": both are literal blank spans where the Hebrew word belongs, confirmed by direct inspection of the row's own JSON bytes.",
+   "remedy": "(1) Remove אֶל (oshb:Prov.3.5) as the device for 3.19-3.20's creation clause; the actual acting subject is יְֽהוָ֗ה (oshb:Prov.3.19) — cite that, or drop the claim. Test: collate.py byte-tier match between the cited ref's subject token and the claimed device. (2) Splice מְאֻשָּֽׁר into the rationale and observed_substrate_signals fields programmatically from verse_map_oshb.json (never hand-typed), then re-collate the row to byte tier — test: collate.py --ref oshb:Prov.3.18 must report tier=byte, not blank/none. WRITER-SYSTEMIC: אֶל (oshb:Prov.3.5) is reused as if it names \"the LORD\" across P02-003/004/006 in this cluster (and P02-001/002 in the sibling cluster per the sibling OL) — a recurring short-token-homography defect. The author-wave cure should be a p02-wide sweep of every אֶל/divine-name citation (pointed byte check per verse), not per-row spot fixes.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-003",
+   "source": "OL",
+   "challenge_claim": "The row's inclusio quote for 3.18 is a blank Hebrew slot (insufficient engagement, not a false claim), and the row's founding-clause gloss misidentifies אֶל (oshb:Prov.3.5) as the subject of 3.19-20 when the actual subject is יְֽהוָ֗ה.",
+   "ruling": "uphold",
+   "grounds": "CONVERGENCE with P02-003/LF: same two underlying defects, not distinct. byte tier, independently re-spliced: oshb:Prov.3.19 subject = יְֽהוָ֗ה; אֶל occurs only at oshb:Prov.3.5 (twice, as the preposition), never in 3.19-3.20. OL's framing of the inclusio piece is the more precise of the two primaries' framings: the underlying claim (3.18's closing word מְאֻשָּֽׁר shares the same triliteral root as 3.13's opening אַשְׁרֵ֣י) IS byte-true, so the defect is a missing/blank quote (quote tier = none, i.e. insufficient engagement under the splice-and-quote discipline), not a false claim — this is the accurate characterization, confirmed against the row's own bytes.",
+   "remedy": "Same remedy as P02-003/LF (single defect pair, one fix): correct the founding-clause citation and splice the missing 3.18 quote. No separate work order required beyond that item's remedy.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-004",
+   "source": "LF",
+   "challenge_claim": "The row's cited device \"אֶל (oshb:Prov.3.5)\" as the ground of the addressee's confidence at 3.25-3.26 is byte-false.",
+   "ruling": "uphold",
+   "grounds": "byte tier, re-spliced independently: oshb:Prov.3.26 opens כִּֽי יְ֭הוָה — the acting subject is יְ֭הוָה, and אֶל does not occur in 3.26 at all; אֶל belongs only to oshb:Prov.3.5, a verse outside this row's 3.21-3.26 span, where it is the preposition ('trust toward YHWH... lean not toward your own understanding'), never a confidence-grounding actor.",
+   "remedy": "Replace אֶל (oshb:Prov.3.5) as the confidence-ground device at 3.25-26 with the actual subject יְ֭הוָה (oshb:Prov.3.26), or drop the device claim entirely. Test: collate.py byte-tier confirmation that the cited ref's subject token supports the claimed device — currently fails, since 3.5's אֶל does not recur at 3.26. Part of the same WRITER-SYSTEMIC אֶל/divine-name pattern flagged at P02-003 — cure with the p02-wide sweep, not a spot fix.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-004",
+   "source": "OL",
+   "challenge_claim": "device_notes asserts a synonymous eyes/heart word-pair at 3.21, but \"heart\" does not occur anywhere in 3.21 (only מֵעֵינֶ֑יךָ, 'your eyes'); the rationale repeats the same mislocated אֶל citation from 3.5 at 3.25-26.",
+   "ruling": "uphold",
+   "grounds": "TWO components, one convergent with LF's item on this row, one distinct and additional. (a) DISTINCT, not raised by LF: oshb:Prov.3.21 reads בְּ֭נִי אַל יָלֻ֣זוּ מֵעֵינֶ֑יךָ נְצֹ֥ר תֻּ֝שִׁיָּ֗ה וּמְזִמָּֽה — it contains only מֵעֵינֶ֑יךָ ('your eyes'); no heart token (לב/לבב) appears anywhere in the row's own 3.21-3.26 span. The nearest heart tokens are לִבֶּֽךָ closing oshb:Prov.3.1 and לִבֶּֽךָ closing oshb:Prov.3.3 — both OUTSIDE and PRIOR to this row's span. The claimed eyes/heart pair is fabricated at the byte level: device_notes cites a device whose second half does not exist inside the row's own boundaries. (b) CONVERGES with P02-004/LF: the same אֶל-at-3.26 misattribution — oshb:Prov.3.26's subject is יְ֭הוָה, not אֶל. Same defect, not distinct from LF's item.",
+   "remedy": "(1) Strike the 'eyes/heart' pairing from device_notes, or replace it with a defensible in-span pairing — the actual synonymous elements within 3.21-3.22 are 'eyes' (מֵעֵינֶ֑יךָ, 3.21) paired with 'life/grace' (3.22), not 'eyes/heart'. Test: a word-bound sweep for לב/לבב within the row's own 3.21-3.26 span must return zero hits before any heart-based pairing claim can stand. (2) Same remedy as P02-004/LF for the confidence-ground citation (part of the WRITER-SYSTEMIC אֶל pattern).",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-006",
+   "source": "LF",
+   "challenge_claim": "The row's cited device \"אֶל (oshb:Prov.3.5)\" as the divine actor of the four gnomic sayings at 3.32-3.35 is byte-false.",
+   "ruling": "uphold",
+   "grounds": "byte tier, re-spliced independently: oshb:Prov.3.32 names יְהוָ֣ה explicitly (word index 2, 'the abomination of YHWH is the perverse man'); oshb:Prov.3.33 opens מְאֵרַ֣ת יְ֭הוָה ('the curse of YHWH'). אֶל does not occur in either verse, nor in 3.34-3.35; it belongs only to oshb:Prov.3.5, a verse outside this row's 3.32-3.35 span.",
+   "remedy": "Replace the 'אֶל (oshb:Prov.3.5)'s disposition' framing in the rationale/device_notes with the correctly-named actor יְהוָ֣ה/יְ֭הוָה (oshb:Prov.3.32, oshb:Prov.3.33). Test: byte collate confirming the cited actor-token is present at the cited verse. Same WRITER-SYSTEMIC אֶל pattern as P02-003/P02-004 — cure with the p02-wide sweep.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-006",
+   "source": "OL",
+   "challenge_claim": "The rationale's content description ('four gnomic sayings pairing אֶל (oshb:Prov.3.5)'s disposition with a human outcome') misidentifies the acting subject, though the row's actual boundary drivers (the 3.32 conjunction and the 3.35 petuchah) are independently correct.",
+   "ruling": "uphold",
+   "grounds": "CONVERGES with P02-006/LF: same אֶל misattribution, same underlying defect, not distinct. OL's scoping is the more calibrated of the two: the row's SPAN and BOUNDARY are independently sound — pmarks_Prov.json confirms kq at Prov.3.34 and PE at Prov.3.35 exactly as claimed, and the conjunction opening 3.32 is a real discourse-turn marker — only the sentence describing what the four sayings pair together is wrong. This narrower scope (content-description defect only, boundary unaffected) supports OL's own medium severity for this specific item, distinct from LF's broader-scoped high-severity framing of the same underlying citation error.",
+   "remedy": "Confirm the row's span/boundary stands as-is (no boundary work order needed); apply only the content-citation fix specified in P02-006/LF's remedy.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-007",
+   "source": "LF",
+   "challenge_claim": "The row's exclusivity claim that the father-quoting-his-father structure is 'unique across 62 verses in this part' cites the part's total verse count, not a digit-bearing sweep of the claimed narrative device.",
+   "ruling": "uphold",
+   "grounds": "Confirmed against the writer part plan: P02 = Prov.3.1-Prov.4.27 = 62 verses total (book strategy §9 tiling table), i.e. 62 is the PART'S SIZE, not a count of embedded-quotation/mise-en-abyme instances. No tool in SP/Prov/tools sweeps narrative-structure devices (confirmed against TOOLKIT.md's tool table — sweep.py covers token/skeleton/web string sweeps only), so the universal 'unique' claim has no adjacent digit-bearing sweep of the actual named object, violating the register rule (book strategy §8: 'Every universal claim... carries an adjacent DIGIT-BEARING sweep citation that NAMES the swept object and unit').",
+   "remedy": "Either (a) strike the 'unique across 62 verses' universal claim and replace with a non-universal description (e.g. 'a mise-en-abyme structure not repeated elsewhere in this part's rows'), or (b) if retained, attach an adjacent digit-bearing sweep naming the swept object (a disclosed manual count of embedded paternal-speech-frame structures across the part, since no staged tool sweeps this). Test: check_universals.py must no longer flag this row.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P02-008",
+   "source": "LF",
+   "challenge_claim": "The row's claim that the repeated imperative is 'echoed again at the head of 4.7' misdescribes the verse's actual opening.",
+   "ruling": "uphold",
+   "grounds": "byte tier, re-spliced independently: oshb:Prov.4.7 opens רֵאשִׁ֣ית ('the beginning/chief thing'), not the imperative. The repeated pair from oshb:Prov.4.5 (קְנֵ֣ה חָ֭כְמָה, 'get wisdom, get understanding') recurs inside 4.7 but SPLIT, not head-positioned: קְנֵ֣ה חָכְמָ֑ה occupy 4.7's 3rd-4th word slots, and קְנֵ֣ה בִינָֽה occupy its final two word slots, separated by the intervening clause 'and with all your getting' (words 5-6). The row's 'echoed again at the head of 4.7' overstates both the position (medial, not initial) and the contiguity (split by an intervening clause, not adjacent) of the repetition.",
+   "remedy": "Correct 'echoed again at the head of 4.7' to describe the actual split position: the get-wisdom/get-understanding pair recurs within 4.7 as its 3rd-4th and final two words, divided by the 'and with all your getting' clause — not as a head-of-verse echo. The underlying repetition-based cohesion argument for keeping 4.5-4.9 together remains sound; only the positional description needs correction. Test: a word-index positional check against consonantal_index.json/verse_map_oshb.json confirming the corrected position claim. NOTE: P02-008/OL raises a related, more granular version of this same positional-precision finding on this row; that item is deferred under the cluster's 8-item cap and should be reconciled with this remedy in the follow-on attempt rather than treated as a separate defect.",
+   "severity_final": "low"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P02-005",
+   "claim_checked": "the tov-min skeleton sweep (ט֥וֹב ... מִבְּעָלָ֑יו, 'good ... from-its-owner') returns exactly 4 verses book-wide -- Prov.3.27, Prov.15.16, Prov.16.8, Prov.16.16 -- with 3.27 (a ketiv/qere verse) as the source-marked 'withhold good FROM its owner' exception rather than the tov-min comparative shared by the other three hits",
+   "result": "verified",
+   "notes": "Independently re-ran sweep.py --skel over the tov-min skeleton phrase from SP/Prov/tools (fresh invocation, not copied from either packet): output = exactly 4 verses, ref set {Prov.3.27, Prov.15.16, Prov.16.8, Prov.16.16}, matching both primaries' claimed digit and named object exactly. Cross-checked pmarks_Prov.json directly: kq entries present at Prov.3.27/Prov.3.28/Prov.3.30 and paseq at Prov.3.28, confirming the row's disclosed-object claims. Also confirmed pmarks_Prov.json carries zero petuchah/setumah/kq/paseq entries for Prov.4.10-Prov.4.13 (P02-009's 'no disclosure-object' claim), a second both-primaries-supported row in this cluster."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 8,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ },
+ "deferred_row_ids": [
+  "P02-008:OL",
+  "P02-010:LF",
+  "P02-010:OL"
+ ]
+}

@@ -47,3 +47,37 @@ scribal/editorial evidence-weight addendum applied from Genesis onward).
 low_confidence_register.jsonl, frontier_escalation_queue.jsonl, and atlas_candidate_feed.jsonl
 carry the same 12 Genesis decision ids (set parity enforced by validator); no frontier-book
 rows exist yet (Dan and Rev pending). All rows are consider-only with promotion_authority none.
+
+## Prov (book 20, closed 2026-08-18, m8-mesh-r3-scoped)
+
+- 559 chunks / 915 verses, tiling exact; eight collection parents; unit_type spread:
+  447 single_proverb, 38 proverb_cluster (every cluster carries named byte cohesion
+  evidence), 30 admonition_unit, 24 instruction_lecture, 11 wisdom_poem, 7
+  numerical_saying, 1 royal_instruction, 1 acrostic_poem (31:10-31, 22/22 alef-bet
+  re-derived independently by three reviewers).
+- First scoped-mesh book (owner-approved): dual-blind LF+OL primaries over 239 scoped
+  rows (all clusters/form rows/cohesion-live/low-confidence + 15% stride sample);
+  321 machine-clean atomics carried Tier-0 + sample coverage. Honesty sample measured
+  ~25% texture-level defect rate in the unreviewed population with ZERO boundary
+  errors; disclosed for T521 convergence weighting. OL primaries ran on sonnet
+  (owner-approved hybrid; opus capacity failure); opus OL spot-wave deferred.
+- Review ledger (programmatic): 193 peer challenges adjudicated - 161 upheld / 22
+  refined / 2 refuted (both reviewer-error class) / 2 escalated; boss ledger 10
+  rulings, zero owner escalations. Material outcomes: 2 merges (11:8-9 chelets split
+  pair; 20:5-6 ish...ve-ish construction run - the cycle's wrongly-atomized catch),
+  1 split (14:26-27 after its warrant failed prefix-variation/role-split tests),
+  1 unit_type adoption (26:18-19 single_proverb, two-verse single sentence), B-8
+  collection-law clarification with 2 relabels + 8 disclosed deviations.
+- Systemic classes found and swept: p02 el-as-divine-name mis-citations (S-1, 5 rows);
+  cross-part straight-quote convention (S-2); sentence-core Hebrew-engagement
+  (transliteration-only / unlabeled skeleton / no-quote); stale pre-E-1 bni figures.
+  E-1 inventory correction ratified mid-cycle: vocative beni 22 verses (was 17),
+  construct bene 8 - split at the vowel; NEW hazard classes catalogued: shin/sin-dot
+  homograph (sheva/seven), prefix-extension on construct openings (biryat/yirat).
+- Confidence: high 455 / medium 83 / medium_low 20 / low 1; all 21 low-band rows
+  mirrored in all three sidecars with bespoke uncertainty text; M8-Prov-006 (the
+  Prov 2 whole-chapter single-sentence row) carries the mechanical chapter-fallback
+  medium_low cap, distinguished from literary doubt in its prose.
+- Tooling hardened mid-cycle (all defects found BY the mesh): refs_mirror +
+  ngram7 schema-field scope patches, isolation-tool output-path guard; deploy-path
+  byte verification lesson recorded for next book.

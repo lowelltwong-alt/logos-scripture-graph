@@ -1,0 +1,49 @@
+{
+ "attempt_id": "peer_c09_r2",
+ "role": "peer",
+ "clusters": [
+  "c09"
+ ],
+ "rulings": [
+  {
+   "cluster": "c09",
+   "row_id": "P05-058",
+   "source": "LF",
+   "challenge_claim": "The row labels its 3-verse sweep the exact spelling of the blessing noun, but word-bound checking shows two of the three hits are prefixed forms, not the bare spelling; the digit and adjacency conclusion driving the cluster ruling are independently confirmed correct.",
+   "ruling": "uphold",
+   "grounds": "Independent word-bound tokenization (skeleton per-token comparison, tokens sourced directly from verse_map_oshb.json, byte tier) confirms LF's claim exactly: the 3-verse skeleton-substring sweep for ברכה (Prov.10.7, Prov.11.25, Prov.11.26) is correct as a digit and as an adjacency claim, but only Prov.11.25's token בְּרָכָ֥ה (skeleton ברכה) is the bare, word-bound absolute-state form. Prov.10.7 carries the prefixed form לִבְרָכָ֑ה (skeleton לברכה) and -- critically -- the row's OWN second cluster verse, Prov.11.26, carries the prefixed form וּ֝בְרָכָ֗ה (skeleton וברכה), not the bare noun the row's 'exact spelling' language implies. So the row's phrase 'skeleton sweep of the exact spelling ברכה' overstates uniformity: it is a skeleton-level SUBSTRING sweep across one bare and two prefixed tokens, not an exact-spelling census. Separately, the row's construct-state disclaimer (Prov.10.22, Prov.11.11, Prov.24.25) is independently re-derived and confirmed disjoint from the absolute-state hits -- tokens בִּרְכַּ֣ת (skeleton ברכת), בְּבִרְכַּ֣ת (skeleton בברכת), בִרְכַּת (skeleton ברכת), all distinct verses from the absolute-state set -- so LF's 'correctly and precisely distinguished' assessment also holds. The digit (3) and the adjacency conclusion (11:25-11:26 the only adjacent pair) are unaffected by the prefix/bare distinction. This is a DISTINCT defect from the OL challenge on this same row (which flags the absence of a skeleton-tier disclosure on the row's content-quotation uses of ברכה/נפש ברכה, a different field-level omission, not a wording-precision issue in the sweep's self-description); the two are convergent on row P05-058 but not the same finding. LF's severity call of low is appropriate: the granularity/cluster ruling stands, only the sweep's self-description needs correcting.",
+   "remedy": "Author wave, P05-058 only (row-specific, not the S-3 class): in the rationale, replace 'A skeleton sweep of the exact spelling ברכה' with wording that does not assert word-form uniformity across the sweep hits -- e.g. 'a skeleton-level substring sweep of ברכה' -- and disclose the token census (bare form at 11:25; prefixed forms at 10:7 and 11:26). Test the cure must pass: re-run a word-bound tokenization of the 3 hit verses (skeleton per-token, sourced from verse_map_oshb.json) and confirm the corrected prose no longer claims a uniform exact spelling where 2 of 3 tokens are prefixed.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c09",
+   "row_id": "P05-058",
+   "source": "OL",
+   "challenge_claim": "The cluster's cohesion sweep is byte-accurate and meets the C2 proverb_cluster bar, but the row's own Hebrew quotes still collate at skeleton tier only and are never labeled as such.",
+   "ruling": "uphold",
+   "grounds": "Independent re-derivation confirms OL's claim on two grounds. (1) collate.py --json against oshb:Prov.11.25-Prov.11.26 returns tier=skeleton (status GREEN) for both Hebrew runs quoted in the row's rationale (ברכה, נפש ברכה); character-level inspection of the extracted runs (base-consonant Unicode codepoints only, no niqqud/cantillation marks) confirms these are genuinely unpointed, not a copy-degradation artifact. (2) No tier label appears adjacent to either quotation use in the row: the row's one tier-adjacent phrase, 'A skeleton sweep of the exact spelling ברכה,' labels the DIGIT-COUNT methodology one sentence later, not the earlier content-quotation uses ('11:25 calls the generous person a נפש ברכה...', '11:26 promises ברכה...on the head of one who sells'). Per the campaign rule stated in collate.py's own docstring and TOOLKIT.md ('accent_stripped and skeleton are citation/mention grade and must be labeled as such in prose'), this is a genuine, rule-grounded disclosure gap, not a boundary-conclusion defect -- the granularity ruling and cohesion evidence for the 11:25-11:26 cluster are otherwise sound (see the LF ruling on this same row: digit and adjacency independently confirmed correct). This is a DISTINCT defect from the LF challenge on this same row (LF flags imprecise self-description of the sweep's word-forms; OL flags a missing tier disclosure on the row's Hebrew content quotations) -- convergent on P05-058, not duplicate findings. This instance also matches the S-3 systemic class: the OL packet raises the identical unlabeled-skeleton-tier defect against every row in cluster c09 (8/8), consistent with a part-p05-wide pattern rather than an isolated defect.",
+   "remedy": "Class-level cure (S-3, part-p05-wide, not a bespoke per-row fix): sweep every P05 writer_decision_id's prose fields (rationale, rejected_alternative, device_notes, observed_substrate_signals) for Hebrew runs; for each run collating below byte tier via collate.py, either (a) re-splice the quote verbatim from verse_map_oshb.json to reach byte tier and re-collate to confirm, or (b) keep the unpointed citation but add an explicit adjacent tier label (e.g. '(skeleton tier, unpointed)') immediately next to the quote. Test the cure must pass: run collate.py --json over every extracted Hebrew run in every P05 row and confirm each result is either tier=byte, or the row prose carries an explicit skeleton/unpointed disclosure adjacent to that specific quote -- a per-row, machine-checkable byte-tier-or-labeled-disclosure test (the test that killed both P05-058 and P05-062 here). If the same gap is confirmed in other writer parts on a follow-up sweep, escalate to a book-wide sweep.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c09",
+   "row_id": "P05-062",
+   "source": "OL",
+   "challenge_claim": "The row's Hebrew quote collates at skeleton tier only and is never labeled as such; the synthetic-couplet call and the undisclosed root shared with 11:29 are otherwise sound.",
+   "ruling": "uphold",
+   "grounds": "Independent re-derivation confirms: collate.py --json against oshb:Prov.11.30-Prov.11.30 returns tier=skeleton (status GREEN) for the row's sole Hebrew run, פרי צדיק עץ חיים, quoted in observed_substrate_signals. Character-level inspection confirms the extracted run is unpointed consonants only (no niqqud/cantillation codepoints), so this is genuinely skeleton tier, not a false negative. No tier label of any kind appears anywhere in the row (rationale, rejected_alternative, device_notes, observed_substrate_signals all checked). This is the SAME S-3 systemic-class defect as the OL item on P05-058 in this cluster -- unlabeled skeleton-tier Hebrew quotation, a documented campaign rule violation (collate.py docstring / TOOLKIT.md), not a boundary-conclusion defect. OL's own characterization -- that the synthetic classification and the undisclosed root shared with 11:29 do not undermine the single_proverb call -- is consistent with how this cluster treats undisclosed-but-generic collection-wide vocabulary elsewhere (e.g. the supported items at P05-043/044/062 in the LF packet, where high-frequency book-wide tokens are held non-driving texture); re-litigating that secondary point is outside this item's scope, which is the tier-labeling defect only.",
+   "remedy": "Class-level cure (S-3, part-p05-wide, not a bespoke per-row fix): sweep every P05 writer_decision_id's prose fields (rationale, rejected_alternative, device_notes, observed_substrate_signals) for Hebrew runs; for each run collating below byte tier via collate.py, either (a) re-splice the quote verbatim from verse_map_oshb.json to reach byte tier and re-collate to confirm, or (b) keep the unpointed citation but add an explicit adjacent tier label (e.g. '(skeleton tier, unpointed)') immediately next to the quote. Test the cure must pass: run collate.py --json over every extracted Hebrew run in every P05 row and confirm each result is either tier=byte, or the row prose carries an explicit skeleton/unpointed disclosure adjacent to that specific quote -- a per-row, machine-checkable byte-tier-or-labeled-disclosure test (the test that killed both P05-058 and P05-062 here). If the same gap is confirmed in other writer parts on a follow-up sweep, escalate to a book-wide sweep.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [],
+ "supported_sample_note": "Waived for this follow-on attempt per the launch message (peer_c09_r2 covers only the 3 deferred challenge items; no supported-row sample duty assigned).",
+ "summary": {
+  "challenges_adjudicated": 3,
+  "uphold": 3,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}
