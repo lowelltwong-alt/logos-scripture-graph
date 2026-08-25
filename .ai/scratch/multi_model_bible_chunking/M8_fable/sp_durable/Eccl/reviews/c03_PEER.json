@@ -1,0 +1,110 @@
+{
+ "attempt_id": "peer_eccl_c03_r1",
+ "role": "peer",
+ "clusters": [
+  "c03"
+ ],
+ "rulings": [
+  {
+   "cluster": "c03",
+   "row_id": "P01-017",
+   "source": "LF",
+   "challenge_claim": "The rejected-alternative field uses an unanchored positional row reference (\"the row before it\") instead of a verse-anchored cross-reference, violating the register rule that cross-row references must be verse-anchored.",
+   "ruling": "uphold",
+   "grounds": "Confirmed from the row's own bytes. strongest_rejected_alternative reads '...distinct from the unanswered spirit-direction question that closes the row before it.' P01-016 (span Eccl.3.19-Eccl.3.21) is the preceding row, and its own boundary_rationale identifies oshb:Eccl.3.21 (מִ֣י יוֹדֵ֗עַ ... הָאָדָ֔ם, byte tier) as the verse carrying the unanswered spirit-direction question -- so a verse anchor was available and unused. Per book_strategy Eccl.md section 8, cross-row references must be verse-anchored; every sibling row in this cluster complies (P01-018 cites '4:4'; P01-021 cites \"4:4's...clause\"). NEW FINDING beyond LF's own quoted instance: the same field carries a second, uncited case of the identical defect in its first clause -- 'the animal-comparison argument before it' also names P01-016 by position rather than by verse span; the violation recurs twice in one field, not once.",
+   "remedy": "Rewrite strongest_rejected_alternative to replace both positional phrases with verse anchors: 'the animal-comparison argument of web:Eccl.3.19-Eccl.3.21' and 'the unanswered spirit-direction question that closes web:Eccl.3.21.' Cure test: the field must contain zero positional-reference idioms ('the row before/after it', 'the previous/next row') and every cross-row comparison must resolve to an explicit verse or span, per section 8 -- the defect that killed the original was the absence of a verse anchor, so the cure is confirmed by its presence.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-017",
+   "source": "OL",
+   "challenge_claim": "The row's one declared substrate signal is inverted at its own seams -- byte-true catchword adjacency lies on the undisclosed opening seam, the closing seam is correctly denied as empty, and a tov-comparative in the row's own quoted bytes goes undeclared.",
+   "ruling": "uphold",
+   "grounds": "Independently re-derived at skeleton tier directly from consonantal_index.json (not reused from OL's packet): Eccl.3.21 tokens intersect Eccl.3.22 tokens at ['האדם', 'מי'] (2 shared tokens); Eccl.3.22 intersects Eccl.4.1 at [] (empty). הָאָדָם֙ (Eccl.3.22) is byte-confirmed against הָאָדָ֔ם (Eccl.3.21) as the same definite noun 'the man' -- a genuine content token, not function-word stoplisted -- present at the row's own OPENING seam. The row's single declared signal (sentence_zone_texture.catchword_adjacency) is never applied to it; device_notes instead denies a nameable catchword at the CLOSING seam only, which the sweep confirms is correctly empty, leaving the declared signal effectively unapplied to any real device in this row. Separately confirmed against eccl_device_inventory.json: tov_comparatives.tov_min_adjacent's own ref list is ['Eccl.3.22', 'Eccl.4.3', 'Eccl.4.6', 'Eccl.6.3', 'Eccl.6.9', 'Eccl.9.4'] -- Eccl.3.22 IS a member (טוֹב֙ מֵאֲשֶׁ֨ר, a genuinely comparative construction, unlike the false-positive case at 4:6 -- see the P01-021 ruling below), and this row's own quoted bytes carry it undeclared.",
+   "remedy": "Add the byte-true opening-seam catchword (definite noun 'the man,' word-bound) to the substrate-signal disclosure, weighed per the standing CROSS-SEAM COHESION rule -- state why the independent raiti-restart and nothing-better verdict still stand as this row's own boundary despite it. Add tov_comparatives.tov_min_adjacent (Eccl.3.22) to observed_substrate_signals. Cure test: re-run the skeleton-tier adjacent-pair sweep on both of the row's seams and confirm every non-empty, non-stoplisted intersection is named in device_notes; confirm Eccl.3.22's tov_min_adjacent membership appears in observed_substrate_signals -- the defect that killed the original (an unnamed real device plus a misapplied signal citation) is what the cure must remove.",
+   "severity_final": "low",
+   "convergence_note": "Distinct from the LF item on this same row: LF's defect is a citation-form/register violation in strongest_rejected_alternative; OL's is a substrate-signal disclosure/completeness defect. Not the same defect."
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-019",
+   "source": "OL",
+   "challenge_claim": "The row's stated bounding ground -- third-person gnomic sayings on both flanks -- is byte-false on the left, where MT 4:3 opens on an anaphoric 3mp suffix whose antecedent lies in the first-person MT 4:2, and the same seam carries the only cross-row catchword pair in the chapter, undisclosed.",
+   "ruling": "uphold",
+   "grounds": "Confirmed directly from verse_map_oshb.json: Eccl.4.2 opens וְשַׁבֵּ֧חַ אֲנִ֛י (first person, explicit 'I') and Eccl.4.3 opens וְטוֹב֙ מִשְּׁנֵיהֶ֔ם -- 'and better than BOTH OF THEM,' a 3mp pronominal suffix with no in-verse antecedent, reaching back to 'the dead' / 'the living' named in 4:2. Eccl.4.3 is therefore the verbless dependent continuation of 4:2's first-person comparison sentence, not an independent third-person gnomic saying; the row's stated ground ('third-person gnomic sayings on either side of it') mischaracterizes the left flank, which remains governed by 4:2's first person. Independently reconfirmed the undisclosed shared token: word-bound sweep of הַמַּעֲשֶׂ֣ה/הַֽמַּעֲשֶׂ֔ה (the definite deed/skill noun) over the whole book returns exactly 6 verses -- ['Eccl.2.17', 'Eccl.3.11', 'Eccl.3.17', 'Eccl.4.3', 'Eccl.4.4', 'Eccl.8.17'] -- with Eccl.4.3-Eccl.4.4 the only adjacent pair, and neither this row nor P01-018 discloses it.",
+   "remedy": "Correct the two-sided ground in boundary_rationale: replace 'third-person gnomic sayings on either side of it' with an accurate left-flank description (4:3 as the dependent close of 4:2's first-person comparison, itself closing P01-018) and retain the accurate right-flank description (4:5's bare third-person gnomic form). This is a grounds correction, not a boundary reversal -- the row's actual isolating evidence (the first-person raiti restart at 4:4, the hevel token, and the exact reut-ruach digit) is byte-sound and untouched. Add the undisclosed cross-row catchword (the definite deed/skill noun, Eccl.4.3|Eccl.4.4) to device_notes as a disclosed, weighed cross-seam cohesion note. Cure test: the corrected sentence must state that 4:2's first person governs 4:3, and the catchword must appear disclosed with the weighing sentence -- the test the original failed was an inaccurate grammatical characterization plus a silent cross-seam device.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-020",
+   "source": "OL",
+   "challenge_claim": "The rejected alternative weighs the byte-EMPTY rival and never the byte-strong one -- MT 4:4-4:6 as a single unit whose two flanking verses close on a byte-identical phrase that brackets this verse.",
+   "ruling": "uphold",
+   "grounds": "Byte-confirmed by direct token-slice comparison of verse_map_oshb.json: Eccl.4.4 and Eccl.4.6 close on the identical two-word run וּרְע֥וּת רֽוּחַ / וּרְע֥וּת רֽוּחַ (equal byte-for-byte) and both carry the toil noun (עָמָ֗ל / עָמָ֖ל, non-identical accentuation, disclosed as such). Eccl.4.5's token set shares nothing with either neighbor except the stoplisted object-marker. The row's rejected_alternative engages only the (byte-confirmed empty) rival of clustering 4:5 with 4:6 by shared root/construction, and never names the stronger, byte-grounded bracketing rival (4:4-4:6 as one inclusio-bracketed unit with 4:5 embedded as foil).",
+   "remedy": "Extend strongest_rejected_alternative to name and reject the bracketing rival: state that Eccl.4.4 and Eccl.4.6 close on an identical two-token run, but that 4:4 already carries its own independently-established first-person/hevel/reut-ruach identity (P01-019) and 4:6 its own tov-opener identity (P01-021), so the inclusio functions as a cross-seam refrain framing 4:5 rather than a merger warrant, per the standing CROSS-SEAM COHESION rule. Cure test: the field names the identical closing phrase explicitly with tier, and states why it does not override the three already-established atomic boundaries -- the test the original failed was omitting its own strongest rival.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-021",
+   "source": "OL",
+   "challenge_claim": "The row propagates a tov-min adjacency false positive at MT 4:6 without the construction check that signal's own definition mandates, and rebuts the MT 4:4 rival on form alone while the byte-identical phrase binding 4:4 to 4:6 goes unnamed.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct tokenization of Eccl.4.6: the token immediately following ט֕וֹב (tov) is מְלֹ֥א ('fullness of,' from the root מלא), not a comparative מן-prefixed word; the true comparative מִמְּלֹ֥א is the fifth token. Cross-checked directly against eccl_device_inventory.json's own tov_min_adjacent entry, whose count_object explicitly warns: 'a מ-prefix after tov is not always comparative; construction check required before citing' -- the row cites the signal for 4:6 without performing that check. Second defect independently confirmed per the P01-020 ruling above: the row's rejected_alternative rebuts the '4:6 concludes 4:4' rival on form alone ('4:6 opens with its own tov-initial gnomic construction... formally distinct from 4:4's first-person raiti clause') without naming the byte-identical closing phrase that is that rival's actual strongest support.",
+   "remedy": "(1) Either drop tov_comparatives.tov_min_adjacent from observed_substrate_signals for this row or relabel it explicitly as the non-adjacent/false-positive case, noting the true comparative sits three tokens later. (2) Extend the rejected_alternative to name the shared closing phrase and toil noun with 4:4, with the same cross-seam-refrain-not-merger reasoning as P01-020's cure. Cure test: re-run the construction check on the tov_min_adjacent claim (the token immediately following tov must itself carry the מן-comparative, not merely start with the letter מ) before any future citation of this signal at 4:6; confirm the rejected_alternative names the inclusio phrase -- the test the original failed on both counts.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-022",
+   "source": "OL",
+   "challenge_claim": "The ketiv/qere CONTENT claim is attributed to a count-only inventory that cannot carry it while the byte source that can goes unquoted, and the same-formula claim across MT 4:1 and 4:7 ships without its tier -- the two runs are skeleton-identical but NOT byte-identical.",
+   "ruling": "uphold",
+   "grounds": "Confirmed by direct inspection of pmarks_Eccl.json: the kq object records only a bare count (Eccl.4.8: 1) with no variant-content field. The row attributes the 'eyes/eye number variant' CONTENT to 'the staged pmarks inventory,' which cannot bear it; the content is instead byte-recoverable from the verse itself (Eccl.4.8: ...גַּם עיניו עֵינ֖וֹ לֹא תִשְׂבַּ֣ע... -- the unpointed ketiv (plural, skeleton grade) immediately preceding the pointed qere (singular, byte grade)), which the row never quotes. Separately confirmed by direct token comparison: Eccl.4.1's and Eccl.4.7's opening two words (וְשַׁ֣בְתִּֽי אֲנִ֗י vs וְשַׁ֧בְתִּי אֲנִ֛י) are NOT byte-identical (cantillation differs on both words); the row's 'same resumptive formula' claim is true only at skeleton tier, untiered in the row. Also confirmed: the ordinal 'second' is word-bound in exactly 2 verses book-wide (['Eccl.4.8', 'Eccl.4.10']), both carrying the identical skeleton clause וְאֵ֨ין שֵׁנִ֜י / וְאֵ֥ין שֵׁנִ֖י -- a device this row's own closing verse (4:8) opens that resurfaces inside the next row (P01-023's 4:10) without cross-seam disclosure in either row.",
+   "remedy": "Re-source the ketiv/qere variant content to the verse bytes (quote the ketiv/qere pair from oshb:Eccl.4.8 with tiers labeled: unpointed ketiv = skeleton grade, pointed qere = byte grade) rather than citing the pmarks inventory for content it doesn't carry. Add the skeleton-tier qualifier to the 'same resumptive formula' claim linking 4:1 and 4:7. Add the 'no second' cross-seam device (Eccl.4.8|Eccl.4.10) to this row's or P01-023's device_notes as a disclosed, weighed cross-seam cohesion note. Cure test: the ketiv/qere content claim quotes the verse's own two forms with tiers named; the 4:1/4:7 formula-identity claim carries a tier label; the ordinal device appears disclosed in at least one of the two adjoining rows -- all three were untiered or misattributed in the original.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-023",
+   "source": "LF",
+   "challenge_claim": "The strongest_rejected_alternative for the 4:9-4:12 wisdom_poem call engages only monologue_unit as the rival and skips the closer, byte-grounded rival of saying_cluster, whose own construction-run cohesion bar this unit's threefold conditional pattern arguably satisfies more precisely than wisdom_poem does.",
+   "ruling": "refine",
+   "grounds": "Confirmed at the byte tier: Eccl.4.10, Eccl.4.11, Eccl.4.12 open respectively כִּ֣י אִם, גַּ֛ם אִם, וְאִֽם -- three conditional clauses sharing the base particle 'if' but led by three different words, not an identical repeated opener; 'construction run' (LF's own term) is the accurate description, not strict anaphora. The row's rejected_alternative names only monologue_unit as rival and never engages saying_cluster, despite both sharing the same closed-vocabulary cohesion-bar apparatus (book_strategy Eccl.md section 6) -- that omission is real. However, re-derivation shows the four verses form ONE continuous, grammatically dependent illustration series (4:10-4:12 each illustrate 4:9's 'two are better than one' thesis, closing on a single capping image at 4:12) rather than detachable, independently-standing sayings of the kind saying_cluster denotes (the type-case being the 7:1-8 tov-opener anaphora of freestanding proverbs). Section 6 also warns 'a cluster whose only glue is a shared THEME is over-clustering' -- here the glue is a single continuous argument, closer to wisdom_poem's patterned-poem category than to a cluster of sayings. REFINE: the challenge correctly identifies the rejected_alternative as incomplete, but the corrected finding is that saying_cluster does not, on inspection, satisfy the cohesion bar more precisely than wisdom_poem -- the existing unit_type call is not overturned by this defect.",
+   "remedy": "Add one sentence to strongest_rejected_alternative naming and rejecting saying_cluster: the four verses form a single continuous illustration series dependent on 4:9's thesis and closing on one capping image, not detachable independent sayings, so wisdom_poem's patterned-poem category fits better than a cluster of sayings. This sentence should also correct the 'anaphora' wording per the OL ruling on this same row (three different lead particles, not an identical opener). Cure test: strongest_rejected_alternative names saying_cluster explicitly and states the one-composition-vs-detachable-sayings distinction; unit_type remains wisdom_poem -- the test the original failed was completeness of rival-engagement, not correctness of the final call.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c03",
+   "row_id": "P01-023",
+   "source": "OL",
+   "challenge_claim": "The opening seam severs a book-wide-rare one/two device that is stated first in MT 4:8, the declared tov-opener signal does not instantiate at MT 4:9, and the unit_type deviation is argued from an English gloss with no Hebrew quoted and no tier.",
+   "ruling": "uphold",
+   "grounds": "Three independently confirmed defects. (1) Direct inspection of eccl_device_inventory.json's tov_comparatives block: tov_openers' count_object is 'verses whose first skeleton token is tov/tovah' (12 verses, exact list ['Eccl.4.6', 'Eccl.4.13', 'Eccl.5.4', 'Eccl.6.9', 'Eccl.7.1', 'Eccl.7.2', 'Eccl.7.3', 'Eccl.7.5', 'Eccl.7.8', 'Eccl.7.11', 'Eccl.7.18', 'Eccl.9.18']) and tov_min_adjacent's list is ['Eccl.3.22', 'Eccl.4.3', 'Eccl.4.6', 'Eccl.6.3', 'Eccl.6.9', 'Eccl.9.4'] -- Eccl.4.9 is in NEITHER; its first token is the PLURAL טוֹבִ֥ים, which the inventory's own narrower string match excludes, and its true comparative (טוֹבִ֥ים הַשְּׁנַ֖יִם מִן הָאֶחָ֑ד) sits with intervening tokens, escaping both sweeps' adjacency definitions. The row cites tov_comparatives.tov_openers for this row regardless. (2) Word-bound sweep of the ordinal 'second' returns exactly ['Eccl.4.8', 'Eccl.4.10'], both carrying the identical skeleton clause וְאֵ֨ין שֵׁנִ֜י / וְאֵ֥ין שֵׁנִ֖י; word-bound 'one' is present in every verse Eccl.4.8-Eccl.4.12. This one/two opposition is stated FIRST in the immediately preceding row's own closing verse (P01-022's Eccl.4.8), and the device recurs across the row boundary undisclosed in either row -- confirmed as a real, book-wide-rare (2-verse) device straddling the opening seam. (3) Confirmed per the P01-023/LF ruling above: the three conditional openers are three different forms, not an identical repeated opener, so 'tightly patterned three-fold anaphora' is an imprecise, untiered English gloss with no Hebrew quoted in its support.",
+   "remedy": "(1) Replace the tov_openers citation for this row with an accurate description: Eccl.4.9 carries a plural tov-comparative construction with intervening tokens that escapes both staged tov sweeps' narrower definitions -- name it as such rather than citing an inventory entry that excludes it. (2) Add the 'no second' cross-seam device (shared with P01-022's own Eccl.4.8) to this row's device_notes as a disclosed, weighed cross-seam cohesion note -- name it and state why it doesn't override the independent shavti-restart boundary already established at 4:7-4:8|4:9. (3) Replace 'tightly patterned three-fold anaphora' with an accurate construction-run description (see the P01-023/LF ruling's cure) and quote the three distinct lead particles with tiers. Cure test: the tov signal citation matches the inventory's own count_object definition or is dropped; the ordinal device appears disclosed in this row or P01-022's device_notes; the anaphora clause is replaced with a byte-quoted, tier-labeled construction-run description.",
+   "severity_final": "medium"
+  }
+ ],
+ "deferred_row_ids": [
+  "P01-024"
+ ],
+ "deferred_note": "Cap of 8 rulings/attempt reached at P01-023 in canonical row order. P01-024 carries both primaries' convergent HIGH-severity challenges (LF + OL, both re the raiti marker at Eccl.4.15) and is deferred WHOLE (both items together, per the convergence-pairing rule) to a follow-on attempt rather than split.",
+ "supported_sample": [
+  {
+   "row_id": "P01-018",
+   "claim_checked": "Load-bearing digit both primaries relied on: the shavti/veshavti turning-formula opening Eccl.4.1 is one of exactly 3 book-wide sites (Eccl.4.1, Eccl.4.7, Eccl.9.11).",
+   "result": "verified",
+   "notes": "Independently re-swept word-bound at skeleton tier directly from consonantal_index.json (not reused from either packet): ['Eccl.4.1', 'Eccl.4.7', 'Eccl.9.11'] -- 3 verses, matching the row's own claim, P01-018's LF and OL support rulings, and the staged device inventory exactly. Also spot-confirmed the paseq disclosure: pmarks_Eccl.json paseq['Eccl.4.1'] = 1 (present, count-only), matching the row's hedge. No defect found."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 7,
+  "refine": 1,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 1
+ }
+}

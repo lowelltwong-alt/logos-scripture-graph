@@ -1,0 +1,90 @@
+{
+ "attempt_id": "spot_eccl_s3_r1",
+ "role": "spot",
+ "lane": "s3_p02_repairs",
+ "rows_checked": [
+  "p02-001",
+  "p02-002",
+  "p02-004",
+  "p02-005",
+  "p02-006",
+  "p02-007",
+  "p02-008",
+  "p02-009",
+  "p02-010",
+  "p02-011",
+  "p02-015",
+  "p02-016",
+  "p02-017",
+  "p02-018",
+  "p02-019",
+  "p02-020",
+  "p02-021",
+  "p02-022",
+  "p02-023",
+  "p02-024",
+  "p02-025",
+  "p02-026",
+  "p02-027",
+  "p02-028",
+  "p02-029",
+  "p02-030",
+  "p02-031",
+  "p02-032"
+ ],
+ "findings": [
+  {
+   "row_id": "p02-008",
+   "class": "4",
+   "severity": "low",
+   "claim": "device_notes names the staged pmarks_Eccl.json inventory file directly in frozen row prose, a REGISTER PURGE violation (tool/pipeline filenames banned from prose); PRE-EXISTING since rows_v1 (byte-identical field, untouched by the phase-1 repair) -- not repair-installed.",
+   "evidence": "device_notes byte text: \"...one immediately across its rear seam at oshb:Eccl.6.3 (both pmarks_Eccl.json, single-witness, count-based).\" Contrast p02-006/p02-007 in the same offset stretch, which disclose the identical paseq inventory as 'the paseq inventory' with no filename."
+  },
+  {
+   "row_id": "p02-025",
+   "class": "4",
+   "severity": "low",
+   "claim": "device_notes names pmarks_Eccl.json directly in frozen prose, same REGISTER PURGE gap as p02-008; PRE-EXISTING since rows_v1 -- not repair-installed.",
+   "evidence": "device_notes byte text: \"...carries a ketiv/qere note (pmarks_Eccl.json), disclosed here since it continues to be cited as this row's own front-seam boundary evidence.\""
+  },
+  {
+   "row_id": "p02-006",
+   "class": "3",
+   "severity": "low",
+   "claim": "Row quotes Hebrew from oshb:Eccl.5.17 twice (opening 'behold' clause and the תחת השמש phrase) and discloses that verse's paseq seg, but never discloses its ketiv/qere status, while neighbor p02-007 (whose own span opens at that same verse) fully discloses the K/Q there -- asymmetric disclosure of two co-located devices at one shared verse. PRE-EXISTING since rows_v1 -- not repair-installed.",
+   "evidence": "citation_sweep.py prose_dual_warn: 'p02-006: Hebrew quote in row.boundary_rationale binds to K/Q verse oshb:Eccl.5.17 with no ketiv/qere disclosure in-field' (also flagged for device_notes). oshb:Eccl.5.17 is on the toolkit's 12-verse K/Q inventory (also a paseq site, which p02-006 does disclose)."
+  },
+  {
+   "row_id": "p02-002",
+   "class": "3",
+   "severity": "low",
+   "claim": "Row quotes 'שְׁמֹ֣ר' from the seam-verse oshb:Eccl.4.17 (a K/Q verse fully disclosed in neighbor p02-001) with no ketiv/qere disclosure of its own. PRE-EXISTING since rows_v1 -- not repair-installed.",
+   "evidence": "citation_sweep.py prose_dual_warn: 'p02-002: Hebrew quote in row.boundary_rationale binds to K/Q verse oshb:Eccl.4.17 with no ketiv/qere disclosure in-field.'"
+  },
+  {
+   "row_id": "p02-005",
+   "class": "3",
+   "severity": "low",
+   "claim": "Row quotes 'אוֹכְלֶ֑יהָ' from oshb:Eccl.5.10 (a K/Q verse fully disclosed in neighbor p02-004) with no ketiv/qere disclosure of its own. PRE-EXISTING since rows_v1 -- not repair-installed.",
+   "evidence": "citation_sweep.py prose_dual_warn: 'p02-005: Hebrew quote in row.boundary_rationale binds to K/Q verse oshb:Eccl.5.10 with no ketiv/qere disclosure in-field.'"
+  },
+  {
+   "row_id": "p02-008",
+   "class": "5",
+   "severity": "low",
+   "claim": "boundary_rationale repeats the curly-quoted gloss 'I have seen' a second time with no adjacent web: ref of its own; check_web_quotes.py's neighbor search then mismatches it to Eccl.5.19, whose actual text does not contain the phrase, even though the first (correctly ref'd) instance already ties it to web:Eccl.6.1. PRE-EXISTING since rows_v1 -- not repair-installed; the quoted content itself is verbatim-correct.",
+   "evidence": "check_web_quotes.py neighbor_only_warn: quote 'I have seen' matched only near ref 'Eccl.5.19'; verse_map_web.json confirms Eccl.5.19 has no such phrase and Eccl.6.1 does ('There is an evil which I have seen under the sun')."
+  }
+ ],
+ "clean": false,
+ "summary": {
+  "checked": 28,
+  "findings": 6,
+  "by_class": {
+   "4": 2,
+   "3": 3,
+   "5": 1
+  }
+ },
+ "note": "Provenance-verified against rows_v1.jsonl: only p02-029 and p02-030 received substantive phase-1 repair edits in this lane; both are clean, correct, well-executed repairs (accent-stripped-tier directionality fix at 8:5/8:6; quote/gloss parity re-cut at 8:14) with no second-generation defects found. All 6 findings above are pre-existing content unchanged since rows_v1 (not repair-installed) surfaced for completeness; offset-zone (WEB ch5, rows p02-001..007) structured-ref dual/qualifier discipline is fully clean (manual check + citation_sweep.py: 0 problems); check_tiling.py GREEN for the full p02 Eccl.5.1-Eccl.8.17 run (no gaps/overlaps at any seam touching this scope); check_universals.py, check_refs_mirror.py, check_marks.py, check_language_zones.py, ngram7.py all GREEN on this row set."
+}

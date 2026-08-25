@@ -1,0 +1,330 @@
+{
+ "attempt_id": "postcheck_eccl_r1",
+ "checks": {
+  "strategy_conformance": {
+   "unit_type_vocabulary": {
+    "status": "PASS",
+    "closed_set_violations": 0,
+    "distribution": {
+     "frame_narration": 5,
+     "wisdom_poem": 3,
+     "monologue_unit": 39,
+     "list_catalogue": 1,
+     "single_saying": 24,
+     "admonition_unit": 8,
+     "saying_cluster": 6
+    },
+    "note": "All 86 rows use only the 7 controlled values; sum = 86."
+   },
+   "parent_collection": {
+    "status": "PASS",
+    "counts": {
+     "F1": 3,
+     "M": 80,
+     "F2": 3
+    },
+    "straddle_check_1_11_1_12": "no row crosses this seam (programmatic span check against parent bounds)",
+    "straddle_check_12_7_12_8": "no row crosses this seam (programmatic span check against parent bounds)",
+    "note": "Every row span falls entirely within its own declared parent verse range; re-verified independently of check_tiling.py by parsing all 86 spans."
+   },
+   "sentence_zones_hybrid_atomic": {
+    "status": "PASS",
+    "zone_7_1_14": {
+     "rows": 10,
+     "verses_covered": 14,
+     "single_saying_default_rows": 7,
+     "disclosed_deviations": [
+      "p02-013 (7:2-4, saying_cluster)",
+      "p02-019 (7:11-12, saying_cluster)",
+      "p02-020 (7:13-14, admonition_unit)"
+     ]
+    },
+    "zone_9_17_10_20": {
+     "rows": 18,
+     "verses_covered": 22,
+     "single_saying_default_rows": 14,
+     "disclosed_deviations": [
+      "P03-014 (10:8-9, saying_cluster, high)",
+      "P03-015 (10:10-11, saying_cluster, medium_low)",
+      "P03-016 (10:12-13, saying_cluster, medium_low)",
+      "P03-019 (10:16-17, saying_cluster, high)"
+     ]
+    },
+    "note": "Every saying_cluster row names its cohesion driver at an explicit tier (byte for the two high-confidence clusters P03-014/P03-019; skeleton or accent-stripped, honestly disclosed as thinner, for the four medium_low clusters). No cluster rests on shared theme alone. Each deviation from the zone default carries a one-sentence deviation disclosure in device_notes per the operative-category law."
+   },
+   "boss_capped_rows": {
+    "status": "PASS",
+    "rows": [
+     "p02-013 (7:2-4)",
+     "P03-015 (10:10-11)",
+     "P03-016 (10:12-13)",
+     "P03-B3 (11:1-6)"
+    ],
+    "note": "These 4 rows are the ones a boss ruling explicitly capped or confirmed at medium_low (B-1 caps p02-013; B-3 caps P03-B3; the B-4 standard confirms P03-015 and cures P03-016 at the same tier-honesty bar). All 4 carry confidence medium_low in rows_v3.jsonl, verified by direct field read. p02-029 and p02-030, also touched by the same B-4 disclosure sweep, resolved to monologue_unit at medium confidence and are not part of this capped set."
+   },
+   "list_catalogue_3_1_8": {
+    "status": "PASS",
+    "row": "P01-012, span Eccl.3.1-Eccl.3.8, unit_type list_catalogue",
+    "note": "Exactly one row for the whole catalogue; no other row in the corpus uses list_catalogue."
+   },
+   "tiling": {
+    "status": "GREEN",
+    "tool": "check_tiling.py --range Eccl.1.1-Eccl.12.14",
+    "result": "verses_expected=222, verses_covered=222, decisions=86, problems=[]"
+   }
+  },
+  "warn_flags": [
+   {
+    "flag": "[0] P01-001 device_notes: no hevel token and no tachat-hashemesh",
+    "verdict": "fp",
+    "note": "Local absence claim about this one frame verse, immediately followed by named first-occurrence citations (1:2, 1:3) with byte-tier splices; not an unsupported book-wide universal."
+   },
+   {
+    "flag": "[2] P01-003 rejected_alt: 1:8 carries no first-person or discourse-restart marker",
+    "verdict": "fp",
+    "note": "Single-verse grammatical absence claim used to justify a rejected split, directly checkable from that verse own bytes; not a book-wide claim."
+   },
+   {
+    "flag": "[3] P01-004 boundary_rationale: its first verse",
+    "verdict": "fp",
+    "note": "first is an ordinal referring to the monologue own opening verse (structural, not a superlative claim needing a sweep digit)."
+   },
+   {
+    "flag": "[4] P01-005 device_notes: closes with no hevel token",
+    "verdict": "fp",
+    "note": "Local descriptive contrast with the two neighboring quest units, not a universal claim."
+   },
+   {
+    "flag": "[7] P01-008 boundary_rationale: each occurrence",
+    "verdict": "fp",
+    "note": "Refers to the row own two cited occurrences (2:11, 2:12), both quoted; not an unsupported universal."
+   },
+   {
+    "flag": "[7] P01-008 rejected_alt: identical turning formula",
+    "verdict": "fp",
+    "note": "Two-item identity claim directly evidenced by the quoted pointed text of both verses in the same row."
+   },
+   {
+    "flag": "[11] P01-012 boundary_evidence_refs: never a boundary driver",
+    "verdict": "fp",
+    "note": "Restates the campaign-wide parashah tier-3 governance rule (marks are never a driver), not an empirical textual universal requiring its own sweep."
+   },
+   {
+    "flag": "[14] P01-015 rejected_alt: identical bi-libbi self-address formula",
+    "verdict": "fp",
+    "note": "Two-item identity claim (3:17, 3:18) directly quoted in the same row boundary_rationale."
+   },
+   {
+    "flag": "[16] P01-017 device_notes: a single noun",
+    "verdict": "fp",
+    "note": "Descriptive classification of the cross-seam catchword, not a universal claim."
+   },
+   {
+    "flag": "[17] P01-018 device_notes: count-only",
+    "verdict": "fp",
+    "note": "The toolkit own mandated paseq-disclosure phrase (position is unsourceable by design); not an uncited universal."
+   },
+   {
+    "flag": "[18] P01-019 boundary_rationale: no first-person marker at all",
+    "verdict": "fp",
+    "note": "Single-verse (4:5) grammatical absence claim, directly verifiable from that verse own bytes."
+   },
+   {
+    "flag": "[18] P01-019 rejected_alt: no self-reference",
+    "verdict": "fp",
+    "note": "Same single-verse (4:5) claim restated in the rejected-alternative sentence."
+   },
+   {
+    "flag": "[20] P01-021 boundary_rationale: carries no first-person marker",
+    "verdict": "fp",
+    "note": "Single-verse (4:6) grammatical absence claim, directly verifiable."
+   },
+   {
+    "flag": "[21] P01-022 boundary_rationale: count-only",
+    "verdict": "fp",
+    "note": "Same mandated paseq-disclosure phrase as [17]."
+   },
+   {
+    "flag": "[79] P03-022 boundary_rationale: a single admonition-sentence",
+    "verdict": "fp",
+    "note": "Describes this verse as one grammatical sentence; not a book-wide claim."
+   },
+   {
+    "flag": "[80] P03-B3 boundary_rationale: only a causal particle (back seam)",
+    "verdict": "fp",
+    "note": "Names the specific minimal shared element with the excluded neighbor (10:20); local seam-discrimination disclosure, not an unsupported universal."
+   },
+   {
+    "flag": "[80] P03-B3 boundary_rationale: only the object marker (forward seam)",
+    "verdict": "fp",
+    "note": "Same pattern for the forward seam into 11:7; the shared element is named, not merely asserted."
+   }
+  ],
+  "confidence_census": {
+   "high": 22,
+   "medium": 45,
+   "medium_low": 16,
+   "low": 3,
+   "total": 86,
+   "note": "22+45+16+3 = 86; matches the row count exactly."
+  },
+  "low_band_rows": [
+   {
+    "id": "P01-007",
+    "span": "Eccl.2.3-2.10",
+    "reason": "cohesion argued from a lexical and inclusio binder across a genuine asyndetic clause break at 2:4, not from syntax alone"
+   },
+   {
+    "id": "P01-016",
+    "span": "Eccl.3.19-3.21",
+    "reason": "closes on a genuinely unanswered rhetorical question, unlike the resolved parallel at 2:19"
+   },
+   {
+    "id": "P01-023",
+    "span": "Eccl.4.9-4.12",
+    "reason": "deviates from the parent monologue_unit default to wisdom_poem on formal grounds (no first-person verb, three-clause conditional run)"
+   },
+   {
+    "id": "P01-024",
+    "span": "Eccl.4.13-4.16",
+    "reason": "the two-youths figures are left genuinely unidentified rather than resolved by conjecture"
+   },
+   {
+    "id": "p02-003",
+    "span": "Eccl.5.9-5.9",
+    "reason": "a K/Q-bearing syntax crux where WEB own rendering already picks one side of a live construal dispute"
+   },
+   {
+    "id": "p02-004",
+    "span": "Eccl.5.10-5.11",
+    "reason": "compounded difficulty: a compressed clause plus a K/Q note in the pair own second verse"
+   },
+   {
+    "id": "p02-013",
+    "span": "Eccl.7.2-7.4",
+    "reason": "boss-capped saying_cluster; its cohesion driver collates only at skeleton tier and adjacent-pair cohesion is thin"
+   },
+   {
+    "id": "p02-019",
+    "span": "Eccl.7.11-7.12",
+    "reason": "saying_cluster admitted on a grammatical causal-clause dependency rather than a repeated phrase, a thinner-than-usual driver"
+   },
+   {
+    "id": "p02-020",
+    "span": "Eccl.7.13-7.14",
+    "reason": "admonition_unit deviation from the sentence zone single_saying default, justified by a shared imperative/root pattern"
+   },
+   {
+    "id": "p02-023",
+    "span": "Eccl.7.19-7.19",
+    "reason": "single_saying applied one verse outside the designated sentence zone, a deviation argued from form rather than genre"
+   },
+   {
+    "id": "p02-026",
+    "span": "Eccl.7.26-7.29",
+    "reason": "a genuine grammatical gender-mismatch crux (feminine verb) plus the unresolved one-among-a-thousand line, held open rather than resolved"
+   },
+   {
+    "id": "P03-005",
+    "span": "Eccl.9.13-9.16",
+    "reason": "the closing seam (v.16 vs v.17) is genuinely arguable; a catchword bridge into v.17 is disclosed as a live counter-signal"
+   },
+   {
+    "id": "P03-015",
+    "span": "Eccl.10.10-10.11",
+    "reason": "boss-confirmed saying_cluster; its shared lexeme collates only at accent-stripped tier and only in one direction, plus a K/Q note"
+   },
+   {
+    "id": "P03-016",
+    "span": "Eccl.10.12-10.13",
+    "reason": "saying_cluster cohesion phrase collates only at accent-stripped tier, not byte-identical"
+   },
+   {
+    "id": "P03-017",
+    "span": "Eccl.10.14-10.14",
+    "reason": "held low chiefly for the WEB continuation-paragraph fold hazard at this verse, not for the boundary call itself"
+   },
+   {
+    "id": "P03-B3",
+    "span": "Eccl.11.1-11.6",
+    "reason": "boss-capped merged admonition_unit; contains the disputed bread-on-waters crux over a wide six-verse span"
+   },
+   {
+    "id": "P03-025",
+    "span": "Eccl.11.7-11.10",
+    "reason": "a disclosed live alternative seam at the third-to-second-person register shift between v.8 and v.9"
+   },
+   {
+    "id": "P03-026",
+    "span": "Eccl.12.1-12.7",
+    "reason": "uncommon, genuinely disputed aging-imagery lexemes (v.4-6) compounded by a K/Q crux at v.6"
+   },
+   {
+    "id": "P03-028",
+    "span": "Eccl.12.9-12.11",
+    "reason": "the one-shepherd referent (v.11) is a long-disputed crux, disclosed honestly rather than resolved"
+   }
+  ],
+  "seam_coherence": {
+   "rows_sampled": [
+    "P01-003",
+    "P01-004",
+    "p02-012",
+    "p02-013",
+    "p02-B2a",
+    "p02-B2b",
+    "p02-015",
+    "P03-015",
+    "P03-016",
+    "P03-017",
+    "P03-026",
+    "P03-027",
+    "P03-028",
+    "P03-029"
+   ],
+   "coverage": "Spans all three writer parts (P01, p02, P03) and both sentence zones (7:1-14 and 9:17-10:20); includes both hard frame seams (1:11 to 1:12 and 12:7 to 12:8).",
+   "result": "coherent",
+   "detail": "1:11 to 1:12 seam (F1 to M): P01-003 closes on the prologue poem petuchah at 1:11 (tier-3, single-witness); P01-004 opens by naming that same petuchah as immediately preceding it without itself carrying a mark; both sides agree on the same corroborating device. 7:1-14 sentence zone: the p02-012 through p02-016 chain argues each seam from both sides without contradiction; the previously-flagged p02-B2b to p02-015 disclosure asymmetry at the shared causal particle (7:6/7:7) is now symmetric in rows_v3 -- both rows cite the identical sweep digit (5 verse-initial sites in the chapter) and both independently conclude the particle discriminates no seam. 10:10-14 sentence zone: P03-016 rejected-alternative account of why it does not extend into v.14 is mirrored exactly by P03-017 own rejected-alternative account of why it does not cluster backward. 12:7 to 12:8 seam (M to F2): P03-026 closes the monologue immediately before the plene-definite motto that opens the epilogue frame; P03-027 independently names that same plene-versus-defective qohelet-name spelling shift as its own boundary evidence; both sides converge on the identical discriminating device. 12:9-12:14 (F2 internal): P03-028 and P03-029 both cite the identical serial-connective sweep digit (3 verses book-wide: 7:11, 12:9, 12:12) and both conclude it is a discourse linker, not a cohesion driver. No contradiction found across any sampled seam."
+  },
+  "receipt_facts": {
+   "row_count": {
+    "claimed": 86,
+    "confirmed": 86,
+    "method": "direct count of rows_v3.jsonl plus check_tiling.py decisions field"
+   },
+   "tiling": {
+    "claimed": "222/222",
+    "confirmed": "222/222, 0 gaps/overlaps",
+    "method": "check_tiling.py --range Eccl.1.1-Eccl.12.14 rerun fresh: verses_expected=222, verses_covered=222, problems=[]"
+   },
+   "unit_type_spread": {
+    "frame_narration": 5,
+    "wisdom_poem": 3,
+    "monologue_unit": 39,
+    "list_catalogue": 1,
+    "single_saying": 24,
+    "admonition_unit": 8,
+    "saying_cluster": 6,
+    "note": "Differs from the writer-wave census in CYCLE_STATE.md (pre-boss figures: 39 monologue_unit, 20 single_saying, 9 admonition_unit, 8 saying_cluster, 5 frame_narration, 3 wisdom_poem, 1 list_catalogue) because boss rulings B-2, B-3, B-5 retired several rows into new single_saying and admonition_unit rows after that census was taken. The figures above are re-derived fresh from rows_v3.jsonl, not copied from the stale writer-wave numbers."
+   },
+   "parent_counts": {
+    "F1": 3,
+    "M": 80,
+    "F2": 3,
+    "note": "Differs from the writer-wave figure (F1 3, M 79, F2 3) by plus one in M, consistent with the net plus-one row from the boss and author rounds (86 rows versus the writer wave own 85); re-derived fresh from rows_v3.jsonl."
+   },
+   "s6_residual": {
+    "claimed": "0 boundary defects; texture and prose defects on 3 of 12 untouched rows (25 percent row-rate)",
+    "confirmed": true,
+    "evidence": "SP/Eccl/reviews/spot_s6.json: rows_checked=12, summary.checked=12, summary.findings=4, findings span exactly 3 distinct row_ids (P01-001 twice, P03-003, P03-021), findings classes are other and 3 (texture and prose), none is a boundary-class finding.",
+    "fix_verification": "All 3 flagged rows read back from rows_v3.jsonl carry the corrected text: P01-001 device_notes now correctly places both refrains inside the F1 prologue poem ahead of the monologue; P03-003 boundary_rationale and boundary_evidence_refs now verse-anchor the forward allusion to 9:11; P03-021 rejected_alternative and boundary_evidence_refs now verse-anchor the woe/blessed-oracle citation to 10:16-17. The corpus-wide refs_mirror and citation_sweep passes, rerun fresh, both show 0 problems, consistent with these fixes having landed."
+   },
+   "suite_residual_warns_non_blocking": {
+    "paseq_position_warn_x2": "p02-006 and p02-030: by-design toolkit disclosure that paseq position is unsourceable (count-only inventory); not a defect.",
+    "prose_dual_warn_x2": "p02-007 duplicate warn: heuristic over-trigger -- the flagged Hebrew quote in device_notes (the tachat-hashemesh phrase) is a different word than the verse own K/Q pair, and the true K/Q disclosure for that pair is already present in the same row boundary_rationale; not a residual defect."
+   }
+  }
+ },
+ "blocking_findings": [],
+ "verdict": "READY_TO_FREEZE"
+}
