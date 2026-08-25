@@ -1,0 +1,246 @@
+schema_version: m8_public_transparency_release.v1
+release_id: M8-PUBLIC-TRANSPARENCY-001
+generated_at: "2026-08-25T16:30:00Z"
+repository: https://github.com/lowelltwong-alt/logos-scripture-graph
+branch: scratch/t423-m8-fable
+lane: M8_fable
+lane_owner: Fable 5
+
+status_labels:
+  complete: false
+  candidate_only: true
+  non_authorizing: true
+  is_m7_m8_convergence: false
+  is_reviewed_gold: false
+  is_canonical_scripture: false
+  is_theological_authority: false
+  human_ratified: false
+  promotion_authority: none
+  publication_kind: transparency_checkpoint
+
+progress:
+  marathon_status: in_progress
+  books_completed: 21
+  books_total: 66
+  current_book_not_started: Song
+  completed_books:
+    [Gen, Exod, Lev, Num, Deut, Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs, 2Kgs,
+     1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl]
+
+content_totals:
+  candidate_chunks: 3684
+  chunk_map_rows: 3684
+  verses_covered: 17538
+  review_packets_retained: 2353
+  superseded_decisions_retained: 35
+  appeals_recorded: 0
+  low_confidence_register_rows: 241
+  frontier_escalation_queue_rows: 241
+  atlas_candidate_feed_rows: 241
+  layer_decision_log_rows: 4
+  completion_receipts: 21
+  book_strategies: 20
+  tracked_files_before_this_release: 802
+  tracked_bytes_before_this_release: 59972584
+
+published_paths:
+  root: .ai/scratch/multi_model_bible_chunking/M8_fable/
+  governed_manifests:
+    - marathon_progress.yaml
+    - model_manifest.yaml
+    - corrective_rereview_contract.v1.yaml
+    - OWNER_ADDENDUM_scribal_editorial_layer_weights.v1.yaml
+  candidate_artifacts:
+    - book_chunks/<Book>/chunks.jsonl
+    - whole_bible_chunk_map.jsonl
+    - book_strategy/<Book>.md
+  review_and_audit_records:
+    - reviews/<Book>/review_packets.jsonl
+    - reviews/<Book>/decision_relations.jsonl
+    - reviews/<Book>/superseded_decisions.jsonl
+    - reviews/<Book>/appeal_ledger.jsonl
+    - reviews/<Book>/post_resolution_check_v2.json
+    - receipts/<Book>_completion.json
+  preserved_disagreement:
+    - low_confidence_register.jsonl
+    - frontier_escalation_queue.jsonl
+    - layer_decision_log.jsonl
+    - atlas_candidate_feed.jsonl
+  agent_mesh_engineering:
+    - sp_durable/Eccl/
+    - sp_durable/Prov/
+    - sp_durable/Ps/
+    - sp_durable/README.md
+  replay_scripts_and_checks:
+    - checks/validate_exact_book_coverage.py
+    - checks/validate_book_review_coverage.py
+    - checks/anti_batch_scan.py
+    - checks/assemble_review_artifacts.py
+    - checks/build_final_rows.py
+    - checks/build_web_mt_crosswalk.py
+    - checks/extract_book_inputs.py
+    - checks/freeze_candidate_rows.py
+    - checks/review_contract_constants.py
+  validation_receipts:
+    - continuation_receipt.yaml
+    - OWNER_CHECKPOINT_2026-08-18_commit_push.md
+  added_by_this_release:
+    - M8_PUBLIC_TRANSPARENCY_README.md
+    - m8_public_release_manifest.yaml
+    - SOURCE_TEXT_ATTRIBUTION.md
+    - LICENSE-CC-BY-4.0.txt
+
+digests:
+  basis_commit: c2b7591636ce3abda85fc345e1b50365d6b0c209
+  m8_subtree_tracked_blob_listing_sha256: 4d8e92cea06e44538031786103d72ed836d2e520802d553efc3ae2e6f458bf8a
+  cc_by_4_0_legalcode_sha256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
+  note: >-
+    Digests describe the tracked M8 subtree at the basis commit, before this
+    release commit adds the four transparency files listed under
+    published_paths.added_by_this_release.
+
+validation:
+  exact_book_coverage:
+    script: checks/validate_exact_book_coverage.py
+    books_run: 21
+    pass: 21
+    fail: 0
+  review_coverage:
+    script: checks/validate_book_review_coverage.py
+    books_run: 21
+    pass: 17
+    error: 4
+    errored_books: [Job, Ps, Prov, Eccl]
+    reason: >-
+      Closed under mesh revision m8-mesh-r3; review substrate retained under
+      sp_durable/ (Ps, Prov, Eccl) or only as a SHA-256 pin in the completion
+      receipt (Job). Retention and layout gap, not a coverage failure; exact
+      ordered verse coverage passes for all four books.
+  workspace_policy:
+    script: C:/Users/lowel/.agent-governance/validate_workspace_policy.ps1
+    status_before_registry_update: fail
+    failure_reason: >-
+      M8 post-resume checkpoint HEAD mismatch: the registry pinned
+      b3657b0581b56a46e083668dab43250cdb96736c (20/66) while the live lane had
+      advanced to c2b7591636ce3abda85fc345e1b50365d6b0c209 (21/66, Eccl closed)
+      via an owner-identity commit made during this audit.
+    remediation: >-
+      A new typed post_resume_checkpoint record was written to
+      ACTIVE_WORKTREES.yaml under the authorization named in
+      governance.publication_authorization_ref.
+  privacy_scan:
+    high_confidence_secret_patterns: 0
+    email_addresses: 0
+    api_keys_tokens_or_private_keys: 0
+    absolute_local_paths_present: true
+    absolute_local_paths_note: >-
+      Development-environment paths only (workstation user directory) in
+      model_manifest.yaml and sp_durable briefs. No credentials or contact data.
+  scope_scan:
+    forbidden_prefixes_found: 0
+    forbidden_prefixes_checked:
+      [".git/", ".pytest_cache/", ".venv/", "build/", "data/raw/", "node_modules/", "target/"]
+  provenance_scan:
+    web_source_sha256_matches_lane_manifest: true
+    web_source_sha256: a745365f53ab95570e9c39a60a7d245ba10bbf6c863832006876b01ea8654f8e
+    oshb_pinned_commit: 3d15126fb1ef74867fc1434be1942e837932691f
+    oshb_archive_sha256: f56c150708b5d74719ecb709c712c31eae9855bca7b111fd82ec91b5d177b4c7
+
+licensing:
+  research_output_note: >-
+    Source-text licenses below cover the source text only. They confer no
+    authority on this lane's research output, which remains candidate-only and
+    non-authorizing.
+  source_texts_used:
+    - id: oshb
+      name: Open Scriptures Hebrew Bible
+      license: CC-BY-4.0
+      license_file: LICENSE-CC-BY-4.0.txt
+      license_url: https://github.com/openscriptures/morphhb/blob/master/LICENSE.md
+      attribution_required: true
+      attribution: >-
+        Open Scriptures Hebrew Bible Project; text based on the Westminster
+        Leningrad Codex.
+      attribution_given_in: SOURCE_TEXT_ATTRIBUTION.md
+      modified: true
+      modification_indicated: true
+      redistributed: true
+      redistributed_paths:
+        - sp_durable/Eccl/Eccl_oshb.txt
+        - sp_durable/Prov/Prov_oshb.txt
+        - sp_durable/Prov/author/_oshb_dump.txt
+      upstream_authority_flags:
+        authorizes_chunk_boundaries: false
+        authorizes_reviewed_gold: false
+        authorizes_theology_authority: false
+    - id: web
+      name: World English Bible Classic
+      license: public-domain
+      attribution_given_in: SOURCE_TEXT_ATTRIBUTION.md
+      trademark_notice: >-
+        World English Bible is a trademark of eBible.org. If modified, do not
+        call the result World English Bible.
+      modified: true
+      redistributed: true
+      redistributed_paths:
+        - sp_durable/Eccl/Eccl_web.usfm
+        - sp_durable/Eccl/Eccl_web_clean.txt
+        - sp_durable/Prov/Prov_web.usfm
+        - sp_durable/Prov/Prov_web_clean.txt
+  restricted_translations_found: []
+  restricted_translations_checked:
+    [NIV, ESV, NASB, NRSV, NKJV, CSB, HCSB, NLT, LEB, NET]
+  repository_root_license_unchanged: true
+
+exclusions:
+  - path_or_class: checks/__pycache__/
+    reason: build cache; git-ignored
+  - path_or_class: raw conversation transcripts
+    reason: excluded by scope; none present in lane
+  - path_or_class: secrets, credentials, API keys, tokens
+    reason: excluded by scope; none found by scan
+  - path_or_class: test sandboxes and temporary roots
+    reason: excluded by scope; none present in lane
+  - path_or_class: private governance registry (C:/Users/lowel/.agent-governance/)
+    reason: private path outside the repository; deliberately not published
+  - path_or_class: other model lanes (M1-M7) and comparison/
+    reason: out of lane scope; independence contract forbids reading or publishing them here
+  - path_or_class: Song book artifacts
+    reason: current book not started at this checkpoint
+
+remaining_work:
+  books_remaining: 45
+  next_book: Song
+  nt_gate: >-
+    OWNER_GATE_NT_GREEK_PREFLIGHT.v1.md must be satisfied before any New
+    Testament book is chunked.
+  convergence: >-
+    T521 cross-model convergence has not started. This release does not
+    authorize it and performs no comparison against M7_sol or any other lane.
+  known_retention_gap: >-
+    Review packets for Job, Ps, Prov, and Eccl are not retained in the
+    reviews/ layout (see validation.review_coverage).
+  not_authorized_by_this_release:
+    - merge_to_main
+    - convergence_pull_request
+    - m7_comparison
+    - workspace_cleanup
+    - modification_of_other_lanes
+    - promotion_to_canonical_graph_or_atlas
+
+governance:
+  publication_authorization_ref: >-
+    lowell_chat_2026-08-25_m8_public_transparency_001_opus5_exception
+  authorization_text_summary: >-
+    Owner waived the Fable-5-only write restriction for this exact action,
+    authorizing Opus 5 to make one checkpoint commit and non-force push on
+    scratch/t423-m8-fable and to write the corresponding typed
+    post_resume_checkpoint record.
+  executing_runtime: claude-opus-5
+  recorded_lane_owner: Fable 5
+  owner_identity_exception: true
+  force_push_used: false
+  merge_performed: false
+  cleanup_performed: false
+  comparison_performed: false
+  other_lanes_modified: false
