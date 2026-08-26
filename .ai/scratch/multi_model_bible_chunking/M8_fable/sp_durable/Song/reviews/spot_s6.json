@@ -1,0 +1,62 @@
+{
+ "attempt_id": "spot_song_s6_r1",
+ "role": "spot",
+ "lane": "s6",
+ "rows_checked": [
+  "P02-009",
+  "P02-010",
+  "P02-011",
+  "P02-012",
+  "P02-013",
+  "P02-014",
+  "P02-016",
+  "P01-008",
+  "P01-011",
+  "P01-012",
+  "P02-005"
+ ],
+ "findings": [
+  {
+   "row_id": "P02-014",
+   "class": "4",
+   "severity": "high",
+   "claim": "Repair-narration/pipeline register bleeds into P02-014's frozen prose in three places, describing the row's own v1-to-v2 merge history rather than arguing from Song's own bytes; confirmed newly installed by diffing rows_v1.jsonl (where this content was split across two separate rows) against rows_v2.jsonl.",
+   "evidence": "boundary_rationale: \"Her voice continues unbroken across the seam formerly cut here\"; strongest_rejected_alternative: \"...was not raised as a boundary by any reviewer, so it is held whole rather than newly cut\" and \"The MT 8:2|8:3 join inside the merged span carries no tier-1 marker\"; device_notes: \"lyric_address is retained across the merge...\". None of this language appears in rows_v1.jsonl, where the same content was split between P02-014 (span Song.7.11-Song.7.13) and a separate row P02-015 (span Song.8.1-Song.8.3, since removed); the v1-to-v2 repair merged these two rows into the current P02-014 (span Song.7.11-Song.8.3) and the repair-process narration was left in the frozen prose. 'reviewer', 'merge/merged/merging', and 'formerly'/'previously' appear nowhere else across all 38 rows of rows_v2.jsonl except in this row and P02-013's rejected_alternative field (see sibling low-severity finding)."
+  },
+  {
+   "row_id": "P02-013",
+   "class": "4",
+   "severity": "low",
+   "claim": "strongest_rejected_alternative uses 'merge/merging' vocabulary to describe rival boundary choices at the seam it shares with the newly-merged P02-014, a word choice unique to these two adjacent rows in the whole 38-row corpus and absent from this row's own rows_v1.jsonl text; more defensible than P02-014's instances (it describes a hypothetical alternative span, the schema-sanctioned use of the field) but flagged for the same-round correlation.",
+   "evidence": "strongest_rejected_alternative: \"Merging this verse forward into the following invitation was the live rejected alternative...so the verse is not left to merge for want of one.\" rows_v1.jsonl's P02-013 rejected_alternative reads \"Folding this verse backward into the preceding wasf row was rejected...\" with no 'merge' language; a corpus-wide sweep of all 38 rows' boundary_rationale/strongest_rejected_alternative/device_notes fields for 'merg*' returns matches only in P02-013 and P02-014."
+  },
+  {
+   "row_id": "P02-005",
+   "class": "4",
+   "severity": "high",
+   "claim": "strongest_rejected_alternative cites the governing book-strategy document by name (\"the strategy's own hybrid rule\") as the warrant for keeping Song.6.1-6.3 whole -- an explicit strategy-file citation the campaign's REGISTER PURGE standing rule bars from row prose in any field. Confirmed present unchanged in rows_v1.jsonl, i.e. missed rather than installed by the repair round -- and asymmetrically missed: the sibling row P02-016 carried the identical \"the hybrid rule isolates it as its own bracket unit\" phrasing in rows_v1.jsonl and WAS purged of it in rows_v2.jsonl, so the register-purge sweep passed over this row.",
+   "evidence": "strongest_rejected_alternative: \"...the exchange is verse-scale and the strategy's own hybrid rule holds this daughters-question-with-answer zone whole rather than atomizing it.\" Identical text present in rows_v1.jsonl P02-005 (unchanged by the repair round). Compare rows_v1.jsonl P02-016 boundary_rationale \"...is held as its own row per the hybrid rule's isolated bracket treatment\" and rejected_alternative \"...the hybrid rule isolates it as its own bracket unit...\", both absent from rows_v2.jsonl's P02-016, which now reads \"...opens on its own attested oath-formula anchor with the daughters vocative rather than on any device shared with its neighbours...\" -- proving the purge tool/pass reached P02-016 but not P02-005. A corpus-wide sweep for 'strategy' across all 38 rows' prose fields returns only this one hit."
+  },
+  {
+   "row_id": "P02-009",
+   "class": "5",
+   "severity": "medium",
+   "claim": "The MT 6:12 Hebrew quote in boundary_rationale, tagged \"(oshb:Song.6.12, byte tier)\", has two commas inserted between its three Hebrew words that are not present in the WLC source bytes, so it fails to collate at ANY tier (collate.py returns tier \"none\", the worst class) against its own cited verse, despite the explicit byte-tier claim. Present unchanged in rows_v1.jsonl -- a pre-existing defect the repair round did not catch, not one it installed.",
+   "evidence": "Row text (spliced programmatically from rows_v2.jsonl): 'לֹ֣א יָדַ֔עְתִּי, נַפְשִׁ֣י, שָׂמַ֔תְנִי' (oshb:Song.6.12, byte tier). Ground truth verse_map_oshb.json Song.6.12 text: 'לֹ֣א יָדַ֔עְתִּי נַפְשִׁ֣י שָׂמַ֔תְנִי מַרְכְּב֖וֹת עַמִּי נָדִֽיב' -- no punctuation between the three words. tools/collate.py --json run against the row's exact quote (extracted by script, never hand-retyped, per the toolkit's shell-transit/copy-degradation guidance) returns tier \"none\" against oshb:Song.6.12. Every other byte-tier-labeled Hebrew quote extracted the same programmatic way from all 11 rows in this lane's scope (39 of 40 total) collates cleanly at 'byte' tier; this is the sole outlier. citation_sweep.py's own HEB_RUN regex silently splits on the inserted commas and validates each of the three words as a separate run, so the corpus-level validator suite (status GREEN, 0 problems) does not surface this -- it is a gap in the automated sweep's own tokenization, not a false alarm."
+  }
+ ],
+ "clean": false,
+ "summary": {
+  "checked": 11,
+  "findings": 4,
+  "by_class": {
+   "4": 3,
+   "5": 1
+  },
+  "by_severity": {
+   "high": 2,
+   "medium": 1,
+   "low": 1
+  }
+ }
+}

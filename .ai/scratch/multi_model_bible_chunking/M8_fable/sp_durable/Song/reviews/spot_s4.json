@@ -1,0 +1,106 @@
+{
+ "attempt_id": "spot_song_s4_r1",
+ "role": "spot",
+ "lane": "s4",
+ "rows_checked": [
+  "P01-001",
+  "P01-002",
+  "P01-003",
+  "P01-004",
+  "P01-005",
+  "P01-006",
+  "P01-007",
+  "P01-008",
+  "P01-009",
+  "P01-010",
+  "P01-011",
+  "P01-012",
+  "P01-013",
+  "P01-014",
+  "P01-015",
+  "P01-016",
+  "P01-017",
+  "P01-018",
+  "P01-019",
+  "P02-001",
+  "P02-002",
+  "P02-003",
+  "P02-004",
+  "P02-005",
+  "P02-006",
+  "P02-008",
+  "P02-009",
+  "P02-010",
+  "P02-011",
+  "P02-012",
+  "P02-013",
+  "P02-014",
+  "P02-016",
+  "P02-018",
+  "P02-019",
+  "P02-020",
+  "P02-021",
+  "P02-022"
+ ],
+ "findings": [
+  {
+   "row_id": "P02-005",
+   "class": "4",
+   "severity": "high",
+   "claim": "Row P02-005's strongest_rejected_alternative names a campaign-governance artifact directly inside frozen row prose ('the strategy's own hybrid rule'), a REGISTER PURGE violation (TOOLKIT.md 'Standing rules': no strategy-file citations or positional/process narration in row prose) that survived the whole v1->v2 repair pass untouched.",
+   "evidence": "span Song.6.1-Song.6.3; strongest_rejected_alternative (verbatim, byte tier for the field itself): \"Splitting 6:1 (question) from 6:2-3 (answer plus refrain) into two rows was considered, but the exchange is verse-scale and the strategy's own hybrid rule holds this daughters-question-with-answer zone whole rather than atomizing it.\" 'the strategy' = book_strategy/Song.md (the law file); 'hybrid rule' is a governance-tier concept, neither belongs in row prose. Cross-row note: the identical phrase pattern ('the hybrid rule ... isolates it') was PRESENT in P02-016 v1 and was actually EXCISED by the v1->v2 repair (rows_v1.jsonl vs rows_v2.jsonl diff on P02-016's boundary_rationale/strongest_rejected_alternative), so the repair pass demonstrably knew this defect class and fixed it in one row while leaving an equivalent instance live in this row — a repair-completeness asymmetry."
+  },
+  {
+   "row_id": "P02-022",
+   "class": "4",
+   "severity": "high",
+   "claim": "Row P02-022 (the book's closing row) carries TWO governance-rule narration references in its frozen boundary_rationale: 'the hybrid rule's dialogue-zone treatment' and 'the owner voice policy names first' — both survived the repair pass untouched, the same defect class the repair excised from P02-016.",
+   "evidence": "span Song.8.13-Song.8.14; boundary_rationale (verbatim): \"...alongside the vocative הַיוֹשֶׁ֣בֶת in 8:13, the masculine-singular imperatives בְּרַ֣ח and וּֽדְמֵה in 8:14, and the explicit vocative דּוֹדִ֗י (byte tier), the address word the owner voice policy names first, one of its 24 attested-exact-spelling sites (sweep: 24 verses) — so the two-verse exchange is held together at the hybrid rule's dialogue-zone treatment on the strength of these markers, not despite their thinness.\" Both 'the owner voice policy' and 'the hybrid rule' name campaign-governance artifacts (the owner-gated VOICE-ATTRIBUTION policy and the writer-brief hybrid granularity rule per TOOLKIT.md), barred from row prose under the REGISTER PURGE standing rule. This row was not among the 8 rows the v1->v2 diff shows as touched by repair, so the defect is a live, unrepaired instance of the same class fixed elsewhere (P02-016)."
+  },
+  {
+   "row_id": "P02-014",
+   "class": "4",
+   "severity": "high",
+   "claim": "Row P02-014's strongest_rejected_alternative was REWRITTEN by the v1->v2 repair and the repair itself installed reviewer/pipeline-process language as textual warrant: 'was not raised as a boundary by any reviewer'. This is a second-generation defect the repair created, not one it missed.",
+   "evidence": "span Song.7.11-Song.8.3 (grew from v1's Song.7.11-Song.7.13 by merging in old P02-015's Song.8.1-Song.8.3); v1 strongest_rejected_alternative contained no reviewer/process language at all. v2 strongest_rejected_alternative (verbatim, new material appended by the repair): \"...The MT 8:2|8:3 join inside the merged span carries no tier-1 marker either and was not raised as a boundary by any reviewer, so it is held whole rather than newly cut.\" 'by any reviewer' is review-actor/pipeline-process narration, barred under REGISTER PURGE. Independently confirmed by SP/Song/rows_v2.jsonl.validator_report.json universals pass, flags[] entry for path '[31].strongest_rejected_alternative' (0-indexed row 31 = line 32 = P02-014), claim-span 'carries no tier-1 marker either and was not raised' — the suite's own pre-triage caught the same sentence, confirming it is live in the frozen corpus, not a false read."
+  },
+  {
+   "row_id": "P02-002",
+   "class": "3",
+   "severity": "high",
+   "claim": "The seam-straddling device 'the daughters quoting the oath root back at MT 5:9' is disclosed on both sides of the P02-002/P02-003 seam with an incompatible Hebrew citation: P02-002 names the wrong token as bearing the oath root.",
+   "evidence": "P02-002 (span Song.5.2-Song.5.8) device_notes (verbatim): \"...at the back seam, שֶׁכָּ֖כָה (oshb:Song.5.9, byte tier) repeats the oath root immediately across this row's own closing verse, the daughters quoting it back — the same-root site the four-site adjuration count excludes on speech-role grounds.\" MT 5:9's full byte text (oshb:Song.5.9, byte tier, spliced from verse_map_oshb.json, never hand-typed): \"מַה דּוֹדֵ֣ךְ מִדּ֔וֹד הַיָּפָ֖ה בַּנָּשִׁ֑ים מַה דּוֹדֵ֣ךְ מִדּ֔וֹד שֶׁכָּ֖כָה הִשְׁבַּעְתָּֽנוּ\". The final two tokens are שֶׁכָּ֖כָה ('that thus' -- relative-particle + adverb, root כ-כ-ה, no ש-ב-ע consonants at all) then הִשְׁבַּעְתָּֽנוּ ('you have adjured us' -- the actual oath-root verb, ש-ב-ע). P02-002 cites the WRONG token (שֶׁכָּ֖כָה) as the oath-root repeater. P02-003 (span Song.5.9-Song.5.9) boundary_rationale correctly identifies the real token on the same seam (verbatim): \"...That same oath root crosses the row's own front seam: הִשְׁבַּ֥עְתִּי (oshb:Song.5.8, byte tier) is the adjuration and הִשְׁבַּעְתָּֽנוּ (oshb:Song.5.9, byte tier) is the daughters quoting it back (skeleton sweep: 5 verses, oath-only root, speech role named on each side)...\" The two rows disclose the identical straddling device with two different, mutually incompatible Hebrew citations -- one of them byte-wrong."
+  },
+  {
+   "row_id": "P02-002",
+   "class": "1",
+   "severity": "medium",
+   "claim": "The same MT 5:9 straddling device (oath root quoted back) is tagged with two different dotted observed_substrate_signals keys across the two rows that share the seam -- a taxonomy-naming drift for one shared object.",
+   "evidence": "P02-002 observed_substrate_signals includes \"adjuration_refrain.oath_root_quoted_back_5_9\"; P02-003 observed_substrate_signals includes \"adjuration_refrain.oath_root_quoted_back\" (no verse suffix). Both keys describe the identical MT 5:9 daughters'-quotation device disclosed on opposite sides of the same seam; the TOOLKIT.md oss field contract mandates the dotted signal-key taxonomy precisely so a recurring device is named consistently -- these two spellings are not the same key."
+  },
+  {
+   "row_id": "P02-012",
+   "class": "3",
+   "severity": "high",
+   "claim": "P02-012 mislabels the MT 7:10-7:14 dod-lexeme recurrence chain as a 'dodi-exact...that exact form' 5-verse chain, but the same chain (correctly named by neighbor P02-013 as 'any attested spelling') necessarily includes MT 7:13's defective-spelling token -- the exact 'dod digit-blending' hazard the toolkit names for this book.",
+   "evidence": "P02-012 (span Song.7.7-Song.7.9) strongest_rejected_alternative (verbatim): \"...even though the dodi-exact token recurs there as part of a five-verse skeleton-tier chain of that exact form (skeleton sweep: 5 verses) reaching across the seam.\" P02-013 (span Song.7.10-Song.7.10) device_notes/boundary_rationale names the SAME chain differently (verbatim): \"A dod-lexeme chain runs across both seams without interrupting either: verses carrying a dod-lexeme token of any attested spelling form 5 consecutive MT verses, MT 7:10-7:14 (= web:Song.7.9-7.13)...\" -- 'any attested spelling', not 'that exact form'. P02-014 (span Song.7.11-Song.8.3), which owns MT 7:13 inside that same range, independently confirms the MT 7:13 token is NOT the exact form (verbatim): \"...her own 1cs offer, דֹּדַ֖י (oshb:Song.7.13 = web:Song.7.12, byte tier) 'my love' — the defective spelling of the possessive she offers TO him, not a 2ms form, the single member of the defective-spelling set (sweep: 4 verses) whose suffix runs the opposite direction from the other three.\" A 5-verse chain spanning MT 7:10-7:14 therefore cannot honestly be labeled 'dodi-exact...that exact form' by P02-012 while P02-014 itself, on the same range, discloses one of its members as the DEFECTIVE (non-exact) spelling -- TOOLKIT.md's SWEEP HAZARD CATALOG names this precisely: 'dod digit-blending (THE Song trap): dodi-exact 24 verses vs dod-family 28 verses vs...the DEFECTIVE דדיך/דדי 4 verses... Name the object, then count.'"
+  },
+  {
+   "row_id": "P02-008",
+   "class": "4",
+   "severity": "medium",
+   "claim": "Row P02-008's repair-installed boundary_rationale sentence ('MT 6:10, now closes the praise unit that precedes it') reads as erratum/state-change narration describing the repair's own re-assignment of MT 6:10 rather than a plain textual claim.",
+   "evidence": "span Song.6.11-Song.6.12; this sentence is entirely absent from v1's boundary_rationale for P02-008 and was added by the same repair turn that moved MT 6:10 out of this row's front boundary into neighbor P02-006's span (P02-006's span grew from Song.6.4-Song.6.9 to Song.6.4-Song.6.10 in the same repair pass). v2 text (verbatim): \"The verse immediately preceding this span, MT 6:10, now closes the praise unit that precedes it: its third-feminine-singular predication, הַנִּשְׁקָפָ֖ה (oshb:Song.6.10, byte tier) 'who looks out', gives way at the seam to the first-person perfect יָרַ֔דְתִּי...\" The word 'now' implies a before/after state comparison (i.e., a change from what MT 6:10 used to close under the pre-repair boundary) rather than a synchronic textual observation, bordering on the barred 'erratum narration' / 'positional row references' register. Lower-confidence candidate relative to the P02-005/P02-022/P02-014 findings above, flagged for triage rather than asserted as certain."
+  }
+ ],
+ "clean": false,
+ "summary": {
+  "checked": 38,
+  "findings": 7,
+  "by_class": {
+   "1": 1,
+   "3": 3,
+   "4": 3
+  }
+ }
+}
