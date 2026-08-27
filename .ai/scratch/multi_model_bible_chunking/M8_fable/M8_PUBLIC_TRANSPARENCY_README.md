@@ -9,8 +9,9 @@
 
 Read this section before reading anything else in this directory.
 
-- **NOT complete.** 21 of 66 books. The campaign is `in_progress`; the current
-  book (`Song`) has not been started in this checkpoint.
+- **NOT complete.** 22 of 66 books. The campaign is `in_progress`; the current
+  book (`Isa`) is **mid-cycle** — its writer wave has landed but it has not been
+  assembled, reviewed, or closed, and it has no chunk file or completion receipt.
 - **NOT M7/M8 convergence.** No cross-model convergence has been run. Nothing
   here has been compared against the M7_sol lane or any other lane. Convergence
   (T521) is a separate, later, gated step that has not begun.
@@ -43,37 +44,40 @@ preserved disagreements** are the research object — not the chunk list.
 
 | | |
 |---|---|
-| Books completed | **21 / 66** |
-| Current book (not started here) | `Song` |
+| Books completed | **22 / 66** |
+| Current book (mid-cycle, not closed) | `Isa` |
 | Campaign status | `in_progress` |
-| Candidate chunks | 3,684 |
-| Verses covered | 17,538 (exact ordered coverage, all 21 books) |
+| Candidate chunks | 3,722 |
+| Verses covered | 17,655 (exact ordered coverage, all 22 books) |
 | Review packets retained | 2,353 |
 | Superseded decisions retained | 35 |
 | Appeals recorded | 0 |
-| Low-confidence register rows | 241 |
-| Frontier escalation queue rows | 241 |
-| Atlas candidate feed rows | 241 |
+| Low-confidence register rows | 253 |
+| Frontier escalation queue rows | 253 |
+| Atlas candidate feed rows | 253 |
 
 Completed books: Gen, Exod, Lev, Num, Deut, Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs,
-2Kgs, 1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl.
+2Kgs, 1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl, Song.
 
-Remaining: 45 books, including the entire New Testament, which is additionally
+In progress, not complete: Isa (writer wave landed, 225 draft rows across 18
+parts; assembly, review, and close all still pending).
+
+Remaining: 44 books, including the entire New Testament, which is additionally
 gated behind `OWNER_GATE_NT_GREEK_PREFLIGHT.v1.md`.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| `marathon_progress.yaml` | Governed progress record (source of the 21/66 count) |
+| `marathon_progress.yaml` | Governed progress record (source of the 22/66 count) |
 | `model_manifest.yaml` | Lane manifest: mesh revision, routing, isolation, non-authorizations |
 | `book_chunks/<Book>/chunks.jsonl` | Candidate chunk rows with boundary rationale + rejected alternative |
-| `whole_bible_chunk_map.jsonl` | Flat map of all 3,684 candidate chunks |
+| `whole_bible_chunk_map.jsonl` | Flat map of all 3,722 candidate chunks |
 | `book_strategy/<Book>.md` | Per-book strategy written before chunking |
 | `reviews/<Book>/` | Review packets, decision relations, appeal ledger, superseded decisions |
 | `receipts/<Book>_completion.json` | Per-book close receipt with hash pins and audit counters |
 | `checks/` | Replay and validation scripts (see below) |
-| `sp_durable/<Book>/` | Full working substrate for Eccl, Prov, Ps |
+| `sp_durable/<Book>/` | Full working substrate for Ps, Prov, Eccl, Song, and in-progress Isa |
 | `low_confidence_register.jsonl` | Preserved low-confidence decisions |
 | `frontier_escalation_queue.jsonl` | Preserved escalations |
 | `layer_decision_log.jsonl` | Layer-weighting decisions |
@@ -103,7 +107,7 @@ M8_fable is corroboration, never cross-provider evidence.
 
 This lane is designed not to hide its weak points. Retained deliberately:
 
-- **241 low-confidence register rows** — decisions the lane made but does not
+- **253 low-confidence register rows** — decisions the lane made but does not
   stand behind strongly, each with `why_low_confidence` and
   `possible_downstream_risk`.
 - **35 superseded decisions** — earlier boundary calls that were overturned,
@@ -128,31 +132,35 @@ python .ai/scratch/multi_model_bible_chunking/M8_fable/checks/validate_book_revi
 
 At this checkpoint:
 
-- `validate_exact_book_coverage.py` — **21 / 21 pass**.
-- `validate_book_review_coverage.py` — **17 pass, 4 error** (Job, Ps, Prov,
-  Eccl). See "Known gaps".
+- `validate_exact_book_coverage.py` — **22 / 22 pass**.
+- `validate_book_review_coverage.py` — **17 pass, 5 error** (Job, Ps, Prov,
+  Eccl, Song). See "Known gaps".
 
 ## Known gaps in this checkpoint
 
 Stated plainly rather than omitted:
 
-1. **Job, Ps, Prov, and Eccl have no `reviews/<Book>/review_packets.jsonl`.**
+1. **Job, Ps, Prov, Eccl, and Song have no `reviews/<Book>/review_packets.jsonl`.**
    Those books were closed under mesh revision `m8-mesh-r3`, whose review
-   substrate lives under `sp_durable/` (Ps, Prov, Eccl) or survives only as a
-   SHA-256 pin in the completion receipt (Job). `validate_book_review_coverage.py`
-   therefore errors for those four books. This is a **retention and layout gap**,
+   substrate lives under `sp_durable/` (Ps, Prov, Eccl, Song) or survives only as
+   a SHA-256 pin in the completion receipt (Job). `validate_book_review_coverage.py`
+   therefore errors for those five books. This is a **retention and layout gap**,
    not a coverage failure: exact ordered verse coverage still passes for all
-   four.
-2. **`sp_durable/` covers only Eccl, Prov, and Ps.** Earlier books' working
-   substrate was not retained at this depth.
+   five.
+2. **`sp_durable/` covers only Ps, Prov, Eccl, Song, and Isa.** Earlier books'
+   working substrate was not retained at this depth.
 3. **Mixed mesh revisions.** Books through 2Chr closed under `m8-mesh-r2`; Ezra
-   onward under `m8-mesh-r3`. Method is not uniform across the 21 books.
+   onward under `m8-mesh-r3`. Method is not uniform across the 22 books.
 4. **Some working files record absolute local workstation paths** (e.g. in
    `model_manifest.yaml` and `sp_durable/**` briefs). These are
    development-environment paths only. No credentials, tokens, keys, or personal
    contact data are present anywhere in this lane.
 5. **Only the Hebrew Bible so far.** No New Testament work exists; the Greek
    preflight gate has not been satisfied.
+6. **Isa is an unfinished book checkpointed for durability.** Its 225 draft
+   writer rows under `sp_durable/Isa/` are pre-assembly, pre-review working
+   output. They are not candidate chunks, are not in the chunk map, and must not
+   be read as an Isaiah result.
 
 ## Source texts and licensing
 

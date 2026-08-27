@@ -1,6 +1,6 @@
 schema_version: m8_public_transparency_release.v1
 release_id: M8-PUBLIC-TRANSPARENCY-001
-generated_at: "2026-08-25T16:30:00Z"
+generated_at: "2026-08-26T00:00:00Z"
 repository: https://github.com/lowelltwong-alt/logos-scripture-graph
 branch: scratch/t423-m8-fable
 lane: M8_fable
@@ -20,28 +20,34 @@ status_labels:
 
 progress:
   marathon_status: in_progress
-  books_completed: 21
+  books_completed: 22
   books_total: 66
-  current_book_not_started: Song
+  current_book_mid_cycle_not_closed: Isa
+  current_book_state: >-
+    Isa writer wave landed (225 draft rows across 18 parts) but NOT assembled,
+    NOT reviewed, and NOT closed. No book_chunks/Isa, no completion receipt, not
+    in the chunk map. Checkpointed for durability only; must not be read as an
+    Isaiah result.
   completed_books:
     [Gen, Exod, Lev, Num, Deut, Josh, Judg, Ruth, 1Sam, 2Sam, 1Kgs, 2Kgs,
-     1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl]
+     1Chr, 2Chr, Ezra, Neh, Esth, Job, Ps, Prov, Eccl, Song]
 
 content_totals:
-  candidate_chunks: 3684
-  chunk_map_rows: 3684
-  verses_covered: 17538
+  candidate_chunks: 3722
+  chunk_map_rows: 3722
+  verses_covered: 17655
   review_packets_retained: 2353
   superseded_decisions_retained: 35
   appeals_recorded: 0
-  low_confidence_register_rows: 241
-  frontier_escalation_queue_rows: 241
-  atlas_candidate_feed_rows: 241
+  low_confidence_register_rows: 253
+  frontier_escalation_queue_rows: 253
+  atlas_candidate_feed_rows: 253
   layer_decision_log_rows: 4
-  completion_receipts: 21
-  book_strategies: 20
-  tracked_files_before_this_release: 802
-  tracked_bytes_before_this_release: 59972584
+  completion_receipts: 22
+  book_strategies: 22
+  isa_draft_writer_rows_not_candidates: 225
+  tracked_files_at_basis_commit: 921
+  tracked_bytes_at_basis_commit: 62764375
 
 published_paths:
   root: .ai/scratch/multi_model_bible_chunking/M8_fable/
@@ -67,9 +73,11 @@ published_paths:
     - layer_decision_log.jsonl
     - atlas_candidate_feed.jsonl
   agent_mesh_engineering:
-    - sp_durable/Eccl/
-    - sp_durable/Prov/
     - sp_durable/Ps/
+    - sp_durable/Prov/
+    - sp_durable/Eccl/
+    - sp_durable/Song/
+    - sp_durable/Isa/   # in-progress, not a completed book
     - sp_durable/README.md
   replay_scripts_and_checks:
     - checks/validate_exact_book_coverage.py
@@ -91,43 +99,46 @@ published_paths:
     - LICENSE-CC-BY-4.0.txt
 
 digests:
-  basis_commit: c2b7591636ce3abda85fc345e1b50365d6b0c209
-  m8_subtree_tracked_blob_listing_sha256: 4d8e92cea06e44538031786103d72ed836d2e520802d553efc3ae2e6f458bf8a
+  basis_commit: 35dc82b391ae8971e059c405edf0f3df77489f3e
+  m8_subtree_tracked_blob_listing_sha256: b4e2eef45aba34483262d987d82f8feeab0eece339281c5011d3858474984733
   cc_by_4_0_legalcode_sha256: 9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411
   note: >-
-    Digests describe the tracked M8 subtree at the basis commit, before this
-    release commit adds the four transparency files listed under
-    published_paths.added_by_this_release.
+    Digests describe the tracked M8 subtree at the basis commit (Song close,
+    22/66), before the durability checkpoint that adds the in-progress Isa
+    substrate and refreshes these transparency documents.
 
 validation:
   exact_book_coverage:
     script: checks/validate_exact_book_coverage.py
-    books_run: 21
-    pass: 21
+    books_run: 22
+    pass: 22
     fail: 0
   review_coverage:
     script: checks/validate_book_review_coverage.py
-    books_run: 21
+    books_run: 22
     pass: 17
-    error: 4
-    errored_books: [Job, Ps, Prov, Eccl]
+    error: 5
+    errored_books: [Job, Ps, Prov, Eccl, Song]
     reason: >-
       Closed under mesh revision m8-mesh-r3; review substrate retained under
-      sp_durable/ (Ps, Prov, Eccl) or only as a SHA-256 pin in the completion
+      sp_durable/ (Ps, Prov, Eccl, Song) or only as a SHA-256 pin in the completion
       receipt (Job). Retention and layout gap, not a coverage failure; exact
-      ordered verse coverage passes for all four books.
+      ordered verse coverage passes for all five books.
   workspace_policy:
     script: C:/Users/lowel/.agent-governance/validate_workspace_policy.ps1
-    status_before_registry_update: fail
+    status: fail
     failure_reason: >-
-      M8 post-resume checkpoint HEAD mismatch: the registry pinned
-      b3657b0581b56a46e083668dab43250cdb96736c (20/66) while the live lane had
-      advanced to c2b7591636ce3abda85fc345e1b50365d6b0c209 (21/66, Eccl closed)
-      via an owner-identity commit made during this audit.
-    remediation: >-
-      A new typed post_resume_checkpoint record was written to
-      ACTIVE_WORKTREES.yaml under the authorization named in
-      governance.publication_authorization_ref.
+      The expected post_resume_checkpoint is hard-coded in
+      validate_workspace_policy.py, so updating ACTIVE_WORKTREES.yaml alone
+      cannot move the pin. The probe has failed continuously since the lane
+      advanced past b3657b05, as anticipated by
+      OWNER_CHECKPOINT_2026-08-18_commit_push.md, which records the owner
+      authorization treating successor checkpoint commits on this branch as the
+      durable resume basis and the failed probe as a recorded exception.
+    remediation_pending_owner: >-
+      Re-pin the hard-coded block in validate_workspace_policy.py (and any
+      pinned values in test_m8_fable_resume_snapshot.py) to the current HEAD.
+      ACTIVE_WORKTREES.yaml has been kept accurate to the live lane.
   privacy_scan:
     high_confidence_secret_patterns: 0
     email_addresses: 0
@@ -167,6 +178,8 @@ licensing:
       redistributed: true
       redistributed_paths:
         - sp_durable/Eccl/Eccl_oshb.txt
+        - sp_durable/Song/Song_oshb.txt
+        - sp_durable/Isa/Isa_oshb.txt
         - sp_durable/Prov/Prov_oshb.txt
         - sp_durable/Prov/author/_oshb_dump.txt
       upstream_authority_flags:
@@ -185,6 +198,10 @@ licensing:
       redistributed_paths:
         - sp_durable/Eccl/Eccl_web.usfm
         - sp_durable/Eccl/Eccl_web_clean.txt
+        - sp_durable/Song/Song_web.usfm
+        - sp_durable/Song/Song_web_clean.txt
+        - sp_durable/Isa/Isa_web.usfm
+        - sp_durable/Isa/Isa_web_clean.txt
         - sp_durable/Prov/Prov_web.usfm
         - sp_durable/Prov/Prov_web_clean.txt
   restricted_translations_found: []
@@ -205,12 +222,12 @@ exclusions:
     reason: private path outside the repository; deliberately not published
   - path_or_class: other model lanes (M1-M7) and comparison/
     reason: out of lane scope; independence contract forbids reading or publishing them here
-  - path_or_class: Song book artifacts
-    reason: current book not started at this checkpoint
+  - path_or_class: Isa candidate chunks and completion receipt
+    reason: Isa is mid-cycle and not closed; only its working substrate is checkpointed
 
 remaining_work:
-  books_remaining: 45
-  next_book: Song
+  books_remaining: 44
+  next_book: Isa (in progress; assembly, review, and close pending)
   nt_gate: >-
     OWNER_GATE_NT_GREEK_PREFLIGHT.v1.md must be satisfied before any New
     Testament book is chunked.
@@ -220,6 +237,9 @@ remaining_work:
   known_retention_gap: >-
     Review packets for Job, Ps, Prov, and Eccl are not retained in the
     reviews/ layout (see validation.review_coverage).
+  isa_budget_note: >-
+    Isa campaign spend recorded at ~22.6M of a ~26M +/- 25% authorization at the
+    time of this checkpoint; the lane flagged the envelope as tight.
   not_authorized_by_this_release:
     - merge_to_main
     - convergence_pull_request
@@ -230,7 +250,16 @@ remaining_work:
 
 governance:
   publication_authorization_ref: >-
+    lowell_chat_2026-08-26_update_git_with_fable_work_since_last
+  prior_publication_authorization_ref: >-
     lowell_chat_2026-08-25_m8_public_transparency_001_opus5_exception
+  standing_checkpoint_authorization: >-
+    OWNER_CHECKPOINT_2026-08-18_commit_push.md records the owner authorization
+    covering this commit "and its successors on scratch/t423-m8-fable, pushed to
+    origin", and equivalent owner-authorized checkpoint pushes at future phase
+    boundaries. This checkpoint is such a push, requested directly by the owner
+    after the Fable 5 session stopped.
+  checkpoint_kind: durability_checkpoint_of_incomplete_work
   authorization_text_summary: >-
     Owner waived the Fable-5-only write restriction for this exact action,
     authorizing Opus 5 to make one checkpoint commit and non-force push on
