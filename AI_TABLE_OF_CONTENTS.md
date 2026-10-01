@@ -128,6 +128,7 @@ issues. It is not a submodule, hidden runtime dependency, or automatic promotion
 - [`ROADMAP_STATE.yaml`](ROADMAP_STATE.yaml) - machine-readable task state; tags: `roadmap`, `task-state`, `next-route`
 - [`docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md`](docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md) - local AI roadmap/review artifact map; tags: `roadmap`, `review-packets`, `owner-decisions`
 - [`HANDOFF_PROTOCOL.md`](HANDOFF_PROTOCOL.md) - deterministic agent handoff rules; tags: `handoff`, `agent-continuity`
+- [`docs/bible-chunking-campaign/README.md`](docs/bible-chunking-campaign/README.md) - public-facing status and transparency page for the in-progress whole-Bible chunking campaign (candidate-only, not final); generated per-book status table refreshed after each book closes via `docs/bible-chunking-campaign/refresh_campaign_status.py`; tags: `chunking-campaign`, `m8-fable`, `transparency`, `book-status`
 
 ## Architecture And Governance
 

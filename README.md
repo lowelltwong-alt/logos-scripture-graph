@@ -72,6 +72,14 @@ agent-swarm/token guidance, and capability-based model routing
 ([`config/agents/model_routing.yaml`](config/agents/model_routing.yaml) +
 [`.ai/control/MODEL_ROSTER.md`](.ai/control/MODEL_ROSTER.md)).
 
+## Bible chunking campaign (in progress)
+
+An unfinished, candidate-only research campaign is chunking the whole Bible into units of meaning, with every
+decision recorded. It is a testing run that feeds a later final project; it is not reviewed, canonical, or
+theologically authoritative. Current status (books closed, the book in progress), where low-confidence and
+high-risk items are registered, model disclosure, and how to file corrections are in
+[`docs/bible-chunking-campaign/README.md`](docs/bible-chunking-campaign/README.md).
+
 ## Raw source drop location
 
 Put downloaded Bible/source files only under:
