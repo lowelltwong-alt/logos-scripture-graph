@@ -67,3 +67,12 @@ Use `.ai/audits/templates/REVIEW_REPORT_TEMPLATE.md`.
   review and whole-Bible low-complexity candidate runway; records one candidate per canonical book,
   status buckets, metadata evidence-only handling, CD-077/LSN-031, and the rule that
   low-complexity means review eligibility only.
+- `20260818-T610-public-entry-design-a.md` and
+  `20260818-T610-public-entry-design-b.md` - blind same-tier Sol/high architecture lanes for the
+  public AI/MCP entry, M7/M8 publication boundary, and PR 194 replacement route. These are
+  independent-context reviews, not a claim of provider diversity. Their exact shared input is
+  committed as `20260818-T610-public-entry-frozen-brief.md` so outside reviewers can inspect and
+  recompute the published core digest.
+- `20260818-T610-public-entry-convergence.md` - blind-design convergence record adopting a
+  clean-main entry PR, separate M7 publication, continued owner-bound M8 work, and an explicit
+  stop before any M7/M8 content convergence until M8 is complete.

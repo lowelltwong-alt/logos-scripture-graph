@@ -427,6 +427,29 @@ This lesson applies especially when multiple AI agents are building in parallel,
 rollouts are underway, or generated/scratch artifacts are large enough that repeated rework becomes
 expensive.
 
+## WORKFLOW-LESSON-012 - Publish Large Research Lanes in Stages Before Convergence
+
+When one pull request inherits multiple large research trees, active owner work, and contradictory
+candidate status, resolving the textual conflict does not make the result reviewable. Preserve the
+work, but change the publication and merge vehicle.
+
+Required routing:
+
+- Record the exact base and head hashes before integration work begins.
+- Publish a completed or frozen research lane as its own hash-bound candidate unit with a manifest,
+  limitations, validation receipt, and explicit non-authorizations.
+- Reconcile contradictory progress or quality surfaces before using a candidate as release evidence.
+- Keep active owner lanes resumable; an integration task does not inherit mutation authority.
+- Do not start cross-lane comparison or convergence until every required lane reaches its recorded
+  completion gate.
+- Land public orientation and status changes as a small clean-main PR.
+- After the lanes are complete, converge through a metadata index that links candidates and
+  decisions instead of copying their entire scratch trees.
+- Close the original conflict-heavy PR as superseded only after every valuable commit has a durable
+  replacement ref and visible link.
+- Do not treat candidate size, model effort, or conflict resolution as reviewed-gold, chunk output,
+  graph/retrieval truth, release readiness, or theology authority.
+
 ## LAW-FIRM-WORKFLOW-LESSON-001 - Exception-to-Action Requires Candidate, Gate, Ledger, and Scale Package
 
 Operational exceptions, defect clusters, billing/portal/client-carrier deltas, and workflow failures

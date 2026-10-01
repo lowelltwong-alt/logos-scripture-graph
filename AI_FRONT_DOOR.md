@@ -3,6 +3,38 @@
 This file is the required entry point for every AI agent and human contributor.
 It is the stable operating-rules surface. Task-specific T3xx/T4xx history lives in `docs/roadmap/TASK_LEDGER.md`; searchable tag/use-when routing lives in `AI_TABLE_OF_CONTENTS.md` and `docs/roadmap/AI_ROADMAP_TABLE_OF_CONTENTS.md`.
 
+## Public Orientation — Read This First
+
+**Mission:** build a governed, provenance-first Scripture knowledge/data plane for
+Christian study, teaching, discipleship, search, and future AI-assisted ministry tools.
+This repository is not an autonomous theological authority or the future agent runtime.
+
+**Current reality:** source ingestion, canonical passage/witness identities, schemas,
+validation, reviewed chunking pilots, candidate knowledge-graph evidence, and a
+metadata-only learning-loop adapter exist. Whole-Bible M7/M8 chunk maps remain research
+candidates. Production graph/retrieval serving and a remote MCP server do not yet exist.
+
+**MCP boundary:** `.digital-asset/dad-integration.json` declares local stdio read-only
+MCP only. Remote MCP and repository-write tools are disabled. A future server belongs in
+the separate runtime plane and must consume versioned validated releases.
+
+**Public project map:** read
+[`docs/architecture/PUBLIC_PROJECT_OVERVIEW.md`](docs/architecture/PUBLIC_PROJECT_OVERVIEW.md)
+for the repository family, current/planned capability matrix, engineering portfolio,
+release Bronze/Silver/Gold ladder, M7/M8 state, and PR 194 publication plan. Release
+Gold is not the same as the repo's narrow **reviewed-gold** chunk-evidence label.
+
+**Research merge warning (2026-08-18):** PR 194 is a 5,923-file conflicting container
+for inherited M7 material and active M8 research. Do not flatten it into `main`. The
+reviewed route is a clean entry PR, an M7 candidate publication, continued owner-bound
+M8 checkpoints, and M7/M8 comparison or convergence only after M8 is complete.
+
+**M7 transparency:** read
+[`docs/architecture/M7_SOL_AGENT_SYSTEM.md`](docs/architecture/M7_SOL_AGENT_SYSTEM.md)
+for the Sol role mesh, control/campaign agents, literary-form specialists, all-66-book
+strategy routing, per-decision review flow, provenance graph, validation, and honest
+independence limits.
+
 ## Mandatory Read Order
 
 Read these before making changes:

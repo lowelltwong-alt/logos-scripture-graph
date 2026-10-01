@@ -2,6 +2,25 @@
 
 This roadmap is the human-readable plan. Machine-readable state lives in `ROADMAP_STATE.yaml`. Roadmap changes must be logged to `.ai/control/roadmap_events.jsonl`.
 
+## Public release and MCP maturity track
+
+This cross-phase track packages existing work into honest public releases; it does not
+replace the technical phases below. Full criteria and the current capability matrix are
+in [`docs/architecture/PUBLIC_PROJECT_OVERVIEW.md`](docs/architecture/PUBLIC_PROJECT_OVERVIEW.md).
+
+- **Pre-Bronze (current):** land the public AI front door; freeze and publish M7 as a
+  candidate; preserve active M8 checkpoints while Fable finishes M8; begin M7/M8
+  comparison and convergence only after the M8 final checkpoint.
+- **Bronze:** reproducible local release, governed source identities, deterministic
+  validation, and a documented local read-only query/MCP boundary.
+- **Silver:** independently reviewed graph/retrieval integration, measurable evaluation,
+  and authenticated read-only staging MCP.
+- **Gold:** production remote read-only MCP with versioned releases, monitoring,
+  security/privacy review, rollback, incident procedures, and sustained human governance.
+
+These are system release levels. They are distinct from **reviewed-gold**, the existing
+narrow label for human-reviewed chunking evidence.
+
 ## Phase 0 — Repository control plane
 
 Goal: make the repo safe for many agents.

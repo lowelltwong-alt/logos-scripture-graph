@@ -3010,7 +3010,58 @@ lessons:
       - scripts/validate_t477_baseline_reset.py
       - scripts/validate_chunking_lesson_index.py
 
+  - lesson_id: LSN-073
+    title: Large active research trees require staged publication before convergence
+    lifecycle_status: active
+    priority: mandatory_preflight
+    categories: [workflow_governance, auditability]
+    tags: [t610, pr-lifecycle, candidate-publication, hash-bound, convergence-index, research-branch, m7, m8]
+    use_when:
+      - "A pull request mixes multiple large research lanes, active owner work, or inherited candidate history and is too large or conflicting for credible integration review."
+      - "A project needs to preserve valuable experimental artifacts while keeping the default branch, public entry surface, and release claims reviewable."
+    preflight_stage: before_merging_or_superseding_large_research_prs
+    source_surfaces:
+      - docs/architecture/PUBLIC_PROJECT_OVERVIEW.md
+      - docs/architecture/M7_SOL_AGENT_SYSTEM.md
+      - .ai/audits/reports/20260818-T610-public-entry-convergence.md
+      - .ai/control/ai_pr_lifecycle_policy.yaml
+    related_decision_ids: []
+    related_workflow_lesson_ids: [WORKFLOW-LESSON-012]
+    related_task_ids: [T610]
+    downstream_risk: "Flattening active research into one merge can erase ownership boundaries, hide contradictory status, make review non-credible, and turn candidate volume into an apparent release claim."
+    required_preflight_surfaces:
+      - AI_FRONT_DOOR.md
+      - docs/architecture/PUBLIC_PROJECT_OVERVIEW.md
+      - .ai/control/ai_pr_lifecycle_policy.yaml
+      - .ai/control/chunking_lesson_index.yaml
+    required_pattern:
+      - preserve_exact_heads_before_integration
+      - publish_completed_or_frozen_research_lanes_as_hash_bound_candidate_units
+      - keep_active_owner_lanes_resumable_until_completion
+      - reconcile_status_contradictions_before_release_use
+      - start_cross_lane_convergence_only_after_all_required_lanes_complete
+      - close_original_pr_only_after_durable_replacement_links
+    non_authorizations:
+      - conflict_flattening_as_merge_authority
+      - candidate_volume_as_release_readiness
+      - deletion_of_failed_attempts_or_owner_work
+      - reviewed_gold_or_chunk_output_promotion
+      - graph_retrieval_vector_or_index_truth
+      - theology_authority
+    validators:
+      - scripts/validate_ai_pr_lifecycle_policy.py
+      - scripts/validate_chunking_lesson_index.py
+
 lesson_graph:
+  - from: LSN-011
+    relation: constrains
+    to: LSN-073
+  - from: LSN-002
+    relation: governs_update_of
+    to: LSN-073
+  - from: LSN-073
+    relation: audits
+    to: LSN-010
   - from: LSN-002
     relation: governs_update_of
     to: LSN-072

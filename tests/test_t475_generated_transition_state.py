@@ -141,6 +141,7 @@ def test_pytest_transition_skips_only_declared_nodes(monkeypatch) -> None:
     target = next(iter(conftest.DEFERRED_PYTEST_NODES))
     items = [_FakeItem(target), _FakeItem("tests/test_unrelated.py::test_unrelated")]
     monkeypatch.setattr(conftest, "detect_generated_state", lambda _root: "candidate")
+    monkeypatch.setattr(conftest, "current_task", lambda _root: "T475")
     monkeypatch.setattr(conftest, "validate_transition", lambda _root: {"state": "candidate"})
     assert conftest.apply_t475_transition_skips(items) == 1
     assert len(items[0].markers) == 1
