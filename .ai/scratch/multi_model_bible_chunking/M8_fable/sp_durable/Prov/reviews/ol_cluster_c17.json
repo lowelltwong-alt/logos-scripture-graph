@@ -1,0 +1,107 @@
+{
+ "attempt_id": "ol_cluster_c17_r1",
+ "role": "primary_OL",
+ "cluster": "c17",
+ "rows_reviewed": [
+  "P08-007",
+  "P08-013",
+  "P08-020",
+  "P08-024",
+  "P08-025",
+  "P08-029",
+  "P08-034",
+  "P08-036"
+ ],
+ "items": [
+  {
+   "row_id": "P08-007",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The single_proverb call for Prov.17.7 rests on an a-fortiori (light-to-heavy) reading that blocks parsing the verse as two independent statements, but the row quotes no Hebrew to ground that reading.",
+   "evidence": "The construction driving unity is the verse-medial pair אַ֝֗ף כִּֽי (oshb:Prov.17.7), the standard a-fortiori marker; independent word-bound check against verse_map_oshb.json confirms it sits between the fool-clause and the prince-clause exactly as WEB's \"much less\" implies, so the underlying conclusion holds, but the row's rationale never quotes this or any other Hebrew run -- a Hebrew-grammar-dependent boundary claim advanced through the English gloss alone is insufficient OL engagement per the byte-quotation requirement.",
+   "tier_citations": [
+    "oshb:Prov.17.7 word-bound splice (byte tier, this review)",
+    "collate.py not run by the writer row for any span"
+   ]
+  },
+  {
+   "row_id": "P08-013",
+   "verdict": "support",
+   "claim": "Prov.17.13 genuinely carries a ketiv/qere pair at its predicate verb, correctly disclosed single-witness, and the row's no-catchword claim against both neighbors holds.",
+   "evidence": "pmarks_Prov.json kq inventory lists Prov.17.13:1, matching the row's disclosure \"(ketiv/qere, single-witness)\"; the oshb bytes show the unpointed ketiv token immediately before the pointed qere token in verse order (INLINE-KETIV pattern), consistent with the inventory; consonantal_index.json skeleton comparison of Prov.17.12/17.13/17.14 (this review) finds zero shared content tokens, confirming \"No shared token with 17:12 or 17:14.\"",
+   "tier_citations": [
+    "pmarks_Prov.json kq: Prov.17.13=1",
+    "consonantal_index.json skeleton diff, this review: no shared tokens 17.12/17.13/17.14"
+   ]
+  },
+  {
+   "row_id": "P08-020",
+   "verdict": "support",
+   "claim": "Prov.17.20's paired heart/tongue consequence clauses are accurately described and share no content token with either neighbor.",
+   "evidence": "oshb:Prov.17.20 skeleton (עקש לב לא ימצא טוב ונהפך בלשונו יפול ברעה) matches the row's two-clause paraphrase; skeleton diff of this review against Prov.17.19 and Prov.17.21 finds no shared content token (the negator לא recurs in 17.20/17.21 but is a function particle, not a content catchword), confirming the row's rejected_alternative.",
+   "tier_citations": [
+    "consonantal_index.json skeleton diff, this review: no content-token overlap 17.19/17.20/17.21"
+   ]
+  },
+  {
+   "row_id": "P08-024",
+   "verdict": "support",
+   "claim": "Prov.17.24's antithetic gaze contrast is accurate, and the row correctly discloses and defuses the only real cross-seam catchword in the chapter instead of hiding it.",
+   "evidence": "catchword_adjacency inventory reports exactly 1 shared-token adjacent pair in ch.17 (shared_pairs_by_chapter.17=1); independent skeleton sweep of Prov.17.5-17.28 (this review) locates that one pair at exactly Prov.17.24/17.25 sharing כסיל, matching the row's own disclosure \"token shared with 17:25 (disclosed, different referent)\"; the two occurrences carry different referents (unfocused onlooker at 17:24 vs. the grieving son at 17:25), so the rejection of clustering stands and parallelism class is correctly kept in device_notes, not unit_type.",
+   "tier_citations": [
+    "prov_device_inventory.json catchword_adjacency: ch17 shared_pairs=1",
+    "consonantal_index.json skeleton sweep, this review: sole ch17 adjacent-pair hit at 17.24/17.25 (כסיל)"
+   ]
+  },
+  {
+   "row_id": "P08-025",
+   "verdict": "support",
+   "claim": "Prov.17.25's double-dative grief formula is accurately described and the verse shares no content token with its other neighbor, 17:26.",
+   "evidence": "oshb:Prov.17.25 carries two ל-prefixed dative phrases as claimed (לאביו / ליולדתו); skeleton diff of this review against Prov.17.26 finds no shared content token, so the row's silence on 17:26 as boundary evidence is correct (nothing to disclose there), and its cross-reference to 17:24's disclosed token is verse-anchored, not a register violation.",
+   "tier_citations": [
+    "consonantal_index.json skeleton diff, this review: no shared token 17.25/17.26"
+   ]
+  },
+  {
+   "row_id": "P08-029",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row quotes the verse's closing verb as unpointed יתגלע without labeling it skeleton-tier, where the pointed byte form is available and required for a pointed-run citation.",
+   "evidence": "collate.py --json against {ref: oshb:Prov.18.1, quote: יתגלע} returns tier=skeleton (not byte); the source byte form is יִתְגַּלָּֽע (word-bound splice from verse_map_oshb.json, this review). Per the campaign rule that unpointed Hebrew is citation-grade only when labeled, the row's bare, unlabeled quote falls short of the required tier -- a fixable citation-hygiene defect, not a substantive boundary error (the near-homograph at Prov.18.2, בְּהִתְגַּלּ֥וֹת, root גלה, was correctly NOT treated as a false catchword by the row's \"No catchword with... 18:2\" claim; skeleton diff, this review, confirms they share no full-token skeleton match, only a coincidental substring).",
+   "tier_citations": [
+    "collate.py result: oshb:Prov.18.1 vs quoted יתגלע -> tier=skeleton",
+    "verse_map_oshb.json word-bound splice, this review: pointed form יִתְגַּלָּֽע"
+   ]
+  },
+  {
+   "row_id": "P08-034",
+   "verdict": "support",
+   "claim": "The 18:6-18:7 lips/mouth chiasm on the repeated construct-chain noun כסיל is byte-true and is independently confirmed as the sole catchword-adjacency pair in the chapter, meeting the owner's construction-run bar for proverb_cluster.",
+   "evidence": "collate.py --json re-collation of all four quoted spans returns tier=byte for every one: שִׂפְתֵ֣י כְ֭סִיל and וּ֝פִ֗יו against oshb:Prov.18.6, and פִּֽי כְ֭סִיל and וּ֝שְׂפָתָ֗יו against oshb:Prov.18.7 (word-bound splices from verse_map_oshb.json, this review, match exactly); the reversal lips-then-mouth (18:6) vs. mouth-then-lips (18:7) is byte-confirmed. catchword_adjacency inventory reports exactly 1 shared-token adjacent pair in ch.18 (shared_pairs_by_chapter.18=1); independent skeleton sweep of Prov.18.1-18.11 (this review) locates that one pair at exactly 18.6/18.7, i.e. the cluster's own claimed evidence IS the chapter's unique catchword site, not a coincidental thematic echo.",
+   "tier_citations": [
+    "collate.py: 4/4 quoted spans byte tier vs oshb:Prov.18.6, oshb:Prov.18.7",
+    "prov_device_inventory.json catchword_adjacency: ch18 shared_pairs=1",
+    "consonantal_index.json skeleton sweep, this review: sole ch18 adjacent-pair hit at 18.6/18.7"
+   ]
+  },
+  {
+   "row_id": "P08-036",
+   "verdict": "support",
+   "claim": "Prov.18.9's slack-worker/destroyer equivalence claim is accurately described and shares no content token with either neighbor.",
+   "evidence": "oshb:Prov.18.9 matches the row's equivalence-clause paraphrase (אח הוא ל..., predicate-nominal \"brother is he to...\"); skeleton diff of this review against Prov.18.8 and Prov.18.10 finds no shared content token, confirming \"No catchword with 18:8 or 18:10\"; no parashah mark, paseq, K/Q, or the 16:28 small-nun touches this verse, and none is claimed.",
+   "tier_citations": [
+    "consonantal_index.json skeleton diff, this review: no shared token 18.8/18.9/18.10",
+    "pmarks_Prov.json: no K/Q, PE/SAMEKH, or paseq entries for Prov.18.9"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 6,
+  "challenges": 2,
+  "by_severity": {
+   "high": 0,
+   "medium": 0,
+   "low": 2
+  }
+ }
+}

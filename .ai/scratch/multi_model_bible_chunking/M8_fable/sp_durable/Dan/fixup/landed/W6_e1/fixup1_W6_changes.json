@@ -1,0 +1,72 @@
+{
+ "attempt_id": "dan_fixup1_W6_a1",
+ "execution_id": "dan_fixup1_W6_a1#e1",
+ "rows_file_sha256": "693e468fd4b166ea4ff57bf5729ff7f952c218727e6ceed61ba77df1b9ef8830",
+ "changes": [
+  {
+   "row": "W6-001",
+   "field": "strongest_rejected_alternative",
+   "order": "S1-01",
+   "before": "begins %s (OSHB/WLC), %s (WEB)",
+   "after": "begins בַּיָּמִ֖ים הָהֵ֑ם (OSHB/WLC), “In those days” (WEB)",
+   "tier": "MEASURED",
+   "evidence": "work\build.py: Dan_oshb.txt line 'Dan.10.2\t...' (single match), tab-split, first 2 space-separated words = בַּיָּמִ֖ים הָהֵ֑ם (35 UTF-8 bytes, hex d791d6b7d6bcd799d6b8d6bcd79ed6b4d696d799d79d20d794d6b8d794d6b5d691d79d, NFC, 1 occurrence in the file, found at byte offset 88709 as 'Dan.10.2\t'+slice); Dan_web_clean.txt first '[v] 2 ' line after '===== DAN 10 =====' = '[v] 2 In those days I, Daniel, was mourning three whole weeks.', first 3 words = 'In those days' (13 bytes, 1 occurrence in the file, '[v] 2 In those days' present). Byte-tier collation: both slices match their source bytes exactly. Hebrew kept bare and WEB set in curly double quotes, following the corpus convention (74 bare Hebrew runs before ' (OSHB/WLC),'; WEB runs quoted “…” (WEB)). Both attribution parentheses are unchanged; the rest of the field is byte-identical (a scripted single replace, asserted count==1 and %s count==2 before the replace)."
+  }
+ ],
+ "blocked": [],
+ "suite": {
+  "base": {
+   "citation_sweep": "GREEN",
+   "hebrew_normalize_dryrun": "n/a",
+   "web_quotes": "FLAGS flags=1",
+   "refs_mirror": "FLAGS",
+   "mark_symmetry": "GREEN flags=0",
+   "universals": "FLAGS flags=80",
+   "language_zones": "GREEN flags=0",
+   "ngram7": "GREEN",
+   "cap_sweep": "GREEN",
+   "register": "FLAGS flags=107",
+   "role_tokens": "GREEN flags=0",
+   "placeholders": "RED hits=2"
+  },
+  "applied": {
+   "citation_sweep": "GREEN",
+   "hebrew_normalize_dryrun": "n/a",
+   "web_quotes": "FLAGS flags=2",
+   "refs_mirror": "FLAGS",
+   "mark_symmetry": "GREEN flags=0",
+   "universals": "FLAGS flags=80",
+   "language_zones": "GREEN flags=0",
+   "ngram7": "GREEN",
+   "cap_sweep": "GREEN",
+   "register": "FLAGS flags=107",
+   "role_tokens": "GREEN flags=0",
+   "placeholders": "GREEN hits=0"
+  },
+  "summary_base": {
+   "hard_status": "RED",
+   "nfd_hard_e01": false,
+   "triage_flags": 188,
+   "dead_members": []
+  },
+  "summary_applied": {
+   "hard_status": "GREEN",
+   "nfd_hard_e01": false,
+   "triage_flags": 189,
+   "dead_members": []
+  },
+  "hits_on_my_rows_before_after": {
+   "placeholders": {
+    "W6-001": "2 -> 0"
+   },
+   "web_quotes": {
+    "W6-001": "0 -> 1 (GAINED; triage, not hard): path [60].strongest_rejected_alternative, quote 'In those days', issue 'curly quote with NO web: ref in its field'. Clearing it would need an in-field web:Dan.10.2 ref, a change outside the order ('Change nothing else in this sentence'); not improvised, routed to the orchestrator."
+   },
+   "all_other_members": "no change in status or flag count (citation_sweep, refs_mirror, mark_symmetry, universals 80, language_zones, ngram7, cap_sweep, register 107, role_tokens)"
+  },
+  "check_placeholders_applied": "status GREEN, hit_count 0, rows 75, strings_scanned 2218",
+  "ngram7_applied": "status GREEN, gate 10, offending_7grams [], worst_reuse 7 rows (K/Q cluster, unchanged)"
+ },
+ "untouched_fields_identical": true,
+ "untouched_fields_evidence": "work\build.py: per-row per-key JSON-value comparison rows_applied vs pinned rows over 75 rows; diffs = [('W6-001','strongest_rejected_alternative')] only. Byte diff: only line 61 differs; re-serialization reproduces the pinned line style (json.dumps ensure_ascii=False == pinned line: True)."
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/whole_bible_b01_execution_ledger.schema.v1.json",
+  "title": "B01 Four-Role Execution Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "book", "run_id", "stage_attempt_id", "synthesis_attempt_id", "contributor_execution_ids", "prompt_execution_artifact_ids", "aggregate_artifact_blindness", "root_synthesizer_read_contributor_outputs", "role_separation", "dual_role_disclosures", "required_prompt_template_ids", "shared_model_substrate", "counts_as_cross_model_independent_vote", "B02_authorized", "contains_scripture_text", "contains_source_rows", "contains_prompts_or_hidden_reasoning", "non_authorizing"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_b01_execution_ledger.v1"},
+    "book": {"type": "string", "minLength": 1},
+    "run_id": {"$ref": "#/$defs/safe_id"},
+    "stage_attempt_id": {"$ref": "#/$defs/safe_id"},
+    "synthesis_attempt_id": {"$ref": "#/$defs/safe_id"},
+    "contributor_execution_ids": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"$ref": "#/$defs/safe_id"}},
+    "prompt_execution_artifact_ids": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "aggregate_artifact_blindness": {"const": false},
+    "root_synthesizer_read_contributor_outputs": {"const": true},
+    "role_separation": {"const": true},
+    "dual_role_disclosures": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["assignment_id", "prompt_template_ids", "one_correlated_voice", "independent_corroboration_claimed"], "properties": {"assignment_id": {"$ref": "#/$defs/safe_id"}, "prompt_template_ids": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string"}}, "one_correlated_voice": {"const": true}, "independent_corroboration_claimed": {"const": false}}}},
+    "required_prompt_template_ids": {"type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true, "items": {"type": "string"}},
+    "shared_model_substrate": {"const": true},
+    "counts_as_cross_model_independent_vote": {"const": false},
+    "B02_authorized": {"const": false},
+    "contains_scripture_text": {"const": false},
+    "contains_source_rows": {"const": false},
+    "contains_prompts_or_hidden_reasoning": {"const": false},
+    "non_authorizing": {"const": true}
+  },
+  "$defs": {"safe_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"}}
+}

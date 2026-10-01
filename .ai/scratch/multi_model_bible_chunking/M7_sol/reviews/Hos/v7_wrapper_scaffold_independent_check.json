@@ -1,0 +1,206 @@
+{
+  "schema_version": "t550_hos_v7_wrapper_scaffold_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "fresh_independent_fail_closed_wrapper_scaffold_checker",
+  "review_mode": "read_only_exact_hash_static_control_flow",
+  "reviewed_at_utc": "2026-07-28T14:39:51.6884667Z",
+  "verdict": "FAIL",
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "prepare_authorized": false,
+  "readiness_claimed": false,
+  "exact_hash_match": true,
+  "inputs": {
+    "wrapper": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v7.py",
+      "sha256": "a7dfac016455238902e90712608360bc7748b0707e9c07fc7403e9e639b13535"
+    },
+    "wrapper_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v7.py",
+      "sha256": "d33505c92aa88b6ba4666fc3f11d0324bc307d44740ce838489fe84a86d7beb7"
+    },
+    "prepare_resume_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v7_prepare_resume.py",
+      "sha256": "9e5c931f3350debea61f92c2308e8faed74072828c743dadd9bd27a076641c7a"
+    },
+    "transaction_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v7_transaction.py",
+      "sha256": "850ddd1a0ebe75341c09c3f7a26e6baa3612a691c3074b20fadebb6cbfa1d4b5"
+    },
+    "kernel_disqualification_check": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v7_kernel_v4_independent_check.json",
+      "sha256": "533c06b89e4163a5d9b63b3d1b61ab5a4249492cbc689f1c9af5c30301e43a15",
+      "verdict": "FAIL",
+      "may_be_used_for_v7_publication": false,
+      "may_be_used_for_v7_recovery": false
+    }
+  },
+  "dimension_results": {
+    "v6_rejection_immutably_pinned": "PASS",
+    "current_v7_attempt_absent": "PASS",
+    "current_v7_prepare_manifest_absent": "PASS",
+    "current_v7_prepare_receipt_absent": "PASS",
+    "current_v7_publish_journal_absent": "PASS",
+    "current_v7_actual_published_manifest_absent": "PASS",
+    "current_v7_application_receipt_absent": "PASS",
+    "current_v7_recovery_marker_absent": "PASS",
+    "current_v7_failure_evidence_absent": "PASS",
+    "current_shared_mutation_lock_absent": "PASS",
+    "publication_fails_before_transaction_context_while_disqualified": "PASS",
+    "recovery_fails_closed_while_kernel_v4_is_disqualified": "FAIL",
+    "scaffold_cannot_create_v7_attempt_prepare_or_receipt": "FAIL",
+    "failure_evidence_pass_not_fabricated": "PASS",
+    "actual_published_manifest_schema_matches_boss_intent": "PASS_SCAFFOLD_ONLY",
+    "published_receipt_is_deterministic_closed_and_prose_free": "PASS_SCAFFOLD_ONLY",
+    "readiness_not_established": "PASS"
+  },
+  "blocking_findings": [
+    {
+      "finding_id": "T550-V7-WRAPPER-RECOVER-GATE-001",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "The disqualification gate protects publish but not recover",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v7.py",
+          "line": 2410,
+          "observation": "publish() calls require_qualified_publication_primitives() before transaction_context()."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v7.py",
+          "line": 2452,
+          "observation": "recover() has no equivalent qualification gate and loads journaled_recoverable_publish_v4.py after prepared-artifact validation."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v7_kernel_v4_independent_check.json",
+          "observation": "The exact-hash kernel verdict explicitly says kernel v4 may not be used for V7 recovery."
+        }
+      ],
+      "consequence": "The current absent V7 attempt makes recovery fail incidentally, but exact prepared artifacts plus a journal would reach the independently disqualified kernel. Absence is not an executable fail-closed recovery gate.",
+      "required_resolution": "Call the same qualification gate before any recovery validation or kernel load, or remove the recovery entry point until both primitives receive fresh independent qualification."
+    },
+    {
+      "finding_id": "T550-V7-WRAPPER-PREPARE-SCAFFOLD-001",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "The frozen scaffold can create the V7 attempt, prepare manifest, and prepare receipt",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v7.py",
+          "lines": "1451-1509",
+          "observation": "prepare_v7() creates ATTEMPT and exclusively writes prepare_manifest_v7.json and prepare_receipt_v7.json."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v7.py",
+          "lines": "2510-2511",
+          "observation": "The public CLI exposes --prepare and directly invokes prepare_v7() without a scaffold-disqualification gate."
+        },
+        {
+          "path": "tests/test_hos_semantic_prose_rematerialization_v7_prepare_resume.py",
+          "observation": "The frozen tests exercise successful preparation and receipt creation in an isolated fixture; they do not establish that the production scaffold cannot prepare."
+        }
+      ],
+      "consequence": "The current filesystem is clean only because prepare was not invoked. This does not satisfy the requested stronger invariant that the blocked scaffold does not create a V7 attempt, prepare manifest, or prepare receipt.",
+      "required_resolution": "Remove or fail-close the production --prepare entry point while either primitive is disqualified. Keep deterministic render/schema helpers independently testable without production attempt creation."
+    }
+  ],
+  "positive_findings": [
+    {
+      "finding_id": "T550-V7-WRAPPER-V6-PIN-001",
+      "statement": "The wrapper pins the V6 wrapper, kernel, rejection receipt, failure evidence, transaction check, closed checker, premortem, staged source/literary check, and exact 44-member attempt-tree digest. All inspected hashes and the tree digest match."
+    },
+    {
+      "finding_id": "T550-V7-WRAPPER-PUBLISH-BLOCK-001",
+      "statement": "publish() checks both BLOCKED status constants before transaction context or repository mutation; the frozen transaction test checks this ordering."
+    },
+    {
+      "finding_id": "T550-V7-WRAPPER-NO-FAKE-PASS-001",
+      "statement": "No V7 failure-evidence artifact exists, and the scaffold validator would require an exact case set with per-case PASS receipts. The frozen files do not claim that matrix passed."
+    },
+    {
+      "finding_id": "T550-V7-WRAPPER-OUTPUT-SCHEMA-001",
+      "statement": "verify_published_outputs() defines a deterministic actual-published manifest from application ID, journal-core hash, ordered target identities, and staged hashes, followed by a separate five-field receipt binding the manifest hash. The receipt contains no prose. This matches the boss-intended object split only as an unqualified scaffold."
+    }
+  ],
+  "v6_preservation": {
+    "attempt_tree_sha256_actual": "9dc6382ed4cad668275390072181efa633ac52a571ce379fc53460bb179593ce",
+    "attempt_tree_sha256_expected": "9dc6382ed4cad668275390072181efa633ac52a571ce379fc53460bb179593ce",
+    "attempt_member_count": 44,
+    "rejection_receipt_sha256": "adaba4c7ddf4a5f9f650095aed35465ece6f0d7dd3ec6736c5dd72af078d0158",
+    "transaction_verdict": "FAIL",
+    "staged_content_verdict": "PASS_REUSABLE_IF_BYTE_IDENTICAL",
+    "publish_invoked": false,
+    "recover_invoked": false,
+    "canonical_targets_remain_exact_preimages": true,
+    "global_sidecars_remain_frozen": true
+  },
+  "current_repository_state": {
+    "v7_artifacts": {
+      "attempt_exists": false,
+      "prepare_manifest_exists": false,
+      "prepare_receipt_exists": false,
+      "publish_journal_exists": false,
+      "actual_published_manifest_exists": false,
+      "application_receipt_exists": false,
+      "recovery_marker_exists": false,
+      "failure_evidence_exists": false,
+      "shared_mutation_lock_exists": false
+    },
+    "canonical_preimages": {
+      "reviews/Hos/decision_evidence_v2.jsonl": "d78722845c7108229933b41f1e333a2e8fe764f0680d16f92524705a7f22cc12",
+      "book_chunks/Hos/chunks.jsonl": "e7b413bbe3130f61444230d4c3ff0f34cb9e052cd194a2dee5a9b9a867e3dcfc",
+      "reviews/Hos/review_packets.jsonl": "e206ec147a635e0ef19482b804a1d3af2dfe4543e48d36a17fa1303429fa13eb",
+      "reviews/Hos/decision_relations.jsonl": "f0263a9f7d14ab76c13005596b59abf6fed65b285a0436df773f570054eef52b",
+      "reviews/Hos/primary_hebrew_v2.json": "c4a8dba97ee57856aac97ba0e6975ea059115d87c5ecd62bc014f4412bb26aec",
+      "reviews/Hos/primary_literary_v2.json": "de2890c3ff790f4b42b2a2f56eda4fe01ae3d901d3a2dfe7894af2e4238eac11",
+      "reviews/Hos/canonical_premortem_v2.json": "a9097ce267bd6b1df2481f5686e387d45a87010df05c76c096f19668a6e89881",
+      "reviews/Hos/peer_crosscheck_v2.json": "d473b3b4e075586c27a80b9e7a3a359f0b3543298900a2311293fdaadb40f2ed",
+      "reviews/Hos/boss_ruling_v2.json": "f02cd20c6d236a30a86f7fe5f98fec9d4d01d7bf92a46c53924c8c78f664b824",
+      "reviews/Hos/sidecar_rows_v2.json": "7ddb52c14de3f50b6bf51bb06204e6f6dda91ec76fdafa1717ec5579efafab98",
+      "reviews/Hos/appeal_ledger.jsonl": "447075a6319c169ac5b1a5dd23f86d4ce6fbcb618ae92dbadd346e012d062a24",
+      "reviews/Hos/post_resolution_check_v2.json": "881b26532502c57fc9405aba9b659ee9281d2d362dece238cbdefbf6d70ace74",
+      "receipts/Hos_completion_v2.json": "a5f375c725c78e1b6fc29686497079aa0b23ba255740931f3753cd159c866e40"
+    },
+    "global_sidecars": {
+      "low_confidence_register.jsonl": "ca548ec6b205ec030df6cebffe3a657e46aba01be97600382a55cb50f648c5b6",
+      "frontier_escalation_queue.jsonl": "8d101775088cba9a7ddde6e506db981d1fd1d866958caa57e8243df3a24268b1",
+      "atlas_candidate_feed.jsonl": "7bdbfc263fbd8d3fe0083fdfec978f3714ec84ad5f703cc9c428de616a608ca0"
+    },
+    "all_13_preimages_match_frozen_expected_hashes": true,
+    "all_3_global_sidecars_match_frozen_expected_hashes": true
+  },
+  "preserved_objections": [
+    {
+      "objection_id": "T550-V7-WRAPPER-OBJECTION-001",
+      "status": "open",
+      "statement": "A clean current filesystem cannot substitute for a control-flow gate: --prepare can create the missing artifacts, and recover can then reach a kernel independently barred from recovery."
+    },
+    {
+      "objection_id": "T550-V7-WRAPPER-OBJECTION-002",
+      "status": "open",
+      "statement": "The deterministic manifest/receipt schema is a positive design property, but it cannot be treated as transaction readiness while the replacement primitive and kernel remain disqualified."
+    }
+  ],
+  "actions_not_taken": [
+    "did_not_run_prepare",
+    "did_not_run_publish",
+    "did_not_run_recover",
+    "did_not_run_broad_tests",
+    "did_not_modify_wrapper_or_tests",
+    "did_not_modify_prior_attempts_or_prior_verdicts",
+    "did_not_modify_canonical_targets",
+    "did_not_modify_global_sidecars",
+    "did_not_create_or_remove_mutation_lock"
+  ],
+  "final_ruling": {
+    "scaffold_accepted_as_fail_closed": false,
+    "may_create_v7_attempt_or_prepare_receipt": false,
+    "may_publish": false,
+    "may_recover": false,
+    "next_action": "Gate or remove both --prepare and recover while either qualification status is blocked; freeze new wrapper and test hashes, then obtain a fresh independent exact-hash scaffold check. Preserve this FAIL and both objections append-only."
+  },
+  "candidate_only": true,
+  "non_authorizing": true,
+  "forced_consensus": false
+}

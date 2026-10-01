@@ -1,0 +1,43 @@
+{
+ "schema": "ezek_face_distinct_check.v1",
+ "order": "#e15 Q5: the mechanical face sweep runs with a DISTINCT CHECK",
+ "the_two_readers": {
+  "reader_1_geometry": "knows (verse, span) and the carrier's verse counts; reads no English",
+  "reader_2_the_words": "reads the annotation's wording with the role token and the verse reference stripped out first, so it cannot see reader 1's signal; knows no span",
+  "why_decorrelated": "a sign error in the geometry's previous/next verse would flip every qualifier at once and stay perfectly self-consistent; only a reader that does not do the arithmetic can catch that"
+ },
+ "inputs": {
+  "plan": "face_qualification_plan.v1.json",
+  "plan_sha256": "ffc72d97aceaa4ae07d93475b19419dc8d55699b1085d8977c0e1d261c596590",
+  "rows_sha256": "199d81c08fbfeb311f51419f4032ab604b32465d5805a681a3908e00736ae8d3"
+ },
+ "selftest": {
+  "vectors": 14,
+  "failed": 0,
+  "why_it_gates_the_verdict": "this reader once reported GREEN while matching nothing at all - every word boundary in its patterns had become a literal backspace byte. The fixtures now run first and a failure refuses the run."
+ },
+ "tally": {
+  "AGREE": 95,
+  ":far|:far": 85,
+  ":near|:near": 10,
+  "UNSPOKEN": 29,
+  ":far|-": 23,
+  ":near|-": 5,
+  ":interior|-": 1
+ },
+ "summary": {
+  "qualifiers_proposed": 124,
+  "the_words_assert_a_face": 95,
+  "AGREE": 95,
+  "DISAGREE": 0,
+  "UNSPOKEN": 29
+ },
+ "two_corrections_to_this_reader_disclosed": [
+  "its first version read DEIXIS as a face claim and reported 7 disagreements, all 7 its own error. P08-012's 'begins past here' at Ezek.36.24 was decisive: the reader said near, the geometry said far, and #e15 says of that row 'the FAR face, 36:24, carries nothing'.",
+  "its second version reported GREEN while matching nothing: 66 word boundaries had been turned into literal backspace bytes by the shell heredoc that wrote the patch, so all 111 entries came back UNSPOKEN and 'no disagreement' was printed. Zero disagreements because zero comparisons."
+ ],
+ "what_unspoken_means": "the annotation names no face, so this reader corroborates nothing for it. It is NOT an agreement and is not counted as one - counting a silence as a pass is the same error as summing an absent token figure as zero.",
+ "DISAGREEMENTS": [],
+ "verdict": "GREEN - 95 of 124 qualifiers are corroborated by a second, decorrelated reader and none is contradicted; the remaining 29 annotations name no face and corroborate nothing",
+ "tier": "MEASURED by both readers over the same entries"
+}

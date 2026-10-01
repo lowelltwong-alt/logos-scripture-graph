@@ -1,0 +1,39 @@
+{
+ "schema": "m8_launch_receipt.v1",
+ "book": "Ezek",
+ "attempt_id": "ezek_cwo24_transcript_review_s5_a1",
+ "execution_id": "ezek_cwo24_transcript_review_s5_a1#e1",
+ "launched_at": "2026-09-14T21:22:38.302869+00:00",
+ "agent_id": "afd10314c2c21c265",
+ "session": "910cbe15-396b-4a0e-82f6-8aa1e2edf1e4",
+ "model_ordered": "claude-fable-5-1 at high effort (OW-13 checker; a fresh distinct check, not S1-S4, T1-T6, an author or the orchestrator)",
+ "launched_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "ordered_by": "ezek_controlling_rulings_a1#e11 ruling S4-ROUTING (8) and TRANSCRIPT-ROUTE (DISTINCT CHECK)",
+ "brief": {
+  "path": "sp_durable/Ezek/CWO24_TRANSCRIPT_REVIEW_BRIEF_S5.md",
+  "sha256": "4757dff0e830045abb9a0a0fca112abbaa344b32feedb49dc3da4bbb55f3e376",
+  "pinned_inputs": 49
+ },
+ "scope": "narrow: the 18 CWO-EZ-24 pairs, the v7 suite and every CWO coverage report on its own runs, TOOLFIX-6's diffs and selftests, the rebuilt manifest, census v2 and the pre_primaries statement",
+ "pre_launch_checks": {
+  "scoped_validator": "pass, relationship_scoped",
+  "pin_check": "MATCH on 49 pins, 0 drift, 0 missing",
+  "brief_schema_vs_validator": "AGREES_ON_TOP_LEVEL_KEYS, every nested key present",
+  "landing_job": "s5 installed (validate_s5)",
+  "tool_selftest": "GREEN"
+ },
+ "budget_test": {
+  "rule": "census at launch + 774,493 < the ceiling read from campaign/budget_ceilings.v1.json",
+  "census_at_launch": 23982043,
+  "s5_allowance": 774493,
+  "total": 24756536,
+  "ceiling": 55000000,
+  "crosses": false
+ },
+ "two_discrepancies_put_to_the_checker": [
+  "the manifest holds 78 entries where #e11 says 77 (the index grew by #e11's own transcript after it ruled)",
+  "attempt_id is deliberately NOT equal to map_key; #e11 (Q1) says it should be, and the deviation with its reason is in the manifest's ruling_text_discrepancy block"
+ ],
+ "consequence": "any finding S5 routes to the controlling agent sets primaries_may_launch false and #e12 precedes the launch",
+ "limit": "a launch record. It asserts nothing about the outcome."
+}

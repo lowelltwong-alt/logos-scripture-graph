@@ -1,0 +1,85 @@
+{
+  "schema_version": "m7_book_literary_completion_owner_ruling.v1",
+  "task_id": "T551",
+  "model_id": "M7_sol",
+  "book": "Joel",
+  "completed_at_utc": "2026-07-29T14:35:25.3917270Z",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "completion_basis": "owner_corrected_literary_only_completion_rule",
+  "owner": "Lowell Wong",
+  "owner_ruling": {
+    "artifact_installation_is_completion_gate": false,
+    "ordinary_candidate_scratch_writes_are_sufficient": true,
+    "t550_rematerialization_live_gate_work": "parked_out_of_scope",
+    "global_sidecar_partition_parity_is_non_gating": true
+  },
+  "literary_result": {
+    "chunk_count": 13,
+    "canonical_verse_count": 73,
+    "covered_verse_count": 73,
+    "exact_ordered_coverage": true,
+    "positive_contiguous_integer_indices": true,
+    "accepted_decision_count": 11,
+    "held_decision_count": 2,
+    "held_decision_ids": ["M7_sol-Joel-010", "M7_sol-Joel-011"],
+    "confidence": {"high": 5, "medium": 8},
+    "templated_thin_rationale_failures": 0,
+    "generic_form_bucket_failures": 0,
+    "primary_review_rows": 39,
+    "unique_primary_reviewer_attempt_ids": 39,
+    "primary_verdicts": {"supports": 28, "challenge": 11},
+    "active_specialist_post_ruling_appeals": 0,
+    "open_linked_boundary_appeals": 2,
+    "forced_consensus": false
+  },
+  "active_artifact_sha256": {
+    "book_strategy/Joel.md": "19a9d5d90db9e365b0b39be6556f30fd84c1188c7481aaf869e3c338669e3911",
+    "book_chunks/Joel/chunks.jsonl": "eb0d4c80828670dc3827fc4749600df87c3f2859cce4135b4aa7573f267fbf49",
+    "reviews/Joel/review_packets.jsonl": "2f3b16e3a3430f998225ae8f073bedc9867962c3d2fa4d2ec5958554a5ecde3f",
+    "reviews/Joel/decision_evidence_v2.jsonl": "fd372e9bf4aea7289b9a3fbc394f5e4fedf19d0bac4b1506ddd11df586180e59",
+    "reviews/Joel/decision_relations.jsonl": "920f24bfe154f14d5a5a2bd71bfa259563d303b730a64a82784ba9e7260357ec",
+    "reviews/Joel/adjudicated_route_draft_v2.json": "3a95279235ac33db48fcb1569e0ea3dc8565bb2830855d0531c9672ebe01c027",
+    "reviews/Joel/boss_ruling_v2.json": "2cabf23879bc7b4adaa1b1d3e5a6298ee04fb97f48c6287ec5a90ee334f522e1",
+    "reviews/Joel/independent_literary_postcheck_v2.json": "9799f5891970b31014ba872f575fb9401b830647002f8f1b108d2bafedd43609",
+    "reviews/Joel/post_resolution_check_v2.json": "44d81ad5c040b37cfb220ab4fa1188105313c8c61759b117de6c7fe9c4f04b22"
+  },
+  "validation": [
+    {"command": "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Joel/chunks.jsonl --model-id M7_sol --book Joel", "status": "pass", "output": "Fast chunk-map validation passed for 13 record(s)."},
+    {"command": "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Joel --json", "status": "pass", "output": "11 accepted, 2 held, 0 templates, 0 generic forms, 0 prose-shell or semantic-constructor failures"},
+    {"command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Joel", "status": "pass", "output": "OK: Joel chunks=13 exact ordered coverage=73/73"},
+    {"command": "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Joel --require-artifacts", "status": "pass", "output": "T423 literary quality protocol: OK"},
+    {"command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Joel --require-final-artifacts", "status": "non_gating_global_sidecar_only", "literary_or_review_errors": 0, "remaining_output": "three stale global partitions each contain the same ten pass-one Joel orphan rows"}
+  ],
+  "independent_post_resolution_check": {
+    "checker_attempt_id": "joel-independent-postcheck-v2-terra-high-final-20260729",
+    "verdict": "pass_with_holds",
+    "coverage": "73/73 exact ordered",
+    "packet_chunk_hash_parity": "13/13",
+    "held_decisions": ["M7_sol-Joel-010", "M7_sol-Joel-011"],
+    "required_repair": null
+  },
+  "appeal_integrity": {
+    "pass1_ledger_preserved_as_exact_prefix": true,
+    "new_append_only_appeal_ids": ["T551-JOEL-APPEAL-001", "T551-JOEL-APPEAL-002"],
+    "specialist_post_ruling_active_appeals": 0
+  },
+  "source_integrity": {
+    "web_verses": 73,
+    "oshb_verses": 73,
+    "uxlc_verses": 73,
+    "mapped_boundary_locators_checked": 25,
+    "missing_boundary_locators": 0,
+    "wlc_family_correlation_disclosed": true,
+    "versification_crosswalk_is_evidence_only": true
+  },
+  "superseded_nonliterary_blockers": {
+    "shared_global_sidecar_partition_parity": "not_a_book_completion_gate_by_owner_ruling",
+    "effect_on_literary_boundaries_forms_reviews_holds_or_appeals": "none"
+  },
+  "independence_limit": "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion and the two held decisions.",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "reviewed_gold_promoted": false,
+  "external_review_receipt_created": false,
+  "commit_push_merge_performed": false
+}

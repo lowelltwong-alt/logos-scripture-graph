@@ -1,0 +1,659 @@
+{
+ "attempt_id": "ezek_fixround_v9_delta_b_a1",
+ "execution_id": "ezek_fixround_v9_delta_b_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "book": "Ezek",
+ "corpus": "rows_v9_final.jsonl",
+ "corpus_sha256": "a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c",
+ "base_corpus_sha256": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7",
+ "manifest_sha256": "91736024a4ac2ee44d37077a136355554f0bc27bdf012198f6c684adc3f5853c",
+ "read_order": "lane B, evidence first: Task 1; then 4, 6 and 3; then task 2 with rows in reverse (P10-016, P06-015, P03-001); items 23 then 22 last",
+ "spot_checks": [
+  "A2",
+  "A4",
+  "B5"
+ ],
+ "lineage": {
+  "confined_to_manifest": true,
+  "rows_changed": [
+   "P03-001",
+   "P06-015",
+   "P10-016"
+  ],
+  "unchanged_rows_byte_identical": 135,
+  "build_check": {
+   "rows_v9_final.jsonl": "MATCH",
+   "rows_v9_final.manifest.json": "MATCH",
+   "changes": 3
+  },
+  "evidence": "v9 and v8 are both 138 lines, LF, with a trailing newline; chunk_index_in_book == N for every line. The 135 lines outside rows_changed are byte-identical. Each changed row differs only in its manifest field (P03-001 boundary_rationale, P06-015 observed_substrate_signals, P10-016 boundary_evidence_refs), with key order unchanged. Every before/after sha256 equals sha256(json.dumps(value, ensure_ascii=False).encode('utf-8')), and re-serialising reproduces each line. P03-001 is v8's text plus the appended sentence. All MEASURED (d1_lineage.py, d2_derived.py)."
+ },
+ "changed_rows": {
+  "P10-016": {
+   "fields": {
+    "boundary_evidence_refs[12]": "Resolves to 40:32 (MT = WEB). 'Transport inside the inner court' is TRUE (ויביאני אל החצר הפנימי; MEASURED). 'Licensed, held' is the author's judgement, tiered WARRANT-rival:near. The appended universal overreaches (N1).",
+    "boundary_evidence_refs[13]": "Resolves to 40:35. The transport verb is TRUE (ויביאני אל שער הצפון; MEASURED); the verse names only the north gate, so 'inside the inner court' is INFERRED from sequence, which the WARRANT tier discloses. 'Held on the same ground' is a judgement.",
+    "boundary_evidence_refs[14]": "Resolves to 40:31. The editors' note is not in the pinned witness text (UNAVAILABLE on it) and is sourced to the unpinned pmarks_Ezek.json. The label is tiered DISCLOSURE-note and agrees with device_notes. No defect found.",
+    "form": "Ref count 15 before and after; only [12]-[14] differ (manifest sha verified). No Hebrew, so NFD does not apply. The em dash is not a new character class: 51 v8 lines already carry one (MEASURED). No count text changed."
+   },
+   "new_defects": [
+    "N1"
+   ]
+  },
+  "P06-015": {
+   "fields": {
+    "observed_substrate_signals": "All four removals are confirmed: out of span and in P06-014 (MEASURED by my code). The kept messenger.formula (28:25) and recognition.3mp (28:24, 28:26) are in span and attested (MEASURED); recognition.israel has no definition (N2). Nothing the rationale relies on lost its signal, and removing wordevent.strict cures its clash with the rationale's 'no formula device'. Atlas M8-Ezek-079 follows v9 exactly; the p06-15 sidecar carries no signals."
+   },
+   "new_defects": [
+    "N2",
+    "N3 (derived record, unchanged by v9)"
+   ]
+  },
+  "P03-001": {
+   "fields": {
+    "boundary_rationale (appended sentence)": "The 15:6 messenger formula is TRUE (MEASURED), and 14:23 and 15:8 both end with נאם אדני יהוה (MEASURED). The pe after MT 14:23, the pe on 15:8 and the samekh on 15:5 are not in the pinned witness (UNAVAILABLE on it; sourced to the unpinned pmarks_Ezek.json), but each repeats a mark claim already present in the v8 row, so the sentence adds no new mark claim. The sentence has no Hebrew and no quotation; 'MT' is labelled where the numbering matters, and web_to_mt is the identity for 14:23-16:1 (MEASURED). It states a ground, not only the grade: F-414 is cured. The ground-to-grade link is INFERRED, and its sufficiency is a question for Fable (B7)."
+   },
+   "new_defects": []
+  }
+ },
+ "docket": {
+  "A0": {
+   "v1_severity": "medium",
+   "row_or_artifact": "P03-001",
+   "claim": "cured_v9",
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "P03-001 boundary_rationale gains one sentence naming a ground: the rival inner cut at 15:5/15:6 (samekh plus messenger formula), declined by argument. 15:6 formula MEASURED on the witness; the pe/samekh claims repeat marks already in the v8 row. It states a ground and does not merely restate the grade; the link from ground to medium_low is INFERRED (B7 to Fable).",
+   "tier": "MEASURED (text, witness) + INFERRED (ground-to-grade link)"
+  },
+  "A1": {
+   "v1_severity": "low",
+   "row_or_artifact": "P01-014",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage); T-3 is a grade question for Fable.",
+   "tier": "MEASURED (untouched)"
+  },
+  "A2": {
+   "v1_severity": "low",
+   "row_or_artifact": "P03-004",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK re-examined in full: line 38, span 16.20-16.23. Ref [2] and the rationale call 16:23 a verse-final close (woe-cry plus 'utterance of the Lord YHWH'). The formula does stand verse-final (MEASURED), but 16:23 opens with wayehi plus a temporal phrase ('after all your evil') whose main clause is 16:24's wayyiqtol. The seam therefore severs one sentence, and 'close' misdescribes the syntax (INFERRED from the witness bytes). Ref [4] discloses that the forward merge was weighed and declined, and the row is medium_low. v1 low is right for the label; the seam itself goes to Fable.",
+   "tier": "MEASURED (bytes, untouched) + INFERRED (syntax)"
+  },
+  "A3": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-016",
+   "claim": "cured_v9",
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "refs [12]-[14] replaced (manifest before/after verified); the labels now agree with device_notes (transports at 40:32/40:35 weighed; editors' note at 40:31). 40:32 transport into the inner court MEASURED; 40:35 names the north gate, with 'inside the inner court' INFERRED from sequence; the 40:31 editors' note is UNAVAILABLE on the pinned witness. The new clause in [12] is a separate low finding (N1).",
+   "tier": "MEASURED + INFERRED"
+  },
+  "A4": {
+   "v1_severity": "low",
+   "row_or_artifact": "deliverables/atlas_candidate_feed_rows.jsonl + sidecar_src_ezek.jsonl",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK re-examined in full: sidecar_src byte-identical to its pin (9cea1004); the M8-Ezek-090 why_low_confidence fragment stands ('...Recorded alternative: WLC/OSHB, single witness).'); 'no ground' prose recurs in M8-Ezek-001/014/051/086/095; the p01-10 sidecar is a COMPOSED statement. All presentation, none a measurement error: v1 low is right.",
+   "tier": "MEASURED"
+  },
+  "A5": {
+   "v1_severity": "low",
+   "row_or_artifact": "cwo/cwo_parity.rows_v8_final.json (NQ-6)",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "CWO parity was re-run over v9 (post_corpus_sha256 a80b6e67, rows 138, status GREEN; MEASURED); attribution of the ruled rewrite by row id was not added.",
+   "tier": "MEASURED"
+  },
+  "A6": {
+   "v1_severity": "low",
+   "row_or_artifact": "deliverables + scholar record generators",
+   "claim": "partly_cured_v9",
+   "judged": "partly_cured",
+   "severity_now": "low",
+   "evidence": "gen_atlas_rows L36, check_atlas_rows L29 and gen_sidecars L38-40 read rows_v9_final (MEASURED); the docket says gen_scholar_record still reads v7 (REPORTED; not read).",
+   "tier": "MEASURED + REPORTED"
+  },
+  "A7": {
+   "v1_severity": "low",
+   "row_or_artifact": "method_change_proposals.Ezek.candidate.jsonl + gen_proposals.py",
+   "claim": "cured_v9",
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "MCP-Ezek-004 evidence_from_this_book is the only changed proposal line (MEASURED diff against .pre_). The new text is true: both v1 lanes are claude-opus-5-5 (MEASURED); lane B's items_graded is 20-23 (MEASURED); for lane A that coverage is INFERRED. See item_23.",
+   "tier": "MEASURED + INFERRED"
+  },
+  "A8": {
+   "v1_severity": "low",
+   "row_or_artifact": "scholar_record/EZEKIEL_SCHOLAR_RECORD.v2.md",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "A9": {
+   "v1_severity": "low",
+   "row_or_artifact": "atlas rows vs corpus review_status",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "atlas: 94 candidate_review_complete / 8 final_deferred_review, unchanged pre to post (the atlas diff touches only 079's signals; MEASURED); the regions are held by owner disposition.",
+   "tier": "MEASURED"
+  },
+  "B0": {
+   "v1_severity": "medium",
+   "row_or_artifact": "P06-015 (and atlas M8-Ezek-079)",
+   "claim": "cured_v9",
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "P06-015 signals: v8's 7 tokens become 3. Removed: wordevent.strict, address.son_of_man, face.set_toward, against.behold_i_am. My own code finds none of them in MT 28:24-26, even as loose needles, and all four in P06-014 (28:20-22). Kept: messenger.formula (28:25) and recognition.3mp (28:24, 28:26), both MEASURED. recognition.israel is undefined (N2).",
+   "tier": "MEASURED"
+  },
+  "B1": {
+   "v1_severity": "low",
+   "row_or_artifact": "P03-023",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage)",
+   "tier": "MEASURED (untouched)"
+  },
+  "B2": {
+   "v1_severity": "low",
+   "row_or_artifact": "P02-020",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage)",
+   "tier": "MEASURED (untouched)"
+  },
+  "B3": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-016",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P10-016 changed only in boundary_evidence_refs (manifest); the rationale's 'four occurrences' still sits beside five listed in-row verses (40:28, 40:29, 40:32, 40:33, 40:35). The text stands, and v1 low holds.",
+   "tier": "MEASURED"
+  },
+  "B4": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-010",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage)",
+   "tier": "MEASURED (untouched)"
+  },
+  "B5": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-008",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "SPOT-CHECK re-examined in full: line 117, span 41:12-26 = 15 verses (correct). The rejection of the 41:20/41:21 split cites 'the fourteen-to-sixteen-verse band expected for a measured block': no source for it is in the row. The corpus's own band is 7-10 (P08-012 strongest_rejected_alternative, EXTRACTED); the 'fourteen' in P07-003, P10-001 and P11-006 counts datelines, not a band. The figure is unsourced and at odds with the book's band; the boundary is argued on other grounds too, and the row is low confidence, so v1 low is right. Cure: delete the band clause or source it.",
+   "tier": "MEASURED + EXTRACTED"
+  },
+  "B6": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-002",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage); the calibration question is Fable's.",
+   "tier": "MEASURED (untouched)"
+  },
+  "B7": {
+   "v1_severity": "low",
+   "row_or_artifact": "P03-001",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "P03-001 confidence is not in the manifest changes (only boundary_rationale changed); the calibration of medium_low against the new ground is a grade question for Fable.",
+   "tier": "MEASURED (untouched field) + INFERRED"
+  },
+  "B8": {
+   "v1_severity": "low",
+   "row_or_artifact": "P01-001",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage)",
+   "tier": "MEASURED (untouched)"
+  },
+  "B9": {
+   "v1_severity": "low",
+   "row_or_artifact": "P10-004",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "row not in rows_changed; its v9 line is byte-identical to v8 (MEASURED, d1_lineage)",
+   "tier": "MEASURED (untouched)"
+  },
+  "B10": {
+   "v1_severity": "low",
+   "row_or_artifact": "atlas deliverable inputs",
+   "claim": "cured_v9",
+   "judged": "cured",
+   "severity_now": "none",
+   "evidence": "atlas_rows_check.v1.json input_rows_sha256 = a80b6e67 (v9), and v9 carries 138/138 candidate_review_complete (MEASURED); gen_atlas_rows --check MATCH; mirror atlas PASS.",
+   "tier": "MEASURED"
+  },
+  "B11": {
+   "v1_severity": "low",
+   "row_or_artifact": "atlas concern_type",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "concern_type is still an untiered judgement. The only changed atlas row (079, scope_hinge) is not among the formula_absent_onset rows. Under my own rule I count 8 of 26 before and 8 of 25 after; I cannot reproduce v1's figure without its rule. The denominator moved by one; the defect is unchanged.",
+   "tier": "MEASURED (my rule) + INFERRED"
+  },
+  "B12": {
+   "v1_severity": "low",
+   "row_or_artifact": "atlas M8-Ezek-090",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "the M8-Ezek-090 fragment stands verbatim (MEASURED).",
+   "tier": "MEASURED"
+  },
+  "B13": {
+   "v1_severity": "low",
+   "row_or_artifact": "atlas feed, 12 rows",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "the atlas diff touches only 079's signals, so the dangling feed references are untouched (MEASURED).",
+   "tier": "MEASURED"
+  },
+  "B14": {
+   "v1_severity": "low",
+   "row_or_artifact": "scholar record v2",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B15": {
+   "v1_severity": "low",
+   "row_or_artifact": "scholar record v2",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B16": {
+   "v1_severity": "low",
+   "row_or_artifact": "scholar record v2",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B17": {
+   "v1_severity": "low",
+   "row_or_artifact": "scholar_record_check",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B18": {
+   "v1_severity": "low",
+   "row_or_artifact": "final-wave trace",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B19": {
+   "v1_severity": "low",
+   "row_or_artifact": "final-wave trace F-494/F-495",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "untouched per the docket claim; this artifact is outside my pinned set, so I neither read nor hashed it (REPORTED)",
+   "tier": "REPORTED"
+  },
+  "B20": {
+   "v1_severity": "low",
+   "row_or_artifact": "MCP-002",
+   "claim": "carried_low",
+   "judged": "carried",
+   "severity_now": "low",
+   "evidence": "the proposals diff changes only line 4 (MCP-Ezek-004), so the MCP-Ezek-002 wording is untouched (MEASURED).",
+   "tier": "MEASURED"
+  }
+ },
+ "derived_records": {
+  "atlas_rows": {
+   "fit": true,
+   "evidence": "Only 079's signals differ, and they follow v9 P06-015; gen --check MATCH; pinned sha 6adc037d."
+  },
+  "atlas_dimensions": {
+   "fit": true,
+   "evidence": "Only 079's measured.signals[3..6] were removed; pinned sha 54c766db. N3 is pre-existing and low."
+  },
+  "atlas_check": {
+   "fit": true,
+   "evidence": "The shipped record is 15/15 PASS over input a80b6e67. Mirror atlas exit 0, and its record is bytes-equal to the shipped one (78545043); selftest PASS."
+  },
+  "sidecars": {
+   "fit": true,
+   "evidence": "gen_sidecars --check MATCH. 101 rows, 0 duplicates, and the writer_decision_id set equals the v9 low (11) plus medium_low (90) set (MEASURED)."
+  },
+  "proposals": {
+   "fit": true,
+   "evidence": "Only the MCP-Ezek-004 evidence line changed; all 5 adjudications are null; gen_proposals --check MATCH."
+  },
+  "readme": {
+   "fit": true,
+   "evidence": "The AMENDED 2026-09-23 section is true of the files: the generators read v9; exactly one atlas row changed and 101 are unchanged; the byte and sha table matches disk and the pins (MEASURED). 'Both merged-close lanes found' the preimage issue matches A6 and B10 (INFERRED). 'Sidecar regenerated byte-identical' agrees with the MATCH (INFERRED; no .pre_ sidecar is pinned)."
+  }
+ },
+ "items": {
+  "item_22": {
+   "fit_to_accept": true,
+   "reservations": [
+    "A9: 8 regions are held final_deferred_review by owner disposition.",
+    "B11: concern_type is still an untiered judgement.",
+    "N3: the 079 dimension own_notes_state_no_onset_formula is a pattern result that contradicts the row; second_reading sits under 'measured'.",
+    "N2: the recognition.israel token in 079 is undefined."
+   ],
+   "findings": [
+    "The preimage question is answered. The atlas is built over rows_v9_final (gen_atlas_rows L36; input_rows_sha256 a80b6e67 in atlas_rows_check), and v9 carries 138/138 candidate_review_complete (MEASURED).",
+    "Changed row 079: its signals equal v9 P06-015, and I re-measured them on the witness. The dimension diff removes only measured.signals[3..6]. The judged block is tier JUDGED_BY_RULE with a not_a_measurement statement, so judgement and measurement are separated there, apart from N3."
+   ],
+   "checks_i_ran": [
+    "diff of atlas_candidate_feed_rows against .pre_b9de6b3c7905: 102 rows, only line 53 (079) observed_substrate_signals differs",
+    "diff of dimensions against .pre_417fb5433299: only line 53 measured.signals[3..6] removed",
+    "gen_atlas_rows.py --check: DETERMINISTIC MATCH (6adc037d01ce/54c766dbff93)",
+    "mirror --check atlas: exit 0, 15/15 PASS, record bytes_equal_to_shipped",
+    "mirror --check atlas --selftest: SELFTEST PASS",
+    "signal re-measurement on Ezek_oshb.txt (d6)"
+   ]
+  },
+  "item_23": {
+   "fit_to_accept": true,
+   "reservations": [
+    "The candidate rows do not state the OW-28 deferral themselves; gen_proposals.py L14-18 states it (EXTRACTED). Silence is not a false statement.",
+    "'which judged items 20-23' is MEASURED for lane B (items_graded 23,22,21,20). Lane A's final_check names no items field and no 'item 2x' string (MEASURED), so its coverage is INFERRED from its residuals A4, A6, A7 and A9."
+   ],
+   "findings": [
+    "The stale wording is cured. Only MCP-Ezek-004 evidence_from_this_book differs from .pre_bc6c0c597a40, and every adjudication is null across the 5 rows (MEASURED).",
+    "The new wording is true. Under OW-25, both v1 lanes are claude-opus-5-5 (MEASURED). Under OW-26, the check ran inside the two merged-close lanes. Under OW-28, adjudication stays null until the campaign end, which the generator header says, and MCP-Ezek-004 voids any adjudication by the proposer or orchestrator."
+   ],
+   "checks_i_ran": [
+    "diff of the candidate against .pre_bc6c0c597a40",
+    "gen_proposals.py --check: DETERMINISTIC MATCH 938b5dc7 (TMP redirected into OUT\\tmp)",
+    "'Fable'/'OW-2x' mentions per line of the candidate",
+    "v1 lane A/B audit_coverage and model fields"
+   ]
+  }
+ },
+ "gate_dispositions": {
+  "A:L22-24 postcheck verdict fit_to_assemble, no high/medium residual": {
+   "disposition": {
+    "v1_evidence": "lane A postcheck verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 3}",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "assembly_verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_assemble as its assembly_verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "A:L55-58 OW-6 final-check packet in SP/Ezek/final_check/": {
+   "disposition": {
+    "v1_evidence": "No Ezekiel final_check/ exists (decision v2 section 2); this lane's final_check.json is a candidate in the lane directory; placing it is the owner's act (OW-11).",
+    "type": "OWNER_ACT_OW11",
+    "cured_by": null,
+    "state": "OWNER'S ACT (OW-11): the orchestrator does not place it"
+   },
+   "accept": true,
+   "note": "Accept: placing a final-check packet in SP/Ezek/final_check/ is a placement the orchestrator does not make (OW-11, per decision v2 section 2 as quoted; REPORTED). It also cannot be met before both delta lanes return."
+  },
+  "A:L60 final checker model == claude-fable-5-1": {
+   "disposition": {
+    "v1_evidence": "Model claude-opus-5-5 under OW-25. The Lam assertion is not edited; the Ezekiel tool must read the fallback grader from campaign/grader_models.v1.json and assert the downgrade statement.",
+    "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+    "cured_by": null,
+    "state": "DEFERRED, NOT MET (OW-28): the gate needs a claude-fable-5-1 model; Fable reviews every book at the campaign's end"
+   },
+   "accept": true,
+   "note": "Accept: model equality with claude-fable-5-1 cannot be met without that model. The downgrade is recorded (grader_models.v1.json fallback_in_force true, with a downgrade_statement; this lane's grader_role; MEASURED). Separately, the v1 evidence names an OW-25 requirement that could be met now: the Ezekiel tool must read the fallback grader from grader_models.v1.json and assert the downgrade statement. No entry types it, and I did not find it met (UNAVAILABLE). See residual N4."
+  },
+  "A:L61-62 verdict fit_to_close, no high/medium residual": {
+   "disposition": {
+    "v1_evidence": "lane A final verdict not_fit; residual {'high': 0, 'medium': 1, 'low': 9}",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_close as its verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "A:L65-77 stage-1 transcript-audit packets and dispositions": {
+   "disposition": {
+    "v1_evidence": "OWED, NOT MET (OW-26): no stage-1 transcript audit exists for Ezekiel; stage1_findings_disposition is [].",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "A:L78-85 transcript_coverage stated, reconcile_verdict GREEN": {
+   "disposition": {
+    "v1_evidence": "Integers and statement present; reconcile_verdict NOT_RUN.",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "A:L86-99 stage-1 packet model and byte accounting": {
+   "disposition": {
+    "v1_evidence": "No stage-1 packets (OW-26).",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "A:L100-105 _final_check_reconcile.py returns 0": {
+   "disposition": {
+    "v1_evidence": "Not run: no stage-1 packets to reconcile.",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "B:L23 postcheck verdict fit_to_assemble": {
+   "disposition": {
+    "v1_evidence": "not_fit (P06-015)",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "assembly_verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_assemble as its assembly_verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "B:L24 no medium/high postcheck residual": {
+   "disposition": {
+    "v1_evidence": "1 medium",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "assembly_verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_assemble as its assembly_verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "B:L60 packet model claude-fable-5-1": {
+   "disposition": {
+    "v1_evidence": "claude-opus-5-5 under OW-25",
+    "type": "DEFERRED_OW28_FABLE_END_REVIEW",
+    "cured_by": null,
+    "state": "DEFERRED, NOT MET (OW-28): the gate needs a claude-fable-5-1 model; Fable reviews every book at the campaign's end"
+   },
+   "accept": true,
+   "note": "Accept: model equality with claude-fable-5-1 cannot be met without that model. The downgrade is recorded (grader_models.v1.json fallback_in_force true, with a downgrade_statement; this lane's grader_role; MEASURED)."
+  },
+  "B:L61 verdict fit_to_close": {
+   "disposition": {
+    "v1_evidence": "not_fit",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_close as its verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "B:L62 no medium/high residual": {
+   "disposition": {
+    "v1_evidence": "1 medium",
+    "type": "CURED_BY_DELTA_VERDICT",
+    "cured_by": "verdict",
+    "state": "cured only if BOTH v9 delta lanes return this verdict over rows_v9_final with no high or medium residual"
+   },
+   "accept": true,
+   "note": "Accept: a verdict gate. This lane returns fit_to_close as its verdict; the gate is cured only if lane A returns the same over rows_v9_final with no high or medium residual (per the entry's state)."
+  },
+  "B:L65-66 stage-1 transcript-audit packets exist": {
+   "disposition": {
+    "v1_evidence": "OWED, NOT MET (OW-26)",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "B:L72-77 stage1_findings_disposition complete": {
+   "disposition": {
+    "v1_evidence": "vacuous: stage 1 never ran; recorded not met",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "B:L84-85 reconcile_verdict GREEN": {
+   "disposition": {
+    "v1_evidence": "NOT_RUN",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "B:L87-99 stage-1 packets by claude-fable-5-1": {
+   "disposition": {
+    "v1_evidence": "none (OW-26)",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  },
+  "B:L102-105 _final_check_reconcile GREEN": {
+   "disposition": {
+    "v1_evidence": "not run",
+    "type": "OWED_OW26",
+    "cured_by": null,
+    "state": "OWED, NOT MET (OW-26): the stage-1 transcript audit did not run; nothing here cures it"
+   },
+   "accept": true,
+   "note": "Accept: this gate belongs to the stage-1 transcript audit (packets, dispositions, reconcile), which did not run. It stays OWED, NOT MET (OW-26); nothing in this pass cures it."
+  }
+ },
+ "residual": [
+  {
+   "id": "N1",
+   "severity": "low",
+   "row_or_artifact": "P10-016 boundary_evidence_refs[12] (rows_v9_final line 113)",
+   "class": "OVERREACH_UNIVERSAL (REPORTED claim stated as fact; ambiguous referent)",
+   "defective_text": "the gate circuit is one list the plan never cuts inside",
+   "evidence": "The ref gives the claim no tier, while the author's discharge tiers it REPORTED (from the plan, which is not in the pinned set: UNAVAILABLE). 'The gate circuit' is not scoped. The corpus cuts inside the full gate sequence: P10-002 40.5-16 | P10-003 40.17-19 | P10-004 40.20-27 | P10-016 40.28-37 (MEASURED from spans). No row cuts inside the three inner gates, 40:28-37, which device_notes scopes correctly. The suite raised a triage flag at [112].boundary_evidence_refs[12] ('never').",
+   "proposed_cure": "In ref [12], replace '— the gate circuit is one list the plan never cuts inside' with '— the three inner gates (40:28-37) are measured as one circuit, and no row cuts inside it (the plan's ordering is REPORTED)'."
+  },
+  {
+   "id": "N2",
+   "severity": "low",
+   "row_or_artifact": "P06-015 observed_substrate_signals (line 79); also P09-010",
+   "class": "SIGNAL_UNDEFINED",
+   "defective_text": "recognition.israel",
+   "evidence": "signals_v9.report.json says 'no measurement defined here; kept'. I found no definition in ezek_lib, the run_validator_suite text or measure_signals_v9 (read only). The phrase וידעו בית ישראל is absent from MT 28:24-26, while ישראל occurs at 28:24 and 28:25, next to the recognition formulas at 28:24 and 28:26 (MEASURED). Attestation holds only under an assumed meaning (INFERRED). Only P06-015 and P09-010 carry the token.",
+   "proposed_cure": "Define recognition.israel (needle and scope) in the signal vocabulary and re-measure both rows. If the definition requires בית ישראל as the subject of the recognition verb, drop the token from P06-015 and regenerate the atlas row and dimensions."
+  },
+  {
+   "id": "N3",
+   "severity": "low",
+   "row_or_artifact": "deliverables/Ezek_atlas_dimensions.v1.jsonl, M8-Ezek-079 measured.own_notes_state_no_onset_formula",
+   "class": "PATTERN_RESULT_FILED_AS_MEASUREMENT",
+   "defective_text": "\"own_notes_state_no_onset_formula\": false",
+   "evidence": "The row's own notes say there is no formula or onset device at 28:24 (EXTRACTED), yet the measured field reads false. It is a pattern result that misses the row's wording (INFERRED). It is unchanged by v9, and the judged score is unaffected. The measured.second_reading fields are process records, not measurements.",
+   "proposed_cure": "Widen the generator's pattern to the row's wording ('no formula device', 'no onset device'), or rename the field to the literal phrase it tests. Move second_reading out of 'measured'. Regenerate, then re-check."
+  },
+  {
+   "id": "N4",
+   "severity": "low",
+   "row_or_artifact": "repair2/fixround_v9/v1_unmet_gate_dispositions.v1.json, entry 'A:L60 final checker model == claude-fable-5-1'",
+   "class": "UNTYPED_SUBREQUIREMENT",
+   "defective_text": "the Ezekiel tool must read the fallback grader from campaign/grader_models.v1.json and assert the downgrade statement",
+   "evidence": "The DEFERRED type is true of model equality. But the v1 evidence names a tool-side OW-25 assertion that needs no Fable model, and no entry types it as met or unmet. grader_models.v1.json does carry fallback_in_force true and a downgrade_statement (MEASURED). Whether any Ezekiel tool asserts it is UNAVAILABLE to me.",
+   "proposed_cure": "Add an entry for the OW-25 downgrade assertion, typed on evidence: met if a named tool reads grader_models.v1.json and asserts the downgrade, otherwise owed with its own fix. Do not fold it into the Fable deferral."
+  }
+ ],
+ "residual_scope_note": "These are this lane's new findings. The v1 residuals, as I judged them, are in docket; each is low or none.",
+ "for_fable_end_review": [
+  "P03-001: whether the appended ground carries medium_low (A0/B7; the link is INFERRED).",
+  "P01-014: the T-3 grade (A1).",
+  "P10-002: confidence calibration (B6).",
+  "P01-001: the ground for its grade (B8).",
+  "P03-004: the 16:23/16:24 seam. 16:23's wayehi temporal clause reads as the protasis of 16:24's wayyiqtol, so the seam may belong at 16:22/16:23 (A2 spot-check).",
+  "P10-008: whether rejecting the 41:20/41:21 split stands without the unsourced 14-16 verse band (B5).",
+  "The vocabulary for recognition.israel (N2).",
+  "Adjudication of the five method-change proposals, null under OW-28."
+ ],
+ "assembly_verdict": "fit_to_assemble",
+ "verdict": "fit_to_close",
+ "bounded_fix": null,
+ "transcript_coverage": {
+  "statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26). This pass read no transcript and audited none; nothing here implies that transcripts were audited."
+ },
+ "e19_selfreport": "BREACH, self-reported: during the generator checks I ran one `ls` of OUT\\tmp (my own temp directory inside OUT) to confirm gen_proposals had cleaned up. I listed, globbed or searched no other directory. mkdir -p only created OUT and OUT\\tmp; every grep and search ran inside a named file.",
+ "tool_calls_used": 27,
+ "tool_calls_used_basis": "counted at this build pass (call 27 of 45: one failed shell heredoc wrote nothing, one existence test, one script write); at most five verification runs follow and are not included",
+ "what_i_did_not_check": [
+  "Ezek/pmarks_Ezek.json (unpinned): the pe/samekh marks and the 40:31 editors' note are UNAVAILABLE on the pinned witness, which carries no paragraph marks.",
+  "The plan / M-3 order behind P10-016 ref [12]: not in the read set.",
+  "signals_v9.proposal.json, the manifest's signals source: unpinned and not read.",
+  "The scholar record v2, scholar_record_check, the final-wave trace, the F-494/F-495 carriers and gen_scholar_record's input path: not pinned for this lane, not hashed; A6 (in part), A8 and B14-B19 rest on the docket's claim.",
+  "Whether any Ezekiel tool asserts the OW-25 downgrade (N4).",
+  "Lane A's coverage of items 20 and 21.",
+  "The unchanged rows beyond spot-checks A2, A4 and B5: they rest on the v1 full-book review.",
+  "Stage-1 transcripts: none read."
+ ],
+ "limit": "This is a delta check by claude-opus-5-5 as grader_fallback (OW-25): the author's own weights, not an independent model and not the Lamentations-gate model. The witness is single (OSHB/WLC) and has no paragraph marks. It is not a transcript audit. It does not meet the OWED, DEFERRED or OWNER_ACT gates. The verdict gates are cured only if lane A concurs. Unchanged rows rest on v1. Do not read fit_to_close as Fable review, a stage-1 audit or owner acceptance.",
+ "output_sha256": "157c47252fbf45767cd700630c33625203cecf7b12b7b5573ef608540fadb8b8"
+}

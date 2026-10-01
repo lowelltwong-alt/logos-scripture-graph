@@ -1,0 +1,88 @@
+{
+ "schema": "m8_retained_low_findings.v1",
+ "book": "Ezek",
+ "phase": "ezek_phase0",
+ "recorded": "2026-09-08",
+ "authority": "standing campaign rule: LOW FINDINGS ARE RETAINED WITH EXPLICIT HANDLING, not silently cured and not silently dropped",
+ "bound_to_artifacts": {
+  "ezek_device_inventory.json": "0112add3b18927e9d23f09ecb850e3aa1ef9b1220c073063d49a377cf8929142",
+  "tools/TOOLKIT.md": "06b0e7a6379b30deff2662009f6b20dd4fbc408333944c95f3111e305f2a57ee"
+ },
+ "why_these_are_RETAINED_rather_than_cured": "Both were raised by the round-3 distinct checker (ezek_p0_r3_a1#e1) as explicitly non-blocking, and that checker returned fit_to_accept at the digests above. Curing them would change those bytes and invalidate the very review that accepted them, starting a fourth round for two citation-label niceties with no data error behind either. The campaign rule is that a low finding is retained with explicit handling; this file IS that handling, and it lives beside the artifacts rather than inside them precisely so the accepted digests stand.",
+ "retained": [
+  {
+   "id": "EZEK-P0-LOW-1",
+   "raised_by": "ezek_p0_r3_a1#e1",
+   "where": "tools/TOOLKIT.md, the frame-spine table, hand-of-YHWH row",
+   "finding": "the table prints the form as `יד יהוה` against a count of 7 verses, but that literal string occurs in 6 (MT 1:3, 3:14, 3:22, 33:22, 37:1, 40:1). MT 8:1 reads `יַד אֲדֹנָי יְהוִה` with the divine-name pair.",
+   "why_it_is_LOW_and_not_a_defect": "the count of 7 and every verse in it are CORRECT for the category the inventory gloss actually declares - it matches on the construct alone, deliberately, because the prepositional phrase precedes the construct as often as it follows. No verse is misassigned and nothing downstream is misinformed.",
+   "residual_risk": "churn, not error: an agent rebuilding the sweep from the printed string alone gets 6 and may reopen a settled row.",
+   "handling": "RETAINED. Any lane that re-derives this count and gets 6 should read this entry and stop, rather than opening a finding. The offered one-clause cure - a parenthetical '(MT 8:1 יד אדני יהוה)' - is recorded here and may be folded into the NEXT edit of TOOLKIT.md that is being made for some other reason, so it costs no review round of its own.",
+   "do_not": "do not treat a 6-vs-7 result as a contradiction of the inventory"
+  },
+  {
+   "id": "EZEK-P0-LOW-2",
+   "raised_by": "ezek_p0_r3_a1#e1",
+   "where": "tools/TOOLKIT.md, the MT 11:19 correction note",
+   "finding": "the two pointed Hebrew citations in that note are DE-ACCENTED relative to the extract (which carries munach U+05A3, zaqef qatan U+0594, merkha U+05A5, tipeha U+0596), and `רוּחַ חֲדָשָׁה` drops the verse's leading vav.",
+   "why_it_is_LOW_and_not_a_defect": "every vowel asserted is correct and no reader is misled about the reading; they are lexical citation forms, which is the normal register for a prose gloss.",
+   "residual_risk": "a later agent could copy a citation form into a row splice and fail a byte/NFC validator - a trap set by a note whose own subject is byte fidelity.",
+   "handling": "RETAINED with this warning: THE HEBREW IN THAT NOTE IS A CITATION FORM, NOT A BYTE QUOTE. Any row splicing MT 11:19 takes its bytes from Ezek_oshb.txt, never from the toolkit prose. The offered cure - marking them as citation forms - is folded into the next TOOLKIT edit made for another reason.",
+   "do_not": "do not quote Hebrew from TOOLKIT.md into a corpus row; the toolkit is a brief, the extract is the source"
+  }
+ ],
+ "scope_limit_recorded_by_the_checker": {
+  "what": "all Phase-0 verification is against Ezek_oshb.txt (WLC/OSHB) alone",
+  "consequence": "the toolkit's remark that many manuscripts and versions read חדש at MT 11:19 is outside what these bytes can confirm or refute; it is stated as cross-tradition metadata and was NOT verified. Cross-tradition material is never a ref, never boundary evidence and never counterevidence."
+ },
+ "bound_to_artifacts_rebinds": [
+  {
+   "recorded": "2026-09-11",
+   "ordered_by": "ezek_controlling_rulings_a1#e2 ruling Q3",
+   "tools/TOOLKIT.md": "3fcd774a042925557a9f3ae73669395221eca46da42a767f6c6455dd23626c94",
+   "folded_in": {
+    "EZEK-P0-LOW-1": "'(MT 8:1 יד אדני יהוה)' added to the frame-spine hand-of-YHWH row",
+    "EZEK-P0-LOW-2": "'(citation forms, not byte quotes)' added to the MT 11:19 note"
+   },
+   "same_edit_also": "the staged-tools section now describes the T2 repair batch, the D3 raw-note-bytes Qere tier and the new calendar-date arm, so the file describes the tools it ships with",
+   "history_kept": "bound_to_artifacts is unchanged. It carries the digests the round-3 distinct checker accepted, and overwriting it would erase what that review accepted.",
+   "review_binding": "the supplementary distinct review ezek_toolkit_supplementary_review_t3_a1#e1 reads TOOLKIT.md at this digest; EZEK-P0-CURE-toolkit-v2 is written on its verdict",
+   "handling_now": "both entries stay as records; their offered cures are now in the text"
+  },
+  {
+   "recorded": "2026-09-11",
+   "ordered_by": "ezek_controlling_rulings_a1#e6 ruling T5-SEQUENCE claims (4), in the additive form of ezek_controlling_rulings_a1#e3 ruling Q3-1",
+   "tools/citation_sweep.py": "6c843b14a604ec0cdb4ee52043cdd5ae30d6735b0a7d66d72ff28d9f00a39054",
+   "tools/check_marks.py": "a63107199dfee8fe833494b7acad3a1a922fbd4f2f435eacf92d55418fbb2ce0",
+   "tools/ezek_lib.py": "ab2431fecebee9c8f1e673aa70a8aac83d69f647b2fa76102efb5aa81904ef69",
+   "tools/check_register.py": "130948439528d5d6988c4ca8ab0da8bf853749541edbae89c5d44162deeffa72",
+   "tools/check_web_quotes.py": "74fb717927c77faf3cde0d9d8e82b2077c5ba774cb1d275733129c9c5ed793e4",
+   "tools/normalize_hebrew_in_json.py": "c23e837638edc891712efefe2e5ab3aae21bf87c2c602fb769bb23ecda1d73e9",
+   "install_receipt": {
+    "path": "campaign/receipts/ezek_tools_install_toolfix2_batch3.json",
+    "sha256": "0ecbd098fdab6887bde543b038b1353f3dcb2937a5024f7dcf258c1e32bdbc35"
+   },
+   "review_binding": "the fresh distinct checker ezek_toolkit_install_review_t5_a1#e1 reviewed these six files at these digests and found each fit to carry a cure claim (Ezek/ezek_toolkit_install_review_T5.json cure_claim_readiness, sha256 02ff699e6e27cb96b43538d3fd82d2e291cba3501f7d280842e4bc9085854940)",
+   "not_bound_by_this_entry": {
+    "campaign/_cure_verification.py": "7f5ea4a9... was not fit (T5-01, T5-02); TOOLFIX-3 replaces it, and its claim is written on T6's verdict",
+    "tools/TOOLKIT.md": "9771c440... was not fit (T5-08); TOOLFIX-3 corrects it, and EZEK-P0-CURE-toolkit-v3 with its own rebinds entry is written on T6's verdict"
+   },
+   "history_kept": "bound_to_artifacts and the earlier rebinds entry are unchanged; this entry is additive (Q3-1)"
+  },
+  {
+   "recorded": "2026-09-11",
+   "ordered_by": "ezek_controlling_rulings_a1#e4 ruling V3-W (a rebinds entry when v3 lands, in the additive form of #e3 ruling Q3-1); ezek_controlling_rulings_a1#e6 ruling T5-SEQUENCE claims (3)",
+   "tools/TOOLKIT.md": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6",
+   "folded_in": {
+    "T5-08 (1)-(3)": "the normalizer row, the puncta rule and the closed set of later denials, as #e6 T5-TOOLKIT-DOCS worded them",
+    "T5-TOOLKIT-DOCS (a)-(d)": "the staged-tools heading's install receipts, the check_marks row, the OSHB note texts byte-exact, and the skeleton/maqaf line"
+   },
+   "install_receipt": {
+    "path": "campaign/receipts/ezek_tools_install_toolfix3_batch1.json",
+    "sha256": "e6d21bbd08615a86812008a26991da0efc94f5565d9a5a5b20411edc42731cdf"
+   },
+   "review_binding": "T6 (ezek_toolkit_tf3_review_t6_a1#e1) read TOOLKIT.md at this digest: toolkit_md fit_to_accept; EZEK-P0-CURE-toolkit-v3 is written on its verdict",
+   "history_kept": "bound_to_artifacts and every earlier rebinds entry are unchanged; this entry is additive (Q3-1)"
+  }
+ ]
+}

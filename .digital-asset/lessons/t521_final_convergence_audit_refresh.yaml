@@ -1,0 +1,35 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-FINAL-CONVERGENCE-AUDIT-REFRESH
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Before any external reviewer sees a whole-Bible candidate map, regenerate the
+  hash-bound request from the current map and run the packet-convergence,
+  exact-coverage, inventory, and DAD-outbox gates as one auditable sequence.
+evidence:
+  map_path: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/whole_bible_candidate_map.jsonl
+  map_sha256: sha256:054242c7c14fcd7866a626f5b6d5badb205a809afa68661adf8ebc82300644e1
+  books: 66
+  chunks: 1170
+  packet_convergence: all_packets_complete=true; candidate_only=true; promotion_qualified=false
+  exact_coverage: validate_whole_bible_chunk_map=require_full_bible OK
+  inventory: books_still_scaffold_or_unreviewed=[]
+  outbox_validation: passed
+replay_sequence:
+  - python scripts/build_t521_external_convergence_request.py
+  - python scripts/validate_m7_sol_whole_bible_packet_convergence.py
+  - python scripts/validate_whole_bible_chunk_map.py <map> --model-id M7_sol --require-full-bible --python-only
+  - python scripts/validate_m7_sol_candidate_inventory.py
+  - python scripts/validate_dad_outbox.py
+lessons:
+  - refresh_map_and_prompt_hashes_after_any_map_or_metadata_change
+  - treat_same-model_role_meshes_as_correlated_review_not_provider_independence
+  - keep_external_provider_or_human_receipt as a separate required gate
+  - do not promote or claim convergence from green local validators alone
+candidate_only: true
+non_authorizing: true

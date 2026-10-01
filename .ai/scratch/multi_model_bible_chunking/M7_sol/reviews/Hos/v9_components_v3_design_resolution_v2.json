@@ -1,0 +1,167 @@
+{
+  "schema_version": "t550.v9_components_v3_design_resolution.v2",
+  "task_id": "T550",
+  "book": "Hos",
+  "status": "CORRECTED_DESIGN_AWAITING_FRESH_CONSISTENCY_REVIEW",
+  "supersedes_without_erasing": {
+    "prior_design_resolution_sha256": "3dccedf81e09bb4b6968a918cee009a05f76fcbebf16df532c87b98b5c187042",
+    "design_hold_boss_ruling_sha256": "67af1a7766947172c0197b58a161d3a6af669010d1ff9c68dac59b9b8e4fa6ee"
+  },
+  "unchanged_inputs": {
+    "v2_rejection_receipt_sha256": "24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f",
+    "v2_boss_ruling_sha256": "963f52abf425c266447892fd7c1a16efab499e6fb4c0ff32a0154f6c9ffb9d09",
+    "v3_contract_sha256": "28b503b96b6790d65c72685caa4d6c63ea68a6cfb4473dddb5612d0c60d71b22",
+    "policy_design_docket_sha256": "142b322c9d647da9290743d2676244008f7694e2375f45073318285ca7943a46",
+    "windows_design_docket_sha256": "a2f7944cb33161457d7f092631046c1608ed7c6be8422c04800ec9c56dc781bd",
+    "static_allowlist_sha256": "ceb51bb9bf51679164390cf07a46c5f3a1d307428355d987a6f4ae5b24bfa4ed"
+  },
+  "errata_resolutions": [
+    {
+      "finding_id": "T550-V9-V3-DESIGN-001",
+      "resolution": "One directed acyclic artifact graph is mandatory.",
+      "artifact_graph": [
+        "A code_lock contains exact hashes of the contract, static allowlist, policy, native helper, sealed launcher, wrapper, kernel, rooted primitive, tests, and rejected-predecessor evidence. It contains neither its own digest nor any review that binds it.",
+        "A detached code_lock digest is calculated after the closed code_lock bytes exist.",
+        "Independent static checker, premortem, and boss artifacts each bind the detached code_lock digest.",
+        "A reviewed_release_record binds the detached code_lock digest plus those review hashes. It is not hashed by any predecessor.",
+        "An execution_freeze binds the detached reviewed_release_record digest and stable pre-restart scope only.",
+        "A product/runtime owner capability outside model-controlled files and inputs supplies the independently trusted execution_freeze digest to the sealed launcher."
+      ],
+      "external_trust_anchor": "A specific product/runtime capability API outside the workspace and model-controlled inputs. It does not currently exist; therefore canonical readiness is permanently false until independently established.",
+      "forbidden": [
+        "launcher constant that authenticates an object containing the launcher hash",
+        "code lock containing reviews that hash that code lock",
+        "any direct or transitive hash cycle",
+        "workspace JSON environment variable or CLI text substituted for the external trust anchor"
+      ]
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-002",
+      "resolution": "Stable pre-restart expectations and ephemeral post-restart observations are disjoint.",
+      "stable_execution_freeze_fields": [
+        "code and reviewed-release digests",
+        "task book application family and one-shot phase scope",
+        "exact target sentinel parent and leaf allowlists",
+        "target sentinel root parent and executable file identities hashes sizes link counts",
+        "volume root workspace model and canonical-parent stable identities",
+        "Windows build architecture NTFS volume and process classification allowlists",
+        "permitted controller executable file identities and hashes",
+        "pre-freeze boot identity"
+      ],
+      "ephemeral_live_only_fields": [
+        "post-restart boot observation",
+        "PID and process creation token",
+        "live ancestry",
+        "HANDLE values and process signaled state",
+        "capture clocks",
+        "lease nonce and registry identity"
+      ],
+      "continuity_rule": "Ephemeral fields are measured after restart and bound only from prepare through publish inside the same process-local lease; they never appear as pre-restart expected values."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-003",
+      "resolution": "All authority-bearing final checks precede one terminal completed transition.",
+      "state_order": [
+        "validated_prepare",
+        "transaction_started",
+        "validated_publish",
+        "forward_steps_with_step_readbacks",
+        "final_checks_while_lock_marker_journal_sentinels_parent_handles_and_lease_are_held",
+        "terminal_completed",
+        "diagnostic_postcompleted_observation",
+        "closed"
+      ],
+      "postcompleted_drift": "Classify canonical state unknown, retain evidence, forbid automatic forward writes and automatic rollback over unknown bytes, and require a separate human incident decision. Never rewrite completed to recovery_required."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-004",
+      "resolution": "Windows process liveness and uncertainty are fail-closed.",
+      "running_test": "WaitForSingleObject(process_handle, 0) must equal WAIT_TIMEOUT and the PID plus creation token plus executable identity must remain exact.",
+      "hard_blocks": [
+        "access denied",
+        "bounded process exits during capture",
+        "partial enumeration",
+        "missing executable handle identity",
+        "ambiguous PID reuse",
+        "protected or inaccessible bounded row",
+        "unclassified executable or ancestry"
+      ],
+      "test_reporting": "Unavailable privilege or access is coverage_unavailable, never PASS."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-005",
+      "resolution": "Hardlinks are categorically disallowed for this one-shot operation.",
+      "rule": "Every target and sentinel must have a supported NTFS link-count observation exactly equal to one at stable freeze, prepare, every pre-replacement check, fresh publish measurement, and final pre-completed validation. Any extra or unmeasurable link is a hard block.",
+      "exceptions": []
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-006",
+      "resolution": "Read-only and synthetic-transaction evidence are separate receipts.",
+      "read_only_receipt": "Proves zero target/sentinel byte and member delta; access metadata and cloud hydration uncertainty are separately disclosed.",
+      "synthetic_transaction_receipt": "Lists exact intended disposable-fixture byte transitions, proves zero out-of-scope changes, records deliberate terminal fixture state or separately verified rollback, and is never described as canonical execution or zero-byte-delta collection."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-007",
+      "resolution": "Review classes and lease timing are explicit.",
+      "static_before_restart": [
+        "design",
+        "contract",
+        "implementation",
+        "tests",
+        "kernel",
+        "rooted primitive",
+        "wrapper",
+        "checker",
+        "premortem",
+        "boss"
+      ],
+      "inside_live_lease": "Only pre-frozen deterministic read-only functions run synchronously in the same process. No human wait, asynchronous agent, cross-process lease transfer, or new discretionary review occurs.",
+      "expiry_rule": "If every required live check cannot finish before the monotonic deadline, close/discard the lease without publication."
+    },
+    {
+      "finding_id": "T550-V9-V3-DESIGN-008",
+      "resolution": "The missing external owner capability is a permanent current stop, not an implementation TODO that local code may bypass.",
+      "readiness": "BLOCKED_EXTERNAL_CAPABILITY_ABSENT",
+      "forbidden_fallbacks": [
+        "local JSON",
+        "CLI text",
+        "workspace file",
+        "environment variable",
+        "model-authored token",
+        "asserted checker or boss boolean"
+      ],
+      "actions_blocked_until_capability_exists": [
+        "canonical execution freeze",
+        "live canonical measurement",
+        "restart request",
+        "OneDrive action",
+        "prepare",
+        "publish",
+        "recover"
+      ]
+    }
+  ],
+  "implementation_draft_treatment": {
+    "drafts_started_before_this_errata_are_not_frozen": true,
+    "drafts_may_be_repaired_against_this_resolution": true,
+    "no_test_result_before_fresh_design_consistency_review_is_release_evidence": true,
+    "no_transitive_design_pass": true
+  },
+  "preserved_strict_writer_race_dissent": {
+    "position": "STRICT_BLOCK",
+    "status": "UNRESOLVED_FOR_HUMAN_OR_EXTERNAL_AI",
+    "reason": "Even corrected deterministic design cannot exclude every preopened future hidden kernel sync ancestor-thread or noncooperating writer during replacement-compatible windows.",
+    "forced_consensus": false
+  },
+  "authority_limits": {
+    "design_closed": false,
+    "implementation_qualified": false,
+    "external_owner_capability_available": false,
+    "live_measurement_restart_or_onedrive_authorized": false,
+    "prepare_publish_or_recover_authorized": false,
+    "canonical_or_global_write_authorized": false,
+    "comparison_promotion_commit_push_or_merge_authorized": false
+  },
+  "candidate_only": true,
+  "non_authorizing": true
+}

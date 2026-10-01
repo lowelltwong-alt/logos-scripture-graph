@@ -1,0 +1,191 @@
+{
+ "attempt_id": "ezek_merged_close_lane_b_a1#e1",
+ "model": "claude-opus-5-5",
+ "grader_role": "grader_fallback (OW-25)",
+ "corpus": "sp_durable/Ezek/rows_v8_final.jsonl",
+ "corpus_sha256": "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7",
+ "pre_cure_corpus": {
+  "path": "sp_durable/Ezek/repair/rows_v7_cwo24.jsonl",
+  "sha256": "e24048cc869f1493ac5d65a7e37fd6457909d2848da31583e9d55211601611a7",
+  "content_key_diffs_to_v8": 0
+ },
+ "scope_rows": 138,
+ "rows_machine_checked": 138,
+ "rows_named_in_this_packet": [
+  "P01-001",
+  "P02-020",
+  "P03-001",
+  "P03-023",
+  "P06-014",
+  "P06-015",
+  "P10-002",
+  "P10-004",
+  "P10-008",
+  "P10-010",
+  "P10-016"
+ ],
+ "rows_read_note": "Further rows were read whole before this lane's context was compacted; their ids are not re-enumerable here and are not claimed.",
+ "verified": [
+  "138 rows; finalize --check MATCH; parity MATCH; sidecars MATCH; suite GREEN - MEASURED",
+  "138/138 review_status candidate_review_complete in v8 - MEASURED",
+  "atlas sidecar signals equal v8 signals on every row - MEASURED",
+  "register GREEN 138 rows 0 flags; role tokens GREEN both phases - MEASURED"
+ ],
+ "residual": [
+  {
+   "row_id": "P06-015",
+   "e_class": "SIGNAL_OUT_OF_SPAN",
+   "severity": "medium",
+   "origin": "e17 retile row; final-wave item F-207 (S7OUT) on this row stands PENDING in final_worklist.v2.json",
+   "defective_text": "observed_substrate_signals = [\"recognition.israel\", \"messenger.formula\", \"recognition.3mp\", \"wordevent.strict\", \"address.son_of_man\", \"face.set_toward\", \"against.behold_i_am\"]",
+   "byte_evidence": "MEASURED: confidence \"medium_low\", span Ezek.28.24-Ezek.28.26; P06-015 carries [\"wordevent.strict\", \"address.son_of_man\", \"face.set_toward\", \"against.behold_i_am\"] and P06-014 (Ezek.28.20-Ezek.28.23) carries [\"wordevent.strict\", \"address.son_of_man\", \"face.set_toward\", \"against.behold_i_am\"]. The atlas sidecar signals equal v8 for all rows, so the tokens ship in atlas feed row M8-Ezek-079. INFERRED: these four name onset devices of 28:20-23, not of 28:24-26.",
+   "proposed_cure": "Delete the four tokens; regenerate sidecars and atlas rows; re-run finalize --check, gen_sidecars --check, the suite and gen_atlas_rows --check. The book's second reading graded this class STOP (F-199)."
+  },
+  {
+   "row_id": "P03-023",
+   "e_class": "SIGNAL_LABEL_CONTRADICTION",
+   "severity": "low",
+   "origin": "e17 retile row",
+   "defective_text": "observed_substrate_signals = [\"wordevent.strict_onset\", \"closure.content_final\", \"messenger.formula\", \"oath.as_i_live\", \"spoken.i_yhwh\", \"kq.single\"]",
+   "byte_evidence": "MEASURED: 'closure.content_final' stands beside 'spoken.i_yhwh'; INFERRED: a close by the I-YHWH-have-spoken formula is formula-final, so the tokens contradict.",
+   "proposed_cure": "Replace or drop 'closure.content_final'."
+  },
+  {
+   "row_id": "P02-020",
+   "e_class": "REF_LABEL",
+   "severity": "low",
+   "origin": "final wave",
+   "defective_text": "boundary_evidence_refs: [\"oshb:Ezek.14.11 (pe follows; front-seam corroboration of this unit's onset; single-witness)\", \"oshb:Ezek.14.12 (wordevent.strict)\", \"oshb:Ezek.14.14 (utterance.close, refrain list, never cut inside)\", \"oshb:Ezek.14.16 (utterance.close, refrain list, never cut inside)\", \"oshb:Ezek.14.18 (utterance.close, refrain list, never cut inside)\", \"oshb:Ezek.14.20 (utterance.close, refrain list, never cut ",
+   "byte_evidence": "EXTRACTED at reading: a ref label disagrees with the row's own account of the formula's position.",
+   "proposed_cure": "Relabel the ref."
+  },
+  {
+   "row_id": "P10-016",
+   "e_class": "COUNT_TEXT",
+   "severity": "low",
+   "origin": "final wave",
+   "defective_text": "boundary_rationale: \"that same refrain also stands once at 40:24 (sweep: 6 verses across chapter 40, counting this row's four occurrences and 40:24), so within this row all three inner gates share it, unlike the outer north gate at 40:20-23, keyed instead to the first gate's own dimensions at 40:21.\"",
+   "byte_evidence": "EXTRACTED: the row says four where its own list gives five; not argued from.",
+   "proposed_cure": "'four' -> 'five'."
+  },
+  {
+   "row_id": "P10-010",
+   "e_class": "REF_LABEL",
+   "severity": "low",
+   "origin": "final wave",
+   "defective_text": "boundary_evidence_refs: [\"oshb:Ezek.42.1 (double transport verb)\", \"oshb:Ezek.42.9 (K/Q, doubled note, checked: word-division/spelling variants on 'from under these chambers' and 'the entrance', not a numeral)\", \"oshb:Ezek.42.13 (speak-formula close, 'he said to me')\", \"oshb:Ezek.42.14 (K/Q, single note, on 'they shall put on', a verb-form variant)\", \"oshb:Ezek.42.10-Ezek.42.12 [WARRANT-rival:near] 42.9/42.10 south-side ",
+   "byte_evidence": "EXTRACTED at reading: a stale ref label no longer matching the rationale.",
+   "proposed_cure": "Relabel to match the rationale."
+  },
+  {
+   "row_id": "P10-008",
+   "e_class": "UNSOURCED_FIGURE",
+   "severity": "low",
+   "origin": "final wave",
+   "defective_text": "strongest_rejected_alternative: \"Treating 41:12-26 as one fifteen-verse block, inside the fourteen-to-sixteen-verse band expected for a measured block, keeps the whole building's accounting -- dimensions, galleries, decoration and furnishings -- together.\"",
+   "byte_evidence": "EXTRACTED: the band figure cites no count, sweep or plan line.",
+   "proposed_cure": "Cite the source or drop the figure."
+  },
+  {
+   "row_id": "P10-002",
+   "e_class": "CONFCAL",
+   "severity": "low",
+   "origin": "T-3 calibration applied to three rows only",
+   "defective_text": "confidence \"low\", span Ezek.40.5-Ezek.40.16",
+   "byte_evidence": "EXTRACTED: no bespoke ground for low is stated (the #e17 K3/T-3 test); an under-grade by the book's own convention. Conservative direction.",
+   "proposed_cure": "State the ground or re-grade."
+  },
+  {
+   "row_id": "P03-001",
+   "e_class": "CONFCAL",
+   "severity": "low",
+   "origin": "open item F-414",
+   "defective_text": "confidence \"medium_low\", span Ezek.15.1-Ezek.15.8",
+   "byte_evidence": "EXTRACTED: grade question left open; conservative direction; disclosed.",
+   "proposed_cure": "Carry as disclosed residual or state the ground."
+  },
+  {
+   "row_id": "P01-001",
+   "e_class": "GROUND_ABSENT",
+   "severity": "low",
+   "origin": "T-3 grade move",
+   "defective_text": "confidence \"medium_low\", span Ezek.1.1-Ezek.1.28; atlas/sidecar why_low_confidence disclaims length as the ground and states no other",
+   "byte_evidence": "MEASURED at reading of atlas M8-Ezek-001; INFERRED: the real ground (one unlicensed near face) is unstated.",
+   "proposed_cure": "Name the ground."
+  },
+  {
+   "row_id": "P10-004",
+   "e_class": "PLAN_APPEAL",
+   "severity": "low",
+   "origin": "final wave",
+   "defective_text": "NOT RE-LOCATED by pattern '\\\\bplan' in ['boundary_rationale', 'strongest_rejected_alternative', 'device_notes'] (held from the pre-compaction reading)",
+   "byte_evidence": "EXTRACTED: the ground appeals to the division plan, not the seam bytes (same pattern in P06-015's rationale: boundary_rationale: \"It is held because cutting there would leave 28:24 alone as a one-verse remainder, and because the plan names 28:24-26 as the coda to Israel - the turn to Israel, the gathering promise and the settled dwelling, one restoration movement closed by the recognition at 28:26.\").",
+   "proposed_cure": "Restate the ground from the seam faces."
+  }
+ ],
+ "reported_items_review": [
+  {
+   "item": "F-199/F-200/F-201/F-279",
+   "disposition": "defects absent from live bytes (MEASURED at reading); the trace still records STOP; the curing edit has no recorded provenance in files read"
+  },
+  {
+   "item": "F-206",
+   "row": "P06-014",
+   "disposition": "S7OUT PENDING in worklist (carried from retired P06-012); P06-014's own tokens are in span (INFERRED)"
+  },
+  {
+   "item": "F-207",
+   "row": "P06-015",
+   "disposition": "S7OUT PENDING in worklist; defect live - the medium residual"
+  },
+  {
+   "item": "F-414",
+   "row": "P03-001",
+   "disposition": "low residual"
+  },
+  {
+   "item": "F-494/F-495",
+   "disposition": "trace evidence empty; ESCALATED"
+  }
+ ],
+ "checks_run": {
+  "pins_recheck": "50/50 OK twice before build; re-run at verification",
+  "close_check_mirror suite": "GREEN; differs from shipped only in rows_file (mirror artefact)",
+  "finalize_rows_v8 --check": "MATCH",
+  "_cwo_parity_ezek --check": "MATCH",
+  "gen_sidecars --check": "MATCH",
+  "role_tokens pre and post": "both GREEN, identical counts",
+  "check_register": "GREEN, 138 rows, 0 flags",
+  "review_status census": "v8 {\"candidate_review_complete\": 138}; v7 {\"pending\": 138}",
+  "v7_to_v8_content_key_diffs": 0,
+  "p06_015_foreign_tokens": {
+   "in_P06-015": [
+    "wordevent.strict",
+    "address.son_of_man",
+    "face.set_toward",
+    "against.behold_i_am"
+   ],
+   "in_P06-014": [
+    "wordevent.strict",
+    "address.son_of_man",
+    "face.set_toward",
+    "against.behold_i_am"
+   ]
+  }
+ },
+ "verdict": "not_fit",
+ "blocking": [
+  "P06-015 medium residual (bounded fix named)"
+ ],
+ "lane_digits": {
+  "scope_rows": 138,
+  "residual_high": 0,
+  "residual_medium": 1,
+  "residual_low": 9
+ },
+ "self_check": {
+  "corpus_sha_bound": true,
+  "wrote_only_in_lane_b": true,
+  "git_used": false
+ }
+}

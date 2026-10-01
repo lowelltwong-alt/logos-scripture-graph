@@ -1,0 +1,604 @@
+{
+ "attempt_id": "jer_spot_S3_a1",
+ "lane": "second-generation (REFINE-weighted, half A)",
+ "scope_items_reviewed": 8,
+ "rows_touched": [
+  "P01-004",
+  "P01-005",
+  "P01-006",
+  "P01-007",
+  "P01-008",
+  "P01-009",
+  "P01-010",
+  "P01-012",
+  "P01-013",
+  "P02-001",
+  "P02-002",
+  "P02-004",
+  "P02-007",
+  "P02-009",
+  "P02-010",
+  "P02-011",
+  "P02-012",
+  "P02-013",
+  "P02-015",
+  "P02-017",
+  "P02-018",
+  "P02-019",
+  "P02-020",
+  "P02-021",
+  "P02-024",
+  "P02-025",
+  "P03-001",
+  "P03-002",
+  "P03-004",
+  "P03-007",
+  "P03-008",
+  "P03-010",
+  "P03-011",
+  "P03-013",
+  "P04-001",
+  "P04-002",
+  "P04-004",
+  "P04-005",
+  "P04-006",
+  "P04-007",
+  "P04-008",
+  "P04-009",
+  "P04-010",
+  "P04-011",
+  "P04-012",
+  "P04-013",
+  "P04-014",
+  "P05-001"
+ ],
+ "clean": 15,
+ "clean_rows": [
+  "P01-007",
+  "P02-001",
+  "P02-002",
+  "P02-004",
+  "P02-009",
+  "P02-011",
+  "P02-017",
+  "P02-019",
+  "P02-020",
+  "P02-021",
+  "P02-024",
+  "P02-025",
+  "P04-002",
+  "P04-006",
+  "P04-014"
+ ],
+ "findings": [
+  {
+   "row_ids": [
+    "P01-004"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "medium",
+   "defective_text": "Two paseq segs stand inside this span, at MT 1:13 and MT 1:15; both are single-witness entries limited to the tally, with no claim of either mark's place inside its verse.",
+   "byte_evidence": "pmarks_Jer.json paseq inventory (WLC, MT-keyed, count-only): Jer.1.13 = 1 seg, Jer.1.15 = 2 segs, i.e. THREE segs over TWO verses inside MT 1:13-1:16 - the row has counted verses and called them segs. The same writer's sibling rows count segs correctly where each verse holds one (P01-007 'two paseq segs, at MT 2:5 and MT 2:13' = 1+1; P03-004 'Three paseq segs' at MT 7:34 / MT 8:1 / MT 8:2 = 1+1+1).",
+   "proposed_cure": "Restate the tally as three paseq segs over two verses, MT 1:13 carrying one and MT 1:15 carrying two, keeping the single-witness count-only disclosure."
+  },
+  {
+   "row_ids": [
+    "P01-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "medium",
+   "defective_text": "and the shorter נְאֻ֖ם אֲדֹנָ֥י יְהוִֽה (oshb:Jer.2.22, byte tier; sweep: 4 verses, skeleton tier), lacking the hosts element, closes the second",
+   "byte_evidence": "sweep.py --skel on the spliced run נְאֻ֖ם אֲדֹנָ֥י יְהוִֽה returns 4 verses - Jer.2.19, Jer.2.22, Jer.49.5, Jer.50.31 - but three of those four (2:19, 49:5, 50:31) DO carry the hosts element; they match only because the shorter run is a contiguous consonantal substring of the longer stack נְאֻם אֲדֹנָ֥י יְהוִ֖ה צְבָאֽוֹת, whose own three-verse digit the same sentence gives correctly (Jer.2.19, Jer.49.5, Jer.50.31). The object the sentence names, the stack lacking the hosts element, is attested at ONE verse, oshb:Jer.2.22.",
+   "proposed_cure": "Re-cut the digit to the named object: the hosts-less short stack stands at 1 verse (MT 2:22), the four-verse figure being the substring count that the three hosts-bearing sites also satisfy."
+  },
+  {
+   "row_ids": [
+    "P03-001"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "new",
+   "severity": "medium",
+   "defective_text": "לְשִׁלֽוֹ lacking the vav-yod that בְּשִׁיל֔וֹ carries two verses earlier",
+   "byte_evidence": "verse_map_oshb.json byte tier: oshb:Jer.7.12 reads בְּשִׁיל֔וֹ and oshb:Jer.7.14 reads לְשִׁלֽוֹ. Both spellings carry the final vav; the ONLY difference between them is the yod mater. The three-spellings-over-five-sites digit in the same sentence is correct.",
+   "proposed_cure": "Restate the difference as the yod mater alone, since both spellings carry the final vav."
+  },
+  {
+   "row_ids": [
+    "P04-011",
+    "P04-012"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "high",
+   "defective_text": "and the finite verb בָּ֣גְדוּ בָ֔ךְ stands at oshb:Jer.12.6 (byte tier; that form: 1 verse at byte tier, 2 verses at accent-stripped tier - MT 5:11 and MT 12:6)",
+   "byte_evidence": "sweep.py --heb on the spliced two-word run בָּ֣גְדוּ בָ֔ךְ returns byte 1 / accent_stripped 1 / skeleton 1, all of them oshb:Jer.12.6 alone. oshb:Jer.5.11 reads בָג֨וֹד בָּגְד֜וּ בִּ֗י, turning the preposition on the first person, so it is not a second site of the run the sentence names; the two-verse accent-stripped figure belongs to the BARE finite verb (accent_stripped 2: Jer.5.11 and Jer.12.6). The sentence is byte-identical on both seam partners, and it is what carries oshb:Jer.5.11 into both rows' boundary_evidence_refs.",
+   "proposed_cure": "Name the swept object as the bare finite verb (accent-stripped: 2 verses, MT 5:11 and MT 12:6) and record the two-word run as 1 verse at every tier, noting that MT 5:11 turns the preposition on the first person."
+  },
+  {
+   "row_ids": [
+    "P04-011"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "medium",
+   "defective_text": "אָרִ֖יב at oshb:Jer.12.1 (byte; that form, sweep: 2 verses) answers רִיבִֽי at oshb:Jer.11.20 (byte; sweep: 3 verses) ... (byte, both; that token, sweep: 4 verses) ... and וּבָחַנְתָּ֥ לִבִּ֖י at oshb:Jer.12.3 (byte; sweep: 3 verses) answers the testing participle of oshb:Jer.11.20 (sweep: 3 verses)",
+   "byte_evidence": "sweep.py --heb on each splice: אָרִ֖יב = byte 1 / accent_stripped 2 / skeleton 2; רִיבִֽי = byte 2 / accent_stripped 2 / skeleton 3; כְּלָי֖וֹת = byte 1 / accent_stripped 2 / skeleton 4; and וּבָחַנְתָּ֥ לִבִּ֖י = byte 1 / accent_stripped 1 / skeleton 1 - the three-verse figure attached to that last run in fact belongs to the testing participle בֹּחֵ֥ן (accent_stripped and skeleton 3: Jer.11.20, Jer.17.10, Jer.20.12). All four digits are untiered while the only tier word in the sentence is byte, and three of the four are false at that tier.",
+   "proposed_cure": "Tier-label each digit as the skeleton figure it is, and re-cut the testing-clause digit to one verse so the three-verse figure stays with the participle it counts."
+  },
+  {
+   "row_ids": [
+    "P04-004",
+    "P04-005"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-07",
+   "severity": "medium",
+   "defective_text": "a petuchah - the more emphatic Masoretic break, WLC, single-witness, tier-3 - closes the unit itself at oshb:Jer.10.25 (P04-004); A petuchah (WLC, single-witness, tier-3) - the more emphatic Masoretic break - closes the preceding sermon complex immediately before this span, at oshb:Jer.10.25 = web:Jer.10.25 (P04-005)",
+   "byte_evidence": "pmarks_Jer.json records the parashah layer as TYPE only (58 PE and 246 SAMEKH segs over 303 marked verses, WLC single witness), with no rank or relative weight attached to either type; in the Prophets the whole layer is weak tier-3 corroboration, so no mark outranks another. Both rows attach the same rank phrase to the same mark at oshb:Jer.10.25.",
+   "proposed_cure": "Strike the rank phrase from both rows and keep the mark's type name with its single-witness tier-3 label."
+  },
+  {
+   "row_ids": [
+    "P04-001",
+    "P04-005",
+    "P04-008",
+    "P04-009",
+    "P05-001"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-07",
+   "severity": "medium",
+   "defective_text": "no paseq disclosure stands anywhere in these five rows' prose",
+   "byte_evidence": "pmarks_Jer.json paseq inventory read against each row's own span (crosswalked with jer_lib, never by hand): MT 10:2 inside Jer.10.1-Jer.10.11; MT 11:5 inside Jer.11.1-Jer.11.5; MT 11:16 inside Jer.11.14-Jer.11.17; MT 11:19 inside Jer.11.18-Jer.11.20; MT 13:10 inside Jer.13.1-Jer.13.11 - one seg each, and none of the five rows carries the word paseq in any field. Fourteen other rows in this scope that hold an in-span seg do disclose it (P01-004, P01-007, P01-008, P02-002, P02-012, P02-015, P02-019, P02-020, P03-001, P03-002, P03-004, P03-007, P04-012, P04-014), and P03-008 discloses an explicit zero count.",
+   "proposed_cure": "Add the count-only single-witness paseq disclosure, with no intra-verse position asserted, to each of the five rows."
+  },
+  {
+   "row_ids": [
+    "P03-008",
+    "P03-011",
+    "P03-013"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-09",
+   "severity": "medium",
+   "defective_text": "observed_substrate_signals entries divine_title.neum_yhwh_closure (P03-008), divine_title.koh_neum_yhwh_variant (P03-011), divine_title.neum_yhwh_onset (P03-013)",
+   "byte_evidence": "The ne'um-YHWH tag is a speech formula, not a divine title: jer_device_inventory.json carries it as the book's densest speech-formula spine (162 verses) beside the koh-amar census, and the seam neighbours inside this same scope key the identical device as speech_formula.neum_yhwh_closure (P02-001 over the tag at oshb:Jer.4.9, P02-010 over the tag at oshb:Jer.5.9). Across rows_v3 the one device sits under both top-level classes - divine_title.neum_yhwh_closure on 11 rows against speech_formula.neum_yhwh_closure on 4 - so any window keyed on one class sees only part of the set.",
+   "proposed_cure": "Re-key the three entries under the speech-formula class so the ne'um device sits under one top-level class."
+  },
+  {
+   "row_ids": [
+    "P03-010"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-09",
+   "severity": "medium",
+   "defective_text": "observed_substrate_signals: speech_formula.rhetorical_question_disputation, speech_formula.koh_amar_verdict_clause",
+   "byte_evidence": "The row's third argued pillar is the full title stack לָכֵ֗ן כֹּֽה אָמַ֞ר יְהוָ֤ה צְבָאוֹת֙ אֱלֹהֵ֣י (oshb:Jer.9.14 = web:Jer.9.15, byte tier), one of the 32 verses carrying that stack (sweep: 32 verses, skeleton tier), yet neither half of the settled split form is declared. P03-001, arguing the same stack at oshb:Jer.7.3, carries divine_title.yhwh_tsevaot_elohei_yisrael beside speech_formula.koh_amar_yhwh.",
+   "proposed_cure": "Add the settled split pair, the full-stack divine title beside the koh-amar speech formula, to this row's observed_substrate_signals."
+  },
+  {
+   "row_ids": [
+    "P01-006",
+    "P01-009",
+    "P01-012",
+    "P01-013",
+    "P02-007",
+    "P02-012",
+    "P02-018",
+    "P04-007"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-06",
+   "severity": "medium",
+   "defective_text": "anticipating the shuv-wordplay material that follows in the next unit (P01-009); continuing the wordplay named in the unit before this one (P01-012); shifting from the first-person divine promise of the preceding unit (P01-013); opens a fresh, explicitly marked frame after the vision unit (P02-007); a third site sharing the same English gloss stands at Jer.4.27, two units earlier (P02-012); Reject folding this verse into the preceding unit (P02-018); before the row is cut at the discourse imperative that opens the next unit, don't pray for this people (P04-007); disclosed here for symmetry with the preceding unit's own close (P01-006)",
+   "byte_evidence": "The register purge bars positional row references and requires every cross-row reference to be verse-anchored; each phrase above points at a neighbouring row by position, and P01-012's points at what that row's own prose named. The sanctioned anchored form stands in the same rows - 'opens the next unit at Jer.1.17 (oshb:Jer.1.17)' - proving it was available at write time. check_register.py found one positional reference in all 275 rows, and it lies outside this scope, so its pattern list does not cover the unit-relative wording.",
+   "proposed_cure": "Re-anchor each reference to the verse it means, or drop it where that verse is already named in the same sentence."
+  },
+  {
+   "row_ids": [
+    "P02-010",
+    "P03-002",
+    "P03-007",
+    "P03-008",
+    "P04-013"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-06",
+   "severity": "medium",
+   "defective_text": "A first-person pardon verb crosses this unit's own front seam, undisclosed until now (P02-010); under the ruled granularity a speech-formula onset cuts only with a change of frame owner (P03-002); disclosed here as required ... under the follow-the-verse keying (P03-007); The row opens on the adopted onset ... before the row closes unchanged on (P03-008); no fresh discourse frame of that ruled kind (P04-013)",
+   "byte_evidence": "The register purge bars erratum and repair narration, rule names and governance citations in every field of row prose. 'undisclosed until now' narrates the review history rather than the text; 'under the ruled granularity', 'of that ruled kind', 'as required' and 'the follow-the-verse keying' cite governing rules; 'the adopted onset' and 'closes unchanged' narrate the boundary decision's own history. None of the phrases survives as a statement about the Hebrew.",
+   "proposed_cure": "Replace each phrase with the byte fact it rests on, stating the seam or the formula directly and dropping the decision history."
+  },
+  {
+   "row_ids": [
+    "P01-010",
+    "P02-013",
+    "P02-015"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-07",
+   "severity": "low",
+   "defective_text": "the broader return root inflects earlier still, in its own attested spellings at וּמְשֻֽׁבוֹתַ֨יִךְ֙ (oshb:Jer.2.19), יְשִׁיבֶ֑נָּה (oshb:Jer.2.24) and שָׁ֥ב אַפּ֖וֹ (oshb:Jer.2.35) (P01-010); the plain וּבִירוּשָׁלִַ֨ם֙ (oshb:Jer.4.5, byte tier) (P02-013); echoes ותקעו תִּקְע֥וּ (oshb:Jer.4.5, byte tier) at Jer.4.5 (P02-015)",
+   "byte_evidence": "pmarks_Jer.json kq: oshb:Jer.2.24 and oshb:Jer.4.5 each carry a ketiv/qere note, and all three rows splice from those verses with no ketiv/qere disclosure in any field (the citation_sweep prose_dual_warns name exactly these three plus P01-012, whose device_notes do disclose the MT 3:19 pair). The corpus's own settled convention is the opposite: P02-010 and P02-013 each disclose an in-span note whose word they do not quote.",
+   "proposed_cure": "Add the single-witness ketiv/qere disclosure for the cited verse to each of the three rows, noting that the spliced word is not the varied one."
+  },
+  {
+   "row_ids": [
+    "P02-012"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "low",
+   "defective_text": "but connective-plus-formula is itself an attested onset shape at 27 verses book-wide (sweep: 27 verses, MT keys)",
+   "byte_evidence": "sweep.py --skel on the connective-plus-formula run returns 27 verses, of which 25 open their verse; two do not - Jer.23.38 and Jer.32.36 carry the run mid-verse. The digit is therefore the shape's occurrence count and not an onset count, while the sentence's whole work is to defend a verse-initial restart against its backward-pointing connective.",
+   "proposed_cure": "Name the object as occurrences of the connective-plus-formula collocation and add that 25 of the 27 stand verse-initially."
+  },
+  {
+   "row_ids": [
+    "P03-004"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-05",
+   "severity": "low",
+   "defective_text": "The recurring judgment formula at 7.32 (sweep: 15 verses, skeleton tier), לָכֵ֞ן הִנֵּֽה יָמִ֤ים בָּאִים֙ נְאֻם",
+   "byte_evidence": "sweep.py --skel: the fifteen-verse figure counts the shorter run הִנֵּֽה יָמִ֤ים בָּאִים֙ (15 verses), while the spliced run the digit sits beside, לָכֵ֞ן הִנֵּֽה יָמִ֤ים בָּאִים֙ נְאֻם, stands at 8 verses. The swept object is never named, so the digit reads as the count of the quoted string.",
+   "proposed_cure": "Name the swept object as the days-are-coming run before the digit, and give the therefore-prefixed form its own eight-verse figure if it is wanted."
+  },
+  {
+   "row_ids": [
+    "P04-010"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-11",
+   "severity": "low",
+   "defective_text": "one of 50 verses carrying that expanded form (sweep: 50 verses, skeleton) inside the wider 152-verse koh-amar-YHWH set (sweep: 152 verses, skeleton)",
+   "byte_evidence": "Both digits reproduce the book-wide koh-amar census exactly, but that census is not speaker-split: the same set holds the formula in a false prophet's mouth at oshb:Jer.28.2 and oshb:Jer.28.11 and the letter-embedded occurrences of chs 27-29, so a koh-amar digit that does not name whose mouth carries the formula mixes frame owners. The row leans on the pair to argue that one speaker carries forward from oshb:Jer.11.21 to oshb:Jer.11.22.",
+   "proposed_cure": "Say that the two figures are form censuses over the whole book rather than speaker counts, so the one-speaker reading rests on the two verses' own divine attribution."
+  },
+  {
+   "row_ids": [
+    "P01-010"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-17",
+   "severity": "low",
+   "defective_text": "boundary_evidence_refs carries web:Jer.3.6 through web:Jer.4.4 in full - 33 of the row's 39 entries - for a five-verse span",
+   "byte_evidence": "The only prose reaching those verses is one device_notes clause naming the range Jer.3.6-Jer.4.4 as the continuation of a wordplay cluster; no verse between web:Jer.3.7 and web:Jer.4.3 carries an argument of its own anywhere in the row. The mechanical expansion leaves the field unable to separate the row's actually-argued outside verses (web:Jer.2.19, web:Jer.2.24, web:Jer.2.31-Jer.2.37, web:Jer.3.6, web:Jer.4.4) from range filler.",
+   "proposed_cure": "Reduce the entries to the verses the prose argues and keep the cluster's extent as a range statement in the prose alone."
+  },
+  {
+   "row_ids": [
+    "P01-005"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-17",
+   "severity": "low",
+   "defective_text": "boundary_evidence_refs entry web:Jer.1.4",
+   "byte_evidence": "The row's prose argues web:Jer.1.8, web:Jer.1.13, web:Jer.1.14, web:Jer.1.17-Jer.1.19 and web:Jer.2.1; web:Jer.1.4 appears in no field (the refs_mirror orphan_ref_warn on this row names exactly this entry).",
+   "proposed_cure": "Drop the unargued entry, or argue the call-narrative onset it points at."
+  },
+  {
+   "row_ids": [
+    "P03-010",
+    "P03-011",
+    "P03-013"
+   ],
+   "lane": "second-generation (REFINE-weighted, half A)",
+   "e_class": "E-07",
+   "severity": "low",
+   "defective_text": "A setumah opens the row at oshb:Jer.9.10, immediately before it (P03-010); A petuchah opens the row at oshb:Jer.9.15, immediately before it (P03-011); A setumah opens the row at oshb:Jer.9.23, immediately before it (P03-013)",
+   "byte_evidence": "Each mark is keyed in pmarks_Jer.json to a verse standing OUTSIDE the row it is said to open - oshb:Jer.9.10 = web:Jer.9.11, oshb:Jer.9.15 = web:Jer.9.16 and oshb:Jer.9.23 = web:Jer.9.24 - and the segment stands after that verse, so no mark opens the row. The trailing clause corrects the verb, leaving the two halves of one sentence saying different things.",
+   "proposed_cure": "Say that the mark closes the verse immediately before the row, dropping the opening verb."
+  }
+ ],
+ "warn_flags_dispositioned": [
+  {
+   "flag": "refs_mirror.orphan_ref_warn (web:Jer.1.4)",
+   "row_id": "P01-005",
+   "disposition": "genuine",
+   "class": "E-17 unargued boundary_evidence_refs entry; filed as a finding"
+  },
+  {
+   "flag": "mark_symmetry.paragraph_mark_claim (claimed PE, verse_cited Jer.9.2)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 window collision: the row's own mandated disclaimer puts the type name PE inside the mark-proximity window; the row's actual claim is SAMEKH at oshb:Jer.9.2 = web:Jer.9.3, which the inventory carries"
+  },
+  {
+   "flag": "mark_symmetry.kq_claim (verse_cited Jer.8.18) [1 of 2]",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic: the row asserts a ZERO ketiv/qere count for its span, and the inventory carries no note anywhere in oshb:Jer.8.18-Jer.9.2 = web:Jer.8.18-Jer.9.3"
+  },
+  {
+   "flag": "mark_symmetry.kq_claim (verse_cited Jer.8.18) [2 of 2]",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic: the same zero-count sentence matched twice"
+  },
+  {
+   "flag": "mark_symmetry.kq_claim (verse_cited Jer.9.2) [1 of 2]",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic: the row asserts a ZERO ketiv/qere count and the inventory carries no note in oshb:Jer.9.3-Jer.9.5 = web:Jer.9.4-Jer.9.6"
+  },
+  {
+   "flag": "mark_symmetry.kq_claim (verse_cited Jer.9.2) [2 of 2]",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic: the same zero-count sentence matched twice"
+  },
+  {
+   "flag": "mark_symmetry.paseq_position_warn",
+   "row_id": "P01-008",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated language: 'stands at MT 2:24' is verse-level, and the same sentence explicitly refuses the intra-verse position"
+  },
+  {
+   "flag": "citation_sweep.prose_dual_warn (K/Q verse oshb:Jer.2.24, boundary_rationale)",
+   "row_id": "P01-010",
+   "disposition": "genuine",
+   "class": "E-07 missing single-witness ketiv/qere disclosure; filed as a finding"
+  },
+  {
+   "flag": "citation_sweep.prose_dual_warn (K/Q verse oshb:Jer.3.19, strongest_rejected_alternative)",
+   "row_id": "P01-012",
+   "disposition": "declared_fp",
+   "class": "E-12 field-scoped arm: the row's device_notes disclose both MT 3:19 notes and quote the ketiv/qere pairs"
+  },
+  {
+   "flag": "citation_sweep.prose_dual_warn (K/Q verse oshb:Jer.4.5, boundary_rationale)",
+   "row_id": "P02-013",
+   "disposition": "genuine",
+   "class": "E-07 missing single-witness ketiv/qere disclosure; filed as a finding"
+  },
+  {
+   "flag": "citation_sweep.prose_dual_warn (K/Q verse oshb:Jer.4.5, boundary_rationale)",
+   "row_id": "P02-015",
+   "disposition": "genuine",
+   "class": "E-07 missing single-witness ketiv/qere disclosure; filed as a finding"
+  },
+  {
+   "flag": "universals.claim (device_notes: with no claim of either mark's place inside its)",
+   "row_id": "P01-004",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (device_notes: with no fresh speech frame of its own)",
+   "row_id": "P01-005",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over verses named in the same sentence"
+  },
+  {
+   "flag": "universals.claim (device_notes: carries no narrative verb of its own)",
+   "row_id": "P01-005",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over the row's own span; byte-checked true across oshb:Jer.1.17-Jer.1.19"
+  },
+  {
+   "flag": "universals.claim (device_notes: only (the single-witness inventory only tallies them))",
+   "row_id": "P01-007",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: carries no word-event formula, koh-amar onset, imperative)",
+   "row_id": "P01-008",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over one named verse"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: all (no word-event formula and no messenger formula stand at all))",
+   "row_id": "P01-008",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over the row's own span"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: with no fresh word-event or messenger-formula onset anywhere inside the span)",
+   "row_id": "P01-012",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over the row's own span"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: carries no neum-YHWH formula or other closure device)",
+   "row_id": "P02-004",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over the row's own closing verse; the closure-key cure sentence"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: carries no neum-YHWH formula or other closure device)",
+   "row_id": "P02-011",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over the row's own closing verse; the closure-key cure sentence"
+  },
+  {
+   "flag": "universals.claim (device_notes: never (absence is never counterevidence))",
+   "row_id": "P02-017",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated absence-is-not-counterevidence sentence"
+  },
+  {
+   "flag": "universals.claim (strongest_rejected_alternative: with no imperative, vocative, or formula of its own)",
+   "row_id": "P02-019",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over one named verse"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: only (the book's only koh-amar adonai-YHWH stack))",
+   "row_id": "P03-002",
+   "disposition": "declared_fp",
+   "class": "E-12 exclusivity carrying its own adjacent digit (sweep: 1 verse), byte-confirmed at oshb:Jer.7.20"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: only (opening a fresh one there))",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own seam"
+  },
+  {
+   "flag": "universals.claim (device_notes: only (1 seg, count-only))",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: only)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own span"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: with no vocative, no imperative, and no second-person verb)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over one named verse"
+  },
+  {
+   "flag": "universals.claim (strongest_rejected_alternative: carries no vocative, imperative, or verb)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over one named verse"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: continuous)",
+   "row_id": "P04-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own span"
+  },
+  {
+   "flag": "universals.claim (strongest_rejected_alternative: continuous)",
+   "row_id": "P04-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own span"
+  },
+  {
+   "flag": "universals.claim (device_notes: none (none driving the boundary held here))",
+   "row_id": "P04-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own span"
+  },
+  {
+   "flag": "universals.claim (device_notes: single (the book's single Aramaic-coded verse))",
+   "row_id": "P04-001",
+   "disposition": "declared_fp",
+   "class": "E-12 Tier-0 mandated Aramaic-island disclosure, byte-proven at exactly one verse"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: identical [1 of 2])",
+   "row_id": "P04-006",
+   "disposition": "declared_fp",
+   "class": "E-12 tier-named comparative: the sentence reads skeleton-identical to verse 6's form, not byte-identical"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: identical [2 of 2])",
+   "row_id": "P04-006",
+   "disposition": "declared_fp",
+   "class": "E-12 tier-named comparative, same sentence"
+  },
+  {
+   "flag": "universals.claim (device_notes: unbroken)",
+   "row_id": "P04-006",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over the row's own front seam"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: nowhere)",
+   "row_id": "P04-011",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative, byte-verified absent from oshb:Jer.12.1-Jer.12.4"
+  },
+  {
+   "flag": "universals.claim (strongest_rejected_alternative: nowhere)",
+   "row_id": "P04-011",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative, byte-verified absent from oshb:Jer.12.1-Jer.12.4"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: nowhere)",
+   "row_id": "P04-012",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative, byte-verified absent from oshb:Jer.12.1-Jer.12.4"
+  },
+  {
+   "flag": "universals.claim (device_notes: only (a single-witness bare count only))",
+   "row_id": "P04-012",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (device_notes: with no position within the verse asserted)",
+   "row_id": "P04-012",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (device_notes: only (a single-witness bare count only))",
+   "row_id": "P04-014",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (device_notes: with no position within the verse asserted)",
+   "row_id": "P04-014",
+   "disposition": "declared_fp",
+   "class": "E-12 mandated inventory-limit language"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: None (none of these three internal onsets))",
+   "row_id": "P05-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over three verses named in the same sentence"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: each (each keeps the same addressee))",
+   "row_id": "P05-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local claim over three verses named in the same sentence"
+  },
+  {
+   "flag": "universals.claim (boundary_rationale: with no commission to a new audience)",
+   "row_id": "P05-001",
+   "disposition": "declared_fp",
+   "class": "E-12 bounded local negative over one named verse"
+  },
+  {
+   "flag": "e23_sweep quotation_mark_structure (strongest_rejected_alternative) [flagged twice]",
+   "row_id": "P02-013",
+   "disposition": "declared_fp",
+   "class": "E-12 keyword arm on a rival REJECTION that refuses translation punctuation as a seam and re-grounds on the Hebrew's silence - the correct treatment, not a driver (S7's lane; dispositioned here because the row is in this scope)"
+  },
+  {
+   "flag": "e23_sweep english_sentence_layer (boundary_rationale)",
+   "row_id": "P04-010",
+   "disposition": "declared_fp",
+   "class": "E-12 keyword arm: 'the sentence' here is the judicial sentence announced at web:Jer.11.22, not the English sentence layer (S7's lane; dispositioned here because the row is in this scope)"
+  }
+ ],
+ "lane_digits": {
+  "scope_items_reviewed": 8,
+  "rows_reviewed": 48,
+  "rows_clean": 15,
+  "rows_carrying_at_least_one_finding": 33,
+  "findings_filed": 18,
+  "findings_high": 1,
+  "findings_medium": 10,
+  "findings_low": 7,
+  "warn_flags_in_scope_dispositioned": 47,
+  "warn_flags_genuine": 4,
+  "warn_flags_declared_fp": 43,
+  "span_proposals": 0,
+  "paseq_disclosure_gap": "5 rows undisclosed / 19 rows in scope carrying an in-span paseq seg",
+  "recurrence_digit_citations_in_scope_prose": 51,
+  "recurrence_digits_re_derived_from_the_bytes": 40,
+  "recurrence_digits_found_false_or_object_blurred": 8,
+  "inventory_entries_re_read_against_the_48_spans": "96 (50 parashah-marked verses + 26 paseq verses + 20 ketiv/qere verses)",
+  "inventory_digits_found_false": 1,
+  "model_ordered": "claude-opus-5",
+  "effort_ordered": "high",
+  "effort_verified": false
+ },
+ "self_check": "Run from SP/Jer/tools over a PRIVATE copy of the 48 scope rows: run_validator_suite.py returned hard GREEN (citation_sweep GREEN; normalize dry-run ok=246 fixed=0; web_quotes, refs_mirror, language_zones, ngram7, cap_sweep and register GREEN; mark_symmetry and universals FLAGS = the in-scope triage set, every flag dispositioned here). Per-claim re-derivations used sweep.py --heb/--skel with every needle spliced programmatically from verse_map_oshb.json / consonantal_index.json and passed by argv, plus pmarks_Jer.json mark/paseq/ketiv-qere reads crosswalked to MT with jer_lib for all 48 spans, and a whole-scope disclosure-symmetry pass. Packet self-check over a private copy of this file: normalize dry-run ok=27 fixed=0 defects=0; all 19 Hebrew runs re-matched verbatim against verse_map_oshb.json; zero curly quotes (no WEB text quoted); zero unexpanded placeholder tokens; check_universals flags on this packet fall only on its own method sentences. Hebrew was spliced from the source bytes throughout, never retyped."
+}

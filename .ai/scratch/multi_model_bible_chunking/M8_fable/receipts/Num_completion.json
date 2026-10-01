@@ -1,0 +1,90 @@
+{
+ "schema_version": "m8_book_completion_receipt.v1",
+ "model_id": "M8_fable",
+ "book": "Num",
+ "completed_at": "2026-07-31",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 256,
+ "verse_coverage": "1288/1288 exact ordered",
+ "final_states": {
+  "accepted_candidate": 256,
+  "held_lower_confidence": 0
+ },
+ "superseded_decisions": [
+  "M8-Num-024",
+  "M8-Num-031",
+  "M8-Num-032",
+  "M8-Num-041",
+  "M8-Num-042",
+  "M8-Num-132",
+  "M8-Num-137",
+  "M8-Num-177",
+  "M8-Num-180",
+  "M8-Num-182",
+  "M8-Num-184",
+  "M8-Num-185"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 6,
+ "chunks_sha256": "31acbd5eaa2d22f86ce33d499682cd127d90960e9c2b62099942f7ed43c90844",
+ "review_packets_sha256": "f9bdb71c0fa844e291bdd213d367f81655b82cdaf079b72aaaed9b2d5492ef12",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book Num",
+  "scripts/validate_t423_literary_quality_protocol.py --book Num --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book Num",
+  "checks/validate_book_review_coverage.py --book Num --require-final-artifacts",
+  "checks/anti_batch_scan.py --book Num (0 errors, 0 warnings on first pass)"
+ ],
+ "anti_batch_audit": {
+  "auditor": "claude-haiku-4-5",
+  "findings": 1,
+  "disposition": "The duplicate-decision-id finding was FALSE (deterministic receipt: 256 unique ids, contiguous indices; late-assigned split ids interleave by canonical position by design). The audit's clean areas stand."
+ },
+ "post_resolution_check": {
+  "checker_model": "claude-sonnet-5",
+  "result": "256 pass / 0 hold; one minor precision defect in a boss relation note, corrected before bind",
+  "bound_file": "reviews/Num/post_resolution_check_v2.json"
+ },
+ "challenge_volume": {
+  "round1": 66,
+  "revision": 10,
+  "total_ruled": 76,
+  "author_dispositions": "51 accept / 3 revise / 12 hold (all holds sustained)"
+ },
+ "notable": "The campaign's first deliberate chapter-crossing span (WEB Num.22.41-23.6); the kevod-YHWH four-site seam rule; census registers consolidated on the uniform-content criterion with per-entry parashah preserved as counterevidence; two-witness marker citations (OSHB+UXLC agree at every mark in Numbers); 44 Hebrew citation strings repaired by verbatim copy; zero chapter-shaped chunks; zero human holds; first book with a clean first-pass anti-batch scan.",
+ "routing_used": [
+  {
+   "role": "book_writer + author phases",
+   "model": "claude-sonnet-5",
+   "effort": "high (Tier B)"
+  },
+  {
+   "role": "OL primaries (4+1 instances, 2 rounds)",
+   "model": "claude-opus-5",
+   "effort": "high"
+  },
+  {
+   "role": "LF primaries (4+1) + peers (4+1) + postchecker",
+   "model": "claude-sonnet-5",
+   "effort": "high"
+  },
+  {
+   "role": "anti_batch_auditor",
+   "model": "claude-haiku-4-5"
+  },
+  {
+   "role": "boss_adjudicator",
+   "model": "claude-fable-5",
+   "effort": "xhigh",
+   "attempts": "boss_fable_n01..n34_r1"
+  },
+  {
+   "role": "tier0_deterministic",
+   "model": "none"
+  }
+ ],
+ "escalations_to_fable": "boss adjudication of all 76 challenges; edits derived mechanically from the author's structured revisions (flow improvement, one fewer author round-trip)",
+ "ultra_requests": 0,
+ "owner_addendum_applied": "m8-mesh-r2 from the writer prompt onward"
+}

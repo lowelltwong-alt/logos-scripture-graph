@@ -1,0 +1,79 @@
+--- installed 9771c440a494
++++ staged b247cea5b0af
+@@ -133,18 +133,18 @@
+   text bytes, and they were nearly lost — an inventory bug dropped every untyped
+   `<note>` until the sof-pasuq arithmetic (1,272 vs 1,273 verses) failed to close.
+   Classes:
+-  - 13 × "BHS has been faithful to L where there might be a question of validity"
+-  - 8 × "we have abandoned or added a ketiv/qere relative to BHS"
++  - 13 × "BHS has been faithful to the Leningrad Codex where there might be a question of the validity of the form and we keep the same form as BHS."
++  - 8 × "We have abandoned or added a ketib/qere relative to BHS. In doing this we agree with L against BHS."
+   - 6 × accents read differently from BHS
+   - 3 × vowels · 2 × consonants · 1 × punctuation read differently from BHS
+-  - 3 × "adaptations to a Qere which L and BHS do not indicate" — MT 14:14,
++  - 3 × "Adaptations to a Qere which L and BHS, by their design, do not indicate." — MT 14:14,
+     14:20, 28:3
+-  - 2 × "marks an anomalous form" — MT 43:15, 44:3
++  - 2 × "Marks an anomalous form." — MT 43:15, 44:3
+   - 2 × puncta extraordinaria — MT 41:20, 46:22
+   - 37 × KJV-variance notes across MT ch 21 (the numbering layer above)
+ - **`sof-pasuq`: 1,272 for 1,273 verses.** The missing one is **MT 33:20**, which
+-  carries instead an OSHB note — *"We read punctuation in L differently from
+-  BHS"* — followed directly by the pe mark. A real single-witness divergence, not
++  carries instead an OSHB note — *"We read punctuation in L differently from BHS."* —
++  followed directly by the pe mark. A real single-witness divergence, not
+   a data gap. A row spanning MT 33:20 discloses it, and **no boundary is argued
+   from the absent mark**.
+ 
+@@ -266,7 +266,7 @@
+ | `../ezek_device_inventory.json` | the frame spine above, with verse lists |
+ | `../ezek_kjv_variance_crosscheck.json` | the 37/37 independent corroboration |
+ 
+-## Staged tools (Tier-0, m8-mesh-r3) — staged 2026-09-10, after the writer wave
++## Staged tools (Tier-0, m8-mesh-r3) — staged 2026-09-10, after the writer wave; installed 2026-09-11 by receipts ezek_tools_install_t4fix_batch2.json and ezek_tools_install_toolfix2_batch3.json
+ 
+ Run with `PYTHONIOENCODING=utf-8 python <tool> ...` from this directory. **The variable is
+ not optional:** the tools print Hebrew, and without it the Windows console codec crashes a
+@@ -276,8 +276,8 @@
+ |---|---|
+ | `run_validator_suite.py rows.jsonl` | runs every member; writes `<rows>.validator_report.json` beside its input. HARD members: citation_sweep, the normalizer (E-01), ngram7, cap_sweep (E-02) |
+ | `citation_sweep.py` | ref grammar and ranges, zone duals, mark / paseq / K/Q / puncta claims on refs, calendar-date onsets and dateline claims, Hebrew-quote binding in prose, and Hebrew inside a ref entry bound to that entry's own ref (S1-06) |
+-| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere, standing on word boundaries: no Hebrew letter or combining mark beside a pointed run, no Hebrew letter beside an unpointed one (S1-07; `collate_hebrew` applies the same rule); NFD-only matches stay defects |
+-| `check_marks.py` | mark, K/Q and puncta claims in prose, each bound to the verse numbers of its own clause (C:V, C.V, `MT C:V` or dotted); absence phrases scoped to the verse, range or chapter they name; a negated K/Q is an absence claim (S1-22); a mark claim is also met by a mark of its type after the verse before (W1); a K/Q is negated only by a negator at most one word before it or heading a short comma list, and `no other K/Q` is checked against the span's K/Q verses the row names nowhere (W2, W5); `no pe or samekh` is an absence phrase (W6); mark-disclosure symmetry (FLAGS) |
++| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere, standing on word boundaries (S1-07; collate_hebrew applies the same rule); an NFD-only match at the verse tier is REPLACED by the verse's bytes and counted fixed, and the suite treats fixed>0 as HARD (E-01); an NFD-only Qere match is a defect and is never replaced |
++| `check_marks.py` | mark, K/Q and puncta claims in prose, each bound to the verse numbers of its own clause (C:V, C.V, `MT C:V` or dotted); absence phrases scoped to the verse, range or chapter they name; a negated K/Q is an absence claim (S1-22); a mark claim is also met by a mark of its type after the verse before (W1); a K/Q is negated only by a negator at most one word before it or heading a short comma list, and `no other K/Q` is checked against the span's K/Q verses the row names nowhere (W2, W5); `no pe or samekh` is an absence phrase (W6), read only in mark talk: a MARKISH_CTX word within 60 characters; besides that negator before it, a K/Q token is denied by a closed-set denial later in its clause, the same set as citation_sweep's DENIAL_COORD and DENIAL_COPULAR (T4-03); mark-disclosure symmetry (FLAGS) |
+ | `check_language_zones.py` | Aramaic labels — Ezekiel is Hebrew throughout |
+ | `cap_sweep.py` | a whole-chapter row is capped at medium_low, frontier-flagged and disclosed |
+ | `build_verse_maps.py` | built `verse_map_web.json`, `verse_map_oshb.json`, `consonantal_index.json` once at staging (1,273 / 1,273, token audit PASS) |
+@@ -297,15 +297,16 @@
+ parenthesis) - in a ref annotation (citation_sweep) every such number at any distance, in
+ prose (check_marks) those within 60 characters of the word - and, in both, to every number
+ in a parenthetical that opens directly after that clause (`puncta extraordinaria (41:5)`
+-names 41:5), all in the same field, ranges expanded: every
+-named verse a site = a true claim, none = a false claim, a mix = `ambiguous` (a HARD
++names 41:5), all in the same field, a named single verse must be a site; a written range must hold at least one site; among several named items
++every one a site = a true claim, none = a false claim, a mix = ambiguous (a HARD
+ problem in citation_sweep, a flag in check_marks). With no number written, the row's span
+ or the ref's range decides. A negator earlier in the same comma-delimited clause makes the
+ claim a denial, and two adjacent negators cancel ("not without puncta" asserts them). A
+ denial may also FOLLOW the mention inside its clause, read through a parenthetical opening
+-directly after it, but only as one of a closed set (`but none`, `though none`, `none stands`,
+-`none is present`, and `is absent` / `is missing` at the clause end); dateline claims use
+-the same test. A coordinated denial (`but none`, `none stands`, ...) denies only when the words
++directly after it, but only as one of a closed set: but|though|although|yet none, but|though|although|yet there is|are none,
++none stands, none is present|written|there|found, none appears|exists, and is|are absent|lacking|missing at the
++clause end - the set is DENIAL_COORD and DENIAL_COPULAR in citation_sweep.py; where this paragraph and the code differ,
++the code is the contract and this paragraph is the defect. Dateline claims use the same test. A coordinated denial (`but none`, `none stands`, ...) denies only when the words
+ between the mention and the denial name no verse number or carry an expectation modal (would,
+ should, could, might, may, expected, anticipated); otherwise the mention is judged on the
+ numbers before the denial (`stand at 41:5 but none is present in ch 46` claims 41:5). So `45:18, where a dateline would be expected but none stands` is a denial,
+@@ -338,6 +339,9 @@
+ - **The extract carries no maqaf.** Words joined by maqaf in the source stand
+   space-separated here. A pattern written with maqaf will match nothing; a claim
+   that a maqaf is "absent from the text" is reading the extract, not the source.
++- ezek_lib.skeleton() deletes U+05BE with the other points (POINTS spans U+0591-U+05C7), so a maqaf-joined quote never
++  collates at any tier; its docstring sentence "maps maqaf to SPACE" is wrong and unasserted (T5-07, recorded as debt);
++  write words space-separated, as the extract does.
+ - **No morphology layer in the staged extract.** Morph codes live in the XML;
+   the tally in pmarks is a count, not a per-token layer you can query here.
+ 

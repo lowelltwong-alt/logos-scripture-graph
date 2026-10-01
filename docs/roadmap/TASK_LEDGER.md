@@ -14,6 +14,7 @@ Use this file when you need task-specific T3xx/T4xx history, downstream non-auth
 
 ## Current Newest-First Pointers
 
+- T521: M7 remains at 3/66 precontract candidate snapshots. Revision 7 is B00-only and hash-binds a provider-neutral specialist-mesh/boss/appeal runbook plus 22 passing focused tests; stale Numbers runs 22a/22b were rejected, while `num-native-r7-20260722c` selected and chain-validated B00, stopping at `B01_unmigrated`. B01 materialization, replay/launch/whole-Bible qualification, reviewed gold, promotion, and central DAD learning remain false.
 - T477: Owner-authorized eng-web canonical/processed regeneration and baseline reset after T476 Option A. Gold/chunk still gated to T478–T480.
 - T476: Owner decided Option A (authorize T477) on 2026-07-21.
 - T519: Owner-authorized narrow importer repair preserving typed footnotes inside editorial heading bodies (Ps.46/90/145). Merged PR #189. No committed regeneration or gold/chunk output.

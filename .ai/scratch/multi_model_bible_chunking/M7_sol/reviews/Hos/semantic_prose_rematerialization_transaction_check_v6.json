@@ -1,0 +1,205 @@
+{
+  "schema_version": "m7_hosea_semantic_prose_rematerialization_transaction_check.v6",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "checker_attempt_id": "T550-HOS-SEMANTIC-PROSE-V6-TRANSACTION-CHECK-001",
+  "checker_agent": "hos_v6_transaction_checker",
+  "checker_role": "independent_transaction_and_render_checker",
+  "checker_model_family": "gpt-5.6-sol",
+  "same_model_family_disclosure": "same_model_family_correlated_review_not_cross_model_independence",
+  "artifact_status": "complete_blocking_review",
+  "verdict": "FAIL",
+  "materialization_readiness": "FAIL",
+  "publish_authorized": false,
+  "recover_invoked": false,
+  "publish_invoked": false,
+  "global_sidecars_modified": false,
+  "canonical_targets_modified": false,
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "checked_artifact_hashes": {
+    "reviews/Hos/rematerialize_semantic_prose_v6.py": "a94761a046a913e0f63550516aff04f199df8ed311e585e40fe209b51b6060f6",
+    "checks/journaled_recoverable_publish_v3.py": "89b10b5b5abe02f0d3cf8810df872bdd719eb1958a6ef954112560555044dda7",
+    "v6_attempt_tree": "9dc6382ed4cad668275390072181efa633ac52a571ce379fc53460bb179593ce",
+    "prepare_receipt_v6.json": "2668e4d1d1465e23d08f58106c1e091c0e4d2ca39ce8d5fa8cf8a4ba9fbb20aa",
+    "prepare_manifest_v6.json": "f272661602efa1cab09fe224b6283fb2e0c1e072e9a8b54d0edcd6fa024885c4",
+    "preimage_manifest_v6.json": "5635232b9c9a48b9a37d61b1cad27827ab033608f35e411f1ba606e0e4e7b9be",
+    "archive_manifest_v6.json": "9314a71717a14f76aacc021b24fae61ad1bf8832c345e8bdd2d3127943499aef",
+    "staged_manifest_v6.json": "609650e08cd670065ea983a6c04dab60ffd7dc0eaf2c1721c149603843c001a9",
+    "expanded_typed_diff_manifest_v6.json": "8438f4f03cf01d16f0e273c8a321c87fc7f078b0cf4b1d2556c4823dac163ae3",
+    "prepare_journal_v6.json": "9334e3c5fcdb3acd501a836563e87d8e47d2f2d9369ef22097ee6e90e630a42f",
+    "reviews/Hos/semantic_prose_rematerialization_failure_evidence_v6.json": "66b242e20dd2f36753cefc4e60405975fd71e981df6e453a22347fd7671e0f47",
+    "reviews/Hos/semantic_prose_rematerialization_plan_v3.json": "a490a5977cad58613203b163a07faf8e90d9ad3809b67b38af050619f832358d",
+    "reviews/Hos/semantic_prose_rematerialization_plan_check_v3.json": "12c3bafa0f18273dc852fb6fed4076421e9f6a7ecbe726b1079e5b84375d4f4a",
+    "reviews/Hos/semantic_prose_rematerialization_transaction_check_v5.json": "5e6d791ad7ede60ac7e6dcdda3b8a566a5e04537b717a75e186d0a4e7c04a949",
+    "reviews/Hos/semantic_prose_rematerialization_implementation_premortem_v5.json": "8eabf64bcc98d5c7275d5c09eee8ed0794d32a5d1e6373fdfdb4456fe2f69a03",
+    "reviews/Hos/semantic_prose_rematerialization_staged_source_literary_check_v5.json": "a5c900d064677fb06ef381dead798ac103d30ca2729af9e8da82fe39ea48add1"
+  },
+  "checked_contract": {
+    "application_id": "T550-HOS-SEMANTIC-PROSE-REMATERIALIZATION-V6-ONE-SHOT",
+    "target_count": 13,
+    "target_tuple_sha256": "e36200701dc5ba7963816b08efc14702a5a1e514119aa381cb0d1c108911dd7c",
+    "prepared_attempt_file_count": 44,
+    "failure_evidence_case_count": 74,
+    "route_change_count": 114,
+    "derived_sidecar_change_count": 4,
+    "held_decision_ids": [
+      "M7_sol-Hos-029",
+      "M7_sol-Hos-035"
+    ],
+    "global_sidecar_sha256": {
+      "low_confidence_register.jsonl": "ca548ec6b205ec030df6cebffe3a657e46aba01be97600382a55cb50f648c5b6",
+      "frontier_escalation_queue.jsonl": "8d101775088cba9a7ddde6e506db981d1fd1d866958caa57e8243df3a24268b1",
+      "atlas_candidate_feed.jsonl": "7bdbfc263fbd8d3fe0083fdfec978f3714ec84ad5f703cc9c428de616a608ca0"
+    },
+    "durability_scope": "process_crash_recovery_not_power_loss",
+    "environment_exception_status": "pending_explicit_human_acceptance",
+    "postpublish_checker_required_before_global_install": true
+  },
+  "read_only_validation": [
+    {
+      "check_id": "V6-FROZEN-HASHES",
+      "result": "PASS",
+      "evidence": "The wrapper, kernel, prepared attempt tree, prepare receipt, prepare manifest, and failure-evidence file exactly matched all six task-supplied SHA-256 values. Subsidiary prepare manifests also matched their manifest-bound hashes."
+    },
+    {
+      "check_id": "V6-CURRENT-STATE",
+      "result": "PASS",
+      "evidence": "All 13 canonical targets remained exact recorded preimages; all three global sidecars matched their frozen sentinels; no V6 publish journal, application receipt, or shared mutation lock existed."
+    },
+    {
+      "check_id": "V6-FOCUSED-WRAPPER-TESTS",
+      "result": "PASS_WITH_CONTRADICTORY_CONTRACT",
+      "evidence": "A fresh bounded run of the two V6 wrapper receipt/global replay tests passed: 2 passed, 36 deselected. The global-before-completed test proves the implementation deliberately retains receipt_written_verified and later completes after the invariant stops failing, which is the behavior disputed by HOS-V6-TX-001."
+    },
+    {
+      "check_id": "V6-ADDITIONAL-ADVERSARIAL-PROBE",
+      "result": "COVERAGE_UNAVAILABLE",
+      "evidence": "A new disposable one-target receipt-pending/canonical-drift probe exceeded a 30-second bound and was terminated. No inference is drawn from it; the blocking state transition is established directly by the frozen control flow and the existing passing wrapper test."
+    }
+  ],
+  "closure_mapping": [
+    {
+      "v5_issue": "journal-before-lock second-publisher TOCTOU",
+      "status": "PASS",
+      "basis": "After acquiring the shared lock, kernel v3 re-reads the journal and refuses to overwrite a journal that appeared after the initial read. Both kernel and exact-wrapper interleaving tests preserve the first publisher's completed journal and receipt."
+    },
+    {
+      "v5_issue": "already-loaded legacy writer",
+      "status": "PASS_WITH_ENVIRONMENT_LIMIT",
+      "basis": "The current active legacy writer acquires the same Hosea mutation lock, and the exact-wrapper test loads that current module before lock creation and proves it cannot enter the unlocked writer. This cannot mechanically stop a process that loaded the pre-patch writer bytes before V6 existed; quiescence remains an environment assumption."
+    },
+    {
+      "v5_issue": "recover-only dependency on unrelated evidence",
+      "status": "PASS",
+      "basis": "V6 recover-only validates only the prepared rollback identity, wrapper/kernel, exact 13 archive/stage/canonical members, subsidiary manifests, journal/core, receipt absence, and retained lock. A wrapper-level test proves recovery still works after unrelated review, source, and global evidence drift."
+    },
+    {
+      "v5_issue": "wrapper-level individually named failure matrix",
+      "status": "PASS_WITH_EVIDENCE_LIMIT",
+      "basis": "V6 adds actual-wrapper success, replay, shared-lock, 13 forward failures, 13 rollback interruptions, recover-only, second-publisher, and global-sentinel cases, with 74 individually named case results. Test-run counts remain local self-reports rather than signed raw-run evidence."
+    },
+    {
+      "v5_issue": "recovery_required durability",
+      "status": "FAIL",
+      "basis": "Kernel v3 lines 400-401 and 449 run canonical/invariant checks in receipt replay outside a recovery_required handler. Lines 545 and 560-570 retain receipt_written_verified after a before_completed invariant failure. The V6 wrapper test at lines 602-628 asserts this replayable state. Corrupt or foreign-core journals also fail without the separately required durable mismatch marker."
+    },
+    {
+      "v5_issue": "byte/path check and immediate re-read",
+      "status": "PASS_WITH_ENVIRONMENT_LIMIT",
+      "basis": "Kernel v3 adds wrapper invariants immediately before each forward and rollback replacement and hashes staged/archive/canonical bytes. It still lacks handle-bound Windows parent/file identity and therefore narrows but does not eliminate a reparse swap after callback return."
+    },
+    {
+      "v5_issue": "global sentinel limits",
+      "status": "PRESERVED_ENVIRONMENT_OBJECTION",
+      "basis": "Globals are rehashed at selected phases and never written by V6, but no global mutation lease spans the final rehash through completed. The passing wrapper test models a detected drift as replayable rather than terminal recovery_required."
+    },
+    {
+      "v5_issue": "local JSON provenance limits",
+      "status": "PRESERVED_EXTERNAL_GATE",
+      "basis": "Closed schemas and hashes prove local consistency, not human/checker/boss identity. No V6 boss ruling, boss invocation, or explicit human environment-exception artifact existed at inspection. The separately required explicit human gate remains mandatory and is not satisfied by this review."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "HOS-V6-TX-001",
+      "severity": "blocking",
+      "title": "Receipt-state canonical and invariant mismatches remain replayable instead of durably recovery_required",
+      "evidence": [
+        "journaled_recoverable_publish_v3.py:400-401 verifies all staged targets and the receipt_pending_replay invariant without a mismatch handler",
+        "journaled_recoverable_publish_v3.py:449 runs before_completed without a mismatch handler on replay",
+        "journaled_recoverable_publish_v3.py:545 and 560-570 record receipt_phase_failure but deliberately retain receipt_written_verified on the first publication path",
+        "test_hos_semantic_prose_rematerialization_v6_transaction.py:602-628 explicitly expects a global before_completed failure to remain receipt_written_verified and later complete"
+      ],
+      "risk": "A detected canonical, input, path, or global invariant mismatch does not enter the deterministic terminal state required by the V5 red-team closure. After the condition disappears, the same receipt-phase journal can complete without a new boss/human decision over the intervening mismatch.",
+      "required_resolution": "Under a new immutable kernel/wrapper generation, distinguish transient receipt-write I/O from identity/invariant mismatch. Atomically mark every canonical, input, path, lock, sentinel, receipt, and invariant mismatch recovery_required with a stable reason while retaining the matching lock, and add exact wrapper tests that assert the durable state."
+    },
+    {
+      "finding_id": "HOS-V6-TX-002",
+      "severity": "blocking",
+      "title": "Corrupt and foreign-core journal failures still have no separate durable mismatch marker",
+      "evidence": [
+        "journaled_recoverable_publish_v3.py:348 loads the journal before any marker object is selected",
+        "journaled_recoverable_publish_v3.py:350-352 raises on a different core without persisting recovery_required",
+        "_load_journal raises on malformed JSON, and V6 defines no separate immutable mismatch/recovery marker that can preserve the corrupt bytes while recording operator state",
+        "The journal_corrupt case asserts only fail-closed exception behavior, not the durable mismatch marker required by the V5 disposition"
+      ],
+      "risk": "The operator receives RecoveryRequired while durable state remains corrupt or advertises a foreign identity, so deterministic restart cannot distinguish a reviewed recovery hold from arbitrary residue without reinterpreting the failure.",
+      "required_resolution": "Add an append-only, same-attempt mismatch marker outside the possibly corrupt/foreign journal, bound to observed journal bytes or unreadability plus the expected application/core identity. Never overwrite the foreign/corrupt journal, and test both corrupt and foreign-core cases for exact durable terminal evidence."
+    },
+    {
+      "finding_id": "HOS-V6-TX-003",
+      "severity": "blocking",
+      "title": "The V6 failure evidence counts behavior contrary to the required state machine as PASS",
+      "evidence": [
+        "semantic_prose_rematerialization_failure_evidence_v6.json marks wrapper_global_sentinel_replay PASS",
+        "Its cited test proves receipt_written_verified is retained and later replayed after the global invariant stops failing",
+        "validate_failure_evidence checks exact case names and nonempty evidence IDs but does not assess whether the asserted behavior closes the prior finding"
+      ],
+      "risk": "A closed-schema 74/74 matrix can authorize the wrapper even though one passing case demonstrates the unresolved blocking behavior.",
+      "required_resolution": "Revise the matrix contract so identity/invariant mismatch cases require exact recovery_required journal, reason, and retained-lock assertions. Regenerate failure evidence only after the immutable successor passes those assertions."
+    },
+    {
+      "finding_id": "HOS-V6-EXT-001",
+      "severity": "external_gate",
+      "title": "Explicit human durability exception and role-authenticated boss invocation remain absent",
+      "evidence": [
+        "prepare_manifest_v6 records environment_bound_exception_status pending_explicit_human_acceptance",
+        "No V6 boss ruling, boss invocation receipt, environment exception, publish journal, or application receipt existed",
+        "Local JSON role strings and hashes do not cryptographically authenticate the human, checker, or boss"
+      ],
+      "risk": "Treating this independent FAIL review or any locally fabricated PASS files as authorization would bypass the deliberately separate owner and boss gates.",
+      "required_resolution": "After implementation blockers close, obtain a fresh role-separated checker and boss turn, plus Lowell Wong's explicit acceptance of process-crash-not-power-loss, non-set-atomic, 13-book-local-target-only publication with global installation forbidden."
+    }
+  ],
+  "environment_limitations_and_preserved_disagreement": [
+    "No set-level atomicity or power-loss durability is claimed.",
+    "The inspected evidence does not include killed-subprocess recovery under the exact OneDrive-backed canonical parents.",
+    "Immediate pre-replace path checks are not Windows handle-bound and do not eliminate adversarial reparse TOCTOU.",
+    "No shared global-sidecar lease prevents an out-of-scope writer after the final global hash check.",
+    "A process that loaded the pre-patch legacy writer before V6 cannot be mechanically forced to honor the new shared lock.",
+    "Local JSON and hashes prove consistency, not cryptographic provenance or cross-model independence."
+  ],
+  "appeal_preservation": {
+    "held_decision_ids": [
+      "M7_sol-Hos-029",
+      "M7_sol-Hos-035"
+    ],
+    "unresolved_appeals_preserved": true,
+    "forced_consensus": false,
+    "literary_or_source_ruling_changed": false,
+    "staged_v5_content_verdict_reused": true,
+    "later_human_or_external_ai_review_preserved": true
+  },
+  "binary_conclusion": {
+    "prepared_literary_and_source_content_remains_valid": true,
+    "v6_transaction_ready": false,
+    "v6_publish_forbidden": true,
+    "v6_recover_not_invoked": true,
+    "global_sidecar_install_forbidden": true,
+    "hosea_complete": false,
+    "next_action": "Preserve V6 append-only as a failed pre-use transaction generation. Supersede the kernel/wrapper immutably, make every receipt-state identity or invariant mismatch durably recovery_required, add a separate corrupt/foreign-journal mismatch marker, and rerun the exact wrapper matrix and independent checker. Do not publish or recover from V6."
+  }
+}

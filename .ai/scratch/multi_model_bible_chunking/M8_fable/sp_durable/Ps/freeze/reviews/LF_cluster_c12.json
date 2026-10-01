@@ -1,0 +1,77 @@
+{
+ "cluster": "c12",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c12_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-081",
+   "span": "Ps.32.1-Ps.32.7",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently against web_mt_offset_map.json: Ps 32 is confirmed identity (web_verses=11=mt_verses, web_title=true, mt_title_verses=[]), so the row's web:Ps.32.0 = oshb:Ps.32.1 dual-cite and 'this identity psalm' framing are correct, and psalm_device_inventory.json confirms the le_david + maskil superscription labels with mt_title_verses='prefix_of_v1'. All 3 Hebrew quotes in this row (oshb:Ps.32.1, 32.2, 32.3) collate at byte tier against verse_map_oshb.json (collate.py, 3/3). pmarks_Ps.json confirms selah at exactly Ps.32.4, 32.5, 32.7 (3 verses) -- the row's selah triad claim is accurate, and check_marks.py returns GREEN on symmetry. The strophe boundary itself (title+beatitude opening through the selah-marked close at v7, ahead of the clear speech-frame shift at v8) is well warranted and not contested. However, the psalm's ACROSTIC absence claim is fine (Ps 32 is not in the acrostics table) but the MARKS-LAYER absence claim in device_notes overclaims -- see challenge.",
+   "challenges": [
+    {
+     "challenge_id": "LF-081-1",
+     "severity": "medium",
+     "claim": "device_notes' claim that 'no further Ps 32 marks-layer or acrostic device is attested' beyond the three selah instances is a factual error: paseq, which the toolkit's own disclosure-inventory family groups with selah/K-Q/inverted-nun/suspended as marks-layer objects, IS attested in this psalm.",
+     "evidence": "pmarks_Ps.json paseq inventory lists 5 paseq segs in Ps 32 -- one seg each at Ps.32.4, Ps.32.6, Ps.32.7, Ps.32.8, Ps.32.9 -- three of which (32.4, 32.6, 32.7) fall inside this row's own web:Ps.32.1-Ps.32.7 span, contradicting the row's own blanket absence claim about its own span's marks-layer content. (Paseq is seg-layer, single-witness, and is not being cited as a boundary driver here -- the defect is the false absence claim itself, not a span/warrant error.)"
+    }
+   ],
+   "row_sha256": "f668e8c8252ced1f9198505ff9ee98142ed9f9e4f2878338cee12256d062b487"
+  },
+  {
+   "decision_id": "M8-Ps-082",
+   "span": "Ps.32.8-Ps.32.11",
+   "verdict": "support",
+   "reasoning": "verse_map_web.json confirms the seam: web:Ps.32.7 closes 'You are my hiding place... Selah.' and web:Ps.32.8 opens a new first-person voice, 'I will instruct you and teach you in the way which you shall go' -- a genuine speech/discourse-frame shift (tier-1) from the confessing psalmist to an instructing voice addressing him, independent of the corroborating selah at v7 (pmarks_Ps.json: Ps.32.7=1, consistent with the row's own disclosure). Both cited Hebrew quotes (oshb:Ps.32.8, 32.10) collate at byte tier (2/2). The closing wisdom antithesis (v10, 'him who trusts in Yahweh') into the imperative call to rejoice (v11) is accurately characterized against verse_map_web.json. Tiling with the companion row is exact (11/11 verses, no gap/overlap) and boundary_evidence_refs mirrors cleanly (check_refs_mirror GREEN). No paseq-absence overclaim is made here (unlike the preceding row), so the marks-layer defect found in M8-Ps-081 does not recur. 'medium' confidence reads conservative given the strength of the speech-frame driver, but under-confidence is not a material defect and I do not challenge it.",
+   "challenges": [],
+   "row_sha256": "30467c303e06998c39c037b1d26b72cc0935bd757f220f30833773d1e2b1d0b5"
+  },
+  {
+   "decision_id": "M8-Ps-083",
+   "span": "Ps.33.1-Ps.33.3",
+   "verdict": "challenge",
+   "reasoning": "web_mt_offset_map.json confirms Ps 33 is identity with web_title=false and no superscription entry in psalm_device_inventory.json -- the row's 'carries no WEB title' claim is correct, and the acrostics table (9,10,25,34,37,111,112,119,145) omits 33, confirming the device_notes' disclaimer that no acrostic scheme is claimed despite the 22-verse/22-letter coincidence. All 3 imperative quotes (oshb:Ps.33.1, 33.2, 33.3) collate at byte tier (3/3) and are true 2mp imperative forms, distinct in kind from the later 3rd-person prefix-conjugation clause at MT 33:8 -- so the row's underlying 'congregational imperative' boundary at v3 is grammatically defensible. Two independent, tool-confirmed evidence-discipline defects remain (below); neither overturns the span, but both are material per the binding register rules this campaign enforces symmetrically on rows and challenges alike.",
+   "challenges": [
+    {
+     "challenge_id": "LF-083-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[0] carries the curly-quoted WEB gloss 'you righteous' with no inline web: ref in that same field, violating the mandatory quote+web-ref pairing rule (an oshb: ref is present but does not satisfy it).",
+     "evidence": "check_web_quotes.py flags this exact instance: path [2].observed_substrate_signals[0], quote 'you righteous', 'curly quote with NO web: ref in its field'. verse_map_web.json Ps.33.1 clean text does read '...you righteous!' verbatim, but the field lacks the required web: anchor for that quotation."
+    },
+    {
+     "challenge_id": "LF-083-2",
+     "severity": "low",
+     "claim": "rejected_alternative's claim 'no further congregational imperative until web:Ps.33.20-22' is an unswept universal with no adjacent digit-bearing count, and does not disclose the nearest candidate counter-instance at MT 33:8.",
+     "evidence": "check_universals.py flags this phrase (path [2].rejected_alternative, matched claim 'no further congregational imperative until web:Ps'). MT Ps.33.8 opens יִֽירְא֣וּ מֵ֭יְהוָה כָּל ('Let all the earth fear...', WEB) -- a 3rd-person yiqtol/jussive form, grammatically distinct from the 2mp imperatives of 33:1-3, so the row's implicit congregational-vs-universal distinction likely survives scrutiny -- but as written the claim supplies no swept count naming its unit and does not disclose or rule out this nearest candidate, which the campaign's own count-object discipline requires."
+    }
+   ],
+   "row_sha256": "0dcc8c117cd5162b83c56327f1fbc2be27f694a8e31e61d9986210c96f4ea16d"
+  },
+  {
+   "decision_id": "M8-Ps-084",
+   "span": "Ps.33.4-Ps.33.11",
+   "verdict": "support",
+   "reasoning": "verse_map_web.json confirms the topical arc: v4 opens a motive clause ('For Yahweh's word is right'), v6 develops creation-by-word ('By Yahweh's word, the heavens were made'), v9 closes the creation sub-unit on a fitting echo ('he spoke, and it was done'), and v10-11 pivots to the nations/Yahweh's-counsel antithesis, closing on 'The counsel of Yahweh stands fast forever.' All three cited Hebrew quotes (oshb:Ps.33.4, 33.6, 33.11) collate at byte tier. pmarks_Ps.json confirms no selah anywhere in Ps 33 and the sole paseq in this psalm (Ps.33.12) falls outside this span, so device_notes' narrower claim ('no selah or acrostic marker') is accurate and -- unlike M8-Ps-081 -- does not overclaim into the full marks-layer. The rejected_alternative's claim that v4-9 and v10-11 share 'no addressee, speaker, or imperative-mood signal' marking a seam is consistent with the verse text; the unit is topically coherent across all 8 verses of the span (33:4-11) as one sustained meditation on Yahweh's word, and I find no stronger rival tier-1 seam one verse away. 'medium' confidence is appropriate for a topically- rather than marks-driven unit.",
+   "challenges": [],
+   "row_sha256": "00a275cfdf0573c1797759999f2f562459ae02c65daefe96901faf1ea0a27baa"
+  },
+  {
+   "decision_id": "M8-Ps-085",
+   "span": "Ps.33.12-Ps.33.19",
+   "verdict": "support",
+   "reasoning": "verse_map_web.json confirms the reopening beatitude at v12 ('Blessed is the nation whose God is Yahweh'), widening through Yahweh's oversight of humankind (v13-15), the futility of military strength (v16-17), and closing on the eye-of-Yahweh providence motif spanning v18-19 (deliverance 'from death'/'in famine'). Both cited quotes (oshb:Ps.33.12, 33.18) collate at byte tier (2/2). The cross-psalm ashrei-particle parallel to web:Ps.32.1-2 is correctly flagged as texture rather than a boundary relation (device_notes explicitly disclaims a cross-psalm merge), consistent with the book strategy's rule that recurring formulas are texture, never drivers by themselves -- and since Ps 32 and Ps 33 are different parent psalms this is not a same-psalm seam-cohesion concern requiring resolution either way. No selah or paseq falls in this span (pmarks_Ps.json). I find the three-beat internal movement (elect nation -> universal oversight -> military futility -> providence close) coherent as a single strophe rather than a rival split at v15/16; 'medium' confidence matches a formulaic-recognition warrant rather than a hard tier-1 marker.",
+   "challenges": [],
+   "row_sha256": "ffacacf6e7a6c5f571d99db55620b5140fe93d217832393aa46ef3da04667034"
+  },
+  {
+   "decision_id": "M8-Ps-086",
+   "span": "Ps.33.20-Ps.33.22",
+   "verdict": "support",
+   "reasoning": "verse_map_web.json confirms a clean person/voice shift at v20 ('Our soul has waited for Yahweh. He is our help and our shield') from the third-person 'him/his' providence language of v13-19 to a plural congregational 'our/we' voice sustained through the closing petition at v22 ('Let your loving kindness be on us, Yahweh'). Both cited quotes (oshb:Ps.33.20, 33.22) collate at byte tier (2/2). pmarks_Ps.json confirms no selah, and the psalm carries no book-boundary doxology (Ps 33 is not among 41/72/89/106) and no acrostic entry, so device_notes' 'no selah, doxology, or acrostic marker' claim is accurate and appropriately scoped (it does not repeat the M8-Ps-081-style marks-layer overclaim). This is the strongest-warranted seam in the psalm's second half -- a genuine tier-1 discourse-frame shift -- and 'high' confidence is justified.",
+   "challenges": [],
+   "row_sha256": "f6f46c66f73da8704b1d030b065e262b6e472f6db1cbc2129f720912be3896fc"
+  }
+ ]
+}

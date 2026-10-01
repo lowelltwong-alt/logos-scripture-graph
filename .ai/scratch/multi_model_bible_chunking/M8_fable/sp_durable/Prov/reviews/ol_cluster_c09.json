@@ -1,0 +1,114 @@
+{
+ "attempt_id": "ol_cluster_c09_r1",
+ "role": "primary_OL",
+ "cluster": "c09",
+ "rows_reviewed": [
+  "P05-043",
+  "P05-044",
+  "P05-048",
+  "P05-051",
+  "P05-052",
+  "P05-057",
+  "P05-058",
+  "P05-062"
+ ],
+ "items": [
+  {
+   "row_id": "P05-043",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row's Hebrew quotes are unlabeled skeleton tier, and its \"antithetic bicolon\" call undersells the Hebrew's non-adversative structure.",
+   "evidence": "collate.py --json against oshb:Prov.11.10/oshb:Prov.11.11 returns tier=skeleton (status GREEN, no niqqud) for both quoted forms קריה and קרת, never disclosed as skeleton-tier in prose. Separately, 11:10's two cola both report POSITIVE city reactions (rejoicing / shouting) to different causes rather than one colon negating the other -- the classic antithetic pattern of 11:11 (exalt vs. overthrow) is absent here; WEB itself carries no \", but\" at 11:10 (confirmed against the antithetic_texture inventory), so \"antithetic\" is a stretch for a synthetic/synonymous civic-reaction pair.",
+   "tier_citations": [
+    "collate.py: skeleton, oshb:Prov.11.10",
+    "collate.py: skeleton, oshb:Prov.11.11",
+    "toolkit antithetic_texture inventory (English-side heuristic, ch.11)"
+   ]
+  },
+  {
+   "row_id": "P05-044",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "All four Hebrew quotes in the row collate at skeleton tier only and are never labeled as such, though the antithetic reading itself is correct.",
+   "evidence": "collate.py --json against oshb:Prov.11.11 returns tier=skeleton (GREEN) for קרת, קריה, תרום קרת, and תהרס. The exalt/overthrow antithesis these quotes support is byte-accurate and correctly classified, but per the campaign rule only \"byte\" tier is quotation-grade for pointed text, and every unpointed run must be flagged skeleton-tier in prose -- none is.",
+   "tier_citations": [
+    "collate.py: skeleton x4, oshb:Prov.11.11 / oshb:Prov.11.10"
+   ]
+  },
+  {
+   "row_id": "P05-048",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row's two Hebrew quotes collate at skeleton tier only and are never labeled as such.",
+   "evidence": "collate.py --json against oshb:Prov.11.15 returns tier=skeleton (GREEN) for ערב זר and שנא תקעים בוטח. The surety/collateral gloss and the boundary distinction from 11:14 (leadership) and 11:16 (honor/riches) are otherwise sound and byte-supported, but the unpointed quotes carry no tier disclosure.",
+   "tier_citations": [
+    "collate.py: skeleton x2, oshb:Prov.11.15"
+   ]
+  },
+  {
+   "row_id": "P05-051",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row's Hebrew quotes are unlabeled skeleton tier, and an exact-token echo with its own successor verse (11:19) goes undisclosed on both sides of that seam.",
+   "evidence": "collate.py --json against oshb:Prov.11.18 returns tier=skeleton (GREEN) for עשה פעלת שקר and זרע צדקה שכר אמת. Independently, sweep.py --skel \"צדקה\" hits Prov.11.18 and Prov.11.19 as an adjacent pair (15 verses book-wide total) -- a byte-true token straddling this row's own seam with its successor that is not named here (CROSS-SEAM COHESION hazard, live in chs 10-29). It does not overturn the single_proverb call by itself (11:18's sow/reap wage-image and 11:19's synthetic conclusion-clause remain formally distinct units), but it should have been disclosed.",
+   "tier_citations": [
+    "collate.py: skeleton x2, oshb:Prov.11.18",
+    "sweep.py --skel צדקה: 15 verses incl. Prov.11.18+Prov.11.19 (adjacent)"
+   ]
+  },
+  {
+   "row_id": "P05-052",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "The row explicitly and falsely claims 11:18 and 11:19 \"share no repeated wording,\" undercounts the cross-referenced occurrences of its cited noun, and its own quotes are unlabeled skeleton tier.",
+   "evidence": "sweep.py --skel \"צדקה\" shows the exact skeleton token present in BOTH Prov.11.18 and Prov.11.19 (15 verses book-wide, both refs adjacent in the hit list) -- directly contradicting the row's rejected_alternative (\"the two verses share no lexical catchword\") and rationale (\"though the two verses share no repeated wording\"). Separately, sweep.py --skel \"לחיים\" returns 4 verses book-wide (Prov.10.16, Prov.10.17, Prov.11.19, Prov.19.23), not the 2 implied by \"its other occurrence at the Prov.10.16-Prov.10.17 cluster\" -- Prov.19.23 is a third, unmentioned site carrying the identical prefixed form. Both quoted runs (כן; לחיים) collate at skeleton tier only (collate.py, GREEN) and carry no tier label.",
+   "tier_citations": [
+    "sweep.py --skel צדקה: 15 verses incl. Prov.11.18 + Prov.11.19 (contradicts \"no repeated wording\")",
+    "sweep.py --skel לחיים: 4 verses -- Prov.10.16, Prov.10.17, Prov.11.19, Prov.19.23 (row names only 2 of 4)",
+    "collate.py: skeleton x2, oshb:Prov.11.19"
+   ]
+  },
+  {
+   "row_id": "P05-057",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row's Hebrew quote collates at skeleton tier only and is never labeled as such; its cross-reference to 11:25's noun is otherwise accurate.",
+   "evidence": "collate.py --json against oshb:Prov.11.24 returns tier=skeleton (GREEN) for יש מפזר ונוסף עוד. The parenthetical elision notation correctly flags the second existential as gapped rather than textually present, and the rejected_alternative's cross-reference to 11:25's ברכה noun matches the independently-verified sweep (see P05-058); the sole defect is the unlabeled skeleton-tier quote.",
+   "tier_citations": [
+    "collate.py: skeleton, oshb:Prov.11.24"
+   ]
+  },
+  {
+   "row_id": "P05-058",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The cluster's cohesion sweep is byte-accurate and meets the C2 proverb_cluster bar, but the row's own Hebrew quotes still collate at skeleton tier only and are never labeled as such.",
+   "evidence": "sweep.py --skel \"ברכה\" independently reproduces the row's claimed digit exactly: 3 verses book-wide (Prov.10.7, Prov.11.25, Prov.11.26), with only the 11:25/11:26 pair adjacent. sweep.py --skel \"ברכת\" (construct spelling) independently confirms the row's disclaimer digit exactly: 3 verses (Prov.10.22, Prov.11.11, Prov.24.25), a distinct skeleton object never conflated with the first. This is the strongest-grounded cluster justification in the assigned set and satisfies the C2 proverb_cluster bar (owner gate S6). collate.py --json nonetheless returns tier=skeleton (GREEN) for every quoted ברכה / soul-of-blessing run cited to oshb:Prov.11.25 and oshb:Prov.11.26, none labeled as such in prose.",
+   "tier_citations": [
+    "sweep.py --skel ברכה: 3 verses (Prov.10.7, Prov.11.25, Prov.11.26) -- matches row digit exactly",
+    "sweep.py --skel ברכת: 3 verses (Prov.10.22, Prov.11.11, Prov.24.25) -- matches row digit exactly",
+    "collate.py: skeleton x3, oshb:Prov.11.25 / oshb:Prov.11.26"
+   ]
+  },
+  {
+   "row_id": "P05-062",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The row's Hebrew quote collates at skeleton tier only and is never labeled as such; the synthetic-couplet call and the undisclosed root shared with 11:29 are otherwise sound.",
+   "evidence": "collate.py --json against oshb:Prov.11.30 returns tier=skeleton (GREEN) for פרי צדיק עץ חיים. The synthetic classification is correct (no adversative marker; both cola positive; WEB carries no \"but\" here either). The root חכם shared with the preceding 11:29 is thematic-generic (37 book-wide occurrences, the wisdom book's own stock vocabulary, confirmed by sweep) and not meaningful undisclosed cohesion evidence, so the single_proverb call stands. The sole defect is the unlabeled skeleton-tier quote.",
+   "tier_citations": [
+    "collate.py: skeleton, oshb:Prov.11.30",
+    "sweep.py --skel חכם: 37 verses incl. Prov.11.29 + Prov.11.30 (adjacent, generic)"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 0,
+  "challenges": 8,
+  "by_severity": {
+   "high": 1,
+   "medium": 7,
+   "low": 0
+  }
+ }
+}

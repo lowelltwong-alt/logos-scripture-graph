@@ -1,0 +1,84 @@
+{
+ "cluster": "c41",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c41_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-271",
+   "row_sha256": "97aadd18688b526016cef4914a4a07653171d6408996e4ff279ef2f7f5f69196",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently against the toolkit. Ps 87 is an identity psalm (title inside MT v1, prefix_of_v1 in the device inventory), matching the row's numbering. Both Hebrew quotations byte-collate against their cited verses: the foundation clause reproduces the tail of oshb:Ps.87.1 verbatim, and the closing quotation reproduces oshb:Ps.87.3 in full, including the terminal selah token. web_selah:true at Ps.87.3 is confirmed against verse_map_web.json. The chosen seam (web:Ps.87.3|Ps.87.4) is well-grounded: Selah closes v3 and the psalm pivots from third/second-person hymnic address about Zion to first-person divine census-speech opening v4 (oshb:Ps.87.4 az'kir, 'I will record'), a genuine speech-frame shift rather than a taste call. The rejected_alternative (one whole-psalm row) is engaged on a real tier-1 ground (the speaker change), not waved off. One citation-convention defect found (below); it does not touch the span or warrant.",
+   "challenges": [
+    {
+     "challenge_id": "LF-271-1",
+     "severity": "low",
+     "claim": "The curly-quoted WEB-title fragment \"the sons of Korah\" in observed_substrate_signals[0] carries no inline web: ref anywhere in its own field, violating the campaign's mandatory curly-quote-plus-web:-ref co-location convention at every layer.",
+     "evidence": "observed_substrate_signals[0] reads: oshb:Ps.87.1's opening clause has no expressed subject noun of its own outside the title, carrying over \"the sons of Korah\"'s city as its referent. The field names only oshb:Ps.87.1 (an MT ref); web:Ps.87.0 never appears in it. The quoted English is the WEB title's own wording (verse_map_web.json Ps.87.0.text: \"A Psalm by the sons of Korah; a Song.\"), so the curly quote is WEB text and the convention requires a co-located web: ref (here web:Ps.87.0, the title pseudo-ref for this identity psalm). check_web_quotes.py confirms mechanically: quote \"the sons of Korah\", refs_nearby: [], issue: curly quote with NO web: ref in its field."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-272",
+   "row_sha256": "bb9c564c49b1c327323a95e9a497dbb87306adf2a10e9e21db140728c716dba9",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently. Both direct Hebrew quotations are byte-true to their cited verses: the opening clause reproduces the head of oshb:Ps.87.4, and each 'this one was born there' quotation reproduces the tail of its own cited verse (oshb:Ps.87.4 and oshb:Ps.87.6 respectively) exactly, cantillation included. Selah is correctly confirmed true at Ps.87.3 (front seam) and Ps.87.6 (interior) against verse_map_web.json. The WEB footnote identifying Rahab with Egypt is correctly disclosed as translator commentary rather than argued as textual evidence. The rejected_alternative (splitting the census register from the closing declaration at the interior Selah) engages the real rival and gives a substantive reason to reject it. Two defects found, detailed below: a mistiered formula-recurrence claim that partly underwrites the stated confidence level, and a register violation.",
+   "challenges": [
+    {
+     "challenge_id": "LF-272-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[0] asserts oshb:Ps.87.4 and oshb:Ps.87.6 'byte-match' on the closing formula 'zeh yulad sham'; splicing both spans directly from verse_map_oshb.json shows they do not match at byte tier, only at skeleton (consonants-only) tier, four tiers below the claimed one on the campaign's own ladder (byte > nfd > accent_stripped > skeleton). This overclaim feeds directly into the row's stated confidence rationale, which leans on 'one repeated formula' as its main internal-shape evidence.",
+     "evidence": "oshb:Ps.87.4 ends ...kush zeh yulad sham (Unicode zayin+U+05B6+U+059D+U+0597, he; yod+U+05BB,lamed+U+05BC+U+05B7,dalet; shin+U+05C1+U+05B8+U+05BD,mem). oshb:Ps.87.6 ends ...amim zeh yulad sham selah (zayin+U+05B6+U+0596, he; yod+U+05BB,lamed+U+05BC+U+05B7,dalet; shin+U+05C1+U+05B8+U+05A3,mem). The zayin-word carries a different cantillation combination in each verse (U+059D+U+0597 vs U+0596), and the final mem's preceding syllable differs by exactly the disclosed hazard the toolkit itself names: v4's sham keeps meteg U+05BD (never stripped by accent_stripped), v6's sham carries the cantillation accent munach U+05A3 (stripped by accent_stripped) with no meteg. Programmatic comparison (raw ==, NFD, accent_stripped, skeleton, all via ps_lib's own normalizers) is False/False/False/True in that order: the two spans converge only at skeleton, never at byte, nfd, or accent_stripped."
+    },
+    {
+     "challenge_id": "LF-272-2",
+     "severity": "low",
+     "claim": "The rationale opens with a positional cross-row reference ('the prior strophe') rather than a verse anchor, the pattern the campaign's register-purge rule bans ('the row before this one').",
+     "evidence": "Rationale: 'The closing strophe opens on first-person divine speech, oshb:Ps.87.4's ..., following the Selah that closes the prior strophe at web:Ps.87.3 (oshb:Ps.87.3).' The verse anchor (web:Ps.87.3) is present in the same clause, but 'the prior strophe' itself names the neighboring decision by its sequence position rather than exclusively by verse, which is the form the standing rule requires ('the seam at 41:13|42:1', never 'the row before this one')."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-273",
+   "row_sha256": "1ca3729c6dd0573754a3380a146f9dc31c9718edd04e0d242494a9342a6c81cb",
+   "verdict": "support",
+   "reasoning": "Re-derived independently. Ps 88 is a shift+1 psalm per the toolkit's own roster (title = counted MT v1), matching the row's web:Ps.88.0=oshb:Ps.88.1 boundary_evidence_refs and mt_title_verses:[1] in the device inventory. The title's eight genre/authorship labels (mizmor, shir, maskil, lamnatseach, livnei_qorach, le_heman, al_machalat, leannot) match psalm_device_inventory.json's superscriptions entry for 88 exactly, label-for-label. le_heman's membership list in the inventory is the singleton {88}, confirming the row's '1 of 116 titled psalms' claim precisely (116 is the inventory's own superscriptions count). Both direct Hebrew quotations are byte-true: the title's closing labels reproduce the tail of oshb:Ps.88.1, and the invocation opens oshb:Ps.88.2 verbatim. Selah is correctly confirmed true at web:Ps.88.7 against verse_map_web.json, and the span tiles exactly against the next strophe's front seam (web:Ps.88.7=oshb:Ps.88.8 recurs correctly there). The span holds one continuous second-person address with no internal speaker or addressee shift, so the whole-strophe grouping and the high confidence are both well supported; the rejected_alternative (a shorter vv1-2 opening row) engages a genuine narrower rival and gives a substantive reason against it. No material defect found in span, warrant, citations, or register.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-274",
+   "row_sha256": "b15376f1952cc08127a9c32276a91d189779bb62205b07c6bac434c754753104",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently. Selah is correctly confirmed true at web:Ps.88.7 (front seam) and web:Ps.88.10 (interior) against verse_map_web.json. The rhetorical-question opener is byte-true to oshb:Ps.88.11. The isolation-report-to-question-triad internal shape is honestly argued at medium confidence, with the rejected_alternative candidly noting no hard grammatical seam divides the two halves beyond a statement-to-question shift, which is proportionate given the evidence. The span itself tiles correctly against its neighbors on both sides. Two defects found, detailed below: an unmirrored boundary citation and a register violation.",
+   "challenges": [
+    {
+     "challenge_id": "LF-274-1",
+     "severity": "medium",
+     "claim": "The row argues its own end-of-span boundary from web:Ps.88.13, a verse outside this row's span (Ps.88.8-Ps.88.12), but web:Ps.88.13 never appears in boundary_evidence_refs.",
+     "evidence": "Rationale's closing clause: '...before the psalm returns to direct petition at web:Ps.88.13.' boundary_evidence_refs lists eight entries running from web:Ps.88.7=oshb:Ps.88.8 through web:Ps.88.12=oshb:Ps.88.13; none is web:Ps.88.13 itself. check_refs_mirror.py confirms mechanically: argued_but_unmirrored: [\"Ps.88.13\"], flag_count: 1, status: FLAGS. This is exactly the hazard the toolkit's own check_refs_mirror.py exists to catch: a verse argued in prose outside the row's span must appear in boundary_evidence_refs."
+    },
+    {
+     "challenge_id": "LF-274-2",
+     "severity": "low",
+     "claim": "The rationale opens with a positional cross-row reference ('the prior span') rather than a verse anchor, the pattern the campaign's register-purge rule bans ('the row before this one').",
+     "evidence": "Rationale: 'The strophe opens immediately after the Selah closing the prior span (web:Ps.88.7, oshb:Ps.88.8) on isolation from human companionship...' The verse anchor is present in the same clause, but 'the prior span' itself names the neighboring decision by sequence position, which is the banned form ('the row before this one' vs. the required 'the seam at 41:13|42:1')."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-275",
+   "row_sha256": "b505ab31a06d70ad5ec55fdc3719de68639c273a6372e2e7975a4afdb6c1bfcb",
+   "verdict": "challenge",
+   "reasoning": "Re-derived independently. The emphatic reopening is byte-true: oshb:Ps.88.14 begins with the fronted first-person pronoun va'ani ('but I') exactly as quoted, correctly read as a pivot back to direct petition after the interrogative triad. mahshakh ('darkness') is confirmed as the literal final word of oshb:Ps.88.19, and the observation that no praise or resolution clause follows it within the span is a properly span-scoped literary claim, not an unswept book-wide universal, despite a heuristic hit from check_universals.py's 'with/has/have no' pattern (the tool's own docstring marks such hits as review candidates, not auto-fails, and this one names its own boundary explicitly). No selah falls within web:Ps.88.13-Ps.88.18 per the selah inventory, matching the row's implicit silence on selah for this span. The span tiles correctly, closing Psalm 88's coverage at web:Ps.88.18=oshb:Ps.88.19, and the rejected_alternative gives a genuine, verse-grounded reason against reading this span as a continuation of the prior question-triad. One register defect found.",
+   "challenges": [
+    {
+     "challenge_id": "LF-275-1",
+     "severity": "low",
+     "claim": "The rationale describes its predecessor as 'the rhetorical-question triad of the prior span' rather than by verse anchor alone, the pattern the campaign's register-purge rule bans ('the row before this one').",
+     "evidence": "Rationale: 'The closing strophe pivots on an adversative reopening of direct petition, oshb:Ps.88.14's ..., after the rhetorical-question triad of the prior span.' boundary_evidence_refs does separately carry the correct verse-anchored form (web:Ps.88.10-Ps.88.12) as its final entry, so the citation-mirror requirement is satisfied; the defect is confined to the prose register itself, which names the neighboring decision by sequence position instead of using that same verse anchor in the sentence."
+    }
+   ]
+  }
+ ]
+}

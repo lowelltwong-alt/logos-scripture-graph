@@ -1,0 +1,152 @@
+{
+  "schema_version": "m7_hosea_semantic_prose_rematerialization_transaction_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "role": "fresh_read_only_transaction_and_recovery_implementation_checker",
+  "checker_attempt_id": "T550-HOS-SEMANTIC-PROSE-TRANSACTION-CHECK-V1",
+  "artifact_status": "complete_blocking_fail",
+  "verdict": "FAIL",
+  "materialization_readiness": "FAIL",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "promotion_qualified": false,
+  "checked_implementation_sha256": "fe920d0121cc146a1e1c4cbe5246fc9208be87d96d01e0bc110cf5660a86423b",
+  "checked_kernel_sha256": "6901c277f0db2100d807adff73eb4030f7d6be5c8144287d617068c7720e184a",
+  "checked_prepare_receipt_sha256": "7137c5696dd6e628d7bf7f0f8b434b385ad67f5844ac9580f871e37baa9a5a52",
+  "checked_prepare_manifest_sha256": "93842bca8213fc0dcdb74d8b48b3ad47ab8d15031c180f9eeb56ae293b370521",
+  "checked_plan_sha256": "a490a5977cad58613203b163a07faf8e90d9ad3809b67b38af050619f832358d",
+  "checked_plan_checker_sha256": "12c3bafa0f18273dc852fb6fed4076421e9f6a7ecbe726b1079e5b84375d4f4a",
+  "checked_artifact_hashes": {
+    "reviews/Hos/semantic_prose_rematerialization_plan_v3.json": "a490a5977cad58613203b163a07faf8e90d9ad3809b67b38af050619f832358d",
+    "reviews/Hos/semantic_prose_rematerialization_plan_check_v3.json": "12c3bafa0f18273dc852fb6fed4076421e9f6a7ecbe726b1079e5b84375d4f4a",
+    "reviews/Hos/semantic_prose_rematerialization_premortem_v1.json": "3bbbd95c697b884be5e2243fa3264caaa6e6240384bb1108d7f18ac33ddec5a4",
+    "checks/journaled_recoverable_publish_v1.py": "6901c277f0db2100d807adff73eb4030f7d6be5c8144287d617068c7720e184a",
+    "tests/test_journaled_recoverable_publish_v1.py": "149433770a4ac673de6899a99e2bf9832f90526f5140fc23babc49b10320ca8b",
+    "reviews/Hos/rematerialize_semantic_prose_v3.py": "fe920d0121cc146a1e1c4cbe5246fc9208be87d96d01e0bc110cf5660a86423b",
+    "tests/test_hos_semantic_prose_rematerialization_v3.py": "7ea8d4aa1c0784353d85ca4b56e77976e3f5493e182636e8e8fa91de90f4710a",
+    "reviews/Hos/rematerialization_attempts/T550-HOS-SEMANTIC-PROSE-REMATERIALIZATION-V3-ONE-SHOT/prepare_receipt_v3.json": "7137c5696dd6e628d7bf7f0f8b434b385ad67f5844ac9580f871e37baa9a5a52",
+    "reviews/Hos/rematerialization_attempts/T550-HOS-SEMANTIC-PROSE-REMATERIALIZATION-V3-ONE-SHOT/prepare_manifest_v3.json": "93842bca8213fc0dcdb74d8b48b3ad47ab8d15031c180f9eeb56ae293b370521"
+  },
+  "positive_evidence": {
+    "exact_target_count": 13,
+    "unique_target_paths": 13,
+    "unique_target_ids": 13,
+    "contiguous_ordinals_1_through_13": true,
+    "archive_file_count": 13,
+    "stage_file_count": 13,
+    "all_current_targets_match_manifest_preimages": true,
+    "all_archives_match_manifest_archive_hashes": true,
+    "all_stages_match_manifest_staged_hashes": true,
+    "global_sidecar_sentinels_match": {
+      "low_confidence_register.jsonl": "ca548ec6b205ec030df6cebffe3a657e46aba01be97600382a55cb50f648c5b6",
+      "frontier_escalation_queue.jsonl": "8d101775088cba9a7ddde6e506db981d1fd1d866958caa57e8243df3a24268b1",
+      "atlas_candidate_feed.jsonl": "7bdbfc263fbd8d3fe0083fdfec978f3714ec84ad5f703cc9c428de616a608ca0"
+    },
+    "publish_journal_exists": false,
+    "publish_lock_exists": false,
+    "application_receipt_exists": false,
+    "canonical_or_global_publication_observed": false
+  },
+  "blocking_findings": [
+    {
+      "finding_id": "T550-HOS-TX-CHECK-001",
+      "severity": "blocking",
+      "title": "Receipt identity and recovery states are not fail-closed",
+      "evidence": [
+        "journaled_recoverable_publish_v1.py:237-243 computes and compares a transaction core that excludes receipt bytes and only compares journal_core_sha256.",
+        "journaled_recoverable_publish_v1.py:268-293 never compares the replayed receipt SHA-256 with existing.expected_receipt_sha256 before writing or accepting the receipt.",
+        "journaled_recoverable_publish_v1.py:294-300 advances receipt_written_verified directly to completed without verifying that the receipt still exists, matches expected_receipt_sha256, and matches journal.receipt_sha256.",
+        "Canonical, input, sentinel, or receipt mismatches in the existing-journal branch raise without durably changing the journal to recovery_required, contrary to the v3 receipt_mismatch_rule."
+      ],
+      "required_fix": "Bind expected_receipt_sha256 into the immutable replay identity; verify the journal binding and exact receipt before every receipt-state advance; on any replay mismatch durably retain the lock and enter recovery_required without overwrite or publication."
+    },
+    {
+      "finding_id": "T550-HOS-TX-CHECK-002",
+      "severity": "blocking",
+      "title": "The prepared stage manifest is not enforced at publish time",
+      "evidence": [
+        "prepare_receipt_v3.json contains prepare_manifest_sha256, but rematerialize_semantic_prose_v3.py:529-542 does not compare that field with the actual prepare_manifest_v3.json digest.",
+        "implementation_checker at rematerialize_semantic_prose_v3.py:493-521 does not require checked_prepare_manifest_sha256, the 13 tuples, or the expanded typed allowlist digest.",
+        "The publish path accepts target hashes from the mutable manifest and does not re-run the full render/diff validation; therefore a changed manifest plus changed stage can bypass the reviewed prepare receipt and checker after preparation.",
+        "prepare() at lines 394-400 treats any existing prepare receipt and manifest as an idempotent no-op without revalidating their bound hashes or all 13 archive/stage members."
+      ],
+      "required_fix": "Verify the exact prepare-manifest digest from the immutable prepare receipt and checker before constructing targets, require the checker to bind it, revalidate all 13 entries and typed diffs, and make prepare replay verify every frozen member or fail recovery_required."
+    },
+    {
+      "finding_id": "T550-HOS-TX-CHECK-003",
+      "severity": "blocking",
+      "title": "The reported 38 tests do not implement the v3 named failure matrix",
+      "evidence": [
+        "The 38 cases consist of 27 generic-kernel cases plus 11 Hosea-wrapper cases.",
+        "No test separately mutates adjudicated route, WEB, OSHB, UXLC, reviewed implementation adapter, and forbidden legacy adapter after archive before publish.",
+        "No test separately mutates those same six inputs during publication and records rollback or recovery_required.",
+        "The nine semantic cases do not all exercise the publish boundary: five non-prose sidecar cases and the fifth-scalar case only assert that a diff set differs from the allowlist; they do not assert zero canonical/global writes, terminal journal phase, rollback result, or sentinel result.",
+        "There is no receipt-substitution, missing-receipt-at-receipt_written_verified, mismatching-existing-receipt, completed-target-drift, or sentinel-drift replay test.",
+        "There is no complete per-case evidence report with injection point, expected result, actual result, canonical write count, rollback result, journal terminal state, and global sentinel result."
+      ],
+      "required_fix": "Add and individually report every v3 semantic, input/code, replacement, receipt, replay, rollback, allowlist, and sentinel injection through the actual Hosea wrapper, not only the generic kernel."
+    },
+    {
+      "finding_id": "T550-HOS-TX-CHECK-004",
+      "severity": "blocking",
+      "title": "The deterministic application receipt is materially incomplete",
+      "evidence": [
+        "rematerialize_semantic_prose_v3.py:566-618 omits the v3-required v2-plan and failed-v2-checker pins, protected-route-projection hash, WEB/OSHB/UXLC pins, proposal/checker/boss-amendment pins, explicit preimage/archive/staged/published manifest digests, unchanged appeal-ledger hash, and invalid completion-receipt hash.",
+        "expanded_diff_allowlist_sha256 hashes only a count of 114 plus four sidecar paths; it does not hash the expanded 114 typed route paths required by the plan.",
+        "prepare_manifest_v3.json embeds an absolute machine-specific staged-validation command, and its digest is then included in the application receipt, conflicting with the plan's prohibition on absolute machine paths and its deterministic replay claim."
+      ],
+      "required_fix": "Construct the receipt from the complete frozen v3 input list and explicit typed manifests, remove machine-specific command text from digest-bearing content, and test byte-identical deterministic reconstruction."
+    },
+    {
+      "finding_id": "T550-HOS-TX-CHECK-005",
+      "severity": "blocking",
+      "title": "Durability is simulated but not established for filesystem crashes",
+      "evidence": [
+        "_atomic_bytes fsyncs the temporary file before os.replace but never fsyncs the containing directory after replacement.",
+        "exclusive archive/stage writes and lock creation likewise do not durably fsync directory entries.",
+        "The tests inject Python exceptions; they do not terminate a separate process at the named crash points and reopen the filesystem state, so they do not prove power-loss/process-kill durability."
+      ],
+      "required_fix": "Either implement and test platform-appropriate directory-entry durability and subprocess crash recovery, or narrow the contract and artifact language to exception-recoverable rather than durable crash-recoverable; the current v3 durable-journal claim cannot pass unchanged."
+    }
+  ],
+  "focused_validation": {
+    "kernel_test_command": "python -m pytest tests/test_journaled_recoverable_publish_v1.py -q -p no:cacheprovider --basetemp C:/tmp/t550_tx_checker_run",
+    "kernel_test_result": "27 passed in 30.02s",
+    "wrapper_test_command": "python -m pytest tests/test_hos_semantic_prose_rematerialization_v3.py -q -p no:cacheprovider --basetemp C:/tmp/t550_tx_wrapper_checker_run",
+    "wrapper_test_result": "11 passed in 27.38s",
+    "combined_test_attempt": "1 failed, 37 passed in 39.62s",
+    "combined_test_failure_classification": "sandbox_or_OneDrive_atomic_replace_access_denied_environment_noise; not treated as green or as a deterministic code assertion failure",
+    "combined_failure_detail": "WinError 5 while replacing a task-scoped journal in repo-local pytest basetemp; the same 27 kernel cases passed with C:/tmp routing.",
+    "test_count_total": 38,
+    "all_existing_tests_pass_with_writable_temp_routing": true,
+    "existing_tests_satisfy_v3_matrix": false
+  },
+  "same_model_correlation_disclosure": {
+    "same_model_mesh": true,
+    "role_separated": true,
+    "counts_as_cross_model_independent_vote": false,
+    "correlated_mesh_weight_at_convergence": "one_model_voice",
+    "human_or_external_ai_gate_preserved": true,
+    "agreement_is_authority": false
+  },
+  "authority_limits": {
+    "implementation_approved": false,
+    "materialization_authorized": false,
+    "global_sidecar_install_authorized": false,
+    "completion_authorized": false,
+    "comparison_authorized": false,
+    "commit_authorized": false,
+    "push_authorized": false,
+    "merge_authorized": false,
+    "external_review_receipt_created": false
+  },
+  "binary_conclusion": {
+    "implementation_passes": false,
+    "safe_to_publish_the_13_targets": false,
+    "safe_to_write_application_receipt": false,
+    "reason": "The frozen preimages, archives, stages, and global sentinels are intact, but receipt identity, manifest binding, complete failure-injection evidence, deterministic receipt content, and crash durability do not satisfy the hash-bound v3 plan.",
+    "next_action": "Repair the five blockers, regenerate or amend the prepared attempt without overwriting failed evidence, rerun the complete named matrix through the actual wrapper, and obtain a new fresh pre-use checker. Do not invoke --publish from this FAIL."
+  }
+}

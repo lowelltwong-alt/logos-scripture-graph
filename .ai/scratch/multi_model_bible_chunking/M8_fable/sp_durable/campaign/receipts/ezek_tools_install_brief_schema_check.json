@@ -1,0 +1,44 @@
+{
+ "schema": "m8_tool_install.v1",
+ "book": "Ezek",
+ "tool": "_check_brief_schema_vs_validator.py",
+ "installed_at": "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/campaign/_check_brief_schema_vs_validator.py",
+ "recorded_at": "2026-09-14T03:58:53.564466+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 6116e665",
+ "state": "installed",
+ "sha256_before": null,
+ "sha256_after": "2b331d7ff39ff700a36ee3916d144a227fd9cd953cb256c47446edf04d452425",
+ "why": "control for the S4 brief schema mismatch (learning log L-0018): a brief's deliverable schema and the landing job's validator are two statements of one contract, and S4's brief was launched disagreeing with validate_s4 on four keys",
+ "rule": "every d.get(\"<key>\") in the landing validator's own function body must appear in the brief's deliverable schema block",
+ "selftest": {
+  "is": "the historical S4 case, with S3's brief as the negative control",
+  "checks": {
+   "s4_brief_refused": true,
+   "s4_missing_keys_are_the_two_renamed_ones": true,
+   "s4_nested_report_names_the_shape_defects": true,
+   "s3_brief_agrees": true,
+   "s3_has_no_missing_key": true
+  },
+  "s4": {
+   "brief_sha256": "c3dbd5cbbeb2a611",
+   "verdict": "REFUSED",
+   "missing_from_brief": [
+    "cwo_ez_23_pairs",
+    "mark_disclosures"
+   ],
+   "nested_absent": [
+    "others",
+    "p03",
+    "replaced",
+    "residuals"
+   ]
+  },
+  "s3": {
+   "brief_sha256": "74d4062079ae392a",
+   "verdict": "AGREES_ON_TOP_LEVEL_KEYS",
+   "required_keys": 14
+  }
+ },
+ "not_changed_by_this_install": "the S4 brief's bytes: it is pinned by the running execution ezek_fixup3_wave_review_s4_a1#e1 and the agent verified its digest at launch. The correction went to the agent by message, and to _s4_brief.py for the next run",
+ "limit": "top-level key names only; a right name with a wrong shape is reported in the nested list, not refused, and the tool says so in its own output"
+}

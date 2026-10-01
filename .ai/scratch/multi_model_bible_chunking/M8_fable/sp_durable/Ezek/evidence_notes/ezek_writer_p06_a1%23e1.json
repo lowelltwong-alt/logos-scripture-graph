@@ -1,0 +1,86 @@
+{
+ "attempt_id": "ezek_writer_p06_a1",
+ "execution_id": "ezek_writer_p06_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "13 chunk rows written to draft_p06.jsonl, tiling Ezek.25.1-Ezek.28.26 (100 verses) exactly: 25:1-7 Ammon, 25:8-11 Moab, 25:12-14 Edom, 25:15-17 Philistia, 26:1-6/7-14/15-18/19-21 the four-unit Tyre-siege reading, 27:1-36 one qinah row (cap-disclosed), 28:1-10 prince of Tyre, 28:11-19 qinah over the king of Tyre, 28:20-23 Sidon, 28:24-26 the Israel salvation coda",
+    "why": "re-derived from the MT/WEB bytes and the staged inventories per the strategy's §5-§8 rules for this flagged, formula-dense region"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "13 rows cover Ezek.25.1-Ezek.28.26 with no gap, no overlap, no verse outside range (25:17+26:21+27:36+28:26=100)",
+   "how": "hand-written Python tiling check (selfcheck.py) over a private copy of the deliverable, cross-checked against verse_inventory.json per-chapter counts",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 22 required fields present on every row; unit_type in the closed 12-value vocabulary; confidence in {high,medium,medium_low,low}; non_authorizing=true throughout",
+   "how": "hand-written Python schema check (selfcheck.py)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every Hebrew string quoted in the 13 rows is a verbatim substring of Ezek_oshb.txt or the pmarks_Ezek.json K/Q note layer (separators stripped) — none hand-typed, none a unicode escape",
+   "how": "hand-written Python check: every Hebrew run in every prose/evidence/tag field extracted by regex and matched against a full-book blob of Ezek_oshb.txt plus the kq layer (95 runs checked); the deliverable itself was built by a script that splices every Hebrew string via ref-keyed or word-index lookups into Ezek_oshb.txt, never a literal typed in the builder script",
+   "result": "confirmed (initial run surfaced 4 hand-typed gloss words in the builder script's own prose, which were corrected to programmatic word-index splices before the deliverable was written; the shipped file was generated only after that fix)"
+  },
+  {
+   "claim": "no row references the WEB 20:45-49/WEB ch21/MT ch21 numbering zone (N/A for this part)",
+   "how": "regex scan for Ezek.20./Ezek.21. across all 13 rows",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no fabrication-class claim (selah, large/small letter, reversed/suspended nun, Aramaic) anywhere in the 13 rows",
+   "how": "substring scan across all rows",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row straddles the one hard seam in range (the MT 26:1 dateline)",
+   "how": "positional span check",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every in-range K/Q verse (25:7,25:9,27:3,27:6,27:15,28:3) and OSHB editorial-note verse (25:7,27:27,27:29,28:3) is disclosed with a tagged boundary_evidence_refs entry",
+   "how": "cross-reference scan of pmarks_Ezek.json kq/notes_other keys against boundary_evidence_refs",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "ch25's four short OAN units (Ammon/Moab/Edom/Philistia) kept as four rows rather than fewer",
+   "why_it_matters": "each closes on its own formula+parashah mark and §6/§2d name the four spans directly, but the assignment itself flagged this as a live over-split judgment; held medium_low/medium rather than high"
+  },
+  {
+   "what": "ch26's four-way Tyre-siege split (1-6/7-14/15-18/19-21), especially the 26:15-18 row",
+   "why_it_matters": "three of the four seams are formula-plus-parashah corroborated, but 26:15-18's close (26:18) rests on a SAMEKH alone with no recognition/utterance/'I YHWH have spoken' formula in the verse — held LOW with a bespoke rationale rather than forced"
+  },
+  {
+   "what": "ch27 as one 36-verse row",
+   "why_it_matters": "the qinah-never-split rule and §6's own whole-chapter-span list settle the no-internal-cut question, but the row is far beyond even the extended 14-16 verse cap; held medium_low with the cap explicitly disclosed"
+  },
+  {
+   "what": "the 28:20-23/28:24-26 seam versus the parashah-marked 28:20-24/28:25-26 alternative",
+   "why_it_matters": "the SAMEKH in pmarks_Ezek.json sits at 28:24, one verse later than the addressee-class-shift cut this draft took (28:23/28:24); both readings are defensible and the tension is disclosed symmetrically in rows 12 and 13 rather than resolved"
+  },
+  {
+   "what": "'strong_or_hebrew_tags_used' was populated with the full spliced Hebrew verse-strings cited in each row, since no Strong's-number inventory is among the staged Ezekiel files I read",
+   "why_it_matters": "flagging the interpretation in case the schema intends a different tag vocabulary for this field"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

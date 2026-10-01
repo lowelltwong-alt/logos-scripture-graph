@@ -15,6 +15,10 @@ RUNTIME_OUTBOX = ROOT / ".digital-asset" / "mail" / "outbox.jsonl"
 CONTEXT_MAP = ROOT / ".digital-asset" / "context-map.json"
 FRONT_DOOR = ROOT / "AI_FRONT_DOOR.md"
 T424_MESSAGE_ID = "msg-20260703-t424-rust-validation-layer"
+T521_MESSAGE_ID = "msg-20260722-t521-m7-chunking-replay-audit"
+T521_CLOSURE_ID = "msg-20260722-t521-m7-chunking-replay-closure"
+T521_LESSON = ".digital-asset/lessons/t521_m7_chunking_replay_audit_lessons.yaml"
+T521_CONTEXT = "ctx-t521-m7-chunking-replay-audit"
 
 REQUIRED_T424_ARTIFACTS = {
     ".ai/control/coding_runtime_language_preflight.yaml",
@@ -163,6 +167,8 @@ def validate_dad_outbox(
         _validate_lesson_slot(row, label)
         _validate_context_map_entry(row, label, context_map)
 
+    _validate_t521_honest_transport(path, by_id)
+
     if require_historical_contract:
         _validate_t424_contract_message(path, by_id)
 
@@ -178,6 +184,40 @@ def validate_runtime_outbox_if_present(path: Path = RUNTIME_OUTBOX) -> list[dict
     if not path.exists() or not path.read_text(encoding="utf-8").strip():
         return []
     return validate_dad_outbox(path, require_historical_contract=False)
+
+
+def _validate_t521_honest_transport(path: Path, by_id: dict[str, dict[str, Any]]) -> None:
+    present = {
+        message_id: by_id[message_id]
+        for message_id in (T521_MESSAGE_ID, T521_CLOSURE_ID)
+        if message_id in by_id
+    }
+    if not present:
+        return
+    if set(present) != {T521_MESSAGE_ID, T521_CLOSURE_ID}:
+        raise DadOutboxError(f"{_rel(path)}: T521 audit and closure messages must be present together")
+    for message_id, row in present.items():
+        label = f"{_rel(path)}:{message_id}"
+        if row.get("task_id") != "T521":
+            raise DadOutboxError(f"{label}: task_id must be T521")
+        if row.get("transport_state") != "locally_queued_unacknowledged":
+            raise DadOutboxError(f"{label}: transport_state must remain locally_queued_unacknowledged")
+        if row.get("central_ingestion_confirmed") is not False:
+            raise DadOutboxError(f"{label}: central_ingestion_confirmed must remain false without a central receipt")
+    audit = present[T521_MESSAGE_ID]
+    if audit.get("lesson_learned_slot") != T521_LESSON or audit.get("context_map_entry") != T521_CONTEXT:
+        raise DadOutboxError(f"{_rel(path)}:{T521_MESSAGE_ID}: T521 lesson/context links mismatch")
+    lesson = _read_yaml_mapping(ROOT / T521_LESSON)
+    if lesson.get("transport_state") != "locally_queued_unacknowledged":
+        raise DadOutboxError(f"{T521_LESSON}: transport_state must remain locally_queued_unacknowledged")
+    if lesson.get("dad_central_ingestion_confirmed") is not False:
+        raise DadOutboxError(f"{T521_LESSON}: central ingestion must remain unconfirmed")
+    closure = present[T521_CLOSURE_ID]
+    if (
+        closure.get("related_lesson_learned_slot") != T521_LESSON
+        or closure.get("related_context_map_entry") != T521_CONTEXT
+    ):
+        raise DadOutboxError(f"{_rel(path)}:{T521_CLOSURE_ID}: related lesson/context traceability mismatch")
 
 
 def _validate_candidate_message(row: dict[str, Any], label: str) -> None:

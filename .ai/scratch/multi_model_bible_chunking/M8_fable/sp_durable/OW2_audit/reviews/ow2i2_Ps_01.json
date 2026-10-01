@@ -1,0 +1,238 @@
+{
+ "attempt_id": "ow2i2_Ps_01_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Ps",
+ "rows": [
+  {
+   "row_id": "M8-Ps-045",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails: boundary_rationale narrates the audit method and names a campaign tool -- 'confirmed by direct verse-text inspection against the whole-psalm Yahweh count in the device inventory, not a sweep.py lexeme-index feature'. That describes the PROCESS, not the text, against the register law (Ps strategy sec.10 bars workflow talk in row prose). TEST 2 arm: the claim the sentence carries re-derives TRUE at byte tier -- MT 19:2-7 (= web:Ps.19.1-Ps.19.6; shift+1 psalm, ps_lib.web_to_mt) carries 0 tokens containing the divine name, and the psalm's whole total is 7, at MT 19:8 (x2), MT 19:9 (x2), MT 19:10 (x2) and MT 19:15 (x1, יְ֝הוָ֗ה צוּרִ֥י וְגֹאֲלִֽי). Register-only, purely cosmetic -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "The boundary_rationale carries workflow register -- a tool file name plus a description of which tool feature was and was not used -- where the register law requires prose about the text only.",
+     "grounds": "Matched prose: 'confirmed by direct verse-text inspection against the whole-psalm Yahweh count in the device inventory, not a sweep.py lexeme-index feature' (boundary_rationale). Ps strategy sec.10: no file-order or tooling talk in row prose; row prose describes the text, never the process. The digit itself is byte-true (0 divine-name tokens across MT 19:2-7; the psalm's only divine-name token inside the span is the El of MT 19:2, while יְ֝הוָ֗ה צוּרִ֥י וְגֹאֲלִֽי stands outside it at MT 19:15), so nothing but the register is defective.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale): replace the method clause with the text fact and its count object -- 'the covenant name Yahweh does not occur in web:Ps.19.1-Ps.19.6 (0 tokens across 6 verses; the psalm's 7 Yahweh tokens all fall from web:Ps.19.7)'. No span, seam or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "sec2f-texture-only-oss",
+     "claim": "Both observed_substrate_signals are divine-name counts (strategy sec.2f texture class), so the tier-1 signal the rationale actually argues -- third-person cosmic description giving way to direct address at web:Ps.19.7 -- is recorded nowhere in the row's substrate field.",
+     "grounds": "oss[0] = 'El ... is the one divine-name token in web:Ps.19.1-Ps.19.6 (sweep: 1 occurrence across 6 verses)'; oss[1] = 'Yahweh ... does not appear in web:Ps.19.1-Ps.19.6'. Both re-derive true (word-bound divine-name tokens across MT 19:2-7: exactly 1, the El at MT 19:2). But sec.2f rules divine-name texture TEXTURE ONLY, never a boundary driver by itself, with its corroborating use named for the 41|42 and 83|84 edges; the ruled tier-1 class for an internal psalm seam is an explicit speaker/addressee shift (sec.5, sec.6). That shift is byte-checkable here -- MT 19:2-7 carries no second-person form addressed to God, while the following panel names the covenant name from MT 19:8 and closes addressing him vocatively at MT 19:15 (יְ֝הוָ֗ה צוּרִ֥י וְגֹאֲלִֽי) -- and it is the rationale's own closing argument, yet it appears in neither oss entry.",
+     "span_change": false,
+     "proposed_change": "Field repair (observed_substrate_signals): add the addressee/voice-shift signal (no second-person address to God across web:Ps.19.1-Ps.19.6; direct address opens the following panel's close at web:Ps.19.14) and label the two divine-name counts explicitly as corroboration. No span or seam change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-046",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails: boundary_rationale cites the tool and its run switch -- '(sweep: 7 occurrences across 4 verses, confirmed by sweep.py --skel's verse hits and the whole-psalm inventory's yhwh:7 total)'. A tool name plus switch is process register (sec.10). TEST 2 arm: the digit re-derives TRUE -- tokens containing the divine name stand 2x at MT 19:8, 2x at MT 19:9, 2x at MT 19:10 and 1x at MT 19:15 = 7 token-occurrences across 4 verses (= web:Ps.19.7, web:Ps.19.8, web:Ps.19.9, web:Ps.19.14 by ps_lib.web_to_mt), and the whole-psalm total is likewise 7. The count object is named ('occurrences ... verses'), so this is register-only -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale names the sweep tool and its command switch as the warrant's provenance instead of stating the swept fact with its count object.",
+     "grounds": "Matched prose: 'confirmed by sweep.py --skel's verse hits and the whole-psalm inventory's yhwh:7 total'. Ps strategy sec.10 register law. The fact is byte-true (7 divine-name tokens across MT 19:8, MT 19:9, MT 19:10, MT 19:15; 0 across MT 19:11-14), so this is a disclosure/register shortfall, not an evidence defect.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale): keep 'seven token-occurrences across four verses (web:Ps.19.7, web:Ps.19.8, web:Ps.19.9, web:Ps.19.14), seven in the psalm as a whole' and drop the tool name and switch. No span change."
+    },
+    {
+     "severity": "medium",
+     "class": "sec2f-texture-as-driver",
+     "claim": "The strongest_rejected_alternative rejects the internal split at web:Ps.19.10|Ps.19.11 solely on divine-name texture -- 'one panel whose sevenfold Yahweh count marks it as one unit' -- which sec.2f bars as a boundary driver by itself, and the count's own distribution does not support the unifying inference.",
+     "grounds": "Ps strategy sec.2f: divine-name texture is 'TEXTURE ONLY -- never a boundary driver by itself'. Byte distribution across the panel: 6 of the 7 tokens stand at MT 19:8-10 (= web:Ps.19.7-Ps.19.9) and the seventh at MT 19:15 (= web:Ps.19.14); MT 19:11 and MT 19:12 (= web:Ps.19.10 and web:Ps.19.11), the two verses the rival would split between, carry no divine-name token at all -- the row's own oss[1] states exactly this for web:Ps.19.11-Ps.19.13. The count is therefore silent at the proposed seam and cannot be what marks the panel as one unit. The row's front seam is unaffected (it rests on the addressee shift shared with M8-Ps-045) and its back edge is the psalm's end, so the defect is confined to the rival's stated rejection ground.",
+     "span_change": false,
+     "proposed_change": "Field repair (strongest_rejected_alternative): re-ground the rejection on a ruled tier-1 signal -- one unbroken addressee and the law-catalogue-to-response movement running through web:Ps.19.7-Ps.19.14 with no speaker or addressee change at web:Ps.19.10|Ps.19.11 -- and demote the sevenfold count to corroboration. No span change; routes onward for adjudication."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-071",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails: boundary_rationale carries '(vv. 3, 4 x2, 5, 7, 8, 9; sweep.py --skel, token tier)' and device_notes carries '(device inventory)' -- a tool name and an inventory reference in row prose (sec.10). TEST 2 arm on the swept claim: TRUE. Skeleton tier over MT 29 (identity psalm; no dual-cite owed): the refrain ק֥וֹל יְהוָ֗ה stands 1x at MT 29:3, 2x at MT 29:4, and 1x each at MT 29:5, MT 29:7, MT 29:8 and MT 29:9 = 7 token-occurrences across 6 verses, absent only at MT 29:6 within the span and absent entirely from MT 29:1-2 and MT 29:10-11, so 'confined to this span' holds. The tier IS named adjacently ('--skel, token tier'), so the pointed display of the refrain is not a byte/verbatim overclaim. Register-only -> low. Legibility note (not a separate finding): the span web:Ps.29.3-Ps.29.9 is SEVEN verses while the prose says 'across these six verses'; the parenthetical enumerates the six carrying verses and oss[0] states it correctly as '6 of 7 verses in this span'."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "A tool name plus switch in boundary_rationale and an unnamed 'device inventory' citation in device_notes put the row's prose in workflow register.",
+     "grounds": "Matched prose: 'sweep.py --skel, token tier' (boundary_rationale) and 'Yahweh is named 18 times across the psalm's 11 verses (device inventory)' (device_notes). Ps strategy sec.10. Both underlying facts re-derive true from the staged bytes (ק֥וֹל יְהוָ֗ה 7x across MT 29:3, MT 29:4 (x2), MT 29:5, MT 29:7, MT 29:8, MT 29:9), so the shortfall is register/disclosure only.",
+     "span_change": false,
+     "proposed_change": "Field repair: state the swept fact and its count object without the tool name ('seven token-occurrences of the voice-of-Yahweh refrain across six of this span's seven verses, skeleton tier, absent only at web:Ps.29.6'). No span change."
+    },
+    {
+     "severity": "low",
+     "class": "E-05",
+     "claim": "The device_notes digit 'Yahweh is named 18 times across the psalm's 11 verses' does not name its count object, and the number is true only when prefixed forms are counted.",
+     "grounds": "Skeleton tier over MT 29:1-11: 18 tokens CONTAIN the divine name, but four of them are the prefixed לַֽ֭יהוָה class at MT 29:1 (x2) and MT 29:2 (x2); a word-bound count of the bare name gives 14. Ps strategy sec.2's count-object discipline requires every count to name what it counts, and the Ps hazard catalog lists exactly this prefix/word-bound trap. The claim is explicitly non-driving ('corroborating without driving'), so the defect is disclosure-grade.",
+     "span_change": false,
+     "proposed_change": "Field repair (device_notes): 'the divine name stands in 18 tokens across MT 29:1-11, prefixed forms included (14 as a bare word-bound token)'. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "confidence-calibration",
+     "claim": "The row rates itself high on two seams that the two neighbor rows sharing them both rate medium, while its own strongest_rejected_alternative concedes the rival reading 'is possible'.",
+     "grounds": "Both seams are byte-sound -- ק֥וֹל יְהוָ֗ה stands 7x across MT 29:3-29:9 and nowhere in MT 29:1-2 or MT 29:10-11, so the refrain's opening and its drop are real signals -- but the confidence labels across Psalm 29's three rows are inconsistent on identical seams: M8-Ps-070 (web:Ps.29.1-Ps.29.2, sharing the web:Ps.29.2|Ps.29.3 seam) is medium and concedes that 'grouping vv. 1-2 with the storm hymn as one unbroken invocation is also defensible'; M8-Ps-072 (web:Ps.29.10-Ps.29.11, sharing the web:Ps.29.9|Ps.29.10 seam) is medium and concedes that 'keeping v. 10 inside the refrain unit is possible'; this row concedes the mirror-image rival yet stands at high. Audit method step 7 (confidence must survive the row's own evidence) with step 1 (cross-row coherence).",
+     "span_change": false,
+     "proposed_change": "Adjudication only: align the three Psalm 29 rows on the shared seams -- either this row to medium or both neighbors to high. No span, seam or unit_type change proposed."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-081",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails: boundary_rationale carries '(maskil, le-David labels; psalm_device_inventory.json)' -- an inventory file name in row prose (sec.10). TEST 2 arm: every fact the row draws from that inventory and from pmarks re-derives TRUE. Ps 32 is an identity psalm whose title is the prefix of MT v1 (web_mt_offset_map rule 'identity'; verse_map_web title_is_prefix_of_mt_v1 true), so web:Ps.32.0 = oshb:Ps.32.1 is arithmetically correct and WEB Ps.32.0 reads “By David. A contemplative psalm.”; MT 32:1 carries the le-David and maskil title material ahead of the beatitude, and the row's three Hebrew splices all collate at BYTE tier at their cited refs (oshb:Ps.32.1, oshb:Ps.32.2, oshb:Ps.32.3). Selah stands verse-final at MT 32:4, MT 32:5 and MT 32:7 (3 of the book's 71), all three inside the span, and pmarks_Ps.json gives Ps 32 exactly 5 paseq segs at MT 32:4, 32:6, 32:7, 32:8, 32:9 -- the first three inside web:Ps.32.1-Ps.32.7, exactly as device_notes states, with the mandated single-witness tag present and no intra-verse position asserted (paseq is count-only). pmarks kq holds no K/Q anywhere in Ps 32, so no undisclosed K/Q crosses a quoted span. Register-only, purely cosmetic -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale cites an inventory by file name; the citation is correct in substance but is workflow register, and the named file is not part of the staged OW-2 Ps audit toolkit, so it is unresolvable for a re-runner.",
+     "grounds": "Matched prose: '(maskil, le-David labels; psalm_device_inventory.json)'. Ps strategy sec.10; under the campaign register law an inventory citation of this shape is a low-severity register defect, not an evidence defect. Substance verified independently of the named file: the maskil and le-David title material stands inside MT 32:1 for this identity psalm and WEB Ps.32.0 reads “By David. A contemplative psalm.”. The staged Ps OW-2 toolkit note records that the original Ps campaign toolkit (which held psalm_device_inventory.json) no longer exists on disk; the audit set carries pmarks_Ps.json, web_mt_offset_map.json, verse_inventory.json, ps119_letter_headers_web.json and editorial_headings_web.json. Reported as unresolvable, not searched for.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale): name the objects and their location in the bytes rather than the file -- 'the maskil and le-David title labels stand inside MT v1 (web:Ps.32.0 = oshb:Ps.32.1)'. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-087",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails on three arms. (a) boundary_rationale and oss[0] both name psalm_device_inventory.json ('Psalm 34 is acrostic (psalm_device_inventory.json: waw absent from the letter sequence)'; 'waw the acrostic's only gap per psalm_device_inventory.json'). (b) device_notes carries a writer-part reference -- 'Psalm 34's rows answer to one shared parent grouping across this part' -- which is administrative register AND mis-scopes the ruled grouping: sec.6 makes the PSALM the parent always (150 parents), never the part. (c) device_notes also carries 'continues waw-less through this psalm's remaining rows', a row-relative cross-reference that is not verse-anchored as sec.10 requires. TEST 2 arm on the substantive claim: TRUE -- byte-tier verse initials across the 22 body verses MT 34:2-23 run alef, bet, gimel, dalet, he, then zayin at MT 34:7 with no waw verse between, on to tav at MT 34:22 and a second pe at MT 34:23; waw is the only gap. Register defects, cosmetic -> low; the row's count-object overclaim is carried as its own finding."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "Three register bleeds: an inventory file name in two fields, a writer-part reference that also mis-scopes the ruled parent grouping, and a non-verse-anchored reference to the psalm's other rows.",
+     "grounds": "Matched prose: '(psalm_device_inventory.json: waw absent from the letter sequence)' (boundary_rationale), 'per psalm_device_inventory.json' (oss[0]), 'across this part' and 'through this psalm's remaining rows' (device_notes). Ps strategy sec.6 (psalm = parent always, 150 parents) and sec.10 (no positional or row references; cross-row references are verse-anchored). The acrostic facts themselves are byte-true, so all three arms are register-grade.",
+     "span_change": false,
+     "proposed_change": "Field repair (device_notes/boundary_rationale): 'Psalm 34 is this row's parent'; anchor the continuation by verse ('the acrostic continues waw-less from web:Ps.34.4 to the psalm's close at web:Ps.34.22'); state the acrostic surface as byte-checked verse initials without the file name. No span change."
+    },
+    {
+     "severity": "medium",
+     "class": "E-05",
+     "claim": "The strongest_rejected_alternative's exclusivity claim 'the psalm's one cohortative verb' is byte-false: Psalm 34 carries two he-cohortative forms, and the row's own oss states the correct count object ('the final plural-cohortative verb').",
+     "grounds": "Byte tier over MT 34:2-23: two first-person prefix-conjugation forms carry the cohortative he -- אֲבָרֲכָ֣ה at MT 34:2 (1cs, = web:Ps.34.1) and וּנְרוֹמְמָ֖ה at MT 34:4 (1cp, = web:Ps.34.3); both collate at BYTE tier at their cited refs. No other candidate qualifies (MT 34:9's yechese is a III-he 3ms imperfect; MT 34:21's nishberah is a 3fs Niphal perfect). So 'the psalm's one cohortative verb' fails as written, while the parenthetical 'it occurs exactly once in the psalm' is true only of the token וּנְרוֹמְמָ֖ה. Load-bearing check: the corrected count object does NOT damage the rival's rejection -- both cohortatives stand inside this row's own span web:Ps.34.1-Ps.34.3 and neither recurs from web:Ps.34.4 on, where MT 34:5 opens 1cs testimony -- so the seam and the rejection survive once the object is named. The row contradicts itself between fields, which is what lifts this above a wording nit.",
+     "span_change": false,
+     "proposed_change": "Field repair (strongest_rejected_alternative): name the count object as the row's own oss already does -- 'the psalm's one 1cp cohortative, וּנְרוֹמְמָ֖ה (oshb:Ps.34.4 = web:Ps.34.3), stands inside this row's span and no cohortative of either person recurs from web:Ps.34.4 on'. No span change; routes onward as a medium."
+    },
+    {
+     "severity": "low",
+     "class": "unsourced-cross-book-identification",
+     "claim": "device_notes identifies the title's Abimelech as '1 Sam 21 material', an out-of-corpus harmonization the Ps-scoped staged tools cannot decide and the title's own bytes do not state.",
+     "grounds": "device_notes: 'The historical title names Abimelech (1 Sam 21 material, kept as title text and not quoted as narrative)'. WEB Ps.34.0 and MT 34:1 name Abimelech and nothing else; identifying that episode with another book's narrative is a scholarly harmonization, not a byte fact, and sweep/collate are book-internal -- the same undecidability class the strategy's sec.11 OL-c28 note rules on (scope such a claim explicitly or drop it). Ps strategy sec.2a's own treatment stops at 'historical-note titles are title material, not narrative rows', which the row otherwise follows correctly.",
+     "span_change": false,
+     "proposed_change": "Field repair (device_notes): drop the cross-book identification or scope it ('the title names Abimelech; the episode it alludes to lies outside this corpus and is not used as evidence'). No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-091",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 fails: the inventory file name appears in three fields -- boundary_rationale ('a closing pe beyond the standard 22-letter sequence (psalm_device_inventory.json)'), oss[1] ('the acrostic's trailing extra letter per psalm_device_inventory.json') and device_notes ('both are surface data from psalm_device_inventory.json'). Ps strategy sec.10 register law. TEST 2 arm: TRUE -- byte-tier verse initials run ayin (MT 34:16), pe (MT 34:17), tsade (MT 34:18), qof (MT 34:19), resh (MT 34:20), shin (MT 34:21), tav (MT 34:22) across web:Ps.34.15-Ps.34.21 unbroken, and MT 34:23 (= web:Ps.34.22) opens with a second pe after tav; the waw gap the row cross-references sits between MT 34:6 (he) and MT 34:7 (zayin) (= web:Ps.34.5 and web:Ps.34.6). Both Hebrew splices collate at BYTE tier at oshb:Ps.34.16 and oshb:Ps.34.23, and every dual-cite in the row is arithmetically correct for this shift+1 psalm. No PE/SAMEKH seg claim is made anywhere in the row -- the bare pe is used only as an acrostic letter, which is correct for Ps, where WLC carries no petuchah/setumah layer at all. Register-only -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "An inventory file name stands in three of the row's fields where the acrostic surface could be stated as byte-checked verse initials.",
+     "grounds": "Matched prose in boundary_rationale, oss[1] and device_notes (all 'psalm_device_inventory.json'). Ps strategy sec.10. Every fact so cited re-derives true from the staged bytes (ayin through tav at MT 34:16-22, the extra pe at MT 34:23, waw the only gap across the 22 body verses MT 34:2-23), so the shortfall is register/disclosure only.",
+     "span_change": false,
+     "proposed_change": "Field repair: state the acrostic surface as byte-checked verse initials with their dual-cites and drop the file name from all three fields. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "prose-implicature-not-in-bytes",
+     "claim": "The boundary_rationale's 'with no vocative or imperative until the acrostic runs pe through tav' implicates that a vocative or imperative resumes at that run; no vocative and no imperative stands anywhere in the row's span.",
+     "grounds": "Byte tier over MT 34:16-23 (= web:Ps.34.15-Ps.34.22): no vocative and no imperative form occurs at all. The nearest look-alike, צָעֲק֣וּ at MT 34:18 (= web:Ps.34.17), is a 3cp qatal ('they cried', rendered as a plural indicative in WEB), not a 2mp imperative; the psalm's imperatives stand earlier, at MT 34:4, MT 34:9 and MT 34:12-15, all outside this span. The row's own oss states the span correctly without the 'until' construction, so this is a phrasing defect, not a warrant defect.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale): 'with no vocative or imperative anywhere in the span, the acrostic running ayin through tav (web:Ps.34.15-Ps.34.21) before the extra-alphabetic pe verse at web:Ps.34.22'. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-092",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:session_wave_reference",
+     "disposition": "not_a_defect",
+     "grounds": "The matched phrase 'this cycle' in strongest_rejected_alternative ('it reads as this cycle's close rather than a fresh movement') denotes a literary unit of Psalm 35 -- the petition-to-vow cycle -- not a session, wave or authoring pass; the retro-scan match is a false positive of the session/wave class. TEST 1: the prose describes the text, not the process. TEST 2 arm: the cross-unit claim it carries is verse-anchored as sec.10 requires and re-derives TRUE -- the three vow returns stand at MT 35:9 (וְ֭נַפְשִׁי תָּגִ֣יל בַּיהוָ֑ה תָּ֝שִׂישׂ בִּישׁוּעָתֽוֹ; WEB “My soul shall be joyful in Yahweh. It shall rejoice in his salvation.”, web:Ps.35.9), MT 35:18 and MT 35:27-28 in an identity psalm needing no dual-cite, and the row cites them as web:Ps.35.18 and web:Ps.35.27-Ps.35.28. No register violation on this tag."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "wrong-token-splice",
+     "claim": "observed_substrate_signals[1] labels בַּיהוָ֑ה a vow verb and glosses it 'shall be joyful'; בַּיהוָ֑ה is the preposition-plus-divine-name phrase 'in Yahweh', and the verb carrying that gloss is תָּגִ֣יל.",
+     "grounds": "MT 35:9 reads וְ֭נַפְשִׁי תָּגִ֣יל בַּיהוָ֑ה תָּ֝שִׂישׂ בִּישׁוּעָתֽוֹ (WEB “My soul shall be joyful in Yahweh. It shall rejoice in his salvation.”, web:Ps.35.9; identity psalm). Token order: תָּגִ֣יל is the verb 'shall be joyful', בַּיהוָ֑ה the prepositional phrase 'in Yahweh', תָּ֝שִׂישׂ the second vow verb 'shall rejoice'. The splice is byte-valid (it collates at BYTE tier at oshb:Ps.35.9) but is semantically the wrong word for the claim, and quote/gloss parity fails: a two-item list of 'vow verbs' pairs one real verb with a prepositional phrase. The row's own boundary_rationale gets it right, splicing the verse's opening run and glossing it as the vow, so the row contradicts itself between fields. The seam is unaffected -- the mood does turn from imprecation to vow at web:Ps.35.9, and the row's other substrate signal (the imperative cluster at MT 35:1-3, all three splices byte-collated) is true -- so the defect is a defective recorded warrant, not a boundary error.",
+     "span_change": false,
+     "proposed_change": "Field repair (observed_substrate_signals[1]): 'the vow verbs תָּגִ֣יל and תָּ֝שִׂישׂ (oshb:Ps.35.9) replace the imprecative mood of web:Ps.35.4-Ps.35.8'. No span change; routes onward as a medium."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-093",
+   "verdict": "clean",
+   "triggers": [
+    {
+     "tag": "reg:session_wave_reference",
+     "disposition": "not_a_defect",
+     "grounds": "The matched phrase 'this cycle' in strongest_rejected_alternative ('it functions as this cycle's petition climax feeding straight into the web:Ps.35.18 vow') names the psalm's second petition-to-vow cycle -- a literary unit of the text, not a session or wave; the retro-scan match is a false positive of the session/wave class. TEST 1: the prose describes the text. TEST 2 arm: the claim re-derives TRUE and is verse-anchored -- MT 35:17 (= web:Ps.35.17, identity psalm) is the direct-address petition climax and MT 35:18 the vow of praise, both quoted verbatim from WEB with in-field web: refs, and device_notes anchors the pattern at web:Ps.35.9-Ps.35.10 and web:Ps.35.11-Ps.35.12 by verse as sec.10 requires. Fresh primary review found nothing else: the Hebrew splice at oshb:Ps.35.11 collates at BYTE tier, the new-subject claim it anchors is true (the verse's subject is the witnesses of violence), the row's seams tile with M8-Ps-092 and M8-Ps-094 across the psalm's 28 verses, and Psalm 35 carries no selah and no K/Q for this span to disclose (pmarks_Ps.json)."
+    }
+   ],
+   "findings": []
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 1,
+  "defect_rows": 7,
+  "findings": {
+   "low": 11,
+   "medium": 3,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 8,
+   "confirmed_defect": 6,
+   "not_a_defect": 2
+  }
+ }
+}

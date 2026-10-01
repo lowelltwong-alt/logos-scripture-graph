@@ -1,0 +1,152 @@
+schema_version: m8_corrective_rereview_contract.v1
+contract_id: M8_fable_chunk_level_challenge_mesh
+contract_revision: m8-mesh-r2
+revision_history:
+  - revision: m8-mesh-r1
+    date: 2026-07-30
+    note: >
+      Adopted the provider-neutral core of the M7 method contracts
+      (corrective_rereview_contract.v1.yaml revision m7-thin-rereview-r1 and
+      review_contract.yaml revision 2) as M8_fable's operating method: two artifact-blind
+      role-separated primaries per decision, peer crosscheck, author response to every
+      challenge, decision-local boss rulings, append-only appeals, role-separated
+      post-resolution check, hash-bound packets, anti-batch gates, exact-coverage and
+      review-parity validators. Method only; no M7 answers read.
+  - revision: m8-mesh-r2
+    date: 2026-07-30
+    note: >
+      Owner contract addendum (Lowell Wong): scribal/editorial layer evidence weights.
+      Recorded verbatim below; binding from Genesis (current book, in flight) forward and
+      for all NT books. No re-runs of already-completed reviews; the addendum governs all
+      NEW review artifacts (author responses, boss rulings, revision reviews, postchecks).
+  - revision: m8-mesh-r3
+    date: 2026-08-05
+    note: >
+      Owner-authorized token-efficient mesh restructure (Lowell Wong, 2026-08-05, in-chat
+      during the 2Chr cycle): 2Chr COMPLETES under the r2 shape so its receipt chain stays
+      internally consistent; r3 binds from the NEXT book (Ezra) onward. Evidence basis:
+      2Chr layer audit — all 5 high-severity finds came from the round-1 blind duals;
+      the 32-agent rev re-review yielded 0 highs and mostly machine-checkable classes;
+      ~120 subagents each rebuilt identical verification tooling. See
+      mesh_structure_r3 below. Quality floors unchanged: m8-mesh-r2 evidence weights,
+      anti-batch gates, blind decorrelated round-1 primaries, boss rulings, exact-coverage
+      validators, CYCLE_STATE checkpoint discipline all stay.
+status: candidate_in_use
+candidate_only: true
+non_authorizing: true
+promotion_authority: none
+scope:
+  model_id: M8_fable
+  applies_from: Gen (first book; in flight at addendum receipt) onward, and all NT books
+  forbidden_inputs: [M1-M6 outputs, M7_sol answers, comparison/, T417 model layers]
+owner_addendum_scribal_editorial_layer_weights:
+  issued_by: Lowell Wong
+  received: 2026-07-30
+  no_reruns: true
+  completed_books_not_revisited: true
+  marker_only_packets_queue_note: >
+    Previously identified marker-only packets are queued for convergence-time review,
+    not re-work.
+  rules:
+    boundary_driving_evidence_text_signals_only:
+      - speech_or_messenger_formulas
+      - superscriptions_and_colophons
+      - scene_participant_location_change
+      - inclusio_refrain_acrostic
+      - discourse_frames
+      - protasis_apodosis
+      - list_register_formulas
+    strong_corroboration_never_sole_driver:
+      - petuchah_in_torah
+      - disjunctive_accents_atnach_silluq_zaqef
+      note: distinguish petuchah from setumah; never conflate
+    weak_corroboration:
+      - setumah
+      - parashot_in_prophets_and_writings
+    never_boundary_evidence_metadata_only:
+      - chapter_divisions
+      - verse_divisions
+      - modern_section_headings
+      - na28_ubs_paragraphing
+      - wj_red_letter
+      - cross_references
+      - footnotes
+      - strongs
+      nt_binding_note: >
+        Binding for the entire NT: there is no Masoretic layer there, and modern
+        editorial paragraphing must not be treated as ancient structure.
+    symmetry:
+      marker_only_claim_is_insufficient_evidence_in: [challenge, defense, boss_ruling]
+      absence_of_marker_is_never_counter_evidence: true
+      single_witness_wlc_marker_claims_must_disclose_manuscript_variance: true
+application_notes_for_genesis_in_flight:
+  - Completed primary and peer reviews are preserved as-is (no re-runs).
+  - Author responses, boss rulings, revision reviews, and postchecks apply the addendum.
+  - Boss rulings must reweigh marker-only challenge grounds to insufficient_evidence and
+    must not treat marker absence as counter-evidence in either direction.
+mesh_structure_r3:
+  applies_from: Ezra onward (2Chr closed under the r2 shape)
+  owner_authorization: Lowell Wong, 2026-08-05
+  budget_target_per_book: ~10M subagent tokens (was ~24M at 2Chr) at equal-or-better quality
+  phase_0_addition_shared_toolkit:
+    note: >
+      Built ONCE per book by the orchestrator at staging, in SP/<Book>/tools/. Every
+      brief instructs agents to USE these and forbids rebuilding them. Contents:
+      verse-map JSONs for both witnesses (WEB parsed WITH paragraph-continuation
+      folding; OSHB keyed by ref), quote collator (byte + NFD + accent-stripped +
+      skeleton tiers), WEB-quote verbatim checker, refs-mirror checker (argued
+      verses/comparanda vs boundary_evidence_refs), mark-disclosure symmetry checker
+      (all interior+edge marks vs pmarks, casing normalized), dual-cite arithmetic
+      checker for the book's offset zones, cached consonantal index + sweep tool,
+      7-gram scanner (Hebrew-quotation-aware), universal-claim detector (flags
+      only/always/never/unique/densest/first/sole lacking an adjacent sweep citation).
+  validator_suite:
+    note: >
+      The machine-checkable review classes graduate from model review to Tier-0
+      validators run by the orchestrator: Hebrew byte-collation, WEB-quote fidelity,
+      refs-mirroring, mark disclosure+casing, dual-cite arithmetic, duplicate refs,
+      unswept-universal flags. Run over draft rows BEFORE primaries and over revised
+      rows INSTEAD of a full rev re-review. Models review only what machines cannot:
+      seam warrants, device identification, rival quality, calibration.
+  round_shapes:
+    writers: unchanged (sonnet part-writers over tier-1 seams, ~60-90 vv/part)
+    primaries_round1: >
+      UNCHANGED dual blind LF(sonnet)+OL(opus) per cluster — this layer produced
+      every high-severity find across 1Chr and 2Chr; decorrelation stays.
+      Briefs now point at the shared toolkit (no tool-building).
+    peer: >
+      SCOPED: challenged rows + ~10% sample of supported rows; one peer agent per
+      ~2 clusters (about half the r2 count). Rulings + reconciliation + remedies
+      unchanged in form.
+    author: >
+      Unchanged in form, but briefs FORBID re-deriving peer-verified facts (trust
+      + spot-check n<=5 per part); authors consume peer remedies as work orders.
+    rev_round: >
+      REPLACED: (a) validator suite re-run over all revised rows (catches the
+      mechanical regression classes with full recall); (b) ONE targeted spot-review
+      wave, 6-8 mixed-role agents with the second-generation checklist (repair-
+      installed universals, warrant substitutions, cross-row contradictions,
+      repair-narration register bleed), scoped ONLY to rows whose repairs touched
+      warrants/spans-adjacent argumentation — not rows with refs/gloss-only edits.
+      Cure-verification for refs/gloss/mark items comes from the validators.
+    micro_round_finalize_postcheck: >
+      Micro round unchanged (small). Postcheck: validator suite + ONE model
+      postcheck agent (was 3). Sidecar/audit per owner haiku routing unchanged.
+  second_generation_checklist:
+    - repair-installed unswept universals (the 103/104/107/166 class)
+    - warrant substitution that weakens or contradicts the row's own evidence
+    - cross-row consistency (same seam argued incompatibly by neighbors)
+    - repair-narration register bleed into frozen prose
+    - quote-span/gloss overshoot introduced at repair sites
+  agent_hygiene:
+    - each agent works in a UNIQUELY-NAMED private subdirectory of its session scratchpad
+    - never write scratch into SP/<Book>; never reuse bare filenames at scratch root
+    - briefs carry the paragraph-continuation warning and the staged-toolkit pointer
+non_authorizations:
+  - reviewed_gold
+  - chunk_output_promotion
+  - theology
+  - canon_or_authorship
+  - preferred_translation_or_reading
+  - source_tradition_choice
+  - graph_retrieval_or_vector_truth

@@ -1,0 +1,112 @@
+{
+ "cluster": "c47",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c47_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-310",
+   "row_sha256": "a789975ef9af527e7f1d11adebdcbcd90f1d007d0a394cded664084c8f52e1aa",
+   "verdict": "challenge",
+   "reasoning": "Span and parent are sound. Ps 98 is a WEB=MT identity psalm with its title embedded in MT v1 (web_mt_offset_map.json: rule=identity, web_title=true); web:Ps.98.0 = oshb:Ps.98.1 is arithmetically correct and citation_sweep.py raises no dual-cite problem on this row. psalm_device_inventory.json's genre_label_membership confirms Ps 98 carries mizmor as its ONLY genre label across all 30 label classes (the p22 erratum correctly removed an earlier false shir membership for 98) -- the row's claim that the title 'carries no second label word' is factually correct. The 98:3|98:4 seam is a genuine tier-1 speech-act boundary: third-person narration of Yahweh's acts (98:1-3) gives way to second-person-addressed imperatives (98:4-9); check_refs_mirror.py confirms every outside-span verse mentioned in prose (98:4-9, 96:1) is mirrored into boundary_evidence_refs. confidence=high is justified given the clean grammatical-person split with no competing reading. Two evidence-hygiene defects remain (both tool-confirmed), neither of which touches the span or the boundary itself.",
+   "challenges": [
+    {
+     "challenge_id": "LF-310-1",
+     "severity": "low",
+     "claim": "\"carries no second label word before the verse's own content begins\" is an unqualified absence/universal claim with no adjacent digit-bearing sweep count naming its unit.",
+     "evidence": "check_universals.py flags rows[0].observed_substrate_signals[0] (\"carries no second label word...\") as an unswept universal. The underlying claim is independently confirmed true against psalm_device_inventory.json's genre_label_membership (Ps 98 appears in exactly 1 of 30 label lists: mizmor; 0 co-occurring labels), but the row cites no count -- TOOLKIT.md's count-object discipline requires the digit-bearing sweep be adjacent to the claim, not merely derivable."
+    },
+    {
+     "challenge_id": "LF-310-2",
+     "severity": "low",
+     "claim": "The row tags two Hebrew spans (98:1's clause, 96:1's clause) each individually \"byte:\" and calls them \"the same four-word new-song clause,\" but the cross-verse equivalence being asserted is only skeleton-tier true, not byte-tier true.",
+     "evidence": "Independently recomputed with ps_lib.skeleton/strip_accents/collate_hebrew: the two clauses (98:1 words 2-5; 96:1 words 1-4) are skeleton-identical (consonants match) but NOT byte-identical (98:1's clause spans 33 source characters including points, 96:1's spans 32) and NOT even accent_stripped-identical (a pointing/meteg difference survives accent stripping) -- collate_hebrew(98:1-clause, 96:1-clause) returns tier='skeleton', never 'byte'. TOOLKIT.md's TIER/ORDINAL DISCIPLINE requires the tier actually supporting a claim be named; tagging both spans \"byte:\" beside the word \"same\" overstates the tier for the formula-reuse claim being made (which is legitimate at skeleton/formula level, not byte level)."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-311",
+   "row_sha256": "3a2e0ad2861edf9a355a73764e03d57bdc7b66814021d6b9e8ffa608abcb19ce",
+   "verdict": "challenge",
+   "reasoning": "The 98:4-9 imperative-to-cosmic movement and the judgment-formula close at 98:9 are solid tier-1 material, and every Hebrew quote in the row (98:4, 98:9, 96:13) collates at byte tier against its cited MT verse (re-verified independently, all byte). The row's central move -- that 98:9 is NOT a verbatim repeat of 96:13's closing formula -- is independently confirmed: the two verses differ in length (98:9 = 105 chars, 96:13 = 115), and only 96:13 carries a repeated two-word skeleton run (the 'for he comes' clause doubles in 96:13; it does not repeat in 98:9), exactly as the row claims. confidence=high is justified: the rejection is grounded in an actual byte-tier collation, not assertion. One register defect: the same rejected_alternative sentence quotes real WEB wording in the wrong delimiter, evading the verbatim-quote checker.",
+   "challenges": [
+    {
+     "challenge_id": "LF-311-1",
+     "severity": "medium",
+     "claim": "WEB-verbatim English ('for he comes') is set in single curly quotes (U+2018/2019) rather than the mandated double curly quotes with an inline web: ref, evading the verbatim-quote checker; two further glosses in the same sentence ('his truth', 'equity') carry the same non-conforming delimiter.",
+     "evidence": "check_web_quotes.py flags rows[1].rejected_alternative, quote \"for he comes\": \"verbatim WEB text in SINGLE curly quotes (delimiter evasion -- rows use double curly + inline web: ref)\". PRIMARY_BRIEF.md's PACKET QUOTE CONVENTION and TOOLKIT.md's OL-c13/OL-c20 reserve curly double quotes for WEB text only; this is exactly the OL-c29 hazard class TOOLKIT.md names (WEB-looking English in single curly quotes evading the double-curly scanner)."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-312",
+   "row_sha256": "1d7ab3b15d8b4ced29360b242febaa552c8e34dee75fb5dfcb21e89b4131f311",
+   "verdict": "support",
+   "reasoning": "Ps 99 carries no WEB title: web_mt_offset_map.json shows web_title=false for ch.99, Ps.99.0 is absent from verse_map_web.json, and psalm_device_inventory.json's genre_label_membership lists no label for 99 -- the row correctly cites no title evidence (unlike its neighbors 98/100/101). The yhwh-malak verse-initial opening (99:1) and the 'He is Holy!' refrain close (99:3) are genuine tier-1 openers/closers. The sweep claim (2 verse-initial instances at 97:1/99:1, a third differently-formed instance at 96:10) is independently confirmed: recomputed skeleton first-words show 97:1 and 99:1 both open with the same two-word form, while 96:10 opens with a different two-word form entirely (a summons clause, not the reign formula) -- consistent with 'differently-formed' rather than a fourth matching instance. The 99:3|99:4 seam (third-person to second-person royal-justice address) is a solid independent driver, distinct from the psalm's own titled-opening argument used elsewhere in the cluster. check_refs_mirror.py and citation_sweep.py raise nothing on this row, and check_universals.py does not flag it. confidence=high is justified. No defects found.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-313",
+   "row_sha256": "c74356ef40a52d229e6d67c6798f9469ce470b34e16abbb6456695542baf6e77",
+   "verdict": "challenge",
+   "reasoning": "The person-shift boundary at 99:3|99:4 and the refrain-closing claim are well-grounded. Independently recomputed: the closing two Hebrew tokens of 99:3 and 99:5 are raw-byte identical (same 14-character span, verified directly against verse_map_oshb.json, not merely skeleton-equal), confirming the row's 'collate: 2 verses match at byte tier' claim exactly. The seam (99:4's second-person address has no antecedent vocative in the third-person 99:1-3) and the unit_type are sound; confidence=high is justified for a boundary this cleanly marked. One evidence-hygiene defect: the rejected_alternative's justification rests on an unswept universal/absence claim.",
+   "challenges": [
+    {
+     "challenge_id": "LF-313-1",
+     "severity": "low",
+     "claim": "\"has no antecedent vocative in 99:1-3, which stays third-person throughout\" is an unqualified absence claim over a 3-verse span with no adjacent digit-bearing sweep naming its unit (verses checked / vocative occurrences found).",
+     "evidence": "check_universals.py flags rows[3].rejected_alternative twice for this sentence (the 'no antecedent vocative' clause and the trailing 'throughout'). TOOLKIT.md's count-object discipline requires every universal claim carry an adjacent digit-bearing sweep naming its unit; this sentence names neither a verse count nor an occurrence count for the absence it asserts."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-314",
+   "row_sha256": "702ba46114f3d7bbcc05d61a2d41fb2060ce97c9628411534d8cfe8fc58d87d6",
+   "verdict": "support",
+   "reasoning": "The historical-recollection shift at 99:6 (naming Moses and Aaron, then Samuel through 99:7) and the second-person address pivot at 99:8 are genuine tier-1 internal drivers. The refrain-widening claim at 99:9 is independently confirmed: the closing clause collates at byte tier against oshb:Ps.99.9 (re-verified), its raw tail token-span is longer than 99:3/99:5's tail (19 characters vs. 14), and the row correctly declines to call it a fourth verbatim repetition -- the rejected_alternative explicitly and correctly states the byte-tier collation diverges, which matches direct recomputation. No register violations, no unswept universals (not flagged by check_universals.py), and check_refs_mirror.py raises nothing -- both cross-references to 99:3 and 99:5 are present in boundary_evidence_refs. confidence=high is justified. No defects found.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-315",
+   "row_sha256": "7be2ad751ca71c9ada54bbcf76f944ef9d465dfe2576bb1d4a7c71177ca97dfc",
+   "verdict": "challenge",
+   "reasoning": "Psalm 100 is explicitly named in the book strategy (the owner-ruled row-granularity policy) as a canonical whole_psalm example among the short indivisible psalms, so unit_type=whole_psalm is policy-correct, not merely defensible. The title (mizmor + letodah, rendered 'A Psalm of thanksgiving') is confirmed against psalm_device_inventory.json's genre_label_membership (100 appears in both letodah and mizmor) and correctly dual-cited web:Ps.100.0 = oshb:Ps.100.1 (citation_sweep.py: no problem). The ketiv/qere disclosure at 100:3 is confirmed against pmarks_Ps.json's kq inventory (Ps.100.3 carries exactly 1 K/Q note) and is disclosed in the same field it is quoted in (observed_substrate_signals) -- unlike a sibling defect found elsewhere in this cluster. The selah-absence claim is confirmed: pmarks_Ps.json's selah inventory has zero entries across all of Ps 98-101, so certainly none in Ps 100. confidence=medium is reasonable given no internal seam is being argued away with strong tier-1 material -- the row is arguing an absence of seams, which is inherently a softer claim than arguing a seam's presence. One evidence-hygiene defect in the rejected_alternative.",
+   "challenges": [
+    {
+     "challenge_id": "LF-315-1",
+     "severity": "low",
+     "claim": "\"with no vocative or addressee change\" is an unqualified absence claim across 100:1-3 with no adjacent digit-bearing sweep.",
+     "evidence": "check_universals.py flags rows[5].rejected_alternative for this phrase. The underlying point is plausible (both spans address the same 'all you lands' summons) but is asserted, not swept, contrary to TOOLKIT.md's count-object discipline."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-316",
+   "row_sha256": "ffa9e81d48e1db075e27d02d16f29b77b89c19b6b9f2ed4eb9cc21425aecd91e",
+   "verdict": "support",
+   "reasoning": "The title (le-David + mizmor, rendered 'A Psalm by David') is confirmed against psalm_device_inventory.json's genre_label_membership (101 appears in both le_david and mizmor) and correctly dual-cited web:Ps.101.0 = oshb:Ps.101.1 (citation_sweep.py: no problem). The first-person vow/resolve register of 101:1-4 is internally consistent -- the byte quote at 101:2 collates at byte tier against oshb:Ps.101.2 (re-verified) -- and the rejected_alternative's addressee-object-shift argument at 101:5 (the psalmist's own conduct versus conduct enforced against others) is a legitimate tier-1 driver, correctly mirrored via web:Ps.101.5 in boundary_evidence_refs (check_refs_mirror.py: no flag). No universal-claim issue: 'all 8 verses' in the rejected_alternative is a plain digit-bearing description of the whole psalm's own length, not an unswept universal (check_universals.py does not flag this row). No register violations. confidence=medium is a defensible, non-inflated call for a strophe split resting on one addressee-shift driver rather than a doubled seam. No defects found.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-317",
+   "row_sha256": "f5f36d5b38a7c1565993d81c97b0ff2b68b10a89588f3866a4e9c7e798bf8007",
+   "verdict": "challenge",
+   "reasoning": "The addressee-object shift at 101:5 is the same well-grounded seam argued from the other side in the psalm's preceding strophe, and the internal movement (naming slanderers, then deceivers, closing on the morning-purge formula at 101:8) is coherent tier-1 material with a clean parent grouping. The ketiv/qere claim is confirmed against pmarks_Ps.json (Ps.101.5 carries exactly 1 K/Q note) -- but its disclosure is split across the row: observed_substrate_signals correctly labels the pair 'ketiv/qere,' while the SAME quoted pair (the defective spelling beside the pointed form) appears a second time in the rationale field with no ketiv/qere language anywhere in that field. confidence=medium is reasonable. Two defects: the split K/Q disclosure and a register-purge violation in the rejected_alternative.",
+   "challenges": [
+    {
+     "challenge_id": "LF-317-1",
+     "severity": "medium",
+     "claim": "The rationale field quotes the ketiv/qere pair at 101:5 (the unpointed defective spelling beside the pointed qere) with no ketiv/qere disclosure language anywhere in that field, even though the same pair IS disclosed in observed_substrate_signals.",
+     "evidence": "citation_sweep.py's Hebrew-quote-binding arm flags: \"M8-Ps-317: Hebrew quote in row.rationale binds to K/Q verse oshb:Ps.101.5 with no ketiv/qere disclosure in-field.\" PRIMARY_BRIEF.md states 'K/Q verses disclosed when quoted' as a flat rule (68 notes / 65 verses in pmarks_Ps.json), not scoped away from field boundaries the way some other conventions are; a reader of the rationale field alone sees two differently-spelled Hebrew strings for the same word with no explanation."
+    },
+    {
+     "challenge_id": "LF-317-2",
+     "severity": "low",
+     "claim": "\"the parent grouping stated at this psalm's opening row\" is a positional cross-row reference rather than the verse-anchored form the campaign mandates.",
+     "evidence": "TOOLKIT.md's REGISTER PURGE (Job lesson h, widened list) bans 'positional row references (\"the row before this one\")... in row prose EVER,' requiring cross-row references to be verse-anchored instead (e.g. 'the seam at 41:13|42:1'). This row's rejected_alternative names 'this psalm's opening row' rather than an anchor such as '101:1' or '101:4|101:5.'"
+    }
+   ]
+  }
+ ]
+}

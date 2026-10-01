@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import hashlib,json
+from pathlib import Path
+MODEL=Path(__file__).resolve().parents[1]; BOOK='Hos'; EXPECTED='dd0d6d90b39704b01de3d4d9aba7cd62715fbed46b64cc509380b0e6ecbbb0ab'; SIDES=('low_confidence_register.jsonl','frontier_escalation_queue.jsonl','atlas_candidate_feed.jsonl')
+def jl(p): return [json.loads(x) for x in p.read_text(encoding='utf-8').splitlines() if x.strip()]
+def req(c,m):
+ if not c: raise SystemExit('FAIL: '+m)
+cp=MODEL/'book_chunks'/BOOK/'chunks.jsonl'; rp=MODEL/'reviews'/BOOK; chunks=jl(cp); packets=jl(rp/'review_packets.jsonl'); rels=jl(rp/'decision_relations.jsonl'); sha=hashlib.sha256(cp.read_bytes()).hexdigest()
+req(sha==EXPECTED,'chunk SHA'); req(len(chunks)==30,'chunk count'); req([x['chunk_index_in_book'] for x in chunks]==list(range(1,31)),'indices'); req(all(x['confidence']=='low' and x['candidate_hold_state']=='deferred_human_or_external_ai' for x in chunks),'LOW holds'); req(all(x['candidate_only'] and x['non_authorizing'] for x in chunks),'authority'); req(all('reviews/Hos/blind_proposal_literary_fresh_v1.json' in x['boundary_evidence_refs'] and 'reviews/Hos/blind_proposal_literary_v1.json' not in x['boundary_evidence_refs'] for x in chunks),'contamination exclusion')
+req(len(packets)==30,'packet count'); challenges=[c for p in packets for pr in p['primary_reviews'] for c in pr['challenges']]; ids=[c['challenge_id'] for c in challenges]; peer=[x for p in packets for x in p['peer_crosscheck']['disputed_claim_ids']]; responses=[x for p in packets for x in p['sol_resolution']['challenge_responses']]; rids=[x['challenge_id'] for x in responses]
+req(len(ids)==len(set(ids))==90,'challenge uniqueness'); req(sorted(peer)==sorted(ids),'peer parity'); req(sorted(rids)==sorted(ids),'response parity'); req(all(p['boss_ruling']['outcome']=='retain_larger_low' and not p['boss_ruling']['forced_consensus'] for p in packets),'boss ruling'); appeals=[x for p in packets for x in p['appeals']]; req(len(appeals)==30 and all(x['status']=='unresolved_append_only' for x in appeals),'appeals'); req(all(p['final_state']=='deferred_human_or_external_ai' for p in packets),'final state')
+req(len(rels)==12 and all(x['non_authorizing'] and not x['boundary_authority'] for x in rels),'relations')
+side={}
+for n in SIDES:
+ br=[x for x in jl(MODEL/n) if x.get('book')==BOOK]; side[n]=len(br); req(len(br)==30,n)
+by={x['decision_id']:x['span'] for x in chunks}; hard={'M7_sol-Hos-003':'Hos.1.10-Hos.2.1','M7_sol-Hos-011':'Hos.5.8-Hos.5.15','M7_sol-Hos-012':'Hos.6.1-Hos.6.3','M7_sol-Hos-013':'Hos.6.4-Hos.6.11','M7_sol-Hos-014':'Hos.7.1-Hos.7.7','M7_sol-Hos-024':'Hos.11.12-Hos.12.6','M7_sol-Hos-027':'Hos.13.9-Hos.13.16','M7_sol-Hos-028':'Hos.14.1-Hos.14.3','M7_sol-Hos-029':'Hos.14.4-Hos.14.8','M7_sol-Hos-030':'Hos.14.9-Hos.14.9'}; req(all(by[k]==v for k,v in hard.items()),'hard spans')
+peer_e=json.loads((rp/'peer_crosscheck_evidence_v1.json').read_text(encoding='utf-8')); req(peer_e.get('frozen_chunks_sha256')==EXPECTED or peer_e.get('frozen_candidate',{}).get('sha256')==EXPECTED,'peer frozen SHA'); dcs=peer_e.get('decision_challenges') or peer_e.get('challenges') or []; req(len(dcs)==30,'peer decision challenges'); blob=json.dumps(peer_e,ensure_ascii=False).lower(); req('contamin' in blob and ('non-vote' in blob or 'non_vote' in blob or 'excluded' in blob),'peer contamination exclusion'); req(peer_e.get('forced_consensus') is False or peer_e.get('preservation_audit',{}).get('forced_consensus') is False or peer_e.get('consensus_policy',{}).get('forced_consensus') is False,'peer forced consensus')
+print(json.dumps({'verdict':'PASS','chunks_sha256':sha,'chunks':30,'formal_challenges':90,'appeals':30,'relations':12,'sidecars':side,'hard_spans':hard,'contaminated_primary_excluded':True,'forced_consensus':False,'non_authorizing':True},sort_keys=True))

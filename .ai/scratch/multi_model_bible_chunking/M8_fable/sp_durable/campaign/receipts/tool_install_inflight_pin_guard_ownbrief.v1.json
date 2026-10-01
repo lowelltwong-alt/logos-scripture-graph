@@ -1,0 +1,91 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "tool": "campaign/_inflight_pin_guard.py",
+ "change": "an execution's own brief, and everything that brief's input table pins, are pinned by it while it runs",
+ "installed_at": "2026-09-15T13:46:18.154907+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "authority": "OW-11 addendum, authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan",
+ "defect": {
+  "found": "2026-09-15, during the c01 primaries pilot; re-measured with eight executions in flight",
+  "class": "a safety control that fails OPEN, weaker than the hand-written playbook line it exists to enforce",
+  "observed": "with eight primaries in flight the guard returned CLEAR on Ezek/PRIMARY_BRIEF_LF.md, Ezek/PRIMARY_BRIEF_OL.md, Ezek/repair/rows_v7_cwo24.jsonl and Ezek/review_clusters.json - the brief each agent is reading and the corpus and cluster plan each agent binds by digest",
+  "root_cause": "pins_for only parsed files that NAME the execution. PRIMARY_BRIEF_LF.md is shared by all 22 literary-form primaries, names none of them, carries no template id and does not list itself, so neither the brief nor ANY line of its input table was ever reachable for a primary. The earlier rules (execution id, template id, attempt-id fallback) all key on the brief naming the agent; nothing keyed on the agent naming the brief.",
+  "blast_radius_if_unfixed": "any orchestrator write to the v7 corpus, the cluster plan, the device inventory or either brief during a 36-execution wave would have passed the guard and silently broken 8-16 running reviewers' digest bindings at once - the OW-11-i incident that created this tool, at wave scale",
+  "l0035_correction": "L-0035 recorded the cure as 'the launch record already names each execution's brief; the guard should treat that path as pinned'. The first clause was FALSE: no transcript-map entry has ever carried a brief field. The launch MESSAGE named the brief; the durable record did not. Fixing the guard alone would have changed nothing, which is why this change has two halves and why the inertness regression below passed."
+ },
+ "what_changed": [
+  "own_briefs(): reads a `brief`/`brief_path`/`orders`/`orders_path` field off every transcript-map entry and normalises it to an SP-relative path (accepts `SP\\Book\\x.md`, `Book/x.md`, or absolute inside SP)",
+  "pins_for(): takes the execution's own-brief map; the brief counts as pinned whether or not it lists itself, and its file is added to the set whose input table is parsed, so every path that table pins counts too",
+  "check(): computes the launch records once and passes each execution its own slice",
+  "the transcript map is now read with utf-8-sig in both readers that open it, instead of utf-8 in one"
+ ],
+ "what_did_not_change": "every earlier rule and every earlier verdict: the ten original selftest vectors pass unchanged, and on ten real targets the candidate's output was byte-identical to the preimage's while no launch record carried a brief field",
+ "preimage": {
+  "sha256": "cd00f9e7a9a1ac1c195a1a7317381b2b3813ef262c9f3cab7c4a80bda6cb752f",
+  "bytes": 10248,
+  "kept_at": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\910cbe15-396b-4a0e-82f6-8aa1e2edf1e4\\scratchpad\\ezek_primaries\\_inflight_pin_guard.PREIMAGE_ownbrief.py"
+ },
+ "postimage": {
+  "sha256": "7ef78640fb2d66c69c9730813390d76ebbb0ca5cc9d6b8ea53654f16f273c7cb",
+  "bytes": 15189
+ },
+ "verification": {
+  "compiled": true,
+  "selftest_before_swap": {
+   "selftest": "m8_inflight_pin_guard",
+   "vectors": 17,
+   "failed": [],
+   "verdict": "GREEN"
+  },
+  "selftest_after_install": {
+   "selftest": "m8_inflight_pin_guard",
+   "vectors": 17,
+   "failed": [],
+   "verdict": "GREEN"
+  },
+  "selftest_vectors_added": [
+   "the shared brief an in-flight execution is recorded as reading -> PINNED",
+   "a file in that shared brief's input table -> PINNED",
+   "a brief only a LANDED execution was reading -> CLEAR",
+   "a file in a landed execution's brief table -> CLEAR",
+   "every reader of one shared brief is named, not just the first",
+   "own-brief pin released when both readers land (brief and table file)"
+  ],
+  "real_tree_regression": {
+   "what": "preimage vs candidate, same 10 real targets, same book, while no transcript-map entry carried a brief field",
+   "targets": [
+    "Ezek/PRIMARY_BRIEF_LF.md",
+    "Ezek/PRIMARY_BRIEF_OL.md",
+    "Ezek/repair/rows_v7_cwo24.jsonl",
+    "Ezek/review_clusters.json",
+    "Ezek/ezek_cure_claims.v1.jsonl",
+    "Ezek/ezek_device_inventory.json",
+    "Ezek/transcript_manifest.v2.json",
+    "campaign/_inflight_pin_guard.py",
+    "Ezek/FIXUP_BRIEF.md",
+    "Ezek/_transcript_map.ezek.json"
+   ],
+   "in_flight_at_measurement": 8,
+   "preimage_stdout_sha256": "9357bd7703300858f4aff213f0e02b55866c06909c135c652647498fddc9be0b",
+   "candidate_stdout_sha256": "9357bd7703300858f4aff213f0e02b55866c06909c135c652647498fddc9be0b",
+   "identical": true,
+   "both_exit_zero": true,
+   "stderr_bytes": {
+    "preimage": 0,
+    "candidate": 0
+   },
+   "kept_at": [
+    "ezek_primaries/reg_pre_stdout.json",
+    "ezek_primaries/reg_cand_stdout.json"
+   ],
+   "reading": "the fix is INERT until a launch record names a brief, which is also the proof that L-0035's premise was wrong: if the map had already named each execution's brief, these verdicts would have differed here",
+   "verdicts_all_clear_in_both": true
+  }
+ },
+ "unified_diff": "--- _inflight_pin_guard.py (preimage cd00f9e7a9a1ac1c)\n+++ _inflight_pin_guard.py (candidate 7ef78640fb2d66c6)\n@@ -14,6 +14,14 @@\n for x_p01_a1#e1). Only when no file names the execution that way is the attempt used: the bare attempt id, alone or inside a\n file name such as `orders_<attempt>.json`, or a template id without an ordinal that the attempt id fills (OW-11-l,\n 2026-09-11: SP/Ezek/FIXUP_BRIEF.md named its eleven executions only through a template, so its pins were invisible here).\n+\n+AND an execution's OWN BRIEF is pinned by it, with everything that brief's input table pins, for the life of the\n+execution - whether or not the brief names the execution (OW-14 L-0035, corrected 2026-09-15). The brief path comes from\n+the launch record: a `brief` (or `orders`) field on the book's transcript-map entry. WHY: SP/Ezek/PRIMARY_BRIEF_LF.md is\n+shared by all 22 literary-form primaries, names none of them and does not list itself, so a running primary had NO\n+visible pins at all - not its brief, not the corpus row file it binds, not the cluster plan. The guard read CLEAR on\n+every one of them with eight executions in flight. A brief a running agent is reading is never edited, and the tool that\n+is supposed to enforce that must be at least as strict as the playbook line, not weaker.\n \n Usage: _inflight_pin_guard.py --book Ezek --target <path> [--target <path> ...]\n        _inflight_pin_guard.py --selftest\n@@ -43,7 +51,7 @@\n     maps = sorted((sp / book).glob(\"_transcript_map*.json\"))\n     launched = {}\n     for m in maps:\n-        for k, v in json.loads(m.read_text(encoding=\"utf-8\")).items():\n+        for k, v in json.loads(m.read_text(encoding=\"utf-8-sig\")).items():\n             if isinstance(v, dict) and v.get(\"execution_id\"):\n                 launched[v[\"execution_id\"]] = k\n     landed = set()\n@@ -52,6 +60,30 @@\n             if line.strip():\n                 landed.add(json.loads(line).get(\"execution_id\"))\n     return sorted(x for x in launched if x not in landed)\n+\n+\n+def under_sp(v, sp):\n+    \"\"\"A launch record's brief path, normalised to an SP-relative posix path. Accepts `SP\\\\Book\\\\B.md`, `Book/B.md` and an\n+    absolute path inside SP.\"\"\"\n+    s = str(v).replace(\"\\\\\", \"/\").strip().removeprefix(\"SP/\")\n+    p = Path(s)\n+    return rel(p, sp) if p.is_absolute() else p.as_posix()\n+\n+\n+def own_briefs(sp, book):\n+    \"\"\"execution_id -> {SP-relative brief path: {the map files that record it}}, from the launch record's `brief` or\n+    `orders` field. Read by pins_for so that the brief AND its whole input table count as that execution's pins.\"\"\"\n+    out = {}\n+    for m in sorted((sp / book).glob(\"_transcript_map*.json\")):\n+        for v in json.loads(m.read_text(encoding=\"utf-8-sig\")).values():\n+            if not isinstance(v, dict) or not v.get(\"execution_id\"):\n+                continue\n+            for field in (\"brief\", \"brief_path\", \"orders\", \"orders_path\"):\n+                got = v.get(field)\n+                for one in ([got] if isinstance(got, str) else (got or [])):\n+                    if isinstance(one, str) and one.strip():\n+                        out.setdefault(v[\"execution_id\"], {}).setdefault(under_sp(one, sp), set()).add(m.name)\n+    return out\n \n \n def fills_template(text, xid, with_ordinal):\n@@ -67,15 +99,22 @@\n     return False\n \n \n-def pins_for(sp, book, xid):\n+def pins_for(sp, book, xid, own=None):\n+    own = own or {}\n     files = sorted((sp / book).glob(\"*.md\")) + sorted((sp / book).rglob(\"orders*.json\"))\n     texts = {f: f.read_text(encoding=\"utf-8\", errors=\"replace\") for f in files}\n+    for r in own:   # an execution's own brief is read even when it is neither a top-level *.md nor an orders*.json\n+        p = sp / r\n+        if p not in texts and p.is_file():\n+            texts[p] = p.read_text(encoding=\"utf-8\", errors=\"replace\")\n     naming = [f for f, t in texts.items() if xid in t or fills_template(t, xid, True)]\n     if not naming:\n         aid = xid.split(\"#\")[0]\n         naming = [f for f, t in texts.items() if re.search(r\"(?<![A-Za-z0-9])(?:[a-z]+_)?%s(?![A-Za-z0-9_])\" % re.escape(aid), t)\n                   or fills_template(t, xid, False)]\n-    pinned = {}\n+    naming = sorted(set(naming) | {sp / r for r in own if (sp / r) in texts}, key=lambda q: q.as_posix())\n+    # the brief itself is pinned by the launch record, whether or not it lists itself with a digest\n+    pinned = {r: {\"%s (launch record: this execution's own brief)\" % s for s in srcs} for r, srcs in own.items()}\n     for f in naming:\n         if f.suffix == \".json\":\n             # an orders file keeps a path and its digest as sibling keys on separate lines (and escapes backslashes in\n@@ -108,12 +147,13 @@\n \n def check(sp, book, targets):\n     flight = in_flight(sp, book)\n+    own = own_briefs(sp, book)\n     out = {\"book\": book, \"in_flight\": flight, \"targets\": {}}\n     for t in targets:\n         r = rel(t, sp)\n         by = []\n         for xid in flight:\n-            hit = pins_for(sp, book, xid).get(r)\n+            hit = pins_for(sp, book, xid, own.get(xid)).get(r)\n             if hit:\n                 by.append({\"execution_id\": xid, \"pinned_in\": sorted(hit)})\n         out[\"targets\"][r] = {\"verdict\": \"PINNED\" if by else \"CLEAR\", \"pinned_by\": by}\n@@ -129,9 +169,16 @@\n         (b / \"receipts\").mkdir(parents=True)\n         tmap = {\"x_a1_wave2\": {\"execution_id\": \"x_a1#e2\", \"agent_id\": \"a1\"}, \"y_a1\": {\"execution_id\": \"y_a1#e1\"},\n                 \"z_a1\": {\"execution_id\": \"z_a1#e1\"}, \"old_entry\": {\"agent_id\": \"a0\"},\n-                \"s_p01_a1\": {\"execution_id\": \"s_p01_a1#e1\"}, \"n_a1\": {\"execution_id\": \"n_a1#e1\"}}\n+                \"s_p01_a1\": {\"execution_id\": \"s_p01_a1#e1\"}, \"n_a1\": {\"execution_id\": \"n_a1#e1\"},\n+                # L-0035: two in-flight executions reading ONE brief that names neither of them and does not list\n+                # itself, recorded only by the launch record's `brief` field - in a backslash and a posix spelling\n+                \"n1_a1\": {\"execution_id\": \"n1_a1#e1\", \"brief\": \"SP\\\\Book\\\\BRIEF_SHARED_NOID.md\"},\n+                \"n2_a1\": {\"execution_id\": \"n2_a1#e1\", \"brief\": \"Book/BRIEF_SHARED_NOID.md\"},\n+                \"lnd_a1\": {\"execution_id\": \"lnd_a1#e1\", \"brief\": \"Book/BRIEF_LANDED_ONLY.md\"}}\n         (b / \"_transcript_map.book.json\").write_text(json.dumps(tmap), encoding=\"utf-8\")\n-        (b / \"receipts\" / \"r_attempt_receipts.jsonl\").write_text(json.dumps({\"execution_id\": \"y_a1#e1\"}) + \"\\n\", encoding=\"utf-8\")\n+        (b / \"receipts\" / \"r_attempt_receipts.jsonl\").write_text(\n+            json.dumps({\"execution_id\": \"y_a1#e1\"}) + \"\\n\" + json.dumps({\"execution_id\": \"lnd_a1#e1\"}) + \"\\n\",\n+            encoding=\"utf-8\")\n         (b / \"BRIEF_X.md\").write_text(\"execution id `x_a1#e2`\\n| `SP\\\\Book\\\\pinned.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n         (b / \"BRIEF_X_OLD.md\").write_text(\"execution id `x_a1#e1`\\n| `SP\\\\Book\\\\old.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n         (b / \"BRIEF_Y.md\").write_text(\"execution id `y_a1#e1`\\n| `SP\\\\Book\\\\y.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n@@ -143,6 +190,9 @@\n         (b / \"BRIEF_SHARED_E2.md\").write_text(\"your subdirectory `OUT\\\\s_<part>_a1_e2\\\\`\\n| `SP\\\\Book\\\\shared2.jsonl` | `%s` |\\n\" % d64,\n                                               encoding=\"utf-8\")\n         (b / \"BRIEF_N.md\").write_text(\"orders file `SP\\\\Book\\\\orders_n_a1.json`\\n| `SP\\\\Book\\\\named.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n+        # a brief that names NO execution and does not list itself: invisible to every rule above it\n+        (b / \"BRIEF_SHARED_NOID.md\").write_text(\"| `SP\\\\Book\\\\corpus.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n+        (b / \"BRIEF_LANDED_ONLY.md\").write_text(\"| `SP\\\\Book\\\\landedonly.jsonl` | `%s` |\\n\" % d64, encoding=\"utf-8\")\n         vectors = [\n             (\"pinned by an in-flight execution's brief\", \"Book/pinned.jsonl\", \"PINNED\"),\n             (\"pinned only by an earlier execution's brief\", \"Book/old.jsonl\", \"CLEAR\"),\n@@ -153,15 +203,31 @@\n             (\"pinned by a shared brief through a template id with this ordinal\", \"Book/shared.jsonl\", \"PINNED\"),\n             (\"a shared brief whose template carries another ordinal\", \"Book/shared2.jsonl\", \"CLEAR\"),\n             (\"an attempt id inside a file name the brief names\", \"Book/named.jsonl\", \"PINNED\"),\n+            # the L-0035 shape, which every rule above misses\n+            (\"the shared brief an in-flight execution is recorded as reading\", \"Book/BRIEF_SHARED_NOID.md\", \"PINNED\"),\n+            (\"a file in that shared brief's input table\", \"Book/corpus.jsonl\", \"PINNED\"),\n+            (\"a brief only a LANDED execution was reading\", \"Book/BRIEF_LANDED_ONLY.md\", \"CLEAR\"),\n+            (\"a file in a landed execution's brief table\", \"Book/landedonly.jsonl\", \"CLEAR\"),\n         ]\n         results = []\n         for name, tgt, want in vectors:\n             got = check(sp, \"Book\", [sp / tgt])[\"targets\"][tgt][\"verdict\"]\n             results.append({\"vector\": name, \"want\": want, \"got\": got, \"ok\": got == want})\n+        shared = check(sp, \"Book\", [sp / \"Book/BRIEF_SHARED_NOID.md\"])[\"targets\"][\"Book/BRIEF_SHARED_NOID.md\"]\n+        ids = sorted(x[\"execution_id\"] for x in shared[\"pinned_by\"])\n+        results.append({\"vector\": \"every reader of one shared brief is named, not just the first\",\n+                        \"want\": \"['n1_a1#e1', 'n2_a1#e1']\", \"got\": str(ids), \"ok\": ids == [\"n1_a1#e1\", \"n2_a1#e1\"]})\n         with (b / \"receipts\" / \"r_attempt_receipts.jsonl\").open(\"a\", encoding=\"utf-8\") as fh:\n             fh.write(json.dumps({\"execution_id\": \"x_a1#e2\"}) + \"\\n\")\n+            fh.write(json.dumps({\"execution_id\": \"n1_a1#e1\"}) + \"\\n\")\n+            fh.write(json.dumps({\"execution_id\": \"n2_a1#e1\"}) + \"\\n\")\n         got = check(sp, \"Book\", [sp / \"Book/pinned.jsonl\"])[\"targets\"][\"Book/pinned.jsonl\"][\"verdict\"]\n         results.append({\"vector\": \"the same pin after the execution lands\", \"want\": \"CLEAR\", \"got\": got, \"ok\": got == \"CLEAR\"})\n+        after = check(sp, \"Book\", [sp / \"Book/BRIEF_SHARED_NOID.md\", sp / \"Book/corpus.jsonl\"])[\"targets\"]\n+        for tgt in (\"Book/BRIEF_SHARED_NOID.md\", \"Book/corpus.jsonl\"):\n+            got = after[tgt][\"verdict\"]\n+            results.append({\"vector\": \"own-brief pin released when both readers land: %s\" % tgt, \"want\": \"CLEAR\",\n+                            \"got\": got, \"ok\": got == \"CLEAR\"})\n     failed = [r for r in results if not r[\"ok\"]]\n     print(json.dumps({\"selftest\": \"m8_inflight_pin_guard\", \"vectors\": len(results), \"failed\": failed,\n                       \"verdict\": \"GREEN\" if not failed else \"RED\"}, indent=1))",
+ "limits": [
+  "the guard protects only what a launch record names. An execution whose map entry has no brief field is still invisible to this rule; post_launch_primary.py now writes the field, and any other launcher must too.",
+  "a pin written as an absolute path OUTSIDE SP is still not detected (pre-existing limitation, unchanged)",
+  "runtime is O(targets x in-flight) full re-reads of the book's briefs; at eight in flight and ten targets one run takes minutes. Recorded as a separate defect: a control slow enough to tempt an orchestrator into skipping it is a weak control."
+ ]
+}

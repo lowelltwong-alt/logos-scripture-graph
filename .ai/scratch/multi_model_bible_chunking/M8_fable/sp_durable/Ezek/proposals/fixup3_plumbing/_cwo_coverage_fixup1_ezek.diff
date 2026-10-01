@@ -1,0 +1,55 @@
+--- a/Ezek/_cwo_coverage_fixup1_ezek.py
++++ b/Ezek/_cwo_coverage_fixup1_ezek.py
+@@ -14,8 +14,10 @@
+   CWO-EZ-17 unbalanced curly double quotes: check_web_quotes reports no e15d flag.
+   CWO-EZ-18 curly quotes without a web: ref: check_web_quotes' class 'curly quote with NO web: ref in its field' reads 0 across
+             all fields. #e7 ruling CWO18-R1-1's final_check on P08-013 is evaluated too, and a failed check counts as residual.
+-Every suite member these predicates read must stand at its TOOLFIX-2 install digest (ezek_tools_install_toolfix2_batch3.json),
+-the digests T5 reviewed; otherwise the tool aborts. The orders index must have been built on the chain head given.
++Every suite member these predicates read must stand at its install digest, or the tool aborts: the HARD members at their TOOLFIX-2
++install digests (ezek_tools_install_toolfix2_batch3.json, the digests T5 reviewed), and the two FLAGS members check_register.py and
++check_web_quotes.py at TOOLFIX-5's (ezek_tools_install_toolfix5_batch1.json), as ezek_controlling_rulings_a1#e10 ruling S3-ROUTING (6)
++rules for this wave. The report records which receipt each member matched. The orders index must have been built on the chain head given.
+ 
+ Usage: _cwo_coverage_fixup1_ezek.py --rows <applied rows> --report <suite report over those exact bytes> --out <dir>
+        --chain-head repair/rows_v3_cwo18.jsonl --cwo01 <CWO-EZ-01 coverage report over the same rows>
+@@ -44,6 +46,8 @@
+ RULINGS_E6 = EZ / "ezek_controlling_agent_rulings_e6.v1.json"
+ RULINGS_E7 = EZ / "ezek_controlling_agent_rulings_e7.v1.json"
+ TF2_RECEIPT = SP / "campaign" / "receipts" / "ezek_tools_install_toolfix2_batch3.json"
++TF5_RECEIPT = SP / "campaign" / "receipts" / "ezek_tools_install_toolfix5_batch1.json"
++TF5_MEMBERS = ("check_register.py", "check_web_quotes.py")
+ MEMBERS = ("citation_sweep.py", "check_register.py", "check_web_quotes.py", "normalize_hebrew_in_json.py", "ezek_lib.py")
+ SWEEP_MANIFESTS = (("CWO-EZ-13", "repair/rows_v3_cwo13.manifest.json"), ("CWO-EZ-18", "repair/rows_v3_cwo18.manifest.json"))
+ FIELD_SCOPE_MARKS = ("beside the two ruled texts verbatim: '", "' (3) TOOLFIX-5")
+@@ -179,12 +183,18 @@
+     if sha(rep["rows_file"]) != sha(rows_p):
+         raise SystemExit("ABORT: the report was not produced over the exact bytes of the rows file")
+     tf2 = json.loads(TF2_RECEIPT.read_text(encoding="utf-8"))["files"]
+-    members = {}
++    tf5 = json.loads(TF5_RECEIPT.read_text(encoding="utf-8"))["files"] if TF5_RECEIPT.is_file() else {}
++    members, member_sources = {}, {}
+     for m in MEMBERS:
+-        got, want = sha(EZ / "tools" / m), tf2[m]["after"]
++        got = sha(EZ / "tools" / m)
++        if m in TF5_MEMBERS and ("tools/" + m) in tf5:
++            want, label = tf5["tools/" + m]["after"], "TOOLFIX-5 (ezek_tools_install_toolfix5_batch1.json)"
++        else:
++            want, label = tf2[m]["after"], "TOOLFIX-2 (ezek_tools_install_toolfix2_batch3.json)"
+         if got != want:
+-            raise SystemExit("ABORT: tools/%s is %s, not its TOOLFIX-2 install digest %s" % (m, got[:16], want[:16]))
++            raise SystemExit("ABORT: tools/%s is %s, not its %s install digest %s" % (m, got[:16], label.split(" (")[0], want[:16]))
+         members["tools/" + m] = got
++        member_sources["tools/" + m] = label
+     idx = json.loads(idx_p.read_text(encoding="utf-8"))
+     if idx["sources"]["rows"]["sha256"] != sha(head_p):
+         raise SystemExit("ABORT: the orders index was not built on %s" % head_p.name)
+@@ -274,7 +284,7 @@
+                "executed_as": EXECUTED_AS % (a.wave, a.wave, FIXUP1_ORDERING if a.wave == "FIXUP-1" else "#e9 S2-ROUTING (3)"),
+                "rows_file": {"path": str(rows_p), "sha256": sha(rows_p), "rows": len(rows)},
+                "suite_report": {"path": str(rep_p), "sha256": sha(rep_p)},
+-               "suite_members_at_toolfix2_install_digest": members,
++               "suite_members_at_toolfix2_install_digest": members, "suite_member_install_sources": member_sources,
+                "orders_index": {"path": str(idx_p), "sha256": sha(idx_p), "built_on": idx["sources"]["rows"]},
+                "author_items_routed": routed.get(cid, 0),
+                "carried_by_executions": sorted(carriers.get(cid, [])),

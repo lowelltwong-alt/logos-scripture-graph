@@ -1,0 +1,536 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e4",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e3",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "R4ii-D1",
+   "raised": "2026-09-11",
+   "question": "Ratify, amend or reverse an implementation deviation from ruling R4-ii order (2) ('every verse number in the mention's own clause counts regardless of distance'), which the orchestrator did not implement literally in check_marks' PROSE arm.",
+   "facts": [
+    "Implemented literally in both tools (staged copy only; no SP tool touched), the test file went 116/117. The failing vector was cm_real_row_distant_next_verse_number_ok, a real-row regression vector built from P10-008's own prose: 'the word carrying the book's puncta extraordinaria -- five instances of the upper dot U+05C4, disclosed here single-witness -- a natural summary line before 41:21 returns to the measurements'.",
+    "The literal implementation also added 3 check_marks puncta_claim_in_ezek flags on the real row P10-008 (span Ezek.41.12-Ezek.41.20): its TRUE claim bound to the next verse's number, 41:21. Your #e3 'NOT LIVE' census counted P10-008's six mentions as unnumbered; that holds only under the 60-character reach.",
+    "Implemented variant: citation_sweep's ref arm reads the whole clause (one short annotation per ref; NOVEL-A2 closed); check_marks' prose arm keeps the 60-character reach (PROSE_REACH); the parenthetical rule of order (1) applies in both tools (NOVEL-A ref and prose, NOVEL-F closed). Staged result: 117/117 GREEN; over the chain head rows, 0 added citation_sweep problems, 0 puncta flags, mark_symmetry unchanged at 154.",
+    "Residual under the variant: a prose puncta claim whose only verse number sits more than 60 characters from the word, inside the same clause, on a span covering a site, still passes silently in check_marks (FLAGS member). Your #e3 primaries order already hand-checks that class until T4 lands."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: accept the variant and make the primaries' hand-check of distant prose puncta numbers permanent rather than 'until T4 lands'. T4 reviews both directions with vectors of its own and recommends; you rule. No cure claim on check_marks.py is written until you have ruled.",
+   "evidence": [
+    "SP\\Ezek\\tools\\_test_zone_tools_ezek.py section 4 cm_real_row_distant_next_verse_number_ok; section 8",
+    "SP\\Ezek\\repair\\rows_v2_swept_r3.jsonl P10-008 boundary_rationale"
+   ],
+   "distinct_checker_T4": {
+    "verdict": "accept_deviation",
+    "rule": "No code change recommended at this time. A candidate future rule was identified but is UNTESTED by this review and should not be adopted without its own vector construction and adversarial pass: treat an em dash / double-hyphen delimited aside ('-- ... --') the same way a parenthesis is treated for clause-boundary purposes in check_marks' PROSE arm -- i.e. add '--'/'—' to NUM_CLAUSE_END as a hard boundary (which would have correctly excluded P10-008's trailing '41:21' summary clause without any character-count reach), while also extending PAREN_AFTER-style logic to a dash-delimited aside opening directly after the mention's clause (so a genuine disclosure written as 'the puncta extraordinaria -- five dots -- stand at 41:20' is not newly broken). This is a real candidate for closing both directions, but implementing and testing it is out of this review's scope (read-only on the shipped tools) and risks new regressions in dense multi-ref prose that used dashes for other purposes; recorded as a suggested_fix in new_findings, not adopted here.",
+    "vectors_run": [
+     "suite regression: cm_real_row_distant_next_verse_number_ok (the P10-008 real-row false-positive vector the deviation exists to fix) -- passes silently as required, 117/117",
+     "t4_q3_falseneg_decoy_beyond_reach: a constructed prose claim whose only number (a non-site '41:5') sits well beyond the 60-character reach, on a span covering the true site 41:20 -> correctly reproduces the disclosed residual: NO FLAG is raised, i.e. a false '41:5' claim rides silently on the span's coverage of 41:20"
+    ],
+    "result": "The deviation (PROSE_REACH=60 kept in check_marks, full clause in citation_sweep) is the better trade-off TODAY. It closes a real, already-shipped-adjacent false positive (P10-008-shaped prose is common: a puncta mention followed by an unrelated nearby verse number in the same run-on clause) at the cost of a narrower, already-disclosed false negative (a decoy non-site number more than 60 characters away, on a span that happens to cover the true site, passes silently) that the controlling agent's #e3 ruling already ordered primaries to hand-check. I reproduced both the protected false positive (still silent, correctly) and the residual false negative (still silent, confirming the known gap, empirically) with fresh constructed vectors, not merely by re-reading the ruling's prose. Recommend: accept_deviation, keep the primaries hand-check PERMANENT (matching the orchestrator's own proposed disposition on R4ii-D1) rather than 'until T4 lands', since no adopted-and-tested rule closes both directions yet."
+   }
+  },
+  {
+   "id": "G9-B1",
+   "raised": "2026-09-11",
+   "question": "Ruling G9 (#e2) text proved byte-false in one clause during the author wave: rule on the author's correction.",
+   "facts": [
+    "G9#1's decision groups the internal closes at MT 35:4, 35:9 and 35:12 as each 'followed by יַעַן paragraphs'.",
+    "Author p08 (ezek_author_p08_a1#e1) reported that this holds for 35:4 -> 35:5 and 35:9 -> 35:10, but NOT for 35:12: 35:12 is a verse-initial, non-final recognition clause (the verse continues), and 35:13 is not a יַעַן paragraph.",
+    "Under the author brief's E-03 lane, p08 installed the verified fact in P08-007's rationale and device_notes and did not repeat the ruling's grouping. The merge itself (Ezek.35.1-Ezek.35.15) and the non-cutting status of all three verses are unchanged.",
+    "The orchestrator has not re-derived the bytes; the distinct checker of the wave (S1) is asked to verify, and you rule."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record the correction of the ruling's prose (amend G9's decision text by note, not by edit) and ratify P08-007's wording if S1 confirms the bytes.",
+   "evidence": [
+    "SP\\Ezek\\Ezek_oshb.txt Ezek.35.4, 35.5, 35.9, 35.10, 35.12, 35.13",
+    "SP\\Ezek\\repair\\rows_v3_cwo12.jsonl P08-007"
+   ],
+   "distinct_checker_S1": [
+    {
+     "id": "S1-09",
+     "severity": "minor",
+     "row_or_artifact": "P03-020, P05-006, P05-007, P06-001, P06-005, P08-007",
+     "claim": "Span-relevant parashah marks are left undisclosed (front seam or interior).",
+     "evidence": "No mention in the row of: 18:32 pe (P03-020); 23:35 and 23:45 samekh (P05-006); 23:49 pe, 24:5 samekh, 24:8 pe (P05-007); 24:27 samekh, the close side of the P5/P6 parent seam (P06-001); 25:17 samekh (P06-005); 34:31 pe (P08-007, lost in the G9 merge).",
+     "suggested_fix": "Disclose each mark (single witness) on the seam side where it stands.",
+     "route": "author_fixup:p03|author_fixup:p05|author_fixup:p06|author_fixup:p08"
+    },
+    {
+     "id": "S1-21",
+     "severity": "note",
+     "row_or_artifact": "SP\\Ezek\\ezek_controlling_agent_rulings.v1.json gate and rulings_e3 gate",
+     "claim": "The gates count '20 amended/merged/split spans', but the exact_spans of G2, G7, G8, G9, G10, G11, G12 and R3 give 19; all 19 landed exactly.",
+     "evidence": "R3 2 + G2 2 + G7 3 + G8 2 + G9 3 + G10 1 + G11 3 + G12 3 = 19.",
+     "suggested_fix": "Correct the count or name the twentieth span.",
+     "route": "controlling_agent"
+    }
+   ]
+  },
+  {
+   "id": "G9-C1",
+   "raised": "2026-09-11",
+   "question": "Record an interplay between ruling G9#1's confidence ceiling and the cap_sweep HARD gate (for the record; a ruling is needed only if you disagree).",
+   "facts": [
+    "G9#1 sets 'not above medium' for the merged Ezek.35.1-Ezek.35.15 row. Ezekiel 35 has exactly 15 verses, so the row is a whole chapter, and cap_sweep's E-02 rule requires medium_low or low with the cap disclosure.",
+    "Author p08 set medium_low with the cap disclosure (within the ruling's ceiling); cap_sweep is GREEN on the row."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: close for the record; no change."
+  },
+  {
+   "id": "E19-W1",
+   "raised": "2026-09-11",
+   "question": "Four author executions self-disclosed E-19 deviations. Rule on disposition, as ruling P1 (#e2) did for the writer wave.",
+   "facts": [
+    "p04 (ezek_author_p04_a1#e1): one attempted `ls` against the tools directory failed with a shell quoting error before producing any output; nothing was listed.",
+    "p09 (ezek_author_p09_a1#e1): a private build script called os.makedirs(exist_ok=True) on the output directory before writing; no listing, no branching on the result.",
+    "p06 (ezek_author_p06_a1#e1): a bare `ls -la` with no path argument inside the shared output directory returned a directory listing that exposed two sibling filenames (ezek_author_p01_a1_e2.jsonl, ezek_author_p02_a1.jsonl); the agent states it did not open or use either file.",
+    "p08 (ezek_author_p08_a1#e1): `ls *.py` inside SP\\Ezek\\tools; every returned name was already listed in TOOLKIT.md's staged-tools table.",
+    "All four were disclosed unprompted in the agents' own final messages; no content of another part's deliverable was read, and no author-to-author contamination of judgement is indicated by any record."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record and close, as P1 did (LOW, disclosed, credited for honesty). Separately: per-part output subdirectories (or per-execution output names already unique per part) would make a sibling listing impossible; the orchestrator proposes one output subdirectory per execution for Daniel's waves.",
+   "evidence": [
+    "SP\\Ezek\\author\\ezek_author_attempt_receipts.jsonl e19_selfreported for the four executions"
+   ]
+  },
+  {
+   "id": "TR-S1",
+   "raised": "2026-09-11",
+   "question": "Strategy maintenance: the returning-transport verb at MT 46:21 is not a member of the strategy's named transport sweep (section 2b).",
+   "facts": [
+    "Author p11 disclosed it in P11-009 device_notes as a byte-observed transport verb, not as an independent formula onset; ruling S4 (#e2) already widened the transport sweep predicate once."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: add to the strategy-maintenance edit list (ruling Q1's single Fable-owned maintenance execution); no row change."
+  },
+  {
+   "id": "R4-ii-R",
+   "question": "T4 was ordered to re-ratify R4-ii only if it found nothing new. Confirm R4-ii as ratified on T4's verdicts (the tool cure claims for citation_sweep.py and check_marks.py then follow), or order changes.",
+   "t4_verdict": "fit_with_changes",
+   "t4_changes": {
+    "r4ii_parenthetical": "confirmed",
+    "r4ii_distance_ref": "confirmed",
+    "r4ii_distance_prose_deviation": "accept_deviation",
+    "cal1_apposition": "confirmed",
+    "cal1_parenthesis": "confirmed"
+   },
+   "t4_suite_parity": {
+    "verdict": "confirmed",
+    "counts": {
+     "citation_sweep_problems": 126,
+     "hebrew_normalize_dryrun_defects": 2,
+     "hebrew_normalize_dryrun_fixed": 0,
+     "ngram7_offending_7grams": 3,
+     "cap_sweep_failures": 2,
+     "mark_symmetry_flag_count": 154,
+     "puncta_flags_citation_sweep": 0,
+     "puncta_flags_mark_symmetry": 0,
+     "genuine_calendar_date_problems": 0
+    },
+    "differences": [
+     "None against the before-state report's five stated counts (126 / 2 / 3 / 2 / 154) and its 0-puncta / 0-calendar-date claims; every count reproduced exactly on a private copy run with the pinned tools.",
+     "One naive keyword hit on 'dateline' inside citation_sweep's problems list is NOT a calendar-date-arm finding: P07-003's problem is a samekh mark-type mismatch whose own quoted ref annotation text happens to contain the word 'dateline' ('hard-seam dateline onset, hayah-perfect word-event form...'). This exact same false hit is independently named in the CAL-1 ruling's own reason field ('the one keyword hit in the 126 is P07-003's samekh claim whose ref text says dateline'), so my independent re-derivation corroborates the controlling agent's prior reading rather than finding something new.",
+     "This review confirms aggregate counts only; the before-state report itself was not re-diffed row-by-row against my run's row-level problem/flag lists (both are available in the private report I generated but a full line-by-line diff was not performed, since the brief asks for count confirmation and named differences, and none were found at the count level)."
+    ]
+   },
+   "t4_tests": {
+    "passed": 117,
+    "checks": 117
+   },
+   "t4_new_finding_ids": [
+    "T4-01",
+    "T4-02",
+    "T4-03",
+    "T4-04"
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: R4-ii is not re-ratified on T4, because T4 found new items. Adopt TOOLFIX-1, the staged batched edit for T4-01, T4-03 and T4-04 (SP/Ezek/proposals/t4fix_batch1), and TOOLFIX-2 for S1's tool findings. A fresh distinct review (T5) then binds to both installed batches. If T5 finds nothing new, the citation_sweep and check_marks cure claims and EZEK-P0-CURE-toolkit-v3 are written on its verdict without another controlling execution; otherwise the edits return to you."
+  },
+  {
+   "id": "T4-01",
+   "question": "Rule on this T4 finding.",
+   "severity": "minor",
+   "artifact": "SP\\Ezek\\tools\\citation_sweep.py and SP\\Ezek\\tools\\check_marks.py, PUNCTA arm (puncta_claim_numbers/_range_items via RANGE_NUM)",
+   "claim": "R4(ii) order (1)'s parenthetical-after rule reads ANY C:V/C.V-shaped substring inside the directly-following parenthetical as a verse-number claim, with no check that the parenthetical is actually about puncta at all.",
+   "evidence": "Constructed vector 'the puncta extraordinaria (cross-referenced at row R4.5 in the ledger)' is wrongly flagged in BOTH citation_sweep (ref form) and check_marks (prose form) as 'claims puncta extraordinaria but they stand only at MT 41:20 and MT 46:22 ... the claim names another verse' -- run live against the pinned tools in a private scratch copy, not merely reasoned from the regex.",
+   "how_verified": "Subprocess run of citation_sweep.py and check_marks.py over constructed JSONL rows in my own private scratch (ezek_t4_9f21ab), same invocation pattern _test_zone_tools_ezek.py uses.",
+   "suggested_fix": "Require the parenthetical's number to be paired with a mark-adjacent cue (e.g. only bind when the parenthetical contains nothing but a bare C:V/range and optional 'single-witness', or require a colon-form C:V distinguishable from a dotted id like 'R4.5' by anchoring the chapter to a plausible Ezek chapter 1-48 AND rejecting a leading letter run immediately before the digits). Likelihood in real rows: LOW-MEDIUM -- the campaign's own prose habitually cites ruling/row ids with a similar dotted shape (R4-ii, P10-008, CWO-EZ-10), so a writer referencing such an id inside a parenthetical placed directly after a puncta mention is a plausible, not merely theoretical, authoring pattern.",
+   "orchestrator_proposed_disposition": "PROPOSED: staged in TOOLFIX-1. A C:V or C.V number is refused when a letter stands directly before its digits, so a dotted id such as 'R4.5' makes no verse claim, while 'Ezek.41.20', '(41:20)' and '41.20' still bind. The vectors are T4's decoy in both tools (it fails on the installed tools and passes when staged) and a dotted Ezek ref that still binds."
+  },
+  {
+   "id": "T4-02",
+   "question": "Rule on this T4 finding.",
+   "severity": "note",
+   "artifact": "SP\\Ezek\\tools\\check_marks.py PUNCTA arm (PROSE_REACH=60 deviation from R4-ii order (2))",
+   "claim": "Confirms the already-disclosed R4ii-D1 residual empirically rather than reporting a new defect: a prose puncta claim whose only number is a non-site verse more than 60 characters from the word, on a span covering a true site, passes silently.",
+   "evidence": "Constructed vector reproduced the residual live (see changes.r4ii_distance_prose_deviation.vectors_run); matches R4ii-D1's own fact #4 in the pending queue exactly.",
+   "how_verified": "Subprocess run of check_marks.py over a constructed row in my own private scratch.",
+   "suggested_fix": "No fix recommended by this review beyond making the primaries' hand-check permanent (see r4ii_distance_prose_deviation). A structural fix candidate (em-dash/double-hyphen as an additional clause boundary) is named there but explicitly not adopted, being untested.",
+   "orchestrator_proposed_disposition": "PROPOSED: record. It reproduces R4ii-D1's disclosed residual. With R4ii-D1 ratified, the primaries' hand-check of a prose puncta claim whose only number sits beyond 60 characters becomes permanent."
+  },
+  {
+   "id": "T4-03",
+   "question": "Rule on this T4 finding.",
+   "severity": "major",
+   "artifact": "SP\\Ezek\\tools\\citation_sweep.py puncta_negated() (shared by the PUNCTA arm and, via the same function, the CALENDAR-DATE arm's apposition/parenthesis logic)",
+   "claim": "puncta_negated() only scans for a negation word BEFORE the mention's own position within its clause. A denial phrased with the negating word AFTER the target ('a dateline would be expected but none stands') is not recognized as a negation, so the CAL-1 apposition rule wrongly reads the preceding clause's number as an asserted dateline claim.",
+   "evidence": "Constructed vector 'the unit opens at 45:18, where a dateline would be expected but none stands' is wrongly flagged 'claims a dateline at MT 45:18 - a calendar date with no year word is never a dateline', run live against the pinned citation_sweep.py in a private scratch copy. A control vector targeting an off-list verse ('45:17, and the dateline question is set aside') correctly stays GREEN, isolating the defect to the negation-direction gap rather than to the apposition number-matching itself.",
+   "how_verified": "Subprocess run of citation_sweep.py over constructed JSONL rows in my own private scratch (ezek_t4_9f21ab).",
+   "suggested_fix": "Extend puncta_negated() (or add a forward-looking variant used only by the apposition path) to also recognize a denial word in the clause immediately FOLLOWING the mention when the mention's own preceding clause is what supplies the apposition number -- i.e. when the apposition fallback fires, check both the number's own preceding clause AND the mention's own clause for a negator before accepting the claim as asserted. Likelihood in real rows: MEDIUM-HIGH specifically for MT 45:18, which TOOLKIT.md itself flags as the book's single most actively-discussed near-miss ('Watch MT 45:18 above all ... exactly the combination that reads like an oracle onset'); a primary or author explaining exactly why 45:18 is NOT a dateline is a natural and expected thing to write, and 'X would be expected but none stands' / 'X, though none is present' are ordinary English phrasings for that denial.",
+   "orchestrator_proposed_disposition": "PROPOSED: staged in TOOLFIX-1. A mention also counts as a denial when a closed set of denial constructions follows it inside its own clause, read through a parenthetical opening directly after it. A bare later 'no', 'none of' and a non-final 'is missing' do not deny, so 'the dateline at 45:18 opens no new year' stays RED. A denial behind a comma stays outside the clause and stays RED, a disclosed residual. Vectors cover both directions in all three dateline readings and both puncta arms. You may prefer T4's broader rule (any later negator, on the apposition path only). Until an install lands, the primaries' hand-checkers treat a RED dateline flag on a 45:18 denial as a possible tool false positive and resolve it from the text."
+  },
+  {
+   "id": "T4-04",
+   "question": "Rule on this T4 finding.",
+   "severity": "minor",
+   "artifact": "SP\\Ezek\\tools\\TOOLKIT.md (book-facts block) vs. SP\\Ezek\\tools\\citation_sweep.py and check_marks.py PUNCTA arms",
+   "claim": "TOOLKIT.md states a puncta claim 'needs single-witness disclosure'; neither tool's PUNCTA arm checks for it, unlike the sibling mark/small-letter/paseq arms which do.",
+   "evidence": "Direct code read of both PUNCTA blocks (no `single-witness` substring check present) against TOOLKIT.md's book-facts sentence; not live in the current corpus (all 16 real puncta mentions already carry the phrase by author discipline, per the suite-parity run).",
+   "how_verified": "Static code read (citation_sweep.py, check_marks.py) cross-checked against TOOLKIT.md text; corroborated against the suite-parity run's 0-puncta-flags result to confirm the gap has no live consequence today.",
+   "suggested_fix": "Either add a `single-witness` disclosure check to both PUNCTA arms (matching the mark/small-letter/paseq pattern), or soften TOOLKIT.md's sentence until it is machine-enforced. Pre-existing gap, not introduced by R4(ii)/CAL-1; out of this edit's own scope but caught by the R6 sibling sweep this review was also asked to perform.",
+   "orchestrator_proposed_disposition": "PROPOSED: staged in TOOLFIX-1. citation_sweep's PUNCTA REF arm fails a true claim without single-witness disclosure ('single-witness' or 'single witness'), which is where its sibling mark, small-letter and paseq ref checks live. check_marks' prose arms carry that check for no mark, so none is added there, and TOOLKIT.md's sentence is scoped to refs in the same edit. Over the chain head the suite shows no new problem."
+  },
+  {
+   "id": "S1-20",
+   "question": "Rule on this S1 finding (S1 routed it to you).",
+   "severity": "note",
+   "row_or_artifact": "SP\\Ezek\\ezek_cure_claims.v1.jsonl; tools check_marks.py",
+   "claim": "Gate items not visible in the reviewed bytes.",
+   "evidence": "At launch (c79df845...) there was no v2 or v3 line. Post-launch (cfb20d1e...) v2 was appended (bound to 3fcd77..., T3 checker) together with a supersession recording that v3 was withheld because T4 returned toolkit_md fit_with_changes and PILOT-4 stays open. The live TOOLKIT.md is 2b602174..., so no toolkit cure binds the live file, and the e3 gate item 'v3 on T4's verdict' is unmet. check_marks keeps PROSE_REACH=60 against R4(ii) order (2), a deviation disclosed in the source for T4. T4's own findings were not among my inputs.",
+   "suggested_fix": "Resolve T4's fit_with_changes on TOOLKIT.md and write EZEK-P0-CURE-toolkit-v3 through the hardened supersession path before primaries rely on the tool digests, or have the controlling agent rule the gate item.",
+   "route": "orchestrator|controlling_agent",
+   "orchestrator_proposed_disposition": "PROPOSED: the gate item stands UNMET and is carried as a condition before primaries. EZEK-P0-CURE-toolkit-v3 is written only on T5's toolkit_md verdict over the TOOLKIT.md installed with TOOLFIX-1 (and TOOLFIX-2 if adopted), through the hardened supersession path, and the tool cure claims follow T5. Record S1's observation; no other change."
+  },
+  {
+   "id": "S1-21",
+   "question": "Rule on this S1 finding (S1 routed it to you).",
+   "severity": "note",
+   "row_or_artifact": "SP\\Ezek\\ezek_controlling_agent_rulings.v1.json gate and rulings_e3 gate",
+   "claim": "The gates count '20 amended/merged/split spans', but the exact_spans of G2, G7, G8, G9, G10, G11, G12 and R3 give 19; all 19 landed exactly.",
+   "evidence": "R3 2 + G2 2 + G7 3 + G8 2 + G9 3 + G10 1 + G11 3 + G12 3 = 19.",
+   "suggested_fix": "Correct the count or name the twentieth span.",
+   "route": "controlling_agent",
+   "orchestrator_proposed_disposition": "PROPOSED: correct the count by note. The exact_spans of R3, G2, G7, G8, G9, G10, G11 and G12 sum to 19, all 19 landed exactly, and no twentieth span exists. The gate text is amended by note, never by editing the earlier rulings files."
+  },
+  {
+   "id": "S1-23",
+   "question": "Rule on this S1 finding (S1 routed it to you).",
+   "severity": "note",
+   "row_or_artifact": "strong_or_hebrew_tags_used in 52 rows",
+   "claim": "52 rows (all p02, all p08, all p11, P03-017..P03-019, P09-008) have empty tags, and CWO-EZ-06's predicate is vacuously satisfied for them.",
+   "evidence": "Every one was already empty in r3; the new rows P08-015, P11-014 and P11-015 follow their parts. 22 sampled tag entries are not cited in the row's prose.",
+   "suggested_fix": "Rule whether P5 requires tags on every row and whether a tag must be cited verbatim in prose.",
+   "route": "controlling_agent",
+   "orchestrator_proposed_disposition": "PROPOSED: rule that P5 does NOT require tags on every row; a row may carry none when its argument cites no Hebrew term beyond its splices. When a tag is present it must stay byte-true at its oshb: ref (CWO-EZ-06); verbatim citation of a tag in prose is recommended, not required. If you rule tags mandatory, it becomes a corpus-wide order with its own sweep (E-18), and the 52 rows join the fix-up wave."
+  },
+  {
+   "id": "S1-ROUTING",
+   "question": "S1 routed its other findings to author fix-ups or orchestrator sweeps. Ratify that routing, or re-route any finding (to yourself, to a different part, or to a corpus-wide order).",
+   "s1_verdict": "fit_with_changes",
+   "routed_elsewhere": [
+    {
+     "id": "S1-01",
+     "severity": "major",
+     "route": "author_fixup:p01",
+     "claim": "The ruled strongest_rejected_alternative (the single Ezek.7.5-Ezek.7.27 row) is absent from the new row.",
+     "suggested_fix": "Set P01-014's SRA to the single 7:5-27 row, rejected on the 2mp recognition + refrain close at 7:9. The WEB-break alternative may stay as a secondary clause marked tier-4."
+    },
+    {
+     "id": "S1-02",
+     "severity": "major",
+     "route": "author_fixup:p11",
+     "claim": "G12(d) is not executed in boundary_rationale: the rationale and SRA still argue that reading 45:18 as an onset puts a false boundary inside 45:18-25, while the row opens at 45:18.",
+     "suggested_fix": "Rewrite the rationale onset: the messenger formula at oshb:Ezek.45.18 after the samekh at 45:17, with the month+day clause disclosed as not a dateline and not onset evidence. Re-aim the argument and the SRA at onsets at 45:20/45:21/45:25 only."
+    },
+    {
+     "id": "S1-03",
+     "severity": "major",
+     "route": "author_fixup:p10",
+     "claim": "Byte-false exclusivity claims inside the G11 seam argument: the cross-reference refrain כַּמִּדּ֖וֹת הָאֵֽלֶּה is said never to occur in 40:20-27 or in the outer-court gates, the outer gates are said to be keyed to the first gate, and 40:37 is said to match 40:31 word for word.",
+     "suggested_fix": "Remove or correct the three claims; cite the refrain's verses with a sweep digit (6 verses, including 40:24); keep the court-change transport as the deciding device."
+    },
+    {
+     "id": "S1-04",
+     "severity": "major",
+     "route": "author_fixup:p01",
+     "claim": "Spliced Hebrew does not match the device the prose names or the gloss beside it; the splices are byte-true fragments displaced within the verse, so every gate passes them.",
+     "suggested_fix": "Re-splice programmatically: 2:7 כִּ֥י מְרִ֖י הֵֽמָּה; 3:1 אֱכוֹל֙ אֶת הַמְּגִלָּ֣ה הַזֹּ֔את; 3:3 וַתְּהִ֥י בְּפִ֖י כִּדְבַ֥שׁ לְמָתֽוֹק. Match each gloss's extent to its splice (also 2:3), and read back every splice in its sentence."
+    },
+    {
+     "id": "S1-05",
+     "severity": "major",
+     "route": "author_fixup:p01|author_fixup:p06|author_fixup:p07|author_fixup:p08|author_fixup:p09|author_fixup:p10|author_fixup:p11|orchestrator",
+     "claim": "The wave introduced section 8-barred register into the rows (repair narration, positional row references, strategy citations, governance talk), and check_register reports 0, so CWO-EZ-08's COVERED hides it.",
+     "suggested_fix": "Author fix-up per part to remove these phrasings (verse-anchored cross-row references only). Add pattern arms to check_register for 'originally drafted|former (span|row)|prior .* reading|correction to an earlier|(preceding|next|following) row|row (before|after)|(one|middle|last) of \\w+ rows|strategy's|the (ruling|order)'s|posture|officially inventoried|the part', then re-run CWO-EZ-08 coverage."
+    },
+    {
+     "id": "S1-06",
+     "severity": "major",
+     "route": "author_fixup:p01|orchestrator",
+     "claim": "A Qere quoted below byte tier passes both HARD Hebrew gates.",
+     "suggested_fix": "Re-splice the Qere אַרְבַּ֖ע from the note bytes. Tools: bind Hebrew inside refs entries to the entry's own ref (or the bound verse's Qere), and stop the normalizer accepting a quote at a verse other than the one cited."
+    },
+    {
+     "id": "S1-07",
+     "severity": "major",
+     "route": "author_fixup:p03|orchestrator",
+     "claim": "8 pointed splices are cut inside a grapheme (final vowel, accent or shin dot dropped) and still collate at byte tier, because collate_hebrew is a substring test without word or grapheme boundaries.",
+     "suggested_fix": "Re-splice whole words from Ezek_oshb.txt. Add a grapheme-boundary check (a byte match must not be followed by a combining mark or letter, nor preceded by a letter or mark) to collate_hebrew or the normalizer."
+    },
+    {
+     "id": "S1-08",
+     "severity": "minor",
+     "route": "author_fixup:p10",
+     "claim": "A false exclusivity claim: 'no other K/Q or editorial note touches this row'.",
+     "suggested_fix": "Disclose the 41:20 editorial note alongside the puncta and drop the exclusivity."
+    },
+    {
+     "id": "S1-09",
+     "severity": "minor",
+     "route": "author_fixup:p03|author_fixup:p05|author_fixup:p06|author_fixup:p08",
+     "claim": "Span-relevant parashah marks are left undisclosed (front seam or interior).",
+     "suggested_fix": "Disclose each mark (single witness) on the seam side where it stands."
+    },
+    {
+     "id": "S1-10",
+     "severity": "minor",
+     "route": "author_fixup:p06|orchestrator",
+     "claim": "The WEB quotations moved into prose under R1F-1 and G7 open a curly quote that is never closed, and check_web_quotes does not detect it.",
+     "suggested_fix": "Close each quotation (or cut it to a balanced verbatim span) with its inline web: ref; add an unbalanced-quote arm to the pairing check."
+    },
+    {
+     "id": "S1-11",
+     "severity": "minor",
+     "route": "author_fixup:p08|author_fixup:p02|author_fixup:p09",
+     "claim": "Curly double quotes wrap English glosses that are not WEB text, with no web: ref in the field (section 8, E-15).",
+     "suggested_fix": "Use single quotes for glosses, or quote WEB verbatim with an inline web: ref."
+    },
+    {
+     "id": "S1-12",
+     "severity": "minor",
+     "route": "author_fixup:p02|author_fixup:p06|author_fixup:p10",
+     "claim": "A quote or tag carries a ketiv form with no ketiv/qere keyword in its field.",
+     "suggested_fix": "Add the ketiv label in the same sentence, or quote a span that avoids the ketiv."
+    },
+    {
+     "id": "S1-13",
+     "severity": "minor",
+     "route": "author_fixup:p01|author_fixup:p07|author_fixup:p08",
+     "claim": "Verses argued as the seam's far-side evidence are not mirrored in boundary_evidence_refs.",
+     "suggested_fix": "Add the seam-evidence refs with disclosures. Range and comparison asides need no mirror."
+    },
+    {
+     "id": "S1-14",
+     "severity": "minor",
+     "route": "author_fixup:p01|author_fixup:p02|author_fixup:p06|author_fixup:p08|author_fixup:p11",
+     "claim": "Small unsupported or incorrect statements in new text.",
+     "suggested_fix": "Correct each against the bytes and add digit-bearing citations where a universal is kept."
+    },
+    {
+     "id": "S1-15",
+     "severity": "minor",
+     "route": "orchestrator|author_fixup:p06|author_fixup:p09|author_fixup:p01",
+     "claim": "Format leaks: Python reprs and placeholders in rows, a mark encoded in oss, and a stray Hebrew letter in English.",
+     "suggested_fix": "Orchestrator: deterministic clean-up sweep of 'hebrew: None' and the list repr with a manifest. Authors: replace mark-encoding oss keys and fix the resh."
+    },
+    {
+     "id": "S1-16",
+     "severity": "note",
+     "route": "orchestrator",
+     "claim": "P11-002 is listed as replaced but its content is byte-identical to r3.",
+     "suggested_fix": "Record it as a no-op in the manifest's replaced count (134, of which 1 no-op)."
+    },
+    {
+     "id": "S1-17",
+     "severity": "note",
+     "route": "orchestrator",
+     "claim": "The sweep digest chain has one link whose manifest was not among the reviewed inputs.",
+     "suggested_fix": "Bind the intervening manifest (likely CWO-EZ-09 or an r2 consolidation) into the chain record, or brief a checker on it."
+    },
+    {
+     "id": "S1-18",
+     "severity": "note",
+     "route": "orchestrator",
+     "claim": "80 curly-quote removals are recorded with counts only, so the manifest does not prove them lossless.",
+     "suggested_fix": "Record old/new bytes for this class in future sweep manifests."
+    },
+    {
+     "id": "S1-19",
+     "severity": "minor",
+     "route": "orchestrator",
+     "claim": "The T3-01 behaviour is correct, but four edge gaps remain.",
+     "suggested_fix": "Refuse claims missing both author fields; refuse duplicate cure_ids, or match old digests per line; anchor the ORDERED_BY regex at a word boundary that excludes '-'; require --rulings on gating runs; validate digests as 64 hex characters; record in each supersession the ruling that names the retired cure id, or have the orchestrator log that link. Add vectors for each."
+    },
+    {
+     "id": "S1-22",
+     "severity": "minor",
+     "route": "orchestrator",
+     "claim": "The paragraph_mark_claim, kq_claim and false_mark_absence_claim arms raise false positives on true disclosures (TQ-01..03), filling primaries' triage with noise.",
+     "suggested_fix": "Read c:v and 'MT c:v' forms, bind to the claim's own clause, treat negated K/Q claims as absence claims, and scope absence phrases to their named verse or range. Change needs a distinct review (R4 precedent)."
+    }
+   ],
+   "s1_tool_questions": [
+    {
+     "question": "TQ-01 check_marks paragraph_mark_claim (P01-001, P01-011, P01-013, P02-013, P05-001..P05-004)",
+     "disposition": "tool_false_positive",
+     "evidence": "Rule 1 builds candidates only from VERSE_NEAR = r'Ezek\\.(\\d+)\\.(\\d+)' inside a +-120-character window. A mark named in c:v form ('samekh recorded after 1:28', '7:4's pe-marked', 'Pe at 22:16', 'pe-marked ... at 22:16', 'samekh mark at 22:18', 'pe-marked close at 22:22', 'samekh mark at 23:10', 'Pe marks fall after 2:2 and 2:5') is invisible to the rule, so the claim binds to the nearest dotted ref, usually the onset verse. Every flagged claim is true to pmarks (1:28 S, 7:4 P, 22:16 P, 22:18 S, 22:22 P, 23:10 S). P01-011 and P02-013 no longer flag; P01-002 (2:4) newly flags for the same reason."
+    },
+    {
+     "question": "TQ-02 check_marks false_mark_absence_claim (P02-005, P02-018, P02-019, P04-002, P10-001, P10-013)",
+     "disposition": "tool_false_positive",
+     "evidence": "Rule 3 flags the first ABSENCE match whenever relevant() (front seam, interior, end) holds any mark. It never binds the phrase to a verse and never checks disclosure. Live flags: P02-005 'chapter 10 carries no parashah mark' (true; the relevant mark is the disclosed samekh after 9:11); P02-018 'no parashah mark falls exactly at 13:23' (true; marks at 13:16, 13:19); P02-019 'no parashah mark falls at 14:4' (true; marks at 14:1, 3, 5, 8, 11). P04-002, P10-001 and P10-013 no longer flag."
+    },
+    {
+     "question": "TQ-03 check_marks kq_claim (P08-001, P08-007, P10-001, P10-014)",
+     "disposition": "tool_false_positive",
+     "evidence": "Rule 4 binds a K/Q token to dotted refs within +-120 characters and ignores negation. P08-001 'No K/Q ... touches this span' and P10-001 'No K/Q or editorial note in 40:1-4' are true absence claims (pmarks kq has no key in 33:1-9 or 40:1-4). P08-007's token concerns 35:12 (a K/Q verse), but only 35.13 falls in the window after a long splice. P10-014 concerns 43:15 (a notes_other ketib/qere note) and 43:16 (kq), bound to 43.13."
+    },
+    {
+     "question": "TQ-04 citation_sweep prose_dual_warn: 9 warns where the bound quote does not contain the K/Q form (P01-005, P03-008, P03-009, P03-016, P05-002, P05-007, P06-001 tag, P10-004 tag, P10-011 tag)",
+     "disposition": "tool_false_positive",
+     "evidence": "The walk() arm warns when the quote's bound verse has any kq entry and the field lacks a ketiv/qere keyword, whether or not the quote overlaps the K/Q word. The skeleton of none of these 9 runs contains the ketiv from kq_split (e.g. בֶּן אָדָ֕ם at 22:18 vs ketiv לסוג)."
+    },
+    {
+     "question": "TQ-04 citation_sweep prose_dual_warn: 4 warns where the quote carries the ketiv (P02-001 8:6, P02-004 9:11, P06-001 rationale 25:7, P10-016 tag 40:37)",
+     "disposition": "row_defect",
+     "evidence": "Whole-verse quotes contain the ketiv מהם, כאשר and לבג, and the tag carries מעלו, with no ketiv/qere keyword in the field (disclosure exists only in refs). Minor in-field disclosure gaps (S1-12)."
+    },
+    {
+     "question": "TQ-05 check_universals on P10-004, P10-016, P10-008, P11-012, P11-014, P11-015: lexical hits",
+     "disposition": "tool_false_positive",
+     "evidence": "Most new flags are non-claims: 'first gate' (ordinal), 'The single ... row' (the rejected span), 'strongest rejected alternative' (field name), 'each' distributing over enumerated verses, 'only' in 'count-only'/'compass-direction only', 'never cut inside, per the standing list-guard rule'."
+    },
+    {
+     "question": "TQ-05 check_universals on P10-004, P10-016, P10-008, P11-015: substantive claims",
+     "disposition": "row_defect",
+     "evidence": "Byte-false: P10-004 'occurs only at 40:28, 40:29, 40:32, 40:33 and 40:35 ... never once inside 40:20-27' and P10-016 'never occurs in the outer-court gates', where the skeleton sweep finds כמדות האלה at 40:24; P10-016 'worded identically to the close of 40:31' (40:31 reads וּמַעֲל֥וֹת שְׁמוֹנֶ֖ה מעלו); P10-008 'no other K/Q or editorial note touches this row' (notes_other 41:20). Unsupported: P11-015 'strongest close signal in the whole former span'. True but without a digit-bearing sweep: 'every one ... never on the cubit figures' and 'No parashah mark touches ch 40 at all'."
+    },
+    {
+     "question": "TQ-06 check_refs_mirror argued_but_unmirrored (P08-006, P08-015, P08-007, P08-010, P08-011): range and comparison asides",
+     "disposition": "tool_false_positive",
+     "evidence": "The long lists come from range mentions being expanded: SRA spans 'Ezek.34.17-Ezek.34.31' (P08-006), 'Ezek.34.1-Ezek.34.16' (P08-015), 'Ezek.35.1-36.15' and 35.1-35.15 (P08-010), 36.1-36.12 (P08-011), and P08-007's comparison list 6.7, 28.22, 30.8, 37.6, 37.13, 39.6 and hard-seam list 33.1, 33.23, 34.1. These are asides, not boundary evidence. check_refs_mirror.py source was not among my inputs, so this is judged from the flag output and the row bytes."
+    },
+    {
+     "question": "TQ-06 check_refs_mirror: seam evidence left unmirrored",
+     "disposition": "row_defect",
+     "evidence": "Verses argued as the seam's far-side evidence but absent from refs: P08-006 34:17 (addressee-change onset); P08-015 34:15/34:16 (preceding close) and 35:1 (next onset); P08-007 36:1 (next sub-onset); P08-010 36:13 and P08-011 36:16. Also P01-014 8:1 and P07-009 30:20. Minor (S1-13)."
+    },
+    {
+     "question": "TQ-07 check_web_quotes pairing on one part vs the whole corpus (P06-001..P06-013)",
+     "disposition": "neither",
+     "evidence": "Not reproducible on the final bytes: run_validator_suite over a p06-only private copy and over the whole corpus gives identical web_quotes output for the p06 rows (12 flags, no difference in either direction; refs_mirror 12, mark_symmetry 2, universals 42 also identical). The difference the authors saw came from other input bytes (their part-level drafts), not from order or context. Separately, 10 p06 rows carry an opening curly quote with no closing one, and neither run flags them; that is a pairing false negative plus a row defect (S1-10). Source not in my inputs."
+    },
+    {
+     "question": "TQ-08 moot routed residuals: P05-001 (CWO-EZ-05 PE at 22:1)",
+     "disposition": "tool_false_positive",
+     "evidence": "The routed item was check_marks binding 'Pe at 22:16' to Ezek.22.1. The same flag persists in r3 and final under the current tools, but the row's claim is true (pmarks 22:16 PE). Moot in substance: no claim contradicts the inventory."
+    },
+    {
+     "question": "TQ-08 moot routed residuals: P08-010 (samekh at 35:1), P08-014 (samekh at 36:37, 37:1), P08-011 (CWO-EZ-02 runs)",
+     "disposition": "neither",
+     "evidence": "P08-010 and P08-014 carry no paragraph_mark_claim flag in r3 or final under current tools. Their prose discloses the samekh after 36:36 and 36:38 correctly (pmarks 35:1 none, 36:37 none, 37:1 none), so these are truly moot. P08-011's routed Qere runs גּוֹיַ֖יִךְ, וְגוֹיַ֖יִךְ, תְשַׁכְּלִי and the unpointed אתי are now quoted as labelled ketiv/Qere pairs with the Qere in raw note bytes (collation qere_byte), so they are cured rather than merely moot."
+    },
+    {
+     "question": "TQ-09 check_marks mark_symmetry_gap (P05-006, P05-007, P06-001, P06-005)",
+     "disposition": "row_defect",
+     "evidence": "No mention of the verse anywhere in the row: P05-006 samekh after 23:35 (front seam) and after 23:45 (interior); P05-007 pe after 23:49 (front seam), samekh after 24:5, pe after 24:8; P06-001 samekh after 24:27 (close side of the P5/P6 parent seam); P06-005 samekh after 25:17 (front seam). Genuine disclosure gaps (S1-09). The same class rose in P03-020 (pe after 18:32) and P08-007 (pe after 34:31)."
+    }
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: ratify S1's routing with one sequencing rule, TOOLS FIRST. (1) The orchestrator stages TOOLFIX-2 (S1-05, S1-06, S1-07, S1-10, S1-19, S1-22) with vectors both ways and a corpus-impact report. (2) TOOLFIX-1 and TOOLFIX-2 are installed by digest with install receipts. The suite over the chain head is then expected to turn HARD RED on the true defects S1 found (grapheme-cut and below-tier splices), and those rows join the fix-up orders. (3) T5, a fresh distinct checker, reviews both installed batches. (4) FIXUP-1, the per-part author fix-up wave, launches after T5 lands without a blocker, with the new tools as self-checks. (5) The orchestrator runs CWO-EZ-13 as its own sweep after FIXUP-1 is applied, and records S1-16, S1-17 and S1-18 as notes. (6) Guarded apply, suite HARD GREEN and a per-CWO coverage re-run (CWO-EZ-08 with the new register arms) follow, then S2, a fresh distinct-checker sweep of the fix-up wave, before the primaries gate. If T5 finds a blocker in either batch, it returns to you before the fix-up wave."
+  },
+  {
+   "id": "E19-T4",
+   "question": "T4 read files beyond its brief's input table. Rule on the disposition.",
+   "facts": [
+    "T4 (ezek_toolkit_r4ii_review_t4_a1#e1) read 13 files that its brief's table does not name. Seven are suite members: check_web_quotes.py, check_refs_mirror.py, check_universals.py, check_language_zones.py, ngram7.py, cap_sweep.py and check_register.py. Six are dependency files: verse_inventory.json, web_mt_verse_check.json, web_mt_offset_map.json, ezek_kjv_variance_crosscheck.json, Ezek_web_clean.txt and tools/verse_map_web.json.",
+    "The brief ordered run_validator_suite.py to be run over PRIVATE COPIES (TOOLKIT_R4II_REVIEW_BRIEF_T4.md line 110), and the suite reads those files by exact relative path.",
+    "T4 disclosed the reads in its sources without being asked, and recorded every digest in artifacts_reviewed. The landing tool lists them under artifacts_read_beyond_the_table.",
+    "The two Jer tool sources T4 read are named in its brief's table. Its one Get-ChildItem was scoped to its own private scratch."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record and close (LOW; disclosed; implied by an ordered run). Any later brief that orders a suite run names the suite's members and dependency files in its table."
+  },
+  {
+   "id": "E19-S1",
+   "question": "S1 read three governance files its brief did not name, and one of its pinned inputs changed during its run because the orchestrator appended to it. Rule on the disposition.",
+   "facts": [
+    "S1 (ezek_author_wave_spot_review_s1_a1#e1) read three governance files by exact path: C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml (the logos-t423-m8-fable entry), WORKSPACE_LIFECYCLE.md (temporary-directory rules) and WINDOWS_ADAPTER.md (temporary roots). It states its operating policy requires them, and it wrote nothing to them.",
+    "S1's brief pinned SP\\Ezek\\ezek_cure_claims.v1.jsonl at c79df845.... During S1's run the orchestrator appended EZEK-P0-CURE-toolkit-v2 and its supersession record (live cfb20d1e...). S1 detected the change, re-read the live bytes, verified the appended lines with _cure_verification.py (GREEN), and disclosed it. The landing tool recorded it as a form defect.",
+    "The append was the orchestrator's timing slip: it wrote to a file an in-flight review had pinned. It is recorded in the error-pattern ledger, and the orchestrator adds a preventive guard (an in-flight pin check before any append to a record a running execution's brief pins) before its next such append."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record and close for S1 (LOW; the reads were policy-mandated; the change was detected and verified). Record the orchestrator slip as disclosed, with its control. No row or ruling is affected."
+  },
+  {
+   "id": "V3-W",
+   "question": "Acknowledge the TOOLKIT.md cure-claim state after T4, or order otherwise.",
+   "facts": [
+    "EZEK-P0-CURE-toolkit-v2 was appended on T3's review of TOOLKIT.md at 3fcd774a and cure run 2026-09-11_after_t3. _cure_verification.check_claim ACCEPTED it against the retained bytes (SP/Ezek/cure_runs/retained_bytes_toolkit_3fcd774a).",
+    "A supersession record then retired v2, because the R4(ii)/CAL-1 install changed the file (ordered_by 'ezek_controlling_rulings_a1#e2 ruling R5'; old_artifact_sha256 3fcd774a). S1-19(e) observes that R5 ordered the retirement rule in general and names no v2 claim.",
+    "_cure_verification.py with --rulings over the #e2 and #e3 files: claims 3, accepted 1, superseded 2, refused 0, GREEN.",
+    "EZEK-P0-CURE-toolkit-v3 is WITHHELD because T4's toolkit_md verdict is fit_with_changes (T4-04). PILOT-4 stays OPEN, and the Q3-1 retained-lows rebind to 2b602174 waits for v3."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: acknowledge. v3 is written on T5's toolkit_md verdict over the post-fix TOOLKIT.md, and the retained LOWs are then rebound (Q3-1). If you want each supersession to cite a ruling that names its retired cure id (S1-19(e)), name the ruling here and the orchestrator records the link."
+  },
+  {
+   "id": "TOOLFIX-1",
+   "question": "Rule on the orchestrator's staged tool edit for T4-01, T4-03 and T4-04, which is NOT installed. Adopt it, adopt it with amendments (name them), or order a different rule. An adopted edit is installed by digest, and a fresh distinct review (T5) binds the installed digests before any cure claim.",
+   "facts": [
+    "SP/Ezek/proposals/t4fix_batch1/manifest.json (sha256 227f900a2cfc6dc2244860761992ce2aeed7ef60acf35be4575ea1a33d579d00) records the staged digests: citation_sweep.py 6d9af2f0953d5b80..., check_marks.py d83bb5bd906d48b9..., _adapt_zone_tools_ezek.py 1535d2a6f1aba993..., _test_zone_tools_ezek.py ff29ccd4f4a3f9d4..., TOOLKIT.md 9d7a1facd4cd1d3a.... Unified diffs from the installed files are in its diffs/ directory, and the scripts that produced them in scripts/.",
+    "T4-01: every C:V or C.V number these arms read (clause, parenthetical, list, apposition) is refused when a letter stands directly before its digits, so 'R4.5' is an id. 'Ezek.41.5', '(41:20)' and '41.20' still bind.",
+    "T4-03: puncta_negated now also takes the mention's end. A denial from a closed set (DENIAL_AFTER) that stands AFTER the mention in its clause makes the mention a denial; the check reads through a parenthetical that opens directly after the clause. It serves the puncta ref and prose arms and both calendar-date arms. A bare later 'no', 'none of' and a non-final 'is missing' do not deny. A denial behind a comma stays outside the clause and stays RED, a disclosed residual pinned by a vector.",
+    "T4-04: citation_sweep's PUNCTA ref arm fails a true claim whose annotation lacks 'single-witness' (or 'single witness'), matching its mark, small-letter and paseq ref arms. TOOLKIT.md's book-facts sentence is scoped to refs.",
+    "Tests: the staged tools pass 136/136 GREEN, including 19 new checks in section 9. Against the installed tools, the staged test file fails exactly the 10 fix-dependent vectors and passes every earlier check (verdict DISCRIMINATING).",
+    "Toolkit selfcheck passes 101/101 and the ezek_lib selftest exits 0. The suite over the chain head rows_v3_cwo12 shows NO list difference from the installed tools' report (HARD GREEN, triage flags 1021).",
+    "R4ii-D1 (PROSE_REACH=60) is untouched by this batch."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: adopt as staged. It installs together with TOOLFIX-2 (one install receipt per batch), and T5 reviews both. If T5 finds nothing new, the citation_sweep and check_marks cure claims and EZEK-P0-CURE-toolkit-v3 are written on its verdict, followed by the Q3-1 rebind; otherwise the edit returns to you."
+  },
+  {
+   "id": "TOOLFIX-2",
+   "question": "S1 found HARD-gate and tool gaps. Adopt the orchestrator's plan to stage them, install them and have them reviewed together with TOOLFIX-1 (T5), amend the plan, or order otherwise. The staged edit does not exist yet. If you adopt the plan, you may pre-authorize install on its own tests and corpus-impact report; T5's review still stands before any cure claim.",
+   "facts": [
+    "S1-07 (major): ezek_lib.collate_hebrew's byte tier is a substring test without grapheme boundaries, so splices cut inside a grapheme (a final vowel, accent or shin dot dropped) pass at byte tier. Eight such cuts stand in P03-004, P03-005 (twice), P03-006, P03-010, P03-012, P03-017 and P03-019; all were present before the wave. S1 sampled 907 runs; the rest of the corpus is unchecked for this class.",
+    "S1-06 (major): citation_sweep's walk() skips boundary_evidence_refs, so Hebrew inside a ref entry is never bound to that entry's own ref, and the normalizer accepts a quote that is byte-true anywhere in the book. P01-012's Qere אַרְבַּע at 7:2 is accent_stripped against the note's raw Qere and passes both HARD gates.",
+    "S1-05 (major): check_register reports 0 while the wave added 36 section-8-barred phrasings (repair narration, positional row references, strategy citations, governance talk), so CWO-EZ-08's COVERED hides them.",
+    "S1-10 (minor): check_web_quotes has no arm for an unbalanced curly quote (10 p06 rows).",
+    "S1-22 (minor): check_marks Rules 1, 3 and 4 raise false positives on true disclosures (TQ-01, TQ-02, TQ-03). VERSE_NEAR reads only the dotted form, the window is fixed at 120 characters, negation is ignored, and absence phrases are not scoped to a verse.",
+    "S1-19 (minor): _cure_verification.py has five edge gaps. (a) A claim without author fields is accepted. (b) Duplicate cure_id lines are not caught. (c) The ORDERED_BY regex's '-' boundary lets a fabricated id pass without --rulings. (d) A non-hex output_sha256 is accepted. (e) Nothing checks that the ordering ruling names the retired cure id. No path reached ACCEPTED without the three-digest binding."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: adopt the plan. The orchestrator stages ONE TOOLFIX-2 batch: S1-07 a grapheme boundary in ezek_lib and the normalizer; S1-06 Hebrew in ref entries bound to the entry's own ref, with no book-wide acceptance where a ref is cited; S1-05 register arms built from S1's quoted phrases; S1-10 an unbalanced-quote arm; S1-22 check_marks reading c:v and MT c:v forms, clause binding, negated K/Q as absence and scoped absence phrases; S1-19 the verifier fixes. Each carries vectors both ways, and a corpus-impact report lists every new HARD flag by row. You pre-authorize install on those tests. T5 reviews TOOLFIX-1 and TOOLFIX-2 together. New HARD flags on the chain head are true defects routed into FIXUP-1, and no cure claim is written before T5."
+  },
+  {
+   "id": "CWO-EZ-13",
+   "question": "Order, amend or reject a deterministic format clean-up as its own sweep (E-18).",
+   "facts": [
+    "S1-15: 'hebrew: None' stands in ref entries of P09-002, P09-003, P09-007, P09-008, P09-010 and P09-011 (the s1 flatten rendered null as None), and a Python list repr (parashah: ['SAMEKH'] or ['PE']) stands in the refs of 12 p06 rows.",
+    "S1-18: the s3 manifest recorded 80 curly-quote removals by count only. S1's indirect check found none left touching Hebrew."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: order CWO-EZ-13 as its own sweep. Its predicate is exactly those byte patterns in boundary_evidence_refs strings: the ', hebrew: None' segment is removed, and the list reprs become 'samekh' and 'pe'. It is lossless, and its manifest records old and new bytes per change. It runs after FIXUP-1 is applied, so it never races an author. The mark-encoding oss keys and P01-004's stray resh stay author items."
+  },
+  {
+   "id": "FIXUP-1",
+   "question": "Ratify, amend or reject the per-part author fix-up wave built from S1's author-routed findings.",
+   "facts": [
+    "Parts and S1 ids, from S1's routes and the rows each finding names:",
+    "p01: S1-01, S1-04, S1-05, S1-06, S1-13, S1-14, S1-15.",
+    "p02: S1-11, S1-12, S1-14.",
+    "p03: S1-07, S1-09.",
+    "p05: S1-09.",
+    "p06: S1-05, S1-09, S1-10, S1-12, S1-14, S1-15.",
+    "p07: S1-05, S1-13.",
+    "p08: S1-05, S1-09, S1-11, S1-13, S1-14.",
+    "p09: S1-05, S1-11, S1-15.",
+    "p10: S1-03, S1-05, S1-08, S1-12.",
+    "p11: S1-02, S1-05, S1-14.",
+    "p04 has none.",
+    "The majors are field content, and most are byte-level. S1-01: P01-014's strongest_rejected_alternative does not follow G2#1. S1-02: P11-006 leaves G12(d) unexecuted. S1-03: P10-004 and P10-016 make byte-false exclusivity claims. S1-04: the wave introduced mis-splices in P01-002 and P01-003. S1-05: barred register. S1-06: P01-012's Qere below byte tier. S1-07: grapheme-cut splices in p03.",
+    "S1 also confirmed a number of things. All 19 re-spans land on the ruled spans with the ruled type, confidence and parent, and straddle no hard seam. Whole-book tiling holds. The CWO-EZ-11 and CWO-EZ-12 sweeps are lossless. The sweep predicates hold, and so does the CWO-EZ-10 scan. The defects in S1's respans, content_orders and cwo_sample sections are field content, not spans."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: ratify. The orchestrator builds one orders file per part. Each carries every S1 id for that part verbatim (claim, evidence, suggested fix) and S1's per-row defect text from its respans, content_orders and cwo_sample sections; no span changes unless you order one. Attempt ids are ezek_author_fixup_pNN_a1, first execution #e1. The authors work under the author brief's E-03 lane and splice-never-type, with the installed TOOLFIX-1 and TOOLFIX-2 tools as self-checks. Landing runs _land_author_part_ezek.py (form, coverage of every ordered row, local tiling, E-01), then a guarded apply, suite HARD GREEN, a per-CWO coverage re-run, and S2, a fresh distinct checker of the fix-up wave, before the primaries gate."
+  },
+  {
+   "id": "Q8-T",
+   "question": "#e3 made the Q8 coverage-statement template a condition before primaries. Ratify SP/Ezek/Q8_COVERAGE_STATEMENT_TEMPLATE.md and its generator SP/Ezek/_coverage_statement_ezek.py as meeting ruling Q8 (census verbatim, per-execution layers A/B/C separate, the three compensations with evidence pointers, never a summed count), or amend them."
+  },
+  {
+   "id": "GATE-4",
+   "question": "Restate conditions_before_primaries as they now stand and set primaries_may_launch. The primaries follow compensation 1 of ruling Q8 (FULL dual-blind coverage of every row, no sampling)."
+  }
+ ]
+}

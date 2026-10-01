@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "t521_external_review_receipt.schema.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "provider", "map_sha256", "prompt_sha256", "book_count", "chunk_count", "sibling_maps_read_before_review", "independent_model_or_provider_evidence", "candidate_only", "non_authorizing", "promotion_authorized", "book_reviews", "dissent_and_appeals_preserved", "receipt_status"],
+  "properties": {
+    "schema_version": {"const": "t521_external_review_receipt.v1"},
+    "provider": {"type": "object", "additionalProperties": false, "required": ["provider_family", "model_or_system_id", "execution_id"], "properties": {"provider_family": {"type": "string", "minLength": 1}, "model_or_system_id": {"type": "string", "minLength": 1}, "execution_id": {"type": "string", "minLength": 1}}},
+    "map_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "prompt_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "book_count": {"const": 66},
+    "chunk_count": {"type": "integer", "minimum": 1},
+    "sibling_maps_read_before_review": {"const": false},
+    "independent_model_or_provider_evidence": {"const": true},
+    "candidate_only": {"const": true},
+    "non_authorizing": {"const": true},
+    "promotion_authorized": {"const": false},
+    "book_reviews": {"type": "array", "minItems": 66, "items": {"type": "object", "required": ["book", "review_status", "literary_findings", "language_risks", "cross_reference_leads", "red_team_tests"], "properties": {"book": {"type": "string"}, "review_status": {"type": "string"}, "literary_findings": {"type": "array"}, "language_risks": {"type": "array"}, "cross_reference_leads": {"type": "array"}, "red_team_tests": {"type": "array"}}}},
+    "dissent_and_appeals_preserved": {"const": true},
+    "receipt_status": {"enum": ["review_complete", "review_complete_with_appeals", "review_incomplete"]}
+  }
+}

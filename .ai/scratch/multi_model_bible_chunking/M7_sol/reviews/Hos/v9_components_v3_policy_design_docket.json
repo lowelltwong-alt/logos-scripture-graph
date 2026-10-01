@@ -1,0 +1,551 @@
+{
+  "schema_version": "t550.v9_components_v3_policy_design_docket.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "generation": "V9_COMPONENTS_V3_DESIGN_ONLY",
+  "docket_role": "provider_neutral_pure_policy_schema_and_trust_boundary_design",
+  "mode": "design_only_no_implementation_or_live_effects",
+  "status": "DESIGN_DOCKET_COMPLETE_NOT_IMPLEMENTATION_PASS",
+  "immutable_rejected_predecessor_inputs": {
+    "v2_rejection_receipt": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_rejection_receipt.json",
+      "sha256": "24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f"
+    },
+    "v2_boss_ruling": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_boss_ruling.json",
+      "sha256": "963f52abf425c266447892fd7c1a16efab499e6fb4c0ff32a0154f6c9ffb9d09"
+    },
+    "v2_status": "REJECTED_APPEND_ONLY_NO_TRANSITIVE_PASS"
+  },
+  "design_thesis": [
+    "The pure policy validates closed data and deterministic relations; it never measures a host, authenticates a human, reads a clock, opens or retains a handle, or authorizes an effect.",
+    "A production collector emits one complete canonical raw record. No adapter may reduce that record to caller-authored labels or security conclusions before policy validation.",
+    "Expectations come from exact independently reviewed freeze bytes whose digest is supplied through a trusted launch boundary, never from a caller-built object and never from a self-referential hash inside those bytes.",
+    "A JSON authorization description is evidence to scope-check only. It can never make human_identity_verified true or create a trusted owner capability.",
+    "Prepare and publish are two fresh measurements joined by independently retained immutable digests and one still-live in-process handle lease, not by a caller resubmitting self-consistent JSON.",
+    "A deterministic PASS means structurally eligible candidate evidence only. The wrapper, trusted product capability, independent checker, boss, human decision, and transaction guard remain separate gates."
+  ],
+  "noncircular_freeze_architecture": {
+    "component_lock_v3": {
+      "purpose": "Freeze executable and review dependencies before any execution freeze is authored.",
+      "closed_required_fields": [
+        "schema_version",
+        "component_generation_id",
+        "created_at_utc",
+        "contract_sha256",
+        "v2_rejection_sha256",
+        "v2_boss_ruling_sha256",
+        "policy_module_sha256",
+        "production_collector_sha256",
+        "production_wrapper_sha256",
+        "transaction_kernel_sha256",
+        "rooted_replace_primitive_sha256",
+        "every_runtime_helper_sha256",
+        "every_relevant_test_sha256",
+        "independent_evidence_sha256_rows",
+        "candidate_only",
+        "non_authorizing"
+      ],
+      "digest_rule": "component_lock_sha256 = SHA256(canonical UTF-8 bytes of the entire closed component-lock object). The digest is detached and must not appear inside the hashed object.",
+      "invariant": "Every dynamically loaded or imported security-relevant runtime dependency is named and hash-verified before import or execution. An unlisted V1 collector or helper is forbidden."
+    },
+    "execution_freeze_v3": {
+      "purpose": "Freeze the exact T550/Hos one-shot scope after component bytes are immutable.",
+      "closed_required_fields": [
+        "schema_version",
+        "task_id",
+        "book",
+        "application_id",
+        "freeze_id",
+        "frozen_at_utc",
+        "pre_freeze_boot_identity",
+        "component_lock_sha256",
+        "exact_dependency_hash_rows",
+        "exact_evidence_hash_rows",
+        "target_tuple",
+        "target_tuple_sha256",
+        "sentinel_tuple",
+        "sentinel_tuple_sha256",
+        "canonical_parent_allowlist",
+        "bounded_process_policy_id",
+        "bounded_process_policy_sha256",
+        "permitted_phases",
+        "residual_race_acknowledgment_sha256",
+        "candidate_only",
+        "non_authorizing"
+      ],
+      "target_tuple_rule": "Exactly 13 ordered rows. Each row inseparably binds ordinal, target_id, role, root_id, canonical_parent_id, normalized_relative_token, exact leaf_name, frozen parent identity, frozen preimage file identity, frozen size, preimage_sha256, and staged_sha256.",
+      "sentinel_tuple_rule": "Exactly three ordered rows. Each row inseparably binds ordinal, sentinel_id, role, root_id, canonical_parent_id, normalized_relative_token, exact leaf_name, frozen parent identity, frozen file identity, frozen size, and expected_sha256.",
+      "digest_rule": "execution_freeze_sha256 = SHA256(canonical UTF-8 bytes of the entire closed execution-freeze object). The digest is detached and must not appear inside the hashed object.",
+      "independent_review_rule": "An independent freeze review signs or otherwise records the detached execution_freeze_sha256 outside the freeze bytes. The pure policy compares bytes to that externally supplied digest but cannot establish the reviewer's identity.",
+      "no_circularity_reason": "The generic wrapper hash is frozen in component_lock_v3 before execution_freeze_v3 exists. The generic wrapper does not hard-code its own hash or the future freeze digest. A trusted launcher and one-shot owner capability later supply both detached digests; neither digest participates in hashing the object that contains it."
+    },
+    "production_path_forbidden_inputs": [
+      "caller_built_expectations_object",
+      "caller_selected_physical_path",
+      "caller_selected_role",
+      "caller_selected_path_token",
+      "caller_selected_parent_id",
+      "caller_selected_process_classification",
+      "caller_supplied_backend",
+      "caller_supplied_clock",
+      "caller_supplied_parent_provider",
+      "caller_asserted_human_verified_boolean"
+    ]
+  },
+  "pure_policy_input_schema": {
+    "schema_version": "t550.v9_live_gate_policy_input.v3",
+    "closed_required_fields": [
+      "phase",
+      "component_lock_bytes",
+      "expected_component_lock_sha256",
+      "execution_freeze_bytes",
+      "expected_execution_freeze_sha256",
+      "raw_collector_record_bytes",
+      "expected_raw_collector_record_sha256",
+      "capability_scope_projection",
+      "expected_capability_reference_sha256",
+      "validation_clock_observation",
+      "prepare_continuity_input"
+    ],
+    "byte_handling": [
+      "Parse each byte string exactly once with duplicate-key rejection and a closed schema.",
+      "Canonicalize the parsed value and require byte-for-byte canonical encoding or retain both original-byte and canonical digests.",
+      "Recompute every supplied SHA-256 before inspecting dependent claims.",
+      "Validate the complete embedded raw collector record; no security-relevant raw field may be dropped in a projection.",
+      "Return both original_raw_sha256 and canonical_raw_sha256 in the structural PASS receipt."
+    ],
+    "phase_rule": "phase is exactly prepare or publish. Recovery is a separate rollback-only policy and cannot reuse a publication PASS."
+  },
+  "raw_collector_record_schema": {
+    "schema_version": "t550.windows_live_environment_raw_record.v3",
+    "closed_required_sections": {
+      "provenance": [
+        "production_entrypoint_id",
+        "production_collector_sha256",
+        "component_lock_sha256",
+        "loaded_dependency_hash_rows",
+        "provider_mode",
+        "provider_injection_available",
+        "test_backend_available"
+      ],
+      "capture": [
+        "capture_id",
+        "phase",
+        "start_wall_utc",
+        "end_wall_utc",
+        "start_monotonic_ns",
+        "end_monotonic_ns",
+        "max_duration_seconds",
+        "observer_process_identity"
+      ],
+      "boot_and_os": [
+        "boot_identity",
+        "boot_time_utc",
+        "os_name",
+        "os_version",
+        "os_build",
+        "native_architecture",
+        "runtime_architecture"
+      ],
+      "volume_and_roots": [
+        "volume_guid",
+        "volume_serial",
+        "filesystem",
+        "filesystem_flags",
+        "volume_root_handle_identity",
+        "workspace_root_handle_identity",
+        "model_root_handle_identity",
+        "canonical_parent_handle_rows"
+      ],
+      "targets": [
+        "exact_13_ordered_rooted_child_rows"
+      ],
+      "sentinels": [
+        "exact_3_ordered_rooted_child_rows"
+      ],
+      "processes": [
+        "current_process_identity",
+        "parent_process_identity",
+        "raw_unique_process_rows",
+        "bounded_process_policy_sha256",
+        "inventory_exhaustive_false",
+        "observer_limitations"
+      ],
+      "observations": [
+        "root_observation_times",
+        "parent_observation_times",
+        "target_open_observation_times",
+        "sentinel_open_observation_times",
+        "process_observation_times",
+        "directory_membership_before_after_digests"
+      ],
+      "effects": [
+        "read_only_measurement_true",
+        "probe_files_created_false",
+        "directory_members_changed_false",
+        "file_bytes_changed_false",
+        "delete_or_replace_attempted_false",
+        "restart_or_onedrive_action_attempted_false",
+        "prepare_publish_recover_attempted_false"
+      ],
+      "limitations": [
+        "bounded_inventory_not_exhaustive_true",
+        "future_or_preopened_writers_excluded_false",
+        "lost_update_before_rename_possible_true",
+        "overwrite_after_readback_possible_true",
+        "power_loss_durability_claimed_false",
+        "set_atomicity_claimed_false"
+      ],
+      "raw_record_sha256": [
+        "detached_sha256_over_all_other_closed_sections"
+      ]
+    },
+    "production_provenance_invariants": [
+      "provider_mode equals sealed_windows_production",
+      "provider_injection_available is false",
+      "test_backend_available is false",
+      "all loaded dependency hashes exactly equal component_lock_v3",
+      "os_name equals Windows and filesystem equals NTFS",
+      "the raw record embeds every underlying collector field and underlying collector digest rather than a lossy summary"
+    ]
+  },
+  "rooted_identity_relationship_schema": {
+    "identity_shape": [
+      "volume_serial",
+      "file_id_128",
+      "creation_or_start_token_when_applicable",
+      "attributes",
+      "is_directory",
+      "reparse_point",
+      "handle_access_and_share_mode",
+      "handle_opened_wall_utc",
+      "handle_opened_monotonic_ns"
+    ],
+    "parent_row_shape": [
+      "canonical_parent_id",
+      "derived_relative_token",
+      "exact_leaf_namespace",
+      "retained_parent_handle_identity",
+      "directory_members_before_sha256",
+      "directory_members_after_sha256"
+    ],
+    "rooted_child_row_shape": [
+      "ordinal",
+      "frozen_id",
+      "derived_role",
+      "derived_relative_token",
+      "derived_leaf_name",
+      "canonical_parent_id",
+      "retained_parent_handle_identity",
+      "opened_child_handle_identity",
+      "size_bytes",
+      "expected_preimage_sha256",
+      "expected_staged_or_sentinel_sha256",
+      "observed_sha256",
+      "regular_file",
+      "reparse_point_false",
+      "read_or_guard_open_succeeded",
+      "observation_wall_utc",
+      "observation_monotonic_ns"
+    ],
+    "pure_policy_relationship_invariants": [
+      "volume GUID, serial, flags, and volume-root identity equal the execution freeze and remain exact across prepare and publish",
+      "workspace and model roots share the exact frozen volume and have distinct expected directory identities",
+      "canonical parent IDs, tokens, and handle identities exactly equal the frozen ordered mapping",
+      "canonical parent directory identities are pairwise distinct",
+      "each target or sentinel parent identity equals its referenced parent row",
+      "each derived token equals normalized(parent frozen token plus exact frozen leaf) under one specified normalization algorithm",
+      "each opened child is proven by the production collector to have been opened relative to that retained parent handle and leaf",
+      "all 16 child file identities are pairwise distinct and equal their frozen identities",
+      "size and observed hash equal the exact frozen preimage or sentinel allowlist",
+      "parent swap, parent alias, alternate same-parent leaf, token substitution, duplicate identity, reparse point, hard-link alias, or normalization ambiguity fails closed"
+    ]
+  },
+  "boot_os_volume_capture_policy": {
+    "required_order": "execution_freeze.frozen_at_utc < boot_time_utc <= capture.start_wall_utc <= every_handle_process_and_directory_observation_wall_utc <= capture.end_wall_utc <= validation.wall_utc",
+    "monotonic_order": "capture.start_monotonic_ns <= every_in_process_observation_monotonic_ns <= capture.end_monotonic_ns <= validation.monotonic_ns",
+    "duration_rules": [
+      "capture and validation age are each at most 120 seconds",
+      "wall and monotonic durations differ by at most the explicitly frozen tolerance",
+      "boot identity differs from pre_freeze_boot_identity",
+      "all monotonic values come from the same boot and observer process",
+      "OS build and both architectures exactly equal the execution-freeze environment allowlist",
+      "NTFS volume GUID, serial, flags, volume-root, workspace-root, model-root, and parent identities exactly equal the execution freeze"
+    ]
+  },
+  "process_relational_closure": {
+    "code_fixed_policy": {
+      "content": "A sorted, unique normalized process-name and executable-identity classification table is part of component_lock_v3 and execution_freeze_v3.",
+      "digest": "bounded_process_policy_sha256 is recomputed by the pure policy from that exact table; caller-provided blocker subsets are forbidden."
+    },
+    "raw_process_row": [
+      "pid",
+      "parent_pid",
+      "process_start_token",
+      "normalized_measured_name",
+      "retained_executable_handle_identity",
+      "executable_file_identity",
+      "observation_wall_utc",
+      "observation_monotonic_ns"
+    ],
+    "required_relations": [
+      "raw process identities are unique by PID plus start token and have no contradictory duplicate PID rows",
+      "current process is derived as exact equality with capture.observer_process_identity",
+      "parent process is derived from current.parent_pid and exact PID plus start-token plus executable-handle identity equality",
+      "the parent executable belongs to the frozen permitted parent capability class without caller classification",
+      "OneDrive, sync, Python, shell, Codex, Git, copy, and other writer subsets are deterministically derived from the code-fixed table",
+      "only the exact current observer and exact permitted parent may be removed from the blocker set",
+      "every other bounded match is a blocker",
+      "derived OneDrive blockers and derived other-writer blockers are both empty",
+      "current and parent full identities, raw bounded rows, classification policy, and derived subsets remain exact across prepare and publish"
+    ],
+    "genuine_codex_runtime_rule": "The permitted parent is not defined as no Codex process. It is one exact PID/start-token/executable-handle identity proven to be the current observer's parent and whose executable identity matches the frozen permitted-parent class. Other Codex or Python identities remain blockers."
+  },
+  "owner_capability_boundary": {
+    "pure_policy_may_validate": [
+      "capability reference digest equals the independently supplied expected digest",
+      "descriptive scope names Lowell Wong, T550, Hos, exact execution_freeze_sha256, target_tuple_sha256, sentinel_tuple_sha256, prepare and publish plus rollback-only recovery",
+      "issuance and expiry encompass the current structural validation clock",
+      "residual-race acknowledgment digest is exact",
+      "global sidecars, comparison, promotion, commit, push, and merge are explicitly denied"
+    ],
+    "pure_policy_must_always_report": {
+      "human_identity_cryptographically_verified": false,
+      "local_json_alone_sufficient": false,
+      "owner_capability_origin_verified_by_pure_policy": false,
+      "publication_authority_claimed": false
+    },
+    "outside_policy_requirement": "A trusted Codex product/runtime authority must issue and verify a single-use, non-model-forgeable VerifiedOwnerCapability object. Its verified opaque handle and claims digest must be delivered directly to the wrapper, not through model-authored JSON, CLI text, a workspace file, or an environment variable controlled by the model.",
+    "consumption_rule": "The wrapper consumes the capability exactly once for the exact execution freeze. The pure policy receives only its scope projection and digest for deterministic comparison; a structural policy PASS cannot substitute for successful runtime verification."
+  },
+  "prepare_publish_immutable_continuity": {
+    "prepare_bundle_closed_fields": [
+      "execution_freeze_sha256",
+      "component_lock_sha256",
+      "owner_capability_reference_sha256",
+      "raw_prepare_record_original_sha256",
+      "raw_prepare_record_canonical_sha256",
+      "prepare_policy_pass_core",
+      "prepare_policy_pass_sha256",
+      "checker_sha256",
+      "boss_sha256",
+      "target_tuple_sha256",
+      "sentinel_tuple_sha256",
+      "process_policy_sha256",
+      "in_process_lease_id",
+      "candidate_only",
+      "non_authorizing"
+    ],
+    "issuance": "The wrapper writes or stores the exact canonical prepare bundle once under an immutable create-new/readback mechanism while the in-process lease remains alive. A trusted non-caller state channel retains expected_prepare_bundle_sha256, expected_prepare_raw_sha256, and expected_prepare_pass_sha256.",
+    "publish_inputs": [
+      "exact original prepare bundle bytes",
+      "independently retained expected_prepare_bundle_sha256",
+      "independently retained expected_prepare_raw_sha256",
+      "independently retained expected_prepare_pass_sha256",
+      "fresh publish raw record",
+      "same live in_process_lease",
+      "same verified owner capability handle"
+    ],
+    "publish_algorithm": [
+      "recompute and compare the exact prepare bundle, raw-record, and PASS digests before using any contained field",
+      "reparse and fully revalidate the original prepare raw bytes under the original recorded wall and monotonic validation clocks",
+      "recompute the exact prepare PASS core and digest and compare it to both the immutable bundle and independent expected digest",
+      "validate the fresh publish raw record and current lease",
+      "compare task, book, application, freeze, component lock, owner capability, checker, boss, target and sentinel tuples, boot, OS, volume and root identities, canonical parents, all 16 file identities and sizes, current and parent full process identities, full bounded process rows, derived process subsets, and policy digests",
+      "reject unknown target bytes, changed sentinel bytes, any identity drift, changed process rows, stale clocks, replaced evidence, or consumed capability"
+    ],
+    "caller_rule": "No prepare digest may be accepted solely because it appears beside the prepare bytes in the caller's current request bundle."
+  },
+  "in_process_lease_boundary": {
+    "pure_policy_output": "A policy PASS may return a descriptive LeaseRequirements projection and structural continuity digest. It cannot create an unforgeable lease or assert that handles remain open.",
+    "wrapper_owned_opaque_lease": [
+      "nonserializable process-local lease identity",
+      "same observer process identity used by both phases",
+      "retained volume-root, workspace-root, model-root, canonical-parent, target-read, and global-sentinel guard handles",
+      "verified owner capability handle and one-use state",
+      "lease start and deadline from the runtime monotonic clock",
+      "exact component, freeze, prepare, checker, boss, target, sentinel, and process-policy digests",
+      "state machine limited to measured_prepare, checked_prepare, measured_publish, publishing, completed or recovery_required"
+    ],
+    "transaction_boundary_rules": [
+      "JSON or a digest alone can never reconstruct or resume the lease",
+      "the wrapper refuses publish if the process, lease object, capability handle, retained handle, or monotonic deadline changed",
+      "immediately before each rooted replacement, revalidate parent/root identities, exact target leaf and file identity, expected current bytes, sentinel guards, process blockers, and lease deadline",
+      "after every replacement and before transaction completed-state, revalidate target bytes/identity, all sentinels, process blockers, evidence digests, and lease deadline",
+      "retain compatible guards until the transaction kernel durably records completed within its existing process-crash scope",
+      "any drift before mutation is a hard block; any drift after mutation sets recovery_required and permits rollback-only recovery under a separately valid recovery capability",
+      "lease expiry never authorizes continuation, best-effort completion, or publication-result synthesis"
+    ]
+  },
+  "pure_policy_algorithm": [
+    "1. Verify exact component-lock, execution-freeze, raw-record, capability-reference, and any prepare-input digests before parsing dependent claims.",
+    "2. Parse all closed schemas with duplicate-key rejection and validate task T550, book Hos, application, freeze, phases, hashes, counts, order, and non-authorizing flags.",
+    "3. Validate the complete raw collector provenance and every dependency hash against component_lock_v3.",
+    "4. Validate restart and the full wall/monotonic chronology.",
+    "5. Validate Windows, build, architectures, NTFS volume, volume-root, workspace, model, parent, target, and sentinel rooted identity relations.",
+    "6. Derive every process subset from unique raw rows and the code-fixed process policy; reject any blocker or current/parent contradiction.",
+    "7. Scope-check the external capability projection while explicitly refusing any human-identity or origin claim.",
+    "8. For prepare, return a deterministic candidate-only PASS core and continuity projection for immutable wrapper issuance.",
+    "9. For publish, independently revalidate immutable prepare bytes and PASS digests, validate fresh raw bytes, and compare every required continuity field.",
+    "10. Return structural eligibility plus exact digests and lease requirements. Never return publication_authorized=true."
+  ],
+  "must_remain_outside_pure_policy": [
+    "filesystem, process, Windows, NTFS, handle, reparse, directory-membership, byte, and clock measurement",
+    "verification that production providers were actually used rather than merely described",
+    "hash verification before importing or executing the policy and collector themselves",
+    "issuance, authentication, revocation, expiry, and single-use enforcement of Lowell's trusted owner capability",
+    "independent checker and boss identity/provenance verification",
+    "creation and retention of the opaque in-process handle lease",
+    "immutable storage and independent retention of prepare digests",
+    "rooted replacement, transaction journaling, rollback, completed-state recording, and recovery_required enforcement",
+    "exclusion of every hidden, future, kernel, sync, pre-opened, or noncooperating writer",
+    "power-loss durability and atomicity of the 13-file set",
+    "human acceptance or rejection of the residual writer races"
+  ],
+  "later_wrapper_must_pin_before_any_live_action": [
+    "V3 component_lock_sha256 and execution_freeze_sha256",
+    "V2 rejection receipt SHA 24546d7abddf881e5fdb7fff872dc3cb386ad81c2b8bdee04147badfa66f9c2f",
+    "V2 boss ruling SHA 963f52abf425c266447892fd7c1a16efab499e6fb4c0ff32a0154f6c9ffb9d09",
+    "exact V3 contract, policy, production collector, wrapper, kernel, rooted primitive, helper, test, independent checker, premortem, and boss hashes",
+    "exact code-fixed process policy and normalization algorithm digests",
+    "exact 13-target, three-sentinel, canonical-parent, and residual-race acknowledgment tuple digests",
+    "trusted capability-verifier implementation and trust-root version outside the model-controlled workspace",
+    "verified one-shot owner capability reference and scope digest",
+    "immutable prepare bundle, raw measurement, PASS, checker, and boss digests retained independently of caller input",
+    "exact preimage, staged, sentinel, and global-sidecar nonmutation expectations"
+  ],
+  "required_v3_negative_tests": [
+    "raw collector dependency omission or one-bit drift",
+    "lossy removal of any raw security field",
+    "caller-built alternate freeze or authorization scope",
+    "self-referential or substituted detached freeze digest",
+    "boot identity unchanged, boot before freeze, or boot after capture",
+    "OS/build/architecture or volume GUID/serial/flags/root drift",
+    "workspace/model/parent identity swaps, aliases, duplicate directories, and reparse points",
+    "parent-token-leaf to alternate same-parent file substitution",
+    "target or sentinel file identity, size, hash, count, order, role, or path drift",
+    "duplicate PID, PID reuse, changed start token, changed executable identity, false current/parent relation, hidden OneDrive, and contradictory process subsets",
+    "local JSON owner forgery and capability replay, wrong scope, expiry, revocation, or second use",
+    "prepare bytes, raw digest, PASS digest, checker, boss, target tuple, sentinel tuple, process snapshot, current identity, or parent identity substitution",
+    "lease object absence, serialization/reconstruction attempt, observer-process change, handle closure, deadline expiry, pre-replacement drift, post-replacement drift, and recovery_required omission"
+  ],
+  "repair_gate_coverage": [
+    {
+      "gate_id": "V9-NEXT-02-DEPENDENCY_AND_RAW_BINDING",
+      "design_sections": [
+        "noncircular_freeze_architecture",
+        "pure_policy_input_schema",
+        "raw_collector_record_schema"
+      ],
+      "design_status": "COVERED_FOR_IMPLEMENTATION"
+    },
+    {
+      "gate_id": "V9-NEXT-03-FREEZE_DERIVED_EXPECTATIONS",
+      "design_sections": [
+        "noncircular_freeze_architecture",
+        "pure_policy_input_schema"
+      ],
+      "design_status": "COVERED_FOR_IMPLEMENTATION"
+    },
+    {
+      "gate_id": "V9-NEXT-05-BOOT_OS_VOLUME_AND_CAPTURE",
+      "design_sections": [
+        "rooted_identity_relationship_schema",
+        "boot_os_volume_capture_policy"
+      ],
+      "design_status": "COVERED_FOR_IMPLEMENTATION"
+    },
+    {
+      "gate_id": "V9-NEXT-06-PROCESS_RELATIONAL_CLOSURE",
+      "design_sections": [
+        "process_relational_closure"
+      ],
+      "design_status": "COVERED_FOR_IMPLEMENTATION"
+    },
+    {
+      "gate_id": "V9-NEXT-07-TRUSTED_OWNER_CAPABILITY",
+      "design_sections": [
+        "owner_capability_boundary",
+        "must_remain_outside_pure_policy"
+      ],
+      "design_status": "COVERED_WITH_REQUIRED_EXTERNAL_PRODUCT_CAPABILITY"
+    },
+    {
+      "gate_id": "V9-NEXT-08-IMMUTABLE_PREPARE_AND_PUBLISH_CONTINUITY",
+      "design_sections": [
+        "prepare_publish_immutable_continuity"
+      ],
+      "design_status": "COVERED_FOR_IMPLEMENTATION"
+    },
+    {
+      "gate_id": "V9-NEXT-09-IN_PROCESS_LEASE_AND_REVALIDATION",
+      "design_sections": [
+        "in_process_lease_boundary",
+        "must_remain_outside_pure_policy"
+      ],
+      "design_status": "COVERED_WITH_REQUIRED_WRAPPER_RUNTIME"
+    }
+  ],
+  "preserved_disagreements_and_appeals": [
+    {
+      "position": "A closed JSON record plus canonical digest should be sufficient to resume publication in a later process.",
+      "design_ruling": "REJECTED. It proves byte consistency only, not retained handles, process identity, live clocks, capability state, or writer guards.",
+      "appeal_preserved": true
+    },
+    {
+      "position": "The pure policy should verify that Lowell personally authorized publication.",
+      "design_ruling": "REJECTED AS IMPOSSIBLE FROM LOCAL DATA. The pure policy may scope-check an externally verified capability projection but must always report that it did not authenticate a human.",
+      "appeal_preserved": true
+    },
+    {
+      "position": "Requiring the full parent Codex identity to remain fixed may make the genuine runtime impossible.",
+      "design_ruling": "RESOLVED CONDITIONALLY. Permit exactly the proven observer parent identified by PID, start token, executable handle identity, parent-child relation, and frozen permitted-parent class; block all other bounded writers. Real-Windows testing must prove this is achievable.",
+      "appeal_preserved": true
+    },
+    {
+      "position": "Compatible retained handles and bounded process closure eliminate the writer race.",
+      "design_ruling": "REJECTED. They reduce and detect risk but cannot exclude every pre-opened, future, hidden, kernel, sync, or noncooperating writer under delete sharing.",
+      "appeal_preserved": true
+    }
+  ],
+  "preserved_strict_writer_race_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Even a correctly implemented V3 cannot prove exclusion of the documented precheck-to-rename lost-update window or post-readback-to-completed overwrite window while replacement requires delete sharing.",
+    "status": "UNRESOLVED_NOT_OVERRIDDEN",
+    "human_question": "Only after every deterministic V3 gate and real-Windows temporary-root test is independently green: should Lowell require offline deterministic writer exclusion, or knowingly accept the exact residual lost-update and stale-completion races for one candidate-only 13-target Hosea publication?",
+    "forced_consensus": false
+  },
+  "authority_limits": {
+    "this_docket_is_implementation": false,
+    "this_docket_is_a_gate_pass": false,
+    "component_generation_qualified": false,
+    "live_measurement_authorized": false,
+    "restart_authorized": false,
+    "onedrive_action_authorized": false,
+    "prepare_authorized": false,
+    "publish_authorized": false,
+    "recover_authorized": false,
+    "canonical_write_authorized": false,
+    "global_sidecar_install_authorized": false,
+    "book_completion_authorized": false,
+    "comparison_authorized": false,
+    "promotion_authorized": false,
+    "commit_authorized": false,
+    "push_authorized": false,
+    "merge_authorized": false,
+    "candidate_only": true,
+    "non_authorizing": true
+  },
+  "actions_not_taken": [
+    "did_not_edit_policy_adapter_wrapper_or_tests",
+    "did_not_run_live_measurement",
+    "did_not_restart_windows",
+    "did_not_touch_onedrive",
+    "did_not_prepare_publish_or_recover",
+    "did_not_modify_hosea_canonical_or_global_files",
+    "did_not_create_an_owner_capability",
+    "did_not_force_consensus"
+  ],
+  "next_action": "Independently review this design docket before implementation. If retained, implement V3 as a new generation with a sealed production collector, generic provider-neutral policy, trusted runtime capability boundary, immutable prepare channel, and opaque in-process lease; then run exhaustive deterministic negatives and a safe real-Windows NTFS temporary-root suite before any live canonical measurement or request for a restart."
+}

@@ -1,0 +1,119 @@
+{
+ "schema": "m8_daniel_start_readiness.v1",
+ "built_at": "2026-09-16T03:01:27.652715+00:00",
+ "scope": "a campaign-level readiness record. It creates no Daniel artifact and stages nothing. Daniel's Phase 0 opens only after Ezekiel closes (OW-11 one-boundary) and the orchestrator must stop at that boundary, print the resume prompt in full, and wait for the owner to clear and re-prompt (OW-9). Nothing here crosses that boundary.",
+ "how_daniel_actually_starts": {
+  "1_ezekiel_closes": "the hard close gate passes and the completion receipt is written. The close itself is what 'the book is done' means - not the final check's verdict and not the last apply.",
+  "2_orchestrator_stops": "OW-9: it does not open Daniel, does not start Phase 0 and does not launch a probe. It saves the resume prompt slot, verifies it mechanically, and PRINTS IT IN FULL in the chat - saving and attaching does not satisfy this, because a file the owner has to open is not a prompt they can paste.",
+  "3_owner_clears_and_reprompts": "the owner clears the session and pastes that text. That paste is what opens Daniel.",
+  "4_phase_0_runs": "staging, tooling, byte-proofs and the book strategy - the items listed under phase0_must_produce below.",
+  "the_one_mechanism_still_unverified": "the resume-prompt generator has never been run against a real close-time state JSON, because that file does not exist until Ezekiel closes. Its source was verified by py_compile and by counting its own clauses, and its EMITTED artifact has not been. That is the single mechanical risk in step 2 and it is stated rather than assumed away."
+ },
+ "already_settled_for_daniel": {
+  "track": {
+   "value": "HARD",
+   "total": 15,
+   "severe_axes": 5,
+   "owner_named": true,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "basis": "EXTRACTED from book_hardness_classification.v1.json sha256 6e7d4452ac22ae90",
+   "consequence": "OW-6b hard track: claude-fable-5-1 is the CONTROLLING agent of the cycle - every boundary decision, every adopted change, every escalation and the close are its calls. The peer round and spot wave run at higher coverage with no sampling shortcuts on flagged regions, the final checker's audit is whole-book, and a second independent Fable review of the flagged regions runs before the close.",
+   "note": "Daniel is one of only two owner-named HARD books and scores severe on ALL FIVE axes - the only book in the remaining 42 to do so."
+  },
+  "ceiling": {
+   "value": 25000000,
+   "effective_from": "2026-09-11",
+   "counted_as": "Daniel's own receipts census, counted from its first launch",
+   "carrier": "sp_durable/campaign/budget_ceilings.v1.json",
+   "carrier_sha256": "873f24c14278a0e4b8d52524f89472f759c45873d137926bde0386ce39d4bbe5",
+   "basis": "MEASURED at this build; the digest equals the one pinned in the E11 controlling-agent brief",
+   "rule": "check in with the owner before any launch that would cross the book's ceiling, and never launch across it without a recorded answer"
+  },
+  "lens_requirement_under_OW19": {
+   "floor": 2,
+   "third_lens_indicated": true,
+   "why": "HARD track, and all five hardness axes severe",
+   "decorrelating_kinds_indicated_by_its_severe_axes": [
+    "ORIGINAL_LANGUAGE_OR_VERSIONAL",
+    "RECEPTION_TRADITION",
+    "CROSS_BOOK"
+   ],
+   "must_be_recorded": "OW-19 requires the per-book lens count AND its reason in the book strategy; an unrecorded count is a close-gate form problem",
+   "correlated_voice_warning": "a third Anthropic-family lane over the same witnesses buys throughput and not independence, and a 2-1 split among same-family lanes is never a majority verdict"
+  },
+  "prepared_scrutiny_targets": [
+   "2:4a/2:4b language switch (Aramaic morph labels 2:4b-7:28)",
+   "3:23/3:24 Greek-addition insertion point",
+   "MT 3:31-33 = WEB 4:1-3 and MT 6:1 = WEB 5:31 numbering zones",
+   "4 first-person encyclical frame (4:1-3, 34-37) around third-person 4:19-33",
+   "7:1-14 / 7:15-28 vision-interpretation seam",
+   "9:4-19 prayer / 9:20-27 seventy weeks",
+   "11:2-12:4 continuous survey",
+   "12:5-13 epilogue numbers"
+  ],
+  "phase0_obligations_already_named_by_the_hardness_file": "Owner-named HARD; the scorer's independent 15/15 corroborates the naming (scorer: 'would have made Daniel hard without the owner's naming'). Aramaic 2:4b-7:28 needs the substrate's Aramaic morphology lane and two numbering zones (MT 3:31-33 = WEB 4:1-3; MT 6:1 = WEB 5:31); verify both at Phase 0."
+ },
+ "the_aramaic_question_measured_rather_than_feared": {
+  "verdict": "THE SUBSTRATE IS READY AND THE MECHANISM EXISTS. Daniel's Aramaic is Jeremiah's mechanism at roughly two hundred times the scale, not a new capability.",
+  "evidence_1_the_source_carries_aramaic_morphology": {
+   "claim": "the OSHB morph codes distinguish Hebrew from Aramaic by prefix, so an Aramaic morphology lane has a real substrate to read",
+   "measured_on_jeremiah": "Phase 0 byte-proved 15 A-prefixed OSHB morph codes, all inside MT 10:11, against 21,961 H-prefixed elsewhere",
+   "measured_on_ezekiel": "Phase 0 byte-proved 18,866 H-prefixed and 0 A-prefixed - Hebrew throughout",
+   "basis": "EXTRACTED from the two books' own language-zone guards",
+   "why_it_matters": "the same source and the same proof method have now been run on two books with opposite results, which is what makes the A/H distinction a measured property of the substrate rather than an assumption about it"
+  },
+  "evidence_2_the_mechanism_was_already_exercised": {
+   "claim": "Jeremiah carries an island-bearing language-zone guard with three arms, and it ran",
+   "arms": [
+    "an Aramaic label attached to a verse OUTSIDE the island is flagged - no other verse is Aramaic",
+    "a HEBREW grammar label attached to the island verse is flagged - the island is not Hebrew",
+    "ISLAND DISCLOSURE SYMMETRY: any row whose span covers the island must say Aramaic somewhere, because the island is a first-order literary fact of that stretch and shipping a row over it silently is a disclosure gap"
+   ],
+   "jer_guard": "sp_durable/Jer/tools/check_language_zones.py",
+   "jer_guard_sha256": "07642cc27fc85e778d8f284c173ab314c6b871c00cb61f7b7ba2fd07ccf343f9",
+   "ezek_guard": "sp_durable/Ezek/tools/check_language_zones.py",
+   "ezek_guard_sha256": "6807b3b7b19000cb08a508ffb2b142959a8f275ceba12da0fd2bcd357efbc828",
+   "ezekiel_carries_the_same_api_with_two_arms_INERT": "Ezekiel's member documents its arms 2 and 3 as inert because it has no island. Those are exactly the two arms Daniel activates, so the adaptation path is already named in the code."
+  },
+  "THE_GAP_THAT_IS_GENUINELY_NEW": {
+   "finding": "Daniel's island boundary falls MID-VERSE, at 2:4 - the Aramaic runs 2:4b to 7:28. Jeremiah's island is a WHOLE VERSE (10:11), and the disclosure-symmetry arm is verse-granular: it asks whether a row covering the island says 'Aramaic'. It has no notion of a verse that is half Hebrew and half Aramaic.",
+   "why_it_matters": "the row containing Dan 2:4 is bilingual WITHIN ONE VERSE. Three things the existing arm cannot express: which half a quotation came from, whether a boundary may fall at the language switch itself, and how a device census reports a verse whose two halves belong to different languages. A formula count that sums across the switch will report false absences in both directions.",
+   "when_to_settle_it": "BEFORE mass review, not during. This is the standing method's section 5 and it is the mistake Ezekiel already paid for: 145 units were reviewed on an UNSTATED paragraph-mark convention and the direction had to be settled mid-wave. The sequencing error was the defect, not the units.",
+   "whose_call": "the controlling agent's, at Daniel's Phase 0, under OW-6b - not the orchestrator's, and not this file's. It is recorded here so it is a decision rather than a discovery.",
+   "tier": "INFERRED from the two guards' measured contents; no Daniel artifact was read because none exists"
+  },
+  "second_new_thing_already_flagged_by_the_hardness_file": {
+   "two_numbering_zones": [
+    "MT 3:31-33 = WEB 4:1-3",
+    "MT 6:1 = WEB 5:31"
+   ],
+   "status": "named in Daniel's hardness note as a Phase-0 verification item",
+   "precedent": "Ezekiel ran a TIER-0 numbering zone with a built offset map and adapted zone tools, so two zones is a scale-up of an exercised mechanism rather than a new one"
+  },
+  "third": {
+   "greek_addition_insertion_point": "3:23/3:24 is in the prepared scrutiny list. The translation in use excludes the additions, so the seam presents as a narrative gap rather than as text - a disclosure question, not a textual one."
+  }
+ },
+ "phase0_must_produce": {
+  "Dan_oshb.txt": "ABSENT - Phase 0 creates it",
+  "Dan_web_clean.txt": "ABSENT - Phase 0 creates it",
+  "verse_inventory.json": "ABSENT - Phase 0 creates it",
+  "pmarks_Dan.json": "ABSENT - Phase 0 creates it",
+  "book_strategy_Dan.md": "ABSENT - Phase 0 creates it",
+  "web_mt_offset_map.json": "ABSENT - Phase 0 creates it",
+  "tools/check_language_zones.py": "ABSENT - Phase 0 creates it"
+ },
+ "phase0_outputs_absent_is_correct": "every ABSENT above is the expected state. Phase 0 creates them. Their absence is evidence that the one-boundary rule has been respected, not evidence of a gap.",
+ "honest_limits": [
+  "No Daniel artifact was read, because none exists. Every claim about Daniel comes from the campaign-level hardness classification, the ceiling carrier, and the two other books' language-zone guards.",
+  "The mid-verse island finding is INFERRED from what the existing guards do and do not express. A Phase-0 byte-proof on Daniel's own staged text is what would confirm the switch point and its morphology.",
+  "The hardness file records its own effort as 'ordered high, NOT VERIFIED', so Daniel's scores carry that caveat into anything derived from them here.",
+  "This file does not authorise anything. It is a readiness record, and the controlling agent rules Daniel's Phase 0."
+ ]
+}

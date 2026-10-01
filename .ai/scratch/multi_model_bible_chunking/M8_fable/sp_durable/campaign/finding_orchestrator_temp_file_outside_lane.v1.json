@@ -1,0 +1,32 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "orchestrator_temp_file_written_to_shared_multi_model_directory",
+ "revision": 1,
+ "recorded": "2026-09-10",
+ "recorded_by": "orchestrator (claude-opus-5), self-disclosed in the same session",
+ "book": "Ezek",
+ "class": "workspace_hygiene / write outside the M8 lane",
+ "what_happened": "While testing the Ezek toolkit, the orchestrator redirected a test report to the relative path ../../../../_zt.json from sp_durable/Ezek/tools. That path resolves to .ai/scratch/multi_model_bible_chunking/_zt.json, the shared parent directory that holds every model lane (M1-M7, comparison) and is outside M8_fable. The same shell command read the file and deleted it.",
+ "containment": "The file was deleted within the command that created it. Verified afterwards by an exact-path existence test: absent. No other lane's file was listed, read or written.",
+ "evidence": {
+  "exact_path_test_after": "absent",
+  "git_ls_files": "not tracked",
+  "git_log_all_for_path": "never committed",
+  "parent_directory": "tracked content exists beside it (FORK_README.md, M1_cursor/...), which is why this matters"
+ },
+ "what_cannot_be_proven": "Whether an UNTRACKED file named _zt.json already existed at that path. If one had, this command overwrote it and then deleted it. Git records nothing about untracked files. The name is unusual and no lane convention uses it, so this is judged unlikely, not excluded.",
+ "severity": {
+  "observed": "low - no known state changed",
+  "counterfactual": "medium - a same-name file in a shared multi-lane directory would have been destroyed, and this lane may not modify other lanes at all",
+  "scored_as": "medium (the greater of the two, per the mistake-escalation policy)"
+ },
+ "root_cause": "A temporary output path was written relative to a deeply nested tool directory, inside a chained command, instead of to the session scratchpad by absolute path. The number of ../ segments was not checked against the lane boundary.",
+ "sibling_paths_audited": "Every other temporary write this session used the absolute scratchpad path (suite stdout, probe scripts, checkpoint script) or an explicit tempfile.TemporaryDirectory inside the tests. The suite's own report files are written by design beside their input under SP/Ezek/writer.",
+ "controls": [
+  "Orchestrator temporary output goes ONLY to the session scratchpad by absolute path; no relative ../ path is used for any write.",
+  "Tests capture tool output in-process (subprocess capture) or inside tempfile.TemporaryDirectory, never as a file beside the lane."
+ ],
+ "regression_check": "grep of this session's durable tools for writes to relative parent paths: the test file uses tempfile only; the adapters and view builder write to paths derived from __file__ inside SP/Ezek.",
+ "dad_candidate": true,
+ "owner_question": "Whether a persistent prevention skill should be created for orchestrator write-path discipline (absolute scratchpad paths only) is owed to Lowell together with the operator-versus-authority question."
+}

@@ -1,0 +1,113 @@
+{
+ "attempt_id": "ol_cluster_c16_r1",
+ "role": "primary_OL",
+ "cluster": "c16",
+ "rows_reviewed": [
+  "P07-037",
+  "P07-039",
+  "P07-040",
+  "P07-043",
+  "P07-044",
+  "P07-048",
+  "P07-051",
+  "P07-055"
+ ],
+ "items": [
+  {
+   "row_id": "P07-037",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's sole ground for rejecting inclusion in a 15:33-16:9 divine-name cluster -- that 16:8 carries no form of the divine name -- is a Hebrew-token claim advanced with no quoted Hebrew and no oshb: citation anywhere in the row.",
+   "evidence": "Direct read of oshb:Prov.16.8 (טוֹב מְ֭עַט בִּצְדָקָ֑ה מֵרֹ֥ב תְּ֝בוּא֗וֹת בְּלֹ֣א מִשְׁפָּֽט) confirms the claim is true: no יהוה token, bare or prefixed, occurs in the verse, while every other verse from 15:33 through 16:9 does carry one (bare at 15:33 and 16:2-16:7; prefixed at 16:1 and 16:9). But boundary_evidence_refs lists only web: refs -- never oshb:Prov.16.8 -- so the claim driving rejected_alternative cannot be re-collated from the row itself. This is insufficient engagement per the OL brief's quoted-form requirement (item 1); the single_proverb boundary itself is correct on independent verification.",
+   "tier_citations": [
+    "verse_map_oshb.json:Prov.16.8 direct read (byte tier)",
+    "verse_map_oshb.json:Prov.15.33-Prov.16.9 direct read (byte tier)"
+   ]
+  },
+  {
+   "row_id": "P07-039",
+   "verdict": "support",
+   "claim": "The shared-mishpat catchword pairing at 16:10-16:11 and the paseq disclosure at both verses are byte-true and correctly scoped.",
+   "evidence": "collate.py returns byte tier for both quoted forms (בְּ֝מִשְׁפָּ֗ט at oshb:Prov.16.10; מִ֭שְׁפָּט at oshb:Prov.16.11). Skeleton sweep of משפט (20 verses book-wide) confirms these are the only chapter-16 hits besides the non-adjacent 16:8 and 16:33, so the adjacent-pair claim is not undercut by wider distribution. pmarks_Prov.json confirms paseq segs at Prov.16.10 and Prov.16.11 (count 1 each), correctly labeled single-witness/corroborating rather than the driver. Two minor caveats, not rising to challenge: the 16:11 quote (the bare word) is glossed as the fuller construct phrase 'a balance and scales of judgment' rather than the isolated word's own sense, and paseq's 'tier-3' label in device_notes is not independently confirmed anywhere in the reviewed inventories -- only the parashah layer is explicitly tier-3 in the sourced TOOLKIT/book_strategy text.",
+   "tier_citations": [
+    "collate.py:byte (oshb:Prov.16.10, oshb:Prov.16.11)",
+    "sweep.py --skel mishpat root: 20 verses book-wide",
+    "pmarks_Prov.json:paseq"
+   ]
+  },
+  {
+   "row_id": "P07-040",
+   "verdict": "support",
+   "claim": "The gap-free melekh/melakhim run at 16:12-16:15, correctly excluding 16:10 (paired elsewhere) and 16:11 (root absent), is byte-true.",
+   "evidence": "Skeleton sweeps of both attested spellings of the king root confirm the claim: final-kaf spelling (singular melekh) hits Prov.16.10, 16.14, 16.15; medial-kaf spelling (plural/construct melakhim) hits Prov.16.12, 16.13 -- jointly the token is present in every verse 16.12-16.15 and absent from 16.11, exactly as claimed. This final-letter-allography split is exactly the TOOLKIT hazard: a single-spelling sweep on the final-kaf form alone would silently miss 16:12-16:13's plural form. A contained-substring false hit also surfaced during verification -- the participle milloched ('from capturing/taking', root lakad) at 16:32, unrelated to melekh -- and this row correctly does NOT claim it. The plural-to-singular shift (16:12-13 vs 16:14-15) is accurately described, and all four quoted forms reach collate.py byte tier.",
+   "tier_citations": [
+    "sweep.py --skel melekh (final kaf): Prov.16.10,16.14,16.15",
+    "sweep.py --skel melekh-stem (medial kaf): Prov.16.12,16.13 (+16.32 false hit, correctly unclaimed)",
+    "collate.py:byte (all 4 quoted forms)"
+   ]
+  },
+  {
+   "row_id": "P07-043",
+   "verdict": "support",
+   "claim": "The shared ruach and ga'on/ge'im pride-root pairing at 16:18-16:19, and the inline ketiv/qere disclosure at 16:19, are byte-true.",
+   "evidence": "collate.py returns byte tier for all four quoted Hebrew forms plus the ketiv/qere pair. Skeleton sweep of ruach confirms 16:18 and 16:19 as the only chapter-16 hits in this immediate span (16:17 and 16:20 are clean); skeleton sweep of the pride root confirms it occurs only at 16:18/16:19 within the chapter. pmarks_Prov.json confirms the kq note at Prov.16.19 and its absence at 16:18. One minor caveat, not rising to challenge: the row attributes its medium_low confidence specifically to the ketiv/qere crux, but that crux affects a different word pair ('poor' ketiv vs 'humble' qere) than the ruach/ga'on catchword evidence that actually drives the clustering, so the crux does not itself weaken the cohesion claim it is cited to explain.",
+   "tier_citations": [
+    "collate.py:byte (oshb:Prov.16.18, oshb:Prov.16.19 x2 each incl. kq pair)",
+    "sweep.py --skel ruach: Prov.16.2,16.18,16.19,16.32 book-wide chapter-scoped",
+    "sweep.py --skel pride-root: Prov.16.18,16.19 chapter-scoped",
+    "pmarks_Prov.json:kq Prov.16.19"
+   ]
+  },
+  {
+   "row_id": "P07-044",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's rejected_alternative rests on two Hebrew-token claims -- no royal/pride vocabulary carries over from 16:18-19, and tov appears in both 16:19 and 16:20 but in different syntactic slots -- advanced entirely in transliteration, with no Hebrew quoted and no oshb: citation.",
+   "evidence": "Direct read of oshb:Prov.16.20 (מַשְׂכִּ֣יל עַל דָּ֭בָר יִמְצָא ט֑וֹב וּבוֹטֵ֖חַ בַּיהוָ֣ה אַשְׁרָֽיו) against 16:18 (לִפְנֵי שֶׁ֥בֶר גָּא֑וֹן וְלִפְנֵ֥י כִ֝שָּׁל֗וֹן גֹּ֣בַהּ רֽוּחַ) and 16:19 (ט֣וֹב שְׁפַל ר֭וּחַ אֶת עניים עֲנָוִ֑ים מֵֽחַלֵּ֥ק שָׁ֝לָ֗ל אֶת גֵּאִֽים) confirms both claims are true: no pride/spirit token from 16:18-19 recurs in 16:20, and tov does appear in both 16:19 (verse-opening comparative) and 16:20 (object of the opening clause) as described. Neither claim can be re-collated from the row itself since no Hebrew script appears anywhere in it and boundary_evidence_refs cites only web: refs. Insufficient engagement per the OL brief; the single_proverb boundary is correct on independent verification.",
+   "tier_citations": [
+    "verse_map_oshb.json:Prov.16.18-Prov.16.20 direct read (byte tier)"
+   ]
+  },
+  {
+   "row_id": "P07-048",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's rejected_alternative (no specific token repeats between 16:23 and 16:24 beyond the general topic of speech) and its non-adjacent echo claim to 15:30 are advanced entirely in transliteration, with no Hebrew quoted and no oshb: citation.",
+   "evidence": "Direct read confirms oshb:Prov.16.23 (לֵ֣ב חָ֭כָם יַשְׂכִּ֣יל פִּ֑יהוּ וְעַל שְׂ֝פָתָ֗יו יֹסִ֥יף לֶֽקַח) shares no root with oshb:Prov.16.24 (צוּף דְּ֭בַשׁ אִמְרֵי נֹ֑עַם מָת֥וֹק לַ֝נֶּפֶשׁ וּמַרְפֵּ֥א לָעָֽצֶם) beyond the general speech domain -- the mouth/lip root differs from the sayings root -- and that the word for 'bone' is the only element oshb:Prov.16.24 shares with oshb:Prov.15.30 (מְֽאוֹר עֵ֭ינַיִם יְשַׂמַּֽח לֵ֑ב שְׁמוּעָ֥ה ט֝וֹבָ֗ה תְּדַשֶּׁן עָֽצֶם), whose verb ('fatten') differs from 16:24's verb ('heal'). Both claims hold on independent check, but neither is quoted or oshb:-cited anywhere in the row. Insufficient engagement per the OL brief; the single_proverb boundary is correct on independent verification.",
+   "tier_citations": [
+    "verse_map_oshb.json:Prov.15.30, Prov.16.23-Prov.16.24 direct read (byte tier)"
+   ]
+  },
+  {
+   "row_id": "P07-051",
+   "verdict": "support",
+   "claim": "The three-verse verse-initial ish + construct-genitive vice-noun run at 16:27-16:29, the x-small nun at 16:28, and the ketiv/qere note at 16:27, are all byte-true and correctly bounded.",
+   "evidence": "collate.py returns byte tier for all three quoted forms (אִ֣ישׁ בְּ֭לִיַּעַל; אִ֣ישׁ תַּ֭הְפֻּכוֹת; אִ֣ישׁ חָ֭מָס). Skeleton sweep of ish (87 verses book-wide) shows the other chapter-16 hits (16:2, 16:7, 16:14, 16:25) are all mid-verse, not verse-initial, so they do not threaten the run's boundary claim, which is specifically about the opening position. Direct read confirms 16:26 opens נֶ֣פֶשׁ and 16:30 opens עֹצֶ֣ה, correctly bounding the run on both sides exactly as the row states. pmarks_Prov.json other_segs confirms the x-small nun at Prov.16.28 (the book's only instance) and kq confirms the note at Prov.16.27 on the lips word -- an inline unpointed ketiv followed by the pointed qere, matching the TOOLKIT's inline-ketiv pattern.",
+   "tier_citations": [
+    "collate.py:byte (oshb:Prov.16.27, 16.28, 16.29)",
+    "sweep.py --skel ish: 87 verses book-wide, positional check by direct read",
+    "pmarks_Prov.json:other_segs Prov.16.28, kq Prov.16.27"
+   ]
+  },
+  {
+   "row_id": "P07-055",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's central inclusio claim -- that 16:33 closes the chapter with the same construction that opens it at 16:1 -- is in fact a byte-identical exact-phrase match, stronger than the row's own transliterated framing conveys, and it is never quoted or oshb:-cited.",
+   "evidence": "Direct read confirms oshb:Prov.16.1 (לְאָדָ֥ם מַֽעַרְכֵי לֵ֑ב וּ֝מֵיְהוָ֗ה מַעֲנֵ֥ה לָשֽׁוֹן) and oshb:Prov.16.33 (בַּ֭חֵיק יוּטַ֣ל אֶת הַגּוֹרָ֑ל וּ֝מֵיְהוָ֗ה כָּל מִשְׁפָּטֽוֹ) share the byte-identical token וּ֝מֵיְהוָ֗ה introducing the second colon of each -- token-for-token identical including cantillation, not merely a root-level echo -- yet it appears in no Hebrew script and cites no oshb: ref for either verse (boundary_evidence_refs lists only web: refs). The row's other transliterated claims (mishpato as a non-adjacent echo of 16:10-11's mishpat; no shared token with 16:32) also verify true on independent check. Insufficient engagement per the OL brief; the single_proverb boundary is correct on independent verification.",
+   "tier_citations": [
+    "verse_map_oshb.json:Prov.16.1, Prov.16.33 direct read (byte tier)",
+    "sweep.py --skel u-me-YHWH token: 8 verses book-wide incl. Prov.16.1, Prov.16.33"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 4,
+  "challenges": 4,
+  "by_severity": {
+   "low": 4,
+   "medium": 0,
+   "high": 0
+  }
+ }
+}

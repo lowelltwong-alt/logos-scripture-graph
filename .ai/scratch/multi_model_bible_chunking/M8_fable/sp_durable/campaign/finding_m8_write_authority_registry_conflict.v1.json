@@ -1,0 +1,32 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "m8_write_authority_registry_conflict",
+ "revision": 1,
+ "recorded": "2026-09-10",
+ "recorded_by": "orchestrator (claude-opus-5)",
+ "book": "Ezek",
+ "class": "governance / write authority",
+ "what_happened": "The Ezekiel orchestrator (claude-opus-5), directed by the owner in chat, wrote M8_fable continuation work all session, as earlier sessions of the marathon had. ACTIVE_WORKTREES.yaml names Fable 5 as the lane's only writer and records the one claude-opus-5 exception as exhausted, and M8_FABLE_RESUME_PROTOCOL.md says 'Only Fable 5 may write M8 continuation work.' The T1 distinct checker read the registry under its global policy and refused to write. That refusal is how the conflict surfaced.",
+ "containment": [
+  "the running rulings lane (ezek_controlling_rulings_a1#e1) was stopped before it wrote anything, verified",
+  "no M8 write of any kind until the owner answered",
+  "no git operation, no registry edit, no deletion or quarantine"
+ ],
+ "verified_state_at_hold": {
+  "head": "8dce6681685c7a1d89978a9d90a11046e74fdfcc = origin/scratch/t423-m8-fable",
+  "uncommitted_entries": 180,
+  "entries_outside_M8_prefix": 0,
+  "scoped_validator": "status pass, no blocking failures (it does not check writer identity)"
+ },
+ "resolution": "OW-11: the owner explicitly authorized this Opus 5 orchestration and its agents to write M8_fable work for Ezekiel and then Daniel, recorded in the M8 log only, with a combined 15M ceiling. authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan",
+ "root_cause": "Resume checks were the scoped validator, HEAD equal to remote, and the probe. The validator passes owner-scoped uncommitted work without checking which identity wrote it, and the resume generator never carried the registry's owner-identity rule. So the one rule that decides whether a session may write was never read at resume.",
+ "sibling_paths": "Earlier sessions of this marathon share the same root cause; their M8 work was owner-directed in chat and is not reopened by this finding.",
+ "controls": [
+  "canonical resume clause: before the first M8 write, read the active-worktree registry's owner and identity rule for the lane",
+  "subagents write deliverables outside the worktree; the authorized orchestrator lands them",
+  "close-gate item 15; checker v3.3 paired clauses bind OW-11's scope and expiry wherever the exception is cited"
+ ],
+ "regression_test": "_safe_to_clear_check.py --selftest fixtures: a prompt that continues into Daniel without the stop at Daniel's close fails; a prompt that cites the exception without its expiry fails",
+ "prevention_skill": "declined by the owner for now (OW-11 answer 'Not now'); lesson recorded in the ledger and in campaign memory",
+ "dad_candidate": true
+}

@@ -1,0 +1,68 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "status": "PENDING - items raised after ezek_controlling_rulings_a1#e3 for the controlling agent's next execution; never ruled by the orchestrator",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "R4ii-D1",
+   "raised": "2026-09-11",
+   "question": "Ratify, amend or reverse an implementation deviation from ruling R4-ii order (2) ('every verse number in the mention's own clause counts regardless of distance'), which the orchestrator did not implement literally in check_marks' PROSE arm.",
+   "facts": [
+    "Implemented literally in both tools (staged copy only; no SP tool touched), the test file went 116/117. The failing vector was cm_real_row_distant_next_verse_number_ok, a real-row regression vector built from P10-008's own prose: 'the word carrying the book's puncta extraordinaria -- five instances of the upper dot U+05C4, disclosed here single-witness -- a natural summary line before 41:21 returns to the measurements'.",
+    "The literal implementation also added 3 check_marks puncta_claim_in_ezek flags on the real row P10-008 (span Ezek.41.12-Ezek.41.20): its TRUE claim bound to the next verse's number, 41:21. Your #e3 'NOT LIVE' census counted P10-008's six mentions as unnumbered; that holds only under the 60-character reach.",
+    "Implemented variant: citation_sweep's ref arm reads the whole clause (one short annotation per ref; NOVEL-A2 closed); check_marks' prose arm keeps the 60-character reach (PROSE_REACH); the parenthetical rule of order (1) applies in both tools (NOVEL-A ref and prose, NOVEL-F closed). Staged result: 117/117 GREEN; over the chain head rows, 0 added citation_sweep problems, 0 puncta flags, mark_symmetry unchanged at 154.",
+    "Residual under the variant: a prose puncta claim whose only verse number sits more than 60 characters from the word, inside the same clause, on a span covering a site, still passes silently in check_marks (FLAGS member). Your #e3 primaries order already hand-checks that class until T4 lands."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: accept the variant and make the primaries' hand-check of distant prose puncta numbers permanent rather than 'until T4 lands'. T4 reviews both directions with vectors of its own and recommends; you rule. No cure claim on check_marks.py is written until you have ruled.",
+   "evidence": [
+    "SP\\Ezek\\tools\\_test_zone_tools_ezek.py section 4 cm_real_row_distant_next_verse_number_ok; section 8",
+    "SP\\Ezek\\repair\\rows_v2_swept_r3.jsonl P10-008 boundary_rationale"
+   ]
+  },
+  {
+   "id": "G9-B1",
+   "raised": "2026-09-11",
+   "question": "Ruling G9 (#e2) text proved byte-false in one clause during the author wave: rule on the author's correction.",
+   "facts": [
+    "G9#1's decision groups the internal closes at MT 35:4, 35:9 and 35:12 as each 'followed by יַעַן paragraphs'.",
+    "Author p08 (ezek_author_p08_a1#e1) reported that this holds for 35:4 -> 35:5 and 35:9 -> 35:10, but NOT for 35:12: 35:12 is a verse-initial, non-final recognition clause (the verse continues), and 35:13 is not a יַעַן paragraph.",
+    "Under the author brief's E-03 lane, p08 installed the verified fact in P08-007's rationale and device_notes and did not repeat the ruling's grouping. The merge itself (Ezek.35.1-Ezek.35.15) and the non-cutting status of all three verses are unchanged.",
+    "The orchestrator has not re-derived the bytes; the distinct checker of the wave (S1) is asked to verify, and you rule."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record the correction of the ruling's prose (amend G9's decision text by note, not by edit) and ratify P08-007's wording if S1 confirms the bytes.",
+   "evidence": ["SP\\Ezek\\Ezek_oshb.txt Ezek.35.4, 35.5, 35.9, 35.10, 35.12, 35.13", "SP\\Ezek\\repair\\rows_v3_cwo12.jsonl P08-007"]
+  },
+  {
+   "id": "G9-C1",
+   "raised": "2026-09-11",
+   "question": "Record an interplay between ruling G9#1's confidence ceiling and the cap_sweep HARD gate (for the record; a ruling is needed only if you disagree).",
+   "facts": [
+    "G9#1 sets 'not above medium' for the merged Ezek.35.1-Ezek.35.15 row. Ezekiel 35 has exactly 15 verses, so the row is a whole chapter, and cap_sweep's E-02 rule requires medium_low or low with the cap disclosure.",
+    "Author p08 set medium_low with the cap disclosure (within the ruling's ceiling); cap_sweep is GREEN on the row."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: close for the record; no change."
+  },
+  {
+   "id": "E19-W1",
+   "raised": "2026-09-11",
+   "question": "Four author executions self-disclosed E-19 deviations. Rule on disposition, as ruling P1 (#e2) did for the writer wave.",
+   "facts": [
+    "p04 (ezek_author_p04_a1#e1): one attempted `ls` against the tools directory failed with a shell quoting error before producing any output; nothing was listed.",
+    "p09 (ezek_author_p09_a1#e1): a private build script called os.makedirs(exist_ok=True) on the output directory before writing; no listing, no branching on the result.",
+    "p06 (ezek_author_p06_a1#e1): a bare `ls -la` with no path argument inside the shared output directory returned a directory listing that exposed two sibling filenames (ezek_author_p01_a1_e2.jsonl, ezek_author_p02_a1.jsonl); the agent states it did not open or use either file.",
+    "p08 (ezek_author_p08_a1#e1): `ls *.py` inside SP\\Ezek\\tools; every returned name was already listed in TOOLKIT.md's staged-tools table.",
+    "All four were disclosed unprompted in the agents' own final messages; no content of another part's deliverable was read, and no author-to-author contamination of judgement is indicated by any record."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: record and close, as P1 did (LOW, disclosed, credited for honesty). Separately: per-part output subdirectories (or per-execution output names already unique per part) would make a sibling listing impossible; the orchestrator proposes one output subdirectory per execution for Daniel's waves.",
+   "evidence": ["SP\\Ezek\\author\\ezek_author_attempt_receipts.jsonl e19_selfreported for the four executions"]
+  },
+  {
+   "id": "TR-S1",
+   "raised": "2026-09-11",
+   "question": "Strategy maintenance: the returning-transport verb at MT 46:21 is not a member of the strategy's named transport sweep (section 2b).",
+   "facts": ["Author p11 disclosed it in P11-009 device_notes as a byte-observed transport verb, not as an independent formula onset; ruling S4 (#e2) already widened the transport sweep predicate once."],
+   "orchestrator_proposed_disposition": "PROPOSED: add to the strategy-maintenance edit list (ruling Q1's single Fable-owned maintenance execution); no row change."
+  }
+ ]
+}

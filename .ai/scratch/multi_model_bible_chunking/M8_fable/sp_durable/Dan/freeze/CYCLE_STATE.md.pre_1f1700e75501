@@ -1,0 +1,58 @@
+# DANIEL — CYCLE STATE (immutable, append-only)
+
+The live book's log. Ezekiel closed at 26/66 on 2026-09-23; its own log carries that close and points here.
+This file is append-only: entries are added, never edited, and a correction is itself an appended entry.
+
+Daniel is owner-named HARD. Every role runs on claude-opus-5-5 (OW-25); a Fable role is recorded as grader_fallback.
+No Fable call is made without a new owner authorization (OW-30), and the atlas-hold precedent P1-P3 from Ezekiel's
+ruling applies. Daniel's ceiling is 25,000,000 in the notification unit, counted from Daniel's first launch, tracked
+and not enforced (OW-28). The Opus orchestration authority exception covers Daniel and expires at Daniel's close.
+
+## 2026-09-23 - log opened at Ezekiel's close
+
+Ezekiel's close is evidenced: receipts/Ezek_completion.json sha256 8110b4ff993940d5d3b3b0ec4ab14b46335f3749fbd8a203cb80479b92c324b6, 138 chunks, --acf item22 after a dry run of the same arguments showed 122 gates and 0 unmet (OW-29). marathon_progress.yaml reads books_completed: 26, current_book: Dan. The durability checkpoint appended its entry and cursor to sp_durable/Ezek/freeze/CYCLE_STATE.md, but this book had no log, so the checker's cursor resolver fell back to the CLOSED Jeremiah log and refused the prompt re-bind. This is the same fault recorded at Ezekiel's own log opening on 2026-09-08. Opening this log records what has already happened; it advances nothing on its own and invents no state.
+
+- Cure: `sp_durable/Ezek/repair2/checkpoint_carriers.py` is amended (`.pre_1cdd981d57b3` kept) to resolve the live book's log from marathon_progress.yaml current_book, as the checker does, and to refuse rather than fall back when that log is missing.
+- Phase 0 has not started. The next job is Daniel's Phase 0 per sp_durable/campaign/daniel_start_readiness.v2.json (phase0_must_produce: Dan_oshb.txt, Dan_web_clean.txt, verse_inventory.json, pmarks_Dan.json, book_strategy_Dan.md, web_mt_offset_map.json, tools/check_language_zones.py). The Aramaic section is located from the OSHB morph codes at Phase 0, never from memory. Readiness v2 step 2 (the OW-9 stop) is superseded by OW-29, and RESUME_PROMPT_CURRENT.md says to open Daniel's Phase 0 without stopping.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT.
+
+## 2026-09-23 - Ezekiel receipt identity amended; receipt readers owed before Daniel's first runs
+
+- The 7 Ezekiel launch rows that recorded the lane's runtime id in `parent_agent_id` are amended, and no line was edited: +2 rows in `Ezek/ezek_merged_close_attempt_receipts.jsonl`, +5 rows in `Ezek/ezek_close_audit_attempt_receipts.jsonl`, and +7 keys in `Ezek/_transcript_map.ezek.json`. The receipt is `Ezek/repair2/amend_identity_E55s1.receipt.json`. The first apply collided on a shared attempt id and was rolled back to the exact preimages (ledger E-60).
+- `campaign/_guarded_json_patch.py` now refuses a plan that addresses one key twice, and rolls back its own RED write (`.pre_254a43bd2199` kept). `campaign/test_guarded_json_patch.py` passes 4/4 on the fix and fails 4/4 on the preimage.
+- `campaign/_orchestration_metrics.py` now folds amending rows into the execution they name (`.pre_0a6a9e325815` kept). `orchestration_metrics.v1.json` was regenerated (sha256 prefix 44b4c5c35d50): 514 rows, 467 executions, and all 47 amending rows applied to a unique target. Notification-unit tokens total 117,835,959. The 1,431,971 spend-unit tokens (the two OW-26 merged-close amendments) are reported apart and no longer mixed in. Previous file kept as `orchestration_metrics.v1.json.pre_1337016a4b5d`.
+- OWED, each triggered before Daniel's first run of that tool. Status: MEASURED by grep, where 0 means `amends_execution_id` never occurs in the file.
+  - `campaign/_capture_index.py`: 0, and it copies `parent_agent_id` from the row at lines 191-192.
+  - `campaign/_census_tf6_candidate.py`: 0.
+  - `campaign/_transcript_coverage_census.py`: 0.
+  - `campaign/_book_close_status_ow12.py`: partly aware. It buckets amending rows by book at line 73, but it sums every row's tokens, so it counts amending rows as executions and adds spend-unit amendments to notification-unit figures.
+  - Census v4's map join also does not read `previous_executions[].agent_id`, which affects 11 Ezekiel attempts.
+  - The rule for each tool, with `_orchestration_metrics.py` `fold()` as the precedent: an amending row is never an execution; it applies to the one execution it names; the notification unit and the spend unit are kept apart.
+- FINDING for the owner's Ezekiel figures (INFERRED, not recomputed). Census v4 records the two merged-close lanes at their spend-unit amendments (576,419 and 855,552; the code's SELFTEST pins them), where the notification figures are 101,506 and 148,182, and 148,182 covers one segment only. If census v4's recorded total is the 70.94M notification-unit figure, that total carries about 1,182,283 spend-unit tokens. This changes no gate: ceilings are tracked, not enforced (OW-28).
+- Forward rule for Daniel: a launch row puts the runtime id in `agent_id` and `"orchestrator"` in `parent_agent_id`.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT (unchanged).
+
+## 2026-09-23 - provenance of the entry above (E-59 recurrence, caught)
+
+- The entry above was written right after a compaction, and three of its claims came from recall before any source was read. They were then checked against a fresh read, and each holds:
+  - `Ezek/ezek_merged_close_attempt_receipts.jsonl` gives lane_b 101,506 (completion) against 576,419 (spend-unit amendment), and lane_a 148,182 (completion, token_note "SEGMENT ONLY") against 855,552 (spend-unit amendment).
+  - `Ezek/repair2/census_ow15_v4.py:38` SELFTEST pins 576419 and 855552.
+  - `campaign/_book_close_status_ow12.py:80-84` counts every row as an execution and adds every row's integer tokens.
+  - These are now EXTRACTED; the 70.94M conditional stays INFERRED.
+- Observed impact: nil. It was caught before any reuse, and the recalled values happened to be right. Counterfactual: a wrong figure in this log would feed the owner's OW-12 status. This recurs E-59's pattern: order is read, then write. It is routed with E-59 at the next DAD ingest.
+- CURSOR: phase = EZEK_CLOSED_DAN_PHASE0_NEXT (unchanged).
+
+## 2026-09-23 - owed pre-Daniel records landed; Phase 0 next
+
+- Done:
+  - DAD delta E-52..E-58 + OW-25..OW-30 was ingested earlier on 2026-09-23.
+  - The 7 identity amendments and 7 map keys, including the two OW-26 merged-close lanes a2040ee3f85015b45 and a75da61617c35aca9.
+  - The guarded-tool hardening and its test.
+  - The metrics fold, with the metrics regenerated.
+  - E-60 ledgered.
+  - See the two entries above.
+- OWED, not done, each with its own before-first-run trigger in the entry above:
+  - teach the capture index, the tf6 candidate census, the transcript coverage census and the OW-12 status tool the amend fold;
+  - teach census v4's map join to read `previous_executions`.
+- DAD pending: E-59, E-60 and the E-59 recurrence note. The cursor is still after E-58.
+- CURSOR: phase = DAN_PHASE0_NEXT.

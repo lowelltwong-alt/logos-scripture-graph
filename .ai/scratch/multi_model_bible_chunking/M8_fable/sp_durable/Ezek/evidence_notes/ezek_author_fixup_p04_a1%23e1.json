@@ -1,0 +1,125 @@
+{
+ "attempt_id": "ezek_author_fixup_p04_a1",
+ "execution_id": "ezek_author_fixup_p04_a1#e1",
+ "sources": [
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/FIXUP_BRIEF.md",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/fixup1/orders_ezek_author_fixup_p04_a1.json",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/TOOLKIT.md",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/Ezek_oshb.txt",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/Ezek_web_clean.txt",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/repair/rows_v3_cwo18.jsonl (hashed; P04-006 read from private copy)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/ezek_controlling_agent_rulings.v1.json (rulings R1, R2, P2, P4, P5, G12 only, per brief)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/run_validator_suite.py (run only)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/check_register.py (run only)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/citation_sweep.py (run only)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/normalize_hebrew_in_json.py (dry-run only, never --write)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/check_web_quotes.py (run only)",
+  "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/Ezek/tools/check_tiling.py (run only)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P04-006.boundary_rationale: replaced the positional register violation \"byte-identical wording to the row before it\" with the verse-anchored \"byte-identical wording to web:Ezek.20.45 = oshb:Ezek.21.1\". No other field touched; span/unit_type/confidence/parent_collection/decision_id/writer_*/chunk_index_in_book stayed byte-identical to current_row.",
+    "why": "CWO-EZ-14 register-hygiene item ordered on P04-006 (class author_wave_register_s1_05, match \"row before\", field boundary_rationale). Strategy Section 8 / T5-REGISTER bar positional row references and require cross-row references to be verse-anchored. web:Ezek.20.45 = oshb:Ezek.21.1 is P04-005's (the previous row's) onset verse; Ezek_oshb.txt confirms Ezek.21.1 and Ezek.21.6 (this row's own onset, already cited earlier in the same sentence) are byte-identical Hebrew, and Ezek_web_clean.txt confirms WEB 20:45 and WEB 21:1 both read the same word-event opening -- so the replacement names the exact echoed verse the original prose meant by \"the row before it\"."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "MT Ezek.21.1 (= WEB 20:45, P04-005's onset) is byte-identical to MT Ezek.21.6 (this row's onset, already cited in the sentence)",
+   "how": "Grep on Ezek_oshb.txt for the two verse lines",
+   "result": "confirmed"
+  },
+  {
+   "claim": "WEB 20:45 and WEB 21:1 both open with the word-event formula, confirming the dual mapping web:Ezek.20.45 = oshb:Ezek.21.1 used in the replacement",
+   "how": "Read Ezek_web_clean.txt in the EZEK 20 / EZEK 21 sections",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The ordered register flag (\"row before\") on P04-006 is removed by the edit and no new register flag is introduced",
+   "how": "check_register.py run directly on a private p04-only subset (11 rows), before vs after the edit: before flag_count=1 (decision_id p04-6, match \"row before\", context byte-identical to the order's own context string); after flag_count=0, status GREEN",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep problems, normalizer defects/fixed, cap_sweep failures, ngram7 offending grams, and check_web_quotes flags are all 0 for P04-006",
+   "how": "run_validator_suite.py over (a) the full patched private rows_v3_cwo18.jsonl copy, filtered for any mention of P04-006/p04-6 across every check section, and (b) an isolated p04-only private subset run through citation_sweep.py, normalize_hebrew_in_json.py (dry-run), and check_web_quotes.py directly",
+   "result": "confirmed (0 in both the whole-book filter and the isolated subset)"
+  },
+  {
+   "claim": "The 9-field frozen set (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection) is byte-identical between the emitted row and current_row, and only boundary_rationale differs, with all 22 fields plus _op present",
+   "how": "Python diff of the emitted deliverable row against orders_ezek_author_fixup_p04_a1.json's rows_with_orders[0].current_row",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Part p04's ordered range (Ezek.20.1-Ezek.21.32, WEB numbering) tiles 1:1 with no gaps or overlaps across the 11 p04 rows",
+   "how": "check_tiling.py on an isolated p04-only private subset --range Ezek.20.1-Ezek.21.32",
+   "result": "confirmed (verses_expected=81, verses_covered=81, status GREEN)"
+  },
+  {
+   "claim": "All pinned-table digests for the files actually read match the brief's table at build time",
+   "how": "sha256sum on FIXUP_BRIEF.md, the orders file, TOOLKIT.md, Ezek_oshb.txt, Ezek_web_clean.txt and rows_v3_cwo18.jsonl, compared to the brief's PINNED INPUTS table",
+   "result": "confirmed, no discrepancies"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "The edit turned an unmirrored positional reference into an unmirrored but verse-anchored reference: refs_mirror now also flags Ezek.20.45 as argued_but_unmirrored on P04-006 (it already flagged Ezek.20.48 before my edit, for the row's other, pre-existing cross-row echo). I left boundary_evidence_refs unchanged rather than adding web:Ezek.20.45 to it.",
+   "why_it_matters": "refs_mirror is a FLAGS-tier disclosure-symmetry check, not a HARD gate, and the rise is exactly the kind the self-check protocol anticipates (it may rise only where a disclosure requires it). I judged the row's own existing convention -- the unchanged Ezek.20.48 sentence already says that verse is disclosed as a cross-row echo, not as boundary evidence for this row -- as the controlling precedent for treating Ezek.20.45 the same way (a disclosed echo, not this row's own boundary evidence), so I did not add it to boundary_evidence_refs. This was a judgment call kept inside the one ordered item's scope (field: boundary_rationale only); a landing checker may want to confirm that reading against ruling R1/R2's refs-form conventions before the wave lands."
+  }
+ ],
+ "items": [
+  {
+   "row": "P04-006",
+   "item": "CWO-EZ-14 (author_wave_register_s1_05, field boundary_rationale, match \"row before\")",
+   "action": "cured",
+   "reason": "Replaced the positional reference with the verse-anchored dual ref of the echoed onset verse (web:Ezek.20.45 = oshb:Ezek.21.1), verified byte-identical to this row's own onset citation and confirmed clear on check_register.py."
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-14 on P04-006/boundary_rationale",
+   "test": "check_register.py on a private p04-only subset, before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "THE ONE OP frozen-field law",
+   "test": "python diff of emitted row vs current_row over the 9 byte-identical fields plus a 22-field + _op count assertion",
+   "result": "PASS"
+  },
+  {
+   "order": "citation_sweep / normalizer dry-run / cap_sweep / ngram7 / web_quotes residual on P04-006",
+   "test": "run_validator_suite.py over the full patched private rows copy (filtered to P04-006) and over an isolated p04-only private subset",
+   "result": "PASS"
+  },
+  {
+   "order": "local tiling for part p04",
+   "test": "check_tiling.py rows_p04_only.jsonl --range Ezek.20.1-Ezek.21.32",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "register": 1,
+   "refs_mirror_unmirrored_items": 1,
+   "mark_symmetry": 0,
+   "universals": 0,
+   "web_quotes": 0,
+   "citation_sweep_problems": 0,
+   "normalizer_defects": 0
+  },
+  "after": {
+   "register": 0,
+   "refs_mirror_unmirrored_items": 2,
+   "mark_symmetry": 0,
+   "universals": 0,
+   "web_quotes": 0,
+   "citation_sweep_problems": 0,
+   "normalizer_defects": 0
+  },
+  "rises_explained": [
+   "refs_mirror on P04-006 rose from 1 to 2 argued-but-unmirrored items (added Ezek.20.45) because the ordered cure replaced a positional reference with a verse-anchored disclosure of the echoed onset formula; not added to boundary_evidence_refs because the row's own established convention already treats this class of comparison verse (its unchanged, pre-existing Ezek.20.48 entry) as disclosed context rather than this row's boundary evidence, and refs_mirror is a FLAGS-tier disclosure-symmetry check, not a HARD gate."
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

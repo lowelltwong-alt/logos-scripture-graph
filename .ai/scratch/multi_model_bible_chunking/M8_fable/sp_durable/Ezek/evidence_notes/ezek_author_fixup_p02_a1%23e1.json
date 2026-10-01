@@ -1,0 +1,621 @@
+{
+ "attempt_id": "ezek_author_fixup_p02_a1",
+ "execution_id": "ezek_author_fixup_p02_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup1\\orders_ezek_author_fixup_p02_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (sections G12, P1-P5, R1, R2, R3 read)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (not needed beyond what TOOLKIT/rulings/orders already quoted verbatim; §8 register text taken verbatim from orders file's brief_rules)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt (via tools\\verse_map_web.json)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v3_cwo18.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\verse_map_web.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (+ its members: citation_sweep.py, normalize_hebrew_in_json.py, check_web_quotes.py, check_register.py, check_marks.py, cap_sweep.py, ngram7.py, check_tiling.py) - run, not modified"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "20 rows replaced (P02-001..P02-020), all fields except boundary_rationale, boundary_evidence_refs, strongest_rejected_alternative, literature_type_guess and device_notes left byte-identical to current_row",
+    "why": "executed every embedded ruling_order, hard_finding, s1_finding/s1_row_defect action item, and CWO-EZ-14/CWO-EZ-18 cwo_item ordered for part p02, per FIXUP-1 law (op replace only; span/unit_type/confidence/parent_collection unchanged)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 30 pinned inputs' sha256 match the brief's table at read time",
+   "how": "Get-FileHash SHA256 on FIXUP_BRIEF.md, the orders file, TOOLKIT.md, book_strategy_Ezek.md, ezek_controlling_agent_rulings.v1.json, Ezek_web_clean.txt, Ezek_oshb.txt, repair\\rows_v3_cwo18.jsonl, compared to the brief's table and the launch message's own digests",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep HARD problems = 0 on my 20 rows",
+   "how": "citation_sweep.py over a private copy containing only my 20 rows, and separately over the whole-book private copy filtered to P02-* by array index",
+   "result": "confirmed"
+  },
+  {
+   "claim": "normalizer defects = 0 and fixed = 0 on my 20 rows",
+   "how": "normalize_hebrew_in_json.py dry-run over a private copy of only my 20 rows",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes' 'curly quote with NO web: ref in its field' class = 0 on my rows; e15d unequal-curly-quote count unaffected by my edits",
+   "how": "check_web_quotes.py over the myrows-only private copy (0 flags) and diffed against the whole-book before/after reports (41 P02 hits before, 0 after; e15d class untouched)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register flags = 0 on my rows, no regression",
+   "how": "check_register.py over the myrows-only private copy (0 flags), and whole-book before/after diff for P02 rows (0 before, 0 after)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "cap_sweep GREEN on my rows (P02-004 whole-chapter cap unchanged at medium_low)",
+   "how": "cap_sweep.py over the myrows-only private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no ngram7 offending 7-gram (gate 10) includes my rows",
+   "how": "ngram7.py over the myrows-only private copy; also GREEN on the whole-book run",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_tiling PASS for my part's range",
+   "how": "check_tiling.py myrows-only private copy --range Ezek.8.1-Ezek.14.23 -> verses_expected=150, verses_covered=150, status GREEN",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ידעתם -> וידעתם fix in P02-013 resolves the citation_sweep collation problem named in the ruling and the hard_finding",
+   "how": "before/after diff of citation_sweep.py's 'problems' list on the whole-book private copy: the P02-013 entry present before is absent after (9 remaining problems are all pre-existing P01/P03 items outside this wave's scope)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "FLAGS deltas on my rows are accounted for: web_quotes 41->0 (cured), refs_mirror 16->17 (+1, explained), mark_symmetry 10->10 (unchanged, pre-existing, out of my orders' scope), universals 88->88 (same count; 2 explained substantive shifts, remainder is context-window drift from nearby inserted text, same claims/paths), register 0->0 (unchanged)",
+   "how": "before/after diff script comparing run_validator_suite.py reports on private_unmodified_rows.jsonl vs private_modified_rows.jsonl, filtered to the 20 P02 decision_ids",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every emitted row keeps decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence and parent_collection byte-identical to current_row",
+   "how": "only boundary_rationale, boundary_evidence_refs, strongest_rejected_alternative, literature_type_guess and device_notes were ever targeted by repl()/repl_ref(); the bound fields were never opened for writing in the patch script",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every emitted row has all 22 fields plus \"_op\":\"replace\" and non_authorizing true",
+   "how": "assemble_final.py asserts set(row.keys())==FIELD_ORDER (22 names) for all 20 rows and non_authorizing is True before writing",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "refs_mirror flag added for P02-016 (Ezek.24.24 argued in prose but not mirrored into boundary_evidence_refs)",
+   "why_it_matters": "a direct, expected consequence of adding the CWO-EZ-18-ordered inline web:Ezek.24.24 citation to a verbatim WEB quotation that boundary_evidence_refs did not already list; not cured because doing so would mean adding a new boundary_evidence_refs entry, and FIXUP-1 law (3) only authorizes touching the row's bound fields as literally ordered, not open-ended refs-list growth beyond what an item named. Left for the checker/primaries to decide whether a mirrored refs entry should be added."
+  },
+  {
+   "what": "10 pre-existing mark_symmetry / false_mark_absence_claim flags on P02-001, 002, 005, 009, 011, 013, 014, 015, 016, 020 are unchanged (still present before and after)",
+   "why_it_matters": "none of my 20 rows' orders named a mark_symmetry item; these are outside this wave's scope per BINDING REPAIR LAW ('Execute each embedded order exactly') and are left for a future wave or the primaries' review."
+  },
+  {
+   "what": "P02-002, P02-003, P02-008, P02-009, P02-010, P02-017, P02-018's ellipsis-joined or nested-quote WEB spans ('about twenty-five men… their backs...', 'I will also deal in wrath… I will not hear them', 'your brothers… the house of Israel', 'one heart… heart of flesh', 'the prophets of Israel...visions of peace...there is no peace') were left as double-curly quotations with an added inline web: ref rather than converted to glosses, on the basis that check_web_quotes.py's web_quote_found DID accept them (0 flags after); P02-010's 'the Spirit lifted me up… into Chaldea, to the captives' and P02-017's 'because… they have seduced my people, saying, Peace; and there is no peace' did NOT pass that matcher and were converted to single-quoted glosses instead, per BINDING REPAIR LAW's 'or drop the curly form for single quotes' option, exactly because the order's own text flagged the first as crossing a verse boundary and the second could not cleanly reproduce WEB's nested internal quotation marks",
+   "why_it_matters": "a distinct checker should confirm this split between 'verbatim enough to keep curly + ref' and 'safer as a gloss' was drawn in the right places; both choices are within the order text's own stated remedies, but the boundary between them was my judgment call, empirically checked against the installed check_web_quotes.py rather than derived from its source."
+  }
+ ],
+ "items": [
+  {
+   "row": "P02-001",
+   "item": "s1_finding",
+   "action": "cured",
+   "reason": "added ketiv label beside מהם in boundary_rationale, in-sentence with the qere"
+  },
+  {
+   "row": "P02-001",
+   "item": "s1_row_defect",
+   "action": "cured",
+   "reason": "same ketiv-label cure as S1-12"
+  },
+  {
+   "row": "P02-001",
+   "item": "CWO-EZ-18 (verbatim_author) 'lift up your eyes' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-001",
+   "item": "CWO-EZ-18 (near_web_author) 'you will again see yet other great abominations,' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-001",
+   "item": "CWO-EZ-18 short_common_label 'again see' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 (near_web_author) 'he brought me to the door of the court' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 (near_web_author) 'son of man, dig now in the wall' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 (verbatim_author) 'you will again see' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 (verbatim_author) 'Yahweh doesn’t see us' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 short_common_label 'in the dark,' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 short_common_label 'again see' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-002",
+   "item": "CWO-EZ-18 short_common_label 'again see' (strongest_rejected_alternative)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-18 (verbatim_author) 'he brought me to the door of the gate of Yahweh's house' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-18 (verbatim_author) 'about twenty-five men… their backs toward Yahweh's temple' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-003",
+   "item": "CWO-EZ-18 (verbatim_author) 'I will also deal in wrath… I will not hear them' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-004",
+   "item": "s1_finding",
+   "action": "cured",
+   "reason": "added ketiv label beside כאשר in boundary_rationale, in-sentence with the qere"
+  },
+  {
+   "row": "P02-004",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-004",
+   "item": "CWO-EZ-18 (near_web_author) 'I have done as you have commanded me,' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-005",
+   "item": "ruling_order",
+   "action": "confirmed",
+   "reason": "T5-CITATION-RESIDUALS (R2) read-back: row carries no K/Q content and no repeated Hebrew run; no defect to cure"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-14 register (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-18 (near_web_author) 'the appearance of the wheels was like a beryl stone' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-18 (verbatim_author) 'for the spirit of the living creature was in them' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-18 short_common_label 'river Chebar' (boundary_evidence_refs)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-006",
+   "item": "CWO-EZ-18 short_common_label 'river Chebar' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-007",
+   "item": "CWO-EZ-18 (verbatim_author) 'the Spirit lifted me up and brought me to the east gate' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-007",
+   "item": "CWO-EZ-18 short_common_label 'river Chebar' (boundary_evidence_refs)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-007",
+   "item": "CWO-EZ-18 short_common_label 'river Chebar' (boundary_evidence_refs)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-007",
+   "item": "CWO-EZ-18 short_common_label 'river Chebar' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-14 register (device_notes)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-18 (near_web_author) 'you have multiplied your slain' (boundary_evidence_refs)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-18 (verbatim_author) 'the Spirit lifted me up and brought me' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-18 (verbatim_author) 'Ah Lord Yahweh! Will you make a full end of the remnant of Israel?' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-18 (near_web_author) 'Yahweh's Spirit fell on me, and he said to me, Speak…' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-008",
+   "item": "CWO-EZ-18 (verbatim_author) 'Yahweh's Spirit fell on me' (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-14 register (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-18 (verbatim_author) 'given to us for a possession' (boundary_evidence_refs)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-18 (verbatim_author) 'your brothers… the house of Israel' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-009",
+   "item": "CWO-EZ-18 (verbatim_author) 'one heart… heart of flesh' (device_notes)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-18 (verbatim_author) 'into Chaldea, to the captives' (boundary_evidence_refs)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-18 (verbatim_author) 'went up from me' (boundary_evidence_refs)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-18 (near_web_author) 'then I spoke to the captives all the things that Yahweh had shown me' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-010",
+   "item": "CWO-EZ-18 (verbatim_author) 'the Spirit lifted me up… into Chaldea, to the captives' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words) - converted to a single-quoted gloss (no web: ref) because check_web_quotes' web_quote_found could not match the ellipsis-joined span; the order's own analysis had already flagged it as naming no single verse"
+  },
+  {
+   "row": "P02-011",
+   "item": "CWO-EZ-14 register (boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-011",
+   "item": "CWO-EZ-18 (verbatim_author) 'I did so as I was commanded' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-011",
+   "item": "CWO-EZ-18 short_common_label 'the rebellious house' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-011",
+   "item": "CWO-EZ-18 short_common_label 'in the morning' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-011",
+   "item": "CWO-EZ-18 short_common_label 'in the morning' (strongest_rejected_alternative)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-012",
+   "item": "CWO-EZ-14 register (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-012",
+   "item": "CWO-EZ-18 short_common_label 'in the morning' (boundary_rationale)",
+   "action": "informational",
+   "reason": "already converted to single quotes by the orchestrator's deterministic sweep before this wave; no author action required"
+  },
+  {
+   "row": "P02-013",
+   "item": "ruling_order",
+   "action": "cured",
+   "reason": "replaced label ידעתם with וידעתם in boundary_rationale per e5:NEWCLASS-TF2-1#1"
+  },
+  {
+   "row": "P02-013",
+   "item": "hard_finding",
+   "action": "cured",
+   "reason": "same ידעתם->וידעתם cure resolves citation_sweep's collation problem"
+  },
+  {
+   "row": "P02-013",
+   "item": "CWO-EZ-18 (near_web_author) 'then you will know that I am Yahweh' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-014",
+   "item": "CWO-EZ-18 (near_web_author) 'the days are prolonged, and every vision fails' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-014",
+   "item": "CWO-EZ-18 (near_web_author) 'the days are prolonged, and every vision fails' (literature_type_guess)",
+   "action": "cured",
+   "reason": "converted to single quotes per the rule's own remedy for a classification field ('a classification field carries no quotation'); no web: ref added"
+  },
+  {
+   "row": "P02-015",
+   "item": "CWO-EZ-14 register (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "reworded the flagged positional-row-reference / strategy-citation / part-talk phrase to verse-anchored or self-referential prose per book_strategy_Ezek.md §8 and #e6 T5-REGISTER"
+  },
+  {
+   "row": "P02-015",
+   "item": "CWO-EZ-18 (near_web_author) 'the vision that he sees is for many days to come' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-016",
+   "item": "CWO-EZ-18 (verbatim_author) 'then you will know that I am the Lord Yahweh' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref, or converted to a single-quoted gloss where an exact byte-verbatim restoration was not defensible (e.g. an ellipsis span crossing intervening WEB words)"
+  },
+  {
+   "row": "P02-017",
+   "item": "CWO-EZ-18 (near_web_author) 'because… they have seduced my people, saying, Peace; and there is no peace' (boundary_rationale)",
+   "action": "cured",
+   "reason": "converted to a single-quoted gloss (no web: ref) because WEB's own nested internal quotation marks around 'Peace' could not be reproduced cleanly inside the row's already-curly-quoted span"
+  },
+  {
+   "row": "P02-017",
+   "item": "CWO-EZ-18 (verbatim_author) 'the prophets of Israel who prophesy concerning Jerusalem… visions of peace… and there is no peace' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes where needed and added an inline web: ref"
+  },
+  {
+   "row": "P02-017",
+   "item": "CWO-EZ-18 (verbatim_author) 'there is no peace' (literature_type_guess)",
+   "action": "cured",
+   "reason": "converted to single quotes per the rule's own remedy for a classification field; no web: ref added"
+  },
+  {
+   "row": "P02-018",
+   "item": "CWO-EZ-18 (verbatim_author) 'profaned me… for handfuls of barley' (boundary_evidence_refs)",
+   "action": "cured",
+   "reason": "added the inline web: ref inside the entry's own parenthetical"
+  },
+  {
+   "row": "P02-018",
+   "item": "CWO-EZ-18 (verbatim_author) 'set your face against the daughters of your people' (boundary_rationale)",
+   "action": "cured",
+   "reason": "added the inline web: ref"
+  },
+  {
+   "row": "P02-018",
+   "item": "CWO-EZ-18 (near_web_author) 'out of their own heart.' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB's own punctuation (moved the row's own sentence-period outside the closing quote) and added the inline web: ref"
+  },
+  {
+   "row": "P02-018",
+   "item": "CWO-EZ-18 (near_web_author) 'then you will know that I am Yahweh' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes (case) and added web:Ezek.13.23, the verse this row's own close names"
+  },
+  {
+   "row": "P02-019",
+   "item": "CWO-EZ-18 (near_web_author) 'then some of the elders of Israel came to me and sat before me' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes (case) and added the inline web: ref"
+  },
+  {
+   "row": "P02-019",
+   "item": "CWO-EZ-18 (near_web_author) 'should I be inquired of at all by them?' (boundary_rationale)",
+   "action": "cured",
+   "reason": "restored WEB-verbatim bytes (case) and added the inline web: ref"
+  },
+  {
+   "row": "P02-020",
+   "item": "ruling_order",
+   "action": "confirmed",
+   "reason": "T5-CITATION-RESIDUALS (R2) read-back: both דנאל occurrences already carry ketiv/qere keyword in their own ref entries; no further defect"
+  },
+  {
+   "row": "P02-020",
+   "item": "s1_finding",
+   "action": "cured",
+   "reason": "filled empty qere reading (דָּנִיֵּ֣אל, sourced from the row's own boundary_evidence_refs[10]) in device_notes"
+  },
+  {
+   "row": "P02-020",
+   "item": "s1_row_defect",
+   "action": "cured",
+   "reason": "same qere-fill + register reword as S1-14 (S1's 'unpointed כי כה אמר...kept' item required no action)"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-14 register ('ends the part', boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded to 'closes this unit' (self-reference, exempt under §8)"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-14 register ('this closes the part.', boundary_rationale)",
+   "action": "cured",
+   "reason": "reworded to 'this closes the unit.'"
+  },
+  {
+   "row": "P02-020",
+   "item": "CWO-EZ-18 (near_web_author) 'or if…' (boundary_rationale)",
+   "action": "cured",
+   "reason": "converted to a single-quoted gloss (no web: ref) since the span describes a recurring refrain device across several scourge-verses rather than quoting one verse"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "e5:NEWCLASS-TF2-1#1 (P02-013 ידעתם->וידעתם)",
+   "test": "citation_sweep.py before/after diff on whole-book private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "T5-CITATION-RESIDUALS read-back (P02-005, P02-020)",
+   "test": "manual read-back of every K/Q-bearing sentence against R1-R3; no defect found in P02-005 (no K/Q content); P02-020's two דנאל occurrences each already carry their own ketiv/qere keyword in boundary_evidence_refs",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-12 ketiv labeling (P02-001, P02-004)",
+   "test": "citation_sweep.py prose_dual_warns before/after diff (2 P02 warnings removed)",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-14 qere fill (P02-020)",
+   "test": "manual byte check that device_notes now reads 'qere דָּנִיֵּ֣אל' sourced from the row's own boundary_evidence_refs[10]",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 verbatim_author / near_web_author (45 items across 16 rows)",
+   "test": "check_web_quotes.py 'curly quote with NO web: ref in its field' class, myrows-only copy and whole-book before/after diff",
+   "result": "PASS (41 P02 hits before -> 0 after)"
+  },
+  {
+   "order": "CWO-EZ-14 register rewording (13 items across 10 rows)",
+   "test": "check_register.py myrows-only copy and whole-book before/after diff for P02",
+   "result": "PASS (0 before, 0 after; no regression)"
+  },
+  {
+   "order": "FIXUP-1 (3) no span/unit_type/confidence/parent_collection changes",
+   "test": "field-set diff between current_row and emitted row for all 20 rows, restricted to the 5 editable fields",
+   "result": "PASS"
+  },
+  {
+   "order": "self-check #2 normalizer/cap_sweep/ngram7/tiling",
+   "test": "normalize_hebrew_in_json.py, cap_sweep.py, ngram7.py, check_tiling.py over myrows-only copy",
+   "result": "PASS (defects=0 fixed=0; cap_sweep GREEN; no offending 7-gram; tiling 150/150 GREEN)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "web_quotes": 41,
+   "refs_mirror": 16,
+   "mark_symmetry": 10,
+   "universals": 88,
+   "register": 0
+  },
+  "after": {
+   "web_quotes": 0,
+   "refs_mirror": 17,
+   "mark_symmetry": 10,
+   "universals": 88,
+   "register": 0
+  },
+  "rises_explained": [
+   "refs_mirror +1 (P02-016): the CWO-EZ-18-ordered inline web:Ezek.24.24 citation is not yet mirrored by a boundary_evidence_refs entry naming that verse; a direct consequence of curing the web_quotes item, left for the checker (see unresolved_uncertainty).",
+   "universals count unchanged (88=88) but composition shifted by 2 explainable items, not a net rise: P02-010 LOST an 'every' universal-claim hit because the CWO-EZ-14 register cure ('mark every row before this one' -> 'mark this vision's earlier scenes') removed the word 'every' along with the barred positional-row phrase; P02-014 GAINED an 'every' hit at literature_type_guess because CWO-EZ-18's own ordered remedy for that field ('use single quotes; a classification field carries no quotation') unmasks the quoted proverb text ('every vision fails') from whatever quote-style masking the universals checker applies to curly-double-quoted spans - the flagged 'every' belongs to the quoted proverb, not an authorial claim. The remaining 24 before/after string differences in the universals report are the same claims at the same paths with a shifted 'context' character-window, caused by nearby inserted web: refs moving surrounding text, not new distinct flags."
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

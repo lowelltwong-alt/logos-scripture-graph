@@ -1,0 +1,90 @@
+{
+ "cluster": "c41",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c41_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-271",
+   "verdict": "challenge",
+   "reasoning": "Re-derived the span from both witnesses before ruling. web_mt_offset_map gives Psalm 87 rule identity with mt_title_verses [], so web:Ps.87.1-Ps.87.3 = oshb:Ps.87.1-Ps.87.3 one to one, and the row's title pairing web:Ps.87.0 = oshb:Ps.87.1 is right: the WEB title sits inside MT v1, whose opening 4 tokens are לִבְנֵי קֹ֭רַח מִזְמ֣וֹר שִׁ֑יר. The 2 Hebrew quotes collate at byte tier against the refs they are cited to (collate.py: oshb:Ps.87.1 byte, oshb:Ps.87.3 byte), and their English is WEB text as rendered — “His foundation is in the holy mountains.” (web:Ps.87.1) and “Glorious things are spoken about you, city of God. Selah.” (web:Ps.87.3). The selah citation is exact against the inventory (pmarks_Ps.json selah: Ps.87.3 = 1 occurrence, single-witness) and functions as corroboration, not as the seam driver; the driver is the 1cs speech onset at oshb:Ps.87.4 = web:Ps.87.4, a tier-1 discourse frame, so the 87:3|87:4 seam holds, the medium confidence is calibrated for a 3-verse strophe in a 7-verse psalm, and I contest neither the span nor the unit_type nor the rejected_alternative. The defects sit in observed_substrate_signals[0], which asserts a grammatical fact and a referent the bytes of oshb:Ps.87.1 do not carry, and which also breaches the curly-quote convention.",
+   "challenges": [
+    {
+     "challenge_id": "OL-271-1",
+     "severity": "medium",
+     "claim": "observed_substrate_signals[0] misstates oshb:Ps.87.1 in 2 ways: the opening clause does have an expressed subject noun of its own, and the title colon holds no city that the clause could carry over as its referent.",
+     "evidence": "Spliced from verse_map_oshb.json and collated with collate.py (byte tier at oshb:Ps.87.1 for both runs): MT 87:1's title colon is לִבְנֵי קֹ֭רַח מִזְמ֣וֹר שִׁ֑יר — 4 tokens, no city noun — and the clause after it opens on יְ֝סוּדָת֗וֹ, which is itself the verbless clause's expressed subject noun (the row quotes that same token at byte tier). Sweeps place the city elsewhere: skeleton עיר occurs in 1 verse of Psalm 87 (oshb:Ps.87.3 = web:Ps.87.3; 25 verses book-wide) and skeleton ציון in 2 verses of Psalm 87 (oshb:Ps.87.2 and oshb:Ps.87.5; 38 verses book-wide), 0 of them in the title colon. Grammar blocks the proposed referent independently: this psalm's city is feminine in 2 verses — מְדֻבָּ֣ר בָּ֑ךְ at oshb:Ps.87.3, יֻלַּד בָּ֑הּ and וְה֖וּא יְכוֹנְנֶ֣הָ עֶלְיֽוֹן at oshb:Ps.87.5 — which both witnesses show, “Glorious things are spoken about you, city of God.” (web:Ps.87.3) and “the Most High himself will establish her.” (web:Ps.87.5), so the masculine suffix on יְ֝סוּדָת֗וֹ cannot take the city as antecedent. Psalm 87 is an identity psalm under the offset map, so the oshb and web refs cited here pair one to one across all 7 verses."
+    },
+    {
+     "challenge_id": "OL-271-2",
+     "severity": "low",
+     "claim": "observed_substrate_signals[0] places WEB title wording in curly double quotes without a web: ref in the same field, breaching the mandatory quote-plus-inline-ref convention.",
+     "evidence": "check_web_quotes.py over the 5 rows of this cluster flags 1 of 15 quoted spans: path [0].observed_substrate_signals[0], quote 'the sons of Korah', issue 'curly quote with NO web: ref in its field'. The string is WEB title wording — “A Psalm by the sons of Korah; a Song.” (web:Ps.87.0) — so it is a WEB citation rather than row prose and needs its inline ref; the other citation in that same field names Ps.87.3 without a web: prefix as well."
+    }
+   ],
+   "row_sha256": "97aadd18688b526016cef4914a4a07653171d6408996e4ff279ef2f7f5f69196"
+  },
+  {
+   "decision_id": "M8-Ps-272",
+   "verdict": "challenge",
+   "reasoning": "The span survives independent checking, so my challenge is against a tier label, not the seam. oshb:Ps.87.4 opens 1cs speech (the row's quote collates byte tier), which is the same tier-1 speaker change I confirmed from the other side of the 87:3|87:4 seam. Keeping v7 inside this unit rather than splitting at the second selah is supported from the bytes: the 2fs addressee marker of oshb:Ps.87.3 recurs at the end of oshb:Ps.87.7 — מְדֻבָּ֣ר בָּ֑ךְ against בָּֽךְ — at skeleton tier (skeleton בך in 2 verses of Psalm 87, oshb:Ps.87.3 and oshb:Ps.87.7, 44 verses book-wide; the pointed forms differ by accent, so skeleton is the honest tier), which the row's rejected_alternative reasoning implies without stating. Selah citations are exact against pmarks_Ps.json (Ps.87.3 and Ps.87.6, 1 occurrence each, single-witness), the Rahab footnote is correctly quarantined as tier-4 translator material, and the row's own sweep figure is right: skeleton זה ילד שם hits 2 verses book-wide, oshb:Ps.87.4 and oshb:Ps.87.6. What fails is the tier the row assigns that repetition, stated twice at the top tier.",
+   "challenges": [
+    {
+     "challenge_id": "OL-272-1",
+     "severity": "medium",
+     "claim": "The row calls the Psalm 87 register formula a verbatim recurrence and asserts a byte-match between the 2 verses oshb:Ps.87.4 and oshb:Ps.87.6, but the runs agree at skeleton tier alone — they differ at byte tier and at accent_stripped tier.",
+     "evidence": "Spliced from verse_map_oshb.json and cross-collated with collate.py's tier function: זֶ֝֗ה יֻלַּד שָֽׁם (oshb:Ps.87.4) scores byte against oshb:Ps.87.4 but skeleton against oshb:Ps.87.6, and זֶ֖ה יֻלַּד שָׁ֣ם (oshb:Ps.87.6) scores byte against oshb:Ps.87.6 but skeleton against oshb:Ps.87.4. The runs diverge in 2 places: the demonstrative carries U+059D plus U+0597 at 87:4 against U+0596 at 87:6, and the closing token carries U+05BD at 87:4 against U+05A3 at 87:6. Since accent_stripped is limited to U+0591-U+05AF, that U+05BD survives stripping and the 2 runs stay unequal at accent_stripped tier; skeleton is the first tier that collapses them, and skeleton זה ילד שם hits 2 verses book-wide. The repetition is real and the row's count of 2 verses is correct — the repair is the tier label, in the rationale and in observed_substrate_signals[0] together, since both state the byte claim."
+    }
+   ],
+   "row_sha256": "bb9c564c49b1c327323a95e9a497dbb87306adf2a10e9e21db140728c716dba9"
+  },
+  {
+   "decision_id": "M8-Ps-273",
+   "verdict": "support",
+   "reasoning": "No claim in this row failed re-derivation, so I support it. Psalm 88 is shift+1 with mt_title_verses [1], so the row's ladder from web:Ps.88.0 = oshb:Ps.88.1 through web:Ps.88.7 = oshb:Ps.88.8 is arithmetically exact, title pseudo-ref included. The 8 labels reproduce psalm_device_inventory.json's superscriptions entry for 88 item for item (mizmor, shir, maskil, lamnatseach, livnei_qorach, le_heman, al_machalat, leannot), and the 8th of those, le_heman, is the label carried by the row's byte-tier quote; genre_label_membership le_heman = [88], so the cited figure of 1 psalm is right. I tested the exclusivity claim independently by reading all 11 livnei_qorach titles (42, 44, 45, 46, 47, 48, 49, 84, 85, 87, 88): 1 of those 11 names an individual, “A contemplation by Heman, the Ezrahite.” (web:Ps.88.0). Both Hebrew quotes collate at byte tier against their cited refs, the invocation gloss “Yahweh, the God of my salvation” (web:Ps.88.1) is WEB text as rendered, and the rear-seam selah is exact (pmarks_Ps.json selah: Ps.88.8 = 1 occurrence, single-witness = web:Ps.88.7). That rear seam does not rest on selah alone: oshb:Ps.88.9 = web:Ps.88.8 opens the psalm's envelope, which I document in my challenge on the next span and which is an independent tier-1 reason to break after web:Ps.88.7, so high confidence is calibrated. Two observations that do not rise to defects: observed_substrate_signals[2] calls web:Ps.88.1-Ps.88.7 one continuous 2nd-person address, and 2 of those 7 verses carry no 2nd-person form at all (oshb:Ps.88.4 and oshb:Ps.88.5 = web:Ps.88.3 and web:Ps.88.4), so the vocative frame is unbroken but the morphology is not; and device_notes reproduces the rationale's opening sentence word for word.",
+   "challenges": [],
+   "row_sha256": "1ca3729c6dd0573754a3380a146f9dc31c9718edd04e0d242494a9342a6c81cb"
+  },
+  {
+   "decision_id": "M8-Ps-274",
+   "verdict": "challenge",
+   "reasoning": "The span itself is defensible and I do not contest it: the front seam is the selah-marked close at web:Ps.88.7 = oshb:Ps.88.8 plus the turn to social isolation, the rear seam at web:Ps.88.12|web:Ps.88.13 is the fronted 1cs pronoun opening oshb:Ps.88.14, the row's 1 Hebrew quote collates at byte tier against oshb:Ps.88.11, the 2 selah citations are exact (pmarks_Ps.json: Ps.88.8 and Ps.88.11, 1 occurrence each, single-witness), and the shift+1 arithmetic is right in all 6 refs. Three evidence defects stand: the rear-seam verse the row argues from is missing from boundary_evidence_refs; a byte-true structural device spanning the psalm straddles this row's rear seam undisclosed; and the interrogative count names no unit and undercounts what both witnesses carry.",
+   "challenges": [
+    {
+     "challenge_id": "OL-274-1",
+     "severity": "medium",
+     "claim": "web:Ps.88.13 is argued in the rationale as the row's rear boundary but is absent from boundary_evidence_refs, leaving the seam verse unmirrored.",
+     "evidence": "check_refs_mirror.py over the 5 rows of this cluster returns flag_count 1: decision_id M8-Ps-274, argued_but_unmirrored ['Ps.88.13']. The rationale closes by arguing the seam from that verse ('before the psalm returns to direct petition at web:Ps.88.13'), while boundary_evidence_refs stops at web:Ps.88.12 = oshb:Ps.88.13. The mirrored form is web:Ps.88.13 = oshb:Ps.88.14, since Psalm 88 is shift+1. The other 4 rows of this cluster mirror their out-of-span seam verses, as does this row's own front seam at web:Ps.88.7."
+    },
+    {
+     "challenge_id": "OL-274-2",
+     "severity": "medium",
+     "claim": "An undisclosed byte-true envelope binds web:Ps.88.8 to web:Ps.88.18 and straddles this row's rear seam at web:Ps.88.12|web:Ps.88.13, arguing continuity across that seam.",
+     "evidence": "Spliced from verse_map_oshb.json, both runs collating at byte tier against their own verses: oshb:Ps.88.9 = web:Ps.88.8 opens הִרְחַ֥קְתָּ מְיֻדָּעַ֗י מִ֫מֶּ֥נִּי, and oshb:Ps.88.19 = web:Ps.88.18 opens הִרְחַ֣קְתָּ מִ֭מֶּנִּי and closes on מְֽיֻדָּעַ֥י מַחְשָֽׁךְ — the same 3 lexemes, the 2nd and 3rd of them in reversed order. Sweeps: skeleton הרחקת hits 2 verses book-wide and both are these (oshb:Ps.88.9, oshb:Ps.88.19); skeleton מידעי hits 4 verses book-wide, 2 of them these same verses. WEB carries the pairing in English too — “You have taken my friends from me.” (web:Ps.88.8) against “You have put lover and friend far from me, and my friends into darkness.” (web:Ps.88.18). The device brackets web:Ps.88.8-Ps.88.18, that is this row plus the next, so it is a cross-seam cohesion fact owed disclosure on both rows of the seam pair in 1 edit; as filed, this row quotes the envelope's opening line in WEB without noting that it reopens at the psalm's closing verse."
+    },
+    {
+     "challenge_id": "OL-274-3",
+     "severity": "low",
+     "claim": "The 'triad of parallel rhetorical questions' and 'three times' figures name no counted unit and undercount the interrogative material in both witnesses.",
+     "evidence": "Counting interrogative cola: WEB carries 2 question marks in each of web:Ps.88.10, web:Ps.88.11 and web:Ps.88.12, that is 6 questions across 3 verses rather than 3. In MT the verse the row quotes carries a second interrogative clause beside the one quoted: oshb:Ps.88.11 = web:Ps.88.10 continues אִם רְ֝פָאִ֗ים יָק֤וּמוּ יוֹד֬וּךָ (byte tier, spliced from verse_map_oshb.json), rendered “Do the departed spirits rise up and praise you?” (web:Ps.88.10). The figure 3 holds for exactly 1 object, the verse-initial interrogative-he particles at oshb:Ps.88.11, oshb:Ps.88.12 and oshb:Ps.88.13 = web:Ps.88.10-Ps.88.12, which is the object the row needs to name before it counts."
+    }
+   ],
+   "row_sha256": "b15376f1952cc08127a9c32276a91d189779bb62205b07c6bac434c754753104"
+  },
+  {
+   "decision_id": "M8-Ps-275",
+   "verdict": "challenge",
+   "reasoning": "This row verifies broadly. The front seam is real: oshb:Ps.88.14 = web:Ps.88.13 opens on the fronted 1cs pronoun the row quotes, that quote collates at byte tier, and so does the psalm's closing token at oshb:Ps.88.19 = web:Ps.88.18. The absence claim is correct and correctly span-scoped: pmarks_Ps.json records selah in Psalm 88 at Ps.88.8 and Ps.88.11, that is 2 verses, giving 0 inside oshb:Ps.88.14-Ps.88.19 = web:Ps.88.13-Ps.88.18, and I read all 6 verses in both witnesses for a praise or resolution clause and found 0. The shift+1 arithmetic is exact in all 8 refs, and the out-of-span range the prose argues (web:Ps.88.10-Ps.88.12) is mirrored in boundary_evidence_refs. I also note, without filing it, that the 1-word gloss in curly quotes near the end of the rationale is not WEB wording (WEB closes that verse with a period, not a comma) — check_web_quotes skips spans under 2 words, so the convention does not reach it. The filed defect is that the row builds an affirmative closural argument on the psalm's closing verse while quoting, undisclosed, 1 half of a byte-true envelope whose other half sits outside the span.",
+   "challenges": [
+    {
+     "challenge_id": "OL-275-1",
+     "severity": "medium",
+     "claim": "The closural warrant rests on oshb:Ps.88.19 without disclosing that the verse reopens the envelope begun at oshb:Ps.88.9, a byte-true device straddling this row's front seam.",
+     "evidence": "Spliced from verse_map_oshb.json, byte tier against their own verses: oshb:Ps.88.19 = web:Ps.88.18 opens הִרְחַ֣קְתָּ מִ֭מֶּנִּי and closes on מְֽיֻדָּעַ֥י מַחְשָֽׁךְ, which repeat the 3 opening lexemes of oshb:Ps.88.9, the 2nd and 3rd of them reversed, at web:Ps.88.8, הִרְחַ֥קְתָּ מְיֻדָּעַ֗י מִ֫מֶּ֥נִּי. Sweeps: skeleton הרחקת hits 2 verses book-wide and both are these; skeleton מידעי hits 4 verses book-wide, 2 of them these. WEB preserves the pairing — “You have taken my friends from me.” (web:Ps.88.8) and “You have put lover and friend far from me, and my friends into darkness.” (web:Ps.88.18) — and the row quotes the second while arguing that the psalm ends without a turn to resolution, which is where the envelope belongs: the closural force of oshb:Ps.88.19 is that it returns to the opening of the preceding span, not merely that nothing follows it. The device brackets web:Ps.88.8-Ps.88.18 and so straddles this row's front seam at web:Ps.88.12|web:Ps.88.13; the disclosure is 1 edit installed on both rows of that seam pair."
+    }
+   ],
+   "row_sha256": "b505ab31a06d70ad5ec55fdc3719de68639c273a6372e2e7975a4afdb6c1bfcb"
+  }
+ ]
+}

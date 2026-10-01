@@ -1,0 +1,21 @@
+{
+ "schema": "m8_second_generation_catch.v1",
+ "id": "LAM-MICRO-SECONDGEN-2026-09-07",
+ "what": "the micro cure round introduced TWO violations of standing corpus-wide orders. Both were caught by the orchestrator's deterministic re-scan over a SIMULATED post-micro corpus, before any apply. Nothing defective was written to the corpus.",
+ "why_it_matters": "this is the second-generation principle holding in practice: a cure that is locally correct can break a rule it was not thinking about. The controls that caught it are (a) running the corpus-wide-order scan again after every wave, not only after the wave that created the orders, and (b) simulating the apply before performing it.",
+ "violation_1": {
+  "order": "CWO-1 (no signal key names the parashah mark layer)",
+  "row": "P02-006",
+  "cause": "a review lane found the row's key was the only acrostic key not named by its letters, and the cure renamed it back to the letter-named form. The letters of this span include samekh, which is ALSO the name of the dominant paragraph-mark type in this book, and the order's token list bans that string.",
+  "character": "a genuine conflict between two standing orders, not an author error: the same string names a tier-1 letter and a tier-3 mark, and the campaign's own hazard law says those layers must never be conflated.",
+  "disposition": "escalated to the Fable boss under OW-6 (attempt lam_boss_b3_a1); the orchestrator did not settle it"
+ },
+ "violation_2": {
+  "order": "CWO-10 (every source-language splice at a ketiv/qere verse carries the disclosure in the same field)",
+  "row": "P02-005",
+  "cause": "the cure for the punctuation-lane finding spliced the source interrogative particle at Lam.3.39 into boundary_rationale so the claim would rest on the text rather than the translation's question mark. Lam.3.39 carries a ketiv/qere note, so the new splice needs the disclosure that the old translation-only citation did not.",
+  "character": "a clean second-generation miss, not a conflict: curing one order tripped another. The cure itself was right.",
+  "disposition": "a bounded correction, ordered after the boss rules on violation 1 so both rows are fixed in one round"
+ },
+ "status": "OPEN - the micro apply is held until both are resolved; rows_v5 remains the current corpus"
+}

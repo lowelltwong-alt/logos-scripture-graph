@@ -1,0 +1,56 @@
+{
+ "schema": "m8_tool_install.v1",
+ "book": "Ezek",
+ "tool": "_brief_shape_headroom.py",
+ "installed_at": "C:/wt/logos-t423-m8-fable/.ai/scratch/multi_model_bible_chunking/M8_fable/sp_durable/campaign/_brief_shape_headroom.py",
+ "recorded_at": "2026-09-14T03:01:25.167698+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 6116e665",
+ "state": "installed",
+ "sha256_before": null,
+ "sha256_after": "fcb537f559ca9128d0214c742f7d3234d0095edcffb72da2ba75cb2abafe5dfa",
+ "why": "control for the FIXUP-3 run-1 ngram7 failure (CYCLE_STATE 2026-09-12, learning log L-0012): a brief that offers example wording measures that wording against the corpus and refuses a shape whose headroom is smaller than the wave's parts",
+ "rule": "a shape is SAFE only when gate - 1 - rows_already_carrying_the_gram >= parts",
+ "tokenization": "the installed book tool ngram7.py is imported and its own prose walk, stripping and WEB exclusion are used; no copy of that pipeline exists in this tool",
+ "ngram7_sha256": "fe25efc22a0b01b0",
+ "selftest": {
+  "is": "the historical FIXUP-3 case, not a synthetic one",
+  "checks": {
+   "prewave_shape_A_refused": true,
+   "prewave_tightest_gram_is_the_recorded_one": true,
+   "prewave_rows_are_the_six_CYCLE_STATE_names": true,
+   "prewave_headroom_is_3_against_6_parts": true,
+   "applied_same_gram_stands_in_10_rows": true,
+   "applied_shape_A_refused": true
+  },
+  "prewave": {
+   "corpus": "repair/rows_v5_cwo23.jsonl",
+   "corpus_sha256": "3f0c7aee0fc68e76",
+   "parts": 6,
+   "verdict": "REFUSE",
+   "shape_A": {
+    "gram": "single witness at the seam this unit",
+    "rows": 6,
+    "headroom": 3,
+    "row_ids": [
+     "P02-009",
+     "P02-020",
+     "P04-007",
+     "P07-001",
+     "P08-010",
+     "P11-005"
+    ]
+   }
+  },
+  "applied": {
+   "corpus": "repair/rows_v6_fixup3.jsonl",
+   "corpus_sha256": "89d538baa116fdaf",
+   "verdict": "REFUSE",
+   "refused": 3,
+   "shape_A": {
+    "rows": 10,
+    "headroom": -1
+   }
+  }
+ },
+ "limit": "the tool measures wording a brief hands over; it cannot measure wording an author invents, which the landing suite's ngram7 still decides"
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logos.local/schemas/whole_bible_terminal_completion_receipt.schema.v1.json",
+  "title": "Whole-Bible Candidate Terminal Completion Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "receipt_id", "campaign_id", "campaign_revision", "book", "run_id",
+    "b10_stage_receipt_path", "b10_stage_receipt_sha256",
+    "extended_evidence_manifest_path", "extended_evidence_manifest_sha256",
+    "completion_gate_bundle_path", "completion_gate_bundle_sha256", "completion_gates",
+    "final_artifact_closure", "outcome", "unresolved_hold_ids", "unresolved_appeal_ids",
+    "written_at", "receipt_written_last", "replay_plumbing_validated", "replay_qualified",
+    "launch_qualified", "whole_bible_form_language_qualified", "counts_as_cross_model_independent_vote",
+    "candidate_only", "promotion_authorized", "non_authorizing"
+  ],
+  "properties": {
+    "schema_version": {"const": "whole_bible_terminal_completion_receipt.v1"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "campaign_revision": {"type": "integer", "minimum": 1},
+    "book": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"},
+    "b10_stage_receipt_path": {"$ref": "#/$defs/repo_path"},
+    "b10_stage_receipt_sha256": {"$ref": "#/$defs/digest"},
+    "extended_evidence_manifest_path": {"$ref": "#/$defs/repo_path"},
+    "extended_evidence_manifest_sha256": {"$ref": "#/$defs/digest"},
+    "completion_gate_bundle_path": {"$ref": "#/$defs/repo_path"},
+    "completion_gate_bundle_sha256": {"$ref": "#/$defs/digest"},
+    "completion_gates": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["gate_id", "argv", "exit_code", "status", "evidence_path", "evidence_sha256", "stdout_sha256"],
+        "properties": {
+          "gate_id": {"type": "string", "minLength": 1},
+          "argv": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+          "exit_code": {"const": 0},
+          "status": {"const": "passed"},
+          "evidence_path": {"$ref": "#/$defs/repo_path"},
+          "evidence_sha256": {"$ref": "#/$defs/digest"},
+          "stdout_sha256": {"$ref": "#/$defs/digest"}
+        }
+      }
+    },
+    "final_artifact_closure": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/digest"}},
+    "outcome": {"enum": ["candidate_complete", "candidate_complete_with_holds"]},
+    "unresolved_hold_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "unresolved_appeal_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "written_at": {"type": "string", "format": "date-time"},
+    "receipt_written_last": {"const": true},
+    "replay_plumbing_validated": {"const": true},
+    "replay_qualified": {"const": false},
+    "launch_qualified": {"const": false},
+    "whole_bible_form_language_qualified": {"const": false},
+    "counts_as_cross_model_independent_vote": {"const": false},
+    "candidate_only": {"const": true},
+    "promotion_authorized": {"const": false},
+    "non_authorizing": {"const": true}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "repo_path": {"type": "string", "minLength": 1, "pattern": "^(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"}
+  }
+}

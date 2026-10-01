@@ -1,0 +1,130 @@
+{
+ "schema_version": "m8_book_completion_receipt.v1",
+ "model_id": "M8_fable",
+ "book": "Gen",
+ "completed_at": "2026-07-30",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 117,
+ "verse_coverage": "1533/1533 exact ordered",
+ "final_states": {
+  "accepted_candidate": 116,
+  "held_lower_confidence": 1
+ },
+ "held_decisions": [
+  {
+   "decision_id": "M8-Gen-084",
+   "question": "Does Gen 37:1 close the Esau toledot block (paired with 36:8) or open the Jacob toledot as its settlement frame before the 37:2 superscription?"
+  }
+ ],
+ "superseded_decisions": [
+  "M8-Gen-025",
+  "M8-Gen-056",
+  "M8-Gen-091",
+  "M8-Gen-109"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 12,
+ "chunks_sha256": "89895c8db71c46e53ff362d8a1ccefba8faef14972e2ed22d3aa9cbbbc34f370",
+ "review_packets_sha256": "96878cb3b4b6bbb7554e1734cdebba3ca5182ea3196a62ef7c85a394d4935566",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book Gen",
+  "scripts/validate_t423_literary_quality_protocol.py --model-folder M8_fable --book Gen --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book Gen",
+  "checks/validate_book_review_coverage.py --book Gen --require-final-artifacts",
+  "checks/anti_batch_scan.py --book Gen (0 errors; scripture-quotation n-grams excluded with documented warning)",
+  "scripts/validate_rust_observation_substrate.py (T412 gate, at campaign start)"
+ ],
+ "anti_batch_audit": {
+  "auditor": "claude-haiku-4-5",
+  "findings": 1,
+  "disposition": "Finding (chapter-shape confidence cap is rule-driven) is accurate as observation; the cap is mandated by the pilot-book quality protocol and every affected row separates the mechanical cap from literary confidence. Preserved, not suppressed."
+ },
+ "post_resolution_check": {
+  "checker_model": "claude-sonnet-5",
+  "result": "116 pass / 1 hold, zero blocking defects",
+  "bound_file": "reviews/Gen/post_resolution_check_v2.json"
+ },
+ "routing_used": [
+  {
+   "role": "book_writer + author responses",
+   "model": "claude-sonnet-5",
+   "effort": "medium",
+   "attempts": [
+    "author_sonnet_gen_r1"
+   ]
+  },
+  {
+   "role": "original_language_primary round1",
+   "model": "claude-opus-5",
+   "effort": "high",
+   "attempts": "ol_opus_c01..c15_r1 (3 instances, 5 clusters each)"
+  },
+  {
+   "role": "literary_form_primary round1",
+   "model": "claude-sonnet-5",
+   "effort": "high",
+   "attempts": "lf_sonnet_c01..c15_r1 (3 instances)"
+  },
+  {
+   "role": "peer_crosschecker round1",
+   "model": "claude-sonnet-5",
+   "effort": "high",
+   "attempts": "peer_sonnet_c01..c15_r1 (3 instances)"
+  },
+  {
+   "role": "revision primaries",
+   "model": "claude-opus-5 + claude-sonnet-5",
+   "effort": "high",
+   "attempts": "rev_ol/rev_lf c01..c03 (2 fresh instances)"
+  },
+  {
+   "role": "revision peer",
+   "model": "claude-sonnet-5",
+   "effort": "high",
+   "attempts": "rev_peer_sonnet_c01..c03_r1"
+  },
+  {
+   "role": "micro-round primaries",
+   "model": "claude-opus-5 + claude-sonnet-5",
+   "effort": "high",
+   "attempts": "micro_ol/micro_lf c01 (2 fresh instances)"
+  },
+  {
+   "role": "post_resolution_checker",
+   "model": "claude-sonnet-5",
+   "effort": "high",
+   "attempts": "postcheck_sonnet_c01..c15_r1"
+  },
+  {
+   "role": "anti_batch_auditor",
+   "model": "claude-haiku-4-5",
+   "effort": "default",
+   "attempts": [
+    "antibatch_haiku_gen_r1"
+   ]
+  },
+  {
+   "role": "boss_adjudicator + hardest-seam rulings",
+   "model": "claude-fable-5",
+   "effort": "xhigh",
+   "attempts": "boss_fable_c01..c15_r1"
+  },
+  {
+   "role": "tier0_deterministic",
+   "model": "none",
+   "tools": [
+    "freeze_candidate_rows.py",
+    "build_final_rows.py",
+    "assemble_review_artifacts.py",
+    "anti_batch_scan.py",
+    "crosswalk builder",
+    "corpus extraction"
+   ]
+  }
+ ],
+ "escalations_to_fable": "boss adjudication of all 105 challenges; two round-1 boss rulings reversed on later evidence (18:16 bracket; 24:31/32 relocation)",
+ "ultra_requests": 0,
+ "owner_addendum_applied": "m8-mesh-r2 scribal/editorial evidence weights (received mid-campaign, applied to all rulings and new reviews; no re-runs)",
+ "notes": "Working-corpus defect (dropped mid-verse paragraph clauses) found by peer review, fixed, and logged as M8-LOG-0002; effort values are harness defaults per model (Agent tool exposes model selection only), recorded honestly."
+}

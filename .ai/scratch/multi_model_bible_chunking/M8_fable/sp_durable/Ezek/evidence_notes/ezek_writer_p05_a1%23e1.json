@@ -1,0 +1,88 @@
+{
+ "attempt_id": "ezek_writer_p05_a1",
+ "execution_id": "ezek_writer_p05_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "8 OW-8 chunk rows (P05-001..P05-008) written to draft_p05.jsonl, tiling Ezek.22.1-Ezek.24.27 (107 verses) exactly",
+    "why": "WRITER assignment for p05, the P5(b) dated disputation-to-siege collection"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "Rows tile Ezek.22.1-Ezek.24.27 exactly, no gap, no overlap",
+   "how": "private script build_rows.py: expanded every row span against the expected 107-verse list and asserted exact ordered equality",
+   "result": "confirmed"
+  },
+  {
+   "claim": "All 22 fields present on every row; unit_type in the closed 12-value vocabulary; confidence in {high,medium,medium_low,low}; non_authorizing true on every row",
+   "how": "same private script, per-row schema/enum check",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Every Hebrew run quoted in boundary_rationale/boundary_evidence_refs/strongest_rejected_alternative/device_notes is an exact substring of Ezek_oshb.txt's own verse text; no hand-typed or unicode-escaped Hebrew anywhere in the writer script",
+   "how": "same script: regex-extracted every Hebrew run from those four fields and checked substring membership against the full loaded source text; separately self-scanned the script's own source for \\u05xx escapes or raw Hebrew literals",
+   "result": "confirmed on this run; NOTE the first draft of the script DID contain 6 hand-typed \\u05xx escapes for formula-name labels (the E-01 failure class), caught by this same self-scan, removed, and replaced with dict-spliced substrings and English glosses before anything was written to the deliverable path"
+  },
+  {
+   "claim": "No fabrication-class terms (selah, large/small letters, reversed/suspended nun, Aramaic) appear in any row",
+   "how": "same script: lowercase substring scan of JSON-serialized rows against the fabrication-class term list",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The one ref touching MT ch21 (the back-reference to MT 21:37 behind 22:1's onset) is written dual",
+   "how": "read-back of the written row text (manual check, not scripted)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Every row's onset is one of this part's hard/default onsets (22:1, 22:17, 22:23, 23:1, 24:1, 24:15) or an explicitly-argued sub-onset (23:22, 23:36) with its own disclosed rationale",
+   "how": "read-back against the frame-spine/hard-seam evidence drawn from ezek_device_inventory.json and book_strategy_Ezek.md (reasoning-based check, not scripted)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Row prose avoids decision-ids, file/section citations, positional row references, cross-part references, and staged-file/tool names, per the register rule",
+   "how": "grep sweep of the script source for forbidden patterns (file stems, 'sec[0-9]', 'row [1-9]', 'part p0[0-9]', rule-codes, actor names)",
+   "result": "refuted on the first draft (multiple 'row N' references, three staged-file-name citations, one cross-part 'p04' mention, one rule-code citation) — all corrected, then re-swept clean; confirmed on the corrected version now in the deliverable"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "23:1-21 (P05-004) is held as one 21-verse unit despite a real sub-structure (a samekh mark at 23:10 and the Oholah/Oholibah narrative-subject shift at 23:11) because no formula device marks that shift",
+   "why_it_matters": "a reviewer weighing the samekh + subject shift more heavily than the formula-only granularity rule could split this into two rows, shifting every later decision_id/chunk_index in the part"
+  },
+  {
+   "what": "23:22-35 (P05-005) closes at 23:35 rather than at 23:34, even though 23:34 carries the stronger formula-close (utterance formula + samekh); the addressee-count shift at 23:36 was treated as the more diagnostic signal instead",
+   "why_it_matters": "genuinely close call; the alternative close at 23:34 is fully byte-supported and a reviewer could reasonably prefer it"
+  },
+  {
+   "what": "23:36-49 (P05-006) is written as its own unit rather than as the close of the 23:1-35 allegory",
+   "why_it_matters": "this is an explicitly held either/or question in the governing strategy for exactly this stretch; both readings remain live"
+  },
+  {
+   "what": "MT 24:1 (P05-007) is read as opening this collection's final movement (24:1-27 in two hard-seam-bounded rows) rather than as its own one-row dated complex",
+   "why_it_matters": "the assignment specifically calls for weighing both readings; both are argued in strongest_rejected_alternative, but the choice determines the row count and boundaries for the rest of the part"
+  },
+  {
+   "what": "The 6 ketiv/qere sites in this part (22:18, 23:14, 23:16, 23:42, 23:43-doubled, 24:2) are disclosed by verse reference and count only — the Qere readings themselves are never quoted",
+   "why_it_matters": "the brief treats a spliced Qere as wanted, not merely tolerated; I withheld all six because the raw ketiv+qere field format has no unambiguous, safely-automatable split point I could verify byte-true, and I judged a wrong split to be a worse outcome than an honest non-quotation"
+  },
+  {
+   "what": "Whether my K/Q-disclosure sentence phrasing converges with other writers' parts at the campaign's 7-gram/10-row threshold",
+   "why_it_matters": "I varied phrasing across my own 5 K/Q sites as a precaution, but I am barred from reading other parts' drafts and cannot check cross-part convergence myself"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

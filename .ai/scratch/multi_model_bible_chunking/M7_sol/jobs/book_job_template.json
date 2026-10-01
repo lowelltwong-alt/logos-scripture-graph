@@ -1,0 +1,23 @@
+{
+  "schema_version": "m7_book_job.v1",
+  "job_id_pattern": "M7-BOOK-<canonical-book-index>",
+  "depends_on": "previous canonical book completion or P0 for Genesis",
+  "objective": "Produce, review, and validate one book's candidate literary chunk map.",
+  "non_goals": ["theological decision", "preferred reading", "promotion", "comparison"],
+  "write_owner": "M7_sol_author",
+  "allowed_write_root": ".ai/scratch/multi_model_bible_chunking/M7_sol",
+  "required_outputs": [
+    "book_strategy/<Book>.md",
+    "book_chunks/<Book>/chunks.jsonl",
+    "reviews/<Book>/review_packets.jsonl",
+    "reviews/<Book>/book_difficulty.md",
+    "receipts/books/<Book>.json"
+  ],
+  "gates": [
+    "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book <Book>",
+    "python scripts/validate_whole_bible_chunk_map.py book_chunks/<Book>/chunks.jsonl --model-id M7_sol --book <Book>",
+    "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book <Book> --require-artifacts"
+  ],
+  "attempts": {"original": 1, "repair": 1},
+  "stop_on": ["isolation_breach", "authority_boundary", "digest_change", "coverage_failure", "review_parity_failure"]
+}

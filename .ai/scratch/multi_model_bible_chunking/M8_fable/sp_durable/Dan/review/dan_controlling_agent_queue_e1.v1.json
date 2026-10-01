@@ -1,0 +1,206 @@
+{
+ "schema": "m8_controlling_queue.v1",
+ "book": "Dan",
+ "for_execution": "dan_controlling_rulings_a1#e1",
+ "status": "PROPOSALS by the orchestrator (claude-opus-5-5, OW-25); the controlling execution rules on each id",
+ "s1_deliverable": {
+  "path": "sp_durable/Dan/review/dan_writer_wave_spot_review_S1.json",
+  "sha256": "e7e725a9301ccab2a9139d9f2f6c8e504200488f4bb78148fef761762212ea7f",
+  "execution": "dan_writer_wave_spot_review_s1_a1#e2",
+  "verdict": "fit_with_changes"
+ },
+ "rows_under_review": {
+  "path": "SP\\Dan\\writer\\draft_rows_combined.jsonl",
+  "sha256": "693e468fd4b166ea4ff57bf5729ff7f952c218727e6ceed61ba77df1b9ef8830"
+ },
+ "measured_context": {
+  "s1_findings_by_severity": {
+   "major": 1,
+   "minor": 5,
+   "note": 5
+  },
+  "books_closed": "26/66 (Ezekiel closed; Daniel open)",
+  "later_order": "OW-32: after Daniel the stress-first queue; Daniel's own stress passages there are Dan 2, 7, 9 and 11-12"
+ },
+ "items": [
+  {
+   "id": "S1-ROUTING",
+   "proposal": "Ratify S1's routing of all 11 findings (6 fix-up items to W1, W2, W4 and W6; 3 tool_fix; 2 fable_end_review; 1 orchestrator_cwo), amended by the per-id rulings below.",
+   "proposed_route": "all"
+  },
+  {
+   "id": "S1-01",
+   "proposal": "MAJOR. FIXUP W6: in W6-001.strongest_rejected_alternative replace the two unfilled %s placeholders with the opening words of Dan.10.2, sliced by script from Dan_oshb.txt (OSHB/WLC) and Dan_web_clean.txt (WEB), collated at byte tier. No other change to the row unless another ruling orders it.",
+   "proposed_route": "fixup:W6",
+   "s1_finding": {
+    "id": "S1-01",
+    "severity": "major",
+    "row_or_artifact": "W6-001.strongest_rejected_alternative",
+    "claim": "The rejected-alternative text carries two unfilled format placeholders; the Hebrew and WEB words on which the 10:2 argument rests are missing.",
+    "evidence": "Literal text: 'oshb:Dan.10.2 begins %s (OSHB/WLC), %s (WEB), which points back to the time 10:1 has just named' (MEASURED by regex on work\\rows.jsonl; only occurrence in the 75 rows).",
+    "suggested_fix": "Substitute the 10:2 opening words (OSHB/WLC bytes) and the WEB words; re-run collate on the new run.",
+    "route": "fixup:W6"
+   }
+  },
+  {
+   "id": "S1-02",
+   "proposal": "TOOL FIX before the fix-up wave: add a HARD member to run_validator_suite.py that fails RED on any unfilled template placeholder (printf %s/%d/%r and {identifier}) in any string field of any row, with a fixture that includes W6-001's current text as a must-fail case. This adds a gate; it weakens none.",
+   "proposed_route": "tool_fix",
+   "s1_finding": {
+    "id": "S1-02",
+    "severity": "minor",
+    "row_or_artifact": "run_validator_suite.py (all members)",
+    "claim": "No suite member detects unfilled template placeholders (%s, {…}); S1-01 passed every member.",
+    "evidence": "Suite rc=1 only for ngram7; no member reported W6-001.",
+    "suggested_fix": "Add a placeholder sweep (%[sd], {name}) over every string field to the suite.",
+    "route": "tool_fix"
+   }
+  },
+  {
+   "id": "S1-03",
+   "proposal": "FIXUP W2: in W2-005.device_notes drop the KJV rendering and the Christian christological reading; keep the neutral WEB/OSHB wording disclosure. Reason: section 8 items 1 and 5 (no adjudication of a divided reading; cross-tradition material is metadata only). If the controlling agent judges the reading a divided reading worth recording, route it to the strategy's for_fable_end_review list instead of the row.",
+   "proposed_route": "fixup:W2",
+   "s1_finding": {
+    "id": "S1-03",
+    "severity": "minor",
+    "row_or_artifact": "W2-005.device_notes",
+    "claim": "The note reports the KJV rendering and a Christian christological reading of the fourth figure at 3:25; that is reception-history material from outside the witness set, out of the §8 register, though it is not used as evidence.",
+    "evidence": "'the KJV renders the phrase as the Son of God, and some Christian interpreters read the figure christologically' (row text); the row states 'The reading bears on no seam'.",
+    "suggested_fix": "Keep the WEB/OSHB wording disclosure and drop the KJV and interpreter clauses, or route the divided reading to the strategy's divided-readings list.",
+    "route": "fixup:W2"
+   }
+  },
+  {
+   "id": "S1-04",
+   "proposal": "FIXUP W4: remove the seven cross-row and process references in W4-002, W4-004, W4-006, W4-008, W4-009 and W4-012; restate the shared evidence in each row so each stands alone.",
+   "proposed_route": "fixup:W4",
+   "s1_finding": {
+    "id": "S1-04",
+    "severity": "minor",
+    "row_or_artifact": "W4-002, W4-004, W4-006, W4-008, W4-009, W4-012",
+    "claim": "Cross-row and process references in row prose: '(see W4-001)', '(see W4-005)', '(see W4-011)', 'as in W4-001', 'as in W4-008', and 'as in the strategy's section 6 example'. Each row must stand alone (§8 positional reference).",
+    "evidence": "q4.py XROW scan, 7 hits, all in W4; none in W1-W3, W5 or W6.",
+    "suggested_fix": "Restate the shared evidence in each row, e.g. 'after_this_aram stands at both 7:6 and 7:7', and drop the strategy-section pointer.",
+    "route": "fixup:W4"
+   }
+  },
+  {
+   "id": "S1-05",
+   "proposal": "FIXUP W4: describe the stem-count instrument as a skeleton count over OSHB/WLC with the stems given (MEASURED, reproduced by S1), never a writer-private script; name layers (the PE/SAMEKH layer, the device inventory, the language zones) rather than file stems.",
+   "proposed_route": "fixup:W4",
+   "s1_finding": {
+    "id": "S1-05",
+    "severity": "minor",
+    "row_or_artifact": "W4-004 (and W4-005, W4-006 counts); W4 file names in prose",
+    "claim": "MEASURED stem counts cite 'work\\gen_rows.py', a writer-private script outside the pinned artifact set, as the instrument. W4 prose also names pinned files (pmarks_Dan.json, dan_device_inventory.json, dan_language_zones.json), which the register member flags 107 times; the other parts name the layer instead.",
+    "evidence": "Reviewer reproduced the counts exactly by skeleton substring over Dan_oshb.txt with stems מלכו/קדיש/חסנ: 7:14 [2,0,0], 7:18 [2,1,1], 7:21 [0,1,0], 7:22 [1,2,1], 7:23 [2,0,0], 7:24 [1,0,0], 7:25 [0,1,0], 7:27 [4,1,0], which match the row. The claim is true; the instrument is unreviewable.",
+    "suggested_fix": "Describe the instrument as 'skeleton count over OSHB/WLC' with the stems given, and name layers rather than file stems.",
+    "route": "fixup:W4"
+   }
+  },
+  {
+   "id": "S1-06",
+   "proposal": "FIXUP W1: drop the 'two verses of setting do not form a unit' clause from W1-001's rival; rest the rejection on D4 and the continuity of the setting.",
+   "proposed_route": "fixup:W1",
+   "s1_finding": {
+    "id": "S1-06",
+    "severity": "minor",
+    "row_or_artifact": "W1-001.strongest_rejected_alternative",
+    "claim": "The rival split 1:1-2 / 1:3-7 is dismissed partly because 'two verses of setting do not form a unit', which contradicts the §6 2-9 target range (the wave itself has two-verse rows such as W3-007, W4-003 and W4-010).",
+    "evidence": "Row text. The second reason (1:3 speech verb as a weak connective, D4) is valid on its own.",
+    "suggested_fix": "Drop the two-verse clause and rest the rejection on D4 and the continuity of the setting.",
+    "route": "fixup:W1"
+   }
+  },
+  {
+   "id": "S1-07",
+   "proposal": "TOOL FIX before the fix-up wave: in ngram7.py drop, before tokenizing, only the exact device-class keys listed in dan_device_inventory.json (not a generic snake_case pattern, which could hide real prose templating). Fixture: the current combined rows must go GREEN on the device-key gram and must still count every other 7-gram unchanged. No row rewording for this finding. The early warnings (the paseq and ketiv/qere disclosure clusters, 7 rows each) are left to the fix-up authors' judgment, with the measured counts in their briefs, so no fix-up raises them to the gate.",
+   "proposed_route": "tool_fix",
+   "s1_finding": {
+    "id": "S1-07",
+    "severity": "note",
+    "row_or_artifact": "ngram7.py (RED)",
+    "claim": "The RED is reproduced: 'month or day word not a date' appears in 10 rows at gate 10. It is the verbatim device-class key month_or_day_word_not_a_date of dan_device_inventory.json, tokenized into 7 words: a tool-scope artifact, not writer templating. Every cited verse is in the inventory class.",
+    "evidence": "ngram7 on work\\rows.jsonl: W2-013, W2-014, W2-015, W5-002, W5-003, W6-001, W6-008, W6-010, W6-012, W6-015. Early warnings at 7 rows: 'paseq single witness counted not weighed at' (W2) and the 'oshb wlc aramaic reads this verse carries a ketiv qere reading in' cluster (W3); both are disclosure boilerplate.",
+    "suggested_fix": "In ngram7, strip snake_case identifiers (e.g. \\b[a-z]+(?:_[a-z]+){2,}\\b) or the inventory key set before tokenizing. No row rewording is needed.",
+    "route": "tool_fix"
+   }
+  },
+  {
+   "id": "S1-08",
+   "proposal": "TOOL FIX, FLAGS only (no HARD member changes): check_universals exempts the parent_collection label; the K/Q warning binds to word overlap with the kq layer's words rather than to the verse; a 'paseq C:V' presence claim is treated as a count claim. Each change carries a fixture with S1's items as cases.",
+   "proposed_route": "tool_fix",
+   "s1_finding": {
+    "id": "S1-08",
+    "severity": "note",
+    "row_or_artifact": "check_universals.py, citation_sweep.py, check_marks.py (suite members)",
+    "claim": "The sampled suite flags are mostly false positives: 'last' in the PJ parent title (15 flags); tier vocabulary ('each', 'never decides'); verse-level K/Q binding when the quoted words are not the K/Q forms (W5-005); paseq 'position' warnings on verse-level presence claims (W4-008, W6-014).",
+    "evidence": "19 flags disposed of in flags.items: 15 tool_false_positive, 1 row_defect, 3 neither.",
+    "suggested_fix": "Exempt parent_collection labels from universals; bind K/Q warnings to word overlap with the kq notes; treat 'paseq C:V' as a count claim.",
+    "route": "tool_fix"
+   }
+  },
+  {
+   "id": "S1-09",
+   "proposal": "Keep the fable_end_review route, and in the fix-up of W1 and W2 (already open) and a W3 fix-up lane (new, one row), have the author either grade W1-009, W2-007 and W3-007 medium_low or add one clause giving the row's own byte evidence for medium. Never round up. Alternative: leave the three rows to Fable only, with no W3 lane.",
+   "proposed_route": "fixup:W1,W2,W3 or fable_end_review",
+   "s1_finding": {
+    "id": "S1-09",
+    "severity": "note",
+    "row_or_artifact": "W1-009, W2-007, W3-007",
+    "claim": "Rows on the left side of the §7 (o), (d) and (e) edges are graded medium, while the strategy expects medium_low for the rows at those seams. The right-hand rows (W1-010, W2-008, W3-008) carry medium_low and disclose the rivals, so the departure is small and plausibly row-level, but it is not stated.",
+    "evidence": "Combine report grades; strategy §7 (d), (e) and (o).",
+    "suggested_fix": "Either grade these rows medium_low or add one clause saying why the row's own evidence outweighs the seam's grade.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S1-10",
+   "proposal": "Keep the fable_end_review route; no row change.",
+   "proposed_route": "fable_end_review",
+   "s1_finding": {
+    "id": "S1-10",
+    "severity": "note",
+    "row_or_artifact": "W6-001.boundary_rationale",
+    "claim": "The close cites the completed 'three whole weeks' interval with the PE after 10:3 and the place change. Interval clauses are texture elsewhere; the row itself calls the close thinner and grades medium_low.",
+    "evidence": "Row text; PE after MT 10:3 confirmed in pmarks.",
+    "suggested_fix": "None required; Fable may confirm whether an interval's completion may count as close-side evidence.",
+    "route": "fable_end_review"
+   }
+  },
+  {
+   "id": "S1-11",
+   "proposal": "No row change: model_id is a fixed field, and the OW-25 grader_fallback is disclosed at campaign level (campaign/grader_models.v1.json, the strategy's opening and section 11, the TOOLKIT). Record the disclosure in the book's close record and in the rows' manifest when rows are finalized.",
+   "proposed_route": "orchestrator",
+   "s1_finding": {
+    "id": "S1-11",
+    "severity": "note",
+    "row_or_artifact": "all rows (model_id)",
+    "claim": "The model-downgrade device item: every row has model_id 'M8_fable' and no row discloses the OW-25 grader_fallback (claude-opus-5-5 in Fable's role).",
+    "evidence": "MEASURED: 75/75 model_id 'M8_fable'; 0 rows match fallback|downgrad.",
+    "suggested_fix": "Orchestrator decides whether the disclosure belongs at row level or only in the campaign record.",
+    "route": "orchestrator_cwo"
+   }
+  },
+  {
+   "id": "U-FRONTIER",
+   "proposal": "S1 left frontier_flag_considered ungraded (False on 8 rows, MEASURED). The only tool contract that reads it is cap_sweep.py's whole-chapter rule (TOOLKIT). Proposal: no defect unless the field's meaning is defined otherwise; the controlling agent states what the field requires.",
+   "proposed_route": "controlling_agent"
+  },
+  {
+   "id": "U-QUOTE-LABEL",
+   "proposal": "Whether section 8 item 6 (quotations short, script-sliced, attributed) applies to a parent_collection label that uses WEB wording (W4 'one like a son of man'). Proposal: a label is a title, not a quotation; if it reproduces WEB words it carries (WEB) attribution in the row's prose, not in the label.",
+   "proposed_route": "controlling_agent"
+  },
+  {
+   "id": "U-ZONEDUAL",
+   "proposal": "S1's zone-dual scan parsed web:/oshb:/MT/WEB and bare C:V refs only. Proposal: a CWO sweep that flags any other verse-reference notation (for example 'chapter 4 verse 3', 'v. 3') in rows touching a zone, run on the fix-up output before S2.",
+   "proposed_route": "orchestrator_cwo"
+  },
+  {
+   "id": "GATE-E1",
+   "proposal": "Proposal: tool fixes (S1-02, S1-07, S1-08) staged, fixture-tested and installed by receipt FIRST; then a fix-up wave FIXUP-1 of the parts the rulings open (W1, W2, W4, W6, and W3 if S1-09 is so ruled), at most three in flight; then the orchestrator's apply, the suite and coverage, then a fresh distinct S2 on the applied rows. primaries_may_launch stays false until S2 reads rows readiness fit=true.",
+   "proposed_route": "gate"
+  }
+ ]
+}

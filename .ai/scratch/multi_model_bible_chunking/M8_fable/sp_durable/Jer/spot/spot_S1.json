@@ -1,0 +1,189 @@
+{
+ "attempt_id": "jer_spot_S1_a1",
+ "lane": "seam/boss",
+ "scope_items_reviewed": 8,
+ "rows_touched": [
+  "P02-016",
+  "P02-017",
+  "P02-017b",
+  "P02-018",
+  "P03-006",
+  "P03-007",
+  "P03-008",
+  "P03-009",
+  "P06-010",
+  "P06-011",
+  "P06-013",
+  "P10-011",
+  "P10-012",
+  "P10-013",
+  "P10-014",
+  "P14-006",
+  "P14-007",
+  "P14-009"
+ ],
+ "clean": 6,
+ "findings": [
+  {
+   "row_ids": [
+    "P14-007"
+   ],
+   "lane": "seam/boss",
+   "e_class": "E-06",
+   "severity": "low",
+   "defective_text": "matching “Then Zedekiah said to Jeremiah,” (web:Jer.38.24) — where the following row already begins.",
+   "byte_evidence": "check_register.py (private-copy run of the 18 scope rows via tools/run_validator_suite.py) flags decision_id P14-007, field boundary_rationale, class positional_row_reference, match 'the following row' — the sole register flag in scope. TOOLKIT.md REGISTER PURGE: 'NO decision-ids, ... positional row references (incl. \"that row\") ... in ANY field in row prose EVER ... Self-reference (\"this unit\") is exempt' — the corpus's own sanctioned self-reference term is 'unit', never 'row'.",
+   "proposed_cure": "Replace \"where the following row already begins\" with \"where the following unit already begins\" (or drop the clause), removing the pipeline term 'row' from the row's own prose."
+  },
+  {
+   "row_ids": [
+    "P14-007"
+   ],
+   "lane": "seam/boss",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "\"a form distinct from the book's 32-verse signature stack\" (comparing the Elohei-tsevaot-Elohei-Yisrael stack against 3 verses book-wide: oshb:Jer.35.17, oshb:Jer.38.17, oshb:Jer.44.7) and \"(sweep: 2 verses book-wide, oshb:Jer.24.1 and oshb:Jer.38.21)\" for the showing-verb, both in device_notes.",
+   "byte_evidence": "check_refs_mirror.py (private run) flags decision_id P14-007, argued_but_unmirrored=[Jer.24.1, Jer.35.17, Jer.44.7]. Content-verified from bytes: sweep.py --heb over the pointed stack (splice from verse_map_oshb.json) returns accent_stripped/skeleton count=3, refs=[Jer.35.17, Jer.38.17, Jer.44.7], matching the row exactly; sweep.py --skel over the showing-verb consonantal skeleton returns count=2, refs=[Jer.24.1, Jer.38.21], also exact. Both comparison digits are byte-accurate but their cited verses are absent from P14-007's boundary_evidence_refs (which lists only the 38.13-38.24 span-relevant refs).",
+   "proposed_cure": "Add oshb:Jer.24.1, oshb:Jer.35.17, and oshb:Jer.44.7 to P14-007's boundary_evidence_refs so the two book-wide comparison citations the row argues from are mirrored, per check_refs_mirror.py's unconditional rule."
+  },
+  {
+   "row_ids": [
+    "P10-011",
+    "P10-012"
+   ],
+   "lane": "seam/boss",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "P10-011 boundary_rationale: \"The address turns from Yahweh’s own promise to a claim quoted from the exiles’ own mouths at verse 15, marking the far edge of this row.\" vs P10-012 boundary_rationale: \"Whether verse 15’s quoted claim belongs with the settle-in promise that precedes it or with the Jerusalem judgment it introduces is not settled by any formula ... held at reduced confidence honestly rather than resolving that question either way.\"",
+   "byte_evidence": "Both rows carry the same row-level confidence=\"medium_low\" (so the shared uncertainty IS reflected numerically), but only P10-012's prose discloses that the seam's placement at v.15 is formula-unsettled; P10-011's close-side prose asserts the v.15 hand-off without the reciprocal hedge — an asymmetry under the OW-3 both-sides law ('an onset-only diagnosis is incomplete until the adjacent unit's close or onset is weighed from bytes'; here the CLOSE side is the one under-disclosing relative to its neighbor's onset-side hedge).",
+   "proposed_cure": "Add one clause to P10-011's boundary_rationale acknowledging (as P10-012 already does) that no formula settles whether verse 15 closes P10-011 or opens P10-012, disclosing the shared ambiguity symmetrically on both sides of the seam."
+  },
+  {
+   "row_ids": [
+    "P10-011"
+   ],
+   "lane": "seam/boss",
+   "e_class": "E-07",
+   "severity": "low",
+   "defective_text": "device_notes: \"...and twice at oshb:Jer.29.14 (נְאֻם יְהוָה֒; נְאֻם יְהוָֽב֑), each byte tier — disclosed here as corroboration...\" — no ketiv/qere disclosure attached to this Hebrew splice in this field.",
+   "byte_evidence": "pmarks_Jer.json kq['Jer.29.14']=1 (confirmed K/Q verse, direct inventory read). citation_sweep.py's prose_dual_warn flags exactly this device_notes splice as K/Q-verse-bound without in-field disclosure. The row DOES disclose 29:14's K/Q status elsewhere, in boundary_rationale, for a different word (ketiv שביתכם / qere שְׁבוּתְכֶםח), so the gap is per-field, not a row-level omission.",
+   "proposed_cure": "Append a brief parenthetical to the device_notes splice noting the same verse's already-disclosed ketiv/qere note, so the per-field citation_sweep rule is satisfied without re-arguing the note."
+  }
+ ],
+ "warn_flags_dispositioned": [
+  {
+   "flag": "citation_sweep.prose_dual_warn: P10-011 device_notes Hebrew quote binds to K/Q verse oshb:Jer.29.14 with no in-field ketiv/qere disclosure",
+   "row_id": "P10-011",
+   "disposition": "genuine",
+   "class": "see findings[3] (E-07, low)"
+  },
+  {
+   "flag": "mark_symmetry.paragraph_mark_claim: P03-007 claimed=PE at Jer.9.2 (inventory: SAMEKH at 9.2, none at 9.1)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: bare-word 'PE' matched inside the row's own correct disclaimer 'SAMEKH not conflated with PE' (device_notes) and mis-scored as a positive PE claim; ground-truth pmarks_Jer.json confirms marks['Jer.9.2']=['SAMEKH'], marks['Jer.9.1']=None — exactly what the row itself says, never claiming PE."
+  },
+  {
+   "flag": "mark_symmetry.kq_claim x2: P03-007, verse_cited=Jer.8.18 (duplicate flag)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: check_marks.py Rule 4 (kq_claim) has no absence-exclusion (unlike Rule 1's ABSENCE arm); the row's truthful 'the span carries 0 ketiv/qere notes' phrase matches both the 'ketiv' and 'qere' tokens (hence the x2 duplicate), and the nearest-ref window reaches past the end of prose into the appended boundary_evidence_refs list, grabbing the row's own opening-verse ref (Jer.8.18) instead of the verse the disclosure concerns. Ground truth: pmarks_Jer.json kq['Jer.8.18']=None — the row makes no false claim there."
+  },
+  {
+   "flag": "mark_symmetry.kq_claim x2: P03-008, verse_cited=Jer.9.2 (duplicate flag)",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: identical mechanism to the P03-007 kq_claim pair above — the row's truthful '0 paseq segs, 0 ketiv/qere notes' phrase double-matches 'ketiv'/'qere', and the nearest-ref window bleeds into boundary_evidence_refs, grabbing Jer.9.2. Ground truth: pmarks_Jer.json kq['Jer.9.2']=None — the row makes no false claim there."
+  },
+  {
+   "flag": "register.positional_row_reference: P14-007 boundary_rationale, match 'the following row'",
+   "row_id": "P14-007",
+   "disposition": "genuine",
+   "class": "see findings[0] (E-06, low)"
+  },
+  {
+   "flag": "refs_mirror: P14-007 argued_but_unmirrored=[Jer.24.1, Jer.35.17, Jer.44.7]",
+   "row_id": "P14-007",
+   "disposition": "genuine",
+   "class": "see findings[1] (new, low)"
+  },
+  {
+   "flag": "universals x2: 'never' — P02-017 device_notes ('absence is never counterevidence', re MT 6:7) and P02-017b device_notes (same formula, same verse, opposite side of the seam)",
+   "row_id": "P02-017, P02-017b",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: verbatim restatement of the campaign standing rule ('Tier-4 metadata ... is NEVER boundary evidence and NEVER counterevidence by absence'); byte-confirmed accurate (pmarks marks['Jer.6.7']=None) and byte-identically disclosed on BOTH sides of the seam, which is the correct both-sides behavior, not a defect."
+  },
+  {
+   "flag": "universals x2: 'only' — P03-007 boundary_rationale ('held here as closure corroboration only') and device_notes ('count-only ... no intra-verse position claim', paseq)",
+   "row_id": "P03-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: role-limiting hedge ('used only as corroboration, never as driver') and the mandated paseq COUNT-ONLY disclosure, not textual-exclusivity claims; the E-16 exclusivity check targets claims like 'sole discriminator', not this evidentiary-role idiom."
+  },
+  {
+   "flag": "universals x3: 'only' / 'with no vocative, no imperative, and no second-person verb' (boundary_rationale x2) / 'carries no vocative, imperative, or verb' (strongest_rejected_alternative) — P03-008, re the possessive suffix at Jer.9.6=web:Jer.9.7",
+   "row_id": "P03-008",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: a grammatical/morphological observation about ONE cited word-form at ONE verse ('a suffix only'), not a book-wide frequency or exclusivity claim."
+  },
+  {
+   "flag": "universals x2: 'carries no separate indictment category for the divine reply' / 'closest' (fit) — P06-011 device_notes, re unit_type for 18:13-18:17",
+   "row_id": "P06-011",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: mandated controlled-vocabulary fallback disclosure (TOOLKIT.md: 'unit_type uses the CONTROLLED VOCABULARY ... no free-text unit types'), required precisely when no exact category exists."
+  },
+  {
+   "flag": "universals x5: 'each'/'none' (strongest_rejected_alternative, re the row's own v.8/v.10 koh-amar turns) / 'only' (device_notes, Prophets tier-3 weak corroboration) / 'each' (device_notes, re the 4x neum-YHWH tally which already carries its own digit 'four times across three verses') / 'never' (device_notes, closure-corroboration/never-as-driver hedge) — P10-011",
+   "row_id": "P10-011",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: closed-set enumeration over the row's own already-named internal turns, mandated tier-3/count-only disclosure phrasing, and a digit-bearing sweep ('four times across three verses') already present in the same sentence."
+  },
+  {
+   "flag": "universals x8: 'only' (boundary_rationale) / 'only'+'carries no frame-owner change' (strongest_rejected_alternative) / 'only'x2+'single'+'with no claim about their place'+'never' (device_notes) — P10-012",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: mandated single-witness/tier-3/count-only disclosure phrasing and a within-letter same-speaker continuity observation ('carries no frame-owner change from the same divine mouth'), not book-wide exclusivity claims."
+  },
+  {
+   "flag": "universals x5: 'only'+'carries no frame-owner change'+'continuous' (strongest_rejected_alternative, shared verbatim with P10-012's rejected-alternative paragraph plus P10-013's own trailing sentence on v.22) / 'only'+'with no position inside the verse asserted' (device_notes) — P10-013",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: the shared strongest_rejected_alternative text is BYTE-IDENTICAL to P10-012's (the correct, required both-sides seam-pair formulation, not a defect); the remaining flags are mandated count-only/single-witness disclosure and an internal same-judgment cohesion claim scoped to verses already cited in the same sentence."
+  },
+  {
+   "flag": "universals x1: 'only' — P14-006 device_notes ('single-witness only, this is a seg-layer count, nothing more; no position claimed', paseq at 38:11)",
+   "row_id": "P14-006",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: mandated paseq COUNT-ONLY disclosure."
+  },
+  {
+   "flag": "universals x3: 'unbroken' (boundary_rationale, re the exit-verb conditional series 38:17/38:18/38:21 already cited in-sentence) / 'never' (device_notes, 'never conflating the two types': SAMEKH at 38:16/38:18, PE at 38:19/38:23) / 'only' (device_notes, paseq at 38:20 'tallied count-only; no position claimed') — P14-007",
+   "row_id": "P14-007",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: internal-cohesion description over an already-cited verse set, the mandated PE-not-equal-SAMEKH non-conflation disclosure (byte-confirmed accurate against pmarks_Jer.json for every cited verse), and the mandated paseq count-only phrasing."
+  },
+  {
+   "flag": "universals x2: 'never' (boundary_rationale, 'the two mark types standing side by side, never conflated' at 38:28) / 'continuous' (strongest_rejected_alternative, 'one continuous, self-anticipating scene') — P14-009",
+   "row_id": "P14-009",
+   "disposition": "declared_fp",
+   "class": "E-12 heuristic_fp_class: byte-confirmed accurate dual-mark disclosure (pmarks_Jer.json marks['Jer.38.28']=['SAMEKH','PE'], exactly as claimed, correctly non-conflated) and an internal-cohesion description of the row's own two verses, not a book-wide claim."
+  }
+ ],
+ "lane_digits": {
+  "boss_adopted_sites_reviewed": 8,
+  "rows_touched": 18,
+  "seam_pairs_checked_both_sides": 8,
+  "clean_items": 6,
+  "items_with_findings": 2,
+  "findings_total": 4,
+  "warn_flags_triaged": 16,
+  "warn_flag_instances_covered": 41,
+  "warn_flags_declared_fp": 13,
+  "warn_flag_instances_declared_fp": 38,
+  "warn_flags_genuine": 3,
+  "mark_and_kq_citations_byte_verified": 38,
+  "mark_and_kq_citations_confirmed_accurate": 38,
+  "sweep_digits_byte_verified": 2,
+  "sweep_digits_confirmed_exact": 2
+ },
+ "self_check": "Ran run_validator_suite.py (full Tier-0, 10 members) over a private copy of all 18 scope rows from tools/ (hard_status GREEN; per-check FLAGS on refs_mirror/mark_symmetry/universals/register match the full-corpus report exactly for this scope, confirming no truncation-era mis-mapping). Read check_universals.py/check_marks.py/check_refs_mirror.py source to ground every dampening/absence-exclusion/field-bleed diagnosis in code, not guesswork. Queried pmarks_Jer.json directly for kq/marks at all 38 verse citations named across the 18 rows' boundary_rationale/device_notes: 100% byte-accurate, zero fabricated or mislocated marks found. Ran sweep.py --heb and --skel to content-verify P14-007's two book-wide comparison digits (divine-title stack = 3 verses exact; showing-verb = 2 verses exact). Effort: ORDERED sonnet session-default, NOT independently verified against runtime telemetry (recorded honestly per brief). Self-disclosed process note: one ls command's shell fallback briefly listed SP/Jer/spot/ (banned target), surfacing two sibling filenames (spot_S2.json, spot_S7.json, both lane names already named in SPOT_BRIEF.md) with zero content opened; halted immediately, no further traversal, no effect on findings."
+}

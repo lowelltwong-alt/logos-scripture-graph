@@ -1,0 +1,160 @@
+{
+ "attempt_id": "postcheck_isa_r2",
+ "scope_items": 8,
+ "blocking_findings": [],
+ "non_blocking_notes": [
+  {
+   "item": "1 STRUCTURE [re-verified on rows_v4]",
+   "note": "CLEAN. 223 rows; all parent_collection values are one of the 8 exact frame strings (F1 1, M1 45, M2 47, M3 18, N4 15, M5 40, M6 27, M7 30); chunk_index_in_book == 1..223 in file order exactly; every row's parent equals the frame its span falls in and NO row straddles a frame seam; spans strictly contiguous with zero gaps, overlaps or order errors, opening at Isa.1.1 and closing at Isa.66.24. Independently re-run: check_tiling.py --range Isa.1.1-Isa.66.24 -> verses_covered 1292/1292, decisions 223, problems [], GREEN."
+  },
+  {
+   "item": "2 VOCABULARY [re-verified on rows_v4]",
+   "note": "CLEAN. Every unit_type is inside the closed 10-value set (salvation_oracle 71, judgment_oracle 52, massa_oracle 27, woe_oracle 17, hymn_doxology 16, narrative_prose 16, trial_speech 13, servant_song 5, vision_report 4, superscription 2); zero free-text values. superscription appears exactly twice and only where ruled: Isa.1.1-Isa.1.1 (= parent F1) and Isa.2.1-Isa.2.1; 13:1 is NOT typed superscription, correctly staying with its Babylon oracle."
+  },
+  {
+   "item": "3 HELD CLASSICS",
+   "note": "CLEAN on the held question at all 13 sampled sites; no field decides one. Servant referent held at 42:1 (P11-012 'the identity behind it is not decided'), 42:19 (P11-016), 43:10 (P12-002 'the row treats the phrase as the addressed you ... rather than deciding it is Israel'), 49:5-6 (P14-001), 50:10 (P14-010), 52:13 (P15-001), 53:11 (P15-002). 7:14 almah construal held (P02-010). Throne names (P03-001) name both rivals and hold: 'a court style exalting a Davidic king, versus a fuller messianic reading ... is not settled by this boundary decision and is held open.' Immanuel name-vs-clause held at 8:8 (P02-013) and 8:10 (P02-014, 'disclosed, not resolved'; its 'third and last of the book's three Immanu-El sites (sweep: 3 verses)' carries the mandated adjacent digit and matches the 7:14/8:8/8:10 inventory). Only defect found on these rows is PC-2, a tier label, not a decided question."
+  },
+  {
+   "item": "4 BOSS INSTALLS",
+   "note": "All five land; spans, types, parents, confidences and retirements are exactly as ruled. B-1: P02-015 Isa.8.11-Isa.8.18 and P02-016 Isa.8.19-Isa.8.22 both hold, and the seam-pair formulation is BYTE-IDENTICAL on both device_notes (1263-char shared run) carrying the corrected controlling object (word-level consonantal skeleton, 2 verses) plus the added symmetric 8:19/8:21 straddle; items (c) (d) (e) (f) all discharged. B-2: P10-005 Isa.36.21-Isa.36.22 and P10-006 Isa.37.1-Isa.37.7 exact, tear-and-garment formulation byte-identical (528-char shared run), and the peer_08 royal-messenger composition notice shipped in the same pass (refs carry oshb:Isa.36.4/36.14/36.16 + 37.6). B-3: P15-002 = Isa.53.1-Isa.53.12, servant_song, M6, medium_low, frontier true, whole-chapter cap applied per B-6; P15-003 absent (retired); referent undecided. B-4: P03-012 stands at Isa.11.10-Isa.11.10, medium_low, frontier true; parashah types named and unranked; SRA replaced to adjudicate the FOLD-BACK with the Jesse inclusio and the 22-verse short-token trap expressly rejected. B-5: P09-003 = Isa.32.9-Isa.32.20, judgment_oracle with its deviation disclosure, M3, medium_low, frontier true; P09-004 absent (retired); all seven ordered oshb refs present. No contradiction found between any install and its neighbours."
+  },
+  {
+   "item": "4b BOSS INSTALL - partial",
+   "note": "B-4 items (6)/(7) are satisfied in SUBSTANCE but not in FORM. The boss ordered 'SEAM-PAIR MIRRORS - ONE formulation each, drafted once and installed on both sides'; P03-011 and P03-013 each carry the ordered disclosure with the same splices, the same tier and the same digits as P03-012, but re-worded rather than as one byte-identical formulation (longest shared run 47 and 57 chars, against 1263 and 528 for B-1/B-2). The two sides are mutually consistent and neither contradicts the other, so this does not block; recording it because the second-generation checklist names non-byte-identical seam-pair formulations as a defect class."
+  },
+  {
+   "item": "4c DIGIT CROSS-CHECK (cleared)",
+   "note": "An apparent contradiction between P03-012 ('byte tier: 6 verses book-wide') and P03-013 ('sweep: 5 verses book-wide at byte tier') for the in-that-day frame is NOT a defect: they are two different, correctly-named count objects. sweep.py --heb on splices taken from verse_map_oshb.json confirms MT 11:10's accentuation at byte 6 (Isa.7.23, 11.10, 17.4, 23.15, 24.21, 27.12) and MT 11:11's at byte 5 (Isa.7.18, 10.20, 10.27, 11.11, 27.13), with both at accent_stripped/skeleton 13 - so P03-012's 'identical at accent-stripped and skeleton, not at byte' and P03-013's 'byte-identical to the openers at oshb:Isa.10.20 and oshb:Isa.10.27' are both exactly right."
+  },
+  {
+   "item": "5 ZONE Tier-0",
+   "note": "CLEAN, verified with tools/isa_lib.py (never hand arithmetic). web->mt: 9:1->MT 8:23, 9:3->9:2, 9:7->9:6, 9:12->9:11, 63:19->63:19, 64:1->63:19 (non-injectivity confirmed at the split), 64:12->64:11. mt->web_all: 8:23->[9:1], 9:2->[9:3], 9:6->[9:7], 9:11->[9:12], 63:19->[63:19, 64:1], 64:1->[64:2], 64:11->[64:12]. All match strategy 1/3 exactly. Every one of the 24 duals WRITTEN anywhere in the corpus arithmetic-checks OK (0 bad). Split-verse handling is exemplary: P18-003's refs are half-disclosed explicitly ('first half of the split verse' / 'second half'), and both content claims name the correct half - the never-ruled complaint at web:Isa.63.19 and the tear-the-heavens plea at web:Isa.64.1, matching the toolkit's split discriminator. P18-005 names 'the split verse's first half'. P18-003's 'byte-true echo' claim across the split independently verifies: the mountain-quaking phrase spliced from MT 63:19 collates at BYTE tier against MT 64:2."
+  },
+  {
+   "item": "6 REGISTER (clean arms) [r1 text, scoped to rows_v3]",
+   "note": "Zero hits corpus-wide for erratum/errata narration, decision-ids (M8-LOG / T467 / B-n / lesson-letter / patch-id), tool filenames or staged-file names/stems, strategy-file or section citations, and review-actor names (fable/sonnet/opus/boss/peer/writer-wave). The only register class present is PC-1. Note: apparent 'agent' hits are all grammatical ('agent shift', 'named agent', 'divine agent'), not workflow language. [R2 AMENDMENT: this note was written against rows_v3. On rows_v4 the clean arms above are still clean (re-run: 0 erratum, 0 decision-ids, 0 tool/staged-file names, 0 section citations, 0 actor names), PC-1 is resolved to 0, and the sentence 'the only register class present is PC-1' should now be read as: the only register-family language remaining is PC-3, filed below.]"
+  },
+  {
+   "item": "7 SIDE FILES / WARN FLAGS",
+   "note": "The 168 triage flags decompose as 165 universals + 3 language_zones, with summary.hard_status GREEN. Sampled 10 universals spread across the corpus (flags #0, 18, 36, 54, 72, 90, 108, 126, 144, 162) plus ALL 3 language_zones flags: 13/13 disposition as declared-FP under already-dispositioned classes. The covering classes are (a) E-12 mandated-disclosure language ('tier-3 corroboration only', 'count-only', 'single-witness') - flags #18, #72, #126; (b) in-span cardinality/continuity descriptions rather than book-wide universals ('the single chazon header verse', 'the single divine utterance', 'unbroken speech through', 'no new addressee ... intervenes there') - flags #0, #54, #108, #144; (c) the universal word falling INSIDE a quoted WEB run ('I will gather all nations and languages', web:Isa.66.18) - flag #162; (d) method statements carrying their own enumerated refs - flags #36, #90. All 3 language_zones flags sit in the chs 36 narrative zone and every one DISCUSSES the Rabshakeh Aramaic request or the Judahite-language noun as story content; none labels a verse as being IN Aramaic, which is the checker's own stated failure mode - P10-003 says so in terms ('narrated STORY CONTENT here, not a label on the verse's own language, which remains Hebrew'). No genuine flag found in the sample."
+  },
+  {
+   "item": "8 SCALE / SHAPE",
+   "note": "223 rows against the strategy's expected ~130-170 is a real overshoot but is a granularity outcome, not a defect against any stated rule: the hybrid rule is 'the coherent oracle/speech unit bounded by tier-1 frame signals', over_split_risk_check is satisfied structurally (refrain stanzas not atomized, the Hezekiah psalm held whole, frame+speech kept together, the 53:1-12 and 32:9-20 merges adopted), and the expectation in the strategy is written as an estimate. Recording it so the owner sees it, not as a finding."
+  },
+  {
+   "item": "PC-3 RESIDUAL (new, non-blocking, filed precisely)",
+   "note": "The register-fix wave cleared the ENUMERATED class to zero, but the same E-06 family survives in phrasings no pattern in this cycle enumerated: 10 occurrences in 7 rows naming the 18-part writer batching, which is a work-order artifact with no referent in Isaiah. Sites: P04-011.boundary_rationale 'closing both the chapter and this writer part' (the nakedest instance, and the closest match to E-06's own exemplar); P10-009.device_notes 'the very role split this same part argues on its courtly side'; P11-008.device_notes 'later in this same part at web:Isa.41.21'; P12-001.strongest_rejected_alternative 'recurring at byte tier one part earlier' and P12-001.device_notes 'straddles the row's own opening seam at the part boundary'; P11-016.device_notes 'The close seam is a cross-part seam'; P07-013.strongest_rejected_alternative 'a cross-part typed relation for a later review layer' (also carries the workflow phrase 'review layer') and P07-013.device_notes 'typed cross-part metadata'; P13-007.device_notes 'noted as cross-part texture'. WHY NON-BLOCKING, stated plainly: unlike PC-1 this is not an ordered remedy that failed to run - no ruling in this cycle enumerated these phrasings - and none of it sits on a boss cure row, carries a digit, a tier, a boundary, or a held question; every instance is non-load-bearing prose. WHY STILL WORTH CARRYING: boss B-1 test (iii) is written 'anywhere in row prose', and read literally these 10 sites do not satisfy it. Cure (one mechanical pass, ~7 rows): replace each part-artifact reference with the verse range or the ratified parent-frame name it actually means - exactly the substitution that made P07-016's cure the best of the PC-1 set. The owner may fold this into any future touch of these rows or run it before assembly; it does not gate the candidate."
+  },
+  {
+   "item": "PC-3b EXEMPT (checked, not a residual)",
+   "note": "P07-016.strongest_rejected_alternative 'Merging this verse back with Isa.27.12 was rejected for the reason given at that row' is NOT a violation and needs no cure: peer_11_r2.json's ratified test exempts a bare artifact noun that names no position and carries an explicit verse anchor, and this clause anchors to Isa.27.12 in the same breath. Recording it so the class is not re-opened later. Separately, the 609 bare 'row(s)' tokens remaining corpus-wide are permitted under the same ruling."
+  },
+  {
+   "item": "R2 RE-CHECK of the structural invariants (rows_v4)",
+   "note": "Re-run rather than assumed, because the fix wave touched 38 rows: check_tiling.py --range Isa.1.1-Isa.66.24 -> 1292/1292, 223 decisions, problems [], GREEN; all 8 parent_collection strings exact with every row's parent matching its span's frame and ZERO frame-seam straddles; chunk_index_in_book == 1..223 in file order; unit_type wholly inside the closed 10-value set; superscription still exactly 2 (P01-001 Isa.1.1-Isa.1.1, P01-008 Isa.2.1-Isa.2.1). Validator report: hard_status GREEN, triage_flags 168 (unchanged), arms citation_sweep / web_quotes / refs_mirror / mark_symmetry / ngram7 all GREEN. Boss seam-pair byte-identity SURVIVED the edits - the B-1 P02-015|P02-016 shared device_notes run is still 1263 chars and the B-2 P10-005|P10-006 run still 528, identical to rows_v3. The fix introduced ZERO new multi-word Hebrew runs, so no splice-degradation or tier-label risk was created (0 tier mismatches among new runs)."
+  }
+ ],
+ "verdict": "fit_to_assemble",
+ "verdict_note": "FIT TO ASSEMBLE as the Isaiah candidate. Both blocking findings from r1 are resolved and I verified each on the merged corpus with my own tools rather than accepting the report: PC-1's census went 53/37 -> 0/0 under my unchanged pattern set, with the cures spot-read and every re-anchored reference pointing at the right verse; PC-2's run is now pointed and collates at byte, with the whole class swept to 0. The fix was surgical - 38 rows, prose and refs only, zero structural or semantic fields moved, boss seam-pair byte-identity preserved, no new Hebrew introduced - and the full r1 clean sheet still holds on rows_v4 (tiling 1292/1292, 8-frame architecture intact, closed vocabulary, held classics undecided, zone Tier-0 and all written duals correct, 168 triage flags all declared-FP). One residual of the same family survives in unenumerated phrasings (PC-3, 10 occurrences in 7 rows) and one further note records what is correctly exempt; PC-3 is filed with its full census and a one-pass cure but does not gate the candidate, since no ruling ordered it, it sits on no cure row, and it carries no digit, tier, boundary or held question. Nothing blocking remains.",
+ "self_check": "Tools run, all from SP/Isa/tools: check_tiling.py --range Isa.1.1-Isa.66.24 -> 1292/1292, 223 decisions, GREEN; isa_lib.web_to_mt/mt_to_web_all over 14 zone refs -> all match strategy 1/3 incl. non-injective split; isa_lib-based arithmetic check of all 24 written duals -> 24 OK / 0 BAD; sweep.py --heb on two JSON-spliced pointed forms (subprocess argv, no shell transit) -> byte 6 and byte 5, clearing the P03-012/P03-013 digit pair; isa_lib.collate_hebrew on the P02-014 run -> skeleton (PC-2 proven); independent re-derivation of contiguity/parent/index/vocabulary from rows_v3.jsonl + verse_map_web.json -> clean; register pattern census run identically over rows_v2.jsonl, rows_v2m.jsonl and rows_v3.jsonl -> 51/37 unchanged, proving the ordered cure never executed; validator_report triage sample of 10 universals + 3 language_zones -> 13/13 declared-FP. No Hebrew hand-typed or copied through draft: every run spliced programmatically from verse_map_oshb.json. Corpus not modified; my only SP write is this file. || R2 RE-VERIFY (rows_v4.jsonl): check_tiling.py -> 1292/1292 GREEN at 223 decisions; my own unchanged PC-1 pattern census -> rows_v3 53/37 vs rows_v4 0/0; isa_lib.collate_hebrew on the replaced P02-014 run -> byte (was skeleton), and the corpus-wide unpointed-run-labelled-byte detector -> 0 (was 1); full v3->v4 field diff -> 38 rows, prose+refs only, 0 structural/semantic changes, ref deltas additions-only; difflib longest-common-run check on both boss seam pairs -> 1263 and 528, unchanged, byte-identity preserved; new-Hebrew-run detector over the 38 touched rows -> 0 new runs, 0 tier mismatches; structural invariants (parents, straddles, index order, closed vocabulary, superscription sites) re-derived from rows_v4 -> all clean; widened part-artifact arm -> PC-3, 10 occurrences in 7 rows, filed non-blocking. No Hebrew hand-typed or copied through draft; every run spliced programmatically from verse_map_oshb.json. Corpus not modified; my only SP write is this file.",
+ "resolved_findings": [
+  {
+   "id": "PC-1",
+   "lane": "6 REGISTER",
+   "e_class": "E-06",
+   "severity": "medium",
+   "rows": [
+    "P01-011",
+    "P01-015",
+    "P02-008",
+    "P02-010",
+    "P02-011",
+    "P02-015",
+    "P02-016",
+    "P03-006",
+    "P03-007",
+    "P05-002",
+    "P05-003",
+    "P05-004",
+    "P05-006",
+    "P05-008",
+    "P05-010",
+    "P05-011",
+    "P05-012",
+    "P05-013",
+    "P06-007",
+    "P07-016",
+    "P08-012",
+    "P10-010",
+    "P11-001",
+    "P11-009",
+    "P12-003",
+    "P12-012",
+    "P12-017",
+    "P13-001",
+    "P13-002",
+    "P13-003",
+    "P13-004",
+    "P13-005",
+    "P13-006",
+    "P13-007",
+    "P14-013",
+    "P15-006",
+    "P18-015"
+   ],
+   "row_count": 37,
+   "occurrence_count": 53,
+   "field": "boundary_rationale / strongest_rejected_alternative / device_notes",
+   "defect": "The register-purge class of positional row references and part-range (workflow-batching) references is present, uncured, across 37 of 223 rows: 37 positional-row occurrences (preceding/previous/next/following/earlier/adjacent/neighboring/opening/final row; row before/after) and 16 part-range occurrences ('this part', \"this part's\", \"the part's own opening row\", 'its assigned span'). The 18-part writer batching is a work-order artifact with no referent in Isaiah's text, and cross-row references are required to be verse-anchored rather than positional.",
+   "evidence": {
+    "census_rows_v3": "53 occurrences in 37 of 223 rows (positional-row 37; part-range/range-administration 16).",
+    "cure_never_executed": "The identical census returns 51/37 under the narrower pattern on rows_v2.jsonl, rows_v2m.jsonl AND rows_v3.jsonl - byte-identical across the author wave, the micro round and the final corpus; not one occurrence was cured.",
+    "remedy_was_ordered": "peer_11_r2.json (cluster c22) censused the class corpus-wide and ordered the cure as 'a corpus-wide register pass over the ... positional occurrences ... rather than as four c22 edits', ruling that a positional reference is a genuine hit even when it carries a verse anchor, and that only bare-artifact ('a further row') and self-references are exempt; peer_13_r2.json UPHELD an instance of the same class at medium, holding that 'the register purge bars positional row references and file-order talk in every field'.",
+    "docket_gap": "micro_docket.json contains no entry for this class (zero matches for 'register', 'positional', 'this part', 'part-range'), and _micro_systemic_log.json likewise carries none - the ordered corpus-wide pass never entered the executing docket.",
+    "boss_test_fails_on_its_own_cure_rows": "boss_isa_r1.json B-1 prints as a mandatory cure test: '(iii) the register sweep must find no range-administration or file-order language anywhere in row prose'. B-1's own two cure rows still carry the class - P02-015.boundary_rationale 'nothing in the preceding row completes or is completed by this ki' and P02-016.boundary_rationale 'against the first-person testimony closing the preceding row', with P02-016.device_notes additionally carrying 'extending this row past its assigned span'. B-1 item (e) (delete the clause 'the last verse of this part's assigned range') IS discharged - that exact clause is gone - but test (iii) is not met.",
+    "campaign_precedent": "TOOLKIT.md standing rules: 'SYMMETRY completion is a SWEEP, not a spot fix ... sweep BEFORE postcheck (Song lesson k: a 3-site remainder cost a BLOCKING verdict).' This is a 51-53 site remainder with zero sites swept."
+   },
+   "cure": "Run the ordered corpus-wide register pass over the 37 rows, re-anchoring every positional row reference to its verse (web:/oshb: ref) and striking every 'this part'/'assigned span' part-range reference in favour of the verse or literary unit it actually names.",
+   "status": "RESOLVED - verified by me on rows_v4.jsonl",
+   "resolution": {
+    "corpus_verified": "rows_v4.jsonl (223 rows), 2026-08-27.",
+    "my_own_re_census": "I re-ran MY original pattern set plus the part-range arm, unchanged, over both files: rows_v3.jsonl returns 53 occurrences in 37 rows; rows_v4.jsonl returns 0 occurrences in 0 rows. Every enumerated site is cured.",
+    "cures_are_correct_not_merely_absent": "Spot-read of 8 cured rows (P02-015, P02-016, P13-006, P05-003, P05-013, P11-009, P07-016, P13-007): each positional reference was re-anchored to the RIGHT verse, checked against the neighbour's actual span - P02-015 'the preceding row' -> web:Isa.8.9-Isa.8.10 (= P02-014's span); P02-016 'closing the preceding row' -> 'closing at web:Isa.8.18' (= P02-015's last verse) and 'its assigned span' -> web:Isa.8.22 (its own last verse); P13-006 'the previous row' -> web:Isa.48.1-Isa.48.11 (= P13-005's span); P05-003 'opens the next row' -> oshb:Isa.17.12 (P05-004's hoy onset) and 'the two preceding rows' -> oshb:Isa.17.3 and oshb:Isa.17.6 (those rows' closes); P05-013 -> Isa.21.13-Isa.21.15 (= P05-012's span). No anchor is wrong.",
+    "best_cure_of_the_set": "P07-016 'The closing verse of this part' became 'The closing verse of the book-level parent grouping' - Isa.27.13 IS the last verse of parent M2 Isa.13.1-Isa.27.13, so a workflow artifact was replaced by a ratified structural fact rather than merely deleted.",
+    "boss_test_now_passes": "boss_isa_r1.json B-1 test (iii) now holds on B-1's own two cure rows: P02-015 and P02-016 carry no range-administration or file-order language.",
+    "no_collateral_damage": "Change set v3->v4 is exactly 38 rows = my 37 PC-1 rows + P02-014 (PC-2). Fields touched: boundary_rationale 25, device_notes 17, boundary_evidence_refs 13, strongest_rejected_alternative 6. ZERO structural or semantic fields changed - no span, unit_type, parent_collection, chunk_index_in_book, confidence, review_status or frontier flag moved anywhere. Ref deltas are additions only (mirror-appends for the new verse anchors), no deletions; refs_mirror is GREEN."
+   }
+  },
+  {
+   "id": "PC-2",
+   "lane": "3 HELD CLASSICS",
+   "e_class": "E-05",
+   "severity": "medium",
+   "rows": [
+    "P02-014"
+   ],
+   "row_count": 1,
+   "occurrence_count": 1,
+   "field": "device_notes",
+   "defect": "A tier overclaim on a held-classic row: an UNPOINTED consonantal Hebrew run is labelled byte tier. The text reads: HELD: web:Isa.8.10's closing [unpointed run] (oshb:Isa.8.10, byte tier). The cited verse's actual bytes are pointed, so the run cannot reach byte tier.",
+   "evidence": {
+    "collate_truth": "isa_lib.collate_hebrew(run, verse_map_oshb['Isa.8.10'].text) returns 'skeleton', not 'byte'. The pointed form at MT 8:10 is quoted correctly in the same row's boundary_rationale, so the row itself carries the byte-grade splice one field away.",
+    "why_the_suite_is_silent": "The run is unquoted, so citation_sweep's Hebrew-quote-to-cited-ref byte binding does not reach it; the unquoted-Hebrew class is already known to this cycle (_micro_systemic_log.json 'A_hebrew_unquoted'). Hard status stays GREEN - this is model-visible only.",
+    "scope": "Corpus-wide sweep for multi-word unpointed Hebrew runs carrying an adjacent byte-tier label returns exactly this ONE occurrence; no second instance.",
+    "law": "TIER-DISCLOSURE STANDARD (Eccl B-4, campaign law): 'verbatim/byte-identical' only per collate truth WITH the tier named; only byte is quotation-grade for pointed text."
+   },
+   "cure": "Re-splice the pointed form from verse_map_oshb.json at Isa.8.10 (keeping the byte-tier label), or leave the consonantal run and relabel it skeleton tier.",
+   "status": "RESOLVED - verified by me on rows_v4.jsonl",
+   "resolution": {
+    "corpus_verified": "rows_v4.jsonl P02-014.device_notes.",
+    "re_collate": "The run is now the POINTED form and isa_lib.collate_hebrew against verse_map_oshb.json['Isa.8.10'].text returns 'byte'. The '(oshb:Isa.8.10, byte tier)' label is now true as written.",
+    "class_swept_not_spot_fixed": "My corpus-wide detector for multi-word UNPOINTED Hebrew runs carrying an adjacent byte-tier label returns 0 hits on rows_v4.jsonl (it returned exactly 1 on rows_v3.jsonl). The class is clear, not just this instance.",
+    "held_question_untouched": "P02-014 still holds the Immanuel name-vs-clause question ('disclosed, not resolved') and still carries the mandated adjacent digit ('the third and last of the book's three Immanu-El sites (sweep: 3 verses)')."
+   }
+  }
+ ],
+ "supersedes": "postcheck_isa_r1 (rows_v3.jsonl; verdict not_fit on PC-1 + PC-2)",
+ "corpus_reviewed": "rows_v4.jsonl (223 rows)"
+}

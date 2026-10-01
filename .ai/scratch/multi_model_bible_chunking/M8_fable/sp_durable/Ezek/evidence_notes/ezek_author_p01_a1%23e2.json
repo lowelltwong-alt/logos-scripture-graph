@@ -1,0 +1,267 @@
+{
+ "attempt_id": "ezek_author_p01_a1",
+ "execution_id": "ezek_author_p01_a1#e2",
+ "sources": [
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p01_a1.json (sha256 6e47b56c06c50ac4ac1faf268138b5a3db448670885157ea4470ca36efa82d7c, verified match)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings.v1.json (rulings P1-P5, R1-R4, G12)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (§6)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py, normalize_hebrew_in_json.py, cap_sweep.py, check_register.py, check_marks.py, check_tiling.py, ngram7.py (executed read-only, no --write, against a private copy)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P01-001 replace (tags only + mark-claim wording disambiguation)",
+    "why": "CWO-EZ-06/02 unbound Hebrew tags; CWO-EZ-05 SAMEKH-claim proximity misattribution to Ezek.2.1 (pmarks confirms the mark is at 1:28; text reworded, no fact changed)"
+   },
+   {
+    "what": "P01-002 replace, re-spanned Ezek.2.1-Ezek.2.7 (was 2.1-2.10)",
+    "why": "ruling R3#1: writer cut inside the scroll scene against the strategy's chapter-division rule; 2:7/2:8 is a real pe+refrain seam"
+   },
+   {
+    "what": "P01-003 replace, re-spanned Ezek.2.8-Ezek.3.3 (was 3.1-3.3)",
+    "why": "ruling R3#1, paired with P01-002's re-span"
+   },
+   {
+    "what": "P01-004..P01-008 replace (tags only)",
+    "why": "CWO-EZ-06/02 unbound Hebrew tags reformatted to spliced-Hebrew + oshb: ref (ruling P5 form)"
+   },
+   {
+    "what": "P01-009 replace, span unchanged (content hold-edit)",
+    "why": "ruling e3:C3-3#1: disclosed the 5:7/5:8 'therefore' formulae as one-party verdict paragraphs and the 5:2/5:12 byte-identical close; disclosed marks at 5:4/5:6/5:7/5:9/5:10; plus CWO-EZ-02/06 tags and a missing oshb: ref on the 5:15/5:17 'I Yahweh have spoken' quotes"
+   },
+   {
+    "what": "P01-010 replace",
+    "why": "CWO-EZ-04 K/Q byte fix at boundary_evidence_refs[1] (Ezek.6.3, non-canonical qere bytes replaced with the note's exact bytes) + tags"
+   },
+   {
+    "what": "P01-011 replace",
+    "why": "CWO-EZ-05 PE-claim proximity misattribution to Ezek.6.11 (pmarks confirms the mark is at 6:10); reworded, added explicit 6:10 ref; plus tags"
+   },
+   {
+    "what": "P01-012 replace",
+    "why": "CWO-EZ-08 register fix (removed a part-range phrase) + CWO-EZ-02 missing oshb: ref on the 7:1 word-event quote + tags"
+   },
+   {
+    "what": "P01-013 replace, re-spanned Ezek.7.5-Ezek.7.9 (was 7.5-7.27)",
+    "why": "ruling G2#1: 7:9's doubled-refrain recognition close (shared with 7:4) closes a short unit before the unmarked 7:10 doom-poem; CWO-EZ-08 register fix + tags"
+   },
+   {
+    "what": "P01-013.1 new_row Ezek.7.10-Ezek.7.27",
+    "why": "ruling G2#1 second half of the split; carries the corrected K/Q citation for Ezek.7.21 (CWO-EZ-04) and the part's final recognition-formula close at 7:27"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "citation_sweep HARD problems eliminated",
+   "how": "citation_sweep.py run over the private 14-row deliverable copy",
+   "result": "confirmed — GREEN, 0 problems (BEFORE over the original 13 rows: RED, 33 problems)"
+  },
+  {
+   "claim": "cap_sweep HARD failures eliminated",
+   "how": "cap_sweep.py over the deliverable",
+   "result": "confirmed — GREEN, 0 failures (BEFORE: RED, 2 failures)"
+  },
+  {
+   "claim": "register hygiene (CWO-EZ-08 class) clean",
+   "how": "check_register.py over the deliverable",
+   "result": "confirmed — GREEN, 0 flags (BEFORE: FLAGS, 3)"
+  },
+  {
+   "claim": "no Hebrew normalizer defects; K/Q correctly recognized",
+   "how": "normalize_hebrew_in_json.py dry-run (no --write) over the deliverable",
+   "result": "confirmed — defects=0, fixed=0, qere=6, ok=91"
+  },
+  {
+   "claim": "verse tiling for part p01 (Ezek.1.1-Ezek.7.27) exact, no gaps/overlaps",
+   "how": "check_tiling.py --range Ezek.1.1-Ezek.7.27 over the deliverable",
+   "result": "confirmed — GREEN, 140/140 verses covered"
+  },
+  {
+   "claim": "no CWO-EZ-07 boilerplate 7-gram shared by >=10 rows",
+   "how": "ngram7.py over the deliverable",
+   "result": "confirmed — GREEN, largest shared cluster 5 rows"
+  },
+  {
+   "claim": "check_marks FLAGS did not rise",
+   "how": "check_marks.py run on both the original 13-row copy and the deliverable",
+   "result": "confirmed — 17 FLAGS before, 12 FLAGS after (fell, did not rise); see unresolved_uncertainty for the 12 remaining"
+  },
+  {
+   "claim": "every spliced Hebrew tag is byte-true to a genuine citation form for its row",
+   "how": "local consonantal-skeleton cross-check (NFD, strip U+0591-U+05C7) of each spliced tag against the orders file's own original unpointed tag entries, scripted",
+   "result": "confirmed — all 29 reformatted tag entries matched"
+  },
+  {
+   "claim": "orders file used is the exact one named in the launch message",
+   "how": "sha256 of C:\\wt\\...\\orders_ezek_author_p01_a1.json",
+   "result": "confirmed — 6e47b56c06c50ac4ac1faf268138b5a3db448670885157ea4470ca36efa82d7c matches"
+  },
+  {
+   "claim": "5:2 and 5:12's closing clause is byte-identical (ruling e3:C3-3#1's warrant)",
+   "how": "scripted equality assertion on the two spliced substrings from Ezek_oshb.txt",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "check_marks still flags 12 items post-repair (down from 17)",
+   "why_it_matters": "most are mark_symmetry_gap flags on rows I was ordered to touch only for tags (P01-004,007,008,009,010,012) — undisclosed intra-row marks that were never in my order scope and were not newly introduced by me; two (P01-001 SAMEKH@2.1, P01-013 PE@7.5) are the SAME proximity-misattribution class as the two CWO-EZ-05 items I was ordered to fix — pmarks_Ezek.json confirms the underlying facts are correct (marks at 1:28 and 7:4 respectively, correctly cited), but the checker's window still attributes the claim to the nearby verse number after my rewording; I judged further wording surgery not worth the prose-quality risk and disclose it here per the ledger's own E-12 rule ('never auto-suppress, always disposition') rather than chase the exact window"
+  },
+  {
+   "what": "citation_sweep's single prose_dual_warn (P01-005, oshb:Ezek.3.15 K/Q not disclosed in the same clause as its Hebrew quote in boundary_rationale)",
+   "why_it_matters": "pre-existing in the original text; P01-005 had no K/Q-related order in my file (only a tag fix), so I left the prose untouched per 'NOT YOURS: ... any order not embedded in your file'"
+  },
+  {
+   "what": "boundary_rationale content beyond the specifically ordered fixes (e.g. P01-004 through P01-008's prose, P01-010's prose beyond the K/Q byte swap, P01-011's onset prose beyond the mark reword, P01-012's prose beyond the two named fixes) was left exactly as authored",
+   "why_it_matters": "no ruling_order or CWO item other than tags/marks/register targeted these rows' prose; changing it would exceed 'execute every order... do not re-litigate' and OW-3.2's bar against uninstructed change"
+  },
+  {
+   "what": "the two new re-span pairs (P01-002/003 and P01-013/013.1) and the P01-009 hold-edit contain newly composed boundary_rationale/boundary_evidence_refs/strongest_rejected_alternative prose, built from the ruling text's own decision/reason fields plus byte-true splices, not copied from any prior draft",
+   "why_it_matters": "per OW-3 item 6 I am a producer, never the final checker — this prose should get the distinct-checker pass before it is treated as settled, though all HARD gates (citation_sweep, cap_sweep, check_tiling) and register are GREEN over it"
+  }
+ ],
+ "items": [
+  {
+   "row": "P01-001",
+   "item": "CWO-EZ-06 x3 (tags)",
+   "action": "cured",
+   "reason": "spliced oshb:Ezek.1.3 (x2) and oshb:Ezek.1.28 (x1), ruling P5 form"
+  },
+  {
+   "row": "P01-001",
+   "item": "CWO-EZ-05 (SAMEKH@Ezek.2.1)",
+   "action": "reported+reworded",
+   "reason": "pmarks confirms mark at 1:28 not 2:1; underlying fact already correct, sentence restructured to reduce proximity; check_marks still flags it (see unresolved_uncertainty)"
+  },
+  {
+   "row": "P01-002",
+   "item": "ruling R3#1 (re-span to 2.1-2.7) + CWO-EZ-06 x3",
+   "action": "cured",
+   "reason": "new boundary_rationale/evidence/rejected-alt built from the ruling's own decision text and byte-spliced Hebrew"
+  },
+  {
+   "row": "P01-003",
+   "item": "ruling R3#1 (re-span to 2.8-3.3) + CWO-EZ-06 x1",
+   "action": "cured",
+   "reason": "as above, paired half of the R3#1 split"
+  },
+  {
+   "row": "P01-004",
+   "item": "CWO-EZ-06 x1",
+   "action": "cured",
+   "reason": "oshb:Ezek.3.9 tag"
+  },
+  {
+   "row": "P01-005",
+   "item": "CWO-EZ-06 x1",
+   "action": "cured",
+   "reason": "oshb:Ezek.3.14 tag, byte-true incl. its vav prefix"
+  },
+  {
+   "row": "P01-006",
+   "item": "CWO-EZ-06 x1",
+   "action": "cured",
+   "reason": "oshb:Ezek.3.16 tag"
+  },
+  {
+   "row": "P01-007",
+   "item": "CWO-EZ-06 x3",
+   "action": "cured",
+   "reason": "oshb:Ezek.3.22/3.26/3.25 tags"
+  },
+  {
+   "row": "P01-008",
+   "item": "CWO-EZ-06 x2",
+   "action": "cured",
+   "reason": "oshb:Ezek.4.1/4.8 tags"
+  },
+  {
+   "row": "P01-009",
+   "item": "ruling e3:C3-3#1 + CWO-EZ-02 x2 (5:15/5:17 refs) + CWO-EZ-06 x4",
+   "action": "cured",
+   "reason": "disclosed 5:7/5:8 formulae, 5:2/5:12 byte-identical close (assert-verified), marks 5:4/5:6/5:7/5:9/5:10; added missing oshb: refs; retagged"
+  },
+  {
+   "row": "P01-010",
+   "item": "CWO-EZ-04 (K/Q Ezek.6.3) + CWO-EZ-06 x3",
+   "action": "cured",
+   "reason": "boundary_evidence_refs[1] qere bytes replaced with the orders file's own qere_note_bytes"
+  },
+  {
+   "row": "P01-011",
+   "item": "CWO-EZ-05 (PE@Ezek.6.11) + CWO-EZ-06 x2",
+   "action": "reported+reworded",
+   "reason": "pmarks confirms mark at 6.10 not 6.11; added an explicit 6:10 ref; check_marks still flags it (see unresolved_uncertainty)"
+  },
+  {
+   "row": "P01-012",
+   "item": "CWO-EZ-08 (part-range phrase) + CWO-EZ-02 (7:1 ref) + CWO-EZ-06 x2",
+   "action": "cured",
+   "reason": "register phrase removed; missing oshb:Ezek.7.1 ref added"
+  },
+  {
+   "row": "P01-013",
+   "item": "ruling G2#1 (re-span to 7.5-7.9) + CWO-EZ-08 x2 + CWO-EZ-06 x2",
+   "action": "cured",
+   "reason": "new short-unit prose grounded in the doubled 'my eye will not spare' refrain shared by 7:4 and 7:9"
+  },
+  {
+   "row": "P01-013.1",
+   "item": "ruling G2#1 (new_row 7.10-7.27) + CWO-EZ-04 (K/Q Ezek.7.21) + CWO-EZ-06 x1",
+   "action": "cured",
+   "reason": "new row built from the ruling's decision text; K/Q ketiv extracted mechanically from the original row's own prose, qere from the orders file's qere_note_bytes"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-02/06 (unbound Hebrew / tags vocabulary)",
+   "test": "citation_sweep.py before/after",
+   "result": "PASS (RED 33 -> GREEN 0)"
+  },
+  {
+   "order": "CWO-EZ-04 (K/Q byte fix, 2 instances)",
+   "test": "normalize_hebrew_in_json.py dry-run",
+   "result": "PASS (defects=0, fixed=0)"
+  },
+  {
+   "order": "CWO-EZ-05 (mark-claim mechanical corrections, 2 instances)",
+   "test": "citation_sweep.py (HARD arm) + check_marks.py (FLAGS arm)",
+   "result": "PASS on citation_sweep (no HARD mark problem); check_marks FLAGS persist on both (see unresolved_uncertainty), net FLAGS fell 17->12"
+  },
+  {
+   "order": "CWO-EZ-08 (register hygiene, 3 instances)",
+   "test": "check_register.py before/after",
+   "result": "PASS (FLAGS 3 -> GREEN 0)"
+  },
+  {
+   "order": "ruling R3#1, G2#1, e3:C3-3#1 (boundary amendments)",
+   "test": "check_tiling.py --range Ezek.1.1-Ezek.7.27; cap_sweep.py",
+   "result": "PASS (140/140 verses, no gap/overlap; cap_sweep RED 2 -> GREEN 0)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 33,
+   "cap_sweep_failures": 2,
+   "check_register_flags": 3,
+   "check_marks_flags": 17,
+   "prose_dual_warn": 1
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "cap_sweep_failures": 0,
+   "check_register_flags": 0,
+   "check_marks_flags": 12,
+   "prose_dual_warn": 1
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

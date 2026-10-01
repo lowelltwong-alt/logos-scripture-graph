@@ -1,0 +1,100 @@
+{
+ "attempt_id": "ezek_toolkit_install_review_t5_a1",
+ "execution_id": "ezek_toolkit_install_review_t5_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\TOOLKIT_INSTALL_REVIEW_BRIEF_T5.md (sha256 2cc9aabe43f7a2568e002b417526414d38e565b7f3d278e51d2bbb0b4e6b348b, confirmed at launch and at finish)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md (lines 808-834: the OW-11 addendum, authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan)",
+  "SP\\Ezek\\tools\\: citation_sweep.py, check_marks.py, _adapt_zone_tools_ezek.py (read and parsed with ast, never run), _test_zone_tools_ezek.py, TOOLKIT.md, ezek_lib.py, normalize_hebrew_in_json.py, check_register.py, check_web_quotes.py, run_validator_suite.py, check_language_zones.py, cap_sweep.py, verse_map_oshb.json, verse_map_web.json. check_refs_mirror.py, check_universals.py and ngram7.py were hashed and run as suite members. _toolkit_selfcheck.py was hashed only.",
+  "SP\\campaign\\_cure_verification.py; SP\\campaign\\receipts\\ezek_tools_install_t4fix_batch2.json; SP\\campaign\\receipts\\ezek_tools_install_toolfix2_batch3.json",
+  "SP\\Ezek\\proposals\\: t4fix_batch2\\manifest.json (hashed), t4fix_batch2\\staged\\check_marks.py (run as a private copy), toolfix2_batch3\\manifest.json, toolfix2_batch3\\corpus_impact.json, toolfix2_batch3\\hand_review.json, toolfix2_batch3\\runs\\suite_batch1_base.validator_report.json (hashed), toolfix2_batch1\\corpus_impact.json (hashed), toolfix2_batch1\\marks_review.json, toolfix2_batch1\\flags_analysis.json, toolfix2_batch1\\whatif.json",
+  "SP\\Ezek\\ rulings files: ezek_controlling_agent_rulings.v1.json and _e3.v1.json (used only as --rulings arguments); _e4.v1.json (TOOLFIX-1, TOOLFIX-2, R4ii-D1 and gate.conditions_before_primaries, extracted by id); _e5.v1.json (all five rulings)",
+  "SP\\Ezek\\ezek_toolkit_r4ii_review_T4.json; SP\\Ezek\\ezek_author_wave_spot_review_S1.json (only S1-05, S1-06, S1-07, S1-10, S1-19, S1-22)",
+  "SP\\Ezek\\repair\\suite_after_toolfix2_batch3\\rows.jsonl and rows.jsonl.validator_report.json; SP\\Ezek\\pmarks_Ezek.json; SP\\Ezek\\Ezek_oshb.txt; SP\\Ezek\\Ezek_web_clean.txt; SP\\Ezek\\ezek_cure_claims.v1.jsonl; SP\\Ezek\\ezek_cure_claims_toolkit_repair.v1.jsonl; SP\\Jer\\tools\\citation_sweep.py and SP\\Jer\\tools\\check_marks.py (hashed only)",
+  "My own private scratch C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_t5_q7m3x9\\: private copies, vector scripts and run outputs"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\t5_ezek_toolkit_install_review_t5_a1\\ezek_toolkit_install_review_T5.json (71035 bytes, sha256 02ff699e6e27cb96b43538d3fd82d2e291cba3501f7d280842e4bc9085854940)",
+    "why": "The T5 fresh distinct-checker deliverable the brief orders. It has no blocker and 13 findings (2 major, 9 minor, 2 note). Six of the seven named tool files are fit to carry cure claims at their installed digests. _cure_verification.py is not fit (T5-01, T5-02). TOOLKIT.md is not fit for EZEK-P0-CURE-toolkit-v3 until three statements are corrected (T5-08). Nothing was written under the worktree; the orchestrator lands the file."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 46 pinned inputs and the brief match their launch digests, both at launch and at finish",
+   "how": "Get-FileHash -Algorithm SHA256 -LiteralPath on each exact path, before the review and again after writing the deliverable",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 authority record exists as the brief states",
+   "how": "Read of ERROR_PATTERN_LEDGER.v1.md lines 808-834 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Suite parity with the installed report (hard RED, nfd_hard_e01 true, 1048 triage flags; 10/9/8/78/60/173/10/627/110/0, GREEN, GREEN)",
+   "how": "PYTHONIOENCODING=utf-8 python run_validator_suite.py <private copy of rows.jsonl>, then member-by-member JSON comparison with rows.jsonl.validator_report.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Zone tests 222/222, ezek_lib selftest 40/40, verifier selftest 28 vectors with 0 failed",
+   "how": "python _test_zone_tools_ezek.py (temp dirs in private scratch); python ezek_lib.py; python _cure_verification.py --selftest",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The verifier is GREEN over both claims files, and the two install supersessions classify as ruling_names_retired_cure",
+   "how": "python _cure_verification.py --claims <private copies> --root SP\\Ezek --rulings <4 rulings files> --require-rulings",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The pre-batch check_marks (9f79950b) does not flag cm_e5_w1_mark_before_onset_ok, because its window leaks into the span field",
+   "how": "Private copy of t4fix_batch2\\staged\\check_marks.py run on the ruled vector plus three variants (no span, span first, span 200 characters away)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "#e5's statement that the installed tools flag cm_e5_w1_mark_before_onset_ok",
+   "how": "Same runs",
+   "result": "refuted"
+  },
+  {
+   "claim": "R4(ii) with A1-A3 holds at the installed digests; R4(i) is closed; S1-07 refuses no quotation-true form",
+   "how": "Adversarial vectors through the installed citation_sweep, check_marks and normalizer (q1.py, q234.py, qX.py); a systematic sweep of 18,730 words and 134 K/Q notes",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The verifier refuses a failing verification, a not_fit checker verdict and a non-distinct checker",
+   "how": "CLI runs over synthetic claims in private scratch (q8.py)",
+   "result": "refuted"
+  },
+  {
+   "claim": "TOOLKIT.md describes the code exactly",
+   "how": "Full read with an R6 sibling sweep of 84 statements, checked against code, runs and inputs (q10.py, qY.py)",
+   "result": "refuted"
+  },
+  {
+   "claim": "ezek_lib.skeleton() maps maqaf to a space",
+   "how": "POINTS code points and skeleton() output printed from the installed module, with bytecode writes disabled",
+   "result": "refuted"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "At run time the installed tools read dependency files outside the digest table (verse_inventory.json, web_mt_verse_check.json, web_mt_offset_map.json, ezek_kjv_variance_crosscheck.json, ezek_device_inventory.json). I did not open or hash them.",
+   "why_it_matters": "They are bound only through the tools' own selftest and test assertions, which passed."
+  },
+  {
+   "what": "Whether #e2 R5 names EZEK-P0-CURE-toolkit-v2 as retired or only as a successor. rulings.v1.json was used only as a --rulings argument.",
+   "why_it_matters": "If only as a successor, the -v2 record's classification is the over-broad match in T5-03. The two records the install appended are unaffected."
+  },
+  {
+   "what": "_toolkit_selfcheck.py was not run (forbidden), and batch1's staged tools were not inputs.",
+   "why_it_matters": "The 101/101 selfcheck result and the 10c column for batch1 rest on the manifest and receipt."
+  },
+  {
+   "what": "Two frame-spine counts (hand-of-YHWH 7; word-event with an infix 41) were not reproduced by my phrase definitions.",
+   "why_it_matters": "The definitions differ, so the result is inconclusive and not recorded as a finding."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

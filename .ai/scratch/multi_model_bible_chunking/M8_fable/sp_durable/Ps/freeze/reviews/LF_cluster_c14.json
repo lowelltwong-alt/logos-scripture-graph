@@ -1,0 +1,49 @@
+{
+ "cluster": "c14",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c14_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-095",
+   "row_sha256": "c3babe351dcfe3aa66de3d8ab7d18b66d77ec4b616a15331a84ab9825f9e6bc1",
+   "verdict": "challenge",
+   "reasoning": "Span web:Ps.36.1-Ps.36.4 = oshb:Ps.36.2-Ps.36.5 opens on נְאֻֽם (byte-collated at oshb:Ps.36.2, tier: byte), the noun otherwise carrying the oracular formula ne'um-YHWH; its application to the wicked man's own transgression reads as an ironic substitution for the divine-oracle frame, a legitimate tier-1 opener signal. Third-person “he”/“his” description runs unbroken web:Ps.36.1-Ps.36.4 = oshb:Ps.36.2-Ps.36.5 (verse_map_web.json: “his eyes”/“himself”/“his sin”/“his mouth”/“He plots”/“his bed”), replaced by second-person address at web:Ps.36.5 = oshb:Ps.36.6 (“Your loving kindness, Yahweh, is in the heavens.”). That addressee shift is a well-formed tier-1 discourse-frame boundary and defensibly supports the row's own span; parent_psalm 36 and unit_type strophe are correct (Psalm 36 runs 12 WEB verses, over the whole-psalm ceiling). rejected_alternative identifies a rival (treating oshb:Ps.36.5 as transitional) and dismisses it on the same tier-1 ground; confidence high is warranted given the strength of the pronoun-shift signal. Re-derivation surfaces two citation-hygiene defects that do not disturb the span determination but are material evidence defects under the book's own machine checks (below).",
+   "challenges": [
+    {
+     "challenge_id": "LF-095-1",
+     "severity": "medium",
+     "claim": "The bare original-language citation oshb:Ps.36.2 appears twice in this row (rationale; observed_substrate_signals[0]) without its mandatory nearby WEB dual-cite arithmetic, a machine-checked defect for a non-identity (shift+1) psalm.",
+     "evidence": "citation_sweep.py rows.jsonl: status RED, problems: [\"M8-Ps-095: bare oshb:Ps.36.2 in row.rationale (non-identity psalm) lacks its WEB arithmetic nearby (expected one of ['web:Ps.36.1'])\", \"M8-Ps-095: bare oshb:Ps.36.2 in row.observed_substrate_signals[0] (non-identity psalm) lacks its WEB arithmetic nearby (expected one of ['web:Ps.36.1'])\"]. Ps.36 is a shift+1 psalm per web_mt_offset_map.json, so this citation must carry its WEB dual-cite (web:Ps.36.1 = oshb:Ps.36.2) at the point where the Hebrew is cited, not later in the same field attached to a different (English) quote."
+    },
+    {
+     "challenge_id": "LF-095-2",
+     "severity": "low",
+     "claim": "The quote “He has ceased to be wise and to do good.” is cited adjacent to web:Ps.36.4 = oshb:Ps.36.5 as if illustrating that verse, but the sentence belongs to web:Ps.36.3 = oshb:Ps.36.4, not web:Ps.36.4.",
+     "evidence": "verse_map_web.json web:Ps.36.3 clean text: “The words of his mouth are iniquity and deceit. He has ceased to be wise and to do good.” — the cited sentence is this verse's own second clause. verse_map_web.json web:Ps.36.4 clean text: “He plots iniquity on his bed. He sets himself in a way that is not good. He doesn't abhor evil.” — that sentence is not present there. check_web_quotes.py does not flag this because its neighbor-widening tolerance treats a ref one verse off as in-bounds for quotes crossing a cited edge; re-derivation against the source maps shows the specific verse pairing asserted in the row's own prose is one verse off. This does not affect the span/boundary determination since both verses sit inside this row's own span (web:Ps.36.1-Ps.36.4)."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-096",
+   "row_sha256": "e14198d1d20f99168c7b9ff20b5f66532ec246deb2ca7f12409ae6e4fc62b442",
+   "verdict": "challenge",
+   "reasoning": "Span web:Ps.36.5-Ps.36.12 = oshb:Ps.36.6-Ps.36.13 opens correctly on the addressee shift to Yahweh (web:Ps.36.5 = oshb:Ps.36.6, “Your loving kindness, Yahweh, is in the heavens.”). boundary_evidence_refs dual-cite cleanly (citation_sweep.py reports no problems for this row). Re-deriving the span's internal grammar surfaces two undisclosed issues, detailed below: an imperative-cluster seam opening at web:Ps.36.10 = oshb:Ps.36.11 that the row's rejected_alternative does not consider, one verse ahead of the 11-12 split it does consider; and a closing warrant (continuous second-person address to Yahweh through the close) that the row's own final verse contradicts. confidence medium already registers some uncertainty, but a stronger rival than the one disclosed is available (below).",
+   "challenges": [
+    {
+     "challenge_id": "LF-096-1",
+     "severity": "medium",
+     "claim": "The row's stated warrant that the unit stays in continuous second-person address to Yahweh through its close is contradicted by its own final verse, web:Ps.36.12 = oshb:Ps.36.13: that verse's two clauses are both third-person, naming no addressee.",
+     "evidence": "verse_map_web.json web:Ps.36.12 clean text: “There the workers of iniquity are fallen. They are thrust down, and shall not be able to rise.” — no second-person pronoun appears. oshb:Ps.36.13 byte text: שָׁ֣ם נָ֭פְלוּ פֹּ֣עֲלֵי אָ֑וֶן דֹּ֝ח֗וּ וְלֹא יָ֥כְלוּ קֽוּם — no 2nd-person suffix appears in the verse; both finite verbs are 3rd-person plural (‘they fell’, ‘they are thrust down’), describing the ‘workers of iniquity’ — the discourse register of the other row's oracle unit, not a continuation of address to Yahweh. The row cites this verse in boundary_evidence_refs, but its prose does not state what the verse itself says, so the stated ground for closing the span here does not hold at the verse it is offered for."
+    },
+    {
+     "challenge_id": "LF-096-2",
+     "severity": "medium",
+     "claim": "An imperative-cluster onset at web:Ps.36.10 = oshb:Ps.36.11 is a stronger, undisclosed rival seam than the 11-12 split the row's rejected_alternative considers.",
+     "evidence": "oshb:Ps.36.11 opening token מְשֹׁ֣ךְ (byte-collated, tier: byte) is a Qal imperative, matching WEB's imperative rendering “Oh continue your loving kindness to those who know you...” (web:Ps.36.10 = oshb:Ps.36.11). None of the 5 verses immediately before it, web:Ps.36.5-Ps.36.9 = oshb:Ps.36.6-Ps.36.10 (opening “Your loving kindness, Yahweh, is in the heavens. Your faithfulness reaches to the skies.”, web:Ps.36.5 = oshb:Ps.36.6), carries a finite imperative verb; the predication is descriptive or nominal instead. The book strategy's row-granularity policy (§6) names imperative clusters as a legitimate strophe-internal seam driver alongside vocative openings and refrain returns; this candidate seam is not disclosed anywhere in the row."
+    }
+   ]
+  }
+ ]
+}

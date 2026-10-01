@@ -1,0 +1,106 @@
+{
+ "attempt_id": "ezek_fixup_wave_review_s2_a1",
+ "execution_id": "ezek_fixup_wave_review_s2_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP_WAVE_REVIEW_BRIEF_S2.md",
+  "C:\\Users\\lowel\\.agent-governance\\WORKSPACE_LIFECYCLE.md",
+  "C:\\Users\\lowel\\.agent-governance\\WINDOWS_ADAPTER.md",
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "All 85 inputs in the brief's table, under SP = C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable, read through byte-verified private copies in scratchpad\\ezek_s2_xsw40k1tif",
+  "SP\\Ezek\\verse_inventory.json",
+  "SP\\Ezek\\web_mt_verse_check.json",
+  "SP\\Ezek\\tools\\verse_map_web.json",
+  "SP\\Ezek\\tools\\verse_map_oshb.json",
+  "SP\\Ezek\\tools\\check_language_zones.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\s2_ezek_fixup_wave_review_s2_a1\\ezek_fixup_wave_review_S2.json (119500 bytes, sha256 f57bfd0b84d3a42a3199ad1919349bf6c644b71d9e0db8c72f5bd9f81df600e8)",
+    "why": "The S2 distinct-checker record for FIXUP-1, its coverage and the TOOLFIX-4 verifier, as #e4 gate condition 7 and #e8 T6-01 order. Overall verdict fit_with_changes, no blocker. 17 new findings: 1 major, 13 minor, 3 notes. The verifier section is fit=true with no finding on the verifier."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 85 pinned inputs matched their table digests at start and again at the end of the review; no drift (90 files including 5 dependencies)",
+   "how": "Get-FileHash SHA256 by exact path, SP and private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 exception recorded with authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan",
+   "how": "Read ERROR_PATTERN_LEDGER.v1.md lines 807-837 by exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "rows_v4 suite HARD GREEN, triage 774, and my report equals the pinned suite_v4_6c843b14 report key for key; rows_v3_cwo18 reads RED (citation_sweep 10 problems, normalizer 9 defects, register 60)",
+   "how": "PYTHONIOENCODING=utf-8 python run_validator_suite.py over private copies of both rows files, then JSON comparison",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Apply is lossless: 145 rows, same id order, 87 rows changed (all among the 90 replaced, 3 no-ops), no change to span, id, chunk_index, unit_type, confidence or parent; tiling 1273/1273 in order",
+   "how": "s2_apply_resplice.py (ezek_lib.expand_ref_token plus field comparison)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Re-splice index matches my derivation",
+   "how": "HEB_RUN derivation over the replaced rows: 36 runs per element vs 34 in the index; list-level derivation equals the index",
+   "result": "refuted"
+  },
+  {
+   "claim": "S1-01, S1-02, S1-03, S1-04, S1-06 and S1-07 cured; S1-05 not cured (strategy citations remain on P08-001, P08-002, P08-004)",
+   "how": "Byte read-back, word-bounded skeleton sweeps over Ezek_oshb.txt, kq_split_bytes, suite runs v3 vs v4",
+   "result": "confirmed"
+  },
+  {
+   "claim": "CWO-EZ-13 (25 changes) and CWO-EZ-18 (70 changes) are lossless, bound to their predicates and change nothing else; CWO-EZ-18 classes re-derived for 70 conversions plus 78 author spans with 0 mismatches",
+   "how": "s2_manifests.py: per-change bytes, whole-file diffs, web_quote_found with the folded matcher",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Coverage residuals recomputed at 0 for CWO-EZ-14, -15, -16, -17 and -18 (tool class); e7_final_check satisfied on the verifiable parts",
+   "how": "Suite run, check_register arms called as a library, own curly-quote counts, CANON_REF recompute",
+   "result": "confirmed"
+  },
+  {
+   "claim": "TOOLFIX-4 diff equals the pinned diff and is confined; selftest 80/80 GREEN; 6 new-rule REFUSED vectors DISCRIMINATING against a61ec7ff; T6-A1..A10 and E8-01 as ruled; both real claims files GREEN and identical to the receipt; 31 attack shapes plus a JSON round trip as expected",
+   "how": "s2_verifier.py: difflib and ast; _cure_verification.py --selftest; --claims --rulings (7 files) --require-rulings over private copies; check_claim on both modules",
+   "result": "confirmed"
+  },
+  {
+   "claim": "S1-15 cured",
+   "how": "oss key scan of v4: closure.pe on P08-007 (ordered) plus P08-002 and P08-003; closure.parashah_* on 4 p05 rows",
+   "result": "refuted"
+  },
+  {
+   "claim": "Deliverable parses as JSON; every fit=true verdict string carries an ACCEPT form and no REFUSE token",
+   "how": "json.load read-back and the verifier's ACCEPT/REFUSE regexes, asserted in the builder",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "E-19 self-disclosure: my copy loop ran Test-Path, then New-Item -Force, on destination subdirectories inside my own private ezek_s2_xsw40k1tif scratch. Those are existence checks, which the no-check line forbids even on my own scratch.",
+   "why_it_matters": "The letter of E-19 was broken for my own scratch. No listing, glob or recursive search was run, nothing outside that subdirectory was checked, and every copy was digest-verified."
+  },
+  {
+   "what": "The workspace validator was not run: it runs git and inspects worktrees, and the brief bars both. My writes were limited to session scratch and the deliverable.",
+   "why_it_matters": "The lane's validator state is unverified by me."
+  },
+  {
+   "what": "Two out-of-table dependencies (web_mt_verse_check.json and verse_map_oshb.json) have no digest in any pinned field; only ezek_lib.py's code and TOOLKIT.md name them.",
+   "why_it_matters": "Their provenance rests on the pinned tool code that names them."
+  },
+  {
+   "what": "Not checkable from my inputs: the #e7 clause that the second dry-run report differs from a2850ee2 only at the ruled keys. S1-20 and S1-22 statuses rest on installed digests and accepted claims; I did not run their test vectors.",
+   "why_it_matters": "Those parts are record-backed rather than byte-backed."
+  },
+  {
+   "what": "The register-kin search is a regex census plus targeted reading; 568 'row' hits were not read one by one. Only the FQ-11 named rows were dispositioned, out of 56 gap flags.",
+   "why_it_matters": "Unanticipated shapes or unread gap rows could hold further defects."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

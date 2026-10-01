@@ -1,0 +1,117 @@
+{
+ "attempt_id": "ezek_toolkit_review_t1_a1",
+ "execution_id": "ezek_toolkit_review_t1_a1#e2",
+ "sources": [
+  "SP\\Ezek\\TOOLKIT_REVIEW_BRIEF_T1.v2.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\build_verse_maps.py",
+  "SP\\Ezek\\tools\\check_language_zones.py",
+  "SP\\Ezek\\tools\\cap_sweep.py",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\run_validator_suite.py",
+  "SP\\Ezek\\tools\\_adapt_book_specific_ezek.py",
+  "SP\\Ezek\\tools\\_adapt_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\_test_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\_audit_book_token_transform.py",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\_build_suite_view_ezek.py",
+  "SP\\Ezek\\_summarize_tier0_suite_ezek.py",
+  "SP\\Ezek\\_validate_writer_part.py",
+  "SP\\Ezek\\writer\\draft_rows_combined.jsonl",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.jsonl",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.manifest.json",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.jsonl.validator_report.json",
+  "SP\\Ezek\\writer\\ezek_tier0_suite_summary.v1.json",
+  "SP\\Ezek\\pmarks_Ezek.json",
+  "SP\\Ezek\\Ezek_oshb.txt",
+  "SP\\Ezek\\Ezek_web_clean.txt",
+  "SP\\Ezek\\Ezek_web.usfm",
+  "SP\\Ezek\\web_mt_offset_map.json",
+  "SP\\Jer\\tools\\citation_sweep.py",
+  "SP\\Jer\\tools\\check_marks.py",
+  "SP\\Jer\\tools\\cap_sweep.py",
+  "SP\\Jer\\tools\\build_verse_maps.py",
+  "SP\\Jer\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Jer\\tools\\jer_lib.py",
+  "SP\\Lam\\tools\\check_language_zones.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\ezek_toolkit_review_T1.json",
+    "why": "T1 distinct-checker verdict on the staged Ezek Tier-0 toolkit: verdict fit_with_changes, 5 findings (2 blocker, 2 minor, 1 note), all 9 brief questions answered from bytes, digests recorded for all 35 reviewed artifacts, 3 unresolved-uncertainty items disclosed."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 33 artifacts named in the brief's table match their stated launch-time sha256 (no drift).",
+   "how": "sha256sum over every named path by exact path (no glob).",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The brief file itself matches the digest given in my task instructions (48efc38b...).",
+   "how": "sha256sum on SP\\Ezek\\TOOLKIT_REVIEW_BRIEF_T1.v2.md.",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 (owner write-authority exception) is recorded verbatim as the brief describes.",
+   "how": "Grep + Read of the 2026-09-10 addendum in ERROR_PATTERN_LEDGER.v1.md; text matches the brief's paraphrase exactly. Not acted on regardless - no write occurred inside the worktree.",
+   "result": "confirmed (context only; not load-bearing for any action I took)"
+  },
+  {
+   "claim": "ezek_lib.py's self-asserted facts (chapter/verse totals, crosswalk, mark/paseq/K-Q/puncta counts) hold against the staged bytes.",
+   "how": "PYTHONIOENCODING=utf-8 python ezek_lib.py",
+   "result": "confirmed (32/32 GREEN)"
+  },
+  {
+   "claim": "The existing Ezek zone-tools test suite passes.",
+   "how": "PYTHONIOENCODING=utf-8 python _test_zone_tools_ezek.py",
+   "result": "confirmed (50/50 GREEN)"
+  },
+  {
+   "claim": "citation_sweep.py's PUNCTA arm lets a false wrong-verse claim pass when its ref range covers a true site.",
+   "how": "Ran citation_sweep.py on a 2-row private JSONL I authored in my own scratch (adv_cs_wrong_verse_number_in_covering_range vs. a narrow-range control).",
+   "result": "confirmed - the covering-range false claim produced zero problems; the narrow-range identical false claim was correctly flagged"
+  },
+  {
+   "claim": "check_marks.py's PUNCTA arm has the same defect via row span coverage.",
+   "how": "Ran check_marks.py on a 2-row private JSONL I authored (adv_cm_wrong_number_span_covers_site vs. a no-site control).",
+   "result": "confirmed - the covering-span false claim produced zero puncta_claim_in_ezek flags; the no-site control correctly fired 3 flags"
+  },
+  {
+   "claim": "The 2026-09-10 TOOLKIT.md correction (ch-40 K/Q cluster = 3ms suffixes on architectural nouns, never on numerals) is accurate.",
+   "how": "Grepped Ezek_oshb.txt for all ten ch-40 cluster verses (40:21,22,24,26,29,31,33,34,36,37) and read the bytes directly.",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The real suite-run summary's deterministic counts are internally consistent (no overclaiming in orchestrator_observations).",
+   "how": "Read ezek_tier0_suite_summary.v1.json; hand-summed citation_sweep by_part (=546) and by_class (=546) against the reported total.",
+   "result": "confirmed"
+  },
+  {
+   "claim": "_audit_book_token_transform.py shows no false-provenance hazard across the 17 adapted tools.",
+   "how": "PYTHONIOENCODING=utf-8 python _audit_book_token_transform.py",
+   "result": "confirmed (all 'naming_jer'/'lineage' lines are legitimate contrast/history prose on inspection)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether the PROPHETIC FRAME SPINE verse-counts in TOOLKIT.md are currently accurate.",
+   "why_it_matters": "They rest on ezek_device_inventory.json, which carries no pinned digest in this brief's artifact table, so I did not open it; these counts are cited as load-bearing boundary evidence throughout the book."
+  },
+  {
+   "what": "Whether normalize_hebrew_in_json.py's book-wide (not per-verse) Qere-acceptance scoping is exploitable in a live row, versus always being caught downstream by citation_sweep.py's correctly-scoped Qere arm.",
+   "why_it_matters": "No concrete cross-verse-misattribution vector was constructed; the real run's 30 successful qere acceptances show no evidence of mis-binding but do not prove absence."
+  },
+  {
+   "what": "Whether pmarks_Ezek.json's notes_other/KQ_NOTE inventory is complete and accurate across all 71 editorial-note verses.",
+   "why_it_matters": "I relied on the existing test suite's GREEN result for the one tested fixture (MT 3:20) rather than reading the full 71-verse block; a systematic inventory error would silently mis-license the editorial-note K/Q tier."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

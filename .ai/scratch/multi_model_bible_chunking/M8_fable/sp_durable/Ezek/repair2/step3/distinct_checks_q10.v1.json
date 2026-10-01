@@ -1,0 +1,260 @@
+{
+ "schema": "ezek_repair2_step3_distinct_checks.v1",
+ "order": "#e15 Q10 - every measured-false finding is distinct-checked from the pinned input before it becomes a repair; a finding that does not reproduce is a STOP",
+ "inputs": {
+  "pmarks_sha256": "25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315",
+  "inventory_v2_sha256": "356ba38093e7621bc0ef046fc33e9b07e015bc0082457f5f043b5b492480561f",
+  "oshb_sha256": "337c779b75cad384f1f9c8d37e3f81999b021639cd3afa1a26519ae7438c329e",
+  "web_sha256": "a7e59bcbcd19607485cfb6c6c1f8f831eb63fd2a81d164ce8e25fcb1a7a2088a"
+ },
+ "checked_here": 13,
+ "three_defects_in_this_check_fixed_before_its_verdict_was_trusted": [
+  "verse lists were sorted as STRINGS, so Ezek.8.10 preceded Ezek.8.3 and items 1 and 13 read as STOPs on facts that are true",
+  "the English version was parsed as tab-separated text, which it is not, so every WEB lookup was empty and item 2 read as a STOP; it is now read through the toolkit's own verse map",
+  "each STOP was examined against its MEASURED values before being recorded - the reviewer's fact was the last suspect, not the first"
+ ],
+ "not_checked_here_and_why": {
+  "14": "near/far inversions and WEB-faced MT devices (X2) - a refs-and-prose property measured on the ROWS after step 2, and the re-face half is step 4's mechanical sweep",
+  "15": "three truncated quotations - measured against the ROWS' quoted text after step 2",
+  "16": "lane 02's four out-of-worklist defects - named in that lane's escalations, to be extracted and each distinct-checked the same way",
+  "17": "the 1-based inclusive digit convention - a property of row prose, measured after step 2"
+ },
+ "results": [
+  {
+   "item": 1,
+   "row": "P02-003",
+   "claim_under_test": "no paseq falls in 8:14-18; the only Masoretic item in the span is the samekh on 8:14",
+   "measured": {
+    "paseq_in_ch8": [
+     "Ezek.8.1",
+     "Ezek.8.3",
+     "Ezek.8.6",
+     "Ezek.8.10"
+    ],
+    "paseq_in_8_14_18": [],
+    "marks_on_8_14": [
+     "SAMEKH"
+    ],
+    "kq_in_8_14_18": []
+   },
+   "positive_control": {
+    "the reader finds a paseq at 8:1": true
+   },
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 2,
+   "row": "P03-019",
+   "claim_under_test": "the 18:29 note is an AGREEMENT note ('same form as BHS'), not a note against BHS; and WEB 18:30 carries 'says the Lord Yahweh', so a gloss of the utterance must extend to it",
+   "measured": {
+    "notes_other_18_29": "BHS has been faithful to the Leningrad Codex where there might be a question of the validity of the form and we keep the same form as BHS.",
+    "web_18_30": "\"Therefore I will judge you, house of Israel, everyone according to his ways,\" says the Lord Yahweh. \"Return, and turn yourselves from all your transgressions, so iniquity will not be your ruin."
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 3,
+   "row": "P08-012",
+   "claim_under_test": "36:16 is the FIFTH strict word-event seam from 33:1 (33:1, 33:23, 34:1, 35:1, 36:16), and 37:15 and 38:1 follow",
+   "measured": {
+    "strict_word_event_33_1_to_38_1": [
+     "Ezek.33.1",
+     "Ezek.33.23",
+     "Ezek.34.1",
+     "Ezek.35.1",
+     "Ezek.36.16",
+     "Ezek.37.15",
+     "Ezek.38.1"
+    ],
+    "ordinal_of_36_16": 5
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 4,
+   "row": "P07-008",
+   "claim_under_test": "MT 32:17 names no month; a twelfth-month reading can only be INFERRED from 32:1",
+   "measured": {
+    "mt_32_17_consonants_head": "ויהי בשתי עשרה שנה בחמשה עשר לחדש היה דבר",
+    "month_ordinal_terms_found": [],
+    "mt_32_1_head": "ויהי בשתי עשרה שנה בשני עשר חדש באחד לחדש"
+   },
+   "positive_control": {
+    "the same month-term reader finds a month in 32:1": true
+   },
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 5,
+   "row": "P06-001",
+   "claim_under_test": "MT 21:33 (= WEB 21:28) addresses the children of Ammon, so 25:1-7 is not the book's first foreign addressee; the set-your-face class has 9 verses",
+   "measured": {
+    "mt_21_33_names_ammon": true,
+    "set_your_face_verses": [
+     "Ezek.6.2",
+     "Ezek.13.17",
+     "Ezek.21.2",
+     "Ezek.21.7",
+     "Ezek.25.2",
+     "Ezek.28.21",
+     "Ezek.29.2",
+     "Ezek.35.2",
+     "Ezek.38.2"
+    ]
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 6,
+   "row": "P02-008",
+   "claim_under_test": "the pe on 11:1 is interior to 10:18-11:13 and chapter 10 carries no mark at all",
+   "measured": {
+    "marks_on_11_1": [
+     "PE"
+    ],
+    "marks_in_ch10": {}
+   },
+   "positive_control": {
+    "the reader finds marks in ch 11": [
+     "Ezek.11.1",
+     "Ezek.11.13",
+     "Ezek.11.15",
+     "Ezek.11.16",
+     "Ezek.11.25",
+     "Ezek.11.6"
+    ]
+   },
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 7,
+   "row": "P09-010",
+   "claim_under_test": "no mark stands on 39:20; MT 39:23 is in no census class; 39:20 ends on the utterance formula",
+   "measured": {
+    "marks_in_ch39": [
+     "Ezek.39.10",
+     "Ezek.39.16",
+     "Ezek.39.24",
+     "Ezek.39.29"
+    ],
+    "classes_containing_39_23": [],
+    "mt_39_20_tail": "נאם אדני יהוה"
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 8,
+   "row": "P08-007",
+   "claim_under_test": "the K/Q entries at 35:9 and 35:12 carry ZERO separators, so 'with its separators stripped' describes nothing",
+   "measured": {
+    "kq_35_9": [
+     "תישבנהתָשֹׁ֑בְנָה"
+    ],
+    "kq_35_12": [
+     "שממהשָׁמֵ֑מוּ"
+    ],
+    "separator_counts": {
+     "Ezek.35.9": [
+      0
+     ],
+     "Ezek.35.12": [
+      0
+     ]
+    },
+    "reference_entry_with_separators": {
+     "Ezek.1.8": [
+      "ו/יד/ווִ/ידֵ֣י"
+     ]
+    }
+   },
+   "positive_control": {
+    "the counter finds separators in the 1:8 entry": [
+     3
+    ]
+   },
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 9,
+   "row": "P02-018",
+   "claim_under_test": "the 2fp recognition clauses are COUNTED - the census class holds exactly 13:21 and 13:23",
+   "measured": {
+    "recognition_formula_2fp": [
+     "Ezek.13.21",
+     "Ezek.13.23"
+    ]
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 10,
+   "row": "P10-014",
+   "claim_under_test": "43:15 is not a K/Q verse (it carries two other notes); the span's K/Q verse is 43:16",
+   "measured": {
+    "kq_43_15": null,
+    "notes_other_43_15_count": 2,
+    "kq_43_16": [
+     "ו/ה/אראילוְ/הָ/אֲרִיאֵ֗ל"
+    ]
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 11,
+   "row": "P11-007",
+   "claim_under_test": "a K/Q note stands on the row's close verse 46:15",
+   "measured": {
+    "kq_46_15": [
+     "ו/עשויַעֲשׂ֨וּ"
+    ]
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 12,
+   "row": "P02-001 and any row stating 'transport ... 20 verses'",
+   "claim_under_test": "the transport class is 33 verses (46 occurrences); the strategy's closed 20 is a subset",
+   "measured": {
+    "transport_verses": 33,
+    "strategy_list": 20
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  },
+  {
+   "item": 13,
+   "row": "P06-005",
+   "claim_under_test": "chapter 26 carries marks at 26:6, 26:14, 26:18 and 26:21 - four marked units",
+   "measured": {
+    "marks_in_ch26": {
+     "Ezek.26.6": [
+      "PE"
+     ],
+     "Ezek.26.14": [
+      "SAMEKH"
+     ],
+     "Ezek.26.18": [
+      "SAMEKH"
+     ],
+     "Ezek.26.21": [
+      "SAMEKH"
+     ]
+    }
+   },
+   "positive_control": null,
+   "verdict": "REPRODUCES"
+  }
+ ],
+ "tally": {
+  "REPRODUCES": 13,
+  "STOP": 0
+ },
+ "tier": "MEASURED from pinned inputs only; no row text and no reviewer wording was read"
+}

@@ -1,0 +1,19 @@
+{
+ "schema": "m8_tombstone.v1",
+ "replaces": "the CWO execution-parity record that the cycle log pinned at this exact path",
+ "pinned_sha256_in_cycle_log": "faa9248ec128beaba55d1a30d73111b0179c44888eee397e83482a9f9e37aedf",
+ "status": "THE PINNED BYTES NO LONGER EXIST",
+ "what_happened": "_cwo_parity.py wrote a fixed filename on every run, so a later run over a later corpus silently replaced the record this path had already been pinned to. No one decided to overwrite it; the tool had no versioning and nothing checked the pin.",
+ "found_by": "the OW-6 stage-2 final checker (claude-fable-5-1), attempt lam_final_check_01_a1",
+ "the_surviving_record": {
+  "file": "cwo_parity.rows_v7.json",
+  "sha256": "b40e0336c5850da1195566c6f88f9fffeb20800d32b47d7cd65ac86bb9b10f18",
+  "reconciles_corpus": "rows_v7.jsonl",
+  "post_corpus_sha256": "e50dc87b049d59faef49204d63dfd1b08ce84e9477f2e5d1d1c811a4cc04131b",
+  "status": "GREEN"
+ },
+ "recovery": "none possible; the bytes were not mirrored before the overwrite",
+ "control_installed": "_cwo_parity.py now refuses to overwrite an existing record and writes the next free version named for the corpus it reconciles; the close gate now asserts the parity record covers the corpus being closed",
+ "law": "a file that still carries the name of a pinned artifact but not its bytes is worse than a missing file, because a reader following the pin gets a different record and no warning. This tombstone exists so the pin resolves to an honest account.",
+ "written": "2026-09-07T19:30:03.859470+00:00"
+}

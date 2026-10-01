@@ -1,0 +1,276 @@
+{
+ "attempt_id": "ezek_author_fixup3_p08_a1",
+ "execution_id": "ezek_author_fixup3_p08_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP3_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup3\\orders_ezek_author_fixup3_p08_a1.json",
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v5_cwo23.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_web_quotes.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_universals.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P08-002 device_notes replaced",
+    "why": "CWO-EZ-22 R3 hit ('the cutting rule') restated as the row's own premise, no rule-name retained"
+   },
+   {
+    "what": "P08-003 boundary_rationale, strongest_rejected_alternative, device_notes replaced",
+    "why": "CWO-EZ-22 R6/R3/R5 hits ('staged inventory', 'under-3-verse default', 'authorized exception'/'authorized as an'/'exception named') restated from bytes; hand-of-YHWH digit (7) verified against ezek_device_inventory.json"
+   },
+   {
+    "what": "P08-004 device_notes replaced",
+    "why": "S3-05/S3-18: sweep citation corrected from '(sweep: 15 verses across chs. 6 and 33-39)' to the verified '(sweep: 15 verses across chs. 6, 19 and 33-39)'"
+   },
+   {
+    "what": "P08-010 strongest_rejected_alternative replaced",
+    "why": "CWO-EZ-22 R5 hit ('sometimes described as') - anonymized half-chapter label dropped, two-sided-unit reasoning kept"
+   },
+   {
+    "what": "P08-011 boundary_rationale (two clauses), device_notes replaced",
+    "why": "CWO-EZ-22 R3/R5 hits ('the cutting rule', 'the one authorized', 'the over-split guard') restated from bytes per S3-13's suggested fix"
+   },
+   {
+    "what": "P08-012 boundary_rationale replaced",
+    "why": "S3-02: restated the non-cut at the samekh after MT 36:21 from both-sides bytes (36:20-21 third-person profanation, 36:22 second-person recommissioning, one holy-name argument to 36:23); disclosed the person turn at 36:22 as a sub-onset, not an addressee change"
+   },
+   {
+    "what": "P08-014 strongest_rejected_alternative replaced",
+    "why": "CWO-EZ-22 R5 hit ('the authorized ... model') - 33:21-22 cited by verse, not as an authorized model"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "rows_v5_cwo23.jsonl matches the brief-pinned digest",
+   "how": "python hashlib.sha256 over the full file",
+   "result": "confirmed"
+  },
+  {
+   "claim": "orders_ezek_author_fixup3_p08_a1.json matches the launch-pinned digest",
+   "how": "PowerShell Get-FileHash SHA256",
+   "result": "confirmed"
+  },
+  {
+   "claim": "FIXUP3_BRIEF.md matches the launch-pinned digest",
+   "how": "PowerShell Get-FileHash SHA256",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the orders file's embedded current_row for all 7 rows is byte-identical to the live rows_v5_cwo23.jsonl",
+   "how": "python structural equality over parsed JSON",
+   "result": "confirmed"
+  },
+  {
+   "claim": "hand-of-YHWH construct occurs in exactly 7 MT verses including Ezek.33.22",
+   "how": "read ezek_device_inventory.json hand_of_yhwh_upon_me.count and .verses_mt",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 11 CWO-EZ-22 predicate hits on p08 rows are resolved to 0",
+   "how": "the orders' own 6-arm regex predicate (corpus_wide_orders.CWO-EZ-22.predicate) re-run over the edited rows' content and list fields",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep is GREEN on the edited rows",
+   "how": "tools/citation_sweep.py over a private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register is GREEN (0 flags) on the edited rows, down from 11 on the unmodified source",
+   "how": "tools/check_register.py, before/after private copies",
+   "result": "confirmed"
+  },
+  {
+   "claim": "run_validator_suite hard_status is GREEN on the edited rows",
+   "how": "tools/run_validator_suite.py over a private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no FLAGS category rose on any of the 7 rows versus the unmodified source (web_quotes, refs_mirror, universals, mark_symmetry, language_zones, ngram7, cap_sweep)",
+   "how": "per-row diff of validator_report.json flag lists, keyed by path/decision_id, before vs after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "protected fields (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection) are byte-identical to current_row for all 7 rows",
+   "how": "python equality assertions in the apply script",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the whole p08 part (13 decisions: 7 replaced + 6 untouched) tiles 1:1 over Ezek.33.1-Ezek.36.38",
+   "how": "tools/check_tiling.py --range Ezek.33.1-Ezek.36.38 on a private copy of the full part",
+   "result": "confirmed"
+  },
+  {
+   "claim": "hebrew_normalize_dryrun shows fixed=0, defects=0 on the edited rows",
+   "how": "run_validator_suite.py per_check output",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every emitted row carries all 22 original fields plus _op=replace (23 keys) and non_authorizing=true",
+   "how": "python field-count and type assertions at write time",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "the pre-existing web_quotes flag on P08-012 ('know ... that I am Yahweh' in single curly quotes) and the pre-existing refs_mirror flags on P08-003/P08-010/P08-011/P08-014",
+   "why_it_matters": "these were not routed to p08 in this orders file (absent from rows_with_orders items) and were left untouched; unchanged before/after this wave; a future wave may need to route them explicitly"
+  },
+  {
+   "what": "ngram7, mark_symmetry, language_zones, cap_sweep were verified only via run_validator_suite.py's aggregate per-check GREEN status, not by independently re-running each script standalone with custom arguments",
+   "why_it_matters": "the suite's GREEN is the brief-specified proof, but a standalone re-run with extra diagnostics was not additionally performed for these four"
+  },
+  {
+   "what": "WORKSPACE_LIFECYCLE.md and WINDOWS_ADAPTER.md were not read in this execution; only ACTIVE_WORKTREES.yaml and ERROR_PATTERN_LEDGER.v1.md, the two files the AUTHORITY paragraph and E-19 named",
+   "why_it_matters": "no git operation and no worktree/clone/branch action occurred in this execution - only private session scratch and one deliverable outside the worktree - so this was judged out of that policy's scope, but it is a narrower read than the global policy's general clause"
+  }
+ ],
+ "items": [
+  {
+   "row": "P08-002",
+   "item": "e10:S3-16#2 (CWO-EZ-22 R3)",
+   "action": "cured",
+   "reason": "'the cutting rule that X' restated as 'X, and none precedes...' - no rule-name retained"
+  },
+  {
+   "row": "P08-003",
+   "item": "e10:S3-16#2 (CWO-EZ-22 R6, boundary_rationale)",
+   "action": "cured",
+   "reason": "'per the staged inventory's own method' replaced with the verified digit 'one of 7 verses carrying the construct'"
+  },
+  {
+   "row": "P08-003",
+   "item": "S3-13 (strongest_rejected_alternative)",
+   "action": "cured",
+   "reason": "restated as a two-verse unit argued from bytes (33:21 dateline, 33:22 hand-of-YHWH notice, the pe after 33:22), no authorized-exception language"
+  },
+  {
+   "row": "P08-003",
+   "item": "S3-13 (device_notes)",
+   "action": "cured",
+   "reason": "same restatement; no over-split-guard or exception-named language"
+  },
+  {
+   "row": "P08-004",
+   "item": "S3-05 / S3-18",
+   "action": "cured",
+   "reason": "citation corrected to '(sweep: 15 verses across chs. 6, 19 and 33-39)' per the S3-18 verified verse list"
+  },
+  {
+   "row": "P08-010",
+   "item": "S3-13 (CWO-EZ-22 R5)",
+   "action": "cured",
+   "reason": "anonymized 'half-chapter' label dropped; two-sided-unit reasoning kept unchanged"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-22 R3 (boundary_rationale, seam)",
+   "action": "cured",
+   "reason": "'the cutting rule' reworded to 'the seam condition'"
+  },
+  {
+   "row": "P08-011",
+   "item": "S3-13 / CWO-EZ-22 R5 (boundary_rationale, K/Q)",
+   "action": "cured",
+   "reason": "Qere source described as the K/Q note layer; authorized-exception language dropped"
+  },
+  {
+   "row": "P08-011",
+   "item": "CWO-EZ-22 R3 (device_notes)",
+   "action": "cured",
+   "reason": "'the over-split guard' dropped; plain 3-verse fact stated instead"
+  },
+  {
+   "row": "P08-012",
+   "item": "S3-02",
+   "action": "cured",
+   "reason": "non-cut at the 36:21 samekh restated from the therefore-clause and the holy-name thread (36:20-23); person turn disclosed as a sub-onset"
+  },
+  {
+   "row": "P08-014",
+   "item": "S3-13 / CWO-EZ-22 R5",
+   "action": "cured",
+   "reason": "'on the model of the authorized exception' replaced with a plain verse citation ('as at Ezek.33.21-Ezek.33.22')"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-22 (all 6 arms)",
+   "test": "orders' own predicate regex re-run over edited rows' content and list fields",
+   "result": "PASS"
+  },
+  {
+   "order": "hand-of-YHWH digit (P08-003)",
+   "test": "read ezek_device_inventory.json hand_of_yhwh_upon_me; count=7, Ezek.33.22 in verses_mt",
+   "result": "PASS"
+  },
+  {
+   "order": "'mountains of Israel' digit (P08-004)",
+   "test": "verse list and chapter span cross-checked against S3-18 ruled_text",
+   "result": "PASS"
+  },
+  {
+   "order": "citation_sweep HARD gate",
+   "test": "tools/citation_sweep.py over a private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "register FLAGS gate",
+   "test": "tools/check_register.py over a private copy, before/after",
+   "result": "PASS"
+  },
+  {
+   "order": "full validator suite",
+   "test": "tools/run_validator_suite.py over a private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "tiling",
+   "test": "tools/check_tiling.py --range Ezek.33.1-Ezek.36.38 over the full 13-row p08 part",
+   "result": "PASS"
+  },
+  {
+   "order": "no FLAGS rise",
+   "test": "per-row diff of validator_report.json before/after for web_quotes, refs_mirror, universals",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "register": 11,
+   "universals": 23,
+   "web_quotes": 1,
+   "refs_mirror": 4,
+   "citation_sweep": 0,
+   "mark_symmetry": 0,
+   "language_zones": 0,
+   "ngram7": 0,
+   "cap_sweep": 0
+  },
+  "after": {
+   "register": 0,
+   "universals": 22,
+   "web_quotes": 1,
+   "refs_mirror": 4,
+   "citation_sweep": 0,
+   "mark_symmetry": 0,
+   "language_zones": 0,
+   "ngram7": 0,
+   "cap_sweep": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

@@ -1,0 +1,311 @@
+{
+  "schema_version": "t550.v9_components_v2_premortem.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "independent_adversarial_component_premortem",
+  "review_mode": "read_only_exact_hash_static_composition_review",
+  "reviewed_at_utc": "2026-07-28",
+  "selection_rationale": "Sol/xhigh review is proportionate because this pair is intended to gate a live restart-bound publication and predecessor generations missed integration, provenance, and identity defects despite passing isolated tests.",
+  "verdict": "FAIL",
+  "prepare_authorized": false,
+  "publish_authorized": false,
+  "recover_authorized": false,
+  "live_measurement_authorized": false,
+  "restart_or_onedrive_action_authorized": false,
+  "inputs": {
+    "freeze": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v2_freeze.json",
+      "sha256": "99f54b8cc6985dfc715065467adb608b209674ccb5ea47a10276a1f5c423ba70"
+    },
+    "contract": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_live_gate_contract_v2.json",
+      "sha256": "beea267ec9685fa59d4b5bcadd02ed1f238b626703dde56974971d779fdcd82d"
+    },
+    "policy": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+      "sha256": "8c80506ff9d5ec1c9f9f7a7fb5b821b61ef54e4f4a871147d9f71c9f44908fa7"
+    },
+    "policy_tests": {
+      "path": "tests/test_rematerialization_live_gate_policy_v2.py",
+      "sha256": "3a327c5f34cb171ae73027b04e621c427a333ea7ad2c0c93501496ec36d2c839"
+    },
+    "adapter": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+      "sha256": "ae5e0a0e21e0422d54eeb695f30b3ef8e9673e09355b61deb4444bd95b17ad68"
+    },
+    "adapter_tests": {
+      "path": "tests/test_windows_live_environment_measurement_v2.py",
+      "sha256": "814f5587d196b3d7d4a3955f60552658d30ee547191d787c5b73d3d753789338"
+    },
+    "v1_rejection": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_components_v1_rejection_receipt.json",
+      "sha256": "8cc0ea76a7ac0181f54617c5c7e6d82af4aff970aeb0ef9babb8f1a0467380cd"
+    },
+    "v8_boss_ruling": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_wrapper_boss_ruling.json",
+      "sha256": "d1e7038d266aa6592cd8217723c7dcf72b51d39de1f349fc0a86bd43e28b4fab"
+    },
+    "v8_rejection": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/semantic_prose_rematerialization_v8_rejection_receipt.json",
+      "sha256": "7530d50b126382a2a96135503a702e22e4d037845fafea664679821b3909d62a"
+    }
+  },
+  "methods": [
+    "verified every supplied frozen SHA-256 before review",
+    "traced adapter inputs through V1 collection, V2 projection, and policy consumption",
+    "tested the design mentally against caller substitution, raw-record loss, clock and path TOCTOU, process-list inconsistency, identity relabeling, forged authorization, and prepare-to-publish replay",
+    "compared test seams with the production Windows path and the prior V1 and V8 rejection causes",
+    "treated explicit non-authorizing labels as honest limitations rather than evidence that the underlying gate is safe"
+  ],
+  "blocking_findings": [
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-001",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "Production measurement is caller-substitutable",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "429-443",
+          "observation": "The public collector accepts caller-provided backend, clock, and parent_process_provider."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "467-469, 661-667",
+          "observation": "Injected providers directly determine filesystem/process observations and parent identity without a production-mode provenance field."
+        },
+        {
+          "path": "tests/test_windows_live_environment_measurement_v2.py",
+          "lines": "220-251",
+          "observation": "Every passing integration case uses all three injection seams, including a fabricated parent identity."
+        }
+      ],
+      "bypass": "A caller can submit a fake backend, synchronized fake clocks, and a fake parent provider, obtain a policy-valid raw record, and the record does not disclose that no Windows backend was used.",
+      "required_resolution": "Expose a production entry point with no provider parameters, bind an explicit actual-Windows backend identity into the record, and keep injection behind a separate test-only entry point that the wrapper cannot call."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-002",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "Local JSON still impersonates the external Lowell/checker/boss gate",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+          "lines": "314-339",
+          "observation": "External provenance, checker observation, and boss observation are accepted as caller-provided strings and booleans."
+        },
+        {
+          "path": "tests/test_rematerialization_live_gate_policy_v2.py",
+          "lines": "304-316, 332-336",
+          "observation": "The positive fixture is locally fabricated; the negative test changes only local_json_alone_sufficient to true, so a local object that says false passes."
+        }
+      ],
+      "bypass": "A local author sets source_kind to external_human_attestation, both observed booleans to true, local_json_alone_sufficient to false, and supplies any well-formed text hash.",
+      "required_resolution": "Keep owner authorization outside caller-authored expectations and require a host- or human-channel capability/receipt independently supplied to the wrapper; booleans inside local JSON may describe but must not satisfy the gate."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-003",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "The supposedly lossless bridge drops the raw V1 measurement and does not pin its runtime dependencies",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v9_live_gate_contract_v2.json",
+          "observation": "The governing principle requires the raw adapter measurement to remain embedded and hash-bound."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "463-466, 668-761",
+          "observation": "Only the contract is hash-checked; V1 and policy modules are dynamically loaded without exact hash checks, and the returned V2 body omits the V1 body and V1 digest."
+        }
+      ],
+      "bypass": "A changed V1 or policy file can alter collection/classification after the V2 adapter hash was frozen, while the projected record hides V1 collection methods, path evidence, member digests, simultaneous-open evidence, and source digest.",
+      "required_resolution": "Pin the exact V1 and policy hashes before loading, include the complete V1 raw record and digest in the closed V2 record, and have policy validate that embedded record rather than trusting a lossy projection."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-004",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "Caller labels are not cryptographically or handle-wise tied to measured paths and parents",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "40-60, 398-425",
+          "observation": "Role, path_token, path, and parent_id are separate caller inputs; path_token and parent labels are not derived from a held model-root handle."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+          "lines": "628-659, 690-702",
+          "observation": "Policy checks frozen labels and parent-ID membership but never proves that a file handle is a child of the stated parent or that path_token resolves from the measured model root."
+        }
+      ],
+      "bypass": "Measure an allowed same-hash file at another in-model path or parent, then label it with the frozen target path_token and any existing parent_id; file identities are not pre-frozen and parent membership is only nominal.",
+      "required_resolution": "Derive role/path records from a code-fixed allowlist and resolve every child relative to retained root/parent handles; bind parent handle identity plus leaf name to each file identity."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-005",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "Process absence is neither internally recomputed nor operationally coherent with the measured parent",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+          "lines": "739-766",
+          "observation": "Policy validates matched rows, onedrive_matches, and in_scope_writer_matches independently; it does not derive the latter lists, reject duplicate PIDs, or tie is_current_process/current_process_id to parent_process."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "630-660, 723-732",
+          "observation": "Every bounded match other than the Python collector is declared in scope, while parent_process is measured separately and never exempted."
+        }
+      ],
+      "bypass": "A direct policy caller can place OneDrive or another writer in matched_processes while leaving both derived blocking lists empty. Conversely, the real Codex/PowerShell parent is code-fixed as a bounded process and is likely to make a genuine live run fail permanently.",
+      "required_resolution": "Have policy deterministically derive all classifications and blocking sets from unique name/PID rows, bind current PID and exact parent PID/start token, and define whether the exact bound parent is allowed without making the genuine runtime impossible."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-006",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "Parent-process evidence is outside the capture lease and is path-stat based",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "266-320",
+          "observation": "The default executable identity hashes a queried image path plus ordinary stat metadata, not a retained process/image handle identity."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v2.py",
+          "lines": "508-509, 661-667",
+          "observation": "Capture end clocks are recorded before parent_process_provider executes."
+        }
+      ],
+      "bypass": "Parent identity may be fabricated, race a replaced executable path, or simply be gathered after the supposedly closed freshness interval.",
+      "required_resolution": "Measure the process start token and executable file identity by retained handles inside both capture clocks, then tie it to the process snapshot and continuity projection."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-007",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "No test exercises the actual Windows sharing, reparse, process, or parent implementation",
+      "evidence": [
+        {
+          "path": "tests/test_windows_live_environment_measurement_v2.py",
+          "lines": "54-162, 220-251",
+          "observation": "The adapter suite uses FakeClock, FakeBackend, FakeHeld, and a lambda parent provider in every collection."
+        },
+        {
+          "path": "tests/test_windows_live_environment_measurement_v2.py",
+          "lines": "69-82",
+          "observation": "FakeHeld does not enforce Windows share denial and does not retain a real OS handle."
+        }
+      ],
+      "consequence": "The frozen 7-pass adapter evidence establishes schema composition only, not the real Windows behavior on which restart publication would depend.",
+      "required_resolution": "Add a safe Windows/NTFS temporary-root test using the production entry point and real handles, including write/delete contention, reparse rejection, process/parent coherence, and zero byte/member delta; never point it at canonical files."
+    },
+    {
+      "finding_id": "T550-V9-COMP-V2-PM-008",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "The frozen expectation surface is self-asserted rather than bound to the supplied V2 freeze",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v2.py",
+          "lines": "278-350",
+          "observation": "Implementation, test, evidence, target, sentinel, and authorization rows are validated structurally but the exact freeze receipt SHA 99f54b8... is not pinned or supplied."
+        }
+      ],
+      "bypass": "A caller changes expectations and measurement together, including arbitrary well-formed implementation/evidence hashes and authorization, and receives a PASS whose expectations hash merely records the fabricated set.",
+      "required_resolution": "Pin the exact reviewed freeze receipt hash in the next generation or wrapper and derive expectations from that immutable receipt rather than accepting caller-built expectations."
+    }
+  ],
+  "positive_findings": [
+    "Policy V2 is side-effect free, closed-schema, and hashes the complete V2 record it actually receives.",
+    "Dual wall and monotonic clocks, restart-after-freeze checks, exact 13-plus-3 counts, target/sentinel continuity, and exact prepare-result recomputation are materially stronger than V1.",
+    "The adapter performs no explicit create, delete, replace, attempt, restart, OneDrive, prepare, publish, or recover operation.",
+    "Prepare-to-publish continuity includes OS, volume, workspace, model, canonical parents, parent process, target identities, sentinel identities, and the process policy.",
+    "Residual writer, power-loss, set-atomicity, candidate-only, and non-authorizing limitations are stated honestly."
+  ],
+  "accepted_only_if_explicitly_authorized_residuals": [
+    {
+      "risk": "Held target and sentinel handles are released before the adapter returns, so publication remains exposed to a noncooperating or pre-opened writer.",
+      "status": "not_accepted_by_this_review",
+      "strict_block_dissent": true
+    },
+    {
+      "risk": "The process snapshot is bounded, name-based, point-in-time, and cannot prove absence of hidden, renamed, kernel, future, or pre-opened writers.",
+      "status": "not_accepted_by_this_review"
+    },
+    {
+      "risk": "Reading/hashing may update access metadata or hydrate OneDrive/cloud placeholders even when bytes and directory membership remain unchanged.",
+      "status": "must_be_disclosed_not_described_as_zero_filesystem_effect"
+    },
+    {
+      "risk": "Process-crash recovery does not establish power-loss durability or atomicity of the 13-file set.",
+      "status": "not_accepted_by_this_review"
+    }
+  ],
+  "challenge_and_appeal": {
+    "primary_challenge": "Reject the exact frozen V2 component pair for wrapper integration despite all recorded unit tests passing.",
+    "best_counterargument": "Provider injection is intended only for deterministic testing, the wrapper can pin hashes and call defaults, the policy records non-authorizing limitations, and a later wrapper generation can supply trusted expectations.",
+    "response": "Those wrapper restrictions do not exist in the frozen components and cannot be inferred. The exported production collector accepts injections, the record does not reveal them, the authorization gate is still local booleans, and the governing contract explicitly requires a raw embedded lossless bridge that is absent.",
+    "preserved_strict_block_appeal": {
+      "position": "STRICT_BLOCK",
+      "reason": "Even after the eight component blockers are fixed, point-in-time FILE_SHARE_DELETE publication retains the previously recorded lost-update and post-readback races.",
+      "status": "UNRESOLVED_FOR_HUMAN_OR_EXTERNAL_AI",
+      "forced_consensus": false
+    }
+  },
+  "premortem": {
+    "assumed_failure": "Within 30 days, a V9 publication is said to have passed the live gate but used fabricated or mislabeled evidence, or a genuine live run cannot pass because its Codex/PowerShell parent is classified as an in-scope writer.",
+    "likely_causes": [
+      "test injection seams reached the production wrapper",
+      "local JSON impersonated external Lowell/checker/boss observation",
+      "changed V1 or policy runtime code was dynamically loaded after freeze",
+      "path tokens and parent IDs labeled different measured files",
+      "matched process rows contradicted caller-supplied empty blocking lists",
+      "parent evidence was measured after capture or from a replaced image path",
+      "fake-backend tests were mistaken for real Windows sharing evidence"
+    ],
+    "early_warning_indicators": [
+      "a PASS record has no production-backend provenance or embedded V1 digest",
+      "the adapter was called with backend, clock, or parent_process_provider",
+      "expectations were assembled ad hoc instead of loaded from hash 99f54b8...",
+      "matched_processes contains a bounded noncurrent process while in_scope_writer_matches is empty",
+      "parent_process.pid differs from the intended current/parent process relationship",
+      "Codex.exe, powershell.exe, or pwsh.exe makes every default live run fail",
+      "no real-Windows temp-root receipt accompanies the frozen hashes"
+    ],
+    "kill_criteria": [
+      "any provider injection is possible on the wrapper's production path",
+      "external authorization is represented only by locally writable JSON",
+      "V1 raw evidence or dependency hashes are absent from the transaction-bound record",
+      "role/path/parent/file linkage is not root-handle derived",
+      "process blocking lists are not recomputed by policy",
+      "parent identity lies outside the dual-clock interval",
+      "the actual Windows test remains absent or red",
+      "the strict-block dissent is silently treated as resolved"
+    ]
+  },
+  "risk_assessment": {
+    "consequence": 5,
+    "uncertainty": 4,
+    "reversibility": 4,
+    "propagation": 4,
+    "tier": "high",
+    "escalation": "sol/high boss plus explicit human decision after deterministic repairs"
+  },
+  "actions_not_taken": [
+    "did_not_run_live_measurement",
+    "did_not_run_prepare_publish_or_recover",
+    "did_not_restart_windows",
+    "did_not_touch_onedrive",
+    "did_not_modify_hosea_targets",
+    "did_not_modify_global_sidecars",
+    "did_not_edit_implementation_or_tests",
+    "did_not_reuse_v1_or_v8_pass_claims"
+  ],
+  "next_action": "Preserve this FAIL append-only. Create a new component generation that removes production injection, binds trusted external authorization outside local JSON, embeds and pins raw dependencies, derives handle-rooted path/parent links, recomputes process blocking sets, moves parent evidence inside the capture interval, and passes a real-Windows temporary-root test. Then obtain fresh independent checker, premortem, and boss review before any live gate or restart action.",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "forced_consensus": false
+}

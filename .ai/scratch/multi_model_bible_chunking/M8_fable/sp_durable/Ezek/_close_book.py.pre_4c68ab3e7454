@@ -1,0 +1,703 @@
+#!/usr/bin/env python3
+"""Ezekiel book close: the Lamentations close (SP/Lam/_close_book.py) re-keyed to Ezekiel under OW-25 and OW-26.
+
+DRY BY DEFAULT. With no --close the tool runs every gate and builds every payload in memory. It then prints one JSON
+report: each gate met or unmet, and what --close would write, with byte counts and sha256. It writes nothing under
+M8. `--dry-report DIR` also writes the previews to DIR, and refuses a DIR inside M8. `--close` performs the writes, and
+only when every gate is met. OW-25 and OW-11 make closing, publication and campaign-log appends THE OWNER'S ACT: the
+orchestrator runs this tool dry and never with --close.
+
+WHAT IS RE-KEYED FROM LAMENTATIONS, AND WHY.
+- The grader model is READ from campaign/grader_models.v1.json. The carrier's digest is pinned here. OW-25 forbids
+  loosening the gate to accept any model, so the gate names the carrier's model.
+- The Lam final-check gate reads one claude-fable-5-1 packet. This one reads BOTH blind lanes of the OW-26 merged-verdict
+  close. Every lane must return postcheck fit_to_assemble, final check fit_to_close over this corpus's sha256, and
+  items 20-23 fit_to_accept.
+- The Lam stage-1 transcript-audit gate (packets + _final_check_reconcile.py) is NOT run. OW-26 recorded that audit as
+  OWED, NOT MET. The gate here asserts the opposite of what Lam asserts: every lane's final check must say
+  reconcile_verdict NOT_RUN, bytes_audited_by_stage1 0, and a statement that names the audit as OWED. The receipt
+  carries transcript_audit "OWED, NOT MET". Nothing here can be read as that audit having run.
+- The completion receipt must carry grader_fallback {model, statement}. The statement must be byte-equal to the
+  carrier's downgrade statement (OW-25 receipt rule). It must also carry the OW-26 weakness statement from the same
+  carrier.
+- Lane outputs are read only from their durable transcriptions under merged_close/. The landing manifest lists them
+  with sha256, and every file is re-hashed here. The scratch originals are not read.
+- Tiling is proven contiguous over ezek_lib's WEB verse order: every row starts one verse after the last row ended, and
+  the rows cover 1273 verses. This is stronger than Lam's sum.
+- Packet retention: 1854 files, 119 MB, is too large to inline. It is a manifest file (path, bytes, sha256). The receipt
+  carries that file's digest.
+- The shared atlas feed: the Lam pattern appends 12-field rows derived from the sidecars. Ezekiel also has the item-22
+  deliverable of 102 rows, which carries one judged 'high' row and four extra fields. Both paths would put Ezekiel rows
+  in the same shared file, so --close requires an explicit --acf {lam_pattern,item22}. The dry report shows both.
+  Choosing is the owner's act (OW-11), and appending both is refused.
+  AMENDED 2026-09-23 (v9b): any --acf, dry or close, must meet checks/validate_book_review_coverage.py's per-book
+  feed rule, measured here (one row per low/medium_low chunk and no other, each mirroring the chunk's span,
+  confidence, review status and hold state). The dry report gives both options' coverage and the shared feed's
+  existing shapes by book, so a question about the choice is sourced from the report.
+  AMENDED 2026-09-23 (v9c): the gate also checks review_packet_final_state. The validator compares it with
+  reviews/<book>/review_packets.jsonl, which no close tool from Job onward writes, so here it must be the state
+  the chunk's hold implies (accepted_candidate when the hold is null, else held_lower_confidence).
+
+AMENDED 2026-09-23 (v9 fix round, OW-28). Both v1 merged-close lanes returned not_fit over rows_v8_final, each on one
+medium (A: P03-001 F-414; B: P06-015 SIGNAL_OUT_OF_SPAN). A bounded fix round built rows_v9_final: three rows changed and
+the rest are byte-identical to v8, per rows_v9_final.manifest.json. Two blind delta lanes then re-checked THE DELTA over
+v9. So:
+- CORPUS is v9. The lineage gates prove that v9 differs from v8 only in the (row, field) pairs the manifest lists.
+- The v1 lanes' final checks must be over the BASE (v8). Their verdicts stand as recorded (not_fit). Every v1 residual
+  must be in the pinned docket, and every v1 high or medium must be judged cured by BOTH delta lanes.
+- Items 20 and 21 come from the v1 lanes, because their records did not change. Items 22 and 23 come from the delta
+  lanes.
+- The Lam stray-gate filter is replaced by typed dispositions. Every unmet v1 close-gate entry must be keyed in the
+  pinned dispositions file. Its type's text constraint is re-checked here, and both delta lanes must accept each one.
+  DEFERRED_OW28_FABLE_END_REVIEW is DEFERRED, never MET: OW-28 defers claude-fable-5-1 to the campaign-end review.
+- The book's Fable packet (its low and medium_low rows, their sidecars, the orchestrator's notes and the delta lanes'
+  questions) must reproduce (--check MATCH) and carry THIS delta landing. The receipt names it as fable_end_review,
+  DEFERRED (OW-28).
+The earlier tool is kept as _close_book.py.pre_<sha12>.
+
+usage: _close_book.py [@usage.json] [--dry-report DIR] [--landing M] [--delta-landing M] [--dispositions F]
+                      [--close --acf {lam_pattern,item22}]
+       --landing, --delta-landing and --dispositions are dry-only test hooks: they point the gates at copies
+       elsewhere, for adversarial tests
+"""
+import argparse
+import collections
+import hashlib
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+EZ = Path(__file__).resolve().parent
+SP = EZ.parent
+M8 = SP.parent
+sys.path.insert(0, str(EZ / "tools"))
+import ezek_lib  # noqa: E402
+
+CORPUS = "rows_v9_final.jsonl"
+CORPUS_PIN = "a80b6e6712aa43bf3d8652255b4655a934af08a9cd3e036f9b320a37bbd1098c"
+BASE = "rows_v8_final.jsonl"  # the corpus the v1 merged-close lanes reviewed in full
+BASE_PIN = "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7"
+DELTA_MANIFEST = EZ / "rows_v9_final.manifest.json"
+DELTA_MANIFEST_PIN = "91736024a4ac2ee44d37077a136355554f0bc27bdf012198f6c684adc3f5853c"
+PRE_FINAL = EZ / "repair" / "rows_v7_cwo24.jsonl"
+CARRIER = SP / "campaign" / "grader_models.v1.json"
+CARRIER_PIN = "cf88544383c707c6e2d87c75829740d696ede0e537403284da0ee84cc239526d"
+LANDING = EZ / "merged_close" / "landing_manifest.v1.json"
+RECEIPTS = EZ / "ezek_merged_close_attempt_receipts.jsonl"
+LANES = (("A", "ezek_merged_close_lane_a_a1"), ("B", "ezek_merged_close_lane_b_a1"))
+LANE_FILES = ("postcheck.json", "final_check.json", "items_20_23.json", "named_questions.json", "lane_meta.json",
+              "final_message.md")
+FR = EZ / "repair2" / "fixround_v9"
+DOCKET, DOCKET_PIN = FR / "delta_docket_v9.v1.json", "9463a68183dd69e3b3f3caf6efa52655b86638be9030c0c3b2bff7e8ef015791"
+DISPOSITIONS = FR / "v1_unmet_gate_dispositions.v1.json"
+DISPOSITIONS_PIN = "3744b9cb21a7d2cfe94af72e607b82e0007437673243e91c9a4a9b5c6ec60725"
+DELTA_LANDING = EZ / "merged_close" / "delta_v9" / "landing_manifest.v1.json"
+DELTA_RECEIPTS = FR / "ezek_fixround_v9_attempt_receipts.jsonl"
+DELTA_LANES = (("A", "ezek_fixround_v9_delta_lane_a_a1"), ("B", "ezek_fixround_v9_delta_lane_b_a1"))
+DELTA_FILES = ("delta_check.json", "final_message.md")
+DERIVED = ("atlas_rows", "atlas_dimensions", "atlas_check", "sidecars", "proposals", "readme")
+FABLE_GEN = EZ / "fable_end_review" / "gen_fable_end_packet.py"
+FABLE_PACKET = EZ / "fable_end_review" / "Ezek_fable_end_packet.v1.json"
+RETENTION = EZ / "ezek_retention_manifest.v1.jsonl"
+SIDE_FIELDS = ("concern_type", "why_low_confidence", "why_frontier_review_needed", "possible_downstream_risk",
+               "suggested_reviewer", "proposed_atlas_action")
+SHARED = ("low_confidence_register.jsonl", "frontier_escalation_queue.jsonl", "atlas_candidate_feed.jsonl",
+          "whole_bible_chunk_map.jsonl")
+PROG_ANCHOR = "  Lam:\n    status: complete\ncurrent_book: Ezek"
+NEXT_BOOK = "Dan"
+
+GATES = []
+
+
+def gate(name, ok, detail=""):
+    GATES.append({"gate": name, "met": bool(ok), "detail": str(detail)[:400]})
+    return bool(ok)
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def shab(b):
+    return hashlib.sha256(b).hexdigest()
+
+
+def jl(p):
+    return [json.loads(l) for l in Path(p).read_text(encoding="utf-8-sig").splitlines() if l.strip()]
+
+
+def jload(p):
+    return json.loads(Path(p).read_text(encoding="utf-8-sig"))
+
+
+def hi_med(xs):
+    return [r for r in (xs or []) if isinstance(r, dict) and r.get("severity") in ("high", "medium")]
+
+
+def run(args):
+    p = subprocess.run([sys.executable, "-B"] + args, cwd=str(EZ), capture_output=True, text=True, encoding="utf-8",
+                       errors="replace", env={**__import__("os").environ, "PYTHONUTF8": "1"})
+    return p.returncode, (p.stdout or "").strip().splitlines()[-1:] or [""]
+
+
+def corpus_gates():
+    cp = EZ / CORPUS
+    gate("corpus pinned", sha(cp) == CORPUS_PIN, sha(cp)[:16])
+    rows = jl(cp)
+    n = len(rows)
+    gate("every row candidate_review_complete", all(r["review_status"] == "candidate_review_complete" for r in rows))
+    gate("chunk_index 1..N", [r["chunk_index_in_book"] for r in rows] == list(range(1, n + 1)), n)
+    # tiling: contiguous over the WEB order, no gap and no overlap
+    order = [(c, v) for c in sorted(ezek_lib.LAST_VERSE) for v in range(1, ezek_lib.LAST_VERSE[c] + 1)]
+    lin = {cv: i for i, cv in enumerate(order)}
+    prev, bad, covered = -1, [], 0
+    for r in rows:
+        m = re.match(r"^Ezek\.(\d+)\.(\d+)-Ezek\.(\d+)\.(\d+)$", r["span"])
+        s, e = lin.get((int(m.group(1)), int(m.group(2)))), lin.get((int(m.group(3)), int(m.group(4))))
+        if s is None or e is None or s != prev + 1 or e < s:
+            bad.append(r["decision_id"])
+        else:
+            covered += e - s + 1
+            prev = e
+    gate("tiling contiguous over 1273 WEB verses", not bad and covered == ezek_lib.TOTAL_VERSES == len(order) == 1273
+         and prev == len(order) - 1, {"covered": covered, "breaks": bad[:5]})
+    runs = [k for k, _ in __import__("itertools").groupby(r["parent_collection"] for r in rows)]
+    gate("each parent collection one contiguous run", len(runs) == len(set(runs)),
+         [p for p, c in collections.Counter(runs).items() if c > 1][:3])
+    return rows
+
+
+def lineage_gates():
+    """v9 is v8 plus exactly the manifest's (row, field) changes: every other line is byte-identical (OW-28)."""
+    gate("base corpus (v8) pinned", sha(EZ / BASE) == BASE_PIN, sha(EZ / BASE)[:16])
+    gate("v8 -> v9 manifest pinned", sha(DELTA_MANIFEST) == DELTA_MANIFEST_PIN, sha(DELTA_MANIFEST)[:16])
+    man = jload(DELTA_MANIFEST)
+    gate("manifest built from the base, names this corpus", (man.get("built_from") or {}).get("sha256") == BASE_PIN
+         and man.get("corpus_sha256") == CORPUS_PIN and man.get("corpus") == CORPUS)
+    old = (EZ / BASE).read_bytes().decode("utf-8").splitlines()
+    new = (EZ / CORPUS).read_bytes().decode("utf-8").splitlines()
+    want, vals = collections.defaultdict(set), {}
+    for c in man.get("changes") or []:
+        want[c["row"]].add(c["field"])
+        vals[(c["row"], c["field"])] = (c.get("before_sha256"), c.get("after_sha256"))
+    same, bad = 0, []
+    for i, (x, y) in enumerate(zip(old, new), 1):
+        rx, ry = json.loads(x), json.loads(y)
+        rid = rx.get("decision_id")
+        if x == y:
+            same += 1
+            if rid in want:
+                bad.append("%s unchanged but listed" % rid)
+            continue
+        diff = {k for k in set(rx) | set(ry) if rx.get(k) != ry.get(k)}
+        if rid != ry.get("decision_id") or diff != want.get(rid):
+            bad.append("%s line %d: %s" % (rid, i, sorted(diff)[:4]))
+        for k in diff:
+            h = (shab(json.dumps(rx.get(k), ensure_ascii=False).encode("utf-8")),
+                 shab(json.dumps(ry.get(k), ensure_ascii=False).encode("utf-8")))
+            if vals.get((rid, k)) != h:
+                bad.append("%s.%s before/after sha" % (rid, k))
+    gate("v9 differs from v8 only where the manifest says", len(old) == len(new) and not bad
+         and same == len(old) - len(want) == man.get("unchanged_rows_byte_identical")
+         and sorted(want) == sorted(man.get("rows_changed") or []), {"same": same, "bad": bad[:4]})
+    return man
+
+
+def sidecar_gates(rows):
+    low = {r["writer_decision_id"] for r in rows if r["confidence"] in ("medium_low", "low")}
+    side = []
+    for f in sorted(EZ.glob("sidecar_src_*.jsonl")):
+        side += jl(f)
+    ids = [s["writer_decision_id"] for s in side]
+    gate("sidecar set == low/medium_low rows", len(ids) == len(set(ids)) and set(ids) == low,
+         {"missing": sorted(low - set(ids))[:3], "extra": sorted(set(ids) - low)[:3], "rows": len(ids)})
+    gate("sidecar fields present", all(s.get(k) for s in side for k in SIDE_FIELDS))
+    gate("why_low_confidence not boilerplate", len({s["why_low_confidence"] for s in side}) == len(side))
+    rc, tail = run([str(EZ / "deliverables" / "gen_sidecars.py"), "--check"])
+    gate("gen_sidecars.py --check MATCH", rc == 0 and tail[-1] == "MATCH", tail)
+    return side
+
+
+def evidence_gates():
+    suite = jload(EZ / (CORPUS + ".validator_report.json"))
+    sm, norm = suite["summary"], suite["hebrew_normalize_dryrun"]
+    gate("suite GREEN over this corpus", sm.get("hard_status") == "GREEN" and not sm.get("nfd_hard_e01")
+         and Path(str(suite.get("rows_file"))).name == CORPUS, {"summary": sm, "rows_file": suite.get("rows_file")})
+    gate("normalize dry-run clean", norm.get("fixed", 0) == 0 and norm.get("defect_count", 0) == 0,
+         {"fixed": norm.get("fixed"), "defect_count": norm.get("defect_count")})
+    pp = EZ / "cwo" / ("cwo_parity.%s.json" % CORPUS.replace(".jsonl", ""))
+    par = jload(pp) if pp.is_file() else {}
+    gate("CWO parity GREEN for THIS corpus", par.get("post_corpus_sha256") == CORPUS_PIN and par.get("status") == "GREEN"
+         and not par.get("exact_arm_residual"), {"record": pp.name, "status": par.get("status")})
+    return suite, pp, par
+
+
+def carrier_gates():
+    c = jload(CARRIER)
+    gate("grader carrier pinned", sha(CARRIER) == CARRIER_PIN, sha(CARRIER)[:16])
+    rc, tail = run([str(SP / "campaign" / "gen_grader_models.py"), "--check"])
+    gate("grader carrier still transcribes the ledger (--check MATCH)", rc == 0 and tail[-1] == "MATCH", tail)
+    model = c["declared_fallback_model"] if c.get("fallback_in_force") else c["ow13_grader_model"]
+    shape = c.get("book_close_shapes", {}).get("Ezek") or {}
+    gate("carrier grants Ezekiel the OW-26 shape", shape.get("directive") == "OW-26"
+         and shape.get("transcript_audit") == "OWED, NOT MET" and shape.get("weakness_statement"))
+    return c, model, shape
+
+
+def lane_gates(model, fallback, landing):
+    """Durable lane files resolve relative to the landing manifest's own directory, so a tampered copy of the landing
+    set (--landing, dry mode only) can be pointed at the gates without touching the real one."""
+    lanes = {}
+    land = jload(landing) if landing.is_file() else None
+    if not gate("landing manifest present", land is not None, landing.name):
+        return lanes, None
+    recs = jl(RECEIPTS)
+    for L, att in LANES:
+        ent = (land.get("lanes") or {}).get(L) or {}
+        files, ok = {}, True
+        for fn in LANE_FILES:
+            f = (ent.get("files") or {}).get(fn) or {}
+            p = landing.parent / str(f.get("durable", "")) if f.get("durable") else None
+            good = p is not None and p.is_file() and sha(p) == f.get("sha256")
+            ok &= good
+            files[fn] = p if good else None
+        gate("lane %s: six durable outputs match the landing manifest" % L, ok and ent.get("attempt_id") == att,
+             [k for k, v in files.items() if v is None])
+        done = [r for r in recs if r.get("attempt_id") == att and r.get("record_kind") == "completion"]
+        gate("lane %s: completion receipt COMPLETED on %s" % (L, model), len(done) == 1
+             and done[0].get("outcome") == "COMPLETED" and done[0].get("model_actual") == model,
+             [(d.get("outcome"), d.get("model_actual")) for d in done])
+        if not ok:
+            lanes[L] = None
+            continue
+        pc, fc = jload(files["postcheck.json"]), jload(files["final_check.json"])
+        it, nq, meta = jload(files["items_20_23.json"]), jload(files["named_questions.json"]), jload(files["lane_meta.json"])
+        gate("lane %s: v1 postcheck verdict recorded (its high/medium go to the docket)" % L,
+             pc.get("verdict") in ("fit_to_assemble", "not_fit"),
+             {"verdict": pc.get("verdict"), "hi_med": len(hi_med(pc.get("residual"))), "blocking": pc.get("blocking")})
+        gate("lane %s: final check names the carrier's model" % L, fc.get("model") == model == meta.get("model")
+             and (not fallback or "grader_fallback" in str(fc.get("grader_role", "")) + str(meta.get("grader_role", ""))),
+             {"fc": fc.get("model"), "meta": meta.get("model"), "role": fc.get("grader_role") or meta.get("grader_role")})
+        gate("lane %s: v1 final check over the base corpus (v8), verdict recorded" % L,
+             fc.get("verdict") in ("fit_to_close", "not_fit") and fc.get("corpus_sha256") == BASE_PIN,
+             {"verdict": fc.get("verdict"), "corpus": str(fc.get("corpus_sha256"))[:16], "hi_med": len(hi_med(fc.get("residual")))})
+        tc = fc.get("transcript_coverage") or {}
+        gate("lane %s: transcript audit recorded OWED, NOT run" % L,
+             isinstance(tc.get("attempts_with_no_transcript"), int) and tc.get("bytes_audited_by_stage1") == 0
+             and tc.get("reconcile_verdict") == "NOT_RUN" and "OWED" in str(tc.get("statement", "")).upper()
+             and fc.get("stage1_findings_disposition") == [],
+             {k: tc.get(k) for k in ("attempts_with_no_transcript", "bytes_audited_by_stage1", "reconcile_verdict")})
+        cga = fc.get("close_gate_assessment")
+        cga = list(cga.values()) if isinstance(cga, dict) else (cga or [])
+        unmet = [g for g in cga if isinstance(g, dict) and g.get("met") is False]
+        gate("lane %s: close-gate assessment present (unmet entries go to the typed dispositions)" % L, bool(cga),
+             {"entries": len(cga), "unmet": len(unmet)})
+        gate("lane %s: items 20-21 fit_to_accept (22 and 23 are the delta lanes')" % L,
+             all((it.get("item_%d" % i) or {}).get("fit_to_accept") is True for i in (20, 21)),
+             {i: (it.get("item_%d" % i) or {}).get("fit_to_accept") for i in range(20, 24)})
+        gate("lane %s: NQ-1..NQ-10 answered" % L, all((nq.get("NQ-%d" % i) or {}).get("answer") for i in range(1, 11)))
+        gate("lane %s: e19 self-report present" % L, bool(meta.get("e19_selfreport")), meta.get("e19_selfreport"))
+        lanes[L] = {"attempt_id": att, "files": {k: ("sp_durable/Ezek/merged_close/" + str(v.relative_to(landing.parent)).replace("\\", "/"),
+                                                     sha(v)) for k, v in files.items()},
+                    "postcheck": pc, "final_check": fc, "items": it, "meta": meta, "unmet": unmet}
+    gate("two distinct blind lanes", all(lanes.get(L) for L, _ in LANES) and len({a for _, a in LANES}) == 2)
+    return lanes, land
+
+
+def delta_lane_gates(model, fallback, landing):
+    """The two blind v9 delta lanes (OW-28), read from their durable transcriptions. Paths resolve as in lane_gates."""
+    out = {}
+    land = jload(landing) if landing.is_file() else None
+    if not gate("delta landing manifest present", land is not None, landing.name):
+        return out, None
+    recs = jl(DELTA_RECEIPTS)
+    for L, att in DELTA_LANES:
+        ent = (land.get("lanes") or {}).get(L) or {}
+        files, ok = {}, True
+        for fn in DELTA_FILES:
+            f = (ent.get("files") or {}).get(fn) or {}
+            p = landing.parent / str(f.get("durable", "")) if f.get("durable") else None
+            good = p is not None and p.is_file() and sha(p) == f.get("sha256")
+            ok &= good
+            files[fn] = p if good else None
+        gate("delta lane %s: durable outputs match the delta landing manifest" % L, ok and ent.get("attempt_id") == att,
+             [k for k, v in files.items() if v is None])
+        done = [r for r in recs if r.get("attempt_id") == att and r.get("record_kind") == "completion"]
+        gate("delta lane %s: completion receipt COMPLETED on %s" % (L, model), len(done) == 1
+             and done[0].get("outcome") == "COMPLETED" and done[0].get("model_actual") == model,
+             [(d.get("outcome"), d.get("model_actual")) for d in done])
+        if not ok:
+            out[L] = None
+            continue
+        dc = jload(files["delta_check.json"])
+        gate("delta lane %s: names the carrier's model" % L, dc.get("model") == model
+             and (not fallback or "grader_fallback" in str(dc.get("grader_role", ""))),
+             {"model": dc.get("model"), "role": dc.get("grader_role")})
+        gate("delta lane %s: over v9, base v8, manifest pinned" % L, dc.get("corpus_sha256") == CORPUS_PIN
+             and dc.get("base_corpus_sha256") == BASE_PIN and dc.get("manifest_sha256") == DELTA_MANIFEST_PIN,
+             {k: str(dc.get(k))[:16] for k in ("corpus_sha256", "base_corpus_sha256", "manifest_sha256")})
+        gate("delta lane %s: lineage confined to the manifest" % L,
+             (dc.get("lineage") or {}).get("confined_to_manifest") is True)
+        dr = dc.get("derived_records") or {}
+        gate("delta lane %s: derived records fit" % L, all((dr.get(k) or {}).get("fit") is True for k in DERIVED),
+             {k: (dr.get(k) or {}).get("fit") for k in DERIVED})
+        items = dc.get("items") or {}
+        gate("delta lane %s: items 22-23 fit_to_accept" % L,
+             all((items.get("item_%d" % i) or {}).get("fit_to_accept") is True for i in (22, 23)),
+             {i: (items.get("item_%d" % i) or {}).get("fit_to_accept") for i in (22, 23)})
+        gate("delta lane %s: fit_to_assemble and fit_to_close, no high/medium residual" % L,
+             dc.get("assembly_verdict") == "fit_to_assemble" and dc.get("verdict") == "fit_to_close"
+             and not hi_med(dc.get("residual")),
+             {"assembly": dc.get("assembly_verdict"), "verdict": dc.get("verdict"), "hi_med": len(hi_med(dc.get("residual"))),
+              "bounded_fix": str(dc.get("bounded_fix"))[:160]})
+        gate("delta lane %s: transcript audit stated OWED, e19 self-report, message digest" % L,
+             "OWED" in str((dc.get("transcript_coverage") or {}).get("statement", "")).upper()
+             and bool(dc.get("e19_selfreport")) and dc.get("output_sha256") == sha(files["final_message.md"]))
+        out[L] = {"attempt_id": att, "check": dc,
+                  "files": {k: ("sp_durable/Ezek/merged_close/" + str(v.relative_to(landing.parent.parent)).replace("\\", "/"),
+                                sha(v)) for k, v in files.items()}}
+    gate("two distinct blind delta lanes", all(out.get(L) for L, _ in DELTA_LANES))
+    return out, land
+
+
+def docket_gates(lanes, delta):
+    """Every v1 residual is docketed, and every v1 high or medium is judged cured by BOTH delta lanes. The docket's
+    claims are the orchestration's, not judgements (OW-19)."""
+    gate("delta docket pinned", sha(DOCKET) == DOCKET_PIN, sha(DOCKET)[:16])
+    doc = jload(DOCKET).get("entries") or {}
+    v1 = {}
+    for L, _ in LANES:
+        for i, r in enumerate(((lanes.get(L) or {}).get("final_check") or {}).get("residual") or []):
+            v1["%s%d" % (L, i)] = r
+    gate("docket covers every v1 residual, severities verbatim", set(doc) == set(v1)
+         and all(doc[k].get("v1_severity") == v1[k].get("severity") for k in v1),
+         {"missing": sorted(set(v1) - set(doc))[:4], "extra": sorted(set(doc) - set(v1))[:4]})
+    need = sorted(k for k, r in v1.items() if r.get("severity") in ("high", "medium"))
+    ds = {L: ((delta.get(L) or {}).get("check") or {}).get("docket") or {} for L, _ in DELTA_LANES}
+    judged = ("cured", "partly_cured", "not_cured", "carried")
+    gate("docket: both delta lanes judged every key", all(set(ds[L]) >= set(doc) and all(
+        (ds[L][k] or {}).get("judged") in judged for k in doc) for L in ds), {L: sorted(set(doc) - set(ds[L]))[:4] for L in ds})
+    gate("docket: every v1 high/medium cured in both delta lanes", all(
+        (ds[L].get(k) or {}).get("judged") == "cured" and (ds[L].get(k) or {}).get("severity_now") in ("none", "low")
+        for L in ds for k in need), {L: {k: (ds[L].get(k) or {}).get("judged") for k in need} for L in ds})
+    gate("docket: no key judged high/medium now", not [k for L in ds for k, v in ds[L].items()
+                                                       if (v or {}).get("severity_now") in ("high", "medium")])
+    pcs = [(L, r.get("row_id")) for L, _ in LANES for r in hi_med(((lanes.get(L) or {}).get("postcheck") or {}).get("residual"))]
+    gate("v1 postcheck high/medium residuals are docketed high/medium", all(
+        rid and any(k[0] == L and rid in str(doc.get(k, {}).get("row_or_artifact")) for k in need) for L, rid in pcs), pcs[:4])
+    return doc, ds
+
+
+def disposition_gates(lanes, delta, path):
+    """The Lam stray-gate filter, replaced. Every unmet v1 close-gate entry carries a typed disposition whose text
+    constraint is re-checked here, and both delta lanes accept every one. DEFERRED is never MET (OW-28)."""
+    gate("gate dispositions pinned", sha(path) == DISPOSITIONS_PIN, sha(path)[:16])
+    ent = jload(path).get("entries") or {}
+    v1 = {"%s:%s" % (L, g.get("gate")): g for L, _ in LANES for g in ((lanes.get(L) or {}).get("unmet") or [])}
+    gate("every unmet v1 gate has a disposition, evidence verbatim", set(ent) == set(v1)
+         and all(ent[k].get("v1_evidence") == v1[k].get("evidence") for k in v1),
+         {"missing": sorted(k[:50] for k in set(v1) - set(ent))[:3], "extra": sorted(k[:50] for k in set(ent) - set(v1))[:3]})
+    bad = []
+    for k, d in ent.items():
+        g, e, t, st, cb = k.split(":", 1)[-1].lower(), str(d.get("v1_evidence") or "").lower(), d.get("type"), \
+            str(d.get("state")), d.get("cured_by")
+        ok = {"DEFERRED_OW28_FABLE_END_REVIEW": "fable" in g and "stage-1" not in g and st.startswith("DEFERRED, NOT MET"),
+              "OWED_OW26": any(w in g for w in ("transcript", "stage-1", "stage1", "reconcile"))
+              and st.startswith("OWED, NOT MET"),
+              "OWNER_ACT_OW11": "final-check packet" in g and "owner" in e,
+              "CURED_BY_DELTA_VERDICT": (cb == "assembly_verdict" and "postcheck" in g)
+              or (cb == "verdict" and ("verdict fit_to_close" in g or "no medium/high residual" in g))}.get(t, False)
+        if not ok or (t != "CURED_BY_DELTA_VERDICT" and cb is not None) or " met" in st.lower().replace("not met", ""):
+            bad.append(k[:70])
+    gate("every disposition's type holds by its text (DEFERRED never MET)", not bad, bad[:4])
+    want = {"assembly_verdict": "fit_to_assemble", "verdict": "fit_to_close"}
+    cured = [k for k, d in ent.items() if d.get("type") == "CURED_BY_DELTA_VERDICT"]
+    gate("verdict-cured gates: both delta lanes returned the named verdict", all(
+        ((delta.get(L) or {}).get("check") or {}).get(ent[k].get("cured_by")) == want.get(ent[k].get("cured_by"))
+        for L, _ in DELTA_LANES for k in cured), len(cured))
+    acc = {L: ((delta.get(L) or {}).get("check") or {}).get("gate_dispositions") or {} for L, _ in DELTA_LANES}
+    gate("dispositions: both delta lanes accept every one", all((acc[L].get(k) or {}).get("accept") is True
+                                                                 for L in acc for k in ent),
+         {L: sorted(k[:40] for k in ent if (acc[L].get(k) or {}).get("accept") is not True)[:3] for L in acc})
+    return ent
+
+
+def fable_gates(rows, delta_landing):
+    """OW-28: Fable reviews every book's least-confident rows at the campaign's end. The packet must reproduce, be built
+    over this corpus and THIS delta landing, and hold exactly the low and medium_low rows."""
+    have = FABLE_PACKET.is_file() and FABLE_GEN.is_file()
+    rc, tail = run([str(FABLE_GEN), "--check"]) if have else (1, ["absent"])
+    gate("fable end packet reproduces (--check MATCH)", rc == 0 and tail[-1] == "MATCH", tail)
+    pk = jload(FABLE_PACKET) if have else {}
+    low = sorted(r["decision_id"] for r in rows if r["confidence"] in ("low", "medium_low"))
+    gate("fable end packet over this corpus, rows == low/medium_low", pk.get("corpus_sha256") == CORPUS_PIN
+         and sorted(pk.get("row_ids") or []) == low, {"rows": len(pk.get("row_ids") or []), "want": len(low)})
+    gate("fable end packet carries THIS delta landing", bool(pk) and delta_landing.is_file()
+         and pk.get("delta_landing_sha256") == sha(delta_landing))
+    return pk
+
+
+def target_gates():
+    gate("book_chunks/Ezek/chunks.jsonl absent", not (M8 / "book_chunks" / "Ezek" / "chunks.jsonl").exists())
+    gate("receipts/Ezek_completion.json absent", not (M8 / "receipts" / "Ezek_completion.json").exists())
+    for n in SHARED:
+        gate("%s holds no Ezek row" % n, '"book": "Ezek"' not in (M8 / n).read_text(encoding="utf-8"))
+    prog = (M8 / "marathon_progress.yaml").read_text(encoding="utf-8")
+    gate("marathon_progress anchors", prog.count(PROG_ANCHOR) == 1 and prog.count("books_completed: 25") == 1
+         and "  Ezek:\n" not in prog)
+    man = (M8 / "model_manifest.yaml").read_text(encoding="utf-8")
+    gate("model_manifest anchors", man.count("books_completed: 25") == 1 and man.count("current_book: Ezek") == 1)
+    gate("retention manifest absent", not RETENTION.exists())
+    return prog, man
+
+
+def retention():
+    out = []
+    for p in sorted(EZ.rglob("*")):
+        if p.is_file() and "__pycache__" not in p.parts and p != RETENTION:
+            b = p.read_bytes()
+            out.append({"path": str(p.relative_to(EZ)).replace("\\", "/"), "bytes": len(b), "sha256": shab(b)})
+    return ("".join(json.dumps(o, ensure_ascii=False) + "\n" for o in out)).encode("utf-8"), out
+
+
+def zone_disclosure():
+    moved = [(c, v) for c in sorted(ezek_lib.LAST_VERSE) for v in range(1, ezek_lib.LAST_VERSE[c] + 1)
+             if ezek_lib.web_to_mt(c, v) != (c, v)]
+    return {"web_verses_whose_mt_reference_differs": len(moved),
+            "first": "Ezek.%d.%d" % moved[0] if moved else None, "last": "Ezek.%d.%d" % moved[-1] if moved else None,
+            "zone_chapters": sorted(ezek_lib.ZONE_CHAPTERS), "spans_are_in": "WEB versification",
+            "computed_by": "ezek_lib.web_to_mt at close"}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("usage", nargs="?")
+    ap.add_argument("--dry-report")
+    ap.add_argument("--close", action="store_true")
+    ap.add_argument("--acf", choices=("lam_pattern", "item22"))
+    ap.add_argument("--landing", help="dry-mode test hook: a landing manifest outside the real one")
+    ap.add_argument("--delta-landing", help="dry-mode test hook: a delta landing manifest outside the real one")
+    ap.add_argument("--dispositions", help="dry-mode test hook: a dispositions file outside the real one")
+    a = ap.parse_args()
+    usage = jload(a.usage[1:]) if a.usage and a.usage.startswith("@") else {}
+
+    rows = corpus_gates()
+    delta_man = lineage_gates()
+    side = sidecar_gates(rows)
+    suite, pp, par = evidence_gates()
+    carrier, model, shape = carrier_gates()
+    if a.landing and a.close:
+        raise SystemExit("REFUSED: --landing is a dry-mode test hook; --close reads only " + str(LANDING))
+    landing = Path(a.landing).resolve() if a.landing else LANDING
+    lanes, land = lane_gates(model, carrier.get("fallback_in_force"), landing)
+    if (a.delta_landing or a.dispositions) and a.close:
+        raise SystemExit("REFUSED: --delta-landing and --dispositions are dry-mode test hooks")
+    dlanding = Path(a.delta_landing).resolve() if a.delta_landing else DELTA_LANDING
+    delta, dland = delta_lane_gates(model, carrier.get("fallback_in_force"), dlanding)
+    doc, dsj = docket_gates(lanes, delta)
+    disp = disposition_gates(lanes, delta, Path(a.dispositions).resolve() if a.dispositions else DISPOSITIONS)
+    pk = fable_gates(rows, dlanding)
+    prog, man = target_gates()
+    if a.close:
+        gate("--acf chosen for --close (owner's choice; see docstring)", a.acf is not None, a.acf)
+
+    # --- payloads ---
+    final = []
+    for i, r in enumerate(rows, 1):
+        fr = dict(r)
+        fr["decision_id"] = "M8-Ezek-%03d" % i
+        final.append(fr)
+    payload = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in final).encode("utf-8")
+    by = {s["writer_decision_id"]: s for s in side}
+    lcr, feq, acf_lam = [], [], []
+    for r in final:
+        s = by.get(r["writer_decision_id"])
+        if not s:
+            continue
+        common = {"model_id": "M8_fable", "book": "Ezek", "span": r["span"], "chunk_decision_id": r["decision_id"],
+                  "confidence": r["confidence"], "review_packet_final_state": "accepted_candidate",
+                  "chunk_review_status": "candidate_review_complete", "candidate_hold_state": None,
+                  "non_authorizing": True, "observed_substrate_signals": r["observed_substrate_signals"]}
+        lcr.append({**common, "why_low_confidence": s["why_low_confidence"]})
+        feq.append({**common, "concern_type": s["concern_type"], "why_frontier_review_needed": s["why_frontier_review_needed"]})
+        acf_lam.append({**common, "concern_type": s["concern_type"], "why_low_confidence": s["why_low_confidence"]})
+    acf_item22 = jl(EZ / "deliverables" / "atlas_candidate_feed_rows.jsonl")
+    gate("item-22 rows name only chunks of this book", all(x.get("book") == "Ezek" and x["chunk_decision_id"] in
+                                                            {r["decision_id"] for r in final} for x in acf_item22))
+    acf = {"lam_pattern": acf_lam, "item22": acf_item22}.get(a.acf)
+    by_id = {r["decision_id"]: r for r in final}
+    low_ids = {k for k, r in by_id.items() if r["confidence"] in ("low", "medium_low")}
+
+    def coverage(opt):
+        """The coverage validator's per-book feed rule (its lines 177-194), measured over an option's rows."""
+        ids = [x.get("chunk_decision_id") for x in opt]
+        stale = [x["chunk_decision_id"] for x in opt if x.get("chunk_decision_id") in low_ids and any(
+            x.get(f) != by_id[x["chunk_decision_id"]].get(g) for f, g in (
+                ("span", "span"), ("confidence", "confidence"), ("chunk_review_status", "review_status"),
+                ("candidate_hold_state", "candidate_hold_state"))) or x.get("review_packet_final_state") != (
+            "accepted_candidate" if by_id[x["chunk_decision_id"]].get("candidate_hold_state") is None
+            else "held_lower_confidence")]
+        return {"duplicates": len(ids) - len(set(ids)), "missing": sorted(low_ids - set(ids)),
+                "orphan": sorted(set(ids) - low_ids), "stale": sorted(stale)}
+    cov = {"lam_pattern": coverage(acf_lam), "item22": coverage(acf_item22)}
+    cov_ok = lambda c: not (c["duplicates"] or c["missing"] or c["orphan"] or c["stale"])      # noqa: E731
+    if a.acf:
+        gate("atlas feed option %s meets the coverage validator's per-book rule" % a.acf, cov_ok(cov[a.acf]),
+             {k: (v if isinstance(v, int) else v[:4]) for k, v in cov[a.acf].items()})
+    shapes = collections.defaultdict(set)
+    for x in jl(M8 / "atlas_candidate_feed.jsonl"):
+        shapes["%d_fields" % len(x)].add(x.get("book"))
+    ret_bytes, ret = retention()
+
+    fcs = {L: v for L, v in lanes.items() if v}
+    conf = collections.Counter(r["confidence"] for r in final)
+    ut = collections.Counter(r["unit_type"] for r in final)
+    dump = lambda objs: "".join(json.dumps(o, ensure_ascii=False) + "\n" for o in objs).encode("utf-8")
+    receipt = {
+        "book": "Ezek", "model_id": "M8_fable",
+        "mesh_revision": "m8-mesh-r3 + OW-1..OW-28 as ruled; grader fallback OW-25; merged-verdict close OW-26; "
+                         "v9 fix round with Fable deferred to the campaign-end review OW-28",
+        "rows": len(final), "chunks": len(final), "parents": sorted({r["parent_collection"] for r in final}),
+        "verses_covered": ezek_lib.TOTAL_VERSES, "chunk_file_sha256": shab(payload),
+        "final_corpus": CORPUS, "final_corpus_sha256": CORPUS_PIN,
+        "corpus_lineage_sha256": {"repair/rows_v7_cwo24.jsonl (pre-finalize)": sha(PRE_FINAL),
+                                  BASE + " (v1 merged-close base)": sha(EZ / BASE),
+                                  DELTA_MANIFEST.name + " (v8 -> v9)": sha(DELTA_MANIFEST), CORPUS: sha(EZ / CORPUS)},
+        "confidence_final": dict(conf.most_common()), "unit_type_distribution": dict(ut.most_common()),
+        "numbering_disclosure": zone_disclosure(),
+        "grader_fallback": {"model": carrier["declared_fallback_model"], "replaces": carrier["ow13_grader_model"],
+                            "statement": carrier["downgrade_statement"], "carrier": "sp_durable/campaign/" + CARRIER.name,
+                            "carrier_sha256": sha(CARRIER)},
+        "ow26_merged_verdict_close": {"directive": shape.get("directive"), "shape": shape.get("shape"),
+                                      "weakness_statement": shape.get("weakness_statement"),
+                                      "transcript_audit": "OWED, NOT MET"},
+        "transcript_audit": "OWED, NOT MET",
+        "fable_end_review": {"status": "DEFERRED (OW-28)", "reviewer": "claude-fable-5-1, at the campaign's end",
+                             "packet": "sp_durable/Ezek/fable_end_review/" + FABLE_PACKET.name,
+                             "packet_sha256": sha(FABLE_PACKET) if FABLE_PACKET.is_file() else None,
+                             "rows": pk.get("row_ids"),
+                             "deferred_gate_keys": sorted(k for k, d in disp.items()
+                                                          if d.get("type") == "DEFERRED_OW28_FABLE_END_REVIEW")},
+        "v1_unmet_gate_dispositions": {"file": "sp_durable/Ezek/repair2/fixround_v9/" + DISPOSITIONS.name,
+                                       "sha256": sha(DISPOSITIONS),
+                                       "by_type": dict(collections.Counter(d.get("type") for d in disp.values()))},
+        "delta_docket": {"file": "sp_durable/Ezek/repair2/fixround_v9/" + DOCKET.name, "sha256": sha(DOCKET),
+                         "v1_high_medium_keys": sorted(k for k, v in doc.items() if v.get("v1_severity") in ("high", "medium")),
+                         "judged": {L: dict(collections.Counter((v or {}).get("judged") for v in dsj[L].values()))
+                                    for L in dsj}},
+        "campaign_close_gate_evidence": {
+            "item5_cwo_execution_parity": {"record": "sp_durable/Ezek/cwo/" + pp.name, "sha256": sha(pp),
+                                           "corpus_reconciled": par.get("post_corpus_sha256"), "status": par.get("status"),
+                                           "exact_arm_residual": par.get("exact_arm_residual"),
+                                           "routed_open": par.get("routed_open")},
+            "item5_hebrew_quote_bytes_and_tier_labels": {k: (suite.get("citation_sweep") or {}).get(k) for k in
+                                                          ("status", "nfd_degraded_count", "rows")},
+            "item5_web_quote_gloss_fidelity": {k: (suite.get("web_quotes") or {}).get(k) for k in ("status", "flag_count")},
+            "item5_unicode_normalization": {k: suite["hebrew_normalize_dryrun"].get(k) for k in ("ok", "fixed", "defect_count")},
+            "item5_suite_report_sha256": sha(EZ / (CORPUS + ".validator_report.json")),
+            "item5_review_packet_retention": {"manifest": "sp_durable/Ezek/" + RETENTION.name, "files": len(ret),
+                                              "bytes": sum(o["bytes"] for o in ret), "manifest_sha256": shab(ret_bytes)},
+            "item5_final_review_status": {"candidate_review_complete": sum(1 for r in final if r["review_status"] == "candidate_review_complete"),
+                                          "draft": sum(1 for r in final if r["review_status"] == "draft")},
+            "item10_ow6_final_check_merged": {
+                "landing_manifest": "sp_durable/Ezek/merged_close/" + LANDING.name,
+                "landing_manifest_sha256": sha(landing) if landing.is_file() else None,
+                "lanes": {L: {"attempt_id": v["attempt_id"], "files": v["files"], "model": v["final_check"].get("model"),
+                              "postcheck_verdict": v["postcheck"].get("verdict"), "final_check_verdict": v["final_check"].get("verdict"),
+                              "corpus_sha256_audited": v["final_check"].get("corpus_sha256"),
+                              "transcript_coverage": v["final_check"].get("transcript_coverage"),
+                              "items_20_23": {i: (v["items"].get(i) or {}).get("fit_to_accept") for i in
+                                              ("item_20", "item_21", "item_22", "item_23")}} for L, v in fcs.items()},
+                "authority": "OW-6 as amended for Ezekiel by OW-25 (declared fallback grader) and OW-26 (merged-verdict "
+                             "close; stage-1 transcript audit OWED, NOT MET). Both lanes reviewed the base, rows_v8_final, "
+                             "and returned not_fit; their residuals are docketed and judged by item10_delta_v9 (OW-28)"},
+            "item10_delta_v9": {
+                "landing_manifest": "sp_durable/Ezek/merged_close/delta_v9/" + DELTA_LANDING.name,
+                "landing_manifest_sha256": sha(dlanding) if dlanding.is_file() else None,
+                "lanes": {L: {"attempt_id": v["attempt_id"], "files": v["files"], "model": v["check"].get("model"),
+                              "assembly_verdict": v["check"].get("assembly_verdict"), "verdict": v["check"].get("verdict"),
+                              "corpus_sha256_audited": v["check"].get("corpus_sha256"),
+                              "items_22_23": {i: ((v["check"].get("items") or {}).get(i) or {}).get("fit_to_accept")
+                                              for i in ("item_22", "item_23")}} for L, v in delta.items() if v},
+                "authority": "OW-28 fix round: two blind delta lanes over rows_v9_final. The v1 lanes' full-book review "
+                             "stands for every row the manifest proves byte-identical"},
+        },
+        "shared_feed_rows": {"low_confidence_register": len(lcr), "frontier_escalation_queue": len(feq),
+                             "atlas_candidate_feed": {"source": a.acf, "rows": len(acf) if acf is not None else None}},
+        "full_mesh_disclosure": "Anthropic-family mesh. From OW-25 (2026-09-22) every role, graders included, ran on "
+                                "claude-opus-5-5; author and grader share one set of weights. Intra-mesh agreement is "
+                                "corroboration, never cross-provider evidence.",
+        "usage_measured_subagent_tokens": usage.get("tokens", {}),
+        "non_authorizing": True,
+    }
+    # OW-25: the receipt must carry the carrier's statement byte-for-byte; OW-26: and the weakness beside it
+    gate("receipt carries the carrier's downgrade statement", receipt["grader_fallback"]["statement"] == carrier["downgrade_statement"]
+         and shab(receipt["grader_fallback"]["statement"].encode("utf-8")) == carrier["downgrade_statement_sha256"])
+    gate("receipt carries the OW-26 weakness statement", receipt["ow26_merged_verdict_close"]["weakness_statement"] ==
+         (carrier.get("book_close_shapes", {}).get("Ezek") or {}).get("weakness_statement"))
+    rec_bytes = json.dumps(receipt, ensure_ascii=False, indent=1).encode("utf-8")
+    new_prog = prog.replace(PROG_ANCHOR, "  Lam:\n    status: complete\n  Ezek:\n    status: complete\ncurrent_book: %s" % NEXT_BOOK)
+    new_prog = new_prog.replace("books_completed: 25", "books_completed: 26")
+    new_man = man.replace("books_completed: 25", "books_completed: 26").replace("current_book: Ezek", "current_book: %s" % NEXT_BOOK)
+
+    writes = {"book_chunks/Ezek/chunks.jsonl": payload, "sp_durable/Ezek/" + RETENTION.name: ret_bytes,
+              "receipts/Ezek_completion.json": rec_bytes,
+              "APPEND low_confidence_register.jsonl": dump(lcr), "APPEND frontier_escalation_queue.jsonl": dump(feq),
+              "APPEND whole_bible_chunk_map.jsonl": payload,
+              "EDIT marathon_progress.yaml": new_prog.encode("utf-8"), "EDIT model_manifest.yaml": new_man.encode("utf-8")}
+    if acf is not None:
+        writes["APPEND atlas_candidate_feed.jsonl"] = dump(acf)
+    unmet = [g for g in GATES if not g["met"]]
+    report = {"mode": "CLOSE" if a.close else "DRY", "gates_total": len(GATES), "gates_unmet": len(unmet),
+              "unmet": unmet, "would_write": {k: {"bytes": len(v), "sha256": shab(v)} for k, v in writes.items()},
+              "acf_options": {"lam_pattern": len(acf_lam), "item22": len(acf_item22),
+                              "item22_confidence": dict(collections.Counter(x.get("confidence") for x in acf_item22)),
+                              "fields": {"lam_pattern": len(acf_lam[0]) if acf_lam else 0,
+                                         "item22": len(acf_item22[0]) if acf_item22 else 0},
+                              "coverage": {k: {"meets_rule": cov_ok(v), **{f: (x if isinstance(x, int) else len(x))
+                                                                         for f, x in v.items()}} for k, v in cov.items()},
+                              "coverage_detail": {k: {f: x for f, x in v.items() if not isinstance(x, int)}
+                                                  for k, v in cov.items()},
+                              "shared_feed_shapes_by_book": {k: sorted(v) for k, v in sorted(shapes.items())}},
+              "grader_model_from_carrier": model}
+
+    if a.dry_report:
+        d = Path(a.dry_report).resolve()
+        if d == M8 or M8 in d.parents:
+            raise SystemExit("REFUSED: --dry-report is inside the M8 tree")
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "Ezek_completion.preview.json").write_bytes(rec_bytes)
+        (d / "gates.json").write_text(json.dumps(GATES, ensure_ascii=False, indent=1), encoding="utf-8")
+        (d / "ezek_retention_manifest.preview.jsonl").write_bytes(ret_bytes)
+        report["dry_report_dir"] = str(d)
+    if not a.close:
+        print(json.dumps(report, ensure_ascii=False, indent=1))
+        return
+    if unmet:
+        print(json.dumps(report, ensure_ascii=False, indent=1))
+        raise SystemExit("REFUSED: %d gate(s) unmet; nothing written" % len(unmet))
+
+    # --- CLOSE: the owner's act (OW-11 / OW-25). Every target was proven absent or anchored above. ---
+    out = M8 / "book_chunks" / "Ezek"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "chunks.jsonl").write_bytes(payload)
+    RETENTION.write_bytes(ret_bytes)
+    for name, b in (("low_confidence_register.jsonl", dump(lcr)), ("frontier_escalation_queue.jsonl", dump(feq)),
+                    ("atlas_candidate_feed.jsonl", dump(acf)), ("whole_bible_chunk_map.jsonl", payload)):
+        with (M8 / name).open("ab") as fh:
+            fh.write(b)
+    (M8 / "receipts" / "Ezek_completion.json").write_bytes(rec_bytes)
+    (M8 / "marathon_progress.yaml").write_bytes(new_prog.encode("utf-8"))
+    (M8 / "model_manifest.yaml").write_bytes(new_man.encode("utf-8"))
+    back = (M8 / "marathon_progress.yaml").read_text(encoding="utf-8")
+    assert "books_completed: 26" in back and "  Ezek:\n    status: complete\ncurrent_book: %s" % NEXT_BOOK in back
+    assert sha(out / "chunks.jsonl") == shab(payload) and sha(M8 / "receipts" / "Ezek_completion.json") == shab(rec_bytes)
+    print(json.dumps({"status": "CLOSED", "chunks": len(final), "receipt_sha256": shab(rec_bytes),
+                      "progress": "Ezek complete -> %s (26/66)" % NEXT_BOOK, "acf": a.acf}, indent=1))
+
+
+if __name__ == "__main__":
+    main()

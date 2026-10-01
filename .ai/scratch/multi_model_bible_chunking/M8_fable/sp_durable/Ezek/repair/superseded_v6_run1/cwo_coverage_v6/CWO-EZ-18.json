@@ -1,0 +1,76 @@
+{
+ "schema": "m8_cwo_coverage.v1",
+ "book": "Ezek",
+ "cwo": "CWO-EZ-18",
+ "ordered_by": "ezek_controlling_rulings_a1#e4 corpus_wide_orders, as amended by #e6",
+ "narrowed_predicate_label": "every curly-double-quoted span in any string field of a row (the prose fields boundary_rationale, device_notes and strongest_rejected_alternative; each boundary_evidence_refs entry as its own field; literature_type_guess; any other string field the tool reads) that check_web_quotes classes 'curly quote with NO web: ref in its field' on the chain head 324d2358 (148 spans on 39 rows: prose 118, boundary_evidence_refs 28, literature_type_guess 2; S1's count was 134 spans across 40 rows in a prose field); all parts.",
+ "order": "Curly-double-quoted spans that are not WEB text, in every string field check_web_quotes reads: (i) the orchestrator's deterministic sweep, run over the chain head after CWO-EZ-13 (rows_v3_cwo13.jsonl, sha256 324d23589924e405c09c3aeaf178867449ba33fa949cefa63258ff3250288f27) and before the fix-up orders are built, tests each such span with ezek_lib.web_quote_found against the whole WEB text (Ezek_web_clean.txt, all 1,273 verses); a span found nowhere in the WEB under the exact matcher AND nowhere under the folded matcher (norm_english, lowercase, non-alphanumerics to space, whitespace collapsed, substring of the folded book) is a gloss and its U+201C/U+201D pair is replaced by ASCII single quotes (or by U+2018/U+2019 when the span itself contains an ASCII apostrophe), with old and new bytes per change in the manifest; a span of three words or fewer found verbatim, case-exact, in two or more WEB verses is a short common label and converts the same way, recorded under its own class with its per-verse count and listed to its part's FIXUP-1 author as an informational item; (ii) a span found verbatim in the WEB and not a label, and a span found only under the folded matcher (a WEB quotation carried inexactly), are WEB quotations lacking their ref and become items for the part's FIXUP-1 author under this id (restore the WEB bytes verbatim and add the inline web: ref - inside a boundary_evidence_refs entry, inside that entry's own parenthetical - or drop the curly form for single quotes; in literature_type_guess, single quotes). The manifest asserts that every touched boundary_evidence_refs entry still matches the strict R1 shape, that no field outside the in-scope set changed, that each changed field differs from its input only at the replaced quote characters, that citation_sweep's problems and check_marks' flags are unchanged, and suite parity with the universals, register and (if moved at a converted refs entry) refs_mirror accounting. Coverage: check_web_quotes' class 'curly quote with NO web: ref in its field' reads 0 over the applied rows across all fields, recorded as CWO-EZ-18.json with the sweep manifest and the carrying execution ids.",
+ "executed_as": "its own post-FIXUP-3 coverage sweep (E-18); its author items were routed into the per-part FIXUP-3 executions stamped with this id (#e9 S2-ROUTING (3))",
+ "rows_file": {
+  "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\suite_v6_6c843b14\\rows.jsonl",
+  "sha256": "89d538baa116fdafca4456b7c147545448d1a6ca362a6bea4581b30d16c73793",
+  "rows": 145
+ },
+ "suite_report": {
+  "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\suite_v6_6c843b14\\rows.jsonl.validator_report.json",
+  "sha256": "1fa0723cdf66463f4b6572b492f7d4a9f04a63af2ba159d2de4dbba3ed650a16"
+ },
+ "suite_members_at_toolfix2_install_digest": {
+  "tools/citation_sweep.py": "6c843b14a604ec0cdb4ee52043cdd5ae30d6735b0a7d66d72ff28d9f00a39054",
+  "tools/check_register.py": "57c205b4b84ebd07031429d29b338b22ef768f3d7d05311dea9f097d304d9094",
+  "tools/check_web_quotes.py": "656dfa0d4c493f2d7ad6f314e725df3d87247899af0735f1ce85e62b4c8c7d1f",
+  "tools/normalize_hebrew_in_json.py": "c23e837638edc891712efefe2e5ab3aae21bf87c2c602fb769bb23ecda1d73e9",
+  "tools/ezek_lib.py": "ab2431fecebee9c8f1e673aa70a8aac83d69f647b2fa76102efb5aa81904ef69"
+ },
+ "suite_member_install_sources": {
+  "tools/citation_sweep.py": "TOOLFIX-2 (ezek_tools_install_toolfix2_batch3.json)",
+  "tools/check_register.py": "TOOLFIX-5 (ezek_tools_install_toolfix5_batch1.json)",
+  "tools/check_web_quotes.py": "TOOLFIX-5 (ezek_tools_install_toolfix5_batch1.json)",
+  "tools/normalize_hebrew_in_json.py": "TOOLFIX-2 (ezek_tools_install_toolfix2_batch3.json)",
+  "tools/ezek_lib.py": "TOOLFIX-2 (ezek_tools_install_toolfix2_batch3.json)"
+ },
+ "orders_index": {
+  "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup3\\orders_index.json",
+  "sha256": "df96e24610a9e983d31d19700480fcc63862056c1e0e240d530ed0c5035e97da",
+  "built_on": {
+   "path": "Ezek/repair/rows_v5_cwo23.jsonl",
+   "sha256": "3f0c7aee0fc68e767c5de5ff6b65fbcd00a1837d504066897fde845579e5c5c6"
+  }
+ },
+ "author_items_routed": 0,
+ "carried_by_executions": [],
+ "residual_count": 0,
+ "residual": [],
+ "verdict": "COVERED",
+ "amends": "ezek_controlling_rulings_a1#e4 corpus_wide_orders CWO-EZ-18; the sweep reads both texts and carries both verbatim in its manifest",
+ "e4_order_verbatim": "Curly-double-quoted spans that are not WEB text: (i) the orchestrator's deterministic sweep, run over the chain head after CWO-EZ-13 and before the fix-up orders are built, tests each such span with ezek_lib.web_quote_found against the whole WEB text (Ezek_web_clean.txt, all 1,273 verses); a span found nowhere in the WEB is a gloss and its U+201C/U+201D pair is replaced by ASCII single quotes (or by U+2018/U+2019 when the span itself contains an ASCII apostrophe), with old and new bytes per change in the manifest; (ii) a span found verbatim in the WEB is a WEB quotation lacking its ref and becomes an item for its part's FIXUP-1 author under this id (add the inline web: ref, or drop the quotation). Coverage: check_web_quotes' class 'curly quote with NO web: ref in its field' reads 0 over the applied rows, recorded as CWO-EZ-18.json with the sweep manifest and the carrying execution ids.",
+ "e4_predicate_verbatim": "every curly-double-quoted span in a prose field that check_web_quotes classes 'curly quote with NO web: ref in its field' on the chain head (S1's count: 134 spans across 40 rows in p02, p08, p09 and others); all parts.",
+ "sweep_manifests": [
+  {
+   "cwo": "CWO-EZ-13",
+   "path": "Ezek/repair/rows_v3_cwo13.manifest.json",
+   "sha256": "34905150dbb6ce12e8f666fea19a68eb5ac0724aaee90cc434001c2eea57d942"
+  },
+  {
+   "cwo": "CWO-EZ-18",
+   "path": "Ezek/repair/rows_v3_cwo18.manifest.json",
+   "sha256": "501b1f040397d5c9235898690ff49652d65ff9cfc5d1ddf617f8ff8539126280"
+  }
+ ],
+ "e7_final_check": {
+  "ordered_by": "ezek_controlling_rulings_a1#e7 ruling CWO18-R1-1",
+  "order_verbatim": "In the CWO-EZ-18 manifest: the R1 block reports exactly one entry outside the strict shape, at P08-013 [105].boundary_evidence_refs[1] with the pinned bytes, r1_before false and r1_after false, every other touched entry true/true, and no 'not touched' wording for it; the second dry-run report differs from a2850ee2 only at the keys decision (5) names. After FIXUP-1: check_web_quotes' class reads 0 on P08-013 across all fields; if the author reshaped the entry, citation_sweep reads 0 ref-grammar problems on the row; otherwise CWO-EZ-01's triage flag still names the same entry.",
+  "row": "P08-013",
+  "entry": "[105].boundary_evidence_refs[1]",
+  "entry_before_fixup1": "oshb:Ezek.36.26 'a new heart' — contrasted, single-witness, with oshb:Ezek.11.19 “one heart” (web:Ezek.11.19, same witness); both spliced verbatim",
+  "entry_after_fixup1": "oshb:Ezek.36.26 'a new heart' — contrasted, single-witness, with oshb:Ezek.11.19 “one heart” (web:Ezek.11.19, same witness); both spliced verbatim",
+  "no_ref_class_on_row_all_fields": 0,
+  "reshaped_to_strict_r1_shape": false,
+  "cwo01_report": {
+   "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\cwo_coverage_v6\\CWO-EZ-01.json",
+   "sha256": "ee8de21fdcf2b6cb2c4654fd6d42df25d2bcce67ed979a3af7c8e63d682437cf"
+  },
+  "cwo01_triage_names_same_entry": true,
+  "satisfied": true
+ }
+}

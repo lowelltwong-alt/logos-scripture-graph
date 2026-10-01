@@ -1,0 +1,105 @@
+{
+ "schema": "m8_residual_gram_families.v1",
+ "book": "Ezek",
+ "built": "2026-09-14T16:45:03.746503+00:00",
+ "built_by": "orchestrator (claude-opus-5), session 910cbe15, reproducing ngram7.main's pipeline line for line. Raised by session 6116e665 (a second session resuming the same campaign), then re-derived here before it was used: the row sets agree exactly.",
+ "corpus": {
+  "path": "Ezek/repair/rows_v6_fixup3.jsonl",
+  "sha256": "dbc44b8ab409ac094c5f0fb8f374096f67b08005df2b7373594af29972f7e20c",
+  "rows": 145
+ },
+ "tool": {
+  "path": "Ezek/tools/ngram7.py",
+  "sha256": "fe25efc22a0b01b099a8066b97a377ae125df349439d348074cb4fc5b04d271c",
+  "gate": 10
+ },
+ "alert_threshold": 9,
+ "pipeline_reproduced": "prose(row) -> HEB_RUN stripped -> curly-quoted spans stripped -> REF_TOKENS stripped -> norm_english -> lowercased -> [a-z]+ tokens -> 7-grams -> WEB 7-grams excluded",
+ "grams_at_or_above_the_alert": 5,
+ "independent_families": 3,
+ "families": [
+  {
+   "id": "GRAM-EZ-01",
+   "rows_in_corpus": 9,
+   "headroom_against_the_gate": 0,
+   "grams": [
+    "a samekh recorded on this same verse",
+    "by a samekh recorded on this same",
+    "matched by a samekh recorded on this"
+   ],
+   "row_ids": [
+    "P03-007",
+    "P03-008",
+    "P03-009",
+    "P03-011",
+    "P03-012",
+    "P03-014",
+    "P03-016",
+    "P03-017",
+    "P03-018"
+   ],
+   "parts": [
+    "P03"
+   ],
+   "named_by_a_finding": "S4-11"
+  },
+  {
+   "id": "GRAM-EZ-02",
+   "rows_in_corpus": 9,
+   "headroom_against_the_gate": 0,
+   "grams": [
+    "no k q or paseq falls in"
+   ],
+   "row_ids": [
+    "P02-008",
+    "P02-009",
+    "P02-010",
+    "P02-011",
+    "P02-013",
+    "P02-015",
+    "P02-016",
+    "P07-003",
+    "P07-007"
+   ],
+   "parts": [
+    "P02",
+    "P07"
+   ],
+   "named_by_a_finding": null
+  },
+  {
+   "id": "GRAM-EZ-03",
+   "rows_in_corpus": 9,
+   "headroom_against_the_gate": 0,
+   "grams": [
+    "opens with the strict word event formula"
+   ],
+   "row_ids": [
+    "P03-001",
+    "P03-010",
+    "P03-014",
+    "P06-009",
+    "P06-010",
+    "P06-011",
+    "P06-012",
+    "P07-004",
+    "P09-001"
+   ],
+   "parts": [
+    "P03",
+    "P06",
+    "P07",
+    "P09"
+   ],
+   "named_by_a_finding": "S4-11"
+  }
+ ],
+ "the_correction": {
+  "what_S4_11_says": "two seven-word families stand at 9 rows against the gate of 10",
+  "what_the_tool_says": "five grams at 9 rows, collapsing to three independent families by row set. The tool's own worst_reuse output is capped at five entries, which is why a reader taking the first two families from it and stopping would miss the third.",
+  "the_family_no_finding_names": "no k q or paseq falls in",
+  "whose_error": "the orchestrator's. S4 reported what it found; the orchestrator carried S4's count of two into the #e11 queue's S4-GRAMS item without re-deriving it from the tool, and the recorded shapes file residual_shapes_v6.json carries only the two p03-side families as well.",
+  "why_it_matters": "headroom is 0 on all three. One more row carrying ANY of them turns the HARD ngram7 gate RED. The primaries write prose over 145 rows and an author wave rewrites row prose after them. A do-not-reuse order naming only two families leaves the third unguarded, and its shape - a clause reporting that a seam carries no K/Q and no paseq - is exactly what a reviewer writes about a clean seam, so its reuse risk is higher than the other two, not lower."
+ },
+ "limit": "a measurement. It orders nothing; the controlling agent rules what the briefs must carry."
+}

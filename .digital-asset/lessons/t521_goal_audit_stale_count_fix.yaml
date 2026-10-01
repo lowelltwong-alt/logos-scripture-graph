@@ -1,0 +1,22 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-GOAL-AUDIT-STALE-COUNT-FIX
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  The goal-requirements audit had hard-coded old refinement/scaffold counts and
+  underreported current progress. It now reads those values from the current
+  fidelity-readiness report, preventing stale governance evidence after map waves.
+evidence:
+  script: scripts/audit_t521_goal_requirements.py
+  readiness_source: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/fidelity_readiness_report.json
+  corrected_detail: "1078 refined rows; 359 explicit scaffold rows remain for external review."
+  independent_external_receipt: false
+constraints:
+  - dynamic counts improve reporting but do not prove literary quality
+  - external provider/human review remains required
+  - candidate_only and non_authorizing remain mandatory

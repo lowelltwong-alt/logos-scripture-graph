@@ -1,0 +1,29 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-TITLE-NORMALIZATION-REFRESH
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Generic chapter-frame labels reduce reviewability even when the underlying
+  rationale is present. Normalize only from existing rationale or structural
+  unit metadata, then refresh the external request hash and rerun all gates.
+evidence:
+  script: scripts/normalize_m7_sol_candidate_titles.py
+  map_sha256: sha256:8249fb34d94dc8d00bea434f0dfee937cda55331d1aacd262a9bd53d8bcdb16c
+  rows: 1170
+  titles_normalized: 509
+  external_request: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/external_convergence_request.json
+  packet_convergence: passed
+  exact_coverage: passed
+  scaffold_audit: 30_books; 509_fallback_marked_records
+constraints:
+  - no spans or indices changed
+  - no source or theological claims added
+  - working_title_is_boundary_authority=false
+  - external independence remains awaiting external provider or human receipt
+candidate_only: true
+non_authorizing: true

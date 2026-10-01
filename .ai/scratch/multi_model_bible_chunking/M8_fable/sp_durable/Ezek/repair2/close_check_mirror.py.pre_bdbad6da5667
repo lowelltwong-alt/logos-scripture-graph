@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""Re-run a close-gate checker that WRITES its record, inside a mirror under --dest, so nothing pinned is rewritten.
+
+WHY. Four checkers write their record beside their own inputs:
+  check_scholar_record.py writes scholar_record_check.v2.json
+  check_method_record.py writes method_record_check.v6.json
+  check_atlas_rows.py writes atlas_rows_check.v1.json
+  run_validator_suite.py writes <rows>.validator_report.json
+Run in place, a checker lane would overwrite a pinned input (E-41, E-44), and two lanes would race on the same file.
+This tool copies each checker and the inputs it resolves relative to itself into a mirror under --dest, runs it there,
+and compares the record it produced with the shipped one. Inputs a checker reads by ABSOLUTE path (the scholar record
+tools read `Ezek/author/final` and `Ezek/cure_runs`) are read from the real tree; they are only read.
+
+usage: close_check_mirror.py --dest <your own directory> --check {scholar,method,atlas,suite} [--selftest]
+       --selftest passes --selftest to the checker too (method and atlas only)
+AMENDED 2026-09-23 (v9 fix round): the atlas and suite plans now carry rows_v9_final.jsonl, because the atlas
+checker reads it and it is the corpus the close tool pins. The earlier tool is kept as .pre_<sha12>.
+Prints one JSON object: exit code, the checker's last stdout lines, the produced and shipped record sha256, whether the
+bytes are equal, and, if not, the top-level and per-check keys that differ. Writes only under --dest.
+"""
+import argparse
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+M8 = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable")
+EZ = M8 / "sp_durable" / "Ezek"
+
+# name: (files to copy as (source, path inside the mirror), command inside the mirror, produced record, shipped record)
+PLANS = {
+    "scholar": ([(EZ / "scholar_record" / f, "scholar_record/" + f) for f in
+                 ("check_scholar_record.py", "gen_scholar_record.py", "EZEKIEL_SCHOLAR_RECORD.v2.md")],
+                ["scholar_record/check_scholar_record.py"], "scholar_record/scholar_record_check.v2.json",
+                EZ / "scholar_record" / "scholar_record_check.v2.json"),
+    "method": ([(M8 / f, "M8/" + f) for f in
+                ("check_method_record.py", "gen_method_v6.py")
+                + tuple("BIBLE_CHUNKING_METHOD.v%d.md" % v for v in range(1, 7))],
+               ["M8/check_method_record.py", "M8/BIBLE_CHUNKING_METHOD.v6.md"], "M8/method_record_check.v6.json",
+               M8 / "method_record_check.v6.json"),
+    "atlas": ([(EZ / "deliverables" / f, "M8/sp_durable/Ezek/deliverables/" + f) for f in
+               ("check_atlas_rows.py", "gen_atlas_rows.py", "atlas_candidate_feed_rows.jsonl",
+                "Ezek_atlas_dimensions.v1.jsonl", "README.md")]
+              + [(EZ / "rows_v9_final.jsonl", "M8/sp_durable/Ezek/rows_v9_final.jsonl"),
+                 (EZ / "author" / "final", "M8/sp_durable/Ezek/author/final"),
+                 (M8 / "atlas_candidate_feed.jsonl", "M8/atlas_candidate_feed.jsonl")],
+              ["M8/sp_durable/Ezek/deliverables/check_atlas_rows.py"],
+              "M8/sp_durable/Ezek/deliverables/atlas_rows_check.v1.json",
+              EZ / "deliverables" / "atlas_rows_check.v1.json"),
+    "suite": ([(EZ / "rows_v9_final.jsonl", "suite/rows_v9_final.jsonl")],
+              [str(EZ / "tools" / "run_validator_suite.py"), "suite/rows_v9_final.jsonl"],
+              "suite/rows_v9_final.jsonl.validator_report.json", EZ / "rows_v9_final.jsonl.validator_report.json"),
+}
+
+
+def sha(p):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest() if Path(p).is_file() else None
+
+
+def differing(a, b):
+    try:
+        x, y = json.loads(Path(a).read_text(encoding="utf-8-sig")), json.loads(Path(b).read_text(encoding="utf-8-sig"))
+    except Exception as e:  # not JSON, or missing
+        return {"unparsed": str(e)[:120]}
+    out = {"top_level": sorted(k for k in set(x) | set(y) if x.get(k) != y.get(k))}
+    for k in out["top_level"]:
+        if isinstance(x.get(k), dict) and isinstance(y.get(k), dict):
+            out[k] = sorted(s for s in set(x[k]) | set(y[k]) if x[k].get(s) != y[k].get(s))[:20]
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dest", required=True)
+    ap.add_argument("--check", required=True, choices=sorted(PLANS))
+    ap.add_argument("--selftest", action="store_true")
+    a = ap.parse_args()
+    dest = Path(a.dest).resolve()
+    if dest == M8 or M8 in dest.parents:
+        raise SystemExit("REFUSED: --dest is inside the M8 tree; the mirror must live in your own directory")
+    root = dest / ("mirror_" + a.check)
+    if root.exists():
+        shutil.rmtree(root)  # only ever a mirror this tool made under --dest
+    copies, cmd, produced, shipped = PLANS[a.check]
+    for src, rel in copies:
+        t = root / rel
+        t.parent.mkdir(parents=True, exist_ok=True)
+        (shutil.copytree if src.is_dir() else shutil.copy2)(src, t)
+    argv = [sys.executable, "-B"] + [c if Path(c).is_absolute() else str(root / c) for c in cmd]
+    if a.selftest:
+        argv.append("--selftest")
+    p = subprocess.run(argv, capture_output=True, text=True, encoding="utf-8", errors="replace", cwd=str(root),
+                       env={**__import__("os").environ, "PYTHONUTF8": "1"})
+    got = root / produced
+    res = {"check": a.check, "mirror": str(root), "argv_tail": [Path(x).name for x in argv[2:]], "exit": p.returncode,
+           "stdout_tail": (p.stdout or "").strip().splitlines()[-4:], "stderr_tail": (p.stderr or "").strip().splitlines()[-3:],
+           "produced_record": str(got), "produced_sha256": sha(got), "shipped_record_sha256": sha(shipped)}
+    res["bytes_equal_to_shipped"] = res["produced_sha256"] is not None and res["produced_sha256"] == res["shipped_record_sha256"]
+    if res["produced_sha256"] and not res["bytes_equal_to_shipped"]:
+        res["differs_from_shipped"] = differing(got, shipped)
+    print(json.dumps(res, ensure_ascii=False, indent=1))
+
+
+if __name__ == "__main__":
+    main()

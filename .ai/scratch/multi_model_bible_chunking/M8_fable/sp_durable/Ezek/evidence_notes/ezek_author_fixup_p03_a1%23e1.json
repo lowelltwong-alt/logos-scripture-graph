@@ -1,0 +1,305 @@
+{
+ "attempt_id": "ezek_author_fixup_p03_a1",
+ "execution_id": "ezek_author_fixup_p03_a1#e1",
+ "sources": [
+  "SP\\Ezek\\FIXUP_BRIEF.md (sha256 1823b2852887c889ac67050c6845a643b39dbc10b7c8f3cc4d4aaa8d7c82856a, matched at read)",
+  "SP\\Ezek\\fixup1\\orders_ezek_author_fixup_p03_a1.json (sha256 33c257a48902dc0a71910771907be9b0b2a25ff510aa96c2770f1e00f0925b46, matched at read)",
+  "SP\\Ezek\\ezek_controlling_agent_rulings.v1.json (sha256 d9c54100570edca3e84694703ad294e92c068788eae614e0fb38184168c80d1e, matched pinned table; rulings R1, R2, P2, P4, P5, G12 read in full)",
+  "SP\\Ezek\\pmarks_Ezek.json (sha256 25956c0d5180fd661b0843cbee640cb6f53b55e96df5f80f84a4ca78e57e2315, matched pinned table)",
+  "SP\\Ezek\\Ezek_oshb.txt (sha256 337c779b75cad384f1f9c8d37e3f81999b021639cd3afa1a26519ae7438c329e, matched pinned table)",
+  "SP\\Ezek\\Ezek_web_clean.txt (sha256 a7e59bcbcd19607485cfb6c6c1f8f831eb63fd2a81d164ce8e25fcb1a7a2088a, matched pinned table)",
+  "SP\\Ezek\\tools\\ezek_lib.py (library: kq_split_bytes, collate_hebrew, skeleton, load_pmarks)",
+  "SP\\Ezek\\tools\\citation_sweep.py, check_register.py, check_web_quotes.py, check_refs_mirror.py, check_marks.py, check_universals.py, normalize_hebrew_in_json.py, ngram7.py, cap_sweep.py, check_tiling.py, run_validator_suite.py (read and/or run; all on the brief's MAY-run list; never --write)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P03-001 device_notes",
+    "why": "CWO-EZ-14 register hygiene: check_register.py's author_wave_register_s1_05 arm bare-word-matches 'posture'; removed the word from 'the E-02 cap posture:' -> 'the E-02 cap:', meaning preserved"
+   },
+   {
+    "what": "P03-002 strongest_rejected_alternative",
+    "why": "CWO-EZ-18 (ii) verbatim_author: the curly-quoted span 'and you became mine' is WEB 16:8 verbatim (case-exact); added the inline (web:Ezek.16.8) ref per CWO18-SCOPE-1's routing (i)"
+   },
+   {
+    "what": "P03-004 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 5-word Hebrew onset run (MT 16:20, glossed 'you took your sons and your daughters') was cut before the final letter and pashta of its last word; re-spliced the whole run from Ezek_oshb.txt"
+   },
+   {
+    "what": "P03-005 boundary_rationale and strong_or_hebrew_tags_used[1]",
+    "why": "CWO-EZ-15/S1-07: the cited 2-word Hebrew close run (MT 16:34, glossed 'and you became the opposite') was cut before its final letter; re-spliced in both fields from the verse"
+   },
+   {
+    "what": "P03-006 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 3-word Hebrew close run (MT 16:43, glossed 'besides all your abominations') was cut before its final letter; re-spliced the run (an initial attempt wrongly included a 4th, preceding word not in the gloss - caught on E-04 read-back and corrected to the exact 3-word span)"
+   },
+   {
+    "what": "P03-007 device_notes",
+    "why": "ruling e5:FLAGS-TF2-1#1 (ratified #e4/#e5): pmarks confirms a single K/Q note at MT 16:47 inside the span (ketiv/Qere pair split via ezek_lib.kq_split_bytes, ruling P4's canonical splitter), and no paseq/editorial note anywhere in 16:44-16:50; replaced the false 'no K/Q note' claim with the disclosure and kept the two true absences"
+   },
+   {
+    "what": "P03-010 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 2-word Hebrew close run (MT 17:10, glossed 'it will surely wither') was missing the shin dot on its final word; re-spliced the run (an initial attempt used the wrong word-index range and grabbed an unrelated word pair earlier in the verse - caught on E-04 read-back and corrected)"
+   },
+   {
+    "what": "P03-012 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 7-word Hebrew oath-onset run (MT 17:19, glossed 'therefore thus says the Lord YHWH: as I live') was cut before the zarqa of its final word; re-spliced the full run (an initial attempt used the wrong word-index range and dropped that final word - caught on E-04 read-back and corrected)"
+   },
+   {
+    "what": "P03-016 device_notes",
+    "why": "ruling e5:FLAGS-TF2-1#2 (ratified #e4/#e5): pmarks confirms a single K/Q note at MT 18:20 inside the span (ketiv/Qere pair split via ezek_lib.kq_split_bytes) AND a paseq (count 1) inside the span; replaced the false 'no K/Q note, no paseq' claims with the disclosure, kept the true editorial-note absence"
+   },
+   {
+    "what": "P03-017 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 3-word Hebrew onset run (MT 18:21, glossed 'but if the wicked turns') was cut before the pashta of its final word; re-spliced the run from Ezek_oshb.txt"
+   },
+   {
+    "what": "P03-019 boundary_rationale",
+    "why": "CWO-EZ-15/S1-07: the cited 2-word Hebrew close run (MT 18:32, glossed 'so turn, and live') was cut before the final dagesh/shuruq of its last word; re-spliced the run from Ezek_oshb.txt"
+   },
+   {
+    "what": "P03-020 boundary_rationale, boundary_evidence_refs, device_notes",
+    "why": "S1-09 + s1_row_defect: disclosed the previously-undisclosed onset-side pe mark at MT 18:32 (mark_symmetry gap 1->2, mirroring P03-002's pattern for a prior row's close mark); cited the already-listed 'lion' Hebrew tag (oshb:Ezek.19.2) in the boundary_rationale prose where it had been named only in English; CWO-EZ-14: removed 'posture' from device_notes"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "Both FIXUP_BRIEF.md and the orders file match their launch-pinned sha256 exactly",
+   "how": "certutil -hashfile on both exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "pmarks_Ezek.json, Ezek_oshb.txt, Ezek_web_clean.txt match the brief's pinned-input table",
+   "how": "certutil -hashfile on all three exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep HARD problems = 0 on all 12 emitted rows",
+   "how": "run_validator_suite.py over a private copy of rows_v3_cwo18.jsonl with my 12 rows spliced in by decision_id, filtered to my decision_ids (before: 7 problems on 7 rows; after: 0)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "normalizer (normalize_hebrew_in_json.py) defects=0 and fixed=0 on my rows",
+   "how": "dry-run over a private copy containing ONLY my 12 rows (ok=75, qere=8, fixed=0, defects=0)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "cap_sweep failures=0 on my rows",
+   "how": "cap_sweep.py over the my-rows-only private copy (status GREEN; P03-001/P03-020 correctly listed as informational whole_chapter_rows, not failures)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register flags=0 on my rows after the posture fix (was 2, on P03-001 and P03-020)",
+   "how": "check_register.py over the my-rows-only private copy, matched by writer_decision_id (p03-1, p03-20) since the tool keys flags by writer_decision_id not decision_id",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no ngram7 offending 7-gram includes my rows (gate=10)",
+   "how": "ngram7.py over the my-rows-only private copy; worst reuse is 4 rows on any shared phrase, well under the gate",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes: class 'curly quote with NO web: ref' reads 0 and e15d reads 0 on my rows",
+   "how": "check_web_quotes.py over the my-rows-only private copy (quotes_checked=1 for the new web:Ezek.16.8 ref; flag_count=0)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_tiling PASSES for p03's full WEB range Ezek.15.1-Ezek.19.14",
+   "how": "check_tiling.py over a private copy of all 20 p03 rows (12 mine + 8 untouched) with --range Ezek.15.1-Ezek.19.14 (verses_expected=141=verses_covered, 0 problems)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "K/Q splits used for MT 16:47 and MT 18:20 are the canonical splits (ruling P4: ezek_lib.kq_split is the adopted splitter)",
+   "how": "direct invocation of ezek_lib.kq_split_bytes on the pmarks kq notes; cross-checked the same function against MT 16:43 and MT 17:21, reproducing the splits already published in the untouched rows exactly",
+   "result": "confirmed"
+  },
+  {
+   "claim": "All 7 CWO-EZ-15 re-splices are the phrase the row's own English gloss names, not merely SOME byte-exact substring of the verse",
+   "how": "manual sentence read-back (E-04) caught 3 mis-indexed word-slice bugs (P03-006 had an extra leading word; P03-010 grabbed an unrelated word pair; P03-012 was missing its final word) that had still passed the byte-tier collate_hebrew check; fixed by re-deriving the correct word range from each row's own gloss and the S1-07 finding text, then added a permanent skeleton-parity + word-count safety-net assertion (old and new runs must have identical consonants and word count) and re-ran the full pipeline",
+   "result": "confirmed"
+  },
+  {
+   "claim": "mark_symmetry FLAGS do not rise anywhere on my rows (fell by 3: P03-007, P03-016, P03-020 each dropped their one flag)",
+   "how": "run_validator_suite.py before/after diff on a private unmodified copy vs. my modified copy, keyed by decision_id (check_marks.py uses decision_id directly)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "universals FLAGS rise by +3 (P03-007 device_notes: 'single'; P03-016 device_notes: 'single', 'only') and this rise is required by the mandated 'single-witness'/'count-only' disclosure vocabulary already used throughout the untouched corpus (e.g. P03-004, P03-012 already carry the same 'single' hits pre-fix)",
+   "how": "check_universals.py's flags carry no decision_id (only a list-index path), so rows were mapped by index and diffed before/after; all 3 new hits trace to the literal words 'single'/'single-witness'/'count-only' in my two new K/Q-disclosure sentences",
+   "result": "confirmed"
+  },
+  {
+   "claim": "refs_mirror and web_quotes FLAGS counts are unchanged on my rows (pre-existing, out of my ordered scope)",
+   "how": "run_validator_suite.py before/after diff, keyed by decision_id (both tools use decision_id directly)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep's one prose_dual_warns hit on P03-016 (boundary_rationale cites 18:20 without a ketiv/qere keyword IN THAT FIELD) is pre-existing and not introduced by my edit, which only touched device_notes",
+   "how": "before/after diff shows the count unchanged at 1 for P03-016 across both private copies",
+   "result": "confirmed"
+  },
+  {
+   "claim": "My edits are consistent with rulings R1 (refs form), R2 (Hebrew-splice/C2 convention), P2 (Qere raw-bytes-with-label), P4 (kq_split is canonical; a Qere never argues a boundary), P5 (tags vocabulary), and G12 (span rulings for chs 44/45/48, none of which touch my ch 15-19 rows)",
+   "how": "direct read of ezek_controlling_agent_rulings.v1.json ids R1, R2, P2, P4, P5, G12 at the pinned digest",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P03-016's boundary_rationale still cites oshb:Ezek.18.20 (a K/Q verse) without a 'ketiv/qere' keyword in that same field, so citation_sweep's prose_dual_warns (a WARN, not a HARD problem) still fires",
+   "why_it_matters": "This predates my execution and lives in a field (boundary_rationale) my orders never named - only device_notes was ordered for P03-016. FLAGS-TF2-1's own decision text treats an equivalent case (P03-006's refs[0]) the same way: carried forward rather than silently fixed, 'added to S2's read-back as proposed.' I left it untouched rather than improvise a cure outside my orders, per the brief's 'never improvise a different cure' rule."
+  },
+  {
+   "what": "refs_mirror's pre-existing 'argued_but_unmirrored' flags on 10 of my 12 rows (verses named in prose but not carried in boundary_evidence_refs) are untouched",
+   "why_it_matters": "None of my 12 rows' items named a refs_mirror/CWO-EZ-16 order, and the FIXUP-1 law bars a fix-up from touching anything not embedded in its own orders file. Confirmed unchanged before/after so no new instance was introduced."
+  },
+  {
+   "what": "Six pinned inputs (TOOLKIT.md, book_strategy_Ezek.md, ezek_device_inventory.json, web_mt_offset_map.json, verse_inventory.json, ezek_denominator_reconciliation.v1.json, ezek_p0_retained_lows.v1.json, writer/draft_rows_combined.jsonl) and the e4/e5/e6/e7 rulings executions were not read directly",
+   "why_it_matters": "Relied instead on the brief's own verbatim CRITICAL BOOK FACTS/T5-08 toolkit quotes and the orders file's verbatim-embedded ruling_orders/brief_rules text, per the brief's explicit instruction to read nothing else in the rulings files beyond what the orders embed. None of my 12 rows' items required a fact outside what was quoted or embedded, but this is a scope judgment call worth recording."
+  }
+ ],
+ "items": [
+  {
+   "row": "P03-001",
+   "item": "CWO-EZ-14 (register 'posture')",
+   "action": "cured",
+   "reason": "removed the bare word 'posture' from device_notes; check_register flag 1->0"
+  },
+  {
+   "row": "P03-002",
+   "item": "CWO-EZ-18 (ii) verbatim_author, strongest_rejected_alternative",
+   "action": "cured",
+   "reason": "added inline (web:Ezek.16.8) ref beside the already-verbatim WEB quotation"
+  },
+  {
+   "row": "P03-004",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 5-word onset run from Ezek_oshb.txt; citation_sweep problem and normalizer defect both cleared"
+  },
+  {
+   "row": "P03-005",
+   "item": "s1_finding S1-07 + s1_row_defect + 3 hard_finding (2x citation_sweep, 1x normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 2-word close run in both boundary_rationale and the tags list; all 3 citation_sweep/normalizer findings cleared"
+  },
+  {
+   "row": "P03-006",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 3-word close run (caught and corrected an initial mis-slice that had added an extra word not in the row's own gloss, on E-04 read-back)"
+  },
+  {
+   "row": "P03-007",
+   "item": "ruling_order e5:FLAGS-TF2-1#1",
+   "action": "cured",
+   "reason": "replaced the false 'no K/Q note' claim with a disclosure of the single-witness K/Q note at 16:47, verified against pmarks; kept the two true absences (paseq, editorial note) after re-verifying both against pmarks"
+  },
+  {
+   "row": "P03-010",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 2-word close run (caught and corrected an initial mis-slice that had grabbed an unrelated word pair, on E-04 read-back)"
+  },
+  {
+   "row": "P03-012",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the full 7-word oath-onset run (caught and corrected an initial mis-slice that had dropped the final word, on E-04 read-back)"
+  },
+  {
+   "row": "P03-016",
+   "item": "ruling_order e5:FLAGS-TF2-1#2",
+   "action": "cured",
+   "reason": "replaced the false 'no K/Q note, no paseq' claims with a disclosure of the single-witness K/Q note and the paseq at 18:20, both verified against pmarks; kept the true editorial-note absence"
+  },
+  {
+   "row": "P03-017",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 3-word onset run from Ezek_oshb.txt"
+  },
+  {
+   "row": "P03-019",
+   "item": "s1_finding S1-07 + s1_row_defect + 2 hard_finding (citation_sweep, normalizer) [CWO-EZ-15]",
+   "action": "cured",
+   "reason": "re-spliced the 2-word close run from Ezek_oshb.txt"
+  },
+  {
+   "row": "P03-020",
+   "item": "s1_finding S1-09 + s1_row_defect + cwo_item CWO-EZ-14",
+   "action": "cured",
+   "reason": "disclosed the onset-side pe at MT 18:32 (mark_symmetry gap cleared, 1->0), cited the already-listed 'lion' Hebrew tag in prose against oshb:Ezek.19.2, and removed 'posture' from device_notes (register flag 1->0)"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-15 (7 rows: P03-004,005,006,010,012,017,019)",
+   "test": "citation_sweep.py + normalize_hebrew_in_json.py dry-run over private copies, before/after diff by decision_id",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-14 (P03-001, P03-020)",
+   "test": "check_register.py over private copy, matched by writer_decision_id",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-18 (P03-002)",
+   "test": "check_web_quotes.py over private copy",
+   "result": "PASS"
+  },
+  {
+   "order": "e5:FLAGS-TF2-1#1 (P03-007)",
+   "test": "pmarks lookup over Ezek.16.44-16.50 (marks/kq/paseq/notes_other) + ezek_lib.kq_split_bytes + citation_sweep/normalizer re-check",
+   "result": "PASS"
+  },
+  {
+   "order": "e5:FLAGS-TF2-1#2 (P03-016)",
+   "test": "pmarks lookup over Ezek.18.10-18.20 (marks/kq/paseq/notes_other) + ezek_lib.kq_split_bytes + citation_sweep/normalizer re-check",
+   "result": "PASS"
+  },
+  {
+   "order": "S1-09 / s1_row_defect (P03-020)",
+   "test": "pmarks lookup on Ezek.18.32 (PE confirmed) + collate_hebrew(tag, Ezek.19.2) byte-tier check + mark_symmetry before/after diff",
+   "result": "PASS"
+  },
+  {
+   "order": "row shape (all 12)",
+   "test": "line-parse + 22-field + _op + non_authorizing + frozen-field byte-identity check against current_row",
+   "result": "PASS"
+  },
+  {
+   "order": "whole-book tiling (p03 slice)",
+   "test": "check_tiling.py over all 20 p03 rows (12 mine + 8 untouched), --range Ezek.15.1-Ezek.19.14",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "citation_sweep_problems": 7,
+   "citation_sweep_prose_dual_warns": 1,
+   "normalizer_defects": 0,
+   "mark_symmetry": 8,
+   "universals": 47,
+   "web_quotes": 0,
+   "refs_mirror": 10,
+   "register": 2
+  },
+  "after": {
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 1,
+   "normalizer_defects": 0,
+   "mark_symmetry": 5,
+   "universals": 50,
+   "web_quotes": 0,
+   "refs_mirror": 10,
+   "register": 0
+  },
+  "rises_explained": [
+   "universals +3: P03-007 device_notes gained one 'single' hit and P03-016 device_notes gained one 'single' and one 'only' hit, all from the mandated 'single-witness'/'count-only' disclosure wording the FLAGS-TF2-1 order itself requires - the identical wording already produces the same class of hit throughout the untouched corpus (e.g. P03-004, P03-012 pre-existing 'single' flags), so this is not a new defect class, it is the required disclosure vocabulary."
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

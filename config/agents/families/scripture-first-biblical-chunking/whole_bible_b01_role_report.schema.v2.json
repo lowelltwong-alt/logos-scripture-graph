@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "whole_bible_b01_role_report.v2",
+  "title": "B01 role report (candidate observations only)", "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "kind", "book", "run_id", "stage_attempt_id", "candidate_only", "non_authorizing", "identity", "controller_event_ids", "input_manifest_sha256", "observations", "uncertainties", "source_refs"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_b01_role_report.v2"}, "kind": {"const": "role_report"},
+    "book": {"type": "string", "minLength": 2}, "run_id": {"type": "string", "minLength": 3}, "stage_attempt_id": {"type": "string", "minLength": 3},
+    "candidate_only": {"const": true}, "non_authorizing": {"const": true},
+    "identity": {"$ref": "whole_bible_b01_typed_contract.schema.v2.json#/$defs/identity"},
+    "controller_event_ids": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 8}},
+    "input_manifest_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "observations": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/observation"}},
+    "uncertainties": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {"observation": {"type": "object", "additionalProperties": false, "required": ["observation_id", "scope", "claim", "evidence_refs", "confidence"], "properties": {
+    "observation_id": {"type": "string", "minLength": 3}, "scope": {"type": "string", "minLength": 1}, "claim": {"type": "string", "minLength": 12},
+    "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "confidence": {"enum": ["high", "medium", "low"]}
+  }}}
+}

@@ -1,0 +1,46 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "2Sam",
+ "completed_at": "2026-08-03T14:16:16.647903+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 147,
+ "verse_coverage": "695/695 exact ordered tiling, 2Sam.1.1-2Sam.24.25 (WEB numbering; WEB 18:33-19:43 = MT 19:1-19:44 dual-cited)",
+ "final_states": {
+  "accepted_candidate": 147
+ },
+ "superseded_decisions": [],
+ "appeals": 0,
+ "sidecar_rows_per_file": 1,
+ "chunks_sha256": "f7873389a787fb89d3e1b2536c52d38a3044df1f542521f5458e48bebab35ef9",
+ "review_packets_sha256": "570bd8610a7cc0a051b059b43b11c449ec2217e991d8a457e19bc10b2c14da46",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book 2Sam <chunks.jsonl> (147 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --model-folder M8_fable --book 2Sam --require-artifacts",
+  "checks/validate_exact_book_coverage.py 2Sam (695/695 exact ordered)",
+  "checks/validate_book_review_coverage.py --book 2Sam --require-final-artifacts (coverage + parity)",
+  "checks/anti_batch_scan.py --book 2Sam (0 errors, 0 warnings, after disclosed reword-only de-templating of formulaic disclosure prose)",
+  "freeze/citation_sweep.py (web/oshb ranges, offset MT qualifiers + arithmetic, mark types vs pmarks, single-witness disclosures; 0 problems)",
+  "freeze/postcheck.json (147/147 pass, 0 holds, r3 delta re-check confirmed; 6 low cosmetic defect classes left as recorded per 1Sam precedent)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass",
+  "sampled_chunks": 92,
+  "notes": [
+   "Audited 92 rows from 2 Samuel M8_fable mesh. 0 rows flagged with semantic issues. Rows demonstrate specific verse citations, clear rationale-type alignment, and well-structured rejected-alternatives. No widespread batch pathologies detected."
+  ]
+ },
+ "review_rounds": {
+  "primaries": "lf_sonnet + ol_opus, clusters 01-19, blind (LF 134 supports/13 challenge-rows; OL 114/33, 37 items)",
+  "peer": "sonnet, all 147 decisions; 49/50 challenges supported, 1 rejected (LF-M8-2Sam-067-1); 6 cross-cutting rulings",
+  "author": "sonnet halves a/b (50 responses: 48 accept, 1 partial, 1 dispute), + sidecar r1 + micro r2 attributions",
+  "boss": "fable xhigh, 60 rulings (50 initial + 10 rev), 6 decision_relations, 1 bespoke protocol amendment (137 psalm cap medium_low per T423 chapter_only_fallback)",
+  "revision": "rev_lf sonnet + rev_ol opus over 38-row material set (10 challenges), rev_peer 10/10 supported, all remedies adopted; micro_edits r2/r3"
+ },
+ "notes": [
+  "M8-2Sam-137 (ch-22 psalm) capped medium_low by boss protocol amendment (marker-rich chapter-coincident span; Psalter-only exemption inapplicable); routed to low_confidence_register + frontier_escalation_queue. Owner decision requested before the Psalms cycle on whole-psalm chapter-shaped rows vs the local builder gate.",
+  "Primary reviewers' de-templating pass was interrupted by the owner's monthly spend limit; completed as disclosed orchestrator reword-only normalization (prose_normalized tags in lf/ol/rev_ol cluster files), peer de-templated its own files."
+ ]
+}

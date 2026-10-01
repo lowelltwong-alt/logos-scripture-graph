@@ -1,0 +1,18 @@
+--- SP/Ezek/tools/check_register.py (installed 8357cf404835)
++++ proposals/toolfix2_batch3/staged/check_register.py (130948439528)
+@@ -57,6 +57,15 @@
+     "strategy_citation": re.compile(
+         r"§\s*\d|\bbook_strategy\b|\bstrategy file\b|\bper the strategy\b|"
+         r"\bgate ruling\b|\bowner gate\b", re.I),
++    # S1-05 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)): the ruling's phrasings, verbatim [CWO-EZ-14]
++    "author_wave_register_s1_05": re.compile(
++        # REG-TF2-1 (ezek_controlling_rulings_a1#e5): the 'former ... span', 'prior ... reading' and rows arms widened to S1's
++        # own phrasings, 'rows of' refused, and 'previously held|drafted|spanned|read as' added
++        r"\boriginally drafted\b|\bformer (?:[\w.\-–]+ ){0,2}(?:span|row)\b|\bprior [\w:.\-–]+(?: [\w:.\-–]+)? reading\b|"
++        r"\bcorrection to an earlier\b|\bpreviously (?:held|drafted|spanned|read) as\b|"
++        r"\b(?:preceding|next|following) row\b|\brow (?:before|after)\b|\b(?:one|middle|last) of \w+(?: [\w-]+)? rows\b(?!\s+of\b)|"
++        r"\bstrategy['’]s\b|\bthe (?:ruling|order)['’]s\b|\bposture\b|\bofficially inventoried\b|"
++        r"\b(?:ends|opens|closes|begins) the part\b|\bthe part['’]s\b", re.I),
+     "staged_file_stem": re.compile(
+         r"\bverse_map\w*\b|\bpmarks\w*\b|\bdevice_inventory\b|\boffset_map\b|"
+         r"\bconsonantal_index\b|\bTOOLKIT\b|\bezek_lib\b", re.I),

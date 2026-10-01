@@ -1,0 +1,169 @@
+{
+ "attempt_id": "ow2lf_b15_a1",
+ "role": "ow2_lf_auditor",
+ "rows": [
+  {
+   "row_id": "P12-014",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "web_quote_convention",
+     "claim": "device_notes reproduces a verbatim WEB run in single curly quotes inside a field that carries no web: ref of its own.",
+     "grounds": "The device_notes string carries the run 'you command me concerning the work of my hands' inside single curly quotes; that wording is verbatim WEB text from web:Isa.45.11, and the device_notes field contains no web: ref anywhere. Book-wide convention reserves curly DOUBLE quotes for WEB text and requires an inline web: ref in the SAME field as any curly-quoted WEB run; the double-quote arm of the verbatim checker does not see a single-quoted run, so this passes machine check while missing the convention. The quoted text itself is verbatim (checked against the WEB verse).",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: set the WEB run in curly double quotes and add an inline (web:Isa.45.11) in the same field, or paraphrase it out of quotation."
+    },
+    {
+     "severity": "low",
+     "class": "register_purge",
+     "claim": "device_notes carries a positional field reference and campaign-staging register.",
+     "grounds": "The field reads 'The salvation-oracle rival is disclosed above' — a positional reference to another field's place in the row record — and 'no morphology layer is staged to fix whether the summons form carries imperative or indicative force', which describes the campaign's own evidence staging rather than the verse. The substance of the second is correct and worth keeping: the pointed bytes of תְּצַוֻּֽנִי (oshb:Isa.45.11, byte tier) fix its prefix and its first-person object suffix but not its imperative-vs-indicative force.",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: replace 'disclosed above' with a verse-anchored formulation, and restate the staging sentence at bytes level, e.g. 'the pointed bytes alone do not fix whether the summons form carries imperative or indicative force'."
+    }
+   ]
+  },
+  {
+   "row_id": "P12-017",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "count_object_blend",
+     "claim": "The exclusivity digit attached to the declare-and-present imperative pair counts a different object from the one the sentence names.",
+     "grounds": "The row writes that the pair's skeleton matches an earlier pair '(sweep: 6 verses book-wide carry that shared skeleton)'. Re-swept with the object named (verse counts, skeleton tier): the PAIR הַגִּ֣ידוּ וְהַגִּ֔ישׁוּ (oshb:Isa.45.21, byte tier) stands at skeleton tier in exactly 1 verse book-wide, Isa.45.21; its second member alone likewise stands in 1 verse book-wide. The digit 6 is the skeleton count for the FIRST token alone — 6 verses: Isa.3.9, Isa.41.22, Isa.41.23, Isa.45.21, Isa.48.20, Isa.66.19. The sentence names the pair and counts the single token, a blended sweep.",
+     "span_change": false,
+     "proposed_change": "field repair, boundary_rationale: name the swept object before the digit and correct it — either the pair (sweep: 1 verse book-wide, skeleton tier) or the single declare-imperative stated as such (sweep: 6 verses book-wide, skeleton tier)."
+    },
+    {
+     "severity": "medium",
+     "class": "byte_false_recurrence_claim",
+     "claim": "Neither cited comparison verse opens with the imperative pair the row says opens it.",
+     "grounds": "MT 41:22 opens with יַגִּ֨ישׁוּ֙ (oshb:Isa.41.22, byte tier), a yod-initial prefix-conjugation form, and the verse's only he-initial imperative הַגִּ֜ידוּ (oshb:Isa.41.22, byte tier) stands at token 9 of that verse's 17 tokens, not at its opening. MT 41:23 opens with a single imperative plus its article-marked object, הַגִּ֨ידוּ֙ הָאֹתִיּ֣וֹת (oshb:Isa.41.23, byte tier), and carries no second member of the pair anywhere in the verse. So neither verse carries the pair, and only one of the two carries a verse-initial imperative at all; the shared element is a single declare-imperative at skeleton tier.",
+     "span_change": false,
+     "proposed_change": "field repair, boundary_rationale: retract 'the same imperative pair opening the earlier trial speeches at Isa.41.22 and Isa.41.23' and restate at the object and tier the bytes support — a shared single declare-imperative, verse-initial at Isa.41.23 only."
+    },
+    {
+     "severity": "medium",
+     "class": "byte_false_position_claim",
+     "claim": "The row's only stated back-seam warrant places the burden noun at the opening of the following verse, where the bytes place a different clause.",
+     "grounds": "The row writes 'the next verse opens a different subject with the ordinary burden noun מַשָּׂ֖א לַעֲיֵפָֽה (oshb:Isa.46.1, byte tier)'. MT 46:1 opens with כָּרַ֥ע בֵּל֙ קֹרֵ֣ס נְב֔וֹ (oshb:Isa.46.1, byte tier); the burden noun stands at tokens 10-11 of that verse's 12 tokens, verse-finally. The same clause's own qualifier ('not one of the verse-initial oracle headers') contradicts the position it asserts, and the adjacent row states the identical fact correctly ('their load named with the ordinary carrying-noun'). The warrant's substance — a different subject opening at Isa.46.1 — is byte-true, but it is carried by the wrong token, and no mark stands at this seam (the marked segment runs from the petuchah terminating Isa.45.17 to the setumah terminating Isa.46.2 with none between; absence is not counterevidence and the row claims none).",
+     "span_change": false,
+     "proposed_change": "field repair, boundary_rationale: attach the back-seam warrant to the verse's actual opening by splicing כָּרַ֥ע בֵּל֙ קֹרֵ֣ס נְב֔וֹ (oshb:Isa.46.1, byte tier), and keep the burden-noun disclaimer as a separate role-split note."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-001",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "unwarranted_front_seam",
+     "claim": "The row's front seam at Isa.45.25|Isa.46.1 rests on no tier-1 signal from the opening verse's own bytes, and the preceding verse is neither characterised nor cited.",
+     "grounds": "boundary_rationale argues the back seam at length from the vocative onset at oshb:Isa.46.3, but names no onset signal at the row's own opening: the only Hebrew spliced at the opening verse is the verse-final burden noun מַשָּׂ֖א לַעֲיֵפָֽה (oshb:Isa.46.1, byte tier; tokens 10-11 of 12), while the verse's actual opening כָּרַ֥ע בֵּל֙ קֹרֵ֣ס נְב֔וֹ (oshb:Isa.46.1, byte tier) — a qatal with a freshly named subject, which is the real onset — is never spliced. Isa.45.25 appears neither in the prose nor in boundary_evidence_refs, so the seam's other edge is uncharacterised. The parashah layer offers nothing here either: no mark stands between the petuchah terminating Isa.45.17 and the setumah terminating Isa.46.2.",
+     "span_change": false,
+     "proposed_change": "field repair: splice the verse-initial onset at oshb:Isa.46.1 as the front-seam signal and add web:Isa.45.25 to boundary_evidence_refs with a one-clause characterisation of the preceding close."
+    },
+    {
+     "severity": "medium",
+     "class": "count_object_unnamed",
+     "claim": "The exclusivity digit covering the load-bearer participles does not name which spellings it counts; read over all four cited forms it is false.",
+     "grounds": "The row writes 'the plene and defective spellings each standing in exactly 1 verse at skeleton tier' immediately after citing four participles. Re-swept per attested spelling (verse counts, skeleton tier): נְשֻׂאֹתֵיכֶ֣ם (oshb:Isa.46.1, byte tier) 1 verse; עֲמוּס֔וֹת (oshb:Isa.46.1, byte tier) 1 verse; הַֽעֲמֻסִים֙ (oshb:Isa.46.3, byte tier) 1 verse; but הַנְּשֻׂאִ֖ים (oshb:Isa.46.3, byte tier) stands in 3 verses — Isa.2.13, Isa.45.20, Isa.46.3 — because MT 45:20 carries הַנֹּֽשְׂאִים֙ (oshb:Isa.45.20, byte tier), the same consonantal skeleton, inside the immediately preceding row's own span. The digit holds only for the plene/defective pair on the one root; the sentence does not say so. Separately verified as TRUE in this row: the burden noun matches Isa.46.1's at accent-stripped tier and not at byte (tipcha U+0596 against etnachta U+0591), and the rescue-root skeleton sweep is 7 verses book-wide as claimed.",
+     "span_change": false,
+     "proposed_change": "field repair: name the swept object explicitly (the plene/defective pair on the carry-root, sweep: 1 verse each, skeleton tier) and either drop the exclusivity from the other pair or state its true count (sweep: 3 verses, skeleton tier), disclosing the Isa.45.20 site."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-002",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "rival_disclosure_shortfall",
+     "claim": "strongest_rejected_alternative names a weaker rival than the one the row's own prose concedes at Isa.46.11|Isa.46.12.",
+     "grounds": "The field names only the Isa.46.8 cut, for which the row itself reports no onset signal ('with no fresh addressee onset at either point'). Meanwhile the boundary_rationale concedes at Isa.46.12 a verse-initial repeated summons carrying a DIFFERENT named vocative — שִׁמְע֥וּ אֵלַ֖י אַבִּ֣ירֵי לֵ֑ב (oshb:Isa.46.12, byte tier) against שִׁמְע֤וּ אֵלַי֙ בֵּ֣ית יַעֲקֹ֔ב (oshb:Isa.46.3, byte tier), the two matching at accent-stripped tier and differing at byte tier (re-collated) — with a setumah terminating Isa.46.11 (single-witness) marking a division at exactly that point. The ground on which that cut is declined ('a repeated summons with a changed addressee closes a bracket rather than opening a fresh unit') is an inference, not a ruled tier-1 signal, and the addressee-shift class is the stated seam driver in the adjacent rows of this same part (the fresh vocative at Isa.46.3, the fresh addressee at Isa.47.1, the new addressee at Isa.48.1). Recording the disagreement with the row's stated grounds; not adjudicating the span.",
+     "span_change": false,
+     "proposed_change": "field repair, strongest_rejected_alternative: recast onto the Isa.46.11|Isa.46.12 cut as the strongest declined rival and, if the bracket reading is kept, state in device_notes the ground that distinguishes it from the addressee-shift seams this part cuts on."
+    },
+    {
+     "severity": "low",
+     "class": "mark_role_mislabel",
+     "claim": "device_notes lists the mark terminating the row's own closing verse among its interior divisions.",
+     "grounds": "Span Isa.46.3-Isa.46.13. device_notes reads 'Interior divisions: oshb:Isa.46.4 ..., oshb:Isa.46.7 ..., oshb:Isa.46.11 ..., oshb:Isa.46.13 (setumah, single-witness)'. The inventory records SAMEKH terminating Isa.46.13, the row's own closing verse, so that division falls on the row's BACK SEAM, not inside it — the distinction this same writer states explicitly in the adjacent row ('falls on this row's own back seam, terminating the row's closing verse, rather than standing as an interior division'). Mark types, single-witness disclosure and span-relevant symmetry are otherwise complete and correct for this row.",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: move oshb:Isa.46.13 out of the interior list and label it the back-seam division."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-003",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "mark_role_mislabel",
+     "claim": "device_notes lists the mark terminating the row's own closing verse among its interior divisions.",
+     "grounds": "Span Isa.47.1-Isa.47.7. device_notes reads 'Interior divisions: oshb:Isa.47.3 (setumah, single-witness), oshb:Isa.47.7 (setumah, single-witness)'. The inventory records SAMEKH terminating Isa.47.3 (genuinely interior to this span) and SAMEKH terminating Isa.47.7, which is the row's own closing verse — a back-seam division, not an interior one. Everything else in this row re-derives clean: both seams stand on verse-initial imperatives in their own bytes, the paseq at oshb:Isa.47.1 is cited count-only with no position claim, and the qadosh-Israel title splice at oshb:Isa.47.4 is byte tier at its cited ref.",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: move the closing-verse mark out of the interior list and label it the back-seam division."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-004",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "mark_role_mislabel",
+     "claim": "device_notes claims an interior division that the row's span does not contain.",
+     "grounds": "Span Isa.47.8-Isa.47.15. device_notes reads 'Interior division: oshb:Isa.47.15 (setumah, single-witness)'. The inventory records SAMEKH terminating Isa.47.15, the row's own closing verse, so that division falls on the back seam; the span carries no interior marked verse at all. The row's other claims re-derive TRUE: the two hear-this collocations are disjoint under consonantal search and stand at skeleton tier in 1 verse (Isa.47.8) and 2 verses (Isa.48.1, Isa.48.16) book-wide exactly as stated, the class-level tie is honestly labelled as such, and the K/Q note at oshb:Isa.47.13 is disclosed with the row not quoting through it.",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: move the closing-verse mark out of the interior list and label it the back-seam division."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-005",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "mark_role_mislabel",
+     "claim": "device_notes lists the mark terminating the row's own closing verse among its interior divisions.",
+     "grounds": "Span Isa.48.1-Isa.48.11. device_notes reads 'Interior divisions: oshb:Isa.48.2 (setumah, single-witness), oshb:Isa.48.11 (setumah, single-witness)'. Only Isa.48.2 is interior; the inventory records SAMEKH terminating Isa.48.11, the row's own closing verse, which is its back-seam division. Types, the paseq count at oshb:Isa.48.1 and the front-seam setumah at Isa.47.15 are all correct against the inventory, the opening splice is byte tier at its cited ref, and the declared confidence survives the row's own evidence.",
+     "span_change": false,
+     "proposed_change": "field repair, device_notes: move the closing-verse mark out of the interior list and label it the back-seam division."
+    }
+   ]
+  },
+  {
+   "row_id": "P13-007",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "unit_type_deviation_undisclosed",
+     "claim": "The declared unit_type has no supporting entry in observed_substrate_signals and no deviation disclosure, while the row's own closing verse carries a judgment verdict.",
+     "grounds": "unit_type is salvation_oracle; observed_substrate_signals carries only oracle_frame.imperative_onset and speech_formula.amar_yhwh_signature, neither of which names that category. The row's own closing verse is אֵ֣ין שָׁל֔וֹם אָמַ֥ר יְהוָ֖ה לָרְשָׁעִֽים (oshb:Isa.48.22, byte tier), a verdict against the wicked, and device_notes treats it only as cross-part texture against oshb:Isa.57.21. The same writer supplies an explicit unit_type-deviation sentence for other rows in this part; none is supplied here. The row's boundary and digit claims all re-derive TRUE: the verse-initial imperatives צְא֣וּ מִבָּבֶל֮ בִּרְח֣וּ מִכַּשְׂדִּים֒ (oshb:Isa.48.20, byte tier); the skeleton sweep for הַגִּ֤ידוּ הַשְׁמִ֨יעוּ֙ (oshb:Isa.48.20, byte tier) is 1 verse book-wide as claimed; and the Isa.48.22/Isa.57.21 pair is byte-identical in every token except the divine-name token, exactly as stated.",
+     "span_change": false,
+     "proposed_change": "field repair: add a unit_type-deviation disclosure to device_notes covering the closing verdict, or carry the declared category with an observed_substrate_signals entry that names it."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 0,
+  "defect_rows": 8,
+  "findings": {
+   "low": 7,
+   "medium": 6,
+   "high": 0
+  },
+  "span_changes_proposed": 0
+ }
+}

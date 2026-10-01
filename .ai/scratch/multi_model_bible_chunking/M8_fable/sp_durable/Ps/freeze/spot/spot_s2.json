@@ -1,0 +1,102 @@
+{
+  "attempt_id": "spot_ps_s2_r1",
+  "b15": {
+    "rows": ["M8-Ps-230", "M8-Ps-231", "M8-Ps-232"],
+    "verdict": "byte-verified correct, with one confirmed unswept-universal residual",
+    "byte_checks": [
+      "oshb:Ps.76.11 text = 'כִּֽי חֲמַ֣ת אָדָ֣ם תּוֹדֶ֑ךָּ שְׁאֵרִ֖ית חֵמֹ֣ת תַּחְגֹּֽר' -- closing word תּוֹדֶ֑ךָּ ends final-kaf+dagesh+qamats, a 2ms pronominal suffix ('it praises you'); confirms row 231's claimed warrant byte-for-byte.",
+      "oshb:Ps.76.12 text = 'נִֽדֲר֣וּ וְשַׁלְּמוּ֮ לַיהוָ֪ה אֱֽלֹהֵ֫יכֶ֥ם ...' -- opens with two vav-suffixed 2mp imperatives (נִֽדֲר֣וּ, וְשַׁלְּמוּ֮); confirms row 232's claimed warrant byte-for-byte.",
+      "oshb:Ps.76.4 and oshb:Ps.76.10 both end in סֶֽלָה -- confirms the two-Selah claim (front seam at 76.4, interior mark inside row 231 at 76.10) exactly as rows 230/231 state.",
+      "web-to-mt back-references pulled directly from verse_map_web.json for Ps.76.0 through Ps.76.12 confirm shift+1 (web N -> mt N+1) with NO exception across the whole psalm; every dual-cite in boundary_evidence_refs on rows 230/231/232 (6+6+4=16 refs checked) matches this table exactly -- 0 arithmetic errors."
+    ],
+    "tiling": "check_tiling.py run on an isolated Ps-76-only slice of rows_v1.jsonl: verses_expected 12, verses_covered 12, problems [], status GREEN. Spans 76.1-76.3 / 76.4-76.10 / 76.11-76.12 tile exactly with no gap or overlap.",
+    "tool_confirmations": [
+      "citation_sweep.py on isolated [230,231,232]: status GREEN, problems []; only 1 pre-existing prose_dual_warn (enhancement-class, not a defect).",
+      "check_refs_mirror.py on isolated [230,231,232]: flag_count 0, orphan_ref_warn_count 0, status GREEN.",
+      "check_marks.py on the FULL rows_v1.jsonl (492 rows): flag_count 1, sole flag = M8-Ps-356 kq_claim (known pre-existing artifact, unrelated to Ps 76) -- confirms 0 residual selah_symmetry_gap flags anywhere, including rows 230/231/232."
+    ],
+    "universals_regex_dodge_finding": {
+      "summary": "CONFIRMED real, not swept. CYCLE_STATE.md's own 2026-08-17 checkpoint flagged this exact risk ('the micro agent dodged a universals flag by rewording \"with no X\" -> \"without an X\"... the upgraded lexicon... will re-flag if unswept; spot wave to eyeball this one claim'). I ran the CURRENT (already rev-round-upgraded, dated 2026-08-18) Ps/tools/check_universals.py directly against an isolated [230,231,232] probe: claims_seen=2, flag_count=2, and BOTH flags land in row 230's untouched pre-existing 'with no X' phrasing ('with no address or genre shift', 'with no vocative or imperative'). Rows 231 and 232 -- the actual B-15 edits -- produced ZERO UNIV regex hits, confirming the CYCLE_STATE note's fear was correct AND its expectation of a fix was wrong: the rev-round lexicon's new 'without' branch only matches without+(any)+{comparable|other|further|new|parallel}; 'addressee' and 'person' are not in that list, so 'without an addressee change' / 'without a person change' still evade UNIV entirely.",
+      "instances": [
+        {
+          "row": "M8-Ps-231",
+          "field": "rationale",
+          "text": "...so the address opened at web:Ps.76.4 runs to this row's own close without an addressee change.",
+          "scope_claimed": "no addressee change across the row's full span, web:Ps.76.4-Ps.76.10",
+          "grounding_digit_missing": "7 (the row's own 7 WEB verses, 76.4-76.10) -- e.g. 'without an addressee change across the row's 7 verses', matching this same row's own established sweep convention ('occurs in 9 verses book-wide', etc.)"
+        },
+        {
+          "row": "M8-Ps-231",
+          "field": "rationale",
+          "text": "...sits inside the row rather than closing it: the God-directed address continues past it, without a person change, through the row's own close at web:Ps.76.10...",
+          "scope_claimed": "no person change from the interior Selah (web:Ps.76.9) through the row's close (web:Ps.76.10)",
+          "grounding_digit_missing": "2 (web:Ps.76.9-Ps.76.10) -- narrower scope than the sentence above; needs its own digit if swept separately"
+        },
+        {
+          "row": "M8-Ps-231",
+          "field": "observed_substrate_signals[0]",
+          "text": "second-person address to God opens web:Ps.76.4 ('Glorious are you') and runs without an addressee change through this row's own close at web:Ps.76.10 ('Surely the wrath of man praises you')",
+          "scope_claimed": "same full-row claim as the rationale instance",
+          "grounding_digit_missing": "7 (same as above -- this is a restatement of the same unswept claim in a second field)"
+        },
+        {
+          "row": "M8-Ps-232",
+          "field": "device_notes",
+          "text": "...oshb:Ps.76.13 (web:Ps.76.12) returns to third-person notice, closing the psalm without a person change beyond it.",
+          "scope_claimed": "no person change after the psalm's final verse",
+          "grounding_digit_missing": "lower-severity: 'beyond it' = the psalm's own end (nothing follows), so this is closer to a trivially-true boundary statement than a corpus-scope sweep claim, but it shares the identical evasive 'without a ... change' construction and was not distinguished from the other 3 instances in the author's disclosure."
+        }
+      ]
+    }
+  },
+  "b16": {
+    "rows": ["M8-Ps-040", "M8-Ps-041"],
+    "verdict": "seam sanity-checked from bytes; disclosures accurate; underlying rival evidence is genuinely non-trivial -- reporting both ways per instructions, no defect in execution",
+    "current_seam": "row 040 = web:Ps.18.25-Ps.18.30 (mt 18.26-18.31); row 041 = web:Ps.18.31-Ps.18.36 (mt 18.32-18.33...36); seam sits at WEB 18.30|18.31.",
+    "rival_seam": "WEB 18:29|18:30 (= MT 18:30|18:31), argued by peer challenge OL-040-1 (high severity) in Ps/freeze/reviews/ol_cluster_c06.json; per CYCLE_STATE.md, BOSS RULING B-16 DECLINED the move because only one primary reviewer (OL) raised it -- 'unlike #12/B-15, the record shows no dual-primary convergence on this shift (single peer RU only); conservative default stands (disclosure treatment adopted)'.",
+    "evidence_for_rival_seam": [
+      "Byte-verified independently from oshb:Ps.18.25-Ps.18.38 (pulled fresh from verse_map_oshb.json, not copied from the peer review): verse-initial tokens of MT 18:26-33 are exactly עִם / עִם / כִּֽי / כִּֽי / כִּֽי / הָאֵל֮ / כִּ֤י / הָ֭אֵל -- a 4-verse anaphoric run on the causal particle כִּי (MT 18:28,29,30,32 = web 18.27,28,29,31), inside which MT 18:31 (= web 18:30, the row's current closing verse) is the SOLE asyndetic (particle-less) opener. Asyndeton after a run of connective openers is a recognized tier-1 strophe-OPENING marker in this campaign's own methodology, which argues MT 18:31/web 18:30 begins the next unit rather than closes the current one.",
+      "Independently derived register read of the WEB clean text (Ps.18.24-18.37): WEB 18.25-18.29 sustain direct second-person address to God ('you will show yourself merciful... For you will save... you will light my lamp, Yahweh... by you, I advance'); WEB 18.30 turns to third-person gnomic report ('As for God, his way is perfect... He is a shield...'), and that third-person register continues unbroken through WEB 18.31-18.32 ('who is God, except Yahweh? ...the God who arms me'). On a pure register read, WEB 18.30 groups with the following third-person unit at least as naturally as with the preceding second-person unit.",
+      "The designation-and-integrity frame (הָאֵל/תָּמִים דַּרְכּוֹ, oshb 18.31) and the shield epithet (מָגֵן, oshb 18.31/18.36) both straddle whichever seam is chosen -- this is a real structural tension, not manufactured by either side."
+    ],
+    "evidence_for_current_seam": [
+      "Row 040's own rationale treats web 18.30 as a self-standing 'summary confession' that closes the personal-application arc opened at web 18.25 ('with the merciful you will show yourself merciful...') and answers the psalm's own opening epithet at web 18.2 ('Yahweh is my rock') -- a coherent thematic unit distinct from OL's syntactic argument.",
+      "Both rows 040 and 041 already fully and accurately disclose the exact frame-split (הָאֵל/תָּמִים דַּרְכּוֹ) and epithet-echo (מָגֵן) that OL's challenge relies on, explicitly framed as cross-seam continuity rather than hidden -- verified present in both rows' rationale/observed_substrate_signals/device_notes fields.",
+      "No corroborating LF (second-primary) challenge for this seam was found anywhere in Ps/freeze/reviews/ (searched all files containing '18:29'); B-16's 'single peer RU only' characterization checks out."
+    ],
+    "tiling": "check_tiling.py on an isolated Ps-18-only slice of rows_v1.jsonl: verses_expected 50, verses_covered 50, problems [], status GREEN across all 10 rows of Psalm 18 including 040/041.",
+    "note": "This is not a defect: B-16's stated ground for declining the move was procedural (no dual-primary convergence, per the same standard that required and got convergence for B-15), not a claim that OL's evidence is weak, and my sanity check confirms both that characterization and the disclosures are accurate. The underlying tier-1 syntactic argument (asyndeton break) is genuinely at least comparable in strength to the current seam's thematic warrant -- flagged here as an open evidentiary tension for owner awareness, exactly as CYCLE_STATE already anticipated ('rev-round spot wave to sanity-check the seam'), not as new information requiring action."
+  },
+  "b17": {
+    "rows": ["M8-Ps-013", "M8-Ps-020", "M8-Ps-062", "M8-Ps-111", "M8-Ps-134", "M8-Ps-164", "M8-Ps-261", "M8-Ps-463"],
+    "verdict": "all 8 selah disclosures byte-verified correct; no defects",
+    "per_row_verse_arithmetic": [
+      {"decision_id": "M8-Ps-013", "psalm": 7,  "mt_selah_verse": "Ps.7.6",   "mt_to_web_computed": "Ps.7.5",   "row_claims": "web:Ps.7.5 = oshb:Ps.7.6",     "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm front seam inside Ps 7 itself; MT 7:6 is not chapter-final (chapter has 18 MT verses)"},
+      {"decision_id": "M8-Ps-020", "psalm": 10, "mt_selah_verse": "Ps.9.21",  "mt_to_web_computed": "Ps.9.20",  "row_claims": "web:Ps.9.20 = oshb:Ps.9.21", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": true,  "notes": "Ps 9's own last MT verse IS 21 (omap mt_verses=21) -- confirms this selah genuinely closes Psalm 9, a separate parent composition, not an intra-Ps-10 seam"},
+      {"decision_id": "M8-Ps-062", "psalm": 25, "mt_selah_verse": "Ps.24.10", "mt_to_web_computed": "Ps.24.10", "row_claims": "web:Ps.24.10 (identity, no dual-cite needed)", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": true, "notes": "Ps 24's own last MT verse IS 10 (omap mt_verses=10, identity rule) -- confirms this selah genuinely closes Psalm 24"},
+      {"decision_id": "M8-Ps-111", "psalm": 39, "mt_selah_verse": "Ps.39.12", "mt_to_web_computed": "Ps.39.11", "row_claims": "web:Ps.39.11 = oshb:Ps.39.12", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm (Ps 39 has 14 MT verses; 2 more follow)"},
+      {"decision_id": "M8-Ps-134", "psalm": 47, "mt_selah_verse": "Ps.47.5",  "mt_to_web_computed": "Ps.47.4",  "row_claims": "web:Ps.47.4 = oshb:Ps.47.5", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm"},
+      {"decision_id": "M8-Ps-164", "psalm": 59, "mt_selah_verse": "Ps.59.6",  "mt_to_web_computed": "Ps.59.5",  "row_claims": "web:Ps.59.5 = oshb:Ps.59.6", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm"},
+      {"decision_id": "M8-Ps-261", "psalm": 83, "mt_selah_verse": "Ps.83.9",  "mt_to_web_computed": "Ps.83.8",  "row_claims": "web:Ps.83.8 = oshb:Ps.83.9", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm"},
+      {"decision_id": "M8-Ps-463", "psalm": 140,"mt_selah_verse": "Ps.140.9", "mt_to_web_computed": "Ps.140.8", "row_claims": "web:Ps.140.8 = oshb:Ps.140.9", "match": true, "selah_present_in_bytes": true, "closes_preceding_psalm": false, "notes": "mid-psalm"}
+    ],
+    "method": "MT->WEB conversion computed via ps_lib.mt_to_web() (never hand-computed) reading Ps/web_mt_offset_map.json's per-psalm rules; Selah presence confirmed against Ps/tools/verse_map_oshb.json Hebrew text using ps_lib.skeleton() (consonantal, dagesh/niqqud-insensitive) containing 'סלה'; all 8 target verses independently confirmed present in Ps/pmarks_Ps.json's selah dict exactly once each (matches micro_b17.json's own claim).",
+    "preceding_psalm_attributions": "Both flagged cases verified structurally correct: Ps 9 closes at MT v21 (Ps/web_mt_offset_map.json: Ps 9 mt_verses=21) and Ps 24 closes at v10 (mt_verses=10, identity rule) -- both match the omap's own chapter-final verse count exactly, confirming rows 020 and 062 correctly attribute their front-seam Selahs to the PRECEDING psalm's own close rather than an intra-psalm seam.",
+    "tool_confirmations": [
+      "check_marks.py on the FULL rows_v1.jsonl (492 rows): flag_count 1, sole flag = M8-Ps-356 (known pre-existing kq_claim artifact, unrelated to any of these 8 rows) -- confirms 0 residual selah_symmetry_gap flags anywhere in the corpus, matching micro_b17.json's self-report exactly.",
+      "citation_sweep.py on isolated [013,020,062,111,134,164,261,463]: status GREEN, problems []; 8 pre-existing prose_dual_warn entries (enhancement-class per B-17's own checkpoint note, not defects) -- count matches micro_b17.json's claim of '8 pre-existing prose_dual_warn WARN-class entries... unchanged from the pre-edit baseline'.",
+      "check_universals.py on the same isolated 8-row probe: 2 flags, both in M8-Ps-062's rejected_alternative field ('continuous', 'across the whole') -- this field was NOT touched by B-17 (which only edited device_notes and boundary_evidence_refs per micro_b17.json's own notes), so these are pre-existing, out-of-scope for B-17, and belong to the separate S1 spot-check queue (the 25-item unswept-continuity list), not a B-17 defect."
+    ]
+  },
+  "defects_found": [
+    {
+      "id": "S2-D1",
+      "site": "B-15",
+      "severity": "medium",
+      "rows": ["M8-Ps-231", "M8-Ps-232"],
+      "description": "Three of four instances of the 'without a/an [addressee|person] change' continuity claim (row 231 rationale x2 distinct sentences, row 231 observed_substrate_signals[0], row 232 device_notes) are totalizing/no-exception claims functionally equivalent to the corpus's own 'unbroken'/'continuous' universal-claim class, but the specific wording evades Ps/tools/check_universals.py's UNIV regex (verified empirically: 0 hits on rows 231/232 in an isolated 3-row probe, vs 2 hits on untouched row 230's 'with no X' phrasing). None of the four instances carries an adjacent digit-based sweep citation as the corpus convention otherwise requires (e.g. '9 verses book-wide', '1 of 8'). This is explicitly anticipated but NOT actually resolved by CYCLE_STATE.md's 2026-08-17 checkpoint note, which assumed the rev-round lexicon upgrade would catch it -- it does not, because the upgraded 'without' branch only covers comparable/other/further/new/parallel, not addressee/person.",
+      "suggested_fix": "Add a verse-count grounding to each claim: the two full-row-scope instances (row 231 rationale's closing sentence, and observed_substrate_signals[0]) should read '...without an addressee change across the row's 7 verses' (web:Ps.76.4-Ps.76.10 = 7 verses); the narrower interior-Selah-to-close instance in row 231's rationale should be scoped to its own 2-verse span (web:Ps.76.9-Ps.76.10) if kept as a separate claim; row 232's 'without a person change beyond it' is lower risk (it describes the psalm's own end, not a multi-verse sweep) but should still be reworded or explicitly exempted for consistency.",
+      "confirmed_by": ["direct byte read of rows_v1.jsonl", "isolated re-run of the current (already rev-round-upgraded) check_universals.py against rows 230/231/232", "cross-check against CYCLE_STATE.md's own 2026-08-17 checkpoint note anticipating this exact risk"]
+    }
+  ]
+}

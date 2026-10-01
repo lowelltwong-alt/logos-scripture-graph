@@ -1,0 +1,18 @@
+import json
+from pathlib import Path
+root=Path(__file__).resolve().parents[1];rev=root/'reviews'/'Eph'
+peer=json.loads((rev/'peer_crosscheck_v1.json').read_text(encoding='utf-8-sig'));boss=json.loads((rev/'boss_ruling_v1.json').read_text(encoding='utf-8-sig'))
+items=[]
+for c in peer.get('macro_material_challenge_families',[]): items.append({'id':c['family_id'],'family':c['family_id'],'ids':c['decision_ids'],'passage':c['envelope'],'claim':c['material_challenge'],'alts':c['exact_alternatives']})
+g=peer['global_textual_translation_addressee_quotation_hot_zone_challenge'];items.append({'id':g['challenge_id'],'family':'global textual translation quotation speaker and chronology hot zones','ids':[f'M7_sol-Eph-{i:03d}' for i in range(1,17)],'passage':'; '.join(g['spans']),'claim':'All witness, reading, translation, punctuation, addressee, quotation-source, quotation-extent, and quotation-speaker questions remain unresolved evidence; the frozen route selects none.','alts':['retain every frozen seam with all hot-zone flags deferred','retain each corresponding larger macro parent with all hot-zone flags deferred']})
+x=peer['cross_chapter_and_larger_unit_challenge'];items.append({'id':x['challenge_id'],'family':'cross chapter and larger unit continuity','ids':[f'M7_sol-Eph-{i:03d}' for i in range(10,17)],'passage':'; '.join(x['larger_parents']),'claim':'Cross-chapter and larger-parent continuity must remain visible; chapter scaffolds, household-policy assumptions, and later reuse decide no seam.','alts':x['exact_alternatives']})
+def route(a):
+ if isinstance(a,str):return a
+ return a.get('route_id','route')+': '+' + '.join(a.get('ordered_spans',[]))
+responses=[];rulings=[]
+for n,c in enumerate(items,1):
+ alts=[route(a) for a in c['alts']];ids=c['ids']
+ responses.append({'challenge_id':c['id'],'decision_id':ids[0],'affected_decision_ids':ids,'source':'peer_crosscheck_v1','family':c['family'],'passage':c['passage'],'challenge':c['claim'],'exact_alternatives':alts,'author_response':'Material challenge accepted for explicit preservation. Retain the frozen route LOW while every finer/larger route, quotation/speaker possibility, textual/translation hot zone, cross-chapter seam, and chronology appeal remains append-only and deferred. No witness, reading, punctuation, quotation extent, speaker, addressee, opponent, event sequence, chronology, law/covenant system, theology, history, or canon ruling is selected.','disposition':'hold_frozen_route_and_all_alternatives_deferred_human_or_external_ai','appeal_preserved_append_only':True,'confidence':'LOW','forced_consensus':False,'authority':'candidate_author_only'})
+ rulings.append({'ruling_id':f'EPH-BOSS-SPEC-{n:03d}','challenge_id':c['id'],'family':c['family'],'decisions':ids,'passage':c['passage'],'disposition':'retain frozen route and preserve: '+' | '.join(alts),'basis':'Material challenge sustained: '+c['claim'],'confidence':'LOW','unresolved_route':'deferred_human_or_external_ai','forced_consensus':False})
+boss['peer_challenge_responses']=responses;boss['specific_boss_rulings']=rulings;boss['peer_crosscheck_evidence']='peer_crosscheck_v1.json';boss['boss_post_peer_ruling_status']='pass_with_holds_all_peer_challenges_answered_and_appeals_preserved';boss['unresolved_claim_ids']=sorted(set((boss.get('unresolved_claim_ids') or [])+[i for c in items for i in c['ids']]));boss['accepted_decision_count']=0;boss['held_decision_count']=16;boss['forced_consensus']=False;boss['external_or_human_review_still_required']=True;boss['non_authorizing']=True
+(rev/'boss_ruling_v1.json').write_text(json.dumps(boss,ensure_ascii=False,separators=(',',':')),encoding='utf-8');print(json.dumps({'peer_challenges':len(items),'responses':len(responses),'rulings':len(rulings),'held':16}))

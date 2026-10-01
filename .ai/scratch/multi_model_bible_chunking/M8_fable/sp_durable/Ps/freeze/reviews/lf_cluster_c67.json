@@ -1,0 +1,71 @@
+{
+ "cluster": "c67",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c67_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-443",
+   "row_sha256": "fe97fefd35dccd91a8798a5126e4cd1ff0c34748305472e1c2ea963502762d15",
+   "verdict": "challenge",
+   "reasoning": "Span, unit_type, and the Hebrew citation are verified: collate.py returns tier=byte for oshb:Ps.135.1 against this row's quote. Psalm 135 is confirmed untitled/identity (web_mt_offset_map.json: web_title=false, rule=identity, 21 WEB verses = 21 MT verses), so no title-pseudo-ref question applies to this opening row. Hallelu-Yah verse-initial at 135:1 and 135:3 matches psalm_device_inventory.json's halleluyah.verse_initial list exactly. The claimed lexical bridge (135:4 and 135:5 sharing an opening particle) is independently confirmed: consonantal_index.json gives string-identical first-token skeletons for both verses, and both render \"For\" in WEB. citation_sweep.py/check_refs_mirror.py/check_marks.py/check_universals.py/check_tiling.py all ran GREEN against this row. Two lower-severity defects found (below): a quote-delimiter violation, and a rejected_alternative warrant that does not by itself establish the seam side it argues for.",
+   "challenges": [
+    {
+     "challenge_id": "LF-443-1",
+     "severity": "low",
+     "claim": "The WEB quotation of 135:3 embedded in the rationale is delimited with single curly quotes rather than the campaign's mandatory double curly quotes for verbatim WEB text beside an inline web: ref -- a delimiter-evasion defect the quote content itself does not otherwise have.",
+     "evidence": "check_web_quotes.py flags this row (path [0].rationale) verbatim: quote \"Praise Yah, for Yahweh is good. Sing praises to his name, for that is pleasant.\" / issue: \"verbatim WEB text in SINGLE curly quotes (delimiter evasion -- rows use double curly + inline web: ref)\". verse_map_web.json confirms Ps.135.3's WEB text is verbatim-identical to the quoted content, so only the quote-mark style is wrong, not the wording."
+    },
+    {
+     "challenge_id": "LF-443-2",
+     "severity": "low",
+     "claim": "The rejected_alternative's stated warrant for placing the seam at 135:4|5 rather than 135:3|4 -- that 135:4 and 135:5 open with the same particle -- is symmetric evidence: an opening-word echo between adjacent verses is at least as consistent with continuity across that boundary as with a break there, and the row does not explain why the echo favors one side of the seam over the other.",
+     "evidence": "consonantal_index.json: Ps.135.4 and Ps.135.5 first-token skeletons are string-identical (2-consonant token). A sounder, undisclosed warrant is available on the record: 135:5's own quoted opening (byte-verified oshb:Ps.135.5, tier=byte) is \"כִּ֤י אֲנִ֣י יָ֭דַעְתִּי כִּי גָד֣וֹל יְהוָ֑ה\" -- a 1cs verb (“I know”, web:Ps.135.5) launching the 8-verse third-person unit documented at 135:5-135:12, a person/scope shift 135:4 does not share. The row cites the weaker particle-echo instead of this stronger, available signal."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-444",
+   "row_sha256": "0978e62e3340ac00f761c42345c1603101ff5f7b85d208a7b27abab4a1c30d1d",
+   "verdict": "challenge",
+   "reasoning": "The Hebrew citation is verified (collate.py tier=byte for oshb:Ps.135.5). The vv5-7 \"creation\" / vv8-12 \"historical recital\" sub-framing and the closing person-shift to 135:13 are corroborated by WEB's own rendering: third person throughout 5-12, no direct address to Yahweh until “Your name, Yahweh” opens web:Ps.135.13. check_refs_mirror.py/check_marks.py/check_universals.py/citation_sweep.py/check_tiling.py all ran GREEN. One factual defect in the row's central claim was found on re-derivation (below); it does not appear to change the seam decision itself, since the sustained direct address to Yahweh starting at 135:13 remains the larger and more decisive shift, but the claim as stated is inaccurate and undisclosed.",
+   "challenges": [
+    {
+     "challenge_id": "LF-444-1",
+     "severity": "medium",
+     "claim": "The row's 'high'-confidence claim that 'every verse (8 of 8, 135:5-12)' 'stays in the third person' and that this description 'runs unbroken' from 135:5 through 135:12 is inaccurate: 135:9 embeds a second-person-feminine-singular address to personified Egypt, which the row does not disclose anywhere.",
+     "evidence": "verse_map_oshb.json Ps.135.9 text (spliced verbatim, oshb:Ps.135.9): \"שָׁלַ֤ח אֹת֣וֹת וּ֭מֹפְתִים בְּתוֹכֵ֣כִי מִצְרָ֑יִם בְּ֝פַרְעֹ֗ה וּבְכָל עֲבָדָֽיו\" -- the third word carries a 2fs pronominal suffix. WEB's own rendering of the same verse, web:Ps.135.9: “He sent signs and wonders into the middle of you, Egypt, on Pharaoh, and on all his servants.” -- the clause “into the middle of you, Egypt” (web:Ps.135.9) is a direct second-person address embedded in the span the row calls unbroken third person. The claim should be corrected to disclose the 135:9 exception rather than asserting 8-of-8 uniformity."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-445",
+   "row_sha256": "5a37d391d1808f2a3855ff729962b151beaae531555b5b78cb8b2f2219923829",
+   "verdict": "support",
+   "reasoning": "Both witness claims verified: 135:13 opens direct second-person vocative address to Yahweh, named twice (collate.py tier=byte for oshb:Ps.135.13); 135:14 reverts to third person (\"he\"/\"his\", verse_map_web.json). No selah occurs anywhere in Psalm 135 (pmarks_Ps.json selah array has zero Ps.135 entries), so the row's span-scoped absence claim for 135:13-14 is accurate -- in fact stronger than stated (whole-psalm absence, not just span-scoped) -- and is correctly framed as substrate corroboration only, never a driver, consistent with the toolkit's selah-tier rule. The bidirectional rejected_alternative (rejecting attachment to both the preceding recital and the following idol polemic, each on a distinct content ground) is well-formed and delivered as a single sentence carrying both rivals. confidence=medium_low is an appropriate calibration for a two-verse hinge unit under genuine pull from both neighbors. check_refs_mirror.py/check_marks.py/check_universals.py/citation_sweep.py/check_tiling.py all ran GREEN for this row. No material defect found.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-446",
+   "row_sha256": "f8581c0bebc02a05ed4839d96e31f1185cad458c92144d28741da4cb469367ee",
+   "verdict": "challenge",
+   "reasoning": "The row's central empirical claim -- a byte comparison of this psalm's idol polemic against Ps 115's -- is exactly and precisely correct on independent re-derivation: direct string comparison of verse_map_oshb.json text confirms Ps.135.16 and Ps.115.5 are byte-identical, and Ps.135.18 and Ps.115.8 are byte-identical; Ps.135.15 vs Ps.115.4 diverge after only a 2-character common prefix (matching the row's \"different construct phrase\" claim), and Ps.135.17 (70 chars) only partially overlaps Ps.115.6 (26-character common prefix, 67 chars) and shares no prefix with Ps.115.7 (88 chars) -- consistent with the row's \"compresses ... into a shorter clause\" characterization of a two-verse source folded into one. No selah occurs anywhere in Psalm 135 (pmarks_Ps.json), confirming the span-scoped absence claim. Framing the Ps 115 parallel as a typed relation without proposing a merge is correct campaign practice (rows never cross psalm boundaries). check_refs_mirror.py/check_marks.py/check_universals.py/citation_sweep.py/check_tiling.py all ran GREEN. One terminology defect found (below); it does not affect the row's own boundary decision.",
+   "challenges": [
+    {
+     "challenge_id": "LF-446-1",
+     "severity": "low",
+     "claim": "The rejected_alternative describes 135:14 as staying 'within the historical recital's third-person report of Yahweh's own acts' -- but 'historical recital' is the label this cluster's own material uses specifically for 135:8-135:12 (there distinguished from a separate 'creation' label covering 135:5-135:7), and 135:14 is characterized elsewhere in this cluster as part of a second-person-opening hinge spanning 135:13-135:14, not as part of any span called the historical recital.",
+     "evidence": "Cross-check within the cluster's own prose: 'historical recital' names only 135:8-135:12 where it is defined (paired there with 'creation' for 135:5-135:7); the immediately preceding row's own span and rationale place 135:14 in a distinct second-person hinge (135:13-135:14), not inside that recital. The row's actual boundary decision (keeping 135:15-135:18 separate from 135:14) is unaffected -- this is a labeling-precision defect in the rejected_alternative's prose, not a span or verdict error."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-447",
+   "row_sha256": "0f31c546b8c3233e1502a174bbd5acb9bc8eea099395df244a4131cfa49c2778",
+   "verdict": "support",
+   "reasoning": "All empirical comparative claims verified exactly. 135:19-135:20 (WEB, verse_map_web.json) name four addressee groups: house of Israel, house of Aaron, house of Levi, those who fear Yahweh. Ps.115.9-115.11 and Ps.118.2-118.4 (WEB, verse_map_web.json for both comparison psalms) each name exactly three groups -- Israel, house of Aaron, those who fear Yahweh -- with no house-of-Levi member in either, exactly matching the row's 4-vs-3 claim. Hallelu-Yah verse-final at 135:21 matches psalm_device_inventory.json's halleluyah.verse_final list exactly, closing the frame this cluster independently confirms opened at 135:1 and 135:3. Both Hebrew citations (oshb:Ps.135.19, oshb:Ps.135.20) verified at byte tier via collate.py. check_refs_mirror.py/check_marks.py/check_universals.py/citation_sweep.py/check_tiling.py all ran GREEN. confidence=high is well-justified by the density of independently re-derived, exactly-matching evidence. No material defect found.",
+   "challenges": []
+  }
+ ]
+}

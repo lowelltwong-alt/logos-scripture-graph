@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Adversarial test of _close_book.py's lane gates: a synthetic passing landing set, then one tampering at a time.
+
+The fixture is built under --dest, which must lie outside M8. _close_book.py is then run DRY with --landing pointed at
+it, so the real landing set, the shared files and every pinned record stay untouched. A passing fixture must leave
+only the gates it cannot satisfy by construction: the two completion-receipt gates, because the fixture writes no
+receipt. Each tampering must make exactly its named gate go unmet. A tampering that no gate notices is a FAIL of this
+test, not of the fixture.
+
+usage: _test_close_book_gates.py --dest <dir outside M8>
+"""
+import argparse
+import copy
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+sys.stdout.reconfigure(encoding="utf-8")
+EZ = Path(__file__).resolve().parent
+M8 = EZ.parent.parent
+PIN = "b2160ad6281184dc1dedf15a764bc058bc79a181928ed6323dbc332ec09cb0e7"
+ATT = {"A": "ezek_merged_close_lane_a_a1", "B": "ezek_merged_close_lane_b_a1"}
+BY_CONSTRUCTION = {"lane A: completion receipt COMPLETED on claude-opus-5-5",
+                   "lane B: completion receipt COMPLETED on claude-opus-5-5"}
+
+
+def good(L):
+    return {
+        "postcheck.json": {"verdict": "fit_to_assemble", "blocking": [], "residual": [{"severity": "low", "row_id": "x"}]},
+        "final_check.json": {"book": "Ezek", "model": "claude-opus-5-5", "grader_role": "grader_fallback (OW-25)",
+                             "verdict": "fit_to_close", "corpus_sha256": PIN, "residual": [], "stage1_findings_disposition": [],
+                             "close_gate_assessment": [{"gate": "postcheck", "met": True},
+                                                       {"gate": "stage-1 transcript audit", "met": False}],
+                             "transcript_coverage": {"attempts_with_no_transcript": 3, "bytes_audited_by_stage1": 0,
+                                                     "reconcile_verdict": "NOT_RUN",
+                                                     "statement": "The stage-1 transcript audit is OWED, NOT MET (OW-26)."}},
+        "items_20_23.json": {"item_%d" % i: {"fit_to_accept": True} for i in range(20, 24)},
+        "named_questions.json": {"NQ-%d" % i: {"answer": "a", "evidence": "e", "tier": "MEASURED"} for i in range(1, 11)},
+        "lane_meta.json": {"attempt_id": ATT[L], "model": "claude-opus-5-5", "grader_role": "grader_fallback (OW-25)",
+                           "e19_selfreport": "no directory listed, globbed or searched"},
+        "final_message.md": "lane %s\n" % L,
+    }
+
+
+def tamper(name, fixture):
+    f = copy.deepcopy(fixture)
+    A = f["A"]
+    if name == "fable model claimed":
+        A["final_check.json"]["model"] = "claude-fable-5-1"
+    elif name == "other corpus audited":
+        A["final_check.json"]["corpus_sha256"] = "0" * 64
+    elif name == "transcript audit claimed as run":
+        A["final_check.json"]["transcript_coverage"]["reconcile_verdict"] = "GREEN"
+    elif name == "owed statement dropped":
+        A["final_check.json"]["transcript_coverage"]["statement"] = "coverage was adequate"
+    elif name == "item 22 not fit":
+        A["items_20_23.json"]["item_22"]["fit_to_accept"] = False
+    elif name == "medium residual in postcheck":
+        A["postcheck.json"]["residual"].append({"severity": "medium", "row_id": "P03-001"})
+    elif name == "a non-transcript Lam gate unmet":
+        A["final_check.json"]["close_gate_assessment"].append({"gate": "sidecar set equality", "met": False})
+    elif name == "not_fit verdict":
+        A["final_check.json"]["verdict"] = "not_fit"
+    elif name == "a named question unanswered":
+        A["named_questions.json"]["NQ-8"]["answer"] = ""
+    return f
+
+
+EXPECT = {"fable model claimed": "lane A: final check names the carrier's model",
+          "other corpus audited": "lane A: final check fit_to_close over THIS corpus",
+          "transcript audit claimed as run": "lane A: transcript audit recorded OWED, NOT run",
+          "owed statement dropped": "lane A: transcript audit recorded OWED, NOT run",
+          "item 22 not fit": "lane A: items 20-23 fit_to_accept",
+          "medium residual in postcheck": "lane A: postcheck fit_to_assemble, no high/medium residual",
+          "a non-transcript Lam gate unmet": "lane A: the only unmet Lam gate is the owed transcript audit",
+          "not_fit verdict": "lane A: final check fit_to_close over THIS corpus",
+          "a named question unanswered": "lane A: NQ-1..NQ-10 answered",
+          "manifest digest mismatch": "lane A: six durable outputs match the landing manifest"}
+
+
+def build(root, fixture, break_digest=False):
+    if root.exists():
+        shutil.rmtree(root)  # only ever a fixture this test made under --dest
+    man = {"schema": "ezek_merged_close_landing.v1", "lanes": {}}
+    for L, files in fixture.items():
+        ent = {"attempt_id": ATT[L], "files": {}}
+        for fn, obj in files.items():
+            p = root / ("lane_" + L.lower()) / fn
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(obj if isinstance(obj, str) else json.dumps(obj, ensure_ascii=False), encoding="utf-8")
+            d = hashlib.sha256(p.read_bytes()).hexdigest()
+            ent["files"][fn] = {"durable": "lane_%s/%s" % (L.lower(), fn), "sha256": ("f" * 64 if break_digest and L == "A"
+                                                                                     and fn == "postcheck.json" else d)}
+        man["lanes"][L] = ent
+    (root / "landing_manifest.v1.json").write_text(json.dumps(man), encoding="utf-8")
+    return root / "landing_manifest.v1.json"
+
+
+def unmet(landing):
+    p = subprocess.run([sys.executable, "-B", str(EZ / "_close_book.py"), "--landing", str(landing)], cwd=str(EZ),
+                       capture_output=True, text=True, encoding="utf-8", env={**__import__("os").environ, "PYTHONUTF8": "1"})
+    if p.returncode != 0:
+        return None, (p.stderr or p.stdout)[-300:]
+    return {g["gate"] for g in json.loads(p.stdout)["unmet"]}, ""
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dest", required=True)
+    dest = Path(ap.parse_args().dest).resolve()
+    if dest == M8 or M8 in dest.parents:
+        raise SystemExit("REFUSED: --dest is inside the M8 tree")
+    base = {L: good(L) for L in ATT}
+    results, ok = {}, True
+    got, err = unmet(build(dest / "fx_good", base))
+    passed = got == BY_CONSTRUCTION
+    results["passing fixture"] = {"unmet": sorted(got or []), "err": err, "PASS": passed}
+    ok &= passed
+    for name, want in EXPECT.items():
+        fx = base if name == "manifest digest mismatch" else tamper(name, base)
+        got, err = unmet(build(dest / "fx_t", fx, break_digest=(name == "manifest digest mismatch")))
+        caught = got is not None and want in got
+        results[name] = {"CAUGHT": caught, "extra_unmet": sorted((got or set()) - BY_CONSTRUCTION - {want}), "err": err}
+        ok &= caught
+    print(json.dumps({"verdict": "PASS" if ok else "FAIL", "results": results}, ensure_ascii=False, indent=1))
+    sys.exit(0 if ok else 1)
+
+
+if __name__ == "__main__":
+    main()

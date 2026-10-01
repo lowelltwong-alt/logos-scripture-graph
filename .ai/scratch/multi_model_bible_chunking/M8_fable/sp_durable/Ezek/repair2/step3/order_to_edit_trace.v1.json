@@ -1,0 +1,427 @@
+{
+ "schema": "ezek_order_to_edit_trace.v1",
+ "order": "#e15 Q10: for every per-row order, name the worklist item and the applied edit that discharged it and show BY A STRING TEST ON THE CURRENT ROW that the ordered content is present",
+ "what_it_corrects": "my E13-65 fixture asserted every order had an ITEM; it never asserted the item's EDIT carried the order's CONTENT. Four orders were undischarged while every sweep reported full parity. This tests DISCHARGE, not existence.",
+ "method": "verse references and device/act words are extracted from each order's prose and tested against the current row's bytes. An order with no extractable token is UNCLEAR, never passed - a trace that guessed would report discharge it cannot see, which is the failure it exists to catch.",
+ "inputs": {
+  "rows": "rows_v7_cwo24.jsonl",
+  "rows_sha256": "9abd545f4854c45610fb66a4b047d668596ed5fb492b348e76216dc220d13614",
+  "orders": "per_row_orders.v1.json",
+  "orders_sha256": "b855940fbf15b64929babb114119daffdfa6a7e7082c5e947484327d91dd9db4",
+  "boss_audit_sha256": "1d75db0739267d9b45c59d0ed52c6df4617b0190f00036a4d4baf9a4cb228b3f"
+ },
+ "orders_traced": 22,
+ "tally": {
+  "DISCHARGED": 17,
+  "UNCLEAR": 3,
+  "PARTIAL": 2
+ },
+ "NOT_DISCHARGED": [],
+ "PARTIAL": [
+  {
+   "row": "P04-008",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A9/A16: name the PE and the ve'attah in the rejected-alternative field; correct the denial and the class blend",
+   "verdict": "PARTIAL",
+   "why": "every ordered verse is named but the row lacks the word(s) ve'attah",
+   "tested": {
+    "verses": {},
+    "words": {
+     "pe": true,
+     "ve'attah": false
+    }
+   }
+  },
+  {
+   "row": "P05-008",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "rewrite the rejected alternative: name the SAMEKH (A9), the son-of-man address the denial silently excludes (A5, MEDIUM), the D3 close, and the inclusio as the ground",
+   "verdict": "PARTIAL",
+   "why": "every ordered verse is named but the row lacks the word(s) inclusio",
+   "tested": {
+    "verses": {},
+    "words": {
+     "inclusio": false,
+     "samekh": true
+    }
+   }
+  }
+ ],
+ "UNCLEAR": [
+  {
+   "row": "P01-013",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A10 disclosure of the witness's sectioning against the row",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  },
+  {
+   "row": "P02-016",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "replace the divine-name-form ground with the far-side ground",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  },
+  {
+   "row": "P05-002",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "replace the false ground",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  }
+ ],
+ "all": [
+  {
+   "row": "P01-008",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A9: name and weigh the 4:3 samekh and colophon in the rejected-alternative field; reword the test",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "4:3": true
+    },
+    "words": {
+     "colophon": true,
+     "samekh": true
+    }
+   }
+  },
+  {
+   "row": "P01-009",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "rewrite the false ground on the four interior marks; weigh the 5:4/5:5 rival under A16 naming the PE and the formula",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "5:4": true,
+     "5:5": true
+    },
+    "words": {
+     "pe": true
+    }
+   }
+  },
+  {
+   "row": "P01-013",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A10 disclosure of the witness's sectioning against the row",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  },
+  {
+   "row": "P02-009",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A9/A16: weigh 11:16/11:17 in the rejected-alternative field naming the samekh and both formulae; correct the measured-false device denial in the unit-type field",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "11:16": true,
+     "11:17": true
+    },
+    "words": {
+     "samekh": true
+    }
+   }
+  },
+  {
+   "row": "P02-016",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "replace the divine-name-form ground with the far-side ground",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  },
+  {
+   "row": "P02-019",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "C1 rewrite; the rejected alternative names the 14:2 word-event onset with the PE weighed for it (A9)",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "14:2": true
+    },
+    "words": {
+     "pe": true,
+     "word-event": true
+    }
+   }
+  },
+  {
+   "row": "P02-020",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "correct the denial to state 14:21 is a messenger formula and why it is a paragraph; A9 weigh the 14:20 PE; A7 length disclosure (12 verses against the 7-10 target)",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "14:20": true,
+     "14:21": true
+    },
+    "words": {
+     "messenger": true,
+     "pe": true
+    }
+   }
+  },
+  {
+   "row": "P03-007",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "C4 order already issued for P03-007; disclose the 16:51 continuity",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "16:51": true
+    },
+    "words": {}
+   }
+  },
+  {
+   "row": "P03-012",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A16: the rejected alternative names the merge 17:11-21",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "17:11": true
+    },
+    "words": {}
+   }
+  },
+  {
+   "row": "P04-006",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "MARKS-3D: disclose the MT 21:5 PE (dual-written)",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "21:5": true
+    },
+    "words": {
+     "pe": true
+    }
+   }
+  },
+  {
+   "row": "P04-008",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A9/A16: name the PE and the ve'attah in the rejected-alternative field; correct the denial and the class blend",
+   "verdict": "PARTIAL",
+   "why": "every ordered verse is named but the row lacks the word(s) ve'attah",
+   "tested": {
+    "verses": {},
+    "words": {
+     "pe": true,
+     "ve'attah": false
+    }
+   }
+  },
+  {
+   "row": "P05-002",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "replace the false ground",
+   "verdict": "UNCLEAR",
+   "why": "the order names no verse and no device or act word, so this trace cannot test its content mechanically",
+   "tested": {}
+  },
+  {
+   "row": "P05-005",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "disclose the 23:35 SAMEKH",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "23:35": true
+    },
+    "words": {
+     "samekh": true
+    }
+   }
+  },
+  {
+   "row": "P05-007",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "A9: name and weigh the 24:8 PE and the 24:9 messenger formula in the rejected-alternative field (currently absent)",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "24:8": true,
+     "24:9": true
+    },
+    "words": {
+     "messenger": true,
+     "pe": true
+    }
+   }
+  },
+  {
+   "row": "P05-008",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "rewrite the rejected alternative: name the SAMEKH (A9), the son-of-man address the denial silently excludes (A5, MEDIUM), the D3 close, and the inclusio as the ground",
+   "verdict": "PARTIAL",
+   "why": "every ordered verse is named but the row lacks the word(s) inclusio",
+   "tested": {
+    "verses": {},
+    "words": {
+     "inclusio": false,
+     "samekh": true
+    }
+   }
+  },
+  {
+   "row": "P07-001",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "the rejected alternative names both 29:7/29:8 and the 29:1-16 tiling; A10 disclosure of the 29:7 mark",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "29:1": true,
+     "29:7": true,
+     "29:8": true
+    },
+    "words": {
+     "tiling": true
+    }
+   }
+  },
+  {
+   "row": "P11-010",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "all five repairs; A16 weigh the 47:6 rival",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "47:6": true
+    },
+    "words": {}
+   }
+  },
+  {
+   "row": "P02-003",
+   "source": "ezek_controlling_agent_ruling_e13.v1.json",
+   "key": "author_wave",
+   "order": "rewrite the rejected alternative: name the 8:16 transport as a class member and named scene seam, the 8:15 pointer close, the guard as the ground for holding, and the 8:14 samekh as corroborating only a non-viable one-verse alternative; drop the mark-absence ground ('no refrain or mark separates 8:16-18'), which the contract forbids as counter-evidence",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "8:14": true,
+     "8:15": true,
+     "8:16": true
+    },
+    "words": {
+     "samekh": true,
+     "transport": true
+    }
+   }
+  },
+  {
+   "row": "P06-009",
+   "source": "ezek_boss_audit.v1.json",
+   "key": "work_order",
+   "order": "Carry: (a) the 27:3 messenger-formula correction to the row's 'no formula marks any internal point' sentence (both lanes; MEASURED); (b) the A7 benchmark correction (36 verses disclosed against the 7-10 target, not the 14-16 allowance). Strike: peer_07's four GENUINE/MEDIUM answers on the 'never split' universals — they are FALSE POSITIVES; the row may keep the sentence and should cite the over-split guard (strategy §6) as its source. No peer re-run needed: the correction is extracted here from the pinned input.",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "27:3": true
+    },
+    "words": {
+     "messenger": true
+    }
+   }
+  },
+  {
+   "row": "P08-002",
+   "source": "ezek_boss_audit.v1.json",
+   "key": "work_order",
+   "order": "Carry: the A2 disclosure of kq at 33:13 and 33:16; LF's two corrections (verbatim scope; the 33:12 ve'attah as the rival onset with the over-split guard as the holding ground). Strike: the sof-pasuq tier cure and the three 'GENUINE, reclassified' flag answers on that sentence — they are FALSE POSITIVES; the row's claim is MEASURED via pmarks arithmetic_anomalies_resolved and may cite it. Withdraw the C2 routing of a strategy-vs-pmarks discrepancy on MT 33:20: the two pinned inputs agree.",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "33:12": true,
+     "33:13": true,
+     "33:16": true,
+     "33:20": true
+    },
+    "words": {
+     "ve'attah": true
+    }
+   }
+  },
+  {
+   "row": "P08-011",
+   "source": "ezek_boss_audit.v1.json",
+   "key": "work_order",
+   "order": "Carry LF's A4 install of 36:12. Carry OL's finding as MEASURED (from pmarks kq): reword the K/Q disclosure so that 'separators stripped' is said only of the second 36:13 note and the first 36:14 note, or say 'rendered as read forms' without the separator claim. A1 still bars any challenge to the labelled, slash-free Qere forms themselves. No peer re-run needed.",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "36:12": true,
+     "36:13": true,
+     "36:14": true
+    },
+    "words": {
+     "k/q": true,
+     "qere": true
+    }
+   }
+  },
+  {
+   "row": "P09-002",
+   "source": "ezek_boss_audit.v1.json",
+   "key": "work_order",
+   "order": "Carry the peer's mark ruling (no disclosure defect; at most a wording-scope note on 'inside 37.15-28'). Carry OL's second finding as MEASURED (from pmarks kq): reword the 37:16 disclosure so that the two Qere notes are described as the same word with different pointing (חֲבֵרָ֑יו / חֲבֵרָֽיו) rather than 'both the same word … read חֲבֵרָ֑יו'; A1 still bars any challenge to the labelled, slash-free forms. Carry the 8-word A6 run at 37:20. No peer re-run needed.",
+   "verdict": "DISCHARGED",
+   "why": "every verse and device word the order names is present in the row",
+   "tested": {
+    "verses": {
+     "37:16": true,
+     "37:20": true
+    },
+    "words": {
+     "qere": true
+    }
+   }
+  }
+ ],
+ "tier": "MEASURED string tests over the current rows; the extraction rule is the orchestrator's and its limit is stated"
+}

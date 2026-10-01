@@ -1,0 +1,74 @@
+--- a/Ezek/_land_author_part_ezek.py
++++ b/Ezek/_land_author_part_ezek.py
+@@ -56,6 +56,9 @@
+               "parable_allegory", "disputation_oracle", "salvation_oracle", "temple_measurement", "temple_law", "land_allotment"}
+ CONFIDENCE = {"high", "medium", "medium_low", "low"}
+ SPAN = re.compile(r"^Ezek\.(\d+)\.(\d+)-Ezek\.(\d+)\.(\d+)$")
++FIXUP1_ORDERED_BY = "ezek_controlling_rulings_a1#e4 ruling FIXUP-1"
++AGENT_LABEL = "%s author %s"
++PRODUCER = "%s execution of the controlling agent's fix-up orders (%s)"
+ 
+ 
+ def sha(p):
+@@ -84,6 +87,12 @@
+     if arg_ordinal is not None and rec_ord is not None and arg_ordinal != rec_ord:
+         return None, "--ordinal %d disagrees with the agent record's execution %s; nothing landed" % (arg_ordinal, record_xid)
+     return (arg_ordinal if arg_ordinal is not None else rec_ord), None
++
++
++def wave_labels(orders):
++    """(wave, ordered_by) for a fix-up orders file, from the file's own fields; the FIXUP-1 strings are the defaults when the
++    fields are absent (ezek_controlling_rulings_a1#e9 ruling S2-ROUTING (5))."""
++    return orders.get("wave") or "FIXUP-1", orders.get("ordered_by") or FIXUP1_ORDERED_BY
+ 
+ 
+ def selftest():
+@@ -100,6 +109,24 @@
+     results = []
+     for name, args, want in vectors:
+         got, _why = resolve_ordinal(*args)
++        results.append({"vector": name, "want": want, "got": got, "ok": got == want})
++    # ezek_controlling_rulings_a1#e9 ruling S2-ROUTING (5): wave and ruling labels, both ways
++    s2r = "ezek_controlling_rulings_a1#e9 ruling S2-ROUTING"
++    for name, orders, want in [
++            ("FIXUP-1 orders (no wave field) keep the FIXUP-1 labels", {"ordered_by": FIXUP1_ORDERED_BY}, ("FIXUP-1", FIXUP1_ORDERED_BY)),
++            ("orders with neither field default to the FIXUP-1 labels", {}, ("FIXUP-1", FIXUP1_ORDERED_BY)),
++            ("FIXUP-2 orders resolve their own wave and ruling", {"wave": "FIXUP-2", "ordered_by": s2r}, ("FIXUP-2", s2r))]:
++        got = wave_labels(orders)
++        results.append({"vector": name, "want": list(want), "got": list(got), "ok": got == want})
++    w1, ob1 = wave_labels({"ordered_by": FIXUP1_ORDERED_BY})
++    w2, ob2 = wave_labels({"wave": "FIXUP-2", "ordered_by": s2r})
++    for name, got, want in [
++            ("the FIXUP-1 agent label equals the old literal", AGENT_LABEL % (w1, "p06"), "FIXUP-1 author p06"),
++            ("the FIXUP-1 producer equals the old literal", PRODUCER % (w1, ob1),
++             "FIXUP-1 execution of the controlling agent's fix-up orders (ezek_controlling_rulings_a1#e4 ruling FIXUP-1)"),
++            ("the FIXUP-2 agent label names FIXUP-2", AGENT_LABEL % (w2, "p08"), "FIXUP-2 author p08"),
++            ("the FIXUP-2 producer names #e9", PRODUCER % (w2, ob2),
++             "FIXUP-2 execution of the controlling agent's fix-up orders (ezek_controlling_rulings_a1#e9 ruling S2-ROUTING)")]:
+         results.append({"vector": name, "want": want, "got": got, "ok": got == want})
+     failed = [r for r in results if not r["ok"]]
+     print(json.dumps({"selftest": "resolve_ordinal", "vectors": len(results), "failed": failed,
+@@ -129,8 +156,9 @@
+     orders = json.loads(orders_p.read_text(encoding="utf-8"))
+     aid = orders["attempt_id"]
+     fixup = orders.get("schema") == "m8_fixup_orders.v1"
++    wave, ordered_by = wave_labels(orders)
+     if fixup and (orders.get("part") != a.part or not a.brief):
+-        raise SystemExit("ABORT: FIXUP-1 orders for %s landed as %s, or no --brief given" % (orders.get("part"), a.part))
++        raise SystemExit("ABORT: %s orders for %s landed as %s, or no --brief given" % (wave, orders.get("part"), a.part))
+     base_dir = orders_p.parent if fixup else AUTHOR
+     receipts_p = (orders_p.parent / "ezek_author_fixup_attempt_receipts.jsonl") if fixup else RECEIPTS
+     brief_p = (EZ / a.brief) if a.brief else EZ / "AUTHOR_BRIEF.md"
+@@ -304,10 +332,10 @@
+             "schema": "m8_attempt_receipt.v1", "lane": "ezek_author_fixup" if fixup else "ezek_author_wave", "book": "Ezek",
+             "attempt_id": aid, "execution_id": xid, "execution_of": aid, "execution_ordinal": a.ordinal,
+             "previous_execution_id": ("%s#e%d" % (aid, a.ordinal - 1)) if a.ordinal > 1 else None, "retry_of": None,
+-            "agent": ("FIXUP-1 author %s" if fixup else "author %s") % a.part, "parent_agent_id": "orchestrator", "model": a.model,
++            "agent": (AGENT_LABEL % (wave, a.part)) if fixup else ("author %s" % a.part), "parent_agent_id": "orchestrator", "model": a.model,
+             "model_actual": "UNAVAILABLE - the runtime exposed no effective-model record; never inferred",
+             "effort": "ORDERED session default, NOT VERIFIED",
+-            "producer": ("FIXUP-1 execution of the controlling agent's fix-up orders (ezek_controlling_rulings_a1#e4 ruling FIXUP-1)"
++            "producer": ((PRODUCER % (wave, ordered_by))
+                          if fixup else "author-wave execution of the controlling agent's work orders (ruling R2)"),
+             "catcher": "SP/Ezek/_land_author_part_ezek.py (form, coverage, local tiling, E-01 only); a distinct checker "
+                        "reviews the amended rows after the apply step",

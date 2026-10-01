@@ -1,0 +1,208 @@
+{
+  "schema_version": "t550_hos_v8_kernel_v5_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "fresh_independent_transaction_kernel_red_team",
+  "review_mode": "read_only_exact_hash",
+  "reviewed_at_utc": "2026-07-28T15:02:52.5885673Z",
+  "verdict": "PASS",
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "exact_hash_match": true,
+  "inputs": {
+    "kernel": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v5.py",
+      "sha256": "6f00c736e2bb254ec35e9d119cf7e122eaccb40e617eeb2e50280e1df0ce7274"
+    },
+    "base_tests": {
+      "path": "tests/test_journaled_recoverable_publish_v5.py",
+      "sha256": "8f47b1a55455a1da547ab40e5ad61e553b6a61ce45f3b9c54a4bad5eded92e12"
+    },
+    "recovery_tests": {
+      "path": "tests/test_journaled_recoverable_publish_v5_recovery.py",
+      "sha256": "bf754aab32fbe617e0351dbccdaf105c0283bdc9b912ac73ee868666382c7cec"
+    }
+  },
+  "preserved_prior_fail": {
+    "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v7_kernel_v4_independent_check.json",
+    "expected_sha256": "533c06b89e4163a5d9b63b3d1b61ab5a4249492cbc689f1c9af5c30301e43a15",
+    "observed_sha256": "533c06b89e4163a5d9b63b3d1b61ab5a4249492cbc689f1c9af5c30301e43a15",
+    "verdict": "FAIL",
+    "preservation_result": "PASS_UNCHANGED",
+    "interpretation": "This V5 PASS supersedes only the repaired transaction-kernel qualification. It does not rewrite, erase, or retroactively convert the V4 FAIL."
+  },
+  "scope": {
+    "included": [
+      "acquisition-specific lock-token exclusivity",
+      "two-publisher schedules before and after initial journal creation",
+      "lock-without-journal interruption",
+      "durable recovery-marker enforcement and tamper handling",
+      "initial-journal Exception and BaseException transitions",
+      "immutable-core binding of physical canonical, archive, and staged target identities and hashes",
+      "immutable-core binding of actual-published-manifest and published-receipt paths and deterministic hashes",
+      "transaction-intent and receipt dependency direction",
+      "core-derived exact auxiliary cleanup",
+      "corrupt, foreign, missing, and incomplete journal behavior",
+      "manifest and receipt phase transitions",
+      "rollback-only recovery and interrupted rollback restart",
+      "unknown canonical and auxiliary byte states",
+      "completed replay and tamper detection"
+    ],
+    "explicitly_excluded_from_verdict": [
+      "path-handle, junction, symlink, or reparse-point protection",
+      "unrelated global-file guards or global locking",
+      "power-loss durability",
+      "set-level atomicity",
+      "cryptographic caller identity or authorization provenance",
+      "adversarial substitution of the caller-supplied journal, lock, or marker path outside a pinned wrapper"
+    ]
+  },
+  "frozen_test_execution": [
+    {
+      "command": "python -m pytest -q tests\\test_journaled_recoverable_publish_v5.py --confcutdir=tests -p no:cacheprovider --basetemp C:\\tmp\\t550-hos-v8-kernel-v5-base",
+      "result": "PASS",
+      "passed": 30,
+      "failed": 0,
+      "elapsed_seconds": 30.29
+    },
+    {
+      "command": "python -m pytest -q tests\\test_journaled_recoverable_publish_v5_recovery.py -k baseexception_restart --confcutdir=tests -p no:cacheprovider --basetemp C:\\tmp\\t550-hos-v8-kernel-v5-restart",
+      "result": "PASS",
+      "passed": 13,
+      "failed": 0,
+      "deselected": 27,
+      "elapsed_seconds": 14.17
+    },
+    {
+      "command": "python -m pytest -q tests\\test_journaled_recoverable_publish_v5_recovery.py -k baseexception_during_rollback --confcutdir=tests -p no:cacheprovider --basetemp C:\\tmp\\t550-hos-v8-kernel-v5-rollback-restart",
+      "result": "PASS",
+      "passed": 13,
+      "failed": 0,
+      "deselected": 27,
+      "elapsed_seconds": 20.63
+    },
+    {
+      "command": "python -m pytest -q tests\\test_journaled_recoverable_publish_v5_recovery.py -k \"not baseexception_restart and not baseexception_during_rollback\" --confcutdir=tests -p no:cacheprovider --basetemp C:\\tmp\\t550-hos-v8-kernel-v5-recovery-rest",
+      "result": "PASS",
+      "passed": 14,
+      "failed": 0,
+      "deselected": 26,
+      "elapsed_seconds": 13.03
+    }
+  ],
+  "test_summary": {
+    "passed": 70,
+    "failed": 0,
+    "interpretation": "The exact frozen suite is green in bounded nonredundant splits. Static source tracing was also required for this verdict; green tests alone were not treated as proof."
+  },
+  "dimension_results": {
+    "exact_lock_token_exclusivity": {
+      "result": "PASS",
+      "basis": "Every acquisition creates a fresh 256-bit owner token with exclusive xb creation. Journal ownership binds that token and the exact lock-byte hash; completion and recovery remove only exact expected bytes."
+    },
+    "two_publishers_and_lock_no_journal": {
+      "result": "PASS",
+      "basis": "A contender cannot treat an application-id match as reentrant. The frozen schedules cover a publisher completing between another publisher's journal reads, a contender entering after the first lock but before the first journal, and a contender observing a valid active owner journal. The lock-without-journal case becomes a durable recovery gate without deleting the first owner's lock."
+    },
+    "valid_owner_journal_not_poisoned": {
+      "result": "PASS",
+      "basis": "When a second invocation validates an incomplete journal and its exact owning lock, it raises rollback-only RecoveryRequired without modifying that journal, lock, or manufacturing a marker that would disrupt the live owner."
+    },
+    "durable_marker_enforcement": {
+      "result": "PASS",
+      "basis": "Forward entry, completed replay, initialization, every target replacement, and both auxiliary writes consult the marker. A marker continues to block after journal deletion; corrupt, malformed, tampered, and foreign markers also fail closed. Recovery consumes only the exact marker bytes observed before verified rollback."
+    },
+    "initial_journal_baseexception": {
+      "result": "PASS",
+      "basis": "The lock-to-initial-journal window is inside a BaseException guard. OSError and KeyboardInterrupt tests show the acquisition-specific lock is retained, a durable marker is written when possible, and no canonical or auxiliary byte is changed."
+    },
+    "immutable_core_target_binding": {
+      "result": "PASS",
+      "basis": "transaction_intent binds ordered target IDs, logical paths, resolved physical canonical/archive/staged paths, and preimage/staged hashes. The full immutable core is canonical-JSON hashed and compared with a caller-recomputed expected core before replay or recovery."
+    },
+    "immutable_core_auxiliary_binding": {
+      "result": "PASS",
+      "basis": "The immutable core binds the resolved actual-published-manifest and receipt paths plus deterministic expected hashes. Caller path changes alter the expected core and cannot redirect recovery cleanup."
+    },
+    "transaction_intent_and_no_receipt_self_cycle": {
+      "result": "PASS",
+      "basis": "The intent is computed solely from the application and frozen targets. The manifest binds the intent; the prose-free receipt binds the intent and manifest hash; auxiliary expected hashes are then embedded in the outer immutable core. The receipt does not hash itself."
+    },
+    "auxiliary_cleanup_from_core_only": {
+      "result": "PASS",
+      "basis": "Recovery obtains auxiliary paths and hashes through _core_auxiliary on the validated immutable core. Mutable top-level hash fields do not authorize deletion, core tamper is rejected, and foreign auxiliary bytes are retained with recovery_required."
+    },
+    "corrupt_foreign_and_incomplete_journals": {
+      "result": "PASS",
+      "basis": "Unreadable and foreign journals are not overwritten and create a separate fail-closed marker. Incomplete valid journals never resume forward. Missing journals cannot authorize recovery."
+    },
+    "manifest_receipt_phase_completeness": {
+      "result": "PASS",
+      "basis": "The suite interrupts before and after manifest and receipt writes and their readbacks, plus before completed. Every covered state retains exact ownership, blocks forward progress, and is eligible only for rollback recovery."
+    },
+    "rollback_only_recovery": {
+      "result": "PASS",
+      "basis": "Recovery verifies core, owner lock, archive hashes, and that every canonical byte set is either the bound preimage or bound staged form before writing. It always restores all targets from archives; 13 forward interruption positions and 13 rollback interruption positions restart as rollback-only."
+    },
+    "unknown_canonical_and_auxiliary_states": {
+      "result": "PASS",
+      "basis": "A canonical hash outside the preimage/staged pair blocks before any recovery write. Missing expected auxiliaries are treated as an unwritten phase; matching transaction auxiliaries are removed; foreign or mismatched auxiliaries are retained and keep recovery incomplete."
+    },
+    "completed_replay_and_tamper": {
+      "result": "PASS",
+      "basis": "Completed replay is a zero-write idempotent verification only after staged canonical, deterministic manifest, deterministic receipt, marker absence, lock absence, and caller invariants pass. Canonical, manifest, receipt, core, lock, or marker mismatch fails closed."
+    }
+  },
+  "prior_v4_findings_resolution": [
+    {
+      "finding_id": "V7-KERNEL-LOCK-001",
+      "v5_status": "CLOSED",
+      "basis": "Application-id reentrancy was removed in favor of exclusive acquisition-specific owner tokens and exact cleanup."
+    },
+    {
+      "finding_id": "V7-KERNEL-MARKER-001",
+      "v5_status": "CLOSED",
+      "basis": "The recovery marker is now an enforced forward gate, including no-journal and completed-replay paths."
+    },
+    {
+      "finding_id": "V7-KERNEL-STATE-001",
+      "v5_status": "CLOSED",
+      "basis": "Initial journal creation is guarded for Exception and BaseException; the lock remains and marker creation is attempted durably."
+    },
+    {
+      "finding_id": "V7-KERNEL-AUX-001",
+      "v5_status": "CLOSED",
+      "basis": "Auxiliary identities are immutable-core data and cleanup no longer trusts mutable top-level journal fields."
+    },
+    {
+      "finding_id": "V7-KERNEL-LOCK-DELETE-001",
+      "v5_status": "CLOSED_WITHIN_STATED_PATH_SCOPE",
+      "basis": "Cleanup compares exact acquisition-specific lock bytes immediately before unlink. Path-handle substitution remains explicitly excluded."
+    }
+  ],
+  "preserved_limitations": [
+    {
+      "limitation_id": "V8-KERNEL-SCOPE-001",
+      "statement": "This verdict does not establish path-handle or reparse-point safety. Exact byte checks are pathname based."
+    },
+    {
+      "limitation_id": "V8-KERNEL-SCOPE-002",
+      "statement": "This verdict does not establish power-loss durability or all-files-at-once atomicity; it establishes fail-closed, diagnosable, rollback-only process-interruption handling for individually atomic local replacements."
+    },
+    {
+      "limitation_id": "V8-KERNEL-SCOPE-003",
+      "statement": "The kernel does not lock or authorize unrelated global files, and it does not cryptographically authenticate the human, boss, wrapper, or caller."
+    },
+    {
+      "limitation_id": "V8-KERNEL-SCOPE-004",
+      "statement": "Journal, lock, and marker locations remain caller-supplied control-plane inputs. A qualifying wrapper must pin them; this kernel verdict does not cover an adversarial caller substituting alternate control paths."
+    }
+  ],
+  "blocking_findings": [],
+  "final_ruling": {
+    "kernel_v5_accepted_for_in_scope_transaction_qualification": true,
+    "may_publish_based_on_this_receipt_alone": false,
+    "may_recover_based_on_this_receipt_alone": false,
+    "next_action": "Bind this exact PASS and all preserved limitations into a separately checked V8 wrapper and authorization chain. Do not broaden it into path/global/power-loss/set-level claims, and do not treat it as owner, boss, publication, or recovery authorization."
+  }
+}

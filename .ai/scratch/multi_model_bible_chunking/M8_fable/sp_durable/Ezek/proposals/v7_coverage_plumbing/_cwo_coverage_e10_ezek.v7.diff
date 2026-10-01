@@ -1,0 +1,40 @@
+--- _cwo_coverage_e10_ezek.py (679e477f11e5b9f9)
++++ _cwo_coverage_e10_ezek.py (fa005fc04014ab5e)
+@@ -9,12 +9,14 @@
+   --cwo CWO-EZ-22 --stage v5cwo23  over repair/rows_v5_cwo23.jsonl. The residual must be exactly the ruled FIXUP-3 author items: the
+                                    stated count, on the listed rows, with 0 on p05, p06, p09, p10 and p11.
+   --cwo CWO-EZ-22 --stage v6       over repair/rows_v6_fixup3.jsonl. The residual must be 0 on all six arms.
++  --cwo CWO-EZ-22 --stage v7       over repair/rows_v7_cwo24.jsonl. The residual must be 0 on all six arms.
++  --cwo CWO-EZ-23 --stage v7       over repair/rows_v7_cwo24.jsonl. The 33 pairs must still verify after CWO-EZ-24.
+   --cwo CWO-EZ-23 --stage v6       over repair/rows_v6_fixup3.jsonl. Each pair's new bytes must be present exactly once in its field
+                                    and its old bytes absent, 33 of 33.
+ 
+ A report is never replaced by differing bytes. Exit 1 when the result is not what the ruling requires; that returns to the controlling
+ lane. Nothing here judges content.
+-Usage: _cwo_coverage_e10_ezek.py --cwo CWO-EZ-22|CWO-EZ-23 --stage v5|v5cwo23|v6 --rows <rows under SP/Ezek>
++Usage: _cwo_coverage_e10_ezek.py --cwo CWO-EZ-22|CWO-EZ-23 --stage v5|v5cwo23|v6|v7 --rows <rows under SP/Ezek>
+ """
+ import argparse
+ import hashlib
+@@ -27,7 +29,7 @@
+ 
+ sys.stdout.reconfigure(encoding="utf-8")
+ EZ = Path(__file__).resolve().parent
+-OUT_DIRS = {"v5": "cwo_coverage_v5", "v5cwo23": "cwo_coverage_v5cwo23", "v6": "cwo_coverage_v6"}
++OUT_DIRS = {"v5": "cwo_coverage_v5", "v5cwo23": "cwo_coverage_v5cwo23", "v6": "cwo_coverage_v6", "v7": "cwo_coverage_v7"}
+ 
+ 
+ def sha(p):
+@@ -37,10 +39,10 @@
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--cwo", required=True, choices=["CWO-EZ-22", "CWO-EZ-23"])
+-    ap.add_argument("--stage", required=True, choices=["v5", "v5cwo23", "v6"])
++    ap.add_argument("--stage", required=True, choices=["v5", "v5cwo23", "v6", "v7"])
+     ap.add_argument("--rows", required=True)
+     a = ap.parse_args()
+-    if a.cwo == "CWO-EZ-23" and a.stage != "v6":
++    if a.cwo == "CWO-EZ-23" and a.stage not in ("v6", "v7"):
+         raise SystemExit("ABORT: CWO-EZ-23's coverage report is the v6 verification; its sweep manifest is the record before v6")
+     spec = ruled(a.cwo)
+     rows_p = EZ / a.rows

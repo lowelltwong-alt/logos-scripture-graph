@@ -1,0 +1,82 @@
+--- SP/Ezek/tools/check_marks.py (installed 880cd15d5ca1)
++++ proposals/toolfix2_batch2/staged/check_marks.py (staged d83bb5bd906d)
+@@ -72,7 +72,8 @@
+ PUNCTA = re.compile(r"\bpuncta\b|\bextraordinar(?:y|ia)\s+(?:points?|dots?)\b|\bupper\s+dots?\b|U\+05C4", re.I)
+ PUNCTA_NEG = re.compile(r"\b(?:no|not|nor|never|without|absent|lacks?|lacking|none)\b(?:\s+[\w/-]+){0,2}\s*$", re.I)   # adjacent negation only
+ NEG_WORD = re.compile(r"\b(?:no|not|nor|never|without|absent|lacks?|lacking|none)\b", re.I)
+-PUNCTA_NUM = re.compile(r"(?<!\d)(\d{1,2})[:.](\d{1,2})(?!\d)")
++PUNCTA_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?!\d)")
++SINGLE_WITNESS = re.compile(r"\bsingle[-\s]+witness", re.I)   # T4-04: the disclosure, hyphenated or spaced
+ 
+ 
+ def field_bounds(text, start, end):
+@@ -87,7 +88,8 @@
+ # after a digit, as in '41:20;' (the first version's digit lookbehind let a decoy number leak across that semicolon).
+ NEG_CLAUSE_END = re.compile(r"\.(?=\s|$)|:(?!\d)|[;,()]")   # a negation's scope ends at any clause mark
+ NUM_CLAUSE_END = re.compile(r"\.(?=\s|$)|[;()]")            # a claim's numbers stay together across commas
+-RANGE_NUM = re.compile(r"(?<!\d)(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?(?!\d)")
++# T4-01: digits that follow a letter directly ('R4.5', a ruling or row id) are an id, never a verse number
++RANGE_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?(?!\d)")
+ SENT_END = re.compile(r"\.(?=\s|$)|;|\n")
+ PUNCTA_SITE_PAIRS = {(41, 20), (46, 22)}
+ 
+@@ -106,9 +108,13 @@
+     return lo, (nxt.start() if nxt else len(text))
+ 
+ 
+-def puncta_negated(text, start):
++def puncta_negated(text, start, end=None):
+     """Negation anywhere EARLIER in the mention's own comma-delimited clause (T2-03: an adjacency-only test dropped a
+-    distant 'not'). Two negators standing next to each other cancel ('not without', 'never lacking': T1-03)."""
++    distant 'not'). Two negators standing next to each other cancel ('not without', 'never lacking': T1-03). Given the
++    mention's end, a denial LATER in the clause also counts, but only one DENIAL_AFTER reads (T4-03: '45:18, where a
++    dateline would be expected but none stands'); a bare later 'no' or 'not' does not."""
++    if end is not None and denied_after(text, end):
++        return True
+     lo, _ = clause_bounds(text, start, start, NEG_CLAUSE_END)
+     negs = list(NEG_WORD.finditer(text, lo, start))
+     if not negs:
+@@ -119,6 +125,26 @@
+ 
+ 
+ PAREN_AFTER = re.compile(r"\s*\(")
++# T4-03: the closed set of denials that may FOLLOW a mention inside its clause. 'none of' is a partitive, and 'is absent',
++# 'is lacking' or 'is missing' deny only at the clause end ('the dateline at 45:18 is missing its year word' still names
++# a dateline).
++DENIAL_AFTER = re.compile(r"\b(?:but|though|although|yet)\s+(?:there\s+(?:is|are)\s+)?none\b(?!\s+of\b)"
++                          r"|\bnone\s+(?:stands?|is\s+(?:present|written|there|found)|appears?|exists?)\b"
++                          r"|\b(?:is|are)\s+(?:absent|lacking|missing)\s*(?=[.;,()]|$)", re.I)
++
++
++def denied_after(text, end):
++    """A DENIAL_AFTER construction between the mention's end and its clause's end, reading through a parenthetical that
++    opens directly after the clause ('the dateline (45:18) would be expected but none stands')."""
++    f_hi = field_bounds(text, end, end)[1]
++    _, hi = clause_bounds(text, end, end, NEG_CLAUSE_END)
++    p = PAREN_AFTER.match(text, hi)
++    if p and p.end() <= f_hi:
++        close = text.find(")", p.end(), f_hi)
++        if close != -1:
++            nxt = NEG_CLAUSE_END.search(text, close + 1, f_hi)
++            hi = nxt.start() if nxt else f_hi
++    return bool(DENIAL_AFTER.search(text, end, hi))
+ # check_marks' PROSE arm keeps a 60-character reach inside the clause. Read without a limit, the real row P10-008 ("the
+ # word carrying the book's puncta extraordinaria -- ... -- a natural summary line before 41:21 returns to ...") binds its
+ # TRUE claim to the next verse, 41:21, and flags; the regression vector cm_real_row_distant_next_verse_number_ok pins that.
+@@ -333,13 +359,14 @@
+             # ezek_controlling_rulings_a1#e3; a range counts as its
+             # verses): all sites -> true, none -> false, a mix -> ambiguous, flagged (T2-01/02). A claim naming no
+             # number is satisfied only when the row's span covers a site (T1-02). A negation earlier in the same
+-            # comma-delimited clause makes it an absence claim; adjacent negators cancel (T1-03, T2-03).
++            # comma-delimited clause makes it an absence claim; adjacent negators cancel (T1-03, T2-03); so does a closed-set
++            # denial later in the clause (T4-03).
+             span_sites = sorted({web_to_mt(c, v) for c, v in span_pairs(row)} & PUNCTA_SITES)
+             for m in PUNCTA.finditer(text):
+                 lo = max(0, m.start() - 120)
+                 verdict = puncta_verdict(puncta_claim_numbers(text, m.start(), m.end(), PROSE_REACH))
+                 at_site = bool(span_sites) if verdict is None else verdict
+-                if puncta_negated(text, m.start()):
++                if puncta_negated(text, m.start(), m.end()):
+                     if at_site is True or at_site == "ambiguous":
+                         flags.append({"decision_id": did, "rule": "false_puncta_absence_claim",
+                                       "span_sites_mt": ["Ezek.%d.%d" % s for s in span_sites],

@@ -1,0 +1,91 @@
+{
+ "attempt_id": "ezek_toolkit_tf3_review_t6_a1",
+ "execution_id": "ezek_toolkit_tf3_review_t6_a1#e1",
+ "sources": [
+  "SP\\campaign\\_cure_verification.py",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\proposals\\toolfix3_batch1\\manifest.json",
+  "SP\\Ezek\\proposals\\toolfix3_batch1\\sibling_sweep.json",
+  "SP\\campaign\\receipts\\ezek_tools_install_toolfix3_batch1.json",
+  "SP\\Ezek\\ezek_cure_claims.v1.jsonl",
+  "SP\\Ezek\\ezek_cure_claims_toolkit_repair.v1.jsonl",
+  "SP\\Ezek\\cure_runs\\2026-09-11_after_toolfix3\\claims_verification.stdout.json",
+  "SP\\Ezek\\ezek_controlling_agent_rulings_e6.v1.json",
+  "SP\\Ezek\\ezek_toolkit_install_review_T5.json",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\run_validator_suite.py",
+  "SP\\Ezek\\pmarks_Ezek.json (grep, exact path, note lines 1060/1116 class)",
+  "SP\\Ezek\\tools\\check_register.py (digest only)",
+  "SP\\Ezek\\tools\\check_web_quotes.py (digest only)",
+  "plus the remaining 20 pinned inputs from the brief's table, each rehashed by exact path with zero divergence: proposals\\toolfix3_batch1\\{draft_claims_tf3.jsonl,runs\\stage_run.json,diffs\\*}, campaign\\receipts\\{toolfix2_batch3,t4fix_batch2,r4ii_cal1}.json, ezek_controlling_agent_rulings{,_e3,_e4,_e5,_e7}.v1.json, tools\\{_test_zone_tools_ezek.py,_toolkit_selfcheck.py}, ezek_device_inventory.json, Ezek_oshb.txt, Ezek_web_clean.txt, verse_inventory.json, web_mt_offset_map.json, web_mt_verse_check.json, ezek_kjv_variance_crosscheck.json"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\t6_ezek_toolkit_tf3_review_a1\\ezek_toolkit_tf3_review_T6.json (sha256 7e9c36a46cfbc0916cf23259d468e909612dd8acdb913ac35415a37cae26a181, 32096 bytes)",
+    "why": "T6's OW-8 evidence-and-decision record on TOOLFIX-3: the hardened cure verifier at a61ec7ff and the corrected TOOLKIT.md at b247cea5, plus the six appended suite-file claims, per ezek_controlling_rulings_a1#e6 ruling T5-SEQUENCE"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "T5-VERIFIER rules (1)-(6) implemented exactly as ruled",
+   "how": "full read of campaign/_cure_verification.py against #e6's ruled text, line-cited",
+   "result": "confirmed"
+  },
+  {
+   "claim": "verifier selftest GREEN with every T5-named vector present at the ruled expectation",
+   "how": "python _cure_verification.py --selftest over a private copy in my own scratch (ezek_t6_ow4nxg9k)",
+   "result": "confirmed: 64 vectors, 0 failed"
+  },
+  {
+   "claim": "both real claims files read GREEN under --rulings --require-rulings and match the install receipt and kept stdout",
+   "how": "python _cure_verification.py --claims <private copy> --root SP\\Ezek --rulings <six private copies> --require-rulings",
+   "result": "confirmed: claims 3/1/0/2 and 8/6/0/2, identical cure-id verdicts and supersession classes to campaign/receipts/ezek_tools_install_toolfix3_batch1.json claims_verification_after and to Ezek/cure_runs/2026-09-11_after_toolfix3/claims_verification.stdout.json"
+  },
+  {
+   "claim": "a verification entry with an all-zero or checks-omitted counts object is accepted as a bound, passing machine result (new evasion, T6-01)",
+   "how": "check_claim() called directly on synthetic claims over a private copy of the verifier module",
+   "result": "confirmed: ACCEPTED with zero reasons in three shapes"
+  },
+  {
+   "claim": "REFUSE's reject\\w* and blocker\\w* forms can false-refuse a benign accepting verdict (T6-02, extends the disclosed 'red' risk)",
+   "how": "check_claim() over two synthetic accepting verdicts containing 'rejected'/'blockers' in non-refusing senses",
+   "result": "confirmed: both REFUSED"
+  },
+  {
+   "claim": "TOOLKIT.md's three T5-08 corrected sentences and four further corrections (a)-(d) are present at the ruled digest and match the code and pmarks_Ezek.json exactly",
+   "how": "full read of TOOLKIT.md at b247cea5 plus line-cited comparison against normalize_hebrew_in_json.py, run_validator_suite.py, citation_sweep.py, check_marks.py, ezek_lib.py, and a Grep of pmarks_Ezek.json (single named file) for the two quoted note texts",
+   "result": "confirmed, byte-exact in every case"
+  },
+  {
+   "claim": "R6 sibling sweep of the WHOLE TOOLKIT.md file (T5's 17 key phrases + the 7 named in my brief) finds no contradiction",
+   "how": "full read plus a single-file Grep enumerating every occurrence of the phrase set across all 368 lines",
+   "result": "confirmed: 45 occurrences reviewed, 0 contradictions ('ranges expanded' returns 0 hits because correction (2) replaced that wording, which is expected)"
+  },
+  {
+   "claim": "all six appended claims' artifact digests equal both the live file and T5's reviewed digest, with a truthful bound verification and T5 as distinct checker",
+   "how": "sha256 of each live file by exact path compared to each claim's artifact_sha256 and to T5's artifacts_reviewed entry",
+   "result": "confirmed for all six (two of the six, check_register.py and check_web_quotes.py, required hashing a path not in the brief's Inputs table but named by the claim itself, per part B's own requirement)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "T6-01 (zero-counts evasion) is unruled: whether it is recorded as future-batch debt or reopens TOOLFIX-3 is the controlling agent's decision.",
+   "why_it_matters": "No live claim exploits it today; the risk is prospective."
+  },
+  {
+   "what": "T5's other 81 reviewed TOOLKIT.md statements were not re-derived from the underlying data by me, only the ones this batch touched plus the sibling-sweep phrase set.",
+   "why_it_matters": "My brief orders me NARROW to the two TOOLFIX-3 files; the file's unchanged digest since T5's review is the evidence bound, not independent re-derivation."
+  },
+  {
+   "what": "I verified the resulting installed files directly rather than reading the two raw .diff files the manifest names.",
+   "why_it_matters": "A diff read would additionally surface any unruled change made at staging time; low risk given the manifest's own no-suite-member-touched assertion and my full-file reads finding nothing extraneous."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

@@ -123,6 +123,27 @@ def test_low_confidence_fallback_requires_and_accepts_sidecars(tmp_path: Path) -
     assert validate_model_folder(folder, books={"Phlm"}, require_artifacts=True) == []
 
 
+def test_whole_psalm_is_not_forced_low_as_a_chapter_fallback(tmp_path: Path) -> None:
+    folder = tmp_path / "M_TEST"
+    _manifest(folder)
+    _strategy(folder, "Ps")
+    psalm = _chunk(
+        book="Ps",
+        span="Ps.1.1-Ps.1.6",
+        literature_type_guess="wisdom_psalm",
+        literary_form="wisdom_psalm",
+        decision_id="MTEST-PS-001",
+        confidence="high",
+        boundary_evidence_refs=[
+            "observation_substrate:Ps.1.1",
+            "span_kind:chapter_observed_feature_rollup",
+            "canonical_poem_outer_unit",
+        ],
+    )
+    _write_jsonl(folder / "book_chunks" / "Ps" / "chunks.jsonl", [psalm])
+
+    assert validate_model_folder(folder, books={"Ps"}, require_artifacts=True) == []
+
 def test_require_artifacts_enforces_t467_book_strategy_sections(tmp_path: Path) -> None:
     folder = tmp_path / "M_TEST"
     _manifest(folder)

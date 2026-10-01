@@ -1,0 +1,37 @@
+--- a/Ezek/_cwo_coverage_s2_ezek.py
++++ b/Ezek/_cwo_coverage_s2_ezek.py
+@@ -4,10 +4,11 @@
+   - stage v4: CWO-EZ-19 over repair/rows_v4_cwo19.jsonl and CWO-EZ-20 over repair/rows_v4_cwo20.jsonl must read residual 0;
+     CWO-EZ-21 over repair/rows_v4_cwo21.jsonl must read residual exactly the fifteen author-half hits the ruling lists;
+   - stage v5: all three over repair/rows_v5_fixup2.jsonl must read residual 0, and CWO-EZ-19's v5 report also carries the
+-    close-key mark_symmetry check for the seven rows the ruling names (--suite-report is required for it).
++    close-key mark_symmetry check for the seven rows the ruling names (--suite-report is required for it);
++  - stage v6 (ezek_controlling_rulings_a1#e10 ruling S3-ROUTING (6)): as v5, over repair/rows_v6_fixup3.jsonl, into cwo_coverage_v6.
+ A report is never replaced by differing bytes. Exit 1 when the residual is not what the ruling requires; that returns to the
+ controlling lane. Nothing here judges content.
+-Usage: _cwo_coverage_s2_ezek.py --cwo CWO-EZ-19|CWO-EZ-20|CWO-EZ-21 --stage v4|v5 --rows <rows under SP/Ezek>
++Usage: _cwo_coverage_s2_ezek.py --cwo CWO-EZ-19|CWO-EZ-20|CWO-EZ-21 --stage v4|v5|v6 --rows <rows under SP/Ezek>
+        [--suite-report <validator report under SP/Ezek>]
+ """
+ import argparse
+@@ -68,7 +69,7 @@
+ def main():
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--cwo", required=True, choices=["CWO-EZ-19", "CWO-EZ-20", "CWO-EZ-21"])
+-    ap.add_argument("--stage", required=True, choices=["v4", "v5"])
++    ap.add_argument("--stage", required=True, choices=["v4", "v5", "v6"])
+     ap.add_argument("--rows", required=True)
+     ap.add_argument("--suite-report")
+     a = ap.parse_args()
+@@ -96,9 +97,9 @@
+     else:
+         ok = not res
+         report["verdict"] = "COVERED" if ok else "RESIDUAL_DIFFERS"
+-    if a.cwo == "CWO-EZ-19" and a.stage == "v5":
++    if a.cwo == "CWO-EZ-19" and a.stage in ("v5", "v6"):
+         if not a.suite_report:
+-            raise SystemExit("ABORT: the v5 CWO-EZ-19 report requires --suite-report for the close-key check")
++            raise SystemExit("ABORT: the %s CWO-EZ-19 report requires --suite-report for the close-key check" % a.stage)
+         rp = EZ / a.suite_report
+         flags = json.loads(rp.read_text(encoding="utf-8"))["mark_symmetry"]["flags"]
+         ruled_rows = sorted(set(re.findall(r"P\d\d-\d{3}", ruled["remedy"])))

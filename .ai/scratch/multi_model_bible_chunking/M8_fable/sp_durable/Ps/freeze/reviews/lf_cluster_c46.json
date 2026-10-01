@@ -1,0 +1,92 @@
+{
+ "cluster": "c46",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c46_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-302",
+   "verdict": "support",
+   "reasoning": "Span 95:1-2 opens the untitled psalm directly (Ps 95 carries no MT title per psalm_device_inventory.json, so no title dual-cite issue applies). Both verses share 1cp cohortative/imperative summons forms (95:1 lekhu-neranenah 'come, let us sing'; 95:2 neqaddemah 'let us come before'), and the row's Hebrew and WEB quotes all collate at byte tier (citation_sweep.py, check_web_quotes.py both GREEN on this cluster). The 95:2|95:3 boundary is grammatically sound: 95:3 opens with the causal ki, a distinct clause type from the imperative/cohortative pair in 95:1-2, verified directly against oshb:Ps.95.3. Parent_psalm and unit_type are correct; confidence high is warranted given the tier-1 verb-mood seam.",
+   "challenges": [],
+   "row_sha256": "daa8a52015aec22f42f8839d3710eec6a1498ceea6919cee702ad95f923218a7"
+  },
+  {
+   "decision_id": "M8-Ps-303",
+   "verdict": "support",
+   "reasoning": "95:3-5 is the causal/creation-hymn unit grounding the opening summons. Checked oshb:Ps.95.4 and oshb:Ps.95.5 directly: neither restates a ki-clause (both open with asher), so the row's claim of 'no further ki-clause before 95:6' is factually correct on direct inspection of the two verses the claim covers. check_universals.py flags this phrase as an unswept absence claim, but the claim is scoped to the row's own three already-quoted verses, not a book-wide rarity assertion -- a sweep citation is not owed for a claim fully verifiable from the cited span itself; this reads as a heuristic false positive on the checker's part, not a row defect (see final notes). The 95:5|95:6 boundary holds: 95:6 reopens the imperative register the causal clause had suspended. WEB quotes verbatim-verified; confidence high is reasonable.",
+   "challenges": [],
+   "row_sha256": "703b70d67e1ff26707c82e3d9c4e41615f6fee6cbc83214efaeb1ffd0a0b3d56"
+  },
+  {
+   "decision_id": "M8-Ps-304",
+   "verdict": "support",
+   "reasoning": "95:6-7 pairs a second imperative summons (95:6, echoing 95:1's opening verb) with the covenant self-identification and the closing exhortation 'today, if you would hear his voice.' The row correctly keeps 95:7's closing clause with the summons rather than folding it into the following oracle: the oracle's own first-person speaker marking (the -ni object suffixes at 95:9) only becomes unambiguous starting at 95:8-9, and 95:7 still reads as worship-leader address (third-person 'his voice'), not Yahweh's own voice. Byte/verbatim checks clean; parent_psalm and unit_type correct; confidence high is warranted given the two paired imperative openers (95:1, 95:6) are a recognized structural device in this psalm.",
+   "challenges": [],
+   "row_sha256": "5632f71d8556ff4206d88df1dec4de3b7ade68aef9938c5a008caae7a0ab78aa"
+  },
+  {
+   "decision_id": "M8-Ps-305",
+   "verdict": "support",
+   "reasoning": "95:8-11 closes the psalm as the oracle unit. Independently verified: (1) 95:9's nissuni/bechanuni carry 1cs object suffixes, confirming the speaker shift to Yahweh; (2) checked 95:8-9 for an intervening verb of speech marking a new speaker mid-clause -- 95:9 opens with the relative asher, continuing 95:8's sentence with no report-verb, so 'no intervening verb of speech' is factually correct on direct inspection (again flagged by check_universals.py as an unswept absence claim, but again scoped to the two already-quoted verses, not a book-wide claim -- tool heuristic overreach, not a row defect); (3) independently re-swept the Meribah/Massah naming claim at skeleton tier book-wide: Meribah hits only Ps.81.8, Ps.95.8, Ps.106.32 (none in 91-95 besides 95:8 itself), and Massah hits Ps.6.7 (a short-token false positive -- the string is embedded inside a form of the unrelated root for 'melt,' outside 91-95 regardless) and Ps.95.8 -- so 'not named elsewhere across this part's 70 verses (Ps.91-95)' is verified true for both terms, and the 70-verse count for Ps.91-95 (16+15+5+23+11) checks out. No selah/pmarks conflicts in this span. Confidence high is justified.",
+   "challenges": [],
+   "row_sha256": "18c310f60bac38289f92b8486cebbedcab3126b524e80cfa0ee42389b3d5b046"
+  },
+  {
+   "decision_id": "M8-Ps-306",
+   "verdict": "challenge",
+   "reasoning": "96:1-6 is a defensible strophe: the doubled sing-imperative opening 96:1 (byte-verified) is answered by a second doubled imperative opening 96:7 (byte-verified), a real inclusio-style pairing supporting the 96:6|96:7 boundary; the causal turn at 96:4 is confirmed against the MT. The segmentation and parent_psalm are sound, but the supporting prose carries two low-severity citation/precision defects (below), so this row is a challenge on evidence quality, not on the boundary itself.",
+   "challenges": [
+    {
+     "challenge_id": "LF-306-1",
+     "severity": "low",
+     "claim": "observed_substrate_signals[0] curly-quotes the WEB phrase “all the earth” (web:Ps.96.1) with only an oshb: ref in that field and no inline web: ref, violating the mandatory curly-quote-plus-inline-web-ref pairing.",
+     "evidence": "check_web_quotes.py flags exactly this span: path \"[4].observed_substrate_signals[0]\", quote \"all the earth\", issue \"curly quote with NO web: ref in its field\". The phrase is verbatim WEB text -- “Sing to Yahweh a new song! Sing to Yahweh, all the earth.” (web:Ps.96.1) -- so the fix is mechanical: add the inline web:Ps.96.1 pairing beside the quote in that same array field, matching the convention the row already follows correctly elsewhere (e.g. its rationale field)."
+    },
+    {
+     "challenge_id": "LF-306-2",
+     "severity": "low",
+     "claim": "device_notes claims the Ps.96.1 and Ps.98.1 incipits \"share their first four Hebrew words,\" but this overstates both the word count shown and Ps.98.1's actual first word.",
+     "evidence": "Ps.98.1 is a titled, identity-numbered psalm (psalm_device_inventory.json: mt_title_verses \"prefix_of_v1\", label mizmor) whose MT v1 literally begins with the title, byte-spliced: \"מִזְמ֡וֹר שִׁ֤ירוּ לַֽיהוָ֨ה שִׁ֣יר חָ֭דָשׁ\" (oshb:Ps.98.1) -- word 1 is the title, not the sing-imperative. The true shared four-word summons formula is words 2-5, byte-spliced: \"שִׁ֤ירוּ לַֽיהוָ֨ה שִׁ֣יר חָ֭דָשׁ\", matching Ps.96.1's own first four words. The row's own byte-tagged quote for 98:1 in device_notes shows only three of these four words (it omits the fourth, 'new'), so the quote under-instantiates the very four-word claim it is cited to support."
+    }
+   ],
+   "row_sha256": "f9d6a554116a32e24d71a5a047d095e402f0471ac157c725397b141c8990aa4d"
+  },
+  {
+   "decision_id": "M8-Ps-307",
+   "verdict": "challenge",
+   "reasoning": "96:7-13 coheres: 96:10's kingship clause is embedded as reported speech inside the same 2mp imperative series as 96:7-9 (all imperative forms), so the row's rejection of splitting off 96:10 alone is grammatically sound; the mood shift to jussive at 96:11 is real but addresses natural elements rather than a new human addressee, so leaving it undisclosed as a rival seam is defensible. The boundary and unit_type are sound; one low-severity prose defect (below) keeps this a challenge on evidence clarity, not on the span.",
+   "challenges": [
+    {
+     "challenge_id": "LF-307-1",
+     "severity": "low",
+     "claim": "The parenthetical \"the third occurrence is at web:Ps.93.1, outside this span\" mislabels Ps.93.1's ordinal position, leaving the count-object reference unclear.",
+     "evidence": "The row's own list names three verses -- 96:10, 97:1, 99:1 -- whose third member is 99:1, not 93:1; and in canonical order 93:1 precedes all three named verses, so it is not \"third\" under that reading either. Independently re-swept the underlying claim: a naive skeleton search for the consonant string YHWH-MLK book-wide over-hits at Ps.10.16 and Ps.29.10, but both are pointed as the noun melekh ('king') rather than the verb malakh ('has become king/reigns') that defines the enthronement formula at 93:1/96:10/97:1/99:1 -- byte-spliced, Ps.93.1 opens \"יְהוָ֣ה מָלָךְ֮\" (oshb:Ps.93.1), the verb form, confirming it belongs with 96:10/97:1/99:1 as the fourth instance of the SAME formula, one part-span (Ps 91-95, per the book strategy's writer-part table) earlier than the three inside this row's own part (Ps 96-101). The 3-inside/1-outside count is therefore correct; only the ordinal label \"third\" is wrong for Ps.93.1."
+    }
+   ],
+   "row_sha256": "ae95c61046969477a913e2a8bca50ec84e36b4a16c47bc80a5cd86ace9771409"
+  },
+  {
+   "decision_id": "M8-Ps-308",
+   "verdict": "support",
+   "reasoning": "97:1 opens with the same enthronement formula as 93:1/99:1, here as a genuine verse-initial independent declaration with no embedding verb -- byte-confirmed, distinct from 96:10's embedded reported-speech form. The row's 'sweep: 2 verses share this verse-initial form in this span' (97:1, 99:1) is correct once 'this span' is read as the writer-part window (Ps 96-101, per the book strategy's part table): 93:1 is also verse-initial but falls in the prior writer part (Ps 91-95), and 96:10 uses the embedded form, so within Ps 96-101 exactly two verses carry the bare verse-initial form. Theophany imagery (cloud/darkness, fire, lightning, melting mountains) is confirmed against the MT through 97:6's heavens-as-witness close; the 97:6|97:7 boundary (declarative vs. jussive/imperative, and a shift from cosmic description to address aimed at idol-worshippers) is a genuine tier-1 mood/addressee shift. Confidence high is warranted.",
+   "challenges": [],
+   "row_sha256": "e24f8331a7d83939fb940270a2ec53aad0dbccd1f0ed2b588a010c5f8a599244"
+  },
+  {
+   "decision_id": "M8-Ps-309",
+   "verdict": "challenge",
+   "reasoning": "The imperative curse on idol-worshippers (97:7), Zion's response (97:8), and the direct second-person address to Yahweh (97:9) are correctly read as one causally-linked movement (97:9 grounds 97:8's clause with its own ki). But the rejected_alternative only rebuts isolating 97:9 by itself and never engages the stronger rival seam at 97:9|97:10 (below). This does not make the chosen span wrong, but the alternative-seam analysis is materially incomplete against the row's own methodology, warranting a medium-severity challenge.",
+   "challenges": [
+    {
+     "challenge_id": "LF-309-1",
+     "severity": "medium",
+     "claim": "The rejected_alternative addresses only the weaker rival (isolating 97:9 alone) and does not engage the stronger rival seam at 97:9|97:10, where a fresh imperative opens a new addressee class.",
+     "evidence": "97:10 opens with its own fresh 2mp imperative addressed to a new addressee class, byte-spliced: \"אֹהֲבֵ֥י יְהוָ֗ה שִׂנְא֫וּ\" ('those who love Yahweh, hate...', oshb:Ps.97.10) -- a vocative plus imperative construction distinct from both 97:7's imperative aimed at idol-worshippers (oshb:Ps.97.7) and 97:9's second-person address to Yahweh himself (oshb:Ps.97.9). This is the same class of tier-1 imperative-cluster-onset marker the row (and rows 302, 304, 306 in this same cluster) elsewhere treats as sufficient to place a strophe boundary. A 97:7-9 / 97:10-12 split (theophany-response unit, then ethics-exhortation unit) is at least as well warranted by the row's own methodology as the chosen 97:7-12 bundle; the row's own medium confidence is consistent with this unresolved instability."
+    }
+   ],
+   "row_sha256": "a7a06251cfd8f5ebfa67d13d4ef0f121e49917b734984b63e084df1e359eaf49"
+  }
+ ]
+}

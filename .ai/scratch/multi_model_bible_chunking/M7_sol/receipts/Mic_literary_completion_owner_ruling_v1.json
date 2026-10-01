@@ -1,0 +1,143 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T555",
+    "model_id":  "M7_sol",
+    "book":  "Mic",
+    "completed_at_utc":  "2026-07-29T16:57:37.1212599Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  24,
+                            "canonical_verse_count":  105,
+                            "covered_verse_count":  105,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  24,
+                            "held_decision_count":  0,
+                            "held_decision_ids":  [
+
+                                                  ],
+                            "confidence":  {
+                                               "high":  14,
+                                               "medium":  7,
+                                               "medium_low":  3
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  72,
+                            "unique_primary_reviewer_attempt_ids":  72,
+                            "all_workflow_attempt_ids":  120,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  33,
+                                                     "challenge":  39
+                                                 },
+                            "scoped_challenge_claims":  45,
+                            "answered_challenges":  45,
+                            "active_specialist_post_ruling_appeals":  0,
+                            "open_linked_boundary_appeals":  0,
+                            "mandatory_parent_relations":  8,
+                            "preserved_dissent_relations":  6,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Mic.md":  "cdefafb25602f76c46587ffe0820808647e87c57b58d0c5a2ff12e1e50cde75a",
+                                   "book_chunks/Mic/chunks.jsonl":  "7ce09dae37afb8ce4710c6c5f348f25a9551b5e6a408acd772fc7c40055b6346",
+                                   "reviews/Mic/review_packets.jsonl":  "41d455f2b840193b30451e3962f46de34fbe3b809d4c93313158129aa489e0de",
+                                   "reviews/Mic/decision_evidence_v2.jsonl":  "f289c5189ce3036753ddfb43f318da508122209a418f3e6b5bd8bf45d8a866f9",
+                                   "reviews/Mic/decision_relations.jsonl":  "270cea3ab978f086163fd6c59afd83cb1d5ddcedeffabdee602cca794f171d82",
+                                   "reviews/Mic/adjudicated_route_draft_v2.json":  "143c365fa8ac265efb087060dd65b497740e4f4476a73102e79a9d8698893900",
+                                   "reviews/Mic/boss_ruling_v2.json":  "f8e9b60f4eba35be84f7bbefb342ec75e09bacdb73fcb47f86679346fcd55667",
+                                   "reviews/Mic/mesh_instruction_and_dissent_v2.json":  "a97dc77ea9f89885b275d4bc0893910f92a049a5bd0de3dd72c89bbfa478613f",
+                                   "reviews/Mic/independent_literary_postcheck_pre_binding_v2.json":  "681903ce181222a2740e4f2e507d8818823b5f5ab9c90bc1fc6d32949841fdc4",
+                                   "reviews/Mic/independent_literary_postcheck_v2.json":  "d3ef587a4d82ce6009da18abdf13bd73031a3a69cb1337bc401005f27c55e8f2",
+                                   "reviews/Mic/post_resolution_check_v2.json":  "0026b944d86fc1505d468b7cd635d8a99fea62cdfca620e76daaf6f741ac33bf"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Mic/chunks.jsonl --model-id M7_sol --book Mic",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 24 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Mic --json",
+                           "status":  "pass",
+                           "output":  "24 accepted, 0 held; zero template, generic-form, encoding, quotation, prose-shell, semantic-constructor, or review-batch failures"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Mic",
+                           "status":  "pass",
+                           "output":  "OK: Mic chunks=24 exact ordered coverage=105/105"
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Mic --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Mic --require-final-artifacts",
+                           "status":  "non_gating_global_sidecar_only",
+                           "literary_or_review_errors":  0,
+                           "remaining_output":  "three stale pass-one Micah global sidecar partitions only; owner-declared non-gating and untouched"
+                       }
+                   ],
+    "independent_post_resolution_check":  {
+                                              "checker_attempt_id":  "T555-mic-final-hash-bound-recheck-v2",
+                                              "verdict":  "pass",
+                                              "coverage":  "105/105 exact ordered",
+                                              "packet_chunk_hash_parity":  "24/24",
+                                              "packet_post_states":  {
+                                                                         "pass":  24,
+                                                                         "hold":  0
+                                                                     },
+                                              "held_decisions":  [
+
+                                                                 ],
+                                              "required_repair":  null
+                                          },
+    "appeal_integrity":  {
+                             "pass1_ledger_preserved_exactly":  true,
+                             "pass1_bytes":  798949,
+                             "pass1_sha256":  "772c1e3169c70dcfea649b5fe577945e6a37871f07da792122fa3827986a415c",
+                             "historical_pass1_rows":  24,
+                             "new_append_only_appeal_ids":  [
+
+                                                            ],
+                             "specialist_post_ruling_active_appeals":  0,
+                             "current_v2_packet_appeals":  0
+                         },
+    "source_integrity":  {
+                             "web_verses":  105,
+                             "oshb_verses":  105,
+                             "uxlc_verses":  105,
+                             "structured_source_locators_checked":  144,
+                             "structured_web_quotes_checked":  47,
+                             "structured_web_quote_failures":  0,
+                             "locator_endpoint_failures":  0,
+                             "web_to_mt_crosswalk":  "WEB Mic 1:1-4:13 and 6:1-7:20 map to same WLC coordinates; WEB 5:1 maps to WLC 4:14; WEB 5:2-15 maps to WLC 5:1-14",
+                             "wlc_family_correlation_disclosed":  true,
+                             "source_metadata_is_boundary_authority":  false
+                         },
+    "pass1_archive_integrity":  {
+                                    "archived_file_count":  15,
+                                    "hash_mismatches_at_archive_time":  0,
+                                    "archived_chunks_sha256":  "31309444f6b2dd079312eb53751becf036d3d94edc9bdef60d53c476ae1c278d"
+                                },
+    "superseded_nonliterary_blockers":  {
+                                            "shared_global_sidecar_partition_parity":  "not_a_book_completion_gate_by_owner_ruling",
+                                            "effect_on_literary_boundaries_forms_reviews_holds_or_appeals":  "none"
+                                        },
+    "independence_limit":  "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion.",
+    "candidate_only":  true,
+    "non_authorizing":  true,
+    "reviewed_gold_promoted":  false,
+    "external_review_receipt_created":  false,
+    "commit_push_merge_performed":  false
+}

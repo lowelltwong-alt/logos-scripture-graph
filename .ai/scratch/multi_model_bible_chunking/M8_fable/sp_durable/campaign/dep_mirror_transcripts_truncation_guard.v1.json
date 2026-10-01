@@ -1,0 +1,25 @@
+{
+ "schema": "m8_dependency_applicability.v1",
+ "recorded": "2026-09-10T20:20:00.973944+00:00",
+ "tool": "sp_durable/orchestrator_scratch/_mirror_transcripts.py",
+ "old_sha256": "2c10d5ce90b920189e3a316874486a7e342abcfc7a0dd80d3e08121f7ebeb882",
+ "new_sha256": "71941229cfbbae557be1a88a69ef8ca905d1c49940947b506517bdeba043c6e2",
+ "preimage": "sp_durable/campaign/tool_preimages/_mirror_transcripts.pre_truncation_guard.2c10d5ce.py",
+ "scope_of_change": [
+  "TRUNCATION GUARD: a durable transcript copy is never replaced by a SMALLER live file; each refusal is counted and reported",
+  "refused_shrink is initialised in main() - the first edit of the guard referenced it uninitialised and would have raised NameError on the first real shrink; caught before any run exercised that path",
+  "test-only destination override via the M8_MIRROR_DST environment variable, never set in normal use"
+ ],
+ "regression_test": {
+  "path": "sp_durable/campaign/_test_mirror_truncation_guard.py",
+  "sha256": "91a55e31db711f967b9eef0d1b09a15c1d804431d83eff794c0b3938653b892e",
+  "run_from_disk_at": "2026-09-10T20:22:27.792560+00:00",
+  "tool_sha256_under_test": "71941229cfbbae557be1a88a69ef8ca905d1c49940947b506517bdeba043c6e2",
+  "checks": 9,
+  "passed": 9,
+  "verdict": "GREEN",
+  "note": "the first GREEN result was from an inline run that was never saved, so it could not be re-run; this entry replaces that claim with a durable test executed from disk. A first attempt to run it from disk failed on a shell redirect to a non-writable path and never executed the test; that attempt produced no result and is not counted."
+ },
+ "earlier_receipts_affected": "NONE. Two passes ran on the pre-guard version this session; neither encountered a live file smaller than its durable copy (both copied only growing in-progress transcripts or new files), so the guard would not have changed either outcome.",
+ "was_it_pinned": "no dependency-applicability record pinned this tool before; it appears only as prose in archived resume prompts"
+}

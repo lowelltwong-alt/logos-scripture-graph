@@ -1,0 +1,23 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v3 (supersedes the _book_repair_sweep.py line of v2 going forward; v1 and v2 stand as history)",
+ "built": "2026-09-06T17:33:32.450889+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-06.v2.json",
+  "sha256": "ef90c7e496907ac2e6cac5b61f2c09e5d7656a18576898834d048eb26ae70ea8"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes) + OWNER_REPAIR_ADVANCE_2026-09-06 item 2 (after one bounded cycle, diagnose rather than repeat blindly)",
+ "trigger": "sc_Ps_r201_a1 FAIL on M8-Ps-172 (E-17 second-generation regression confined to one clause) -> a diagnosed bounded THIRD cycle (repair_Ps_r3.jsonl) must supersede the r2a row and be judged against its own r3 orders; the E-24 build hard-failed a row present in both an r2 and an r3 packet",
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/_book_repair_sweep.py",
+   "old_sha256": "f8b5b18324f87e69185fbd169946edf822ad110ce50be06fb5f18978252de0bd",
+   "new_sha256": "f91aebec01d7faf296ed71f31c0d8ac37f69f224782e4633f07b70577b31838e",
+   "preserved_old_build": "sp_durable/Jer/_book_repair_sweep.v2_2026-09-06_e24.py (byte-identical to old_sha256)",
+   "scope": "cycle_of(name) parses the cycle number from _rN packet/orders names (default 1); plan authorization is keyed per cycle N (r3 packets judged against orders_rep_<Book>_r3*.json); a row already seen may be superseded only by a packet of a STRICTLY LATER cycle (r3 over r2a/r2b as well as r2 over r1); duplicates within one cycle still fail; every other arm (tiling, schema parity, immutables, plan-authorized spans, normalize, web quotes, suite, final_sha256 recompute + coherence gate) untouched",
+   "regression": "patched tool re-run over the six landed Ps packets (01/02/03/04/r2a/r2b) into a fresh dir: sim_Ps.jsonl byte-identical to the pre-patch s2 sweep's sim (sha256 948e87fe3b6a60d4), sweep PASS, applied/superseded/report identical",
+   "affects_earlier_receipts": "NO - OW2_repairs_Song/Eccl/Job pin their sweep REPORTS by hash (not the tool) and those reports were produced by the old build over r1/r2 packets, whose behaviour is unchanged (proven by the Ps regression); the Job apply of 2026-09-06 (session ea03edc7) used the old build"
+  }
+ ],
+ "non_authorizing": true
+}

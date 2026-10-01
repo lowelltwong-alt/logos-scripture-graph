@@ -1,0 +1,792 @@
+{
+ "vectors": 80,
+ "failed": 0,
+ "results": [
+  {
+   "vector": "bound result + distinct checker",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "self-reported pass only",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: verification[0] is a bare string ('passed'); a verification entry must name the tool it ran, the artifact digest it ran against, and a machine result"
+  },
+  {
+   "vector": "no verification at all",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: no verification entries. A self-reported outcome is not verification."
+  },
+  {
+   "vector": "verified stale bytes",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: verification[0] ran against 0000000000000000 but the artifact on disk is bfd8dde863509af9; this result proves nothing about what shipped"
+  },
+  {
+   "vector": "prose verdict, no machine result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject"
+  },
+  {
+   "vector": "author checked their own cure",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: distinct_checker records no artifact_sha256_at_review, so nothing ties the review to any particular bytes"
+  },
+  {
+   "vector": "no distinct checker",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: no distinct_checker; the standing rule requires a checker distinct from the repair author and this claim names none"
+  },
+  {
+   "vector": "checker reviewed STALE bytes",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: distinct_checker reviewed 2222222222222222 but the artifact on disk is bfd8dde863509af9; that review describes bytes that did not ship"
+  },
+  {
+   "vector": "checker review not bound to any bytes",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: distinct_checker records no artifact_sha256_at_review, so nothing ties the review to any particular bytes"
+  },
+  {
+   "vector": "artifact digest does not match disk",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: artifact_sha256 1111111111111111 does not match the file on disk bfd8dde863509af9; the artifact changed after the claim was written, so the claim describes bytes that did not ship"
+  },
+  {
+   "vector": "S1-19(a) a claim naming no author",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: names no author_attempt_id or author_execution_id (a field empty after strip is missing), so the checker cannot be shown distinct"
+  },
+  {
+   "vector": "S1-19(d) an output digest that is not a digest",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: verification[0] output_sha256 'not-a-digest' is not a 64-hex digest (S1-19(d))"
+  },
+  {
+   "vector": "S1-19(d) an artifact digest that is not a digest",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: artifact_sha256 'not-a-digest' is not a 64-hex digest (S1-19(d))"
+  },
+  {
+   "vector": "R6 brief-class artifact without a sibling sweep",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "C1: brief-class artifact without a sibling-sweep record (key_phrases swept and statements_reviewed); a correction must sweep its own sibling statements"
+  },
+  {
+   "vector": "R6 brief-class artifact with a sibling sweep",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "R5 stale claim retired by a supersession record true to the file",
+   "expected": [
+    "SUPERSEDED",
+    0
+   ],
+   "got": [
+    [
+     "SUPERSEDED"
+    ],
+    0
+   ],
+   "ok": true
+  },
+  {
+   "vector": "R5 malformed supersession record is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "T3-01 a record whose old digest is not the retired claim's is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "T3-01 a well-formed record whose ordered_by names no execution id is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "T3-01 a record retiring a cure id absent from the file is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(c) an ordering id joined by a hyphen is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(d) a supersession whose old digest is not a digest is refused",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "T3-01 --rulings confirms the ordering ruling",
+   "expected": [
+    "SUPERSEDED",
+    0
+   ],
+   "got": [
+    [
+     "SUPERSEDED"
+    ],
+    0
+   ],
+   "ok": true
+  },
+  {
+   "vector": "T3-01 --rulings refuses a ruling that did not adopt, amend or close",
+   "expected": [
+    "REFUSED",
+    2
+   ],
+   "got": [
+    [
+     "REFUSED",
+     "REFUSED"
+    ],
+    2
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(b) two claim lines with one cure id are both refused",
+   "got": [
+    "REFUSED",
+    "REFUSED"
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(e) a ruling that names the retired cure id",
+   "expected": "ruling_orders_retirement",
+   "got": [
+    "ruling_orders_retirement"
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(e) R5 with its install receipt named",
+   "expected": "r5_with_trigger",
+   "got": [
+    "r5_with_trigger"
+   ],
+   "ok": true
+  },
+  {
+   "vector": "S1-19(e) neither form is classified, never refused",
+   "expected": "unclassified",
+   "got": [
+    "unclassified"
+   ],
+   "ok": true
+  },
+  {
+   "vector": "s1_19a_whitespace_author",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: names no author_attempt_id or author_execution_id (a field empty after strip is missing), so the checker cannot be shown distinct"
+  },
+  {
+   "vector": "author_exec_only_checker_bare_attempt_same_job",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: the distinct_checker and the repair author share the job auth_a1 (ids compared after strip and casefold, both fields on each side; T5-02)"
+  },
+  {
+   "vector": "author_attempt_and_exec_differ_checker_is_exec_job",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: the distinct_checker and the repair author share the job b_a1 (ids compared after strip and casefold, both fields on each side; T5-02)"
+  },
+  {
+   "vector": "case_variant_of_author_as_checker",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker names the repair author's own attempt (auth_a1); an author confirming their own cure is the self-report this gate rejects"
+  },
+  {
+   "vector": "failing_run_exit_1_accepted",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] is bound to the shipped bytes and FAILED (exit 1; verdict 'RED'); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "exit_is_the_word_passed",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] exit 'passed' is not an integer; a word or a boolean is not an exit status (T5-01)"
+  },
+  {
+   "vector": "checker_verdict_not_fit",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker verdict 'not_fit' is not an accepting verdict: it carries the refusing form 'not_fit' (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_exit_bool_true",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] exit True is not an integer; a word or a boolean is not an exit status (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_counts_failed_nonzero",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] is bound to the shipped bytes and FAILED (failed 1; passed 27 of 28 checks); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_counts_passed_short_of_checks",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] is bound to the shipped bytes and FAILED (passed 27 of 28 checks); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_counts_member_a_string",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] counts.checks '28' is neither an integer nor null (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_counts_only_no_exit_failing",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] is bound to the shipped bytes and FAILED (failed 1; passed 4 of 5 checks); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_verdict_failed_prefix_with_exit_0",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[0] is bound to the shipped bytes and FAILED (verdict 'FAILED 2 of 28'); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_one_passing_one_failing_entry",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: verification[1] is bound to the shipped bytes and FAILED (exit 2); a failing run cures nothing (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_checker_verdict_no_accepting_form",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker verdict 'looks good' is not an accepting verdict: it carries no accepting form (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_checker_verdict_accepting_and_refusing",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker verdict 'fit_to_accept; blocker open' is not an accepting verdict: it carries the refusing form 'blocker' (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_checker_verdict_red_word",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker verdict 'confirmed but RED at 41:20' is not an accepting verdict: it carries the refusing form 'red' (T5-01)"
+  },
+  {
+   "vector": "tf3_rule_both_author_fields_blank",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: names no author_attempt_id or author_execution_id (a field empty after strip is missing), so the checker cannot be shown distinct"
+  },
+  {
+   "vector": "tf3_rule_checker_execution_padded_same_job",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF3: distinct_checker execution auth_a1#e3 belongs to the repair author's own job"
+  },
+  {
+   "vector": "tf3_green_exit0_counts_28_28_0",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf3_green_counts_passed_null_exit0_t5_13_shape",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf3_green_verdict_toolkit_md_fit_to_accept",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf3_green_verdict_fit_with_changes",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf3_green_distinct_jobs_both_fields",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf3_green_verdict_cured_word_is_not_red",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "s1_19b_dup_cure_id_trailing_space",
+   "expected": {
+    "target": "DUP",
+    "verdicts": [
+     "REFUSED",
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED",
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": []
+   },
+   "ok": true
+  },
+  {
+   "vector": "compound_ordered_by_second_bogus",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "s1_19c_period_prefix",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "s1_19c_slash_prefix",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "e_names_only_as_successor_overbroad",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "class": "ruling_mentions_cure_id"
+   },
+   "got": {
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "classes": [
+     "ruling_mentions_cure_id"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "ratify_with_changes_verb_ordering_retirement",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "class": "ruling_orders_retirement"
+   },
+   "got": {
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "classes": [
+     "ruling_orders_retirement"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "ratify_with_changes_verb_mentioning_only",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": [
+     "ruling_mentions_cure_id"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "tf3_rule_ratify_retire_word_beyond_200_characters",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2
+   },
+   "got": {
+    "verdicts": [
+     "REFUSED"
+    ],
+    "refused": 2,
+    "classes": [
+     "ruling_mentions_cure_id"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "tf3_rule_supersedes_id_trailing_space_retires",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0
+   },
+   "got": {
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "classes": [
+     "unclassified"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "tf3_rule_ordered_by_after_paren_and_comma",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0
+   },
+   "got": {
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "classes": [
+     "ruling_orders_retirement"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "tf3_green_two_pair_ordered_by_both_adopt",
+   "expected": {
+    "target": "OLD",
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0
+   },
+   "got": {
+    "verdicts": [
+     "SUPERSEDED"
+    ],
+    "refused": 0,
+    "classes": [
+     "ruling_orders_retirement"
+    ]
+   },
+   "ok": true
+  },
+  {
+   "vector": "tf4_t6_a1_zero_counts_no_machine_result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject; counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)",
+   "expected_reason": "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
+  },
+  {
+   "vector": "tf4_t6_a2_checks_zero_alone_no_machine_result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject; counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)",
+   "expected_reason": "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
+  },
+  {
+   "vector": "tf4_t6_a3_failed_zero_alone_no_machine_result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject; counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)",
+   "expected_reason": "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
+  },
+  {
+   "vector": "tf4_checks_without_passed_no_machine_result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject; counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)",
+   "expected_reason": "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
+  },
+  {
+   "vector": "tf4_passed_alone_no_machine_result",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] carries no machine result (an integer exit status, integer counts, or an output digest); a prose verdict is the thing this gate exists to reject; counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)",
+   "expected_reason": "counts carries no machine result: checks must be a positive integer and passed an integer (T6-01)"
+  },
+  {
+   "vector": "tf4_e8_01_negative_counts_refused",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] counts.checks -1 is negative (T6-01)",
+   "expected_reason": "is negative (T6-01)"
+  },
+  {
+   "vector": "tf4_bound_and_failed_reason_class_pinned",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] is bound to the shipped bytes and FAILED (failed 2; passed 3 of 5 checks); a failing run cures nothing (T5-01)",
+   "expected_reason": "passed 3 of 5 checks"
+  },
+  {
+   "vector": "tf4_green_counts_11_11_0_no_exit",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf4_green_exit0_counts_passed_null_binds_through_exit",
+   "expected": "ACCEPTED",
+   "got": "ACCEPTED",
+   "ok": true,
+   "first_reason": null
+  },
+  {
+   "vector": "tf4_t6_a4_nbsp_author_refused",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: names no author_attempt_id or author_execution_id (a field empty after strip is missing), so the checker cannot be shown distinct"
+  },
+  {
+   "vector": "tf4_t6_a5_red_disclosed_false_refusal",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: distinct_checker verdict 'fit_to_accept; the wall carvings show a red ochre pigment' is not an accepting verdict: it carries the refusing form 'red' (T5-01)"
+  },
+  {
+   "vector": "tf4_t6_a6_rejected_disclosed_false_refusal",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: distinct_checker verdict 'fit_to_accept (no findings rejected as out of scope)' is not an accepting verdict: it carries the refusing form 'rejected' (T5-01)"
+  },
+  {
+   "vector": "tf4_t6_a7_blockers_disclosed_false_refusal",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: distinct_checker verdict 'fit_to_accept; no blockers remain' is not an accepting verdict: it carries the refusing form 'blockers' (T5-01)"
+  },
+  {
+   "vector": "tf4_t6_a8_uppercase_artifact_digest_refused",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: artifact_sha256 'EF9CAC1A77CFAFA4D193' is not a 64-hex digest (S1-19(d))"
+  },
+  {
+   "vector": "tf4_t6_a9_float_counts_refused",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] counts.checks 28.0 is neither an integer nor null (T5-01)"
+  },
+  {
+   "vector": "tf4_t6_a10_exit_minus_one_refused",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true,
+   "first_reason": "TF4: verification[0] is bound to the shipped bytes and FAILED (exit -1); a failing run cures nothing (T5-01)"
+  }
+ ],
+ "verdict": "GREEN"
+}

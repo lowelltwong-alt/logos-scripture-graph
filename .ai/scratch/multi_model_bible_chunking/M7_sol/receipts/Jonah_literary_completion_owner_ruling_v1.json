@@ -1,0 +1,135 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T554",
+    "model_id":  "M7_sol",
+    "book":  "Jonah",
+    "completed_at_utc":  "2026-07-29T16:09:08.8601701Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  12,
+                            "canonical_verse_count":  48,
+                            "covered_verse_count":  48,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  12,
+                            "held_decision_count":  0,
+                            "held_decision_ids":  [
+
+                                                  ],
+                            "confidence":  {
+                                               "high":  7,
+                                               "medium":  5
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  36,
+                            "unique_primary_reviewer_attempt_ids":  36,
+                            "all_workflow_attempt_ids":  60,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  17,
+                                                     "challenge":  19
+                                                 },
+                            "answered_challenges":  19,
+                            "active_specialist_post_ruling_appeals":  0,
+                            "open_linked_boundary_appeals":  0,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Jonah.md":  "605a20e74b838a2f54719f984412b8e4d004287479acf8a1e50550da0d5dd0ce",
+                                   "book_chunks/Jonah/chunks.jsonl":  "9be7563452a725baac6157e9577eab7b44b28c03c2a3798bcdd1d83c6bf73d19",
+                                   "reviews/Jonah/review_packets.jsonl":  "166d43abf16ec3b55d3615156e2cd349602b5ae3040a6d7ae288b250894e4c33",
+                                   "reviews/Jonah/decision_evidence_v2.jsonl":  "07c202d7528ecbb2daaf8f77618ec7dbffb4ebce1bbdd2f00db94c601acd519e",
+                                   "reviews/Jonah/decision_relations.jsonl":  "ceac626a15f562887da1f0da119936be4036a52d1d36c39b93036823012be55a",
+                                   "reviews/Jonah/adjudicated_route_draft_v2.json":  "466f31e21ee0901f8ff5b0b36727b3a210e4ba4bdc96023a1a5131c1da759ee3",
+                                   "reviews/Jonah/boss_ruling_v2.json":  "23109bf3f54ed145d395a117fa5f1fea00fcf1cded27f34e14c8f646398f1b81",
+                                   "reviews/Jonah/independent_literary_postcheck_v2.json":  "895e364b0fc0390cd99ce41df78239f06fe5bc31d3ded8f09af2df2df1b54a04",
+                                   "reviews/Jonah/post_resolution_check_v2.json":  "30388216f91bb3039c2842ac9e498856f86700c63c58d371def5143add5f88cc"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Jonah/chunks.jsonl --model-id M7_sol --book Jonah",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 12 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Jonah --json",
+                           "status":  "pass",
+                           "output":  "12 accepted, 0 held, 0 templates, generic forms, prose-shell, semantic-constructor, encoding, or structured-WEB-quote failures"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Jonah",
+                           "status":  "pass",
+                           "output":  "OK: Jonah chunks=12 exact ordered coverage=48/48"
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Jonah --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Jonah --require-final-artifacts",
+                           "status":  "non_gating_global_sidecar_only",
+                           "literary_or_review_errors":  0,
+                           "remaining_output":  "three stale global partitions each contain the same seven pass-one Jonah orphan rows"
+                       }
+                   ],
+    "independent_post_resolution_check":  {
+                                              "checker_attempt_id":  "jonah-v2-final-binding-recheck-20260729",
+                                              "verdict":  "pass",
+                                              "coverage":  "48/48 exact ordered",
+                                              "packet_chunk_hash_parity":  "12/12",
+                                              "packet_post_states":  {
+                                                                         "pass":  12,
+                                                                         "hold":  0
+                                                                     },
+                                              "held_decisions":  [
+
+                                                                 ],
+                                              "required_repair":  null
+                                          },
+    "appeal_integrity":  {
+                             "pass1_ledger_preserved_exactly":  true,
+                             "pass1_bytes":  270000,
+                             "pass1_sha256":  "8d71ed2ef60fd9d5c73eb26d27cbe377baae84f4363f1b93750430d757f18050",
+                             "new_append_only_appeal_ids":  [
+
+                                                            ],
+                             "specialist_post_ruling_active_appeals":  0,
+                             "historical_pass1_rows":  7
+                         },
+    "source_integrity":  {
+                             "web_verses":  48,
+                             "oshb_verses":  48,
+                             "uxlc_verses":  48,
+                             "structured_source_locators_checked":  72,
+                             "structured_web_quotes_checked":  23,
+                             "structured_web_quote_failures":  0,
+                             "web_to_mt_crosswalk":  "WEB Jonah 1:17-2:10 equals WLC Jonah 2:1-11",
+                             "wlc_family_correlation_disclosed":  true,
+                             "source_metadata_is_boundary_authority":  false
+                         },
+    "pass1_archive_integrity":  {
+                                    "archived_file_count":  15,
+                                    "hash_mismatches_at_archive_time":  0,
+                                    "archived_chunks_sha256":  "d3e8151588cc5039ec506c81eea44a4762a23673c4d7e457c869ad402129d78b"
+                                },
+    "superseded_nonliterary_blockers":  {
+                                            "shared_global_sidecar_partition_parity":  "not_a_book_completion_gate_by_owner_ruling",
+                                            "effect_on_literary_boundaries_forms_reviews_holds_or_appeals":  "none"
+                                        },
+    "independence_limit":  "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion.",
+    "candidate_only":  true,
+    "non_authorizing":  true,
+    "reviewed_gold_promoted":  false,
+    "external_review_receipt_created":  false,
+    "commit_push_merge_performed":  false
+}

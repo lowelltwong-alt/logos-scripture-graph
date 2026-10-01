@@ -1,0 +1,111 @@
+{
+ "attempt_id": "ol_cluster_c10_r1",
+ "role": "primary_OL",
+ "cluster": "c10",
+ "rows_reviewed": [
+  "P05-063",
+  "P06-003",
+  "P06-005",
+  "P06-006",
+  "P06-007",
+  "P06-013",
+  "P06-015",
+  "P06-016"
+ ],
+ "items": [
+  {
+   "row_id": "P05-063",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "The rejected_alternative's claim that Prov.11.30 shares no wording with 11:31 is byte-false, and the row's only Hebrew quotation is unpointed and unlabeled as skeleton tier.",
+   "evidence": "oshb:Prov.11.30 and oshb:Prov.11.31 both carry the byte-identical accented word צַ֭דִּיק (righteous); sweep --heb on that exact pointed form hits both verses at byte tier (17 verses book-wide share the identical accented form; skeleton-tier root ~66 verses book-wide). So the rationale's clause 'shares no wording with this verse's a-fortiori repayment argument' is factually wrong, not merely undisclosed -- the shared word should instead have been named and downweighted as ordinary collection-wide vocabulary, the way sibling rows in this cluster (P06-005, P06-007) correctly disclose and downweight their own shared reshaim term. Separately, the row's quoted Hebrew \"הן…אף כי\" (cited oshb:Prov.11.31) re-collates via collate.py to tier=skeleton, not byte -- it is unpointed (no niqqud/te'amim) and is presented as a plain quotation with no skeleton-tier label; the correct pointed bytes at that position are הֵ֣ן ... אַ֝֗ף כִּֽי. The underlying single_proverb call is still plausible (tsadiq is too common to itself drive a cluster), but the rationale needs correcting, not just re-stating.",
+   "tier_citations": [
+    "byte: sweep --heb on pointed tsadiq form hits Prov.11.30 and Prov.11.31 (17 verses book-wide at this accented form)",
+    "skeleton: root tsadiq = ~66 verses book-wide (ordinary vocabulary, not a driver)",
+    "collate.py --ref oshb:Prov.11.31 --quote (row's quote) -> tier=skeleton (unlabeled in row)"
+   ]
+  },
+  {
+   "row_id": "P06-003",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The two-negator / adversative-waw construction claim is byte-accurate, but the row quotes no Hebrew for a boundary-relevant original-language claim.",
+   "evidence": "oshb:Prov.12.3 confirms the claimed structure at byte tier: the A-colon opens לֹא (the ordinary negator), the B-colon opens וְשֹׁ֥רֶשׁ (waw-prefixed), and closes with בַּל before the verb -- bal is genuinely the rarer poetic negative particle next to lo, and the negator swap plus the waw placement are real, not an artifact of the WEB rendering. Defect: no Hebrew is quoted anywhere in the row for this claim, so it cannot itself be re-collated -- a standing-rule gap (book_strategy Section 8: 'Quote the original language for every boundary-relevant original-language claim'; brief item 1: 'A Hebrew claim with no quoted form is insufficient engagement').",
+   "tier_citations": [
+    "byte: Prov.12.3 read directly from verse_map_oshb.json (no row quote existed to collate)"
+   ]
+  },
+  {
+   "row_id": "P06-005",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The asyndeton claim is byte-confirmed and the shared-vocabulary disclosure is honest, but the row still supplies no Hebrew quotation.",
+   "evidence": "oshb:Prov.12.5's B-colon opens תַּחְבֻּל֖וֹת with no vav prefix, unlike the immediately adjacent B-cola: Prov.12.4 opens וּכְרָקָ֖ב, Prov.12.6 opens וּפִ֥י, and Prov.12.7 opens וּבֵ֖ית -- all three waw-initial. The asyndeton at 12:5 and the 'unlike the surrounding verses' framing both hold at byte tier. The shared reshaim with 12:6/12:7 is correctly named and downweighted as ordinary collection-wide diction, not a construction. Defect: no Hebrew is quoted anywhere in the row for the asyndeton claim itself.",
+   "tier_citations": [
+    "byte: Prov.12.4-12.7 B-colon openers read directly from verse_map_oshb.json"
+   ]
+  },
+  {
+   "row_id": "P06-006",
+   "verdict": "challenge",
+   "severity": "medium",
+   "claim": "The divrei header-vs-construct argument is well-grounded against the device inventory, but the row fails to disclose that its own headword reshaim recurs in both immediate neighbors, breaking cross-seam disclosure symmetry.",
+   "evidence": "Byte tier: the pointed form רְשָׁעִ֣ים in Prov.12.6 is identical to the form in Prov.12.5 and Prov.12.7 (sweep --heb on that exact pointed token hits 16 verses book-wide at byte tier, including Prov.12.5, Prov.12.6, Prov.12.7 consecutively). P06-005 and P06-007 both name this 3-verse chain explicitly and correctly downweight it as ordinary collection-wide vocabulary rather than a driver -- but P06-006's own rationale and rejected_alternative never mention that this verse's own opening noun participates in the same chain. That is an asymmetric disclosure gap under the TOOLKIT's CROSS-SEAM COHESION rule ('a byte-true device straddling the row's own seam argues continuity against the row unless disclosed') and the campaign's SYMMETRY-completion rule. The divrei argument itself is sound against prov_device_inventory.json: Prov.12.6 is one of the 5 divrei_verse_initial verses (12:6, 18:8, 26:22, 30:1, 31:1) but not one of the 2 true collection headers (30:1, 31:1) among 19 total divrei occurrences -- book_strategy Section 2a names 12:6 itself as the worked example of 'verse-initial but not a header,' and the row matches that exactly. No error there, only the missing reshaim disclosure, compounded by no Hebrew quoted for the construct/waw claims either.",
+   "tier_citations": [
+    "byte: sweep --heb on pointed reshaim form hits Prov.12.5, Prov.12.6, Prov.12.7 (16 verses book-wide)",
+    "skeleton: prov_device_inventory.json divrei_verse_initial = 5 refs incl. Prov.12.6; book_strategy Section 2a"
+   ]
+  },
+  {
+   "row_id": "P06-007",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The two-predicate-vs-one-verb colon asymmetry is byte-accurate and the shared reshaim vocabulary is properly disclosed, but the row quotes no Hebrew.",
+   "evidence": "oshb:Prov.12.7 confirms the structure: the A-colon (hafokh reshaim ve'einam) carries two predicative elements, the B-colon opens וּבֵ֖ית and carries a single finite verb (ya'amod) -- the asymmetry and the waw placement both hold. The rejected_alternative correctly names and downweights the 12:5-12:6-12:7 reshaim chain as ordinary diction, matching the byte-confirmed 3-verse run. Defect: no Hebrew is quoted anywhere in the row for these claims.",
+   "tier_citations": [
+    "byte: Prov.12.7 read directly from verse_map_oshb.json"
+   ]
+  },
+  {
+   "row_id": "P06-013",
+   "verdict": "challenge",
+   "severity": "high",
+   "claim": "The B-colon's opening waw is mislabeled: it is a vav-consecutive (wayyiqtol) verb form, not the simple conjunctive waw+noun/participle construction the row's own device_notes equates it with across the cluster, and the row's claim that neighbor 12:14 lacks an adversative waw altogether is byte-false.",
+   "evidence": "oshb:Prov.12.13's B-colon opener וַיֵּצֵ֖א carries vav+patach followed by dagesh forte in the yod -- the classic waw-conversive (vayyiqtol) morphology on a finite verb, grammatically distinct from every other 'adversative waw' cited across this cluster's rows: 12:3's וְשֹׁ֥רֶשׁ, 12:6's וּפִ֥י, 12:7's וּבֵ֖ית, 12:15's וְשֹׁמֵ֖עַ, and 12:16's וְכֹסֶ֖ה are all simple conjunctive waw prefixed to a noun or participle (shva- or shuruq-vocalized), with no consecution. Folding both under one 'adversative waw' label in device_notes conflates two different Hebrew constructions behind the same English gloss -- exactly the translation-dependent flattening the OL lens is meant to catch. Separately, oshb:Prov.12.14's B-colon opens וּגְמ֥וּל, a waw-prefixed word (shuruq vav), which directly contradicts the rejected_alternative's claim that 12:14 'lacks an adversative waw altogether' -- a waw is present; at most its force is continuative/synthetic rather than adversative (12:14 is a synonymous, not antithetic, couplet), but 'lacks...altogether' misstates the bytes rather than qualifying the waw's function. No Hebrew is quoted for either claim.",
+   "tier_citations": [
+    "byte: Prov.12.13 B-colon opener (vav+patach+dagesh-forte, wayyiqtol) vs verse_map_oshb.json",
+    "byte: Prov.12.3, 12.6, 12.7, 12.15, 12.16 B-colon openers (simple conjunctive waw, no consecution)",
+    "byte: Prov.12.14 B-colon opener (waw-prefixed, contradicts 'lacks...altogether') vs verse_map_oshb.json"
+   ]
+  },
+  {
+   "row_id": "P06-015",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The self-assessment-vs-hearing antithesis is byte-accurate and the shared fool-noun with 12:16 is properly disclosed, but the row quotes no Hebrew.",
+   "evidence": "oshb:Prov.12.15 confirms a verbless nominal A-colon against a B-colon opening וְשֹׁמֵ֖עַ (waw + the participle 'hearing') -- the hearing-participle is confined to the B-colon exactly as claimed. אֱ֭וִיל (fool) recurs verse-initial at Prov.12.16 as אֱוִ֗יל, and the row correctly discloses this both directions with its sibling P06-016. Defect: no Hebrew is quoted anywhere in the row.",
+   "tier_citations": [
+    "byte: Prov.12.15-12.16 read directly from verse_map_oshb.json"
+   ]
+  },
+  {
+   "row_id": "P06-016",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The temporal-qualifier-vs-concealment antithesis is byte-accurate and the shared fool-noun with 12:15 is properly disclosed, but the row quotes no Hebrew.",
+   "evidence": "oshb:Prov.12.16 opens אֱוִ֗יל (shared with Prov.12.15's אֱ֭וִיל, correctly disclosed) and בַּ֭יּוֹם (in the day / same day) is a genuine temporal qualifier absent from the B-colon; the B-colon opens וְכֹסֶ֖ה (waw + participle) exactly as claimed. Defect: no Hebrew is quoted anywhere in the row.",
+   "tier_citations": [
+    "byte: Prov.12.15-12.16 read directly from verse_map_oshb.json"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 0,
+  "challenges": 8,
+  "by_severity": {
+   "high": 2,
+   "medium": 1,
+   "low": 5
+  }
+ }
+}

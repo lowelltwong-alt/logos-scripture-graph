@@ -1,0 +1,96 @@
+{
+ "attempt_id": "ezek_author_fixup2_p06_a1",
+ "execution_id": "ezek_author_fixup2_p06_a1#e1",
+ "sources": [
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP2_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup2\\orders_ezek_author_fixup2_p06_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v4_cwo21.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P06-002 boundary_rationale: the standalone label delimiter around \"Moab and Seir\" (straight double quotes) converted to single quotes 'Moab and Seir'; the separate curly-quoted WEB verse citation later in the same field, which already carries its own web:Ezek.25.8 ref, was left byte-identical",
+    "why": "S2-11 (minor): e15c_web_text_in_straight_quotes flagged this span at [74].boundary_rationale as a delimiter evasion; the order's suggested_fix was to single-quote the gloss, span unchanged"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "orders-file sha256 matches the brief's pinned table",
+   "how": "hashlib.sha256 on the exact-path file vs table value 1eb412b9...22760",
+   "result": "confirmed"
+  },
+  {
+   "claim": "brief sha256 matches the task's pinned value",
+   "how": "hashlib.sha256 on the exact-path file vs aff56edd...c003a",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 addendum exists and matches the AUTHORITY paragraph verbatim",
+   "how": "exact-path read of ERROR_PATTERN_LEDGER.v1.md lines 807-838",
+   "result": "confirmed"
+  },
+  {
+   "claim": "emitted row: 22 original fields + _op, non_authorizing true, locked fields byte-identical to current_row",
+   "how": "python script assertions (decision_id, writer_decision_id, writer_part, writer_attempt_id, chunk_index_in_book, span, unit_type, confidence, parent_collection)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "run_validator_suite.py stays HARD GREEN on the whole-book private copy with my row applied",
+   "how": "run_validator_suite.py over rows_v5_p06.jsonl (whole-book chain-head with P06-002 replaced)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the only web_quotes change is the cured [74].boundary_rationale e15c flag; no other row's flags moved",
+   "how": "json diff of validator_report.json flags arrays, before vs after, by path/quote text",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_tiling.py PASSES 1:1 over p06's own range with no gaps/overlaps",
+   "how": "check_tiling.py on a part-only extract (12 decision_ids from part_rows) --range Ezek.25.1-Ezek.28.26",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [],
+ "items": [
+  {
+   "row": "P06-002",
+   "item": "S2-11",
+   "action": "cured",
+   "reason": "Converted the straight-double-quoted standalone label to single quotes per the order's suggested_fix; left the field's separate curly-quoted, web:-referenced WEB citation untouched"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S2-11 (P06-002)",
+   "test": "run_validator_suite.py web_quotes class count, before vs after",
+   "result": "PASS (5 -> 4, the e15c flag on [74].boundary_rationale removed, no other flag added or removed)"
+  },
+  {
+   "order": "S2-11 (P06-002)",
+   "test": "check_tiling.py over p06's 12-row range Ezek.25.1-Ezek.28.26",
+   "result": "PASS (100/100 verses, 0 problems, status GREEN)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "web_quotes": 1,
+   "refs_mirror": 1,
+   "mark_symmetry": 0,
+   "universals": 0
+  },
+  "after": {
+   "web_quotes": 0,
+   "refs_mirror": 1,
+   "mark_symmetry": 0,
+   "universals": 0
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

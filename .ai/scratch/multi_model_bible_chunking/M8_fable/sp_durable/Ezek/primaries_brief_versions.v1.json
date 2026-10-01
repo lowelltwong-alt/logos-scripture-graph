@@ -1,0 +1,39 @@
+{
+ "schema": "m8_brief_version_history.v1",
+ "book": "Ezek",
+ "wave": "primaries round 1 (dual-blind LF + OL per cluster)",
+ "recorded_at": "2026-09-15T02:36:56.184100+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "why_this_exists": "the wave ran under more than one brief digest. Both revisions were caused by defects the wave itself found, and both only ADD constraints - neither changes what a reviewer was asked to decide, and no finding already returned is invalidated by either. Recording the mapping is cheaper and more honest than reconstructing it at the close.",
+ "versions": {
+  "v1": {
+   "LF_sha256": "5509a0733424d92cae04a721b71d1fe505e76748bf92d32279ed32e818cca2b2",
+   "OL_sha256": "d15c18595d2a62abbeab04fb9bda1434a5805a066fb146d7d21e1fefdf62c248",
+   "executions_launched_under_it": [
+    "ezek_pr_LF_c01_a1#e1",
+    "ezek_pr_OL_c01_a1#e1",
+    "ezek_pr_LF_c02_a1#e1",
+    "ezek_pr_OL_c02_a1#e1",
+    "ezek_pr_LF_c03_a1#e1",
+    "ezek_pr_OL_c03_a1#e1"
+   ],
+   "known_defects": [
+    "the LF lens summary printed 'word-event 39, ... 13 oracle datelines, 3 festival-calendar dates', copied from campaign prose that predates the 2026-09-08 inventory corrections. The inventory at the digest the brief itself pins reads dated_oracles 14 and calendar_dates_not_datelines 4.",
+    "neither lane carried an explicit copy-never-assemble rule for Hebrew, or a self-check that every Hebrew run in the deliverable is present in the witness."
+   ],
+   "mitigation_applied_in_flight": "the two OL executions running when the Hebrew defect was found (c02, c03) were corrected BY MESSAGE, because a brief a running agent is reading is never edited. Both confirmed acting on it: OL c02 reported 39/39 runs verified present in the witness, and OL c03 REMOVED a composite K/Q form and two hand-typed lexemes it had drafted, then verified 33/33. The LF digit defect was found BY LF c03 and flagged rather than acted on, so no finding rests on it."
+  },
+  "v2": {
+   "LF_sha256": "098ef99471ceb1b14aa2d7ba252d56a19c5043eb060feb67ca2abc91ed73a685",
+   "OL_sha256": "f24bce2c960ed5f798bb5bfd765b266b3fcd061cdcd3c99af5a40ddf48fc578b",
+   "executions_launched_under_it": "clusters c04..c22, both lanes (36 executions)",
+   "what_changed": [
+    "OL and LF both carry the copy-never-assemble rule for Hebrew, with the c01 incident stated as the reason, and a required self-check: every Hebrew run in the finished deliverable re-checked against Ezek_oshb.txt by exact path, with the count reported in verification_evidence.",
+    "the LF lens census line is now MEASURED from ezek_device_inventory.json at build time rather than typed, and says in words that the inventory wins over the brief where they differ."
+   ],
+   "what_did_not_change": "the lens, the reading order, the checklists, the blindness rule, the deliverable schema, the cluster assignment and the do-not-reuse gate are identical. A v1 reviewer and a v2 reviewer were asked to decide the same thing on the same evidence."
+  }
+ },
+ "consequence_for_the_six_v1_packets": "none is re-run. The Hebrew rule was applied in flight to both OL executions that could still act on it; OL c01 landed before it existed and its one fabricated string is recorded as its own finding with the substantive conclusion verified independently by the orchestrator. The LF digit defect produced no finding in any packet - LF c03 caught it and reported it upward instead.",
+ "for_the_boss_and_the_final_check": "read every v1 packet's Hebrew evidence against the witness before relying on a quoted form, and read the LF v1 packets' device counts against the inventory rather than against the brief. Both are cheap checks and both are already done for the packets that returned."
+}

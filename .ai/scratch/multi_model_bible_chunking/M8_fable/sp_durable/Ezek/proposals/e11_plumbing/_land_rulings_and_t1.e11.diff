@@ -1,0 +1,81 @@
+--- _land_rulings_and_t1.py (b31300eb73e0843c)
++++ _land_rulings_and_t1.py (6eaed4fc8848a8e1)
+@@ -122,6 +122,17 @@
+                        "(ezek_controlling_rulings_a1#e10 ruling S3-ROUTING (7); model by owner directive OW-13)",
+            "catcher": "SP/Ezek/_land_rulings_and_t1.py (form and digest binding only); its verdict gates the FIXUP-1, FIXUP-2 and FIXUP-3 rows "
+                       "cure claims, and each finding routes to author fix-ups, the orchestrator or the controlling agent"},
++    "rulings_e11": {"attempt": "ezek_controlling_rulings_a1", "deliverable": "ezek_controlling_agent_rulings_e11.v1.json",
++                    "brief": "CONTROLLING_AGENT_BRIEF_E11.md", "brief_v2": "CONTROLLING_AGENT_BRIEF_E11.md",
++                    "lane": "ezek_phase1_controlling_rulings", "agent": "controlling agent", "model": "claude-fable-5-1",
++                    "effort": "ORDERED high (hard-book track controlling agent), NOT VERIFIED",
++                    "producer": "OW-6b controlling agent ruling on S4's twelve findings, the two residual 7-gram families at "
++                                "headroom 0, the transcript-route finding (the census retention figure, the Ezek manifest v2 "
++                                "candidate, the Q8 observed-now column and the OW-6 stage-1 slice denominator), the primaries' "
++                                "lane models under OW-13, the primaries' shape and brief, the two retained Phase-0 lows, and "
++                                "the gate that decides primaries_may_launch",
++                    "catcher": "SP/Ezek/_land_rulings_and_t1.py (form, completeness, digest binding only); the orchestrator "
++                               "executes rulings and does not re-rule them"},
+     "t2": {"attempt": "ezek_toolkit_repair_review_t2_a1", "deliverable": "ezek_toolkit_repair_review_T2.json",
+            "brief": "TOOLKIT_REPAIR_REVIEW_BRIEF_T2.md", "brief_v2": "TOOLKIT_REPAIR_REVIEW_BRIEF_T2.md",
+            "lane": "ezek_phase1_toolkit_repair_review", "agent": "T2 fresh distinct checker", "model": "claude-sonnet-5",
+@@ -1107,6 +1118,51 @@
+             "inputs_read_beyond_the_table": EXTRAS.get("artifacts_reviewed", [])}
+ 
+ 
++def validate_rulings_e11(d, launch, defects):
++    """#e11 rules on its own queue: one ruling per queue id, allowed ruling values, previous_execution_id #e10, the gate
++    (primaries_may_launch, conditions_before_primaries, and the lane models OW-13 requires it to name), and the inputs
++    digest binding. Form only: the orchestrator executes rulings and never re-rules them."""
++    q = json.loads((EZ / "ezek_controlling_agent_queue_e11.v1.json").read_text(encoding="utf-8"))
++    want = [i["id"] for i in q["items"]]
++    got = [r.get("id") for r in d.get("rulings", [])]
++    missing = [i for i in want if i not in got]
++    dup = sorted({i for i in got if got.count(i) > 1})
++    extra = [i for i in got if i not in want]
++    if missing:
++        defects.append("rulings missing for: %s" % ", ".join(missing))
++    if dup:
++        defects.append("more than one ruling for: %s" % ", ".join(dup))
++    if extra:
++        defects.append("rulings for ids not in the #e11 queue: %s" % ", ".join(map(str, extra)))
++    allowed = {"ratify", "ratify_with_changes", "reverse", "adopt", "reject", "close", "keep_open", "defer", "amend", "hold", "cut"}
++    bad = [(r.get("id"), r.get("ruling")) for r in d.get("rulings", []) if r.get("ruling") not in allowed]
++    if bad:
++        defects.append("ruling values not allowed: %s" % bad)
++    if d.get("previous_execution_id") != "ezek_controlling_rulings_a1#e10":
++        defects.append("previous_execution_id %r is not ezek_controlling_rulings_a1#e10" % d.get("previous_execution_id"))
++    gate = d.get("gate") or {}
++    for k in ("primaries_may_launch", "conditions_before_primaries"):
++        if k not in gate:
++            defects.append("gate.%s absent" % k)
++    lanes = d.get("lane_models") or {}
++    if not isinstance(lanes, dict) or not lanes:
++        defects.append("lane_models absent: OW-13 requires this execution to name the model for each lane it authorises")
++    else:
++        for lane in ("primaries_lf", "primaries_ol", "peer", "boss", "author_wave"):
++            e = lanes.get(lane)
++            if not isinstance(e, dict) or not str(e.get("model", "")).strip() or not str(e.get("reason", "")).strip():
++                defects.append("lane_models.%s needs a model and a reason (OW-13)" % lane)
++    seen = check_binding(d.get("inputs_ruled_on", []), "path", "sha256", launch, defects, "inputs_ruled_on")
++    return {"expected_ids": len(want), "ruled_ids": len(set(got) & set(want)), "missing": missing,
++            "rulings_by_kind": {k: sum(1 for r in d.get("rulings", []) if r.get("ruling") == k)
++                                for k in sorted({str(r.get("ruling")) for r in d.get("rulings", [])})},
++            "primaries_may_launch": gate.get("primaries_may_launch"),
++            "lane_models": {k: (v or {}).get("model") for k, v in (lanes.items() if isinstance(lanes, dict) else [])},
++            "corpus_wide_orders": len(d.get("corpus_wide_orders", [])),
++            "inputs_not_listed_in_inputs_ruled_on": sorted(set(launch) - seen),
++            "inputs_read_beyond_the_table": EXTRAS.get("inputs_ruled_on", [])}
++
++
+ def validate_t1(d, launch, defects):
+     if d.get("verdict") not in ("fit_to_accept", "fit_with_changes", "not_fit"):
+         defects.append("verdict %r not in the allowed set" % d.get("verdict"))
+@@ -1298,7 +1354,7 @@
+     launch = brief_digests(EZ / brief_name)
+     try:
+         d = json.loads(deliverable.read_text(encoding="utf-8"))
+-        summary = {"rulings": validate_rulings, "rulings_e3": validate_rulings_e3, "rulings_e4": validate_rulings_e4, "rulings_e5": validate_rulings_e5, "rulings_e6": validate_rulings_e6, "rulings_e7": validate_rulings_e7, "rulings_e8": validate_rulings_e8, "rulings_e9": validate_rulings_e9, "rulings_e10": validate_rulings_e10, "s3": validate_s3, "s4": validate_s4,
++        summary = {"rulings": validate_rulings, "rulings_e3": validate_rulings_e3, "rulings_e4": validate_rulings_e4, "rulings_e5": validate_rulings_e5, "rulings_e6": validate_rulings_e6, "rulings_e7": validate_rulings_e7, "rulings_e8": validate_rulings_e8, "rulings_e9": validate_rulings_e9, "rulings_e10": validate_rulings_e10, "rulings_e11": validate_rulings_e11, "s3": validate_s3, "s4": validate_s4,
+                    "t1": validate_t1, "t2": validate_t2,
+                    "t3": validate_t3, "t4": validate_t4, "t5": validate_t5, "t6": validate_t6, "s1": validate_s1, "s2": validate_s2}[a.job](d, launch, out["form_defects"])
+     except json.JSONDecodeError as exc:

@@ -1,0 +1,823 @@
+{
+ "schema": "m8_fixup_orders.v1",
+ "wave": "FIXUP-3",
+ "book": "Ezek",
+ "part": "p01",
+ "attempt_id": "ezek_author_fixup3_p01_a1",
+ "execution_id": "ezek_author_fixup3_p01_a1#e1",
+ "ordered_by": "ezek_controlling_rulings_a1#e10 ruling S3-ROUTING",
+ "fixup3_ruling": {
+  "execution": "ezek_controlling_rulings_a1#e10",
+  "ruling": "ratify_with_changes",
+  "decision": "S3's routing of S3-01 (major), S3-02, S3-04..S3-10, S3-12 and S3-13 to author fix-ups is RATIFIED, and FIXUP-3 is RATIFIED as one claude-sonnet-5 execution per part with these changes. (1) PARTS: SIX, not nine - p01, p02, p03, p04, p07, p08. p05, p10 and p11 do NOT join: their only items (S3-11 on P05-006; S3-14 on P10-005, P10-006, P10-011; S3-15 on P11-004, P11-009) and their CWO-EZ-22 hits (S3-16) are exact-substring rewordings that carry no new argument, so they execute as CWO-EZ-23, a deterministic sweep of 33 ruled old->new byte pairs (corpus_wide_orders), the S2-13 (a) and S2-04 precedent; p06 and p09 likewise take only CWO-EZ-23 pairs. Every hit in the six wave parts is an author item. (2) SEQUENCE, as #e4 S1-ROUTING (2) and #e9 S2-ROUTING (2): over the chain head rows_v5_fixup2.jsonl (41b19ad9), FIRST CWO-EZ-23 -> repair/rows_v5_cwo23.jsonl with a manifest recording old and new bytes per pair and refusing any pair whose old bytes do not occur exactly once in the named field; THEN CWO-EZ-22's coverage report over rows_v5 (every hit listed with row, field, matched text, 80 characters of context and its disposition: 'CWO-EZ-23 pair NN' or 'FIXUP-3 author item') and over rows_v5_cwo23 (residual exactly the FIXUP-3 author items, by row and field, and 0 on p05, p06, p09, p10, p11); THEN TOOLFIX-5 staged and installed as ruled below; THEN the orders built from rows_v5_cwo23, so no sweep races an author. (3) ORDERS: SP/Ezek/fixup3/orders_ezek_author_fixup3_pNN_a1.json, schema m8_fixup_orders.v1, attempt ids ezek_author_fixup3_pNN_a1, first execution #e1, a stopped execution relaunched as #e2 under the same attempt id with its own receipt (#e4 FIXUP-1 (6); OW-10 (a)); wave 'FIXUP-3'; ordered_by 'ezek_controlling_rulings_a1#e10 ruling S3-ROUTING'. Each orders file carries: its part's S3 findings verbatim (id, severity, row_or_artifact, claim, evidence, suggested_fix), stamped with the S3 id; S3's replaced_rows defect text for its rows; the CWO-EZ-22 author items for its rows, stamped CWO-EZ-22 with row, field, matched text and the line ruled in S3-16; for p03 the twelve S3-03 prose items stamped S3-03 with the pmarks key, mark type and role, plus the v5 ngram7 worst_reuse grams as grams not to reuse; for p04 the S3-17 note (the SRA argues both sides and never pre-empts the primaries; span and confidence unchanged); for p08 the S3-05 item with the verified verse list (Ezek.6.2, 6.3, 19.9, 33.28, 34.13, 34.14, 35.12, 36.1, 36.4, 36.8, 37.22, 38.8, 39.2, 39.4, 39.17) and the corrected citation '(sweep: 15 verses across chs. 6, 19 and 33-39)'. (4) BRIEF: #e4 FIXUP-1 (3) and (4) bind unchanged (replace only; no span, unit_type, confidence or parent change; every splice read back in its sentence with a gloss matching its extent; per-execution output subdirectory; the deliverable's size read by exact path; self-checks on the installed tools, TOOLFIX-5 included; FLAGS not to rise per row except where a disclosure requires it, every rise explained in the receipt); #e6 T5-REGISTER (a)-(c) and T5-MARKS (1) verbatim; #e9 S2-14's disclosure form, interior clause and variation order, with 'in prose' defined as ruled in S3-03; the #e9 wording rule (an argument is restated from the bytes or the verse and names no strategy, brief, ruling, campaign, wave, session, ledger id, worked example or review actor) extended by S3-16's line (no rule, guard, list, exception, vocabulary, flagged region or assignment cited as authority); the OW-3 both-sides seam law for S3-01 and S3-02; the E-19 lines as amended in OPEN-ITEMS (b); the OW-11 authority paragraph in the brief and in every launch message (OW-11-h); the pin check MATCH on every brief and launch message (OW-11-l). S3's suggested_fix is the default form for each routed finding; a departure is explained in the receipt. (5) MACHINERY: no tool change is needed to land or apply FIXUP-3 - _land_author_part_ezek.py line 95 and _apply_author_wave_ezek.py lines 67 and 73 take wave, ordered_by and --receipts from the orders and the argument (read by this execution), so the landing runs with --receipts fixup3/ezek_author_fixup_attempt_receipts.jsonl; _cwo_coverage_fixup1_ezek.py runs with --wave FIXUP-3 and --orders-index fixup3/orders_index.json (lines 111, 172, 274 read: the FIXUP-1 literals are defaults only). The apply manifest records the installed tool digests (TOOLFIX-5's for the FLAGS members). (6) OUTPUT AND PROOF: repair/rows_v6_fixup3.jsonl with a manifest (m8_fixup_apply.v1) recording no-op replaces and a per-element re-splice index; whole-book tiling 1:1 -> 48:35 exact; suite HARD GREEN, the HARD members at T5's digests and the two FLAGS members at TOOLFIX-5's; coverage COVERED for CWO-EZ-01..09 and CWO-EZ-14..18, residual 0 for CWO-EZ-19, 20, 21 and 22 over rows_v6, and CWO-EZ-23 verified in rows_v6 (each new byte string present, each old absent); the v6 mark_symmetry_gap residual exactly the two p05 front-seam flags (P05-004 at Ezek.22.31, P05-008 at Ezek.24.14); TOOLFIX-5's post-apply corpus report 0; then S4. (7) S4: a fresh distinct checker that is not S1, S2, S3, T1-T6 or an author; it reads P04-008 (S3-01) back first, then every replaced row's diff against rows_v5_cwo23, then every CWO-EZ-23 pair in its sentence against rows_v5, then every string field of every row for the governance kin S2 and S3 named plus CWO-EZ-22's arms, then the twelve p03 prose disclosures and ten other mark disclosures against pmarks, then TOOLFIX-5's diffs and selftests, and it recomputes every CWO predicate (CWO-EZ-01..09, 14..23) over rows_v6 with its own runs; its rows readiness verdict is written in the #e8 T6-02 ACCEPT form ('fit_to_accept' or 'fit_with_changes', 'no open finding' for absence) with no token from the REFUSE set #e8 T6-02 names. Said in words: no HARD gate and nothing in OW-10's purpose is weakened - the HARD suite members keep T5's digests; TOOLFIX-5 moves two FLAGS members only, with a fully dispositioned corpus-impact report and S4's distinct read; CWO-EZ-23 is 33 recorded byte pairs proven by manifest and verified in v6; a cure is still accepted only on artifact-bound verification plus the distinct checker (OW-10 (c)); every launch carries its own execution id (OW-10 (a))."
+ },
+ "sources": {
+  "rulings": [
+   {
+    "path": "Ezek/ezek_controlling_agent_rulings_e10.v1.json",
+    "sha256": "f3588288892a41c4d8f9df47f80d23929bbe666eb123c95888dcfe472d7689f4"
+   }
+  ],
+  "rule_rulings": [
+   {
+    "path": "Ezek/ezek_controlling_agent_rulings_e6.v1.json",
+    "sha256": "ed5d714518b5f7a09edeb593dc0982cc1301039be66ff3924f737bfa77282113"
+   },
+   {
+    "path": "Ezek/ezek_controlling_agent_rulings_e7.v1.json",
+    "sha256": "2f83b81c5dbaefd00c1489607114e0c766fe9b95c86dad23b3773ccc034c1e9c"
+   },
+   {
+    "path": "Ezek/ezek_controlling_agent_rulings_e9.v1.json",
+    "sha256": "81057c53c1875b84bbf81bcffeab92741fb410f6f4c1920799016defc435ab80"
+   }
+  ],
+  "rows": {
+   "path": "Ezek/repair/rows_v5_cwo23.jsonl",
+   "sha256": "3f0c7aee0fc68e767c5de5ff6b65fbcd00a1837d504066897fde845579e5c5c6"
+  },
+  "cwo_ez_23_manifest": {
+   "path": "Ezek/repair/rows_v5_cwo23.manifest.json",
+   "sha256": "881253aba345bd3c0e08ca28668561f38e1bd62c992c3b60829df8ff3eea2db4"
+  },
+  "cwo_ez_22_coverage": {
+   "path": "Ezek/repair/cwo_coverage_v5cwo23/CWO-EZ-22.json",
+   "sha256": "18710b03220095a130fde52a6b952a3aee5a2e45dd570cbe7b6911ad9ea996c2"
+  },
+  "toolfix5_impact": {
+   "path": "Ezek/proposals/toolfix5_batch1/impact/rows_v5_cwo23.impact.json",
+   "sha256": "da91efd9bbf2d01f61d471e30e7bec48d54f37d19c9c113db16fede88a123b21"
+  },
+  "toolfix5_receipt": {
+   "path": "campaign/receipts/ezek_tools_install_toolfix5_batch1.json",
+   "sha256": "b56b7ac20926b3e44b998463a527d838ba91fdf80b53f4002f0384f18ecdfc2c"
+  },
+  "s3_review": {
+   "path": "Ezek/ezek_fixup2_wave_review_S3.json",
+   "sha256": "41a20205c0c606bdda922fff06545bf0a9c08bf337bf29f147ffd0787d1993d7"
+  },
+  "p03_fixup2_orders": {
+   "path": "Ezek/fixup2/orders_ezek_author_fixup2_p03_a1.json",
+   "sha256": "cdf4d67eb7f3049106d1e0219b30eaafe710df2fd06cbecb31d303cb3ff3b905"
+  },
+  "v5_suite_report": {
+   "path": "Ezek/repair/suite_v5_6c843b14/rows.jsonl.validator_report.json",
+   "sha256": "dd1c0a9d310d580e5d080324817a2a8da657d6a078deec40b684ba31efc51828"
+  }
+ },
+ "ruling_orders": {
+  "e10:S3-16#2": {
+   "ref": "e10:S3-16#2",
+   "execution": "ezek_controlling_rulings_a1#e10",
+   "ruling_id": "S3-16",
+   "ruling": "adopt",
+   "decision": "(A) is ADOPTED with changes; the line S3 asks for is RULED. SANCTIONED: a rule restated as the row's own premise or byte argument, with no rule-maker and no rule-name as the warrant - 'because a refrain closes the unit before it, both 25:5 and 25:7 are treated as closes'; 'a messenger formula counts as a row seam only after an addressee change, and none stands here'; 'a two-verse unit with no tier-1 onset of its own' - and descriptive uses of the text's own rules ('the prohibition on seizing the people's inheritance (18)'), of the witness's count layer ('the inventory does not carry intra-verse position', 'unsourceable from this extract') and of 'default continuation onset'. BARRED, as section 8's bar on strategy citations, session/wave talk and staged-file names read from the other side (S1-05's and S2-01's class in other words): a rule, guard, floor, default, list, exception, closed vocabulary or flagged-region list cited AS THE WARRANT by an anonymized name - 'per the standing rule', 'under the governing rule', 'the granularity rule requires', 'per the frame-spine's own rule', 'the qinah-never-split rule is absolute', 'the over-split guard's own named exception', 'the closed vocabulary names', 'an authorized exception ... recorded for exactly this span', 'sometimes described as', 'this is a flagged region', 'per the flagged ch 20/21 region', 'the flagged zone review names', 'frontier-flagged', 'under the whole-chapter cap guard' - together with launch, assignment, staged-file and review-actor talk (S3-07, S3-08, S3-10, S3-11, S3-13, S3-14, S3-15). The test: strike the rule-name and ask whether the sentence still carries its reason from the text; if the reason was the name, the sentence is governance talk. P08-002's 'the cutting rule that an oath or messenger sub-onset counts as a row seam only when a refrain-grade close immediately precedes it' states the condition in content but names 'the cutting rule' as the warrant: it is a CWO-EZ-22 item whose fix is to drop the name and keep the condition. CWO-EZ-22 is its own predicate sweep and coverage report (E-18) over the content fields, on six exact arms (corpus_wide_orders), measured by this execution at 128 hits on 54 rows over rows_v5 (S3's three shapes are contained in them: 29/24, 12/9, 11/9, recomputed equal). The REMEDY has two halves: (a) DETERMINISTIC, CWO-EZ-23, exactly 33 old->new pairs on p05, p06, p09, p10, p11 (P05-004, P05-006, P05-008, P06-001, P06-003, P06-005, P06-009, P09-003, P09-007, P10-003, P10-005, P10-006, P10-011, P10-016, P11-002, P11-003, P11-004, P11-007, P11-008, P11-009, P11-012, P11-015), each old string verified by this execution to occur exactly once in its named field of rows_v5 and each new sentence read back (E-04); the pairs remove the name and keep the content, and none changes a span, a confidence, a count or a device claim; (b) AUTHOR ITEMS in FIXUP-3 for the 76 residual hits on 32 rows in p01, p02, p03, p04, p07 and p08 (listed in the coverage report over rows_v5_cwo23), stamped CWO-EZ-22. Coverage over rows_v6 must read residual 0 on all six arms, with no exception list (the CWO-EZ-14 (c) principle: a hit on descriptive prose is reworded, never exempted - P11-008's true content use 'the standing rule against seizing the people's inheritance' is reworded by pair 27 for exactly that reason). The arms join TOOLFIX-5 as check_register classes with GREEN control vectors (TOOLFIX-5 ruling). (B) is not taken: the primaries are blind reviewers of every row and would spend findings on 128 known hits, and S1-05 cannot read cured while P08-003 and P09-003 stand.",
+   "reason": "Section 8 bars strategy citations; a strategy rule cited by an anonymized name ('the standing rule', 'the over-split guard') is the same citation with the file name removed, which is how S1-05's class survived the possessive-only arm into S2-01 and now into S3-16. The row may reason from its method, because a reasoned condition is checkable against the verses; it may not lean on a rule-maker, because that is not evidence. Splitting the remedy by part keeps the author's judgment where the row is being rewritten anyway and keeps five parts out of an author round for label removals a recorded pair does exactly.",
+   "evidence": [
+    "SP\\Ezek\\ezek_fixup2_wave_review_S3.json new_findings S3-16; governance_search shapes 'rule cited as authority without a rule-maker' (29 hits, 24 rows), 'flagged-region, guard and frontier-flag talk' (12, 9), 'strategy citation in disguise' (11, 9); unresolved_uncertainty[2]",
+    "SP\\Ezek\\repair\\rows_v5_fixup2.jsonl, every hit read in its sentence by this execution, e.g. P06-001 boundary_rationale 'Per the standing rule that a refrain closes the unit before it', P07-006 boundary_rationale 'neither licenses a row cut under the governing rule', P11-003 strongest_rejected_alternative 'the granularity rule requires a formula-bounded onset for a row seam', P09-003 device_notes 'held at medium_low under the whole-chapter cap guard, frontier-flagged', P11-008 boundary_rationale 'the standing rule against seizing the people's inheritance (18)' (content), P08-002 device_notes 'the cutting rule that an oath or messenger sub-onset counts as a row seam only when a refrain-grade close immediately precedes it'",
+    "SP\\Ezek\\book_strategy_Ezek.md section 8 lines 453-457 ('never contains: decision-ids, strategy-file/§ citations, ... session/wave talk, or staged-file names/stems')",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e9.v1.json S2-13 (b) (rules restated as content are the sanctioned form), S2-13 (a) and S2-04 (deterministic remedies); SP\\Ezek\\ezek_controlling_agent_rulings_e6.v1.json T5-REGISTER (c) (reworded, never exempted)"
+   ],
+   "order": "p01 P01-001, P01-004, P01-006, P01-007, P01-011; p02 P02-003, P02-006, P02-009, P02-010, P02-013, P02-015, P02-019, P02-020; p03 P03-001, P03-005, P03-009, P03-013; p04 P04-001, P04-003, P04-007, P04-011; p07 P07-002, P07-003, P07-005, P07-006, P07-007, P07-008; p08 P08-002, P08-003, P08-010, P08-011, P08-014: for each CWO-EZ-22 hit, drop the rule, guard, exception, vocabulary, flagged-region, assignment, staged-file or actor name and keep the reasoned condition or the verse argument, or delete the clause where the row's evidence already carries it. Spans unchanged.",
+   "exact_spans": []
+  }
+ },
+ "brief_rules": {
+  "e10:S3-ROUTING#4": {
+   "ref": "e10:S3-ROUTING#4",
+   "execution": "ezek_controlling_rulings_a1#e10",
+   "ruling_id": "S3-ROUTING",
+   "ruling": "ratify_with_changes",
+   "decision": "S3's routing of S3-01 (major), S3-02, S3-04..S3-10, S3-12 and S3-13 to author fix-ups is RATIFIED, and FIXUP-3 is RATIFIED as one claude-sonnet-5 execution per part with these changes. (1) PARTS: SIX, not nine - p01, p02, p03, p04, p07, p08. p05, p10 and p11 do NOT join: their only items (S3-11 on P05-006; S3-14 on P10-005, P10-006, P10-011; S3-15 on P11-004, P11-009) and their CWO-EZ-22 hits (S3-16) are exact-substring rewordings that carry no new argument, so they execute as CWO-EZ-23, a deterministic sweep of 33 ruled old->new byte pairs (corpus_wide_orders), the S2-13 (a) and S2-04 precedent; p06 and p09 likewise take only CWO-EZ-23 pairs. Every hit in the six wave parts is an author item. (2) SEQUENCE, as #e4 S1-ROUTING (2) and #e9 S2-ROUTING (2): over the chain head rows_v5_fixup2.jsonl (41b19ad9), FIRST CWO-EZ-23 -> repair/rows_v5_cwo23.jsonl with a manifest recording old and new bytes per pair and refusing any pair whose old bytes do not occur exactly once in the named field; THEN CWO-EZ-22's coverage report over rows_v5 (every hit listed with row, field, matched text, 80 characters of context and its disposition: 'CWO-EZ-23 pair NN' or 'FIXUP-3 author item') and over rows_v5_cwo23 (residual exactly the FIXUP-3 author items, by row and field, and 0 on p05, p06, p09, p10, p11); THEN TOOLFIX-5 staged and installed as ruled below; THEN the orders built from rows_v5_cwo23, so no sweep races an author. (3) ORDERS: SP/Ezek/fixup3/orders_ezek_author_fixup3_pNN_a1.json, schema m8_fixup_orders.v1, attempt ids ezek_author_fixup3_pNN_a1, first execution #e1, a stopped execution relaunched as #e2 under the same attempt id with its own receipt (#e4 FIXUP-1 (6); OW-10 (a)); wave 'FIXUP-3'; ordered_by 'ezek_controlling_rulings_a1#e10 ruling S3-ROUTING'. Each orders file carries: its part's S3 findings verbatim (id, severity, row_or_artifact, claim, evidence, suggested_fix), stamped with the S3 id; S3's replaced_rows defect text for its rows; the CWO-EZ-22 author items for its rows, stamped CWO-EZ-22 with row, field, matched text and the line ruled in S3-16; for p03 the twelve S3-03 prose items stamped S3-03 with the pmarks key, mark type and role, plus the v5 ngram7 worst_reuse grams as grams not to reuse; for p04 the S3-17 note (the SRA argues both sides and never pre-empts the primaries; span and confidence unchanged); for p08 the S3-05 item with the verified verse list (Ezek.6.2, 6.3, 19.9, 33.28, 34.13, 34.14, 35.12, 36.1, 36.4, 36.8, 37.22, 38.8, 39.2, 39.4, 39.17) and the corrected citation '(sweep: 15 verses across chs. 6, 19 and 33-39)'. (4) BRIEF: #e4 FIXUP-1 (3) and (4) bind unchanged (replace only; no span, unit_type, confidence or parent change; every splice read back in its sentence with a gloss matching its extent; per-execution output subdirectory; the deliverable's size read by exact path; self-checks on the installed tools, TOOLFIX-5 included; FLAGS not to rise per row except where a disclosure requires it, every rise explained in the receipt); #e6 T5-REGISTER (a)-(c) and T5-MARKS (1) verbatim; #e9 S2-14's disclosure form, interior clause and variation order, with 'in prose' defined as ruled in S3-03; the #e9 wording rule (an argument is restated from the bytes or the verse and names no strategy, brief, ruling, campaign, wave, session, ledger id, worked example or review actor) extended by S3-16's line (no rule, guard, list, exception, vocabulary, flagged region or assignment cited as authority); the OW-3 both-sides seam law for S3-01 and S3-02; the E-19 lines as amended in OPEN-ITEMS (b); the OW-11 authority paragraph in the brief and in every launch message (OW-11-h); the pin check MATCH on every brief and launch message (OW-11-l). S3's suggested_fix is the default form for each routed finding; a departure is explained in the receipt. (5) MACHINERY: no tool change is needed to land or apply FIXUP-3 - _land_author_part_ezek.py line 95 and _apply_author_wave_ezek.py lines 67 and 73 take wave, ordered_by and --receipts from the orders and the argument (read by this execution), so the landing runs with --receipts fixup3/ezek_author_fixup_attempt_receipts.jsonl; _cwo_coverage_fixup1_ezek.py runs with --wave FIXUP-3 and --orders-index fixup3/orders_index.json (lines 111, 172, 274 read: the FIXUP-1 literals are defaults only). The apply manifest records the installed tool digests (TOOLFIX-5's for the FLAGS members). (6) OUTPUT AND PROOF: repair/rows_v6_fixup3.jsonl with a manifest (m8_fixup_apply.v1) recording no-op replaces and a per-element re-splice index; whole-book tiling 1:1 -> 48:35 exact; suite HARD GREEN, the HARD members at T5's digests and the two FLAGS members at TOOLFIX-5's; coverage COVERED for CWO-EZ-01..09 and CWO-EZ-14..18, residual 0 for CWO-EZ-19, 20, 21 and 22 over rows_v6, and CWO-EZ-23 verified in rows_v6 (each new byte string present, each old absent); the v6 mark_symmetry_gap residual exactly the two p05 front-seam flags (P05-004 at Ezek.22.31, P05-008 at Ezek.24.14); TOOLFIX-5's post-apply corpus report 0; then S4. (7) S4: a fresh distinct checker that is not S1, S2, S3, T1-T6 or an author; it reads P04-008 (S3-01) back first, then every replaced row's diff against rows_v5_cwo23, then every CWO-EZ-23 pair in its sentence against rows_v5, then every string field of every row for the governance kin S2 and S3 named plus CWO-EZ-22's arms, then the twelve p03 prose disclosures and ten other mark disclosures against pmarks, then TOOLFIX-5's diffs and selftests, and it recomputes every CWO predicate (CWO-EZ-01..09, 14..23) over rows_v6 with its own runs; its rows readiness verdict is written in the #e8 T6-02 ACCEPT form ('fit_to_accept' or 'fit_with_changes', 'no open finding' for absence) with no token from the REFUSE set #e8 T6-02 names. Said in words: no HARD gate and nothing in OW-10's purpose is weakened - the HARD suite members keep T5's digests; TOOLFIX-5 moves two FLAGS members only, with a fully dispositioned corpus-impact report and S4's distinct read; CWO-EZ-23 is 33 recorded byte pairs proven by manifest and verified in v6; a cure is still accepted only on artifact-bound verification plus the distinct checker (OW-10 (c)); every launch carries its own execution id (OW-10 (a)).",
+   "reason": "S3's row findings are field content that needs an author's hand and no span change, as #e4 and #e9 found; the six wave parts carry judgment items (a both-sides seam argument on P04-008 and P08-012, twelve prose disclosures, byte restatements of exceptions and vocabulary), which is an author's work. The 33 items on the other five parts are label removals and single-phrase rewordings whose old and new bytes this execution has read in their sentences; an author execution to change one clause costs 192,145-293,072 tokens measured and adds second-generation exposure (E-17) on rows no author otherwise touches, while a recorded pair costs nothing, fails closed on a non-unique old string and is read by S4 in its sentence. The sweeps run first so that authors receive clean rows (the #e4 sequence). No landing or apply tool change is ordered because the #e9 plumbing already takes wave, ruling and receipts path from the orders and the argument.",
+   "evidence": [
+    "SP\\Ezek\\ezek_fixup2_wave_review_S3.json new_findings S3-01..S3-20 (route fields); cure_claim_readiness[0] fit=false, per_s1_id S1-05 not_cured (P08-003, P09-003 named), per_s2_id S2-14 not_cured; replaced_rows: 67 entries, 43 accept, 24 defect (P01-001, P01-007, P02-009, P03-001, P03-008, P03-009, P03-010, P03-011, P03-012, P03-013, P03-014, P03-017, P03-018, P03-019, P03-020, P04-001, P04-008, P04-009, P07-008, P08-003, P08-004, P08-010, P08-012, P11-004)",
+    "SP\\Ezek\\repair\\rows_v5_fixup2.jsonl: every S3 quotation on S3-01..S3-16 present as an exact substring of the named field (39 checks by this execution); tightened CWO-EZ-22 arms: 128 hits on 54 rows; after the 33 pairs on a private copy: 76 hits on 32 rows, all in p01, p02, p03, p04, p07, p08",
+    "SP\\Ezek\\_land_author_part_ezek.py line 95; SP\\Ezek\\_apply_author_wave_ezek.py lines 67, 73; SP\\Ezek\\_cwo_coverage_fixup1_ezek.py lines 111, 172 (read by this execution; FIXUP-1 strings are defaults when the fields are absent)",
+    "SP\\Ezek\\fixup2\\ezek_author_fixup_attempt_receipts.jsonl: 9 receipts, tokens_reported sum 2,122,951, min 192,145 (p06), max 293,072 (p08), summed by this execution",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json FIXUP-1 (3), (4), (6); SP\\Ezek\\ezek_controlling_agent_rulings_e9.v1.json S2-ROUTING (2)-(7), S2-04, S2-13 (a) (the deterministic-pair precedent), S2-14",
+    "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md OW-10 (a) execution identity, (c) cure binding, (e) no weaker gate"
+   ],
+   "order": "Every wave part: S3's suggested_fix is the default form for S3-04, S3-06, S3-07, S3-08, S3-09, S3-10, S3-12 and S3-13; every CWO-EZ-22 item is restated from the bytes or the verse or deleted where the row's own evidence already carries the argument, naming no rule, guard, list, exception, vocabulary, flagged region, assignment, launch message, staged file or review actor; a departure is explained in the receipt; replace only, spans unchanged.",
+   "exact_spans": []
+  },
+  "e6:T5-TOOLKIT-DOCS#2": {
+   "ref": "e6:T5-TOOLKIT-DOCS#2",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "T5-TOOLKIT-DOCS",
+   "ruling": "ratify_with_changes",
+   "decision": "T5-08 is CONFIRMED on the bytes: TOOLKIT.md (9771c440) lines 305-307 list six later-denial forms and call the set closed, while citation_sweep.py (6c843b14) lines 184-186 accept although|yet before 'none', 'there is|are none', 'none is written|there|found', 'none appears|exists' and 'is|are lacking'. T5's three rewordings are ADOPTED in TOOLFIX-3 with these texts: (1) normalizer row: 'every Hebrew run byte-true to the verse text or to a Qere, standing on word boundaries (S1-07; collate_hebrew applies the same rule); an NFD-only match at the verse tier is REPLACED by the verse's bytes and counted fixed, and the suite treats fixed>0 as HARD (E-01); an NFD-only Qere match is a defect and is never replaced'; (2) puncta paragraph: 'a named single verse must be a site; a written range must hold at least one site; among several named items every one a site = a true claim, none = a false claim, a mix = ambiguous'; (3) the closed set written in full as the code has it - but|though|although|yet none, but|though|although|yet there is|are none, none stands, none is present|written|there|found, none appears|exists, and is|are absent|lacking|missing at the clause end - followed by 'the set is DENIAL_COORD and DENIAL_COPULAR in citation_sweep.py; where this paragraph and the code differ, the code is the contract and this paragraph is the defect'. FOUR FURTHER CORRECTIONS in the same edit, each a sibling statement R6 requires: (a) the heading 'staged 2026-09-10, after the writer wave' gains 'installed 2026-09-11 by receipts ezek_tools_install_t4fix_batch2.json and ezek_tools_install_toolfix2_batch3.json'; (b) the check_marks row adds T4-03's later denial (the same closed set) and W6's mark-talk gate (a MARKISH_CTX word within 60 characters); (c) the OSHB note-class texts written inside quotation marks are made byte-exact to pmarks_Ezek.json notes_other or lose their quotation marks: pmarks line 1060 reads 'BHS has been faithful to the Leningrad Codex where there might be a question of the validity of the form and we keep the same form as BHS.' where TOOLKIT.md line 136 writes \"BHS has been faithful to L where there might be a question of validity\", and pmarks line 1116 reads 'Adaptations to a Qere which L and BHS, by their design, do not indicate.' where line 140 writes \"adaptations to a Qere which L and BHS do not indicate\" - a brief-class document about byte fidelity may not paraphrase inside quotation marks, and the sibling sweep checks every quoted note text (lines 136-144, 146-147) the same way; (d) the encoding section gains one line for T5-07: 'ezek_lib.skeleton() deletes U+05BE with the other points (POINTS spans U+0591-U+05C7), so a maqaf-joined quote never collates at any tier; its docstring sentence \"maps maqaf to SPACE\" is wrong and unasserted (T5-07, recorded as debt); write words space-separated, as the extract does.' The R6 sibling sweep then re-runs over the whole file with T5's 17 key phrases plus 'closed set', 'NFD-only', 'ranges expanded', 'staged 2026-09-10', 'faithful to', 'do not indicate' and 'maqaf', and EZEK-P0-CURE-toolkit-v3 binds to the corrected digest on T6's verdict with that sweep as its sibling_sweep record; PILOT-4 stays OPEN until then. T5-07 and T5-09 are RECORDED AS DOCUMENTATION DEBT, not fixed now: ezek_lib, citation_sweep and check_register are suite members T5 found fit, the false or incomplete sentences change no verdict, the maqaf class has 0 live instances (extract and rows maqaf-free), and moving a suite member's digest now would put T6 onto suite members and FIXUP-1's landing suite onto digests T5 did not review. The debt is ORDERED into the first later Ezekiel batch that touches any of those files for another reason, and otherwise into Daniel's toolkit at Phase 0: T5-07 by correcting the two docstring sentences to the actual behaviour with a selftest assertion (NOT by changing the code: mapping maqaf to space would make the skeleton tier accept maqaf-joined unpointed quotes against the space-separated extract, a HARD-gate loosening this lane has not ruled on); T5-09 by extending the three docstrings through the adapter's CS_DOC, and by correcting the adapter's 'never overwrites a differing existing file' to 'overwrites only a file whose digest equals the --replace pin'. T5-12 RECORDED as proposed: S1-10's gap was a decision_id gap (e15a flags carry only a path), e15d is e15a's decision_id-bearing twin; no change. One consequence for FIXUP-1 (CWO-EZ-17): 475 of 1,273 WEB verses carry unequal curly double counts, so a WEB quotation is cut to a span whose interior carries no U+201C or U+201D, which is what S1-10's 'balanced span' means; the FIXUP-1 brief says so in words. T5-13 RECORDED as proposed: the landed batch3 proposal is never edited; the cycle log records that corpus_impact.json's normalizer_equals_enumerated=false is the listed-count test (9 listed) and the manifest's true is the distinct-set test (8 distinct) that INSTALL-TF2-1 (3) ordered in words ('normalizer 8 distinct runs'); every later install receipt records passed = checks - failed as an int and carries the verifier selftest's own {vectors, failed} line. BLOCKS EZEK-P0-CURE-toolkit-v3 until the corrected digest, the new sibling sweep and T6's verdict; blocks no suite-file claim.",
+   "reason": "TOOLKIT.md is the brief-class file every agent reads as fact (R6); the three inaccurate contract sentences and the four sibling statements are the class R6 exists to sweep, and two of them (the note texts) paraphrase apparatus wording inside quotation marks in the file that tells writers not to. The full denial set is listed rather than softened to 'such as' because a brief-class contract that says 'such as' cannot be checked against the code; the pointer to the code names which side is authoritative when they drift again. T5-07's docstring-versus-code choice is decided for the docstring because the documented behaviour is the more permissive one at a HARD tier and no instance exists to argue from. The debts are ordered, not merely noted, so they cannot be forgotten at Daniel's Phase 0 or at the next Ezekiel batch.",
+   "evidence": [
+    "SP\\Ezek\\tools\\TOOLKIT.md lines 136-147 (note-class texts in quotation marks), 269 (heading 'staged 2026-09-10'), 277-284 (tool rows), 279 (normalizer row 'NFD-only matches stay defects'), 280 (check_marks row), 300-301 ('ranges expanded: every named verse a site = a true claim'), 305-307 (the six-form 'closed set'), 335-342 (encoding notes)",
+    "SP\\Ezek\\tools\\citation_sweep.py lines 184-186 (DENIAL_COORD, DENIAL_COPULAR)",
+    "SP\\Ezek\\pmarks_Ezek.json lines 1060 and 1116 (notes_other texts)",
+    "SP\\Ezek\\tools\\ezek_lib.py lines 39-42 (SKELETON NOTE), 69 (POINTS = [\\u0591-\\u05c7]), 121-123 (skeleton: POINTS.sub before .replace('\\u05be', ' ')), 364 (selftest: extract maqaf-free)",
+    "SP\\Ezek\\ezek_toolkit_install_review_T5.json docstrings, toolkit_md (17 key phrases, 84 statements), e15d, new_findings T5-07, T5-08, T5-09, T5-12, T5-13",
+    "SP\\Ezek\\proposals\\toolfix2_batch3\\corpus_impact.json hard.normalizer_equals_enumerated false; manifest.json gate.hard_normalizer_equals_enumerated true; hand_review.json normalizer_equality; receipt checks_after.verifier_selftest.passed null",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e5.v1.json INSTALL-TF2-1 (3) ('normalizer 8 distinct runs')"
+   ],
+   "order": "CWO-EZ-17 items: close or cut every WEB quotation to a span whose interior carries no U+201C or U+201D; a WEB verse whose own text holds an unbalanced curly quote is quoted only up to or after that quote.",
+   "exact_spans": []
+  },
+  "e6:T5-REGISTER#1": {
+   "ref": "e6:T5-REGISTER#1",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "T5-REGISTER",
+   "ruling": "ratify",
+   "decision": "T5-10 is CONFIRMED on the arms at check_register.py (13094843) lines 64-68: '(preceding|next|following) row', 'row (before|after)', '(ends|opens|closes|begins) the part', 'prior [\\w:.\\-–]+( [\\w:.\\-–]+)? reading', 'former (...){0,2} row', 'posture' and 'previously (held|drafted|spanned|read) as' carry no descriptive guard, so T5's ten phrasings fire, and the five evasions fall outside every arm. NO Ezekiel check_register change: every suite member keeps the digest T5 reviewed; no false positive is live (T5: 0 hits for every arm over all 1,273 WEB verse texts, WEB Ezekiel never writes 'row' or 'rows'; all 60 chain-head author_wave_register_s1_05 flags are row talk, governance or strategy citation; p10-10's 'one of the better-evidenced rows' is the S1-05 class and a CWO-EZ-14 input, as the hand review and T5 agree); the risk is text not yet written, which a brief governs. The FIXUP-1 brief (and the primaries' brief for any prose they write) carries: (a) T5's ten phrasings as wording to avoid, each with a form that passes every arm: 'the next row of chambers' -> 'the adjoining row of chambers'; 'the following row of pillars' -> 'the pillars' second row'; 'row after row along the pavement' -> 'row upon row along the pavement'; 'begins the part of the land held by Judah' -> 'begins the portion of the land held by Judah'; \"the part's measurements\" -> 'the measurements of that portion'; 'prostrate posture at 1:28' -> 'prostrate position at 1:28'; 'the prior ketiv reading' -> 'the ketiv reading'; 'the former row of palm trees' -> 'the first row of palm trees'; 'the last of the rows face north' -> 'the rows' last member faces north'; \"previously held as the prince's possession\" -> \"previously the prince's possession\"; (b) T5's five evasions ('the prior reading of this unit', 'as first drafted', 'the earlier span', 'the second of three rows', 'previously held to 30:19') as row talk still BARRED by S1-05 and CWO-EZ-14 though no arm sees it - S2's read-back is the proof for those shapes, and CWO-EZ-14.json's coverage-limit sentence (#e5 REG-TF2-1) names them beside P07-009, P09-002 and P10-007; (c) under CWO-EZ-14 a register hit on descriptive prose is REWORDED, never exempted (E-12 governs triage elsewhere; CWO-EZ-14's residual 0 is the proof and it admits no exception list). T5's tightenings with their GREEN controls are RECORDED for Daniel's toolkit and for the first later Ezekiel batch that touches check_register for another reason: (?!\\s+of\\b) on '(preceding|next|following) row' and on 'former ... row'; 'row (before|after) row' refused; (?!\\s+of\\b) on '(ends|opens|closes|begins) the part'; ketiv|qere|Masoretic excluded from 'prior ... reading'; 'posture' narrowed to 'flagged-region|low-confidence posture'; 'second of \\w+ rows' added. Blocks no cure claim: check_register is fit at 13094843.",
+   "reason": "A FLAGS member whose coverage sweep must read 0 turns a false positive into a reword of true prose; the cost of that is one author round per hit, while the cost of tightening now is a suite-member digest change that pulls T6 onto a suite member and FIXUP-1's landing suite off the digests T5 reviewed. With 0 live hits and WEB Ezekiel itself never writing 'row', the brief is the proportionate control for the two waves that will write architecture prose (p10, p11). The replacement forms were checked by hand against every CLASSES arm at lines 31-72: none matches positional_row_reference, cross_part_or_part_range or author_wave_register_s1_05.",
+   "evidence": [
+    "SP\\Ezek\\tools\\check_register.py lines 31-36 (positional_row_reference), 37-39 (cross_part_or_part_range), 61-68 (author_wave_register_s1_05 as widened by REG-TF2-1), 98-99 (Hebrew and curly-quoted spans masked)",
+    "SP\\Ezek\\ezek_toolkit_install_review_T5.json register_arms (ten false positives, five evasions, WEB word counts row 0 / rows 0, 60 chain-head flags all row talk), new_findings T5-10",
+    "SP\\Ezek\\proposals\\toolfix2_batch3\\corpus_impact.json register.added_items (p06-13, p07-4, p10-10, p11-12 x3, p11-14 x2, p11-15 x2: all row talk); hand_review.json register.p10-10",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e5.v1.json REG-TF2-1 (the coverage-limit sentence and the three unflaggable rows); SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json corpus_wide_orders CWO-EZ-14 (residual 0)"
+   ],
+   "order": "Write (a), (b) and (c) into the FIXUP-1 brief's §8 register lane verbatim; a register flag on the landing suite is reworded before landing, never argued.",
+   "exact_spans": []
+  },
+  "e6:T5-MARKS#1": {
+   "ref": "e6:T5-MARKS#1",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "T5-MARKS",
+   "ruling": "ratify_with_changes",
+   "decision": "T5-11 (a) is CONFIRMED on the bytes: check_marks.py (a6310719) line 438 builds text = prose_of(row) + ' ' + the joined refs, prose_of (388-394) walks every key except boundary_evidence_refs - the span string included - and line 592 subtracts row_named_mt_keys(text) from the span's kq keys, so a K/Q at either span edge is exempt from 'no other K/Q' by the span field alone. The orchestrator's third implementation reading is RECORDED AS UNSOUND for the span field (a span string is metadata, not a disclosure) and SOUND for 'a written range names its two ends' in prose and refs. NO Ezekiel check_marks change: a FLAGS member; live exposure 0 (t5_exposure_scan: one exclusivity phrase, P10-008, with kq at neither span edge, and #e4 FIXUP-1 already drops that sentence); ruling Q8's compensation 1 - full dual-blind primaries over every row, no sampling - is the compensation and is UNTOUCHED. CHANGES to the proposal: (1) the FIXUP-1 and primaries' briefs state the exclusivity form that IS checked: 'no other K/Q ...' beside a prose disclosure that names EVERY K/Q verse of the span (C:V, C.V, 'MT C:V' or dotted, in a prose field or a refs entry, never relying on the span field), because 'the only K/Q in this span is at C:V' is a positive claim over C:V whose exclusivity no arm checks; (2) the primaries' brief lists T5-11 (a)-(f) as DISCLOSED TRIAGE classes with the pmarks lookup that decides each: (a) a K/Q at a span edge under 'no other K/Q' (pmarks kq at both edge keys); (b) 'no K/Q other than the one at C:V' fires falsely (kq at C:V and nowhere else in the span); (c) W5 misreads a short negated clause followed by a positive K/Q clause in both directions and loses 'other' in 'No other parashah, K/Q ...' (kq at the named verse); (d) W6 fires on letter talk within 60 characters of a mark word and on 'the pe mark is absent after C:V' (marks at C:V); (e) 'K/Q notes are absent from C:V-C:V' is silent while the 'inside C:V-V' form fires (kq over the range); (f) 'between N1 and N2' checks the bounds, not the interior (marks over N1+1..N2-1); (3) the four 'note' candidates - 'between X and Y' scoped to X+1..Y-1 and 'inside|within X-Y' to X..Y-1; the front-seam key dropped from rule 3 for 'in|within|inside this span|row|unit'; an absence phrase inside a refs entry bound to the entry's own ref (the S1-06 principle); a negator heading an or-coordination within two words, no verse number and no verb - are RECORDED with T5's rules and vectors both ways for Daniel's toolkit and for the first later Ezekiel batch that touches check_marks for another reason, together with the T5-11 (a) fix (exclude 'span' and every non-prose metadata key from the text row_named_mt_keys scans); (4) the anaphoric 'after it' candidate is REJECTED as T5 recommends: antecedent resolution is not a deterministic rule, and P11-013's flag stays disclosed triage. The eight persisting false_mark_absence_claim rows (#e5) and P05-003's and P09-002's strays stay disclosed triage for the primaries. Blocks no cure claim: check_marks is fit at a6310719.",
+   "reason": "Every misfire T5 lists is a FLAGS outcome on a true or false disclosure that the primaries read against pmarks anyway; none moves a HARD verdict, and the one live exclusivity sentence is already ordered dropped. Fixing (a) alone would move a suite member for a 0-exposure class; the brief rule in (1) removes the class from the text the authors write, which is where the exposure would arise. The candidates are worth carrying because each is cheap and pinned by vectors both ways, but they belong to a batch that moves check_marks for a reason of its own.",
+   "evidence": [
+    "SP\\Ezek\\tools\\check_marks.py lines 252 (KQ_EXCLUSIVE), 254 (ABSENCE_LETTER), 306-316 (row_named_mt_keys over the text it is given), 388-394 (prose_of walks every key but boundary_evidence_refs), 438 (text = prose_of(row) + refs), 591-602 (scope span_unnamed = span kq keys minus row_named_mt_keys(text))",
+    "SP\\Ezek\\repair\\t5_exposure_scan.v1.json T5-11a (rows_with_exclusivity_kq_phrase 1: P10-008 span Ezek.41.12-Ezek.41.26, kq_present false at both edges; rows_where_a_span_edge_kq_is_exempted 0)",
+    "SP\\Ezek\\ezek_toolkit_install_review_T5.json s1_22_and_flags_tf2_1.w2/w5/w6 residual vectors, implementation_readings[2] (unsound), candidates (four note, one reject), new_findings T5-11",
+    "SP\\Ezek\\proposals\\toolfix2_batch3\\hand_review.json implementation_readings_for_T5[2]; check_marks_strays P05-003, P09-002",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json FIXUP-1 orders[2] (P10-008: drop 'no other K/Q or editorial note touches this row'); SP\\Ezek\\ezek_controlling_agent_rulings_e5.v1.json FLAGS-TF2-1 (RECORDED, NOT ORDERED classes), unresolved_uncertainty[3]"
+   ],
+   "order": "Exclusivity K/Q claims are written as 'no other K/Q ...' beside a prose disclosure naming every K/Q verse of the span; never 'the only K/Q'; never a reliance on the span field.",
+   "exact_spans": []
+  },
+  "e6:CWO18-SCOPE-1#2": {
+   "ref": "e6:CWO18-SCOPE-1#2",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "CWO18-SCOPE-1",
+   "ruling": "ratify_with_changes",
+   "decision": "CWO-EZ-18's PREDICATE IS WIDENED, in words: from 'every curly-double-quoted span in a prose field' to 'every curly-double-quoted span in any string field of a row that check_web_quotes classes \"curly quote with NO web: ref in its field\"'. On the chain head 324d2358 that is the three prose fields plus 28 boundary_evidence_refs entries and 2 literature_type_guess fields (148 spans on 39 rows; S1 stated 134 on 40, and the chain head's count governs). The widening is required by the order's own coverage condition, which was always tool-wide (check_web_quotes reads every string field, each refs entry as its own field, and the class must read 0 over the applied rows) and cannot be met while 30 spans stand outside the sweep's reach; the coverage condition stands AS ORDERED and is NOT weakened. The same tests and the same routing apply in every field in scope: (i) a gloss converts to single quotes; (ii) a WEB-verbatim span is a FIXUP-1 author item; a near-WEB span (CWO18-NEARWEB-1) is an author item; a short common label (CWO18-SHORT-1) converts to single quotes. On the 30 outside-prose spans, per span from outside_prose_fields.items: GLOSSES converted (4): P02-020 refs[8] and refs[9] 'Adaptations to a Qere which L and BHS, by their design, do not indicate' (an OSHB note quotation, byte-exact to pmarks line 1116, not WEB - single quotes are its correct form under C3, which reserves the curly double form for WEB text), P08-002 refs[3] 'We read punctuation in L differently from BHS' (the same), P08-010 refs[0] 'and you, son of man'; LABELS converted (11): P02-006 refs[1], P02-007 refs[1] and refs[2] 'river Chebar'; P08-002 refs[1], P08-006 refs[2], P08-007 refs[5] and refs[8] 'As I live'; P08-005 refs[0], P08-012 refs[1] 'son of man'; P08-015 refs[0] 'my flock'; P08-013 refs[1] 'a new heart'; NEAR-WEB author items (4): P02-008 refs[1] 'you have multiplied your slain' (WEB 11:6 'You have multiplied your slain'), P02-014 literature_type_guess 'the days are prolonged, and every vision fails', P08-007 refs[9] 'they have been laid desolate', P08-013 refs[2] 'you will be my people'; WEB-VERBATIM author items (11): P02-009 refs[1], P02-010 refs[1] (two spans), P02-017 literature_type_guess 'there is no peace', P02-018 refs[4], P08-001 refs[1], P08-015 refs[3], P08-007 refs[2] and refs[6], P08-013 refs[1] 'one heart' (one verse, 11:19, so not a label), P08-014 refs[1]. ORDERS: (1) the orchestrator amends _cwo18_gloss_quotes.py (2bc019ac) to: read this execution's amended CWO-EZ-18 (corpus_wide_orders below) beside #e4's and carry both verbatim in the manifest; treat every string field check_web_quotes reads as in scope, replaying the tool's class path by path (the ABORT on any replay difference stays); apply the near-WEB and label rules of the two sibling rulings; write per-span class lists (gloss, short_common_label, near_web_author, verbatim_author) with old and new bytes for every conversion and the routed item text for every author item; assert that every touched boundary_evidence_refs entry still matches the strict R1 shape exactly as CWO-EZ-13's manifest asserted (outside_r1_after 0) and that no field outside the in-scope set changed; keep every existing assertion (changed only at quote characters; the class drops by exactly the conversions; every other web_quotes flag identical; citation_sweep problems 10 and check_marks flags 78 unchanged; suite parity with the universals and register accounting, and check_refs_mirror added to the accounted set on the same blanked-run rule if its flags move at a converted refs entry, otherwise identical); (2) the amended script's --dry-run over 324d2358 must report no problems and must class every span exactly as this execution's three CWO18 rulings class it - the test is per span against the analysis file's items, never a count (my expected counts are a cross-check only: prose glosses 21, prose labels 34, prose near-WEB 26, prose verbatim 37; outside-prose glosses 4, labels 11, near-WEB 4, verbatim 11; conversions 70, author items 78); a span classed otherwise is listed and returns to this lane before the real run; (3) on that dry run the REAL RUN is PRE-AUTHORIZED with --install-receipt ezek_tools_install_toolfix2_batch3.json, producing rows_v3_cwo18.jsonl and its manifest as the new chain head; (4) the FIXUP-1 orders carry every author item under CWO-EZ-18 with its field or refs path, the span and the remedy: in a prose field, add the inline web: ref with the span verbatim (the analysis names the verse where exactly one holds it), or drop the curly form for single quotes; in a boundary_evidence_refs entry, add 'web:Ezek.C.V' inside the entry's own parenthetical with the span verbatim, or single-quote the span - and because this lane has not read the R1 grammar, the landing suite's citation_sweep (HARD) at 0 ref-grammar problems is the proof that an inline web: token inside an oshb: entry's parenthetical is in shape, and an author whose entry cannot carry the token single-quotes the span instead; in literature_type_guess, single quotes (a classification field carries no quotation). CWO-EZ-18.json's coverage sweep re-runs check_web_quotes over the applied rows and reads the class at 0 across ALL fields, recording the sweep manifest and the carrying execution ids.",
+   "reason": "check_web_quotes.py (74fb7179) lines 141 and 204-221 iterate every string field through iter_strings, which yields each refs entry as its own path, and flag any curly English span whose field has no web: ref; the dry run confirms 28 refs entries and 2 literature_type_guess fields in the class. A coverage condition that reads the tool's class at 0 therefore already reached those fields; the predicate's 'prose field' wording left them unswept, which the deterministic half found and could not resolve. The 4 outside-prose glosses are not WEB under either matcher (two are OSHB note quotations, byte-exact against pmarks); the 11 labels and 4 near-WEB spans take the sibling rulings' classes by the same tests; the 11 verbatim spans are quotations lacking a ref. No content judgement is delegated to the script: every class is decided here per span, and the script's job is to reproduce that decision from the same bytes or abort.",
+   "evidence": [
+    "SP\\Ezek\\tools\\check_web_quotes.py lines 87-95 (iter_strings yields each list element string as its own path), 141-142 (refs per field), 204-221 (the class 'curly quote with NO web: ref in its field')",
+    "SP\\Ezek\\repair\\cwo18_dry_run_over_cwo13.v1.json class_in (148 spans, 39 rows, by_field), class_spans_outside_prose_fields_not_edited (30 items), assert_* (all true), probe.tools_sha256",
+    "SP\\Ezek\\repair\\cwo18_questions_analysis.v1.json outside_prose_fields (count 30; web_verbatim 22; gloss 8; gloss_but_web_folded 4; items with web_verbatim and web_folded per span)",
+    "SP\\Ezek\\_cwo18_gloss_quotes.py lines 63 (PROSE), 233-237 (outside-prose spans listed, never edited), 261-264 (assert only prose fields changed), 197-201 (the ruled order read from #e4 by id), 225-227 (replay ABORT)",
+    "SP\\Ezek\\pmarks_Ezek.json line 1116 ('Adaptations to a Qere which L and BHS, by their design, do not indicate.'); SP\\Ezek\\repair\\rows_v3_cwo13.jsonl P08-002 refs entry 'oshb:Ezek.33.20 (note: “We read punctuation in L differently from BHS” (single-witness; ...'",
+    "SP\\Ezek\\repair\\rows_v3_cwo13.manifest.json assert_r1_shape_after (touched_entries 25, outside_r1_after 0) - the R1 assertion the amended script reuses",
+    "SP\\Ezek\\Ezek_web_clean.txt WEB 11:6 ('You have multiplied your slain in this city')",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json corpus_wide_orders CWO-EZ-18 (order, predicate, why); gate.conditions_before_primaries[2] and [6]"
+   ],
+   "order": "Every CWO-EZ-18 author item: add the inline web: ref with the span verbatim to the WEB bytes, or drop the curly form for single quotes; inside a refs entry the web: token goes inside the entry's own parenthetical and the landing suite's citation_sweep decides whether the shape holds - if it does not, single-quote the span. Spans unchanged.",
+   "exact_spans": []
+  },
+  "e6:CWO18-NEARWEB-1#2": {
+   "ref": "e6:CWO18-NEARWEB-1#2",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "CWO18-NEARWEB-1",
+   "ruling": "ratify_with_changes",
+   "decision": "A span that matches WEB text once case and punctuation are folded is a WEB QUOTATION CARRIED INEXACTLY, not a gloss, and is a CWO-EZ-18 (ii) author item; the literal reading of (i) ('found nowhere in the WEB') is not applied to it. Basis on the bytes of Ezek_web_clean.txt (a7e59bcb): WEB 8:6 ends 'But you will again see yet other great abominations.”' and P02-001 writes “you will again see yet other great abominations,” - the verse's words with a trailing comma for its period; 8:7 opens 'He brought me to the door of the court;' and P02-002 writes “he brought me to the door of the court” - sentence-initial case; 8:8 'Son of man, dig now in the wall.' against “son of man, dig now in the wall”; 9:11 'I have done as you have commanded me.”' against “I have done as you have commanded me,”; 10:9 'The appearance of the wheels was like a beryl stone.' against “the appearance of the wheels was like a beryl stone”; 11:6 'You have multiplied your slain' against “you have multiplied your slain” (P02-008 refs[1]). Each is the verse's own wording with one edit at the edge of the quotation; a reader takes it as WEB text, which is exactly what C3's curly form asserts, and converting it to single quotes would hide a WEB quotation as a gloss and remove it from check_web_quotes' view for good. This is ruled from the words and the matcher's folded outcome, not from translation punctuation alone (E-23): the case or punctuation difference is what the author repairs, never what decides the class. ROUTING: the 26 prose spans in near_web_glosses.items and the 4 outside-prose folded spans (CWO18-SCOPE-1) are author items - 30 in all - and the remedy is either (a) restore the span VERBATIM to the WEB bytes (case and punctuation; a quotation's edge punctuation goes outside the closing quote where the row's sentence needs its own) and add the inline web: ref - the analysis names one verse for 17 of the 26 prose spans and for all 4 outside-prose spans, and for the nine folded in several verses ('then you will know that I am Yahweh' x4, 17 verses; 'Set your face', 11; 'it will happen in that day', 3; 'your nation,', 3; 'out of their own heart.', 2; 'or if…', 2) the author names the verse the row means, which the row's span or its oshb: refs already identify - or (b) rewrite it as a gloss in single quotes. The remaining 21 prose glosses (the dry run's 47 minus these 26) convert under (i) as ruled: each is found nowhere in the WEB under either matcher (among them the quoted OSHB note text at P08-002, the rows' own labels such as “row or texture”, “two-sided unit”, “a seam is assessed from both sides”, and glosses such as “lift up your eyes / do you see”). The deterministic script implements 'near-WEB' exactly as the analysis measured it: fold = norm_english, then lowercase, every non-alphanumeric character to a space, whitespace collapsed; a span is near-WEB when ' ' + fold(span) + ' ' is a substring of the folded text of all 1,273 verses joined in canonical order; the amended dry run must reproduce the 26 + 4.",
+   "reason": "The order's (i)/(ii) split rests on whether a span IS WEB text; a span that is a verse's words with its first letter lowercased for the row's sentence is WEB text carried inexactly, and the only honest forms are the verbatim quotation with its ref or a declared gloss. Deciding the class from the words rather than the punctuation is what E-23 requires; the punctuation is the repair. The 21 residual glosses are safe to convert because neither the exact nor the folded matcher finds them, which is the (i) condition in both its readings.",
+   "evidence": [
+    "SP\\Ezek\\Ezek_web_clean.txt lines 211 (8:6), 213 (8:7), 214 (8:8), 253 (9:11), 268 (10:9), 294 (11:6)",
+    "SP\\Ezek\\repair\\cwo18_dry_run_over_cwo13.v1.json changes (47 conversions with old and new bytes; P02-001 offset 1427, P02-002 offsets 123 and 220, P02-004 offset 564, P02-006 offset 315), glosses_matching_web_when_case_and_punctuation_folded (count 26)",
+    "SP\\Ezek\\repair\\cwo18_questions_analysis.v1.json near_web_glosses (count 26, of_glosses 47, with_exactly_one_folded_verse 17, items with folded_verse_keys), outside_prose_fields.items (web_folded true and web_verbatim false: P02-008 refs[1], P02-014 literature_type_guess, P08-007 refs[9], P08-013 refs[2])",
+    "SP\\Ezek\\_cwo18_gloss_quotes.py lines 112-113 (fold), 211 (web_folded), 321-322 (near), 246-247 (web_quote_found decides (i)/(ii)); SP\\Ezek\\tools\\ezek_lib.py lines 179-188 (norm_english), 252-263 (web_quote_found is case- and punctuation-exact after norm_english)",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json corpus_wide_orders CWO-EZ-18 (i) and (ii); TOOLKIT.md line 346-349 (E-23: translation punctuation never drives a decision)"
+   ],
+   "order": "Each near-WEB item: restore the WEB bytes verbatim (case and punctuation) inside the curly quotes with the inline web: ref, or rewrite as a single-quoted gloss; never leave a WEB sentence with a changed first letter or a swapped end mark inside curly quotes. Spans unchanged.",
+   "exact_spans": []
+  },
+  "e6:CWO18-SHORT-1#2": {
+   "ref": "e6:CWO18-SHORT-1#2",
+   "execution": "ezek_controlling_rulings_a1#e6",
+   "ruling_id": "CWO18-SHORT-1",
+   "ruling": "ratify_with_changes",
+   "decision": "ADOPTED with four changes. A span of three words or fewer (whitespace-split after strip) that stands verbatim, case-exact, in two or more WEB verses (web_quote_found over each verse's own text, counted per verse) is a LABEL - a formula, epithet or place name the row uses as a name, not a quotation of one verse - and converts deterministically to single quotes with the same manifest assertions as a gloss. Basis on the rows' bytes (rows_v3_cwo13.jsonl 324d2358): the P08 rows write 'oath formula (“As I live”)' in prose and refs alike and 'the “behold, I am against you” verdict-onset device'; P02-011 and P02-012 write 'an infixed “in the morning” phrase' and 'the infixed “in the morning” word-event re-onset' of MT 12:8, whose WEB text reads 'In the morning, Yahweh’s word came to me' - 12:8 is not even among the two verses the case-exact matcher found for the lowercase span (24:18, 33:22), so the span names a device rather than quoting a verse; single quotes are the tools' own idiom for a gloss or label (check_web_quotes lines 189-191: 'Glosses - the legitimate single-curly idiom'). This is ruled from the bytes and the matcher's per-verse counts, not from translation punctuation (E-23), and it weakens neither CWO-EZ-18's coverage condition (the class still reads 0 over the applied rows) nor any HARD gate (check_web_quotes is a FLAGS member). CHANGES: (1) the threshold is exactly as proposed and is NOT widened to longer spans: a longer span verbatim in several verses can be a quotation of the one verse the row means with another verse's case - “behold, I am against you” is verbatim in 13:8 and 29:10 while P08-007 means 35:3, whose WEB text reads 'Behold, I am against you, Mount Seir' - and that is the author's to resolve under (ii); (2) the manifest records converted labels under their own class ('short_common_label'), never among the glosses, each with its per-verse count and the verse keys; (3) every converted label is listed to its part's FIXUP-1 author as an INFORMATIONAL item requiring no action: 'converted to a single-quoted label; if a quotation of one verse was meant, restore the curly form with the inline web: ref' - P02-002's “in the dark,” (WEB 8:12, standing beside its sibling author item “Yahweh doesn’t see us”) is the case this protects; (4) the rule applies in every field in scope (CWO18-SCOPE-1), which adds the 11 outside-prose labels enumerated there to the 34 prose labels in routed_ii.short_common_items (45 labels in all). The 37 remaining prose (ii) spans and the 11 outside-prose verbatim spans stay author items. A span of three words or fewer found in exactly one verse ('one heart', 11:19; 'Yahweh doesn’t see us' is four words) stays (ii).",
+   "reason": "The matcher can name no source verse for a two- or three-word span that a book of formulae writes dozens of times ('Son of man' 61 verses, 'son of man' 34, 'the nations' 68, 'the land' 114, 'As I live' 10, 'river Chebar' 8), and the rows use these as names of devices, which is what the rows' own wording ('oath formula', 'verdict-onset device', 'infixed phrase') shows; routing 45 such spans to authors would buy 45 'drop the quotes' edits and nothing else. The threshold is kept narrow because 'behold, I am against you' shows how a longer verbatim-in-several-verses span can still be one verse's quotation in disguise. The informational listing costs nothing and keeps the one plausible loss ('in the dark,') in the author's hands.",
+   "evidence": [
+    "SP\\Ezek\\repair\\rows_v3_cwo13.jsonl contexts: P02-011 ('a fresh word-event at oshb:Ezek.12.8 reopens with an infixed “in the morning” phrase'), P02-012 ('the infixed “in the morning” word-event re-onset'), P08-002 refs ('oath formula (“As I live”)'), P08-004 ('the second opened by the oath formula (“As I live”)'), P08-007 ('carrying the “behold, I am against you” verdict-onset device'; refs 'oshb:Ezek.35.3 (messenger formula + “behold, I am against you” verdict device)'), P02-002 ('wall-carvings “in the dark,” saying “Yahweh doesn’t see us”')",
+    "SP\\Ezek\\Ezek_web_clean.txt line 335 (12:8 'In the morning, Yahweh’s word came to me, saying,'), line 1726 (35:3 '“Behold, I am against you, Mount Seir')",
+    "SP\\Ezek\\repair\\cwo18_questions_analysis.v1.json routed_ii (count 71; by_word_count; short_spans_in_two_or_more_verses 34; short_common_items with verses_holding_it_verbatim; items with verse_keys: 'behold, I am against you' -> Ezek.13.8, Ezek.29.10; 'in the morning' -> Ezek.24.18, Ezek.33.22; 'one heart' -> Ezek.11.19 only)",
+    "SP\\Ezek\\tools\\check_web_quotes.py lines 184-203 (single-curly spans are flagged only when they verbatim-match WEB near a ref; 'Glosses - the legitimate single-curly idiom')",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json corpus_wide_orders CWO-EZ-18 (coverage: the class reads 0 over the applied rows)"
+   ],
+   "order": "Informational: a converted label needs no action; restore the curly form with the inline web: ref only where the row meant one verse's words. Spans unchanged.",
+   "exact_spans": []
+  },
+  "e9:S2-ROUTING#3": {
+   "ref": "e9:S2-ROUTING#3",
+   "execution": "ezek_controlling_rulings_a1#e9",
+   "ruling_id": "S2-ROUTING",
+   "ruling": "ratify_with_changes",
+   "decision": "S2's routing of S2-01 (major), S2-02, S2-03 and S2-05..S2-11 to author fix-ups on p01, p02, p03, p06, p07, p08 and p11 is RATIFIED, and FIXUP-2 is RATIFIED as one claude-sonnet-5 execution per part with these changes. (1) PARTS: nine - p01, p02, p03, p04, p06, p07, p08, p09, p11. p04 and p09 join under S2-13 (campaign talk on P04-001, P04-002, P04-004, P04-007, P09-002, P09-007) and S2-14 (P04-008's interior mark, P09-001's front-seam mark and the other p04/p09 flags). p05 does NOT join: its four oss keys drop under CWO-EZ-19 and its two front-seam gap flags go to the primaries' triage (S2-14). p10 has no item. (2) SEQUENCE, as #e4 S1-ROUTING (2): the deterministic sweeps execute over the chain head rows_v4_fixup1.jsonl (63ac4677) BEFORE the orders are built - CWO-EZ-19 (oss mark keys), then CWO-EZ-20 (one-word curly spans), then CWO-EZ-21's deterministic half (bare ledger-id tags) - written as repair/rows_v4_cwo19.jsonl, repair/rows_v4_cwo20.jsonl and repair/rows_v4_cwo21.jsonl, each with a manifest recording old and new bytes per change (#e4 S1-ROUTING order S1-18) and its own coverage report (E-18); the orders are built from rows_v4_cwo21, so the authors receive clean rows and no sweep races an author. (3) ORDERS: SP/Ezek/fixup2/orders_ezek_author_fixup2_pNN_a1.json, schema m8_fixup_orders.v1, attempt ids ezek_author_fixup2_pNN_a1, first execution #e1, a stopped execution relaunched as #e2 under the same attempt id with its own receipt (#e4 FIXUP-1 (6)). Each orders file carries: its part's S2 findings verbatim (id, severity, row_or_artifact, claim, evidence, suggested_fix), each stamped with its S2 id; the CWO-EZ-21 author items for its rows, stamped CWO-EZ-21 (S2-13); the S2-14 mark items for its rows, stamped S2-14 with the row, the pmarks key, the mark type and the role (front seam / interior / close); and for p08, S2-03 as reduced in S2-04. (4) BRIEF: #e4 FIXUP-1 (3) and (4) bind unchanged (replace only; no span, unit_type, confidence or parent change; every splice read back in its sentence with a gloss matching its extent; per-execution output subdirectory; the deliverable's size read by exact path; self-checks on the installed tools; FLAGS not to rise per row except where a disclosure requires it, every rise explained in the receipt); #e6 T5-REGISTER (a)-(c) and T5-MARKS (1) verbatim; the E-19 lines as amended in S2-E19; the OW-11 authority paragraph in the brief and in every launch message (OW-11-h); and this execution's wording rule for the S2-01, S2-02, S2-06, S2-09 and CWO-EZ-21 items: an argument is restated from the bytes or the verse (the addressee return at 33:2 and the P6/P7 seam at 32:32/33:1; the continuous 'you say ... but I say' disputation across 33:10-20; 'mountains of Israel' recurs (sweep: 15 verses)) and names no strategy, brief, ruling, campaign, wave, session, ledger id, worked example or review actor; plus the mark-disclosure variation order of S2-14. (5) MACHINERY: _land_author_part_ezek.py lands FIXUP-2 in FIXUP mode; its receipts already land beside the orders (line 135), but its abort text (line 133), receipt agent (line 307, 'FIXUP-1 author %s') and producer (line 310, naming #e4 ruling FIXUP-1) are literals, so an unchanged tool would record a FIXUP-2 execution as FIXUP-1 under #e4 - a provenance defect of the OW-11-k class. Ordered: a guarded change confined to those strings, taking the wave label and the ordering ruling from the orders file's own fields (wave 'FIXUP-2'; ordered_by 'ezek_controlling_rulings_a1#e9 ruling S2-ROUTING') with the FIXUP-1 strings as the default when the fields are absent. _apply_author_wave_ezek.py --fixup gains --receipts <path> (default the fixup1 path, so the fixup1 default is unchanged) and takes the manifest's ordered_by from the same orders field (lines 161-162 are literals today). Both changes are staged as diffs confined to those lines, each with selftest vectors both ways (fixup1 default unchanged; FIXUP-2 values resolved), installed by receipt naming this ruling before the apply, their digests recorded in the apply manifest, and S3 reads both diffs. No suite member changes: check_register 13094843, check_web_quotes 74fb7179 and every other suite member keep the digests T5 reviewed. (6) OUTPUT AND PROOF: repair/rows_v5_fixup2.jsonl with a manifest (m8_fixup_apply.v1) that records no-op replaces (S2-NOTES) and a per-element re-splice index; whole-book tiling 1:1 -> 48:35 exact; suite HARD GREEN on the installed tools; coverage COVERED for CWO-EZ-01..09 and CWO-EZ-14..18 and residual 0 for CWO-EZ-19, CWO-EZ-20 and CWO-EZ-21 over rows_v5; the v5 suite's mark_symmetry_gap residual exactly the two p05 front-seam flags (P05-004 at Ezek.22.31, P05-008 at Ezek.24.14) and nothing else; then S3. (7) S3: a fresh distinct checker that is not S1, S2, T1-T6 or an author; it reads S2-01's three rows back first, then every replaced row's diff against rows_v4_cwo21, then every string field of every row for the governance kin S2 named (strategy, brief, ruling, campaign, wave, session, posture, officially, E-NN, tool and staged-file names) and for the T5 evasions, then a sample of ten mark disclosures against pmarks; its readiness verdict is in the #e8 T6-02 ACCEPT form. Said in words: no HARD gate and nothing in OW-10's purpose is weakened - the HARD suite runs unchanged on T5's digests, the sweeps are lossless deletions and delimiter changes proven by coverage, and the only tool changes are label and path plumbing in the landing and apply scripts, guarded and selftested.",
+   "reason": "S2's findings are field content that needs an author's hand and no span change, as #e4 found for S1's; the classes S2 raised to this lane are either lossless transformations a sweep proves (oss keys, quote delimiters, bare tags) or wording only an author can restate. Sweeps run first so that authors receive clean rows (the #e4 sequence). p04 and p09 join because the primaries are full dual-blind reviewers of every row (#e6 T5-MARKS: 'no sampling'), and a blind reviewer who meets 'the campaign rule' or an undisclosed interior mark spends findings on known defects that the final check meets again; the two parts cost about one FIXUP-1 part each (p04 200,143; p09 245,743 measured), which the 21.5M ceiling covers at the measured mean and which the gate tests at the measured maximum. p05 stays out because its only items are deterministic. The landing and apply changes are ordered because their FIXUP-1 literals would put FIXUP-2 on record under the wrong wave and ruling.",
+   "evidence": [
+    "SP\\Ezek\\ezek_fixup_wave_review_S2.json new_findings S2-01..S2-11 (route fields); cure_claim_readiness[1] fit=false, per_s1_id S1-05 and S1-15 not_cured",
+    "SP\\Ezek\\repair\\rows_v4_fixup1.jsonl (read by this execution): P08-001 boundary_rationale 'the parent seam named in the binding strategy (P6/P7)'; P08-002 strongest_rejected_alternative 'disputation pattern the strategy holds as one row'; P08-004 device_notes 'a book-wide device the strategy sweeps at 15 verses across chs. 6 and 33-39'; P01-008 device_notes 'the 14-16 stretch cap the strategy reserves for measured/listed blocks'",
+    "SP\\Ezek\\_land_author_part_ezek.py lines 131-135 (FIXUP mode; receipts_p beside the orders), 133 ('ABORT: FIXUP-1 orders ...'), 307 ('FIXUP-1 author %s'), 310-311 (producer names ezek_controlling_rulings_a1#e4 ruling FIXUP-1)",
+    "SP\\Ezek\\_apply_author_wave_ezek.py lines 68-70 (--fixup; receipts_p fixed to EZ/fixup1/...), 161-162 (schema and ordered_by literals naming #e4 ruling FIXUP-1)",
+    "SP\\Ezek\\fixup1\\ezek_author_fixup_attempt_receipts.jsonl: 11 receipts, tokens_reported sum 3,276,368, mean 297,852, min 184,935 (p05), max 405,186 (p02) - summed by this execution, equal to the queue's figures",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e4.v1.json S1-ROUTING (2) (sweeps before authors), orders[1] (S1-18); FIXUP-1 (3), (4), (5), (6)",
+    "SP\\Ezek\\ezek_controlling_agent_rulings_e6.v1.json T5-REGISTER (a)-(c); T5-MARKS (1), reason ('full dual-blind primaries over every row, no sampling')"
+   ],
+   "order": "Every part: S2's suggested_fix is the default form for each routed finding (S2-02, S2-05, S2-06, S2-07, S2-08, S2-09, S2-10, S2-11); a departure is explained in the receipt; a replace only, spans unchanged (#e4 FIXUP-1 (3)).",
+   "exact_spans": []
+  },
+  "e9:S2-14#2": {
+   "ref": "e9:S2-14#2",
+   "execution": "ezek_controlling_rulings_a1#e9",
+   "ruling_id": "S2-14",
+   "ruling": "ratify_with_changes",
+   "decision": "Ruled on the full list of 56 mark_symmetry_gap flags, classified by this execution against each row's span (the ch. 20-21 rows are spanned in WEB numbering while pmarks is MT-keyed, WEB 21:v = MT 21:v+5): 50 front-seam marks (the mark after the previous row's last verse), 5 interior marks (P01-008 samekh after 4:12 and after 4:14; P03-010 samekh after 17:8; P04-008 pe after MT 21:18 = WEB 21:13; P08-012 samekh after 36:21) and 1 closing mark (P08-013 samekh after 36:32). The class is a defect class, as #e4 held for S1-09 and S2 for FQ-11: an interior mark undisclosed is counter-evidence the row passes over in silence (section 8's cross-seam cohesion principle read from the other side); a closing mark undisclosed leaves the row's close evidence incomplete; a front-seam mark undisclosed leaves the onset seam without the corroboration the witness offers. The REMEDY is (A) restricted to the parts in FIXUP-2 and (B)'s triage for the rest: every flag on a row whose part is in the wave - 54 flags on 50 rows in p01, p02, p03, p04, p07, p08, p09 and p11 - becomes an author item: disclose the mark in prose at its verse with its role (front seam / interior / close) and 'single witness', in section 8's form ('pe follows MT 24:27, single witness'), never as an oss key and never as an intra-verse position; an interior mark is disclosed together with the row's reason for not cutting there, and #e4 FIXUP-1 (3) binds - no span, unit_type, confidence or parent change; an author who believes an interior mark should cut reports it outside the row. The two p05 flags (P05-004 PE after Ezek.22.31, front seam; P05-008 PE after Ezek.24.14, front seam) go to the primaries as disclosed triage with the pmarks lookup, in #e6 T5-MARKS (2)'s form. VARIATION ORDER: the brief supplies at least four formulations of the mark-disclosure sentence and the authors rotate them, because no disclosure sentence may converge on a 7-gram shared by ten or more rows (section 8; the suite's ngram7 gate is the check); T5-MARKS (1)'s exclusivity form binds ('no other mark' only beside a disclosure naming every mark of the span, with its count). If the v5 suite fails its ngram7 gate on disclosure sentences, the affected parts' authors relaunch as #e2 under the same attempt ids before S3, without a further controlling execution. PROOF: the v5 suite's mark_symmetry_gap count reads exactly 2, at the two p05 keys named; anything else returns here. S3 confirms FQ-11's seven rows and reads ten other disclosures against pmarks. The false_mark_absence_claim flags (9) and the kq_claim flag (1) stay disclosed triage as #e6 ruled. (A) over all 56 and (C) are not taken.",
+   "reason": "The primaries are full dual-blind reviewers of every row: 54 pmarks lookups by two blind reviewers cost more than 54 one-clause disclosures by authors who are reading their parts anyway, and the disclosures are what the rows should have carried. Adding p05 for two front-seam sentences (about 185,000 tokens measured) buys less than the triage form gives; sending known interior and closing gaps to blind reviewers would spend their findings on defects already known.",
+   "evidence": [
+    "SP\\Ezek\\repair\\suite_v4_6c843b14\\rows.jsonl.validator_report.json mark_symmetry: flag_count 66, mark_symmetry_gap 56, false_mark_absence_claim 9, kq_claim 1; the 56 flags by row and undisclosed_mt_key (queue verbatim; re-read here)",
+    "Classification by this execution over rows_v4 spans: front seam 50 (incl. P04-005 MT 20:44, P04-007 MT 21:10 = WEB 21:5, P04-009 MT 21:22 = WEB 21:17, P04-010 MT 21:29 = WEB 21:24), interior 5, close 1; by part: p01 8, p02 8, p03 12, p04 6, p05 2, p07 7, p08 8, p09 2, p11 3; rows 52, of which 50 in wave parts",
+    "SP\\Ezek\\pmarks_Ezek.json marks_note ('recorded on the verse the mark FOLLOWS'); SP\\Ezek\\repair\\rows_v4_fixup1.jsonl P04-004 strongest_rejected_alternative 'oshb:Ezek.21.1 (= web:Ezek.20.45)' and P04-005 span Ezek.20.45-Ezek.20.49 (WEB numbering in the ch. 20-21 rows)",
+    "SP\\Ezek\\book_strategy_Ezek.md section 8 lines 471-472 (mark disclosure form), 482-483 (cross-seam cohesion), 490-493 (ngram7 rule for disclosure sentences); #e6 T5-MARKS (1), (2); S2 FQ-11 and unresolved_uncertainty[6]"
+   ],
+   "order": "Disclose each ordered mark at its verse with its role and 'single witness', rotating the brief's formulations; an interior mark with the reason the row does not cut there; never an oss key, never an intra-verse position, never 'the only mark' without a count. Spans unchanged.",
+   "exact_spans": []
+  }
+ },
+ "corpus_wide_orders": {
+  "CWO-EZ-22": {
+   "predicate": "six regular-expression arms, case-insensitive, over every content string leaf: R1 \\b(?:per|under|by|within|against) (?:the|a|this|its|that|the same|the book['’]s own) (?:[\\w'’/-]+ ){0,3}?(?:rule|guard|instruction|list-guard|exception|convention)s?\\b ; R2 \\b(?:the|a|this|its) (?:[\\w'’/-]+ ){0,3}?rules? (?:requires?|holds?|treats?|bars?|forbids?|applies|fixes|names?|says?|is absolute|admits?|allows?|licen[cs]es?|reserves?|places?|puts?|keeps?|makes?)\\b ; R3 \\b(?:the|a|this|its) (?:standing|governing|granularity|frame-spine(?:['’]s own)?|closed-vocabulary|list-guard|chapter-division|cross-seam|qinah-never-split|refrain-closes-a-unit|operative-category deviation-with-disclosure|structural dateline|cutting|book['’]s own|over-split|under-three-verse|under-3-verse|whole-chapter|complete-unit) (?:rule|guard|cap guard|default|instruction|list-guard|list|exception|allowance|floor)s?\\b ; R4 \\bflagged (?:region|zone|ch\\b|for\\b|in the|doubled-note|\\d)\\w*|\\bregion is flagged\\b|\\bfrontier-flagged\\b|\\bcap guard\\b|\\bzone review\\b|\\blow confidence is expected\\b ; R5 \\bauthori[sz]ed (?:as an? |exception)|\\bthe (?:one )?authori[sz]ed\\b|\\bexception (?:named|recorded)\\b|\\bnamed exception\\b|\\bover-split guard['’]s\\b|\\bclosed vocabulary\\b|\\bsometimes described as\\b|\\bdisclosed exception\\b ; R6 \\blaunch(?:ed|ing)? (?:message|brief|order)s?\\b|\\bthe assignment\\b|\\bassigned (?:parent )?seam\\b|\\bstaged (?:inventory|extract|file|tools?|map|formula inventory|book-wide sweep)\\b|\\bstaged extract['’]s\\b|\\bdisclosure inventory\\b|\\bdenominator reconciliation\\b|\\bpaseq_tally\\b|\\bthe writer\\b|\\bruled seam\\b|\\bstanding instruction\\b|\\bcap_sweep\\b",
+   "fields": "boundary_rationale, strongest_rejected_alternative, device_notes, every boundary_evidence_refs entry, literature_type_guess, every observed_substrate_signals element, every strong_or_hebrew_tags_used element (identity fields excluded)",
+   "remedy": "two halves, by part. (a) p05, p06, p09, p10, p11: CWO-EZ-23's 33 deterministic pairs, which leave those parts at residual 0 (measured on a private preview by this execution). (b) p01, p02, p03, p04, p07, p08: an author item per hit in FIXUP-3, stamped CWO-EZ-22 - drop the rule, guard, exception, vocabulary, flagged-region, assignment, staged-file or actor name and keep the reasoned condition or verse argument, or delete the clause where the row's evidence already carries it; no exception list (a hit on descriptive prose is reworded, never exempted). Measured over rows_v5 (41b19ad9) by this execution: 128 hits on 54 rows (R1 28, R2 7, R3 48, R4 12, R5 15, R6 18); after the pairs: 76 hits on 32 rows, all in the six wave parts (P01-001, P01-004, P01-006, P01-007, P01-011, P02-003, P02-006, P02-009, P02-010, P02-013, P02-015, P02-019, P02-020, P03-001, P03-005, P03-009, P03-013, P04-001, P04-003, P04-007, P04-011, P07-002, P07-003, P07-005, P07-006, P07-007, P07-008, P08-002, P08-003, P08-010, P08-011, P08-014); the orchestrator's sweep is the record and any difference from these counts returns here",
+   "coverage_report": "repair/cwo_coverage_v5/CWO-EZ-22.json over rows_v5 (every hit with row, field, matched text, 80 characters of context and disposition 'CWO-EZ-23 pair NN' or 'FIXUP-3 author item'), repair/cwo_coverage_v5cwo23/CWO-EZ-22.json over rows_v5_cwo23 (residual exactly the FIXUP-3 author items; 0 on p05, p06, p09, p10, p11), and repair/cwo_coverage_v6/CWO-EZ-22.json over rows_v6_fixup3 (residual 0 on all six arms)",
+   "issued_by": "ezek_controlling_rulings_a1#e10"
+  }
+ },
+ "part_findings": [],
+ "part_rows": [
+  {
+   "decision_id": "P01-001",
+   "span": "Ezek.1.1-Ezek.1.28"
+  },
+  {
+   "decision_id": "P01-002",
+   "span": "Ezek.2.1-Ezek.2.7"
+  },
+  {
+   "decision_id": "P01-003",
+   "span": "Ezek.2.8-Ezek.3.3"
+  },
+  {
+   "decision_id": "P01-004",
+   "span": "Ezek.3.4-Ezek.3.11"
+  },
+  {
+   "decision_id": "P01-005",
+   "span": "Ezek.3.12-Ezek.3.15"
+  },
+  {
+   "decision_id": "P01-006",
+   "span": "Ezek.3.16-Ezek.3.21"
+  },
+  {
+   "decision_id": "P01-007",
+   "span": "Ezek.3.22-Ezek.3.27"
+  },
+  {
+   "decision_id": "P01-008",
+   "span": "Ezek.4.1-Ezek.4.17"
+  },
+  {
+   "decision_id": "P01-009",
+   "span": "Ezek.5.1-Ezek.5.17"
+  },
+  {
+   "decision_id": "P01-010",
+   "span": "Ezek.6.1-Ezek.6.10"
+  },
+  {
+   "decision_id": "P01-011",
+   "span": "Ezek.6.11-Ezek.6.14"
+  },
+  {
+   "decision_id": "P01-012",
+   "span": "Ezek.7.1-Ezek.7.4"
+  },
+  {
+   "decision_id": "P01-013",
+   "span": "Ezek.7.5-Ezek.7.9"
+  },
+  {
+   "decision_id": "P01-014",
+   "span": "Ezek.7.10-Ezek.7.27"
+  }
+ ],
+ "ruling_text_discrepancies": [],
+ "rows_with_orders": [
+  {
+   "decision_id": "P01-001",
+   "writer_decision_id": "p01-1",
+   "span": "Ezek.1.1-Ezek.1.28",
+   "ops": [
+    "replace"
+   ],
+   "previous_row": null,
+   "next_row": {
+    "decision_id": "P01-002",
+    "span": "Ezek.2.1-Ezek.2.7"
+   },
+   "items": [
+    {
+     "kind": "ruling_order",
+     "ref": "e10:S3-16#2",
+     "op": "replace",
+     "target_span": "Ezek.1.1-Ezek.1.28"
+    },
+    {
+     "kind": "s3_finding",
+     "id": "S3-07",
+     "severity": "minor",
+     "route": "author_fixup:p01",
+     "row_or_artifact": "P01-007 boundary_rationale, strongest_rejected_alternative, device_notes; P01-001 device_notes",
+     "claim": "Section-8-barred launch, assignment and staged-file talk survives on two replaced p01 rows; no arm and no S2 pattern sees it.",
+     "evidence": "P01-007: 'This is the INTERNAL PARENT SEAM named in the launch message', 'Not adopted here: the launch message fixes the internal parent seam at 3:27/4:1' (the alternative is rejected on that authority), 'the assigned parent seam', 'the assigned seam standing between them'. P01-001: 'per the denominator reconciliation' (the staged record ezek_denominator_reconciliation.v1.json). All present in writer/draft_rows_combined.jsonl and in every rows version since.",
+     "suggested_fix": "Restate from verses: 3:27's sixth rebellious-house refrain plus samekh against 4:1's 'and you, son of man' sub-onset, with the 3:15/3:16 alternative weighed on its bytes. Drop 'launch message' and 'assigned'. Write 'the 49-verse any-form count, never blended with the 48-verse first-person family' without the reconciliation. Spans unchanged."
+    },
+    {
+     "kind": "s3_row_defect",
+     "id": "S3 replaced_rows",
+     "row": "P01-001",
+     "part": "p01",
+     "findings": [
+      "Fields changed: boundary_rationale.",
+      "S2-09 (P01-001 part) cured: the quotation now reads “This was the appearance of the likeness of Yahweh’s glory. When I saw it, I fell on my face, and I heard a voice of one that spoke” (web:Ezek.1.28), a byte substring of WEB 1:28 (capital T and the curly apostrophe both restored); v4's check_web_quotes flag on [0].boundary_rationale is gone.",
+      "Defect (S3-07): device_notes keeps 'per the denominator reconciliation', a citation of the staged record ezek_denominator_reconciliation.v1.json (writer-era; no arm scans it).",
+      "Common checks: protected fields (decision_id, writer ids, chunk index, span, unit_type, confidence, parent_collection) byte-identical; field types hold; no new Hebrew run outside moved refs entries; no new curly double quote without its web: ref; citation_sweep, normalizer, cap_sweep and ngram7 clean on rows_v5; no FLAGS rise except the refs_mirror and universals rises noted."
+     ]
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-001",
+      "field": "device_notes",
+      "arm": "R6",
+      "match": "denominator reconciliation",
+      "context": " word-event count (never blended with the 48-verse first-person family, per the denominator reconciliation). K/Q at 1:8 checked before quoting: the unit does not splice the disputed word"
+     }
+    }
+   ],
+   "current_row": {
+    "decision_id": "P01-001",
+    "book": "Ezek",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 1,
+    "span": "Ezek.1.1-Ezek.1.28",
+    "boundary_rationale": "Onset: the book opens on two datelines in two counting systems - בִּשְׁלֹשִׁ֣ים שָׁנָ֗ה (oshb:Ezek.1.1, a regnal/exilic year the book never names an era for) and הַשָּׁנָ֣ה הַחֲמִישִׁ֔ית לְגָל֖וּת הַמֶּ֥לֶךְ יוֹיָכִֽין (oshb:Ezek.1.2, the fifth year of Jehoiachin's exile) - followed at oshb:Ezek.1.3 by the superscription הָיֹ֣ה הָיָ֣ה דְבַר יְ֠הוָה אֶל יְחֶזְקֵ֨אל, an infinitive-absolute-plus-perfect word-event with a THIRD-PERSON addressee ('to Ezekiel', not 'to me'). This verb and addressee shape are why the verse sits in the 49-verse any-form word-event count and not the 48-verse first-person family (sweep: verses containing the word-event phrase in any form, 49; the 48 excludes this one verse by predicate). It is weighed here as a real onset in its own right, not folded into or discounted against the vision that follows. The same verse also carries וַתְּהִ֥י עָלָ֛יו שָׁ֖ם יַד יְהוָֽה, the hand-of-YHWH construct that opens the book's first vision (one of 7 verses carrying the construct). Close: the scene runs unbroken to oshb:Ezek.1.28, מַרְאֵ֖ה דְּמ֣וּת כְּבוֹד יְהוָ֑ה וָֽאֶרְאֶה֙ וָאֶפֹּ֣ל עַל פָּנַ֔י וָאֶשְׁמַ֖ע ק֥וֹל מְדַבֵּֽר, glossed by the WEB as “This was the appearance of the likeness of Yahweh’s glory. When I saw it, I fell on my face, and I heard a voice of one that spoke” (web:Ezek.1.28). No word-event, messenger, recognition or utterance formula interrupts 1:4-1:27 (the transport-verb and 'he said to me' sweeps that mark scene changes elsewhere in the book's visions do not begin until chapter 8), so the throne-theophany carries no formula-marked internal seam; the samekh recorded after 1:28 and the fresh 'he said to me' that opens oshb:Ezek.2.1 together mark the vision/commission seam on the FAR side of this unit; the onset evidence at oshb:Ezek.2.1 is weighed there.",
+    "boundary_evidence_refs": [
+     "oshb:Ezek.1.1 (dateline; paseq, single-witness, count-only)",
+     "oshb:Ezek.1.2 (dateline, second system)",
+     "oshb:Ezek.1.3 (word-event, any-form/49-count only; hand-of-YHWH onset)",
+     "oshb:Ezek.1.8 (K/Q, checked before quoting: ketiv וידו / qere וִידֵ֣י, 'the hands of a man')",
+     "oshb:Ezek.1.11 (OSHB editorial note, single-witness: form-validity question, no reading changed)",
+     "oshb:Ezek.1.27 (paseq, single-witness, count-only)",
+     "oshb:Ezek.1.28 (samekh follows, single-witness; intra-verse position not carried by the inventory)"
+    ],
+    "strongest_rejected_alternative": "Isolating oshb:Ezek.1.1-1.3 as its own superscription unit, separate from the vision it introduces. Rejected because the vision proper (1:4-1:28) carries no independent onset device of its own - it simply continues the sentence the hand-of-YHWH clause opens - so cutting after 1:3 would manufacture a seam the bytes do not mark, and would still leave a 25-verse remainder with the same cap problem.",
+    "literature_type_guess": "call vision / throne theophany",
+    "confidence": "low",
+    "strong_or_hebrew_tags_used": [
+     "דְבַר יְ֠הוָה אֶל (oshb:Ezek.1.3)",
+     "יַד יְהוָֽה (oshb:Ezek.1.3)",
+     "כְּבוֹד יְהוָ֑ה (oshb:Ezek.1.28)"
+    ],
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": true,
+    "non_authorizing": true,
+    "review_status": "pending",
+    "parent_collection": "P1 (inaugural vision and commission)",
+    "unit_type": "vision_report",
+    "writer_part": "p01",
+    "writer_decision_id": "p01-1",
+    "writer_attempt_id": "ezek_writer_p01_a1",
+    "observed_substrate_signals": [
+     "dateline.year_month_day",
+     "wordevent.any_form_49",
+     "hand.yhwh",
+     "vision.glory"
+    ],
+    "device_notes": "Whole-chapter span (28 verses), well above the 7-10 typical density and above the 14-16 stretch cap for measured/listed blocks even though this is not such a block; disclosed and held at low confidence rather than forced into an unsupported internal cut. MT 1:3 is cited only under the 49-verse any-form word-event count (never blended with the 48-verse first-person family, per the denominator reconciliation). K/Q at 1:8 checked before quoting: the unit does not splice the disputed word. The OSHB editorial note at 1:11 is disclosed as single-witness apparatus, not a reading change. Paseq at 1:1 and 1:27 disclosed count-only (single-witness); no intra-verse position is claimed."
+   }
+  },
+  {
+   "decision_id": "P01-004",
+   "writer_decision_id": "p01-4",
+   "span": "Ezek.3.4-Ezek.3.11",
+   "ops": [
+    "replace"
+   ],
+   "previous_row": {
+    "decision_id": "P01-003",
+    "span": "Ezek.2.8-Ezek.3.3"
+   },
+   "next_row": {
+    "decision_id": "P01-005",
+    "span": "Ezek.3.12-Ezek.3.15"
+   },
+   "items": [
+    {
+     "kind": "ruling_order",
+     "ref": "e10:S3-16#2",
+     "op": "replace",
+     "target_span": "Ezek.3.4-Ezek.3.11"
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-004",
+      "field": "strongest_rejected_alternative",
+      "arm": "R3",
+      "match": "the granularity floor",
+      "context": "tinguishing them, and a two-verse unit with no word-event of its own would fail the granularity floor without a disclosed tier-1 reason."
+     }
+    }
+   ],
+   "current_row": {
+    "decision_id": "P01-004",
+    "book": "Ezek",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 4,
+    "span": "Ezek.3.4-Ezek.3.11",
+    "boundary_rationale": "Onset: 3:4 לֶךְ בֹּא֙ אֶל בֵּ֣ית יִשְׂרָאֵ֔ל (oshb:Ezek.3.4) ('go, get you to the house of Israel'), a fresh 'he said to me' turning from the scroll itself to the audience it will be spoken to; 3:7 characterizes them, כִּ֚י כָּל בֵּ֣ית יִשְׂרָאֵ֔ל חִזְקֵי מֵ֥צַח וּקְשֵׁי לֵ֖ב הֵֽמָּה (oshb:Ezek.3.7) ('for all the house of Israel are obstinate and hard-hearted'). A pe is recorded after 3:9, כְּשָׁמִ֛יר חָזָ֥ק מִצֹּ֖ר נָתַ֣תִּי מִצְחֶ֑ךָ ('I have made your forehead as a diamond'), closing with a further rebellious-house refrain, כִּ֛י בֵּֽית מְרִ֖י הֵֽמָּה (oshb:Ezek.3.9) (the third of six). That mark is disclosed but not read as the unit's own close: 3:10 reopens with 'moreover he said to me' on the same audience-description topic, and cutting there would leave 3:10-3:11 (2 verses, no word-event of its own) below the unit-size floor. Close: 3:11, אִֽם יִשְׁמְע֖וּ וְאִם יֶחְדָּֽלוּ (oshb:Ezek.3.11) ('whether they will hear, or whether they will refuse'), immediately before the return-transport of 3:12 begins a distinct, vision-texture scene.",
+    "boundary_evidence_refs": [
+     "oshb:Ezek.3.6 (paseq, single-witness, count-only)",
+     "oshb:Ezek.3.9 (pe follows, single-witness, mid-unit, disclosed and not cut)"
+    ],
+    "strongest_rejected_alternative": "Cutting after the pe at 3:9. Rejected because the two verses that would remain, 3:10-3:11, share the same 'he said to me' commissioning texture as 3:4-3:9 with no onset device distinguishing them, and a two-verse unit with no word-event of its own would fail the granularity floor without a disclosed tier-1 reason.",
+    "literature_type_guess": "commissioning speech, audience description",
+    "confidence": "medium_low",
+    "strong_or_hebrew_tags_used": [
+     "בֵּֽית מְרִ֖י (oshb:Ezek.3.9)"
+    ],
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": true,
+    "non_authorizing": true,
+    "review_status": "pending",
+    "parent_collection": "P1 (inaugural vision and commission)",
+    "unit_type": "commission_narrative",
+    "writer_part": "p01",
+    "writer_decision_id": "p01-4",
+    "writer_attempt_id": "ezek_writer_p01_a1",
+    "observed_substrate_signals": [
+     "vision.said_to_me",
+     "address.son_of_man",
+     "closure.rebellious_house"
+    ],
+    "device_notes": "Paseq at 3:6 disclosed count-only (single-witness); no intra-verse position claimed. The pe following 3:9 is disclosed as single-witness sub-paragraph evidence inside the unit, weighed and not adopted as the cut point for the reason given in boundary_rationale. A pe follows MT 3:3 (single witness), the paragraph mark standing just behind this unit's opening verse."
+   }
+  },
+  {
+   "decision_id": "P01-006",
+   "writer_decision_id": "p01-6",
+   "span": "Ezek.3.16-Ezek.3.21",
+   "ops": [
+    "replace"
+   ],
+   "previous_row": {
+    "decision_id": "P01-005",
+    "span": "Ezek.3.12-Ezek.3.15"
+   },
+   "next_row": {
+    "decision_id": "P01-007",
+    "span": "Ezek.3.22-Ezek.3.27"
+   },
+   "items": [
+    {
+     "kind": "ruling_order",
+     "ref": "e10:S3-16#2",
+     "op": "replace",
+     "target_span": "Ezek.3.16-Ezek.3.21"
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-006",
+      "field": "boundary_rationale",
+      "arm": "R1",
+      "match": "under the frame-spine rule",
+      "context": "16) ('at the end of seven days, Yahweh's word came to me, saying'), a hard seam under the frame-spine rule (one of the 39 strict-form verses; also one of the 48 first-person family). A p"
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-006",
+      "field": "boundary_rationale",
+      "arm": "R3",
+      "match": "the frame-spine rule",
+      "context": "at the end of seven days, Yahweh's word came to me, saying'), a hard seam under the frame-spine rule (one of the 39 strict-form verses; also one of the 48 first-person family). A p"
+     }
+    }
+   ],
+   "current_row": {
+    "decision_id": "P01-006",
+    "book": "Ezek",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 6,
+    "span": "Ezek.3.16-Ezek.3.21",
+    "boundary_rationale": "Onset: 3:16 carries the book's first strict word-event formula, וַיְהִ֕י מִקְצֵ֖ה שִׁבְעַ֣ת יָמִ֑ים וַיְהִ֥י דְבַר יְהוָ֖ה אֵלַ֥י לֵאמֹֽר (oshb:Ezek.3.16) ('at the end of seven days, Yahweh's word came to me, saying'), a hard seam under the frame-spine rule (one of the 39 strict-form verses; also one of the 48 first-person family). A pe is recorded after this verse; the inventory does not carry intra-verse position, so no claim is made about whether the mark falls before or after 3:17's watchman charge, צֹפֶ֥ה נְתַתִּ֖יךָ לְבֵ֣ית יִשְׂרָאֵ֑ל (oshb:Ezek.3.17) ('I have made you a watchman to the house of Israel'). A samekh follows 3:19, between the wicked-man case (3:18-19) and the righteous-man case (3:20-21); disclosed as an internal paragraph mark, not a unit cut, since both cases are one paired illustration of the same watchman charge and no fresh onset device stands at 3:20. Close: 3:21, at the second samekh, before the hand-of-YHWH reopens the scene at 3:22.",
+    "boundary_evidence_refs": [
+     "oshb:Ezek.3.16 (word-event, strict form, hard seam onset; pe follows, single-witness)",
+     "oshb:Ezek.3.19 (samekh follows, single-witness, mid-unit, disclosed and not cut)",
+     "oshb:Ezek.3.20 (OSHB editorial note, single-witness: a ketiv/qere read with L against BHS)",
+     "oshb:Ezek.3.21 (samekh follows, single-witness, unit-final)"
+    ],
+    "strongest_rejected_alternative": "Extending this unit backward to include 3:12-3:15, uniting the return-journey and the watchman charge under one 'onset at 3:12' reading. Rejected because 3:16 supplies its own strict word-event, a hard seam no unit may cross, independent of how short either side then runs.",
+    "literature_type_guess": "watchman-office charge",
+    "confidence": "medium",
+    "strong_or_hebrew_tags_used": [
+     "וַיְהִ֥י דְבַר יְהוָ֖ה אֵלַ֥י לֵאמֹֽר (oshb:Ezek.3.16)"
+    ],
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": true,
+    "non_authorizing": true,
+    "review_status": "pending",
+    "parent_collection": "P1 (inaugural vision and commission)",
+    "unit_type": "commission_narrative",
+    "writer_part": "p01",
+    "writer_decision_id": "p01-6",
+    "writer_attempt_id": "ezek_writer_p01_a1",
+    "observed_substrate_signals": [
+     "wordevent.vayehi_strict",
+     "address.son_of_man"
+    ],
+    "device_notes": "The editorial note at 3:20 is disclosed as single-witness apparatus (an accepted ketiv/qere divergence from BHS agreeing with L); no reading is asserted beyond what the note itself states. Samekh at 3:19 disclosed as mid-unit texture; samekh at 3:21 is the unit's close mark. Neither parashah mark is read as deciding the boundary by itself."
+   }
+  },
+  {
+   "decision_id": "P01-007",
+   "writer_decision_id": "p01-7",
+   "span": "Ezek.3.22-Ezek.3.27",
+   "ops": [
+    "replace"
+   ],
+   "previous_row": {
+    "decision_id": "P01-006",
+    "span": "Ezek.3.16-Ezek.3.21"
+   },
+   "next_row": {
+    "decision_id": "P01-008",
+    "span": "Ezek.4.1-Ezek.4.17"
+   },
+   "items": [
+    {
+     "kind": "ruling_order",
+     "ref": "e10:S3-16#2",
+     "op": "replace",
+     "target_span": "Ezek.3.22-Ezek.3.27"
+    },
+    {
+     "kind": "s3_finding",
+     "id": "S3-07",
+     "severity": "minor",
+     "route": "author_fixup:p01",
+     "row_or_artifact": "P01-007 boundary_rationale, strongest_rejected_alternative, device_notes; P01-001 device_notes",
+     "claim": "Section-8-barred launch, assignment and staged-file talk survives on two replaced p01 rows; no arm and no S2 pattern sees it.",
+     "evidence": "P01-007: 'This is the INTERNAL PARENT SEAM named in the launch message', 'Not adopted here: the launch message fixes the internal parent seam at 3:27/4:1' (the alternative is rejected on that authority), 'the assigned parent seam', 'the assigned seam standing between them'. P01-001: 'per the denominator reconciliation' (the staged record ezek_denominator_reconciliation.v1.json). All present in writer/draft_rows_combined.jsonl and in every rows version since.",
+     "suggested_fix": "Restate from verses: 3:27's sixth rebellious-house refrain plus samekh against 4:1's 'and you, son of man' sub-onset, with the 3:15/3:16 alternative weighed on its bytes. Drop 'launch message' and 'assigned'. Write 'the 49-verse any-form count, never blended with the 48-verse first-person family' without the reconciliation. Spans unchanged."
+    },
+    {
+     "kind": "s3_row_defect",
+     "id": "S3 replaced_rows",
+     "row": "P01-007",
+     "part": "p01",
+     "findings": [
+      "Fields changed: device_notes.",
+      "S2-14 item (SAMEKH after MT 3:21, front seam) disclosed in prose with 'single witness'; pmarks confirms the type at the key; no oss key and no intra-verse position.",
+      "Defect (S3-07): boundary_rationale 'This is the INTERNAL PARENT SEAM named in the launch message' and SRA 'Not adopted here: the launch message fixes the internal parent seam at 3:27/4:1' reject the alternative on the launch message's authority; 'the assigned parent seam' and 'the assigned seam' are assignment talk. Writer-era and present in every version since.",
+      "Common checks: protected fields (decision_id, writer ids, chunk index, span, unit_type, confidence, parent_collection) byte-identical; field types hold; no new Hebrew run outside moved refs entries; no new curly double quote without its web: ref; citation_sweep, normalizer, cap_sweep and ngram7 clean on rows_v5; no FLAGS rise except the refs_mirror and universals rises noted."
+     ]
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "boundary_rationale",
+      "arm": "R1",
+      "match": "per the standing cross-seam rule",
+      "context": " and is disclosed here as continuity evidence the seam must be weighed against, per the standing cross-seam rule - the muteness command and the sign-acts share a byte-true device even though t"
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "boundary_rationale",
+      "arm": "R6",
+      "match": "assigned parent seam",
+      "context": "to be placed on the prophet; the same word recurs at 4:8 on the far side of the assigned parent seam, and is disclosed here as continuity evidence the seam must be weighed against,"
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "boundary_rationale",
+      "arm": "R6",
+      "match": "launch message",
+      "context": "ekh is recorded after this verse. This is the INTERNAL PARENT SEAM named in the launch message: the unit stops here and does not extend into 4:1."
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "strongest_rejected_alternative",
+      "arm": "R6",
+      "match": "launch message",
+      "context": "own strict word-event and the seven-day close it answers. Not adopted here: the launch message fixes the internal parent seam at 3:27/4:1, and the traditional alternative is "
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "device_notes",
+      "arm": "R1",
+      "match": "per the standing cross-seam rule",
+      "context": "sed count-only, single-witness. The ropes-word continuity with 4:8 is disclosed per the standing cross-seam rule; it argues for the closeness of the two units, not against the assigned seam st"
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-007",
+      "field": "device_notes",
+      "arm": "R6",
+      "match": "assigned seam",
+      "context": " cross-seam rule; it argues for the closeness of the two units, not against the assigned seam standing between them. The witness records a samekh after MT 3:21 (single witne"
+     }
+    }
+   ],
+   "current_row": {
+    "decision_id": "P01-007",
+    "book": "Ezek",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 7,
+    "span": "Ezek.3.22-Ezek.3.27",
+    "boundary_rationale": "Onset: 3:22 וַתְּהִ֥י עָלַ֛י שָׁ֖ם יַד יְהוָ֑ה (oshb:Ezek.3.22) ('Yahweh's hand was there on me'), the hand-of-YHWH construct read here as a genuine vision onset (contrast oshb:Ezek.3.14, weighed above as transit texture) because it opens a fresh scene: 'arise, go out into the plain'. 3:25 commands עֲבוֹתִ֔ים (oshb:Ezek.3.25) ('ropes') to be placed on the prophet; the same word recurs at 4:8 on the far side of the assigned parent seam, and is disclosed here as continuity evidence the seam must be weighed against, per the standing cross-seam rule - the muteness command and the sign-acts share a byte-true device even though the unit boundary stands. 3:26 carries the fifth rebellious-house refrain, כִּ֛י בֵּ֥ית מְרִ֖י הֵֽמָּה. Close: 3:27, הַשֹּׁמֵ֤עַ יִשְׁמָע֙ וְהֶחָדֵ֣ל יֶחְדָּ֔ל כִּ֛י בֵּ֥ית מְרִ֖י הֵֽמָּה (oshb:Ezek.3.27) ('he who hears, let him hear; and he who refuses, let him refuse; for they are a rebellious house') - the sixth and last of the twelve book-wide occurrences of the refrain, and the parent P1's close; a samekh is recorded after this verse. This is the INTERNAL PARENT SEAM named in the launch message: the unit stops here and does not extend into 4:1.",
+    "boundary_evidence_refs": [
+     "oshb:Ezek.3.22 (hand-of-YHWH, vision onset, hard seam)",
+     "oshb:Ezek.3.25 (continuity device עבותים 'ropes', disclosed against 4:8 across the parent seam)",
+     "oshb:Ezek.3.27 (rebellious-house refrain, 6th/last of 12 book-wide; paseq recorded twice at this verse, single-witness, count-only; samekh follows, single-witness, P1-final)"
+    ],
+    "strongest_rejected_alternative": "Placing the P1/P2 parent seam at 3:15/3:16 instead of 3:27/4:1, on the strength of 3:16's own strict word-event and the seven-day close it answers. Not adopted here: the launch message fixes the internal parent seam at 3:27/4:1, and the traditional alternative is recorded as a held question rather than argued away - the muteness command (3:22-27) and the sign-acts (4:1-17) share the ropes device precisely because the commission's coda and the sign-act series are welded across that later seam, not the earlier one.",
+    "literature_type_guess": "muteness command",
+    "confidence": "medium_low",
+    "strong_or_hebrew_tags_used": [
+     "יַד יְהוָ֑ה (oshb:Ezek.3.22)",
+     "בֵּ֥ית מְרִ֖י (oshb:Ezek.3.26)",
+     "עֲבוֹתִ֔ים (oshb:Ezek.3.25)"
+    ],
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": true,
+    "non_authorizing": true,
+    "review_status": "pending",
+    "parent_collection": "P1 (inaugural vision and commission)",
+    "unit_type": "vision_report",
+    "writer_part": "p01",
+    "writer_decision_id": "p01-7",
+    "writer_attempt_id": "ezek_writer_p01_a1",
+    "observed_substrate_signals": [
+     "hand.yhwh",
+     "closure.rebellious_house"
+    ],
+    "device_notes": "Operative-category deviation disclosed: this span also carries commission_narrative texture (the muteness charge proper runs 3:24-3:27 inside this vision-opened scene); labelled vision_report because the unit's onset device is the hand-of-YHWH construct at 3:22. Paseq at 3:27 occurs twice (double occurrence on one verse), disclosed count-only, single-witness. The ropes-word continuity with 4:8 is disclosed per the standing cross-seam rule; it argues for the closeness of the two units, not against the assigned seam standing between them. The witness records a samekh after MT 3:21 (single witness), the mark this unit's onset can claim from its own side."
+   }
+  },
+  {
+   "decision_id": "P01-011",
+   "writer_decision_id": "p01-11",
+   "span": "Ezek.6.11-Ezek.6.14",
+   "ops": [
+    "replace"
+   ],
+   "previous_row": {
+    "decision_id": "P01-010",
+    "span": "Ezek.6.1-Ezek.6.10"
+   },
+   "next_row": {
+    "decision_id": "P01-012",
+    "span": "Ezek.7.1-Ezek.7.4"
+   },
+   "items": [
+    {
+     "kind": "ruling_order",
+     "ref": "e10:S3-16#2",
+     "op": "replace",
+     "target_span": "Ezek.6.11-Ezek.6.14"
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-011",
+      "field": "strongest_rejected_alternative",
+      "arm": "R2",
+      "match": "the standing rule treats",
+      "context": "d the fresh messenger formula at 6:11 together are exactly the onset/close pair the standing rule treats as a seam, even though the resulting unit is short."
+     }
+    },
+    {
+     "kind": "cwo_item",
+     "cwo": "CWO-EZ-22",
+     "routed_by": "repair/cwo_coverage_v5cwo23/CWO-EZ-22.json residual",
+     "line_ruled": "ezek_controlling_rulings_a1#e10 ruling S3-16",
+     "verbatim": {
+      "row": "P01-011",
+      "field": "strongest_rejected_alternative",
+      "arm": "R3",
+      "match": "the standing rule",
+      "context": "d the fresh messenger formula at 6:11 together are exactly the onset/close pair the standing rule treats as a seam, even though the resulting unit is short."
+     }
+    }
+   ],
+   "current_row": {
+    "decision_id": "P01-011",
+    "book": "Ezek",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 11,
+    "span": "Ezek.6.11-Ezek.6.14",
+    "boundary_rationale": "Onset: 6:11 opens with a fresh messenger formula; the pe-marked recognition close that precedes it stands at oshb:Ezek.6.10 - כֹּֽה אָמַ֞ר אֲדֹנָ֣י יְהוִ֗ה הַכֵּ֨ה בְכַפְּךָ֜ (oshb:Ezek.6.11) ('thus says the Lord Yahweh: strike with your hand') - a gesture command distinct in address from 6:1-10's oracle to the mountains. Close: 6:14, וְיָדְע֖וּ כִּֽי אֲנִ֥י יְהוָֽה (oshb:Ezek.6.14) ('then they shall know that I am Yahweh'), the strict recognition formula, before 7:1 reopens with its own word-event.",
+    "boundary_evidence_refs": [
+     "oshb:Ezek.6.10 (pe follows, single-witness, close of the preceding unit)",
+     "oshb:Ezek.6.11 (messenger formula, fresh onset, single-witness)",
+     "oshb:Ezek.6.13 (paseq, single-witness, count-only)",
+     "oshb:Ezek.6.14 (recognition, 3mp strict form, unit-final)"
+    ],
+    "strongest_rejected_alternative": "Merging 6:11-14 into the preceding unit as one long mountains-oracle. Rejected because the pe after 6:10 and the fresh messenger formula at 6:11 together are exactly the onset/close pair the standing rule treats as a seam, even though the resulting unit is short.",
+    "literature_type_guess": "judgment oracle, gesture command",
+    "confidence": "medium",
+    "strong_or_hebrew_tags_used": [
+     "כֹּֽה אָמַ֞ר אֲדֹנָ֣י יְהוִ֗ה (oshb:Ezek.6.11)",
+     "וְיָדְע֖וּ כִּֽי אֲנִ֥י יְהוָֽה (oshb:Ezek.6.14)"
+    ],
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": false,
+    "non_authorizing": true,
+    "review_status": "pending",
+    "parent_collection": "P2 (sign-acts and the first judgment oracles)",
+    "unit_type": "judgment_oracle",
+    "writer_part": "p01",
+    "writer_decision_id": "p01-11",
+    "writer_attempt_id": "ezek_writer_p01_a1",
+    "observed_substrate_signals": [
+     "messenger.thus_says",
+     "recognition.3mp"
+    ],
+    "device_notes": "Four-verse unit; justified by the pe-marked close behind it and the fresh messenger-formula onset in front of it, not by size. Paseq at 6:13 disclosed count-only, single-witness."
+   }
+  }
+ ],
+ "new_rows": [],
+ "retire": [],
+ "holds": [],
+ "item_counts": {
+  "CWO-EZ-22": 12,
+  "S3 replaced_rows": 2,
+  "S3-07": 2,
+  "part_findings": 0,
+  "ruling_order": 5
+ }
+}

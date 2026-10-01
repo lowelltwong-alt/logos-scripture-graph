@@ -1,0 +1,96 @@
+{
+ "attempt_id": "ezek_toolkit_supplementary_review_t3_a1",
+ "execution_id": "ezek_toolkit_supplementary_review_t3_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\TOOLKIT_SUPPLEMENTARY_REVIEW_BRIEF_T3.md",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\check_universals.py",
+  "SP\\Ezek\\tools\\_adapt_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\_test_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\run_validator_suite.py",
+  "SP\\Ezek\\tools\\verse_map_oshb.json",
+  "SP\\Ezek\\pmarks_Ezek.json",
+  "SP\\Ezek\\Ezek_oshb.txt",
+  "SP\\Ezek\\ezek_device_inventory.json",
+  "SP\\Ezek\\book_strategy_Ezek.md (sections 10 and 2a)",
+  "SP\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "SP\\Ezek\\ezek_toolkit_review_T1.json",
+  "SP\\Ezek\\ezek_toolkit_repair_review_T2.json",
+  "SP\\Ezek\\ezek_controlling_agent_rulings.v1.json (rulings T1, R4, S5, G12, Q2, Q3, Q8; order CWO-EZ-01)",
+  "SP\\Ezek\\repair\\rows_v2_swept_r3.jsonl",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.manifest.json",
+  "SP\\campaign\\_cure_verification.py",
+  "SP\\Ezek\\ezek_cure_claims.v1.jsonl",
+  "SP\\Jer\\tools\\citation_sweep.py",
+  "SP\\Jer\\tools\\check_marks.py",
+  "SP\\Jer\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\check_web_quotes.py, check_refs_mirror.py, check_language_zones.py, ngram7.py, cap_sweep.py, check_register.py (filenames taken verbatim from TOOLKIT.md, needed only to execute run_validator_suite.py end to end)",
+  "SP\\Ezek\\tools\\verse_map_web.json (filename taken verbatim from citation_sweep.py source, needed for that tool to run)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "Wrote the T3 supplementary review deliverable to the exact path named in the brief: ezek_rulings_out\\ezek_toolkit_supplementary_review_T3.json",
+    "why": "Answers all nine brief questions from re-run tools and re-derived bytes; ratifies R4(i)-(iii) (QERE tier, PUNCTA arms, editorial-note K/Q tier); records T2-01..T2-05 and D3 as cured; TOOLKIT.md verdict fit_to_accept (digest 3fcd774a... matches disk and matches ezek_p0_retained_lows.v1.json's own rebind record naming this exact review); one new minor finding (T3-01) on the cure-gate's supersession-record authenticity."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "TOOLKIT.md and all 25 files in the brief's digest table match their declared sha256 exactly",
+   "how": "sha256sum -c against the brief table, plus sha256sum of the brief file itself against its stated digest",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ezek_lib.py selftest (book facts, crosswalk, K/Q, U+05C4 sites, D3 non-canonical count 66) holds against live bytes",
+   "how": "python ezek_lib.py, private copy",
+   "result": "confirmed (34/34 GREEN)"
+  },
+  {
+   "claim": "The Ezek-specific zone/puncta/calendar-date/QERE arms behave as documented, including every T1/T2/D3 regression",
+   "how": "python _test_zone_tools_ezek.py, private copy",
+   "result": "confirmed (98/98 GREEN)"
+  },
+  {
+   "claim": "Orchestrator's claimed suite counts over rows_v2_swept_r3.jsonl (citation_sweep 126, normalizer 2, ngram7 3, cap_sweep 2, mark_symmetry 154, zero puncta/calendar problems) are exact",
+   "how": "python run_validator_suite.py over a private copy; inspected the produced validator_report.json field by field",
+   "result": "confirmed exactly"
+  },
+  {
+   "claim": "The suite-view manifest known_side_effect (Hebrew-copy double counting) cannot occur on this direct run",
+   "how": "inspected rows_v2_swept_r3.jsonl schema directly: no view_ref_hebrew-style duplicated field exists in any of the 146 rows",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Recognition-variant family counts (wide 64, 2mp 21, Adonai 5, 2fp 2) and their named verses",
+   "how": "fresh consonantal-skeleton regex sweep I wrote myself over Ezek_oshb.txt, independent of ruling S5's own text; cross-checked with check_universals.py and citation_sweep.py on constructed rows",
+   "result": "confirmed exactly, all four counts and verse lists"
+  },
+  {
+   "claim": "_cure_verification.py's R5/R6 gates (supersession retirement, malformed-supersession refusal, .md sibling-sweep requirement) work as designed, and no path lets a stale claim read ACCEPTED",
+   "how": "python _cure_verification.py --selftest (12/12 GREEN) and --claims against the real ezek_cure_claims.v1.jsonl, plus 3 adversarial fixtures I authored (bare stale claim, internally-self-consistent-but-stale claim, supersession record with a false old_artifact_sha256)",
+   "result": "confirmed for ACCEPTED-gating; one narrow gap found in the SUPERSEDED path itself (see new_finding T3-01)"
+  },
+  {
+   "claim": "The PUNCTA arms and editorial-note K/Q tier have no further exploitable gap beyond what T2 already found and the current code already fixes",
+   "how": "4 novel adversarial vectors I authored beyond the existing test suite (prior-clause negation non-bleed; and-joined mixed site/non-site ambiguity; negation-lookalike substring; false editorial-note-class claim) run against citation_sweep.py",
+   "result": "confirmed sound, no new defect found"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether normalize_hebrew_in_json.py's 'NFD-only Qere stays a defect' rule is actually enforced",
+   "why_it_matters": "Every legitimately byte-derivable Qere in this book happens to be NFD-stable already; T1, T2 and now T3 have all been unable to construct an enforcement test without hand-typing Hebrew, which the toolkit itself forbids."
+  },
+  {
+   "what": "Whether the T3-01 supersession-authenticity gap is exploitable by anyone besides the orchestrator, who may already be the only authorized writer of supersession records under a process control outside this brief's scope",
+   "why_it_matters": "Determines whether T3-01 needs a code fix or is already compensated by access control this review did not have visibility into."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

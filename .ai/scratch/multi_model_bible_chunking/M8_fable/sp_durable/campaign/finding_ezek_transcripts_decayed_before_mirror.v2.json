@@ -1,0 +1,54 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "ezek_completed_transcripts_decayed_to_zero_bytes_before_mirror",
+ "revision": 2,
+ "supersedes": "finding_ezek_transcripts_decayed_before_mirror.v1.json (retained beside this file, not deleted)",
+ "recorded": "2026-09-10",
+ "recorded_by": "orchestrator (claude-opus-5)",
+ "book": "Ezek",
+ "class": "evidence_loss",
+ "severity": "medium",
+ "self_disclosed": true,
+ "why_a_revision": "Three more writers landed (p06, p07, p11). The orchestrator mirrored in the SAME response as their completion notifications and all three were already zero bytes. The earlier census had also shown them at zero bytes WHILE RUNNING. That evidence contradicts two claims in v1, so v1 is corrected here rather than left standing.",
+ "corrections_to_v1": [
+  {
+   "v1_claim": "each of the five has a session-store transcript file that is now ZERO BYTES ... a non-empty transcript unquestionably existed at some point",
+   "correction": "OVERCLAIMED. What is established is that each agent demonstrably did the work (12 to 79 tool calls reported). Whether a non-empty transcript ever existed AT THE EXPECTED PATH was never observed for any of those five: the mirror first ran after all five had landed, and each file was zero bytes at first observation. v1 turned an inference into a stated fact."
+  },
+  {
+   "v1_claim": "mirror while agents are still running too: in-progress transcripts exist and can be captured, and a partial snapshot beats a zero-byte file",
+   "correction": "TRUE FOR SOME AGENTS ONLY, and v1 implied it was a general remedy. Two distinct behaviours have now been observed, and the control helps only the first."
+  }
+ ],
+ "two_observed_behaviours": {
+  "A_grows_visibly_during_the_run": {
+   "executions": ["ezek_strategy_a1#e1", "ezek_writer_p01_a1#e1", "ezek_writer_p02_a1#e1", "ezek_writer_p09_a1#e1 (still running; a durable snapshot exists)"],
+   "what_was_seen": "the file at the expected path had a non-zero, growing size across successive mirror passes (p02: 302,889 -> 480,770 -> 593,564 -> 627,979 -> 786,553 bytes) and was captured with verified parity",
+   "control_effect": "mirroring during the run and on landing preserves these. This is where the tightened control works."
+  },
+  "B_zero_bytes_at_every_observation": {
+   "executions": ["ezek_writer_p06_a1#e1", "ezek_writer_p07_a1#e1", "ezek_writer_p11_a1#e1", "and, while still running at the last census, p03, p05 and p08"],
+   "what_was_seen": "the file at the expected path was zero bytes on every census taken during the run AND at landing, although each agent reported substantial tool use",
+   "control_effect": "NONE. There is nothing at that path to copy at any moment the orchestrator can observe, so no mirroring cadence can preserve it."
+  },
+  "unknown_behaviour": {
+   "executions": ["ezek_p0_recheck_a1#e1", "ezek_p0_delta_a1#e1", "ezek_p0_r3_a1#e1", "ezek_writer_p04_a1#e1", "ezek_writer_p10_a1#e1"],
+   "what_is_known": "zero bytes at first observation, which was after landing. It cannot be determined now whether they behaved as A (and decayed) or as B (and never had content at that path)."
+  }
+ },
+ "census_at_this_revision": {
+  "completed_executions": 11,
+  "durable": ["ezek_strategy_a1#e1", "ezek_writer_p01_a1#e1", "ezek_writer_p02_a1#e1"],
+  "lost_for_layer_A": ["ezek_p0_recheck_a1#e1", "ezek_p0_delta_a1#e1", "ezek_p0_r3_a1#e1", "ezek_writer_p04_a1#e1", "ezek_writer_p10_a1#e1", "ezek_writer_p06_a1#e1", "ezek_writer_p07_a1#e1", "ezek_writer_p11_a1#e1"],
+  "running": {"p09": "durable snapshot held", "p03": "zero bytes so far", "p05": "zero bytes so far", "p08": "zero bytes so far"}
+ },
+ "not_claimed": "the runtime mechanism is not known and is not speculated about. The finding records only what was observed at the expected path and when.",
+ "consequence_for_OW6_stage_1": "Most Ezekiel executions will reach the final check with layer A UNAVAILABLE. The stage-1 transcript auditors can read only the transcripts that exist, and the stage-2 coverage statement must name every loss by execution id. Under OW-8 this is an evidence gap, not a defect and not a stop condition; the deliverables and the OW-8 records carry the audit instead. Whether that is sufficient for a HARD book's whole-book final audit is a question for the Fable controlling agent (routing queue item Q8), not one the orchestrator decides.",
+ "what_survives_for_every_lost_execution": "the deliverable, digest-pinned and durable; and a layer-C evidence note built from the agent's own OW-8 final message, which the runtime delivered in full with each completion notification",
+ "control_status": [
+  "KEPT: mirror during the run and on every landing - it preserves behaviour A, which is real",
+  "ADDED: the census after every mirror pass classifies each running execution as A or B, so a B-behaviour run is known as unrecoverable BEFORE it lands rather than discovered afterwards",
+  "NOT CLAIMED: that any orchestrator-side cadence can preserve behaviour B. Preserving it would need a runtime-capture change, which remains the separate open owner decision recorded under OW-8(f)"
+ ],
+ "impact_on_the_corpus": "NONE. No row depends on a transcript."
+}

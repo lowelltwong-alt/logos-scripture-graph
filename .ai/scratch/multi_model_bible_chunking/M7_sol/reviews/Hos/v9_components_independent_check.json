@@ -1,0 +1,195 @@
+{
+  "schema_version": "m7_hosea_v9_components_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "reviewer_role": "fresh_independent_v9_policy_and_measurement_red_team",
+  "review_mode": "read_only_exact_hash_static_with_one_narrow_policy_probe",
+  "reviewed_at_utc": "2026-07-28T16:18:20.2725782Z",
+  "artifact_status": "complete_fail_closed_verdict",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "publication_authorized": false,
+  "prepare_authorized": false,
+  "recover_authorized": false,
+  "verdict": {
+    "overall": "FAIL_TO_INTEGRATE",
+    "policy_side_effect_freedom": "PASS",
+    "windows_measurement_read_only_scope": "PASS",
+    "exact_thirteen_plus_three_point_in_time_measurement": "CONDITIONAL_PASS",
+    "schema_translation": "FAIL",
+    "prepare_to_publish_continuity": "FAIL",
+    "human_identity_claim_honesty": "PASS_WITH_EXTERNAL_DEPENDENCY",
+    "current_publication_readiness": "FAIL",
+    "summary": "The exact V1 policy is side-effect-free and the exact Windows adapter is a genuinely read-only, bounded 13-target plus three-sentinel point-in-time collector. They are not safely composable as frozen: material clock and identity fields are missing from the adapter-to-policy bridge, the process-name scope is caller-variable and discarded by the policy schema, and publish validation accepts a materially invalid prepare record. No prepare, publish, recover, or live collection is authorized."
+  },
+  "immutable_inputs": {
+    "policy_core": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/rematerialization_live_gate_policy_v1.py",
+      "expected_sha256": "d7fe74945a6e46219c426f985296bc269a6843475ef4034713024a82d59492a1",
+      "observed_sha256": "d7fe74945a6e46219c426f985296bc269a6843475ef4034713024a82d59492a1",
+      "match": true
+    },
+    "policy_tests": {
+      "path": "tests/test_rematerialization_live_gate_policy_v1.py",
+      "expected_sha256": "bb3927e9f1bab8a367703d65cfd72ace06231a545e8d1227c78815cae1985140",
+      "observed_sha256": "bb3927e9f1bab8a367703d65cfd72ace06231a545e8d1227c78815cae1985140",
+      "match": true
+    },
+    "windows_adapter": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_live_environment_measurement_v1.py",
+      "expected_sha256": "c0dec6efa293a6577becd71d60fc755f2331c532ca7aac015e4f1a17aec70a79",
+      "observed_sha256": "c0dec6efa293a6577becd71d60fc755f2331c532ca7aac015e4f1a17aec70a79",
+      "match": true
+    },
+    "windows_adapter_tests": {
+      "path": "tests/test_windows_live_environment_measurement_v1.py",
+      "expected_sha256": "ca08b877d6eec020a0fb897b49424b58270f67b78e90fbb7ccf255f2740148ea",
+      "observed_sha256": "ca08b877d6eec020a0fb897b49424b58270f67b78e90fbb7ccf255f2740148ea",
+      "match": true
+    }
+  },
+  "recorded_focused_results": [
+    {
+      "suite": "policy_v1",
+      "result": "PASS",
+      "passed": 29,
+      "elapsed_seconds": 54.83,
+      "evidence_status": "delegator_record_only_not_independently_rerun",
+      "interpretation": "The exact source and test hashes match. The costly unchanged suite was not repeated; the recorded green count is not used to overrule static findings."
+    },
+    {
+      "suite": "windows_measurement_v1",
+      "result": "PASS",
+      "passed": 8,
+      "elapsed_seconds": 49.89,
+      "evidence_status": "delegator_record_only_not_independently_rerun",
+      "interpretation": "The exact source and test hashes match. The costly unchanged suite was not repeated; the recorded green count is not used to claim live-host qualification."
+    }
+  ],
+  "dimension_results": {
+    "provider_neutral_policy_purity": {
+      "verdict": "PASS",
+      "basis": "The policy imports only datetime, hashing, JSON, regex, and typing utilities; it accepts observations as data and makes no filesystem, process, provider, environment, or mutation call."
+    },
+    "adapter_no_canonical_parent_writes_or_deletes": {
+      "verdict": "PASS",
+      "basis": "The real backend requests GENERIC_READ and read attributes only, enumerates directories, hashes bytes through retained handles, and contains no create, write, replace, unlink, delete, restart, or OneDrive-control path. SetFilePointerEx changes only the private read handle position."
+    },
+    "exact_held_measurement": {
+      "verdict": "CONDITIONAL_PASS",
+      "basis": "The collector requires exactly 13 targets and three sentinels, rejects physical overlap and identity aliasing, holds all targets with share mode zero, then holds all sentinels with read sharing only while the target handles remain open, and rechecks bytes and identities before, during, and after.",
+      "limit": "This proves only the supplied set and sampled instant. It does not establish the Hosea semantic allowlist, revoke pre-opened writers, exclude future writers, or hold handles through publication."
+    },
+    "reparse_root_volume_and_identity": {
+      "verdict": "PASS_WITH_POINT_IN_TIME_LIMITS",
+      "basis": "The collector lexically contains paths, rejects reparse components and final objects, requires NTFS, binds volume serial and file IDs, rejects aliases, and samples workspace, model, target-parent, file, and directory-member state.",
+      "limit": "Absolute-path sampling is not a perpetual root-handle lock; the adapter correctly makes only a point-in-time claim."
+    },
+    "process_and_onedrive_honesty": {
+      "verdict": "PASS_AS_MEASUREMENT_ONLY",
+      "basis": "The output labels inventory non-exhaustive, lists matched process names and PIDs, detects OneDrive names, and explicitly says future or pre-opened writers are not excluded.",
+      "limit": "A measurement PASS is not a quiescence PASS; OneDrive presence and other matched writers must be rejected by a separately frozen policy bridge."
+    },
+    "human_identity_honesty": {
+      "verdict": "PASS_WITH_EXTERNAL_DEPENDENCY",
+      "basis": "The policy requires external_human_attestation provenance, rejects a cryptographic-identity claim, and returns human_identity_cryptographically_verified=false.",
+      "limit": "The provenance fields remain caller-supplied JSON. The component cannot authenticate Lowell or prove that an external attestation exists; local JSON alone must never satisfy the owner gate."
+    }
+  },
+  "blocking_findings": [
+    {
+      "finding_id": "V9-COMPONENT-CLOCK-BRIDGE-001",
+      "severity": "P1_INTEGRATION_BLOCKER",
+      "title": "The adapter cannot honestly populate the policy's dual-clock capture and lease schema",
+      "evidence": "The policy requires wall and monotonic lease bounds plus wall and monotonic capture values for the process snapshot, every target open check, and every sentinel check (policy lines 415-590). The adapter emits one captured_at_utc after the process snapshot and no monotonic value or per-check capture time (adapter lines 552-557 and 700-755).",
+      "risk": "A wrapper must invent timestamps or silently substitute wrapper time for measurement time, defeating freshness and prepare-to-publish continuity.",
+      "required_resolution": "Add measured monotonic and wall bounds to the raw adapter schema, bind every observation to those bounds, and test stale, reordered, and one-bit-mutated clocks before any integration."
+    },
+    {
+      "finding_id": "V9-COMPONENT-IDENTITY-BRIDGE-001",
+      "severity": "P1_INTEGRATION_BLOCKER",
+      "title": "Material policy identity fields have no raw adapter source",
+      "evidence": "The policy requires parent process ID, process-start token, executable identity, model runtime ID, and normalized boot/OS/workspace identity (policy lines 83-100 and 303-333). The adapter emits current_pid and a bounded process-name snapshot but no process-start token, executable identity, parent object, or runtime identity.",
+      "risk": "The bridge must manufacture identity data or source it from an unreviewed collector, so prepare-to-publish equality would not prove the claimed host/runtime continuity.",
+      "required_resolution": "Extend the read-only adapter with closed, handle- or OS-derived identity fields and exact translation tests, or remove fields that cannot be measured without weakening the gate."
+    },
+    {
+      "finding_id": "V9-COMPONENT-PREPARE-REVALIDATION-001",
+      "severity": "P0_POLICY_BLOCKER",
+      "title": "Publish accepts a materially invalid prepare record",
+      "evidence": "The publish continuity helper checks only a closed top-level key set, phase/task/application, identity, frozen artifacts, human authorization, targets, and lease issue timestamps (policy lines 614-672). It does not validate the prepare process snapshot, open checks, sentinel checks, lease expiry/duration, race acknowledgments, gate effect, or authority booleans.",
+      "demonstration": "A narrow python -B probe changed prepare to report OneDrive not exited, removed all target and sentinel checks, made its lease invalid, denied the residual race, claimed publication authority, and set candidate_only/non_authorizing false. The publish call still returned PASS.",
+      "risk": "The returned publish PASS can falsely imply continuity with a prepare phase that never passed policy.",
+      "required_resolution": "Publish must revalidate the exact full prepare record or bind and verify a prior prepare PASS result whose digest covers that full record. Add one-bit tests for every prepare field."
+    },
+    {
+      "finding_id": "V9-COMPONENT-PROCESS-SCOPE-001",
+      "severity": "P1_QUIESCENCE_BLOCKER",
+      "title": "The process-name policy is caller-variable and disappears at the policy boundary",
+      "evidence": "collect_live_environment_measurement accepts any nonempty bounded_process_names sequence (adapter lines 287-356 and 405-415). Except for OneDrive's prefix special case, omitted Python, sync, or copy names are not matched. The policy bounded snapshot schema retains neither bounded_names nor its digest.",
+      "risk": "A caller can narrow the adapter's process-name set and then present empty in-scope writer matches without the policy detecting the reduced observation scope.",
+      "required_resolution": "Freeze the exact closed process-name allow/block policy and digest in expectations, require exact equality in the raw measurement and policy record, and derive zero in-scope matches from the retained raw rows."
+    },
+    {
+      "finding_id": "V9-COMPONENT-ROLE-ALLOWLIST-001",
+      "severity": "P1_WRAPPER_CONTRACT_BLOCKER",
+      "title": "Count and containment do not prove the exact Hosea target and sentinel roles",
+      "evidence": "The adapter accepts any distinct 13 target and three sentinel PathExpectation objects lexically under model_root. It does not know the exact Hosea book-local allowlist or require the three sentinel paths to be the frozen global sidecars.",
+      "risk": "A wrong under-root file set can receive a measurement PASS.",
+      "required_resolution": "A closed wrapper contract must pin exact ordered logical paths, roles, preimage hashes, staged hashes, root/parent identities, and sentinel IDs/hashes; the bridge must reject cross-role or extra paths before collection."
+    }
+  ],
+  "nonblocking_findings": [
+    {
+      "finding_id": "V9-COMPONENT-RAW-SCHEMA-001",
+      "severity": "P2_HARDENING",
+      "title": "Boot, OS, and volume mappings are not closed at collection time",
+      "evidence": "The collector copies backend boot_facts, os_facts, and volume_facts dictionaries; it checks only NTFS and integer volume_serial before labelling the measurement PASS.",
+      "required_resolution": "Validate a closed raw measurement schema before producing PASS_POINT_IN_TIME_READ_ONLY."
+    },
+    {
+      "finding_id": "V9-COMPONENT-DIRECTORY-CLAIM-001",
+      "severity": "P2_WORDING",
+      "title": "The directory-membership claim is broader than the measured set",
+      "evidence": "Membership digests cover target parents, while the model root containing the three sentinels is identity-sampled but not membership-digested. The generic output claim directory_members_changed=false should be scoped to measured target parents or extended to sentinel parents.",
+      "required_resolution": "Narrow the claim or measure every governed parent."
+    }
+  ],
+  "fresh_validation": [
+    {
+      "command": "python -B - (inline prepare-record mutation probe using the exact frozen V1 test fixtures)",
+      "result": "PASS_RETURNED_BY_POLICY",
+      "expected_security_result": "FAIL_CLOSED",
+      "scope": "No filesystem or provider calls; no repository artifact other than this review was created.",
+      "interpretation": "This confirms V9-COMPONENT-PREPARE-REVALIDATION-001 and is not a publication PASS."
+    }
+  ],
+  "actions_not_taken": [
+    "did_not_rerun_costly_focused_suites",
+    "did_not_collect_live_environment",
+    "did_not_prepare",
+    "did_not_publish",
+    "did_not_recover",
+    "did_not_create_attempt",
+    "did_not_modify_policy_or_adapter",
+    "did_not_modify_canonical_targets",
+    "did_not_modify_global_sidecars",
+    "did_not_claim_human_identity_or_owner_authorization"
+  ],
+  "dad_postflight": {
+    "status": "LOCAL_READ_ONLY_SURFACE_ONLY",
+    "basis": "The DAD graph-surface status was read as candidate replication evidence only. No executable DAD preflight/postflight authority was available, and no DAD or outbox write occurred."
+  },
+  "final_ruling": {
+    "components_accepted_for_static_learning": true,
+    "components_accepted_for_v9_integration_as_is": false,
+    "may_prepare": false,
+    "may_publish": false,
+    "may_recover": false,
+    "may_collect_live_environment_based_on_this_review": false,
+    "strict_dissent_preserved": true,
+    "forced_consensus": false,
+    "next_action": "Preserve this FAIL append-only. Repair the raw measurement-to-policy contract, full prepare revalidation, frozen process scope, and exact role allowlist in a new generation; freeze new hashes and obtain fresh independent checker, premortem, and boss rulings before any owner/live-host gate."
+  }
+}

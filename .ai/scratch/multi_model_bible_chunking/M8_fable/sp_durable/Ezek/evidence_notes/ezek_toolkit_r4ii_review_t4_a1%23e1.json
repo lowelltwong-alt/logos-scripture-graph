@@ -1,0 +1,100 @@
+{
+ "attempt_id": "ezek_toolkit_r4ii_review_t4_a1",
+ "execution_id": "ezek_toolkit_r4ii_review_t4_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\TOOLKIT_R4II_REVIEW_BRIEF_T4.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\tools\\_adapt_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\_test_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\run_validator_suite.py",
+  "SP\\Ezek\\tools\\verse_map_oshb.json",
+  "SP\\Ezek\\pmarks_Ezek.json",
+  "SP\\Ezek\\Ezek_oshb.txt",
+  "SP\\Ezek\\ezek_device_inventory.json",
+  "SP\\Ezek\\ezek_controlling_agent_rulings_e3.v1.json (R4-ii, CAL-1 sections)",
+  "SP\\Ezek\\ezek_toolkit_supplementary_review_T3.json (toolkit_md + item2_calendar_arm sections)",
+  "SP\\Ezek\\ezek_controlling_agent_queue_pending.v1.json (R4ii-D1 item)",
+  "SP\\Ezek\\repair\\suite_r3_cs6c3b31\\rows.jsonl",
+  "SP\\Ezek\\repair\\suite_r3_cs6c3b31\\rows.jsonl.validator_report.json (referenced, size-limited direct read; consumed via my own private-copy run instead)",
+  "SP\\Jer\\tools\\citation_sweep.py",
+  "SP\\Jer\\tools\\check_marks.py",
+  "plus named dependency files each pinned tool reads by exact relative path (SP\\Ezek\\verse_inventory.json, web_mt_verse_check.json, web_mt_offset_map.json, ezek_kjv_variance_crosscheck.json, Ezek_web_clean.txt, tools\\verse_map_web.json) and the other TOOLKIT.md-named suite members needed to run run_validator_suite.py end to end (check_web_quotes.py, check_refs_mirror.py, check_universals.py, check_language_zones.py, ngram7.py, cap_sweep.py, check_register.py) -- all digest-recorded in the deliverable's artifacts_reviewed"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "Wrote C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\221a93aa-d2a7-4d91-a265-84e495a39efa\\scratchpad\\ezek_rulings_out\\ezek_toolkit_r4ii_review_T4.json (valid JSON, schema-conformant)",
+    "why": "T4 supplementary distinct-checker review of the R4(ii)+CAL-1 tool edit, per TOOLKIT_R4II_REVIEW_BRIEF_T4.md; answers all 7 questions with digest verification, a full private-copy suite run, and constructed adversarial vectors run live against the pinned tools."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 19 brief-pinned file digests match at launch",
+   "how": "PowerShell Get-FileHash -Algorithm SHA256 over each named path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ezek_lib.py selftest and _test_zone_tools_ezek.py both GREEN (117/117), matching the orchestrator's claimed run",
+   "how": "python ezek_lib.py; python _test_zone_tools_ezek.py, in a private scratch copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Suite-parity counts (126/2/3/2/154, 0 puncta, 0 calendar-date) match the before-state report exactly",
+   "how": "python run_validator_suite.py over a private copy of repair\\suite_r3_cs6c3b31\\rows.jsonl; counts extracted and cross-checked field by field",
+   "result": "confirmed"
+  },
+  {
+   "claim": "R4-ii order (1) (parenthetical-after) is correctly implemented in both tools, including against nested parens and cross-field leakage",
+   "how": "constructed JSONL vectors run as subprocesses against the pinned citation_sweep.py/check_marks.py",
+   "result": "confirmed, with one new false-positive gap found (T4-01, decoy C:V-shaped ids in the parenthetical)"
+  },
+  {
+   "claim": "R4-ii order (2) (any-distance in the REF arm) introduces no false positive on a genuinely distant true claim",
+   "how": "constructed long-clause vector, subprocess run",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The PROSE-arm deviation (R4ii-D1) protects the real P10-008 false positive and still carries its disclosed false-negative residual",
+   "how": "reran the suite's own P10-008 regression vector and a fresh constructed decoy-beyond-reach vector",
+   "result": "confirmed both directions"
+  },
+  {
+   "claim": "CAL-1 apposition/parenthesis forms are implemented as ordered and are correctly scoped to the four target verses",
+   "how": "suite regression plus a constructed off-target control vector",
+   "result": "confirmed"
+  },
+  {
+   "claim": "CAL-1 apposition has a forward-negation false positive on real-style denial prose",
+   "how": "constructed vector 'a dateline would be expected but none stands' run against the pinned citation_sweep.py",
+   "result": "confirmed, new finding T4-03"
+  },
+  {
+   "claim": "TOOLKIT.md's edited paragraph matches shipped code exactly; one sibling sentence (puncta single-witness disclosure) does not match either PUNCTA arm's code",
+   "how": "line-by-line trace of TOOLKIT.md's 'Where Ezekiel's tools differ' paragraph and book-facts block against both tools' source",
+   "result": "confirmed (paragraph accurate; sibling sentence T4-04 is a pre-existing, currently-non-live gap)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether an em-dash/double-hyphen clause-boundary rule would close both directions of the R4ii-D1 deviation without new regressions",
+   "why_it_matters": "proposed as a candidate only; not implemented or tested, so not adopted as this review's recommendation"
+  },
+  {
+   "what": "Whether T4-03's forward-negation gap also produces a live false positive via the CAL-1 parenthesis form or the base PUNCTA arm's own negation check",
+   "why_it_matters": "root cause is shared code (puncta_negated), but only the apposition call site was directly attacked"
+  },
+  {
+   "what": "Whether T4-01's ledger-id-shaped decoy pattern occurs anywhere in the live 146-row corpus today",
+   "why_it_matters": "the suite-parity run shows 0 live puncta flags, so it is not live now, but no targeted corpus grep for this exact pattern was run beyond the standard suite"
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

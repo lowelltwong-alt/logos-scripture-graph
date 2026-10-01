@@ -1,0 +1,287 @@
+# Dan shared verification toolkit (m8-mesh-r3, built Phase 0 by the orchestrator)
+
+**USE these tools. Do NOT rebuild, copy, or re-derive any of them.** Every brief
+points here. Work in a UNIQUELY-NAMED private subdirectory of YOUR OWN session
+scratchpad. Never write scratch into SP/Dan or at any scratchpad root, and write no
+debug files anywhere under SP, including SP output directories during self-check.
+
+Run everything with `PYTHONIOENCODING=utf-8 python <tool> ...` from this directory.
+
+**Daniel is an owner-named HARD book.** The strategy runs 3 lenses. Two blind lanes are the OW-19
+floor, and the third reads each hard seam from the OSHB/WLC bytes. Under OW-25 every role runs on
+claude-opus-5-5 and is recorded as `grader_fallback`. That is a recorded downgrade, not an equivalence.
+At the end of the campaign Fable reviews each book's least-confident chunks and the orchestrator's notes on them (OW-28). The orchestrator reads that as every row graded low or medium_low, with its notes; that reading is INFERRED, not the owner's words.
+
+Every figure in this file was computed from the Daniel artifacts named beside it and is re-checked by
+`_toolkit_selfcheck.py` (TOOLKIT_PINS). No figure here comes from another book.
+
+---
+
+## Book facts (Phase 0 verified: trust these, do not re-derive)
+
+**357 verses / 12 chapters, EQUAL totals in both witnesses.** Longest chapters: 2 (49 vv), then 11 (45)
+and 4 (37). Shortest: 12 (13 vv), then 1 and 10 (21 each). Chapter counts are on the WEB face
+(`../verse_inventory.json`).
+
+### Numbering: NOT IDENTITY. Two chapter breaks move (four ranges), pure renumbering, NO split (byte-PROVEN)
+
+```
+MT 3:31-33 = WEB 4:1-3
+MT 4:1-34 = WEB 4:4-37
+MT 6:1 = WEB 5:31
+MT 6:2-29 = WEB 6:1-28
+identity in every other chapter
+```
+
+WEB ch 3 = 30 vv, MT 33 / WEB ch 4 = 37 vv, MT 34 / WEB ch 5 = 31 vv, MT 30 / WEB ch 6 = 28 vv, MT 29.
+Divergent chapters = [3, 4, 5, 6] (`../web_mt_verse_check.json`). The offset map states it this way: "totals are equal at 357; nothing is added or missing, two chapter breaks move".
+This is a **SHIFT, not a gap**. The crosswalk is **INJECTIVE**: every WEB verse has exactly one MT
+verse and back (357 WEB verses onto 357 MT verses). 66 WEB verses move, all of them inside the Aramaic
+island, so a ref's language is the same on either face.
+
+**How it was established, in three independent steps.** Equal totals alone would also fit a gap
+plus a matching surplus.
+
+1. Per-chapter verse counts from the two extracts (arithmetic).
+2. Verse CONTENT. `zone_pairs` in `../web_mt_offset_map.json` records 8 boundary pairs, each with the
+   opening words of both verses. For example, `web:Dan.4.1` = `oshb:Dan.3.31`: the WEB verse opens "Nebuchadnezzar the king," and the MT
+   verse opens נְבוּכַדְנֶצַּ֣ר מַלְכָּ֗א לְֽכָל עַֽמְמַיָּ֞א (OSHB).
+3. **The OSHB's OWN KJV-variance layer.** `kjv_variance_crosscheck` in the same file: 66 notes, 66 of them
+   inside the zones, **0 disagreements** with the map. That layer was used in neither step 1 nor step 2,
+   so it is genuine corroboration, not a restatement. The map's own verification is GREEN (0 problems over
+   4 checks). Daniel has no separate crosscheck file; the layer is `kjv_variance` in `../pmarks_Dan.json`.
+
+**OFFSET-ZONE RULE (Tier-0 ENFORCED):** any structured ref touching WEB 4:1-37, WEB 5:31, WEB ch 6, MT 3:31-33, MT ch 4 or MT ch 6 MUST carry an explicit dual or numeric qualifier; bare coordinates are ambiguous there and only there.
+`citation_sweep.py` enforces this rule only on a `boundary_evidence_refs` entry whose START or END verse lies in a zone (a range crossing a zone with both ends outside it, row spans and prose refs are not checked). It accepts the dual `web:Dan.4.1 = oshb:Dan.3.31` (or `oshb:Dan.3.31 = web:Dan.4.1`) and a closed
+`(MT n:m)` qualifier after a web: ref or `(WEB n:m)` after an oshb: ref, and checks each against the crosswalk. Outside
+the zones a dual is optional, but a written dual must be arithmetically right. `citation_sweep.py` fails a wrong dual only in `boundary_evidence_refs` (checked at the ref's START verse); a wrong dual in prose is reported as a warning, is not RED, and is not counted by the suite.
+
+Convention: bare/`web:` refs and row spans = WEB; `oshb:`/pmarks = MT. Convert with
+`../web_mt_offset_map.json` or `dan_lib.web_to_mt(ch, v)` / `dan_lib.mt_to_web(ch, v)` (int arguments,
+tuple result, or None when the verse is out of range) ALWAYS. Never hand-assume, in either direction.
+
+### LANGUAGE: ONE Aramaic island, entered MID-VERSE (`../dan_language_zones.json`)
+
+```
+Hebrew   Dan.1.1 w1 - Dan.2.4 w4  (345 words)
+Aramaic  Dan.2.4 w5 - Dan.7.28 w16  (3,599 words)
+Hebrew   Dan.8.1 w1 - Dan.12.13 w8  (1,975 words)
+```
+
+The runs are EXTRACTED from the OSHB morph codes. Main-text words: 3,599 Aramaic, 2,320 Hebrew.
+Per verse: 157 Hebrew, 199 Aramaic and 1 mixed. **MT 2:4 is the only mixed verse**: 12 words, sequence
+`HHHHAAAAAAAA`, and the switch falls before word 5. Its halves are **2:4a** (Hebrew) and **2:4b** (Aramaic). WEB 2:4
+names the language itself ("in the Syrian language"), so "Syrian" is a language label in this book.
+The island returns to Hebrew at MT 8:1 word 1. The two numbering zones sit inside the island.
+
+The morph tally in `../pmarks_Dan.json` counts note words too: 3,702 Aramaic and 2,333 Hebrew, which is the main text
+plus 103 Aramaic and 13 Hebrew note words. Its 200 verses with any Aramaic morph are exactly the 199 Aramaic verses
+plus MT 2:4.
+
+### PARASHAH LAYER (MT-keyed, `../pmarks_Dan.json`)
+
+**8 samekh (setumah) + 22 pe (petuchah) = 30 mark occurrences over 30 verses.** No verse carries two marks,
+and there is no reversed nun. A mark is recorded on the verse it FOLLOWS.
+
+- pe (22): MT 1:21, 2:13, 2:16, 2:28, 2:45, 2:49, 3:23, 3:30, 4:25, 4:34, 5:12, 5:16, 5:30, 6:29, 7:14, 7:28, 8:27, 9:27, 10:3, 10:21, 12:3, 12:8
+- samekh (8): MT 2:24, 3:12, 3:18, 3:25, 5:7, 6:6, 6:11, 12:2
+- **Chapter 11 (45 verses) carries no mark at all.**
+
+Masoretic paragraph marks are EVIDENCE about how the tradition read the text. They inform a boundary
+and **never decide one alone**. Translation punctuation and editorial headings never drive a boundary at all (E-23).
+
+Inside the numbering zones: pe at MT 4:25 (= WEB 4:28); pe at MT 4:34 (= WEB 4:37); samekh at MT 6:6 (= WEB 6:5); samekh at MT 6:11 (= WEB 6:10); pe at MT 6:29 (= WEB 6:28).
+At the zone edges: a pe at MT 3:30, the last verse of WEB ch 3 (MT ch 3 runs on to 3:33); and a pe at MT 5:30,
+the last verse of MT ch 5 (WEB ch 5 runs on to 5:31).
+
+### Fabrication classes for Dan (fabrications; RED where `citation_sweep.py` says so, FLAGS in `check_marks.py` and `check_language_zones.py`)
+
+- **selah** is a Psalter device. It has **zero occurrences** in Dan: none in the MT extract (consonantal
+  word sweep) and none in the WEB extract.
+- **Special-letter segs: NONE.** The XML carries exactly five seg types (x-maqqef 646, x-sof-pasuq 357, x-pe 22, x-paseq 44, x-samekh 8) and no other. Large letters,
+  small letters, a reversed nun and a suspended letter are therefore all fabrications.
+- **Puncta extraordinaria: NONE.** U+05C4 and U+05C5 each count 0 in `../Dan_oshb.txt`, and no OSHB note
+  names them. The site sets are empty (`PUNCTA_SITES` and `PUNCTA_SITE_PAIRS` in `check_marks.py`; `PUNCTA_SITE_PAIRS`
+  and `PUNCTA_KEYS` in `citation_sweep.py`), so `citation_sweep.py` judges every positive puncta claim RED and every denial true.
+- **The Greek additions are in neither witness.** WEB ch 3 has 30 verses and the book has 12 chapters, so neither the
+  Prayer of Azariah and the Song of the Three, nor Susanna, nor Bel and the Dragon is present. The strategy discloses the
+  3:23/3:24 insertion point as metadata only. `citation_sweep.py` fails cross-tradition material in
+  `boundary_evidence_refs`: LXX, Old Greek, Theodotion, the addition names, the Qumran and Masada Daniel sigla,
+  and the other versions it lists.
+- **An Aramaic or Syrian label on a Hebrew verse, or a Hebrew label on an Aramaic verse**, is flagged by
+  `check_language_zones.py` ("Hebrew Bible", "Hebrew canon" and "Hebrew Scripture(s)" are exempt).
+
+### Disclosure inventories (`../pmarks_Dan.json`, MT-keyed)
+
+- **Paseq: 44 segs over 40 verses.** These are a seg layer, NOT quotable verse bytes. Cite them from the
+  inventory only, with "(single-witness)". They are **COUNT-ONLY**: the extract carries no paseq, so an
+  intra-verse position claim must be read from the XML by exact path. Two paseqs stand in each of
+  MT 4:15, 6:27, 9:18, 9:19. Inside the numbering zones: 12 occurrences over 10 verses, at MT 4:6 (= WEB 4:9), MT 4:9 (= WEB 4:12), MT 4:15 (= WEB 4:18) x2, MT 4:20 (= WEB 4:23), MT 4:22 (= WEB 4:25), MT 4:31 (= WEB 4:34), MT 4:33 (= WEB 4:36), MT 6:8 (= WEB 6:7), MT 6:11 (= WEB 6:10), MT 6:27 (= WEB 6:26) x2.
+- **Ketiv/qere: 116 notes over 80 verses.** 53 verses carry one note, 19 carry two, 7 carry three and 1 carries four
+  (MT 5:16). The 27 multi-note verses are MT 2:33, 2:39, 2:41, 2:42, 3:10, 3:12, 3:18, 4:4, 4:14, 4:15, 4:16, 4:21, 4:24, 4:32, 5:7, 5:8, 5:16, 5:18, 5:21, 5:23, 7:7, 7:8, 7:10, 7:19, 7:20, 9:24, 11:10. Check pmarks `kq` before counting or slicing in ANY K/Q
+  verse. `dan_lib.kq_split(note, verse_text)` returns (ketiv, qere, method); a method of UNANCHORED means unsplittable,
+  never guessed. `kq_split_bytes` returns the same split in the note's raw bytes. Strip morpheme `/` when quoting.
+  70 of the 80 K/Q verses (103 notes)
+  sit in the Aramaic island. The Hebrew-zone K/Q verses are MT 1:4, 8:11, 9:5, 9:12, 9:18, 9:24, 11:10, 11:12, 11:18, 11:39. Inside the numbering zones: 21 verses, 30 notes.
+- **OSHB editorial notes: 35 notes over 23 verses**, in 7 classes. They are single-witness apparatus, not
+  text bytes. Disclose them. The class texts below are the OSHB's own:
+  - 9 x (untyped) n="q" "We have abandoned or added a ketib/qere relative to BHS. In doing this we agree with L against BHS."
+  - 8 x (untyped) n="n" "Marks an anomalous form."
+  - 6 x (untyped) n="1" "BHS has been faithful to the Leningrad Codex where there might be a question of the validity of the form and we keep the same form as BHS."
+  - 5 x (untyped) n="k" "We read one or more consonants in L differently from BHS."
+  - 5 x (untyped) n="y" "Yathir readings in L which we have designated as Qeres when both Dothan and BHS list a Qere."
+  - 1 x (untyped) n="a" "Adaptations to a Qere which L and BHS, by their design, do not indicate." at MT 2:9
+  - 1 x exegesis type="exegesis" "WLC has this word divided as ארעא." at MT 2:39
+- **KJV-variance notes: 66**, all inside the numbering zones. They are the numbering layer above.
+- **sof-pasuq: 357 for 357 verses.** None is absent.
+- **maqaf: 646 segs in the XML, 0 in the extract** (see the encoding notes).
+
+### DEVICE SPINE (`../dan_device_inventory.json`, MT face)
+
+The device inventory is on the **MT face**; `../verse_inventory.json` is on the WEB face. Assert the face
+before comparing. No dateline or calendar date falls in a numbering zone, so their WEB refs are identical.
+
+- **8 DATELINES**: MT 1:1, 2:1, 7:1, 8:1, 9:1, 9:2, 10:1, 11:1.
+- **1 calendar date that is NOT a dateline: MT 10:4** (the inventory's `calendar_dates_not_datelines`). `CAL_NO_ONSET`
+  is EMPTY, because no Daniel ruling restricts onsets at calendar dates. A row may open at MT 10:4, but a
+  dateline claim that names it is RED (`citation_sweep.py`).
+- Excluded near-misses, with verse lists in the file: 16 year words that are not datelines, 32 month or day words
+  that are not dates, and 15 substring artifacts.
+- **2 language switches**: MT 2:4 word 5 (Hebrew to Aramaic) and MT 8:1 word 1 (Aramaic to Hebrew).
+- **57 Daniel formula keys**, for example `o_king_live_forever_aram`, `generation_to_generation_aram`, `i_was_seeing_aram` and `at_that_time_heb`. The file also
+  carries 11 `ezek_` comparison keys, declared in its `ezek_key_crosswalk`.
+- Its 15 self-assertions all hold. It was produced by `dan_p0_device_inventory_a1#e2` on claude-opus-5-5, grader_fallback (OW-25).
+
+**How to use the spine** (4 RULEs and 5 HYPOTHESES, verbatim from the file):
+- RULE: these are EVIDENCE, not a verdict. No boundary is set by a count alone; translation punctuation and editorial headings never drive one (E-23).
+- RULE: a refrain CLOSES a unit, so a doxology or recognition refrain belongs to the unit BEFORE it.
+- RULE: a seam is assessed from BOTH sides; an onset-only diagnosis is incomplete until the adjacent unit's close is weighed from bytes.
+- RULE: this inventory is on the MT face; assert the face before comparing, and cite zone refs on both faces.
+- HYPOTHESIS to test: the regnal datelines mark major onsets; weigh each against the close of the unit before it, and weigh a dateline inside direct speech separately.
+- HYPOTHESIS to test: the Aramaic doxologies (everlasting dominion / kingdom, generation to generation, blessed, the recognition refrain) close court-tale units rather than open them.
+- HYPOTHESIS to test: 'I was seeing' and 'behold' step scenes WITHIN a vision rather than open units.
+- HYPOTHESIS to test: the language switches (MT 2:4 word 5; MT 8:1 word 1) are not by themselves unit boundaries: the first falls inside a verse.
+- HYPOTHESIS to test: 'then', 'answered and said' and 'because of this' are narrative connectives, weak as boundary signals because of their frequency.
+
+---
+
+## Reconciled strategy (`../book_strategy_Dan.md` + `../strategy_plan_Dan.json`)
+
+The plan is machine-readable and checked by `../_validate_strategy_dan.py`. The tables below are generated
+from the plan. Where they and the plan differ, the plan is the contract.
+
+| parent | WEB span | verses | title |
+|---|---|---|---|
+| PA | 1:1-1:21 | 21 | The youths at the Babylonian court |
+| PB | 2:1-2:49 | 49 | The king's dream and its interpretation |
+| PC | 3:1-3:30 | 30 | The image of gold and the furnace |
+| PD | 4:1-4:37 | 37 | Nebuchadnezzar's encyclical: the tree dream and the king's humbling |
+| PE | 5:1-5:30 | 30 | Belshazzar's feast and the writing on the wall |
+| PF | 5:31-6:28 | 29 | Darius and the lions' den |
+| PG | 7:1-7:28 | 28 | The four beasts and the one like a son of man |
+| PH | 8:1-8:27 | 27 | The ram and the goat |
+| PI | 9:1-9:27 | 27 | Daniel's prayer and the seventy weeks |
+| PJ | 10:1-12:13 | 79 | The last vision: the messenger, the survey and the epilogue |
+
+| part | WEB span | MT dual | verses | parents | internal parent seams |
+|---|---|---|---|---|---|
+| W1 | 1:1-2:49 |  | 70 | PA, PB | 1:21/2:1 |
+| W2 | 3:1-4:37 | `oshb:Dan.3.1-oshb:Dan.4.34` | 67 | PC, PD | 3:30/4:1 |
+| W3 | 5:1-6:28 | `oshb:Dan.5.1-oshb:Dan.6.29` | 59 | PE, PF | 5:30/5:31 |
+| W4 | 7:1-8:27 |  | 55 | PG, PH | 7:28/8:1 |
+| W5 | 9:1-9:27 |  | 27 | PI |  |
+| W6 | 10:1-12:13 |  | 79 | PJ |  |
+
+**Scrutiny targets** (8; the disposition is the plan's):
+- **2:4a/2:4b language switch (Aramaic morph labels 2:4b-7:28)** (§3). Disclosure object, never a seam: the row covering 2:4 carries language 'mixed' and states the word-level switch; row edge near it rests on dialogue turns (§7 region a).
+- **3:23/3:24 Greek-addition insertion point** (§4). Metadata only: the Greek insertion point is disclosed; the coincident PE after MT 3:23 is single-witness and never tied to the Greek; any row edge there rests on the Aramaic text alone (§7 region c).
+- **MT 3:31-33 = WEB 4:1-3 and MT 6:1 = WEB 5:31 numbering zones** (§3). Both zone seams adopted as parent seams at 3:30/4:1 and 5:30/5:31 on the WEB face, argued from the text (§5 notes); every zone ref carries its MT dual; rivals listed for Fable (§7 regions d, e).
+- **4 first-person encyclical frame (4:1-3, 34-37) around third-person 4:19-33** (§7). Frame and inclusio extracted from the device inventory's formula pairs; person shift is texture (D6); rows weighed at WEB 4:18/4:19 (MT 4:15/4:16), WEB 4:28/4:29 (MT 4:25/4:26) and WEB 4:33/4:34 (MT 4:30/4:31); expected medium_low (region f).
+- **7:1-14 / 7:15-28 vision-interpretation seam** (§7). One parent (PG); row turn weighed at 7:14/7:15 from both sides; vision vocabulary inside 7:19-22 does not reopen the vision (region g).
+- **9:4-19 prayer / 9:20-27 seventy weeks** (§7). One parent (PI); 9:19/9:20 and 9:23/9:24 are soft row seams with no mark; no cut inside 9:24-27 without both-side evidence (region i, §6 guard c).
+- **11:2-12:4 continuous survey** (§6). Over-split guard: no boundary from historical identification of kings; discourse signals only; expected medium_low interior edges (§6 guard b, §7 region k).
+- **12:5-13 epilogue numbers** (§7). Inside parent PJ; 12:4/12:5 is a row-level scene step (D5); day counts are texture; expected medium_low (region l).
+
+The plan queues 13 questions for Fable's end review, and the device inventory lists 5 in its own `for_fable_end_review`.
+
+---
+
+## Data files (consume directly)
+
+| file | what it is |
+|---|---|
+| `../Dan_oshb.txt` | MT text, `ref\ttext`, 357 lines, NFC. **No maqaf, no paseq, no sof-pasuq, no morpheme `/`, no U+05C4/U+05C5** (each counts 0). The seg layer lives in `../pmarks_Dan.json`, not here. |
+| `../Dan_web.usfm` | the WEB member verbatim (sha256 `b5a967ca...`, recorded in the stage report) |
+| `../Dan_web_clean.txt` | WEB extract, 587 lines. By prefix: 12 `===== DAN N =====` banners, 357 `[v] N` verse lines (one per verse), `¶` paragraph lines (129 bare and 5 carrying text), continuation lines that open with a space, a vertical bar and a USFM marker: b 1; m 3 (2 empty); pi1 25 (19 empty); q1 19 (8 empty); q2 24 (the b line reads `(blank poetry line)`), and 12 blank lines. The classes sum to the line count. `[fn]` marks 10 note sites. |
+| `../dan_device_inventory.json` | the device spine above (MT face), with verse lists and the citation-sweep constants |
+| `../dan_language_zones.json` | word-level language runs, the mixed verse and per-verse language, EXTRACTED from the OSHB morph codes |
+| `../dan_stage_report.json` | source paths and digests (OSHB XML, WEB member) and the staging counts |
+| `../pmarks_Dan.json` | parashah, paseq, K/Q, KJV variance, editorial notes, seg totals and the morph tally (MT-keyed) |
+| `../strategy_plan_Dan.json` | the machine-readable strategy plan, checked by `../_validate_strategy_dan.py` |
+| `../verse_inventory.json` | per-chapter WEB counts, total 357 (WEB face) |
+| `../web_mt_offset_map.json` | the crosswalk, the Tier-0 rule, `zone_pairs` (8) and `kjv_variance_crosscheck` (66/66, 0 disagreements); verification GREEN |
+| `../web_mt_verse_check.json` | per-chapter counts in both witnesses; divergent = [3, 4, 5, 6] |
+| `../book_strategy_Dan.md` | the reconciled book strategy |
+
+## Staged tools (Tier-0, m8-mesh-r3)
+
+The tools were ported from Ezekiel's by `_adapt_tools_dan.py` (spec `_adapt_tools_dan_spec.py`), then amended
+in Phase 0. Run them with `PYTHONIOENCODING=utf-8 python <tool> ...` from this directory. **The variable is not
+optional:** the tools print Hebrew and Aramaic, which the default Windows console codec cannot encode.
+
+| tool | contract |
+|---|---|
+| `run_validator_suite.py rows.jsonl` | runs every member and writes `<rows>.validator_report.json` BESIDE ITS INPUT, so run it only on rows in your own scratch. HARD members: citation_sweep, the normalizer (E-01), ngram7, cap_sweep (E-02), role_tokens and placeholders (S1-02, 2026-09-30). Any member whose status is ERROR (a crash, or output that is not one JSON object) is also HARD and is listed in `summary.dead_members` (K2 D1, 2026-09-29). `--reviews f1.json ...` adds files for the normalizer, web_quotes, universals and language_zones; the suite runs the normalizer once per file and sums its counts (K2 D2) |
+| `citation_sweep.py` | `boundary_evidence_refs` grammar and ranges (both ends checked; `Dan.N.0` invalid; a bare single-verse ref is accepted); a row `span` gets a FORM check only (full `Dan.a.b-Dan.c.d`, a single verse written X-X), no range check; dual and qualifier arithmetic via the crosswalk; the offset-zone disclosure rule; cross-tradition refs; a Qere bound to the verse it is cited at; puncta claims (every positive claim RED in Dan); dateline and calendar-date claims (MT 10:4) |
+| `normalize_hebrew_in_json.py [--write] file.json` | every maximal Hebrew or Aramaic run of 2+ characters must be a byte-identical substring of `../Dan_oshb.txt` on word boundaries, or a Qere of the K/Q layer (book-wide, not bound to a verse); an unpointed run is accepted as a form mention when its skeleton occurs in the source or among the K/Q forms; an NFD-only match is counted fixed, which the suite treats as HARD (E-01); only with `--write` (the default is a dry run) is each input file then rewritten IN PLACE with the source bytes, re-serialised (jsonl one row per line, json indent=1), so pass `--write` only on scratch copies; an NFD-only Qere match stays a defect |
+| `check_marks.py` | selah, special-letter and puncta claims (all fabrications in Dan); pe/samekh claims naming a verse in their own clause must match the inventory under the correct mark type, checked under both the MT and the crosswalk-mapped reading |
+| `check_language_zones.py` | five arms: an Aramaic label on a Hebrew verse, a Hebrew label on an Aramaic verse, island disclosure for rows covering 2:4-7:28, the 2:4 mid-verse switch disclosure (a row starting or ending at 2:4 must carry a half token), and the half of any quoted MT 2:4 words |
+| `check_role_tokens.py` | role-token qualifiers verified against verse and span. There is no `role_tokens_phase.json` in Dan/tools, so it runs STRICT (post); the suite's comment naming that file describes a file Daniel does not have. It REFUSES a file with zero refs entries (E-36), which is intended |
+| `check_brief_vs_suite.py <brief>` | does the author brief carry a duty for every check the suite will measure it by? It writes `Dan/tools/brief_vs_suite.v1.json`, overwriting it pass or fail, for any brief anywhere under SP/Dan (lane briefs included) and for a run with no argument, which defaults to `Dan/AUTHOR_WAVE_BRIEF.v1.md` (E-67); a foreign brief is reported and not written; `--selftest` proves both |
+| `check_placeholders.py` | HARD (controlling ruling S1-02, 2026-09-30): walks every string value at any depth of every row, all fields (boundary_evidence_refs and parent_collection included), and is RED on any match of the CWO-DAN-01 predicate, an unfilled template placeholder such as `%s`, `%(x)s`, `{name}`, `{0}` or `{}`; `50%` and `{ a b }` pass. It reports rows scanned, strings scanned and hits by row and field; `--selftest` runs the ruling's fixtures |
+| `ngram7.py` | HARD: a 7-gram of authored prose shared by 10 or more rows is RED (WEB 7-grams, Hebrew runs, curly-quoted quotations and citation apparatus excluded). Narrowing (controlling ruling S1-07, 2026-09-30), stated in words: ngram7.py removes, before tokenizing, each whole-identifier occurrence of an exact underscore-bearing device-class key of dan_device_inventory.json (every key of "formulae" that contains "_", plus year_word_but_not_a_dateline, calendar_dates_not_datelines, month_or_day_word_not_a_date, month_or_day_substring_artifacts; 72 keys), matched case-sensitively with (?<![A-Za-z0-9_]) and (?![A-Za-z0-9_]) boundaries, and replaces it with a SEGMENT BREAK so that no 7-gram bridges a removed key. The key set is read from the inventory at run time; a missing named key makes the member ERROR (HARD). A generic snake_case strip is rejected. `--no-key-strip` and `--dump-grams` exist for fixtures only |
+| `cap_sweep.py` | a row whose span is exactly one whole WEB chapter must carry confidence medium_low or low, `frontier_flag_considered` true, and a cap disclosure in its own prose; any failure is RED (E-02) |
+| `build_verse_maps.py` | built `verse_map_web.json`, `verse_map_oshb.json` and `consonantal_index.json` in Dan/tools once at staging; every run overwrites all three there unconditionally (no output-directory option), so never run it in SP. A scratch rebuild on 2026-09-28 was byte-identical (`ee286bc3ffe9`, `10d0d143486b`, `a75f05ac410c`), so it is not re-run |
+| `dan_lib.py` | the shared library; `python dan_lib.py` runs its selftest |
+| `_toolkit_selfcheck.py` | checks the Phase 0 artifacts against their bytes and one another, and the 15 TOOLKIT_PINS of this file plus the existence of its MT/oshb/web refs (most figures here carry no pin); `--artifacts-only` skips all of those toolkit checks |
+| `_test_zone_tools_dan.py`, `_test_language_zones_dan.py` | fixture tests for the Daniel arms; each writes only to a temporary directory |
+
+The other members (`check_web_quotes.py`, `check_refs_mirror.py`, `check_universals.py`, `check_register.py`,
+`check_tiling.py`, `collate.py`, `sweep.py`, `check_atomic_isolation.py`, `_punct_boundary_sweep.py`)
+state their contracts in their own docstrings. Where this table and a tool's code differ, the code is the contract
+and this table is the defect.
+
+## Encoding + skeleton notes (READ before quoting Hebrew or Aramaic)
+
+- The staged MT text is **NFC**. Match on a **consonantal skeleton** when a form differs only in vocalisation;
+  matching pointed text silently misses forms. A review script that reads Hebrew imports `dan_lib.skeleton` (E-66).
+- **The extract carries no maqaf** (646 maqqef segs in the XML, 0 in `../Dan_oshb.txt`). Its whitespace tokens number 5,919,
+  equal to the 5,919 main-text words, so maqaf-joined words stand space-separated here. A pattern written with maqaf matches nothing.
+- **`dan_lib.skeleton()` DELETES U+05BE.** Its docstring says "maqaf becomes SPACE", but measured on 2026-09-28,
+  alef + maqaf + bet returns alef + bet with no space. The docstring is wrong. This is the same debt recorded for
+  Ezekiel's library as T5-07. Write words space-separated, as the extract does.
+- **The island's Aramaic is written in the same square script.** A language label comes from the morph codes
+  (`../dan_language_zones.json`), never from the script.
+- **No morphology layer in the staged extract.** Morph codes live in the XML; the pmarks tally is a count, not a
+  per-token layer you can query here.
+
+## Standing rules (campaign governance)
+
+- **No M7, comparison data, A/B lanes, or mixed-lane context, ever.** Re-derive every decision from the M8 witnesses.
+- **Tier-4 metadata never drives a boundary** (E-23): translation punctuation, editorial headings, paragraphing.
+- **Corpus-wide orders execute as their OWN sweep** (E-18), never folded per-row, with the narrowed-predicate
+  label stamped in every report.
+- **E-19 exact-path law**: no directory listings and no globs; open what your brief names, by exact path. Say so
+  affirmatively in your report.
+- **Single review is banned (OW-19)**: two blind lanes are the floor, and a same-family third lane is one voice.
+- **A cure is not cured because its author says so (OW-10)**: verification results must be bound to the exact
+  resulting artifact (`artifact_sha256_at_run` = the shipped digest) plus a distinct-checker review. Enforced by
+  `SP/campaign/_cure_verification.py`.
+- **Every attempt records under its EXECUTION id** (`<attempt_id>#e<N>`), with layers A/B/C kept separate and never
+  merged (OW-7/OW-8/OW-10; `SP/campaign/CAPTURE_CONTRACT.v3.md`).
+- **E-62**: every launch message is a file that `SP/campaign/_launch_message_check.py` MATCHes before launch.
+- **E-65**: no Ezekiel figure in a Daniel artifact; `_toolkit_selfcheck.py` runs a FLOOR for it (Ezekiel JSON integers of 100 or more that appear in no Daniel JSON, searched in top-level Dan JSON strings, Dan and Dan/tools Python string constants, and this file); every other case stays a review-lane duty.
+- **E-67**: read a tool's write sites before smoke-running it in SP. Run tools on foreign inputs only from scratch
+  copies, and re-run every gate that scans a directory after placing a file into it.
+- **Absence must be proven, not assumed.** Every "NONE" in the fabrication list above was byte-swept. If you need a
+  new absence claim, sweep for it and cite the sweep.

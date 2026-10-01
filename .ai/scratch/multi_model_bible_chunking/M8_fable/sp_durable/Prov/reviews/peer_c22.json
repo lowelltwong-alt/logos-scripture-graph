@@ -1,0 +1,111 @@
+{
+ "attempt_id": "peer_c22_r1",
+ "role": "peer",
+ "clusters": [
+  "c22"
+ ],
+ "rulings": [
+  {
+   "cluster": "c22",
+   "row_id": "P10-007",
+   "source": "LF",
+   "challenge_claim": "Two Hebrew quotes are glossed with a span wider than the word(s) actually quoted (23:1's protasis-opener glossed with the full clause's sense; 23:3's object noun glossed with the two-word phrase's sense).",
+   "ruling": "uphold",
+   "grounds": "byte tier (verse_map_oshb.json, programmatic substring match, not retyped): row P10-007 quotes 'כִּֽי תֵ֭שֵׁב' (oshb:Prov.23.1, 2 tokens: 'when/that'+'you-sit') but glosses it 'when you sit to eat with a ruler', which is the sense of the 5-token clause 'כִּֽי תֵ֭שֵׁב לִלְח֣וֹם אֶת מוֹשֵׁ֑ל'. It also quotes only 'כְּזָבִֽים' (oshb:Prov.23.3, 1 token: 'lies/deceptions') but glosses it 'deceptive food', the sense of the 2-token phrase 'לֶ֣חֶם כְּזָבִֽים'. Both mismatches confirmed by direct token-count comparison against the source verse text. The row's span/seam argument (protasis at 23:1, prohibition-plus-motive at 23:3, PE at Prov.22.29 per pmarks_Prov.json marks) is untouched.",
+   "remedy": "Quote/gloss parity class fix (applies uniformly across P10-007/P10-009/P10-010, all class-matched): for each flagged pair, either (a) narrow the gloss to only the quoted token(s)' literal sense, or (b) widen the quote to the full glossed clause. Field: rationale (device_notes if the gloss recurs there). Test: re-run collate.py --json on the row's revised {ref, quote} pairs (byte tier required) AND confirm token-count(quote) is consistent with the gloss's semantic scope -- the mismatch this challenge caught.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-009",
+   "source": "LF",
+   "challenge_claim": "Two Hebrew quotes in P10-009 are glossed with a span wider than the word(s) actually quoted (23:6's prohibition-opener, 23:7's motive-clause opener).",
+   "ruling": "uphold",
+   "grounds": "byte tier, programmatic substring match: row P10-009 quotes 'אַל תִּלְחַ֗ם' (oshb:Prov.23.6, 2 tokens) glossed 'do not eat the bread of a stingy-eyed man', the sense of the 6-token clause 'אַל תִּלְחַ֗ם אֶת לֶ֭חֶם רַ֣ע עָ֑יִן'. It also quotes 'כִּ֤י' (oshb:Prov.23.7, 1 token: 'for') glossed 'for as he reckons the cost, so he is', the sense of the 6-token clause 'כִּ֤י כְּמוֹ שָׁעַ֥ר בְּנַפְשׁ֗וֹ כֶּ֫ן ה֥וּא'. Both confirmed. Same class of defect as P10-007. The row's own span reasoning (return to a table scene, ketiv/qere at 23:6 per pmarks kq['Prov.23.6']=1, distinct hosts vs 23:1-3) is untouched.",
+   "remedy": "Same class-level cure as P10-007 (quote/gloss parity): narrow gloss or widen quote for both pairs. Test: collate.py --json byte tier + token-count(quote) vs gloss-scope check.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-009",
+   "source": "OL",
+   "challenge_claim": "The row discloses the neighboring PE (23:5) and its own K/Q (23:6) but leaves an in-span paseq at 23:7 undisclosed, a disclosure-symmetry gap (explicitly WARN-tier, count-only).",
+   "ruling": "uphold",
+   "grounds": "pmarks_Prov.json paseq inventory confirms Prov.23.7 = count 1 (re-checked directly against the loaded inventory dict, not re-derived by inference), a seg falling inside P10-009's own Prov.23.6-Prov.23.8 span. The row's boundary_evidence_refs cite the PE at 23:5 and the K/Q at 23:6 but no paseq object at 23:7. Per campaign standing rule ('symmetry completion is a sweep, not a spot fix -- for parashah marks and every other disclosure object'), this is a real completeness gap. Weighed per brief guidance: paseq is explicitly WARN-tier and count-only in this campaign (TOOLKIT.md: 'intra-verse position claims are unsourceable') -- it never drives or defeats a span/classification call, so this stays a disclosure-only defect, not a boundary challenge. DISTINCT from LF's P10-009 challenge on this same row (that one is a quote/gloss parity defect at 23:6/23:7; this one is a disclosure-inventory symmetry gap at 23:7) -- both upheld, not duplicative.",
+   "remedy": "Add the paseq disclosure for Prov.23.7 (count=1, single-witness, WARN-tier) to the row's boundary_evidence_refs or device_notes. Field: boundary_evidence_refs / device_notes. Does not touch span or unit_type. Test: check_marks.py span-relevant mark-disclosure symmetry pass on the revised row.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-010",
+   "source": "LF",
+   "challenge_claim": "The verse's second Hebrew quote ('for') is glossed with a span wider than the word actually quoted; the first quote is correctly same-span.",
+   "ruling": "uphold",
+   "grounds": "byte tier: row P10-010 quotes 'כִּֽי' (oshb:Prov.23.9, 1 token: 'for') glossed 'for he will despise the wisdom of your words', the sense of the 4-token clause 'כִּֽי יָ֝ב֗וּז לְשֵׂ֣כֶל מִלֶּֽיךָ'. Confirmed mismatch, same class as P10-007/P10-009. The row's first quote ('בְּאָזְנֵ֣י כְ֭סִיל אַל תְּדַבֵּ֑ר', glossed 'do not speak in a fool's ears') is confirmed same-span (4 tokens, matching gloss scope) -- LF's own self-limitation to the second quote is accurate, not overclaimed.",
+   "remedy": "Same class-level cure (quote/gloss parity): narrow gloss to 'for' or widen quote to the full motive clause. Test: collate.py --json byte tier + token-count(quote) vs gloss-scope check.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-010",
+   "source": "OL",
+   "challenge_claim": "The row's device_notes claim that 'no vocative or catchword ties it to its neighbors' is mechanically false: a shared 3-letter root links 23:8's closing word to 23:9's own prohibition verb.",
+   "ruling": "refine",
+   "grounds": "skeleton tier (consonantal_index.json, direct load, not re-derived by hand): Prov.23.8 skeleton contains 'דְּבָרֶ֥יךָ' -> skeleton token 'דבריך'; Prov.23.9 skeleton contains 'תְּדַבֵּ֑ר' -> skeleton token 'תדבר'. Both carry the contiguous 3-letter root דבר; neither letter (ד/ב/ר) has a final form, so no allography risk. Re-ran sweep.py --skel on the exact root (query written to a file via codepoint escapes, never shell-typed, to respect the SHELL-TRANSIT HAZARD for anything with diacritics -- though skeleton-tier plain consonants carry none): result count.skeleton = 45/915 verses, matching OL's cited digit exactly. The row's device_notes absolute claim is therefore falsified at the byte/skeleton tier -- OL's core finding is UPHELD. REFINING SEVERITY DOWN from medium to low: OL's own evidence shows this is a moderately common root (45/915 = ~1 in 20 verses), well inside the book's baseline catchword-adjacency noise floor (TOOLKIT.md: pair-sharing is 'weak everywhere in 10-29', 0-11/32 pairs per chapter) rather than a rare, semantically-loaded link; OL itself confirms it does not argue for merging 23:8-9 (different addressees/topics) and the row's span/classification is untouched. This is a prose-overclaim defect (an uncited universal claim, the exact class check_universals.py targets), not a boundary-relevant catchword on the order of the מוסר repeat found at the P10-012/P10-013 seam in this same cluster (see those rulings) -- that one IS rare, on-topic, and boundary-relevant, warranting its medium rating; this one does not.",
+   "remedy": "Drop or hedge the absolute 'no vocative or catchword' claim in device_notes -- replace with a scoped disclosure (e.g., 'no vocative ties it to its neighbors; a common דבר root (45/915 verses) links 23:8's close to 23:9's verb but is texture, not a boundary driver') OR remove the clause if not load-bearing. Field: device_notes. Test: check_universals.py must not flag the revised sentence (no un-cited absolute claim), and any retained catchword mention must carry the digit-bearing sweep count.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-011",
+   "source": "OL",
+   "challenge_claim": "The row's rejected_alternative states 22:28 and 23:10 'sit four verses apart,' but a mechanical verse-index count shows 10 intervening verses (11-position gap).",
+   "ruling": "refine",
+   "grounds": "byte-derived verse-order index (verse_map_oshb.json key order, the same ordering the staging pipeline uses): position(Prov.22.28)=642, position(Prov.23.10)=653, gap=11 positions, with 10 verses strictly between (Prov.22.29, Prov.23.1-Prov.23.9). OL's cited digits (10 intervening / 11-position gap) are exact. The row's 'four verses apart' is wrong by a wide margin -- UPHELD as a real digit-bearing defect. REFINING SEVERITY DOWN from medium to low: the underlying restatement-not-continuation argument is not overturned -- the byte-identical repeated clause 'אַל תַּ֭סֵּג גְּב֣וּל עוֹלָ֑ם' (Prov.22.28) vs 'אַל תַּ֭סֵּג גְּב֣וּל עוֹלָ֑ם' (Prov.23.10) still holds at the byte tier, and a LARGER true gap (11 positions vs the stated 4) makes the row's own restatement-not-continuation reading MORE plausible, not less -- correcting the digit strengthens rather than weakens the row's conclusion. This is a pure prose-accuracy defect with zero span/classification impact, unlike the P10-012/P10-013 catchword finding, which does bear on classification.",
+   "remedy": "Correct the digit in rejected_alternative from 'four verses apart' to the byte-derived figure (10 intervening verses / 11-position gap between Prov.22.28 and Prov.23.10). Field: rejected_alternative. Test: re-run a verse-order index count (as done here) against verse_map_oshb.json/verse_map_web.json before publishing any positional digit claim -- the test this challenge applied.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-012",
+   "source": "LF",
+   "challenge_claim": "Isolating Prov.23.12 as a standalone attention-formula verse is undercut by a stronger catchword rival than the row credits, and by the row's own analogy to 22:17/23:19.",
+   "ruling": "uphold",
+   "grounds": "skeleton tier (consonantal_index.json): Prov.23.12 skeleton ends '...למוסר לבך...' and Prov.23.13 skeleton opens '...מנער מוסר...' -- word-adjacent repetition of the מוסר root straddling P10-012's own right seam ('לַמּוּסָ֣ר' / 'מוּסָ֑ר'), confirmed at byte tier from the source verse text. Cross-checked the row's own comparanda against the writer's own row set (draft_rows_combined.jsonl, same part P10): P10-001 spans Prov.22.17-Prov.22.21 (unit_type admonition_unit) and P10-016 spans Prov.23.19-Prov.23.21 (admonition_unit) -- i.e. BOTH of P10-012's comparanda (22:17, 23:19) are, in this writer's own decisions, opening verses of multi-verse admonition_units, not isolated attention-formula verses. P10-012's device_notes and boundary_evidence_refs cite them as bare single verses ('web:Prov.22.17-Prov.22.17', 'web:Prov.23.19-Prov.23.19'), which misrepresents their own structural role. LF's challenge is confirmed on both grounds: (1) the rejected_alternative dismisses the shared root as merely 'one repeated root' without weighing the word-adjacency; (2) the row's own analogy, corrected, argues the opposite of what the row concludes -- if 22:17 and 23:19 are attention-formulas that open larger units elsewhere in this same writer's output, the parallel case argues 23:12 more plausibly opens one too. This is C3 (admonition_unit ~2-4vv per §6), not C2, so no C2-evidence-bar dispute; this is an ordinary defect call, not escalation-worthy.",
+   "remedy": "(a) Disclosure/analogy fix -- correct or drop the 22:17/23:19 comparison in device_notes since both are unit-openers, not isolated verses, in this writer's own data; if the comparison is kept, state that correctly. (b) BOUNDARY PROPOSAL, NOT SELF-AUTHORIZED -- flag for the author wave / boss: given the word-adjacent מוסר catchword at this row's own seam plus the corrected analogy, re-argue whether Prov.23.12-Prov.23.14 should be one admonition_unit (general call-to-attention + specific application) against the atomic default; any merge requires explicit boss adoption. If the boss keeps the rows split, rejected_alternative must be upgraded to name the corrected finding, not just 'one repeated root'. Field: device_notes, rejected_alternative, boundary_evidence_refs (+ span/unit_type only on boss adoption). Test: re-run the comparanda check against the writer's own row spans (P10-001, P10-016) before citing 22:17/23:19 as isolated-verse parallels -- the check that caught this.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c22",
+   "row_id": "P10-013",
+   "source": "LF",
+   "challenge_claim": "The row's own left seam carries an undisclosed catchword tie to Prov.23.12, and the rejected_alternative answers a weaker rival than that one.",
+   "ruling": "uphold",
+   "grounds": "Same byte-confirmed מוסר word-adjacency as the P10-012 finding above ('לַמּוּסָ֣ר' closing Prov.23.12 / 'מוּסָ֑ר' as P10-013's own 4th token) -- CLASS-LEVEL MATCH, same underlying seam device viewed from the other row. Checked P10-013's boundary_evidence_refs directly: ['web:Prov.23.13-Prov.23.14','oshb:Prov.23.13','oshb:Prov.23.14'] -- no reference to Prov.23.12 anywhere, and no mention of the shared root in the row's rationale. Per campaign standing rule ('a byte-true device straddling the row's own seam argues continuity against the row unless disclosed'), this is a genuine disclosure gap on P10-013's own side (P10-012 at least names the root, even if it under-weighs it; P10-013 says nothing). The row's rejected_alternative only answers 'splitting Prov.23.14 off as its own single_proverb' -- confirmed by direct read of the field -- and never addresses extending left to 23:12, the stronger rival LF names.",
+   "remedy": "CLASS-LEVEL CURE, shared with P10-012 (same seam, one edit covers both sides): disclose the מוסר tie to Prov.23.12 in P10-013's own boundary_evidence_refs/rationale regardless of the eventual span decision; rejected_alternative must additionally answer the stronger rival (extend left to include 23:12) not only the weaker one (split 23:14 off). If the boss adopts a Prov.23.12-Prov.23.14 merge (see P10-012 remedy), this row is absorbed and the remedy is moot; if not, both P10-012 and P10-013 must carry symmetric disclosure of the shared root. Field: boundary_evidence_refs, rationale, rejected_alternative. Test: check_refs_mirror.py / cross-seam symmetry check on both P10-012 and P10-013 after the cure -- the device must be disclosed on BOTH sides of the seam, not just one.",
+   "severity_final": "medium"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P10-008",
+   "claim_checked": "Ketiv/qere pair at both verbs of Prov.23.5 (count=2) and a closing petuchah/pe seg, as disclosed identically by both LF and OL.",
+   "result": "verified",
+   "notes": "pmarks_Prov.json inventory (direct load): kq['Prov.23.5']=2, marks['Prov.23.5']=['PE'] -- both counts match the row's and both primaries' disclosures exactly. Independently re-checked (not re-derived from the packets): inventory tier confirms both objects."
+  },
+  {
+   "row_id": "P10-014",
+   "claim_checked": "The bni-vocative occurrences bracketing this row's span sit at exactly Prov.23.15 and Prov.23.19, with none in Prov.23.16-Prov.23.18.",
+   "result": "verified",
+   "notes": "prov_device_inventory.json bni_address.refs (22 total, direct load): contains Prov.23.15 and Prov.23.19; Prov.23.16, Prov.23.17, Prov.23.18 are absent from the list. Confirms both LF's and OL's shared claim at the inventory tier, independently re-checked."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 8,
+  "uphold": 6,
+  "refine": 2,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

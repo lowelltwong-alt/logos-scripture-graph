@@ -1,0 +1,85 @@
+{
+ "cluster": "c34",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c34_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-226",
+   "row_sha256": "02739e8f1c9c32ccbade9da7ce951006abe3294b5d6e51bcebfb12638c0cfc21",
+   "verdict": "support",
+   "reasoning": "Re-derived the title and person-shift claims rather than trusting the row. MT title (oshb:Ps.75.1) reads לַמְנַצֵּ֥חַ אַל תַּשְׁחֵ֑ת מִזְמ֖וֹר לְאָסָ֣ף שִֽׁיר, confirming all five genre labels the row's device_notes lists (lamnatseach, al-tashcheth, mizmor, le-Asaph, shir) against psalm_device_inventory.json's superscriptions entry for 75 (five labels, no omission -- contrast the Ps 76 sibling row in this same cluster, challenged separately). Ps 75 is confirmed shift+1 (title = MT v1) via web_mt_offset_map.json, so web:Ps.75.1 = oshb:Ps.75.2 resolves correctly across 11 MT verses / 10 WEB counted verses. The 1cp opening (ה֘וֹדִ֤ינוּ לְּךָ֨ אֱֽלֹהִ֗ים ה֭וֹדִינוּ וְקָר֣וֹב שְׁמֶ֑ךָ סִ֝פְּר֗וּ נִפְלְאוֹתֶֽיךָ) versus the 1cs shift at oshb:Ps.75.3 (כִּ֭י אֶקַּ֣ח מוֹעֵ֑ד אֲ֝נִ֗י מֵישָׁרִ֥ים אֶשְׁפֹּֽט) collates at byte tier exactly where cited. The single-verse granularity is narrower than the ~4-8 vv strophe norm, but it is tier-1 supported: the person shift doubles as a speech-frame boundary, since v.5's quotative אמרתי (oshb:Ps.75.5, אָמַ֣רְתִּי לַֽ֭הוֹלְלִים אַל תָּהֹ֑לּוּ וְ֝לָרְשָׁעִ֗ים אַל תָּרִ֥ימוּ קָֽרֶן) retroactively marks vv.2-3 as reported divine speech distinct from the congregation's voice in v.1. I could not construct a stronger rival tier-1 seam. check_refs_mirror.py and check_tiling.py both confirm compliant coverage for the cluster.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-227",
+   "row_sha256": "a1fb12c31271b87c6cb7dc64bb04f8363bf7eff6f69348c37a82238029d78b35",
+   "verdict": "challenge",
+   "reasoning": "Re-derived every claim rather than trusting the row. The oracle's first-person markers collate at byte tier: oshb:Ps.75.3 opens כִּ֭י אֶקַּ֣ח מוֹעֵ֑ד אֲ֝נִ֗י מֵישָׁרִ֥ים אֶשְׁפֹּֽט (אני, \"I\"), oshb:Ps.75.4 continues נְֽמֹגִ֗ים אֶ֥רֶץ וְכָל יֹשְׁבֶ֑יהָ אָנֹכִ֨י תִכַּ֖נְתִּי עַמּוּדֶ֣יהָ סֶּֽלָה (אנכי, \"I,\" closing on Selah), and oshb:Ps.75.5 opens the quotative frame אָמַ֣רְתִּי לַֽ֭הוֹלְלִים אַל תָּהֹ֑לּוּ וְ֝לָרְשָׁעִ֗ים אַל תָּרִ֥ימוּ קָֽרֶן (אמרתי, \"I said\"). pmarks_Ps.json confirms exactly one selah in Psalm 75, at oshb:Ps.75.4 -- matching the row's own count note and nowhere else in the psalm. The WEB quotations (“The earth and all its inhabitants quake. I firmly hold its pillars. Selah.”, “Don’t boast!”, “Don’t speak with a stiff neck.”) are verbatim against verse_map_web.json. The quotative frame closing the direct speech at v.5, with the rear-seam dual-cite to oshb:Ps.75.7 (confirmed third-person: כִּ֤י לֹ֣א מִ֭מּוֹצָא וּמִֽמַּעֲרָ֑ב וְ֝לֹ֗א מִמִּדְבַּ֥ר הָרִֽים), is a legitimate tier-1 speech-frame seam on both ends. I support the span and its warrant. One evidence-hygiene defect, mechanically confirmed by check_web_quotes.py: the rejected_alternative field quotes WEB text in curly quotes with no web: ref co-located in that field, which the toolkit's OL-c13/OL-c20 convention requires at every layer. This does not undermine the boundary decision.",
+   "challenges": [
+    {
+     "challenge_id": "LF-227-1",
+     "severity": "low",
+     "claim": "rejected_alternative quotes WEB text in curly quotes (\"I said to the arrogant\") with no web: ref co-located in that field, violating the mandatory curly-quote-plus-ref rule.",
+     "evidence": "check_web_quotes.py flags row M8-Ps-227.rejected_alternative: curly-quoted “I said to the arrogant” has no web: ref in the same field. The actual WEB span (web:Ps.75.4) reads 'I said to the arrogant, “Don’t boast!” I said to the wicked, “Don’t lift up the horn.' per verse_map_web.json -- the missing inline ref is the defect, not the wording; the row's own M8-Ps-226 sibling correctly uses straight quotes for bare-word glosses lacking a co-located ref, showing the convention is otherwise followed by this writer."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-228",
+   "row_sha256": "73546885adf79f6f2ebb72a2de645573d707ed32f3d29234e4c6d2322391b0e3",
+   "verdict": "support",
+   "reasoning": "Re-derived the reflection/judgment unit. oshb:Ps.75.7 opens כִּ֤י לֹ֣א מִ֭מּוֹצָא וּמִֽמַּעֲרָ֑ב וְ֝לֹ֗א מִמִּדְבַּ֥ר הָרִֽים (third person, no first-person marker), oshb:Ps.75.9 (this unit's closing verse) reads כִּ֤י כ֪וֹס בְּֽיַד יְהוָ֡ה וְיַ֤יִן חָמַ֨ר מָ֥לֵא מֶסֶךְ֮ וַיַּגֵּ֪ר מִ֫זֶּ֥ה אַךְ שְׁ֭מָרֶיהָ יִמְצ֣וּ יִשְׁתּ֑וּ כֹּ֝֗ל רִשְׁעֵי אָֽרֶץ (the cup-of-judgment image, still third-person narrative), and oshb:Ps.75.10 (the next verse) reopens with the fronted ואני (\"but I\"), confirming the row's claimed return to first-person singular exactly at the rear seam. The WEB quotations (“For neither from the east, nor from the west, nor yet from the south, comes exaltation.”, “For in Yahweh’s hand there is a cup...its very dregs.”) are byte-verbatim against verse_map_web.json. The row's citation of the oracle unit's range (web:Ps.75.2-Ps.75.5) in boundary_evidence_refs is a legitimate backward pointer, not a Hebrew-bearing citation requiring its own dual-cite arithmetic; citation_sweep.py returns 0 problems for the file. No rival seam is stronger than the one drawn: a third-person reflection unit bounded on both sides by first-person material. Support.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-229",
+   "row_sha256": "7580004e7c49ea5a1e08daa87446615e944838cee04d75555967239d1e14cfe7",
+   "verdict": "support",
+   "reasoning": "Re-derived the closing vow. oshb:Ps.75.10 opens with the fronted independent pronoun וַ֭אֲנִי אַגִּ֣יד לְעֹלָ֑ם אֲ֝זַמְּרָ֗ה לֵאלֹהֵ֥י יַעֲקֹֽב (ואני, \"but I\"), and the psalm ends at oshb:Ps.75.11 (וְכָל קַרְנֵ֣י רְשָׁעִ֣ים אֲגַדֵּ֑עַ תְּ֝רוֹמַ֗מְנָה קַֽרְנ֥וֹת צַדִּֽיק), confirmed as the LAST MT verse of Psalm 75 -- verse_map_oshb.json has no Ps.75.12. \"No further verse follows\" is therefore a directly-verifiable structural fact about this specific psalm's verse count, not an unswept universal; check_universals.py's flag on that phrase is a heuristic false positive (it is not a book-wide occurrence claim). The device_notes' \"between plural and singular voice\" framing of the psalm's macrostructure is accurate (v.1 is 1cp, the closing vow is 1cs). The rejected_alternative's looser phrase \"congregational register\" to describe the closing 1cs vow is imprecise taken alone (the closing voice is singular, not congregational-plural), but this is minor rhetorical looseness, not a factual error material to the boundary, so I do not challenge it. Support.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-230",
+   "row_sha256": "367e848a0aae75758a147e7430db32f95715ca0573e64f85dfcc27b4b472c2c4",
+   "verdict": "challenge",
+   "reasoning": "Re-derived the title dual-cite, the third-person report register of vv.1-3, and the rear-seam Selah. oshb:Ps.76.2 (נוֹדָ֣ע בִּֽיהוּדָ֣ה אֱלֹהִ֑ים בְּ֝יִשְׂרָאֵ֗ל גָּד֥וֹל שְׁמֽוֹ) through oshb:Ps.76.4 (שָׁ֭מָּה שִׁבַּ֣ר רִשְׁפֵי קָ֑שֶׁת מָגֵ֬ן וְחֶ֖רֶב וּמִלְחָמָ֣ה סֶֽלָה, ending in Selah) are all third-person; no 2nd-person or vocative marker appears before web:Ps.76.4 (oshb:Ps.76.5, נָ֭אוֹר אַתָּ֥ה אַדִּ֗יר מֵֽהַרְרֵי טָֽרֶף, \"Glorious are YOU\"). check_marks.py confirms the Selah placement/symmetry is clean, and pmarks_Ps.json shows exactly one selah in this stretch, at oshb:Ps.76.4. The span and its warrant (report register plus a corroborating Selah, ending precisely where direct address begins) are well supported; I support the boundary. Two device_notes claims are wrong against the campaign's own authoritative inventory, though neither functions as the row's boundary driver. (1) The title is said to carry \"four\" genre labels, but psalm_device_inventory.json's superscriptions entry for 76 lists FIVE: mizmor, shir, lamnatseach, le_asaph, binginot -- per the book strategy's own p22 erratum (binginot membership {4,6,54,55,61,67,76} includes 76, confirmed by בנגינת in the MT title itself). The sibling row for Ps 75 in this cluster (M8-Ps-226) correctly lists all five of ITS title's labels, so this omission is not a stylistic choice. (2) The device_notes calls 76 one of \"the twelve le-Asaph superscriptions of Book III,\" but the inventory's le_asaph membership is {50,73,74,75,76,77,78,79,80,81,82,83} = 12 book-wide, of which Psalm 50 sits in Book II (42-72) per the book strategy's own five-book architecture (§5); Book III's own le-Asaph count is 11 (73-83), not 12.",
+   "challenges": [
+    {
+     "challenge_id": "LF-230-1",
+     "severity": "medium",
+     "claim": "device_notes undercounts Psalm 76's title by one genre label, omitting binginot.",
+     "evidence": "psalm_device_inventory.json superscriptions['76'].labels = ['mizmor','shir','lamnatseach','le_asaph','binginot'] (5 labels); the row's device_notes lists only \"mizmor, shir, lamnatseach, and le-Asaph\" (4) and calls that \"four byte-swept genre labels.\" MT Ps.76.1 reads לַמְנַצֵּ֥חַ בִּנְגִינֹ֑ת מִזְמ֖וֹר לְאָסָ֣ף שִֽׁיר, confirming בנגינת (binginot) is present in the title. The book strategy's §11 erratum (p22) fixed binginot membership to {4,6,54,55,61,67,76}, so 76 is not a borderline case."
+    },
+    {
+     "challenge_id": "LF-230-2",
+     "severity": "low",
+     "claim": "device_notes miscounts Psalm 76 as one of \"the twelve le-Asaph superscriptions of Book III\"; Book III's le-Asaph count is eleven, not twelve.",
+     "evidence": "psalm_device_inventory.json genre_label_membership['le_asaph'] = [50,73,74,75,76,77,78,79,80,81,82,83] -- 12 members book-wide, but Psalm 50 is in Book II (42-72) per book_strategy Ps.md §5 (\"II 42-72 ... Asaph 50\"; \"III 73-89 (Asaph 73-83...)\"). Book III's own le-Asaph subset is {73,74,75,76,77,78,79,80,81,82,83} = 11 psalms; 12 is the book-wide total, not the Book III count."
+    }
+   ]
+  },
+  {
+   "decision_id": "M8-Ps-231",
+   "row_sha256": "47e22320070985ab04b274359ca55837a478cf3ad7602463eeff96eea2fb6891",
+   "verdict": "support",
+   "reasoning": "Re-derived the second-person address unit and both its Selah-adjacent boundaries rather than trusting the row. The front seam Selah (oshb:Ps.76.4, closing the PRIOR row) and the rear seam Selah (oshb:Ps.76.10, ending this row) both check out against pmarks_Ps.json (selah at Ps.76.4:1 and Ps.76.10:1, nothing else in the psalm); check_marks.py returns GREEN. The vocative מִ֭גַּעֲרָ֣תְךָ אֱלֹהֵ֣י יַעֲקֹ֑ב נִ֝רְדָּ֗ם וְרֶ֣כֶב וָסֽוּס (אלהי יעקב, \"God of Jacob\") at oshb:Ps.76.7 collates at byte tier. Its book-wide skeleton sweep is independently re-derived, not trusted from the row: sweeping the consonantal string אלהי יעקב against every OSHB verse yields exactly 9 hits (Ps.20.2, 46.8, 46.12, 75.10, 76.7, 81.2, 81.5, 84.9, 94.7), confirming the row's \"9 verses book-wide (skeleton tier)\" claim and confirming it surfaces exactly once in the Ps 76-77 neighborhood (at 76.7; Psalm 77 has none). The device_notes correctly treats this as texture, not a boundary driver, consistent with the toolkit's Elohistic-texture policy. Support.",
+   "challenges": []
+  },
+  {
+   "decision_id": "M8-Ps-232",
+   "row_sha256": "af1c2241d88c6181925ccb4ff2aadc5269265ec00779b500bd2aa6b898ded878",
+   "verdict": "challenge",
+   "reasoning": "Re-derived the imperative's addressee shift and the closing report register. web:Ps.76.11 (oshb:Ps.76.12, נִֽדֲר֣וּ וְשַׁלְּמוּ֮ לַיהוָ֪ה אֱֽלֹהֵ֫יכֶ֥ם כָּל סְבִיבָ֑יו יוֹבִ֥ילוּ שַׁ֝֗י לַמּוֹרָֽא) is a plural imperative addressed to the worshiping community, and web:Ps.76.12 (oshb:Ps.76.13, יִ֭בְצֹר ר֣וּחַ נְגִידִ֑ים נ֝וֹרָ֗א לְמַלְכֵי אָֽרֶץ) returns to third-person report -- both confirmed at byte tier and verbatim against WEB. The Yahweh count claim (\"occurs in 1 verse of Psalm 76\") is independently re-derived: sweeping all 13 MT verses of Psalm 76 for the consonants יהוה (skeleton tier, since the row's own citation is unpointed) finds it in exactly one verse, oshb:Ps.76.12, nowhere else in the psalm. However, the row's central addressee-shift WARRANT is inaccurate for the first verse of its own span. The rationale states the row's span \"shifts addressee...rather than continuing the God-directed second-person address of web:Ps.76.4-Ps.76.9,\" and the rejected_alternative repeats the same boundary, describing the God-directed strophe as running \"web:Ps.76.4...through web:Ps.76.9 = oshb:Ps.76.10.\" But web:Ps.76.10 (oshb:Ps.76.11) -- the row's OWN opening verse, immediately following the Selah -- is itself still second-person address to God, not congregational: oshb:Ps.76.11 reads כִּֽי חֲמַ֣ת אָדָ֣ם תּוֹדֶ֑ךָּ שְׁאֵרִ֖ית חֵמֹ֣ת תַּחְגֹּֽר, where תודך carries a 2ms suffix (\"it/she shall praise YOU\") and תחגר is a 2ms verb (\"YOU restrain/gird\"). The row's rationale never quotes or discusses web:Ps.76.10 at all, moving straight from the front-seam Selah to characterizing web:Ps.76.11 as where the shift happens -- accurate for 76.11, but the row's own claim that the address shift is what marks the beginning of ITS span overstates the case, since the God-directed address register continues one verse further into the row's own territory before the imperative turn.",
+   "challenges": [
+    {
+     "challenge_id": "LF-232-1",
+     "severity": "medium",
+     "claim": "the row's addressee-shift warrant is stated as applying to \"its own content\" from the front seam, but web:Ps.76.10 (oshb:Ps.76.11) -- the row's own first verse -- is itself still second-person address to God, not the congregational register the warrant claims.",
+     "evidence": "web:Ps.76.10 reads 'Surely the wrath of man praises you. The survivors of your wrath are restrained.' (verse_map_web.json, verbatim) with oshb:Ps.76.11 = כִּֽי חֲמַ֣ת אָדָ֣ם תּוֹדֶ֑ךָּ שְׁאֵרִ֖ית חֵמֹ֣ת תַּחְגֹּֽר (byte-tier collate against verse_map_oshb.json) -- תודך and תחגר are both 2ms forms addressed to God, matching the register of the PRECEDING row (M8-Ps-231), not the congregational imperative (נִֽדֲר֣וּ וְ...) that first appears at web:Ps.76.11 = oshb:Ps.76.12. The addressee shift the row uses as its opening warrant therefore first occurs one verse later than claimed, inside the row's own span, and neither the rationale nor the rejected_alternative ever quotes or addresses web:Ps.76.10's content."
+    }
+   ]
+  }
+ ]
+}

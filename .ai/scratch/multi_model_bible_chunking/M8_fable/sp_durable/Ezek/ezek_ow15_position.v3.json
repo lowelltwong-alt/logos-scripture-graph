@@ -1,0 +1,54 @@
+{
+ "schema": "ezek_ow15_position.v3",
+ "restated_at": "2026-09-22T01:25:23.745928+00:00",
+ "ceiling": {
+  "value": 72000000,
+  "carrier": "sp_durable/campaign/budget_ceilings.v1.json",
+  "carrier_sha256": "cd9e43097f9de0a777a7c616b49bf0828464542f471659b05b786600367069a7"
+ },
+ "census": {
+  "LOWER_BOUND": 69506687,
+  "attempt_receipts": 223,
+  "measured_in_full": 200,
+  "measured_only_in_part": [
+   "ezek_fixup3_wave_review_s4_a1#e1"
+  ],
+  "unmeasured_declared": [
+   "ezek_final_s1_adjudication_a1#e1",
+   "ezek_final_s2_adjudication_a1#e1",
+   "ezek_final_s3_lane_a_a1#e1",
+   "ezek_final_s3_lane_b_a1#e1",
+   "ezek_final_s4_lane_a_a1#e1",
+   "ezek_final_s4_lane_b_a1#e1",
+   "ezek_final_s5_lane_a_a1#e1",
+   "ezek_final_s5_lane_b_a1#e1",
+   "ezek_final_s6_lane_a_a1#e1",
+   "ezek_final_s6_lane_b_a1#e1",
+   "ezek_strategy_v2_check_a1#e1",
+   "ezek_close_audit_lane_a_a1#e1",
+   "ezek_close_audit_lane_b_a1#e1",
+   "ezek_close_audit_lane_a_a1#e2",
+   "ezek_close_audit_lane_b_a1#e2",
+   "ezek_stage_p0_a1#e1",
+   "ezek_toolkit_a1#e1",
+   "ezek_controlling_rulings_a1#e1",
+   "ezek_pr_LF_c21_a1#e1",
+   "ezek_pr_LF_c22_a1#e1",
+   "ezek_pr_OL_c20_a1#e1",
+   "ezek_pr_OL_c21_a1#e1"
+  ],
+  "unmeasured_UNDECLARED": [],
+  "receipt_files": 24
+ },
+ "headroom": {
+  "UPPER_BOUND": 2493313,
+  "how_to_read": "an UPPER bound, never the headroom itself. The unmeasured attempts below are unrecoverable, not zero, so the real headroom is smaller than this and may be negative.",
+  "residual_ESTIMATED_ceiling": 6420990,
+  "true_total_interval": "true total spend lies in [69,506,687, about 75,927,677]. The ceiling 72,000,000 sits INSIDE that interval, so on this evidence a breach is neither established nor excluded, and the headroom of 2,493,313 must not be reported as available.",
+  "residual_record": "ezek_ow15_residual.v1.json",
+  "residual_record_sha256": "fea4beef6bdd826ea844523f6c5ba9e4cfee34219f81168a902f81c24e403e87"
+ },
+ "what_changed_since_v1": "v1 stood at 39,426,659. Ten attempts had NO receipt (author-wave lanes 01-06, the remediation batch, spot lanes 1-3: 3,476,769 tokens) and four receipts declared UNAVAILABLE a figure the runtime had reported (#e12 502,905, #e13 365,746, #e14 221,050, boss audit 847,447). Both were recovered from the runtime's completion notifications in the session transcript, and the two REPAIR-2 step-2 lanes were receipted.",
+ "limit": "a census over receipts cannot see an attempt that produced none. The cross-check that found ten is the runtime's own notification log; it should be read at every book close, and the in-flight adjudication launched 2026-09-16 is not yet in any figure here. That read was done again on 2026-09-21 for the attempts still unmeasured, joining on each receipt's own runtime agent id: every notification for them reports status failed and carries no usage block, and the task output files are 0 bytes, so their spend is UNRECOVERABLE - not zero. Neither is this orchestrator's own context spend modelled here.",
+ "tier": "MEASURED for every figure present; attributions of runtime figures to attempts INFERRED as each receipt states"
+}

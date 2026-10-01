@@ -1,0 +1,108 @@
+{
+ "schema": "m8_repair_orders_slice.v1",
+ "book": "Ps",
+ "slice": "rep_Ps_r3",
+ "attempt_id": "rep_Ps_r3_a1",
+ "output_file": "REPAIR/Ps/repair_Ps_r3.jsonl",
+ "row_ids": [
+  "M8-Ps-172"
+ ],
+ "orders": {
+  "M8-Ps-172": {
+   "row_id": "M8-Ps-172",
+   "book": "Ps",
+   "op": "replace",
+   "span_target": null,
+   "unit_type_target": null,
+   "parent_collection_target": null,
+   "insert_after": null,
+   "current_row": {
+    "decision_id": "M8-Ps-172",
+    "book": "Ps",
+    "model_id": "M8_fable",
+    "chunk_index_in_book": 172,
+    "span": "Ps.62.1-Ps.62.6",
+    "boundary_rationale": "The title is one counted MT verse (web:Ps.62.0 = oshb:Ps.62.1), naming the Jeduthun setting (one of 3 Ps psalms so labeled, with Psalms 39 and 77). The unit is a ring: it opens on (oshb:Ps.62.2) אַ֣ךְ אֶל אֱ֭לֹהִים דּֽוּמִיָּ֣ה “My soul rests in God alone” (web:Ps.62.1), turns at web:Ps.62.3 to a complaint against attackers, “How long will you assault a man?”, and returns to the same confidence idiom at (oshb:Ps.62.6) אַ֣ךְ לֵ֭אלֹהִים דּ֣וֹמִּי נַפְשִׁ֑י “My soul, wait in silence for God alone, for my expectation is from him.” (web:Ps.62.5), completing the envelope. Collated against oshb:Ps.62.6, oshb:Ps.62.2 shares no tier — real lexical substitution: (oshb:Ps.62.2) אֶל אֱ֭לֹהִים against (oshb:Ps.62.6) לֵ֭אלֹהִים, and (oshb:Ps.62.2) יְשׁוּעָתִֽי against (oshb:Ps.62.6) תִּקְוָתִֽי — so the return is thematic anaphora (sweep: 6 verses open with אך in Ps 62, 34 book-wide), not a repeated line.",
+    "boundary_evidence_refs": [
+     "web:Ps.62.0 = oshb:Ps.62.1",
+     "web:Ps.62.1 = oshb:Ps.62.2",
+     "web:Ps.62.2 = oshb:Ps.62.3",
+     "web:Ps.62.3 = oshb:Ps.62.4",
+     "web:Ps.62.4 = oshb:Ps.62.5",
+     "web:Ps.62.5 = oshb:Ps.62.6",
+     "web:Ps.62.6 = oshb:Ps.62.7"
+    ],
+    "strongest_rejected_alternative": "Splitting the ring at its individual אך-openings into separate one- or two-verse rows was rejected, since the confidence-complaint-confidence pattern needs the full envelope to complete, not one opening on its own.",
+    "literature_type_guess": "strophe",
+    "confidence": "high",
+    "strong_or_hebrew_tags_used": true,
+    "wj_or_red_letter_considered": false,
+    "frontier_flag_considered": false,
+    "non_authorizing": true,
+    "review_status": "candidate_review_complete",
+    "parent_psalm": 62,
+    "unit_type": "strophe",
+    "writer_part": "p12",
+    "writer_decision_id": "p12-D06",
+    "writer_attempt_id": "writer_sonnet_ps_p12_r1_s1",
+    "observed_substrate_signals": [
+     "אך opens (oshb:Ps.62.2) אַ֣ךְ, oshb:Ps.62.3, and (oshb:Ps.62.5) אַ֤ךְ inside this row, plus 2 more later in the psalm: 6 verse-initial occurrences of אך among Ps 62’s 12 MT body verses; a separate contiguous-consonantal-substring sweep finds 34 occurrences book-wide.",
+     "oshb:Ps.62.3 opens with אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י, echoed at this row’s own closing verse, oshb:Ps.62.7 (=web:Ps.62.6), whose opening five tokens repeat oshb:Ps.62.3 byte-for-byte; oshb:Ps.62.3 carries two further tokens beyond that match (לֹא אֶמּ֥וֹט רַבָּֽה) that oshb:Ps.62.7 lacks.",
+     "Selah closes web:Ps.62.4 (oshb:Ps.62.5), mid-ring rather than at the row’s own end — disclosed, not treated as the driver."
+    ],
+    "device_notes": "This row family has Psalm 62 for its parent.",
+    "orchestrator_boilerplate_variation": true
+   },
+   "current_row_source": "repair_Ps_r2a.jsonl",
+   "items": [
+    {
+     "source": "semcheck_Ps_r201.json",
+     "verdict": "fail",
+     "finding": {
+      "severity": "medium",
+      "class": "byte-false installed claim (repair-installed regression of a true shipped claim)",
+      "field": "observed_substrate_signals[1]",
+      "defective_text": "oshb:Ps.62.3 carries two further tokens beyond that match (לֹא אֶמּ֥וֹט רַבָּֽה) that oshb:Ps.62.7 lacks.",
+      "byte_evidence": "oshb:Ps.62.3 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹא אֶמּ֥וֹט רַבָּֽה (8 tokens) and oshb:Ps.62.7 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹ֣א אֶמּֽוֹט (7 tokens), both spliced from verse_map_oshb.json and re-collated at byte tier. Tokens 1-5 are byte-identical. Beyond that match oshb:Ps.62.3 carries three tokens, לֹא אֶמּ֥וֹט רַבָּֽה (byte tier, oshb:Ps.62.3 tokens 6-8, verse-final), not two; and oshb:Ps.62.7 lacks only רַבָּֽה, since it carries לֹ֣א אֶמּֽוֹט at its own tokens 6-7 - skeleton-identical to oshb:Ps.62.3's tokens 6-7, differing in accents only. The shipped wording ('oshb:Ps.62.3 carries a closing word oshb:Ps.62.7 lacks') was byte-true.",
+      "proposed_cure": "Say that beyond the five byte-identical tokens oshb:Ps.62.3 carries one further token, רַבָּֽה, which oshb:Ps.62.7 lacks, its own tokens 6-7 differing from oshb:Ps.62.3's only in accents."
+     },
+     "checker_grounds": "One docket item, routed from M8-Ps-173: the partner's collation label understated the seam pair's one collation (three words at skeleton tier; one closing word lacking). The ordered half of the cure IS installed and is byte-true - I spliced oshb:Ps.62.3 and oshb:Ps.62.7 from verse_map_oshb.json and compared token by token: tokens 1-5 (אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י) are identical codepoint for codepoint, so 'whose opening five tokens repeat oshb:Ps.62.3 byte-for-byte' is exact and not over-tiered. But the same edit installed a new byte-false clause in the same sentence, and a byte-false installed claim is a fail finding: oshb:Ps.62.3 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹא אֶמּ֥וֹט רַבָּֽה (8 tokens) and oshb:Ps.62.7 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹ֣א אֶמּֽוֹט (7 tokens); beyond the five-token match oshb:Ps.62.3 carries THREE tokens, not two - the row's own parenthetical lists three, לֹא אֶמּ֥וֹט רַבָּֽה, which collates byte at oshb:Ps.62.3 tokens 6-8 and is verse-final - and oshb:Ps.62.7 does not lack them: it carries לֹ֣א אֶמּֽוֹט at its own tokens 6-7, skeleton-identical to oshb:Ps.62.3's tokens 6-7 and differing only in accents, so the only token oshb:Ps.62.7 lacks is רַבָּֽה. The shipped text this replaced ('oshb:Ps.62.3 carries a closing word oshb:Ps.62.7 lacks') was correct, so this is a repair-installed regression of a true claim, not an inherited defect. Everything else on the row re-derives. Ring quotes: the opening run collates byte at oshb:Ps.62.2 tokens 1-4 and the return run at oshb:Ps.62.6 tokens 1-4, and the substitution pair closes each verse (token 7 of 7 in both). 'Collated against oshb:Ps.62.6, oshb:Ps.62.2 shares no tier' re-derives - collate.py --ref oshb:Ps.62.6 with the full spliced oshb:Ps.62.2 text returns tier none. Counts: swept object = the particle at skeleton tier (spliced from oshb:Ps.62.3 token 1), unit = verses - 6 verse-initial occurrences inside Psalm 62 (oshb:Ps.62.2, 62.3, 62.5, 62.6, 62.7, 62.10) among the psalm's 12 MT body verses (13 MT verses including the counted title), matching the row; book-wide the same sweep returns 34 VERSES / 36 token-occurrences, so the row's '34 occurrences' names the wrong unit (filed low; not repair-installed). Marks: the word-bound selah sweep returns exactly 2 MT verses in Psalm 62 - oshb:Ps.62.5, inside this span and disclosed by the row as closing web:Ps.62.4, and oshb:Ps.62.9, outside it and disclosed by the next neighbour; Psal"
+    },
+    {
+     "source": "semcheck_Ps_r201.json",
+     "verdict": "fail",
+     "finding": {
+      "severity": "low",
+      "class": "count-object discipline (digit names the wrong unit)",
+      "field": "observed_substrate_signals[0]",
+      "defective_text": "a separate contiguous-consonantal-substring sweep finds 34 occurrences book-wide",
+      "byte_evidence": "sweep.py --skel with the particle spliced from oshb:Ps.62.3 token 1 reports count_unit 'verses' with skeleton 34, and token_occurrences_skeleton 36 under --tokens: 34 is the VERSE count, 36 the occurrence count. The boundary_rationale parenthetical ('34 book-wide') names no unit at all. Not repair-installed: identical in the shipped row.",
+      "proposed_cure": "Write 34 verses (36 token-occurrences) book-wide at skeleton tier, and name the unit in the boundary_rationale parenthetical too."
+     },
+     "checker_grounds": "One docket item, routed from M8-Ps-173: the partner's collation label understated the seam pair's one collation (three words at skeleton tier; one closing word lacking). The ordered half of the cure IS installed and is byte-true - I spliced oshb:Ps.62.3 and oshb:Ps.62.7 from verse_map_oshb.json and compared token by token: tokens 1-5 (אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י) are identical codepoint for codepoint, so 'whose opening five tokens repeat oshb:Ps.62.3 byte-for-byte' is exact and not over-tiered. But the same edit installed a new byte-false clause in the same sentence, and a byte-false installed claim is a fail finding: oshb:Ps.62.3 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹא אֶמּ֥וֹט רַבָּֽה (8 tokens) and oshb:Ps.62.7 = אַךְ ה֣וּא צ֭וּרִי וִֽישׁוּעָתִ֑י מִ֝שְׂגַּבִּ֗י לֹ֣א אֶמּֽוֹט (7 tokens); beyond the five-token match oshb:Ps.62.3 carries THREE tokens, not two - the row's own parenthetical lists three, לֹא אֶמּ֥וֹט רַבָּֽה, which collates byte at oshb:Ps.62.3 tokens 6-8 and is verse-final - and oshb:Ps.62.7 does not lack them: it carries לֹ֣א אֶמּֽוֹט at its own tokens 6-7, skeleton-identical to oshb:Ps.62.3's tokens 6-7 and differing only in accents, so the only token oshb:Ps.62.7 lacks is רַבָּֽה. The shipped text this replaced ('oshb:Ps.62.3 carries a closing word oshb:Ps.62.7 lacks') was correct, so this is a repair-installed regression of a true claim, not an inherited defect. Everything else on the row re-derives. Ring quotes: the opening run collates byte at oshb:Ps.62.2 tokens 1-4 and the return run at oshb:Ps.62.6 tokens 1-4, and the substitution pair closes each verse (token 7 of 7 in both). 'Collated against oshb:Ps.62.6, oshb:Ps.62.2 shares no tier' re-derives - collate.py --ref oshb:Ps.62.6 with the full spliced oshb:Ps.62.2 text returns tier none. Counts: swept object = the particle at skeleton tier (spliced from oshb:Ps.62.3 token 1), unit = verses - 6 verse-initial occurrences inside Psalm 62 (oshb:Ps.62.2, 62.3, 62.5, 62.6, 62.7, 62.10) among the psalm's 12 MT body verses (13 MT verses including the counted title), matching the row; book-wide the same sweep returns 34 VERSES / 36 token-occurrences, so the row's '34 occurrences' names the wrong unit (filed low; not repair-installed). Marks: the word-bound selah sweep returns exactly 2 MT verses in Psalm 62 - oshb:Ps.62.5, inside this span and disclosed by the row as closing web:Ps.62.4, and oshb:Ps.62.9, outside it and disclosed by the next neighbour; Psal"
+    }
+   ],
+   "span_ops_from": [],
+   "low_items_folded": [
+    "observed_substrate_signals[0]"
+   ],
+   "partner_pull_in": false,
+   "instruction": "THIRD CYCLE (diagnosed, bounded to this row): the independent checker's byte evidence and one-sentence cure are the controlling text - re-derive from bytes before installing; cure every listed finding exactly on THIS row (current_row is the SECOND-cycle repaired row); every other field stays byte-identical to current_row; no span change; do not re-open or re-argue anything the checker passed."
+  }
+ },
+ "authority": {
+  "ruling": "OWNER_REPAIR_ADVANCE_2026-09-06.md",
+  "sha256": "597aea4fd24d2f1de93644cf2689ae4317d415403fa14dfca42c8445ebc9258a"
+ },
+ "cycle": 3,
+ "cycle_slices": [
+  "r3"
+ ],
+ "supersedes_rows_from": [
+  "repair_Ps_r2a.jsonl"
+ ],
+ "partner_pull_ins": [],
+ "findings_not_ordered": [],
+ "findings_routed": [],
+ "diagnosis": "SECOND-CYCLE DIAGNOSIS (sc_Ps_r201_a1, claude-opus-5, independent r3 semantic check): the r2a partner pull-in on M8-Ps-172 installed the ordered half of the cure correctly (the seam pair now names one five-token byte-tier collation on both rows) but the same edit installed a NEW byte-false clause in observed_substrate_signals[1]: it says oshb:Ps.62.3 carries two further tokens beyond the five-token match that oshb:Ps.62.7 lacks, whereas by bytes oshb:Ps.62.3 carries THREE further tokens (the row's own parenthetical lists three) and oshb:Ps.62.7 carries two of them at its own tokens 6-7 (differing from 62:3's only in accents), so the ONLY token 62:7 lacks is the verse-final one. The shipped wording it replaced ('oshb:Ps.62.3 carries a closing word oshb:Ps.62.7 lacks') was byte-true: this is an E-17 second-generation regression of a true claim, confined to one clause of one field. The same row's low count-unit finding on observed_substrate_signals[0] (34 is the VERSE count, 36 the token-occurrence count; the boundary_rationale parenthetical names no unit) is folded into this one edit. Cure exactly those two findings from bytes; everything the checker passed on this row stays byte-identical; no span change; partner M8-Ps-168 PASSED and is not touched."
+}

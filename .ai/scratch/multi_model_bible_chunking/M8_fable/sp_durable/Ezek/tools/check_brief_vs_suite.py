@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""Does the author brief carry a duty for every check the validator suite will measure it by?
+
+THIS IS THE CONTROL WHOSE ABSENCE CAUSED THREE REGRESSIONS. I wrote the Ezekiel author brief from the RULINGS.
+The rulings say what to repair; the SUITE decides what "correct" looks like mechanically. Three checks that were
+GREEN went red because the brief never named their duty:
+
+  * citation_sweep - the literal phrase "single-witness" on any mark/paseq/puncta entry. Not named, and the
+    brief's six-word annotation cap made it impossible to write. 46 entries failed.
+  * register       - no staged file names, internal rule labels or process talk in row prose. Not named, and
+    the brief actively told authors to cite rules by name. 96 flags from a baseline of zero.
+  * hebrew_normalize - every Hebrew run byte-identical to the witness; never hand-typed. Not named. 8 defects.
+
+THE SHAPE, for the third time in this book: an artifact built from PART of its governing set, where the part I
+used was the part I was thinking about (ledger E-32, E-33). The cure has to be generated from the OTHER part.
+
+WHAT THIS DOES. It reads the suite runner to discover the suite's own member list - not a list I maintain - and
+for each member requires either (a) the brief carries an explicit duty, matched by a phrase this file pins to
+that member, or (b) the member is declared OUT OF SCOPE with a reason. A member that is neither FAILS.
+
+WHAT IT CANNOT DO. It cannot tell whether the duty as written is SUFFICIENT - only that the brief speaks to the
+check at all. That is a real limit and it is stated rather than papered over: this control would have caught all
+three of this book's regressions, because in each case the brief said nothing whatsoever.
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+EZ = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable\sp_durable\Ezek")
+SUITE = EZ / "tools" / "run_validator_suite.py"
+BRIEF = Path(sys.argv[1]) if len(sys.argv) > 1 else (EZ / "AUTHOR_WAVE_BRIEF.v1.md")
+
+# Each suite member -> the phrases that show the brief speaks to it, or an out-of-scope reason.
+# A member whose duty is genuinely not the author's business is declared here WITH its reason, so the
+# declaration is reviewable rather than implicit in a silence.
+EXPECTED = {
+    "citation_sweep": {"phrases": ["single-witness"],
+                       "duty": "the literal single-witness disclosure on any mark, paseq or puncta entry"},
+    "register": {"phrases": ["register rule", "scholar-facing record"],
+                 "duty": "no staged file names, internal rule labels or process talk in row prose"},
+    "hebrew_normalize_dryrun": {"phrases": ["never hand-type Hebrew", "Never hand-type Hebrew", "SLICED"],
+                                "duty": "every Hebrew run byte-identical to the witness, sliced not typed"},
+    "web_quotes": {"phrases": ["double curly quotes", "A6-b"],
+                   "duty": "the quotation convention and its formula-rendering exemption"},
+    "refs_mirror": {"phrases": ["DEF-A4-ARGUED", "ROLE token"],
+                    "duty": "one entry per argued citation, with a role token"},
+    "mark_symmetry": {"phrases": ["the verse it FOLLOWS", "verse it follows"],
+                      "duty": "the mark direction convention"},
+    "universals": {"phrases": ["absent from BOTH", "C2-amended"],
+                   "duty": "the two-input test for a categorical claim"},
+    "ngram7": {"phrases": ["7-gram", "at least 4 distinct formulations"],
+               "duty": "the rotation rule that defeats the duplicate-ngram gate"},
+    "language_zones": {"phrases": ["MT 21:1-5 = WEB 20:45-49", "BOTH faces"],
+                       "duty": "dual writing inside the renumbering zone"},
+    "cap_sweep": {"out_of_scope": ("length caps are a property of the SPAN, and no author-wave item may move a "
+                                   "seam, so an author cannot affect this check")},
+    # REPAIR-2 step 4: clause 6 v2 face qualifiers, verified against verse and span (hard member)
+    "role_tokens": {"phrases": ["face qualifier", "seam pair"],
+                    "duty": "a verified :near/:far/:interior face qualifier on WARRANT tokens and the seam pair on rivals"},
+}
+
+suite_src = SUITE.read_text(encoding="utf-8")
+# the suite's own member list, discovered from its source rather than maintained here
+# DISCOVERY READS THE RUNNER'S OWN REGISTRATION LINES. The first pattern matched none of the runner's actual
+# '"name": run("tool.py", ...)' lines, so discovery silently fell back to the LAST REPORT on disk - which cannot know a
+# member added since it was written. A member installed at REPAIR-2 step 4 would have been invisible to this control.
+members = sorted(set(re.findall(r'"(\w+)":\s*run\(', suite_src))
+                 | set(re.findall(r'"(\w+)":\s*(?:res|status|out)', suite_src))
+                 | set(re.findall(r'per_check\[["\'](\w+)["\']\]', suite_src))
+                 | set(re.findall(r'\bPER_CHECK_ORDER\s*=\s*\[([^\]]*)\]', suite_src)
+                       and re.findall(r'"(\w+)"', re.findall(r'\bPER_CHECK_ORDER\s*=\s*\[([^\]]*)\]',
+                                                             suite_src)[0]) or []))
+if not members:
+    # fall back to the names the suite actually emitted in the last report
+    rep = json.loads((EZ / "repair" / "rows_v7_cwo24.jsonl.validator_report.json")
+                     .read_text(encoding="utf-8"))
+    members = sorted(k for k in rep if k not in ("rows_file", "summary"))
+
+brief = BRIEF.read_text(encoding="utf-8")
+rows, failed = [], []
+for m in members:
+    spec = EXPECTED.get(m)
+    if spec is None:
+        rows.append({"check": m, "status": "UNMAPPED",
+                     "why": "this control has no entry for this suite member, so it cannot say whether the "
+                            "brief speaks to it. An unmapped member is a FAILURE, not a pass."})
+        failed.append(m)
+        continue
+    if "out_of_scope" in spec:
+        rows.append({"check": m, "status": "OUT OF SCOPE (declared)", "reason": spec["out_of_scope"]})
+        continue
+    hits = [p for p in spec["phrases"] if p in brief]
+    ok = bool(hits)
+    rows.append({"check": m, "status": "DUTY PRESENT" if ok else "DUTY MISSING",
+                 "duty": spec["duty"], "matched_phrases": hits,
+                 "searched_for": spec["phrases"]})
+    if not ok:
+        failed.append(m)
+
+out = {
+    "schema": "ezek_brief_vs_suite.v1",
+    "why": ("the Ezekiel author brief was written from the rulings and not checked against the suite; three "
+            "checks that were GREEN went red because the brief never named their duty"),
+    "brief": {"path": str(BRIEF), "lines": len(brief.splitlines())},
+    "suite": {"path": str(SUITE), "members_discovered": len(members), "members": members},
+    "results": rows,
+    "FAILED": failed,
+    "VERDICT": "PASS" if not failed else "FAIL",
+    "what_this_cannot_establish": ("that a duty as written is SUFFICIENT - only that the brief speaks to the "
+                                   "check at all. It would have caught all three of this book's regressions, "
+                                   "because in each case the brief said nothing whatsoever."),
+}
+p = Path(__file__).resolve().parent / "brief_vs_suite.v1.json"
+p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+w = max(len(r["check"]) for r in rows)
+for r in rows:
+    print("  %-14s %-*s %s" % (r["status"][:14], w, r["check"],
+                               (r.get("duty") or r.get("reason") or r.get("why") or "")[:74]))
+print()
+print(json.dumps({k: out[k] for k in ("FAILED", "VERDICT")}, indent=1))
+raise SystemExit(1 if failed else 0)

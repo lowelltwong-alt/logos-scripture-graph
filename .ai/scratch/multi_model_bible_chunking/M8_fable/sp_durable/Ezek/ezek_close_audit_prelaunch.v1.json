@@ -1,0 +1,72 @@
+{
+ "schema": "ezek_close_audit_prelaunch.v1",
+ "recorded_at": "2026-09-21T21:22:25.804389+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "briefs": {
+  "A": {
+   "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair2\\CLOSE_AUDIT_BRIEF_A.md",
+   "sha256": "d0f87ab6da5bc4912355b1ae6038dbe204d5d19742738fd7b4b10ff1e848f3ff",
+   "bytes": 12139
+  },
+  "B": {
+   "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair2\\CLOSE_AUDIT_BRIEF_B.md",
+   "sha256": "851f921b9e9f5114b3445505aa743a7ea4028a32b165eaa15743b78256750b71",
+   "bytes": 12139
+  }
+ },
+ "generator": {
+  "path": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair2\\gen_close_audit_brief.py",
+  "sha256": "15d1a398833aa9cddd085f463b1a8e5e8cf2d999dcf398943fbc7ea1d5906755",
+  "retained": true,
+  "determinism": "regenerated with --check: MATCH for both briefs"
+ },
+ "blindness_evidence": {
+  "tier": "MEASURED",
+  "lines_that_differ": [
+   1,
+   3,
+   117,
+   125
+  ],
+  "count": 4,
+  "what_they_are": "line 1 and line 3 carry the lane letter; the other two are the lane's own output paths",
+  "how_to_read": "two lanes are only blind if they hold the SAME rules. Every other line of the two briefs is byte-identical, so a disagreement between the lanes cannot be an artefact of the briefs.",
+  "same_length": true
+ },
+ "checks_run": [
+  {
+   "check": "_brief_pin_check.py --selftest",
+   "verdict": "GREEN",
+   "vectors": 5,
+   "failed": []
+  },
+  {
+   "check": "_brief_pin_check.py --brief A --brief B",
+   "verdict": "MATCH",
+   "pins_each": 21,
+   "drift": [],
+   "missing": [],
+   "means": "every one of the 21 pinned inputs exists and its bytes hash to the digest the brief prints"
+  },
+  {
+   "check": "gen_close_audit_brief.py --check",
+   "verdict": "MATCH",
+   "means": "the briefs are reproducible"
+  },
+  {
+   "check": "existence of all 21 pinned paths before generation",
+   "verdict": "21 of 21 present"
+  }
+ ],
+ "check_NOT_applicable": {
+  "check": "Ezek/tools/check_brief_vs_suite.py",
+  "verdict_when_run_anyway": "FAIL",
+  "members": 11,
+  "out_of_scope": 1,
+  "duty_missing": 10,
+  "why_it_does_not_apply": "it asks whether a brief carries a duty for every member of the ROW VALIDATOR SUITE - citation_sweep, hebrew_normalize_dryrun, mark_symmetry, ngram7, register and the rest. Those are duties of an author who writes row prose and Hebrew runs. An audit lane writes no rows and touches no corpus file, so every member is out of scope and the FAIL measures nothing about this brief.",
+  "what_would_make_it_apply": "any future brief that authors or edits rows; it must PASS before such a launch",
+  "tier": "MEASURED (the run) plus JUDGED (the inapplicability), and the judgement is mine, not a tool's"
+ },
+ "limit": "nothing here says the briefs ASK the right questions. The pin check proves the inputs are the ones named and unchanged; the diff proves the two lanes are blind to nothing but their own letter. Whether items 20-23 are fit to accept is what the lanes themselves decide, and neither lane is bound by my framing of the questions - both are told to escalate instead of writing when a pin contradicts itself."
+}

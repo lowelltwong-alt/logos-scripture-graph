@@ -1,0 +1,142 @@
+{
+    "schema_version":  "m7_book_literary_completion_owner_ruling.v1",
+    "task_id":  "T557",
+    "model_id":  "M7_sol",
+    "book":  "Hab",
+    "completed_at_utc":  "2026-07-29T18:20:21.8699108Z",
+    "completion_state":  "candidate_complete",
+    "completion_basis":  "owner_corrected_literary_only_completion_rule",
+    "owner":  "Lowell Wong",
+    "owner_ruling":  {
+                         "artifact_installation_is_completion_gate":  false,
+                         "ordinary_candidate_scratch_writes_are_sufficient":  true,
+                         "t550_rematerialization_live_gate_work":  "parked_out_of_scope",
+                         "global_sidecar_partition_parity_is_non_gating":  true
+                     },
+    "literary_result":  {
+                            "chunk_count":  15,
+                            "canonical_verse_count":  56,
+                            "covered_verse_count":  56,
+                            "exact_ordered_coverage":  true,
+                            "positive_contiguous_integer_indices":  true,
+                            "accepted_decision_count":  15,
+                            "held_decision_count":  0,
+                            "held_decision_ids":  [
+
+                                                  ],
+                            "confidence":  {
+                                               "high":  10,
+                                               "medium":  5
+                                           },
+                            "templated_thin_rationale_failures":  0,
+                            "generic_form_bucket_failures":  0,
+                            "primary_review_rows":  45,
+                            "unique_primary_reviewer_attempt_ids":  45,
+                            "all_workflow_attempt_ids":  75,
+                            "maximum_attempt_id_reuse":  1,
+                            "primary_verdicts":  {
+                                                     "supports":  27,
+                                                     "challenge":  18
+                                                 },
+                            "scoped_challenge_claims":  18,
+                            "answered_challenges":  18,
+                            "active_specialist_post_ruling_appeals":  0,
+                            "open_linked_boundary_appeals":  0,
+                            "mandatory_parent_relations":  7,
+                            "preserved_dissent_relations":  5,
+                            "forced_consensus":  false
+                        },
+    "active_artifact_sha256":  {
+                                   "book_strategy/Hab.md":  "934d848a22133bed3438bf85b6344dd1d026eba76499a3e8228d033b7ab59d00",
+                                   "book_chunks/Hab/chunks.jsonl":  "eee5597cd24c5203c9e7e1711f684787716bc167bf512c888668e433d2ff6938",
+                                   "reviews/Hab/review_packets.jsonl":  "f404f5358f468a13b750e70ec3c5d9406e19fc81b2ee03fcb7926b07d9f8e735",
+                                   "reviews/Hab/decision_evidence_v2.jsonl":  "bb11f877e1658b588849ba870280c2f515157617a4e6d2cb12e8551787f86fbd",
+                                   "reviews/Hab/decision_relations.jsonl":  "ff9b0093e157444a4fef9b54065b9b45916c62a605f936dd566c42a113725858",
+                                   "reviews/Hab/adjudicated_route_draft_v2.json":  "a84c9573a1a82e265bbe475ce7a17ecff0e1db0b2e161b438608bb710f870176",
+                                   "reviews/Hab/boss_ruling_v2.json":  "1fbf7e43cfb317ce878072b063e1f89686186d589f118468e191c8361a3bf894",
+                                   "reviews/Hab/mesh_instruction_and_dissent_v2.json":  "726daf78ae250ab7530c1f70e3688b5241adf3dd715940777650587f0c938b66",
+                                   "reviews/Hab/independent_literary_postcheck_pre_binding_v2.json":  "2de4ec57ea893c871d2cfe391e690e03515d7e5e90ac46e5bf9dcfa89c51c461",
+                                   "reviews/Hab/independent_literary_postcheck_v2.json":  "2e9f6c069393c880e34721444f476b6636e3e9ce5e8f4c517e5d4b3177bc517b",
+                                   "reviews/Hab/post_resolution_check_v2.json":  "87abffc3384f117ad7dd0dc823309e27e3817c56639d29590dc741bf4ce3cac8"
+                               },
+    "validation":  [
+                       {
+                           "command":  "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Hab/chunks.jsonl --model-id M7_sol --book Hab",
+                           "status":  "pass",
+                           "output":  "Fast chunk-map validation passed for 15 records."
+                       },
+                       {
+                           "command":  "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Hab --json",
+                           "status":  "pass",
+                           "output":  "15 accepted, 0 held; zero template, generic-form, encoding, quotation, prose-shell, semantic-constructor, or review-batch failures"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Hab",
+                           "status":  "pass",
+                           "output":  "OK: Hab chunks=15 exact ordered coverage=56/56"
+                       },
+                       {
+                           "command":  "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Hab --require-artifacts",
+                           "status":  "pass",
+                           "output":  "T423 literary quality protocol: OK"
+                       },
+                       {
+                           "command":  "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Hab --require-final-artifacts",
+                           "status":  "non_gating_global_sidecar_only",
+                           "literary_or_review_errors":  0,
+                           "remaining_output":  "nine stale pass-one Habakkuk rows in each of three global sidecar partitions only; owner-declared non-gating and untouched"
+                       }
+                   ],
+    "independent_post_resolution_check":  {
+                                              "checker_attempt_id":  "t557-hab-final-bound-state-recheck-v2",
+                                              "verdict":  "pass",
+                                              "coverage":  "56/56 exact ordered",
+                                              "packet_chunk_hash_parity":  "15/15",
+                                              "packet_post_states":  {
+                                                                         "pass":  15,
+                                                                         "hold":  0
+                                                                     },
+                                              "held_decisions":  [
+
+                                                                 ],
+                                              "required_repair":  null
+                                          },
+    "appeal_integrity":  {
+                             "pass1_ledger_preserved_exactly":  true,
+                             "pass1_bytes":  216638,
+                             "pass1_sha256":  "393f0c3cf80bace8a11a4dda53979e8bad5607ab9f2461b3a18e1ed1faa9cad2",
+                             "historical_pass1_rows":  9,
+                             "new_append_only_appeal_ids":  [
+
+                                                            ],
+                             "specialist_post_ruling_active_appeals":  0,
+                             "current_v2_packet_appeals":  0
+                         },
+    "source_integrity":  {
+                             "web_verses":  56,
+                             "oshb_verses":  56,
+                             "uxlc_verses":  56,
+                             "structured_source_locators_checked":  90,
+                             "structured_web_quotes_checked":  28,
+                             "structured_web_quote_failures":  0,
+                             "locator_endpoint_failures":  0,
+                             "web_to_mt_crosswalk":  "WEB, OSHB, and UXLC Habakkuk coordinates agree at 1:1-3:19",
+                             "wlc_family_correlation_disclosed":  true,
+                             "source_metadata_is_boundary_authority":  false
+                         },
+    "pass1_archive_integrity":  {
+                                    "archived_file_count":  15,
+                                    "hash_mismatches_at_archive_time":  0,
+                                    "archived_chunks_sha256":  "3b15c77204ad9f02ecef028d9544622feec4dbeb94b7665e89bba52bf1e8a751"
+                                },
+    "superseded_nonliterary_blockers":  {
+                                            "shared_global_sidecar_partition_parity":  "not_a_book_completion_gate_by_owner_ruling",
+                                            "effect_on_literary_boundaries_forms_reviews_holds_or_appeals":  "none"
+                                        },
+    "independence_limit":  "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion.",
+    "candidate_only":  true,
+    "non_authorizing":  true,
+    "reviewed_gold_promoted":  false,
+    "external_review_receipt_created":  false,
+    "commit_push_merge_performed":  false
+}

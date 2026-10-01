@@ -1,0 +1,118 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "OW6-TRANSCRIPT-CAPTURE-LIMIT-2026-09-07",
+ "severity": "high (it limits an owner directive, not the corpus)",
+ "what": "Subagent reasoning transcripts are NOT reliably retained by the runtime. Several attempts that completed normally have a 0-byte transcript file and no durable copy; others accumulate megabytes. The orchestrator does not control this and cannot recover a transcript once it is empty.",
+ "evidence_at_detection": {
+  "checked": "2026-09-07T14:2x UTC",
+  "per_attempt": [
+   {
+    "attempt_id": "campaign_hardness_01_a1",
+    "lane": "campaign_controlling_agent",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_auth_a01_a1",
+    "lane": "lam_author_wave",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_auth_a01_a2",
+    "lane": "lam_author_wave",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_auth_a02_a1",
+    "lane": "lam_author_wave",
+    "live_bytes": 935968,
+    "durable_bytes": 935968
+   },
+   {
+    "attempt_id": "lam_auth_a03_a1",
+    "lane": "lam_author_wave",
+    "live_bytes": 1269650,
+    "durable_bytes": 1269650
+   },
+   {
+    "attempt_id": "lam_cwo_01_a1",
+    "lane": "lam_cwo_wave",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_cwo_02_a1",
+    "lane": "lam_cwo_wave",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_cwo_03_a1",
+    "lane": "lam_cwo_wave",
+    "live_bytes": 0,
+    "durable_bytes": null
+   },
+   {
+    "attempt_id": "lam_cwo_04_a1",
+    "lane": "lam_cwo_wave",
+    "live_bytes": 1457247,
+    "durable_bytes": 1428264
+   }
+  ],
+  "durable_store": {
+   "files": 22,
+   "bytes": 10634316
+  },
+  "note": "lam_cwo_03_a1 was RUNNING with a 0-byte transcript whose mtime never advanced past its launch minute, so absence is not merely a post-completion truncation"
+ },
+ "why_it_matters": "OW-6 requires the final checker to audit 'everything written by a subagent even chain of thought for it', and OW-6c reserves an end-of-campaign re-check of 'all chain of thought'. Both promises are only as good as the capture. Delivering a final check that silently skipped the missing transcripts would misrepresent the audit's coverage to the owner.",
+ "mitigations_installed": [
+  "CONTINUOUS SNAPSHOT: _mirror_transcripts.py now runs on a 60-second loop during waves (background), copying every non-empty transcript to sp_durable/transcripts/ before it can be truncated; it never deletes and verifies each copy by digest.",
+  "HONEST COVERAGE: the stage-1 transcript-audit brief already requires a coverage statement, and the manifest records which attempts have no transcript; the final checker's audit_coverage must state what it could not read.",
+  "PROPOSED (needs the controlling agent's ruling): add a REASONING RECORD to every agent brief - the agent's own durable account of what it did, what it verified and what it doubted, written as a file it controls. That is not raw chain of thought, but it is durable, and it is auditable against the artifacts. It would make the OW-6 audit robust to transcript loss."
+ ],
+ "not_yet_decided": "whether the reasoning-record addition is adopted campaign-wide; under OW-6 that is the Fable controlling agent's call, and it is the kind of change the owner may want to see first.",
+ "honest_limit": "No transcript exists for any book closed before this session. The OW-6c packet must say that plainly rather than imply a re-check could recover them.",
+ "update_2026-09-07_after_cwo03": {
+  "what_changed": "The mechanism is now established more precisely, and it is worse than 'truncated after completion'. lam_cwo_03_a1 ran for 48 minutes, produced a full 6-row deliverable and a 56-item final message, and its transcript file stayed 0 bytes from its launch minute onward. The continuous snapshotter, which was already running, therefore captured nothing for it: there was never anything to capture.",
+  "revised_conclusion": "Transcript capture is not merely lossy at the end of a run; for some agents the runtime never writes a transcript at all. The snapshotter still helps (it captured 1.4 MB for lam_cwo_04_a1) but it CANNOT make coverage complete, and no orchestrator-side measure can.",
+  "coverage_now": {
+   "attempts_launched_and_mapped": 9,
+   "transcripts_present": 3,
+   "transcripts_absent": 6
+  },
+  "consequence_for_ow6": "A Fable final check can audit 'everything written by a subagent' in full, because deliverables, final messages and receipts are all durable. It CANNOT audit chain of thought for the majority of attempts, because the chain of thought was never recorded. The final checker's coverage statement must say so per attempt, and the OW-6c end-of-campaign packet must carry the same limit.",
+  "recommended_remedy": "Add a REASONING RECORD to every agent brief: a short durable file the agent writes itself, stating what it did, what it verified from bytes, what it changed its mind about, and what it still doubts. It is not raw chain of thought, but it is under our control, it survives, and it is auditable against the artifacts. Pending the controlling agent's ruling under OW-6.",
+  "interim_practice": "Every attempt whose transcript is absent has its final message recorded from the task-notification payload with that provenance stated in its receipt, so the audit trail is honest about where each record came from. Three attempts are in that state so far: lam_cwo_02_a1, lam_cwo_03_a1 and (final message not yet needed) the two lam_auth_a01 attempts."
+ },
+ "update_2026-09-07_final_tally_for_this_wave": {
+  "coverage": "3 of 11 tracked attempts have a preserved reasoning transcript",
+  "preserved": [
+   "lam_auth_a02_a1",
+   "lam_auth_a03_a1",
+   "lam_cwo_04_a1"
+  ],
+  "absent": [
+   "lam_auth_a01_a1",
+   "lam_auth_a01_a2",
+   "lam_cwo_01_a1",
+   "lam_cwo_02_a1",
+   "lam_cwo_03_a1",
+   "lam_cwo_corr_01_a1",
+   "campaign_hardness_01_a1 (still running)",
+   "lam_cwo_corr_02_a1 (still running)"
+  ],
+  "snapshotter_verdict": "A 40-cycle continuous snapshot ran across the whole corpus-wide-order wave and added exactly one transcript to the store. The absent files were never written, so no snapshot cadence can recover them. The mitigation works only for the minority of agents the runtime does write.",
+  "what_IS_fully_preserved": "every deliverable, every final message (recorded verbatim, with provenance stated when it came from the task notification rather than a transcript), every attempt receipt with model/effort/tokens/tool-uses, every census, sweep, apply report, parity scan and validator report. The audit of what agents DID and CLAIMED is complete; only the record of how they reasoned is partial.",
+  "standing_recommendation": "the durable REASONING RECORD written by each agent as part of its own deliverable remains the only reliable way to satisfy the owner's 'even chain of thought' requirement; it is pending the Fable controlling agent's ruling under OW-6."
+ },
+ "update_2026-09-07_second_snapshot_run": {
+  "coverage_now": "3 preserved of 24 tracked attempts",
+  "second_run": "a further 90-cycle snapshot ran across the review round, the cure round, the hardness batches and the consolidator. It added ONE file across both runs combined, and that file was for an agent still writing when the snapshot caught it.",
+  "settled_conclusion": "the capture rate is roughly one in eight and is not improvable from this side. Two continuous snapshotters totalling 130 cycles across every wave of this book produced two additional files. The remaining transcripts were never written by the runtime at any point during the agents' runs, not truncated afterwards.",
+  "what_this_means_for_the_owner_directives": "OW-6's 'everything written by a subagent' is fully satisfiable and will be audited in full. OW-6's 'even chain of thought' and OW-6c's 'all chain of thought' are satisfiable for about one attempt in eight, and the final checker and the end-of-campaign packet must both state that per attempt rather than imply completeness.",
+  "pending": "the Fable boss is ruling on the durable per-agent reasoning record as the substitute (attempt lam_boss_b3_a1, question 2)."
+ }
+}

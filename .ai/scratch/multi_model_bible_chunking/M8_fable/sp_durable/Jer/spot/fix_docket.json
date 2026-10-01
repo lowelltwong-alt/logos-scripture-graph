@@ -1,0 +1,149 @@
+{
+ "schema": "jer_fix_docket.v1",
+ "source": "postcheck/postcheck_01.json (verdict not_fit)",
+ "ordered": {
+  "P14-003": [
+   {
+    "row_id": "P14-003",
+    "e_class": "E-15",
+    "severity": "medium",
+    "origin": "spot:S6:E-15",
+    "defective_text": "and he seized Jeremiah the prophet, saying, “You are defecting to the Chaldeans!”” (web:Jer.37.13)",
+    "byte_evidence": "check_web_quotes.py over rows_v5.jsonl flags boundary_rationale e15a_curly_pairing_broken: double-open (nested open mark before close), with the note that the field's quotes are INVISIBLE to the pair scanner until pairing is repaired. The same check over a private copy of rows_v3.jsonl carries no e15a flag on this row (it carried e15c only), so the break is new in rows_v5. Curly double-mark sequence: v3 open-close x3, balanced; v5 open, close, open, open, close, close, open, close - unbalanced. Content is not at fault: all 3 quote sites in the field re-verify verbatim against verse_map_web.json through jer_lib.web_quote_found, and WEB Jer.37.13 itself ends with a nested opening mark before 'You are defecting to the Chaldeans!'. Two of the five rows under the same order (P13-008, P15-014) closed their pairing while re-splicing, so a clean execution was available.",
+    "proposed_cure": "Render the translation's own nested double quotation as a curly single pair, or stop the quoted run before it, so the field's outer pair closes while the quoted words stay verbatim."
+   }
+  ],
+  "P16-005": [
+   {
+    "row_id": "P16-005",
+    "e_class": "E-15",
+    "severity": "medium",
+    "origin": "spot:S6:E-15",
+    "defective_text": "in the mouth of any man of Judah in all the land of Egypt, saying, “” (web:Jer.44.26) ... is quoted next, “As the Lord Yahweh lives.”” (web:Jer.44.26) ... and sought his life.’”” (web:Jer.44.30)",
+    "byte_evidence": "check_web_quotes.py over rows_v5.jsonl flags boundary_rationale e15a_curly_pairing_broken: double-open (nested open mark before close), plus a second flag for verbatim WEB text in single curly quotes; neither flag stands on this row in the private rows_v3.jsonl run, so both are new in rows_v5. Curly double-mark sequence: v3 nine balanced pairs; v5 twenty-one marks with nesting and two doubled closes. The field now carries an empty curly pair immediately before (web:Jer.44.26). Content is verbatim: all 9 quote sites re-verify against verse_map_web.json through jer_lib.web_quote_found, and WEB Jer.44.26 does carry a nested opening mark before 'As the Lord Yahweh lives.'",
+    "proposed_cure": "Re-cut the Jer.44.26 run so the first chunk ends before the translation's nested opening mark instead of leaving an empty curly pair, and render every nested double as a curly single so each outer pair closes."
+   }
+  ],
+  "P17-012": [
+   {
+    "row_id": "P17-012",
+    "e_class": "E-15",
+    "severity": "medium",
+    "origin": "spot:S6:E-15",
+    "defective_text": "“The horn of Moab is cut off, and his arm is broken,” says Yahweh.” (web:Jer.48.25)",
+    "byte_evidence": "check_web_quotes.py over rows_v5.jsonl flags boundary_rationale e15a_curly_pairing_broken: close mark with no open; the private rows_v3.jsonl run carries no e15a flag on this row. Curly double-mark sequence: v3 open-close x6, balanced; v5 the same six pairs with an extra close after 'says Yahweh.'. The quoted words are verbatim - all 6 sites verify against verse_map_web.json through jer_lib.web_quote_found - because WEB Jer.48.25 itself opens mid-quotation and so carries its own unmatched closing mark, which the row then wrapped inside a further pair.",
+    "proposed_cure": "Close the quoted run after 'is broken,' and carry 'says Yahweh' as prose outside the quotation, so the translation's own unmatched closing mark is not wrapped in a second pair."
+   }
+  ],
+  "P15-007": [
+   {
+    "row_id": "P15-007",
+    "e_class": "E-15",
+    "severity": "low",
+    "origin": "spot:S7:E-15",
+    "defective_text": "matching “But ten men were found among those who said to Ishmael, “Don’t kill us; for we have stores hidden in the field, of wheat, and of barley, and of oil, and of honey.” So he stopped, and didn’t kill them among their brothers.” (web:Jer.41.8)",
+    "byte_evidence": "The ordered re-cut at Jer.41.6 was made - that run is now split into two closed curly runs - but check_web_quotes.py over rows_v5.jsonl still flags boundary_rationale e15a_curly_pairing_broken on this row, and the same flag stands in the private rows_v3.jsonl run, so the field's coverage gap is not closed. Curly double-mark sequence: v3 two nested breaks; v5 one nested break, at the Jer.41.8 run. All 9 quote sites in the field verify verbatim against verse_map_web.json through jer_lib.web_quote_found.",
+    "proposed_cure": "Re-cut the Jer.41.8 run the way the Jer.41.6 run was re-cut, stopping before the translation's nested opening mark so the field's pairing closes."
+   }
+  ],
+  "P01-010": [
+   {
+    "row_id": "P01-010",
+    "e_class": "E-17",
+    "severity": "low",
+    "origin": "new",
+    "defective_text": "The seam onset at web:Jer.3.1 opens a shuv-wordplay cluster whose material continues through Jer.3.6-Jer.4.4, beyond this unit's own close at Jer.3.5",
+    "byte_evidence": "Outside the assigned scope but changed by the same pass, so reported. check_refs_mirror.py over rows_v5.jsonl flags this row argued_but_unmirrored for 22 verses, Jer.3.7 through Jer.4.3; the same check over the private rows_v3.jsonl copy carries no flag for this row, so the gap is new. boundary_evidence_refs fell from 39 entries to 17, dropping exactly web:Jer.3.7 through web:Jer.4.3, while the range statement naming Jer.3.6-Jer.4.4 stayed in device_notes. The order that reduced the refs and the unconditional mirror rule for verses argued outside the span cannot both be satisfied while the prose names the range.",
+    "proposed_cure": "Either restate the cluster's extent without a verse range, or restore the range's verses to the evidence refs, so prose and refs agree."
+   }
+  ],
+  "P13-002": [
+   {
+    "row_id": "P13-002",
+    "e_class": "E-07",
+    "severity": "low",
+    "origin": "new",
+    "defective_text": "A setumah closes this row's own final verse, (oshb:Jer.34.11, byte)",
+    "byte_evidence": "Outside the assigned scope but part of the same corpus-wide order, so reported. The order was to drop the quote-collation tier word from every seg-layer citation. Census over the three prose fields of all 275 rows: 23 such citations in the private rows_v3.jsonl copy, 6 in rows_v5.jsonl - the 17 the finding counted were cured, and 6 outside that count were never swept. This row carries one of the six; the parashah layer is a seg layer and has no quote-collation tier.",
+    "proposed_cure": "Drop the tier word from the seg-layer citation, leaving the plain MT key with its single-witness disclosure."
+   }
+  ],
+  "P13-004": [
+   {
+    "row_id": "P13-004",
+    "e_class": "E-07",
+    "severity": "low",
+    "origin": "new",
+    "defective_text": "a petuchah also closes this row's own final verse, (oshb:Jer.35.11, byte) ... a paseq falls in the performance report at (oshb:Jer.35.5, byte)",
+    "byte_evidence": "Outside the assigned scope but part of the same corpus-wide order, so reported. Two of the six seg-layer citations still carrying a quote-collation tier label in rows_v5.jsonl stand on this row (census: 23 in the private rows_v3.jsonl copy, 6 in rows_v5.jsonl).",
+    "proposed_cure": "Drop the tier word from both seg-layer citations, leaving the plain MT keys with their single-witness disclosures."
+   }
+  ],
+  "P13-005": [
+   {
+    "row_id": "P13-005",
+    "e_class": "E-07",
+    "severity": "low",
+    "origin": "new",
+    "defective_text": "paseq segs fall at (oshb:Jer.35.15, byte)",
+    "byte_evidence": "Outside the assigned scope but part of the same corpus-wide order, so reported. One of the six seg-layer citations still carrying a quote-collation tier label in rows_v5.jsonl stands on this row (census: 23 in the private rows_v3.jsonl copy, 6 in rows_v5.jsonl).",
+    "proposed_cure": "Drop the tier word from the seg-layer citation, leaving the plain MT key with its single-witness disclosure."
+   }
+  ],
+  "P13-006": [
+   {
+    "row_id": "P13-006",
+    "e_class": "E-07",
+    "severity": "low",
+    "origin": "new",
+    "defective_text": "A setumah falls at this row's own opening verse, (oshb:Jer.35.18, byte) ... a petuchah closes the row and the chapter at (oshb:Jer.35.19, byte)",
+    "byte_evidence": "Outside the assigned scope but part of the same corpus-wide order, so reported. Two of the six seg-layer citations still carrying a quote-collation tier label in rows_v5.jsonl stand on this row (census: 23 in the private rows_v3.jsonl copy, 6 in rows_v5.jsonl).",
+    "proposed_cure": "Drop the tier word from both seg-layer citations, leaving the plain MT keys with their single-witness disclosures."
+   }
+  ]
+ },
+ "record_only": {
+  "P05-014": [
+   {
+    "e_class": "E-10",
+    "severity": "low",
+    "disposition": "no change required (postcheck confirmed the author's report / the cure already stands on the cutting row)",
+    "cure": "No change is required on this row, since the participant-entry ground now stands on the cutting row and both seams are argued from the same test."
+   }
+  ],
+  "P09-003": [
+   {
+    "e_class": "E-03",
+    "severity": "low",
+    "disposition": "no change required (postcheck confirmed the author's report / the cure already stands on the cutting row)",
+    "cure": "No change is required on this row, since the misrouted item was cured on the row whose bytes carried the text."
+   }
+  ],
+  "P12-009": [
+   {
+    "e_class": "E-17",
+    "severity": "low",
+    "disposition": "no change required (postcheck confirmed the author's report / the cure already stands on the cutting row)",
+    "cure": "No change is required on this row, since the ordered edit targeted text this row does not carry."
+   }
+  ],
+  "P18-019": [
+   {
+    "e_class": "E-09",
+    "severity": "low",
+    "disposition": "no change required (postcheck confirmed the author's report / the cure already stands on the cutting row)",
+    "cure": "Leave the bare key in place unless the ten-row gate is re-cut for signal keys, since every placement of the settled pair on this row breaches it."
+   }
+  ]
+ },
+ "unify_layer": {
+  "P03-009": [
+   {
+    "e_class": "E-09",
+    "severity": "medium",
+    "disposition": "deterministic fix unify layer spot/fix_unify_c2.jsonl (byte-verified, gate-verified)",
+    "cure": "Replace the blended key with the settled pair speech_formula.koh_amar_yhwh and divine_title.yhwh_tsevaot, placed non-adjacently in the signals array so no seven-word run is shared by ten or more rows."
+   }
+  ]
+ }
+}

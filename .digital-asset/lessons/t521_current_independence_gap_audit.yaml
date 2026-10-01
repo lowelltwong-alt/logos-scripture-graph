@@ -1,0 +1,25 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-CURRENT-INDEPENDENCE-GAP-AUDIT
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  The current Sol map passes full-Bible structural gates, but cross-environment
+  comparison evidence remains disagreement-heavy. Local packet completeness is
+  not independent convergence; the external receipt gate must remain fail-closed.
+evidence:
+  map_sha256: sha256:9f3d4dc44eaa8b72673c1e615a792697b4a4f7b511d97fcf1fc5c174ee0008d5
+  map_path: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/whole_bible_candidate_map.jsonl
+  packet_audit: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/packet_convergence_audit.json
+  sibling_comparison: .ai/scratch/multi_model_bible_chunking/comparison/delta_summary.md
+  observed_sibling_verse_coverage_agreement_rate: 0.0617
+  observed_delta_span_count: 1048
+  external_independence_status: awaiting_external_provider_or_human_receipt
+constraints:
+  - same-substrate role mesh cannot count as provider independence
+  - disagreement rows require blind external or human review, not majority promotion
+  - candidate_only and non_authorizing remain mandatory

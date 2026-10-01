@@ -1,0 +1,53 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_launch_messages_stamped_a_validator_run_time_and_hardcoded_a_head",
+ "recorded_at": "2026-09-15T17:22:11.824940+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "a governance fact asserted to subagents that was STAMPED at build time rather than read from the evidence - so its truth was coincidental in every message, including the ones where it was true",
+ "severity": "low on observed impact, and the reason to record it is the construction rather than the harm. The substantive governance claims - status, mode, registry digest - were always read from the real validator output, the registry digest in every message matched the registry at that time, and the hardcoded head was correct throughout because the lane HEAD never moved. No agent's work depended on the timestamp.",
+ "self_disclosed": true,
+ "found_by": "the orchestrator, noticing that a regeneration changed the claimed validator run time from 02:36 to 14:09 UTC when no validator had been run in between",
+ "the_two_defects": {
+  "stamped_run_time": "the line read `(run %s UTC)` with datetime.now() at message-build time, and called it the validator's run time",
+  "hardcoded_lane_head": "the literal `8dce6681685c` sat in the format string of all three builders, presented as a measured commit. It was correct only because the lane HEAD did not move"
+ },
+ "measured_truth": {
+  "true_output_write_times_utc": {
+   "validator_e11.json": "2026-09-14 16:33",
+   "validator_s5.json": "2026-09-14 21:21",
+   "validator_primaries.json": "2026-09-15 01:54",
+   "validator_primaries.v2.json": "2026-09-15 14:11"
+  },
+  "e11_message_claimed": "2026-09-14 16:33 UTC",
+  "e11_true": "2026-09-14 16:33",
+  "e11_accidentally_accurate": true,
+  "s5_message_claimed": "2026-09-14 21:21 UTC",
+  "s5_true": "2026-09-14 21:21",
+  "s5_accidentally_accurate": true,
+  "primaries_messages_claimed": "2026-09-15 02:36 UTC (the generation the 14 landed executions received)",
+  "primaries_true": "2026-09-15 01:54",
+  "primaries_overstatement_minutes": 42,
+  "the_near_miss": "a regeneration today restamped the same unchanged validator run as 14:09 UTC - more than twelve hours adrift. No agent received it: the messages were rebuilt at 2026-09-15 14:11 against a fresh validator run before anything launched. That is what made the defect visible at all."
+ },
+ "correction_of_my_own_first_reading": "the orchestrator's first framing was that every launch message in this wave carried a fabricated timestamp. Measuring the validator outputs' mtimes showed that is wrong for #e11 and S5: in both cases the validator ran and the brief was built inside the same minute, so the stamp coincided with the truth. The defect is that the value was never READ, not that it was always wrong. Only the primaries messages state a false time, and by 42 minutes.",
+ "exposure": {
+  "executions_that_received_a_false_time": 14,
+  "which": "the 14 landed primary executions of clusters c01-c07, both lanes",
+  "executions_whose_claim_was_accidentally_true": 2,
+  "which_2": [
+   "#e11",
+   "S5"
+  ],
+  "substantive_governance_claims_affected": 0
+ },
+ "cure": {
+  "all_three_builders": "_primaries_launch_messages.py, _e11_queue_and_brief.py and _s5_brief.py now read the lane HEAD from the validator's own runtime_evidence entry for its target worktree, and take the run time from the mtime of the validator's OUTPUT FILE - a fact about when the run produced it, which cannot be stamped. Each REFUSES if the output carries no head for its target worktree, and each refuses on blocking_failures.",
+  "why_the_mtime_and_not_a_new_field": "the validator emits no timestamp of its own, and adding a key to another tool's output would mean the orchestrator writing the fact it is supposed to be reading. The output file's mtime is already evidence.",
+  "wording_changed_too": "the line now says `validator output written <t> UTC` rather than `run <t> UTC`, because that is what is actually known",
+  "regression": "test_val_line_measured.py EXTRACTS the edited block from each of the three live sources and execs it against the real validator output: head-from-evidence, time-equals-output-mtime, and a refusal when the target's head is absent. GREEN on all three. The refusal case is the one that matters - the old code could not fail, because it read nothing."
+ },
+ "why_it_matters_beyond_this_wave": "#e12 has not been launched yet and would have been built by _e11_queue_and_brief.py, so the same stamped time and the same hardcoded head were still ahead of the campaign, not only behind it.",
+ "class_reference": "L-0014, a figure read is not a figure measured - here applied to a figure that was neither read nor measured but generated",
+ "limit": "launch-message provenance only; no row, ruling, verdict, digest or review finding changes"
+}

@@ -1,0 +1,253 @@
+{
+  "schema_version": "m7_hosea_v8_wrapper_integration_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "fresh_independent_v8_wrapper_integration_red_team",
+  "review_mode": "read_only_exact_hash_static_trace",
+  "artifact_status": "complete_closed_verdict",
+  "verdict": "FAIL",
+  "implementation_readiness": "FAIL",
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "prepare_authorized": false,
+  "exact_hash_match": true,
+  "summary": "The frozen V8 wrapper correctly pins an exact 13-target candidate-only render, six qualification hashes, the V5 journal kernel, the conditional rooted replacement primitive, and three global sentinels. It is not fail-closed against its own required post-restart environment gate: prepare can create the V8 attempt from static qualification evidence while the pinned environment premortem still says current readiness FAIL, and publish/recover trust locally asserted JSON fields instead of verifying the current boot identity, OneDrive/process quiescence, or the claimed 13 point-in-time exclusive-open checks. The exact Lowell acknowledgment is absent and must not be inferred. No prepare, publish, or recovery may run from this verdict.",
+  "immutable_inputs": {
+    "wrapper": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+      "expected_sha256": "bd147fcb1455fe4dcda707e1ddbe68482bde2eac090df0c004c671f5a277c645",
+      "observed_sha256": "bd147fcb1455fe4dcda707e1ddbe68482bde2eac090df0c004c671f5a277c645",
+      "match": true
+    },
+    "policy_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v8.py",
+      "expected_sha256": "59ec0b447b169cf82beecc02fe3dfef64faf9a09269c79a1296b3ca58ae41bdf",
+      "observed_sha256": "59ec0b447b169cf82beecc02fe3dfef64faf9a09269c79a1296b3ca58ae41bdf",
+      "match": true
+    },
+    "prepare_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v8_prepare_resume.py",
+      "expected_sha256": "707e50ea25134c7e77c2fb9d62ef3be39ee51f72e9d9de83497497942d66480f",
+      "observed_sha256": "707e50ea25134c7e77c2fb9d62ef3be39ee51f72e9d9de83497497942d66480f",
+      "match": true
+    },
+    "transaction_tests": {
+      "path": "tests/test_hos_semantic_prose_rematerialization_v8_transaction.py",
+      "expected_sha256": "1fb73421b6dcaba3e1bce46c1385e987e240c69d4c6813fc52a1bf2fc3bdc2da",
+      "observed_sha256": "1fb73421b6dcaba3e1bce46c1385e987e240c69d4c6813fc52a1bf2fc3bdc2da",
+      "match": true
+    },
+    "kernel_v5": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v5.py",
+      "expected_sha256": "6f00c736e2bb254ec35e9d119cf7e122eaccb40e617eeb2e50280e1df0ce7274",
+      "observed_sha256": "6f00c736e2bb254ec35e9d119cf7e122eaccb40e617eeb2e50280e1df0ce7274",
+      "match": true
+    },
+    "rooted_replace_v2": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/windows_nt_rooted_replace_v2.py",
+      "expected_sha256": "f88379fa1aea4c30a57f6e672815241865c85719db9597a356c36b505fdaf115",
+      "observed_sha256": "f88379fa1aea4c30a57f6e672815241865c85719db9597a356c36b505fdaf115",
+      "match": true
+    },
+    "kernel_v5_independent_check": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_kernel_v5_independent_check.json",
+      "sha256": "3715f0f9da2a3be95750089d337a152956b4cd894178f6d8af01f6fcb4e258f8"
+    },
+    "rooted_replace_independent_check": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_rooted_replace_primitive_independent_check.json",
+      "sha256": "a75520ddf5148495c5097a19ba99e4f4f5fb3043055c552a24660ff2686e60ef"
+    },
+    "architecture_ruling": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_handle_replacement_architecture_ruling.json",
+      "sha256": "8a8950eac8857007e9ca6edb51f184e147562677992fad8cebd82b9f69810a1c"
+    },
+    "environment_gate_premortem": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_environment_gate_premortem.json",
+      "sha256": "6931fe6d5f4209d269a1f67fb9f6268c93b33bdb5ff127aea173b97a1957f56c",
+      "pinned_verdict": "CONDITIONAL_PASS_GATE_DESIGN_CURRENT_READINESS_FAIL",
+      "publication_authorized": false
+    }
+  },
+  "root_recorded_test_evidence": {
+    "accepted_as_supplied_evidence": true,
+    "independently_rerun": false,
+    "reason_not_rerun": "The task directed the checker to treat the root-recorded focused results as evidence and avoid redundant costly reruns.",
+    "runs": [
+      {
+        "suite": "policy",
+        "passed": 4,
+        "failed": 0
+      },
+      {
+        "suite": "prepare_resume",
+        "passed": 4,
+        "failed": 0
+      },
+      {
+        "suite": "transaction",
+        "passed": 6,
+        "failed": 0
+      }
+    ],
+    "interpretation": "Fourteen focused tests are useful regression evidence but do not exercise a real post-restart environment gate. Several checks are source-token assertions or monkeypatch the qualification function to fail; they do not establish that the real qualification function blocks current prepare, publish, or recovery."
+  },
+  "exact_target_scope": {
+    "target_count": 13,
+    "paths": [
+      "reviews/Hos/decision_evidence_v2.jsonl",
+      "book_chunks/Hos/chunks.jsonl",
+      "reviews/Hos/review_packets.jsonl",
+      "reviews/Hos/decision_relations.jsonl",
+      "reviews/Hos/primary_hebrew_v2.json",
+      "reviews/Hos/primary_literary_v2.json",
+      "reviews/Hos/canonical_premortem_v2.json",
+      "reviews/Hos/peer_crosscheck_v2.json",
+      "reviews/Hos/boss_ruling_v2.json",
+      "reviews/Hos/sidecar_rows_v2.json",
+      "reviews/Hos/appeal_ledger.jsonl",
+      "reviews/Hos/post_resolution_check_v2.json",
+      "receipts/Hos_completion_v2.json"
+    ],
+    "verdict": "PASS_EXACT_BOOK_LOCAL_ALLOWLIST",
+    "limits": "This scope verdict does not authorize writing any member."
+  },
+  "six_qualification_bindings": {
+    "kernel_v5_sha256": "6f00c736e2bb254ec35e9d119cf7e122eaccb40e617eeb2e50280e1df0ce7274",
+    "kernel_v5_independent_check_sha256": "3715f0f9da2a3be95750089d337a152956b4cd894178f6d8af01f6fcb4e258f8",
+    "rooted_replace_sha256": "f88379fa1aea4c30a57f6e672815241865c85719db9597a356c36b505fdaf115",
+    "rooted_replace_independent_check_sha256": "a75520ddf5148495c5097a19ba99e4f4f5fb3043055c552a24660ff2686e60ef",
+    "architecture_ruling_sha256": "8a8950eac8857007e9ca6edb51f184e147562677992fad8cebd82b9f69810a1c",
+    "environment_gate_premortem_sha256": "6931fe6d5f4209d269a1f67fb9f6268c93b33bdb5ff127aea173b97a1957f56c",
+    "verdict": "PASS_EXACT_STATIC_BINDING"
+  },
+  "dimension_verdicts": {
+    "exact_13_target_scope": {
+      "verdict": "PASS",
+      "basis": "TARGETS is a fixed ordered tuple of 13 book-local members; prepare manifests and receipts require that exact order; the kernel receives the same exact canonical allowlist."
+    },
+    "candidate_only_and_non_authorizing_labels": {
+      "verdict": "PASS",
+      "basis": "Prepare, checker, boss, exception, return values, and receipts retain candidate-only/non-authorizing fields and completion_state not_completed."
+    },
+    "six_static_qualification_bindings": {
+      "verdict": "PASS",
+      "basis": "The exact kernel, kernel check, rooted primitive, rooted check, architecture ruling, and environment premortem hashes are pinned and copied into the prepare manifest and closed prepare receipt."
+    },
+    "journal_and_rollback_integration": {
+      "verdict": "CONDITIONAL_PASS",
+      "basis": "The wrapper delegates to exact kernel V5, computes the immutable journal core with the actual manifest and receipt paths, permits only exact preimage/stage target states, routes forward and rollback canonical writes through the rooted adapter, and requires review artifacts for both publish and recover.",
+      "limits": "This inherits the kernel check's explicit exclusions: no power-loss durability, no 13-file set atomicity, and no caller identity proof. Recovery also remains subject to a fresh unexpired environment exception."
+    },
+    "sentinel_guard_and_global_nonmutation": {
+      "verdict": "CONDITIONAL_PASS",
+      "basis": "Publish and recover acquire the exact three sentinel handles before transaction-context evaluation, verify them before and after the transaction, and pin their bytes. No global sidecar is in TARGETS.",
+      "limits": "The rooted primitive review already records that a pre-opened writer handle cannot be revoked. The environment gate needed to control that residual risk is not mechanically established by this wrapper."
+    },
+    "human_authorization_schema": {
+      "verdict": "CONDITIONAL_PASS_SCHEMA_ONLY",
+      "basis": "The environment-exception closed schema requires the exact Lowell acknowledgment text, Lowell's name, a one-hour maximum window, exact wrapper/test/qualification hashes, the exact 13 paths, rollback-only recovery authority, and explicit denial of global-sidecar installation.",
+      "limits": "No authorization artifact exists and the user has not supplied the required acknowledgment. The pinned premortem also states that Codex cannot cryptographically verify who authored local JSON; therefore an agent-created field must never be treated as substitute human provenance."
+    },
+    "prepare_fail_closed_environment_gate": {
+      "verdict": "FAIL",
+      "basis": "prepare_v8 calls require_qualified_publication_primitives before ATTEMPT.mkdir, but that function only revalidates the six static artifacts. qualification_evidence explicitly accepts the pinned environment premortem whose current-readiness verdict is FAIL and whose publication_authorized field is false. prepare_v8 accepts no restart, quiescence, or human-gate artifact and can therefore create a nominal V8 attempt before the required post-restart gate."
+    },
+    "publish_fail_closed_environment_gate": {
+      "verdict": "FAIL",
+      "basis": "validate_authorization_artifacts checks Boolean and string claims in a local JSON object and timestamp order. It does not compare post_restart_boot_identity with the current Windows boot, inventory live processes, verify OneDrive is currently absent, or perform/hold the claimed 13 exclusive target opens. LegacyExecutionGuard only denies new opens of corrective_re_review_v2.py while held; validate_legacy_process_exclusion likewise trusts an attestation object."
+    },
+    "recover_fail_closed_environment_gate": {
+      "verdict": "FAIL",
+      "basis": "recover uses the same environment-claim parser as publish and therefore inherits the same unverified current-boot, process, OneDrive, and exclusive-open claims. The recovery journal checks are strong only after this missing outer runtime gate is established."
+    },
+    "runtime_identity_binding": {
+      "verdict": "FAIL",
+      "basis": "The architecture ruling requires binding exact operating-system/filesystem evidence and held parent identities. The environment-exception schema contains neither Windows build/filesystem-volume identity nor the 13 parent identities. Parent identities are sampled in memory immediately before rooted calls but are not bound into the prepare receipt, environment exception, or journal immutable core."
+    },
+    "current_canonical_and_global_state": {
+      "verdict": "PASS_UNCHANGED",
+      "basis": "The V8 attempt directory, V8 journal, shared mutation lock, and V8 application receipt are absent. All 13 current canonical members match the frozen preimage hashes, and all three global sidecars match their pinned hashes."
+    }
+  },
+  "blocking_findings": [
+    {
+      "finding_id": "V8-WRAPPER-ENV-001",
+      "severity": "P0_PUBLICATION_AND_RECOVERY_BLOCKER",
+      "title": "Environment exception claims are not verified against the live host",
+      "evidence": "rematerialize_semantic_prose_v8.py lines 1988-2136 parse a closed JSON schema and chronology but contain no current-boot, process-inventory, OneDrive, or 13-target exclusive-open implementation; repository search finds those concepts only as accepted fields. The premortem says those facts are runtime gates Codex can verify.",
+      "risk": "A stale, mistaken, or agent-authored JSON file can satisfy the wrapper while OneDrive, a preloaded Python writer, or another writer is active, leaving the exact lost-update and stale-completion races that the conditional architecture requires the environment gate to control.",
+      "required_resolution": "Add a frozen runtime-gate implementation that measures the current boot identity, bounded process/sync/writer snapshot, current OneDrive absence, and exact live target/sentinel handle checks immediately before use. Bind its exact evidence and hashes into the exception, checker, boss ruling, prepare receipt, and transaction core. Treat any uncertainty as a hard block."
+    },
+    {
+      "finding_id": "V8-WRAPPER-PREPARE-001",
+      "severity": "P1_GENERATION_INTEGRITY_BLOCKER",
+      "title": "Real prepare qualification passes while the environment premortem says current readiness FAIL",
+      "evidence": "qualification_evidence accepts the exact premortem verdict CONDITIONAL_PASS_GATE_DESIGN_CURRENT_READINESS_FAIL and returns six hashes; prepare_v8 has no environment-gate parameter and creates ATTEMPT immediately after that static check. The focused prepare test proves only that a monkeypatched qualification failure occurs before creation.",
+      "risk": "A V8 attempt can be materialized in a pre-restart or non-quiescent state and later be mistaken for a generation prepared under the required runtime exception.",
+      "required_resolution": "Either gate V8 attempt creation on fresh post-restart runtime evidence, or explicitly separate an immutable non-authorizing static-stage generation from a new post-restart transaction generation whose receipt is created only after live environment checks. Resolve the prepare-receipt/authorization dependency without weakening the gate."
+    },
+    {
+      "finding_id": "V8-WRAPPER-BIND-001",
+      "severity": "P1_CONDITIONAL_ARCHITECTURE_BLOCKER",
+      "title": "OS, filesystem-volume, and parent identities are not receipt- or journal-bound",
+      "evidence": "The architecture ruling requires exact OS/filesystem evidence and parent identities. The wrapper's environment schema has no such fields; replacement_probes record paths and Boolean capability only; root identities remain ephemeral adapter state.",
+      "risk": "The transaction can be presented as the reviewed environment-bound operation without immutable evidence that it ran on the reviewed host/volume/root identities.",
+      "required_resolution": "Add exact Windows build, filesystem/volume identity, workspace-root identity, and all distinct held canonical-parent identities to the closed runtime evidence, prepare/authorization bindings, checker/boss inputs, and journal immutable intent."
+    }
+  ],
+  "nonblocking_observations": [
+    {
+      "observation_id": "V8-WRAPPER-OBS-001",
+      "statement": "The wrapper preserves strict-block dissent and makes no unconditional or portable primitive claim."
+    },
+    {
+      "observation_id": "V8-WRAPPER-OBS-002",
+      "statement": "The 13 staged outputs are contractually hash-pinned to the V5 and V6 content-PASS bytes while explicitly refusing to reuse their failed transaction verdicts."
+    },
+    {
+      "observation_id": "V8-WRAPPER-OBS-003",
+      "statement": "An expiring environment exception makes recovery fail closed but may require renewed human authority after a delayed crash recovery; this availability cost is not represented as correctness evidence."
+    }
+  ],
+  "preserved_strict_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Even after the missing runtime gate is implemented, FILE_SHARE_DELETE leaves a destination-entry lost-update window and a post-readback stale-completion window. A reviewer may reasonably require an offline or otherwise deterministically writer-exclusive environment rather than accepting the scoped exception.",
+    "status": "PRESERVED_FOR_HUMAN_OR_EXTERNAL_AI_REVIEW",
+    "forced_consensus": false
+  },
+  "explicit_exclusions": [
+    "No V8 prepare, publish, or recover action was invoked.",
+    "No canonical or global sidecar file was written.",
+    "No V8 attempt, lock, journal, marker, manifest, application receipt, authorization artifact, or boss artifact was created.",
+    "The supplied 4+4+6 focused tests were not redundantly rerun.",
+    "This check does not independently re-adjudicate Hosea literary boundaries or original-language evidence.",
+    "This check does not establish human identity, power-loss durability, 13-file set atomicity, portability, global-sidecar readiness, completion, comparison, promotion, commit, push, or merge authority."
+  ],
+  "current_state_evidence": {
+    "v8_attempt_exists": false,
+    "v8_journal_exists": false,
+    "shared_mutation_lock_exists": false,
+    "v8_application_receipt_exists": false,
+    "all_13_canonical_members_match_frozen_preimages": true,
+    "all_3_global_sidecars_match_pins": true,
+    "exact_lowell_acknowledgment_received": false
+  },
+  "authority_limits": {
+    "candidate_only": true,
+    "non_authorizing": true,
+    "v8_implementation_qualified": false,
+    "v8_prepare_authorized": false,
+    "v8_publish_authorized": false,
+    "v8_recover_authorized": false,
+    "canonical_write_authorized": false,
+    "global_sidecar_install_authorized": false,
+    "book_completion_authorized": false,
+    "comparison_authorized": false,
+    "promotion_authorized": false,
+    "commit_authorized": false,
+    "push_authorized": false,
+    "merge_authorized": false,
+    "external_review_receipt_created": false
+  },
+  "next_action": "Keep V8 blocked. Repair the three findings under a new immutable wrapper generation, freeze its code and tests, obtain a fresh independent transaction check and premortem plus a separate boss ruling, then return to Lowell for the exact scoped environment decision. Do not prepare, publish, recover, install global sidecars, or mark Hosea complete from this artifact."
+}

@@ -1,0 +1,230 @@
+{
+ "attempt_id": "ow2i2_Ps_04_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Ps",
+ "rows": [
+  {
+   "row_id": "M8-Ps-246",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:session_wave_reference",
+     "disposition": "not_a_defect",
+     "grounds": "Retro-scan false positive on the word 'cycle'. The matched phrase 'this cycle' in strongest_rejected_alternative names a TEXT object, not a session, wave, round, part or attempt: boundary_rationale introduces the span as 'A third cycle opens where the psalm's testing and rebelling vocabulary converge in one clause', and that cyclic retelling is byte-visible at the cited verse -- oshb:Ps.78.56 opens וַיְנַסּ֣וּ (byte tier), followed by וַ֭יַּמְרוּ (byte tier), the third return of the tempting-verb after oshb:Ps.78.18 and oshb:Ps.78.41. No session, wave, attempt id, part id, decision id, file name or review actor appears anywhere in the row's prose. Ps 78 is an identity psalm (ps_lib.web_to_mt(78,v)=v; WEB 72 body verses = MT 72), so the row's bare web: refs and its oshb-only citations are unambiguous and carry no dual-cite obligation."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-05 tier/count discipline",
+     "claim": "Two recurrence counts are stated with no collation tier, immediately after byte-tier splices, and neither recurrence holds at byte tier.",
+     "grounds": "observed_substrate_signals[0] cites וַיְנַסּ֣וּ as '(oshb:Ps.78.56, byte tier)' and then asserts 'a sweep of 3 verses carrying the tempting-verb form (web:Ps.78.18, web:Ps.78.41, web:Ps.78.56)' with no tier named. collate.py of that exact run returns byte at oshb:Ps.78.41 and oshb:Ps.78.56 but only accent_stripped at oshb:Ps.78.18, whose word 0 is the unaccented וַיְנַסּוּ -- so at byte tier the count is 2 verses, not 3. observed_substrate_signals[1] likewise cites עֶלְי֑וֹן as '(oshb:Ps.78.56, byte tier)' and then 'recurs a third time in this psalm, after web:Ps.78.17 and web:Ps.78.35 -- sweep: 3 verses', again untiered; the same run collates byte only at oshb:Ps.78.56 and accent_stripped at oshb:Ps.78.17 (עֶ֝לְי֗וֹן) and oshb:Ps.78.35 (עֶ֝לְיוֹן). Both digits are TRUE at skeleton tier and correctly unit-named ('verses'): sweep.py --skel over the consonantal form of וַיְנַסּ֣וּ returns 4 verses book-wide (Ps.78.18, Ps.78.41, Ps.78.56, Ps.106.14 -- 3 inside Psalm 78), and sweep.py --skel over the consonantal form of עֶלְי֑וֹן returns 22 verses book-wide of which exactly Ps.78.17, Ps.78.35, Ps.78.56 sit in this psalm. The third count in the same field, '4 verses in this psalm carry that [m-r-h] root', is also TRUE: a per-word scan of all 72 verses of Psalm 78 returns m-r-h only at oshb:Ps.78.8 (וּמֹ֫רֶ֥ה), oshb:Ps.78.17, oshb:Ps.78.40 and oshb:Ps.78.56, every other mr-skeleton word in the psalm belonging to the roots amar or shamar. Honest counts, under-tiered presentation; the seam does not rest on either.",
+     "span_change": false,
+     "proposed_change": "Field repair (observed_substrate_signals only): name the tier on both counts -- 'sweep: 3 verses in Psalm 78, accent_stripped tier (byte tier 2 -- oshb:Ps.78.18 carries the unaccented form)' and 'sweep: 3 verses in Psalm 78, accent_stripped tier'. No span, seam or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "device_notes narrates the disclosure workflow and points at another row's schema field instead of describing the text.",
+     "grounds": "device_notes reads, verbatim, 'begun in web:Ps.78.18's device notes, disclosed here as the sweep's completion rather than a fresh claim.' The owner-ruled Ps strategy §10 bars file-order talk and erratum/disclosure narration from row prose and requires cross-row references to be verse-anchored to the TEXT; 'web:Ps.78.18's device notes' anchors to a row FIELD, and 'disclosed here as the sweep's completion rather than a fresh claim' narrates pipeline bookkeeping. The underlying textual fact is sound -- וַיְנַסּ֣וּ (oshb:Ps.78.56, byte tier) is the last of the psalm's three tempting-verb verses. Cosmetic; no evidence is affected.",
+     "span_change": false,
+     "proposed_change": "Field repair (device_notes): recast as text description, e.g. 'the tempting-verb recurrence opened at web:Ps.78.18 and resumed at web:Ps.78.41 closes at web:Ps.78.56 (3 verses in Psalm 78, accent_stripped tier)'. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-272",
+   "verdict": "clean",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "Well-calibrated low band with sound grounds. (1) The seam is sound at that confidence: the front seam web:Ps.87.3|Ps.87.4 rests on a ruled tier-1 signal standing in the cited verse's own bytes -- oshb:Ps.87.4 opens אַזְכִּ֤יר רַ֥הַב וּבָבֶ֗ל (collate.py = byte tier), a 1cs divine verb, against the hymnic third-/second-person address of oshb:Ps.87.1-3; strategy §5 lists explicit speaker/addressee shifts inside psalms as tier-1 seam evidence. The back edge is the psalm's end. (2) Every dual-cite is arithmetically right: Ps 87 is an identity psalm (web_mt_offset_map.json; WEB 7 body verses = MT 7; ps_lib.web_to_mt(87,v)=v), so each 'web:Ps.87.N = oshb:Ps.87.N' in boundary_evidence_refs holds. (3) The one repeated formula the row leans on is tiered honestly and its digit re-derives: sweep.py --skel over the consonantal string of זֶ֝֗ה יֻלַּד שָֽׁם returns exactly 2 verses book-wide, Ps.87.4 and Ps.87.6, and collate.py confirms the stated tier -- זֶ֝֗ה יֻלַּד שָֽׁם is byte at oshb:Ps.87.4 but only skeleton at oshb:Ps.87.6, and זֶ֖ה יֻלַּד שָׁ֣ם is byte at oshb:Ps.87.6 but only skeleton at oshb:Ps.87.4, so 'matching at the skeleton (consonantal) tier' and 'raw/nfd/accent_stripped tiers do not converge' are exactly correct. (4) Selah disclosure is span-symmetric and true: WEB carries 'Selah.' at Ps.87.3 (front seam) and Ps.87.6 (interior) and at no other verse of the psalm, matching סֶֽלָה at oshb:Ps.87.3 and סֶֽלָה at oshb:Ps.87.6; the row treats the 87:6 Selah as the rival's best ground and overrides it on content, which is exactly the §2d posture (selah never a driver). (5) The tier-4 item is disclosed as non-evidence rather than used: the WEB footnote does stand in the staged WEB text of Ps.87.4 ('[fn 87:4 Rahab is a reference to Egypt.]') and the row rules it out. (6) The stated reason for the band is honest and matches the byte picture -- the internal shape really is argued from one repeated formula rather than a full set of tier-1 markers -- and the owner-ruled strategy §7 registers \"87's terse oracle (locus of the Zion register)\" in advance as an expected low-confidence region. Neither under- nor over-stated; no frontier flag or sidecar posture is owed beyond the band itself. No whole-chapter cap is in play (strophe row; Ps whole_psalm rows are ruled units with no cap in any case)."
+    }
+   ],
+   "findings": []
+  },
+  {
+   "row_id": "M8-Ps-273",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "Three inventory/tool file names stand in row prose: 'psalm_device_inventory.json' twice (boundary_rationale, in 'le_heman: 1 of 116 titled psalms; psalm_device_inventory.json', and observed_substrate_signals[0]) and 'verse_map_web.json' once (observed_substrate_signals[1]). Strategy §10 bars tooling and file names from row prose. TEST 2 (E-18 arm) re-derived from bytes: every claim they support is TRUE, so this is the brief's named low-severity case -- a disclosure citation of an inventory the row used correctly, a register defect and not an evidence defect. sweep.py --skel over the consonantal form of לְהֵימָ֥ן returns exactly 1 verse book-wide, Ps.88.1, the title verse, against 116 Ps.N.0 title entries in the staged WEB map -- '1 of 116 titled psalms' holds. The eight-label count holds on the bytes of oshb:Ps.88.1 (shir, mizmor, li-vnei Qorach, lamnatseach, al-machalat, le-annot, then the closing מַ֝שְׂכִּ֗יל לְהֵימָ֥ן הָאֶזְרָחִֽי, byte tier = maskil + le-Heman ha-Ezrachi): 8 distinct labels. 'The psalm's only individually-named author within the Korah collection' also holds: of the 11 bene-Qorach titles (Ps 42, 44-49, 84-85, 87-88) only Ps 88's names an individual. The numbering is right throughout -- Ps 88 is shift+1 (ps_lib.web_to_mt(88,v)=v+1; WEB 18 body verses vs MT 19), so web:Ps.88.0 = oshb:Ps.88.1 through web:Ps.88.7 = oshb:Ps.88.8 are all correct, and the owner gate on titled psalms' opening rows (web:Ps.N.0 = oshb:Ps.N.1 in the refs) is satisfied. The Selah disclosure is true and span-symmetric: WEB 'Selah.' at Ps.88.7 = סֶּֽלָה at oshb:Ps.88.8, the only Selah inside the span."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "Three inventory/tool file names stand in row prose (psalm_device_inventory.json x2, verse_map_web.json x1), against strategy §10.",
+     "grounds": "Exact strings: '(le_heman: 1 of 116 titled psalms; psalm_device_inventory.json)' and 'oshb:Ps.88.1 carries eight distinct genre/authorship labels (psalm_device_inventory.json)' and 'web_selah:true at Ps.88.7 (verse_map_web.json)'. §10: row prose describes the TEXT; no file-order or tooling talk. Every digit they carry re-derives true from bytes (see the trigger grounds), so nothing evidential is at stake -- the defect is register only.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale + observed_substrate_signals): strike the three file names and keep the digits with their byte grounds -- '1 title in Psalms carries this name, of 116 titled psalms', 'oshb:Ps.88.1 carries eight distinct genre/authorship labels', 'Selah stands in web:Ps.88.7 = oshb:Ps.88.8'. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "E-05 over-stated substrate claim",
+     "claim": "The 'one continuous 2nd-person address' substrate signal overstates the bytes: 2 of the 7 verses in the span carry no second-person form at all.",
+     "grounds": "observed_substrate_signals[2] reads 'web:Ps.88.1-Ps.88.7 hold one continuous 2nd-person address to Yahweh describing the psalmist's own plight', and boundary_rationale 'holds a sustained second-person address describing the psalmist's descent toward Sheol and the pit (web:Ps.88.2-Ps.88.6)'. Within the span (WEB 88:1-7 = MT 88:2-8, shift+1) second-person forms stand at oshb:Ps.88.2 (נֶגְדֶּֽךָ), oshb:Ps.88.3 (לְ֭פָנֶיךָ), oshb:Ps.88.6 (זְכַרְתָּ֣ם), oshb:Ps.88.7 (שַׁ֭תַּנִי) and oshb:Ps.88.8 -- 5 of 7. oshb:Ps.88.4 (= web:Ps.88.3) is 1cs/3mp throughout (נַפְשִׁ֑י ... הִגִּֽיעוּ) and oshb:Ps.88.5 (= web:Ps.88.4) is 1cs throughout (נֶ֭חְשַׁבְתִּי ... הָ֝יִ֗יתִי); neither carries any 2ms form. A claim filed as an observed substrate signal owes its digit and its exception. Not load-bearing: the row's front seam is the psalm boundary carried by the tier-1 title, and the reading (one address held across the span) survives the correction.",
+     "span_change": false,
+     "proposed_change": "Field repair (observed_substrate_signals[2] + boundary_rationale): '5 of the 7 verses in web:Ps.88.1-Ps.88.7 carry an explicit 2nd-person form addressed to Yahweh; web:Ps.88.3 = oshb:Ps.88.4 and web:Ps.88.4 = oshb:Ps.88.5 are first-person throughout, held inside one continuous address.' No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-276",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "strongest_rejected_alternative reads, verbatim, 'Closing the unit at 89:2 and moving the oath-citation into the next row was considered'. 'the next row' is a positional row reference, barred outright by strategy §10 ('NO ... positional row references ... in row prose EVER; cross-row references are verse-anchored'). TEST 1 applies and the violation is purely cosmetic at this point -- the rival it names is real and verse-locatable (a cut at web:Ps.89.2|web:Ps.89.3) and carries no false claim about the neighbouring row: the book-order next row M8-Ps-277 does open at web:Ps.89.5. Recorded at low severity; the row's separate evidentiary problem is carried in its own finding below."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "strongest_rejected_alternative names 'the next row' instead of anchoring the rival to verses.",
+     "grounds": "Exact string: 'Closing the unit at 89:2 and moving the oath-citation into the next row was considered'. §10 bars positional row references absolutely and requires verse-anchored cross-row reference. The rival itself is sound and locatable at web:Ps.89.2|web:Ps.89.3.",
+     "span_change": false,
+     "proposed_change": "Field repair (strongest_rejected_alternative): 'Closing the unit at web:Ps.89.2 = oshb:Ps.89.3 and carrying web:Ps.89.3-Ps.89.4 forward was considered'. No span change."
+    },
+    {
+     "severity": "medium",
+     "class": "E-selah-overtier (strategy §2d / §6 policy)",
+     "claim": "The rival's rejection rests on the Selah at web:Ps.89.4, which the book's binding policy bars from boundary-driver work.",
+     "grounds": "strongest_rejected_alternative offers exactly two grounds: (a) '89:3 opens without a distinct topic header of its own' -- an argument from absence about an undefined 'topic header' (and under the campaign-wide owner addendum any editorial/section heading would be tier-4 and never counterevidence by absence in any case), and (b) 'the oath's guarantee is what Selah corroborates at 89:4, binding the citation to the vow that introduces it', which makes the Selah the decisive ground for holding web:Ps.89.3-Ps.89.4 inside this row. Strategy §2d is binding: 'selah is at MOST tier-3-like corroboration of a strophe/section close -- NEVER a boundary driver alone'; §6 permits 'selah-corroborated closes only WITH an independent driver'. The mark itself is real and correctly located -- WEB 'Selah.' at Ps.89.4 = סֶֽלָה at oshb:Ps.89.5 (Ps 89 is shift+1) -- and observed_substrate_signals[2] tiers it correctly as 'tier-3 corroboration', so the defect is confined to the rejected_alternative, where it does driver work. The row's own book-order neighbor argues the same mark to the stricter standard (M8-Ps-277: 'this unit's own content ... is untouched by that closing mark'), which is the internal inconsistency. Not load-bearing on the span: the front edge is the maskil-le-Ethan title, מַ֝שְׂכִּ֗יל לְאֵיתָ֥ן הָֽאֶזְרָחִֽי (oshb:Ps.89.1, byte tier; web:Ps.89.0 = oshb:Ps.89.1), a tier-1 opener, and the back edge has the independent voice shift to direct praise at web:Ps.89.5 that M8-Ps-277 argues. Routed onward as a disagreement with the row's own stated grounds; the span is not disputed.",
+     "span_change": false,
+     "proposed_change": "Field repair (strongest_rejected_alternative): replace ground (b) with the byte warrant that oshb:Ps.89.4-Ps.89.5 is one uninterrupted 1cs divine oath -- כָּרַ֣תִּֽי and נִ֝שְׁבַּ֗עְתִּי at oshb:Ps.89.4, then אָכִ֣ין and וּבָנִ֨יתִי at oshb:Ps.89.5 -- so the rival's cut at web:Ps.89.2|web:Ps.89.3 would relocate an intact oath rather than resolve a seam, and demote the Selah to disclosed tier-3 corroboration. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "E-numbering register (strategy §3)",
+     "claim": "Prose carries bare unqualified verse numbers inside a shift+1 psalm, and the rival's own cut verse is missing from boundary_evidence_refs.",
+     "grounds": "Ps 89 is a non-identity psalm: ps_lib.web_to_mt(89,v) = v+1 (WEB 52 body verses vs MT 53). The row writes 'at 89:3', 'Closing the unit at 89:2', 'the oath's guarantee is what Selah corroborates at 89:4', and observed_substrate_signals[1] 'first-person vow (89:1-2) shifts into quoted divine oath at 89:3'. All are correct read as WEB, none is qualified, and the Selah mention is actively misleading as written -- in MT numbering the Selah stands at 89:5 (סֶֽלָה, oshb:Ps.89.5), not 89:4. §3 requires 'verse N' prose mentions to be mirrored, and a bare structured ref inside an offset zone must carry its qualifier. Separately, web:Ps.89.2 = oshb:Ps.89.3 -- the verse the rival would cut at, inside the span, and the only span verse the prose reasons about -- is absent from boundary_evidence_refs (which lists web:Ps.89.0, .1, .3, .4 only). Mechanical; the row's arithmetic where it IS written out is correct at every point.",
+     "span_change": false,
+     "proposed_change": "Field repair: qualify each bare mention (web:Ps.89.2 = oshb:Ps.89.3, web:Ps.89.3 = oshb:Ps.89.4, web:Ps.89.4 = oshb:Ps.89.5) and add web:Ps.89.2 = oshb:Ps.89.3 to boundary_evidence_refs. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-290",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "punct:quotation_mark_structure",
+     "disposition": "confirmed_defect",
+     "grounds": "The WEB quotation mark does evidentiary work twice, and is one of only two observed substrate signals the row carries. boundary_rationale: the confession at web:Ps.91.2 is one 'whose object clause WEB itself closes inside quotation marks at the end of the verse' -- the stated reason the unit may CLOSE at v2. observed_substrate_signals[1]: 'WEB's own quotation marks close the confession within web:Ps.91.2, one verse before the second-person address opens.' The fact is true of the WEB bytes (Ps.91.2 = 'I will say of Yahweh, “He is my refuge and my fortress; my God, in whom I trust.”' -- the inner quotation opens and closes inside the verse), but translation punctuation is tier-4 under the campaign-wide owner addendum and is NEVER boundary evidence in any role, and here it has no substrate counterpart at all: oshb:Ps.91.2 carries no quotation layer, so a WEB typographic artifact is filed as an observed SUBSTRATE signal. Corroboration rather than sole driver -- the seam also has a ruled tier-1 warrant, the addressee shift at web:Ps.91.3 that strongest_rejected_alternative argues -- so medium, not high."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-23 tier-4 translation punctuation as boundary evidence",
+     "claim": "WEB quotation-mark structure is used as the closing-edge warrant and recorded as one of the row's two observed substrate signals, though it is tier-4 metadata with no counterpart in the Hebrew.",
+     "grounds": "As in the trigger disposition. The whole case is available in bytes without any punctuation appeal: oshb:Ps.91.1 opens on the 3ms participle יֹ֭שֵׁב (byte tier), naming a generic figure; oshb:Ps.91.2 is 1cs throughout (אֹמַ֗ר, and אֶבְטַח, both byte tier); and oshb:Ps.91.3 turns to a 2ms addressee in its own bytes at יַ֭צִּֽילְךָ (byte tier) -- an explicit speaker/addressee shift, the strategy §5 tier-1 seam class. Ps 91 is an identity psalm with no title (no Ps.91.0 entry in the staged WEB map), so the front edge is the psalm boundary and no title ref is owed; the two-verse span is short against the §6 ~4-8 vv norm but is carried by that person chain, and the book-order neighbors tile exactly (M8-Ps-289 closes Ps 90 at web:Ps.90.17, M8-Ps-291 opens at web:Ps.91.3 on the same addressee shift). Routed onward as a medium finding; the span itself is sound and no respan is proposed.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale + observed_substrate_signals[1]): strike the quotation-mark clause from the rationale and replace the signal with the byte-grounded person chain -- 3ms participle יֹ֭שֵׁב (oshb:Ps.91.1) to 1cs אֹמַ֗ר and אֶבְטַח (oshb:Ps.91.2) to 2ms יַ֭צִּֽילְךָ (oshb:Ps.91.3). If the WEB punctuation is kept at all, keep it only as an explicit tier-4 non-evidence disclosure. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-293",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "punct:quotation_mark_structure",
+     "disposition": "confirmed_defect",
+     "grounds": "The WEB quotation mark stands in evidentiary position twice. boundary_rationale: 'WEB marks the shift with its own quotation mark, opening “Because he has set his love on me,…” (web:Ps.91.14) and closing “…show him my salvation.” (web:Ps.91.16) at the psalm's end.' observed_substrate_signals[0], the row's FIRST listed signal: 'WEB brackets this span in its own quotation marks, opening at web:Ps.91.14 and closing at web:Ps.91.16, the psalm's final verse.' The fact is true of the WEB bytes (Ps.91.14 opens with an opening curly quote, Ps.91.15 carries none, Ps.91.16 closes it; Ps 91 has 16 verses in both witnesses), but translation punctuation is tier-4 and never boundary evidence or a substrate signal, and oshb:Ps.91.14-16 carry no quotation layer. Corroboration rather than driver: the row leads with the ruled tier-1 warrant stated in bytes -- כִּ֤י בִ֣י חָ֭שַׁק וַאֲפַלְּטֵ֑הוּ (oshb:Ps.91.14, collate.py = byte tier) opens the oracle in 1cs divine speech, a §5 speaker shift -- and the book-order neighbor M8-Ps-292 argues the identical seam with no punctuation appeal at all, so the punctuation is demonstrably dispensable. Medium, not high."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-23 tier-4 translation punctuation as boundary evidence",
+     "claim": "WEB quotation-mark bracketing is argued as the mark of the speaker shift and filed as the row's first observed substrate signal, though it is tier-4 metadata absent from the Hebrew.",
+     "grounds": "As in the trigger disposition. The byte warrant the row already holds is sufficient on its own: כִּ֤י בִ֣י חָ֭שַׁק וַאֲפַלְּטֵ֑הוּ (oshb:Ps.91.14, byte tier) is 1cs divine speech against the 2ms address running from oshb:Ps.91.3 (יַ֭צִּֽילְךָ, byte tier) through oshb:Ps.91.13, and the row's second signal already discloses the non-exclusivity honestly with its digit -- the psalm's other 1cs verbs, אֹמַ֗ר and אֶבְטַח at oshb:Ps.91.2 (2 occurrences, byte tier), are the psalmist's voice, not the divine one, and there are no others outside this span. Ps 91 is an identity psalm, so the row's bare web: refs are unambiguous; the back edge is the psalm's end. Routed onward as a medium finding; the span is sound and no respan is proposed.",
+     "span_change": false,
+     "proposed_change": "Field repair (boundary_rationale + observed_substrate_signals[0]): strike the quotation-mark clause and replace signal [0] with the byte warrant -- the 1cs divine verb וַאֲפַלְּטֵ֑הוּ at oshb:Ps.91.14 against the 2ms address of oshb:Ps.91.3-Ps.91.13, the psalm's other 1cs verbs disclosed at oshb:Ps.91.2. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "device_notes refers to the psalm's row partition ('its other three spans') rather than to verses.",
+     "grounds": "device_notes reads 'The closing oracle carries the psalm's direct divine first-person speech, distinct in voice from its other three spans.' 'its other three spans' describes the chunking output, not the text; §10 requires cross-row references to be verse-anchored. The E-18 arm re-derives TRUE: oshb:Ps.91.1 is a 3ms participle clause and oshb:Ps.91.2 the psalmist's 1cs confession, oshb:Ps.91.3-Ps.91.13 is 2ms address, and only oshb:Ps.91.14-16 is 1cs DIVINE speech -- so a true claim in workflow register, low.",
+     "span_change": false,
+     "proposed_change": "Field repair (device_notes): 'distinct in voice from web:Ps.91.1-Ps.91.13'. No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-322",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:governance_tooling",
+     "disposition": "confirmed_defect",
+     "grounds": "'pmarks_Ps.json' stands twice in row prose -- boundary_rationale '(pmarks_Ps.json kq)' and observed_substrate_signals[0] 'matching pmarks_Ps.json's kq entry for this verse'. Strategy §10 bars inventory and file names from row prose. This is exactly the brief's named low-severity case: a disclosure citation of an inventory the row used CORRECTLY. Re-derived from bytes and the inventory: pmarks_Ps.json kq holds exactly one Ps 102 entry, Ps.102.24 (1 note), and the staged MT verse carries the pair adjacent -- oshb:Ps.102.24 word 2 is the unpointed ketiv כחו and word 3 the pointed qere כֹּחִ֗י, both collating byte at that ref. The verse sits inside the row's span (Ps 102 is shift+1; ps_lib.web_to_mt(102,23) = MT 102:24; WEB 28 body verses vs MT 29), so the K/Q disclosure was REQUIRED by §4 and is accurate, including its honest rider 'though this row's boundary does not depend on either reading'. Register defect only; no evidence defect."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "The inventory file name pmarks_Ps.json stands twice in row prose.",
+     "grounds": "Exact strings: 'carries a ketiv כחו against a qere כֹּחִ֗י (pmarks_Ps.json kq)' and 'matching pmarks_Ps.json's kq entry for this verse'. §10: row prose describes the TEXT. The disclosure itself is correct and required (single K/Q note at oshb:Ps.102.24, inside the span) -- only the file name offends.",
+     "span_change": false,
+     "proposed_change": "Field repair: keep the disclosure, drop the file name -- 'a ketiv כחו against a qere כֹּחִ֗י (single ketiv/qere note at oshb:Ps.102.24)'. No span change."
+    },
+    {
+     "severity": "low",
+     "class": "E-numbering register (strategy §3 / §8)",
+     "claim": "One numbering-space mislabel ('MT web:Ps.102.23') plus four original-language citations carrying only their oshb ref in a shift+1 psalm.",
+     "grounds": "boundary_rationale reads 'MT web:Ps.102.23 (oshb:Ps.102.24)' -- a WEB ref labeled 'MT', against §8's convention ('Ps.N.V' = WEB verse; 'MT N:V' = MT verse); the parenthetical dual-cite cures the arithmetic but not the label. strongest_rejected_alternative then carries four Hebrew splices bound to oshb refs only -- וְאַתָּ֣ה יְ֭הוָה (oshb:Ps.102.13), אַתָּ֣ה (oshb:Ps.102.14), עֲ֭בָדֶיךָ (oshb:Ps.102.15), כְּבוֹדֶֽךָ (oshb:Ps.102.16) -- against §3's per-citation dual-cite rule for a non-identity psalm; the enclosing WEB range '(web:Ps.102.12-web:Ps.102.15)' is named in the same sentence, so the mapping is recoverable. Mechanical only: everything asserted is byte-true. All four collate byte at their own cited refs and all four are genuine 2ms forms; the WEB->MT arithmetic is right at each (web:Ps.102.12-15 = oshb:Ps.102.13-16); and the row's self-correcting count re-derives exactly -- oshb:Ps.102.17 through oshb:Ps.102.23 (= web:Ps.102.16-Ps.102.22, '7 verses') carries no second-person form in any of its seven verses, so 'that oracle is third-person-only only across its stretch' is right, as is the front-seam reading (web:Ps.102.11 = oshb:Ps.102.12 is the last first-person complaint verse before the Zion oracle, and the 1cs suffixes return at oshb:Ps.102.24).",
+     "span_change": false,
+     "proposed_change": "Field repair: write 'web:Ps.102.23 = oshb:Ps.102.24' for the K/Q verse, and give each of the four rejected-alternative splices its web: partner (web:Ps.102.12 = oshb:Ps.102.13, web:Ps.102.13 = oshb:Ps.102.14, web:Ps.102.14 = oshb:Ps.102.15, web:Ps.102.15 = oshb:Ps.102.16). No span change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Ps-334",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "'inside the preceding row's own span' stands twice -- boundary_rationale ('the identical pointed form כֻּ֭לָּם already occurs at 104:24, inside the preceding row's own span') and observed_substrate_signals[0] ('byte-identical to the same pointed form already used at 104:24, inside the preceding row's own span'). A positional row reference, barred by strategy §10. TEST 2 (E-18 arm): the reference carries an argumentative claim, so it was re-derived from bytes and it is TRUE at the tier claimed -- collate.py of the row's own run returns byte at BOTH oshb:Ps.104.24 (where it stands as word 4) and oshb:Ps.104.27 (word 0), so 'identical pointed form' and 'byte-identical' are exact, not an accent_stripped recurrence dressed as byte. Ps 104 is an identity psalm with no title entry (WEB 35 body verses = MT 35), so the bare 104:24 / 104:27 mentions are unambiguous. A true claim merely phrased in workflow register -> low. The row also uses the recurrence honestly against its own interest ('the recurrence does not itself mark the seam'), and the back seam is byte-warranted by the jussive יְהִ֤י at oshb:Ps.104.31 (byte tier), consistent with the neighbor M8-Ps-335."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06 register bleed",
+     "claim": "Two positional row references ('inside the preceding row's own span') instead of verse-anchored cross-row reference.",
+     "grounds": "Exact strings in boundary_rationale and observed_substrate_signals[0], both appended to the byte-identity claim about כֻּ֭לָּם. §10 bars positional row references and requires verse anchoring. The claim they carry is byte-true at oshb:Ps.104.24 and oshb:Ps.104.27 (both byte tier), so this is register only; no evidence, seam or confidence consequence.",
+     "span_change": false,
+     "proposed_change": "Field repair: verse-anchor both mentions -- 'the identical pointed form already occurs at web:Ps.104.24 = oshb:Ps.104.24 (byte tier)' -- dropping 'inside the preceding row's own span'. No span change."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 1,
+  "defect_rows": 7,
+  "findings": {
+   "low": 10,
+   "medium": 3,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 8,
+   "confirmed_defect": 6,
+   "not_a_defect": 2
+  }
+ }
+}

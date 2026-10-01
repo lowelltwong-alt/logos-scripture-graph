@@ -1,0 +1,119 @@
+{
+ "attempt_id": "finalize_ps_deliverables_r1",
+ "role": "DELIVERABLES BUILDER (M8_fable Psalms cycle, m8-mesh-r3)",
+ "governance": {
+  "scratchpad_only": true,
+  "worktree": "C:\\wt\\logos-t423-m8-fable read-only reference only (read, no write, no git)",
+  "continuation_receipt_written": false
+ },
+ "schema_reference": {
+  "source_file": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\book_chunks\\Job\\chunks.jsonl",
+  "source_rows": 194,
+  "job_chunk_field_order": [
+   "decision_id",
+   "book",
+   "model_id",
+   "chunk_index_in_book",
+   "span",
+   "boundary_rationale",
+   "boundary_evidence_refs",
+   "strongest_rejected_alternative",
+   "literature_type_guess",
+   "confidence",
+   "review_revision",
+   "strong_or_hebrew_tags_used",
+   "wj_or_red_letter_considered",
+   "frontier_flag_considered",
+   "non_authorizing",
+   "review_status",
+   "final_sha256"
+  ],
+  "completion_receipt_reference": "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\receipts\\Job_completion.json (used as shape guidance; Ps process uses a materially different pipeline architecture -- mesh-r3 writer/primary/peer/author/spot waves vs Job's packet/held/appeals review -- so the fallback field template given in the task instructions was used as the primary structure, with Job-receipt-style additions where real Ps data supported them)"
+ },
+ "field_mapping": {
+  "direct_copy": {
+   "decision_id": "decision_id (already 'M8-Ps-NNN' format, verified 1:1 with row order, 0 mismatches)",
+   "span": "span (already 'Ps.C.V-Ps.C.V' format matching Job's 'Book.C.V-Book.C.V' convention; no ps_lib OSIS derivation was needed)",
+   "boundary_evidence_refs": "boundary_evidence_refs (identical field name and shape already)",
+   "confidence": "confidence (identical vocabulary: high/medium/medium_low/low)"
+  },
+  "renamed": {
+   "boundary_rationale": "<- rationale",
+   "strongest_rejected_alternative": "<- rejected_alternative"
+  },
+  "derived_constant_or_mechanical": {
+   "book": "'Ps' (constant; book identity)",
+   "model_id": "'M8_fable' (constant; matches Job's model_id, same pipeline attempt)",
+   "chunk_index_in_book": "1-indexed row order in rows_v1.jsonl; cross-checked against decision_id numeric suffix, 0 mismatches across all 492 rows",
+   "literature_type_guess": "<- unit_type (APPROXIMATE mapping, not a rename -- see caveats below)",
+   "non_authorizing": "true (constant); confirmed true for all 194/194 rows in the Job reference file AND at book-receipt level for the whole M8_fable candidate campaign (Job_completion.json carries non_authorizing:true, candidate_only:true); applied campaign-wide, not row-specific",
+   "review_status": "'candidate_review_complete' (constant); Job reference file carries this exact string for 194/194 rows; CYCLE_STATE.md documents the Ps corpus as 'ROW-LEVEL WORK COMPLETE' / 'REV ROUND COMPLETE' / 'SPOT WAVE COMPLETE' for all 492 rows, so the same terminal status applies"
+  },
+  "unmappable_not_invented": [
+   "review_revision -- Job tracks a per-decision re-review revision counter (values 0/1/2 seen); Ps rows_v1.jsonl carries no equivalent per-row iteration counter. Not fabricated; omitted from chunks.jsonl.",
+   "strong_or_hebrew_tags_used -- constant true across all 194 Job rows, but the exact tagging convention it certifies (Strong's-number tagging specifically, vs generic Hebrew citation) could not be confirmed equivalent for the Ps pipeline from available data. Omitted rather than guessed.",
+   "wj_or_red_letter_considered -- constant false across Job (expected for OT); but the field represents an attested PROCESS STEP ('was this considered'), not just a static fact, and no equivalent process step exists in the Ps writer/primary/peer/author/spot pipeline. Omitted rather than asserted as a process attestation with no evidence.",
+   "frontier_flag_considered -- constant false across the one book sampled; semantics and determination logic unclear/unverified. Omitted.",
+   "final_sha256 -- a per-chunk content hash Job carries (verified present on all 194/194 rows, e.g. '89d937ff...'); the exact canonicalization method (key order/separators/encoding) used to produce it is not evidenced in the reference file or reachable without executing the original book-completion tooling. Fabricating a hash with a guessed method would be worse than omitting it, since a wrong hash looks authoritative. Omitted from chunks.jsonl; flagged here for the owner to backfill with the correct tool if required at worktree-copy time."
+  ],
+  "ps_only_extension_fields_retained_beyond_job_schema": [
+   "parent_psalm",
+   "unit_type (kept verbatim alongside its approximate literature_type_guess mapping)",
+   "writer_part",
+   "writer_decision_id",
+   "writer_attempt_id",
+   "observed_substrate_signals",
+   "device_notes",
+   "orchestrator_boilerplate_variation (54/492 rows)",
+   "cross_part_phrasing_variation (29/492 rows)",
+   "writer_attempt_id_as_delivered (28/492 rows)",
+   "orchestrator_mechanical_fix (2/492 rows)"
+  ],
+  "extension_field_rationale": "The task said to match the Job schema exactly (field names/id format/ordering) for the mapped fields, but rows_v1.jsonl carries real scholarly content (device_notes, observed_substrate_signals) and pipeline provenance (writer_part/writer_decision_id/writer_attempt_id) with no Job-schema slot. Dropping them would silently discard evidence and provenance, which conflicts with the standing preservation policy. They are appended AFTER the 12 Job-mapped fields, in a fixed order, so the first 12 keys of every chunks.jsonl line are Job-schema-identical and any consumer expecting exactly the Job shape can safely ignore or strip the tail."
+ },
+ "literature_type_guess_caveat": "Job's literature_type_guess is free-text prose-genre description (e.g. 'prose frame: Job's character portrait and wealth catalog'). Ps's unit_type is a five-value structural enum (whole_psalm 34, strophe 410, refrain_unit 22, letter_stanza 22, coda 4) reflecting Hebrew poetic macro-structure, not narrative genre. These fields serve an analogous PURPOSE (categorize the chunk's literary unit) but are not the same kind of data. Mapped 1:1 as the closest existing analog per task instruction; not rewritten into invented prose-genre descriptions.",
+ "verification": {
+  "chunks_jsonl_parses": true,
+  "row_count_492": true,
+  "span_tiling_matches_rows_v1_exactly": true,
+  "verse_level_tiling_clean_2461_2461": true,
+  "overlaps_detected": 0,
+  "gaps_detected": {},
+  "all_150_psalms_present": true,
+  "rows_v1_sha256_matches_freeze_manifest": true
+ },
+ "computed_stats": {
+  "confidence_distribution": {
+   "high": 302,
+   "medium": 180,
+   "medium_low": 10,
+   "low": 0,
+   "basis": "computed directly from rows_v1.jsonl (frozen); B-11 ratified medium_low as in-vocabulary"
+  },
+  "unit_type_distribution": {
+   "whole_psalm": 34,
+   "strophe": 410,
+   "refrain_unit": 22,
+   "coda": 4,
+   "letter_stanza": 22
+  },
+  "psalms_covered": "1-150, all present, 0 missing",
+  "verses_covered": "2461/2461",
+  "verse_tiling": "clean: 0 gaps, 0 overlaps, 0 cross-chapter spans, 0 unparsed spans (independently re-derived here from span strings + verse_inventory.json, corroborating CYCLE_STATE.md's tiling claim)"
+ },
+ "hashes": {
+  "rows_v1.jsonl": "47167ea52e171ab3c6326f12f70a078e8c7d46ddc5d3ed01b69f9dbd578b6e7e",
+  "rows_v1.jsonl_matches_freeze_manifest_rows_v1.sha256": true,
+  "chunks.jsonl": "eaa5606da870cdd63cb8b9c3517468da34dc30dea97e6a0fddcc47499ff2c64e"
+ },
+ "files_written": [
+  "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\6a933340-d91c-4d90-b0b0-2cd7f6c69799\\scratchpad\\Ps\\deliverables\\chunks.jsonl",
+  "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\6a933340-d91c-4d90-b0b0-2cd7f6c69799\\scratchpad\\Ps\\deliverables\\Ps_completion.json",
+  "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\6a933340-d91c-4d90-b0b0-2cd7f6c69799\\scratchpad\\Ps\\deliverables\\build_report.json"
+ ],
+ "not_verified": [
+  "Per-flag correctness of the 296 residual check_universals WARN-class flags (inherited open item from CYCLE_STATE.md, not re-litigated here).",
+  "Whether final_sha256 (per-chunk) is required by the downstream worktree-copy tooling; left unmapped rather than fabricated (see unmappable_not_invented).",
+  "Whether the Job-receipt fields review_revision/strong_or_hebrew_tags_used/wj_or_red_letter_considered/frontier_flag_considered are actually consumed by anything downstream for Ps; if the owner confirms they are required as constants, they can be backfilled cheaply."
+ ]
+}

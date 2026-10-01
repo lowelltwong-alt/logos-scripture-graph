@@ -1,0 +1,98 @@
+{
+  "schema_version": "m7_book_literary_completion_owner_ruling.v1",
+  "task_id": "T552",
+  "model_id": "M7_sol",
+  "book": "Amos",
+  "completed_at_utc": "2026-07-29T15:09:23.5063852Z",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "completion_basis": "owner_corrected_literary_only_completion_rule",
+  "owner": "Lowell Wong",
+  "owner_ruling": {
+    "artifact_installation_is_completion_gate": false,
+    "ordinary_candidate_scratch_writes_are_sufficient": true,
+    "t550_rematerialization_live_gate_work": "parked_out_of_scope",
+    "global_sidecar_partition_parity_is_non_gating": true
+  },
+  "literary_result": {
+    "chunk_count": 34,
+    "canonical_verse_count": 146,
+    "covered_verse_count": 146,
+    "exact_ordered_coverage": true,
+    "positive_contiguous_integer_indices": true,
+    "accepted_decision_count": 32,
+    "held_decision_count": 2,
+    "held_decision_ids": ["M7_sol-Amos-022", "M7_sol-Amos-034"],
+    "confidence": {"high": 22, "medium": 12},
+    "templated_thin_rationale_failures": 0,
+    "generic_form_bucket_failures": 0,
+    "primary_review_rows": 102,
+    "unique_primary_reviewer_attempt_ids": 102,
+    "all_workflow_attempt_ids": 170,
+    "maximum_attempt_id_reuse": 1,
+    "primary_verdicts": {"supports": 61, "challenge": 41},
+    "answered_challenges": 41,
+    "active_specialist_post_ruling_appeals": 0,
+    "open_linked_boundary_appeals": 2,
+    "forced_consensus": false
+  },
+  "active_artifact_sha256": {
+    "book_strategy/Amos.md": "40f3dabe11039bca1a6a9138a401c128d3f8527f5eb42a1bd67f78391decd481",
+    "book_chunks/Amos/chunks.jsonl": "3a182f91127f609850b2efee0cd1a29a7a86511495f2aa73f990d975bbc95ab6",
+    "reviews/Amos/review_packets.jsonl": "fc0d9f7eb0b74c79b7ccc171bb965331209c1fdd91b49e2943e933c8a5d2def0",
+    "reviews/Amos/decision_evidence_v2.jsonl": "f70758a6102e5a3cea7c6a0d700dc820842e1bacf8b7ac8397d48d94d2bd0adb",
+    "reviews/Amos/decision_relations.jsonl": "53aa667d80e77772677da7b0872d705dc411dbb9d8b9c84e9e910148befceaf4",
+    "reviews/Amos/adjudicated_route_draft_v2.json": "392a8c5ac2fbccde06f57f12b607d3123a8edc058ee1a4eaa12ea7766ddb9fdc",
+    "reviews/Amos/boss_ruling_v2.json": "ac996096c6fac0fb6655be6f48d52b0428d2d4dab75981f26dadf3ccdf946109",
+    "reviews/Amos/independent_literary_postcheck_v2.json": "9ec3309b77e046ec4b2a79148907514586f37a2dcb9d159f5ddfb7c4d3b661e5",
+    "reviews/Amos/post_resolution_check_v2.json": "babc19f109310f8d8416a6b99c2c6e1524a63cbf0a36a8604c08dd87adf45070"
+  },
+  "validation": [
+    {"command": "python scripts/validate_whole_bible_chunk_map.py .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Amos/chunks.jsonl --model-id M7_sol --book Amos", "status": "pass", "output": "Fast chunk-map validation passed for 34 record(s)."},
+    {"command": "python scripts/validate_m7_corrective_review_depth.py --model-root .ai/scratch/multi_model_bible_chunking/M7_sol --book Amos --json", "status": "pass", "output": "32 accepted, 2 held, 0 templates, 0 generic forms, 0 prose-shell, semantic-constructor, encoding, or structured-WEB-quote failures"},
+    {"command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_exact_book_coverage.py --book Amos", "status": "pass", "output": "OK: Amos chunks=34 exact ordered coverage=146/146"},
+    {"command": "python scripts/validate_t423_literary_quality_protocol.py --model-folder .ai/scratch/multi_model_bible_chunking/M7_sol --book Amos --require-artifacts", "status": "pass", "output": "T423 literary quality protocol: OK"},
+    {"command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_review_coverage.py --book Amos --require-final-artifacts", "status": "non_gating_global_sidecar_only", "literary_or_review_errors": 0, "remaining_output": "three stale global partitions each contain the same 25 pass-one Amos orphan rows"}
+  ],
+  "independent_post_resolution_check": {
+    "checker_attempt_id": "amos-v2-independent-postcheck-v2-final",
+    "verdict": "pass_with_holds",
+    "coverage": "146/146 exact ordered",
+    "packet_chunk_hash_parity": "34/34",
+    "packet_post_states": {"pass": 32, "hold": 2},
+    "held_decisions": ["M7_sol-Amos-022", "M7_sol-Amos-034"],
+    "required_repair": null
+  },
+  "appeal_integrity": {
+    "pass1_ledger_preserved_as_exact_prefix": true,
+    "pass1_prefix_bytes": 722908,
+    "pass1_prefix_sha256": "92005b45eab3316ec3bd35cfbd3ca861a56be57e6a1c8e67af034026b1655472",
+    "new_append_only_appeal_ids": ["T552-AMOS-APPEAL-001", "T552-AMOS-APPEAL-002"],
+    "specialist_post_ruling_active_appeals": 0
+  },
+  "source_integrity": {
+    "web_verses": 146,
+    "oshb_verses": 146,
+    "uxlc_verses": 146,
+    "decision_locator_sets_checked": 34,
+    "structured_web_quotes_checked": 66,
+    "structured_web_quote_failures": 0,
+    "wlc_family_correlation_disclosed": true,
+    "same_web_mt_coordinates": true,
+    "source_metadata_is_boundary_authority": false
+  },
+  "pass1_archive_integrity": {
+    "archived_file_count": 15,
+    "hash_mismatches_at_archive_time": 0,
+    "archived_chunks_sha256": "b49053e634283789fb932c2027002814a05b4b9d7bf2da76514109123ad51437"
+  },
+  "superseded_nonliterary_blockers": {
+    "shared_global_sidecar_partition_parity": "not_a_book_completion_gate_by_owner_ruling",
+    "effect_on_literary_boundaries_forms_reviews_holds_or_appeals": "none"
+  },
+  "independence_limit": "The role-separated M7 mesh is one correlated model voice; external-model convergence and qualified human review remain required for promotion and the two held decisions.",
+  "candidate_only": true,
+  "non_authorizing": true,
+  "reviewed_gold_promoted": false,
+  "external_review_receipt_created": false,
+  "commit_push_merge_performed": false
+}

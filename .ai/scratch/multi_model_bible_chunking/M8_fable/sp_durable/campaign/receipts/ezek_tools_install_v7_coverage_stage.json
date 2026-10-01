@@ -1,0 +1,57 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "v7_coverage_stage",
+ "installed_at": "2026-09-14T21:00:39.267623+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "ordered_by": "ezek_controlling_rulings_a1#e11 ruling GATE-E11 (the pre-primaries batch runs every CWO coverage report over v7)",
+ "why": "both coverage tools enumerate their stages; neither knew v7, so CWO-EZ-19..23 could not be verified over rows_v7_cwo24",
+ "files": [
+  {
+   "path": "sp_durable/Ezek/_cwo_coverage_s2_ezek.py",
+   "sha256_before": "eadc358fbaac0051e94416cbc75e5759945061b5e50f98b9cd3b4b1b6de284ce",
+   "sha256_after": "f1f85292073ef0d33e63d9caf2b584ef3d181ed16a7598e6c4c905f94b0101fe",
+   "preimage": "sp_durable/campaign/tool_preimages/_cwo_coverage_s2_ezek.pre_v7.eadc358f.py",
+   "diff": {
+    "path": "sp_durable/Ezek/proposals/v7_coverage_plumbing/_cwo_coverage_s2_ezek.v7.diff",
+    "sha256": "1fbf8bf03315e16a17a718e47123afda417b040c8ff18d5963851d5248d3037d"
+   }
+  },
+  {
+   "path": "sp_durable/Ezek/_cwo_coverage_e10_ezek.py",
+   "sha256_before": "679e477f11e5b9f939b0b6690f102a4aff3c68f61174809483706e2137b3ef97",
+   "sha256_after": "fa005fc04014ab5e69397b59ec1b3b76f577c8c4661744e794e606b7950a2fa8",
+   "preimage": "sp_durable/campaign/tool_preimages/_cwo_coverage_e10_ezek.pre_v7.679e477f.py",
+   "diff": {
+    "path": "sp_durable/Ezek/proposals/v7_coverage_plumbing/_cwo_coverage_e10_ezek.v7.diff",
+    "sha256": "a9e19da07664ae90a7b738e096596d087f33520145237d2933243d6427190385"
+   }
+  }
+ ],
+ "change": "stage v7 added to the docstring, usage, choices, OUT_DIRS and the two stage-conditional tuples. No predicate, pattern, residual rule or output format changed.",
+ "regression": {
+  "rule": "each tool must RUN (exit 0) at stage v6 over the CHAIN HEAD and leave its live v6 reports byte for byte unchanged",
+  "_cwo_coverage_s2_ezek.py": {
+   "CWO-EZ-19": "3bdb3318 -> 3bdb3318 identical, exit 0",
+   "CWO-EZ-20": "8c735dce -> 8c735dce identical, exit 0",
+   "CWO-EZ-21": "598a6ca4 -> 598a6ca4 identical, exit 0"
+  },
+  "_cwo_coverage_e10_ezek.py": {
+   "CWO-EZ-22": "af527a28 -> af527a28 identical, exit 0",
+   "CWO-EZ-23": "2f97874f -> 2f97874f identical, exit 0"
+  }
+ },
+ "a_vacuous_regression_was_caught_and_is_recorded": {
+  "what_happened": "the FIRST regression on _cwo_coverage_s2_ezek.py reported identical=true on all three reports and the patch was installed on it. It proved nothing. It invoked the candidate with the SUITE COPY of the rows (repair/suite_v6_6c843b14/rows.jsonl) while the live v6 reports name the CHAIN HEAD (repair/rows_v6_fixup3.jsonl). The tool aborted on the mismatch - 'exists with different content; never replaced' - wrote nothing, and the before/after digests were trivially equal.",
+  "how_it_was_caught": "the tool's stderr was read rather than only its digests; all three runs carried an ABORT",
+  "what_was_done": "the regression was re-run with the chain head against the INSTALLED tool and passed for the right reason (exit 0 and byte equality); the sibling patch was then written to assert exit 0 as well as byte equality, and fails closed if the tool refuses",
+  "class": "a check that passes because nothing happened; the same family as the campaign's coverage-statement-is-not-coverage rule",
+  "shipped_impact": "none: the patch it installed is independently confirmed correct by the corrected regression"
+ },
+ "s4_10_not_closed": "S4-10 stands: _cwo_coverage_s2_ezek.py still has no --selftest, so the regression IS the discrimination. The receipt names the exact run path per S3-NOTES (1).",
+ "run_path": {
+  "cwd": "SP/Ezek",
+  "method": "the live v6 reports were backed up to a temp directory, the candidate ran in place, digests were compared, and the backups would have been restored on any difference"
+ },
+ "dependency_applicability": "v4, v5, v5cwo23 and v6 behaviour is unchanged and proven so by the regression. No ruling, row, claim or earlier receipt depends on the changed lines.",
+ "limit": "stage plumbing only"
+}

@@ -1,0 +1,54 @@
+{
+ "schema": "m8_tool_dependency_applicability.v1",
+ "version": "v10 (live-book cursor resolution: the safe-to-clear checker and the current-state builder now read the CURSOR from the live book's own log rather than the closed Jeremiah log; v1-v9 stand as history)",
+ "built": "2026-09-07T13:42:39.552379+00:00",
+ "prior_record": {
+  "path": "receipts/tool_dependency_applicability.2026-09-07.v9.json",
+  "sha256": "8e039ab76188ed236ea61b7fe0bcc28bacb3777bc4e6ac3cfa51340304579997"
+ },
+ "authority": "OW-3 permanent safeguard (dependency-applicability record when a pinned shared tool changes) + E-25 control (_dep_pin_check.py CLEAN before any launch/close) + OWNER_REPAIR_ADVANCE_2026-09-06 item 1 + OW-5",
+ "trigger": "the first Lam-phase resume prompt failed the checker with index_phase_mismatch because the checker read the closed Jeremiah log's frozen cursor; the fix resolves the live book from marathon_progress.yaml current_book and makes the state builder share that one source",
+ "scope_rule": "sp_durable/Jer/*.py; sp_durable/Jer/*BRIEF*.md; sp_durable/Jer/tools/*.py; sp_durable/Lam/*.py; sp_durable/Lam/*BRIEF*.md; sp_durable/Lam/tools/*.py; sp_durable/orchestrator_scratch/*.py; sp_durable/Jer/tools/TOOLKIT.md; sp_durable/Lam/tools/TOOLKIT.md; every line's live copy proved byte-equal to the durable copy at build time",
+ "counts": {
+  "in_scope": 244,
+  "unchanged_pinned": 240,
+  "changes": 4,
+  "re_pins": 3,
+  "first_pins": 1
+ },
+ "changes": [
+  {
+   "tool": "sp_durable/Jer/_build_current_state.py",
+   "old_sha256": "e5271b5f424f400beb5aa3245b7eac44fdb8940c923b84d11fe178c890c1a58c",
+   "new_sha256": "dc9397904bfce36332edcc673883fce4e8f4410a0cbffbb61fa6765eceaf00a2",
+   "scope": "--cycle-state now defaults to the checker's live_cycle_state() instead of the Jer log, so the index and the checker read ONE source and cannot drift; explicit --cycle-state still overrides",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-07.v7.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force now"
+  },
+  {
+   "tool": "sp_durable/Jer/_safe_to_clear_check.py",
+   "old_sha256": "9b738d3036abc7069e84fb7608d31d8da27b2c32eed7e2fd3a48a9f500830e60",
+   "new_sha256": "e268204054060e922d380d984d7b5be6a853b44ff17c9781d01b1cd43ae89bef",
+   "scope": "live_cycle_state() added: the CURSOR is now read from the LIVE book's log (SP/<current_book>/freeze/CYCLE_STATE.md, resolved from marathon_progress.yaml current_book), falling back to the Jer log. Jeremiah is closed and its log's own last cursor declares Lamentations live, so the previous Jer-only read compared a Lam-phase index against a frozen cursor and failed every prompt. Every check arm and the full selftest are unchanged and PASS",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-06.v2.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force now"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_mirror_scratch.py",
+   "old_sha256": "f84418fa83964cc1beda2eae963584f9a8fc4982eb4abd022a297de344bda332",
+   "new_sha256": "80a880dd0eb2828e8df44043825dd58bdb6d4ff490baf234bbdaffefaf9e1dcf",
+   "scope": "NAMES extended with the boundary records and the new state file",
+   "prior_pin_record": "receipts/tool_dependency_applicability.2026-09-07.v8.json",
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force now"
+  },
+  {
+   "tool": "sp_durable/orchestrator_scratch/_patch_live_cycle_state.py",
+   "old_sha256": null,
+   "new_sha256": "58e9e56248afb57a4f8f266dbb14d8e413c0582034edc2433e581bd8a318f1df",
+   "scope": "NEW 2026-09-07: the anchored patch installing that live-book cursor resolution",
+   "prior_pin_record": null,
+   "affects_earlier_receipts": "NO - every earlier receipt names the build it used by hash; this line pins the build in force now"
+  }
+ ],
+ "non_authorizing": true
+}

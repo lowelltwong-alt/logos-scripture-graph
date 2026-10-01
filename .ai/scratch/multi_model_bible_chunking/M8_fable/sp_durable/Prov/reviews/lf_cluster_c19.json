@@ -1,0 +1,104 @@
+{
+ "attempt_id": "lf_cluster_c19_r1",
+ "role": "primary_LF",
+ "cluster": "c19",
+ "rows_reviewed": [
+  "P08-062",
+  "P08-069",
+  "P08-075",
+  "P09-005",
+  "P09-006",
+  "P09-008",
+  "P09-015",
+  "P09-016"
+ ],
+ "items": [
+  {
+   "row_id": "P08-062",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.19.15 holds: the disclosed shared root with 19:16 is real (skeleton) but the two occurrences carry different grammatical roles, not a repeated construction, and 19:14 shares no token with 19:15.",
+   "evidence": "oshb Prov.19.15 carries וְנֶ֖פֶשׁ as the subject of the hunger clause; oshb Prov.19.16 carries נַפְשׁ֑וֹ as the object of the keeping clause -- same root, subject vs. object role, confirmed against consonantal_index.json. sweep.py --skel נפש returns 55 verses book-wide (skeleton tier), so the root alone is too common to argue construction-level repetition; no cluster warrant exists at either boundary.",
+   "tier_citations": [
+    "byte:verse_map_oshb.json Prov.19.15,Prov.19.16",
+    "skeleton:sweep.py --skel נפש (55 verses)"
+   ]
+  },
+  {
+   "row_id": "P08-069",
+   "verdict": "challenge",
+   "severity": "low",
+   "claim": "The row's disclosed echo of 19:1 is mislocated to \"the opening colon\" of 19:22, when the shared bigram it is pointing at actually sits in 19:22's second/closing colon.",
+   "evidence": "oshb Prov.19.1 opens with טֽוֹב רָ֭שׁ (\"better is the poor...\"); the matching bigram in Prov.19.22 is וְטֽוֹב רָ֝שׁ, which is the SECOND colon (after the atnach-marked opening colon naming a man's desirable quality as kindness), not the opening colon as the row's rejected_alternative states. The underlying no-cluster verdict and the \"no shared token with 19:21\" claim both still hold: the substring hit on איש in 19:21/19:22 (sweep.py --skel איש, 87 verses book-wide) resolves in 19:22 to the bound comparative form מֵאִ֥ישׁ, not a free-standing איש token, so no undisclosed catchword exists there -- only the colon-location of the 19:1 echo is byte-imprecise.",
+   "tier_citations": [
+    "byte:verse_map_oshb.json Prov.19.1,Prov.19.22",
+    "skeleton:sweep.py --skel איש (87 verses)"
+   ]
+  },
+  {
+   "row_id": "P08-075",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.19.28 holds: the disclosed shared root with 19:29 is real but correctly resolved as an abstract-process vs. concrete-penalty sense split, not a repeated construction.",
+   "evidence": "oshb Prov.19.28 carries מִשְׁפָּ֑ט (\"justice\", the process mocked); oshb Prov.19.29 carries שְׁפָטִ֑ים (\"penalties\", plural concrete sentences) -- same root ש-פ-ט, distinct nominal senses. sweep.py --skel שפט returns 24 verses book-wide (skeleton tier), confirming the root is common enough that a bare shared-root hit does not by itself warrant clustering absent a repeated construction; neither is present here.",
+   "tier_citations": [
+    "byte:verse_map_oshb.json Prov.19.28,Prov.19.29",
+    "skeleton:sweep.py --skel שפט (24 verses)"
+   ]
+  },
+  {
+   "row_id": "P09-005",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.20.5 holds: the disclosed rival with 20:6 rests on the generic noun for man, which is byte-confirmed too frequent in the local run to anchor a cluster, and 20:4 shares no token with 20:5.",
+   "evidence": "oshb Prov.20.5 carries אִ֑ישׁ and וְאִ֖ישׁ (bare, twice); Prov.20.6 carries אִ֣ישׁ and וְאִ֥ישׁ (bare, twice) -- a real but generic catchword. sweep.py --skel איש returns 87 verses book-wide; within Prov.19.21-Prov.20.17 alone the bare/vav-prefixed form recurs at 19:21, 20:3(prefixed), 20:5(x2), 20:6(x2), 20:17(prefixed) per consonantal_index.json -- too dense locally to serve as deliberate cohesion evidence under the owner's cluster bar (shared theme/generic noun alone is over-clustering).",
+   "tier_citations": [
+    "skeleton:consonantal_index.json Prov.20.4-Prov.20.6",
+    "skeleton:sweep.py --skel איש (87 verses)"
+   ]
+  },
+  {
+   "row_id": "P09-006",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.20.6 holds: symmetric to 20:5's disclosure, the generic man catchword is real but too common to anchor a cluster, and 20:7 shares no token with 20:6.",
+   "evidence": "oshb Prov.20.6 carries אִ֣ישׁ and וְאִ֥ישׁ matching Prov.20.5's אִ֑ישׁ/וְאִ֖ישׁ -- same generic-noun texture confirmed via consonantal_index.json; sweep.py --skel איש book-wide count is 87 verses, consistent with the row's own genericity claim. Prov.20.7's skeleton (מתהלך בתמו צדיק אשרי בניו אחריו) shares no token with 20:6, so the un-argued back boundary is clean by inspection, not by omission.",
+   "tier_citations": [
+    "skeleton:consonantal_index.json Prov.20.5-Prov.20.7",
+    "skeleton:sweep.py --skel איש (87 verses)"
+   ]
+  },
+  {
+   "row_id": "P09-008",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.20.8 holds: both neighboring boundaries are byte-clean, consistent with the row's high-confidence call.",
+   "evidence": "consonantal_index.json shows Prov.20.7 (מתהלך בתמו צדיק אשרי בניו אחריו) and Prov.20.9 (מי יאמר זכיתי לבי טהרתי מחטאתי) share zero content tokens with Prov.20.8 (מלך יושב על כסא דין מזרה בעיניו כל רע) -- no undisclosed cross-seam device on either side.",
+   "tier_citations": [
+    "skeleton:consonantal_index.json Prov.20.7-Prov.20.9"
+   ]
+  },
+  {
+   "row_id": "P09-015",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.20.15 holds: both neighboring boundaries are byte-clean, matching the row's own no-shared-lexeme rejection of a merge with 20:16.",
+   "evidence": "consonantal_index.json shows Prov.20.14 (רע רע יאמר הקונה ואזל לו אז יתהלל) and Prov.20.16 (לקח בגדו כי ערב זר ובעד נכרים נכריה חבלהו) share zero content tokens with Prov.20.15 (יש זהב ורב פנינים וכלי יקר שפתי דעת).",
+   "tier_citations": [
+    "skeleton:consonantal_index.json Prov.20.14-Prov.20.16"
+   ]
+  },
+  {
+   "row_id": "P09-016",
+   "verdict": "support",
+   "claim": "Single_proverb for Prov.20.16 holds: the disclosed rival with 20:17 is a genuine root-level homograph, not a repeated construction, and the ketiv/qere disclosure is byte-valid.",
+   "evidence": "oshb Prov.20.16 carries עָ֣רַב (Qal verb, he stood surety/pledged); oshb Prov.20.17 carries עָרֵ֣ב (adjective, sweet/pleasant) -- same triliteral root ע-ר-ב, distinct lexemes/parts of speech, matching the 17:1-style homograph pattern this book carries elsewhere. sweep.py --skel ערב returns 14 verses book-wide (skeleton tier). The row's ketiv/qere claim (ketiv נכרים / qere נָכְרִיָּ֣ה, foreign woman) is confirmed against pmarks_Prov.json (Prov.20.16 kq=1, single witness) and clears check_marks.py with zero flags.",
+   "tier_citations": [
+    "byte:verse_map_oshb.json Prov.20.16,Prov.20.17",
+    "skeleton:sweep.py --skel ערב (14 verses)",
+    "tier-disclosure:pmarks_Prov.json kq Prov.20.16"
+   ]
+  }
+ ],
+ "summary": {
+  "supports": 7,
+  "challenges": 1,
+  "by_severity": {
+   "low": 1
+  }
+ }
+}

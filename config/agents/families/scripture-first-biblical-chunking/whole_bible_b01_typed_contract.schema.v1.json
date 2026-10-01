@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "whole_bible_b01_typed_contract.schema.v1",
+  "title": "B01 typed candidate-evidence contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "book", "run_id", "stage_attempt_id", "candidate_only", "non_authorizing", "identity", "payload"],
+  "properties": {
+    "schema_version": {"const": "whole_bible_b01_typed_contract.v1"},
+    "kind": {"enum": ["controller_assignment", "controller_result", "role_report", "input_manifest", "synthesis_lineage", "challenge", "appeal", "redteam_report", "boss_authorization"]},
+    "book": {"type": "string", "pattern": "^[A-Za-z0-9-]{2,12}$"},
+    "run_id": {"type": "string", "minLength": 3, "pattern": "^[A-Za-z0-9._-]+$"},
+    "stage_attempt_id": {"type": "string", "minLength": 3, "pattern": "^[A-Za-z0-9._-]+$"},
+    "candidate_only": {"const": true},
+    "non_authorizing": {"const": true},
+    "identity": {"$ref": "#/$defs/identity"},
+    "payload": {"type": "object", "minProperties": 1}
+  },
+  "$defs": {
+    "identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["execution_id", "assignment_id", "agent_instance_id", "role_id"],
+      "properties": {
+        "execution_id": {"type": "string", "minLength": 8},
+        "assignment_id": {"type": "string", "minLength": 8},
+        "agent_instance_id": {"type": "string", "minLength": 8},
+        "role_id": {"type": "string", "minLength": 3}
+      }
+    }
+  }
+}

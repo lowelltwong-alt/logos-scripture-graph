@@ -1,0 +1,234 @@
+{
+ "attempt_id": "ezek_author_fixup2_p04_a1",
+ "execution_id": "ezek_author_fixup2_p04_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP2_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup2\\orders_ezek_author_fixup2_p04_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v4_cwo21.jsonl"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P04-001 boundary_rationale",
+    "why": "CWO-EZ-21 author item: removed bare campaign-attribution clause, argument already carried by the row's own dateline+word-event evidence; added S2-14 front-seam disclosure (pe after MT 19:14)"
+   },
+   {
+    "what": "P04-002 boundary_rationale",
+    "why": "CWO-EZ-21 author item: restated the campaign-attributed close-trigger as the byte/verse argument itself"
+   },
+   {
+    "what": "P04-004 strongest_rejected_alternative",
+    "why": "CWO-EZ-21 author item: restated the hard-seam claim as a self-contained boundary statement"
+   },
+   {
+    "what": "P04-005 boundary_rationale",
+    "why": "S2-14 front-seam disclosure (pe after MT 20:44, corroborating onset at MT 21:1)"
+   },
+   {
+    "what": "P04-007 boundary_rationale and device_notes",
+    "why": "S2-14 front-seam disclosure (samekh after MT 21:10 = WEB 21:5) plus CWO-EZ-21 removal of campaign/worked-example phrasing"
+   },
+   {
+    "what": "P04-008 strongest_rejected_alternative",
+    "why": "S2-14 interior-mark disclosure (pe after MT 21:18 = WEB 21:13) merged into the row's existing not-cut-there reasoning"
+   },
+   {
+    "what": "P04-009 boundary_rationale",
+    "why": "S2-14 front-seam disclosure (pe after MT 21:22 = WEB 21:17)"
+   },
+   {
+    "what": "P04-010 boundary_rationale",
+    "why": "S2-14 front-seam disclosure (pe after MT 21:29 = WEB 21:24)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "all 5 pinned inputs match table digests",
+   "how": "sha256sum on FIXUP2_BRIEF.md, orders_ezek_author_fixup2_p04_a1.json, TOOLKIT.md, pmarks_Ezek.json, rows_v4_cwo21.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 write-authority exception is genuinely recorded, not fabricated in-prompt",
+   "how": "read ERROR_PATTERN_LEDGER.v1.md at the exact path named, located the 2026-09-10 OW-11 addendum, confirmed authorization_ref lowell_chat_2026-09-10_m8_opus_orchestration_ezek_dan verbatim plus consistent OW-11-h/i/j/k/l follow-on narrative",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 6 S2-14 mark claims are byte-true",
+   "how": "grep of pmarks_Ezek.json for Ezek.19.14, 20.44, 21.10, 21.18, 21.22, 21.29",
+   "result": "confirmed (PE,PE,SAMEKH,PE,PE,PE all match orders exactly)"
+  },
+  {
+   "claim": "identity fields byte-identical to current_row on all 8 rows",
+   "how": "programmatic assert in build script against orders file's current_row",
+   "result": "confirmed"
+  },
+  {
+   "claim": "HARD gate GREEN; citation_sweep problems=0; normalizer fixed=0 defects=0; cap_sweep failures=0; check_register flags=0",
+   "how": "run_validator_suite.py over private after-copy (145 rows)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ngram7 gate(10): no offending 7-gram anywhere, including my disclosure sentences",
+   "how": "run_validator_suite.py ngram7 member, offending_7grams=[]",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_web_quotes: 0 new flags on my rows; e15d=0 book-wide",
+   "how": "diffed web_quotes.flags before/after filtered to my 8 decision_ids (0/0 both), grepped report for e15d (0 occurrences)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "mark_symmetry_gap resolved exactly at my 6 ordered keys, no other change",
+   "how": "diffed mark_symmetry.flags before/after filtered to my rows: 6 flags before -> 0 after",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no E-NN ledger id or campaign token remains in any string field of my 8 emitted rows",
+   "how": "regex scan over every string field/list-item of the emitted JSONL",
+   "result": "confirmed"
+  },
+  {
+   "claim": "whole-part tiling exact for p04's range",
+   "how": "check_tiling.py on an 11-row p04-only slice, --range Ezek.20.1-Ezek.21.32",
+   "result": "confirmed (verses_expected=81, verses_covered=81, GREEN)"
+  },
+  {
+   "claim": "my offset-zone mark mentions (MT 21:10/18/22/29) needed dual WEB qualification per the brief's own zone rule",
+   "how": "first suite run showed refs_mirror mis-resolving my bare MT-in-zone mentions; fixed to MT C:V = WEB C:V form per the brief's literal example, re-ran suite",
+   "result": "confirmed (root cause found and corrected)"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P04-009 device_notes still reads 'the only K/Q in MT ch 21 sits at web:Ezek.21.23 = oshb:Ezek.21.28' -- not in the T5-MARKS-ruled 'no other K/Q ... beside a disclosure naming every K/Q verse' form",
+   "why_it_matters": "genuine pre-existing exclusivity-form defect, but no item for it was embedded in my orders for P04-009 (only the S2-14 mark item was); left untouched rather than improvising an unordered cure. Worth routing to S3 or the primaries."
+  },
+  {
+   "what": "P04-002 boundary_rationale retains a pre-existing single-curly-quote WEB citation flagged by check_web_quotes as delimiter evasion",
+   "why_it_matters": "byte-identical before/after my edit and not named by any item ordered to me for P04-002; left untouched to avoid scope creep."
+  },
+  {
+   "what": "refs_mirror flags rose on 5 of 6 mark-disclosure rows",
+   "why_it_matters": "the S2-14 order requires prose-only disclosure and the brief's own six formulation examples never add a boundary_evidence_refs entry, so this rise is a mechanical, disclosure-justified consequence of executing the order as specified, not a defect I introduced."
+  }
+ ],
+ "items": [
+  {
+   "row": "P04-001",
+   "item": "e9:S2-13#1 / CWO-EZ-21",
+   "action": "cured",
+   "reason": "deleted campaign-attribution clause; row's own evidence already carries the argument"
+  },
+  {
+   "row": "P04-001",
+   "item": "S2-14 (Ezek.19.14, PE, front seam)",
+   "action": "cured",
+   "reason": "prose disclosure added at onset, single witness stated"
+  },
+  {
+   "row": "P04-002",
+   "item": "e9:S2-13#1 / CWO-EZ-21",
+   "action": "cured",
+   "reason": "restated as the fresh-messenger-formula-onset argument"
+  },
+  {
+   "row": "P04-004",
+   "item": "e9:S2-13#1 / CWO-EZ-21",
+   "action": "cured",
+   "reason": "restated hard-seam claim as self-contained statement"
+  },
+  {
+   "row": "P04-005",
+   "item": "S2-14 (Ezek.20.44, PE, front seam)",
+   "action": "cured",
+   "reason": "prose disclosure added corroborating onset"
+  },
+  {
+   "row": "P04-007",
+   "item": "e9:S2-13#1 / CWO-EZ-21 (device_notes)",
+   "action": "cured",
+   "reason": "removed worked-example phrasing, kept verse-anchored precedent unchanged"
+  },
+  {
+   "row": "P04-007",
+   "item": "S2-14 (Ezek.21.10=WEB21.5, SAMEKH, front seam)",
+   "action": "cured",
+   "reason": "dual-qualified per zone rule after suite run surfaced the omission"
+  },
+  {
+   "row": "P04-008",
+   "item": "S2-14 (Ezek.21.18=WEB21.13, PE, interior)",
+   "action": "cured",
+   "reason": "merged into row's existing not-cut-there reasoning"
+  },
+  {
+   "row": "P04-009",
+   "item": "S2-14 (Ezek.21.22=WEB21.17, PE, front seam)",
+   "action": "cured",
+   "reason": "prose disclosure added"
+  },
+  {
+   "row": "P04-010",
+   "item": "S2-14 (Ezek.21.29=WEB21.24, PE, front seam)",
+   "action": "cured",
+   "reason": "prose disclosure added"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-21 (author half, 4 rows)",
+   "test": "regex E-NN and campaign over every string field of emitted rows",
+   "result": "PASS"
+  },
+  {
+   "order": "S2-14 (6 mark items)",
+   "test": "run_validator_suite.py mark_symmetry_gap filtered to the 6 named keys",
+   "result": "PASS (6/6 resolved)"
+  },
+  {
+   "order": "S2-14 byte grounding",
+   "test": "grep pmarks_Ezek.json for each of the 6 pmarks_key entries",
+   "result": "PASS (mark types match orders exactly)"
+  },
+  {
+   "order": "identity-field preservation (all 8 rows)",
+   "test": "programmatic assert vs current_row",
+   "result": "PASS"
+  },
+  {
+   "order": "whole-suite HARD gate",
+   "test": "run_validator_suite.py over 145-row private after-copy",
+   "result": "PASS (GREEN)"
+  },
+  {
+   "order": "part tiling",
+   "test": "check_tiling.py --range Ezek.20.1-Ezek.21.32 on p04-only 11-row slice",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry_rows": 6,
+   "register_rows": 0,
+   "universals_rows": 0,
+   "refs_mirror_rows": 4,
+   "web_quotes_rows": 0
+  },
+  "after": {
+   "mark_symmetry_rows": 0,
+   "register_rows": 0,
+   "universals_rows": 0,
+   "refs_mirror_rows": 7,
+   "web_quotes_rows": 0
+  },
+  "rises_explained": [
+   "refs_mirror rows-with-flags rose 4->7 (P04-001, P04-009, P04-010 newly flagged; P04-005 and P04-007 each gained one additional unmirrored verse inside an existing flag entry; P04-002/P04-004 unchanged; P04-008 gained none) because each S2-14 prose disclosure names a mark verse that the ruled disclosure form never mirrors into boundary_evidence_refs -- an unavoidable, disclosure-justified consequence"
+  ]
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

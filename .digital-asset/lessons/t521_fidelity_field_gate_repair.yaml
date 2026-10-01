@@ -1,0 +1,26 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-FIDELITY-FIELD-GATE-REPAIR
+source_repo: logos-scripture-graph-repo
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  A uniform fidelity-field validator exposed legacy field-name drift in hundreds
+  of rows. Normalize legacy translation/cross-reference and red-team fields
+  before external review, while keeping refinement counts separate from generic
+  fallback annotations.
+evidence:
+  validator: scripts/validate_m7_sol_fidelity_fields.py
+  repair_script: scripts/repair_missing_m7_sol_fidelity_fields.py
+  initial_failure_count: 958
+  repaired_rows_or_fields: 667
+  final_status: OK
+  map_sha256: sha256:8ff653587ac0891147198d88fa62d92fda52d848cb4c9406b0cd5cd11ddf996c
+  chunk_count: 1178
+constraints:
+  - field presence is not independent literary evidence
+  - candidate_only and non_authorizing remain mandatory
+  - external provider or human receipt remains required

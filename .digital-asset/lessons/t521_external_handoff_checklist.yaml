@@ -1,0 +1,21 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-EXTERNAL-HANDOFF-CHECKLIST
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  External review must be a reproducible sequence: freeze current hashes,
+  withhold sibling material, require a 66-book typed receipt, validate it
+  fail-closed, and invalidate it whenever the map changes.
+evidence:
+  checklist: docs/governance/T521_EXTERNAL_REVIEW_HANDOFF_CHECKLIST.md
+  validator: scripts/validate_t521_external_review_receipt.py
+  current_status: awaiting_external_provider_or_human_receipt
+constraints:
+  - no self-attested external agreement
+  - no boundary promotion from agreement
+  - candidate_only and non_authorizing remain mandatory

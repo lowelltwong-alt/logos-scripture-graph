@@ -1,0 +1,52 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e8",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e7",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "T6-01",
+   "question": "Rule on T6-01 (major): the TOOLFIX-3 verifier accepts a verification entry whose counts are all zero, or carry only {failed: 0}, as a bound, passing machine result.",
+   "facts": [
+    "T6-01 verbatim: claim \"A verification entry whose counts object carries only explicit zero values for checks/passed/failed (or even just {failed:0} alone, with no checks or passed key at all) is accepted as a BOUND, PASSING machine result once artifact_sha256_at_run matches the live digest, because Python's bool() treats any non-empty dict as truthy regardless of its integer values, and the failing-checks logic (lines 176-188) only tests equality (checks==passed, failed==0), never positivity. A claim can therefore be cured by a verification entry that truthfully asserts it ran and checked NOTHING.\"; evidence \"check_claim() run over a private copy with verification=[{tool:'t.py', artifact_sha256_at_run:<live>, counts:{checks:0,passed:0,failed:0}}] (and separately counts:{checks:0} alone, and counts:{failed:0} alone): all three read ACCEPTED with zero reasons.\"; suggested_fix 'Require at least one of: exit==0 present, or a counts object where checks (when present) is a positive integer and passed==checks, or a valid output_sha256 -- i.e. treat an all-zero or checks==0 counts object as carrying no machine result, the same way an empty counts object already does. Add T6-A1/A2/A3 as new selftest vectors.'.",
+    "campaign/_cure_verification.py (sha256 a61ec7ff85aee3782b1e23fb6b6338398be773769f4936d235a71cd7c11b6042) line 163 reads 'has_machine_result = exit_ok or bool(cvals) or osha_ok'; line 179 begins the failing tests 'if \"failed\" in cvals and cvals[\"failed\"] != 0:'. A counts object with any integer member is a machine result, and zeros pass every failing test.",
+    "T6 found rules (1)-(6) implemented exactly as #e6 T5-VERIFIER ruled, so this is a gap in the rule, not a deviation from it; T6's readiness for the file: fit=True.",
+    "Exposure (orchestrator measurement over both claims files, 24 verification entries): 0 entries rest on counts with no positive checks or passed and no integer exit or output digest: [].",
+    "Budget: receipts census 13,128,485 tokens under the owner's 18M ceiling (answered 2026-09-11: T6, FIXUP-1 and S2, then a check-in before the primaries); the eleven FIXUP-1 parts are in flight and not yet counted; S2 follows FIXUP-1."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED (A): a verifier-only TOOLFIX-4, staged and gated as TOOLFIX-3 was. A counts object carries a machine result only when checks or passed is a positive integer; an all-zero or checks-absent counts object is treated as carrying none (as an empty one already is). T6's three shapes enter the selftest expecting REFUSED, beside GREEN controls. Its distinct check is NOT a separate T7: it is a narrow added section of S2, which runs after FIXUP-1 anyway. ALTERNATIVE (B): record T6-01 as debt for the next verifier batch and Daniel's toolkit, and write nothing now; no live entry is exposed."
+  },
+  {
+   "id": "T6-02",
+   "question": "Rule on T6-02 (minor): REFUSE's reject\\w* and blocker\\w* forms can false-refuse a benign accepting checker verdict.",
+   "facts": [
+    "T6-02 verbatim: claim \"REFUSE's whole-word forms reject\\\\w* and blocker\\\\w* can false-refuse a genuinely accepting checker verdict that uses those words in a non-refusing sense ('no findings rejected', 'no blockers remain'), the same class of risk #e6 unresolved_uncertainty[6] already discloses for the bare word 'red', but not disclosed for these two forms.\"; evidence \"check_claim() over verdict='fit_to_accept (no findings rejected as out of scope)' -> REFUSED, carrying 'rejected'; verdict='fit_to_accept; no blockers remain' -> REFUSED, carrying 'blockers'.\"; suggested_fix \"None required for this campaign (refusal is the safe direction and the orchestrator already words verdicts from the accepting set, per #e6's own reasoning for the 'red' case); extend the disclosed-risk note in the next controlling ruling to name reject\\\\w* and blocker\\\\w* alongside 'red'.\".",
+    "Line 62 of the verifier reads 'REFUSE = re.compile(r\"\\\\b(not_fit|not fit|unfit|refut\\\\w*|reject\\\\w*|blocker\\\\w*|red)\\\\b\")'.",
+    "#e6's disclosed risk for 'red' reads: \"The REFUSE token 'red' (whole word, casefolded) in the checker-verdict test could refuse a benign verdict string that happens to contain the word.\" / 'A refusal is the safe direction and the orchestrator words verdicts from the accepting set; the cost is one reworded claim line, never a false acceptance.'.",
+    "Distinct-checker verdicts in the live claims files carrying a REFUSE-like word: {} (of 12 verdicts)."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: no code change. Extend the disclosed-risk note to name reject\\w* and blocker\\w* beside 'red'; the orchestrator words every checker verdict it records without those words."
+  },
+  {
+   "id": "S1-19-TIMING",
+   "question": "Rule when the S1-19 cure claim on campaign/_cure_verification.py is written, and at which digest.",
+   "facts": [
+    "#e6 T5-SEQUENCE reads: \"(2) the S1-19 claim on _cure_verification.py is written on T6's verdict at the TOOLFIX-3 digest\".",
+    "T6's readiness for the verifier is fit=True, with why \"Implements T5-VERIFIER (1)-(6) exactly as ruled (see rules_checked); selftest 64/64 GREEN with every ruled vector present and correctly discriminating; both real claims files GREEN under --rulings --require-rulings, matching the install receipt and kept stdout exactly, including the ruled EZEK-P0-CURE-toolkit-v2 class move with an unmoved verdict. The S1-19 cure claim on this artifact is fit to write at this digest. T6-01's residual zero-counts evasion is a gap in what the ruling specified, not a failure of the ordered fix, and does not block acceptance of THIS ruled edit; it is recorded as debt for a future hardening batch (see new_findings).\".",
+    "The orchestrator HELD the claim: T6-01 is a major finding against the same file, and every T6 finding returns here. A claim written now would certify a gate with a known open evasion, and would need a supersession if a fix is ordered. The hold is disclosed in CYCLE_STATE.",
+    "EZEK-P0-CURE-toolkit-v3 was written on T6's verdict (TOOLKIT.md fit_to_accept, no finding), closing PILOT-4; the six suite-file claims stand ACCEPTED."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: tie the claim to T6-01's disposition. Under (A) it is written at the TOOLFIX-4 digest on S2's verdict; under (B) it is written now at a61ec7ff on T6's verdict, with T6-01 disclosed in the claim."
+  },
+  {
+   "id": "T6-E19",
+   "question": "Rule on T6's two disclosed scope deviations.",
+   "facts": [
+    "T6's e19_selfreport: \"Ran no listing, no glob, and no recursive search against the deliverable directory, the worktree (C:\\\\wt\\\\logos-t423-m8-fable), SP, or any other project directory; every file was opened by its exact, fully-specified path (Read, or a single-file Grep with no glob), including the two artifact paths not in the brief's Inputs table (tools/check_register.py, tools/check_web_quotes.py), which were opened only because part B names them by their claims' artifact_path and their exact location is unambiguous. One `ls` was run, once, against my OWN private scratch subdirectory (ezek_t6_ow4nxg9k under my session scratchpad) immediately after copying files into it, to confirm the copies existed before running the verifier over them; this is disclosed rather than omitted, and is consistent with the brief's 'scope any self-check to your own private scratch' -- no listing was run against the deliverable directory, SP, or the worktree.\".",
+    "Part B of T6's brief ordered it to compare each appended claim's artifact digest with the live file; two of those files (check_register.py, check_web_quotes.py) were not in the brief's input table."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: accept both as inside the brief's own requirement and T6's private scratch. Future distinct-check briefs list every artifact the verified claims name in the input table, and say that no listing is allowed even in the agent's own scratch."
+  }
+ ]
+}

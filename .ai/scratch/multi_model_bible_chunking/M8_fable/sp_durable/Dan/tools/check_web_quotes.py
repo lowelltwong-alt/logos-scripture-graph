@@ -1,0 +1,427 @@
+#!/usr/bin/env python3
+"""WEB-quote verbatim checker (gloss-as-WEB detector), Dan.
+
+DAN NOTE: Dan is NOT an identity book (byte-proven at Phase 0): FOUR offset
+zones in two regions (66 verses per face, web_mt_offset_map.json), pure
+renumbering, NO split - MT 3:31-33 = WEB 4:1-3, MT 4:1-34 = WEB 4:4-37,
+MT 6:1 = WEB 5:31 and MT 6:2-29 = WEB 6:1-28; PSALM_RULES
+marks chs 3-6 'zone' (non-identity). The NEIGHBOR-ONLY WARN arm below is
+therefore LIVE in WEB chs 3-6. In WEB ch 6 an MT number written under a web:
+prefix is exactly one verse off, the case the arm exists for; in WEB ch 4 it is
+three off, outside the one-verse slack, so the verbatim arm flags it instead.
+
+Scans every string field of the given JSON/JSONL file(s) for curly-quoted
+English spans ("…") that sit within 200 chars of a web:Dan.C.V ref in the
+same field, and verifies each span is a verbatim (ellipsis-aware, punctuation-
+normalized) substring of the folded WEB text of that ref (range-aware, plus
+one-verse slack on each side for quotes crossing the cited edge). TOOLFIX-5
+(ezek_controlling_rulings_a1#e10 ruling TOOLFIX-5 (2); #e9 S2-15 (3)): one-word
+spans are checked too - a one-word curly double quote with no web: ref in
+its field is flagged, and one near a ref must verbatim-match its WEB text.
+
+Hebrew-majority quoted spans are skipped by the VERBATIM arm (collation's
+job) but caught by the E-15 arms below. Flags are candidates for
+orchestrator review, not auto-fails: a flagged span is either a
+paraphrase/gloss presented with quote marks near a ref (the 2Chr systemic
+class, again the dominant Ezra repair-site class) or a quote with a wrong
+ref.
+
+E-15 ARMS (NEW for Jer and inherited by Ezek and Dan, per the error-pattern ledger - the Isa spot wave
+proved the closed-pair matcher leaves unclosed/uncurly quotes OUTSIDE
+Tier-0 coverage, and Hebrew inside curly pairs corrupts pairing enough to
+MASK well-formed English quotes; 4 masked binding defects surfaced there):
+ e15a UNBALANCED/BROKEN CURLY PAIRING per string field: counts of “ and ”
+      must match AND alternate in order (no ” before an open, no double-
+      open) - a broken field is flagged AND its quotes are invisible to the
+      pair scanner, so the flag is the only Tier-0 signal.
+ e15b HEBREW INSIDE CURLY DOUBLE QUOTES: the campaign convention is curly
+      double quotes for WEB English ONLY (Hebrew is spliced bare; row/tool
+      wording uses straight quotes). Any “…” span containing a Hebrew
+      codepoint is flagged (this is also exactly the interleaving that
+      masked the Isa defects).
+ e15c WEB TEXT IN STRAIGHT DOUBLE QUOTES near a web: ref: a "…" span of 3+
+      English words that verbatim-matches the cited WEB text evades the
+      curly scanner - flagged as delimiter evasion (parallel to the
+      single-curly arm).
+
+REV-ROUND (attempt revround_tools_ps_r1): NEIGHBOR-ONLY WARN arm. The +-1
+verse slack that legitimately absorbs quotes crossing a cited edge also
+exactly cancels the MT-number-under-WEB-prefix hazard: in Dan's MT 6:2-29 offset zone
+(WEB ch 6), "web:Dan.6.3" written for MT 6:3 is actually WEB 6:2, and the
+slack makes that wrong ref pass silently. A quote that matches ONLY in a
+widened neighbor of a NON-IDENTITY chapter (rule != identity: chs 3-6) is
+therefore reported in neighbor_only_warns (WARN only - never a flag, never a
+status change); identity-chapter neighbor matches stay silent, since there
+the ref is simply off by one with no witness hazard.
+Usage: check_web_quotes.py file1.json [file2.jsonl ...]   |   check_web_quotes.py --selftest
+"""
+from __future__ import annotations
+
+import json
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from dan_lib import (LAST_VERSE, PSALM_RULES, expand_ref_token, load_verse_maps,
+                     web_quote_found)
+
+QUOTE = re.compile(r"“([^”]+)”")
+WREF = re.compile(r"web:(Dan\.\d+\.\d+(?:-(?:Dan\.)?\d+(?:\.\d+)?)?)")
+HEBREW_CP = re.compile(r"[֐-׿]")
+STRAIGHT_Q = re.compile(r'"([^"]+)"')
+
+
+# ------------------------------------------------ A6 (#e12 ruling): content decides a quotation, not a delimiter
+A6_MIN_WORDS = 5          # the ruling's threshold
+WORD_RE = re.compile(r"[A-Za-z][A-Za-z\u2019'-]*")
+
+
+def a6_runs(s, texts, protected_spans):
+    """Longest runs of >= A6_MIN_WORDS consecutive words in `s` that verbatim-match the cited WEB text.
+
+    Delimiter-agnostic by design: the ruling made content the test. A run whose first word begins inside a
+    protected span (a curly double quote in a field that carries a web: ref) is skipped, because that is the
+    convention being complied with rather than evaded.
+    """
+    toks = [(m.group(0), m.start(), m.end()) for m in WORD_RE.finditer(s)]
+    out = []
+    i = 0
+    while i + A6_MIN_WORDS <= len(toks):
+        start = toks[i][1]
+        if any(a <= start < b for a, b in protected_spans):
+            i += 1
+            continue
+        window = " ".join(w for w, _, _ in toks[i:i + A6_MIN_WORDS])
+        if not web_quote_found(window, texts):
+            i += 1
+            continue
+        # greedily extend while the longer run still matches
+        j = i + A6_MIN_WORDS
+        best = j
+        while j < len(toks):
+            cand = " ".join(w for w, _, _ in toks[i:j + 1])
+            if not web_quote_found(cand, texts):
+                break
+            j += 1
+            best = j
+        out.append({"words": best - i,
+                    "run": " ".join(w for w, _, _ in toks[i:best])[:160],
+                    "char_start": start})
+        i = best
+    return out
+
+
+def _a6_selftest() -> int:
+    """Vectors over one WEB verse passed in directly (no verse-map lookup): WEB Dan 6:1, a zone and Aramaic
+    verse, sliced from Dan_web_clean.txt by the T2 port spec (created: it replaces the verse text of the predecessor)."""
+    texts = ["It pleased Darius to set over the kingdom one hundred twenty local governors, who should be throughout the whole kingdom;"]
+    cases = []
+
+    r = a6_runs("the row argues that It pleased Darius to set over the kingdom carries the onset", texts, [])
+    cases.append(("an undelimited run of 5+ WEB words is found", bool(r) and r[0]["words"] >= 5))
+
+    r = a6_runs("the gloss 'set over the' marks the turn", texts, [])
+    cases.append(("a 3-word run in straight single quotes is a gloss and passes", r == []))
+
+    r = a6_runs("the phrase 'set over the kingdom one hundred' is quoted", texts, [])
+    cases.append(("a 6-word run in straight SINGLE quotes is caught - the delimiter gap A6 closes",
+                  bool(r) and r[0]["words"] >= 5))
+
+    s = "as the text has it \u201cIt pleased Darius to set over the kingdom\u201d here"
+    prot = [(s.index("\u201c".encode().decode('unicode_escape')), len(s))] if False else [
+        (s.find(chr(0x201c)), s.find(chr(0x201d)) + 1)]
+    r = a6_runs(s, texts, prot)
+    cases.append(("a run already inside curly double quotes is compliant and passes", r == []))
+
+    r = a6_runs("It pleased Darius to set over the kingdom one hundred twenty local entirely", texts, [])
+    cases.append(("the arm reports the LONGEST run rather than every window inside it", len(r) == 1))
+    cases.append(("and that run is longer than the minimum", bool(r) and r[0]["words"] > A6_MIN_WORDS))
+
+    r = a6_runs("nothing here resembles the cited verse at all in any way whatsoever", texts, [])
+    cases.append(("unrelated prose is not flagged", r == []))
+
+    width = max(len(n) for n, _ in cases)
+    for n, ok in cases:
+        print("  %s  %s" % ("PASS" if ok else "FAIL", n.ljust(width)))
+    bad = [n for n, ok in cases if not ok]
+    print("\nA6 selftest: %d/%d passed" % (len(cases) - len(bad), len(cases)))
+    return 1 if bad else 0
+
+
+def widen(pairs):
+    """Neighbor-widen a ref's verse set. (Historical Ps-lineage note: the
+    v=0 handling below is inert in Dan - Dan has NO title pseudo-verses (no verse-0 line in Dan_oshb.txt) and
+    a Dan.N.0 ref names no verse in either witness; kept for tool parity.)"""
+    out = set(pairs)
+    if pairs:
+        c, v = pairs[0]
+        if v > 1:
+            out.add((c, v - 1))
+        elif v == 1:
+            out.add((c - 1, LAST_VERSE.get(c - 1, 0)))
+        c, v = pairs[-1]
+        out.add((c, v + 1) if v < LAST_VERSE.get(c, 0) else (c + 1, 1))
+    valid = {(c, v) for c in LAST_VERSE for v in range(1, LAST_VERSE[c] + 1)}
+    valid |= {(c, 0) for c in LAST_VERSE}
+    return sorted(p for p in out if p in valid)
+
+
+def iter_strings(o, path=""):
+    if isinstance(o, dict):
+        for k, v in o.items():
+            yield from iter_strings(v, f"{path}.{k}")
+    elif isinstance(o, list):
+        for i, v in enumerate(o):
+            yield from iter_strings(v, f"{path}[{i}]")
+    elif isinstance(o, str):
+        yield path, o
+
+
+def load_any(p: Path):
+    text = p.read_text(encoding="utf-8-sig")
+    if p.suffix == ".jsonl":
+        return [json.loads(l) for l in text.splitlines() if l.strip()]
+    return json.loads(text)
+
+
+def curly_pairing_broken(s: str):
+    """E-15a: returns a reason string when the curly-double pairing of a
+    field is unbalanced or out of order; None when clean."""
+    depth = 0
+    for ch in s:
+        if ch == "“":
+            depth += 1
+            if depth > 1:
+                return "double-open (nested “ before close)"
+        elif ch == "”":
+            depth -= 1
+            if depth < 0:
+                return "close ” with no open"
+    if depth != 0:
+        return f"unclosed “ ({depth} open at field end)"
+    return None
+
+
+def selftest() -> int:
+    """TOOLFIX-5 (#e10 ruling TOOLFIX-5 (4)): a one-word curly double quote with no web: ref is flagged; a one-word quote that
+    verbatim-matches its nearby ref is not; a two-word quote with no ref is still flagged; plain prose is not."""
+    import subprocess
+    import tempfile
+    cases = [
+        ("one-word gloss in curly double quotes with no web: ref is flagged", "the causal sub-onset gloss \u201cbecause\u201d marks the turn", 1),
+        ("one-word WEB word near its ref is not flagged", "WEB reads \u201cthird\u201d (web:Dan.1.1) at the dateline", 0),
+        ("two-word quote with no ref is still flagged", "the label \u201chouse of\u201d stands", 1),
+        ("plain prose with no quote is not flagged", "a plain sentence with no quotation", 0),
+    ]
+    results = []
+    with tempfile.TemporaryDirectory() as td:
+        for name, text, want in cases:
+            p = Path(td) / "vector.jsonl"
+            p.write_text(json.dumps({"decision_id": "P01-001", "device_notes": text}, ensure_ascii=False) + "\n", encoding="utf-8")
+            out = subprocess.run([sys.executable, str(Path(__file__).resolve()), str(p)], capture_output=True, text=True, encoding="utf-8")
+            got = json.loads(out.stdout)["flag_count"]
+            results.append({"vector": name, "want_flags": want, "got_flags": got, "ok": got == want})
+    failed = [r["vector"] for r in results if not r["ok"]]
+    print(json.dumps({"selftest": "check_web_quotes TOOLFIX-5", "vectors": len(results), "failed": failed, "results": results,
+                      "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))
+    return 0 if not failed else 1
+
+
+def main() -> int:
+    if "--selftest" in sys.argv[1:]:
+        return selftest()
+    web, _ = load_verse_maps()
+    flags = []
+    neighbor_only_warns = []      # rev-round: WARN only, never a flag
+    checked = 0
+    for f in sys.argv[1:]:
+        data = load_any(Path(f))
+        # S1-10 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)) [CWO-EZ-17]: a prose field whose curly DOUBLE quote counts
+        # differ. Single curly quotes are not counted: they double as apostrophes.
+        for i_, row_ in enumerate(data if isinstance(data, list) else (data.get("decisions") or [])):
+            if not isinstance(row_, dict):
+                continue
+            for field_ in ("boundary_rationale", "strongest_rejected_alternative", "device_notes"):
+                s_ = row_.get(field_)
+                if isinstance(s_, str) and s_.count("“") != s_.count("”"):
+                    flags.append({"file": Path(f).name, "path": "[%d].%s" % (i_, field_), "decision_id": row_.get("decision_id"),
+                                  "field": field_, "issue": "e15d_unequal_curly_double_quotes: %d open, %d close [CWO-EZ-17]"
+                                  % (s_.count("“"), s_.count("”"))})
+        for path, s in iter_strings(data):
+            refs = [(m.start(), m.group(1)) for m in WREF.finditer(s)]
+            # ---- E-15a: pairing integrity BEFORE any pair-based scanning ----
+            if "“" in s or "”" in s:
+                broken = curly_pairing_broken(s)
+                if broken:
+                    flags.append({"file": Path(f).name, "path": path,
+                                  "issue": f"e15a_curly_pairing_broken: {broken}",
+                                  "note": ("field's quotes are INVISIBLE to the pair "
+                                           "scanner until pairing is repaired")})
+            # ---- E-15b: Hebrew inside curly double quotes ----
+            for qm in QUOTE.finditer(s):
+                if HEBREW_CP.search(qm.group(1)):
+                    flags.append({"file": Path(f).name, "path": path,
+                                  "quote": qm.group(1)[:60],
+                                  "issue": ("e15b_hebrew_in_curly_quotes (curly double "
+                                            "quotes are for WEB English ONLY; Hebrew is "
+                                            "spliced bare - this interleaving also masks "
+                                            "English-quote pairing)")})
+            # ---- E-15c: WEB text in straight double quotes near a ref ----
+            for sm in STRAIGHT_Q.finditer(s):
+                span_s = sm.group(1).strip()
+                if len(span_s.split()) < 3 or HEBREW_CP.search(span_s):
+                    continue
+                if not refs:
+                    continue
+                for pos, r in refs:
+                    if abs(pos - sm.start()) > 200 and abs(pos - sm.end()) > 200:
+                        continue
+                    pairs = widen(expand_ref_token(r))
+                    texts = [web[f"Dan.{c}.{v}"]["text"] for c, v in pairs]
+                    if web_quote_found(span_s, texts):
+                        flags.append({"file": Path(f).name, "path": path,
+                                      "quote": span_s[:90],
+                                      "issue": ("e15c_web_text_in_straight_quotes "
+                                                "(delimiter evasion - WEB quotes use "
+                                                "curly double + inline web: ref)")})
+                        break
+            # ---- A6 (#e12): CONTENT decides a quotation, whatever the delimiter ----
+            # SCOPE FIX: keying only on the field's own web: refs under-detects badly. A peer applying A6 by hand
+            # found 11 threshold-length runs in 6 of its 13 rows while this arm, ref-keyed, found 15 across all
+            # 145. A gloss that cites NO ref, or cites a verse other than the one it quotes, was invisible. A6
+            # says content decides, so the comparison set is the field's cited refs PLUS the row's own span.
+            a6_pairs = set()
+            for _pos, _r in refs:
+                a6_pairs |= set(widen(expand_ref_token(_r)))
+            # The row loop that binds row_ CLOSES before this string loop, so row_ here is the LAST row of the
+            # file - stale for every field but one. Derive the row from the field's own path index instead, which
+            # is the same convention the flag paths use ("[55].boundary_rationale").
+            _rows_all = data if isinstance(data, list) else (data.get("decisions") or [])
+            _mi = re.match(r"^\[(\d+)\]", path)
+            _row_here = (_rows_all[int(_mi.group(1))]
+                         if (_mi and int(_mi.group(1)) < len(_rows_all)) else None)
+            _span = _row_here.get("span") if isinstance(_row_here, dict) else None
+            if isinstance(_span, str):
+                a6_pairs |= set(expand_ref_token(_span.replace("web:", "")))
+            if a6_pairs:
+                prot = [(m.start(), m.end()) for m in QUOTE.finditer(s)]
+                seen_a6 = set()
+                for _grp in [sorted(a6_pairs)]:
+                    r = "span+refs"
+                    pairs = _grp
+                    texts = [web[f"Dan.{c}.{v}"]["text"] for c, v in pairs
+                             if f"Dan.{c}.{v}" in web]
+                    for run in a6_runs(s, texts, prot):
+                        key = (run["char_start"], run["words"])
+                        if key in seen_a6:
+                            continue
+                        seen_a6.add(key)
+                        # U-QUOTE-LABEL (dan_controlling_agent_rulings_E1, optional with S1-08): a TOP-LEVEL
+                        # parent_collection label is a title, not a quotation - no attribution is owed, but the label
+                        # text must be BYTE-present in the WEB text of the span+refs, else the flag still fires
+                        if re.fullmatch(r"\[\d+\]\.parent_collection", path) and any(run["run"] in t for t in texts):
+                            continue
+                        flags.append({"file": Path(f).name, "path": path,
+                                      "quote": run["run"], "words": run["words"], "ref": r,
+                                      "issue": ("a6_web_wording_without_the_convention "
+                                                "(5+ consecutive WEB words are a quotation regardless of "
+                                                "delimiter and owe curly double quotes plus an in-field "
+                                                "web: ref - #e12 ruling A6)")})
+            # OL-c42 false-positive fix: WEB itself sets nested speech in
+            # single curly quotes - a single-curly span wholly inside a
+            # double-curly WEB quote is the source's own punctuation, not
+            # delimiter evasion. Skip those.
+            dq_spans = [(m.start(), m.end()) for m in QUOTE.finditer(s)]
+            for sq in re.finditer(r"‘([^’]{6,})’", s):
+                if any(a <= sq.start() and sq.end() <= b for a, b in dq_spans):
+                    continue
+                span1 = sq.group(1).strip()
+                if len(span1.split()) >= 3 and re.search(r"[A-Za-z]{3}", span1) and refs:
+                    # flag ONLY when the span verbatim-matches WEB near a ref
+                    # (true delimiter evasion). Glosses - the legitimate
+                    # single-curly idiom - won't match verbatim.
+                    hit = False
+                    for pos, r in refs:
+                        pairs = widen(expand_ref_token(r))
+                        texts = [web[f"Dan.{c}.{v}"]["text"] for c, v in pairs]
+                        if web_quote_found(span1, texts):
+                            hit = True
+                            break
+                    if hit:
+                        checked += 1
+                        flags.append({"file": Path(f).name, "path": path,
+                                      "quote": span1[:90],
+                                      "issue": "verbatim WEB text in SINGLE curly quotes (delimiter evasion - rows use double curly + inline web: ref)"})
+            for qm in QUOTE.finditer(s):
+                span = qm.group(1).strip()
+                if not span.split():   # TOOLFIX-5 (#e10 ruling TOOLFIX-5 (2)): one-word spans are checked too
+                    continue
+                heb = len(HEBREW_CP.findall(span))
+                lat = len(re.findall(r"[A-Za-z]", span))
+                if heb > lat:
+                    continue
+                # OL-c03 hardening: a curly English quote with NO web: ref in
+                # its field used to be silently skipped - the mandatory
+                # quote+inline-ref convention makes that itself a flag.
+                if not refs:
+                    checked += 1
+                    flags.append({"file": Path(f).name, "path": path,
+                                  "quote": span[:90],
+                                  "refs_nearby": [],
+                                  "issue": "curly quote with NO web: ref in its field"})
+                    continue
+                # bind refs near EITHER quote edge - a long quote's own
+                # trailing ref sits beyond 200 chars of its START (p10 triage)
+                near = [r for pos, r in refs
+                        if abs(pos - qm.start()) <= 200 or abs(pos - qm.end()) <= 200]
+                if not near:
+                    continue
+                checked += 1
+                ok = False
+                neighbor_only = None
+                # PASS 1: does ANY nearby ref carry the quote in its own verses?
+                for r in near:
+                    exact = expand_ref_token(r)
+                    if web_quote_found(span, [web[f"Dan.{c}.{v}"]["text"]
+                                              for c, v in exact]):
+                        ok = True
+                        break
+                if not ok:
+                    # PASS 2: only now does the +-1 slack decide the match -
+                    # so neighbor-only is judged against EVERY nearby ref, not
+                    # merely the first one tried.
+                    for r in near:
+                        exact = expand_ref_token(r)
+                        pairs = widen(exact)
+                        if web_quote_found(span, [web[f"Dan.{c}.{v}"]["text"]
+                                                  for c, v in pairs]):
+                            ok = True
+                            if exact and PSALM_RULES.get(exact[0][0], {}).get(
+                                    "rule") != "identity":
+                                neighbor_only = r
+                            break
+                if neighbor_only:
+                    neighbor_only_warns.append(
+                        {"file": Path(f).name, "path": path, "quote": span[:90],
+                         "ref": neighbor_only,
+                         "issue": "quote matches only in a WIDENED neighbor of a "
+                                  "NON-IDENTITY chapter (candidate MT number under "
+                                  "a web: prefix, or an edge-crossing quote whose "
+                                  "ref should be extended)"})
+                if not ok:
+                    flags.append({"file": Path(f).name, "path": path,
+                                  "quote": span[:90], "refs_nearby": near})
+    print(json.dumps({"quotes_checked": checked, "flag_count": len(flags),
+                      "flags": flags,
+                      "neighbor_only_warn_count": len(neighbor_only_warns),
+                      "neighbor_only_warns": neighbor_only_warns,
+                      "status": "GREEN" if not flags else "FLAGS"},
+                     ensure_ascii=False, indent=1))
+    return 1 if flags else 0
+
+
+if __name__ == "__main__":
+    if "--a6-selftest" in sys.argv:
+        raise SystemExit(_a6_selftest())
+    raise SystemExit(main())

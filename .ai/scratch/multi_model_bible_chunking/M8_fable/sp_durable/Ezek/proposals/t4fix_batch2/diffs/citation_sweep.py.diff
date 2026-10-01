@@ -1,0 +1,224 @@
+--- SP/Ezek/tools/citation_sweep.py (installed 2acbc0457808)
++++ proposals/t4fix_batch2/staged/citation_sweep.py (2850ce8ad99c)
+@@ -123,7 +123,8 @@
+ PUNCTA = re.compile(r"\bpuncta\b|\bextraordinar(?:y|ia)\s+(?:points?|dots?)\b|\bupper\s+dots?\b|U\+05C4", re.I)
+ PUNCTA_NEG = re.compile(r"\b(?:no|not|nor|never|without|absent|lacks?|lacking|none)\b(?:\s+[\w/-]+){0,2}\s*$", re.I)   # adjacent negation only
+ NEG_WORD = re.compile(r"\b(?:no|not|nor|never|without|absent|lacks?|lacking|none)\b", re.I)
+-PUNCTA_NUM = re.compile(r"(?<!\d)(\d{1,2})[:.](\d{1,2})(?!\d)")
++PUNCTA_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?!\d)")
++SINGLE_WITNESS = re.compile(r"\bsingle[-\s]+witness", re.I)   # T4-04: the disclosure, hyphenated or spaced
+ 
+ 
+ def field_bounds(text, start, end):
+@@ -138,7 +139,8 @@
+ # after a digit, as in '41:20;' (the first version's digit lookbehind let a decoy number leak across that semicolon).
+ NEG_CLAUSE_END = re.compile(r"\.(?=\s|$)|:(?!\d)|[;,()]")   # a negation's scope ends at any clause mark
+ NUM_CLAUSE_END = re.compile(r"\.(?=\s|$)|[;()]")            # a claim's numbers stay together across commas
+-RANGE_NUM = re.compile(r"(?<!\d)(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?(?!\d)")
++# T4-01: digits that follow a letter directly ('R4.5', a ruling or row id) are an id, never a verse number
++RANGE_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?(?!\d)")
+ SENT_END = re.compile(r"\.(?=\s|$)|;|\n")
+ PUNCTA_SITE_PAIRS = {(41, 20), (46, 22)}
+ 
+@@ -157,9 +159,13 @@
+     return lo, (nxt.start() if nxt else len(text))
+ 
+ 
+-def puncta_negated(text, start):
++def puncta_negated(text, start, end=None):
+     """Negation anywhere EARLIER in the mention's own comma-delimited clause (T2-03: an adjacency-only test dropped a
+-    distant 'not'). Two negators standing next to each other cancel ('not without', 'never lacking': T1-03)."""
++    distant 'not'). Two negators standing next to each other cancel ('not without', 'never lacking': T1-03). Given the
++    mention's end, a denial LATER in the clause also counts, but only one DENIAL_AFTER reads (T4-03: '45:18, where a
++    dateline would be expected but none stands'); a bare later 'no' or 'not' does not."""
++    if end is not None and denied_after(text, end):
++        return True
+     lo, _ = clause_bounds(text, start, start, NEG_CLAUSE_END)
+     negs = list(NEG_WORD.finditer(text, lo, start))
+     if not negs:
+@@ -170,6 +176,56 @@
+ 
+ 
+ PAREN_AFTER = re.compile(r"\s*\(")
++# T4-03: the closed set of denials that may FOLLOW a mention inside its clause. 'none of' is a partitive, and 'is absent',
++# 'is lacking' or 'is missing' deny only at the clause end ('the dateline at 45:18 is missing its year word' still names
++# a dateline). #e4 amendments: A1 - the clause end may be a newline (check_marks joins fields with newlines); A2 - a
++# COORDINATED denial with a verse number and no expectation modal between the mention and the denial does not deny: the
++# mention is a positive claim over the numbers before the denial ('stand at 41:5 but none is present in ch 46' claims 41:5).
++DENIAL_COORD = re.compile(r"\b(?:but|though|although|yet)\s+(?:there\s+(?:is|are)\s+)?none\b(?!\s+of\b)"
++                          r"|\bnone\s+(?:stands?|is\s+(?:present|written|there|found)|appears?|exists?)\b", re.I)
++DENIAL_COPULAR = re.compile(r"\b(?:is|are)\s+(?:absent|lacking|missing)\s*(?=[.;,()\n]|$)", re.I)
++EXPECT_MODAL = re.compile(r"\b(?:would|should|could|might|may|expected|anticipated)\b", re.I)
++
++
++def _denial_window_end(text, end):
++    """The end of the mention's clause, reading through a parenthetical that opens directly after it."""
++    f_hi = field_bounds(text, end, end)[1]
++    _, hi = clause_bounds(text, end, end, NEG_CLAUSE_END)
++    p = PAREN_AFTER.match(text, hi)
++    if p and p.end() <= f_hi:
++        close = text.find(")", p.end(), f_hi)
++        if close != -1:
++            nxt = NEG_CLAUSE_END.search(text, close + 1, f_hi)
++            hi = nxt.start() if nxt else f_hi
++    return hi
++
++
++def denial_after(text, end):
++    """(kind, start) of the first closed-set denial after a mention inside its clause. 'copular' always denies;
++    'coordinated' denies because the words between the mention and the denial name no verse number or carry an expectation
++    modal; 'positive' is a coordinated form that does NOT deny (A2), and start bounds the mention's own numbers.
++    (None, None) when the clause carries no closed-set denial."""
++    hi = _denial_window_end(text, end)
++    found = [m for m in (DENIAL_COPULAR.search(text, end, hi), DENIAL_COORD.search(text, end, hi)) if m]
++    if not found:
++        return None, None
++    first = min(found, key=lambda m: m.start())
++    if first.re is DENIAL_COPULAR:
++        return "copular", first.start()
++    between = text[end:first.start()]
++    if not RANGE_NUM.search(between) or EXPECT_MODAL.search(between):
++        return "coordinated", first.start()
++    return "positive", first.start()
++
++
++def denied_after(text, end):
++    return denial_after(text, end)[0] in ("copular", "coordinated")
++
++
++def claim_upper(text, end):
++    """A2: where a mention's own number window stops - the start of a coordinated denial that does not deny - or None."""
++    kind, start = denial_after(text, end)
++    return start if kind == "positive" else None
+ # check_marks' PROSE arm keeps a 60-character reach inside the clause. Read without a limit, the real row P10-008 ("the
+ # word carrying the book's puncta extraordinaria -- ... -- a natural summary line before 41:21 returns to ...") binds its
+ # TRUE claim to the next verse, 41:21, and flags; the regression vector cm_real_row_distant_next_verse_number_ok pins that.
+@@ -196,7 +252,7 @@
+     return items
+ 
+ 
+-def puncta_claim_numbers(text, start, end, reach=None, ends=NUM_CLAUSE_END, with_paren=True):
++def puncta_claim_numbers(text, start, end, reach=None, ends=NUM_CLAUSE_END, with_paren=True, upper=None):
+     """The verse numbers a claim names (T2-01/02; ruling R4(ii) of ezek_controlling_rulings_a1#e3). That is EVERY C:V or
+     C.V number in the mention's own clause, at any distance (a 60-character reach let a distant number go unseen), and
+     every number in a parenthetical that opens directly after that clause ('puncta extraordinaria (41:5)'), all inside
+@@ -205,6 +261,8 @@
+     to that many characters either side of the mention. citation_sweep's ref arm passes none; check_marks' prose arm
+     passes PROSE_REACH."""
+     lo, hi = clause_bounds(text, start, end, ends)
++    if upper is not None:   # A2: numbers after a coordinated denial belong to the denial; no parenthetical past it
++        hi, with_paren = min(hi, upper), False
+     items = _range_items(text, lo if reach is None else max(lo, start - reach), hi if reach is None else min(hi, end + reach))
+     if with_paren:
+         f_hi = field_bounds(text, start, end)[1]
+@@ -234,10 +292,10 @@
+                   (32, 17), (33, 21), (40, 1)}             # dated_oracles: a year word with a month or day term
+ DATELINE = re.compile(r"(?<!non-)(?<!non )\bdatelines?\b", re.I)   # "non-dateline" is itself a denial
+ LIST_NEXT = re.compile(r"\s*(?:,\s*(?:and\s+)?|\s+and\s+)(?=\d{1,2}[:.]\d)")
+-APPOSITION_NUM = re.compile(r"(?<!\d)(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?\s*$")
+-
+-
+-def dateline_claim_numbers(text, start, end, reach=60):
++APPOSITION_NUM = re.compile(r"(?<![A-Za-z\d])(\d{1,2})[:.](\d{1,2})(?:\s*[-–]\s*(?:(\d{1,2})[:.])?(\d{1,2}))?\s*$")
++
++
++def dateline_claim_numbers(text, start, end, reach=60, upper=None):
+     """The verse numbers a dateline claim names:
+       - those in its own COMMA-delimited clause within `reach` characters ('unlike the dateline at 40:1, the date at
+         45:18 ...' names 40:1 only);
+@@ -247,13 +305,15 @@
+         apposition '45:18, a dateline-grade onset').
+     The last two readings follow CAL-1 of ezek_controlling_rulings_a1#e3."""
+     lo, hi = clause_bounds(text, start, end, NEG_CLAUSE_END)
+-    items = puncta_claim_numbers(text, start, end, reach, NEG_CLAUSE_END)
++    if upper is not None:   # A2
++        hi = min(hi, upper)
++    items = puncta_claim_numbers(text, start, end, reach, NEG_CLAUSE_END, upper=upper)
+     found = list(RANGE_NUM.finditer(text, max(lo, start - reach), min(hi, end + reach)))
+     j = found[-1].end() if found else None
+     while j is not None:
+         nx = LIST_NEXT.match(text, j)
+         m = RANGE_NUM.match(text, nx.end()) if nx else None
+-        if not m:
++        if not m or (upper is not None and m.end() > upper):
+             break
+         items += puncta_claim_numbers(text, m.start(), m.end(), 0, NEG_CLAUSE_END, with_paren=False)
+         j = m.end()
+@@ -430,7 +490,7 @@
+                         f"{did}: {ref!r} claims {word} but the marks inventory "
+                         f"has {got_types or 'none'} at {key} "
+                         f"(PE and SAMEKH are never conflated)")
+-                if "single-witness" not in tail:
++                if not SINGLE_WITNESS.search(tail):
+                     problems.append(f"{did}: parashah-mark ref lacks single-witness "
+                                     f"disclosure (tier-3 in Prophets): {ref!r}")
+             if re.search(r"\bselah\b", tail, re.I):
+@@ -455,21 +515,23 @@
+                     problems.append(f"{did}: {ref!r} claims a small letter but WLC "
+                                     f"Ezek carries NO special-letter segs of any class "
+                                     f"(nothing at {key})")
+-                elif "single-witness" not in tail:
++                elif not SINGLE_WITNESS.search(tail):
+                     problems.append(f"{did}: small-letter ref lacks single-witness "
+                                     f"disclosure: {ref!r}")
+             if re.search(r"\bpaseq\b", tail, re.I):
+                 if not paseq.get(key):
+                     problems.append(f"{did}: {ref!r} claims paseq but OSHB carries "
+                                     f"none at {key}")
+-                if "single-witness" not in tail:
++                if not SINGLE_WITNESS.search(tail):
+                     problems.append(f"{did}: paseq ref lacks single-witness disclosure: {ref!r}")
+             # PUNCTA arm (Ezek): U+05C4 stands in the verse bytes at MT 41:20 and 46:22 only. A claim is judged on
+             # every verse number in its own clause of the annotation, at any distance, and in a parenthetical opening
+             # directly after that clause (R4(ii), ezek_controlling_rulings_a1#e3; a range counts as
+             # its verses): all sites -> true, none -> false, a mix -> ambiguous, RED (T2-01/02). Only a claim naming
+             # no number falls back to whether the ref's range covers a site (T1-01). A negation earlier in the same
+-            # comma-delimited clause makes it an absence claim; adjacent negators cancel (T1-03, T2-03).
++            # comma-delimited clause makes it an absence claim; adjacent negators cancel (T1-03, T2-03); so does a closed-set
++            # denial later in the clause (T4-03). A true claim needs single-witness disclosure in the annotation, as mark,
++            # small-letter and paseq refs do (T4-04).
+             pm_ = PUNCTA.search(tail)
+             if pm_:
+                 covered, (c_, v_) = set(), (ch, v)
+@@ -479,9 +541,9 @@
+                         covered.add(f"Ezek.{mk[0]}.{mk[1]}")
+                     c_, v_ = (c_, v_ + 1) if v_ < space[c_] else (c_ + 1, 1)
+                 sites = covered & PUNCTA_KEYS
+-                verdict = puncta_verdict(puncta_claim_numbers(tail, pm_.start(), pm_.end()))
++                verdict = puncta_verdict(puncta_claim_numbers(tail, pm_.start(), pm_.end(), upper=claim_upper(tail, pm_.end())))
+                 at_site = bool(sites) if verdict is None else verdict
+-                if puncta_negated(tail, pm_.start()):
++                if puncta_negated(tail, pm_.start(), pm_.end()):
+                     if at_site is True or at_site == "ambiguous":
+                         problems.append(f"{did}: {ref!r} denies puncta extraordinaria at a verse that carries them")
+                 elif at_site == "ambiguous":
+@@ -490,13 +552,15 @@
+                 elif not at_site:
+                     problems.append(f"{did}: {ref!r} claims puncta extraordinaria but they stand only at MT 41:20 "
+                                     f"and MT 46:22 ({'the ref covers neither' if verdict is None else 'the claim names another verse'})")
++                elif not SINGLE_WITNESS.search(tail):
++                    problems.append(f"{did}: puncta ref lacks single-witness disclosure: {ref!r}")
+             # CALENDAR-DATE arm, refs (Ezek; strategy section 10, ruling G12(d)): a dateline claim in the annotation is
+             # RED when it names MT 45:18, 45:20, 45:21 or 45:25 (dateline_claim_numbers), or, naming no number, when the
+             # ref covers one of them and no real dateline. 'not a dateline' and 'non-dateline' are denials and pass.
+             for dm_ in DATELINE.finditer(tail):
+-                if puncta_negated(tail, dm_.start()):
++                if puncta_negated(tail, dm_.start(), dm_.end()):
+                     continue
+-                named_ = {p for pairs in dateline_claim_numbers(tail, dm_.start(), dm_.end()) for p in pairs}
++                named_ = {p for pairs in dateline_claim_numbers(tail, dm_.start(), dm_.end(), upper=claim_upper(tail, dm_.end())) for p in pairs}
+                 if not named_:
+                     covered_, (c_, v_) = set(), (ch, v)
+                     while (c_, v_) <= end_pair and c_ in space:
+@@ -558,9 +622,9 @@
+                     prose_dateline_check(v2, f"{path}[{i}]")
+             elif isinstance(o, str):
+                 for m in DATELINE.finditer(o):
+-                    if puncta_negated(o, m.start()):
++                    if puncta_negated(o, m.start(), m.end()):
+                         continue
+-                    cal = sorted({p for pairs in dateline_claim_numbers(o, m.start(), m.end()) for p in pairs}
++                    cal = sorted({p for pairs in dateline_claim_numbers(o, m.start(), m.end(), upper=claim_upper(o, m.end())) for p in pairs}
+                                  & CAL_DATE_PAIRS)
+                     if cal:
+                         problems.append(f"{did}: {path} claims a dateline at " + ", ".join("MT %d:%d" % p for p in cal)

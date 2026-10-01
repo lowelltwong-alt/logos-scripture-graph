@@ -1,0 +1,169 @@
+{
+ "attempt_id": "ezek_author_fixup2_p09_a1",
+ "execution_id": "ezek_author_fixup2_p09_a1#e1",
+ "sources": [
+  "C:\\Users\\lowel\\.agent-governance\\ACTIVE_WORKTREES.yaml",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\ERROR_PATTERN_LEDGER.v1.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\FIXUP2_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\fixup2\\orders_ezek_author_fixup2_p09_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v4_cwo21.jsonl",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md (hash-verified only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (hash-verified only)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_controlling_agent_rulings_e9.v1.json (hash-verified; content read via orders-embedded copy)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt (hash-verified only, no new Hebrew spliced)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_register.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\citation_sweep.py",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P09-001 device_notes",
+    "why": "S2-14 mark_item: disclosed undisclosed front-seam SAMEKH after MT 36:38 (single witness), corroborating this row's onset"
+   },
+   {
+    "what": "P09-002 strongest_rejected_alternative",
+    "why": "e9:S2-13#1 / CWO-EZ-21: restated 'this campaign requires' as the byte/rule argument itself, no ledger-id or campaign talk remaining"
+   },
+   {
+    "what": "P09-007 device_notes",
+    "why": "e9:S2-13#1 / CWO-EZ-21: restated 'this campaign takes no position' as 'no position is taken here', no campaign talk remaining"
+   },
+   {
+    "what": "P09-009 device_notes",
+    "why": "S2-14 mark_item: disclosed undisclosed front-seam SAMEKH after MT 39:16 (single witness)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "brief and orders files match pinned sha256",
+   "how": "sha256sum on both exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "OW-11 authority exists at the named ledger path",
+   "how": "grep OW-11 in ERROR_PATTERN_LEDGER.v1.md at exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "9 pinned source files match table digests (TOOLKIT.md, book_strategy_Ezek.md, pmarks_Ezek.json, Ezek_oshb.txt, rows_v4_cwo21.jsonl, rulings_e9)",
+   "how": "sha256sum on each exact path",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Ezek.36.38 and Ezek.39.16 carry SAMEKH per the witness",
+   "how": "grep in pmarks_Ezek.json",
+   "result": "confirmed"
+  },
+  {
+   "claim": "my 4 rows match the orders' embedded current_row byte-for-byte (no drift)",
+   "how": "python diff against rows_v4_cwo21.jsonl by decision_id",
+   "result": "confirmed"
+  },
+  {
+   "claim": "locked fields (decision_id, span, unit_type, confidence, parent_collection, etc.) unchanged",
+   "how": "python assertion in build script",
+   "result": "confirmed"
+  },
+  {
+   "claim": "residual 0 for \\bE-\\d{2}\\b and campaign over all string fields of my 4 rows post-edit",
+   "how": "python regex sweep over fixup2_p09_rows.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "HARD suite GREEN, register/citation_sweep/cap_sweep/ngram7/language_zones GREEN on full 145-row corpus with my rows applied",
+   "how": "run_validator_suite.py private_full_modified.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "mark_symmetry_gap cleared for P09-001 and P09-009 with zero new flags anywhere",
+   "how": "diff of mark_symmetry.flags between private_unmodified and private_full_modified reports (66->64, exactly my 2 rows)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_tiling PASS over Ezek.37.1-Ezek.39.29 for p09's 8 rows",
+   "how": "check_tiling.py private_p09_only.jsonl --range Ezek.37.1-Ezek.39.29",
+   "result": "confirmed"
+  },
+  {
+   "claim": "check_register 0 flags on my 4 rows",
+   "how": "check_register.py private_p09_only.jsonl",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "P09-002 carries a pre-existing false_mark_absence_claim flag (strongest_rejected_alternative's 'no samekh or pe mark falls anywhere inside 37.15-28' is literally false against Ezek.37.28's own disclosed closing samekh) — not in my orders, not touched",
+   "why_it_matters": "the controlling agent's #e9 S2-14 ruling already routes false_mark_absence_claim rows to disclosed triage for the primaries, not to FIXUP-2 authors; left untouched as NOT YOURS, flagging for visibility only"
+  }
+ ],
+ "items": [
+  {
+   "row": "P09-001",
+   "item": "S2-14:Ezek.36.38 SAMEKH front-seam",
+   "action": "cured",
+   "reason": "added disclosure to device_notes; tool-confirmed mark_symmetry_gap cleared"
+  },
+  {
+   "row": "P09-002",
+   "item": "e9:S2-13#1 / CWO-EZ-21 campaign hit in strongest_rejected_alternative",
+   "action": "cured",
+   "reason": "restated as the addressee-change rule itself, no ledger-id or campaign talk"
+  },
+  {
+   "row": "P09-007",
+   "item": "e9:S2-13#1 / CWO-EZ-21 campaign hit in device_notes",
+   "action": "cured",
+   "reason": "restated as 'no position is taken here', no campaign talk"
+  },
+  {
+   "row": "P09-009",
+   "item": "S2-14:Ezek.39.16 SAMEKH front-seam",
+   "action": "cured",
+   "reason": "added disclosure to device_notes; tool-confirmed mark_symmetry_gap cleared"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "S2-14 mark disclosure (P09-001, P09-009)",
+   "test": "check_marks / run_validator_suite mark_symmetry diff before vs after",
+   "result": "PASS"
+  },
+  {
+   "order": "CWO-EZ-21 campaign/ledger-id removal (P09-002, P09-007)",
+   "test": "regex sweep \\bE-\\d{2}\\b and (?i)campaign over all string fields post-edit",
+   "result": "PASS"
+  },
+  {
+   "order": "no span/unit_type/confidence/parent_collection change",
+   "test": "python equality assertion vs current_row for all locked fields",
+   "result": "PASS"
+  },
+  {
+   "order": "register compliance of new prose",
+   "test": "check_register.py over p09-only modified subset",
+   "result": "PASS"
+  },
+  {
+   "order": "whole-part tiling 1:1",
+   "test": "check_tiling.py --range Ezek.37.1-Ezek.39.29 over p09-only subset",
+   "result": "PASS"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry_gap": 2,
+   "false_mark_absence_claim": 1
+  },
+  "after": {
+   "mark_symmetry_gap": 0,
+   "false_mark_absence_claim": 1
+  },
+  "rises_explained": []
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

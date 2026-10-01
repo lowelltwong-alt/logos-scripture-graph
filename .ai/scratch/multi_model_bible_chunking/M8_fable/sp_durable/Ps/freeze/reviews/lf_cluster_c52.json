@@ -1,0 +1,23 @@
+{
+ "cluster": "c52",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c52_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-344",
+   "verdict": "challenge",
+   "reasoning": "Span Ps.105.42-Ps.105.45 is the closing strophe of Psalm 105 (identity-numbering psalm; web=oshb throughout, confirmed via ps_lib.web_to_mt for all four verses). Re-derived independently rather than trusting the row: both Hebrew quotes collate at byte tier against verse_map_oshb (oshb:Ps.105.42 'כִּֽי זָ֭כַר אֶת דְּבַ֣ר קָדְשׁ֑וֹ' and oshb:Ps.105.45 'הַֽלְלוּ יָֽהּ', collate.py --json, status GREEN both byte). Confirmed 'כִּי' genuinely opens the full verse text of 105:42 (not a cherry-picked medial fragment) and that 'הַֽלְלוּ יָֽהּ' is verse-final in 105:45, matching the causal-clause-opens / hallelu-Yah-closes claims. citation_sweep.py, check_refs_mirror.py, check_marks.py, check_universals.py, check_language_zones.py all GREEN on this row (0 flags). check_tiling.py against all Ps.104-106 rows (31 decisions) is exact GREEN: no gap/overlap at either the 105:41|105:42 or 105:45|106:1 seam. The preceding row (M8-Ps-343, span 105.37-105.41) independently and symmetrically considered and rejected extending through 105:42 for the identical reason this row gives for starting there (the causal kî clause returning to the covenant-memory language of 105:8-9) -- genuine bidirectional corroboration of the seam, not a rival. The device_notes cross-psalm remark ('matching Psalm 104's own hallelu-Yah close') is independently TRUE: psalm_device_inventory.json's halleluyah.verse_final list contains both Ps.104.35 and Ps.105.45, and the cited book-wide tally (11 verse-initial + 13 verse-final + 1 interior = 25) matches both the inventory's counts block and TOOLKIT.md's pre-verified Phase-0 figure exactly; the row correctly self-labels this as texture, not a boundary driver, so no evidence-tier violation there. unit_type 'strophe' is policy-correct for a 150-verse psalm's sub-unit; rejected_alternative is a single sentence (compliant); confidence 'high' is earned given the strength and bidirectional symmetry of the tier-1 causal-clause and hallelu-Yah-frame signals -- no confidence-calibration challenge filed. One genuine, tool-confirmed defect found in the rejected_alternative field: see challenge LF-344-1.",
+   "challenges": [
+    {
+     "challenge_id": "LF-344-1",
+     "severity": "low",
+     "claim": "rejected_alternative uses double-curly quotation marks around a string that is not verbatim WEB text and carries no web: ref in that field, violating the book-wide curly-quotes-are-WEB-text-only convention and the mandatory quote+inline-ref pairing.",
+     "evidence": "check_web_quotes.py on the row flags exactly this span: path [0].rejected_alternative, quote \"for he remembered\\u2026 [therefore] he brought his people out\\u2026 that they might keep\", issue \"curly quote with NO web: ref in its field\" (quotes_checked: 5, flag_count: 1; the other 4 curly quotes, all in the rationale field with adjacent web: refs, pass verbatim). Beyond the missing ref, the quoted string is independently not verbatim: verse_map_web.json gives Ps.105.42 = \"For he remembered his holy word, and Abraham, his servant.\", Ps.105.43 = \"He brought his people out with joy, his chosen with singing.\", Ps.105.45 = \"that they might keep his statutes, and observe his laws. Praise Yah!\" -- the row's curly-quoted string splices fragments of three different verses with ellipses and inserts the bracketed connective \"[therefore]\", which appears in none of them. Presenting a cross-verse paraphrase-with-insertion inside double curly quotes misrepresents it as WEB's own wording; straight quotes (or a ref-anchored verbatim form) would resolve it. Does not affect the span, the boundary warrant, or the row's core evidence, which is independently sound."
+    }
+   ],
+   "row_sha256": "9ec0b2a6c0390c9422533811aeb770cb7d6177e3fcd467102a9e0ed5e8730692"
+  }
+ ]
+}

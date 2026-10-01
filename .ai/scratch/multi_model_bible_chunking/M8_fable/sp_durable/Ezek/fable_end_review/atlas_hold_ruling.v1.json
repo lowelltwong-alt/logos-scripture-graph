@@ -1,0 +1,55 @@
+{
+ "schema": "ezek_atlas_hold_ruling.v1",
+ "facts_sha256": "a87ca428e7b82c8a4e9f0d898dbc8122f2097db5afa1a6fc2fd62640e7cf389f",
+ "rulings": {
+  "M8-Ezek-035": {
+   "decision": "release",
+   "reason": "The holding defect, a medium_low grade with no stated ground, is recorded cured in v9 (A0), and the remaining calibration question (B7) is already listed by both delta lanes for the campaign-end review. The hold now only makes the feed claim an unfinished chunk that the corpus and docket show as finished."
+  },
+  "M8-Ezek-037": {
+   "decision": "release",
+   "reason": "The sole ground was the wordevent.strict_onset signal contradicting the prose, and that signal is measured absent from the v9 row. Nothing remains to defer."
+  },
+  "M8-Ezek-038": {
+   "decision": "release",
+   "reason": "Same ground as F-199 and the same cure: the wordevent.strict_onset signal is measured absent from the v9 row. Nothing remains to defer."
+  },
+  "M8-Ezek-039": {
+   "decision": "release",
+   "reason": "Both flagged signals (wordevent.strict_onset, oath.as_i_live) are measured absent from the v9 row, which discharges the F-199 bar this hold rested on. Nothing remains to defer."
+  },
+  "M8-Ezek-049": {
+   "decision": "release",
+   "reason": "The closure.formula_final signal the hold named is measured absent from the v9 row. Nothing remains to defer."
+  },
+  "M8-Ezek-082": {
+   "decision": "drop_from_feed",
+   "reason": "The open question is about the class of utterance.mid_unit, not about this span, so it supplies no stated ground for lowering a high grade, and the row correctly carries the signal it was reviewed with. The class question and B19 go to the campaign-end packet; the feed stays low/medium_low only."
+  },
+  "M8-Ezek-083": {
+   "decision": "release",
+   "reason": "The ground is the same class question as F-494, which attaches to the signal taxonomy rather than to this span and which no edit to the row could discharge; the row is medium_low and so already in the campaign-end review set, with B19 carrying its docket entry. The hold adds nothing the end review does not already secure."
+  },
+  "M8-Ezek-113": {
+   "decision": "keep_held",
+   "reason": "The clause the hold named is measured still present and both blind delta lanes confirmed it still false (lane A R1, lane B N1), so the row is not finished and marking it accepted_candidate would assert a known falsehood; the docket's 'partly cured' does not override that measurement. Keep held until a corrected row is re-checked by the two lanes."
+  }
+ },
+ "precedent": [
+  {
+   "applies_when": "A hold's stated ground is a row defect (wrong or missing signal, false clause, grade without a ground) and the current corpus row measures that defect absent or cured.",
+   "decision": "release",
+   "rule": "A hold lives only as long as its measured ground does: once the defect it named is absent from the current corpus row, the feed row is released to match the corpus, and any residual question stays in the docket and the campaign-end review."
+  },
+  {
+   "applies_when": "A hold's ground is a class or taxonomy question about a signal, or another campaign-wide question, that no edit to the row could discharge.",
+   "decision": "release; drop_from_feed if the row is graded above medium_low",
+   "rule": "A question that attaches to a signal class rather than to the span is not a chunk-level defect and is neither a hold ground nor a regrade ground: it goes to the campaign-end packet, and a row outside low/medium_low is dropped from the feed rather than regraded to fit it."
+  },
+  {
+   "applies_when": "A hold's ground is a row defect that the current corpus row still measures present, confirmed by at least one blind lane, whatever the docket entry says.",
+   "decision": "keep_held",
+   "rule": "A row with a measured, still-present defect is not finished and may not be marked accepted: the hold is kept, the corpus is re-versioned to match and re-checked by two blind lanes, and a docket entry claiming cure does not override the measurement."
+  }
+ ]
+}

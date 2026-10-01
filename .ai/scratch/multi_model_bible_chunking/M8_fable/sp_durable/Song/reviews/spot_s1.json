@@ -1,0 +1,155 @@
+{
+ "attempt_id": "spot_song_s1_r1",
+ "role": "spot",
+ "lane": "s1",
+ "rows_checked": [
+  "P01-007",
+  "P01-008",
+  "P01-009",
+  "P02-005",
+  "P02-006",
+  "P02-008",
+  "P02-009",
+  "P02-013",
+  "P02-014",
+  "P02-016",
+  "P02-018",
+  "P02-019"
+ ],
+ "findings": [
+  {
+   "row_id": "P01-008",
+   "class": "3",
+   "severity": "high",
+   "claim": "The B-5(j) mandated embrace-colon precision repair was never installed on P01-008, which still asserts a skeleton-tier recurrence that collate refutes.",
+   "evidence": "P01-008.device_notes is byte-identical between rows_v1.jsonl and rows_v2.jsonl (only boundary_rationale and boundary_evidence_refs changed), and still reads 'the embrace colon at Song.2.6 recurs at MT 8:3 at skeleton tier (sweep: 2 verses)'. Collate of the two colons: שְׂמֹאלוֹ֙ תַּ֣חַת לְרֹאשִׁ֔י וִימִינ֖וֹ תְּחַבְּקֵֽנִי (oshb:Song.2.6) against שְׂמֹאלוֹ֙ תַּ֣חַת רֹאשִׁ֔י וִֽימִינ֖וֹ תְּחַבְּקֵֽנִי (oshb:Song.8.3) returns byte=False, accent_stripped=False, SKELETON=False - skeletons 'שמאלו תחת לראשי וימינו תחבקני' vs 'שמאלו תחת ראשי וימינו תחבקני' differ by the lamed of לְרֹאשִׁ֔י (byte tier) against רֹאשִׁ֔י (byte tier). B-5(j) ordered the lamed difference named and the recurrence restated for the sub-runs that do match; neither is present. Fails B-5 test (iii) by its own terms."
+  },
+  {
+   "row_id": "P02-014",
+   "class": "2",
+   "severity": "medium",
+   "claim": "The embrace echo installed on the merged row is tier-labelled 'at skeleton tier only', a tier collate does not return, contradicting the row's own next clause and the ledger's 'skeleton-adjacent' wording.",
+   "evidence": "P02-014.boundary_rationale: 'The embrace image echoes an earlier one at web:Song.2.6 (oshb:Song.2.6, שְׂמֹאלוֹ֙ תַּ֣חַת לְרֹאשִׁ֔י וִימִינ֖וֹ תְּחַבְּקֵֽנִי) at skeleton tier only, since the earlier verse carries a prefixed lamed on my head that MT 8:3 does not.' Collate skeleton tier of the two full colons returns NOT EQUAL (lamed of לְרֹאשִׁ֔י byte tier vs רֹאשִׁ֔י byte tier); B-4(g) ordered the echo disclosed as a skeleton-ADJACENT echo precisely because skeleton identity fails. The sentence asserts the tier and refutes it in the same breath."
+  },
+  {
+   "row_id": "P02-013",
+   "class": "5",
+   "severity": "medium",
+   "claim": "The apostrophe repair B-3(f) reserved to the three-site sweep was not applied to P02-013 itself; it is now the sole non-verbatim curly WEB quotation in the corpus.",
+   "evidence": "P02-013.boundary_rationale carries the curly-quoted WEB span 'I am my beloved[U+0027]s. His desire is toward me.' with ASCII apostrophe U+0027, while verse_map_web Song.7.10 text reads 'I am my beloved[U+2019]s. His desire is toward me.' (U+2019). A corpus-wide scan of every curly-quoted span finds exactly ONE U+0027 site, P02-013, unchanged from rows_v1.jsonl; the sibling sites named in the same sweep order (P02-010, P02-014) are cured. check_web_quotes is punctuation-normalising, so the GREEN suite run does not certify this cure - the exact condition the peer's own cure test anticipated."
+  },
+  {
+   "row_id": "P02-014",
+   "class": "4",
+   "severity": "medium",
+   "claim": "The merge repair installed an explicit review-actor reference in frozen row prose.",
+   "evidence": "P02-014.strongest_rejected_alternative: 'The MT 8:2|8:3 join inside the merged span carries no tier-1 marker either and was not raised as a boundary by any reviewer, so it is held whole rather than newly cut.' The clause is absent from rows_v1.jsonl (the field was rewritten by this wave) and traces to B-4 ground (5) 'unchallenged by both primaries and the peer'. REGISTER PURGE bars review-actor references in any field; the seam claim needs no reviewer to stand, the row already carrying the MT 8:3 third-masculine-singular splice."
+  },
+  {
+   "row_id": "P02-014",
+   "class": "4",
+   "severity": "medium",
+   "claim": "Every respanned or merged row acquired repair-history narration ('formerly', 'former', 'merged', 'new', 'now') that presupposes a prior corpus state.",
+   "evidence": "All absent in rows_v1.jsonl, all in fields this wave rewrote: P02-014.boundary_rationale 'across the seam formerly cut here'; P02-014.strongest_rejected_alternative 'at the former chapter boundary' and 'inside the merged span'; P02-014.literature_type_guess 'continuing across the former chapter division'; P02-014.device_notes 'retained across the merge'; P02-018.boundary_rationale 'across the former MT 8:5|8:6 join'; P02-006.boundary_rationale 'a further setumah at the span's new back edge'; P02-008.boundary_rationale 'MT 6:10, now closes the praise unit that precedes it'. Each seam claim stands on its spliced bytes without the temporal word, so the register can be purged without touching a warrant."
+  },
+  {
+   "row_id": "P02-014",
+   "class": "5",
+   "severity": "medium",
+   "claim": "The B-4(f) 1cs-to-1cp re-key extended the spliced run to swallow a 2ms imperative-plus-vocative that the gloss does not translate, breaking a quote/gloss parity that rows_v1 held.",
+   "evidence": "P02-014.boundary_rationale: 'A 1cp cohortative chain follows, לְכָ֤ה דוֹדִי֙ נֵצֵ֣א הַשָּׂדֶ֔ה נָלִ֖ינָה בַּכְּפָרִֽים (oshb:Song.7.12, byte tier) let us go out to the field, let us lodge in the villages'. The spliced run is the whole of MT 7:12 and opens on לְכָ֤ה דוֹדִי֙ (byte tier), which the same row two sentences earlier calls an imperative-plus-vocative onset - so the run labelled '1cp cohortative chain' contains a 2ms imperative, and the gloss covers only נֵצֵ֣א הַשָּׂדֶ֔ה נָלִ֖ינָה בַּכְּפָרִֽים. rows_v1.jsonl split them, quoting לְכָ֤ה דוֹדִי֙ with the gloss 'come, my beloved, let us go out [to] the field' and נָלִ֖ינָה separately - parity held before the repair."
+  },
+  {
+   "row_id": "P02-013",
+   "class": "2",
+   "severity": "medium",
+   "claim": "The imagery-class and derived-wasf-boundary appeal B-3(a) ordered replaced entirely survives verbatim in strongest_rejected_alternative, resting a seam on a staging heuristic that is never row evidence.",
+   "evidence": "P02-013.strongest_rejected_alternative (rewritten by this wave) still reads 'the wine/mouth body-part imagery ends at web:Song.7.9 (= oshb:Song.7.10) and this verse's declarative refrain is a distinct formula, matching the derived wasf boundary' - carried over from rows_v1.jsonl ('matching the derived wasf boundary'). The wasf zones are a derived staging signal whose bounds are writer-argued from bytes, so 'matching the derived' is a heuristic warrant; the boundary_rationale was correctly re-argued from the 2fs form וְחִכֵּ֕ךְ (oshb:Song.7.10, byte tier) but the cure was not swept into the sibling field, and P02-006 by contrast keeps its own derived-run mention explicitly subordinated."
+  },
+  {
+   "row_id": "P01-007",
+   "class": "3",
+   "severity": "medium",
+   "claim": "The apple-stem straddle across the shared Song.2.3|Song.2.4 seam is disclosed in two differently-worded, differently-tiered versions, which B-5(i) and B-5 test (iv) forbid.",
+   "evidence": "P01-007.device_notes (new in rows_v2.jsonl): 'כְּתַפּ֨וּחַ֙ (oshb:Song.2.3, tier: byte) recurs as בַּתַּפּוּחִ֑ים (oshb:Song.2.5, tier: byte), a word-bound sweep of 4 verses book-wide in four attested spellings' - no tier named for the RECURRENCE and no verses enumerated. P01-008.device_notes (untouched): 'An apple-stem link straddles this unit's own opening seam at skeleton tier (sweep: 4 verses, MT 2:3, MT 2:5, MT 8:5, and MT 7:9 = WEB 7:8)'. Same seam, same digit (word-bound sweep confirms 4 verses in 4 attested spellings: כְּתַפּ֨וּחַ֙ MT 2:3, בַּתַּפּוּחִ֑ים MT 2:5, כַּתַּפּוּחִֽים MT 7:9, הַתַּפּ֨וּחַ֙ MT 8:5, byte tier at each ref), but one side names skeleton tier and enumerates the offset-zone dual member and the other names neither."
+  },
+  {
+   "row_id": "P02-005",
+   "class": "3",
+   "severity": "medium",
+   "claim": "Governance-rule and strategy-file narration survives as the operative warrant on the live front-seam neighbour of the B-1 respan, the identical class the same wave upheld and cured on P02-016 as 'a class, not a spot'.",
+   "evidence": "P02-005.strongest_rejected_alternative (unchanged v1 to v2): 'Splitting 6:1 (question) from 6:2-3 (answer plus refrain) into two rows was considered, but the exchange is verse-scale and the strategy's own hybrid rule holds this daughters-question-with-answer zone whole rather than atomizing it.' The whole-hold rests on the rule, not on bytes, and names the strategy file. P02-016's identical construction ('held as its own row per the hybrid rule's isolated bracket treatment' / 'the hybrid rule isolates it') was struck in this wave and replaced with a byte argument; P02-005 sits directly on P02-006's front seam 6:3|6:4 and was left."
+  },
+  {
+   "row_id": "P02-006",
+   "class": "3",
+   "severity": "low",
+   "claim": "The same accent-only difference is tier-labelled inconsistently across two boss-touched rows: skeleton on P02-006, accent_stripped on P02-019.",
+   "evidence": "P02-006.boundary_rationale: 'בָּרָ֥ה (oshb:Song.6.9) and בָּרָה֙ (oshb:Song.6.10) share a root but differ in accent' - labelled 'at skeleton tier only'. Collate returns byte=False, ACCENT_STRIPPED=True, skeleton=True, so the pair matches one tier above the label. P02-019.boundary_rationale handles the exactly parallel case correctly: חוֹמָ֣ה (oshb:Song.8.9) / חוֹמָ֔ה (oshb:Song.8.10), 'identical only once cantillation is stripped (accent_stripped tier as a pair)' - collate confirms byte=False, accent_stripped=True. Neither splice on P02-006 carries an individual tier label either, unlike every other splice on that row."
+  },
+  {
+   "row_id": "P02-016",
+   "class": "3",
+   "severity": "low",
+   "claim": "The verse-anchoring repair left the 'fourth of exactly four adjuration sites' ordinal dangling off the MT 5:8 clause, which is the THIRD site.",
+   "evidence": "P02-016.device_notes (rewritten this wave): '...distinguished from the shape held at web:Song.5.8 = oshb:Song.5.8, which carries a conditional clause, אִֽם תִּמְצְאוּ֙, and a separate interrogative clause, מַה תַּגִּ֣ידוּ, both without the gazelle-and-doe pairing either - the fourth of exactly four adjuration sites in the book'. The nearest antecedent is now web:Song.5.8, the third of the four attested hishba'ti sites (MT 2:7, 3:5, 5:8, 8:4); the intended referent is the row's own MT 8:4. rows_v1.jsonl carried a shorter intervening clause, so the repair lengthened the misattachment."
+  },
+  {
+   "row_id": "P02-016",
+   "class": "3",
+   "severity": "low",
+   "claim": "A speech-act ground the same ledger ruled tier-2 and barred from carrying a seam is retained un-tier-labelled as a co-warrant, while the adjacent row expressly refuses it.",
+   "evidence": "P02-016.strongest_rejected_alternative (rewritten this wave): '...this verse opens on its own attested oath-formula anchor with the daughters vocative - a distinct speech act and a distinct addressee, so the bracket stands on its own bytes'. B-2 ground (2) in the same ledger: a speech-act or mood change 'is not a member of the tier-1 set the voice policy enumerates ... it is tier-2'. P02-018.strongest_rejected_alternative, its immediate forward neighbour, correctly makes the speech-act reading the REJECTED alternative. The tier-1 addressee shift alone carries P02-016's seam, so the phrase is removable."
+  },
+  {
+   "row_id": "P01-008",
+   "class": "4",
+   "severity": "low",
+   "claim": "Disclosure-state narration 'undisclosed until now' stands in frozen prose on two rows in scope and two outside it.",
+   "evidence": "P01-008.device_notes 'undisclosed until now; the embrace colon...' and P02-019.boundary_rationale 'carries a byte-true straddling device left undisclosed until now'; also P01-013.device_notes and P02-010.boundary_rationale. All four are unchanged from rows_v1.jsonl, so the class is pre-existing rather than repair-installed, but it is live inside the boss zones and is a SWEEP (4 rows), not a spot fix: the device disclosures stand without the temporal clause."
+  },
+  {
+   "row_id": "P02-006",
+   "class": "other",
+   "severity": "low",
+   "claim": "B-1(a) ordered the inclusio run spliced from BOTH oshb:Song.6.4 and oshb:Song.6.10; only the 6:10 splice was installed.",
+   "evidence": "P02-006.boundary_rationale splices 'אֲיֻמָּ֖ה כַּנִּדְגָּלֽוֹת (oshb:Song.6.10, byte tier)' once and then refers to the opening verse descriptively as 'the identical byte-tier phrase that closes the span's own opening verse (byte sweep: 2 verses, MT 6:4 and MT 6:10)'. The claim itself verifies - אֲיֻמָּ֖ה כַּנִּדְגָּלֽוֹת at oshb:Song.6.4 and אֲיֻמָּ֖ה כַּנִּדְגָּלֽוֹת at oshb:Song.6.10 are byte-equal and the byte substring sweep returns exactly 2 verses - but the second spliced anchor the spec enumerated is absent, and no plain oshb:Song.6.4 token appears in boundary_evidence_refs."
+  },
+  {
+   "row_id": "P02-018",
+   "class": "4",
+   "severity": "low",
+   "claim": "Pipeline-expectation register ('the expected low-confidence ...') was re-installed in device_notes rewritten by this wave, while the parallel P02-006 rewrite silently dropped it, leaving the convention asymmetric.",
+   "evidence": "P02-018.device_notes (rewritten): 'The shalhevet-yah pair (MT 8:6) is the expected low-confidence classic crux'. P02-006.device_notes in rows_v1.jsonl opened 'This is the expected 6:4-9 low-confidence wasf-bounds region' and the rewrite removed it. The phrase points at the pre-assigned risk/expectation layer rather than at the bytes; it survives on P02-001, P02-008, P02-009, P02-018, P02-019, P02-021 (6 rows) and needs one sweep decision, not per-row drift."
+  }
+ ],
+ "clean": false,
+ "summary": {
+  "checked": 12,
+  "findings": 15,
+  "by_class": {
+   "3": 6,
+   "2": 2,
+   "5": 2,
+   "4": 4,
+   "other": 1
+  },
+  "by_severity": {
+   "high": 1,
+   "medium": 8,
+   "low": 6
+  },
+  "verified_clean": [
+   "TILING: check_tiling over Song.1.1-Song.8.14 returns 117/117 verses, 38 decisions, no gaps or overlaps; every boss span set tiles against its neighbours (P01-006|P01-007 1.15-2.3|P01-008 2.4-2.6|P01-009; P02-005 6.1-6.3|P02-006 6.4-6.10|P02-008 6.11-6.12|P02-009 6.13; P02-012|P02-013 7.10|P02-014 7.11-8.3|P02-016 8.4|P02-018 8.5-8.7|P02-019 8.8-8.9).",
+   "DISSOLUTIONS: P02-007, P02-015 and P02-017 are absent from rows_v2.jsonl and no orphaned cross-reference to them or to their former spans (Song.6.10-Song.6.10, Song.8.1-Song.8.3, Song.8.5-Song.8.5, Song.6.4-Song.6.9) survives anywhere in the corpus; the only 'Song.8.1-Song.8.3' occurrences on P02-014 are its own boss-mandated dual-cited verse range and the struck-cut rival it is required to engage.",
+   "B-1 P02-006: (b) barah skeleton label, (c) positive person-form re-argument, (d) mi-zot object split (bare interrogative skeleton sweep 3 verses MT 3:6/6:10/8:5 vs ascent run 2 verses MT 3:6/8:5, both re-swept) and the strike of 'ascending', (e) MT 6:9 span-internal + MT 6:10 back-edge setumah symmetry, plus every re-opened dependent field (unit_type deviation disclosure, dotted oss, rival, refs, confidence capped medium_low) all installed; only (a) is partial (finding above).",
+   "B-1 P02-008: front seam spliced and tier-labelled on both sides, web:Song.6.10 mirrored, the 'immediately preceding verse' sentence re-cut.",
+   "B-2 P02-018: (a)-(g) all installed, including the quote/gloss parity cure - the causal particle now stands inside the spliced run and its gloss (byte tier, re-collated), the shalhevet-yah divided-token crux carried across the merge intact, and confidence capped medium_low.",
+   "B-4 P02-014: (a),(b),(d),(e),(f) installed; 'fresh movement' and every bare chapter number purged; the defective 1cs token and the book-scoped mandrakes digit re-swept and correct (defective set = 4 verses MT 1:2/1:4/4:10/7:13; mandrakes 1 verse).",
+   "B-3 P02-013: (a)-(e) installed, including the supplied forward driver, the 5-consecutive-verse dod-lexeme chain (re-swept: MT 7:10-7:14 all carry a dod token; MT 8:1 carries none) and the setumah demotion.",
+   "B-2/B-4 P02-016 four-source fold: the neighbour rename to Song.7.11-Song.8.3 landed once in both strongest_rejected_alternative and boundary_evidence_refs with the correct offset-zone dual; the unanchored-cross-row-reference sweep landed (web:Song.5.8 = oshb:Song.5.8 and web:Song.5.9 now named and mirrored); the c05_r2 governance-rule-narration cure landed; the plene/defective claim verifies (MT 2:7 and MT 3:5 teoreru tokens byte-identical, MT 8:4 defective).",
+   "B-5 one-edit symmetry: the bracket-completion warrant, all four spliced anchors, the structural-mirror-not-inclusio statement and the hinnakh/hinnekha byte-tier contrast with its skeleton disclosure are installed in identical wording on P01-007 and P01-008; the word-bound skeleton sweep confirms the digit (3 verses: MT 1:15, 1:16, 4:1).",
+   "SPLICE FIDELITY: every Hebrew run in the twelve scope rows re-collates at BYTE tier against its own cited ref (0 non-byte of all runs tested); citation_sweep, check_web_quotes, check_refs_mirror, check_marks, check_language_zones and ngram7 are GREEN on rows_v2.jsonl."
+  ]
+ }
+}

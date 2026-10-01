@@ -1,0 +1,32 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "ow12_status_tool",
+ "installed_at": "2026-09-14T16:41:36.511941+00:00",
+ "installed_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "ordered_by": "OW-12 (owner directive 2026-09-11); close-gate item 16",
+ "why": "the book-close project status update had no tool: it was produced by hand. Item 16 binds it at every book close from Ezekiel on, and Daniel's close needs it again, so it is a tool that measures from receipts rather than a figure someone remembers.",
+ "files": [
+  {
+   "path": "sp_durable/campaign/_book_close_status_ow12.py",
+   "sha256_before": null,
+   "sha256_after": "363647ad56e81c7526dcec59948ada7aa979551e820e62be785aea5cf20d70e6",
+   "new_file": true
+  }
+ ],
+ "change": "a new report-only tool. It writes no record, mutates nothing, and is not a gate.",
+ "what_it_refuses_to_do": [
+  "invent a token figure for a book whose receipts carry none: the 23 books that closed before per-attempt capture are named individually as NOT MEASURED",
+  "present a per-book total as complete when only some of its executions carry usage: the coverage is stated per book and the totals are labelled a FLOOR",
+  "offer tokens-per-active-day as a planning rate: recorded_at is when the receipt was written, not when the work ran, and the tool says so where the number appears",
+  "state a number of weeks on the Max 20x plan, which would need a published allowance the plan does not publish"
+ ],
+ "defects_caught_while_building_it": [
+  "bucketing receipts by attempt_id alone dropped S4's 646,412 tokens from Ezekiel, because an amendment record carries amends_execution_id and not attempt_id. Caught by reconciling the tool's Ezekiel total against the census (22,933,978 against 23,580,390); the tool now resolves the book from attempt_id, then amends_execution_id, then the record's own book field, and reconciles exactly.",
+  "a hand-written caveat asserted that 32 of the 40 books left are shorter than Lamentations. Measured, it is 26. The claim is now COMPUTED by the tool rather than written into it, along with the long-book list."
+ ],
+ "verification": {
+  "reconciles_with_census": "Ezekiel 23,580,390 == the receipts census",
+  "run": "python SP/campaign/_book_close_status_ow12.py --json <out>"
+ },
+ "limit": "report only. Every forward number is labelled an estimate and names the books it came from."
+}

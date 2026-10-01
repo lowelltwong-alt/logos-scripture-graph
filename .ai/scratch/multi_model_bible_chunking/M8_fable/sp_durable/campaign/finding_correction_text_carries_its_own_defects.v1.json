@@ -1,0 +1,44 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "correction_text_is_new_unverified_text",
+ "recorded": "2026-09-08",
+ "recorded_by": "orchestrator (claude-opus-5), about its own repair rounds",
+ "book": "Ezek",
+ "phase": "ezek_phase0_repair",
+ "class": "process_pattern",
+ "severity": "medium",
+ "self_disclosed": true,
+ "the_pattern": "Across three repair rounds on the same two artifacts, the PROSE WRITTEN TO EXPLAIN EACH FIX has itself contained a factual error, every time. The fixes were right; the sentences about them were not.",
+ "instances": [
+  {"round": 1,
+   "fix": "dateline rule made structural (13 -> 14, adding MT 24:1) and the puncta claim corrected",
+   "defect_in_the_correction_text": "the same repair reused a cardinal-numeral vocabulary in the SIBLING calendar-date list, so MT 45:18 stayed missing - the identical root cause, left standing one key away from where it was being fixed",
+   "found_by": "ezek_p0_recheck_a1#e1"},
+  {"round": 2,
+   "fix": "MT 45:18 added; word-anchored date construction; note string repaired",
+   "defect_in_the_correction_text": "the new homograph note asserted that MT 11:19 reads לב חדש. It reads לֵב אֶחָד ('ONE heart'); only the spirit is new there. A fabricated Hebrew reading, inside a note whose subject was byte fidelity.",
+   "found_by": "ezek_p0_delta_a1#e1, which refused the whole repair over it"},
+  {"round": 3,
+   "fix": "11:19 corrected in both artifacts; homograph table completed; vayehi_any gloss tightened",
+   "defect_in_the_correction_text": "under review at time of writing - a fourth instance would not be surprising, which is the point of this record",
+   "found_by": "ezek_p0_r3_a1#e1 (in flight)"}
+ ],
+ "why_it_keeps_happening": "A fix is verified against the bytes because that is what a fix IS - a claim about data, checked by a sweep. The sentence explaining the fix is written from memory, in the same breath, while attention is on the mechanism rather than the illustration. In the 11:19 case the correct reading was visible in the orchestrator's OWN control sweep minutes earlier and was still mis-generalised from the two neighbouring verses that do read לב חדש. Explanatory prose feels like commentary; in an artifact every lane consumes it is data, and it ships unverified.",
+ "why_it_matters_more_than_the_individual_errors": "Every one of these notes lands in TOOLKIT.md or the device inventory - the two files every downstream lane reads and none re-derives. A writer quoting the 11:19 gloss would have shipped a fabricated Hebrew quotation into the corpus with a citation attached. The defect class the campaign fears most is precisely a false quotation carrying a true-looking reference.",
+ "control_installed": [
+  "tools/_toolkit_selfcheck.py now pins the 11:19 reading against the SOURCE EXTRACT, not against the prose, so the claim cannot be reasserted in either artifact without the check failing (92 checks, GREEN)",
+  "the homograph table is now checked as a TABLE ROW - the row must name 18:31 and 36:26 and must not name 11:19 - rather than by a proximity heuristic, which was itself a checker defect caught in the same round",
+  "the round-3 brief makes the PRIMARY task an exhaustive sweep of every Hebrew string in both artifacts against the extract, rather than a list of specific claims; that is the check that would have caught all three errors"
+ ],
+ "standing_rule_proposed": "TREAT CORRECTION TEXT AS NEW UNVERIFIED TEXT. Every Hebrew string and every verse-level claim in a note, gloss, comment or correction is swept against the source before the repair is offered for review - to the same standard as the row it repairs. The campaign already says 'every repair proposal is validated as adversarially as the row it repairs'; this extends it from the PROPOSAL to the PROSE, which is where the last three defects actually lived.",
+ "review_chain_property_worth_the_owner_knowing": {
+  "observation": "Under the OW-10 cure gate a review is bound to the digest it examined. A good review raises findings; fixing them changes the bytes; the review that prompted the fix is therefore stale by construction. So every repair round that ACTUALLY IMPROVES SOMETHING ends needing a fresh review.",
+  "is_this_infinite": "No - it converges, and it is converging here: round 1 raised 4 items, round 2 raised 3, round 3 is narrower still. The chain terminates when a round finds nothing, which is the honest terminator and the only one that does not weaken the gate.",
+  "cost": "roughly 100-300K subagent tokens per round on artifacts of this size; three rounds so far against a 7M session soft cap",
+  "the_tempting_shortcut_not_taken": "A 'checker pre-authorised this exact cure' exemption would terminate the chain in one step and is superficially principled. It was NOT added, because the round-2 experience is the argument against it: the cure the checker specified was applied faithfully AND the text implementing it introduced a new false claim. A pre-authorisation would have shipped that.",
+  "owner_decision_available": "whether to keep reviewing to convergence on every repair, or to accept a bounded number of rounds with the residue disclosed. The orchestrator's recommendation is to keep converging on Phase-0 artifacts specifically, because they are read by every later lane and an error there is multiplied across the book; a per-row cure later in the cycle has a much smaller blast radius and may not warrant the same depth."
+ },
+ "impact_on_the_corpus": "NONE so far. No Ezekiel row exists; every defect was caught in staging, before any lane consumed the artifacts.",
+ "dad_learning_loop_candidate": true,
+ "dad_note": "privacy-safe and generalisable: in a system that verifies data claims mechanically, the unverified surface migrates into the EXPLANATIONS of those claims - documentation, glosses, commit messages, correction notes - which are consumed as authoritative but pass through no gate."
+}

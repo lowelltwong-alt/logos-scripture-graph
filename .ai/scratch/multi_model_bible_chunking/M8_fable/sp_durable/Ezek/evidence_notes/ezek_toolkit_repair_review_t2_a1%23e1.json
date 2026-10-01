@@ -1,0 +1,116 @@
+{
+ "attempt_id": "ezek_toolkit_repair_review_t2_a1",
+ "execution_id": "ezek_toolkit_repair_review_t2_a1#e1",
+ "sources": [
+  "SP\\Ezek\\TOOLKIT_REPAIR_REVIEW_BRIEF_T2.md",
+  "SP\\Ezek\\ezek_toolkit_review_T1.json",
+  "SP\\Ezek\\tools\\citation_sweep.py",
+  "SP\\Ezek\\tools\\check_marks.py",
+  "SP\\Ezek\\tools\\normalize_hebrew_in_json.py",
+  "SP\\Ezek\\tools\\_adapt_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\_test_zone_tools_ezek.py",
+  "SP\\Ezek\\tools\\ezek_lib.py",
+  "SP\\Ezek\\tools\\run_validator_suite.py",
+  "SP\\Ezek\\tools\\TOOLKIT.md",
+  "SP\\Ezek\\tools\\verse_map_oshb.json",
+  "SP\\Ezek\\pmarks_Ezek.json",
+  "SP\\Ezek\\Ezek_oshb.txt",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.jsonl",
+  "SP\\Ezek\\writer\\draft_rows_combined.suite_view.jsonl.validator_report.json",
+  "SP\\Ezek\\writer\\ezek_tier0_suite_summary.v1.json",
+  "SP\\Jer\\tools\\citation_sweep.py",
+  "SP\\Jer\\tools\\check_marks.py",
+  "SP\\Jer\\tools\\normalize_hebrew_in_json.py"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "Wrote ezek_toolkit_repair_review_T2.json to the scratchpad ezek_rulings_out directory (the sole permitted write; nothing written under the worktree).",
+    "why": "T2 fresh-distinct-checker review of the orchestrator repair of T1 toolkit findings for Ezekiel, per TOOLKIT_REPAIR_REVIEW_BRIEF_T2.md."
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "All 18 pinned input files match the brief-stated sha256 exactly.",
+   "how": "sha256sum over all 18 exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "T1-01 exact attack (false puncta claim at 41:5 inside a range covering 41:20) is cured in citation_sweep.py",
+   "how": "citation_sweep.py on cs_attacks.jsonl",
+   "result": "confirmed"
+  },
+  {
+   "claim": "A decoy real-site number nearer to 'puncta' than the claim's own verse still lets a false claim pass silently (T2-01)",
+   "how": "citation_sweep.py + check_marks.py on private JSONL fixtures",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The same mechanism wrongly flags a true claim when a non-site decoy number is nearer (T2-02)",
+   "how": "citation_sweep.py + check_marks.py attack fixtures",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Double-negation ('not without', 'never lacking') is now handled correctly in both tools (T1-03)",
+   "how": "citation_sweep.py + check_marks.py, true-site and false-site pairs",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Negation more than ~2 words/40 chars before 'puncta' is not recognized and can hide a false denial of a true site (T2-03)",
+   "how": "citation_sweep.py + check_marks.py distant-negation fixtures, cross-checked against a false-site pairing",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The 160-char Qere-disclosure window (T1-04) correctly bounds a single quote",
+   "how": "citation_sweep.py on heb_attacks.jsonl (Qere text derived live via ezek_lib.kq_split)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "Two different Qere quotes within ~320 chars can still share one disclosure keyword, letting the undisclosed one pass (T2-04)",
+   "how": "citation_sweep.py on heb_attacks.jsonl, 40-char vs 250-char gap comparison",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The orchestrator's own self-found field-boundary-into-span-string leak is fixed",
+   "how": "check_marks.py on cm_attacks.jsonl (t2_cm_field_leak_repro)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "citation_sweep.py refuses a Qere cited at the wrong, unrelated verse (compensating control for the book-wide normalizer)",
+   "how": "citation_sweep.py on cs_qere_wrong_verse.jsonl, verse pair MT 1:8 Qere cited at Ezek.5.2",
+   "result": "confirmed"
+  },
+  {
+   "claim": "ezek_lib.py selftest and the pinned _test_zone_tools_ezek.py regression suite are fully GREEN",
+   "how": "python ezek_lib.py; python _test_zone_tools_ezek.py",
+   "result": "confirmed"
+  },
+  {
+   "claim": "run_validator_suite.py over a private copy of the suite-view rows reproduces the landed report exactly (546/24/3/4, zero puncta anywhere)",
+   "how": "run_validator_suite.py draft_rows_combined.suite_view.jsonl (private copy, hash-reverified)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "The puncta arm, Qere tier, and editorial-note K/Q tier have no Jer analog (genuinely new-for-Ezek, not an undisclosed parity gap)",
+   "how": "direct read of SP\\Jer\\tools\\citation_sweep.py, check_marks.py, normalize_hebrew_in_json.py",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether normalize_hebrew_in_json.py's 'NFD-only Qere stays a defect' sub-claim is enforced.",
+   "why_it_matters": "The only Qere strings I could legitimately derive without hand-typing Hebrew are already NFD-stable, so I could not construct a distinguishing fixture."
+  },
+  {
+   "what": "Whether T2-01..T2-04 are reachable by real writer prose in practice, beyond my adversarial fixtures.",
+   "why_it_matters": "The real 146-row corpus currently shows zero puncta problems/flags of any kind, so none of these mechanisms are live today; risk is prospective."
+  },
+  {
+   "what": "Whether SP\\Ezek\\_validate_writer_part.py (T1-05) was touched by this repair round.",
+   "why_it_matters": "Not in my pinned artifact table, so not opened; T1-05 status rests on T1's prior read plus my indirect corroboration of the downstream gate."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

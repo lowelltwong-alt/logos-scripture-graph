@@ -1,0 +1,28 @@
+object_type: dad_lesson_learned_slot
+schema_version: dad_lesson_learned_slot.v0.1
+lesson_id: LL-T521-SCAFFOLD-FIDELITY-GAP
+source_repo: logos-scripture-graph
+task_id: T521
+trust_zone: candidate
+status: candidate_sent
+transport_state: locally_queued_unacknowledged
+dad_central_ingestion_confirmed: false
+summary: >
+  Full-book coverage and packet receipts do not prove faithful literary
+  segmentation. A separate audit must count chapter-sized fallback records and
+  keep them visibly held for literary seam review.
+evidence:
+  audit_script: scripts/audit_m7_sol_scaffold_fidelity.py
+  audit_path: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/final/scaffold_fidelity_audit.json
+  books: 66
+  chunks: 1170
+  books_with_fallbacks: 30
+  fallback_chunks: 509
+failure_mode: scaffold_coverage_mistaken_for_faithful_chunking
+prevention:
+  - run_scaffold_fidelity_audit_after_every_map_refresh
+  - prioritize poetry, wisdom, prophets, epistles, and apocalypse for literary seam review
+  - retain chapter fallback only as explicit candidate scaffolding with low confidence
+  - require external-provider-or-human review before any promotion
+candidate_only: true
+non_authorizing: true

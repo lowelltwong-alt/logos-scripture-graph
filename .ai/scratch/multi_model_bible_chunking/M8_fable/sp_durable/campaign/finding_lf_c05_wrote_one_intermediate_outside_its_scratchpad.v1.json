@@ -1,0 +1,22 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_lf_c05_wrote_one_intermediate_outside_its_scratchpad",
+ "recorded_at": "2026-09-15T14:04:16.926467+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "a disclosed path-hygiene deviation by a subagent: private scratch written outside its own session scratchpad",
+ "severity": "low. One disposable intermediate file, nothing under the worktree, nothing under SP, no listing and no glob, and the deliverable does not reference it - its builder re-derives every splice from the staged extract by exact path. Recorded because a disclosed deviation that goes unrecorded teaches the next execution that disclosure is optional.",
+ "self_disclosed": true,
+ "disclosed_by": "ezek_pr_LF_c05_a1#e1, in its own e19_selfreport, unprompted",
+ "what_happened": "one earlier intermediate file of verified Hebrew splices was written to the Windows temp directory instead of a uniquely named subdirectory of the agent's own session scratchpad, which is where the launch message puts private scratch. The builder script itself went to the correct place.",
+ "what_did_NOT_happen": [
+  "no listing, glob, wildcard or recursive search (E-19 clean, stated affirmatively)",
+  "no write under C:\\wt\\logos-t423-m8-fable and no write into SP",
+  "no receipt, no git command, no registry touch, no validator run",
+  "the deliverable does not read the misplaced file"
+ ],
+ "why_it_matters_at_all": "scratch location is not cosmetic: the session scratchpad is the space the campaign can account for and clean, and a stray file in a shared temp directory is outside every inventory the lifecycle policy keeps. At 44 executions the habit matters more than the file.",
+ "orchestrator_action": "recorded, not remediated. The file is disposable, unreferenced and outside SP; hunting it would mean a listing of a shared temp directory, which is itself the thing E-19 forbids. The launch message already names the correct location, so no brief change is needed.",
+ "credit_where_due": "the agent volunteered this in its own compliance self-report when nothing compelled it to. That is the behaviour the three-layer capture is for, and it is worth more than the defect costs.",
+ "limit": "conduct record only; the packet's findings are unaffected and it landed with 0 form problems"
+}

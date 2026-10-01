@@ -1,0 +1,408 @@
+{
+ "schema": "ezek_ow15_residual.v1",
+ "written_at": "2026-09-21T21:14:09.361488+00:00",
+ "question": "can the 18 unmeasured_declared attempts be measured from the runtime's own notifications?",
+ "answer": "NO for all 18. 15 of them record the runtime's agent id, giving an EXACT join; every notification the runtime wrote for those ids reports status failed (weekly rate limit, or a stalled stream) and carries no usage block, and the task output file each notification names is 0 bytes. The remaining 3 recorded no agent id at all. Nothing is recoverable from this machine.",
+ "census_as_it_stands": {
+  "LOWER_BOUND": 69506687,
+  "ceiling": 72000000,
+  "headroom_UPPER_BOUND": 2493313,
+  "carrier_sha256": "cd9e43097f9de0a777a7c616b49bf0828464542f471659b05b786600367069a7"
+ },
+ "residual": {
+  "tier": "ESTIMATED",
+  "ceiling_on_the_18": 6420990,
+  "method": "each failed attempt's OWN immediate successor execution redid the same work to completion; its measured spend is used as a ceiling on the failed attempt. A failed attempt usually died early and so spent less, but that is not guaranteed, so this is a ceiling and not a bound",
+  "attempts_with_no_successor_to_bound_them": [
+   "ezek_stage_p0_a1#e1",
+   "ezek_toolkit_a1#e1"
+  ],
+  "what_it_means": "true total spend lies in [69,506,687, about 75,927,677]. The ceiling 72,000,000 sits INSIDE that interval, so on this evidence a breach is neither established nor excluded, and the headroom of 2,493,313 must not be reported as available."
+ },
+ "also_not_in_any_figure": "the eleven rate-limited attempts that produced no receipt at all, the in-flight adjudication launched 2026-09-16, and this orchestrator's own context spend, which the census does not model",
+ "findings": [
+  {
+   "execution_id": "ezek_controlling_rulings_a1#e1",
+   "receipt_file": "ezek_rulings_attempt_receipts.jsonl",
+   "agent_id": null,
+   "runtime_notifications_found": 0,
+   "statuses": [],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": null,
+   "why_unrecoverable": "UNAVAILABLE: this attempt recorded no runtime agent id, so no exact join exists",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_controlling_rulings_a1#e2",
+    "tokens": 406037,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": null
+  },
+  {
+   "execution_id": "ezek_final_s1_adjudication_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a24f3f3ce7de04e33",
+   "runtime_notifications_found": 7,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 7 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s1_adjudication_a1#e2",
+    "tokens": 399516,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final adjudication S1\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New_York)"
+  },
+  {
+   "execution_id": "ezek_final_s2_adjudication_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a9dc1f9a5122abb42",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s2_adjudication_a1#e2",
+    "tokens": 436358,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final adjudication S2\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New_York)"
+  },
+  {
+   "execution_id": "ezek_final_s3_lane_a_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a8e2d24ee557df40b",
+   "runtime_notifications_found": 5,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 5 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s3_lane_a_a1#e2",
+    "tokens": 515224,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S3 lane A\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s3_lane_b_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a524752dbc26d9804",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s3_lane_b_a1#e2",
+    "tokens": 546620,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S3 lane B\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s4_lane_a_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a23d26c93c03639e9",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s4_lane_a_a1#e2",
+    "tokens": 427576,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S4 lane A\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s4_lane_b_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a2260abbae3b3a8a5",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s4_lane_b_a1#e2",
+    "tokens": 453474,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S4 lane B\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s5_lane_a_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a825ef7d3f1f6fa2e",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s5_lane_a_a1#e2",
+    "tokens": 556050,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S5 lane A\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s5_lane_b_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a09cd95e6bc96cc26",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s5_lane_b_a1#e2",
+    "tokens": 486355,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S5 lane B\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s6_lane_a_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a926616c3b5bf8b50",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s6_lane_a_a1#e2",
+    "tokens": 550726,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S6 lane A\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_final_s6_lane_b_a1#e1",
+   "receipt_file": "ezek_final_attempt_receipts.jsonl",
+   "agent_id": "a92bbc5b9c7cf0494",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_final_s6_lane_b_a1#e2",
+    "tokens": 440293,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel final remediation S6 lane B\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New"
+  },
+  {
+   "execution_id": "ezek_pr_LF_c21_a1#e1",
+   "receipt_file": "ezek_primaries_attempt_receipts.jsonl",
+   "agent_id": "a9eaf6e9adedf4727",
+   "runtime_notifications_found": 7,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 7 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_pr_LF_c21_a1#e2",
+    "tokens": 218861,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezek primary LF c21\" failed: Agent stalled: no progress for 600s (stream watchdog did not recover)"
+  },
+  {
+   "execution_id": "ezek_pr_LF_c22_a1#e1",
+   "receipt_file": "ezek_primaries_attempt_receipts.jsonl",
+   "agent_id": "af54221e6a4c7ead2",
+   "runtime_notifications_found": 5,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 5 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_pr_LF_c22_a1#e2",
+    "tokens": 235283,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezek primary LF c22\" failed: Agent stalled: no progress for 600s (stream watchdog did not recover)"
+  },
+  {
+   "execution_id": "ezek_pr_OL_c20_a1#e1",
+   "receipt_file": "ezek_primaries_attempt_receipts.jsonl",
+   "agent_id": "a12d5b0c0601363fd",
+   "runtime_notifications_found": 5,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 5 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_pr_OL_c20_a1#e2",
+    "tokens": 206953,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezek primary OL c20\" failed: Agent stalled: no progress for 600s (stream watchdog did not recover)"
+  },
+  {
+   "execution_id": "ezek_pr_OL_c21_a1#e1",
+   "receipt_file": "ezek_primaries_attempt_receipts.jsonl",
+   "agent_id": "a8e5bd39759de349f",
+   "runtime_notifications_found": 5,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 5 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_pr_OL_c21_a1#e2",
+    "tokens": 236053,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezek primary OL c21\" failed: Agent stalled: no progress for 600s (stream watchdog did not recover)"
+  },
+  {
+   "execution_id": "ezek_stage_p0_a1#e1",
+   "receipt_file": "ezek_phase0_attempt_receipts.jsonl",
+   "agent_id": null,
+   "runtime_notifications_found": 0,
+   "statuses": [],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": null,
+   "why_unrecoverable": "UNAVAILABLE: this attempt recorded no runtime agent id, so no exact join exists",
+   "estimate_ceiling_from_own_successor": null,
+   "first_summary": null
+  },
+  {
+   "execution_id": "ezek_strategy_v2_check_a1#e1",
+   "receipt_file": "ezek_strategy_v2_attempt_receipts.jsonl",
+   "agent_id": "a8e45168098e063fb",
+   "runtime_notifications_found": 3,
+   "statuses": [
+    "failed"
+   ],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": 0,
+   "why_unrecoverable": "MEASURED: the runtime wrote 3 notification(s) for this agent id and none carries a <subagent_tokens> block; the task output file it names is 0 bytes on disk",
+   "estimate_ceiling_from_own_successor": {
+    "execution_id": "ezek_strategy_v2_check_a1#e2",
+    "tokens": 305611,
+    "tier": "ESTIMATED - this is the SUCCESSOR's measured spend, used as a ceiling on the failed attempt, not its measurement"
+   },
+   "first_summary": "Agent \"Ezekiel strategy v2 distinct check\" failed: Agent terminated early due to an API error: You've hit your weekly limit Â· resets Sep 21, 10am (America/New_"
+  },
+  {
+   "execution_id": "ezek_toolkit_a1#e1",
+   "receipt_file": "ezek_phase0_attempt_receipts.jsonl",
+   "agent_id": null,
+   "runtime_notifications_found": 0,
+   "statuses": [],
+   "any_notification_carries_usage": false,
+   "recovered_tokens": null,
+   "task_output_file_bytes": null,
+   "why_unrecoverable": "UNAVAILABLE: this attempt recorded no runtime agent id, so no exact join exists",
+   "estimate_ceiling_from_own_successor": null,
+   "first_summary": null
+  }
+ ],
+ "provenance": {
+  "transcripts_read": [
+   "0186ad91",
+   "0550ab9d",
+   "0e9c0d4e",
+   "1f56ef20",
+   "1fbacddc",
+   "221a93aa",
+   "29b92b41",
+   "3952b481",
+   "3af58cd0",
+   "3b19ec71",
+   "3c7a706b",
+   "3d4127e6",
+   "445bfc24",
+   "484a13bd",
+   "5e7b1154",
+   "6116e665",
+   "66cca8eb",
+   "73e44599",
+   "755c9035",
+   "755f9163",
+   "75acdae7",
+   "7795c3e6",
+   "77f9a816",
+   "88963cf7",
+   "8928735f",
+   "910cbe15",
+   "944809d6",
+   "9451b7dd",
+   "9f4cc259",
+   "ac46dd43",
+   "aeebaeab",
+   "b4297dd9",
+   "b703df60",
+   "b7303917",
+   "b8c4480c",
+   "b8c6850e",
+   "b8f92e39",
+   "c61c30a0",
+   "c913b1e5",
+   "ccf1aa09",
+   "d17602f5",
+   "dce0b6e2",
+   "ea03edc7",
+   "ee5988a5",
+   "f0167997",
+   "f077ec81",
+   "f126ba80",
+   "fbc1835f"
+  ],
+  "tasks_dir": "C:\\Users\\lowel\\AppData\\Local\\Temp\\claude\\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\\910cbe15-396b-4a0e-82f6-8aa1e2edf1e4\\tasks",
+  "position_read": "ezek_ow15_position.v2.json",
+  "position_sha256": "874e5ef63aa3042052731ee43477c1de1396955e5e5dc838c04cb6f8892c8366"
+ }
+}

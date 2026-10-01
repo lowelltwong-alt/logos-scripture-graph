@@ -1,0 +1,36 @@
+--- SP/Ezek/tools/check_web_quotes.py (installed aad88bff8bd1)
++++ proposals/toolfix2_batch2/staged/check_web_quotes.py (staged b0a95b864980)
+@@ -102,6 +102,16 @@
+     return json.loads(text)
+ 
+ 
++def decision_id_for(data, path: str):
++    """S1-10 (ezek_author_wave_spot_review_s1_a1#e1): the row a flag's path points into, named by its decision_id, so a
++    row-keyed triage or coverage predicate cannot miss a flag whose path is only an array index."""
++    rows = data.get("decisions") if isinstance(data, dict) else data
++    m = re.match(r"^(?:decisions)?\[(\d+)\]", path or "")
++    if not m or not isinstance(rows, list) or int(m.group(1)) >= len(rows) or not isinstance(rows[int(m.group(1))], dict):
++        return None
++    return rows[int(m.group(1))].get("decision_id") or rows[int(m.group(1))].get("writer_decision_id")
++
++
+ def curly_pairing_broken(s: str):
+     """E-15a: returns a reason string when the curly-double pairing of a
+     field is unbalanced or out of order; None when clean."""
+@@ -127,6 +137,7 @@
+     checked = 0
+     for f in sys.argv[1:]:
+         data = load_any(Path(f))
++        n_before, w_before = len(flags), len(neighbor_only_warns)
+         for path, s in iter_strings(data):
+             refs = [(m.start(), m.group(1)) for m in WREF.finditer(s)]
+             # ---- E-15a: pairing integrity BEFORE any pair-based scanning ----
+@@ -249,6 +260,8 @@
+                 if not ok:
+                     flags.append({"file": Path(f).name, "path": path,
+                                   "quote": span[:90], "refs_nearby": near})
++        for fl in flags[n_before:] + neighbor_only_warns[w_before:]:   # S1-10: every flag names its row
++            fl.setdefault("decision_id", decision_id_for(data, fl.get("path", "")))
+     print(json.dumps({"quotes_checked": checked, "flag_count": len(flags),
+                       "flags": flags,
+                       "neighbor_only_warn_count": len(neighbor_only_warns),

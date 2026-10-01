@@ -1,0 +1,170 @@
+--- SP/campaign/_cure_verification.py (installed 2cdce701d9fd)
++++ proposals/toolfix2_batch2/staged/campaign/_cure_verification.py (staged 6a14344c4ba1)
+@@ -50,6 +50,10 @@
+     """Returns (verdict, [reasons]). ACCEPTED only when every binding holds."""
+     reasons = []
+     cid = c.get("cure_id") or "(unnamed cure)"
++    if not (c.get("author_attempt_id") or c.get("author_execution_id")):
++        # S1-19(a): with no author named, the distinct-checker test below has nothing to compare and would pass vacuously
++        reasons.append("%s: names no author_attempt_id or author_execution_id, so the checker cannot be shown distinct"
++                       % cid)
+ 
+     art = c.get("artifact_path")
+     if not art:
+@@ -89,7 +93,12 @@
+                            % (tag, " (%r)" % v if v.strip().lower() in BARE_WORDS else ""))
+             continue
+         at_run = v.get("artifact_sha256_at_run")
+-        has_machine_result = (v.get("exit") is not None) or bool(v.get("output_sha256")) or bool(v.get("counts"))
++        osha = v.get("output_sha256")
++        osha_ok = isinstance(osha, str) and re.fullmatch(r"[0-9a-f]{64}", osha) is not None
++        if osha is not None and not osha_ok:
++            # S1-19(d): an output digest that is not a digest is no machine result
++            reasons.append("%s output_sha256 %r is not a 64-hex digest" % (tag, str(osha)[:20]))
++        has_machine_result = (v.get("exit") is not None) or osha_ok or bool(v.get("counts"))
+         if not v.get("tool"):
+             reasons.append("%s names no tool" % tag)
+         if not has_machine_result:
+@@ -146,8 +155,12 @@
+ 
+ SUPERSESSION_KEYS = ("supersedes_cure_id", "recorded", "ordered_by", "why", "old_artifact_sha256")
+ # T3-01 (ezek_controlling_rulings_a1#e3): ordered_by names the ordering EXECUTION and the RULING that ordered the retirement
+-ORDERED_BY = re.compile(r"\b(?P<xid>[a-z0-9_]+#e\d+)\b.*?\bruling\s+(?P<rid>[A-Za-z0-9][A-Za-z0-9-]*)")
++# S1-19(c): an attempt-shaped id standing alone, never a hyphen-joined substring ('test-adversarial#e1' named 'adversarial#e1')
++ORDERED_BY = re.compile(r"(?<![\w-])(?P<xid>[a-z0-9_]+_a\d+#e\d+)(?![\w-]).*?\bruling\s+(?P<rid>[A-Za-z0-9][A-Za-z0-9-]*)")
+ SUPERSEDING_VERBS = {"adopt", "amend", "close"}
++
++
++RULING_TEXT = {}   # S1-19(e): (execution_id, ruling_id) -> the ruling's full text, to see whether it names the retired cure
+ 
+ 
+ def load_rulings(paths):
+@@ -156,6 +169,7 @@
+     for p in paths or []:
+         d = json.loads(Path(p).read_text(encoding="utf-8"))
+         out.setdefault(d.get("execution_id"), {}).update({r.get("id"): r.get("ruling") for r in d.get("rulings", [])})
++        RULING_TEXT.update({(d.get("execution_id"), r.get("id")): json.dumps(r, ensure_ascii=False) for r in d.get("rulings", [])})
+     return out
+ 
+ 
+@@ -172,8 +186,14 @@
+     lines = [json.loads(l) for l in Path(claims_path).read_text(encoding="utf-8").splitlines() if l.strip()]
+     claims = [x for x in lines if x.get("record_type") != "supersession"]
+     claim_digest = {c.get("cure_id"): c.get("artifact_sha256") for c in claims}
++    counts = {}
++    for c in claims:
++        counts[c.get("cure_id")] = counts.get(c.get("cure_id"), 0) + 1
++    dup = {k for k, n in counts.items() if n > 1}   # S1-19(b): one cure id, one claim line
+     known = load_rulings(rulings) if rulings else None
+     supers, out, refused, superseded = {}, [], 0, 0
++    warnings = [] if known is not None else ["supersession records were not cross-checked against any rulings file; a gating "
++                                             "run passes --rulings (S1-19(c))"]
+     for x in lines:
+         if x.get("record_type") != "supersession":
+             continue
+@@ -194,12 +214,23 @@
+                 if verb not in SUPERSEDING_VERBS:
+                     why.append("the rulings given do not show %s ruling %s as adopt, amend or close (found %r)"
+                                % (m.group("xid"), m.group("rid"), verb))
++                elif not re.search(r"(?<![\w-])%s(?![\w-])" % re.escape(target), RULING_TEXT.get((m.group("xid"), m.group("rid")), "")):
++                    warnings.append("%s: ruling %s of %s does not name %s; it orders the retirement rule, not this "
++                                    "retirement (S1-19(e))" % (target, m.group("rid"), m.group("xid"), target))
++            if target in dup:
++                why.append("the record retires %s, which appears on more than one claim line" % target)
+         if why:
+             refused += 1
+             out.append({"cure_id": target, "record": "supersession", "verdict": "REFUSED", "reasons": why})
+         else:
+             supers[target] = x
+     for c in claims:
++        if c.get("cure_id") in dup:
++            refused += 1
++            out.append({"cure_id": c.get("cure_id"), "verdict": "REFUSED",
++                        "reasons": ["%s appears on more than one claim line; append-only claims carry one line per cure id, "
++                                    "and a retired claim is superseded, never repeated (S1-19(b))" % c.get("cure_id")]})
++            continue
+         if c.get("cure_id") in supers:
+             superseded += 1
+             out.append({"cure_id": c.get("cure_id"), "verdict": "SUPERSEDED", "reasons": [],
+@@ -210,7 +241,7 @@
+         out.append({"cure_id": c.get("cure_id"), "verdict": verdict, "reasons": reasons})
+     return {"claims": len(claims), "accepted": sum(1 for o in out if o["verdict"] == "ACCEPTED"),
+             "refused": refused, "superseded": superseded, "supersession_records": len(supers),
+-            "results": out, "verdict": "GREEN" if not refused else "RED"}
++            "results": out, "warnings": warnings, "verdict": "GREEN" if not refused else "RED"}
+ 
+ 
+ def selftest():
+@@ -221,7 +252,7 @@
+     good = {"cure_id": "C1", "author_attempt_id": "ezek_micro_m01_a1", "artifact_path": "rows_v1.jsonl",
+             "artifact_sha256": d,
+             "verification": [{"tool": "_wave_repair_sweep.py", "artifact_sha256_at_run": d, "exit": 0,
+-                              "output_sha256": "abc"}],
++                              "output_sha256": "a" * 64}],   # S1-19(d): a real digest shape
+             "distinct_checker": {"attempt_id": "ezek_sweep_s01_a1", "verdict": "confirmed",
+                                  "evidence_path": "sweep_s01.json", "artifact_sha256_at_review": d}}
+     vectors = [
+@@ -241,6 +272,9 @@
+         ("checker review not bound to any bytes", dict(good, distinct_checker={
+             k: v for k, v in good["distinct_checker"].items() if k != "artifact_sha256_at_review"}), "REFUSED"),
+         ("artifact digest does not match disk", dict(good, artifact_sha256="1" * 64), "REFUSED"),
++        ("S1-19(a) a claim naming no author", {k: v for k, v in good.items() if k != "author_attempt_id"}, "REFUSED"),
++        ("S1-19(d) an output digest that is not a digest is no machine result",
++         dict(good, verification=[{"tool": "t.py", "artifact_sha256_at_run": d, "output_sha256": "not-a-digest"}]), "REFUSED"),
+     ]
+     # R6 vectors: a brief-class (.md) artifact needs a sibling-sweep record
+     md = tmp / "TOOLKIT.md"
+@@ -280,6 +314,8 @@
+              dict(genuine, ordered_by="test-adversarial"), None, ("REFUSED", 2)),
+             ("T3-01 a record retiring a cure id absent from the file is refused",
+              dict(genuine, supersedes_cure_id="NOT-HERE"), None, ("REFUSED", 2)),
++            ("S1-19(c) ordered_by with a hyphen-joined fabricated id is refused",
++             dict(genuine, ordered_by="test-adversarial#e1 ruling R5"), None, ("REFUSED", 2)),
+             ("T3-01 --rulings confirms the ordering ruling", genuine, [rf], ("SUPERSEDED", 0)),
+             ("T3-01 --rulings refuses a ruling that did not adopt, amend or close",
+              dict(genuine, ordered_by="test_rulings_a1#e2 ruling R9"), [rf], ("REFUSED", 2))):
+@@ -291,6 +327,26 @@
+               and (want[0] == "SUPERSEDED" or "SUPERSEDED" not in old_verdicts))
+         failed += not ok
+         results.append({"vector": name, "expected": want, "got": (old_verdicts, rep["refused"]), "ok": ok})
++    cf = tmp / "claims_dup.jsonl"
++    cf.write_text(json.dumps(dict(good, cure_id="DUP", artifact_sha256="4" * 64)) + "\n" + json.dumps(dict(good, cure_id="DUP")) + "\n",
++                  encoding="utf-8")
++    rep = run(cf, tmp, None)
++    dv = [o["verdict"] for o in rep["results"] if o["cure_id"] == "DUP"]
++    ok = dv == ["REFUSED", "REFUSED"] and rep["refused"] == 2
++    failed += not ok
++    results.append({"vector": "S1-19(b) two claim lines with one cure id are both refused", "expected": ["REFUSED", "REFUSED"],
++                    "got": dv, "ok": ok})
++    cf = tmp / "claims_warn.jsonl"
++    cf.write_text(json.dumps(stale) + "\n" + json.dumps(genuine) + "\n", encoding="utf-8")
++    rep = run(cf, tmp, [rf])
++    ok = any("S1-19(e)" in w for w in rep["warnings"]) and rep["superseded"] == 1
++    failed += not ok
++    results.append({"vector": "S1-19(e) --rulings warns when the ordering ruling does not name the retired cure id",
++                    "expected": "a warning", "got": rep["warnings"], "ok": ok})
++    rep = run(cf, tmp, None)
++    ok = any("S1-19(c)" in w for w in rep["warnings"])
++    failed += not ok
++    results.append({"vector": "S1-19(c) a run without --rulings says so", "expected": "a warning", "got": rep["warnings"], "ok": ok})
+     return {"vectors": len(results), "failed": failed, "results": results,
+             "verdict": "GREEN" if not failed else "RED"}
+ 
+@@ -302,6 +358,7 @@
+     ap.add_argument("--root", default=".")
+     ap.add_argument("--rulings", nargs="*", help="controlling-rulings files: cross-check each supersession record's ordering ruling")
+     ap.add_argument("--selftest", action="store_true")
++    ap.add_argument("--require-rulings", action="store_true", help="S1-19(c): refuse a run given no --rulings")
+     a = ap.parse_args()
+     if a.selftest:
+         d = selftest()
+@@ -310,6 +367,9 @@
+     if not a.claims:
+         print(json.dumps({"status": "REFUSED", "why": "--claims or --selftest is required"}))
+         return 1
++    if a.require_rulings and not a.rulings:
++        print(json.dumps({"status": "REFUSED", "why": "--require-rulings was given without --rulings"}))
++        return 1
+     d = run(a.claims, a.root, a.rulings)
+     print(json.dumps(d, ensure_ascii=False, indent=1))
+     return 1 if d["refused"] else 0

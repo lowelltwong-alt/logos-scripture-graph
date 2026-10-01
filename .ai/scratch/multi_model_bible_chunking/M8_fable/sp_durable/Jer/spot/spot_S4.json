@@ -1,0 +1,939 @@
+{
+ "attempt_id": "jer_spot_S4_a1",
+ "lane": "second-generation (REFINE-weighted, half B)",
+ "scope_items_reviewed": 8,
+ "rows_touched": [
+  "P06-007",
+  "P06-009",
+  "P06-011",
+  "P08-001",
+  "P08-002",
+  "P09-003",
+  "P09-006",
+  "P09-008",
+  "P10-001",
+  "P10-002",
+  "P10-006",
+  "P10-012",
+  "P10-013",
+  "P11-002",
+  "P11-006",
+  "P11-008",
+  "P11-009",
+  "P12-002",
+  "P12-005",
+  "P12-007",
+  "P12-008",
+  "P12-009",
+  "P13-001",
+  "P13-003",
+  "P13-007",
+  "P13-008",
+  "P13-009",
+  "P13-010",
+  "P13-011",
+  "P14-001"
+ ],
+ "clean": 18,
+ "findings": [
+  {
+   "row_ids": [
+    "P08-002"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-03",
+   "severity": "medium",
+   "defective_text": "its two in-span occurrences (sweep: 2 verses in this span: Jer.23.11, Jer.23.12) stand mid-verse and close nothing",
+   "byte_evidence": "oshb:Jer.23.11 ends רָעָתָ֖ם נְאֻם יְהוָֽה and oshb:Jer.23.12 ends פְּקֻדָּתָ֖ם נְאֻם יְהוָֽה (byte tier, spliced from verse_map_oshb.json): both in-span neum-YHWH occurrences are VERSE-FINAL, not mid-verse. The verse-count digit itself is right (inside Jer.23.9-Jer.23.15 only Jer.23.11 and Jer.23.12 carry the formula) and the row's conclusion is byte-true (Jer.23.15 carries no neum token); only the position ground under it is false.",
+   "proposed_cure": "Replace 'stand mid-verse and close nothing' with 'both stand verse-finally inside the span, closing only their own verses rather than this unit'."
+  },
+  {
+   "row_ids": [
+    "P10-006"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-03",
+   "severity": "medium",
+   "defective_text": "opening on the bare koh-amar shape rather than the tsevaot-plus-Elohei-Yisrael stack named two verses earlier",
+   "byte_evidence": "Two verses before Jer.28.11 is oshb:Jer.28.9, whose full bytes carry no divine-title stack at all: הַנָּבִ֕יא אֲשֶׁ֥ר יִנָּבֵ֖א לְשָׁל֑וֹם בְּבֹא֙ דְּבַ֣ר הַנָּבִ֗יא יִוָּדַע֙ הַנָּבִ֔יא אֲשֶׁר שְׁלָח֥וֹ יְהוָ֖ה בֶּאֱמֶֽת (byte tier). In MT chapter 28 the full stack stands at oshb:Jer.28.2, כֹּֽה אָמַ֞ר יְהוָ֧ה צְבָא֛וֹת אֱלֹהֵ֥י יִשְׂרָאֵ֖ל (byte tier), nine verses earlier, and again at oshb:Jer.28.14, three verses later; the row's own rejected_alternative names 'the formula standing at verse 2' as the comparison site. Book-wide the stack stands in 32 verses and its koh-amar-headed shape in 31 (sweep.py --skel, skeleton tier).",
+   "proposed_cure": "Replace 'named two verses earlier' with 'named at verse 2 of this chapter', the site the row's own rejected_alternative already cites."
+  },
+  {
+   "row_ids": [
+    "P09-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-03",
+   "severity": "medium",
+   "defective_text": "A setumah opens this unit at oshb:Jer.26.10",
+   "byte_evidence": "pmarks_Jer.json keys each seg to the verse it FOLLOWS (build_pmarks.py appends the seg to the current verse), so marks['Jer.26.10'] = ['SAMEKH'] is a break AFTER Jer.26.10 -- inside this row's span Jer.26.10-Jer.26.16 -- and marks carries no entry at all for Jer.26.9, the verse this unit's opening actually follows. The corpus reads the convention that way elsewhere: P09-006 cites marks['Jer.25.38'] = ['PE'] as 'immediately before this row's opening' at Jer.26.1, and P10-012 and P10-013 describe the identical configuration correctly ('marks this span's own opening verse' / 'sits inside this span at its own opening verse').",
+   "proposed_cure": "Replace it with 'A setumah falls inside the span at oshb:Jer.26.10, on this span's own opening verse; the inventory carries no mark at oshb:Jer.26.9'."
+  },
+  {
+   "row_ids": [
+    "P09-006",
+    "P09-003"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-03",
+   "severity": "medium",
+   "defective_text": "distinct in shape from the cup oracle's own date-and-word-event opening just closed",
+   "byte_evidence": "The cup row (P09-003, Jer.25.15-Jer.25.29) opens on a ki-prefixed messenger formula, כִּ֣י כֹה֩ אָמַ֨ר יְהוָ֜ה אֱלֹהֵ֤י יִשְׂרָאֵל֙ (oshb:Jer.25.15, byte tier), which that row's own rationale calls 'A private commission' -- no date element and no word-event formula (Jer.25.15 appears in none of the three inventoried word-event lists of 21 / 11 / 4 verses). The dated davar header of that chapter stands at MT 25:1, outside the cup row. The unit standing immediately before Jer.26.1 in this corpus is Jer.25.34-Jer.25.38, not the cup unit, so 'just closed' also points at the wrong neighbour.",
+   "proposed_cure": "Recast the contrast against the object that carries it -- 'distinct in shape from the dated davar header standing at MT 25:1' -- and drop 'just closed'."
+  },
+  {
+   "row_ids": [
+    "P14-001"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-11",
+   "severity": "medium",
+   "defective_text": "the book also carries a nun-family spelling elsewhere (sweep: 6 verses), including a vav-less defective form at Jer.28.11 and Jer.28.14",
+   "byte_evidence": "The 6-verse digit is the sweep of the vav-bearing nun-family spelling נְבוּכַדְנֶאצַּ֥ר (oshb:Jer.27.6, byte tier): sweep.py --skel returns 6 verses -- Jer.27.6, Jer.27.8, Jer.27.20, Jer.28.3, Jer.29.1, Jer.29.3 -- and Jer.28.11 and Jer.28.14 are NOT among them. The vav-less defective spelling is its own object: נְבֻֽכַדְנֶאצַּ֣ר (oshb:Jer.28.11, byte tier) and נְבֻכַדְנֶאצַּ֥ר (oshb:Jer.28.14, byte tier), sweep 2 verses -- exactly the two sites the row folds into the 6. The two other digits in the same sentence are byte-true (resh-family 29 verses; plene byform 1 verse, Jer.49.28).",
+   "proposed_cure": "Split the objects: 'a nun-family spelling elsewhere (sweep: 6 verses), beside its own vav-less defective spelling at Jer.28.11 and Jer.28.14 (sweep: 2 verses)'."
+  },
+  {
+   "row_ids": [
+    "P11-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-11",
+   "severity": "medium",
+   "defective_text": "The span closes on a verse-final נְאֻם יְהוָֽה formula (oshb:Jer.31.20, byte), a shape standing in 162 verses book-wide",
+   "byte_evidence": "162 is the count of verses CARRYING neum-YHWH (jer_device_inventory.json neum_yhwh_verses = 162), not the count of the verse-final shape the sentence names. Swept over verse_map_oshb.json at skeleton tier: 162 verses carry the formula and 62 of them END on it. The row's own splice is genuinely verse-final -- oshb:Jer.31.20 ends נְאֻם יְהוָֽה (byte tier) -- so the object is real; only the digit belongs to a wider object.",
+   "proposed_cure": "Attach the digit to the object actually swept: 'the formula stands in 162 verses book-wide, 62 of them verse-finally (sweep: verse counts, MT keys)'."
+  },
+  {
+   "row_ids": [
+    "P06-011"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-11",
+   "severity": "medium",
+   "defective_text": "the shared object is the consonantal root itself, which recurs at the wider, article-free search across the book (sweep: 10 verses on the bare root)",
+   "byte_evidence": "The 10-verse digit is a sweep of the article-free SPELLING יוצר (sweep.py --skel: 10 verses -- Jer.10.16, Jer.18.2, Jer.18.3, Jer.18.4, Jer.18.6, Jer.18.11, Jer.19.1, Jer.19.11, Jer.33.2, Jer.51.19), the same participle spelling the row splices as יוֹצֵ֤ר (oshb:Jer.18.11, byte tier). The root skeleton יצר returns 1 verse (Jer.39.1) -- a different string -- so no root-level count stands behind the sentence, and sweep.py's own docstring warns that --skel is a contiguous substring search, not a root search. The row's article-bearing digit is byte-true (sweep: 5 verses -- Jer.18.2, Jer.18.3, Jer.18.4, Jer.18.6, Jer.19.11).",
+   "proposed_cure": "Name the swept object as the spelling it is: 'recurs across the book in the article-free spelling (sweep: 10 verses on that spelling)'."
+  },
+  {
+   "row_ids": [
+    "P06-007",
+    "P06-011",
+    "P08-001",
+    "P11-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-06",
+   "severity": "medium",
+   "defective_text": "P06-007: 'The controlled unit_type vocabulary carries no wisdom category'; P06-011: 'The closed vocabulary carries no separate indictment category'; P08-001: 'The unit is typed woe_oracle for its opening formula per the operative-category law' and 'a per-bytes deviation disclosed here rather than in the unit_type field'; P11-008: 'lament_confession is applied here as a per-bytes deviation from the vocabulary's own enumerated roster'",
+   "byte_evidence": "No text layer supports these: they name the annotation schema (the field name unit_type, the controlled / closed vocabulary, the vocabulary's enumerated roster) and a rule ('the operative-category law') inside row prose, which the register purge bars. check_register.py returns GREEN over these 48 rows (flag_count 0), so no Tier-0 gate sees them -- its CLASSES regexes carry no arm for schema-field or controlled-vocabulary wording. Two of them also surface as universals WARN flags in this scope ('carries no wisdom category', 'carries no separate indictment category'), dispositioned genuine below.",
+   "proposed_cure": "Restate each as a claim about the text alone (e.g. 'this cursed-and-blessed, heart-searching material reads closest to a judgment oracle'), deleting every reference to the field, the vocabulary and the naming rule."
+  },
+  {
+   "row_ids": [
+    "P10-001",
+    "P13-003",
+    "P13-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-06",
+   "severity": "medium",
+   "defective_text": "P10-001: 'the campaign holds that crux open rather than correcting it'; P13-003: 'the campaign ties a koh-amar-driven cut to a change of whose mouth carries the formula' and 'a peer reading could reasonably prefer a fresh row at verse 17'; P13-008: 'a peer reading could reasonably prefer splitting the relay from the reading'",
+   "byte_evidence": "Governance-process and review-actor language in row prose. check_register.py's review_actor arm matches 'peer review', 'peer remedy' and 'reviewer' but not 'a peer reading', and no arm matches 'the campaign', so the suite reports register GREEN (flag_count 0 over these 48 rows) while the purge is breached.",
+   "proposed_cure": "Replace the process voice with the textual ground -- 'the MT name stands and is not emended here'; 'a koh-amar cut requires a change in whose mouth carries the formula'; 'a fresh row at verse 17 is a defensible rival reading' -- deleting 'the campaign' and 'a peer reading'."
+  },
+  {
+   "row_ids": [
+    "P06-011",
+    "P10-012",
+    "P10-013",
+    "P13-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-06",
+   "severity": "medium",
+   "defective_text": "P06-011: 'the divine reply now folded into this span (18:13-18:17)'; P10-012: 'this span's own new closing verse, oshb:Jer.29.19'; P10-013: 'A setumah now sits inside this span' and 'the adopted seam this row now opens on'; P13-008: 'the fourth-year notice carrying no month token that opened the row before'",
+   "byte_evidence": "'now folded', 'now sits', 'now opens on' and 'new closing verse' narrate a change made to the span rather than describing the text, and 'the row before' is a positional row reference. check_register.py's positional_row_reference arm covers 'that row' and 'the previous/next/preceding/following/prior row' but not 'the row before', and its erratum_repair_narration arm requires an order/remedy/wave/defect token nearby, so all four pass GREEN.",
+   "proposed_cure": "Delete the change-narrating adverbs and the positional reference: 'the divine reply at 18:13-18:17', 'this span's closing verse', 'A setumah sits inside this span', 'the fourth-year notice at Jer.36.1, which carries no month token'."
+  },
+  {
+   "row_ids": [
+    "P10-001",
+    "P10-002",
+    "P10-006"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-17",
+   "severity": "medium",
+   "defective_text": "P10-001 argues oshb:Jer.27.14; P10-002 argues Jer.27.9, Jer.27.10 and Jer.27.17; P10-006's rejected_alternative argues 'the formula standing at verse 2' (= Jer.28.2) -- none of these verses appears in the row's own boundary_evidence_refs",
+   "byte_evidence": "These are the three refs_mirror FLAGS inside this scope, all genuine: the validator report carries {P10-001: ['Jer.27.14']}, {P10-002: ['Jer.27.9','Jer.27.10','Jer.27.17']}, {P10-006: ['Jer.28.2']}. Each argued verse lies outside the row's own span (Jer.27.1-Jer.27.11, Jer.27.12-Jer.27.15, Jer.28.10-Jer.28.11) and each underlying claim is byte-true -- the false-prophecy clause with its opening particle stands in exactly 2 verses (Jer.27.10, Jer.27.14), its pronoun byform in 1 (Jer.27.16), the negative-listening shape in 6 book-wide with 4 in that chapter -- so only the mirror entries are missing.",
+   "proposed_cure": "Add the argued out-of-span verses to each row's boundary_evidence_refs (oshb:Jer.27.14; oshb:Jer.27.9, oshb:Jer.27.10, oshb:Jer.27.17; oshb:Jer.28.2)."
+  },
+  {
+   "row_ids": [
+    "P06-009",
+    "P11-008"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "P06-009 splices יֵבֹ֑שׁוּ from oshb:Jer.17.13 in both strongest_rejected_alternative and device_notes; P11-008 splices שׁ֚וּבִי from oshb:Jer.31.21 in device_notes -- neither row mentions ketiv or qere anywhere",
+   "byte_evidence": "Both are K/Q verses in the single-witness inventory (pmarks kq: Jer.17.13 = 1 note, Jer.31.21 = 1 note), and at Jer.17.13 the spliced run sits immediately before the pair: יֵבֹ֑שׁוּ יסורי וְסוּרַי֙ (oshb:Jer.17.13, byte tier). The citation_sweep prose_dual_warns on these two rows are therefore genuine, while the four other in-scope warns are declared FP: P05-014 (3 ketiv mentions), P06-008 (1) and P11-009 (3) each disclose the note elsewhere in the same row. The gap is seam-internal both times -- P06-008 discloses the Jer.17.13 note its partner P06-009 omits, and P11-009 discloses the Jer.31.21 note its partner P11-008 omits.",
+   "proposed_cure": "Carry the seam partner's existing K/Q disclosure into P06-009 and P11-008 so both sides of each seam disclose the note at the verse they slice."
+  },
+  {
+   "row_ids": [
+    "P09-003",
+    "P12-002",
+    "P12-005",
+    "P13-001",
+    "P13-003"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "medium",
+   "defective_text": "observed_substrate_signals keys: P09-003 'divine_title.yhwh_tsevaot_elohei_yisrael_stack'; P12-002 'divine_title.full_title_stack'; P12-005, P13-001 and P13-003 'speech_formula.koh_amar_yhwh_elohei_yisrael'",
+   "byte_evidence": "The settled split form is divine_title.yhwh_tsevaot_elohei_yisrael + speech_formula.koh_amar_yhwh, and this corpus already carries the settled title key in 15 rows and the settled speech key in 38. P09-003 and P12-002 carry renamed byforms of the title key; P12-005, P13-001 and P13-003 carry a blended key that pulls a divine title into the speech_formula namespace. The bytes separate the two objects at these sites too: the full stack stands in 32 verses (Jer.25.27 inside P09-003's span; Jer.32.14 and Jer.32.15 inside P12-002's), whereas the formulas the three blended rows actually splice carry NO tsevaot -- וְעַתָּ֕ה לָכֵ֛ן כֹּֽה אָמַ֥ר יְהוָ֖ה אֱלֹהֵ֣י (oshb:Jer.32.36, byte tier) and כֹּֽה אָמַ֤ר יְהוָה֙ אֱלֹהֵ֣י יִשְׂרָאֵ֔ל (oshb:Jer.34.2, byte tier) -- so the blended key also mis-files them under the full-stack object.",
+   "proposed_cure": "Rewrite the five entries to the settled split -- divine_title.yhwh_tsevaot_elohei_yisrael + speech_formula.koh_amar_yhwh for P09-003 and P12-002, and speech_formula.koh_amar_yhwh with a tsevaot-free divine_title key for P12-005, P13-001 and P13-003."
+  },
+  {
+   "row_ids": [
+    "P13-001",
+    "P13-003",
+    "P13-007",
+    "P13-009",
+    "P13-010",
+    "P13-011"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "17 seg-layer citations carrying a quote-collation tier label, e.g. P13-001 'A setumah stands one verse before this row's own start, at (oshb:Jer.33.26, byte)'; P13-010 'a paseq also falls at (oshb:Jer.36.23, byte)'; P13-011 'Setumah marks fall at (oshb:Jer.36.29, byte), (oshb:Jer.36.31, byte)'",
+   "byte_evidence": "'byte' is collate.py's Hebrew quote-collation tier (byte / nfd / accent_stripped / skeleton / none) and asserts that a quoted run matches the source bytes; these citations quote nothing. The parashah and paseq layers are explicitly not verse bytes -- pmarks_Jer.json paseq_note: seg layer, NOT quotable verse bytes, citable from this inventory only -- so a byte label on them claims a tier the seg layer cannot carry. 17 occurrences across these 6 rows; the same rows label their real Hebrew splices correctly and no other row in this scope does it. check_marks.py is GREEN over these 48 rows (flag_count 0): it validates the seg TYPE and the MT key, not the tier word.",
+   "proposed_cure": "Drop the tier word from every seg-layer citation, leaving the plain MT key plus the single-witness disclosure already present."
+  },
+  {
+   "row_ids": [
+    "P10-001",
+    "P10-002"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "P10-001: 'The false-prophecy clause standing inside this span at oshb:Jer.27.10, כִּ֣י שֶׁ֔קֶר הֵ֖ם נִבְּאִ֣ים לָכֶ֑ם, recurs once past this row's own close, at oshb:Jer.27.14'; P10-002: the same clause, its pronoun byform at oshb:Jer.27.16 and the negative-listening shape quoted with its 6-verse sweep -- none of these splices carries a tier label",
+   "byte_evidence": "Every other Hebrew splice in both rows carries '(oshb:..., byte)', and the campaign law tier-labels every recurrence claim at write time. The claims themselves are byte-true: sweep.py --skel gives 2 verses (Jer.27.10, Jer.27.14) for the clause with its opening particle, 1 verse (Jer.27.16) for the pronoun byform, and 6 verses book-wide with 4 in that chapter (Jer.27.9, Jer.27.14, Jer.27.16, Jer.27.17) for the negative-listening shape.",
+   "proposed_cure": "Add the byte-tier label to each untiered splice in those two device sentences, matching the labelling the rest of both rows already uses."
+  },
+  {
+   "row_ids": [
+    "P11-009"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-03",
+   "severity": "low",
+   "defective_text": "the cities noun closing this span, עָרַ֥יִךְ אֵֽלֶּה (oshb:Jer.31.21, byte), returns at once as וּבְעָרָ֔יו (oshb:Jer.31.23, byte)",
+   "byte_evidence": "The span is Jer.31.21-Jer.31.22, so the cited phrase closes verse 21, not the span; the span closes on נְקֵבָ֖ה תְּס֥וֹבֵֽב גָּֽבֶר (oshb:Jer.31.22, byte tier). 'Returns at once' also skips a verse (Jer.31.21 to Jer.31.23).",
+   "proposed_cure": "Say what the bytes say: 'the cities noun closing this span's first verse ... returns two verses later at oshb:Jer.31.23'."
+  },
+  {
+   "row_ids": [
+    "P11-006"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "A petuchah sits at the seam where this span opens, oshb:Jer.31.6, recurs inside the span at oshb:Jer.31.9 as a setumah",
+   "byte_evidence": "pmarks marks['Jer.31.6'] = ['PE'] and marks['Jer.31.9'] = ['SAMEKH'] -- two different seg types, and a petuchah does not recur as a setumah; the standing rule is that PE is never conflated with SAMEKH. The seam partner P11-007 uses the same sentence frame where the type really is constant (marks['Jer.31.14'], marks['Jer.31.15'] and marks['Jer.31.17'] are all SAMEKH), which is where that template belongs.",
+   "proposed_cure": "Break the sentence in two so each seg type is asserted on its own: 'A petuchah sits at oshb:Jer.31.6, where this span opens; a setumah falls inside the span at oshb:Jer.31.9'."
+  },
+  {
+   "row_ids": [
+    "P11-002",
+    "P12-007"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "new",
+   "severity": "low",
+   "defective_text": "P11-002: 'A second-person plural imperative pair opens the interior comparison, שַׁאֲלוּ נָ֣א (oshb:Jer.30.6, byte)'; P12-007: the rationale splice at oshb:Jer.33.10 stops at אַתֶּ֣ם while its gloss reads 'about which you say'",
+   "byte_evidence": "Gloss extent exceeds splice extent at both sites. Jer.30.6 opens שַׁאֲלוּ נָ֣א וּרְא֔וּ (byte tier): the imperative pair is the first and third words, and the splice covers only the first imperative plus the entreaty particle. At Jer.33.10 the construction the gloss renders is three words -- the same row's device_notes quotes it in full and sweeps it (2 verses byte tier, 3 verses skeleton tier: Jer.32.36, Jer.32.43, Jer.33.10) -- but the rationale splice drops the third word.",
+   "proposed_cure": "Re-cut each splice to the extent its gloss claims: carry the second imperative into the Jer.30.6 splice and the third word into the Jer.33.10 splice."
+  },
+  {
+   "row_ids": [
+    "P12-008",
+    "P12-009"
+   ],
+   "lane": "second-generation (REFINE-weighted, half B)",
+   "e_class": "E-17",
+   "severity": "low",
+   "defective_text": "This verse opens a block, running through oshb:Jer.33.26, that stands absent from the Septuagint tradition",
+   "byte_evidence": "The block begins at oshb:Jer.33.14, which the sentence never names, while the two sentences immediately before it discuss oshb:Jer.33.17 and oshb:Jer.33.18, so 'This verse' reads onto the wrong coordinate. The seam partner P12-009 carries the same disclosure with both ends named -- 'the block running from oshb:Jer.33.14 through oshb:Jer.33.26' -- so the dropped fact stands one row away. Both rows correctly hold the material as cross-tradition metadata argued from no witness but MT and WEB.",
+   "proposed_cure": "Name the block's opening coordinate as the partner row does: 'This row's opening verse, oshb:Jer.33.14, opens a block running through oshb:Jer.33.26 ...'."
+  }
+ ],
+ "warn_flags_dispositioned": [
+  {
+   "flag": "universals: carries no wisdom category  [device_notes]",
+   "row_id": "P06-007",
+   "disposition": "genuine",
+   "class": "register_bleed_controlled_vocabulary"
+  },
+  {
+   "flag": "universals: closest  [device_notes]",
+   "row_id": "P06-007",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P06-009",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no separate indictment category for the di  [device_notes]",
+   "row_id": "P06-011",
+   "disposition": "genuine",
+   "class": "register_bleed_controlled_vocabulary"
+  },
+  {
+   "flag": "universals: closest  [device_notes]",
+   "row_id": "P06-011",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P07-007",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: each  [device_notes]",
+   "row_id": "P07-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P08-001",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P08-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P08-003",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P09-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P09-009",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-001",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: every  [device_notes]",
+   "row_id": "P10-001",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: continuous  [strongest_rejected_alternative]",
+   "row_id": "P10-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [boundary_rationale]",
+   "row_id": "P10-003",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: with no claim about its place in the verse  [boundary_rationale]",
+   "row_id": "P10-003",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-003",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: none  [device_notes]",
+   "row_id": "P10-003",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-006",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-006",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: with no claim entered about where inside the ve  [device_notes]",
+   "row_id": "P10-006",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: unbroken  [strongest_rejected_alternative]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: all  [strongest_rejected_alternative]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: single  [strongest_rejected_alternative]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no mark at MT 28:16, this span’s own close  [device_notes]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: never  [device_notes]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: sole  [device_notes]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: unbroken  [device_notes]",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [boundary_rationale]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no frame-owner change from the same divine  [strongest_rejected_alternative]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: single  [device_notes]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: with no claim about their place inside the vers  [device_notes]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: never  [device_notes]",
+   "row_id": "P10-012",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no frame-owner change from the same divine  [strongest_rejected_alternative]",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: continuous  [strongest_rejected_alternative]",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: with no position inside the verse asserted  [device_notes]",
+   "row_id": "P10-013",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: attest  [boundary_rationale]",
+   "row_id": "P11-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: first  [strongest_rejected_alternative]",
+   "row_id": "P11-004",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P11-004",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: throughout  [device_notes]",
+   "row_id": "P11-004",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P11-006",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: throughout  [device_notes]",
+   "row_id": "P11-006",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: throughout  [device_notes]",
+   "row_id": "P11-007",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P11-007",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [strongest_rejected_alternative]",
+   "row_id": "P11-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: with no new formula or addressee marking that t  [strongest_rejected_alternative]",
+   "row_id": "P11-009",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: throughout  [device_notes]",
+   "row_id": "P11-009",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [boundary_rationale]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no frame-owner change of its own — it is J  [strongest_rejected_alternative]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: absent  [strongest_rejected_alternative]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: never  [device_notes]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-002",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: each  [strongest_rejected_alternative]",
+   "row_id": "P12-007",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: carries no addressee or frame-owner change and onl  [boundary_rationale]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: with no speech formula of its own, was consider  [strongest_rejected_alternative]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: carries no addressee or frame-owner change, extend  [strongest_rejected_alternative]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: absent from  [device_notes]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: carries no weight for the boundaries drawn above o  [device_notes]",
+   "row_id": "P12-008",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: continuous  [strongest_rejected_alternative]",
+   "row_id": "P12-009",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: absent from  [device_notes]",
+   "row_id": "P12-009",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P12-009",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: carries no weight for either boundary drawn above  [device_notes]",
+   "row_id": "P12-009",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: only  [boundary_rationale]",
+   "row_id": "P13-001",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: throughout  [strongest_rejected_alternative]",
+   "row_id": "P13-001",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: single  [strongest_rejected_alternative]",
+   "row_id": "P13-001",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-001",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: none  [device_notes]",
+   "row_id": "P13-001",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: first  [boundary_rationale]",
+   "row_id": "P13-007",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-007",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-007",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: unbroken  [strongest_rejected_alternative]",
+   "row_id": "P13-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: never  [device_notes]",
+   "row_id": "P13-008",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: across the whole  [strongest_rejected_alternative]",
+   "row_id": "P13-009",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: with no addressee change or fresh formula marki  [strongest_rejected_alternative]",
+   "row_id": "P13-009",
+   "disposition": "declared_fp",
+   "class": "negative_seam_or_metadata_claim_not_exclusivity"
+  },
+  {
+   "flag": "universals: never  [device_notes]",
+   "row_id": "P13-009",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: single  [strongest_rejected_alternative]",
+   "row_id": "P13-010",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: arrest  [literature_type_guess]",
+   "row_id": "P13-010",
+   "disposition": "declared_fp",
+   "class": "non_exclusivity_ordinary_prose_term"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-010",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-010",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: only  [device_notes]",
+   "row_id": "P13-011",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "universals: carries no mark of its own in the inventory  [device_notes]",
+   "row_id": "P13-011",
+   "disposition": "declared_fp",
+   "class": "tier_and_witness_disclosure_boilerplate"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.boundary_rationale binds to K/Q verse oshb:Jer.15.11 with no ketiv/qere disclosure in-field",
+   "row_id": "P05-014",
+   "disposition": "declared_fp",
+   "class": "kq_disclosed_in_row_device_notes_and_the_spliced_run_does_not_touch_the_note"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.strongest_rejected_alternative binds to K/Q verse oshb:Jer.17.13 with no ketiv/qere disclosure in-field",
+   "row_id": "P06-008",
+   "disposition": "declared_fp",
+   "class": "kq_disclosed_in_row_boundary_rationale"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.device_notes binds to K/Q verse oshb:Jer.17.13 with no ketiv/qere disclosure in-field",
+   "row_id": "P06-008",
+   "disposition": "declared_fp",
+   "class": "kq_disclosed_in_row_boundary_rationale"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.strongest_rejected_alternative binds to K/Q verse oshb:Jer.17.13 with no ketiv/qere disclosure in-field",
+   "row_id": "P06-009",
+   "disposition": "genuine",
+   "class": "no_kq_disclosure_anywhere_in_row_see_finding"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.device_notes binds to K/Q verse oshb:Jer.17.13 with no ketiv/qere disclosure in-field",
+   "row_id": "P06-009",
+   "disposition": "genuine",
+   "class": "no_kq_disclosure_anywhere_in_row_see_finding"
+  },
+  {
+   "flag": "citation_sweep prose_dual_warn: Hebrew quote in row.device_notes binds to K/Q verse oshb:Jer.31.21 with no ketiv/qere disclosure in-field",
+   "row_id": "P11-008",
+   "disposition": "genuine",
+   "class": "no_kq_disclosure_anywhere_in_row_see_finding"
+  },
+  {
+   "flag": "refs_mirror flag: argued_but_unmirrored ['Jer.27.14']",
+   "row_id": "P10-001",
+   "disposition": "genuine",
+   "class": "argued_out_of_span_verse_missing_from_boundary_evidence_refs"
+  },
+  {
+   "flag": "refs_mirror flag: argued_but_unmirrored ['Jer.27.9','Jer.27.10','Jer.27.17']",
+   "row_id": "P10-002",
+   "disposition": "genuine",
+   "class": "argued_out_of_span_verse_missing_from_boundary_evidence_refs"
+  },
+  {
+   "flag": "refs_mirror flag: argued_but_unmirrored ['Jer.28.2']",
+   "row_id": "P10-006",
+   "disposition": "genuine",
+   "class": "argued_out_of_span_verse_missing_from_boundary_evidence_refs"
+  },
+  {
+   "flag": "refs_mirror orphan_ref_warn: oshb:Jer.30.7, oshb:Jer.30.10",
+   "row_id": "P11-004",
+   "disposition": "declared_fp",
+   "class": "prose_argues_both_sites_as_bare_verse_7_and_verse_10_but_the_span_crosses_from_Jer30_into_Jer31_so_the_bare_verse_resolver_cannot_bind_them"
+  },
+  {
+   "flag": "mark_symmetry paseq_position_warn: 'paseq stands at MT 28:14, immediately before'",
+   "row_id": "P10-008",
+   "disposition": "declared_fp",
+   "class": "verse_level_adjacency_not_intra_verse_position_row_states_tallied_without_fixing_where_in_the_verse_it_falls"
+  },
+  {
+   "flag": "mark_symmetry paseq_position_warn: 'the paseq's placement'",
+   "row_id": "P11-002",
+   "disposition": "declared_fp",
+   "class": "row_explicitly_disclaims_position_silent_on_the_paseq_placement_inside_the_verse"
+  }
+ ],
+ "lane_digits": {
+  "scope_items": 8,
+  "scope_items_carrying_at_least_one_finding": 8,
+  "rows_in_scope": 48,
+  "rows_with_at_least_one_finding": 30,
+  "rows_clean": 18,
+  "findings_filed": 19,
+  "findings_by_severity": {
+   "high": 0,
+   "medium": 12,
+   "low": 7
+  },
+  "findings_by_e_class": {
+   "E-03": 5,
+   "E-06": 3,
+   "E-11": 3,
+   "E-17": 2,
+   "new": 6
+  },
+  "warn_flags_in_scope_dispositioned": 104,
+  "warn_flags_genuine": 8,
+  "warn_flags_declared_fp": 96,
+  "warn_flag_sources": {
+   "universals": 92,
+   "citation_sweep_prose_dual_warns": 6,
+   "refs_mirror_flags": 3,
+   "refs_mirror_orphan_warns": 1,
+   "mark_symmetry_paseq_warns": 2
+  },
+  "byte_false_claims_found": 5,
+  "blended_or_misnamed_count_objects_found": 3,
+  "sweep_and_inventory_digits_re_derived_and_confirmed_true": 34,
+  "seam_pair_shared_formulations_checked_byte_identical": 3,
+  "oss_full_stack_variant_rows_in_scope": 5,
+  "seg_layer_citations_carrying_a_byte_tier_label": 17,
+  "span_proposals_made": 0,
+  "rows_in_scope_touching_the_offset_zone_or_the_Aramaic_island": 0,
+  "effort": "ordered high; NOT verified (recorded honestly)"
+ },
+ "self_check": "Run from SP/Jer/tools over a private copy of the 48 scope rows only: check_register.py GREEN (flag_count 0), check_marks.py GREEN (48 rows, 46 citing marks, flag_count 0, 2 paseq-position warns), normalize_hebrew_in_json.py dry-run 339 ok / 0 fixed; sweep.py --skel/--heb/--web plus direct reads of verse_map_oshb.json, verse_map_web.json, pmarks_Jer.json and jer_device_inventory.json re-derived 34 sweep and inventory digits (all confirmed true) and falsified 5 byte claims; every Hebrew run in this packet was spliced programmatically from verse_map_oshb.json and never re-keyed. Collate re-check: the three load-bearing splices in this packet re-collate at byte tier (oshb:Jer.23.12, oshb:Jer.28.2, oshb:Jer.32.36); nfd dry-run over a private copy of this packet: 23 ok / 0 fixed; no unexpanded placeholder tokens. E-19 SELF-DISCLOSURE: after writing this file I ran one directory listing of SP/Jer/spot to confirm the write, which the affirmative-line ban on listing shared SP directories forbids; the listing returned filenames and sizes only, no other reviewer output was opened or read at any point, and the blind-within-the-wave boundary on content is intact."
+}

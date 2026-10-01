@@ -1,0 +1,59 @@
+{
+  "schema_version": "m7_audit_repair_receipt.v1",
+  "task_id": "T521",
+  "books": ["Gen", "Exod"],
+  "repair_scope": "format_status_sidecar_relation_and_completion_evidence_only",
+  "boundary_or_decision_id_change": false,
+  "authorized_changed_fields": [
+    "chunk_index_in_book",
+    "review_status",
+    "candidate_hold_state",
+    "candidate_hold_basis",
+    "strong_or_hebrew_tags_used",
+    "index_normalized_from_pre_audit"
+  ],
+  "before": {
+    "Gen": {
+      "chunks_sha256": "a22a4638be4dfac0be6e462c5517d53dcccef234fcd6edc5eef7dafbd9502900",
+      "review_packets_sha256": "3bac2151ffce2bb2e0d7df4b570a87cd15a7353ddaad6d4d1f3227ab7a7f369f",
+      "official_chunk_map_gate": "fail_non_integer_and_non_contiguous_indices"
+    },
+    "Exod": {
+      "chunks_sha256": "d5174fd9ff8b3e5c1db5bb45c5efd06262a88bcfccab5490e887040937159f27",
+      "review_packets_sha256": "cb90e6aa32e652f7871b1329589977ebc281b3b9427e8580b23596fe9ecd93a3",
+      "official_chunk_map_gate": "fail_non_integer_and_non_contiguous_indices"
+    }
+  },
+  "after": {
+    "Gen": {
+      "chunks_sha256": "a8d50fed81956eb82743cf8fe56af7b8bd0cfb63e45466d4ef6018b395372857",
+      "review_packets_sha256": "288dbe36535bf287aefc008b39bc242d660f0dfe09c9804b4b0ce51b5e50c421",
+      "index_normalization_sha256": "937231adf1cda7e4ce84aadb0457190273c86fb104f91ee3ac0e2fd402bd4034",
+      "indices_changed": 44,
+      "retired_uncertainty_sidecar_ids_removed": 4,
+      "official_chunk_map_gate": "pass"
+    },
+    "Exod": {
+      "chunks_sha256": "b6067fdababfba170f5a7eac7eb1b36976100d9437d746c8d5e1f4972ce164dc",
+      "review_packets_sha256": "e1c34d7241b6908940b2d881126e194c6dfc8d147c296e6146d8781f2ffb986d",
+      "index_normalization_sha256": "c4bd3796d9205193ee968162f01837b880d6fb543aa4d993150c22698f81b25d",
+      "indices_changed": 62,
+      "official_chunk_map_gate": "pass"
+    }
+  },
+  "review_findings_adopted": [
+    "separate appeal_backed_holds from non_appeal_review_holds",
+    "bind independence_scope as one correlated model voice",
+    "replace low_confidence sidecar book partitions from active decisions",
+    "require typed non_authorizing decision relations",
+    "hash_close postcheck and v2 completion receipts",
+    "replace semicolon shell chains in all 66 book jobs"
+  ],
+  "migration_atomicity": "The one-time repair used exact input-hash guards and immediately rebuilt dependent packets; it was not transactionally staged. The reusable workflow now requires staged fail-closed migrations and explicit before/after field and hash evidence.",
+  "post_repair_completion_bundles": {
+    "Gen": "pass_with_one_appeal_hold",
+    "Exod": "pass_with_eight_holds_two_appeals"
+  },
+  "forced_consensus": false,
+  "non_authorizing": true
+}

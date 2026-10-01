@@ -1,0 +1,55 @@
+{
+ "schema": "m8_finding.v1",
+ "finding_id": "orchestrator_shell_output_conflated_with_subagent_transcripts",
+ "book": "Lam",
+ "recorded_at": "2026-09-07T18:23:26.218609+00:00",
+ "author_of_the_error": "orchestrator (claude-opus-5)",
+ "severity": "medium_high",
+ "severity_basis": "scored on counterfactual blast radius, not observed impact; observed impact was limited only because the auditors were stopped before any deliverable landed",
+ "class": "evidence_integrity",
+ "headline": "the transcript manifest and durable mirror inferred a file's KIND from its directory and extension; 18 orchestrator shell outputs were served to four Fable auditors as subagent transcripts",
+ "detection": {
+  "how": "an existence check over every slice path before launch, run while investigating an unrelated missing file, led to a file-by-file look at the store",
+  "by_the_guard_that_should_have_caught_it": false,
+  "note": "a defect found while chasing a different symptom is a lucky catch, not a controlled one"
+ },
+ "digits": {
+  "files_served_to_auditors_as_transcripts": 29,
+  "actually_subagent_transcripts": 11,
+  "actually_orchestrator_shell_output": 18,
+  "shell_output_bytes_in_the_slices": 1209319,
+  "genuine_transcript_bytes": 9778043,
+  "auditors_launched_against_the_bad_set": 4,
+  "auditor_deliverables_landed_before_the_stop": 0,
+  "shell_outputs_quarantined": 23,
+  "transcripts_remaining_in_store": 12
+ },
+ "root_cause": "a tool inferred a file's kind from the directory it sat in and the extension it carried; both are properties of where the runtime put it, not of what it is. No content check existed anywhere in the chain, so nothing could disagree with the assumption.",
+ "counterfactual_blast_radius": "stage-1 packets with coverage digits counting 29 transcripts and findings about orchestrator commands; the stage-2 final checker consumes those as its evidence base, and the close gate asserts a coverage statement is PRESENT, not that it is TRUE. A fit_to_close verdict would have rested on an audit of the wrong files while every mechanical check passed.",
+ "controls_installed": [
+  "is_subagent_transcript() content check in _transcript_manifest.py and _mirror_transcripts.py",
+  "exclusions counted and reported in both tools rather than silently dropped",
+  "the stage-1 durable-store sweep applies the same content check",
+  "manifest rebuilt as v2 beside v1; history retained, not rewritten",
+  "23 shell outputs moved (not deleted) to sp_durable/shell_outputs/<session>/, sha256-verified at the destination before the source was unlinked, with a note recording why they are there",
+  "regression test _test_transcript_discriminator.py: 13 synthetic vectors plus every real file on both sides of the quarantine boundary; GREEN"
+ ],
+ "sibling_paths_audited": {
+  "_extract_final_msg.py": "SAFE - resolves explicit paths from the launch map, no directory enumeration",
+  "_mirror_transcripts.py destination counters": "now correct because the store is curated by the same check",
+  "_lam_final_check_launch_msgs.py store sweep": "patched to content-check as well",
+  "Jer and earlier books": "no transcript manifest exists for them at all - they closed before OW-6. This is not a regression, it is the gap OW-6c reserves an owner decision about."
+ },
+ "open_control_gap": {
+  "gap": "the close gate checks that each auditor's coverage statement EXISTS, not that its digits are true",
+  "why_it_matters": "this is precisely why the error would have passed the gate",
+  "proposed": "stage 2 must reconcile each stage-1 packet's transcript count and byte total against the manifest the slices were built from, and refuse fit_to_close on a mismatch",
+  "status": "CLOSED 2026-09-07",
+  "closed_by": "_final_check_reconcile.py compares every stage-1 packet against the slice plan and the manifest; the close gate runs it and refuses on RED; the stage-2 checker ran it independently and reported GREEN",
+  "verified_by": "the OW-6 stage-2 final checker, which was ordered to run the tool and report its verdict"
+ },
+ "related_finding": "finding_transcript_decay.v1.json (mid-session deletion of written transcripts)",
+ "authority": "orchestrator self-report; candidate-only, non-authorizing; no corpus row is affected",
+ "superseded_note": "this record's gap status said OPEN after it had been closed; corrected in place ONLY in the status field, with the original gap text left intact above",
+ "status_corrected_at": "2026-09-07T19:32:13.953960+00:00"
+}

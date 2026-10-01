@@ -1,0 +1,75 @@
+{
+ "attempt_id": "peer_c19_r1",
+ "role": "peer",
+ "clusters": [
+  "c19"
+ ],
+ "rulings": [
+  {
+   "cluster": "c19",
+   "row_id": "P08-062",
+   "source": "OL",
+   "challenge_claim": "The rejection of a 19:15/19:16 cluster is substantively correct (shared lexeme, different grammatical role), but the row states this only in English and never quotes the Hebrew for an original-language distinction.",
+   "ruling": "uphold",
+   "grounds": "byte tier confirms the substance: oshb Prov.19.15 carries וְנֶ֖פֶשׁ as the SUBJECT of the hunger clause; oshb Prov.19.16 carries נַפְשׁ֑וֹ as the OBJECT of the keeping clause -- same lexeme, distinct syntactic roles. But the row's rejected_alternative argues this role-split in English only ('the same noun in two different roles') with zero Hebrew quoted, though the claim is squarely a boundary-relevant original-language claim under the standing rule (TOOLKIT.md / book_strategy Prov.md §8: quote the original language for every such claim). Conclusion and cluster rejection are correct; only the disclosure requirement is unmet.",
+   "remedy": "Engagement-class cure (shared with P08-075): splice וְנֶ֖פֶשׁ (19:15, subject) and נַפְשׁ֑וֹ (19:16, object) verbatim from verse_map_oshb.json into rejected_alternative/device_notes with an inline oshb: ref each. Cure test: collate.py --ref oshb:Prov.19.15/19.16 --quote \"<spliced token>\" must return tier=byte for both, and check_web_quotes.py-equivalent original-language disclosure must no longer be empty for this row.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c19",
+   "row_id": "P08-069",
+   "source": "both",
+   "challenge_claim": "LF: the row's disclosed echo of 19:1 is mislocated to \"the opening colon\" of 19:22 when the matching bigram actually sits in 19:22's second/closing colon. OL: the same echo claim is internally inconsistent (same colon mislocation) AND arithmetically wrong (\"three verses apart\" for an actual gap of 19.22-19.1=21), with zero Hebrew quoted anywhere in the row.",
+   "ruling": "uphold",
+   "grounds": "Confirmed at byte tier: oshb Prov.19.1 opens טֽוֹב רָ֭שׁ...; oshb Prov.19.22 is two cola split at the atnach on חַסְדּ֑וֹ -- colon 1 is תַּאֲוַ֣ת אָדָ֣ם חַסְדּ֑וֹ ('the desire of a man is his kindness/loyalty', no overlap with 19:1), colon 2 is וְטֽוֹב רָ֝שׁ מֵאִ֥ישׁ כָּזָֽב ('and better is a poor man than a liar'), and the echoing bigram וְטֽוֹב רָ֝שׁ sits in colon 2, not colon 1 as the row states -- LF's colon-mislocation claim is upheld exactly as stated. Separately, 19.22 minus 19.1 is 21, not three -- OL's arithmetic claim is also upheld exactly as stated; this is a distinct defect (a numeric/computational error), not a restatement of the colon error. OL's third point also checks out by inspection: the row's rationale, rejected_alternative, and device_notes fields contain zero Hebrew characters despite resting on two original-language echo claims. The unchallenged parts of the row hold: word-bound skeleton comparison shows zero shared token between 19:21/19:22 and between 19:22/19:23, so the no-cluster verdict itself is unaffected by any of the three defects.",
+   "remedy": "One consolidated edit to rejected_alternative: (a) relocate the 19:1 echo to 19:22's second colon (וְטֽוֹב רָ֝שׁ מֵאִ֥ישׁ כָּזָֽב) and quote the matching bigram וְטֽוֹב רָ֝שׁ against 19:1's טֽוֹב רָ֭שׁ; (b) replace \"three verses apart\" with the correct interval (21 verses, 19:22-19:1); (c) quote the Hebrew for both echo claims per the engagement-class cure. Test: re-collate both quotes at byte tier via collate.py against oshb:Prov.19.1 and oshb:Prov.19.22, and re-run the verse-distance arithmetic the same way citation_sweep.py checks dual-cite arithmetic -- both must resolve exactly before the row ships.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c19",
+   "row_id": "P08-075",
+   "source": "OL",
+   "challenge_claim": "The root-level distinction between 19:28 and 19:29 (same root, process vs. penalty sense) is correct, but the row never quotes either Hebrew form.",
+   "ruling": "uphold",
+   "grounds": "byte tier: oshb Prov.19.28 carries מִשְׁפָּ֑ט ('justice/the legal process', object of the mocking verb); oshb Prov.19.29 carries שְׁפָטִ֑ים ('penalties', plural concrete sentences) -- same root ש-פ-ט, distinct nominal senses, matching the row's claim exactly. sweep.py --skel שפט independently re-run returns 24 verses book-wide, confirming the row's genericity premise. Same engagement-class gap as P08-062: the row's rejected_alternative states 'the same root in two distinct senses' without quoting either form, though the claim is explicitly about shared Hebrew roots.",
+   "remedy": "Engagement-class cure (shared with P08-062): splice מִשְׁפָּ֑ט (19:28) and שְׁפָטִ֑ים (19:29) verbatim from verse_map_oshb.json into rejected_alternative with inline oshb: refs; re-collate at byte tier before shipping.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c19",
+   "row_id": "P09-005",
+   "source": "OL",
+   "challenge_claim": "The rejection of a 20:5/20:6 cluster undercounts the cohesion evidence: it dismisses the shared noun for man as merely common (word-bound bare token = 53/915 verses book-wide), but never tests the specific same-verse doubling construction (bare token + waw-prefixed second instance in ONE verse), which is book-wide unique to this exact adjacent pair.",
+   "ruling": "uphold",
+   "grounds": "Independently re-derived the construction sweep, object named precisely as directed: BOTH tokens word-bound in ONE verse, the second waw-prefixed -- using consonantal_index.json skeletons split on whitespace across all 915 verses (exact token equality, not the contiguous-substring mode of sweep.py --skel, which the row's own rejected_alternative implicitly relied on and which the hazard catalog flags as a contained-substring trap for short tokens). The word-bound bare form (e.g. אִ֑ישׁ at 20:5) occurs in 53/915 verses -- distinct from both primaries' cited 87-verse *contiguous-substring* count (sweep.py --skel, independently re-run and confirmed at 87), which is a different, looser object. Same-verse co-occurrence of a bare word-bound token with a waw-prefixed word-bound second instance occurs in EXACTLY 2/915 verses book-wide: Prov.20.5 (אִ֑ישׁ ... וְאִ֖ישׁ) and Prov.20.6 (אִ֣ישׁ ... וְאִ֥ישׁ) -- precisely the adjacent pair under review, and nowhere else in the book. No contained-substring trap (exact whitespace-token match, not skeleton substring) and no prefix trap (the waw-prefixed token is matched as its own exact token, never as a match inside a longer word). Cross-checked against the M8_fable Prov book strategy §6 owner ruling (2026-08-18): 'construction runs like consecutive tov-min sayings' are explicitly named as qualifying C2 cohesion evidence, distinct from a bare shared THEME (over-clustering). The row's rejected_alternative tested only the generic noun-frequency object (the wrong, looser object) and never tested this specific construction. The digit holds: this is a wrongly-rejected genuine construction-run as to the object tested.",
+   "remedy": "Work order for the author wave: rewrite P09-005's rejected_alternative to name and test the correct object -- a word-bound bare man-noun co-occurring with a word-bound waw-prefixed second instance of the SAME noun in the SAME verse -- and disclose the sweep digit (2/915 book-wide, both hits this adjacent pair) alongside the superseded looser count (87/915 contiguous-substring). Cure test: re-run the word-bound same-verse co-occurrence sweep (whitespace-token equality against consonantal_index.json, not sweep.py --skel's substring mode) and confirm it still returns exactly {Prov.20.5, Prov.20.6} -- the test that exposed the original defect. Do NOT resolve the 20:5-20:6 cluster-adoption question at this tier: the construction-run finding is real §6-qualifying cohesion evidence and may warrant reconsidering the single_proverb call for 20:5-20:6, but flag it to the boss round as a PROPOSAL only -- adopting a respan is an owner-level boundary decision, not a peer ruling.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c19",
+   "row_id": "P09-006",
+   "source": "OL",
+   "challenge_claim": "Mirrors P09-005 from the 20:6 side: the rejection of a 20:5/20:6 cluster uses the same common-noun framing and misses the same book-wide-unique same-verse doubling construction.",
+   "ruling": "uphold",
+   "grounds": "Same independent re-derivation as P09-005 (single sweep covers both rows: the construction is a property of the adjacent PAIR, not of either verse alone). Prov.20.6 itself carries the construction internally (אִ֣ישׁ ... וְאִ֥ישׁ), matching 20:5's own internal instance (אִ֑ישׁ ... וְאִ֖ישׁ). Word-bound bare-token count is 53/915 (matches the row's 'recurs so often' premise for the bare noun, and matches the 87/915 contiguous-substring figure both primaries cited as the different, looser object); same-verse bare+waw-prefixed doubling is exactly 2/915, both Prov.20.5 and Prov.20.6. The row's dismissal treats this as a generic-noun echo rather than checking the specific, rare, shared construction -- same underlying defect as P09-005, argued from the 20:6 side of the same rejected pair.",
+   "remedy": "Same work order as P09-005, applied to P09-006's rejected_alternative (name the same-verse bare+waw-prefixed construction, disclose the 2/915 digit, retest with the same whitespace-token sweep). The two rows share one underlying defect and one cure pattern but each needs its own sentence rewritten since each carries its own rejected_alternative field. Cluster-adoption question is the same single BOSS PROPOSAL as flagged under P09-005 -- do not duplicate the escalation, one boss-round item covering both rows.",
+   "severity_final": "high"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P09-016",
+   "claim_checked": "Load-bearing claim: 20:16/20:17 is a genuine pointed homograph (Qal perfect עָ֣רַב 'he stood surety' vs. adjective עָרֵ֣ב 'sweet/pleasant', same three root letters, differing only in the vowel under resh), and Prov.20.16 carries a single-witness ketiv/qere note per pmarks_Prov.json.",
+   "result": "verified",
+   "notes": "Independently re-derived at codepoint level: עָ֣רַב = AYIN, QAMATS, (munah), RESH, PATAH, BET; עָרֵ֣ב = AYIN, QAMATS, RESH, TSERE, (munah), BET -- confirmed same triliteral root, distinct vowel under resh (patah vs tsere), matching both primaries' claim exactly. pmarks_Prov.json kq['Prov.20.16'] = 1, matching the row's disclosed single-witness ketiv/qere note; the verse's own word list shows the unpointed ketiv token immediately preceding the pointed qere token, matching the INLINE-KETIV pattern in the toolkit. No defect found."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 6,
+  "uphold": 6,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

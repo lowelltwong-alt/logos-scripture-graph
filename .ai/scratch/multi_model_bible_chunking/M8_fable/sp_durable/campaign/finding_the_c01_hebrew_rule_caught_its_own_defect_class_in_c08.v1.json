@@ -1,0 +1,42 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_the_c01_hebrew_rule_caught_its_own_defect_class_in_c08",
+ "recorded_at": "2026-09-15T17:55:03.150437+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "A CLOSED CORRECTION LOOP, recorded as carefully as a failure would be. An incident produced a rule; the rule caught the same defect class in a later execution, before it reached anything downstream.",
+ "severity": "no harm. Recorded because a control that fires is evidence about the control, and a campaign that only writes down its failures cannot tell which of its rules are load-bearing.",
+ "the_original_incident": {
+  "what": "ezek_pr_OL_c01_a1#e1 wrote a ketiv/qere form as a morpheme-separated composite, presented it as the source notation, and neither string existed in the witness; it had merged fragments of two words and written U+0594 ZAQEF QATAN where the source carries U+05A5 MERKHA. Its substantive conclusion was correct and its evidence was invented.",
+  "finding": "campaign/finding_ol_primary_assembled_a_hebrew_quotation.v1.json",
+  "finding_sha256": "007dcd9926df198e86052cb75b7e533cc467889b1a3184c75c339abe0614aa07",
+  "the_rule_it_produced": "brief v2 added COPY-NEVER-ASSEMBLE to both lanes: copy the exact substring, verify it programmatically before writing it, name a variant site rather than rendering it, and - the operative clause - re-run EVERY Hebrew run in the finished deliverable against the witness by exact path before returning, reporting the count checked."
+ },
+ "what_happened_in_c08": {
+  "execution": "ezek_pr_OL_c08_a1#e1",
+  "defect_in_its_own_first_build": "the Hebrew quotations were hand-transcribed as escape sequences, corrupting accents in 16 of 19 runs - for instance U+0593 SHALSHELET written where MT 18:9 carries U+05A3 MUNACH",
+  "same_class_as_c01": "yes, and specifically the accent-substitution arm of it. c01 substituted one accent; this build substituted accents across 16 runs.",
+  "what_caught_it": "the brief's mandated pre-return collation - the clause written in response to c01",
+  "when_it_was_caught": "BEFORE return. The corrupted build was never handed to the orchestrator or landed.",
+  "root_cause_the_agent_found": "hand-authored escape sequences instead of a copy out of the witness",
+  "durable_cure_the_agent_installed": "in its own builder: every Hebrew string is sliced out of the witness at runtime by verse ref and word index, each slice is asserted to be an exact substring of the line it came from, and the script REFUSES TO WRITE otherwise; two repeated clauses are additionally asserted byte-equal",
+  "re_verification": "0 of 19 runs absent from the witness after the rebuild",
+  "self_disclosed": true,
+  "disclosure_was_unprompted": true,
+  "landed_with_form_problems": 0
+ },
+ "why_this_is_worth_a_record": "the campaign's error ledger is long and its list of controls is longer, and almost nothing in either says which control has ever actually stopped something. This one did, on the exact class it was written for, three clusters after it was written, inside an agent that had no way to know the incident had happened - the brief states the incident but names no execution, and blindness keeps c01's packet out of reach. The control is therefore load-bearing and must not be dropped from a later brief as boilerplate.",
+ "the_shape_worth_generalising": "the rule that worked is not 'be careful with Hebrew'. It is a MANDATED MECHANICAL RE-CHECK OF THE FINISHED ARTEFACT AGAINST ITS SOURCE, with the count reported. The agent could not satisfy it by intending to be correct; it had to run the check, and the check failed, and it fixed the generator rather than the output.",
+ "what_this_does_not_show": "it does not show the wave is free of the defect. It shows the check fires. c01 landed before the rule existed, and the one remaining unverified surface is any Hebrew in a v1 packet, which the brief-version record already routes to the boss and the final check.",
+ "the_disclosure_was_itself_nearly_lost": "this finding could not be written at first: the landing tool carried the agent's unresolved_uncertainty and E-19 self-report into the receipt but DROPPED `changes_made_or_no_change`, which is where this disclosure lived, so it existed nowhere under SP. Caught by the assertion in this very script, which refused to write a finding resting on a runtime message. Cured additively in Ezek/primaries_self_disclosure.v1.json for all 22 landed executions, and forward in the landing tool itself (preimage 01906f04959e606c, postimage d4503d49f91eb0b5). Realised exposure was one disclosure: LF c05's deviation was already durable because it was disclosed inside the E-19 field, which the receipt does carry.",
+ "measured_from": {
+  "durable_disclosure": "Ezek/primaries_self_disclosure.v1.json",
+  "durable_disclosure_sha256": "9785d5c0faba135f06c10dd37c813ef3866a1c91466fe9163ea43ef3f1cc15a7",
+  "landing_receipt": "Ezek/reviews/ezek_primaries_attempt_receipts.jsonl",
+  "packet": "Ezek/reviews/rev_OL_c08.json",
+  "packet_sha256": "d9135fad5757c5a02cf593cfd614b29ab364e8e86b66d20095ca7fff016904b7",
+  "packet_supports": 1,
+  "packet_challenges": 5
+ },
+ "limit": "a record about a control, not about a row; no boundary, verdict or digest changes"
+}

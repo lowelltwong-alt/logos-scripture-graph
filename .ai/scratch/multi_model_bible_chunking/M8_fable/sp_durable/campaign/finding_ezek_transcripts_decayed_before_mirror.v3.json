@@ -1,0 +1,44 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "ezek_completed_transcripts_decayed_to_zero_bytes_before_mirror",
+ "revision": 3,
+ "supersedes": "finding_ezek_transcripts_decayed_before_mirror.v2.json (retained beside this file; v1 retained too)",
+ "recorded": "2026-09-10",
+ "recorded_by": "orchestrator (claude-opus-5)",
+ "book": "Ezek",
+ "class": "evidence_loss",
+ "severity": "medium",
+ "why_a_revision": "The writer wave finished. This revision records the FINAL census for the eleven writers and the four Phase-0 executions; v2's classification of behaviours A and B stands unchanged and is confirmed by the last four landings.",
+ "final_census_writer_wave_and_phase_0": {
+  "completed_executions": 15,
+  "durable_transcripts": 4,
+  "lost_for_layer_A": 11,
+  "durable": [
+   {"execution": "ezek_strategy_a1#e1", "behaviour": "A"},
+   {"execution": "ezek_writer_p01_a1#e1", "behaviour": "A"},
+   {"execution": "ezek_writer_p02_a1#e1", "behaviour": "A (grew visibly across five mirror passes: 302,889 -> 786,553 bytes)"},
+   {"execution": "ezek_writer_p09_a1#e1", "behaviour": "A (1,080,429 bytes captured at landing)"}
+  ],
+  "lost": [
+   {"execution": "ezek_p0_recheck_a1#e1", "behaviour": "unknown - first observed after landing"},
+   {"execution": "ezek_p0_delta_a1#e1", "behaviour": "unknown - first observed after landing"},
+   {"execution": "ezek_p0_r3_a1#e1", "behaviour": "unknown - first observed after landing"},
+   {"execution": "ezek_writer_p04_a1#e1", "behaviour": "unknown - first observed after landing"},
+   {"execution": "ezek_writer_p10_a1#e1", "behaviour": "unknown - first observed after landing"},
+   {"execution": "ezek_writer_p06_a1#e1", "behaviour": "B - zero bytes during the run and at landing"},
+   {"execution": "ezek_writer_p07_a1#e1", "behaviour": "B - zero bytes during the run and at landing"},
+   {"execution": "ezek_writer_p11_a1#e1", "behaviour": "B - zero bytes during the run and at landing"},
+   {"execution": "ezek_writer_p05_a1#e1", "behaviour": "B - zero bytes during the run and at landing"},
+   {"execution": "ezek_writer_p03_a1#e1", "behaviour": "B - zero bytes during the run and at landing"},
+   {"execution": "ezek_writer_p08_a1#e1", "behaviour": "B - zero bytes during the run and at landing"}
+  ]
+ },
+ "what_the_census_does_and_does_not_show": [
+  "Behaviour B accounts for six of the eleven losses and was observable before landing on every census. No orchestrator cadence could have preserved it.",
+  "Behaviour A was preserved every time it was mirrored while it was still present. The five 'unknown' losses all landed before the first mirror pass of the book ran; had the mirror run during those executions, some might have been saved. That is the part of this loss the orchestrator's own cadence can be held accountable for.",
+  "No mechanism is inferred. Two A transcripts and six B transcripts came from agents given the same model and effectively the same brief."
+ ],
+ "consequence": "For the writer wave, OW-6 stage-1 transcript auditors can read four of fifteen runs. Every deliverable and every OW-8 layer-C record survives. Under OW-8 this is an evidence gap, not a defect and not a stop condition. How the whole-book final audit of a HARD book carries it is routed to the controlling agent as queue item Q8 (sp_durable/Ezek/ezek_controlling_agent_queue.v1.json).",
+ "control_status": "unchanged from v2: mirror on every landing and during runs (preserves A); classify each running execution as A or B on every census; a runtime-capture change is the only remedy for B and remains the separate open owner decision under OW-8(f).",
+ "impact_on_the_corpus": "NONE. No row depends on a transcript."
+}

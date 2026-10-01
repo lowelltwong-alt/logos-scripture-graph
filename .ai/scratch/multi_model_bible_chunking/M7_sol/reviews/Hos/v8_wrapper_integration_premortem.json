@@ -1,0 +1,210 @@
+{
+  "schema_version": "m7_hosea_v8_wrapper_integration_premortem.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "model_id": "M7_sol",
+  "reviewer_role": "fresh_independent_adversarial_wrapper_integration_premortem",
+  "review_mode": "read_only_exact_hash_static_control_flow",
+  "reviewed_wrapper": {
+    "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+    "sha256": "bd147fcb1455fe4dcda707e1ddbe68482bde2eac090df0c004c671f5a277c645",
+    "exact_hash_match": true
+  },
+  "verdict": "FAIL",
+  "proceed_to_post_restart_prepare": false,
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "prepare_authorized": false,
+  "risk_assessment": {
+    "consequence": 5,
+    "uncertainty": 4,
+    "reversibility": 5,
+    "propagation": 3,
+    "tier": "high",
+    "escalation": "sol_high_checker_plus_boss_plus_explicit_human_owner"
+  },
+  "decision": "Whether the frozen V8 wrapper is safe to take through a post-restart prepare and later use as the mechanical gate for one 13-target Hosea candidate publication.",
+  "recommended_call": "Do not run post-restart prepare with this frozen wrapper. Repair the prepare-scope violation and replace self-asserted authorization/quiescence JSON with a current, trusted, mechanically bound gate; then freeze a new wrapper generation and repeat independent checking.",
+  "blocking_findings": [
+    {
+      "finding_id": "V8-WRAPPER-PREPARE-SCOPE-001",
+      "severity": "P1_CRITICAL",
+      "title": "Prepare can delete or replace predictable out-of-scope probe leaves through pathname operations",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "528-549",
+          "observation": "replacement_probe derives predictable PID-based source and target names, unconditionally calls unlink(missing_ok=True) before creation and again in finally, and uses pathname os.replace."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "1558-1582",
+          "observation": "prepare_v8 invokes replacement_probe in canonical target parent directories before archive/stage construction, without the rooted primitive, held parent identity, source-handle ownership, or exact-created-object cleanup."
+        }
+      ],
+      "failure_mode": "A stale or adversarial leaf with the reused PID name can be deleted even though it is not one of the 13 targets. A parent-path or reparse substitution between pin verification and the probe can divert the probe's create, replace, or cleanup outside the intended directory. Therefore prepare itself violates the exact mutation-scope premise.",
+      "required_resolution": "Remove the pathname replacement probe or replace it with the already qualified root-handle-relative primitive using unguessable exclusive names and cleanup bound to the exact created object. Never unlink a pre-existing probe name. Add collision, parent swap, reparse, and cleanup-interruption tests before freezing a new generation."
+    },
+    {
+      "finding_id": "V8-WRAPPER-HUMAN-AUTH-002",
+      "severity": "P1_CRITICAL",
+      "title": "A locally fabricated JSON object can impersonate Lowell's human authorization",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "1992-2139",
+          "observation": "validate_authorization_artifacts accepts authorized_by, authorization_basis, the copied exact acknowledgment text, authorization_id, boot identity, timestamps, and true booleans from an ordinary local JSON file; no trusted owner-origin token or cryptographic provenance is verified."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_environment_gate_premortem.json",
+          "observation": "The frozen premortem explicitly says Codex cannot truthfully verify the cryptographic identity of the human who authored local JSON."
+        }
+      ],
+      "failure_mode": "Any process able to write a direct reviews/Hos member can copy the acknowledgment text from the wrapper, claim authorized_by Lowell Wong, and satisfy the closed schema. The artifact is also required to say authorizing=false even though the wrapper treats it as authority to mutate candidate files, obscuring the actual effect boundary.",
+      "required_resolution": "Treat the local JSON as evidence only. Require a trusted runtime-provided owner approval receipt or human-operated one-shot token whose provenance the model cannot fabricate, and durably bind that receipt to the exact wrapper, tests, prepare receipt, checker, boss, target list, and transaction. Record the narrowly authorizing mutation scope honestly while preserving candidate-only/non-promotion limits."
+    },
+    {
+      "finding_id": "V8-WRAPPER-STALE-ENV-003",
+      "severity": "P1_CRITICAL",
+      "title": "The wrapper does not prove that restart, OneDrive exit, process quiescence, or exclusive-open evidence is current",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "2008-2139",
+          "observation": "windows_restart_after_frozen_v8_hashes and all quiescence results are trusted booleans; post_restart_boot_identity is only required to be a nonempty string. There is no comparison with the current boot, OS build, filesystem volume, held parent identities, live process inventory, or live OneDrive state."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "2125-2138",
+          "observation": "Chronology enforces restarted <= snapshot <= issued <= now < expires and a one-hour issue window, but it sets no maximum snapshot age, proves no restart-after-freeze timestamp, and does not require meaningful time remaining when publication starts."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/v8_environment_gate_premortem.json",
+          "observation": "The exception is supposed to expire if OneDrive or any excluded writer starts or if OS, filesystem, root, target, lock, journal, marker, sentinel, or receipt state changes; the wrapper does not mechanically re-evaluate those expiration triggers."
+        }
+      ],
+      "failure_mode": "A stale receipt can remain schema-valid after OneDrive or another writer starts, after a reboot changes, or after the bounded snapshot is no longer relevant. This defeats the conditional architecture's only mitigation for the known destination-entry lost-update and post-readback overwrite races.",
+      "required_resolution": "Bind a trusted freeze timestamp and current boot/OS/NTFS volume/root identities; perform the live process, OneDrive, writer, target, and exclusive-open checks immediately before the transaction; impose a short snapshot-to-entry freshness bound and sufficient remaining authorization window; keep or revalidate those conditions through completed state."
+    },
+    {
+      "finding_id": "V8-WRAPPER-AUTH-BINDING-004",
+      "severity": "P1_HIGH",
+      "title": "The completed transaction does not durably bind the checker, boss, human exception, or legacy-process gate that authorized it",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "2790-2855",
+          "observation": "transaction_context hashes review evidence only into an in-memory invariant closure after parsing it."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "2316-2372",
+          "observation": "The actual-published manifest and prose-free receipt bind the transaction intent and published targets but do not bind the exact checker, boss, boss invocation, human environment exception, legacy-process gate, or their paths/hashes."
+        }
+      ],
+      "failure_mode": "A completed publication cannot be defended from its receipt alone as having used a particular human authorization and quiescence gate. Replay or recovery can be presented with different direct-member evidence files, and a parse-to-hash substitution race can leave the in-memory validated object different from the artifact later monitored by hash.",
+      "required_resolution": "Create a closed authorization manifest from exact validated bytes/handles and bind its hash and path into the immutable transaction core and durable completion receipt. Re-read or hold evidence handles so parsed content and bound bytes are identical."
+    },
+    {
+      "finding_id": "V8-WRAPPER-EVIDENCE-005",
+      "severity": "P1_HIGH",
+      "title": "Current wrapper tests and future PASS JSON shape checks do not establish the claimed adversarial schedules",
+      "evidence": [
+        {
+          "paths": [
+            "tests/test_hos_semantic_prose_rematerialization_v8.py",
+            "tests/test_hos_semantic_prose_rematerialization_v8_prepare_resume.py",
+            "tests/test_hos_semantic_prose_rematerialization_v8_transaction.py"
+          ],
+          "observation": "The inspected tests are mainly source-token, signature, and early-gate assertions; they do not execute a 13-target publish/recovery matrix, live rooted adapter, environment staleness/forgery, authorization substitution, or post-completed races."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Hos/rematerialize_semantic_prose_v8.py",
+          "line_span": "1646-1730",
+          "observation": "validate_failure_evidence accepts self-reported PASS case names and test-run summaries; evidence_id need only be a nonempty string, and commands are not bound to exact test hashes or machine-generated outputs."
+        }
+      ],
+      "failure_mode": "A syntactically complete failure-evidence/checker/boss chain can claim coverage that was never executed. Green kernel and primitive suites do not prove their wrapper integration.",
+      "required_resolution": "Add executable integration tests for every required wrapper schedule and generate immutable machine receipts that bind exact test, wrapper, kernel, primitive, environment-adapter, command, output, and exit-status hashes. Independently rerun the material cases before boss adjudication."
+    }
+  ],
+  "positive_findings": [
+    "The exact wrapper hash matches the assigned frozen SHA-256.",
+    "The wrapper pins the accepted kernel-v5 and conditional rooted-primitive artifacts while preserving the V7 FAIL and the V5/V6 transaction FAIL verdicts.",
+    "V5/V6 reuse is limited to independently passed content and requires byte identity for all 13 staged targets; their failed transaction verdicts are explicitly not reused.",
+    "The canonical adapter has an exact 13-target allowlist, rejects non-regular/reparse current targets, admits only preimage/staged bytes, and applies the rooted primitive to forward and rollback canonical writes.",
+    "Kernel v5's exact independent PASS covers acquisition-specific locks, enforced recovery markers, BaseException transitions, immutable target/auxiliary core binding, and rollback-only process-crash recovery within its stated scope.",
+    "The wrapper and frozen architecture explicitly disclaim portability, power-loss durability, 13-file set atomicity, global-sidecar installation, promotion, and completion."
+  ],
+  "accepted_residual_risks_only_after_blockers_close_and_lowell_explicitly_accepts": [
+    "A non-cooperating or pre-opened writer may replace the destination entry between precheck and rename, causing a lost update.",
+    "A writer may alter the destination after rooted readback or after completed state; postpublication checking narrows but cannot eliminate this race.",
+    "Process and handle inventory is bounded and non-exhaustive.",
+    "Recovery is process-crash rollback only; it is not power-loss durable.",
+    "The 13 files are not an all-or-nothing atomic set.",
+    "The same-model review mesh remains one correlated candidate voice and is not external-model or human convergence."
+  ],
+  "best_counterargument": "Prepare does not intentionally mutate the 13 canonical targets, the PID probes are short-lived capability checks, publication is separately gated by multiple exact-schema artifacts, kernel v5 is strongly crash-tested, and Lowell may knowingly accept the remaining writer races for this one candidate-only operation.",
+  "response_to_counterargument": "The counterargument does not close the two decisive control failures: prepare performs unguarded destructive pathname cleanup outside the target tuple, and the later gate cannot distinguish a current owner-authorized quiescent environment from copied or stale local JSON. Candidate-only scope reduces downstream authority but does not make an unintended file deletion, lost update, or fabricated owner gate acceptable.",
+  "premortem_30_day_failure": [
+    {
+      "cause": "A reused PID collides with a stale probe leaf and prepare deletes it.",
+      "early_warning": "A .t550-v8-replace-probe-* member exists before prepare or a parent identity changes.",
+      "kill_criterion": "Any pre-existing probe member, reparse/identity uncertainty, or out-of-tuple write attempt blocks the generation."
+    },
+    {
+      "cause": "A locally authored environment JSON is mistaken for Lowell's authorization or survives after OneDrive restarts.",
+      "early_warning": "No trusted owner provenance, no current boot comparison, old snapshot, or live process state differs from the receipt.",
+      "kill_criterion": "Absent trusted owner provenance or any stale/quiescence mismatch blocks prepare/publication; do not infer consent from file content."
+    },
+    {
+      "cause": "A concurrent writer's newer destination bytes are overwritten and were never archived.",
+      "early_warning": "Target identity/hash changes, OneDrive or writer appears, rooted result/readback differs, or postpublication check fails.",
+      "kill_criterion": "Stop forward action, retain journal/marker/lock evidence, classify unknown, and require human-directed recovery; never overwrite unknown bytes."
+    },
+    {
+      "cause": "A later audit cannot prove which checker, boss, and human receipt authorized the completed transaction.",
+      "early_warning": "Completion receipt lacks an authorization-manifest hash or review files can be substituted without changing transaction core.",
+      "kill_criterion": "No publication until exact authorization evidence is immutable-core bound."
+    }
+  ],
+  "rollback_and_kill_criteria": [
+    "Do not run --prepare, --publish, or --recover with this frozen wrapper.",
+    "Do not create a V8 attempt, preparation receipt, environment authorization artifact, journal, lock, marker, actual-published manifest, or application receipt from this generation.",
+    "If any canonical target or global sidecar differs from its frozen hash, stop and preserve the bytes; do not overwrite an unknown state.",
+    "If a future publication enters recovery_required, allow only exact_stage-to-exact_preimage rollback with the same rooted primitive and exact archive; unknown remains held for human handling.",
+    "Any claim of portability, deterministic writer exclusion, power-loss durability, set atomicity, external review, promotion, or completion is a hard stop."
+  ],
+  "preserved_dissent": {
+    "position": "STRICT_BLOCK",
+    "reason": "Even after the integration blockers are repaired, the destination-entry lost-update and final-check-to-completed races remain unclosed because replacement requires delete sharing. A reviewer may reasonably require an offline or deterministically writer-excluded environment instead of accepting a scoped exception.",
+    "status": "PRESERVED_FOR_BOSS_HUMAN_OR_EXTERNAL_AI_REVIEW",
+    "forced_consensus": false
+  },
+  "validation": {
+    "methods": [
+      "exact SHA-256 verification of the assigned wrapper",
+      "static control-flow inspection of prepare, qualification, authorization, transaction-context, rooted-adapter, publish, and recovery paths",
+      "inspection of the three frozen V8 wrapper test files",
+      "inspection of V7 kernel/wrapper FAIL artifacts and V8 kernel, rooted-primitive, architecture, and environment-gate artifacts"
+    ],
+    "runtime_actions": [],
+    "tests_run_by_this_reviewer": [],
+    "v8_attempt_observed_absent_before_report": true,
+    "shared_mutation_lock_observed_absent_before_report": true
+  },
+  "actions_not_taken": [
+    "did_not_run_prepare",
+    "did_not_run_publish",
+    "did_not_run_recover",
+    "did_not_run_runtime_probe",
+    "did_not_modify_wrapper_tests_kernel_primitive_or_prior_evidence",
+    "did_not_modify_canonical_targets",
+    "did_not_modify_global_sidecars",
+    "did_not_create_authorization_or_completion_evidence"
+  ],
+  "candidate_only": true,
+  "non_authorizing": true,
+  "authorizing": false,
+  "next_action": "Preserve this FAIL append-only. Repair all five findings in a new immutable wrapper generation, freeze exact hashes, obtain fresh independent transaction and premortem checks, then return to boss and Lowell. Do not restart into or prepare this frozen V8 generation."
+}

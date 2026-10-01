@@ -1,0 +1,48 @@
+--- SP/Ezek/tools/TOOLKIT.md (installed 2b602174cadf)
++++ proposals/toolfix2_batch2/staged/TOOLKIT.md (staged 54156f588119)
+@@ -91,7 +91,8 @@
+ - **BUT: `puncta extraordinaria` ARE present — exactly TWO sites, MT 41:20 and
+   MT 46:22.** They are the one special-mark class Ezekiel does have. A claim of
+   them anywhere else is a fabrication, and a claim at those two needs
+-  single-witness disclosure.
++  single-witness disclosure (citation_sweep fails a true puncta ref without it, as it does
++  a mark, small-letter or paseq ref; in prose that symmetry is model territory).
+   **CORRECTED 2026-09-08:** this entry previously said they were "carried in the
+   OSHB note layer, not in the verse bytes". That was **wrong** and the Fable
+   strategy author refuted it from the bytes. The dots are present in the staged
+@@ -274,8 +275,8 @@
+ | tool | contract |
+ |---|---|
+ | `run_validator_suite.py rows.jsonl` | runs every member; writes `<rows>.validator_report.json` beside its input. HARD members: citation_sweep, the normalizer (E-01), ngram7, cap_sweep (E-02) |
+-| `citation_sweep.py` | ref grammar and ranges, zone duals, mark / paseq / K/Q / puncta claims on refs, calendar-date onsets and dateline claims, Hebrew-quote binding |
+-| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere; NFD-only matches stay defects |
++| `citation_sweep.py` | ref grammar and ranges, zone duals, mark / paseq / K/Q / puncta claims on refs, calendar-date onsets and dateline claims, Hebrew-quote binding in prose and, for Hebrew inside a ref entry, to that entry's own ref or a ref it names (S1-06) |
++| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere, ending on a grapheme boundary (a splice cut inside a grapheme is a defect: S1-07; `collate_hebrew` applies the same rule at its byte and nfd tiers); NFD-only matches stay defects |
+ | `check_marks.py` | mark, K/Q and puncta claims in prose; mark-disclosure symmetry (FLAGS) |
+ | `check_language_zones.py` | Aramaic labels — Ezekiel is Hebrew throughout |
+ | `cap_sweep.py` | a whole-chapter row is capped at medium_low, frontier-flagged and disclosed |
+@@ -286,6 +287,10 @@
+ `check_register.py`, `ngram7.py`, `check_tiling.py`, `collate.py`, `sweep.py`,
+ `check_atomic_isolation.py`, `_punct_boundary_sweep.py` — state their contracts in their
+ own docstrings.
++
++`check_register.py` also reads the annotation of every ref entry, and carries arms for repair history, positional row
++references, strategy citations and governance posture (S1-05). `check_web_quotes.py` names each flag's decision_id
++(S1-10).
+ 
+ **Where Ezekiel's tools differ from Jeremiah's** (each case tested in `_test_zone_tools_ezek.py`):
+ the numbering zone is WEB 20:45-21:32 / MT ch 21; there is no special-letter seg of any
+@@ -299,6 +304,13 @@
+ problem in citation_sweep, a flag in check_marks). With no number written, the row's span
+ or the ref's range decides. A negator earlier in the same comma-delimited clause makes the
+ claim a denial, and two adjacent negators cancel ("not without puncta" asserts them). A
++denial may also FOLLOW the mention inside its clause, read through a parenthetical opening
++directly after it, but only as one of a closed set (`but none`, `though none`, `none stands`,
++`none is present`, and `is absent` / `is missing` at the clause end); dateline claims use
++the same test. So `45:18, where a dateline would be expected but none stands` is a denial,
++while `opens no new year`, `none of` and `is missing its year word` are not, and a denial
++behind a comma stays outside the clause. Digits that follow a letter directly (`R4.5`) are
++an id, never a verse number. A
+ QERE tier accepts a Qere (which lives in the note layer, never in the verse bytes) only
+ when a ketiv/qere keyword stands in the same sentence within 160 characters of the quote,
+ and it compares the quote with the note's RAW bytes as split by `kq_split_bytes`: 66 of the

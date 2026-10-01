@@ -1,0 +1,41 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_retained_lows_current_binding_is_not_where_a_reader_looks",
+ "recorded_at": "2026-09-15T14:04:16.926467+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15",
+ "book": "Ezek",
+ "class": "a record that is CORRECT but whose current value is not at the key a careful reader reads, so it invites exactly the churn the record exists to prevent",
+ "severity": "low. Nothing in the record is wrong and no finding rests on the misreading, because the reviewer that hit it reported it as an uncertainty instead of acting. The cost is reviewer effort, repeated once per execution that reads the file - and the risk that a less careful lane calls a retained low stale and reopens a settled row, which is the precise churn EZEK-P0-LOW-1 was retained to stop.",
+ "self_disclosed": false,
+ "found_by": "ezek_pr_LF_c05_a1#e1, in its unresolved_uncertainty",
+ "what_the_reviewer_saw": {
+  "key_read": "bound_to_artifacts['tools/TOOLKIT.md']",
+  "value_there": "06b0e7a6379b30deff2662009f6b20dd4fbc408333944c95f3111e305f2a57ee",
+  "live_toolkit_sha256": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6",
+  "reviewer_conclusion": "'whether EZEK-P0-LOW-1 still describes the live bytes is unknown from here'; reported per the pinned-inputs rule and explicitly NOT patched"
+ },
+ "what_is_actually_the_case": {
+  "current_binding_lives_at": "bound_to_artifacts_rebinds[-1]['tools/TOOLKIT.md']",
+  "value_there": "b247cea5b0af11a7708b5b0a53383d4b5abd9940b016e045bd1f317d97c1c0b6",
+  "equals_live_bytes": true,
+  "rebind_entries_for_the_toolkit": 2,
+  "both_low_cures_are_in_the_live_text": {
+   "EZEK-P0-LOW-1": true,
+   "EZEK-P0-LOW-2": true
+  },
+  "so": "the record is not stale in any respect. Both retained lows' offered cures were folded into the live toolkit exactly as their 'handling' clauses said they would be, and the newest rebind binds the live digest. The reviewer read a key that is deliberately historical."
+ },
+ "why_the_design_is_right_and_still_misleads": "the record says so itself: 'bound_to_artifacts is unchanged. It carries the digests the round-3 distinct checker accepted, and overwriting it would erase what that review accepted.' Rebinds are additive by ruling Q3-1. That is the correct choice - a mutable binding would destroy what a review accepted. The defect is only that the historical key carries no pointer to the current one, so a reader opening the file by exact path and reading the obvious key gets a digest that has not matched the live file since 2026-09-11.",
+ "cure": {
+  "in_the_record": "one pointer line beside bound_to_artifacts saying these are the digests round 3 accepted and that current bindings are the newest bound_to_artifacts_rebinds entry. Per the retained-lows convention this is folded into the NEXT edit made for another reason, so it costs no review round of its own, and it is NOT applied here: the file is a record a distinct checker accepted, and 28 primary executions are still to read it.",
+  "in_the_primaries_brief": "both briefs gain one sentence for the remaining 28 executions: the retained-lows top-level binding is historical, the newest rebinds entry is current, and a mismatch there is not a finding. This is what the batch bought - the cheapest possible prevention, applied once instead of re-derived 28 times."
+ },
+ "independently_resolved_correctly_by_the_other_lane": {
+  "who": "ezek_pr_OL_c05_a1#e1, blind to the LF lane",
+  "what_it_concluded": "'the file at its current digest already carries both cures that record offered, so the drift reads as the intended folding of those cures into a later edit' - the correct reading, reached from the same two files without the rebinds key being pointed out",
+  "verified_in_the_landed_packet": true,
+  "why_this_matters_for_the_cure": "two executions read the same record at the same digests; one was left uncertain and one resolved it. That is the signature of a readability defect rather than a data defect, and it is why the cure is a pointer line and not a rebinding."
+ },
+ "class_reference": "the same shape as finding_primaries_brief_printed_stale_device_counts: a reader-facing figure that is not the measured one, arriving from the opposite direction",
+ "limit": "documentation and reader-guidance only; no row, ruling, verdict or digest changes"
+}

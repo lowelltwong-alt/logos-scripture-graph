@@ -1,0 +1,91 @@
+{
+ "cluster": "c56",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c56_r1",
+ "routing_used": "sonnet+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-366",
+   "verdict": "challenge",
+   "reasoning": "The panel seam at 108:5|108:6 is well warranted independent of any single claim: the erratum-corrected composite record (Ps 108 = Ps 57 tail + Ps 60 tail, join at WEB 108:5|108:6 = MT 108:6|108:7) is machine-verified from the offset map, and the per-psalm yhwh/elohim tally the row cites (1/6) matches the device inventory exactly. unit_type strophe and parent 108 are correct; the row does not cross a psalm boundary. But the row overclaims its own best piece of evidence and under-supports another. First, the rationale states the 108:5 closing line 'aligns with Psalm 57's own doxology line word for word,' immediately after correctly hedging that the wider parallel does NOT run word for word throughout -- the specific claim contradicts the hedge; re-derived from verse_map_oshb.json the two lines differ by one letter and collate at no tier in either direction. Second, the row quotes Hebrew from Ps.57.12 in the same sentence as the overclaim without ever pairing it to a web: reference anywhere in boundary_evidence_refs (Ps 57 is a shift+1, non-identity psalm; the MUST dual-cite rule applies) -- citation_sweep.py confirms this is a real gap, not the refs-array-satisfied case the owner scope exemption covers. Third, the rejected_alternative argues that WEB Ps.108.6 is 'the verse whose wording turns to match Psalm 60' to justify not extending the row -- a substantive piece of the seam's own warrant -- but that verse is never listed in boundary_evidence_refs; check_refs_mirror.py flags it as argued-but-unmirrored. None of this unseats the seam placement itself, which independent evidence (the divine-name substitution Adonai->Yahweh, verified accurate against the erratum; the Elohistic tally) still supports.",
+   "challenges": [
+    {
+     "challenge_id": "LF-366-1",
+     "severity": "medium",
+     "claim": "The rationale asserts the Ps.108.5 (oshb:Ps.108.6) closing line 'aligns with Psalm 57's own doxology line word for word,' but the two lines are not verbatim at any collation tier.",
+     "evidence": "oshb:Ps.108.6 = “ר֣וּמָה עַל שָׁמַ֣יִם אֱלֹהִ֑ים וְעַ֖ל כָּל הָאָ֣רֶץ כְּבוֹדֶֽךָ” vs oshb:Ps.57.12 = “ר֣וּמָה עַל שָׁמַ֣יִם אֱלֹהִ֑ים עַ֖ל כָּל הָאָ֣רֶץ כְּבוֹדֶֽךָ” -- 108:6 carries a conjunctive vav before the second 'al' (וְעַל) that 57:12 lacks (עַל). collate_hebrew run both directions returns tier 'none' / 'none' (byte/nfd/accent_stripped/skeleton all fail the ordered-substring match at that one letter). The parallel is real and close (7 of 8 words identical) but is paraphrase-level, not word-for-word; the claim should name the actual tier."
+    },
+    {
+     "challenge_id": "LF-366-2",
+     "severity": "low",
+     "claim": "The row quotes Hebrew from Ps.57.12 (a shift+1, non-identity psalm) without any web:Ps.57.V = oshb:Ps.57.12 dual-cite pairing anywhere in boundary_evidence_refs.",
+     "evidence": "boundary_evidence_refs for this row contains only bare 'oshb:Ps.57.12', 'web:Ps.57.9', and 'oshb:Ps.57.10' -- no 'web:Ps.57.11 = oshb:Ps.57.12' pairing (web:Ps.57.11 is the correct WEB counterpart per ps_lib.mt_to_web(57,12), shift k=1). citation_sweep.py run against the cluster flags this exact instance: \"M8-Ps-366: oshb:Ps.57.12 beside Hebrew content in row.rationale (non-identity psalm) has no WEB arithmetic in-field (NO matching dual in refs either -- REAL dual-cite gap)\" -- distinct from the two other in-row citations the same tool marks as refs-array-satisfied (WARN-only, not filed here)."
+    },
+    {
+     "challenge_id": "LF-366-3",
+     "severity": "medium",
+     "claim": "rejected_alternative argues the content of WEB Ps.108.6 ('the verse whose wording turns to match Psalm 60') as part of the warrant for the panel seam, but that verse never appears in boundary_evidence_refs.",
+     "evidence": "check_refs_mirror.py run against the cluster flags: {\"decision_id\": \"M8-Ps-366\", \"argued_but_unmirrored\": [\"Ps.108.6\"]}. boundary_evidence_refs lists WEB verses only through Ps.108.5 for this row's own span plus the oshb:/web: citations into Ps 57; 'Ps.108.6'/'web:Ps.108.6' -- the verse whose content is argued to justify NOT extending the row -- is absent from the array."
+    }
+   ],
+   "row_sha256": "62deb220d86c2b35fb5ed82ac158d0570b9ead565001f6cfb9be47c9eb403309"
+  },
+  {
+   "decision_id": "M8-Ps-367",
+   "verdict": "challenge",
+   "reasoning": "The internal seam at 108:9|108:10 is the strongest kind of tier-1 evidence available in this book: a quoted first-person divine oracle (Shechem/Succoth/Gilead/Manasseh/Ephraim/Judah/Moab/Edom/Philistia, 108:7-9) closes and the psalmist's own rhetorical-question voice resumes at 108:10 with no intervening reported-speech verb bridging the two -- re-derived directly from the MT bytes, this holds. The rejected_alternative honestly discloses the rival (keep 108:6-13 as one eight-verse unit) and gives a textually grounded reason to prefer the narrower cut. unit_type/parent are correct and the row does not cross a psalm boundary. The one defect is mechanical: the rationale states 108:7's petition 'is close to oshb:Ps.60.7's own wording, not to anything in Psalm 57' -- a comparative claim (not a verbatim one, so no collation-tier issue), re-derived and confirmed correct (60:7 shares the wording with an inline ketiv before the qere that 108:7 lacks, but the row does not quote 60:7 so no K/Q disclosure was owed). However Ps 60 is a shift+2, non-identity psalm and the row cites oshb:Ps.60.7 beside Hebrew content with no web:Ps.60.V counterpart anywhere in the row.",
+   "challenges": [
+    {
+     "challenge_id": "LF-367-1",
+     "severity": "low",
+     "claim": "The row quotes/cites Hebrew tied to Ps.60.7 (a shift+2, non-identity psalm) without any web:Ps.60.V = oshb:Ps.60.7 dual-cite pairing anywhere in boundary_evidence_refs.",
+     "evidence": "boundary_evidence_refs = [\"web:Ps.108.6\", \"oshb:Ps.108.7\", \"web:Ps.108.7\", \"web:Ps.108.8\", \"web:Ps.108.9\", \"web:Ps.108.5\", \"web:Ps.108.10\", \"oshb:Ps.60.7\", \"web:Ps.108.13\"] -- no 'web:Ps.60.5' entry (web:Ps.60.5 is the correct WEB counterpart per ps_lib.mt_to_web(60,7), shift k=2). citation_sweep.py flags: \"M8-Ps-367: oshb:Ps.60.7 beside Hebrew content in row.rationale (non-identity psalm) has no WEB arithmetic in-field (NO matching dual in refs either -- REAL dual-cite gap)\"."
+    }
+   ],
+   "row_sha256": "ddaf61b91018ecc0f82a261df6821face5920ff92f8d9537828017812d488851"
+  },
+  {
+   "decision_id": "M8-Ps-368",
+   "verdict": "support",
+   "reasoning": "Re-derived from the MT bytes (mapped WEB 108:9-13 -> MT 108:10-14 via ps_lib.web_to_mt), the closing declaration (WEB 108:13 = MT 108:14) opens with a bare prepositional phrase, not a discourse particle (no ki/hinneh/ve'attah), so the row's claim that 108:13 carries 'no discourse marker separating it from the renewed petition of 108:10-12' holds on inspection -- a correct qualitative observation about a single verse, not a claim that needed a book-wide sweep (check_universals.py's flag on this phrase, and on this row's 'no intervening topic marker', reads as a false positive of its widened none/no lexicon; see toolkit note in the final report). The rejected_alternative (splitting 108:13 into its own row) is honestly disclosed and reasonably rejected on the same discourse-continuity ground. unit_type/parent correct, span tiles exactly against the preceding row, no psalm-boundary crossing. Confidence high is defensible -- the seam and its counter-seam are both textually clean.",
+   "challenges": [],
+   "row_sha256": "1f7d58ce300c21865ffb0a0a2c31c77d8b5bc474eb4ea8c550328dc2d6753dea"
+  },
+  {
+   "decision_id": "M8-Ps-369",
+   "verdict": "support",
+   "reasoning": "Title labels (mizmor, lamnatseach, le_david) match the device inventory's Ps 109 entry exactly, and the identity-numbering convention used throughout (web:V = oshb:V, no shift) matches web_mt_offset_map.json's rule for Ps 109 ('identity', confirmed_by_kjv_note). Re-derived directly from the MT bytes, the plural verb forms cited do run continuously through the span and give way to a singular pronoun at 109:6 exactly as claimed -- a clean, verse-anchored grammatical seam. unit_type strophe, parent 109 correct. Confidence high is warranted: this boundary does not depend on resolving the imprecation-voice question the next row honestly flags.",
+   "challenges": [],
+   "row_sha256": "617511e44231f963d30a943e489c3b269ef130be6c30cb5ef2b0291a55597608"
+  },
+  {
+   "decision_id": "M8-Ps-370",
+   "verdict": "support",
+   "reasoning": "The two digit-bearing sweeps in this row were independently re-run and both check out exactly: the fatherless-root skeleton sweeps to 4 verses book-wide (Ps.68.6, Ps.94.6, Ps.109.9, Ps.109.12) -- 2 of the 4 fall inside this row's own span as claimed. The row's most adversarially interesting move is honest, not evasive: it names the genuine minority reading (that 109:6-19 continues the accusers' own quoted curse rather than opening the psalmist's own imprecation) and correctly notes the Hebrew supplies no quotation-opening verb at the 109:5|109:6 seam to settle it -- re-derived from the bytes, that is accurate; the seam sits on a bare referent shift (plural to singular) with no reported-speech marker either way. Confidence medium is the right call given that live ambiguity, not an underclaim. unit_type/parent correct, no psalm-boundary crossing.",
+   "challenges": [],
+   "row_sha256": "c39853257b32eaa02e5b008273db3ab05d26eedeeef9cff4335c18e907f06ee8"
+  },
+  {
+   "decision_id": "M8-Ps-371",
+   "verdict": "support",
+   "reasoning": "Re-derived independently: the remembrance-root recurrence claimed across 109:14-16 is present exactly as described in the MT bytes, and the cursing-noun skeleton sweep returns exactly 2 hits book-wide, both at 109:17-18 as claimed. The rejected_alternative correctly identifies the one legitimate nearby rival (a split at 15|16) and rejects it on the same remembrance-root binding rather than hand-waving; the kinship-direction reversal at 13|14 (descendants -> fathers/mother) is a clean, verse-anchored seam independent of that internal question. unit_type/parent correct, tiles exactly with the surrounding rows. Confidence medium is reasonable given the internal 15|16 rival was live enough to need addressing.",
+   "challenges": [],
+   "row_sha256": "c9fa803abf0ae2cabc795c935bf90ba7ba51bb76fabcf048b8944479f94d52a2"
+  },
+  {
+   "decision_id": "M8-Ps-372",
+   "verdict": "support",
+   "reasoning": "The 20|21 seam is a strong tier-1 addressee shift: v20 closes the imprecation register in third person and v21 opens direct second-person petition to God. The closing seam at 27|28 (fronted-pronoun antithesis opening 109:28) is real and re-derives from the bytes; it is a narrower observation than a full register break (vv25 and 27 already reintroduce third-person material about the accusers inside the 21-27 petition, so 'sustained second-person address... unmatched elsewhere' slightly overstates the purity of the register, though the petition frame itself is not in question) -- not filed as a challenge since it does not affect the seam's validity, only a device_notes emphasis. unit_type/parent correct, no boundary crossing, tiles exactly. Confidence high is fair for the span decision itself.",
+   "challenges": [],
+   "row_sha256": "327bde9d80ad5f08a60c7dcc9684ddf4087c64a97ef3e84815f3988b2f4d0d89"
+  },
+  {
+   "decision_id": "M8-Ps-373",
+   "verdict": "support",
+   "reasoning": "Both sweep counts were independently re-run and match exactly: the medial-nun+suffix form (as in 109:6's 'at his right hand') returns 8 verses book-wide; the final-nun standalone form (as in 109:31's 'at the right hand of') returns 9 -- the two forms are correctly kept distinct per the book's final-letter-allography rule, and 109:6 does not fall inside the 9-count precisely because its form uses the medial nun + vav suffix. The claimed right-hand inclusio is textually sound: MT 109:6 does contain the verb 'ya'amod' immediately before its prepositional phrase, so the row's 'same verb and same root' claim for the adversary's post (109:6) versus the needy man's (109:31) is accurate even though the row's own quoted fragment for 109:6 shows only the prepositional tail. The device is correctly disclosed in device_notes as a whole-composition frame (Esth cross-seam-cohesion discipline), not smuggled in as this row's exclusive warrant. rejected_alternative (splitting 30-31 into its own coda) is honestly considered and reasonably rejected -- and correctly NOT labeled unit_type coda, since 109:30-31 is not one of the book's four named book-boundary doxology seams. unit_type/parent correct, tiles exactly, no boundary crossing.",
+   "challenges": [],
+   "row_sha256": "516b4717425d228bf55c94f9c69292d5c23a785af84a8a7e0fb325058adc4ccd"
+  }
+ ]
+}

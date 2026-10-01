@@ -1,0 +1,381 @@
+{
+ "attempt_id": "ezek_author_p05_a1",
+ "execution_id": "ezek_author_p05_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\AUTHOR_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\author\\orders_ezek_author_p05_a1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md (lines 1-488 of 600; sufficient for the needed sections)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\repair\\rows_v2_swept_r3.jsonl (read-only, copied to a private scratch copy)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\run_validator_suite.py (executed, PYTHONIOENCODING=utf-8)",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\check_tiling.py (executed, PYTHONIOENCODING=utf-8)"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "P05-001 replaced (decision_id P05-001)",
+    "why": "CWO-EZ-02 bound the unbound word-event quote in boundary_rationale to oshb:Ezek.22.1; all 6 strong_or_hebrew_tags_used entries reformatted to spliced Hebrew + oshb: ref (CWO-EZ-06); this also resolved the row's citation_sweep hard_finding"
+   },
+   {
+    "what": "P05-002 replaced",
+    "why": "all 4 strong_or_hebrew_tags_used entries reformatted to spliced Hebrew + oshb: ref (CWO-EZ-06)"
+   },
+   {
+    "what": "P05-003 replaced",
+    "why": "all 3 strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06)"
+   },
+   {
+    "what": "P05-004 replaced",
+    "why": "all 3 strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06)"
+   },
+   {
+    "what": "P05-005 replaced",
+    "why": "both strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06)"
+   },
+   {
+    "what": "P05-006 replaced",
+    "why": "all 3 strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06); device_notes register hygiene fix removed a review-actor mention (CWO-EZ-08)"
+   },
+   {
+    "what": "P05-007 replaced",
+    "why": "all 5 strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06)"
+   },
+   {
+    "what": "P05-008 replaced",
+    "why": "all 4 strong_or_hebrew_tags_used entries reformatted (CWO-EZ-06)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "P05-001's boundary_rationale word-event quote binds byte-true to oshb:Ezek.22.1",
+   "how": "programmatic splice from Ezek_oshb.txt (line-matched) + citation_sweep problem count for P05-001 via run_validator_suite.py on a private patched copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 30 CWO-EZ-06 tag entries are 1-5 words of spliced Hebrew with an oshb: ref, each verse the one the row's own prose already treats as the onset/close in question, cross-checked against ezek_device_inventory.json's per-formula verse lists",
+   "how": "structural_check.py (word-count 1-5, oshb: ref present, no placeholders/Strong's numbers) + manual cross-reference of every ref against the device inventory's verses_mt lists",
+   "result": "confirmed"
+  },
+  {
+   "claim": "P05-006 device_notes no longer names a review-actor (CWO-EZ-08)",
+   "how": "exact-string diff in the build script + register.flags for P05-006 via run_validator_suite.py",
+   "result": "confirmed (register.flags on my rows: 0 before and after)"
+  },
+  {
+   "claim": "the 8 emitted rows tile Ezek.22.1-Ezek.24.27 with no gap or overlap",
+   "how": "check_tiling.py --range Ezek.22.1-Ezek.24.27 on a part-only private copy containing only the 8 P05 rows",
+   "result": "confirmed: GREEN, verses_expected=107, verses_covered=107, 0 problems"
+  },
+  {
+   "claim": "no HARD citation_sweep problem remains on any of the 8 rows",
+   "how": "run_validator_suite.py over a private patched copy of the full 146-row corpus, filtered to P05-00x ids",
+   "result": "confirmed: 0 of 125 corpus-wide problems touch P05-001..008 (was 1, on P05-001, before the fix)"
+  },
+  {
+   "claim": "no cap_sweep failure and no ngram7 gate-10 offending 7-gram touches any of the 8 rows",
+   "how": "same suite run, filtered to P05-00x ids",
+   "result": "confirmed: 0 of 2 cap_sweep failures and 0 of 3 ngram7 offending grams touch my rows"
+  },
+  {
+   "claim": "mark_symmetry / universals / web_quotes / refs_mirror / register FLAGS on my rows did not rise versus an unmodified private baseline",
+   "how": "run_validator_suite.py on both an unmodified private copy and the patched private copy; item-by-item diff, not just counts",
+   "result": "confirmed: byte-identical flag lists before and after (mark_symmetry 15/15, universals 0/0, web_quotes 0/0, refs_mirror 4/4, register 0/0)"
+  },
+  {
+   "claim": "the routed CWO-EZ-05 item (a PE claim at Ezek.22.1) corresponds to literal text in the row that I can correct",
+   "how": "full manual re-read of current_row + direct pmarks_Ezek.json lookup (Ezek.22.1 absent from the marks dict) + re-running check_marks via the suite after my edit",
+   "result": "refuted: inventory confirms no mark at Ezek.22.1; no text in the row asserts one (the row's own pe/samekh citations, at oshb:Ezek.21.37 and Ezek.22.16, are byte-correct); flag persists unchanged post-edit and the identical pattern (flagged verse = row's own onset verse; true mark sits at the row's own correctly-cited adjacent verse) recurs on 3 other rows not routed to me (P05-002/003/004) -- read as the tool's proximity heuristic on this sentence shape, not a false claim in the row's bytes"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "CWO-EZ-05 item on P05-001 (paragraph_mark_claim PE, verse_cited Ezek.22.1) is not cured, only reported",
+   "why_it_matters": "the routed order's premise (a false PE-at-22:1 claim) could not be located in the row's own text; verified byte-correct otherwise; a distinct checker or the controlling agent should confirm whether check_marks.py's proximity parsing on 'onset-verse ... pe-marked ... close at PRIOR-verse' sentence shapes is a known tool limitation, since the same pattern recurs on P05-002/003/004 (not routed to me, left untouched)"
+  },
+  {
+   "what": "2 new citation_sweep prose_dual_warns (WARN tier, not a HARD problem): P05-002 tag[1] and P05-007 tag[2] bind to oshb:Ezek.22.18 and oshb:Ezek.24.2, both K/Q-bearing verses, without an in-field ketiv/qere disclosure",
+   "why_it_matters": "the spliced phrase in both cases is the son-of-man address, not the verse's contested K/Q word itself, and is the byte-correct onset-adjacent citation the row's own prose already relies on; not routed to me as a CWO-EZ-06 predicate item, so left as-is rather than substituting a less-apt phrase to dodge the warn"
+  },
+  {
+   "what": "14 pre-existing mark_symmetry flags on P05-002/003/004/006/007/008, confirmed byte-identical before and after my edit (I introduced none, fixed none, since none were routed to me)",
+   "why_it_matters": "two of them are genuine undisclosed-mark gaps inside a row's own span rather than cross-row context: P05-006 device_notes does not disclose the samekh at Ezek.23.45 (inside its own 23:36-49 span), and P05-007 device_notes does not disclose the samekh at Ezek.24.5 or the pe at Ezek.24.8 (both inside its own 24:1-14 span); worth routing to a future author wave"
+  },
+  {
+   "what": "ezek_controlling_agent_rulings.v1.json was not opened directly",
+   "why_it_matters": "my orders file carried ruling_orders: {} (empty) and zero rows_with_orders items of kind ruling_order, so no embedded ruling text needed cross-referencing; the specific rulings the brief names (G12(c), G12(d), R2, P4, P5) were already quoted verbatim in AUTHOR_BRIEF.md, which I did read in full"
+  }
+ ],
+ "items": [
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-02 boundary_rationale unbound word-event quote",
+   "action": "cured",
+   "reason": "bound to (oshb:Ezek.22.1); byte-verified splice match; disambiguated from the other routed candidate (Ezek.22.17) by the row's own prose ('the whole of 22:1 is...')"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-05 paragraph_mark_claim PE at Ezek.22.1",
+   "action": "reported",
+   "reason": "pmarks_Ezek.json shows no mark at Ezek.22.1; no literal PE-at-22:1 text found in the row; not corrected -- see unresolved_uncertainty"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: word-event formula (strict)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: messenger formula",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: utterance formula (mid-unit, paragraph-final)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: I YHWH have spoken (mid-unit)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "CWO-EZ-06 tag: recognition formula (2fs/2ms variant, unit-close)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (1-5 words) + oshb: ref, verse taken from ezek_device_inventory.json's list for this formula"
+  },
+  {
+   "row": "P05-001",
+   "item": "hard_finding citation_sweep (unbound quote does not collate)",
+   "action": "cured",
+   "reason": "resolved by the CWO-EZ-02 fix; re-run confirms 0 citation_sweep problems on P05-001; the finding's own suggested candidate (oshb:Ezek.21.37) was checked and is byte-false against this quote, so it was not used"
+  },
+  {
+   "row": "P05-002",
+   "item": "CWO-EZ-06 tag: word-event formula (strict)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-002",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-002",
+   "item": "CWO-EZ-06 tag: messenger formula",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-002",
+   "item": "CWO-EZ-06 tag: recognition formula (2mp family)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-003",
+   "item": "CWO-EZ-06 tag: word-event formula (strict)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-003",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-003",
+   "item": "CWO-EZ-06 tag: utterance formula (unit-close)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-004",
+   "item": "CWO-EZ-06 tag: word-event formula (strict)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory (Oholah/Oholibah phrase spliced from the verse that names both, oshb:Ezek.23.4)"
+  },
+  {
+   "row": "P05-004",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory (Oholah/Oholibah phrase spliced from the verse that names both, oshb:Ezek.23.4)"
+  },
+  {
+   "row": "P05-004",
+   "item": "CWO-EZ-06 tag: allegory naming (Oholah/Oholibah)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory (Oholah/Oholibah phrase spliced from the verse that names both, oshb:Ezek.23.4)"
+  },
+  {
+   "row": "P05-005",
+   "item": "CWO-EZ-06 tag: messenger formula (addressee shift)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-005",
+   "item": "CWO-EZ-06 tag: utterance formula (mid-unit, 23:34)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-006",
+   "item": "CWO-EZ-06 tag: said-to-me sub-onset",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref; the recognition-pattern close is a byte-observed variant not in the standard inventory list, matching the row's own existing disclosure of that fact"
+  },
+  {
+   "row": "P05-006",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref; the recognition-pattern close is a byte-observed variant not in the standard inventory list, matching the row's own existing disclosure of that fact"
+  },
+  {
+   "row": "P05-006",
+   "item": "CWO-EZ-06 tag: recognition-pattern close (byte-observed, 2mp)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref; the recognition-pattern close is a byte-observed variant not in the standard inventory list, matching the row's own existing disclosure of that fact"
+  },
+  {
+   "row": "P05-006",
+   "item": "CWO-EZ-08 device_notes review-actor mention ('neither this writer nor a reviewer')",
+   "action": "cured",
+   "reason": "rewritten to 'risks an easy byte error', removing the review-actor/process language per book_strategy_Ezek.md §8"
+  },
+  {
+   "row": "P05-007",
+   "item": "CWO-EZ-06 tag: dateline (year-month-day, infixed word-event)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (<=5 words) + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-007",
+   "item": "CWO-EZ-06 tag: mashal label",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (<=5 words) + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-007",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (<=5 words) + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-007",
+   "item": "CWO-EZ-06 tag: I YHWH have spoken (unit-close)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (<=5 words) + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-007",
+   "item": "CWO-EZ-06 tag: utterance formula (unit-close, stacked)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew (<=5 words) + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-008",
+   "item": "CWO-EZ-06 tag: word-event formula (strict, full form)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-008",
+   "item": "CWO-EZ-06 tag: son of man address",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-008",
+   "item": "CWO-EZ-06 tag: sign (mofet) naming",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  },
+  {
+   "row": "P05-008",
+   "item": "CWO-EZ-06 tag: recognition formula (strict 3mp, unit-close and collection-close)",
+   "action": "cured",
+   "reason": "reformatted to spliced Hebrew + oshb: ref, verse cross-checked against the device inventory"
+  }
+ ],
+ "cure_tests": [
+  {
+   "order": "CWO-EZ-02 (P05-001)",
+   "test": "citation_sweep problem count for P05-001, private patched copy vs private unmodified copy",
+   "result": "PASS (1 -> 0)"
+  },
+  {
+   "order": "CWO-EZ-05 (P05-001)",
+   "test": "check_marks/mark_symmetry flag for P05-001 re-run post-edit, cross-checked directly against pmarks_Ezek.json",
+   "result": "HELD/reported (flag persists; verified not correctable from row bytes -- see unresolved_uncertainty)"
+  },
+  {
+   "order": "CWO-EZ-06 (30 items, all 8 rows)",
+   "test": "structural_check.py (1-5 words, oshb: ref present) + manual cross-reference of every ref against ezek_device_inventory.json verse lists",
+   "result": "PASS (30/30)"
+  },
+  {
+   "order": "CWO-EZ-08 (P05-006)",
+   "test": "register.flags for P05-006, private patched copy vs private unmodified copy",
+   "result": "PASS (0 -> 0; order text executed verbatim regardless)"
+  },
+  {
+   "order": "hard_finding / citation_sweep (P05-001)",
+   "test": "citation_sweep problems for P05-001",
+   "result": "PASS (resolved as a byproduct of the CWO-EZ-02 fix; the finding's own suggested best-candidate ref, oshb:Ezek.21.37, was checked and found byte-false against the quoted text, and was not used)"
+  },
+  {
+   "order": "corpus-wide guard",
+   "test": "cap_sweep failures and ngram7 gate-10 offending grams, filtered to P05-00x ids",
+   "result": "PASS (0/0 both before and after)"
+  },
+  {
+   "order": "part tiling",
+   "test": "check_tiling.py --range Ezek.22.1-Ezek.24.27 over a part-only private copy of the 8 rows",
+   "result": "PASS (GREEN, 107/107 verses, 0 problems)"
+  }
+ ],
+ "flags_on_my_rows": {
+  "before": {
+   "mark_symmetry": 15,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 4,
+   "register": 0,
+   "citation_sweep_problems": 1,
+   "citation_sweep_prose_dual_warns": 0,
+   "cap_sweep_failures": 0,
+   "ngram7_offending_7grams": 0
+  },
+  "after": {
+   "mark_symmetry": 15,
+   "universals": 0,
+   "web_quotes": 0,
+   "refs_mirror": 4,
+   "register": 0,
+   "citation_sweep_problems": 0,
+   "citation_sweep_prose_dual_warns": 2,
+   "cap_sweep_failures": 0,
+   "ngram7_offending_7grams": 0
+  }
+ },
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the agent's own OW-8 final message."
+}

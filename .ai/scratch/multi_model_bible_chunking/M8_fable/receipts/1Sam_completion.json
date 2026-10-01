@@ -1,0 +1,50 @@
+{
+ "schema_version": "m8_book_completion.v1",
+ "model_id": "M8_fable",
+ "book": "1Sam",
+ "completed_at": "2026-08-01T18:44:09.538197+00:00",
+ "candidate_only": true,
+ "non_authorizing": true,
+ "chunks": 185,
+ "verse_coverage": "810/810 exact ordered tiling, 1Sam.1.1-1Sam.31.13",
+ "final_states": {
+  "accepted_candidate": 185
+ },
+ "superseded_decisions": [
+  "M8-1Sam-009",
+  "M8-1Sam-030",
+  "M8-1Sam-046",
+  "M8-1Sam-062"
+ ],
+ "appeals": 0,
+ "sidecar_rows_per_file": 5,
+ "chunks_sha256": "fb77210b05df7752513965d99d93da9508ab06d333023203499a4722754fdbf5",
+ "review_packets_sha256": "7ef88db9722840201d78663f1140af8050836f4b1110be8b0baf21bbb9a7de4a",
+ "validators_passed": [
+  "scripts/validate_whole_bible_chunk_map.py --model-id M8_fable --book 1Sam <chunks.jsonl> (185 records)",
+  "scripts/validate_t423_literary_quality_protocol.py --book 1Sam --require-artifacts",
+  "checks/validate_exact_book_coverage.py --book 1Sam (810/810)",
+  "checks/validate_book_review_coverage.py --book 1Sam --require-final-artifacts",
+  "checks/anti_batch_scan.py --book 1Sam (0 errors, 1 justified warning: narrative_prose 163/185 in a narrative book)",
+  "freeze/citation_sweep.py (consonantal + two-witness + versification, 0 problems)",
+  "freeze/postcheck.json (full-corpus NFC diacritic layer, 185/185 pass, r4 delta re-check confirmed; 1 recorded defect class: 26-row straight-vs-curly quote marks)"
+ ],
+ "anti_batch_audit": {
+  "model": "claude-haiku-4-5",
+  "verdict": "pass",
+  "sampled_chunks": 98,
+  "notes": [
+   "Sample of 98 rows (53% stratified across every 3rd row, all non-medium confidence rows, and 11 span-changed rows) shows no stamping, paraphrase, register fabrication, template shells, or systematic evidence padding.",
+   "All 8 spot-checked rationales engage substantively with source text, citing specific verses, narrative structures, and textual features.",
+   "High-confidence rows (majority of sample) have detailed, evidence-based rationales with specific textual references; no isolated weaknesses above threshold."
+  ]
+ },
+ "review_rounds": {
+  "primaries": "lf_sonnet + ol_opus, clusters 01-24, blind",
+  "peer": "sonnet, all 189 decisions",
+  "author": "sonnet halves a/b (108 challenges) + micro r2/r4",
+  "boss": "fable, 139 rulings (108 initial + 31 revision), 4 merges, 8 consequential directives",
+  "revision_pair": "rev_lf sonnet + rev_ol opus on 33 material rows, blind; rev_peer 31/31 verified",
+  "postcheck": "sonnet full-corpus + r4 delta re-check"
+ }
+}

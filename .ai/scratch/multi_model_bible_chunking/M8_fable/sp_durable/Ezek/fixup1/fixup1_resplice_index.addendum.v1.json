@@ -1,0 +1,27 @@
+{
+ "schema": "m8_sidecar_addendum.v1",
+ "book": "Ezek",
+ "addendum_to": {
+  "path": "Ezek/fixup1/fixup1_resplice_index.v1.json",
+  "sha256": "99740d00bfb92d69f704056e9cefd74c86cc294cae36d7f9f2776171cfa3b755"
+ },
+ "ordered_by": "ezek_controlling_rulings_a1#e9 ruling S2-NOTES",
+ "finding": {
+  "id": "S2-17",
+  "claim": "The index names list elements as fields but compares at list level, so its count differs from a per-element derivation."
+ },
+ "comparison_rule": "The index compares at LIST level: a Hebrew run in a list field counts as new only when it is absent from the same field of the same row in rows_v3_cwo18.jsonl, whatever its element position. A per-element derivation also counts a run whose unchanged element moved; that is why S2 derived 36 runs where the index lists 34.",
+ "moved_elements": [
+  {
+   "row": "P06-001",
+   "field": "boundary_evidence_refs",
+   "from_index": 4,
+   "to_index": 5,
+   "cause": "refs[0] was inserted",
+   "element_sha256": "14675b3dc3fa61fef7f6aee453def00ad3f0bea2c12e5a84c1d944cedd022588"
+  }
+ ],
+ "forward_rule": "FIXUP-2's re-splice index is derived per element, lists moved elements, and says so in compiled_by",
+ "written_by": "orchestrator (claude-opus-5), OW-11 authorized; the move is verified against both rows files",
+ "limit": "a sidecar record; the index's reviewed bytes are unchanged"
+}

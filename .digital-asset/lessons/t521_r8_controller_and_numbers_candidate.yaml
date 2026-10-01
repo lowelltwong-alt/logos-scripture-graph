@@ -1,0 +1,25 @@
+lesson_id: t521-r8-controller-numbers-candidate
+task_id: T521
+status: locally_validated_central_ingestion_unconfirmed
+artifacts:
+  controller: scripts/build_whole_bible_b01_controller_r8.py
+  controller_tests: tests/test_whole_bible_b01_controller_r8.py
+  numbers_matrix: docs/governance/NUMBERS_B01_ROLE_INPUT_MATRIX.v1.json
+  numbers_draft_builder: scripts/build_numbers_candidate_chunks.py
+  book_inventory: .ai/scratch/multi_model_bible_chunking/M7_sol/state/evidence/book_inventory_candidate_only.json
+evidence:
+  controller_tests: 3_passed
+  numbers_matrix_tests: 2_passed
+  numbers_candidate_exact_coverage: passed
+  current_candidate_books: 4
+  current_candidate_chunks: 239
+lessons:
+  - freeze_input_manifest_before_any_role_dispatch
+  - bind_every_role_result_to_controller_events_and_manifest_digest
+  - coarse_form_zone_drafts_must_remain_low_confidence_until_four_role_review
+  - exact_coverage_does_not_prove_literary_fidelity_or_specialist_agreement
+  - ancient_context_absence_is_a_gap_not_simulated_expertise
+  - preserve_rev7_b00_receipt_while_migrating_b01
+candidate_only: true
+non_authorizing: true
+dad_central_ingestion_confirmed: false

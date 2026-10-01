@@ -1,0 +1,47 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "ezek_completed_transcripts_decayed_to_zero_bytes_before_mirror",
+ "recorded": "2026-09-10",
+ "recorded_by": "orchestrator (claude-opus-5)",
+ "book": "Ezek",
+ "class": "evidence_loss",
+ "severity": "medium",
+ "self_disclosed": true,
+ "governing_rules": [
+  "TRANSCRIPT EVIDENCE DECAYS: the runtime deletes written transcripts mid-session, so _mirror_transcripts.py runs at every wave landing and BEFORE any final check; a transcript held nowhere is reported as permanently lost, never silently omitted (SP/campaign/finding_transcript_decay.v1.json)",
+  "OW-8: missing logs are NOT a stop condition; do not fabricate missing historical records"
+ ],
+ "census_at_2026_09_10": {
+  "completed_executions": 7,
+  "durable": ["ezek_strategy_a1#e1 (787,042 bytes, parity verified)", "ezek_writer_p01_a1#e1 (931,342 bytes, parity verified)"],
+  "permanently_lost_for_layer_A": [
+   {"execution": "ezek_p0_recheck_a1#e1", "tool_uses_reported": 19},
+   {"execution": "ezek_p0_delta_a1#e1", "tool_uses_reported": 12},
+   {"execution": "ezek_p0_r3_a1#e1", "tool_uses_reported": 15},
+   {"execution": "ezek_writer_p04_a1#e1", "tool_uses_reported": 47},
+   {"execution": "ezek_writer_p10_a1#e1", "tool_uses_reported": 79}
+  ],
+  "how_the_loss_was_established": "each of the five has a session-store transcript file that is now ZERO BYTES, and no copy in the durable store. Each agent reported 12-79 tool calls in its completion usage, so a non-empty transcript unquestionably existed at some point. The content decayed after completion and before any mirror pass ran.",
+  "in_progress_at_census": "ezek_writer_p02_a1#e1 and ezek_writer_p09_a1#e1 had partial durable snapshots whose live transcripts had since grown (parity false); six other running writers had no transcript content yet"
+ },
+ "a_mislabel_corrected_in_the_same_turn": {
+  "what": "the orchestrator's own census script labelled the five zero-byte files 'ZERO_BYTES_LIVE (nothing to preserve)'.",
+  "why_it_was_wrong": "'nothing to preserve' describes an absence of evidence. The truth is a LOSS of evidence: the agents did the work, the runtime recorded it, and the record decayed before it was copied. The label reframed a permanent loss as a non-event - precisely the silent omission the transcript-decay rule forbids.",
+  "pattern": "this is the fourth instance, in this book alone, of the orchestrator's own explanatory text mischaracterising the evidence it describes (see finding_correction_text_carries_its_own_defects.v1.json). The first three were a fabricated Hebrew reading, an omitted verse, and a false characterisation of the K/Q cluster. This one is a status label - a single phrase in a table - and it would have flowed into the capture index as a benign state.",
+  "correction": "the five are recorded here as PERMANENTLY LOST for layer A. Layer A in the capture index stays UNAVAILABLE for them with this loss as its reason. No transcript is reconstructed."
+ },
+ "what_survives_for_the_five": {
+  "deliverables": "all five deliverables are durable and digest-pinned (recheck.json, delta_recheck.json, r3_recheck.json, writer/draft_p04.jsonl, writer/draft_p10.jsonl)",
+  "layer_C": "each has an evidence note built from the agent's own OW-8 final message, which the runtime delivered to the orchestrator in full",
+  "layer_B": "UNAVAILABLE, as for every execution",
+  "audit_consequence": "OW-8 scopes OW-6 and OW-6c to what EXISTS. The stage-1 transcript auditors will not be able to read these five runs; their coverage statement must say so by name, and the final checker weighs the deliverables and the OW-8 records instead. This is an evidence gap, not a defect, and it is not a stop condition."
+ },
+ "why_the_existing_control_did_not_prevent_it": "the control says mirror 'at every wave landing'. Phase-0 agents and pilot writers landed one at a time across hours, and the orchestrator mirrored only once, after the pilot wave. Decay clearly acts on a shorter clock than a wave. 'At every wave landing' is too coarse a trigger.",
+ "control_tightened": [
+  "mirror on EVERY agent-landing notification, not once per wave",
+  "mirror while agents are still running too: in-progress transcripts exist and can be captured, and a partial snapshot beats a zero-byte file",
+  "the census is re-run after every mirror pass, and any completed execution without a durable transcript is named in the book's loss list at once, not at the final check"
+ ],
+ "not_claimed": "the decay mechanism is not known and is not speculated about here. Two early transcripts survived and later ones did not, so it is not simply age. The only claim is the observation and the control.",
+ "impact_on_the_corpus": "NONE. No row depends on a transcript; transcripts are audit evidence."
+}

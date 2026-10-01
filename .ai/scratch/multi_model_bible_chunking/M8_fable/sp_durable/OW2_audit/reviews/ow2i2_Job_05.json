@@ -1,0 +1,201 @@
+{
+ "attempt_id": "ow2i2_Job_05_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Job",
+ "rows": [
+  {
+   "row_id": "M8-Job-125",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:low",
+     "disposition": "not_a_defect",
+     "grounds": "Confidence 'low' is honestly earned and the row's stated reason is its real weakness. Both edges are ruled tier-1 and clean: the span opens on the verse-initial protasis particle at oshb:Job.31.24 אִם שַׂ֣מְתִּי זָהָ֣ב כִּסְלִ֑י (WEB: If I have made gold my hope, web:Job.31.24), immediately after the preceding row's apodosis-curse and motive clause (web:Job.31.22, web:Job.31.23), and closes before the next verse-initial protasis at oshb:Job.31.29 אִם אֶ֭שְׂמַח בְּפִ֣יד מְשַׂנְאִ֑י (web:Job.31.29). What the row cannot settle is internal, not edge-level: re-swept over verse_map_oshb.json, the span carries exactly three verse-initial particle tokens (oshb:Job.31.24; oshb:Job.31.25 אִם אֶ֭שְׂמַח כִּי רַ֣ב חֵילִ֑י; oshb:Job.31.26 אִם אֶרְאֶ֣ה א֖וֹר) against a single apodosis at oshb:Job.31.28 גַּם ה֭וּא עָוֺ֣ן פְּלִילִ֑י, and the row argues AGAINST the reading it holds (the additive particle opening Job.31.28 'most directly continues from the astral material immediately before it'), a rival that would split the span at Job.31.25|Job.31.26. A row that states the stronger rival and still holds belongs at the bottom of the band. The band is not masking a byte-defective warrant: every Hebrew run in the row collates at byte tier and every curly-quoted WEB run is verbatim (mechanical re-check of the shipped row in private scratch: 0 fixed / 0 defects; WEB quotes GREEN), and no ketiv/qere falls inside Job.31.24-Job.31.28. Under-statement is not indicated either, since a live internal split is a real cost. The two field defects recorded below are independent of the confidence band."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "field-content-mismatch",
+     "claim": "The row's literature_type_guess names material that lies outside its own span, one row downstream.",
+     "grounds": "Span Job.31.24-Job.31.28 is the wealth-and-astral oath block: oshb:Job.31.24 אִם שַׂ֣מְתִּי זָהָ֣ב כִּסְלִ֑י (WEB: If I have made gold my hope, and have said to the fine gold, web:Job.31.24), oshb:Job.31.25 אִם אֶ֭שְׂמַח כִּי רַ֣ב חֵילִ֑י (WEB: If I have rejoiced because my wealth was great, web:Job.31.25) and oshb:Job.31.26 אִם אֶרְאֶ֣ה א֖וֹר (WEB: if I have seen the sun when it shined, web:Job.31.26). The shipped literature_type_guess reads 'Oath against malicious joy when foes destroyed', which describes oshb:Job.31.29 אִם אֶ֭שְׂמַח בְּפִ֣יד מְשַׂנְאִ֑י (WEB: If I have rejoiced at the destruction of him who hated me, web:Job.31.29) - the opening verse of the NEXT span, Job.31.29-Job.31.34. The displacement is systematic in the neighborhood: the preceding row M8-Job-124 (span Job.31.16-Job.31.23, the poor/widow/fatherless oaths at web:Job.31.16, web:Job.31.19, web:Job.31.21) carries the guess 'Oath against gold's seduction and wealth-worship idolatry', which is this row's subject matter. Free-text field under Job's earlier schema, so no unit_type law applies and no seam moves; the mislabel is nonetheless byte-checkable false against the span's own verses.",
+     "span_change": false,
+     "proposed_change": "Field repair only: replace M8-Job-125's literature_type_guess with a label drawn from its own span (trust in gold and fine gold at Job.31.24-Job.31.25, sun-and-moon reverence at Job.31.26-Job.31.27, one verdict apodosis at Job.31.28). Flag the parallel displacement on M8-Job-124, which is outside this batch's row set, to the adjudicator. No span, seam, evidence-ref or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "E-05",
+     "claim": "The verdict-formula count object is named at the singular spelling that only one of its two members actually carries, and the substring basis of the other match is undisclosed.",
+     "grounds": "strongest_rejected_alternative writes 'skeleton sweep of עָוֺ֣ן פְּלִילִ֑י: 2 book-wide, Job.31.11 and Job.31.28'. Re-swept with sweep.py --skel over verse_map_oshb.json: the digit is TRUE as a contiguous consonantal SUBSTRING - 2 verses / 2 tokens, sole members Job.31.11 and Job.31.28. But the two members do not share the quoted spelling: oshb:Job.31.28 reads עָוֺ֣ן פְּלִילִ֑י (singular) while oshb:Job.31.11 reads עָוֺ֥ן פְּלִילִֽים (plural), and matches only because the singular skeleton is a prefix of the plural one. Book LAW section 2e-b names this object at the shared skeleton with the split disclosed (31:11 plural, 31:28 singular); the row discloses neither the spelling split nor that the Job.31.11 hit is substring-only, against the count-object discipline of LAW section 10. The rest of the parallel re-derives true: oshb:Job.31.9 is the protasis, oshb:Job.31.10 the apodosis, oshb:Job.31.11 the verdict immediately following. No K/Q disclosure is owed: Job.31.11 carries 2 ketiv/qere notes in the marks inventory, but the row quotes no bytes from that verse.",
+     "span_change": false,
+     "proposed_change": "Field repair only: state the object as the shared two-word verdict skeleton with its members' spellings named (Job.31.11 plural, Job.31.28 singular) and the match declared substring-level, per LAW section 2e-b. No span or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "Row prose narrates the campaign's own decision process and its freeze state rather than describing the text.",
+     "grounds": "boundary_rationale closes 'That reading is disclosed as a live rival, not adopted: the row is chunked as written...', and strongest_rejected_alternative closes '...without redrawing the row's own frozen edges.' 'frozen edges' names a campaign lifecycle state, and 'disclosed / not adopted / chunked' narrate the review workflow; the register law binds row prose to describing the TEXT. Purely cosmetic: every textual claim in those same sentences re-derives true from bytes (three verse-initial particle tokens at oshb:Job.31.24, oshb:Job.31.25, oshb:Job.31.26; one apodosis at oshb:Job.31.28 גַּם ה֭וּא עָוֺ֣ן פְּלִילִ֑י), and no seam or span is affected.",
+     "span_change": false,
+     "proposed_change": "Field repair only: restate in text register - the span holds three verse-initial protases and the single following apodosis, and the rival division at Job.31.25|Job.31.26 is stated and not taken. No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-126",
+   "verdict": "clean",
+   "triggers": [
+    {
+     "tag": "lowband:medium_low",
+     "disposition": "not_a_defect",
+     "grounds": "Well calibrated and byte-sound throughout; no whole-chapter cap is in play (six verses inside Job 31). Edges are ruled tier-1: the span opens on the verse-initial protasis at oshb:Job.31.29 אִם אֶ֭שְׂמַח בְּפִ֣יד מְשַׂנְאִ֑י (WEB: If I have rejoiced at the destruction of him, web:Job.31.29) and closes before the wish-formula topic turn at oshb:Job.31.35 מִ֤י יִתֶּן לִ֨י (web:Job.31.35). The internal warrant re-derives exactly as written: sweeping the protasis particle as a word over verse_map_oshb.json returns three verse-initial tokens inside the span (Job.31.29; Job.31.31 אִם לֹ֣א; Job.31.33 אִם כִּסִּ֣יתִי כְאָדָ֣ם), and none of the three is answered by an apodosis-curse - Job.31.30 and Job.31.32 are parenthetical statements and Job.31.34 a motive clause - which is precisely the row's stated reason for holding them together rather than splitting into three. Every digit re-swept true with its object: כְאָדָ֣ם is a genuine skeleton singleton book-wide (1 verse / 1 token, Job.31.33) and the bare lexeme behind it sweeps 28 at skeleton tier (28 verses AND 28 tokens, so the unnamed unit cannot mislead), the hit list including the same-skeleton false positive the row itself names at oshb:Job.31.34 וּבוּז (root D-M-M, 'I kept silence'). The anarthrous reading is byte-true (prefixed kaf with sheva, no article qamats/dagesh), and the row expressly refuses the translation's 'Adam' as evidence - a model tier-4 disclosure doing no driver work. Three separable topics held as one closing movement on a shared-shape argument is exactly a medium_low case: not over-stated (nothing byte-false is being covered) and not under-stated (the three-way split is genuinely defensible). Mechanical re-check of the shipped row in private scratch: Hebrew 0 fixed / 0 defects at byte tier, curly-quoted WEB runs GREEN, and the marks inventory carries no ketiv/qere anywhere inside Job.31.29-Job.31.34, so no K/Q disclosure is owed."
+    }
+   ],
+   "findings": []
+  },
+  {
+   "row_id": "M8-Job-128",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "lowband:low",
+     "disposition": "not_a_defect",
+     "grounds": "The low band is honest and its stated reason is the real one. Book LAW section 8 names this material - the final protasis pair returning after the Job.31.35-Job.31.37 signature plea - as crux region 8, and rules that it be argued from the im-series positions rather than from emendation, which is what the row does ('the argument against moving it rests on what the substrate actually carries'). The closing edge is in fact the strongest in the book: the colophon תַּ֝֗מּוּ דִּבְרֵ֥י אִיּֽוֹב (WEB: The words of Job are ended. web:Job.31.40) stands in oshb:Job.31.40's own bytes and re-sweeps as a book-wide singleton (1 verse), with PE following that verse in the staged marks inventory (correctly typed petuchah, never conflated with setumah, single-witness disclosed, mark-follows-its-verse respected) - so the band is if anything conservative, and the genuinely contested edge is the opening one, which the row says. Nothing byte-false is sheltered by the label: the apodosis-sharing claim re-derives true (oshb:Job.31.40 opens with the briers-and-stinkweed curse and oshb:Job.31.39 אִם כֹּ֭חָהּ carries no apodosis of its own), all Hebrew runs collate at byte tier and all curly-quoted WEB runs are verbatim (0 fixed / 0 defects; WEB GREEN), and the marks inventory shows no ketiv/qere inside Job.31.38-Job.31.40, matching the row's own statement. The count-object and count-unit defects recorded below are field claims about the series and the apparatus, not artifacts of the confidence band."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-05",
+     "claim": "The row labels the chapter's 17-token particle series a 'protasis series' and draws its ordinals from that count, an object conflation the book's own ruling forbids and the adjacent row rejects.",
+     "grounds": "Re-swept over verse_map_oshb.json (word-token search over the maqaf-free extract): the protasis particle stands in exactly 17 verses of Job 31 and is verse-initial in every one - Job.31.5, 31.7, 31.9, 31.13, 31.16, 31.19, 31.20, 31.21, 31.24, 31.25, 31.26, 31.29, 31.31, 31.33, 31.36, 31.38, 31.39. So '17', 'verse-initial' and the range Job.31.5 through Job.31.39 are TRUE, and Job.31.38 is the 16th and Job.31.39 the 17th TOKEN. But book LAW section 2e-b (ruling OL-c16) fixes the 17 as a PARTICLE-TOKEN count and excludes Job.31.36 אִם לֹ֣א עַל שִׁ֭כְמִי אֶשָּׂאֶ֑נּוּ (WEB: Surely I would carry it on my shoulder, web:Job.31.36) as an oath affirmation rather than a protasis, stating that protasis-clause counts are a different object. At the protasis object the series has 16 members, and oshb:Job.31.38 אִם עָ֭לַי is the 15th while oshb:Job.31.39 אִם כֹּ֭חָהּ is the 16th - so 'the sixteenth' and 'the series' true seventeenth and closing member' are false under the label the row itself applies. The conflation also puts the row at odds with its own immediate predecessor: M8-Job-127 (span Job.31.35-Job.31.37) applies OL-c16 in its own prose, calling the Job.31.36 particle an oath-affirmation idiom answering the wish rather than opening a further self-curse. Not alone load-bearing: the opening seam rests on the verse-initial particle standing in oshb:Job.31.38's own bytes, byte-true independent of any ordinal.",
+     "span_change": false,
+     "proposed_change": "Field repair only: name the object as the chapter's 17 verse-initial PARTICLE tokens (Job.31.5-Job.31.39) and either restate the ordinals at that object ('the sixteenth particle token') or give protasis-object ordinals with Job.31.36 excluded per LAW section 2e-b (Job.31.38 = 15th, Job.31.39 = 16th of 16). No span, seam or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "E-05",
+     "claim": "The chapter's ketiv/qere figure is cited as 'occurrences' where the digit is a verse count, not a note count.",
+     "grounds": "strongest_rejected_alternative writes 'its ketiv/qere occurrences number 2 -- Job.31.11 and Job.31.20 -- neither inside Job.31.38-Job.31.40'. Checked against the staged marks inventory: Job 31 carries ketiv/qere at exactly two VERSES, Job.31.11 and Job.31.20, but at three NOTES - Job.31.11 carries 2 adjacent ketiv/qere pairs, visible in the extract at oshb:Job.31.11 as הוא הִ֥יא and והיא וְ֝ה֗וּא, and Job.31.20 carries 1, בֵרֲכ֣וּנִי חלצו. The book-level fact is 53 notes over 49 verses, so notes and verses are distinct units and 'occurrences' reads as the token unit. Members and the operative conclusion re-derive TRUE: no ketiv/qere falls inside Job.31.38-Job.31.40. Unit-naming shortfall only, per the campaign's count-unit discipline.",
+     "span_change": false,
+     "proposed_change": "Field repair only: read 'its ketiv/qere notes stand in 2 verses (Job.31.11, Job.31.20; 3 notes in all)'. No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-129",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 (register law) fails on three phrases in boundary_rationale: 'a byte-true bracket running from this row's own verse (32:1) to that row's closing verse (32:5)'; 'The same two-word phrase closes the unit that follows'; and 'a superscription/colophon-class boundary that belongs to the adjacent part', the last being explicit writer-part talk, which the E-06 class names directly. Row prose must describe the text; 'this row' / 'that row' / 'the adjacent part' name workflow objects. TEST 2 (E-18 arm): the reference does carry a corpus-wide claim, 'skeleton sweep: 2 book-wide, sole members 32:1 and 32:5'. Re-swept with sweep.py --skel over verse_map_oshb.json: TRUE - 2 verses / 2 tokens, sole members Job.32.1 and Job.32.5, no third member in the book. A true claim phrased in workflow register scores low; recorded as the matching finding below, together with two further byte-checked observations on the same row."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "Cross-row and cross-part workflow references stand in row prose although the underlying sweep is true.",
+     "grounds": "The phrases are 'this row's own verse (32:1)', 'that row's closing verse (32:5)', 'the unit that follows', 'belongs to the adjacent part' and 'What keeps 32:1 as its own row'. Each carries its verse anchor, and the corpus claim behind them re-derives true (skeleton sweep of the two-word subject phrase: 2 verses / 2 tokens, Job.32.1 and Job.32.5 only), so the defect is cosmetic register, not evidence. A text-register statement of the same fact is available without any row reference: the two-word subject phrase stands at oshb:Job.32.1 שְׁלֹ֤שֶׁת הָאֲנָשִׁ֣ים and again at oshb:Job.32.5 שְׁלֹ֥שֶׁת הָאֲנָשִׁ֗ים, bracketing Job.32.1-Job.32.5.",
+     "span_change": false,
+     "proposed_change": "Field repair only: recast the phrases as verse-anchored text statements (for example, the same two-word subject phrase recurs at Job.32.5, the last verse of the Elihu prose introduction) and drop 'the adjacent part'. No span or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "tier-naming",
+     "claim": "'byte-true bracket' labels a pair that is byte-distinct, one word away from the barred byte-identity reading.",
+     "grounds": "Collated from verse_map_oshb.json: oshb:Job.32.1 reads שְׁלֹ֤שֶׁת הָאֲנָשִׁ֣ים (mahapakh U+05A4 on the first word, munah U+05A3 on the second) and oshb:Job.32.5 reads שְׁלֹ֥שֶׁת הָאֲנָשִׁ֗ים (merkha U+05A5, revia U+0597). Tier truth: byte-identical FALSE, accent-stripped identical TRUE, skeleton identical TRUE. The row does name the recurrence tier correctly in the same parenthesis ('skeleton sweep: 2 book-wide') and does display both pointed forms, so this is a wording hazard rather than a false count - but 'byte-true bracket' invites exactly the byte-identity reading the calibration law bars, and accent-stripped is the accurate identity tier for the pair.",
+     "span_change": false,
+     "proposed_change": "Field repair only: read 'an accent-stripped-identical bracket (the accentuations differ: mahapakh plus munah at Job.32.1, merkha plus revia at Job.32.5; skeleton sweep: 2 book-wide, sole members Job.32.1 and Job.32.5)'. No span or confidence change."
+    },
+    {
+     "severity": "low",
+     "class": "tier3-mark-weight",
+     "claim": "The row's operative sentence gives the double petuchah co-holder status in the seam's ratio alongside the participant shift.",
+     "grounds": "'What keeps 32:1 as its own row is the participant shift (Elihu named with a genealogy from 32:2) together with the double petuchah (32:1 and 32:5, both single-witness), not the phrase by itself.' The marks themselves are handled correctly - the staged inventory gives PE after Job.32.1 and PE after Job.32.5, petuchah is never conflated with setumah, single-witness is stated, and the mark-follows-its-verse convention is respected - but book LAW section 4 caps the Writings parashah layer at TIER-3 weak corroboration and bars it from driving a seam, and 'together with' places it inside the ratio rather than beside it. Not load-bearing: the participant shift is an independent ruled tier-1 signal (Elihu first named with his genealogy at oshb:Job.32.2, WEB: Then the wrath of Elihu the son of Barachel, the Buzite, of the family of Ram, was kindled against Job, web:Job.32.2), and the other edge carries the tier-1 colophon standing in oshb:Job.31.40 תַּ֝֗מּוּ דִּבְרֵ֥י אִיּֽוֹב.",
+     "span_change": false,
+     "proposed_change": "Field repair only: make the participant shift the sole holder and demote the marks to disclosed corroboration - the participant shift keeps Job.32.1 separate, and the petuchah after Job.32.1 and after Job.32.5 corroborates weakly at tier-3, single-witness. No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-131",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 (register law) fails: boundary_rationale closes '...the next row opens with a fresh presentative rather than continuing this frame', naming a workflow object with no verse anchor in the clause; the same field earlier carries 'the tier-1 seam already fixed at the prose-to-poetry hinge', which likewise narrates a prior decision rather than the text. TEST 2 (E-18 arm): the clause asserts a fact about the following material and it re-derives TRUE from bytes - oshb:Job.32.11 opens הֵ֤ן הוֹחַ֨לְתִּי (WEB: Behold, I waited for your words, web:Job.32.11), a presentative of the class LAW section 6 rules tier-1. True claim in workflow register, purely cosmetic, so low. Nothing else on this row is defective: the opening formula וַיַּ֤עַן אֱלִיה֖וּא בֶן בַּֽרַכְאֵ֥ל הַבּוּזִ֗י collates byte-exact at oshb:Job.32.6 and is the Elihu vaya'an member LAW section 2a lists at the plene spelling; the closing claim is byte-precise, since the verb at oshb:Job.32.10 אָ֭מַרְתִּי is byte-identical to the opening verb of oshb:Job.32.7 אָ֭מַרְתִּי (same dehi), which is exactly the 'same verb of thought returns transformed' the row argues; the adversative particle אָ֭כֵן at oshb:Job.32.8 is the book-wide singleton LAW section 2e-b records; all curly-quoted WEB runs are verbatim and all Hebrew collates at byte tier; and the marks inventory carries no ketiv/qere anywhere in Job 32, so no disclosure is owed on the quoted formula."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "A true statement about the following material is phrased as a positional row reference with no verse anchor in the clause.",
+     "grounds": "'...the next row opens with a fresh presentative rather than continuing this frame' (boundary_rationale, closing clause); 'the tier-1 seam already fixed at the prose-to-poetry hinge' (same field). The E-18 arm clears: oshb:Job.32.11 does open with the presentative הֵ֤ן הוֹחַ֨לְתִּי (web:Job.32.11). web:Job.32.11 is not among this row's boundary_evidence_refs, so the reader has no in-field anchor for the claim. Cosmetic register only; the seam itself rests on the tier-1 speech formula standing in oshb:Job.32.6 וַיַּ֤עַן אֱלִיה֖וּא בֶן בַּֽרַכְאֵ֥ל הַבּוּזִ֗י and is untouched.",
+     "span_change": false,
+     "proposed_change": "Field repair only: read '...and Job.32.11 opens with a fresh presentative rather than continuing this frame', add web:Job.32.11 to boundary_evidence_refs, and restate 'already fixed' as a text statement about the speech formula standing in Job.32.6. No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-133",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 (register law) fails: boundary_rationale closes '...before the next row opens with a fresh presentative and a new image', naming a workflow object rather than the text. TEST 2 (E-18 arm): the claim re-derives TRUE - oshb:Job.32.19 opens הִנֵּֽה בִטְנִ֗י (WEB: Behold, my breast is as wine which has no vent, web:Job.32.19), a ruled tier-1 presentative - and the verse anchor, though absent from the clause, is present in boundary_evidence_refs (web:Job.32.19) and in the strongest_rejected_alternative. True claim in workflow register: low, cosmetic. The rest of the row survives full re-derivation: the address shift warranting the opening seam is byte-grounded (oshb:Job.32.14 addresses the friends with the 2mp suffix מִלִּ֑ין while oshb:Job.32.15 turns to 3mp חַ֭תּוּ); the recurrence claim is exact at both digit and tier - re-swept, the three-word closing collocation stands in 2 verses / 2 tokens book-wide, sole members Job.32.15 לֹא עָ֣נוּ ע֑וֹד and Job.32.16 לֹא עָ֥נוּ עֽוֹד, byte-distinct and skeleton-identical, and the row's 'the pointing differs on both final words' is verified (munah plus etnahta against merkha plus silluq); the splice at oshb:Job.32.17 אֲנִ֣י חֶלְקִ֑י correctly carries the dageshless form, distinct from the dagesh-bearing form at oshb:Job.32.10 דֵּעִ֣י אַף אָֽנִי; all Hebrew collates at byte tier and all curly-quoted WEB runs are verbatim; Job 32 carries no ketiv/qere."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "A true statement about the following material is phrased as a positional row reference.",
+     "grounds": "'...explaining the pressure behind it (web:Job.32.18) before the next row opens with a fresh presentative and a new image.' The E-18 arm clears - oshb:Job.32.19 opens הִנֵּֽה בִטְנִ֗י (web:Job.32.19), which is in this row's boundary_evidence_refs - so the shortfall is register alone: 'the next row' names a workflow object where the verse name was available in the same clause. No seam, digit, tier or mark claim on this row is affected.",
+     "span_change": false,
+     "proposed_change": "Field repair only: read '...before Job.32.19 opens with a fresh presentative and a new image.' No span or confidence change."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-134",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "TEST 1 (register law) fails, though this is the most nearly cured instance in the batch: '...the row-boundary itself rests on the vocative naming of Job that opens the next row at 33:1'. The reference IS verse-anchored and web:Job.33.1 is in boundary_evidence_refs, but 'the next row' still names a workflow object where the register law requires the text. TEST 2 (E-18 arm): the claim re-derives TRUE - oshb:Job.33.1 שְׁמַֽע נָ֣א אִיּ֣וֹב מִלָּ֑י (WEB: However, Job, please hear my speech, web:Job.33.1) is a vocative naming of Job and an addressee shift of the class LAW section 6 rules tier-1. True claim in workflow register: low, cosmetic. Everything else on the row is sound, and the same sentence carries an exemplary tier-4 disclaimer - 'The row's end also lands on the chapter division, though that division carries no independent evidentiary weight' - a pure disclosure doing no driver work and therefore not a punct-lane defect: the opening seam rests on the presentative standing in oshb:Job.32.19's own bytes הִנֵּֽה בִטְנִ֗י and the closing seam on the Job.33.1 vocative, not on the chapter break. All Hebrew collates at byte tier (including אַל נָ֭א אֶשָּׂ֣א פְנֵי אִ֑ישׁ at oshb:Job.32.21), all curly-quoted WEB runs are verbatim, and Job 32 carries no ketiv/qere."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "The closing warrant is stated as a positional row reference even though its verse anchor is present.",
+     "grounds": "'...the row-boundary itself rests on the vocative naming of Job that opens the next row at 33:1.' The underlying fact is byte-true (oshb:Job.33.1 שְׁמַֽע נָ֣א אִיּ֣וֹב מִלָּ֑י, web:Job.33.1, in boundary_evidence_refs), so this is register only: the sentence could name the verse alone and lose nothing. Cosmetic; no seam, digit, tier or mark claim is affected, and the row's tier-4 chapter-division disclaimer in the same sentence is correct practice.",
+     "span_change": false,
+     "proposed_change": "Field repair only: read '...rests on the vocative naming of Job at Job.33.1.' No span or confidence change."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 7,
+  "clean": 1,
+  "defect_rows": 6,
+  "findings": {
+   "low": 9,
+   "medium": 2,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 7,
+   "confirmed_defect": 4,
+   "not_a_defect": 3
+  }
+ }
+}

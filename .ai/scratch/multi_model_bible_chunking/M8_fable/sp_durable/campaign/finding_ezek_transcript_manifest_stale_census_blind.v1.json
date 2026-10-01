@@ -1,0 +1,73 @@
+{
+ "schema": "m8_finding.v1",
+ "id": "finding_ezek_transcript_manifest_stale_census_blind",
+ "recorded_at": "2026-09-14T15:39:14.358302+00:00",
+ "recorded_by": "orchestrator (claude-opus-5), session 910cbe15, at the Q8 pre_primaries dry run",
+ "book": "Ezek",
+ "class": "a consumer reads a route its producer stopped writing; a coverage number measured on an empty route",
+ "severity": "high on counterfactual blast radius; zero shipped impact - caught by the required dry run before the pre_primaries statement was written and before any final-check slice plan was built",
+ "self_disclosed": true,
+ "how_it_was_found": "the Q8 pre_primaries DRY RUN (#e4 ruling (10) requires a dry run before the real build) printed census Ezek transcript_retained 5 against a record stating all Ezekiel map transcripts are preserved. The two were compared by route rather than reconciled by prose.",
+ "the_two_routes": {
+  "what_the_census_reads": {
+   "rule": "SP.rglob of transcript_manifest.v*.json; retention = entry bytes > 0",
+   "tool": "campaign/_transcript_coverage_census.py",
+   "tool_sha256": "2834f8a8aeed61eb77f461eadda61596fc1ef14b51d5022d997dd26632d1f915",
+   "ezek_manifest": "Ezek/transcript_manifest.v1.json",
+   "ezek_manifest_sha256": "8ee112516d1ca421dfa42f8acbaaa4536fc6a1bab9c68745f851cd4a96035a16",
+   "ezek_mapped": 20,
+   "ezek_retained_it_reports": 5
+  },
+  "what_the_preserver_writes": {
+   "rule": "OW-11-m: <session>/subagents/agent-<id>.jsonl, indexed per book",
+   "tool": "orchestrator_scratch/ezek_post_s2/_preserve_subagent_transcripts.v2.py",
+   "index": "transcripts/_subagents_index.ezek.v1.json",
+   "index_sha256": "32bb4dc3eed264d5c410c6b2981346ed0172c6ab2b2c04097ca90c65cd11155b",
+   "map_agents": 77,
+   "transcripts_found": 77,
+   "missing": []
+  }
+ },
+ "measured": {
+  "ezek_attempts_denominator": 66,
+  "retained_by_the_route_the_census_reads": 5,
+  "retained_by_the_preserved_files_measured_by_exact_path": 49,
+  "attempts_readable_but_invisible_to_the_census": 48,
+  "executions_preserved": 77,
+  "bytes_preserved": 74247663,
+  "evidence": "ezek_primaries/retention_routes.json in the orchestrator scratch, and the candidate v2 manifest beside this finding"
+ },
+ "the_second_defect_same_class": {
+  "where": "Ezek/_coverage_statement_ezek.py",
+  "sha256": "7c5d6e81a5f94ab99faa0056747926ee253347ef49abfc50cb5733ffbd100054",
+  "what": "its behaviour_class_observed_now column reads TASKS/<agent_id>.output under ONE hardcoded session root (221a93aa-d2a7-4d91-a265-84e495a39efa) - the route OW-11-m ruled holds 0 bytes - and never the subagents route.",
+  "measured_consequence": "the dry run classed 77 preserved transcripts as B 35, unknown 42, A 3.",
+  "also": "the root is hardcoded to one session, so executions from 6116e665 and later sessions could not be read by it even if the route were right."
+ },
+ "why_the_existing_controls_did_not_prevent_it": [
+  "OW-11-m installed the new preservation route and its per-book index, and rebuilt nothing downstream: the census retention route and the per-book manifest were not part of that sweep.",
+  "this is the L-0017 class one step later - a ruling ordered a lookup along a route that did not exist; here a GATE-BEARING COUNT is measured along a route the producer stopped writing.",
+  "OW-11-n control (u) sweeps every carrier when an OWNER ANSWER changes a number. A route change is not an owner answer, so no control required the sweep."
+ ],
+ "what_would_have_shipped_if_it_had_not_been_caught": [
+  "close-gate item 14 (OW-10, coverage is counted never remembered): a false retention figure for the live book.",
+  "close-gate item 10 (OW-6): the stage-1 Fable transcript auditors read the transcripts where they exist over disjoint slices. A slice plan built from this census would have covered 5 attempts when 49 are readable.",
+  "the Q8 coverage statement would have recorded a false absence for 77 preserved transcripts."
+ ],
+ "containment_done": [
+  "no pre_primaries statement was written: the build was left at the dry run.",
+  "no tool was patched and no manifest was rewritten by the orchestrator; v1 keeps its bytes.",
+  "the candidate v2 manifest is written as a CANDIDATE beside v1, measured from the index by exact path."
+ ],
+ "routed_to": "ezek_controlling_rulings_a1#e11 - the census retention route is a gate-bearing number and the OW-6 stage-1 slice denominator follows from it, so this is a ruling, not plumbing (playbook v3 section 3 step 10).",
+ "not_asserted_here": [
+  "that any Jeremiah or Lamentations conclusion changes: their preserved store is recorded separately in finding_jer_lam_transcripts_present_after_census.v1.json and both books are closed.",
+  "that any Ezekiel row, ruling or verdict changes: nothing here touches the corpus.",
+  "what the transcripts contain: none was read."
+ ],
+ "dad_candidate": {
+  "record": true,
+  "reason": "a safety control kept the outcome small and protected state could have changed: a gate-bearing coverage count was measured on an empty route.",
+  "privacy_safe": "counts, paths and digests only"
+ }
+}

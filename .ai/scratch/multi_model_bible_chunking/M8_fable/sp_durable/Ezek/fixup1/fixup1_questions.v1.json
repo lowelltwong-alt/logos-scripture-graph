@@ -1,0 +1,138 @@
+{
+ "schema": "m8_fixup_questions.v1",
+ "book": "Ezek",
+ "status": "open",
+ "compiled_by": "orchestrator (claude-opus-5), from the v4 suite report and the residuals the FIXUP-1 parts reported; each is a question for S2, not a finding",
+ "suite_report": {
+  "path": "Ezek/repair/suite_v4_6c843b14/rows.jsonl.validator_report.json",
+  "sha256": "195a8ef11100c88a374637087085df4d91b465c71a2b49b58424bd695e21e1a7"
+ },
+ "questions": [
+  {
+   "id": "FQ-01",
+   "tool": "check_refs_mirror.py (argued_but_unmirrored)",
+   "question": "S1-01 ordered P01-014's strongest_rejected_alternative to name the single Ezek.7.5-Ezek.7.27 row, and refs_mirror now names Ezek.7.5-Ezek.7.8 as argued but unmirrored. Row defect, or a tool reading of a rejected-alternative span that need not be mirrored?",
+   "rows": [
+    "P01-014"
+   ]
+  },
+  {
+   "id": "FQ-02",
+   "tool": "check_refs_mirror.py (argued_but_unmirrored)",
+   "question": "FIXUP-1 introduced two verse-anchored references that boundary_evidence_refs does not mirror: web:Ezek.24.24 on P02-016 (an inline ref added to a WEB quotation under CWO-EZ-18) and Ezek.20.45 on P04-006 (a positional reference made verse-anchored under CWO-EZ-14). Should each row mirror the verse, or is the flag noise for a citation that argues no seam?",
+   "rows": [
+    "P02-016",
+    "P04-006"
+   ]
+  },
+  {
+   "id": "FQ-03",
+   "tool": "check_web_quotes.py (CWO-EZ-18 remedy)",
+   "question": "p02 kept ellipsis-joined or nested-quote WEB spans as curly quotations with an inline web: ref on P02-002, P02-003, P02-008, P02-009, P02-017 and P02-018. It turned P02-010's 'the Spirit lifted me up… into Chaldea, to the captives' and P02-017's 'because… they have seduced my people…' into single-quoted glosses. Is each choice one of CWO-EZ-18's remedies? Is every kept curly span verbatim WEB, ellipses aside, at the verse its ref names?",
+   "rows": [
+    "P02-002",
+    "P02-003",
+    "P02-008",
+    "P02-009",
+    "P02-010",
+    "P02-017",
+    "P02-018"
+   ]
+  },
+  {
+   "id": "FQ-04",
+   "tool": "check_web_quotes.py (CWO-EZ-18 remedy)",
+   "question": "On P08-004, P08-005 and P08-007, spans the CWO-EZ-18 items classed as WEB quotations became single-quoted glosses instead of taking a web: ref. The stated reason is that each is verbatim only at a verse other than the one the prose discusses: P08-004's 'then they will know that I am Yahweh' at 32:15, not 33:29, and P08-007's 'behold, I am against you' at 13:8 and 29:10, not 35:3. Is the gloss the right remedy, or should the discussed verse's WEB bytes be quoted with its ref?",
+   "rows": [
+    "P08-004",
+    "P08-005",
+    "P08-007"
+   ]
+  },
+  {
+   "id": "FQ-05",
+   "tool": "citation_sweep.py (prose_dual_warns, WARN tier)",
+   "question": "The v4 suite reports 9 prose_dual_warns on P01-005, P03-008, P03-009, P03-016, P05-002, P05-007, P06-001, P10-004, P10-011. Three sit in fields no FIXUP-1 order named: P03-016 boundary_rationale (oshb:Ezek.18.20), P06-001 strong_or_hebrew_tags_used[2] (oshb:Ezek.25.7) and P10-004 strong_or_hebrew_tags_used[1] (oshb:Ezek.40.24). Is each warn an S1-12-class row defect, meaning a K/Q form or K/Q verse cited without its ketiv/qere label in the field? Or is it a WARN on correctly labelled or non-K/Q text?",
+   "rows": [
+    "P01-005",
+    "P03-008",
+    "P03-009",
+    "P03-016",
+    "P05-002",
+    "P05-007",
+    "P06-001",
+    "P10-004",
+    "P10-011"
+   ]
+  },
+  {
+   "id": "FQ-06",
+   "tool": "check_universals.py",
+   "question": "Universals rose by 3 on P03-007 and P03-016 device_notes ('single', 'only'), from the single-witness K/Q disclosure wording FLAGS-TF2-1 ordered. Are these supported disclosures of one K/Q note in the span, or claims that need a digit-bearing sweep citation (E-16)?",
+   "rows": [
+    "P03-007",
+    "P03-016"
+   ]
+  },
+  {
+   "id": "FQ-07",
+   "tool": "observed_substrate_signals taxonomy (book_strategy_Ezek.md section 8)",
+   "question": "S1-15 removed the closure.parashah_* keys from observed_substrate_signals. P06-009 closes at 27:36 and P06-011 at 28:19 on a mark alone, with no formula in the verse, so no key replaced theirs. The mark is disclosed only in prose and refs. Is the untagged close acceptable? Or does the taxonomy need a mark-neutral key, such as the proposed closure.mark_only, with that decision routed to the controlling agent?",
+   "rows": [
+    "P06-009",
+    "P06-011"
+   ]
+  },
+  {
+   "id": "FQ-08",
+   "tool": "check_web_quotes.py (delimiter evasion, FLAGS)",
+   "question": "The v4 suite flags verbatim WEB text that is not in curly double quotes with a web: ref. The cases are e15c straight quotes on P06-002 ('Moab and Seir') and single curly quotes on P04-002 ('What does the high place where you go mean?'), P08-012 ('know ... that I am Yahweh') and P09-001 ('Son of man, can these bones live?'). No FIXUP-1 order named any of them. Is each a row defect under convention C3, or acceptable? If a defect, which route?",
+   "rows": [
+    "P04-002",
+    "P06-002",
+    "P08-012",
+    "P09-001"
+   ]
+  },
+  {
+   "id": "FQ-09",
+   "tool": "check_web_quotes.py (quote not found at its nearby ref, FLAGS)",
+   "question": "The v4 suite flags P01-001 boundary_rationale's quotation beginning 'this was the appearance of the likeness of Yahweh's glory. When I saw it, I fell on my fac' as not found at its nearby ref Ezek.1.28. Is it a byte difference in the row, such as an apostrophe or case form, a ref defect, or a tool limit?",
+   "rows": [
+    "P01-001"
+   ]
+  },
+  {
+   "id": "FQ-10",
+   "tool": "check_register.py (scope)",
+   "question": "check_register scans only boundary_rationale, strongest_rejected_alternative and device_notes, while book_strategy_Ezek.md section 8 bars the register classes from row prose in every field. Does any boundary_evidence_refs entry or other string field of rows_v4_fixup1 carry section-8-barred register (repair narration, positional row references, strategy citations, governance or review-actor talk)? Is the scope a tool gap for Daniel's toolkit?",
+   "rows": []
+  },
+  {
+   "id": "FQ-11",
+   "tool": "check_marks.py (mark_symmetry, FLAGS)",
+   "question": "The v4 suite reports 66 mark_symmetry flags (56 mark_symmetry_gap, 9 false_mark_absence_claim, 1 kq_claim). Parts named these on their rows: P08-001 (32:32 PE), P08-004 (33:22 PE), P08-006 (33:33 SAMEKH), P08-010 (35:15 PE), P08-012 (36:15 and 36:21 SAMEKH), P08-013 (36:32 SAMEKH), P09-001 (36:38 SAMEKH, the front seam), P09-002 ('no samekh or pe mark falls anywhere inside 37.15-28', with a samekh after 37:28) and the false_mark_absence_claim flags on P11-001, P11-009 and P11-013. Which are S1-09-class row defects (a span-relevant mark left undisclosed, or a false absence claim), and which are acceptable triage? Cover at least the named rows.",
+   "rows": [
+    "P08-001",
+    "P08-004",
+    "P08-006",
+    "P08-010",
+    "P08-012",
+    "P08-013",
+    "P09-001",
+    "P09-002",
+    "P11-001",
+    "P11-009",
+    "P11-013"
+   ]
+  },
+  {
+   "id": "FQ-12",
+   "tool": "check_register.py (arm gap)",
+   "question": "P11-013's strongest_rejected_alternative reads 'the preceding allotment row', a positional row reference no check_register arm sees; the arm needs 'preceding row' adjacent. Is it a row defect under S1-05 and CWO-EZ-14? Read it with section 4's evasion-shape search.",
+   "rows": [
+    "P11-013"
+   ]
+  }
+ ]
+}

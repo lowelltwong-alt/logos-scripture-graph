@@ -1,0 +1,144 @@
+{
+ "attempt_id": "ow2lf_b11_a1",
+ "role": "ow2_lf_auditor",
+ "rows": [
+  {
+   "row_id": "P10-010",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "paseq_disclosure_symmetry_gap",
+     "claim": "Both of this span's paseq segs — MT 37:36 and MT 37:38, the row's own opening and closing verses — are undisclosed, while the neighbouring rows of the same episode disclose every in-span seg they carry.",
+     "grounds": "pmarks_Isa.json paseq inventory, MT keys: Isa.37.36 = 1 seg and Isa.37.38 = 1 seg (single-witness, seg layer, count-only, no intra-verse position). Neither the row's prose nor its seven boundary_evidence_refs entries contains a paseq token. Same-episode practice: M8-Isa-125 (Isa.39.1-Isa.39.4) discloses 'oshb:Isa.39.2 (paseq, single-witness)' and 'oshb:Isa.39.3 (paseq, single-witness)' for its own in-span segs, and the row governing Isa.37.21-Isa.37.35 discloses 'oshb:Isa.37.24 (paseq, single-witness)'. check_marks rule 2 symmetry covers PE/SAMEKH only, so no Tier-0 gate sees this; the parashah claims themselves are correct — SAMEKH at MT 37:35 and SAMEKH at MT 37:38, both type-matched in the marks inventory, and both mark citations carry the single-witness label.",
+     "span_change": false,
+     "proposed_change": "device_notes: add a count-only, single-witness paseq disclosure naming MT 37:36 (1 seg) and MT 37:38 (1 seg) with no position claim; boundary_evidence_refs: add 'oshb:Isa.37.36 (paseq, single-witness)' and 'oshb:Isa.37.38 (paseq, single-witness)'. No other field changes."
+    }
+   ]
+  },
+  {
+   "row_id": "P10-011",
+   "verdict": "clean",
+   "findings": []
+  },
+  {
+   "row_id": "P10-012",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "quote_witness_misattribution",
+     "claim": "The row's own onset citation attributes the WEB English of 38:9 to the OSHB (MT) witness twice, and boundary_rationale carries no web:Isa.38.9 ref at all.",
+     "grounds": "boundary_rationale opens 'This unit opens at oshb:Isa.38.9, “The writing of Hezekiah king of Judah, when he had been sick, and had recovered of his sickness:” (oshb:Isa.38.9), in Hebrew ...'. That English run is verbatim WEB Isa.38.9 (web:Isa.38.9); oshb:Isa.38.9 reads מִכְתָּ֖ב לְחִזְקִיָּ֣הוּ מֶֽלֶךְ יְהוּדָ֑ה בַּחֲלֹת֕וֹ וַיְחִ֖י מֵחָלְיֽוֹ (oshb:Isa.38.9, tier: byte — re-collated). The only web: refs inside boundary_rationale are web:Isa.38.11 and web:Isa.38.20, which is why check_web_quotes passes the field (in-field web: ref present) while the local attribution stays witness-false. The substantive header claim is unaffected: the mikhtav writing-superscription is byte-grounded at oshb:Isa.38.9 and is a different header class from the book's three chazah/ben-Amots superscriptions.",
+     "span_change": false,
+     "proposed_change": "boundary_rationale: re-tag both citations of the English run as web:Isa.38.9 (the Hebrew splice keeps oshb:Isa.38.9, tier: byte); boundary_evidence_refs already carries web:Isa.38.9, so no refs change is needed."
+    }
+   ]
+  },
+  {
+   "row_id": "P10-013",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "engagement_class_translation_carried_warrant",
+     "claim": "The rival side of this row's own front-seam contrast — that MT 38:20 is first-person — is carried by a straight-quoted WEB English run with no pointed splice and no tier label, and its locator inside the verse is wrong.",
+     "grounds": "boundary_rationale argues the two third-person onsets 'against the psalm's own first-person voice, rendered in English as 'Yahweh will save me' at the close of the out-of-span web:Isa.38.20'. WEB Isa.38.20 begins 'Yahweh will save me. Therefore we will sing my songs...' (web:Isa.38.20) — the run is verse-initial, not at the verse's close. The person is letter-visible in the Hebrew the row already cites in its refs: יְהוָ֖ה לְהוֹשִׁיעֵ֑נִי (oshb:Isa.38.20, tier: byte — re-collated), the 1cs object suffix standing in the letters, and חַיֵּ֖ינוּ (oshb:Isa.38.20, tier: byte), the 1cp suffix. Because the English is in straight quotes it is invisible to check_web_quotes, which checked 19 curly-quoted runs across this batch and never saw it. The near side of the same contrast is byte-grounded and re-collates: וַיֹּ֣אמֶר יְשַׁעְיָ֔הוּ (oshb:Isa.38.21, tier: byte).",
+     "span_change": false,
+     "proposed_change": "boundary_rationale: replace the straight-quoted English with the pointed splice from oshb:Isa.38.20 at byte tier naming the first-person suffixes, or keep the English as a curly-quoted run with an in-field web:Isa.38.20 ref; and re-word the locator to name the psalm's close rather than the verse's close. Seam unchanged."
+    },
+    {
+     "severity": "low",
+     "class": "cross_canon_metadata_placement",
+     "claim": "The 2 Kgs synoptic relation is stated inside boundary_rationale under a self-locator that is false there, and the same disclosure already stands in device_notes.",
+     "grounds": "boundary_rationale reads 'that parallel is typed-relation metadata in this note only, never boundary evidence' — the sentence stands in the boundary warrant field, not in a note. device_notes independently carries 'not resolved here by appeal to the 2 Kings order, which this row treats strictly as typed-relation metadata and never rearranges'. Campaign law: the 2 Kgs 18-20 parallel to chs 36-39 is intra-canon synoptic metadata, typed-relation territory, never boundary evidence for an Isaiah seam. The disclaimer itself is correct and the row does not rearrange; only the placement and the self-locator are defective.",
+     "span_change": false,
+     "proposed_change": "boundary_rationale: drop the 2 Kings sentence (device_notes already carries the disclosure), or move it there verbatim. No refs or span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P10-014",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "recurrence_digit_count_object_mismatch",
+     "claim": "The cross-seam catchword digit 'sweep: 2 verses, finals-normalized skeleton tier' is attached to two quoted runs neither of which reaches the other verse at any tier; the 2-verse skeleton digit belongs to an unnamed truncation.",
+     "grounds": "device_notes states that כָּל אֲשֶׁ֤ר בְּבֵיתִי֙ (oshb:Isa.39.4) 'is taken back up one verse into the following unit at oshb:Isa.39.6, כָּל אֲשֶׁ֣ר בְּבֵיתֶ֗ךָ (oshb:Isa.39.6) — sweep: 2 verses, finals-normalized skeleton tier'. Re-sweeps: skeleton כָּל אֲשֶׁ֤ר בְּבֵיתִי֙ = 1 verse (MT 39:4); skeleton כָּל אֲשֶׁ֣ר בְּבֵיתֶ֗ךָ = 1 verse (MT 39:6); the shared truncation כל אשר בבית = 2 verses (MT 39:4, MT 39:6). Cross-collation returns tier none in BOTH directions (the 39:4 run at oshb:Isa.39.6, and the 39:6 run at oshb:Isa.39.4): the two attested forms differ in their pronominal suffix, so the pair is not a skeleton-tier recurrence at all. Contrast the two genuine pairs disclosed elsewhere in the same episode under identical wording, where the digit IS true of the quoted runs: skeleton וזה לך האות = 2 verses (MT 37:30, MT 38:7) and skeleton וגנותי על העיר הזאת = 2 verses (MT 37:35, MT 38:6). Both splices are byte-true at their own verses (oshb:Isa.39.4 and oshb:Isa.39.6, tier: byte — re-collated); the rear seam itself is unaffected, resting on the herald-summons frame שְׁמַ֖ע דְּבַר יְהוָ֥ה צְבָאֽוֹת (oshb:Isa.39.5, tier: byte), re-swept unique at byte and skeleton alike (sweep: 1 verse book-wide).",
+     "span_change": false,
+     "proposed_change": "device_notes: name the swept object as the shared skeleton run (sweep: 2 verses, MT 39:4 and MT 39:6) and state that the two attested forms carry different pronominal suffixes and are not skeleton-identical to each other; keep both splices at byte tier against their own verses. No refs or span change."
+    },
+    {
+     "severity": "low",
+     "class": "register_purge",
+     "claim": "device_notes calls the book's ketiv/qere inventory 'the campaign's largest', naming the production programme in shipped row prose.",
+     "grounds": "The register-purge rule bars workflow/administrative language in every row field, with '(sweep: N ...)' the one sanctioned citation shorthand — which the same sentence already uses correctly ('sweep: 53 notes over 49 verses', matching the inventory: 49 K/Q-bearing MT verses in pmarks_Isa.json). The K/Q disclosure itself is sound: MT 39:2 carries one note, and the unpointed ketiv and pointed qere both stand byte-true in that verse's own bytes as quoted.",
+     "span_change": false,
+     "proposed_change": "device_notes: keep '(sweep: 53 notes over 49 verses)' and drop the 'the campaign's largest' clause, or replace it with a book-internal formulation."
+    }
+   ]
+  },
+  {
+   "row_id": "P10-015",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "paseq_disclosure_symmetry_gap",
+     "claim": "The in-span paseq seg at MT 39:6 is undisclosed, while the immediately preceding row discloses both of its own in-span segs.",
+     "grounds": "pmarks_Isa.json paseq inventory, MT key Isa.39.6 = 1 seg (single-witness, count-only). Neither the row's prose nor its five boundary_evidence_refs entries contains a paseq token; M8-Isa-125 (Isa.39.1-Isa.39.4) discloses 'oshb:Isa.39.2 (paseq, single-witness)' and 'oshb:Isa.39.3 (paseq, single-witness)'. check_marks rule 2 symmetry covers PE/SAMEKH only. The row's own parashah claim is correct and unconflated: MT 39:8 carries PE (the only PE between MT 36:1 and MT 40:31), disclosed single-witness and held as corroboration of the frame close rather than its cause.",
+     "span_change": false,
+     "proposed_change": "device_notes: add a count-only, single-witness paseq disclosure for MT 39:6 with no position claim; boundary_evidence_refs: add 'oshb:Isa.39.6 (paseq, single-witness)'. No other field changes."
+    }
+   ]
+  },
+  {
+   "row_id": "P11-001",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "register_purge",
+     "claim": "device_notes grounds two claims by contrast with the campaign's own staging state and controlled vocabulary — 'rather than a claim resting on the unstaged morphology layer' and 'rather than from any vocabulary allowance'.",
+     "grounds": "Both clauses name internal pipeline state rather than the text or a witness, which the register-purge rule bars in every row field. The substantive half of each sentence already carries the claim without them: the plural is letter-visible in נַחֲמ֥וּ נַחֲמ֖וּ (oshb:Isa.40.1, tier: byte — re-collated) and דַּבְּר֞וּ … וְקִרְא֣וּ (oshb:Isa.40.2, tier: byte), and the inquit's own closing word אֱלֹהֵיכֶֽם (oshb:Isa.40.1, tier: byte) spells the ordinary divine-title form.",
+     "span_change": false,
+     "proposed_change": "device_notes: delete both 'rather than ...' clauses and keep the byte-grounded halves. No refs or span change."
+    },
+    {
+     "severity": "low",
+     "class": "cross_seam_cohesion_disclosure_gap",
+     "claim": "The calling root standing on both sides of this row's own rear seam is never disclosed as a cross-seam cohesion object, though the neighbour row sharing that seam discloses exactly that chain.",
+     "grounds": "The row's closing verse carries וְקִרְא֣וּ (oshb:Isa.40.2, tier: byte — re-collated) and the verse immediately across its own seam carries קוֹרֵ֔א (oshb:Isa.40.3, tier: byte); M8-Isa-128 (Isa.40.3-Isa.40.5) discloses the chain across the same seam and argues it leaves the onset undisturbed. This row engages oshb:Isa.40.3's participle only in its rejected alternative, as the distinct-addressee signal, never as a device straddling its own rear seam — and campaign law is that a device straddling the row's own seam argues continuity against the row unless disclosed. The seam ground itself re-verifies: the onset is verse-initial at MT 40:3 and unique in the book (sweep: 1 verse), and the row's two mark claims are both type-correct and single-witness disclosed — PE at MT 39:8 and SAMEKH at MT 40:2, never conflated.",
+     "span_change": false,
+     "proposed_change": "device_notes: add the calling-root chain as a cross-seam disclosure at the row's rear seam, naming both tokens at byte tier against their own verses. No refs or span change."
+    }
+   ]
+  },
+  {
+   "row_id": "P11-002",
+   "verdict": "defect",
+   "findings": [
+    {
+     "severity": "low",
+     "class": "cross_seam_cohesion_wording_ambiguity",
+     "claim": "The cross-seam cohesion disclosure's closing sentence, on its plain reading, asserts the very continuity the neighbour row's seam ground denies.",
+     "grounds": "device_notes closes 'The title pair and the calling root leave the addressee and speaker-frame unchanged across web:Isa.40.2|Isa.40.3, so the fresh voice-onset that opens this span stands undisturbed by the shared vocabulary.' Read as 'the addressee and speaker-frame are unchanged across the seam' this asserts cross-seam continuity of exactly the feature M8-Isa-127 (Isa.40.1-Isa.40.2) uses to hold the seam — its rejected alternative grounds the division on the voice at oshb:Isa.40.3 being 'distinct from the comforters addressed in web:Isa.40.1-Isa.40.2'. The intended reading (the shared vocabulary carries no addressee or speaker-frame information) is recoverable only from the trailing clause. The underlying device facts are all correct and re-collate exactly as tier-labelled: אֱלֹהֵיכֶֽם reaches oshb:Isa.40.9 at byte tier (book-wide byte sweep: exactly 2 verses, MT 40:1 and MT 40:9); אֱלֹהֵ֖ינוּ (oshb:Isa.40.8) reaches oshb:Isa.40.3's לֵאלֹהֵֽינוּ at skeleton tier only; and all four calling-root tokens are byte-true at their own verses.",
+     "span_change": false,
+     "proposed_change": "device_notes: re-word to state that the shared title pair and calling root carry no addressee or speaker-frame information and therefore do not disturb the voice-onset, instead of stating that the addressee and speaker-frame are unchanged across the seam. No refs or span change."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 8,
+  "clean": 1,
+  "defect_rows": 7,
+  "findings": {
+   "low": 8,
+   "medium": 2,
+   "high": 0
+  },
+  "span_changes_proposed": 0
+ }
+}

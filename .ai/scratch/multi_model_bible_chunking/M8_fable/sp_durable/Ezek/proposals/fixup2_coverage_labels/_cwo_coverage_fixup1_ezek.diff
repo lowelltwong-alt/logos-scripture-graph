@@ -1,0 +1,125 @@
+--- a/Ezek/_cwo_coverage_fixup1_ezek.py
++++ b/Ezek/_cwo_coverage_fixup1_ezek.py
+@@ -20,6 +20,8 @@
+ Usage: _cwo_coverage_fixup1_ezek.py --rows <applied rows> --report <suite report over those exact bytes> --out <dir>
+        --chain-head repair/rows_v3_cwo18.jsonl --cwo01 <CWO-EZ-01 coverage report over the same rows>
+        [--orders-index fixup1/orders_index.json] [--fixup-receipts fixup1/ezek_author_fixup_attempt_receipts.jsonl]
++       [--wave FIXUP-2 --field-scope-from ezek_controlling_agent_rulings_e9.v1.json]   (ezek_controlling_rulings_a1#e9)
++       --selftest
+ """
+ import argparse
+ import hashlib
+@@ -44,6 +46,10 @@
+ TF2_RECEIPT = SP / "campaign" / "receipts" / "ezek_tools_install_toolfix2_batch3.json"
+ MEMBERS = ("citation_sweep.py", "check_register.py", "check_web_quotes.py", "normalize_hebrew_in_json.py", "ezek_lib.py")
+ SWEEP_MANIFESTS = (("CWO-EZ-13", "repair/rows_v3_cwo13.manifest.json"), ("CWO-EZ-18", "repair/rows_v3_cwo18.manifest.json"))
++FIELD_SCOPE_MARKS = ("beside the two ruled texts verbatim: '", "' (3) TOOLFIX-5")
++EXECUTED_AS = ("its own post-%s coverage sweep (E-18); its author items were routed into the per-part %s executions stamped with "
++               "this id (%s)")
++FIXUP1_ORDERING = "#e4 FIXUP-1 (1)"
+ CWO15_PROBLEM = ("does not collate against any nearby cited ref",)   # the needle _build_fixup_orders_ezek.py bound its items by
+ CWO16_MARK = "[CWO-EZ-16]"
+ E15D = "e15d_unequal_curly_double_quotes"
+@@ -98,7 +104,63 @@
+     return found[0]
+ 
+ 
++def part_attempt_id(part, entry):
++    """The part's attempt id from its orders-index entry's own file name (orders_<attempt id>.json); FIXUP-1's naming when the name
++    is absent (ezek_controlling_rulings_a1#e9 S2-ROUTING (6))."""
++    f = str(entry.get("file", ""))
++    return f[len("orders_"):-len(".json")] if f.startswith("orders_") and f.endswith(".json") else "ezek_author_fixup_%s_a1" % part
++
++
++def field_scope_sentence(path):
++    """#e9 S2-15's FIELD SCOPE sentence, cut verbatim between fixed markers; refused when the markers are absent."""
++    doc = json.loads(Path(path).read_text(encoding="utf-8"))
++    hits = [r for r in doc.get("rulings", []) if r.get("id") == "S2-15"]
++    if len(hits) != 1:
++        raise SystemExit("ABORT: %d S2-15 rulings in %s" % (len(hits), Path(path).name))
++    t, (s, e) = hits[0]["decision"], FIELD_SCOPE_MARKS
++    i = t.find(s)
++    j = t.find(e, i + len(s)) if i >= 0 else -1
++    if i < 0 or j < 0:
++        raise SystemExit("ABORT: S2-15 carries no FIELD SCOPE sentence between the expected markers")
++    return "%s ruling S2-15" % doc.get("execution_id"), t[i + len(s):j]
++
++
++def selftest():
++    results = []
++
++    def check(name, got, want):
++        results.append({"vector": name, "want": want, "got": got, "ok": got == want})
++
++    check("the FIXUP-1 executed_as label equals the old literal", EXECUTED_AS % ("FIXUP-1", "FIXUP-1", FIXUP1_ORDERING),
++          "its own post-FIXUP-1 coverage sweep (E-18); its author items were routed into the per-part FIXUP-1 executions stamped "
++          "with this id (#e4 FIXUP-1 (1))")
++    check("the FIXUP-2 executed_as label names FIXUP-2 and #e9", EXECUTED_AS % ("FIXUP-2", "FIXUP-2", "#e9 S2-ROUTING (3)"),
++          "its own post-FIXUP-2 coverage sweep (E-18); its author items were routed into the per-part FIXUP-2 executions stamped "
++          "with this id (#e9 S2-ROUTING (3))")
++    check("a FIXUP-1 index file name yields the FIXUP-1 attempt id",
++          part_attempt_id("p06", {"file": "orders_ezek_author_fixup_p06_a1.json"}), "ezek_author_fixup_p06_a1")
++    check("an entry with no file name falls back to FIXUP-1's naming", part_attempt_id("p06", {}), "ezek_author_fixup_p06_a1")
++    check("a FIXUP-2 index file name yields the FIXUP-2 attempt id",
++          part_attempt_id("p08", {"file": "orders_ezek_author_fixup2_p08_a1.json"}), "ezek_author_fixup2_p08_a1")
++    # the installed tool sits beside the rulings; a staged candidate sits two directories below them
++    e9 = next((p for p in (EZ / "ezek_controlling_agent_rulings_e9.v1.json", EZ.parent.parent / "ezek_controlling_agent_rulings_e9.v1.json")
++               if p.is_file()), None)
++    if e9 is None:
++        check("the #e9 rulings file is reachable for the FIELD SCOPE vector", False, True)
++    else:
++        rid, s = field_scope_sentence(e9)
++        check("the FIELD SCOPE sentence is cut whole from #e9 S2-15",
++              [rid, s.startswith("FIELD SCOPE: check_register's arms scan"), s.endswith("proven by S3's read-back.")],
++              ["ezek_controlling_rulings_a1#e9 ruling S2-15", True, True])
++    failed = [r for r in results if not r["ok"]]
++    print(json.dumps({"selftest": "_cwo_coverage_fixup1_ezek wave labels", "vectors": len(results), "failed": failed,
++                      "verdict": "GREEN" if not failed else "RED"}, indent=1))
++    return 1 if failed else 0
++
++
+ def main():
++    if "--selftest" in sys.argv:
++        return selftest()
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--rows", required=True)
+     ap.add_argument("--report", required=True)
+@@ -107,6 +169,8 @@
+     ap.add_argument("--cwo01", required=True, help="CWO-EZ-01's coverage report over the same rows (#e7 final_check)")
+     ap.add_argument("--orders-index", default="fixup1/orders_index.json")
+     ap.add_argument("--fixup-receipts", default="fixup1/ezek_author_fixup_attempt_receipts.jsonl")
++    ap.add_argument("--wave", default="FIXUP-1", help="the fix-up wave whose orders routed the items (#e9 S2-ROUTING (6))")
++    ap.add_argument("--field-scope-from", help="a rulings file whose S2-15 ruling carries the FIELD SCOPE sentence (#e9)")
+     a = ap.parse_args()
+     rows_p, rep_p, out_dir, head_p, c01_p, idx_p, rec_p = map(at, (a.rows, a.report, a.out, a.chain_head, a.cwo01, a.orders_index,
+                                                                   a.fixup_receipts))
+@@ -188,7 +252,7 @@
+                 landed[rr["attempt_id"]] = rr["execution_id"]
+     carriers, routed = {}, {}
+     for part, v in sorted(idx["parts"].items()):
+-        aid = "ezek_author_fixup_%s_a1" % part
++        aid = part_attempt_id(part, v)
+         for key, n in v.get("item_counts", {}).items():
+             if key.startswith("CWO-EZ-"):
+                 carriers.setdefault(key, []).append(landed.get(aid, "%s (no LANDED execution)" % aid))
+@@ -207,8 +271,7 @@
+                "ordered_by": ("ezek_controlling_rulings_a1#e4 corpus_wide_orders, as amended by #e6" if cid == "CWO-EZ-18"
+                               else "ezek_controlling_rulings_a1#e4 corpus_wide_orders"),
+                "narrowed_predicate_label": src["predicate"], "order": src["order"],
+-               "executed_as": "its own post-FIXUP-1 coverage sweep (E-18); its author items were routed into the per-part FIXUP-1 "
+-                              "executions stamped with this id (#e4 FIXUP-1 (1))",
++               "executed_as": EXECUTED_AS % (a.wave, a.wave, FIXUP1_ORDERING if a.wave == "FIXUP-1" else "#e9 S2-ROUTING (3)"),
+                "rows_file": {"path": str(rows_p), "sha256": sha(rows_p), "rows": len(rows)},
+                "suite_report": {"path": str(rep_p), "sha256": sha(rep_p)},
+                "suite_members_at_toolfix2_install_digest": members,
+@@ -220,6 +283,10 @@
+         if cid == "CWO-EZ-14":
+             doc["coverage_limit"] = LIMIT_SENTENCE
+             doc["coverage_limit_ruled_text"] = limit_text
++            if a.field_scope_from:
++                fs_rid, fs = field_scope_sentence(at(a.field_scope_from))
++                doc["field_scope"] = fs
++                doc["field_scope_ruled_text"] = {fs_rid: fs}
+         if cid == "CWO-EZ-18":
+             doc["amends"] = src.get("amends")
+             doc["e4_order_verbatim"], doc["e4_predicate_verbatim"] = e4[cid]["order"], e4[cid]["predicate"]

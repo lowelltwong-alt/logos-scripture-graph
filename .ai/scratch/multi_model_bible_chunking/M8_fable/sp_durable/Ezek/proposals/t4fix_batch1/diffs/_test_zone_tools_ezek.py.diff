@@ -1,0 +1,64 @@
+--- SP/Ezek/tools/_test_zone_tools_ezek.py (installed a9401c9917aa)
++++ proposals/t4fix_batch1/staged/_test_zone_tools_ezek.py (staged ff29ccd4f4a3)
+@@ -431,6 +431,61 @@
+             mine = [f for f in rep["flags"] if f.get("decision_id") == d and f.get("rule") == rule]
+             check("check_marks %s: %s %s" % (d, rule, "fires" if fires else "silent"), bool(mine) == fires, mine)
+ 
++# 9. T4 FINDINGS - the batched edit proposed to ezek_controlling_rulings_a1#e4 (installed only after its ruling, then a
++# fresh distinct review). T4-01: digits that follow a letter ('R4.5') are an id, not a verse. T4-03: a closed set of
++# denials LATER in the clause denies, read through a parenthetical; a bare later 'no', 'none of' and a non-final
++# 'is missing' do not, and a denial behind a comma stays outside the clause (a disclosed residual, pinned RED).
++# T4-04: a true puncta ref needs single-witness disclosure, hyphenated or spaced.
++T4_CS = [
++    ("cs_t4_01_decoy_letter_id_ok",
++     ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria (cross-referenced at row R4.5 in the ledger), single-witness"], None),
++    ("cs_t4_01_dotted_ezek_ref_still_binds", ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria (Ezek.41.5, single-witness)"],
++     "claims puncta extraordinaria"),
++    ("cs_t4_03_puncta_denial_after_nonsite_ok",
++     ["web:Ezek.41.1-Ezek.41.10 puncta extraordinaria would be expected at 41:5 but none stands"], None),
++    ("cs_t4_03_puncta_denial_after_at_site",
++     ["oshb:Ezek.41.20-Ezek.41.20 puncta extraordinaria would be expected here but none stands"], "denies puncta extraordinaria"),
++    ("cs_t4_04_site_without_disclosure", ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria (41:20)"], "lacks single-witness disclosure"),
++    ("cs_t4_04_spaced_single_witness_ok", ["web:Ezek.41.1-Ezek.41.26 puncta extraordinaria at 41:20, single witness"], None),
++]
++T4_CAL_ROWS = [
++    ("cal_t4_03_apposition_denial_ok", {"boundary_rationale": "the unit opens at 45:18, where a dateline would be expected but none stands"}, None),
++    ("cal_t4_03_parenthesis_denial_ok", {"boundary_rationale": "the dateline (45:18) would be expected but none stands"}, None),
++    ("cal_t4_03_absent_at_clause_end_ok", {"boundary_rationale": "a dateline at 45:18 is absent"}, None),
++    ("cal_t4_03_bare_later_no_stays_red", {"boundary_rationale": "the dateline at 45:18 opens no new year"}, "claims a dateline at MT 45:18"),
++    ("cal_t4_03_none_of_stays_red", {"boundary_rationale": "the dateline at 45:18 but none of the festival dates"}, "claims a dateline at MT 45:18"),
++    ("cal_t4_03_missing_not_final_stays_red", {"boundary_rationale": "the dateline at 45:18 is missing its year word"},
++     "claims a dateline at MT 45:18"),
++    ("cal_t4_03_denial_behind_comma_residual_red", {"boundary_rationale": "a dateline at 45:18 would be expected, though none stands"},
++     "claims a dateline at MT 45:18"),
++]
++T4_CM = [
++    ("cm_t4_01_decoy_letter_id_ok", "the puncta extraordinaria (cross-referenced at row R4.5 in the ledger)", "Ezek.41.12-Ezek.41.20",
++     {"puncta_claim_in_ezek": False, "false_puncta_absence_claim": False}),
++    ("cm_t4_03_denial_after_nonsite_ok", "puncta extraordinaria would be expected at 41:5 but none stands", "Ezek.41.1-Ezek.41.10",
++     {"puncta_claim_in_ezek": False, "false_puncta_absence_claim": False}),
++    ("cm_t4_03_denial_after_at_site_flags", "puncta extraordinaria would be expected at 41:20 but none stands", "Ezek.41.12-Ezek.41.20",
++     {"false_puncta_absence_claim": True, "puncta_claim_in_ezek": False}),
++]
++with tempfile.TemporaryDirectory() as td:
++    p = Path(td) / "t4_cs.jsonl"
++    p.write_text("\n".join(json.dumps({"decision_id": d, "boundary_evidence_refs": refs}) for d, refs, _ in T4_CS)
++                 + "\n" + "\n".join(json.dumps(dict({"decision_id": d}, **f), ensure_ascii=False) for d, f, _ in T4_CAL_ROWS),
++                 encoding="utf-8")
++    rep = run("citation_sweep.py", p)
++    for did, _, expect in T4_CS + T4_CAL_ROWS:
++        mine = [x for x in rep["problems"] if x.startswith(did + ":")]
++        check("citation_sweep %s: %s" % (did, "no problem" if expect is None else repr(expect)),
++              (not mine) if expect is None else any(expect in x for x in mine), mine)
++    p = Path(td) / "t4_cm.jsonl"
++    p.write_text("\n".join(json.dumps({"decision_id": d, "boundary_rationale": prose, "span": span}) for d, prose, span, _ in T4_CM),
++                 encoding="utf-8")
++    rep = run("check_marks.py", p)
++    for d, _, _, expect in T4_CM:
++        for rule, fires in expect.items():
++            mine = [f for f in rep["flags"] if f.get("decision_id") == d and f.get("rule") == rule]
++            check("check_marks %s: %s %s" % (d, rule, "fires" if fires else "silent"), bool(mine) == fires, mine)
++
+ failed = [r for r in results if not r["ok"]]
+ print(json.dumps({"checks": len(results), "passed": len(results) - len(failed), "failed": failed,
+                   "verdict": "GREEN" if not failed else "RED"}, ensure_ascii=False, indent=1))

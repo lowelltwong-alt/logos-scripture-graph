@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+"""Tier-0 validator suite runner (m8-mesh-r3), Dan. Orchestrator-run AND
+writer/author-facing:
+ (a) over draft/frozen rows BEFORE primaries launch;
+ (b) over revised rows INSTEAD of a full rev re-review.
+
+Runs, in order: citation_sweep, hebrew normalize (dry-run), web quotes,
+refs mirror, mark symmetry, universals, language zones, 7-gram gate,
+whole-chapter cap sweep, register sweep. Hard checks set status RED; the
+FLAGS checks feed the orchestrator triage queue.
+
+JER SUITE UPGRADES, inherited by Ezek and then Dan (per the error-pattern ledger, forward-application law):
+ E-01: nfd_degraded is HARD here - a normalize dry-run with fixed > 0 OR a
+       citation_sweep nfd_degraded_count > 0 sets RED (Isa shipped 23
+       NFD-degraded quotes through a WARN-tier gate; never again).
+ E-02: the whole-chapter confidence-cap sweep is a Tier-0 HARD member
+       (five books of prose-only enforcement shipped 12 violations in Isa;
+       the boss's own sweep had to find four of them).
+ E-06/E-18 residuals: the register sweep (check_register.py) runs as a
+       FLAGS member with the hardened pattern list incl. the "that row" /
+       "cross-part" arms; flags are triage candidates (E-12 law:
+       disposition, never auto-suppress).
+
+Dan amendment (2026-09-29, blind toolkit review K2, D1 and D2; a Dan-only change after the adapter install, so
+the adapter's --install now refuses this file as differing, like check_brief_vs_suite.py):
+ D1: any member whose status is ERROR (a crash, or stdout that is not one JSON object) is HARD, whatever its
+     tier, and is listed in summary.dead_members. A dead member is missing evidence, so the suite fails closed.
+ D2: the normalizer prints one JSON line per input file, so it is run once per file and its counts summed.
+
+Dan amendment (2026-09-30, controlling ruling S1-02): a new HARD member "placeholders" (check_placeholders.py) walks
+every string value at any depth of every row and is RED on any unfilled template placeholder (the CWO-DAN-01
+predicate). Its RED is in hard_red; its ERROR is already HARD under D1. It adds a gate and weakens none.
+
+Usage: run_validator_suite.py rows.jsonl [--reviews f1.json f2.json ...]
+Writes <rows>.validator_report.json next to the rows file and prints a summary.
+"""
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+TOOLS = Path(__file__).resolve().parent
+
+
+def run(script: str, *args: str) -> dict:
+    proc = subprocess.run([sys.executable, str(TOOLS / script), *args],
+                          capture_output=True, text=True, encoding="utf-8")
+    try:
+        out = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        out = {"status": "ERROR", "stdout": proc.stdout[-2000:], "stderr": proc.stderr[-2000:]}
+    out["_exit"] = proc.returncode
+    return out
+
+
+def run_each(script: str, *files: str) -> dict:
+    """K2 D2: run a one-JSON-line-per-file member once per file and sum its counts. Any file whose run is not one
+    JSON object makes the whole member ERROR."""
+    per = [run(script, f) for f in files]
+    out: dict = {"files": per}
+    if any(p.get("status") == "ERROR" for p in per):
+        out["status"] = "ERROR"
+    for k in ("ok", "qere", "fixed", "mention", "defect_count"):
+        out[k] = sum(p[k] for p in per if isinstance(p.get(k), int))
+    out["defects"] = [d for p in per for d in p.get("defects", [])][:15]
+    return out
+
+
+def main() -> int:
+    # E-20 flag-arg guard: never derive an output path from a flag-shaped or
+    # missing first argument (a bare "--help" probe must not write a report).
+    if len(sys.argv) < 2 or sys.argv[1].startswith("-"):
+        print(json.dumps({
+            "usage": "run_validator_suite.py rows.jsonl [--reviews f1.json ...]",
+            "error": "first argument must be the rows file; no report is written for flag-shaped arguments",
+        }))
+        return 2
+    rows = sys.argv[1]
+    extra = []
+    if "--reviews" in sys.argv:
+        extra = sys.argv[sys.argv.index("--reviews") + 1:]
+    report = {
+        "rows_file": rows,
+        "citation_sweep": run("citation_sweep.py", rows),
+        "hebrew_normalize_dryrun": run_each("normalize_hebrew_in_json.py", rows, *extra),
+        "web_quotes": run("check_web_quotes.py", rows, *extra),
+        "refs_mirror": run("check_refs_mirror.py", rows),
+        "mark_symmetry": run("check_marks.py", rows),
+        "universals": run("check_universals.py", rows, *extra),
+        "language_zones": run("check_language_zones.py", rows, *extra),
+        "ngram7": run("ngram7.py", rows),
+        "cap_sweep": run("cap_sweep.py", rows),
+        "register": run("check_register.py", rows),
+        # REPAIR-2 step 4 (#e15 Q5, DEF-A4-ARGUED clause 6 v2): face qualifiers are VERIFIED against verse and span and
+        # a mismatch FAILS LOUD, so this member is HARD. Its phase is pinned in role_tokens_phase.json.
+        "role_tokens": run("check_role_tokens.py", rows),
+        # S1-02 (2026-09-30): unfilled template placeholders in any string field. HARD.
+        "placeholders": run("check_placeholders.py", rows),
+    }
+    norm = report["hebrew_normalize_dryrun"]
+    nfd_hard = (norm.get("status") == "ERROR"
+                or bool(norm.get("defect_count", 0))
+                or bool(norm.get("fixed", 0))                      # E-01
+                or bool(report["citation_sweep"].get("nfd_degraded_count", 0)))
+    # K2 D1: a dead member is HARD whatever its tier (fail closed)
+    dead = sorted(k for k, v in report.items() if isinstance(v, dict) and v.get("status") == "ERROR")
+    hard_red = (report["citation_sweep"].get("status") == "RED"
+                or report["ngram7"].get("status") == "RED"
+                or report["cap_sweep"].get("status") == "RED"      # E-02
+                or report["cap_sweep"].get("status") == "ERROR"
+                or report["role_tokens"].get("status") in ("FLAGS", "ERROR")
+                or report["placeholders"].get("status") == "RED"   # S1-02
+                or nfd_hard
+                or bool(dead))
+    flag_total = sum(report[k].get("flag_count", 0)
+                     for k in ("web_quotes", "refs_mirror", "mark_symmetry",
+                               "universals", "language_zones", "register"))
+    report["summary"] = {"hard_status": "RED" if hard_red else "GREEN",
+                         "nfd_hard_e01": nfd_hard,
+                         "triage_flags": flag_total,
+                         "dead_members": dead}
+    out_path = Path(rows).with_suffix(Path(rows).suffix + ".validator_report.json")
+    out_path.write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    def shown_status(k: str) -> str:
+        r = report[k]
+        if "status" in r:
+            return r["status"]
+        if k == "hebrew_normalize_dryrun":       # tool prints counts, no status key
+            return f"ok={r.get('ok', '?')} fixed={r.get('fixed', 0)} defects={r.get('defect_count', 0)}"
+        return "?"
+    print(json.dumps({"report": str(out_path), **report["summary"],
+                      "per_check": {k: shown_status(k)
+                                    for k in report if k not in ("rows_file", "summary")}},
+                     indent=1))
+    return 1 if hard_red else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

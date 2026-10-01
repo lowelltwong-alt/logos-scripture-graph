@@ -1,0 +1,29 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "batch": "resume_checker_generator_ow12_budget",
+ "installed_by": "orchestrator (claude-opus-5), session 6116e665",
+ "ordered_by": [
+  "owner directive OW-12 (2026-09-11), verbatim in ERROR_PATTERN_LEDGER.v1.md",
+  "ledger OW-11-n (the owner's budget answers)"
+ ],
+ "why": "carry the owner's book-close project status update as a canonical resume-prompt clause, so a prompt without it fails verification; replace the stale 'one combined 15M' canonical budget clause with the owner's current ceilings",
+ "files": [
+  {
+   "path": "sp_durable/Jer/_safe_to_clear_check.py",
+   "sha256_before": "8ec43109308ee22fc8b307aabcaa67887e1f3955d80dacdf1293c691424ae34c",
+   "sha256_after": "7739e910a35089e45b107090374764e5d6be0d4a3b9c73af28e4e475d4cd59ba",
+   "preimage": "sp_durable/campaign/tool_preimages/_safe_to_clear_check.pre_ow12.8ec43109.py",
+   "selftest_candidate": "SELFTEST: PASS (all fixtures behave as required)"
+  },
+  {
+   "path": "sp_durable/orchestrator_scratch/_gen_resume_prompt.py",
+   "sha256_before": "ef336cd6a4760ab99a427febf45ff0df9cd3a5827170ebbb0bc3986d43a34811",
+   "sha256_after": "d04a99b24985c82daeb529b432b0afc91f05a1034a253408db2b51f68591c28b",
+   "preimage": "sp_durable/campaign/tool_preimages/_gen_resume_prompt.pre_ow12.ef336cd6.py",
+   "draft_check": "SAFE_TO_CLEAR_CHECK: PASS (marker + bound cursor + 5 receipt pointers + 3 docket pointers + 2 ruling/index pointers with hashes + 56 canonical clauses + 9 contradiction arms + state binding + 2 exact paths + corrupted-variant rejection + next-prompt instruction)"
+  }
+ ],
+ "selftest_installed": "SELFTEST: PASS (all fixtures behave as required)",
+ "dependency_applicability": "Prompts archived before this install were verified under the 15M clause and stay valid history in receipts/prompt_archive. From this install every generated prompt must carry the amended ow11_budget clause and ow12_book_close_status_update. No book row, ruling, receipt or gate verdict depends on the changed clauses; the Jer and Lam close packets are not re-verified by this change.",
+ "limit": "changes the resume checker's canonical set and the generator's safeguard lines only; no other contradiction arm or pointer changed"
+}

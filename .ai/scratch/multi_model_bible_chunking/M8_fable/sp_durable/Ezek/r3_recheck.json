@@ -1,0 +1,141 @@
+{
+ "attempt_id": "ezek_p0_r3_a1",
+ "execution_id": "ezek_p0_r3_a1#e1",
+ "role": "distinct checker, round 3 of 3, bounded repair recheck",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md"
+ ],
+ "artifact_sha256_at_review": {
+  "ezek_device_inventory.json": "0112add3b18927e9d23f09ecb850e3aa1ef9b1220c073063d49a377cf8929142",
+  "TOOLKIT.md": "06b0e7a6379b30deff2662009f6b20dd4fbc408333944c95f3111e305f2a57ee"
+ },
+ "digest_match": "both match the briefed expected values exactly; proceeded",
+ "hebrew_string_sweep": {
+  "method": "regex [\\u0590-\\u05FF]+ over both files -> 51 runs; the line-wrapped pair was merged into one string; deduped to 37 substantive strings plus 2 combining-mark regex-range endpoints. Each string tested against Ezek_oshb.txt three ways: NFD consonantal-skeleton substring, skeleton whole-word, and raw pointed bytes.",
+  "runs_extracted": 51,
+  "strings_tested": 37,
+  "confirmed": 36,
+  "unconfirmed": [
+   {
+    "string": "יד יהוה",
+    "where": "TOOLKIT.md prophetic-frame table, form column, verses=7",
+    "finding": "the literal string occurs in 6 verses (MT 1:3, 3:14, 3:22, 33:22, 37:1, 40:1), not 7. MT 8:1 reads יַד אֲדֹנָי יְהִוִה. The 7-verse count is correct for the construct-plus-divine-name category the inventory gloss actually declares (matched on the construct alone), and no verse is misassigned; this is a citation-label precision issue, not a data error.",
+    "severity": "low / non-blocking"
+   }
+  ],
+  "splice_and_control_scan": "zero Hebrew characters adjacent to Latin letters or digits in either file; zero bidi, zero-width or soft-hyphen controls; non-ASCII non-Hebrew limited to the pilcrow, middot, multiplication sign, em dash and ellipsis in TOOLKIT.md. The round-2 splice error class is clean.",
+  "regex_range_endpoints": "U+0591 and U+05C7 in the TOOLKIT encoding note are the endpoints of a character class, i.e. regex syntax rather than text claims; the range is the correct Hebrew points-and-accents block."
+ },
+ "items": [
+  {
+   "id": 1,
+   "verdict": "confirmed",
+   "my_list": "MT 11:19 = וְנָתַתִּ֤י לָהֶם֙ לֵ֣ב אֶחָ֔ד וְר֥וּחַ חֲדָשָׁ֖ה ... ; the word-anchored list = exactly [Ezek.18.31, Ezek.36.26]",
+   "note": "11:19 reads lamed+tsere / bet then alef+segol / het+qamats / dalet = 'one heart', with 'and a new spirit'. It is correctly EXCLUDED from the two-verse list in both files, and both files state this truthfully. The round-2 fabrication is genuinely cured. Precision note: the two pointed citations in TOOLKIT.md are de-accented citation forms, and the spirit phrase also drops the verse's vav conjunction; the extract carries cantillation (munach 05A3, zaqef qatan 0594, merkha 05A5, tipeha 0596). Every vowel point asserted is correct; these are lexical citations, not byte-quotes."
+  },
+  {
+   "id": 2,
+   "verdict": "confirmed",
+   "my_list": "8 distinct root-form skeletons in Ezek, 32 token occurrences: lchdsh 17vv; chdsh 3 [18:31, 32:1, 36:26]; chdshh 3 [11:19, 18:31, 36:26]; bchdsh 2 [24:1, 45:20]; hchdsh 2 [46:1, 46:6]; wbchdshym 2 [45:17, 46:3]; chdshym 2 [39:12, 39:14]; lchdshyw 1 [47:12]",
+   "note": "Every table row is verse-exact. 45:17 and 46:3 are 'at the new moons', beside festivals and sabbaths; 46:1 and 46:6 are both 'on the day of the new moon' with no day number, so the file's 'closest near-miss' characterisation is exactly right; 47:12 is monthly fruit; 39:12 and 39:14 are 'seven months' duration; 18:31 and 36:26 are 'a new heart'. No verse is misassigned. Two forms are not table ROWS: the feminine adjective at 11:19, 18:31, 36:26, which the prose paragraph directly below the table addresses explicitly; and the standalone noun 'month' at 32:1, which sits inside a verse the date rule already matches and so needs no exclusion row. Nothing in the book is left unaddressed."
+  },
+  {
+   "id": 3,
+   "verdict": "confirmed",
+   "my_list": "the word-anchored date-construction rule returns 18 verses; partitioned by presence of a year word: 14 WITH = [1:1, 1:2, 8:1, 20:1, 24:1, 26:1, 29:1, 29:17, 30:20, 31:1, 32:1, 32:17, 33:21, 40:1]; 4 WITHOUT = [45:18, 45:20, 45:21, 45:25]",
+   "note": "Both lists equal the files' lists exactly, in order. The rule closes cleanly: 14 datelines plus 4 calendar dates account for the entire 18-verse yield with nothing left over. MT 45:18 is present and does carry a full month-and-day formula together with the messenger formula, so the 'watch this one above all' warning is byte-true. The year-word residue also matched exactly at [4:6, 26:10, 29:11, 29:12, 29:13, 46:13, 46:17], and 26:10 is confirmed a substring-only artifact: the year word occurs there solely inside the verb 'they shall shake', present under substring match and absent under word anchoring."
+  },
+  {
+   "id": 4,
+   "verdict": "confirmed",
+   "my_list": "strict adjacent = 39; anchored allowing a non-perfect infix = 41; perfect form = 7; UNBOUNDED infix = 47. anchored MINUS strict = exactly [Ezek.12.8, Ezek.24.1]. unbounded MINUS anchored = exactly [Ezek.26.1, Ezek.29.17, Ezek.30.20, Ezek.31.1, Ezek.32.1, Ezek.32.17]. family_total_distinct = 48.",
+   "note": "The new, previously unverified gloss is correct in every particular. 41 + 6 = 47, and my independent unbounded sweep returned 47 by direct count rather than by arithmetic. All six named verses have literally the claimed shape. The six-versus-seven distinction is the sharp part and it is right: MT 29:1 is in the 7-verse perfect list but NOT among the six, because 29:1 contains no vayehi at all - it opens with 'in the tenth year'. An unbounded vayehi-anchored infix therefore cannot swallow it. Naming seven there would have been the natural error, and the file avoids it."
+  },
+  {
+   "id": 5,
+   "verdict": "confirmed",
+   "my_list": "U+05C4 = 2 verses only: Ezek.41.20 five occurrences, Ezek.46.22 seven occurrences. U+05C5 = 0 occurrences book-wide.",
+   "note": "Counts, verses and the exclusivity claim all reproduce exactly from the staged extract bytes. The round-1 correction - that the dots are in the verse bytes and not only in the note layer - holds."
+  },
+  {
+   "id": 6,
+   "verdict": "confirmed",
+   "my_list": "whole-file counts over Ezek_oshb.txt: U+05BE maqaf 0; U+05C0 paseq 0; U+05C3 sof-pasuq 0; forward slash 0; greater-than 0",
+   "note": "Extract hygiene clean; 1,273 data lines parsed, every one with a ref-TAB-text shape."
+  }
+ ],
+ "cross_checks_beyond_the_brief": {
+  "note": "every remaining verse list in ezek_device_inventory.json was re-derived independently and compared element-by-element, not merely by count",
+  "results": "word_event_formula 39 EQUAL; word_event_vayehi_any 41 EQUAL; word_event_hayah_any 7 EQUAL; son_of_man_address 93 EQUAL; recognition_formula 28 EQUAL; recognition_formula_2ms 5 EQUAL; thus_says_the_lord_yhwh 122 EQUAL; utterance_of_the_lord_yhwh 81 EQUAL; i_am_yhwh_spoken 14 EQUAL; set_your_face 9 EQUAL; hand_of_yhwh_upon_me 7 EQUAL under construct-plus-divine-name matching; family_total_distinct 48 EQUAL; year_word_but_not_a_dateline 7 EQUAL; verses 1273 and chapters 48 EQUAL"
+ },
+ "outcome": {
+  "no_change": true,
+  "why": "this is a review; it changes no artifact"
+ },
+ "verification": [
+  {
+   "claim": "both artifact digests equal the briefed expected values",
+   "how": "sha256sum on the two exact paths",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no Hebrew string in either file is fabricated or misattributed",
+   "how": "51 Hebrew runs extracted by codepoint-range regex, deduped to 37 strings, each tested against Ezek_oshb.txt under NFD skeleton substring, skeleton whole-word, and raw pointed match",
+   "result": "confirmed, with one low-severity citation-label caveat"
+  },
+  {
+   "claim": "no Hebrew character is spliced into an English word (round-2 error class)",
+   "how": "regex for an ASCII alphanumeric adjacent to a Hebrew-block codepoint, plus a bidi and zero-width control scan over both files",
+   "result": "confirmed clean"
+  },
+  {
+   "claim": "MT 11:19 reads 'one heart' not 'a new heart', and is rightly excluded (round-2 correction-text error class)",
+   "how": "per-word codepoint dump of 11:19, 18:31 and 36:26",
+   "result": "confirmed"
+  },
+  {
+   "claim": "the homograph table is complete and verse-exact",
+   "how": "enumerated all 8 distinct root-form skeletons across all 1,273 verses and bucketed every token occurrence",
+   "result": "confirmed"
+  },
+  {
+   "claim": "dateline list = 14 verses; calendar_dates_not_datelines = 45:18, 45:20, 45:21, 45:25",
+   "how": "word-anchored date-construction union partitioned by a year-word test",
+   "result": "confirmed"
+  },
+  {
+   "claim": "word-event counts 39/41/7, strict misses exactly 12:8 and 24:1, unbounded infix returns 47 via the six named datelines",
+   "how": "four independent regex sweeps plus set differences; the shape of each of the six inspected individually",
+   "result": "confirmed"
+  },
+  {
+   "claim": "puncta U+05C4 five at 41:20 and seven at 46:22, nowhere else; U+05C5 absent",
+   "how": "per-verse codepoint count over the extract",
+   "result": "confirmed"
+  },
+  {
+   "claim": "extract hygiene: zero maqaf, paseq, sof-pasuq, slash, greater-than",
+   "how": "whole-file character counts",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "the TOOLKIT frame table prints a two-word hand-of-YHWH form as the 'form' for a 7-verse count, but that literal string occurs in 6 verses; MT 8:1 spells the construct with the additional divine name",
+   "why_it_matters": "no count or verse is wrong, and the inventory gloss already declares construct-only matching, so nothing downstream is misinformed today. The residual risk is churn: an agent who rebuilds a sweep from the printed string gets 6 and may reopen a settled row. A one-clause parenthetical naming 8:1's spelling would close it. Offered, not required; I did not treat it as blocking."
+  },
+  {
+   "what": "the two pointed citations in the 11:19 correction note are de-accented, and the spirit phrase drops the verse's vav conjunction",
+   "why_it_matters": "the vocalization asserted is correct, so no reader is misled about the reading. But because the note is itself about byte fidelity, a later agent could copy those forms into a row splice and fail a byte or NFC validator against the accented extract text. Marking them as citation forms rather than quoted bytes would remove that trap."
+  },
+  {
+   "what": "single-witness scope",
+   "why_it_matters": "everything here was verified against Ezek_oshb.txt (WLC/OSHB) alone, as the brief directs. The TOOLKIT's own statement that many manuscripts and versions read otherwise at 11:19 is outside what these bytes can confirm or refute, and I did not test it."
+  }
+ ],
+ "e19_selfreport": "ran no listing, no glob, no recursive search; read only the exact paths named in the brief. Private scratch was written to a uniquely-named subdirectory of my own session scratchpad; nothing was written under sp_durable or anywhere in the worktree; no git command was run; no forbidden lane (M1-M7, comparison, or another book) was touched.",
+ "overall": "fit_to_accept",
+ "limit": "accountable work summary; not chain of thought and not independent proof"
+}

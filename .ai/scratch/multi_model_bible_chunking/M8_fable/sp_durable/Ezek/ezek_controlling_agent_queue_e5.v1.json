@@ -1,0 +1,65 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e5",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e4",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "NEWCLASS-TF2-1",
+   "question": "Condition (c) of your #e4 ruling TOOLFIX-2 returned this new HARD class before install. Rule on the skeleton-tier word boundary for UNPOINTED runs.",
+   "facts": [
+    "The staged batch (SP/Ezek/proposals/toolfix2_batch1, manifest sha256 18f8ec57ba2487212b252da95b13632fa3f02725582ca770f0d559c112e28efd) turns one row HARD RED outside the S1-06 and S1-07 rows S1 named: P02-013: Hebrew quote 'ידעתם'… in row.boundary_rationale does not collate against any nearby cited ref (best oshb:Ezek.12.20, tier=none, unpointed)",
+    "The run is the unpointed recognition-family label 'ידעתם'. Its sentence: '20 וְהֶעָרִ֤ים הַנּֽוֹשָׁבוֹת֙ תֶּחֱרַ֔בְנָה וְהָאָ֖רֶץ שְׁמָמָ֣ה תִֽהְיֶ֑ה וִֽידַעְתֶּ֖ם כִּֽי אֲנִ֥י יְהוָֽה ends “then you will know that I am Yahweh” in the second-person-plural form (part of the wider 21-verse ידעתם recognition family rather than the strict 3mp 28-count — the two counts are nev'. The only verse word containing it at MT Ezek.12.20 is וִֽידַעְתֶּ֖ם (the conjunction vav, then the word).",
+    "Measured over every unpointed run of 3+ letters in the chain head's prose fields (52 runs), against its nearest cited oshb: verses (whatif.json W4).",
+    "Rule A, the staged word boundary: 1 fail.",
+    "Rule B, no boundary for unpointed runs: 0 fail.",
+    "Rule C, the word boundary with up to two leading proclitic letters (ו ב כ ל מ ה ש) allowed inside the verse word: 0 fail.",
+    "Pointed runs keep the byte-class boundary under every option. That is the S1-07 class (8 grapheme-cut splices, all pointed), and none of A, B or C changes it.",
+    "The normalizer's book-wide unpointed mention tier did NOT flag this run under rule A, because the form stands as a whole word elsewhere in the book. Only citation_sweep's per-verse binding refuses it."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: rule C. It keeps a word boundary for unpointed citations, so a root cited from a word's interior is still refused, and it admits a citation form stripped of its proclitics, which is how roots and formula families are cited throughout the rows. Rule A would send P02-013 to FIXUP-1 under CWO-EZ-15 for a citation form that is not a byte quote. Rule B drops S1-07's intent for unpointed runs entirely."
+  },
+  {
+   "id": "FLAGS-TF2-1",
+   "question": "Rule on three FLAGS-level amendments to the staged S1-22 check_marks rules, or keep the rules as staged. Each amendment is measured, not staged.",
+   "facts": [
+    "Corpus effect of the staged S1-22 rules over the chain head (flags_analysis.json): 51 flags removed and 31 added. 7 pairs are shape-only (the flag persists and gains a 'scope' key), leaving 44 real removals and 24 real additions.",
+    "Removed flags by class (marks_review.json): {\"UNBOUND_NOW\": 4, \"moved_to_false_kq_absence_claim\": 2, \"negated_absence_true\": 21, \"rebound_true\": 13, \"scoped_absence_true\": 4, \"other\": 7}.",
+    "Of the four UNBOUND_NOW removals, P11-002 and P11-003 sit inside ref entries that citation_sweep's HARD K/Q ref arm checks against the entry's own ref. P08-007 is a generic mention of the K/Q note layer. P03-006 ('the paragraph layer marks with a pe recorded on this same verse') refers back to a verse named in an earlier clause, and its check is lost.",
+    "W1, mark claims located 'before' an onset: of the 12 added paragraph_mark_claim flags, 9 disappear if a claim naming verse N is accepted when the claimed mark stands after N or after the verse before N. These are true claims written 'a pe mark closes the row, immediately before the fresh word-event at N+1', where the inventory keys the mark after N (for example P02-013 at 12:21, P08-010 at 36:13, P08-014 at 36:37, P09-002 at 37:15). The 3 flags W1 keeps: [[\"P02-002\", \"Ezek.8.13\", \"PE\"], [\"P02-002\", \"Ezek.8.13\", \"SAMEKH\"], [\"P11-012\", \"Ezek.48.29\", \"SAMEKH\"]].",
+    "W2, negated K/Q scope: of the 8 added false_kq_absence_claim flags, 2 remain if a K/Q token counts as negated only when at most one word stands between the negator and the token and that word is not 'other'. The two kept are P03-007 ('No K/Q note ... touch this span' while its span holds MT 16:47's note) and P03-016 ('No K/Q note ... sit in this span' while its span holds MT 18:20's note), likely true defects. The six removed include 'never argued from any of these Qere readings' (P09-002), 'not the whole-verse ketiv/qere concatenation' (P01-014) and 'no other K/Q or editorial note' (P10-008).",
+    "W5, a negator heading a comma list: the 3 added kq_claim flags all come from 'No parashah, K/Q or editorial note touches 40:17-40:19' and its siblings (P10-003, P10-005, P10-006). The comma clause cuts the negator off from the K/Q list item, so a true absence claim reads as a positive K/Q claim over verses without a note (whatif.json W3).",
+    "Two false-positive classes predate this batch and are unchanged by it: an absence phrase 'between X and Y' whose bounding verses carry the marks (P11-001, P11-008), and a span-scoped absence claim whose only marked key is the front seam (P03-015)."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: adopt W1, W2 and W5 as amendments to S1-22.\n- W1: accept a mark claim at N when the mark stands after N or N-1.\n- W2: a negated K/Q needs at most one word between the negator and the token, and that word is not 'other'.\n- W5: a negator heading a comma list ('No A, B or C') distributes over the list's items.\nEach carries vectors both ways and a re-run of the corpus-impact report under condition (c). Route P03-007 and P03-016 into FIXUP-1 as true defects. Add P03-006 to S2's read-back. Record the two pre-existing classes for Daniel's toolkit."
+  },
+  {
+   "id": "REG-TF2-1",
+   "question": "The ruling's literal S1-05 arms miss some of S1's own quoted phrasings. Widen them, or keep them literal.",
+   "facts": [
+    "Under the staged literal arms, 21 of the 24 rows S1-05 names carry a flag of the new class; the rows without one are [\"P07-009\", \"P10-007\", \"P09-002\"]. check_register keys a flag by the row's writer_decision_id; flags_analysis.json maps it back.",
+    "Phrasings the literal patterns cannot match (flags_analysis.json s1_05_literal_misses): {\"P06-013\": [\"prior ... reading with digits\"], \"P07-004\": [\"former ... span\"], \"P11-012\": [\"former ... span\", \"previously held\", \"of N ... rows\"], \"P11-014\": [\"former ... span\", \"of N ... rows\"], \"P11-015\": [\"former ... span\", \"of N ... rows\"]}. They include 'keeping the prior 28:24-26 reading' (\\w+ does not span the digits), 'its former nineteen-verse span' and 'the former single 48.1-29 span' (words between 'former' and 'span'), 'previously held', and 'the last of three ... rows' with a qualifier before 'rows'.",
+    "FIXUP-1's S1-05 author items carry every row S1 named, with S1's quoted text, whatever the tool flags. check_register's arms matter for CWO-EZ-14's coverage sweep and for text written after FIXUP-1."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: widen three arms and add one:\n- 'prior [\\w:.\\-–]+(?: [\\w:.\\-–]+)? reading';\n- 'former (?:[\\w.\\-–]+ ){0,2}(?:span|row)';\n- '(?:one|middle|last) of \\w+(?: [\\w-]+)? rows';\n- add 'previously held'.\nEach carries the ruling's GREEN controls plus 'the former kings' and 'last of the gates'. Ref annotations stay unscanned; the author items carry P07-009, P09-002 and P10-007."
+  },
+  {
+   "id": "SELFTEST-TF2-1",
+   "question": "Acknowledge one changed selftest input, or order otherwise.",
+   "facts": [
+    "ezek_lib's existing selftest 'collate_hebrew returns byte for a verbatim verse' now collates MT 1:1 against the verses joined by ' | ' (as the tools join them). The old fixture concatenated the verses with no separator, so the new word boundary correctly refused a match running into 1:2's first letter."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: acknowledge. The new fixture joins the verses as every tool joins them; the old one could only pass under a substring test."
+  },
+  {
+   "id": "INSTALL-TF2-1",
+   "question": "Set how TOOLFIX-2 proceeds after this ruling.",
+   "facts": [
+    "Everything else in the staged batch passes its gates:\n- tests 189/189;\n- the ezek_lib selftest, toolkit selfcheck and verifier selftest GREEN;\n- the verifier over both real claims files GREEN, classifying both existing supersessions as ruling_names_retired_cure;\n- 31 section-10b checks fail on the installed tools and nothing else does.",
+    "Known HARD problems the batch will raise until FIXUP-1: {\"citation_sweep_S1-07\": 8, \"citation_sweep_S1-06\": 1, \"normalizer\": 8}."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: pre-authorize this sequence without another controlling execution unless a new HARD class appears.\n- The orchestrator re-stages TOOLFIX-2 as a new batch carrying the amendments adopted here, with vectors both ways.\n- It re-runs the corpus-impact report under condition (c) and installs by digest with one receipt under #e4's (a)-(g).\n- It then launches T5 against both installed batches."
+  }
+ ]
+}

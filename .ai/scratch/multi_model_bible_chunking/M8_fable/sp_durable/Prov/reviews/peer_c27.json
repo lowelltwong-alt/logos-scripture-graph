@@ -1,0 +1,75 @@
+{
+ "attempt_id": "peer_c27_r1",
+ "role": "peer",
+ "clusters": [
+  "c27"
+ ],
+ "rulings": [
+  {
+   "cluster": "c27",
+   "row_id": "P11-028",
+   "source": "LF",
+   "challenge_claim": "The pervasiveness count cited to justify atomicity understates the sweep (\"9 of the 11\" vs an actual 10 of 11, omitting 26:8), and boundary_evidence_refs carries an unexplained stray citation (26:26) from a different root.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation: sweep.py --skel כסיל over Prov.26.1-Prov.26.11 returns hits at 26.1,3,4,5,6,7,8,9,10,11 = 10 of 11 verses (only 26:2 lacks the token); the row's own boundary_evidence_refs already lists oshb:Prov.26.8, but its prose/observed_substrate_signals enumerates only 8 refs and says \"9 of the 11\", omitting 26:8 from the count -- an internal inconsistency between the row's own ref list and its own prose. OL's packet independently re-swept the identical range and reached the same 10/11 correction, so the digit fix converges across both primaries (same defect, not a new one). Separately, sweep.py --skel כסה confirms oshb:Prov.26.26 uses the unrelated root כסה (\"cover\") -- it is absent from the כסיל sweep entirely and is never argued in the row's prose, confirming a genuine stray/undischarged ref in a machine-checked field. Neither correction touches the book's separately-named 26:4-5 opposite-imperative pair (owner-ratified proverb_cluster candidate class, book_strategy Prov.md section 6): that pair's construction-level status is independent of this pervasive single-token count, a distinction OL's own item on this row already draws and byte-verifies.",
+   "remedy": "Correct observed_substrate_signals from \"9 of the 11\" to \"10 of the 11\", naming 26:8 explicitly in the enumeration (the ref is already present in boundary_evidence_refs, only the prose count is wrong); remove oshb:Prov.26.26 from boundary_evidence_refs since it is never argued and belongs to a different root. Test: re-run sweep.py --skel כסיל over Prov.26.1-Prov.26.11 and confirm count=10; confirm boundary_evidence_refs contains no ref absent from the row's own prose (citation_sweep.py / check_refs_mirror.py clean).",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c27",
+   "row_id": "P11-031",
+   "source": "LF",
+   "challenge_claim": "The atomicity call for the dog/vomit simile is sound, but boundary_evidence_refs cites oshb:Prov.2.22 -- an unrelated verse -- where the prose plainly intends the New Testament citation 2 Peter 2:22 disclosed as non-boundary background.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation: oshb:Prov.2.22 text (\"the wicked cut off from the land / the treacherous rooted out of it\") has zero lexical or thematic overlap with the dog-returns-to-its-vomit image argued at 26:11 -- confirmed by direct pull of verse_map_oshb.json. The row's own prose correctly names \"2 Peter 2:22\" and discloses it as background only, not boundary evidence, but boundary_evidence_refs nonetheless carries the mismatched Hebrew ref oshb:Prov.2.22 -- a citation-integrity defect in a machine-checked field, not merely a wording issue. The book strategy's own cross-tradition rule (LXX/Vulgate/Peshitta/etc. citations are prose-only metadata, never a boundary_evidence_refs entry) extends by the same logic to this NT citation: it should never populate this field at all, under any ref form.",
+   "remedy": "Remove \"oshb:Prov.2.22\" from boundary_evidence_refs; keep the \"2 Peter 2:22\" disclosure prose-only, following the same prose-only convention already mandated for LXX/Vulgate/Peshitta citations. Test: citation_sweep.py ref-validity pass confirming every boundary_evidence_refs entry is (a) a valid OSHB/WEB ref and (b) actually argued in the row's own prose about the row's own span.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c27",
+   "row_id": "P11-035",
+   "source": "LF",
+   "challenge_claim": "The two-verse span itself is well-argued from the grammar, but v18-19 is ONE proverb whose apodosis is deferred to the next verse, not multiple proverbs joined by cohesion -- so unit_type should be single_proverb (span Prov.26.18-Prov.26.19), not proverb_cluster.",
+   "ruling": "escalate",
+   "grounds": "Byte re-derivation confirms the underlying grammar claim: oshb:Prov.26.18 supplies only the comparison-particle protasis with no finite predicate for a human subject; oshb:Prov.26.19 alone opens with the ken-apodosis. Independently re-checked all five comparanda the row cites (oshb:Prov.26.1, 26.2, 26.8, 27.8, 27.19): each carries both the comparison marker and its resolution inside one verse, confirming 26:18-19 is genuinely the part's sole split-verse instance -- the row's facts hold. What is genuinely contested is the controlled-vocabulary label: every proverb_cluster example the owner names in book_strategy Prov.md section 6 (the 26:4-5 pair, catchword chains, the 15:33-16:9 YHWH cluster, the kings run, tov-min runs) is a case of MULTIPLE independently complete sayings bound by cohesion evidence; a single sentence whose apodosis is deferred one verse by grammatical necessity is a different phenomenon that section 6 never addresses. A corpus-wide check (0 of 560 draft rows book-wide use single_proverb for a span exceeding one verse) shows there is no precedent either way -- adopting the row's current proverb_cluster label OR LF's proposed single_proverb fix would each be a first-of-its-kind reading of the closed 8-value vocabulary. This is the 'what satisfies the cluster evidence bar' class of owner-level policy question the peer brief reserves for the boss round, not an ordinary defect call -- escalating rather than ruling unilaterally on which reading controls.",
+   "remedy": null,
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c27",
+   "row_id": "P11-037",
+   "source": "LF",
+   "challenge_claim": "Atomicity for 26:22 is well-supported by the confirmed byte-identical duplicate at 18:8 and the header-inventory check, but the row omits a rare-word echo: the rare token also occurring at 26:20 is an undisclosed device straddling the row's own back-seam region.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation: sweep.py --skel נרגן confirms exactly 4 book-wide hits (16:28, 18:8, 26:20, 26:22). Within this cluster the rare token sits at both 26:20 and 26:22 (this row), skipping 26:21, and is never named in the row's rationale or device_notes -- only the 26:21 petuchah is disclosed there. Per the book strategy's own CROSS-SEAM COHESION standing rule, a byte-true rare-word device straddling the row's own seam must be disclosed even when it does not overturn the call: 26:21 intervenes without the token, breaking direct adjacency, and the byte-identical duplicate at 18:8 plus the confirmed non-header classification (divrei headers only at 30:1/31:1 among 19 divrei-bearing verses, prov_device_inventory.json) remain decisive for atomicity. The defect is a disclosure omission, not a boundary error.",
+   "remedy": "Add one sentence to device_notes or rationale disclosing the נרגן recurrence at 26:20 as non-adjacent rare-word texture, not a boundary driver (26:21 breaks adjacency). Test: re-run sweep.py --skel נרגן and confirm all 4 sites are named at every row that touches one, per the SYMMETRY-completion-is-a-sweep standing rule, not a spot fix.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c27",
+   "row_id": "P11-035",
+   "source": "OL",
+   "challenge_claim": "The core claim is correct -- 26:18-19 is the sole comparative-simile pair in this part whose ken-apodosis sits in a different verse from its protasis -- but the row's own Hebrew quotation mixes tiers without disclosure.",
+   "ruling": "uphold",
+   "grounds": "Byte re-derivation: verse_map_oshb.json Prov.26.19 = \"כֵּֽן אִ֭ישׁ רִמָּ֣ה אֶת רֵעֵ֑הוּ וְ֝אָמַ֗ר הֲֽלֹא מְשַׂחֵ֥ק אָֽנִי\". Splicing directly from that source, the verse's first word is כֵּֽן (pointed, byte tier) and its second word is אִ֭ישׁ (also fully pointed -- hiriq + accent + shin-dot, byte tier). The row's own rationale quotes כֵּֽן correctly at byte tier but continues with the bare consonantal form איש for the second word, presented as one continuous Hebrew phrase with no tier distinction disclosed. This is a confirmed tier-mixing defect under the toolkit's TIER/ORDINAL DISCIPLINE standing rule (byte-identical/verbatim claims require the tier named) and the never-hand-type-Hebrew splicing rule -- independent of and additional to LF's classification challenge on the same row: this is a citation-hygiene defect in the row's own quotation practice, not a boundary-evidence or unit_type question, so it is a DISTINCT defect from LF's item on P11-035, not a duplicate.",
+   "remedy": "Re-splice the full quoted span directly from verse_map_oshb.json (never hand-typed) so the second word reads the fully pointed אִ֭ישׁ matching source bytes exactly; re-collate the row's own output at byte tier per the standing self-check. Test: byte-tier string equality of the quoted span against verse_map_oshb.json['Prov.26.19']['text'].",
+   "severity_final": "low"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P11-033",
+   "claim_checked": "The atsel (sluggard) subject-chain is bounded to exactly 26:13-16 within chapter 26, occurring nowhere else in the chapter, distinguishing it from the surrounding pervasive kesil texture.",
+   "result": "verified",
+   "notes": "Independent sweep.py --skel עצל run: 16 book-wide hits total (6:6, 6:9, 10:26, 13:4, 15:19, 19:15, 19:24, 20:4, 21:25, 22:13, 24:30, 26:13, 26:14, 26:15, 26:16, 31:27). Restricted to chapter 26, hits fall ONLY at 26.13/14/15/16 -- exactly the row's claimed bounded chain, with 26:12 and 26:17 confirmed absent, matching both primaries' independently-disclosed front/back boundary checks. Both LF and OL supported this row; this re-derivation confirms no defect."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 5,
+  "uphold": 4,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 1,
+  "new_findings": 0
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "schema": "m8_controlling_agent_queue.v1",
+ "book": "Ezek",
+ "execution": "ezek_controlling_rulings_a1#e6",
+ "previous_execution_id": "ezek_controlling_rulings_a1#e5",
+ "built_by": "orchestrator (claude-opus-5); proposes, never rules",
+ "items": [
+  {
+   "id": "T5-VERIFIER",
+   "question": "T5 found SP/campaign/_cure_verification.py (7f5ea4a9) not fit to carry the S1-19 cure claim. Rule on its two majors and one minor.",
+   "facts": [
+    "T5-01 (major, SP\\campaign\\_cure_verification.py (7f5ea4a9)): The OW-10 gate ACCEPTS a cure claim whose only bound verification failed, and one whose distinct checker ruled against it. Suggested fix: Count a verification as bound only when exit == 0 (an int) or an explicit GREEN/passed==checks count accompanies it, and refuse a non-integer exit. Refuse a distinct_checker verdict that does not begin with an accepting form (fit_to_accept, fit_with_changes, confirmed, accept) or that matches not_fit|refut|reject|blocker|RED. Add both vectors to the selftest.",
+    "T5-02 (major, SP\\campaign\\_cure_verification.py (7f5ea4a9)): S1-19(a)'s class, a checker that cannot be shown distinct from the author, still reads ACCEPTED in four ways. Suggested fix: Treat whitespace-only author fields as missing. Normalize ids (strip, casefold). Build the author stem set from both author fields (split at '#') and the checker stem set from both checker fields, and refuse any intersection. Add the four vectors.",
+    "T5-03 (minor, SP\\campaign\\_cure_verification.py (7f5ea4a9)): Supersession and duplicate edges: several refusals are narrower than their purpose, and one refusal is broader. Suggested fix: Normalize cure_id before the duplicate test. Check every ordering pair in ordered_by. Anchor the id at a start-of-string or whitespace/';' boundary. Decide explicitly whether ratify and ratify_with_changes order supersessions. Record the classification as 'ruling_mentions_cure_id' unless the ruling's orders retire it.",
+    "T5's verifier runs: the selftest is 28 vectors with 0 failed, and both real claims files are GREEN under --rulings --require-rulings. The refusals T5 evaded are listed in the deliverable's verifier.vectors_run.",
+    "The two supersessions the TOOLFIX-2 install appended classify as ruling_names_retired_cure, and T5 confirms that class is true on the bytes.",
+    "_cure_verification.py is not a validator-suite member."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: adopt T5's fixes for T5-01, T5-02 and T5-03 in one verifier edit, with every T5 vector added to the selftest in both directions. For T5-01, rule which checker verdicts accept; T5 proposes fit_to_accept, fit_with_changes, confirmed and accept. For T5-03, rule whether a ratify or ratify_with_changes ruling may order a supersession; the orchestrator proposes yes when the ruling's orders name the retired cure id. The edit is part of TOOLFIX-3 (see T5-SEQUENCE)."
+  },
+  {
+   "id": "T5-TOOLKIT-DOCS",
+   "question": "Rule on the documentation findings: TOOLKIT.md's three inaccurate statements, which block EZEK-P0-CURE-toolkit-v3, the ezek_lib maqaf docstring, three incomplete docstrings, and T5's two notes.",
+   "facts": [
+    "T5-08 (minor, SP\\Ezek\\tools\\TOOLKIT.md (9771c440)): Three statements in the edited tool contracts do not describe the code exactly. Suggested fix: Reword (1) as 'an NFD-only verse match is replaced and counted fixed, which the suite treats as HARD (E-01); an NFD-only Qere stays a defect'. Reword (2) as 'a named verse must be a site, and a written range must hold one'. Either list the full denial set in (3) or say 'such as'. Then run the R6 sibling sweep and bind EZEK-P0-CURE-toolkit-v3 to the corrected digest.",
+    "T5-07 (minor, SP\\Ezek\\tools\\ezek_lib.py (ab2431fe) docstrings): 'skeleton() maps maqaf to SPACE so consonantal sweeps are maqaf-agnostic' (module SKELETON NOTE and the skeleton() docstring) is false, and no selftest check asserts it, although the module says every docstring fact is asserted. Suggested fix: Apply .replace('\\u05be', ' ') before POINTS.sub, or correct both docstring sentences. Add a selftest assertion either way. Re-run the S1-07 cases after any code change.",
+    "T5-09 (minor, SP\\Ezek\\tools\\citation_sweep.py, _adapt_zone_tools_ezek.py, check_register.py docstrings): Three docstrings no longer describe everything their code does. Suggested fix: Extend the three docstrings, through the adapter's CS_DOC for citation_sweep so that staging stays reproducible, and rebind any claim on the changed digests.",
+    "T5-12 (note, SP\\Ezek\\tools\\check_web_quotes.py (74fb7179) / S1-10 premise): The e15a arm already flagged all ten S1-10 fields on these bytes, so e15d duplicates it for count inequality. Suggested fix: None needed for Ezekiel. Record that S1-10's detection gap was a decision_id gap (e15a flags carry only a path), and treat e15d as the decision_id-bearing twin.",
+    "T5-13 (note, SP\\Ezek\\proposals\\toolfix2_batch3\\corpus_impact.json vs manifest.json; campaign\\receipts\\ezek_tools_install_toolfix2_batch3.json): The batch3 record disagrees with itself on the normalizer equality test, and the receipt records passed null for the verifier selftest. Suggested fix: Record the equality basis in corpus_impact.json (distinct-set equality true, listed-count equality false), and record passed = checks - failed in receipts.",
+    "T5's TOOLKIT.md sibling sweep: 84 statements across 17 key phrases; the other 81 statements hold, or are inconclusive only by T5's phrase definitions.",
+    "T5-07's behaviour predates S1-07; the extract and the rows carry 0 maqaf. TOOLKIT.md is not a suite member; citation_sweep, ezek_lib and check_register are, and T5 found all three fit at their current digests."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: adopt T5-08's three rewordings and correct the 'staged 2026-09-10' heading, in TOOLFIX-3. Record T5-07 and T5-09 as documentation debts, fixed in Daniel's toolkit, so the files T5 found fit keep their reviewed digests. Alternative: correct those docstrings now, T5-07 docstring-only with a selftest assertion and T5-09 through the adapter's CS_DOC; that moves citation_sweep, ezek_lib and check_register to new digests needing review. T5-12: record that S1-10's gap was a decision_id gap and that e15d is e15a's decision_id-bearing twin; no change. T5-13: the landed batch3 proposal is never edited, so the orchestrator records the normalizer equality basis (distinct-set equality true, listed-count equality false) in the cycle log, and future install receipts record passed = checks - failed."
+  },
+  {
+   "id": "T5-REGISTER",
+   "question": "Rule on check_register's false-positive risk. CWO-EZ-14 requires residual 0 after FIXUP-1, so a false positive forces a reword of true prose.",
+   "facts": [
+    "T5-10 (minor, SP\\Ezek\\tools\\check_register.py (13094843): author_wave_register_s1_05): Ten plausible descriptive or textual phrasings fire the S1-05 class. CWO-EZ-14 requires residual 0, so each would force a reword of true prose. Five row-talk evasions pass. Suggested fix: Add (?!\\s+of\\b) to '(preceding|next|following) row' and 'former ... row'. Refuse 'row (before|after) row'. Add (?!\\s+of\\b) to '(ends|opens|closes|begins) the part'. Exclude ketiv|qere|Masoretic from 'prior ... reading'. Narrow 'posture' to S1's 'flagged-region|low-confidence posture'. Add GREEN controls for each, and consider 'second of \\w+ rows'.",
+    "T5 ran every register arm over all 1,273 WEB verse texts and found 0 hits. All 60 register flags on the chain head are row talk, so no false positive is live today; the risk is FIXUP-1 and primaries text.",
+    "check_register is a suite member that T5 found fit at 13094843."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: no Ezekiel check_register change now, so every suite member stays at the digest T5 reviewed. The FIXUP-1 brief lists T5's ten false-positive phrasings as wording to avoid and T5's five evasions as row talk that is still barred. T5's tightenings, with GREEN controls, are recorded for Daniel's toolkit. Alternative: adopt the tightenings in TOOLFIX-3, with a corpus-impact report showing the 60 chain-head flags unchanged."
+  },
+  {
+   "id": "T5-MARKS",
+   "question": "Rule on T5-11's check_marks residuals, the implementation reading T5 found unsound, and T5's five candidate rules.",
+   "facts": [
+    "T5-11 (minor, SP\\Ezek\\tools\\check_marks.py (a6310719): W2/W5/W6/rule 3 residuals (FLAGS)): Several check_marks readings misfire in both directions on true and false disclosures. Suggested fix: Exclude the span field from row_named_mt_keys. Adopt the between/inside, front-seam, refs-entry and or-coordination candidates for Daniel, and keep them as disclosed triage for Ezekiel's primaries.",
+    "Unsound reading: W2's exclusivity scope reads 'named anywhere in the row' over every string field check_marks joins (the span field included) and the refs; a written range names its two ends. -> Including the span field makes a K/Q at the span's first or last verse permanently 'named', so 'no other K/Q' never checks it. Vector w2_exclusive_kq_at_span_end_FN: span Ezek.16.40-Ezek.16.47 flags only MT 16:43, and MT 16:47 is exempt; the control span 16:40-16:48 flags both. The span string is metadata, not a disclosure. Exclude 'span' (and other non-prose metadata) from row_named_mt_keys. The 'range names its two ends' part is sound and conservative.",
+    "Exposure in the chain head (SP/Ezek/repair/t5_exposure_scan.v1.json): 1 row carries an exclusivity K/Q phrase (P10-008), and on 0 rows a K/Q key at a span edge verse is exempted by the span field. #e4 FIXUP-1 already orders P10-008's 'no other K/Q or editorial note touches this row' dropped.",
+    "Candidates, with T5's recommendation for each: 'between X and Y' / 'inside X-Y' with the bounds themselves marked (P09-002, P11-001, P11-008): note; span-scoped absence phrase whose only marked key is the front seam (P03-015): note; anaphoric 'after it' (P11-013): reject; absence disclosure inside a refs entry (P11-009): note; W2's limit on a negator heading an or-coordination (P05-003): note.",
+    "check_marks is a FLAGS member that T5 found fit at a6310719."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: no Ezekiel check_marks change: T5-11 (a)'s live exposure is 0, check_marks is a FLAGS member, and Q8 compensation 1 covers the residuals. Record the orchestrator's span-field reading as unsound. The FIXUP-1 and primaries briefs say that an exclusivity K/Q claim ('no other K/Q') names every K/Q verse of its span. Record T5-11 (a)-(f) and the four 'note' candidates, with T5's rules and vectors, for Daniel's toolkit, and reject the anaphoric 'after it' candidate as T5 recommends. Alternative: fix T5-11 (a) in TOOLFIX-3."
+  },
+  {
+   "id": "T5-CITATION-RESIDUALS",
+   "question": "Rule on citation_sweep's residuals: the interior-verse Qere in a range entry, repeated runs judged at their first occurrence, and the A2/T4-03/A3 residuals.",
+   "facts": [
+    "T5-04 (minor, SP\\Ezek\\tools\\citation_sweep.py (6c843b14): REF HEBREW arm x K/Q ref arm): A Qere quoted from an interior verse of a multi-verse ref entry cannot pass. Without a keyword the REF HEBREW arm refuses it as undisclosed; with a keyword the pre-existing K/Q ref arm refuses it, because that arm keys on the start verse only. Suggested fix: Have the K/Q ref arm accept a K/Q at any verse of the ref's range, as the REF HEBREW arm binds the range. Or state in TOOLKIT.md and the FIXUP-1 brief that a Qere is cited under a single-verse ref.",
+    "T5-05 (minor, SP\\Ezek\\tools\\citation_sweep.py (6c843b14): REF HEBREW arm): Every repeat of the same Hebrew run inside one ref entry is judged at its first occurrence. Suggested fix: Iterate HEB_RUN.finditer(tail) and use each match's own start and end for the sentence test. The same pattern (o.find(run)) exists in walk().",
+    "T5-06 (minor, SP\\Ezek\\tools\\citation_sweep.py (6c843b14), check_marks.py (a6310719): A2 / T4-03 / A3 residuals): (a) EXPECT_MODAL also matches 'expected' used non-modally, so a false positive coordinated claim reads as a denial; this is a HARD false negative in the PUNCTA ref arm and the calendar prose arm. (b) A false denial of puncta at a real site, written behind a comma, passes GREEN, so the gate text 'a denial behind a comma reads RED ... never a pass' holds only for dateline claims. (c) SINGLE_WITNESS accepts 'not single-witness' and 'single-witnessed'. Suggested fix: Read EXPECT_MODAL as the modal verbs plus 'be expected' or 'is anticipated' rather than any 'expected'. Tell the primaries' hand-check that a comma-separated denial at MT 41:20 or 46:22 passes silently. Give SINGLE_WITNESS a trailing \\b and a guard against a preceding negator.",
+    "Exposure in the chain head (SP/Ezek/repair/t5_exposure_scan.v1.json): 0 ref entries repeat a Hebrew run of 3+ letters, so the REF HEBREW arm's exposure to T5-05 is 0. The prose walk shares the same find() pattern, and 7 prose fields repeat a run. A repeat judged at its first occurrence differs only where the Qere tier's same-sentence K/Q keyword decides.",
+    "T5 found 0 of 130 Hebrew-bearing ref entries multi-verse (T5-04), and none of T5-06's shapes live (puncta flags 0, calendar problems 0).",
+    "citation_sweep is a HARD suite member that T5 found fit at 6c843b14; a code edit would need a new claim and review at the new digest."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: no citation_sweep code change for Ezekiel. The FIXUP-1 and primaries briefs state three rules: a Qere is cited under a single-verse ref (T5-04); every quoted occurrence of a Qere carries its own K/Q disclosure in its own sentence (T5-05); 'single-witness' is written exactly, and a comma-separated denial at MT 41:20 or 46:22 is hand-checked (T5-06). T5's fixes for all three are recorded for Daniel's toolkit."
+  },
+  {
+   "id": "T5-SEQUENCE",
+   "question": "Set the sequence for the tool edits the T5 items adopt, the cure claims T5's verdict gates, and FIXUP-1 order (5)'s rule that the landing suite runs 'on the tools at the digests T5 reviewed'.",
+   "facts": [
+    "T5's verdict is fit_with_changes, with no blocker. Fit at their installed digests: tools/check_marks.py, tools/check_register.py, tools/check_web_quotes.py, tools/citation_sweep.py, tools/ezek_lib.py, tools/normalize_hebrew_in_json.py. Not fit: campaign/_cure_verification.py, tools/TOOLKIT.md (EZEK-P0-CURE-toolkit-v3, closing PILOT-4).",
+    "The Q3-1 rebinds may proceed for the files T5 marked fit; they must not bind _cure_verification.py or TOOLKIT.md at these digests.",
+    "Neither _cure_verification.py nor TOOLKIT.md is a validator-suite member. Any edit to citation_sweep, check_marks, check_register or ezek_lib moves a suite member off the digest T5 reviewed.",
+    "Receipts census 12,236,663 tokens after T5 (T5 reported 544,605 tokens); the ceiling is 15M, with an owner check-in before FIXUP-1."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: TOOLFIX-3 is one small batch touching no suite member: the verifier edit (T5-VERIFIER) and TOOLKIT.md's corrections (T5-TOOLKIT-DOCS), with vectors both ways, installed by digest. T6, a fresh distinct checker, reviews TOOLFIX-3 bound to its digests. The cure claims for the six files T5 found fit are written now at their T5-reviewed digests through the hardened supersession path, with the Q3-1 rebinds for those files; they are re-verified under the TOOLFIX-3 verifier after its install. The S1-19 claim and EZEK-P0-CURE-toolkit-v3 (closing PILOT-4) are written on T6's verdict. Because no suite member changes, FIXUP-1 order (5)'s landing suite runs on the digests T5 reviewed, and T6 may run in parallel with FIXUP-1. Alternative: the fuller TOOLFIX-3 (T5-11 (a), the register tightenings and the docstrings), with every cure claim written after T6 and FIXUP-1's suite on the TOOLFIX-3 digests."
+  },
+  {
+   "id": "CWO18-SCOPE-1",
+   "question": "CWO-EZ-18's deterministic half and its author half reach the prose fields only, while its coverage condition requires check_web_quotes' class 'curly quote with NO web: ref in its field' to read 0 over the applied rows. Rule on the class spans outside the prose fields.",
+   "facts": [
+    "On the chain head (SP/Ezek/repair/rows_v3_cwo13.jsonl, sha256 324d23589924e405c09c3aeaf178867449ba33fa949cefa63258ff3250288f27) the class holds 148 spans in 39 rows; S1 stated 134 spans in 40 rows.",
+    "30 of those spans stand outside the three prose fields, on 19 rows: {\"boundary_evidence_refs\": 28, \"literature_type_guess\": 2}.",
+    "Tested with ezek_lib.web_quote_found against all 1,273 WEB verses: 22 are WEB-verbatim and 8 are glosses (4 of the glosses match WEB once case and punctuation are folded).",
+    "check_web_quotes reads each refs entry as its own field, so an inline web: ref inside an entry satisfies the class for that entry. The strict R1 shape allows free text in an entry's parenthetical, so a quote-character change or an added ref keeps the entry in shape.",
+    "Per-span list: SP/Ezek/repair/cwo18_questions_analysis.v1.json, outside_prose_fields.items."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: extend CWO-EZ-18 to boundary_evidence_refs entries and literature_type_guess under the same test and the same manifest assertions. The 8 glosses convert to single quotes; the 22 WEB-verbatim spans become CWO-EZ-18 (ii) author items (add the inline web: ref inside the entry, or drop the quotation). The coverage condition stays as ordered."
+  },
+  {
+   "id": "CWO18-NEARWEB-1",
+   "question": "Rule whether a prose span that matches WEB text only once case and punctuation are folded is a gloss, converted to single quotes as CWO-EZ-18 (i) reads literally, or a WEB quotation carried inexactly, which is an author item.",
+   "facts": [
+    "Of the 47 prose spans web_quote_found calls glosses, 26 match WEB text once case and punctuation are folded, and 17 of those match exactly one verse.",
+    "Examples: 'you will again see yet other great abominations,' (P02-001; folded match Ezek.8.6); 'he brought me to the door of the court' (P02-002; folded match Ezek.8.7); 'son of man, dig now in the wall' (P02-002; folded match Ezek.8.8); 'I have done as you have commanded me,' (P02-004; folded match Ezek.9.11); 'the appearance of the wheels was like a beryl stone' (P02-006; folded match Ezek.10.9).",
+    "web_quote_found is case- and punctuation-exact, as check_web_quotes' verbatim arm is. A span converted to single quotes leaves check_web_quotes' view for good.",
+    "Per-span list: SP/Ezek/repair/cwo18_questions_analysis.v1.json, near_web_glosses.items."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: route these 26 spans as CWO-EZ-18 (ii) author items. The author either restores the verbatim WEB text with its inline web: ref (the folded match names the verse for 17 of them) or keeps the span as a gloss in single quotes. Convert the remaining 21 glosses as ruled."
+  },
+  {
+   "id": "CWO18-SHORT-1",
+   "question": "Rule on short common phrases among the WEB-verbatim spans that CWO-EZ-18 (ii) routes to authors.",
+   "facts": [
+    "(ii) routes 71 spans on 30 rows; by word count: {\"2\": 13, \"3\": 22, \"4\": 12, \"5\": 6, \"6\": 1, \"7\": 3, \"8\": 3, \"9\": 1, \"10\": 4, \"11\": 2, \"12\": 2, \"14\": 1, \"16\": 1}.",
+    "34 of them have three words or fewer and stand verbatim in two or more WEB verses, so the matcher can name no single source verse. Examples: 'again see' (3 verses; first at P02-001); 'in the dark,' (3 verses; first at P02-002); 'river Chebar' (8 verses; first at P02-006); 'the rebellious house' (4 verses; first at P02-011); 'in the morning' (2 verses; first at P02-011); 'son of man' (34 verses; first at P08-001); 'Son of man' (61 verses; first at P08-001); 'As I live' (10 verses; first at P08-004).",
+    "The matcher is case-exact: 'Son of man' stands verbatim in 61 verses; 'son of man' stands verbatim in 34 verses.",
+    "Per-span list: SP/Ezek/repair/cwo18_questions_analysis.v1.json, routed_ii.short_common_items."
+   ],
+   "orchestrator_proposed_disposition": "PROPOSED: treat a span of three words or fewer that stands verbatim in two or more WEB verses as a label, not a quotation. Convert it deterministically as a gloss under (i), with the same manifest assertions, and route the remaining 37 spans as (ii) author items. An author who meant a quotation may restore it with an inline web: ref in FIXUP-1."
+  }
+ ]
+}

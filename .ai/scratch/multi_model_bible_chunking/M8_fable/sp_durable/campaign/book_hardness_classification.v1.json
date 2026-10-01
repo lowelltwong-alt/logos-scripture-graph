@@ -1,0 +1,1394 @@
+{
+ "schema": "m8_book_hardness_classification.v1",
+ "attempt_id": "campaign_hardness_consolidate_a1",
+ "model": "claude-fable-5-1",
+ "effort": "ordered high, NOT VERIFIED (recorded honestly)",
+ "authority": "OW-6b (owner directive 2026-09-07): claude-fable-5-1 controlling agent; this artifact routes every remaining book; append-only versioned; upward re-classification permitted with a recorded reason, downgrades only by the controlling agent's ruling.",
+ "inputs": {
+  "batches": [
+   "hardness_batch_01.json",
+   "hardness_batch_02.json",
+   "hardness_batch_03.json",
+   "hardness_batch_04.json"
+  ],
+  "rubric": "HARDNESS_BATCH_BRIEF.md",
+  "book_state": "campaign_book_state.v1.json (24 closed, current Lam, 42 remaining)",
+  "directives_read": "ERROR_PATTERN_LEDGER.v1.md addenda OW-6 / OW-6b / OW-6c (2026-09-07); CAMPAIGN_CLOSE_GATE.v1.md items 10-11"
+ },
+ "threshold": {
+  "rule": "HARD if and only if at least THREE of the five criteria score 3 (the rubric's 'severe, a principal driver of difficulty for this book'). Equivalent in totals: every book with total >= 13 is HARD (13 cannot be reached with fewer than three 3s: 3+3+2+2+2 = 12), and a book at 12 is HARD only when its 12 is composed of three 3s (Acts). A single criterion at 3 does NOT force HARD; it forces that book's extra_scrutiny_focus regions to be carried as FLAGGED REGIONS in its brief (Fable-boss escalation target, final-checker attention, and my recommendation that the no-sampling-shortcut arm apply to those regions even on the STANDARD track). Applied without exception after the two named adjustments.",
+  "rationale": "(1) The instrument follows the rubric's own scale words and the owner's words: 'the hardest books' with 'lots of' hard translation, literature, prophecy, connections or contested passages means severe on a MAJORITY of the owner's five axes, not merely present on one. (2) The bare total is the wrong instrument on its own because the prophecy axis is a genre flag: Prophets receive 2-3 on it for free while epistles and narrative receive 0-1, so a total threshold systematically under-routes New Testament books; Acts is severe on three axes and is denied by a total threshold only because prophecy is 1. The total also moves by one point on 1-versus-2 calibration noise that the severe-axis count ignores. (3) 'Any criterion at 3 forces HARD' is rejected: it would route 30 of 42 books HARD (after the two adjustments; 29 before), making the extra-scrutiny track the default and inverting 'hardest'; it is hostage to 2-versus-3 calibration noise across four scorers (Nah 3 / Zeph 2 on translation; Col 3 / Zech 2 on ecclesial), so two comparable books would land on different tracks by scorer accident; and the scorers' own evidence shows single-axis hazards are LOCALISED (they name the stretches), for which the campaign already has an instrument: the flagged-region list, the Fable boss as escalation target and the Fable whole-book final checker, which the STANDARD track keeps under OW-6. Whole-cycle Fable control is for books whose hazard is DIFFUSE, i.e. severe on most axes. (4) Corroboration: the owner-named books Daniel and Revelation are 5/5 severe; Ezekiel is 5/5 severe unnamed; the rule's HARD set is exactly the top 15 of 42 by severe-axis count (6 of the 15 remaining Hebrew books, 9 of the 27 New Testament books). (5) Cost-awareness is recorded, not decisive: the HARD track (CAMPAIGN_CLOSE_GATE item 11) adds a Fable high-effort controlling lane, no-sampling peer and spot coverage on flagged regions, a whole-book final check and a second independent Fable review before close; 15 HARD cycles is a material but bounded increase, and OW-6b(e) keeps upward re-classification open at every Phase 0, so an error toward STANDARD is correctable before a book's boundaries are drawn while an error toward HARD is not refundable.",
+  "single_criterion_consideration": "Considered and rejected as a HARD trigger for the reasons in (3); retained as a mandatory flagged-region trigger. Beyond the eleven two-severe-axes books, an any-single-3 rule would also have routed the four single-severe-axis books HARD: Amos (connections, adjusted), Obad (connections), Nah (translation), 1Tim (ecclesial). The books with two severe axes that remain STANDARD are listed in summary.two_severe_axes_standard_books and are the Phase-0 upward re-classification watch list.",
+  "borderline_books": [
+   {
+    "book": "Acts",
+    "total": 12,
+    "why_it_falls_where_it_does": "HARD: the only HARD book below 13. Three severe axes (translation: Western text ~8.5 percent longer, verse-presence keys 8:37/15:34/24:6b-8a/28:29; connections: Luke-Acts overlap, triple conversion account, Pauline letters as parallel witnesses; ecclesial: baptism, Spirit subsequence, polity, the decree) with prophecy 1 pulling the total to 12. The rule counts severe axes, so the genre flag does not save it."
+   },
+   {
+    "book": "2Thess",
+    "total": 13,
+    "why_it_falls_where_it_does": "HARD: the smallest HARD book (47 verses). Prophecy 3 (2:1-12 is the book's core and every sub-seam is interpretive), connections 3 (Isaiah mosaic 1:5-12, Dan 11:36 at 2:4, Synoptic apocalypse, 1Thess verbatim parallels), ecclesial 3 (confessional identifications of the man of lawlessness and the restrainer). Cheap to run HARD; nothing argues for lowering a 3."
+   },
+   {
+    "book": "2Pet",
+    "total": 13,
+    "why_it_falls_where_it_does": "HARD: translation 3 (highest hapax density in the NT; the 3:10 crux changes a unit edge), connections 3 (Jude parallel verse by verse), ecclesial 3 (the NT's most disputed canonicity and authorship; theosis; 1:20-21). Three severe axes on 61 verses."
+   },
+   {
+    "book": "2Cor",
+    "total": 11,
+    "why_it_falls_where_it_does": "STANDARD only because of the named adjustment (ecclesial 3 -> 2, composition disputes moved to where they belong); without it 2Cor would be HARD at 12 with three severe axes. Translation 3 (hardest Greek in the Pauline corpus) and literature 3 (partition seams) stand. First upward re-classification candidate at its Phase 0."
+   },
+   {
+    "book": "Matt",
+    "total": 12,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (connections: the densest parallel problem; ecclesial: 16:18-19, divorce, Eucharist, 28:19, Marian loci). Translation 2 because the variant load, though it includes three WEB-present critical-absent verses, contains no floating pericope or disputed ending of the Mark/Luke/John kind; literature 2 because the five discourse closures are tier-1 marked. Process risk (first NT book, first on the Greek substrate) is recorded in its note and the sequencing advice, not smuggled into the rubric."
+   },
+   {
+    "book": "Mark",
+    "total": 12,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (translation: the 16:9-20 ending and five Byzantine-only verses; connections: Markan priority makes every seam propagate). Literature 2 under either reading of criterion 2 because episode seams are marked and the intercalations are a known device with clear halves; ecclesial 2 ranked below Matt within the same batch."
+   },
+   {
+    "book": "Joel",
+    "total": 12,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (prophecy: the day-of-YHWH spine with the locust/army ambiguity; connections: Acts 2, Rom 10:13, Rev, the Amos seam). Translation 2 (a handful of cruces in 73 verses; the 2:18 tense crux is one seam-fixing question, unlike Nah's half-book dispute); literature 2 (units are otherwise well marked)."
+   },
+   {
+    "book": "Jude",
+    "total": 12,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (translation: v.5 and vv.22-23 among the NT's most disordered variant units, 14 hapax in 25 verses; connections: 2Pet twin, 1 Enoch, the Moses tradition). Literature 2 (the type/application chain is a marked device), prophecy 2, ecclesial 2 (canonical hesitation; 1 Enoch's status) ranked below 2Pet's canonicity dispute by the same scorer."
+   },
+   {
+    "book": "Jas",
+    "total": 11,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (literature: the macro-structure is a live dispute; ecclesial: 2:14-26 Reformation fault line, 5:14-16 sacrament of anointing). Translation 2 and connections 2 are secure; the 2:18 interlocutor extent is a flagged region."
+   },
+   {
+    "book": "1John",
+    "total": 11,
+    "why_it_falls_where_it_does": "STANDARD: two severe axes (literature: famously unsolved structure, seams almost entirely judgment calls; ecclesial: the Comma, perfectionism, mortal/venial). Translation 2 despite en touto ambiguity because the vocabulary is simple; connections 2 (no OT quotations)."
+   }
+  ]
+ },
+ "cross_batch_consistency": {
+  "adjustments": [
+   {
+    "book": "2Cor",
+    "criterion": "ecclesial_contestedness",
+    "from": 3,
+    "to": 2,
+    "reason": "Cross-batch calibration of criterion 5. Batch 01 explicitly excluded literary-critical composition disputes from ecclesial_contestedness (Mic: 'the unity of 4-5 and of 7:8-20 is a critical rather than an ecclesial dispute'); batch 03 scored 2Cor's ecclesial 3 with the partition hypotheses (10-13 severe letter; 6:14-7:1 insertion; 8/9 two notes; 2:14-7:4 separate) as its first and heaviest item. Composition questions are seam-indeterminacy and belong to literature_type_difficulty, where 2Cor already carries a 3; the doctrinal residue (5:21 imputation/participation, 5:1-10 intermediate state, 3:6, 3:17, 6:14, 12:7, 13:14) matches the same batch's own 2s for Phil, 1Thess, Titus and 2Tim. Effect: 2Cor total 12 -> 11, severe axes 3 -> 2, track HARD -> STANDARD. Stated plainly: without this adjustment 2Cor would be HARD; it is the first Phase-0 upward re-classification candidate."
+   },
+   {
+    "book": "Amos",
+    "criterion": "connections",
+    "from": 2,
+    "to": 3,
+    "reason": "Upward rule applied uniformly. The batch-01 scorer named 3 as the alternative ('on the strength of the two Acts citations and the Twelve catchwords') and scored 2 because the links are localised; the same scorer gave Obad 3 for the same Twelve-seam catchword phenomenon plus one shared text, and batch 03 gave Col 3 for parallel-passage density. Amos 5:25-27 and 9:11-12 are quoted in Acts in LXX forms that diverge from the MT, so the connection is a text-form hazard, not only a catchword. Effect: total 10 -> 11, severe axes 0 -> 1; no track effect (STANDARD)."
+   }
+  ],
+  "uncalibrated_patterns_observed": [
+   "Criterion 5 (ecclesial_contestedness) is the least calibrated axis: batches 03/04 gave 3 to 12 of 21 books, batches 01/02 to 8 of 21. Root difference: batch 01 (Mic) explicitly excluded literary-critical composition/unity disputes from criterion 5, while batch 03 (2Cor, Phil) included partition hypotheses under it. Corrected only where it changed a track (2Cor); Phil's 2 stands under either reading; Col 3 / Eph 3 versus Zech 2 remains a residual gap with no track effect (Zech is HARD on four other axes; Col and Eph have exactly two severe axes either way).",
+   "Criterion 2 (literature_type_difficulty) was read two ways: as GENRE COUNT in batch 02 (John kept at 2 despite the 14:31 aporia, the transposition hypotheses and the floating pericope: 'structural aporias rather than genre variety'; Mark 2) and as SEAM-UNMARKEDNESS in batches 01 and 04 (Hos 3: 'unit divisions have no scholarly consensus'; Jas 3 and 1John 3: 'reflects contested macro-structure, not genre count'). The rubric text supports both ('mixed prose and poetry with unmarked seams' beside the genre list). No track effect: John is HARD on other axes; Mark's episode seams are marked under either reading, so it stays at two severe axes.",
+   "Criterion 1 (translation_difficulty) on small prophetic books: Nah 3 (scorer's own alternative 2, driven by the proportion of a 47-verse book under dispute and the acrostic question fixing a seam) against Zeph 2 and Mal 2 for corruption clusters of comparable proportion (Zeph 1:14; 2:1-2; 2:14; 3:1; 3:10; 3:17-18 in 53 verses; Mal 2:10-16 with 2:15 'among the most obscure verses in the Prophets'). Not adjusted: the consistent move would be downward on Nah (its own scorer named the lower alternative), which reduces scrutiny with no track effect under the chosen rule; recorded so the any-single-3 alternative's sensitivity to this pair is visible.",
+   "Criterion 4 (connections): Amos 2 (scorer's alternative 3) against Obad 3 in the same batch and Col 3 / Eph 3 in batch 03 for parallel-passage density; adjusted upward (no track effect). 1Thess 2 / 2Thess 3 is asymmetric for a mutual parallel but explained by 2Thess's Isaiah mosaic and Daniel dependence.",
+   "Criterion 3 (prophecy) behaves as a genre flag: batch 01 scored Hos 3 on unit indeterminacy (the criterion's own definition) while batch 03 scored the letters 1 'not a boundary driver' by the same definition. Both are faithful to the rubric, and the effect is structural (Prophets +2 to +3 on the total), which is why the ruling counts severe axes rather than summing.",
+   "Evidence tier differs by testament: the Hebrew entries cite byte censuses where they exist (Lam: the strategy's K/Q and letter-order digits) and numbering zones verified against the campaign's crosswalk convention; every New Testament entry marks its variant, verse-existence and hapax claims 'from memory, not byte-verified' because no Greek source text is staged (batches 02, 03 and 04 say so explicitly). This is not a scorer defect; it is the substrate gap ruled on below.",
+   "Effort reporting is consistent across the four batches: 'ordered high, NOT VERIFIED'; none claims verified high. All four report worktree read-only, no git, no SP listing.",
+   "The batch-02 scorer notes that WEB's printing of Byzantine-only verses (Matt 17:21, 18:11, 23:14) is 'the campaign's first verse-existence divergence between witnesses'; the batch-04 scorer notes the 1John 5:7-8 Comma as a verse-CONTENT divergence and 3John's 14-versus-15 verse count. These are the same phenomenon (WEB keys that a Greek witness may not carry) named three ways; the Greek ruling treats them as one crosswalk requirement."
+  ]
+ },
+ "books": [
+  {
+   "book": "Lam",
+   "track": "STANDARD",
+   "total": 8,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:9c-1:12 voice-turn edges",
+    "2:11-2:19 narrator-to-address transition and the 2:18 addressee",
+    "3:19-3:24 and the 3:40 / 3:48 quadripartite seams",
+    "4:16-4:22 we-onset and the Edom/Zion pair",
+    "5:18-5:22 close",
+    "reversed pe-ayin order in chs 2-4 (letter disclosure per row)"
+   ],
+   "note": "Current book, already in cycle under OW-5/OW-6. STANDARD under every candidate rule in the escalation packet, so the escalation does not touch its running cycle; the OW-6 Fable final-checker gate applies at its close as ordered."
+  },
+  {
+   "book": "Ezek",
+   "track": "HARD",
+   "total": 15,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 5,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:1-3:15 vision text with LXX minuses/doublets",
+    "20:45-21:32 numbering zone (MT 21:1-37)",
+    "25-32 seven-nation structure and its embedded laments",
+    "33:1-20 hinge (watchman repeated from 3:16-21)",
+    "36:16-38 with the 36:23c-38 variant block",
+    "38-39 internal oracle chain",
+    "40-48 measurement lists and the 43 / 47 sub-seams",
+    "44:1-3 shut gate; 47:1-12 river"
+   ],
+   "note": "Scores 15/15, the owner-named level, WITHOUT being owner-named: the rubric places it beside Daniel and Revelation. First HARD cycle after Lam; the WEB/MT numbering zone 20:45-21:32 (MT 21:1-37) and the variant-attested block 36:23c-38 are the first HARD-track test cases."
+  },
+  {
+   "book": "Dan",
+   "track": "HARD",
+   "total": 15,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 5,
+   "owner_named": true,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "2:4a/2:4b language switch (Aramaic morph labels 2:4b-7:28)",
+    "3:23/3:24 Greek-addition insertion point",
+    "MT 3:31-33 = WEB 4:1-3 and MT 6:1 = WEB 5:31 numbering zones",
+    "4 first-person encyclical frame (4:1-3, 34-37) around third-person 4:19-33",
+    "7:1-14 / 7:15-28 vision-interpretation seam",
+    "9:4-19 prayer / 9:20-27 seventy weeks",
+    "11:2-12:4 continuous survey",
+    "12:5-13 epilogue numbers"
+   ],
+   "note": "Owner-named HARD; the scorer's independent 15/15 corroborates the naming (scorer: 'would have made Daniel hard without the owner's naming'). Aramaic 2:4b-7:28 needs the substrate's Aramaic morphology lane and two numbering zones (MT 3:31-33 = WEB 4:1-3; MT 6:1 = WEB 5:31); verify both at Phase 0."
+  },
+  {
+   "book": "Hos",
+   "track": "HARD",
+   "total": 14,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:10-2:1 / MT 2:1-3 numbering zone and the Jezreel reversal",
+    "2:2-23 allegory internal seams (2:2-13 / 2:14-23)",
+    "4:1-3 rib onset and 4:4-19",
+    "5:8-6:6 with the 6:1-3 liturgy",
+    "11:1-11 with the 11:12-12:1 (MT 12:1-2) zone",
+    "12:2-14 Jacob retrospect",
+    "13:14-14:1 (MT 14:1) zone",
+    "14:9 colophon"
+   ],
+   "note": "Four severe axes. The prophecy 3 is driven by unit indeterminacy in 4-14 (no scholarly consensus on divisions, formulaic markers nearly absent), which is the criterion's own definition, so it stands; three numbering zones."
+  },
+  {
+   "book": "Joel",
+   "track": "STANDARD",
+   "total": 12,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:4 / 2:25 locust series",
+    "2:1-11 / 2:12-17 seam",
+    "2:18 tense crux",
+    "2:28-32 = MT 3:1-5 zone",
+    "3:1-21 = MT 4:1-21 zone",
+    "3:9-17 nations/harvest unit",
+    "3:16-21 close against Amos 1:2"
+   ],
+   "note": "Top borderline STANDARD in the OT: total 12 with two severe axes (prophecy, connections). Flagged regions: the 2:18 tense crux that fixes the lament's end, the whole-chapter zone WEB 3 = MT 4, the 3:16/Amos 1:2 book seam. Phase-0 upward re-classification candidate if the probe shows the 2:18 pivot cannot be fixed from text signals."
+  },
+  {
+   "book": "Amos",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 1,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:2 against Joel 3:16",
+    "1:3-2:16 eight-oracle pattern",
+    "4:6-13 refrain series into the 4:13 doxology",
+    "5:1-17 chiasm and the 5:8-9 hymn",
+    "5:25-27 (Acts 7 span)",
+    "7:1-9:6 vision cycle with the 7:10-17 narrative",
+    "9:11-15 (Acts 15 span) against Obad 1"
+   ],
+   "batch_total_before_adjustment": 10,
+   "note": "ADJUSTED connections 2 -> 3 (see cross_batch_consistency); one severe axis; STANDARD. The Acts 7 and Acts 15 spans (5:25-27; 9:11-12) rest on LXX forms that diverge from the MT."
+  },
+  {
+   "book": "Obad",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 1,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 1,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "vv 1-9 Jer 49:7-22 parallel span",
+    "vv 10-14 prohibition series",
+    "v 15 pivot (15a / 15b)",
+    "vv 17-21 restoration and the Joel 2:32 echo",
+    "v 20 Sepharad crux"
+   ],
+   "note": "Single severe axis (connections) in 21 verses; the flagged-region mechanism, not the HARD track, is the right instrument; the Jer 49:7-22 parallel span should be checked against the closed Jer rows."
+  },
+  {
+   "book": "Jonah",
+   "track": "STANDARD",
+   "total": 8,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:17-2:10 (MT 2:1-11) numbering zone",
+    "2:1 / 2:2 and 2:9 / 2:10 psalm-frame seams",
+    "3:4-10 oracle, decree and repentance",
+    "4:1-11 dialogue and close"
+   ]
+  },
+  {
+   "book": "Mic",
+   "track": "HARD",
+   "total": 14,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:10-16 town-name lament",
+    "2:6-13 disputation and shepherd oracle",
+    "4:1-5 against Isa 2:2-5",
+    "4:9-5:6 attah series across the 4:14 / 5:1 zone",
+    "5:2-5a Bethlehem oracle",
+    "6:1-8 rib",
+    "6:9-16 corrupt indictment",
+    "7:8-20 liturgy"
+   ]
+  },
+  {
+   "book": "Nah",
+   "track": "STANDARD",
+   "total": 10,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 2,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 1,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:2-8 acrostic extent",
+    "1:9-2:2 addressee alternation",
+    "1:15 / 2:1 (MT 2:1-2) numbering zone",
+    "2:3-13 battle vision",
+    "3:8-19 Thebes comparison and locust dirge"
+   ],
+   "note": "Single severe axis (translation), self-flagged by its scorer as an arguable 2; STANDARD. The Nah 3 / Zeph 2 pair is the clearest small-book corruption-proportion calibration gap: it would flip Nah HARD under an any-single-3 rule, one reason that rule is rejected."
+  },
+  {
+   "book": "Hab",
+   "track": "HARD",
+   "total": 14,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "01",
+   "extra_scrutiny_focus": [
+    "1:2-2:5 dialogue seams",
+    "2:2-5 answer with 2:4 (NT-cited span)",
+    "2:6-20 five woes and the 2:14 / 2:20 refrains",
+    "3:1 superscription and 3:19b subscription",
+    "3:3-15 archaic theophany",
+    "3:16-19a response"
+   ],
+   "note": "Small HARD book (56 verses), four severe axes; 2:4's three text forms (MT / LXX / NT) sit exactly on the contested 2:4/2:5/2:6 seam, so text-criticism, reception and boundary coincide on one verse."
+  },
+  {
+   "book": "Zeph",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 2,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:2-6 (creation-reversal sweep; 1:5 malkam)",
+    "1:7-18 internal seams (1:7 'be silent'; 1:14 crux)",
+    "2:1-4 (rare verb; ki at 2:4)",
+    "2:12-15 (Cush to Assyria transition; 2:14 obscure fauna and hapax)",
+    "3:1-8 (3:1 root; 3:8 lakhen close)",
+    "3:8/3:9 hinge",
+    "3:14-20 (hymn; 3:17-18 crux; 3:18-20 prose seam)"
+   ]
+  },
+  {
+   "book": "Hag",
+   "track": "STANDARD",
+   "total": 6,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 1,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-11 (word-event formula; 1:5-11 oracle)",
+    "1:12-15 (response; 1:15 date placement)",
+    "2:1-9 (2:5a LXX minus; 2:6-7 cruxes; Heb 12:26 quotation)",
+    "2:10-19 (torah dialogue; 2:15 'and now'; 2:18 double date)",
+    "2:20-23 (same-day second oracle)"
+   ]
+  },
+  {
+   "book": "Zech",
+   "track": "HARD",
+   "total": 14,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "WEB 1:18-2:13 / MT 2:1-17 numbering zone",
+    "1:7-6:15 visions with inserted oracles (1:14-17; 2:6-13; 3:8-10; 4:6b-10a; 6:9-15)",
+    "7:1-8:23 (ten sayings 8:1-17; 8:18-23)",
+    "9:1-11:17 massa I (9:9-10; 11:4-17; 11:12-13)",
+    "12:1-14:21 massa II (12:10-14; 13:7-9 placement; 14:5-6 cruxes; 'on that day' chain)",
+    "NT-quoted verses 9:9, 11:12-13, 12:10, 13:7 kept with their context"
+   ],
+   "note": "Ecclesial 2 kept at the batch-02 calibration (that batch ranked Zech below Matt/Luke/John/Acts/Rom on the same axis); no track effect. The zone WEB 1:18-2:13 = MT 2:1-17 makes every key in that stretch a crosswalk hazard."
+  },
+  {
+   "book": "Mal",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 1,
+    "prophecy": 2,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1 (massa heading; 'my messenger')",
+    "1:6-2:9 (priestly disputation; 1:11)",
+    "2:10-16 (2:12, 2:15-16 corrupt text)",
+    "2:17-3:5 with 3:1 (NT-quoted) and the 3:5/3:6 seam",
+    "3:13-4:3 [MT 3:13-21] (3:16 aside; 4:2)",
+    "4:4-6 [MT 3:22-24] appendix, numbering zone, LXX order"
+   ],
+   "note": "Last Hebrew-substrate book before the NT (book-end zone WEB 4:1-6 = MT 3:19-24; LXX final-verse order). The Greek substrate must be staged and validated before the lane crosses from Mal to Matt."
+  },
+  {
+   "book": "Matt",
+   "track": "STANDARD",
+   "total": 12,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-17 genealogy (fourteens; 1:11-12 Jechoniah; 1:7-8, 1:10, 1:16 variants)",
+    "5-7 Sermon seams (5:17-20; 5:21-48; 6:1-18 with 6:13b; 6:19-7:12; 7:13-27)",
+    "13:1-53 parable chain (13:34-35; 13:36 house seam; 13:51-53)",
+    "16:13-20 (16:17-19 inset in the Markan unit)",
+    "18:15-20; 19:3-12",
+    "23:1-39 (23:14; 23:37-39) and the 23/24 discourse seam",
+    "24-25 (24:34-36; 24:36 variant)",
+    "26-28 passion (27:3-10; 27:16-17; 27:51-54; 28:16-20)"
+   ],
+   "note": "Top borderline STANDARD in the NT: total 12, two severe axes (connections, ecclesial). First NT book in canonical order and therefore the first book on the Greek substrate. Recommend a Phase-0 upward re-classification review once the WEB/Greek verse-existence crosswalk exists (17:21, 18:11, 23:14 are WEB-present, critical-absent); that is a process-risk case, not a rubric case, and is recorded as such."
+  },
+  {
+   "book": "Mark",
+   "track": "STANDARD",
+   "total": 12,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-15 prologue (1:1, 1:2 variants; extent 1:13 or 1:15)",
+    "2:1-3:6 controversy cycle",
+    "3:20-35; 5:21-43; 6:7-30; 11:12-25; 14:1-11; 14:53-72 intercalations",
+    "4:1-34 (4:10-12; 4:21-25; 4:33-34)",
+    "6:30-8:26 (two feedings; 7:16 verse; 7:19 participle; 8:22-26 hinge)",
+    "13:1-37 (13:14; 13:30-32)",
+    "14-15 passion (14:51-52; 15:25; 15:28 verse)",
+    "16:1-8 / 16:9-20 / Shorter Ending / Freer Logion"
+   ],
+   "note": "Borderline STANDARD (12; severe on translation and connections). 16:8 / 16:9-20 must be its own disclosed row; five Byzantine-only verses (7:16, 9:44, 9:46, 11:26, 15:28) are key-existence hazards; a wrong Markan seam is inherited by Matt and Luke. Long flagged-region list for a STANDARD book."
+  },
+  {
+   "book": "Luke",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-4 preface",
+    "1:5-2:52 (canticles 1:46-55, 1:68-79, 2:14 variant, 2:29-32; 1:46 'Mary/Elizabeth')",
+    "3:1-38 (3:19-20 order; 3:36 Cainan)",
+    "4:16-30; 6:1 variant; 6:20-49 against Matt 5-7",
+    "9:51-19:27 travel narrative (journey notices; 11:2-4; 15:1-32; 16:1-31; 17:20-37 with 17:21, 17:36; 18:9-14; 19:11-27)",
+    "21:5-38",
+    "22:7-46 (22:17-20 cup-bread-cup; 22:19b-20; 22:43-44)",
+    "23:26-56 (23:34a; 23:43 comma; 23:17 verse)",
+    "24:1-53 (Western non-interpolations; 24:50-53 into Acts 1)"
+   ],
+   "note": "Text-critical cluster in 22-24 (22:19b-20; 22:43-44; 23:34a; the Western non-interpolations) overlaps the doctrinal loci, so several rows rest on words a critical witness lacks; the witness must be disclosed per row."
+  },
+  {
+   "book": "John",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-18 (1:1c; 1:3-4 punctuation; 1:13; 1:18; insertions 1:6-8, 15)",
+    "2:23-3:36 (3:16-21; 3:31-36 speech seams)",
+    "5:1-47 (5:3b-4; 5:24-29)",
+    "6:22-71 (6:35; 6:41; 6:51-58; 6:60-71; 6:69 variant)",
+    "7:1-8:59 (7:37-39; 7:53-8:11; 8:12 resumption; 8:25; 8:58)",
+    "10:1-42 (10:21/22 Dedication seam)",
+    "12:20-50 (12:44-50 detached discourse)",
+    "13:1-17:26 (13:31 onset; 14:31 aporia; Paraclete sayings; 15:26; ch 17)",
+    "18-19 (19:14; 19:26-27; 19:34-37)",
+    "20-21 (20:22-23; 20:30-31 verb; 21:15-17; 21:24-25)"
+   ]
+  },
+  {
+   "book": "Acts",
+   "track": "HARD",
+   "total": 12,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-14 (Luke 24 overlap; forty days)",
+    "2:1-47 (2:17-21; 2:38-41; 2:42-47 scope)",
+    "4:23-5:16 (4:25; 4:32-35; 5:1-11)",
+    "6:1-8:3 (7:2-53 with 7:14, 7:16, 7:43)",
+    "8:26-40 (8:32-33; 8:37)",
+    "9:1-31 / 22:3-21 / 26:9-23 (triple account; 9:7 against 22:9)",
+    "10:1-11:18 (double telling)",
+    "12:25; 13:13-52 (13:33; 13:48)",
+    "15:1-35 (15:16-18; 15:20, 29; 15:34)",
+    "16:6-17 (we-onset; 16:6-7)",
+    "17:16-34 (17:26)",
+    "19:1-7; 20:17-38 (20:28)",
+    "24:1-27 (24:6b-8a); 26:1-32 (26:28)",
+    "27:1-28:16 (nautical terms; 27:14; 28:16)",
+    "28:17-31 (28:25-28; 28:29; open ending)"
+   ],
+   "note": "The only HARD book below total 13: three severe axes (translation, connections, ecclesial) with prophecy 1. The Western-text divergence (~8.5 percent longer) and the verse-presence keys 8:37, 15:34, 24:6b-8a, 28:29 are exactly the substrate-dependent hazards the Greek ruling names."
+  },
+  {
+   "book": "Rom",
+   "track": "HARD",
+   "total": 14,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "02",
+   "extra_scrutiny_focus": [
+    "1:1-17 (1:3-4 formula; 1:16-17 thesis; Hab 2:4 form)",
+    "1:18-32 (1:26-27); 2:1-3:20 (3:9; 3:10-18 catena)",
+    "3:21-31 (3:22, 26 pistis Christou; 3:25; 3:28)",
+    "5:1-21 (5:1 variant; 5:12 eph' ho; anacoluthon)",
+    "6-8 (7:7-25; 8:1 plus; 8:26-30 variants; 8:31-39 hymn)",
+    "9-11 (9:5 punctuation; 9:6-29; 10:5-8; 11:25-27; 11:33-36)",
+    "12:1-15:13 (13:1-7; 14:1-15:13)",
+    "15:14-33",
+    "16:1-27 (16:1-2; 16:7; 16:17-20; 16:20b; 16:24; 16:25-27 position; 14/15/16-chapter forms)"
+   ],
+   "note": "The doxology position (after 14:23 in the Byzantine majority; 16:25-27 in critical editions) and the Byzantine-only 16:24 make the book-end row witness-dependent; it cannot be drawn without the staged Greek witness."
+  },
+  {
+   "book": "1Cor",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 3,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "8:1-11:1 idol-food argument with the ch 9 digression",
+    "12:1-14:40 with ch 13 inset and 14:33b-36 text-critical block",
+    "11:2-16 headship unit and 11:17-34 Supper tradition",
+    "15:1-58 creed 15:3-7, sequence 15:20-28, mystery 15:50-58",
+    "slogan quotations 6:12-20, 7:1, 8:1-8, 10:23",
+    "ch 7 topical sub-seams 7:1, 7:8, 7:10, 7:12, 7:25, 7:36",
+    "16:1-24 collection, travel, greetings, maranatha"
+   ],
+   "note": "14:34-35 (transposed after 14:40 in Western witnesses) is a text-critical block sitting on a seam; the unmarked Corinthian slogans (6:12-13; 7:1; 8:1, 4, 8; 10:23) are quotation-extent decisions that WEB punctuation must never drive (E-23)."
+  },
+  {
+   "book": "2Cor",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "2:12-13 and 7:5-16 travel frame around the 2:14-7:4 excursus",
+    "3:7-18 Exod 34 midrash and 3:1-6 letters of recommendation",
+    "5:1-10 and 5:11-21 reconciliation unit",
+    "6:14-7:1 block and its edges 6:13 and 7:2",
+    "ch 8 vs ch 9 seam (9:1)",
+    "10:1 tonal break and 10:1-18 boundaries of boasting",
+    "11:1-12:13 fool's speech sub-seams (11:16, 11:21b, 12:1, 12:11)",
+    "12:14-13:10 third-visit warnings and 13:11-14 close with the numbering difference"
+   ],
+   "batch_total_before_adjustment": 12,
+   "note": "ADJUSTED ecclesial 3 -> 2 (see cross_batch_consistency): severe axes 3 -> 2, track HARD -> STANDARD; without the adjustment it would be HARD. Translation 3 and literature 3 stand; the partition seams (2:13/2:14; 6:13/6:14; 7:1/7:2; 7:4/7:5; 9:15/10:1) and the 13:12-14 vs 13:12-13 numbering difference are flagged regions. First Phase-0 upward re-classification candidate."
+  },
+  {
+   "book": "Gal",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:6-10 opening without thanksgiving",
+    "2:11-21 speech extent and 2:15-21 thesis",
+    "3:6-14 citation chain and 3:15-25 sub-arguments",
+    "4:8-20 appeal as interruption",
+    "4:21-5:1 allegory and the 5:1 hinge",
+    "5:2-12 vs 5:13-26 seam",
+    "6:11-18 autograph postscript"
+   ],
+   "note": "The extent of the reported speech (2:14 to 2:21) is unmarked in Greek and undecidable from WEB alone; a substrate-dependent seam."
+  },
+  {
+   "book": "Eph",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:1 address variant",
+    "1:3-14 single-sentence eulogy",
+    "1:15-2:10 (2:1-7 anacoluthon)",
+    "2:11-22 (2:14-16 possible hymn)",
+    "3:1/3:14 resumption around 3:2-13",
+    "4:7-16 Ps 68 midrash and descent",
+    "5:18-22 hinge and 5:21-6:9 Haustafel",
+    "6:10-20 armor allegory",
+    "row-level alignment with Colossians parallels"
+   ],
+   "note": "1:3-14 and 1:15-23 are single Greek sentences: every WEB sentence break inside them is an E-23 trap; the 5:21/5:22 hinge is both syntactic and text-critical (the verb of 5:22 is supplied from 5:21 in the best witnesses)."
+  },
+  {
+   "book": "Phil",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "2:5-11 hymn edges and strophes",
+    "3:1-3 transition and partition seam",
+    "4:8-9 vs 4:10-20 thank-you note",
+    "1:12-26 (1:19 Job citation; 1:21-24)",
+    "4:1-3 Euodia/Syntyche and syzygos",
+    "3:17-21 citizenship close",
+    "1:1 office titles"
+   ]
+  },
+  {
+   "book": "Col",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:12-23 hymn with its frame",
+    "1:24-2:5 self-presentation",
+    "2:6-7 hinge and 2:8-23 polemic sub-seams (2:16, 2:18, 2:20)",
+    "3:1-4 transition",
+    "3:18-4:1 Haustafel aligned with Eph 5:22-6:9",
+    "4:7-18 greetings aligned with Phlm and Eph 6:21-22",
+    "2:2, 2:18, 2:23 renderings in WEB"
+   ]
+  },
+  {
+   "book": "1Thess",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:2-3:13 thanksgiving extent and body onset",
+    "2:13-16 excursus",
+    "2:17-3:13 apostolic parousia",
+    "4:1-12 seams (4:9 peri de)",
+    "4:13-5:11 split at 5:1 and the 4:15 citation extent",
+    "5:12-28 staccato close and wish-prayer",
+    "2:6/2:7 numbering and the 2:7 variant in WEB"
+   ],
+   "note": "Verse division 2:6/2:7 differs between KJV/WEB and NA28: a crosswalk item for the Greek substrate."
+  },
+  {
+   "book": "2Thess",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:3-12 sentence and Isaiah mosaic",
+    "2:1-12 all sub-seams (2:5 aside; 2:6-7 katechon)",
+    "2:13-17 second thanksgiving and traditions",
+    "3:1-5 transition",
+    "3:6-15 with 3:7-9 inset",
+    "3:16-18 wish-prayer and autograph",
+    "row-level alignment with 1 Thessalonians"
+   ],
+   "note": "Smallest HARD book (47 verses), three severe axes; 1:3-10 is one Greek sentence whose internal seams cannot be argued from WEB; 2:1-12 is the katechon minefield."
+  },
+  {
+   "book": "1Tim",
+   "track": "STANDARD",
+   "total": 10,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 1,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:3-20 charge with 1:8-11 and 1:12-17 digressions",
+    "2:8-15 and the 3:1a formula direction",
+    "3:14-16 hinge and hymn",
+    "4:1-5 warning and 4:6-16 charge (4:9 formula)",
+    "5:3-16 widows and 5:17-25 elders with the 5:23 aside",
+    "6:2b-21 (6:11-16 charge inside riches material; 6:20-21 close)",
+    "3:16 and 5:16 renderings in WEB"
+   ],
+   "note": "Single severe axis (ecclesial); STANDARD; flagged regions 2:8-15 with the 3:1a formula direction, 3:14-16 with the 3:16 hos/theos variant, 4:8-10 formula direction."
+  },
+  {
+   "book": "2Tim",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:6-2:13 charge with the 1:15-18 interruption",
+    "2:8-13 creed and hymn (2:11a direction)",
+    "2:14-26 polemic sub-seams",
+    "3:1-17 antithesis and the 3:16 syntax",
+    "4:1-8 charge and testament",
+    "4:9-22 personalia and benediction variant"
+   ]
+  },
+  {
+   "book": "Titus",
+   "track": "STANDARD",
+   "total": 9,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "03",
+   "extra_scrutiny_focus": [
+    "1:1-4 creedal prescript",
+    "1:5-16 hinge at 1:10 and the 1:12 quotation",
+    "2:1-15 (2:11 gar; 2:15 close)",
+    "3:1-11 (3:8a direction; 3:9-11 procedure)",
+    "3:12-15 travel notes",
+    "2:13 and 3:5 renderings in WEB"
+   ]
+  },
+  {
+   "book": "Phlm",
+   "track": "STANDARD",
+   "total": 4,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 1,
+    "prophecy": 0,
+    "connections": 1,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "v.7/v.8 thanksgiving-to-appeal seam",
+    "vv.17-22 request, IOU and lodging as one unit or two",
+    "v.6 obscure sentence inside the thanksgiving",
+    "vv.23-25 greetings frame"
+   ],
+   "note": "Lowest total (4) with 3John."
+  },
+  {
+   "book": "Heb",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 4,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:5-13 catena as one unit",
+    "3:7-4:13 Ps 95 midrash and the 4:1/4:3 seams",
+    "4:14-5:10 and 6:20-7:28 Melchizedek hook-word frame with the 5:11-6:20 digression inside it",
+    "8:1-10:18 Jer 31 inclusio and the 9:1-10 / 9:11-28 / 10:1-18 seams",
+    "the five warning blocks and the both-sides law at each of their edges",
+    "11:1-12:3 catalogue and its edges",
+    "13:1-25 paraenesis-to-postscript seams (13:17/18/20/22)",
+    "quotation rows: LXX-vs-MT wording disclosed, never silently harmonised"
+   ],
+   "note": "Quotations follow the LXX where it diverges from the MT (10:5; 1:6; 2:7; 3:7-11); rows containing quotations need both the Greek substrate and the closed OT rows, never silently harmonised."
+  },
+  {
+   "book": "Jas",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 3,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:2-27 seams at 1:12 and 1:19 (double-opening hypothesis)",
+    "2:14-26 diatribe and the interlocutor speech extent at 2:18",
+    "3:13-4:12 as one or several units",
+    "4:13-5:6 prophetic address pair ('come now' twice)",
+    "5:12 stand-alone oath saying",
+    "5:13-20 close without an epistolary ending",
+    "WEB quotation-mark placement at 2:18 is punctuation, never a driver (E-23)"
+   ],
+   "note": "Two severe axes (literature = contested macro-structure; ecclesial); STANDARD; the interlocutor's speech extent at 2:18 is a Greek-syntax question, and WEB quotation marks are barred as its driver (E-23)."
+  },
+  {
+   "book": "1Pet",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 2,
+    "prophecy": 1,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:3-12 one-sentence blessing as one unit",
+    "2:4-10 stone catena",
+    "2:11-3:12 exhortation block and the 2:13/2:18/3:1/3:7/3:8 internal seams",
+    "2:21-25 Servant hymn edges",
+    "3:18-4:6 descent, baptism and preaching-to-the-dead complex",
+    "4:11 doxology and the 4:12 'beloved' seam (two-document hypothesis)",
+    "5:1-11 elders, humility (Prov 3:34) and the 5:12-14 postscript"
+   ]
+  },
+  {
+   "book": "2Pet",
+   "track": "HARD",
+   "total": 13,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 3,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:3-11 virtue chain and its 1:12 seam into the testament",
+    "1:12-21 testament, transfiguration and prophetic word as one or three",
+    "2:1-22 polemic seams against the Jude parallel table (2:4-10a as one sentence)",
+    "3:1-7 / 3:8-10 / 3:11-13 / 3:14-18 eschatological seams",
+    "3:10 variant disclosed at any row edge that touches it",
+    "3:15-16 Paul-reference row"
+   ],
+   "note": "The 3:10 variant (heurethesetai / katakaesetai / negated form) changes the sense of a unit edge; every ch-2 row has a Jude twin."
+  },
+  {
+   "book": "1John",
+   "track": "STANDARD",
+   "total": 11,
+   "scores": {
+    "translation_difficulty": 2,
+    "literature_type_difficulty": 3,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:1-4 prologue as a unit",
+    "1:5-2:2 and 2:3-11 slogan blocks",
+    "2:12-14 triplet and 2:15-17 world saying",
+    "2:18-27 antichrist block edges (2:28 seam)",
+    "3:11-24 and 4:7-21 love blocks vs 4:1-6 spirit test",
+    "5:1-12 witness section and the 5:7-8 Comma disclosure",
+    "5:13 close and 5:14-21 appendix",
+    "en touto forward/backward reference at every candidate seam"
+   ],
+   "note": "Two severe axes (literature = seam-unmarkedness; ecclesial); STANDARD; en touto direction at every candidate seam is a Greek-syntax question, and the 5:7-8 Comma is a verse-CONTENT divergence between witnesses that must be disclosed at any touching row."
+  },
+  {
+   "book": "2John",
+   "track": "STANDARD",
+   "total": 6,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 1,
+    "prophecy": 1,
+    "connections": 2,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "v.6/v.7 body seam (hoti link)",
+    "vv.10-11 hospitality refusal inside the warning unit",
+    "vv.12-13 closing frame"
+   ]
+  },
+  {
+   "book": "3John",
+   "track": "STANDARD",
+   "total": 4,
+   "scores": {
+    "translation_difficulty": 1,
+    "literature_type_difficulty": 1,
+    "prophecy": 0,
+    "connections": 1,
+    "ecclesial_contestedness": 1
+   },
+   "severe_axes": 0,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "WEB verse count (14 vs 15) at Phase 0",
+    "v.11 maxim as hinge between vv.9-10 and vv.12",
+    "vv.13-15 closing frame"
+   ],
+   "note": "WEB verse count (14 vs 15) must be fixed at Phase 0: a crosswalk item."
+  },
+  {
+   "book": "Jude",
+   "track": "STANDARD",
+   "total": 12,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 2,
+    "prophecy": 2,
+    "connections": 3,
+    "ecclesial_contestedness": 2
+   },
+   "severe_axes": 2,
+   "owner_named": false,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "vv.3-4 occasion and the 4/5 seam",
+    "vv.5-10 first type-triad plus application (v.9 Moses tradition inside it)",
+    "vv.11-13 woe triad plus application",
+    "vv.14-16 Enoch quotation plus application",
+    "vv.17-19 apostolic prediction plus application",
+    "vv.20-23 appeal and the 22-23 variant disclosure",
+    "vv.24-25 doxology; v.5 variant disclosed"
+   ],
+   "note": "Borderline STANDARD (12; severe on translation and connections); the v.5 and vv.22-23 variants change the subject of the first example and the group count of the appeal; 2Pet twin for vv.4-18."
+  },
+  {
+   "book": "Rev",
+   "track": "HARD",
+   "total": 15,
+   "scores": {
+    "translation_difficulty": 3,
+    "literature_type_difficulty": 3,
+    "prophecy": 3,
+    "connections": 3,
+    "ecclesial_contestedness": 3
+   },
+   "severe_axes": 5,
+   "owner_named": true,
+   "source_batch": "04",
+   "extra_scrutiny_focus": [
+    "1:1-8 title, beatitude and epistolary opening; 1:9-20 inaugural vision",
+    "2:1-3:22 seven proclamations: the seven-part formula as the tier-1 seam law",
+    "4:1-5:14 throne and scroll as one or two",
+    "6:1-8:1 seals with the 7:1-17 interlude and the 8:1 seventh seal",
+    "8:2-11:19 trumpets with the 10:1-11:14 interlude and 11:15-19 seventh trumpet",
+    "12:1-14:20 the great signs cycle; the 12:18/13:1 variant and versification seam",
+    "15:1-16:21 bowls with the 15:2-4 hymn",
+    "17:1-19:10 Babylon and the 18:9-19 dirge; 19:11-20:15 the seven 'and I saw' visions and the recapitulation question",
+    "21:1-22:5 new creation and city; 22:6-21 epilogue speaker frames",
+    "hymns as unit closers at every candidate seam; the four 'in the Spirit' markers",
+    "Majority-text vs NA28 readings disclosed at every affected row"
+   ],
+   "note": "Owner-named HARD; the scorer's independent 15/15 corroborates the naming. OW-2 item 6 (Opus 5 high review + Fable 5 high adversarial adjudication for vision-cycle, speaker, quotation, recapitulation-versus-sequence, textual-variant and cross-chapter seams) stacks on the HARD track; the 12:18/13:1 variant-plus-versification seam sits on a vision boundary."
+  }
+ ],
+ "summary": {
+  "hard": 15,
+  "standard": 27,
+  "hard_books": [
+   "Ezek",
+   "Dan",
+   "Hos",
+   "Mic",
+   "Hab",
+   "Zech",
+   "Luke",
+   "John",
+   "Acts",
+   "Rom",
+   "1Cor",
+   "2Thess",
+   "Heb",
+   "2Pet",
+   "Rev"
+  ],
+  "standard_books": [
+   "Lam",
+   "Joel",
+   "Amos",
+   "Obad",
+   "Jonah",
+   "Nah",
+   "Zeph",
+   "Hag",
+   "Mal",
+   "Matt",
+   "Mark",
+   "2Cor",
+   "Gal",
+   "Eph",
+   "Phil",
+   "Col",
+   "1Thess",
+   "1Tim",
+   "2Tim",
+   "Titus",
+   "Phlm",
+   "Jas",
+   "1Pet",
+   "1John",
+   "2John",
+   "3John",
+   "Jude"
+  ],
+  "hard_ot": [
+   "Ezek",
+   "Dan",
+   "Hos",
+   "Mic",
+   "Hab",
+   "Zech"
+  ],
+  "hard_nt": [
+   "Luke",
+   "John",
+   "Acts",
+   "Rom",
+   "1Cor",
+   "2Thess",
+   "Heb",
+   "2Pet",
+   "Rev"
+  ],
+  "owner_named": [
+   "Dan",
+   "Rev"
+  ],
+  "owner_named_corroboration": "Daniel and Revelation each scored 15/15 by independent scorers who stated the rubric would have made them HARD without the naming; the naming is corroborated by the rubric, not echoed.",
+  "scored_at_or_above_owner_named_but_not_named": [
+   "Ezek"
+  ],
+  "single_severe_axis_standard_books": [
+   "Amos",
+   "Obad",
+   "Nah",
+   "1Tim"
+  ],
+  "two_severe_axes_standard_books": [
+   "Joel",
+   "Matt",
+   "Mark",
+   "2Cor",
+   "Gal",
+   "Eph",
+   "Col",
+   "Jas",
+   "1Pet",
+   "1John",
+   "Jude"
+  ]
+ },
+ "greek_substrate_ruling": {
+  "finding": "CONFIRMED from the inputs: no Greek New Testament source text is staged for this campaign. Batch 02: 'which Greek witness the campaign will stage is unknown to me' (Matt) and 'the staged Greek witness is unknown to me' (Mark, Luke, John, Acts, Rom); batch 03 (1Cor): 'the Greek substrate the campaign will stage for the NT is unknown to this scorer'; batch 04 (Heb, Rev): 'the NT Greek substrate lane for this campaign is not named in the documents I was given'. Every NT entry's uncertainty field records its textual claims as unverified against bytes. I did not probe any staging directory (exact-path law); the Hebrew lane's substrate (OSHB/WLC keyed to WEB with declared numbering zones, byte-collate tiers, normalize dry-run, word index, citation sweep) is named in the batches and the ledger, and the ledger's root-cause law records that every shipped-past-reviewer defect class was caught by a deterministic sweep or a byte re-verification lane against that substrate.",
+  "consequence_for_the_nt_books": "The TRACK ruling for the 27 NT books stands on the rubric and is not changed by the substrate question. But no NT book may START its cycle, on either track, until a Greek witness is staged, keyed to WEB verse by verse with verse-existence flags, and its tooling (WEB<->Greek crosswalk, collate tiers byte / accent_stripped / skeleton, normalize dry-run, word index, citation sweep, stray sweep) is built and validated on a fixture. Ground: CAMPAIGN_CLOSE_GATE item 5 makes 'HEBREW/GREEK QUOTE BYTES + TIER LABELS: every original-language splice byte-collated at its cited ref' a hard book-close gate; without a Greek witness that arm is unsatisfiable for any row carrying Greek, and a row carrying no Greek cannot argue a syntax-, formula- or variant-based seam from any tier-1 layer, because the only remaining surface is WEB punctuation and paragraphing, which is tier-4 and barred as a driver (E-23, OW-2 item 5). If the owner nonetheless orders NT books run without a Greek substrate, this artifact re-classifies all 27 NT books HARD (upward re-classification, reason recorded: loss of the deterministic byte-verification layer) and each NT close requires an explicit owner waiver of the item-5 Greek arm in chat; that compensation adds model review but does not restore byte verification, so it is recorded as inferior, not equivalent.",
+  "what_is_lost_without_it": "Concretely, for 27 of the 42 remaining books: (1) the byte re-verification lane itself: classes E-01 (normalize), E-03 (reviewer-prose citation errors), E-04 (byte-valid wrong-token splices) and E-05 (tier overclaims) are caught only by collate against a staged text and would go undetected across the NT; (2) verse-existence and versification crosswalk: WEB (reported Majority-Text base, unverified) prints verses absent from critical editions: Matt 17:21, 18:11, 23:14; Mark 7:16, 9:44, 9:46, 11:26, 15:28, 16:9-20; Luke 17:36, 23:17; John 5:3b-4, 7:53-8:11; Acts 8:37, 15:34, 24:6b-8a, 28:29; Rom 16:24 plus the doxology position; the 1John 5:7-8 Comma content; and verse-division differences at 1Thess 2:6/7, 2Cor 13:12-14 versus 12-13, 3John 14 versus 15 verses, Rev 12:18/13:1: without a keyed Greek witness no row can record which witness its span exists in, the NT analogue of the MT/WEB zone law whose single-space assumption produced the Jer E-03/E-26 instance; (3) every Greek lexeme, variant and hapax claim in row and review prose (pistis Christou, harpagmos, katechon, en touto, hilasterion, hos/theos at 1Tim 3:16) is unverifiable, so the HIGH-YIELD E-03 and E-05 classes run blind; (4) syntax-based seams have no tier-1 layer: Eph 1:3-14 and 1:15-23, 2Thess 1:3-10 and Col 1:3-14 as single sentences; Gal 2:14-21 speech extent; John 3:16-21 and 3:31-36 speech ends; Jas 2:18 interlocutor extent; 1John's en touto direction; Rom 5:1 echomen; the pistos ho logos direction at 1Tim 3:1a and 4:9 and 2Tim 2:11a and Titus 3:8a; writers would be pushed onto WEB sentence and quotation-mark placement, i.e. the E-23 class that shipped the Isa HIGH, systematically across 27 books; (5) formula-based unit onsets are detectable only in Greek tokens (peri de; pistos ho logos; kai egeneto hote etelesen; houtoi eisin; en pneumati), which WEB renders variably; (6) the normalize lane has a Greek analogue (polytonic precomposed versus combining diacritics, final sigma) that cannot exist without a text; (7) LXX-versus-MT alignment for quotation rows in Heb, Rom, 1Pet, Acts and Matt against the closed OT corpus cannot be done ('disclosed, never silently harmonised' per the scorers).",
+  "my_ruling": "(a) A staged Greek substrate is a Phase-0 PRECONDITION for every NT book regardless of track; not optional; the lane must not cross from Mal to Matt without it. (b) WHICH witness is an OWNER decision: it is a project-level source, licence and provenance choice, it binds the scripture-graph beyond this chunking lane, and it is irreversible in effect once NT rows are keyed. My recommendation: stage the Robinson-Pierpont Byzantine Textform (public domain; parsed edition available) as the PRIMARY key-aligned witness, because its verse existence matches the WEB's reported Majority-Text base one-to-one, the way OSHB keyed to WEB with only declared numbering zones; plus the SBLGNT (CC BY 4.0; MorphGNT morphology CC BY-SA) as the SECONDARY witness for critical-text divergence disclosure at every flagged row. NA28/UBS5 (copyrighted) and the Tyndale House GNT (CC BY-NC-ND) are not eligible for an open-licensed project. Licence and edition facts are stated from memory and MUST be verified at staging; nothing here is a confirmed staging fact. (c) The WEB's textual base is REPORTED by the scorers from memory of its preface, not verified: verify at staging by checking the staged WEB for the Byzantine-only verses listed above. (d) Build and validate the Greek tooling during the 15 remaining Hebrew books (Lam to Mal) so it is ready before Matt's Phase 0; the first NT book is otherwise a tooling shakedown on a borderline book. (e) This question goes into the escalation packet as decision B.",
+  "needs_owner": true
+ },
+ "sequencing_recommendation": "Advice only; canonical order is owner-set and unchanged. (1) Ezek (15, unnamed at the owner-named level) and Dan (15) follow Lam back-to-back as the first two HARD cycles: build and rehearse the HARD-track arms (Fable controlling lane at high effort, no-sampling peer and spot coverage on flagged regions, whole-book final check, second independent Fable review of the flagged regions) on Ezek's Phase 0, never run Ezek and Dan concurrently, and treat Ezek's numbering zone and 36:23c-38 block as the track's first test cases. (2) Hos (14) follows at once, so the three heaviest Hebrew books sit in a row; expect the longest stretch of the campaign there; Joel to Jonah (STANDARD) are the breather; Mic and Hab are small HARD books; Zeph and Hag STANDARD; Zech HARD with its 1:18-2:13 zone; Mal STANDARD and the last Hebrew-substrate book. (3) Decide the Greek substrate NOW (escalation decision B) so staging and tooling run in parallel with the Hebrew books and are validated on a fixture before Matt's Phase 0; Matt is the first NT book and a borderline STANDARD, so run its Phase 0 with the upward re-classification question explicitly open. If the owner prefers a tooling shakedown on a tiny book before Matt, that is an order change (3John, 2John or Phlm first) and needs the owner's ruling; I do not recommend breaking canonical order for it. (4) The NT HARD cluster is front-loaded: Luke, John, Acts, Rom, 1Cor are long HARD books within six consecutive books; budget their second independent Fable reviews as one block, and keep 2Cor (adjusted STANDARD) under its flagged-region list with its Phase-0 re-classification review. (5) 2Thess and 2Pet are small HARD books and cheap; Heb is a long HARD book whose quotation rows depend on the closed OT corpus (LXX-versus-MT disclosure), so its Phase 0 should pull the relevant closed rows. (6) Rev last, with OW-2 item 6's Opus 5 high review plus Fable 5 high adversarial adjudication stacked on the HARD track, followed by the OW-6c end-of-campaign packet. (7) Pace: 15 HARD of 42 under this ruling; if the owner adopts a broader rule the NT HARD block grows and the Greek tooling's readiness becomes the critical path, so decision B should not wait on decision A.",
+ "escalation": {
+  "needs_human": true,
+  "why": "Blast radius is every remaining book: this artifact routes 42 cycles and sets the campaign's cost profile for the rest of the marathon. The owner's words admit two readings that differ by 15 books (severe-on-a-majority = 15 HARD; any-severe-axis = 30 HARD), and OW-5's budget waiver covers only Jeremiah and Lamentations ('for later books the budget law is as the owner sets it'), so the HARD track's cost is the owner's to accept. The Greek substrate question is a project-level source and licence decision outside this lane's authority and is a hard precondition for 27 of the 42 books. Reversibility is partial: upward re-classification is open at every Phase 0, but a book run STANDARD that should have been HARD cannot recover Fable control of its boundaries after they are drawn. No stall: the lane proceeds under this ruling provisionally, because Lam is STANDARD and Ezek and Dan are HARD under every alternative below; Hos is HARD under every alternative except 'owner-named only'; the first book whose track differs across the alternatives is Hos (4th from now) or Joel (5th), which is the owner's decision window.",
+  "packet": {
+   "question": "Two decisions. (A) Ratify the HARD/STANDARD rule 'severe (3) on at least three of the five criteria' and its roster (15 HARD: Ezek, Dan, Hos, Mic, Hab, Zech, Luke, John, Acts, Rom, 1Cor, 2Thess, Heb, 2Pet, Rev; 27 STANDARD with flagged regions), or choose another rule from the alternatives. (B) Authorise staging an open-licensed Greek New Testament substrate before any NT book starts, and choose the witness (recommended: Robinson-Pierpont Byzantine primary + SBLGNT secondary).",
+   "recommendation": "(A) Adopt the three-severe-axes rule as ruled: 15 HARD / 27 STANDARD; every STANDARD book's extra_scrutiny_focus carried as flagged regions with the no-sampling arm applied to those regions; Phase-0 upward re-classification kept open, with 2Cor, Matt, Joel, Mark and Jude as the named watch list; Ezek treated as owner-named-equivalent. (B) Authorise the Greek substrate now: Robinson-Pierpont Byzantine Textform (public domain, WEB-aligned verse existence) as primary witness plus SBLGNT (CC BY 4.0) as secondary for critical-text disclosure; build and validate the Greek tooling during the remaining Hebrew books; licence and edition facts verified at staging; no NT book starts without it.",
+   "recommendation_reason": "(A) It is the reading of the owner's words that keeps 'hardest' meaning hardest: the HARD set is exactly the books severe on most of the owner's own axes, it includes both owner-named books and the unnamed 15/15 book, it neutralises the prophecy genre flag that a total threshold would let bias routing against the NT, it is robust to the 2-versus-3 scorer noise that an any-single-3 rule is hostage to, and its errors are correctable in the cheap direction (upward at Phase 0). (B) Without a Greek witness the campaign's own hard close gate (item 5, Greek quote bytes) cannot be met, and the deterministic catch layer that found most of the Hebrew books' real defects would not exist for 27 books; a WEB-aligned Byzantine primary gives one-to-one verse keys (no crosswalk gaps in the hazard rows), and a CC BY critical secondary gives the divergence disclosure the scorers demand at every flagged row, both under licences compatible with an open-licensed graph.",
+   "alternatives": [
+    {
+     "choice": "A1: any criterion at 3 forces HARD (30 HARD / 12 STANDARD on the adjusted scores)",
+     "pros": [
+      "Most literal reading of the owner's 'or' list",
+      "Maximum caution: no book with a severe axis runs without Fable control of its boundaries",
+      "No borderline judgments left to Phase 0"
+     ],
+     "cons": [
+      "HARD becomes the default (30 of 42), inverting 'the hardest books' and diluting the scrutiny budget the Ezek/Dan/Rev class needs",
+      "Roughly doubles the Fable-high-effort and second-review cost across the NT (20 of 27 NT books HARD against 9 under the ruling)",
+      "Hostage to 2-versus-3 scorer noise: Nah in but Zeph out, 1Tim in but Titus out, on single-point differences the batches did not calibrate",
+      "Single-axis hazards are localised by the scorers' own evidence and are already served by flagged regions plus the Fable boss and final checker"
+     ]
+    },
+    {
+     "choice": "A2: total >= 13 (14 HARD: the ruled set minus Acts)",
+     "pros": [
+      "Simplest single number",
+      "Almost the same roster as the ruling"
+     ],
+     "cons": [
+      "The prophecy axis is a genre flag, so a total systematically under-routes NT narrative and epistles",
+      "Acts, with the NT's largest sustained textual divergence and four verse-presence keys, would run STANDARD"
+     ]
+    },
+    {
+     "choice": "A3: total >= 12 (19 HARD: the ruled set plus Joel, Matt, Mark, Jude; 2Cor would join only at its pre-adjustment 12)",
+     "pros": [
+      "Captures every borderline book now instead of at Phase 0",
+      "All four Gospels HARD together, giving uniform Synoptic seam handling"
+     ],
+     "cons": [
+      "Four more HARD cycles (five with 2Cor) including two long books (Matt, Mark)",
+      "The added books have only two severe axes each; the line would sit inside the calibration noise",
+      "Same genre-flag bias as any total"
+     ]
+    },
+    {
+     "choice": "A4: total >= 14 (8 HARD: Ezek, Dan, Rev, Hos, Mic, Hab, Zech, Rom)",
+     "pros": [
+      "Cheapest defensible rule; concentrates scrutiny on the books that are severe on four or five axes"
+     ],
+     "cons": [
+      "Leaves Luke, John, Acts, 1Cor, Heb, 2Thess, 2Pet on STANDARD: the NT's densest text-critical and reception problems",
+      "Only Rom and Rev HARD in the NT, where the substrate is newest and the tooling least proven"
+     ]
+    },
+    {
+     "choice": "A5: owner-named only (Dan, Rev)",
+     "pros": [
+      "Minimal cost",
+      "Literal to the naming"
+     ],
+     "cons": [
+      "Contradicts the owner's own research order and the rubric's result: Ezek scored 15/15 unnamed and 13 further books are severe on three or more axes",
+      "Makes the classification artifact pointless"
+     ]
+    },
+    {
+     "choice": "A6: all 42 remaining books HARD",
+     "pros": [
+      "Uniform process; no classification risk; no Phase-0 re-classification work"
+     ],
+     "cons": [
+      "Maximum cost; the track distinction and the owner's 'hardest' intent become meaningless",
+      "Not what the owner ordered"
+     ]
+    },
+    {
+     "choice": "B1 (recommended): Robinson-Pierpont Byzantine Textform primary + SBLGNT secondary",
+     "pros": [
+      "Public-domain primary whose verse existence matches WEB one-to-one (no crosswalk gaps in the hazard rows); parsed edition available for a word index",
+      "CC BY 4.0 critical secondary gives divergence disclosure at flagged rows under an open licence",
+      "Mirrors the Hebrew lane's shape: one keyed witness, declared zones, byte collate tiers"
+     ],
+     "cons": [
+      "Two witnesses to stage, key and pin; the crosswalk must carry a witness column",
+      "Licence and edition facts must be verified at staging (stated from memory here)"
+     ]
+    },
+    {
+     "choice": "B2: SBLGNT only",
+     "pros": [
+      "A modern critical text under CC BY 4.0 with MorphGNT morphology"
+     ],
+     "cons": [
+      "Verse existence diverges from WEB: the Byzantine-only verses and the Comma have no Greek key, so the crosswalk has gaps in exactly the hazard rows",
+      "The campaign's translation witness and its Greek witness would disagree by design at every variant row"
+     ]
+    },
+    {
+     "choice": "B3: Robinson-Pierpont only",
+     "pros": [
+      "Public domain; one-to-one with WEB; parsed edition available"
+     ],
+     "cons": [
+      "No staged critical witness, so divergence disclosure at variant rows would come from memory: the E-05 pattern the ledger records"
+     ]
+    },
+    {
+     "choice": "B4: a public-domain critical text (Nestle 1904 or Westcott-Hort 1881)",
+     "pros": [
+      "Public domain critical text"
+     ],
+     "cons": [
+      "Dated relative to current apparatus; same WEB-divergence as B2; morphology and clean digital editions vary"
+     ]
+    },
+    {
+     "choice": "B5: no Greek substrate; run the NT on WEB alone",
+     "pros": [
+      "No staging work; the NT starts on schedule"
+     ],
+     "cons": [
+      "Everything in what_is_lost_without_it: no byte verification, no verse-existence crosswalk, syntax seams argued from tier-4 punctuation (E-23) across 27 books",
+      "CAMPAIGN_CLOSE_GATE item 5's Greek arm needs a per-book owner waiver",
+      "All 27 NT books re-classified HARD as compensation, which adds model review but does not restore byte verification"
+     ]
+    },
+    {
+     "choice": "B6: build the substrate but shake it down out of canonical order on 3John, 2John or Phlm before Matt",
+     "pros": [
+      "Tooling validated on 4-to-6-point books before a long Gospel"
+     ],
+     "cons": [
+      "Breaks the owner-set canonical order; three out-of-order closes and continuity bookkeeping",
+      "A fixture-based validation (no rows produced) achieves the same without the order change, which is what I recommend instead"
+     ]
+    }
+   ]
+  }
+ },
+ "self_check": "42/42 books in canonical order; scores and focus lists copied by script from the four batch files with exactly two named adjustments (2Cor ecclesial 3->2, Amos connections 2->3); every batch total re-summed from its scores before use; totals and severe-axis counts recomputed by script and the rule asserted on every entry (15 HARD / 27 STANDARD); Dan and Rev owner_named with independent 15/15 corroboration; Ezek stated plainly as unnamed at the owner-named level; ecclesial disagreements reported as reception facts only; effort ORDERED high, NOT VERIFIED; worktree read-only, no git, no listing of any shared SP directory, the only SP write is this file."
+}

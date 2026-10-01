@@ -1,0 +1,86 @@
+{
+ "cluster": "c09",
+ "role": "LF",
+ "attempt_id": "primary_lf_ps_c09_r1",
+ "routing_used": "sonnet",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-059",
+   "span": "Ps.24.1-Ps.24.2",
+   "verdict": "support",
+   "reasoning": "Re-derived independently from verse_map_web.json/verse_map_oshb.json and web_mt_offset_map.json rather than trusting the row. Ps 24 is confirmed identity numbering (web_verses=10=mt_verses=10, mt_title_verses=[]), so web:Ps.24.0 = oshb:Ps.24.1 is correct and the title-disclosure format is satisfied. The two curly-quoted WEB verses ('The earth is Yahweh's, with its fullness; the world, and those who dwell in it.' / 'For he has founded it on the seas, and established it on the floods.') match verse_map_web.json verbatim with inline web: refs (check_web_quotes.py: 0 flags on this row). poetry_lines=1 confirmed at both Ps.24.1 and Ps.24.2, matching the cited observed_substrate_signal. The declarative-to-interrogative pivot at Ps.24.3 ('Who may ascend...?') is a genuine tier-1 speech/discourse-frame shift, not a tier-4 signal, and is a sufficient independent driver on its own (no reliance on selah or metadata). The span tiles exactly with the cluster's other two Ps 24 rows (24.1-24.10, 0 gaps/overlaps, check_tiling GREEN). unit_type=strophe is correctly chosen over whole_psalm given the psalm's internal question/answer architecture, and rejected_alternative is a single, accurate sentence naming the real rival with its tier-1 counter-argument. No defect found.",
+   "challenges": [],
+   "row_sha256": "1dcc0dcc32b9e509f26e4e2fb8de334eddb1869e3cf9e63cc98c2945ccbed0e8"
+  },
+  {
+   "decision_id": "M8-Ps-060",
+   "span": "Ps.24.3-Ps.24.6",
+   "verdict": "support",
+   "reasoning": "Both Hebrew quotes were re-collated at BYTE tier against verse_map_oshb.json via collate.py's --json batch mode (quotes spliced by script from the row's own JSON bytes, never hand-typed or shell-transited, per the toolkit's shell-transit-hazard warning): 'מִֽי יַעֲלֶ֥ה' at oshb:Ps.24.3 and the full verse 'זֶ֭ה דּ֣וֹר דרשו דֹּרְשָׁ֑יו מְבַקְשֵׁ֨י פָנֶ֖יךָ יַעֲקֹ֣ב סֶֽלָה' at oshb:Ps.24.6 both return tier=byte. The ketiv/qere claim at Ps.24.6 (ketiv דרשו / qere דֹּרְשָׁ֑יו) is confirmed both directly in the quoted verse bytes (the unpointed ketiv is immediately followed by the pointed qere in the same string, both quoted as required) and against pmarks_Ps.json's kq inventory (kq['Ps.24.6']=1). Selah at Ps.24.6 is confirmed in pmarks_Ps.json (selah['Ps.24.6']=1) and used correctly as tier-3-at-most corroboration alongside an independent driver (the Q&A's climactic identification of the seeking generation), not as the sole boundary driver. Span and rejected_alternative are sound; check_refs_mirror/citation_sweep/check_tiling all GREEN on this row. No defect found.",
+   "challenges": [],
+   "row_sha256": "2431ccf0df98a3f582b03f40b5d534ab652c8000b6e149ec766c84e6a1654edb"
+  },
+  {
+   "decision_id": "M8-Ps-061",
+   "span": "Ps.24.7-Ps.24.10",
+   "verdict": "support",
+   "reasoning": "Both instances of the gate-command opening collate at BYTE tier against oshb:Ps.24.7 and oshb:Ps.24.9. Re-swept independently with sweep.py --skel on the exact clause 'שְׂאוּ שְׁעָרִים רָאשֵׁיכֶם': returns exactly 2 verses book-wide (Ps.24.7, Ps.24.9) -- matches the row's 'sweep: 2 verses book-wide' claim exactly, unit named correctly (verses). Re-swept 'מֶלֶךְ הַכָּבוֹד' ('king of glory') book-wide: sweep.py returns 4 VERSES (Ps.24.7-Ps.24.10, all inside the span) and, with --tokens, 5 TOKEN OCCURRENCES (verse 10 uses the phrase twice, in both the question and the answer) -- matches the row's '4 verses / 5 occurrences book-wide' claim exactly, with both units correctly distinguished per the campaign's count-object discipline. Selah at the front-seam verse 24.6 (disclosed though outside this row's span) and at the in-span close 24.10 both confirmed against pmarks_Ps.json. Treating the two question-answer exchanges (7-8, 9-10) as one antiphonal strophe rather than splitting them is a genuine tier-1 refrain/repetition argument, independently reproduced from the bytes. No defect found.",
+   "challenges": [],
+   "row_sha256": "5f0a2884be64f0a3b2b45fa4f059b373a0cb7ea748b8a6eb1d93b2dd3644f619"
+  },
+  {
+   "decision_id": "M8-Ps-062",
+   "span": "Ps.25.1-Ps.25.14",
+   "verdict": "challenge",
+   "reasoning": "Ps 25 confirmed identity numbering (web_verses=mt_verses=22, mt_title_verses=[]). The acrostic-irregularity claims in device_notes are independently confirmed against psalm_device_inventory.json's byte-swept letter data (acrostics.25: first_letters_mt='אאגדהזחטיכלמנסעפצררשתפ', letters_missing='בוק') and against the raw verse bytes: v.1's acrostic slot is aleph (אֵלֶ֥יךָ, following the לְדָוִד title prefix, consistent with the inventory's title-exclusive extraction and separately disclosed via web:Ps.25.0=oshb:Ps.25.1); v.2 repeats aleph (אֱֽלֹהַ֗י) with bet surfacing only as the verse's second word (בְּךָ֣), exactly as claimed; v.6 skips the expected 6th letter waw and opens with the 7th letter zayin (זְכֹר), matching both the inventory and the book strategy's own note that Ps 25 is 'irregular... waw absent'. All three Hebrew quotes collate at BYTE tier. Tiling, refs-mirror and citation-sweep are all clean for this row. However, the rejected_alternative overstates the acrostic's regularity: 'runs unbroken across the whole psalm without a formal internal seam marker' is an unqualified universal claim (independently flagged by check_universals.py) that is in tension with this very row's own documented irregularities two sentences earlier. See challenge LF-062-1.",
+   "challenges": [
+    {
+     "challenge_id": "LF-062-1",
+     "severity": "low",
+     "claim": "rejected_alternative's acrostic-continuity claim ('runs unbroken across the whole psalm without a formal internal seam marker') is an unqualified universal claim carrying no digit-bearing count, and sits in tension with the same row's device_notes, which documents the acrostic's own bet-buried (v.2) and waw-skipped (v.6) irregularities.",
+     "evidence": "psalm_device_inventory.json acrostics.25: first_letters_mt='אאגדהזחטיכלמנסעפצררשתפ', letters_missing='בוק' (bet/waw/qof absent from any verse-initial slot) -- confirmed against oshb:Ps.25.2 ('אֱֽלֹהַ֗י בְּךָ֣ בָ֭טַחְתִּי...', bet is the SECOND word, not verse-initial) and oshb:Ps.25.6 ('זְכֹר רַחֲמֶ֣יךָ...', zayin opens, not the expected waw). check_universals.py independently flags the phrase 'across the whole' in this same field for lacking an adjacent digit-bearing sweep count."
+    }
+   ],
+   "row_sha256": "80de210f4cacc9aaf8ad9ed7daf53dd7921a68dd220ff29e2cd80d71d8e43165"
+  },
+  {
+   "decision_id": "M8-Ps-063",
+   "span": "Ps.25.15-Ps.25.22",
+   "verdict": "support",
+   "reasoning": "All acrostic claims re-derived and confirmed exact against psalm_device_inventory.json's first_letters_mt string, position-indexed (0-indexed v1..v22): position 17/18 (v.18/v.19) = resh/resh, confirming the doubled resh; position 20 (v.21) = tav, confirming the 22-letter alphabet's last attested letter lands there; position 21 (v.22) = pe, confirming the supernumerary closing verse beyond the 22-verse scheme. This is independently cross-confirmed against the raw verse bytes (Ps.25.18 opens רְאֵ֣ה, Ps.25.19 opens רְאֵֽה -- the same lexeme 'see'; Ps.25.21 begins תֹּ֣ם...; Ps.25.22 opens פְּדֵ֣ה) and matches the book strategy's own §-independent description of Ps 25's irregularity pattern (doubled-word zone plus a closing extra-alphabetic verse). All Hebrew quotes collate at BYTE tier; citation_sweep/check_refs_mirror/check_tiling all GREEN for this row and its sibling M8-Ps-062 (combined span tiles Ps.25.1-25.22 exactly, 22/22 verses, no gaps/overlaps). The span closes on a genuine addressee-object shift at v.22 (psalmist -> nation), a legitimate tier-1 driver independent of any acrostic signal. No defect found.",
+   "challenges": [],
+   "row_sha256": "214b2d882114b6930b366f049c3e2351df274c635d68ed09e55174519ac456c4"
+  },
+  {
+   "decision_id": "M8-Ps-064",
+   "span": "Ps.26.1-Ps.26.7",
+   "verdict": "challenge",
+   "reasoning": "Ps 26 confirmed identity numbering (web_verses=mt_verses=12, mt_title_verses=[]). Both cited Hebrew phrases collate at BYTE tier against oshb:Ps.26.1 and oshb:Ps.26.11, and the repeated phrase 'in my integrity I have/will walk[ed]' is a real, byte-confirmed inclusio-type repetition bracketing the psalm -- a legitimate corroborating observation. However, device_notes misstates where in each verse the phrase actually sits. It claims 'V. 1 opens בְּתֻמִּ֣י הָלַ֑כְתִּי,' but the full verse bytes (לְדָוִ֨ד שָׁפְטֵ֤נִי יְהוָ֗ה כִּֽי אֲ֭נִי בְּתֻמִּ֣י הָלַ֑כְתִּי וּבַיהוָ֥ה בָּ֝טַ֗חְתִּי לֹ֣א אֶמְעָֽד) show the verse actually opens with the plea 'Judge me, Yahweh, for I...', matching WEB's own word order ('Judge me, Yahweh, for I have walked in my integrity') -- the integrity clause is medial (the verse's 6th-7th word), not its opening. Symmetrically it claims 'V. 11 closes בְּתֻמִּ֥י אֵלֵ֗ךְ,' but Ps.26.11 (וַ֭אֲנִי בְּתֻמִּ֥י אֵלֵ֗ךְ פְּדֵ֣נִי וְחָנֵּֽנִי) continues with 'redeem me, and be merciful to me' after the integrity clause, so the phrase is not the verse's close either. This is a factual, checkable misstatement of textual position, not a matter of interpretation. See challenge LF-064-1.",
+   "challenges": [
+    {
+     "challenge_id": "LF-064-1",
+     "severity": "medium",
+     "claim": "device_notes misstates the verse-internal position of its cited inclusio phrase: 'V. 1 opens בְּתֻמִּ֣י הָלַ֑כְתִּי' and 'V. 11 closes בְּתֻמִּ֥י אֵלֵ֗ךְ' are both false as position claims -- the phrase is medial in both verses, verse-initial in neither v.1 nor verse-final in v.11.",
+     "evidence": "oshb:Ps.26.1 full text: 'לְדָוִ֨ד שָׁפְטֵ֤נִי יְהוָ֗ה כִּֽי אֲ֭נִי בְּתֻמִּ֣י הָלַ֑כְתִּי וּבַיהוָ֥ה בָּ֝טַ֗חְתִּי לֹ֣א אֶמְעָֽד' -- the integrity clause is the verse's 6th-7th word, not its opening; web:Ps.26.1 confirms, rendering 'Judge me, Yahweh, for I have walked in my integrity' with the judge-clause first. oshb:Ps.26.11 full text: 'וַ֭אֲנִי בְּתֻמִּ֥י אֵלֵ֗ךְ פְּדֵ֣נִי וְחָנֵּֽנִי' -- 'פְּדֵנִי וְחָנֵּני' (redeem me, be merciful to me) follows the integrity clause, so the verse does not close there; web:Ps.26.11 confirms: 'But as for me, I will walk in my integrity. Redeem me, and be merciful to me.'"
+    }
+   ],
+   "row_sha256": "de3faa8ad0e3c864ea12f70c463f76a2c54ed308877d9cb6888dd6dfb9438a6c"
+  },
+  {
+   "decision_id": "M8-Ps-065",
+   "span": "Ps.26.8-Ps.26.12",
+   "verdict": "challenge",
+   "reasoning": "The span's core boundary claim (vocative pivot at Ps.26.8, negative-petition echo of vv.4-5 at v.9, integrity vow restated at v.11 resolving into the v.12 congregational blessing) is independently confirmed: v.8 opens with the vocative Yahweh in both witnesses, and the curly-quoted WEB spans at vv.8/9/11 collate verbatim against verse_map_web.json with inline web: refs (check_web_quotes.py flags nothing on those). boundary_evidence_refs correctly discloses the outside-span vv.4-5 mentions (check_refs_mirror GREEN). One defect: device_notes quotes the curly-quoted English gloss 'in the congregations I will bless Yahweh' for the close of v.12 with only an oshb: ref (oshb:Ps.26.12) attached, omitting the mandatory inline web: ref for that same English quotation -- confirmed missing by check_web_quotes.py, the sole flag across all 26 quoted spans checked in this cluster. The Hebrew quote itself (בְמִישׁ֑וֹר בְּ֝מַקְהֵלִ֗ים אֲבָרֵ֥ךְ, oshb:Ps.26.12) is BYTE-tier verified and the English gloss is accurate against WEB's actual text ('...In the congregations I will bless Yahweh.'), so this is a citation-formatting defect rather than a content error. See challenge LF-065-1.",
+   "challenges": [
+    {
+     "challenge_id": "LF-065-1",
+     "severity": "low",
+     "claim": "device_notes pairs a curly-quoted English gloss ('in the congregations I will bless Yahweh') with only an oshb: ref (oshb:Ps.26.12), omitting the mandatory inline web: ref required for every curly-quoted English span in the same field.",
+     "evidence": "check_web_quotes.py flags exactly this field/quote (path '[6].device_notes', quote 'in the congregations I will bless Yahweh', issue: 'curly quote with NO web: ref in its field') -- the only flag across all 26 web-quoted spans checked in cluster c09. Content is otherwise accurate: web:Ps.26.12 = 'My foot stands in an even place. In the congregations I will bless Yahweh.'"
+    }
+   ],
+   "row_sha256": "0bd5266020dc17e5645a18f397cecf435ec89d23168ec81c66b7a1837248aba0"
+  }
+ ]
+}

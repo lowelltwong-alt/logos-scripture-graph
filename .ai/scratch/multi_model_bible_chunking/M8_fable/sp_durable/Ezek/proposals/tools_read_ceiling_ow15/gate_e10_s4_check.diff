@@ -1,0 +1,37 @@
+--- gate_e10_s4_check.py (installed)
++++ gate_e10_s4_check.py (candidate)
+@@ -29,11 +29,25 @@
+ COV = EZ / "repair" / "cwo_coverage_v6"
+ TF5R = EZ / "repair" / "toolfix5_v6_report.json"
+ RULINGS = EZ / "ezek_controlling_agent_rulings_e10.v1.json"
+-CEILING, S3_COST = 49_604_821, 725_165
++S3_COST = 725_165
++# The ceiling is READ from the carrier (OW-15, learning log L-0019), never hardcoded here.
+ TRIAGE = {("P05-004", "Ezek.22.31"), ("P05-008", "Ezek.24.14")}
+ COVERED_SET = ["%02d" % n for n in list(range(1, 10)) + list(range(14, 19)) if n != 3 and n != 10]
+ RESIDUAL_SET = ["19", "20", "21", "22"]
+ RULE_SENTENCE = "s4_may_launch is true when rows_v6_fixup3 is applied with tiling exact, the suite HARD GREEN"
++
++
++def _ceiling(book):
++    """The owner-set ceiling, READ from the carrier and never hardcoded (learning log L-0019; directive OW-15). A script with no ceiling
++    stops rather than guessing one."""
++    p = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable\sp_durable\campaign\budget_ceilings.v1.json")
++    if not p.is_file():
++        raise SystemExit("ABORT: the ceilings carrier %s does not exist; a ceiling is never assumed" % p)
++    d = json.loads(p.read_text(encoding="utf-8"))
++    e = (d.get("books") or {}).get(book) or {}
++    if not isinstance(e.get("ceiling"), int):
++        raise SystemExit("ABORT: the ceilings carrier names no integer ceiling for %s" % book)
++    return e["ceiling"]
+ 
+ 
+ def sha(p):
+@@ -67,6 +81,7 @@
+ ap = argparse.ArgumentParser()
+ ap.add_argument("--json")
+ a = ap.parse_args()
++CEILING = _ceiling("Ezek")
+ checks, rows_sha = [], sha(OUT)
+ 
+ 

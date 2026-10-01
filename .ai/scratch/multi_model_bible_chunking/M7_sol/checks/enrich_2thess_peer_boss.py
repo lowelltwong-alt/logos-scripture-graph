@@ -1,0 +1,40 @@
+from __future__ import annotations
+import json
+from pathlib import Path
+M=Path(__file__).resolve().parents[1]; R=M/'reviews'/'2Thess'
+def load(name): return json.loads((R/name).read_text(encoding='utf-8-sig'))
+def dump(name,obj): (R/name).write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def readj(name): return [json.loads(x) for x in (R/name).read_text(encoding='utf-8-sig').splitlines() if x.strip()]
+def writej(name,rows): (R/name).write_text(''.join(json.dumps(x,ensure_ascii=False,separators=(',',':'))+'\n' for x in rows),encoding='utf-8',newline='\n')
+families=[
+ {'challenge_id':'2THESS-PEER-F01','decision_ids':['M7_sol-2Thess-001','M7_sol-2Thess-002','M7_sol-2Thess-003'],'envelope':'2Thess.1.1-2Thess.1.12','claim':'Formula seams support the frozen three units, but thanksgiving/judgment/prayer can be divided at 1:4/5, 1:5/6, 1:10/11, or 1:11/12 and the full opening remains a live parent.','exact_alternatives':['2Thess.1.1-2Thess.1.12','2Thess.1.3-2Thess.1.4 | 2Thess.1.5-2Thess.1.10','2Thess.1.3-2Thess.1.5 | 2Thess.1.6-2Thess.1.10','2Thess.1.3-2Thess.1.10 | 2Thess.1.11-2Thess.1.12','2Thess.1.11 | 2Thess.1.12'],'evidence_refs':['2THESS-LIT-B-001..003','2TH-GT-001..004','HZ-01..05','RN-2THESS-001']},
+ {'challenge_id':'2THESS-PEER-F02','decision_ids':['M7_sol-2Thess-004'],'envelope':'2Thess.2.1-2Thess.2.12','claim':'The full warning is safest against identity and timetable smuggling, while four exact routes remain coequal and no speaker, identity, temple, restrainer, sequence, or timetable may be selected.','exact_alternatives':['R1 2Thess.2.1-2|2Thess.2.3-5|2Thess.2.6-12','R2 2Thess.2.1-2|2Thess.2.3-4|2Thess.2.5|2Thess.2.6-7|2Thess.2.8|2Thess.2.9-12','R3 2Thess.2.1-2|2Thess.2.3-12','R4 2Thess.2.1-12'],'evidence_refs':['2THESS-LIT-B-004','2TH-GT-005..007','HZ-06..10','RN-2THESS-002']},
+ {'challenge_id':'2THESS-PEER-F03','decision_ids':['M7_sol-2Thess-005'],'envelope':'2Thess.2.13-2Thess.2.17','claim':'Thanksgiving, exhortation, and prayer cohere, but prayer onset at 2:16 and stand-firm at 2:15 remain live seams.','exact_alternatives':['2Thess.2.13-15|2Thess.2.16-17','2Thess.2.13-14|2Thess.2.15-17'],'evidence_refs':['2THESS-LIT-B-005','2TH-GT-008..009','HZ-11..12','RN-2THESS-003']},
+ {'challenge_id':'2THESS-PEER-F04','decision_ids':['M7_sol-2Thess-006'],'envelope':'2Thess.3.1-2Thess.3.5','claim':'The request, faithful-Lord contrast, confidence, and direction prayer cohere, but 3:2/3 and 3:4/5 remain live seams without settling faith/faithfulness.','exact_alternatives':['2Thess.3.1-2|2Thess.3.3-5','2Thess.3.1-4|2Thess.3.5'],'evidence_refs':['2THESS-LIT-B-006','2TH-GT-010','HZ-13','RN-2THESS-004']},
+ {'challenge_id':'2THESS-PEER-F05','decision_ids':['M7_sol-2Thess-007','M7_sol-2Thess-008'],'envelope':'2Thess.3.6-2Thess.3.15','claim':'The 3:13 contrast supports the frozen seam, while the command-example-rule-report-exhortation-admonition chain makes 3:6-15 an equally necessary larger alternative without economic or discipline-policy inference.','exact_alternatives':['2Thess.3.6-15','2Thess.3.6-9|2Thess.3.10-12','2Thess.3.13|2Thess.3.14-15','2Thess.3.14|2Thess.3.15'],'evidence_refs':['2THESS-LIT-B-007..008','2TH-GT-011..012','HZ-14..16','RN-2THESS-005']},
+ {'challenge_id':'2THESS-PEER-F06','decision_ids':['M7_sol-2Thess-009'],'envelope':'2Thess.3.16-2Thess.3.18','claim':'The full close coheres, while prayer, autograph, and benediction onsets support two exact splits without authorship or textual-form selection.','exact_alternatives':['2Thess.3.16|2Thess.3.17-18','2Thess.3.16-17|2Thess.3.18'],'evidence_refs':['2THESS-LIT-B-009','2TH-GT-013..014','HZ-17..18','RN-2THESS-006']},
+]
+for f in families: f.update(verdict='material_challenge',confidence='LOW',status='deferred_human_or_external_ai',forced_consensus=False,non_authorizing=True,proposed_remedy='retain the frozen larger LOW unit and preserve every exact alternative for human or external-AI adjudication')
+global_challenge={'challenge_id':'2THESS-PEER-GLOBAL-01','decision_ids':[f'M7_sol-2Thess-{i:03d}' for i in range(1,10)],'claim':'All boundaries require span-specific markers, rationales, macro parents, and exact alternatives; shared-model review cannot ratify them.','disposition':'resolved_for_candidate_serialization_only: span-specific records added; promotion remains blocked','remaining_hold':'human_or_external_ai_cross_model_convergence','non_authorizing':True}
+peer=load('peer_crosscheck_v1.json'); peer.update(attempt_id='2thess-peer-crosscheck-20260724-d',reviewer_role='independent_peer_red_team_sol_high',status='pass_with_holds',macro_material_challenge_families=families,global_material_challenge=global_challenge,larger_unit_route=['2Thess.1.1-2Thess.1.12','2Thess.2.1-2Thess.2.12','2Thess.2.13-2Thess.2.17','2Thess.3.1-2Thess.3.5','2Thess.3.6-2Thess.3.15','2Thess.3.16-2Thess.3.18'],current_boundary_verdict='all_nine_defensible_only_as_LOW_deferred_candidates',promotion_verdict='blocked_pending_external_or_human_cross_model_review',forced_consensus=False,shared_model_substrate=True,counts_as_cross_model_independent_vote=False,non_authorizing=True)
+peer['disputed_claim_ids']=list(dict.fromkeys(peer.get('disputed_claim_ids',[])+[f['challenge_id'] for f in families]+[global_challenge['challenge_id']]))
+dump('peer_crosscheck_v1.json',peer)
+boss=load('boss_ruling_v1.json')
+for f in families:
+ boss['challenge_responses'].append({'challenge_id':f['challenge_id'],'decision_ids':f['decision_ids'],'author_response':'Accept the material challenge. Retain the frozen larger unit(s) at LOW confidence, preserve the exact routes and macro parent append-only, and defer any selection.','disposition':'hold_larger_unit_deferred_human_or_external_ai','appeal_preserved':True,'authority':'candidate_author_only'})
+boss['challenge_responses'].append({'challenge_id':global_challenge['challenge_id'],'decision_ids':global_challenge['decision_ids'],'author_response':'Accept the serialization defect. Candidate rows now carry span-specific markers, rationales, macro parents, and exact alternatives; this repairs independent defensibility records but does not authorize promotion.','disposition':'candidate_serialization_repaired_promotion_still_deferred','appeal_preserved':True,'authority':'candidate_author_only'})
+boss['unresolved_claim_ids']=list(dict.fromkeys(boss.get('unresolved_claim_ids',[])+[f['challenge_id'] for f in families]+[global_challenge['challenge_id']]))
+boss.update(peer_ruling='all six macro families retained as LOW/deferred; no identity, witness, reading, speaker, restrainer, timetable, economic-policy, discipline-policy, authorship, canon, history, or theology selection',larger_unit_route_preserved=peer['larger_unit_route'],external_or_human_review_still_required=True,forced_consensus=False,non_authorizing=True)
+dump('boss_ruling_v1.json',boss)
+byid={did:f for f in families for did in f['decision_ids']}
+packets=readj('review_packets.jsonl')
+for p in packets:
+ f=byid[p['decision_id']]; ids=[f['challenge_id'],global_challenge['challenge_id']]
+ p['peer_crosscheck']['disputed_claim_ids']=list(dict.fromkeys(p['peer_crosscheck'].get('disputed_claim_ids',[])+ids))
+ for cid in ids:
+  if cid not in {x['challenge_id'] for x in p['sol_resolution']['challenge_responses']}:
+   p['sol_resolution']['challenge_responses'].append({'challenge_id':cid,'disposition':'hold: retain larger LOW unit and exact alternatives; defer selection'})
+ p['sol_resolution']['unresolved_claim_ids']=list(dict.fromkeys(p['sol_resolution'].get('unresolved_claim_ids',[])+ids))
+ p['span_specific_peer_challenge']={'challenge_id':f['challenge_id'],'claim':f['claim'],'exact_alternatives':f['exact_alternatives'],'status':'deferred_human_or_external_ai'}
+writej('review_packets.jsonl',packets)
+print(json.dumps({'families':len(families),'peer_claims':len(peer['disputed_claim_ids']),'boss_responses':len(boss['challenge_responses']),'packets':len(packets)}))

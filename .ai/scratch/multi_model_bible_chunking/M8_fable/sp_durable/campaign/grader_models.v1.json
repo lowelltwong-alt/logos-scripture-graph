@@ -1,0 +1,32 @@
+{
+ "schema": "m8_grader_models.v1",
+ "written": "2026-09-22",
+ "ow13_grader_model": "claude-fable-5-1",
+ "declared_fallback_model": "claude-opus-5-5",
+ "fallback_in_force": true,
+ "effective_from": "2026-09-22",
+ "scope": "project-wide: every role OW-13 assigned to claude-fable-5-1, all remaining books (OW-25)",
+ "authority": {
+  "directive": "OW-25",
+  "owner_words_transcribed": "i am signed in to pro max but it is insisting on usage credits to use fable. continue on jsut this modle its opus 5.5 which is new",
+  "source": "ERROR_PATTERN_LEDGER.v1.md",
+  "source_sha256_at_transcription": "19aac8d964753ca54fbdd0d3bca2c939fe0ac85969bf6a444b93d0777230f6b5",
+  "owner_words_line": 2163,
+  "downgrade_statement_line": 2178
+ },
+ "downgrade_statement": "Author and grader now share one set of weights. A blind Opus lane is a genuine non-author and a genuine second context; it is a weaker second MIND than OW-13 intended, because correlated habits are what a same-weights reviewer is least able to see. Model-family decorrelation is therefore unavailable for the rest of the campaign, so the two-lane floor must be decorrelated by the means that remain: blind briefs that differ in method and read order, no shared intermediate files, deterministic gates wherever a check can be computed, and evidence that cites source bytes rather than another lane's prose. Every completion receipt from here on records `grader_fallback` with the model id and this statement.",
+ "downgrade_statement_sha256": "aef1c672b4882fb590bbde30f05d7630333f3b281d21d62da52488ebec46e2a3",
+ "receipt_rule": "Every completion receipt written on or after effective_from while fallback_in_force is true carries grader_fallback = {model: declared_fallback_model, statement: downgrade_statement}, the statement byte-equal to this carrier's. A close tool reads the grader model from this carrier; it never hard-codes the fallback and never accepts an unnamed model.",
+ "book_close_shapes": {
+  "Ezek": {
+   "directive": "OW-26",
+   "shape": "merged-verdict close: one pair of blind claude-opus-5-5 lanes, each returning postcheck fit_to_assemble, OW-6 final check fit_to_close bound to corpus_sha256, and close-gate items 20-23",
+   "transcript_audit": "OWED, NOT MET",
+   "weakness_statement": "The three verdicts share one reader per lane: a checker that misses something misses it in all three. The two-lane floor (OW-19) is still met - two blind non-author lanes - but the passes are no longer separate lenses, and the completion receipt must say so beside the OW-25 `grader_fallback` statement.",
+   "weakness_statement_sha256": "832e646b36bf9bdb007a5629baf26878d9915e2a44bbe6b92fffd245c952b2b0",
+   "weakness_statement_line": 2209
+  }
+ },
+ "limit": "This carrier says who grades. It does not change OW-19 (two blind non-author lanes are the floor; the orchestrator never grades its own items), OW-22 (Ezekiel's 72,000,000 hard line) or OW-11 (closing, publication and campaign-log appends remain the owner's act). It does not record that Fable is permanently unavailable; the account question is recorded in OW-25 and not pursued. A book listed in book_close_shapes used that shape; a book not listed has not been granted one.",
+ "generator": "campaign/gen_grader_models.py"
+}

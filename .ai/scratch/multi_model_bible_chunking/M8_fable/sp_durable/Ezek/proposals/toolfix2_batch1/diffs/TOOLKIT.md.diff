@@ -1,0 +1,26 @@
+--- SP/Ezek/tools/TOOLKIT.md (installed c8b2fdfd2bd0)
++++ proposals/toolfix2_batch1/staged/TOOLKIT.md (411fa208e0a8)
+@@ -275,9 +275,9 @@
+ | tool | contract |
+ |---|---|
+ | `run_validator_suite.py rows.jsonl` | runs every member; writes `<rows>.validator_report.json` beside its input. HARD members: citation_sweep, the normalizer (E-01), ngram7, cap_sweep (E-02) |
+-| `citation_sweep.py` | ref grammar and ranges, zone duals, mark / paseq / K/Q / puncta claims on refs, calendar-date onsets and dateline claims, Hebrew-quote binding |
+-| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere; NFD-only matches stay defects |
+-| `check_marks.py` | mark, K/Q and puncta claims in prose; mark-disclosure symmetry (FLAGS) |
++| `citation_sweep.py` | ref grammar and ranges, zone duals, mark / paseq / K/Q / puncta claims on refs, calendar-date onsets and dateline claims, Hebrew-quote binding in prose, and Hebrew inside a ref entry bound to that entry's own ref (S1-06) |
++| `normalize_hebrew_in_json.py` | every Hebrew run byte-true to the verse text or to a Qere, standing on word boundaries: no Hebrew letter or combining mark beside a pointed run, no Hebrew letter beside an unpointed one (S1-07; `collate_hebrew` applies the same rule); NFD-only matches stay defects |
++| `check_marks.py` | mark, K/Q and puncta claims in prose, each bound to the verse numbers of its own clause (C:V, C.V, `MT C:V` or dotted); absence phrases scoped to the verse, range or chapter they name; a negated K/Q is an absence claim (S1-22); mark-disclosure symmetry (FLAGS) |
+ | `check_language_zones.py` | Aramaic labels — Ezekiel is Hebrew throughout |
+ | `cap_sweep.py` | a whole-chapter row is capped at medium_low, frontier-flagged and disclosed |
+ | `build_verse_maps.py` | built `verse_map_web.json`, `verse_map_oshb.json`, `consonantal_index.json` once at staging (1,273 / 1,273, token audit PASS) |
+@@ -286,7 +286,9 @@
+ The other members — `check_web_quotes.py`, `check_refs_mirror.py`, `check_universals.py`,
+ `check_register.py`, `ngram7.py`, `check_tiling.py`, `collate.py`, `sweep.py`,
+ `check_atomic_isolation.py`, `_punct_boundary_sweep.py` — state their contracts in their
+-own docstrings.
++own docstrings. `check_register.py` carries the S1-05 arms (repair history, positional row references, strategy
++citations, governance posture), and `check_web_quotes.py` flags a prose field whose curly double
++quote counts differ (S1-10).
+ 
+ **Where Ezekiel's tools differ from Jeremiah's** (each case tested in `_test_zone_tools_ezek.py`):
+ the numbering zone is WEB 20:45-21:32 / MT ch 21; there is no special-letter seg of any

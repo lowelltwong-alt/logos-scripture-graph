@@ -1,0 +1,37 @@
+{
+ "schema": "m8_guarded_json_patch_receipt.v1",
+ "applied_at": "2026-09-08T02:17:41.966124+00:00",
+ "target": "breach_report.v1.json",
+ "file_sha256_before": "4a005f5fcdc2fc08b0be48e01fc89933bb7d5d3af6e369660038a51829ff173b",
+ "file_sha256_after": "0e17a9c76143f94980ca17b5b902a36c8ae97d83a56034de2bcf994a929cd567",
+ "keys_addressed": [
+  "superseded_statements",
+  "transcript_coverage_census",
+  "what_this_report_does_not_claim"
+ ],
+ "semantic_diff": [
+  {
+   "key": "what_this_report_does_not_claim",
+   "op": "replace",
+   "before": "\"It does not claim the campaign has no undiscovered breaches. It reports what was DISCOVERED, and the discovery method for most of it - reading runtime transcripts - existed for about one attempt in eight in Lamentations...(380 chars)",
+   "after": "\"It does not claim the campaign has no undiscovered breaches. It reports what was DISCOVERED, and the discovery method for most of it - reading runtime transcripts - reached only a small fraction of attempts. The coverag...(814 chars)",
+   "why": "OW-10: the superseded wording said the method existed for none of the earlier books while this report cites five Jeremiah attempts by name; replaced with census-derived numbers"
+  },
+  {
+   "key": "transcript_coverage_census",
+   "op": "add",
+   "before": "\"__ABSENT__\"",
+   "after": "{\"pointer\": \"SP/campaign/transcript_coverage_census.v1.json\", \"sha256\": \"e34f289d2ab6b0f950ea25b8bdc8ff30e28e9787f9d53d6f796b9268df6a24c4\", \"tool\": \"SP/campaign/_transcript_coverage_census.py\", \"observed_attempts_total\":...(870 chars)",
+   "why": "OW-10: report coverage from an explicit per-book census"
+  },
+  {
+   "key": "superseded_statements",
+   "op": "add",
+   "before": "\"__ABSENT__\"",
+   "after": "[{\"field\": \"what_this_report_does_not_claim\", \"superseded_on\": \"2026-09-08\", \"superseded_by\": \"owner directive OW-10\", \"text\": \"It does not claim the campaign has no undiscovered breaches. It reports what was DISCOVERED,...(949 chars)",
+   "why": "OW-10 + the standing no-silent-rewrite rule: preserve the superseded wording, marked superseded"
+  }
+ ],
+ "postvalidation": "PASS: exactly the addressed keys changed and each holds the planned value",
+ "protocol": "address -> precondition -> semantic diff -> protected deny -> atomic commit -> postvalidate"
+}

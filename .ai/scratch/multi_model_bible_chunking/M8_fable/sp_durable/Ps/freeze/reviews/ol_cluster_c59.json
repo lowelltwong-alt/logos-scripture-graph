@@ -1,0 +1,134 @@
+{
+ "cluster": "c59",
+ "role": "OL",
+ "attempt_id": "primary_ol_ps_c59_r1",
+ "routing_used": "opus+default",
+ "independence_scope": "intra-mesh Anthropic-family; agreement is corroboration, never cross-provider evidence",
+ "reviews": [
+  {
+   "decision_id": "M8-Ps-387",
+   "verdict": "challenge",
+   "reasoning": "Numbering re-derived first: Ps 116 is an identity psalm - verse_map_oshb.json gives web=Ps.116.N for all 19 MT verses, verse_map_web.json carries no Ps.116.0 title pseudo-verse, and citation_sweep.py returns status GREEN with prose_dual_warn_count 0 over this cluster, so no title pseudo-ref and no dual-cite arithmetic apply to any row here. The span itself holds on tier-1 grounds I derived independently of the row's prose: v4 closes the psalm's first stretch of quoted direct speech (WEB opens quotation marks for the first time in the psalm at web:Ps.116.4) and v5 opens a third-person creedal statement with the 1cs narrative voice suspended across vv5-6. Both (2 of 2) Hebrew runs in the row collate at byte tier against oshb:Ps.116.4 and oshb:Ps.116.1 (collate.py batch, status GREEN, 22/22 runs byte across the cluster), and the v4 rationale quote is span-synced with its gloss. No selah, no ketiv/qere and no paseq citation is at issue: pmarks_Ps.json holds 71 selah verses and 65 kq verses book-wide with 0 of either in Ps 115-117, and although 6 paseq verses fall in Ps 115-117 (Ps.115.7, Ps.115.18, Ps.116.1, Ps.116.3, Ps.116.19, Ps.117.2) no row in this cluster cites the seg layer, so no single-witness disclosure is owed. Two defects, neither fatal to the span: the first substrate signal quotes the wrong word for the claim it makes, and four verses argued in device_notes sit outside boundary_evidence_refs.",
+   "challenges": [
+    {
+     "challenge_id": "OL-387-1",
+     "severity": "medium",
+     "claim": "The first observed_substrate_signal presents אָ֭הַבְתִּי as the ground clause of web:Ps.116.1 and glosses it 'because', but that word is the verse's main verb ('I love'); the ground clause and its marker are the words that follow it.",
+     "evidence": "MT 116:1 splits into 7 words. word[0] is אָ֭הַבְתִּי and the ground clause is words[1-3], כִּֽי יִשְׁמַ֥ע יְהוָ֑ה (both byte tier against oshb:Ps.116.1, collate.py) - WEB renders that clause “because he listens to my voice” (web:Ps.116.1). The quoted span and its gloss have to cover the same span; here the gloss belongs to words the splice does not contain."
+    },
+    {
+     "challenge_id": "OL-387-2",
+     "severity": "low",
+     "claim": "device_notes argues vv13-14 and vv17-18, all outside the row's span, while boundary_evidence_refs holds only web:Ps.116.1 through web:Ps.116.4.",
+     "evidence": "check_refs_mirror.py on this row reports argued_but_unmirrored = [Ps.116.13, Ps.116.14, Ps.116.17, Ps.116.18]. The underlying fact is byte-true and survives the cure - oshb:Ps.116.14 and oshb:Ps.116.18 are byte-identical whole verses (sweep.py --heb on the spliced v14 string: byte 2 verses, accent_stripped 2 verses, skeleton 2 verses; refs Ps.116.14, Ps.116.18) - so the repair is the refs array, not the prose."
+    }
+   ],
+   "row_sha256": "8f46402707612391f60f1a4a61c14cded06d6efc1ed6b103d80d48e890f0838b"
+  },
+  {
+   "decision_id": "M8-Ps-388",
+   "verdict": "challenge",
+   "reasoning": "The span is right and I would not move it. v5 opens a third-person creedal pair (חַנּ֣וּן at oshb:Ps.116.5, שֹׁמֵ֣ר at oshb:Ps.116.6, both byte tier), v7 turns to the fs imperative self-address, vv8-9 give the deliverance report and the resolve that closes it, and v10 opens with a fresh 1cs perfect. The 9|10 seam has an independent original-language warrant the row does not use: the divine name is absent from oshb:Ps.116.10 and oshb:Ps.116.11 entirely (byte check for the yhwh/yah token forms: 0 hits in both), so vv10-11 are the only God-less stretch in the psalm. This is also where the Greek tradition divides the psalm; that is cross-tradition metadata, the row correctly does not cite it, and it is not evidence in either direction. All 4 Hebrew runs in this row collate at byte tier. The defects are all in observed_substrate_signals, and the first one is serious: the signal's swept object is 'my soul' but two of its three splices are the wrong token, each off by one word from the token it is meant to show.",
+   "challenges": [
+    {
+     "challenge_id": "OL-388-1",
+     "severity": "high",
+     "claim": "The first observed_substrate_signal traces 'my soul' through vv4/7/8, but two of its three Hebrew splices contain no form of nephesh at all: מַלְּטָ֥ה at v4 is the 2ms imperative 'deliver', not 'my soul', and the v8 splice is the two words that follow 'my soul' rather than the word itself; the signal also names neither its swept object nor its count unit ('3 occurrences').",
+     "evidence": "MT 116:4 splits into 7 words: נַפְשִֽׁי is word[6] (verse-final) and מַלְּטָ֥ה is word[5], the word immediately before it - WEB renders the pair “deliver my soul” (web:Ps.116.4). MT 116:8 splits into 11 words: נַפְשִׁ֗י is word[2] and the row's splice is words[3-4], מִ֫מָּ֥וֶת אֶת, immediately after it (3 of 3 byte tier against their cited refs, collate.py - so the defect is selection and gloss, not fidelity). The underlying count does survive re-derivation: skeleton sweep of the v7 token נַ֭פְשִׁי returns 3 verses inside Ps 116 (Ps.116.4, Ps.116.7, Ps.116.8) out of 103 verses / 104 tokens book-wide (sweep.py --skel --tokens). Cure is to re-cut both splices onto the counted token and name the object and unit."
+    },
+    {
+     "challenge_id": "OL-388-2",
+     "severity": "medium",
+     "claim": "The second signal's claim that v7's self-address has no parallel addressee shift elsewhere in the psalm before v16 is an unswept universal and is contradicted by the vocative direct address already standing at 116:4.",
+     "evidence": "check_universals.py flags it at path [1].observed_substrate_signals[1] ('has no parallel addressee shift elsewhere in t'). Against it: MT 116:4 words[3-4] are אָנָּ֥ה יְ֝הוָ֗ה, followed by the 2ms imperative מַלְּטָ֥ה (byte tier, oshb:Ps.116.4) - WEB “Yahweh, I beg you, deliver my soul.” (web:Ps.116.4). A skeleton sweep of that vocative returns 2 verses inside Ps 116 (Ps.116.4 and Ps.116.16) and 3 verses book-wide (sweep.py --skel), so the addressee shift the signal reserves to v16 in fact opens at 116:4, three verses before the row's own span."
+    },
+    {
+     "challenge_id": "OL-388-3",
+     "severity": "medium",
+     "claim": "The first signal closes with a positional row reference ('the preceding row'), which the campaign register bans outright; cross-row references must be verse-anchored.",
+     "evidence": "The signal ends 'the earliest sitting in the preceding row (disclosed as cross-seam texture, not a driver here)'. A verse-anchored, byte-checkable form is available and says the same thing: the earliest of the 3 swept verses is 116:4, across the 116:4|116:5 seam (sweep.py --skel on נַ֭פְשִׁי: Ps.116.4, Ps.116.7, Ps.116.8)."
+    },
+    {
+     "challenge_id": "OL-388-4",
+     "severity": "low",
+     "claim": "Ps.116.16 is argued in the second signal but is absent from boundary_evidence_refs, which runs web:Ps.116.4 through web:Ps.116.9 only.",
+     "evidence": "check_refs_mirror.py on this row reports argued_but_unmirrored = [Ps.116.16]. Mechanical refs-array omission; the prose claim about v16 itself is accurate (MT 116:16 names the speaker servant twice, words[4] עַ֫בְדֶּ֥ךָ and words[6] עַ֭בְדְּךָ, byte tier against oshb:Ps.116.16)."
+    }
+   ],
+   "row_sha256": "97f5a98177b019731313ae304c3045f30a6339c8ccfdc7d4aff93016a8b65729"
+  },
+  {
+   "decision_id": "M8-Ps-389",
+   "verdict": "challenge",
+   "reasoning": "Fidelity is clean here: all 3 Hebrew runs collate at byte tier against oshb:Ps.116.10, oshb:Ps.116.11 and oshb:Ps.116.12, and every curly-quoted WEB string in the cluster passes check_web_quotes.py (18 quotes checked, 0 flags), including this row's nested inner quotations. The 116:10 syntax crux is fairly stated and correctly held rather than decided. The problem is the warrant. The row has exactly two substrate signals: the first says vv10-11 are a crux (a content difficulty, explicitly not a boundary signal), and the second asserts that v12 has no connection to vv10-11 - which is an argument for a seam between v11 and v12, not for the grouping it is filed under. Nothing positive is offered binding v12 to the aside, while the original-language pull runs forward into v13. The row's medium_low confidence and its rejected_alternative are honest about this, but a conceded rival plus a self-undercutting signal leaves the span carried by the rationale's literary assertion alone.",
+   "challenges": [
+    {
+     "challenge_id": "OL-389-1",
+     "severity": "medium",
+     "claim": "The second observed_substrate_signal ('has no grammatical antecedent in vv10-11') argues a break between v11 and v12 and so functions as counterevidence to the row's own span; no positive tier-1 signal binds v12 to vv10-11, and the byte evidence binds it forward to v13 instead.",
+     "evidence": "check_universals.py flags the claim as an unswept universal at path [2].observed_substrate_signals[1]. The forward bond is byte-checkable: MT 116:12 words[0-2] are מָֽה אָשִׁ֥יב לַיהוָ֑ה and MT 116:13 words[0-2] are כּוֹס יְשׁוּע֥וֹת אֶשָּׂ֑א (both byte tier) - a 1cs imperfect question naming Yahweh, answered by a 1cs imperfect naming him again, WEB “What will I give to Yahweh for all his benefits toward me?” (web:Ps.116.12) / “I will take the cup of salvation, and call on Yahweh’s name.” (web:Ps.116.13). Neither v10 nor v11 contains the divine name at all (byte check over oshb:Ps.116.10 and oshb:Ps.116.11: 0 yhwh/yah tokens), so v12's divine name is an element it shares with v13 and not with the aside. A rival seam at 11|12 therefore has the stronger tier-1 warrant than the one the row asserts at 12|13."
+    },
+    {
+     "challenge_id": "OL-389-2",
+     "severity": "low",
+     "claim": "Ps.116.13 is argued in rejected_alternative but is absent from boundary_evidence_refs, which runs web:Ps.116.9 through web:Ps.116.12.",
+     "evidence": "check_refs_mirror.py on this row reports argued_but_unmirrored = [Ps.116.13]. Mechanical refs-array omission, curable in one edit."
+    }
+   ],
+   "row_sha256": "6db8d189f32afad89596e2993f2d0b35357caf9acd0c88bb226ec8716458caf6"
+  },
+  {
+   "decision_id": "M8-Ps-390",
+   "verdict": "challenge",
+   "reasoning": "The row's two byte-identity claims are true and I re-derived both. oshb:Ps.116.14 and oshb:Ps.116.18 are byte-identical WHOLE verses (sweep.py --heb on the spliced v14 string: byte 2 verses, accent_stripped 2, skeleton 2), and the closing clause of oshb:Ps.116.13 is byte-identical to the closing clause of oshb:Ps.116.17 (sweep.py --heb on the spliced v13 words[3-5]: byte 2 verses, refs Ps.116.13 and Ps.116.17). All 5 Hebrew runs collate at byte tier. Recorded for the author wave rather than filed: (i) the same call-formula stands a third time verse-initially at 116:4 - the same sweep returns skeleton 3 verses (Ps.116.4, Ps.116.13, Ps.116.17) against byte 2, so the 'matched pair' framing is byte-honest but leaves the psalm's threefold call-formula undisclosed, and 116:4 is the verse the opening movement closes on; (ii) 'the vow-payment clause closing v14' describes a 57-character string that is the whole of MT 116:14, not a clause closing it. Three defects filed: a quote/gloss desync at v16 that misses at both ends, a false grammatical claim carrying the rejected_alternative, and two positional row references.",
+   "challenges": [
+    {
+     "challenge_id": "OL-390-1",
+     "severity": "medium",
+     "claim": "The v16 Hebrew splice and the WEB gloss it is paired with cover different spans at both ends - the splice drops the head of the gloss and runs three words past its tail.",
+     "evidence": "MT 116:16 splits into 11 words. The gloss “your servant, the son of your servant girl” (web:Ps.116.16) corresponds to words[6-8], עַ֭בְדְּךָ בֶּן אֲמָתֶ֑ךָ (byte tier, oshb:Ps.116.16). The row's splice is words[7-10]: it omits word[6] עַ֭בְדְּךָ ('your servant', the head of the gloss) and adds words[9-10] פִּ֝תַּ֗חְתָּ לְמוֹסֵרָֽי, which WEB renders as a separate sentence, “You have freed me from my chains.” (web:Ps.116.16). Both truncation and expansion-without-recut are regressions; the cure re-cuts one side onto the other."
+    },
+    {
+     "challenge_id": "OL-390-2",
+     "severity": "medium",
+     "claim": "rejected_alternative's warrant rests on the parenthetical 'both first-person resolves addressed to Yahweh', which is false of each verse in a different way, and on v16 'grammatically continuing' v13, which v15 interrupts.",
+     "evidence": "MT 116:13 words[3-5] are וּבְשֵׁ֖ם יְהוָ֣ה אֶקְרָֽא (byte tier, oshb:Ps.116.13) - a THIRD-person reference to Yahweh, WEB “and call on Yahweh’s name” (web:Ps.116.13); Yahweh is not addressed anywhere in v13. MT 116:16 is addressed to Yahweh but is not a resolve: words[4] and [6] are עַ֫בְדֶּ֥ךָ / עַ֭בְדְּךָ (status declarations) and word[9] is the 2ms PERFECT פִּ֝תַּ֗חְתָּ (a report), 3 of 3 byte tier against oshb:Ps.116.16. Between the two, v15 is a third-person nominal clause, יָ֭קָר בְּעֵינֵ֣י יְהוָ֑ה (byte tier, oshb:Ps.116.15) - WEB “Precious in Yahweh’s sight is the death of his saints.” (web:Ps.116.15) - so there is no grammatical continuation from v13 to v16. A replacement warrant has to pass the test that kills this one."
+    },
+    {
+     "challenge_id": "OL-390-3",
+     "severity": "medium",
+     "claim": "The row carries two positional row references - 'whose other half opens the next row' in rationale and 'whose other half opens the following row' in device_notes - where the register requires cross-row references to be verse-anchored.",
+     "evidence": "Both are file-position references to another row rather than to a text location. The verse-anchored form is available and byte-backed: the other half of the pairing is at 116:17-18, and its identity with 116:13-14 is sweep-verifiable (sweep.py --heb: byte 2 verses for the v14 string, byte 2 verses for the v13 words[3-5] string). The same seam fact is stated on the 116:16|116:17 side in verse-anchored form, so the seam pair is currently authored two different ways and should be cured in one edit."
+    }
+   ],
+   "row_sha256": "ab396b601f00dc84eb09b544b0834d5b5fcc0d6ed01c7dae388b54d9afe38c59"
+  },
+  {
+   "decision_id": "M8-Ps-391",
+   "verdict": "challenge",
+   "reasoning": "The span, the parent and the high confidence are all correct and I re-derived the row's structural claims. 116:19 is the psalm's sole hallelu-Yah: psalm_device_inventory.json lists Ps.116.19 under verse_final (13 book-wide) with no Ps.116 entry under verse_initial (11) or other (1). The byte claim holds too - the final two words of oshb:Ps.115.18, oshb:Ps.116.19 and oshb:Ps.117.2 are the same string byte for byte (direct comparison of source splices: 115.18 == 116.19 True, 116.19 == 117.2 True). Both (2 of 2) Hebrew runs collate at byte tier. Two low precision defects filed. Two further observations not filed: 'repeats the vow-payment formula of v14 verbatim (2 verses)' states 'verbatim' without naming a collate tier, while the same fact stated on the 116:13-14 side of the seam does name byte tier - tier discipline wants the named tier on both sides of a seam-pair fact; and 'its one location detail' at v19 names no object class, with 116:9 words[3-4] בְּ֝אַרְצ֗וֹת הַֽחַיִּֽים (byte tier, oshb:Ps.116.9) - WEB “in the land of the living” (web:Ps.116.9) - a competing candidate under any loose reading of the object.",
+   "challenges": [
+    {
+     "challenge_id": "OL-391-1",
+     "severity": "low",
+     "claim": "The v17 Hebrew splice in the rationale stops one word short of the WEB gloss paired with it, dropping the very noun the row's offering argument turns on.",
+     "evidence": "MT 116:17 splits into 7 words. The gloss “I will offer to you the sacrifice of thanksgiving,” (web:Ps.116.17) covers words[0-3], לְֽךָ אֶ֭זְבַּח זֶ֣בַח תּוֹדָ֑ה (byte tier, oshb:Ps.116.17), but the splice is words[0-2], omitting word[3] תּוֹדָ֑ה ('thanksgiving'). The same clause is cut differently in the row's second signal, which runs words[2-6], so one verse is sliced two incompatible ways inside one row."
+    },
+    {
+     "challenge_id": "OL-391-2",
+     "severity": "low",
+     "claim": "The second signal's uniqueness claim names no swept object and carries no digit ('occurs once in the psalm'), while its quoted span overshoots the noun it is about by three words into the call-on-the-name formula.",
+     "evidence": "Sweeps with the unit named, each object stated first: skeleton of the compound זֶ֣בַח תּוֹדָ֑ה = 2 verses book-wide (Ps.50.23, Ps.116.17); skeleton of תּוֹדָ֑ה alone = 11 verses; skeleton of זֶ֣בַח alone = 21 verses / 26 tokens, and within MT 116:17 that consonantal string stands TWICE, in word[1] אֶ֭זְבַּח and word[2] זֶ֣בַח (all sweep.py --skel --tokens). The count is 1, 2 or 11 depending on whether the object is the compound, the root or the noun's spelling, so the object has to be named before the count and the quote re-cut to it."
+    }
+   ],
+   "row_sha256": "c5bdd0ece3aad332aa74553caf4b14d3bf8a3b2e0f7d5ff3e4b677e580771fa2"
+  },
+  {
+   "decision_id": "M8-Ps-392",
+   "verdict": "support",
+   "reasoning": "Each of this row's countable claims re-derives exactly. Verse counts taken from verse_map_web.json with Ps.N.0 / is_title pseudo-verses excluded give 150 psalms and a unique minimum: Ps 117 at 2 verses, then Ps 131, Ps 133 and Ps 134 at 3 each, then Ps 123 at 4; the set of psalms at or below 3 verses is exactly {117, 131, 133, 134}, so both the 'book's minimum' claim and the named next-shortest set are right and complete. The hallelu-Yah claims check against psalm_device_inventory.json - Ps.117.2 appears under verse_final and is Ps 117's only occurrence, i.e. 1 of its 2 verses - and the byte-identity claim holds: the closing two words of oshb:Ps.115.18, oshb:Ps.116.19 and oshb:Ps.117.2 are identical byte for byte across all three. The row's single Hebrew run collates at byte tier against oshb:Ps.117.2. Numbering: Ps 117 is identity (verse_map_oshb gives web=Ps.117.N) and untitled in both witnesses (no Ps.117.0 in verse_map_web), so whole_psalm with no title pseudo-ref is right and citation_sweep.py is GREEN over all 6 rows. unit_type whole_psalm is in the controlled vocabulary and the row policy for short indivisible psalms puts Ps 117 there. Note that MT 117:1 opens הַֽלְל֣וּ אֶת (byte tier, oshb:Ps.117.1) - hallelu ET-YHWH, not hallelu-Yah - and the row correctly does not claim a verse-initial hallelu-Yah frame for it; 0 of the inventory's 11 verse_initial entries fall in Ps 117. The 3 cross-psalm prose refs are mirrored in boundary_evidence_refs and check_refs_mirror.py does not flag this row (3 of 3 mirrored); WEB at web:Ps.115.2 does carry the taunt device_notes names, “Why should the nations say” (web:Ps.115.2). Two observations that do not rise to challenges: check_universals.py flags rejected_alternative's 'has no content without the for clause that grounds it', but that is an interpretive statement with no countable object, so there is nothing to sweep and nothing to cure; and 'at the level of the whole Hallel run' in device_notes leans on a received liturgical grouping rather than a text signal, but it is prose framing only, it is not in boundary_evidence_refs, and the claim it frames is anchored on two cited WEB verses, so it stays inside the rules.",
+   "challenges": [],
+   "row_sha256": "32fbd17425394c4b1e7ae8b769db4bcb8c098825f3ab2fadd44704ca622f84f7"
+  }
+ ]
+}

@@ -1,0 +1,55 @@
+{
+ "attempt_id": "peer_c17_r1",
+ "role": "peer",
+ "clusters": [
+  "c17"
+ ],
+ "rulings": [
+  {
+   "cluster": "c17",
+   "row_id": "P08-025",
+   "source": "LF",
+   "challenge_claim": "The rationale straight-quotes WEB's own clause wording ('to his father' / 'her who bore him') with no curly quotes and no inline web: ref in the same field, violating the book-wide WEB-quotation convention.",
+   "ruling": "uphold",
+   "grounds": "Byte-confirmed against verse_map_web.json: WEB Prov.17.25 = “A foolish son brings grief to his father, and bitterness to her who bore him.”. The row's straight-quoted spans \"to his father\" / \"her who bore him\" (raw-byte check of the row confirms U+0022 straight quotes x4, not curly) are exact verbatim substrings of that WEB clause, not independent glosses of the Hebrew dative phrases (leaviv/leyoladto), so the TOOLKIT.md book-wide QUOTE CONVENTION ('curly double quotes are for WEB text ONLY') and check_web_quotes.py's mandatory curly-quote + in-field web:-ref pairing rule both apply and are unmet: no curly quotes, and no inline web: token inside the rationale field itself (the web:Prov.17.25 cite lives only in the separate boundary_evidence_refs array, not the same field as the quote). Running check_web_quotes.py against the row (this review) returns quotes_checked=0 / status=GREEN -- the tool validates the fidelity of EXISTING curly quotes and does not flag a should-be-curly-but-is-straight case, confirming this defect sits outside automated detection and was correctly caught by manual/LF review. Tier: citation-hygiene, not a substantive boundary error -- LF's 'low' severity is correct.",
+   "remedy": "Apply the existing S-2 quote-convention sweep to this row rather than a bespoke fix: convert the two WEB-verbatim spans to curly double quotes and add an inline web:Prov.17.25 token within the rationale field itself (same-field pairing, per check_web_quotes.py's requirement). Test the cure must pass: check_web_quotes.py on the row reports quotes_checked>=2 with flag_count 0 and status GREEN.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c17",
+   "row_id": "P08-007",
+   "source": "OL",
+   "challenge_claim": "The single_proverb call for Prov.17.7 rests on an a-fortiori (light-to-heavy) reading that is a Hebrew-grammar-dependent boundary claim, but the row quotes no Hebrew and cites no oshb: ref to ground it.",
+   "ruling": "uphold",
+   "grounds": "Byte-confirmed, re-derived independently this review: oshb:Prov.17.7 = “לֹא נָאוָ֣ה לְנָבָ֣ל שְׂפַת יֶ֑תֶר אַ֝֗ף כִּֽי לְנָדִ֥יב שְׂפַת שָֽׁקֶר” -- the marker pair “אַ֝֗ף כִּֽי” sits verse-medially, between the fool-clause (לֹא נָאוָ֣ה לְנָבָ֣ל שְׂפַת יֶ֑תֶר) and the noble-clause (לְנָדִ֥יב שְׂפַת שָֽׁקֶר), exactly as the row's a-fortiori ('much less') reading requires; oshb:Prov.17.6 = “עֲטֶ֣רֶת זְ֭קֵנִים בְּנֵ֣י בָנִ֑ים וְתִפְאֶ֖רֶת בָּנִ֣ים אֲבוֹתָֽם” and oshb:Prov.17.8 = “אֶֽבֶן חֵ֣ן הַ֭שֹּׁחַד בְּעֵינֵ֣י בְעָלָ֑יו אֶֽל כָּל אֲשֶׁ֖ר יִפְנֶ֣ה יַשְׂכִּֽיל” share no root with 17:7, so the underlying boundary conclusion is sound. But the row's entire warrant for that conclusion is an English gloss: the rationale field quotes zero Hebrew characters, observed_substrate_signals names only the English label 'a-fortiori construction', and boundary_evidence_refs carries three web: refs and NO oshb: ref. TOOLKIT.md's standing rule is explicit: 'Quote the original language for every boundary-relevant original-language claim' -- the unifying-construction claim here IS a boundary-relevant original-language (grammatical marker) claim. Sibling rows in the same cluster cite oshb: and/or quote Hebrew for comparable claims (P08-013's ketiv/qere citation, P08-034's four quoted spans), confirming this is a real gap against the cluster's own practice, not house style. citation_sweep.py run against the row (this review) returns zero problems -- the tool checks ref validity/arithmetic, not presence-of-Hebrew-quotation, so it does not catch this class; correctly a peer/OL-only catch, not a tool miss.",
+   "remedy": "Apply the existing sentence-core Hebrew-engagement sweep to this row rather than a bespoke fix: add oshb:Prov.17.7 to boundary_evidence_refs and splice the pointed “אַ֝֗ף כִּֽי” run (byte tier, from verse_map_oshb.json -- never hand-typed) into the rationale as the grounding quotation for the a-fortiori claim. Test the cure must pass: collate.py --json against the added quote returns tier=byte for oshb:Prov.17.7.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c17",
+   "row_id": "P08-029",
+   "source": "OL",
+   "challenge_claim": "The row quotes the verse's closing verb as unpointed יתגלע without labeling it skeleton-tier, where the pointed byte form is available and citation-grade quotation requires the byte tier (or an explicit tier label).",
+   "ruling": "uphold",
+   "grounds": "Byte-confirmed independently this review: oshb:Prov.18.1 = “לְֽ֭תַאֲוָה יְבַקֵּ֣שׁ נִפְרָ֑ד בְּכָל תּ֝וּשִׁיָּ֗ה יִתְגַּלָּֽע” -- the pointed closing verb is “יִתְגַּלָּֽע”, not the row's bare unpointed form. Re-running collate.py --json against {ref: oshb:Prov.18.1, quote: (row's unpointed verb)} independently this review returns tier=skeleton, matching OL's finding exactly. Per TOOLKIT.md: 'accent_stripped and skeleton are citation/mention grade and must be labeled as such in prose' -- the row's rationale presents the bare form inline with a trailing parenthetical '(oshb:Prov.18.1)' that reads as a verse-quotation citation without disclosing the skeleton tier. This is independent of the row's substantive catchword call: oshb:Prov.18.2 = “לֹֽא יַחְפֹּ֣ץ כְּ֭סִיל בִּתְבוּנָ֑ה כִּ֝֗י אִֽם בְּהִתְגַּלּ֥וֹת לִבּֽוֹ” closes on “לִבּֽוֹ”, root gimel-lamed-he (reveal), he-final, versus 18:1's root gimel-lamed-ayin (burst forth), ayin-final -- independently re-confirmed here as distinct roots from the pointed bytes, so the row's 'no catchword with 18:2' boundary claim itself stands; only the citation-tier disclosure is defective. OL's 'low' / citation-hygiene framing is correct.",
+   "remedy": "Apply the existing sentence-core Hebrew-engagement sweep to this row rather than a bespoke fix: either (a) upgrade the quoted form to the byte-tier pointed spelling “יִתְגַּלָּֽע” spliced from verse_map_oshb.json, or (b) keep the unpointed form but add an explicit '(skeleton tier)' label in the same field as the citation. Test the cure must pass: collate.py --json against the revised quote returns tier=byte (option a), or the row prose carries an explicit skeleton-tier label alongside the parenthetical oshb: cite (option b).",
+   "severity_final": "low"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P08-034",
+   "claim_checked": "18:6/18:7 run an exact chiastic reversal (lips...mouth // mouth...lips) on the same construct-chain head noun kesil -- the row's load-bearing evidence for the proverb_cluster unit_type and for both boundary seams (18:5/18:8) being clean.",
+   "result": "verified",
+   "notes": "Independently re-spliced this review, byte tier, from verse_map_oshb.json: oshb:Prov.18.6 = “שִׂפְתֵ֣י כְ֭סִיל יָבֹ֣אֽוּ בְרִ֑יב וּ֝פִ֗יו לְֽמַהֲלֻמ֥וֹת יִקְרָֽא”, oshb:Prov.18.7 = “פִּֽי כְ֭סִיל מְחִתָּה ל֑וֹ וּ֝שְׂפָתָ֗יו מוֹקֵ֥שׁ נַפְשֽׁוֹ” -- confirms exact match to all four quoted spans in the row and the lips-then-mouth (18:6) vs. mouth-then-lips (18:7) reversal on the shared head noun kesil. Also confirmed oshb:Prov.18.5 = “שְׂאֵ֣ת פְּנֵי רָשָׁ֣ע לֹא ט֑וֹב לְהַטּ֥וֹת צַ֝דִּ֗יק בַּמִּשְׁפָּֽט” and oshb:Prov.18.8 = “דִּבְרֵ֣י נִ֭רְגָּן כְּמִֽתְלַהֲמִ֑ים וְ֝הֵ֗ם יָרְד֥וּ חַדְרֵי בָֽטֶן” carry no peh/safah/kesil token, so the cluster's boundary seams are clean on both sides, matching the row's claim."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 3,
+  "uphold": 3,
+  "refine": 0,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

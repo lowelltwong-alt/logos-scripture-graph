@@ -1,0 +1,222 @@
+{
+  "schema_version": "t550_hos_v7_kernel_v4_independent_check.v1",
+  "task_id": "T550",
+  "book": "Hos",
+  "reviewer_role": "fresh_independent_transaction_kernel_red_team",
+  "review_mode": "read_only_exact_hash",
+  "reviewed_at_utc": "2026-07-28T14:29:18.0739121Z",
+  "verdict": "FAIL",
+  "publication_authorized": false,
+  "recovery_authorized": false,
+  "exact_hash_match": true,
+  "inputs": {
+    "kernel": {
+      "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+      "sha256": "c471b937b54340c034cd475071e631d132acf49a855a546290a3db60ef5d60d0"
+    },
+    "base_tests": {
+      "path": "tests/test_journaled_recoverable_publish_v4.py",
+      "sha256": "603c02cf43aa06f9ee5b09411699193578700e0db6bf3d4892a82b36319af3c4"
+    },
+    "recovery_tests": {
+      "path": "tests/test_journaled_recoverable_publish_v4_recovery.py",
+      "sha256": "eb5261918686250ab450d7edca8500d6c0fa513b78bd04d471dce1b2b47470de"
+    }
+  },
+  "scope": {
+    "included": [
+      "state transitions",
+      "durable marker semantics for corrupt or foreign journals",
+      "lock retention and ownership",
+      "no forward resume",
+      "actual-published manifest followed by receipt binding",
+      "ordinary Exception and BaseException behavior",
+      "exact auxiliary cleanup",
+      "receipt and manifest replay or tamper",
+      "second-publisher schedules"
+    ],
+    "explicitly_excluded_from_verdict": [
+      "path-handle or reparse-point protection",
+      "unrelated global-file guards or global locking",
+      "power-loss atomicity",
+      "set-level atomicity"
+    ]
+  },
+  "frozen_test_execution": {
+    "command": "python -m pytest -q tests/test_journaled_recoverable_publish_v4.py tests/test_journaled_recoverable_publish_v4_recovery.py --confcutdir=tests -p no:cacheprovider --basetemp C:\\tmp\\t550-hos-v7-kernel-checker-pytest",
+    "result": "PASS",
+    "passed": 56,
+    "failed": 0,
+    "elapsed_seconds": 51.73,
+    "interpretation": "The frozen suite is green, but it omits the blocking schedules below and therefore cannot establish the requested transaction verdict."
+  },
+  "dimension_results": {
+    "state_transition_completeness": "FAIL",
+    "durable_marker_enforcement": "FAIL",
+    "lock_retention_and_ownership": "FAIL",
+    "no_forward_resume": "FAIL_IN_NO_JOURNAL_MATCHING_LOCK_WINDOW",
+    "actual_manifest_then_receipt_binding": "PASS_FOR_THE_IMPLEMENTED_SINGLE_PUBLISHER_PATH",
+    "ordinary_exception_coverage": "FAIL_AT_INITIAL_JOURNAL_WRITE",
+    "baseexception_restart_coverage": "PASS_AFTER_A_JOURNAL_EXISTS_BUT_NOT_ESTABLISHED_BEFORE_IT",
+    "exact_auxiliary_cleanup": "QUALIFIED_FAIL_BECAUSE_IDENTITY_IS_TAKEN_FROM_MUTABLE_NONCORE_JOURNAL_FIELDS",
+    "completed_replay_and_tamper_detection": "PASS_FOR_CANONICAL_MANIFEST_RECEIPT_RECOMPUTATION",
+    "second_publisher_exclusion": "FAIL"
+  },
+  "blocking_findings": [
+    {
+      "finding_id": "V7-KERNEL-LOCK-001",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "A matching application-id lock is not exclusive, so a second publisher can enter before the first journal exists",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "251-271",
+          "observation": "_ensure_exact_lock returns False, rather than refusing entry, when an existing lock contains the same application_id."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "517-575",
+          "observation": "publish ignores the created-versus-preexisting return value, accepts no post-lock journal, and writes a fresh journal."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "679-681",
+          "observation": "A completing publisher unconditionally removes the shared lock."
+        }
+      ],
+      "adversarial_schedule": [
+        "Publisher P1 reads no journal and creates the application-id lock.",
+        "Before P1 writes the initial journal, P2 reads no journal.",
+        "P2 accepts P1's lock because the text equals the same application_id, reads no post-lock journal, and enters publication.",
+        "P2 can complete and remove the lock while P1 still believes it owns the transaction.",
+        "P1 can then overwrite the completed journal with an initial phase, discover staged rather than preimage canonical bytes, and mark recovery required with no retained lock; tighter interleavings can race canonical and auxiliary writes."
+      ],
+      "why_existing_test_does_not_close_it": "test_two_publishers_interleaving_does_not_overwrite_journal lets the nested publisher complete before the outer publisher performs its post-lock journal read. It does not schedule P1 after lock acquisition but before initial journal creation.",
+      "required_resolution": "Use exclusive per-acquisition ownership, not application-id equality. A publisher that did not create the lock must not begin a no-journal transaction. Bind lock ownership to an unguessable invocation token and verify that token before every cleanup, or provide an equivalently proven exclusion protocol. Add the exact P1-lock/no-journal/P2 schedule."
+    },
+    {
+      "finding_id": "V7-KERNEL-MARKER-001",
+      "severity": "critical",
+      "status": "open_blocking",
+      "title": "The durable recovery marker says forward publication is forbidden but is never consulted",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "189-235",
+          "observation": "The marker records forward_publication_allowed=false and is written idempotently only for identical bytes."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "441-575",
+          "observation": "The forward entry path never checks recovery_marker_path before accepting or replaying a transaction."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "770-918",
+          "observation": "Recovery writes markers for corrupt, missing, or foreign journals but does not consume, clear, or reconcile an existing marker."
+        }
+      ],
+      "failure_consequence": "Removing or replacing the bad journal while leaving the durable marker and matching lock can reopen the no-journal forward path. A valid completed replay can also return success while the contradictory marker remains. The marker is diagnostic text, not an enforced durable gate.",
+      "required_resolution": "At both publish and recovery entry, read and validate the marker before any forward action. A present marker must block forward publication until a defined, exact recovery or separately authorized reconciliation consumes it. Add corrupt-journal, foreign-journal, completed-replay, and marker-tamper tests."
+    },
+    {
+      "finding_id": "V7-KERNEL-STATE-001",
+      "severity": "high",
+      "status": "open_blocking",
+      "title": "Initial journal creation occurs after lock acquisition but outside the guarded failure transition",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "569-577",
+          "observation": "The initial _write_journal call precedes the try block."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "689-697",
+          "observation": "The ordinary-Exception recovery_required transition applies only to failures inside the later try block."
+        }
+      ],
+      "failure_consequence": "An OSError during initial journal creation leaves a matching lock with no trustworthy journal and no recovery marker. A BaseException has the same durable-state gap. Because a matching preexisting lock is admitted, a later invocation can retry forward rather than requiring an explicit recovery decision.",
+      "required_resolution": "Guard the lock-to-initial-journal transition. On any failure, persist a separately enforced recovery marker without claiming a journal exists, retain verifiable lock ownership, and forbid forward retry. Add both Exception and BaseException tests at this exact transition."
+    }
+  ],
+  "preserved_objections": [
+    {
+      "finding_id": "V7-KERNEL-AUX-001",
+      "severity": "high",
+      "status": "open_preserved_objection",
+      "title": "Recovery cleanup trusts mutable journal fields that are not bound into the transaction core",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "809-818",
+          "observation": "Recovery authenticates only the supplied journal_core_sha256 field against the recomputed core."
+        },
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_span": "879-893",
+          "observation": "Receipt and manifest deletion identities come directly from expected_receipt_sha256 and expected_actual_published_manifest_sha256 in that mutable journal."
+        }
+      ],
+      "objection": "A journal retaining the correct core field but with altered expected auxiliary hashes can authorize deletion of an unrelated auxiliary whose bytes match those altered values. The current frozen tests cover foreign auxiliary bytes against an untampered journal, not journal-field tamper.",
+      "required_resolution_or_explicit_scope_decision": "Derive cleanup identities from core-bound deterministic transaction data, integrity-bind the auxiliary identities before trusting them, or explicitly record and human-approve a narrower local-trust assumption. Add journal-tamper tests."
+    },
+    {
+      "finding_id": "V7-KERNEL-LOCK-DELETE-001",
+      "severity": "medium",
+      "status": "preserved_not_used_for_verdict",
+      "title": "Successful replay, publication, and recovery unlink the lock without a final owner-token check",
+      "evidence": [
+        {
+          "path": ".ai/scratch/multi_model_bible_chunking/M7_sol/checks/journaled_recoverable_publish_v4.py",
+          "line_spans": [
+            "431",
+            "681",
+            "912"
+          ],
+          "observation": "Each completion path unlinks the path directly."
+        }
+      ],
+      "objection": "This compounds the nonexclusive application-id ownership model. The path-handle race dimension itself is explicitly excluded from this verdict, so this objection is preserved but is not an independent basis for FAIL."
+    }
+  ],
+  "positive_findings": [
+    {
+      "finding_id": "V7-KERNEL-POS-001",
+      "statement": "Once a trustworthy journal exists, incomplete phases are not resumed forward; they are converted to recovery_required and require rollback-only recovery."
+    },
+    {
+      "finding_id": "V7-KERNEL-POS-002",
+      "statement": "The normal single-publisher success path derives the actual-published manifest after full staged readback, verifies the manifest, derives a prose-free receipt that binds its hash, verifies the receipt, and binds both identities into the completed journal."
+    },
+    {
+      "finding_id": "V7-KERNEL-POS-003",
+      "statement": "Completed replay recomputes canonical, manifest, and receipt identities and durably converts mismatches to recovery_required."
+    },
+    {
+      "finding_id": "V7-KERNEL-POS-004",
+      "statement": "The frozen recovery tests exercise BaseException interruption after each of 13 forward replacements and after each of 13 rollback replacements, and demonstrate rollback-only restart for those covered states."
+    }
+  ],
+  "test_gaps_required_before_recheck": [
+    "second publisher enters after P1 creates the lock but before P1 creates the journal",
+    "initial journal write raises OSError after lock creation",
+    "initial journal write raises KeyboardInterrupt after lock creation",
+    "a present recovery marker blocks a no-journal forward invocation",
+    "a present recovery marker is reconciled consistently during completed replay",
+    "tampered expected auxiliary hashes cannot delete unrelated matching files",
+    "lock cleanup verifies an acquisition-specific owner token"
+  ],
+  "review_limitations": {
+    "adversarial_dynamic_probe": "not_relied_on",
+    "reason": "Inline arbitrary-Python probes could not obtain sandbox write permission for their temporary directories. The failed temporary probe directory was removed; no probe result is represented as evidence.",
+    "basis_of_fail": "Exact frozen source trace plus the identified omitted schedules; the green frozen suite does not exercise or refute them."
+  },
+  "final_ruling": {
+    "kernel_v4_accepted": false,
+    "may_be_used_for_v7_publication": false,
+    "may_be_used_for_v7_recovery": false,
+    "next_action": "Repair all three blocking findings, preserve and resolve AUX-001, freeze new hashes, add the missing schedules, and obtain a fresh independent exact-hash check. Do not publish or recover with this frozen kernel."
+  }
+}

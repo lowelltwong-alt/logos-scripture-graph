@@ -1,0 +1,39 @@
+{
+ "schema": "m8_tool_install_receipt.v1",
+ "book": "Ezek",
+ "batch": "fixup2_coverage_labels",
+ "ordered_by": "ezek_controlling_rulings_a1#e9 rulings S2-ROUTING (6) and S2-15",
+ "installed_by": "orchestrator (claude-opus-5), OW-11 authorized; guarded staged install",
+ "files": [
+  {
+   "path": "Ezek/_cwo_coverage_fixup1_ezek.py",
+   "sha256_before": "9d7f550e93612c40d5d424fe44d78f3d8505ed186e27e53048ed17af14f8aae2",
+   "sha256_after": "f2ebfe985210488dab1f9cea1eb13812c12e6487266526f539f794a79a4381e2",
+   "preimage": "campaign/tool_preimages/_cwo_coverage_fixup1_ezek.pre_fixup2_labels.9d7f550e.py",
+   "staged": "Ezek/proposals/fixup2_coverage_labels/_cwo_coverage_fixup1_ezek.py",
+   "diff": {
+    "path": "Ezek/proposals/fixup2_coverage_labels/_cwo_coverage_fixup1_ezek.diff",
+    "sha256": "10371d64873c662e7e264c78179cfdc8ed17ae5d54c0153ed8218066670ac7b2"
+   },
+   "removed_lines": [
+    "        aid = \"ezek_author_fixup_%s_a1\" % part",
+    "               \"executed_as\": \"its own post-FIXUP-1 coverage sweep (E-18); its author items were routed into the per-part FIXUP-1 \"",
+    "                              \"executions stamped with this id (#e4 FIXUP-1 (1))\","
+   ],
+   "selftest_candidate": {
+    "vectors": 6,
+    "failed": 0,
+    "verdict": "GREEN"
+   },
+   "selftest_installed": {
+    "vectors": 6,
+    "failed": 0,
+    "verdict": "GREEN"
+   }
+  }
+ ],
+ "why": "The tool hard-coded FIXUP-1's attempt-id naming and executed_as label, so a v5 run would have recorded FIXUP-2's coverage under FIXUP-1 (the OW-11-k provenance class), and it could not write the FIELD SCOPE sentence #e9 S2-15 orders into the v5 CWO-EZ-14 report.",
+ "dependency_applicability": "The v4 coverage reports were written by the before digest. With no new flag the tool writes byte-identical FIXUP-1 labels (selftest vector), and the field_scope keys appear only with --field-scope-from. No earlier report or claim is affected, and no suite member changed.",
+ "distinct_check": "S3 reads the diff",
+ "limit": "an install receipt proves the bytes installed and their selftest; it is not a distinct review"
+}

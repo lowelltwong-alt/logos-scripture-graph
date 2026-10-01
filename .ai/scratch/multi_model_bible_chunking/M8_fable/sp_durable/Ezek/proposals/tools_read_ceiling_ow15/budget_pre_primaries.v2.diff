@@ -1,0 +1,38 @@
+--- budget_pre_primaries.v2.py (installed)
++++ budget_pre_primaries.v2.py (candidate)
+@@ -26,12 +26,24 @@
+ 
+ sys.stdout.reconfigure(encoding="utf-8")
+ SP = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable\sp_durable")
+-CEILING = 49_604_821                      # owner, 2026-09-11 third answer (ledger OW-11-n); supersedes v1's 21,500,000
+-CEILING_SUPERSEDED = 21_500_000
+-DANIEL_CEILING = 25_000_000               # Daniel's own ceiling, counted from its first launch
++CEILING_SUPERSEDED = 21_500_000           # v1's figure, kept only to say what changed
++# The binding ceilings are READ from the carrier (OW-15, learning log L-0019), never hardcoded here.
+ DANIEL_VERSES_STANDARD = 357
+ EZ = SP / "Ezek"
+ ROWS = EZ / "repair" / "rows_v6_fixup3.jsonl"   # the chain head; v1 read rows_v5_fixup2.jsonl
++
++
++def _ceiling(book):
++    """The owner-set ceiling, READ from the carrier and never hardcoded (learning log L-0019; directive OW-15). A script with no ceiling
++    stops rather than guessing one."""
++    p = Path(r"C:\wt\logos-t423-m8-fable\.ai\scratch\multi_model_bible_chunking\M8_fable\sp_durable\campaign\budget_ceilings.v1.json")
++    if not p.is_file():
++        raise SystemExit("ABORT: the ceilings carrier %s does not exist; a ceiling is never assumed" % p)
++    d = json.loads(p.read_text(encoding="utf-8"))
++    e = (d.get("books") or {}).get(book) or {}
++    if not isinstance(e.get("ceiling"), int):
++        raise SystemExit("ABORT: the ceilings carrier names no integer ceiling for %s" % book)
++    return e["ceiling"]
+ 
+ 
+ def jl(p):
+@@ -74,6 +86,7 @@
+ if not ROWS.is_file():
+     raise SystemExit("ABORT: the chain head %s does not exist" % ROWS)
+ 
++CEILING, DANIEL_CEILING = _ceiling("Ezek"), _ceiling("Dan")
+ census = book_total("Ezek")
+ rows = jl(ROWS)
+ parts = Counter(r["writer_part"] for r in rows)

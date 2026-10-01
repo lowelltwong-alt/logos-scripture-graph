@@ -1,0 +1,250 @@
+{
+ "attempt_id": "ow2i2_Job_07_a1",
+ "role": "ow2_item2_auditor",
+ "book": "Job",
+ "rows": [
+  {
+   "row_id": "M8-Job-158",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "strongest_rejected_alternative reads \"Starting the next row at 37:1 rather than 37:2 was considered\" -- a positional row reference, which Job's own strategy §10 REGISTER PURGE bars (\"no ids/process language in row prose; cross-row references verse-anchored\"). TEST 2 arm: the reference does carry an argumentative claim about the neighbour row, and it re-derives TRUE -- the following row M8-Job-159 spans Job.37.2-Job.37.5, so 37:2 is in fact where the next unit opens, and the counter-ground is sound (the WEB 36|37 chapter number is tier-4, and MT 37:1 opens on the deictic אַף לְ֭זֹאת, WEB 37:1 \"Yes, at this my heart trembles\", which closes the storm description, while MT 37:2 opens on the plural imperative שִׁמְע֤וּ שָׁמ֣וֹעַ). A true claim merely phrased in workflow register -> low, per the lane test."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "strongest_rejected_alternative locates the rival seam by row position (\"the next row\") instead of by verse anchor, breaching the book's register-purge rule.",
+     "grounds": "The field reads \"Starting the next row at 37:1 rather than 37:2 was considered\". Job strategy §10 requires cross-row references to be verse-anchored. The underlying facts are byte-sound: MT 37:1 = אַף לְ֭זֹאת (deictic, verse-initial), MT 37:2 = שִׁמְע֤וּ שָׁמ֣וֹעַ (plural imperative + infinitive absolute), and the row correctly declares the chapter number tier-4 rather than evidentiary. Cosmetic only.",
+     "span_change": false,
+     "proposed_change": "Field repair to strongest_rejected_alternative: replace \"Starting the next row at 37:1 rather than 37:2\" with a verse-anchored phrasing such as \"Placing the following seam at 36:33|37:1 rather than at 37:1|37:2\"."
+    },
+    {
+     "severity": "low",
+     "class": "zone-citation-form",
+     "claim": "boundary_evidence_refs carries the bare original-language ref oshb:Job.41.1, which sits inside Job's numbering-offset zone and therefore must dual-cite under strategy §3.",
+     "grounds": "job_lib.mt_to_web(41,1) returns (41,9), so MT 41:1 = WEB 41:9 and the ref stands inside the single offset zone (verse_map_oshb.json Job.41.1 carries web alias Job.41.9; its text opens הֵן, the accent-free tsere hen member the prose legitimately cites). Strategy §3: \"Original-language cites inside the zone MUST dual-cite (web:Job.41.V = oshb:Job.MTc.MTv)\". The prose does qualify the member as \"MT 41:1\", so no arithmetic error propagates, but the refs array entry carries no qualifier and no dual-cite -- the same corpus writes the compliant form elsewhere (M8-Job-182 refs \"web:Job.41.1 = oshb:Job.40.25\"). Citation-form shortfall only.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_evidence_refs: replace \"oshb:Job.41.1\" with \"web:Job.41.9 = oshb:Job.41.1\"."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-162",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale reads \"tier-3 corroboration that sits exactly at this part's closing seam\" -- writer-part (workflow) language, barred by strategy §10's register purge. TEST 2 arm: the phrase does carry an argumentative claim, and it re-derives TRUE from the inventory -- pmarks_Job.json marks[\"Job.37.24\"] = [\"PE\"] (26 PE + 13 SAMEKH, 39 total; the mark FOLLOWS its verse, single-witness), and the row's span ends at 37:24, so the petuchah does sit at this unit's closing seam. The unit named is also a real TEXT object (Elihu's fourth speech, 36:1-37:24), not only a workflow part. A true claim phrased in workflow register -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale names the writer part (\"this part's closing seam\") rather than the text unit or the verse.",
+     "grounds": "The field reads \"tier-3 corroboration that sits exactly at this part's closing seam\". The mark claim itself is inventory-true and correctly tiered: pmarks_Job.json marks[\"Job.37.24\"] = [\"PE\"], cited in the prescribed form \"oshb:Job.37.24, petuchah, single-witness\", asserted as corroboration and never as a driver, with the driver correctly placed on the participant change at 38:1 (skeleton sweep of the YHWH vaya'an formula: 3 book-wide, Job.38.1 / Job.40.1 / Job.40.6). Register only.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: replace \"this part's closing seam\" with \"the close of Elihu's fourth speech at 37:24\"."
+    },
+    {
+     "severity": "low",
+     "class": "quote-delimiter",
+     "claim": "A verbatim WEB run is presented in single curly quotes as if it were a Hebrew gloss, with no web: ref attached.",
+     "grounds": "check_web_quotes.py over a private copy of the shipped row flags [1].boundary_rationale quote \"out of the whirlwind\": \"verbatim WEB text in SINGLE curly quotes (delimiter evasion -- rows use double curly + inline web: ref)\". WEB Job.38.1 reads \"Then Yahweh answered Job out of the whirlwind,\", so the string is WEB translation text, not a gloss the row supplied. Nothing evidential fails: the gloss is a correct rendering of the qere מִ֥ן הַסְּעָרָ֗ה, and the run's Hebrew re-collates byte tier (normalize_hebrew_in_json.py over the shipped rows: 0 fixed, 0 defects). Mechanical.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: render the run in double curly quotes with an inline web:Job.38.1 ref, or replace it with a non-WEB gloss such as 'from the storm'."
+    },
+    {
+     "severity": "low",
+     "class": "citation-space",
+     "claim": "The verse-initial Hebrew splice and the ketiv/qere pair are cited to a web: ref, i.e. original-language content under a WEB-space citation.",
+     "grounds": "boundary_rationale reads \"a fresh vaya'an formula, וַיַּֽעַן יְהוָ֣ה (...,  web:Job.38.1), ... carrying the ketiv/qere pair מנ הסערה (ketiv) / מִ֥ן הַסְּעָרָ֗ה (qere) inside the formula\" -- the only ref in that sentence is web:Job.38.1, while the campaign convention (job_lib docstring; TOOLKIT_AUDIT) is that oshb: carries MT/original-language cites and bare/web: carries WEB. The refs array does hold oshb:Job.38.1, and 38:1 lies OUTSIDE the offset zone (job_lib.web_to_mt(38,1) = (38,1)), so no arithmetic error results; the K/Q disclosure itself is correct and required (pmarks_Job.json kq[\"Job.38.1\"] = 1, extract carries ketiv+qere adjacent). Citation-form only.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: cite the Hebrew splice and the K/Q pair as oshb:Job.38.1, keeping web:Job.38.1 for the English run."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-163",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:cross_part_or_part_range",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale reads \"it alone carries this part's opening seam against the close of Elihu's fourth speech at 37:24\" -- writer-part language, barred by strategy §10. TEST 2 arm: the claim re-derives TRUE. pmarks_Job.json holds 39 marks (26 PE + 13 SAMEKH) and ZERO of them fall in chapter 38 (no Job.38.* key), so the row's \"chapter 38 carries none of the book's 39 Masoretic paragraph marks\" is inventory-exact; the seam therefore does rest on the formula, whose skeleton sweep is 3 book-wide (Job.38.1 / Job.40.1 / Job.40.6) with 38:1 first in canonical order; and the far-edge petuchah is inventory-true (marks[\"Job.37.24\"] = [\"PE\"]). The reference is also verse-anchored on its comparison side (\"at 37:24\"). True claim in workflow register -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale frames the row's near edge as a writer-part opening (\"this part's opening seam\") rather than a text-anchored one.",
+     "grounds": "The field reads \"it alone carries this part's opening seam against the close of Elihu's fourth speech at 37:24\". Every substantive claim around it verifies: mi-zeh skeleton sweep = 2 book-wide (Job.38.2, Job.42.3), both reading מִ֤י זֶ֨ה byte-identically; the gird-up two-word core כְגֶ֣בֶר חֲלָצֶ֑יךָ is byte-identical at Job.38.3 and Job.40.7 (skeleton sweep = 2, sole members); paseq is inventory-true and count-only at both cited verses (pmarks_Job.json paseq[\"Job.38.1\"] = 1, paseq[\"Job.38.2\"] = 1) with no intra-verse position claimed; the 38:3 splice re-collates byte tier. Register only.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: replace \"this part's opening seam\" with \"the 37:24|38:1 seam\"."
+    },
+    {
+     "severity": "low",
+     "class": "quote-delimiter",
+     "claim": "A verbatim WEB run is presented in single curly quotes as a Hebrew gloss, with no web: ref attached.",
+     "grounds": "check_web_quotes.py over a private copy of the shipped row flags [2].boundary_rationale quote \"like a man\": \"verbatim WEB text in SINGLE curly quotes (delimiter evasion -- rows use double curly + inline web: ref)\". WEB Job.38.3 reads \"Brace yourself like a man, for I will question you, then you answer me!\", so the string is WEB text rather than a supplied gloss for the comparative כְגֶ֣בֶר. Gloss/splice parity itself holds and all 28 checked double-curly WEB runs in the batch are verbatim (0 verbatim failures). Mechanical.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: render the run in double curly quotes with an inline web:Job.38.3 ref, or replace it with a non-WEB gloss."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-168",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale carries three positional row references -- \"the formula that opened the row above\", \"the light-and-darkness dwelling-place of the row before this one\", and \"the same interrogative-adverb-plus-demonstrative device that opened the row before this one at 38:19\" -- all barred by strategy §10 (cross-row references verse-anchored). TEST 2 arm splits: the first claim re-derives TRUE -- הֲ֭בָאתָ at MT 38:16 and הֲ֭בָאתָ at MT 38:22 are byte-identical (skeleton sweep = 2 book-wide, sole members), so 38:22 does repeat the opener of the preceding row verbatim; but the third claim is FALSE as written -- the preceding row M8-Job-167 spans Job.38.16-Job.38.21 and opens at 38:16, not at 38:19 (M8-Job-167's own prose says \"Verse 19 turns to a second interrogative device\"). A false cross-row claim carries the lane's medium arm; the register breach itself is recorded separately at low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "E-18",
+     "claim": "The positional cross-row reference asserts, on its natural reading, that the preceding row opened at 38:19, which is false: that row opens at 38:16.",
+     "grounds": "boundary_rationale: \"the same interrogative-adverb-plus-demonstrative device that opened the row before this one at 38:19 (sweep: 2 book-wide, its only two members)\". The preceding row in the slice, M8-Job-167, has span Job.38.16-Job.38.21 and opens on הֲ֭בָאתָ at MT 38:16; the device the sentence names, אֵי זֶ֣ה הַ֭דֶּרֶךְ, stands at MT 38:19 mid-row. The DEVICE fact is byte-true and nothing load-bearing fails: אֵי זֶ֣ה הַ֭דֶּרֶךְ at Job.38.19 and אֵי זֶ֣ה הַ֭דֶּרֶךְ at Job.38.24 are byte-identical and the skeleton sweep returns exactly 2 book-wide members, so the row's disclosure that the pair brackets 38:19|38:24 rather than opening at 38:24 stands. What fails is the structural attribution attached to the workflow-register phrase.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: replace \"that opened the row before this one at 38:19\" with \"that stands at 38:19, inside the preceding unit (38:16-38:21) rather than at its edge\"."
+    },
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale identifies neighbouring units by row position (\"the row above\", \"the row before this one\") instead of by verse anchor.",
+     "grounds": "Three occurrences in boundary_rationale, listed in the trigger grounds. Job strategy §10 requires verse-anchored cross-row references. The two byte facts the references carry both verify: הֲ֭בָאתָ / הֲ֭בָאתָ byte-identical (skeleton sweep 2, sole members Job.38.16 and Job.38.22), and אֵי זֶ֣ה הַ֭דֶּרֶךְ / אֵי זֶ֣ה הַ֭דֶּרֶךְ byte-identical (skeleton sweep 2, sole members). Cosmetic.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: substitute verse anchors (\"the unit closing at 38:21\", \"the opener at 38:16\") for every \"row above\" / \"row before this one\" phrase."
+    },
+    {
+     "severity": "low",
+     "class": "E-05",
+     "claim": "The row labels 38:31's opener with the hataf-patah spelling הֲ, but MT 38:31 opens on the patah-plus-meteg spelling -- a distinct spelling object under the book's count-object law.",
+     "grounds": "boundary_rationale closes \"before verse 31 turns to the constellations with its own fresh הֲ-interrogative\". MT 38:31's first word is הַֽ֭תְקַשֵּׁר, whose he carries patah (U+05B7) plus meteg, not hataf-patah (U+05B2). Independently re-derived over verse_map_oshb.json: the verse-initial interrogative-he openers in 38:16-39:12 number 15 verses in exactly two pointings -- 13 hataf-patah (38:16, 38:17, 38:22, 38:28, 38:32, 38:33, 38:34, 38:39, 39:1, 39:9, 39:10, 39:11, 39:12) and 2 patah (38:31, 38:35) -- so the row's \"fifteen such openers fall across 38:16-39:12\" digit is TRUE as a verse count, but one of the two patah members is then named with the other object's spelling. Strategy §2a/§10 require sweeping per attested spelling and saying so; the adjacent row M8-Job-169 draws exactly this distinction for the same verse. Disclosure-class.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: name 38:31's opener as the patah-plus-meteg interrogative-he (2 of the 15 openers), distinct from the 13 hataf-patah members."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-181",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale closes \"a capture-challenge question, web:Job.40.24 ..., that sets up the Leviathan capture-challenge opening the next row\" -- a positional row reference, barred by strategy §10. TEST 2 arm: the claim re-derives TRUE. The following row M8-Job-182 spans Job.41.1-Job.41.8; job_lib.web_to_mt(41,1) = (40,25) and verse_map_oshb.json Job.40.25 opens תִּמְשֹׁ֣ךְ לִוְיָתָ֣ן (WEB 41:1 \"Can you draw out Leviathan with a fish hook\"), so a Leviathan capture-challenge is indeed what opens the next unit. A true claim phrased in workflow register -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "medium",
+     "class": "field-content-mismatch",
+     "claim": "literature_type_guess describes ostrich material that stands nowhere in this row's span; the span is the Behemoth poem.",
+     "grounds": "The shipped literature_type_guess reads \"Ostrich wings beating senseless without knowledge of their purpose\", which characterises Job 39:13-18. The row's span is Job.40.15-Job.40.24, whose own bytes carry no ostrich material: it opens הִנֵּה נָ֣א בְ֭הֵמוֹת (WEB 40:15 \"See now behemoth, which I made as well as you\"), runs through the body description to MT 40:19 (WEB \"He is the chief of the ways of God\") and closes at MT 40:24 (WEB \"Shall any take him when he is on the watch\"). The mismatch is not isolated in the embedded neighbourhood -- M8-Job-180 (Job.40.10-40.14) carries a wild-ox label (39:9-12 material) and M8-Job-182 (Job.41.1-41.8, the Leviathan poem) carries a war-horse label (39:19-25 material) -- which points at a local field shift rather than a single typo; that pattern is reported, not adjudicated here. The boundary case itself is unaffected: the near-edge warrant (the full creature-introduction phrase הִנֵּה נָ֣א בְ֭הֵמוֹת) and the bare/prefixed object levels of the creature noun בְ֭הֵמוֹת are byte-sound (skeleton substring sweep = 3: Job.12.7 בְהֵמ֣וֹת common plural, Job.35.11 מִבַּהֲמ֣וֹת prefixed, Job.40.15 the creature; bare word = 2, prefixed = 1, exactly the strategy §2e erratum's levels, independently re-derived).",
+     "span_change": false,
+     "proposed_change": "Field repair to literature_type_guess: replace with a label naming this span's subject, e.g. \"Behemoth poem: presentative introduction, body description, habitat and capture challenge\"."
+    },
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale identifies the following unit by row position (\"the next row\") instead of by verse anchor.",
+     "grounds": "The field reads \"that sets up the Leviathan capture-challenge opening the next row\". Strategy §10 requires verse-anchored cross-row references, and the offset zone makes an unanchored reference costlier here than elsewhere: the following unit opens at WEB 41:1 = MT 40:25 (job_lib.web_to_mt(41,1) = (40,25)), whereas this row's own span sits wholly before the zone in both numberings (web_to_mt(40,15) = (40,15), web_to_mt(40,24) = (40,24)), so its bare oshb: refs are correctly undualled. Cosmetic.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: replace \"opening the next row\" with \"opening at WEB 41:1 = oshb:Job.40.25\"."
+    },
+    {
+     "severity": "low",
+     "class": "internal-consistency",
+     "claim": "The closing unity sentence denies any interrupting formula inside 40:15-40:24, although the row itself has already spliced two presentative openings inside that span, a class Job's strategy §6 lists among the tier-1 row-seam signals.",
+     "grounds": "boundary_rationale ends \"No interrogative, vocative, or formula interrupts between 40:15 and 40:24; the poem runs as one continuous description\". Inside the span MT 40:16 opens הִנֵּה נָ֣א and MT 40:23 opens הֵ֤ן -- both quoted earlier in the same field, so nothing is concealed -- and strategy §6 lists presentative hen / hinneh openings, alongside the mi-yitten wish formula, under the topic-turn-interrogative heading of the tier-1 signals at which rows may be seamed. The earlier disclosure carries the honest version of the argument (the bare particle class \"does not by itself uniquely locate 40:15\"; the fuller creature-introduction phrase has no counterpart at either recurrence), and the far-edge rejected alternative is byte-true (MT 40:20 opens כִּֽי, a connective, not an interrogative/vocative/formula). The summary sentence simply overstates what the row has already shown. Wording only; no evidence and no seam turns on it.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: qualify the closing sentence, e.g. \"no speech formula, vocative, or interrogative interrupts; the two presentative openings at 40:16 and 40:23 are disclosed above and do not discriminate a seam against the fuller introduction at 40:15\"."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-190",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "boundary_rationale closes \"before the topic shifts from the friends' obedience to Job's own restored fortune in the next row\" -- a positional row reference, barred by strategy §10. TEST 2 arm: the claim re-derives TRUE. The following row M8-Job-191 spans Job.42.10-Job.42.11 and MT 42:10 opens שָׁ֚ב in the clause WEB 42:10 \"Yahweh restored Job's prosperity when he prayed for his friends\", so Job's restored fortune is indeed the next unit's topic. A true claim phrased in workflow register -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "boundary_rationale identifies the following unit by row position (\"in the next row\") instead of by verse anchor.",
+     "grounds": "The field reads \"before the topic shifts from the friends' obedience to Job's own restored fortune in the next row\". Strategy §10 requires verse-anchored cross-row references. Everything else on the near edge verifies: the mark cite is inventory-true and correctly tiered (pmarks_Job.json marks[\"Job.42.6\"] = [\"PE\"], cited as \"oshb:Job.42.6 (petuchah, single-witness)\", the mark FOLLOWING 42:6 and the row opening at 42:7), the MT 42:7 splice re-collates byte tier (normalize_hebrew_in_json.py: 0 fixed, 0 defects), and all three WEB runs are verbatim. Cosmetic.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_rationale: replace \"in the next row\" with \"at 42:10\"."
+    },
+    {
+     "severity": "low",
+     "class": "tier-naming",
+     "claim": "The doubled-refrain warrant -- the row's only stated ground for rejecting the rival split -- is asserted as \"verbatim\" on the WEB translation layer, unnamed as to tier and with no MT witness cited, and the quoted English run is not in fact verbatim at 42:8.",
+     "grounds": "boundary_rationale: \"closes with a refrain, repeated verbatim at the end of the following verse, \"for you have not spoken of me the thing that is right, as my servant Job has\" (web:Job.42.7, web:Job.42.8)\"; strongest_rejected_alternative rests the whole rejection on it. The lowercase run is a verbatim substring of WEB 42:7 but NOT of WEB 42:8, whose folded text reads: ...according to your folly. For you have not spoken of me the thing that is right, as my servant Job has. -- capital For, so the English is not literally verbatim. The divergence is capitalisation alone, itself tier-4 under the campaign addendum, so the substance is not false. The warrant IS byte-true in the substrate and the row never says so: independently re-derived, the longest common byte suffix of oshb:Job.42.7 and oshb:Job.42.8 is 63 characters -- a leading space plus the 62-character run כִּ֠י לֹ֣א דִבַּרְתֶּ֥ם אֵלַ֛י נְכוֹנָ֖ה כְּעַבְדִּ֥י אִיּֽוֹב -- matching the strategy §2e-b LF-c25 object. boundary_evidence_refs carries no oshb ref for either verse. Disclosure/tier-naming shortfall, not a byte-false claim.",
+     "span_change": false,
+     "proposed_change": "Field repair: state the tier and the witness -- \"byte-identical at the MT byte tier across a 63-character closing span (oshb:Job.42.7, oshb:Job.42.8)\" -- and add oshb:Job.42.7 and oshb:Job.42.8 to boundary_evidence_refs."
+    }
+   ]
+  },
+  {
+   "row_id": "M8-Job-191",
+   "verdict": "defect",
+   "triggers": [
+    {
+     "tag": "reg:positional_row_reference",
+     "disposition": "confirmed_defect",
+     "grounds": "strongest_rejected_alternative reads \"...before the itemized possessions count begins in the next row\" -- a positional row reference, barred by strategy §10 (boundary_rationale carries the same class in \"the next verse turns from social restoration to a formal, itemized count\", which is verse-relative and acceptable). TEST 2 arm: the claim re-derives TRUE -- the following row M8-Job-192 spans Job.42.12-Job.42.13 and MT 42:12 is the livestock enumeration (WEB \"He had fourteen thousand sheep, six thousand camels, one thousand yoke of oxen, and a thousand female donkeys\"). A true claim phrased in workflow register -> low."
+    }
+   ],
+   "findings": [
+    {
+     "severity": "low",
+     "class": "E-06",
+     "claim": "strongest_rejected_alternative identifies the following unit by row position (\"the next row\") instead of by verse anchor.",
+     "grounds": "The field reads \"before the itemized possessions count begins in the next row\". Strategy §10 requires verse-anchored cross-row references. The row's substantive apparatus verifies: the MT 42:10 splice re-collates byte tier including the adjacent ketiv שבית and qere שְׁב֣וּת, which the row discloses rather than glosses over (pmarks_Job.json kq[\"Job.42.10\"] = 1; the extract carries ketiv+qere adjacent); the שָׁ֚ב / שְׁב֣וּת resemblance is correctly labelled texture-tier rather than a root identity; and the far-edge mark is inventory-true and correctly typed (marks[\"Job.42.11\"] = [\"SAMEKH\"], cited as \"oshb:Job.42.11 (samekh, single-witness)\", never conflated with PE). Cosmetic.",
+     "span_change": false,
+     "proposed_change": "Field repair to strongest_rejected_alternative: replace \"in the next row\" with \"at 42:12\"."
+    },
+    {
+     "severity": "low",
+     "class": "orphan-ref",
+     "claim": "boundary_evidence_refs carries two refs, web:Job.5.12 and web:Job.21.27, that no part of the row's prose uses and that share nothing with the row's span.",
+     "grounds": "Neither ref is mentioned anywhere in boundary_rationale, literature_type_guess or strongest_rejected_alternative. Independently re-derived over verse_map_oshb.json: the skeleton-token intersection of MT 5:12 with the row's span (MT 42:10 + MT 42:11) is EMPTY, and so is that of MT 21:27. Both cited verses instead carry the machashavot/mezimmot field (MT 5:12 מַחְשְׁב֣וֹת; MT 21:27 מַחְשְׁבֽוֹתֵיכֶ֑ם + וּ֝מְזִמּ֗וֹת), whose partner in the epilogue is MT 42:2's מְזִמָּֽה -- retraction-row material, not 42:10-11. Stray refs; citation hygiene only, no claim rests on them.",
+     "span_change": false,
+     "proposed_change": "Field repair to boundary_evidence_refs: drop web:Job.5.12 and web:Job.21.27, or move them to the row whose prose argues that lexical field."
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "rows": 7,
+  "clean": 0,
+  "defect_rows": 7,
+  "findings": {
+   "low": 15,
+   "medium": 2,
+   "high": 0
+  },
+  "span_changes_proposed": 0,
+  "triggers": {
+   "total": 7,
+   "confirmed_defect": 7,
+   "not_a_defect": 0
+  }
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "attempt_id": "ezek_writer_p08_a1",
+ "execution_id": "ezek_writer_p08_a1#e1",
+ "sources": [
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\WRITER_BRIEF.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\tools\\TOOLKIT.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\book_strategy_Ezek.md",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\writer_parts.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_denominator_reconciliation.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_p0_retained_lows.v1.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\pmarks_Ezek.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\ezek_device_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\verse_inventory.json",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_oshb.txt",
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Ezek\\Ezek_web_clean.txt"
+ ],
+ "outcome": {
+  "changed": [
+   {
+    "what": "14 chunk rows written to draft_p08.jsonl, tiling Ezek.33.1-Ezek.36.38 (117 verses) exactly",
+    "why": "complete the p08 assignment: watchman recap (33.1-9), disputation on individual repentance (33.10-20), the fugitive dateline and mouth-opening (33.21-22, held per the strategy's own over-split exception), the Abraham disputation (33.23-29) and the insincere-audience disputation (33.30-33); the shepherds chapter as one cap-disclosed whole-chapter salvation_oracle (34.1-31); the Seir/mountains-of-Israel diptych rendered as five rows sharing the 35.1 word-event frame (35.1-4, 35.5-9, 35.10-15, 36.1-12, 36.13-15, the last carrying the doubled K/Q pair at 36.13-14); and the new-heart oracle in three rows (36.16-23, 36.24-32, 36.33-38)"
+   }
+  ]
+ },
+ "verification": [
+  {
+   "claim": "rows tile Ezek.33.1-Ezek.36.38 exactly, no gap, no overlap, no verse outside range",
+   "how": "bespoke Python tiling check (no shared validator staged for Ezekiel) against verse_inventory.json's per-chapter WEB counts (33:33, 34:31, 35:15, 36:38)",
+   "result": "confirmed"
+  },
+  {
+   "claim": "all 22 fields present on every row; unit_type in the closed 12-value set; confidence in {high,medium,medium_low,low}; non_authorizing true",
+   "how": "bespoke Python schema check over the private copy",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every hard seam this part touches (33:1, 33:21, 33:23, 34:1, 35:1, 36:16) opens a row and none is straddled",
+   "how": "bespoke Python seam check against the strict-form word-event/dateline set",
+   "result": "confirmed"
+  },
+  {
+   "claim": "every Hebrew run quoted anywhere in the deliverable is an exact substring of Ezek_oshb.txt (Ezek.33-36 plus the disclosed Ezek.11.19 contrast), or a Qere spliced from pmarks_Ezek.json's kq layer with '/' separators stripped",
+   "how": "bespoke Python check extracting every Hebrew-block character run from every field of every row and testing it against the verse bytes and the programmatically split ketiv/qere set",
+   "result": "confirmed, after a first-pass FAILURE caught and fixed (see limit)"
+  },
+  {
+   "claim": "no fabrication-class term (selah, large/small letter, reversed/suspended nun, Aramaic) appears anywhere in the deliverable",
+   "how": "bespoke keyword sweep",
+   "result": "confirmed"
+  },
+  {
+   "claim": "no row touches the WEB 20:45-49 / WEB ch.21 / MT ch.21 numbering zone (this part does not reach it)",
+   "how": "bespoke regex sweep for those coordinates across all fields",
+   "result": "confirmed"
+  },
+  {
+   "claim": "decision_id, chunk_index_in_book and writer_decision_id are ascending and mutually consistent across all 14 rows",
+   "how": "bespoke sequence check",
+   "result": "confirmed"
+  }
+ ],
+ "unresolved_uncertainty": [
+  {
+   "what": "Whether Ezek.35.1-36.15 is better rendered as the strategy's own named 'one two-sided unit' (a single row) or as the five rows this part uses.",
+   "why_it_matters": "book_strategy_Ezek.md §6/§7 names the whole span as one type-5 example; this part instead cuts it at four refrain-grade closes under §2d.6's own cutting rule. Both readings are defensible from the bytes; a peer reviewer could reasonably restore the single-row reading, and the granularity choice (not the category) is what's genuinely open."
+  },
+  {
+   "what": "unit_type oracle_against_nation for the two Ezek.36.1-15 rows sits against its own gloss, since the addressee (mountains of Israel) is Israel's own territory, not a foreign nation.",
+   "why_it_matters": "disclosed in device_notes on both rows as a per-bytes tension inherited from the strategy's explicit naming of the span, not a byte error in the row itself; may indicate a gap in the closed 12-value vocabulary for two-sided diptych units."
+  },
+  {
+   "what": "Ezek.33.21-22 held as its own 2-verse row.",
+   "why_it_matters": "authorized by the strategy's own over-split exception ('33:21-22 is 2 and is held'), but it is this part's only near-floor row and the one most worth a reviewer's separate check."
+  },
+  {
+   "what": "Ezek.34.1-31 held as one 31-verse whole-chapter row (cap-disclosed, low confidence) rather than split at 34:17.",
+   "why_it_matters": "far exceeds even the 14-16 measured/listed cap; no internal seam met §2d.6's own cutting bar as cleanly as the chapter's outer hard seams, but this is the single largest confidence risk in the part."
+  },
+  {
+   "what": "This part's own byte sweep of Ezek.36.2-7 found 6 messenger-formula occurrences, matching book_strategy_Ezek.md §2d.6's own '36:2-7 ×6' but not §7's prose, which separately calls it 'the seven messenger formulae in 36:2-7'.",
+   "why_it_matters": "an internal inconsistency inside the binding strategy document itself, reported here rather than silently resolved; this part used 6, the figure both its own sweep and §2d.6 agree on."
+  }
+ ],
+ "self_authored": true,
+ "limit": "accountable work summary; not chain of thought and not independent proof. Built verbatim from the writer's own OW-8 final message."
+}

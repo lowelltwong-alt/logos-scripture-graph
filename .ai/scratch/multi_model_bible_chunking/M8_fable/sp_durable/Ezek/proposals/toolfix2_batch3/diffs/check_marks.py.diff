@@ -1,0 +1,235 @@
+--- SP/Ezek/tools/check_marks.py (installed 9f79950b9ddf)
++++ proposals/toolfix2_batch3/staged/check_marks.py (a63107199dfe)
+@@ -15,25 +15,39 @@
+     none -> false, a mix -> ambiguous (flagged); a claim naming no number is
+     satisfied only when the row's span covers a site. A negation earlier in the
+     same comma-delimited clause makes it an absence claim; adjacent negators cancel.
+- 1. Any petuchah/setumah claim naming a verse must match the marks inventory
++ 1. Any petuchah/setumah claim naming a verse IN ITS OWN CLAUSE (C:V, C.V, 'MT C:V'
++    or a dotted ref; S1-22) must match the marks inventory
+     under the CORRECT mark type - PE and SAMEKH are never conflated (owner
+     addendum). NON-IDENTITY BOOK: a cited verse number near a claim is
+     checked under BOTH readings (direct MT and WEB-crosswalk-mapped MT) -
+     outside WEB 20:45-21:32 / MT ch 21 the readings coincide; a claim passes
+     if EITHER carries the mark. NEAREST-MATCH diagnostics: a failed claim
+     reports whether MT V±1 carries a mark - the off-by-one signature.
++    W1 (#e5 FLAGS-TF2-1): a mark of the claimed type after the verse BEFORE
++    the named one also satisfies the claim (a mark closes the unit before an
++    onset); the type test is untouched and absence claims never take it.
+  2. SYMMETRY (unconditional): every span-relevant mark (front seam start-1,
+     interior, end verse - WEB span crosswalk-mapped to MT keys) must be
+     disclosed in the row's prose whether or not the prose engages the mark
+     layer - tier-3 weak corroboration still requires disclosure when present
+     (r3 contract: "all interior+edge marks vs pmarks").
+- 3. ABSENCE ARM, SPAN-SCOPED: "no petuchah/setumah" claims are checked
+-    against the marks inventory WITHIN the span-relevant (MT-mapped) set.
++ 3. ABSENCE ARM: a "no petuchah/setumah" claim is checked against the verse,
++    range or chapter its own clause names (S1-22); one naming none is checked
++    WITHIN the span-relevant (MT-mapped) set. W6 (#e5): the letter-name form
++    'no pe or samekh' is an absence phrase too, in mark talk only.
+  4. ketiv/qere prose claims naming a verse must match the kq inventory
+     (134 notes / 99 verses, MT-keyed; dual-reading like rule 1; ONE verse sits
+     INSIDE the zone - MT 21:28 = WEB 21:23; 23 verses carry more than one note).
+     A claim that speaks of an editorial note may instead rest on a verse whose
+-    OSHB note names ketib/qere (the notes_other layer).
++    OSHB note names ketib/qere (the notes_other layer). The claim binds to the
++    numbers in its own clause (S1-22). A NEGATED K/Q claim is an absence claim,
++    checked against the verses its clause names or the span's kq keys
++    (false_kq_absence_claim).
++    W2/W5 (#e5): a K/Q is negated only by a negator at most one word before it
++    (two negators together cancel) or heading a comma list of short segments
++    ('No parashah, K/Q or editorial note ...'); T4-03's closed-set denial
++    after it still denies. 'no other K/Q' is checked against the span's K/Q
++    verses that the row names nowhere.
+  5. PASEQ-POSITION arm (WARN only): pmarks paseq is COUNT-ONLY (136 segs /
+     121 verses; no offsets); intra-verse position claims are unsourceable.
+ Known limitation (Ezra finding, unchanged): the prose-window heuristic is
+@@ -233,6 +247,73 @@
+ KQ_NOTE = re.compile(r"\bketi[bv]\b|\bqere\b|\bK/Q\b", re.I)   # the OSHB notes spell it "ketib"
+ NOTE_WORD = re.compile(r"\bnotes?\b|\beditorial\b", re.I)
+ PUNCTA_SITES = {(41, 20), (46, 22)}   # MT; asserted by ezek_lib's selftest
++CHAPTER_NAMED = re.compile(r"\bch(?:apter|\.)?\s+(\d{1,2})\b", re.I)   # S1-22: 'chapter 10', 'ch 46'
++# W1, W2, W5 and W6 (ezek_controlling_rulings_a1#e5 ruling FLAGS-TF2-1), check_marks only; the PUNCTA arm is untouched.
++KQ_EXCLUSIVE = re.compile(r"other|further|additional|second|more", re.I)   # W2: an exclusivity word keeps the negation
++# W6: the letter-name absence form, admitted only in mark talk (a MARKISH_CTX word within 60 characters, PARAMARK_LETTER's gate)
++ABSENCE_LETTER = re.compile(r"\b(?:no|without)\s+(?:(?:a|any)\s+)?(?:pe|samekh)\b(?:\s+(?:or|and|nor)\s+(?:pe|samekh)\b)?", re.I)
++EDGE_PUNCT = "()[]{},;:!?\u201c\u201d\u2018\u2019" + chr(34) + chr(39)
++
++
++def before_readings(c, v):
++    # W1: both MT readings of a cited verse and the verse before each. Before a chapter's first verse stands the previous
++    # chapter's last MT verse, as relevant() computes the front seam.
++    out = []
++    for rc, rv in readings(c, v):
++        for p in ((rc, rv), (rc, rv - 1) if rv > 1 else (rc - 1, MT_LAST_VERSE.get(rc - 1, 0))):
++            if p not in out and p[0] in MT_LAST_VERSE and 1 <= p[1] <= MT_LAST_VERSE[p[0]]:
++                out.append(p)
++    return out
++
++
++def letter_absences(text, lo=0, hi=None):
++    # W6: every letter-name absence phrase in text[lo:hi] that stands in mark talk
++    return [m for m in ABSENCE_LETTER.finditer(text, lo, len(text) if hi is None else hi)
++            if MARKISH_CTX.search(text[max(0, m.start() - 60):m.start() + 60])]
++
++
++def kq_negation(text, start):
++    # W2 and W5, rule 4 only. Returns None, "plain" or "exclusive".
++    # W2: inside the token's comma-delimited clause, a negator (NEG_WORD) with at most one word between it and the token negates
++    # it. Two negators standing together cancel (T1-03). An exclusivity word as that one word returns "exclusive".
++    # W5: a negator distributes across a comma list when its own comma-delimited segment is the negator plus at most two words,
++    # every intervening segment is at most two words and names no verse, and the token's segment begins with the token
++    # (optionally after and/or/nor).
++    lo, _ = clause_bounds(text, start, start, NEG_CLAUSE_END)
++    words = [w for w in (x.strip(EDGE_PUNCT) for x in text[lo:start].split()) if w]
++    for gap in (0, 1):
++        k = len(words) - 1 - gap
++        if k >= 0 and NEG_WORD.fullmatch(words[k]):
++            if k >= 1 and NEG_WORD.fullmatch(words[k - 1]):
++                return None
++            return "exclusive" if gap == 1 and KQ_EXCLUSIVE.fullmatch(words[-1]) else "plain"
++    if [w.lower() for w in words] not in ([], ["and"], ["or"], ["nor"]):
++        return None
++    f_lo = field_bounds(text, start, start)[0]
++    cut = lo
++    while cut - 1 >= f_lo and text[cut - 1] == ",":
++        seg_lo, _ = clause_bounds(text, cut - 1, cut - 1, NEG_CLAUSE_END)
++        seg = text[seg_lo:cut - 1]
++        seg_words = [w for w in (x.strip(EDGE_PUNCT) for x in seg.split()) if w]
++        if seg_words and NEG_WORD.fullmatch(seg_words[0]) and len(seg_words) <= 3:
++            return "plain"
++        if len(seg_words) > 2 or RANGE_NUM.search(seg):
++            return None
++        cut = seg_lo
++    return None
++
++
++def row_named_mt_keys(text):
++    # W2's exclusivity scope: the MT keys, under both readings, of every verse number written anywhere in the row. That means
++    # C:V, C.V, MT C:V or dotted, in any field, the refs included; a written range names its two ends.
++    keys = set()
++    for m in RANGE_NUM.finditer(text):
++        ends = [(int(m.group(1)), int(m.group(2)))]
++        if m.group(4):
++            ends.append((int(m.group(3)) if m.group(3) else int(m.group(1)), int(m.group(4))))
++        for c0, v0 in ends:
++            keys |= {f"Ezek.{rc}.{rv}" for rc, rv in readings(c0, v0)}
++    return keys
+ KQ = re.compile(r"\b(?:ketiv|qere|K/Q)\b", re.I)
+ VERSE_NEAR = re.compile(r"Ezek\.(\d+)\.(\d+)")
+ RANGE = re.compile(r"Ezek\.\d+\.\d+(?:-(?:Ezek\.)?\d+(?:\.\d+)?)?")
+@@ -422,21 +503,23 @@
+             for m in markish:
+                 word = m.group(0).lower()
+                 want_type = "PE" if word in ("petuchah", "pe") else "SAMEKH"
+-                lo = max(0, m.start() - 120)
+-                ctx = text[lo:m.start() + 120]
+-                cands = list(VERSE_NEAR.finditer(ctx))
+-                if not cands:
+-                    continue
+-                rel = m.start() - lo
+-                cands.sort(key=lambda vm: abs(vm.start() - rel))
++                # S1-22 (ezek_controlling_rulings_a1#e4 ruling TOOLFIX-2 (b)): the claim binds to the verse numbers written in
++                # its OWN clause - C:V, C.V, 'MT C:V' or a dotted ref alike - plus a parenthetical opening directly after it; a
++                # claim naming no number in its clause is left to rule 2 (symmetry)
++                c_lo_, c_hi_ = clause_bounds(text, m.start(), m.end(), NUM_CLAUSE_END)
++                named_ = [p for pairs in puncta_claim_numbers(text, m.start(), m.end()) for p in pairs]
++                if not named_:
++                    continue
++                # W1 (ezek_controlling_rulings_a1#e5 ruling FLAGS-TF2-1): a mark of the claimed TYPE after N or after N-1 satisfies
++                # the claim; the type test is untouched, and an absence claim never takes the N-1 acceptance (rule 3 reads N)
+                 if any(want_type in marks.get(f"Ezek.{rc}.{rv}", [])
+-                       for vm in cands
+-                       for rc, rv in readings(int(vm.group(1)), int(vm.group(2)))):
+-                    continue
+-                if ABSENCE.search(ctx):
+-                    continue
+-                vm = cands[0]
+-                c, v = int(vm.group(1)), int(vm.group(2))
++                       for c0, v0 in named_
++                       for rc, rv in before_readings(c0, v0)):
++                    continue
++                # W6 (#e5 FLAGS-TF2-1): the letter-name absence form is an absence phrase, so rule 1 skips its clause
++                if ABSENCE.search(text[c_lo_:c_hi_]) or letter_absences(text, c_lo_, c_hi_):
++                    continue
++                c, v = named_[0]
+                 got = {f"Ezek.{rc}.{rv}": marks.get(f"Ezek.{rc}.{rv}", [])
+                        for rc, rv in readings(c, v)}
+                 flags.append({"decision_id": did, "rule": "paragraph_mark_claim",
+@@ -446,10 +529,23 @@
+                                        if any(got.values()) else "no mark at the cited verse under either reading"),
+                               **near_diag(marks, c, v)})
+             # Rule 3: absence arm, span-scoped
+-            for am in ABSENCE.finditer(text):
+-                have = relevant(span_pairs(row), marks)
++            # S1-22 (#e4 ruling TOOLFIX-2 (b)): an absence phrase is scoped to the verse, range or chapter its own clause
++            # names; an absence phrase naming none keeps the span-scoped check
++            for am in sorted(list(ABSENCE.finditer(text)) + letter_absences(text), key=lambda x: x.start()):   # W6 (#e5 FLAGS-TF2-1)
++                named_ = [p for pairs in puncta_claim_numbers(text, am.start(), am.end()) for p in pairs]
++                c_lo_, c_hi_ = clause_bounds(text, am.start(), am.end(), NUM_CLAUSE_END)
++                for chm_ in CHAPTER_NAMED.finditer(text, c_lo_, c_hi_):
++                    ch_ = int(chm_.group(1))
++                    named_ += [(ch_, vv_) for vv_ in range(1, MT_LAST_VERSE.get(ch_, 0) + 1)]
++                if named_:
++                    scope_ = "named"
++                    have = {f"Ezek.{rc}.{rv}": marks[f"Ezek.{rc}.{rv}"] for c0, v0 in named_ for rc, rv in readings(c0, v0)
++                            if marks.get(f"Ezek.{rc}.{rv}")}
++                else:
++                    scope_ = "span"
++                    have = relevant(span_pairs(row), marks)
+                 if have:
+-                    flags.append({"decision_id": did, "rule": "false_mark_absence_claim",
++                    flags.append({"decision_id": did, "rule": "false_mark_absence_claim", "scope": scope_,
+                                   "claim_context": text[max(0, am.start() - 60):am.start() + 80],
+                                   "span_relevant_marks_mt_keys": have})
+                     break
+@@ -479,20 +575,39 @@
+                               "claim_context": text[lo:pm_.end() + 80]})
+             # Rule 4: K/Q prose claims bind to the NEAREST windowed ref,
+             # dual-reading (MT direct + WEB-mapped)
++            # S1-22 (#e4 ruling TOOLFIX-2 (b)): a K/Q claim binds to the verse numbers in its OWN clause (C:V, C.V, 'MT C:V'
++            # or dotted); a NEGATED K/Q token is an absence claim, checked against the verses its clause names or, naming
++            # none, the span's kq keys (rule false_kq_absence_claim)
+             for m in KQ.finditer(text):
+                 lo = max(0, m.start() - 120)
+                 ctx = text[lo:m.start() + 120]
+-                cands = list(VERSE_NEAR.finditer(ctx))
+-                if not cands:
+-                    continue
+-                rel = m.start() - lo
+-                cands.sort(key=lambda vm: abs(vm.start() - rel))
++                named_ = [p for pairs in puncta_claim_numbers(text, m.start(), m.end()) for p in pairs]
++                # W2 and W5 (ezek_controlling_rulings_a1#e5 ruling FLAGS-TF2-1): kq_negation reads the negation (a negator at most
++                # one word before the token, or heading a short comma list); T4-03's closed-set denial after the token still
++                # denies. An exclusivity word ('no other K/Q') narrows the scope to the span's kq keys the row names nowhere.
++                neg_ = kq_negation(text, m.start()) or ("plain" if denied_after(text, m.end()) else None)
++                if neg_:
++                    if neg_ == "exclusive":
++                        scope_ = "span_unnamed"
++                        keys_ = {f"Ezek.{mt_[0]}.{mt_[1]}" for c0, v0 in span_pairs(row) for mt_ in [web_to_mt(c0, v0)] if mt_} - row_named_mt_keys(text)
++                    elif named_:
++                        scope_ = "named"
++                        keys_ = {f"Ezek.{rc}.{rv}" for c0, v0 in named_ for rc, rv in readings(c0, v0)}
++                    else:
++                        scope_ = "span"
++                        keys_ = {f"Ezek.{mt_[0]}.{mt_[1]}" for c0, v0 in span_pairs(row) for mt_ in [web_to_mt(c0, v0)] if mt_}
++                    present_ = sorted(k_ for k_ in keys_ if kq.get(k_))
++                    if present_:
++                        flags.append({"decision_id": did, "rule": "false_kq_absence_claim", "scope": scope_,
++                                      "kq_mt_keys": present_, "claim_context": text[max(0, m.start() - 60):m.start() + 80]})
++                    continue
++                if not named_:
++                    continue
+                 if any(kq.get(f"Ezek.{rc}.{rv}") or (f"Ezek.{rc}.{rv}" in kq_note_keys and NOTE_WORD.search(ctx))
+-                       for vm in cands
+-                       for rc, rv in readings(int(vm.group(1)), int(vm.group(2)))):
+-                    continue
+-                vm = cands[0]
+-                c, v = int(vm.group(1)), int(vm.group(2))
++                       for c0, v0 in named_
++                       for rc, rv in readings(c0, v0)):
++                    continue
++                c, v = named_[0]
+                 flags.append({"decision_id": did, "rule": "kq_claim",
+                               "verse_cited": f"Ezek.{c}.{v}", **near_diag(kq, c, v)})
+     print(json.dumps({"rows_checked": n, "rows_citing_marks": cited,

@@ -1,0 +1,114 @@
+{
+  "schema_version": "m7_book_completion_receipt.v2",
+  "model_id": "M7_sol",
+  "book": "Phil",
+  "completion_state": "candidate_complete_with_explicit_holds",
+  "chunk_count": 15,
+  "review_packet_count": 15,
+  "canonical_verse_count": 104,
+  "covered_verse_count": 104,
+  "exact_ordered_coverage": true,
+  "accepted_decision_count": 0,
+  "accepted_decision_ids": [],
+  "held_decision_count": 15,
+  "held_decision_ids": [
+    "M7_sol-Phil-001",
+    "M7_sol-Phil-002",
+    "M7_sol-Phil-003",
+    "M7_sol-Phil-004",
+    "M7_sol-Phil-005",
+    "M7_sol-Phil-006",
+    "M7_sol-Phil-007",
+    "M7_sol-Phil-008",
+    "M7_sol-Phil-009",
+    "M7_sol-Phil-010",
+    "M7_sol-Phil-011",
+    "M7_sol-Phil-012",
+    "M7_sol-Phil-013",
+    "M7_sol-Phil-014",
+    "M7_sol-Phil-015"
+  ],
+  "unresolved_appeal_count": 15,
+  "unresolved_appeal_ids": [
+    "PHIL-APPEAL-001",
+    "PHIL-APPEAL-002",
+    "PHIL-APPEAL-003",
+    "PHIL-APPEAL-004",
+    "PHIL-APPEAL-005",
+    "PHIL-APPEAL-006",
+    "PHIL-APPEAL-007",
+    "PHIL-APPEAL-008",
+    "PHIL-APPEAL-009",
+    "PHIL-APPEAL-010",
+    "PHIL-APPEAL-011",
+    "PHIL-APPEAL-012",
+    "PHIL-APPEAL-013",
+    "PHIL-APPEAL-014",
+    "PHIL-APPEAL-015"
+  ],
+  "chunks_sha256": "03f32e89ac4d50cb9e31ff94538e0ad72aefe40f051788716e531c61f6d352be",
+  "review_packets_sha256": "ed7b134f460709b00c7e65dd0f62caf94b7a2d3225752206fa3ad6cb84b41edd",
+  "decision_relations_sha256": "56112adb863f0e53788b15700094e7cc6776dbff1e8b3cc10935adac695d3fdd",
+  "uncertainty_sidecar_sha256": {
+    "low_confidence_register.jsonl": "16dd1f82bd6365bfd7bd7d38ae28935169ee84e8d5f12ae23ffdc516ecc2ae25",
+    "frontier_escalation_queue.jsonl": "3fd14b5b5ed00c307fca92aa2295fce807699ee0eb3831d5b6a068548051deaf",
+    "atlas_candidate_feed.jsonl": "02c09edc65d14026fe1bb675ac1942830f6d2f3ae08336162303ab99efddc464"
+  },
+  "postcheck_sha256": "29d663498db49e507fe73b43a9217673b4f2d5c6eff90fed94f16ab53c74ea81",
+  "checker_verdict_path": ".ai/scratch/multi_model_bible_chunking/M7_sol/reviews/Phil/role_separated_checker_verdict_v1.json",
+  "checker_verdict_sha256": "9cb78f5e80855be26de8fd002d18b1d46265393a7c44dc1e2c0a9e7195642231",
+  "postchecker_attempt_id": "phil-role-separated-postchecker-20260724-f",
+  "postcheck_status": "pass_with_holds",
+  "independence_scope": {
+    "independent_from_sibling_model_maps": true,
+    "primaries_blind_to_each_other_artifacts": true,
+    "roles_separated": true,
+    "shared_model_substrate": true,
+    "counts_as_cross_model_independent_votes": false,
+    "independent_model_or_human_evidence_required_at_convergence": true,
+    "reviewer_count_is_not_authority": true,
+    "correlated_mesh_weight_at_convergence": "one_model_voice"
+  },
+  "pre_receipt_gates": [
+    {
+      "gate_id": "exact_ordered_coverage",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_exact_book_coverage.py --book Phil",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Phil chunks=15 exact ordered coverage=104/104"
+    },
+    {
+      "gate_id": "official_chunk_map",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_chunk_map.py C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\book_chunks\\Phil\\chunks.jsonl --model-id M7_sol --book Phil --python-only",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: .ai/scratch/multi_model_bible_chunking/M7_sol/book_chunks/Phil/chunks.jsonl"
+    },
+    {
+      "gate_id": "review_status_sidecar_independence_parity",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol\\checks\\validate_book_review_coverage.py --book Phil --require-final-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "OK: Phil exact verse coverage and review parity"
+    },
+    {
+      "gate_id": "literary_quality_protocol",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_t423_literary_quality_protocol.py --model-folder C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\.ai\\scratch\\multi_model_bible_chunking\\M7_sol --book Phil --require-artifacts",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "T423 literary quality protocol: OK"
+    },
+    {
+      "gate_id": "workflow_replay_contract",
+      "command": "C:\\Users\\lowel\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\Users\\lowel\\OneDrive\\Desktop\\Git Projects\\03_World_View\\logos-scripture-graph-repo\\scripts\\validate_whole_bible_candidate_workflow.py",
+      "exit_code": 0,
+      "status": "pass",
+      "output": "Whole-Bible candidate workflow validation passed."
+    }
+  ],
+  "receipt_written_after_final_hash_and_gates": true,
+  "validation_bundle_command": "python .ai/scratch/multi_model_bible_chunking/M7_sol/checks/validate_book_completion_bundle.py --book Phil",
+  "post_receipt_validation_required": true,
+  "forced_consensus": false,
+  "non_authorizing": true
+}

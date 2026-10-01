@@ -1,0 +1,34 @@
+```json
+{"attempt_id":"dan_fixup2_W6_a1","execution_id":"dan_fixup2_W6_a1#e1",
+ "sources":[
+  "C:\\wt\\logos-t423-m8-fable\\.ai\\scratch\\multi_model_bible_chunking\\M8_fable\\sp_durable\\Dan\\fixup\\FIXUP2_BRIEF_W6.md d75efae6a19e4aca6c2d49c168411be0f90c62bb14059c4c1336234e038ca079",
+  "SP\\Dan\\fixup\\draft_rows_fixup1_applied.jsonl 2b92198c74bfbd327afa0c0e611dc9c700c097454a0e8ab23663d046e63470df",
+  "SP\\Dan\\review\\dan_controlling_agent_rulings_E2.v1.json 43ae72e748fe1e55be3103e826194672a3b317300ff413d690682697b121f940 (digest only; the order is quoted verbatim in the brief)",
+  "SP\\Dan\\book_strategy_Dan.md 158e517af36db3411fe5cb8647fea20a50218b89bcf0338129d558d60b5a20da (section 8, lines 378-400)",
+  "SP\\Dan\\tools\\TOOLKIT.md b9e9b59a75721682d5df005e69909cb7e6d7056aab0b1d0a29c7f02cd79269e5 (grep for the suite-member contracts)",
+  "SP\\Dan\\Dan_oshb.txt 8424e3630879c53a44530dee0b87e6c1a64f020619a3c3c0ac758a387a33b3a0 (first line only; no Hebrew was added)",
+  "SP\\Dan\\Dan_web_clean.txt 532fc0e391ac63777e1f57303213b3aaef4ce32071bede797a488bfcee5b6cfa",
+  "SP\\Dan\\tools\\run_validator_suite.py 5592e8f637dba58542d946dbc8414e350d8c88eea54c6f433eb05303659b348f",
+  "SP\\Dan\\tools\\check_placeholders.py 0bb43355a381f44259a4925e953a50c1613afaae74e35ef04fe306427b7e45bb",
+  "SP\\Dan\\tools\\ngram7.py cc6f709c14c85c0d2b8db6bdc0ada37e4dd5b9ae1ce0ecb191a8e281e542c11d",
+  "SP\\..\\ERROR_PATTERN_LEDGER.v1.md 7357c65c1b7ee1c00a9163e17af42835b0c4c0741f6a615be9e49c4008b3923b (lines 807-874 only)"],
+ "outcome":{"changed":[{"what":"W6-001.strongest_rejected_alternative: \"(OSHB/WLC), “In those days” (WEB)\" -&gt; \"(OSHB/WLC), web:Dan.10.2 “In those days” (WEB)\"","why":"W6-001-WEBREF"}]},
+ "verification":[
+  {"claim":"The brief and all 10 pinned inputs match their digests","how":"sha256 of the brief, then work\\s1_hash.py","result":"confirmed"},
+  {"claim":"The OW-11 authority and OW-11-h addendum are present in the ledger","how":"read of ERROR_PATTERN_LEDGER.v1.md lines 807-874","result":"confirmed"},
+  {"claim":"The before-span occurs exactly once in W6-001 (row index 60, span Dan.10.1-Dan.10.3), and the pinned field text matches the brief","how":"work\\s2_probe.py and work\\s3_apply.py","result":"confirmed"},
+  {"claim":"The WEB quote is unchanged, and 'In those days' is at Dan 10:2 in the WEB file","how":"work\\s3_apply.py: Dan_web_clean.txt line index 476 '[v] 2 In those days I, Daniel, was mourning three whole weeks.', chapter 10 by counting '[v] 1 ' lines","result":"confirmed"},
+  {"claim":"Only W6-001.strongest_rejected_alternative differs; every other field of all 75 rows is identical as a JSON value","how":"work\\s3_apply.py field-by-field diff: [(W6-001, strongest_rejected_alternative)]; 1 line differs","result":"confirmed"},
+  {"claim":"Suite baseline is hard GREEN, applied is hard GREEN, and the web_quotes flag on W6-001 is gone","how":"run_validator_suite.py on work\\rows_base.jsonl and work\\rows_applied.jsonl; work\\s4_compare.py and s5_detail.py. web_quotes FLAGS 1 ([60].strongest_rejected_alternative 'curly quote with NO web: ref in its field') -&gt; GREEN 0; triage_flags 138 -&gt; 137; dead_members []","result":"confirmed"},
+  {"claim":"No member gained a hit","how":"work\\s5_detail.py: citation_sweep, hebrew_normalize_dryrun, refs_mirror, mark_symmetry, universals, language_zones, ngram7, cap_sweep, register, role_tokens and placeholders give identical output on base and applied apart from the file name. Statuses: refs_mirror FLAGS, universals FLAGS 68, register FLAGS 69 (all unchanged); the rest GREEN","result":"confirmed"},
+  {"claim":"check_placeholders.py and ngram7.py are GREEN on the applied rows","how":"check_placeholders.py work\\rows_applied.jsonl -&gt; status GREEN, hit_count 0; ngram7.py work\\rows_applied.jsonl -&gt; status GREEN","result":"confirmed"}],
+ "unresolved_uncertainty":[
+  {"what":"The deliverable row line was re-serialized with json.dumps(ensure_ascii=False) and the default separators. It is identical as a JSON value, but its bytes may differ in whitespace from the pinned line","why_it_matters":"The lander compares by JSON value per the brief. A byte-level line compare would see a formatting difference"},
+  {"what":"refs_mirror already carried a W6-001 entry (Dan.10.9 FAR_SIDE) in the baseline. It is unchanged and out of scope","why_it_matters":"It is a pre-existing FLAGS entry, not caused by this fix"}],
+ "e19_selfreport":"ran no listing, no glob, no recursive search; read only the exact paths named",
+ "rows_sha256":"9447362ceb694d4779f7573da160874999fb2920b1e96c0782e9e200d3f90579",
+ "changes_sha256":"64dc27c24d43487c0db1acd0019b5128987d2e09078b59d691fb06b95ab34f46",
+ "limit":"accountable work summary; not chain of thought and not independent proof"}
+```
+
+Deliverables are at `C:\Users\lowel\AppData\Local\Temp\claude\C--Users-lowel-OneDrive-Desktop-Git-Projects-03-World-View\af84b702-d913-4495-8e57-252cf7894c63\scratchpad\dan_fx2\W6\fixup2_W6_rows.jsonl` and `...\dan_fx2\W6\fixup2_W6_changes.json`. The work copies, scripts and suite reports are in `...\dan_fx2\W6\work\`. I ran no git, wrote no receipt, did not touch the registry, and wrote nothing outside W6. I used 21 tool calls.

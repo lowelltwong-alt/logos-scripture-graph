@@ -1,0 +1,64 @@
+{
+ "schema": "m8_finding.v1",
+ "finding_id": "launch_message_pinned_a_different_corpus_than_its_orders",
+ "book": "Lam",
+ "recorded_at": "2026-09-07T23:36:02.579588+00:00",
+ "author_of_the_error": "orchestrator (claude-opus-5)",
+ "severity": "medium",
+ "severity_basis": "scored on counterfactual blast radius. Observed impact NIL; the escape was luck.",
+ "class": "launch_integrity",
+ "what": "the f06/f07/f08 launch messages pinned rows_v12.jsonl by exact path while the orders they point at were built on rows_v13.jsonl and carry rows_v13 rows as current_row",
+ "how_it_arose": "each launch was produced by string-editing the previous launch instead of being generated from the orders file it points at; every other field survived the edit, the corpus pin did not, and nothing required the two to agree",
+ "caught_by": "fix author lam_fcfix_f07_a1, NOT the orchestrator. It refused to read the corpus its orders named because that path was not given to it by exact path, verified byte-identity between its orders' current_row values and the corpus it HAD been given, used the latter, and disclosed the discrepancy in its cure_tests.",
+ "why_no_harm": "exactly one row differs between the two corpora (['P02-006']) and it is in none of the three slices, so every ordered row is byte-identical across both",
+ "counterfactual": "had the differing row fallen in a slice, the author would have emitted a replacement built on the PRE-CURE text. The guarded apply pins the base it is told to use, so the apply would have parity-matched and silently REVERTED that row's cure - undoing a boss ruling's execution and re-installing a validator defect, inside a wave whose purpose was to remove defects. No guard in the apply compares an emitted row against a corpus the author was never given.",
+ "slices": {
+  "f06": {
+   "launch_pins": "rows_v12.jsonl",
+   "orders_base": "rows_v13.jsonl",
+   "rows": [
+    "P01-001",
+    "P01-003",
+    "P01-004",
+    "P01-005",
+    "P01-006",
+    "P01-007",
+    "P01-009"
+   ],
+   "overlaps_the_differing_row": []
+  },
+  "f07": {
+   "launch_pins": "rows_v12.jsonl",
+   "orders_base": "rows_v13.jsonl",
+   "rows": [
+    "P02-001",
+    "P02-002",
+    "P02-003",
+    "P02-004",
+    "P02-005",
+    "P02-007",
+    "P02-008"
+   ],
+   "overlaps_the_differing_row": []
+  },
+  "f08": {
+   "launch_pins": "rows_v12.jsonl",
+   "orders_base": "rows_v13.jsonl",
+   "rows": [
+    "P02-009",
+    "P03-001",
+    "P03-002",
+    "P03-005",
+    "P03-006",
+    "P03-007"
+   ],
+   "overlaps_the_differing_row": []
+  }
+ },
+ "rows_differing_v12_to_v13": [
+  "P02-006"
+ ],
+ "control": "_check_launch_orders_agree.py: compares every launch message against the orders it names and refuses a mismatch. Run before any launch.",
+ "lesson": "a launch message is a contract between an author and a corpus. Deriving one by editing another copies every field including the ones that must not be copied.",
+ "authority": "orchestrator self-report; candidate-only, non-authorizing"
+}

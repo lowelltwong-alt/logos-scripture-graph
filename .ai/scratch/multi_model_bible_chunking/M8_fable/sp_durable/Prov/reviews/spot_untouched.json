@@ -1,0 +1,150 @@
+{
+ "checker": "untouched",
+ "method": {
+  "definition": "rows byte-identical between rows_v1.jsonl and draft_rows_combined.jsonl (unedited by any author pass) AND not a member of review_scope.json's scoped set, where scoped set = union(sample.row_ids[57], c01_fixed[8], clusters[].row_ids[30 clusters, 237 ids]) = 245 unique row_ids, verified a subset of review_scope.json's own verdicts list (182 model_review/cohesion_live rows + 63 machine_clean padding rows). identical(draft,v1)=406 rows (149 rows were edited by the author pass; 5 draft rows were retired into 4 merge rows in v1). untouched = 406 minus the scoped overlap = 310 rows, ALL verdict=machine_clean (independently confirmed). This figure differs from the task brief's approximate figure of 321 because 321 appears to be a pre-author-edit count (378 machine_clean minus the 57-row sample), while 310 additionally excludes machine_clean rows the author pass touched (edited) even though those edits left them outside the mesh's review scope.",
+  "sample": "deterministic centered stride over untouched rows in rows_v1.jsonl canonical order: stride = N/12 = 25.8333, index_i = round(i*stride + stride/2), N=310",
+  "sampled_row_ids": [
+   "P05-026",
+   "P06-014",
+   "P06-056",
+   "P07-025",
+   "P08-015",
+   "P08-052",
+   "P09-011",
+   "P09-046",
+   "P09-076",
+   "P11-041",
+   "P12-009",
+   "P12-041"
+  ]
+ },
+ "rows": [
+  {
+   "row": "P05-026",
+   "span": "Prov.10.23-Prov.10.23",
+   "isolation_recheck": "clean (zero shared word-bound skeleton tokens vs Prov.10.22 and Prov.10.24, re-derived independently from Prov_oshb.txt)",
+   "hebrew_quotes": "2 unpointed runs in observed_substrate_signals collate at skeleton tier vs oshb:Prov.10.23 (correct grade for unpointed quotes; no byte-tier claim is made by the row)",
+   "marks_kq": "no marks/paseq/kq at Prov.10.23 (pmarks_Prov.json) -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- Prov.10.24 shares zero content tokens with Prov.10.23",
+   "defect": false
+  },
+  {
+   "row": "P06-014",
+   "span": "Prov.12.14-Prov.12.14",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.12.13 and Prov.12.15)",
+   "hebrew_quotes": "no Hebrew script quoted (grammar described in English only)",
+   "marks_kq": "pmarks_Prov.json confirms exactly 1 kq note in chapter 12, at Prov.12.14 -- matches the row's own \"chapter's one disclosed ketiv/qere note\" phrasing exactly",
+   "rejected_alternative_check": "the no-adversative-structure literary read is defensible; but see defect entry below",
+   "defect": true
+  },
+  {
+   "row": "P06-056",
+   "span": "Prov.14.5-Prov.14.5",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.14.4 and Prov.14.6)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "no marks/paseq/kq at Prov.14.5 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- Prov.14.4 (agrarian vocabulary) shares zero tokens with Prov.14.5 (testimony vocabulary); but see defect entry below",
+   "defect": true
+  },
+  {
+   "row": "P07-025",
+   "span": "Prov.15.27-Prov.15.27",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.15.26 and Prov.15.28)",
+   "hebrew_quotes": "no Hebrew script quoted (Latin transliteration only: botsea batsa, sone matanot, beito -- all verified as accurate transliterations of oshb:Prov.15.27)",
+   "marks_kq": "no marks/paseq/kq at Prov.15.27 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- beito (Hebrew beito, his house) does not recur in Prov.15.26 or Prov.15.28 (checked against oshb text directly); the row's characterization of a shared 'wicked/righteous field' with 15:28 is loosely worded (15:27 itself contains neither root in Hebrew) but the no-cluster conclusion is correct and the isolation check confirms it -- not counted as a defect",
+   "defect": false
+  },
+  {
+   "row": "P08-015",
+   "span": "Prov.17.15-Prov.17.15",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.17.14 and Prov.17.16)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "no marks/paseq/kq at Prov.17.15 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- no shared token with Prov.17.14 or Prov.17.16",
+   "defect": true
+  },
+  {
+   "row": "P08-052",
+   "span": "Prov.19.3-Prov.19.3",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.19.2 and Prov.19.4)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "no marks/paseq/kq at Prov.19.3 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- no catchword with Prov.19.2 or Prov.19.4",
+   "defect": false
+  },
+  {
+   "row": "P09-011",
+   "span": "Prov.20.11-Prov.20.11",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.20.10 and Prov.20.12)",
+   "hebrew_quotes": "1 pointed run in rationale collates at BYTE tier vs oshb:Prov.20.11, verified via clean programmatic extraction straight from the row's own JSON. NOTE ON METHOD: an earlier hand-typed test of mine (retyping the same Hebrew string into a scratch JSON file) falsely showed nfd tier -- self-diagnosed as MY OWN copy-degradation, exactly the hazard the toolkit documents against hand-retyping Hebrew; corrected by re-extracting the run programmatically with no manual retyping, which the toolkit's own citation_sweep.py corroborates (0 nfd_degraded across the full 12-row sample)",
+   "marks_kq": "no marks/paseq/kq at Prov.20.11 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- Prov.20.11 shares no content token with Prov.20.12 beyond the generic stopword particle gam (even). Noted for the record, NOT counted as a defect in this row: Prov.20.10 and Prov.20.12 -- the row's own two flanking neighbors -- share an exact-byte closing refrain (toevat YHWH gam sheneihem / YHWH asah gam sheneihem, abomination of Yahweh-both of them alike / Yahweh made-even both of them) that brackets Prov.20.11 without touching it; this is neighbor-to-neighbor cohesion skipping the row itself, not a device straddling the row's OWN seam, so it does not contradict the row's isolation claim",
+   "defect": false
+  },
+  {
+   "row": "P09-046",
+   "span": "Prov.21.16-Prov.21.16",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.21.15 and Prov.21.17)",
+   "hebrew_quotes": "1 pointed run (the opening noun) in rationale collates at BYTE tier vs oshb:Prov.21.16",
+   "marks_kq": "no marks/paseq/kq at Prov.21.16 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- Prov.21.16 shares no token with Prov.21.17",
+   "defect": false
+  },
+  {
+   "row": "P09-076",
+   "span": "Prov.22.15-Prov.22.15",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.22.14 and Prov.22.16)",
+   "hebrew_quotes": "1 pointed run (the opening noun) in rationale collates at BYTE tier vs oshb:Prov.22.15, verified via clean programmatic extraction; same false-nfd/self-correction as P09-011 above during my own testing, resolved the same way",
+   "marks_kq": "no marks/paseq/kq at Prov.22.15 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- Prov.22.15 shares no token with Prov.22.16",
+   "defect": false
+  },
+  {
+   "row": "P11-041",
+   "span": "Prov.26.26-Prov.26.26",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.26.25 and Prov.26.27)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "no marks/paseq/kq at Prov.26.26 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- within-verse antithetic pair (conceal/reveal) verified directly against oshb text; row correctly and transparently discloses the Prov.26.23-26 deceptive-speech thematic run without claiming a false merge -- a well-grounded row",
+   "defect": false
+  },
+  {
+   "row": "P12-009",
+   "span": "Prov.28.9-Prov.28.9",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.28.8 and Prov.28.10)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "no marks/paseq/kq at Prov.28.9 -- none claimed, consistent",
+   "rejected_alternative_check": "confirmed -- the torah root, swept book-wide, occurs in ch.28 at exactly Prov.28.4, Prov.28.7, Prov.28.9 (3 non-adjacent verses), matching the row's claim exactly; no shared token with Prov.28.8 or Prov.28.10",
+   "defect": false
+  },
+  {
+   "row": "P12-041",
+   "span": "Prov.29.13-Prov.29.13",
+   "isolation_recheck": "clean (zero shared tokens vs Prov.29.12 and Prov.29.14)",
+   "hebrew_quotes": "no Hebrew script quoted",
+   "marks_kq": "pmarks_Prov.json confirms zero marks/paseq/kq at Prov.29.13 -- matches the row's own 'disclosure inventories carry nothing at this verse' claim exactly",
+   "rejected_alternative_check": "confirmed -- no shared token with Prov.29.14",
+   "defect": false
+  }
+ ],
+ "defects": [
+  {
+   "row": "P06-014",
+   "what": "rationale and observed_substrate_signals misdescribe the verse's own disclosed ketiv/qere note as a SEPARATE rhetorical device: 'a doubled form (an infinitive-plus-finite construction) that intensifies the repayment.' The verse's closing sequence (unpointed word immediately followed by a pointed word, same root) is the standard OSHB encoding of a ketiv (unpointed, Qal 'he will return') immediately followed by its qere (pointed, Hiphil 'he will restore/repay') -- i.e. it IS the chapter's one K/Q note the row itself discloses elsewhere in the same row, not a second, independent literary device. Neither word is even morphologically an infinitive (both are finite imperfect verb forms, Qal vs Hiphil), so 'infinitive-plus-finite' misidentifies the grammar on its own terms independent of the K/Q question. SECONDARY, LOWER-CONFIDENCE NOTE on the same row: the phrase 'the range's one ketiv/qere note falling in chapter 12' is ambiguous -- read with 'range' meaning anything wider than chapter 12 itself (the writer's own p06 part, Prov.12.1-14.35, actually carries 3 K/Q notes; the C2 collection Prov.10.1-22.16 carries 27), the sentence would be false. The row's own second phrasing a few lines away ('the chapter's one disclosed ketiv/qere note') is unambiguous and true, so this is flagged only as a wording-clarity nit riding on the same row, not a separate factual error.",
+   "evidence": "pmarks_Prov.json kq: Prov.12.14 = 1 note (chapter-12 total = 1, matching the row's claim). The unpointed-word-then-pointed-word adjacency pattern at Prov.12.14 was cross-checked against two OTHER confirmed K/Q verses in the same sampled chapters and shows the identical pattern: Prov.22.14 (kq=1) and Prov.28.8 (kq present) both show an unpointed word immediately followed by a pointed word from the same or a related root, confirming this is OSHB's systematic K/Q encoding, not a one-off literary doubling at 12:14. The row's own isolation and unit_type verdict (single_proverb, synthetic not antithetic) is independently re-confirmed correct and unaffected by this error."
+  },
+  {
+   "row": "P06-056",
+   "what": "rationale and device_notes claim 'the lying-verb and its cognate noun object appear on the same B-colon (breathes lies), a same-root doubling used for emphasis.' The B-colon's verb ('breathes/utters,' root p-w-ch) and its object ('lies,' root k-z-b) are two DISTINCT triliteral Hebrew roots -- not cognate. This is the book's standard verb+object idiom for a false witness pouring out lies (the identical non-cognate pairing recurs elsewhere in Proverbs), not a cognate-accusative/same-root doubling construction. The row's antithetic-parallelism classification (truthful witness vs. lying witness) is independently correct and unaffected by this error; only the specific same-root grammatical claim is wrong.",
+   "evidence": "OSHB Prov.14.5 B-colon (splice from verse_map_oshb.json): the breathing/uttering verb and the lies-noun that follows it were checked letter-by-letter against their consonantal roots -- p-w-ch (breathe/blow/utter) vs k-z-b (lie/deceive) -- and confirmed to share no root consonants; 'cognate' and 'same-root doubling' do not apply to this pairing."
+  },
+  {
+   "row": "P08-015",
+   "what": "LOW severity, disclosure-rigor gap only (digit is accurate). observed_substrate_signals entry 'exact token (second of two ch.17 occurrences)' never names the swept object, violating the standing 'name the swept object FIRST (spelling vs term vs formula vs construction), then count' rule and the briefs' 'digit-bearing sweeps naming object + unit' requirement -- as written the claim is unverifiable by a reader. Reverse-engineered candidates were swept book-wide restricted to chapter 17: the abomination root (1 hit in ch.17), sheneihem/'both of them' (1 hit in ch.17), and the justify-root of the verse itself (1 hit in ch.17) all fail to produce '2 occurrences'; the token that DOES match is Yahweh -- 2 occurrences in chapter 17 (Prov.17.3 and Prov.17.15), with Prov.17.15 correctly the second. So the underlying digit is true once the object is identified, but the row itself never names it.",
+   "evidence": "Book-wide skeleton sweeps restricted to chapter 17: abomination root -> Prov.17.15 only (1); sheneihem -> Prov.17.15 only (1); the justify-root of Prov.17.15 itself -> Prov.17.15 only (1); Yahweh -> Prov.17.3, Prov.17.15 (2, matching 'second of two'). No other reasonable candidate token produced a 2-hit chapter-17 count with Prov.17.15 as the second occurrence."
+  }
+ ],
+ "clean": 9,
+ "notes": "9 of 12 sampled rows are clean on every check performed (isolation re-derivation, Hebrew-quote collation, rejected_alternative fact-check, marks/K-Q vs pmarks). 3 rows carry defects, all in the rationale/device_notes/observed_substrate_signals prose, NONE in the boundary/isolation verdict: P06-014 and P06-056 (MEDIUM) each misdescribe an original-language grammatical feature (a ketiv/qere note misread as a rhetorical device; a non-cognate verb-object pair misnamed as cognate/same-root); P08-015 (LOW) cites a digit-bearing sweep without naming the swept object, though the digit itself verified true once the object was reverse-engineered (Yahweh, 2x in ch.17). All 12/12 sampled rows were independently re-derived as correctly isolated (zero shared word-bound skeleton content tokens with either immediate MT neighbor) -- the Tier-0 machine_clean classification holds cleanly across the full sample. The untouched-corpus honesty check found NO boundary/isolation errors in the ~310-row population the scoped mesh left outside model review; the defects found are original-language description quality issues that model review of these specific rows would likely have caught, which is the exact class of risk the owner-approved scoping tradeoff accepted."
+}

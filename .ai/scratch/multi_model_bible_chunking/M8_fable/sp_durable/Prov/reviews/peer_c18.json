@@ -1,0 +1,87 @@
+{
+ "attempt_id": "peer_c18_r1",
+ "role": "peer",
+ "clusters": [
+  "c18"
+ ],
+ "rulings": [
+  {
+   "cluster": "c18",
+   "row_id": "P08-037",
+   "source": "LF",
+   "challenge_claim": "Seam warrant for the 18:10-18:11 cluster is sound, but the rationale's English gloss ‘in his own imagination’ is byte-identical WEB text presented in straight quotes with no inline web: ref (only trailing oshb: cites), violating the mandatory curly-quote+web:ref pairing.",
+   "ruling": "uphold",
+   "grounds": "Re-derived from bytes: עֹ֭ז (18:10) / עֻזּ֑וֹ (18:11) and וְנִשְׂגָּֽב (18:10) / נִ֝שְׂגָּבָ֗ה (18:11) both recur across the seam; flanks 18:9/18:12 carry neither root (checked directly against oshb) -- the cluster call itself is unaffected. WEB Prov.18.11 reads \"...like an unscalable wall in his own imagination.\" -- the row's straight-quoted 'in his own imagination' is a byte-verbatim substring, and no web:Prov.18.11 ref sits adjacent to it in the rationale field (boundary_evidence_refs carries a web: range elsewhere, which does not satisfy the same-field rule). Confirmed S-2-class register defect.",
+   "remedy": "Convert the straight-quoted span to curly quotes and add an inline web:Prov.18.11 citation immediately adjacent to it within the rationale field itself. Test: the field must carry curly-quote+inline-web:ref pairing for every verbatim WEB span (check_web_quotes.py plus a manual straight-quote scan, since the tool does not detect straight-quoted violations).",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c18",
+   "row_id": "P08-045",
+   "source": "OL",
+   "challenge_claim": "rejected_alternative asserts a shared Hebrew 'fruit' root between 18:20 and 18:21 but the row supplies zero Hebrew quotation or oshb: citation anywhere in its fields, despite the claim resting on a Hebrew lexical fact.",
+   "ruling": "uphold",
+   "grounds": "Confirmed: boundary_evidence_refs = [web:Prov.18.20, web:Prov.18.21] only; rejected_alternative, observed_substrate_signals, and device_notes contain no Hebrew and no oshb: ref. The underlying fact is byte-true -- 18:20's מִפְּרִ֣י (construct 'from-fruit-of', mouth) and 18:21's פִּרְיָֽהּ (suffixed 'its fruit', tongue) share the root in different inflected forms, and boundary-neighbor 18:19 carries neither form (checked directly). The atomic single_proverb call is correct and unaffected; the defect is citation-completeness only, per the standing rule that every boundary-relevant original-language claim must be sourced.",
+   "remedy": "Add oshb:Prov.18.20 and oshb:Prov.18.21 to boundary_evidence_refs, and splice the two word-forms (never hand-typed) into rejected_alternative or observed_substrate_signals so the 'different body-part, different inflected form' claim is bytes-grounded. Test: citation_sweep.py / check_refs_mirror.py must show an oshb: citation present for the row's Hebrew-lexical claim.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c18",
+   "row_id": "P08-050",
+   "source": "OL",
+   "challenge_claim": "device_notes calls Prov.19.22 an echo of 'the same opening formula' as the verse-initial tov-openers at 17:1/19:1, but 19:22's first skeleton token is not tov -- the tov-token opens only 19:22's second colon.",
+   "ruling": "uphold",
+   "grounds": "Confirmed against oshb: 19:22 = תַּאֲוַ֣ת ... וְטֽוֹב ... -- the verse's first word is תַּאֲוַ֣ת (desire), and the tov-token appears only as word 4 (וְטֽוֹב), the second colon's opener, not the verse's. Cross-checked prov_device_inventory.json tov_openers (count=16, first-skeleton-token test): the refs list includes Prov.17.1 and Prov.19.1 but excludes Prov.19.22. The row's own single_proverb decision for 19:1 does not depend on 19:22 and is unaffected -- this is a SEMANTIC-CLASS COUNT DISCIPLINE defect (conflating a colon-2 occurrence with the defined verse-initial class), confined to one supporting device_notes clause.",
+   "remedy": "Revise device_notes to drop Prov.19.22 from the verse-initial 'opening formula' echo, or reclassify it explicitly as a non-adjacent second-colon tov occurrence distinct from the tov_openers class. Test: any revised claim about verse-initial tov texture must be checked against prov_device_inventory.json tov_openers.refs before shipping.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c18",
+   "row_id": "P08-051",
+   "source": "both",
+   "challenge_claim": "Both primaries flag the identical defect: rejected_alternative reads 'No cluster adopted with 19:1 (see that row's disclosure)' -- a positional cross-row reference standing in for verse-anchored reasoning, forbidden by the REGISTER PURGE rule; OL adds that, read on its own bytes, the row shows zero independent Hebrew engagement of the shared tov token its own decision turns on. Same defect, not distinct.",
+   "ruling": "refine",
+   "grounds": "Row text confirmed verbatim: rejected_alternative = \"No cluster adopted with 19:1 (see that row's disclosure).\" -- an exact positional row reference, a hard violation of the standing 'NO ... positional row references ... in row prose EVER' rule (not a soft framing issue). Re-ran check_atomic_isolation.py independently on the cluster subset: P08-051 verdicts cohesion_live with shared_prev=[ט֑וֹב] against 19:1, confirming a genuine live rival exists, so self-contained disclosure was mandatory. The underlying call is correct -- confirmed directly from oshb that 19:1's טֽוֹב is the verse-initial comparative topic-marker while 19:2's occurrence sits inside a mid-verse 'not good' predicate (לֹא ט֑וֹב), the same distinction P08-050 draws for itself. Severity: refined from LF's low to medium (matching OL) -- this is a mechanically-nameable hard-rule violation, not a stylistic slip, and it leaves the row's boundary claim completely unevidenced in isolation.",
+   "remedy": "Rewrite rejected_alternative in self-contained verse-anchored terms, e.g.: 'Independence from 19:1 is retained because 19:1's tov occupies the verse-initial comparative topic-marker slot, while 19:2's occurrence sits inside a mid-verse not-good predicate -- the same token in two different syntactic roles, not a repeated construction (oshb:Prov.19.1; oshb:Prov.19.2).' Test: the revised field must contain zero positional/cross-row references and must independently cite oshb: bytes -- verify by register scan plus check_refs_mirror.py.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c18",
+   "row_id": "P08-055",
+   "source": "both",
+   "challenge_claim": "Two DISTINCT defects on one row. (LF) rationale and rejected_alternative each reproduce WEB 19:6/19:7 near-verbatim in straight quotes with no inline web: ref -- a repeated register violation check_web_quotes.py cannot catch. (OL) the friend-root the row treats as a distinctive 19:6-19:7 elaboration device also occurs, undisclosed, at 19:4 -- three hits in a four-verse span with a gap only at 19:5, weakening (not defeating) the 'deliberate pairing' framing.",
+   "ruling": "refine",
+   "grounds": "Both confirmed as real, distinct defects. Citation-format (LF): WEB Prov.19.6 = \"...and everyone is a friend to a man who gives gifts.\" and WEB Prov.19.7 = \"All the relatives of the poor shun him;...\" -- the row's straight-quoted 'everyone is a friend to a man who gives gifts' (rationale) and 'all the relatives of the poor shun him' (rejected_alternative) are verbatim substrings (case/leading-conjunction only differences), neither adjacent to an inline web: ref. pmarks_Prov.json confirms kq=1 and paseq=1 at Prov.19.7 exactly as the row discloses -- that part of the row is clean. Undisclosed recurrence (OL): oshb Prov.19.4 contains רֵעִ֣ים ... מֵרֵ֥עהוּ -- the same tsere-pointed companion-sense root cited at 19:6/19:7, confirmed absent from 19:5 (the row's actual boundary neighbor). Since 19:4 is non-adjacent (19:5 intervenes) and the row's operative defense is the a-fortiori grammatical dependency between 19:6-19:7 (not root-exclusivity, by the row's own fallback wording), OL's severity is refined down from medium to low, parallel to how this cluster treats other non-adjacent-texture disclosure gaps (P08-045, P08-050) as low. Overall severity_final reflects the row's dominant confirmed defect, the repeated LF citation-format violation.",
+   "remedy": "(1) Convert both quoted spans to curly quotes with inline web:Prov.19.6 / web:Prov.19.7 citations adjacent to each. (2) Add oshb:Prov.19.4 to boundary_evidence_refs or device_notes disclosing the additional non-adjacent root occurrence, with a one-sentence note that the pairing's force rests on the a-fortiori dependency, not root-exclusivity. Test: (1) manual straight-quote scan for zero unpaired verbatim-WEB spans; (2) check_refs_mirror.py confirms any 'distinctive'/'elaboration' root claim is checked against a full within-and-near-span sweep, not just the two immediate anchors.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c18",
+   "row_id": "P08-061",
+   "source": "both",
+   "challenge_claim": "Both primaries flag the identical defect: the antithetic 19:13/19:14 wife-pairing is genuine with clean boundaries, but the rationale's (and rejected_alternative's echoing) claim that the shared noun 'closes the second colon of both verses' / is 'line-final' is byte-true only for 19:13, not 19:14. Same defect, not distinct.",
+   "ruling": "refine",
+   "grounds": "Independently re-derived colon boundaries from the accent structure (atnach, U+0591) rather than relying on either primary's assertion. 19:13: atnach falls on word 4 (the 'fool' noun); colon 2 = words 5-8, ending on אִשָּֽׁה -- verse/colon-2-final, confirming the claim IS byte-true for 19:13. 19:14: atnach falls on word 4 (the 'fathers' noun); colon 2 = words 5-7 (אִשָּׁ֥ה מַשְׂכָּֽלֶת), ending on מַשְׂכָּֽלֶת -- אִשָּׁ֥ה is colon-medial (penultimate), NOT colon-final, confirming the claim is byte-false for 19:14 as both primaries state. Boundary flanks 19:12/19:15 independently confirmed clean (no shared root). The proverb_cluster call itself stands (same predicate-complement syntactic role, matching bicolon inheritance+wife frame) -- only the positional 'closes'/'line-final' framing overreaches, repeated in both rationale and rejected_alternative. Severity refined from LF's medium to low: consistent with how this cluster treats 'correct call, imprecise supporting description' defects elsewhere (P08-045, P08-050 both low), and the cluster substance is fully intact under independent accent-structure verification.",
+   "remedy": "Revise rationale to a formulation accurate for both anchors, e.g.: the noun closes the second colon in 19:13 (verse-final) and occupies the same predicate-complement slot immediately after the fronted phrase in 19:14's second colon (colon-medial, preceding the 'prudent' adjective) -- the same word introducing 'wife' in an antithetic frame in both verses. Correspondingly drop 'line-final' from rejected_alternative's echo for 19:14. Test: re-derive colon boundaries from atnach (U+0591) position for both anchors and confirm the revised wording matches exactly which anchor(s) the closes/line-final claim applies to.",
+   "severity_final": "low"
+  }
+ ],
+ "deferred_row_ids": [],
+ "consolidation_note": "9 raw challenge items (LF 4 + OL 5) across 6 distinct rows. P08-051 and P08-061 are true LF+OL convergences (same defect) consolidated to 1 ruling each. P08-055 carries two DISTINCT LF/OL defects on one row, both adjudicated within a single consolidated ruling per instruction #4 (same-row consolidation), noted as distinct in its grounds. Net: 6 rulings, all within the <=8 cap -- no deferral required.",
+ "supported_sample": [
+  {
+   "row_id": "P08-054",
+   "claim_checked": "19:5 and 19:9 form a near-verbatim doublet (both primaries agree the row is correctly single_proverb, non-adjacent to any cluster); re-verified the match extent and tier independently rather than trusting either packet's characterization.",
+   "result": "verified",
+   "notes": "Independently re-ran check_atomic_isolation.py on the c18 subset: P08-054 verdicts machine_clean (zero shared tokens with 19:4 and 19:6), matching LF's citation exactly. Independently compared oshb Prov.19.5 vs Prov.19.9 word-by-word: colon 1 (first 4 words) is BYTE-identical in both; colon 2's opening two words match only at the accent_stripped tier (same consonants+vowels, different cantillation per consonantal_index.json), not byte-for-byte; full divergence begins at the closing clause (19:5 carries two more words than 19:9, with wholly different final verbs). This confirms OL's refinement of the row's own 'opening colon' description as accurate, and confirms non-adjacency (19:6-19:8 intervene) correctly bars any cluster regardless of match extent."
+  }
+ ],
+ "summary": {
+  "challenges_adjudicated": 6,
+  "uphold": 3,
+  "refine": 3,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

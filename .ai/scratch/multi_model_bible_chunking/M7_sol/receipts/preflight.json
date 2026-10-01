@@ -1,0 +1,39 @@
+{
+  "schema_version": "m7_preflight_receipt.v1",
+  "campaign_id": "T521-M7-sol-whole-bible",
+  "recorded_at": "2026-07-21T21:00:00Z",
+  "repository_head": "d7abd4751e4f4f13438f4ff75323cc1c9601896e",
+  "branch": "scratch/t423-m7-sol",
+  "dad": {
+    "surface_status_checked": true,
+    "asset_and_role_queries_returned_matches": 0,
+    "lifecycle_packet_status": "internal_error_no_packet_created",
+    "local_policy": "DAD candidate guidance only; interface drift is not a local success gate"
+  },
+  "shared_baseline": {
+    "sha256": "40482814f970029262851fbe735840adaaaef7d1421571ecee302aae091f06df",
+    "parse_status": "malformed_yaml_line_51",
+    "missing_declared_paths": [
+      ".ai/control/rust_first_chunk_audit_substrate.yaml",
+      "eval/chunking_stress_atlas/biblical_chunking_stress_atlas.json"
+    ],
+    "m7_local_compatibility_reads": [
+      {"missing": ".ai/control/rust_first_chunk_audit_substrate.yaml", "read_instead": ".ai/control/rust_first_observation_substrate.yaml", "sha256": "25376f23ea44e056d43c7549d07629e075bcb9223d0b2b2d67a32659d92edf3c"},
+      {"missing": "eval/chunking_stress_atlas/biblical_chunking_stress_atlas.json", "read_instead": "eval/chunking_gold/stress_atlas/chunking_stress_cases.json", "sha256": "6a3f2d8388507624ac9dc4bdfd92bcd8996cc41f625b6b683139b15eaf128f95"}
+    ],
+    "shared_file_edited": false,
+    "status": "degraded_but_text_read_and_pinned"
+  },
+  "runtime_language_preflight": {
+    "task_id": "T521",
+    "touched_paths": ["M7_sol/checks/validate_book_review_coverage.py"],
+    "expected_input_records": 32000,
+    "expected_runtime_seconds": 5,
+    "rust_trigger_match": false,
+    "chosen_language": "python_only_below_threshold",
+    "rust_reason_not_applicable": "book-local semantic contract, inputs under 100 MB and 100k records, expected savings below 30 seconds",
+    "interop_boundary": "existing Python JSONL and T423 validators",
+    "validation_plan": ["py_compile", "negative fixtures through temporary M7-local files", "Genesis live gate"]
+  },
+  "privacy": "No raw conversations, secrets, client payloads, or other model outputs sent to DAD."
+}

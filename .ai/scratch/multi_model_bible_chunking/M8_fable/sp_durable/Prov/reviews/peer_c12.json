@@ -1,0 +1,106 @@
+{
+ "attempt_id": "peer_c12_r1",
+ "role": "peer",
+ "clusters": [
+  "c12"
+ ],
+ "rulings": [
+  {
+   "cluster": "c12",
+   "row_id": "P06-041",
+   "source": "both",
+   "challenge_claim": "LF: rationale's 'this same writer part' is banned file-order/pipeline phrasing (register purge), though the underlying repetition claim is correct. OL: device_notes calls the 13:14/14:27 closing-clause match 'byte-identical' while tagging it '(skeleton tier, verified via collate.py)' -- a self-contradictory tier label -- and no Hebrew is quoted in the row for re-collation.",
+   "ruling": "uphold",
+   "grounds": "Two distinct, real defects on one row. (1) Register: the rationale phrase 'this same writer part' is file-order/pipeline talk banned from row prose (TOOLKIT.md Standing rules; book_strategy Prov.md sec8) -- confirmed present verbatim in the row. (2) Tier discipline: re-derived independently via collate.py's own function (collate_hebrew) against source bytes -- the closing clause 'לָ֝ס֗וּר מִמֹּ֥קְשֵׁי מָֽוֶת' spliced from oshb:Prov.13.14 matches oshb:Prov.14.27 at BYTE tier (collate_hebrew returns 'byte', not 'skeleton'); sweep confirms 'מְק֣וֹר חַיִּ֑ים' (mekor-chayyim) = 4 verses (10:11, 13:14, 14:27, 16:22, skeleton tier) and the full closing clause = 2 verses (13:14, 14:27, skeleton tier), matching both primaries' digits exactly. So the row's own device_notes UNDERSTATE the match (labeling actual byte-identity as merely 'skeleton tier') while also failing TIER/ORDINAL DISCIPLINE by naming two tiers in one contradictory clause, and no Hebrew is quoted anywhere in the row to let a reader re-collate. LF's register finding and OL's tier/quotation finding are DISTINCT defects on the same row, not duplicates.",
+   "remedy": "(a) Replace 'this same writer part' with a verse-anchored formulation (e.g. name Prov.14.27 without positional framing) -- part of the ONE class-level register sweep across this cluster's rows (4+ distinct verse-anchored formulations, pooled). (b) Correct device_notes to state the closing-clause match is BYTE tier (matching collate.py truth) and splice the actual Hebrew run programmatically from verse_map_oshb.json into the row so the claim is quotation-grade. Test: collate.py --ref oshb:Prov.13.14 --quote '<spliced closing clause>' returns tier=byte against the Prov.14.27 window; check_web_quotes-equivalent Hebrew-presence check finds >=1 Hebrew run in the row.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-046",
+   "source": "both",
+   "challenge_claim": "LF: rationale ('earlier in this part') and rejected_alternative ('the range's other thin catchword pairing', non-verse-anchored) both use banned file-order phrasing. OL: the row never discloses that Prov.13.20 carries two ketiv/qere notes even though the cluster call rests on that verse's wording.",
+   "ruling": "uphold",
+   "grounds": "Two distinct real defects. (1) Register: confirmed verbatim -- 'earlier in this part' and the non-verse-anchored 'the range's other thin catchword pairing' are both file-order/pipeline talk; the second additionally fails the verse-anchored cross-reference requirement (no verse named). (2) K/Q disclosure: pmarks_Prov.json's kq inventory gives Prov.13.20 = 2 (independently confirmed by direct lookup), and the staged oshb bytes show the inline-ketiv pattern at both sites in the verse text itself -- an unpointed form immediately preceding each pointed qere form. Neither rationale, rejected_alternative, nor device_notes mentions either note. This is an UNCONDITIONAL governance requirement (any span touching a K/Q note discloses it) independent of the cluster call's own merits, correctly rated high by OL. The underlying catchword evidence itself is genuine and thin as claimed: 'כְּ֝סִילִ֗ים' (13:19) and 'כְסִילִ֣ים' (13:20) are skeleton-identical (both reduce to the same 3-consonant skeleton), and that skeleton form sweeps to exactly 17 verses book-wide (independently re-swept, matching OL's digit exactly, including a third instance within the same ch.13-14 stretch at 14:8).",
+   "remedy": "(a) Verse-anchor the register language (class-level sweep, as P06-041). (b) Add a single-witness K/Q disclosure sentence for Prov.13.20 (2 notes, WLC) to device_notes. Test: check_marks.py's K/Q-claim validation shows Prov.13.20 disclosed wherever the row's span touches it; the disclosure must not conflate the two independent notes.",
+   "severity_final": "high"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-047",
+   "source": "both",
+   "challenge_claim": "LF (new finding): the row omits a byte-confirmed catchword (anadiplosis) at its own right-hand seam with 13:22, claimed to match 'at accent_stripped tier'. OL: the homograph disclosure (13:20/13:21) and object-marker-plus-waw claim both verify correct, but no Hebrew is quoted in the row.",
+   "ruling": "refine",
+   "grounds": "LF's underlying disclosure defect is real but its tier claim is wrong and needed correction (peer function per governance: verify OBJECTS and TIERS, not just digits). Re-derived independently via collate_hebrew(): 'טֽוֹב' (13:21, closing) and 'ט֗וֹב' (13:22, opening) are NOT equal at accent_stripped tier (13:21's token retains a meteg point, U+05BD, that accent-stripping does not remove, while 13:22's token carries only a true cantillation accent that IS stripped -- the two post-strip forms differ in codepoint count) -- collate_hebrew returns 'skeleton', not 'accent_stripped'. So the cross-seam anadiplosis is real and undisclosed (CROSS-SEAM COHESION standing rule) but LF's own tier label is a defect in the challenge itself, refined here to SKELETON tier. OL's separate item verifies correct on substance (13:20/13:21 homograph is a genuine consonant-only overlap, companion-of vs calamity roots; the waw-plus-object-marker connector is present exactly as claimed) with the sole defect being no quoted Hebrew -- convention-class, low, part of the recurring insufficient-Hebrew-engagement pattern across this cluster.",
+   "remedy": "(a) Add a cross-seam disclosure sentence noting the tov anadiplosis with Prov.13.22 at SKELETON tier (not accent_stripped -- state the tier correctly). Test: collate.py run on the two spliced tokens returns tier=skeleton, and the row's own prose must say 'skeleton' not 'accent_stripped'. (b) Splice the homograph and connector Hebrew into device_notes -- ONE class-level Hebrew-engagement sweep across this cluster's low-severity items (P06-047, P06-048, P06-049, P06-051, P06-058), not five bespoke fixes.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-048",
+   "source": "both",
+   "challenge_claim": "LF (new finding, mirrors P06-047): the row's own opening word repeats the closing word of the bordering verse 13:21, claimed to match 'at accent_stripped tier'. OL: the tov-opener vs tov-min distinction against 12:9 is correct and matches the device inventory, but no Hebrew is quoted.",
+   "ruling": "refine",
+   "grounds": "Same seam, same tier correction as P06-047 (this is the mirror-image disclosure obligation from 13:22's side): 'ט֗וֹב' (13:22, opening) and 'טֽוֹב' (13:21, closing) match at SKELETON tier only, not accent_stripped (verified via collate_hebrew -- the retained meteg on the 13:21 token blocks accent_stripped equality). The undisclosed anadiplosis is real (CROSS-SEAM COHESION). OL's item verifies correct on substance: prov_device_inventory.json's tov_openers list carries exactly 16 refs including Prov.13.22 (independently confirmed), and 13:22 lacks any min-comparative construction, distinguishing it correctly from 12:9's genuine tov-min saying -- the sole defect is the absence of quoted Hebrew, convention-class and low, matching the same recurring pattern as P06-047/049/051/058.",
+   "remedy": "SEAM-PAIR CURE = ONE EDIT with P06-047 (standing rule): author a single disclosure of the Prov.13.21/13.22 tov anadiplosis at SKELETON tier, referenced from both rows' device_notes rather than duplicated independently. Class-level Hebrew-engagement sweep (see P06-047) covers the quotation defect. Test: collate.py returns tier=skeleton for the pair; check_refs_mirror.py shows the cross-row reference resolved on both sides.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-049",
+   "source": "OL",
+   "challenge_claim": "OL: the lexical crux between the tillage-owner noun ('heads/chiefs') and WEB's 'poor people' gloss is correctly identified and disclosed rather than resolved, but the row never quotes the Hebrew noun that makes the crux real.",
+   "ruling": "uphold",
+   "grounds": "Independently confirmed from bytes: oshb:Prov.13.23's owner-noun is 'רָאשִׁ֑ים', containing aleph -- the 'heads/chiefs' reading, distinct from the aleph-less 'poor' word WEB's gloss implies. The row's disclosure (crux flagged, not resolved; no morphology layer staged) is accurate and matches TOOLKIT.md's explicit no-morphology-layer disclaimer. LF supported this row outright with no issue raised. The sole defect is OL's: no Hebrew is quoted, so the letter the crux turns on is invisible to a reader -- convention-class, low, part of the recurring Hebrew-engagement pattern in this cluster (see P06-047/048/051/058).",
+   "remedy": "Splice 'רָאשִׁ֑ים' into device_notes or rationale so the aleph is visible and the crux is quotation-grade. Class-level Hebrew-engagement sweep, not a bespoke fix. Test: normalize_hebrew_in_json.py dry-run shows zero defects and >=1 fixed/ok Hebrew run in this row's fields.",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-051",
+   "source": "both",
+   "challenge_claim": "LF: the petuchah and antithesis claims are byte-accurate, but the rationale's 'the range's one disclosed petuchah' is banned file-order phrasing. OL: the petuchah-as-corroboration and chapter-close claims are correct and the best-disclosed mark citation in the cluster, but the waw-adversative token underlying the antithetic call is still unquoted.",
+   "ruling": "uphold",
+   "grounds": "Two distinct real defects. (1) Register: confirmed verbatim -- 'the range's one disclosed petuchah' is file-order/pipeline phrasing; independently confirmed that Prov.13.25 is in fact the ONLY PE/SAMEKH mark across chapters 12-14 (pmarks_Prov.json marks inventory lookup), so 'chapter 13's' (or an equivalent verse-anchored form) would have been both register-clean and equally accurate. (2) Hebrew engagement: the B-colon opener 'וּבֶ֖טֶן' is present exactly as claimed (independently confirmed from oshb:Prov.13.25) but never quoted in the row -- convention-class, low. OL is right to call this the cluster's best-disclosed mark citation; the mark-governance substance (tier-3, corroboration-only, not a driver) is sound throughout.",
+   "remedy": "(a) Replace 'the range's' with a verse-anchored equivalent (class-level register sweep, see P06-041/046). (b) Splice 'וּבֶ֖טֶן' into device_notes to support the waw-adversative claim (class-level Hebrew-engagement sweep, see P06-047/048/049/058). Test: register sweep leaves zero file-order tokens ('this part'/'the range'/'this writer part') in the row; Hebrew-presence check finds the spliced token.",
+   "severity_final": "medium"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-058",
+   "source": "OL",
+   "challenge_claim": "OL: the imperative opener, the rare-negative-particle match with 12:3, and the correct restraint in disclosing the 14:6 knowledge-noun seam as ordinary vocabulary (not overstated cohesion) all verify exact, but no Hebrew is quoted anywhere in the row.",
+   "ruling": "uphold",
+   "grounds": "Independently re-verified from bytes as this cluster's supported-row sample (see supported_sample): 'בַּל' is a genuine word-bound token in oshb:Prov.12.3, and oshb:Prov.14.7 carries the same particle prefixed, 'וּבַל' -- a rare form (book-wide skeleton sweep: the bare token = 7 verses total against 98 for the ordinary negator, and the exact waw-prefixed form = only 2 verses book-wide, Prov.9.13 and Prov.14.7), confirming 'uncommon negative particle' is not an overclaim. oshb:Prov.14.6 carries 'וְדַ֖עַת' and oshb:Prov.14.7 closes with 'דָֽעַת' -- the same root, and the row's own device_notes correctly call this 'ordinary vocabulary, not a construction run' rather than misusing it as cohesion evidence. LF supported this row outright. The sole defect is OL's: no Hebrew quoted -- convention-class, low, the same recurring pattern as P06-047/048/049/051.",
+   "remedy": "Splice 'בַּל'/'וּבַל' and 'וְדַ֖עַת'/'דָֽעַת' into device_notes. Class-level Hebrew-engagement sweep across the cluster's low-severity items, not a bespoke fix. Test: normalize_hebrew_in_json.py dry-run on the revised row shows the spliced runs as 'ok' (byte-identical to source).",
+   "severity_final": "low"
+  },
+  {
+   "cluster": "c12",
+   "row_id": "P06-063",
+   "source": "both",
+   "challenge_claim": "LF: the rejected_alternative's 'than the range's thinner one-token catchword pairs' is banned, non-verse-anchored file-order phrasing. OL (high): the row's proverb_cluster rationale for 14:12-13 omits that 14:12 is byte-identical to Prov.16.25 elsewhere in the book, where the same line stands as a fully self-contained proverb sharing zero content tokens with either neighbor -- undercutting the row's central claim that the shared hinge-word is why 14:12 needs 14:13 to be complete.",
+   "ruling": "refine",
+   "grounds": "Two distinct defects, both real; the OL item is upheld on substance but refined on scope/remedy. (1) Register: confirmed verbatim, non-verse-anchored ('the range's thinner one-token catchword pairs' names no verse). (2) Seam substance: independently re-verified -- oshb:Prov.14.12 and oshb:Prov.16.25 are FULL-VERSE BYTE-IDENTICAL (direct string comparison, cantillation included), and at 16:25's own location its neighbors Prov.16.24 and Prov.16.26 share ZERO skeleton-tier content tokens with it (independently re-derived token-set comparison), confirming the MT reuses this exact line as a standalone proverb elsewhere with no dependent partner. This is real, undisclosed, byte-grounded counter-evidence to the row's 'operative hinge-word' argument. It does NOT by itself prove the 14:12/14:13 pairing is spurious at 14:12's own location (the same line can function differently in different redactional contexts, and the shared hinge-word 'וְ֝אַחֲרִיתָ֗הּ'/'וְאַחֲרִיתָ֖הּ' -- word-bound in both verses, root sweep = 13 verses book-wide, independently confirmed -- plus the shared appearance-vs-outcome structure are independent grounds the row also already offers), so REFINE rather than straight uphold: the defect is a disclosure and confidence-calibration failure, not proof the boundary call is wrong. Any reversion to single_proverb is a boundary change and a PROPOSAL only, requiring explicit boss adoption per book_strategy Prov.md sec6.",
+   "remedy": "(a) Verse-anchor the rejected_alternative language (class-level register sweep). (b) Disclose the Prov.16.25 duplicate as counter-evidence in device_notes/rejected_alternative and add it to boundary_evidence_refs (it is argued in prose outside the row's own span -- check_refs_mirror.py's rule). (c) Re-examine confidence: either lower from medium to medium_low, or retain medium only if the structural (appearance-vs-outcome) argument is elevated to an independently named ground alongside the hinge-word, not resting on the hinge-word alone. Test: check_refs_mirror.py shows Prov.16.25 in boundary_evidence_refs; citation_sweep.py passes on the revised row; any boundary-change proposal is flagged for the boss round, not applied unilaterally.",
+   "severity_final": "high"
+  }
+ ],
+ "supported_sample": [
+  {
+   "row_id": "P06-058",
+   "claim_checked": "12:3's 'בַּל' and 14:7's 'וּבַל' are the same rare negative particle (not the book's ordinary negator), and 14:6/14:7 share the knowledge-noun root as ordinary vocabulary rather than a construction run.",
+   "result": "verified",
+   "notes": "No row in cluster c12 carries a formal 'support' verdict from BOTH primaries -- OL issued a convention-only low-severity challenge (missing Hebrew quotation) against every one of the 8 rows, including the two LF supported outright (P06-049, P06-058). P06-058 is reported here as the closest functional analog: LF support + OL's own evidence text affirms the substance ('substance fully verifies'). Independently re-derived from oshb bytes (not from either packet): the bare skeleton token for the particle occurs in only 7 verses book-wide against 98 for the ordinary negator lo, and the exact waw-prefixed form matching 14:7 occurs in only 2 verses book-wide (Prov.9.13, Prov.14.7) -- confirms the row's 'uncommon negative particle' claim is not an overclaim, and the daat-root overlap at 14:6/14:7 is confirmed present and correctly characterized as ordinary vocabulary."
+  }
+ ],
+ "deferred_row_ids": [],
+ "summary": {
+  "challenges_adjudicated": 14,
+  "uphold": 5,
+  "refine": 3,
+  "refute": 0,
+  "escalate": 0,
+  "new_findings": 0
+ }
+}

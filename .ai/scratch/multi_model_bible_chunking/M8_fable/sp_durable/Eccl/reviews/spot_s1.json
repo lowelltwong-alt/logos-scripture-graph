@@ -1,0 +1,43 @@
+{
+ "attempt_id": "spot_eccl_s1_r1",
+ "role": "spot",
+ "lane": "s1_boss_zones",
+ "rows_checked": [
+  "p02-012", "p02-013", "p02-B2a", "p02-B2b", "p02-015", "p02-016", "p02-017",
+  "p02-018", "p02-019", "p02-020",
+  "P03-009", "P03-010", "P03-011", "P03-B5a", "P03-B5b", "P03-013", "P03-014",
+  "P03-015", "P03-016",
+  "P03-017", "P03-018", "P03-019", "P03-020", "P03-021", "P03-022", "P03-B3",
+  "P03-025"
+ ],
+ "findings": [
+  {
+   "row_id": "P03-013",
+   "class": "3",
+   "severity": "high",
+   "claim": "P03-013 (Eccl.10.7) never received boss ruling B-5's MANDATORY companion edit: its boundary_rationale and strongest_rejected_alternative still frame the retired web:Eccl.10.5-Eccl.10.6 pair as an 'asyndetic apposition'/'unmarked apposition', the exact reading B-5's own grounds struck as byte-unsupported, directly contradicting the neighboring repaired row P03-B5b's own corrected text on the same seam.",
+   "evidence": "Boss ruling B-5 (boss_eccl_r2.json) ordered: 'COMPANION EDIT, MANDATORY -- P03-013 ... both its boundary_rationale and its strongest_rejected_alternative currently rest on the struck facts, describing the preceding verses as an \"asyndetic apposition\" pair ... Rewrite both to ground the atomic verdict on the token-clean seams the bytes actually give ... and to DISCLOSE -- not rely on -- the observation-formula tie back to web:Eccl.10.5'. In rows_v2.jsonl, P03-013's boundary_rationale still reads 'Its own independent observation-formula opening (rather than continuing the preceding pair's asyndetic apposition) marks it as a separate saying', and its strongest_rejected_alternative still reads 'Folding this verse into the preceding v.5-6 cluster is rejected because v.7 reopens with its own independent observation-formula rather than continuing v.6's unmarked apposition' -- the struck 'apposition' framing is unchanged. P03-013's own writer_attempt_id remains 'writer_eccl_p03_r1' (the original wave), confirming the r2 repair pass never touched it, while P03-B5a/P03-B5b carry 'author_eccl_p03_r2'. This directly contradicts P03-B5b's now-corrected text: 'It is held as a single_saying rather than read in apposition to the preceding verse ... Reading this verse as apposition to the preceding verse's unnamed error, rather than as its own complete sentence, is rejected because the verse supplies its own subject, predicate and coordinated second clause.' Two adjacent rows now argue the same 10:6/10:7 seam incompatibly: one row (P03-B5b) says 10:6 is not apposition; its neighbor (P03-013) still calls the 10:5-10:6 pair an apposition. citation_sweep.py and check_refs_mirror.py return GREEN on this row (the defect is prose-level, not a machine-checkable ref/mark violation)."
+  },
+  {
+   "row_id": "p02-015",
+   "class": "3",
+   "severity": "medium",
+   "claim": "Disclosure-symmetry gap at the Eccl.7.6/7.7 seam: p02-B2b (7:6) discloses, per boss ruling B-2, that its opening causal particle does not discriminate any seam because the identical particle also opens web:Eccl.7.7 (sweep: 5 verse-initial sites in the chapter); the neighboring row p02-015 (7:7) never discloses this same shared-particle fact from its own side, breaking the seam-pair symmetry the boss's B-2 spec required and that the corpus itself models at the adjacent 7:8/7:9 seam.",
+   "evidence": "p02-B2b's boundary_rationale: 'The verse's opening causal particle does not discriminate its own seams: the identical particle also opens the following verse, web:Eccl.7.7 (sweep: 5 verse-initial sites in this chapter), so the particle cannot be cited as a boundary driver in either direction, only as texture describing this verse's own dependence on web:Eccl.7.5's saying.' p02-015's boundary_rationale/strongest_rejected_alternative discuss its own opening causal particle (kî) and heart-token only as an echo back to web:Eccl.7.3-Eccl.7.4 (the mourning bracket); neither field mentions that the identical kî also opens the immediately preceding verse, web:Eccl.7.6, or the 5-verse-initial-site sweep p02-B2b names. Boss ruling B-2's SEAM-PAIR SYMMETRY clause ('this is ONE edit installed on both rows -- the 7:5|7:6 seam disclosure must read identically in substance from both sides') establishes the corpus's own symmetry standard, and the adjacent 7:8/7:9 seam demonstrates the convention correctly applied both ways (p02-016 device_notes discloses the ruach-root recurrence forward into 7:9; p02-017 boundary_rationale discloses the identical recurrence backward into 7:8) -- the 7:6/7:7 seam is the one place in this zone where only one side carries the disclosure."
+  }
+ ],
+ "clean": false,
+ "summary": {
+  "checked": 27,
+  "findings": 2,
+  "by_class": {"3": 2},
+  "by_severity": {"high": 1, "medium": 1}
+ },
+ "verification_notes": {
+  "span_unit_type_parent_confidence_re_derivation": "All five boss-mandated span sets re-derived clean against ledger specs: p02-013 span Eccl.7.2-Eccl.7.4/saying_cluster/M Eccl.1.12-Eccl.12.7/medium_low (B-1); p02-B2a Eccl.7.5-Eccl.7.5 and p02-B2b Eccl.7.6-Eccl.7.6, both single_saying/M Eccl.1.12-Eccl.12.7 (B-2); P03-B5a Eccl.10.5-Eccl.10.5 and P03-B5b Eccl.10.6-Eccl.10.6, both single_saying/M Eccl.1.12-Eccl.12.7 (B-5); P03-B3 Eccl.11.1-Eccl.11.6/admonition_unit/M Eccl.1.12-Eccl.12.7/medium_low (B-3). All match exactly; no span/unit_type/parent_collection/confidence-cap mismatches found.",
+  "byte_level_warrant_reverification": "Independently re-collated (via collate.py against verse_map_oshb.json splices, never hand-typed) the central boss-named drivers: the mourning lexeme across oshb:Eccl.7.2/7.4 (confirmed accent_stripped, matching p02-013's own claim); the negated-knowledge refrain chain oshb:Eccl.11.2->11.5 (confirmed accent_stripped) and oshb:Eccl.11.5->11.6 (confirmed skeleton), both matching P03-B3's claims exactly; the 'al ha'aretz' phrase across oshb:Eccl.11.2/11.3 (confirmed skeleton); the ra'iti observation form across oshb:Eccl.10.5/10.7 (confirmed accent_stripped both directions, matching P03-B5a); the divrei-pi construct phrase across oshb:Eccl.10.12/10.13 (confirmed accent_stripped forward, none in reverse, matching P03-016's direction-dependent claim). No tier overclaims found among these; all row-stated tiers verified accurate at the bytes.",
+  "tiling": "check_tiling.py run on canonical-order extracts: Eccl.7.1-Eccl.7.14 (10 rows) GREEN, 0 problems; Eccl.10.2-Eccl.10.13 (9 rows) GREEN, 0 problems; Eccl.10.14-Eccl.11.10 (8 rows) GREEN, 0 problems. No gaps, overlaps, or out-of-order spans in any boss-touched zone.",
+  "suite_tool_sweep": "check_marks.py, citation_sweep.py, check_web_quotes.py, check_refs_mirror.py all GREEN on the 27-row scope extract (one pre-existing, non-repair-related orphan_ref_warn on P03-021 already listed in rows_v2.jsonl.validator_report.json, outside the repair lens, not reported as a finding). check_universals.py raised 3 flags on the scope extract, all three already present in rows_v2.jsonl.validator_report.json's pre-triaged 19 (indices [79] P03-022 'single admonition-sentence' and [80]x2 P03-B3 'only a causal particle'/'only the object marker'); re-judged as non-issues -- both are local two-verse/one-verse comparisons naming a specific shared object (not corpus-wide exclusivity claims requiring a sweep), and the P03-B3 language mirrors boss ruling B-3's own grounds text verbatim in substance.",
+  "register_bleed_check": "Grepped the 27-row scope extract for peer/boss/reviewer/previously/'now corrected'/erratum/decision-id/section/tool-filename register bleed: no matches. No repair-narration bleed found in any boss-touched row."
+ }
+}
